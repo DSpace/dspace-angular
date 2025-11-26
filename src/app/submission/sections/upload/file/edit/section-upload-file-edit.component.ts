@@ -23,19 +23,6 @@ import {
   isNotNull,
 } from '@dspace/shared/utils/empty.util';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import {
-  DYNAMIC_FORM_CONTROL_TYPE_DATEPICKER,
-  DynamicDateControlValue,
-  DynamicDatePickerModel,
-  DynamicFormArrayModel,
-  DynamicFormControlCondition,
-  DynamicFormControlEvent,
-  DynamicFormControlModel,
-  DynamicFormGroupModel,
-  DynamicSelectModel,
-  MATCH_ENABLED,
-  OR_OPERATOR,
-} from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import {
@@ -68,6 +55,18 @@ import {
   BITSTREAM_METADATA_FORM_GROUP_CONFIG,
   BITSTREAM_METADATA_FORM_GROUP_LAYOUT,
 } from './section-upload-file-edit.model';
+import { DynamicFormControlModel } from "@ng-dynamic-forms/core/model/dynamic-form-control.model";
+import {
+  DYNAMIC_FORM_CONTROL_TYPE_DATEPICKER,
+  DynamicDatePickerModel,
+} from "@ng-dynamic-forms/core/model/datepicker/dynamic-datepicker.model";
+import { DynamicFormControlEvent } from "@ng-dynamic-forms/core/component/dynamic-form-control-event";
+import { DynamicFormGroupModel } from "@ng-dynamic-forms/core/model/form-group/dynamic-form-group.model";
+import { DynamicFormControlCondition } from "@ng-dynamic-forms/core/model/misc/dynamic-form-control-relation.model";
+import { DynamicDateControlValue } from "@ng-dynamic-forms/core/model/dynamic-date-control.model";
+import { MATCH_ENABLED, OR_OPERATOR } from "@ng-dynamic-forms/core/service/dynamic-form-relation-matchers";
+import { DynamicSelectModel } from "@ng-dynamic-forms/core/model/select/dynamic-select.model";
+import { DynamicFormArrayModel } from "@ng-dynamic-forms/core/model/form-array/dynamic-form-array.model";
 
 /**
  * This component represents the edit form for bitstream

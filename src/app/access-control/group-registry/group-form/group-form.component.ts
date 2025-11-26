@@ -44,12 +44,6 @@ import {
 } from '@dspace/shared/utils/empty.util';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
-  DynamicFormControlModel,
-  DynamicFormLayout,
-  DynamicInputModel,
-  DynamicTextAreaModel,
-} from '@ng-dynamic-forms/core';
-import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
@@ -83,6 +77,10 @@ import { GroupRegistryService } from '../group-registry.service';
 import { MembersListComponent } from './members-list/members-list.component';
 import { SubgroupsListComponent } from './subgroup-list/subgroups-list.component';
 import { ValidateGroupExists } from './validators/group-exists.validator';
+import { DynamicFormControlModel } from "@ng-dynamic-forms/core/model/dynamic-form-control.model";
+import { DynamicFormLayout } from "@ng-dynamic-forms/core/service/dynamic-form-layout.service";
+import { DynamicInputModel } from "@ng-dynamic-forms/core/model/input/dynamic-input.model";
+import { DynamicTextAreaModel } from "@ng-dynamic-forms/core/model/textarea/dynamic-textarea.model";
 
 @Component({
   selector: 'ds-group-form',

@@ -20,12 +20,7 @@ import {
   isNotNull,
   isNotUndefined,
 } from '@dspace/shared/utils/empty.util';
-import {
-  DynamicCheckboxModel,
-  DynamicFormControlEvent,
-  DynamicFormControlModel,
-  DynamicFormLayout,
-} from '@ng-dynamic-forms/core';
+
 import { TranslateService } from '@ngx-translate/core';
 import {
   Observable,
@@ -53,6 +48,10 @@ import {
   SECTION_LICENSE_FORM_LAYOUT,
   SECTION_LICENSE_FORM_MODEL,
 } from './section-license.model';
+import { DynamicFormControlModel } from "@ng-dynamic-forms/core/model/dynamic-form-control.model";
+import { DynamicFormLayout } from "@ng-dynamic-forms/core/service/dynamic-form-layout.service";
+import { DynamicCheckboxModel } from "@ng-dynamic-forms/core/model/checkbox/dynamic-checkbox.model";
+import { DynamicFormControlEvent } from "@ng-dynamic-forms/core/component/dynamic-form-control-event";
 
 /**
  * This component represents a section that contains the submission license form.

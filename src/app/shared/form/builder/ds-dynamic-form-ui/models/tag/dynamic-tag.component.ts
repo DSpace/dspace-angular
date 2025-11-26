@@ -29,10 +29,6 @@ import {
   NgbTypeaheadModule,
   NgbTypeaheadSelectItemEvent,
 } from '@ng-bootstrap/ng-bootstrap';
-import {
-  DynamicFormLayoutService,
-  DynamicFormValidationService,
-} from '@ng-dynamic-forms/core';
 import isEqual from 'lodash/isEqual';
 import {
   Observable,
@@ -53,6 +49,8 @@ import { ChipsComponent } from '../../../../chips/chips.component';
 import { Chips } from '../../../../chips/models/chips.model';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
 import { DynamicTagModel } from './dynamic-tag.model';
+import { DynamicFormLayoutService } from "@ng-dynamic-forms/core/service/dynamic-form-layout.service";
+import { DynamicFormValidationService } from "@ng-dynamic-forms/core/service/dynamic-form-validation.service";
 
 /**
  * Component representing a tag input field

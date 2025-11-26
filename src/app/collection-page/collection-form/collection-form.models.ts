@@ -1,11 +1,8 @@
-import {
-  DynamicFormControlModel,
-  DynamicInputModel,
-  DynamicSelectModelConfig,
-  DynamicTextAreaModel,
-} from '@ng-dynamic-forms/core';
-
+import { DynamicSelectModelConfig } from "@ng-dynamic-forms/core/model/select/dynamic-select.model";
 import { environment } from '../../../environments/environment';
+import { DynamicFormControlModel } from "@ng-dynamic-forms/core/model/dynamic-form-control.model";
+import { DynamicInputModel } from "@ng-dynamic-forms/core/model/input/dynamic-input.model";
+import { DynamicTextAreaModel } from "@ng-dynamic-forms/core/model/textarea/dynamic-textarea.model";
 
 export const collectionFormEntityTypeSelectionConfig: DynamicSelectModelConfig<string> = {
   id: 'entityType',

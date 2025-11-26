@@ -15,16 +15,14 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import { hasValue } from '@dspace/shared/utils/empty.util';
-import {
-  DynamicFormControlComponent,
-  DynamicFormLayoutService,
-  DynamicFormValidationService,
-} from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
 import isEqual from 'lodash/isEqual';
 
 import { NumberPickerComponent } from '../../../../number-picker/number-picker.component';
 import { DynamicDsDatePickerModel } from './date-picker.model';
+import { DynamicFormControlComponent } from "@ng-dynamic-forms/core/component/dynamic-form-control.component";
+import { DynamicFormLayoutService } from "@ng-dynamic-forms/core/service/dynamic-form-layout.service";
+import { DynamicFormValidationService } from "@ng-dynamic-forms/core/service/dynamic-form-validation.service";
 
 export type DatePickerFieldType = '_year' | '_month' | '_day';
 

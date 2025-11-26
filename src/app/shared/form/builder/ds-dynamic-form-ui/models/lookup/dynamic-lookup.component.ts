@@ -35,10 +35,6 @@ import {
   NgbDropdownModule,
   NgbTooltipModule,
 } from '@ng-bootstrap/ng-bootstrap';
-import {
-  DynamicFormLayoutService,
-  DynamicFormValidationService,
-} from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import {
@@ -55,6 +51,8 @@ import { ObjNgFor } from '../../../../../utils/object-ngfor.pipe';
 import { AuthorityConfidenceStateDirective } from '../../../../directives/authority-confidence-state.directive';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
 import { DynamicLookupNameModel } from './dynamic-lookup-name.model';
+import { DynamicFormLayoutService } from "@ng-dynamic-forms/core/service/dynamic-form-layout.service";
+import { DynamicFormValidationService } from "@ng-dynamic-forms/core/service/dynamic-form-validation.service";
 
 /**
  * Component representing a lookup or lookup-name input field

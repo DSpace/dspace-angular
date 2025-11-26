@@ -17,18 +17,16 @@ import {
   hasValue,
   isNotEmpty,
 } from '@dspace/shared/utils/empty.util';
-import {
-  DynamicFormControlModel,
-  DynamicFormValueControlModel,
-  DynamicInputModel,
-  DynamicSelectModel,
-} from '@ng-dynamic-forms/core';
 import { TranslateService } from '@ngx-translate/core';
 import cloneDeep from 'lodash/cloneDeep';
 
 import { environment } from '../../../environments/environment';
 import { FormBuilderService } from '../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../shared/form/form.component';
+import { DynamicFormControlModel } from "@ng-dynamic-forms/core/model/dynamic-form-control.model";
+import { DynamicInputModel } from "@ng-dynamic-forms/core/model/input/dynamic-input.model";
+import { DynamicSelectModel } from "@ng-dynamic-forms/core/model/select/dynamic-select.model";
+import { DynamicFormValueControlModel } from "@ng-dynamic-forms/core/model/dynamic-form-value-control.model";
 
 @Component({
   selector: 'ds-base-profile-page-metadata-form',

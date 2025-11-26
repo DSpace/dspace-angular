@@ -11,17 +11,15 @@ import { VocabularyEntry } from '@dspace/core/submission/vocabularies/models/voc
 import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
 import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import {
-  DynamicFormControlComponent,
-  DynamicFormLayoutService,
-  DynamicFormValidationService,
-} from '@ng-dynamic-forms/core';
-import {
   Observable,
   of,
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { DsDynamicInputModel } from './ds-dynamic-input.model';
+import { DynamicFormControlComponent } from "@ng-dynamic-forms/core/component/dynamic-form-control.component";
+import { DynamicFormLayoutService } from "@ng-dynamic-forms/core/service/dynamic-form-layout.service";
+import { DynamicFormValidationService } from "@ng-dynamic-forms/core/service/dynamic-form-validation.service";
 
 /**
  * An abstract class to be extended by form components that handle vocabulary

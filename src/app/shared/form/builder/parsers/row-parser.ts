@@ -11,10 +11,6 @@ import {
   isEmpty,
   isNotEmpty,
 } from '@dspace/shared/utils/empty.util';
-import {
-  DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
-  DynamicFormGroupModelConfig,
-} from '@ng-dynamic-forms/core';
 import uniqueId from 'lodash/uniqueId';
 
 import { DynamicRowGroupModel } from '../ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
@@ -29,6 +25,8 @@ import { setLayout } from './parser.utils';
 import { ParserFactory } from './parser-factory';
 import { ParserOptions } from './parser-options';
 import { ParserType } from './parser-type';
+import { DynamicFormGroupModelConfig } from "@ng-dynamic-forms/core/model/form-group/dynamic-form-group.model";
+import { DYNAMIC_FORM_CONTROL_TYPE_ARRAY } from "@ng-dynamic-forms/core/model/form-array/dynamic-form-array.model";
 
 export const ROW_ID_PREFIX = 'df-row-group-config-';
 

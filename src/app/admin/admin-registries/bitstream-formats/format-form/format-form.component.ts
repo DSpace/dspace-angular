@@ -13,19 +13,17 @@ import {
   hasValue,
   isEmpty,
 } from '@dspace/shared/utils/empty.util';
-import {
-  DynamicCheckboxModel,
-  DynamicFormArrayModel,
-  DynamicFormControlLayout,
-  DynamicFormControlModel,
-  DynamicInputModel,
-  DynamicSelectModel,
-  DynamicTextAreaModel,
-} from '@ng-dynamic-forms/core';
 
 import { environment } from '../../../../../environments/environment';
 import { FormComponent } from '../../../../shared/form/form.component';
 import { getBitstreamFormatsModuleRoute } from '../../admin-registries-routing-paths';
+import { DynamicFormControlModel } from "@ng-dynamic-forms/core/model/dynamic-form-control.model";
+import { DynamicInputModel } from "@ng-dynamic-forms/core/model/input/dynamic-input.model";
+import { DynamicTextAreaModel } from "@ng-dynamic-forms/core/model/textarea/dynamic-textarea.model";
+import { DynamicSelectModel } from "@ng-dynamic-forms/core/model/select/dynamic-select.model";
+import { DynamicFormControlLayout } from "@ng-dynamic-forms/core/model/misc/dynamic-form-control-layout.model";
+import { DynamicFormArrayModel } from "@ng-dynamic-forms/core/model/form-array/dynamic-form-array.model";
+import { DynamicCheckboxModel } from "@ng-dynamic-forms/core/model/checkbox/dynamic-checkbox.model";
 
 /**
  * The component responsible for rendering the form to create/edit a bitstream format

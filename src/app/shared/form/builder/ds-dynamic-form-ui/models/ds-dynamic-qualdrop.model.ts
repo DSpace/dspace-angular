@@ -1,13 +1,10 @@
 import { LanguageCode } from '@dspace/core/shared/form/models/form-field-language-value.model';
-import {
-  DynamicFormControlLayout,
-  DynamicFormGroupModel,
-  DynamicFormGroupModelConfig,
-  serializable,
-} from '@ng-dynamic-forms/core';
 import { Subject } from 'rxjs';
 
 import { DsDynamicInputModel } from './ds-dynamic-input.model';
+import { DynamicFormGroupModel, DynamicFormGroupModelConfig } from "@ng-dynamic-forms/core/model/form-group/dynamic-form-group.model";
+import { serializable } from "@ng-dynamic-forms/core/decorator/serializable.decorator";
+import { DynamicFormControlLayout } from "@ng-dynamic-forms/core/model/misc/dynamic-form-control-layout.model";
 
 export const QUALDROP_GROUP_SUFFIX = '_QUALDROP_GROUP';
 export const QUALDROP_METADATA_SUFFIX = '_QUALDROP_METADATA';

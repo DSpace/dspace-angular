@@ -11,20 +11,15 @@ import {
   hasNoValue,
   hasValue,
 } from '@dspace/shared/utils/empty.util';
-import {
-  AND_OPERATOR,
-  DYNAMIC_MATCHERS,
-  DynamicFormControlCondition,
-  DynamicFormControlMatcher,
-  DynamicFormControlModel,
-  DynamicFormControlRelation,
-  DynamicFormRelationService,
-  OR_OPERATOR,
-} from '@ng-dynamic-forms/core';
+
 import { Subscription } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 
 import { FormBuilderService } from '../form-builder.service';
+import { AND_OPERATOR, DYNAMIC_MATCHERS, DynamicFormControlMatcher, OR_OPERATOR } from "@ng-dynamic-forms/core/service/dynamic-form-relation-matchers";
+import { DynamicFormRelationService } from "@ng-dynamic-forms/core/service/dynamic-form-relation.service";
+import { DynamicFormControlModel } from "@ng-dynamic-forms/core/model/dynamic-form-control.model";
+import { DynamicFormControlCondition, DynamicFormControlRelation } from "@ng-dynamic-forms/core/model/misc/dynamic-form-control-relation.model";
 
 /**
  * Service to manage type binding for submission input fields

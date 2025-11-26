@@ -3,10 +3,7 @@ import { Route } from '@angular/router';
 import { i18nBreadcrumbResolver } from '@dspace/core/breadcrumbs/i18n-breadcrumb.resolver';
 import { groupAdministratorGuard } from '@dspace/core/data/feature-authorization/feature-authorization-guard/group-administrator.guard';
 import { siteAdministratorGuard } from '@dspace/core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
-import {
-  DYNAMIC_ERROR_MESSAGES_MATCHER,
-  DynamicErrorMessagesMatcher,
-} from '@ng-dynamic-forms/core';
+
 
 import {
   EPERSON_PATH,
@@ -19,6 +16,7 @@ import { EPersonResolver } from './epeople-registry/eperson-resolver.service';
 import { GroupFormComponent } from './group-registry/group-form/group-form.component';
 import { groupPageGuard } from './group-registry/group-page.guard';
 import { GroupsRegistryComponent } from './group-registry/groups-registry.component';
+import { DYNAMIC_ERROR_MESSAGES_MATCHER, DynamicErrorMessagesMatcher } from "@ng-dynamic-forms/core/service/dynamic-form-validation-matchers";
 
 /**
  * Condition for displaying error messages on email form field

@@ -1,12 +1,9 @@
-import {
-  DynamicFormControlLayout,
-  serializable,
-} from '@ng-dynamic-forms/core';
-
+import { serializable } from "@ng-dynamic-forms/core/decorator/serializable.decorator";
 import {
   DsDynamicInputModel,
   DsDynamicInputModelConfig,
 } from '../ds-dynamic-input.model';
+import { DynamicFormControlLayout } from "@ng-dynamic-forms/core/model/misc/dynamic-form-control-layout.model";
 
 export const DYNAMIC_FORM_CONTROL_TYPE_DISABLED = 'EMPTY';
 

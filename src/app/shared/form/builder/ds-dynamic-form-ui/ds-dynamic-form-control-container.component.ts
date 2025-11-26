@@ -74,24 +74,7 @@ import {
   NgbModalRef,
   NgbTooltipModule,
 } from '@ng-bootstrap/ng-bootstrap';
-import {
-  DYNAMIC_FORM_CONTROL_MAP_FN,
-  DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX,
-  DynamicFormArrayGroupModel,
-  DynamicFormArrayModel,
-  DynamicFormComponentService,
-  DynamicFormControl,
-  DynamicFormControlContainerComponent,
-  DynamicFormControlEvent,
-  DynamicFormControlEventType,
-  DynamicFormControlMapFn,
-  DynamicFormControlModel,
-  DynamicFormLayout,
-  DynamicFormLayoutService,
-  DynamicFormRelationService,
-  DynamicFormValidationService,
-  DynamicTemplateDirective,
-} from '@ng-dynamic-forms/core';
+
 import { Store } from '@ngrx/store';
 import {
   TranslateModule,
@@ -122,6 +105,31 @@ import { ExistingRelationListElementComponent } from './existing-relation-list-e
 import { DYNAMIC_FORM_CONTROL_TYPE_CUSTOM_SWITCH } from './models/custom-switch/custom-switch.model';
 import { DsDynamicLookupRelationModalComponent } from './relation-lookup-modal/dynamic-lookup-relation-modal.component';
 import { NameVariantService } from './relation-lookup-modal/name-variant.service';
+import {
+  DynamicFormControlContainerComponent
+} from "@ng-dynamic-forms/core/component/dynamic-form-control-container.component";
+import { DynamicTemplateDirective } from "@ng-dynamic-forms/core/directive/dynamic-template.directive";
+import { DynamicFormControlModel } from "@ng-dynamic-forms/core/model/dynamic-form-control.model";
+import {
+  DynamicFormLayout,
+  DynamicFormLayoutService,
+} from "@ng-dynamic-forms/core/service/dynamic-form-layout.service";
+import {
+  DynamicFormControlEvent,
+  DynamicFormControlEventType,
+} from "@ng-dynamic-forms/core/component/dynamic-form-control-event";
+import { DynamicFormControl } from "@ng-dynamic-forms/core/component/dynamic-form-control-interface";
+import {
+  DYNAMIC_FORM_CONTROL_MAP_FN,
+  DynamicFormComponentService, DynamicFormControlMapFn,
+} from "@ng-dynamic-forms/core/service/dynamic-form-component.service";
+import { DynamicFormValidationService } from "@ng-dynamic-forms/core/service/dynamic-form-validation.service";
+import { DynamicFormRelationService } from "@ng-dynamic-forms/core/service/dynamic-form-relation.service";
+import { DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX } from "@ng-dynamic-forms/core/model/checkbox/dynamic-checkbox.model";
+import {
+  DynamicFormArrayGroupModel,
+  DynamicFormArrayModel,
+} from "@ng-dynamic-forms/core/model/form-array/dynamic-form-array.model";
 
 @Component({
   selector: 'ds-dynamic-form-control-container',

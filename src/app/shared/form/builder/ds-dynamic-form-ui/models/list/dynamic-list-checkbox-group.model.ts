@@ -1,13 +1,12 @@
 import { VocabularyEntry } from '@dspace/core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyOptions } from '@dspace/core/submission/vocabularies/models/vocabulary-options.model';
 import { hasValue } from '@dspace/shared/utils/empty.util';
-import {
-  DynamicCheckboxGroupModel,
-  DynamicFormControlLayout,
-  DynamicFormControlRelation,
-  DynamicFormGroupModelConfig,
-  serializable,
-} from '@ng-dynamic-forms/core';
+import { serializable } from "@ng-dynamic-forms/core/decorator/serializable.decorator";
+import { DynamicCheckboxGroupModel } from "@ng-dynamic-forms/core/model/checkbox/dynamic-checkbox-group.model";
+import { DynamicFormGroupModelConfig } from "@ng-dynamic-forms/core/model/form-group/dynamic-form-group.model";
+import { DynamicFormControlLayout } from "@ng-dynamic-forms/core/model/misc/dynamic-form-control-layout.model";
+import { DynamicFormControlRelation } from "@ng-dynamic-forms/core/model/misc/dynamic-form-control-relation.model";
+
 import { Subject } from 'rxjs';
 
 export interface DynamicListCheckboxGroupModelConfig extends DynamicFormGroupModelConfig {

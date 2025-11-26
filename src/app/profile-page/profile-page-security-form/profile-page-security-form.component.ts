@@ -14,11 +14,7 @@ import {
   hasValue,
   isEmpty,
 } from '@dspace/shared/utils/empty.util';
-import {
-  DynamicFormControlModel,
-  DynamicFormService,
-  DynamicInputModel,
-} from '@ng-dynamic-forms/core';
+
 import {
   TranslateModule,
   TranslateService,
@@ -29,6 +25,9 @@ import { map } from 'rxjs/operators';
 import { debounceTimeWorkaround as debounceTime } from '../../core/shared/operators';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { FormComponent } from '../../shared/form/form.component';
+import { DynamicFormControlModel } from "@ng-dynamic-forms/core/model/dynamic-form-control.model";
+import { DynamicInputModel } from "@ng-dynamic-forms/core/model/input/dynamic-input.model";
+import { DynamicFormService } from "@ng-dynamic-forms/core/service/dynamic-form.service";
 
 @Component({
   selector: 'ds-profile-page-security-form',

@@ -23,14 +23,6 @@ import {
   isNull,
 } from '@dspace/shared/utils/empty.util';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import {
-  DynamicFormArrayModel,
-  DynamicFormControlEvent,
-  DynamicFormControlModel,
-  DynamicFormGroupModel,
-  DynamicFormLayout,
-  DynamicFormsCoreModule,
-} from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
 import findIndex from 'lodash/findIndex';
 import {
@@ -51,6 +43,12 @@ import {
   FormError,
 } from './form.reducer';
 import { FormService } from './form.service';
+import { DynamicTemplateDirective } from "@ng-dynamic-forms/core/directive/dynamic-template.directive";
+import { DynamicFormControlModel } from "@ng-dynamic-forms/core/model/dynamic-form-control.model";
+import { DynamicFormGroupModel } from "@ng-dynamic-forms/core/model/form-group/dynamic-form-group.model";
+import { DynamicFormLayout } from "@ng-dynamic-forms/core/service/dynamic-form-layout.service";
+import { DynamicFormControlEvent } from "@ng-dynamic-forms/core/component/dynamic-form-control-event";
+import { DynamicFormArrayModel } from "@ng-dynamic-forms/core/model/form-array/dynamic-form-array.model";
 
 /**
  * The default form component.
@@ -64,9 +62,9 @@ import { FormService } from './form.service';
     AsyncPipe,
     BtnDisabledDirective,
     DsDynamicFormComponent,
-    DynamicFormsCoreModule,
     ReactiveFormsModule,
     TranslateModule,
+    DynamicTemplateDirective
   ],
 })
 export class FormComponent implements OnDestroy, OnInit {

@@ -33,12 +33,6 @@ import {
   NgbNavChangeEvent,
   NgbNavModule,
 } from '@ng-bootstrap/ng-bootstrap';
-import {
-  DynamicDatePickerModel,
-  DynamicFormControlModel,
-  DynamicFormGroupModel,
-  DynamicSelectModel,
-} from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -71,6 +65,10 @@ import {
   RESOURCE_POLICY_FORM_START_DATE_CONFIG,
   RESOURCE_POLICY_FORM_START_DATE_LAYOUT,
 } from './resource-policy-form.model';
+import { DynamicFormControlModel } from "@ng-dynamic-forms/core/model/dynamic-form-control.model";
+import { DynamicSelectModel } from "@ng-dynamic-forms/core/model/select/dynamic-select.model";
+import { DynamicDatePickerModel } from "@ng-dynamic-forms/core/model/datepicker/dynamic-datepicker.model";
+import { DynamicFormGroupModel } from "@ng-dynamic-forms/core/model/form-group/dynamic-form-group.model";
 
 export interface ResourcePolicyEvent {
   object: ResourcePolicy;

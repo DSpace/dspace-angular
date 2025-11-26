@@ -3,14 +3,13 @@ import {
   isEmpty,
   isNotUndefined,
 } from '@dspace/shared/utils/empty.util';
-import {
-  DynamicDateControlModel,
-  DynamicDatePickerModelConfig,
-  DynamicFormControlLayout,
-  DynamicFormControlModel,
-  DynamicFormControlRelation,
-  serializable,
-} from '@ng-dynamic-forms/core';
+import { serializable } from "@ng-dynamic-forms/core/decorator/serializable.decorator";
+import { DynamicDatePickerModelConfig } from "@ng-dynamic-forms/core/model/datepicker/dynamic-datepicker.model";
+import { DynamicDateControlModel } from "@ng-dynamic-forms/core/model/dynamic-date-control.model";
+import { DynamicFormControlModel } from "@ng-dynamic-forms/core/model/dynamic-form-control.model";
+import { DynamicFormControlLayout } from "@ng-dynamic-forms/core/model/misc/dynamic-form-control-layout.model";
+import { DynamicFormControlRelation } from "@ng-dynamic-forms/core/model/misc/dynamic-form-control-relation.model";
+
 import {
   BehaviorSubject,
   Subject,
