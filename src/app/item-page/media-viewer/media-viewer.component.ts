@@ -53,7 +53,6 @@ import { ThemedMediaViewerVideoComponent } from './media-viewer-video/themed-med
     TranslateModule,
     VarDirective,
   ],
-  standalone: true,
 })
 export class MediaViewerComponent implements OnDestroy, OnInit {
   @Input() item: Item;

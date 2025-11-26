@@ -10,7 +10,6 @@ import { Bitstream } from '@dspace/core/shared/bitstream.model';
   styleUrls: ['./comcol-page-logo.component.scss'],
   templateUrl: './comcol-page-logo.component.html',
   imports: [],
-  standalone: true,
 })
 export class ComcolPageLogoComponent {
   @Input() logo: Bitstream;

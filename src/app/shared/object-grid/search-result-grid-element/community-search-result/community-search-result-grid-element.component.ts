@@ -30,7 +30,6 @@ import { SearchResultGridElementComponent } from '../search-result-grid-element.
     'community-search-result-grid-element.component.scss',
   ],
   templateUrl: 'community-search-result-grid-element.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     RouterLink,

@@ -1,4 +1,4 @@
-const fs = require('node:fs');
+import fs from 'node:fs';
 
 // These two global variables are used to store information about the REST API used
 // by these e2e tests. They are filled out prior to running any tests in the before()

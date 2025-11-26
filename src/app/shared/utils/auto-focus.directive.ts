@@ -11,7 +11,6 @@ import { isNotEmpty } from '@dspace/shared/utils/empty.util';
  */
 @Directive({
   selector: '[dsAutoFocus]',
-  standalone: true,
 })
 export class AutoFocusDirective implements AfterViewInit {
 

@@ -5,7 +5,6 @@ import {
 
 @Pipe({
   name: 'dsCompareValues',
-  standalone: true,
 })
 export class CompareValuesPipe implements PipeTransform {
 

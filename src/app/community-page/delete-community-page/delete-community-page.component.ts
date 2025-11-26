@@ -30,7 +30,6 @@ import { VarDirective } from '../../shared/utils/var.directive';
     TranslateModule,
     VarDirective,
   ],
-  standalone: true,
 })
 export class DeleteCommunityPageComponent extends DeleteComColPageComponent<Community> {
   protected frontendURL = '/communities/';

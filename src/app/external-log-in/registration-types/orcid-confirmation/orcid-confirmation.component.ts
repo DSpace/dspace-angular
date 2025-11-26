@@ -25,7 +25,6 @@ import { ExternalLoginMethodEntryComponent } from '../../decorators/external-log
     ReactiveFormsModule,
     TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * This component is responsible to show the registered data inside the registration token to the user

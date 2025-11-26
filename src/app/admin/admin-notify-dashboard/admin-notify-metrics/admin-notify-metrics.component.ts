@@ -13,7 +13,6 @@ import { NotificationBoxComponent } from '../../../shared/notification-box/notif
 @Component({
   selector: 'ds-admin-notify-metrics',
   templateUrl: './admin-notify-metrics.component.html',
-  standalone: true,
   imports: [
     NotificationBoxComponent,
     TranslateModule,

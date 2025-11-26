@@ -31,7 +31,6 @@ import { AuthMethodsService } from './services/auth-methods.service';
   templateUrl: './log-in.component.html',
   styleUrls: ['./log-in.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
   imports: [
     AsyncPipe,
     LogInContainerComponent,

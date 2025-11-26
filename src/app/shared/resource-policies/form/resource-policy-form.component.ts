@@ -92,7 +92,6 @@ export interface ResourcePolicyEvent {
     NgbNavModule,
     TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * Component that show form for adding/editing a resource policy
