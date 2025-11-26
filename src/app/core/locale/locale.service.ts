@@ -1,5 +1,5 @@
-import { DOCUMENT } from '@angular/common';
 import {
+  DOCUMENT,
   Inject,
   inject,
   Injectable,
@@ -87,7 +87,7 @@ export class LocaleService implements OnDestroy {
               .map(browserLang => browserLang.split(';')[0])
               .find(browserLang =>
                 this.translate.getLangs().some(userLang => userLang.toLowerCase() === browserLang.toLowerCase()),
-              ) || this.appConfig.defaultLanguage;
+              ) || this.appConfig.fallbackLanguage;
           }),
         );
     }
@@ -118,7 +118,7 @@ export class LocaleService implements OnDestroy {
                 languages.push(...this.setQuality(
                   [ePersonLang],
                   LANG_ORIGIN.EPERSON,
-                  !isEmpty(this.translate.currentLang)));
+                  !isEmpty(this.translate.getCurrentLang())));
               }
               return languages;
             }),
@@ -132,7 +132,7 @@ export class LocaleService implements OnDestroy {
             }
             if (this.translate.currentLang) {
               languages.push(...this.setQuality(
-                [this.translate.currentLang],
+                [this.translate.getCurrentLang()],
                 LANG_ORIGIN.UI,
                 false));
             }
@@ -140,7 +140,7 @@ export class LocaleService implements OnDestroy {
               languages.push(...this.setQuality(
                 Object.assign([], navigator.languages),
                 LANG_ORIGIN.BROWSER,
-                !isEmpty(this.translate.currentLang)),
+                !isEmpty(this.translate.getCurrentLang())),
               );
             }
             return languages;

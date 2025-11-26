@@ -11,7 +11,6 @@ import { OrgUnitSearchResultListElementComponent } from '../search-result-list-e
   selector: 'ds-org-unit-list-element',
   styleUrls: ['./org-unit-list-element.component.scss'],
   templateUrl: './org-unit-list-element.component.html',
-  standalone: true,
   imports: [
     OrgUnitSearchResultListElementComponent,
   ],

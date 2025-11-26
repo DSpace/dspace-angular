@@ -21,7 +21,6 @@ import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail
   selector: 'ds-org-unit',
   styleUrls: ['./org-unit.component.scss'],
   templateUrl: './org-unit.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     DsoEditMenuComponent,

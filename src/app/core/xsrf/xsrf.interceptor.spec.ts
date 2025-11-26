@@ -65,8 +65,8 @@ describe(`XsrfInterceptor`, () => {
       useFactory: () => new HttpXsrfTokenExtractorMock(testToken),
     });
 
-    service = TestBed.get(DspaceRestService);
-    httpMock = TestBed.get(HttpTestingController);
+    service = TestBed.inject(DspaceRestService);
+    httpMock = TestBed.inject(HttpTestingController);
   });
 
   it('should change withCredentials to true at all times', (done) => {

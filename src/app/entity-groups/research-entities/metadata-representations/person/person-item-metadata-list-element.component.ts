@@ -10,7 +10,6 @@ import { TruncatableComponent } from '../../../../shared/truncatable/truncatable
 @Component({
   selector: 'ds-person-item-metadata-list-element',
   templateUrl: './person-item-metadata-list-element.component.html',
-  standalone: true,
   imports: [
     NgbTooltipModule,
     OrcidBadgeAndTooltipComponent,

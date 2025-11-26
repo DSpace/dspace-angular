@@ -77,7 +77,7 @@ describe('NotificationsStateService', () => {
       });
 
       beforeEach(() => {
-        store = TestBed.get(Store);
+        store = TestBed.inject(Store);
         service = new NotificationsStateService(store);
         serviceAsAny = service;
         spyOn(store, 'dispatch');
@@ -169,7 +169,7 @@ describe('NotificationsStateService', () => {
       });
 
       beforeEach(() => {
-        store = TestBed.get(Store);
+        store = TestBed.inject(Store);
         service = new NotificationsStateService(store);
         serviceAsAny = service;
         spyOn(store, 'dispatch');
@@ -265,7 +265,7 @@ describe('NotificationsStateService', () => {
       });
 
       beforeEach(() => {
-        store = TestBed.get(Store);
+        store = TestBed.inject(Store);
         service = new NotificationsStateService(store);
         serviceAsAny = service;
         spyOn(store, 'dispatch');
@@ -335,7 +335,7 @@ describe('NotificationsStateService', () => {
       });
 
       beforeEach(() => {
-        store = TestBed.get(Store);
+        store = TestBed.inject(Store);
         service = new NotificationsStateService(store);
         serviceAsAny = service;
         spyOn(store, 'dispatch');
@@ -427,7 +427,7 @@ describe('NotificationsStateService', () => {
       });
 
       beforeEach(() => {
-        store = TestBed.get(Store);
+        store = TestBed.inject(Store);
         service = new NotificationsStateService(store);
         serviceAsAny = service;
         spyOn(store, 'dispatch');
@@ -523,7 +523,7 @@ describe('NotificationsStateService', () => {
       });
 
       beforeEach(() => {
-        store = TestBed.get(Store);
+        store = TestBed.inject(Store);
         service = new NotificationsStateService(store);
         serviceAsAny = service;
         spyOn(store, 'dispatch');

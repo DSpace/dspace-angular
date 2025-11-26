@@ -33,6 +33,7 @@ import {
   MockBitstream1,
   MockBitstream2,
   MockBitstream3,
+  NonDiscoverableItemMock,
 } from '../testing/item.mock';
 import { getMockTranslateService } from '../testing/translate.service.mock';
 import { createPaginatedList } from '../testing/utils.test';
@@ -125,6 +126,37 @@ describe('HeadTagService', () => {
       appConfig,
       authorizationService,
     );
+  });
+
+  describe(`robots tag`, () => {
+    it(`should be set to noindex for non-discoverable items`, fakeAsync(() => {
+      (headTagService as any).processRouteChange({
+        data: {
+          value: {
+            dso: createSuccessfulRemoteDataObject(NonDiscoverableItemMock),
+          },
+        },
+      });
+      tick();
+      expect(meta.addTag).toHaveBeenCalledWith({
+        name: 'robots',
+        content: 'noindex',
+      });
+    }));
+    it(`should not be set for discoverable items`, fakeAsync(() => {
+      (headTagService as any).processRouteChange({
+        data: {
+          value: {
+            dso: createSuccessfulRemoteDataObject(ItemMock),
+          },
+        },
+      });
+      tick();
+      expect(meta.addTag).not.toHaveBeenCalledWith({
+        name: 'robots',
+        content: 'noindex',
+      });
+    }));
   });
 
   it('items page should set meta tags', fakeAsync(() => {

@@ -42,7 +42,6 @@ import { SearchResultDetailElementComponent } from '../search-result-detail-elem
   selector: 'ds-claimed-task-search-result-detail-element',
   styleUrls: ['../search-result-detail-element.component.scss'],
   templateUrl: './claimed-task-search-result-detail-element.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     ClaimedTaskActionsComponent,

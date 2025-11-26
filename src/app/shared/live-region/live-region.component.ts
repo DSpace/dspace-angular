@@ -20,7 +20,6 @@ import { LiveRegionService } from './live-region.service';
   selector: `ds-live-region`,
   templateUrl: './live-region.component.html',
   styleUrls: ['./live-region.component.scss'],
-  standalone: true,
   imports: [
     AsyncPipe,
     NgClass,

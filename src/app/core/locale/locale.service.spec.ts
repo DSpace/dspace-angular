@@ -25,7 +25,7 @@ import {
   LocaleService,
 } from './locale.service';
 
-describe('LocaleService test suite', () => {
+describe('LocaleService', () => {
   let service: LocaleService;
   let serviceAsAny: any;
   let cookieService: CookieService;
@@ -101,7 +101,7 @@ describe('LocaleService test suite', () => {
         { provide: AuthService, useValue: authService },
         { provide: RouteService, useValue: routeServiceStub },
         { provide: Document, useValue: document },
-        { provide: APP_CONFIG, useValue: { languages, defaultLanguage: 'en' } },
+        { provide: APP_CONFIG, useValue: { languages, fallbackLanguage: 'en' } },
         LocaleService,
       ],
     });
@@ -139,14 +139,14 @@ describe('LocaleService test suite', () => {
       });
     });
 
-    it('should return the default language if the cookie language is disabled', () => {
+    it('should return the fallback language if the cookie language is disabled', () => {
       spyOnGet.and.returnValue('disabled');
       testScheduler.run(({ expectObservable }) => {
         expectObservable(service.getCurrentLanguageCode()).toBe('(a|)', { a: 'en' });
       });
     });
 
-    it('should return the default language if the cookie language does not exist', () => {
+    it('should return the fallback language if the cookie language does not exist', () => {
       spyOnGet.and.returnValue('does-not-exist');
       testScheduler.run(({ expectObservable }) => {
         expectObservable(service.getCurrentLanguageCode()).toBe('(a|)', { a: 'en' });
@@ -179,7 +179,7 @@ describe('LocaleService test suite', () => {
       });
     });
 
-    it('should return default language list without user preferred language when no logged in user', () => {
+    it('should return fallback language list without user preferred language when no logged in user', () => {
       authService.isAuthenticated.and.returnValue(of(false));
       authService.isAuthenticationLoaded.and.returnValue(of(false));
       testScheduler.run(({ expectObservable }) => {
@@ -187,7 +187,7 @@ describe('LocaleService test suite', () => {
       });
     });
 
-    it('should return default language list with user preferred language when user is logged in', () => {
+    it('should return fallback language list with user preferred language when user is logged in', () => {
       authService.isAuthenticated.and.returnValue(of(true));
       authService.isAuthenticationLoaded.and.returnValue(of(true));
       authService.getAuthenticatedUserFromStore.and.returnValue(of(EPersonMock2));

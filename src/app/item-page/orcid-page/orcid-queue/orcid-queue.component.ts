@@ -55,7 +55,6 @@ import { PaginationComponent } from '../../../shared/pagination/pagination.compo
     ThemedLoadingComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class OrcidQueueComponent implements OnInit, OnDestroy, OnChanges {
 

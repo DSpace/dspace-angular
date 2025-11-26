@@ -44,7 +44,6 @@ import { SearchFilterService } from '../search-filters/search-filter.service';
   selector: 'ds-advanced-search',
   templateUrl: './advanced-search.component.html',
   styleUrls: ['./advanced-search.component.scss'],
-  standalone: true,
   imports: [
     AsyncPipe,
     BtnDisabledDirective,

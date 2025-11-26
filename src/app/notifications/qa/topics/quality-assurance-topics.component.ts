@@ -51,7 +51,6 @@ import { NotificationsStateService } from '../../notifications-state.service';
   selector: 'ds-quality-assurance-topic',
   templateUrl: './quality-assurance-topics.component.html',
   styleUrls: ['./quality-assurance-topics.component.scss'],
-  standalone: true,
   imports: [
     AlertComponent,
     AsyncPipe,

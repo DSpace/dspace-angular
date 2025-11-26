@@ -88,7 +88,6 @@ import { DsDynamicLookupRelationSelectionTabComponent } from './selection-tab/dy
     ThemedLoadingComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 
 /**

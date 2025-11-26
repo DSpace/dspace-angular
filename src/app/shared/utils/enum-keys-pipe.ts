@@ -5,7 +5,6 @@ import {
 
 @Pipe({
   name: 'dsKeys',
-  standalone: true,
 })
 /**
  * Pipe for parsing all values of an enumeration to an array of key-value pairs

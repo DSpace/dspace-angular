@@ -75,7 +75,6 @@ import {
     TranslateModule,
     VarDirective,
   ],
-  standalone: true,
 })
 export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
 

@@ -7,11 +7,14 @@ import 'reflect-metadata';
  */
 import '@angular/localize/init';
 
-import { bootstrapApplication } from '@angular/platform-browser';
+import {
+  bootstrapApplication,
+  BootstrapContext,
+} from '@angular/platform-browser';
 
 import { AppComponent } from './app/app.component';
 import { serverAppConfig } from './modules/app/server-app.config';
 
-const bootstrap = () => bootstrapApplication(AppComponent, serverAppConfig);
+const bootstrap = (context: BootstrapContext) => bootstrapApplication(AppComponent, serverAppConfig, context);
 
 export default bootstrap;
