@@ -3,15 +3,14 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
+import { ItemMetadataRepresentation } from '@dspace/core/shared/metadata-representation/item/item-metadata-representation.model';
 
-import { ItemMetadataRepresentation } from '../../../../core/shared/metadata-representation/item/item-metadata-representation.model';
-import { getItemPageRoute } from '../../../../item-page/item-page-routing-paths';
 import { MetadataRepresentationListElementComponent } from '../metadata-representation-list-element.component';
 
 @Component({
   selector: 'ds-item-metadata-representation-list-element',
   template: '',
-  standalone: true,
 })
 /**
  * An abstract class for displaying a single ItemMetadataRepresentation

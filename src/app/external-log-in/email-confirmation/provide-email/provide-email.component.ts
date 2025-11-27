@@ -10,10 +10,10 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 
-import { hasValue } from '../../../shared/empty.util';
 import { ExternalLoginService } from '../../services/external-login.service';
 
 @Component({
@@ -25,7 +25,6 @@ import { ExternalLoginService } from '../../services/external-login.service';
     ReactiveFormsModule,
     TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * This component provides a proper field to submit the email that will be updated for its registration token

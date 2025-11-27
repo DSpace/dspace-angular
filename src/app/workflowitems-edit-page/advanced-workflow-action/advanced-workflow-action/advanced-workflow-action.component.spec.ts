@@ -6,24 +6,24 @@ import {
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { RequestService } from '@dspace/core/data/request.service';
+import { WorkflowActionDataService } from '@dspace/core/data/workflow-action-data.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { RouteService } from '@dspace/core/services/route.service';
+import { WorkflowItemDataService } from '@dspace/core/submission/workflowitem-data.service';
+import { ClaimedTaskDataService } from '@dspace/core/tasks/claimed-task-data.service';
+import { ProcessTaskResponse } from '@dspace/core/tasks/models/process-task-response';
+import { ClaimedTaskDataServiceStub } from '@dspace/core/testing/claimed-task-data-service.stub';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { RequestServiceStub } from '@dspace/core/testing/request-service.stub';
+import { routeServiceStub } from '@dspace/core/testing/route-service.stub';
+import { WorkflowActionDataServiceStub } from '@dspace/core/testing/workflow-action-data-service.stub';
+import { WorkflowItemDataServiceStub } from '@dspace/core/testing/workflow-item-data-service.stub';
 import { TranslateModule } from '@ngx-translate/core';
 import { MockComponent } from 'ng-mocks';
 import { of } from 'rxjs';
 
-import { RequestService } from '../../../core/data/request.service';
-import { WorkflowActionDataService } from '../../../core/data/workflow-action-data.service';
-import { RouteService } from '../../../core/services/route.service';
-import { WorkflowItemDataService } from '../../../core/submission/workflowitem-data.service';
-import { ClaimedTaskDataService } from '../../../core/tasks/claimed-task-data.service';
-import { ProcessTaskResponse } from '../../../core/tasks/models/process-task-response';
 import { DSOSelectorComponent } from '../../../shared/dso-selector/dso-selector/dso-selector.component';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { ClaimedTaskDataServiceStub } from '../../../shared/testing/claimed-task-data-service.stub';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { RequestServiceStub } from '../../../shared/testing/request-service.stub';
-import { routeServiceStub } from '../../../shared/testing/route-service.stub';
-import { WorkflowActionDataServiceStub } from '../../../shared/testing/workflow-action-data-service.stub';
-import { WorkflowItemDataServiceStub } from '../../../shared/testing/workflow-item-data-service.stub';
 import { WorkflowItemActionPageDirective } from '../../workflow-item-action-page.component';
 import { AdvancedWorkflowActionComponent } from './advanced-workflow-action.component';
 
@@ -122,7 +122,6 @@ describe('AdvancedWorkflowActionComponent', () => {
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: '',
   template: '',
-  standalone: true,
   imports: [
     RouterTestingModule,
   ],

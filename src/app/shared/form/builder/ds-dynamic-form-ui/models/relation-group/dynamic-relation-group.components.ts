@@ -14,6 +14,19 @@ import {
   ViewChild,
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
+import { SubmissionFormsModel } from '@dspace/core/config/models/config-submission-forms.model';
+import { PLACEHOLDER_PARENT_METADATA } from '@dspace/core/shared/form/ds-dynamic-form-constants';
+import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
+import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
+import { VocabularyEntryDetail } from '@dspace/core/submission/vocabularies/models/vocabulary-entry-detail.model';
+import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+  isNotNull,
+} from '@dspace/shared/utils/empty.util';
+import { hasOnlyEmptyProperties } from '@dspace/shared/utils/object.util';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormControlComponent,
@@ -40,28 +53,15 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../../../../../environments/environment';
-import { SubmissionFormsModel } from '../../../../../../core/config/models/config-submission-forms.model';
-import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
-import { VocabularyEntryDetail } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
-import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
 import { shrinkInOut } from '../../../../../animations/shrink';
 import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
-import {
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-  isNotNull,
-} from '../../../../../empty.util';
 import { ThemedLoadingComponent } from '../../../../../loading/themed-loading.component';
-import { hasOnlyEmptyProperties } from '../../../../../object.util';
 import { ChipsComponent } from '../../../../chips/chips.component';
 import { Chips } from '../../../../chips/models/chips.model';
 import { ChipsItem } from '../../../../chips/models/chips-item.model';
 import { FormComponent } from '../../../../form.component';
 import { FormService } from '../../../../form.service';
 import { FormBuilderService } from '../../../form-builder.service';
-import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
-import { PLACEHOLDER_PARENT_METADATA } from '../../ds-dynamic-form-constants';
 import { DynamicRelationGroupModel } from './dynamic-relation-group.model';
 
 /**
@@ -82,7 +82,6 @@ import { DynamicRelationGroupModel } from './dynamic-relation-group.model';
     ThemedLoadingComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent implements OnDestroy, OnInit {
 
@@ -276,11 +275,11 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
           valueModel.forEach((valueObj) => {
             const returnObj = Object.keys(valueObj).map((fieldName) => {
               let return$: Observable<any>;
-              if (isObject(valueObj[fieldName]) && valueObj[fieldName].hasAuthority() && isNotEmpty(valueObj[fieldName].authority)) {
+              if (isObject(valueObj[fieldName]) && (valueObj[fieldName] as any).hasAuthority() && isNotEmpty((valueObj[fieldName] as any).authority)) {
                 const fieldId = fieldName.replace(/\./g, '_');
                 const model = this.formBuilderService.findById(fieldId, this.formModel);
                 return$ = this.vocabularyService.findEntryDetailById(
-                  valueObj[fieldName].authority,
+                  (valueObj[fieldName] as any).authority,
                   (model as any).vocabularyOptions.name,
                 ).pipe(
                   getFirstSucceededRemoteDataPayload(),

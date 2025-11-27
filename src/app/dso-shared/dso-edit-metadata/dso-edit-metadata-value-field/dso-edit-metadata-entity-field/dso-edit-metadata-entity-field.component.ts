@@ -4,12 +4,12 @@ import {
   OnInit,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { EntityTypeDataService } from '@dspace/core/data/entity-type-data.service';
+import { ItemType } from '@dspace/core/shared/item-relationships/item-type.model';
+import { getFirstSucceededRemoteListPayload } from '@dspace/core/shared/operators';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
-import { EntityTypeDataService } from '../../../../core/data/entity-type-data.service';
-import { ItemType } from '../../../../core/shared/item-relationships/item-type.model';
-import { getFirstSucceededRemoteListPayload } from '../../../../core/shared/operators';
 import { AbstractDsoEditMetadataValueFieldComponent } from '../abstract-dso-edit-metadata-value-field.component';
 
 /**
@@ -19,7 +19,6 @@ import { AbstractDsoEditMetadataValueFieldComponent } from '../abstract-dso-edit
   selector: 'ds-dso-edit-metadata-entity-field',
   templateUrl: './dso-edit-metadata-entity-field.component.html',
   styleUrls: ['./dso-edit-metadata-entity-field.component.scss'],
-  standalone: true,
   imports: [
     AsyncPipe,
     FormsModule,

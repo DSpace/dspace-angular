@@ -17,6 +17,13 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { RelationshipDataService } from '@dspace/core/data/relationship-data.service';
+import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
+import { Item } from '@dspace/core/shared/item.model';
+import { WorkspaceItem } from '@dspace/core/submission/models/workspaceitem.model';
+import { VocabularyOptions } from '@dspace/core/submission/vocabularies/models/vocabulary-options.model';
+import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   DYNAMIC_FORM_CONTROL_MAP_FN,
@@ -57,19 +64,10 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NgxMaskModule } from 'ngx-mask';
 import { of } from 'rxjs';
 
-import {
-  APP_CONFIG,
-  APP_DATA_SERVICES_MAP,
-} from '../../../../../config/app-config.interface';
 import { environment } from '../../../../../environments/environment';
-import { RelationshipDataService } from '../../../../core/data/relationship-data.service';
-import { Item } from '../../../../core/shared/item.model';
-import { WorkspaceItem } from '../../../../core/submission/models/workspaceitem.model';
-import { SubmissionObjectDataService } from '../../../../core/submission/submission-object-data.service';
-import { VocabularyOptions } from '../../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { SubmissionService } from '../../../../submission/submission.service';
+import { SubmissionObjectService } from '../../../../submission/submission-object.service';
 import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
-import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 import { FormBuilderService } from '../form-builder.service';
 import { DsDynamicFormControlContainerComponent } from './ds-dynamic-form-control-container.component';
 import { dsDynamicFormControlMapFn } from './ds-dynamic-form-control-map-fn';
@@ -232,7 +230,7 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
         { provide: FormBuilderService, useValue: {} },
         { provide: SubmissionService, useValue: {} },
         {
-          provide: SubmissionObjectDataService,
+          provide: SubmissionObjectService,
           useValue: {
             findById: () => of(createSuccessfulRemoteDataObject(testWSI)),
           },
@@ -249,8 +247,7 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
       const ngZone = TestBed.inject(NgZone);
 
 
-      // eslint-disable-next-line @typescript-eslint/ban-types
-      spyOn(ngZone, 'runOutsideAngular').and.callFake((fn: Function) => fn());
+      spyOn(ngZone, 'runOutsideAngular').and.callFake((fn) => fn());
       component = fixture.componentInstance;
       debugElement = fixture.debugElement;
     });

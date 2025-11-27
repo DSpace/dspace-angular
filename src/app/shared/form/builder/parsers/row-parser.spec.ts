@@ -1,11 +1,11 @@
 import { Injector } from '@angular/core';
+import { FormRowModel } from '@dspace/core/config/models/config-submission-form.model';
+import { FormFieldModel } from '@dspace/core/shared/form/models/form-field.model';
+import { getMockTranslateService } from '@dspace/core/testing/translate.service.mock';
 import { TranslateService } from '@ngx-translate/core';
-import { getMockTranslateService } from 'src/app/shared/mocks/translate.service.mock';
 
-import { FormRowModel } from '../../../../core/config/models/config-submission-form.model';
 import { DynamicRowArrayModel } from '../ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
 import { DynamicRowGroupModel } from '../ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
-import { FormFieldModel } from '../models/form-field.model';
 import { RowParser } from './row-parser';
 
 describe('RowParser test suite', () => {

@@ -7,6 +7,8 @@ import {
 } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
 import {
   DYNAMIC_FORM_CONTROL_MAP_FN,
   DynamicFormLayoutService,
@@ -23,10 +25,6 @@ import { NgxMaskModule } from 'ngx-mask';
 import { of } from 'rxjs';
 import { LiveRegionService } from 'src/app/shared/live-region/live-region.service';
 
-import {
-  APP_CONFIG,
-  APP_DATA_SERVICES_MAP,
-} from '../../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../../environments/environment.test';
 import { SubmissionService } from '../../../../../../submission/submission.service';
 import { getLiveRegionServiceStub } from '../../../../../live-region/live-region.service.stub';
@@ -41,7 +39,7 @@ describe('DsDynamicFormArrayComponent', () => {
     instant: () => 'translated-text',
     onLangChange: new EventEmitter(),
     onTranslationChange: new EventEmitter(),
-    onDefaultLangChange: new EventEmitter(),
+    onFallbackLangChange: new EventEmitter(),
   };
 
   let component: DsDynamicFormArrayComponent;

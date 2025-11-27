@@ -4,13 +4,13 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { Item } from '@dspace/core/shared/item.model';
+import { mockSuggestionPublicationOne } from '@dspace/core/testing/publication-claim.mock';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 
-import { Item } from '../../../core/shared/item.model';
-import { mockSuggestionPublicationOne } from '../../../shared/mocks/publication-claim.mock';
 import { ItemSearchResultListElementComponent } from '../../../shared/object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
 import { SuggestionActionsComponent } from '../actions/suggestion-actions.component';
 import { SuggestionEvidencesComponent } from './suggestion-evidences/suggestion-evidences.component';

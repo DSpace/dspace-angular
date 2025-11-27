@@ -5,12 +5,7 @@ import { ItemStatusComponent } from './item-status.component';
 
 @Component({
   selector: 'ds-item-status',
-  styleUrls: [],
   templateUrl: '../../../shared/theme-support/themed.component.html',
-  standalone: true,
-  imports: [
-    ItemStatusComponent,
-  ],
 })
 export class ThemedItemStatusComponent extends ThemedComponent<ItemStatusComponent> {
   protected getComponentName(): string {
