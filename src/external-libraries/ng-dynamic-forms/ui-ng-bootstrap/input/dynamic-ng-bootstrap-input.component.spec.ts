@@ -19,7 +19,7 @@ describe("DynamicNGBootstrapInputComponent test suite", () => {
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            imports: [DynamicNGBootstrapInputComponent, NgxMaskModule],
+            imports: [DynamicNGBootstrapInputComponent, NgxMaskModule.forRoot()],
         }).compileComponents().then(() => {
             fixture = TestBed.createComponent(DynamicNGBootstrapInputComponent);
 

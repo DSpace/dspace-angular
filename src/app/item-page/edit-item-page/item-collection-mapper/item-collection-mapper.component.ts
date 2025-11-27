@@ -33,7 +33,7 @@ import {
   hasValue,
   isNotEmpty,
 } from '@dspace/shared/utils/empty.util';
-import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbNav, NgbNavContent, NgbNavItem, NgbNavLink, NgbNavOutlet } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
   TranslateService,
@@ -74,7 +74,11 @@ import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
     AsyncPipe,
     BrowserOnlyPipe,
     CollectionSelectComponent,
-    NgbNavModule,
+    NgbNavLink,
+    NgbNavItem,
+    NgbNavContent,
+    NgbNavOutlet,
+    NgbNav,
     ThemedSearchFormComponent,
     TranslateModule,
   ],

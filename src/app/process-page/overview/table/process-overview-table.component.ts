@@ -36,7 +36,7 @@ import {
   hasValue,
   isNotEmpty,
 } from '@dspace/shared/utils/empty.util';
-import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCollapse, NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
   TranslateService,
@@ -83,7 +83,7 @@ export interface ProcessOverviewTableEntry {
   templateUrl: './process-overview-table.component.html',
   imports: [
     AsyncPipe,
-    NgbCollapseModule,
+    NgbCollapse,
     NgClass,
     PaginationComponent,
     RouterLink,

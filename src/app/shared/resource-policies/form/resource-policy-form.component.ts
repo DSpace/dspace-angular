@@ -29,9 +29,9 @@ import {
   isNotEmpty,
 } from '@dspace/shared/utils/empty.util';
 import {
-  NgbModal,
-  NgbNavChangeEvent,
-  NgbNavModule,
+  NgbModal, NgbNav,
+  NgbNavChangeEvent, NgbNavContent, NgbNavItem, NgbNavLink,
+  NgbNavModule, NgbNavOutlet,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -87,7 +87,11 @@ export interface ResourcePolicyEvent {
     BtnDisabledDirective,
     EpersonGroupListComponent,
     FormComponent,
-    NgbNavModule,
+    NgbNavLink,
+    NgbNavItem,
+    NgbNavContent,
+    NgbNavOutlet,
+    NgbNav,
     TranslateModule,
   ],
 })

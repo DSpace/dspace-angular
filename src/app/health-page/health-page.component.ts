@@ -7,7 +7,7 @@ import {
   HealthInfoResponse,
   HealthResponse,
 } from '@dspace/core/shared/health-component.model';
-import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbNav, NgbNavContent, NgbNavItem, NgbNavLink, NgbNavModule, NgbNavOutlet } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 import { take } from 'rxjs/operators';
@@ -27,7 +27,11 @@ import { HealthPanelComponent } from './health-panel/health-panel.component';
     AsyncPipe,
     HealthInfoComponent,
     HealthPanelComponent,
-    NgbNavModule,
+    NgbNavLink,
+    NgbNavItem,
+    NgbNavContent,
+    NgbNavOutlet,
+    NgbNav,
     TranslateModule,
   ],
 })

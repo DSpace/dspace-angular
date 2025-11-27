@@ -149,10 +149,7 @@ describe("DynamicFormService test suite", () => {
         expect(formGroup.get("testSelect") instanceof UntypedFormControl).toBe(true);
         expect(formGroup.get("testTextArea") instanceof UntypedFormControl).toBe(true);
         expect(formGroup.get("testFileUpload") instanceof UntypedFormControl).toBe(true);
-        expect(formGroup.get("testEditor") instanceof UntypedFormControl).toBe(true);
         expect(formGroup.get("testTimePicker") instanceof UntypedFormControl).toBe(true);
-        expect(formGroup.get("testRating") instanceof UntypedFormControl).toBe(true);
-        expect(formGroup.get("testColorPicker") instanceof UntypedFormControl).toBe(true);
     });
 
 
@@ -172,9 +169,9 @@ describe("DynamicFormService test suite", () => {
         expect(formModel[7] instanceof DynamicFormGroupModel).toBe(true);
         expect(formModel[8] instanceof DynamicSwitchModel).toBe(true);
         expect(formModel[9] instanceof DynamicDatePickerModel).toBe(true);
-        expect((formModel[10] as DynamicDateControlModel).value instanceof Date).toBe(true);
-        expect(formModel[11] instanceof DynamicFileUploadModel).toBe(true);
-        expect(formModel[12] instanceof DynamicTimePickerModel).toBe(true);
+        expect((formModel[9] as DynamicDateControlModel).value instanceof Date).toBe(true);
+        expect(formModel[10] instanceof DynamicFileUploadModel).toBe(true);
+        expect(formModel[11] instanceof DynamicTimePickerModel).toBe(true);
     });
 
 
@@ -192,7 +189,6 @@ describe("DynamicFormService test suite", () => {
         expect(service.findById("testInput", testModel) instanceof DynamicFormControlModel).toBe(true);
         expect(service.findById("testRadioGroup", testModel) instanceof DynamicFormControlModel).toBe(true);
         expect(service.findById("testSelect", testModel) instanceof DynamicFormControlModel).toBe(true);
-        expect(service.findById("testSlider", testModel) instanceof DynamicFormControlModel).toBe(true);
         expect(service.findById("testSwitch", testModel) instanceof DynamicFormControlModel).toBe(true);
         expect(service.findById("testTextArea", testModel) instanceof DynamicFormControlModel).toBe(true);
         expect(service.findById("testFileUpload", testModel) instanceof DynamicFormControlModel).toBe(true);

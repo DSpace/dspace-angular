@@ -8,8 +8,8 @@ import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
 import { PageInfo } from '@dspace/core/shared/page-info.model';
 import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import {
-  NgbAccordionModule,
-  NgbNavModule,
+  NgbAccordionModule, NgbNav, NgbNavContent, NgbNavItem, NgbNavLink,
+  NgbNavModule, NgbNavOutlet,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
@@ -42,7 +42,11 @@ describe('BulkAccessBrowseComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         NgbAccordionModule,
-        NgbNavModule,
+        NgbNavLink,
+        NgbNavItem,
+        NgbNavContent,
+        NgbNavOutlet,
+        NgbNav,
         TranslateModule.forRoot(),
         BulkAccessBrowseComponent,
       ],

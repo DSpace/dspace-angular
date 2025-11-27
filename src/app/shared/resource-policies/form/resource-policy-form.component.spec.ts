@@ -42,7 +42,7 @@ import {
   stringToNgbDateStruct,
 } from '@dspace/shared/utils/date.util';
 import { isNotEmptyOperator } from '@dspace/shared/utils/empty.util';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbNav, NgbNavContent, NgbNavItem, NgbNavLink, NgbNavOutlet } from '@ng-bootstrap/ng-bootstrap';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
@@ -207,7 +207,11 @@ describe('ResourcePolicyFormComponent test suite', () => {
       imports: [
         CommonModule,
         FormsModule,
-        NgbModule,
+        NgbNavLink,
+        NgbNavItem,
+        NgbNavContent,
+        NgbNavOutlet,
+        NgbNav,
         NoopAnimationsModule,
         ReactiveFormsModule,
         TranslateModule.forRoot(),
@@ -494,7 +498,11 @@ describe('ResourcePolicyFormComponent test suite', () => {
   template: ``,
   imports: [
     FormsModule,
-    NgbModule,
+    NgbNavLink,
+    NgbNavItem,
+    NgbNavContent,
+    NgbNavOutlet,
+    NgbNav,
     ReactiveFormsModule,
   ],
 })

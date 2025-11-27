@@ -71,8 +71,7 @@ import {
 } from '@dspace/shared/utils/empty.util';
 import {
   NgbModal,
-  NgbModalRef,
-  NgbTooltipModule,
+  NgbModalRef, NgbTooltip,
 } from '@ng-bootstrap/ng-bootstrap';
 
 import { Store } from '@ngrx/store';
@@ -141,7 +140,7 @@ import {
     ExistingMetadataListElementComponent,
     ExistingRelationListElementComponent,
     FormsModule,
-    NgbTooltipModule,
+    NgbTooltip,
     NgClass,
     NgTemplateOutlet,
     ReactiveFormsModule,

@@ -14,7 +14,7 @@
     </h2>
   </div>
 
-  <div ngbCollapse #collapse="ngbCollapse" [ngbCollapse]="isCollapsed">
+  <div #collapse="ngbCollapse" [ngbCollapse]="isCollapsed">
 
     <ng-container *ngVar="(processesRD$ | async) as processesRD">
       @if (!processesRD || processesRD.isLoading) {

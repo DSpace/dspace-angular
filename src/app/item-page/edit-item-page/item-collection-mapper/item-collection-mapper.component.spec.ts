@@ -36,7 +36,6 @@ import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '@dspace/core/utilities/remote-data.utils';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
   TranslateService,
@@ -55,6 +54,7 @@ import { SearchFormComponent } from '../../../shared/search-form/search-form.com
 import { EnumKeysPipe } from '../../../shared/utils/enum-keys-pipe';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { ItemCollectionMapperComponent } from './item-collection-mapper.component';
+import { NgbNavContent, NgbNavItem, NgbNavLink, NgbNavOutlet } from "@ng-bootstrap/ng-bootstrap";
 
 describe('ItemCollectionMapperComponent', () => {
   let comp: ItemCollectionMapperComponent;
@@ -131,7 +131,24 @@ describe('ItemCollectionMapperComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, ItemCollectionMapperComponent, CollectionSelectComponent, SearchFormComponent, PaginationComponent, EnumKeysPipe, VarDirective, ErrorComponent, LoadingComponent],
+      imports: [
+        CommonModule,
+        FormsModule,
+        RouterTestingModule.withRoutes([]),
+        TranslateModule.forRoot(),
+        NgbNavLink,
+        NgbNavItem,
+        NgbNavContent,
+        NgbNavOutlet,
+        ItemCollectionMapperComponent,
+        CollectionSelectComponent,
+        SearchFormComponent,
+        PaginationComponent,
+        EnumKeysPipe,
+        VarDirective,
+        ErrorComponent,
+        LoadingComponent
+      ],
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: Router, useValue: routerStub },

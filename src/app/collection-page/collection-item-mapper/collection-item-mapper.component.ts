@@ -34,7 +34,7 @@ import {
 } from '@dspace/core/shared/operators';
 import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
 import { isNotEmpty } from '@dspace/shared/utils/empty.util';
-import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbNav, NgbNavContent, NgbNavItem, NgbNavLink, NgbNavModule, NgbNavOutlet } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
   TranslateService,
@@ -81,7 +81,11 @@ import { BrowserOnlyPipe } from '../../shared/utils/browser-only.pipe';
     AsyncPipe,
     BrowserOnlyPipe,
     ItemSelectComponent,
-    NgbNavModule,
+    NgbNavLink,
+    NgbNavItem,
+    NgbNavContent,
+    NgbNavOutlet,
+    NgbNav,
     ThemedSearchFormComponent,
     TranslateModule,
   ],
