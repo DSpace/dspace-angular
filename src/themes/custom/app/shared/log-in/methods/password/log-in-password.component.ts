@@ -23,7 +23,6 @@ import { BrowserOnlyPipe } from '../../../../../../../app/shared/utils/browser-o
   // styleUrls: ['./log-in-password.component.scss'],
   styleUrls: ['../../../../../../../app/shared/log-in/methods/password/log-in-password.component.scss'],
   animations: [fadeOut],
-  standalone: true,
   imports: [
     AsyncPipe,
     BrowserOnlyPipe,

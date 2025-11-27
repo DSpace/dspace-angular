@@ -10,7 +10,6 @@ import { LogInPasswordComponent } from './log-in-password.component';
   selector: 'ds-log-in-password',
   styleUrls: [],
   templateUrl: '../../../theme-support/themed.component.html',
-  standalone: true,
   imports: [
     LogInPasswordComponent,
   ],
