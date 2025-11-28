@@ -42,7 +42,6 @@ import { SuggestionTargetsStateService } from '../targets/suggestion-targets.sta
     RouterLink,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class SuggestionsPopupComponent implements OnInit, OnDestroy {
 

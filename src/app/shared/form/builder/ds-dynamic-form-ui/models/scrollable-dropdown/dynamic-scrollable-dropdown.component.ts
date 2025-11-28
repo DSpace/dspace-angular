@@ -71,7 +71,6 @@ import { DynamicScrollableDropdownModel } from './dynamic-scrollable-dropdown.mo
     NgbDropdownModule,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyComponent implements OnInit {
   @ViewChild('dropdownMenu', { read: ElementRef }) dropdownMenu: ElementRef;

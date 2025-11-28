@@ -51,7 +51,6 @@ import {
     RouterOutlet,
     TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * Page component for editing an item

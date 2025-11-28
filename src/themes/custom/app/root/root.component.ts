@@ -24,7 +24,6 @@ import { SystemWideAlertBannerComponent } from '../../../../app/system-wide-aler
   // templateUrl: './root.component.html',
   templateUrl: '../../../../app/root/root.component.html',
   animations: [slideSidebarPadding],
-  standalone: true,
   imports: [
     AsyncPipe,
     LiveRegionComponent,

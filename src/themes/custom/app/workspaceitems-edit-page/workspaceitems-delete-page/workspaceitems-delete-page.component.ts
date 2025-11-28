@@ -11,7 +11,6 @@ import { WorkspaceItemsDeletePageComponent as BaseComponent } from '../../../../
   styleUrls: ['../../../../../app/workspaceitems-edit-page/workspaceitems-delete-page/workspaceitems-delete-page.component.scss'],
   // templateUrl: './workspaceitems-delete-page.component.html',
   templateUrl: '../../../../../app/workspaceitems-edit-page/workspaceitems-delete-page/workspaceitems-delete-page.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     ModifyItemOverviewComponent,

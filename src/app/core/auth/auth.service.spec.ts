@@ -266,7 +266,7 @@ describe('AuthService test', () => {
       it('store should dispatch SetUserAsIdleAction', () => {
         spyOn(mockStore, 'dispatch');
         authService.setIdle(true);
-        expect(mockStore.dispatch).toHaveBeenCalledWith(new SetUserAsIdleAction());
+        expect(mockStore.dispatch as jasmine.Spy).toHaveBeenCalledWith(new SetUserAsIdleAction());
       });
     });
 
@@ -274,7 +274,7 @@ describe('AuthService test', () => {
       it('store should dispatch UnsetUserAsIdleAction', () => {
         spyOn(mockStore, 'dispatch');
         authService.setIdle(false);
-        expect(mockStore.dispatch).toHaveBeenCalledWith(new UnsetUserAsIdleAction());
+        expect(mockStore.dispatch as jasmine.Spy).toHaveBeenCalledWith(new UnsetUserAsIdleAction());
       });
     });
   });

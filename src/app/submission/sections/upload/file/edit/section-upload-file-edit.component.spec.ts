@@ -508,12 +508,9 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
-  standalone: true,
   imports: [
-    FormComponent,
     FormsModule,
     ReactiveFormsModule,
-    SubmissionSectionUploadFileEditComponent,
   ],
 })
 class TestComponent {
