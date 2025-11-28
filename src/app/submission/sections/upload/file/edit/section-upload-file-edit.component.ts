@@ -10,6 +10,7 @@ import { AccessConditionOption } from '@dspace/core/config/models/config-access-
 import { SubmissionFormsModel } from '@dspace/core/config/models/config-submission-forms.model';
 import { JsonPatchOperationPathCombiner } from '@dspace/core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { FormFieldModel } from '@dspace/core/shared/form/models/form-field.model';
 import { SubmissionObject } from '@dspace/core/submission/models/submission-object.model';
 import { WorkspaceitemSectionUploadObject } from '@dspace/core/submission/models/workspaceitem-section-upload.model';
@@ -29,21 +30,39 @@ import {
   DynamicDatePickerModel,
   DynamicFormArrayModel,
   DynamicFormControlCondition,
-  DynamicFormControlEvent,
   DynamicFormControlModel,
   DynamicFormGroupModel,
+  DynamicFormLayout,
+  DynamicInputModel,
   DynamicSelectModel,
   MATCH_ENABLED,
   OR_OPERATOR,
 } from '@ng-dynamic-forms/core';
-import { TranslateModule } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import cloneDeep from 'lodash-es/cloneDeep';
 import { Subscription } from 'rxjs';
 import {
   filter,
+  map,
   mergeMap,
   take,
 } from 'rxjs/operators';
+import { BitstreamDataService } from 'src/app/core/data/bitstream-data.service';
+import { RemoteData } from 'src/app/core/data/remote-data';
+import { Bitstream } from 'src/app/core/shared/bitstream.model';
+import { BitstreamFormat } from 'src/app/core/shared/bitstream-format.model';
+import { BITSTREAM_FORMAT } from 'src/app/core/shared/bitstream-format.resource-type';
+import { BitstreamFormatSupportLevel } from 'src/app/core/shared/bitstream-format-support-level';
+import { Metadata } from 'src/app/core/shared/metadata.utils';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from 'src/app/core/shared/operators';
 import { DynamicCustomSwitchModel } from 'src/app/shared/form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.model';
+import { DynamicScrollableDropdownModel } from 'src/app/shared/form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 
 import { BtnDisabledDirective } from '../../../../../shared/btn-disabled.directive';
 import { FormBuilderService } from '../../../../../shared/form/builder/form-builder.service';
@@ -98,6 +117,16 @@ implements OnInit, OnDestroy {
   isPrimary: boolean;
 
   /**
+   * @type {string} Key prefix used to generate form messages
+   */
+  KEY_PREFIX = 'bitstream.edit.form.';
+
+  /**
+   * @type {string} Key prefix used to generate notification messages
+   */
+  NOTIFICATIONS_PREFIX = 'bitstream.edit.notifications.';
+
+  /**
    * The list of available access condition
    * @type {Array}
    */
@@ -134,6 +163,12 @@ implements OnInit, OnDestroy {
    * @type {string}
    */
   public fileId: string;
+
+  /**
+   * The bitstream
+   * @type {Bitstream}
+   */
+  public bitstream?: Bitstream;
 
   /**
    * The bitstream array key
@@ -176,6 +211,13 @@ implements OnInit, OnDestroy {
   isSaving = false;
 
   /**
+   * The currently selected format
+   * @private
+   */
+  private selectedFormat: BitstreamFormat;
+  private originalFormat: BitstreamFormat;
+
+  /**
    * The [JsonPatchOperationPathCombiner] object
    * @type {JsonPatchOperationPathCombiner}
    */
@@ -195,16 +237,74 @@ implements OnInit, OnDestroy {
    * @param {SubmissionJsonPatchOperationsService} operationsService
    * @param {SectionUploadService} uploadService
    */
+
+  /**
+   * The base layout of the "Other Format" input
+   */
+  newFormatBaseLayout = 'col col-sm-6 d-inline-block';
+
+  formLayout: DynamicFormLayout = {
+    selectedFormat: {
+      grid: {
+        host: 'd-flex flex-row align-items-center col col-sm-6',
+      },
+    },
+    newFormat: {
+      grid: {
+        host: 'd-flex flex-row align-items-center col col-sm-6',
+      },
+    },
+  };
+
+  /**
+   * The Dynamic Input Model for the selected format
+   */
+  selectedFormatModel = new DynamicScrollableDropdownModel({
+    id: 'selectedFormat',
+    name: 'selectedFormat',
+    label: this.translate.instant(this.KEY_PREFIX + 'selectedFormat.label'),
+    displayKey: 'shortDescription',
+    repeatable: false,
+    metadataFields: [],
+    submissionId: '',
+    hasSelectableMetadata: false,
+    resourceType: BITSTREAM_FORMAT,
+    formatFunction: (format: BitstreamFormat | string) => {
+      if (format instanceof  BitstreamFormat) {
+        return hasValue(format) && format.supportLevel === BitstreamFormatSupportLevel.Unknown ? this.translate.instant(this.KEY_PREFIX + 'selectedFormat.unknown') : format.shortDescription;
+      } else {
+        return format;
+      }
+    },
+  });
+
+  /**
+   * The Dynamic Input Model for supplying more format information
+   */
+  newFormatModel = new DynamicInputModel({
+    id: 'newFormat',
+    name: 'newFormat',
+    label: this.translate.instant(this.KEY_PREFIX + 'newFormat.label'),
+    hidden: true,
+  });
+
   constructor(
     protected activeModal: NgbActiveModal,
     private cdr: ChangeDetectorRef,
     private formBuilderService: FormBuilderService,
     private formService: FormService,
+    private translate: TranslateService,
     private submissionService: SubmissionService,
     private operationsBuilder: JsonPatchOperationsBuilder,
     private operationsService: SubmissionJsonPatchOperationsService,
+    private bitstreamService: BitstreamDataService,
+    private notificationsService: NotificationsService,
     private uploadService: SectionUploadService,
   ) {
+  }
+
+  protected isUnknownFormat(): boolean {
+    return this.selectedFormat?.supportLevel === BitstreamFormatSupportLevel.Unknown;
   }
 
   /**
@@ -237,6 +337,17 @@ implements OnInit, OnDestroy {
           }
         });
     });
+
+    if (this.fileData?.format) {
+      this.selectedFormat = this.fileData.format as unknown as BitstreamFormat;
+      this.originalFormat = this.selectedFormat;
+      this.selectedFormatModel.value = this.selectedFormat.shortDescription;
+
+      if (this.isUnknownFormat()) {
+        this.newFormatModel.hidden = false;
+        this.newFormatModel.value = this.bitstream?.metadata['dc.format']?.[0]?.value || this.fileData?.metadata['dc.format']?.[0]?.value || '';
+      }
+    }
   }
 
   /**
@@ -245,9 +356,24 @@ implements OnInit, OnDestroy {
    * @param event
    *    The event emitted
    */
-  onChange(event: DynamicFormControlEvent) {
+  onChange(event) {
+    const model = event.model;
+
+    // Handle access condition changes
     if (event.model.id === 'name') {
       this.setOptions(event.model, event.control);
+    }
+
+    // Handle format changes
+    if (model.id === this.selectedFormatModel.id) {
+      this.selectedFormat = model.value;
+      if (this.selectedFormatModel.value === 'other' || this.isUnknownFormat()) {
+        this.newFormatModel.hidden = false;
+      } else {
+        this.newFormatModel.hidden = true;
+        this.newFormatModel.value = null;
+      }
+      this.cdr.detectChanges();
     }
   }
 
@@ -290,6 +416,14 @@ implements OnInit, OnDestroy {
    * Dispatch form model init
    */
   ngOnInit() {
+    if (this.fileId) {
+      this.bitstreamService.findById(this.fileId).pipe(
+        getFirstCompletedRemoteData(),
+        map((rd: RemoteData<Bitstream>) => rd.payload),
+      ).subscribe((bs: Bitstream) => {
+        this.bitstream = bs;
+      });
+    }
     if (this.fileData && this.formId) {
       this.formModel = this.buildFileEditForm();
       this.cdr.detectChanges();
@@ -411,6 +545,20 @@ implements OnInit, OnDestroy {
         new DynamicFormArrayModel(accessConditionsArrayConfig, BITSTREAM_ACCESS_CONDITIONS_FORM_ARRAY_LAYOUT),
       );
 
+      // Bitstream Format Selection
+      const formatGroup = new DynamicFormGroupModel(
+        {
+          id: 'formatGroup',
+          group: [this.selectedFormatModel, this.newFormatModel],
+        },
+        {
+          grid: {
+            host: 'd-flex flex-row gap-3 align-items-center',
+          },
+        },
+      );
+      formModel.push(formatGroup);
+
     }
     this.initModelData(formModel);
     return formModel;
@@ -507,6 +655,33 @@ implements OnInit, OnDestroy {
         if (isNotEmpty(accessConditionsToSave)) {
           this.operationsBuilder.add(this.pathCombiner.getPath([...pathFragment, 'accessConditions']), accessConditionsToSave, true);
         }
+        if (this.selectedFormat && this.selectedFormat.id !== this.originalFormat?.id) {
+          this.bitstreamService.updateFormat(this.bitstream, this.selectedFormat).pipe(
+            getFirstCompletedRemoteData(),
+            map((formatResponse: RemoteData<Bitstream>) => {
+              if (hasValue(formatResponse) && formatResponse.hasFailed) {
+                this.notificationsService.error(
+                  this.translate.instant(this.NOTIFICATIONS_PREFIX + 'error.format.title'),
+                  formatResponse.errorMessage,
+                );
+              } else {
+                return formatResponse.payload;
+              }
+            }),
+          ).subscribe();
+        }
+        // Save "Other format" metadata
+        const newFormatValue = formData.formatGroup?.newFormat;
+        if (isNotEmpty(newFormatValue)) {
+          const updatedBitstream = cloneDeep(this.bitstream);
+          const newMetadata = updatedBitstream.metadata;
+          Metadata.setFirstValue(newMetadata, 'dc.format', newFormatValue[0].display);
+          updatedBitstream.metadata = newMetadata;
+          this.bitstreamService.update(updatedBitstream).pipe(
+            getFirstSucceededRemoteDataPayload(),
+          ).subscribe();
+        }
+
         // dispatch a PATCH request to save metadata
         return this.operationsService.jsonPatchByResourceID(
           this.submissionService.getSubmissionObjectLinkName(),
