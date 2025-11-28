@@ -4,10 +4,10 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
-import { EPerson } from 'src/app/core/eperson/models/eperson.model';
-import { createSuccessfulRemoteDataObject$ } from 'src/app/shared/remote-data.utils';
+import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
+import { EPerson } from '@dspace/core/eperson/models/eperson.model';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 
-import { EPersonDataService } from './../../../../core/eperson/eperson-data.service';
 import { EPersonDataComponent } from './ePerson-data.component';
 
 describe('EPersonDataComponent', () => {

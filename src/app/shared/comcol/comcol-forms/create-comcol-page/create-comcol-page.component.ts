@@ -3,6 +3,24 @@ import {
   OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { RequestParam } from '@dspace/core/cache/models/request-param.model';
+import { ComColDataService } from '@dspace/core/data/comcol-data.service';
+import { CommunityDataService } from '@dspace/core/data/community-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { RequestService } from '@dspace/core/data/request.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { getHomePageRoute } from '@dspace/core/router/core-routing-paths';
+import { RouteService } from '@dspace/core/services/route.service';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { Community } from '@dspace/core/shared/community.model';
+import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
+import { ResourceType } from '@dspace/core/shared/resource-type';
+import {
+  hasValue,
+  isNotEmpty,
+  isNotUndefined,
+} from '@dspace/shared/utils/empty.util';
 import { TranslateService } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -16,32 +34,12 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { getHomePageRoute } from '../../../../app-routing-paths';
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { RequestParam } from '../../../../core/cache/models/request-param.model';
-import { ComColDataService } from '../../../../core/data/comcol-data.service';
-import { CommunityDataService } from '../../../../core/data/community-data.service';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { RequestService } from '../../../../core/data/request.service';
-import { RouteService } from '../../../../core/services/route.service';
-import { Collection } from '../../../../core/shared/collection.model';
-import { Community } from '../../../../core/shared/community.model';
-import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
-import { ResourceType } from '../../../../core/shared/resource-type';
-import {
-  hasValue,
-  isNotEmpty,
-  isNotUndefined,
-} from '../../../empty.util';
-import { NotificationsService } from '../../../notifications/notifications.service';
-
 /**
  * Component representing the create page for communities and collections
  */
 @Component({
   selector: 'ds-create-comcol',
   template: '',
-  standalone: true,
 })
 export class CreateComColPageComponent<TDomain extends Collection | Community> implements OnInit {
   /**

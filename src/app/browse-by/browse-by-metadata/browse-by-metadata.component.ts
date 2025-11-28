@@ -17,6 +17,31 @@ import {
   Params,
   Router,
 } from '@angular/router';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { BrowseService } from '@dspace/core/browse/browse.service';
+import { BrowseByDataType } from '@dspace/core/browse/browse-by-data-type';
+import { BrowseEntrySearchOptions } from '@dspace/core/browse/browse-entry-search-options.model';
+import {
+  SortDirection,
+  SortOptions,
+} from '@dspace/core/cache/models/sort-options.model';
+import { DSpaceObjectDataService } from '@dspace/core/data/dspace-object-data.service';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { BrowseEntry } from '@dspace/core/shared/browse-entry.model';
+import { Context } from '@dspace/core/shared/context.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { getFirstSucceededRemoteData } from '@dspace/core/shared/operators';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -31,34 +56,9 @@ import {
 } from 'rxjs/operators';
 import { ThemedBrowseByComponent } from 'src/app/shared/browse-by/themed-browse-by.component';
 
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '../../../config/app-config.interface';
 import { environment } from '../../../environments/environment';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { BrowseService } from '../../core/browse/browse.service';
-import { BrowseEntrySearchOptions } from '../../core/browse/browse-entry-search-options.model';
-import {
-  SortDirection,
-  SortOptions,
-} from '../../core/cache/models/sort-options.model';
-import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { BrowseEntry } from '../../core/shared/browse-entry.model';
-import { Context } from '../../core/shared/context.model';
-import { Item } from '../../core/shared/item.model';
-import { getFirstSucceededRemoteData } from '../../core/shared/operators';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { StartsWithType } from '../../shared/starts-with/starts-with-type';
-import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
 
 export const BBM_PAGINATION_ID = 'bbm';
 
@@ -72,7 +72,6 @@ export const BBM_PAGINATION_ID = 'bbm';
     ThemedLoadingComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * Component for browsing (items) by metadata definition.

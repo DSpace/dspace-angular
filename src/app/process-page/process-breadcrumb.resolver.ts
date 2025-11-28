@@ -4,16 +4,16 @@ import {
   ResolveFn,
   RouterStateSnapshot,
 } from '@angular/router';
+import { BreadcrumbConfig } from '@dspace/core/breadcrumbs/models/breadcrumb-config.model';
+import { ProcessDataService } from '@dspace/core/data/processes/process-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { Process } from '@dspace/core/processes/process.model';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { BreadcrumbConfig } from '../breadcrumbs/breadcrumb/breadcrumb-config.model';
-import { ProcessDataService } from '../core/data/processes/process-data.service';
-import { RemoteData } from '../core/data/remote-data';
-import { getFirstCompletedRemoteData } from '../core/shared/operators';
-import { followLink } from '../shared/utils/follow-link-config.model';
 import { ProcessBreadcrumbsService } from './process-breadcrumbs.service';
-import { Process } from './processes/process.model';
 
 /**
  * Method for resolving a process based on the parameters in the current route

@@ -17,7 +17,6 @@ import { SectionsDirective } from '../../../../../../app/submission/sections/sec
   styleUrls: ['../../../../../../app/submission/sections/container/section-container.component.scss'],
   // templateUrl: './section-container.component.html'
   templateUrl: '../../../../../../app/submission/sections/container/section-container.component.html',
-  standalone: true,
   imports: [
     AlertComponent,
     AsyncPipe,

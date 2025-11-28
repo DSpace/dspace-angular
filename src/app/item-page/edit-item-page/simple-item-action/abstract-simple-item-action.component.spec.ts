@@ -15,21 +15,21 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateModule } from '@ngx-translate/core';
-import { of } from 'rxjs';
-
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { RemoteData } from '../../../core/data/remote-data';
-import { Item } from '../../../core/shared/item.model';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { RouterStub } from '@dspace/core/testing/router.stub';
 import {
   createFailedRemoteDataObject,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../shared/remote-data.utils';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { RouterStub } from '../../../shared/testing/router.stub';
+} from '@dspace/core/utilities/remote-data.utils';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
+
 import { getItemEditRoute } from '../../item-page-routing-paths';
 import { AbstractSimpleItemActionComponent } from './abstract-simple-item-action.component';
 
@@ -40,7 +40,6 @@ import { AbstractSimpleItemActionComponent } from './abstract-simple-item-action
 @Component({
   selector: 'ds-simple-action',
   templateUrl: './abstract-simple-item-action.component.html',
-  standalone: true,
   imports: [
     CommonModule,
     FormsModule,

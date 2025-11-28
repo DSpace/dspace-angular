@@ -6,24 +6,22 @@ import {
   OnInit,
   PLATFORM_ID,
 } from '@angular/core';
+import { NotifyInfoService } from '@dspace/core/coar-notify/notify-info/notify-info.service';
+import {
+  LinkDefinition,
+  LinkHeadService,
+} from '@dspace/core/services/link-head.service';
+import { ServerResponseService } from '@dspace/core/services/server-response.service';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import {
   of,
   Subscription,
 } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-import { NotifyInfoService } from '../../core/coar-notify/notify-info/notify-info.service';
-import {
-  LinkDefinition,
-  LinkHeadService,
-} from '../../core/services/link-head.service';
-import { ServerResponseService } from '../../core/services/server-response.service';
-import { isNotEmpty } from '../../shared/empty.util';
-
 @Component({
   selector: 'ds-home-coar',
   template: '',
-  standalone: true,
 })
 export class HomeCoarComponent implements OnInit, OnDestroy {
 

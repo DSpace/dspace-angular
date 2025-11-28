@@ -7,6 +7,11 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { CommunitySearchResult } from '@dspace/core/shared/object-collection/community-search-result.model';
+import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   TranslateModule,
   TranslateService,
@@ -26,22 +31,16 @@ import { RemoteData } from '../../../../core/data/remote-data';
 import { Community } from '../../../../core/shared/community.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
-import { SearchService } from '../../../../core/shared/search/search.service';
-import { hasValue } from '../../../empty.util';
 import { HoverClassDirective } from '../../../hover-class.directive';
 import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
-import { NotificationsService } from '../../../notifications/notifications.service';
-import { CommunitySearchResult } from '../../../object-collection/shared/community-search-result.model';
 import { ListableObjectComponentLoaderComponent } from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
-import { SearchResult } from '../../../search/models/search-result.model';
-import { followLink } from '../../../utils/follow-link-config.model';
+import { SearchService } from '../../../search/search.service';
 import { DSOSelectorComponent } from '../dso-selector.component';
 
 @Component({
   selector: 'ds-authorized-community-selector',
   styleUrls: ['../dso-selector.component.scss'],
   templateUrl: '../dso-selector.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     FormsModule,

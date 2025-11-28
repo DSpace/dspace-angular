@@ -37,7 +37,6 @@ import { SearchResultListElementComponent } from '../search-result-list-element/
 @Component({
   selector: 'ds-sidebar-search-list-element',
   templateUrl: './sidebar-search-list-element.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     NgClass,

@@ -31,6 +31,45 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RelationshipDataService } from '@dspace/core/data/relationship-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { MetadataService } from '@dspace/core/metadata/metadata.service';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { Relationship } from '@dspace/core/shared/item-relationships/relationship.model';
+import { ReorderableRelationship } from '@dspace/core/shared/item-relationships/reorderable-relationship';
+import {
+  MetadataValue,
+  VIRTUAL_METADATA_PREFIX,
+} from '@dspace/core/shared/metadata.models';
+import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
+import {
+  getAllSucceededRemoteData,
+  getFirstSucceededRemoteData,
+  getFirstSucceededRemoteDataPayload,
+  getPaginatedListPayload,
+  getRemoteDataPayload,
+} from '@dspace/core/shared/operators';
+import { RelationshipOptions } from '@dspace/core/shared/relationship-options.model';
+import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
+import { SubmissionObject } from '@dspace/core/submission/models/submission-object.model';
+import { SUBMISSION_LINKS_TO_FOLLOW } from '@dspace/core/submission/resolver/submission-links-to-follow';
+import { paginatedRelationsToItems } from '@dspace/core/utilities/item-relationships-utils';
+import { itemLinksToFollow } from '@dspace/core/utilities/relation-query.utils';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+  isNotUndefined,
+} from '@dspace/shared/utils/empty.util';
+import {
   NgbModal,
   NgbModalRef,
   NgbTooltipModule,
@@ -45,6 +84,7 @@ import {
   DynamicFormControlContainerComponent,
   DynamicFormControlEvent,
   DynamicFormControlEventType,
+  DynamicFormControlMapFn,
   DynamicFormControlModel,
   DynamicFormLayout,
   DynamicFormLayoutService,
@@ -52,7 +92,6 @@ import {
   DynamicFormValidationService,
   DynamicTemplateDirective,
 } from '@ng-dynamic-forms/core';
-import { DynamicFormControlMapFn } from '@ng-dynamic-forms/core/lib/service/dynamic-form-component.service';
 import { Store } from '@ngrx/store';
 import {
   TranslateModule,
@@ -71,59 +110,18 @@ import {
   take,
 } from 'rxjs/operators';
 
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '../../../../../config/app-config.interface';
 import { AppState } from '../../../../app.reducer';
-import { PaginatedList } from '../../../../core/data/paginated-list.model';
-import { RelationshipDataService } from '../../../../core/data/relationship-data.service';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { MetadataService } from '../../../../core/metadata/metadata.service';
-import { Collection } from '../../../../core/shared/collection.model';
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
-import { Item } from '../../../../core/shared/item.model';
-import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
-import {
-  MetadataValue,
-  VIRTUAL_METADATA_PREFIX,
-} from '../../../../core/shared/metadata.models';
-import {
-  getAllSucceededRemoteData,
-  getFirstSucceededRemoteData,
-  getFirstSucceededRemoteDataPayload,
-  getPaginatedListPayload,
-  getRemoteDataPayload,
-} from '../../../../core/shared/operators';
-import { SubmissionObject } from '../../../../core/submission/models/submission-object.model';
-import { SUBMISSION_LINKS_TO_FOLLOW } from '../../../../core/submission/resolver/submission-links-to-follow';
-import { SubmissionObjectDataService } from '../../../../core/submission/submission-object-data.service';
-import { paginatedRelationsToItems } from '../../../../item-page/simple/item-types/shared/item-relationships-utils';
 import { SubmissionService } from '../../../../submission/submission.service';
-import { BtnDisabledDirective } from '../../../btn-disabled.directive';
-import {
-  hasNoValue,
-  hasValue,
-  isNotEmpty,
-  isNotUndefined,
-} from '../../../empty.util';
-import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
+import { SubmissionObjectService } from '../../../../submission/submission-object.service';
 import { SelectableListState } from '../../../object-list/selectable-list/selectable-list.reducer';
 import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
-import { SearchResult } from '../../../search/models/search-result.model';
-import { followLink } from '../../../utils/follow-link-config.model';
-import { itemLinksToFollow } from '../../../utils/relation-query.utils';
 import { FormBuilderService } from '../form-builder.service';
-import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
-import { RelationshipOptions } from '../models/relationship-options.model';
 import { DsDynamicTypeBindRelationService } from './ds-dynamic-type-bind-relation.service';
-import {
-  ExistingMetadataListElementComponent,
-  ReorderableRelationship,
-} from './existing-metadata-list-element/existing-metadata-list-element.component';
+import { ExistingMetadataListElementComponent } from './existing-metadata-list-element/existing-metadata-list-element.component';
 import { ExistingRelationListElementComponent } from './existing-relation-list-element/existing-relation-list-element.component';
 import { DYNAMIC_FORM_CONTROL_TYPE_CUSTOM_SWITCH } from './models/custom-switch/custom-switch.model';
 import { DsDynamicLookupRelationModalComponent } from './relation-lookup-modal/dynamic-lookup-relation-modal.component';
+import { NameVariantService } from './relation-lookup-modal/name-variant.service';
 
 @Component({
   selector: 'ds-dynamic-form-control-container',
@@ -132,7 +130,6 @@ import { DsDynamicLookupRelationModalComponent } from './relation-lookup-modal/d
   changeDetection: ChangeDetectionStrategy.Default,
   imports: [
     AsyncPipe,
-    BtnDisabledDirective,
     ExistingMetadataListElementComponent,
     ExistingRelationListElementComponent,
     FormsModule,
@@ -142,7 +139,6 @@ import { DsDynamicLookupRelationModalComponent } from './relation-lookup-modal/d
     ReactiveFormsModule,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class DsDynamicFormControlContainerComponent extends DynamicFormControlContainerComponent
   implements OnInit, OnChanges, OnDestroy, AfterViewInit, DoCheck {
@@ -203,10 +199,11 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     protected translateService: TranslateService,
     protected relationService: DynamicFormRelationService,
     protected modalService: NgbModal,
+    protected nameVariantService: NameVariantService,
     protected relationshipService: RelationshipDataService,
     protected selectableListService: SelectableListService,
     protected store: Store<AppState>,
-    protected submissionObjectService: SubmissionObjectDataService,
+    protected submissionObjectService: SubmissionObjectService,
     protected ref: ChangeDetectorRef,
     protected formBuilderService: FormBuilderService,
     protected submissionService: SubmissionService,
@@ -254,7 +251,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
                 const relationshipMD: MetadataValue = item.firstMetadata(relationshipOptions.metadataField, { authority: `${VIRTUAL_METADATA_PREFIX}${relationship.id}` });
                 const nameVariantMD: MetadataValue = item.firstMetadata(this.model.metadataFields, { authority: `${VIRTUAL_METADATA_PREFIX}${relationship.id}` });
                 if (hasValue(relationshipMD) && isNotEmpty(relationshipMD.value) && hasValue(nameVariantMD) && isNotEmpty(nameVariantMD.value)) {
-                  this.relationshipService.setNameVariant(this.listId, relationshipMD.value, nameVariantMD.value);
+                  this.nameVariantService.setNameVariant(this.listId, relationshipMD.value, nameVariantMD.value);
                 }
               });
             });
@@ -288,7 +285,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
               getAllSucceededRemoteData(),
               getRemoteDataPayload(),
               map((leftItem: Item) => {
-                return new ReorderableRelationship(relationship, leftItem.uuid !== item.uuid, this.store, this.model.submissionId);
+                return new ReorderableRelationship(relationship, leftItem.uuid !== item.uuid);
               }),
             ),
           ),

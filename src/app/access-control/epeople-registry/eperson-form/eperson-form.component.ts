@@ -13,6 +13,31 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { EpersonRegistrationService } from '@dspace/core/data/eperson-registration.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { RequestService } from '@dspace/core/data/request.service';
+import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
+import { GroupDataService } from '@dspace/core/eperson/group-data.service';
+import { EPerson } from '@dspace/core/eperson/models/eperson.model';
+import { Group } from '@dspace/core/eperson/models/group.model';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { NoContent } from '@dspace/core/shared/NoContent.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '@dspace/core/shared/operators';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { Registration } from '@dspace/core/shared/registration.model';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicCheckboxModel,
@@ -38,40 +63,20 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { AuthService } from '../../../core/auth/auth.service';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { EpersonRegistrationService } from '../../../core/data/eperson-registration.service';
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { RequestService } from '../../../core/data/request.service';
-import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
-import { GroupDataService } from '../../../core/eperson/group-data.service';
-import { EPerson } from '../../../core/eperson/models/eperson.model';
-import { Group } from '../../../core/eperson/models/group.model';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { NoContent } from '../../../core/shared/NoContent.model';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteData,
-  getRemoteDataPayload,
-} from '../../../core/shared/operators';
-import { PageInfo } from '../../../core/shared/page-info.model';
-import { Registration } from '../../../core/shared/registration.model';
 import { TYPE_REQUEST_FORGOT } from '../../../register-email-form/register-email-form.component';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { ConfirmationModalComponent } from '../../../shared/confirmation-modal/confirmation-modal.component';
-import { hasValue } from '../../../shared/empty.util';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { HasNoValuePipe } from '../../../shared/utils/has-no-value.pipe';
-import { getEPersonsRoute } from '../../access-control-routing-paths';
+import {
+  getEPersonsRoute,
+  getGroupEditPageRouterLink,
+} from '../../access-control-routing-paths';
+import { GroupRegistryService } from '../../group-registry/group-registry.service';
+import { EpeopleRegistryService } from '../epeople-registry.service';
 import { ValidateEmailNotTaken } from './validators/email-taken.validator';
 
 @Component({
@@ -87,7 +92,6 @@ import { ValidateEmailNotTaken } from './validators/email-taken.validator';
     ThemedLoadingComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * A form used for creating and editing EPeople
@@ -236,10 +240,14 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
    */
   emailValueChangeSubscribe: Subscription;
 
+  protected readonly getGroupEditPageRouterLink = getGroupEditPageRouterLink;
+
   constructor(
     protected changeDetectorRef: ChangeDetectorRef,
     public epersonService: EPersonDataService,
+    public epeopleRegistryService: EpeopleRegistryService,
     public groupsDataService: GroupDataService,
+    public groupRegistryService: GroupRegistryService,
     private formBuilderService: FormBuilderService,
     private translateService: TranslateService,
     private notificationsService: NotificationsService,
@@ -256,7 +264,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.activeEPerson$ = this.epersonService.getActiveEPerson();
+    this.activeEPerson$ = this.epeopleRegistryService.getActiveEPerson();
     this.subs.push(this.activeEPerson$.subscribe((eperson: EPerson) => {
       this.epersonInitial = eperson;
       if (hasValue(eperson)) {
@@ -274,7 +282,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
   initialisePage() {
     if (this.route.snapshot.params.id) {
       this.subs.push(this.epersonService.findById(this.route.snapshot.params.id).subscribe((ePersonRD: RemoteData<EPerson>) => {
-        this.epersonService.editEPerson(ePersonRD.payload);
+        this.epeopleRegistryService.editEPerson(ePersonRD.payload);
       }));
     }
     this.firstName = new DynamicInputModel({
@@ -393,7 +401,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
    * Stop editing the currently selected eperson
    */
   onCancel() {
-    this.epersonService.cancelEditEPerson();
+    this.epeopleRegistryService.cancelEditEPerson();
     this.cancelForm.emit();
     void this.router.navigate([getEPersonsRoute()]);
   }
@@ -632,4 +640,5 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
       this.groups$ = this.groupsDataService.findListByHref(eperson._links.groups.href, options);
     }));
   }
+
 }

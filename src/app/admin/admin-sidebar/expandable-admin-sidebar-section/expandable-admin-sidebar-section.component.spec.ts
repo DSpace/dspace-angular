@@ -7,15 +7,15 @@ import {
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
+import { CSSVariableServiceStub } from '@dspace/core/testing/css-variable-service.stub';
+import { RouterStub } from '@dspace/core/testing/router.stub';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { MenuService } from '../../../shared/menu/menu.service';
 import { MenuItemModels } from '../../../shared/menu/menu-section.model';
+import { MenuServiceStub } from '../../../shared/menu/menu-service.stub';
 import { CSSVariableService } from '../../../shared/sass-helper/css-variable.service';
-import { CSSVariableServiceStub } from '../../../shared/testing/css-variable-service.stub';
-import { MenuServiceStub } from '../../../shared/testing/menu-service.stub';
-import { RouterStub } from '../../../shared/testing/router.stub';
 import { ExpandableAdminSidebarSectionComponent } from './expandable-admin-sidebar-section.component';
 
 describe('ExpandableAdminSidebarSectionComponent', () => {
@@ -114,7 +114,6 @@ describe('ExpandableAdminSidebarSectionComponent', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
-  standalone: true,
 })
 class TestComponent {
 }

@@ -1,14 +1,18 @@
-import { DOCUMENT } from '@angular/common';
 import {
+  DOCUMENT,
   Inject,
+  inject,
   Injectable,
 } from '@angular/core';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
 import {
   BehaviorSubject,
   Observable,
   Subject,
 } from 'rxjs';
-import { environment } from 'src/environments/environment';
 
 import {
   NativeWindowRef,
@@ -26,6 +30,7 @@ import {
  * Provide the MathService for CSR
  */
 export class ClientMathService extends MathService {
+  protected readonly appConfig: AppConfig = inject(APP_CONFIG);
 
   protected isReady$: Subject<boolean>;
 
@@ -72,7 +77,7 @@ export class ClientMathService extends MathService {
    * @param config The configuration object for the script
    */
   protected async registerMathJaxAsync(config: MathJaxConfig): Promise<any> {
-    if (environment.markdown.mathjax) {
+    if (this.appConfig.markdown.mathjax) {
       return new Promise<void>((resolve, reject) => {
 
         const optionsScript: HTMLScriptElement = this._document.createElement('script');
@@ -87,6 +92,7 @@ export class ClientMathService extends MathService {
         script.crossOrigin = 'anonymous';
         script.async = true;
         script.onload = () => resolve();
+        // eslint-disable-next-line @typescript-eslint/prefer-promise-reject-errors
         script.onerror = error => reject(error);
         this._document.head.appendChild(script);
       });
@@ -107,7 +113,7 @@ export class ClientMathService extends MathService {
    * @param element The element to render with MathJax
    */
   render(element: HTMLElement) {
-    if (environment.markdown.mathjax) {
+    if (this.appConfig.markdown.mathjax) {
       return (window as any).MathJax.typesetPromise([element]) as Promise<any>;
     }
   }

@@ -4,6 +4,7 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import {
   Store,
   StoreModule,
@@ -23,16 +24,15 @@ import {
 } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { storeModuleConfig } from '../../app.reducer';
-import { getMockObjectCacheService } from '../../shared/mocks/object-cache.service.mock';
-import {
-  defaultUUID,
-  getMockUUIDService,
-} from '../../shared/mocks/uuid.service.mock';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { coreReducers } from '../core.reducers';
 import { CoreState } from '../core-state.model';
 import { UUIDService } from '../shared/uuid.service';
+import { getMockObjectCacheService } from '../testing/object-cache.service.mock';
+import {
+  defaultUUID,
+  getMockUUIDService,
+} from '../testing/uuid.service.mock';
 import {
   RequestConfigureAction,
   RequestExecuteAction,
@@ -81,36 +81,50 @@ describe('RequestService', () => {
     },
   };
 
+  const envConfig = {
+    rest: {
+      baseUrl: 'https://rest.api/',
+    },
+    cache: {
+      msToLive: {
+        default: 15 * 60 * 1000,
+      },
+    },
+  };
+
+  const storeModuleConfig = {
+    runtimeChecks: {
+      strictStateImmutability: true,
+      strictActionImmutability: true,
+    },
+  };
+
   beforeEach(waitForAsync(() => {
 
+    objectCache = getMockObjectCacheService();
+    (objectCache.hasByHref as any).and.returnValue(false);
+
+    uuidService = getMockUUIDService();
     TestBed.configureTestingModule({
       imports: [
         StoreModule.forRoot(coreReducers, storeModuleConfig),
       ],
       providers: [
         provideMockStore({ initialState }),
-        { provide: RequestService, useValue: service },
+        { provide: ObjectCacheService, useValue: objectCache },
+        { provide: UUIDService, useValue: uuidService },
+        { provide: APP_CONFIG, useValue: envConfig  },
+        RequestService,
       ],
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    scheduler = getTestScheduler();
-
-    objectCache = getMockObjectCacheService();
-    (objectCache.hasByHref as any).and.returnValue(false);
-
-    uuidService = getMockUUIDService();
-
     store = TestBed.inject(Store);
     mockStore = store as MockStore<CoreState>;
     mockStore.setState(initialState);
-
-    service = new RequestService(
-      objectCache,
-      uuidService,
-      store,
-    );
+    scheduler = getTestScheduler();
+    service = TestBed.inject(RequestService);
     serviceAsAny = service as any;
   });
 
@@ -690,7 +704,7 @@ describe('RequestService', () => {
       service.setStaleByHref(href).subscribe(() => {
         const requestStaleAction = new RequestStaleAction(uuid);
         requestStaleAction.lastUpdated = jasmine.any(Number) as any;
-        expect(store.dispatch).toHaveBeenCalledWith(requestStaleAction);
+        expect(store.dispatch as jasmine.Spy).toHaveBeenCalledWith(requestStaleAction);
         done();
       });
     });

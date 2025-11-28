@@ -11,12 +11,7 @@ import { ComcolPageBrowseByComponent } from './comcol-page-browse-by.component';
  */
 @Component({
   selector: 'ds-comcol-page-browse-by',
-  styleUrls: [],
   templateUrl: '../../theme-support/themed.component.html',
-  standalone: true,
-  imports: [
-    ComcolPageBrowseByComponent,
-  ],
 })
 export class ThemedComcolPageBrowseByComponent extends ThemedComponent<ComcolPageBrowseByComponent> {
   /**

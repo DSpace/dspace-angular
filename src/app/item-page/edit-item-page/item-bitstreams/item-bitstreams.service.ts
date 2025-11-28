@@ -1,4 +1,28 @@
 import { Injectable } from '@angular/core';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
+import { BundleDataService } from '@dspace/core/data/bundle-data.service';
+import { FieldChangeType } from '@dspace/core/data/object-updates/field-change-type.model';
+import { FieldUpdate } from '@dspace/core/data/object-updates/field-update.model';
+import { FieldUpdates } from '@dspace/core/data/object-updates/field-updates.model';
+import { ObjectUpdatesService } from '@dspace/core/data/object-updates/object-updates.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { RequestService } from '@dspace/core/data/request.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { getBitstreamDownloadRoute } from '@dspace/core/router/utils/dso-route.utils';
+import { Bitstream } from '@dspace/core/shared/bitstream.model';
+import { BitstreamFormat } from '@dspace/core/shared/bitstream-format.model';
+import { Bundle } from '@dspace/core/shared/bundle.model';
+import { NoContent } from '@dspace/core/shared/NoContent.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '@dspace/core/shared/operators';
+import {
+  hasNoValue,
+  hasValue,
+} from '@dspace/shared/utils/empty.util';
 import { TranslateService } from '@ngx-translate/core';
 import { MoveOperation } from 'fast-json-patch';
 import {
@@ -13,31 +37,7 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { getBitstreamDownloadRoute } from '../../../app-routing-paths';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
-import { BundleDataService } from '../../../core/data/bundle-data.service';
-import { FieldChangeType } from '../../../core/data/object-updates/field-change-type.model';
-import { FieldUpdate } from '../../../core/data/object-updates/field-update.model';
-import { FieldUpdates } from '../../../core/data/object-updates/field-updates.model';
-import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
-import { RemoteData } from '../../../core/data/remote-data';
-import { RequestService } from '../../../core/data/request.service';
-import { Bitstream } from '../../../core/shared/bitstream.model';
-import { BitstreamFormat } from '../../../core/shared/bitstream-format.model';
-import { Bundle } from '../../../core/shared/bundle.model';
-import { NoContent } from '../../../core/shared/NoContent.model';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
-} from '../../../core/shared/operators';
-import {
-  hasNoValue,
-  hasValue,
-} from '../../../shared/empty.util';
 import { LiveRegionService } from '../../../shared/live-region/live-region.service';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { ResponsiveColumnSizes } from '../../../shared/responsive-table-sizes/responsive-column-sizes';
 import { ResponsiveTableSizes } from '../../../shared/responsive-table-sizes/responsive-table-sizes';
 

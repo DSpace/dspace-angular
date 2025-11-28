@@ -1,14 +1,13 @@
 
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { VALUE_LIST_BROWSE_DEFINITION } from '@dspace/core/shared/value-list-browse-definition.resource-type';
 
-import { VALUE_LIST_BROWSE_DEFINITION } from '../../../../core/shared/value-list-browse-definition.resource-type';
 import { MetadataRepresentationListElementComponent } from '../metadata-representation-list-element.component';
 
 @Component({
   selector: 'ds-browse-link-metadata-list-element',
   templateUrl: './browse-link-metadata-list-element.component.html',
-  standalone: true,
   imports: [
     RouterLink,
   ],
