@@ -13,7 +13,6 @@ import { ThemedSearchComponent } from '../shared/search/themed-search.component'
       useClass: SearchConfigurationService,
     },
   ],
-  standalone: true,
   imports: [
     ThemedSearchComponent,
   ],

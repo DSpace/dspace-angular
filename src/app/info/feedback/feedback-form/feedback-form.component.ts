@@ -38,7 +38,6 @@ import { ErrorComponent } from '../../../shared/error/error.component';
   selector: 'ds-base-feedback-form',
   templateUrl: './feedback-form.component.html',
   styleUrls: ['./feedback-form.component.scss'],
-  standalone: true,
   imports: [
     BtnDisabledDirective,
     ErrorComponent,

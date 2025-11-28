@@ -29,7 +29,6 @@ import { ThemedThumbnailComponent } from '../../../../../thumbnail/themed-thumbn
   selector: 'ds-person-search-result-list-element',
   styleUrls: ['./person-search-result-list-element.component.scss'],
   templateUrl: './person-search-result-list-element.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     NgClass,

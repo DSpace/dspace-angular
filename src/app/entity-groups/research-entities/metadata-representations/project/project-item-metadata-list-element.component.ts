@@ -9,7 +9,6 @@ import { TruncatableComponent } from '../../../../shared/truncatable/truncatable
 @Component({
   selector: 'ds-project-item-metadata-list-element',
   templateUrl: './project-item-metadata-list-element.component.html',
-  standalone: true,
   imports: [
     NgbTooltipModule,
     RouterLink,

@@ -62,7 +62,6 @@ import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
     ThemedSearchComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class BulkAccessBrowseComponent implements OnInit, OnDestroy {
 

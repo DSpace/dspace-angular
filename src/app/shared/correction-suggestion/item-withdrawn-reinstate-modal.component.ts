@@ -23,7 +23,6 @@ import { ThemedLoadingComponent } from '../loading/themed-loading.component';
     ThemedLoadingComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * Represents a modal component for withdrawing or reinstating an item.

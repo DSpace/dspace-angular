@@ -34,7 +34,6 @@ import { QueryPredicate } from '../query-predicate.model';
   selector: 'ds-filtered-items-export-csv',
   styleUrls: ['./filtered-items-export-csv.component.scss'],
   templateUrl: './filtered-items-export-csv.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     NgbTooltipModule,

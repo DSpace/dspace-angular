@@ -19,7 +19,6 @@ import { BreadcrumbsService } from './breadcrumbs.service';
   selector: 'ds-base-breadcrumbs',
   templateUrl: './breadcrumbs.component.html',
   styleUrls: ['./breadcrumbs.component.scss'],
-  standalone: true,
   imports: [
     AsyncPipe,
     NgbTooltipModule,

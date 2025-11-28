@@ -7,10 +7,7 @@ import {
 /**
  * The auth state.
  */
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface HistoryState extends Array<string> {
-
-}
+export type HistoryState = Array<string>;
 
 /**
  * The initial state.

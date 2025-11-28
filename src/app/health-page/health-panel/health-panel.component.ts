@@ -22,7 +22,6 @@ import { HealthStatusComponent } from './health-status/health-status.component';
   selector: 'ds-health-panel',
   templateUrl: './health-panel.component.html',
   styleUrls: ['./health-panel.component.scss'],
-  standalone: true,
   imports: [
     HealthComponentComponent,
     HealthStatusComponent,

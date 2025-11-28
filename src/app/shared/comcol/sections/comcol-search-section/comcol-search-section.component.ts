@@ -40,7 +40,6 @@ import { ThemedSearchComponent } from '../../../search/themed-search.component';
     AsyncPipe,
     ThemedSearchComponent,
   ],
-  standalone: true,
 })
 export class ComcolSearchSectionComponent implements OnInit {
 
