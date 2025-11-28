@@ -1,4 +1,3 @@
-
 import {
   ChangeDetectorRef,
   Component,
@@ -27,8 +26,10 @@ import {
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   DYNAMIC_FORM_CONTROL_TYPE_DATEPICKER,
+  DynamicDateControlValue,
   DynamicDatePickerModel,
   DynamicFormArrayModel,
+  DynamicFormControlCondition,
   DynamicFormControlModel,
   DynamicFormGroupModel,
   DynamicFormLayout,
@@ -37,8 +38,6 @@ import {
   MATCH_ENABLED,
   OR_OPERATOR,
 } from '@ng-dynamic-forms/core';
-import { DynamicDateControlValue } from '@ng-dynamic-forms/core/lib/model/dynamic-date-control.model';
-import { DynamicFormControlCondition } from '@ng-dynamic-forms/core/lib/model/misc/dynamic-form-control-relation.model';
 import {
   TranslateModule,
   TranslateService,
