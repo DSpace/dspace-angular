@@ -17,11 +17,19 @@ import {
   DynamicCheckboxGroupModel,
 } from '../model/checkbox/dynamic-checkbox-group.model';
 import {
+  DYNAMIC_FORM_CONTROL_TYPE_COLORPICKER,
+  DynamicColorPickerModel,
+} from '../model/colorpicker/dynamic-colorpicker.model';
+import {
   DYNAMIC_FORM_CONTROL_TYPE_DATEPICKER,
   DynamicDatePickerModel,
 } from '../model/datepicker/dynamic-datepicker.model';
 import { DynamicFormControlModel } from '../model/dynamic-form-control.model';
 import { DynamicFormValueControlModel } from '../model/dynamic-form-value-control.model';
+import {
+  DYNAMIC_FORM_CONTROL_TYPE_EDITOR,
+  DynamicEditorModel,
+} from '../model/editor/dynamic-editor.model';
 import {
   DYNAMIC_FORM_CONTROL_TYPE_FILE_UPLOAD,
   DynamicFileUploadModel,
@@ -51,9 +59,17 @@ import {
   DynamicRadioGroupModel,
 } from '../model/radio/dynamic-radio-group.model';
 import {
+  DYNAMIC_FORM_CONTROL_TYPE_RATING,
+  DynamicRatingModel,
+} from '../model/rating/dynamic-rating.model';
+import {
   DYNAMIC_FORM_CONTROL_TYPE_SELECT,
   DynamicSelectModel,
 } from '../model/select/dynamic-select.model';
+import {
+  DYNAMIC_FORM_CONTROL_TYPE_SLIDER,
+  DynamicSliderModel,
+} from '../model/slider/dynamic-slider.model';
 import {
   DYNAMIC_FORM_CONTROL_TYPE_SWITCH,
   DynamicSwitchModel,
@@ -334,8 +350,16 @@ export class DynamicFormService {
           formModel.push(new DynamicCheckboxGroupModel(model, layout));
           break;
 
+        case DYNAMIC_FORM_CONTROL_TYPE_COLORPICKER:
+          formModel.push(new DynamicColorPickerModel(model, layout));
+          break;
+
         case DYNAMIC_FORM_CONTROL_TYPE_DATEPICKER:
           formModel.push(new DynamicDatePickerModel(model, layout));
+          break;
+
+        case DYNAMIC_FORM_CONTROL_TYPE_EDITOR:
+          formModel.push(new DynamicEditorModel(model, layout));
           break;
 
         case DYNAMIC_FORM_CONTROL_TYPE_FILE_UPLOAD:
@@ -356,8 +380,16 @@ export class DynamicFormService {
           formModel.push(new DynamicRadioGroupModel(model, layout));
           break;
 
+        case DYNAMIC_FORM_CONTROL_TYPE_RATING:
+          formModel.push(new DynamicRatingModel(model, layout));
+          break;
+
         case DYNAMIC_FORM_CONTROL_TYPE_SELECT:
           formModel.push(new DynamicSelectModel(model, layout));
+          break;
+
+        case DYNAMIC_FORM_CONTROL_TYPE_SLIDER:
+          formModel.push(new DynamicSliderModel(model, layout));
           break;
 
 
