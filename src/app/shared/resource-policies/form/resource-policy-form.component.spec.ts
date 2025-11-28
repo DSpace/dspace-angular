@@ -42,7 +42,14 @@ import {
   stringToNgbDateStruct,
 } from '@dspace/shared/utils/date.util';
 import { isNotEmptyOperator } from '@dspace/shared/utils/empty.util';
-import { NgbNav, NgbNavContent, NgbNavItem, NgbNavLink, NgbNavOutlet } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbNav,
+  NgbNavContent,
+  NgbNavItem,
+  NgbNavLink,
+  NgbNavOutlet,
+} from '@ng-bootstrap/ng-bootstrap';
+import { DYNAMIC_FORM_CONTROL_MAP_FN } from '@ng-dynamic-forms/core/service/dynamic-form-component.service';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
@@ -66,7 +73,6 @@ import {
   ResourcePolicyEvent,
   ResourcePolicyFormComponent,
 } from './resource-policy-form.component';
-import { DYNAMIC_FORM_CONTROL_MAP_FN } from "@ng-dynamic-forms/core/service/dynamic-form-component.service";
 
 export const mockResourcePolicyFormData = {
   name: [
@@ -498,11 +504,11 @@ describe('ResourcePolicyFormComponent test suite', () => {
   template: ``,
   imports: [
     FormsModule,
-    NgbNavLink,
-    NgbNavItem,
-    NgbNavContent,
-    NgbNavOutlet,
     NgbNav,
+    NgbNavContent,
+    NgbNavItem,
+    NgbNavLink,
+    NgbNavOutlet,
     ReactiveFormsModule,
   ],
 })

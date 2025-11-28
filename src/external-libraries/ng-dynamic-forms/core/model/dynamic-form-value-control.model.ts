@@ -1,8 +1,18 @@
-import { BehaviorSubject, Observable } from "rxjs";
-import { DynamicFormControlModel, DynamicFormControlModelConfig } from "./dynamic-form-control.model";
-import { DynamicFormControlLayout } from "./misc/dynamic-form-control-layout.model";
-import { serializable } from "../decorator/serializable.decorator";
-import { isBoolean, isObject } from "../utils/core.utils";
+import {
+  BehaviorSubject,
+  Observable,
+} from 'rxjs';
+
+import { serializable } from '../decorator/serializable.decorator';
+import {
+  isBoolean,
+  isObject,
+} from '../utils/core.utils';
+import {
+  DynamicFormControlModel,
+  DynamicFormControlModelConfig,
+} from './dynamic-form-control.model';
+import { DynamicFormControlLayout } from './misc/dynamic-form-control-layout.model';
 
 export interface DynamicFormValueControlModelConfig<T> extends DynamicFormControlModelConfig {
     additional?: { [key: string]: any };
@@ -17,35 +27,35 @@ export abstract class DynamicFormValueControlModel<T> extends DynamicFormControl
     @serializable() hint: string | null;
     @serializable() required: boolean;
     @serializable() tabIndex: number | null;
-    @serializable("value") private _value: T | null;
+    @serializable('value') private _value: T | null;
 
     private readonly value$: BehaviorSubject<T | null>;
 
     readonly valueChanges: Observable<T | null>;
 
     protected constructor(config: DynamicFormValueControlModelConfig<T>, layout?: DynamicFormControlLayout) {
-        super(config, layout);
+      super(config, layout);
 
-        this.additional = isObject(config.additional) ? config.additional : null;
-        this.hint = config.hint ?? null;
-        this.required = isBoolean(config.required) ? config.required : false;
-        this.tabIndex = config.tabIndex ?? null;
+      this.additional = isObject(config.additional) ? config.additional : null;
+      this.hint = config.hint ?? null;
+      this.required = isBoolean(config.required) ? config.required : false;
+      this.tabIndex = config.tabIndex ?? null;
 
-        this._value = config.value ?? null;
-        this.value$ = new BehaviorSubject(this._value);
-        this.value$.subscribe(value => this._value = value);
-        this.valueChanges = this.value$.asObservable();
+      this._value = config.value ?? null;
+      this.value$ = new BehaviorSubject(this._value);
+      this.value$.subscribe(value => this._value = value);
+      this.valueChanges = this.value$.asObservable();
     }
 
     get value(): T | null {
-        return this.value$.getValue();
+      return this.value$.getValue();
     }
 
     set value(value: T | null) {
-        this.value$.next(value);
+      this.value$.next(value);
     }
 
-    getAdditional(key: string, defaultValue?: any | null): any {
-        return this.additional !== null && this.additional.hasOwnProperty(key) ? this.additional[key] : defaultValue;
+    getAdditional(key: string, defaultValue?: any): any {
+      return this.additional !== null && this.additional.hasOwnProperty(key) ? this.additional[key] : defaultValue;
     }
 }

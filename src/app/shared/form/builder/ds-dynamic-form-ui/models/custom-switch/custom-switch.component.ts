@@ -9,14 +9,12 @@ import {
   ReactiveFormsModule,
   UntypedFormGroup,
 } from '@angular/forms';
+import { DynamicFormLayoutService } from '@ng-dynamic-forms/core/service/dynamic-form-layout.service';
+import { DynamicFormValidationService } from '@ng-dynamic-forms/core/service/dynamic-form-validation.service';
+import { DynamicNGBootstrapCheckboxComponent } from '@ng-dynamic-forms/ui-ng-bootstrap/checkbox/dynamic-ng-bootstrap-checkbox.component';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { DynamicCustomSwitchModel } from './custom-switch.model';
-import { DynamicFormLayoutService } from "@ng-dynamic-forms/core/service/dynamic-form-layout.service";
-import { DynamicFormValidationService } from "@ng-dynamic-forms/core/service/dynamic-form-validation.service";
-import {
-  DynamicNGBootstrapCheckboxComponent
-} from "@ng-dynamic-forms/ui-ng-bootstrap/checkbox/dynamic-ng-bootstrap-checkbox.component";
 
 @Component({
   selector: 'ds-custom-switch',

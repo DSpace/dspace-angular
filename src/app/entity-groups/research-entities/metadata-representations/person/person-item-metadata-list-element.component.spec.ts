@@ -1,6 +1,6 @@
 import {
   ChangeDetectionStrategy,
-  NO_ERRORS_SCHEMA, TemplateRef,
+  NO_ERRORS_SCHEMA,
 } from '@angular/core';
 import {
   ComponentFixture,
@@ -12,7 +12,10 @@ import { RouterLink } from '@angular/router';
 import { Item } from '@dspace/core/shared/item.model';
 import { MetadataValue } from '@dspace/core/shared/metadata.models';
 import { ItemMetadataRepresentation } from '@dspace/core/shared/metadata-representation/item/item-metadata-representation.model';
-import { NgbModule, NgbTooltip, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbModule,
+  NgbTooltip,
+} from '@ng-bootstrap/ng-bootstrap';
 
 import { TruncatableComponent } from '../../../../shared/truncatable/truncatable.component';
 import { PersonItemMetadataListElementComponent } from './person-item-metadata-list-element.component';

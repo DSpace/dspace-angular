@@ -39,6 +39,10 @@ import { PageInfo } from '@dspace/core/shared/page-info.model';
 import { Registration } from '@dspace/core/shared/registration.model';
 import { hasValue } from '@dspace/shared/utils/empty.util';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { DynamicCheckboxModel } from '@ng-dynamic-forms/core/model/checkbox/dynamic-checkbox.model';
+import { DynamicFormControlModel } from '@ng-dynamic-forms/core/model/dynamic-form-control.model';
+import { DynamicInputModel } from '@ng-dynamic-forms/core/model/input/dynamic-input.model';
+import { DynamicFormLayout } from '@ng-dynamic-forms/core/service/dynamic-form-layout.service';
 import {
   TranslateModule,
   TranslateService,
@@ -72,10 +76,6 @@ import {
 import { GroupRegistryService } from '../../group-registry/group-registry.service';
 import { EpeopleRegistryService } from '../epeople-registry.service';
 import { ValidateEmailNotTaken } from './validators/email-taken.validator';
-import { DynamicInputModel } from "@ng-dynamic-forms/core/model/input/dynamic-input.model";
-import { DynamicCheckboxModel } from "@ng-dynamic-forms/core/model/checkbox/dynamic-checkbox.model";
-import { DynamicFormControlModel } from "@ng-dynamic-forms/core/model/dynamic-form-control.model";
-import { DynamicFormLayout } from "@ng-dynamic-forms/core/service/dynamic-form-layout.service";
 
 @Component({
   selector: 'ds-eperson-form',

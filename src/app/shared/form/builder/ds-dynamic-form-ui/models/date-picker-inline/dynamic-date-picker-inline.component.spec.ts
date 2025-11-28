@@ -13,13 +13,12 @@ import {
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
-
+import { DynamicListDirective } from '@ng-dynamic-forms/core/directive/dynamic-list.directive';
+import { DynamicTemplateDirective } from '@ng-dynamic-forms/core/directive/dynamic-template.directive';
+import { DynamicDatePickerModel } from '@ng-dynamic-forms/core/model/datepicker/dynamic-datepicker.model';
+import { DynamicFormService } from '@ng-dynamic-forms/core/service/dynamic-form.service';
 
 import { DsDatePickerInlineComponent } from './dynamic-date-picker-inline.component';
-import { DynamicDatePickerModel } from "@ng-dynamic-forms/core/model/datepicker/dynamic-datepicker.model";
-import { DynamicListDirective } from "@ng-dynamic-forms/core/directive/dynamic-list.directive";
-import { DynamicTemplateDirective } from "@ng-dynamic-forms/core/directive/dynamic-template.directive";
-import { DynamicFormService } from "@ng-dynamic-forms/core/service/dynamic-form.service";
 
 describe('DsDatePickerInlineComponent test suite', () => {
 

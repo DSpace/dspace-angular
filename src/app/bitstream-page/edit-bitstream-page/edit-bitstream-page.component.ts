@@ -38,6 +38,11 @@ import {
   isEmpty,
   isNotEmpty,
 } from '@dspace/shared/utils/empty.util';
+import { DynamicFormControlModel } from '@ng-dynamic-forms/core/model/dynamic-form-control.model';
+import { DynamicFormGroupModel } from '@ng-dynamic-forms/core/model/form-group/dynamic-form-group.model';
+import { DynamicInputModel } from '@ng-dynamic-forms/core/model/input/dynamic-input.model';
+import { DynamicFormService } from '@ng-dynamic-forms/core/service/dynamic-form.service';
+import { DynamicFormLayout } from '@ng-dynamic-forms/core/service/dynamic-form-layout.service';
 import {
   TranslateModule,
   TranslateService,
@@ -69,11 +74,6 @@ import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.comp
 import { FileSizePipe } from '../../shared/utils/file-size-pipe';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { ThemedThumbnailComponent } from '../../thumbnail/themed-thumbnail.component';
-import { DynamicInputModel } from "@ng-dynamic-forms/core/model/input/dynamic-input.model";
-import { DynamicFormGroupModel } from "@ng-dynamic-forms/core/model/form-group/dynamic-form-group.model";
-import { DynamicFormControlModel } from "@ng-dynamic-forms/core/model/dynamic-form-control.model";
-import { DynamicFormService } from "@ng-dynamic-forms/core/service/dynamic-form.service";
-import { DynamicFormLayout } from "@ng-dynamic-forms/core/service/dynamic-form-layout.service";
 
 @Component({
   selector: 'ds-base-edit-bitstream-page',

@@ -22,6 +22,19 @@ import {
 } from '@angular/forms';
 import { Relationship } from '@dspace/core/shared/item-relationships/relationship.model';
 import { hasValue } from '@dspace/shared/utils/empty.util';
+import { DynamicFormArrayComponent } from '@ng-dynamic-forms/core/component/dynamic-form-array.component';
+import {
+  DynamicFormControlCustomEvent,
+  DynamicFormControlEvent,
+} from '@ng-dynamic-forms/core/component/dynamic-form-control-event';
+import { DynamicTemplateDirective } from '@ng-dynamic-forms/core/directive/dynamic-template.directive';
+import { DynamicFormControlModel } from '@ng-dynamic-forms/core/model/dynamic-form-control.model';
+import { DynamicFormControlLayout } from '@ng-dynamic-forms/core/model/misc/dynamic-form-control-layout.model';
+import {
+  DynamicFormLayout,
+  DynamicFormLayoutService,
+} from '@ng-dynamic-forms/core/service/dynamic-form-layout.service';
+import { DynamicFormValidationService } from '@ng-dynamic-forms/core/service/dynamic-form-validation.service';
 import {
   TranslateModule,
   TranslateService,
@@ -30,19 +43,6 @@ import {
 import { LiveRegionService } from '../../../../../live-region/live-region.service';
 import { DsDynamicFormControlContainerComponent } from '../../ds-dynamic-form-control-container.component';
 import { DynamicRowArrayModel } from '../ds-dynamic-row-array-model';
-import { DynamicFormArrayComponent } from "@ng-dynamic-forms/core/component/dynamic-form-array.component";
-import { DynamicFormControlModel } from "@ng-dynamic-forms/core/model/dynamic-form-control.model";
-import {
-  DynamicFormLayout,
-  DynamicFormLayoutService,
-} from "@ng-dynamic-forms/core/service/dynamic-form-layout.service";
-import { DynamicFormControlLayout } from "@ng-dynamic-forms/core/model/misc/dynamic-form-control-layout.model";
-import { DynamicTemplateDirective } from "@ng-dynamic-forms/core/directive/dynamic-template.directive";
-import {
-  DynamicFormControlCustomEvent,
-  DynamicFormControlEvent,
-} from "@ng-dynamic-forms/core/component/dynamic-form-control-event";
-import { DynamicFormValidationService } from "@ng-dynamic-forms/core/service/dynamic-form-validation.service";
 
 @Component({
   selector: 'ds-dynamic-form-array',

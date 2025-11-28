@@ -1,9 +1,13 @@
-import { Component, TemplateRef, ViewChild } from '@angular/core';
+import {
+  Component,
+  TemplateRef,
+  ViewChild,
+} from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { ItemMetadataRepresentationListElementComponent } from '../../../../shared/object-list/metadata-representation-list-element/item/item-metadata-representation-list-element.component';
 import { TruncatableComponent } from '../../../../shared/truncatable/truncatable.component';
-import { NgbTooltipModule } from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'ds-org-unit-item-metadata-list-element',

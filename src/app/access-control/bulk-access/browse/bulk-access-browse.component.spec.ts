@@ -8,8 +8,12 @@ import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
 import { PageInfo } from '@dspace/core/shared/page-info.model';
 import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import {
-  NgbAccordionModule, NgbNav, NgbNavContent, NgbNavItem, NgbNavLink,
-  NgbNavModule, NgbNavOutlet,
+  NgbAccordionModule,
+  NgbNav,
+  NgbNavContent,
+  NgbNavItem,
+  NgbNavLink,
+  NgbNavOutlet,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';

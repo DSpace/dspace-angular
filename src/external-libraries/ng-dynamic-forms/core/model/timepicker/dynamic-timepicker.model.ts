@@ -1,9 +1,12 @@
-import { DynamicDateControlModel, DynamicDateControlModelConfig } from "../dynamic-date-control.model";
-import { DynamicFormControlLayout } from "../misc/dynamic-form-control-layout.model";
-import { serializable } from "../../decorator/serializable.decorator";
-import { isBoolean } from "../../utils/core.utils";
+import { serializable } from '../../decorator/serializable.decorator';
+import { isBoolean } from '../../utils/core.utils';
+import {
+  DynamicDateControlModel,
+  DynamicDateControlModelConfig,
+} from '../dynamic-date-control.model';
+import { DynamicFormControlLayout } from '../misc/dynamic-form-control-layout.model';
 
-export const DYNAMIC_FORM_CONTROL_TYPE_TIMEPICKER = "TIMEPICKER";
+export const DYNAMIC_FORM_CONTROL_TYPE_TIMEPICKER = 'TIMEPICKER';
 
 export interface DynamicTimePickerModelConfig extends DynamicDateControlModelConfig {
     meridian?: boolean;
@@ -17,9 +20,9 @@ export class DynamicTimePickerModel extends DynamicDateControlModel {
     @serializable() readonly type: string = DYNAMIC_FORM_CONTROL_TYPE_TIMEPICKER;
 
     constructor(config: DynamicTimePickerModelConfig, layout?: DynamicFormControlLayout) {
-        super(config, layout);
+      super(config, layout);
 
-        this.meridian = isBoolean(config.meridian) ? config.meridian : false;
-        this.showSeconds = isBoolean(config.showSeconds) ? config.showSeconds : false;
+      this.meridian = isBoolean(config.meridian) ? config.meridian : false;
+      this.showSeconds = isBoolean(config.showSeconds) ? config.showSeconds : false;
     }
 }

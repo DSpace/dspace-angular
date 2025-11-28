@@ -1,10 +1,13 @@
-import { DynamicDatePickerModelConfig } from "@ng-dynamic-forms/core/model/datepicker/dynamic-datepicker.model";
-import { DynamicFormArrayModelConfig } from "@ng-dynamic-forms/core/model/form-array/dynamic-form-array.model";
-import { DynamicFormGroupModelConfig } from "@ng-dynamic-forms/core/model/form-group/dynamic-form-group.model";
-import { DynamicFormControlLayout } from "@ng-dynamic-forms/core/model/misc/dynamic-form-control-layout.model";
-import { DynamicSelectModelConfig } from "@ng-dynamic-forms/core/model/select/dynamic-select.model";
-import { DynamicSwitchModelConfig } from "@ng-dynamic-forms/core/model/switch/dynamic-switch.model";
-import { MATCH_ENABLED, OR_OPERATOR } from "@ng-dynamic-forms/core/service/dynamic-form-relation-matchers";
+import { DynamicDatePickerModelConfig } from '@ng-dynamic-forms/core/model/datepicker/dynamic-datepicker.model';
+import { DynamicFormArrayModelConfig } from '@ng-dynamic-forms/core/model/form-array/dynamic-form-array.model';
+import { DynamicFormGroupModelConfig } from '@ng-dynamic-forms/core/model/form-group/dynamic-form-group.model';
+import { DynamicFormControlLayout } from '@ng-dynamic-forms/core/model/misc/dynamic-form-control-layout.model';
+import { DynamicSelectModelConfig } from '@ng-dynamic-forms/core/model/select/dynamic-select.model';
+import { DynamicSwitchModelConfig } from '@ng-dynamic-forms/core/model/switch/dynamic-switch.model';
+import {
+  MATCH_ENABLED,
+  OR_OPERATOR,
+} from '@ng-dynamic-forms/core/service/dynamic-form-relation-matchers';
 
 
 export const BITSTREAM_METADATA_FORM_GROUP_CONFIG: DynamicFormGroupModelConfig = {

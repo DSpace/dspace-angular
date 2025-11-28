@@ -1,18 +1,41 @@
-import { ComponentRef, EventEmitter, Inject, Injectable, InjectionToken, Optional, QueryList, Type, ViewContainerRef } from "@angular/core";
-import { DynamicFormControl } from "../component/dynamic-form-control-interface";
-import { DynamicFormControlModel } from "../model/dynamic-form-control.model";
-import { isFunction, isNumber } from "../utils/core.utils";
-import { UntypedFormControl, UntypedFormGroup } from "@angular/forms";
-import { DynamicFormLayout } from "./dynamic-form-layout.service";
-import { DynamicFormArrayGroupModel } from "../model/form-array/dynamic-form-array.model";
-import { DynamicTemplateDirective } from "../directive/dynamic-template.directive";
-import { DynamicFormControlCustomEvent, DynamicFormControlEvent } from "../component/dynamic-form-control-event";
-import { DynamicFormControlLayoutContext, DynamicFormControlLayoutPlace } from "../model/misc/dynamic-form-control-layout.model";
+import {
+  ComponentRef,
+  EventEmitter,
+  Inject,
+  Injectable,
+  InjectionToken,
+  Optional,
+  QueryList,
+  Type,
+  ViewContainerRef,
+} from '@angular/core';
+import {
+  UntypedFormControl,
+  UntypedFormGroup,
+} from '@angular/forms';
+
+import {
+  DynamicFormControlCustomEvent,
+  DynamicFormControlEvent,
+} from '../component/dynamic-form-control-event';
+import { DynamicFormControl } from '../component/dynamic-form-control-interface';
+import { DynamicTemplateDirective } from '../directive/dynamic-template.directive';
+import { DynamicFormControlModel } from '../model/dynamic-form-control.model';
+import { DynamicFormArrayGroupModel } from '../model/form-array/dynamic-form-array.model';
+import {
+  DynamicFormControlLayoutContext,
+  DynamicFormControlLayoutPlace,
+} from '../model/misc/dynamic-form-control-layout.model';
+import {
+  isFunction,
+  isNumber,
+} from '../utils/core.utils';
+import { DynamicFormLayout } from './dynamic-form-layout.service';
 
 export type DynamicFormControlRef = ComponentRef<DynamicFormControl>;
 export type DynamicFormControlMapFn = (model: DynamicFormControlModel) => Type<DynamicFormControl> | null;
 
-export const DYNAMIC_FORM_CONTROL_MAP_FN = new InjectionToken<DynamicFormControlMapFn>("DYNAMIC_FORM_CONTROL_MAP_FN");
+export const DYNAMIC_FORM_CONTROL_MAP_FN = new InjectionToken<DynamicFormControlMapFn>('DYNAMIC_FORM_CONTROL_MAP_FN');
 
 export interface IDynamicFormControlContainer {
   context: DynamicFormArrayGroupModel | null;
@@ -48,8 +71,11 @@ export interface IDynamicFormControlContainer {
   markForCheck(): void;
   getClass(context: DynamicFormControlLayoutContext, place: DynamicFormControlLayoutPlace): string;
 
+  // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
   onChange($event: Event | DynamicFormControlEvent | any): void;
+  // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
   onBlur($event: FocusEvent | DynamicFormControlEvent | any): void;
+  // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
   onFocus($event: FocusEvent | DynamicFormControlEvent | any): void;
   onCustomEvent($event: DynamicFormControlEvent | DynamicFormControlCustomEvent): void;
 
@@ -94,74 +120,74 @@ interface IDynamicFormComponent {
 }
 
 @Injectable({
-    providedIn: "root",
+  providedIn: 'root',
 })
 export class DynamicFormComponentService {
-    private forms: IDynamicFormComponent[] = [];
-    private formControls: { [key: string]: DynamicFormControlRef | DynamicFormControlRef[] } = {};
+  private forms: IDynamicFormComponent[] = [];
+  private formControls: { [key: string]: DynamicFormControlRef | DynamicFormControlRef[] } = {};
+  // eslint-disable-next-line @typescript-eslint/no-shadow
+  constructor(@Inject(DYNAMIC_FORM_CONTROL_MAP_FN) @Optional() private readonly DYNAMIC_FORM_CONTROL_MAP_FN: any) {
+    this.DYNAMIC_FORM_CONTROL_MAP_FN = DYNAMIC_FORM_CONTROL_MAP_FN as DynamicFormControlMapFn;
+  }
 
-    constructor(@Inject(DYNAMIC_FORM_CONTROL_MAP_FN) @Optional() private readonly DYNAMIC_FORM_CONTROL_MAP_FN: any) {
-        this.DYNAMIC_FORM_CONTROL_MAP_FN = DYNAMIC_FORM_CONTROL_MAP_FN as DynamicFormControlMapFn;
+  getForms(): IterableIterator<IDynamicFormComponent> {
+    return this.forms.values();
+  }
+
+  registerForm(component: IDynamicFormComponent): void {
+    this.forms.push(component);
+  }
+
+  unregisterForm(component: IDynamicFormComponent): void {
+    const indexOf = this.forms.indexOf(component);
+
+    if (indexOf !== -1) {
+      this.forms.splice(indexOf, 1);
     }
+  }
 
-    getForms(): IterableIterator<IDynamicFormComponent> {
-        return this.forms.values();
+  getFormControlRef(modelId: string, index?: number): DynamicFormControlRef | undefined {
+    const ref: DynamicFormControlRef | DynamicFormControlRef[] = this.formControls[modelId];
+
+    if (isNumber(index)) {
+      return Array.isArray(ref) ? ref[index] : undefined;
+
+    } else {
+      return ref as DynamicFormControlRef;
     }
+  }
 
-    registerForm(component: IDynamicFormComponent): void {
-        this.forms.push(component);
+  registerFormControl(model: DynamicFormControlModel, ref: DynamicFormControlRef, index?: number): void {
+    if (isNumber(index)) { // threat model as array child
+      const arrayRef: DynamicFormControlRef[] = this.formControls[model.id] as DynamicFormControlRef[] || [];
+
+      if (Array.isArray(arrayRef)) {
+        arrayRef.splice(index, 0, ref);
+        this.formControls[model.id] = arrayRef;
+
+      } else {
+        console.warn(`registerFormControlRef is called with index for a non-array form control: ${model.id}`);
+      }
+
+    } else {
+      this.formControls[model.id] = ref;
     }
+  }
 
-    unregisterForm(component: IDynamicFormComponent): void {
-        const indexOf = this.forms.indexOf(component);
+  unregisterFormControl(modelId: string, index?: number): void {
+    const componentRef = this.formControls[modelId];
 
-        if (indexOf !== -1) {
-            this.forms.splice(indexOf, 1);
-        }
+    if (isNumber(index)) {
+      if (Array.isArray(componentRef) && componentRef[index] !== undefined) {
+        componentRef.splice(index, 1);
+      }
+
+    } else if (componentRef !== undefined) {
+      delete this.formControls[modelId];
     }
+  }
 
-    getFormControlRef(modelId: string, index?: number): DynamicFormControlRef | undefined {
-        const ref: DynamicFormControlRef | DynamicFormControlRef[] = this.formControls[modelId];
-
-        if (isNumber(index)) {
-            return Array.isArray(ref) ? ref[index] : undefined;
-
-        } else {
-            return ref as DynamicFormControlRef;
-        }
-    }
-
-    registerFormControl(model: DynamicFormControlModel, ref: DynamicFormControlRef, index?: number): void {
-        if (isNumber(index)) { // threat model as array child
-            const arrayRef: DynamicFormControlRef[] = this.formControls[model.id] as DynamicFormControlRef[] || [];
-
-            if (Array.isArray(arrayRef)) {
-                arrayRef.splice(index, 0, ref);
-                this.formControls[model.id] = arrayRef;
-
-            } else {
-                console.warn(`registerFormControlRef is called with index for a non-array form control: ${model.id}`);
-            }
-
-        } else {
-            this.formControls[model.id] = ref;
-        }
-    }
-
-    unregisterFormControl(modelId: string, index?: number): void {
-        const componentRef = this.formControls[modelId];
-
-        if (isNumber(index)) {
-            if (Array.isArray(componentRef) && componentRef[index] !== undefined) {
-                componentRef.splice(index, 1);
-            }
-
-        } else if (componentRef !== undefined) {
-            delete this.formControls[modelId];
-        }
-    }
-
-    getCustomComponentType(model: DynamicFormControlModel): Type<DynamicFormControl> | null {
-        return isFunction(this.DYNAMIC_FORM_CONTROL_MAP_FN) ? this.DYNAMIC_FORM_CONTROL_MAP_FN(model) : null;
-    }
+  getCustomComponentType(model: DynamicFormControlModel): Type<DynamicFormControl> | null {
+    return isFunction(this.DYNAMIC_FORM_CONTROL_MAP_FN) ? this.DYNAMIC_FORM_CONTROL_MAP_FN(model) : null;
+  }
 }

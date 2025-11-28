@@ -19,7 +19,12 @@ import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/fo
 import { StoreMock } from '@dspace/core/testing/store.mock';
 import { createTestComponent } from '@dspace/core/testing/utils.test';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
+import { DynamicFormControlEvent } from '@ng-dynamic-forms/core/component/dynamic-form-control-event';
+import { DynamicListDirective } from '@ng-dynamic-forms/core/directive/dynamic-list.directive';
+import { DynamicTemplateDirective } from '@ng-dynamic-forms/core/directive/dynamic-template.directive';
+import { DynamicFormControlModel } from '@ng-dynamic-forms/core/model/dynamic-form-control.model';
+import { DynamicFormArrayModel } from '@ng-dynamic-forms/core/model/form-array/dynamic-form-array.model';
+import { DynamicInputModel } from '@ng-dynamic-forms/core/model/input/dynamic-input.model';
 import {
   Store,
   StoreModule,
@@ -37,12 +42,6 @@ import {
 import { FormComponent } from './form.component';
 import { FormState } from './form.reducer';
 import { FormService } from './form.service';
-import { DynamicInputModel } from "@ng-dynamic-forms/core/model/input/dynamic-input.model";
-import { DynamicFormArrayModel } from "@ng-dynamic-forms/core/model/form-array/dynamic-form-array.model";
-import { DynamicFormControlEvent } from "@ng-dynamic-forms/core/component/dynamic-form-control-event";
-import { DynamicListDirective } from "@ng-dynamic-forms/core/directive/dynamic-list.directive";
-import { DynamicTemplateDirective } from "@ng-dynamic-forms/core/directive/dynamic-template.directive";
-import { DynamicFormControlModel } from "@ng-dynamic-forms/core/model/dynamic-form-control.model";
 
 let TEST_FORM_MODEL;
 

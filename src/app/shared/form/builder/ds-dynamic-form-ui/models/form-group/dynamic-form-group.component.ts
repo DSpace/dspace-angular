@@ -12,23 +12,22 @@ import {
   ReactiveFormsModule,
   UntypedFormGroup,
 } from '@angular/forms';
-
-
-import { DsDynamicFormControlContainerComponent } from '../../ds-dynamic-form-control-container.component';
-import { DynamicFormControlComponent } from "@ng-dynamic-forms/core/component/dynamic-form-control.component";
-import { DynamicFormControlModel } from "@ng-dynamic-forms/core/model/dynamic-form-control.model";
-import {
-  DynamicFormLayout,
-  DynamicFormLayoutService,
-} from "@ng-dynamic-forms/core/service/dynamic-form-layout.service";
-import { DynamicFormControlLayout } from "@ng-dynamic-forms/core/model/misc/dynamic-form-control-layout.model";
-import { DynamicFormGroupModel } from "@ng-dynamic-forms/core/model/form-group/dynamic-form-group.model";
-import { DynamicTemplateDirective } from "@ng-dynamic-forms/core/directive/dynamic-template.directive";
+import { DynamicFormControlComponent } from '@ng-dynamic-forms/core/component/dynamic-form-control.component';
 import {
   DynamicFormControlCustomEvent,
   DynamicFormControlEvent,
-} from "@ng-dynamic-forms/core/component/dynamic-form-control-event";
-import { DynamicFormValidationService } from "@ng-dynamic-forms/core/service/dynamic-form-validation.service";
+} from '@ng-dynamic-forms/core/component/dynamic-form-control-event';
+import { DynamicTemplateDirective } from '@ng-dynamic-forms/core/directive/dynamic-template.directive';
+import { DynamicFormControlModel } from '@ng-dynamic-forms/core/model/dynamic-form-control.model';
+import { DynamicFormGroupModel } from '@ng-dynamic-forms/core/model/form-group/dynamic-form-group.model';
+import { DynamicFormControlLayout } from '@ng-dynamic-forms/core/model/misc/dynamic-form-control-layout.model';
+import {
+  DynamicFormLayout,
+  DynamicFormLayoutService,
+} from '@ng-dynamic-forms/core/service/dynamic-form-layout.service';
+import { DynamicFormValidationService } from '@ng-dynamic-forms/core/service/dynamic-form-validation.service';
+
+import { DsDynamicFormControlContainerComponent } from '../../ds-dynamic-form-control-container.component';
 
 @Component({
   selector: 'ds-dynamic-form-group',

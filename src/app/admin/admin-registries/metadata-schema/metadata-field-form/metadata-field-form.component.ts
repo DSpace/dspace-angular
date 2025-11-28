@@ -10,6 +10,11 @@ import {
 import { UntypedFormGroup } from '@angular/forms';
 import { MetadataField } from '@dspace/core/metadata/metadata-field.model';
 import { MetadataSchema } from '@dspace/core/metadata/metadata-schema.model';
+import { DynamicFormControlModel } from '@ng-dynamic-forms/core/model/dynamic-form-control.model';
+import { DynamicFormGroupModel } from '@ng-dynamic-forms/core/model/form-group/dynamic-form-group.model';
+import { DynamicInputModel } from '@ng-dynamic-forms/core/model/input/dynamic-input.model';
+import { DynamicTextAreaModel } from '@ng-dynamic-forms/core/model/textarea/dynamic-textarea.model';
+import { DynamicFormLayout } from '@ng-dynamic-forms/core/service/dynamic-form-layout.service';
 import {
   TranslateModule,
   TranslateService,
@@ -20,11 +25,6 @@ import { take } from 'rxjs/operators';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../../shared/form/form.component';
 import { RegistryService } from '../../registry/registry.service';
-import { DynamicInputModel } from "@ng-dynamic-forms/core/model/input/dynamic-input.model";
-import { DynamicTextAreaModel } from "@ng-dynamic-forms/core/model/textarea/dynamic-textarea.model";
-import { DynamicFormControlModel } from "@ng-dynamic-forms/core/model/dynamic-form-control.model";
-import { DynamicFormLayout } from "@ng-dynamic-forms/core/service/dynamic-form-layout.service";
-import { DynamicFormGroupModel } from "@ng-dynamic-forms/core/model/form-group/dynamic-form-group.model";
 
 @Component({
   selector: 'ds-metadata-field-form',

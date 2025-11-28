@@ -35,6 +35,10 @@ import {
   NgbModal,
   NgbModule,
 } from '@ng-bootstrap/ng-bootstrap';
+import { DynamicListDirective } from '@ng-dynamic-forms/core/directive/dynamic-list.directive';
+import { DynamicTemplateDirective } from '@ng-dynamic-forms/core/directive/dynamic-template.directive';
+import { DynamicFormLayoutService } from '@ng-dynamic-forms/core/service/dynamic-form-layout.service';
+import { DynamicFormValidationService } from '@ng-dynamic-forms/core/service/dynamic-form-validation.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
 import { of } from 'rxjs';
@@ -45,10 +49,6 @@ import { AuthorityConfidenceStateDirective } from '../../../../directives/author
 import { VocabularyTreeviewComponent } from '../../../../vocabulary-treeview/vocabulary-treeview.component';
 import { DsDynamicOneboxComponent } from './dynamic-onebox.component';
 import { DynamicOneboxModel } from './dynamic-onebox.model';
-import { DynamicListDirective } from "@ng-dynamic-forms/core/directive/dynamic-list.directive";
-import { DynamicTemplateDirective } from "@ng-dynamic-forms/core/directive/dynamic-template.directive";
-import { DynamicFormLayoutService } from "@ng-dynamic-forms/core/service/dynamic-form-layout.service";
-import { DynamicFormValidationService } from "@ng-dynamic-forms/core/service/dynamic-form-validation.service";
 
 export let ONEBOX_TEST_GROUP;
 

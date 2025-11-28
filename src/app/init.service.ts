@@ -26,6 +26,7 @@ import { LAZY_DATA_SERVICES } from '@dspace/core/data-services-map';
 import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
 import { LocaleService } from '@dspace/core/locale/locale.service';
 import { HeadTagService } from '@dspace/core/metadata/head-tag.service';
+import { DYNAMIC_FORM_CONTROL_MAP_FN } from '@ng-dynamic-forms/core/service/dynamic-form-component.service';
 import {
   select,
   Store,
@@ -46,7 +47,6 @@ import { MenuService } from './shared/menu/menu.service';
 import { MenuProviderService } from './shared/menu/menu-provider.service';
 import { ThemeService } from './shared/theme-support/theme.service';
 import { Angulartics2DSpace } from './statistics/angulartics/dspace-provider';
-import { DYNAMIC_FORM_CONTROL_MAP_FN } from "@ng-dynamic-forms/core/service/dynamic-form-component.service";
 
 /**
  * Performs the initialization of the app.

@@ -1,16 +1,21 @@
-import { UntypedFormControl, UntypedFormGroup } from "@angular/forms";
-import { DynamicFormControlModel } from "../model/dynamic-form-control.model";
-import { DynamicFormArrayGroupModel } from "../model/form-array/dynamic-form-array.model";
-import { isObject } from "../utils/core.utils";
+import {
+  UntypedFormControl,
+  UntypedFormGroup,
+} from '@angular/forms';
+
+import { DynamicFormControlModel } from '../model/dynamic-form-control.model';
+import { DynamicFormArrayGroupModel } from '../model/form-array/dynamic-form-array.model';
+import { isObject } from '../utils/core.utils';
 
 export enum DynamicFormControlEventType {
-    Blur = "blur",
-    Change = "change",
-    Focus = "focus"
+    Blur = 'blur',
+    Change = 'change',
+    Focus = 'focus'
 }
 
 export interface DynamicFormControlEvent {
-    $event: Event | FocusEvent | DynamicFormControlEvent | any;
+  // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
+  $event: Event | FocusEvent | DynamicFormControlEvent | any;
     context: DynamicFormArrayGroupModel | null;
     control: UntypedFormControl;
     group: UntypedFormGroup;
@@ -24,5 +29,5 @@ export interface DynamicFormControlCustomEvent {
 }
 
 export function isDynamicFormControlEvent($event: any): $event is DynamicFormControlEvent {
-    return isObject($event) && $event.hasOwnProperty("$event");
+  return isObject($event) && $event.hasOwnProperty('$event');
 }

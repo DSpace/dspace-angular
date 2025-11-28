@@ -1,13 +1,13 @@
 import { ActionType } from '@dspace/core/resource-policy/models/action-type.model';
 import { PolicyType } from '@dspace/core/resource-policy/models/policy-type.model';
+import { DynamicDatePickerModelConfig } from '@ng-dynamic-forms/core/model/datepicker/dynamic-datepicker.model';
+import { DynamicFormOptionConfig } from '@ng-dynamic-forms/core/model/dynamic-option-control.model';
+import { DynamicFormGroupModelConfig } from '@ng-dynamic-forms/core/model/form-group/dynamic-form-group.model';
+import { DynamicFormControlLayout } from '@ng-dynamic-forms/core/model/misc/dynamic-form-control-layout.model';
+import { DynamicSelectModelConfig } from '@ng-dynamic-forms/core/model/select/dynamic-select.model';
 
 import { DsDynamicInputModelConfig } from '../../form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { DsDynamicTextAreaModelConfig } from '../../form/builder/ds-dynamic-form-ui/models/ds-dynamic-textarea.model';
-import { DynamicFormOptionConfig } from "@ng-dynamic-forms/core/model/dynamic-option-control.model";
-import { DynamicSelectModelConfig } from "@ng-dynamic-forms/core/model/select/dynamic-select.model";
-import { DynamicFormGroupModelConfig } from "@ng-dynamic-forms/core/model/form-group/dynamic-form-group.model";
-import { DynamicFormControlLayout } from "@ng-dynamic-forms/core/model/misc/dynamic-form-control-layout.model";
-import { DynamicDatePickerModelConfig } from "@ng-dynamic-forms/core/model/datepicker/dynamic-datepicker.model";
 
 const policyTypeList: DynamicFormOptionConfig<any>[] = [
   {

@@ -1,5 +1,29 @@
 import { Type } from '@angular/core';
 import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from '@dspace/core/shared/form/ds-dynamic-form-constants';
+import { DynamicFormControl } from '@ng-dynamic-forms/core/component/dynamic-form-control-interface';
+import { DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX } from '@ng-dynamic-forms/core/model/checkbox/dynamic-checkbox.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX_GROUP } from '@ng-dynamic-forms/core/model/checkbox/dynamic-checkbox-group.model';
+import {
+  DYNAMIC_FORM_CONTROL_TYPE_DATEPICKER,
+  DynamicDatePickerModel,
+} from '@ng-dynamic-forms/core/model/datepicker/dynamic-datepicker.model';
+import { DynamicFormControlModel } from '@ng-dynamic-forms/core/model/dynamic-form-control.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_ARRAY } from '@ng-dynamic-forms/core/model/form-array/dynamic-form-array.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_GROUP } from '@ng-dynamic-forms/core/model/form-group/dynamic-form-group.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_INPUT } from '@ng-dynamic-forms/core/model/input/dynamic-input.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_RADIO_GROUP } from '@ng-dynamic-forms/core/model/radio/dynamic-radio-group.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_SELECT } from '@ng-dynamic-forms/core/model/select/dynamic-select.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_TEXTAREA } from '@ng-dynamic-forms/core/model/textarea/dynamic-textarea.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_TIMEPICKER } from '@ng-dynamic-forms/core/model/timepicker/dynamic-timepicker.model';
+import { DynamicNGBootstrapCalendarComponent } from '@ng-dynamic-forms/ui-ng-bootstrap/calendar/dynamic-ng-bootstrap-calendar.component';
+import { DynamicNGBootstrapCheckboxComponent } from '@ng-dynamic-forms/ui-ng-bootstrap/checkbox/dynamic-ng-bootstrap-checkbox.component';
+import { DynamicNGBootstrapCheckboxGroupComponent } from '@ng-dynamic-forms/ui-ng-bootstrap/checkbox-group/dynamic-ng-bootstrap-checkbox-group.component';
+import { DynamicNGBootstrapInputComponent } from '@ng-dynamic-forms/ui-ng-bootstrap/input/dynamic-ng-bootstrap-input.component';
+import { DynamicNGBootstrapRadioGroupComponent } from '@ng-dynamic-forms/ui-ng-bootstrap/radio-group/dynamic-ng-bootstrap-radio-group.component';
+import { DynamicNGBootstrapSelectComponent } from '@ng-dynamic-forms/ui-ng-bootstrap/select/dynamic-ng-bootstrap-select.component';
+import { DynamicNGBootstrapTextAreaComponent } from '@ng-dynamic-forms/ui-ng-bootstrap/textarea/dynamic-ng-bootstrap-textarea.component';
+import { DynamicNGBootstrapTimePickerComponent } from '@ng-dynamic-forms/ui-ng-bootstrap/timepicker/dynamic-ng-bootstrap-timepicker.component';
+
 import { DsDynamicFormArrayComponent } from './models/array-group/dynamic-form-array.component';
 import { CustomSwitchComponent } from './models/custom-switch/custom-switch.component';
 import { DYNAMIC_FORM_CONTROL_TYPE_CUSTOM_SWITCH } from './models/custom-switch/custom-switch.model';
@@ -22,26 +46,6 @@ import { DsDynamicScrollableDropdownComponent } from './models/scrollable-dropdo
 import { DYNAMIC_FORM_CONTROL_TYPE_SCROLLABLE_DROPDOWN } from './models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 import { DsDynamicTagComponent } from './models/tag/dynamic-tag.component';
 import { DYNAMIC_FORM_CONTROL_TYPE_TAG } from './models/tag/dynamic-tag.model';
-import { DynamicFormControlModel } from "@ng-dynamic-forms/core/model/dynamic-form-control.model";
-import { DynamicFormControl } from "@ng-dynamic-forms/core/component/dynamic-form-control-interface";
-import { DYNAMIC_FORM_CONTROL_TYPE_DATEPICKER, DynamicDatePickerModel } from "@ng-dynamic-forms/core/model/datepicker/dynamic-datepicker.model";
-import { DYNAMIC_FORM_CONTROL_TYPE_ARRAY } from "@ng-dynamic-forms/core/model/form-array/dynamic-form-array.model";
-import { DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX } from "@ng-dynamic-forms/core/model/checkbox/dynamic-checkbox.model";
-import { DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX_GROUP } from "@ng-dynamic-forms/core/model/checkbox/dynamic-checkbox-group.model";
-import { DYNAMIC_FORM_CONTROL_TYPE_GROUP } from "@ng-dynamic-forms/core/model/form-group/dynamic-form-group.model";
-import { DYNAMIC_FORM_CONTROL_TYPE_INPUT } from "@ng-dynamic-forms/core/model/input/dynamic-input.model";
-import { DYNAMIC_FORM_CONTROL_TYPE_RADIO_GROUP } from "@ng-dynamic-forms/core/model/radio/dynamic-radio-group.model";
-import { DYNAMIC_FORM_CONTROL_TYPE_SELECT } from "@ng-dynamic-forms/core/model/select/dynamic-select.model";
-import { DYNAMIC_FORM_CONTROL_TYPE_TEXTAREA } from "@ng-dynamic-forms/core/model/textarea/dynamic-textarea.model";
-import { DYNAMIC_FORM_CONTROL_TYPE_TIMEPICKER } from "@ng-dynamic-forms/core/model/timepicker/dynamic-timepicker.model";
-import { DynamicNGBootstrapCheckboxComponent } from "@ng-dynamic-forms/ui-ng-bootstrap/checkbox/dynamic-ng-bootstrap-checkbox.component";
-import { DynamicNGBootstrapCheckboxGroupComponent } from "@ng-dynamic-forms/ui-ng-bootstrap/checkbox-group/dynamic-ng-bootstrap-checkbox-group.component";
-import { DynamicNGBootstrapCalendarComponent } from "@ng-dynamic-forms/ui-ng-bootstrap/calendar/dynamic-ng-bootstrap-calendar.component";
-import { DynamicNGBootstrapInputComponent } from "@ng-dynamic-forms/ui-ng-bootstrap/input/dynamic-ng-bootstrap-input.component";
-import { DynamicNGBootstrapRadioGroupComponent } from "@ng-dynamic-forms/ui-ng-bootstrap/radio-group/dynamic-ng-bootstrap-radio-group.component";
-import { DynamicNGBootstrapSelectComponent } from "@ng-dynamic-forms/ui-ng-bootstrap/select/dynamic-ng-bootstrap-select.component";
-import { DynamicNGBootstrapTextAreaComponent } from "@ng-dynamic-forms/ui-ng-bootstrap/textarea/dynamic-ng-bootstrap-textarea.component";
-import { DynamicNGBootstrapTimePickerComponent } from "@ng-dynamic-forms/ui-ng-bootstrap/timepicker/dynamic-ng-bootstrap-timepicker.component";
 
 export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<DynamicFormControl> | null {
   const datepickerModel = model as DynamicDatePickerModel;

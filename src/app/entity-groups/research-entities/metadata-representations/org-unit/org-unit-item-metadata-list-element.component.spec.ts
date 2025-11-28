@@ -12,7 +12,10 @@ import { RouterLink } from '@angular/router';
 import { Item } from '@dspace/core/shared/item.model';
 import { MetadataValue } from '@dspace/core/shared/metadata.models';
 import { ItemMetadataRepresentation } from '@dspace/core/shared/metadata-representation/item/item-metadata-representation.model';
-import {  NgbTooltip, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbTooltip,
+  NgbTooltipModule,
+} from '@ng-bootstrap/ng-bootstrap';
 
 import { TruncatableComponent } from '../../../../shared/truncatable/truncatable.component';
 import { OrgUnitItemMetadataListElementComponent } from './org-unit-item-metadata-list-element.component';

@@ -18,6 +18,16 @@ import {
   isNull,
   isUndefined,
 } from '@dspace/shared/utils/empty.util';
+import {
+  DynamicFormControlEvent,
+  isDynamicFormControlEvent,
+} from '@ng-dynamic-forms/core/component/dynamic-form-control-event';
+import { DynamicFormControlModel } from '@ng-dynamic-forms/core/model/dynamic-form-control.model';
+import {
+  DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
+  DynamicFormArrayGroupModel,
+} from '@ng-dynamic-forms/core/model/form-array/dynamic-form-array.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_GROUP } from '@ng-dynamic-forms/core/model/form-group/dynamic-form-group.model';
 import { deepClone } from 'fast-json-patch';
 import isEqual from 'lodash/isEqual';
 import isObject from 'lodash/isObject';
@@ -27,10 +37,6 @@ import { DynamicQualdropModel } from '../../../shared/form/builder/ds-dynamic-fo
 import { DynamicRowArrayModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
 import { DynamicRelationGroupModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
-import { DynamicFormControlEvent, isDynamicFormControlEvent } from "@ng-dynamic-forms/core/component/dynamic-form-control-event";
-import { DynamicFormControlModel } from "@ng-dynamic-forms/core/model/dynamic-form-control.model";
-import { DYNAMIC_FORM_CONTROL_TYPE_GROUP } from "@ng-dynamic-forms/core/model/form-group/dynamic-form-group.model";
-import { DYNAMIC_FORM_CONTROL_TYPE_ARRAY, DynamicFormArrayGroupModel } from "@ng-dynamic-forms/core/model/form-array/dynamic-form-array.model";
 
 /**
  * The service handling all form section operations

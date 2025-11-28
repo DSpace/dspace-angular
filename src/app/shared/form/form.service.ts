@@ -9,6 +9,9 @@ import {
   isEmpty,
   isNotUndefined,
 } from '@dspace/shared/utils/empty.util';
+import { DynamicFormControlEvent } from '@ng-dynamic-forms/core/component/dynamic-form-control-event';
+import { DynamicFormControlModel } from '@ng-dynamic-forms/core/model/dynamic-form-control.model';
+import { DynamicFormGroupModel } from '@ng-dynamic-forms/core/model/form-group/dynamic-form-group.model';
 import {
   select,
   Store,
@@ -39,9 +42,6 @@ import {
   FormTouchedState,
 } from './form.reducer';
 import { formObjectFromIdSelector } from './selectors';
-import { DynamicFormControlModel } from "@ng-dynamic-forms/core/model/dynamic-form-control.model";
-import { DynamicFormGroupModel } from "@ng-dynamic-forms/core/model/form-group/dynamic-form-group.model";
-import { DynamicFormControlEvent } from "@ng-dynamic-forms/core/component/dynamic-form-control-event";
 
 @Injectable({ providedIn: 'root' })
 export class FormService {

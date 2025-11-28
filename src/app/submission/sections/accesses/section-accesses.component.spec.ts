@@ -16,7 +16,11 @@ import {
 import { SectionsServiceStub } from '@dspace/core/testing/sections-service.stub';
 import { SubmissionJsonPatchOperationsServiceStub } from '@dspace/core/testing/submission-json-patch-operations-service.stub';
 import { XSRFService } from '@dspace/core/xsrf/xsrf.service';
-
+import { DynamicCheckboxModel } from '@ng-dynamic-forms/core/model/checkbox/dynamic-checkbox.model';
+import { DynamicDatePickerModel } from '@ng-dynamic-forms/core/model/datepicker/dynamic-datepicker.model';
+import { DynamicFormArrayModel } from '@ng-dynamic-forms/core/model/form-array/dynamic-form-array.model';
+import { DynamicSelectModel } from '@ng-dynamic-forms/core/model/select/dynamic-select.model';
+import { DYNAMIC_FORM_CONTROL_MAP_FN } from '@ng-dynamic-forms/core/service/dynamic-form-component.service';
 import { Store } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
@@ -44,11 +48,6 @@ import { SectionFormOperationsService } from '../form/section-form-operations.se
 import { SectionsService } from '../sections.service';
 import { SubmissionSectionAccessesComponent } from './section-accesses.component';
 import { SectionAccessesService } from './section-accesses.service';
-import { DYNAMIC_FORM_CONTROL_MAP_FN } from "@ng-dynamic-forms/core/service/dynamic-form-component.service";
-import { DynamicCheckboxModel } from "@ng-dynamic-forms/core/model/checkbox/dynamic-checkbox.model";
-import { DynamicFormArrayModel } from "@ng-dynamic-forms/core/model/form-array/dynamic-form-array.model";
-import { DynamicSelectModel } from "@ng-dynamic-forms/core/model/select/dynamic-select.model";
-import { DynamicDatePickerModel } from "@ng-dynamic-forms/core/model/datepicker/dynamic-datepicker.model";
 
 
 function getMockDsDynamicTypeBindRelationService(): DsDynamicTypeBindRelationService {

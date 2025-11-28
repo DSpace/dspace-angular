@@ -34,7 +34,9 @@ import {
   NgbModal,
   NgbModalRef,
 } from '@ng-bootstrap/ng-bootstrap';
-
+import { DynamicFormControlModel } from '@ng-dynamic-forms/core/model/dynamic-form-control.model';
+import { DynamicInputModel } from '@ng-dynamic-forms/core/model/input/dynamic-input.model';
+import { DynamicFormService } from '@ng-dynamic-forms/core/service/dynamic-form.service';
 import {
   TranslateModule,
   TranslateService,
@@ -59,9 +61,6 @@ import { UploaderComponent } from '../../../upload/uploader/uploader.component';
 import { UploaderOptions } from '../../../upload/uploader/uploader-options.model';
 import { VarDirective } from '../../../utils/var.directive';
 import { ComcolPageLogoComponent } from '../../comcol-page-logo/comcol-page-logo.component';
-import { DynamicFormControlModel } from "@ng-dynamic-forms/core/model/dynamic-form-control.model";
-import { DynamicFormService } from "@ng-dynamic-forms/core/service/dynamic-form.service";
-import { DynamicInputModel } from "@ng-dynamic-forms/core/model/input/dynamic-input.model";
 
 /**
  * A form for creating and editing Communities or Collections

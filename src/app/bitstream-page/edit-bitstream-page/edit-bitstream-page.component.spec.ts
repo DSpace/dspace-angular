@@ -37,7 +37,8 @@ import {
   createSuccessfulRemoteDataObject$,
 } from '@dspace/core/utilities/remote-data.utils';
 import { hasValue } from '@dspace/shared/utils/empty.util';
-
+import { DynamicFormControlModel } from '@ng-dynamic-forms/core/model/dynamic-form-control.model';
+import { DynamicFormService } from '@ng-dynamic-forms/core/service/dynamic-form.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
@@ -45,8 +46,6 @@ import { getEntityEditRoute } from '../../item-page/item-page-routing-paths';
 import { FileSizePipe } from '../../shared/utils/file-size-pipe';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { EditBitstreamPageComponent } from './edit-bitstream-page.component';
-import { DynamicFormService } from "@ng-dynamic-forms/core/service/dynamic-form.service";
-import { DynamicFormControlModel } from "@ng-dynamic-forms/core/model/dynamic-form-control.model";
 
 const infoNotification: INotification = new Notification('id', NotificationType.Info, 'info');
 const warningNotification: INotification = new Notification('id', NotificationType.Warning, 'warning');

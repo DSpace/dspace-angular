@@ -8,7 +8,13 @@ import {
   UntypedFormControl,
 } from '@angular/forms';
 import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
-
+import { DynamicFormRelationService } from '@ng-dynamic-forms/core/service/dynamic-form-relation.service';
+import {
+  DISABLED_MATCHER_PROVIDER,
+  HIDDEN_MATCHER,
+  HIDDEN_MATCHER_PROVIDER,
+  REQUIRED_MATCHER_PROVIDER,
+} from '@ng-dynamic-forms/core/service/dynamic-form-relation-matchers';
 
 import { getMockFormBuilderService } from '../../testing/form-builder-service.mock';
 import {
@@ -18,8 +24,6 @@ import {
 import { FormBuilderService } from '../form-builder.service';
 import { DsDynamicTypeBindRelationService } from './ds-dynamic-type-bind-relation.service';
 import { getTypeBindRelations } from './type-bind.utils';
-import { DynamicFormRelationService } from "@ng-dynamic-forms/core/service/dynamic-form-relation.service";
-import { DISABLED_MATCHER_PROVIDER, HIDDEN_MATCHER, HIDDEN_MATCHER_PROVIDER, REQUIRED_MATCHER_PROVIDER } from "@ng-dynamic-forms/core/service/dynamic-form-relation-matchers";
 
 describe('DSDynamicTypeBindRelationService test suite', () => {
   let service: DsDynamicTypeBindRelationService;

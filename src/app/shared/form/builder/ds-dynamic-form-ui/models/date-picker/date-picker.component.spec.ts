@@ -25,7 +25,8 @@ import {
 } from '@dspace/core/testing/dynamic-form-mock-services';
 import { createTestComponent } from '@dspace/core/testing/utils.test';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
+import { DynamicFormLayoutService } from '@ng-dynamic-forms/core/service/dynamic-form-layout.service';
+import { DynamicFormValidationService } from '@ng-dynamic-forms/core/service/dynamic-form-validation.service';
 import {
   TranslateModule,
   TranslateService,
@@ -34,8 +35,6 @@ import { of } from 'rxjs';
 
 import { DsDatePickerComponent } from './date-picker.component';
 import { DynamicDsDatePickerModel } from './date-picker.model';
-import { DynamicFormLayoutService } from "@ng-dynamic-forms/core/service/dynamic-form-layout.service";
-import { DynamicFormValidationService } from "@ng-dynamic-forms/core/service/dynamic-form-validation.service";
 
 export const DATE_TEST_GROUP = new UntypedFormGroup({
   date: new UntypedFormControl(),

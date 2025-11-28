@@ -35,7 +35,14 @@ import {
   hasValue,
   isNotEmpty,
 } from '@dspace/shared/utils/empty.util';
-
+import { DynamicFormControlModel } from '@ng-dynamic-forms/core/model/dynamic-form-control.model';
+import { DynamicOptionControlModel } from '@ng-dynamic-forms/core/model/dynamic-option-control.model';
+import { DynamicFormGroupModel } from '@ng-dynamic-forms/core/model/form-group/dynamic-form-group.model';
+import { DynamicInputModel } from '@ng-dynamic-forms/core/model/input/dynamic-input.model';
+import { DynamicRadioGroupModel } from '@ng-dynamic-forms/core/model/radio/dynamic-radio-group.model';
+import { DynamicSelectModel } from '@ng-dynamic-forms/core/model/select/dynamic-select.model';
+import { DynamicFormService } from '@ng-dynamic-forms/core/service/dynamic-form.service';
+import { DynamicFormLayout } from '@ng-dynamic-forms/core/service/dynamic-form-layout.service';
 import {
   TranslateModule,
   TranslateService,
@@ -58,14 +65,6 @@ import { FormComponent } from '../../../shared/form/form.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { AbstractTrackableComponent } from '../../../shared/trackable/abstract-trackable.component';
 import { CollectionSourceControlsComponent } from './collection-source-controls/collection-source-controls.component';
-import { DynamicInputModel } from "@ng-dynamic-forms/core/model/input/dynamic-input.model";
-import { DynamicSelectModel } from "@ng-dynamic-forms/core/model/select/dynamic-select.model";
-import { DynamicRadioGroupModel } from "@ng-dynamic-forms/core/model/radio/dynamic-radio-group.model";
-import { DynamicFormControlModel } from "@ng-dynamic-forms/core/model/dynamic-form-control.model";
-import { DynamicFormGroupModel } from "@ng-dynamic-forms/core/model/form-group/dynamic-form-group.model";
-import { DynamicFormLayout } from "@ng-dynamic-forms/core/service/dynamic-form-layout.service";
-import { DynamicFormService } from "@ng-dynamic-forms/core/service/dynamic-form.service";
-import { DynamicOptionControlModel } from "@ng-dynamic-forms/core/model/dynamic-option-control.model";
 
 /**
  * Component for managing the content source of the collection

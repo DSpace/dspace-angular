@@ -41,6 +41,8 @@ import {
   NgbTypeaheadModule,
   NgbTypeaheadSelectItemEvent,
 } from '@ng-bootstrap/ng-bootstrap';
+import { DynamicFormLayoutService } from '@ng-dynamic-forms/core/service/dynamic-form-layout.service';
+import { DynamicFormValidationService } from '@ng-dynamic-forms/core/service/dynamic-form-validation.service';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
@@ -65,8 +67,6 @@ import { AuthorityConfidenceStateDirective } from '../../../../directives/author
 import { VocabularyTreeviewModalComponent } from '../../../../vocabulary-treeview-modal/vocabulary-treeview-modal.component';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
 import { DynamicOneboxModel } from './dynamic-onebox.model';
-import { DynamicFormLayoutService } from "@ng-dynamic-forms/core/service/dynamic-form-layout.service";
-import { DynamicFormValidationService } from "@ng-dynamic-forms/core/service/dynamic-form-validation.service";
 
 /**
  * Component representing a onebox input field.

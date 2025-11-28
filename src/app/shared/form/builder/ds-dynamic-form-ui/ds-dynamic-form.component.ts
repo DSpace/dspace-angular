@@ -11,18 +11,15 @@ import {
   ViewChildren,
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
-
+import { DynamicFormComponent } from '@ng-dynamic-forms/core/component/dynamic-form.component';
+import { DynamicFormControlContainerComponent } from '@ng-dynamic-forms/core/component/dynamic-form-control-container.component';
+import { DynamicFormControlEvent } from '@ng-dynamic-forms/core/component/dynamic-form-control-event';
+import { DynamicTemplateDirective } from '@ng-dynamic-forms/core/directive/dynamic-template.directive';
+import { DynamicFormControlModel } from '@ng-dynamic-forms/core/model/dynamic-form-control.model';
+import { DynamicFormComponentService } from '@ng-dynamic-forms/core/service/dynamic-form-component.service';
+import { DynamicFormLayout } from '@ng-dynamic-forms/core/service/dynamic-form-layout.service';
 
 import { DsDynamicFormControlContainerComponent } from './ds-dynamic-form-control-container.component';
-import { DynamicFormComponent } from "@ng-dynamic-forms/core/component/dynamic-form.component";
-import { DynamicFormControlModel } from "@ng-dynamic-forms/core/model/dynamic-form-control.model";
-import { DynamicFormLayout } from "@ng-dynamic-forms/core/service/dynamic-form-layout.service";
-import { DynamicFormControlEvent } from "@ng-dynamic-forms/core/component/dynamic-form-control-event";
-import { DynamicTemplateDirective } from "@ng-dynamic-forms/core/directive/dynamic-template.directive";
-import {
-  DynamicFormControlContainerComponent
-} from "@ng-dynamic-forms/core/component/dynamic-form-control-container.component";
-import { DynamicFormComponentService } from "@ng-dynamic-forms/core/service/dynamic-form-component.service";
 
 @Component({
   selector: 'ds-dynamic-form',

@@ -2,7 +2,10 @@ import {
   isNull,
   isUndefined,
 } from '@dspace/shared/utils/empty.util';
-import { DynamicFormControlLayout, DynamicFormControlLayoutConfig } from "@ng-dynamic-forms/core/model/misc/dynamic-form-control-layout.model";
+import {
+  DynamicFormControlLayout,
+  DynamicFormControlLayoutConfig,
+} from '@ng-dynamic-forms/core/model/misc/dynamic-form-control-layout.model';
 
 
 export function setLayout(model: any, controlLayout: string, controlLayoutConfig: string, style: string) {

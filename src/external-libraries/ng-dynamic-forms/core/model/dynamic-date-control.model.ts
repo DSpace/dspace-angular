@@ -1,6 +1,9 @@
-import { DynamicFormValueControlModelConfig, DynamicFormValueControlModel } from "./dynamic-form-value-control.model";
-import { DynamicFormControlLayout } from "./misc/dynamic-form-control-layout.model";
-import { serializable } from "../decorator/serializable.decorator";
+import { serializable } from '../decorator/serializable.decorator';
+import {
+  DynamicFormValueControlModel,
+  DynamicFormValueControlModelConfig,
+} from './dynamic-form-value-control.model';
+import { DynamicFormControlLayout } from './misc/dynamic-form-control-layout.model';
 
 export type DynamicDateControlValue = string | object | Date;
 
@@ -18,11 +21,11 @@ export abstract class DynamicDateControlModel extends DynamicFormValueControlMod
     @serializable() placeholder: string | null;
 
     protected constructor(config: DynamicDateControlModelConfig, layout?: DynamicFormControlLayout) {
-        super(config, layout);
+      super(config, layout);
 
-        this.format = config.format ?? null;
-        this.max = config.max ?? null;
-        this.min = config.min ?? null;
-        this.placeholder = config.placeholder ?? null;
+      this.format = config.format ?? null;
+      this.max = config.max ?? null;
+      this.min = config.min ?? null;
+      this.placeholder = config.placeholder ?? null;
     }
 }

@@ -24,7 +24,10 @@ import {
   isNotNull,
 } from '@dspace/shared/utils/empty.util';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-
+import { DynamicFormControlModel } from '@ng-dynamic-forms/core/model/dynamic-form-control.model';
+import { DynamicFormOptionConfig } from '@ng-dynamic-forms/core/model/dynamic-option-control.model';
+import { DynamicSelectModel } from '@ng-dynamic-forms/core/model/select/dynamic-select.model';
+import { DynamicFormService } from '@ng-dynamic-forms/core/service/dynamic-form.service';
 import {
   TranslateModule,
   TranslateService,
@@ -40,10 +43,6 @@ import {
   collectionFormEntityTypeSelectionConfig,
   collectionFormModels,
 } from './collection-form.models';
-import { DynamicSelectModel } from "@ng-dynamic-forms/core/model/select/dynamic-select.model";
-import { DynamicFormControlModel } from "@ng-dynamic-forms/core/model/dynamic-form-control.model";
-import { DynamicFormService } from "@ng-dynamic-forms/core/service/dynamic-form.service";
-import { DynamicFormOptionConfig } from "@ng-dynamic-forms/core/model/dynamic-option-control.model";
 
 /**
  * Form used for creating and editing collections

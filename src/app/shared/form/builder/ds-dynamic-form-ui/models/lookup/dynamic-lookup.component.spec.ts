@@ -30,6 +30,10 @@ import {
 import { createTestComponent } from '@dspace/core/testing/utils.test';
 import { VocabularyServiceStub } from '@dspace/core/testing/vocabulary-service.stub';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { DynamicListDirective } from '@ng-dynamic-forms/core/directive/dynamic-list.directive';
+import { DynamicTemplateDirective } from '@ng-dynamic-forms/core/directive/dynamic-template.directive';
+import { DynamicFormLayoutService } from '@ng-dynamic-forms/core/service/dynamic-form-layout.service';
+import { DynamicFormValidationService } from '@ng-dynamic-forms/core/service/dynamic-form-validation.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { of } from 'rxjs';
@@ -43,10 +47,6 @@ import {
   DynamicLookupModelConfig,
 } from './dynamic-lookup.model';
 import { DynamicLookupNameModel } from './dynamic-lookup-name.model';
-import { DynamicListDirective } from "@ng-dynamic-forms/core/directive/dynamic-list.directive";
-import { DynamicTemplateDirective } from "@ng-dynamic-forms/core/directive/dynamic-template.directive";
-import { DynamicFormLayoutService } from "@ng-dynamic-forms/core/service/dynamic-form-layout.service";
-import { DynamicFormValidationService } from "@ng-dynamic-forms/core/service/dynamic-form-validation.service";
 
 let LOOKUP_TEST_MODEL_CONFIG: DynamicLookupModelConfig = {
   vocabularyOptions: {

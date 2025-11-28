@@ -17,13 +17,12 @@ import {
   mockDynamicFormLayoutService,
   mockDynamicFormValidationService,
 } from '@dspace/core/testing/dynamic-form-mock-services';
-
+import { DynamicFormLayoutService } from '@ng-dynamic-forms/core/service/dynamic-form-layout.service';
+import { DynamicFormValidationService } from '@ng-dynamic-forms/core/service/dynamic-form-validation.service';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { DsDynamicDisabledComponent } from './dynamic-disabled.component';
 import { DynamicDisabledModel } from './dynamic-disabled.model';
-import { DynamicFormLayoutService } from "@ng-dynamic-forms/core/service/dynamic-form-layout.service";
-import { DynamicFormValidationService } from "@ng-dynamic-forms/core/service/dynamic-form-validation.service";
 
 describe('DsDynamicDisabledComponent', () => {
   let comp: DsDynamicDisabledComponent;

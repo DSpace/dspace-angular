@@ -1,9 +1,10 @@
-import { serializable } from "@ng-dynamic-forms/core/decorator/serializable.decorator";
+import { serializable } from '@ng-dynamic-forms/core/decorator/serializable.decorator';
+import { DynamicFormControlLayout } from '@ng-dynamic-forms/core/model/misc/dynamic-form-control-layout.model';
+
 import {
   DynamicLookupModel,
   DynamicLookupModelConfig,
 } from './dynamic-lookup.model';
-import { DynamicFormControlLayout } from "@ng-dynamic-forms/core/model/misc/dynamic-form-control-layout.model";
 
 export const DYNAMIC_FORM_CONTROL_TYPE_LOOKUP_NAME = 'LOOKUP_NAME';
 

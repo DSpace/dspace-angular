@@ -1,5 +1,9 @@
 
-import { Component, TemplateRef, ViewChild } from '@angular/core';
+import {
+  Component,
+  TemplateRef,
+  ViewChild,
+} from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 

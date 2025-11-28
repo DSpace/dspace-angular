@@ -17,7 +17,25 @@ import {
   isNotEmpty,
   isNotNull,
 } from '@dspace/shared/utils/empty.util';
-
+import { DynamicFormControlEvent } from '@ng-dynamic-forms/core/component/dynamic-form-control-event';
+import {
+  DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX,
+  DynamicCheckboxModel,
+} from '@ng-dynamic-forms/core/model/checkbox/dynamic-checkbox.model';
+import {
+  DYNAMIC_FORM_CONTROL_TYPE_DATEPICKER,
+  DynamicDatePickerModel,
+} from '@ng-dynamic-forms/core/model/datepicker/dynamic-datepicker.model';
+import { DynamicDateControlValue } from '@ng-dynamic-forms/core/model/dynamic-date-control.model';
+import { DynamicFormControlModel } from '@ng-dynamic-forms/core/model/dynamic-form-control.model';
+import { DynamicFormArrayModel } from '@ng-dynamic-forms/core/model/form-array/dynamic-form-array.model';
+import { DynamicFormGroupModel } from '@ng-dynamic-forms/core/model/form-group/dynamic-form-group.model';
+import { DynamicFormControlCondition } from '@ng-dynamic-forms/core/model/misc/dynamic-form-control-relation.model';
+import { DynamicSelectModel } from '@ng-dynamic-forms/core/model/select/dynamic-select.model';
+import {
+  MATCH_ENABLED,
+  OR_OPERATOR,
+} from '@ng-dynamic-forms/core/service/dynamic-form-relation-matchers';
 import { TranslateService } from '@ngx-translate/core';
 import {
   combineLatest,
@@ -54,22 +72,6 @@ import {
   FORM_ACCESS_CONDITION_TYPE_LAYOUT,
 } from './section-accesses.model';
 import { SectionAccessesService } from './section-accesses.service';
-import { DynamicFormControlModel } from "@ng-dynamic-forms/core/model/dynamic-form-control.model";
-import {
-  DYNAMIC_FORM_CONTROL_TYPE_DATEPICKER,
-  DynamicDatePickerModel,
-} from "@ng-dynamic-forms/core/model/datepicker/dynamic-datepicker.model";
-import { DynamicFormControlEvent } from "@ng-dynamic-forms/core/component/dynamic-form-control-event";
-import {
-  DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX,
-  DynamicCheckboxModel,
-} from "@ng-dynamic-forms/core/model/checkbox/dynamic-checkbox.model";
-import { DynamicFormControlCondition } from "@ng-dynamic-forms/core/model/misc/dynamic-form-control-relation.model";
-import { DynamicDateControlValue } from "@ng-dynamic-forms/core/model/dynamic-date-control.model";
-import { MATCH_ENABLED, OR_OPERATOR } from "@ng-dynamic-forms/core/service/dynamic-form-relation-matchers";
-import { DynamicSelectModel } from "@ng-dynamic-forms/core/model/select/dynamic-select.model";
-import { DynamicFormGroupModel } from "@ng-dynamic-forms/core/model/form-group/dynamic-form-group.model";
-import { DynamicFormArrayModel } from "@ng-dynamic-forms/core/model/form-array/dynamic-form-array.model";
 
 /**
  * This component represents a section for managing item's access conditions.

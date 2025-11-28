@@ -2,6 +2,7 @@ import { Inject } from '@angular/core';
 import { FormFieldModel } from '@dspace/core/shared/form/models/form-field.model';
 import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
 import { isNotEmpty } from '@dspace/shared/utils/empty.util';
+import { DynamicFormControlLayout } from '@ng-dynamic-forms/core/model/misc/dynamic-form-control-layout.model';
 import { TranslateService } from '@ngx-translate/core';
 
 import {
@@ -16,7 +17,6 @@ import {
   SUBMISSION_ID,
 } from './field-parser';
 import { ParserOptions } from './parser-options';
-import { DynamicFormControlLayout } from "@ng-dynamic-forms/core/model/misc/dynamic-form-control-layout.model";
 
 export class DropdownFieldParser extends FieldParser {
 

@@ -4,14 +4,13 @@ import {
   isEmpty,
   isNull,
 } from '@dspace/shared/utils/empty.util';
-
+import { serializable } from '@ng-dynamic-forms/core/decorator/serializable.decorator';
+import { DynamicFormControlLayout } from '@ng-dynamic-forms/core/model/misc/dynamic-form-control-layout.model';
 
 import {
   DsDynamicInputModel,
   DsDynamicInputModelConfig,
 } from '../ds-dynamic-input.model';
-import { serializable } from "@ng-dynamic-forms/core/decorator/serializable.decorator";
-import { DynamicFormControlLayout } from "@ng-dynamic-forms/core/model/misc/dynamic-form-control-layout.model";
 
 /**
  * Dynamic Group Model configuration interface

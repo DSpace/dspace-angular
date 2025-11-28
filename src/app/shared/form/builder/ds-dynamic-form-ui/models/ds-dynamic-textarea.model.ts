@@ -1,10 +1,11 @@
-import { serializable } from "@ng-dynamic-forms/core/decorator/serializable.decorator";
+import { serializable } from '@ng-dynamic-forms/core/decorator/serializable.decorator';
+import { DynamicFormControlLayout } from '@ng-dynamic-forms/core/model/misc/dynamic-form-control-layout.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_TEXTAREA } from '@ng-dynamic-forms/core/model/textarea/dynamic-textarea.model';
+
 import {
   DsDynamicInputModel,
   DsDynamicInputModelConfig,
 } from './ds-dynamic-input.model';
-import { DYNAMIC_FORM_CONTROL_TYPE_TEXTAREA } from "@ng-dynamic-forms/core/model/textarea/dynamic-textarea.model";
-import { DynamicFormControlLayout } from "@ng-dynamic-forms/core/model/misc/dynamic-form-control-layout.model";
 
 export interface DsDynamicTextAreaModelConfig extends DsDynamicInputModelConfig {
   cols?: number;

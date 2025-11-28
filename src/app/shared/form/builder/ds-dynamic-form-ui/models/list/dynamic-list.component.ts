@@ -27,6 +27,10 @@ import {
   hasValue,
   isNotEmpty,
 } from '@dspace/shared/utils/empty.util';
+import { DynamicFormControlComponent } from '@ng-dynamic-forms/core/component/dynamic-form-control.component';
+import { DynamicCheckboxModel } from '@ng-dynamic-forms/core/model/checkbox/dynamic-checkbox.model';
+import { DynamicFormLayoutService } from '@ng-dynamic-forms/core/service/dynamic-form-layout.service';
+import { DynamicFormValidationService } from '@ng-dynamic-forms/core/service/dynamic-form-validation.service';
 import { TranslateModule } from '@ngx-translate/core';
 import findKey from 'lodash/findKey';
 import {
@@ -42,10 +46,6 @@ import { ThemedLoadingComponent } from '../../../../../loading/themed-loading.co
 import { FormBuilderService } from '../../../form-builder.service';
 import { DynamicListCheckboxGroupModel } from './dynamic-list-checkbox-group.model';
 import { DynamicListRadioGroupModel } from './dynamic-list-radio-group.model';
-import { DynamicFormControlComponent } from "@ng-dynamic-forms/core/component/dynamic-form-control.component";
-import { DynamicFormLayoutService } from "@ng-dynamic-forms/core/service/dynamic-form-layout.service";
-import { DynamicFormValidationService } from "@ng-dynamic-forms/core/service/dynamic-form-validation.service";
-import { DynamicCheckboxModel } from "@ng-dynamic-forms/core/model/checkbox/dynamic-checkbox.model";
 
 export interface ListItem {
   id: string;

@@ -19,7 +19,21 @@ import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/fo
 import { VocabularyOptions } from '@dspace/core/submission/vocabularies/models/vocabulary-options.model';
 import { getMockTranslateService } from '@dspace/core/testing/translate.service.mock';
 import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
-
+import { DynamicCheckboxModel } from '@ng-dynamic-forms/core/model/checkbox/dynamic-checkbox.model';
+import { DynamicCheckboxGroupModel } from '@ng-dynamic-forms/core/model/checkbox/dynamic-checkbox-group.model';
+import { DynamicDatePickerModel } from '@ng-dynamic-forms/core/model/datepicker/dynamic-datepicker.model';
+import { DynamicFormControlModel } from '@ng-dynamic-forms/core/model/dynamic-form-control.model';
+import { DynamicFormValueControlModel } from '@ng-dynamic-forms/core/model/dynamic-form-value-control.model';
+import { DynamicFileUploadModel } from '@ng-dynamic-forms/core/model/file-upload/dynamic-file-upload.model';
+import { DynamicFormArrayModel } from '@ng-dynamic-forms/core/model/form-array/dynamic-form-array.model';
+import { DynamicFormGroupModel } from '@ng-dynamic-forms/core/model/form-group/dynamic-form-group.model';
+import { DynamicInputModel } from '@ng-dynamic-forms/core/model/input/dynamic-input.model';
+import { DynamicRadioGroupModel } from '@ng-dynamic-forms/core/model/radio/dynamic-radio-group.model';
+import { DynamicSelectModel } from '@ng-dynamic-forms/core/model/select/dynamic-select.model';
+import { DynamicSwitchModel } from '@ng-dynamic-forms/core/model/switch/dynamic-switch.model';
+import { DynamicTextAreaModel } from '@ng-dynamic-forms/core/model/textarea/dynamic-textarea.model';
+import { DynamicTimePickerModel } from '@ng-dynamic-forms/core/model/timepicker/dynamic-timepicker.model';
+import { DynamicFormValidationService } from '@ng-dynamic-forms/core/service/dynamic-form-validation.service';
 import { TranslateService } from '@ngx-translate/core';
 
 import { DynamicDsDatePickerModel } from './ds-dynamic-form-ui/models/date-picker/date-picker.model';
@@ -37,21 +51,6 @@ import { DynamicRelationGroupModel } from './ds-dynamic-form-ui/models/relation-
 import { DynamicScrollableDropdownModel } from './ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 import { DynamicTagModel } from './ds-dynamic-form-ui/models/tag/dynamic-tag.model';
 import { FormBuilderService } from './form-builder.service';
-import { DynamicFormControlModel } from "@ng-dynamic-forms/core/model/dynamic-form-control.model";
-import { DynamicFormValidationService } from "@ng-dynamic-forms/core/service/dynamic-form-validation.service";
-import { DynamicSelectModel } from "@ng-dynamic-forms/core/model/select/dynamic-select.model";
-import { DynamicInputModel } from "@ng-dynamic-forms/core/model/input/dynamic-input.model";
-import { DynamicCheckboxGroupModel } from "@ng-dynamic-forms/core/model/checkbox/dynamic-checkbox-group.model";
-import { DynamicCheckboxModel } from "@ng-dynamic-forms/core/model/checkbox/dynamic-checkbox.model";
-import { DynamicRadioGroupModel } from "@ng-dynamic-forms/core/model/radio/dynamic-radio-group.model";
-import { DynamicTextAreaModel } from "@ng-dynamic-forms/core/model/textarea/dynamic-textarea.model";
-import { DynamicFormArrayModel } from "@ng-dynamic-forms/core/model/form-array/dynamic-form-array.model";
-import { DynamicFormGroupModel } from "@ng-dynamic-forms/core/model/form-group/dynamic-form-group.model";
-import { DynamicSwitchModel } from "@ng-dynamic-forms/core/model/switch/dynamic-switch.model";
-import { DynamicDatePickerModel } from "@ng-dynamic-forms/core/model/datepicker/dynamic-datepicker.model";
-import { DynamicFileUploadModel } from "@ng-dynamic-forms/core/model/file-upload/dynamic-file-upload.model";
-import { DynamicTimePickerModel } from "@ng-dynamic-forms/core/model/timepicker/dynamic-timepicker.model";
-import { DynamicFormValueControlModel } from "@ng-dynamic-forms/core/model/dynamic-form-value-control.model";
 
 describe('FormBuilderService test suite', () => {
 

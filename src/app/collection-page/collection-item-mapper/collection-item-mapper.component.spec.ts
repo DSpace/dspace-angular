@@ -40,7 +40,13 @@ import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '@dspace/core/utilities/remote-data.utils';
-import { NgbModule, NgbNav, NgbNavContent, NgbNavItem, NgbNavLink, NgbNavOutlet } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbNav,
+  NgbNavContent,
+  NgbNavItem,
+  NgbNavLink,
+  NgbNavOutlet,
+} from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
   TranslateService,
@@ -200,7 +206,7 @@ describe('CollectionItemMapperComponent', () => {
         EnumKeysPipe,
         VarDirective,
         ErrorComponent,
-        LoadingComponent
+        LoadingComponent,
       ],
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },

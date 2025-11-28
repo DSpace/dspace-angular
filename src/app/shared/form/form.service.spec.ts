@@ -9,7 +9,9 @@ import {
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
-
+import { DynamicFormControlModel } from '@ng-dynamic-forms/core/model/dynamic-form-control.model';
+import { DynamicFormGroupModel } from '@ng-dynamic-forms/core/model/form-group/dynamic-form-group.model';
+import { DynamicInputModel } from '@ng-dynamic-forms/core/model/input/dynamic-input.model';
 import {
   Store,
   StoreModule,
@@ -20,9 +22,6 @@ import { FormBuilderService } from './builder/form-builder.service';
 import { formReducer } from './form.reducer';
 import { FormService } from './form.service';
 import { getMockFormBuilderService } from './testing/form-builder-service.mock';
-import { DynamicFormControlModel } from "@ng-dynamic-forms/core/model/dynamic-form-control.model";
-import { DynamicInputModel } from "@ng-dynamic-forms/core/model/input/dynamic-input.model";
-import { DynamicFormGroupModel } from "@ng-dynamic-forms/core/model/form-group/dynamic-form-group.model";
 
 describe('FormService test suite', () => {
   const config = {

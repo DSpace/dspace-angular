@@ -37,6 +37,12 @@ import {
   createSuccessfulRemoteDataObject$,
 } from '@dspace/core/utilities/remote-data.utils';
 import {
+  NgbNavContent,
+  NgbNavItem,
+  NgbNavLink,
+  NgbNavOutlet,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
@@ -54,7 +60,6 @@ import { SearchFormComponent } from '../../../shared/search-form/search-form.com
 import { EnumKeysPipe } from '../../../shared/utils/enum-keys-pipe';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { ItemCollectionMapperComponent } from './item-collection-mapper.component';
-import { NgbNavContent, NgbNavItem, NgbNavLink, NgbNavOutlet } from "@ng-bootstrap/ng-bootstrap";
 
 describe('ItemCollectionMapperComponent', () => {
   let comp: ItemCollectionMapperComponent;
@@ -147,7 +152,7 @@ describe('ItemCollectionMapperComponent', () => {
         EnumKeysPipe,
         VarDirective,
         ErrorComponent,
-        LoadingComponent
+        LoadingComponent,
       ],
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },

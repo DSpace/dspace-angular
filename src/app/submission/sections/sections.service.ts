@@ -15,6 +15,7 @@ import {
   isNotEmpty,
   isNotUndefined,
 } from '@dspace/shared/utils/empty.util';
+import { parseReviver } from '@ng-dynamic-forms/core/utils/json.utils';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import {
@@ -59,7 +60,6 @@ import {
 import { SubmissionState } from '../submission.reducers';
 import { SubmissionService } from '../submission.service';
 import parseSectionErrorPaths, { SectionErrorPath } from '../utils/parseSectionErrorPaths';
-import { parseReviver } from "@ng-dynamic-forms/core/utils/json.utils";
 
 /**
  * A service that provides methods used in submission process.

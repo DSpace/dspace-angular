@@ -28,6 +28,12 @@ import {
 } from '@dspace/shared/utils/empty.util';
 import { hasOnlyEmptyProperties } from '@dspace/shared/utils/object.util';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { DynamicFormControlComponent } from '@ng-dynamic-forms/core/component/dynamic-form-control.component';
+import { DynamicFormControlModel } from '@ng-dynamic-forms/core/model/dynamic-form-control.model';
+import { DynamicFormGroupModel } from '@ng-dynamic-forms/core/model/form-group/dynamic-form-group.model';
+import { DynamicInputModel } from '@ng-dynamic-forms/core/model/input/dynamic-input.model';
+import { DynamicFormLayoutService } from '@ng-dynamic-forms/core/service/dynamic-form-layout.service';
+import { DynamicFormValidationService } from '@ng-dynamic-forms/core/service/dynamic-form-validation.service';
 import { TranslateModule } from '@ngx-translate/core';
 import isEqual from 'lodash/isEqual';
 import isObject from 'lodash/isObject';
@@ -55,12 +61,6 @@ import { FormComponent } from '../../../../form.component';
 import { FormService } from '../../../../form.service';
 import { FormBuilderService } from '../../../form-builder.service';
 import { DynamicRelationGroupModel } from './dynamic-relation-group.model';
-import { DynamicFormControlComponent } from "@ng-dynamic-forms/core/component/dynamic-form-control.component";
-import { DynamicFormControlModel } from "@ng-dynamic-forms/core/model/dynamic-form-control.model";
-import { DynamicFormLayoutService } from "@ng-dynamic-forms/core/service/dynamic-form-layout.service";
-import { DynamicFormValidationService } from "@ng-dynamic-forms/core/service/dynamic-form-validation.service";
-import { DynamicFormGroupModel } from "@ng-dynamic-forms/core/model/form-group/dynamic-form-group.model";
-import { DynamicInputModel } from "@ng-dynamic-forms/core/model/input/dynamic-input.model";
 
 /**
  * Component representing a group input field

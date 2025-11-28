@@ -31,6 +31,7 @@ import {
 } from '@dspace/core/provide-core';
 import { XsrfInterceptor } from '@dspace/core/xsrf/xsrf.interceptor';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { DYNAMIC_MATCHER_PROVIDERS } from '@ng-dynamic-forms/core/service/dynamic-form-relation-matchers';
 import { EffectsModule } from '@ngrx/effects';
 import {
   RouterStateSerializer,
@@ -73,7 +74,6 @@ import {
   WORKFLOW_TASK_OPTION_DECORATOR_MAP,
 } from './shared/mydspace-actions/claimed-task/switcher/claimed-task-actions-decorator';
 import { STARTS_WITH_DECORATOR_MAP } from './shared/starts-with/starts-with-decorator';
-import { DYNAMIC_MATCHER_PROVIDERS } from "@ng-dynamic-forms/core/service/dynamic-form-relation-matchers";
 
 export function getConfig() {
   return environment;

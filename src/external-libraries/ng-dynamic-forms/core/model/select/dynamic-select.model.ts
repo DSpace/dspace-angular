@@ -1,9 +1,15 @@
-import { DynamicOptionControlModel, DynamicOptionControlModelConfig } from "../dynamic-option-control.model";
-import { DynamicFormControlLayout } from "../misc/dynamic-form-control-layout.model";
-import { serializable } from "../../decorator/serializable.decorator";
-import { isBoolean, isFunction } from "../../utils/core.utils";
+import { serializable } from '../../decorator/serializable.decorator';
+import {
+  isBoolean,
+  isFunction,
+} from '../../utils/core.utils';
+import {
+  DynamicOptionControlModel,
+  DynamicOptionControlModelConfig,
+} from '../dynamic-option-control.model';
+import { DynamicFormControlLayout } from '../misc/dynamic-form-control-layout.model';
 
-export const DYNAMIC_FORM_CONTROL_TYPE_SELECT = "SELECT";
+export const DYNAMIC_FORM_CONTROL_TYPE_SELECT = 'SELECT';
 
 export interface DynamicSelectModelConfig<T> extends DynamicOptionControlModelConfig<T> {
     compareWithFn?: (o1: any, o2: any) => boolean;
@@ -15,7 +21,7 @@ export interface DynamicSelectModelConfig<T> extends DynamicOptionControlModelCo
 }
 
 export class DynamicSelectModel<T> extends DynamicOptionControlModel<T> {
-    compareWithFn: (value1: any, value2: any) => boolean;
+  compareWithFn: (value1: any, value2: any) => boolean;
     @serializable() filterable: boolean;
     @serializable() multiple: boolean;
     @serializable() placeholder: string;
@@ -25,17 +31,17 @@ export class DynamicSelectModel<T> extends DynamicOptionControlModel<T> {
     @serializable() readonly type: string = DYNAMIC_FORM_CONTROL_TYPE_SELECT;
 
     constructor(config: DynamicSelectModelConfig<T>, layout?: DynamicFormControlLayout) {
-        super(config, layout);
+      super(config, layout);
 
-        this.compareWithFn = isFunction(config.compareWithFn) ? config.compareWithFn : Object.is;
-        this.filterable = isBoolean(config.filterable) ? config.filterable : false;
-        this.multiple = isBoolean(config.multiple) ? config.multiple : false;
-        this.placeholder = config.placeholder ?? "";
-        this.prefix = config.prefix ?? null;
-        this.suffix = config.suffix ?? null;
+      this.compareWithFn = isFunction(config.compareWithFn) ? config.compareWithFn : Object.is;
+      this.filterable = isBoolean(config.filterable) ? config.filterable : false;
+      this.multiple = isBoolean(config.multiple) ? config.multiple : false;
+      this.placeholder = config.placeholder ?? '';
+      this.prefix = config.prefix ?? null;
+      this.suffix = config.suffix ?? null;
     }
 
     select(...indices: number[]): void {
-        this.value = this.multiple ? indices.map(index => this.get(index).value) : this.get(indices[0]).value;
+      this.value = this.multiple ? indices.map(index => this.get(index).value) : this.get(indices[0]).value;
     }
 }

@@ -5,13 +5,16 @@ import {
   hasNoValue,
   isNotEmpty,
 } from '@dspace/shared/utils/empty.util';
+import { serializable } from '@ng-dynamic-forms/core/decorator/serializable.decorator';
+import {
+  DynamicFormGroupModel,
+  DynamicFormGroupModelConfig,
+} from '@ng-dynamic-forms/core/model/form-group/dynamic-form-group.model';
+import { DynamicFormControlLayout } from '@ng-dynamic-forms/core/model/misc/dynamic-form-control-layout.model';
+import { DynamicFormControlRelation } from '@ng-dynamic-forms/core/model/misc/dynamic-form-control-relation.model';
 import { Subject } from 'rxjs';
 
 import { DsDynamicInputModel } from './ds-dynamic-input.model';
-import { DynamicFormGroupModel, DynamicFormGroupModelConfig } from "@ng-dynamic-forms/core/model/form-group/dynamic-form-group.model";
-import { DynamicFormControlRelation } from "@ng-dynamic-forms/core/model/misc/dynamic-form-control-relation.model";
-import { serializable } from "@ng-dynamic-forms/core/decorator/serializable.decorator";
-import { DynamicFormControlLayout } from "@ng-dynamic-forms/core/model/misc/dynamic-form-control-layout.model";
 
 export const CONCAT_GROUP_SUFFIX = '_CONCAT_GROUP';
 export const CONCAT_FIRST_INPUT_SUFFIX = '_CONCAT_FIRST_INPUT';

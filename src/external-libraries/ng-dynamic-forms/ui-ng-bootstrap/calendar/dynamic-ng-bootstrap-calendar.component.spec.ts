@@ -1,90 +1,99 @@
-import { TestBed, inject, ComponentFixture, waitForAsync } from "@angular/core/testing";
-import { DebugElement } from "@angular/core";
-import { UntypedFormGroup, UntypedFormControl } from "@angular/forms";
-import { By } from "@angular/platform-browser";
-import { NgbDatepicker } from "@ng-bootstrap/ng-bootstrap";
-import { DynamicDatePickerModel } from "@ng-dynamic-forms/core/model/datepicker/dynamic-datepicker.model";
-import { DynamicNGBootstrapCalendarComponent } from "./dynamic-ng-bootstrap-calendar.component";
-import { DynamicFormService } from "@ng-dynamic-forms/core/service/dynamic-form.service";
+import { DebugElement } from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  UntypedFormControl,
+  UntypedFormGroup,
+} from '@angular/forms';
+import { By } from '@angular/platform-browser';
+import { NgbDatepicker } from '@ng-bootstrap/ng-bootstrap';
+import { DynamicDatePickerModel } from '@ng-dynamic-forms/core/model/datepicker/dynamic-datepicker.model';
+import { DynamicFormService } from '@ng-dynamic-forms/core/service/dynamic-form.service';
+
+import { DynamicNGBootstrapCalendarComponent } from './dynamic-ng-bootstrap-calendar.component';
 
 
-describe("DynamicNGBootstrapCalendarComponent test suite", () => {
-    const testModel = new DynamicDatePickerModel({id: "calendar"});
-    const formModel = [testModel];
+describe('DynamicNGBootstrapCalendarComponent test suite', () => {
+  const testModel = new DynamicDatePickerModel({ id: 'calendar' });
+  const formModel = [testModel];
 
-    let formGroup: UntypedFormGroup;
-    let fixture: ComponentFixture<DynamicNGBootstrapCalendarComponent>;
-    let component: DynamicNGBootstrapCalendarComponent;
-    let debugElement: DebugElement;
-    let testElement: DebugElement;
+  let formGroup: UntypedFormGroup;
+  let fixture: ComponentFixture<DynamicNGBootstrapCalendarComponent>;
+  let component: DynamicNGBootstrapCalendarComponent;
+  let debugElement: DebugElement;
+  let testElement: DebugElement;
 
-    beforeEach(waitForAsync(() => {
-        TestBed.configureTestingModule({
-            imports: [DynamicNGBootstrapCalendarComponent]
-        }).compileComponents().then(() => {
-            fixture = TestBed.createComponent(DynamicNGBootstrapCalendarComponent);
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      imports: [DynamicNGBootstrapCalendarComponent],
+    }).compileComponents().then(() => {
+      fixture = TestBed.createComponent(DynamicNGBootstrapCalendarComponent);
 
-            component = fixture.componentInstance;
-            debugElement = fixture.debugElement;
-        });
-    }));
-
-    beforeEach(inject([DynamicFormService], (service: DynamicFormService) => {
-        formGroup = service.createFormGroup(formModel);
-
-        component.group = formGroup;
-        component.model = testModel;
-
-        fixture.detectChanges();
-
-        testElement = debugElement.query(By.css(`ngb-datepicker[id="${testModel.id}"]`));
-    }));
-
-    it("should initialize correctly", () => {
-        expect(component.control instanceof UntypedFormControl).toBe(true);
-        expect(component.group instanceof UntypedFormGroup).toBe(true);
-        expect(component.model instanceof DynamicDatePickerModel).toBe(true);
-        expect(component.ngbCalendar instanceof NgbDatepicker).toBe(true);
-
-        expect(component.blur).toBeDefined();
-        expect(component.change).toBeDefined();
-        expect(component.focus).toBeDefined();
-
-        expect(component.onBlur).toBeDefined();
-        expect(component.onChange).toBeDefined();
-        expect(component.onFocus).toBeDefined();
-
-        expect(component.hasFocus).toBe(false);
-        expect(component.isValid).toBe(true);
-        expect(component.isInvalid).toBe(false);
-        expect(component.showErrorMessages).toBe(false);
+      component = fixture.componentInstance;
+      debugElement = fixture.debugElement;
     });
+  }));
 
-    it("should have an ngb-datepicker element", () => {
-        expect(testElement instanceof DebugElement).toBe(true);
-    });
+  beforeEach(inject([DynamicFormService], (service: DynamicFormService) => {
+    formGroup = service.createFormGroup(formModel);
 
-    it("should emit blur event", () => {
-        spyOn(component.blur, "emit");
+    component.group = formGroup;
+    component.model = testModel;
 
-        component.onBlur(null);
+    fixture.detectChanges();
 
-        expect(component.blur.emit).toHaveBeenCalled();
-    });
+    testElement = debugElement.query(By.css(`ngb-datepicker[id="${testModel.id}"]`));
+  }));
 
-    it("should emit change event", () => {
-        spyOn(component.change, "emit");
+  it('should initialize correctly', () => {
+    expect(component.control instanceof UntypedFormControl).toBe(true);
+    expect(component.group instanceof UntypedFormGroup).toBe(true);
+    expect(component.model instanceof DynamicDatePickerModel).toBe(true);
+    expect(component.ngbCalendar instanceof NgbDatepicker).toBe(true);
 
-        component.onChange(null);
+    expect(component.blur).toBeDefined();
+    expect(component.change).toBeDefined();
+    expect(component.focus).toBeDefined();
 
-        expect(component.change.emit).toHaveBeenCalled();
-    });
+    expect(component.onBlur).toBeDefined();
+    expect(component.onChange).toBeDefined();
+    expect(component.onFocus).toBeDefined();
 
-    it("should emit focus event", () => {
-        spyOn(component.focus, "emit");
+    expect(component.hasFocus).toBe(false);
+    expect(component.isValid).toBe(true);
+    expect(component.isInvalid).toBe(false);
+    expect(component.showErrorMessages).toBe(false);
+  });
 
-        component.onFocus(null);
+  it('should have an ngb-datepicker element', () => {
+    expect(testElement instanceof DebugElement).toBe(true);
+  });
 
-        expect(component.focus.emit).toHaveBeenCalled();
-    });
+  it('should emit blur event', () => {
+    spyOn(component.blur, 'emit');
+
+    component.onBlur(null);
+
+    expect(component.blur.emit).toHaveBeenCalled();
+  });
+
+  it('should emit change event', () => {
+    spyOn(component.change, 'emit');
+
+    component.onChange(null);
+
+    expect(component.change.emit).toHaveBeenCalled();
+  });
+
+  it('should emit focus event', () => {
+    spyOn(component.focus, 'emit');
+
+    component.onFocus(null);
+
+    expect(component.focus.emit).toHaveBeenCalled();
+  });
 });

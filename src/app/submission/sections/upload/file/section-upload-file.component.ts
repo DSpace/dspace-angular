@@ -22,7 +22,7 @@ import {
   NgbModal,
   NgbModalOptions,
 } from '@ng-bootstrap/ng-bootstrap';
-
+import { DynamicFormControlModel } from '@ng-dynamic-forms/core/model/dynamic-form-control.model';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -38,7 +38,6 @@ import { SubmissionService } from '../../../submission.service';
 import { SectionUploadService } from '../section-upload.service';
 import { SubmissionSectionUploadFileEditComponent } from './edit/section-upload-file-edit.component';
 import { SubmissionSectionUploadFileViewComponent } from './view/section-upload-file-view.component';
-import { DynamicFormControlModel } from "@ng-dynamic-forms/core/model/dynamic-form-control.model";
 
 /**
  * This component represents a single bitstream contained in the submission
