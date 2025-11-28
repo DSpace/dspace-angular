@@ -105,7 +105,7 @@ export class ItemCollectionMapperComponent implements OnInit {
     this.itemName$ = this.itemRD$.pipe(
       filter((rd: RemoteData<Item>) => hasValue(rd)),
       map((rd: RemoteData<Item>) => {
-        return this.dsoNameService.getName(rd.payload);
+        return this.dsoNameService.getName(rd.payload, true);
       })
     );
     this.searchOptions$ = this.searchConfigService.paginatedSearchOptions;
