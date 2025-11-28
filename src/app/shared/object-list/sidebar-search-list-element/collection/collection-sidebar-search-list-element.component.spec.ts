@@ -22,6 +22,8 @@ const object = Object.assign(new CollectionSearchResult(), {
     },
   }),
 });
+object.indexableObject.getParentLinkKey = () => 'parentCommunity';
+
 const parent = Object.assign(new Community(), {
   id: 'test-community',
   metadata: {
