@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from "@angular/core";
 import { UntypedFormGroup, ReactiveFormsModule } from "@angular/forms";
 
-import { NgClass, NgFor } from "@angular/common";
+import { NgClass } from "@angular/common";
 import { DynamicFormControlComponent } from "@ng-dynamic-forms/core/component/dynamic-form-control.component";
 import {
   DynamicFormLayout,
@@ -19,7 +19,7 @@ import { DynamicCheckboxModel } from "@ng-dynamic-forms/core/model/checkbox/dyna
     templateUrl: "./dynamic-ng-bootstrap-checkbox-group.component.html",
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
-    imports: [ReactiveFormsModule, NgClass, NgFor]
+    imports: [ReactiveFormsModule, NgClass]
 })
 export class DynamicNGBootstrapCheckboxGroupComponent extends DynamicFormControlComponent {
     @Input() formLayout?: DynamicFormLayout;

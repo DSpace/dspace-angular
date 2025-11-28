@@ -1,26 +1,29 @@
 <ng-container [formGroup]="group">
 
-    <div class="btn-group" role="group"
-         ngDefaultControl
-         [formControlName]="model.id"
-         [id]="id"
-         [ngClass]="getClass('element', 'control')"
-         [tabindex]="model.tabIndex"
-         (change)="onChange($event)">
+  <div class="btn-group" role="group"
+    ngDefaultControl
+    [formControlName]="model.id"
+    [id]="id"
+    [ngClass]="getClass('element', 'control')"
+    [tabindex]="model.tabIndex"
+    (change)="onChange($event)">
 
-        <legend *ngIf="model.legend" [innerHTML]="model.legend"></legend>
+    @if (model.legend) {
+      <legend [innerHTML]="model.legend"></legend>
+    }
 
-        <label *ngFor="let option of model.options$ | async"
-               [ngClass]="[getClass('element', 'option'), getClass('grid', 'option')]">
-
-            <input type="radio"
-                   [disabled]="option.disabled"
-                   [name]="model.name"
-                   [value]="option.value"
-                   (blur)="onBlur($event)"
-                   (focus)="onFocus($event)"/><span [innerHTML]="option.label"></span>
+    @for (option of model.options$ | async; track option) {
+      <label
+        [ngClass]="[getClass('element', 'option'), getClass('grid', 'option')]">
+        <input type="radio"
+          [disabled]="option.disabled"
+          [name]="model.name"
+          [value]="option.value"
+          (blur)="onBlur($event)"
+          (focus)="onFocus($event)"/><span [innerHTML]="option.label"></span>
         </label>
+      }
 
     </div>
 
-</ng-container>
+  </ng-container>
