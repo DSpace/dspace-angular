@@ -388,6 +388,13 @@ describe('menusReducer', () => {
     expect(newState[menuID].sectionToSubsectionIndex[parentID]).not.toContain(childID);
   });
 
+  it('should not throw an error when trying to remove an already removed section using the REMOVE_SECTION action', () => {
+    const state = dummyState;
+    const action = new RemoveMenuSectionAction(menuID, 'non-existing-id');
+    const newState = menusReducer(state, action);
+    expect(newState).toEqual(dummyState);
+  });
+
   it('should set active to true for the correct menu section in response to the ACTIVATE_SECTION action', () => {
     dummyState[menuID].sections[topSectionID].active = false;
     const state = dummyState;

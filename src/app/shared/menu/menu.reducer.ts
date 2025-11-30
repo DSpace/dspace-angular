@@ -1,4 +1,7 @@
-import { hasValue } from '@dspace/shared/utils/empty.util';
+import {
+  hasNoValue,
+  hasValue,
+} from '@dspace/shared/utils/empty.util';
 
 import { initialMenusState } from './initial-menus-state';
 import {
@@ -149,11 +152,14 @@ function removeSection(state: MenusState, action: RemoveMenuSectionAction) {
 /**
  * Remove a section from the index of a certain menu
  * @param {MenusState} state The initial state
- * @param {MenuSection} action The MenuSection of which the ID should be removed from the index
- * @param {MenuID} action The Menu ID to which the section belonged
+ * @param {MenuSection} section The MenuSection of which the ID should be removed from the index
+ * @param {MenuID} menuID The Menu ID to which the section belonged
  * @returns {MenusState} The new reduced state
  */
 function removeFromIndex(state: MenusState, section: MenuSection, menuID: MenuID) {
+  if (hasNoValue(section)) {
+    return state;
+  }
   const sectionID = section.id;
   const parentID = section.parentID;
   if (hasValue(parentID)) {
