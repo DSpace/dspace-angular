@@ -42,6 +42,7 @@ import { MenuResolver } from './menu.resolver';
 import { ThemedPageErrorComponent } from './page-error/themed-page-error.component';
 import { HomePageResolver } from './home-page/home-page.resolver';
 import { ViewTrackerResolverService } from './statistics/angulartics/dspace/view-tracker-resolver.service';
+import { notAuthenticatedGuard } from './core/auth/not-authenticated.guard';
 
 @NgModule({
   imports: [
@@ -98,13 +99,13 @@ import { ViewTrackerResolverService } from './statistics/angulartics/dspace/view
             path: REGISTER_PATH,
             loadChildren: () => import('./register-page/register-page.module')
               .then((m) => m.RegisterPageModule),
-            canActivate: [SiteRegisterGuard]
+            canActivate: [notAuthenticatedGuard, SiteRegisterGuard]
           },
           {
             path: FORGOT_PASSWORD_PATH,
             loadChildren: () => import('./forgot-password/forgot-password.module')
               .then((m) => m.ForgotPasswordModule),
-            canActivate: [EndUserAgreementCurrentUserGuard]
+            canActivate: [notAuthenticatedGuard, EndUserAgreementCurrentUserGuard]
           },
           {
             path: COMMUNITY_MODULE_PATH,
@@ -169,12 +170,14 @@ import { ViewTrackerResolverService } from './statistics/angulartics/dspace/view
           {
             path: 'login',
             loadChildren: () => import('./login-page/login-page.module')
-              .then((m) => m.LoginPageModule)
+              .then((m) => m.LoginPageModule),
+            canActivate: [notAuthenticatedGuard]
           },
           {
             path: 'logout',
             loadChildren: () => import('./logout-page/logout-page.module')
-              .then((m) => m.LogoutPageModule)
+              .then((m) => m.LogoutPageModule),
+            canActivate: [AuthenticatedGuard]
           },
           {
             path: 'submit',
