@@ -44,7 +44,6 @@ import { ThemedEmailRequestCopyComponent } from '../email-request-copy/themed-em
   selector: 'ds-base-deny-request-copy',
   styleUrls: ['./deny-request-copy.component.scss'],
   templateUrl: './deny-request-copy.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     ThemedEmailRequestCopyComponent,

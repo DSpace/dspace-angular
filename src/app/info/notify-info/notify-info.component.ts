@@ -20,7 +20,6 @@ import {
     RouterLink,
     TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * Component for displaying COAR notification information.

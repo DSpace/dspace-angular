@@ -15,7 +15,6 @@ import { CollectionElementLinkType } from '../../collection-element-link.type';
 @Component({
   selector: 'ds-objects-collection-tabulatable',
   template: ``,
-  standalone: true,
 })
 
 /**

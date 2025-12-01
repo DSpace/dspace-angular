@@ -34,7 +34,6 @@ import { MenuService } from '../../../menu/menu.service';
   selector: 'ds-dso-edit-menu-expandable-section',
   templateUrl: './dso-edit-menu-expandable-section.component.html',
   styleUrls: ['./dso-edit-menu-expandable-section.component.scss'],
-  standalone: true,
   imports: [
     AsyncPipe,
     BtnDisabledDirective,

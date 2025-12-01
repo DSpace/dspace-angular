@@ -36,7 +36,6 @@ import { BtnDisabledDirective } from '../../btn-disabled.directive';
     NgClass,
     TranslateModule,
   ],
-  standalone: true,
 })
 
 export class NumberPickerComponent implements OnChanges, OnInit, ControlValueAccessor {

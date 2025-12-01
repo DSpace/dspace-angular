@@ -89,6 +89,7 @@ import {
   DynamicFormControlContainerComponent,
   DynamicFormControlEvent,
   DynamicFormControlEventType,
+  DynamicFormControlMapFn,
   DynamicFormControlModel,
   DynamicFormLayout,
   DynamicFormLayoutService,
@@ -96,7 +97,6 @@ import {
   DynamicFormValidationService,
   DynamicTemplateDirective,
 } from '@ng-dynamic-forms/core';
-import { DynamicFormControlMapFn } from '@ng-dynamic-forms/core/lib/service/dynamic-form-component.service';
 import { Store } from '@ngrx/store';
 import {
   TranslateModule,
@@ -145,7 +145,6 @@ import { NameVariantService } from './relation-lookup-modal/name-variant.service
     ReactiveFormsModule,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class DsDynamicFormControlContainerComponent extends DynamicFormControlContainerComponent
   implements OnInit, OnChanges, OnDestroy, AfterViewInit, DoCheck {

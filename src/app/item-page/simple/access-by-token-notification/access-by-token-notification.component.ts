@@ -28,7 +28,6 @@ import { VarDirective } from '../../../shared/utils/var.directive';
     TranslateModule,
     VarDirective,
   ],
-  standalone: true,
 })
 export class AccessByTokenNotificationComponent implements OnInit {
 

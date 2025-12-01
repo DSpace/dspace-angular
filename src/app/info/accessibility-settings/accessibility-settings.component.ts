@@ -47,7 +47,6 @@ import { ContextHelpDirective } from '../../shared/context-help.directive';
     TranslateModule,
     UiSwitchModule,
   ],
-  standalone: true,
 })
 export class AccessibilitySettingsComponent implements OnInit, OnDestroy {
   // Redeclared for use in template

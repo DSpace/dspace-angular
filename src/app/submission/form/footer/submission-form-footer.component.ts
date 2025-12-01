@@ -27,7 +27,6 @@ import { SubmissionService } from '../../submission.service';
   selector: 'ds-base-submission-form-footer',
   styleUrls: ['./submission-form-footer.component.scss'],
   templateUrl: './submission-form-footer.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     BrowserOnlyPipe,

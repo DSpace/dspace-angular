@@ -1,7 +1,7 @@
 # This image will be published as dspace/dspace-angular
 # See https://github.com/DSpace/dspace-angular/tree/main/docker for usage details
 
-FROM docker.io/node:18-alpine
+FROM docker.io/node:20-alpine
 
 # Ensure Python and other build tools are available
 # These are needed to install some node modules, especially on linux/arm64
