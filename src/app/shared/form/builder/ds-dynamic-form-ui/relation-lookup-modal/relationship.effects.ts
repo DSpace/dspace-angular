@@ -5,12 +5,15 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { RelationshipDataService } from '../../../../../core/data/relationship-data.service';
 import {
   getRemoteDataPayload,
-  getFirstSucceededRemoteData, DEBOUNCE_TIME_OPERATOR
+  getFirstSucceededRemoteData,
+  DEBOUNCE_TIME_OPERATOR,
+  getFirstCompletedRemoteData,
 } from '../../../../../core/shared/operators';
 import {
   AddRelationshipAction,
   RelationshipAction,
   RelationshipActionTypes,
+  ReplaceRelationshipAction,
   UpdateRelationshipAction,
   UpdateRelationshipNameVariantAction
 } from './relationship.actions';
@@ -33,6 +36,8 @@ import { RemoteData } from '../../../../../core/data/remote-data';
 import { NotificationsService } from '../../../../notifications/notifications.service';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
 import { TranslateService } from '@ngx-translate/core';
+import { ItemDataService } from '../../../../../core/data/item-data.service';
+import { Operation } from 'fast-json-patch';
 
 const DEBOUNCE_TIME = 500;
 
@@ -63,7 +68,7 @@ export class RelationshipEffects {
    */
    mapLastActions$ = createEffect(() => this.actions$
     .pipe(
-      ofType(RelationshipActionTypes.ADD_RELATIONSHIP, RelationshipActionTypes.REMOVE_RELATIONSHIP),
+      ofType(RelationshipActionTypes.ADD_RELATIONSHIP, RelationshipActionTypes.REPLACE_RELATIONSHIP, RelationshipActionTypes.REMOVE_RELATIONSHIP),
       map((action: RelationshipAction) => {
           const { item1, item2, submissionId, relationshipType } = action.payload;
           const identifier: string = this.createIdentifier(item1, item2, relationshipType);
@@ -76,13 +81,18 @@ export class RelationshipEffects {
             ).subscribe(
               (type) => {
                 if (this.initialActionMap[identifier] === type) {
-                  if (type === RelationshipActionTypes.ADD_RELATIONSHIP) {
+                  if (type === RelationshipActionTypes.ADD_RELATIONSHIP || type === RelationshipActionTypes.REPLACE_RELATIONSHIP) {
                     let nameVariant = (action as AddRelationshipAction).payload.nameVariant;
                     if (hasValue(this.nameVariantUpdates[identifier])) {
                       nameVariant = this.nameVariantUpdates[identifier];
                       delete this.nameVariantUpdates[identifier];
                     }
-                    this.addRelationship(item1, item2, relationshipType, submissionId, nameVariant);
+                    if (type === RelationshipActionTypes.ADD_RELATIONSHIP) {
+                      this.addRelationship(item1, item2, relationshipType, submissionId, nameVariant);
+                    } else {
+                      const replaceAction = action as ReplaceRelationshipAction;
+                      this.replaceRelationship(item1, item2, replaceAction.payload.replaceLeftSide, replaceAction.payload.place, replaceAction.payload.mdField, relationshipType, submissionId, nameVariant);
+                    }
                   } else {
                     this.removeRelationship(item1, item2, relationshipType, submissionId);
                   }
@@ -152,6 +162,7 @@ export class RelationshipEffects {
   constructor(private actions$: Actions,
               private relationshipService: RelationshipDataService,
               private relationshipTypeService: RelationshipTypeDataService,
+              private itemService: ItemDataService,
               private submissionObjectService: SubmissionObjectDataService,
               private store: Store<SubmissionState>,
               private objectCache: ObjectCacheService,
@@ -168,6 +179,12 @@ export class RelationshipEffects {
   }
 
   private addRelationship(item1: Item, item2: Item, relationshipType: string, submissionId: string, nameVariant?: string) {
+    this.addRelationshipObs(item1, item2, relationshipType, submissionId, nameVariant).pipe(
+      switchMap(() => this.refreshWorkspaceItemInCache(submissionId))
+    ).subscribe((submissionObject: SubmissionObject) => this.store.dispatch(new SaveSubmissionSectionFormSuccessAction(submissionId, [submissionObject], false)));
+  }
+
+  private addRelationshipObs(item1: Item, item2: Item, relationshipType: string, submissionId: string, nameVariant?: string): Observable<Relationship> {
     const type1: string = item1.firstMetadataValue('dspace.entity.type');
     const type2: string = item2.firstMetadataValue('dspace.entity.type');
     return this.relationshipTypeService.getRelationshipTypeByLabelAndTypes(relationshipType, type1, type2)
@@ -185,27 +202,77 @@ export class RelationshipEffects {
           }
         }),
         take(1),
-        switchMap((rd: RemoteData<Relationship>) => {
+        map((rd: RemoteData<Relationship>) => {
           if (hasNoValue(rd) || rd.hasFailed) {
             // An error occurred, deselect the object from the selectable list and display an error notification
-            const listId = `list-${submissionId}-${relationshipType}`;
-            this.selectableListService.findSelectedByCondition(listId, (object: any) => hasValue(object.indexableObject) && object.indexableObject.uuid === item2.uuid).pipe(
-              take(1),
-              hasValueOperator()
-            ).subscribe((selected) => {
-              this.selectableListService.deselectSingle(listId, selected);
-            });
-            let errorContent;
-            if (hasNoValue(rd)) {
-              errorContent = this.translateService.instant('relationships.add.error.relationship-type.content', { type: relationshipType });
-            } else {
-              errorContent = this.translateService.instant('relationships.add.error.server.content');
-            }
-            this.notificationsService.error(this.translateService.instant('relationships.add.error.title'), errorContent);
+            this.deselectAndShowError(item1, item2, relationshipType, submissionId, hasNoValue(rd));
           }
-          return this.refreshWorkspaceItemInCache(submissionId);
+          return rd.hasSucceeded && hasValue(rd.payload) ? rd.payload : undefined;
         }),
-      ).subscribe((submissionObject: SubmissionObject) => this.store.dispatch(new SaveSubmissionSectionFormSuccessAction(submissionId, [submissionObject], false)));
+      );
+  }
+
+  private deselectAndShowError(item1: Item, item2: Item, relationshipType: string, submissionId: string, noMatchFound = false) {
+    const listId = `list-${submissionId}-${relationshipType}`;
+    this.selectableListService.findSelectedByCondition(listId, (object: any) => hasValue(object.indexableObject) && object.indexableObject.uuid === item2.uuid).pipe(
+      take(1),
+      hasValueOperator()
+    ).subscribe((selected) => {
+      this.selectableListService.deselectSingle(listId, selected);
+    });
+    let errorContent;
+    if (noMatchFound) {
+      errorContent = this.translateService.instant('relationships.add.error.relationship-type.content', { type: relationshipType });
+    } else {
+      errorContent = this.translateService.instant('relationships.add.error.server.content');
+    }
+    this.notificationsService.error(this.translateService.instant('relationships.add.error.title'), errorContent);
+  }
+
+  /**
+   * Perform a "replace" of a metadata value with a new relationship
+   * A replace happens in three steps:
+   *   - The old metadata value is removed with an item PATCH
+   *   - The new relationship is created
+   *   - The relationship's place is updated to fit the old place of the removed metadata value
+   * @param item1             First item in the relationship to create
+   * @param item2             Second item in the relationship to create
+   * @param replaceLeftSide   If true, item1 will have its metadata value replaced, otherwise item2
+   * @param place             The index of the metadata value to replace
+   * @param metadataField     The metadata field of the metadata value to replace
+   * @param relationshipType  The type of relationship
+   * @param submissionId      The ID of the submission this action is taking place in
+   * @param nameVariant       Optional name variant of the to-be-created relationship
+   * @private
+   */
+  private replaceRelationship(item1: Item, item2: Item, replaceLeftSide: boolean, place: number, metadataField: string, relationshipType: string, submissionId: string, nameVariant?: string) {
+    this.itemService.patch(replaceLeftSide ? item1 : item2, [{ op: 'remove', path: `/metadata/${metadataField}/${place}` } as Operation]).pipe(
+      getFirstCompletedRemoteData(),
+      switchMap((rd: RemoteData<Item>) => {
+        if (rd.hasSucceeded) {
+          return this.addRelationshipObs(item1, item2, relationshipType, submissionId, nameVariant);
+        } else {
+          this.deselectAndShowError(item1, item2, relationshipType, submissionId);
+          return [undefined];
+        }
+      }),
+      switchMap((rel: Relationship) => {
+        if (hasValue(rel)) {
+          const updatedRelationship: Relationship = Object.assign(new Relationship(), rel);
+          if (replaceLeftSide) {
+            updatedRelationship.leftPlace = place;
+          } else {
+            updatedRelationship.rightPlace = place;
+          }
+          return this.relationshipService.update(updatedRelationship).pipe(
+            getFirstCompletedRemoteData(),
+          );
+        } else {
+          return [undefined];
+        }
+      }),
+      switchMap(() => this.refreshWorkspaceItemInCache(submissionId)),
+    ).subscribe((submissionObject: SubmissionObject) => this.store.dispatch(new SaveSubmissionSectionFormSuccessAction(submissionId, [submissionObject], false)));
   }
 
   private removeRelationship(item1: Item, item2: Item, relationshipType: string, submissionId: string) {

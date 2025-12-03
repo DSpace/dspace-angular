@@ -13,7 +13,7 @@ import { SearchResult } from '../../../../search/models/search-result.model';
 import { Item } from '../../../../../core/shared/item.model';
 import {
   AddRelationshipAction,
-  RemoveRelationshipAction,
+  RemoveRelationshipAction, ReplaceRelationshipAction,
   UpdateRelationshipNameVariantAction,
 } from './relationship.actions';
 import { RelationshipDataService } from '../../../../../core/data/relationship-data.service';
@@ -94,6 +94,17 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
   metadataFields: string;
 
   query: string;
+
+  /**
+   * The index of the plain-text value that should be replaced by adding a relationship
+   */
+  replaceValuePlace: number;
+
+  /**
+   * The metadata field of the value to replace with a relationship
+   * Undefined if no value needs replacing
+   */
+  replaceValueMetadataField: string;
 
   /**
    * A map of subscriptions within this component
@@ -235,9 +246,17 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
         ]);
         obs
           .subscribe((arr: any[]) => {
-            return arr.forEach((object: any) => {
-              const addRelationshipAction = new AddRelationshipAction(this.item, object.item, this.relationshipOptions.relationshipType, this.submissionId, object.nameVariant);
-              this.store.dispatch(addRelationshipAction);
+            return arr.forEach((object: any, i: number) => {
+              let action;
+              if (i === 0 && hasValue(this.replaceValueMetadataField)) {
+                // This is the first action this modal performs and "replace" properties are present to replace an existing metadata value
+                action = new ReplaceRelationshipAction(this.item, object.item, true, this.replaceValuePlace, this.replaceValueMetadataField, this.relationshipOptions.relationshipType, this.submissionId, object.nameVariant);
+                // Only "replace" once, reset replace properties so future actions become "add"
+                this.resetReplaceProperties();
+              } else {
+                action = new AddRelationshipAction(this.item, object.item, this.relationshipOptions.relationshipType, this.submissionId, object.nameVariant);
+              }
+              this.store.dispatch(action);
               }
             );
           });
@@ -260,6 +279,7 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
    * @param selectableObjects
    */
   deselect(...selectableObjects: SearchResult<Item>[]) {
+    this.resetReplaceProperties();
     this.zone.runOutsideAngular(
       () => selectableObjects.forEach((object) => {
         this.subMap[object.indexableObject.uuid].unsubscribe();
@@ -295,6 +315,11 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
 
   setTotalInternals(totalPages: number) {
     this.totalInternal$.next(totalPages);
+  }
+
+  private resetReplaceProperties() {
+    this.replaceValueMetadataField = undefined;
+    this.replaceValuePlace = undefined;
   }
 
   ngOnDestroy() {

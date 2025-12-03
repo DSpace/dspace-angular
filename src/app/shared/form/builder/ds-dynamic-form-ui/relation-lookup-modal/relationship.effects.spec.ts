@@ -3,7 +3,12 @@ import { BehaviorSubject, Observable, of as observableOf } from 'rxjs';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Store } from '@ngrx/store';
 import { RelationshipEffects } from './relationship.effects';
-import { AddRelationshipAction, RelationshipActionTypes, RemoveRelationshipAction } from './relationship.actions';
+import {
+  AddRelationshipAction,
+  RelationshipActionTypes,
+  RemoveRelationshipAction,
+  ReplaceRelationshipAction
+} from './relationship.actions';
 import { Item } from '../../../../../core/shared/item.model';
 import { MetadataValue } from '../../../../../core/shared/metadata.models';
 import { RelationshipTypeDataService } from '../../../../../core/data/relationship-type-data.service';
@@ -23,6 +28,7 @@ import { SelectableListService } from '../../../../object-list/selectable-list/s
 import { cold, hot } from 'jasmine-marbles';
 import { DEBOUNCE_TIME_OPERATOR } from '../../../../../core/shared/operators';
 import { last } from 'rxjs/operators';
+import { ItemDataService } from '../../../../../core/data/item-data.service';
 
 describe('RelationshipEffects', () => {
   let relationEffects: RelationshipEffects;
@@ -51,6 +57,7 @@ describe('RelationshipEffects', () => {
   let notificationsService;
   let translateService;
   let selectableListService;
+  let itemService;
 
   function init() {
     testUUID1 = '20e24c2f-a00a-467c-bdee-c929e79bf08d';
@@ -93,8 +100,8 @@ describe('RelationshipEffects', () => {
       getRelationshipByItemsAndLabel:
         () => observableOf(relationship),
       deleteRelationship: () => observableOf(new RestResponse(true, 200, 'OK')),
-      addRelationship: () => observableOf(new RestResponse(true, 200, 'OK'))
-
+      addRelationship: () => createSuccessfulRemoteDataObject$(new Relationship()),
+      update: () => createSuccessfulRemoteDataObject$(new Relationship()),
     };
     mockRelationshipTypeService = {
       getRelationshipTypeByLabelAndTypes:
@@ -108,6 +115,9 @@ describe('RelationshipEffects', () => {
       findSelectedByCondition: observableOf({}),
       deselectSingle: {}
     });
+    itemService = jasmine.createSpyObj('itemService', {
+      patch: createSuccessfulRemoteDataObject$(new Item()),
+    });
   }
 
   beforeEach(waitForAsync(() => {
@@ -118,6 +128,7 @@ describe('RelationshipEffects', () => {
         provideMockActions(() => actions),
         { provide: RelationshipTypeDataService, useValue: mockRelationshipTypeService },
         { provide: RelationshipDataService, useValue: mockRelationshipService },
+        { provide: ItemDataService, useValue: itemService },
         {
           provide: SubmissionObjectDataService, useValue: {
             findById: () => createSuccessfulRemoteDataObject$(new WorkspaceItem())
@@ -140,6 +151,7 @@ describe('RelationshipEffects', () => {
     identifier = (relationEffects as any).createIdentifier(leftItem, rightItem, relationshipType.leftwardType);
     spyOn((relationEffects as any), 'addRelationship').and.stub();
     spyOn((relationEffects as any), 'removeRelationship').and.stub();
+    spyOn((relationEffects as any), 'replaceRelationship').and.stub();
   });
 
   describe('mapLastActions$', () => {
@@ -202,6 +214,73 @@ describe('RelationshipEffects', () => {
             const expected = cold('--bb-|', { b: undefined });
             expect(relationEffects.mapLastActions$).toBeObservable(expected);
             expect((relationEffects as any).addRelationship).not.toHaveBeenCalled();
+            expect((relationEffects as any).removeRelationship).not.toHaveBeenCalled();
+          });
+        });
+      });
+    });
+
+    describe('When a REPLACE_RELATIONSHIP action is triggered', () => {
+      describe('When it\'s the first time for this identifier', () => {
+        let action;
+
+        it('should set the current value debounceMap and the value of the initialActionMap to REPLACE_RELATIONSHIP', () => {
+          action = new ReplaceRelationshipAction(leftItem, rightItem, true, 0, 'dc.subject', relationshipType.leftwardType, '1234');
+          actions = hot('--a-|', { a: action });
+          const expected = cold('--b-|', { b: undefined });
+          expect(relationEffects.mapLastActions$).toBeObservable(expected);
+
+          expect((relationEffects as any).initialActionMap[identifier]).toBe(action.type);
+          expect((relationEffects as any).debounceMap[identifier].value).toBe(action.type);
+        });
+      });
+
+      describe('When it\'s not the first time for this identifier', () => {
+        let action;
+        const testActionType = 'TEST_TYPE';
+        beforeEach(() => {
+          (relationEffects as any).initialActionMap[identifier] = testActionType;
+          (relationEffects as any).debounceMap[identifier] = new BehaviorSubject<string>(testActionType);
+        });
+
+        it('should set the current value debounceMap to REPLACE_RELATIONSHIP but not change the value of the initialActionMap', () => {
+          action = new ReplaceRelationshipAction(leftItem, rightItem, true, 0, 'dc.subject', relationshipType.leftwardType, '1234');
+          actions = hot('--a-|', { a: action });
+
+          const expected = cold('--b-|', { b: undefined });
+          expect(relationEffects.mapLastActions$).toBeObservable(expected);
+
+          expect((relationEffects as any).initialActionMap[identifier]).toBe(testActionType);
+          expect((relationEffects as any).debounceMap[identifier].value).toBe(action.type);
+        });
+      });
+
+      describe('When the initialActionMap contains a REPLACE_RELATIONSHIP action', () => {
+        let action;
+        describe('When the last value in the debounceMap is also a REPLACE_RELATIONSHIP action', () => {
+          beforeEach(() => {
+            spyOn((relationEffects as any).relationshipService, 'update').and.callThrough();
+            ((relationEffects as any).debounceTime as jasmine.Spy).and.returnValue((v) => v);
+            (relationEffects as any).initialActionMap[identifier] = RelationshipActionTypes.REPLACE_RELATIONSHIP;
+          });
+
+          it('should call replaceRelationship on the effect', () => {
+            action = new ReplaceRelationshipAction(leftItem, rightItem, true, 0, 'dc.subject', relationshipType.leftwardType, '1234');
+            actions = hot('--a-|', { a: action });
+            const expected = cold('--b-|', { b: undefined });
+            expect(relationEffects.mapLastActions$).toBeObservable(expected);
+            expect((relationEffects as any).replaceRelationship).toHaveBeenCalledWith(leftItem, rightItem, true, 0, 'dc.subject', relationshipType.leftwardType, '1234', undefined);
+          });
+        });
+
+        describe('When the last value in the debounceMap is instead a REMOVE_RELATIONSHIP action', () => {
+          it('should <b>not</b> call removeRelationship or replaceRelationship on the effect', () => {
+            const actiona = new ReplaceRelationshipAction(leftItem, rightItem, true, 0, 'dc.subject', relationshipType.leftwardType, '1234');
+            const actionb = new RemoveRelationshipAction(leftItem, rightItem, relationshipType.leftwardType, '1234');
+            actions = hot('--ab-|', { a: actiona, b: actionb });
+            const expected = cold('--bb-|', { b: undefined });
+            expect(relationEffects.mapLastActions$).toBeObservable(expected);
+            expect((relationEffects as any).replaceRelationship).not.toHaveBeenCalled();
             expect((relationEffects as any).removeRelationship).not.toHaveBeenCalled();
           });
         });
