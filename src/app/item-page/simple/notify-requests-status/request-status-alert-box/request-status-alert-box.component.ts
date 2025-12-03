@@ -17,7 +17,6 @@ import { RequestStatusEnum } from '../notify-status.enum';
   templateUrl: './request-status-alert-box.component.html',
   styleUrls: ['./request-status-alert-box.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
   imports: [
     NgClass,
     TranslateModule,

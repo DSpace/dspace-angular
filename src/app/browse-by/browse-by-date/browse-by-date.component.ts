@@ -58,7 +58,6 @@ import {
   selector: 'ds-browse-by-date',
   styleUrls: ['../browse-by-metadata/browse-by-metadata.component.scss'],
   templateUrl: '../browse-by-metadata/browse-by-metadata.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     ThemedBrowseByComponent,

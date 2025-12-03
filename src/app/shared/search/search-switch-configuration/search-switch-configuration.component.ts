@@ -29,7 +29,6 @@ import { SearchConfigurationOption } from './search-configuration-option.model';
   selector: 'ds-search-switch-configuration',
   styleUrls: ['./search-switch-configuration.component.scss'],
   templateUrl: './search-switch-configuration.component.html',
-  standalone: true,
   imports: [
     FormsModule,
     TranslateModule,

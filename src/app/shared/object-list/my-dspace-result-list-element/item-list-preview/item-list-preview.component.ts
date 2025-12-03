@@ -35,7 +35,6 @@ import { TruncatablePartComponent } from '../../../truncatable/truncatable-part/
   styleUrls: ['item-list-preview.component.scss'],
   templateUrl: 'item-list-preview.component.html',
   animations: [fadeInOut],
-  standalone: true,
   imports: [
     AsyncPipe,
     ItemCollectionComponent,

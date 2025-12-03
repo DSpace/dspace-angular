@@ -47,7 +47,6 @@ import { VarDirective } from '../../../../shared/utils/var.directive';
     TranslateModule,
     VarDirective,
   ],
-  standalone: true,
 })
 export class FileSectionComponent implements OnInit {
 

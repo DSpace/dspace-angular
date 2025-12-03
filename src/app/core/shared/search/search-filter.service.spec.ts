@@ -70,7 +70,7 @@ describe('SearchFilterService', () => {
     });
 
     it('SearchFilterInitializeAction should be dispatched to the store', () => {
-      expect(store.dispatch).toHaveBeenCalledWith(new SearchFilterInitializeAction(mockFilterConfig));
+      expect(store.dispatch as jasmine.Spy).toHaveBeenCalledWith(new SearchFilterInitializeAction(mockFilterConfig));
     });
   });
 
@@ -80,7 +80,7 @@ describe('SearchFilterService', () => {
     });
 
     it('SearchFilterCollapseAction should be dispatched to the store', () => {
-      expect(store.dispatch).toHaveBeenCalledWith(new SearchFilterCollapseAction(mockFilterConfig.name));
+      expect(store.dispatch as jasmine.Spy).toHaveBeenCalledWith(new SearchFilterCollapseAction(mockFilterConfig.name));
     });
 
   });
@@ -91,7 +91,7 @@ describe('SearchFilterService', () => {
     });
 
     it('SearchFilterInitialExpandAction should be dispatched to the store', () => {
-      expect(store.dispatch).toHaveBeenCalledWith(new SearchFilterToggleAction(mockFilterConfig.name));
+      expect(store.dispatch as jasmine.Spy).toHaveBeenCalledWith(new SearchFilterToggleAction(mockFilterConfig.name));
     });
   });
 
@@ -101,7 +101,7 @@ describe('SearchFilterService', () => {
     });
 
     it('SearchFilterDecrementPageAction should be dispatched to the store', () => {
-      expect(store.dispatch).toHaveBeenCalledWith(new SearchFilterDecrementPageAction(mockFilterConfig.name));
+      expect(store.dispatch as jasmine.Spy).toHaveBeenCalledWith(new SearchFilterDecrementPageAction(mockFilterConfig.name));
     });
 
   });
@@ -112,7 +112,7 @@ describe('SearchFilterService', () => {
     });
 
     it('SearchFilterCollapseAction should be dispatched to the store', () => {
-      expect(store.dispatch).toHaveBeenCalledWith(new SearchFilterIncrementPageAction(mockFilterConfig.name));
+      expect(store.dispatch as jasmine.Spy).toHaveBeenCalledWith(new SearchFilterIncrementPageAction(mockFilterConfig.name));
     });
 
   });
@@ -123,7 +123,7 @@ describe('SearchFilterService', () => {
     });
 
     it('SearchFilterDecrementPageAction should be dispatched to the store', () => {
-      expect(store.dispatch).toHaveBeenCalledWith(new SearchFilterResetPageAction(mockFilterConfig.name));
+      expect(store.dispatch as jasmine.Spy).toHaveBeenCalledWith(new SearchFilterResetPageAction(mockFilterConfig.name));
     });
 
   });
@@ -134,7 +134,7 @@ describe('SearchFilterService', () => {
     });
 
     it('SidebarExpandAction should be dispatched to the store', () => {
-      expect(store.dispatch).toHaveBeenCalledWith(new SearchFilterExpandAction(mockFilterConfig.name));
+      expect(store.dispatch as jasmine.Spy).toHaveBeenCalledWith(new SearchFilterExpandAction(mockFilterConfig.name));
     });
   });
 

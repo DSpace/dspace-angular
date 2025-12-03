@@ -21,7 +21,6 @@ import { EditMetadataValueFieldType } from './dso-edit-metadata-field-type.enum'
 @Component({
   selector: 'ds-abstract-dso-edit-metadata-value-field',
   template: '',
-  standalone: true,
 })
 export abstract class AbstractDsoEditMetadataValueFieldComponent {
 

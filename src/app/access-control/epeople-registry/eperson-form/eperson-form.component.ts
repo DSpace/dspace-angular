@@ -87,7 +87,6 @@ import { ValidateEmailNotTaken } from './validators/email-taken.validator';
     ThemedLoadingComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * A form used for creating and editing EPeople

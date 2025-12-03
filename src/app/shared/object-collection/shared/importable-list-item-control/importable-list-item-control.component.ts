@@ -11,7 +11,6 @@ import { ListableObject } from '../listable-object.model';
 @Component({
   selector: 'ds-importable-list-item-control',
   templateUrl: './importable-list-item-control.component.html',
-  standalone: true,
   imports: [
     TranslateModule,
   ],

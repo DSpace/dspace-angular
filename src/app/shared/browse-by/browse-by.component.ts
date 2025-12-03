@@ -53,7 +53,6 @@ import { VarDirective } from '../utils/var.directive';
     fadeIn,
     fadeInOut,
   ],
-  standalone: true,
   imports: [
     AsyncPipe,
     ErrorComponent,

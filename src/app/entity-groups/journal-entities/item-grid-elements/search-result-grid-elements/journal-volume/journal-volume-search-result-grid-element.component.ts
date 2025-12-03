@@ -18,7 +18,6 @@ import { ThemedThumbnailComponent } from '../../../../../thumbnail/themed-thumbn
   styleUrls: ['./journal-volume-search-result-grid-element.component.scss'],
   templateUrl: './journal-volume-search-result-grid-element.component.html',
   animations: [focusShadow],
-  standalone: true,
   imports: [
     AsyncPipe,
     RouterLink,

@@ -40,7 +40,6 @@ import { NotificationsService } from '../shared/notifications/notifications.serv
 @Directive({
   // eslint-disable-next-line @angular-eslint/directive-selector
   selector: 'ds-workflowitem-action-page',
-  standalone: true,
 })
 export abstract class WorkflowItemActionPageDirective implements OnInit {
 

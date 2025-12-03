@@ -37,7 +37,6 @@ import { getItemPageRoute } from '../../item-page-routing-paths';
 @Component({
   selector: 'ds-item-versions-notice',
   templateUrl: './item-versions-notice.component.html',
-  standalone: true,
   imports: [
     AlertComponent,
     AsyncPipe,

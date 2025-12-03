@@ -51,7 +51,6 @@ import { getItemPageRoute } from '../item-page-routing-paths';
     RouterOutlet,
     TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * Page component for editing an item

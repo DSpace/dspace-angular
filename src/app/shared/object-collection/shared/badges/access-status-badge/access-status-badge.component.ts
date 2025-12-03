@@ -29,7 +29,6 @@ import { AccessStatusObject } from './access-status.model';
   selector: 'ds-base-access-status-badge',
   templateUrl: './access-status-badge.component.html',
   styleUrls: ['./access-status-badge.component.scss'],
-  standalone: true,
   imports: [
     AsyncPipe,
     TranslateModule,
@@ -130,12 +129,8 @@ export class AccessStatusBadgeComponent implements OnDestroy, OnInit {
       map((accessStatus: AccessStatusObject) => hasValue(accessStatus.embargoDate) ? accessStatus.embargoDate : null),
       catchError(() => of(null)),
     );
-    this.subs.push(
-      this.embargoDate$.pipe().subscribe((embargoDate: string) => {
-        if (hasValue(embargoDate)) {
-          this.accessStatus$ = of('embargo.listelement.badge');
-        }
-      }),
+    this.accessStatus$ = this.embargoDate$.pipe(
+      map(date => hasValue(date) ? 'embargo.listelement.badge' : null),
     );
   }
 }

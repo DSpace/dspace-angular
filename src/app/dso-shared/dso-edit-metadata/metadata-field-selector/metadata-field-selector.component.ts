@@ -60,7 +60,6 @@ import { followLink } from '../../../shared/utils/follow-link-config.model';
   selector: 'ds-metadata-field-selector',
   styleUrls: ['./metadata-field-selector.component.scss'],
   templateUrl: './metadata-field-selector.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     ClickOutsideDirective,

@@ -1,17 +1,12 @@
-import {
-  AsyncPipe,
-  DatePipe,
-} from '@angular/common';
+import { DatePipe } from '@angular/common';
 import {
   Component,
   input,
   InputSignal,
   output,
 } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { AlertComponent } from '../../shared/alert/alert.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
@@ -29,13 +24,9 @@ export interface SourceObject {
   selector: 'ds-source-list',
   templateUrl: './source-list.component.html',
   styleUrls: ['./source-list.component.scss'],
-  standalone: true,
   imports: [
-    AlertComponent,
-    AsyncPipe,
     DatePipe,
     PaginationComponent,
-    RouterLink,
     ThemedLoadingComponent,
     TranslateModule,
   ],

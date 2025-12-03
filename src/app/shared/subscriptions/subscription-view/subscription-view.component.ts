@@ -29,7 +29,6 @@ import { SubscriptionsDataService } from '../subscriptions-data.service';
   selector: '[ds-subscription-view]',
   templateUrl: './subscription-view.component.html',
   styleUrls: ['./subscription-view.component.scss'],
-  standalone: true,
   imports: [
     BtnDisabledDirective,
     RouterLink,

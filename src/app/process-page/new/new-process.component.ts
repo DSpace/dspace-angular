@@ -27,7 +27,6 @@ import { Script } from '../scripts/script.model';
   selector: 'ds-new-process',
   templateUrl: './new-process.component.html',
   styleUrls: ['./new-process.component.scss'],
-  standalone: true,
   imports: [
     AsyncPipe,
     HasValuePipe,

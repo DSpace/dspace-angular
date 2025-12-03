@@ -66,7 +66,6 @@ enum SubKey {
     RouterLink,
     TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * The list of subgroups in the edit group page

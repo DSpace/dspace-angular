@@ -64,7 +64,6 @@ enum SubKey {
   selector: 'ds-reviewers-list',
   // templateUrl: './reviewers-list.component.html',
   templateUrl: '../../../../access-control/group-registry/group-form/members-list/members-list.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     BtnDisabledDirective,

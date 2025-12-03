@@ -63,7 +63,6 @@ import { VarDirective } from '../../../../utils/var.directive';
     TranslateModule,
     VarDirective,
   ],
-  standalone: true,
 })
 export class ComcolRoleComponent implements OnInit {
 

@@ -247,7 +247,7 @@ describe('BitstreamFormatDataService', () => {
       format.uuid = 'uuid';
 
       service.selectBitstreamFormat(format);
-      expect(store.dispatch).toHaveBeenCalledWith(new BitstreamFormatsRegistrySelectAction(format));
+      expect(store.dispatch as jasmine.Spy).toHaveBeenCalledWith(new BitstreamFormatsRegistrySelectAction(format));
     });
   });
 
@@ -270,7 +270,7 @@ describe('BitstreamFormatDataService', () => {
       format.uuid = 'uuid';
 
       service.deselectBitstreamFormat(format);
-      expect(store.dispatch).toHaveBeenCalledWith(new BitstreamFormatsRegistryDeselectAction(format));
+      expect(store.dispatch as jasmine.Spy).toHaveBeenCalledWith(new BitstreamFormatsRegistryDeselectAction(format));
     });
   });
 
@@ -291,7 +291,7 @@ describe('BitstreamFormatDataService', () => {
     }));
     it('should remove all bitstreamFormats from the store', () => {
       service.deselectAllBitstreamFormats();
-      expect(store.dispatch).toHaveBeenCalledWith(new BitstreamFormatsRegistryDeselectAllAction());
+      expect(store.dispatch as jasmine.Spy).toHaveBeenCalledWith(new BitstreamFormatsRegistryDeselectAllAction());
     });
   });
 

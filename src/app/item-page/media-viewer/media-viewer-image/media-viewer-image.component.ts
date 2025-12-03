@@ -28,7 +28,6 @@ import { hasValue } from '../../../shared/empty.util';
     AsyncPipe,
     NgxGalleryModule,
   ],
-  standalone: true,
 })
 export class MediaViewerImageComponent implements OnChanges, OnInit {
   @Input() images: MediaViewerItem[];

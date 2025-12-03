@@ -23,7 +23,6 @@ import { MenuSection } from '../../../menu/menu-section.model';
   selector: 'ds-dso-edit-menu-section',
   templateUrl: './dso-edit-menu-section.component.html',
   styleUrls: ['./dso-edit-menu-section.component.scss'],
-  standalone: true,
   imports: [
     BtnDisabledDirective,
     NgbTooltipModule,

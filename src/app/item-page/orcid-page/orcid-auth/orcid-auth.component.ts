@@ -45,7 +45,6 @@ import { createFailedRemoteDataObjectFromError$ } from '../../../shared/remote-d
     BtnDisabledDirective,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class OrcidAuthComponent implements OnInit, OnChanges {
 

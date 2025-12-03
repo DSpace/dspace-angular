@@ -23,7 +23,6 @@ import { isAuthenticated } from '../../core/auth/selectors';
 @Component({
   selector: 'ds-impersonate-navbar',
   templateUrl: 'impersonate-navbar.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     NgbTooltipModule,

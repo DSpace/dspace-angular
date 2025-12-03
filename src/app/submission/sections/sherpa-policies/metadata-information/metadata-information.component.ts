@@ -18,7 +18,6 @@ import { Metadata } from '../../../../core/submission/models/sherpa-policies-det
     DatePipe,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class MetadataInformationComponent {
   /**

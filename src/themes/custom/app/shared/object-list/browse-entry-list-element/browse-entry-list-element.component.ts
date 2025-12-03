@@ -14,7 +14,6 @@ import { BrowseEntryListElementComponent as BaseComponent } from '../../../../..
   styleUrls: ['../../../../../../app/shared/object-list/browse-entry-list-element/browse-entry-list-element.component.scss'],
   // templateUrl: './browse-entry-list-element.component.html',
   templateUrl: '../../../../../../app/shared/object-list/browse-entry-list-element/browse-entry-list-element.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     RouterLink,

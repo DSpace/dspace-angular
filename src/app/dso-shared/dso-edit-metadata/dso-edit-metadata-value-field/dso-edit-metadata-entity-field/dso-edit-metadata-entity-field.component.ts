@@ -19,7 +19,6 @@ import { AbstractDsoEditMetadataValueFieldComponent } from '../abstract-dso-edit
   selector: 'ds-dso-edit-metadata-entity-field',
   templateUrl: './dso-edit-metadata-entity-field.component.html',
   styleUrls: ['./dso-edit-metadata-entity-field.component.scss'],
-  standalone: true,
   imports: [
     AsyncPipe,
     FormsModule,

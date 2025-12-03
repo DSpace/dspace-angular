@@ -12,10 +12,7 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import {
-  TranslateLoader,
-  TranslateModule,
-} from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { RequestService } from '../../core/data/request.service';
@@ -28,7 +25,6 @@ import { ProcessTaskResponse } from '../../core/tasks/models/process-task-respon
 import { PoolTaskDataService } from '../../core/tasks/pool-task-data.service';
 import { getMockRequestService } from '../mocks/request.service.mock';
 import { getMockSearchService } from '../mocks/search-service.mock';
-import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
 import { NotificationsService } from '../notifications/notifications.service';
 import {
   createFailedRemoteDataObject,
@@ -46,8 +42,7 @@ let component: PoolTaskActionsComponent;
 let fixture: ComponentFixture<PoolTaskActionsComponent>;
 
 let mockObject: PoolTask;
-let notificationsServiceStub: NotificationsServiceStub;
-let router: RouterStub;
+let notificationsServiceStub: NotificationsService;
 
 const searchService = getMockSearchService();
 
@@ -93,12 +88,7 @@ describe('MyDSpaceReloadableActionsComponent', () => {
     mockClaimedTaskDataService = new ClaimedTaskDataService(null, null, null, null);
     TestBed.configureTestingModule({
       imports: [
-        TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock,
-          },
-        }),
+        TranslateModule.forRoot(),
         PoolTaskActionsComponent,
       ],
       providers: [
@@ -123,8 +113,7 @@ describe('MyDSpaceReloadableActionsComponent', () => {
     component.item = item;
     component.object = mockObject;
     component.workflowitem = workflowitem;
-    notificationsServiceStub = TestBed.get(NotificationsService);
-    router = TestBed.get(Router);
+    notificationsServiceStub = TestBed.inject(NotificationsService);
     fixture.detectChanges();
   });
 

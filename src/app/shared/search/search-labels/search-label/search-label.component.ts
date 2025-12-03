@@ -26,7 +26,6 @@ import { AppliedFilter } from '../../models/applied-filter.model';
   selector: 'ds-search-label',
   templateUrl: './search-label.component.html',
   styleUrls: ['./search-label.component.scss'],
-  standalone: true,
   imports: [
     AsyncPipe,
     RouterLink,

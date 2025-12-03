@@ -17,7 +17,6 @@ import { ServerResponseService } from '../core/services/server-response.service'
   styleUrls: ['./pagenotfound.component.scss'],
   templateUrl: './pagenotfound.component.html',
   changeDetection: ChangeDetectionStrategy.Default,
-  standalone: true,
   imports: [
     RouterLink,
     TranslateModule,

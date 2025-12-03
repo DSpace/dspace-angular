@@ -29,7 +29,6 @@ import { NotificationsService } from '../../../../notifications/notifications.se
 @Component({
   selector: 'ds-comcol-metadata',
   template: '',
-  standalone: true,
 })
 export class ComcolMetadataComponent<TDomain extends Community | Collection> implements OnInit {
   /**

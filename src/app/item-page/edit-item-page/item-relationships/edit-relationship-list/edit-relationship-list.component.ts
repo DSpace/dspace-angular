@@ -99,7 +99,6 @@ import { EditRelationshipComponent } from '../edit-relationship/edit-relationshi
     TranslateModule,
     VarDirective,
   ],
-  standalone: true,
 })
 /**
  * A component creating a list of editable relationships of a certain type

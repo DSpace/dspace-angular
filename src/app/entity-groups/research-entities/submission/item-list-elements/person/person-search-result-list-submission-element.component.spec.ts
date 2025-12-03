@@ -72,7 +72,7 @@ const translateServiceStub = {
   instant: (key) => key,
   onLangChange: new EventEmitter(),
   onTranslationChange: new EventEmitter(),
-  onDefaultLangChange: new EventEmitter(),
+  onFallbackLangChange: new EventEmitter(),
 };
 
 function init() {
@@ -276,7 +276,6 @@ describe('PersonSearchResultListElementSubmissionComponent', () => {
 @Component({
   selector: 'ds-mock-thumbnail',
   template: '<div></div>',
-  standalone: true,
 })
 export class ThumbnailStubComponent {
 

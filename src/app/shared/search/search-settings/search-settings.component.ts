@@ -21,7 +21,6 @@ import { SidebarDropdownComponent } from '../../sidebar/sidebar-dropdown.compone
   selector: 'ds-base-search-settings',
   styleUrls: ['./search-settings.component.scss'],
   templateUrl: './search-settings.component.html',
-  standalone: true,
   imports: [
     FormsModule,
     PageSizeSelectorComponent,

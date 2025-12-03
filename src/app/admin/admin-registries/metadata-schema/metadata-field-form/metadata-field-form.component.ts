@@ -36,7 +36,6 @@ import { FormComponent } from '../../../../shared/form/form.component';
     FormComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * A form used for creating and editing metadata fields

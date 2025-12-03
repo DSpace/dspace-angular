@@ -1,28 +1,18 @@
-import { DebugElement } from '@angular/core';
+import {
+  CUSTOM_ELEMENTS_SCHEMA,
+  DebugElement,
+} from '@angular/core';
 import {
   ComponentFixture,
-  inject,
   TestBed,
 } from '@angular/core/testing';
-import {
-  BrowserModule,
-  By,
-} from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
-import { Store } from '@ngrx/store';
-import {
-  TranslateLoader,
-  TranslateModule,
-} from '@ngx-translate/core';
+import { By } from '@angular/platform-browser';
+import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { APP_DATA_SERVICES_MAP } from '../../../../config/app-config.interface';
-import { AppState } from '../../../app.reducer';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { SherpaDataResponse } from '../../../shared/mocks/section-sherpa-policies.service.mock';
-import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
 import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
 import { SubmissionService } from '../../submission.service';
@@ -45,8 +35,6 @@ describe('SubmissionSectionSherpaPoliciesComponent', () => {
     replace: undefined,
   });
 
-  const storeStub = jasmine.createSpyObj('store', ['dispatch']);
-
   const sectionData = {
     header: 'submit.progressbar.sherpaPolicies',
     config: 'http://localhost:8080/server/api/config/submissionaccessoptions/SherpaPoliciesDefaultConfiguration',
@@ -66,46 +54,38 @@ describe('SubmissionSectionSherpaPoliciesComponent', () => {
     beforeEach(async () => {
       await TestBed.configureTestingModule({
         imports: [
-          BrowserModule,
-          NoopAnimationsModule,
-          TranslateModule.forRoot({
-            loader: {
-              provide: TranslateLoader,
-              useClass: TranslateLoaderMock,
-            },
-          }),
-          NgbCollapseModule,
+          TranslateModule.forRoot(),
           SubmissionSectionSherpaPoliciesComponent,
         ],
         providers: [
           { provide: SectionsService, useValue: sectionsServiceStub },
           { provide: JsonPatchOperationsBuilder, useValue: operationsBuilder },
-          { provide: SubmissionService, useValue: SubmissionServiceStub },
-          { provide: Store, useValue: storeStub },
+          { provide: SubmissionService, useClass: SubmissionServiceStub },
           { provide: 'sectionDataProvider', useValue: sectionData },
           { provide: 'submissionIdProvider', useValue: '1508' },
-          { provide: APP_DATA_SERVICES_MAP, useValue: {} },
         ],
-      })
-        .overrideComponent(SubmissionSectionSherpaPoliciesComponent, {
-          remove: { imports: [
+      }).overrideComponent(SubmissionSectionSherpaPoliciesComponent, {
+        add: {
+          schemas: [CUSTOM_ELEMENTS_SCHEMA],
+        },
+        remove: {
+          imports: [
             MetadataInformationComponent,
             AlertComponent,
             PublisherPolicyComponent,
             PublicationInformationComponent,
-          ] },
-        })
-        .compileComponents();
+          ],
+        },
+      }).compileComponents();
     });
 
-    beforeEach(inject([Store], (store: Store<AppState>) => {
+    beforeEach(() => {
       fixture = TestBed.createComponent(SubmissionSectionSherpaPoliciesComponent);
       component = fixture.componentInstance;
       de = fixture.debugElement;
       sectionsServiceStub.getSectionData.and.returnValue(of(SherpaDataResponse));
       fixture.detectChanges();
-    }));
-
+    });
 
     it('should create', () => {
       expect(component).toBeTruthy();

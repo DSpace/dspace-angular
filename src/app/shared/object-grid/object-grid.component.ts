@@ -53,7 +53,6 @@ import { BrowserOnlyPipe } from '../utils/browser-only.pipe';
   styleUrls: ['./object-grid.component.scss'],
   templateUrl: './object-grid.component.html',
   animations: [fadeIn],
-  standalone: true,
   imports: [
     AsyncPipe,
     BrowserOnlyPipe,

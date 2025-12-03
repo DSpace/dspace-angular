@@ -235,7 +235,6 @@ describe('SubmissionSectionContainerComponent test suite', () => {
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: '',
   template: ``,
-  standalone: true,
   imports: [
     NgbModule,
   ],

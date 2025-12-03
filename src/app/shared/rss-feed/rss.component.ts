@@ -50,7 +50,6 @@ import { SearchFilter } from '../search/models/search-filter.model';
   templateUrl: 'rss.component.html',
   changeDetection: ChangeDetectionStrategy.Default,
   encapsulation: ViewEncapsulation.Emulated,
-  standalone: true,
   imports: [
     AsyncPipe,
     TranslateModule,

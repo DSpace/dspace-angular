@@ -18,7 +18,6 @@ import { ThemeService } from '../../../shared/theme-support/theme.service';
 @Component({
   selector: 'ds-advanced-workflow-actions-loader',
   templateUrl: '../../../shared/abstract-component-loader/abstract-component-loader.component.html',
-  standalone: true,
 })
 export class AdvancedWorkflowActionsLoaderComponent extends AbstractComponentLoaderComponent<Component> implements OnInit {
 

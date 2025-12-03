@@ -30,7 +30,6 @@ import { hasValue } from '../../../shared/empty.util';
     AsyncPipe,
     ComcolRoleComponent,
   ],
-  standalone: true,
 })
 export class CollectionRolesComponent implements OnInit {
 

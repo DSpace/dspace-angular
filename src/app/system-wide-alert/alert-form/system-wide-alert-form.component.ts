@@ -56,7 +56,6 @@ import { SystemWideAlert } from '../system-wide-alert.model';
   selector: 'ds-system-wide-alert-form',
   styleUrls: ['./system-wide-alert-form.component.scss'],
   templateUrl: './system-wide-alert-form.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     BtnDisabledDirective,

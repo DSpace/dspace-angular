@@ -31,7 +31,6 @@ import { followLink } from '../../../utils/follow-link-config.model';
   selector: 'ds-item-collection',
   styleUrls: ['./item-collection.component.scss'],
   templateUrl: './item-collection.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     RouterLink,

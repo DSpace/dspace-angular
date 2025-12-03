@@ -15,7 +15,6 @@ import { HealthStatus } from '../../models/health-component.model';
   selector: 'ds-health-status',
   templateUrl: './health-status.component.html',
   styleUrls: ['./health-status.component.scss'],
-  standalone: true,
   imports: [
     NgbTooltipModule,
     TranslateModule,

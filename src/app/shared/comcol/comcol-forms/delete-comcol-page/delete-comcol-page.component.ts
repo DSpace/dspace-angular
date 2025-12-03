@@ -31,7 +31,6 @@ import { NotificationsService } from '../../../notifications/notifications.servi
 @Component({
   selector: 'ds-delete-comcol',
   template: '',
-  standalone: true,
 })
 export class DeleteComColPageComponent<TDomain extends Community | Collection> implements OnInit {
   /**

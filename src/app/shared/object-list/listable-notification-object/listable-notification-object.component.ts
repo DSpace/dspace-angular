@@ -16,7 +16,6 @@ import { LISTABLE_NOTIFICATION_OBJECT } from './listable-notification-object.res
   selector: 'ds-listable-notification-object',
   templateUrl: './listable-notification-object.component.html',
   styleUrls: ['./listable-notification-object.component.scss'],
-  standalone: true,
   imports: [
     TranslateModule,
   ],

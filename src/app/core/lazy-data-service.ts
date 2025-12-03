@@ -1,7 +1,4 @@
-import {
-  Injector,
-  Type,
-} from '@angular/core';
+import { Injector } from '@angular/core';
 import {
   defer,
   Observable,
@@ -9,6 +6,7 @@ import {
 
 import { LazyDataServicesMap } from '../../config/app-config.interface';
 import { HALDataService } from './data/base/hal-data-service.interface';
+import { GenericConstructor } from './shared/generic-constructor';
 
 /**
  * Loads a service lazily. The service is loaded when the observable is subscribed to.
@@ -32,7 +30,7 @@ export function lazyDataService<T>(
 ): Observable<T> {
   return defer(() => {
     if (dataServicesMap.has(key) && typeof dataServicesMap.get(key) === 'function') {
-      const loader: () => Promise<Type<HALDataService<any>> | { default: HALDataService<any> }> = dataServicesMap.get(key);
+      const loader: () => Promise<GenericConstructor<HALDataService<any>> | { default: GenericConstructor<HALDataService<any>> }> = dataServicesMap.get(key);
       return loader()
         .then((serviceOrDefault) => {
           if ('default' in serviceOrDefault) {

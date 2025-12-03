@@ -21,7 +21,6 @@ import { NotifyInfoService } from '../../core/coar-notify/notify-info/notify-inf
     RouterLink,
     TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * Component for displaying COAR notification information.

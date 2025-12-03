@@ -44,7 +44,6 @@ import { VarDirective } from '../../shared/utils/var.directive';
   templateUrl: './top-level-community-list.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [fadeInOut],
-  standalone: true,
   imports: [
     AsyncPipe,
     ErrorComponent,

@@ -52,7 +52,6 @@ import { createFailedRemoteDataObjectFromError$ } from '../../../shared/remote-d
     FormsModule,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class OrcidSyncSettingsComponent implements OnInit, OnDestroy {
   protected readonly AlertType = AlertType;

@@ -24,7 +24,6 @@ import { SearchFilterConfig } from '../../../../models/search-filter-config.mode
   selector: 'ds-search-facet-selected-option',
   styleUrls: ['./search-facet-selected-option.component.scss'],
   templateUrl: './search-facet-selected-option.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     RouterLink,

@@ -23,7 +23,6 @@ import { ListableObject } from '../listable-object.model';
   selector: 'ds-selectable-list-item-control',
   // styleUrls: ['./selectable-list-item-control.component.scss'],
   templateUrl: './selectable-list-item-control.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     FormsModule,

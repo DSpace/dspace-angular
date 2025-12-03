@@ -22,7 +22,6 @@ import { BrowseDefinition } from '../../../../core/shared/browse-definition.mode
     AsyncPipe,
     BrowseBySwitcherComponent,
   ],
-  standalone: true,
 })
 export class ComcolBrowseByComponent implements OnInit {
 
