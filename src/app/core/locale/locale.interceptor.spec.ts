@@ -8,6 +8,7 @@ import { of } from 'rxjs';
 
 import { RestRequestMethod } from '../data/rest-request-method';
 import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { LocaleInterceptor } from './locale.interceptor';
 import { LocaleService } from './locale.service';
 
@@ -23,6 +24,10 @@ describe(`LocaleInterceptor`, () => {
     getLanguageCodeList: of(languageList),
   });
 
+  const mockHalEndpointService = {
+    getRootHref: jasmine.createSpy('getRootHref'),
+  };
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
@@ -33,6 +38,7 @@ describe(`LocaleInterceptor`, () => {
           useClass: LocaleInterceptor,
           multi: true,
         },
+        { provide: HALEndpointService, useValue: mockHalEndpointService },
         { provide: LocaleService, useValue: mockLocaleService },
       ],
     });
@@ -41,7 +47,7 @@ describe(`LocaleInterceptor`, () => {
     httpMock = TestBed.inject(HttpTestingController);
     localeService = TestBed.inject(LocaleService);
 
-    localeService.getCurrentLanguageCode.and.returnValue('en');
+    localeService.getCurrentLanguageCode.and.returnValue(of('en'));
   });
 
   describe('', () => {
