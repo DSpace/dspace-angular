@@ -35,6 +35,7 @@ import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.comp
 import { VarDirective } from '../../shared/utils/var.directive';
 import { ThemedThumbnailComponent } from '../../thumbnail/themed-thumbnail.component';
 import { ThemedMediaViewerImageComponent } from './media-viewer-image/themed-media-viewer-image.component';
+import { ThemedMediaViewerPdfComponent } from './media-viewer-pdf/themed-media-viewer-pdf.component';
 import { ThemedMediaViewerVideoComponent } from './media-viewer-video/themed-media-viewer-video.component';
 
 /**
@@ -48,6 +49,7 @@ import { ThemedMediaViewerVideoComponent } from './media-viewer-video/themed-med
     AsyncPipe,
     ThemedLoadingComponent,
     ThemedMediaViewerImageComponent,
+    ThemedMediaViewerPdfComponent,
     ThemedMediaViewerVideoComponent,
     ThemedThumbnailComponent,
     TranslateModule,
@@ -88,10 +90,12 @@ export class MediaViewerComponent implements OnDestroy, OnInit {
    * This method loads all the Bitstreams and Thumbnails and converts it to {@link MediaViewerItem}s
    */
   ngOnInit(): void {
+    console.log('MediaViewerComponent init', this.mediaList$);
     this.itemRequest = this.route.snapshot.data.itemRequest;
     const types: string[] = [
       ...(this.mediaOptions.image ? ['image'] : []),
       ...(this.mediaOptions.video ? ['audio', 'video'] : []),
+      ...(this.mediaOptions.pdf ? ['application/pdf'] : []),
     ];
     this.thumbnailsRD$ = this.loadRemoteData('THUMBNAIL');
     this.subs.push(this.loadRemoteData('ORIGINAL').subscribe((bitstreamsRD: RemoteData<PaginatedList<Bitstream>>) => {
@@ -113,7 +117,7 @@ export class MediaViewerComponent implements OnDestroy, OnInit {
                   format,
                   thumbnailsRD.payload && thumbnailsRD.payload.page[index],
                 );
-                if (types.includes(mediaItem.format)) {
+                if (types.includes(mediaItem.mimetype)) {
                   this.mediaList$.next([...this.mediaList$.getValue(), mediaItem]);
                 } else if (format.mimetype === 'text/vtt') {
                   this.captions$.next([...this.captions$.getValue(), bitstreamsRD.payload.page[index]]);
@@ -178,6 +182,11 @@ export class MediaViewerComponent implements OnDestroy, OnInit {
       return this.itemRequest.accessToken;
     }
     return null;
+  }
+
+  filterPdf(mediaList: MediaViewerItem[]) {
+    const pdfs = mediaList.filter(item => item.mimetype === 'application/pdf');
+    return pdfs;
   }
 
 }
