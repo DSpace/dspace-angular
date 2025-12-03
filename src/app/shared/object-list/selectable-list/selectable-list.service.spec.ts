@@ -1,15 +1,19 @@
+import {
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { Store } from '@ngrx/store';
-import { TestBed, waitForAsync } from '@angular/core/testing';
-import { SelectableListService } from './selectable-list.service';
-import { ListableObject } from '../../object-collection/shared/listable-object.model';
-import { hasValue } from '../../empty.util';
+
+import { AppState } from '../../../app.reducer';
 import {
   SelectableListDeselectAction,
   SelectableListDeselectSingleAction,
   SelectableListSelectAction,
-  SelectableListSelectSingleAction
+  SelectableListSelectSingleAction,
 } from './selectable-list.actions';
-import { AppState } from '../../../app.reducer';
+import { SelectableListService } from './selectable-list.service';
 
 export class SelectableObject extends ListableObject {
   constructor(private value: string) {
@@ -48,9 +52,9 @@ describe('SelectableListService', () => {
 
       providers: [
         {
-          provide: Store, useValue: store
-        }
-      ]
+          provide: Store, useValue: store,
+        },
+      ],
     }).compileComponents();
   }));
 
@@ -64,7 +68,7 @@ describe('SelectableListService', () => {
     });
 
     it('SelectableListSelectSingleAction should be dispatched to the store', () => {
-      expect(store.dispatch).toHaveBeenCalledWith(new SelectableListSelectSingleAction(listID1, selected3));
+      expect(store.dispatch as jasmine.Spy).toHaveBeenCalledWith(new SelectableListSelectSingleAction(listID1, selected3));
     });
 
   });
@@ -75,7 +79,7 @@ describe('SelectableListService', () => {
     });
 
     it('SelectableListSelectAction should be dispatched to the store', () => {
-      expect(store.dispatch).toHaveBeenCalledWith(new SelectableListSelectAction(listID1, [selected1, selected4]));
+      expect(store.dispatch as jasmine.Spy).toHaveBeenCalledWith(new SelectableListSelectAction(listID1, [selected1, selected4]));
     });
   });
 
@@ -85,7 +89,7 @@ describe('SelectableListService', () => {
     });
 
     it('SelectableListDeselectSingleAction should be dispatched to the store', () => {
-      expect(store.dispatch).toHaveBeenCalledWith(new SelectableListDeselectSingleAction(listID1, selected4));
+      expect(store.dispatch as jasmine.Spy).toHaveBeenCalledWith(new SelectableListDeselectSingleAction(listID1, selected4));
     });
 
   });
@@ -96,7 +100,7 @@ describe('SelectableListService', () => {
     });
 
     it('SelectableListDeselectAction should be dispatched to the store', () => {
-      expect(store.dispatch).toHaveBeenCalledWith(new SelectableListDeselectAction(listID1, [selected2, selected4]));
+      expect(store.dispatch as jasmine.Spy).toHaveBeenCalledWith(new SelectableListDeselectAction(listID1, [selected2, selected4]));
     });
   });
 

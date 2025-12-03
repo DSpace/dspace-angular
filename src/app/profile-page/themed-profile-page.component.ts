@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { ThemedComponent } from '../shared/theme-support/themed.component';
 import { ProfilePageComponent } from './profile-page.component';
 
@@ -6,9 +7,8 @@ import { ProfilePageComponent } from './profile-page.component';
  * Themed wrapper for ProfilePageComponent
  */
 @Component({
-  selector: 'ds-themed-profile-page',
-  styleUrls: [],
-  templateUrl: './../shared/theme-support/themed.component.html'
+  selector: 'ds-profile-page',
+  templateUrl: './../shared/theme-support/themed.component.html',
 })
 export class ThemedProfilePageComponent extends ThemedComponent<ProfilePageComponent> {
   protected getComponentName(): string {

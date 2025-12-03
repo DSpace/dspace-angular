@@ -1,16 +1,24 @@
-import { Process } from '../processes/process.model';
 import { Injectable } from '@angular/core';
-import { ProcessDataService } from '../../core/data/processes/process-data.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { isNotEmpty } from '../../shared/empty.util';
-import { BehaviorSubject, count, from } from 'rxjs';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
-import { concatMap, filter, tap } from 'rxjs/operators';
-import { RemoteData } from '../../core/data/remote-data';
+import { ProcessDataService } from '@dspace/core/data/processes/process-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Process } from '@dspace/core/processes/process.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import { TranslateService } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  count,
+  from,
+} from 'rxjs';
+import {
+  concatMap,
+  filter,
+  tap,
+} from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 /**
  * Service to facilitate removing processes in bulk.
@@ -31,7 +39,7 @@ export class ProcessBulkDeleteService {
   constructor(
     protected processDataService: ProcessDataService,
     protected notificationsService: NotificationsService,
-    protected translateService: TranslateService
+    protected translateService: TranslateService,
   ) {
   }
 
@@ -101,17 +109,17 @@ export class ProcessBulkDeleteService {
           getFirstCompletedRemoteData(),
           tap((rd: RemoteData<Process>) => {
             if (rd.hasFailed) {
-              this.notificationsService.error(this.translateService.get('process.bulk.delete.error.head'), this.translateService.get('process.bulk.delete.error.body', {processId: processId}));
+              this.notificationsService.error(this.translateService.get('process.bulk.delete.error.head'), this.translateService.get('process.bulk.delete.error.body', { processId: processId }));
             } else {
               this.toggleDelete(processId);
             }
-          })
+          }),
         );
       }),
       filter((rd: RemoteData<Process>) => rd.hasSucceeded),
       count(),
     ).subscribe((value) => {
-      this.notificationsService.success(this.translateService.get('process.bulk.delete.success', {count: value}));
+      this.notificationsService.success(this.translateService.get('process.bulk.delete.success', { count: value }));
       this.isProcessingBehaviorSubject.next(false);
     });
   }

@@ -1,14 +1,17 @@
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+
 import { ThemedComponent } from '../../../../theme-support/themed.component';
 import { AccessStatusBadgeComponent } from './access-status-badge.component';
-import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
 
 /**
  * Themed wrapper for AccessStatusBadgeComponent
  */
 @Component({
-  selector: 'ds-themed-access-status-badge',
-  styleUrls: [],
+  selector: 'ds-access-status-badge',
   templateUrl: '../../../../theme-support/themed.component.html',
 })
 export class ThemedAccessStatusBadgeComponent extends ThemedComponent<AccessStatusBadgeComponent> {

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { ThemedComponent } from '../shared/theme-support/themed.component';
 import { HeaderNavbarWrapperComponent } from './header-navbar-wrapper.component';
 
@@ -6,8 +7,7 @@ import { HeaderNavbarWrapperComponent } from './header-navbar-wrapper.component'
  * Themed wrapper for {@link HeaderNavbarWrapperComponent}
  */
 @Component({
-  selector: 'ds-themed-header-navbar-wrapper',
-  styleUrls: [],
+  selector: 'ds-header-navbar-wrapper',
   templateUrl: '../shared/theme-support/themed.component.html',
 })
 export class ThemedHeaderNavbarWrapperComponent extends ThemedComponent<HeaderNavbarWrapperComponent> {

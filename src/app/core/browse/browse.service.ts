@@ -1,41 +1,56 @@
-import { Injectable } from '@angular/core';
+import {
+  inject,
+  Injectable,
+} from '@angular/core';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
+import {
+  hasValue,
+  hasValueOperator,
+  isEmpty,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import { Observable } from 'rxjs';
-import { distinctUntilChanged, map, startWith } from 'rxjs/operators';
-import { hasValue, hasValueOperator, isEmpty, isNotEmpty } from '../../shared/empty.util';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import {
+  distinctUntilChanged,
+  map,
+  startWith,
+} from 'rxjs/operators';
+
+import { SortDirection } from '../cache/models/sort-options.model';
+import { HrefOnlyDataService } from '../data/href-only-data.service';
 import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
 import { RequestService } from '../data/request.service';
 import { BrowseDefinition } from '../shared/browse-definition.model';
-import { FlatBrowseDefinition } from '../shared/flat-browse-definition.model';
 import { BrowseEntry } from '../shared/browse-entry.model';
+import { FlatBrowseDefinition } from '../shared/flat-browse-definition.model';
+import {
+  followLink,
+  FollowLinkConfig,
+} from '../shared/follow-link-config.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
 import {
   getBrowseDefinitionLinks,
   getFirstOccurrence,
-  getRemoteDataPayload,
   getFirstSucceededRemoteData,
-  getPaginatedListPayload
+  getPaginatedListPayload,
+  getRemoteDataPayload,
 } from '../shared/operators';
 import { URLCombiner } from '../url-combiner/url-combiner';
-import { BrowseEntrySearchOptions } from './browse-entry-search-options.model';
-import { HrefOnlyDataService } from '../data/href-only-data.service';
-import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { BrowseDefinitionDataService } from './browse-definition-data.service';
-import { SortDirection } from '../cache/models/sort-options.model';
-
-
-export const BROWSE_LINKS_TO_FOLLOW: FollowLinkConfig<BrowseEntry | Item>[] = [
-  followLink('thumbnail')
-];
+import { BrowseEntrySearchOptions } from './browse-entry-search-options.model';
 
 /**
  * The service handling all browse requests
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class BrowseService {
   protected linkPath = 'browses';
+  private readonly appConfig: AppConfig = inject(APP_CONFIG);
 
   public static toSearchKeyArray(metadataKey: string): string[] {
     const keyParts = metadataKey.split('.');
@@ -55,8 +70,17 @@ export class BrowseService {
     protected halService: HALEndpointService,
     private browseDefinitionDataService: BrowseDefinitionDataService,
     private hrefOnlyDataService: HrefOnlyDataService,
-    private rdb: RemoteDataBuildService,
   ) {
+  }
+
+  getBrowseLinksToFollow(): FollowLinkConfig<BrowseEntry | Item>[] {
+    const followLinks = [
+      followLink('thumbnail'),
+    ];
+    if (this.appConfig.item.showAccessStatuses) {
+      followLinks.push(followLink('accessStatus'));
+    }
+    return followLinks;
   }
 
   /**
@@ -102,10 +126,10 @@ export class BrowseService {
           href = new URLCombiner(href, `?${args.join('&')}`).toString();
         }
         return href;
-      })
+      }),
     );
     if (options.fetchThumbnail ) {
-      return this.hrefOnlyDataService.findListByHref<BrowseEntry>(href$, {}, null, null, ...BROWSE_LINKS_TO_FOLLOW);
+      return this.hrefOnlyDataService.findListByHref<BrowseEntry>(href$, {}, undefined, undefined, ...this.getBrowseLinksToFollow());
     }
     return this.hrefOnlyDataService.findListByHref<BrowseEntry>(href$);
   }
@@ -153,7 +177,7 @@ export class BrowseService {
       }),
     );
     if (options.fetchThumbnail) {
-      return this.hrefOnlyDataService.findListByHref<Item>(href$, {}, null, null, ...BROWSE_LINKS_TO_FOLLOW);
+      return this.hrefOnlyDataService.findListByHref<Item>(href$, {}, undefined, undefined, ...this.getBrowseLinksToFollow());
     }
     return this.hrefOnlyDataService.findListByHref<Item>(href$);
   }
@@ -187,12 +211,12 @@ export class BrowseService {
           href = new URLCombiner(href, `?${args.join('&')}`).toString();
         }
         return href;
-      })
+      }),
     );
 
     return this.hrefOnlyDataService.findListByHref<Item>(href$).pipe(
       getFirstSucceededRemoteData(),
-      getFirstOccurrence()
+      getFirstOccurrence(),
     );
 
   }
@@ -248,7 +272,7 @@ export class BrowseService {
           }
 
           return isNotEmpty(matchingKeys);
-        })
+        }),
       ),
       map((def: BrowseDefinition) => {
         if (isEmpty(def) || isEmpty(def._links) || isEmpty(def._links[linkPath])) {
@@ -258,7 +282,7 @@ export class BrowseService {
         }
       }),
       startWith(undefined),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
   }
 

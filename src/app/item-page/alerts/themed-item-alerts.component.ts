@@ -1,14 +1,17 @@
-import { Component, Input } from '@angular/core';
-import { Item } from '../../core/shared/item.model';
-import { ItemAlertsComponent } from './item-alerts.component';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+import { Item } from '@dspace/core/shared/item.model';
+
 import { ThemedComponent } from '../../shared/theme-support/themed.component';
+import { ItemAlertsComponent } from './item-alerts.component';
 
 /**
  * Themed wrapper for {@link ItemAlertsComponent}
  */
 @Component({
-  selector: 'ds-themed-item-alerts',
-  styleUrls: [],
+  selector: 'ds-item-alerts',
   templateUrl: '../../shared/theme-support/themed.component.html',
 })
 export class ThemedItemAlertsComponent extends ThemedComponent<ItemAlertsComponent> {

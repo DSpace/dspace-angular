@@ -1,11 +1,20 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Item } from '../../../../core/shared/item.model';
-import { isNotEmpty } from '../../../../shared/empty.util';
-import { getFilterByRelation } from '../../../../shared/utils/relation-query.utils';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
+import { Item } from '@dspace/core/shared/item.model';
+import { getFilterByRelation } from '@dspace/core/utilities/relation-query.utils';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
+
+import { ThemedConfigurationSearchPageComponent } from '../../../../search-page/themed-configuration-search-page.component';
 
 @Component({
   selector: 'ds-related-entities-search',
-  templateUrl: './related-entities-search.component.html'
+  templateUrl: './related-entities-search.component.html',
+  imports: [
+    ThemedConfigurationSearchPageComponent,
+  ],
 })
 /**
  * A component to show related items as search results.

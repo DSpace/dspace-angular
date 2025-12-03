@@ -1,19 +1,45 @@
-import { Component, OnInit } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  RouterLink,
+} from '@angular/router';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { ItemTemplateDataService } from '@dspace/core/data/item-template-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { RemoteData } from '../../core/data/remote-data';
-import { Collection } from '../../core/shared/collection.model';
-import { ActivatedRoute } from '@angular/router';
-import { first, map, switchMap } from 'rxjs/operators';
-import { ItemTemplateDataService } from '../../core/data/item-template-data.service';
+import {
+  first,
+  map,
+  switchMap,
+} from 'rxjs/operators';
+
+import { ThemedDsoEditMetadataComponent } from '../../dso-shared/dso-edit-metadata/themed-dso-edit-metadata.component';
+import { AlertComponent } from '../../shared/alert/alert.component';
+import { AlertType } from '../../shared/alert/alert-type';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { VarDirective } from '../../shared/utils/var.directive';
 import { getCollectionEditRoute } from '../collection-page-routing-paths';
-import { Item } from '../../core/shared/item.model';
-import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
-import { AlertType } from '../../shared/alert/aletr-type';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 
 @Component({
-  selector: 'ds-edit-item-template-page',
+  selector: 'ds-base-edit-item-template-page',
   templateUrl: './edit-item-template-page.component.html',
+  imports: [
+    AlertComponent,
+    AsyncPipe,
+    RouterLink,
+    ThemedDsoEditMetadataComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
+    VarDirective,
+  ],
 })
 /**
  * Component for editing the item template of a collection

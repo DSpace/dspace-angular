@@ -1,39 +1,87 @@
-import { Injectable, Inject, Injector } from '@angular/core';
-import { Store, createFeatureSelector, createSelector, select } from '@ngrx/store';
-import { BehaviorSubject, EMPTY, Observable, of as observableOf } from 'rxjs';
-import { ThemeState } from './theme.reducer';
-import { SetThemeAction, ThemeActionTypes } from './theme.actions';
-import { expand, filter, map, switchMap, take, toArray } from 'rxjs/operators';
-import { hasNoValue, hasValue, isNotEmpty } from '../empty.util';
-import { RemoteData } from '../../core/data/remote-data';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import {
+  DOCUMENT,
+  Inject,
+  Injectable,
+  Injector,
+} from '@angular/core';
+import {
+  ActivatedRouteSnapshot,
+  ResolveEnd,
+  Router,
+} from '@angular/router';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { BuildConfig } from '@dspace/config/build-config.interface';
+import { getDefaultThemeConfig } from '@dspace/config/config.util';
+import {
+  BASE_THEME_NAME,
+  HeadTagConfig,
+  ThemeConfig,
+} from '@dspace/config/theme.config';
+import { LinkService } from '@dspace/core/cache/builders/link.service';
+import { DSpaceObjectDataService } from '@dspace/core/data/dspace-object-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import {
+  NO_OP_ACTION_TYPE,
+  NoOpAction,
+} from '@dspace/core/ngrx/no-op.action';
+import { distinctNext } from '@dspace/core/shared/distinct-next';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
-  getRemoteDataPayload
-} from '../../core/shared/operators';
-import { HeadTagConfig, Theme, ThemeConfig, themeFactory } from '../../../config/theme.model';
-import { NO_OP_ACTION_TYPE, NoOpAction } from '../ngrx/no-op.action';
-import { followLink } from '../utils/follow-link-config.model';
-import { LinkService } from '../../core/cache/builders/link.service';
+  getRemoteDataPayload,
+} from '@dspace/core/shared/operators';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
+import {
+  createFeatureSelector,
+  createSelector,
+  select,
+  Store,
+} from '@ngrx/store';
+import {
+  BehaviorSubject,
+  concatMap,
+  EMPTY,
+  from,
+  Observable,
+  of,
+} from 'rxjs';
+import {
+  defaultIfEmpty,
+  expand,
+  filter,
+  map,
+  switchMap,
+  take,
+  toArray,
+} from 'rxjs/operators';
+
 import { environment } from '../../../environments/environment';
-import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
-import { ActivatedRouteSnapshot, ResolveEnd, Router } from '@angular/router';
 import { GET_THEME_CONFIG_FOR_FACTORY } from '../object-collection/shared/listable-object/listable-object.decorator';
-import { distinctNext } from 'src/app/core/shared/distinct-next';
-import { DOCUMENT } from '@angular/common';
-import { getDefaultThemeConfig } from '../../../config/config.util';
-import { BASE_THEME_NAME } from './theme.constants';
+import {
+  SetThemeAction,
+  ThemeActionTypes,
+} from './theme.actions';
+import {
+  Theme,
+  themeFactory,
+} from './theme.model';
+import { ThemeState } from './theme.reducer';
 
 export const themeStateSelector = createFeatureSelector<ThemeState>('theme');
 
 export const currentThemeSelector = createSelector(
   themeStateSelector,
-  (state: ThemeState): string => hasValue(state) ? state.currentTheme : undefined
+  (state: ThemeState): string => hasValue(state) ? state.currentTheme : BASE_THEME_NAME,
 );
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ThemeService {
   /**
@@ -57,13 +105,14 @@ export class ThemeService {
     @Inject(GET_THEME_CONFIG_FOR_FACTORY) private gtcf: (str) => ThemeConfig,
     private router: Router,
     @Inject(DOCUMENT) private document: any,
+    @Inject(APP_CONFIG) private appConfig: BuildConfig,
   ) {
     // Create objects from the theme configs in the environment file
     this.themes = environment.themes.map((themeConfig: ThemeConfig) => themeFactory(themeConfig, injector));
     this.hasDynamicTheme = environment.themes.some((themeConfig: any) =>
       hasValue(themeConfig.regex) ||
       hasValue(themeConfig.handle) ||
-      hasValue(themeConfig.uuid)
+      hasValue(themeConfig.uuid),
     );
   }
 
@@ -82,9 +131,9 @@ export class ThemeService {
     let currentTheme: string;
     this.store.pipe(
       select(currentThemeSelector),
-      take(1)
+      take(1),
     ).subscribe((name: string) =>
-      currentTheme = name
+      currentTheme = name,
     );
     return currentTheme;
   }
@@ -94,7 +143,7 @@ export class ThemeService {
    */
   getThemeName$(): Observable<string> {
     return this.store.pipe(
-      select(currentThemeSelector)
+      select(currentThemeSelector),
     );
   }
 
@@ -121,7 +170,7 @@ export class ThemeService {
       if (hasValue(themeName)) {
         this.loadGlobalThemeConfig(themeName);
       } else {
-        const defaultThemeConfig = getDefaultThemeConfig();
+        const defaultThemeConfig = getDefaultThemeConfig(this.appConfig);
         if (hasValue(defaultThemeConfig)) {
           this.loadGlobalThemeConfig(defaultThemeConfig.name);
         } else {
@@ -145,7 +194,7 @@ export class ThemeService {
         } else {
           return [false];
         }
-      })
+      }),
     ).subscribe((changed) => {
       distinctNext(this._isThemeLoading$, changed);
     });
@@ -219,7 +268,7 @@ export class ThemeService {
     // create new head tags (not yet added to DOM)
     const headTagFragment = this.document.createDocumentFragment();
     this.createHeadTags(themeName)
-        .forEach(newHeadTag => headTagFragment.appendChild(newHeadTag));
+      .forEach(newHeadTag => headTagFragment.appendChild(newHeadTag));
 
     // add new head tags to DOM
     head.appendChild(headTagFragment);
@@ -240,14 +289,7 @@ export class ThemeService {
       if (hasValue(parentThemeName)) {
         // inherit the head tags of the parent theme
         return this.createHeadTags(parentThemeName);
-      }
-      const defaultThemeConfig = getDefaultThemeConfig();
-      const defaultThemeName = defaultThemeConfig.name;
-      if (
-        hasNoValue(defaultThemeName) ||
-        themeName === defaultThemeName ||
-        themeName === BASE_THEME_NAME
-      ) {
+      } else {
         // last resort, use fallback favicon.ico
         return [
           this.createHeadTag({
@@ -256,13 +298,10 @@ export class ThemeService {
               'rel': 'icon',
               'href': 'assets/images/favicon.ico',
               'sizes': 'any',
-            }
-          })
+            },
+          }),
         ];
       }
-
-      // inherit the head tags of the default theme
-      return this.createHeadTags(defaultThemeConfig.name);
     }
 
     return headTagConfigs.map(this.createHeadTag.bind(this));
@@ -278,7 +317,7 @@ export class ThemeService {
 
     if (hasValue(headTagConfig.attributes)) {
       Object.entries(headTagConfig.attributes)
-            .forEach(([key, value]) => tag.setAttribute(key, value));
+        .forEach(([key, value]) => tag.setAttribute(key, value));
     }
 
     // 'class' attribute should always be 'theme-head-tag' for removal
@@ -302,7 +341,7 @@ export class ThemeService {
     // and the current theme from the store
     const currentTheme$: Observable<string> = this.store.pipe(select(currentThemeSelector));
 
-    const action$ = currentTheme$.pipe(
+    const action$: Observable<SetThemeAction | NoOpAction> = currentTheme$.pipe(
       switchMap((currentTheme: string) => {
         const snapshotWithData = this.findRouteData(activatedRouteSnapshot);
         if (this.hasDynamicTheme === true && isNotEmpty(this.themes)) {
@@ -310,12 +349,14 @@ export class ThemeService {
             const dsoRD: RemoteData<DSpaceObject> = snapshotWithData.data.dso;
             if (dsoRD.hasSucceeded) {
               // Start with the resolved dso and go recursively through its parents until you reach the top-level community
-              return observableOf(dsoRD.payload).pipe(
+              return of(dsoRD.payload).pipe(
                 this.getAncestorDSOs(),
-                map((dsos: DSpaceObject[]) => {
-                  const dsoMatch = this.matchThemeToDSOs(dsos, currentRouteUrl);
+                switchMap((dsos: DSpaceObject[]) => {
+                  return this.matchThemeToDSOs(dsos, currentRouteUrl);
+                }),
+                map((dsoMatch: Theme) => {
                   return this.getActionForMatch(dsoMatch, currentTheme);
-                })
+                }),
               );
             }
           }
@@ -326,33 +367,41 @@ export class ThemeService {
               getFirstSucceededRemoteData(),
               getRemoteDataPayload(),
               this.getAncestorDSOs(),
-              map((dsos: DSpaceObject[]) => {
-                const dsoMatch = this.matchThemeToDSOs(dsos, currentRouteUrl);
+              switchMap((dsos: DSpaceObject[]) => {
+                return this.matchThemeToDSOs(dsos, currentRouteUrl);
+              }),
+              map((dsoMatch: Theme) => {
                 return this.getActionForMatch(dsoMatch, currentTheme);
-              })
+              }),
             );
           }
 
           // check whether the route itself matches
-          const routeMatch = this.themes.find((theme: Theme) => theme.matches(currentRouteUrl, undefined));
-
-          return [this.getActionForMatch(routeMatch, currentTheme)];
+          return from(this.themes).pipe(
+            concatMap((theme: Theme) => theme.matches(currentRouteUrl, undefined).pipe(
+              filter((result: boolean) => result === true),
+              map(() => theme),
+              take(1),
+            )),
+            take(1),
+            map((theme: Theme) => this.getActionForMatch(theme, currentTheme)),
+          );
+        } else {
+          // If there are no themes configured, do nothing
+          return of(new NoOpAction());
         }
-
-        // If there are no themes configured, do nothing
-        return [new NoOpAction()];
       }),
       take(1),
     );
 
     action$.pipe(
-      filter((action) => action.type !== NO_OP_ACTION_TYPE),
-    ).subscribe((action) => {
+      filter((action: SetThemeAction | NoOpAction) => action.type !== NO_OP_ACTION_TYPE),
+    ).subscribe((action: SetThemeAction | NoOpAction) => {
       this.store.dispatch(action);
     });
 
     return action$.pipe(
-      map((action) => action.type === ThemeActionTypes.SET),
+      map((action: SetThemeAction | NoOpAction) => action.type === ThemeActionTypes.SET),
     );
   }
 
@@ -413,7 +462,7 @@ export class ThemeService {
         // only allow through DSOs that have a value
         filter((dso: DSpaceObject) => hasValue(dso)),
         // Wait for recursion to complete, and emit all results at once, in an array
-        toArray()
+        toArray(),
       );
   }
 
@@ -425,9 +474,10 @@ export class ThemeService {
    * @private
    */
   private getActionForMatch(newTheme: Theme, currentThemeName: string): SetThemeAction | NoOpAction {
-    if (hasValue(newTheme) && newTheme.config.name !== currentThemeName) {
+    const newThemeName: string = newTheme?.config.name ?? BASE_THEME_NAME;
+    if (newThemeName !== currentThemeName) {
       // If we have a match, and it isn't already the active theme, set it as the new theme
-      return new SetThemeAction(newTheme.config.name);
+      return new SetThemeAction(newThemeName);
     } else {
       // Otherwise, do nothing
       return new NoOpAction();
@@ -442,14 +492,17 @@ export class ThemeService {
    * @param currentRouteUrl The url for the current route
    * @private
    */
-  private matchThemeToDSOs(dsos: DSpaceObject[], currentRouteUrl: string): Theme {
-    // iterate over the themes in order, and return the first one that matches
-    return this.themes.find((theme: Theme) => {
-      // iterate over the dsos's in order (most specific one first, so Item, Collection,
-      // Community), and return the first one that matches the current theme
-      const match = dsos.find((dso: DSpaceObject) => theme.matches(currentRouteUrl, dso));
-      return hasValue(match);
-    });
+  private matchThemeToDSOs(dsos: DSpaceObject[], currentRouteUrl: string): Observable<Theme> {
+    return from(this.themes).pipe(
+      concatMap((theme: Theme) => from(dsos).pipe(
+        concatMap((dso: DSpaceObject) => theme.matches(currentRouteUrl, dso)),
+        filter((result: boolean) => result === true),
+        map(() => theme),
+        take(1),
+      )),
+      take(1),
+      defaultIfEmpty(undefined),
+    );
   }
 
   /**

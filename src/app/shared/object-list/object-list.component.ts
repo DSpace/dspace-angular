@@ -1,26 +1,51 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
-import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { RemoteData } from '../../core/data/remote-data';
+import { NgClass } from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  ViewEncapsulation,
+} from '@angular/core';
+import {
+  SortDirection,
+  SortOptions,
+} from '@dspace/core/cache/models/sort-options.model';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { Context } from '@dspace/core/shared/context.model';
+import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
+
 import { fadeIn } from '../animations/fade';
-import { ListableObject } from '../object-collection/shared/listable-object.model';
-import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
-import { SelectableListService } from './selectable-list/selectable-list.service';
-import { ViewMode } from '../../core/shared/view-mode.model';
-import { Context } from '../../core/shared/context.model';
 import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
+import { ImportableListItemControlComponent } from '../object-collection/shared/importable-list-item-control/importable-list-item-control.component';
+import { ListableObjectComponentLoaderComponent } from '../object-collection/shared/listable-object/listable-object-component-loader.component';
+import { SelectableListItemControlComponent } from '../object-collection/shared/selectable-list-item-control/selectable-list-item-control.component';
+import { PaginationComponent } from '../pagination/pagination.component';
+import { BrowserOnlyPipe } from '../utils/browser-only.pipe';
+import { SelectableListService } from './selectable-list/selectable-list.service';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.Default,
   encapsulation: ViewEncapsulation.Emulated,
-  selector: 'ds-object-list',
+  selector: 'ds-base-object-list',
   styleUrls: ['./object-list.component.scss'],
   templateUrl: './object-list.component.html',
-  animations: [fadeIn]
+  animations: [fadeIn],
+  imports: [
+    BrowserOnlyPipe,
+    ImportableListItemControlComponent,
+    ListableObjectComponentLoaderComponent,
+    NgClass,
+    PaginationComponent,
+    SelectableListItemControlComponent,
+  ],
 })
 export class ObjectListComponent {
   /**
-   * The view mode of the this component
+   * The view mode of this component
    */
   viewMode = ViewMode.ListElement;
 
@@ -50,6 +75,11 @@ export class ObjectListComponent {
   @Input() hidePagerWhenSinglePage = true;
   @Input() selectable = false;
   @Input() selectionConfig: { repeatable: boolean, listId: string };
+
+  /**
+   * Whether to show an RSS syndication button for the current search options
+   */
+  @Input() showRSS: SortOptions | boolean = false;
 
   /**
    * The link type of the listable elements
@@ -217,14 +247,14 @@ export class ObjectListComponent {
    * Go to the previous page
    */
   goPrev() {
-      this.prev.emit(true);
+    this.prev.emit(true);
   }
 
- /**
+  /**
   * Go to the next page
   */
   goNext() {
-      this.next.emit(true);
+    this.next.emit(true);
   }
 
 }

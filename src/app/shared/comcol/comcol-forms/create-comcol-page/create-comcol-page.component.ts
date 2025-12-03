@@ -1,28 +1,45 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
 import { Router } from '@angular/router';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { RequestParam } from '@dspace/core/cache/models/request-param.model';
+import { ComColDataService } from '@dspace/core/data/comcol-data.service';
+import { CommunityDataService } from '@dspace/core/data/community-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { RequestService } from '@dspace/core/data/request.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { getHomePageRoute } from '@dspace/core/router/core-routing-paths';
+import { RouteService } from '@dspace/core/services/route.service';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { Community } from '@dspace/core/shared/community.model';
+import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
+import { ResourceType } from '@dspace/core/shared/resource-type';
+import {
+  hasValue,
+  isNotEmpty,
+  isNotUndefined,
+} from '@dspace/shared/utils/empty.util';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
-import { mergeMap, take } from 'rxjs/operators';
-import { ComColDataService } from '../../../../core/data/comcol-data.service';
-import { CommunityDataService } from '../../../../core/data/community-data.service';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { RouteService } from '../../../../core/services/route.service';
-import { Community } from '../../../../core/shared/community.model';
-import { getFirstSucceededRemoteDataPayload, } from '../../../../core/shared/operators';
-import { ResourceType } from '../../../../core/shared/resource-type';
-import { hasValue, isNotEmpty, isNotUndefined } from '../../../empty.util';
-import { NotificationsService } from '../../../notifications/notifications.service';
-import { RequestParam } from '../../../../core/cache/models/request-param.model';
-import { RequestService } from '../../../../core/data/request.service';
-import { Collection } from '../../../../core/shared/collection.model';
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import {
+  BehaviorSubject,
+  Observable,
+  of,
+} from 'rxjs';
+import {
+  map,
+  mergeMap,
+  take,
+  tap,
+} from 'rxjs/operators';
 
 /**
  * Component representing the create page for communities and collections
  */
 @Component({
   selector: 'ds-create-comcol',
-  template: ''
+  template: '',
 })
 export class CreateComColPageComponent<TDomain extends Collection | Community> implements OnInit {
   /**
@@ -50,6 +67,11 @@ export class CreateComColPageComponent<TDomain extends Collection | Community> i
    */
   protected type: ResourceType;
 
+  /**
+   * The
+   */
+  isLoading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
   public constructor(
     protected dsoDataService: ComColDataService<TDomain>,
     public dsoNameService: DSONameService,
@@ -58,7 +80,7 @@ export class CreateComColPageComponent<TDomain extends Collection | Community> i
     protected router: Router,
     protected notificationsService: NotificationsService,
     protected translate: TranslateService,
-    protected requestService: RequestService
+    protected requestService: RequestService,
   ) {
 
   }
@@ -77,39 +99,55 @@ export class CreateComColPageComponent<TDomain extends Collection | Community> i
    * @param event   The event returned by the community/collection form. Contains the new dso and logo uploader
    */
   onSubmit(event) {
+    this.isLoading$.next(true);
     const dso = event.dso;
     const uploader = event.uploader;
 
     this.parentUUID$.pipe(
       take(1),
       mergeMap((uuid: string) => {
-      const params = uuid ? [new RequestParam('parent', uuid)] : [];
-      return this.dsoDataService.create(dso, ...params)
-        .pipe(getFirstSucceededRemoteDataPayload()
-        );
-      }))
-      .subscribe((dsoRD: TDomain) => {
+        const params = uuid ? [new RequestParam('parent', uuid)] : [];
+        return this.dsoDataService.create(dso, ...params)
+          .pipe(getFirstSucceededRemoteDataPayload(),
+          );
+      }),
+      mergeMap((dsoRD: TDomain) => {
         if (isNotUndefined(dsoRD)) {
           this.newUUID = dsoRD.uuid;
           if (uploader.queue.length > 0) {
-            this.dsoDataService.getLogoEndpoint(this.newUUID).pipe(take(1)).subscribe((href: string) => {
-              uploader.options.url = href;
-              uploader.uploadAll();
-            });
+            return this.dsoDataService.getLogoEndpoint(this.newUUID).pipe(
+              take(1),
+              tap((href: string) => {
+                uploader.options.url = href;
+                uploader.onCompleteAll = () => {
+                  this.isLoading$.next(false);
+                  this.navigateToNewPage();
+                  this.notificationsService.success(null, this.translate.get(this.type.value + '.create.notifications.success'));
+                };
+                uploader.uploadAll();
+              }),
+              map(() => false),
+            );
           } else {
-            this.navigateToNewPage();
+            this.dsoDataService.refreshCache(dsoRD);
+            return of(true);
           }
-          this.dsoDataService.refreshCache(dsoRD);
         }
+      }),
+    ).subscribe((notify: boolean) => {
+      if (notify) {
+        this.isLoading$.next(false);
+        this.navigateToNewPage();
         this.notificationsService.success(null, this.translate.get(this.type.value + '.create.notifications.success'));
-      });
+      }
+    });
   }
 
   /**
    * Navigate to home page
    */
   navigateToHome() {
-    this.router.navigate(['/home']);
+    this.router.navigate([getHomePageRoute()]);
   }
 
   /**

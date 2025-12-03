@@ -1,10 +1,11 @@
-import { FacetValue } from './models/facet-value.model';
-import { SearchFilterConfig } from './models/search-filter-config.model';
+import { FacetValue } from '@dspace/core/shared/search/models/facet-value.model';
+import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
+
 import {
   addOperatorToFilterValue,
   escapeRegExp,
   getFacetValueForType,
-  stripOperatorFromFilterValue
+  stripOperatorFromFilterValue,
 } from './search.utils';
 
 describe('Search Utils', () => {
@@ -19,20 +20,20 @@ describe('Search Utils', () => {
         value: 'Value with search href',
         _links: {
           search: {
-            href: 'rest/api/search?f.otherFacet=Other facet value,operator&f.facetName=Value with search href,operator'
-          }
-        }
+            href: 'rest/api/search?f.otherFacet=Other facet value,operator&f.facetName=Value with search href,operator',
+          },
+        },
       });
       facetValueWithSearchHrefAuthority = Object.assign(new FacetValue(), {
         value: 'Value with search href',
         authorityKey: 'uuid',
-        }
+      },
       );
       facetValueWithoutSearchHref = Object.assign(new FacetValue(), {
-        value: 'Value without search href'
+        value: 'Value without search href',
       });
       searchFilterConfig = Object.assign(new SearchFilterConfig(), {
-        name: 'facetName'
+        name: 'facetName',
       });
     });
 

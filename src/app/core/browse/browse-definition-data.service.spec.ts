@@ -1,11 +1,12 @@
-import { BrowseDefinitionDataService } from './browse-definition-data.service';
-import { followLink } from '../../shared/utils/follow-link-config.model';
 import { EMPTY } from 'rxjs';
+
 import { FindListOptions } from '../data/find-list-options.model';
-import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
 import { RequestService } from '../data/request.service';
-import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
-import { getMockObjectCacheService } from '../../shared/mocks/object-cache.service.mock';
+import { followLink } from '../shared/follow-link-config.model';
+import { HALEndpointServiceStub } from '../testing/hal-endpoint-service.stub';
+import { getMockObjectCacheService } from '../testing/object-cache.service.mock';
+import { getMockRemoteDataBuildService } from '../testing/remote-data-build.service.mock';
+import { BrowseDefinitionDataService } from './browse-definition-data.service';
 
 describe(`BrowseDefinitionDataService`, () => {
   let requestService: RequestService;
@@ -18,7 +19,7 @@ describe(`BrowseDefinitionDataService`, () => {
   const options = new FindListOptions();
   const linksToFollow = [
     followLink('entries'),
-    followLink('items')
+    followLink('items'),
   ];
 
   function initTestService() {

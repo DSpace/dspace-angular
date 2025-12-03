@@ -1,7 +1,7 @@
 /* eslint-disable max-classes-per-file */
 import { Action } from '@ngrx/store';
 
-import { type } from '../../shared/ngrx/type';
+import { type } from '../ngrx/type';
 import { IndexName } from './index-name.model';
 
 /**
@@ -10,7 +10,7 @@ import { IndexName } from './index-name.model';
 export const IndexActionTypes = {
   ADD: type('dspace/core/index/ADD'),
   REMOVE_BY_VALUE: type('dspace/core/index/REMOVE_BY_VALUE'),
-  REMOVE_BY_SUBSTRING: type('dspace/core/index/REMOVE_BY_SUBSTRING')
+  REMOVE_BY_SUBSTRING: type('dspace/core/index/REMOVE_BY_SUBSTRING'),
 };
 
 /**

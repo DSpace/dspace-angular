@@ -1,17 +1,32 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  DebugElement,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  SortDirection,
+  SortOptions,
+} from '@dspace/core/cache/models/sort-options.model';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { DSpaceObjectType } from '@dspace/core/shared/dspace-object-type.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
+import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core/utilities/remote-data.utils';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
-import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+
+import { ListableObjectComponentLoaderComponent } from '../../object-collection/shared/listable-object/listable-object-component-loader.component';
+import { SearchService } from '../../search/search.service';
 import { DSOSelectorComponent } from './dso-selector.component';
-import { SearchService } from '../../../core/shared/search/search.service';
-import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
-import { ItemSearchResult } from '../../object-collection/shared/item-search-result.model';
-import { Item } from '../../../core/shared/item.model';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
-import { PaginatedSearchOptions } from '../../search/models/paginated-search-options.model';
-import { hasValue } from '../../empty.util';
-import { createPaginatedList } from '../../testing/utils.test';
-import { NotificationsService } from '../../notifications/notifications.service';
-import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
 
 describe('DSOSelectorComponent', () => {
   let component: DSOSelectorComponent;
@@ -43,7 +58,7 @@ describe('DSOSelectorComponent', () => {
       } else {
         return createSuccessfulRemoteDataObject$(createPaginatedList(nextPageResults));
       }
-    }
+    },
   };
 
   function createSearchResult(name: string): ItemSearchResult {
@@ -53,11 +68,11 @@ describe('DSOSelectorComponent', () => {
         metadata: {
           'dc.title': [
             {
-              value: `test result - ${name}`
-            }
-          ]
-        }
-      })
+              value: `test result - ${name}`,
+            },
+          ],
+        },
+      }),
     });
   }
 
@@ -67,14 +82,17 @@ describe('DSOSelectorComponent', () => {
     notificationsService = jasmine.createSpyObj('notificationsService', ['error']);
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [DSOSelectorComponent],
+      imports: [TranslateModule.forRoot(), DSOSelectorComponent],
       providers: [
         { provide: SearchService, useValue: searchService },
         { provide: NotificationsService, useValue: notificationsService },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+      schemas: [NO_ERRORS_SCHEMA],
+    })
+      .overrideComponent(DSOSelectorComponent, {
+        remove: { imports: [ListableObjectComponentLoaderComponent] },
+      })
+      .compileComponents();
 
   }));
 
@@ -139,7 +157,7 @@ describe('DSOSelectorComponent', () => {
           }),
         }),
         null,
-        true
+        true,
       );
     });
 
@@ -153,7 +171,7 @@ describe('DSOSelectorComponent', () => {
           sort: null,
         }),
         null,
-        true
+        true,
       );
     });
   });

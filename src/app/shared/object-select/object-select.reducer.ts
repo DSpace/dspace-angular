@@ -1,5 +1,9 @@
-import { isEmpty } from '../empty.util';
-import { ObjectSelectionAction, ObjectSelectionActionTypes } from './object-select.actions';
+import { isEmpty } from '@dspace/shared/utils/empty.util';
+
+import {
+  ObjectSelectionAction,
+  ObjectSelectionActionTypes,
+} from './object-select.actions';
 
 /**
  * Interface that represents the state for a single selection of an object
@@ -39,9 +43,9 @@ export function objectSelectionReducer(state = initialState, action: ObjectSelec
         return Object.assign({}, state, {
           [action.key]: Object.assign({}, state[action.key], {
             [action.id]: {
-              checked: true
-            }
-          })
+              checked: true,
+            },
+          }),
         });
       }
       return state;
@@ -52,9 +56,9 @@ export function objectSelectionReducer(state = initialState, action: ObjectSelec
         return Object.assign({}, state, {
           [action.key]: Object.assign({}, state[action.key], {
             [action.id]: {
-              checked: false
-            }
-          })
+              checked: false,
+            },
+          }),
         });
       }
       return state;
@@ -64,9 +68,9 @@ export function objectSelectionReducer(state = initialState, action: ObjectSelec
       return Object.assign({}, state, {
         [action.key]: Object.assign({}, state[action.key], {
           [action.id]: {
-            checked: true
-          }
-        })
+            checked: true,
+          },
+        }),
       });
     }
 
@@ -74,9 +78,9 @@ export function objectSelectionReducer(state = initialState, action: ObjectSelec
       return Object.assign({}, state, {
         [action.key]: Object.assign({}, state[action.key], {
           [action.id]: {
-            checked: false
-          }
-        })
+            checked: false,
+          },
+        }),
       });
     }
 
@@ -84,9 +88,9 @@ export function objectSelectionReducer(state = initialState, action: ObjectSelec
       return Object.assign({}, state, {
         [action.key]: Object.assign({}, state[action.key], {
           [action.id]: {
-            checked: (isEmpty(state) || isEmpty(state[action.key]) || isEmpty(state[action.key][action.id])) ? true : !state[action.key][action.id].checked
-          }
-        })
+            checked: (isEmpty(state) || isEmpty(state[action.key]) || isEmpty(state[action.key][action.id])) ? true : !state[action.key][action.id].checked,
+          },
+        }),
       });
     }
 
@@ -95,7 +99,7 @@ export function objectSelectionReducer(state = initialState, action: ObjectSelec
         return {};
       } else {
         return Object.assign({}, state, {
-          [action.key]: {}
+          [action.key]: {},
         });
       }
     }

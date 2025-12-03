@@ -1,40 +1,46 @@
-import { ComponentFixture, ComponentFixtureAutoDetect, TestBed } from '@angular/core/testing';
+import {
+  CUSTOM_ELEMENTS_SCHEMA,
+  DebugElement,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { RouterModule } from '@angular/router';
+import { SubscriptionsDataService } from '@dspace/core/data/subscriptions-data.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { ITEM } from '@dspace/core/shared/item.resource-type';
+import { Subscription } from '@dspace/core/shared/subscription.model';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import {
+  findByEPersonAndDsoResEmpty,
+  subscriptionMock,
+} from '@dspace/core/testing/subscriptions-data.mock';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
 
-// Import modules
-import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
-import { BrowserModule, By } from '@angular/platform-browser';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { RouterTestingModule } from '@angular/router/testing';
-
+import { ThemedTypeBadgeComponent } from '../../object-collection/shared/badges/type-badge/themed-type-badge.component';
 import { SubscriptionViewComponent } from './subscription-view.component';
-
-// Import mocks
-import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
-import { findByEPersonAndDsoResEmpty, subscriptionMock } from '../../testing/subscriptions-data.mock';
-
-// Import utils
-import { NotificationsService } from '../../notifications/notifications.service';
-import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
-import { SubscriptionsDataService } from '../subscriptions-data.service';
-import { Subscription } from '../models/subscription.model';
-
-import { of as observableOf } from 'rxjs';
-
-import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
-import { Item } from '../../../core/shared/item.model';
-import { ITEM } from '../../../core/shared/item.resource-type';
 
 describe('SubscriptionViewComponent', () => {
   let component: SubscriptionViewComponent;
   let fixture: ComponentFixture<SubscriptionViewComponent>;
   let de: DebugElement;
-  let modalService;
 
+  let modalService: NgbModal = jasmine.createSpyObj('modalService', {
+    open: {
+      componentInstance: {
+        updateSubscription: of(),
+        response: of(),
+      },
+    },
+  });
   const subscriptionServiceStub = jasmine.createSpyObj('SubscriptionsDataService', {
-    getSubscriptionByPersonDSO: observableOf(findByEPersonAndDsoResEmpty),
+    getSubscriptionByPersonDSO: of(findByEPersonAndDsoResEmpty),
     deleteSubscription: createSuccessfulRemoteDataObject$({}),
     updateSubscription: createSuccessfulRemoteDataObject$({}),
   });
@@ -47,35 +53,33 @@ describe('SubscriptionViewComponent', () => {
     type: ITEM,
     _links: {
       self: {
-        href: 'https://localhost:8000/items/fake-id'
-      }
-    }
+        href: 'https://localhost:8000/items/fake-id',
+      },
+    },
   });
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        CommonModule,
-        NgbModule,
-        ReactiveFormsModule,
-        BrowserModule,
-        RouterTestingModule,
-        TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        }),
+        RouterModule.forRoot([]),
+        TranslateModule.forRoot(),
+        SubscriptionViewComponent,
       ],
-      declarations: [ SubscriptionViewComponent ],
       providers: [
-        { provide: ComponentFixtureAutoDetect, useValue: true },
-        { provide: NotificationsService, useValue: NotificationsServiceStub },
+        { provide: NotificationsService, useClass: NotificationsServiceStub },
         { provide: SubscriptionsDataService, useValue: subscriptionServiceStub },
+        { provide: NgbModal, useValue: modalService },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
-    })
-    .compileComponents();
+    }).overrideComponent(SubscriptionViewComponent, {
+      add: {
+        schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      },
+      remove: {
+        imports: [
+          ThemedTypeBadgeComponent,
+        ],
+      },
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -93,7 +97,7 @@ describe('SubscriptionViewComponent', () => {
   });
 
   it('should have dso object info', () => {
-    expect(de.query(By.css('.dso-info > ds-themed-type-badge'))).toBeTruthy();
+    expect(de.query(By.css('.dso-info > ds-type-badge'))).toBeTruthy();
     expect(de.query(By.css('.dso-info > p > a'))).toBeTruthy();
   });
 
@@ -101,7 +105,7 @@ describe('SubscriptionViewComponent', () => {
     expect(de.query(By.css('.subscription-type'))).toBeTruthy();
   });
 
-  it('should have subscription paramenter info', () => {
+  it('should have subscription parameter info', () => {
     expect(de.query(By.css('.subscription-parameters > span'))).toBeTruthy();
   });
 
@@ -111,9 +115,6 @@ describe('SubscriptionViewComponent', () => {
   });
 
   it('should open modal when clicked edit button', () => {
-    modalService = (component as any).modalService;
-    const modalSpy = spyOn(modalService, 'open');
-
     const editBtn = de.query(By.css('.btn-outline-primary')).nativeElement;
     editBtn.click();
 

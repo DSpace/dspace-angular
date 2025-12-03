@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { ThemedComponent } from '../shared/theme-support/themed.component';
 import { BreadcrumbsComponent } from './breadcrumbs.component';
 
@@ -6,8 +7,7 @@ import { BreadcrumbsComponent } from './breadcrumbs.component';
  * Themed wrapper for BreadcrumbsComponent
  */
 @Component({
-  selector: 'ds-themed-breadcrumbs',
-  styleUrls: [],
+  selector: 'ds-breadcrumbs',
   templateUrl: '../shared/theme-support/themed.component.html',
 })
 export class ThemedBreadcrumbsComponent extends ThemedComponent<BreadcrumbsComponent> {

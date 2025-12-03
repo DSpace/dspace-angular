@@ -2,8 +2,13 @@
  * Represents the state of all lists containing name variants in the store
  */
 
-import { NameVariantAction, NameVariantActionTypes, SetNameVariantAction } from './name-variant.actions';
-import { hasValue } from '../../../../empty.util';
+import { hasValue } from '@dspace/shared/utils/empty.util';
+
+import {
+  NameVariantAction,
+  NameVariantActionTypes,
+  SetNameVariantAction,
+} from './name-variant.actions';
 
 export interface NameVariantListsState {
   [listID: string]: NameVariantListState;

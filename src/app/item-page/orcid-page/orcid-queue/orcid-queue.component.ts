@@ -1,30 +1,62 @@
-import { Component, Input, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { OrcidHistory } from '@dspace/core/orcid/model/orcid-history.model';
+import { OrcidQueue } from '@dspace/core/orcid/model/orcid-queue.model';
+import { OrcidAuthService } from '@dspace/core/orcid/orcid-auth.service';
+import { OrcidHistoryDataService } from '@dspace/core/orcid/orcid-history-data.service';
+import { OrcidQueueDataService } from '@dspace/core/orcid/orcid-queue-data.service';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import { hasValue } from '@dspace/shared/utils/empty.util';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  combineLatest,
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  switchMap,
+  tap,
+} from 'rxjs/operators';
 
-import { TranslateService } from '@ngx-translate/core';
-import { BehaviorSubject, combineLatest, Observable, Subscription } from 'rxjs';
-import { debounceTime, distinctUntilChanged, switchMap, tap } from 'rxjs/operators';
-
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { OrcidHistory } from '../../../core/orcid/model/orcid-history.model';
-import { OrcidQueue } from '../../../core/orcid/model/orcid-queue.model';
-import { OrcidHistoryDataService } from '../../../core/orcid/orcid-history-data.service';
-import { OrcidQueueDataService } from '../../../core/orcid/orcid-queue-data.service';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
-import { hasValue } from '../../../shared/empty.util';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { AlertType } from '../../../shared/alert/aletr-type';
-import { Item } from '../../../core/shared/item.model';
-import { OrcidAuthService } from '../../../core/orcid/orcid-auth.service';
+import { AlertComponent } from '../../../shared/alert/alert.component';
+import { AlertType } from '../../../shared/alert/alert-type';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
+import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 
 @Component({
   selector: 'ds-orcid-queue',
   templateUrl: './orcid-queue.component.html',
-  styleUrls: ['./orcid-queue.component.scss']
+  styleUrls: ['./orcid-queue.component.scss'],
+  imports: [
+    AlertComponent,
+    CommonModule,
+    NgbTooltipModule,
+    PaginationComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
+  ],
 })
-export class OrcidQueueComponent implements OnInit, OnDestroy {
+export class OrcidQueueComponent implements OnInit, OnDestroy, OnChanges {
 
   /**
    * The item for which showing the orcid settings
@@ -36,7 +68,7 @@ export class OrcidQueueComponent implements OnInit, OnDestroy {
    */
   public paginationOptions: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'oqp',
-    pageSize: 5
+    pageSize: 5,
   });
 
   /**
@@ -47,13 +79,12 @@ export class OrcidQueueComponent implements OnInit, OnDestroy {
   /**
    * A list of orcid queue records
    */
-  private list$: BehaviorSubject<RemoteData<PaginatedList<OrcidQueue>>> = new BehaviorSubject<RemoteData<PaginatedList<OrcidQueue>>>({} as any);
+  list$: BehaviorSubject<RemoteData<PaginatedList<OrcidQueue>>> = new BehaviorSubject<RemoteData<PaginatedList<OrcidQueue>>>({} as any);
 
   /**
    * The AlertType enumeration
-   * @type {AlertType}
    */
-  AlertTypeEnum = AlertType;
+  readonly AlertTypeEnum = AlertType;
 
   /**
    * Array to track all subscriptions and unsubscribe them onDestroy
@@ -90,20 +121,13 @@ export class OrcidQueueComponent implements OnInit, OnDestroy {
         distinctUntilChanged(),
         tap(() => this.processing$.next(true)),
         switchMap((config: PaginationComponentOptions) => this.orcidQueueService.searchByProfileItemId(this.item.id, config, false)),
-        getFirstCompletedRemoteData()
+        getFirstCompletedRemoteData(),
       ).subscribe((result: RemoteData<PaginatedList<OrcidQueue>>) => {
         this.processing$.next(false);
         this.list$.next(result);
         this.orcidQueueService.clearFindByProfileItemRequests();
-      })
+      }),
     );
-  }
-
-  /**
-   * Return the list of orcid queue records
-   */
-  getList(): Observable<RemoteData<PaginatedList<OrcidQueue>>> {
-    return this.list$.asObservable();
   }
 
   /**
@@ -191,7 +215,7 @@ export class OrcidQueueComponent implements OnInit, OnDestroy {
   discardEntry(orcidQueue: OrcidQueue) {
     this.processing$.next(true);
     this.subs.push(this.orcidQueueService.deleteById(orcidQueue.id).pipe(
-      getFirstCompletedRemoteData()
+      getFirstCompletedRemoteData(),
     ).subscribe((remoteData) => {
       this.processing$.next(false);
       if (remoteData.isSuccess) {
@@ -211,7 +235,7 @@ export class OrcidQueueComponent implements OnInit, OnDestroy {
   send(orcidQueue: OrcidQueue) {
     this.processing$.next(true);
     this.subs.push(this.orcidHistoryService.sendToORCID(orcidQueue).pipe(
-      getFirstCompletedRemoteData()
+      getFirstCompletedRemoteData(),
     ).subscribe((remoteData) => {
       this.processing$.next(false);
       if (remoteData.isSuccess) {
@@ -233,8 +257,8 @@ export class OrcidQueueComponent implements OnInit, OnDestroy {
     return this.orcidAuthService.getOrcidAuthorizeUrl(this.item).pipe(
       switchMap((authorizeUrl) => this.translateService.get(
         'person.page.orcid.sync-queue.send.unauthorized-error.content',
-        { orcid: authorizeUrl }
-      ))
+        { orcid: authorizeUrl },
+      )),
     );
   }
 

@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h1 class="border-bottom pb-2">{{'admin-notify-dashboard.title'| translate}}</h1>
+      <div class="my-4">{{'admin-notify-dashboard.description' | translate}}</div>
+      <div>
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link active">{{'admin-notify-dashboard.metrics' | translate}}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="'inbound'" [queryParams]="{view: 'table'}">{{'admin.notify.dashboard.inbound-logs' | translate}}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="'outbound'" [queryParams]="{view: 'table'}">{{'admin.notify.dashboard.outbound-logs' | translate}}</a>
+          </ul>
+          <div class="mt-2">
+            @if ((notifyMetricsRows$ | async)?.length) {
+              <ds-admin-notify-metrics [boxesConfig]="notifyMetricsRows$ | async"></ds-admin-notify-metrics>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

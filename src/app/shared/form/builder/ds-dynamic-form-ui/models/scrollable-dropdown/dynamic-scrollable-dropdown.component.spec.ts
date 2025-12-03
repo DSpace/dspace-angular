@@ -1,25 +1,50 @@
 // Load the implementations that should be tested
-import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { UntypedFormControl, UntypedFormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ComponentFixture, fakeAsync, inject, TestBed, tick, waitForAsync, } from '@angular/core/testing';
+import {
+  ChangeDetectorRef,
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  Injector,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  inject,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+  UntypedFormControl,
+  UntypedFormGroup,
+} from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateModule } from '@ngx-translate/core';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { DynamicFormLayoutService, DynamicFormsCoreModule, DynamicFormValidationService } from '@ng-dynamic-forms/core';
-import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
-
-import { VocabularyOptions } from '../../../../../../core/submission/vocabularies/models/vocabulary-options.model';
-import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
-import { VocabularyServiceStub } from '../../../../../testing/vocabulary-service.stub';
-import { DsDynamicScrollableDropdownComponent } from './dynamic-scrollable-dropdown.component';
-import { DynamicScrollableDropdownModel } from './dynamic-scrollable-dropdown.model';
-import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
-import { createTestComponent, hasClass } from '../../../../../testing/utils.test';
+import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
+import { VocabularyEntry } from '@dspace/core/submission/vocabularies/models/vocabulary-entry.model';
+import { VocabularyOptions } from '@dspace/core/submission/vocabularies/models/vocabulary-options.model';
+import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
 import {
   mockDynamicFormLayoutService,
-  mockDynamicFormValidationService
-} from '../../../../../testing/dynamic-form-mock-services';
+  mockDynamicFormValidationService,
+} from '@dspace/core/testing/dynamic-form-mock-services';
+import {
+  createTestComponent,
+  hasClass,
+} from '@dspace/core/testing/utils.test';
+import { VocabularyServiceStub } from '@dspace/core/testing/vocabulary-service.stub';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  DynamicFormLayoutService,
+  DynamicFormsCoreModule,
+  DynamicFormValidationService,
+} from '@ng-dynamic-forms/core';
+import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+
+import { DsDynamicScrollableDropdownComponent } from './dynamic-scrollable-dropdown.component';
+import { DynamicScrollableDropdownModel } from './dynamic-scrollable-dropdown.model';
 
 export const SD_TEST_GROUP = new UntypedFormGroup({
   dropdown: new UntypedFormControl(),
@@ -28,7 +53,7 @@ export const SD_TEST_GROUP = new UntypedFormGroup({
 export const SD_TEST_MODEL_CONFIG = {
   vocabularyOptions: {
     closed: false,
-    name: 'common_iso_languages'
+    name: 'common_iso_languages',
   } as VocabularyOptions,
   disabled: false,
   errorMessages: { required: 'Required field.' },
@@ -43,7 +68,7 @@ export const SD_TEST_MODEL_CONFIG = {
   value: undefined,
   metadataFields: [],
   submissionId: '1234',
-  hasSelectableMetadata: false
+  hasSelectableMetadata: false,
 };
 
 describe('Dynamic Dynamic Scrollable Dropdown component', () => {
@@ -68,20 +93,20 @@ describe('Dynamic Dynamic Scrollable Dropdown component', () => {
         InfiniteScrollModule,
         ReactiveFormsModule,
         NgbModule,
-        TranslateModule.forRoot()
-      ],
-      declarations: [
+        TranslateModule.forRoot(),
         DsDynamicScrollableDropdownComponent,
         TestComponent,
-      ], // declare the test component
+      ],
       providers: [
+        Injector,
         ChangeDetectorRef,
         DsDynamicScrollableDropdownComponent,
         { provide: VocabularyService, useValue: vocabularyServiceStub },
         { provide: DynamicFormLayoutService, useValue: mockDynamicFormLayoutService },
-        { provide: DynamicFormValidationService, useValue: mockDynamicFormValidationService }
+        { provide: DynamicFormValidationService, useValue: mockDynamicFormValidationService },
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     });
 
   }));
@@ -159,14 +184,15 @@ describe('Dynamic Dynamic Scrollable Dropdown component', () => {
         let de: any = scrollableDropdownFixture.debugElement.query(By.css('input.form-control'));
         let btnEl = de.nativeElement;
 
-        btnEl.click();
+        const mousedownEvent = new MouseEvent('mousedown');
+
+        btnEl.dispatchEvent(mousedownEvent);
         scrollableDropdownFixture.detectChanges();
 
         de = scrollableDropdownFixture.debugElement.queryAll(By.css('button.dropdown-item'));
-        btnEl = de[0].nativeElement;
+        btnEl = de[1].nativeElement;
 
-        btnEl.click();
-
+        btnEl.dispatchEvent(mousedownEvent);
         scrollableDropdownFixture.detectChanges();
 
         expect((scrollableDropdownComp.model as any).value).toEqual(selectedValue);
@@ -215,7 +241,15 @@ describe('Dynamic Dynamic Scrollable Dropdown component', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
+  imports: [
+    DynamicFormsCoreModule,
+    DynamicFormsNGBootstrapUIModule,
+    FormsModule,
+    InfiniteScrollModule,
+    NgbModule,
+    ReactiveFormsModule,
+  ],
 })
 class TestComponent {
 

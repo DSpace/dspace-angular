@@ -1,15 +1,18 @@
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+import { MediaViewerConfig } from '@dspace/config/media-viewer-config.interface';
+import { Item } from '@dspace/core/shared/item.model';
+
 import { ThemedComponent } from '../../shared/theme-support/themed.component';
 import { MediaViewerComponent } from './media-viewer.component';
-import { Item } from '../../core/shared/item.model';
-import { MediaViewerConfig } from '../../../config/media-viewer-config.interface';
 
 /**
  * Themed wrapper for {@link MediaViewerComponent}.
  */
 @Component({
-  selector: 'ds-themed-media-viewer',
-  styleUrls: [],
+  selector: 'ds-media-viewer',
   templateUrl: '../../shared/theme-support/themed.component.html',
 })
 export class ThemedMediaViewerComponent extends ThemedComponent<MediaViewerComponent> {

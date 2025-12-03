@@ -5,21 +5,43 @@
  *
  * http://www.dspace.org/license/
  */
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ResourcePolicy } from '../../../core/resource-policy/models/resource-policy.model';
-import { hasValue, isNotEmpty } from '../../empty.util';
-import { dateToString, stringToNgbDateStruct } from '../../date.util';
+import { AsyncPipe } from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { GroupDataService } from '@dspace/core/eperson/group-data.service';
+import { Group } from '@dspace/core/eperson/models/group.model';
+import { ResourcePolicy } from '@dspace/core/resource-policy/models/resource-policy.model';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import {
+  getAllSucceededRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '@dspace/core/shared/operators';
+import {
+  dateToString,
+  stringToNgbDateStruct,
+} from '@dspace/shared/utils/date.util';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { getAllSucceededRemoteData, getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { RemoteData } from '../../../core/data/remote-data';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Group } from '../../../core/eperson/models/group.model';
-import { ACCESS_CONTROL_MODULE_PATH } from '../../../app-routing-paths';
-import { GROUP_EDIT_PATH } from '../../../access-control/access-control-routing-paths';
-import { GroupDataService } from '../../../core/eperson/group-data.service';
+
+import { getGroupEditRoute } from '../../../access-control/access-control-routing-paths';
+import { HasValuePipe } from '../../utils/has-value.pipe';
 
 export interface ResourcePolicyCheckboxEntry {
   id: string;
@@ -31,6 +53,12 @@ export interface ResourcePolicyCheckboxEntry {
   /* eslint-disable @angular-eslint/component-selector */
   selector: 'tr[ds-resource-policy-entry]',
   templateUrl: './resource-policy-entry.component.html',
+  imports: [
+    AsyncPipe,
+    FormsModule,
+    HasValuePipe,
+    TranslateModule,
+  ],
 })
 export class ResourcePolicyEntryComponent implements OnInit {
   @Input()
@@ -97,7 +125,7 @@ export class ResourcePolicyEntryComponent implements OnInit {
       getFirstSucceededRemoteDataPayload(),
       map((group: Group) => group.id),
     ).subscribe((groupUUID) => {
-      this.router.navigate([ACCESS_CONTROL_MODULE_PATH, GROUP_EDIT_PATH, groupUUID]);
+      void this.router.navigate([getGroupEditRoute(groupUUID)]);
     });
   }
 }

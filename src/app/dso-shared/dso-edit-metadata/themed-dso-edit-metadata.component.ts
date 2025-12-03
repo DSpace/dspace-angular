@@ -1,12 +1,15 @@
+import {
+  Component,
+  Input,
+} from '@angular/core';
+import { UpdateDataService } from '@dspace/core/data/update-data.service';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+
 import { ThemedComponent } from '../../shared/theme-support/themed.component';
 import { DsoEditMetadataComponent } from './dso-edit-metadata.component';
-import { Component, Input } from '@angular/core';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { UpdateDataService } from '../../core/data/update-data.service';
 
 @Component({
-  selector: 'ds-themed-dso-edit-metadata',
-  styleUrls: [],
+  selector: 'ds-dso-edit-metadata',
   templateUrl: './../../shared/theme-support/themed.component.html',
 })
 export class ThemedDsoEditMetadataComponent extends ThemedComponent<DsoEditMetadataComponent> {

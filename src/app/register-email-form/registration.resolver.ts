@@ -1,24 +1,22 @@
-import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
-import { EpersonRegistrationService } from '../core/data/eperson-registration.service';
-import { Registration } from '../core/shared/registration.model';
+import { inject } from '@angular/core';
+import {
+  ActivatedRouteSnapshot,
+  ResolveFn,
+  RouterStateSnapshot,
+} from '@angular/router';
+import { EpersonRegistrationService } from '@dspace/core/data/eperson-registration.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import { Registration } from '@dspace/core/shared/registration.model';
 import { Observable } from 'rxjs';
-import { RemoteData } from '../core/data/remote-data';
-import { getFirstCompletedRemoteData } from '../core/shared/operators';
 
-@Injectable()
-/**
- * Resolver to resolve a Registration object based on the provided token
- */
-export class RegistrationResolver implements Resolve<RemoteData<Registration>> {
-
-  constructor(private epersonRegistrationService: EpersonRegistrationService) {
-  }
-
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<RemoteData<Registration>> {
-    const token = route.params.token;
-    return this.epersonRegistrationService.searchByToken(token).pipe(
-      getFirstCompletedRemoteData(),
-    );
-  }
-}
+export const registrationResolver: ResolveFn<RemoteData<Registration>> = (
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot,
+  epersonRegistrationService: EpersonRegistrationService = inject(EpersonRegistrationService),
+): Observable<RemoteData<Registration>> => {
+  const token = route.params.token;
+  return epersonRegistrationService.searchByTokenAndUpdateData(token).pipe(
+    getFirstCompletedRemoteData(),
+  );
+};

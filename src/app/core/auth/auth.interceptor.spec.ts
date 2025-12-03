@@ -1,34 +1,32 @@
+import {
+  HTTP_INTERCEPTORS,
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
+import {
+  HttpTestingController,
+  provideHttpClientTesting,
+} from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController, } from '@angular/common/http/testing';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { RestRequestMethod } from '@dspace/config/rest-request-method';
+import { provideMockStore } from '@ngrx/store/testing';
 
-import { Store } from '@ngrx/store';
-import { of as observableOf } from 'rxjs';
-
+import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
+import { AuthServiceStub } from '../testing/auth-service.stub';
+import { RouterStub } from '../testing/router.stub';
 import { AuthInterceptor } from './auth.interceptor';
 import { AuthService } from './auth.service';
-import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
-import { RouterStub } from '../../shared/testing/router.stub';
-import { TruncatablesState } from '../../shared/truncatable/truncatable.reducer';
-import { AuthServiceStub } from '../../shared/testing/auth-service.stub';
-import { RestRequestMethod } from '../data/rest-request-method';
 
 describe(`AuthInterceptor`, () => {
   let service: DspaceRestService;
   let httpMock: HttpTestingController;
 
   const authServiceStub = new AuthServiceStub();
-  const store: Store<TruncatablesState> = jasmine.createSpyObj('store', {
-    /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
-    dispatch: {},
-    /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
-    select: observableOf(true)
-  });
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
+      imports: [],
       providers: [
         DspaceRestService,
         { provide: AuthService, useValue: authServiceStub },
@@ -38,12 +36,18 @@ describe(`AuthInterceptor`, () => {
           useClass: AuthInterceptor,
           multi: true,
         },
-        { provide: Store, useValue: store },
+        provideMockStore({}),
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
       ],
     });
 
     service = TestBed.inject(DspaceRestService);
     httpMock = TestBed.inject(HttpTestingController);
+  });
+
+  afterEach(() => {
+    httpMock.verify();
   });
 
   describe('when has a valid token', () => {
@@ -95,14 +99,11 @@ describe(`AuthInterceptor`, () => {
     });
 
     it('should redirect to login', () => {
-
-      service.request(RestRequestMethod.POST, 'dspace-spring-rest/api/submission/workspaceitems', 'password=password&user=user').subscribe((response) => {
-        expect(response).toBeTruthy();
-      });
-
       service.request(RestRequestMethod.POST, 'dspace-spring-rest/api/submission/workspaceitems', 'password=password&user=user');
 
       httpMock.expectNone('dspace-spring-rest/api/submission/workspaceitems');
+      // HttpTestingController.expectNone will throw an error when a requests is made
+      expect().nothing();
     });
   });
 

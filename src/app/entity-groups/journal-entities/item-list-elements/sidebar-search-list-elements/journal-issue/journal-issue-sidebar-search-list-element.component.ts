@@ -1,17 +1,32 @@
-import { listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
-import { ViewMode } from '../../../../../core/shared/view-mode.model';
-import { Context } from '../../../../../core/shared/context.model';
-import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
+import {
+  AsyncPipe,
+  NgClass,
+} from '@angular/common';
 import { Component } from '@angular/core';
+import { Context } from '@dspace/core/shared/context.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
+import { TranslateModule } from '@ngx-translate/core';
+
+import { listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
 import { SidebarSearchListElementComponent } from '../../../../../shared/object-list/sidebar-search-list-element/sidebar-search-list-element.component';
-import { Item } from '../../../../../core/shared/item.model';
-import { isNotEmpty } from '../../../../../shared/empty.util';
+import { TruncatablePartComponent } from '../../../../../shared/truncatable/truncatable-part/truncatable-part.component';
 
 @listableObjectComponent('JournalIssueSearchResult', ViewMode.ListElement, Context.SideBarSearchModal)
 @listableObjectComponent('JournalIssueSearchResult', ViewMode.ListElement, Context.SideBarSearchModalCurrent)
+@listableObjectComponent('JournalIssueSearchResult', ViewMode.ListElement, Context.ScopeSelectorModal)
+@listableObjectComponent('JournalIssueSearchResult', ViewMode.ListElement, Context.ScopeSelectorModalCurrent)
 @Component({
   selector: 'ds-journal-issue-sidebar-search-list-element',
-  templateUrl: '../../../../../shared/object-list/sidebar-search-list-element/sidebar-search-list-element.component.html'
+  templateUrl: '../../../../../shared/object-list/sidebar-search-list-element/sidebar-search-list-element.component.html',
+  imports: [
+    AsyncPipe,
+    NgClass,
+    TranslateModule,
+    TruncatablePartComponent,
+  ],
 })
 /**
  * Component displaying a list element for a {@link ItemSearchResult} of type "JournalIssue" within the context of

@@ -1,19 +1,44 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
+import {
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
+import { hasValue } from '@dspace/shared/utils/empty.util';
+import {
+  NgbAccordionModule,
+  NgbNavModule,
+} from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import { NgxPaginationModule } from 'ngx-pagination';
+import {
+  BehaviorSubject,
+  Subscription,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  map,
+} from 'rxjs/operators';
 
-import { BehaviorSubject, Subscription } from 'rxjs';
-import { distinctUntilChanged, map } from 'rxjs/operators';
-
-import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
-import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
-import { SelectableListService } from '../../../shared/object-list/selectable-list/selectable-list.service';
+import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
+import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
+import { SelectableListItemControlComponent } from '../../../shared/object-collection/shared/selectable-list-item-control/selectable-list-item-control.component';
 import { SelectableListState } from '../../../shared/object-list/selectable-list/selectable-list.reducer';
-import { RemoteData } from '../../../core/data/remote-data';
-import { buildPaginatedList, PaginatedList } from '../../../core/data/paginated-list.model';
-import { ListableObject } from '../../../shared/object-collection/shared/listable-object.model';
-import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
-import { PageInfo } from '../../../core/shared/page-info.model';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { hasValue } from '../../../shared/empty.util';
+import { SelectableListService } from '../../../shared/object-list/selectable-list/selectable-list.service';
+import { PaginationComponent } from '../../../shared/pagination/pagination.component';
+import { SearchConfigurationService } from '../../../shared/search/search-configuration.service';
+import { ThemedSearchComponent } from '../../../shared/search/themed-search.component';
+import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
 
 @Component({
   selector: 'ds-bulk-access-browse',
@@ -22,9 +47,21 @@ import { hasValue } from '../../../shared/empty.util';
   providers: [
     {
       provide: SEARCH_CONFIG_SERVICE,
-      useClass: SearchConfigurationService
-    }
-  ]
+      useClass: SearchConfigurationService,
+    },
+  ],
+  imports: [
+    AsyncPipe,
+    BrowserOnlyPipe,
+    ListableObjectComponentLoaderComponent,
+    NgbAccordionModule,
+    NgbNavModule,
+    NgxPaginationModule,
+    PaginationComponent,
+    SelectableListItemControlComponent,
+    ThemedSearchComponent,
+    TranslateModule,
+  ],
 })
 export class BulkAccessBrowseComponent implements OnInit, OnDestroy {
 
@@ -49,7 +86,7 @@ export class BulkAccessBrowseComponent implements OnInit, OnDestroy {
   paginationOptions$: BehaviorSubject<PaginationComponentOptions> = new BehaviorSubject<PaginationComponentOptions>(Object.assign(new PaginationComponentOptions(), {
     id: 'bas',
     pageSize: 5,
-    currentPage: 1
+    currentPage: 1,
   }));
 
   /**
@@ -67,20 +104,20 @@ export class BulkAccessBrowseComponent implements OnInit, OnDestroy {
     this.subs.push(
       this.selectableListService.getSelectableList(this.listId).pipe(
         distinctUntilChanged(),
-        map((list: SelectableListState) => this.generatePaginatedListBySelectedElements(list))
-      ).subscribe(this.objectsSelected$)
+        map((list: SelectableListState) => this.generatePaginatedListBySelectedElements(list)),
+      ).subscribe(this.objectsSelected$),
     );
   }
 
   pageNext() {
     this.paginationOptions$.next(Object.assign(new PaginationComponentOptions(), this.paginationOptions$.value, {
-      currentPage: this.paginationOptions$.value.currentPage + 1
+      currentPage: this.paginationOptions$.value.currentPage + 1,
     }));
   }
 
   pagePrev() {
     this.paginationOptions$.next(Object.assign(new PaginationComponentOptions(), this.paginationOptions$.value, {
-      currentPage: this.paginationOptions$.value.currentPage - 1
+      currentPage: this.paginationOptions$.value.currentPage - 1,
     }));
   }
 
@@ -99,12 +136,12 @@ export class BulkAccessBrowseComponent implements OnInit, OnDestroy {
       elementsPerPage: this.paginationOptions$.value.pageSize,
       totalElements: list?.selection.length,
       totalPages: this.calculatePageCount(this.paginationOptions$.value.pageSize, list?.selection.length),
-      currentPage: this.paginationOptions$.value.currentPage
+      currentPage: this.paginationOptions$.value.currentPage,
     });
     if (pageInfo.currentPage > pageInfo.totalPages) {
       pageInfo.currentPage = pageInfo.totalPages;
       this.paginationOptions$.next(Object.assign(new PaginationComponentOptions(), this.paginationOptions$.value, {
-        currentPage: pageInfo.currentPage
+        currentPage: pageInfo.currentPage,
       }));
     }
     return createSuccessfulRemoteDataObject(buildPaginatedList(pageInfo, list?.selection || []));

@@ -1,35 +1,48 @@
 import { Injectable } from '@angular/core';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
+import {
+  Observable,
+  of,
+} from 'rxjs';
+import {
+  map,
+  switchMap,
+} from 'rxjs/operators';
 
-import { Observable, of as observableOf } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
-
-import { Breadcrumb } from '../../breadcrumbs/breadcrumb/breadcrumb.model';
-import { DSONameService } from './dso-name.service';
-import { ChildHALResource } from '../shared/child-hal-resource.model';
 import { LinkService } from '../cache/builders/link.service';
-import { DSpaceObject } from '../shared/dspace-object.model';
-import { RemoteData } from '../data/remote-data';
-import { hasValue, isNotEmpty } from '../../shared/empty.util';
-import { getDSORoute } from '../../app-routing-paths';
-import { DSOBreadcrumbsService } from './dso-breadcrumbs.service';
 import { BitstreamDataService } from '../data/bitstream-data.service';
-import { getFirstCompletedRemoteData, getRemoteDataPayload } from '../shared/operators';
-import { Bitstream } from '../shared/bitstream.model';
+import { RemoteData } from '../data/remote-data';
+import { getDSORoute } from '../router/utils/dso-route.utils';
+import {
+  Bitstream,
+  BITSTREAM_PAGE_LINKS_TO_FOLLOW,
+} from '../shared/bitstream.model';
 import { Bundle } from '../shared/bundle.model';
+import { ChildHALResource } from '../shared/child-hal-resource.model';
+import { DSpaceObject } from '../shared/dspace-object.model';
 import { Item } from '../shared/item.model';
-import { BITSTREAM_PAGE_LINKS_TO_FOLLOW } from '../../bitstream-page/bitstream-page.resolver';
+import {
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+} from '../shared/operators';
+import { DSOBreadcrumbsService } from './dso-breadcrumbs.service';
+import { DSONameService } from './dso-name.service';
+import { Breadcrumb } from './models/breadcrumb.model';
 
 /**
  * Service to calculate DSpaceObject breadcrumbs for a single part of the route
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BitstreamBreadcrumbsService extends DSOBreadcrumbsService {
   constructor(
     protected bitstreamService: BitstreamDataService,
     protected linkService: LinkService,
-    protected dsoNameService: DSONameService
+    protected dsoNameService: DSONameService,
   ) {
     super(linkService, dsoNameService);
   }
@@ -50,10 +63,10 @@ export class BitstreamBreadcrumbsService extends DSOBreadcrumbsService {
           const parent = parentRD.payload;
           return super.getBreadcrumbs(parent, getDSORoute(parent));
         }
-        return observableOf([]);
+        return of([]);
 
       }),
-      map((breadcrumbs: Breadcrumb[]) => [...breadcrumbs, crumb])
+      map((breadcrumbs: Breadcrumb[]) => [...breadcrumbs, crumb]),
     );
   }
 
@@ -72,14 +85,14 @@ export class BitstreamBreadcrumbsService extends DSOBreadcrumbsService {
                   getFirstCompletedRemoteData(),
                 );
               } else {
-                return observableOf(undefined);
+                return of(undefined);
               }
-            })
+            }),
           );
         } else {
-          return observableOf(undefined);
+          return of(undefined);
         }
-      })
+      }),
     );
   }
 }

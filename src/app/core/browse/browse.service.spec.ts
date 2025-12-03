@@ -1,26 +1,47 @@
-import { cold, getTestScheduler, hot } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import {
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { BrowseDefinitionDataService } from '@dspace/core/browse/browse-definition-data.service';
+import { HrefOnlyDataService } from '@dspace/core/data/href-only-data.service';
+import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import {
+  cold,
+  getTestScheduler,
+  hot,
+} from 'jasmine-marbles';
+import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
-import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
-import { getMockRequestService } from '../../shared/mocks/request.service.mock';
-import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+
 import { RequestService } from '../data/request.service';
-import { BrowseEntrySearchOptions } from './browse-entry-search-options.model';
-import { BrowseService } from './browse.service';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { createPaginatedList, getFirstUsedArgumentOfSpyMethod } from '../../shared/testing/utils.test';
-import { getMockHrefOnlyDataService } from '../../shared/mocks/href-only-data.service.mock';
 import { RequestEntry } from '../data/request-entry.model';
 import { FlatBrowseDefinition } from '../shared/flat-browse-definition.model';
-import { ValueListBrowseDefinition } from '../shared/value-list-browse-definition.model';
 import { HierarchicalBrowseDefinition } from '../shared/hierarchical-browse-definition.model';
+import { ValueListBrowseDefinition } from '../shared/value-list-browse-definition.model';
+import { HALEndpointServiceStub } from '../testing/hal-endpoint-service.stub';
+import { getMockHrefOnlyDataService } from '../testing/href-only-data.service.mock';
+import { getMockRequestService } from '../testing/request.service.mock';
+import { TranslateLoaderMock } from '../testing/translate-loader.mock';
+import {
+  createPaginatedList,
+  getFirstUsedArgumentOfSpyMethod,
+} from '../testing/utils.test';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../utilities/remote-data.utils';
+import { BrowseService } from './browse.service';
+import { BrowseEntrySearchOptions } from './browse-entry-search-options.model';
 
 describe('BrowseService', () => {
   let scheduler: TestScheduler;
   let service: BrowseService;
   let requestService: RequestService;
-  let rdbService: RemoteDataBuildService;
 
   const browsesEndpointURL = 'https://rest.api/browses';
   const halService: any = new HALEndpointServiceStub(browsesEndpointURL);
@@ -31,26 +52,26 @@ describe('BrowseService', () => {
       sortOptions: [
         {
           name: 'title',
-          metadata: 'dc.title'
+          metadata: 'dc.title',
         },
         {
           name: 'dateissued',
-          metadata: 'dc.date.issued'
+          metadata: 'dc.date.issued',
         },
         {
           name: 'dateaccessioned',
-          metadata: 'dc.date.accessioned'
-        }
+          metadata: 'dc.date.accessioned',
+        },
       ],
       defaultSortOrder: 'ASC',
       type: 'browse',
       metadataKeys: [
-        'dc.date.issued'
+        'dc.date.issued',
       ],
       _links: {
         self: { href: 'https://rest.api/discover/browses/dateissued' },
-        items: { href: 'https://rest.api/discover/browses/dateissued/items' }
-      }
+        items: { href: 'https://rest.api/discover/browses/dateissued/items' },
+      },
     }),
     Object.assign(new ValueListBrowseDefinition(), {
       id: 'author',
@@ -58,28 +79,28 @@ describe('BrowseService', () => {
       sortOptions: [
         {
           name: 'title',
-          metadata: 'dc.title'
+          metadata: 'dc.title',
         },
         {
           name: 'dateissued',
-          metadata: 'dc.date.issued'
+          metadata: 'dc.date.issued',
         },
         {
           name: 'dateaccessioned',
-          metadata: 'dc.date.accessioned'
-        }
+          metadata: 'dc.date.accessioned',
+        },
       ],
       defaultSortOrder: 'ASC',
       type: 'browse',
       metadataKeys: [
         'dc.contributor.*',
-        'dc.creator'
+        'dc.creator',
       ],
       _links: {
         self: { href: 'https://rest.api/discover/browses/author' },
         entries: { href: 'https://rest.api/discover/browses/author/entries' },
-        items: { href: 'https://rest.api/discover/browses/author/items' }
-      }
+        items: { href: 'https://rest.api/discover/browses/author/items' },
+      },
     }),
     Object.assign(new HierarchicalBrowseDefinition(), {
       id: 'srsc',
@@ -88,14 +109,14 @@ describe('BrowseService', () => {
       vocabulary: 'srsc',
       type: 'browse',
       metadata: [
-        'dc.subject'
+        'dc.subject',
       ],
       _links: {
         vocabulary: { 'href': 'https://rest.api/submission/vocabularies/srsc/' },
         items: { 'href': 'https://rest.api/discover/browses/srsc/items' },
         entries: { 'href': 'https://rest.api/discover/browses/srsc/entries' },
-        self: { 'href': 'https://rest.api/discover/browses/srsc' }
-      }
+        self: { 'href': 'https://rest.api/discover/browses/srsc' },
+      },
     }),
   ];
 
@@ -103,38 +124,49 @@ describe('BrowseService', () => {
   let hrefOnlyDataService;
 
   const getRequestEntry$ = (successful: boolean) => {
-    return observableOf({
-      response: { isSuccessful: successful, payload: browseDefinitions } as any
+    return of({
+      response: { isSuccessful: successful, payload: browseDefinitions } as any,
     } as RequestEntry);
   };
 
-  function initTestService() {
+  beforeEach(waitForAsync(() => {
     browseDefinitionDataService = jasmine.createSpyObj('browseDefinitionDataService', {
-      findAll: createSuccessfulRemoteDataObject$(createPaginatedList(browseDefinitions))
+      findAll: createSuccessfulRemoteDataObject$(createPaginatedList(browseDefinitions)),
     });
     hrefOnlyDataService = getMockHrefOnlyDataService();
-    return new BrowseService(
-      requestService,
-      halService,
-      browseDefinitionDataService,
-      hrefOnlyDataService,
-      rdbService
-    );
-  }
+
+    return TestBed.configureTestingModule({
+      imports: [
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
+        }),
+      ],
+      providers: [
+        { provide: RequestService, useValue: requestService },
+        { provide: HALEndpointService, useValue: halService },
+        { provide: BrowseDefinitionDataService, useValue: browseDefinitionDataService },
+        { provide: HrefOnlyDataService, useValue: hrefOnlyDataService },
+        { provide: APP_CONFIG, useValue: { item : { showAccessStatuses: false } } },
+        BrowseService,
+      ],
+    });
+  }));
 
   beforeEach(() => {
+    service = TestBed.inject(BrowseService);
     scheduler = getTestScheduler();
   });
+
 
   describe('getBrowseDefinitions', () => {
 
     beforeEach(() => {
       requestService = getMockRequestService(getRequestEntry$(true));
-      rdbService = getMockRemoteDataBuildService();
-      service = initTestService();
       spyOn(halService, 'getEndpoint').and
         .returnValue(hot('--a-', { a: browsesEndpointURL }));
-      spyOn(rdbService, 'buildList').and.callThrough();
     });
 
     it('should call BrowseDefinitionDataService to create the RemoteData Observable', () => {
@@ -151,9 +183,6 @@ describe('BrowseService', () => {
 
     beforeEach(() => {
       requestService = getMockRequestService(getRequestEntry$(true));
-      rdbService = getMockRemoteDataBuildService();
-      service = initTestService();
-      spyOn(rdbService, 'buildList').and.callThrough();
     });
 
     describe('when getBrowseEntriesFor is called with a valid browse definition id', () => {
@@ -164,7 +193,7 @@ describe('BrowseService', () => {
         scheduler.flush();
 
         expect(getFirstUsedArgumentOfSpyMethod(hrefOnlyDataService.findListByHref)).toBeObservable(cold('(a|)', {
-          a: expected
+          a: expected,
         }));
       });
 
@@ -178,7 +207,7 @@ describe('BrowseService', () => {
         scheduler.flush();
 
         expect(getFirstUsedArgumentOfSpyMethod(hrefOnlyDataService.findListByHref)).toBeObservable(cold('(a|)', {
-          a: expected
+          a: expected,
         }));
       });
 
@@ -193,7 +222,7 @@ describe('BrowseService', () => {
         scheduler.flush();
 
         expect(getFirstUsedArgumentOfSpyMethod(hrefOnlyDataService.findListByHref)).toBeObservable(cold('(a|)', {
-          a: expected
+          a: expected,
         }));
       });
     });
@@ -204,11 +233,9 @@ describe('BrowseService', () => {
     describe('if getBrowseDefinitions fires', () => {
       beforeEach(() => {
         requestService = getMockRequestService(getRequestEntry$(true));
-        rdbService = getMockRemoteDataBuildService();
-        service = initTestService();
         spyOn(service, 'getBrowseDefinitions').and
           .returnValue(hot('--a-', {
-            a: createSuccessfulRemoteDataObject(createPaginatedList(browseDefinitions))
+            a: createSuccessfulRemoteDataObject(createPaginatedList(browseDefinitions)),
           }));
       });
 
@@ -259,8 +286,6 @@ describe('BrowseService', () => {
     describe('if getBrowseDefinitions doesn\'t fire', () => {
       it('should return undefined', () => {
         requestService = getMockRequestService(getRequestEntry$(true));
-        rdbService = getMockRemoteDataBuildService();
-        service = initTestService();
         spyOn(service, 'getBrowseDefinitions').and
           .returnValue(hot('----'));
 
@@ -277,9 +302,6 @@ describe('BrowseService', () => {
   describe('getFirstItemFor', () => {
     beforeEach(() => {
       requestService = getMockRequestService();
-      rdbService = getMockRemoteDataBuildService();
-      service = initTestService();
-      spyOn(rdbService, 'buildList').and.callThrough();
     });
 
     describe('when getFirstItemFor is called with a valid browse definition id', () => {
@@ -290,7 +312,7 @@ describe('BrowseService', () => {
         scheduler.flush();
 
         expect(getFirstUsedArgumentOfSpyMethod(hrefOnlyDataService.findListByHref)).toBeObservable(cold('(a|)', {
-          a: expectedURL
+          a: expectedURL,
         }));
       });
 

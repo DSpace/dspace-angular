@@ -1,19 +1,30 @@
-import { Injectable } from '@angular/core';
+import {
+  Inject,
+  Injectable,
+} from '@angular/core';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
+import {
+  isEmpty,
+  isNotEmpty,
+  isNotNull,
+} from '@dspace/shared/utils/empty.util';
 import { deepClone } from 'fast-json-patch';
-import { DSOResponseParsingService } from '../data/dso-response-parsing.service';
 
-import { ResponseParsingService } from '../data/parsing.service';
-import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
+import { ObjectCacheService } from '../cache/object-cache.service';
 import { ParsedResponse } from '../cache/response.models';
-import { isEmpty, isNotEmpty, isNotNull } from '../../shared/empty.util';
 import { ConfigObject } from '../config/models/config.model';
 import { BaseResponseParsingService } from '../data/base-response-parsing.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { FormFieldMetadataValueObject } from '../../shared/form/builder/models/form-field-metadata-value.model';
+import { DSOResponseParsingService } from '../data/dso-response-parsing.service';
+import { ResponseParsingService } from '../data/parsing.service';
+import { RestRequest } from '../data/rest-request.model';
+import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
+import { FormFieldMetadataValueObject } from '../shared/form/models/form-field-metadata-value.model';
 import { SubmissionObject } from './models/submission-object.model';
 import { WorkflowItem } from './models/workflowitem.model';
 import { WorkspaceItem } from './models/workspaceitem.model';
-import { RestRequest } from '../data/rest-request.model';
 
 /**
  * Export a function to check if object has same properties of FormFieldMetadataValueObject
@@ -49,7 +60,7 @@ export function normalizeSectionData(obj: any, objIndex?: number) {
         (obj.display || obj.value),
         obj.place || objIndex,
         obj.confidence,
-        obj.otherInformation
+        obj.otherInformation,
       );
     } else if (Array.isArray(obj)) {
       result = [];
@@ -70,7 +81,7 @@ export function normalizeSectionData(obj: any, objIndex?: number) {
 /**
  * Provides methods to parse response for a submission request.
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class SubmissionResponseParsingService extends BaseResponseParsingService implements ResponseParsingService {
 
   protected toCache = false;
@@ -88,9 +99,11 @@ export class SubmissionResponseParsingService extends BaseResponseParsingService
   protected shouldDirectlyAttachEmbeds = true;
 
   constructor(protected objectCache: ObjectCacheService,
-              protected dsoParser: DSOResponseParsingService
+              protected dsoParser: DSOResponseParsingService,
+              @Inject(APP_CONFIG) protected appConfig: AppConfig,
   ) {
     super();
+    this.defaultResponseMsToLive = this.appConfig?.cache.msToLive.default;
   }
 
   /**

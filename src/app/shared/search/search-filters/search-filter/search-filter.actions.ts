@@ -1,8 +1,7 @@
 /* eslint-disable max-classes-per-file */
+import { type } from '@dspace/core/ngrx/type';
+import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
 import { Action } from '@ngrx/store';
-
-import { type } from '../../../ngrx/type';
-import { SearchFilterConfig } from '../../models/search-filter-config.model';
 
 /**
  * For each action type in an action group, make a simple
@@ -19,7 +18,8 @@ export const SearchFilterActionTypes = {
   TOGGLE: type('dspace/search-filter/TOGGLE'),
   DECREMENT_PAGE: type('dspace/search-filter/DECREMENT_PAGE'),
   INCREMENT_PAGE: type('dspace/search-filter/INCREMENT_PAGE'),
-  RESET_PAGE: type('dspace/search-filter/RESET_PAGE')
+  RESET_PAGE: type('dspace/search-filter/RESET_PAGE'),
+  MINIMIZE_ALL: type('dspace/search-filters/MINIMIZE_ALL'),
 };
 
 export class SearchFilterAction implements Action {
@@ -37,7 +37,7 @@ export class SearchFilterAction implements Action {
    * Initialize with the filter's name
    * @param {string} name of the filter
    */
-  constructor(name: string) {
+  constructor(name?: string) {
     this.filterName = name;
   }
 }
@@ -94,4 +94,8 @@ export class SearchFilterIncrementPageAction extends SearchFilterAction {
  */
 export class SearchFilterResetPageAction extends SearchFilterAction {
   type = SearchFilterActionTypes.RESET_PAGE;
+}
+
+export class SearchFilterMinimizeAllPageAction extends SearchFilterAction {
+  type = SearchFilterActionTypes.MINIMIZE_ALL;
 }

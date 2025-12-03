@@ -1,20 +1,28 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ObjectListComponent } from './object-list.component';
-import { ThemedComponent } from '../theme-support/themed.component';
-import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
-import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
+import {
+  SortDirection,
+  SortOptions,
+} from '@dspace/core/cache/models/sort-options.model';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { Context } from '@dspace/core/shared/context.model';
+import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
+
 import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
-import { Context } from '../../core/shared/context.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { ListableObject } from '../object-collection/shared/listable-object.model';
+import { ThemedComponent } from '../theme-support/themed.component';
+import { ObjectListComponent } from './object-list.component';
 
 /**
  * Themed wrapper for ObjectListComponent
  */
 @Component({
-  selector: 'ds-themed-object-list',
-  styleUrls: [],
+  selector: 'ds-object-list',
   templateUrl: '../theme-support/themed.component.html',
 })
 export class ThemedObjectListComponent extends ThemedComponent<ObjectListComponent> {
@@ -47,6 +55,8 @@ export class ThemedObjectListComponent extends ThemedComponent<ObjectListCompone
   @Input() selectable: boolean;
 
   @Input() selectionConfig: { repeatable: boolean, listId: string };
+
+  @Input() showRSS: SortOptions | boolean;
 
   /**
    * The link type of the listable elements
@@ -152,6 +162,7 @@ export class ThemedObjectListComponent extends ThemedComponent<ObjectListCompone
     'sortConfig',
     'hasBorder',
     'hideGear',
+    'showRSS',
     'hidePagerWhenSinglePage',
     'selectable',
     'selectionConfig',

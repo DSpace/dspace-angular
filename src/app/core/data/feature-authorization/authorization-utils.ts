@@ -1,13 +1,25 @@
-import { map, switchMap } from 'rxjs/operators';
-import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
-import { AuthorizationSearchParams } from './authorization-search-params';
-import { SiteDataService } from '../site-data.service';
-import { hasNoValue, hasValue, isNotEmpty } from '../../../shared/empty.util';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+  of,
+} from 'rxjs';
+import {
+  map,
+  switchMap,
+} from 'rxjs/operators';
+
 import { AuthService } from '../../auth/auth.service';
 import { Authorization } from '../../shared/authorization.model';
 import { Feature } from '../../shared/feature.model';
-import { FeatureID } from './feature-id';
 import { getFirstSucceededRemoteDataPayload } from '../../shared/operators';
+import { SiteDataService } from '../site-data.service';
+import { AuthorizationSearchParams } from './authorization-search-params';
+import { FeatureID } from './feature-id';
 
 /**
  * Operator accepting {@link AuthorizationSearchParams} and adding the current {@link Site}'s selflink to the parameter's
@@ -20,12 +32,12 @@ export const addSiteObjectUrlIfEmpty = (siteService: SiteDataService) =>
       switchMap((params: AuthorizationSearchParams) => {
         if (hasNoValue(params.objectUrl)) {
           return siteService.find().pipe(
-            map((site) => Object.assign({}, params, { objectUrl: site.self }))
+            map((site) => Object.assign({}, params, { objectUrl: site.self })),
           );
         } else {
-          return observableOf(params);
+          return of(params);
         }
-      })
+      }),
     );
 
 /**
@@ -42,17 +54,17 @@ export const addAuthenticatedUserUuidIfEmpty = (authService: AuthService) =>
             switchMap((authenticated) => {
               if (authenticated) {
                 return authService.getAuthenticatedUserFromStore().pipe(
-                  map((ePerson) => Object.assign({}, params, { ePersonUuid: ePerson.uuid }))
+                  map((ePerson) => Object.assign({}, params, { ePersonUuid: ePerson.uuid })),
                 );
               } else {
-                return observableOf(params);
+                return of(params);
               }
-            })
+            }),
           );
         } else {
-          return observableOf(params);
+          return of(params);
         }
-      })
+      }),
     );
 
 /**
@@ -68,16 +80,16 @@ export const oneAuthorizationMatchesFeature = (featureID: FeatureID) =>
     source.pipe(
       switchMap((authorizations: Authorization[]) => {
         if (isNotEmpty(authorizations)) {
-          return observableCombineLatest(
+          return observableCombineLatest([
             ...authorizations
               .filter((authorization: Authorization) => hasValue(authorization.feature))
               .map((authorization: Authorization) => authorization.feature.pipe(
-                getFirstSucceededRemoteDataPayload()
-              ))
-          );
+                getFirstSucceededRemoteDataPayload(),
+              )),
+          ]);
         } else {
-          return observableOf([]);
+          return of([]);
         }
       }),
-      map((features: Feature[]) => features.filter((feature: Feature) => feature.id === featureID).length > 0)
+      map((features: Feature[]) => features.filter((feature: Feature) => feature.id === featureID.valueOf()).length > 0),
     );

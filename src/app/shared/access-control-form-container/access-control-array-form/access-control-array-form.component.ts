@@ -1,23 +1,44 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
-import {NgForm} from '@angular/forms';
-import {AccessesConditionOption} from '../../../core/config/models/config-accesses-conditions-options.model';
-import {dateToISOFormat} from '../../date.util';
+
+import {
+  Component,
+  Input,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import {
+  FormsModule,
+  NgForm,
+} from '@angular/forms';
+import { AccessesConditionOption } from '@dspace/core/config/models/config-accesses-conditions-options.model';
+import { dateToISOFormat } from '@dspace/shared/utils/date.util';
+import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+
+import { BtnDisabledDirective } from '../../btn-disabled.directive';
+import { ToDatePipe } from './to-date.pipe';
 
 @Component({
   selector: 'ds-access-control-array-form',
   templateUrl: './access-control-array-form.component.html',
   styleUrls: ['./access-control-array-form.component.scss'],
-  exportAs: 'accessControlArrayForm'
+  exportAs: 'accessControlArrayForm',
+  imports: [
+    BtnDisabledDirective,
+    FormsModule,
+    NgbDatepickerModule,
+    ToDatePipe,
+    TranslateModule,
+  ],
 })
 export class AccessControlArrayFormComponent implements OnInit {
   @Input() dropdownOptions: AccessesConditionOption[] = [];
   @Input() mode!: 'add' | 'replace';
   @Input() type!: 'item' | 'bitstream';
 
-  @ViewChild('ngForm', {static: true}) ngForm!: NgForm;
+  @ViewChild('ngForm', { static: true }) ngForm!: NgForm;
 
   form: { accessControls: AccessControlItem[] } = {
-    accessControls: [emptyAccessControlItem()] // Start with one empty access control item
+    accessControls: [emptyAccessControlItem()], // Start with one empty access control item
   };
 
   formDisabled = true;
@@ -43,7 +64,7 @@ export class AccessControlArrayFormComponent implements OnInit {
   addAccessControlItem(itemName: string = null) {
     this.form.accessControls = [
       ...this.form.accessControls,
-      {...emptyAccessControlItem(), itemName}
+      { ...emptyAccessControlItem(), itemName },
     ];
   }
 
@@ -67,7 +88,7 @@ export class AccessControlArrayFormComponent implements OnInit {
       .map(x => ({
         name: x.itemName,
         startDate: (x.startDate ? dateToISOFormat(x.startDate) : null),
-        endDate: (x.endDate ? dateToISOFormat(x.endDate) : null)
+        endDate: (x.endDate ? dateToISOFormat(x.endDate) : null),
       }));
   }
 
@@ -117,6 +138,10 @@ export class AccessControlArrayFormComponent implements OnInit {
 
   trackById(index: number, item: AccessControlItem) {
     return item.id;
+  }
+
+  isValid() {
+    return this.ngForm.valid;
   }
 
 }

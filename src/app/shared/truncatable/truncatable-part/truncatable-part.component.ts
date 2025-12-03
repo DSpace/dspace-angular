@@ -1,11 +1,27 @@
-import { AfterViewChecked, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+
+import {
+  AfterViewChecked,
+  Component,
+  ElementRef,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import { hasValue } from '@dspace/shared/utils/empty.util';
+import { TranslateModule } from '@ngx-translate/core';
+
+import { DragClickDirective } from '../../utils/drag-click.directive';
 import { TruncatableService } from '../truncatable.service';
-import { hasValue } from '../../empty.util';
 
 @Component({
   selector: 'ds-truncatable-part',
   templateUrl: './truncatable-part.component.html',
-  styleUrls: ['./truncatable-part.component.scss']
+  styleUrls: ['./truncatable-part.component.scss'],
+  imports: [
+    DragClickDirective,
+    TranslateModule,
+  ],
 })
 
 /**
@@ -49,7 +65,7 @@ export class TruncatablePartComponent implements AfterViewChecked, OnInit, OnDes
   /**
    * The view on the truncatable part
    */
-  @ViewChild('content', {static: true}) content: ElementRef;
+  @ViewChild('content', { static: true }) content: ElementRef;
 
   /**
    * Current amount of lines shown of this part
@@ -134,6 +150,13 @@ export class TruncatablePartComponent implements AfterViewChecked, OnInit, OnDes
         entry.classList.add('removeFaded');
       }
     }
+  }
+
+  /**
+   * Indicates if the content is expanded, button state is 'Collapse'
+   */
+  public get isExpanded() {
+    return this.expand && this.expandable;
   }
 
   /**

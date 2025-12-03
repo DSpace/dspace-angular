@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
+
 import { ThemedComponent } from '../../shared/theme-support/themed.component';
 import { EditItemTemplatePageComponent } from './edit-item-template-page.component';
 
 @Component({
-  selector: 'ds-themed-edit-item-template-page',
-  styleUrls: [],
+  selector: 'ds-edit-item-template-page',
   templateUrl: '../../shared/theme-support/themed.component.html',
 })
 /**

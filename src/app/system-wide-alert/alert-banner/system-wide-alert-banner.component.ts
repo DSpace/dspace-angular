@@ -1,16 +1,36 @@
-import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
-import { SystemWideAlertDataService } from '../../core/data/system-wide-alert-data.service';
 import {
-  getAllSucceededRemoteDataPayload
-} from '../../core/shared/operators';
-import { filter, map, switchMap } from 'rxjs/operators';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { SystemWideAlert } from '../system-wide-alert.model';
-import { hasValue, isNotEmpty } from '../../shared/empty.util';
-import { BehaviorSubject, EMPTY, interval, Subscription } from 'rxjs';
+  AsyncPipe,
+  isPlatformBrowser,
+} from '@angular/common';
+import {
+  Component,
+  Inject,
+  OnDestroy,
+  OnInit,
+  PLATFORM_ID,
+} from '@angular/core';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { SystemWideAlertDataService } from '@dspace/core/data/system-wide-alert-data.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { getAllSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
+import { SystemWideAlert } from '@dspace/core/shared/system-wide-alert.model';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
+import { TranslateModule } from '@ngx-translate/core';
 import { zonedTimeToUtc } from 'date-fns-tz';
-import { isPlatformBrowser } from '@angular/common';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
+import {
+  BehaviorSubject,
+  EMPTY,
+  interval,
+  Subscription,
+} from 'rxjs';
+import {
+  filter,
+  map,
+  switchMap,
+} from 'rxjs/operators';
 
 /**
  * Component responsible for rendering a banner and the countdown for an active system-wide alert
@@ -18,7 +38,11 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 @Component({
   selector: 'ds-system-wide-alert-banner',
   styleUrls: ['./system-wide-alert-banner.component.scss'],
-  templateUrl: './system-wide-alert-banner.component.html'
+  templateUrl: './system-wide-alert-banner.component.html',
+  imports: [
+    AsyncPipe,
+    TranslateModule,
+  ],
 })
 export class SystemWideAlertBannerComponent implements OnInit, OnDestroy {
 
@@ -48,7 +72,7 @@ export class SystemWideAlertBannerComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
 
   constructor(
-    @Inject(PLATFORM_ID) protected platformId: Object,
+    @Inject(PLATFORM_ID) protected platformId: any,
     protected systemWideAlertDataService: SystemWideAlertDataService,
     protected notificationsService: NotificationsService,
   ) {
@@ -59,7 +83,7 @@ export class SystemWideAlertBannerComponent implements OnInit, OnDestroy {
       getAllSucceededRemoteDataPayload(),
       map((payload: PaginatedList<SystemWideAlert>) => payload.page),
       filter((page) => isNotEmpty(page)),
-      map((page) => page[0])
+      map((page) => page[0]),
     ).subscribe((alert: SystemWideAlert) => {
       this.systemWideAlert$.next(alert);
     }));
@@ -84,7 +108,7 @@ export class SystemWideAlertBannerComponent implements OnInit, OnDestroy {
         this.countDownHours.next(0);
         this.countDownMinutes.next(0);
         return EMPTY;
-      })
+      }),
     ).subscribe(() => {
       this.setTimeDifference(this.systemWideAlert$.getValue().countdownTo);
     }));

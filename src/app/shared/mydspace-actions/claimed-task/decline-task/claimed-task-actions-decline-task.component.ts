@@ -1,32 +1,45 @@
-import { Component, Injector } from '@angular/core';
-import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
-import { rendersWorkflowTaskOption } from '../switcher/claimed-task-actions-decorator';
-import { Router } from '@angular/router';
-import { NotificationsService } from '../../../notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
-import { SearchService } from '../../../../core/shared/search/search.service';
-import { RequestService } from '../../../../core/data/request.service';
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
+import { AsyncPipe } from '@angular/common';
 import {
-  ClaimedDeclinedTaskTaskSearchResult
-} from '../../../object-collection/shared/claimed-declined-task-task-search-result.model';
-import { Observable, of as observableOf } from 'rxjs';
-import { RemoteData } from 'src/app/core/data/remote-data';
+  Component,
+  Injector,
+} from '@angular/core';
+import { Router } from '@angular/router';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { RequestService } from '@dspace/core/data/request.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { ClaimedDeclinedTaskTaskSearchResult } from '@dspace/core/shared/object-collection/claimed-declined-task-task-search-result.model';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  Observable,
+  of,
+} from 'rxjs';
+
+import { BtnDisabledDirective } from '../../../btn-disabled.directive';
+import { SearchService } from '../../../search/search.service';
+import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
 
 export const WORKFLOW_TASK_OPTION_DECLINE_TASK = 'submit_decline_task';
 
-@rendersWorkflowTaskOption(WORKFLOW_TASK_OPTION_DECLINE_TASK)
 @Component({
   selector: 'ds-claimed-task-actions-decline-task',
   templateUrl: './claimed-task-actions-decline-task.component.html',
-  styleUrls: ['./claimed-task-actions-decline-task.component.scss']
+  styleUrls: ['./claimed-task-actions-decline-task.component.scss'],
+  imports: [
+    AsyncPipe,
+    BtnDisabledDirective,
+    NgbTooltipModule,
+    TranslateModule,
+  ],
 })
 /**
  * Component for displaying and processing the decline task action on a workflow task item
  */
 export class ClaimedTaskActionsDeclineTaskComponent extends ClaimedTaskActionsAbstractComponent {
-
-  option = WORKFLOW_TASK_OPTION_DECLINE_TASK;
 
   constructor(protected injector: Injector,
               protected router: Router,
@@ -38,12 +51,12 @@ export class ClaimedTaskActionsDeclineTaskComponent extends ClaimedTaskActionsAb
   }
 
   reloadObjectExecution(): Observable<RemoteData<DSpaceObject> | DSpaceObject> {
-    return observableOf(this.object);
+    return of(this.object);
   }
 
   convertReloadedObject(dso: DSpaceObject): DSpaceObject {
     return Object.assign(new ClaimedDeclinedTaskTaskSearchResult(), dso, {
-      indexableObject: dso
+      indexableObject: dso,
     });
   }
 

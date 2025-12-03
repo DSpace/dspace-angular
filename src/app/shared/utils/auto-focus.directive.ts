@@ -1,11 +1,16 @@
-import { Directive, AfterViewInit, ElementRef, Input } from '@angular/core';
-import { isNotEmpty } from '../empty.util';
+import {
+  AfterViewInit,
+  Directive,
+  ElementRef,
+  Input,
+} from '@angular/core';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 
 /**
  * Directive to set focus on an element when it is rendered
  */
 @Directive({
-  selector: '[dsAutoFocus]'
+  selector: '[dsAutoFocus]',
 })
 export class AutoFocusDirective implements AfterViewInit {
 

@@ -1,15 +1,25 @@
-import { ServerResponseService } from '../core/services/server-response.service';
-import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
-import { AuthService } from '../core/auth/auth.service';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+} from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { ServerResponseService } from '@dspace/core/services/server-response.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 /**
  * This component representing the `PageNotFound` DSpace page.
  */
 @Component({
-  selector: 'ds-pagenotfound',
+  selector: 'ds-base-pagenotfound',
   styleUrls: ['./pagenotfound.component.scss'],
   templateUrl: './pagenotfound.component.html',
-  changeDetection: ChangeDetectionStrategy.Default
+  changeDetection: ChangeDetectionStrategy.Default,
+  imports: [
+    RouterLink,
+    TranslateModule,
+  ],
 })
 export class PageNotFoundComponent implements OnInit {
 

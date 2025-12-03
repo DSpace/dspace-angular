@@ -1,13 +1,26 @@
-import { Component, Injector, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  Component,
+  Injector,
+  Input,
+  OnInit,
+} from '@angular/core';
+import {
+  Router,
+  RouterLink,
+} from '@angular/router';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
+import { RequestService } from '@dspace/core/data/request.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
+import { Item } from '@dspace/core/shared/item.model';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+
+import { SearchService } from '../../search/search.service';
 import { MyDSpaceActionsComponent } from '../mydspace-actions';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { Item } from '../../../core/shared/item.model';
-import { NotificationsService } from '../../notifications/notifications.service';
-import { RequestService } from '../../../core/data/request.service';
-import { SearchService } from '../../../core/shared/search/search.service';
-import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 
 /**
  * This component represents mydspace actions related to Item object.
@@ -16,6 +29,11 @@ import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
   selector: 'ds-item-actions',
   styleUrls: ['./item-actions.component.scss'],
   templateUrl: './item-actions.component.html',
+  imports: [
+    NgbTooltipModule,
+    RouterLink,
+    TranslateModule,
+  ],
 })
 
 export class ItemActionsComponent extends MyDSpaceActionsComponent<Item, ItemDataService> implements OnInit {

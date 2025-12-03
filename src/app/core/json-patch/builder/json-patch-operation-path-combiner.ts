@@ -1,4 +1,5 @@
-import { isNotUndefined } from '../../../shared/empty.util';
+import { isNotUndefined } from '@dspace/shared/utils/empty.util';
+
 import { URLCombiner } from '../../url-combiner/url-combiner';
 
 /**
@@ -52,6 +53,6 @@ export class JsonPatchOperationPathCombiner extends URLCombiner {
       path += '/' + fragment;
     }
 
-    return {rootElement: this._rootElement, subRootElement: this._subRootElement, path: path};
+    return { rootElement: this._rootElement, subRootElement: this._subRootElement, path: path };
   }
 }

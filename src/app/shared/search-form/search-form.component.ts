@@ -1,23 +1,48 @@
-import { Component, EventEmitter, Input, Output, OnChanges } from '@angular/core';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import { AsyncPipe } from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+} from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { isNotEmpty } from '../empty.util';
-import { SearchService } from '../../core/shared/search/search.service';
-import { currentPath } from '../utils/route.utils';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ScopeSelectorModalComponent } from './scope-selector-modal/scope-selector-modal.component';
-import { take } from 'rxjs/operators';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { DSpaceObjectDataService } from '@dspace/core/data/dspace-object-data.service';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { currentPath } from '@dspace/core/router/utils/route.utils';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
+import {
+  NgbModal,
+  NgbTooltipModule,
+} from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
-import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
-import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { take } from 'rxjs/operators';
+
+import { SearchService } from '../search/search.service';
+import { SearchConfigurationService } from '../search/search-configuration.service';
+import { SearchFilterService } from '../search/search-filters/search-filter.service';
+import { BrowserOnlyPipe } from '../utils/browser-only.pipe';
+import { ScopeSelectorModalComponent } from './scope-selector-modal/scope-selector-modal.component';
 
 @Component({
-  selector: 'ds-search-form',
+  selector: 'ds-base-search-form',
   styleUrls: ['./search-form.component.scss'],
-  templateUrl: './search-form.component.html'
+  templateUrl: './search-form.component.html',
+  imports: [
+    AsyncPipe,
+    BrowserOnlyPipe,
+    FormsModule,
+    NgbTooltipModule,
+    TranslateModule,
+  ],
 })
 /**
  * Component that represents the search form
@@ -38,6 +63,11 @@ export class SearchFormComponent implements OnChanges {
    */
   @Input()
   scope = '';
+
+  /**
+   * Hides the scope in the url, this can be useful when you hardcode the scope in another way
+   */
+  @Input() hideScopeInUrl = false;
 
   selectedScope: BehaviorSubject<DSpaceObject> = new BehaviorSubject<DSpaceObject>(undefined);
 
@@ -71,6 +101,7 @@ export class SearchFormComponent implements OnChanges {
   constructor(
     protected router: Router,
     protected searchService: SearchService,
+    protected searchFilterService: SearchFilterService,
     protected paginationService: PaginationService,
     protected searchConfig: SearchConfigurationService,
     protected modalService: NgbModal,
@@ -107,6 +138,7 @@ export class SearchFormComponent implements OnChanges {
    */
   onScopeChange(scope: DSpaceObject) {
     this.updateSearch({ scope: scope ? scope.uuid : undefined });
+    this.searchFilterService.minimizeAll();
   }
 
   /**
@@ -114,11 +146,21 @@ export class SearchFormComponent implements OnChanges {
    * @param data Updated parameters
    */
   updateSearch(data: any) {
-    const queryParams = Object.assign({}, data);
+    const goToFirstPage = { 'spc.page': 1 };
+
+    const queryParams = Object.assign(
+      {
+        ...goToFirstPage,
+      },
+      data,
+    );
+    if (hasValue(data.scope) && this.hideScopeInUrl) {
+      delete queryParams.scope;
+    }
 
     void this.router.navigate(this.getSearchLinkParts(), {
       queryParams: queryParams,
-      queryParamsHandling: 'merge'
+      queryParamsHandling: 'merge',
     });
   }
 

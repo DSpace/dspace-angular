@@ -1,17 +1,23 @@
-import { Injectable } from '@angular/core';
+import {
+  Inject,
+  Injectable,
+} from '@angular/core';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
 
-import { ResponseParsingService } from '../data/parsing.service';
-import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
-
-import { BaseResponseParsingService } from '../data/base-response-parsing.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { ParsedResponse } from '../cache/response.models';
+import { BaseResponseParsingService } from '../data/base-response-parsing.service';
+import { ResponseParsingService } from '../data/parsing.service';
 import { RestRequest } from '../data/rest-request.model';
+import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
 
 /**
  * Provides methods to parse response for a task request.
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class TaskResponseParsingService extends BaseResponseParsingService implements ResponseParsingService {
 
   protected toCache = false;
@@ -21,8 +27,12 @@ export class TaskResponseParsingService extends BaseResponseParsingService imple
    *
    * @param {ObjectCacheService} objectCache
    */
-  constructor(protected objectCache: ObjectCacheService) {
+  constructor(
+    protected objectCache: ObjectCacheService,
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
+  ) {
     super();
+    this.defaultResponseMsToLive = this.appConfig?.cache.msToLive.default;
   }
 
   /**

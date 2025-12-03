@@ -1,22 +1,51 @@
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { NoContent } from '../../core/shared/NoContent.model';
-import { RouteService } from '../../core/services/route.service';
-import { getFirstCompletedRemoteData, getRemoteDataPayload } from '../../core/shared/operators';
-import { RemoteData } from '../../core/data/remote-data';
-import { Component, OnInit } from '@angular/core';
-import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
-import { map, Observable, switchMap, take } from 'rxjs';
-import { ActivatedRoute, Data, Params, Router } from '@angular/router';
-import { Location } from '@angular/common';
-import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  AsyncPipe,
+  Location,
+} from '@angular/common';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Data,
+  Params,
+  Router,
+} from '@angular/router';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { RouteService } from '@dspace/core/services/route.service';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { NoContent } from '@dspace/core/shared/NoContent.model';
+import {
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+} from '@dspace/core/shared/operators';
+import { WorkspaceItem } from '@dspace/core/submission/models/workspaceitem.model';
+import { WorkspaceitemDataService } from '@dspace/core/submission/workspaceitem-data.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  map,
+  Observable,
+  switchMap,
+  take,
+} from 'rxjs';
+
+import { ModifyItemOverviewComponent } from '../../item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
 
 @Component({
-  selector: 'ds-workspaceitems-delete-page',
+  selector: 'ds-base-workspaceitems-delete-page',
   templateUrl: './workspaceitems-delete-page.component.html',
-  styleUrls: ['./workspaceitems-delete-page.component.scss']
+  styleUrls: ['./workspaceitems-delete-page.component.scss'],
+  imports: [
+    AsyncPipe,
+    ModifyItemOverviewComponent,
+    TranslateModule,
+  ],
 })
 export class WorkspaceItemsDeletePageComponent implements OnInit {
 
@@ -52,38 +81,38 @@ export class WorkspaceItemsDeletePageComponent implements OnInit {
     this.previousQueryParameters = (this.location.getState() as { [key: string]: any }).previousQueryParams;
   }
 
-    /**
+  /**
    * Navigates to the previous url
    * If there's not previous url, it continues to the mydspace page instead
    */
-    previousPage() {
-      this.routeService.getPreviousUrl().pipe(take(1))
-        .subscribe((url: string) => {
-            let params: Params = {};
-            if (!url) {
-              url = '/mydspace';
-              params = this.previousQueryParameters;
-            }
-            if (url.split('?').length > 1) {
-              for (const param of url.split('?')[1].split('&')) {
-                params[param.split('=')[0]] = decodeURIComponent(param.split('=')[1]);
-              }
-            }
-            void this.router.navigate([url.split('?')[0]], { queryParams: params });
+  previousPage() {
+    this.routeService.getPreviousUrl().pipe(take(1))
+      .subscribe((url: string) => {
+        let params: Params = {};
+        if (!url) {
+          url = '/mydspace';
+          params = this.previousQueryParameters;
+        }
+        if (url.split('?').length > 1) {
+          for (const param of url.split('?')[1].split('&')) {
+            params[param.split('=')[0]] = decodeURIComponent(param.split('=')[1]);
           }
-        );
-    }
+        }
+        void this.router.navigate([url.split('?')[0]], { queryParams: params });
+      },
+      );
+  }
 
   /**
    * Open the modal to confirm the deletion of the workspaceitem
    */
   public async confirmDelete(content) {
-   await this.modalService.open(content).result.then(
+    await this.modalService.open(content).result.then(
       (result) => {
         if (result === 'ok') {
-         this.sendDeleteRequest();
+          this.sendDeleteRequest();
         }
-      }
+      },
     );
   }
 
@@ -94,7 +123,7 @@ export class WorkspaceItemsDeletePageComponent implements OnInit {
     this.wsi$.pipe(
       switchMap((wsi: WorkspaceItem) => this.workspaceItemService.delete(wsi.id).pipe(
         getFirstCompletedRemoteData(),
-      ))
+      )),
     ).subscribe((response: RemoteData<NoContent>) => {
       if (response.hasSucceeded) {
         const title = this.translationService.get('workspace-item.delete.notification.success.title');

@@ -1,13 +1,19 @@
 import { Component } from '@angular/core';
-import { metadataRepresentationComponent } from '../../../../shared/metadata-representation/metadata-representation.decorator';
-import { MetadataRepresentationType } from '../../../../core/shared/metadata-representation/metadata-representation.model';
-import { ItemMetadataRepresentationListElementComponent } from '../../../../shared/object-list/metadata-representation-list-element/item/item-metadata-representation-list-element.component';
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { RouterLink } from '@angular/router';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
-@metadataRepresentationComponent('Project', MetadataRepresentationType.Item)
+import { ItemMetadataRepresentationListElementComponent } from '../../../../shared/object-list/metadata-representation-list-element/item/item-metadata-representation-list-element.component';
+import { TruncatableComponent } from '../../../../shared/truncatable/truncatable.component';
+
 @Component({
   selector: 'ds-project-item-metadata-list-element',
-  templateUrl: './project-item-metadata-list-element.component.html'
+  templateUrl: './project-item-metadata-list-element.component.html',
+  imports: [
+    NgbTooltipModule,
+    RouterLink,
+    TruncatableComponent,
+  ],
 })
 /**
  * The component for displaying an item of the type Project as a metadata field
@@ -19,8 +25,8 @@ export class ProjectItemMetadataListElementComponent extends ItemMetadataReprese
    * @param dsoNameService
    */
   constructor(
-    public dsoNameService: DSONameService
+    public dsoNameService: DSONameService,
   ) {
-      super();
+    super();
   }
 }

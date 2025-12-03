@@ -1,19 +1,29 @@
-import { Component, Input } from '@angular/core';
-import { map } from 'rxjs/operators';
+import { AsyncPipe } from '@angular/common';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
+import { IdentifierDataService } from '@dspace/core/data/identifier-data.service';
+import { IdentifierData } from '@dspace/core/shared/identifiers-data/identifier-data.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { hasValue } from '@dspace/shared/utils/empty.util';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { hasValue } from '../../empty.util';
-import { Item } from 'src/app/core/shared/item.model';
-import { IdentifierData } from './identifier-data.model';
-import { IdentifierDataService } from '../../../core/data/identifier-data.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'ds-identifier-data',
-  templateUrl: './identifier-data.component.html'
+  templateUrl: './identifier-data.component.html',
+  imports: [
+    AsyncPipe,
+    TranslateModule,
+  ],
 })
 /**
  * Component rendering an identifier, eg. DOI or handle
  */
-export class IdentifierDataComponent {
+export class IdentifierDataComponent implements OnInit {
 
   @Input() item: Item;
   identifiers$: Observable<IdentifierData>;

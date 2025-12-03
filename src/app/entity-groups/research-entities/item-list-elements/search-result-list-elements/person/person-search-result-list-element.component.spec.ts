@@ -1,17 +1,36 @@
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { of as observableOf } from 'rxjs';
-import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
-import { PersonSearchResultListElementComponent } from './person-search-result-list-element.component';
-import { Item } from '../../../../../core/shared/item.model';
-import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';
+import { ActivatedRoute } from '@angular/router';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { AuthServiceMock } from '@dspace/core/testing/auth.service.mock';
+import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
+import { mockTruncatableService } from '@dspace/core/testing/mock-trucatable.service';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import { of } from 'rxjs';
+
+import { getMockThemeService } from '../../../../../shared/theme-support/test/theme-service.mock';
+import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
-import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
-import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
-import { APP_CONFIG } from '../../../../../../config/app-config.interface';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateLoaderMock } from '../../../../../shared/mocks/translate-loader.mock';
+import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';
+import { PersonSearchResultListElementComponent } from './person-search-result-list-element.component';
 
 let personListElementComponent: PersonSearchResultListElementComponent;
 let fixture: ComponentFixture<PersonSearchResultListElementComponent>;
@@ -20,71 +39,72 @@ const mockItemWithMetadata: ItemSearchResult = Object.assign(
   new ItemSearchResult(),
   {
     indexableObject: Object.assign(new Item(), {
-      bundles: observableOf({}),
+      bundles: of({}),
       metadata: {
         'dc.title': [
           {
             language: 'en_US',
-            value: 'This is just another title'
-          }
+            value: 'This is just another title',
+          },
         ],
         'person.jobTitle': [
           {
             language: 'en_US',
-            value: 'Developer'
-          }
-        ]
-      }
-    })
+            value: 'Developer',
+          },
+        ],
+      },
+    }),
   });
 const mockItemWithoutMetadata: ItemSearchResult = Object.assign(
   new ItemSearchResult(),
   {
     indexableObject: Object.assign(new Item(), {
-      bundles: observableOf({}),
+      bundles: of({}),
       metadata: {
         'dc.title': [
           {
             language: 'en_US',
-            value: 'This is just another title'
-          }
-        ]
-      }
-    })
+            value: 'This is just another title',
+          },
+        ],
+      },
+    }),
   });
 
 const environmentUseThumbs = {
   browseBy: {
-    showThumbnails: true
-  }
+    showThumbnails: true,
+  },
 };
 
 const enviromentNoThumbs = {
   browseBy: {
-    showThumbnails: false
-  }
+    showThumbnails: false,
+  },
 };
 
 describe('PersonSearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        }
-      )],
-      declarations: [PersonSearchResultListElementComponent, TruncatePipe],
+        loader: {
+          provide: TranslateLoader,
+          useClass: TranslateLoaderMock,
+        },
+      }), TruncatePipe, PersonSearchResultListElementComponent],
       providers: [
-        { provide: TruncatableService, useValue: {} },
+        { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: DSONameService, useClass: DSONameServiceMock },
-        { provide: APP_CONFIG, useValue: environmentUseThumbs }
+        { provide: APP_CONFIG, useValue: environmentUseThumbs },
+        { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        { provide: AuthService, useValue: new AuthServiceMock() },
+        { provide: AuthorizationDataService, useValue: {} },
       ],
-
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(PersonSearchResultListElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 
@@ -139,22 +159,23 @@ describe('PersonSearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        }
-      )],
-      declarations: [PersonSearchResultListElementComponent, TruncatePipe],
+        loader: {
+          provide: TranslateLoader,
+          useClass: TranslateLoaderMock,
+        },
+      }), TruncatePipe],
       providers: [
-        {provide: TruncatableService, useValue: {}},
-        {provide: DSONameService, useClass: DSONameServiceMock},
-        { provide: APP_CONFIG, useValue: enviromentNoThumbs }
+        { provide: TruncatableService, useValue: mockTruncatableService },
+        { provide: DSONameService, useClass: DSONameServiceMock },
+        { provide: APP_CONFIG, useValue: enviromentNoThumbs },
+        { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        { provide: AuthService, useValue: new AuthServiceMock() },
+        { provide: AuthorizationDataService, useValue: {} },
       ],
-
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(PersonSearchResultListElementComponent, {
-      set: {changeDetection: ChangeDetectionStrategy.Default}
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

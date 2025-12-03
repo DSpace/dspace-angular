@@ -1,35 +1,45 @@
 // Load the implementations that should be tested
-import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-
-import { of as observableOf } from 'rxjs';
+import { SectionsType } from '@dspace/core/submission/sections-type';
+import { SectionsServiceStub } from '@dspace/core/testing/sections-service.stub';
+import { SubmissionServiceStub } from '@dspace/core/testing/submission-service.stub';
+import { createTestComponent } from '@dspace/core/testing/utils.test';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
 
-import { SubmissionSectionContainerComponent } from './section-container.component';
-import { createTestComponent } from '../../../shared/testing/utils.test';
-import { SectionsType } from '../sections-type';
-import { SectionsDirective } from '../sections.directive';
 import { SubmissionService } from '../../submission.service';
-import { SectionsService } from '../sections.service';
-import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
-import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
+import {
+  mockSubmissionCollectionId,
+  mockSubmissionId,
+} from '../../utils/submission.mock';
 import { SectionDataObject } from '../models/section-data.model';
-import { mockSubmissionCollectionId, mockSubmissionId } from '../../../shared/mocks/submission.mock';
+import { SectionsDirective } from '../sections.directive';
+import { SectionsService } from '../sections.service';
+import { SubmissionSectionContainerComponent } from './section-container.component';
 
 const sectionState = {
   header: 'submit.progressbar.describe.stepone',
-    config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpageone',
-    mandatory: true,
-    sectionType: SectionsType.SubmissionForm,
-    collapsed: false,
-    enabled: true,
-    data: {},
-    errorsToShow:	[],
-    serverValidationErrors:	[],
-    isLoading: false,
-    isValid: false
+  config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpageone',
+  mandatory: true,
+  sectionType: SectionsType.SubmissionForm,
+  collapsed: false,
+  enabled: true,
+  data: {},
+  errorsToShow:	[],
+  serverValidationErrors:	[],
+  isLoading: false,
+  isValid: false,
 } as any;
 
 const sectionObject: SectionDataObject = {
@@ -40,7 +50,7 @@ const sectionObject: SectionDataObject = {
   serverValidationErrors:		[],
   header:	'submit.progressbar.describe.stepone',
   id:	'traditionalpageone',
-  sectionType:	SectionsType.SubmissionForm
+  sectionType:	SectionsType.SubmissionForm,
 };
 
 describe('SubmissionSectionContainerComponent test suite', () => {
@@ -56,10 +66,10 @@ describe('SubmissionSectionContainerComponent test suite', () => {
   const collectionId = mockSubmissionCollectionId;
 
   function init() {
-    sectionsServiceStub.isSectionValid.and.returnValue(observableOf(true));
-    sectionsServiceStub.getSectionState.and.returnValue(observableOf(sectionState));
-    sectionsServiceStub.getShownSectionErrors.and.returnValue(observableOf([]));
-    submissionServiceStub.getActiveSectionId.and.returnValue(observableOf('traditionalpageone'));
+    sectionsServiceStub.isSectionValid.and.returnValue(of(true));
+    sectionsServiceStub.getSectionState.and.returnValue(of(sectionState));
+    sectionsServiceStub.getShownSectionErrors.and.returnValue(of([]));
+    submissionServiceStub.getActiveSectionId.and.returnValue(of('traditionalpageone'));
   }
 
   // waitForAsync beforeEach
@@ -68,19 +78,17 @@ describe('SubmissionSectionContainerComponent test suite', () => {
     TestBed.configureTestingModule({
       imports: [
         NgbModule,
-        TranslateModule.forRoot()
-      ],
-      declarations: [
+        TranslateModule.forRoot(),
         SubmissionSectionContainerComponent,
         SectionsDirective,
         TestComponent,
-      ], // declare the test component
+      ],
       providers: [
         { provide: SectionsService, useValue: sectionsServiceStub },
         { provide: SubmissionService, useValue: submissionServiceStub },
-        SubmissionSectionContainerComponent
+        SubmissionSectionContainerComponent,
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
 
   }));
@@ -129,7 +137,7 @@ describe('SubmissionSectionContainerComponent test suite', () => {
     });
 
     it('should inject section properly', () => {
-      spyOn(comp.sectionRef, 'isEnabled').and.returnValue(observableOf(true));
+      spyOn(comp.sectionRef, 'isEnabled').and.returnValue(of(true));
       spyOn(comp.sectionRef, 'hasGenericErrors').and.returnValue(false);
 
       comp.ngOnInit();
@@ -158,7 +166,7 @@ describe('SubmissionSectionContainerComponent test suite', () => {
       let sectionErrorsDiv = fixture.debugElement.query(By.css('[id^=\'sectionGenericError_\']'));
       expect(sectionErrorsDiv).toBeNull();
 
-      spyOn(comp.sectionRef, 'isEnabled').and.returnValue(observableOf(true));
+      spyOn(comp.sectionRef, 'isEnabled').and.returnValue(of(true));
       spyOn(comp.sectionRef, 'hasGenericErrors').and.returnValue(true);
 
       comp.ngOnInit();
@@ -170,8 +178,8 @@ describe('SubmissionSectionContainerComponent test suite', () => {
 
     it('should display warning icon', () => {
 
-      spyOn(comp.sectionRef, 'isEnabled').and.returnValue(observableOf(true));
-      spyOn(comp.sectionRef, 'isValid').and.returnValue(observableOf(false));
+      spyOn(comp.sectionRef, 'isEnabled').and.returnValue(of(true));
+      spyOn(comp.sectionRef, 'isValid').and.returnValue(of(false));
       spyOn(comp.sectionRef, 'hasErrors').and.returnValue(false);
 
       comp.ngOnInit();
@@ -187,8 +195,8 @@ describe('SubmissionSectionContainerComponent test suite', () => {
 
     it('should display error icon', () => {
 
-      spyOn(comp.sectionRef, 'isEnabled').and.returnValue(observableOf(true));
-      spyOn(comp.sectionRef, 'isValid').and.returnValue(observableOf(false));
+      spyOn(comp.sectionRef, 'isEnabled').and.returnValue(of(true));
+      spyOn(comp.sectionRef, 'isValid').and.returnValue(of(false));
       spyOn(comp.sectionRef, 'hasErrors').and.returnValue(true);
 
       comp.ngOnInit();
@@ -204,8 +212,8 @@ describe('SubmissionSectionContainerComponent test suite', () => {
 
     it('should display success icon', () => {
 
-      spyOn(comp.sectionRef, 'isEnabled').and.returnValue(observableOf(true));
-      spyOn(comp.sectionRef, 'isValid').and.returnValue(observableOf(true));
+      spyOn(comp.sectionRef, 'isEnabled').and.returnValue(of(true));
+      spyOn(comp.sectionRef, 'isValid').and.returnValue(of(true));
       spyOn(comp.sectionRef, 'hasErrors').and.returnValue(false);
 
       comp.ngOnInit();
@@ -226,7 +234,10 @@ describe('SubmissionSectionContainerComponent test suite', () => {
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: '',
-  template: ``
+  template: ``,
+  imports: [
+    NgbModule,
+  ],
 })
 class TestComponent {
 

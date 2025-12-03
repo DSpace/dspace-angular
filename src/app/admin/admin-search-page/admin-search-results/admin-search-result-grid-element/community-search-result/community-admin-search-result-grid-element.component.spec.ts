@@ -1,29 +1,32 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { TranslateModule } from '@ngx-translate/core';
-import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
-import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
-import { SharedModule } from '../../../../../shared/shared.module';
-import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
-import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
-import { ViewMode } from '../../../../../core/shared/view-mode.model';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { CommunityAdminSearchResultGridElementComponent } from './community-admin-search-result-grid-element.component';
-import { CommunitySearchResult } from '../../../../../shared/object-collection/shared/community-search-result.model';
-import { Community } from '../../../../../core/shared/community.model';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { LinkService } from '@dspace/core/cache/builders/link.service';
+import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { Community } from '@dspace/core/shared/community.model';
+import { FileService } from '@dspace/core/shared/file.service';
+import { CommunitySearchResult } from '@dspace/core/shared/object-collection/community-search-result.model';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
+import { AuthServiceStub } from '@dspace/core/testing/auth-service.stub';
+import { AuthorizationDataServiceStub } from '@dspace/core/testing/authorization-service.stub';
+import { FileServiceStub } from '@dspace/core/testing/file-service.stub';
+import { mockTruncatableService } from '@dspace/core/testing/mock-trucatable.service';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { getCommunityEditRoute } from '../../../../../community-page/community-page-routing-paths';
-import { LinkService } from '../../../../../core/cache/builders/link.service';
-import { AuthService } from '../../../../../core/auth/auth.service';
-import { AuthServiceStub } from '../../../../../shared/testing/auth-service.stub';
-import { FileService } from '../../../../../core/shared/file.service';
-import { FileServiceStub } from '../../../../../shared/testing/file-service.stub';
-import { AuthorizationDataService } from '../../../../../core/data/feature-authorization/authorization-data.service';
-import { AuthorizationDataServiceStub } from '../../../../../shared/testing/authorization-service.stub';
+import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
+import { getMockThemeService } from '../../../../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
-import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
+import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
+import { CommunityAdminSearchResultGridElementComponent } from './community-admin-search-result-grid-element.component';
 
 describe('CommunityAdminSearchResultGridElementComponent', () => {
   let component: CommunityAdminSearchResultGridElementComponent;
@@ -39,7 +42,7 @@ describe('CommunityAdminSearchResultGridElementComponent', () => {
   }
 
   const linkService = jasmine.createSpyObj('linkService', {
-    resolveLink: {}
+    resolveLink: {},
   });
 
   beforeEach(waitForAsync(() => {
@@ -49,9 +52,8 @@ describe('CommunityAdminSearchResultGridElementComponent', () => {
         NoopAnimationsModule,
         TranslateModule.forRoot(),
         RouterTestingModule.withRoutes([]),
-        SharedModule
+        CommunityAdminSearchResultGridElementComponent,
       ],
-      declarations: [CommunityAdminSearchResultGridElementComponent],
       providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: BitstreamDataService, useValue: {} },
@@ -61,7 +63,7 @@ describe('CommunityAdminSearchResultGridElementComponent', () => {
         { provide: AuthorizationDataService, useClass: AuthorizationDataServiceStub },
         { provide: ThemeService, useValue: getMockThemeService() },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
       .compileComponents();
   }));

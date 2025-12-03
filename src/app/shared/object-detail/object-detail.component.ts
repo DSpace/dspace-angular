@@ -1,16 +1,30 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
 
-import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
-import { PaginatedList } from '../../core/data/paginated-list.model';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  ViewEncapsulation,
+} from '@angular/core';
+import {
+  SortDirection,
+  SortOptions,
+} from '@dspace/core/cache/models/sort-options.model';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { Context } from '@dspace/core/shared/context.model';
+import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
+import { TranslateModule } from '@ngx-translate/core';
 
-import { RemoteData } from '../../core/data/remote-data';
 import { fadeIn } from '../animations/fade';
-import { ListableObject } from '../object-collection/shared/listable-object.model';
-
-import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
-import { ViewMode } from '../../core/shared/view-mode.model';
-import { Context } from '../../core/shared/context.model';
+import { ErrorComponent } from '../error/error.component';
+import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
+import { ListableObjectComponentLoaderComponent } from '../object-collection/shared/listable-object/listable-object-component-loader.component';
+import { PaginationComponent } from '../pagination/pagination.component';
 
 /**
  * This component renders a paginated set of results in the detail view.
@@ -19,9 +33,16 @@ import { CollectionElementLinkType } from '../object-collection/collection-eleme
   changeDetection: ChangeDetectionStrategy.Default,
   encapsulation: ViewEncapsulation.Emulated,
   selector: 'ds-object-detail',
-  styleUrls: [ './object-detail.component.scss' ],
+  styleUrls: ['./object-detail.component.scss'],
   templateUrl: './object-detail.component.html',
-  animations: [fadeIn]
+  animations: [fadeIn],
+  imports: [
+    ErrorComponent,
+    ListableObjectComponentLoaderComponent,
+    PaginationComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
+  ],
 })
 export class ObjectDetailComponent {
   /**
@@ -68,6 +89,11 @@ export class ObjectDetailComponent {
    * Whether to show the thumbnail preview
    */
   @Input() showThumbnails;
+
+  /**
+   * Whether to show the RSS syndication link. Either false, or valid SortOptions object
+   */
+  @Input() showRSS: SortOptions | boolean = false;
 
   /**
    * Emit when one of the listed object has changed.
@@ -190,14 +216,14 @@ export class ObjectDetailComponent {
    * Go to the previous page
    */
   goPrev() {
-      this.prev.emit(true);
+    this.prev.emit(true);
   }
 
- /**
+  /**
   * Go to the next page
   */
   goNext() {
-      this.next.emit(true);
+    this.next.emit(true);
   }
 
 }

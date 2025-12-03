@@ -1,10 +1,15 @@
 import { Component } from '@angular/core';
-import { Context } from '../../core/shared/context.model';
+import { Context } from '@dspace/core/shared/context.model';
+
+import { ThemedConfigurationSearchPageComponent } from '../../search-page/themed-configuration-search-page.component';
 
 @Component({
-  selector: 'ds-admin-search-page',
+  selector: 'ds-base-admin-search-page',
   templateUrl: './admin-search-page.component.html',
-  styleUrls: ['./admin-search-page.component.scss']
+  styleUrls: ['./admin-search-page.component.scss'],
+  imports: [
+    ThemedConfigurationSearchPageComponent,
+  ],
 })
 
 /**

@@ -1,11 +1,18 @@
-import { Component, Input } from '@angular/core';
 
-import { Item } from '../../../../../core/shared/item.model';
-import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'ds-item-page-title-field',
-  templateUrl: './item-page-title-field.component.html'
+  selector: 'ds-base-item-page-title-field',
+  templateUrl: './item-page-title-field.component.html',
+  imports: [
+    TranslateModule,
+  ],
 })
 /**
  * This component is used for displaying the title (defined by the {@link DSONameService}) of an item

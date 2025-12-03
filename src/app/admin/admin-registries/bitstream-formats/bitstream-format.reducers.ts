@@ -1,9 +1,10 @@
-import { BitstreamFormat } from '../../../core/shared/bitstream-format.model';
+import { BitstreamFormat } from '@dspace/core/shared/bitstream-format.model';
+
 import {
   BitstreamFormatsRegistryAction,
   BitstreamFormatsRegistryActionTypes,
   BitstreamFormatsRegistryDeselectAction,
-  BitstreamFormatsRegistrySelectAction
+  BitstreamFormatsRegistrySelectAction,
 } from './bitstream-format.actions';
 
 /**
@@ -32,21 +33,21 @@ export function bitstreamFormatReducer(state = initialState, action: BitstreamFo
 
     case BitstreamFormatsRegistryActionTypes.SELECT_FORMAT: {
       return Object.assign({}, state, {
-        selectedBitstreamFormats: [...state.selectedBitstreamFormats, (action as BitstreamFormatsRegistrySelectAction).bitstreamFormat]
+        selectedBitstreamFormats: [...state.selectedBitstreamFormats, (action as BitstreamFormatsRegistrySelectAction).bitstreamFormat],
       });
     }
 
     case BitstreamFormatsRegistryActionTypes.DESELECT_FORMAT: {
       return Object.assign({}, state, {
         selectedBitstreamFormats: state.selectedBitstreamFormats.filter(
-          (selectedBitstreamFormats) => selectedBitstreamFormats !== (action as BitstreamFormatsRegistryDeselectAction).bitstreamFormat
-        )
+          (selectedBitstreamFormats) => selectedBitstreamFormats !== (action as BitstreamFormatsRegistryDeselectAction).bitstreamFormat,
+        ),
       });
     }
 
     case BitstreamFormatsRegistryActionTypes.DESELECT_ALL_FORMAT: {
       return Object.assign({}, state, {
-        selectedBitstreamFormats: []
+        selectedBitstreamFormats: [],
       });
     }
     default:

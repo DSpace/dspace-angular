@@ -1,42 +1,59 @@
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
+import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
+import { CommunityDataService } from '@dspace/core/data/community-data.service';
+import { DefaultChangeAnalyzer } from '@dspace/core/data/default-change-analyzer.service';
+import { DSOChangeAnalyzer } from '@dspace/core/data/dso-change-analyzer.service';
+import { FindListOptions } from '@dspace/core/data/find-list-options.model';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Bitstream } from '@dspace/core/shared/bitstream.model';
+import { FileService } from '@dspace/core/shared/file.service';
+import { FollowLinkConfig } from '@dspace/core/shared/follow-link-config.model';
+import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { UUIDService } from '@dspace/core/shared/uuid.service';
+import { AuthServiceMock } from '@dspace/core/testing/auth.service.mock';
+import { HALEndpointServiceStub } from '@dspace/core/testing/hal-endpoint-service.stub';
+import { SearchServiceStub } from '@dspace/core/testing/search-service.stub';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+import { XSRFService } from '@dspace/core/xsrf/xsrf.service';
 import { Store } from '@ngrx/store';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
-import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
-import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
-import { CommunityDataService } from '../../../../core/data/community-data.service';
-import { DefaultChangeAnalyzer } from '../../../../core/data/default-change-analyzer.service';
-import { DSOChangeAnalyzer } from '../../../../core/data/dso-change-analyzer.service';
-import { PaginatedList } from '../../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { Bitstream } from '../../../../core/shared/bitstream.model';
-import { FileService } from '../../../../core/shared/file.service';
-import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service';
-import { Item } from '../../../../core/shared/item.model';
-import { UUIDService } from '../../../../core/shared/uuid.service';
-import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
-import { NotificationsService } from '../../../notifications/notifications.service';
-import { HALEndpointServiceStub } from '../../../testing/hal-endpoint-service.stub';
-import { createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
+import { SearchService } from '../../../search/search.service';
+import { getMockThemeService } from '../../../theme-support/test/theme-service.mock';
+import { ThemeService } from '../../../theme-support/theme.service';
 import { FileSizePipe } from '../../../utils/file-size-pipe';
-import { FollowLinkConfig } from '../../../utils/follow-link-config.model';
 import { TruncatePipe } from '../../../utils/truncate.pipe';
 import { VarDirective } from '../../../utils/var.directive';
-import { ItemDetailPreviewFieldComponent } from './item-detail-preview-field/item-detail-preview-field.component';
 import { ItemDetailPreviewComponent } from './item-detail-preview.component';
-import { createPaginatedList } from '../../../testing/utils.test';
-import { FindListOptions } from '../../../../core/data/find-list-options.model';
+import { ItemDetailPreviewFieldComponent } from './item-detail-preview-field/item-detail-preview-field.component';
 
 function getMockFileService(): FileService {
   return jasmine.createSpyObj('FileService', {
     downloadFile: jasmine.createSpy('downloadFile'),
-    getFileNameFromResponseContentDisposition: jasmine.createSpy('getFileNameFromResponseContentDisposition')
+    getFileNameFromResponseContentDisposition: jasmine.createSpy('getFileNameFromResponseContentDisposition'),
   });
 }
 
@@ -49,28 +66,28 @@ const mockItem: Item = Object.assign(new Item(), {
     'dc.contributor.author': [
       {
         language: 'en_US',
-        value: 'Smith, Donald'
-      }
+        value: 'Smith, Donald',
+      },
     ],
     'dc.date.issued': [
       {
         language: null,
-        value: '2015-06-26'
-      }
+        value: '2015-06-26',
+      },
     ],
     'dc.title': [
       {
         language: 'en_US',
-        value: 'This is just another title'
-      }
+        value: 'This is just another title',
+      },
     ],
     'dc.type': [
       {
         language: null,
-        value: 'Article'
-      }
-    ]
-  }
+        value: 'Article',
+      },
+    ],
+  },
 });
 
 describe('ItemDetailPreviewComponent', () => {
@@ -89,16 +106,17 @@ describe('ItemDetailPreviewComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
+        ItemDetailPreviewComponent, ItemDetailPreviewFieldComponent, TruncatePipe, FileSizePipe, VarDirective,
       ],
-      declarations: [ItemDetailPreviewComponent, ItemDetailPreviewFieldComponent, TruncatePipe, FileSizePipe, VarDirective],
       providers: [
         { provide: FileService, useValue: getMockFileService() },
         { provide: HALEndpointService, useValue: new HALEndpointServiceStub('workspaceitems') },
         { provide: ObjectCacheService, useValue: {} },
         { provide: UUIDService, useValue: {} },
+        { provide: XSRFService, useValue: {} },
         { provide: Store, useValue: {} },
         { provide: RemoteDataBuildService, useValue: {} },
         { provide: CommunityDataService, useValue: {} },
@@ -108,10 +126,14 @@ describe('ItemDetailPreviewComponent', () => {
         { provide: DSOChangeAnalyzer, useValue: {} },
         { provide: DefaultChangeAnalyzer, useValue: {} },
         { provide: BitstreamDataService, useValue: mockBitstreamDataService },
+        { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: AuthService, useValue: new AuthServiceMock() },
+        { provide: SearchService, useValue: new SearchServiceStub() },
+        { provide: APP_CONFIG, useValue: { cache: { msToLive: { default: 15 * 60 * 1000 } } } },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ItemDetailPreviewComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

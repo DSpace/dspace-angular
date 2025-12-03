@@ -1,17 +1,30 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  ActivatedRoute,
+  Router,
+  RouterLink,
+} from '@angular/router';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 
+import { ModifyItemOverviewComponent } from '../modify-item-overview/modify-item-overview.component';
 import { AbstractSimpleItemActionComponent } from '../simple-item-action/abstract-simple-item-action.component';
-import { RemoteData } from '../../../core/data/remote-data';
-import { Item } from '../../../core/shared/item.model';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 
 @Component({
   selector: 'ds-item-reinstate',
-  templateUrl: '../simple-item-action/abstract-simple-item-action.component.html'
+  templateUrl: '../simple-item-action/abstract-simple-item-action.component.html',
+  imports: [
+    ModifyItemOverviewComponent,
+    RouterLink,
+    TranslateModule,
+  ],
 })
 /**
  * Component responsible for rendering the Item Reinstate page
@@ -36,7 +49,7 @@ export class ItemReinstateComponent extends AbstractSimpleItemActionComponent {
     this.itemDataService.setWithDrawn(this.item, false).pipe(getFirstCompletedRemoteData()).subscribe(
       (response: RemoteData<Item>) => {
         this.processRestResponse(response);
-      }
+      },
     );
   }
 }

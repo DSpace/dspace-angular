@@ -1,17 +1,16 @@
 import { Injectable } from '@angular/core';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 
+import { getClassForType } from '../cache/builders/build-decorators';
+import { CacheableObject } from '../cache/cacheable-object.model';
+import { ParsedResponse } from '../cache/response.models';
+import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
+import { DSpaceObject } from '../shared/dspace-object.model';
+import { GenericConstructor } from '../shared/generic-constructor';
 import {
   DspaceRestResponseParsingService,
-  isCacheableObject
+  isCacheableObject,
 } from './dspace-rest-response-parsing.service';
-import { hasValue } from '../../shared/empty.util';
-import { getClassForType } from '../cache/builders/build-decorators';
-import { GenericConstructor } from '../shared/generic-constructor';
-import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
-import { ParsedResponse } from '../cache/response.models';
-import { DSpaceObject } from '../shared/dspace-object.model';
-import { environment } from '../../../environments/environment';
-import { CacheableObject } from '../cache/cacheable-object.model';
 import { RestRequest } from './rest-request.model';
 
 /**
@@ -20,7 +19,7 @@ import { RestRequest } from './rest-request.model';
  *
  * When all endpoints are properly typed, it can be removed.
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class EndpointMapResponseParsingService extends DspaceRestResponseParsingService {
 
   /**
@@ -56,7 +55,7 @@ export class EndpointMapResponseParsingService extends DspaceRestResponseParsing
     } catch (e) {
       console.warn(`Couldn't parse endpoint request at ${request.href}`);
       return new ParsedResponse(response.statusCode, undefined, {
-        _links: response.payload._links
+        _links: response.payload._links,
       });
     }
   }
@@ -101,7 +100,7 @@ export class EndpointMapResponseParsingService extends DspaceRestResponseParsing
       let dataJSON: string;
       if (hasValue(data._embedded)) {
         dataJSON = JSON.stringify(Object.assign({}, data, {
-          _embedded: '...'
+          _embedded: '...',
         }));
       } else {
         dataJSON = JSON.stringify(data);
@@ -111,7 +110,7 @@ export class EndpointMapResponseParsingService extends DspaceRestResponseParsing
     }
 
     if (hasValue(this.getConstructorFor<any>((co as any).type))) {
-      this.objectCache.add(co, hasValue(request.responseMsToLive) ? request.responseMsToLive : environment.cache.msToLive.default, request.uuid, alternativeURL);
+      this.objectCache.add(co, hasValue(request.responseMsToLive) ? request.responseMsToLive : this.appConfig.cache.msToLive.default, request.uuid, alternativeURL);
     }
   }
 

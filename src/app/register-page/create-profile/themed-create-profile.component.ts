@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
-import { CreateProfileComponent } from './create-profile.component';
+
 import { ThemedComponent } from '../../shared/theme-support/themed.component';
+import { CreateProfileComponent } from './create-profile.component';
 
 /**
  * Themed wrapper for CreateProfileComponent
  */
 @Component({
-  selector: 'ds-themed-create-profile',
-  styleUrls: [],
-  templateUrl: './../../shared/theme-support/themed.component.html'
+  selector: 'ds-create-profile',
+  templateUrl: './../../shared/theme-support/themed.component.html',
 })
 export class ThemedCreateProfileComponent extends ThemedComponent<CreateProfileComponent> {
   protected getComponentName(): string {

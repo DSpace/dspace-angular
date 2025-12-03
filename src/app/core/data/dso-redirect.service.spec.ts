@@ -1,16 +1,24 @@
-import { cold, getTestScheduler } from 'jasmine-marbles';
+import { AppConfig } from '@dspace/config/app-config.interface';
+import {
+  cold,
+  getTestScheduler,
+} from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
-import { followLink } from '../../shared/utils/follow-link-config.model';
+
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { DsoRedirectService } from './dso-redirect.service';
-import { GetRequest, IdentifierType } from './request.models';
-import { RequestService } from './request.service';
-import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
-import { Item } from '../shared/item.model';
-import { EMBED_SEPARATOR } from './base/base-data.service';
 import { HardRedirectService } from '../services/hard-redirect.service';
+import { followLink } from '../shared/follow-link-config.model';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { Item } from '../shared/item.model';
+import { createSuccessfulRemoteDataObject } from '../utilities/remote-data.utils';
+import { EMBED_SEPARATOR } from './base/base-data.service';
+import { DsoRedirectService } from './dso-redirect.service';
+import {
+  GetRequest,
+  IdentifierType,
+} from './request.models';
+import { RequestService } from './request.service';
 
 describe('DsoRedirectService', () => {
   let scheduler: TestScheduler;
@@ -28,39 +36,46 @@ describe('DsoRedirectService', () => {
   const requestUUIDURL = `https://rest.api/rest/api/pid/find?id=${dsoUUID}`;
   const requestUUID = '34cfed7c-f597-49ef-9cbe-ea351f0023c2';
   const objectCache = {} as ObjectCacheService;
+  const environment = {
+    ui: {
+      nameSpace: '/angular-dspace',
+    },
+  } as AppConfig;
 
   beforeEach(() => {
     scheduler = getTestScheduler();
 
     halService = jasmine.createSpyObj('halService', {
-      getEndpoint: cold('a', { a: pidLink })
+      getEndpoint: cold('a', { a: pidLink }),
     });
     requestService = jasmine.createSpyObj('requestService', {
       generateRequestId: requestUUID,
-      send: true
+      send: true,
     });
 
     remoteData = createSuccessfulRemoteDataObject(Object.assign(new Item(), {
       type: 'item',
-      uuid: '123456789'
+      uuid: '123456789',
     }));
 
     rdbService = jasmine.createSpyObj('rdbService', {
       buildSingle: cold('a', {
-        a: remoteData
-      })
+        a: remoteData,
+      }),
     });
 
     redirectService = jasmine.createSpyObj('redirectService', {
-      redirect: {}
+      redirect: {},
     });
 
+
     service = new DsoRedirectService(
+      environment as AppConfig,
       requestService,
       rdbService,
       objectCache,
       halService,
-      redirectService
+      redirectService,
     );
   });
 
@@ -107,7 +122,7 @@ describe('DsoRedirectService', () => {
       redir.subscribe();
       scheduler.schedule(() => redir);
       scheduler.flush();
-      expect(redirectService.redirect).toHaveBeenCalledWith('/items/' + remoteData.payload.uuid, 301);
+      expect(redirectService.redirect).toHaveBeenCalledWith(`${environment.ui.nameSpace}/items/${remoteData.payload.uuid}`, 301);
     });
     it('should navigate to entities route with the corresponding entity type', () => {
       remoteData.payload.type = 'item';
@@ -115,8 +130,8 @@ describe('DsoRedirectService', () => {
         'dspace.entity.type': [
           {
             language: 'en_US',
-            value: 'Publication'
-          }
+            value: 'Publication',
+          },
         ],
       };
       const redir = service.findByIdAndIDType(dsoHandle, IdentifierType.HANDLE);
@@ -124,7 +139,7 @@ describe('DsoRedirectService', () => {
       redir.subscribe();
       scheduler.schedule(() => redir);
       scheduler.flush();
-      expect(redirectService.redirect).toHaveBeenCalledWith('/entities/publication/' + remoteData.payload.uuid, 301);
+      expect(redirectService.redirect).toHaveBeenCalledWith(`${environment.ui.nameSpace}/entities/publication/${remoteData.payload.uuid}`, 301);
     });
 
     it('should navigate to collections route', () => {
@@ -133,7 +148,7 @@ describe('DsoRedirectService', () => {
       redir.subscribe();
       scheduler.schedule(() => redir);
       scheduler.flush();
-      expect(redirectService.redirect).toHaveBeenCalledWith('/collections/' + remoteData.payload.uuid, 301);
+      expect(redirectService.redirect).toHaveBeenCalledWith(`${environment.ui.nameSpace}/collections/${remoteData.payload.uuid}`, 301);
     });
 
     it('should navigate to communities route', () => {
@@ -142,7 +157,7 @@ describe('DsoRedirectService', () => {
       redir.subscribe();
       scheduler.schedule(() => redir);
       scheduler.flush();
-      expect(redirectService.redirect).toHaveBeenCalledWith('/communities/' + remoteData.payload.uuid, 301);
+      expect(redirectService.redirect).toHaveBeenCalledWith(`${environment.ui.nameSpace}/communities/${remoteData.payload.uuid}`, 301);
     });
   });
 

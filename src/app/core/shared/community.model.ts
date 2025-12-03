@@ -1,18 +1,41 @@
-import {autoserialize, deserialize, inheritSerialization} from 'cerialize';
+import {
+  autoserialize,
+  deserialize,
+  inheritSerialization,
+} from 'cerialize';
 import { Observable } from 'rxjs';
-import { link, typedObject } from '../cache/builders/build-decorators';
+
+import {
+  link,
+  typedObject,
+} from '../cache/builders/build-decorators';
 import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
+import { excludeFromEquals } from '../utilities/equals.decorators';
 import { Bitstream } from './bitstream.model';
 import { BITSTREAM } from './bitstream.resource-type';
+import { ChildHALResource } from './child-hal-resource.model';
 import { Collection } from './collection.model';
 import { COLLECTION } from './collection.resource-type';
 import { COMMUNITY } from './community.resource-type';
 import { DSpaceObject } from './dspace-object.model';
+import {
+  followLink,
+  FollowLinkConfig,
+} from './follow-link-config.model';
 import { HALLink } from './hal-link.model';
-import { ChildHALResource } from './child-hal-resource.model';
 import { HandleObject } from './handle-object.model';
-import {excludeFromEquals} from '../utilities/equals.decorators';
+
+/**
+ * The self links defined in this list are expected to be requested somewhere in the near future
+ * Requesting them as embeds will limit the number of requests
+ */
+export const COMMUNITY_PAGE_LINKS_TO_FOLLOW: FollowLinkConfig<Community>[] = [
+  followLink('logo'),
+  followLink('subcommunities'),
+  followLink('collections'),
+  followLink('parentCommunity'),
+];
 
 @typedObject
 @inheritSerialization(DSpaceObject)
@@ -107,3 +130,4 @@ export class Community extends DSpaceObject implements ChildHALResource, HandleO
     return 'parentCommunity';
   }
 }
+

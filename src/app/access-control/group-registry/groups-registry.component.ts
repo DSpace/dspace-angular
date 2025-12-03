@@ -1,47 +1,88 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { UntypedFormBuilder } from '@angular/forms';
-import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { AsyncPipe } from '@angular/common';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  ReactiveFormsModule,
+  UntypedFormBuilder,
+} from '@angular/forms';
+import { RouterLink } from '@angular/router';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { DSpaceObjectDataService } from '@dspace/core/data/dspace-object-data.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { RequestService } from '@dspace/core/data/request.service';
+import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
+import { GroupDataService } from '@dspace/core/eperson/group-data.service';
+import { EPerson } from '@dspace/core/eperson/models/eperson.model';
+import { Group } from '@dspace/core/eperson/models/group.model';
+import { GroupDtoModel } from '@dspace/core/eperson/models/group-dto.model';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { RouteService } from '@dspace/core/services/route.service';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { NoContent } from '@dspace/core/shared/NoContent.model';
+import {
+  getAllSucceededRemoteData,
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '@dspace/core/shared/operators';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { hasValue } from '@dspace/shared/utils/empty.util';
+import {
+  NgbModal,
+  NgbTooltipModule,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
   EMPTY,
   Observable,
-  of as observableOf,
-  Subscription
+  of,
+  Subscription,
 } from 'rxjs';
-import { catchError, defaultIfEmpty, map, switchMap, tap } from 'rxjs/operators';
-import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../core/data/feature-authorization/feature-id';
-import { buildPaginatedList, PaginatedList } from '../../core/data/paginated-list.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { RequestService } from '../../core/data/request.service';
-import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { GroupDataService } from '../../core/eperson/group-data.service';
-import { EPerson } from '../../core/eperson/models/eperson.model';
-import { GroupDtoModel } from '../../core/eperson/models/group-dto.model';
-import { Group } from '../../core/eperson/models/group.model';
-import { RouteService } from '../../core/services/route.service';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import {
-  getAllSucceededRemoteData,
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteData,
-  getRemoteDataPayload
-} from '../../core/shared/operators';
-import { PageInfo } from '../../core/shared/page-info.model';
-import { hasValue } from '../../shared/empty.util';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { NoContent } from '../../core/shared/NoContent.model';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { followLink } from '../../shared/utils/follow-link-config.model';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+  catchError,
+  defaultIfEmpty,
+  map,
+  switchMap,
+  takeUntil,
+  tap,
+} from 'rxjs/operators';
+
+import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
+import { ConfirmationModalComponent } from '../../shared/confirmation-modal/confirmation-modal.component';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { PaginationComponent } from '../../shared/pagination/pagination.component';
+import { getGroupEditPageRouterLink } from '../access-control-routing-paths';
 
 @Component({
   selector: 'ds-groups-registry',
   templateUrl: './groups-registry.component.html',
+  imports: [
+    AsyncPipe,
+    BtnDisabledDirective,
+    NgbTooltipModule,
+    PaginationComponent,
+    ReactiveFormsModule,
+    RouterLink,
+    ThemedLoadingComponent,
+    TranslateModule,
+  ],
 })
 /**
  * A component used for managing all existing groups within the repository.
@@ -57,7 +98,7 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
   config: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'gl',
     pageSize: 5,
-    currentPage: 1
+    currentPage: 1,
   });
 
   /**
@@ -95,6 +136,8 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
    */
   subs: Subscription[] = [];
 
+  protected readonly getGroupEditPageRouterLink = getGroupEditPageRouterLink;
+
   constructor(public groupService: GroupDataService,
               private ePersonDataService: EPersonDataService,
               private dSpaceObjectDataService: DSpaceObjectDataService,
@@ -102,11 +145,11 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
               private notificationsService: NotificationsService,
               private formBuilder: UntypedFormBuilder,
               protected routeService: RouteService,
-              private router: Router,
               private authorizationService: AuthorizationDataService,
               private paginationService: PaginationService,
               public requestService: RequestService,
               public dsoNameService: DSONameService,
+              private modalService: NgbModal,
   ) {
     this.currentSearchQuery = '';
     this.searchForm = this.formBuilder.group(({
@@ -133,7 +176,7 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
         const query: string = data.query;
         if (query != null && this.currentSearchQuery !== query) {
           this.currentSearchQuery = query;
-          this.paginationService.updateRouteWithUrl(this.config.id, [], {page: 1});
+          this.paginationService.updateRouteWithUrl(this.config.id, [], { page: 1 });
         }
         return this.groupService.searchGroups(this.currentSearchQuery.trim(), {
           currentPage: paginationOptions.currentPage,
@@ -144,7 +187,7 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
       getRemoteDataPayload(),
       switchMap((groups: PaginatedList<Group>) => {
         if (groups.page.length === 0) {
-          return observableOf(buildPaginatedList(groups.pageInfo, []));
+          return of(buildPaginatedList(groups.pageInfo, []));
         }
         return this.authorizationService.isAuthorized(FeatureID.AdministratorOf).pipe(
           switchMap((isSiteAdmin: boolean) => {
@@ -155,19 +198,19 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
                   this.canManageGroup$(isSiteAdmin, group),
                   this.hasLinkedDSO(group),
                   this.getSubgroups(group),
-                  this.getMembers(group)
+                  this.getMembers(group),
                 ]).pipe(
                   map(([canDelete, canManageGroup, hasLinkedDSO, subgroups, members]:
                          [boolean, boolean, boolean, RemoteData<PaginatedList<Group>>, RemoteData<PaginatedList<EPerson>>]) => {
-                      const groupDtoModel: GroupDtoModel = new GroupDtoModel();
-                      groupDtoModel.ableToDelete = canDelete && !hasLinkedDSO;
-                      groupDtoModel.ableToEdit = canManageGroup;
-                      groupDtoModel.group = group;
-                      groupDtoModel.subgroups = subgroups.payload;
-                      groupDtoModel.epersons = members.payload;
-                      return groupDtoModel;
-                    }
-                  )
+                    const groupDtoModel: GroupDtoModel = new GroupDtoModel();
+                    groupDtoModel.ableToDelete = canDelete && !hasLinkedDSO;
+                    groupDtoModel.ableToEdit = canManageGroup;
+                    groupDtoModel.group = group;
+                    groupDtoModel.subgroups = subgroups.payload;
+                    groupDtoModel.epersons = members.payload;
+                    return groupDtoModel;
+                  },
+                  ),
                 );
               } else {
                 return EMPTY;
@@ -175,9 +218,9 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
             })]).pipe(defaultIfEmpty([]), map((dtos: GroupDtoModel[]) => {
               return buildPaginatedList(groups.pageInfo, dtos);
             }));
-          })
+          }),
         );
-      })
+      }),
     ).subscribe((value: PaginatedList<GroupDtoModel>) => {
       this.groupsDto$.next(value);
       this.pageInfoState$.next(value.pageInfo);
@@ -185,11 +228,11 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
     });
 
     this.subs.push(this.searchSub);
-      }
+  }
 
   canManageGroup$(isSiteAdmin: boolean, group: Group): Observable<boolean> {
     if (isSiteAdmin) {
-      return observableOf(true);
+      return of(true);
     } else {
       return this.authorizationService.isAuthorized(FeatureID.CanManageGroup, group.self);
     }
@@ -210,24 +253,34 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
               this.translateService.get(this.messagePrefix + 'notification.deleted.failure.title', { name: this.dsoNameService.getName(group.group) }),
               this.translateService.get(this.messagePrefix + 'notification.deleted.failure.content', { cause: rd.errorMessage }));
           }
-      });
+        });
     }
   }
 
   /**
    * Get the members (epersons embedded value of a group)
+   * NOTE: At this time we only grab the *first* member in order to receive the `totalElements` value
+   * needed for our HTML template.
    * @param group
    */
   getMembers(group: Group): Observable<RemoteData<PaginatedList<EPerson>>> {
-    return this.ePersonDataService.findListByHref(group._links.epersons.href).pipe(getFirstSucceededRemoteData());
+    return this.ePersonDataService.findListByHref(group._links.epersons.href, {
+      currentPage: 1,
+      elementsPerPage: 1,
+    }).pipe(getFirstSucceededRemoteData());
   }
 
   /**
    * Get the subgroups (groups embedded value of a group)
+   * NOTE: At this time we only grab the *first* subgroup in order to receive the `totalElements` value
+   * needed for our HTML template.
    * @param group
    */
   getSubgroups(group: Group): Observable<RemoteData<PaginatedList<Group>>> {
-    return this.groupService.findListByHref(group._links.subgroups.href).pipe(getFirstSucceededRemoteData());
+    return this.groupService.findListByHref(group._links.subgroups.href, {
+      currentPage: 1,
+      elementsPerPage: 1,
+    }).pipe(getFirstSucceededRemoteData());
   }
 
   /**
@@ -238,7 +291,7 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
     return this.dSpaceObjectDataService.findByHref(group._links.object.href).pipe(
       getFirstSucceededRemoteData(),
       map((rd: RemoteData<DSpaceObject>) => hasValue(rd) && hasValue(rd.payload)),
-      catchError(() => observableOf(false)),
+      catchError(() => of(false)),
     );
   }
 
@@ -268,5 +321,32 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
     this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
     this.paginationService.clearPagination(this.config.id);
   }
+
+  confirmDelete(group: GroupDtoModel): void {
+    const modalRef = this.modalService.open(ConfirmationModalComponent);
+    modalRef.componentInstance.name = this.dsoNameService.getName(group.group);
+    modalRef.componentInstance.headerLabel = 'admin.access-control.epeople.table.edit.buttons.remove.modal.header';
+    modalRef.componentInstance.infoLabel = 'admin.access-control.epeople.table.edit.buttons.remove.modal.info';
+    modalRef.componentInstance.cancelLabel = 'admin.access-control.epeople.table.edit.buttons.remove.modal.cancel';
+    modalRef.componentInstance.confirmLabel = 'admin.access-control.epeople.table.edit.buttons.remove.modal.confirm';
+    modalRef.componentInstance.brandColor = 'danger';
+    modalRef.componentInstance.confirmIcon = 'fas fa-trash';
+
+    const modalSub: Subscription = modalRef.componentInstance.response.pipe(
+      takeUntil(modalRef.closed),
+    ).subscribe((result: boolean) => {
+      if (result === true) {
+        this.deleteGroup(group);
+      }
+    });
+
+    void modalRef.result.then().finally(() => {
+      modalRef.close();
+      if (modalSub && !modalSub.closed) {
+        modalSub.unsubscribe();
+      }
+    });
+  }
+
 
 }

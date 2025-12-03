@@ -1,27 +1,31 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
-import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
-import { SharedModule } from '../../../../../shared/shared.module';
-import { CollectionAdminSearchResultGridElementComponent } from './collection-admin-search-result-grid-element.component';
-import { TranslateModule } from '@ngx-translate/core';
-import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
-import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
-import { ViewMode } from '../../../../../core/shared/view-mode.model';
-import { CollectionSearchResult } from '../../../../../shared/object-collection/shared/collection-search-result.model';
-import { Collection } from '../../../../../core/shared/collection.model';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { LinkService } from '@dspace/core/cache/builders/link.service';
+import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { FileService } from '@dspace/core/shared/file.service';
+import { CollectionSearchResult } from '@dspace/core/shared/object-collection/collection-search-result.model';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
+import { AuthServiceStub } from '@dspace/core/testing/auth-service.stub';
+import { AuthorizationDataServiceStub } from '@dspace/core/testing/authorization-service.stub';
+import { FileServiceStub } from '@dspace/core/testing/file-service.stub';
+import { mockTruncatableService } from '@dspace/core/testing/mock-trucatable.service';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { getCollectionEditRoute } from '../../../../../collection-page/collection-page-routing-paths';
-import { LinkService } from '../../../../../core/cache/builders/link.service';
-import { AuthService } from '../../../../../core/auth/auth.service';
-import { AuthServiceStub } from '../../../../../shared/testing/auth-service.stub';
-import { FileService } from '../../../../../core/shared/file.service';
-import { FileServiceStub } from '../../../../../shared/testing/file-service.stub';
-import { AuthorizationDataService } from '../../../../../core/data/feature-authorization/authorization-data.service';
-import { AuthorizationDataServiceStub } from '../../../../../shared/testing/authorization-service.stub';
+import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
+import { getMockThemeService } from '../../../../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
-import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
+import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
+import { CollectionAdminSearchResultGridElementComponent } from './collection-admin-search-result-grid-element.component';
 
 describe('CollectionAdminSearchResultGridElementComponent', () => {
   let component: CollectionAdminSearchResultGridElementComponent;
@@ -37,7 +41,7 @@ describe('CollectionAdminSearchResultGridElementComponent', () => {
   }
 
   const linkService = jasmine.createSpyObj('linkService', {
-    resolveLink: {}
+    resolveLink: {},
   });
 
   beforeEach(waitForAsync(() => {
@@ -47,9 +51,8 @@ describe('CollectionAdminSearchResultGridElementComponent', () => {
         NoopAnimationsModule,
         TranslateModule.forRoot(),
         RouterTestingModule.withRoutes([]),
-        SharedModule
+        CollectionAdminSearchResultGridElementComponent,
       ],
-      declarations: [CollectionAdminSearchResultGridElementComponent],
       providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: BitstreamDataService, useValue: {} },
@@ -58,7 +61,7 @@ describe('CollectionAdminSearchResultGridElementComponent', () => {
         { provide: FileService, useClass: FileServiceStub },
         { provide: AuthorizationDataService, useClass: AuthorizationDataServiceStub },
         { provide: ThemeService, useValue: getMockThemeService() },
-      ]
+      ],
     })
       .compileComponents();
   }));

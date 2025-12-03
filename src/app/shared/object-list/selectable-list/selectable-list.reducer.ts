@@ -1,13 +1,15 @@
-import { ListableObject } from '../../object-collection/shared/listable-object.model';
+import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
+import { hasNoValue } from '@dspace/shared/utils/empty.util';
+
 import {
   SelectableListAction,
   SelectableListActionTypes,
+  SelectableListDeselectAction,
+  SelectableListDeselectSingleAction,
   SelectableListSelectAction,
   SelectableListSelectSingleAction,
-  SelectableListDeselectAction,
-  SelectableListDeselectSingleAction, SelectableListSetSelectionAction
+  SelectableListSetSelectionAction,
 } from './selectable-list.actions';
-import { hasNoValue } from '../../empty.util';
 
 /**
  * Represents the state of all selectable lists in the store

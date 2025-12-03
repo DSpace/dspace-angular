@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
+
 import { ThemedComponent } from '../../../shared/theme-support/themed.component';
 import { ItemStatusComponent } from './item-status.component';
 
 @Component({
-  selector: 'ds-themed-item-status',
-  styleUrls: [],
+  selector: 'ds-item-status',
   templateUrl: '../../../shared/theme-support/themed.component.html',
 })
 export class ThemedItemStatusComponent extends ThemedComponent<ItemStatusComponent> {

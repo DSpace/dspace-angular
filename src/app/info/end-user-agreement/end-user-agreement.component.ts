@@ -1,20 +1,43 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../core/auth/auth.service';
-import { map, switchMap, take } from 'rxjs/operators';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { LogOutAction } from '@dspace/core/auth/auth.actions';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { EndUserAgreementService } from '@dspace/core/end-user-agreement/end-user-agreement.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import { Store } from '@ngrx/store';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import { of } from 'rxjs';
+import {
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+
 import { AppState } from '../../app.reducer';
-import { LogOutAction } from '../../core/auth/auth.actions';
-import { EndUserAgreementService } from '../../core/end-user-agreement/end-user-agreement.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
-import { isNotEmpty } from '../../shared/empty.util';
+import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
+import { EndUserAgreementContentComponent } from './end-user-agreement-content/end-user-agreement-content.component';
 
 @Component({
-  selector: 'ds-end-user-agreement',
+  selector: 'ds-base-end-user-agreement',
   templateUrl: './end-user-agreement.component.html',
-  styleUrls: ['./end-user-agreement.component.scss']
+  styleUrls: ['./end-user-agreement.component.scss'],
+  imports: [
+    BtnDisabledDirective,
+    EndUserAgreementContentComponent,
+    FormsModule,
+    TranslateModule,
+  ],
 })
 /**
  * Component displaying the End User Agreement and an option to accept it
@@ -63,10 +86,10 @@ export class EndUserAgreementComponent implements OnInit {
           return this.route.queryParams.pipe(map((params) => params.redirect));
         } else {
           this.notificationsService.error(this.translate.instant('info.end-user-agreement.accept.error'));
-          return observableOf(undefined);
+          return of(undefined);
         }
       }),
-      take(1)
+      take(1),
     ).subscribe((redirectUrl) => {
       if (isNotEmpty(redirectUrl)) {
         this.router.navigateByUrl(decodeURIComponent(redirectUrl));

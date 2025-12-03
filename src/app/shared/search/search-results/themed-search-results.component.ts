@@ -1,26 +1,35 @@
-import { ThemedComponent } from '../../theme-support/themed.component';
-import { SearchResultsComponent, SelectionConfig } from './search-results.component';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
+import { SortOptions } from '@dspace/core/cache/models/sort-options.model';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { Context } from '@dspace/core/shared/context.model';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
+import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
+import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
+
 import { CollectionElementLinkType } from '../../object-collection/collection-element-link.type';
-import { RemoteData } from '../../../core/data/remote-data';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { SearchResult } from '../models/search-result.model';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
-import { SortOptions } from '../../../core/cache/models/sort-options.model';
-import { ViewMode } from '../../../core/shared/view-mode.model';
-import { Context } from '../../../core/shared/context.model';
-import { ListableObject } from '../../object-collection/shared/listable-object.model';
+import { ThemedComponent } from '../../theme-support/themed.component';
+import {
+  SearchResultsComponent,
+  SelectionConfig,
+} from './search-results.component';
 
 /**
  * Themed wrapper for SearchResultsComponent
  */
 @Component({
-  selector: 'ds-themed-search-results',
-  styleUrls: [],
+  selector: 'ds-search-results',
   templateUrl: '../../theme-support/themed.component.html',
 })
 export class ThemedSearchResultsComponent extends ThemedComponent<SearchResultsComponent> {
+
   protected inAndOutputNames: (keyof SearchResultsComponent & keyof this)[] = ['linkType', 'searchResults', 'searchConfig', 'showCsvExport', 'showThumbnails', 'sortConfig', 'viewMode', 'configuration', 'disableHeader', 'selectable', 'context', 'hidePaginationDetail', 'selectionConfig', 'contentChange', 'deselectObject', 'selectObject'];
 
   @Input() linkType: CollectionElementLinkType;

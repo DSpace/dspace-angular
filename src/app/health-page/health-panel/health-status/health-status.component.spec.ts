@@ -1,11 +1,17 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { HealthStatus } from '@dspace/core/shared/health-component.model';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 
 import { HealthStatusComponent } from './health-status.component';
-import { HealthStatus } from '../../models/health-component.model';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 describe('HealthStatusComponent', () => {
   let component: HealthStatusComponent;
@@ -18,13 +24,13 @@ describe('HealthStatusComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
+            useClass: TranslateLoaderMock,
+          },
+        }),
+        HealthStatusComponent,
       ],
-      declarations: [ HealthStatusComponent ]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

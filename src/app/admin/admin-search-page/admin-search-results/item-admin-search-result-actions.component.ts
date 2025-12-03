@@ -1,20 +1,32 @@
-import { Component, Input } from '@angular/core';
-import { Item } from '../../../core/shared/item.model';
-import { URLCombiner } from '../../../core/url-combiner/url-combiner';
-import { getItemEditRoute } from '../../../item-page/item-page-routing-paths';
+import { NgClass } from '@angular/common';
 import {
-  ITEM_EDIT_MOVE_PATH,
+  Component,
+  Input,
+} from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { Item } from '@dspace/core/shared/item.model';
+import { URLCombiner } from '@dspace/core/url-combiner/url-combiner';
+import { TranslateModule } from '@ngx-translate/core';
+
+import {
   ITEM_EDIT_DELETE_PATH,
-  ITEM_EDIT_PUBLIC_PATH,
+  ITEM_EDIT_MOVE_PATH,
   ITEM_EDIT_PRIVATE_PATH,
+  ITEM_EDIT_PUBLIC_PATH,
   ITEM_EDIT_REINSTATE_PATH,
-  ITEM_EDIT_WITHDRAW_PATH
+  ITEM_EDIT_WITHDRAW_PATH,
 } from '../../../item-page/edit-item-page/edit-item-page.routing-paths';
+import { getItemEditRoute } from '../../../item-page/item-page-routing-paths';
 
 @Component({
   selector: 'ds-item-admin-search-result-actions-element',
   styleUrls: ['./item-admin-search-result-actions.component.scss'],
-  templateUrl: './item-admin-search-result-actions.component.html'
+  templateUrl: './item-admin-search-result-actions.component.html',
+  imports: [
+    NgClass,
+    RouterLink,
+    TranslateModule,
+  ],
 })
 /**
  * The component for displaying the actions for a list element for an item search result on the admin search page

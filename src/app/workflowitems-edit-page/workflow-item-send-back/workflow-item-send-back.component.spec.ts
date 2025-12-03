@@ -1,23 +1,37 @@
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Location } from '@angular/common';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { RouteService } from '../../core/services/route.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { WorkflowItemDataService } from '../../core/submission/workflowitem-data.service';
-import { WorkflowItem } from '../../core/submission/models/workflowitem.model';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { RequestService } from '@dspace/core/data/request.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { RouteService } from '@dspace/core/services/route.service';
+import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
+import { WorkflowItemDataService } from '@dspace/core/submission/workflowitem-data.service';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { LocationStub } from '@dspace/core/testing/location.stub';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { getMockRequestService } from '@dspace/core/testing/request.service.mock';
+import { RouterStub } from '@dspace/core/testing/router.stub';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core/utilities/remote-data.utils';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import { of } from 'rxjs';
+
 import { VarDirective } from '../../shared/utils/var.directive';
-import { of as observableOf } from 'rxjs';
 import { WorkflowItemSendBackComponent } from './workflow-item-send-back.component';
-import { RequestService } from '../../core/data/request.service';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
-import { RouterStub } from '../../shared/testing/router.stub';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { getMockRequestService } from '../../shared/mocks/request.service.mock';
-import { LocationStub } from '../../shared/testing/location.stub';
 
 describe('WorkflowItemSendBackComponent', () => {
   let component: WorkflowItemSendBackComponent;
@@ -29,7 +43,7 @@ describe('WorkflowItemSendBackComponent', () => {
 
   function init() {
     wfiService = jasmine.createSpyObj('workflowItemService', {
-      sendBack: observableOf(true)
+      sendBack: of(true),
     });
     itemRD$ = createSuccessfulRemoteDataObject$(itemRD$);
     wfi = new WorkflowItem();
@@ -43,10 +57,9 @@ describe('WorkflowItemSendBackComponent', () => {
       imports: [TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
-          useClass: TranslateLoaderMock
-        }
-      })],
-      declarations: [WorkflowItemSendBackComponent, VarDirective],
+          useClass: TranslateLoaderMock,
+        },
+      }), WorkflowItemSendBackComponent, VarDirective],
       providers: [
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub({}, { wfi: createSuccessfulRemoteDataObject(wfi) }) },
         { provide: Router, useClass: RouterStub },
@@ -56,7 +69,7 @@ describe('WorkflowItemSendBackComponent', () => {
         { provide: WorkflowItemDataService, useValue: wfiService },
         { provide: RequestService, useValue: getMockRequestService() },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
       .compileComponents();
   }));

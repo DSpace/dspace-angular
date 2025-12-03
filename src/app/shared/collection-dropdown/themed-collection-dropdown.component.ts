@@ -1,10 +1,18 @@
-import { CollectionDropdownComponent, CollectionListEntry } from './collection-dropdown.component';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
+
 import { ThemedComponent } from '../theme-support/themed.component';
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import {
+  CollectionDropdownComponent,
+  CollectionListEntry,
+} from './collection-dropdown.component';
 
 @Component({
-  selector: 'ds-themed-collection-dropdown',
-  styleUrls: [],
+  selector: 'ds-collection-dropdown',
   templateUrl: '../../shared/theme-support/themed.component.html',
 })
 export class ThemedCollectionDropdownComponent extends ThemedComponent<CollectionDropdownComponent> {

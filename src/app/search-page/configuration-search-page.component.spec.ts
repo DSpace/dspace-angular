@@ -1,10 +1,19 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { configureSearchComponentTestingModule } from '../shared/search/search.component.spec';
-import { ConfigurationSearchPageComponent } from './configuration-search-page.component';
-import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
-import { Component, ViewChild } from '@angular/core';
+import {
+  Component,
+  ViewChild,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { Router } from '@angular/router';
-import { RouteService } from '../core/services/route.service';
+import { RouteService } from '@dspace/core/services/route.service';
+import { of } from 'rxjs';
+
+import { configureSearchComponentTestingModule } from '../shared/search/search.component.spec';
+import { SearchConfigurationService } from '../shared/search/search-configuration.service';
+import { ConfigurationSearchPageComponent } from './configuration-search-page.component';
 import createSpy = jasmine.createSpy;
 
 const CONFIGURATION = 'test-configuration';
@@ -12,11 +21,14 @@ const QUERY = 'test query';
 
 @Component({
   template: `
-    <ds-configuration-search-page [configuration]="'${CONFIGURATION}'"
-                                  [fixedFilterQuery]="'${QUERY}'"
-                                  #configurationSearchPage>
-    </ds-configuration-search-page>
+      <ds-base-configuration-search-page [configuration]="'${CONFIGURATION}'"
+                                    [fixedFilterQuery]="'${QUERY}'"
+                                    #configurationSearchPage>
+      </ds-base-configuration-search-page>
   `,
+  imports: [
+    ConfigurationSearchPageComponent,
+  ],
 })
 class HostComponent {
   @ViewChild('configurationSearchPage') configurationSearchPage: ConfigurationSearchPageComponent;
@@ -40,6 +52,7 @@ describe('ConfigurationSearchPageComponent', () => {
 
     routeService = TestBed.inject(RouteService);
     routeService.setParameter = createSpy('setParameter');
+    routeService.getRouteParameterValue = createSpy('getRouteParameterValue').and.returnValue(of(CONFIGURATION));
 
     fixture.detectChanges();
 

@@ -1,22 +1,23 @@
 import {
-  ComponentFactoryResolver,
   ComponentRef,
   Directive,
   Input,
   OnChanges,
+  OnDestroy,
   TemplateRef,
   ViewContainerRef,
-  OnDestroy
 } from '@angular/core';
-import { PlacementArray } from '@ng-bootstrap/ng-bootstrap/util/positioning';
+import { hasValue } from '@dspace/shared/utils/empty.util';
+import { Placement } from '@ng-bootstrap/ng-bootstrap';
+
+import { ContextHelpService } from './context-help.service';
 import { ContextHelpWrapperComponent } from './context-help-wrapper/context-help-wrapper.component';
 import { PlacementDir } from './context-help-wrapper/placement-dir.model';
-import { ContextHelpService } from './context-help.service';
 
 export interface ContextHelpDirectiveInput {
   content: string;
   id: string;
-  tooltipPlacement?: PlacementArray;
+  tooltipPlacement?: Placement[];
   iconPlacement?: PlacementDir;
 }
 
@@ -43,29 +44,30 @@ export class ContextHelpDirective implements OnChanges, OnDestroy {
   constructor(
     private templateRef: TemplateRef<any>,
     private viewContainerRef: ViewContainerRef,
-    private componentFactoryResolver: ComponentFactoryResolver,
-    private contextHelpService: ContextHelpService
+    private contextHelpService: ContextHelpService,
   ) {}
 
   ngOnChanges() {
     this.clearMostRecentId();
     this.mostRecentId = this.dsContextHelp.id;
-    this.contextHelpService.add({id: this.dsContextHelp.id, isTooltipVisible: false});
+    this.contextHelpService.add({ id: this.dsContextHelp.id, isTooltipVisible: false });
 
     if (this.wrapper === undefined) {
-      const factory
-        = this.componentFactoryResolver.resolveComponentFactory(ContextHelpWrapperComponent);
-      this.wrapper = this.viewContainerRef.createComponent(factory);
+      this.wrapper = this.viewContainerRef.createComponent(ContextHelpWrapperComponent);
     }
-    this.wrapper.instance.templateRef = this.templateRef;
-    this.wrapper.instance.content = this.dsContextHelp.content;
-    this.wrapper.instance.id = this.dsContextHelp.id;
-    this.wrapper.instance.tooltipPlacement = this.dsContextHelp.tooltipPlacement;
-    this.wrapper.instance.iconPlacement = this.dsContextHelp.iconPlacement;
+    this.wrapper.setInput('templateRef', this.templateRef);
+    this.wrapper.setInput('content', this.dsContextHelp.content);
+    this.wrapper.setInput('id', this.dsContextHelp.id);
+    this.wrapper.setInput('tooltipPlacement', this.dsContextHelp.tooltipPlacement);
+    this.wrapper.setInput('iconPlacement', this.dsContextHelp.iconPlacement);
   }
 
   ngOnDestroy() {
     this.clearMostRecentId();
+    if (hasValue(this.wrapper)) {
+      this.wrapper.destroy();
+      this.wrapper = undefined;
+    }
   }
 
   private clearMostRecentId(): void {

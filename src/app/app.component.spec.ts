@@ -1,52 +1,69 @@
-import { Store, StoreModule } from '@ngrx/store';
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { authReducer } from '@dspace/core/auth/auth.reducer';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { LocaleService } from '@dspace/core/locale/locale.service';
+import { HeadTagService } from '@dspace/core/metadata/head-tag.service';
+import { RouteService } from '@dspace/core/services/route.service';
+import {
+  NativeWindowRef,
+  NativeWindowService,
+} from '@dspace/core/services/window.service';
+import { MockActivatedRoute } from '@dspace/core/testing/active-router.mock';
+import { AngularticsProviderMock } from '@dspace/core/testing/angulartics-provider.service.mock';
+import { AuthServiceMock } from '@dspace/core/testing/auth.service.mock';
+import { CSSVariableServiceStub } from '@dspace/core/testing/css-variable-service.stub';
+import { HeadTagServiceMock } from '@dspace/core/testing/head-tag-service.mock';
+import { HostWindowServiceStub } from '@dspace/core/testing/host-window-service.stub';
+import { RouterMock } from '@dspace/core/testing/router.mock';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import {
+  Store,
+  StoreModule,
+} from '@ngrx/store';
+import { provideMockStore } from '@ngrx/store/testing';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 
+import { environment } from '../environments/environment';
 // Load the implementations that should be tested
 import { AppComponent } from './app.component';
-import { HostWindowState } from './shared/search/host-window.reducer';
-import { HostWindowResizeAction } from './shared/host-window.actions';
-import { MetadataService } from './core/metadata/metadata.service';
-
-import { NativeWindowRef, NativeWindowService } from './core/services/window.service';
-import { TranslateLoaderMock } from './shared/mocks/translate-loader.mock';
-import { MetadataServiceMock } from './shared/mocks/metadata-service.mock';
-import { AngularticsProviderMock } from './shared/mocks/angulartics-provider.service.mock';
-import { AuthServiceMock } from './shared/mocks/auth.service.mock';
-import { AuthService } from './core/auth/auth.service';
-import { MenuService } from './shared/menu/menu.service';
-import { CSSVariableService } from './shared/sass-helper/css-variable.service';
-import { CSSVariableServiceStub } from './shared/testing/css-variable-service.stub';
-import { MenuServiceStub } from './shared/testing/menu-service.stub';
-import { HostWindowService } from './shared/host-window.service';
-import { HostWindowServiceStub } from './shared/testing/host-window-service.stub';
-import { RouteService } from './core/services/route.service';
-import { MockActivatedRoute } from './shared/mocks/active-router.mock';
-import { RouterMock } from './shared/mocks/router.mock';
-import { Angulartics2DSpace } from './statistics/angulartics/dspace-provider';
 import { storeModuleConfig } from './app.reducer';
-import { LocaleService } from './core/locale/locale.service';
-import { authReducer } from './core/auth/auth.reducer';
-import { provideMockStore } from '@ngrx/store/testing';
-import { ThemeService } from './shared/theme-support/theme.service';
-import { getMockThemeService } from './shared/mocks/theme-service.mock';
 import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
-import { APP_CONFIG } from '../config/app-config.interface';
-import { environment } from '../environments/environment';
+import { ThemedRootComponent } from './root/themed-root.component';
+import { HostWindowResizeAction } from './shared/host-window.actions';
+import { HostWindowService } from './shared/host-window.service';
+import { MenuService } from './shared/menu/menu.service';
+import { MenuServiceStub } from './shared/menu/menu-service.stub';
+import { CSSVariableService } from './shared/sass-helper/css-variable.service';
+import { HostWindowState } from './shared/search/host-window.reducer';
+import { getMockThemeService } from './shared/theme-support/test/theme-service.mock';
+import { ThemeService } from './shared/theme-support/theme.service';
+import { Angulartics2DSpace } from './statistics/angulartics/dspace-provider';
 
 let comp: AppComponent;
 let fixture: ComponentFixture<AppComponent>;
 const menuService = new MenuServiceStub();
 const initialState = {
-  core: { auth: { loading: false } }
+  core: { auth: { loading: false } },
 };
 
 export function getMockLocaleService(): LocaleService {
   return jasmine.createSpyObj('LocaleService', {
-    setCurrentLanguageCode: jasmine.createSpy('setCurrentLanguageCode')
+    setCurrentLanguageCode: jasmine.createSpy('setCurrentLanguageCode'),
   });
 }
 
@@ -64,14 +81,13 @@ describe('App component', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
       ],
-      declarations: [AppComponent], // declare the test component
       providers: [
         { provide: NativeWindowService, useValue: new NativeWindowRef() },
-        { provide: MetadataService, useValue: new MetadataServiceMock() },
+        { provide: HeadTagService, useValue: new HeadTagServiceMock() },
         { provide: Angulartics2DSpace, useValue: new AngularticsProviderMock() },
         { provide: AuthService, useValue: new AuthServiceMock() },
         { provide: Router, useValue: new RouterMock() },
@@ -85,15 +101,21 @@ describe('App component', () => {
         { provide: APP_CONFIG, useValue: environment },
         provideMockStore({ initialState }),
         AppComponent,
-        RouteService
+        RouteService,
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     };
   };
 
   // waitForAsync beforeEach
   beforeEach(waitForAsync(() => {
-    return TestBed.configureTestingModule(getDefaultTestBedConf());
+    return TestBed.configureTestingModule(getDefaultTestBedConf()).overrideComponent(
+      AppComponent, {
+        remove: {
+          imports: [ ThemedRootComponent ],
+        },
+      },
+    );
   }));
 
   // synchronous beforeEach
@@ -123,7 +145,7 @@ describe('App component', () => {
     });
 
     it('should dispatch a HostWindowResizeAction with the width and height of the window as its payload', () => {
-      expect(store.dispatch).toHaveBeenCalledWith(new HostWindowResizeAction(width, height));
+      expect(store.dispatch as jasmine.Spy).toHaveBeenCalledWith(new HostWindowResizeAction(width, height));
     });
 
   });

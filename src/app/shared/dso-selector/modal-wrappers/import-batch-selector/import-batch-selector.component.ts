@@ -1,11 +1,25 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Collection } from '../../../../core/shared/collection.model';
-import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { DSpaceObjectType } from '@dspace/core/shared/dspace-object-type.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { DSOSelectorModalWrapperComponent, SelectorActionType } from '../dso-selector-modal-wrapper.component';
-import { Observable, of } from 'rxjs';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  Observable,
+  of,
+} from 'rxjs';
+
+import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
+import {
+  DSOSelectorModalWrapperComponent,
+  SelectorActionType,
+} from '../dso-selector-modal-wrapper.component';
 
 /**
  * Component to wrap a list of existing dso's inside a modal
@@ -14,6 +28,10 @@ import { Observable, of } from 'rxjs';
 @Component({
   selector: 'ds-import-batch-selector',
   templateUrl: '../dso-selector-modal-wrapper.component.html',
+  imports: [
+    DSOSelectorComponent,
+    TranslateModule,
+  ],
 })
 export class ImportBatchSelectorComponent extends DSOSelectorModalWrapperComponent implements OnInit {
   objectType = DSpaceObjectType.DSPACEOBJECT;

@@ -1,17 +1,32 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
-import { NgxGalleryImage, NgxGalleryOptions } from '@kolkov/ngx-gallery';
-import { MediaViewerItem } from '../../../core/shared/media-viewer-item.model';
-import { NgxGalleryAnimation } from '@kolkov/ngx-gallery';
+import { AsyncPipe } from '@angular/common';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+} from '@angular/core';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { MediaViewerItem } from '@dspace/core/shared/media-viewer-item.model';
+import { hasValue } from '@dspace/shared/utils/empty.util';
+import {
+  NgxGalleryAnimation,
+  NgxGalleryImage,
+  NgxGalleryModule,
+  NgxGalleryOptions,
+} from '@kolkov/ngx-gallery';
 import { Observable } from 'rxjs';
-import { AuthService } from '../../../core/auth/auth.service';
 
 /**
- * This componenet render an image gallery for the image viewer
+ * This component render an image gallery for the image viewer
  */
 @Component({
-  selector: 'ds-media-viewer-image',
+  selector: 'ds-base-media-viewer-image',
   templateUrl: './media-viewer-image.component.html',
   styleUrls: ['./media-viewer-image.component.scss'],
+  imports: [
+    AsyncPipe,
+    NgxGalleryModule,
+  ],
 })
 export class MediaViewerImageComponent implements OnChanges, OnInit {
   @Input() images: MediaViewerItem[];
@@ -83,7 +98,7 @@ export class MediaViewerImageComponent implements OnChanges, OnInit {
           medium: image.thumbnail
             ? image.thumbnail
             : this.thumbnailPlaceholder,
-          big: image.bitstream._links.content.href,
+          big: image.bitstream._links.content.href + (hasValue(image.accessToken) ? ('?accessToken=' + image.accessToken) : ''),
         });
       }
     }

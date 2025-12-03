@@ -1,35 +1,50 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
-
-import { of as observableOf } from 'rxjs';
-
-import { NavbarComponent } from './navbar.component';
+import {
+  Injector,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HostWindowService } from '../shared/host-window.service';
-import { HostWindowServiceStub } from '../shared/testing/host-window-service.stub';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Injector, NO_ERRORS_SCHEMA } from '@angular/core';
-import { MenuService } from '../shared/menu/menu.service';
-import { MenuServiceStub } from '../shared/testing/menu-service.stub';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { BrowseService } from '../core/browse/browse.service';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
-import { buildPaginatedList } from '../core/data/paginated-list.model';
-import { BrowseByDataType } from '../browse-by/browse-by-switcher/browse-by-decorator';
-import { Item } from '../core/shared/item.model';
-import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
-import { ThemeService } from '../shared/theme-support/theme.service';
-import { getMockThemeService } from '../shared/mocks/theme-service.mock';
-import { Store, StoreModule } from '@ngrx/store';
-import { AppState, storeModuleConfig } from '../app.reducer';
-import { authReducer } from '../core/auth/auth.reducer';
+import { authReducer } from '@dspace/core/auth/auth.reducer';
+import { AuthTokenInfo } from '@dspace/core/auth/models/auth-token-info.model';
+import { BrowseService } from '@dspace/core/browse/browse.service';
+import { BrowseByDataType } from '@dspace/core/browse/browse-by-data-type';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
+import { FlatBrowseDefinition } from '@dspace/core/shared/flat-browse-definition.model';
+import { HierarchicalBrowseDefinition } from '@dspace/core/shared/hierarchical-browse-definition.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { ValueListBrowseDefinition } from '@dspace/core/shared/value-list-browse-definition.model';
+import { EPersonMock } from '@dspace/core/testing/eperson.mock';
+import { HostWindowServiceStub } from '@dspace/core/testing/host-window-service.stub';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core/utilities/remote-data.utils';
+import {
+  Store,
+  StoreModule,
+} from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
-import { AuthTokenInfo } from '../core/auth/models/auth-token-info.model';
-import { EPersonMock } from '../shared/testing/eperson.mock';
-import { FlatBrowseDefinition } from '../core/shared/flat-browse-definition.model';
-import { ValueListBrowseDefinition } from '../core/shared/value-list-browse-definition.model';
-import { HierarchicalBrowseDefinition } from '../core/shared/hierarchical-browse-definition.model';
+import { TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
+
+import {
+  AppState,
+  storeModuleConfig,
+} from '../app.reducer';
+import { HostWindowService } from '../shared/host-window.service';
+import { MenuService } from '../shared/menu/menu.service';
+import { MenuServiceStub } from '../shared/menu/menu-service.stub';
+import { getMockThemeService } from '../shared/theme-support/test/theme-service.mock';
+import { ThemeService } from '../shared/theme-support/theme.service';
+import { NavbarComponent } from './navbar.component';
 
 let comp: NavbarComponent;
 let fixture: ComponentFixture<NavbarComponent>;
@@ -37,7 +52,7 @@ let store: Store<AppState>;
 let initialState: any;
 
 const authorizationService = jasmine.createSpyObj('authorizationService', {
-  isAuthorized: observableOf(true)
+  isAuthorized: of(true),
 });
 
 const mockItem = Object.assign(new Item(), {
@@ -47,16 +62,16 @@ const mockItem = Object.assign(new Item(), {
   lastModified: '2018',
   _links: {
     self: {
-      href: 'https://localhost:8000/items/fake-id'
-    }
-  }
+      href: 'https://localhost:8000/items/fake-id',
+    },
+  },
 });
 
 const routeStub = {
-  data: observableOf({
-    dso: createSuccessfulRemoteDataObject(mockItem)
+  data: of({
+    dso: createSuccessfulRemoteDataObject(mockItem),
   }),
-  children: []
+  children: [],
 };
 
 
@@ -71,31 +86,31 @@ describe('NavbarComponent', () => {
         new FlatBrowseDefinition(), {
           id: 'title',
           dataType: BrowseByDataType.Title,
-        }
+        },
       ),
       Object.assign(
         new FlatBrowseDefinition(), {
           id: 'dateissued',
           dataType: BrowseByDataType.Date,
-          metadataKeys: ['dc.date.issued']
-        }
+          metadataKeys: ['dc.date.issued'],
+        },
       ),
       Object.assign(
         new ValueListBrowseDefinition(), {
           id: 'author',
           dataType: BrowseByDataType.Metadata,
-        }
+        },
       ),
       Object.assign(
         new ValueListBrowseDefinition(), {
           id: 'subject',
           dataType: BrowseByDataType.Metadata,
-        }
+        },
       ),
       Object.assign(
         new HierarchicalBrowseDefinition(), {
           id: 'srsc',
-        }
+        },
       ),
     ];
     initialState = {
@@ -107,9 +122,9 @@ describe('NavbarComponent', () => {
           loading: false,
           authToken: new AuthTokenInfo('test_token'),
           userId: EPersonMock.id,
-          authMethods: []
-        }
-      }
+          authMethods: [],
+        },
+      },
     };
 
     TestBed.configureTestingModule({
@@ -118,8 +133,9 @@ describe('NavbarComponent', () => {
         StoreModule.forRoot({ auth: authReducer }, storeModuleConfig),
         NoopAnimationsModule,
         ReactiveFormsModule,
-        RouterTestingModule],
-      declarations: [NavbarComponent],
+        RouterTestingModule,
+        NavbarComponent,
+      ],
       providers: [
         Injector,
         { provide: ThemeService, useValue: getMockThemeService() },
@@ -130,7 +146,7 @@ describe('NavbarComponent', () => {
         { provide: AuthorizationDataService, useValue: authorizationService },
         provideMockStore({ initialState }),
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
       .compileComponents();  // compile template and css
   }));

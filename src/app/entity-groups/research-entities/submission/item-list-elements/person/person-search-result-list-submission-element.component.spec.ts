@@ -1,33 +1,50 @@
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
+import { CommunityDataService } from '@dspace/core/data/community-data.service';
+import { DefaultChangeAnalyzer } from '@dspace/core/data/default-change-analyzer.service';
+import { DSOChangeAnalyzer } from '@dspace/core/data/dso-change-analyzer.service';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
+import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { Bitstream } from '@dspace/core/shared/bitstream.model';
+import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
+import { UUIDService } from '@dspace/core/shared/uuid.service';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+import { XSRFService } from '@dspace/core/xsrf/xsrf.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable, of as observableOf } from 'rxjs';
-import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../../../../../core/cache/object-cache.service';
-import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
-import { CommunityDataService } from '../../../../../core/data/community-data.service';
-import { DefaultChangeAnalyzer } from '../../../../../core/data/default-change-analyzer.service';
-import { DSOChangeAnalyzer } from '../../../../../core/data/dso-change-analyzer.service';
-import { ItemDataService } from '../../../../../core/data/item-data.service';
-import { buildPaginatedList } from '../../../../../core/data/paginated-list.model';
-import { RelationshipDataService } from '../../../../../core/data/relationship-data.service';
-import { RemoteData } from '../../../../../core/data/remote-data';
-import { Bitstream } from '../../../../../core/shared/bitstream.model';
-import { HALEndpointService } from '../../../../../core/shared/hal-endpoint.service';
-import { Item } from '../../../../../core/shared/item.model';
-import { UUIDService } from '../../../../../core/shared/uuid.service';
-import { NotificationsService } from '../../../../../shared/notifications/notifications.service';
-import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
+import {
+  Observable,
+  of,
+} from 'rxjs';
+
+import { REQUEST } from '../../../../../../express.tokens';
+import { NameVariantService } from '../../../../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.service';
+import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
 import { SelectableListService } from '../../../../../shared/object-list/selectable-list/selectable-list.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/remote-data.utils';
+import { getMockThemeService } from '../../../../../shared/theme-support/test/theme-service.mock';
+import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';
 import { PersonSearchResultListSubmissionElementComponent } from './person-search-result-list-submission-element.component';
-import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 
 let personListElementComponent: PersonSearchResultListSubmissionElementComponent;
 let fixture: ComponentFixture<PersonSearchResultListSubmissionElementComponent>;
@@ -36,18 +53,36 @@ let mockItemWithMetadata: ItemSearchResult;
 let mockItemWithoutMetadata: ItemSearchResult;
 
 let nameVariant;
-let mockRelationshipService;
+let mockNameVariantService;
 
 const environmentUseThumbs = {
   browseBy: {
-    showThumbnails: true
-  }
+    showThumbnails: true,
+  },
+  cache: {
+    msToLive: {
+      default: 15 * 60 * 1000,
+    },
+  },
 };
 
 const enviromentNoThumbs = {
   browseBy: {
-    showThumbnails: false
-  }
+    showThumbnails: false,
+  },
+  cache: {
+    msToLive: {
+      default: 15 * 60 * 1000,
+    },
+  },
+};
+
+const translateServiceStub = {
+  get: () => of('test' ),
+  instant: (key) => key,
+  onLangChange: new EventEmitter(),
+  onTranslationChange: new EventEmitter(),
+  onFallbackLangChange: new EventEmitter(),
 };
 
 function init() {
@@ -60,17 +95,17 @@ function init() {
           'dc.title': [
             {
               language: 'en_US',
-              value: 'This is just another title'
-            }
+              value: 'This is just another title',
+            },
           ],
           'person.jobTitle': [
             {
               language: 'en_US',
-              value: 'Developer'
-            }
-          ]
-        }
-      })
+              value: 'Developer',
+            },
+          ],
+        },
+      }),
     });
   mockItemWithoutMetadata = Object.assign(
     new ItemSearchResult(),
@@ -81,16 +116,16 @@ function init() {
           'dc.title': [
             {
               language: 'en_US',
-              value: 'This is just another title'
-            }
-          ]
-        }
-      })
+              value: 'This is just another title',
+            },
+          ],
+        },
+      }),
     });
 
   nameVariant = 'Doe J.';
-  mockRelationshipService = {
-    getNameVariant: () => observableOf(nameVariant)
+  mockNameVariantService = {
+    getNameVariant: () => of(nameVariant),
   };
 }
 
@@ -98,36 +133,37 @@ describe('PersonSearchResultListElementSubmissionComponent', () => {
   const mockBitstreamDataService = {
     getThumbnailFor(item: Item): Observable<RemoteData<Bitstream>> {
       return createSuccessfulRemoteDataObject$(new Bitstream());
-    }
+    },
   };
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      declarations: [PersonSearchResultListSubmissionElementComponent, TruncatePipe],
+      imports: [TruncatePipe, PersonSearchResultListSubmissionElementComponent],
       providers: [
         { provide: TruncatableService, useValue: {} },
-        { provide: RelationshipDataService, useValue: mockRelationshipService },
-        { provide: NotificationsService, useValue: {} },
-        { provide: TranslateService, useValue: {} },
+        { provide: NameVariantService, useValue: mockNameVariantService },
+        { provide: TranslateService, useValue: translateServiceStub },
         { provide: NgbModal, useValue: {} },
         { provide: ItemDataService, useValue: {} },
         { provide: SelectableListService, useValue: {} },
-        { provide: Store, useValue: {}},
+        { provide: Store, useValue: {} },
         { provide: ObjectCacheService, useValue: {} },
         { provide: UUIDService, useValue: {} },
+        { provide: XSRFService, useValue: {} },
         { provide: RemoteDataBuildService, useValue: {} },
         { provide: CommunityDataService, useValue: {} },
         { provide: HALEndpointService, useValue: {} },
         { provide: HttpClient, useValue: {} },
         { provide: DSOChangeAnalyzer, useValue: {} },
         { provide: DefaultChangeAnalyzer, useValue: {} },
-        { provide: BitstreamDataService, useValue: mockBitstreamDataService },
-        { provide: APP_CONFIG, useValue: environmentUseThumbs }
+        { provide: APP_CONFIG, useValue: environmentUseThumbs },
+        { provide: AuthService, useValue: {} },
+        { provide: REQUEST, useValue: {} },
+        { provide: ThemeService, useValue: getMockThemeService() },
       ],
-
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(PersonSearchResultListSubmissionElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 
@@ -140,6 +176,25 @@ describe('PersonSearchResultListElementSubmissionComponent', () => {
   describe('When the item has a job title', () => {
     beforeEach(() => {
       personListElementComponent.object = mockItemWithMetadata;
+      personListElementComponent.dso = Object.assign(
+        new Item(),
+        {
+
+          metadata: {
+            'dc.title': [
+              {
+                language: 'en_US',
+                value: 'This is just another title',
+              },
+            ],
+            'person.jobTitle': [
+              {
+                language: 'en_US',
+                value: 'Developer',
+              },
+            ],
+          },
+        });
       fixture.detectChanges();
     });
 
@@ -164,10 +219,11 @@ describe('PersonSearchResultListElementSubmissionComponent', () => {
   describe('When the environment is set to show thumbnails', () => {
     beforeEach(() => {
       personListElementComponent.object = mockItemWithoutMetadata;
+      personListElementComponent.linkType = CollectionElementLinkType.ExternalLink;
       fixture.detectChanges();
     });
 
-    it('should add the ds-thumbnail element', () => {
+    it('should add the thumbnail element', () => {
       const thumbnail = fixture.debugElement.query(By.css('ds-thumbnail'));
       expect(thumbnail).toBeTruthy();
     });
@@ -178,21 +234,20 @@ describe('PersonSearchResultListElementSubmissionComponent', () => {
   const mockBitstreamDataService = {
     getThumbnailFor(item: Item): Observable<RemoteData<Bitstream>> {
       return createSuccessfulRemoteDataObject$(new Bitstream());
-    }
+    },
   };
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      declarations: [PersonSearchResultListSubmissionElementComponent, TruncatePipe],
+      imports: [TruncatePipe, PersonSearchResultListSubmissionElementComponent],
       providers: [
         { provide: TruncatableService, useValue: {} },
-        { provide: RelationshipDataService, useValue: mockRelationshipService },
-        { provide: NotificationsService, useValue: {} },
-        { provide: TranslateService, useValue: {} },
+        { provide: NameVariantService, useValue: mockNameVariantService },
+        { provide: TranslateService, useValue: translateServiceStub },
         { provide: NgbModal, useValue: {} },
         { provide: ItemDataService, useValue: {} },
         { provide: SelectableListService, useValue: {} },
-        { provide: Store, useValue: {}},
+        { provide: Store, useValue: {} },
         { provide: ObjectCacheService, useValue: {} },
         { provide: UUIDService, useValue: {} },
         { provide: RemoteDataBuildService, useValue: {} },
@@ -201,13 +256,11 @@ describe('PersonSearchResultListElementSubmissionComponent', () => {
         { provide: HttpClient, useValue: {} },
         { provide: DSOChangeAnalyzer, useValue: {} },
         { provide: DefaultChangeAnalyzer, useValue: {} },
-        { provide: BitstreamDataService, useValue: mockBitstreamDataService },
-        { provide: APP_CONFIG, useValue: enviromentNoThumbs }
+        { provide: APP_CONFIG, useValue: enviromentNoThumbs },
       ],
-
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(PersonSearchResultListSubmissionElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      add: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 
@@ -223,9 +276,17 @@ describe('PersonSearchResultListElementSubmissionComponent', () => {
       fixture.detectChanges();
     });
 
-    it('should not add the ds-thumbnail element', () => {
+    it('should not add the thumbnail element', () => {
       const thumbnail = fixture.debugElement.query(By.css('ds-thumbnail'));
       expect(thumbnail).toBeNull();
     });
   });
 });
+
+@Component({
+  selector: 'ds-mock-thumbnail',
+  template: '<div></div>',
+})
+export class ThumbnailStubComponent {
+
+}

@@ -1,31 +1,49 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { ViewMode } from '../../../../../core/shared/view-mode.model';
+import { AsyncPipe } from '@angular/common';
 import {
-  listableObjectComponent
-} from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
-import { Context } from '../../../../../core/shared/context.model';
-import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
-import { Observable } from 'rxjs';
-import { LinkService } from '../../../../../core/cache/builders/link.service';
-import { followLink } from '../../../../../shared/utils/follow-link-config.model';
-import { RemoteData } from '../../../../../core/data/remote-data';
-import { getAllSucceededRemoteData, getRemoteDataPayload } from '../../../../../core/shared/operators';
-import { Item } from '../../../../../core/shared/item.model';
+  Component,
+  Inject,
+  OnInit,
+} from '@angular/core';
 import {
-  SearchResultListElementComponent
-} from '../../../../../shared/object-list/search-result-list-element/search-result-list-element.component';
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { LinkService } from '@dspace/core/cache/builders/link.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { Context } from '@dspace/core/shared/context.model';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { WorkflowItemSearchResult } from '@dspace/core/shared/object-collection/workflow-item-search-result.model';
+import {
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+} from '@dspace/core/shared/operators';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
+import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  Observable,
+} from 'rxjs';
+
+import { listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
+import { ListableObjectComponentLoaderComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
+import { SearchResultListElementComponent } from '../../../../../shared/object-list/search-result-list-element/search-result-list-element.component';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
-import {
-  WorkflowItemSearchResult
-} from '../../../../../shared/object-collection/shared/workflow-item-search-result.model';
-import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
-import { APP_CONFIG, AppConfig } from '../../../../../../config/app-config.interface';
+import { WorkflowItemAdminWorkflowActionsComponent } from '../../actions/workflow-item/workflow-item-admin-workflow-actions.component';
 
 @listableObjectComponent(WorkflowItemSearchResult, ViewMode.ListElement, Context.AdminWorkflowSearch)
 @Component({
   selector: 'ds-workflow-item-search-result-admin-workflow-list-element',
   styleUrls: ['./workflow-item-search-result-admin-workflow-list-element.component.scss'],
-  templateUrl: './workflow-item-search-result-admin-workflow-list-element.component.html'
+  templateUrl: './workflow-item-search-result-admin-workflow-list-element.component.html',
+  imports: [
+    AsyncPipe,
+    ListableObjectComponentLoaderComponent,
+    TranslateModule,
+    WorkflowItemAdminWorkflowActionsComponent,
+  ],
 })
 /**
  * The component for displaying a list element for a workflow item on the admin workflow search page
@@ -35,12 +53,12 @@ export class WorkflowItemSearchResultAdminWorkflowListElementComponent extends S
   /**
    * The item linked to the workflow item
    */
-  public item$: Observable<Item>;
+  public item$: BehaviorSubject<Item> = new BehaviorSubject<Item>(undefined);
 
   constructor(private linkService: LinkService,
               protected truncatableService: TruncatableService,
               public dsoNameService: DSONameService,
-              @Inject(APP_CONFIG) protected appConfig: AppConfig
+              @Inject(APP_CONFIG) protected appConfig: AppConfig,
   ) {
     super(truncatableService, dsoNameService, appConfig);
   }
@@ -51,6 +69,11 @@ export class WorkflowItemSearchResultAdminWorkflowListElementComponent extends S
   ngOnInit(): void {
     super.ngOnInit();
     this.dso = this.linkService.resolveLink(this.dso, followLink('item'));
-    this.item$ = (this.dso.item as Observable<RemoteData<Item>>).pipe(getAllSucceededRemoteData(), getRemoteDataPayload());
+    (this.dso.item as Observable<RemoteData<Item>>).pipe(
+      getFirstCompletedRemoteData(),
+      getRemoteDataPayload())
+      .subscribe((item: Item) => {
+        this.item$.next(item);
+      });
   }
 }

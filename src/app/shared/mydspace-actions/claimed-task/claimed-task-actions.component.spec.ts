@@ -1,28 +1,45 @@
-import { ChangeDetectionStrategy, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { Router } from '@angular/router';
-
-import { of as observableOf } from 'rxjs';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-
-import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
-import { NotificationsService } from '../../notifications/notifications.service';
-import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
-import { RouterStub } from '../../testing/router.stub';
-import { Item } from '../../../core/shared/item.model';
-import { ClaimedTaskDataService } from '../../../core/tasks/claimed-task-data.service';
-import { ClaimedTaskActionsComponent } from './claimed-task-actions.component';
-import { ClaimedTask } from '../../../core/tasks/models/claimed-task-object.model';
-import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
-import { getMockSearchService } from '../../mocks/search-service.mock';
-import { getMockRequestService } from '../../mocks/request.service.mock';
-import { RequestService } from '../../../core/data/request.service';
-import { SearchService } from '../../../core/shared/search/search.service';
-import { WorkflowActionDataService } from '../../../core/data/workflow-action-data.service';
-import { WorkflowAction } from '../../../core/tasks/models/workflow-action-object.model';
-import { VarDirective } from '../../utils/var.directive';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
+import {
+  ChangeDetectionStrategy,
+  Injector,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { RequestService } from '@dspace/core/data/request.service';
+import { WorkflowActionDataService } from '@dspace/core/data/workflow-action-data.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
+import { ClaimedTaskDataService } from '@dspace/core/tasks/claimed-task-data.service';
+import { ClaimedTask } from '@dspace/core/tasks/models/claimed-task-object.model';
+import { WorkflowAction } from '@dspace/core/tasks/models/workflow-action-object.model';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { getMockRequestService } from '@dspace/core/testing/request.service.mock';
+import { RouterStub } from '@dspace/core/testing/router.stub';
+import { getMockSearchService } from '@dspace/core/testing/search-service.mock';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core/utilities/remote-data.utils';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import { of } from 'rxjs';
+
+import { SearchService } from '../../search/search.service';
+import { VarDirective } from '../../utils/var.directive';
+import { ClaimedTaskActionsComponent } from './claimed-task-actions.component';
 
 let component: ClaimedTaskActionsComponent;
 let fixture: ComponentFixture<ClaimedTaskActionsComponent>;
@@ -52,42 +69,42 @@ function init() {
   requestServce = getMockRequestService();
 
   item = Object.assign(new Item(), {
-    bundles: observableOf({}),
+    bundles: of({}),
     metadata: {
       'dc.title': [
         {
           language: 'en_US',
-          value: 'This is just another title'
-        }
+          value: 'This is just another title',
+        },
       ],
       'dc.type': [
         {
           language: null,
-          value: 'Article'
-        }
+          value: 'Article',
+        },
       ],
       'dc.contributor.author': [
         {
           language: 'en_US',
-          value: 'Smith, Donald'
-        }
+          value: 'Smith, Donald',
+        },
       ],
       'dc.date.issued': [
         {
           language: null,
-          value: '2015-06-26'
-        }
-      ]
-    }
+          value: '2015-06-26',
+        },
+      ],
+    },
   });
   rdItem = createSuccessfulRemoteDataObject(item);
-  workflowitem = Object.assign(new WorkflowItem(), { item: observableOf(rdItem), id: '333' });
+  workflowitem = Object.assign(new WorkflowItem(), { item: of(rdItem), id: '333' });
   rdWorkflowitem = createSuccessfulRemoteDataObject(workflowitem);
-  mockObject = Object.assign(new ClaimedTask(), { workflowitem: observableOf(rdWorkflowitem), id: '1234' });
+  mockObject = Object.assign(new ClaimedTask(), { workflowitem: of(rdWorkflowitem), id: '1234' });
   workflowAction = Object.assign(new WorkflowAction(), { id: 'action-1', options: ['option-1', 'option-2'] });
 
   workflowActionService = jasmine.createSpyObj('workflowActionService', {
-    findById: createSuccessfulRemoteDataObject$(workflowAction)
+    findById: createSuccessfulRemoteDataObject$(workflowAction),
   });
 }
 
@@ -99,23 +116,24 @@ describe('ClaimedTaskActionsComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
+            useClass: TranslateLoaderMock,
+          },
+        }),
+        ClaimedTaskActionsComponent, VarDirective,
       ],
-      declarations: [ClaimedTaskActionsComponent, VarDirective],
       providers: [
         { provide: Injector, useValue: {} },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: Router, useValue: new RouterStub() },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         { provide: ClaimedTaskDataService, useValue: mockDataService },
         { provide: SearchService, useValue: searchService },
         { provide: RequestService, useValue: requestServce },
-        { provide: WorkflowActionDataService, useValue: workflowActionService }
+        { provide: WorkflowActionDataService, useValue: workflowActionService },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ClaimedTaskActionsComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

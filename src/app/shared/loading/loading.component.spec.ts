@@ -1,10 +1,16 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
-
-import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
-
-import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import {
+  TranslateLoader,
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 
 import { LoadingComponent } from './loading.component';
 
@@ -21,12 +27,12 @@ describe('LoadingComponent (inline template)', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
+        LoadingComponent,
       ],
-      declarations: [LoadingComponent], // declare the test component
-      providers: [TranslateService]
+      providers: [TranslateService],
     }).compileComponents();  // compile template and css
   }));
 

@@ -1,33 +1,36 @@
-import { Component, Injector } from '@angular/core';
-import { rendersWorkflowTaskOption } from '../switcher/claimed-task-actions-decorator';
 import {
-  AdvancedClaimedTaskActionsAbstractComponent
-} from '../abstract/advanced-claimed-task-actions-abstract.component';
-import { Router, ActivatedRoute } from '@angular/router';
-import { NotificationsService } from '../../../notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
-import { SearchService } from '../../../../core/shared/search/search.service';
-import { RequestService } from '../../../../core/data/request.service';
+  Component,
+  Injector,
+} from '@angular/core';
 import {
-  ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER,
-  ADVANCED_WORKFLOW_TASK_OPTION_SELECT_REVIEWER
-} from '../../../../workflowitems-edit-page/advanced-workflow-action/advanced-workflow-action-select-reviewer/advanced-workflow-action-select-reviewer.component';
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { RequestService } from '@dspace/core/data/request.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+
+import { ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER } from '../../../../workflowitems-edit-page/advanced-workflow-action/advanced-workflow-action-select-reviewer/advanced-workflow-action-select-reviewer.component';
+import { SearchService } from '../../../search/search.service';
+import { AdvancedClaimedTaskActionsAbstractComponent } from '../abstract/advanced-claimed-task-actions-abstract.component';
 
 /**
  * Advanced Workflow button that redirect to the {@link AdvancedWorkflowActionSelectReviewerComponent}
  */
-@rendersWorkflowTaskOption(ADVANCED_WORKFLOW_TASK_OPTION_SELECT_REVIEWER)
 @Component({
   selector: 'ds-advanced-claimed-task-action-select-reviewer',
   templateUrl: './advanced-claimed-task-action-select-reviewer.component.html',
-  styleUrls: ['./advanced-claimed-task-action-select-reviewer.component.scss']
+  styleUrls: ['./advanced-claimed-task-action-select-reviewer.component.scss'],
+  imports: [
+    NgbTooltipModule,
+    TranslateModule,
+  ],
 })
 export class AdvancedClaimedTaskActionSelectReviewerComponent extends AdvancedClaimedTaskActionsAbstractComponent {
-
-  /**
-   * This component represents the advanced select option
-   */
-  option = ADVANCED_WORKFLOW_TASK_OPTION_SELECT_REVIEWER;
 
   workflowType = ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER;
 

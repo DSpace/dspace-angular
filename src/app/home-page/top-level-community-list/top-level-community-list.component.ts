@@ -1,28 +1,57 @@
-import { ChangeDetectionStrategy, Component, OnInit, OnDestroy, Inject } from '@angular/core';
-
-import { BehaviorSubject, combineLatest as observableCombineLatest, Subscription } from 'rxjs';
-
-import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
-import { CommunityDataService } from '../../core/data/community-data.service';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { Community } from '../../core/shared/community.model';
-import { fadeInOut } from '../../shared/animations/fade';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { hasValue } from '../../shared/empty.util';
+import { AsyncPipe } from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Inject,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
+import {
+  SortDirection,
+  SortOptions,
+} from '@dspace/core/cache/models/sort-options.model';
+import { CommunityDataService } from '@dspace/core/data/community-data.service';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { Community } from '@dspace/core/shared/community.model';
+import { hasValue } from '@dspace/shared/utils/empty.util';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  combineLatest as observableCombineLatest,
+  Subscription,
+} from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { AppConfig, APP_CONFIG } from 'src/config/app-config.interface';
+
+import { fadeInOut } from '../../shared/animations/fade';
+import { ErrorComponent } from '../../shared/error/error.component';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { ObjectCollectionComponent } from '../../shared/object-collection/object-collection.component';
+import { VarDirective } from '../../shared/utils/var.directive';
 
 /**
  * this component renders the Top-Level Community list
  */
 @Component({
-  selector: 'ds-top-level-community-list',
+  selector: 'ds-base-top-level-community-list',
   styleUrls: ['./top-level-community-list.component.scss'],
   templateUrl: './top-level-community-list.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [fadeInOut]
+  animations: [fadeInOut],
+  imports: [
+    AsyncPipe,
+    ErrorComponent,
+    ObjectCollectionComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
+    VarDirective,
+  ],
 })
 
 export class TopLevelCommunityListComponent implements OnInit, OnDestroy {
@@ -42,9 +71,10 @@ export class TopLevelCommunityListComponent implements OnInit, OnDestroy {
   pageId = 'tl';
 
   /**
-   * The sorting configuration
+   * The sorting configuration for the community list itself, and the optional RSS feed button
    */
   sortConfig: SortOptions;
+  rssSortConfig: SortOptions;
 
   /**
    * The subscription to the observable for the current page.
@@ -54,13 +84,14 @@ export class TopLevelCommunityListComponent implements OnInit, OnDestroy {
   constructor(
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
     private cds: CommunityDataService,
-    private paginationService: PaginationService
+    private paginationService: PaginationService,
   ) {
     this.config = new PaginationComponentOptions();
     this.config.id = this.pageId;
     this.config.pageSize = appConfig.homePage.topLevelCommunityList.pageSize;
     this.config.currentPage = 1;
     this.sortConfig = new SortOptions('dc.title', SortDirection.ASC);
+    this.rssSortConfig = new SortOptions('dc.date.accessioned', SortDirection.DESC);
   }
 
   ngOnInit() {
@@ -80,9 +111,9 @@ export class TopLevelCommunityListComponent implements OnInit, OnDestroy {
         return this.cds.findTop({
           currentPage: currentPagination.currentPage,
           elementsPerPage: currentPagination.pageSize,
-          sort: {field: currentSort.field, direction: currentSort.direction}
+          sort: { field: currentSort.field, direction: currentSort.direction },
         });
-      })
+      }),
     ).subscribe((results) => {
       this.communitiesRD$.next(results);
     });

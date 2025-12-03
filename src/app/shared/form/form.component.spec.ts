@@ -1,35 +1,53 @@
-import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
-import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
+import { StoreMock } from '@dspace/core/testing/store.mock';
+import { createTestComponent } from '@dspace/core/testing/utils.test';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormArrayModel,
   DynamicFormControlEvent,
   DynamicFormControlModel,
-  DynamicFormValidationService,
-  DynamicInputModel
+  DynamicFormsCoreModule,
+  DynamicInputModel,
 } from '@ng-dynamic-forms/core';
-import { Store, StoreModule } from '@ngrx/store';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  Store,
+  StoreModule,
+} from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
-
-import { FormComponent } from './form.component';
-import { FormService } from './form.service';
-import { FormBuilderService } from './builder/form-builder.service';
-import { FormState } from './form.reducer';
-import { FormChangeAction, FormStatusChangeAction } from './form.actions';
-import { StoreMock } from '../testing/store.mock';
-import { FormFieldMetadataValueObject } from './builder/models/form-field-metadata-value.model';
-import { createTestComponent } from '../testing/utils.test';
 import { BehaviorSubject } from 'rxjs';
+
 import { storeModuleConfig } from '../../app.reducer';
+import { DsDynamicFormComponent } from './builder/ds-dynamic-form-ui/ds-dynamic-form.component';
+import { FormBuilderService } from './builder/form-builder.service';
+import {
+  FormChangeAction,
+  FormStatusChangeAction,
+} from './form.actions';
+import { FormComponent } from './form.component';
+import { FormState } from './form.reducer';
+import { FormService } from './form.service';
 
 let TEST_FORM_MODEL;
 
 let TEST_FORM_MODEL_WITH_ARRAY;
 
-let config;
 let formState: FormState;
 let html;
 let store: StoreMock<FormState>;
@@ -42,12 +60,12 @@ function init() {
         label: 'Title',
         placeholder: 'Title',
         validators: {
-          required: null
+          required: null,
         },
         errorMessages: {
-          required: 'You must enter a main title for this item.'
-        }
-      }
+          required: 'You must enter a main title for this item.',
+        },
+      },
     ),
 
     new DynamicInputModel(
@@ -55,7 +73,7 @@ function init() {
         id: 'dc_title_alternative',
         label: 'Other Titles',
         placeholder: 'Other Titles',
-      }
+      },
     ),
 
     new DynamicInputModel(
@@ -63,7 +81,7 @@ function init() {
         id: 'dc_publisher',
         label: 'Publisher',
         placeholder: 'Publisher',
-      }
+      },
     ),
 
     new DynamicInputModel(
@@ -71,7 +89,7 @@ function init() {
         id: 'dc_identifier_citation',
         label: 'Citation',
         placeholder: 'Citation',
-      }
+      },
     ),
 
     new DynamicInputModel(
@@ -79,7 +97,7 @@ function init() {
         id: 'dc_identifier_issn',
         label: 'Identifiers',
         placeholder: 'Identifiers',
-      }
+      },
     ),
   ];
 
@@ -94,20 +112,12 @@ function init() {
           new DynamicInputModel({
             id: 'bootstrapArrayGroupInput',
             placeholder: 'example array group input',
-            readOnly: false
-          })
+            readOnly: false,
+          }),
         ];
-      }
-    })
+      },
+    }),
   ];
-  config = {
-    form: {
-      validatorMap: {
-        required: 'required',
-        regex: 'pattern'
-      }
-    }
-  } as any;
 
   formState = {
     testForm: {
@@ -116,17 +126,17 @@ function init() {
         dc_title_alternative: null,
         dc_publisher: null,
         dc_identifier_citation: null,
-        dc_identifier_issn: null
+        dc_identifier_issn: null,
       },
       valid: false,
       errors: [],
-      touched: {}
-    }
+      touched: {},
+    },
   };
 
 }
 
-describe('FormComponent test suite', () => {
+describe('FormComponent', () => {
   let testComp: TestComponent;
   let formComp: FormComponent;
   let testFixture: ComponentFixture<TestComponent>;
@@ -138,40 +148,44 @@ describe('FormComponent test suite', () => {
     /* TODO make sure these files use mocks instead of real services/components https://github.com/DSpace/dspace-angular/issues/281 */
     TestBed.configureTestingModule({
       imports: [
-        BrowserModule,
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
         NgbModule,
         StoreModule.forRoot({}, storeModuleConfig),
-        TranslateModule.forRoot()
-      ],
-      declarations: [
+        TranslateModule.forRoot(),
         FormComponent,
         TestComponent,
-      ], // declare the test component
+      ],
       providers: [
         ChangeDetectorRef,
-        DynamicFormValidationService,
         FormBuilderService,
         FormComponent,
         FormService,
-        { provide: Store, useClass: StoreMock }
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    });
-
+    })
+      .overrideComponent(FormComponent, {
+        remove: {
+          imports: [DsDynamicFormComponent],
+        },
+        add: {
+          changeDetection: ChangeDetectionStrategy.Default,
+          schemas: [CUSTOM_ELEMENTS_SCHEMA],
+        },
+      });
   }));
 
   describe('', () => {
     // synchronous beforeEach
     beforeEach(() => {
       html = `
-        <ds-form *ngIf="formModel" #formRef="formComponent"
+        @if('formModel') {
+            <ds-form #formRef="formComponent"
                  [formId]="formId"
                  [formModel]="formModel"
                  [displaySubmit]="displaySubmit"
-                 [displayCancel]="displayCancel"></ds-form>`;
+                 [displayCancel]="displayCancel"></ds-form>
+        }`;
 
       testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
       testComp = testFixture.componentInstance;
@@ -215,14 +229,14 @@ describe('FormComponent test suite', () => {
     it('should dispatch a FormStatusChangeAction when Form group status changes', () => {
       const control = formComp.formGroup.get(['dc_title']);
       control.setValue('Test Title');
-      expect(store.dispatch).toHaveBeenCalledWith(new FormStatusChangeAction('testForm', formComp.formGroup.valid));
+      expect(store.dispatch as jasmine.Spy).toHaveBeenCalledWith(new FormStatusChangeAction('testForm', formComp.formGroup.valid));
     });
 
     it('should display form errors when errors are added to the state', () => {
       const errors = [{
         fieldId: 'dc_title',
         fieldIndex: 0,
-        message: 'error.validation.required'
+        message: 'error.validation.required',
       }];
       formState.testForm.errors = errors;
       form.next(formState.testForm);
@@ -235,7 +249,7 @@ describe('FormComponent test suite', () => {
     it('should remove form errors when errors are empty in the state', () => {
       (formComp as any).formErrors = [{
         fieldId: 'dc_title',
-        message: 'error.validation.required'
+        message: 'error.validation.required',
       }];
       const errors = [];
 
@@ -254,14 +268,14 @@ describe('FormComponent test suite', () => {
         control: formComp.formGroup.get('dc_title'),
         group: formComp.formGroup,
         model: formComp.formModel[0],
-        type: 'change'
+        type: 'change',
       } as DynamicFormControlEvent;
 
       spyOn(formComp.change, 'emit');
 
       formComp.onChange(event);
 
-      expect(store.dispatch).toHaveBeenCalledWith(new FormChangeAction('testForm', service.getValueFromModel(formComp.formModel)));
+      expect(store.dispatch as jasmine.Spy).toHaveBeenCalledWith(new FormChangeAction('testForm', service.getValueFromModel(formComp.formModel)));
       expect(formComp.change.emit).toHaveBeenCalled();
     }));
 
@@ -272,7 +286,7 @@ describe('FormComponent test suite', () => {
         control: formComp.formGroup.get('dc_title'),
         group: formComp.formGroup,
         model: formComp.formModel[0],
-        type: 'change'
+        type: 'change',
       } as DynamicFormControlEvent;
 
       spyOn(formComp.change, 'emit');
@@ -289,7 +303,7 @@ describe('FormComponent test suite', () => {
         control: formComp.formGroup.get('dc_title'),
         group: formComp.formGroup,
         model: formComp.formModel[0],
-        type: 'change'
+        type: 'change',
       } as DynamicFormControlEvent;
 
       formComp.emitChange = false;
@@ -307,7 +321,7 @@ describe('FormComponent test suite', () => {
         control: formComp.formGroup.get('dc_title'),
         group: formComp.formGroup,
         model: formComp.formModel[0],
-        type: 'blur'
+        type: 'blur',
       } as DynamicFormControlEvent;
 
       spyOn(formComp.blur, 'emit');
@@ -324,7 +338,7 @@ describe('FormComponent test suite', () => {
         control: formComp.formGroup.get('dc_title'),
         group: formComp.formGroup,
         model: formComp.formModel[0],
-        type: 'focus'
+        type: 'focus',
       } as DynamicFormControlEvent;
 
       spyOn(formComp.focus, 'emit');
@@ -409,7 +423,7 @@ describe('FormComponent test suite', () => {
     it('should dispatch FormChangeAction when an item has been added to an array', inject([FormBuilderService], (service: FormBuilderService) => {
       formComp.insertItem(new Event('click'), formComp.formModel[0] as DynamicFormArrayModel, 0);
 
-      expect(store.dispatch).toHaveBeenCalledWith(new FormChangeAction('testFormArray', service.getValueFromModel(formComp.formModel)));
+      expect(store.dispatch as jasmine.Spy).toHaveBeenCalledWith(new FormChangeAction('testFormArray', service.getValueFromModel(formComp.formModel)));
     }));
 
     it('should emit addArrayItem Event when an item has been added to an array', inject([FormBuilderService], (service: FormBuilderService) => {
@@ -423,7 +437,7 @@ describe('FormComponent test suite', () => {
     it('should dispatch FormChangeAction when an item has been removed from an array', inject([FormBuilderService], (service: FormBuilderService) => {
       formComp.removeItem(new Event('click'), formComp.formModel[0] as DynamicFormArrayModel, 0);
 
-      expect(store.dispatch).toHaveBeenCalledWith(new FormChangeAction('testFormArray', service.getValueFromModel(formComp.formModel)));
+      expect(store.dispatch as jasmine.Spy).toHaveBeenCalledWith(new FormChangeAction('testFormArray', service.getValueFromModel(formComp.formModel)));
     }));
 
     it('should emit removeArrayItem Event when an item has been removed from an array', inject([FormBuilderService], (service: FormBuilderService) => {
@@ -438,8 +452,20 @@ describe('FormComponent test suite', () => {
 
 // declare a test component
 @Component({
+  exportAs: 'formComponent',
   selector: 'ds-test-cmp',
-  template: ``
+  template: `
+    <ds-dynamic-form></ds-dynamic-form>
+    <ds-form></ds-form>
+  `,
+  imports: [
+    DsDynamicFormComponent,
+    DynamicFormsCoreModule,
+    FormComponent,
+    FormsModule,
+    NgbModule,
+    ReactiveFormsModule,
+  ],
 })
 class TestComponent {
 

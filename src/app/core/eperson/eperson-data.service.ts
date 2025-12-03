@@ -1,48 +1,67 @@
 import { Injectable } from '@angular/core';
-import { createSelector, select, Store } from '@ngrx/store';
+import { RestRequestMethod } from '@dspace/config/rest-request-method';
+import {
+  hasNoValue,
+  hasValue,
+} from '@dspace/shared/utils/empty.util';
 import { Operation } from 'fast-json-patch';
 import { Observable } from 'rxjs';
-import { find, map, take } from 'rxjs/operators';
 import {
-  EPeopleRegistryCancelEPersonAction,
-  EPeopleRegistryEditEPersonAction
-} from '../../access-control/epeople-registry/epeople-registry.actions';
-import { EPeopleRegistryState } from '../../access-control/epeople-registry/epeople-registry.reducers';
-import { AppState } from '../../app.reducer';
-import { hasNoValue, hasValue } from '../../shared/empty.util';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+  find,
+  map,
+  take,
+} from 'rxjs/operators';
+
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
-import { buildPaginatedList, PaginatedList } from '../data/paginated-list.model';
-import { RemoteData } from '../data/remote-data';
-import { PatchRequest, PostRequest } from '../data/request.models';
-import { RequestService } from '../data/request.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { getFirstSucceededRemoteData, getRemoteDataPayload } from '../shared/operators';
-import { EPerson } from './models/eperson.model';
-import { EPERSON } from './models/eperson.resource-type';
-import { NoContent } from '../shared/NoContent.model';
-import { PageInfo } from '../shared/page-info.model';
-import { FindListOptions } from '../data/find-list-options.model';
-import { CreateData, CreateDataImpl } from '../data/base/create-data';
+import {
+  CreateData,
+  CreateDataImpl,
+} from '../data/base/create-data';
+import {
+  DeleteData,
+  DeleteDataImpl,
+} from '../data/base/delete-data';
 import { IdentifiableDataService } from '../data/base/identifiable-data.service';
-import { SearchData, SearchDataImpl } from '../data/base/search-data';
-import { PatchData, PatchDataImpl } from '../data/base/patch-data';
-import { DeleteData, DeleteDataImpl } from '../data/base/delete-data';
-import { RestRequestMethod } from '../data/rest-request-method';
-import { dataService } from '../data/base/data-service.decorator';
+import {
+  PatchData,
+  PatchDataImpl,
+} from '../data/base/patch-data';
+import {
+  SearchData,
+  SearchDataImpl,
+} from '../data/base/search-data';
+import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
+import { FindListOptions } from '../data/find-list-options.model';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '../data/paginated-list.model';
+import { RemoteData } from '../data/remote-data';
+import {
+  PatchRequest,
+  PostRequest,
+} from '../data/request.models';
+import { RequestService } from '../data/request.service';
+import { NotificationsService } from '../notification-system/notifications.service';
+import { FollowLinkConfig } from '../shared/follow-link-config.model';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { NoContent } from '../shared/NoContent.model';
+import {
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '../shared/operators';
+import { PageInfo } from '../shared/page-info.model';
+import { EPerson } from './models/eperson.model';
 
-const ePeopleRegistryStateSelector = (state: AppState) => state.epeopleRegistry;
-const editEPersonSelector = createSelector(ePeopleRegistryStateSelector, (ePeopleRegistryState: EPeopleRegistryState) => ePeopleRegistryState.editEPerson);
+// todo: optimize imports
+
 
 /**
  * A service to retrieve {@link EPerson}s from the REST API & EPerson related CRUD actions
  */
-@Injectable()
-@dataService(EPERSON)
+@Injectable({ providedIn: 'root' })
 export class EPersonDataService extends IdentifiableDataService<EPerson> implements CreateData<EPerson>, SearchData<EPerson>, PatchData<EPerson>, DeleteData<EPerson> {
   protected searchByEmailPath = 'byEmail';
   protected searchByMetadataPath = 'byMetadata';
@@ -59,7 +78,6 @@ export class EPersonDataService extends IdentifiableDataService<EPerson> impleme
     protected halService: HALEndpointService,
     protected comparator: DSOChangeAnalyzer<EPerson>,
     protected notificationsService: NotificationsService,
-    protected store: Store<any>,
   ) {
     super('epersons', requestService, rdbService, objectCache, halService);
 
@@ -74,13 +92,17 @@ export class EPersonDataService extends IdentifiableDataService<EPerson> impleme
    * @param scope   Scope of the EPeople search, default byMetadata
    * @param query   Query of search
    * @param options Options of search request
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
    */
-  public searchByScope(scope: string, query: string, options: FindListOptions = {}, useCachedVersionIfAvailable?: boolean): Observable<RemoteData<PaginatedList<EPerson>>> {
+  public searchByScope(scope: string, query: string, options: FindListOptions = {}, useCachedVersionIfAvailable?: boolean, reRequestOnStale = true): Observable<RemoteData<PaginatedList<EPerson>>> {
     switch (scope) {
       case 'metadata':
-        return this.getEpeopleByMetadata(query.trim(), options, useCachedVersionIfAvailable);
+        return this.getEpeopleByMetadata(query.trim(), options, useCachedVersionIfAvailable, reRequestOnStale);
       case 'email':
-        return this.getEPersonByEmail(query.trim()).pipe(
+        return this.getEPersonByEmail(query.trim(), useCachedVersionIfAvailable, reRequestOnStale).pipe(
           map((rd: RemoteData<EPerson | NoContent>) => {
             if (rd.hasSucceeded) {
               // Turn the single EPerson or NoContent in to a PaginatedList<EPerson>
@@ -100,19 +122,19 @@ export class EPersonDataService extends IdentifiableDataService<EPerson> impleme
                   elementsPerPage: options.elementsPerPage,
                   totalElements: page.length,
                   totalPages: page.length,
-                  currentPage: 1
+                  currentPage: 1,
                 }), page),
-                rd.statusCode
+                rd.statusCode,
               );
             } else {
               // If it hasn't succeeded, there can be no payload, so we can re-cast the existing
               // RemoteData object
               return rd as RemoteData<PaginatedList<EPerson>>;
             }
-          })
+          }),
         );
       default:
-        return this.getEpeopleByMetadata(query.trim(), options, useCachedVersionIfAvailable);
+        return this.getEpeopleByMetadata(query.trim(), options, useCachedVersionIfAvailable, reRequestOnStale);
     }
   }
 
@@ -130,7 +152,7 @@ export class EPersonDataService extends IdentifiableDataService<EPerson> impleme
    */
   public getEPersonByEmail(query: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<EPerson>[]): Observable<RemoteData<EPerson | NoContent>> {
     const findListOptions = new FindListOptions();
-    findListOptions.searchParams = [new RequestParam('email', encodeURIComponent(query))];
+    findListOptions.searchParams = [new RequestParam('email', query)];
     const href$ = this.searchData.getSearchByHref(this.searchByEmailPath, findListOptions, ...linksToFollow);
     return this.findByHref(href$, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
@@ -147,7 +169,7 @@ export class EPersonDataService extends IdentifiableDataService<EPerson> impleme
    *                                    {@link HALLink}s should be automatically resolved
    */
   private getEpeopleByMetadata(query: string, options?: FindListOptions, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<EPerson>[]): Observable<RemoteData<PaginatedList<EPerson>>> {
-    const searchParams = [new RequestParam('query', encodeURIComponent(query))];
+    const searchParams = [new RequestParam('query', query)];
     return this.getEPeopleBy(searchParams, this.searchByMetadataPath, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
@@ -177,6 +199,34 @@ export class EPersonDataService extends IdentifiableDataService<EPerson> impleme
   }
 
   /**
+   * Searches for all EPerons which are *not* a member of a given group, via a passed in query
+   * (searches all EPerson metadata and by exact UUID).
+   * Endpoint used: /eperson/epesons/search/isNotMemberOf?query=<:string>&group=<:uuid>
+   * @param query                       search query param
+   * @param group                       UUID of group to exclude results from. Members of this group will never be returned.
+   * @param options
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
+   */
+  public searchNonMembers(query: string, group: string, options?: FindListOptions, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<EPerson>[]): Observable<RemoteData<PaginatedList<EPerson>>> {
+    const searchParams = [new RequestParam('query', query), new RequestParam('group', group)];
+    let findListOptions = new FindListOptions();
+    if (options) {
+      findListOptions = Object.assign(new FindListOptions(), options);
+    }
+    if (findListOptions.searchParams) {
+      findListOptions.searchParams = [...findListOptions.searchParams, ...searchParams];
+    } else {
+      findListOptions.searchParams = searchParams;
+    }
+    return this.searchBy('isNotMemberOf', findListOptions, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+  }
+
+  /**
    * Add a new patch to the object cache
    * The patch is derived from the differences between the given object and its version in the object cache
    * @param {DSpaceObject} ePerson The given object
@@ -187,7 +237,7 @@ export class EPersonDataService extends IdentifiableDataService<EPerson> impleme
     oldVersion$.pipe(
       getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
-      take(1)
+      take(1),
     ).subscribe((oldEPerson: EPerson) => {
       const operations = this.generateOperations(oldEPerson, ePerson);
       const patchRequest = new PatchRequest(requestId, ePerson._links.self.href, operations);
@@ -204,20 +254,21 @@ export class EPersonDataService extends IdentifiableDataService<EPerson> impleme
    * @param newEPerson
    */
   private generateOperations(oldEPerson: EPerson, newEPerson: EPerson): Operation[] {
-    let operations = this.comparator.diff(oldEPerson, newEPerson).filter((operation: Operation) => operation.op === 'replace');
+    let operations = this.comparator.diff(oldEPerson, newEPerson)
+      .filter((operation: Operation) => ['replace', 'add'].includes(operation.op));
     if (hasValue(oldEPerson.email) && oldEPerson.email !== newEPerson.email) {
       operations = [...operations, {
-        op: 'replace', path: '/email', value: newEPerson.email
+        op: 'replace', path: '/email', value: newEPerson.email,
       }];
     }
     if (hasValue(oldEPerson.requireCertificate) && oldEPerson.requireCertificate !== newEPerson.requireCertificate) {
       operations = [...operations, {
-        op: 'replace', path: '/certificate', value: newEPerson.requireCertificate
+        op: 'replace', path: '/certificate', value: newEPerson.requireCertificate,
       }];
     }
     if (hasValue(oldEPerson.canLogIn) && oldEPerson.canLogIn !== newEPerson.canLogIn) {
       operations = [...operations, {
-        op: 'replace', path: '/canLogIn', value: newEPerson.canLogIn
+        op: 'replace', path: '/canLogIn', value: newEPerson.canLogIn,
       }];
     }
     return operations;
@@ -240,56 +291,11 @@ export class EPersonDataService extends IdentifiableDataService<EPerson> impleme
   }
 
   /**
-   * Method to retrieve the eperson that is currently being edited
-   */
-  public getActiveEPerson(): Observable<EPerson> {
-    return this.store.pipe(select(editEPersonSelector));
-  }
-
-  /**
-   * Method to cancel editing an EPerson, dispatches a cancel EPerson action
-   */
-  public cancelEditEPerson() {
-    this.store.dispatch(new EPeopleRegistryCancelEPersonAction());
-  }
-
-  /**
-   * Method to set the EPerson being edited, dispatches an edit EPerson action
-   * @param ePerson The EPerson to edit
-   */
-  public editEPerson(ePerson: EPerson) {
-    this.store.dispatch(new EPeopleRegistryEditEPersonAction(ePerson));
-  }
-
-  /**
    * Method to delete an EPerson
    * @param ePerson The EPerson to delete
    */
   public deleteEPerson(ePerson: EPerson): Observable<RemoteData<NoContent>> {
     return this.delete(ePerson.id);
-  }
-
-  /**
-   * Change which ePerson is being edited and return the link for EPeople edit page
-   * @param ePerson New EPerson to edit
-   */
-  public startEditingNewEPerson(ePerson: EPerson): string {
-    this.getActiveEPerson().pipe(take(1)).subscribe((activeEPerson: EPerson) => {
-      if (ePerson === activeEPerson) {
-        this.cancelEditEPerson();
-      } else {
-        this.editEPerson(ePerson);
-      }
-    });
-    return '/access-control/epeople';
-  }
-
-  /**
-   * Get EPeople admin page
-   * @param ePerson New EPerson to edit
-   */
-  public getEPeoplePageRouterLink(): string {
-    return '/access-control/epeople';
   }
 
   /**
@@ -337,6 +343,32 @@ export class EPersonDataService extends IdentifiableDataService<EPerson> impleme
     return this.rdbService.buildFromRequestUUID(requestId);
   }
 
+  /**
+   * Sends a POST request to merge registration data related to the provided registration-token,
+   * into the eperson related to the provided uuid
+   * @param uuid the user uuid
+   * @param token registration-token
+   * @param metadataKey metadata key of the metadata field that should be overriden
+   */
+  mergeEPersonDataWithToken(uuid: string, token: string, metadataKey?: string): Observable<RemoteData<EPerson>> {
+    const requestId = this.requestService.generateRequestId();
+    const hrefObs = this.getBrowseEndpoint().pipe(
+      map((href: string) =>
+        hasValue(metadataKey)
+          ? `${href}/${uuid}?token=${token}&override=${metadataKey}`
+          : `${href}/${uuid}?token=${token}`,
+      ),
+    );
+
+    hrefObs.pipe(
+      find((href: string) => hasValue(href)),
+    ).subscribe((href: string) => {
+      const request = new PostRequest(requestId, href);
+      this.requestService.send(request);
+    });
+
+    return this.rdbService.buildFromRequestUUID(requestId);
+  }
 
   /**
    * Create a new object on the server, and store the response in the object cache

@@ -1,12 +1,15 @@
+import {
+  Component,
+  Input,
+} from '@angular/core';
+import { Bitstream } from '@dspace/core/shared/bitstream.model';
+import { Item } from '@dspace/core/shared/item.model';
+
 import { ThemedComponent } from '../theme-support/themed.component';
-import { Component, Input } from '@angular/core';
 import { FileDownloadLinkComponent } from './file-download-link.component';
-import { Bitstream } from '../../core/shared/bitstream.model';
-import { Item } from '../../core/shared/item.model';
 
 @Component({
-  selector: 'ds-themed-file-download-link',
-  styleUrls: [],
+  selector: 'ds-file-download-link',
   templateUrl: '../theme-support/themed.component.html',
 })
 export class ThemedFileDownloadLinkComponent extends ThemedComponent<FileDownloadLinkComponent> {
@@ -21,7 +24,19 @@ export class ThemedFileDownloadLinkComponent extends ThemedComponent<FileDownloa
 
   @Input() enableRequestACopy: boolean;
 
-  protected inAndOutputNames: (keyof FileDownloadLinkComponent & keyof this)[] = ['bitstream', 'item', 'cssClasses', 'isBlank', 'enableRequestACopy'];
+  @Input() showAccessStatusBadge: boolean;
+
+  @Input() showIcon: boolean;
+
+  protected inAndOutputNames: (keyof FileDownloadLinkComponent & keyof this)[] = [
+    'bitstream',
+    'item',
+    'cssClasses',
+    'isBlank',
+    'enableRequestACopy',
+    'showAccessStatusBadge',
+    'showIcon',
+  ];
 
   protected getComponentName(): string {
     return 'FileDownloadLinkComponent';

@@ -1,24 +1,45 @@
-import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
-import { AuthService } from '../../../core/auth/auth.service';
-import { Item } from '../../../core/shared/item.model';
-import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
-import { Component, Injector, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { AsyncPipe } from '@angular/common';
+import {
+  Component,
+  Injector,
+  Input,
+  OnInit,
+} from '@angular/core';
+import {
+  Router,
+  RouterLink,
+} from '@angular/router';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { RequestService } from '@dspace/core/data/request.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { NoContent } from '@dspace/core/shared/NoContent.model';
+import {
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+} from '@dspace/core/shared/operators';
+import { WorkspaceItem } from '@dspace/core/submission/models/workspaceitem.model';
+import { WorkspaceitemDataService } from '@dspace/core/submission/workspaceitem-data.service';
+import {
+  NgbModal,
+  NgbTooltipModule,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  Observable,
+  switchMap,
+} from 'rxjs';
 
-import { BehaviorSubject, Observable, switchMap } from 'rxjs';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
-
-import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
-import { MyDSpaceActionsComponent } from '../mydspace-actions';
-import { WorkspaceitemDataService } from '../../../core/submission/workspaceitem-data.service';
-import { NotificationsService } from '../../notifications/notifications.service';
-import { RequestService } from '../../../core/data/request.service';
-import { SearchService } from '../../../core/shared/search/search.service';
-import { getFirstCompletedRemoteData, getRemoteDataPayload } from '../../../core/shared/operators';
-import { RemoteData } from '../../../core/data/remote-data';
-import { NoContent } from '../../../core/shared/NoContent.model';
 import { getWorkspaceItemViewRoute } from '../../../workspaceitems-edit-page/workspaceitems-edit-page-routing-paths';
+import { SearchService } from '../../search/search.service';
+import { MyDSpaceActionsComponent } from '../mydspace-actions';
 
 /**
  * This component represents actions related to WorkspaceItem object.
@@ -27,6 +48,12 @@ import { getWorkspaceItemViewRoute } from '../../../workspaceitems-edit-page/wor
   selector: 'ds-workspaceitem-actions',
   styleUrls: ['./workspaceitem-actions.component.scss'],
   templateUrl: './workspaceitem-actions.component.html',
+  imports: [
+    AsyncPipe,
+    NgbTooltipModule,
+    RouterLink,
+    TranslateModule,
+  ],
 })
 export class WorkspaceitemActionsComponent extends MyDSpaceActionsComponent<WorkspaceItem, WorkspaceitemDataService> implements OnInit {
 
@@ -69,7 +96,7 @@ export class WorkspaceitemActionsComponent extends MyDSpaceActionsComponent<Work
     protected requestService: RequestService,
     private authService: AuthService,
     public authorizationService: AuthorizationDataService,
-    ) {
+  ) {
     super(WorkspaceItem.type, injector, router, notificationsService, translate, searchService, requestService);
 
   }
@@ -89,7 +116,7 @@ export class WorkspaceitemActionsComponent extends MyDSpaceActionsComponent<Work
               this.handleActionResponse(response.hasSucceeded);
             });
         }
-      }
+      },
     );
   }
 
@@ -104,7 +131,7 @@ export class WorkspaceitemActionsComponent extends MyDSpaceActionsComponent<Work
           getRemoteDataPayload(),
           switchMap((item: Item) => {
             return this.authorizationService.isAuthorized(FeatureID.CanEditItem, item?._links?.self.href, eperson.uuid);
-          })
+          }),
         ) as Observable<boolean>;
       }));
   }

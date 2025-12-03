@@ -1,6 +1,4 @@
-import { BehaviorSubject, combineLatest as observableCombineLatest, Observable } from 'rxjs';
-
-import { distinctUntilChanged, map, startWith } from 'rxjs/operators';
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -8,22 +6,43 @@ import {
   Input,
   OnInit,
   Output,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
+import {
+  SortDirection,
+  SortOptions,
+} from '@dspace/core/cache/models/sort-options.model';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { Context } from '@dspace/core/shared/context.model';
+import { WidthCategory } from '@dspace/core/shared/host-window-type';
+import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
+import {
+  hasNoValue,
+  hasValue,
+} from '@dspace/shared/utils/empty.util';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  combineLatest as observableCombineLatest,
+  Observable,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  map,
+  startWith,
+} from 'rxjs/operators';
 
-import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-
-import { RemoteData } from '../../core/data/remote-data';
 import { fadeIn } from '../animations/fade';
-import { hasNoValue, hasValue } from '../empty.util';
-import { HostWindowService, WidthCategory } from '../host-window.service';
-import { ListableObject } from '../object-collection/shared/listable-object.model';
-
-import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
-import { ViewMode } from '../../core/shared/view-mode.model';
-import { Context } from '../../core/shared/context.model';
+import { ErrorComponent } from '../error/error.component';
+import { HostWindowService } from '../host-window.service';
+import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
+import { ListableObjectComponentLoaderComponent } from '../object-collection/shared/listable-object/listable-object-component-loader.component';
+import { PaginationComponent } from '../pagination/pagination.component';
+import { BrowserOnlyPipe } from '../utils/browser-only.pipe';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.Default,
@@ -31,7 +50,16 @@ import { CollectionElementLinkType } from '../object-collection/collection-eleme
   selector: 'ds-object-grid',
   styleUrls: ['./object-grid.component.scss'],
   templateUrl: './object-grid.component.html',
-  animations: [fadeIn]
+  animations: [fadeIn],
+  imports: [
+    AsyncPipe,
+    BrowserOnlyPipe,
+    ErrorComponent,
+    ListableObjectComponentLoaderComponent,
+    PaginationComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
+  ],
 })
 
 export class ObjectGridComponent implements OnInit {
@@ -157,7 +185,7 @@ export class ObjectGridComponent implements OnInit {
   @Output() next = new EventEmitter<boolean>();
 
   data: any = {};
-  columns$: Observable<ListableObject[]>;
+  columns$: Observable<ListableObject[][]>;
 
   constructor(private hostWindow: HostWindowService) {
     this._objects$ = new BehaviorSubject(undefined);
@@ -183,7 +211,7 @@ export class ObjectGridComponent implements OnInit {
           }
         }
       }),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     ).pipe(startWith(3));
 
     this.columns$ = observableCombineLatest(
@@ -251,14 +279,14 @@ export class ObjectGridComponent implements OnInit {
    * Go to the previous page
    */
   goPrev() {
-      this.prev.emit(true);
+    this.prev.emit(true);
   }
 
- /**
+  /**
   * Go to the next page
   */
   goNext() {
-      this.next.emit(true);
+    this.next.emit(true);
   }
 
 }

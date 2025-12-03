@@ -1,16 +1,31 @@
+import {
+  AsyncPipe,
+  NgClass,
+} from '@angular/common';
 import { Component } from '@angular/core';
+import { Community } from '@dspace/core/shared/community.model';
+import { Context } from '@dspace/core/shared/context.model';
+import { CommunitySearchResult } from '@dspace/core/shared/object-collection/community-search-result.model';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
-import { Context } from '../../../../core/shared/context.model';
-import { ViewMode } from '../../../../core/shared/view-mode.model';
+import { TruncatablePartComponent } from '../../../truncatable/truncatable-part/truncatable-part.component';
 import { SidebarSearchListElementComponent } from '../sidebar-search-list-element.component';
-import { CommunitySearchResult } from '../../../object-collection/shared/community-search-result.model';
-import { Community } from '../../../../core/shared/community.model';
 
 @listableObjectComponent(CommunitySearchResult, ViewMode.ListElement, Context.SideBarSearchModal)
 @listableObjectComponent(CommunitySearchResult, ViewMode.ListElement, Context.SideBarSearchModalCurrent)
+@listableObjectComponent(CommunitySearchResult, ViewMode.ListElement, Context.ScopeSelectorModal)
+@listableObjectComponent(CommunitySearchResult, ViewMode.ListElement, Context.ScopeSelectorModalCurrent)
 @Component({
-  selector: 'ds-collection-sidebar-search-list-element',
-  templateUrl: '../sidebar-search-list-element.component.html'
+  selector: 'ds-community-sidebar-search-list-element',
+  templateUrl: '../sidebar-search-list-element.component.html',
+  imports: [
+    AsyncPipe,
+    NgClass,
+    TranslateModule,
+    TruncatablePartComponent,
+  ],
 })
 /**
  * Component displaying a list element for a {@link CommunitySearchResult} within the context of a sidebar search modal

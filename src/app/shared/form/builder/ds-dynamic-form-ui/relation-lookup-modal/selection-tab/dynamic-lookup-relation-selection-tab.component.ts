@@ -1,18 +1,38 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspace-page.component';
-import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
-import { Observable } from 'rxjs';
-import { ListableObject } from '../../../../../object-collection/shared/listable-object.model';
-import { RemoteData } from '../../../../../../core/data/remote-data';
-import { map, switchMap, take } from 'rxjs/operators';
-import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
-import { buildPaginatedList, PaginatedList } from '../../../../../../core/data/paginated-list.model';
+import { AsyncPipe } from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { Router } from '@angular/router';
-import { PaginatedSearchOptions } from '../../../../../search/models/paginated-search-options.model';
-import { PageInfo } from '../../../../../../core/shared/page-info.model';
-import { Context } from '../../../../../../core/shared/context.model';
-import { createSuccessfulRemoteDataObject } from '../../../../../remote-data.utils';
-import { PaginationService } from '../../../../../../core/pagination/pagination.service';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { Context } from '@dspace/core/shared/context.model';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
+import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
+import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
+import { TranslateModule } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+import {
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+
+import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspace-configuration.service';
+import { ObjectCollectionComponent } from '../../../../../object-collection/object-collection.component';
+import { PageSizeSelectorComponent } from '../../../../../page-size-selector/page-size-selector.component';
+import { SearchConfigurationService } from '../../../../../search/search-configuration.service';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-selection-tab',
@@ -21,15 +41,21 @@ import { PaginationService } from '../../../../../../core/pagination/pagination.
   providers: [
     {
       provide: SEARCH_CONFIG_SERVICE,
-      useClass: SearchConfigurationService
-    }
-  ]
+      useClass: SearchConfigurationService,
+    },
+  ],
+  imports: [
+    AsyncPipe,
+    ObjectCollectionComponent,
+    PageSizeSelectorComponent,
+    TranslateModule,
+  ],
 })
 
 /**
  * Tab for inside the lookup model that represents the currently selected relationships
  */
-export class DsDynamicLookupRelationSelectionTabComponent {
+export class DsDynamicLookupRelationSelectionTabComponent implements OnInit {
   /**
    * A string that describes the type of relationship
    */
@@ -63,19 +89,19 @@ export class DsDynamicLookupRelationSelectionTabComponent {
   /**
    * Send an event to deselect an object from the list
    */
-  @Output() deselectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
+  @Output() deselectObject: EventEmitter<SearchResult<DSpaceObject>> = new EventEmitter();
 
   /**
    * Send an event to select an object from the list
    */
-  @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
+  @Output() selectObject: EventEmitter<SearchResult<DSpaceObject>> = new EventEmitter();
 
   /**
    * The initial pagination to use
    */
   initialPagination = Object.assign(new PaginationComponentOptions(), {
     id: 'spc',
-    pageSize: 5
+    pageSize: 5,
   });
 
   /**
@@ -85,14 +111,14 @@ export class DsDynamicLookupRelationSelectionTabComponent {
 
   constructor(private router: Router,
               private searchConfigService: SearchConfigurationService,
-              private paginationService: PaginationService
+              private paginationService: PaginationService,
   ) {
   }
 
   /**
    * Set up the selection and pagination on load
    */
-  ngOnInit() {
+  ngOnInit(): void {
     this.resetRoute();
     this.selectionRD$ = this.searchConfigService.paginatedSearchOptions
       .pipe(
@@ -109,12 +135,12 @@ export class DsDynamicLookupRelationSelectionTabComponent {
                   elementsPerPage: pagination.pageSize,
                   totalElements: selected.length,
                   currentPage: pagination.currentPage,
-                  totalPages: Math.ceil(selected.length / pagination.pageSize)
+                  totalPages: Math.ceil(selected.length / pagination.pageSize),
                 });
               return createSuccessfulRemoteDataObject(buildPaginatedList(pageInfo, selection));
-            })
+            }),
           );
-        })
+        }),
       );
     this.currentPagination$ = this.paginationService.getCurrentPagination(this.searchConfigService.paginationID, this.initialPagination);
   }
@@ -125,7 +151,7 @@ export class DsDynamicLookupRelationSelectionTabComponent {
   resetRoute() {
     this.paginationService.updateRoute(this.searchConfigService.paginationID, {
       page: 1,
-      pageSize: 5
+      pageSize: 5,
     });
   }
 }

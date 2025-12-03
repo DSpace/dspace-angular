@@ -1,25 +1,38 @@
-import { Injectable } from '@angular/core';
+import {
+  Inject,
+  Injectable,
+} from '@angular/core';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
+import {
+  hasNoValue,
+  hasValue,
+} from '@dspace/shared/utils/empty.util';
 
 import { ObjectCacheService } from '../cache/object-cache.service';
+import {
+  DSOSuccessResponse,
+  RestResponse,
+} from '../cache/response.models';
 import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
-import { RestResponse, DSOSuccessResponse } from '../cache/response.models';
-
-import { ResponseParsingService } from './parsing.service';
-import { BaseResponseParsingService } from './base-response-parsing.service';
-import { hasNoValue, hasValue } from '../../shared/empty.util';
 import { DSpaceObject } from '../shared/dspace-object.model';
+import { BaseResponseParsingService } from './base-response-parsing.service';
+import { ResponseParsingService } from './parsing.service';
 import { RestRequest } from './rest-request.model';
 
 /**
  * @deprecated use DspaceRestResponseParsingService for new code, this is only left to support a
  * few legacy use cases, and should get removed eventually
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class DSOResponseParsingService extends BaseResponseParsingService implements ResponseParsingService {
   protected toCache = true;
 
   constructor(
     protected objectCache: ObjectCacheService,
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
   ) {
     super();
   }

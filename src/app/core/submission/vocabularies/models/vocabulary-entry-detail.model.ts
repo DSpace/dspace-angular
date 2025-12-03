@@ -1,8 +1,12 @@
-import { autoserialize, deserialize, inheritSerialization } from 'cerialize';
+import { typedObject } from '@dspace/core/cache/builders/build-decorators';
+import { HALLink } from '@dspace/core/shared/hal-link.model';
+import {
+  autoserialize,
+  deserialize,
+  inheritSerialization,
+} from 'cerialize';
 
-import { HALLink } from '../../../shared/hal-link.model';
 import { VOCABULARY_ENTRY_DETAIL } from './vocabularies.resource-type';
-import { typedObject } from '../../../cache/builders/build-decorators';
 import { VocabularyEntry } from './vocabulary-entry.model';
 
 /**

@@ -1,13 +1,25 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  DebugElement,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { MetadataValue } from '@dspace/core/shared/metadata.models';
+import { RouterStub } from '@dspace/core/testing/router.stub';
+import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { ActivatedRoute, Router } from '@angular/router';
-import { RouterStub } from '../../../testing/router.stub';
+import { TranslateModule } from '@ngx-translate/core';
+
+import { AuthorizedCollectionSelectorComponent } from '../../dso-selector/authorized-collection-selector/authorized-collection-selector.component';
 import { EditCollectionSelectorComponent } from './edit-collection-selector.component';
-import { Collection } from '../../../../core/shared/collection.model';
-import { MetadataValue } from '../../../../core/shared/metadata.models';
-import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 
 describe('EditCollectionSelectorComponent', () => {
   let component: EditCollectionSelectorComponent;
@@ -19,8 +31,8 @@ describe('EditCollectionSelectorComponent', () => {
   collection.metadata = {
     'dc.title': [Object.assign(new MetadataValue(), {
       value: 'Collection title',
-      language: undefined
-    })]
+      language: undefined,
+    })],
   };
   const router = new RouterStub();
   const collectionRD = createSuccessfulRemoteDataObject(collection);
@@ -29,8 +41,7 @@ describe('EditCollectionSelectorComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [EditCollectionSelectorComponent],
+      imports: [TranslateModule.forRoot(), EditCollectionSelectorComponent],
       providers: [
         { provide: NgbActiveModal, useValue: modalStub },
         {
@@ -42,15 +53,21 @@ describe('EditCollectionSelectorComponent', () => {
                   dso: collectionRD,
                 },
               },
-            }
+            },
           },
         },
         {
-          provide: Router, useValue: router
-        }
+          provide: Router, useValue: router,
+        },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+      schemas: [NO_ERRORS_SCHEMA],
+    })
+      .overrideComponent(EditCollectionSelectorComponent, {
+        remove: {
+          imports: [AuthorizedCollectionSelectorComponent],
+        },
+      })
+      .compileComponents();
 
   }));
 

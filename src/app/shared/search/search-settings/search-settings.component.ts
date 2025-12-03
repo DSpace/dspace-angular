@@ -1,15 +1,32 @@
-import { Component, Inject, Input } from '@angular/core';
-import { SearchService } from '../../../core/shared/search/search.service';
-import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
-import { ActivatedRoute, Router } from '@angular/router';
-import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
-import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
-import { PaginationService } from '../../../core/pagination/pagination.service';
+
+import {
+  Component,
+  Inject,
+  Input,
+} from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import {
+  SortDirection,
+  SortOptions,
+} from '@dspace/core/cache/models/sort-options.model';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { TranslateModule } from '@ngx-translate/core';
+
+import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
+import { PageSizeSelectorComponent } from '../../page-size-selector/page-size-selector.component';
+import { SidebarDropdownComponent } from '../../sidebar/sidebar-dropdown.component';
+import { SearchConfigurationService } from '../search-configuration.service';
 
 @Component({
-  selector: 'ds-search-settings',
+  selector: 'ds-base-search-settings',
   styleUrls: ['./search-settings.component.scss'],
-  templateUrl: './search-settings.component.html'
+  templateUrl: './search-settings.component.html',
+  imports: [
+    FormsModule,
+    PageSizeSelectorComponent,
+    SidebarDropdownComponent,
+    TranslateModule,
+  ],
 })
 
 /**
@@ -26,11 +43,10 @@ export class SearchSettingsComponent {
    */
   @Input() sortOptionsList: SortOptions[];
 
-  constructor(private service: SearchService,
-              private route: ActivatedRoute,
-              private router: Router,
-              private paginationService: PaginationService,
-              @Inject(SEARCH_CONFIG_SERVICE) public searchConfigurationService: SearchConfigurationService) {
+  constructor(
+    protected paginationService: PaginationService,
+    @Inject(SEARCH_CONFIG_SERVICE) public searchConfigurationService: SearchConfigurationService,
+  ) {
   }
 
   /**
@@ -42,7 +58,7 @@ export class SearchSettingsComponent {
     this.paginationService.updateRoute(this.searchConfigurationService.paginationID, {
       sortField: values[0],
       sortDirection: values[1] as SortDirection,
-      page: 1
+      page: 1,
     });
   }
 }

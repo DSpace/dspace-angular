@@ -1,7 +1,9 @@
-import { Directive, Host } from '@angular/core';
 import { NgForOf } from '@angular/common';
-
-import { DSpaceObject } from '../core/shared/dspace-object.model';
+import {
+  Directive,
+  Host,
+} from '@angular/core';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 
 @Directive({
   // eslint-disable-next-line @angular-eslint/directive-selector

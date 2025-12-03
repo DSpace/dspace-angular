@@ -1,9 +1,12 @@
-import { PipeTransform, Pipe } from '@angular/core';
-import { isNotEmpty } from '../empty.util';
+import {
+  Pipe,
+  PipeTransform,
+} from '@angular/core';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 
 @Pipe({
   name: 'dsObjectValues',
-  pure: true
+  pure: true,
 })
 /**
  * Pipe for parsing all values of an object to an array of values

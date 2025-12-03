@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { ThemedComponent } from '../../shared/theme-support/themed.component';
 import { ForgotPasswordFormComponent } from './forgot-password-form.component';
 
@@ -6,9 +7,8 @@ import { ForgotPasswordFormComponent } from './forgot-password-form.component';
  * Themed wrapper for ForgotPasswordFormComponent
  */
 @Component({
-  selector: 'ds-themed-forgot-password-form',
-  styleUrls: [],
-  templateUrl: './../../shared/theme-support/themed.component.html'
+  selector: 'ds-forgot-password-form',
+  templateUrl: './../../shared/theme-support/themed.component.html',
 })
 export class ThemedForgotPasswordFormComponent extends ThemedComponent<ForgotPasswordFormComponent> {
   protected getComponentName(): string {

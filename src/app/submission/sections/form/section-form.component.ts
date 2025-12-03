@@ -1,45 +1,72 @@
-import { ChangeDetectorRef, Component, Inject, ViewChild } from '@angular/core';
-import { DynamicFormControlEvent, DynamicFormControlModel } from '@ng-dynamic-forms/core';
 
-import { combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
-import { distinctUntilChanged, filter, find, map, mergeMap, take, tap } from 'rxjs/operators';
+import {
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  ViewChild,
+} from '@angular/core';
+import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
+import { ConfigObject } from '@dspace/core/config/models/config.model';
+import { FormRowModel } from '@dspace/core/config/models/config-submission-form.model';
+import { SubmissionFormsModel } from '@dspace/core/config/models/config-submission-forms.model';
+import { SubmissionFormsConfigDataService } from '@dspace/core/config/submission-forms-config-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { RequestService } from '@dspace/core/data/request.service';
+import { JsonPatchOperationPathCombiner } from '@dspace/core/json-patch/builder/json-patch-operation-path-combiner';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { FormFieldPreviousValueObject } from '@dspace/core/shared/form/models/form-field-previous-value-object';
+import {
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '@dspace/core/shared/operators';
+import { SubmissionObject } from '@dspace/core/submission/models/submission-object.model';
+import { SubmissionSectionError } from '@dspace/core/submission/models/submission-section-error.model';
+import { SubmissionSectionObject } from '@dspace/core/submission/models/submission-section-object.model';
+import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
+import { WorkspaceItem } from '@dspace/core/submission/models/workspaceitem.model';
+import { WorkspaceitemSectionFormObject } from '@dspace/core/submission/models/workspaceitem-section-form.model';
+import { SubmissionScopeType } from '@dspace/core/submission/submission-scope-type';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+  isUndefined,
+} from '@dspace/shared/utils/empty.util';
+import { difference } from '@dspace/shared/utils/object.util';
+import {
+  DynamicFormControlEvent,
+  DynamicFormControlModel,
+} from '@ng-dynamic-forms/core';
 import { TranslateService } from '@ngx-translate/core';
 import findIndex from 'lodash/findIndex';
 import isEqual from 'lodash/isEqual';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  filter,
+  find,
+  map,
+  mergeMap,
+  take,
+  tap,
+} from 'rxjs/operators';
 
+import { environment } from '../../../../environments/environment';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
-import { SectionModelComponent } from '../models/section.model';
-import { SubmissionFormsConfigDataService } from '../../../core/config/submission-forms-config-data.service';
-import { hasValue, isEmpty, isNotEmpty, isUndefined } from '../../../shared/empty.util';
-import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { SubmissionFormsModel } from '../../../core/config/models/config-submission-forms.model';
-import { FormFieldPreviousValueObject } from '../../../shared/form/builder/models/form-field-previous-value-object';
-import { SectionDataObject } from '../models/section-data.model';
-import { renderSectionFor } from '../sections-decorator';
-import { SectionsType } from '../sections-type';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { SubmissionService } from '../../submission.service';
-import { SectionFormOperationsService } from './section-form-operations.service';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { SubmissionObjectService } from '../../submission-object.service';
+import { SectionModelComponent } from '../models/section.model';
+import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
-import { difference } from '../../../shared/object.util';
-import { WorkspaceitemSectionFormObject } from '../../../core/submission/models/workspaceitem-section-form.model';
-import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
-import { getFirstSucceededRemoteData, getRemoteDataPayload } from '../../../core/shared/operators';
-import { SubmissionObjectDataService } from '../../../core/submission/submission-object-data.service';
-import { ObjectCacheService } from '../../../core/cache/object-cache.service';
-import { RequestService } from '../../../core/data/request.service';
-import { followLink } from '../../../shared/utils/follow-link-config.model';
-import { environment } from '../../../../environments/environment';
-import { ConfigObject } from '../../../core/config/models/config.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { SubmissionScopeType } from '../../../core/submission/submission-scope-type';
-import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
-import { SubmissionObject } from '../../../core/submission/models/submission-object.model';
-import { SubmissionSectionObject } from '../../objects/submission-section-object.model';
-import { SubmissionSectionError } from '../../objects/submission-section-error.model';
-import { FormRowModel } from '../../../core/config/models/config-submission-form.model';
+import { SectionFormOperationsService } from './section-form-operations.service';
 
 /**
  * This component represents a section that contains a Form.
@@ -48,8 +75,11 @@ import { FormRowModel } from '../../../core/config/models/config-submission-form
   selector: 'ds-submission-section-form',
   styleUrls: ['./section-form.component.scss'],
   templateUrl: './section-form.component.html',
+  imports: [
+    FormComponent,
+    ThemedLoadingComponent,
+  ],
 })
-@renderSectionFor(SectionsType.SubmissionForm)
 export class SubmissionSectionFormComponent extends SectionModelComponent {
 
   /**
@@ -142,7 +172,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
    * @param {SectionsService} sectionService
    * @param {SubmissionService} submissionService
    * @param {TranslateService} translate
-   * @param {SubmissionObjectDataService} submissionObjectService
+   * @param {SubmissionObjectService} submissionObjectService
    * @param {ObjectCacheService} objectCache
    * @param {RequestService} requestService
    * @param {string} injectedCollectionId
@@ -158,7 +188,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
               protected sectionService: SectionsService,
               protected submissionService: SubmissionService,
               protected translate: TranslateService,
-              protected submissionObjectService: SubmissionObjectDataService,
+              protected submissionObjectService: SubmissionObjectService,
               protected objectCache: ObjectCacheService,
               protected requestService: RequestService,
               @Inject('collectionIdProvider') public injectedCollectionId: string,
@@ -183,7 +213,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
           this.submissionObjectService.findById(this.submissionId, true, false, followLink('item')).pipe(
             getFirstSucceededRemoteData(),
             getRemoteDataPayload()),
-            this.sectionService.isSectionReadOnly(this.submissionId, this.sectionData.id, this.submissionService.getSubmissionScope())
+          this.sectionService.isSectionReadOnly(this.submissionId, this.sectionData.id, this.submissionService.getSubmissionScope()),
         ])),
       take(1))
       .subscribe(([sectionData, submissionObject, isSectionReadOnly]: [WorkspaceitemSectionFormObject, SubmissionObject, boolean]) => {
@@ -192,7 +222,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
           this.submissionObject = submissionObject;
           this.isSectionReadonly = isSectionReadOnly;
           // Is the first loading so init form
-          this.initForm(sectionData);
+          this.initForm(sectionData, this.sectionData.errorsToShow, this.sectionData.serverValidationErrors);
           this.sectionData.data = sectionData;
           this.subscriptions();
           this.isLoading = false;
@@ -219,11 +249,11 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
   protected getSectionStatus(): Observable<boolean> {
     const formStatus$ = this.formService.isValid(this.formId);
     const serverValidationStatus$ = this.sectionService.getSectionServerErrors(this.submissionId, this.sectionData.id).pipe(
-      map((validationErrors) => isEmpty(validationErrors))
+      map((validationErrors) => isEmpty(validationErrors)),
     );
 
     return observableCombineLatest([formStatus$, serverValidationStatus$]).pipe(
-      map(([formValidation, serverSideValidation]: [boolean, boolean]) => formValidation && serverSideValidation)
+      map(([formValidation, serverSideValidation]: [boolean, boolean]) => formValidation && serverSideValidation),
     );
   }
 
@@ -278,10 +308,10 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
     })?.fields?.[0]?.scope;
 
     switch (scope) {
-      case SubmissionScopeType.WorkspaceItem: {
+      case SubmissionScopeType.WorkspaceItem.valueOf(): {
         return (this.submissionObject as any).type === WorkspaceItem.type.value;
       }
-      case SubmissionScopeType.WorkflowItem: {
+      case SubmissionScopeType.WorkflowItem.valueOf(): {
         return (this.submissionObject as any).type === WorkflowItem.type.value;
       }
       default: {
@@ -296,7 +326,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
    * @param sectionData
    *    the section data retrieved from the server
    */
-  initForm(sectionData: WorkspaceitemSectionFormObject): void {
+  initForm(sectionData: WorkspaceitemSectionFormObject, errorsToShow: SubmissionSectionError[], serverValidationErrors: SubmissionSectionError[]): void {
     try {
       this.formModel = this.formBuilderService.modelFromConfiguration(
         this.submissionId,
@@ -304,17 +334,19 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
         this.collectionId,
         sectionData,
         this.submissionService.getSubmissionScope(),
-        this.isSectionReadonly
+        this.isSectionReadonly,
       );
       const sectionMetadata = this.sectionService.computeSectionConfiguredMetadata(this.formConfig);
-      this.sectionService.updateSectionData(this.submissionId, this.sectionData.id, sectionData, this.sectionData.errorsToShow, this.sectionData.serverValidationErrors, sectionMetadata);
-    } catch (e) {
-      const msg: string = this.translate.instant('error.submission.sections.init-form-error') + e.toString();
+      this.sectionService.updateSectionData(this.submissionId, this.sectionData.id, sectionData, errorsToShow, serverValidationErrors, sectionMetadata);
+    } catch (e: unknown) {
+      const msg: string = this.translate.instant('error.submission.sections.init-form-error') + (e as Error).toString();
       const sectionError: SubmissionSectionError = {
         message: msg,
-        path: '/sections/' + this.sectionData.id
+        path: '/sections/' + this.sectionData.id,
       };
-      console.error(e.stack);
+      if (e instanceof Error) {
+        console.error(e.stack);
+      }
       this.sectionService.setSectionError(this.submissionId, this.sectionData.id, sectionError);
     }
   }
@@ -322,12 +354,13 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
   /**
    * Update form model
    *
-   * @param sectionData
-   *    the section data retrieved from the server
-   * @param errors
-   *    the section errors retrieved from the server
+   * @param sectionState
+   *    the section state retrieved from the server
    */
-  updateForm(sectionData: WorkspaceitemSectionFormObject, errors: SubmissionSectionError[]): void {
+  updateForm(sectionState: SubmissionSectionObject): void {
+
+    const sectionData = sectionState.data as WorkspaceitemSectionFormObject;
+    const errors = sectionState.errorsToShow;
 
     if (isNotEmpty(sectionData) && !isEqual(sectionData, this.sectionData.data)) {
       this.sectionData.data = sectionData;
@@ -335,7 +368,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
         this.isUpdating = true;
         this.formModel = null;
         this.cdr.detectChanges();
-        this.initForm(sectionData);
+        this.initForm(sectionData, errors, sectionState.serverValidationErrors);
         this.checksForErrors(errors);
         this.isUpdating = false;
         this.cdr.detectChanges();
@@ -389,8 +422,8 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
         .subscribe((sectionState: SubmissionSectionObject) => {
           this.fieldsOnTheirWayToBeRemoved = new Map();
           this.sectionMetadata = sectionState.metadata;
-          this.updateForm(sectionState.data as WorkspaceitemSectionFormObject, sectionState.errorsToShow);
-        })
+          this.updateForm(sectionState);
+        }),
     );
   }
 
@@ -416,7 +449,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
   }
 
   private hasRelatedCustomError(medatata): boolean {
-    const index = findIndex(this.sectionData.errorsToShow, {path: this.pathCombiner.getPath(medatata).path});
+    const index = findIndex(this.sectionData.errorsToShow, { path: this.pathCombiner.getPath(medatata).path });
     if (index  !== -1) {
       const error = this.sectionData.errorsToShow[index];
       const validator = error.message.replace('error.validation.', '');

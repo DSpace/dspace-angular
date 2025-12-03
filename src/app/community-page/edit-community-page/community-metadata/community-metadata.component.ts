@@ -1,10 +1,16 @@
+import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
-import { ComcolMetadataComponent } from '../../../shared/comcol/comcol-forms/edit-comcol-page/comcol-metadata/comcol-metadata.component';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Community } from '../../../core/shared/community.model';
-import { CommunityDataService } from '../../../core/data/community-data.service';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { CommunityDataService } from '@dspace/core/data/community-data.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Community } from '@dspace/core/shared/community.model';
 import { TranslateService } from '@ngx-translate/core';
+
+import { ComcolMetadataComponent } from '../../../shared/comcol/comcol-forms/edit-comcol-page/comcol-metadata/comcol-metadata.component';
+import { CommunityFormComponent } from '../../community-form/community-form.component';
 
 /**
  * Component for editing a community's metadata
@@ -12,6 +18,10 @@ import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'ds-community-metadata',
   templateUrl: './community-metadata.component.html',
+  imports: [
+    AsyncPipe,
+    CommunityFormComponent,
+  ],
 })
 export class CommunityMetadataComponent extends ComcolMetadataComponent<Community> {
   protected frontendURL = '/communities/';
@@ -22,7 +32,7 @@ export class CommunityMetadataComponent extends ComcolMetadataComponent<Communit
     protected router: Router,
     protected route: ActivatedRoute,
     protected notificationsService: NotificationsService,
-    protected translate: TranslateService
+    protected translate: TranslateService,
   ) {
     super(communityDataService, router, route, notificationsService, translate);
   }

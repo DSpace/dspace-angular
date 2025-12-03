@@ -1,17 +1,27 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  ChangeDetectorRef,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
-
+import { Bitstream } from '@dspace/core/shared/bitstream.model';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
 
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import { ResourcePoliciesComponent } from '../../shared/resource-policies/resource-policies.component';
 import { BitstreamAuthorizationsComponent } from './bitstream-authorizations.component';
-import { Bitstream } from '../../core/shared/bitstream.model';
-import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 
 describe('BitstreamAuthorizationsComponent', () => {
   let comp: BitstreamAuthorizationsComponent<DSpaceObject>;
@@ -23,21 +33,21 @@ describe('BitstreamAuthorizationsComponent', () => {
       'dc.title': [
         {
           value: 'file name',
-          language: null
-        }
-      ]
+          language: null,
+        },
+      ],
     },
     _links: {
-      content: { href: 'file-selflink' }
-    }
+      content: { href: 'file-selflink' },
+    },
   });
 
   const bitstreamRD = createSuccessfulRemoteDataObject(bitstream);
 
   const routeStub = {
-    data: observableOf({
-      bitstream: bitstreamRD
-    })
+    data: of({
+      bitstream: bitstreamRD,
+    }),
   };
 
   beforeEach(waitForAsync(() => {
@@ -47,18 +57,22 @@ describe('BitstreamAuthorizationsComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
+            useClass: TranslateLoaderMock,
+          },
+        }),
+        BitstreamAuthorizationsComponent,
       ],
-      declarations: [BitstreamAuthorizationsComponent],
       providers: [
         { provide: ActivatedRoute, useValue: routeStub },
         ChangeDetectorRef,
         BitstreamAuthorizationsComponent,
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    })
+      .overrideComponent(BitstreamAuthorizationsComponent, {
+        remove: { imports: [ResourcePoliciesComponent] },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {

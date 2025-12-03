@@ -1,13 +1,39 @@
-import { fadeIn, fadeInOut } from '../../shared/animations/fade';
-import { ChangeDetectionStrategy, Component, Injector, OnInit } from '@angular/core';
-import { ActivatedRoute, CanActivate, Route, Router } from '@angular/router';
-import { RemoteData } from '../../core/data/remote-data';
-import { Item } from '../../core/shared/item.model';
-import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
+import {
+  AsyncPipe,
+  NgClass,
+} from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Injector,
+  OnInit,
+  runInInjectionContext,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  CanActivateFn,
+  Route,
+  Router,
+  RouterLink,
+  RouterOutlet,
+} from '@angular/router';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
+import { Item } from '@dspace/core/shared/item.model';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+  of,
+} from 'rxjs';
 import { map } from 'rxjs/operators';
-import { isNotEmpty } from '../../shared/empty.util';
-import { getItemPageRoute } from '../item-page-routing-paths';
-import { GenericConstructor } from '../../core/shared/generic-constructor';
+
+import {
+  fadeIn,
+  fadeInOut,
+} from '../../shared/animations/fade';
 
 @Component({
   selector: 'ds-edit-item-page',
@@ -15,8 +41,16 @@ import { GenericConstructor } from '../../core/shared/generic-constructor';
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     fadeIn,
-    fadeInOut
-  ]
+    fadeInOut,
+  ],
+  imports: [
+    AsyncPipe,
+    NgbTooltipModule,
+    NgClass,
+    RouterLink,
+    RouterOutlet,
+    TranslateModule,
+  ],
 })
 /**
  * Page component for editing an item
@@ -47,14 +81,15 @@ export class EditItemPageComponent implements OnInit {
     this.pages = this.route.routeConfig.children
       .filter((child: Route) => isNotEmpty(child.path))
       .map((child: Route) => {
-        let enabled = observableOf(true);
+        let enabled = of(true);
         if (isNotEmpty(child.canActivate)) {
-          enabled = observableCombineLatest(child.canActivate.map((guardConstructor: GenericConstructor<CanActivate>) => {
-              const guard: CanActivate = this.injector.get<CanActivate>(guardConstructor);
-              return guard.canActivate(this.route.snapshot, this.router.routerState.snapshot);
-            })
+          enabled = observableCombineLatest(child.canActivate.map((guardFn: CanActivateFn) => {
+            return runInInjectionContext(this.injector, () => {
+              return guardFn(this.route.snapshot, this.router.routerState.snapshot);
+            });
+          }),
           ).pipe(
-            map((canActivateOutcomes: any[]) => canActivateOutcomes.every((e) => e === true))
+            map((canActivateOutcomes: any[]) => canActivateOutcomes.every((e) => e === true)),
           );
         }
         return { page: child.path, enabled: enabled };

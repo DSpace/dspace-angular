@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { ThemedComponent } from '../../shared/theme-support/themed.component';
 import { PrivacyComponent } from './privacy.component';
 
@@ -6,8 +7,7 @@ import { PrivacyComponent } from './privacy.component';
  * Themed wrapper for PrivacyComponent
  */
 @Component({
-  selector: 'ds-themed-privacy',
-  styleUrls: [],
+  selector: 'ds-privacy',
   templateUrl: '../../shared/theme-support/themed.component.html',
 })
 export class ThemedPrivacyComponent extends ThemedComponent<PrivacyComponent> {

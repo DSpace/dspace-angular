@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { ThemedComponent } from '../shared/theme-support/themed.component';
 import { PageErrorComponent } from './page-error.component';
 
@@ -6,8 +7,7 @@ import { PageErrorComponent } from './page-error.component';
  * Themed wrapper for PageErrorComponent
  */
 @Component({
-  selector: 'ds-themed-page-error',
-  styleUrls: [],
+  selector: 'ds-page-error',
   templateUrl: '../shared/theme-support/themed.component.html',
 })
 export class ThemedPageErrorComponent extends ThemedComponent<PageErrorComponent> {

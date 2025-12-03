@@ -1,32 +1,56 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-
-import { BehaviorSubject, Subscription } from 'rxjs';
-import { debounceTime, filter, switchMap } from 'rxjs/operators';
+import {
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  ParamMap,
+  Router,
+} from '@angular/router';
+import { SubmissionDefinitionsModel } from '@dspace/core/config/models/config-submission-definitions.model';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { getAllSucceededRemoteData } from '@dspace/core/shared/operators';
+import { SubmissionError } from '@dspace/core/submission/models/submission-error.model';
+import { SubmissionObject } from '@dspace/core/submission/models/submission-object.model';
+import { WorkspaceitemSectionsObject } from '@dspace/core/submission/models/workspaceitem-sections.model';
+import { SubmissionJsonPatchOperationsService } from '@dspace/core/submission/submission-json-patch-operations.service';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmptyOperator,
+  isNotNull,
+} from '@dspace/shared/utils/empty.util';
 import { TranslateService } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  Subscription,
+} from 'rxjs';
+import {
+  debounceTime,
+  filter,
+  switchMap,
+} from 'rxjs/operators';
 
-import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
-import { hasValue, isEmpty, isNotEmptyOperator, isNotNull } from '../../shared/empty.util';
-import { SubmissionDefinitionsModel } from '../../core/config/models/config-submission-definitions.model';
+import { ThemedSubmissionFormComponent } from '../form/themed-submission-form.component';
 import { SubmissionService } from '../submission.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { SubmissionObject } from '../../core/submission/models/submission-object.model';
-import { Collection } from '../../core/shared/collection.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { Item } from '../../core/shared/item.model';
-import { getAllSucceededRemoteData } from '../../core/shared/operators';
-import { ItemDataService } from '../../core/data/item-data.service';
-import { SubmissionJsonPatchOperationsService } from '../../core/submission/submission-json-patch-operations.service';
 import parseSectionErrors from '../utils/parseSectionErrors';
-import { SubmissionError } from '../objects/submission-error.model';
 
 /**
  * This component allows to edit an existing workspaceitem/workflowitem.
  */
 @Component({
-  selector: 'ds-submission-edit',
+  selector: 'ds-base-submission-edit',
   styleUrls: ['./submission-edit.component.scss'],
-  templateUrl: './submission-edit.component.html'
+  templateUrl: './submission-edit.component.html',
+  imports: [
+    ThemedSubmissionFormComponent,
+  ],
 })
 export class SubmissionEditComponent implements OnDestroy, OnInit {
 
@@ -123,7 +147,7 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
       this.route.paramMap.pipe(
         switchMap((params: ParamMap) => this.submissionService.retrieveSubmission(params.get('id'))),
         // NOTE new submission is retrieved on the browser side only, so get null on server side rendering
-        filter((submissionObjectRD: RemoteData<SubmissionObject>) => isNotNull(submissionObjectRD))
+        filter((submissionObjectRD: RemoteData<SubmissionObject>) => isNotNull(submissionObjectRD)),
       ).subscribe((submissionObjectRD: RemoteData<SubmissionObject>) => {
         if (submissionObjectRD.hasSucceeded) {
           if (isEmpty(submissionObjectRD.payload)) {
@@ -151,7 +175,7 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
       this.itemLink$.pipe(
         isNotEmptyOperator(),
         switchMap((itemLink: string) =>
-          this.itemDataService.findByHref(itemLink)
+          this.itemDataService.findByHref(itemLink),
         ),
         getAllSucceededRemoteData(),
         // Multiple sources can update the item in quick succession.

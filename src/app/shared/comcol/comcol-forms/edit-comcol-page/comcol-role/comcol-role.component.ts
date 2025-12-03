@@ -1,20 +1,51 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Group } from '../../../../../core/eperson/models/group.model';
-import { Community } from '../../../../../core/shared/community.model';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { GroupDataService } from '../../../../../core/eperson/group-data.service';
-import { Collection } from '../../../../../core/shared/collection.model';
-import { filter, map, switchMap } from 'rxjs/operators';
-import { getAllCompletedRemoteData, getFirstCompletedRemoteData } from '../../../../../core/shared/operators';
-import { RequestService } from '../../../../../core/data/request.service';
-import { RemoteData } from '../../../../../core/data/remote-data';
-import { HALLink } from '../../../../../core/shared/hal-link.model';
+import { AsyncPipe } from '@angular/common';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { RequestService } from '@dspace/core/data/request.service';
+import { GroupDataService } from '@dspace/core/eperson/group-data.service';
+import { Group } from '@dspace/core/eperson/models/group.model';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { Community } from '@dspace/core/shared/community.model';
+import { HALLink } from '@dspace/core/shared/hal-link.model';
+import { NoContent } from '@dspace/core/shared/NoContent.model';
+import {
+  getAllCompletedRemoteData,
+  getFirstCompletedRemoteData,
+} from '@dspace/core/shared/operators';
+import {
+  hasNoValue,
+  hasValue,
+} from '@dspace/shared/utils/empty.util';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  filter,
+  map,
+  switchMap,
+  takeUntil,
+} from 'rxjs/operators';
+
 import { getGroupEditRoute } from '../../../../../access-control/access-control-routing-paths';
-import { hasNoValue, hasValue } from '../../../../empty.util';
-import { NoContent } from '../../../../../core/shared/NoContent.model';
-import { NotificationsService } from '../../../../notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
-import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
+import { AlertComponent } from '../../../../alert/alert.component';
+import { ConfirmationModalComponent } from '../../../../confirmation-modal/confirmation-modal.component';
+import { ThemedLoadingComponent } from '../../../../loading/themed-loading.component';
+import { HasNoValuePipe } from '../../../../utils/has-no-value.pipe';
+import { VarDirective } from '../../../../utils/var.directive';
 
 /**
  * Component for managing a community or collection role.
@@ -22,7 +53,16 @@ import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service
 @Component({
   selector: 'ds-comcol-role',
   styleUrls: ['./comcol-role.component.scss'],
-  templateUrl: './comcol-role.component.html'
+  templateUrl: './comcol-role.component.html',
+  imports: [
+    AlertComponent,
+    AsyncPipe,
+    HasNoValuePipe,
+    RouterLink,
+    ThemedLoadingComponent,
+    TranslateModule,
+    VarDirective,
+  ],
 })
 export class ComcolRoleComponent implements OnInit {
 
@@ -78,6 +118,7 @@ export class ComcolRoleComponent implements OnInit {
     protected notificationsService: NotificationsService,
     protected translateService: TranslateService,
     public dsoNameService: DSONameService,
+    private modalService: NgbModal,
   ) {
   }
 
@@ -105,7 +146,7 @@ export class ComcolRoleComponent implements OnInit {
    */
   create() {
     this.groupService.createComcolGroup(this.dso, this.comcolRole.name, this.groupLink).pipe(
-      getFirstCompletedRemoteData()
+      getFirstCompletedRemoteData(),
     ).subscribe((rd: RemoteData<Group>) => {
 
       if (rd.hasSucceeded) {
@@ -114,9 +155,9 @@ export class ComcolRoleComponent implements OnInit {
       } else {
         this.notificationsService.error(
           this.roleName$.pipe(
-            switchMap(role => this.translateService.get('comcol-role.edit.create.error.title', { role }))
+            switchMap(role => this.translateService.get('comcol-role.edit.create.error.title', { role })),
           ),
-          `${rd.statusCode} ${rd.errorMessage}`
+          `${rd.statusCode} ${rd.errorMessage}`,
         );
       }
     });
@@ -127,7 +168,7 @@ export class ComcolRoleComponent implements OnInit {
    */
   delete() {
     this.groupService.deleteComcolGroup(this.groupLink).pipe(
-      getFirstCompletedRemoteData()
+      getFirstCompletedRemoteData(),
     ).subscribe((rd: RemoteData<NoContent>) => {
       if (rd.hasSucceeded) {
         this.groupService.clearGroupsRequests();
@@ -135,9 +176,9 @@ export class ComcolRoleComponent implements OnInit {
       } else {
         this.notificationsService.error(
           this.roleName$.pipe(
-            switchMap(role => this.translateService.get('comcol-role.edit.delete.error.title', { role }))
+            switchMap(role => this.translateService.get('comcol-role.edit.delete.error.title', { role })),
           ),
-          rd.errorMessage
+          rd.errorMessage,
         );
       }
     });
@@ -157,7 +198,7 @@ export class ComcolRoleComponent implements OnInit {
         } else {
           return undefined;
         }
-      })
+      }),
     );
 
     this.editGroupLink$ = this.group$.pipe(
@@ -177,5 +218,32 @@ export class ComcolRoleComponent implements OnInit {
     );
 
     this.roleName$ = this.translateService.get(`comcol-role.edit.${this.comcolRole.name}.name`);
+  }
+
+  confirmDelete(groupName: string): void {
+    const modalRef = this.modalService.open(ConfirmationModalComponent);
+
+    modalRef.componentInstance.name = groupName;
+    modalRef.componentInstance.headerLabel = 'comcol-role.edit.delete.modal.header';
+    modalRef.componentInstance.infoLabel = 'comcol-role.edit.delete.modal.info';
+    modalRef.componentInstance.cancelLabel = 'comcol-role.edit.delete.modal.cancel';
+    modalRef.componentInstance.confirmLabel = 'comcol-role.edit.delete.modal.confirm';
+    modalRef.componentInstance.brandColor = 'danger';
+    modalRef.componentInstance.confirmIcon = 'fas fa-trash';
+
+    const modalSub: Subscription = modalRef.componentInstance.response.pipe(
+      takeUntil(modalRef.closed),
+    ).subscribe((result: boolean) => {
+      if (result === true) {
+        this.delete();
+      }
+    });
+
+    void modalRef.result.then().finally(() => {
+      modalRef.close();
+      if (modalSub && !modalSub.closed) {
+        modalSub.unsubscribe();
+      }
+    });
   }
 }

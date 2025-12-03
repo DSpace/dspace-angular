@@ -1,5 +1,9 @@
-import { ChipsItem, ChipsItemIcon } from './chips-item.model';
-import { FormFieldMetadataValueObject } from '../../builder/models/form-field-metadata-value.model';
+import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
+
+import {
+  ChipsItem,
+  ChipsItemIcon,
+} from './chips-item.model';
 
 describe('ChipsItem model test suite', () => {
   let item: ChipsItem;
@@ -58,7 +62,7 @@ describe('ChipsItem model test suite', () => {
     item = new ChipsItem(
       {
         label: 'A',
-        value: 'a'
+        value: 'a',
       },
       'label');
 
@@ -69,7 +73,7 @@ describe('ChipsItem model test suite', () => {
     item = new ChipsItem(
       {
         toDisplay: new FormFieldMetadataValueObject('a', null, 'a'),
-        otherProperty: 'other'
+        otherProperty: 'other',
       },
       'value', 'toDisplay');
 

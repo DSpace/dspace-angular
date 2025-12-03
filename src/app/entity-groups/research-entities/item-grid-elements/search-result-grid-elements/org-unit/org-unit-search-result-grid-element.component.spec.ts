@@ -1,10 +1,11 @@
-import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
-import { Item } from '../../../../../core/shared/item.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/remote-data.utils';
-import { buildPaginatedList } from '../../../../../core/data/paginated-list.model';
-import { PageInfo } from '../../../../../core/shared/page-info.model';
-import { OrgUnitSearchResultGridElementComponent } from './org-unit-search-result-grid-element.component';
+import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+
 import { getEntityGridElementTestComponent } from '../../../../../shared/object-grid/search-result-grid-element/item-search-result/item/item-search-result-grid-element.component.spec';
+import { OrgUnitSearchResultGridElementComponent } from './org-unit-search-result-grid-element.component';
 
 const mockItemWithMetadata: ItemSearchResult = new ItemSearchResult();
 mockItemWithMetadata.hitHighlights = {};
@@ -14,28 +15,28 @@ mockItemWithMetadata.indexableObject = Object.assign(new Item(), {
     'dc.title': [
       {
         language: 'en_US',
-        value: 'This is just another title'
-      }
+        value: 'This is just another title',
+      },
     ],
     'organization.foundingDate': [
       {
         language: null,
-        value: '2015-06-26'
-      }
+        value: '2015-06-26',
+      },
     ],
     'organization.address.addressCountry': [
       {
         language: 'en_US',
-        value: 'Belgium'
-      }
+        value: 'Belgium',
+      },
     ],
     'organization.address.addressLocality': [
       {
         language: 'en_US',
-        value: 'Brussels'
-      }
-    ]
-  }
+        value: 'Brussels',
+      },
+    ],
+  },
 });
 
 const mockItemWithoutMetadata: ItemSearchResult = new ItemSearchResult();
@@ -46,10 +47,10 @@ mockItemWithoutMetadata.indexableObject = Object.assign(new Item(), {
     'dc.title': [
       {
         language: 'en_US',
-        value: 'This is just another title'
-      }
-    ]
-  }
+        value: 'This is just another title',
+      },
+    ],
+  },
 });
 
 describe('OrgUnitSearchResultGridElementComponent', getEntityGridElementTestComponent(OrgUnitSearchResultGridElementComponent, mockItemWithMetadata, mockItemWithoutMetadata, ['date', 'country', 'city']));

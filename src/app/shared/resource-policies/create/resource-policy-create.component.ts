@@ -1,23 +1,44 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { ResourcePolicy } from '@dspace/core/resource-policy/models/resource-policy.model';
+import { ResourcePolicyDataService } from '@dspace/core/resource-policy/resource-policy-data.service';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  Observable,
+} from 'rxjs';
+import {
+  map,
+  take,
+} from 'rxjs/operators';
 
-import { BehaviorSubject, Observable } from 'rxjs';
-import { map, take } from 'rxjs/operators';
-import { TranslateService } from '@ngx-translate/core';
-
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { ResourcePolicyDataService } from '../../../core/resource-policy/resource-policy-data.service';
-import { NotificationsService } from '../../notifications/notifications.service';
-import { RemoteData } from '../../../core/data/remote-data';
-import { ResourcePolicy } from '../../../core/resource-policy/models/resource-policy.model';
-import { ResourcePolicyEvent } from '../form/resource-policy-form.component';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { ITEM_EDIT_AUTHORIZATIONS_PATH } from '../../../item-page/edit-item-page/edit-item-page.routing-paths';
-import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import {
+  ResourcePolicyEvent,
+  ResourcePolicyFormComponent,
+} from '../form/resource-policy-form.component';
 
 @Component({
   selector: 'ds-resource-policy-create',
-  templateUrl: './resource-policy-create.component.html'
+  templateUrl: './resource-policy-create.component.html',
+  imports: [
+    ResourcePolicyFormComponent,
+    TranslateModule,
+  ],
 })
 export class ResourcePolicyCreateComponent implements OnInit {
 
@@ -62,7 +83,7 @@ export class ResourcePolicyCreateComponent implements OnInit {
   ngOnInit(): void {
     this.route.data.pipe(
       map((data) => data),
-      take(1)
+      take(1),
     ).subscribe((data: any) => {
       this.targetResourceUUID = (data.resourcePolicyTarget as RemoteData<DSpaceObject>).payload.id;
       this.targetResourceName = this.dsoNameService.getName((data.resourcePolicyTarget as RemoteData<DSpaceObject>).payload);
@@ -99,7 +120,7 @@ export class ResourcePolicyCreateComponent implements OnInit {
       response$ = this.resourcePolicyService.create(event.object, this.targetResourceUUID, null, event.target.uuid);
     }
     response$.pipe(
-      getFirstCompletedRemoteData()
+      getFirstCompletedRemoteData(),
     ).subscribe((responseRD: RemoteData<ResourcePolicy>) => {
       this.processing$.next(false);
       if (responseRD.hasSucceeded) {

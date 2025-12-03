@@ -1,19 +1,35 @@
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
+import { CollectionDataService } from '@dspace/core/data/collection-data.service';
+import { FindListOptions } from '@dspace/core/data/find-list-options.model';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '@dspace/core/data/paginated-list.model';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
+import { getMockRemoteDataBuildService } from '@dspace/core/testing/remote-data-build.service.mock';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
-import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
-import { CollectionDataService } from '../../../core/data/collection-data.service';
-import { Collection } from '../../../core/shared/collection.model';
-import { Item } from '../../../core/shared/item.model';
-import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data-build.service.mock';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+
 import { CollectionsComponent } from './collections.component';
-import { buildPaginatedList, PaginatedList } from '../../../core/data/paginated-list.model';
-import { PageInfo } from '../../../core/shared/page-info.model';
-import { FindListOptions } from '../../../core/data/find-list-options.model';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
 
 const createMockCollection = (id: string) => Object.assign(new Collection(), {
   id: id,
@@ -45,17 +61,16 @@ describe('CollectionsComponent', () => {
     mockCollection4 = createMockCollection('c4');
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [ CollectionsComponent ],
+      imports: [TranslateModule.forRoot(), CollectionsComponent],
       providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
-        { provide: RemoteDataBuildService, useValue: getMockRemoteDataBuildService()},
+        { provide: RemoteDataBuildService, useValue: getMockRemoteDataBuildService() },
         { provide: CollectionDataService, useValue: collectionDataService },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],
-
-      schemas: [ NO_ERRORS_SCHEMA ]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(CollectionsComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

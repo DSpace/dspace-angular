@@ -1,31 +1,46 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BrowserModule, By } from '@angular/platform-browser';
+import {
+  DebugElement,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  BrowserModule,
+  By,
+} from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-
-import { of as observableOf } from 'rxjs';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-
-import { SubscriptionsPageComponent } from './subscriptions-page.component';
-import { PaginationService } from '../core/pagination/pagination.service';
-import { SubscriptionsDataService } from '../shared/subscriptions/subscriptions-data.service';
-import { PaginationServiceStub } from '../shared/testing/pagination-service.stub';
-import { AuthService } from '../core/auth/auth.service';
-import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
+import { SubscriptionsDataService } from '@dspace/core/data/subscriptions-data.service';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { MockActivatedRoute } from '@dspace/core/testing/active-router.mock';
+import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
 import {
   mockSubscriptionEperson,
   subscriptionMock,
-  subscriptionMock2
-} from '../shared/testing/subscriptions-data.mock';
-import { MockActivatedRoute } from '../shared/mocks/active-router.mock';
-import { VarDirective } from '../shared/utils/var.directive';
+  subscriptionMock2,
+} from '@dspace/core/testing/subscriptions-data.mock';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import { of } from 'rxjs';
+
+import { AlertComponent } from '../shared/alert/alert.component';
+import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
+import { PaginationComponent } from '../shared/pagination/pagination.component';
 import { SubscriptionViewComponent } from '../shared/subscriptions/subscription-view/subscription-view.component';
-import { PageInfo } from '../core/shared/page-info.model';
-import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
-import { buildPaginatedList } from '../core/data/paginated-list.model';
+import { VarDirective } from '../shared/utils/var.directive';
+import { SubscriptionsPageComponent } from './subscriptions-page.component';
 
 describe('SubscriptionsPageComponent', () => {
   let component: SubscriptionsPageComponent;
@@ -33,11 +48,11 @@ describe('SubscriptionsPageComponent', () => {
   let de: DebugElement;
 
   const authServiceStub = jasmine.createSpyObj('authorizationService', {
-    getAuthenticatedUserFromStore: observableOf(mockSubscriptionEperson)
+    getAuthenticatedUserFromStore: of(mockSubscriptionEperson),
   });
 
   const subscriptionServiceStub = jasmine.createSpyObj('SubscriptionsDataService', {
-    findByEPerson: jasmine.createSpy('findByEPerson')
+    findByEPerson: jasmine.createSpy('findByEPerson'),
   });
 
   const paginationService = new PaginationServiceStub();
@@ -45,11 +60,11 @@ describe('SubscriptionsPageComponent', () => {
   const mockSubscriptionList = [subscriptionMock, subscriptionMock2];
 
   const emptyPageInfo = Object.assign(new PageInfo(), {
-    totalElements: 0
+    totalElements: 0,
   });
 
   const pageInfo = Object.assign(new PageInfo(), {
-    totalElements: 2
+    totalElements: 2,
   });
 
   beforeEach(waitForAsync(() => {
@@ -61,20 +76,25 @@ describe('SubscriptionsPageComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
-        NoopAnimationsModule
+        NoopAnimationsModule,
+        SubscriptionsPageComponent, SubscriptionViewComponent, VarDirective,
       ],
-      declarations: [SubscriptionsPageComponent, SubscriptionViewComponent, VarDirective],
       providers: [
         { provide: SubscriptionsDataService, useValue: subscriptionServiceStub },
         { provide: ActivatedRoute, useValue: new MockActivatedRoute() },
         { provide: AuthService, useValue: authServiceStub },
-        { provide: PaginationService, useValue: paginationService }
+        { provide: PaginationService, useValue: paginationService },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
+      .overrideComponent(SubscriptionsPageComponent, {
+        remove: {
+          imports: [ThemedLoadingComponent, PaginationComponent, AlertComponent],
+        },
+      })
       .compileComponents();
   }));
 

@@ -1,10 +1,10 @@
-import { ThemedComponent } from '../shared/theme-support/themed.component';
-import { HomePageComponent } from './home-page.component';
 import { Component } from '@angular/core';
 
+import { ThemedComponent } from '../shared/theme-support/themed.component';
+import { HomePageComponent } from './home-page.component';
+
 @Component({
-  selector: 'ds-themed-home-page',
-  styleUrls: [],
+  selector: 'ds-home-page',
   templateUrl: '../shared/theme-support/themed.component.html',
 })
 export class ThemedHomePageComponent extends ThemedComponent<HomePageComponent> {

@@ -1,8 +1,9 @@
-import { EPerson } from '../../core/eperson/models/eperson.model';
+import { EPerson } from '@dspace/core/eperson/models/eperson.model';
+
 import {
   EPeopleRegistryAction,
   EPeopleRegistryActionTypes,
-  EPeopleRegistryEditEPersonAction
+  EPeopleRegistryEditEPersonAction,
 } from './epeople-registry.actions';
 
 /**
@@ -30,13 +31,13 @@ export function ePeopleRegistryReducer(state = initialState, action: EPeopleRegi
 
     case EPeopleRegistryActionTypes.EDIT_EPERSON: {
       return Object.assign({}, state, {
-        editEPerson: (action as EPeopleRegistryEditEPersonAction).eperson
+        editEPerson: (action as EPeopleRegistryEditEPersonAction).eperson,
       });
     }
 
     case EPeopleRegistryActionTypes.CANCEL_EDIT_EPERSON: {
       return Object.assign({}, state, {
-        editEPerson: null
+        editEPerson: null,
       });
     }
 

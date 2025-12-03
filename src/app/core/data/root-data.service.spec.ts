@@ -1,16 +1,19 @@
-import { RootDataService } from './root-data.service';
+import { cold } from 'jasmine-marbles';
+import { Observable } from 'rxjs';
+
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { Observable, of } from 'rxjs';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../utilities/remote-data.utils';
 import { RemoteData } from './remote-data';
 import { Root } from './root.model';
-import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
-import { cold } from 'jasmine-marbles';
+import { RootDataService } from './root-data.service';
 
 describe('RootDataService', () => {
   let service: RootDataService;
   let halService: HALEndpointService;
-  let restService;
+  let requestService;
   let rootEndpoint;
   let findByHrefSpy;
 
@@ -19,10 +22,10 @@ describe('RootDataService', () => {
     halService = jasmine.createSpyObj('halService', {
       getRootHref: rootEndpoint,
     });
-    restService = jasmine.createSpyObj('halService', {
-      get: jasmine.createSpy('get'),
-    });
-    service = new RootDataService(null, null, null, halService, restService);
+    requestService = jasmine.createSpyObj('requestService', [
+      'setStaleByHref',
+    ]);
+    service = new RootDataService(requestService, null, null, halService);
 
     findByHrefSpy = spyOn(service as any, 'findByHref');
     findByHrefSpy.and.returnValue(createSuccessfulRemoteDataObject$({}));
@@ -47,32 +50,32 @@ describe('RootDataService', () => {
     let result$: Observable<boolean>;
 
     it('should return observable of true when root endpoint is available', () => {
-      const mockResponse = {
-        statusCode: 200,
-        statusText: 'OK'
-      } as RawRestResponse;
+      spyOn(service, 'findRoot').and.returnValue(createSuccessfulRemoteDataObject$<Root>({} as any));
 
-      restService.get.and.returnValue(of(mockResponse));
       result$ = service.checkServerAvailability();
 
       expect(result$).toBeObservable(cold('(a|)', {
-        a: true
+        a: true,
       }));
     });
 
     it('should return observable of false when root endpoint is not available', () => {
-      const mockResponse = {
-        statusCode: 500,
-        statusText: 'Internal Server Error'
-      } as RawRestResponse;
+      spyOn(service, 'findRoot').and.returnValue(createFailedRemoteDataObject$<Root>('500'));
 
-      restService.get.and.returnValue(of(mockResponse));
       result$ = service.checkServerAvailability();
 
       expect(result$).toBeObservable(cold('(a|)', {
-        a: false
+        a: false,
       }));
     });
 
+  });
+
+  describe(`invalidateRootCache`, () => {
+    it(`should set the cached root request to stale`, () => {
+      service.invalidateRootCache();
+      expect(halService.getRootHref).toHaveBeenCalled();
+      expect(requestService.setStaleByHref).toHaveBeenCalledWith(rootEndpoint);
+    });
   });
 });

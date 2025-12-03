@@ -1,13 +1,25 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  DebugElement,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { Community } from '@dspace/core/shared/community.model';
+import { MetadataValue } from '@dspace/core/shared/metadata.models';
+import { RouterStub } from '@dspace/core/testing/router.stub';
+import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { ActivatedRoute, Router } from '@angular/router';
-import { RouterStub } from '../../../testing/router.stub';
+import { TranslateModule } from '@ngx-translate/core';
+
+import { AuthorizedCommunitySelectorComponent } from '../../dso-selector/authorized-community-selector/authorized-community-selector.component';
 import { EditCommunitySelectorComponent } from './edit-community-selector.component';
-import { Community } from '../../../../core/shared/community.model';
-import { MetadataValue } from '../../../../core/shared/metadata.models';
-import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 
 describe('EditCommunitySelectorComponent', () => {
   let component: EditCommunitySelectorComponent;
@@ -19,8 +31,8 @@ describe('EditCommunitySelectorComponent', () => {
   community.metadata = {
     'dc.title': [Object.assign(new MetadataValue(), {
       value: 'Community title',
-      language: undefined
-    })]
+      language: undefined,
+    })],
   };
   const router = new RouterStub();
   const communityRD = createSuccessfulRemoteDataObject(community);
@@ -29,8 +41,7 @@ describe('EditCommunitySelectorComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [EditCommunitySelectorComponent],
+      imports: [TranslateModule.forRoot(), EditCommunitySelectorComponent],
       providers: [
         { provide: NgbActiveModal, useValue: modalStub },
         {
@@ -42,15 +53,21 @@ describe('EditCommunitySelectorComponent', () => {
                   dso: communityRD,
                 },
               },
-            }
+            },
           },
         },
         {
-          provide: Router, useValue: router
-        }
+          provide: Router, useValue: router,
+        },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+      schemas: [NO_ERRORS_SCHEMA],
+    })
+      .overrideComponent(EditCommunitySelectorComponent, {
+        remove: {
+          imports: [AuthorizedCommunitySelectorComponent],
+        },
+      })
+      .compileComponents();
 
   }));
 

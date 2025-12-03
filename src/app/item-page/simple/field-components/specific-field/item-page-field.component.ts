@@ -1,10 +1,27 @@
-import { Component, Input } from '@angular/core';
-import { Item } from '../../../../core/shared/item.model';
-import { map } from 'rxjs/operators';
+import { AsyncPipe } from '@angular/common';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+import { BrowseService } from '@dspace/core/browse/browse.service';
+import { BrowseDefinitionDataService } from '@dspace/core/browse/browse-definition-data.service';
+import { BrowseDefinition } from '@dspace/core/shared/browse-definition.model';
+import { Item } from '@dspace/core/shared/item.model';
+import {
+  getFirstCompletedRemoteData,
+  getPaginatedListPayload,
+  getRemoteDataPayload,
+} from '@dspace/core/shared/operators';
+import intersectionWith from 'lodash/intersectionWith';
 import { Observable } from 'rxjs';
-import { BrowseDefinition } from '../../../../core/shared/browse-definition.model';
-import { BrowseDefinitionDataService } from '../../../../core/browse/browse-definition-data.service';
-import { getRemoteDataPayload } from '../../../../core/shared/operators';
+import {
+  filter,
+  mergeAll,
+  take,
+} from 'rxjs/operators';
+
+import { MetadataValuesComponent } from '../../../field-components/metadata-values/metadata-values.component';
+import { ImageField } from './image-field';
 
 /**
  * This component can be used to represent metadata on a simple item page.
@@ -13,12 +30,17 @@ import { getRemoteDataPayload } from '../../../../core/shared/operators';
  */
 
 @Component({
-    templateUrl: './item-page-field.component.html'
+  templateUrl: './item-page-field.component.html',
+  imports: [
+    AsyncPipe,
+    MetadataValuesComponent,
+  ],
 })
 export class ItemPageFieldComponent {
 
-    constructor(protected browseDefinitionDataService: BrowseDefinitionDataService) {
-    }
+  constructor(protected browseDefinitionDataService: BrowseDefinitionDataService,
+              protected browseService: BrowseService) {
+  }
 
     /**
      * The item to display metadata for
@@ -26,7 +48,7 @@ export class ItemPageFieldComponent {
     @Input() item: Item;
 
     /**
-     * Whether the {@link MarkdownPipe} should be used to render this metadata.
+     * Whether the {@link MarkdownDirective} should be used to render this metadata.
      */
     enableMarkdown = false;
 
@@ -52,13 +74,35 @@ export class ItemPageFieldComponent {
     urlRegex?: string;
 
     /**
+     * Image Configuration
+     */
+    img: ImageField;
+
+    /**
      * Return browse definition that matches any field used in this component if it is configured as a browse
      * link in dspace.cfg (webui.browse.link.<n>)
      */
     get browseDefinition(): Observable<BrowseDefinition> {
-      return this.browseDefinitionDataService.findByFields(this.fields).pipe(
+      return this.browseService.getBrowseDefinitions().pipe(
+        getFirstCompletedRemoteData(),
         getRemoteDataPayload(),
-        map((def) => def)
+        getPaginatedListPayload(),
+        mergeAll(),
+        filter((def: BrowseDefinition) =>
+          intersectionWith(def.metadataKeys, this.fields, ItemPageFieldComponent.fieldMatch).length > 0,
+        ),
+        take(1),
       );
+    }
+
+    /**
+     * Returns true iff the spec and field match.
+     * @param spec  Specification of a metadata field name: either a metadata field, or a prefix ending in ".*".
+     * @param field A metadata field name.
+     * @private
+     */
+    private static fieldMatch(spec: string, field: string): boolean {
+      return field === spec
+        || (spec.endsWith('.*') && field.substring(0, spec.length - 1) === spec.substring(0, spec.length - 1));
     }
 }

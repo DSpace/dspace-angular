@@ -1,23 +1,39 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { LinkService } from '@dspace/core/cache/builders/link.service';
+import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { Context } from '@dspace/core/shared/context.model';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { ClaimedTaskSearchResult } from '@dspace/core/shared/object-collection/claimed-task-search-result.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
+import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
+import { ClaimedTask } from '@dspace/core/tasks/models/claimed-task-object.model';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
+import {
+  BehaviorSubject,
+  EMPTY,
+  Observable,
+} from 'rxjs';
+import {
+  mergeMap,
+  tap,
+} from 'rxjs/operators';
 
-import { BehaviorSubject, EMPTY, Observable } from 'rxjs';
-import { mergeMap, tap } from 'rxjs/operators';
-
-import { RemoteData } from '../../../../core/data/remote-data';
-import { ViewMode } from '../../../../core/shared/view-mode.model';
-import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
-import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
-import { SearchResultDetailElementComponent } from '../search-result-detail-element.component';
+import { ClaimedTaskActionsComponent } from '../../../mydspace-actions/claimed-task/claimed-task-actions.component';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
-import { ClaimedTaskSearchResult } from '../../../object-collection/shared/claimed-task-search-result.model';
-import { followLink } from '../../../utils/follow-link-config.model';
-import { LinkService } from '../../../../core/cache/builders/link.service';
-import { Item } from '../../../../core/shared/item.model';
-import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
-import { isNotEmpty, hasValue } from '../../../empty.util';
-import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
-import { Context } from 'src/app/core/shared/context.model';
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { ItemDetailPreviewComponent } from '../item-detail-preview/item-detail-preview.component';
+import { SearchResultDetailElementComponent } from '../search-result-detail-element.component';
 
 /**
  * This component renders claimed task object for the search result in the detail view.
@@ -25,7 +41,12 @@ import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 @Component({
   selector: 'ds-claimed-task-search-result-detail-element',
   styleUrls: ['../search-result-detail-element.component.scss'],
-  templateUrl: './claimed-task-search-result-detail-element.component.html'
+  templateUrl: './claimed-task-search-result-detail-element.component.html',
+  imports: [
+    AsyncPipe,
+    ClaimedTaskActionsComponent,
+    ItemDetailPreviewComponent,
+  ],
 })
 
 @listableObjectComponent(ClaimedTaskSearchResult, ViewMode.DetailedListElement)
@@ -66,7 +87,7 @@ export class ClaimedTaskSearchResultDetailElementComponent extends SearchResultD
     super.ngOnInit();
     this.linkService.resolveLinks(this.dso, followLink('workflowitem', {},
       followLink('item', {}, followLink('bundles')),
-      followLink('submitter')
+      followLink('submitter'),
     ), followLink('action'));
 
     (this.dso.workflowitem as Observable<RemoteData<WorkflowItem>>).pipe(
@@ -75,7 +96,7 @@ export class ClaimedTaskSearchResultDetailElementComponent extends SearchResultD
         if (wfiRD.hasSucceeded) {
           this.workflowitem$.next(wfiRD.payload);
           return (wfiRD.payload.item as Observable<RemoteData<Item>>).pipe(
-            getFirstCompletedRemoteData()
+            getFirstCompletedRemoteData(),
           );
         } else {
           return EMPTY;
@@ -85,7 +106,7 @@ export class ClaimedTaskSearchResultDetailElementComponent extends SearchResultD
         if (isNotEmpty(itemRD) && itemRD.hasSucceeded) {
           this.item$.next(itemRD.payload);
         }
-      })
+      }),
     ).subscribe();
   }
 

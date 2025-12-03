@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { ThemedComponent } from '../shared/theme-support/themed.component';
 import { MyDSpacePageComponent } from './my-dspace-page.component';
 
@@ -6,9 +7,8 @@ import { MyDSpacePageComponent } from './my-dspace-page.component';
  * Themed wrapper for MyDSpacePageComponent
  */
 @Component({
-  selector: 'ds-themed-my-dspace-page',
-  styleUrls: [],
-  templateUrl: './../shared/theme-support/themed.component.html'
+  selector: 'ds-my-dspace-page',
+  templateUrl: './../shared/theme-support/themed.component.html',
 })
 export class ThemedMyDSpacePageComponent extends ThemedComponent<MyDSpacePageComponent> {
 

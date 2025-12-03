@@ -1,7 +1,6 @@
 /* eslint-disable max-classes-per-file */
+import { type } from '@dspace/core/ngrx/type';
 import { Action } from '@ngrx/store';
-
-import { type } from '../ngrx/type';
 
 /**
  * For each action type in an action group, make a simple
@@ -14,7 +13,7 @@ import { type } from '../ngrx/type';
 export const SidebarActionTypes = {
   COLLAPSE: type('dspace/sidebar/COLLAPSE'),
   EXPAND: type('dspace/sidebar/EXPAND'),
-  TOGGLE: type('dspace/sidebar/TOGGLE')
+  TOGGLE: type('dspace/sidebar/TOGGLE'),
 };
 
 /**

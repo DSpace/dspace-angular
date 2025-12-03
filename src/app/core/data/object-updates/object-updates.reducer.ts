@@ -1,4 +1,16 @@
 import {
+  hasNoValue,
+  hasValue,
+} from '@dspace/shared/utils/empty.util';
+
+import { GenericConstructor } from '../../shared/generic-constructor';
+import { Item } from '../../shared/item.model';
+import { Relationship } from '../../shared/item-relationships/relationship.model';
+import { RelationshipType } from '../../shared/item-relationships/relationship-type.model';
+import { FieldChangeType } from './field-change-type.model';
+import { FieldUpdates } from './field-updates.model';
+import { Identifiable } from './identifiable.model';
+import {
   AddFieldUpdateAction,
   DiscardObjectUpdatesAction,
   InitializeFieldsAction,
@@ -11,15 +23,7 @@ import {
   SetEditableFieldUpdateAction,
   SetValidFieldUpdateAction,
 } from './object-updates.actions';
-import { hasNoValue, hasValue } from '../../../shared/empty.util';
-import { Relationship } from '../../shared/item-relationships/relationship.model';
 import { PatchOperationService } from './patch-operation-service/patch-operation.service';
-import { Item } from '../../shared/item.model';
-import { RelationshipType } from '../../shared/item-relationships/relationship-type.model';
-import { GenericConstructor } from '../../shared/generic-constructor';
-import { Identifiable } from './identifiable.model';
-import { FieldUpdates } from './field-updates.model';
-import { FieldChangeType } from './field-change-type.model';
 
 /**
  * Path where discarded objects are saved
@@ -58,6 +62,8 @@ export interface VirtualMetadataSource {
 
 export interface RelationshipIdentifiable extends Identifiable {
   nameVariant?: string;
+  originalItem: Item;
+  originalIsLeft: boolean
   relatedItem: Item;
   relationship: Relationship;
   type: RelationshipType;
@@ -77,7 +83,7 @@ export interface DeleteRelationship extends RelationshipIdentifiable {
  */
 export interface ObjectUpdatesEntry {
   fieldStates: FieldStates;
-  fieldUpdates: FieldUpdates;
+  fieldUpdates?: FieldUpdates;
   virtualMetadataSources: VirtualMetadataSources;
   lastModified: Date;
   patchOperationService?: GenericConstructor<PatchOperationService>;
@@ -164,7 +170,7 @@ function initializeFieldsUpdate(state: any, action: InitializeFieldsAction) {
     { fieldUpdates: {} },
     { virtualMetadataSources: {} },
     { lastModified: lastModifiedServer },
-    { patchOperationService }
+    { patchOperationService },
   );
   return Object.assign({}, state, { [url]: newPageState });
 }
@@ -178,7 +184,7 @@ function addFieldUpdate(state: any, action: AddFieldUpdateAction) {
   const url: string = action.payload.url;
   const field: Identifiable = action.payload.field;
   const changeType: FieldChangeType = action.payload.changeType;
-  const pageState: ObjectUpdatesEntry = state[url] || {fieldUpdates: {}};
+  const pageState: ObjectUpdatesEntry = state[url] || { fieldUpdates: {} };
 
   let states = pageState.fieldStates;
   if (changeType === FieldChangeType.ADD) {
@@ -231,7 +237,7 @@ function selectVirtualMetadata(state: any, action: SelectVirtualMetadataAction) 
   const newPageState = Object.assign(
     {},
     pageState,
-    {virtualMetadataSources: virtualMetadataSources},
+    { virtualMetadataSources: virtualMetadataSources },
   );
 
   return Object.assign(
@@ -239,7 +245,7 @@ function selectVirtualMetadata(state: any, action: SelectVirtualMetadataAction) 
     state,
     {
       [url]: newPageState,
-    }
+    },
   );
 }
 
@@ -279,7 +285,7 @@ function discardObjectUpdatesFor(url: string, state: any) {
 
   const discardedPageState = Object.assign({}, pageState, {
     fieldUpdates: {},
-    fieldStates: newFieldStates
+    fieldStates: newFieldStates,
   });
   return Object.assign({}, state, { [url]: discardedPageState }, { [url + OBJECT_UPDATES_TRASH_PATH]: pageState });
 }
@@ -357,7 +363,7 @@ function removeFieldUpdate(state: any, action: RemoveFieldUpdateAction) {
     }
     newPageState = Object.assign({}, state[url], {
       fieldUpdates: newUpdates,
-      fieldStates: newFieldStates
+      fieldStates: newFieldStates,
     });
   }
   return Object.assign({}, state, { [url]: newPageState });

@@ -1,23 +1,37 @@
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Location } from '@angular/common';
-import { WorkflowItemDeleteComponent } from './workflow-item-delete.component';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { RouteService } from '../../core/services/route.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { WorkflowItemDataService } from '../../core/submission/workflowitem-data.service';
-import { WorkflowItem } from '../../core/submission/models/workflowitem.model';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { RequestService } from '@dspace/core/data/request.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { RouteService } from '@dspace/core/services/route.service';
+import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
+import { WorkflowItemDataService } from '@dspace/core/submission/workflowitem-data.service';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { LocationStub } from '@dspace/core/testing/location.stub';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { getMockRequestService } from '@dspace/core/testing/request.service.mock';
+import { RouterStub } from '@dspace/core/testing/router.stub';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core/utilities/remote-data.utils';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import { of } from 'rxjs';
+
 import { VarDirective } from '../../shared/utils/var.directive';
-import { of as observableOf } from 'rxjs';
-import { RequestService } from '../../core/data/request.service';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
-import { RouterStub } from '../../shared/testing/router.stub';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { getMockRequestService } from '../../shared/mocks/request.service.mock';
-import { LocationStub } from '../../shared/testing/location.stub';
+import { WorkflowItemDeleteComponent } from './workflow-item-delete.component';
 
 describe('WorkflowItemDeleteComponent', () => {
   let component: WorkflowItemDeleteComponent;
@@ -29,7 +43,7 @@ describe('WorkflowItemDeleteComponent', () => {
 
   function init() {
     wfiService = jasmine.createSpyObj('workflowItemService', {
-      delete: observableOf(true)
+      delete: of(true),
     });
     itemRD$ = createSuccessfulRemoteDataObject$(itemRD$);
     wfi = new WorkflowItem();
@@ -43,10 +57,9 @@ describe('WorkflowItemDeleteComponent', () => {
       imports: [TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
-          useClass: TranslateLoaderMock
-        }
-      })],
-      declarations: [WorkflowItemDeleteComponent, VarDirective],
+          useClass: TranslateLoaderMock,
+        },
+      }), WorkflowItemDeleteComponent, VarDirective],
       providers: [
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub({}, { wfi: createSuccessfulRemoteDataObject(wfi) }) },
         { provide: Router, useClass: RouterStub },
@@ -56,7 +69,7 @@ describe('WorkflowItemDeleteComponent', () => {
         { provide: WorkflowItemDataService, useValue: wfiService },
         { provide: RequestService, useValue: getMockRequestService() },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
       .compileComponents();
   }));

@@ -1,16 +1,22 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { MenuServiceStub } from '../../../testing/menu-service.stub';
-import { TranslateModule } from '@ngx-translate/core';
-import { MenuService } from '../../../menu/menu.service';
-import { CSSVariableService } from '../../../sass-helper/css-variable.service';
-import { CSSVariableServiceStub } from '../../../testing/css-variable-service.stub';
-import { Router } from '@angular/router';
-import { RouterStub } from '../../../testing/router.stub';
-import { of as observableOf } from 'rxjs';
 import { Component } from '@angular/core';
-import { DsoEditMenuExpandableSectionComponent } from './dso-edit-menu-expandable-section.component';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { MenuItemType } from 'src/app/shared/menu/menu-item-type.model';
+import { Router } from '@angular/router';
+import { CSSVariableServiceStub } from '@dspace/core/testing/css-variable-service.stub';
+import { RouterStub } from '@dspace/core/testing/router.stub';
+import { TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
+
+import { MenuService } from '../../../menu/menu.service';
+import { MenuItemType } from '../../../menu/menu-item-type.model';
+import { MenuItemModels } from '../../../menu/menu-section.model';
+import { MenuServiceStub } from '../../../menu/menu-service.stub';
+import { CSSVariableService } from '../../../sass-helper/css-variable.service';
+import { DsoEditMenuExpandableSectionComponent } from './dso-edit-menu-expandable-section.component';
 
 describe('DsoEditMenuExpandableSectionComponent', () => {
   let component: DsoEditMenuExpandableSectionComponent;
@@ -25,51 +31,82 @@ describe('DsoEditMenuExpandableSectionComponent', () => {
     model: {
       type: MenuItemType.TEXT,
       disabled: false,
-      text: 'text'
+      text: 'text',
     },
-    icon: iconString
+    icon: iconString,
   };
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [DsoEditMenuExpandableSectionComponent, TestComponent],
-      providers: [
-        {provide: 'sectionDataProvider', useValue: dummySection},
-        {provide: MenuService, useValue: menuService},
-        {provide: CSSVariableService, useClass: CSSVariableServiceStub},
-        {provide: Router, useValue: new RouterStub()},
-      ]
-    }).overrideComponent(DsoEditMenuExpandableSectionComponent, {
-      set: {
-        entryComponents: [TestComponent]
-      }
-    })
-      .compileComponents();
-  }));
+  describe('when there are subsections', () => {
+    beforeEach(waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [TranslateModule.forRoot(), DsoEditMenuExpandableSectionComponent, TestComponent],
+        providers: [
+          { provide: 'sectionDataProvider', useValue: dummySection },
+          { provide: MenuService, useValue: menuService },
+          { provide: CSSVariableService, useClass: CSSVariableServiceStub },
+          { provide: Router, useValue: new RouterStub() },
+        ],
+      }).compileComponents();
+    }));
 
-  beforeEach(() => {
-    spyOn(menuService, 'getSubSectionsByParentID').and.returnValue(observableOf([]));
-    fixture = TestBed.createComponent(DsoEditMenuExpandableSectionComponent);
-    component = fixture.componentInstance;
-    spyOn(component as any, 'getMenuItemComponent').and.returnValue(TestComponent);
-    fixture.detectChanges();
+    beforeEach(() => {
+      spyOn(menuService, 'getSubSectionsByParentID').and.returnValue(of([{
+        id: 'test',
+        visible: true,
+        model: {} as MenuItemModels,
+      }]));
+      fixture = TestBed.createComponent(DsoEditMenuExpandableSectionComponent);
+      component = fixture.componentInstance;
+      spyOn(component as any, 'getMenuItemComponent').and.returnValue(TestComponent);
+      fixture.detectChanges();
+    });
+
+    it('should create', () => {
+      expect(component).toBeTruthy();
+    });
+
+    it('should show a button with the icon', () => {
+      const button = fixture.debugElement.query(By.css('.btn-dark'));
+      expect(button.nativeElement.innerHTML).toContain('fa-' + iconString);
+    });
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+  describe('when there are no subsections', () => {
+    beforeEach(waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [TranslateModule.forRoot(), DsoEditMenuExpandableSectionComponent, TestComponent],
+        providers: [
+          { provide: 'sectionDataProvider', useValue: dummySection },
+          { provide: MenuService, useValue: menuService },
+          { provide: CSSVariableService, useClass: CSSVariableServiceStub },
+          { provide: Router, useValue: new RouterStub() },
+        ],
+      }).compileComponents();
+    }));
 
-  it('should show a button with the icon', () => {
-    const button = fixture.debugElement.query(By.css('.btn-dark'));
-    expect(button.nativeElement.innerHTML).toContain('fa-' + iconString);
+    beforeEach(() => {
+      spyOn(menuService, 'getSubSectionsByParentID').and.returnValue(of([]));
+      fixture = TestBed.createComponent(DsoEditMenuExpandableSectionComponent);
+      component = fixture.componentInstance;
+      spyOn(component as any, 'getMenuItemComponent').and.returnValue(TestComponent);
+      fixture.detectChanges();
+    });
+
+    it('should create', () => {
+      expect(component).toBeTruthy();
+    });
+
+    it('should now show a button', () => {
+      const button = fixture.debugElement.query(By.css('.btn-dark'));
+      expect(button).toBeNull();
+    });
   });
 });
 
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
 })
 class TestComponent {
 }

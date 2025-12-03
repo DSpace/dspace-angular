@@ -1,28 +1,42 @@
-import { ChangeDetectionStrategy, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { Router } from '@angular/router';
+import {
+  ChangeDetectionStrategy,
+  Injector,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { RequestService } from '@dspace/core/data/request.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { PoolTaskSearchResult } from '@dspace/core/shared/object-collection/pool-task-search-result.model';
+import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
+import { ClaimedTaskDataService } from '@dspace/core/tasks/claimed-task-data.service';
+import { PoolTask } from '@dspace/core/tasks/models/pool-task-object.model';
+import { ProcessTaskResponse } from '@dspace/core/tasks/models/process-task-response';
+import { PoolTaskDataService } from '@dspace/core/tasks/pool-task-data.service';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { getMockRequestService } from '@dspace/core/testing/request.service.mock';
+import { RouterStub } from '@dspace/core/testing/router.stub';
+import { getMockSearchService } from '@dspace/core/testing/search-service.mock';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import { of } from 'rxjs';
 
-import { of as observableOf } from 'rxjs';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-
-import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
-import { NotificationsService } from '../../notifications/notifications.service';
-import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
-import { RouterStub } from '../../testing/router.stub';
-import { Item } from '../../../core/shared/item.model';
-import { PoolTaskDataService } from '../../../core/tasks/pool-task-data.service';
+import { SearchService } from '../../search/search.service';
 import { PoolTaskActionsComponent } from './pool-task-actions.component';
-import { PoolTask } from '../../../core/tasks/models/pool-task-object.model';
-import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
-import { createSuccessfulRemoteDataObject } from '../../remote-data.utils';
-import { getMockRequestService } from '../../mocks/request.service.mock';
-import { RequestService } from '../../../core/data/request.service';
-import { getMockSearchService } from '../../mocks/search-service.mock';
-import { SearchService } from '../../../core/shared/search/search.service';
-import { ClaimedTaskDataService } from '../../../core/tasks/claimed-task-data.service';
-import { PoolTaskSearchResult } from '../../object-collection/shared/pool-task-search-result.model';
-import { ProcessTaskResponse } from '../../../core/tasks/models/process-task-response';
 
 let mockDataService: PoolTaskDataService;
 let mockClaimedTaskDataService: ClaimedTaskDataService;
@@ -39,38 +53,38 @@ const searchService = getMockSearchService();
 const requestService = getMockRequestService();
 
 const item = Object.assign(new Item(), {
-  bundles: observableOf({}),
+  bundles: of({}),
   metadata: {
     'dc.title': [
       {
         language: 'en_US',
-        value: 'This is just another title'
-      }
+        value: 'This is just another title',
+      },
     ],
     'dc.type': [
       {
         language: null,
-        value: 'Article'
-      }
+        value: 'Article',
+      },
     ],
     'dc.contributor.author': [
       {
         language: 'en_US',
-        value: 'Smith, Donald'
-      }
+        value: 'Smith, Donald',
+      },
     ],
     'dc.date.issued': [
       {
         language: null,
-        value: '2015-06-26'
-      }
-    ]
-  }
+        value: '2015-06-26',
+      },
+    ],
+  },
 });
 const rdItem = createSuccessfulRemoteDataObject(item);
-const workflowitem = Object.assign(new WorkflowItem(), { item: observableOf(rdItem) });
+const workflowitem = Object.assign(new WorkflowItem(), { item: of(rdItem) });
 const rdWorkflowitem = createSuccessfulRemoteDataObject(workflowitem);
-mockObject = Object.assign(new PoolTask(), { workflowitem: observableOf(rdWorkflowitem), id: '1234' });
+mockObject = Object.assign(new PoolTask(), { workflowitem: of(rdWorkflowitem), id: '1234' });
 
 describe('PoolTaskActionsComponent', () => {
   beforeEach(waitForAsync(() => {
@@ -84,8 +98,8 @@ describe('PoolTaskActionsComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
+        PoolTaskActionsComponent,
       ],
-      declarations: [PoolTaskActionsComponent],
       providers: [
         { provide: Injector, useValue: {} },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
@@ -93,11 +107,12 @@ describe('PoolTaskActionsComponent', () => {
         { provide: PoolTaskDataService, useValue: mockDataService },
         { provide: ClaimedTaskDataService, useValue: mockClaimedTaskDataService },
         { provide: SearchService, useValue: searchService },
-        { provide: RequestService, useValue: requestService }
+        { provide: RequestService, useValue: requestService },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(PoolTaskActionsComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 
@@ -146,9 +161,9 @@ describe('PoolTaskActionsComponent', () => {
     const remoteClaimTaskResponse: any = new ProcessTaskResponse(true, null, null);
     const remoteReloadedObjectResponse: any = createSuccessfulRemoteDataObject(new PoolTask());
 
-    spyOn(mockDataService, 'getPoolTaskEndpointById').and.returnValue(observableOf(poolTaskHref));
-    spyOn(mockClaimedTaskDataService, 'claimTask').and.returnValue(observableOf(remoteClaimTaskResponse));
-    spyOn(mockClaimedTaskDataService, 'findByItem').and.returnValue(observableOf(remoteReloadedObjectResponse));
+    spyOn(mockDataService, 'getPoolTaskEndpointById').and.returnValue(of(poolTaskHref));
+    spyOn(mockClaimedTaskDataService, 'claimTask').and.returnValue(of(remoteClaimTaskResponse));
+    spyOn(mockClaimedTaskDataService, 'findByItem').and.returnValue(of(remoteReloadedObjectResponse));
 
     (component as any).objectDataService = mockDataService;
 

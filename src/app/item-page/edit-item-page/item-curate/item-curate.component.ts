@@ -1,11 +1,22 @@
-import { Component, OnInit } from '@angular/core';
-import { filter, map, take } from 'rxjs/operators';
-import { RemoteData } from '../../../core/data/remote-data';
-import { Observable } from 'rxjs';
+import { AsyncPipe } from '@angular/common';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { hasValue } from '../../../shared/empty.util';
-import { Item } from '../../../core/shared/item.model';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { Item } from '@dspace/core/shared/item.model';
+import { hasValue } from '@dspace/shared/utils/empty.util';
+import { TranslateModule } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+import {
+  filter,
+  map,
+  take,
+} from 'rxjs/operators';
+
+import { CurationFormComponent } from '../../../curation-form/curation-form.component';
 
 /**
  * Component for managing a collection's curation tasks
@@ -13,6 +24,11 @@ import { Item } from '../../../core/shared/item.model';
 @Component({
   selector: 'ds-item-curate',
   templateUrl: './item-curate.component.html',
+  imports: [
+    AsyncPipe,
+    CurationFormComponent,
+    TranslateModule,
+  ],
 })
 export class ItemCurateComponent implements OnInit {
   dsoRD$: Observable<RemoteData<Item>>;
@@ -33,7 +49,7 @@ export class ItemCurateComponent implements OnInit {
       filter((rd: RemoteData<Item>) => hasValue(rd)),
       map((rd: RemoteData<Item>) => {
         return this.dsoNameService.getName(rd.payload);
-      })
+      }),
     );
   }
 }

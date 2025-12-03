@@ -1,10 +1,13 @@
-import { Component, Input } from '@angular/core';
-import { MetadataRepresentation } from '../../../core/shared/metadata-representation/metadata-representation.model';
-import { Context } from '../../../core/shared/context.model';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+import { Context } from '@dspace/core/shared/context.model';
+import { MetadataRepresentation } from '@dspace/core/shared/metadata-representation/metadata-representation.model';
 
 @Component({
   selector: 'ds-metadata-representation-list-element',
-  template: ''
+  template: '',
 })
 /**
  * An abstract class for displaying a single MetadataRepresentation
@@ -25,7 +28,7 @@ export class MetadataRepresentationListElementComponent {
    */
   isLink(): boolean {
     // Match any string that begins with http:// or https://
-    const linkPattern = new RegExp(/^https?\/\/.*/);
+    const linkPattern = new RegExp(/^https?:\/\/.*/);
     return linkPattern.test(this.mdRepresentation.getValue());
   }
 

@@ -1,11 +1,6 @@
-import { type } from './shared/ngrx/type';
 import { Action } from '@ngrx/store';
-import { AppState } from './app.reducer';
 
-export const StoreActionTypes = {
-  REHYDRATE: type('dspace/ngrx/REHYDRATE'),
-  REPLAY: type('dspace/ngrx/REPLAY'),
-};
+import { AppState } from './app.reducer';
 
 export class StoreAction implements Action {
   type: string;

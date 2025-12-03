@@ -1,14 +1,17 @@
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+
 import { ThemedComponent } from '../../../../theme-support/themed.component';
 import { TypeBadgeComponent } from './type-badge.component';
-import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
 
 /**
  * Themed wrapper for TypeBadgeComponent
  */
 @Component({
-  selector: 'ds-themed-type-badge',
-  styleUrls: [],
+  selector: 'ds-type-badge',
   templateUrl: '../../../../theme-support/themed.component.html',
 })
 export class ThemedTypeBadgeComponent extends ThemedComponent<TypeBadgeComponent> {

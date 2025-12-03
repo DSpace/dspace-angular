@@ -1,19 +1,21 @@
 /* eslint-disable max-classes-per-file */
-import { Action } from '@ngrx/store';
-
-import { type } from '../../shared/ngrx/type';
-import { WorkspaceitemSectionUploadFileObject } from '../../core/submission/models/workspaceitem-section-upload-file.model';
+import { SubmissionDefinitionsModel } from '@dspace/core/config/models/config-submission-definitions.model';
+import { type } from '@dspace/core/ngrx/type';
+import { Item } from '@dspace/core/shared/item.model';
+import {
+  SectionScope,
+  SectionVisibility,
+} from '@dspace/core/submission/models/section-visibility.model';
+import { SubmissionError } from '@dspace/core/submission/models/submission-error.model';
+import { SubmissionObject } from '@dspace/core/submission/models/submission-object.model';
+import { SubmissionSectionError } from '@dspace/core/submission/models/submission-section-error.model';
+import { WorkspaceitemSectionUploadFileObject } from '@dspace/core/submission/models/workspaceitem-section-upload-file.model';
 import {
   WorkspaceitemSectionDataType,
-  WorkspaceitemSectionsObject
-} from '../../core/submission/models/workspaceitem-sections.model';
-import { SubmissionObject } from '../../core/submission/models/submission-object.model';
-import { SubmissionDefinitionsModel } from '../../core/config/models/config-submission-definitions.model';
-import { SectionsType } from '../sections/sections-type';
-import { Item } from '../../core/shared/item.model';
-import { SectionVisibility } from './section-visibility.model';
-import { SubmissionError } from './submission-error.model';
-import { SubmissionSectionError } from './submission-section-error.model';
+  WorkspaceitemSectionsObject,
+} from '@dspace/core/submission/models/workspaceitem-sections.model';
+import { SectionsType } from '@dspace/core/submission/sections-type';
+import { Action } from '@ngrx/store';
 
 /**
  * For each action type in an action group, make a simple
@@ -56,9 +58,13 @@ export const SubmissionObjectActionTypes = {
   DISCARD_SUBMISSION_SUCCESS: type('dspace/submission/DISCARD_SUBMISSION_SUCCESS'),
   DISCARD_SUBMISSION_ERROR: type('dspace/submission/DISCARD_SUBMISSION_ERROR'),
 
+  // Clearing active section types
+  CLEAN_DUPLICATE_DETECTION: type('dspace/submission/CLEAN_DUPLICATE_DETECTION'),
+
   // Upload file types
   NEW_FILE: type('dspace/submission/NEW_FILE'),
   EDIT_FILE_DATA: type('dspace/submission/EDIT_FILE_DATA'),
+  EDIT_FILE_PRIMARY_BITSTREAM_DATA: type('dspace/submission/EDIT_FILE_PRIMARY_BITSTREAM_DATA'),
   DELETE_FILE: type('dspace/submission/DELETE_FILE'),
 
   // Errors
@@ -116,6 +122,7 @@ export class InitSectionAction implements Action {
     header: string;
     config: string;
     mandatory: boolean;
+    scope: SectionScope;
     sectionType: SectionsType;
     visibility: SectionVisibility;
     enabled: boolean;
@@ -136,6 +143,8 @@ export class InitSectionAction implements Action {
    *    the section's config
    * @param mandatory
    *    the section's mandatory
+   * @param scope
+   *    the section's scope
    * @param sectionType
    *    the section's type
    * @param visibility
@@ -148,16 +157,17 @@ export class InitSectionAction implements Action {
    *    the section's errors
    */
   constructor(submissionId: string,
-              sectionId: string,
-              header: string,
-              config: string,
-              mandatory: boolean,
-              sectionType: SectionsType,
-              visibility: SectionVisibility,
-              enabled: boolean,
-              data: WorkspaceitemSectionDataType,
-              errors: SubmissionSectionError[]) {
-    this.payload = { submissionId, sectionId, header, config, mandatory, sectionType, visibility, enabled, data, errors };
+    sectionId: string,
+    header: string,
+    config: string,
+    mandatory: boolean,
+    scope: SectionScope,
+    sectionType: SectionsType,
+    visibility: SectionVisibility,
+    enabled: boolean,
+    data: WorkspaceitemSectionDataType,
+    errors: SubmissionSectionError[]) {
+    this.payload = { submissionId, sectionId, header, config, mandatory, scope, sectionType, visibility, enabled, data, errors };
   }
 }
 
@@ -177,7 +187,7 @@ export class EnableSectionAction implements Action {
    *    the section's ID to add
    */
   constructor(submissionId: string,
-              sectionId: string) {
+    sectionId: string) {
     this.payload = { submissionId, sectionId };
   }
 }
@@ -230,12 +240,31 @@ export class UpdateSectionDataAction implements Action {
    *    the section's metadata
    */
   constructor(submissionId: string,
-              sectionId: string,
-              data: WorkspaceitemSectionDataType,
-              errorsToShow: SubmissionSectionError[],
-              serverValidationErrors: SubmissionSectionError[],
-              metadata?: string[]) {
+    sectionId: string,
+    data: WorkspaceitemSectionDataType,
+    errorsToShow: SubmissionSectionError[],
+    serverValidationErrors: SubmissionSectionError[],
+    metadata?: string[]) {
     this.payload = { submissionId, sectionId, data, errorsToShow, serverValidationErrors, metadata };
+  }
+}
+
+/**
+ * Removes data and makes 'detect-duplicate' section not visible.
+ */
+export class CleanDuplicateDetectionAction implements Action {
+  type = SubmissionObjectActionTypes.CLEAN_DUPLICATE_DETECTION;
+  payload: {
+    submissionId: string;
+  };
+
+  /**
+   * creates a new CleanDetectDuplicateAction
+   *
+   * @param submissionId Id of the submission on which perform the action
+   */
+  constructor(submissionId: string ) {
+    this.payload = { submissionId };
   }
 }
 
@@ -334,12 +363,12 @@ export class InitSubmissionFormAction implements Action {
    *    the submission's sections errors
    */
   constructor(collectionId: string,
-              submissionId: string,
-              selfUrl: string,
-              submissionDefinition: SubmissionDefinitionsModel,
-              sections: WorkspaceitemSectionsObject,
-              item: Item,
-              errors: SubmissionError) {
+    submissionId: string,
+    selfUrl: string,
+    submissionDefinition: SubmissionDefinitionsModel,
+    sections: WorkspaceitemSectionsObject,
+    item: Item,
+    errors: SubmissionError) {
     this.payload = { collectionId, submissionId, selfUrl, submissionDefinition, sections, item, errors };
   }
 }
@@ -760,6 +789,29 @@ export class NewUploadedFileAction implements Action {
   }
 }
 
+export class EditFilePrimaryBitstreamAction implements Action {
+  type = SubmissionObjectActionTypes.EDIT_FILE_PRIMARY_BITSTREAM_DATA;
+  payload: {
+    submissionId: string;
+    sectionId: string;
+    fileId: string | null;
+  };
+
+  /**
+   * Edit a file data
+   *
+   * @param submissionId
+   *    the submission's ID
+   * @param sectionId
+   *    the section's ID
+   * @param fileId
+   *    the file's ID
+   */
+  constructor(submissionId: string, sectionId: string, fileId: string | null) {
+    this.payload = { submissionId, sectionId, fileId: fileId };
+  }
+}
+
 export class EditFileDataAction implements Action {
   type = SubmissionObjectActionTypes.EDIT_FILE_DATA;
   payload: {
@@ -821,6 +873,7 @@ export type SubmissionObjectAction = DisableSectionAction
   | InitSubmissionFormAction
   | ResetSubmissionFormAction
   | CancelSubmissionFormAction
+  | CleanDuplicateDetectionAction
   | CompleteInitSubmissionFormAction
   | ChangeSubmissionCollectionAction
   | SaveAndDepositSubmissionAction
@@ -833,6 +886,7 @@ export type SubmissionObjectAction = DisableSectionAction
   | SectionStatusChangeAction
   | NewUploadedFileAction
   | EditFileDataAction
+  | EditFilePrimaryBitstreamAction
   | DeleteUploadedFileAction
   | InertSectionErrorsAction
   | DeleteSectionErrorsAction

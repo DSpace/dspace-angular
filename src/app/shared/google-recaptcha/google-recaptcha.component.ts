@@ -1,15 +1,28 @@
-import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
-
-import { ConfigurationDataService } from '../../core/data/configuration-data.service';
-import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
+import { AsyncPipe } from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  Inject,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
+import {
+  NativeWindowRef,
+  NativeWindowService,
+} from '@dspace/core/services/window.service';
+import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import { Observable } from 'rxjs';
-import { NativeWindowRef, NativeWindowService } from 'src/app/core/services/window.service';
-import { isNotEmpty } from '../empty.util';
 
 @Component({
   selector: 'ds-google-recaptcha',
   templateUrl: './google-recaptcha.component.html',
   styleUrls: ['./google-recaptcha.component.scss'],
+  imports: [
+    AsyncPipe,
+  ],
 })
 export class GoogleRecaptchaComponent implements OnInit {
 

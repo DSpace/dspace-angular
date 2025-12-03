@@ -1,21 +1,36 @@
-import { ChangeDetectionStrategy, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  ChangeDetectionStrategy,
+  Injector,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { RequestService } from '@dspace/core/data/request.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { ClaimedTaskDataService } from '@dspace/core/tasks/claimed-task-data.service';
+import { ClaimedTask } from '@dspace/core/tasks/models/claimed-task-object.model';
+import { PoolTaskDataService } from '@dspace/core/tasks/pool-task-data.service';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { getMockRequestService } from '@dspace/core/testing/request.service.mock';
+import { RouterStub } from '@dspace/core/testing/router.stub';
+import { getMockSearchService } from '@dspace/core/testing/search-service.mock';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 
+import { SearchService } from '../../../search/search.service';
 import { ClaimedTaskActionsEditMetadataComponent } from './claimed-task-actions-edit-metadata.component';
-import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
-import { ClaimedTaskDataService } from '../../../../core/tasks/claimed-task-data.service';
-import { TranslateLoaderMock } from '../../../testing/translate-loader.mock';
-import { getMockSearchService } from '../../../mocks/search-service.mock';
-import { getMockRequestService } from '../../../mocks/request.service.mock';
-import { PoolTaskDataService } from '../../../../core/tasks/pool-task-data.service';
-import { NotificationsService } from '../../../notifications/notifications.service';
-import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
-import { Router } from '@angular/router';
-import { RouterStub } from '../../../testing/router.stub';
-import { SearchService } from '../../../../core/shared/search/search.service';
-import { RequestService } from '../../../../core/data/request.service';
 
 let component: ClaimedTaskActionsEditMetadataComponent;
 let fixture: ComponentFixture<ClaimedTaskActionsEditMetadataComponent>;
@@ -38,6 +53,7 @@ describe('ClaimedTaskActionsEditMetadataComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
+        ClaimedTaskActionsEditMetadataComponent,
       ],
       providers: [
         { provide: ClaimedTaskDataService, useValue: {} },
@@ -47,11 +63,11 @@ describe('ClaimedTaskActionsEditMetadataComponent', () => {
         { provide: SearchService, useValue: searchService },
         { provide: RequestService, useValue: requestService },
         { provide: PoolTaskDataService, useValue: mockPoolTaskDataService },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],
-      declarations: [ClaimedTaskActionsEditMetadataComponent],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ClaimedTaskActionsEditMetadataComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

@@ -1,45 +1,44 @@
-import { Component, Inject, Input } from '@angular/core';
-import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
-import { Observable } from 'rxjs';
-import { Params, Router } from '@angular/router';
-import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
-import { map } from 'rxjs/operators';
+import { AsyncPipe } from '@angular/common';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
+import { AppliedFilter } from '@dspace/core/shared/search/models/applied-filter.model';
+import { BehaviorSubject } from 'rxjs';
+
+import { SearchService } from '../search.service';
+import { SearchLabelLoaderComponent } from './search-label-loader/search-label-loader.component';
 
 @Component({
   selector: 'ds-search-labels',
   styleUrls: ['./search-labels.component.scss'],
   templateUrl: './search-labels.component.html',
+  imports: [
+    AsyncPipe,
+    SearchLabelLoaderComponent,
+  ],
 })
 
 /**
  * Component that represents the labels containing the currently active filters
  */
-export class SearchLabelsComponent {
-  /**
-   * Emits the currently active filters
-   */
-  appliedFilters: Observable<Params>;
+export class SearchLabelsComponent implements OnInit {
 
   /**
    * True when the search component should show results on the current page
    */
-  @Input() inPlaceSearch;
+  @Input() inPlaceSearch: boolean;
 
-  /**
-   * Initialize the instance variable
-   */
+  appliedFilters$: BehaviorSubject<AppliedFilter[]>;
+
   constructor(
-    protected router: Router,
-    @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService) {
-    this.appliedFilters = this.searchConfigService.getCurrentFrontendFilters().pipe(
-      map((params) => {
-        const labels = {};
-        Object.keys(params)
-          .forEach((key) => {
-            labels[key] = [...params[key].map((value) => value)];
-          });
-        return labels;
-      })
-    );
+    protected searchService: SearchService,
+  ) {
   }
+
+  ngOnInit(): void {
+    this.appliedFilters$ = this.searchService.appliedFilters$;
+  }
+
 }

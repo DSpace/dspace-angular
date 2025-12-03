@@ -1,28 +1,52 @@
-import { Injectable } from '@angular/core';
-import { DSOBreadcrumbsService } from './dso-breadcrumbs.service';
-import { DSOBreadcrumbResolver } from './dso-breadcrumb.resolver';
+import { inject } from '@angular/core';
+import {
+  ActivatedRouteSnapshot,
+  ResolveFn,
+  RouterStateSnapshot,
+} from '@angular/router';
+import { hasValue } from '@dspace/shared/utils/empty.util';
+import { Observable } from 'rxjs';
+
 import { CommunityDataService } from '../data/community-data.service';
-import { Community } from '../shared/community.model';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { COMMUNITY_PAGE_LINKS_TO_FOLLOW } from '../../community-page/community-page.resolver';
+import {
+  Community,
+  COMMUNITY_PAGE_LINKS_TO_FOLLOW,
+} from '../shared/community.model';
+import { DSpaceObject } from '../shared/dspace-object.model';
+import { FollowLinkConfig } from '../shared/follow-link-config.model';
+import {
+  DSOBreadcrumbResolver,
+  DSOBreadcrumbResolverByUuid,
+} from './dso-breadcrumb.resolver';
+import { DSOBreadcrumbsService } from './dso-breadcrumbs.service';
+import { BreadcrumbConfig } from './models/breadcrumb-config.model';
 
 /**
- * The class that resolves the BreadcrumbConfig object for a Community
+ * The resolve function that resolves the BreadcrumbConfig object for a Community
  */
-@Injectable({
-  providedIn: 'root'
-})
-export class CommunityBreadcrumbResolver extends DSOBreadcrumbResolver<Community> {
-  constructor(protected breadcrumbService: DSOBreadcrumbsService, protected dataService: CommunityDataService) {
-    super(breadcrumbService, dataService);
+export const communityBreadcrumbResolver: ResolveFn<BreadcrumbConfig<Community>> = (
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot,
+  breadcrumbService: DSOBreadcrumbsService = inject(DSOBreadcrumbsService),
+  dataService: CommunityDataService = inject(CommunityDataService),
+): Observable<BreadcrumbConfig<Community>> => {
+  const linksToFollow: FollowLinkConfig<DSpaceObject>[] = COMMUNITY_PAGE_LINKS_TO_FOLLOW as FollowLinkConfig<DSpaceObject>[];
+  if (hasValue(route.data.breadcrumbQueryParam) && hasValue(route.queryParams[route.data.breadcrumbQueryParam])) {
+    return DSOBreadcrumbResolverByUuid(
+      route,
+      state,
+      route.queryParams[route.data.breadcrumbQueryParam],
+      breadcrumbService,
+      dataService,
+      ...linksToFollow,
+    ) as Observable<BreadcrumbConfig<Community>>;
+  } else {
+    return DSOBreadcrumbResolver(
+      route,
+      state,
+      breadcrumbService,
+      dataService,
+      ...linksToFollow,
+    ) as Observable<BreadcrumbConfig<Community>>;
   }
-
-  /**
-   * Method that returns the follow links to already resolve
-   * The self links defined in this list are expected to be requested somewhere in the near future
-   * Requesting them as embeds will limit the number of requests
-   */
-  get followLinks(): FollowLinkConfig<Community>[] {
-    return COMMUNITY_PAGE_LINKS_TO_FOLLOW;
-  }
-}
+};

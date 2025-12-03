@@ -1,24 +1,41 @@
-import { Component, Input } from '@angular/core';
-import { MetadataRepresentation } from '../../../core/shared/metadata-representation/metadata-representation.model';
+import { AsyncPipe } from '@angular/common';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+import { BrowseService } from '@dspace/core/browse/browse.service';
+import { BrowseDefinitionDataService } from '@dspace/core/browse/browse-definition-data.service';
+import { RelationshipDataService } from '@dspace/core/data/relationship-data.service';
+import { MetadataService } from '@dspace/core/metadata/metadata.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { MetadataValue } from '@dspace/core/shared/metadata.models';
+import { MetadataRepresentation } from '@dspace/core/shared/metadata-representation/metadata-representation.model';
+import { MetadatumRepresentation } from '@dspace/core/shared/metadata-representation/metadatum/metadatum-representation.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
-  zip as observableZip
+  zip as observableZip,
 } from 'rxjs';
-import { RelationshipDataService } from '../../../core/data/relationship-data.service';
-import { MetadataValue } from '../../../core/shared/metadata.models';
-import { Item } from '../../../core/shared/item.model';
-import { AbstractIncrementalListComponent } from '../abstract-incremental-list/abstract-incremental-list.component';
 import { map } from 'rxjs/operators';
-import { getRemoteDataPayload } from '../../../core/shared/operators';
-import {
-  MetadatumRepresentation
-} from '../../../core/shared/metadata-representation/metadatum/metadatum-representation.model';
-import { BrowseService } from '../../../core/browse/browse.service';
-import { BrowseDefinitionDataService } from '../../../core/browse/browse-definition-data.service';
+
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
+import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
+import { MetadataRepresentationLoaderComponent } from '../../../shared/metadata-representation/metadata-representation-loader.component';
+import { VarDirective } from '../../../shared/utils/var.directive';
+import { AbstractIncrementalListComponent } from '../abstract-incremental-list/abstract-incremental-list.component';
 
 @Component({
-  selector: 'ds-metadata-representation-list',
-  templateUrl: './metadata-representation-list.component.html'
+  selector: 'ds-base-metadata-representation-list',
+  templateUrl: './metadata-representation-list.component.html',
+  imports: [
+    AsyncPipe,
+    MetadataFieldWrapperComponent,
+    MetadataRepresentationLoaderComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
+    VarDirective,
+  ],
 })
 /**
  * This component is used for displaying metadata
@@ -62,6 +79,7 @@ export class MetadataRepresentationListComponent extends AbstractIncrementalList
   constructor(
     public relationshipService: RelationshipDataService,
     protected browseDefinitionDataService: BrowseDefinitionDataService,
+    protected metadataService: MetadataService,
   ) {
     super();
   }
@@ -87,7 +105,7 @@ export class MetadataRepresentationListComponent extends AbstractIncrementalList
         .slice((this.objects.length * this.incrementBy), (this.objects.length * this.incrementBy) + this.incrementBy)
         .map((metadatum: any) => Object.assign(new MetadataValue(), metadatum))
         .map((metadatum: MetadataValue) => {
-          if (metadatum.isVirtual) {
+          if (this.metadataService.isVirtual(metadatum)) {
             return this.relationshipService.resolveMetadataRepresentation(metadatum, this.parentItem, this.itemType);
           } else {
             // Check for a configured browse link and return a standard metadata representation
@@ -96,8 +114,8 @@ export class MetadataRepresentationListComponent extends AbstractIncrementalList
               searchKeyArray = searchKeyArray.concat(BrowseService.toSearchKeyArray(field));
             });
             return this.browseDefinitionDataService.findByFields(this.metadataFields).pipe(
-              getRemoteDataPayload(),
-              map((def) => Object.assign(new MetadatumRepresentation(this.itemType, def), metadatum))
+              getFirstCompletedRemoteData(),
+              map((def) => Object.assign(new MetadatumRepresentation(this.itemType, def.payload), metadatum)),
             );
           }
         }),

@@ -1,6 +1,13 @@
-import { GroupMock } from '../../shared/testing/group-mock';
-import { GroupRegistryCancelGroupAction, GroupRegistryEditGroupAction } from './group-registry.actions';
-import { groupRegistryReducer, GroupRegistryState } from './group-registry.reducers';
+import { GroupMock } from '@dspace/core/testing/group-mock';
+
+import {
+  GroupRegistryCancelGroupAction,
+  GroupRegistryEditGroupAction,
+} from './group-registry.actions';
+import {
+  groupRegistryReducer,
+  GroupRegistryState,
+} from './group-registry.reducers';
 
 const initialState: GroupRegistryState = {
   editGroup: null,

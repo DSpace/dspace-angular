@@ -1,21 +1,24 @@
-import { Component, Input } from '@angular/core';
-import { BadgesComponent } from './badges.component';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+import { Context } from '@dspace/core/shared/context.model';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+
 import { ThemedComponent } from '../../../theme-support/themed.component';
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
-import { Context } from 'src/app/core/shared/context.model';
+import { BadgesComponent } from './badges.component';
 
 /**
  * Themed wrapper for BadgesComponent
  */
 @Component({
-  selector: 'ds-themed-badges',
-  styleUrls: [],
+  selector: 'ds-badges',
   templateUrl: '../../../theme-support/themed.component.html',
 })
 export class ThemedBadgesComponent extends ThemedComponent<BadgesComponent> {
   @Input() object: DSpaceObject;
   @Input() context: Context;
-  @Input() showAccessStatus = false;
+  @Input() showAccessStatus: boolean;
 
   protected inAndOutputNames: (keyof BadgesComponent & keyof this)[] = ['object', 'context', 'showAccessStatus'];
 

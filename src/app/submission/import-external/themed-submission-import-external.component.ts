@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { ThemedComponent } from '../../shared/theme-support/themed.component';
 import { SubmissionImportExternalComponent } from './submission-import-external.component';
 
@@ -6,9 +7,8 @@ import { SubmissionImportExternalComponent } from './submission-import-external.
  * Themed wrapper for SubmissionImportExternalComponent
  */
 @Component({
-  selector: 'ds-themed-submission-import-external',
-  styleUrls: [],
-  templateUrl: './../../shared/theme-support/themed.component.html'
+  selector: 'ds-submission-import-external',
+  templateUrl: './../../shared/theme-support/themed.component.html',
 })
 export class ThemedSubmissionImportExternalComponent extends ThemedComponent<SubmissionImportExternalComponent> {
   protected getComponentName(): string {

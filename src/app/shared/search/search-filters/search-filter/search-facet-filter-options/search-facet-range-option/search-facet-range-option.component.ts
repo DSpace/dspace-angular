@@ -1,19 +1,34 @@
-import { Observable, Subscription } from 'rxjs';
+import { AsyncPipe } from '@angular/common';
+import {
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  Params,
+  Router,
+  RouterLink,
+} from '@angular/router';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { currentPath } from '@dspace/core/router/utils/route.utils';
+import { FacetValue } from '@dspace/core/shared/search/models/facet-value.model';
+import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
+import { hasValue } from '@dspace/shared/utils/empty.util';
+import {
+  Observable,
+  Subscription,
+} from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { FacetValue } from '../../../../models/facet-value.model';
-import { SearchFilterConfig } from '../../../../models/search-filter-config.model';
-import { SearchService } from '../../../../../../core/shared/search/search.service';
-import { SearchFilterService } from '../../../../../../core/shared/search/search-filter.service';
+
+import { ShortNumberPipe } from '../../../../../utils/short-number.pipe';
+import { SearchService } from '../../../../search.service';
+import { SearchConfigurationService } from '../../../../search-configuration.service';
+import { SearchFilterService } from '../../../search-filter.service';
 import {
   RANGE_FILTER_MAX_SUFFIX,
-  RANGE_FILTER_MIN_SUFFIX
-} from '../../search-range-filter/search-range-filter.component';
-import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
-import { hasValue } from '../../../../../empty.util';
-import { currentPath } from '../../../../../utils/route.utils';
-import { PaginationService } from '../../../../../../core/pagination/pagination.service';
+  RANGE_FILTER_MIN_SUFFIX,
+} from '../../search-range-filter/search-range-filter-constants';
 
 const rangeDelimiter = '-';
 
@@ -22,6 +37,11 @@ const rangeDelimiter = '-';
   styleUrls: ['./search-facet-range-option.component.scss'],
   // templateUrl: './search-facet-range-option.component.html',
   templateUrl: './search-facet-range-option.component.html',
+  imports: [
+    AsyncPipe,
+    RouterLink,
+    ShortNumberPipe,
+  ],
 })
 
 /**
@@ -41,7 +61,7 @@ export class SearchFacetRangeOptionComponent implements OnInit, OnDestroy {
   /**
    * True when the search component should show results on the current page
    */
-  @Input() inPlaceSearch;
+  @Input() inPlaceSearch: boolean;
 
   /**
    * Emits true when this option should be visible and false when it should be invisible
@@ -51,7 +71,7 @@ export class SearchFacetRangeOptionComponent implements OnInit, OnDestroy {
   /**
    * UI parameters when this filter is changed
    */
-  changeQueryParams;
+  changeQueryParams: Params;
 
   /**
    * Subscription to unsubscribe from on destroy
@@ -67,7 +87,7 @@ export class SearchFacetRangeOptionComponent implements OnInit, OnDestroy {
               protected filterService: SearchFilterService,
               protected searchConfigService: SearchConfigurationService,
               protected router: Router,
-              protected paginationService: PaginationService
+              protected paginationService: PaginationService,
   ) {
   }
 
@@ -104,13 +124,13 @@ export class SearchFacetRangeOptionComponent implements OnInit, OnDestroy {
    */
   private updateChangeParams(): void {
     const parts = this.filterValue.value.split(rangeDelimiter);
-    const min = parts.length > 1 ? parts[0].trim() : this.filterValue.value;
-    const max = parts.length > 1 ? parts[1].trim() : this.filterValue.value;
+    const min = parts.length > 1 ? Number(parts[0].trim()) : this.filterValue.value;
+    const max = parts.length > 1 ? Number(parts[1].trim()) : this.filterValue.value;
     const page = this.paginationService.getPageParam(this.searchConfigService.paginationID);
     this.changeQueryParams = {
       [this.filterConfig.paramName + RANGE_FILTER_MIN_SUFFIX]: [min],
-      [this.filterConfig.paramName + RANGE_FILTER_MAX_SUFFIX]: [max],
-      [page]: 1
+      [this.filterConfig.paramName + RANGE_FILTER_MAX_SUFFIX]: max === new Date().getUTCFullYear() ? null : [max],
+      [page]: 1,
     };
   }
 

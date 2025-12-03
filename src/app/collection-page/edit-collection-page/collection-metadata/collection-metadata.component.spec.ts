@@ -1,20 +1,38 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { SharedModule } from '../../../shared/shared.module';
 import { CommonModule } from '@angular/common';
-import { RouterTestingModule } from '@angular/router/testing';
-import { CollectionDataService } from '../../../core/data/collection-data.service';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { of as observableOf } from 'rxjs';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { CollectionMetadataComponent } from './collection-metadata.component';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { Item } from '../../../core/shared/item.model';
-import { ItemTemplateDataService } from '../../../core/data/item-template-data.service';
-import { Collection } from '../../../core/shared/collection.model';
-import { RequestService } from '../../../core/data/request.service';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  ActivatedRoute,
+  NavigationEnd,
+  Router,
+} from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
+import { CollectionDataService } from '@dspace/core/data/collection-data.service';
+import { CommunityDataService } from '@dspace/core/data/community-data.service';
+import { ItemTemplateDataService } from '@dspace/core/data/item-template-data.service';
+import { RequestService } from '@dspace/core/data/request.service';
+import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { AuthServiceMock } from '@dspace/core/testing/auth.service.mock';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core/utilities/remote-data.utils';
+import { TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
+
 import { getCollectionItemTemplateRoute } from '../../collection-page-routing-paths';
+import { CollectionMetadataComponent } from './collection-metadata.component';
 
 describe('CollectionMetadataComponent', () => {
   let comp: CollectionMetadataComponent;
@@ -24,52 +42,56 @@ describe('CollectionMetadataComponent', () => {
 
   const template = Object.assign(new Item(), {
     _links: {
-      self: { href: 'template-selflink' }
-    }
+      self: { href: 'template-selflink' },
+    },
   });
   const collection = Object.assign(new Collection(), {
     uuid: 'collection-id',
     id: 'collection-id',
     name: 'Fake Collection',
     _links: {
-      self: { href: 'collection-selflink' }
-    }
+      self: { href: 'collection-selflink' },
+    },
   });
   const collectionTemplateHref = 'rest/api/test/collections/template';
 
   const itemTemplateServiceStub = jasmine.createSpyObj('itemTemplateService', {
     findByCollectionID: createSuccessfulRemoteDataObject$(template),
     createByCollectionID: createSuccessfulRemoteDataObject$(template),
-    delete: observableOf(true),
-    getCollectionEndpoint: observableOf(collectionTemplateHref),
+    delete: of(true),
+    getCollectionEndpoint: of(collectionTemplateHref),
   });
 
   const notificationsService = jasmine.createSpyObj('notificationsService', {
     success: {},
-    error: {}
+    error: {},
   });
   const requestService = jasmine.createSpyObj('requestService', {
-    setStaleByHrefSubstring: {}
+    setStaleByHrefSubstring: {},
   });
 
   const routerMock = {
-    events: observableOf(new NavigationEnd(1, 'url', 'url')),
+    events: of(new NavigationEnd(1, 'url', 'url')),
     navigate: jasmine.createSpy('navigate'),
   };
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), SharedModule, CommonModule, RouterTestingModule],
-      declarations: [CollectionMetadataComponent],
+      imports: [TranslateModule.forRoot(), CommonModule, RouterTestingModule, CollectionMetadataComponent],
       providers: [
         { provide: CollectionDataService, useValue: {} },
         { provide: ItemTemplateDataService, useValue: itemTemplateServiceStub },
-        { provide: ActivatedRoute, useValue: { parent: { data: observableOf({ dso: createSuccessfulRemoteDataObject(collection) }) } } },
+        { provide: ActivatedRoute, useValue: { parent: { data: of({ dso: createSuccessfulRemoteDataObject(collection) }) } } },
         { provide: NotificationsService, useValue: notificationsService },
         { provide: RequestService, useValue: requestService },
-        { provide: Router, useValue: routerMock}
+        { provide: Router, useValue: routerMock },
+        { provide: AuthService, useValue: new AuthServiceMock() },
+        { provide: CommunityDataService, useValue: {} },
+        { provide: ObjectCacheService, useValue: {} },
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
+        { provide: APP_CONFIG, useValue: {} },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 
@@ -80,7 +102,7 @@ describe('CollectionMetadataComponent', () => {
     spyOn(comp, 'ngOnInit');
     spyOn(comp, 'initTemplateItem');
 
-    routerMock.events = observableOf(new NavigationEnd(1, 'url', 'url'));
+    routerMock.events = of(new NavigationEnd(1, 'url', 'url'));
     fixture.detectChanges();
   });
 
