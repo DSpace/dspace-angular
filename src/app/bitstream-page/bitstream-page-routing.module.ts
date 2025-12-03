@@ -17,7 +17,7 @@ import { ReplaceBitstreamPageComponent } from './replace-bitstream-page/replace-
 
 const EDIT_BITSTREAM_PATH = ':id/edit';
 const EDIT_BITSTREAM_AUTHORIZATIONS_PATH = ':id/authorizations';
-export const REPLACE_BITSTREAM_PATH = ':id/replace';
+export const REPLACE_BITSTREAM_PATH = ':id/content';
 
 /**
  * Routing module to help navigate Bitstream pages

@@ -15,6 +15,7 @@ import { RequestService } from '../../core/data/request.service';
 import { getBitstreamModuleRoute } from '../../app-routing-paths';
 import { UploaderOptions } from '../../shared/upload/uploader/uploader-options.model';
 import { UploaderComponent } from '../../shared/upload/uploader/uploader.component';
+import { RestRequestMethod } from '../../core/data/rest-request-method';
 
 @Component({
   selector: 'ds-replace-bitstream-page',
@@ -33,7 +34,8 @@ export class ReplaceBitstreamPageComponent implements OnInit {
     authToken: null,
     disableMultipart: false,
     itemAlias: null,
-    autoUpload: false
+    autoUpload: false,
+    method: RestRequestMethod.PUT,
   });
 
   /**
@@ -110,7 +112,7 @@ export class ReplaceBitstreamPageComponent implements OnInit {
   }
 
   protected setUploadUrlParameters(uploader?: UploaderComponent) {
-    this.uploadFilesOptions.url = new URLCombiner(this.uploadFilesUrlNoParam, `/replace?replaceName=${this.shouldReplaceName}`).toString();
+    this.uploadFilesOptions.url = new URLCombiner(this.uploadFilesUrlNoParam, `/content?replaceName=${this.shouldReplaceName}`).toString();
     if (hasValue(uploader?.uploader?.options)) {
       uploader.uploader.options.url = this.uploadFilesOptions.url;
     }
