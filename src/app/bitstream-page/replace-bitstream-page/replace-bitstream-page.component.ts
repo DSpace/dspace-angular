@@ -11,6 +11,7 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { RestRequestMethod } from '@dspace/config/rest-request-method';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { getBitstreamModuleRoute } from '@dspace/core/router/core-routing-paths';
 import {
@@ -69,6 +70,7 @@ export class ReplaceBitstreamPageComponent implements OnInit {
     disableMultipart: false,
     itemAlias: null,
     autoUpload: false,
+    method: RestRequestMethod.PUT,
   });
 
   /**
