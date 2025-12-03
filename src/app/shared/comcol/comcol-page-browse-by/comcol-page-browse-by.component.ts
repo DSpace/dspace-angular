@@ -14,6 +14,20 @@ import {
   RouterLink,
   Scroll,
 } from '@angular/router';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
+import { BrowseService } from '@dspace/core/browse/browse.service';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import {
+  getCollectionPageRoute,
+  getCommunityPageRoute,
+} from '@dspace/core/router/utils/dso-route.utils';
+import { BrowseDefinition } from '@dspace/core/shared/browse-definition.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -28,19 +42,6 @@ import {
   startWith,
   take,
 } from 'rxjs/operators';
-
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '../../../../config/app-config.interface';
-import { getCollectionPageRoute } from '../../../collection-page/collection-page-routing-paths';
-import { getCommunityPageRoute } from '../../../community-page/community-page-routing-paths';
-import { BrowseService } from '../../../core/browse/browse.service';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { BrowseDefinition } from '../../../core/shared/browse-definition.model';
-import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
-import { isNotEmpty } from '../../empty.util';
 
 export interface ComColPageNavOption {
   id: string;
@@ -63,7 +64,6 @@ export interface ComColPageNavOption {
     RouterLink,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class ComcolPageBrowseByComponent implements OnDestroy, OnInit {
   /**

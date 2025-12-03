@@ -5,7 +5,7 @@ import {
 import {
   ChangeDetectorRef,
   Component,
-  NO_ERRORS_SCHEMA,
+  CUSTOM_ELEMENTS_SCHEMA,
 } from '@angular/core';
 import {
   ComponentFixture,
@@ -13,6 +13,18 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { LinkService } from '@dspace/core/cache/builders/link.service';
+import { JsonPatchOperationPathCombiner } from '@dspace/core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
+import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
+import { SubmissionJsonPatchOperationsService } from '@dspace/core/submission/submission-json-patch-operations.service';
+import { HALEndpointServiceStub } from '@dspace/core/testing/hal-endpoint-service.stub';
+import { getMockLinkService } from '@dspace/core/testing/link-service.mock';
+import { getMockSectionUploadService } from '@dspace/core/testing/section-upload.service.mock';
+import { SubmissionJsonPatchOperationsServiceStub } from '@dspace/core/testing/submission-json-patch-operations-service.stub';
+import { SubmissionServiceStub } from '@dspace/core/testing/submission-service.stub';
+import { createTestComponent } from '@dspace/core/testing/utils.test';
+import { createFailedRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import {
   NgbModal,
   NgbModule,
@@ -20,31 +32,20 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { APP_DATA_SERVICES_MAP } from '../../../../../config/app-config.interface';
-import { JsonPatchOperationPathCombiner } from '../../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from '../../../../core/json-patch/builder/json-patch-operations-builder';
-import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service';
-import { SubmissionJsonPatchOperationsService } from '../../../../core/submission/submission-json-patch-operations.service';
 import { ThemedFileDownloadLinkComponent } from '../../../../shared/file-download-link/themed-file-download-link.component';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { FormService } from '../../../../shared/form/form.service';
-import { getMockFormService } from '../../../../shared/mocks/form-service.mock';
-import { getMockSectionUploadService } from '../../../../shared/mocks/section-upload.service.mock';
+import { getMockFormService } from '../../../../shared/form/testing/form-service.mock';
+import { getMockThemeService } from '../../../../shared/theme-support/test/theme-service.mock';
+import { ThemeService } from '../../../../shared/theme-support/theme.service';
+import { FileSizePipe } from '../../../../shared/utils/file-size-pipe';
+import { SubmissionService } from '../../../submission.service';
 import {
   mockSubmissionCollectionId,
   mockSubmissionId,
   mockUploadConfigResponse,
   mockUploadFiles,
-} from '../../../../shared/mocks/submission.mock';
-import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';
-import { createFailedRemoteDataObject$ } from '../../../../shared/remote-data.utils';
-import { HALEndpointServiceStub } from '../../../../shared/testing/hal-endpoint-service.stub';
-import { SubmissionJsonPatchOperationsServiceStub } from '../../../../shared/testing/submission-json-patch-operations-service.stub';
-import { SubmissionServiceStub } from '../../../../shared/testing/submission-service.stub';
-import { createTestComponent } from '../../../../shared/testing/utils.test';
-import { ThemeService } from '../../../../shared/theme-support/theme.service';
-import { FileSizePipe } from '../../../../shared/utils/file-size-pipe';
-import { SubmissionService } from '../../../submission.service';
+} from '../../../utils/submission.mock';
 import { SectionUploadService } from '../section-upload.service';
 import { POLICY_DEFAULT_WITH_LIST } from '../section-upload-constants';
 import { SubmissionSectionUploadFileEditComponent } from './edit/section-upload-file-edit.component';
@@ -62,7 +63,7 @@ const configMetadataFormMock = {
   }],
 };
 
-describe('SubmissionSectionUploadFileComponent test suite', () => {
+describe('SubmissionSectionUploadFileComponent', () => {
 
   let comp: SubmissionSectionUploadFileComponent;
   let compAsAny: any;
@@ -111,16 +112,18 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
         { provide: SubmissionService, useValue: submissionServiceStub },
         { provide: SectionUploadService, useValue: getMockSectionUploadService() },
         { provide: ThemeService, useValue: getMockThemeService() },
-        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
+        { provide: LinkService, useValue: getMockLinkService() },
         ChangeDetectorRef,
         NgbModal,
         SubmissionSectionUploadFileComponent,
         SubmissionSectionUploadFileEditComponent,
         FormBuilderService,
       ],
-      schemas: [NO_ERRORS_SCHEMA],
     })
       .overrideComponent(SubmissionSectionUploadFileComponent, {
+        add: {
+          schemas: [CUSTOM_ELEMENTS_SCHEMA],
+        },
         remove: {
           imports: [
             SubmissionSectionUploadFileViewComponent,
@@ -128,7 +131,7 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
           ],
         },
       })
-      .compileComponents().then();
+      .compileComponents();
   }));
 
   describe('', () => {
@@ -282,8 +285,7 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``,
-  standalone: true,
+  template: '{{ obs | async }}',
   imports: [
     AsyncPipe,
     NgbModule,
@@ -291,6 +293,7 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
 })
 class TestComponent {
 
+  obs = of();
   availableGroups;
   availableAccessConditionOptions;
   collectionId = mockSubmissionCollectionId;

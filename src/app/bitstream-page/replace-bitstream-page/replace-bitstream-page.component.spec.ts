@@ -15,22 +15,22 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { RequestService } from '@dspace/core/data/request.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Bitstream } from '@dspace/core/shared/bitstream.model';
+import { AuthServiceStub } from '@dspace/core/testing/auth-service.stub';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { RouterStub } from '@dspace/core/testing/router.stub';
+import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { AuthService } from '../../../app/core/auth/auth.service';
-import { RequestService } from '../../../app/core/data/request.service';
-import { Bitstream } from '../../../app/core/shared/bitstream.model';
-import { NotificationsService } from '../../../app/shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject } from '../../../app/shared/remote-data.utils';
-import { AuthServiceStub } from '../../../app/shared/testing/auth-service.stub';
-import { NotificationsServiceStub } from '../../../app/shared/testing/notifications-service.stub';
-import { RouterStub } from '../../../app/shared/testing/router.stub';
-import { UploaderOptions } from '../../../app/shared/upload/uploader/uploader-options.model';
-import { UploaderProperties } from '../../../app/shared/upload/uploader/uploader-properties.model';
-import { FileSizePipe } from '../../../app/shared/utils/file-size-pipe';
-import { VarDirective } from '../../../app/shared/utils/var.directive';
 import { UploaderComponent } from '../../shared/upload/uploader/uploader.component';
+import { UploaderOptions } from '../../shared/upload/uploader/uploader-options.model';
+import { UploaderProperties } from '../../shared/upload/uploader/uploader-properties.model';
+import { FileSizePipe } from '../../shared/utils/file-size-pipe';
+import { VarDirective } from '../../shared/utils/var.directive';
 import { ReplaceBitstreamPageComponent } from './replace-bitstream-page.component';
 
 describe('ReplaceBitstreamPageComponent', () => {
@@ -76,7 +76,7 @@ describe('ReplaceBitstreamPageComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ReplaceBitstreamPageComponent);
     component = fixture.componentInstance;
-    notificationsService = TestBed.get(NotificationsService);
+    notificationsService = TestBed.inject(NotificationsService);
     fixture.detectChanges();
   });
 
@@ -135,7 +135,6 @@ describe('ReplaceBitstreamPageComponent', () => {
 @Component({
   selector: 'ds-uploader',
   template: ``,
-  standalone: true,
 })
 class TestUploaderComponent {
   @Input() dropMsg: string;

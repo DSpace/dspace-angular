@@ -14,11 +14,6 @@ import { UserMenuComponent } from './user-menu.component';
 @Component({
   selector: 'ds-user-menu',
   templateUrl: './../../theme-support/themed.component.html',
-  styleUrls: [],
-  standalone: true,
-  imports: [
-    UserMenuComponent,
-  ],
 })
 export class ThemedUserMenuComponent extends ThemedComponent<UserMenuComponent>{
 

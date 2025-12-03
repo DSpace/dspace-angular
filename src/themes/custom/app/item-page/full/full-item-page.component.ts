@@ -30,7 +30,6 @@ import { VarDirective } from '../../../../../app/shared/utils/var.directive';
   templateUrl: '../../../../../app/item-page/full/full-item-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [fadeInOut],
-  standalone: true,
   imports: [
     AsyncPipe,
     CollectionsComponent,

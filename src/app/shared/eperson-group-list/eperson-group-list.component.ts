@@ -9,6 +9,28 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { FindListOptions } from '@dspace/core/data/find-list-options.model';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import {
+  APP_DATA_SERVICES_MAP,
+  LazyDataServicesMap,
+} from '@dspace/core/data-services-map-type';
+import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
+import { GroupDataService } from '@dspace/core/eperson/group-data.service';
+import { EPerson } from '@dspace/core/eperson/models/eperson.model';
+import { EPERSON } from '@dspace/core/eperson/models/eperson.resource-type';
+import { Group } from '@dspace/core/eperson/models/group.model';
+import { GROUP } from '@dspace/core/eperson/models/group.resource-type';
+import { lazyDataService } from '@dspace/core/lazy-data-service';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import {
+  getAllCompletedRemoteData,
+  getRemoteDataPayload,
+} from '@dspace/core/shared/operators';
+import { ResourceType } from '@dspace/core/shared/resource-type';
 import { TranslateModule } from '@ngx-translate/core';
 import uniqueId from 'lodash/uniqueId';
 import {
@@ -17,33 +39,12 @@ import {
 } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-import {
-  APP_DATA_SERVICES_MAP,
-  LazyDataServicesMap,
-} from '../../../config/app-config.interface';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { FindListOptions } from '../../core/data/find-list-options.model';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { GroupDataService } from '../../core/eperson/group-data.service';
-import { EPerson } from '../../core/eperson/models/eperson.model';
-import { EPERSON } from '../../core/eperson/models/eperson.resource-type';
-import { Group } from '../../core/eperson/models/group.model';
-import { GROUP } from '../../core/eperson/models/group.resource-type';
-import { lazyDataService } from '../../core/lazy-data-service';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import {
-  getAllCompletedRemoteData,
-  getRemoteDataPayload,
-} from '../../core/shared/operators';
-import { ResourceType } from '../../core/shared/resource-type';
 import { fadeInOut } from '../animations/fade';
 import { PaginationComponent } from '../pagination/pagination.component';
-import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import { SearchEvent } from './eperson-group-list-event-type';
 import { EpersonSearchBoxComponent } from './eperson-search-box/eperson-search-box.component';
 import { GroupSearchBoxComponent } from './group-search-box/group-search-box.component';
+
 
 @Component({
   selector: 'ds-eperson-group-list',
@@ -52,7 +53,6 @@ import { GroupSearchBoxComponent } from './group-search-box/group-search-box.com
   animations: [
     fadeInOut,
   ],
-  standalone: true,
   imports: [
     AsyncPipe,
     EpersonSearchBoxComponent,

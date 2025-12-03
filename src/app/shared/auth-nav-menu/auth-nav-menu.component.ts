@@ -10,6 +10,17 @@ import {
   RouterLink,
   RouterLinkActive,
 } from '@angular/router';
+import {
+  AuthService,
+  LOGIN_ROUTE,
+  LOGOUT_ROUTE,
+} from '@dspace/core/auth/auth.service';
+import {
+  isAuthenticated,
+  isAuthenticationLoading,
+} from '@dspace/core/auth/selectors';
+import { EPerson } from '@dspace/core/eperson/models/eperson.model';
+import { isNotUndefined } from '@dspace/shared/utils/empty.util';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterReducerState } from '@ngrx/router-store';
 import {
@@ -32,20 +43,9 @@ import {
   routerStateSelector,
 } from '../../app.reducer';
 import {
-  AuthService,
-  LOGIN_ROUTE,
-  LOGOUT_ROUTE,
-} from '../../core/auth/auth.service';
-import {
-  isAuthenticated,
-  isAuthenticationLoading,
-} from '../../core/auth/selectors';
-import { EPerson } from '../../core/eperson/models/eperson.model';
-import {
   fadeInOut,
   fadeOut,
 } from '../animations/fade';
-import { isNotUndefined } from '../empty.util';
 import { HostWindowService } from '../host-window.service';
 import { ThemedLogInComponent } from '../log-in/themed-log-in.component';
 import { BrowserOnlyPipe } from '../utils/browser-only.pipe';
@@ -56,7 +56,6 @@ import { ThemedUserMenuComponent } from './user-menu/themed-user-menu.component'
   templateUrl: './auth-nav-menu.component.html',
   styleUrls: ['./auth-nav-menu.component.scss'],
   animations: [fadeInOut, fadeOut],
-  standalone: true,
   imports: [
     AsyncPipe,
     BrowserOnlyPipe,

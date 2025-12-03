@@ -3,6 +3,10 @@ import {
   Component,
   OnInit,
 } from '@angular/core';
+import {
+  HealthInfoResponse,
+  HealthResponse,
+} from '@dspace/core/shared/health-component.model';
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
@@ -13,16 +17,11 @@ import { AlertType } from '../shared/alert/alert-type';
 import { HealthService } from './health.service';
 import { HealthInfoComponent } from './health-info/health-info.component';
 import { HealthPanelComponent } from './health-panel/health-panel.component';
-import {
-  HealthInfoResponse,
-  HealthResponse,
-} from './models/health-component.model';
 
 @Component({
   selector: 'ds-health-page',
   templateUrl: './health-page.component.html',
   styleUrls: ['./health-page.component.scss'],
-  standalone: true,
   imports: [
     AlertComponent,
     AsyncPipe,

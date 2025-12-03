@@ -15,6 +15,10 @@ updates:
     schedule:
       interval: "monthly"
       time: "05:00"
+    # Allow updates to be delayed for a configurable number of days to mitigate
+    # some classes of supply chain attacks
+    cooldown:
+      default-days: 7
     # Allow up to 10 open PRs for dependencies
     open-pull-requests-limit: 10
     # Group together Angular package upgrades
@@ -22,15 +26,6 @@ updates:
       # Group together all minor/patch version updates for Angular in a single PR
       angular:
         applies-to: version-updates
-        patterns:
-        - "@angular*"
-        - "@ngtools/webpack"
-        update-types:
-        - "minor"
-        - "patch"
-      # Group together all security updates for Angular. Only accept minor/patch types.
-      angular-security:
-        applies-to: security-updates
         patterns:
         - "@angular*"
         - "@ngtools/webpack"
@@ -45,26 +40,9 @@ updates:
         update-types:
         - "minor"
         - "patch"
-      # Group together all security updates for NgRx. Only accept minor/patch types.
-      ngrx-security:
-        applies-to: security-updates
-        patterns:
-        - "@ngrx*"
-        update-types:
-        - "minor"
-        - "patch"
       # Group together all patch version updates for eslint in a single PR
       eslint:
         applies-to: version-updates
-        patterns:
-        - "@typescript-eslint*"
-        - "eslint*"
-        update-types:
-        - "minor"
-        - "patch"
-      # Group together all security updates for eslint.
-      eslint-security:
-        applies-to: security-updates
         patterns:
         - "@typescript-eslint*"
         - "eslint*"
@@ -84,30 +62,9 @@ updates:
         update-types:
         - "minor"
         - "patch"
-      # Group together any testing related security updates
-      testing-security:
-        applies-to: security-updates
-        patterns:
-        - "@cypress*"
-        - "axe-*"
-        - "cypress*"
-        - "jasmine*"
-        - "karma*"
-        - "ng-mocks"
-        update-types:
-        - "minor"
-        - "patch"
       # Group together any postcss related version updates
       postcss:
         applies-to: version-updates
-        patterns:
-        - "postcss*"
-        update-types:
-        - "minor"
-        - "patch"
-      # Group together any postcss related security updates
-      postcss-security:
-        applies-to: security-updates
         patterns:
         - "postcss*"
         update-types:
@@ -121,25 +78,9 @@ updates:
         update-types:
         - "minor"
         - "patch"
-      # Group together any sass related security updates
-      sass-security:
-        applies-to: security-updates
-        patterns:
-        - "sass*"
-        update-types:
-        - "minor"
-        - "patch"
       # Group together any webpack related version updates
       webpack:
         applies-to: version-updates
-        patterns:
-        - "webpack*"
-        update-types:
-        - "minor"
-        - "patch"
-      # Group together any webpack related seurity updates
-      webpack-security:
-        applies-to: security-updates
         patterns:
         - "webpack*"
         update-types:
@@ -164,6 +105,10 @@ updates:
     schedule:
       interval: "monthly"
       time: "05:00"
+    # Allow updates to be delayed for a configurable number of days to mitigate
+    # some classes of supply chain attacks
+    cooldown:
+      default-days: 7
     # Allow up to 10 open PRs for dependencies
     open-pull-requests-limit: 10
     # Group together Angular package upgrades
@@ -251,6 +196,10 @@ updates:
     schedule:
       interval: "monthly"
       time: "05:00"
+    # Allow updates to be delayed for a configurable number of days to mitigate
+    # some classes of supply chain attacks
+    cooldown:
+      default-days: 7
     # Allow up to 10 open PRs for dependencies
     open-pull-requests-limit: 10
     # Group together Angular package upgrades
@@ -337,6 +286,10 @@ updates:
     schedule:
       interval: "monthly"
       time: "05:00"
+    # Allow updates to be delayed for a configurable number of days to mitigate
+    # some classes of supply chain attacks
+    cooldown:
+      default-days: 7
     # Allow up to 10 open PRs for dependencies
     open-pull-requests-limit: 10
     # Group together Angular package upgrades

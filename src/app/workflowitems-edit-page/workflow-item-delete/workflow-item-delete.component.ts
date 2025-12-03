@@ -7,6 +7,13 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { RequestService } from '@dspace/core/data/request.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { RouteService } from '@dspace/core/services/route.service';
+import { NoContent } from '@dspace/core/shared/NoContent.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import { WorkflowItemDataService } from '@dspace/core/submission/workflowitem-data.service';
 import {
   TranslatePipe,
   TranslateService,
@@ -14,21 +21,13 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { RemoteData } from '../../core/data/remote-data';
-import { RequestService } from '../../core/data/request.service';
-import { RouteService } from '../../core/services/route.service';
-import { NoContent } from '../../core/shared/NoContent.model';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
-import { WorkflowItemDataService } from '../../core/submission/workflowitem-data.service';
 import { ModifyItemOverviewComponent } from '../../item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { WorkflowItemActionPageDirective } from '../workflow-item-action-page.component';
 
 @Component({
   selector: 'ds-base-workflow-item-delete',
   templateUrl: '../workflow-item-action-page.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     ModifyItemOverviewComponent,

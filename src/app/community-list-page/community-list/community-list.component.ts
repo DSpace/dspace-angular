@@ -9,16 +9,16 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
-import { take } from 'rxjs/operators';
-
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import {
   SortDirection,
   SortOptions,
-} from '../../core/cache/models/sort-options.model';
-import { FindListOptions } from '../../core/data/find-list-options.model';
-import { isEmpty } from '../../shared/empty.util';
+} from '@dspace/core/cache/models/sort-options.model';
+import { FindListOptions } from '@dspace/core/data/find-list-options.model';
+import { isEmpty } from '@dspace/shared/utils/empty.util';
+import { TranslateModule } from '@ngx-translate/core';
+import { take } from 'rxjs/operators';
+
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { TruncatableComponent } from '../../shared/truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../../shared/truncatable/truncatable-part/truncatable-part.component';
@@ -37,7 +37,6 @@ import { FlatNode } from '../flat-node.model';
   selector: 'ds-base-community-list',
   templateUrl: './community-list.component.html',
   styleUrls: ['./community-list.component.scss'],
-  standalone: true,
   imports: [
     AsyncPipe,
     CdkTreeModule,

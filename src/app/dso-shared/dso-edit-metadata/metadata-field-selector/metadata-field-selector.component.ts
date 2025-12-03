@@ -19,6 +19,19 @@ import {
   UntypedFormControl,
 } from '@angular/forms';
 import {
+  SortDirection,
+  SortOptions,
+} from '@dspace/core/cache/models/sort-options.model';
+import { FindListOptions } from '@dspace/core/data/find-list-options.model';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import {
+  getAllSucceededRemoteData,
+  getFirstCompletedRemoteData,
+  metadataFieldsToString,
+} from '@dspace/core/shared/operators';
+import { hasValue } from '@dspace/shared/utils/empty.util';
+import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
@@ -39,28 +52,14 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import {
-  SortDirection,
-  SortOptions,
-} from '../../../core/cache/models/sort-options.model';
-import { FindListOptions } from '../../../core/data/find-list-options.model';
-import { RegistryService } from '../../../core/registry/registry.service';
-import {
-  getAllSucceededRemoteData,
-  getFirstCompletedRemoteData,
-  metadataFieldsToString,
-} from '../../../core/shared/operators';
-import { hasValue } from '../../../shared/empty.util';
+import { RegistryService } from '../../../admin/admin-registries/registry/registry.service';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { ClickOutsideDirective } from '../../../shared/utils/click-outside.directive';
-import { followLink } from '../../../shared/utils/follow-link-config.model';
 
 @Component({
   selector: 'ds-metadata-field-selector',
   styleUrls: ['./metadata-field-selector.component.scss'],
   templateUrl: './metadata-field-selector.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     ClickOutsideDirective,

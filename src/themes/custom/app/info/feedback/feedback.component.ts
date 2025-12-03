@@ -9,7 +9,6 @@ import { ThemedFeedbackFormComponent } from '../../../../../app/info/feedback/fe
   styleUrls: ['../../../../../app/info/feedback/feedback.component.scss'],
   // templateUrl: './feedback.component.html'
   templateUrl: '../../../../../app/info/feedback/feedback.component.html',
-  standalone: true,
   imports: [
     ThemedFeedbackFormComponent,
   ],

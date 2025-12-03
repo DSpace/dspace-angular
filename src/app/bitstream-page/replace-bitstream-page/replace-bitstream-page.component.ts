@@ -11,6 +11,12 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { getBitstreamModuleRoute } from '@dspace/core/router/core-routing-paths';
+import {
+  hasValue,
+  isEmpty,
+} from '@dspace/shared/utils/empty.util';
 import {
   TranslatePipe,
   TranslateService,
@@ -20,20 +26,14 @@ import { UiSwitchModule } from 'ngx-ui-switch';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { getBitstreamModuleRoute } from '../../app-routing-paths';
 import { AuthService } from '../../core/auth/auth.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { RequestService } from '../../core/data/request.service';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
 import { URLCombiner } from '../../core/url-combiner/url-combiner';
-import {
-  hasValue,
-  isEmpty,
-} from '../../shared/empty.util';
 import { ErrorComponent } from '../../shared/error/error.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { UploaderComponent } from '../../shared/upload/uploader/uploader.component';
 import { UploaderOptions } from '../../shared/upload/uploader/uploader-options.model';
 import { FileSizePipe } from '../../shared/utils/file-size-pipe';
@@ -55,7 +55,6 @@ import { VarDirective } from '../../shared/utils/var.directive';
     UploaderComponent,
     VarDirective,
   ],
-  standalone: true,
 })
 export class ReplaceBitstreamPageComponent implements OnInit {
   saveNotificationKey = 'bitstream.replace.page.upload.success';

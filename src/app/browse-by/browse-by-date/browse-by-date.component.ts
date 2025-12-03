@@ -14,6 +14,26 @@ import {
   Params,
   Router,
 } from '@angular/router';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { BrowseService } from '@dspace/core/browse/browse.service';
+import {
+  SortDirection,
+  SortOptions,
+} from '@dspace/core/cache/models/sort-options.model';
+import { DSpaceObjectDataService } from '@dspace/core/data/dspace-object-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { isValidDate } from '@dspace/shared/utils/date.util';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest as observableCombineLatest,
@@ -26,28 +46,8 @@ import {
 } from 'rxjs/operators';
 import { ThemedBrowseByComponent } from 'src/app/shared/browse-by/themed-browse-by.component';
 
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '../../../config/app-config.interface';
 import { environment } from '../../../environments/environment';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { BrowseService } from '../../core/browse/browse.service';
-import {
-  SortDirection,
-  SortOptions,
-} from '../../core/cache/models/sort-options.model';
-import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { Item } from '../../core/shared/item.model';
-import { isValidDate } from '../../shared/date.util';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { StartsWithType } from '../../shared/starts-with/starts-with-type';
 import {
   BrowseByMetadataComponent,
@@ -58,7 +58,6 @@ import {
   selector: 'ds-browse-by-date',
   styleUrls: ['../browse-by-metadata/browse-by-metadata.component.scss'],
   templateUrl: '../browse-by-metadata/browse-by-metadata.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     ThemedBrowseByComponent,

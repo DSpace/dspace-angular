@@ -5,6 +5,17 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
+import { WorkspaceItem } from '@dspace/core/submission/models/workspaceitem.model';
+import { SectionsType } from '@dspace/core/submission/sections-type';
+import { normalizeSectionData } from '@dspace/core/submission/submission-response-parsing.service';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslatePipe,
@@ -23,23 +34,12 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { AuthService } from '../../../../../../core/auth/auth.service';
-import { HALEndpointService } from '../../../../../../core/shared/hal-endpoint.service';
-import { WorkspaceItem } from '../../../../../../core/submission/models/workspaceitem.model';
-import { normalizeSectionData } from '../../../../../../core/submission/submission-response-parsing.service';
-import {
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-} from '../../../../../../shared/empty.util';
-import { NotificationsService } from '../../../../../../shared/notifications/notifications.service';
 import { UploaderComponent } from '../../../../../../shared/upload/uploader/uploader.component';
 import { UploaderOptions } from '../../../../../../shared/upload/uploader/uploader-options.model';
 import { FileSizePipe } from '../../../../../../shared/utils/file-size-pipe';
 import { SubmissionService } from '../../../../../submission.service';
 import parseSectionErrors from '../../../../../utils/parseSectionErrors';
 import { SectionsService } from '../../../../sections.service';
-import { SectionsType } from '../../../../sections-type';
 
 
 @Component({
@@ -52,7 +52,6 @@ import { SectionsType } from '../../../../sections-type';
     UiSwitchModule,
     UploaderComponent,
   ],
-  standalone: true,
 })
 export class SubmissionSectionUploadFileReplaceComponent implements OnInit, OnChanges, OnDestroy {
 

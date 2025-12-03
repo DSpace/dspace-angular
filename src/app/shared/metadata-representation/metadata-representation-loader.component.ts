@@ -3,13 +3,13 @@ import {
   Inject,
   Input,
 } from '@angular/core';
-
-import { Context } from '../../core/shared/context.model';
-import { GenericConstructor } from '../../core/shared/generic-constructor';
+import { Context } from '@dspace/core/shared/context.model';
+import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
 import {
   MetadataRepresentation,
   MetadataRepresentationType,
-} from '../../core/shared/metadata-representation/metadata-representation.model';
+} from '@dspace/core/shared/metadata-representation/metadata-representation.model';
+
 import { AbstractComponentLoaderComponent } from '../abstract-component-loader/abstract-component-loader.component';
 import { MetadataRepresentationListElementComponent } from '../object-list/metadata-representation-list-element/metadata-representation-list-element.component';
 import { ThemeService } from '../theme-support/theme.service';
@@ -18,7 +18,6 @@ import { METADATA_REPRESENTATION_COMPONENT_FACTORY } from './metadata-representa
 @Component({
   selector: 'ds-metadata-representation-loader',
   templateUrl: '../abstract-component-loader/abstract-component-loader.component.html',
-  standalone: true,
 })
 /**
  * Component for determining what component to use depending on the item's entity type (dspace.entity.type), its metadata representation and, optionally, its context

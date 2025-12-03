@@ -10,18 +10,18 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Bitstream } from '@dspace/core/shared/bitstream.model';
+import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
+import { AuthServiceStub } from '@dspace/core/testing/auth-service.stub';
+import { HALEndpointServiceStub } from '@dspace/core/testing/hal-endpoint-service.stub';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { SectionsServiceStub } from '@dspace/core/testing/sections-service.stub';
+import { SubmissionServiceStub } from '@dspace/core/testing/submission-service.stub';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { AuthService } from '../../../../../../core/auth/auth.service';
-import { Bitstream } from '../../../../../../core/shared/bitstream.model';
-import { HALEndpointService } from '../../../../../../core/shared/hal-endpoint.service';
-import { NotificationsService } from '../../../../../../shared/notifications/notifications.service';
-import { AuthServiceStub } from '../../../../../../shared/testing/auth-service.stub';
-import { HALEndpointServiceStub } from '../../../../../../shared/testing/hal-endpoint-service.stub';
-import { NotificationsServiceStub } from '../../../../../../shared/testing/notifications-service.stub';
-import { SectionsServiceStub } from '../../../../../../shared/testing/sections-service.stub';
-import { SubmissionServiceStub } from '../../../../../../shared/testing/submission-service.stub';
 import { UploaderComponent } from '../../../../../../shared/upload/uploader/uploader.component';
 import { UploaderOptions } from '../../../../../../shared/upload/uploader/uploader-options.model';
 import { UploaderProperties } from '../../../../../../shared/upload/uploader/uploader-properties.model';
@@ -111,7 +111,6 @@ describe('SubmissionSectionUploadFileReplaceComponent', () => {
 @Component({
   selector: 'ds-uploader',
   template: ``,
-  standalone: true,
 })
 class TestUploaderComponent {
   @Input() dropMsg: string;

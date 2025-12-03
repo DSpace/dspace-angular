@@ -1,8 +1,7 @@
 // This configuration is only used for unit tests, end-to-end tests use environment.production.ts
+import { NotificationAnimationsType } from '@dspace/config/notifications-config.interfaces';
+import { RestRequestMethod } from '@dspace/config/rest-request-method';
 import { BuildConfig } from 'src/config/build-config.interface';
-
-import { RestRequestMethod } from '../app/core/data/rest-request-method';
-import { NotificationAnimationsType } from '../app/shared/notifications/models/notification-animations-type';
 
 export const environment: BuildConfig = {
   production: false,
@@ -200,8 +199,8 @@ export const environment: BuildConfig = {
   // NOTE: will log all redux actions and transfers in console
   debug: false,
 
-  // Default Language in which the UI will be rendered if the user's browser language is not an active language
-  defaultLanguage: 'en',
+  // Fallback language in which the UI will be rendered if the user's browser language is not an active language
+  fallbackLanguage: 'en',
 
   // Languages. DSpace Angular holds a message catalog for each of the following languages.
   // When set to active, users will be able to switch to the use of this language in the user interface.

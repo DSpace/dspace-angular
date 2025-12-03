@@ -13,6 +13,16 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { AppliedFilter } from '@dspace/core/shared/search/models/applied-filter.model';
+import { FacetValues } from '@dspace/core/shared/search/models/facet-values.model';
+import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
+import { SearchOptions } from '@dspace/core/shared/search/models/search-options.model';
+import { SequenceService } from '@dspace/core/shared/sequence.service';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -26,22 +36,12 @@ import {
   switchMap,
 } from 'rxjs';
 
-import { RemoteData } from '../../../../core/data/remote-data';
-import { SearchService } from '../../../../core/shared/search/search.service';
-import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
-import { SearchFilterService } from '../../../../core/shared/search/search-filter.service';
-import { SequenceService } from '../../../../core/shared/sequence.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-configuration.service';
 import { slide } from '../../../animations/slide';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../../empty.util';
 import { BrowserOnlyPipe } from '../../../utils/browser-only.pipe';
-import { AppliedFilter } from '../../models/applied-filter.model';
-import { FacetValues } from '../../models/facet-values.model';
-import { SearchFilterConfig } from '../../models/search-filter-config.model';
-import { SearchOptions } from '../../models/search-options.model';
+import { SearchService } from '../../search.service';
+import { SearchConfigurationService } from '../../search-configuration.service';
+import { SearchFilterService } from '../search-filter.service';
 import { FACET_OPERATORS } from './search-facet-filter/search-facet-filter.component';
 import { SearchFacetFilterWrapperComponent } from './search-facet-filter-wrapper/search-facet-filter-wrapper.component';
 
@@ -50,7 +50,6 @@ import { SearchFacetFilterWrapperComponent } from './search-facet-filter-wrapper
   styleUrls: ['./search-filter.component.scss'],
   templateUrl: './search-filter.component.html',
   animations: [slide],
-  standalone: true,
   imports: [
     AsyncPipe,
     BrowserOnlyPipe,

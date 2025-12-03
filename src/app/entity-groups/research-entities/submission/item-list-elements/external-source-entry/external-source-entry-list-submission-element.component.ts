@@ -3,12 +3,12 @@ import {
   Component,
   OnInit,
 } from '@angular/core';
+import { Context } from '@dspace/core/shared/context.model';
+import { ExternalSourceEntry } from '@dspace/core/shared/external-source-entry.model';
+import { MetadataValue } from '@dspace/core/shared/metadata.models';
+import { Metadata } from '@dspace/core/shared/metadata.utils';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
 
-import { Context } from '../../../../../core/shared/context.model';
-import { ExternalSourceEntry } from '../../../../../core/shared/external-source-entry.model';
-import { MetadataValue } from '../../../../../core/shared/metadata.models';
-import { Metadata } from '../../../../../core/shared/metadata.utils';
-import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
 import { AbstractListableElementComponent } from '../../../../../shared/object-collection/shared/object-collection-element/abstract-listable-element.component';
 
@@ -18,7 +18,6 @@ import { AbstractListableElementComponent } from '../../../../../shared/object-c
   selector: 'ds-external-source-entry-list-submission-element',
   styleUrls: ['./external-source-entry-list-submission-element.component.scss'],
   templateUrl: './external-source-entry-list-submission-element.component.html',
-  standalone: true,
   imports: [],
 })
 /**

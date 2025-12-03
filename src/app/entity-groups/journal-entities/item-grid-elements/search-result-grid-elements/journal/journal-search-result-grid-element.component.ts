@@ -1,9 +1,9 @@
 import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { focusShadow } from '../../../../../shared/animations/focus';
 import { ThemedBadgesComponent } from '../../../../../shared/object-collection/shared/badges/themed-badges.component';
 import { listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
@@ -18,7 +18,6 @@ import { ThemedThumbnailComponent } from '../../../../../thumbnail/themed-thumbn
   styleUrls: ['./journal-search-result-grid-element.component.scss'],
   templateUrl: './journal-search-result-grid-element.component.html',
   animations: [focusShadow],
-  standalone: true,
   imports: [
     AsyncPipe,
     RouterLink,
