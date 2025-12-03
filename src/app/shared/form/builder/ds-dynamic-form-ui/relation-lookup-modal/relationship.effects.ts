@@ -44,6 +44,7 @@ const DEBOUNCE_TIME = 500;
 enum RelationOperationType {
   Add,
   Remove,
+  Replace,
 }
 
 interface RelationOperation {
@@ -53,6 +54,9 @@ interface RelationOperation {
   relationshipType: string
   submissionId: string
   nameVariant?: string
+  replaceLeftSide?: boolean
+  place?: number
+  mdField?: string
 }
 
 /**
@@ -118,7 +122,17 @@ export class RelationshipEffects {
                     });
                     } else {
                       const replaceAction = action as ReplaceRelationshipAction;
-                      this.replaceRelationship(item1, item2, replaceAction.payload.replaceLeftSide, replaceAction.payload.place, replaceAction.payload.mdField, relationshipType, submissionId, nameVariant);
+                      this.requestQueue.next({
+                        type: RelationOperationType.Replace,
+                        item1,
+                        item2,
+                        relationshipType,
+                        submissionId,
+                        nameVariant,
+                        replaceLeftSide: replaceAction.payload.replaceLeftSide,
+                        place: replaceAction.payload.place,
+                        mdField: replaceAction.payload.mdField,
+                      });
                     }
                   } else {
                     this.requestQueue.next({
@@ -222,6 +236,10 @@ export class RelationshipEffects {
             return this.addRelationship(next.item1, next.item2, next.relationshipType, next.submissionId, next.nameVariant).pipe(
               map(() => next)
             );
+          case RelationOperationType.Replace:
+            return this.replaceRelationship(next.item1, next.item2, next.replaceLeftSide, next.place, next.mdField, next.relationshipType, next.submissionId, next.nameVariant).pipe(
+              map(() => next)
+            );
           case RelationOperationType.Remove:
             return this.removeRelationship(next.item1, next.item2, next.relationshipType).pipe(
               map(() => next)
@@ -244,13 +262,7 @@ export class RelationshipEffects {
     return `${item1.uuid}-${item2.uuid}-${relationshipType}`;
   }
 
-  private addRelationship(item1: Item, item2: Item, relationshipType: string, submissionId: string, nameVariant?: string) {
-    this.addRelationshipObs(item1, item2, relationshipType, submissionId, nameVariant).pipe(
-      switchMap(() => this.refreshWorkspaceItemInCache(submissionId))
-    ).subscribe((submissionObject: SubmissionObject) => this.store.dispatch(new SaveSubmissionSectionFormSuccessAction(submissionId, [submissionObject], false)));
-  }
-
-  private addRelationshipObs(item1: Item, item2: Item, relationshipType: string, submissionId: string, nameVariant?: string): Observable<Relationship> {
+  private addRelationship(item1: Item, item2: Item, relationshipType: string, submissionId: string, nameVariant?: string): Observable<Relationship> {
     const type1: string = item1.firstMetadataValue('dspace.entity.type');
     const type2: string = item2.firstMetadataValue('dspace.entity.type');
     return this.relationshipTypeService.getRelationshipTypeByLabelAndTypes(relationshipType, type1, type2)
@@ -312,11 +324,11 @@ export class RelationshipEffects {
    * @private
    */
   private replaceRelationship(item1: Item, item2: Item, replaceLeftSide: boolean, place: number, metadataField: string, relationshipType: string, submissionId: string, nameVariant?: string) {
-    this.itemService.patch(replaceLeftSide ? item1 : item2, [{ op: 'remove', path: `/metadata/${metadataField}/${place}` } as Operation]).pipe(
+    return this.itemService.patch(replaceLeftSide ? item1 : item2, [{ op: 'remove', path: `/metadata/${metadataField}/${place}` } as Operation]).pipe(
       getFirstCompletedRemoteData(),
       switchMap((rd: RemoteData<Item>) => {
         if (rd.hasSucceeded) {
-          return this.addRelationshipObs(item1, item2, relationshipType, submissionId, nameVariant);
+          return this.addRelationship(item1, item2, relationshipType, submissionId, nameVariant);
         } else {
           this.deselectAndShowError(item1, item2, relationshipType, submissionId);
           return [undefined];
@@ -337,8 +349,7 @@ export class RelationshipEffects {
           return [undefined];
         }
       }),
-      switchMap(() => this.refreshWorkspaceItemInCache(submissionId)),
-    ).subscribe((submissionObject: SubmissionObject) => this.store.dispatch(new SaveSubmissionSectionFormSuccessAction(submissionId, [submissionObject], false)));
+    );
   }
 
   private removeRelationship(item1: Item, item2: Item, relationshipType: string) {

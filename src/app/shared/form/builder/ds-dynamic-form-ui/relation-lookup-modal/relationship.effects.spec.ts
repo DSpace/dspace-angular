@@ -261,6 +261,8 @@ describe('RelationshipEffects', () => {
         let action;
         describe('When the last value in the debounceMap is also a REPLACE_RELATIONSHIP action', () => {
           beforeEach(() => {
+            jasmine.getEnv().allowRespy(true);
+            spyOn((relationEffects as any), 'replaceRelationship').and.returnValue(createSuccessfulRemoteDataObject$(relationship));
             spyOn((relationEffects as any).relationshipService, 'update').and.callThrough();
             ((relationEffects as any).debounceTime as jasmine.Spy).and.returnValue((v) => v);
             (relationEffects as any).initialActionMap[identifier] = RelationshipActionTypes.REPLACE_RELATIONSHIP;
