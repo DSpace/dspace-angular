@@ -96,7 +96,7 @@
     "filesize": "^6.1.0",
     "http-proxy-middleware": "^2.0.9",
     "http-terminator": "^3.2.0",
-    "isbot": "^5.1.31",
+    "isbot": "^5.1.32",
     "js-cookie": "2.2.1",
     "js-yaml": "^4.1.1",
     "json5": "^2.2.3",
