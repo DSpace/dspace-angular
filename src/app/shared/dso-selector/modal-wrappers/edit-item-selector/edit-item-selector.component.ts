@@ -7,6 +7,7 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { ActionType } from '@dspace/core/resource-policy/models/action-type.model';
 import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import { DSpaceObjectType } from '@dspace/core/shared/dspace-object-type.model';
 import { Item } from '@dspace/core/shared/item.model';
@@ -14,7 +15,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { getItemEditRoute } from '../../../../item-page/item-page-routing-paths';
-import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
+import { AuthorizedItemSelectorComponent } from '../../dso-selector/authorized-item-selector/authorized-item-selector.component';
 import {
   DSOSelectorModalWrapperComponent,
   SelectorActionType,
@@ -29,7 +30,7 @@ import {
   selector: 'ds-base-edit-item-selector',
   templateUrl: 'edit-item-selector.component.html',
   imports: [
-    DSOSelectorComponent,
+    AuthorizedItemSelectorComponent,
     TranslateModule,
   ],
 })
@@ -37,6 +38,7 @@ export class EditItemSelectorComponent extends DSOSelectorModalWrapperComponent 
   objectType = DSpaceObjectType.ITEM;
   selectorTypes = [DSpaceObjectType.ITEM];
   action = SelectorActionType.EDIT;
+  rpActionType = ActionType.WRITE;
 
   constructor(protected activeModal: NgbActiveModal, protected route: ActivatedRoute, private router: Router) {
     super(activeModal, route);

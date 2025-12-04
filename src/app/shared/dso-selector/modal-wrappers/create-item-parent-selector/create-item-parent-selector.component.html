@@ -10,6 +10,7 @@
     <ds-authorized-collection-selector [currentDSOId]="dsoRD?.payload.uuid"
       [entityType]="entityType"
       [types]="selectorTypes"
+      [action]="rpActionType"
     (onSelect)="selectObject($event)"></ds-authorized-collection-selector>
   </div>
 </div>
