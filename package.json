@@ -185,7 +185,7 @@
     "@typescript-eslint/parser": "^8.47.0",
     "@typescript-eslint/rule-tester": "^8.47.0",
     "@typescript-eslint/utils": "^8.47.0",
-    "axe-core": "^4.10.2",
+    "axe-core": "^4.11.0",
     "commander": "^14.0.2",
     "compression-webpack-plugin": "^9.2.0",
     "copy-webpack-plugin": "^6.4.1",
