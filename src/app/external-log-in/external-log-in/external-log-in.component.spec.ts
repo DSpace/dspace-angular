@@ -1,12 +1,12 @@
-import { CommonModule } from '@angular/common';
-import { EventEmitter } from '@angular/core';
+import {
+  CUSTOM_ELEMENTS_SCHEMA,
+  EventEmitter,
+} from '@angular/core';
 import {
   ComponentFixture,
   TestBed,
 } from '@angular/core/testing';
-import { FormBuilder } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { authReducer } from '@dspace/core/auth/auth.reducer';
 import { AuthService } from '@dspace/core/auth/auth.service';
 import { AuthMethod } from '@dspace/core/auth/models/auth.method';
@@ -25,17 +25,19 @@ import {
 import { of } from 'rxjs';
 
 import { storeModuleConfig } from '../../app.reducer';
+import { AlertComponent } from '../../shared/alert/alert.component';
 import { AuthMethodTypeComponent } from '../../shared/log-in/methods/auth-methods.type';
 import { AuthMethodsService } from '../../shared/log-in/services/auth-methods.service';
-import { BrowserOnlyPipe } from '../../shared/utils/browser-only.pipe';
 import { ConfirmEmailComponent } from '../email-confirmation/confirm-email/confirm-email.component';
-import { OrcidConfirmationComponent } from '../registration-types/orcid-confirmation/orcid-confirmation.component';
+import { ProvideEmailComponent } from '../email-confirmation/provide-email/provide-email.component';
 import { ExternalLogInComponent } from './external-log-in.component';
 
 describe('ExternalLogInComponent', () => {
   let component: ExternalLogInComponent;
   let fixture: ComponentFixture<ExternalLogInComponent>;
-  let modalService: NgbModal = jasmine.createSpyObj('modalService', ['open']);
+  let modalService: NgbModal = jasmine.createSpyObj('modalService', {
+    open: { dismissed: of(), close: () => {} },
+  });
   let authServiceStub: jasmine.SpyObj<AuthService>;
   let authMethodsServiceStub: jasmine.SpyObj<AuthMethodsService>;
   let mockAuthMethodsArray: AuthMethod[] = [
@@ -76,7 +78,7 @@ describe('ExternalLogInComponent', () => {
     instant: (key: any) => 'Info Text',
     onLangChange: new EventEmitter(),
     onTranslationChange: new EventEmitter(),
-    onDefaultLangChange: new EventEmitter(),
+    onFallbackLangChange: new EventEmitter(),
   };
 
   beforeEach(async () => {
@@ -85,28 +87,28 @@ describe('ExternalLogInComponent', () => {
 
     await TestBed.configureTestingModule({
       imports: [
-        CommonModule,
-        TranslateModule.forRoot({}),
-        BrowserOnlyPipe,
+        TranslateModule.forRoot(),
         ExternalLogInComponent,
-        OrcidConfirmationComponent,
-        BrowserAnimationsModule,
         StoreModule.forRoot(authReducer, storeModuleConfig),
       ],
       providers: [
         { provide: TranslateService, useValue: translateServiceStub },
         { provide: AuthService, useValue: new AuthServiceMock() },
         { provide: NgbModal, useValue: modalService },
-        FormBuilder,
         provideMockStore({ initialState }),
       ],
-    })
-      .overrideComponent(ExternalLogInComponent, {
-        remove: {
-          imports: [ConfirmEmailComponent],
-        },
-      })
-      .compileComponents();
+    }).overrideComponent(ExternalLogInComponent, {
+      add: {
+        schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      },
+      remove: {
+        imports: [
+          ConfirmEmailComponent,
+          ProvideEmailComponent,
+          AlertComponent,
+        ],
+      },
+    }).compileComponents();
   });
   beforeEach(() => {
     fixture = TestBed.createComponent(ExternalLogInComponent);

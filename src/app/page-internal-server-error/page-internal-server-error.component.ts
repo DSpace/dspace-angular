@@ -13,7 +13,6 @@ import { TranslateModule } from '@ngx-translate/core';
   styleUrls: ['./page-internal-server-error.component.scss'],
   templateUrl: './page-internal-server-error.component.html',
   changeDetection: ChangeDetectionStrategy.Default,
-  standalone: true,
   imports: [
     TranslateModule,
   ],

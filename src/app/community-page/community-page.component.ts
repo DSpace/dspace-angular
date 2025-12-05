@@ -61,7 +61,6 @@ import { VarDirective } from '../shared/utils/var.directive';
     TranslateModule,
     VarDirective,
   ],
-  standalone: true,
 })
 /**
  * This component represents a detail page for a single community

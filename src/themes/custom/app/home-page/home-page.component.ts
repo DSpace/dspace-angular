@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgTemplateOutlet,
-} from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -20,9 +17,7 @@ import { ThemedSearchFormComponent } from '../../../../app/shared/search-form/th
   styleUrls: ['../../../../app/home-page/home-page.component.scss'],
   // templateUrl: './home-page.component.html'
   templateUrl: '../../../../app/home-page/home-page.component.html',
-  standalone: true,
   imports: [
-    AsyncPipe,
     HomeCoarComponent,
     NgTemplateOutlet,
     RecentItemListComponent,

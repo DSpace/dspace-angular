@@ -17,7 +17,6 @@ import { TranslateModule } from '@ngx-translate/core';
     DatePipe,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class MetadataInformationComponent {
   /**

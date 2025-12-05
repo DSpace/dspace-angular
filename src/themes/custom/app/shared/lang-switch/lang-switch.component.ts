@@ -10,7 +10,6 @@ import { LangSwitchComponent as BaseComponent } from '../../../../../app/shared/
   styleUrls: ['../../../../../app/shared/lang-switch/lang-switch.component.scss'],
   // templateUrl: './lang-switch.component.html',
   templateUrl: '../../../../../app/shared/lang-switch/lang-switch.component.html',
-  standalone: true,
   imports: [
     NgbDropdownModule,
     TranslateModule,

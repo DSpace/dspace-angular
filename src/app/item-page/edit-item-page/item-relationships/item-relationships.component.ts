@@ -62,7 +62,6 @@ import { EditRelationshipListWrapperComponent } from './edit-relationship-list-w
     ThemedLoadingComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * Component for displaying an item's relationships edit page

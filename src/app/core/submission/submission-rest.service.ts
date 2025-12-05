@@ -46,6 +46,7 @@ export const getFirstDataDefinition = () =>
       getFirstCompletedRemoteData(),
       map((response: RemoteData<SubmissionResponse>) => {
         if (response.hasFailed) {
+          // eslint-disable-next-line @typescript-eslint/only-throw-error
           throw new ErrorResponse({ statusText: response.errorMessage, statusCode: response.statusCode } as RequestError);
         } else {
           return hasValue(response?.payload?.dataDefinition) ? response.payload.dataDefinition : [response.payload];

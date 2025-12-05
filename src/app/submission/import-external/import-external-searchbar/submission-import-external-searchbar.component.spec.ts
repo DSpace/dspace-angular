@@ -182,7 +182,6 @@ describe('SubmissionImportExternalSearchbarComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
-  standalone: true,
 })
 class TestComponent {
   initExternalSourceData = { entity: 'Publication', query: 'dummy', sourceId: 'ciencia' };

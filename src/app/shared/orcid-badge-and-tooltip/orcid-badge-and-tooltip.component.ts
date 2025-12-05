@@ -14,7 +14,6 @@ import { TranslateService } from '@ngx-translate/core';
  */
 @Component({
   selector: 'ds-orcid-badge-and-tooltip',
-  standalone: true,
   imports: [
     NgbTooltipModule,
     NgClass,

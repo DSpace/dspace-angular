@@ -73,7 +73,6 @@ import { ProcessDetailFieldComponent } from './process-detail-field/process-deta
 @Component({
   selector: 'ds-process-detail',
   templateUrl: './process-detail.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     DatePipe,
