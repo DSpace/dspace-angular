@@ -13,15 +13,13 @@ import {
   hasValue,
   isEmpty,
 } from '@dspace/shared/utils/empty.util';
-import {
-  DynamicCheckboxModel,
-  DynamicFormArrayModel,
-  DynamicFormControlLayout,
-  DynamicFormControlModel,
-  DynamicInputModel,
-  DynamicSelectModel,
-  DynamicTextAreaModel,
-} from '@ng-dynamic-forms/core';
+import { DynamicCheckboxModel } from '@ng-dynamic-forms/core/model/checkbox/dynamic-checkbox.model';
+import { DynamicFormControlModel } from '@ng-dynamic-forms/core/model/dynamic-form-control.model';
+import { DynamicFormArrayModel } from '@ng-dynamic-forms/core/model/form-array/dynamic-form-array.model';
+import { DynamicInputModel } from '@ng-dynamic-forms/core/model/input/dynamic-input.model';
+import { DynamicFormControlLayout } from '@ng-dynamic-forms/core/model/misc/dynamic-form-control-layout.model';
+import { DynamicSelectModel } from '@ng-dynamic-forms/core/model/select/dynamic-select.model';
+import { DynamicTextAreaModel } from '@ng-dynamic-forms/core/model/textarea/dynamic-textarea.model';
 
 import { environment } from '../../../../../environments/environment';
 import { FormComponent } from '../../../../shared/form/form.component';

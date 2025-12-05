@@ -35,12 +35,10 @@ import {
   NgbModal,
   NgbModule,
 } from '@ng-bootstrap/ng-bootstrap';
-import {
-  DynamicFormLayoutService,
-  DynamicFormsCoreModule,
-  DynamicFormValidationService,
-} from '@ng-dynamic-forms/core';
-import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
+import { DynamicListDirective } from '@ng-dynamic-forms/core/directive/dynamic-list.directive';
+import { DynamicTemplateDirective } from '@ng-dynamic-forms/core/directive/dynamic-template.directive';
+import { DynamicFormLayoutService } from '@ng-dynamic-forms/core/service/dynamic-form-layout.service';
+import { DynamicFormValidationService } from '@ng-dynamic-forms/core/service/dynamic-form-validation.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
 import { of } from 'rxjs';
@@ -149,8 +147,8 @@ describe('DsDynamicOneboxComponent test suite', () => {
     init();
     TestBed.configureTestingModule({
       imports: [
-        DynamicFormsCoreModule,
-        DynamicFormsNGBootstrapUIModule,
+        DynamicListDirective,
+        DynamicTemplateDirective,
         FormsModule,
         NgbModule,
         ReactiveFormsModule,
@@ -475,8 +473,8 @@ describe('DsDynamicOneboxComponent test suite', () => {
   template: ``,
   imports: [
     CdkTreeModule,
-    DynamicFormsCoreModule,
-    DynamicFormsNGBootstrapUIModule,
+    DynamicListDirective,
+    DynamicTemplateDirective,
     FormsModule,
     NgbModule,
     ReactiveFormsModule,

@@ -9,13 +9,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
-import {
-  DYNAMIC_FORM_CONTROL_MAP_FN,
-  DynamicFormLayoutService,
-  DynamicFormService,
-  DynamicFormValidationService,
-  DynamicInputModel,
-} from '@ng-dynamic-forms/core';
+import { DynamicInputModel } from '@ng-dynamic-forms/core/model/input/dynamic-input.model';
+import { DynamicFormService } from '@ng-dynamic-forms/core/service/dynamic-form.service';
+import { DYNAMIC_FORM_CONTROL_MAP_FN } from '@ng-dynamic-forms/core/service/dynamic-form-component.service';
+import { DynamicFormLayoutService } from '@ng-dynamic-forms/core/service/dynamic-form-layout.service';
+import { DynamicFormValidationService } from '@ng-dynamic-forms/core/service/dynamic-form-validation.service';
 import { provideMockStore } from '@ngrx/store/testing';
 import {
   TranslateModule,

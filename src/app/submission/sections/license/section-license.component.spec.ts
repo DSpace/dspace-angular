@@ -35,11 +35,11 @@ import {
 } from '@dspace/core/utilities/remote-data.utils';
 import { XSRFService } from '@dspace/core/xsrf/xsrf.service';
 import {
-  DYNAMIC_FORM_CONTROL_MAP_FN,
-  DynamicCheckboxModel,
   DynamicFormControlEvent,
   DynamicFormControlEventType,
-} from '@ng-dynamic-forms/core';
+} from '@ng-dynamic-forms/core/component/dynamic-form-control-event';
+import { DynamicCheckboxModel } from '@ng-dynamic-forms/core/model/checkbox/dynamic-checkbox.model';
+import { DYNAMIC_FORM_CONTROL_MAP_FN } from '@ng-dynamic-forms/core/service/dynamic-form-component.service';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';

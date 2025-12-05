@@ -30,15 +30,17 @@ import {
 } from '@dspace/shared/utils/empty.util';
 import {
   NgbModal,
+  NgbNav,
   NgbNavChangeEvent,
-  NgbNavModule,
+  NgbNavContent,
+  NgbNavItem,
+  NgbNavLink,
+  NgbNavOutlet,
 } from '@ng-bootstrap/ng-bootstrap';
-import {
-  DynamicDatePickerModel,
-  DynamicFormControlModel,
-  DynamicFormGroupModel,
-  DynamicSelectModel,
-} from '@ng-dynamic-forms/core';
+import { DynamicDatePickerModel } from '@ng-dynamic-forms/core/model/datepicker/dynamic-datepicker.model';
+import { DynamicFormControlModel } from '@ng-dynamic-forms/core/model/dynamic-form-control.model';
+import { DynamicFormGroupModel } from '@ng-dynamic-forms/core/model/form-group/dynamic-form-group.model';
+import { DynamicSelectModel } from '@ng-dynamic-forms/core/model/select/dynamic-select.model';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -89,7 +91,11 @@ export interface ResourcePolicyEvent {
     BtnDisabledDirective,
     EpersonGroupListComponent,
     FormComponent,
-    NgbNavModule,
+    NgbNav,
+    NgbNavContent,
+    NgbNavItem,
+    NgbNavLink,
+    NgbNavOutlet,
     TranslateModule,
   ],
 })

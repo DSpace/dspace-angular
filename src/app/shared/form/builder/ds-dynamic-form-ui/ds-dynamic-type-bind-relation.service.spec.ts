@@ -8,13 +8,13 @@ import {
   UntypedFormControl,
 } from '@angular/forms';
 import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
+import { DynamicFormRelationService } from '@ng-dynamic-forms/core/service/dynamic-form-relation.service';
 import {
   DISABLED_MATCHER_PROVIDER,
-  DynamicFormRelationService,
   HIDDEN_MATCHER,
   HIDDEN_MATCHER_PROVIDER,
   REQUIRED_MATCHER_PROVIDER,
-} from '@ng-dynamic-forms/core';
+} from '@ng-dynamic-forms/core/service/dynamic-form-relation-matchers';
 
 import { getMockFormBuilderService } from '../../testing/form-builder-service.mock';
 import {

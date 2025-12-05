@@ -16,11 +16,9 @@ import { BitstreamFormatSupportLevel } from '@dspace/core/shared/bitstream-forma
 import { RouterStub } from '@dspace/core/testing/router.stub';
 import { isEmpty } from '@dspace/shared/utils/empty.util';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import {
-  DynamicCheckboxModel,
-  DynamicFormArrayModel,
-  DynamicInputModel,
-} from '@ng-dynamic-forms/core';
+import { DynamicCheckboxModel } from '@ng-dynamic-forms/core/model/checkbox/dynamic-checkbox.model';
+import { DynamicFormArrayModel } from '@ng-dynamic-forms/core/model/form-array/dynamic-form-array.model';
+import { DynamicInputModel } from '@ng-dynamic-forms/core/model/input/dynamic-input.model';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { FormComponent } from '../../../../shared/form/form.component';

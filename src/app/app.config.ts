@@ -31,7 +31,7 @@ import {
 } from '@dspace/core/provide-core';
 import { XsrfInterceptor } from '@dspace/core/xsrf/xsrf.interceptor';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { DYNAMIC_MATCHER_PROVIDERS } from '@ng-dynamic-forms/core';
+import { DYNAMIC_MATCHER_PROVIDERS } from '@ng-dynamic-forms/core/service/dynamic-form-relation-matchers';
 import { EffectsModule } from '@ngrx/effects';
 import {
   RouterStateSerializer,

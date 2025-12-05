@@ -9,11 +9,9 @@ import {
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
-import {
-  DynamicFormControlModel,
-  DynamicFormGroupModel,
-  DynamicInputModel,
-} from '@ng-dynamic-forms/core';
+import { DynamicFormControlModel } from '@ng-dynamic-forms/core/model/dynamic-form-control.model';
+import { DynamicFormGroupModel } from '@ng-dynamic-forms/core/model/form-group/dynamic-form-group.model';
+import { DynamicInputModel } from '@ng-dynamic-forms/core/model/input/dynamic-input.model';
 import {
   Store,
   StoreModule,

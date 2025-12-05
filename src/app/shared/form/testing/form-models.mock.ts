@@ -4,7 +4,7 @@ import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/fo
 import { SubmissionScopeType } from '@dspace/core/submission/submission-scope-type';
 import { VocabularyEntry } from '@dspace/core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyOptions } from '@dspace/core/submission/vocabularies/models/vocabulary-options.model';
-import { DynamicSelectModel } from '@ng-dynamic-forms/core';
+import { DynamicSelectModel } from '@ng-dynamic-forms/core/model/select/dynamic-select.model';
 
 import { DsDynamicInputModel } from '../builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { DynamicQualdropModel } from '../builder/ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';

@@ -35,7 +35,7 @@ import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote
 import {
   DynamicFormControlEvent,
   DynamicFormControlEventType,
-} from '@ng-dynamic-forms/core';
+} from '@ng-dynamic-forms/core/component/dynamic-form-control-event';
 import {
   TranslateModule,
   TranslateService,

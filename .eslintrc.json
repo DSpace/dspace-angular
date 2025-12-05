@@ -232,7 +232,8 @@
           {
             "ignoredTypeNames": [
               "ResourceType",
-              "Error"
+              "Error",
+              "RegExp"
             ]
           }
         ],
@@ -382,6 +383,13 @@
             "avoidEscape": false
           }
         ]
+      }
+    },
+    {
+      "files": ["src/external-libraries/ng-dynamic-forms/**/*.ts"],
+      "rules": {
+        "@angular-eslint/directive-selector": "off",
+        "@angular-eslint/component-selector": "off"
       }
     }
   ]

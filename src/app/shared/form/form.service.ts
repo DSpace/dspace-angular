@@ -9,11 +9,9 @@ import {
   isEmpty,
   isNotUndefined,
 } from '@dspace/shared/utils/empty.util';
-import {
-  DynamicFormControlEvent,
-  DynamicFormControlModel,
-  DynamicFormGroupModel,
-} from '@ng-dynamic-forms/core';
+import { DynamicFormControlEvent } from '@ng-dynamic-forms/core/component/dynamic-form-control-event';
+import { DynamicFormControlModel } from '@ng-dynamic-forms/core/model/dynamic-form-control.model';
+import { DynamicFormGroupModel } from '@ng-dynamic-forms/core/model/form-group/dynamic-form-group.model';
 import {
   select,
   Store,

@@ -26,23 +26,25 @@ import {
   isNotUndefined,
   isNull,
 } from '@dspace/shared/utils/empty.util';
+import { DynamicFormControlEvent } from '@ng-dynamic-forms/core/component/dynamic-form-control-event';
+import { DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX_GROUP } from '@ng-dynamic-forms/core/model/checkbox/dynamic-checkbox-group.model';
+import { DynamicFormControlModel } from '@ng-dynamic-forms/core/model/dynamic-form-control.model';
 import {
   DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
-  DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX_GROUP,
-  DYNAMIC_FORM_CONTROL_TYPE_GROUP,
-  DYNAMIC_FORM_CONTROL_TYPE_INPUT,
-  DYNAMIC_FORM_CONTROL_TYPE_RADIO_GROUP,
   DynamicFormArrayGroupModel,
   DynamicFormArrayModel,
-  DynamicFormComponentService,
-  DynamicFormControlEvent,
-  DynamicFormControlModel,
+} from '@ng-dynamic-forms/core/model/form-array/dynamic-form-array.model';
+import {
+  DYNAMIC_FORM_CONTROL_TYPE_GROUP,
   DynamicFormGroupModel,
-  DynamicFormService,
-  DynamicFormValidationService,
-  DynamicPathable,
-  parseReviver,
-} from '@ng-dynamic-forms/core';
+} from '@ng-dynamic-forms/core/model/form-group/dynamic-form-group.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_INPUT } from '@ng-dynamic-forms/core/model/input/dynamic-input.model';
+import { DynamicPathable } from '@ng-dynamic-forms/core/model/misc/dynamic-form-control-path.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_RADIO_GROUP } from '@ng-dynamic-forms/core/model/radio/dynamic-radio-group.model';
+import { DynamicFormService } from '@ng-dynamic-forms/core/service/dynamic-form.service';
+import { DynamicFormComponentService } from '@ng-dynamic-forms/core/service/dynamic-form-component.service';
+import { DynamicFormValidationService } from '@ng-dynamic-forms/core/service/dynamic-form-validation.service';
+import { parseReviver } from '@ng-dynamic-forms/core/utils/json.utils';
 import isObject from 'lodash/isObject';
 import isString from 'lodash/isString';
 import mergeWith from 'lodash/mergeWith';

@@ -12,18 +12,20 @@ import {
   ReactiveFormsModule,
   UntypedFormGroup,
 } from '@angular/forms';
+import { DynamicFormControlComponent } from '@ng-dynamic-forms/core/component/dynamic-form-control.component';
 import {
-  DynamicFormControlComponent,
   DynamicFormControlCustomEvent,
   DynamicFormControlEvent,
-  DynamicFormControlLayout,
-  DynamicFormControlModel,
-  DynamicFormGroupModel,
+} from '@ng-dynamic-forms/core/component/dynamic-form-control-event';
+import { DynamicTemplateDirective } from '@ng-dynamic-forms/core/directive/dynamic-template.directive';
+import { DynamicFormControlModel } from '@ng-dynamic-forms/core/model/dynamic-form-control.model';
+import { DynamicFormGroupModel } from '@ng-dynamic-forms/core/model/form-group/dynamic-form-group.model';
+import { DynamicFormControlLayout } from '@ng-dynamic-forms/core/model/misc/dynamic-form-control-layout.model';
+import {
   DynamicFormLayout,
   DynamicFormLayoutService,
-  DynamicFormValidationService,
-  DynamicTemplateDirective,
-} from '@ng-dynamic-forms/core';
+} from '@ng-dynamic-forms/core/service/dynamic-form-layout.service';
+import { DynamicFormValidationService } from '@ng-dynamic-forms/core/service/dynamic-form-validation.service';
 
 import { DsDynamicFormControlContainerComponent } from '../../ds-dynamic-form-control-container.component';
 

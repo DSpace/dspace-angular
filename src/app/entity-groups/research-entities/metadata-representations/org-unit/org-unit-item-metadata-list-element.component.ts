@@ -1,4 +1,8 @@
-import { Component } from '@angular/core';
+import {
+  Component,
+  TemplateRef,
+  ViewChild,
+} from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -18,4 +22,5 @@ import { TruncatableComponent } from '../../../../shared/truncatable/truncatable
  * The component for displaying an item of the type OrgUnit as a metadata field
  */
 export class OrgUnitItemMetadataListElementComponent extends ItemMetadataRepresentationListElementComponent {
+  @ViewChild('descTemplate', { static: true }) descTemplate: TemplateRef<any>;
 }

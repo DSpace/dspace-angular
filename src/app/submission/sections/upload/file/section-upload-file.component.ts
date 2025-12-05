@@ -22,7 +22,7 @@ import {
   NgbModal,
   NgbModalOptions,
 } from '@ng-bootstrap/ng-bootstrap';
-import { DynamicFormControlModel } from '@ng-dynamic-forms/core';
+import { DynamicFormControlModel } from '@ng-dynamic-forms/core/model/dynamic-form-control.model';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,

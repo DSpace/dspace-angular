@@ -15,13 +15,11 @@ import {
   NgbDatepickerConfig,
   NgbDatepickerModule,
 } from '@ng-bootstrap/ng-bootstrap';
-import {
-  DynamicDatePickerModel,
-  DynamicFormControlComponent,
-  DynamicFormControlLayout,
-  DynamicFormLayoutService,
-  DynamicFormValidationService,
-} from '@ng-dynamic-forms/core';
+import { DynamicFormControlComponent } from '@ng-dynamic-forms/core/component/dynamic-form-control.component';
+import { DynamicDatePickerModel } from '@ng-dynamic-forms/core/model/datepicker/dynamic-datepicker.model';
+import { DynamicFormControlLayout } from '@ng-dynamic-forms/core/model/misc/dynamic-form-control-layout.model';
+import { DynamicFormLayoutService } from '@ng-dynamic-forms/core/service/dynamic-form-layout.service';
+import { DynamicFormValidationService } from '@ng-dynamic-forms/core/service/dynamic-form-validation.service';
 
 import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
 
