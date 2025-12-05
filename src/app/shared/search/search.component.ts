@@ -229,6 +229,11 @@ export class SearchComponent implements OnDestroy, OnInit {
   @Input() query: string;
 
   /**
+   * True to pass the query as-is without escaping of special characters.
+   */
+  @Input() expert = false;
+
+  /**
    * The fallback scope when no scope is defined in the url, if this is also undefined no scope will be set
    */
   @Input() scope: string;
@@ -429,6 +434,9 @@ export class SearchComponent implements OnDestroy, OnInit {
       if (combinedOptions.query === '') {
         combinedOptions.query = this.query;
       }
+      if (combinedOptions.expert === undefined) {
+        combinedOptions.expert = this.expert;
+      }
       if (isEmpty(combinedOptions.scope)) {
         combinedOptions.scope = scope;
       }
@@ -536,7 +544,7 @@ export class SearchComponent implements OnDestroy, OnInit {
       followLinks.push(followLink<WorkspaceItem>('supervisionOrders', { isOptional: true }) as any);
     }
 
-    const searchOptionsWithHidden = Object.assign (new PaginatedSearchOptions({}), searchOptions);
+    const searchOptionsWithHidden = Object.assign(new PaginatedSearchOptions({}), searchOptions);
     if (isNotEmpty(this.hiddenQuery)) {
       if (isNotEmpty(searchOptionsWithHidden.query)) {
         searchOptionsWithHidden.query = searchOptionsWithHidden.query + ' AND ' + this.hiddenQuery;
