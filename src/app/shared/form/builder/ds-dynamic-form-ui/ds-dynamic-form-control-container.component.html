@@ -1,14 +1,14 @@
 <div [class.mb-2]="hasLabel || model.type === 'DATE' || (model.type !== 'GROUP' && asBootstrapFormGroup) || getClass('element', 'container').includes('mb-2')"
      [class.d-none]="model.hidden"
-  [formGroup]="group"
-  [ngClass]="[getClass('element', 'container'), getClass('grid', 'container')]">
-  @if (!isCheckbox && hasLabel) {
+     [formGroup]="group"
+     [ngClass]="[getClass('element', 'container'), getClass('grid', 'container')]">
+  @if (!isCheckbox && hasLabel && !isDateField) {
     <label
       [id]="'label_' + model.id"
       [for]="id"
       class="form-label"
       [innerHTML]="(model.required && model.label) ? (model.label | translate) + ' *' : (model.label | translate)"
-    [ngClass]="[getClass('element', 'label'), getClass('grid', 'label')]"></label>
+      [ngClass]="[getClass('element', 'label'), getClass('grid', 'label')]"></label>
   }
   <ng-container *ngTemplateOutlet="startTemplate?.templateRef; context: { $implicit: model };"></ng-container>
   <!--    Should be *ngIf instead of class d-none, but that breaks the #componentViewContainer reference-->
@@ -20,8 +20,7 @@
       </div>
 
       @if (hasHint && (formBuilderService.hasArrayGroupValue(model) || (!model.repeatable && (isRelationship === false || value?.value === null)) || (model.repeatable === true && context?.index === context?.context?.groups?.length - 1)) && (!showErrorMessages || errorMessages.length === 0)) {
-<small
-             class="text-muted ds-hint" [innerHTML]="model.hint | translate" [ngClass]="getClass('element', 'hint')"></small>
+        <small class="text-muted ds-hint" [innerHTML]="model.hint | translate" [ngClass]="getClass('element', 'hint')"></small>
       }
       <!-- In case of repeatable fields show empty space for all elements except the first -->
       @if (context?.parent?.groups?.length > 1 && (!showErrorMessages || errorMessages.length === 0)) {
