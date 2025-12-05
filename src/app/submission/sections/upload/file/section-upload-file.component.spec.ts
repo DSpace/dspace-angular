@@ -13,15 +13,18 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { LinkService } from '@dspace/core/cache/builders/link.service';
 import { JsonPatchOperationPathCombiner } from '@dspace/core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
 import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
 import { SubmissionJsonPatchOperationsService } from '@dspace/core/submission/submission-json-patch-operations.service';
 import { HALEndpointServiceStub } from '@dspace/core/testing/hal-endpoint-service.stub';
+import { getMockLinkService } from '@dspace/core/testing/link-service.mock';
 import { getMockSectionUploadService } from '@dspace/core/testing/section-upload.service.mock';
 import { SubmissionJsonPatchOperationsServiceStub } from '@dspace/core/testing/submission-json-patch-operations-service.stub';
 import { SubmissionServiceStub } from '@dspace/core/testing/submission-service.stub';
 import { createTestComponent } from '@dspace/core/testing/utils.test';
+import { createFailedRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import {
   NgbModal,
   NgbModule,
@@ -65,7 +68,8 @@ describe('SubmissionSectionUploadFileComponent', () => {
   let comp: SubmissionSectionUploadFileComponent;
   let compAsAny: any;
   let fixture: ComponentFixture<SubmissionSectionUploadFileComponent>;
-  let submissionServiceStub: SubmissionServiceStub;
+  let submissionServiceStub = new SubmissionServiceStub();
+  submissionServiceStub.retrieveSubmission.and.returnValue(createFailedRemoteDataObject$());
   let uploadService: any;
   let formService: any;
   let halService: any;
@@ -105,9 +109,10 @@ describe('SubmissionSectionUploadFileComponent', () => {
         { provide: HALEndpointService, useValue: new HALEndpointServiceStub('workspaceitems') },
         { provide: JsonPatchOperationsBuilder, useValue: jsonPatchOpBuilder },
         { provide: SubmissionJsonPatchOperationsService, useValue: submissionJsonPatchOperationsServiceStub },
-        { provide: SubmissionService, useClass: SubmissionServiceStub },
+        { provide: SubmissionService, useValue: submissionServiceStub },
         { provide: SectionUploadService, useValue: getMockSectionUploadService() },
         { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: LinkService, useValue: getMockLinkService() },
         ChangeDetectorRef,
         NgbModal,
         SubmissionSectionUploadFileComponent,
@@ -119,10 +124,12 @@ describe('SubmissionSectionUploadFileComponent', () => {
         add: {
           schemas: [CUSTOM_ELEMENTS_SCHEMA],
         },
-        remove: { imports: [
-          SubmissionSectionUploadFileViewComponent,
-          ThemedFileDownloadLinkComponent,
-        ] },
+        remove: {
+          imports: [
+            SubmissionSectionUploadFileViewComponent,
+            ThemedFileDownloadLinkComponent,
+          ],
+        },
       })
       .compileComponents();
   }));
