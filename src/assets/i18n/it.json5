@@ -1923,7 +1923,7 @@
   "collection.delete.notification.fail": "Impossibile eliminare la collection",
 
   // "collection.delete.notification.success": "Successfully deleted collection",
-  "collection.delete.notification.success": "collection eliminata correttamente",
+  "collection.delete.notification.success": "Il processo per eliminare la collection è stato avviato con successo.",
 
   // "collection.delete.text": "Are you sure you want to delete collection \"{{ dso }}\"",
   "collection.delete.text": "Sei sicuro di voler eliminare la collection \"{{ dso }}\"",
@@ -2379,7 +2379,7 @@
   "community.delete.notification.fail": "Impossibile eliminare la community",
 
   // "community.delete.notification.success": "Successfully deleted community",
-  "community.delete.notification.success": "Community eliminata con successo",
+  "community.delete.notification.success": "Il processo per eliminare la community è stato avviato con successo",
 
   // "community.delete.text": "Are you sure you want to delete community \"{{ dso }}\"",
   "community.delete.text": "Sei sicuro di voler eliminare la community \"{{ dso }}\"",
@@ -3967,7 +3967,7 @@
   "item.edit.delete.header": "Elimina item: {{ id }}",
 
   // "item.edit.delete.success": "The item has been deleted",
-  "item.edit.delete.success": "L'item è stato eliminato",
+  "item.edit.delete.success": "Il processo per eliminare l'item è stato avviato con successo.",
 
   // "item.edit.head": "Edit Item",
   "item.edit.head": "Modifica item",
