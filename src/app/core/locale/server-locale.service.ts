@@ -53,7 +53,7 @@ export class ServerLocaleService extends LocaleService {
    *
    * @returns {Observable<string[]>}
    */
-  getLanguageCodeList(): Observable<string[]> {
+  getLanguageCodeList(ignoreEPersonSettings = false): Observable<string[]> {
     const obs$ = combineLatest([
       this.authService.isAuthenticated(),
       this.authService.isAuthenticationLoaded(),
