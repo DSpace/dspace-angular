@@ -72,6 +72,11 @@ export class DsDynamicLookupRelationSelectionTabComponent implements OnInit {
   @Input() repeatable: boolean;
 
   /**
+   * Should scroll to the pagination component after updating the route instead of the top of the page
+   */
+  @Input() retainScrollPosition = false;
+
+  /**
    * The list of selected items
    */
   @Input() selection$: Observable<ListableObject[]>;
@@ -152,6 +157,6 @@ export class DsDynamicLookupRelationSelectionTabComponent implements OnInit {
     this.paginationService.updateRoute(this.searchConfigService.paginationID, {
       page: 1,
       pageSize: 5,
-    });
+    }, undefined, true);
   }
 }

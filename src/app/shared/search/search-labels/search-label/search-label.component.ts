@@ -35,6 +35,7 @@ import { SearchFilterService } from '../../search-filters/search-filter.service'
 export class SearchLabelComponent implements OnInit {
   @Input() inPlaceSearch: boolean;
   @Input() appliedFilter: AppliedFilter;
+  @Input() retainScrollPosition: boolean;
   searchLink: string;
   removeParameters$: Observable<Params>;
 

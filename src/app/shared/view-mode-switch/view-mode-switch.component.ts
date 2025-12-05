@@ -53,6 +53,11 @@ export class ViewModeSwitchComponent implements OnInit, OnDestroy {
   @Input() viewModeList: ViewMode[];
 
   /**
+   * Should scroll to the pagination component after updating the route instead of the top of the page
+   */
+  @Input() retainScrollPosition = false;
+
+  /**
    * The current view mode
    */
   currentMode: ViewMode = ViewMode.ListElement;
@@ -102,7 +107,7 @@ export class ViewModeSwitchComponent implements OnInit, OnDestroy {
     if (viewMode !== this.currentMode) {
       this.changeViewMode.emit(viewMode);
     }
-    this.searchService.setViewMode(viewMode, this.getSearchLinkParts());
+    this.searchService.setViewMode(viewMode, this.getSearchLinkParts(), this.retainScrollPosition);
   }
 
   ngOnDestroy() {
