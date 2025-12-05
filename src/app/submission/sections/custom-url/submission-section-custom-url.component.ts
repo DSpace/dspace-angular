@@ -59,7 +59,6 @@ import { SectionsService } from '../sections.service';
     FormComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class SubmissionSectionCustomUrlComponent extends SectionModelComponent implements AfterViewInit {
 
