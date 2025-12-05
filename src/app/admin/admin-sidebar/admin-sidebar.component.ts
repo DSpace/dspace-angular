@@ -164,12 +164,9 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
     }
   }
 
-  public handleMouseLeave(event: any) {
-    if (!this.inFocus$.getValue()) {
-      this.collapsePreview(event);
-    } else {
-      event.preventDefault();
-    }
+  public handleMouseLeave(event: MouseEvent): void {
+    event.preventDefault();
+    this.collapsePreview(event);
   }
 
   /**
