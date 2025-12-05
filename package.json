@@ -222,7 +222,7 @@
     "postcss-import": "^14.0.0",
     "postcss-loader": "^4.0.3",
     "postcss-preset-env": "^7.4.2",
-    "rimraf": "^6.1.0",
+    "rimraf": "^6.1.2",
     "sass": "~1.93.3",
     "sass-loader": "^12.6.0",
     "sass-resources-loader": "^2.2.5",
