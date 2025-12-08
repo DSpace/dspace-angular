@@ -7219,4 +7219,6 @@
   "media-viewer.pdf.browser-not-support": "Your browser does not support the PDF viewer.",
 
   "media-viewer.pdf.download": "Download the PDF",
+
+  "media-viewer.loading": "Loading",
 }

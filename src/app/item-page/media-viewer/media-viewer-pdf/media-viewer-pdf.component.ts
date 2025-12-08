@@ -15,8 +15,11 @@ import { FormsModule } from '@angular/forms';
 export class MediaViewerPdfComponent {
   @Input() pdfs: MediaViewerItem[];
   @ViewChild('pdfViewer') pdfViewer;
+  
   blobUrl: SafeResourceUrl = this.sanitizer.bypassSecurityTrustResourceUrl("");
   currentIndex = 0;
+  
+  isLoading = false; 
 
   constructor(private http: HttpClient, private sanitizer: DomSanitizer, public dsoNameService: DSONameService, private cdr: ChangeDetectorRef) { }
 
@@ -30,15 +33,22 @@ export class MediaViewerPdfComponent {
   }
 
   private loadPdf(index: number) {
+    this.isLoading = true; 
+    
     const url = this.pdfs[index].bitstream._links.content.href;
+    
     this.http.get(url, { responseType: 'blob' }).subscribe({
       next: (blob) => {
         const blobUrl = URL.createObjectURL(blob);
         this.blobUrl = this.sanitizer.bypassSecurityTrustResourceUrl(blobUrl);
+        
+        this.isLoading = false; 
         this.cdr.detectChanges();
       },
       error: (err) => {
         console.error('Error loading PDF:', err);
+        this.isLoading = false; 
+        this.cdr.detectChanges();
       },
     });
   }
