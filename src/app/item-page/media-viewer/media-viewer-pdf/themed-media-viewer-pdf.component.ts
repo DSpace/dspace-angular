@@ -1,13 +1,17 @@
-import { Component, Input } from '@angular/core';
-import { ThemedComponent } from '../../../shared/theme-support/themed.component';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+
 import { MediaViewerItem } from '../../../core/shared/media-viewer-item.model';
+import { ThemedComponent } from '../../../shared/theme-support/themed.component';
 import { MediaViewerPdfComponent } from './media-viewer-pdf.component';
 
 /**
  * Themed wrapper for {@link MediaViewerPdfComponent}.
  */
 @Component({
-  selector: 'ds-themed-media-viewer-pdf',
+  selector: 'ds-media-viewer-pdf',
   styleUrls: [],
   templateUrl: '../../../shared/theme-support/themed.component.html',
 })

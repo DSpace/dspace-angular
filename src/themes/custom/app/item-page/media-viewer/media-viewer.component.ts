@@ -4,11 +4,11 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { MediaViewerComponent as BaseComponent } from '../../../../../app/item-page/media-viewer/media-viewer.component';
 import { ThemedMediaViewerImageComponent } from '../../../../../app/item-page/media-viewer/media-viewer-image/themed-media-viewer-image.component';
+import { ThemedMediaViewerPdfComponent } from '../../../../../app/item-page/media-viewer/media-viewer-pdf/themed-media-viewer-pdf.component';
 import { ThemedMediaViewerVideoComponent } from '../../../../../app/item-page/media-viewer/media-viewer-video/themed-media-viewer-video.component';
 import { ThemedLoadingComponent } from '../../../../../app/shared/loading/themed-loading.component';
 import { VarDirective } from '../../../../../app/shared/utils/var.directive';
 import { ThemedThumbnailComponent } from '../../../../../app/thumbnail/themed-thumbnail.component';
-import { MediaViewerPdfComponent } from 'src/app/item-page/media-viewer/media-viewer-pdf/media-viewer-pdf.component';
 
 @Component({
   selector: 'ds-themed-media-viewer',
@@ -20,11 +20,11 @@ import { MediaViewerPdfComponent } from 'src/app/item-page/media-viewer/media-vi
     AsyncPipe,
     ThemedLoadingComponent,
     ThemedMediaViewerImageComponent,
+    ThemedMediaViewerPdfComponent,
     ThemedMediaViewerVideoComponent,
     ThemedThumbnailComponent,
     TranslateModule,
     VarDirective,
-    MediaViewerPdfComponent
   ],
 })
 export class MediaViewerComponent extends BaseComponent {
