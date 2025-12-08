@@ -24,6 +24,7 @@ export class ThemedItemDetailPreviewFieldComponent  extends ThemedComponent<Item
     'object',
     'label',
     'metadata',
+    'escapeMetadataHTML',
     'placeholder',
     'separator',
   ];
@@ -35,6 +36,8 @@ export class ThemedItemDetailPreviewFieldComponent  extends ThemedComponent<Item
   @Input() label: string;
 
   @Input() metadata: string | string[];
+
+  @Input() escapeMetadataHTML: boolean;
 
   @Input() placeholder: string;
 
