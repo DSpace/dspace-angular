@@ -12,20 +12,20 @@
           <ds-badges [object]="item" [context]="badgeContext" [showAccessStatus]="true"></ds-badges>
         </div>
         <ds-truncatable [id]="item.id">
-          <h2 [innerHTML]="dsoTitle" [ngClass]="{'lead': true,'text-muted': !item.firstMetadataValue('dc.title')}"></h2>
+          <h2 [innerHTML]="dsoTitle" [ngClass]="{'lead': true,'text-muted': !item.hasMetadata('dc.title')}"></h2>
           <div>
             <span class="text-muted">
               <ds-truncatable-part [id]="item.id" [minLines]="1">
                 (@if (item.hasMetadata('dc.publisher')) {
                 <span class="item-list-publisher"
-                [innerHTML]="item.firstMetadataValue('dc.publisher') + ', '"></span>
+                [innerHTML]="item.firstMetadataValue('dc.publisher', undefined, true) + ', '"></span>
               }
               <span class="item-list-date"
               [innerHTML]="item.firstMetadataValue('dc.date.issued', undefined, true) || ('mydspace.results.no-date' | translate)"></span>)
               @if (item.hasMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']);) {
                 <span
                   class="item-list-authors">
-                  @if (item.allMetadataValues(['dc.contributor.author', 'dc.creator', 'dc.contributor.*'], undefined, true).length === 0) {
+                  @if (item.allMetadataValues(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']).length === 0) {
                     <span
                       >{{'mydspace.results.no-authors'
                     | translate}}</span>
@@ -45,7 +45,7 @@
           </span>
           <ds-truncatable-part [id]="item.id" [minLines]="1" class="item-list-abstract">
             <span [ngClass]="{'text-muted': !item.hasMetadata('dc.description.abstract')}"
-            [innerHTML]="(item.firstMetadataValue('dc.description.abstract')) || ('mydspace.results.no-abstract' | translate)"></span>
+            [innerHTML]="(item.firstMetadataValue('dc.description.abstract', undefined, true)) || ('mydspace.results.no-abstract' | translate)"></span>
           </ds-truncatable-part>
         </div>
       </ds-truncatable>

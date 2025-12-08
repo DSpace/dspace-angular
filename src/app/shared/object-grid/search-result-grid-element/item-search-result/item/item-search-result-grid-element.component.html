@@ -41,10 +41,10 @@
           </p>
         </ds-truncatable-part>
       }
-      @if (firstMetadataValue('dc.description.abstract'); as abstract) {
+      @if (dso.hasMetadata('dc.description.abstract')) {
         <ds-truncatable-part [id]="dso.id" [minLines]="3">
           <p class="item-abstract card-text">
-            <span [innerHTML]="abstract"></span>
+            <span [innerHTML]="firstMetadataValue('dc.description.abstract')"></span>
           </p>
         </ds-truncatable-part>
       }
