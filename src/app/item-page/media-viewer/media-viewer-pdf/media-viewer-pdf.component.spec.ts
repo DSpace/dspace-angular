@@ -1,24 +1,37 @@
-import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
-import { ChangeDetectorRef, NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
+import {
+  HttpTestingController,
+  provideHttpClientTesting,
+} from '@angular/common/http/testing';
+import {
+  ChangeDetectorRef,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
 import {
   ComponentFixture,
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DomSanitizer } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { of } from 'rxjs';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
-
+import {
+  By,
+  DomSanitizer,
+} from '@angular/platform-browser';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import { Bitstream } from '@dspace/core/shared/bitstream.model';
 import { MediaViewerItem } from '@dspace/core/shared/media-viewer-item.model';
 import { MockBitstreamFormat1 } from '@dspace/core/testing/item.mock';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import { of } from 'rxjs';
 
 import { MediaViewerPdfComponent } from './media-viewer-pdf.component';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('MediaViewerPdfComponent', () => {
   let component: MediaViewerPdfComponent;
@@ -94,7 +107,7 @@ describe('MediaViewerPdfComponent', () => {
     it('should call loadPdf with index 0', () => {
       spyOn<any>(component, 'loadPdf');
       component.ngOnInit();
-      expect(component['loadPdf']).toHaveBeenCalledWith(0);
+      expect(component.loadPdf).toHaveBeenCalledWith(0);
     });
   });
 
