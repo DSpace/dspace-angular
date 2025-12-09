@@ -107,7 +107,10 @@ describe('MediaViewerPdfComponent', () => {
     it('should call loadPdf with index 0', () => {
       spyOn<any>(component, 'loadPdf');
       component.ngOnInit();
-      expect(component.loadPdf).toHaveBeenCalledWith(0);
+      // Dot notation cannot be used because 'loadPdf' is a private method.
+      // Accessing the private method only for testing purposes.
+      // eslint-disable-next-line @typescript-eslint/dot-notation
+      expect(component['loadPdf']).toHaveBeenCalledWith(0);
     });
   });
 
