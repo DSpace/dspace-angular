@@ -64,6 +64,7 @@ import {
   tap,
 } from 'rxjs/operators';
 
+import { environment } from '../../../../../../../environments/environment';
 import { ObjNgFor } from '../../../../../utils/object-ngfor.pipe';
 import { AuthorityConfidenceStateDirective } from '../../../../directives/authority-confidence-state.directive';
 import { VocabularyTreeviewModalComponent } from '../../../../vocabulary-treeview-modal/vocabulary-treeview-modal.component';
@@ -106,8 +107,11 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
   hideSearchingWhenUnsubscribed$ = new Observable(() => () => this.changeSearchingStatus(false));
   click$ = new Subject<string>();
   currentValue: any;
+  previousValue: any;
   inputValue: any;
   preloadLevel: number;
+  authorithyIcons = environment.submission.icons.authority.sourceIcons;
+
 
   private vocabulary$: Observable<Vocabulary>;
   private isHierarchicalVocabulary$: Observable<boolean>;
@@ -293,6 +297,7 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
       modalRef.result.then((result: VocabularyEntryDetail) => {
         if (result) {
           this.currentValue = result;
+          this.previousValue = result;
           this.dispatchUpdate(result);
         }
       }, () => {
@@ -323,6 +328,7 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
         .subscribe((formValue: FormFieldMetadataValueObject) => {
           this.changeLoadingInitialValueStatus(false);
           this.currentValue = formValue;
+          this.previousValue = formValue;
           this.cdr.detectChanges();
         });
     } else {
@@ -331,11 +337,42 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
       } else {
         result = value.value;
       }
+      this.currentValue = null;
+      this.cdr.detectChanges();
 
       this.currentValue = result;
+      this.previousValue = result;
       this.cdr.detectChanges();
     }
 
+  }
+
+  /**
+   * Hide image on error
+   * @param image
+   */
+  handleImgError(image: HTMLElement): void {
+    image.style.display = 'none';
+  }
+
+  /**
+   * Get configured icon for each authority source
+   * @param source
+   */
+  getAuthoritySourceIcon(source: string, image: HTMLElement): string {
+    if (hasValue(this.authorithyIcons)) {
+      const iconPath = this.authorithyIcons.find(icon => icon.source === source)?.path;
+
+      if (!hasValue(iconPath)) {
+        this.handleImgError(image);
+      }
+
+      return iconPath;
+    } else {
+      this.handleImgError(image);
+    }
+
+    return '';
   }
 
   ngOnDestroy(): void {

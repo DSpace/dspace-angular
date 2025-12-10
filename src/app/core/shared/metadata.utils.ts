@@ -1,11 +1,15 @@
 import {
+  hasValue,
+  isEmpty,
   isNotEmpty,
   isNotUndefined,
   isUndefined,
 } from '@dspace/shared/utils/empty.util';
 import escape from 'lodash/escape';
 import groupBy from 'lodash/groupBy';
+import isObject from 'lodash/isObject';
 import sortBy from 'lodash/sortBy';
+import { validate as uuidValidate } from 'uuid';
 
 import {
   MetadataMapInterface,
@@ -14,6 +18,11 @@ import {
   MetadatumViewModel,
 } from './metadata.models';
 
+
+
+export const AUTHORITY_GENERATE = 'will be generated::';
+export const AUTHORITY_REFERENCE = 'will be referenced::';
+export const PLACEHOLDER_VALUE = '#PLACEHOLDER_PARENT_METADATA_VALUE#';
 /**
  * Utility class for working with DSpace object metadata.
  *
@@ -148,6 +157,40 @@ export class Metadata {
     return isNotUndefined(Metadata.first(metadata, keyOrKeys, hitHighlights, filter));
   }
 
+
+  /**
+   * Returns true if this Metadatum's authority key contains a reference
+   */
+  public static hasAuthorityReference(authority: string): boolean {
+    return hasValue(authority) && (typeof authority === 'string' && (authority.startsWith(AUTHORITY_GENERATE) || authority.startsWith(AUTHORITY_REFERENCE)));
+  }
+
+  /**
+   * Returns true if this Metadatum's authority key is a valid
+   */
+  public static hasValidAuthority(authority: string): boolean {
+    return hasValue(authority) && !Metadata.hasAuthorityReference(authority);
+  }
+
+  /**
+   * Returns true if this Metadatum's authority key is a valid UUID
+   */
+  public static hasValidItemAuthority(authority: string): boolean {
+    return hasValue(authority) && uuidValidate(authority);
+  }
+
+  /**
+   * Returns true if this Metadatum's value is defined
+   */
+  public static hasValue(value: MetadataValue|string): boolean {
+    if (isEmpty(value)) {
+      return false;
+    }
+    if (isObject(value) && value.hasOwnProperty('value')) {
+      return isNotEmpty(value.value);
+    }
+    return true;
+  }
   /**
    * Checks if a value matches a filter.
    *
