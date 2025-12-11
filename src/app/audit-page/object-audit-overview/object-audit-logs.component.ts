@@ -55,7 +55,6 @@ import { AuditTableComponent } from '../audit-table/audit-table.component';
     RouterLink,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class ObjectAuditLogsComponent implements OnInit {
 

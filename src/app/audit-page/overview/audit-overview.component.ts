@@ -37,7 +37,6 @@ import { AuditTableComponent } from '../audit-table/audit-table.component';
     AuditTableComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class AuditOverviewComponent implements OnInit {
 
