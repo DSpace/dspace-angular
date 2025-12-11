@@ -462,7 +462,7 @@
   "admin.access-control.epeople.table.edit.buttons.remove.modal.header": "Odstranit skupinu \"{{ dsoName }}\"",
 
   // "admin.access-control.epeople.table.edit.buttons.remove.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\" and all its associated policies?",
-  "admin.access-control.epeople.table.edit.buttons.remove.modal.info": "Opravdu chcete odstranit skupinu \"{{ dsoName }}\" a všechny s ní související zásady?",
+  "admin.access-control.epeople.table.edit.buttons.remove.modal.info": "Opravdu chcete odstranit skupinu \"{{ dsoName }}\" a všechny s ní související pravidla?",
 
   // "admin.access-control.epeople.table.edit.buttons.remove.modal.cancel": "Cancel",
   "admin.access-control.epeople.table.edit.buttons.remove.modal.cancel": "Zrušit",
@@ -606,7 +606,7 @@
   "admin.access-control.groups.table.edit.buttons.remove": "Odstranit \"{{name}}\"",
 
   // "admin.access-control.groups.no-items": "No groups found with this in their name or this as UUID",
-  "admin.access-control.groups.no-items": "Nebyla nalezena žádná skupina s tímto v názvu nebo UUID",
+  "admin.access-control.groups.no-items": "Nebyla nalezena žádná skupina s tímto textem v názvu nebo s tímto UUID",
 
   // "admin.access-control.groups.notification.deleted.success": "Successfully deleted group \"{{name}}\"",
   "admin.access-control.groups.notification.deleted.success": "Úspěšně odstraněna skupina \"{{name}}\"",
@@ -663,7 +663,7 @@
   "admin.access-control.groups.form.delete-group.modal.header": "Odstranit skupinu \"{{ dsoName }}\"",
 
   // "admin.access-control.groups.form.delete-group.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\" and all its associated policies?",
-  "admin.access-control.groups.form.delete-group.modal.info": "Opravdu chcete odstranit skupinu \"{{ dsoName }}\" a všechny s ní spojené zásady?",
+  "admin.access-control.groups.form.delete-group.modal.info": "Opravdu chcete odstranit skupinu \"{{ dsoName }}\" a všechny s ní spojené pravidla?",
 
   // "admin.access-control.groups.form.delete-group.modal.cancel": "Cancel",
   "admin.access-control.groups.form.delete-group.modal.cancel": "Zrušit",
@@ -807,10 +807,10 @@
   "admin.quality-assurance.breadcrumbs": "Zajištění kvality",
 
   // "admin.notifications.event.breadcrumbs": "Quality Assurance Suggestions",
-  "admin.notifications.event.breadcrumbs": "Doporučení zajištění kvality",
+  "admin.notifications.event.breadcrumbs": "Doporučení pro zajištění kvality",
 
   // "admin.notifications.event.page.title": "Quality Assurance Suggestions",
-  "admin.notifications.event.page.title": "Doporučení zajištění kvality",
+  "admin.notifications.event.page.title": "Doporučení pro zajištění kvality",
 
   // "admin.quality-assurance.page.title": "Quality Assurance",
   "admin.quality-assurance.page.title": "Zajištění kvality",
@@ -2303,7 +2303,7 @@
   "comcol-role.edit.delete.modal.header": "Odstranit skupinu \"{{ dsoName }}\"",
 
   // "comcol-role.edit.delete.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\" and all its associated policies?",
-  "comcol-role.edit.delete.modal.info": "Opravdu chcete odstranit skupinu \"{{ dsoName }}\" a všechny s ní spojené zásady?",
+  "comcol-role.edit.delete.modal.info": "Opravdu chcete odstranit skupinu \"{{ dsoName }}\" a všechny s ní spojené pravidla?",
 
   // "comcol-role.edit.delete.modal.cancel": "Cancel",
   "comcol-role.edit.delete.modal.cancel": "Zrušit",
@@ -2468,7 +2468,7 @@
   "cookies.consent.content-modal.description": "Zde můžete zobrazit a přizpůsobit informace, které o vás shromažďujeme.",
 
   // "cookies.consent.content-modal.privacy-policy.name": "privacy policy",
-  "cookies.consent.content-modal.privacy-policy.name": "zásady ochrany osobních údajů",
+  "cookies.consent.content-modal.privacy-policy.name": "pravidla ochrany osobních údajů",
 
   // "cookies.consent.content-modal.privacy-policy.text": "To learn more, please read our {privacyPolicy}.",
   "cookies.consent.content-modal.privacy-policy.text": "Chcete-li se dozvědět více, přečtěte si prosím naše {privacyPolicy}.",
@@ -2960,7 +2960,7 @@
   "footer.link.cookies": "Nastavení souborů cookie",
 
   // "footer.link.privacy-policy": "Privacy policy",
-  "footer.link.privacy-policy": "Zásady ochrany osobních údajů",
+  "footer.link.privacy-policy": "Pravidla ochrany osobních údajů",
 
   // "footer.link.end-user-agreement": "End User Agreement",
   "footer.link.end-user-agreement": "Smlouva s koncovým uživatelem",
@@ -3485,7 +3485,7 @@
   "item.badge.private": "Nevyhledatelný",
 
   // "item.badge.withdrawn": "Withdrawn",
-  "item.badge.withdrawn": "Stažený",
+  "item.badge.withdrawn": "Odebrán",
 
   // "item.bitstreams.upload.bundle": "Bundle",
   "item.bitstreams.upload.bundle": "Svazek",
@@ -4088,7 +4088,7 @@
   "item.edit.tabs.status.buttons.authorizations.button": "Autorizace...",
 
   // "item.edit.tabs.status.buttons.authorizations.label": "Edit item's authorization policies",
-  "item.edit.tabs.status.buttons.authorizations.label": "Upravit zásady autorizace záznamu",
+  "item.edit.tabs.status.buttons.authorizations.label": "Upravit pravidla autorizace záznamu",
 
   // "item.edit.tabs.status.buttons.delete.button": "Permanently delete",
   "item.edit.tabs.status.buttons.delete.button": "Trvale odstranit",
