@@ -79,7 +79,7 @@
                     @if (audit.otherAuditObject; as dso) {
                       {{ getDsoName(dso) }} <em>({{ dso.type }})</em>
                     } @else {
-                      {{ dataNotAvailable }}
+                      {{ 'audit.data.self' | translate}}
                     }
                   </span>
                 </td>

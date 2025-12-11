@@ -12,10 +12,7 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
-import {
-  AUDIT_PERSON_NOT_AVAILABLE,
-  AuditDataService,
-} from '@dspace/core/data/audit-data.service';
+import { AuditDataService } from '@dspace/core/data/audit-data.service';
 import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
 import { getDSORoute } from '@dspace/core/router/utils/dso-route.utils';
 import { TranslateModule } from '@ngx-translate/core';
@@ -103,8 +100,6 @@ export class ObjectAuditLogsComponent implements OnInit {
   objectName: string;
 
   objectRoute: string;
-
-  dataNotAvailable = AUDIT_PERSON_NOT_AVAILABLE;
 
   constructor(protected route: ActivatedRoute,
               protected router: Router,

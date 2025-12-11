@@ -10,7 +10,6 @@ import {
   Input,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { AUDIT_PERSON_NOT_AVAILABLE } from '@dspace/core/data/audit-data.service';
 import { DSpaceObjectDataService } from '@dspace/core/data/dspace-object-data.service';
 import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
 import { getDSORoute } from '@dspace/core/router/utils/dso-route.utils';
@@ -77,7 +76,6 @@ export class AuditTableComponent {
    */
   readonly auditPath = 'auditlogs';
 
-  protected readonly dataNotAvailable = AUDIT_PERSON_NOT_AVAILABLE;
 
   /**
    * Date format to use for start and end time of audits

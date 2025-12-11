@@ -901,6 +901,8 @@
 
   "audit.data.not-found": "No audits found.",
 
+  "audit.data.self": "self",
+
   "audit.detail.metadata.field": "Metadata field:",
 
   "audit.detail.metadata.value": "Value:",
@@ -931,7 +933,7 @@
 
   "audit.overview.table.eperson": "EPerson",
 
-  "audit.overview.table.other": "Other Object",
+  "audit.overview.table.other": "Object",
 
   "audit.overview.table.timestamp": "Time (UTC)",
 
