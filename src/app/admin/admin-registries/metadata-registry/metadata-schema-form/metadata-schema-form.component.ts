@@ -40,7 +40,6 @@ import { RegistryService } from '../../registry/registry.service';
     FormComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * A form used for creating and editing metadata schemas

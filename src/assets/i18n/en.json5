@@ -1211,7 +1211,7 @@
 
   "collection.delete.notification.fail": "Collection could not be deleted",
 
-  "collection.delete.notification.success": "Successfully deleted collection",
+  "collection.delete.notification.success": "Successfully started a process to delete this collection",
 
   "collection.delete.text": "Are you sure you want to delete collection \"{{ dso }}\"",
 
@@ -1505,7 +1505,7 @@
 
   "community.delete.notification.fail": "Community could not be deleted",
 
-  "community.delete.notification.success": "Successfully deleted community",
+  "community.delete.notification.success": "Successfully started a process to delete this community",
 
   "community.delete.text": "Are you sure you want to delete community \"{{ dso }}\"",
 
@@ -2485,7 +2485,7 @@
 
   "item.edit.delete.header": "Delete item: {{ id }}",
 
-  "item.edit.delete.success": "The item has been deleted",
+  "item.edit.delete.success": "Successfully started a process to delete this item",
 
   "item.edit.head": "Edit Item",
 

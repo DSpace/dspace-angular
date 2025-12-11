@@ -51,7 +51,7 @@ describe('EpeopleRegistryService', () => {
     it('should dispatch EPeopleRegistryCancelEPersonAction', () => {
       const dispatchSpy = spyOn(store, 'dispatch');
       service.cancelEditEPerson();
-      expect(dispatchSpy).toHaveBeenCalledWith(new EPeopleRegistryCancelEPersonAction());
+      expect(dispatchSpy as jasmine.Spy).toHaveBeenCalledWith(new EPeopleRegistryCancelEPersonAction());
     });
   });
 
@@ -60,7 +60,7 @@ describe('EpeopleRegistryService', () => {
       const dispatchSpy = spyOn(store, 'dispatch');
       const mockEPerson: EPerson = { id: '456', name: 'Another User' } as EPerson;
       service.editEPerson(mockEPerson);
-      expect(dispatchSpy).toHaveBeenCalledWith(new EPeopleRegistryEditEPersonAction(mockEPerson));
+      expect(dispatchSpy as jasmine.Spy).toHaveBeenCalledWith(new EPeopleRegistryEditEPersonAction(mockEPerson));
     });
   });
 });
