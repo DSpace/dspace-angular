@@ -128,7 +128,6 @@ export class SectionsService {
       // Iterate over the previous error list
       prevErrors.forEach((error: SubmissionSectionError) => {
         const errorPaths: SectionErrorPath[] = parseSectionErrorPaths(error.path);
-
         errorPaths.forEach((path: SectionErrorPath) => {
           if (path.fieldId) {
             if (!dispatchedErrors.includes(path.fieldId)) {

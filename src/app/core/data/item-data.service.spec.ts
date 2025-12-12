@@ -1,4 +1,5 @@
 import { HttpClient } from '@angular/common/http';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { Store } from '@ngrx/store';
 import {
   cold,
@@ -13,6 +14,7 @@ import { RestResponse } from '../cache/response.models';
 import { CoreState } from '../core-state.model';
 import { NotificationsService } from '../notification-system/notifications.service';
 import { ExternalSourceEntry } from '../shared/external-source-entry.model';
+import { Item } from '../shared/item.model';
 import { HALEndpointServiceStub } from '../testing/hal-endpoint-service.stub';
 import { getMockRemoteDataBuildService } from '../testing/remote-data-build.service.mock';
 import { getMockRequestService } from '../testing/request.service.mock';
@@ -208,5 +210,94 @@ describe('ItemDataService', () => {
       expect(requestService.setStaleByHrefSubstring).toHaveBeenCalledWith('item/uuid');
     });
   });
+
+  describe('findByCustomUrl', () => {
+    let itemDataService: ItemDataService;
+    let searchData: any;
+    let findByHrefSpy: jasmine.Spy;
+    let getSearchByHrefSpy: jasmine.Spy;
+    const id = 'custom-id';
+    const fakeHrefObs = of('https://rest.api/core/items/search/findByCustomURL?q=custom-id');
+    const linksToFollow = [];
+    const projections = ['full', 'detailed'];
+
+    beforeEach(() => {
+      searchData = jasmine.createSpyObj('searchData', ['getSearchByHref']);
+      getSearchByHrefSpy = searchData.getSearchByHref.and.returnValue(fakeHrefObs);
+      itemDataService = new ItemDataService(
+        requestService,
+        rdbService,
+        objectCache,
+        halEndpointService,
+        notificationsService,
+        comparator,
+        browseService,
+        bundleService,
+      );
+
+      (itemDataService as any).searchData = searchData;
+      findByHrefSpy = spyOn(itemDataService, 'findByHref').and.returnValue(createSuccessfulRemoteDataObject$(new Item()));
+    });
+
+    it('should call searchData.getSearchByHref with correct parameters', () => {
+      itemDataService.findByCustomUrl(id, true, true, linksToFollow, projections).subscribe();
+
+      expect(getSearchByHrefSpy).toHaveBeenCalledWith(
+        'findByCustomURL',
+        jasmine.objectContaining({
+          searchParams: jasmine.arrayContaining([
+            jasmine.objectContaining({ fieldName: 'q', fieldValue: id }),
+            jasmine.objectContaining({ fieldName: 'projection', fieldValue: 'full' }),
+            jasmine.objectContaining({ fieldName: 'projection', fieldValue: 'detailed' }),
+          ]),
+        }),
+        ...linksToFollow,
+      );
+    });
+
+    it('should call findByHref with the href observable returned from getSearchByHref', () => {
+      itemDataService.findByCustomUrl(id, true, false, linksToFollow, projections).subscribe();
+
+      expect(findByHrefSpy).toHaveBeenCalledWith(fakeHrefObs, true, false, ...linksToFollow);
+    });
+  });
+
+  describe('findById', () => {
+    let itemDataService: ItemDataService;
+
+    beforeEach(() => {
+      itemDataService = new ItemDataService(
+        requestService,
+        rdbService,
+        objectCache,
+        halEndpointService,
+        notificationsService,
+        comparator,
+        browseService,
+        bundleService,
+      );
+      spyOn(itemDataService, 'findByCustomUrl').and.returnValue(createSuccessfulRemoteDataObject$(new Item()));
+      spyOn(itemDataService, 'findByHref').and.returnValue(createSuccessfulRemoteDataObject$(new Item()));
+      spyOn(itemDataService as any, 'getIDHrefObs').and.returnValue(of('uuid-href'));
+    });
+
+    it('should call findByHref when given a valid UUID', () => {
+      const validUuid = '4af28e99-6a9c-4036-a199-e1b587046d39';
+      itemDataService.findById(validUuid).subscribe();
+
+      expect((itemDataService as any).getIDHrefObs).toHaveBeenCalledWith(encodeURIComponent(validUuid));
+      expect(itemDataService.findByHref).toHaveBeenCalled();
+      expect(itemDataService.findByCustomUrl).not.toHaveBeenCalled();
+    });
+
+    it('should call findByCustomUrl when given a non-UUID id', () => {
+      const nonUuid = 'custom-url';
+      itemDataService.findById(nonUuid).subscribe();
+
+      expect(itemDataService.findByCustomUrl).toHaveBeenCalledWith(nonUuid, true, true, []);
+      expect(itemDataService.findByHref).not.toHaveBeenCalled();
+    });
+  });
+
 
 });

@@ -3243,12 +3243,25 @@
   // "error.top-level-communities": "Error fetching top-level communities",
   "error.top-level-communities": "শীর্ষ-স্তরের সম্প্রদায়গুলো নিয়ে আসতে ত্রুটি হচ্ছে",
 
-  // "error.validation.license.notgranted": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
-  "error.validation.license.notgranted": "আপনি আপনার জমা সম্পূর্ণ করার জন্য এই লাইসেন্স প্রদান করতে হবে। আপনি যদি এই লাইসেন্সটি অনুগ্রহ করতে অক্ষম হন তবে আপনি আপনার কাজটি সংরক্ষণ করতে এবং পরে ফিরে বা জমাটি সরাতে পারেন।",
+  // "error.validation.license.required": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
+  // TODO New key - Add a translation
+  "error.validation.license.required": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
 
   // "error.validation.cclicense.required": "You must grant this cclicense to complete your submission. If you are unable to grant the cclicense at this time, you may save your work and return later or remove the submission.",
   // TODO New key - Add a translation
   "error.validation.cclicense.required": "You must grant this cclicense to complete your submission. If you are unable to grant the cclicense at this time, you may save your work and return later or remove the submission.",
+
+  // "error.validation.custom-url.conflict": "The custom url has been already used, please try with a new one.",
+  // TODO New key - Add a translation
+  "error.validation.custom-url.conflict": "The custom url has been already used, please try with a new one.",
+
+  // "error.validation.custom-url.empty": "The custom url is required and cannot be empty.",
+  // TODO New key - Add a translation
+  "error.validation.custom-url.empty": "The custom url is required and cannot be empty.",
+
+  // "error.validation.custom-url.invalid-characters": "The custom url contains invalid characters.",
+  // TODO New key - Add a translation
+  "error.validation.custom-url.invalid-characters": "The custom url contains invalid characters.",
 
   // "error.validation.pattern": "This input is restricted by the current pattern: {{ pattern }}.",
   "error.validation.pattern": "এই ইনপুট বর্তমান প্যাটার্ন দ্বারা সীমাবদ্ধ: {{ pattern }}.",
@@ -9400,6 +9413,10 @@
   // "submission.sections.submit.progressbar.CClicense": "Creative commons license",
   "submission.sections.submit.progressbar.CClicense": "ক্রিয়েটিভ কমন্স লাইসেন্স",
 
+  // "submission.sections.submit.progressbar.CustomUrlStep": "Custom Url",
+  // TODO New key - Add a translation
+  "submission.sections.submit.progressbar.CustomUrlStep": "Custom Url",
+
   // "submission.sections.submit.progressbar.describe.recycle": "Recycle",
   "submission.sections.submit.progressbar.describe.recycle": "পুনরাই ব্যবহারযোগ্য করুন",
 
@@ -9573,6 +9590,18 @@
 
   // "submission.sections.upload.upload-successful": "Upload successful",
   "submission.sections.upload.upload-successful": "সফল আপলোড করুন",
+
+  // "submission.sections.custom-url.label.previous-urls": "Previous Urls",
+  // TODO New key - Add a translation
+  "submission.sections.custom-url.label.previous-urls": "Previous Urls",
+
+  // "submission.sections.custom-url.alert.info": "Define here a custom URL which will be used to reach the item instead of using an internal randomly generated UUID identifier. ",
+  // TODO New key - Add a translation
+  "submission.sections.custom-url.alert.info": "Define here a custom URL which will be used to reach the item instead of using an internal randomly generated UUID identifier. ",
+
+  // "submission.sections.custom-url.url.placeholder": "Custom URL",
+  // TODO New key - Add a translation
+  "submission.sections.custom-url.url.placeholder": "Custom URL",
 
   // "submission.sections.accesses.form.discoverable-description": "When checked, this item will be discoverable in search/browse. When unchecked, the item will only be available via a direct link and will never appear in search/browse.",
   "submission.sections.accesses.form.discoverable-description": "চেক যখন এই আইটেমটি অনুসন্ধান / ব্রাউজ আবিষ্কারযোগ্য হবে। আইটেমটি unchecked যখন শুধুমাত্র সরাসরি লিঙ্কের মাধ্যমে উপলব্ধ হবে এবং অনুসন্ধান / ব্রাউজ প্রদর্শিত হবে না।",
@@ -12702,6 +12731,18 @@
   // "file-download-link.request-copy": "Request a copy of ",
   // TODO New key - Add a translation
   "file-download-link.request-copy": "Request a copy of ",
+
+  // "item.preview.organization.url": "URL",
+  // TODO New key - Add a translation
+  "item.preview.organization.url": "URL",
+
+  // "item.preview.organization.address.addressLocality": "City",
+  // TODO New key - Add a translation
+  "item.preview.organization.address.addressLocality": "City",
+
+  // "item.preview.organization.alternateName": "Alternative name",
+  // TODO New key - Add a translation
+  "item.preview.organization.alternateName": "Alternative name",
 
 
 }

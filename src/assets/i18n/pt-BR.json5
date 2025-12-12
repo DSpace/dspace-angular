@@ -2926,12 +2926,25 @@
   // "error.top-level-communities": "Error fetching top-level communities",
   "error.top-level-communities": "Erro ao carregar as comunidade de nível superior",
 
-  // "error.validation.license.notgranted": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
-  "error.validation.license.notgranted": "Você deve concordar com esta licença para completar sua submissão. Se você não estiver de acordo com esta licença neste momento você pode salvar seu trabalho para continuar depois ou remover a submissão.",
+  // "error.validation.license.required": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
+  // TODO New key - Add a translation
+  "error.validation.license.required": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
 
   // "error.validation.cclicense.required": "You must grant this cclicense to complete your submission. If you are unable to grant the cclicense at this time, you may save your work and return later or remove the submission.",
   // TODO New key - Add a translation
   "error.validation.cclicense.required": "You must grant this cclicense to complete your submission. If you are unable to grant the cclicense at this time, you may save your work and return later or remove the submission.",
+
+  // "error.validation.custom-url.conflict": "The custom url has been already used, please try with a new one.",
+  // TODO New key - Add a translation
+  "error.validation.custom-url.conflict": "The custom url has been already used, please try with a new one.",
+
+  // "error.validation.custom-url.empty": "The custom url is required and cannot be empty.",
+  // TODO New key - Add a translation
+  "error.validation.custom-url.empty": "The custom url is required and cannot be empty.",
+
+  // "error.validation.custom-url.invalid-characters": "The custom url contains invalid characters.",
+  // TODO New key - Add a translation
+  "error.validation.custom-url.invalid-characters": "The custom url contains invalid characters.",
 
   // "error.validation.pattern": "This input is restricted by the current pattern: {{ pattern }}.",
   "error.validation.pattern": "Este campo está restrito ao seguinte padrão: {{ pattern }}.",
@@ -8507,6 +8520,10 @@
   // "submission.sections.submit.progressbar.CClicense": "Creative commons license",
   "submission.sections.submit.progressbar.CClicense": "Licença Creative Commons",
 
+  // "submission.sections.submit.progressbar.CustomUrlStep": "Custom Url",
+  // TODO New key - Add a translation
+  "submission.sections.submit.progressbar.CustomUrlStep": "Custom Url",
+
   // "submission.sections.submit.progressbar.describe.recycle": "Recycle",
   "submission.sections.submit.progressbar.describe.recycle": "Reciclar",
 
@@ -8671,6 +8688,18 @@
 
   // "submission.sections.upload.upload-successful": "Upload successful",
   "submission.sections.upload.upload-successful": "Enviado com sucesso",
+
+  // "submission.sections.custom-url.label.previous-urls": "Previous Urls",
+  // TODO New key - Add a translation
+  "submission.sections.custom-url.label.previous-urls": "Previous Urls",
+
+  // "submission.sections.custom-url.alert.info": "Define here a custom URL which will be used to reach the item instead of using an internal randomly generated UUID identifier. ",
+  // TODO New key - Add a translation
+  "submission.sections.custom-url.alert.info": "Define here a custom URL which will be used to reach the item instead of using an internal randomly generated UUID identifier. ",
+
+  // "submission.sections.custom-url.url.placeholder": "Custom URL",
+  // TODO New key - Add a translation
+  "submission.sections.custom-url.url.placeholder": "Custom URL",
 
   // "submission.sections.accesses.form.discoverable-description": "When checked, this item will be discoverable in search/browse. When unchecked, the item will only be available via a direct link and will never appear in search/browse.",
   "submission.sections.accesses.form.discoverable-description": "Quando marcado, este item poderá ser descoberto na pesquisa/navegação. Quando desmarcado, o item estará disponível apenas por meio de um link direto e nunca aparecerá na pesquisa/navegação.",
@@ -11139,9 +11168,14 @@
   // TODO New key - Add a translation
   "file-download-link.request-copy": "Request a copy of ",
 
+  // "item.preview.organization.url": "URL",
   "item.preview.organization.url": "URL",
 
+  // "item.preview.organization.address.addressLocality": "City",
   "item.preview.organization.address.addressLocality": "Cidade",
 
+  // "item.preview.organization.alternateName": "Alternative name",
   "item.preview.organization.alternateName": "Nome alternativo",
+
+
 }
