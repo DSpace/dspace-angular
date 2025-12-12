@@ -9,7 +9,7 @@ import {
 import {
   combineLatest as observableCombineLatest,
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
@@ -20,7 +20,7 @@ import { FeatureID } from '../feature-id';
 
 export declare type SomeFeatureGuardParamFn = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => Observable<FeatureID[]>;
 export declare type StringGuardParamFn = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => Observable<string>;
-export const defaultStringGuardParamFn = () => observableOf(undefined);
+export const defaultStringGuardParamFn = () => of(undefined);
 
 /**
  * Guard for preventing unauthorized activating and loading of routes when a user doesn't have

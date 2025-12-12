@@ -11,8 +11,9 @@ import { Item } from '../../../../../core/shared/item.model';
 @Component({
   selector: 'ds-base-item-page-title-field',
   templateUrl: './item-page-title-field.component.html',
-  standalone: true,
-  imports: [TranslateModule],
+  imports: [
+    TranslateModule,
+  ],
 })
 /**
  * This component is used for displaying the title (defined by the {@link DSONameService}) of an item

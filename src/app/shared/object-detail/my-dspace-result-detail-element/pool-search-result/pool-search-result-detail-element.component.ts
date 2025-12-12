@@ -42,8 +42,11 @@ import { SearchResultDetailElementComponent } from '../search-result-detail-elem
   selector: 'ds-pool-search-result-detail-element',
   styleUrls: ['../search-result-detail-element.component.scss'],
   templateUrl: './pool-search-result-detail-element.component.html',
-  standalone: true,
-  imports: [ItemDetailPreviewComponent, PoolTaskActionsComponent, AsyncPipe],
+  imports: [
+    AsyncPipe,
+    ItemDetailPreviewComponent,
+    PoolTaskActionsComponent,
+  ],
 })
 
 @listableObjectComponent(PoolTaskSearchResult, ViewMode.DetailedListElement)

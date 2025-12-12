@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgClass,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -75,15 +72,13 @@ import { ComcolPageLogoComponent } from '../../comcol-page-logo/comcol-page-logo
   styleUrls: ['./comcol-form.component.scss'],
   templateUrl: './comcol-form.component.html',
   imports: [
+    AsyncPipe,
+    ComcolPageLogoComponent,
     FormComponent,
     TranslateModule,
     UploaderComponent,
-    AsyncPipe,
-    ComcolPageLogoComponent,
-    NgClass,
     VarDirective,
   ],
-  standalone: true,
 })
 export class ComColFormComponent<T extends Collection | Community> implements OnInit, OnDestroy {
 

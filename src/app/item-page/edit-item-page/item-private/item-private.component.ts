@@ -20,11 +20,10 @@ import { AbstractSimpleItemActionComponent } from '../simple-item-action/abstrac
 @Component({
   selector: 'ds-item-private',
   templateUrl: '../simple-item-action/abstract-simple-item-action.component.html',
-  standalone: true,
   imports: [
     ModifyItemOverviewComponent,
-    TranslateModule,
     RouterLink,
+    TranslateModule,
   ],
 })
 /**

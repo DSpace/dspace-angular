@@ -37,15 +37,14 @@ import { ChipsItem } from './models/chips-item.model';
   styleUrls: ['./chips.component.scss'],
   templateUrl: './chips.component.html',
   imports: [
-    NgbTooltipModule,
-    NgClass,
     AsyncPipe,
     AuthorityConfidenceStateDirective,
-    TranslateModule,
     CdkDrag,
     CdkDropList,
+    NgbTooltipModule,
+    NgClass,
+    TranslateModule,
   ],
-  standalone: true,
 })
 
 export class ChipsComponent implements OnChanges {
@@ -118,13 +117,13 @@ export class ChipsComponent implements OnChanges {
     if (!chipsItem.editMode && this.dragged === -1) {
       if (field) {
         if (isObject(chipsItem.item[field])) {
-          textToDisplay.push(chipsItem.item[field].display);
-          if (chipsItem.item[field].hasOtherInformation()) {
-            Object.keys(chipsItem.item[field].otherInformation)
+          textToDisplay.push((chipsItem.item[field] as any).display);
+          if ((chipsItem.item[field] as any).hasOtherInformation()) {
+            Object.keys((chipsItem.item[field] as any).otherInformation)
               .forEach((otherField) => {
                 this.translate.get('form.other-information.' + otherField)
                   .subscribe((label) => {
-                    textToDisplay.push(label + ': ' + chipsItem.item[field].otherInformation[otherField]);
+                    textToDisplay.push(label + ': ' + (chipsItem.item[field] as any).otherInformation[otherField]);
                   });
               });
           }

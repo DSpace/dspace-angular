@@ -23,8 +23,13 @@ import { HealthInfoComponentComponent } from './health-info-component/health-inf
   selector: 'ds-health-info',
   templateUrl: './health-info.component.html',
   styleUrls: ['./health-info.component.scss'],
-  standalone: true,
-  imports: [NgbAccordionModule, HealthStatusComponent, HealthInfoComponentComponent, TitleCasePipe, ObjNgFor],
+  imports: [
+    HealthInfoComponentComponent,
+    HealthStatusComponent,
+    NgbAccordionModule,
+    ObjNgFor,
+    TitleCasePipe,
+  ],
 })
 export class HealthInfoComponent implements OnInit  {
 

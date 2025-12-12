@@ -15,8 +15,9 @@ import {
 @Component({
   selector: 'ds-base-type-badge',
   templateUrl: './type-badge.component.html',
-  standalone: true,
-  imports: [TranslateModule],
+  imports: [
+    TranslateModule,
+  ],
 })
 /**
  * Component rendering the type of an item as a badge

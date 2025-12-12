@@ -18,10 +18,9 @@ import { ResourcePoliciesComponent } from '../../../shared/resource-policies/res
   selector: 'ds-collection-authorizations',
   templateUrl: './collection-authorizations.component.html',
   imports: [
-    ResourcePoliciesComponent,
     AsyncPipe,
+    ResourcePoliciesComponent,
   ],
-  standalone: true,
 })
 /**
  * Component that handles the Collection Authorizations

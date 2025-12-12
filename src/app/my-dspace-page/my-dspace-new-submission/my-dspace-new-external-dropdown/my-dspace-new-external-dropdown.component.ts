@@ -10,7 +10,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   Observable,
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
 import {
@@ -37,14 +37,13 @@ import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
   styleUrls: ['./my-dspace-new-external-dropdown.component.scss'],
   templateUrl: './my-dspace-new-external-dropdown.component.html',
   imports: [
-    EntityDropdownComponent,
-    NgbDropdownModule,
     AsyncPipe,
-    TranslateModule,
     BrowserOnlyPipe,
     BtnDisabledDirective,
+    EntityDropdownComponent,
+    NgbDropdownModule,
+    TranslateModule,
   ],
-  standalone: true,
 })
 export class MyDSpaceNewExternalDropdownComponent implements OnInit, OnDestroy {
 
@@ -104,7 +103,7 @@ export class MyDSpaceNewExternalDropdownComponent implements OnInit, OnDestroy {
           );
         } else {
           this.initialized$.next(true);
-          return observableOf(null);
+          return of(null);
         }
       }),
       take(1),

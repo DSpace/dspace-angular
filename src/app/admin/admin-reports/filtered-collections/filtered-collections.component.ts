@@ -30,12 +30,11 @@ import { FilteredCollections } from './filtered-collections.model';
   templateUrl: './filtered-collections.component.html',
   styleUrls: ['./filtered-collections.component.scss'],
   imports: [
-    TranslateModule,
-    NgbAccordionModule,
     FiltersComponent,
     KeyValuePipe,
+    NgbAccordionModule,
+    TranslateModule,
   ],
-  standalone: true,
 })
 export class FilteredCollectionsComponent implements OnInit {
 

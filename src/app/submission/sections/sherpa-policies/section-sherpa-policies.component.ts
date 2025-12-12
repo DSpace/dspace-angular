@@ -38,16 +38,15 @@ import { PublisherPolicyComponent } from './publisher-policy/publisher-policy.co
   templateUrl: './section-sherpa-policies.component.html',
   styleUrls: ['./section-sherpa-policies.component.scss'],
   imports: [
+    AlertComponent,
+    AsyncPipe,
     MetadataInformationComponent,
     NgbCollapseModule,
-    AlertComponent,
-    TranslateModule,
-    PublisherPolicyComponent,
     PublicationInformationComponent,
-    AsyncPipe,
+    PublisherPolicyComponent,
+    TranslateModule,
     VarDirective,
   ],
-  standalone: true,
 })
 export class SubmissionSectionSherpaPoliciesComponent extends SectionModelComponent {
 

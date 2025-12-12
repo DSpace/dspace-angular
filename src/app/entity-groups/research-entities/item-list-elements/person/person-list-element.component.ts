@@ -11,8 +11,9 @@ import { PersonSearchResultListElementComponent } from '../search-result-list-el
   selector: 'ds-person-list-element',
   styleUrls: ['./person-list-element.component.scss'],
   templateUrl: './person-list-element.component.html',
-  standalone: true,
-  imports: [PersonSearchResultListElementComponent],
+  imports: [
+    PersonSearchResultListElementComponent,
+  ],
 })
 /**
  * The component for displaying a list element for an item of the type Person

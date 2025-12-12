@@ -1,4 +1,4 @@
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { BitstreamFormat } from '../../core/shared/bitstream-format.model';
@@ -124,7 +124,7 @@ export const MockBitstream3: Bitstream = Object.assign(new Bitstream(), {
 export const MockOriginalBundle: Bundle = Object.assign(new Bundle(), {
   name: 'ORIGINAL',
   primaryBitstream: createSuccessfulRemoteDataObject$(MockBitstream2),
-  bitstreams: observableOf(Object.assign({
+  bitstreams: of(Object.assign({
     _links: {
       self: {
         href: 'dspace-angular://aggregated/object/1507836003548',
@@ -277,7 +277,7 @@ export const ItemMock: Item = Object.assign(new Item(), {
       },
     ],
   },
-  owningCollection: observableOf({
+  owningCollection: of({
     _links: {
       self: {
         href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/collections/1c11f3f1-ba1f-4f36-908a-3f1ea9a557eb',
@@ -292,5 +292,56 @@ export const ItemMock: Item = Object.assign(new Item(), {
     payload: [],
   },
   ),
+});
+
+export const NonDiscoverableItemMock: Item = Object.assign(new Item(), {
+  handle: '10673/7',
+  lastModified: '2017-04-24T19:44:08.178+0000',
+  isArchived: true,
+  isDiscoverable: false,
+  isWithdrawn: false,
+  bundles: createSuccessfulRemoteDataObject$(createPaginatedList([
+    MockOriginalBundle,
+  ])),
+  _links:{
+    self: {
+      href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/items/0ec7ff22-f211-40ab-a69e-c819b0b1f358',
+    },
+  },
+  id: '0ec7ff22-f211-40ab-a69e-c819b0b1f358',
+  uuid: '0ec7ff22-f211-40ab-a69e-c819b0b1f358',
+  type: 'item',
+  metadata: {
+    'dc.date.accessioned': [
+      {
+        language: null,
+        value: '1650-06-26T19:58:25Z',
+      },
+    ],
+    'dc.date.available': [
+      {
+        language: null,
+        value: '1650-06-26T19:58:25Z',
+      },
+    ],
+    'dc.date.issued': [
+      {
+        language: null,
+        value: '1650-06-26',
+      },
+    ],
+    'dc.identifier.uri': [
+      {
+        language: null,
+        value: 'http://dspace7.4science.it/xmlui/handle/10673/7',
+      },
+    ],
+    'dc.title': [
+      {
+        language: 'en_US',
+        value: 'Test Non-Discoverable',
+      },
+    ],
+  },
 });
 /* eslint-enable @typescript-eslint/no-shadow */

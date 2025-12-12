@@ -19,10 +19,9 @@ import { BrowseDefinition } from '../../../../core/shared/browse-definition.mode
   templateUrl: './comcol-browse-by.component.html',
   styleUrls: ['./comcol-browse-by.component.scss'],
   imports: [
-    BrowseBySwitcherComponent,
     AsyncPipe,
+    BrowseBySwitcherComponent,
   ],
-  standalone: true,
 })
 export class ComcolBrowseByComponent implements OnInit {
 

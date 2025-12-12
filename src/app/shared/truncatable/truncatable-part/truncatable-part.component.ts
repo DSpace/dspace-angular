@@ -18,8 +18,10 @@ import { TruncatableService } from '../truncatable.service';
   selector: 'ds-truncatable-part',
   templateUrl: './truncatable-part.component.html',
   styleUrls: ['./truncatable-part.component.scss'],
-  standalone: true,
-  imports: [DragClickDirective, TranslateModule],
+  imports: [
+    DragClickDirective,
+    TranslateModule,
+  ],
 })
 
 /**

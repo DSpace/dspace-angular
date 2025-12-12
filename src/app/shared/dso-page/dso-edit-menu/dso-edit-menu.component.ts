@@ -21,8 +21,10 @@ import { ThemeService } from '../../theme-support/theme.service';
   selector: 'ds-dso-edit-menu',
   styleUrls: ['./dso-edit-menu.component.scss'],
   templateUrl: './dso-edit-menu.component.html',
-  standalone: true,
-  imports: [NgComponentOutlet, AsyncPipe],
+  imports: [
+    AsyncPipe,
+    NgComponentOutlet,
+  ],
 })
 export class DsoEditMenuComponent extends MenuComponent {
   /**

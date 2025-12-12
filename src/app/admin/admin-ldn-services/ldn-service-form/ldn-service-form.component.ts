@@ -62,7 +62,6 @@ import { notifyPatterns } from '../ldn-services-patterns/ldn-service-coar-patter
   selector: 'ds-ldn-service-form',
   templateUrl: './ldn-service-form.component.html',
   styleUrls: ['./ldn-service-form.component.scss'],
-  standalone: true,
   animations: [
     trigger('toggleAnimation', [
       state('true', style({})),
@@ -71,10 +70,10 @@ import { notifyPatterns } from '../ldn-services-patterns/ldn-service-coar-patter
     ]),
   ],
   imports: [
+    AsyncPipe,
+    NgbDropdownModule,
     ReactiveFormsModule,
     TranslateModule,
-    NgbDropdownModule,
-    AsyncPipe,
   ],
 })
 export class LdnServiceFormComponent implements OnInit, OnDestroy {

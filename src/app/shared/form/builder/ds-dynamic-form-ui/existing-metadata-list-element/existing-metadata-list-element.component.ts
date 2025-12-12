@@ -163,12 +163,11 @@ export class ReorderableRelationship extends Reorderable {
   templateUrl: './existing-metadata-list-element.component.html',
   styleUrls: ['./existing-metadata-list-element.component.scss'],
   imports: [
-    ThemedLoadingComponent,
     AsyncPipe,
     MetadataRepresentationLoaderComponent,
+    ThemedLoadingComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class ExistingMetadataListElementComponent implements OnInit, OnChanges, OnDestroy   {
   @Input() listId: string;

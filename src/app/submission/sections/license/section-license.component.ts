@@ -63,10 +63,9 @@ import {
   templateUrl: './section-license.component.html',
   providers: [],
   imports: [
-    FormComponent,
     AsyncPipe,
+    FormComponent,
   ],
-  standalone: true,
 })
 export class SubmissionSectionLicenseComponent   extends SectionModelComponent implements AfterViewChecked {
 

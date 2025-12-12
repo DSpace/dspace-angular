@@ -36,8 +36,13 @@ import { ScopeSelectorModalComponent } from './scope-selector-modal/scope-select
   selector: 'ds-base-search-form',
   styleUrls: ['./search-form.component.scss'],
   templateUrl: './search-form.component.html',
-  standalone: true,
-  imports: [FormsModule, NgbTooltipModule, AsyncPipe, TranslateModule, BrowserOnlyPipe],
+  imports: [
+    AsyncPipe,
+    BrowserOnlyPipe,
+    FormsModule,
+    NgbTooltipModule,
+    TranslateModule,
+  ],
 })
 /**
  * Component that represents the search form

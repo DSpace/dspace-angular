@@ -28,6 +28,7 @@ import { ThemedLoadingComponent } from '../../../../shared/loading/themed-loadin
 import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { FileSizePipe } from '../../../../shared/utils/file-size-pipe';
+import { followLink } from '../../../../shared/utils/follow-link-config.model';
 import { VarDirective } from '../../../../shared/utils/var.directive';
 
 /**
@@ -39,14 +40,13 @@ import { VarDirective } from '../../../../shared/utils/var.directive';
   templateUrl: './file-section.component.html',
   imports: [
     CommonModule,
-    ThemedFileDownloadLinkComponent,
+    FileSizePipe,
     MetadataFieldWrapperComponent,
+    ThemedFileDownloadLinkComponent,
     ThemedLoadingComponent,
     TranslateModule,
-    FileSizePipe,
     VarDirective,
   ],
-  standalone: true,
 })
 export class FileSectionComponent implements OnInit {
 
@@ -66,7 +66,7 @@ export class FileSectionComponent implements OnInit {
 
   pageSize: number;
 
-  primaryBitsreamId: string;
+  primaryBitstreamId: string;
 
   constructor(
     protected bitstreamDataService: BitstreamDataService,
@@ -88,7 +88,7 @@ export class FileSectionComponent implements OnInit {
       if (!primaryBitstream) {
         return;
       }
-      this.primaryBitsreamId = primaryBitstream?.id;
+      this.primaryBitstreamId = primaryBitstream?.id;
     });
   }
 
@@ -109,7 +109,7 @@ export class FileSectionComponent implements OnInit {
     this.bitstreamDataService.findAllByItemAndBundleName(this.item, 'ORIGINAL', {
       currentPage: this.currentPage,
       elementsPerPage: this.pageSize,
-    }).pipe(
+    }, true, true, followLink('accessStatus')).pipe(
       getFirstCompletedRemoteData(),
     ).subscribe((bitstreamsRD: RemoteData<PaginatedList<Bitstream>>) => {
       if (bitstreamsRD.errorMessage) {

@@ -74,16 +74,15 @@ import { ThemedExternalSourceEntryImportModalComponent } from './external-source
     fadeInOut,
   ],
   imports: [
-    ThemedSearchFormComponent,
-    PageSizeSelectorComponent,
-    ObjectCollectionComponent,
-    VarDirective,
     AsyncPipe,
-    TranslateModule,
     ErrorComponent,
+    ObjectCollectionComponent,
+    PageSizeSelectorComponent,
     ThemedLoadingComponent,
+    ThemedSearchFormComponent,
+    TranslateModule,
+    VarDirective,
   ],
-  standalone: true,
 })
 /**
  * Component rendering the tab content of an external source during submission lookup

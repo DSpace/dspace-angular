@@ -1,7 +1,5 @@
-import {
-  CommonModule,
-  DOCUMENT,
-} from '@angular/common';
+import { CommonModule } from '@angular/common';
+import { DOCUMENT } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import {
   ActivatedRouteSnapshot,
@@ -11,7 +9,7 @@ import { provideMockActions } from '@ngrx/effects/testing';
 import { ROUTER_NAVIGATED } from '@ngrx/router-store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { hot } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { LinkService } from '../../core/cache/builders/link.service';
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
@@ -124,8 +122,8 @@ describe('ThemeService', () => {
     });
 
     function spyOnPrivateMethods() {
-      spyOn((themeService as any), 'getAncestorDSOs').and.returnValue(() => observableOf([dso]));
-      spyOn((themeService as any), 'matchThemeToDSOs').and.returnValue(observableOf(new Theme({ name: 'custom' })));
+      spyOn((themeService as any), 'getAncestorDSOs').and.returnValue(() => of([dso]));
+      spyOn((themeService as any), 'matchThemeToDSOs').and.returnValue(of(new Theme({ name: 'custom' })));
       spyOn((themeService as any), 'getActionForMatch').and.returnValue(new SetThemeAction('custom'));
     }
 
@@ -296,13 +294,13 @@ describe('ThemeService', () => {
 
       beforeEach(() => {
         nonMatchingTheme = Object.assign(new Theme({ name: 'non-matching-theme' }), {
-          matches: () => observableOf(false),
+          matches: () => of(false),
         });
         itemMatchingTheme = Object.assign(new Theme({ name: 'item-matching-theme' }), {
-          matches: (url, dso) => observableOf((dso as any).type === ITEM.value),
+          matches: (url, dso) => of((dso as any).type === ITEM.value),
         });
         communityMatchingTheme = Object.assign(new Theme({ name: 'community-matching-theme' }), {
-          matches: (url, dso) => observableOf((dso as any).type === COMMUNITY.value),
+          matches: (url, dso) => of((dso as any).type === COMMUNITY.value),
         });
         dsos = [
           Object.assign(new Item(), {
@@ -377,7 +375,7 @@ describe('ThemeService', () => {
           _links: { owningCollection: { href: 'owning-collection-link' } },
         });
 
-        observableOf(dso).pipe(
+        of(dso).pipe(
           (themeService as any).getAncestorDSOs(),
         ).subscribe((result) => {
           expect(result).toEqual([dso, ...ancestorDSOs]);
@@ -391,7 +389,7 @@ describe('ThemeService', () => {
           uuid: 'item-uuid',
         };
 
-        observableOf(dso).pipe(
+        of(dso).pipe(
           (themeService as any).getAncestorDSOs(),
         ).subscribe((result) => {
           expect(result).toEqual([dso]);
@@ -432,7 +430,7 @@ describe('ThemeService', () => {
 
       themeService = TestBed.inject(ThemeService);
       spyOn(themeService, 'getThemeName').and.returnValue('custom');
-      spyOn(themeService, 'getThemeName$').and.returnValue(observableOf('custom'));
+      spyOn(themeService, 'getThemeName$').and.returnValue(of('custom'));
     });
 
     it('should append a link element with the correct attributes to the head element', () => {

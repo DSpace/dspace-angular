@@ -78,14 +78,13 @@ import { followLink } from '../../shared/utils/follow-link-config.model';
     },
   ],
   imports: [
-    ThemedSearchFormComponent,
-    NgbNavModule,
-    TranslateModule,
     AsyncPipe,
-    ItemSelectComponent,
     BrowserOnlyPipe,
+    ItemSelectComponent,
+    NgbNavModule,
+    ThemedSearchFormComponent,
+    TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * Component used to map items to a collection
@@ -159,7 +158,7 @@ export class CollectionItemMapperComponent implements OnInit {
 
     this.collectionName$ = this.collectionRD$.pipe(
       map((rd: RemoteData<Collection>) => {
-        return this.dsoNameService.getName(rd.payload);
+        return this.dsoNameService.getName(rd.payload, true);
       }),
     );
     this.searchOptions$ = this.searchConfigService.paginatedSearchOptions;

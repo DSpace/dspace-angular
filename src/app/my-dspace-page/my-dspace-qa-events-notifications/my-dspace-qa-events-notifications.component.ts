@@ -28,10 +28,9 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     AsyncPipe,
-    TranslateModule,
     RouterLink,
+    TranslateModule,
   ],
-  standalone: true,
 })
 export class MyDspaceQaEventsNotificationsComponent  implements OnInit {
 

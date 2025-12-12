@@ -39,12 +39,11 @@ import {
       useClass: SearchConfigurationService,
     },
   ],
-  standalone: true,
   imports: [
     AdminNotifyMetricsComponent,
+    AsyncPipe,
     RouterLink,
     TranslateModule,
-    AsyncPipe,
   ],
 })
 

@@ -14,8 +14,9 @@ import { ServerResponseService } from '../core/services/server-response.service'
   styleUrls: ['./page-internal-server-error.component.scss'],
   templateUrl: './page-internal-server-error.component.html',
   changeDetection: ChangeDetectionStrategy.Default,
-  standalone: true,
-  imports: [TranslateModule],
+  imports: [
+    TranslateModule,
+  ],
 })
 export class PageInternalServerErrorComponent {
 

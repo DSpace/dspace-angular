@@ -12,7 +12,7 @@ import {
   TransferState,
 } from '@angular/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { provideServerRendering } from '@angular/platform-server';
+import { provideServerRendering } from '@angular/ssr';
 import { EffectsModule } from '@ngrx/effects';
 import {
   Action,
@@ -20,14 +20,15 @@ import {
   StoreModule,
 } from '@ngrx/store';
 import {
+  provideTranslateService,
   TranslateLoader,
-  TranslateModule,
 } from '@ngx-translate/core';
 import {
   Angulartics2,
   Angulartics2GoogleAnalytics,
   Angulartics2GoogleGlobalSiteTag,
 } from 'angulartics2';
+import { MatomoTracker } from 'ngx-matomo-client';
 
 import { commonAppConfig } from '../../app/app.config';
 import { storeModuleConfig } from '../../app/app.reducer';
@@ -52,9 +53,12 @@ import { MathService } from '../../app/core/shared/math.service';
 import { ServerMathService } from '../../app/core/shared/server-math.service';
 import { ServerXSRFService } from '../../app/core/xsrf/server-xsrf.service';
 import { XSRFService } from '../../app/core/xsrf/xsrf.service';
+import { OrejimeService } from '../../app/shared/cookies/orejime.service';
+import { ServerOrejimeService } from '../../app/shared/cookies/server-orejime.service';
 import { AngularticsProviderMock } from '../../app/shared/mocks/angulartics-provider.service.mock';
 import { Angulartics2Mock } from '../../app/shared/mocks/angulartics2.service.mock';
 import { Angulartics2DSpace } from '../../app/statistics/angulartics/dspace-provider';
+import { MockMatomoTracker } from '../../app/statistics/mock-matomo-tracker';
 import { ServerSubmissionService } from '../../app/submission/server-submission.service';
 import { SubmissionService } from '../../app/submission/submission.service';
 import { TranslateServerLoader } from '../../ngx-translate-loaders/translate-server.loader';
@@ -72,14 +76,14 @@ export const serverAppConfig: ApplicationConfig = mergeApplicationConfig({
     importProvidersFrom(
       StoreModule.forFeature('core', coreReducers, storeModuleConfig as StoreConfig<CoreState, Action>),
       EffectsModule.forFeature(coreEffects),
-      TranslateModule.forRoot({
-        loader: {
-          provide: TranslateLoader,
-          useFactory: (createTranslateLoader),
-          deps: [TransferState],
-        },
-      }),
     ),
+    provideTranslateService({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: createTranslateLoader,
+        deps: [TransferState],
+      },
+    }),
     ...ServerInitService.providers(),
     { provide: APP_ID, useValue: 'dspace-angular' },
     {
@@ -143,6 +147,14 @@ export const serverAppConfig: ApplicationConfig = mergeApplicationConfig({
     {
       provide: MathService,
       useClass: ServerMathService,
+    },
+    {
+      provide: OrejimeService,
+      useClass: ServerOrejimeService,
+    },
+    {
+      provide: MatomoTracker,
+      useClass: MockMatomoTracker,
     },
   ],
 }, commonAppConfig);

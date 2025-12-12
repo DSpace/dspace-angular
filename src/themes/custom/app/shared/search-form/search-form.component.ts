@@ -13,8 +13,13 @@ import { BrowserOnlyPipe } from '../../../../../app/shared/utils/browser-only.pi
   styleUrls: ['../../../../../app/shared/search-form/search-form.component.scss'],
   // templateUrl: './search-form.component.html',
   templateUrl: '../../../../../app/shared/search-form/search-form.component.html',
-  standalone: true,
-  imports: [FormsModule, NgbTooltipModule, AsyncPipe, TranslateModule, BrowserOnlyPipe],
+  imports: [
+    AsyncPipe,
+    BrowserOnlyPipe,
+    FormsModule,
+    NgbTooltipModule,
+    TranslateModule,
+  ],
 })
 export class SearchFormComponent extends BaseComponent {
 }

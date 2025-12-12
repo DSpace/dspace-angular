@@ -24,22 +24,20 @@ import { SystemWideAlertBannerComponent } from '../../../../app/system-wide-aler
   // templateUrl: './root.component.html',
   templateUrl: '../../../../app/root/root.component.html',
   animations: [slideSidebarPadding],
-  standalone: true,
   imports: [
-    TranslateModule,
-    ThemedAdminSidebarComponent,
-    SystemWideAlertBannerComponent,
-    ThemedHeaderNavbarWrapperComponent,
-    ThemedBreadcrumbsComponent,
-    NgClass,
-    ThemedLoadingComponent,
-    RouterOutlet,
-    ThemedFooterComponent,
-    NotificationsBoardComponent,
     AsyncPipe,
     LiveRegionComponent,
+    NgClass,
+    NotificationsBoardComponent,
+    RouterOutlet,
+    SystemWideAlertBannerComponent,
+    ThemedAdminSidebarComponent,
+    ThemedBreadcrumbsComponent,
+    ThemedFooterComponent,
+    ThemedHeaderNavbarWrapperComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
   ],
 })
 export class RootComponent extends BaseComponent {
-
 }

@@ -20,10 +20,9 @@ import { VocabularyTreeviewComponent } from '../vocabulary-treeview/vocabulary-t
   templateUrl: './vocabulary-treeview-modal.component.html',
   styleUrls: ['./vocabulary-treeview-modal.component.scss'],
   imports: [
-    VocabularyTreeviewComponent,
     TranslateModule,
+    VocabularyTreeviewComponent,
   ],
-  standalone: true,
 })
 /**
  * Component that contains a modal to display a VocabularyTreeviewComponent

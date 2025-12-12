@@ -34,8 +34,12 @@ import { ThemedItemListPreviewComponent } from '../../item-list-preview/themed-i
   selector: 'ds-claimed-declined-search-result-list-element',
   styleUrls: ['../../../search-result-list-element/search-result-list-element.component.scss'],
   templateUrl: './claimed-declined-search-result-list-element.component.html',
-  standalone: true,
-  imports: [ThemedItemListPreviewComponent, AsyncPipe, TranslateModule, VarDirective],
+  imports: [
+    AsyncPipe,
+    ThemedItemListPreviewComponent,
+    TranslateModule,
+    VarDirective,
+  ],
 })
 @listableObjectComponent(ClaimedDeclinedTaskSearchResult, ViewMode.ListElement)
 export class ClaimedDeclinedSearchResultListElementComponent extends SearchResultListElementComponent<ClaimedTaskSearchResult, ClaimedTask> implements OnInit {

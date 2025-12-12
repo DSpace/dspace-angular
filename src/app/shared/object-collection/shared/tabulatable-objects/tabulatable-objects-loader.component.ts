@@ -14,7 +14,7 @@ import {
 import {
   combineLatest,
   Observable,
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
 import { take } from 'rxjs/operators';
@@ -40,7 +40,6 @@ import { TabulatableObjectsDirective } from './tabulatable-objects.directive';
   imports: [
     TabulatableObjectsDirective,
   ],
-  standalone: true,
 })
 /**
  * Component to load the matching component flagged by the tabulatableObjectsComponent decorator.
@@ -183,7 +182,7 @@ export class TabulatableObjectsLoaderComponent implements OnInit, OnChanges, OnD
 
     if ((this.compRef.instance as any).reloadedObject) {
       combineLatest([
-        observableOf(changes),
+        of(changes),
         (this.compRef.instance as any).reloadedObject.pipe(take(1)) as Observable<PaginatedList<ListableObject>>,
       ]).subscribe(([simpleChanges, reloadedObjects]: [SimpleChanges, PaginatedList<ListableObject>]) => {
         if (reloadedObjects) {

@@ -55,11 +55,10 @@ export interface ResourcePolicyCheckboxEntry {
   templateUrl: './resource-policy-entry.component.html',
   imports: [
     AsyncPipe,
-    TranslateModule,
     FormsModule,
     HasValuePipe,
+    TranslateModule,
   ],
-  standalone: true,
 })
 export class ResourcePolicyEntryComponent implements OnInit {
   @Input()

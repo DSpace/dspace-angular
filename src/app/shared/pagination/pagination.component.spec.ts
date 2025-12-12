@@ -395,9 +395,13 @@ describe('Pagination component', () => {
 
 // declare a test component
 @Component({
-  selector: 'ds-test-cmp', template: '',
-  standalone: true,
-  imports: [NgxPaginationModule, PaginationComponent, NgbModule],
+  selector: 'ds-test-cmp',
+  template: '<ds-pagination></ds-pagination>',
+  imports: [
+    NgbModule,
+    NgxPaginationModule,
+    PaginationComponent,
+  ],
 })
 class TestComponent {
 

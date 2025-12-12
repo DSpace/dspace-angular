@@ -45,8 +45,17 @@ import { ViewModeSwitchComponent } from '../shared/view-mode-switch/view-mode-sw
       useClass: SearchConfigurationService,
     },
   ],
-  standalone: true,
-  imports: [NgTemplateOutlet, PageWithSidebarComponent, ViewModeSwitchComponent, ThemedSearchResultsComponent, ThemedSearchSidebarComponent, ThemedSearchFormComponent, SearchLabelsComponent, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    NgTemplateOutlet,
+    PageWithSidebarComponent,
+    SearchLabelsComponent,
+    ThemedSearchFormComponent,
+    ThemedSearchResultsComponent,
+    ThemedSearchSidebarComponent,
+    TranslateModule,
+    ViewModeSwitchComponent,
+  ],
 })
 
 export class ConfigurationSearchPageComponent extends SearchComponent {

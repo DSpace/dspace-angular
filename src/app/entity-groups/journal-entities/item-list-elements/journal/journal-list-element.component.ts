@@ -11,8 +11,9 @@ import { JournalSearchResultListElementComponent } from '../search-result-list-e
   selector: 'ds-journal-list-element',
   styleUrls: ['./journal-list-element.component.scss'],
   templateUrl: './journal-list-element.component.html',
-  standalone: true,
-  imports: [JournalSearchResultListElementComponent],
+  imports: [
+    JournalSearchResultListElementComponent,
+  ],
 })
 /**
  * The component for displaying a list element for an item of the type Journal

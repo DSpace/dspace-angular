@@ -1,7 +1,7 @@
 import { Injector } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { createMockStore } from '@ngrx/store/testing';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { Notification } from '../../../shared/notifications/models/notification.model';
 import { NotificationType } from '../../../shared/notifications/models/notification-type';
@@ -60,9 +60,9 @@ describe('ObjectUpdatesService', () => {
     });
     service = new ObjectUpdatesService(store, injector);
 
-    spyOn(service as any, 'getObjectEntry').and.returnValue(observableOf(objectEntry));
+    spyOn(service as any, 'getObjectEntry').and.returnValue(of(objectEntry));
     spyOn(service as any, 'getFieldState').and.callFake((uuid) => {
-      return observableOf(fieldStates[uuid]);
+      return of(fieldStates[uuid]);
     });
     spyOn(service as any, 'saveFieldUpdate');
   });
@@ -70,7 +70,7 @@ describe('ObjectUpdatesService', () => {
   describe('initialize', () => {
     it('should dispatch an INITIALIZE action with the correct URL, initial identifiables and the last modified date', () => {
       service.initialize(url, identifiables, modDate);
-      expect(store.dispatch).toHaveBeenCalledWith(new InitializeFieldsAction(url, identifiables, modDate));
+      expect(store.dispatch as jasmine.Spy).toHaveBeenCalledWith(new InitializeFieldsAction(url, identifiables, modDate));
     });
   });
 
@@ -168,12 +168,12 @@ describe('ObjectUpdatesService', () => {
   describe('setEditableFieldUpdate', () => {
     it('should dispatch a SetEditableFieldUpdateAction action with the correct URL, uuid and true when true was set', () => {
       service.setEditableFieldUpdate(url, identifiable1.uuid, true);
-      expect(store.dispatch).toHaveBeenCalledWith(new SetEditableFieldUpdateAction(url, identifiable1.uuid, true));
+      expect(store.dispatch as jasmine.Spy).toHaveBeenCalledWith(new SetEditableFieldUpdateAction(url, identifiable1.uuid, true));
     });
 
     it('should dispatch an SetEditableFieldUpdateAction action with the correct URL, uuid and false when false was set', () => {
       service.setEditableFieldUpdate(url, identifiable1.uuid, false);
-      expect(store.dispatch).toHaveBeenCalledWith(new SetEditableFieldUpdateAction(url, identifiable1.uuid, false));
+      expect(store.dispatch as jasmine.Spy).toHaveBeenCalledWith(new SetEditableFieldUpdateAction(url, identifiable1.uuid, false));
     });
   });
 
@@ -181,21 +181,21 @@ describe('ObjectUpdatesService', () => {
     it('should dispatch a DiscardObjectUpdatesAction action with the correct URL and passed notification ', () => {
       const undoNotification = new Notification('id', NotificationType.Info, 'undo');
       service.discardFieldUpdates(url, undoNotification);
-      expect(store.dispatch).toHaveBeenCalledWith(new DiscardObjectUpdatesAction(url, undoNotification));
+      expect(store.dispatch as jasmine.Spy).toHaveBeenCalledWith(new DiscardObjectUpdatesAction(url, undoNotification));
     });
   });
 
   describe('reinstateFieldUpdates', () => {
     it('should dispatch a ReinstateObjectUpdatesAction action with the correct URL ', () => {
       service.reinstateFieldUpdates(url);
-      expect(store.dispatch).toHaveBeenCalledWith(new ReinstateObjectUpdatesAction(url));
+      expect(store.dispatch as jasmine.Spy).toHaveBeenCalledWith(new ReinstateObjectUpdatesAction(url));
     });
   });
 
   describe('removeSingleFieldUpdate', () => {
     it('should dispatch a RemoveFieldUpdateAction action with the correct URL and uuid', () => {
       service.removeSingleFieldUpdate(url, identifiable1.uuid);
-      expect(store.dispatch).toHaveBeenCalledWith(new RemoveFieldUpdateAction(url, identifiable1.uuid));
+      expect(store.dispatch as jasmine.Spy).toHaveBeenCalledWith(new RemoveFieldUpdateAction(url, identifiable1.uuid));
     });
   });
 
@@ -223,7 +223,7 @@ describe('ObjectUpdatesService', () => {
     });
     describe('when updates are emtpy', () => {
       beforeEach(() => {
-        (service as any).getObjectEntry.and.returnValue(observableOf({}));
+        (service as any).getObjectEntry.and.returnValue(of({}));
       });
 
       it('should return false when there are no updates', () => {
@@ -242,7 +242,7 @@ describe('ObjectUpdatesService', () => {
 
     describe('when updates are not emtpy', () => {
       beforeEach(() => {
-        spyOn(service, 'hasUpdates').and.returnValue(observableOf(true));
+        spyOn(service, 'hasUpdates').and.returnValue(of(true));
       });
 
       it('should return true', () => {
@@ -258,7 +258,7 @@ describe('ObjectUpdatesService', () => {
 
     describe('when updates are emtpy', () => {
       beforeEach(() => {
-        spyOn(service, 'hasUpdates').and.returnValue(observableOf(false));
+        spyOn(service, 'hasUpdates').and.returnValue(of(false));
       });
 
       it('should return false', () => {
@@ -287,7 +287,7 @@ describe('ObjectUpdatesService', () => {
   describe('setSelectedVirtualMetadata', () => {
     it('should dispatch a SELECT_VIRTUAL_METADATA action with the correct URL, relationship, identifiable and boolean', () => {
       service.setSelectedVirtualMetadata(url, relationship.uuid, identifiable1.uuid, true);
-      expect(store.dispatch).toHaveBeenCalledWith(new SelectVirtualMetadataAction(url, relationship.uuid, identifiable1.uuid, true));
+      expect(store.dispatch as jasmine.Spy).toHaveBeenCalledWith(new SelectVirtualMetadataAction(url, relationship.uuid, identifiable1.uuid, true));
     });
   });
 

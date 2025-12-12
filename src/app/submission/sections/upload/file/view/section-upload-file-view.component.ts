@@ -24,12 +24,11 @@ import { SubmissionSectionUploadAccessConditionsComponent } from '../../accessCo
   selector: 'ds-submission-section-upload-file-view',
   templateUrl: './section-upload-file-view.component.html',
   imports: [
+    FileSizePipe,
     SubmissionSectionUploadAccessConditionsComponent,
     TranslateModule,
     TruncatePipe,
-    FileSizePipe,
   ],
-  standalone: true,
 })
 export class SubmissionSectionUploadFileViewComponent implements OnInit {
 

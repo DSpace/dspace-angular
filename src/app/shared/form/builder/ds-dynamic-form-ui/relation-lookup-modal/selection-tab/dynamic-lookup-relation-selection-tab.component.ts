@@ -45,12 +45,11 @@ import { SearchResult } from '../../../../../search/models/search-result.model';
     },
   ],
   imports: [
-    PageSizeSelectorComponent,
-    ObjectCollectionComponent,
     AsyncPipe,
+    ObjectCollectionComponent,
+    PageSizeSelectorComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 
 /**

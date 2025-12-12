@@ -61,22 +61,19 @@ import {
   getEPersonEditRoute,
   getEPersonsRoute,
 } from '../access-control-routing-paths';
-import { EPersonFormComponent } from './eperson-form/eperson-form.component';
 
 @Component({
   selector: 'ds-epeople-registry',
   templateUrl: './epeople-registry.component.html',
   imports: [
-    TranslateModule,
-    RouterModule,
     AsyncPipe,
-    EPersonFormComponent,
-    ReactiveFormsModule,
-    ThemedLoadingComponent,
-    PaginationComponent,
     NgClass,
+    PaginationComponent,
+    ReactiveFormsModule,
+    RouterModule,
+    ThemedLoadingComponent,
+    TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * A component used for managing all existing epeople within the repository.

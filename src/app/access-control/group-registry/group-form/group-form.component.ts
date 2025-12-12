@@ -87,15 +87,14 @@ import { ValidateGroupExists } from './validators/group-exists.validator';
   selector: 'ds-group-form',
   templateUrl: './group-form.component.html',
   imports: [
-    FormComponent,
     AlertComponent,
     AsyncPipe,
-    TranslateModule,
     ContextHelpDirective,
+    FormComponent,
     MembersListComponent,
     SubgroupsListComponent,
+    TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * A form used for creating and editing groups

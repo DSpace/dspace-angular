@@ -36,8 +36,12 @@ import { ThemedLoadingComponent } from '../loading/themed-loading.component';
   selector: 'ds-entity-dropdown',
   templateUrl: './entity-dropdown.component.html',
   styleUrls: ['./entity-dropdown.component.scss'],
-  standalone: true,
-  imports: [InfiniteScrollModule, ThemedLoadingComponent, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    InfiniteScrollModule,
+    ThemedLoadingComponent,
+    TranslateModule,
+  ],
 })
 export class EntityDropdownComponent implements OnInit, OnDestroy {
   /**

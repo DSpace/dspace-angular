@@ -26,7 +26,7 @@ import {
 } from '@ngx-translate/core';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import {
@@ -64,16 +64,15 @@ enum SubKey {
   selector: 'ds-reviewers-list',
   // templateUrl: './reviewers-list.component.html',
   templateUrl: '../../../../access-control/group-registry/group-form/members-list/members-list.component.html',
-  standalone: true,
   imports: [
-    TranslateModule,
-    ContextHelpDirective,
-    ReactiveFormsModule,
-    PaginationComponent,
     AsyncPipe,
-    RouterLink,
-    NgClass,
     BtnDisabledDirective,
+    ContextHelpDirective,
+    NgClass,
+    PaginationComponent,
+    ReactiveFormsModule,
+    RouterLink,
+    TranslateModule,
   ],
 })
 export class ReviewersListComponent extends MembersListComponent implements OnInit, OnChanges, OnDestroy {
@@ -158,7 +157,7 @@ export class ReviewersListComponent extends MembersListComponent implements OnIn
    * @param possibleMember The {@link EPerson} that needs to be checked
    */
   isMemberOfGroup(possibleMember: EPerson): Observable<boolean> {
-    return observableOf(hasValue(this.selectedReviewers.find((reviewer: EPerson) => reviewer.id === possibleMember.id)));
+    return of(hasValue(this.selectedReviewers.find((reviewer: EPerson) => reviewer.id === possibleMember.id)));
   }
 
   /**

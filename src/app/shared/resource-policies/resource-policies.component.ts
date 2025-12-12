@@ -55,12 +55,11 @@ import {
   styleUrls: ['./resource-policies.component.scss'],
   templateUrl: './resource-policies.component.html',
   imports: [
-    ResourcePolicyEntryComponent,
-    TranslateModule,
     AsyncPipe,
     BtnDisabledDirective,
+    ResourcePolicyEntryComponent,
+    TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * Component that shows the policies for given resource

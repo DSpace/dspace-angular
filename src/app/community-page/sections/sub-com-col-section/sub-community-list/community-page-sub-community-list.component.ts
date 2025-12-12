@@ -37,18 +37,13 @@ import { VarDirective } from '../../../../shared/utils/var.directive';
   templateUrl: './community-page-sub-community-list.component.html',
   animations: [fadeIn],
   imports: [
-    ErrorComponent,
-    ThemedLoadingComponent,
-    VarDirective,
-    ObjectCollectionComponent,
     AsyncPipe,
-    TranslateModule,
-    ObjectCollectionComponent,
     ErrorComponent,
+    ObjectCollectionComponent,
     ThemedLoadingComponent,
+    TranslateModule,
     VarDirective,
   ],
-  standalone: true,
 })
 /**
  * Component to render the sub-communities of a Community

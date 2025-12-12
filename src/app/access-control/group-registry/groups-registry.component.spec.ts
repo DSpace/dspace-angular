@@ -25,7 +25,6 @@ import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
-  of as observableOf,
   of,
 } from 'rxjs';
 
@@ -95,11 +94,11 @@ describe('GroupsRegistryComponent', () => {
     (authorizationService as any).isAuthorized.and.callFake((featureId?: FeatureID) => {
       switch (featureId) {
         case FeatureID.AdministratorOf:
-          return observableOf(isAdmin);
+          return of(isAdmin);
         case FeatureID.CanManageGroup:
-          return observableOf(canManageGroup);
+          return of(canManageGroup);
         case FeatureID.CanDelete:
-          return observableOf(true);
+          return of(true);
         default:
           throw new Error(`setIsAuthorized: this fake implementation does not support ${featureId}.`);
       }
@@ -381,6 +380,8 @@ describe('GroupsRegistryComponent', () => {
     it('should call GroupDataService.delete', () => {
       deleteButton.click();
       fixture.detectChanges();
+
+      (document as any).querySelector('.modal-footer .confirm').click();
 
       expect(groupsDataServiceStub.delete).toHaveBeenCalledWith(mockGroups[0].id);
     });

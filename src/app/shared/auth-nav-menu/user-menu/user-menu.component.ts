@@ -40,8 +40,15 @@ import { LogOutComponent } from '../../log-out/log-out.component';
   selector: 'ds-base-user-menu',
   templateUrl: './user-menu.component.html',
   styleUrls: ['./user-menu.component.scss'],
-  standalone: true,
-  imports: [ThemedLoadingComponent, RouterLinkActive, NgClass, RouterLink, LogOutComponent, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    LogOutComponent,
+    NgClass,
+    RouterLink,
+    RouterLinkActive,
+    ThemedLoadingComponent,
+    TranslateModule,
+  ],
 })
 export class UserMenuComponent implements OnInit {
 

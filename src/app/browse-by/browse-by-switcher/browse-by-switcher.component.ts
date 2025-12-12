@@ -1,8 +1,4 @@
 import {
-  AsyncPipe,
-  NgComponentOutlet,
-} from '@angular/common';
-import {
   Component,
   Input,
 } from '@angular/core';
@@ -17,8 +13,9 @@ import { getComponentByBrowseByType } from './browse-by-decorator';
 @Component({
   selector: 'ds-browse-by-switcher',
   templateUrl: '../../shared/abstract-component-loader/abstract-component-loader.component.html',
-  imports: [AsyncPipe, NgComponentOutlet, DynamicComponentLoaderDirective],
-  standalone: true,
+  imports: [
+    DynamicComponentLoaderDirective,
+  ],
 })
 export class BrowseBySwitcherComponent extends AbstractComponentLoaderComponent<Component> {
 

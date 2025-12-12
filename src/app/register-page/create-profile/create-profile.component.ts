@@ -51,13 +51,12 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
   styleUrls: ['./create-profile.component.scss'],
   templateUrl: './create-profile.component.html',
   imports: [
-    ProfilePageSecurityFormComponent,
-    TranslateModule,
     AsyncPipe,
-    ReactiveFormsModule,
     BtnDisabledDirective,
+    ProfilePageSecurityFormComponent,
+    ReactiveFormsModule,
+    TranslateModule,
   ],
-  standalone: true,
 })
 export class CreateProfileComponent implements OnInit {
   registration$: Observable<Registration>;

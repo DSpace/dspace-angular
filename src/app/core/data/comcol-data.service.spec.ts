@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { cold } from 'jasmine-marbles';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
@@ -66,7 +66,7 @@ class TestService extends ComColDataService<any> {
 
   protected getScopeCommunityHref(options: FindListOptions): Observable<string> {
     // implementation in subclasses for communities/collections
-    return observableOf(communityEndpoint);
+    return of(communityEndpoint);
   }
 }
 
@@ -93,7 +93,7 @@ describe('ComColDataService', () => {
   const scopedEndpoint = `${communityEndpoint}/${LINK_NAME}`;
 
   const mockHalService = {
-    getEndpoint: (linkPath) => observableOf(communitiesEndpoint),
+    getEndpoint: (linkPath) => of(communitiesEndpoint),
   };
 
   function initRdbService(): RemoteDataBuildService {

@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  KeyValuePipe,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Inject,
@@ -17,7 +14,7 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
 import { take } from 'rxjs/operators';
@@ -47,14 +44,12 @@ import { SearchFilterConfig } from '../models/search-filter-config.model';
   selector: 'ds-advanced-search',
   templateUrl: './advanced-search.component.html',
   styleUrls: ['./advanced-search.component.scss'],
-  standalone: true,
   imports: [
     AsyncPipe,
+    BtnDisabledDirective,
     FilterInputSuggestionsComponent,
     FormsModule,
-    KeyValuePipe,
     TranslateModule,
-    BtnDisabledDirective,
   ],
 })
 export class AdvancedSearchComponent implements OnInit, OnDestroy {
@@ -90,7 +85,7 @@ export class AdvancedSearchComponent implements OnInit, OnDestroy {
   /**
    * Emits the result values for this filter found by the current filter query
    */
-  filterSearchResults$: Observable<InputSuggestion[]> = observableOf([]);
+  filterSearchResults$: Observable<InputSuggestion[]> = of([]);
 
   subs: Subscription[] = [];
 

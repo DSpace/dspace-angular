@@ -1,7 +1,6 @@
 import {
   AsyncPipe,
   DatePipe,
-  NgClass,
 } from '@angular/common';
 import {
   Component,
@@ -72,17 +71,15 @@ interface VersionDTO {
   selector: 'ds-item-versions',
   templateUrl: './item-versions.component.html',
   styleUrls: ['./item-versions.component.scss'],
-  standalone: true,
   imports: [
     AlertComponent,
     AsyncPipe,
+    BtnDisabledDirective,
     DatePipe,
     FormsModule,
     ItemVersionsRowElementVersionComponent,
-    NgClass,
     PaginationComponent,
     TranslateModule,
-    BtnDisabledDirective,
   ],
 })
 

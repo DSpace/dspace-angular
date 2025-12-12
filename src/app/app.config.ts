@@ -1,15 +1,14 @@
-import {
-  APP_BASE_HREF,
-  DOCUMENT,
-} from '@angular/common';
+import { APP_BASE_HREF } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import {
   ApplicationConfig,
+  DOCUMENT,
   importProvidersFrom,
 } from '@angular/core';
 import {
   NoPreloading,
   provideRouter,
+  withComponentInputBinding,
   withEnabledBlockingInitialNavigation,
   withInMemoryScrolling,
   withPreloading,
@@ -40,6 +39,7 @@ import { HashedFileMapping } from '../modules/dynamic-hash/hashed-file-mapping';
 import { BrowserHashedFileMapping } from '../modules/dynamic-hash/hashed-file-mapping.browser';
 import { EagerThemesModule } from '../themes/eager-themes.module';
 import { appEffects } from './app.effects';
+import { MENUS } from './app.menus';
 import {
   appMetaReducers,
   debugMetaReducers,
@@ -66,6 +66,7 @@ import {
 import { ClientCookieService } from './core/services/client-cookie.service';
 import { ListableModule } from './core/shared/listable.module';
 import { XsrfInterceptor } from './core/xsrf/xsrf.interceptor';
+import { LOGIN_METHOD_FOR_DECORATOR_MAP } from './external-log-in/decorators/external-log-in.methods-decorator';
 import { RootModule } from './root.module';
 import { AUTH_METHOD_FOR_DECORATOR_MAP } from './shared/log-in/methods/log-in.methods-decorator';
 import { METADATA_REPRESENTATION_COMPONENT_DECORATOR_MAP } from './shared/metadata-representation/metadata-representation.decorator';
@@ -111,6 +112,7 @@ export const commonAppConfig: ApplicationConfig = {
       withInMemoryScrolling(APP_ROUTING_SCROLL_CONF),
       withEnabledBlockingInitialNavigation(),
       withPreloading(NoPreloading),
+      withComponentInputBinding(),
     ),
     {
       provide: APP_BASE_HREF,
@@ -162,6 +164,10 @@ export const commonAppConfig: ApplicationConfig = {
     },
     // register the dynamic matcher used by form. MUST be provided by the app module
     ...DYNAMIC_MATCHER_PROVIDERS,
+
+    // DI-composable menus
+    ...MENUS,
+
     provideCore(),
   ],
 };
@@ -169,6 +175,7 @@ export const commonAppConfig: ApplicationConfig = {
 
 /* Use models object so all decorators are actually called */
 const modelList = models;
+const loginMethodForDecoratorMap = LOGIN_METHOD_FOR_DECORATOR_MAP;
 const workflowTasks = WORKFLOW_TASK_OPTION_DECORATOR_MAP;
 const advancedWorfklowTasks = ADVANCED_WORKFLOW_TASK_OPTION_DECORATOR_MAP;
 const metadataRepresentations = METADATA_REPRESENTATION_COMPONENT_DECORATOR_MAP;

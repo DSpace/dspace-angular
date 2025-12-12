@@ -36,8 +36,10 @@ import { OrgUnitInputSuggestionsComponent } from './org-unit-suggestions/org-uni
   selector: 'ds-org-unit-search-result-list-submission-element',
   styleUrls: ['./org-unit-search-result-list-submission-element.component.scss'],
   templateUrl: './org-unit-search-result-list-submission-element.component.html',
-  standalone: true,
-  imports: [OrgUnitInputSuggestionsComponent, FormsModule],
+  imports: [
+    FormsModule,
+    OrgUnitInputSuggestionsComponent,
+  ],
 })
 
 /**

@@ -18,8 +18,10 @@ import { SearchResultGridElementComponent } from '../../../../../shared/object-g
   selector: 'ds-collection-admin-search-result-list-element',
   styleUrls: ['./collection-admin-search-result-grid-element.component.scss'],
   templateUrl: './collection-admin-search-result-grid-element.component.html',
-  standalone: true,
-  imports: [CollectionSearchResultGridElementComponent, RouterLink],
+  imports: [
+    CollectionSearchResultGridElementComponent,
+    RouterLink,
+  ],
 })
 /**
  * The component for displaying a list element for a collection search result on the admin search page

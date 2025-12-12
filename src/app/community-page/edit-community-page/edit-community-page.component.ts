@@ -21,13 +21,12 @@ import { getCommunityPageRoute } from '../community-page-routing-paths';
 @Component({
   selector: 'ds-edit-community',
   templateUrl: '../../shared/comcol/comcol-forms/edit-comcol-page/edit-comcol-page.component.html',
-  standalone: true,
   imports: [
-    RouterLink,
-    TranslateModule,
-    NgClass,
-    RouterOutlet,
     AsyncPipe,
+    NgClass,
+    RouterLink,
+    RouterOutlet,
+    TranslateModule,
   ],
 })
 export class EditCommunityPageComponent extends EditComColPageComponent<Community> {

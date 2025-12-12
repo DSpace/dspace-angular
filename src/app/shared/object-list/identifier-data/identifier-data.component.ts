@@ -17,10 +17,9 @@ import { IdentifierData } from './identifier-data.model';
   selector: 'ds-identifier-data',
   templateUrl: './identifier-data.component.html',
   imports: [
-    TranslateModule,
     AsyncPipe,
+    TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * Component rendering an identifier, eg. DOI or handle

@@ -34,12 +34,11 @@ import { AbstractSimpleItemActionComponent } from '../simple-item-action/abstrac
   selector: 'ds-item-register-doi',
   templateUrl: './item-register-doi-component.html',
   imports: [
+    AsyncPipe,
     ModifyItemOverviewComponent,
     RouterLink,
     TranslateModule,
-    AsyncPipe,
   ],
-  standalone: true,
 })
 /**
  * Component responsible for rendering the Item Register DOI page

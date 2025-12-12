@@ -77,11 +77,10 @@ export abstract class Reorderable {
   templateUrl: './existing-relation-list-element.component.html',
   styleUrls: ['./existing-relation-list-element.component.scss'],
   imports: [
-    ThemedLoadingComponent,
     AsyncPipe,
     ListableObjectComponentLoaderComponent,
+    ThemedLoadingComponent,
   ],
-  standalone: true,
 })
 export class ExistingRelationListElementComponent implements OnInit, OnChanges, OnDestroy {
   @Input() listId: string;

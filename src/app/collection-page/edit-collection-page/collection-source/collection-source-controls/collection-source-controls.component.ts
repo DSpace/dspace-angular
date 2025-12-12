@@ -50,12 +50,11 @@ import { VarDirective } from '../../../../shared/utils/var.directive';
   styleUrls: ['./collection-source-controls.component.scss'],
   templateUrl: './collection-source-controls.component.html',
   imports: [
-    TranslateModule,
     AsyncPipe,
-    VarDirective,
     BtnDisabledDirective,
+    TranslateModule,
+    VarDirective,
   ],
-  standalone: true,
 })
 export class CollectionSourceControlsComponent implements OnInit, OnDestroy {
 

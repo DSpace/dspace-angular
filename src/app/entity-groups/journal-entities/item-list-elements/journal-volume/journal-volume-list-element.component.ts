@@ -11,8 +11,9 @@ import { JournalVolumeSearchResultListElementComponent } from '../search-result-
   selector: 'ds-journal-volume-list-element',
   styleUrls: ['./journal-volume-list-element.component.scss'],
   templateUrl: './journal-volume-list-element.component.html',
-  standalone: true,
-  imports: [JournalVolumeSearchResultListElementComponent],
+  imports: [
+    JournalVolumeSearchResultListElementComponent,
+  ],
 })
 /**
  * The component for displaying a list element for an item of the type Journal Volume

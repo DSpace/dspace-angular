@@ -49,13 +49,12 @@ import { getCollectionItemTemplateRoute } from '../../collection-page-routing-pa
   selector: 'ds-collection-metadata',
   templateUrl: './collection-metadata.component.html',
   imports: [
+    AsyncPipe,
     CollectionFormComponent,
     RouterLink,
-    AsyncPipe,
     TranslateModule,
     VarDirective,
   ],
-  standalone: true,
 })
 export class CollectionMetadataComponent extends ComcolMetadataComponent<Collection> implements OnInit {
   protected frontendURL = '/collections/';

@@ -1,6 +1,8 @@
 import { Store } from '@ngrx/store';
-import { createMockStore } from '@ngrx/store/testing';
-import { MockStore } from '@ngrx/store/testing/mock_store';
+import {
+  createMockStore,
+  MockStore,
+} from '@ngrx/store/testing';
 import {
   cold,
   hot,

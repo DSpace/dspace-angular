@@ -52,15 +52,14 @@ import { LdnService } from '../ldn-services-model/ldn-services.model';
   styleUrls: ['./ldn-services-directory.component.scss'],
   changeDetection: ChangeDetectionStrategy.Default,
   imports: [
-    TranslateModule,
     AsyncPipe,
+    NgClass,
     PaginationComponent,
+    RouterLink,
+    TranslateModule,
     TruncatableComponent,
     TruncatablePartComponent,
-    NgClass,
-    RouterLink,
   ],
-  standalone: true,
 })
 export class LdnServicesOverviewComponent implements OnInit, OnDestroy {
 

@@ -10,8 +10,9 @@ import { TranslateModule } from '@ngx-translate/core';
   selector: 'ds-item-versions-delete-modal',
   templateUrl: './item-versions-delete-modal.component.html',
   styleUrls: ['./item-versions-delete-modal.component.scss'],
-  standalone: true,
-  imports: [TranslateModule],
+  imports: [
+    TranslateModule,
+  ],
 })
 export class ItemVersionsDeleteModalComponent {
   /**

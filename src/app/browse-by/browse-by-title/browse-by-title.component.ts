@@ -11,7 +11,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest as observableCombineLatest,
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import {
   distinctUntilChanged,
@@ -35,12 +35,11 @@ import {
   selector: 'ds-browse-by-title',
   styleUrls: ['../browse-by-metadata/browse-by-metadata.component.scss'],
   templateUrl: '../browse-by-metadata/browse-by-metadata.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
-    TranslateModule,
-    ThemedLoadingComponent,
     ThemedBrowseByComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
   ],
 })
 /**
@@ -50,7 +49,7 @@ export class BrowseByTitleComponent extends BrowseByMetadataComponent implements
 
   ngOnInit(): void {
     if (!this.renderOnServerSide && !environment.ssr.enableBrowseComponent && isPlatformServer(this.platformId)) {
-      this.loading$ = observableOf(false);
+      this.loading$ = of(false);
       return;
     }
     const sortConfig = new SortOptions('dc.title', SortDirection.ASC);

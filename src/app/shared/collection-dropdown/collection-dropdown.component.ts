@@ -21,7 +21,7 @@ import {
   BehaviorSubject,
   from as observableFrom,
   Observable,
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
 import {
@@ -71,8 +71,14 @@ export interface CollectionListEntry {
   selector: 'ds-base-collection-dropdown',
   templateUrl: './collection-dropdown.component.html',
   styleUrls: ['./collection-dropdown.component.scss'],
-  standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, InfiniteScrollModule, ThemedLoadingComponent, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    FormsModule,
+    InfiniteScrollModule,
+    ReactiveFormsModule,
+    ThemedLoadingComponent,
+    TranslateModule,
+  ],
 })
 export class CollectionDropdownComponent implements OnInit, OnDestroy {
 
@@ -136,6 +142,12 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
    * If present this value is used to filter collection list by entity type
    */
   @Input() entityType: string;
+
+  /**
+   * Search endpoint to use for finding authorized collections.
+   * Defaults to 'findSubmitAuthorized', but can be overridden (e.g. to 'findAdminAuthorized')
+   */
+  @Input() searchHref = 'findSubmitAuthorized';
 
   /**
    * Emit to notify whether search is complete
@@ -245,7 +257,7 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
           followLink('parentCommunity'));
     } else {
       searchListService$ = this.collectionDataService
-        .getAuthorizedCollection(query, findOptions, true, true, followLink('parentCommunity'));
+        .getAuthorizedCollection(query, findOptions, true, true, this.searchHref, followLink('parentCommunity'));
     }
     this.searchListCollection$ = searchListService$.pipe(
       getFirstCompletedRemoteData(),
@@ -268,7 +280,7 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
           );
         } else {
           this.hasNextPage = false;
-          return observableOf([]);
+          return of([]);
         }
       }),
     );

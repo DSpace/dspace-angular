@@ -75,18 +75,17 @@ import {
   styleUrls: ['../item-bitstreams.component.scss', './item-edit-bitstream-bundle.component.scss'],
   templateUrl: './item-edit-bitstream-bundle.component.html',
   imports: [
-    CommonModule,
-    TranslateModule,
-    RouterLink,
-    PaginationComponent,
-    NgbTooltipModule,
-    CdkDropList,
-    NgbDropdownModule,
-    CdkDrag,
     BrowserOnlyPipe,
     BtnDisabledDirective,
+    CdkDrag,
+    CdkDropList,
+    CommonModule,
+    NgbDropdownModule,
+    NgbTooltipModule,
+    PaginationComponent,
+    RouterLink,
+    TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * Component that displays a single bundle of an item on the item bitstreams edit page

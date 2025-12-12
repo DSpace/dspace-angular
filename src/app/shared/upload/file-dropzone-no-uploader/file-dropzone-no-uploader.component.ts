@@ -16,10 +16,9 @@ import {
 } from 'ng2-file-upload';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
-import { FileValidator } from '../../utils/require-file.validator';
 import { UploaderOptions } from '../uploader/uploader-options.model';
 
 /**
@@ -35,12 +34,10 @@ import { UploaderOptions } from '../uploader/uploader-options.model';
   styleUrls: ['./file-dropzone-no-uploader.scss'],
   imports: [
     CommonModule,
+    FileUploadModule,
     FormsModule,
     TranslateModule,
-    FileUploadModule,
-    FileValidator,
   ],
-  standalone: true,
 })
 export class FileDropzoneNoUploaderComponent implements OnInit {
 
@@ -75,7 +72,7 @@ export class FileDropzoneNoUploaderComponent implements OnInit {
    */
   ngOnInit() {
     this.uploaderId = 'ds-drag-and-drop-uploader' + uniqueId();
-    this.isOverDocumentDropZone = observableOf(false);
+    this.isOverDocumentDropZone = of(false);
     this.uploader = new FileUploader({
       // required, but using onFileDrop, not uploader
       url: 'placeholder',
@@ -94,7 +91,7 @@ export class FileDropzoneNoUploaderComponent implements OnInit {
     event.preventDefault();
     event.stopPropagation();
     if ((event.target as HTMLElement).tagName !== 'HTML') {
-      this.isOverDocumentDropZone = observableOf(true);
+      this.isOverDocumentDropZone = of(true);
     }
   }
 
@@ -103,7 +100,7 @@ export class FileDropzoneNoUploaderComponent implements OnInit {
    */
   public fileOverDocument(isOver: boolean) {
     if (!isOver) {
-      this.isOverDocumentDropZone = observableOf(isOver);
+      this.isOverDocumentDropZone = of(isOver);
     }
   }
 

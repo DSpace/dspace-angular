@@ -12,8 +12,10 @@ import { MetadataMap } from '../../../core/shared/metadata.models';
 @Component({
   selector: 'ds-modify-item-overview',
   templateUrl: './modify-item-overview.component.html',
-  standalone: true,
-  imports: [KeyValuePipe, TranslateModule],
+  imports: [
+    KeyValuePipe,
+    TranslateModule,
+  ],
 })
 /**
  * Component responsible for rendering a table containing the metadatavalues from the to be edited item

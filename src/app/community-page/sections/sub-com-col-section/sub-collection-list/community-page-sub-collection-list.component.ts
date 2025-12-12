@@ -38,14 +38,13 @@ import { VarDirective } from '../../../../shared/utils/var.directive';
   templateUrl: './community-page-sub-collection-list.component.html',
   animations: [fadeIn],
   imports: [
-    ObjectCollectionComponent,
+    AsyncPipe,
     ErrorComponent,
+    ObjectCollectionComponent,
     ThemedLoadingComponent,
     TranslateModule,
-    AsyncPipe,
     VarDirective,
   ],
-  standalone: true,
 })
 export class CommunityPageSubCollectionListComponent implements OnInit, OnDestroy {
   @Input() community: Community;

@@ -14,9 +14,14 @@ import { VarDirective } from '../../../../../app/shared/utils/var.directive';
   styleUrls: ['../../../../../app/home-page/top-level-community-list/top-level-community-list.component.scss'],
   // templateUrl: './top-level-community-list.component.html'
   templateUrl: '../../../../../app/home-page/top-level-community-list/top-level-community-list.component.html',
-  standalone: true,
-  imports: [VarDirective, ObjectCollectionComponent, ErrorComponent, ThemedLoadingComponent, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    ErrorComponent,
+    ObjectCollectionComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
+    VarDirective,
+  ],
 })
-
-export class TopLevelCommunityListComponent extends BaseComponent {}
-
+export class TopLevelCommunityListComponent extends BaseComponent {
+}

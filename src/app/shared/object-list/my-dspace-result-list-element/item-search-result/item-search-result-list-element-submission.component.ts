@@ -20,8 +20,11 @@ import { ThemedItemListPreviewComponent } from '../item-list-preview/themed-item
   selector: 'ds-item-search-result-list-element-submission',
   styleUrls: ['../../search-result-list-element/search-result-list-element.component.scss', './item-search-result-list-element-submission.component.scss'],
   templateUrl: './item-search-result-list-element-submission.component.html',
-  standalone: true,
-  imports: [ThemedItemListPreviewComponent, NgClass, ItemActionsComponent],
+  imports: [
+    ItemActionsComponent,
+    NgClass,
+    ThemedItemListPreviewComponent,
+  ],
 })
 
 @listableObjectComponent(ItemSearchResult, ViewMode.ListElement, Context.Workspace)

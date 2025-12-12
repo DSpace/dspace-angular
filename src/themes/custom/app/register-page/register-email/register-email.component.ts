@@ -9,13 +9,9 @@ import { RegisterEmailComponent as BaseComponent } from '../../../../../app/regi
   styleUrls: ['../../../../../app/register-page/register-email/register-email.component.scss'],
   // templateUrl: './register-email.component.html'
   templateUrl: '../../../../../app/register-page/register-email/register-email.component.html',
-  standalone: true,
   imports: [
     ThemedRegisterEmailFormComponent,
   ],
 })
-/**
- * Component responsible the email registration step when registering as a new user
- */
 export class RegisterEmailComponent extends BaseComponent {
 }

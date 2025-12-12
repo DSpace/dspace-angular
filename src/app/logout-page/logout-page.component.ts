@@ -7,8 +7,10 @@ import { LogOutComponent } from '../shared/log-out/log-out.component';
   selector: 'ds-base-logout-page',
   styleUrls: ['./logout-page.component.scss'],
   templateUrl: './logout-page.component.html',
-  standalone: true,
-  imports: [LogOutComponent, TranslateModule],
+  imports: [
+    LogOutComponent,
+    TranslateModule,
+  ],
 })
 export class LogoutPageComponent {
 

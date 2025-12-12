@@ -16,8 +16,10 @@ import { SearchResultDetailElementComponent } from '../search-result-detail-elem
   selector: 'ds-item-search-result-detail-element',
   styleUrls: ['../search-result-detail-element.component.scss', './item-search-result-detail-element.component.scss'],
   templateUrl: './item-search-result-detail-element.component.html',
-  standalone: true,
-  imports: [ItemDetailPreviewComponent, ItemActionsComponent],
+  imports: [
+    ItemActionsComponent,
+    ItemDetailPreviewComponent,
+  ],
 })
 
 @listableObjectComponent(ItemSearchResult, ViewMode.DetailedListElement, Context.Workspace)

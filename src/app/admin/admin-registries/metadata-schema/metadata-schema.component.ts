@@ -19,7 +19,7 @@ import {
   BehaviorSubject,
   combineLatest,
   Observable,
-  of as observableOf,
+  of,
   Subscription,
   zip,
 } from 'rxjs';
@@ -53,14 +53,13 @@ import { MetadataFieldFormComponent } from './metadata-field-form/metadata-field
   styleUrls: ['./metadata-schema.component.scss'],
   imports: [
     AsyncPipe,
-    VarDirective,
     MetadataFieldFormComponent,
-    TranslateModule,
-    PaginationComponent,
     NgClass,
+    PaginationComponent,
     RouterLink,
+    TranslateModule,
+    VarDirective,
   ],
-  standalone: true,
 })
 /**
  * A component used for managing all existing metadata fields within the current metadata schema.
@@ -126,7 +125,7 @@ export class MetadataSchemaComponent implements OnDestroy, OnInit {
    */
   private updateFields() {
     this.metadataFields$ = this.paginationService.getCurrentPagination(this.config.id, this.config).pipe(
-      switchMap((currentPagination) => combineLatest([this.metadataSchema$, this.needsUpdate$, observableOf(currentPagination)])),
+      switchMap((currentPagination) => combineLatest([this.metadataSchema$, this.needsUpdate$, of(currentPagination)])),
       switchMap(([schema, update, currentPagination]: [MetadataSchema, boolean, PaginationComponentOptions]) => {
         if (update) {
           this.needsUpdate$.next(false);
@@ -165,9 +164,11 @@ export class MetadataSchemaComponent implements OnDestroy, OnInit {
    * @param event
    */
   selectMetadataField(field: MetadataField, event) {
-    event.target.checked ?
-      this.registryService.selectMetadataField(field) :
+    if (event.target.checked) {
+      this.registryService.selectMetadataField(field);
+    } else {
       this.registryService.deselectMetadataField(field);
+    }
   }
 
   /**

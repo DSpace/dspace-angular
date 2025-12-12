@@ -10,17 +10,20 @@ import { TranslateModule } from '@ngx-translate/core';
 import { BreadcrumbsComponent as BaseComponent } from '../../../../app/breadcrumbs/breadcrumbs.component';
 import { VarDirective } from '../../../../app/shared/utils/var.directive';
 
-/**
- * Component representing the breadcrumbs of a page
- */
 @Component({
   selector: 'ds-themed-breadcrumbs',
   // templateUrl: './breadcrumbs.component.html',
   templateUrl: '../../../../app/breadcrumbs/breadcrumbs.component.html',
   // styleUrls: ['./breadcrumbs.component.scss']
   styleUrls: ['../../../../app/breadcrumbs/breadcrumbs.component.scss'],
-  standalone: true,
-  imports: [VarDirective, NgTemplateOutlet, RouterLink, NgbTooltipModule, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    NgbTooltipModule,
+    NgTemplateOutlet,
+    RouterLink,
+    TranslateModule,
+    VarDirective,
+  ],
 })
 export class BreadcrumbsComponent extends BaseComponent {
 }

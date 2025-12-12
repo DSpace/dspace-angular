@@ -36,7 +36,6 @@ import { getBitstreamFormatsModuleRoute } from '../../admin-registries-routing-p
   imports: [
     FormComponent,
   ],
-  standalone: true,
 })
 export class FormatFormComponent implements OnInit {
 

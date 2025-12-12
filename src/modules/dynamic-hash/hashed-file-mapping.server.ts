@@ -5,22 +5,23 @@
  *
  * http://www.dspace.org/license/
  */
-import crypto from 'crypto';
+import crypto from 'node:crypto';
 import {
   copyFileSync,
   existsSync,
   readFileSync,
   rmSync,
   writeFileSync,
-} from 'fs';
-import glob from 'glob';
-import { parse } from 'node-html-parser';
+} from 'node:fs';
 import {
   extname,
   join,
   relative,
-} from 'path';
-import zlib from 'zlib';
+} from 'node:path';
+import zlib from 'node:zlib';
+
+import { globSync } from 'glob';
+import { parse } from 'node-html-parser';
 
 import { hasValue } from '../../app/shared/empty.util';
 import {
@@ -70,8 +71,7 @@ export class ServerHashedFileMapping extends HashedFileMapping {
 
     // remove previous files
     const ext = extname(path);
-    new glob.GlobSync(path.replace(`${ext}`, `.*${ext}*`))
-      .found
+    globSync(path.replace(`${ext}`, `.*${ext}*`))
       .forEach(p => rmSync(p));
 
     // hash the content

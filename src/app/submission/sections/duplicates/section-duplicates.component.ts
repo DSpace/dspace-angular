@@ -11,7 +11,7 @@ import {
 } from '@ngx-translate/core';
 import {
   Observable,
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
 
@@ -36,11 +36,10 @@ import { SectionsService } from '../sections.service';
   templateUrl: './section-duplicates.component.html',
   changeDetection: ChangeDetectionStrategy.Default,
   imports: [
-    VarDirective,
     AsyncPipe,
     TranslateModule,
+    VarDirective,
   ],
-  standalone: true,
 })
 
 export class SubmissionSectionDuplicatesComponent extends SectionModelComponent implements OnInit {
@@ -116,7 +115,7 @@ export class SubmissionSectionDuplicatesComponent extends SectionModelComponent 
    *     the section status
    */
   public getSectionStatus(): Observable<boolean> {
-    return observableOf(!this.isLoading);
+    return of(!this.isLoading);
   }
 
   /**

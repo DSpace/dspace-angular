@@ -38,8 +38,13 @@ import { SearchResultListElementComponent } from '../../search-result-list-eleme
   selector: 'ds-workspace-item-search-result-list-element',
   styleUrls: ['../../search-result-list-element/search-result-list-element.component.scss', './workspace-item-search-result-list-element.component.scss'],
   templateUrl: './workspace-item-search-result-list-element.component.html',
-  standalone: true,
-  imports: [ListableObjectComponentLoaderComponent, NgClass, WorkspaceitemActionsComponent, ThemedLoadingComponent, AsyncPipe],
+  imports: [
+    AsyncPipe,
+    ListableObjectComponentLoaderComponent,
+    NgClass,
+    ThemedLoadingComponent,
+    WorkspaceitemActionsComponent,
+  ],
 })
 
 @listableObjectComponent(WorkspaceItemSearchResult, ViewMode.ListElement)

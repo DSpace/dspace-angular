@@ -40,8 +40,10 @@ import { SystemWideAlert } from '../system-wide-alert.model';
   selector: 'ds-system-wide-alert-banner',
   styleUrls: ['./system-wide-alert-banner.component.scss'],
   templateUrl: './system-wide-alert-banner.component.html',
-  standalone: true,
-  imports: [AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    TranslateModule,
+  ],
 })
 export class SystemWideAlertBannerComponent implements OnInit, OnDestroy {
 

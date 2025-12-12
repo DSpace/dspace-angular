@@ -13,7 +13,7 @@ import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { AuthService } from '../../../../../core/auth/auth.service';
@@ -39,7 +39,7 @@ const mockItemWithMetadata: ItemSearchResult = Object.assign(
   new ItemSearchResult(),
   {
     indexableObject: Object.assign(new Item(), {
-      bundles: observableOf({}),
+      bundles: of({}),
       metadata: {
         'dc.title': [
           {
@@ -60,7 +60,7 @@ const mockItemWithoutMetadata: ItemSearchResult = Object.assign(
   new ItemSearchResult(),
   {
     indexableObject: Object.assign(new Item(), {
-      bundles: observableOf({}),
+      bundles: of({}),
       metadata: {
         'dc.title': [
           {

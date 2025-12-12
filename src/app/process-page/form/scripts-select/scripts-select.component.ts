@@ -53,8 +53,14 @@ const SCRIPT_QUERY_PARAMETER = 'script';
   viewProviders: [{ provide: ControlContainer,
     useFactory: controlContainerFactory,
     deps: [[new Optional(), NgForm]] }],
-  standalone: true,
-  imports: [FormsModule, AsyncPipe, TranslateModule, InfiniteScrollModule, ThemedLoadingComponent, NgbDropdownModule],
+  imports: [
+    AsyncPipe,
+    FormsModule,
+    InfiniteScrollModule,
+    NgbDropdownModule,
+    ThemedLoadingComponent,
+    TranslateModule,
+  ],
 })
 export class ScriptsSelectComponent implements OnInit, OnDestroy {
   /**

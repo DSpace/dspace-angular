@@ -22,8 +22,13 @@ import { ToDatePipe } from './to-date.pipe';
   templateUrl: './access-control-array-form.component.html',
   styleUrls: ['./access-control-array-form.component.scss'],
   exportAs: 'accessControlArrayForm',
-  standalone: true,
-  imports: [FormsModule, NgbDatepickerModule, TranslateModule, ToDatePipe, BtnDisabledDirective],
+  imports: [
+    BtnDisabledDirective,
+    FormsModule,
+    NgbDatepickerModule,
+    ToDatePipe,
+    TranslateModule,
+  ],
 })
 export class AccessControlArrayFormComponent implements OnInit {
   @Input() dropdownOptions: AccessesConditionOption[] = [];
@@ -133,6 +138,10 @@ export class AccessControlArrayFormComponent implements OnInit {
 
   trackById(index: number, item: AccessControlItem) {
     return item.id;
+  }
+
+  isValid() {
+    return this.ngForm.valid;
   }
 
 }

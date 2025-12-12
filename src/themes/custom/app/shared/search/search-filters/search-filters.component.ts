@@ -1,10 +1,3 @@
-/**
- * The contents of this file are subject to the license and copyright
- * detailed in the LICENSE_ATMIRE and NOTICE_ATMIRE files at the root of the source
- * tree and available online at
- *
- * https://www.atmire.com/software-license/
- */
 import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
@@ -15,7 +8,6 @@ import { SearchConfigurationService } from '../../../../../../app/core/shared/se
 import { SEARCH_CONFIG_SERVICE } from '../../../../../../app/my-dspace-page/my-dspace-configuration.service';
 import { SearchFilterComponent } from '../../../../../../app/shared/search/search-filters/search-filter/search-filter.component';
 import { SearchFiltersComponent as BaseComponent } from '../../../../../../app/shared/search/search-filters/search-filters.component';
-
 
 @Component({
   selector: 'ds-themed-search-filters',
@@ -29,9 +21,13 @@ import { SearchFiltersComponent as BaseComponent } from '../../../../../../app/s
       useClass: SearchConfigurationService,
     },
   ],
-  standalone: true,
-  imports: [SearchFilterComponent, RouterLink, AsyncPipe, TranslateModule, NgxSkeletonLoaderModule],
+  imports: [
+    AsyncPipe,
+    NgxSkeletonLoaderModule,
+    RouterLink,
+    SearchFilterComponent,
+    TranslateModule,
+  ],
 })
-
 export class SearchFiltersComponent extends BaseComponent {
 }

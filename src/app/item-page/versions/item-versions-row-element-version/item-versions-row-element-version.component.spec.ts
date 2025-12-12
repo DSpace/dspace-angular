@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import {
   ComponentFixture,
   TestBed,
@@ -20,7 +20,6 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import {
   EMPTY,
-  of as observableOf,
   of,
 } from 'rxjs';
 
@@ -86,7 +85,7 @@ describe('ItemVersionsRowElementVersionComponent', () => {
     getLatestVersionItemFromHistory$: of(item),
   });
   const authorizationServiceSpy = jasmine.createSpyObj('authorizationService', {
-    isAuthorized: observableOf(true),
+    isAuthorized: of(true),
   });
   const workspaceItemDataServiceSpy = jasmine.createSpyObj('workspaceItemDataService', {
     findByItem: EMPTY,
@@ -116,9 +115,11 @@ describe('ItemVersionsRowElementVersionComponent', () => {
         { provide: WorkflowItemDataService, useValue: workflowItemDataServiceSpy },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],
-      schemas: [NO_ERRORS_SCHEMA],
-    })
-      .compileComponents();
+    }).overrideComponent(ItemVersionsRowElementVersionComponent, {
+      add: {
+        schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      },
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ItemVersionsRowElementVersionComponent);
     component = fixture.componentInstance;

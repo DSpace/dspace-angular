@@ -25,8 +25,10 @@ import { AdvancedClaimedTaskActionsAbstractComponent } from '../abstract/advance
   selector: 'ds-advanced-claimed-task-action-select-reviewer',
   templateUrl: './advanced-claimed-task-action-select-reviewer.component.html',
   styleUrls: ['./advanced-claimed-task-action-select-reviewer.component.scss'],
-  standalone: true,
-  imports: [NgbTooltipModule, TranslateModule],
+  imports: [
+    NgbTooltipModule,
+    TranslateModule,
+  ],
 })
 export class AdvancedClaimedTaskActionSelectReviewerComponent extends AdvancedClaimedTaskActionsAbstractComponent {
 

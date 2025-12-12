@@ -18,8 +18,15 @@ import { ThemedThumbnailComponent } from '../../../../../thumbnail/themed-thumbn
   styleUrls: ['./person-search-result-grid-element.component.scss'],
   templateUrl: './person-search-result-grid-element.component.html',
   animations: [focusShadow],
-  standalone: true,
-  imports: [TruncatableComponent, RouterLink, ThemedThumbnailComponent, ThemedBadgesComponent, TruncatablePartComponent, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    RouterLink,
+    ThemedBadgesComponent,
+    ThemedThumbnailComponent,
+    TranslateModule,
+    TruncatableComponent,
+    TruncatablePartComponent,
+  ],
 })
 /**
  * The component for displaying a grid element for an item search result of the type Person

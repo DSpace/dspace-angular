@@ -39,10 +39,9 @@ import { ModifyItemOverviewComponent } from '../modify-item-overview/modify-item
   templateUrl: './abstract-simple-item-action.component.html',
   imports: [
     ModifyItemOverviewComponent,
-    TranslateModule,
     RouterLink,
+    TranslateModule,
   ],
-  standalone: true,
 })
 export class AbstractSimpleItemActionComponent implements OnInit {
 

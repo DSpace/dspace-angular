@@ -9,8 +9,11 @@ import { TruncatableComponent } from '../../../../shared/truncatable/truncatable
 @Component({
   selector: 'ds-project-item-metadata-list-element',
   templateUrl: './project-item-metadata-list-element.component.html',
-  standalone: true,
-  imports: [TruncatableComponent, RouterLink, NgbTooltipModule],
+  imports: [
+    NgbTooltipModule,
+    RouterLink,
+    TruncatableComponent,
+  ],
 })
 /**
  * The component for displaying an item of the type Project as a metadata field

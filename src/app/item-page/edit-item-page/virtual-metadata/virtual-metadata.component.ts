@@ -42,13 +42,12 @@ interface ItemDTO {
   selector: 'ds-virtual-metadata',
   templateUrl: './virtual-metadata.component.html',
   imports: [
+    AsyncPipe,
+    ListableObjectComponentLoaderComponent,
     NgClass,
     TranslateModule,
     VarDirective,
-    AsyncPipe,
-    ListableObjectComponentLoaderComponent,
   ],
-  standalone: true,
 })
 /**
  * Component that lists both items of a relationship, along with their virtual metadata of the relationship.

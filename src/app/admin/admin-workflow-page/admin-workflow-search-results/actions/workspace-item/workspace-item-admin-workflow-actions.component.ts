@@ -48,8 +48,12 @@ import {
   selector: 'ds-workspace-item-admin-workflow-actions-element',
   styleUrls: ['./workspace-item-admin-workflow-actions.component.scss'],
   templateUrl: './workspace-item-admin-workflow-actions.component.html',
-  standalone: true,
-  imports: [SupervisionOrderStatusComponent, NgClass, RouterLink, TranslateModule],
+  imports: [
+    NgClass,
+    RouterLink,
+    SupervisionOrderStatusComponent,
+    TranslateModule,
+  ],
 })
 /**
  * The component for displaying the actions for a list element for a workspace-item on the admin workflow search page

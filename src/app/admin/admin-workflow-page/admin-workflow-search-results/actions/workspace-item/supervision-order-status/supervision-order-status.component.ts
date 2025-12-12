@@ -37,8 +37,12 @@ export interface SupervisionOrderListEntry {
   selector: 'ds-supervision-order-status',
   templateUrl: './supervision-order-status.component.html',
   styleUrls: ['./supervision-order-status.component.scss'],
-  standalone: true,
-  imports: [VarDirective, NgbTooltipModule, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    NgbTooltipModule,
+    TranslateModule,
+    VarDirective,
+  ],
 })
 export class SupervisionOrderStatusComponent implements OnChanges {
 

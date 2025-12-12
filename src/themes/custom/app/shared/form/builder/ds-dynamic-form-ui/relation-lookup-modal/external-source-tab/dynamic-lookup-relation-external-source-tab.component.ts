@@ -32,18 +32,16 @@ import { VarDirective } from '../../../../../../../../../app/shared/utils/var.di
     fadeIn,
     fadeInOut,
   ],
-  standalone: true,
   imports: [
-    ThemedSearchFormComponent,
-    PageSizeSelectorComponent,
-    ObjectCollectionComponent,
-    VarDirective,
     AsyncPipe,
-    TranslateModule,
     ErrorComponent,
+    ObjectCollectionComponent,
+    PageSizeSelectorComponent,
     ThemedLoadingComponent,
+    ThemedSearchFormComponent,
+    TranslateModule,
+    VarDirective,
   ],
 })
 export class DsDynamicLookupRelationExternalSourceTabComponent extends BaseComponent {
-
 }

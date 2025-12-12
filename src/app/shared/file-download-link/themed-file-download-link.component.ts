@@ -10,10 +10,7 @@ import { FileDownloadLinkComponent } from './file-download-link.component';
 
 @Component({
   selector: 'ds-file-download-link',
-  styleUrls: [],
   templateUrl: '../theme-support/themed.component.html',
-  standalone: true,
-  imports: [FileDownloadLinkComponent],
 })
 export class ThemedFileDownloadLinkComponent extends ThemedComponent<FileDownloadLinkComponent> {
 
@@ -27,7 +24,19 @@ export class ThemedFileDownloadLinkComponent extends ThemedComponent<FileDownloa
 
   @Input() enableRequestACopy: boolean;
 
-  protected inAndOutputNames: (keyof FileDownloadLinkComponent & keyof this)[] = ['bitstream', 'item', 'cssClasses', 'isBlank', 'enableRequestACopy'];
+  @Input() showAccessStatusBadge: boolean;
+
+  @Input() showIcon: boolean;
+
+  protected inAndOutputNames: (keyof FileDownloadLinkComponent & keyof this)[] = [
+    'bitstream',
+    'item',
+    'cssClasses',
+    'isBlank',
+    'enableRequestACopy',
+    'showAccessStatusBadge',
+    'showIcon',
+  ];
 
   protected getComponentName(): string {
     return 'FileDownloadLinkComponent';

@@ -47,16 +47,15 @@ import { DynamicRowArrayModel } from '../ds-dynamic-row-array-model';
   templateUrl: './dynamic-form-array.component.html',
   styleUrls: ['./dynamic-form-array.component.scss'],
   imports: [
-    ReactiveFormsModule,
-    CdkDropList,
-    NgClass,
     CdkDrag,
     CdkDragHandle,
+    CdkDropList,
     forwardRef(() => DsDynamicFormControlContainerComponent),
+    NgClass,
     NgTemplateOutlet,
+    ReactiveFormsModule,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent {
 

@@ -18,10 +18,9 @@ import { AdminNotifyLogsResultComponent } from '../admin-notify-logs-result/admi
       useClass: SearchConfigurationService,
     },
   ],
-  standalone: true,
   imports: [
-    RouterLink,
     AdminNotifyLogsResultComponent,
+    RouterLink,
     TranslateModule,
   ],
 })

@@ -39,8 +39,15 @@ import { InputSuggestion } from '../input-suggestions.model';
       multi: true,
     },
   ],
-  standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, ClickOutsideDirective, DebounceDirective, NgClass, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    ClickOutsideDirective,
+    DebounceDirective,
+    FormsModule,
+    NgClass,
+    ReactiveFormsModule,
+    TranslateModule,
+  ],
 })
 
 /**

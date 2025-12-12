@@ -59,14 +59,13 @@ enum SubKey {
   selector: 'ds-subgroups-list',
   templateUrl: './subgroups-list.component.html',
   imports: [
-    RouterLink,
     AsyncPipe,
     ContextHelpDirective,
-    TranslateModule,
-    ReactiveFormsModule,
     PaginationComponent,
+    ReactiveFormsModule,
+    RouterLink,
+    TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * The list of subgroups in the edit group page

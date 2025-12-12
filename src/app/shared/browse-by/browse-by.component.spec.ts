@@ -16,7 +16,7 @@ import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import {
   SortDirection,
@@ -183,7 +183,7 @@ describe('BrowseByComponent', () => {
     describe('when theme is base', () => {
       beforeEach(async () => {
         themeService.getThemeName.and.returnValue('base');
-        themeService.getThemeName$.and.returnValue(observableOf('base'));
+        themeService.getThemeName$.and.returnValue(of('base'));
         fixture.detectChanges();
         await fixture.whenStable();
         fixture.detectChanges();
@@ -202,7 +202,7 @@ describe('BrowseByComponent', () => {
     describe('when theme is dspace', () => {
       beforeEach(async () => {
         themeService.getThemeName.and.returnValue('dspace');
-        themeService.getThemeName$.and.returnValue(observableOf('dspace'));
+        themeService.getThemeName$.and.returnValue(of('dspace'));
         fixture.detectChanges();
         await fixture.whenStable();
         fixture.detectChanges();
@@ -234,7 +234,7 @@ describe('BrowseByComponent', () => {
           count: 1,
         }),
       ]));
-      comp.shouldDisplayResetButton$ = observableOf(true);
+      comp.shouldDisplayResetButton$ = of(true);
       fixture.detectChanges();
 
       const button = fixture.debugElement.query(By.css('.reset'));

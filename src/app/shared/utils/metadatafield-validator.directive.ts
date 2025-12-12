@@ -10,7 +10,7 @@ import {
 } from '@angular/forms';
 import {
   Observable,
-  of as observableOf,
+  of,
   timer as observableTimer,
 } from 'rxjs';
 import {
@@ -34,7 +34,6 @@ import { getFirstSucceededRemoteData } from '../../core/shared/operators';
   providers: [
     { provide: NG_VALIDATORS, useExisting: MetadataFieldValidator, multi: true },
   ],
-  standalone: true,
 })
 @Injectable({ providedIn: 'root' })
 export class MetadataFieldValidator implements AsyncValidator {
@@ -50,11 +49,11 @@ export class MetadataFieldValidator implements AsyncValidator {
     const resTimer = observableTimer(500).pipe(
       switchMap(() => {
         if (!control.value) {
-          return observableOf({ invalidMetadataField: { value: control.value } });
+          return of({ invalidMetadataField: { value: control.value } });
         }
         const mdFieldNameParts = control.value.split('.');
         if (mdFieldNameParts.length < 2) {
-          return observableOf({ invalidMetadataField: { value: control.value } });
+          return of({ invalidMetadataField: { value: control.value } });
         }
 
         const res = this.metadataFieldService.findByExactFieldName(control.value)

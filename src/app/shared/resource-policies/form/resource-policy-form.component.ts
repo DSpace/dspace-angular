@@ -25,7 +25,7 @@ import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
   Observable,
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
 import {
@@ -85,14 +85,13 @@ export interface ResourcePolicyEvent {
   selector: 'ds-resource-policy-form',
   templateUrl: './resource-policy-form.component.html',
   imports: [
-    FormComponent,
-    NgbNavModule,
-    EpersonGroupListComponent,
-    TranslateModule,
     AsyncPipe,
     BtnDisabledDirective,
+    EpersonGroupListComponent,
+    FormComponent,
+    NgbNavModule,
+    TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * Component that show form for adding/editing a resource policy
@@ -109,7 +108,7 @@ export class ResourcePolicyFormComponent implements OnInit, OnDestroy {
    * A boolean representing if form submit operation is processing
    * @type {boolean}
    */
-  @Input() isProcessing: Observable<boolean> = observableOf(false);
+  @Input() isProcessing: Observable<boolean> = of(false);
 
   /**
    * An event fired when form is canceled.

@@ -19,11 +19,16 @@ import { ValueInputComponent } from '../value-input.component';
   selector: 'ds-boolean-value-input',
   templateUrl: './boolean-value-input.component.html',
   styleUrls: ['./boolean-value-input.component.scss'],
-  imports: [TranslateModule],
-  viewProviders: [{ provide: ControlContainer,
-    useFactory: controlContainerFactory,
-    deps: [[new Optional(), NgForm]] }],
-  standalone: true,
+  imports: [
+    TranslateModule,
+  ],
+  viewProviders: [
+    {
+      provide: ControlContainer,
+      useFactory: controlContainerFactory,
+      deps: [[new Optional(), NgForm]],
+    },
+  ],
 })
 export class BooleanValueInputComponent extends ValueInputComponent<boolean> implements OnInit {
   ngOnInit() {

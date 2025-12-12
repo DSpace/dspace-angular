@@ -24,7 +24,7 @@ import {
 import isEqual from 'lodash/isEqual';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import {
   catchError,
@@ -62,11 +62,10 @@ import { DynamicTagModel } from './dynamic-tag.model';
   styleUrls: ['./dynamic-tag.component.scss'],
   templateUrl: './dynamic-tag.component.html',
   imports: [
-    NgbTypeaheadModule,
-    FormsModule,
     ChipsComponent,
+    FormsModule,
+    NgbTypeaheadModule,
   ],
-  standalone: true,
 })
 export class DsDynamicTagComponent extends DsDynamicVocabularyComponent implements OnInit {
 
@@ -113,14 +112,14 @@ export class DsDynamicTagComponent extends DsDynamicVocabularyComponent implemen
       tap(() => this.changeSearchingStatus(true)),
       switchMap((term) => {
         if (term === '' || term.length < this.model.minChars) {
-          return observableOf({ list: [] });
+          return of({ list: [] });
         } else {
           return this.vocabularyService.getVocabularyEntriesByValue(term, false, this.model.vocabularyOptions, new PageInfo()).pipe(
             getFirstSucceededRemoteDataPayload(),
             tap(() => this.searchFailed = false),
             catchError(() => {
               this.searchFailed = true;
-              return observableOf(buildPaginatedList(
+              return of(buildPaginatedList(
                 new PageInfo(),
                 [],
               ));
@@ -219,13 +218,15 @@ export class DsDynamicTagComponent extends DsDynamicVocabularyComponent implemen
   }
 
   /**
-   * Add a new tag with typed text when typing 'Enter' or ',' or ';'
+   * Add a new tag with typed text when typing 'Enter' or ','
+   * Tests the key rather than keyCode as keyCodes can vary
+   * based on keyboard layout (and do not consider Shift mod)
    * @param event the keyUp event
    */
   onKeyUp(event) {
-    if (event.keyCode === 13 || event.keyCode === 188) {
+    if (event.key === 'Enter' || event.key === ',') {
       event.preventDefault();
-      // Key: 'Enter' or ',' or ';'
+      // Key: 'Enter' or ','
       this.addTagsToChips();
       event.stopPropagation();
     }

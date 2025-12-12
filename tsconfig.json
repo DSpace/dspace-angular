@@ -13,7 +13,7 @@
     "experimentalDecorators": true,
     "sourceMap": true,
     "module": "es2020",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "noEmitHelpers": true,
     "importHelpers": true,
     "noImplicitAny": false,

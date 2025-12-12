@@ -14,8 +14,12 @@ import { slideMobileNav } from '../../../../app/shared/animations/slide';
   selector: 'ds-themed-header-navbar-wrapper',
   styleUrls: ['header-navbar-wrapper.component.scss'],
   templateUrl: 'header-navbar-wrapper.component.html',
-  standalone: true,
-  imports: [ThemedHeaderComponent, ThemedNavbarComponent, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    ThemedHeaderComponent,
+    ThemedNavbarComponent,
+    TranslateModule,
+  ],
   animations: [slideMobileNav],
 })
 export class HeaderNavbarWrapperComponent extends BaseComponent {

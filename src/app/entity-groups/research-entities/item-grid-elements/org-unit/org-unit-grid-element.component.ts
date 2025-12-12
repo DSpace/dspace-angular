@@ -11,8 +11,9 @@ import { OrgUnitSearchResultGridElementComponent } from '../search-result-grid-e
   selector: 'ds-org-unit-grid-element',
   styleUrls: ['./org-unit-grid-element.component.scss'],
   templateUrl: './org-unit-grid-element.component.html',
-  standalone: true,
-  imports: [OrgUnitSearchResultGridElementComponent],
+  imports: [
+    OrgUnitSearchResultGridElementComponent,
+  ],
 })
 /**
  * The component for displaying a grid element for an item of the type Organisation Unit

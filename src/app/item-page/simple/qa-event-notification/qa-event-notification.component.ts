@@ -34,10 +34,9 @@ import { SplitPipe } from '../../../shared/utils/split.pipe';
   imports: [
     AsyncPipe,
     RouterLink,
-    TranslateModule,
     SplitPipe,
+    TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * Component for displaying quality assurance event notifications for an item.

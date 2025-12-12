@@ -34,12 +34,18 @@ import { SelectableListService } from './selectable-list/selectable-list.service
   styleUrls: ['./object-list.component.scss'],
   templateUrl: './object-list.component.html',
   animations: [fadeIn],
-  standalone: true,
-  imports: [PaginationComponent, NgClass, SelectableListItemControlComponent, ImportableListItemControlComponent, ListableObjectComponentLoaderComponent, BrowserOnlyPipe],
+  imports: [
+    BrowserOnlyPipe,
+    ImportableListItemControlComponent,
+    ListableObjectComponentLoaderComponent,
+    NgClass,
+    PaginationComponent,
+    SelectableListItemControlComponent,
+  ],
 })
 export class ObjectListComponent {
   /**
-   * The view mode of the this component
+   * The view mode of this component
    */
   viewMode = ViewMode.ListElement;
 
@@ -69,6 +75,11 @@ export class ObjectListComponent {
   @Input() hidePagerWhenSinglePage = true;
   @Input() selectable = false;
   @Input() selectionConfig: { repeatable: boolean, listId: string };
+
+  /**
+   * Whether to show an RSS syndication button for the current search options
+   */
+  @Input() showRSS: SortOptions | boolean = false;
 
   /**
    * The link type of the listable elements

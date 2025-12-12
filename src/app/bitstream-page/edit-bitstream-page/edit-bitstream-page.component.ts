@@ -28,7 +28,7 @@ import {
   combineLatest,
   combineLatest as observableCombineLatest,
   Observable,
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
 import {
@@ -83,17 +83,16 @@ import { ThemedThumbnailComponent } from '../../thumbnail/themed-thumbnail.compo
   templateUrl: './edit-bitstream-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    FormComponent,
-    VarDirective,
-    ThemedThumbnailComponent,
     AsyncPipe,
-    RouterLink,
     ErrorComponent,
-    ThemedLoadingComponent,
-    TranslateModule,
     FileSizePipe,
+    FormComponent,
+    RouterLink,
+    ThemedLoadingComponent,
+    ThemedThumbnailComponent,
+    TranslateModule,
+    VarDirective,
   ],
-  standalone: true,
 })
 /**
  * Page component for editing a bitstream
@@ -682,7 +681,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
       }));
 
     } else {
-      bundle$ = observableOf(this.bundle);
+      bundle$ = of(this.bundle);
     }
     if (isNewFormat) {
       bitstream$ = this.bitstreamService.updateFormat(this.bitstream, this.selectedFormat).pipe(
@@ -699,7 +698,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
         }),
       );
     } else {
-      bitstream$ = observableOf(this.bitstream);
+      bitstream$ = of(this.bitstream);
     }
 
     combineLatest([bundle$, bitstream$]).pipe(

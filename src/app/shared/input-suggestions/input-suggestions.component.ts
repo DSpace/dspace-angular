@@ -31,8 +31,14 @@ import { DebounceDirective } from '../utils/debounce.directive';
 @Component({
   selector: 'ds-input-suggestions',
   templateUrl: './input-suggestions.component.html',
-  standalone: true,
-  imports: [FormsModule, ClickOutsideDirective, DebounceDirective, NgClass, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    ClickOutsideDirective,
+    DebounceDirective,
+    FormsModule,
+    NgClass,
+    TranslateModule,
+  ],
 })
 
 /**

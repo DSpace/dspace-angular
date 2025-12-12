@@ -46,11 +46,11 @@ describe('AccessStatusDataService', () => {
       createService();
     });
 
-    describe('when calling findAccessStatusFor', () => {
+    describe('when calling findItemAccessStatusFor', () => {
       let contentSource$;
 
       beforeEach(() => {
-        contentSource$ = service.findAccessStatusFor(mockItem);
+        contentSource$ = service.findItemAccessStatusFor(mockItem);
       });
 
       it('should send a new GetRequest', fakeAsync(() => {

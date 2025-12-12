@@ -14,8 +14,10 @@ import { BrowseEntryListElementComponent as BaseComponent } from '../../../../..
   styleUrls: ['../../../../../../app/shared/object-list/browse-entry-list-element/browse-entry-list-element.component.scss'],
   // templateUrl: './browse-entry-list-element.component.html',
   templateUrl: '../../../../../../app/shared/object-list/browse-entry-list-element/browse-entry-list-element.component.html',
-  standalone: true,
-  imports: [RouterLink, AsyncPipe],
+  imports: [
+    AsyncPipe,
+    RouterLink,
+  ],
 })
 @listableObjectComponent(BrowseEntry, ViewMode.ListElement, Context.Any, 'custom')
 export class BrowseEntryListElementComponent extends BaseComponent {

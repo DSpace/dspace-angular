@@ -1,8 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  APP_INITIALIZER,
-  Injectable,
-} from '@angular/core';
+import { Injectable } from '@angular/core';
 import {
   inject,
   TestBed,
@@ -99,12 +96,6 @@ describe('InitService', () => {
       expect(providers).toContain(objectContaining({
         provide: APP_CONFIG,
       }));
-
-      expect(providers).toContain(objectContaining({
-        provide: APP_INITIALIZER,
-        deps: [ InitService ],
-        multi: true,
-      }));
     });
 
     it('should call resolveAppConfig() in APP_CONFIG factory', () => {
@@ -117,22 +108,6 @@ describe('InitService', () => {
       factory();
       expect(spy.resolveAppConfig).toHaveBeenCalled();
       expect(spy.init).not.toHaveBeenCalled();
-    });
-
-    it('should defer to init() in APP_INITIALIZER factory', () => {
-      const factory = (
-        ConcreteInitServiceMock.providers()
-          .find((p: any) => p.provide === APP_INITIALIZER) as any
-      ).useFactory;
-
-      // we don't care about the dependencies here
-      // @ts-ignore
-      const instance = new ConcreteInitServiceMock(null, null, null);
-
-      // provider ensures that the right concrete instance is passed to the factory
-      factory(instance);
-      expect(spy.resolveAppConfig).not.toHaveBeenCalled();
-      expect(spy.init).toHaveBeenCalled();
     });
   });
 

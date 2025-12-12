@@ -18,8 +18,18 @@ import { ThemedLoadingComponent } from '../../../../../app/shared/loading/themed
   styleUrls: ['../../../../../app/dso-shared/dso-edit-metadata/dso-edit-metadata.component.scss'],
   // templateUrl: './dso-edit-metadata.component.html',
   templateUrl: '../../../../../app/dso-shared/dso-edit-metadata/dso-edit-metadata.component.html',
-  standalone: true,
-  imports: [ DsoEditMetadataHeadersComponent, MetadataFieldSelectorComponent, DsoEditMetadataValueHeadersComponent, DsoEditMetadataValueComponent, DsoEditMetadataFieldValuesComponent, AlertComponent, ThemedLoadingComponent, AsyncPipe, TranslateModule, BtnDisabledDirective],
+  imports: [
+    AlertComponent,
+    AsyncPipe,
+    BtnDisabledDirective,
+    DsoEditMetadataFieldValuesComponent,
+    DsoEditMetadataHeadersComponent,
+    DsoEditMetadataValueComponent,
+    DsoEditMetadataValueHeadersComponent,
+    MetadataFieldSelectorComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
+  ],
 })
 export class DsoEditMetadataComponent extends BaseComponent {
 }

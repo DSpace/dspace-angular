@@ -26,8 +26,11 @@ import { SidebarDropdownComponent } from '../sidebar/sidebar-dropdown.component'
   selector: 'ds-page-size-selector',
   styleUrls: ['./page-size-selector.component.scss'],
   templateUrl: './page-size-selector.component.html',
-  standalone: true,
-  imports: [SidebarDropdownComponent, FormsModule, AsyncPipe],
+  imports: [
+    AsyncPipe,
+    FormsModule,
+    SidebarDropdownComponent,
+  ],
 })
 
 /**

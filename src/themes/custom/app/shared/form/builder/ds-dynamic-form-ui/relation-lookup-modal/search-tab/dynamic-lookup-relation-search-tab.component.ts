@@ -21,15 +21,13 @@ import { VarDirective } from '../../../../../../../../../app/shared/utils/var.di
       useClass: SearchConfigurationService,
     },
   ],
-  standalone: true,
   imports: [
     AsyncPipe,
-    VarDirective,
-    TranslateModule,
     NgbDropdownModule,
     ThemedSearchComponent,
+    TranslateModule,
+    VarDirective,
   ],
 })
 export class DsDynamicLookupRelationSearchTabComponent extends BaseComponent {
-
 }

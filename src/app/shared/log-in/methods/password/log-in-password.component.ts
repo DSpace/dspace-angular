@@ -59,8 +59,15 @@ import { BrowserOnlyPipe } from '../../../utils/browser-only.pipe';
   templateUrl: './log-in-password.component.html',
   styleUrls: ['./log-in-password.component.scss'],
   animations: [fadeOut],
-  standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, RouterLink, AsyncPipe, TranslateModule, BrowserOnlyPipe, BtnDisabledDirective],
+  imports: [
+    AsyncPipe,
+    BrowserOnlyPipe,
+    BtnDisabledDirective,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterLink,
+    TranslateModule,
+  ],
 })
 export class LogInPasswordComponent implements OnInit {
 
@@ -165,11 +172,11 @@ export class LogInPasswordComponent implements OnInit {
       shareReplay({ refCount: false, bufferSize: 1 }),
     );
     this.canShowDivider$ =
-        combineLatest([this.canRegister$, this.canForgot$])
-          .pipe(
-            map(([canRegister, canForgot]) => canRegister || canForgot),
-            filter(Boolean),
-          );
+      combineLatest([this.canRegister$, this.canForgot$])
+        .pipe(
+          map(([canRegister, canForgot]) => canRegister || canForgot),
+          filter(Boolean),
+        );
   }
 
   getRegisterRoute() {

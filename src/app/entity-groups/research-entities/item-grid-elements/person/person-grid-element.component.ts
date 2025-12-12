@@ -11,8 +11,9 @@ import { PersonSearchResultGridElementComponent } from '../search-result-grid-el
   selector: 'ds-person-grid-element',
   styleUrls: ['./person-grid-element.component.scss'],
   templateUrl: './person-grid-element.component.html',
-  standalone: true,
-  imports: [PersonSearchResultGridElementComponent],
+  imports: [
+    PersonSearchResultGridElementComponent,
+  ],
 })
 /**
  * The component for displaying a grid element for an item of the type Person

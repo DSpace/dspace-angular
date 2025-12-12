@@ -30,11 +30,10 @@ import { FormatFormComponent } from '../format-form/format-form.component';
   selector: 'ds-edit-bitstream-format',
   templateUrl: './edit-bitstream-format.component.html',
   imports: [
+    AsyncPipe,
     FormatFormComponent,
     TranslateModule,
-    AsyncPipe,
   ],
-  standalone: true,
 })
 export class EditBitstreamFormatComponent implements OnInit {
 

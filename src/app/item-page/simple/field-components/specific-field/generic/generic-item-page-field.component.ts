@@ -11,8 +11,10 @@ import { ItemPageFieldComponent } from '../item-page-field.component';
 @Component({
   selector: 'ds-generic-item-page-field',
   templateUrl: '../item-page-field.component.html',
-  standalone: true,
-  imports: [MetadataValuesComponent, AsyncPipe],
+  imports: [
+    AsyncPipe,
+    MetadataValuesComponent,
+  ],
 })
 /**
  * This component can be used to represent metadata on a simple item page.

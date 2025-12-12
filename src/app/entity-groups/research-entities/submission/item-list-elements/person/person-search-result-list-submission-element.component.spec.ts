@@ -16,7 +16,7 @@ import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
@@ -68,11 +68,11 @@ const enviromentNoThumbs = {
 };
 
 const translateServiceStub = {
-  get: () => observableOf('test' ),
+  get: () => of('test' ),
   instant: (key) => key,
   onLangChange: new EventEmitter(),
   onTranslationChange: new EventEmitter(),
-  onDefaultLangChange: new EventEmitter(),
+  onFallbackLangChange: new EventEmitter(),
 };
 
 function init() {
@@ -115,7 +115,7 @@ function init() {
 
   nameVariant = 'Doe J.';
   mockRelationshipService = {
-    getNameVariant: () => observableOf(nameVariant),
+    getNameVariant: () => of(nameVariant),
   };
 }
 
@@ -276,7 +276,6 @@ describe('PersonSearchResultListElementSubmissionComponent', () => {
 @Component({
   selector: 'ds-mock-thumbnail',
   template: '<div></div>',
-  standalone: true,
 })
 export class ThumbnailStubComponent {
 

@@ -31,12 +31,11 @@ import { isEmpty } from '../../empty.util';
     { provide: NG_VALUE_ACCESSOR, useExisting: NumberPickerComponent, multi: true },
   ],
   imports: [
-    NgClass,
-    FormsModule,
-    TranslateModule,
     BtnDisabledDirective,
+    FormsModule,
+    NgClass,
+    TranslateModule,
   ],
-  standalone: true,
 })
 
 export class NumberPickerComponent implements OnChanges, OnInit, ControlValueAccessor {

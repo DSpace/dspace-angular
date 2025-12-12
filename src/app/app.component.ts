@@ -1,12 +1,12 @@
 import {
   AsyncPipe,
-  DOCUMENT,
   isPlatformBrowser,
 } from '@angular/common';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
+  DOCUMENT,
   HostListener,
   Inject,
   OnInit,
@@ -58,10 +58,9 @@ import { ThemeService } from './shared/theme-support/theme.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
   imports: [
-    ThemedRootComponent,
     AsyncPipe,
+    ThemedRootComponent,
   ],
 })
 export class AppComponent implements OnInit, AfterViewInit {

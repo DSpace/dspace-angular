@@ -23,7 +23,7 @@ import {
 } from '@ngx-translate/core';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import { RequestService } from '../core/data/request.service';
@@ -56,7 +56,7 @@ describe('WorkflowItemActionPageComponent', () => {
 
   function init() {
     wfiService = jasmine.createSpyObj('workflowItemService', {
-      sendBack: observableOf(true),
+      sendBack: of(true),
     });
     itemRD$ = createSuccessfulRemoteDataObject$(itemRD$);
     wfi = new WorkflowItem();
@@ -131,8 +131,12 @@ describe('WorkflowItemActionPageComponent', () => {
 @Component({
   selector: 'ds-workflow-item-test-action-page',
   templateUrl: 'workflow-item-action-page.component.html',
-  imports: [VarDirective, TranslateModule, CommonModule, ModifyItemOverviewComponent],
-  standalone: true,
+  imports: [
+    CommonModule,
+    ModifyItemOverviewComponent,
+    TranslateModule,
+    VarDirective,
+  ],
 })
 class TestComponent extends WorkflowItemActionPageDirective {
   constructor(protected route: ActivatedRoute,
@@ -152,6 +156,6 @@ class TestComponent extends WorkflowItemActionPageDirective {
   }
 
   sendRequest(id: string): Observable<boolean> {
-    return observableOf(true);
+    return of(true);
   }
 }

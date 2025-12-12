@@ -38,11 +38,10 @@ import { PaginationComponentOptions } from '../../../shared/pagination/paginatio
   templateUrl: './bitstream-formats.component.html',
   imports: [
     AsyncPipe,
+    PaginationComponent,
     RouterLink,
     TranslateModule,
-    PaginationComponent,
   ],
-  standalone: true,
 })
 export class BitstreamFormatsComponent implements OnInit, OnDestroy {
 
@@ -135,9 +134,11 @@ export class BitstreamFormatsComponent implements OnInit, OnDestroy {
    * @param event
    */
   selectBitStreamFormat(bitstreamFormat: BitstreamFormat, event) {
-    event.target.checked ?
-      this.bitstreamFormatService.selectBitstreamFormat(bitstreamFormat) :
+    if (event.target.checked) {
+      this.bitstreamFormatService.selectBitstreamFormat(bitstreamFormat);
+    } else {
       this.bitstreamFormatService.deselectBitstreamFormat(bitstreamFormat);
+    }
   }
 
   /**

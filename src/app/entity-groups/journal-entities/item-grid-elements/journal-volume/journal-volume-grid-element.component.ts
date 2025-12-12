@@ -11,8 +11,9 @@ import { JournalVolumeSearchResultGridElementComponent } from '../search-result-
   selector: 'ds-journal-volume-grid-element',
   styleUrls: ['./journal-volume-grid-element.component.scss'],
   templateUrl: './journal-volume-grid-element.component.html',
-  standalone: true,
-  imports: [JournalVolumeSearchResultGridElementComponent],
+  imports: [
+    JournalVolumeSearchResultGridElementComponent,
+  ],
 })
 /**
  * The component for displaying a grid element for an item of the type Journal Volume

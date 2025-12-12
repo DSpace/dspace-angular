@@ -31,8 +31,14 @@ import { DebounceDirective } from '../../../../../../shared/utils/debounce.direc
       multi: true,
     },
   ],
-  standalone: true,
-  imports: [FormsModule, ClickOutsideDirective, DebounceDirective, NgClass, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    ClickOutsideDirective,
+    DebounceDirective,
+    FormsModule,
+    NgClass,
+    TranslateModule,
+  ],
 })
 
 /**

@@ -19,8 +19,11 @@ import { SearchResultListElementComponent } from '../../../../../shared/object-l
   selector: 'ds-collection-admin-search-result-list-element',
   styleUrls: ['./collection-admin-search-result-list-element.component.scss'],
   templateUrl: './collection-admin-search-result-list-element.component.html',
-  standalone: true,
-  imports: [CollectionSearchResultListElementComponent, RouterLink, TranslateModule],
+  imports: [
+    CollectionSearchResultListElementComponent,
+    RouterLink,
+    TranslateModule,
+  ],
 })
 /**
  * The component for displaying a list element for a collection search result on the admin search page

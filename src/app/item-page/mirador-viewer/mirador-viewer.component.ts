@@ -40,10 +40,9 @@ import { MiradorViewerService } from './mirador-viewer.service';
   templateUrl: './mirador-viewer.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    TranslateModule,
     AsyncPipe,
+    TranslateModule,
   ],
-  standalone: true,
 })
 export class MiradorViewerComponent implements OnInit {
 

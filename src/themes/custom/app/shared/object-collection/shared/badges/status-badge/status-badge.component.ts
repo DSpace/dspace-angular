@@ -7,8 +7,9 @@ import { StatusBadgeComponent as BaseComponent } from 'src/app/shared/object-col
   // styleUrls: ['./status-badge.component.scss'],
   // templateUrl: './status-badge.component.html',
   templateUrl: '../../../../../../../../app/shared/object-collection/shared/badges/status-badge/status-badge.component.html',
-  standalone: true,
-  imports: [ TranslateModule],
+  imports: [
+    TranslateModule,
+  ],
 })
 export class StatusBadgeComponent extends BaseComponent {
 }

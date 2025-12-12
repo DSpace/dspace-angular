@@ -37,10 +37,9 @@ import { ThemedSearchComponent } from '../../../search/themed-search.component';
     },
   ],
   imports: [
-    ThemedSearchComponent,
     AsyncPipe,
+    ThemedSearchComponent,
   ],
-  standalone: true,
 })
 export class ComcolSearchSectionComponent implements OnInit {
 
@@ -55,7 +54,7 @@ export class ComcolSearchSectionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.comcol$ = this.route.data.pipe(
+    this.comcol$ = this.route.parent.data.pipe(
       map((data: Data) => (data.dso as RemoteData<Community | Collection>).payload),
     );
     this.showSidebar$ = this.comcol$.pipe(

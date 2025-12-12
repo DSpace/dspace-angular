@@ -18,10 +18,9 @@ import { ResourcePoliciesComponent } from '../../../shared/resource-policies/res
   selector: 'ds-community-authorizations',
   templateUrl: './community-authorizations.component.html',
   imports: [
-    ResourcePoliciesComponent,
     AsyncPipe,
+    ResourcePoliciesComponent,
   ],
-  standalone: true,
 })
 /**
  * Component that handles the community Authorizations

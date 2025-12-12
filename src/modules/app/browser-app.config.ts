@@ -1,3 +1,5 @@
+import 'altcha';
+
 import {
   HttpClient,
   provideHttpClient,
@@ -5,11 +7,12 @@ import {
 } from '@angular/common/http';
 import {
   APP_ID,
-  APP_INITIALIZER,
   ApplicationConfig,
   importProvidersFrom,
+  inject,
   makeStateKey,
   mergeApplicationConfig,
+  provideAppInitializer,
   TransferState,
 } from '@angular/core';
 import { provideClientHydration } from '@angular/platform-browser';
@@ -21,14 +24,19 @@ import {
   StoreModule,
 } from '@ngrx/store';
 import {
-  MissingTranslationHandler,
+  provideMissingTranslationHandler,
+  provideTranslateService,
   TranslateLoader,
-  TranslateModule,
 } from '@ngx-translate/core';
 import {
   Angulartics2GoogleTagManager,
   Angulartics2RouterlessModule,
 } from 'angulartics2';
+import {
+  provideMatomo,
+  withRouteData,
+  withRouter,
+} from 'ngx-matomo-client';
 
 import { commonAppConfig } from '../../app/app.config';
 import { storeModuleConfig } from '../../app/app.reducer';
@@ -82,16 +90,15 @@ export const browserAppConfig: ApplicationConfig = mergeApplicationConfig({
       Angulartics2RouterlessModule.forRoot(),
       StoreModule.forFeature('core', coreReducers, storeModuleConfig as StoreConfig<CoreState, Action>),
       EffectsModule.forFeature(coreEffects),
-      TranslateModule.forRoot({
-        loader: {
-          provide: TranslateLoader,
-          useFactory: (createTranslateLoader),
-          deps: [TransferState, HttpClient],
-        },
-        missingTranslationHandler: { provide: MissingTranslationHandler, useClass: MissingTranslationHelper },
-        useDefaultLang: true,
-      }),
     ),
+    provideTranslateService({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: createTranslateLoader,
+        deps: [TransferState, HttpClient],
+      },
+      missingTranslationHandler: provideMissingTranslationHandler(MissingTranslationHelper),
+    }),
     ...BrowserInitService.providers(),
     { provide: APP_ID, useValue: 'dspace-angular' },
     {
@@ -99,12 +106,10 @@ export const browserAppConfig: ApplicationConfig = mergeApplicationConfig({
       useFactory: getRequest,
       deps: [TransferState],
     },
-    {
-      provide: APP_INITIALIZER,
-      useFactory: (xsrfService: XSRFService, httpClient: HttpClient) => xsrfService.initXSRFToken(httpClient),
-      deps: [ XSRFService, HttpClient ],
-      multi: true,
-    },
+    provideAppInitializer(() => {
+      const initializerFn = ((xsrfService: XSRFService, httpClient: HttpClient) => xsrfService.initXSRFToken(httpClient))(inject(XSRFService), inject(HttpClient));
+      return initializerFn();
+    }),
     {
       provide: XSRFService,
       useClass: BrowserXSRFService,
@@ -157,5 +162,12 @@ export const browserAppConfig: ApplicationConfig = mergeApplicationConfig({
       provide: MathService,
       useClass: ClientMathService,
     },
+    provideMatomo(
+      {
+        mode: 'deferred',
+      },
+      withRouter(),
+      withRouteData(),
+    ),
   ],
 }, commonAppConfig);

@@ -23,11 +23,19 @@ import { ThemedThumbnailComponent } from '../../../../../../../app/thumbnail/the
   styleUrls: ['../../../../../../../app/entity-groups/journal-entities/item-pages/journal/journal.component.scss'],
   // templateUrl: './journal.component.html',
   templateUrl: '../../../../../../../app/entity-groups/journal-entities/item-pages/journal/journal.component.html',
-  standalone: true,
-  imports: [ ThemedResultsBackButtonComponent, ThemedItemPageTitleFieldComponent, DsoEditMenuComponent, MetadataFieldWrapperComponent, ThemedThumbnailComponent, GenericItemPageFieldComponent, RelatedItemsComponent, RouterLink, TabbedRelatedEntitiesSearchComponent, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    DsoEditMenuComponent,
+    GenericItemPageFieldComponent,
+    MetadataFieldWrapperComponent,
+    RelatedItemsComponent,
+    RouterLink,
+    TabbedRelatedEntitiesSearchComponent,
+    ThemedItemPageTitleFieldComponent,
+    ThemedResultsBackButtonComponent,
+    ThemedThumbnailComponent,
+    TranslateModule,
+  ],
 })
-/**
- * The component for displaying metadata and relations of an item of the type Journal
- */
 export class JournalComponent extends BaseComponent {
 }

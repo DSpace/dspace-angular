@@ -20,8 +20,11 @@ import { SearchEvent } from '../eperson-group-list-event-type';
 @Component({
   selector: 'ds-eperson-search-box',
   templateUrl: './eperson-search-box.component.html',
-  standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, TranslateModule],
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    TranslateModule,
+  ],
 })
 export class EpersonSearchBoxComponent {
 

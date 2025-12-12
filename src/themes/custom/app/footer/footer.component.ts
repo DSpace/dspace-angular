@@ -14,8 +14,12 @@ import { FooterComponent as BaseComponent } from '../../../../app/footer/footer.
   styleUrls: ['../../../../app/footer/footer.component.scss'],
   // templateUrl: './footer.component.html'
   templateUrl: '../../../../app/footer/footer.component.html',
-  standalone: true,
-  imports: [ RouterLink, AsyncPipe, DatePipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    DatePipe,
+    RouterLink,
+    TranslateModule,
+  ],
 })
 export class FooterComponent extends BaseComponent {
 }

@@ -30,9 +30,13 @@ describe('AccessControlFormContainerComponent', () => {
 
   // Mock NgbModal
   @Component({
-    selector: 'ds-ngb-modal', template: '',
-    standalone: true,
-    imports: [FormsModule, NgbDatepickerModule, UiSwitchModule],
+    selector: 'ds-ngb-modal',
+    template: '',
+    imports: [
+      FormsModule,
+      NgbDatepickerModule,
+      UiSwitchModule,
+    ],
   })
   class MockNgbModalComponent {
   }

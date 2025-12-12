@@ -19,8 +19,16 @@ import { ThemedThumbnailComponent } from '../../../../../thumbnail/themed-thumbn
   selector: 'ds-org-unit-search-result-list-element',
   styleUrls: ['./org-unit-search-result-list-element.component.scss'],
   templateUrl: './org-unit-search-result-list-element.component.html',
-  standalone: true,
-  imports: [RouterLink, ThemedThumbnailComponent, NgClass, ThemedBadgesComponent, TruncatableComponent, TruncatablePartComponent, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    NgClass,
+    RouterLink,
+    ThemedBadgesComponent,
+    ThemedThumbnailComponent,
+    TranslateModule,
+    TruncatableComponent,
+    TruncatablePartComponent,
+  ],
 })
 /**
  * The component for displaying a list element for an item search result of the type Organisation Unit

@@ -58,8 +58,15 @@ import { SearchFacetSelectedOptionComponent } from '../search-facet-filter-optio
   styleUrls: ['./search-hierarchy-filter.component.scss'],
   templateUrl: './search-hierarchy-filter.component.html',
   animations: [facetLoad],
-  standalone: true,
-  imports: [SearchFacetSelectedOptionComponent, SearchFacetOptionComponent, FilterInputSuggestionsComponent, FormsModule, AsyncPipe, LowerCasePipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    FilterInputSuggestionsComponent,
+    FormsModule,
+    LowerCasePipe,
+    SearchFacetOptionComponent,
+    SearchFacetSelectedOptionComponent,
+    TranslateModule,
+  ],
 })
 
 /**

@@ -65,13 +65,12 @@ import { ItemOperation } from '../item-operation/itemOperation.model';
     fadeInOut,
   ],
   imports: [
-    TranslateModule,
     AsyncPipe,
-    RouterLink,
     ItemOperationComponent,
     NgClass,
+    RouterLink,
+    TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * Component for displaying an item's status

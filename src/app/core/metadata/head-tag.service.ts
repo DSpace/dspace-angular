@@ -24,7 +24,7 @@ import {
   concat as observableConcat,
   EMPTY,
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import {
   filter,
@@ -173,6 +173,8 @@ export class HeadTagService {
 
   protected setDSOMetaTags(): void {
 
+    this.setNoIndexTag();
+
     this.setTitleTag();
     this.setDescriptionTag();
 
@@ -208,6 +210,15 @@ export class HeadTagService {
     // this.setCitationPatentCountryTag();
     // this.setCitationPatentNumberTag();
 
+  }
+
+  /**
+   * Add <meta name="robots" content="noindex">  to the <head> if non-discoverable item
+   */
+  protected setNoIndexTag(): void {
+    if (this.currentObject.value instanceof Item && this.currentObject.value.isDiscoverable === false) {
+      this.addMetaTag('robots', 'noindex');
+    }
   }
 
   /**
@@ -403,7 +414,7 @@ export class HeadTagService {
   }
 
   getBitLinkIfDownloadable(bitstream: Bitstream, bitstreamRd: RemoteData<PaginatedList<Bitstream>>): Observable<string> {
-    return observableOf(bitstream).pipe(
+    return of(bitstream).pipe(
       getDownloadableBitstream(this.authorizationService),
       switchMap((bit: Bitstream) => {
         if (hasValue(bit)) {
@@ -440,7 +451,7 @@ export class HeadTagService {
         )),
       ).pipe(
         // Verify that the bitstream is downloadable
-        mergeMap(([bitstream, format]: [Bitstream, BitstreamFormat]) => observableOf(bitstream).pipe(
+        mergeMap(([bitstream, format]: [Bitstream, BitstreamFormat]) => of(bitstream).pipe(
           getDownloadableBitstream(this.authorizationService),
           map((bit: Bitstream) => [bit, format]),
         )),

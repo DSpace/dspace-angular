@@ -11,8 +11,9 @@ import { ListableObject } from '../listable-object.model';
 @Component({
   selector: 'ds-importable-list-item-control',
   templateUrl: './importable-list-item-control.component.html',
-  standalone: true,
-  imports: [TranslateModule],
+  imports: [
+    TranslateModule,
+  ],
 })
 /**
  * Component adding an import button to a list item

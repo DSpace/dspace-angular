@@ -25,11 +25,10 @@ import { hasValue } from '../../../shared/empty.util';
   selector: 'ds-collection-curate',
   templateUrl: './collection-curate.component.html',
   imports: [
+    AsyncPipe,
     CurationFormComponent,
     TranslateModule,
-    AsyncPipe,
   ],
-  standalone: true,
 })
 export class CollectionCurateComponent implements OnInit {
   dsoRD$: Observable<RemoteData<Collection>>;

@@ -24,7 +24,7 @@ import {
   combineLatest,
   combineLatest as observableCombineLatest,
   Observable,
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
 import {
@@ -98,15 +98,14 @@ class RelationshipDTO {
   selector: 'ds-item-delete',
   templateUrl: '../item-delete/item-delete.component.html',
   imports: [
-    TranslateModule,
+    AsyncPipe,
+    BtnDisabledDirective,
     ListableObjectComponentLoaderComponent,
     ModifyItemOverviewComponent,
-    AsyncPipe,
-    VarDirective,
     RouterLink,
-    BtnDisabledDirective,
+    TranslateModule,
+    VarDirective,
   ],
-  standalone: true,
 })
 /**
  * Component responsible for rendering the item delete page
@@ -201,7 +200,7 @@ export class ItemDeleteComponent
         map((relationshipTypes) => relationshipTypes.page),
         switchMap((types) => {
           if (types.length === 0) {
-            return observableOf(types);
+            return of(types);
           }
           return combineLatest(types.map((type) => this.getRelationships(type))).pipe(
             map((relationships) =>

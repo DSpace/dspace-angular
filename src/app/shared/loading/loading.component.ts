@@ -14,8 +14,6 @@ import { hasValue } from '../empty.util';
   selector: 'ds-base-loading',
   styleUrls: ['./loading.component.scss'],
   templateUrl: './loading.component.html',
-  standalone: true,
-  imports: [],
 })
 export class LoadingComponent implements OnDestroy, OnInit {
 

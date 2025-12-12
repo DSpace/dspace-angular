@@ -17,8 +17,10 @@ import { ServerResponseService } from '../core/services/server-response.service'
   styleUrls: ['./pagenotfound.component.scss'],
   templateUrl: './pagenotfound.component.html',
   changeDetection: ChangeDetectionStrategy.Default,
-  standalone: true,
-  imports: [RouterLink, TranslateModule],
+  imports: [
+    RouterLink,
+    TranslateModule,
+  ],
 })
 export class PageNotFoundComponent implements OnInit {
 

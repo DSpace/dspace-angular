@@ -14,12 +14,11 @@ import { ItemOperation } from './itemOperation.model';
   selector: 'ds-item-operation',
   templateUrl: './item-operation.component.html',
   imports: [
-    TranslateModule,
-    RouterLink,
-    NgbTooltipModule,
     BtnDisabledDirective,
+    NgbTooltipModule,
+    RouterLink,
+    TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * Operation that can be performed on an item

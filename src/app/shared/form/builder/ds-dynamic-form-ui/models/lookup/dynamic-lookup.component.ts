@@ -27,7 +27,7 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import {
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
 import {
@@ -64,18 +64,17 @@ import { DynamicLookupNameModel } from './dynamic-lookup-name.model';
   styleUrls: ['./dynamic-lookup.component.scss'],
   templateUrl: './dynamic-lookup.component.html',
   imports: [
-    TranslateModule,
-    NgbTooltipModule,
-    NgbDropdownModule,
     AuthorityConfidenceStateDirective,
+    BtnDisabledDirective,
     FormsModule,
-    NgClass,
     InfiniteScrollModule,
+    NgbDropdownModule,
+    NgbTooltipModule,
+    NgClass,
     NgTemplateOutlet,
     ObjNgFor,
-    BtnDisabledDirective,
+    TranslateModule,
   ],
-  standalone: true,
 })
 export class DsDynamicLookupComponent extends DsDynamicVocabularyComponent implements OnDestroy, OnInit {
 
@@ -274,7 +273,7 @@ export class DsDynamicLookupComponent extends DsDynamicVocabularyComponent imple
     ).pipe(
       getFirstSucceededRemoteDataPayload(),
       catchError(() =>
-        observableOf(buildPaginatedList(
+        of(buildPaginatedList(
           new PageInfo(),
           [],
         )),

@@ -2,7 +2,7 @@ import {
   cold,
   getTestScheduler,
 } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
@@ -71,12 +71,12 @@ describe('LdnServicesService test', () => {
       generateRequestId: requestUUID,
       send: true,
       removeByHrefSubstring: {},
-      getByHref: observableOf(responseCacheEntry),
-      getByUUID: observableOf(responseCacheEntry),
+      getByHref: of(responseCacheEntry),
+      getByUUID: of(responseCacheEntry),
     });
 
     halService = jasmine.createSpyObj('halService', {
-      getEndpoint: observableOf(endpointURL),
+      getEndpoint: of(endpointURL),
     });
 
     rdbService = jasmine.createSpyObj('rdbService', {
@@ -107,7 +107,7 @@ describe('LdnServicesService test', () => {
     it('should find service by inbound pattern', (done) => {
       const params = [new RequestParam('pattern', 'testPattern')];
       const findListOptions = Object.assign(new FindListOptions(), {}, { searchParams: params });
-      spyOn(service, 'searchBy').and.returnValue(observableOf(null));
+      spyOn(service, 'searchBy').and.returnValue(of(null));
       spyOn((service as any).searchData, 'searchBy').and.returnValue(createSuccessfulRemoteDataObject$(createPaginatedList([mockLdnService])));
 
       service.findByInboundPattern('testPattern').subscribe(() => {
@@ -120,7 +120,7 @@ describe('LdnServicesService test', () => {
       const constraints = [{ void: true }];
       const files = [new File([],'fileName')];
       spyOn(service as any, 'getInvocationFormData');
-      spyOn(service, 'getBrowseEndpoint').and.returnValue(observableOf('testEndpoint'));
+      spyOn(service, 'getBrowseEndpoint').and.returnValue(of('testEndpoint'));
       service.invoke('serviceName', 'serviceId', constraints, files).subscribe(result => {
         expect((service as any).getInvocationFormData).toHaveBeenCalledWith(constraints, files);
         expect(service.getBrowseEndpoint).toHaveBeenCalled();

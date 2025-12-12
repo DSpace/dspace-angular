@@ -51,18 +51,17 @@ import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
     },
   ],
   imports: [
-    PaginationComponent,
     AsyncPipe,
-    NgbAccordionModule,
-    TranslateModule,
-    NgbNavModule,
-    ThemedSearchComponent,
     BrowserOnlyPipe,
-    NgxPaginationModule,
-    SelectableListItemControlComponent,
     ListableObjectComponentLoaderComponent,
+    NgbAccordionModule,
+    NgbNavModule,
+    NgxPaginationModule,
+    PaginationComponent,
+    SelectableListItemControlComponent,
+    ThemedSearchComponent,
+    TranslateModule,
   ],
-  standalone: true,
 })
 export class BulkAccessBrowseComponent implements OnInit, OnDestroy {
 

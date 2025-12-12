@@ -44,8 +44,13 @@ import { ThemedEmailRequestCopyComponent } from '../email-request-copy/themed-em
   selector: 'ds-base-deny-request-copy',
   styleUrls: ['./deny-request-copy.component.scss'],
   templateUrl: './deny-request-copy.component.html',
-  standalone: true,
-  imports: [VarDirective, ThemedEmailRequestCopyComponent, ThemedLoadingComponent, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    ThemedEmailRequestCopyComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
+    VarDirective,
+  ],
 })
 /**
  * Component for denying an item request

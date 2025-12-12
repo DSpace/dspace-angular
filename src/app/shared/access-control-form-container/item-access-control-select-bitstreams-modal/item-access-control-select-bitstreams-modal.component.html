@@ -7,19 +7,18 @@
   </button>
 </div>
 <div class="modal-body">
-  @if (data$ | async; as data) {
-    @if (data.payload.page.length > 0) {
+  @if (bitstreams$ | async; as bitstreams) {
+    @if (bitstreams.payload.page.length > 0) {
       <ds-viewable-collection
         [config]="paginationConfig"
         [context]="context"
-        [objects]="data"
+        [objects]="bitstreams"
         [selectable]="true"
         [selectionConfig]="{ repeatable: true, listId: LIST_ID }"
-        [showPaginator]="true"
-        (pageChange)="loadForPage($event)">
+        [showPaginator]="true">
       </ds-viewable-collection>
     }
-    @if (data && data.payload.page.length === 0) {
+    @if (bitstreams && bitstreams.payload.page.length === 0) {
       <div
         class="alert alert-info w-100" role="alert">
         {{'access-control-select-bitstreams-modal.no-items' | translate}}

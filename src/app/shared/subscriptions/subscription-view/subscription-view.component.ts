@@ -29,8 +29,12 @@ import { SubscriptionsDataService } from '../subscriptions-data.service';
   selector: '[ds-subscription-view]',
   templateUrl: './subscription-view.component.html',
   styleUrls: ['./subscription-view.component.scss'],
-  standalone: true,
-  imports: [ThemedTypeBadgeComponent, RouterLink, TranslateModule, BtnDisabledDirective],
+  imports: [
+    BtnDisabledDirective,
+    RouterLink,
+    ThemedTypeBadgeComponent,
+    TranslateModule,
+  ],
 })
 /**
  * Table row representing a subscription that displays all information and action buttons to manage it

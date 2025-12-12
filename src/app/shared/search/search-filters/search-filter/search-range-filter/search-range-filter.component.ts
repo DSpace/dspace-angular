@@ -50,8 +50,14 @@ import {
   styleUrls: ['./search-range-filter.component.scss'],
   templateUrl: './search-range-filter.component.html',
   animations: [facetLoad],
-  standalone: true,
-  imports: [FormsModule, NouisliderComponent, DebounceDirective, SearchFacetRangeOptionComponent, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    DebounceDirective,
+    FormsModule,
+    NouisliderComponent,
+    SearchFacetRangeOptionComponent,
+    TranslateModule,
+  ],
 })
 
 /**

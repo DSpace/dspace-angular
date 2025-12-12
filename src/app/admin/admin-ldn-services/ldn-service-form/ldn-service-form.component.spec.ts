@@ -30,10 +30,7 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 import { PaginationService } from 'ngx-pagination';
-import {
-  of as observableOf,
-  of,
-} from 'rxjs';
+import { of } from 'rxjs';
 
 import { RouteService } from '../../../core/services/route.service';
 import { MockActivatedRoute } from '../../../shared/mocks/active-router.mock';
@@ -89,13 +86,13 @@ describe('LdnServiceFormEditComponent', () => {
     instant: () => 'translated-text',
     onLangChange: new EventEmitter(),
     onTranslationChange: new EventEmitter(),
-    onDefaultLangChange: new EventEmitter(),
+    onFallbackLangChange: new EventEmitter(),
   };
 
   beforeEach(async () => {
     ldnServicesService = jasmine.createSpyObj('ldnServicesService', {
-      create: observableOf(null),
-      update: observableOf(null),
+      create: of(null),
+      update: of(null),
       findById: createSuccessfulRemoteDataObject$({}),
     });
 

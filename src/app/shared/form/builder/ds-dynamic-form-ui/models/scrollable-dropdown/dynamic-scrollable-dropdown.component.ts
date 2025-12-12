@@ -24,7 +24,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import {
   Observable,
-  of as observableOf,
   of,
 } from 'rxjs';
 import {
@@ -50,7 +49,6 @@ import { lazyDataService } from '../../../../../../core/lazy-data-service';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
-import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
 import {
   hasValue,
   isEmpty,
@@ -67,13 +65,11 @@ import { DynamicScrollableDropdownModel } from './dynamic-scrollable-dropdown.mo
   styleUrls: ['./dynamic-scrollable-dropdown.component.scss'],
   templateUrl: './dynamic-scrollable-dropdown.component.html',
   imports: [
-    NgbDropdownModule,
     AsyncPipe,
     InfiniteScrollModule,
+    NgbDropdownModule,
     TranslateModule,
-    BtnDisabledDirective,
   ],
-  standalone: true,
 })
 export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyComponent implements OnInit {
   @ViewChild('dropdownMenu', { read: ElementRef }) dropdownMenu: ElementRef;
@@ -156,7 +152,7 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
     this.loading = true;
     this.getDataFromService().pipe(
       getFirstSucceededRemoteDataPayload(),
-      catchError(() => observableOf(buildPaginatedList(new PageInfo(), []))),
+      catchError(() => of(buildPaginatedList(new PageInfo(), []))),
       tap(() => this.loading = false),
     ).subscribe((list: PaginatedList<CacheableObject>) => {
       this.optionsList = list.page;
@@ -283,7 +279,7 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
       );
       this.getDataFromService().pipe(
         getFirstSucceededRemoteDataPayload(),
-        catchError(() => observableOf(buildPaginatedList(
+        catchError(() => of(buildPaginatedList(
           new PageInfo(),
           [],
         )),
@@ -326,13 +322,13 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
       );
     } else {
       if (isEmpty(value)) {
-        result = observableOf('');
+        result = of('');
       } else if (typeof value === 'string') {
-        result = observableOf(value);
+        result = of(value);
       } else if (this.useFindAllService) {
-        result = observableOf(value[this.model.displayKey]);
+        result = of(value[this.model.displayKey]);
       } else {
-        result = observableOf(value.display);
+        result = of(value.display);
       }
     }
 

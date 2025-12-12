@@ -12,10 +12,9 @@ import { ItemPageFieldComponent } from '../item-page-field.component';
 @Component({
   selector: 'ds-item-page-img-field',
   templateUrl: '../item-page-field.component.html',
-  standalone: true,
   imports: [
-    MetadataValuesComponent,
     AsyncPipe,
+    MetadataValuesComponent,
   ],
 })
 /**

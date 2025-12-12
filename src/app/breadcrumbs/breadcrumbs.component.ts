@@ -19,8 +19,14 @@ import { BreadcrumbsService } from './breadcrumbs.service';
   selector: 'ds-base-breadcrumbs',
   templateUrl: './breadcrumbs.component.html',
   styleUrls: ['./breadcrumbs.component.scss'],
-  standalone: true,
-  imports: [VarDirective, NgTemplateOutlet, RouterLink, NgbTooltipModule, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    NgbTooltipModule,
+    NgTemplateOutlet,
+    RouterLink,
+    TranslateModule,
+    VarDirective,
+  ],
 })
 export class BreadcrumbsComponent {
 

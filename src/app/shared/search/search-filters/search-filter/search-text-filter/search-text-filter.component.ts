@@ -26,8 +26,14 @@ import { SearchFacetSelectedOptionComponent } from '../search-facet-filter-optio
   styleUrls: ['./search-text-filter.component.scss'],
   templateUrl: './search-text-filter.component.html',
   animations: [facetLoad],
-  standalone: true,
-  imports: [SearchFacetSelectedOptionComponent, SearchFacetOptionComponent, FilterInputSuggestionsComponent, FormsModule, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    FilterInputSuggestionsComponent,
+    FormsModule,
+    SearchFacetOptionComponent,
+    SearchFacetSelectedOptionComponent,
+    TranslateModule,
+  ],
 })
 
 /**

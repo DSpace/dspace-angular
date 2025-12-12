@@ -20,8 +20,12 @@ import { SidebarSearchListElementComponent } from '../sidebar-search-list-elemen
 @Component({
   selector: 'ds-collection-sidebar-search-list-element',
   templateUrl: '../sidebar-search-list-element.component.html',
-  standalone: true,
-  imports: [TruncatablePartComponent, NgClass, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    NgClass,
+    TranslateModule,
+    TruncatablePartComponent,
+  ],
 })
 /**
  * Component displaying a list element for a {@link CollectionSearchResult} within the context of a sidebar search modal

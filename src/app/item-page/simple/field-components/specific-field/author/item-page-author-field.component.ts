@@ -11,10 +11,9 @@ import { ItemPageFieldComponent } from '../item-page-field.component';
 @Component({
   selector: 'ds-item-page-author-field',
   templateUrl: '../item-page-field.component.html',
-  standalone: true,
   imports: [
-    MetadataValuesComponent,
     AsyncPipe,
+    MetadataValuesComponent,
   ],
 })
 /**
@@ -50,6 +49,6 @@ export class ItemPageAuthorFieldComponent extends ItemPageFieldComponent {
   /**
    * Label i18n key for the rendered metadata
    */
-  label = 'item.page.author';
+  label = 'item.page.authors';
 
 }

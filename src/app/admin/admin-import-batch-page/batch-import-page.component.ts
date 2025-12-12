@@ -33,12 +33,11 @@ import { FileDropzoneNoUploaderComponent } from '../../shared/upload/file-dropzo
   selector: 'ds-batch-import-page',
   templateUrl: './batch-import-page.component.html',
   imports: [
-    TranslateModule,
-    FormsModule,
-    UiSwitchModule,
     FileDropzoneNoUploaderComponent,
+    FormsModule,
+    TranslateModule,
+    UiSwitchModule,
   ],
-  standalone: true,
 })
 export class BatchImportPageComponent {
   /**

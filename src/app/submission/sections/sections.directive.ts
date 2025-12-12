@@ -29,7 +29,6 @@ import { SectionsType } from './sections-type';
 @Directive({
   selector: '[dsSection]',
   exportAs: 'sectionRef',
-  standalone: true,
 })
 export class SectionsDirective implements OnDestroy, OnInit {
 

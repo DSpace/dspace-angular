@@ -95,8 +95,9 @@ describe('AdminSidebarSectionComponent', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
-  standalone: true,
-  imports: [RouterTestingModule],
+  imports: [
+    RouterTestingModule,
+  ],
 })
 class TestComponent {
 }

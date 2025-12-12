@@ -25,12 +25,11 @@ import { VarDirective } from '../../shared/utils/var.directive';
   styleUrls: ['./delete-collection-page.component.scss'],
   templateUrl: './delete-collection-page.component.html',
   imports: [
-    TranslateModule,
     AsyncPipe,
-    VarDirective,
     BtnDisabledDirective,
+    TranslateModule,
+    VarDirective,
   ],
-  standalone: true,
 })
 export class DeleteCollectionPageComponent extends DeleteComColPageComponent<Collection> {
   protected frontendURL = '/collections/';

@@ -10,7 +10,7 @@ import {
 } from 'jasmine-marbles';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
@@ -52,7 +52,7 @@ describe('BitstreamFormatDataService', () => {
   const requestUUIDs = ['some', 'uuid'];
 
   const objectCache = jasmine.createSpyObj('objectCache', {
-    getByHref: observableOf({ requestUUIDs }),
+    getByHref: of({ requestUUIDs }),
   }) as ObjectCacheService;
 
   const halEndpointService = {
@@ -69,8 +69,8 @@ describe('BitstreamFormatDataService', () => {
   function initTestService(halService) {
     rd = createSuccessfulRemoteDataObject({});
     rdbService = jasmine.createSpyObj('rdbService', {
-      buildFromRequestUUID: observableOf(rd),
-      buildFromRequestUUIDAndAwait: observableOf(rd),
+      buildFromRequestUUID: of(rd),
+      buildFromRequestUUIDAndAwait: of(rd),
     });
 
     return new BitstreamFormatDataService(
@@ -94,9 +94,9 @@ describe('BitstreamFormatDataService', () => {
       scheduler = getTestScheduler();
       requestService = jasmine.createSpyObj('requestService', {
         send: {},
-        getByHref: observableOf(responseCacheEntry),
+        getByHref: of(responseCacheEntry),
         getByUUID: cold('a', { a: responseCacheEntry }),
-        setStaleByUUID: observableOf(true),
+        setStaleByUUID: of(true),
         generateRequestId: 'request-id',
         removeByHrefSubstring: {},
       });
@@ -115,9 +115,9 @@ describe('BitstreamFormatDataService', () => {
       scheduler = getTestScheduler();
       requestService = jasmine.createSpyObj('requestService', {
         send: {},
-        getByHref: observableOf(responseCacheEntry),
+        getByHref: of(responseCacheEntry),
         getByUUID: cold('a', { a: responseCacheEntry }),
-        setStaleByUUID: observableOf(true),
+        setStaleByUUID: of(true),
         generateRequestId: 'request-id',
         removeByHrefSubstring: {},
       });
@@ -138,9 +138,9 @@ describe('BitstreamFormatDataService', () => {
       scheduler = getTestScheduler();
       requestService = jasmine.createSpyObj('requestService', {
         send: {},
-        getByHref: observableOf(responseCacheEntry),
+        getByHref: of(responseCacheEntry),
         getByUUID: cold('a', { a: responseCacheEntry }),
-        setStaleByUUID: observableOf(true),
+        setStaleByUUID: of(true),
         generateRequestId: 'request-id',
         removeByHrefSubstring: {},
       });
@@ -160,9 +160,9 @@ describe('BitstreamFormatDataService', () => {
       scheduler = getTestScheduler();
       requestService = jasmine.createSpyObj('requestService', {
         send: {},
-        getByHref: observableOf(responseCacheEntry),
+        getByHref: of(responseCacheEntry),
         getByUUID: cold('a', { a: responseCacheEntry }),
-        setStaleByUUID: observableOf(true),
+        setStaleByUUID: of(true),
         generateRequestId: 'request-id',
         removeByHrefSubstring: {},
       });
@@ -185,9 +185,9 @@ describe('BitstreamFormatDataService', () => {
       scheduler = getTestScheduler();
       requestService = jasmine.createSpyObj('requestService', {
         send: {},
-        getByHref: observableOf(responseCacheEntry),
+        getByHref: of(responseCacheEntry),
         getByUUID: cold('a', { a: responseCacheEntry }),
-        setStaleByUUID: observableOf(true),
+        setStaleByUUID: of(true),
         generateRequestId: 'request-id',
         removeByHrefSubstring: {},
       });
@@ -209,15 +209,15 @@ describe('BitstreamFormatDataService', () => {
       scheduler = getTestScheduler();
       requestService = jasmine.createSpyObj('requestService', {
         send: {},
-        getByHref: observableOf(responseCacheEntry),
+        getByHref: of(responseCacheEntry),
         getByUUID: cold('a', { a: responseCacheEntry }),
-        setStaleByUUID: observableOf(true),
+        setStaleByUUID: of(true),
         generateRequestId: 'request-id',
         removeByHrefSubstring: {},
       });
       const halService = {
         getEndpoint(linkPath: string): Observable<string> {
-          return observableOf(bitstreamFormatsEndpoint);
+          return of(bitstreamFormatsEndpoint);
         },
       } as HALEndpointService;
       service = initTestService(halService);
@@ -233,9 +233,9 @@ describe('BitstreamFormatDataService', () => {
       scheduler = getTestScheduler();
       requestService = jasmine.createSpyObj('requestService', {
         send: {},
-        getByHref: observableOf(responseCacheEntry),
+        getByHref: of(responseCacheEntry),
         getByUUID: cold('a', { a: responseCacheEntry }),
-        setStaleByUUID: observableOf(true),
+        setStaleByUUID: of(true),
         generateRequestId: 'request-id',
         removeByHrefSubstring: {},
       });
@@ -247,7 +247,7 @@ describe('BitstreamFormatDataService', () => {
       format.uuid = 'uuid';
 
       service.selectBitstreamFormat(format);
-      expect(store.dispatch).toHaveBeenCalledWith(new BitstreamFormatsRegistrySelectAction(format));
+      expect(store.dispatch as jasmine.Spy).toHaveBeenCalledWith(new BitstreamFormatsRegistrySelectAction(format));
     });
   });
 
@@ -256,9 +256,9 @@ describe('BitstreamFormatDataService', () => {
       scheduler = getTestScheduler();
       requestService = jasmine.createSpyObj('requestService', {
         send: {},
-        getByHref: observableOf(responseCacheEntry),
+        getByHref: of(responseCacheEntry),
         getByUUID: cold('a', { a: responseCacheEntry }),
-        setStaleByUUID: observableOf(true),
+        setStaleByUUID: of(true),
         generateRequestId: 'request-id',
         removeByHrefSubstring: {},
       });
@@ -270,7 +270,7 @@ describe('BitstreamFormatDataService', () => {
       format.uuid = 'uuid';
 
       service.deselectBitstreamFormat(format);
-      expect(store.dispatch).toHaveBeenCalledWith(new BitstreamFormatsRegistryDeselectAction(format));
+      expect(store.dispatch as jasmine.Spy).toHaveBeenCalledWith(new BitstreamFormatsRegistryDeselectAction(format));
     });
   });
 
@@ -279,9 +279,9 @@ describe('BitstreamFormatDataService', () => {
       scheduler = getTestScheduler();
       requestService = jasmine.createSpyObj('requestService', {
         send: {},
-        getByHref: observableOf(responseCacheEntry),
+        getByHref: of(responseCacheEntry),
         getByUUID: cold('a', { a: responseCacheEntry }),
-        setStaleByUUID: observableOf(true),
+        setStaleByUUID: of(true),
         generateRequestId: 'request-id',
         removeByHrefSubstring: {},
       });
@@ -291,7 +291,7 @@ describe('BitstreamFormatDataService', () => {
     }));
     it('should remove all bitstreamFormats from the store', () => {
       service.deselectAllBitstreamFormats();
-      expect(store.dispatch).toHaveBeenCalledWith(new BitstreamFormatsRegistryDeselectAllAction());
+      expect(store.dispatch as jasmine.Spy).toHaveBeenCalledWith(new BitstreamFormatsRegistryDeselectAllAction());
     });
   });
 
@@ -300,15 +300,15 @@ describe('BitstreamFormatDataService', () => {
       scheduler = getTestScheduler();
       requestService = jasmine.createSpyObj('requestService', {
         send: {},
-        getByHref: observableOf(responseCacheEntry),
+        getByHref: of(responseCacheEntry),
         getByUUID: hot('a', { a: responseCacheEntry }),
-        setStaleByUUID: observableOf(true),
+        setStaleByUUID: of(true),
         generateRequestId: 'request-id',
         removeByHrefSubstring: {},
       });
       const halService = {
         getEndpoint(linkPath: string): Observable<string> {
-          return observableOf(bitstreamFormatsEndpoint);
+          return of(bitstreamFormatsEndpoint);
         },
       } as HALEndpointService;
       service = initTestService(halService);
