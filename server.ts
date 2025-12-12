@@ -18,47 +18,45 @@
 import 'zone.js/node';
 import 'reflect-metadata';
 
-/* eslint-disable import/no-namespace */
-import * as morgan from 'morgan';
-import * as express from 'express';
-import * as ejs from 'ejs';
-import * as compression from 'compression';
-import * as expressStaticGzip from 'express-static-gzip';
+import { APP_BASE_HREF } from '@angular/common';
+import { enableProdMode } from '@angular/core';
+import { CommonEngine } from '@angular/ssr';
 /* eslint-enable import/no-namespace */
 import axios from 'axios';
-import LRU from 'lru-cache';
-import { isbot } from 'isbot';
-import { createCertificate } from 'pem';
-import { createServer } from 'https';
 import { json } from 'body-parser';
-import { createHttpTerminator } from 'http-terminator';
-
+import * as compression from 'compression';
+import * as ejs from 'ejs';
+import * as express from 'express';
+import * as expressStaticGzip from 'express-static-gzip';
 import { readFileSync } from 'fs';
-import { join } from 'path';
-
-import { enableProdMode } from '@angular/core';
-
-
-import { environment } from './src/environments/environment';
 import { createProxyMiddleware } from 'http-proxy-middleware';
+import { createHttpTerminator } from 'http-terminator';
+import { createServer } from 'https';
+import { isbot } from 'isbot';
+import LRU from 'lru-cache';
+/* eslint-disable import/no-namespace */
+import * as morgan from 'morgan';
+import { join } from 'path';
+import { createCertificate } from 'pem';
+
+import { TOKENITEM } from './src/app/core/auth/models/auth-token-info.model';
 import { hasValue } from './src/app/shared/empty.util';
-import { UIServerConfig } from './src/config/ui-server-config.interface';
-import bootstrap from './src/main.server';
-import { buildAppConfig } from './src/config/config.server';
 import {
   APP_CONFIG,
   AppConfig,
 } from './src/config/app-config.interface';
+import { buildAppConfig } from './src/config/config.server';
 import { extendEnvironmentWithAppConfig } from './src/config/config.util';
-import { ServerHashedFileMapping } from './src/modules/dynamic-hash/hashed-file-mapping.server';
-import { logStartupMessage } from './startup-message';
-import { TOKENITEM } from './src/app/core/auth/models/auth-token-info.model';
-import { CommonEngine } from '@angular/ssr';
-import { APP_BASE_HREF } from '@angular/common';
+import { SsrExcludePatterns } from './src/config/ssr-config.interface';
+import { UIServerConfig } from './src/config/ui-server-config.interface';
+import { environment } from './src/environments/environment';
 import {
   REQUEST,
   RESPONSE,
 } from './src/express.tokens';
+import bootstrap from './src/main.server';
+import { ServerHashedFileMapping } from './src/modules/dynamic-hash/hashed-file-mapping.server';
+import { logStartupMessage } from './startup-message';
 
 /*
  * Set path for the browser application's dist folder
@@ -226,7 +224,7 @@ export function app() {
  * The callback function to serve server side angular
  */
 function ngApp(req, res, next) {
-  if (environment.ssr.enabled && req.method === 'GET' && (req.path === '/' || environment.ssr.paths.some(pathPrefix => req.path.startsWith(pathPrefix)))) {
+  if (environment.ssr.enabled && req.method === 'GET' && (req.path === '/' || !isExcludedFromSsr(req.path, environment.ssr.excludePathPatterns))) {
     // Render the page to user via SSR (server side rendering)
     serverSideRender(req, res, next);
   } else {
@@ -273,6 +271,12 @@ function serverSideRender(req, res, next, sendToUser: boolean = true) {
       ],
     })
     .then((html) => {
+      // If headers were already sent, then do nothing else, it is probably a
+      // redirect response
+      if (res.headersSent) {
+        return;
+      }
+
       if (hasValue(html)) {
         // Replace REST URL with UI URL
         if (environment.ssr.replaceRestUrl && REST_BASE_URL !== environment.rest.baseUrl) {
@@ -308,17 +312,23 @@ function serverSideRender(req, res, next, sendToUser: boolean = true) {
     });
 }
 
-/**
- * Send back response to user to trigger direct client-side rendering (CSR)
- * @param req current request
- * @param res current response
- */
+// Read file once at startup
+const indexHtmlContent = readFileSync(indexHtml, 'utf8');
+
 function clientSideRender(req, res) {
-  res.sendFile(indexHtml, {
-    headers: {
-      'Cache-Control': 'no-cache, no-store',
-    },
-  });
+  const namespace = environment.ui.nameSpace || '/';
+  let html = indexHtmlContent;
+  // Replace base href dynamically
+  html = html.replace(
+    /<base href="[^"]*">/,
+    `<base href="${namespace.endsWith('/') ? namespace : namespace + '/'}">`,
+  );
+
+  // Replace REST URL with UI URL
+  if (environment.ssr.replaceRestUrl && REST_BASE_URL !== environment.rest.baseUrl) {
+    html = html.replace(new RegExp(REST_BASE_URL, 'g'), environment.rest.baseUrl);
+  }
+  res.set('Cache-Control', 'no-cache, no-store').send(html);
 }
 
 
@@ -573,8 +583,8 @@ function createHttpsServer(keys) {
  * Create an HTTP server with the configured port and host.
  */
 function run() {
-  const port = environment.ui.port || 4000;
-  const host = environment.ui.host || '/';
+  const port = environment.ui.port;
+  const host = environment.ui.host;
 
   // Start up the Node server
   const server = app();
@@ -638,6 +648,21 @@ function start() {
   } else {
     run();
   }
+}
+
+/**
+ * Check if SSR should be skipped for path
+ *
+ * @param path
+ * @param excludePathPattern
+ */
+function isExcludedFromSsr(path: string, excludePathPattern: SsrExcludePatterns[]): boolean {
+  const patterns = excludePathPattern.map(p =>
+    new RegExp(p.pattern, p.flag || '')
+  );
+  return patterns.some((regex) => {
+    return regex.test(path)
+  });
 }
 
 /*

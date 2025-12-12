@@ -58,6 +58,12 @@ export class AuthorizedCollectionSelectorComponent extends DSOSelectorComponent 
    */
   @Input() entityType: string;
 
+  /**
+   * Search endpoint to use for finding authorized collections.
+   * Defaults to 'findSubmitAuthorized', but can be overridden (e.g. to 'findAdminAuthorized')
+   */
+  @Input() searchHref = 'findSubmitAuthorized';
+
   constructor(
     protected searchService: SearchService,
     protected collectionDataService: CollectionDataService,
@@ -96,7 +102,7 @@ export class AuthorizedCollectionSelectorComponent extends DSOSelectorComponent 
           findOptions);
     } else {
       searchListService$ = this.collectionDataService
-        .getAuthorizedCollection(query, findOptions, useCache, false, followLink('parentCommunity'));
+        .getAuthorizedCollection(query, findOptions, useCache, false, this.searchHref, followLink('parentCommunity'));
     }
     return searchListService$.pipe(
       getFirstCompletedRemoteData(),

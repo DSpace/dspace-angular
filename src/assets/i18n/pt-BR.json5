@@ -50,6 +50,10 @@
   // "error-page.orcid.generic-error": "An error occurred during login via ORCID. Make sure you have shared your ORCID account email address with DSpace. If the error persists, contact the administrator",
   "error-page.orcid.generic-error": "Ocorreu um erro durante o login via ORCID. Certifique-se de ter compartilhado o endereço de e-mail da sua conta ORCID com o DSpace. Se o erro persistir, entre em contato com o administrador",
 
+  // "listelement.badge.access-status": "Access status:",
+  // TODO New key - Add a translation
+  "listelement.badge.access-status": "Access status:",
+
   // "access-status.embargo.listelement.badge": "Embargo",
   "access-status.embargo.listelement.badge": "Embargo",
 
@@ -605,7 +609,8 @@
   // "admin.access-control.groups.form.alert.permanent": "This group is permanent, so it can't be edited or deleted. You can still add and remove group members using this page.",
   "admin.access-control.groups.form.alert.permanent": "Este grupo é permanente, portanto, não pode ser editado ou excluído. Você ainda pode adicionar e remover membros do grupo usando esta página.",
 
-  // "admin.access-control.groups.form.alert.workflowGroup": "This group can't be modified or deleted because it corresponds to a role in the submission and workflow process in the \"{{name}}\" {{comcol}}. You can delete it from the <a href='{{comcolEditRolesRoute}}'>\"assign roles\"</a> tab on the edit {{comcol}} page. You can still add and remove group members using this page.",
+  // "admin.access-control.groups.form.alert.workflowGroup": "This group can’t be modified or deleted because it corresponds to a role in the submission and workflow process in the \"{{name}}\" {{comcol}}. You can delete it from the <a href='{{comcolEditRolesRoute}}'>\"assign roles\"</a> tab on the edit {{comcol}} page. You can still add and remove group members using this page.",
+  // TODO Source message changed - Revise the translation
   "admin.access-control.groups.form.alert.workflowGroup": "Este grupo não pode ser modificado ou excluído porque corresponde a uma função no processo de submissão e fluxo de trabalho na {{comcol}} \"{{name}}\". Você pode excluí-lo na aba <a href='{{comcolEditRolesRoute}}'>\"atribuir funções\"</a> na página de edição da {{comcol}}. Ainda é possível adicionar e remover membros do grupo usando esta página.",
 
   // "admin.access-control.groups.form.head.create": "Create group",
@@ -1568,6 +1573,10 @@
   // "pagination.next.button.disabled.tooltip": "No more pages of results",
   "pagination.next.button.disabled.tooltip": "Não há mais páginas de resultados",
 
+  // "pagination.page-number-bar": "Control bar for page navigation, relative to element with ID: ",
+  // TODO New key - Add a translation
+  "pagination.page-number-bar": "Control bar for page navigation, relative to element with ID: ",
+
   // "browse.startsWith": ", starting with {{ startsWith }}",
   "browse.startsWith": ", começando com {{ startsWith }}",
 
@@ -1982,6 +1991,10 @@
   // "collection.page.news": "News",
   "collection.page.news": "Notícias",
 
+  // "collection.search.breadcrumbs": "Search",
+  // TODO New key - Add a translation
+  "collection.search.breadcrumbs": "Search",
+
   // "collection.search.results.head": "Search Results",
   "collection.search.results.head": "Resultados da Pesquisa",
 
@@ -2339,6 +2352,10 @@
   // "community.all-lists.head": "Subcommunities and Collections",
   "community.all-lists.head": "Subcomunidades e Coleções",
 
+  // "community.search.breadcrumbs": "Search",
+  // TODO New key - Add a translation
+  "community.search.breadcrumbs": "Search",
+
   // "community.search.results.head": "Search Results",
   "community.search.results.head": "Resultados da Pesquisa",
 
@@ -2419,6 +2436,14 @@
 
   // "cookies.consent.content-modal.service": "service",
   "cookies.consent.content-modal.service": "serviço",
+
+  // "cookies.consent.app.title.accessibility": "Accessibility Settings",
+  // TODO New key - Add a translation
+  "cookies.consent.app.title.accessibility": "Accessibility Settings",
+
+  // "cookies.consent.app.description.accessibility": "Required for saving your accessibility settings locally",
+  // TODO New key - Add a translation
+  "cookies.consent.app.description.accessibility": "Required for saving your accessibility settings locally",
 
   // "cookies.consent.app.title.authentication": "Authentication",
   "cookies.consent.app.title.authentication": "Autenticação",
@@ -2530,6 +2555,10 @@
 
   // "deny-request-copy.success": "Successfully denied item request",
   "deny-request-copy.success": "Pedido de item negado com sucesso",
+
+  // "dynamic-list.load-more": "Load more",
+  // TODO New key - Add a translation
+  "dynamic-list.load-more": "Load more",
 
   // "dropdown.clear": "Clear selection",
   "dropdown.clear": "Limpar seleção",
@@ -2771,6 +2800,10 @@
   // "error.recent-submissions": "Error fetching recent submissions",
   "error.recent-submissions": "Erro ao carregar as submissões recentes",
 
+  // "error.profile-groups": "Error retrieving profile groups",
+  // TODO New key - Add a translation
+  "error.profile-groups": "Error retrieving profile groups",
+
   // "error.search-results": "Error fetching search results",
   "error.search-results": "Erro ao carregar os resultados de busca",
 
@@ -2842,6 +2875,10 @@
 
   // "footer.copyright": "copyright © 2002-{{ year }}",
   "footer.copyright": "copyright © 2002-{{ year }}",
+
+  // "footer.link.accessibility": "Accessibility settings",
+  // TODO New key - Add a translation
+  "footer.link.accessibility": "Accessibility settings",
 
   // "footer.link.dspace": "DSpace software",
   "footer.link.dspace": "DSpace software",
@@ -3185,6 +3222,82 @@
   // "home.top-level-communities.help": "Select a community to browse its collections.",
   "home.top-level-communities.help": "Selecione uma comunidade para navegar por suas coleções",
 
+  // "info.accessibility-settings.breadcrumbs": "Accessibility settings",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.breadcrumbs": "Accessibility settings",
+
+  // "info.accessibility-settings.cookie-warning": "Saving the accessibility settings is currently not possible. Either log in to save the settings in user data, or accept the 'Accessibility Settings' cookie using the 'Cookie Settings' menu at the bottom of the page. Once the cookie has been accepted, you can reload the page to remove this message.",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.cookie-warning": "Saving the accessibility settings is currently not possible. Either log in to save the settings in user data, or accept the 'Accessibility Settings' cookie using the 'Cookie Settings' menu at the bottom of the page. Once the cookie has been accepted, you can reload the page to remove this message.",
+
+  // "info.accessibility-settings.disableNotificationTimeOut.label": "Automatically close notifications after time out",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.disableNotificationTimeOut.label": "Automatically close notifications after time out",
+
+  // "info.accessibility-settings.disableNotificationTimeOut.hint": "When this toggle is activated, notifications will close automatically after the time out passes. When deactivated, notifications will remain open untill manually closed.",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.disableNotificationTimeOut.hint": "When this toggle is activated, notifications will close automatically after the time out passes. When deactivated, notifications will remain open untill manually closed.",
+
+  // "info.accessibility-settings.failed-notification": "Failed to save accessibility settings",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.failed-notification": "Failed to save accessibility settings",
+
+  // "info.accessibility-settings.invalid-form-notification": "Did not save. The form contains invalid values.",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.invalid-form-notification": "Did not save. The form contains invalid values.",
+
+  // "info.accessibility-settings.liveRegionTimeOut.label": "ARIA Live region time out (in seconds)",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.liveRegionTimeOut.label": "ARIA Live region time out (in seconds)",
+
+  // "info.accessibility-settings.liveRegionTimeOut.hint": "The duration after which a message in the ARIA live region disappears. ARIA live regions are not visible on the page, but provide announcements of notifications (or other actions) to screen readers.",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.liveRegionTimeOut.hint": "The duration after which a message in the ARIA live region disappears. ARIA live regions are not visible on the page, but provide announcements of notifications (or other actions) to screen readers.",
+
+  // "info.accessibility-settings.liveRegionTimeOut.invalid": "Live region time out must be greater than 0",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.liveRegionTimeOut.invalid": "Live region time out must be greater than 0",
+
+  // "info.accessibility-settings.notificationTimeOut.label": "Notification time out (in seconds)",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.notificationTimeOut.label": "Notification time out (in seconds)",
+
+  // "info.accessibility-settings.notificationTimeOut.hint": "The duration after which a notification disappears.",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.notificationTimeOut.hint": "The duration after which a notification disappears.",
+
+  // "info.accessibility-settings.notificationTimeOut.invalid": "Notification time out must be greater than 0",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.notificationTimeOut.invalid": "Notification time out must be greater than 0",
+
+  // "info.accessibility-settings.save-notification.cookie": "Successfully saved settings locally.",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.save-notification.cookie": "Successfully saved settings locally.",
+
+  // "info.accessibility-settings.save-notification.metadata": "Successfully saved settings on the user profile.",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.save-notification.metadata": "Successfully saved settings on the user profile.",
+
+  // "info.accessibility-settings.reset-failed": "Failed to reset. Either log in or accept the 'Accessibility Settings' cookie.",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.reset-failed": "Failed to reset. Either log in or accept the 'Accessibility Settings' cookie.",
+
+  // "info.accessibility-settings.reset-notification": "Successfully reset settings.",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.reset-notification": "Successfully reset settings.",
+
+  // "info.accessibility-settings.reset": "Reset accessibility settings",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.reset": "Reset accessibility settings",
+
+  // "info.accessibility-settings.submit": "Save accessibility settings",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.submit": "Save accessibility settings",
+
+  // "info.accessibility-settings.title": "Accessibility settings",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.title": "Accessibility settings",
+
   // "info.end-user-agreement.accept": "I have read and I agree to the End User Agreement",
   "info.end-user-agreement.accept": "Li e concordo com o Contrato de Usuário Final",
 
@@ -3284,6 +3397,10 @@
   // "item.edit.authorizations.title": "Edit item's Policies",
   "item.edit.authorizations.title": "Editar políticas do item",
 
+  // "item.badge.status": "Item status:",
+  // TODO New key - Add a translation
+  "item.badge.status": "Item status:",
+
   // "item.badge.private": "Non-discoverable",
   "item.badge.private": "Privado",
 
@@ -3338,6 +3455,14 @@
   // "item.edit.bitstreams.bundle.name": "BUNDLE: {{ name }}",
   "item.edit.bitstreams.bundle.name": "PACOTE: {{ name }}",
 
+  // "item.edit.bitstreams.bundle.table.aria-label": "Bitstreams in the  {{ bundle }} Bundle",
+  // TODO New key - Add a translation
+  "item.edit.bitstreams.bundle.table.aria-label": "Bitstreams in the  {{ bundle }} Bundle",
+
+  // "item.edit.bitstreams.bundle.tooltip": "You can move a bitstream to a different page by dropping it on the page number.",
+  // TODO New key - Add a translation
+  "item.edit.bitstreams.bundle.tooltip": "You can move a bitstream to a different page by dropping it on the page number.",
+
   // "item.edit.bitstreams.discard-button": "Discard",
   "item.edit.bitstreams.discard-button": "Descartar",
 
@@ -3356,8 +3481,32 @@
   // "item.edit.bitstreams.edit.buttons.undo": "Undo changes",
   "item.edit.bitstreams.edit.buttons.undo": "Desfazer mudanças",
 
+  // "item.edit.bitstreams.edit.live.cancel": "{{ bitstream }} was returned to position {{ toIndex }} and is no longer selected.",
+  // TODO New key - Add a translation
+  "item.edit.bitstreams.edit.live.cancel": "{{ bitstream }} was returned to position {{ toIndex }} and is no longer selected.",
+
+  // "item.edit.bitstreams.edit.live.clear": "{{ bitstream }} is no longer selected.",
+  // TODO New key - Add a translation
+  "item.edit.bitstreams.edit.live.clear": "{{ bitstream }} is no longer selected.",
+
+  // "item.edit.bitstreams.edit.live.loading": "Waiting for move to complete.",
+  // TODO New key - Add a translation
+  "item.edit.bitstreams.edit.live.loading": "Waiting for move to complete.",
+
+  // "item.edit.bitstreams.edit.live.select": "{{ bitstream }} is selected.",
+  // TODO New key - Add a translation
+  "item.edit.bitstreams.edit.live.select": "{{ bitstream }} is selected.",
+
+  // "item.edit.bitstreams.edit.live.move": "{{ bitstream }} is now in position {{ toIndex }}.",
+  // TODO New key - Add a translation
+  "item.edit.bitstreams.edit.live.move": "{{ bitstream }} is now in position {{ toIndex }}.",
+
   // "item.edit.bitstreams.empty": "This item doesn't contain any bitstreams. Click the upload button to create one.",
   "item.edit.bitstreams.empty": "Este item não contém bitstreams. Clique no botão de enviar para adicionar um.",
+
+  // "item.edit.bitstreams.info-alert": "Bitstreams can be reordered within their bundles by holding the drag handle and moving the mouse. Alternatively, bitstreams can be moved using the keyboard in the following way: Select the bitstream by pressing enter when the bitstream's drag handle is in focus. Move the bitstream up or down using the arrow keys. Press enter again to confirm the current position of the bitstream.",
+  // TODO New key - Add a translation
+  "item.edit.bitstreams.info-alert": "Bitstreams can be reordered within their bundles by holding the drag handle and moving the mouse. Alternatively, bitstreams can be moved using the keyboard in the following way: Select the bitstream by pressing enter when the bitstream's drag handle is in focus. Move the bitstream up or down using the arrow keys. Press enter again to confirm the current position of the bitstream.",
 
   // "item.edit.bitstreams.headers.actions": "Actions",
   "item.edit.bitstreams.headers.actions": "Ações",
@@ -3412,6 +3561,10 @@
 
   // "item.edit.bitstreams.upload-button": "Upload",
   "item.edit.bitstreams.upload-button": "Enviar",
+
+  // "item.edit.bitstreams.load-more.link": "Load more",
+  // TODO New key - Add a translation
+  "item.edit.bitstreams.load-more.link": "Load more",
 
   // "item.edit.delete.cancel": "Cancel",
   "item.edit.delete.cancel": "Cancelar",
@@ -3577,6 +3730,14 @@
 
   // "item.edit.metadata.edit.authority.key": "Edit authority key",
   "item.edit.metadata.edit.authority.key": "Editar chave de autoridade",
+
+  // "item.edit.metadata.edit.buttons.enable-free-text-editing": "Enable free-text editing",
+  // TODO New key - Add a translation
+  "item.edit.metadata.edit.buttons.enable-free-text-editing": "Enable free-text editing",
+
+  // "item.edit.metadata.edit.buttons.disable-free-text-editing": "Disable free-text editing",
+  // TODO New key - Add a translation
+  "item.edit.metadata.edit.buttons.disable-free-text-editing": "Disable free-text editing",
 
   // "item.edit.metadata.edit.buttons.confirm": "Confirm",
   "item.edit.metadata.edit.buttons.confirm": "Confirmar",
@@ -3845,7 +4006,8 @@
   // "item.edit.tabs.metadata.head": "Metadata",
   "item.edit.tabs.metadata.head": "Metadados",
 
-  // "item.edit.tabs.metadata.title": "Item Edit - Metadata",
+  // "item.edit.tabs.metadata.title": "Item Edit -  Metadata",
+  // TODO Source message changed - Revise the translation
   "item.edit.tabs.metadata.title": "Editar Item - Metadados",
 
   // "item.edit.tabs.relationships.head": "Relationships",
@@ -3923,7 +4085,8 @@
   // "item.edit.tabs.status.labels.lastModified": "Last Modified",
   "item.edit.tabs.status.labels.lastModified": "Ultima alteração",
 
-  // "item.edit.tabs.status.title": "Item Edit - Status",
+  // "item.edit.tabs.status.title": "Item Edit -  Status",
+  // TODO Source message changed - Revise the translation
   "item.edit.tabs.status.title": "Editar Item - Status",
 
   // "item.edit.tabs.versionhistory.head": "Version History",
@@ -3938,7 +4101,8 @@
   // "item.edit.tabs.view.head": "View Item",
   "item.edit.tabs.view.head": "Visualizar Item",
 
-  // "item.edit.tabs.view.title": "Item Edit - View",
+  // "item.edit.tabs.view.title": "Item Edit -  View",
+  // TODO Source message changed - Revise the translation
   "item.edit.tabs.view.title": "Editar Item - Visualizar",
 
   // "item.edit.withdraw.cancel": "Cancel",
@@ -4214,6 +4378,22 @@
   // "item.preview.oaire.citation.volume": "Volume",
   "item.preview.oaire.citation.volume": "Volume",
 
+  // "item.preview.dc.relation.hasversion": "Has version",
+  // TODO New key - Add a translation
+  "item.preview.dc.relation.hasversion": "Has version",
+
+  // "item.preview.dc.relation.ispartofseries": "Is part of series",
+  // TODO New key - Add a translation
+  "item.preview.dc.relation.ispartofseries": "Is part of series",
+
+  // "item.preview.dc.rights": "Rights",
+  // TODO New key - Add a translation
+  "item.preview.dc.rights": "Rights",
+
+  // "item.preview.dc.identifier.other": "Other Identifier",
+  // TODO Source message changed - Revise the translation
+  "item.preview.dc.identifier.other": "Outro identificador:",
+
   // "item.preview.dc.relation.issn": "ISSN",
   "item.preview.dc.relation.issn": "ISSN",
 
@@ -4268,7 +4448,8 @@
   // "item.preview.organization.foundingDate": "Founding Date",
   "item.preview.organization.foundingDate": "Data de Fundação",
 
-  // "item.preview.organization.identifier.crossrefid": "CrossRef ID",
+  // "item.preview.organization.identifier.crossrefid": "Crossref ID",
+  // TODO Source message changed - Revise the translation
   "item.preview.organization.identifier.crossrefid": "CrossRef ID",
 
   // "item.preview.organization.identifier.isni": "ISNI",
@@ -4427,7 +4608,8 @@
   // "qa-reinstate.create.modal.form.summary.label": "You are requesting to reinstate this item",
   "qa-reinstate.create.modal.form.summary.label": "Você está solicitando a reintegração deste item",
 
-  // "qa-reinstate.create.modal.form.summary2.label": "Please enter the reason for the reinstatement",
+  // "qa-reinstate.create.modal.form.summary2.label": "Please enter the reason for the reinstatment",
+  // TODO Source message changed - Revise the translation
   "qa-reinstate.create.modal.form.summary2.label": "Por favor, insira o motivo para a reintegração",
 
   // "item.version.create.modal.form.summary.placeholder": "Insert the summary for the new version",
@@ -4907,7 +5089,7 @@
   // "menu.section.icon.access_control": "Access Control menu section",
   "menu.section.icon.access_control": "Seção do menu Controle de Acesso",
 
-  //"menu.section.icon.reports": "Reports menu section",
+  // "menu.section.icon.reports": "Reports menu section",
   "menu.section.icon.reports": "Seção do menu de Relatórios",
 
   // "menu.section.icon.admin_search": "Admin search menu section",
@@ -5021,11 +5203,11 @@
   // "menu.section.statistics_task": "Statistics Task",
   "menu.section.statistics_task": "Tarefas de Estatísticas",
 
-  //"menu.section.toggle.reports": "Toggle Reports section",
-  "menu.section.toggle.reports": "Alternar seção de Relatórios",
-
   // "menu.section.toggle.access_control": "Toggle Access Control section",
   "menu.section.toggle.access_control": "Alternar seção Controle de Acesso",
+
+  // "menu.section.toggle.reports": "Toggle Reports section",
+  "menu.section.toggle.reports": "Alternar seção de Relatórios",
 
   // "menu.section.toggle.control_panel": "Toggle Control Panel section",
   "menu.section.toggle.control_panel": "Alternar seção Painel de Controle",
@@ -5159,6 +5341,10 @@
   // "mydspace.show.supervisedWorkspace": "Supervised items",
   "mydspace.show.supervisedWorkspace": "Itens supervisionados",
 
+  // "mydspace.status": "My DSpace status:",
+  // TODO New key - Add a translation
+  "mydspace.status": "My DSpace status:",
+
   // "mydspace.status.mydspaceArchived": "Archived",
   "mydspace.status.mydspaceArchived": "Arquivado",
 
@@ -5219,7 +5405,8 @@
   // "nav.login": "Log In",
   "nav.login": "Entrar",
 
-  // "nav.user-profile-menu-and-logout": "User profile menu and Log Out",
+  // "nav.user-profile-menu-and-logout": "User profile menu and log out",
+  // TODO Source message changed - Revise the translation
   "nav.user-profile-menu-and-logout": "Menu do perfil de usuário e Sair",
 
   // "nav.logout": "Log Out",
@@ -5254,6 +5441,10 @@
 
   // "nav.user.description": "User profile bar",
   "nav.user.description": "Barra de perfil do usuário",
+
+  // "listelement.badge.dso-type": "Item type:",
+  // TODO New key - Add a translation
+  "listelement.badge.dso-type": "Item type:",
 
   // "none.listelement.badge": "Item",
   "none.listelement.badge": "Item",
@@ -5306,7 +5497,8 @@
   // "quality-assurance.source.error.service.retrieve": "An error occurred while loading the Quality Assurance source",
   "quality-assurance.source.error.service.retrieve": "Ocorreu um erro ao carregar a fonte de Garantia de Qualidade",
 
-  // "quality-assurance.loading": "Loading...",
+  // "quality-assurance.loading": "Loading ...",
+  // TODO Source message changed - Revise the translation
   "quality-assurance.loading": "Carregando...",
 
   // "quality-assurance.events.topic": "Topic:",
@@ -5497,6 +5689,9 @@
 
   // "orgunit.page.ror": "ROR Identifier",
   "orgunit.page.ror": "Identificador ROR",
+
+  // "orgunit.search.results.head": "Organizational Unit Search Results",
+  "orgunit.search.results.head": "Resultados da Pesquisa de Unidade Organizacional",
 
   // "pagination.options.description": "Pagination options",
   "pagination.options.description": "Opções de paginação",
@@ -5783,17 +5978,31 @@
   // "process.overview.unknown.user": "Unknown",
   "process.overview.unknown.user": "Desconhecido",
 
-  // "process.bulk.delete.error.head": "Error on deleting process",
+  // "process.bulk.delete.error.head": "Error on deleteing process",
+  // TODO Source message changed - Revise the translation
   "process.bulk.delete.error.head": "Erro ao excluir processo",
 
   // "process.bulk.delete.error.body": "The process with ID {{processId}} could not be deleted. The remaining processes will continue being deleted. ",
   "process.bulk.delete.error.body": "O processo com ID {{processId}} não pôde ser excluído. Os demais processos continuarão sendo excluídos. ",
 
-  // "process.bulk.delete.success": "{{count}} process(es) have been successfully deleted",
+  // "process.bulk.delete.success": "{{count}} process(es) have been succesfully deleted",
+  // TODO Source message changed - Revise the translation
   "process.bulk.delete.success": "{{count}} processo(s) foram excluídos com sucesso",
 
   // "profile.breadcrumbs": "Update Profile",
   "profile.breadcrumbs": "Atualizar Perfil",
+
+  // "profile.card.accessibility.content": "Accessibility settings can be configured on the accessibility settings page.",
+  // TODO New key - Add a translation
+  "profile.card.accessibility.content": "Accessibility settings can be configured on the accessibility settings page.",
+
+  // "profile.card.accessibility.header": "Accessibility",
+  // TODO New key - Add a translation
+  "profile.card.accessibility.header": "Accessibility",
+
+  // "profile.card.accessibility.link": "Go to Accessibility Settings Page",
+  // TODO New key - Add a translation
+  "profile.card.accessibility.link": "Go to Accessibility Settings Page",
 
   // "profile.card.identify": "Identify",
   "profile.card.identify": "Identificação",
@@ -5960,7 +6169,8 @@
   // "media-viewer.playlist": "Playlist",
   "media-viewer.playlist": "Lista de reprodução",
 
-  // "suggestion.loading": "Loading...",
+  // "suggestion.loading": "Loading ...",
+  // TODO Source message changed - Revise the translation
   "suggestion.loading": "Carregando...",
 
   // "suggestion.title": "Publication Claim",
@@ -6587,6 +6797,14 @@
   // "search.filters.filter.creativeDatePublished.label": "Search date published",
   "search.filters.filter.creativeDatePublished.label": "Procurar por data de publicação",
 
+  // "search.filters.filter.creativeDatePublished.min.label": "Start",
+  // TODO New key - Add a translation
+  "search.filters.filter.creativeDatePublished.min.label": "Start",
+
+  // "search.filters.filter.creativeDatePublished.max.label": "End",
+  // TODO New key - Add a translation
+  "search.filters.filter.creativeDatePublished.max.label": "End",
+
   // "search.filters.filter.creativeWorkEditor.head": "Editor",
   "search.filters.filter.creativeWorkEditor.head": "Editor",
 
@@ -6836,7 +7054,8 @@
   // "search.filters.namedresourcetype.Validation": "Validation",
   "search.filters.namedresourcetype.Validation": "Validação",
 
-  // "search.filters.namedresourcetype.Waiting for Controller": "Waiting for Controller",
+  // "search.filters.namedresourcetype.Waiting for Controller": "Waiting for reviewer",
+  // TODO Source message changed - Revise the translation
   "search.filters.namedresourcetype.Waiting for Controller": "Esperando por controlador",
 
   // "search.filters.namedresourcetype.Workflow": "Workflow",
@@ -7196,16 +7415,16 @@
   // "submission.import-external.source.sherpaPublisher": "SHERPA Publishers",
   "submission.import-external.source.sherpaPublisher": "Editoras SHERPA",
 
-  // "submission.import-external.source.openAIREFunding": "Funding OpenAIRE API",
-  "submission.import-external.source.openAIREFunding": "Financiadoras OpenAIRE API",
-
-  // "submission.import-external.source.openaire": "OpenAIRE Authors",
+  // "submission.import-external.source.openaire": "OpenAIRE Search by Authors",
+  // TODO Source message changed - Revise the translation
   "submission.import-external.source.openaire": "Autores OpenAIRE",
 
-  // "submission.import-external.source.openaireTitle": "OpenAIRE Titles",
+  // "submission.import-external.source.openaireTitle": "OpenAIRE Search by Title",
+  // TODO Source message changed - Revise the translation
   "submission.import-external.source.openaireTitle": "Títulos OpenAIRE",
 
-  // "submission.import-external.source.openaireFunding": "OpenAIRE Funding",
+  // "submission.import-external.source.openaireFunding": "OpenAIRE Search by Funder",
+  // TODO Source message changed - Revise the translation
   "submission.import-external.source.openaireFunding": "Financiamento OpenAIRE",
 
   // "submission.import-external.source.orcid": "ORCID",
@@ -7346,10 +7565,13 @@
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.orcid": "Importing from ORCID",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.head.orcid": "Importando do ORCID",
 
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openaire": "Importing from OpenAIRE",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openaire": "Importing from OpenAIRE Authors",
 
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openaireTitle": "Importing from OpenAIRE",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openaireTitle": "Importing from OpenAIRE Titles",
 
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openaireFunding": "Importing from OpenAIRE",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openaireFunding": "Importing from OpenAIRE Funding",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaJournal": "Importing from Sherpa Journal",
@@ -7469,6 +7691,10 @@
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalIssue": "Local Journal Issues ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalIssue": "Números de Revista Local ({{ count }})",
 
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfIssue": "Local Journal Volumes ({{ count }})",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfIssue": "Local Journal Volumes ({{ count }})",
+
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfPublication": "Local Journal Volumes ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfPublication": "Volumes de Revista Local ({{ count }})",
 
@@ -7499,19 +7725,23 @@
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.orcidWorks": "ORCID ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.orcidWorks": "ORCID ({{ count }})",
 
-  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.crossref": "CrossRef ({{ count }})",
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.crossref": "Crossref ({{ count }})",
+  // TODO Source message changed - Revise the translation
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.crossref": "CrossRef ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.scopus": "Scopus ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.scopus": "Scopus ({{ count }})",
 
-  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.openaire": "OpenAIRE Authors ({{ count }})",
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.openaire": "OpenAIRE Search by Authors ({{ count }})",
+  // TODO Source message changed - Revise the translation
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.openaire": "Autores OpenAIRE ({{ count }})",
 
-  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.openaireTitle": "OpenAIRE Titles ({{ count }})",
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.openaireTitle": "OpenAIRE Search by Title ({{ count }})",
+  // TODO Source message changed - Revise the translation
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.openaireTitle": "Títulos OpenAIRE ({{ count }})",
 
-  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.openaireFunding": "Funding OpenAIRE ({{ count }})",
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.openaireFunding": "OpenAIRE Search by Funder ({{ count }})",
+  // TODO Source message changed - Revise the translation
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.openaireFunding": "Financiamento OpenAIRE ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournalIssn": "Sherpa Journals by ISSN ({{ count }})",
@@ -7561,6 +7791,10 @@
 
   // "submission.sections.describe.relationship-lookup.title.JournalIssue": "Journal Issues",
   "submission.sections.describe.relationship-lookup.title.JournalIssue": "Edições da Revista",
+
+  // "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfIssue": "Journal Volumes",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfIssue": "Journal Volumes",
 
   // "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfPublication": "Journal Volumes",
   "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfPublication": "Volumes de Revista",
@@ -7624,6 +7858,10 @@
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalOfPublication": "Selected Journals",
   "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalOfPublication": "Revistas Selecionadas",
+
+  // "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfIssue": "Selected Journal Volume",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfIssue": "Selected Journal Volume",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfPublication": "Selected Journal Volume",
   "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfPublication": "Volume de Revista selecionado",
@@ -7742,8 +7980,9 @@
   // "submission.sections.ccLicense.option.select": "Select an option…",
   "submission.sections.ccLicense.option.select": "Selecione uma opção…",
 
-  // "submission.sections.ccLicense.link": "You've selected the following license:",
-  "submission.sections.ccLicense.link": "Você selecionou a seguinte licença:",
+  // "submission.sections.ccLicense.link": "You’ve selected the following license:",
+  // TODO New key - Add a translation
+  "submission.sections.ccLicense.link": "You’ve selected the following license:",
 
   // "submission.sections.ccLicense.confirmation": "I grant the license above",
   "submission.sections.ccLicense.confirmation": "Eu concedo a licença acima",
@@ -8273,6 +8512,10 @@
   // "subscriptions.tooltip": "Subscribe",
   "subscriptions.tooltip": "Assinar",
 
+  // "subscriptions.unsubscribe": "Unsubscribe",
+  // TODO New key - Add a translation
+  "subscriptions.unsubscribe": "Unsubscribe",
+
   // "subscriptions.modal.title": "Subscriptions",
   "subscriptions.modal.title": "Assinaturas",
 
@@ -8282,7 +8525,8 @@
   // "subscriptions.modal.close": "Close",
   "subscriptions.modal.close": "Fechar",
 
-  // "subscriptions.modal.delete-info": "To remove this subscription, please visit the "Subscriptions" page under your user profile",
+  // "subscriptions.modal.delete-info": "To remove this subscription, please visit the \"Subscriptions\" page under your user profile",
+  // TODO Source message changed - Revise the translation
   "subscriptions.modal.delete-info": "Para remover esta assinatura, visite a página \"Assinaturas\" no seu perfil de usuário",
 
   // "subscriptions.modal.new-subscription-form.type.content": "Content",
@@ -8444,13 +8688,12 @@
   // "supervision.search.results.head": "Workflow and Workspace tasks",
   "supervision.search.results.head": "Tarefas de Fluxo de Trabalho e Área de Trabalho",
 
-  // "orgunit.search.results.head": "Organizational Unit Search Results",
-  "orgunit.search.results.head": "Resultados da Pesquisa de Unidade Organizacional",
-
-  // "workflow-item.edit.breadcrumbs": "Edit workflow item",
+  // "workflow-item.edit.breadcrumbs": "Edit workflowitem",
+  // TODO Source message changed - Revise the translation
   "workflow-item.edit.breadcrumbs": "Editar Item do Fluxo de Trabalho",
 
-  // "workflow-item.edit.title": "Edit workflow item",
+  // "workflow-item.edit.title": "Edit workflowitem",
+  // TODO Source message changed - Revise the translation
   "workflow-item.edit.title": "Editar Item do Fluxo de Trabalho",
 
   // "workflow-item.delete.notification.success.title": "Deleted",
@@ -8503,9 +8746,6 @@
 
   // "workflow-item.view.breadcrumbs": "Workflow View",
   "workflow-item.view.breadcrumbs": "Visualização do Fluxo de Trabalho",
-
-  // "workflow-item.view.title": "Workflow View",
-  "workflow-item.view.title": "Visualização do Fluxo de Trabalho",
 
   // "workspace-item.view.breadcrumbs": "Workspace View",
   "workspace-item.view.breadcrumbs": "Visualização da Área de Trabalho",
@@ -8966,6 +9206,14 @@
   // "person.orcid.registry.auth": "ORCID Authorizations",
   "person.orcid.registry.auth": "Autorizações ORCID",
 
+  // "person.orcid-tooltip.authenticated": "{{orcid}}",
+  // TODO New key - Add a translation
+  "person.orcid-tooltip.authenticated": "{{orcid}}",
+
+  // "person.orcid-tooltip.not-authenticated": "{{orcid}} (unconfirmed)",
+  // TODO New key - Add a translation
+  "person.orcid-tooltip.not-authenticated": "{{orcid}} (unconfirmed)",
+
   // "home.recent-submissions.head": "Recent Submissions",
   "home.recent-submissions.head": "Submissões Recentes",
 
@@ -9175,391 +9423,280 @@
 
   // "ldn-registered-services.title": "Registered Services",
   "ldn-registered-services.title": "Serviços Registrados",
-
   // "ldn-registered-services.table.name": "Name",
   "ldn-registered-services.table.name": "Nome",
-
   // "ldn-registered-services.table.description": "Description",
   "ldn-registered-services.table.description": "Descrição",
-
   // "ldn-registered-services.table.status": "Status",
   "ldn-registered-services.table.status": "Situação",
-
   // "ldn-registered-services.table.action": "Action",
   "ldn-registered-services.table.action": "Ação",
-
   // "ldn-registered-services.new": "NEW",
   "ldn-registered-services.new": "NOVO",
-
   // "ldn-registered-services.new.breadcrumbs": "Registered Services",
   "ldn-registered-services.new.breadcrumbs": "Serviços Registrados",
 
   // "ldn-service.overview.table.enabled": "Enabled",
   "ldn-service.overview.table.enabled": "Habilitado",
-
   // "ldn-service.overview.table.disabled": "Disabled",
   "ldn-service.overview.table.disabled": "Desabilitado",
-
   // "ldn-service.overview.table.clickToEnable": "Click to enable",
   "ldn-service.overview.table.clickToEnable": "Clique para habilitar",
-
   // "ldn-service.overview.table.clickToDisable": "Click to disable",
   "ldn-service.overview.table.clickToDisable": "Clique para desabilitar",
 
   // "ldn-edit-registered-service.title": "Edit Service",
   "ldn-edit-registered-service.title": "Editar Serviço",
-
   // "ldn-create-service.title": "Create service",
   "ldn-create-service.title": "Criar serviço",
-
   // "service.overview.create.modal": "Create Service",
   "service.overview.create.modal": "Criar Serviço",
-
   // "service.overview.create.body": "Please confirm the creation of this service.",
   "service.overview.create.body": "Por favor, confirme a criação deste serviço.",
-
   // "ldn-service-status": "Status",
   "ldn-service-status": "Situação",
-
   // "service.confirm.create": "Create",
   "service.confirm.create": "Criar",
-
   // "service.refuse.create": "Cancel",
   "service.refuse.create": "Cancelar",
-
   // "ldn-register-new-service.title": "Register a new service",
   "ldn-register-new-service.title": "Registrar um novo serviço",
-
   // "ldn-new-service.form.label.submit": "Save",
   "ldn-new-service.form.label.submit": "Salvar",
-
   // "ldn-new-service.form.label.name": "Name",
   "ldn-new-service.form.label.name": "Nome",
-
   // "ldn-new-service.form.label.description": "Description",
   "ldn-new-service.form.label.description": "Descrição",
-
   // "ldn-new-service.form.label.url": "Service URL",
   "ldn-new-service.form.label.url": "URL do Serviço",
-
   // "ldn-new-service.form.label.ip-range": "Service IP range",
   "ldn-new-service.form.label.ip-range": "Intervalo de IP do Serviço",
-
   // "ldn-new-service.form.label.score": "Level of trust",
   "ldn-new-service.form.label.score": "Nível de Confiança",
-
   // "ldn-new-service.form.label.ldnUrl": "LDN Inbox URL",
   "ldn-new-service.form.label.ldnUrl": "URL da Caixa de Entrada LDN",
-
   // "ldn-new-service.form.placeholder.name": "Please provide service name",
   "ldn-new-service.form.placeholder.name": "Por favor, forneça o nome do serviço",
-
   // "ldn-new-service.form.placeholder.description": "Please provide a description regarding your service",
   "ldn-new-service.form.placeholder.description": "Por favor, forneça uma descrição sobre o seu serviço",
-
   // "ldn-new-service.form.placeholder.url": "Please input the URL for users to check out more information about the service",
   "ldn-new-service.form.placeholder.url": "Por favor, insira a URL para os usuários obterem mais informações sobre o serviço",
-
   // "ldn-new-service.form.placeholder.lowerIp": "IPv4 range lower bound",
   "ldn-new-service.form.placeholder.lowerIp": "Limite inferior do intervalo IPv4",
-
   // "ldn-new-service.form.placeholder.upperIp": "IPv4 range upper bound",
   "ldn-new-service.form.placeholder.upperIp": "Limite superior do intervalo IPv4",
-
   // "ldn-new-service.form.placeholder.ldnUrl": "Please specify the URL of the LDN Inbox",
   "ldn-new-service.form.placeholder.ldnUrl": "Por favor, especifique a URL da Caixa de Entrada LDN",
-
   // "ldn-new-service.form.placeholder.score": "Please enter a value between 0 and 1. Use the “.” as decimal separator",
   "ldn-new-service.form.placeholder.score": "Por favor, insira um valor entre 0 e 1. Use o “.” como separador decimal",
-
   // "ldn-service.form.label.placeholder.default-select": "Select a pattern",
   "ldn-service.form.label.placeholder.default-select": "Selecione um padrão",
 
   // "ldn-service.form.pattern.ack-accept.label": "Acknowledge and Accept",
   "ldn-service.form.pattern.ack-accept.label": "Reconhecer e Aceitar",
-
   // "ldn-service.form.pattern.ack-accept.description": "This pattern is used to acknowledge and accept a request (offer). It implies an intention to act on the request.",
   "ldn-service.form.pattern.ack-accept.description": "Este padrão é usado para reconhecer e aceitar uma solicitação (oferta). Isso implica uma intenção de agir sobre a solicitação.",
-
   // "ldn-service.form.pattern.ack-accept.category": "Acknowledgements",
   "ldn-service.form.pattern.ack-accept.category": "Reconhecimentos",
 
   // "ldn-service.form.pattern.ack-reject.label": "Acknowledge and Reject",
   "ldn-service.form.pattern.ack-reject.label": "Reconhecer e Rejeitar",
-
   // "ldn-service.form.pattern.ack-reject.description": "This pattern is used to acknowledge and reject a request (offer). It signifies no further action regarding the request.",
   "ldn-service.form.pattern.ack-reject.description": "Este padrão é usado para reconhecer e rejeitar uma solicitação (oferta). Isso significa nenhuma ação adicional em relação à solicitação.",
-
   // "ldn-service.form.pattern.ack-reject.category": "Acknowledgements",
   "ldn-service.form.pattern.ack-reject.category": "Reconhecimentos",
 
   // "ldn-service.form.pattern.ack-tentative-accept.label": "Acknowledge and Tentatively Accept",
   "ldn-service.form.pattern.ack-tentative-accept.label": "Reconhecer e Aceitar Tentativamente",
-
   // "ldn-service.form.pattern.ack-tentative-accept.description": "This pattern is used to acknowledge and tentatively accept a request (offer). It implies an intention to act, which may change.",
   "ldn-service.form.pattern.ack-tentative-accept.description": "Este padrão é usado para reconhecer e aceitar tentativamente uma solicitação (oferta). Isso implica uma intenção de agir, que pode mudar.",
-
   // "ldn-service.form.pattern.ack-tentative-accept.category": "Acknowledgements",
   "ldn-service.form.pattern.ack-tentative-accept.category": "Reconhecimentos",
 
   // "ldn-service.form.pattern.ack-tentative-reject.label": "Acknowledge and Tentatively Reject",
   "ldn-service.form.pattern.ack-tentative-reject.label": "Reconhecer e Rejeitar Tentativamente",
-
   // "ldn-service.form.pattern.ack-tentative-reject.description": "This pattern is used to acknowledge and tentatively reject a request (offer). It signifies no further action, subject to change.",
   "ldn-service.form.pattern.ack-tentative-reject.description": "Este padrão é usado para reconhecer e rejeitar tentativamente uma solicitação (oferta). Isso indica nenhuma ação adicional, sujeita a alterações.",
-
   // "ldn-service.form.pattern.ack-tentative-reject.category": "Acknowledgements",
   "ldn-service.form.pattern.ack-tentative-reject.category": "Reconhecimentos",
 
   // "ldn-service.form.pattern.announce-endorsement.label": "Announce Endorsement",
   "ldn-service.form.pattern.announce-endorsement.label": "Anunciar Avaliação",
-
   // "ldn-service.form.pattern.announce-endorsement.description": "This pattern is used to announce the existence of an endorsement, referencing the endorsed resource.",
   "ldn-service.form.pattern.announce-endorsement.description": "Este padrão é usado para anunciar a existência de uma avaliação, fazendo referência ao recurso avaliado.",
-
   // "ldn-service.form.pattern.announce-endorsement.category": "Announcements",
   "ldn-service.form.pattern.announce-endorsement.category": "Anúncios",
 
   // "ldn-service.form.pattern.announce-ingest.label": "Announce Ingest",
   "ldn-service.form.pattern.announce-ingest.label": "Announce Ingest",
-
   // "ldn-service.form.pattern.announce-ingest.description": "This pattern is used to announce that a resource has been ingested.",
   "ldn-service.form.pattern.announce-ingest.description": "Este padrão é usado para anunciar que um recurso foi ingerido.",
-
   // "ldn-service.form.pattern.announce-ingest.category": "Announcements",
   "ldn-service.form.pattern.announce-ingest.category": "Anúncios",
 
   // "ldn-service.form.pattern.announce-relationship.label": "Announce Relationship",
   "ldn-service.form.pattern.announce-relationship.label": "Anunciar Relacionamento",
-
   // "ldn-service.form.pattern.announce-relationship.description": "This pattern is used to announce a relationship between two resources.",
   "ldn-service.form.pattern.announce-relationship.description": "Este padrão é usado para anunciar um relacionamento entre dois recursos.",
-
   // "ldn-service.form.pattern.announce-relationship.category": "Announcements",
   "ldn-service.form.pattern.announce-relationship.category": "Anúncios",
 
   // "ldn-service.form.pattern.announce-review.label": "Announce Review",
   "ldn-service.form.pattern.announce-review.label": "Anunciar Revisão",
-
   // "ldn-service.form.pattern.announce-review.description": "This pattern is used to announce the existence of a review, referencing the reviewed resource.",
   "ldn-service.form.pattern.announce-review.description": "Este padrão é usado para anunciar a existência de uma revisão, fazendo referência ao recurso revisado.",
-
   // "ldn-service.form.pattern.announce-review.category": "Announcements",
   "ldn-service.form.pattern.announce-review.category": "Anúncios",
 
   // "ldn-service.form.pattern.announce-service-result.label": "Announce Service Result",
   "ldn-service.form.pattern.announce-service-result.label": "Anunciar Resultado do Serviço",
-
   // "ldn-service.form.pattern.announce-service-result.description": "This pattern is used to announce the existence of a 'service result', referencing the relevant resource.",
   "ldn-service.form.pattern.announce-service-result.description": "Este padrão é usado para anunciar a existência de um 'resultado de serviço', fazendo referência ao recurso relevante.",
-
   // "ldn-service.form.pattern.announce-service-result.category": "Announcements",
   "ldn-service.form.pattern.announce-service-result.category": "Anúncios",
 
   // "ldn-service.form.pattern.request-endorsement.label": "Request Endorsement",
   "ldn-service.form.pattern.request-endorsement.label": "Solicitar Avaliação",
-
   // "ldn-service.form.pattern.request-endorsement.description": "This pattern is used to request endorsement of a resource owned by the origin system.",
   "ldn-service.form.pattern.request-endorsement.description": "Este padrão é usado para solicitar avaliação de um recurso de propriedade do sistema de origem.",
-
   // "ldn-service.form.pattern.request-endorsement.category": "Requests",
   "ldn-service.form.pattern.request-endorsement.category": "Solicitações",
 
   // "ldn-service.form.pattern.request-ingest.label": "Request Ingest",
   "ldn-service.form.pattern.request-ingest.label": "Solicitar Ingestão",
-
   // "ldn-service.form.pattern.request-ingest.description": "This pattern is used to request that the target system ingest a resource.",
   "ldn-service.form.pattern.request-ingest.description": "Este padrão é usado para solicitar que o sistema alvo ingira um recurso.",
-
   // "ldn-service.form.pattern.request-ingest.category": "Requests",
   "ldn-service.form.pattern.request-ingest.category": "Solicitações",
 
   // "ldn-service.form.pattern.request-review.label": "Request Review",
   "ldn-service.form.pattern.request-review.label": "Solicitar Revisão",
-
   // "ldn-service.form.pattern.request-review.description": "This pattern is used to request a review of a resource owned by the origin system.",
   "ldn-service.form.pattern.request-review.description": "Este padrão é usado para solicitar uma revisão de um recurso de propriedade do sistema de origem.",
-
   // "ldn-service.form.pattern.request-review.category": "Requests",
   "ldn-service.form.pattern.request-review.category": "Solicitações",
 
   // "ldn-service.form.pattern.undo-offer.label": "Undo Offer",
   "ldn-service.form.pattern.undo-offer.label": "Desfazer Oferta",
-
   // "ldn-service.form.pattern.undo-offer.description": "This pattern is used to undo (retract) an offer previously made.",
   "ldn-service.form.pattern.undo-offer.description": "Este padrão é usado para desfazer (retrair) uma oferta feita anteriormente.",
-
   // "ldn-service.form.pattern.undo-offer.category": "Undo",
   "ldn-service.form.pattern.undo-offer.category": "Desfazer",
 
   // "ldn-new-service.form.label.placeholder.selectedItemFilter": "No Item Filter Selected",
   "ldn-new-service.form.label.placeholder.selectedItemFilter": "Nenhum Filtro de Item Selecionado",
-
   // "ldn-new-service.form.label.ItemFilter": "Item Filter",
   "ldn-new-service.form.label.ItemFilter": "Filtro de Item",
-
   // "ldn-new-service.form.label.automatic": "Automatic",
   "ldn-new-service.form.label.automatic": "Automático",
-
   // "ldn-new-service.form.error.name": "Name is required",
   "ldn-new-service.form.error.name": "O nome é obrigatório",
-
   // "ldn-new-service.form.error.url": "URL is required",
   "ldn-new-service.form.error.url": "URL é obrigatória",
-
   // "ldn-new-service.form.error.ipRange": "Please enter a valid IP range",
   "ldn-new-service.form.error.ipRange": "Por favor, insira um intervalo de IP válido",
-
   // "ldn-new-service.form.hint.ipRange": "Please enter a valid IpV4 in both range bounds (note: for single IP, please enter the same value in both fields)",
   "ldn-new-service.form.hint.ipRange": "Por favor, insira um IPv4 válido em ambos os limites do intervalo (nota: para um único IP, insira o mesmo valor em ambos os campos)",
-
   // "ldn-new-service.form.error.ldnurl": "LDN URL is required",
   "ldn-new-service.form.error.ldnurl": "O URL do LDN é obrigatório",
-
   // "ldn-new-service.form.error.patterns": "At least a pattern is required",
   "ldn-new-service.form.error.patterns": "Pelo menos um padrão é obrigatório",
-
   // "ldn-new-service.form.error.score": "Please enter a valid score (between 0 and 1). Use the “.” as decimal separator",
   "ldn-new-service.form.error.score": "Por favor, insira uma pontuação válida (entre 0 e 1). Use o ponto (.) como separador decimal.",
 
   // "ldn-new-service.form.label.inboundPattern": "Supported Pattern",
   "ldn-new-service.form.label.inboundPattern": "Padrão Suportado",
-
   // "ldn-new-service.form.label.addPattern": "+ Add more",
   "ldn-new-service.form.label.addPattern": "+ Adicionar mais",
-
   // "ldn-new-service.form.label.removeItemFilter": "Remove",
   "ldn-new-service.form.label.removeItemFilter": "Remover",
-
   // "ldn-register-new-service.breadcrumbs": "New Service",
   "ldn-register-new-service.breadcrumbs": "Novo Serviço",
-
   // "service.overview.delete.body": "Are you sure you want to delete this service?",
   "service.overview.delete.body": "Tem certeza de que deseja excluir este serviço?",
-
   // "service.overview.edit.body": "Do you confirm the changes?",
   "service.overview.edit.body": "Você confirma as alterações?",
-
   // "service.overview.edit.modal": "Edit Service",
   "service.overview.edit.modal": "Editar Serviço",
-
   // "service.detail.update": "Confirm",
   "service.detail.update": "Confirmar",
-
   // "service.detail.return": "Cancel",
   "service.detail.return": "Cancelar",
-
   // "service.overview.reset-form.body": "Are you sure you want to discard the changes and leave?",
   "service.overview.reset-form.body": "Tem certeza de que deseja descartar as alterações e sair?",
-
   // "service.overview.reset-form.modal": "Discard Changes",
   "service.overview.reset-form.modal": "Descartar Alterações",
-
   // "service.overview.reset-form.reset-confirm": "Discard",
   "service.overview.reset-form.reset-confirm": "Descartar",
-
   // "admin.registries.services-formats.modify.success.head": "Successful Edit",
   "admin.registries.services-formats.modify.success.head": "Edição Bem-sucedida",
-
   // "admin.registries.services-formats.modify.success.content": "The service has been edited",
   "admin.registries.services-formats.modify.success.content": "O serviço foi editado",
-
   // "admin.registries.services-formats.modify.failure.head": "Failed Edit",
   "admin.registries.services-formats.modify.failure.head": "Edição Falhou",
-
   // "admin.registries.services-formats.modify.failure.content": "The service has not been edited",
   "admin.registries.services-formats.modify.failure.content": "O serviço não foi editado",
-
   // "ldn-service-notification.created.success.title": "Successful Create",
   "ldn-service-notification.created.success.title": "Criado com Sucesso",
-
   // "ldn-service-notification.created.success.body": "The service has been created",
   "ldn-service-notification.created.success.body": "O serviço foi criado",
-
   // "ldn-service-notification.created.failure.title": "Failed Create",
   "ldn-service-notification.created.failure.title": "Criação Falhou",
-
   // "ldn-service-notification.created.failure.body": "The service has not been created",
   "ldn-service-notification.created.failure.body": "O serviço não foi criado",
-
   // "ldn-service-notification.created.warning.title": "Please select at least one Inbound Pattern",
   "ldn-service-notification.created.warning.title": "Por favor, selecione pelo menos um Padrão de Entrada",
-
   // "ldn-enable-service.notification.success.title": "Successful status updated",
   "ldn-enable-service.notification.success.title": "Atualização da situação bem-sucedida",
-
   // "ldn-enable-service.notification.success.content": "The service status has been updated",
   "ldn-enable-service.notification.success.content": "A situação do serviço foi atualizado",
-
   // "ldn-service-delete.notification.success.title": "Successful Deletion",
   "ldn-service-delete.notification.success.title": "Excluído com sucesso",
-
   // "ldn-service-delete.notification.success.content": "The service has been deleted",
   "ldn-service-delete.notification.success.content": "O serviço foi excluído",
-
   // "ldn-service-delete.notification.error.title": "Failed Deletion",
   "ldn-service-delete.notification.error.title": "Falha na Exclusão",
-
   // "ldn-service-delete.notification.error.content": "The service has not been deleted",
   "ldn-service-delete.notification.error.content": "O serviço não foi excluído",
-
   // "service.overview.reset-form.reset-return": "Cancel",
   "service.overview.reset-form.reset-return": "Cancelar",
-
   // "service.overview.delete": "Delete service",
   "service.overview.delete": "Excluir serviço",
-
   // "ldn-edit-service.title": "Edit service",
   "ldn-edit-service.title": "Editar serviço",
-
   // "ldn-edit-service.form.label.name": "Name",
   "ldn-edit-service.form.label.name": "Nome",
-
   // "ldn-edit-service.form.label.description": "Description",
   "ldn-edit-service.form.label.description": "Descrição",
-
   // "ldn-edit-service.form.label.url": "Service URL",
   "ldn-edit-service.form.label.url": "URL do Serviço",
-
   // "ldn-edit-service.form.label.ldnUrl": "LDN Inbox URL",
   "ldn-edit-service.form.label.ldnUrl": "URL da Caixa de Entrada LDN",
-
   // "ldn-edit-service.form.label.inboundPattern": "Inbound Pattern",
   "ldn-edit-service.form.label.inboundPattern": "Padrão de Entrada",
-
   // "ldn-edit-service.form.label.noInboundPatternSelected": "No Inbound Pattern",
   "ldn-edit-service.form.label.noInboundPatternSelected": "Nenhum Padrão de Entrada",
-
   // "ldn-edit-service.form.label.selectedItemFilter": "Selected Item Filter",
   "ldn-edit-service.form.label.selectedItemFilter": "Filtro de Item Selecionado",
-
   // "ldn-edit-service.form.label.selectItemFilter": "No Item Filter",
   "ldn-edit-service.form.label.selectItemFilter": "Sem Filtro de Item",
-
   // "ldn-edit-service.form.label.automatic": "Automatic",
   "ldn-edit-service.form.label.automatic": "Automático",
-
   // "ldn-edit-service.form.label.addInboundPattern": "+ Add more",
   "ldn-edit-service.form.label.addInboundPattern": "+ Adicionar mais",
-
   // "ldn-edit-service.form.label.submit": "Save",
   "ldn-edit-service.form.label.submit": "Salvar",
-
   // "ldn-edit-service.breadcrumbs": "Edit Service",
   "ldn-edit-service.breadcrumbs": "Editar Serviço",
-
   // "ldn-service.control-constaint-select-none": "Select none",
   "ldn-service.control-constaint-select-none": "Não selecionar",
 
   // "ldn-register-new-service.notification.error.title": "Error",
   "ldn-register-new-service.notification.error.title": "Erro",
-
   // "ldn-register-new-service.notification.error.content": "An error occurred while creating this process",
   "ldn-register-new-service.notification.error.content": "Ocorreu um erro ao criar este processo",
-
   // "ldn-register-new-service.notification.success.title": "Success",
   "ldn-register-new-service.notification.success.title": "Sucesso",
-
   // "ldn-register-new-service.notification.success.content": "The process was successfully created",
   "ldn-register-new-service.notification.success.content": "O processo foi criado com sucesso",
 
@@ -9589,15 +9726,15 @@
 
   // "quality-assurance.topics.description-with-target": "Below you can see all the topics received from the subscriptions to {{source}} in regards to the",
   "quality-assurance.topics.description-with-target": "Abaixo, você pode ver todos os tópicos recebidos das assinaturas para {{source}} em relação ao",
-
   // "quality-assurance.events.description": "Below the list of all the suggestions for the selected topic <b>{{topic}}</b>, related to <b>{{source}}</b>.",
   "quality-assurance.events.description": "Abaixo está a lista de todas as sugestões para o tópico selecionado <b>{{topic}}</b>, relacionadas a <b>{{source}}</b>.",
 
   // "quality-assurance.events.description-with-topic-and-target": "Below the list of all the suggestions for the selected topic <b>{{topic}}</b>, related to <b>{{source}}</b> and ",
   "quality-assurance.events.description-with-topic-and-target": "Abaixo, a lista de todas as sugestões para o tópico selecionado <b>{{topic}}</b>, relacionado a <b>{{source}}</b> e ",
 
-  // "quality-assurance.event.table.event.message.serviceUrl": "Service URL:",
-  "quality-assurance.event.table.event.message.serviceUrl": "URL do Serviço:",
+  // "quality-assurance.event.table.event.message.serviceUrl": "Actor:",
+  // TODO New key - Add a translation
+  "quality-assurance.event.table.event.message.serviceUrl": "Actor:",
 
   // "quality-assurance.event.table.event.message.link": "Link:",
   "quality-assurance.event.table.event.message.link": "Link:",
@@ -9691,6 +9828,10 @@
 
   // "request-status-alert-box.rejected": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> has been rejected.",
   "request-status-alert-box.rejected": "O {{ offerType }} solicitado para <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> foi rejeitado.",
+
+  // "request-status-alert-box.tentative_rejected": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> has been tentatively rejected. Revisions are required.",
+  // TODO New key - Add a translation
+  "request-status-alert-box.tentative_rejected": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> has been tentatively rejected. Revisions are required.",
 
   // "request-status-alert-box.requested": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> is pending.",
   "request-status-alert-box.requested": "O {{ offerType }} solicitado para <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> está pendente.",
@@ -9971,6 +10112,38 @@
   // "search.filters.applied.f.queue_status": "Queue Status",
   "search.filters.applied.f.queue_status": "Situação da Fila",
 
+  // "search.filters.queue_status.0,authority": "Untrusted Ip",
+  // TODO New key - Add a translation
+  "search.filters.queue_status.0,authority": "Untrusted Ip",
+
+  // "search.filters.queue_status.1,authority": "Queued",
+  // TODO New key - Add a translation
+  "search.filters.queue_status.1,authority": "Queued",
+
+  // "search.filters.queue_status.2,authority": "Processing",
+  // TODO New key - Add a translation
+  "search.filters.queue_status.2,authority": "Processing",
+
+  // "search.filters.queue_status.3,authority": "Processed",
+  // TODO New key - Add a translation
+  "search.filters.queue_status.3,authority": "Processed",
+
+  // "search.filters.queue_status.4,authority": "Failed",
+  // TODO New key - Add a translation
+  "search.filters.queue_status.4,authority": "Failed",
+
+  // "search.filters.queue_status.5,authority": "Untrusted",
+  // TODO New key - Add a translation
+  "search.filters.queue_status.5,authority": "Untrusted",
+
+  // "search.filters.queue_status.6,authority": "Unmapped Action",
+  // TODO New key - Add a translation
+  "search.filters.queue_status.6,authority": "Unmapped Action",
+
+  // "search.filters.queue_status.7,authority": "Queued for retry",
+  // TODO New key - Add a translation
+  "search.filters.queue_status.7,authority": "Queued for retry",
+
   // "search.filters.applied.f.activity_stream_type": "Activity stream type",
   "search.filters.applied.f.activity_stream_type": "Tipo de fluxo de atividade",
 
@@ -10241,13 +10414,25 @@
   // "search.filters.filter.notifyEndorsement.label": "Search Notify Endorsement",
   "search.filters.filter.notifyEndorsement.label": "Pesquisar Notificação de Avaliação",
 
+  // "form.date-picker.placeholder.year": "Year",
+  // TODO New key - Add a translation
+  "form.date-picker.placeholder.year": "Year",
+
+  // "form.date-picker.placeholder.month": "Month",
+  // TODO New key - Add a translation
+  "form.date-picker.placeholder.month": "Month",
+
+  // "form.date-picker.placeholder.day": "Day",
+  // TODO New key - Add a translation
+  "form.date-picker.placeholder.day": "Day",
+
   // "item.page.cc.license.title": "Creative Commons license",
   "item.page.cc.license.title": "Licença Creative Commons",
 
   // "item.page.cc.license.disclaimer": "Except where otherwised noted, this item's license is described as",
   "item.page.cc.license.disclaimer": "Exceto quando indicado de outra forma, a licença deste item é descrita como",
 
-  //"browse.search-form.placeholder": "Search the repository",
+  // "browse.search-form.placeholder": "Search the repository",
   "browse.search-form.placeholder": "Buscar no repositório",
 
   // "file-download-link.download": "Download ",
@@ -10261,4 +10446,35 @@
 
   // "search-facet-option.update.announcement": "The page will be reloaded. Filter {{ filter }} is selected.",
   "search-facet-option.update.announcement": "A página será recarregada. O filtro {{ filter }} foi selecionado.",
+
+  // "live-region.ordering.instructions": "Press spacebar to reorder {{ itemName }}.",
+  // TODO New key - Add a translation
+  "live-region.ordering.instructions": "Press spacebar to reorder {{ itemName }}.",
+
+  // "live-region.ordering.status": "{{ itemName }}, grabbed. Current position in list: {{ index }} of  {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
+  // TODO New key - Add a translation
+  "live-region.ordering.status": "{{ itemName }}, grabbed. Current position in list: {{ index }} of  {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
+
+  // "live-region.ordering.moved": "{{ itemName }}, moved to position {{ index }} of {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
+  // TODO New key - Add a translation
+  "live-region.ordering.moved": "{{ itemName }}, moved to position {{ index }} of {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
+
+  // "live-region.ordering.dropped": "{{ itemName }}, dropped at position {{ index }} of {{ length }}.",
+  // TODO New key - Add a translation
+  "live-region.ordering.dropped": "{{ itemName }}, dropped at position {{ index }} of {{ length }}.",
+
+  // "dynamic-form-array.sortable-list.label": "Sortable list",
+  // TODO New key - Add a translation
+  "dynamic-form-array.sortable-list.label": "Sortable list",
+
+  // "metadata-export-search.submit.error.limit-exceeded": "Only the first {{limit}} items will be exported",
+  // TODO New key - Add a translation
+  "metadata-export-search.submit.error.limit-exceeded": "Only the first {{limit}} items will be exported",
+
+  "item.preview.organization.url": "URL",
+
+  "item.preview.organization.address.addressLocality": "Cidade",
+
+  "item.preview.organization.alternateName": "Nome alternativo",
+
 }

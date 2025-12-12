@@ -116,6 +116,14 @@ describe('MetadataFieldSelectorComponent', () => {
       });
     });
 
+    it('should sort the fields by name to ensure the one without a qualifier is first', () => {
+      component.mdField = 'dc.relation';
+
+      component.validate();
+
+      expect(registryService.queryMetadataFields).toHaveBeenCalledWith('dc.relation', { elementsPerPage: 10, sort: new SortOptions('fieldName', SortDirection.ASC) }, true, false, followLink('schema'));
+    });
+
     describe('when querying the metadata fields returns an error response', () => {
       beforeEach(() => {
         (registryService.queryMetadataFields as jasmine.Spy).and.returnValue(createFailedRemoteDataObject$('Failed'));

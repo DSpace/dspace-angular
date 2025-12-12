@@ -14,7 +14,25 @@ export const environment: BuildConfig = {
     inlineCriticalCss: false,
     transferState: true,
     replaceRestUrl: false,
-    paths: [ '/home', '/items/', '/entities/', '/collections/', '/communities/', '/bitstream/', '/bitstreams/', '/handle/', '/reload/' ],
+    excludePathPatterns: [
+      {
+        pattern: '^/communities/[a-f0-9-]{36}/browse(/.*)?$',
+        flag: 'i',
+      },
+      {
+        pattern: '^/collections/[a-f0-9-]{36}/browse(/.*)?$',
+        flag: 'i',
+      },
+      { pattern: '^/browse/' },
+      { pattern: '^/search' },
+      { pattern: '^/community-list$' },
+      { pattern: '^/statistics/?' },
+      { pattern: '^/admin/' },
+      { pattern: '^/processes/?' },
+      { pattern: '^/notifications/' },
+      { pattern: '^/access-control/' },
+      { pattern: '^/health$' },
+    ],
     enableSearchComponent: false,
     enableBrowseComponent: false,
   },
@@ -276,11 +294,13 @@ export const environment: BuildConfig = {
     },
   },
   community: {
+    defaultBrowseTab: 'search',
     searchSection: {
       showSidebar: true,
     },
   },
   collection: {
+    defaultBrowseTab: 'search',
     searchSection: {
       showSidebar: true,
     },
@@ -324,6 +344,7 @@ export const environment: BuildConfig = {
     enableEndUserAgreement: true,
     enablePrivacyStatement: true,
     enableCOARNotifySupport: true,
+    enableCookieConsentPopup: true,
   },
   markdown: {
     enabled: false,
@@ -435,5 +456,9 @@ export const environment: BuildConfig = {
   liveRegion: {
     messageTimeOutDurationMs: 30000,
     isVisible: false,
+  },
+
+  accessibility: {
+    cookieExpirationDuration: 7,
   },
 };

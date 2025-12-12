@@ -6,6 +6,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
@@ -120,6 +121,7 @@ describe('ProfilePageComponent', () => {
         RouterModule.forRoot([]),
         ProfilePageComponent,
         VarDirective,
+        NoopAnimationsModule,
       ],
       providers: [
         { provide: EPersonDataService, useValue: epersonService },

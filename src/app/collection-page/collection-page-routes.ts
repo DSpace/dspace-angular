@@ -11,6 +11,7 @@ import { ComcolSearchSectionComponent } from '../shared/comcol/sections/comcol-s
 import { dsoEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
 import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
 import { MenuItemType } from '../shared/menu/menu-item-type.model';
+import { viewTrackerResolver } from '../statistics/angulartics/dspace/view-tracker.resolver';
 import { collectionPageResolver } from './collection-page.resolver';
 import { collectionPageAdministratorGuard } from './collection-page-administrator.guard';
 import {
@@ -84,12 +85,22 @@ export const ROUTES: Route[] = [
         component: ThemedCollectionPageComponent,
         resolve: {
           menu: dsoEditMenuResolver,
+          tracking: viewTrackerResolver,
         },
         children: [
           {
             path: '',
             pathMatch: 'full',
             component: ComcolSearchSectionComponent,
+          },
+          {
+            path: 'search',
+            pathMatch: 'full',
+            component: ComcolSearchSectionComponent,
+            resolve: {
+              breadcrumb: i18nBreadcrumbResolver,
+            },
+            data: { breadcrumbKey: 'collection.search' },
           },
           {
             path: 'browse/:id',

@@ -1,5 +1,4 @@
 {
-
   // "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
   "401.help": "غير مصرح لك بالوصول إلى هذه الصفحة. يمكنك استخدام الزر أدناه للعودة إلى الصفحة الرئيسية.",
 
@@ -50,6 +49,10 @@
 
   // "error-page.orcid.generic-error": "An error occurred during login via ORCID. Make sure you have shared your ORCID account email address with DSpace. If the error persists, contact the administrator",
   "error-page.orcid.generic-error": "حدث خطأ أثناء تسجيل الدخول عبر أوركيد. يرجى التأكد من أنك قمت بمشاركة عنوان البريد الإلكتروني الخاص بحساب أوركيد الخاص بك مع دي سبيس. إذا استمر الخطأ، فاتصل بالمسؤول",
+
+  // "listelement.badge.access-status": "Access status:",
+  // TODO New key - Add a translation
+  "listelement.badge.access-status": "Access status:",
 
   // "access-status.embargo.listelement.badge": "Embargo",
   "access-status.embargo.listelement.badge": "حظر",
@@ -1647,8 +1650,16 @@
   // "browse.metadata.srsc.breadcrumbs": "Browse by Subject Category",
   "browse.metadata.srsc.breadcrumbs": "استعراض حسب فئة الموضوع",
 
+  // "browse.metadata.srsc.tree.description": "Select a subject to add as search filter",
+  // TODO New key - Add a translation
+  "browse.metadata.srsc.tree.description": "Select a subject to add as search filter",
+
   // "browse.metadata.nsi.breadcrumbs": "Browse by Norwegian Science Index",
   "browse.metadata.nsi.breadcrumbs": "استعراض حسب فهرس العلوم النرويجي",
+
+  // "browse.metadata.nsi.tree.description": "Select an index to add as search filter",
+  // TODO New key - Add a translation
+  "browse.metadata.nsi.tree.description": "Select an index to add as search filter",
 
   // "browse.metadata.title.breadcrumbs": "Browse by Title",
   "browse.metadata.title.breadcrumbs": "استعراض حسب العنوان",
@@ -1661,6 +1672,10 @@
 
   // "pagination.next.button.disabled.tooltip": "No more pages of results",
   "pagination.next.button.disabled.tooltip": "لا مزيد من الصفحات من النتائج",
+
+  // "pagination.page-number-bar": "Control bar for page navigation, relative to element with ID: ",
+  // TODO New key - Add a translation
+  "pagination.page-number-bar": "Control bar for page navigation, relative to element with ID: ",
 
   // "browse.startsWith": ", starting with {{ startsWith }}",
   "browse.startsWith": ", يبدأ بـ {{ startsWith }}",
@@ -1757,6 +1772,10 @@
 
   // "claimed-declined-task-search-result-list-element.title": "Declined, sent back to Review Manager's workflow",
   "claimed-declined-task-search-result-list-element.title": "تم الرفض، وتمت الإعادة إلى سير عمل مدير المراجعة",
+
+  // "collection.create.breadcrumbs": "Create collection",
+  // TODO New key - Add a translation
+  "collection.create.breadcrumbs": "Create collection",
 
   // "collection.browse.logo": "Browse for a collection logo",
   "collection.browse.logo": "استعراض للحصول على شعار للحاوية",
@@ -2074,6 +2093,10 @@
   // "collection.page.news": "News",
   "collection.page.news": "الأخبار",
 
+  // "collection.search.breadcrumbs": "Search",
+  // TODO New key - Add a translation
+  "collection.search.breadcrumbs": "Search",
+
   // "collection.search.results.head": "Search Results",
   // TODO New key - Add a translation
   "collection.search.results.head": "Search Results",
@@ -2196,6 +2219,10 @@
   // TODO New key - Add a translation
   "community.subcoms-cols.breadcrumbs": "Subcommunities and Collections",
 
+  // "community.create.breadcrumbs": "Create Community",
+  // TODO New key - Add a translation
+  "community.create.breadcrumbs": "Create Community",
+
   // "community.create.head": "Create a Community",
   "community.create.head": "إنشاء مجتمع",
 
@@ -2241,8 +2268,16 @@
   // "community.edit.logo.delete.title": "Delete logo",
   "community.edit.logo.delete.title": "حذف الشعار",
 
+  // "community-collection.edit.logo.delete.title": "Confirm deletion",
+  // TODO New key - Add a translation
+  "community-collection.edit.logo.delete.title": "Confirm deletion",
+
   // "community.edit.logo.delete-undo.title": "Undo delete",
   "community.edit.logo.delete-undo.title": "التراجع عن الحذف",
+
+  // "community-collection.edit.logo.delete-undo.title": "Undo delete",
+  // TODO New key - Add a translation
+  "community-collection.edit.logo.delete-undo.title": "Undo delete",
 
   // "community.edit.logo.label": "Community logo",
   "community.edit.logo.label": "شعار المجتمع",
@@ -2271,7 +2306,8 @@
   // "community.edit.notifications.unauthorized": "You do not have privileges to make this change",
   "community.edit.notifications.unauthorized": "ليس لديك امتيازات لإجراء هذا التغيير",
 
-  // "community.edit.notifications.error": "An error occured while editing the community",
+  // "community.edit.notifications.error": "An error occurred while editing the community",
+  // TODO Source message changed - Revise the translation
   "community.edit.notifications.error": "حدث خطأ أثناء تحرير المجتمع",
 
   // "community.edit.return": "Back",
@@ -2424,6 +2460,10 @@
   // "community.all-lists.head": "Subcommunities and Collections",
   "community.all-lists.head": "المجتمعات الفرعية والحاويات",
 
+  // "community.search.breadcrumbs": "Search",
+  // TODO New key - Add a translation
+  "community.search.breadcrumbs": "Search",
+
   // "community.search.results.head": "Search Results",
   // TODO New key - Add a translation
   "community.search.results.head": "Search Results",
@@ -2505,6 +2545,14 @@
 
   // "cookies.consent.content-modal.service": "service",
   "cookies.consent.content-modal.service": "خدمة",
+
+  // "cookies.consent.app.title.accessibility": "Accessibility Settings",
+  // TODO New key - Add a translation
+  "cookies.consent.app.title.accessibility": "Accessibility Settings",
+
+  // "cookies.consent.app.description.accessibility": "Required for saving your accessibility settings locally",
+  // TODO New key - Add a translation
+  "cookies.consent.app.description.accessibility": "Required for saving your accessibility settings locally",
 
   // "cookies.consent.app.title.authentication": "Authentication",
   "cookies.consent.app.title.authentication": "استيثاق",
@@ -2588,7 +2636,8 @@
   // "curation.form.submit.error.head": "Running the curation task failed",
   "curation.form.submit.error.head": "فشل تشغيل مهمة الأكرتة",
 
-  // "curation.form.submit.error.content": "An error occured when trying to start the curation task.",
+  // "curation.form.submit.error.content": "An error occurred when trying to start the curation task.",
+  // TODO Source message changed - Revise the translation
   "curation.form.submit.error.content": "حدث خطأ أثناء محاولة بدء مهمة الأكرتة.",
 
   // "curation.form.submit.error.invalid-handle": "Couldn't determine the handle for this object",
@@ -2617,6 +2666,18 @@
 
   // "deny-request-copy.success": "Successfully denied item request",
   "deny-request-copy.success": "تم رفض طلب المادة بنجاح",
+
+  // "dynamic-list.load-more": "Load more",
+  // TODO New key - Add a translation
+  "dynamic-list.load-more": "Load more",
+
+  // "dropdown.clear": "Clear selection",
+  // TODO New key - Add a translation
+  "dropdown.clear": "Clear selection",
+
+  // "dropdown.clear.tooltip": "Clear the selected option",
+  // TODO New key - Add a translation
+  "dropdown.clear.tooltip": "Clear the selected option",
 
   // "dso.name.untitled": "Untitled",
   "dso.name.untitled": "بدون عنوان",
@@ -2677,6 +2738,18 @@
 
   // "dso-selector.placeholder": "Search for a {{ type }}",
   "dso-selector.placeholder": "بحث عن {{ type }}",
+
+  // "dso-selector.placeholder.type.community": "community",
+  // TODO New key - Add a translation
+  "dso-selector.placeholder.type.community": "community",
+
+  // "dso-selector.placeholder.type.collection": "collection",
+  // TODO New key - Add a translation
+  "dso-selector.placeholder.type.collection": "collection",
+
+  // "dso-selector.placeholder.type.item": "item",
+  // TODO New key - Add a translation
+  "dso-selector.placeholder.type.item": "item",
 
   // "dso-selector.select.collection.head": "Select a collection",
   "dso-selector.select.collection.head": "تحديد حاوية",
@@ -2783,6 +2856,10 @@
   // "confirmation-modal.delete-eperson.confirm": "Delete",
   "confirmation-modal.delete-eperson.confirm": "حذف",
 
+  // "confirmation-modal.delete-community-collection-logo.info": "Are you sure you want to delete the logo?",
+  // TODO New key - Add a translation
+  "confirmation-modal.delete-community-collection-logo.info": "Are you sure you want to delete the logo?",
+
   // "confirmation-modal.delete-profile.header": "Delete Profile",
   "confirmation-modal.delete-profile.header": "حذف الملف الشخصي",
 
@@ -2839,6 +2916,10 @@
 
   // "error.recent-submissions": "Error fetching recent submissions",
   "error.recent-submissions": "حدث خطأ أثناء جلب أحدث التقديمات",
+
+  // "error.profile-groups": "Error retrieving profile groups",
+  // TODO New key - Add a translation
+  "error.profile-groups": "Error retrieving profile groups",
 
   // "error.search-results": "Error fetching search results",
   "error.search-results": "حدث خطأ أثناء جلب نتائج البحث",
@@ -2912,6 +2993,10 @@
   // "footer.copyright": "copyright © 2002-{{ year }}",
   "footer.copyright": "حقوق النشر © 2002-{{ year }}",
 
+  // "footer.link.accessibility": "Accessibility settings",
+  // TODO New key - Add a translation
+  "footer.link.accessibility": "Accessibility settings",
+
   // "footer.link.dspace": "DSpace software",
   "footer.link.dspace": "برنامج دي سبيس",
 
@@ -2964,8 +3049,9 @@
   // "forgot-email.form.error.head": "Error when trying to reset password",
   "forgot-email.form.error.head": "حدث خطأ أثناء محاولة إعادة تعيين كلمة المرور",
 
-  // "forgot-email.form.error.content": "An error occured when attempting to reset the password for the account associated with the following email address: {{ email }}",
-  "forgot-email.form.error.content": "حدث خطأ أثناء محاولة إعادة تعيين كلمة المرور للحساب المرتبط بعنوان البريد الإلكتروني التالي: {{ email }}",
+  // "forgot-email.form.error.content": "An error occurred when attempting to reset the password for the account associated with the following email address: {{ email }}",
+  // TODO New key - Add a translation
+  "forgot-email.form.error.content": "An error occurred when attempting to reset the password for the account associated with the following email address: {{ email }}",
 
   // "forgot-password.title": "Forgot Password",
   "forgot-password.title": "نسيت كلمة المرور",
@@ -3255,6 +3341,82 @@
   // "home.top-level-communities.help": "Select a community to browse its collections.",
   "home.top-level-communities.help": "قم بتحديد مجتمع لاستعراض حاوياته.",
 
+  // "info.accessibility-settings.breadcrumbs": "Accessibility settings",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.breadcrumbs": "Accessibility settings",
+
+  // "info.accessibility-settings.cookie-warning": "Saving the accessibility settings is currently not possible. Either log in to save the settings in user data, or accept the 'Accessibility Settings' cookie using the 'Cookie Settings' menu at the bottom of the page. Once the cookie has been accepted, you can reload the page to remove this message.",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.cookie-warning": "Saving the accessibility settings is currently not possible. Either log in to save the settings in user data, or accept the 'Accessibility Settings' cookie using the 'Cookie Settings' menu at the bottom of the page. Once the cookie has been accepted, you can reload the page to remove this message.",
+
+  // "info.accessibility-settings.disableNotificationTimeOut.label": "Automatically close notifications after time out",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.disableNotificationTimeOut.label": "Automatically close notifications after time out",
+
+  // "info.accessibility-settings.disableNotificationTimeOut.hint": "When this toggle is activated, notifications will close automatically after the time out passes. When deactivated, notifications will remain open untill manually closed.",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.disableNotificationTimeOut.hint": "When this toggle is activated, notifications will close automatically after the time out passes. When deactivated, notifications will remain open untill manually closed.",
+
+  // "info.accessibility-settings.failed-notification": "Failed to save accessibility settings",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.failed-notification": "Failed to save accessibility settings",
+
+  // "info.accessibility-settings.invalid-form-notification": "Did not save. The form contains invalid values.",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.invalid-form-notification": "Did not save. The form contains invalid values.",
+
+  // "info.accessibility-settings.liveRegionTimeOut.label": "ARIA Live region time out (in seconds)",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.liveRegionTimeOut.label": "ARIA Live region time out (in seconds)",
+
+  // "info.accessibility-settings.liveRegionTimeOut.hint": "The duration after which a message in the ARIA live region disappears. ARIA live regions are not visible on the page, but provide announcements of notifications (or other actions) to screen readers.",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.liveRegionTimeOut.hint": "The duration after which a message in the ARIA live region disappears. ARIA live regions are not visible on the page, but provide announcements of notifications (or other actions) to screen readers.",
+
+  // "info.accessibility-settings.liveRegionTimeOut.invalid": "Live region time out must be greater than 0",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.liveRegionTimeOut.invalid": "Live region time out must be greater than 0",
+
+  // "info.accessibility-settings.notificationTimeOut.label": "Notification time out (in seconds)",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.notificationTimeOut.label": "Notification time out (in seconds)",
+
+  // "info.accessibility-settings.notificationTimeOut.hint": "The duration after which a notification disappears.",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.notificationTimeOut.hint": "The duration after which a notification disappears.",
+
+  // "info.accessibility-settings.notificationTimeOut.invalid": "Notification time out must be greater than 0",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.notificationTimeOut.invalid": "Notification time out must be greater than 0",
+
+  // "info.accessibility-settings.save-notification.cookie": "Successfully saved settings locally.",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.save-notification.cookie": "Successfully saved settings locally.",
+
+  // "info.accessibility-settings.save-notification.metadata": "Successfully saved settings on the user profile.",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.save-notification.metadata": "Successfully saved settings on the user profile.",
+
+  // "info.accessibility-settings.reset-failed": "Failed to reset. Either log in or accept the 'Accessibility Settings' cookie.",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.reset-failed": "Failed to reset. Either log in or accept the 'Accessibility Settings' cookie.",
+
+  // "info.accessibility-settings.reset-notification": "Successfully reset settings.",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.reset-notification": "Successfully reset settings.",
+
+  // "info.accessibility-settings.reset": "Reset accessibility settings",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.reset": "Reset accessibility settings",
+
+  // "info.accessibility-settings.submit": "Save accessibility settings",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.submit": "Save accessibility settings",
+
+  // "info.accessibility-settings.title": "Accessibility settings",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.title": "Accessibility settings",
+
   // "info.end-user-agreement.accept": "I have read and I agree to the End User Agreement",
   "info.end-user-agreement.accept": "لقد قمت بقراءة اتفاقية المستخدم النهائي وأوافق عليها",
 
@@ -3358,6 +3520,10 @@
   // "item.edit.authorizations.title": "Edit item's Policies",
   "item.edit.authorizations.title": "تحرير سياسات المادة",
 
+  // "item.badge.status": "Item status:",
+  // TODO New key - Add a translation
+  "item.badge.status": "Item status:",
+
   // "item.badge.private": "Non-discoverable",
   "item.badge.private": "غير قابل للاكتشاف",
 
@@ -3412,6 +3578,14 @@
   // "item.edit.bitstreams.bundle.name": "BUNDLE: {{ name }}",
   "item.edit.bitstreams.bundle.name": "الحزمة: {{ name }}",
 
+  // "item.edit.bitstreams.bundle.table.aria-label": "Bitstreams in the  {{ bundle }} Bundle",
+  // TODO New key - Add a translation
+  "item.edit.bitstreams.bundle.table.aria-label": "Bitstreams in the  {{ bundle }} Bundle",
+
+  // "item.edit.bitstreams.bundle.tooltip": "You can move a bitstream to a different page by dropping it on the page number.",
+  // TODO New key - Add a translation
+  "item.edit.bitstreams.bundle.tooltip": "You can move a bitstream to a different page by dropping it on the page number.",
+
   // "item.edit.bitstreams.discard-button": "Discard",
   "item.edit.bitstreams.discard-button": "تجاهل",
 
@@ -3430,8 +3604,32 @@
   // "item.edit.bitstreams.edit.buttons.undo": "Undo changes",
   "item.edit.bitstreams.edit.buttons.undo": "التراجع عن التغييرات",
 
+  // "item.edit.bitstreams.edit.live.cancel": "{{ bitstream }} was returned to position {{ toIndex }} and is no longer selected.",
+  // TODO New key - Add a translation
+  "item.edit.bitstreams.edit.live.cancel": "{{ bitstream }} was returned to position {{ toIndex }} and is no longer selected.",
+
+  // "item.edit.bitstreams.edit.live.clear": "{{ bitstream }} is no longer selected.",
+  // TODO New key - Add a translation
+  "item.edit.bitstreams.edit.live.clear": "{{ bitstream }} is no longer selected.",
+
+  // "item.edit.bitstreams.edit.live.loading": "Waiting for move to complete.",
+  // TODO New key - Add a translation
+  "item.edit.bitstreams.edit.live.loading": "Waiting for move to complete.",
+
+  // "item.edit.bitstreams.edit.live.select": "{{ bitstream }} is selected.",
+  // TODO New key - Add a translation
+  "item.edit.bitstreams.edit.live.select": "{{ bitstream }} is selected.",
+
+  // "item.edit.bitstreams.edit.live.move": "{{ bitstream }} is now in position {{ toIndex }}.",
+  // TODO New key - Add a translation
+  "item.edit.bitstreams.edit.live.move": "{{ bitstream }} is now in position {{ toIndex }}.",
+
   // "item.edit.bitstreams.empty": "This item doesn't contain any bitstreams. Click the upload button to create one.",
   "item.edit.bitstreams.empty": "لا تحتوي هذه المادة على أية تدفقات بت. انقر على زر التحميل لإنشاء واحد.",
+
+  // "item.edit.bitstreams.info-alert": "Bitstreams can be reordered within their bundles by holding the drag handle and moving the mouse. Alternatively, bitstreams can be moved using the keyboard in the following way: Select the bitstream by pressing enter when the bitstream's drag handle is in focus. Move the bitstream up or down using the arrow keys. Press enter again to confirm the current position of the bitstream.",
+  // TODO New key - Add a translation
+  "item.edit.bitstreams.info-alert": "Bitstreams can be reordered within their bundles by holding the drag handle and moving the mouse. Alternatively, bitstreams can be moved using the keyboard in the following way: Select the bitstream by pressing enter when the bitstream's drag handle is in focus. Move the bitstream up or down using the arrow keys. Press enter again to confirm the current position of the bitstream.",
 
   // "item.edit.bitstreams.headers.actions": "Actions",
   "item.edit.bitstreams.headers.actions": "إجراءات",
@@ -3486,6 +3684,10 @@
 
   // "item.edit.bitstreams.upload-button": "Upload",
   "item.edit.bitstreams.upload-button": "تحميل",
+
+  // "item.edit.bitstreams.load-more.link": "Load more",
+  // TODO New key - Add a translation
+  "item.edit.bitstreams.load-more.link": "Load more",
 
   // "item.edit.delete.cancel": "Cancel",
   "item.edit.delete.cancel": "إلغاء",
@@ -3652,6 +3854,14 @@
   // "item.edit.metadata.edit.authority.key": "Edit authority key",
   // TODO New key - Add a translation
   "item.edit.metadata.edit.authority.key": "Edit authority key",
+
+  // "item.edit.metadata.edit.buttons.enable-free-text-editing": "Enable free-text editing",
+  // TODO New key - Add a translation
+  "item.edit.metadata.edit.buttons.enable-free-text-editing": "Enable free-text editing",
+
+  // "item.edit.metadata.edit.buttons.disable-free-text-editing": "Disable free-text editing",
+  // TODO New key - Add a translation
+  "item.edit.metadata.edit.buttons.disable-free-text-editing": "Disable free-text editing",
 
   // "item.edit.metadata.edit.buttons.confirm": "Confirm",
   "item.edit.metadata.edit.buttons.confirm": "تأكيد",
@@ -4263,7 +4473,8 @@
   // TODO New key - Add a translation
   "item.page.reinstate": "Request reinstatement",
 
-  // "item.page.version.hasDraft": "A new version cannot be created because there is an inprogress submission in the version history",
+  // "item.page.version.hasDraft": "A new version cannot be created because there is an in-progress submission in the version history",
+  // TODO Source message changed - Revise the translation
   "item.page.version.hasDraft": "لا يمكن إنشاء إصدارة جديدة نظراً لوجود تقديم قيد التقدم في سجل الإصدارة",
 
   // "item.page.claim.button": "Claim",
@@ -4307,6 +4518,22 @@
 
   // "item.preview.oaire.citation.volume": "Volume",
   "item.preview.oaire.citation.volume": "المجلد",
+
+  // "item.preview.dc.relation.hasversion": "Has version",
+  // TODO New key - Add a translation
+  "item.preview.dc.relation.hasversion": "Has version",
+
+  // "item.preview.dc.relation.ispartofseries": "Is part of series",
+  // TODO New key - Add a translation
+  "item.preview.dc.relation.ispartofseries": "Is part of series",
+
+  // "item.preview.dc.rights": "Rights",
+  // TODO New key - Add a translation
+  "item.preview.dc.rights": "Rights",
+
+  // "item.preview.dc.identifier.other": "Other Identifier",
+  // TODO Source message changed - Revise the translation
+  "item.preview.dc.identifier.other": "معرف آخر:",
 
   // "item.preview.dc.relation.issn": "ISSN",
   "item.preview.dc.relation.issn": "ISSN",
@@ -4362,7 +4589,8 @@
   // "item.preview.organization.foundingDate": "Founding Date",
   "item.preview.organization.foundingDate": "تاريخ التأسيس",
 
-  // "item.preview.organization.identifier.crossrefid": "CrossRef ID",
+  // "item.preview.organization.identifier.crossrefid": "Crossref ID",
+  // TODO Source message changed - Revise the translation
   "item.preview.organization.identifier.crossrefid": "CrossRef معرف",
 
   // "item.preview.organization.identifier.isni": "ISNI",
@@ -4459,7 +4687,8 @@
   // "item.version.history.table.action.deleteVersion": "Delete version",
   "item.version.history.table.action.deleteVersion": "حذف الإصدارة",
 
-  // "item.version.history.table.action.hasDraft": "A new version cannot be created because there is an inprogress submission in the version history",
+  // "item.version.history.table.action.hasDraft": "A new version cannot be created because there is an in-progress submission in the version history",
+  // TODO Source message changed - Revise the translation
   "item.version.history.table.action.hasDraft": "لا يمكن إنشاء إصدارة جديدة نظراً لوجود تقديم قيد التقدم في سجل الإصدارة",
 
   // "item.version.notice": "This is not the latest version of this item. The latest version can be found <a href='{{destination}}'>here</a>.",
@@ -4572,7 +4801,8 @@
   // "item.version.create.notification.failure": "New version has not been created",
   "item.version.create.notification.failure": "لم يتم إنشاء إصدارة جديدة",
 
-  // "item.version.create.notification.inProgress": "A new version cannot be created because there is an inprogress submission in the version history",
+  // "item.version.create.notification.inProgress": "A new version cannot be created because there is an in-progress submission in the version history",
+  // TODO Source message changed - Revise the translation
   "item.version.create.notification.inProgress": "لا يمكن إنشاء إصدارة جديدة نظراً لوجود تقديم قيد التقدم في سجل الإصدارة",
 
   // "item.version.delete.modal.header": "Delete version",
@@ -5278,6 +5508,10 @@
   // "mydspace.show.supervisedWorkspace": "Supervised items",
   "mydspace.show.supervisedWorkspace": "مواد تحت الإشراف",
 
+  // "mydspace.status": "My DSpace status:",
+  // TODO New key - Add a translation
+  "mydspace.status": "My DSpace status:",
+
   // "mydspace.status.mydspaceArchived": "Archived",
   "mydspace.status.mydspaceArchived": "في الأرشيف",
 
@@ -5378,6 +5612,10 @@
   // "nav.user.description": "User profile bar",
   "nav.user.description": "شريط ملف تعريف المستخدم",
 
+  // "listelement.badge.dso-type": "Item type:",
+  // TODO New key - Add a translation
+  "listelement.badge.dso-type": "Item type:",
+
   // "none.listelement.badge": "Item",
   "none.listelement.badge": "المادة",
 
@@ -5465,9 +5703,9 @@
   // "quality-assurance.event.action.ignore": "Ignore suggestion",
   "quality-assurance.event.action.ignore": "تجاهل الاقتراح",
 
-  // "quality-assurance.event.action.undo": "DELETE",
+  // "quality-assurance.event.action.undo": "Delete",
   // TODO New key - Add a translation
-  "quality-assurance.event.action.undo": "DELETE",
+  "quality-assurance.event.action.undo": "Delete",
 
   // "quality-assurance.event.action.reject": "Reject suggestion",
   "quality-assurance.event.action.reject": "رفض الاقتراح",
@@ -5626,6 +5864,9 @@
 
   // "orgunit.page.ror": "ROR Identifier",
   "orgunit.page.ror": "ROR معرف",
+
+  // "orgunit.search.results.head": "Organizational Unit Search Results",
+  "orgunit.search.results.head": "نتائج بحث الوحدات المؤسسية",
 
   // "pagination.options.description": "Pagination options",
   "pagination.options.description": "خيارات ترقيم الصفحات",
@@ -5920,6 +6161,10 @@
   // "process.overview.delete.header": "Delete processes",
   "process.overview.delete.header": "حذف العمليات",
 
+  // "process.overview.unknown.user": "Unknown",
+  // TODO New key - Add a translation
+  "process.overview.unknown.user": "Unknown",
+
   // "process.bulk.delete.error.head": "Error on deleteing process",
   "process.bulk.delete.error.head": "خطأ في عملية الحذف",
 
@@ -5931,6 +6176,18 @@
 
   // "profile.breadcrumbs": "Update Profile",
   "profile.breadcrumbs": "تحديث الملف الشخصي",
+
+  // "profile.card.accessibility.content": "Accessibility settings can be configured on the accessibility settings page.",
+  // TODO New key - Add a translation
+  "profile.card.accessibility.content": "Accessibility settings can be configured on the accessibility settings page.",
+
+  // "profile.card.accessibility.header": "Accessibility",
+  // TODO New key - Add a translation
+  "profile.card.accessibility.header": "Accessibility",
+
+  // "profile.card.accessibility.link": "Go to Accessibility Settings Page",
+  // TODO New key - Add a translation
+  "profile.card.accessibility.link": "Go to Accessibility Settings Page",
 
   // "profile.card.identify": "Identify",
   "profile.card.identify": "تعريف",
@@ -6325,8 +6582,9 @@
   // "register-page.registration.error.head": "Error when trying to register email",
   "register-page.registration.error.head": "خطأ أثناء محاولة تسجيل البريد الإلكتروني",
 
-  // "register-page.registration.error.content": "An error occured when registering the following email address: {{ email }}",
-  "register-page.registration.error.content": "حدث خطأ أثناء تسجيل عنوان البريد الإلكتروني التالي: {{ email }}",
+  // "register-page.registration.error.content": "An error occurred when registering the following email address: {{ email }}",
+  // TODO New key - Add a translation
+  "register-page.registration.error.content": "An error occurred when registering the following email address: {{ email }}",
 
   // "register-page.registration.error.recaptcha": "Error when trying to authenticate with recaptcha",
   "register-page.registration.error.recaptcha": "حدث خطأ أثناء محاولة الاستيثاق باستخدام recaptcha",
@@ -6550,6 +6808,10 @@
   // "resource-policies.form.name.label": "Name",
   "resource-policies.form.name.label": "الاسم",
 
+  // "resource-policies.form.name.hint": "Max 30 characters",
+  // TODO New key - Add a translation
+  "resource-policies.form.name.hint": "Max 30 characters",
+
   // "resource-policies.form.policy-type.label": "Select the policy type",
   "resource-policies.form.policy-type.label": "حدد نوع السياسة",
 
@@ -6637,6 +6899,10 @@
   // "search.filters.remove": "Remove filter of type {{ type }} with value {{ value }}",
   "search.filters.remove": "إزالة المنقح من النوع {{ type }} بقيمة {{ value }}",
 
+  // "search.filters.applied.f.title": "Title",
+  // TODO New key - Add a translation
+  "search.filters.applied.f.title": "Title",
+
   // "search.filters.applied.f.author": "Author",
   "search.filters.applied.f.author": "المؤلف",
 
@@ -6657,6 +6923,14 @@
 
   // "search.filters.applied.f.has_content_in_original_bundle": "Has files",
   "search.filters.applied.f.has_content_in_original_bundle": "بها ملفات",
+
+  // "search.filters.applied.f.original_bundle_filenames": "File name",
+  // TODO New key - Add a translation
+  "search.filters.applied.f.original_bundle_filenames": "File name",
+
+  // "search.filters.applied.f.original_bundle_descriptions": "File description",
+  // TODO New key - Add a translation
+  "search.filters.applied.f.original_bundle_descriptions": "File description",
 
   // "search.filters.applied.f.itemtype": "Type",
   "search.filters.applied.f.itemtype": "النوع",
@@ -6684,6 +6958,46 @@
 
   // "search.filters.applied.f.withdrawn": "Withdrawn",
   "search.filters.applied.f.withdrawn": "مسحوب",
+
+  // "search.filters.applied.operator.equals": "",
+  // TODO New key - Add a translation
+  "search.filters.applied.operator.equals": "",
+
+  // "search.filters.applied.operator.notequals": " not equals",
+  // TODO New key - Add a translation
+  "search.filters.applied.operator.notequals": " not equals",
+
+  // "search.filters.applied.operator.authority": "",
+  // TODO New key - Add a translation
+  "search.filters.applied.operator.authority": "",
+
+  // "search.filters.applied.operator.notauthority": " not authority",
+  // TODO New key - Add a translation
+  "search.filters.applied.operator.notauthority": " not authority",
+
+  // "search.filters.applied.operator.contains": " contains",
+  // TODO New key - Add a translation
+  "search.filters.applied.operator.contains": " contains",
+
+  // "search.filters.applied.operator.notcontains": " not contains",
+  // TODO New key - Add a translation
+  "search.filters.applied.operator.notcontains": " not contains",
+
+  // "search.filters.applied.operator.query": "",
+  // TODO New key - Add a translation
+  "search.filters.applied.operator.query": "",
+
+  // "search.filters.filter.title.head": "Title",
+  // TODO New key - Add a translation
+  "search.filters.filter.title.head": "Title",
+
+  // "search.filters.filter.title.placeholder": "Title",
+  // TODO New key - Add a translation
+  "search.filters.filter.title.placeholder": "Title",
+
+  // "search.filters.filter.title.label": "Search Title",
+  // TODO New key - Add a translation
+  "search.filters.filter.title.label": "Search Title",
 
   // "search.filters.filter.author.head": "Author",
   "search.filters.filter.author.head": "المؤلف",
@@ -6714,6 +7028,14 @@
 
   // "search.filters.filter.creativeDatePublished.label": "Search date published",
   "search.filters.filter.creativeDatePublished.label": "بحث تاريخ النشر",
+
+  // "search.filters.filter.creativeDatePublished.min.label": "Start",
+  // TODO New key - Add a translation
+  "search.filters.filter.creativeDatePublished.min.label": "Start",
+
+  // "search.filters.filter.creativeDatePublished.max.label": "End",
+  // TODO New key - Add a translation
+  "search.filters.filter.creativeDatePublished.max.label": "End",
 
   // "search.filters.filter.creativeWorkEditor.head": "Editor",
   "search.filters.filter.creativeWorkEditor.head": "المحرر",
@@ -6786,6 +7108,30 @@
 
   // "search.filters.filter.has_content_in_original_bundle.head": "Has files",
   "search.filters.filter.has_content_in_original_bundle.head": "بها ملفات",
+
+  // "search.filters.filter.original_bundle_filenames.head": "File name",
+  // TODO New key - Add a translation
+  "search.filters.filter.original_bundle_filenames.head": "File name",
+
+  // "search.filters.filter.original_bundle_filenames.placeholder": "File name",
+  // TODO New key - Add a translation
+  "search.filters.filter.original_bundle_filenames.placeholder": "File name",
+
+  // "search.filters.filter.original_bundle_filenames.label": "Search File name",
+  // TODO New key - Add a translation
+  "search.filters.filter.original_bundle_filenames.label": "Search File name",
+
+  // "search.filters.filter.original_bundle_descriptions.head": "File description",
+  // TODO New key - Add a translation
+  "search.filters.filter.original_bundle_descriptions.head": "File description",
+
+  // "search.filters.filter.original_bundle_descriptions.placeholder": "File description",
+  // TODO New key - Add a translation
+  "search.filters.filter.original_bundle_descriptions.placeholder": "File description",
+
+  // "search.filters.filter.original_bundle_descriptions.label": "Search File description",
+  // TODO New key - Add a translation
+  "search.filters.filter.original_bundle_descriptions.label": "Search File description",
 
   // "search.filters.filter.itemtype.head": "Type",
   "search.filters.filter.itemtype.head": "النوع",
@@ -6973,6 +7319,34 @@
   // "search.filters.search.submit": "Submit",
   "search.filters.search.submit": "تقديم",
 
+  // "search.filters.operator.equals.text": "Equals",
+  // TODO New key - Add a translation
+  "search.filters.operator.equals.text": "Equals",
+
+  // "search.filters.operator.notequals.text": "Not Equals",
+  // TODO New key - Add a translation
+  "search.filters.operator.notequals.text": "Not Equals",
+
+  // "search.filters.operator.authority.text": "Authority",
+  // TODO New key - Add a translation
+  "search.filters.operator.authority.text": "Authority",
+
+  // "search.filters.operator.notauthority.text": "Not Authority",
+  // TODO New key - Add a translation
+  "search.filters.operator.notauthority.text": "Not Authority",
+
+  // "search.filters.operator.contains.text": "Contains",
+  // TODO New key - Add a translation
+  "search.filters.operator.contains.text": "Contains",
+
+  // "search.filters.operator.notcontains.text": "Not Contains",
+  // TODO New key - Add a translation
+  "search.filters.operator.notcontains.text": "Not Contains",
+
+  // "search.filters.operator.query.text": "Query",
+  // TODO New key - Add a translation
+  "search.filters.operator.query.text": "Query",
+
   // "search.form.search": "Search",
   "search.form.search": "بحث",
 
@@ -7024,6 +7398,26 @@
 
   // "search.sidebar.settings.sort-by": "Sort By",
   "search.sidebar.settings.sort-by": "فرز حسب",
+
+  // "search.sidebar.advanced-search.title": "Advanced Search",
+  // TODO New key - Add a translation
+  "search.sidebar.advanced-search.title": "Advanced Search",
+
+  // "search.sidebar.advanced-search.filter-by": "Filter by",
+  // TODO New key - Add a translation
+  "search.sidebar.advanced-search.filter-by": "Filter by",
+
+  // "search.sidebar.advanced-search.filters": "Filters",
+  // TODO New key - Add a translation
+  "search.sidebar.advanced-search.filters": "Filters",
+
+  // "search.sidebar.advanced-search.operators": "Operators",
+  // TODO New key - Add a translation
+  "search.sidebar.advanced-search.operators": "Operators",
+
+  // "search.sidebar.advanced-search.add": "Add",
+  // TODO New key - Add a translation
+  "search.sidebar.advanced-search.add": "Add",
 
   // "search.sidebar.settings.title": "Settings",
   "search.sidebar.settings.title": "الإعدادات",
@@ -7242,7 +7636,8 @@
   // "submission.import-external.source.cinii": "CiNii",
   "submission.import-external.source.cinii": "CiNii",
 
-  // "submission.import-external.source.crossref": "CrossRef",
+  // "submission.import-external.source.crossref": "Crossref",
+  // TODO Source message changed - Revise the translation
   "submission.import-external.source.crossref": "كروس ريف",
 
   // "submission.import-external.source.datacite": "DataCite",
@@ -7282,8 +7677,17 @@
   // "submission.import-external.source.sherpaPublisher": "SHERPA Publishers",
   "submission.import-external.source.sherpaPublisher": "ناشري شيربا",
 
-  // "submission.import-external.source.openAIREFunding": "Funding OpenAIRE API",
-  "submission.import-external.source.openAIREFunding": "تمويل واجهة برمجة تطبيقات OpenAIRE",
+  // "submission.import-external.source.openaire": "OpenAIRE Search by Authors",
+  // TODO New key - Add a translation
+  "submission.import-external.source.openaire": "OpenAIRE Search by Authors",
+
+  // "submission.import-external.source.openaireTitle": "OpenAIRE Search by Title",
+  // TODO New key - Add a translation
+  "submission.import-external.source.openaireTitle": "OpenAIRE Search by Title",
+
+  // "submission.import-external.source.openaireFunding": "OpenAIRE Search by Funder",
+  // TODO New key - Add a translation
+  "submission.import-external.source.openaireFunding": "OpenAIRE Search by Funder",
 
   // "submission.import-external.source.orcid": "ORCID",
   "submission.import-external.source.orcid": "أوركيد",
@@ -7390,9 +7794,6 @@
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfPublication.title": "Project",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfPublication.title": "مشروع",
 
-  // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openAIREFunding": "Funding OpenAIRE API",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openAIREFunding": "تمويل واجهة برمجة تطبيقات OpenAIRE",
-
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.title": "Import Remote Author",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.title": "استيراد مؤلف بعيد",
 
@@ -7425,6 +7826,18 @@
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.orcid": "Importing from ORCID",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.head.orcid": "استيراد من أوركيد",
+
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openaire": "Importing from OpenAIRE",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openaire": "Importing from OpenAIRE",
+
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openaireTitle": "Importing from OpenAIRE",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openaireTitle": "Importing from OpenAIRE",
+
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openaireFunding": "Importing from OpenAIRE",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openaireFunding": "Importing from OpenAIRE",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaJournal": "Importing from Sherpa Journal",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaJournal": "استيراد من دورية شيربا",
@@ -7543,6 +7956,10 @@
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalIssue": "Local Journal Issues ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalIssue": "أعداد الدوريات المحلية ({{ count }})",
 
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfIssue": "Local Journal Volumes ({{ count }})",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfIssue": "Local Journal Volumes ({{ count }})",
+
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfPublication": "Local Journal Volumes ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfPublication": "مجلدات الدوريات المحلية ({{ count }})",
 
@@ -7573,13 +7990,23 @@
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.orcidWorks": "ORCID ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.orcidWorks": "أوركيد ({{ count }})",
 
-  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.crossref": "CrossRef ({{ count }})",
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.crossref": "Crossref ({{ count }})",
+  // TODO Source message changed - Revise the translation
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.crossref": "CrossRef ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.scopus": "Scopus ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.scopus": "Scopus ({{ count }})",
 
-  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.openaireFunding": "Funding OpenAIRE ({{ count }})",
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.openaire": "OpenAIRE Search by Authors ({{ count }})",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.openaire": "OpenAIRE Search by Authors ({{ count }})",
+
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.openaireTitle": "OpenAIRE Search by Title ({{ count }})",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.openaireTitle": "OpenAIRE Search by Title ({{ count }})",
+
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.openaireFunding": "OpenAIRE Search by Funder ({{ count }})",
+  // TODO Source message changed - Revise the translation
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.openaireFunding": "تمويل OpenAIRE ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournalIssn": "Sherpa Journals by ISSN ({{ count }})",
@@ -7594,9 +8021,6 @@
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isChildOrgUnitOf": "Search for Organizational Units",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isChildOrgUnitOf": "البحث عن الوحدات المؤسسية",
 
-  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.openAIREFunding": "Funding OpenAIRE API",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.openAIREFunding": "تمويل واجهة برمجة تطبيقات OpenAIRE",
-
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isProjectOfPublication": "Projects",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isProjectOfPublication": "المشاريع",
 
@@ -7608,9 +8032,6 @@
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isOrgUnitOfProject": "OrgUnit of the Project",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isOrgUnitOfProject": "الوحدة المؤسسية للمشروع",
-
-  // "submission.sections.describe.relationship-lookup.selection-tab.title.openAIREFunding": "Funding OpenAIRE API",
-  "submission.sections.describe.relationship-lookup.selection-tab.title.openAIREFunding": "تمويل واجهة برمجة تطبيقات OpenAIRE",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isProjectOfPublication": "Project",
   "submission.sections.describe.relationship-lookup.selection-tab.title.isProjectOfPublication": "المشروع",
@@ -7635,6 +8056,10 @@
 
   // "submission.sections.describe.relationship-lookup.title.JournalIssue": "Journal Issues",
   "submission.sections.describe.relationship-lookup.title.JournalIssue": "أعداد الدورية",
+
+  // "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfIssue": "Journal Volumes",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfIssue": "Journal Volumes",
 
   // "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfPublication": "Journal Volumes",
   "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfPublication": "مجلدات الدورية",
@@ -7699,6 +8124,10 @@
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalOfPublication": "Selected Journals",
   "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalOfPublication": "الدوريات المحددة",
 
+  // "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfIssue": "Selected Journal Volume",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfIssue": "Selected Journal Volume",
+
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfPublication": "Selected Journal Volume",
   "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfPublication": "مجلد الدورية المحدد",
 
@@ -7752,6 +8181,18 @@
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.orcidv2": "Search Results",
   "submission.sections.describe.relationship-lookup.selection-tab.title.orcidv2": "نتائج البحث",
+
+  // "submission.sections.describe.relationship-lookup.selection-tab.title.openaire": "Search Results",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.selection-tab.title.openaire": "Search Results",
+
+  // "submission.sections.describe.relationship-lookup.selection-tab.title.openaireTitle": "Search Results",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.selection-tab.title.openaireTitle": "Search Results",
+
+  // "submission.sections.describe.relationship-lookup.selection-tab.title.openaireFundin": "Search Results",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.selection-tab.title.openaireFundin": "Search Results",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.lcname": "Search Results",
   "submission.sections.describe.relationship-lookup.selection-tab.title.lcname": "نتائج البحث",
@@ -8346,6 +8787,10 @@
   // "subscriptions.tooltip": "Subscribe",
   "subscriptions.tooltip": "اشتراك",
 
+  // "subscriptions.unsubscribe": "Unsubscribe",
+  // TODO New key - Add a translation
+  "subscriptions.unsubscribe": "Unsubscribe",
+
   // "subscriptions.modal.title": "Subscriptions",
   "subscriptions.modal.title": "الاشتراكات",
 
@@ -8516,9 +8961,6 @@
 
   // "supervision.search.results.head": "Workflow and Workspace tasks",
   "supervision.search.results.head": "مهام سير العمل ومساحة العمل",
-
-  // "orgunit.search.results.head": "Organizational Unit Search Results",
-  "orgunit.search.results.head": "نتائج بحث الوحدات المؤسسية",
 
   // "workflow-item.edit.breadcrumbs": "Edit workflowitem",
   "workflow-item.edit.breadcrumbs": "تحرير مادة سير العمل",
@@ -9036,6 +9478,14 @@
   // "person.orcid.registry.auth": "ORCID Authorizations",
   "person.orcid.registry.auth": "تصاريح أوركيد",
 
+  // "person.orcid-tooltip.authenticated": "{{orcid}}",
+  // TODO New key - Add a translation
+  "person.orcid-tooltip.authenticated": "{{orcid}}",
+
+  // "person.orcid-tooltip.not-authenticated": "{{orcid}} (unconfirmed)",
+  // TODO New key - Add a translation
+  "person.orcid-tooltip.not-authenticated": "{{orcid}} (unconfirmed)",
+
   // "home.recent-submissions.head": "Recent Submissions",
   "home.recent-submissions.head": "أحدث التقديمات",
 
@@ -9222,57 +9672,21 @@
   // TODO New key - Add a translation
   "admin.notifications.publicationclaim.page.title": "Publication Claim",
 
-  // "filter.search.operator.placeholder": "Operator",
-  // TODO New key - Add a translation
-  "filter.search.operator.placeholder": "Operator",
-
-  // "search.filters.filter.entityType.text": "Item Type",
-  // TODO New key - Add a translation
-  "search.filters.filter.entityType.text": "Item Type",
-
-  // "search.filters.operator.equals.text": "Equals",
-  // TODO New key - Add a translation
-  "search.filters.operator.equals.text": "Equals",
-
-  // "search.filters.operator.notequals.text": "Not Equals",
-  // TODO New key - Add a translation
-  "search.filters.operator.notequals.text": "Not Equals",
-
-  // "search.filters.operator.notcontains.text": "Not Contains",
-  // TODO New key - Add a translation
-  "search.filters.operator.notcontains.text": "Not Contains",
-
-  // "search.filters.operator.contains.text": "Contains",
-  // TODO New key - Add a translation
-  "search.filters.operator.contains.text": "Contains",
-
-  // "search.filters.filter.title.text": "Title",
-  // TODO New key - Add a translation
-  "search.filters.filter.title.text": "Title",
-
-  // "search.filters.applied.f.title": "Title",
-  // TODO New key - Add a translation
-  "search.filters.applied.f.title": "Title",
-
-  // "search.filters.filter.author.text": "Author",
-  // TODO New key - Add a translation
-  "search.filters.filter.author.text": "Author",
-
   // "coar-notify-support.title": "COAR Notify Protocol",
   // TODO New key - Add a translation
   "coar-notify-support.title": "COAR Notify Protocol",
 
-  // "coar-notify-support-title.content": "Here, we fully support the COAR Notify protocol, which is designed to enhance the communication between repositories. To learn more about the COAR Notify protocol, visit the <a href=\\\"https://notify.coar-repositories.org/\\\">COAR Notify website</a>.",
+  // "coar-notify-support-title.content": "Here, we fully support the COAR Notify protocol, which is designed to enhance the communication between repositories. To learn more about the COAR Notify protocol, visit the <a href=\"https://notify.coar-repositories.org/\" rel=\"noopener noreferrer\">COAR Notify website</a>.",
   // TODO New key - Add a translation
-  "coar-notify-support-title.content": "Here, we fully support the COAR Notify protocol, which is designed to enhance the communication between repositories. To learn more about the COAR Notify protocol, visit the <a href=\\\"https://notify.coar-repositories.org/\\\">COAR Notify website</a>.",
+  "coar-notify-support-title.content": "Here, we fully support the COAR Notify protocol, which is designed to enhance the communication between repositories. To learn more about the COAR Notify protocol, visit the <a href=\"https://notify.coar-repositories.org/\" rel=\"noopener noreferrer\">COAR Notify website</a>.",
 
   // "coar-notify-support.ldn-inbox.title": "LDN InBox",
   // TODO New key - Add a translation
   "coar-notify-support.ldn-inbox.title": "LDN InBox",
 
-  // "coar-notify-support.ldn-inbox.content": "For your convenience, our LDN (Linked Data Notifications) InBox is easily accessible at {ldnInboxUrl}. The LDN InBox enables seamless communication and data exchange, ensuring efficient and effective collaboration.",
+  // "coar-notify-support.ldn-inbox.content": "For your convenience, our LDN (Linked Data Notifications) InBox is easily accessible at {{ ldnInboxUrl }}. The LDN InBox enables seamless communication and data exchange, ensuring efficient and effective collaboration.",
   // TODO New key - Add a translation
-  "coar-notify-support.ldn-inbox.content": "For your convenience, our LDN (Linked Data Notifications) InBox is easily accessible at {ldnInboxUrl}. The LDN InBox enables seamless communication and data exchange, ensuring efficient and effective collaboration.",
+  "coar-notify-support.ldn-inbox.content": "For your convenience, our LDN (Linked Data Notifications) InBox is easily accessible at {{ ldnInboxUrl }}. The LDN InBox enables seamless communication and data exchange, ensuring efficient and effective collaboration.",
 
   // "coar-notify-support.message-moderation.title": "Message Moderation",
   // TODO New key - Add a translation
@@ -9556,9 +9970,9 @@
   // TODO New key - Add a translation
   "ldn-new-service.form.error.score": "Please enter a valid score (between 0 and 1). Use the “.” as decimal separator",
 
-  // "ldn-new-service.form.label.inboundPattern": "Inbound Pattern",
+  // "ldn-new-service.form.label.inboundPattern": "Supported Pattern",
   // TODO New key - Add a translation
-  "ldn-new-service.form.label.inboundPattern": "Inbound Pattern",
+  "ldn-new-service.form.label.inboundPattern": "Supported Pattern",
   // "ldn-new-service.form.label.addPattern": "+ Add more",
   // TODO New key - Add a translation
   "ldn-new-service.form.label.addPattern": "+ Add more",
@@ -9711,12 +10125,18 @@
   // TODO New key - Add a translation
   "item.page.review": "Review",
 
-  // "item.page.dataset": "Dataset",
+  // "item.page.referenced": "Referenced By",
   // TODO New key - Add a translation
-  "item.page.dataset": "Dataset",
+  "item.page.referenced": "Referenced By",
+
+  // "item.page.supplemented": "Supplemented By",
+  // TODO New key - Add a translation
+  "item.page.supplemented": "Supplemented By",
+
   // "menu.section.icon.ldn_services": "LDN Services overview",
   // TODO New key - Add a translation
   "menu.section.icon.ldn_services": "LDN Services overview",
+
   // "menu.section.services": "LDN Services",
   // TODO New key - Add a translation
   "menu.section.services": "LDN Services",
@@ -9735,9 +10155,9 @@
   // TODO New key - Add a translation
   "quality-assurance.events.description-with-topic-and-target": "Below the list of all the suggestions for the selected topic <b>{{topic}}</b>, related to <b>{{source}}</b> and ",
 
-  // "quality-assurance.event.table.event.message.serviceUrl": "Service URL:",
+  // "quality-assurance.event.table.event.message.serviceUrl": "Actor:",
   // TODO New key - Add a translation
-  "quality-assurance.event.table.event.message.serviceUrl": "Service URL:",
+  "quality-assurance.event.table.event.message.serviceUrl": "Actor:",
 
   // "quality-assurance.event.table.event.message.link": "Link:",
   // TODO New key - Add a translation
@@ -9863,25 +10283,29 @@
   // TODO New key - Add a translation
   "request-status-alert-box.rejected": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> has been rejected.",
 
+  // "request-status-alert-box.tentative_rejected": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> has been tentatively rejected. Revisions are required.",
+  // TODO New key - Add a translation
+  "request-status-alert-box.tentative_rejected": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> has been tentatively rejected. Revisions are required.",
+
   // "request-status-alert-box.requested": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> is pending.",
   // TODO New key - Add a translation
   "request-status-alert-box.requested": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> is pending.",
 
-  // "ldn-service-button-mark-inbound-deletion": "Mark inbound pattern for deletion",
+  // "ldn-service-button-mark-inbound-deletion": "Mark supported pattern for deletion",
   // TODO New key - Add a translation
-  "ldn-service-button-mark-inbound-deletion": "Mark inbound pattern for deletion",
+  "ldn-service-button-mark-inbound-deletion": "Mark supported pattern for deletion",
 
-  // "ldn-service-button-unmark-inbound-deletion": "Unmark inbound pattern for deletion",
+  // "ldn-service-button-unmark-inbound-deletion": "Unmark supported pattern for deletion",
   // TODO New key - Add a translation
-  "ldn-service-button-unmark-inbound-deletion": "Unmark inbound pattern for deletion",
+  "ldn-service-button-unmark-inbound-deletion": "Unmark supported pattern for deletion",
 
-  // "ldn-service-input-inbound-item-filter-dropdown": "Select Item filter for inbound pattern",
+  // "ldn-service-input-inbound-item-filter-dropdown": "Select Item filter for the pattern",
   // TODO New key - Add a translation
-  "ldn-service-input-inbound-item-filter-dropdown": "Select Item filter for inbound pattern",
+  "ldn-service-input-inbound-item-filter-dropdown": "Select Item filter for the pattern",
 
-  // "ldn-service-input-inbound-pattern-dropdown": "Select inbound pattern for service",
+  // "ldn-service-input-inbound-pattern-dropdown": "Select a pattern for service",
   // TODO New key - Add a translation
-  "ldn-service-input-inbound-pattern-dropdown": "Select inbound pattern for service",
+  "ldn-service-input-inbound-pattern-dropdown": "Select a pattern for service",
 
   // "ldn-service-overview-select-delete": "Select service for deletion",
   // TODO New key - Add a translation
@@ -9958,22 +10382,6 @@
   // "type-equals-journal-article_condition.label": "Type equals Journal Article",
   // TODO New key - Add a translation
   "type-equals-journal-article_condition.label": "Type equals Journal Article",
-
-  // "search.filters.filter.subject.text": "Subject",
-  // TODO New key - Add a translation
-  "search.filters.filter.subject.text": "Subject",
-
-  // "search.advanced.filters.head": "Advanced Search",
-  // TODO New key - Add a translation
-  "search.advanced.filters.head": "Advanced Search",
-
-  // "filter.search.text.placeholder": "Search text",
-  // TODO New key - Add a translation
-  "filter.search.text.placeholder": "Search text",
-
-  // "advancesearch.form.submit": "Add",
-  // TODO New key - Add a translation
-  "advancesearch.form.submit": "Add",
 
   // "ldn.no-filter.label": "None",
   // TODO New key - Add a translation
@@ -10642,5 +11050,70 @@
   // "search.filters.filter.notifyEndorsement.label": "Search Notify Endorsement",
   // TODO New key - Add a translation
   "search.filters.filter.notifyEndorsement.label": "Search Notify Endorsement",
+
+  // "form.date-picker.placeholder.year": "Year",
+  // TODO New key - Add a translation
+  "form.date-picker.placeholder.year": "Year",
+
+  // "form.date-picker.placeholder.month": "Month",
+  // TODO New key - Add a translation
+  "form.date-picker.placeholder.month": "Month",
+
+  // "form.date-picker.placeholder.day": "Day",
+  // TODO New key - Add a translation
+  "form.date-picker.placeholder.day": "Day",
+
+  // "item.page.cc.license.title": "Creative Commons license",
+  // TODO New key - Add a translation
+  "item.page.cc.license.title": "Creative Commons license",
+
+  // "item.page.cc.license.disclaimer": "Except where otherwised noted, this item's license is described as",
+  // TODO New key - Add a translation
+  "item.page.cc.license.disclaimer": "Except where otherwised noted, this item's license is described as",
+
+  // "browse.search-form.placeholder": "Search the repository",
+  // TODO New key - Add a translation
+  "browse.search-form.placeholder": "Search the repository",
+
+  // "file-download-link.download": "Download ",
+  // TODO New key - Add a translation
+  "file-download-link.download": "Download ",
+
+  // "register-page.registration.aria.label": "Enter your e-mail address",
+  // TODO New key - Add a translation
+  "register-page.registration.aria.label": "Enter your e-mail address",
+
+  // "forgot-email.form.aria.label": "Enter your e-mail address",
+  // TODO New key - Add a translation
+  "forgot-email.form.aria.label": "Enter your e-mail address",
+
+  // "search-facet-option.update.announcement": "The page will be reloaded. Filter {{ filter }} is selected.",
+  // TODO New key - Add a translation
+  "search-facet-option.update.announcement": "The page will be reloaded. Filter {{ filter }} is selected.",
+
+  // "live-region.ordering.instructions": "Press spacebar to reorder {{ itemName }}.",
+  // TODO New key - Add a translation
+  "live-region.ordering.instructions": "Press spacebar to reorder {{ itemName }}.",
+
+  // "live-region.ordering.status": "{{ itemName }}, grabbed. Current position in list: {{ index }} of  {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
+  // TODO New key - Add a translation
+  "live-region.ordering.status": "{{ itemName }}, grabbed. Current position in list: {{ index }} of  {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
+
+  // "live-region.ordering.moved": "{{ itemName }}, moved to position {{ index }} of {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
+  // TODO New key - Add a translation
+  "live-region.ordering.moved": "{{ itemName }}, moved to position {{ index }} of {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
+
+  // "live-region.ordering.dropped": "{{ itemName }}, dropped at position {{ index }} of {{ length }}.",
+  // TODO New key - Add a translation
+  "live-region.ordering.dropped": "{{ itemName }}, dropped at position {{ index }} of {{ length }}.",
+
+  // "dynamic-form-array.sortable-list.label": "Sortable list",
+  // TODO New key - Add a translation
+  "dynamic-form-array.sortable-list.label": "Sortable list",
+
+  // "metadata-export-search.submit.error.limit-exceeded": "Only the first {{limit}} items will be exported",
+  // TODO New key - Add a translation
+  "metadata-export-search.submit.error.limit-exceeded": "Only the first {{limit}} items will be exported",
+
 
 }

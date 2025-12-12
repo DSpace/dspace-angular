@@ -13,7 +13,6 @@ import {
   DynamicFormControlModel,
   DynamicFormControlRelation,
   DynamicFormRelationService,
-  MATCH_VISIBLE,
   OR_OPERATOR,
 } from '@ng-dynamic-forms/core';
 import { Subscription } from 'rxjs';
@@ -214,25 +213,6 @@ export class DsDynamicTypeBindRelationService {
     });
 
     return subscriptions;
-  }
-
-  /**
-   * Helper function to construct a typeBindRelations array
-   * @param configuredTypeBindValues
-   */
-  public getTypeBindRelations(configuredTypeBindValues: string[]): DynamicFormControlRelation[] {
-    const bindValues = [];
-    configuredTypeBindValues.forEach((value) => {
-      bindValues.push({
-        id: 'dc.type',
-        value: value,
-      });
-    });
-    return [{
-      match: MATCH_VISIBLE,
-      operator: OR_OPERATOR,
-      when: bindValues,
-    }];
   }
 
 }
