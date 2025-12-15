@@ -7233,4 +7233,52 @@
   "item.preview.organization.address.addressLocality": "City",
 
   "item.preview.organization.alternateName": "Alternative name",
+
+  "metadata-link-view.popover.label.Person.dc.title": "Fullname",
+
+  "metadata-link-view.popover.label.Person.person.affiliation.name": "Main affiliation",
+
+  "metadata-link-view.popover.label.Person.person.email": "Email",
+
+  "metadata-link-view.popover.label.Person.person.identifier.orcid": "ORCID",
+
+  "metadata-link-view.popover.label.Person.dc.description.abstract": "Abstract",
+
+  "metadata-link-view.popover.label.OrgUnit.dc.title": "Fullname",
+
+  "metadata-link-view.popover.label.OrgUnit.organization.identifier.ror": "ROR",
+
+  "metadata-link-view.popover.label.OrgUnit.crisou.director": "Director",
+
+  "metadata-link-view.popover.label.OrgUnit.organization.parentOrganization": "Parent Organization",
+
+  "metadata-link-view.popover.label.OrgUnit.dc.description.abstract": "Description",
+
+  "metadata-link-view.popover.label.Project.dc.title": "Title",
+
+  "metadata-link-view.popover.label.Project.oairecerif.project.status": "Status",
+
+  "metadata-link-view.popover.label.Project.dc.description.abstract": "Abstract",
+
+  "metadata-link-view.popover.label.Funding.dc.title": "Title",
+
+  "metadata-link-view.popover.label.Funding.oairecerif.funder": "Funder",
+
+  "metadata-link-view.popover.label.Funding.oairecerif.fundingProgram": "Funding program",
+
+  "metadata-link-view.popover.label.Funding.dc.description.abstract": "Abstract",
+
+  "metadata-link-view.popover.label.Publication.dc.title": "Title",
+
+  "metadata-link-view.popover.label.Publication.dc.identifier.doi": "DOI",
+
+  "metadata-link-view.popover.label.Publication.dc.identifier.uri": "URL",
+
+  "metadata-link-view.popover.label.Publication.dc.description.abstract": "Abstract",
+
+  "metadata-link-view.popover.label.other.dc.title": "Title",
+
+  "metadata-link-view.popover.label.other.dc.description.abstract": "Description",
+
+  "metadata-link-view.popover.label.more-info": "More info"
 }

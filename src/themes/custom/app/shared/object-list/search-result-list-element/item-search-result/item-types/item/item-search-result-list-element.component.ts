@@ -14,6 +14,9 @@ import { ItemSearchResultListElementComponent as BaseComponent } from '../../../
 import { TruncatableComponent } from '../../../../../../../../../app/shared/truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../../../../../../../../../app/shared/truncatable/truncatable-part/truncatable-part.component';
 import { ThemedThumbnailComponent } from '../../../../../../../../../app/thumbnail/themed-thumbnail.component';
+import {
+  MetadataLinkViewComponent
+} from "../../../../../../../../../app/shared/metadata-link-view/metadata-link-view.component";
 
 @listableObjectComponent('PublicationSearchResult', ViewMode.ListElement, Context.Any, 'custom')
 @listableObjectComponent(ItemSearchResult, ViewMode.ListElement, Context.Any, 'custom')
@@ -31,6 +34,7 @@ import { ThemedThumbnailComponent } from '../../../../../../../../../app/thumbna
     ThemedThumbnailComponent,
     TruncatableComponent,
     TruncatablePartComponent,
+    MetadataLinkViewComponent
   ],
 })
 export class ItemSearchResultListElementComponent extends BaseComponent {

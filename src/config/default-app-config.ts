@@ -14,25 +14,30 @@ import { FilterVocabularyConfig } from './filter-vocabulary-config';
 import { FormConfig } from './form-config.interfaces';
 import { GeospatialMapConfig } from './geospatial-map-config';
 import { HomeConfig } from './homepage-config.interface';
+import { IdentifierSubtypesConfig } from "./identifier-subtypes-config.interface";
 import { InfoConfig } from './info-config.interface';
 import { ItemConfig } from './item-config.interface';
 import { LangConfig } from './lang-config.interface';
+import { CrisLayoutConfig } from "./layout-config.interfaces";
 import { LiveRegionConfig } from './live-region.config';
 import { MarkdownConfig } from './markdown-config.interface';
 import { MatomoConfig } from './matomo-config.interface';
 import { MediaViewerConfig } from './media-viewer-config.interface';
+import { MetadataLinkViewPopoverDataConfig } from "./metadata-link-view-popoverdata-config.interface";
 import {
   INotificationBoardOptions,
   NotificationAnimationsType,
 } from './notifications-config.interfaces';
 import { QualityAssuranceConfig } from './quality-assurance.config';
 import { RestRequestMethod } from './rest-request-method';
+import { FollowAuthorityMetadata } from "./search-follow-metadata.interface";
 import { SearchConfig } from './search-page-config.interface';
 import { ServerConfig } from './server-config.interface';
 import { SubmissionConfig } from './submission-config.interface';
 import { SuggestionConfig } from './suggestion-config.interfaces';
 import { ThemeConfig } from './theme.config';
 import { UIServerConfig } from './ui-server-config.interface';
+import { SearchResultConfig } from "@dspace/config/search-result-config.interface";
 
 export class DefaultAppConfig implements AppConfig {
   production = false;
@@ -667,4 +672,109 @@ export class DefaultAppConfig implements AppConfig {
   accessibility: AccessibilitySettingsConfig = {
     cookieExpirationDuration: 7,
   };
+
+  crisLayout: CrisLayoutConfig = {
+    crisRef: [
+      {
+        entityType: 'DEFAULT',
+        entityStyle: {
+          default: {
+            icon: 'fa fa-info',
+            style: 'text-info',
+          },
+        },
+      },
+      {
+        entityType: 'PERSON',
+        entityStyle: {
+          default: {
+            icon: 'fa fa-user',
+            style: 'text-info',
+          },
+        },
+      },
+      {
+        entityType: 'ORGUNIT',
+        entityStyle: {
+          default: {
+            icon: 'fa fa-university',
+            style: 'text-info',
+          },
+        },
+      },
+      {
+        entityType: 'PROJECT',
+        entityStyle: {
+          default: {
+            icon: 'fas fa-project-diagram',
+            style: 'text-info',
+          },
+        },
+      },
+    ],
+    crisRefStyleMetadata: {
+      default: 'cris.entity.style',
+    },
+  };
+
+  searchResult: SearchResultConfig = {
+    additionalMetadataFields: [],
+    authorMetadata: ['dc.contributor.author', 'dc.creator', 'dc.contributor.*'],
+  };
+
+  // Configuration for the metadata link view popover
+  metadataLinkViewPopoverData: MetadataLinkViewPopoverDataConfig = {
+    fallbackMetdataList: ['dc.description.abstract'],
+
+    entityDataConfig: [
+      {
+        entityType: 'Person',
+        metadataList: ['person.affiliation.name', 'person.email', 'person.identifier.orcid', 'dc.description.abstract'],
+      },
+      {
+        entityType: 'OrgUnit',
+        metadataList: ['organization.parentOrganization', 'organization.identifier.ror', 'crisou.director', 'dc.description.abstract'],
+      },
+      {
+        entityType: 'Project',
+        metadataList: ['oairecerif.project.status', 'dc.description.abstract'],
+      },
+      {
+        entityType: 'Funding',
+        metadataList: ['oairecerif.funder', 'oairecerif.fundingProgram', 'dc.description.abstract'],
+      },
+      {
+        entityType: 'Publication',
+        metadataList: ['dc.identifier.doi', 'dc.identifier.uri', 'dc.description.abstract'],
+      },
+    ],
+  };
+
+  identifierSubtypes: IdentifierSubtypesConfig[] = [
+  ];
+
+  // The maximum number of item to process when following authority metadata values.
+  followAuthorityMaxItemLimit = 100;
+  // The maximum number of metadata values to process for each metadata key
+  // when following authority metadata values.
+  followAuthorityMetadataValuesLimit = 5;
+
+// When the search results are retrieved, for each item type the metadata with a valid authority value are inspected.
+  // Referenced items will be fetched with a find all by id strategy to avoid individual rest requests
+  // to efficiently display the search results.
+  followAuthorityMetadata: FollowAuthorityMetadata[] = [
+    {
+      type: 'Publication',
+      metadata: ['dc.contributor.author'],
+    },
+    {
+      type: 'Product',
+      metadata: ['dc.contributor.author'],
+    },
+    {
+      type: 'Patent',
+      metadata: ['dc.contributor.author'],
+    },
+  ];
+
 }

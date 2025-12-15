@@ -38,3 +38,21 @@
         background-color: var(--ds-dark-scrollbar-bg);
     }
 }
+
+/* Define a mixin for vertical ellipsis
+   To be used as a class e.g. ellipsis-y-1,... ellipsis-y-4,... ellipsis-y-10
+ */
+@mixin ellipsis-y($lines) {
+  display: -webkit-box;
+  -webkit-line-clamp: $lines; // number of lines
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// Generate classes for 1 to 10 lines
+@for $i from 1 through 10 {
+  .ellipsis-y-#{$i} {
+    @include ellipsis-y($i);
+  }
+}

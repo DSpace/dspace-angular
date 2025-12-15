@@ -18,6 +18,10 @@ import { listableObjectComponent } from '../../../../../object-collection/shared
 import { TruncatableComponent } from '../../../../../truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../../../../../truncatable/truncatable-part/truncatable-part.component';
 import { SearchResultListElementComponent } from '../../../search-result-list-element.component';
+import { environment } from "../../../../../../../environments/environment";
+import { MetadataValueFilter } from "@dspace/core/shared/metadata.models";
+import { PLACEHOLDER_VALUE } from "@dspace/core/shared/metadata.utils";
+import { MetadataLinkViewComponent } from "../../../../../metadata-link-view/metadata-link-view.component";
 
 @listableObjectComponent('PublicationSearchResult', ViewMode.ListElement)
 @listableObjectComponent(ItemSearchResult, ViewMode.ListElement)
@@ -33,6 +37,7 @@ import { SearchResultListElementComponent } from '../../../search-result-list-el
     ThemedThumbnailComponent,
     TruncatableComponent,
     TruncatablePartComponent,
+    MetadataLinkViewComponent
   ],
 })
 /**
@@ -43,6 +48,14 @@ export class ItemSearchResultListElementComponent extends SearchResultListElemen
    * Route to the item's page
    */
   itemPageRoute: string;
+
+  authorMetadata = environment.searchResult.authorMetadata;
+
+
+  readonly placeholderFilter: MetadataValueFilter = {
+    negate: true,
+    value: PLACEHOLDER_VALUE,
+  };
 
   ngOnInit(): void {
     super.ngOnInit();

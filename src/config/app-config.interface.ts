@@ -34,6 +34,11 @@ import { SubmissionConfig } from './submission-config.interface';
 import { SuggestionConfig } from './suggestion-config.interfaces';
 import { ThemeConfig } from './theme.config';
 import { UIServerConfig } from './ui-server-config.interface';
+import { MetadataLinkViewPopoverDataConfig } from "./metadata-link-view-popoverdata-config.interface";
+import { IdentifierSubtypesConfig } from "./identifier-subtypes-config.interface";
+import { SearchResultConfig } from "./search-result-config.interface";
+import { FollowAuthorityMetadata } from "./search-follow-metadata.interface";
+import { CrisLayoutConfig } from "./layout-config.interfaces";
 
 interface AppConfig extends Config {
   ui: UIServerConfig;
@@ -69,6 +74,13 @@ interface AppConfig extends Config {
   matomo?: MatomoConfig;
   geospatialMapViewer: GeospatialMapConfig;
   accessibility: AccessibilitySettingsConfig;
+  crisLayout: CrisLayoutConfig;
+  metadataLinkViewPopoverData: MetadataLinkViewPopoverDataConfig;
+  identifierSubtypes: IdentifierSubtypesConfig[];
+  searchResult: SearchResultConfig;
+  followAuthorityMetadata: FollowAuthorityMetadata[];
+  followAuthorityMaxItemLimit: number;
+  followAuthorityMetadataValuesLimit: number;
 }
 
 /**

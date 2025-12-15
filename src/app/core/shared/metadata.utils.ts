@@ -48,14 +48,16 @@ export class Metadata {
    * @param escapeHTML Whether the HTML is used inside a `[innerHTML]` attribute
    * @returns {MetadataValue[]} the matching values or an empty array.
    */
-  public static all(metadata: MetadataMapInterface, keyOrKeys: string | string[], hitHighlights?: MetadataMapInterface, filter?: MetadataValueFilter, escapeHTML?: boolean): MetadataValue[] {
+  public static all(metadata: MetadataMapInterface, keyOrKeys: string | string[], hitHighlights?: MetadataMapInterface, filter?: MetadataValueFilter, escapeHTML?: boolean, limit?: number): MetadataValue[] {
     const matches: MetadataValue[] = [];
     if (isNotEmpty(hitHighlights)) {
       for (const mdKey of Metadata.resolveKeys(hitHighlights, keyOrKeys)) {
         if (hitHighlights[mdKey]) {
           for (const candidate of hitHighlights[mdKey]) {
             if (Metadata.valueMatches(candidate as MetadataValue, filter)) {
-              matches.push(candidate as MetadataValue);
+              if (isEmpty(limit) || (hasValue(limit) && matches.length < limit)) {
+                matches.push(candidate as MetadataValue);
+              }
             }
           }
         }
@@ -212,11 +214,14 @@ export class Metadata {
         fValue = filter.value.toLowerCase();
         mValue = mdValue.value.toLowerCase();
       }
+      let result: boolean;
+
       if (filter.substring) {
-        return mValue.includes(fValue);
+        result = mValue.includes(fValue);
       } else {
-        return mValue === fValue;
+        result = mValue === fValue;
       }
+      return filter.negate ? !result : result;
     }
     return true;
   }
