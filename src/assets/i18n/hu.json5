@@ -459,20 +459,16 @@
   "admin.access-control.epeople.table.edit.buttons.remove": "\"{{name}}\" törlése", // "Törlés \"{{name}}\"" -> "\"{{name}}\" törlése",
 
   // "admin.access-control.epeople.table.edit.buttons.remove.modal.header": "Delete Group \"{{ dsoName }}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.table.edit.buttons.remove.modal.header": "Delete Group \"{{ dsoName }}\"",
+  "admin.access-control.epeople.table.edit.buttons.remove.modal.header": "\"{{ dsoName }}\" csoport törlése",
 
   // "admin.access-control.epeople.table.edit.buttons.remove.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\" and all its associated policies?",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.table.edit.buttons.remove.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\" and all its associated policies?",
+  "admin.access-control.epeople.table.edit.buttons.remove.modal.info": "Biztos benne, hogy törli a(z) \"{{ dsoName }}\" csoportot és a hozzá rendelt házirendeket?",
 
   // "admin.access-control.epeople.table.edit.buttons.remove.modal.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.table.edit.buttons.remove.modal.cancel": "Cancel",
+  "admin.access-control.epeople.table.edit.buttons.remove.modal.cancel": "Mégsem",
 
   // "admin.access-control.epeople.table.edit.buttons.remove.modal.confirm": "Delete",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.table.edit.buttons.remove.modal.confirm": "Delete",
+  "admin.access-control.epeople.table.edit.buttons.remove.modal.confirm": "Töröl",
 
   // "admin.access-control.epeople.no-items": "No EPeople to show.",
   "admin.access-control.epeople.no-items": "Nincsenek megjeleníthető felhasználók.", // "Nincs elérhető ESzemély." -> "Nincsenek megjeleníthető felhasználók.",
@@ -1693,11 +1689,9 @@
   "browse.taxonomy.button": "Böngészés",
 
   // "browse.title": "Browsing by {{ field }}{{ startsWith }} {{ value }}",
-  // TODO Source message changed - Revise the translation
   "browse.title": "Böngészés: {{ field }} {{ startsWith }} {{ value }}", // "Böngészés - {{ field }} {{ value }} szerint" -> "Böngészés: {{ field }} {{ startsWith }} {{ value }}" (startsWith beépítve),
 
   // "browse.title.page": "Browsing by {{ field }} {{ value }}",
-  // TODO Source message changed - Revise the translation
   "browse.title.page": "Böngészés: {{ field }} {{ value }}",
 
   // "search.browse.item-back": "Back to Results",
@@ -2304,20 +2298,16 @@
   "comcol-role.edit.delete.error.title": "Nem sikerült törölni a(z) '{{ role }}' szerepkör csoportját.", // "Failed to delete the '{{ role }}' role's group" -> "Nem sikerült törölni a(z) '{{ role }}' szerepkör csoportját.",
 
   // "comcol-role.edit.delete.modal.header": "Delete Group \"{{ dsoName }}\"",
-  // TODO New key - Add a translation
-  "comcol-role.edit.delete.modal.header": "Delete Group \"{{ dsoName }}\"",
+  "comcol-role.edit.delete.modal.header": "\"{{ dsoName }}\" csoport törlése",
 
   // "comcol-role.edit.delete.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\" and all its associated policies?",
-  // TODO New key - Add a translation
-  "comcol-role.edit.delete.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\" and all its associated policies?",
+  "comcol-role.edit.delete.modal.info": "Biztos bene, hogy töröli szeretné a(z) \"{{ dsoName }}\" csoportot és a hozzá rendelt háziredeket?",
 
   // "comcol-role.edit.delete.modal.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "comcol-role.edit.delete.modal.cancel": "Cancel",
+  "comcol-role.edit.delete.modal.cancel": "Mégsem",
 
   // "comcol-role.edit.delete.modal.confirm": "Delete",
-  // TODO New key - Add a translation
-  "comcol-role.edit.delete.modal.confirm": "Delete",
+  "comcol-role.edit.delete.modal.confirm": "Töröl",
 
   // "comcol-role.edit.community-admin.name": "Administrators",
   "comcol-role.edit.community-admin.name": "Adminisztrátorok",
@@ -3466,8 +3456,7 @@
   "info.coar-notify-support.title": "COAR Notify Támogatás",
 
   // "info.coar-notify-support.breadcrumbs": "COAR Notify Support",
-  // TODO New key - Add a translation
-  "info.coar-notify-support.breadcrumbs": "COAR Notify Support",
+  "info.coar-notify-support.breadcrumbs": "COAR Notify Támogatás",
 
   // "item.alerts.private": "This item is non-discoverable",
   "item.alerts.private": "Ez a tétel nem kereshető.", // "Ez az elem privát" -> "Ez a tétel nem kereshető." (non-discoverable),
@@ -4529,8 +4518,7 @@
   "item.preview.dc.rights": "Jogok", // "Jogkezelés" -> "Jogok",
 
   // "item.preview.dc.identifier.other": "Other Identifier",
-  // TODO Source message changed - Revise the translation
-  "item.preview.dc.identifier.other": "Egyéb azonosító:",
+  "item.preview.dc.identifier.other": "Egyéb azonosító",
 
   // "item.preview.dc.relation.issn": "ISSN",
   "item.preview.dc.relation.issn": "ISSN",
@@ -4620,8 +4608,7 @@
   "item.preview.dc.identifier.openalex": "OpenAlex azonosító",
 
   // "item.preview.dc.description": "Description",
-  // TODO Source message changed - Revise the translation
-  "item.preview.dc.description": "Leírás:",
+  "item.preview.dc.description": "Leírás",
 
   // "item.select.confirm": "Confirm selected",
   "item.select.confirm": "Kiválasztottak megerősítése",
@@ -4759,12 +4746,10 @@
   "item.version.create.modal.form.summary.label": "Összefoglaló",
 
   // "qa-withdrawn.create.modal.form.summary.label": "You are requesting to withdraw this item",
-  // TODO New key - Add a translation
-  "qa-withdrawn.create.modal.form.summary.label": "You are requesting to withdraw this item",
+  "qa-withdrawn.create.modal.form.summary.label": "Kérelmezte a tétel visszavonását",
 
   // "qa-withdrawn.create.modal.form.summary2.label": "Please enter the reason for the withdrawal",
-  // TODO New key - Add a translation
-  "qa-withdrawn.create.modal.form.summary2.label": "Please enter the reason for the withdrawal",
+  "qa-withdrawn.create.modal.form.summary2.label": "Írja be a tétel visszavonásának okát",
 
   // "qa-reinstate.create.modal.form.summary.label": "You are requesting to reinstate this item",
   "qa-reinstate.create.modal.form.summary.label": "E tétel visszaállítását kéri.", // "Ezen elem visszaállításának kérvényezése" -> "E tétel visszaállítását kéri.",
@@ -5604,8 +5589,7 @@
   "nav.user.description": "Felhasználói profilsáv", // Eredeti: "User profile bar" -> Javított: "Felhasználói profilsáv",
 
   // "listelement.badge.dso-type": "Item type:",
-  // TODO New key - Add a translation
-  "listelement.badge.dso-type": "Item type:",
+  "listelement.badge.dso-type": "Tétel típusa:",
 
   // "none.listelement.badge": "Item",
   "none.listelement.badge": "Tétel", // Eredeti: "Tárgy" -> Javított: "Tétel",
@@ -8184,7 +8168,6 @@
   "submission.sections.describe.relationship-lookup.selection-tab.title.openaireTitle": "Keresési eredmények",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.openaireFundin": "Search Results",
-  // TODO Source message changed - Revise the translation
   "submission.sections.describe.relationship-lookup.selection-tab.title.openaireFunding": "Keresési eredmények", // Javítva "openaireFunding"-ra,
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.lcname": "Search Results",
@@ -8713,8 +8696,7 @@
   "submission.workflow.tasks.claimed.reject.submit": "Elutasítás",
 
   // "submission.workflow.tasks.claimed.reject_help": "If you have reviewed the item and found it is <strong>not</strong> suitable for inclusion in the collection, select \"Reject\".  You will then be asked to enter a message indicating why the item is unsuitable, and whether the submitter should change something and resubmit.",
-  // TODO Source message changed - Revise the translation
-  "submission.workflow.tasks.claimed.reject_help": "Ha áttekintette a tételt, és úgy találta, hogy <strong>nem</strong> alkalmas a gyűjteménybe való felvételre, válassza az \"Elutasítás\" lehetőséget.\nEzután meg kell adnia egy üzenetet, amelyben jelzi, miért nem megfelelő a tétel, és hogy a beküldőnek módosítania kell-e valamit és újra be kell-e küldenie.",
+  "submission.workflow.tasks.claimed.reject_help": "Ha áttekintette a tételt, és úgy találta, hogy <strong>nem</strong> alkalmas a gyűjteménybe való felvételre, válassza az \"Elutasítás\" lehetőséget.  Ezután meg kell adnia egy üzenetet, amelyben jelzi, miért nem megfelelő a tétel, és hogy a beküldőnek módosítania kell-e valamit és újra be kell-e küldenie.",
 
   // "submission.workflow.tasks.claimed.return": "Return to pool",
   "submission.workflow.tasks.claimed.return": "Vissza a feladatlistába",
@@ -9693,391 +9675,280 @@
 
   // "ldn-registered-services.title": "Registered Services",
   "ldn-registered-services.title": "Regisztrált szolgáltatások",
-
   // "ldn-registered-services.table.name": "Name",
   "ldn-registered-services.table.name": "Név",
-
   // "ldn-registered-services.table.description": "Description",
   "ldn-registered-services.table.description": "Leírás",
-
   // "ldn-registered-services.table.status": "Status",
   "ldn-registered-services.table.status": "Állapot",
-
   // "ldn-registered-services.table.action": "Action",
   "ldn-registered-services.table.action": "Művelet",
-
   // "ldn-registered-services.new": "NEW",
   "ldn-registered-services.new": "ÚJ",
-
   // "ldn-registered-services.new.breadcrumbs": "Registered Services",
   "ldn-registered-services.new.breadcrumbs": "Regisztrált szolgáltatások",
 
   // "ldn-service.overview.table.enabled": "Enabled",
   "ldn-service.overview.table.enabled": "Engedélyezve", // Eredeti: "Engedélyezett" -> Javítva,
-
   // "ldn-service.overview.table.disabled": "Disabled",
   "ldn-service.overview.table.disabled": "Letiltva", // Eredeti: "Tiltott" -> Javítva,
-
   // "ldn-service.overview.table.clickToEnable": "Click to enable",
   "ldn-service.overview.table.clickToEnable": "Kattintson az engedélyezéshez",
-
   // "ldn-service.overview.table.clickToDisable": "Click to disable",
   "ldn-service.overview.table.clickToDisable": "Kattintson a letiltáshoz",
 
   // "ldn-edit-registered-service.title": "Edit Service",
   "ldn-edit-registered-service.title": "Szolgáltatás szerkesztése",
-
   // "ldn-create-service.title": "Create service",
   "ldn-create-service.title": "Szolgáltatás létrehozása",
-
   // "service.overview.create.modal": "Create Service",
   "service.overview.create.modal": "Szolgáltatás létrehozása",
-
   // "service.overview.create.body": "Please confirm the creation of this service.",
   "service.overview.create.body": "Kérjük, erősítse meg ennek a szolgáltatásnak a létrehozását.",
-
   // "ldn-service-status": "Status",
   "ldn-service-status": "Állapot",
-
   // "service.confirm.create": "Create",
   "service.confirm.create": "Létrehozás", // Eredeti: "Létrehoz" -> Javítva,
-
   // "service.refuse.create": "Cancel",
   "service.refuse.create": "Mégse",
-
   // "ldn-register-new-service.title": "Register a new service",
   "ldn-register-new-service.title": "Új szolgáltatás regisztrálása",
-
   // "ldn-new-service.form.label.submit": "Save",
   "ldn-new-service.form.label.submit": "Mentés",
-
   // "ldn-new-service.form.label.name": "Name",
   "ldn-new-service.form.label.name": "Név",
-
   // "ldn-new-service.form.label.description": "Description",
   "ldn-new-service.form.label.description": "Leírás", // Lefordítva,
-
   // "ldn-new-service.form.label.url": "Service URL",
   "ldn-new-service.form.label.url": "Szolgáltatás URL-címe", // Eredeti: "Szolgáltatás URL" -> Javítva,
-
   // "ldn-new-service.form.label.ip-range": "Service IP range",
   "ldn-new-service.form.label.ip-range": "Szolgáltatás IP-tartománya", // Eredeti: "Szolgáltatás IP tartomány" -> Javítva,
-
   // "ldn-new-service.form.label.score": "Level of trust",
   "ldn-new-service.form.label.score": "Bizalmi szint",
-
   // "ldn-new-service.form.label.ldnUrl": "LDN Inbox URL",
   "ldn-new-service.form.label.ldnUrl": "LDN Bejövő Postafiók URL-címe", // Eredeti: "LDN Inbox URL" -> Javítva,
-
   // "ldn-new-service.form.placeholder.name": "Please provide service name",
   "ldn-new-service.form.placeholder.name": "Kérjük, adja meg a szolgáltatás nevét.",
-
   // "ldn-new-service.form.placeholder.description": "Please provide a description regarding your service",
   "ldn-new-service.form.placeholder.description": "Kérjük, adjon leírást a szolgáltatásáról.", // Eredeti: "Kérem, adja meg a leírást szolgáltatáshoz" -> Javítva,
-
   // "ldn-new-service.form.placeholder.url": "Please input the URL for users to check out more information about the service",
   "ldn-new-service.form.placeholder.url": "Kérjük, adja meg az URL-t, ahol a felhasználók további információkat találhatnak a szolgáltatásról.",
-
   // "ldn-new-service.form.placeholder.lowerIp": "IPv4 range lower bound",
   "ldn-new-service.form.placeholder.lowerIp": "IPv4 tartomány alsó korlátja", // Eredeti: "IPv4 range lower bound" -> Javítva,
-
   // "ldn-new-service.form.placeholder.upperIp": "IPv4 range upper bound",
   "ldn-new-service.form.placeholder.upperIp": "IPv4 tartomány felső korlátja", // Eredeti: "IPv4 range upper bound" -> Javítva,
-
   // "ldn-new-service.form.placeholder.ldnUrl": "Please specify the URL of the LDN Inbox",
   "ldn-new-service.form.placeholder.ldnUrl": "Kérjük, adja meg az LDN Bejövő Postafiók URL-címét.", // Eredeti: "Please specify the URL of the LDN Inbox" -> Javítva,
-
   // "ldn-new-service.form.placeholder.score": "Please enter a value between 0 and 1. Use the “.” as decimal separator",
   "ldn-new-service.form.placeholder.score": "Kérjük, adjon meg egy értéket 0 és 1 között. Tizedeselválasztóként „.” karaktert használjon.", // Eredeti: "Please enter a value between 0 and 1. Use the “.” as decimal separator" -> Javítva,
-
   // "ldn-service.form.label.placeholder.default-select": "Select a pattern",
   "ldn-service.form.label.placeholder.default-select": "Válasszon egy mintát",
 
   // "ldn-service.form.pattern.ack-accept.label": "Acknowledge and Accept",
   "ldn-service.form.pattern.ack-accept.label": "Tudomásulvétel és Elfogadás", // Lefordítva,
-
   // "ldn-service.form.pattern.ack-accept.description": "This pattern is used to acknowledge and accept a request (offer). It implies an intention to act on the request.",
   "ldn-service.form.pattern.ack-accept.description": "Ez a minta egy kérés (ajánlat) tudomásulvételére és elfogadására szolgál. A kérésre vonatkozó cselekvési szándékot jelez.", // Lefordítva,
-
   // "ldn-service.form.pattern.ack-accept.category": "Acknowledgements",
   "ldn-service.form.pattern.ack-accept.category": "Tudomásulvételek", // Lefordítva,
 
   // "ldn-service.form.pattern.ack-reject.label": "Acknowledge and Reject",
   "ldn-service.form.pattern.ack-reject.label": "Tudomásulvétel és Elutasítás", // Lefordítva,
-
   // "ldn-service.form.pattern.ack-reject.description": "This pattern is used to acknowledge and reject a request (offer). It signifies no further action regarding the request.",
   "ldn-service.form.pattern.ack-reject.description": "Ez a minta egy kérés (ajánlat) tudomásulvételére és elutasítására szolgál. Ez azt jelenti, hogy a kéréssel kapcsolatban nincs további teendő.", // Lefordítva,
-
   // "ldn-service.form.pattern.ack-reject.category": "Acknowledgements",
   "ldn-service.form.pattern.ack-reject.category": "Tudomásulvételek",
 
   // "ldn-service.form.pattern.ack-tentative-accept.label": "Acknowledge and Tentatively Accept",
   "ldn-service.form.pattern.ack-tentative-accept.label": "Tudomásulvétel és Ideiglenes Elfogadás", // Lefordítva,
-
   // "ldn-service.form.pattern.ack-tentative-accept.description": "This pattern is used to acknowledge and tentatively accept a request (offer). It implies an intention to act, which may change.",
   "ldn-service.form.pattern.ack-tentative-accept.description": "Ez a minta egy kérés (ajánlat) tudomásulvételére és ideiglenes elfogadására szolgál. Ez cselekvési szándékot jelent, amely változhat.", // Lefordítva,
-
   // "ldn-service.form.pattern.ack-tentative-accept.category": "Acknowledgements",
   "ldn-service.form.pattern.ack-tentative-accept.category": "Tudomásulvételek",
 
   // "ldn-service.form.pattern.ack-tentative-reject.label": "Acknowledge and Tentatively Reject",
   "ldn-service.form.pattern.ack-tentative-reject.label": "Tudomásulvétel és Ideiglenes Elutasítás", // Lefordítva,
-
   // "ldn-service.form.pattern.ack-tentative-reject.description": "This pattern is used to acknowledge and tentatively reject a request (offer). It signifies no further action, subject to change.",
   "ldn-service.form.pattern.ack-tentative-reject.description": "Ez a minta egy kérés (ajánlat) tudomásulvételére és ideiglenes elutasítására szolgál. Ez azt jelenti, hogy nincs további teendő, de ez változhat.", // Lefordítva,
-
   // "ldn-service.form.pattern.ack-tentative-reject.category": "Acknowledgements",
   "ldn-service.form.pattern.ack-tentative-reject.category": "Tudomásulvételek",
 
   // "ldn-service.form.pattern.announce-endorsement.label": "Announce Endorsement",
   "ldn-service.form.pattern.announce-endorsement.label": "Támogatás Bejelentése", // Lefordítva,
-
   // "ldn-service.form.pattern.announce-endorsement.description": "This pattern is used to announce the existence of an endorsement, referencing the endorsed resource.",
   "ldn-service.form.pattern.announce-endorsement.description": "Ez a minta egy támogatás létezésének bejelentésére szolgál, hivatkozva a támogatott erőforrásra.", // Lefordítva,
-
   // "ldn-service.form.pattern.announce-endorsement.category": "Announcements",
   "ldn-service.form.pattern.announce-endorsement.category": "Bejelentések", // Lefordítva,
 
   // "ldn-service.form.pattern.announce-ingest.label": "Announce Ingest",
   "ldn-service.form.pattern.announce-ingest.label": "Befogadás Bejelentése", // Lefordítva,
-
   // "ldn-service.form.pattern.announce-ingest.description": "This pattern is used to announce that a resource has been ingested.",
   "ldn-service.form.pattern.announce-ingest.description": "Ez a minta annak bejelentésére szolgál, hogy egy erőforrás befogadásra került.", // Lefordítva,
-
   // "ldn-service.form.pattern.announce-ingest.category": "Announcements",
   "ldn-service.form.pattern.announce-ingest.category": "Bejelentések",
 
   // "ldn-service.form.pattern.announce-relationship.label": "Announce Relationship",
   "ldn-service.form.pattern.announce-relationship.label": "Kapcsolat Bejelentése", // Lefordítva,
-
   // "ldn-service.form.pattern.announce-relationship.description": "This pattern is used to announce a relationship between two resources.",
   "ldn-service.form.pattern.announce-relationship.description": "Ez a minta két erőforrás közötti kapcsolat bejelentésére szolgál.", // Lefordítva,
-
   // "ldn-service.form.pattern.announce-relationship.category": "Announcements",
   "ldn-service.form.pattern.announce-relationship.category": "Bejelentések",
 
   // "ldn-service.form.pattern.announce-review.label": "Announce Review",
   "ldn-service.form.pattern.announce-review.label": "Bírálat Bejelentése", // Lefordítva,
-
   // "ldn-service.form.pattern.announce-review.description": "This pattern is used to announce the existence of a review, referencing the reviewed resource.",
   "ldn-service.form.pattern.announce-review.description": "Ez a minta egy bírálat létezésének bejelentésére szolgál, hivatkozva a bírált erőforrásra.", // Lefordítva,
-
   // "ldn-service.form.pattern.announce-review.category": "Announcements",
   "ldn-service.form.pattern.announce-review.category": "Bejelentések",
 
   // "ldn-service.form.pattern.announce-service-result.label": "Announce Service Result",
   "ldn-service.form.pattern.announce-service-result.label": "Szolgáltatási Eredmény Bejelentése", // Lefordítva,
-
   // "ldn-service.form.pattern.announce-service-result.description": "This pattern is used to announce the existence of a 'service result', referencing the relevant resource.",
   "ldn-service.form.pattern.announce-service-result.description": "Ez a minta egy 'szolgáltatási eredmény' létezésének bejelentésére szolgál, hivatkozva a releváns erőforrásra.", // Lefordítva,
-
   // "ldn-service.form.pattern.announce-service-result.category": "Announcements",
   "ldn-service.form.pattern.announce-service-result.category": "Bejelentések",
 
   // "ldn-service.form.pattern.request-endorsement.label": "Request Endorsement",
   "ldn-service.form.pattern.request-endorsement.label": "Támogatás Kérése", // Lefordítva,
-
   // "ldn-service.form.pattern.request-endorsement.description": "This pattern is used to request endorsement of a resource owned by the origin system.",
   "ldn-service.form.pattern.request-endorsement.description": "Ez a minta a kiindulási rendszer tulajdonában lévő erőforrás támogatásának kérésére szolgál.", // Lefordítva,
-
   // "ldn-service.form.pattern.request-endorsement.category": "Requests",
   "ldn-service.form.pattern.request-endorsement.category": "Kérések", // Lefordítva,
 
   // "ldn-service.form.pattern.request-ingest.label": "Request Ingest",
   "ldn-service.form.pattern.request-ingest.label": "Befogadás Kérése", // Lefordítva,
-
   // "ldn-service.form.pattern.request-ingest.description": "This pattern is used to request that the target system ingest a resource.",
   "ldn-service.form.pattern.request-ingest.description": "Ez a minta annak kérésére szolgál, hogy a célrendszer fogadjon be egy erőforrást.", // Lefordítva,
-
   // "ldn-service.form.pattern.request-ingest.category": "Requests",
   "ldn-service.form.pattern.request-ingest.category": "Kérések",
 
   // "ldn-service.form.pattern.request-review.label": "Request Review",
   "ldn-service.form.pattern.request-review.label": "Bírálat Kérése", // Lefordítva,
-
   // "ldn-service.form.pattern.request-review.description": "This pattern is used to request a review of a resource owned by the origin system.",
   "ldn-service.form.pattern.request-review.description": "Ez a minta a kiindulási rendszer tulajdonában lévő erőforrás bírálatának kérésére szolgál.", // Lefordítva,
-
   // "ldn-service.form.pattern.request-review.category": "Requests",
   "ldn-service.form.pattern.request-review.category": "Kérések",
 
   // "ldn-service.form.pattern.undo-offer.label": "Undo Offer",
   "ldn-service.form.pattern.undo-offer.label": "Ajánlat Visszavonása", // Lefordítva,
-
   // "ldn-service.form.pattern.undo-offer.description": "This pattern is used to undo (retract) an offer previously made.",
   "ldn-service.form.pattern.undo-offer.description": "Ez a minta egy korábban tett ajánlat visszavonására szolgál.", // Eredeti: "Ez a minta egy korábban tett ajánlat visszavonására (visszavonására) szolgál." -> Javítva,
-
   // "ldn-service.form.pattern.undo-offer.category": "Undo",
   "ldn-service.form.pattern.undo-offer.category": "Visszavonás", // Lefordítva,
 
   // "ldn-new-service.form.label.placeholder.selectedItemFilter": "No Item Filter Selected",
   "ldn-new-service.form.label.placeholder.selectedItemFilter": "Nincs tételszűrő kiválasztva", // Lefordítva,
-
   // "ldn-new-service.form.label.ItemFilter": "Item Filter",
   "ldn-new-service.form.label.ItemFilter": "Tételszűrő", // Lefordítva,
-
   // "ldn-new-service.form.label.automatic": "Automatic",
   "ldn-new-service.form.label.automatic": "Automatikus",
-
   // "ldn-new-service.form.error.name": "Name is required",
   "ldn-new-service.form.error.name": "A név megadása kötelező.", // Lefordítva,
-
   // "ldn-new-service.form.error.url": "URL is required",
   "ldn-new-service.form.error.url": "Az URL megadása kötelező.", // Lefordítva,
-
   // "ldn-new-service.form.error.ipRange": "Please enter a valid IP range",
   "ldn-new-service.form.error.ipRange": "Kérjük, érvényes IP-tartományt adjon meg.", // Lefordítva,
-
   // "ldn-new-service.form.hint.ipRange": "Please enter a valid IpV4 in both range bounds (note: for single IP, please enter the same value in both fields)",
   "ldn-new-service.form.hint.ipRange": "Kérjük, adjon meg érvényes IPv4 címet mindkét tartományhatárhoz (megjegyzés: egyetlen IP-cím esetén mindkét mezőbe ugyanazt az értéket írja).", // Lefordítva,
-
   // "ldn-new-service.form.error.ldnurl": "LDN URL is required",
   "ldn-new-service.form.error.ldnurl": "Az LDN URL megadása kötelező.", // Lefordítva,
-
   // "ldn-new-service.form.error.patterns": "At least a pattern is required",
   "ldn-new-service.form.error.patterns": "Legalább egy minta megadása kötelező.", // Lefordítva,
-
   // "ldn-new-service.form.error.score": "Please enter a valid score (between 0 and 1). Use the “.” as decimal separator",
   "ldn-new-service.form.error.score": "Kérjük, érvényes pontszámot adjon meg (0 és 1 között). Tizedeselválasztóként „.” karaktert használjon.", // Lefordítva,
 
   // "ldn-new-service.form.label.inboundPattern": "Supported Pattern",
   "ldn-new-service.form.label.inboundPattern": "Támogatott minta (bejövő)", // Eredeti: "Inbound Pattern" -> Javítva,
-
   // "ldn-new-service.form.label.addPattern": "+ Add more",
   "ldn-new-service.form.label.addPattern": "+ Továbbiak hozzáadása",
-
   // "ldn-new-service.form.label.removeItemFilter": "Remove",
   "ldn-new-service.form.label.removeItemFilter": "Eltávolítás",
-
   // "ldn-register-new-service.breadcrumbs": "New Service",
   "ldn-register-new-service.breadcrumbs": "Új szolgáltatás", // Eredeti: "New Service" -> Javítva,
-
   // "service.overview.delete.body": "Are you sure you want to delete this service?",
   "service.overview.delete.body": "Biztosan törölni szeretné ezt a szolgáltatást?", // Lefordítva,
-
   // "service.overview.edit.body": "Do you confirm the changes?",
   "service.overview.edit.body": "Megerősíti a változtatásokat?", // Lefordítva,
-
   // "service.overview.edit.modal": "Edit Service",
   "service.overview.edit.modal": "Szolgáltatás szerkesztése", // Lefordítva,
-
   // "service.detail.update": "Confirm",
   "service.detail.update": "Megerősítés",
-
   // "service.detail.return": "Cancel",
   "service.detail.return": "Mégse",
-
   // "service.overview.reset-form.body": "Are you sure you want to discard the changes and leave?",
   "service.overview.reset-form.body": "Biztosan elveti a változtatásokat és kilép?", // Eredeti: "Biztosan elveti a változtatásokat és távozik?" -> Javítva,
-
   // "service.overview.reset-form.modal": "Discard Changes",
   "service.overview.reset-form.modal": "Változtatások elvetése",
-
   // "service.overview.reset-form.reset-confirm": "Discard",
   "service.overview.reset-form.reset-confirm": "Elvetés",
-
   // "admin.registries.services-formats.modify.success.head": "Successful Edit",
   "admin.registries.services-formats.modify.success.head": "Sikeres szerkesztés",
-
   // "admin.registries.services-formats.modify.success.content": "The service has been edited",
   "admin.registries.services-formats.modify.success.content": "A szolgáltatás szerkesztve lett.",
-
   // "admin.registries.services-formats.modify.failure.head": "Failed Edit",
   "admin.registries.services-formats.modify.failure.head": "Sikertelen szerkesztés",
-
   // "admin.registries.services-formats.modify.failure.content": "The service has not been edited",
   "admin.registries.services-formats.modify.failure.content": "A szolgáltatás nem lett szerkesztve.",
-
   // "ldn-service-notification.created.success.title": "Successful Create",
   "ldn-service-notification.created.success.title": "Sikeres létrehozás",
-
   // "ldn-service-notification.created.success.body": "The service has been created",
   "ldn-service-notification.created.success.body": "A szolgáltatás létre lett hozva.",
-
   // "ldn-service-notification.created.failure.title": "Failed Create",
   "ldn-service-notification.created.failure.title": "Sikertelen létrehozás",
-
   // "ldn-service-notification.created.failure.body": "The service has not been created",
   "ldn-service-notification.created.failure.body": "A szolgáltatás nem lett létrehozva.",
-
   // "ldn-service-notification.created.warning.title": "Please select at least one Inbound Pattern",
   "ldn-service-notification.created.warning.title": "Kérjük, válasszon ki legalább egy bejövő mintát.", // Lefordítva,
-
   // "ldn-enable-service.notification.success.title": "Successful status updated",
   "ldn-enable-service.notification.success.title": "Az állapot sikeresen frissítve.", // Lefordítva,
-
   // "ldn-enable-service.notification.success.content": "The service status has been updated",
   "ldn-enable-service.notification.success.content": "A szolgáltatás állapota frissítve lett.", // Lefordítva,
-
   // "ldn-service-delete.notification.success.title": "Successful Deletion",
   "ldn-service-delete.notification.success.title": "Sikeres törlés.", // Lefordítva,
-
   // "ldn-service-delete.notification.success.content": "The service has been deleted",
   "ldn-service-delete.notification.success.content": "A szolgáltatás törölve lett.", // Lefordítva,
-
   // "ldn-service-delete.notification.error.title": "Failed Deletion",
   "ldn-service-delete.notification.error.title": "Sikertelen törlés.", // Lefordítva,
-
   // "ldn-service-delete.notification.error.content": "The service has not been deleted",
   "ldn-service-delete.notification.error.content": "A szolgáltatás nem lett törölve.", // Lefordítva,
-
   // "service.overview.reset-form.reset-return": "Cancel",
   "service.overview.reset-form.reset-return": "Mégse",
-
   // "service.overview.delete": "Delete service",
   "service.overview.delete": "Szolgáltatás törlése",
-
   // "ldn-edit-service.title": "Edit service",
   "ldn-edit-service.title": "Szolgáltatás szerkesztése",
-
   // "ldn-edit-service.form.label.name": "Name",
   "ldn-edit-service.form.label.name": "Név",
-
   // "ldn-edit-service.form.label.description": "Description",
   "ldn-edit-service.form.label.description": "Leírás",
-
   // "ldn-edit-service.form.label.url": "Service URL",
   "ldn-edit-service.form.label.url": "Szolgáltatás URL-címe", // Eredeti: "Szolgáltatás URL" -> Javítva,
-
   // "ldn-edit-service.form.label.ldnUrl": "LDN Inbox URL",
   "ldn-edit-service.form.label.ldnUrl": "LDN Bejövő Postafiók URL-címe", // Eredeti: "LDN Inbox URL" -> Javítva,
-
   // "ldn-edit-service.form.label.inboundPattern": "Inbound Pattern",
   "ldn-edit-service.form.label.inboundPattern": "Bejövő minta", // Lefordítva,
-
   // "ldn-edit-service.form.label.noInboundPatternSelected": "No Inbound Pattern",
   "ldn-edit-service.form.label.noInboundPatternSelected": "Nincs bejövő minta", // Lefordítva,
-
   // "ldn-edit-service.form.label.selectedItemFilter": "Selected Item Filter",
   "ldn-edit-service.form.label.selectedItemFilter": "Kiválasztott tételszűrő", // Lefordítva,
-
   // "ldn-edit-service.form.label.selectItemFilter": "No Item Filter",
   "ldn-edit-service.form.label.selectItemFilter": "Nincs tételszűrő", // Lefordítva,
-
   // "ldn-edit-service.form.label.automatic": "Automatic",
   "ldn-edit-service.form.label.automatic": "Automatikus",
-
   // "ldn-edit-service.form.label.addInboundPattern": "+ Add more",
   "ldn-edit-service.form.label.addInboundPattern": "+ Továbbiak hozzáadása",
-
   // "ldn-edit-service.form.label.submit": "Save",
   "ldn-edit-service.form.label.submit": "Mentés",
-
   // "ldn-edit-service.breadcrumbs": "Edit Service",
   "ldn-edit-service.breadcrumbs": "Szolgáltatás szerkesztése", // Eredeti: "Edit Service" -> Javítva,
-
   // "ldn-service.control-constaint-select-none": "Select none",
   "ldn-service.control-constaint-select-none": "Egyiket sem választja", // Lefordítva,
 
   // "ldn-register-new-service.notification.error.title": "Error",
   "ldn-register-new-service.notification.error.title": "Hiba", // Lefordítva,
-
   // "ldn-register-new-service.notification.error.content": "An error occurred while creating this process",
   "ldn-register-new-service.notification.error.content": "Hiba történt a folyamat létrehozásakor.", // Lefordítva,
-
   // "ldn-register-new-service.notification.success.title": "Success",
   "ldn-register-new-service.notification.success.title": "Siker", // Lefordítva,
-
   // "ldn-register-new-service.notification.success.content": "The process was successfully created",
   "ldn-register-new-service.notification.success.content": "A folyamat sikeresen létrehozva.", // Lefordítva,
 
@@ -10997,4 +10868,15 @@
 
   // "file-download-link.request-copy": "Request a copy of ",
   "file-download-link.request-copy": "Másolat kérése ",
+
+  // "item.preview.organization.url": "URL",
+  "item.preview.organization.url": "URL",
+
+  // "item.preview.organization.address.addressLocality": "City",
+  "item.preview.organization.address.addressLocality": "Város",
+
+  // "item.preview.organization.alternateName": "Alternative name",
+  "item.preview.organization.alternateName": "Alternatív név",
+
+
 }
