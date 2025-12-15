@@ -13167,9 +13167,9 @@
   // "ldn-new-service.form.label.inboundPattern": "Supported Pattern",
   // TODO New key - Add a translation
   "ldn-new-service.form.label.inboundPattern": "Supported Pattern",
-  // "ldn-new-service.form.label.addPattern": "+ Add more",
+  // "ldn-new-service.form.label.addPattern": "Add more",
   // TODO New key - Add a translation
-  "ldn-new-service.form.label.addPattern": "+ Add more",
+  "ldn-new-service.form.label.addPattern": "Add more",
   // "ldn-new-service.form.label.removeItemFilter": "Remove",
   // TODO New key - Add a translation
   "ldn-new-service.form.label.removeItemFilter": "Remove",

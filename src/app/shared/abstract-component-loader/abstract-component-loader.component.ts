@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
 import {
+  hasNoValue,
   hasValue,
   isNotEmpty,
 } from '@dspace/shared/utils/empty.util';
@@ -109,6 +110,9 @@ export abstract class AbstractComponentLoaderComponent<T> implements OnInit, OnC
    */
   public instantiateComponent(): void {
     const component: GenericConstructor<T> = this.getComponent();
+    if (hasNoValue(component)) {
+      return;
+    }
 
     const viewContainerRef: ViewContainerRef = this.componentViewContainerRef;
     viewContainerRef.clear();
