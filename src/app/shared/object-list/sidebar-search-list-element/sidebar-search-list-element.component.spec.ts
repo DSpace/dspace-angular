@@ -17,6 +17,8 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { TruncatableService } from '../../truncatable/truncatable.service';
 import { VarDirective } from '../../utils/var.directive';
+import { TruncatablePartComponent } from "../../truncatable/truncatable-part/truncatable-part.component";
+import { APP_CONFIG } from "@dspace/config/app-config.interface";
 
 export function createSidebarSearchListElementTests(
   componentClass: any,
@@ -33,6 +35,12 @@ export function createSidebarSearchListElementTests(
 
     let linkService;
 
+    const environment = {
+      browseBy: {
+        showThumbnails: true,
+      },
+    };
+
     beforeEach(waitForAsync(() => {
       linkService = jasmine.createSpyObj('linkService', {
         resolveLink: Object.assign(new HALResource(), {
@@ -44,11 +52,12 @@ export function createSidebarSearchListElementTests(
         providers: [
           { provide: TruncatableService, useValue: mockTruncatableService },
           { provide: LinkService, useValue: linkService },
+          { provide: APP_CONFIG, useValue: environment },
           DSONameService,
           ...extraProviders,
         ],
         schemas: [NO_ERRORS_SCHEMA],
-      }).compileComponents();
+      }).overrideComponent(componentClass, { remove: { imports: [TruncatablePartComponent] } }).compileComponents();
     }));
 
     beforeEach(() => {

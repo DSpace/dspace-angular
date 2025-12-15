@@ -26,6 +26,8 @@ import { ThemeService } from '../../../../theme-support/theme.service';
 import { TruncatableService } from '../../../../truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../utils/truncate.pipe';
 import { ItemListElementComponent } from './item-list-element.component';
+import { provideMockStore } from "@ngrx/store/testing";
+import { APP_DATA_SERVICES_MAP } from "@dspace/core/data-services-map-type";
 
 const mockItem: Item = Object.assign(new Item(), {
   bundles: of({}),
@@ -85,8 +87,6 @@ describe('ItemListElementComponent', () => {
         TranslateModule.forRoot(),
         TruncatePipe,
       ],
-      declarations: [
-      ],
       providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: APP_CONFIG, useValue: environment },
@@ -96,6 +96,8 @@ describe('ItemListElementComponent', () => {
         { provide: ThemeService, useValue: themeService },
         { provide: TruncatableService, useValue: truncatableService },
         { provide: XSRFService, useValue: {} },
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
+        provideMockStore(),
       ],
     }).overrideComponent(ItemListElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },

@@ -2,6 +2,11 @@
 import { NotificationAnimationsType } from '@dspace/config/notifications-config.interfaces';
 import { RestRequestMethod } from '@dspace/config/rest-request-method';
 import { BuildConfig } from 'src/config/build-config.interface';
+import { CrisLayoutConfig } from "@dspace/config/layout-config.interfaces";
+import { SearchResultConfig } from "@dspace/config/search-result-config.interface";
+import { MetadataLinkViewPopoverDataConfig } from "@dspace/config/metadata-link-view-popoverdata-config.interface";
+import { IdentifierSubtypesConfig } from "@dspace/config/identifier-subtypes-config.interface";
+import { FollowAuthorityMetadata } from "@dspace/config/search-follow-metadata.interface";
 
 export const environment: BuildConfig = {
   production: false,
@@ -476,4 +481,101 @@ export const environment: BuildConfig = {
   accessibility: {
     cookieExpirationDuration: 7,
   },
+
+  crisLayout: {
+    crisRef: [
+      {
+        entityType: 'DEFAULT',
+        entityStyle: {
+          default: {
+            icon: 'fa fa-info',
+            style: 'text-info',
+          },
+        },
+      },
+      {
+        entityType: 'PERSON',
+        entityStyle: {
+          default: {
+            icon: 'fa fa-user',
+            style: 'text-info',
+          },
+        },
+      },
+      {
+        entityType: 'ORGUNIT',
+        entityStyle: {
+          default: {
+            icon: 'fa fa-university',
+            style: 'text-info',
+          },
+        },
+      },
+      {
+        entityType: 'PROJECT',
+        entityStyle: {
+          default: {
+            icon: 'fas fa-project-diagram',
+            style: 'text-info',
+          },
+        },
+      },
+    ],
+    crisRefStyleMetadata: {
+      default: 'cris.entity.style',
+    },
+  },
+
+  searchResult: {
+    additionalMetadataFields: [],
+    authorMetadata: ['dc.contributor.author', 'dc.creator', 'dc.contributor.*'],
+  },
+
+  metadataLinkViewPopoverData:  {
+    fallbackMetdataList: ['dc.description.abstract'],
+
+    entityDataConfig: [
+      {
+        entityType: 'Person',
+        metadataList: ['person.affiliation.name', 'person.email', 'person.identifier.orcid', 'dc.description.abstract'],
+      },
+      {
+        entityType: 'OrgUnit',
+        metadataList: ['organization.parentOrganization', 'organization.identifier.ror', 'crisou.director', 'dc.description.abstract'],
+      },
+      {
+        entityType: 'Project',
+        metadataList: ['oairecerif.project.status', 'dc.description.abstract'],
+      },
+      {
+        entityType: 'Funding',
+        metadataList: ['oairecerif.funder', 'oairecerif.fundingProgram', 'dc.description.abstract'],
+      },
+      {
+        entityType: 'Publication',
+        metadataList: ['dc.identifier.doi', 'dc.identifier.uri', 'dc.description.abstract'],
+      },
+    ],
+  },
+
+  identifierSubtypes: [],
+
+  followAuthorityMaxItemLimit: 100,
+
+  followAuthorityMetadataValuesLimit: 5,
+
+  followAuthorityMetadata:   [
+    {
+      type: 'Publication',
+      metadata: ['dc.contributor.author'],
+    },
+    {
+      type: 'Product',
+      metadata: ['dc.contributor.author'],
+    },
+    {
+      type: 'Patent',
+      metadata: ['dc.contributor.author'],
+    },
+  ]
 };

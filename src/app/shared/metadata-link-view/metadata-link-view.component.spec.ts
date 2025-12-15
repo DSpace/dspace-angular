@@ -13,14 +13,12 @@ import { ItemDataService } from '../../core/data/item-data.service';
 import { Item } from '../../core/shared/item.model';
 import { MetadataValue } from '../../core/shared/metadata.models';
 import { EntityIconDirective } from '../entity-icon/entity-icon.directive';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '../remote-data.utils';
+
 import { VarDirective } from '../utils/var.directive';
 import { MetadataLinkViewComponent } from './metadata-link-view.component';
 import SpyObj = jasmine.SpyObj;
 import { MetadataLinkViewPopoverComponent } from './metadata-link-view-popover/metadata-link-view-popover.component';
+import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from "@dspace/core/utilities/remote-data.utils";
 
 describe('MetadataLinkViewComponent', () => {
   let component: MetadataLinkViewComponent;

@@ -30,6 +30,7 @@ import { ThemeService } from '../../../../../theme-support/theme.service';
 import { TruncatableService } from '../../../../../truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../../utils/truncate.pipe';
 import { ItemSearchResultListElementComponent } from './item-search-result-list-element.component';
+import { provideMockStore } from "@ngrx/store/testing";
 
 let publicationListElementComponent: ItemSearchResultListElementComponent;
 let fixture: ComponentFixture<ItemSearchResultListElementComponent>;
@@ -225,6 +226,7 @@ describe('ItemSearchResultListElementComponent', () => {
             'invalidateAuthorizationsRequestCache',
           ]),
         },
+        provideMockStore()
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ItemSearchResultListElementComponent, {

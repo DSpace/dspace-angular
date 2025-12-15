@@ -10,10 +10,10 @@ import {
 import { Item } from 'src/app/core/shared/item.model';
 import { MetadataValue } from 'src/app/core/shared/metadata.models';
 
-import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
-import { ConfigurationDataService } from './../../../core/data/configuration-data.service';
-import { TranslateLoaderMock } from './../../testing/translate-loader.mock';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
 import { MetadataLinkViewOrcidComponent } from './metadata-link-view-orcid.component';
+import { TranslateLoaderMock } from "@dspace/core/testing/translate-loader.mock";
+import { createSuccessfulRemoteDataObject$ } from "@dspace/core/utilities/remote-data.utils";
 
 describe('MetadataLinkViewOrcidComponent', () => {
   let component: MetadataLinkViewOrcidComponent;

@@ -11,11 +11,12 @@ import {
   of,
 } from 'rxjs';
 
-import { AuthService } from '../../../core/auth/auth.service';
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { FileService } from '../../../core/shared/file.service';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { FileService } from '@dspace/core/shared/file.service';
 import { ThemedLoadingComponent } from '../../loading/themed-loading.component';
 import { MetadataLinkViewAvatarPopoverComponent } from './metadata-link-view-avatar-popover.component';
+import { getMockTranslateService } from "@dspace/core/testing/translate.service.mock";
 
 describe('MetadataLinkViewAvatarPopoverComponent', () => {
   let component: MetadataLinkViewAvatarPopoverComponent;
@@ -35,19 +36,13 @@ describe('MetadataLinkViewAvatarPopoverComponent', () => {
     fileService = jasmine.createSpyObj('FileService', {
       retrieveFileDownloadLink: null,
     });
-    translateServiceStub = {
-      get: () => of('translated-text'),
-      onLangChange: new EventEmitter(),
-      onTranslationChange: new EventEmitter(),
-      onDefaultLangChange: new EventEmitter(),
-    };
     TestBed.configureTestingModule({
       imports: [MetadataLinkViewAvatarPopoverComponent],
       providers: [
         { provide: AuthService, useValue: authService },
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: FileService, useValue: fileService },
-        { provide: TranslateService, useValue: translateServiceStub },
+        { provide: TranslateService, useValue: getMockTranslateService() },
       ],
     })
       .overrideComponent(MetadataLinkViewAvatarPopoverComponent, { remove: { imports: [ThemedLoadingComponent] } }).compileComponents();
