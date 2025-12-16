@@ -4520,6 +4520,7 @@
   "item.preview.dc.rights": "Práva",
 
   // "item.preview.dc.identifier.other": "Other Identifier",
+  // TODO Source message changed - Revise the translation
   "item.preview.dc.identifier.other": "Další identifikátor:",
 
   // "item.preview.dc.relation.issn": "ISSN",
@@ -4610,7 +4611,8 @@
   "item.preview.dc.identifier.openalex": "Identifikátor OpenAlex",
 
   // "item.preview.dc.description": "Description",
-  "item.preview.dc.description": "Popis",
+  // TODO Source message changed - Revise the translation
+  "item.preview.dc.description": "Popis:",
 
   // "item.select.confirm": "Confirm selected",
   "item.select.confirm": "Potvrdit vybrané",
@@ -10870,6 +10872,18 @@
 
   // "file-download-link.request-copy": "Request a copy of ",
   "file-download-link.request-copy": "Požádat o kopii ",
+
+  // "item.preview.organization.url": "URL",
+  // TODO New key - Add a translation
+  "item.preview.organization.url": "URL",
+
+  // "item.preview.organization.address.addressLocality": "City",
+  // TODO New key - Add a translation
+  "item.preview.organization.address.addressLocality": "City",
+
+  // "item.preview.organization.alternateName": "Alternative name",
+  // TODO New key - Add a translation
+  "item.preview.organization.alternateName": "Alternative name",
 
 
 }

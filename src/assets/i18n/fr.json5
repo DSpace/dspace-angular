@@ -4579,6 +4579,10 @@
   // "item.preview.dc.rights": "Rights",
   "item.preview.dc.rights": "Droits",
 
+  // "item.preview.dc.identifier.other": "Other Identifier",
+  // TODO Source message changed - Revise the translation
+  "item.preview.dc.identifier.other": "Autre identifiant :",
+
   // "item.preview.dc.relation.issn": "ISSN",
   "item.preview.dc.relation.issn": "ISSN",
 
@@ -4665,6 +4669,10 @@
 
   // "item.preview.dc.identifier.openalex": "OpenAlex Identifier",
   "item.preview.dc.identifier.openalex": "Identifiant OpenAlex",
+
+  // "item.preview.dc.description": "Description",
+  // TODO Source message changed - Revise the translation
+  "item.preview.dc.description": "Description :",
 
   // "item.select.confirm": "Confirm selected",
   "item.select.confirm": "Confirmer la sélection",
@@ -6952,7 +6960,6 @@
 
   // "search.filters.applied.f.original_bundle_descriptions": "File description",
   "search.filters.applied.f.original_bundle_descriptions": "Description du fichier",
-
   // "search.filters.applied.f.has_geospatial_metadata": "Has geographical location",
   "search.filters.applied.f.has_geospatial_metadata": "A l'emplacement géographique",
 
@@ -10943,5 +10950,18 @@
 
   // "file-download-link.request-copy": "Request a copy of ",
   "file-download-link.request-copy": "Demander une copie de ",
+
+  // "item.preview.organization.url": "URL",
+  // TODO New key - Add a translation
+  "item.preview.organization.url": "URL",
+
+  // "item.preview.organization.address.addressLocality": "City",
+  // TODO New key - Add a translation
+  "item.preview.organization.address.addressLocality": "City",
+
+  // "item.preview.organization.alternateName": "Alternative name",
+  // TODO New key - Add a translation
+  "item.preview.organization.alternateName": "Alternative name",
+
 
 }
