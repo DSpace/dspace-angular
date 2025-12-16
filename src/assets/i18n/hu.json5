@@ -459,20 +459,16 @@
   "admin.access-control.epeople.table.edit.buttons.remove": "\"{{name}}\" törlése", // "Törlés \"{{name}}\"" -> "\"{{name}}\" törlése",
 
   // "admin.access-control.epeople.table.edit.buttons.remove.modal.header": "Delete Group \"{{ dsoName }}\"",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.table.edit.buttons.remove.modal.header": "Delete Group \"{{ dsoName }}\"",
+  "admin.access-control.epeople.table.edit.buttons.remove.modal.header": "\"{{ dsoName }}\" csoport törlése",
 
   // "admin.access-control.epeople.table.edit.buttons.remove.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\" and all its associated policies?",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.table.edit.buttons.remove.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\" and all its associated policies?",
+  "admin.access-control.epeople.table.edit.buttons.remove.modal.info": "Biztos benne, hogy törli a(z) \"{{ dsoName }}\" csoportot és a hozzá rendelt házirendeket?",
 
   // "admin.access-control.epeople.table.edit.buttons.remove.modal.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.table.edit.buttons.remove.modal.cancel": "Cancel",
+  "admin.access-control.epeople.table.edit.buttons.remove.modal.cancel": "Mégsem",
 
   // "admin.access-control.epeople.table.edit.buttons.remove.modal.confirm": "Delete",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.table.edit.buttons.remove.modal.confirm": "Delete",
+  "admin.access-control.epeople.table.edit.buttons.remove.modal.confirm": "Töröl",
 
   // "admin.access-control.epeople.no-items": "No EPeople to show.",
   "admin.access-control.epeople.no-items": "Nincsenek megjeleníthető felhasználók.", // "Nincs elérhető ESzemély." -> "Nincsenek megjeleníthető felhasználók.",
@@ -1693,11 +1689,9 @@
   "browse.taxonomy.button": "Böngészés",
 
   // "browse.title": "Browsing by {{ field }}{{ startsWith }} {{ value }}",
-  // TODO Source message changed - Revise the translation
   "browse.title": "Böngészés: {{ field }} {{ startsWith }} {{ value }}", // "Böngészés - {{ field }} {{ value }} szerint" -> "Böngészés: {{ field }} {{ startsWith }} {{ value }}" (startsWith beépítve),
 
   // "browse.title.page": "Browsing by {{ field }} {{ value }}",
-  // TODO Source message changed - Revise the translation
   "browse.title.page": "Böngészés: {{ field }} {{ value }}",
 
   // "search.browse.item-back": "Back to Results",
@@ -2304,20 +2298,16 @@
   "comcol-role.edit.delete.error.title": "Nem sikerült törölni a(z) '{{ role }}' szerepkör csoportját.", // "Failed to delete the '{{ role }}' role's group" -> "Nem sikerült törölni a(z) '{{ role }}' szerepkör csoportját.",
 
   // "comcol-role.edit.delete.modal.header": "Delete Group \"{{ dsoName }}\"",
-  // TODO New key - Add a translation
-  "comcol-role.edit.delete.modal.header": "Delete Group \"{{ dsoName }}\"",
+  "comcol-role.edit.delete.modal.header": "\"{{ dsoName }}\" csoport törlése",
 
   // "comcol-role.edit.delete.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\" and all its associated policies?",
-  // TODO New key - Add a translation
-  "comcol-role.edit.delete.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\" and all its associated policies?",
+  "comcol-role.edit.delete.modal.info": "Biztos bene, hogy töröli szeretné a(z) \"{{ dsoName }}\" csoportot és a hozzá rendelt háziredeket?",
 
   // "comcol-role.edit.delete.modal.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "comcol-role.edit.delete.modal.cancel": "Cancel",
+  "comcol-role.edit.delete.modal.cancel": "Mégsem",
 
   // "comcol-role.edit.delete.modal.confirm": "Delete",
-  // TODO New key - Add a translation
-  "comcol-role.edit.delete.modal.confirm": "Delete",
+  "comcol-role.edit.delete.modal.confirm": "Töröl",
 
   // "comcol-role.edit.community-admin.name": "Administrators",
   "comcol-role.edit.community-admin.name": "Adminisztrátorok",
@@ -2895,24 +2885,11 @@
   // "error.top-level-communities": "Error fetching top-level communities",
   "error.top-level-communities": "Hiba a legfelső szintű közösségek lekérésekor.", // "Hiba a legfelső szintű közösségek megjelenítésekor" -> "Hiba a legfelső szintű közösségek lekérésekor.",
 
-  // "error.validation.license.required": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
-  // TODO New key - Add a translation
-  "error.validation.license.required": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
+  // "error.validation.license.notgranted": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
+  "error.validation.license.notgranted": "A beküldés befejezéséhez el kell fogadnia ezt a licencet.\nHa jelenleg nem tudja elfogadni ezt a licencet, elmentheti munkáját és később visszatérhet, vagy eltávolíthatja a beküldést.",
 
   // "error.validation.cclicense.required": "You must grant this cclicense to complete your submission. If you are unable to grant the cclicense at this time, you may save your work and return later or remove the submission.",
   "error.validation.cclicense.required": "A Creative Commons licenc elfogadása kötelező a beküldés befejezéséhez.\nHa jelenleg nem tudja elfogadni a CC licencet, elmentheti munkáját és később visszatérhet, vagy eltávolíthatja a beküldést.",
-
-  // "error.validation.custom-url.conflict": "The custom url has been already used, please try with a new one.",
-  // TODO New key - Add a translation
-  "error.validation.custom-url.conflict": "The custom url has been already used, please try with a new one.",
-
-  // "error.validation.custom-url.empty": "The custom url is required and cannot be empty.",
-  // TODO New key - Add a translation
-  "error.validation.custom-url.empty": "The custom url is required and cannot be empty.",
-
-  // "error.validation.custom-url.invalid-characters": "The custom url contains invalid characters.",
-  // TODO New key - Add a translation
-  "error.validation.custom-url.invalid-characters": "The custom url contains invalid characters.",
 
   // "error.validation.pattern": "This input is restricted by the current pattern: {{ pattern }}.",
   "error.validation.pattern": "Ezt a bevitelt a jelenlegi minta korlátozza: {{ pattern }}.", // "A megadott érték nem felel meg a következő mintának: {{ pattern }}." -> "Ezt a bevitelt a jelenlegi minta korlátozza: {{ pattern }}.",
@@ -3479,8 +3456,7 @@
   "info.coar-notify-support.title": "COAR Notify Támogatás",
 
   // "info.coar-notify-support.breadcrumbs": "COAR Notify Support",
-  // TODO New key - Add a translation
-  "info.coar-notify-support.breadcrumbs": "COAR Notify Support",
+  "info.coar-notify-support.breadcrumbs": "COAR Notify Támogatás",
 
   // "item.alerts.private": "This item is non-discoverable",
   "item.alerts.private": "Ez a tétel nem kereshető.", // "Ez az elem privát" -> "Ez a tétel nem kereshető." (non-discoverable),
@@ -4542,8 +4518,7 @@
   "item.preview.dc.rights": "Jogok", // "Jogkezelés" -> "Jogok",
 
   // "item.preview.dc.identifier.other": "Other Identifier",
-  // TODO Source message changed - Revise the translation
-  "item.preview.dc.identifier.other": "Egyéb azonosító:",
+  "item.preview.dc.identifier.other": "Egyéb azonosító",
 
   // "item.preview.dc.relation.issn": "ISSN",
   "item.preview.dc.relation.issn": "ISSN",
@@ -4633,8 +4608,7 @@
   "item.preview.dc.identifier.openalex": "OpenAlex azonosító",
 
   // "item.preview.dc.description": "Description",
-  // TODO Source message changed - Revise the translation
-  "item.preview.dc.description": "Leírás:",
+  "item.preview.dc.description": "Leírás",
 
   // "item.select.confirm": "Confirm selected",
   "item.select.confirm": "Kiválasztottak megerősítése",
@@ -4772,12 +4746,10 @@
   "item.version.create.modal.form.summary.label": "Összefoglaló",
 
   // "qa-withdrawn.create.modal.form.summary.label": "You are requesting to withdraw this item",
-  // TODO New key - Add a translation
-  "qa-withdrawn.create.modal.form.summary.label": "You are requesting to withdraw this item",
+  "qa-withdrawn.create.modal.form.summary.label": "Kérelmezte a tétel visszavonását",
 
   // "qa-withdrawn.create.modal.form.summary2.label": "Please enter the reason for the withdrawal",
-  // TODO New key - Add a translation
-  "qa-withdrawn.create.modal.form.summary2.label": "Please enter the reason for the withdrawal",
+  "qa-withdrawn.create.modal.form.summary2.label": "Írja be a tétel visszavonásának okát",
 
   // "qa-reinstate.create.modal.form.summary.label": "You are requesting to reinstate this item",
   "qa-reinstate.create.modal.form.summary.label": "E tétel visszaállítását kéri.", // "Ezen elem visszaállításának kérvényezése" -> "E tétel visszaállítását kéri.",
@@ -5617,8 +5589,7 @@
   "nav.user.description": "Felhasználói profilsáv", // Eredeti: "User profile bar" -> Javított: "Felhasználói profilsáv",
 
   // "listelement.badge.dso-type": "Item type:",
-  // TODO New key - Add a translation
-  "listelement.badge.dso-type": "Item type:",
+  "listelement.badge.dso-type": "Tétel típusa:",
 
   // "none.listelement.badge": "Item",
   "none.listelement.badge": "Tétel", // Eredeti: "Tárgy" -> Javított: "Tétel",
@@ -8197,7 +8168,6 @@
   "submission.sections.describe.relationship-lookup.selection-tab.title.openaireTitle": "Keresési eredmények",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.openaireFundin": "Search Results",
-  // TODO Source message changed - Revise the translation
   "submission.sections.describe.relationship-lookup.selection-tab.title.openaireFunding": "Keresési eredmények", // Javítva "openaireFunding"-ra,
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.lcname": "Search Results",
@@ -8346,10 +8316,6 @@
 
   // "submission.sections.submit.progressbar.CClicense": "Creative commons license",
   "submission.sections.submit.progressbar.CClicense": "Creative Commons licenc",
-
-  // "submission.sections.submit.progressbar.CustomUrlStep": "Custom Url",
-  // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.CustomUrlStep": "Custom Url",
 
   // "submission.sections.submit.progressbar.describe.recycle": "Recycle",
   "submission.sections.submit.progressbar.describe.recycle": "Újrahasznosítás", // Eredeti: "Újrafelhasznál" -> Javított,
@@ -8515,18 +8481,6 @@
 
   // "submission.sections.upload.upload-successful": "Upload successful",
   "submission.sections.upload.upload-successful": "Sikeres feltöltés",
-
-  // "submission.sections.custom-url.label.previous-urls": "Previous Urls",
-  // TODO New key - Add a translation
-  "submission.sections.custom-url.label.previous-urls": "Previous Urls",
-
-  // "submission.sections.custom-url.alert.info": "Define here a custom URL which will be used to reach the item instead of using an internal randomly generated UUID identifier. ",
-  // TODO New key - Add a translation
-  "submission.sections.custom-url.alert.info": "Define here a custom URL which will be used to reach the item instead of using an internal randomly generated UUID identifier. ",
-
-  // "submission.sections.custom-url.url.placeholder": "Custom URL",
-  // TODO New key - Add a translation
-  "submission.sections.custom-url.url.placeholder": "Custom URL",
 
   // "submission.sections.accesses.form.discoverable-description": "When checked, this item will be discoverable in search/browse. When unchecked, the item will only be available via a direct link and will never appear in search/browse.",
   "submission.sections.accesses.form.discoverable-description": "Ha be van jelölve, ez a tétel kereshető/böngészhető lesz.\nHa nincs bejelölve, a tétel csak közvetlen hivatkozással lesz elérhető, és soha nem jelenik meg a keresésben/böngészésben.",
@@ -8742,8 +8696,7 @@
   "submission.workflow.tasks.claimed.reject.submit": "Elutasítás",
 
   // "submission.workflow.tasks.claimed.reject_help": "If you have reviewed the item and found it is <strong>not</strong> suitable for inclusion in the collection, select \"Reject\".  You will then be asked to enter a message indicating why the item is unsuitable, and whether the submitter should change something and resubmit.",
-  // TODO Source message changed - Revise the translation
-  "submission.workflow.tasks.claimed.reject_help": "Ha áttekintette a tételt, és úgy találta, hogy <strong>nem</strong> alkalmas a gyűjteménybe való felvételre, válassza az \"Elutasítás\" lehetőséget.\nEzután meg kell adnia egy üzenetet, amelyben jelzi, miért nem megfelelő a tétel, és hogy a beküldőnek módosítania kell-e valamit és újra be kell-e küldenie.",
+  "submission.workflow.tasks.claimed.reject_help": "Ha áttekintette a tételt, és úgy találta, hogy <strong>nem</strong> alkalmas a gyűjteménybe való felvételre, válassza az \"Elutasítás\" lehetőséget.  Ezután meg kell adnia egy üzenetet, amelyben jelzi, miért nem megfelelő a tétel, és hogy a beküldőnek módosítania kell-e valamit és újra be kell-e küldenie.",
 
   // "submission.workflow.tasks.claimed.return": "Return to pool",
   "submission.workflow.tasks.claimed.return": "Vissza a feladatlistába",
@@ -10917,16 +10870,13 @@
   "file-download-link.request-copy": "Másolat kérése ",
 
   // "item.preview.organization.url": "URL",
-  // TODO New key - Add a translation
   "item.preview.organization.url": "URL",
 
   // "item.preview.organization.address.addressLocality": "City",
-  // TODO New key - Add a translation
-  "item.preview.organization.address.addressLocality": "City",
+  "item.preview.organization.address.addressLocality": "Város",
 
   // "item.preview.organization.alternateName": "Alternative name",
-  // TODO New key - Add a translation
-  "item.preview.organization.alternateName": "Alternative name",
+  "item.preview.organization.alternateName": "Alternatív név",
 
 
 }
