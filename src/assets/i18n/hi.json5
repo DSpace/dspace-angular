@@ -4226,6 +4226,7 @@
   "item.preview.dc.rights": "Rights",
 
   // "item.preview.dc.identifier.other": "Other Identifier",
+  // TODO Source message changed - Revise the translation
   "item.preview.dc.identifier.other": "Other identifier:",
 
   // "item.preview.dc.relation.issn": "ISSN",
