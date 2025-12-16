@@ -13,6 +13,7 @@ import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import { AuthService } from '@dspace/core/auth/auth.service';
 import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
 import { Item } from '@dspace/core/shared/item.model';
 import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
 import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
@@ -24,17 +25,16 @@ import {
 import { mockTruncatableService } from '@dspace/core/testing/mock-trucatable.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
+import { MetadataLinkViewComponent } from 'src/app/shared/metadata-link-view/metadata-link-view.component';
+import { TruncatableComponent } from 'src/app/shared/truncatable/truncatable.component';
+import { TruncatablePartComponent } from 'src/app/shared/truncatable/truncatable-part/truncatable-part.component';
+import { ThemedThumbnailComponent } from 'src/app/thumbnail/themed-thumbnail.component';
 
 import { getMockThemeService } from '../../../../../theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../../../theme-support/theme.service';
 import { TruncatableService } from '../../../../../truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../../utils/truncate.pipe';
 import { ItemSearchResultListElementComponent } from './item-search-result-list-element.component';
-import { ThemedThumbnailComponent } from "src/app/thumbnail/themed-thumbnail.component";
-import { TruncatableComponent } from "src/app/shared/truncatable/truncatable.component";
-import { TruncatablePartComponent } from "src/app/shared/truncatable/truncatable-part/truncatable-part.component";
-import { MetadataLinkViewComponent } from "src/app/shared/metadata-link-view/metadata-link-view.component";
-import { APP_DATA_SERVICES_MAP } from "@dspace/core/data-services-map-type";
 
 let publicationListElementComponent: ItemSearchResultListElementComponent;
 let fixture: ComponentFixture<ItemSearchResultListElementComponent>;

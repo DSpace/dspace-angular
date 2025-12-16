@@ -5,6 +5,7 @@
  *
  * http://www.dspace.org/license/
  */
+import { RequestParam } from '@dspace/core/cache/models/request-param.model';
 import { Observable } from 'rxjs';
 import {
   map,
@@ -17,11 +18,10 @@ import { CacheableObject } from '../../cache/cacheable-object.model';
 import { ObjectCacheService } from '../../cache/object-cache.service';
 import { FollowLinkConfig } from '../../shared/follow-link-config.model';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
+import { FindListOptions } from '../find-list-options.model';
 import { RemoteData } from '../remote-data';
 import { RequestService } from '../request.service';
 import { BaseDataService } from './base-data.service';
-import { FindListOptions } from "../find-list-options.model";
-import { RequestParam } from "@dspace/core/cache/models/request-param.model";
 
 /**
  * Shorthand type for the method to construct an ID endpoint.

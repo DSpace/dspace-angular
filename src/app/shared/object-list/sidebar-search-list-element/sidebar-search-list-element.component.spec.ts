@@ -5,6 +5,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import { LinkService } from '@dspace/core/cache/builders/link.service';
 import { ChildHALResource } from '@dspace/core/shared/child-hal-resource.model';
@@ -16,9 +17,8 @@ import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote
 import { TranslateModule } from '@ngx-translate/core';
 
 import { TruncatableService } from '../../truncatable/truncatable.service';
+import { TruncatablePartComponent } from '../../truncatable/truncatable-part/truncatable-part.component';
 import { VarDirective } from '../../utils/var.directive';
-import { TruncatablePartComponent } from "../../truncatable/truncatable-part/truncatable-part.component";
-import { APP_CONFIG } from "@dspace/config/app-config.interface";
 
 export function createSidebarSearchListElementTests(
   componentClass: any,

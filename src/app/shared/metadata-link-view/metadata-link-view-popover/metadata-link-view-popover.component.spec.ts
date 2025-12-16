@@ -1,10 +1,12 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
   ComponentFixture,
-  TestBed, waitForAsync,
+  TestBed,
+  waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { Bitstream } from 'src/app/core/shared/bitstream.model';
 import { Item } from 'src/app/core/shared/item.model';
@@ -14,7 +16,6 @@ import { environment } from 'src/environments/environment.test';
 import { MetadataLinkViewAvatarPopoverComponent } from '../metadata-link-view-avatar-popover/metadata-link-view-avatar-popover.component';
 import { MetadataLinkViewOrcidComponent } from '../metadata-link-view-orcid/metadata-link-view-orcid.component';
 import { MetadataLinkViewPopoverComponent } from './metadata-link-view-popover.component';
-import { createSuccessfulRemoteDataObject$ } from "@dspace/core/utilities/remote-data.utils";
 
 describe('MetadataLinkViewPopoverComponent', () => {
   let component: MetadataLinkViewPopoverComponent;

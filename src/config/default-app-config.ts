@@ -1,3 +1,5 @@
+import { SearchResultConfig } from '@dspace/config/search-result-config.interface';
+
 import { AccessibilitySettingsConfig } from './accessibility-settings.config';
 import { ActuatorsConfig } from './actuators.config';
 import { AdminNotifyMetricsRow } from './admin-notify-metrics.config';
@@ -14,30 +16,29 @@ import { FilterVocabularyConfig } from './filter-vocabulary-config';
 import { FormConfig } from './form-config.interfaces';
 import { GeospatialMapConfig } from './geospatial-map-config';
 import { HomeConfig } from './homepage-config.interface';
-import { IdentifierSubtypesConfig } from "./identifier-subtypes-config.interface";
+import { IdentifierSubtypesConfig } from './identifier-subtypes-config.interface';
 import { InfoConfig } from './info-config.interface';
 import { ItemConfig } from './item-config.interface';
 import { LangConfig } from './lang-config.interface';
-import { CrisLayoutConfig } from "./layout-config.interfaces";
+import { CrisLayoutConfig } from './layout-config.interfaces';
 import { LiveRegionConfig } from './live-region.config';
 import { MarkdownConfig } from './markdown-config.interface';
 import { MatomoConfig } from './matomo-config.interface';
 import { MediaViewerConfig } from './media-viewer-config.interface';
-import { MetadataLinkViewPopoverDataConfig } from "./metadata-link-view-popoverdata-config.interface";
+import { MetadataLinkViewPopoverDataConfig } from './metadata-link-view-popoverdata-config.interface';
 import {
   INotificationBoardOptions,
   NotificationAnimationsType,
 } from './notifications-config.interfaces';
 import { QualityAssuranceConfig } from './quality-assurance.config';
 import { RestRequestMethod } from './rest-request-method';
-import { FollowAuthorityMetadata } from "./search-follow-metadata.interface";
+import { FollowAuthorityMetadata } from './search-follow-metadata.interface';
 import { SearchConfig } from './search-page-config.interface';
 import { ServerConfig } from './server-config.interface';
 import { SubmissionConfig } from './submission-config.interface';
 import { SuggestionConfig } from './suggestion-config.interfaces';
 import { ThemeConfig } from './theme.config';
 import { UIServerConfig } from './ui-server-config.interface';
-import { SearchResultConfig } from "@dspace/config/search-result-config.interface";
 
 export class DefaultAppConfig implements AppConfig {
   production = false;
@@ -759,7 +760,7 @@ export class DefaultAppConfig implements AppConfig {
   // when following authority metadata values.
   followAuthorityMetadataValuesLimit = 5;
 
-// When the search results are retrieved, for each item type the metadata with a valid authority value are inspected.
+  // When the search results are retrieved, for each item type the metadata with a valid authority value are inspected.
   // Referenced items will be fetched with a find all by id strategy to avoid individual rest requests
   // to efficiently display the search results.
   followAuthorityMetadata: FollowAuthorityMetadata[] = [

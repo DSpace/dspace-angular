@@ -4,6 +4,10 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
+import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -11,21 +15,15 @@ import {
   Observable,
 } from 'rxjs';
 
-import { Item } from '@dspace/core/shared/item.model';
-import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
-import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
-import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
-
 @Component({
   selector: 'ds-metadata-link-view-orcid',
   templateUrl: './metadata-link-view-orcid.component.html',
   styleUrls: ['./metadata-link-view-orcid.component.scss'],
   imports: [
+    AsyncPipe,
     NgbTooltipModule,
     TranslateModule,
-    AsyncPipe
-],
-  standalone: true,
+  ],
 })
 export class MetadataLinkViewOrcidComponent implements OnInit {
   /**

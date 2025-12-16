@@ -4,13 +4,16 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-
 import {
   CrisRefConfig,
   CrisRefEntityStyleConfig,
 } from '@dspace/config/layout-config.interfaces';
+import {
+  isEmpty,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
+
 import { environment } from '../../../environments/environment';
-import { isEmpty, isNotEmpty } from "@dspace/shared/utils/empty.util";
 
 
 /**

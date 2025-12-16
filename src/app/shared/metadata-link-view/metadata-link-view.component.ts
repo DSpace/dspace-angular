@@ -1,17 +1,24 @@
-import { AsyncPipe, NgTemplateOutlet } from '@angular/common';
+import {
+  AsyncPipe,
+  NgTemplateOutlet,
+} from '@angular/common';
 import {
   Component,
   Input,
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { PLACEHOLDER_PARENT_METADATA } from '@dspace/core/shared/form/ds-dynamic-form-constants';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import {
   NgbPopoverModule,
   NgbTooltipModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import {
   map,
@@ -26,30 +33,26 @@ import { Item } from '../../core/shared/item.model';
 import { MetadataValue } from '../../core/shared/metadata.models';
 import { Metadata } from '../../core/shared/metadata.utils';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { EntityIconDirective } from '../entity-icon/entity-icon.directive';
+import { VarDirective } from '../utils/var.directive';
+import { MetadataLinkViewPopoverComponent } from './metadata-link-view-popover/metadata-link-view-popover.component';
 import { MetadataView } from './metadata-view.model';
 import { StickyPopoverDirective } from './sticky-popover.directive';
-import { EntityIconDirective } from "../entity-icon/entity-icon.directive";
-import { MetadataLinkViewPopoverComponent } from "./metadata-link-view-popover/metadata-link-view-popover.component";
-import { VarDirective } from "../utils/var.directive";
-import { followLink } from "@dspace/core/shared/follow-link-config.model";
-import { isNotEmpty } from "@dspace/shared/utils/empty.util";
-import { PLACEHOLDER_PARENT_METADATA } from "@dspace/core/shared/form/ds-dynamic-form-constants";
-import { getItemPageRoute } from "@dspace/core/router/utils/dso-route.utils";
 
 @Component({
   selector: 'ds-metadata-link-view',
   templateUrl: './metadata-link-view.component.html',
   styleUrls: ['./metadata-link-view.component.scss'],
   imports: [
-    NgbPopoverModule,
-    RouterLink,
-    EntityIconDirective,
-    NgbTooltipModule,
-    MetadataLinkViewPopoverComponent,
-    VarDirective,
-    NgTemplateOutlet,
     AsyncPipe,
-    StickyPopoverDirective
+    EntityIconDirective,
+    MetadataLinkViewPopoverComponent,
+    NgbPopoverModule,
+    NgbTooltipModule,
+    NgTemplateOutlet,
+    RouterLink,
+    StickyPopoverDirective,
+    VarDirective,
   ],
 })
 export class MetadataLinkViewComponent implements OnInit {
@@ -98,7 +101,7 @@ export class MetadataLinkViewComponent implements OnInit {
    * On init process metadata to get the information and form MetadataOrcid model
    */
   ngOnInit(): void {
-    this.metadataView$ = observableOf(this.metadata).pipe(
+    this.metadataView$ = of(this.metadata).pipe(
       switchMap((metadataValue: MetadataValue) => this.getMetadataView(metadataValue)),
       take(1),
     );
@@ -122,7 +125,7 @@ export class MetadataLinkViewComponent implements OnInit {
         map((itemRD: RemoteData<Item>) => this.createMetadataView(itemRD, metadataValue)),
       );
     } else {
-      return observableOf({
+      return of({
         authority: null,
         value: metadataValue.value,
         orcidAuthenticated: null,

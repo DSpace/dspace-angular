@@ -1,4 +1,7 @@
-import { AsyncPipe, NgClass } from '@angular/common';
+import {
+  AsyncPipe,
+  NgClass,
+} from '@angular/common';
 import {
   Component,
   Input,
@@ -8,22 +11,21 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { ThumbnailComponent } from 'src/app/thumbnail/thumbnail.component';
 
+import { getDefaultImageUrlByEntityType } from '../../image.utils';
 import { ThemedLoadingComponent } from '../../loading/themed-loading.component';
 import { SafeUrlPipe } from '../../utils/safe-url-pipe';
-import { getDefaultImageUrlByEntityType } from "../../image.utils";
 
 @Component({
   selector: 'ds-metadata-link-view-avatar-popover',
   templateUrl: './metadata-link-view-avatar-popover.component.html',
   styleUrls: ['./metadata-link-view-avatar-popover.component.scss'],
   imports: [
-    ThemedLoadingComponent,
-    SafeUrlPipe,
-    TranslateModule,
+    AsyncPipe,
     NgClass,
-    AsyncPipe
-],
-  standalone: true,
+    SafeUrlPipe,
+    ThemedLoadingComponent,
+    TranslateModule,
+  ],
 })
 export class MetadataLinkViewAvatarPopoverComponent extends ThumbnailComponent implements OnInit {
 

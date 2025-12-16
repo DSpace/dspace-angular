@@ -1,24 +1,29 @@
-import { AsyncPipe, NgOptimizedImage } from '@angular/common';
+import {
+  AsyncPipe,
+  NgOptimizedImage,
+} from '@angular/common';
 import {
   Component,
   Input,
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { IdentifierSubtypesConfig } from '@dspace/config/identifier-subtypes-config.interface';
+import { MetadataLinkViewPopoverDataConfig } from '@dspace/config/metadata-link-view-popoverdata-config.interface';
+import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
+import { Item } from '@dspace/core/shared/item.model';
+import {
+  hasNoValue,
+  hasValue,
+} from '@dspace/shared/utils/empty.util';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { AuthorithyIcon } from 'src/config/submission-config.interface';
 import { environment } from 'src/environments/environment';
-import { MetadataLinkViewOrcidComponent } from "../metadata-link-view-orcid/metadata-link-view-orcid.component";
-import {
-  MetadataLinkViewAvatarPopoverComponent
-} from "../metadata-link-view-avatar-popover/metadata-link-view-avatar-popover.component";
-import { VarDirective } from "../../utils/var.directive";
-import { Item } from "@dspace/core/shared/item.model";
-import { MetadataLinkViewPopoverDataConfig } from "@dspace/config/metadata-link-view-popoverdata-config.interface";
-import { IdentifierSubtypesConfig } from "@dspace/config/identifier-subtypes-config.interface";
-import { hasNoValue, hasValue } from "@dspace/shared/utils/empty.util";
-import { getItemPageRoute } from "@dspace/core/router/utils/dso-route.utils";
+
+import { VarDirective } from '../../utils/var.directive';
+import { MetadataLinkViewAvatarPopoverComponent } from '../metadata-link-view-avatar-popover/metadata-link-view-avatar-popover.component';
+import { MetadataLinkViewOrcidComponent } from '../metadata-link-view-orcid/metadata-link-view-orcid.component';
 
 
 @Component({
@@ -27,15 +32,14 @@ import { getItemPageRoute } from "@dspace/core/router/utils/dso-route.utils";
   styleUrls: ['./metadata-link-view-popover.component.scss'],
   imports: [
     AsyncPipe,
+    MetadataLinkViewAvatarPopoverComponent,
+    MetadataLinkViewOrcidComponent,
     NgbTooltipModule,
     NgOptimizedImage,
     RouterLink,
     TranslateModule,
-    MetadataLinkViewOrcidComponent,
-    MetadataLinkViewAvatarPopoverComponent,
-    VarDirective
-],
-  standalone: true,
+    VarDirective,
+  ],
 })
 export class MetadataLinkViewPopoverComponent implements OnInit {
 

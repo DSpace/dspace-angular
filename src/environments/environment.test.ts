@@ -2,11 +2,6 @@
 import { NotificationAnimationsType } from '@dspace/config/notifications-config.interfaces';
 import { RestRequestMethod } from '@dspace/config/rest-request-method';
 import { BuildConfig } from 'src/config/build-config.interface';
-import { CrisLayoutConfig } from "@dspace/config/layout-config.interfaces";
-import { SearchResultConfig } from "@dspace/config/search-result-config.interface";
-import { MetadataLinkViewPopoverDataConfig } from "@dspace/config/metadata-link-view-popoverdata-config.interface";
-import { IdentifierSubtypesConfig } from "@dspace/config/identifier-subtypes-config.interface";
-import { FollowAuthorityMetadata } from "@dspace/config/search-follow-metadata.interface";
 
 export const environment: BuildConfig = {
   production: false,
@@ -576,5 +571,5 @@ export const environment: BuildConfig = {
       type: 'Patent',
       metadata: ['dc.contributor.author'],
     },
-  ]
+  ],
 };
