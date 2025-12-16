@@ -8,7 +8,7 @@ import {
 import {
   CrisRefConfig,
   CrisRefEntityStyleConfig,
-} from '../../../config/layout-config.interfaces';
+} from '@dspace/config/layout-config.interfaces';
 import { environment } from '../../../environments/environment';
 import { isEmpty, isNotEmpty } from "@dspace/shared/utils/empty.util";
 

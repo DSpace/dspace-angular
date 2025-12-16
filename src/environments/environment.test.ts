@@ -488,17 +488,25 @@ export const environment: BuildConfig = {
         entityType: 'DEFAULT',
         entityStyle: {
           default: {
-            icon: 'fa fa-info',
-            style: 'text-info',
+            icon: 'fa fa-user',
+            style: 'text-success',
           },
         },
       },
       {
         entityType: 'PERSON',
         entityStyle: {
+          person: {
+            icon: 'fa fa-user',
+            style: 'text-success',
+          },
+          personStaff: {
+            icon: 'fa fa-user',
+            style: 'text-primary',
+          },
           default: {
             icon: 'fa fa-user',
-            style: 'text-info',
+            style: 'text-success',
           },
         },
       },
@@ -507,16 +515,7 @@ export const environment: BuildConfig = {
         entityStyle: {
           default: {
             icon: 'fa fa-university',
-            style: 'text-info',
-          },
-        },
-      },
-      {
-        entityType: 'PROJECT',
-        entityStyle: {
-          default: {
-            icon: 'fas fa-project-diagram',
-            style: 'text-info',
+            style: 'text-success',
           },
         },
       },

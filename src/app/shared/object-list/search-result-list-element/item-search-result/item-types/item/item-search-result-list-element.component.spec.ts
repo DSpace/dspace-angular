@@ -30,7 +30,11 @@ import { ThemeService } from '../../../../../theme-support/theme.service';
 import { TruncatableService } from '../../../../../truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../../utils/truncate.pipe';
 import { ItemSearchResultListElementComponent } from './item-search-result-list-element.component';
-import { provideMockStore } from "@ngrx/store/testing";
+import { ThemedThumbnailComponent } from "src/app/thumbnail/themed-thumbnail.component";
+import { TruncatableComponent } from "src/app/shared/truncatable/truncatable.component";
+import { TruncatablePartComponent } from "src/app/shared/truncatable/truncatable-part/truncatable-part.component";
+import { MetadataLinkViewComponent } from "src/app/shared/metadata-link-view/metadata-link-view.component";
+import { APP_DATA_SERVICES_MAP } from "@dspace/core/data-services-map-type";
 
 let publicationListElementComponent: ItemSearchResultListElementComponent;
 let fixture: ComponentFixture<ItemSearchResultListElementComponent>;
@@ -226,11 +230,18 @@ describe('ItemSearchResultListElementComponent', () => {
             'invalidateAuthorizationsRequestCache',
           ]),
         },
-        provideMockStore()
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ItemSearchResultListElementComponent, {
       add: { changeDetection: ChangeDetectionStrategy.Default },
+    }).overrideComponent(ItemSearchResultListElementComponent, {
+      remove: { imports: [
+        ThemedThumbnailComponent,
+        TruncatableComponent,
+        TruncatablePartComponent,
+        MetadataLinkViewComponent,
+      ] },
     }).compileComponents();
   }));
 
@@ -276,6 +287,32 @@ describe('ItemSearchResultListElementComponent', () => {
     it('should not show the author paragraph', () => {
       const itemAuthorField = fixture.debugElement.query(By.css('span.item-list-authors'));
       expect(itemAuthorField).toBeNull();
+    });
+  });
+
+  describe('When the item has authors and isCollapsed is true', () => {
+    beforeEach(() => {
+      spyOn(publicationListElementComponent, 'isCollapsed').and.returnValue(of(true));
+      publicationListElementComponent.object = mockItemWithMetadata;
+      fixture.detectChanges();
+    });
+
+    it('should show limitedMetadata', () => {
+      const authorElements = fixture.debugElement.queryAll(By.css('span.item-list-authors ds-metadata-link-view'));
+      expect(authorElements.length).toBe(mockItemWithMetadata.indexableObject.limitedMetadata(publicationListElementComponent.authorMetadata, publicationListElementComponent.additionalMetadataLimit).length);
+    });
+  });
+
+  describe('When the item has authors and isCollapsed is false', () => {
+    beforeEach(() => {
+      spyOn(publicationListElementComponent, 'isCollapsed').and.returnValue(of(false));
+      publicationListElementComponent.object = mockItemWithMetadata;
+      fixture.detectChanges();
+    });
+
+    it('should show allMetadata', () => {
+      const authorElements = fixture.debugElement.queryAll(By.css('span.item-list-authors ds-metadata-link-view'));
+      expect(authorElements.length).toBe(mockItemWithMetadata.indexableObject.allMetadata(publicationListElementComponent.authorMetadata).length);
     });
   });
 
@@ -415,6 +452,13 @@ describe('ItemSearchResultListElementComponent', () => {
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ItemSearchResultListElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },
+    }).overrideComponent(ItemSearchResultListElementComponent, {
+      remove: { imports: [
+        ThemedThumbnailComponent,
+        TruncatableComponent,
+        TruncatablePartComponent,
+        MetadataLinkViewComponent,
+      ] },
     }).compileComponents();
   }));
 

@@ -5,7 +5,7 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import {
   of as observableOf,
   of,
@@ -16,7 +16,6 @@ import { AuthorizationDataService } from '@dspace/core/data/feature-authorizatio
 import { FileService } from '@dspace/core/shared/file.service';
 import { ThemedLoadingComponent } from '../../loading/themed-loading.component';
 import { MetadataLinkViewAvatarPopoverComponent } from './metadata-link-view-avatar-popover.component';
-import { getMockTranslateService } from "@dspace/core/testing/translate.service.mock";
 
 describe('MetadataLinkViewAvatarPopoverComponent', () => {
   let component: MetadataLinkViewAvatarPopoverComponent;
@@ -36,13 +35,22 @@ describe('MetadataLinkViewAvatarPopoverComponent', () => {
     fileService = jasmine.createSpyObj('FileService', {
       retrieveFileDownloadLink: null,
     });
+    translateServiceStub = {
+      get: () => of('translated-text'),
+      onLangChange: new EventEmitter(),
+      onTranslationChange: new EventEmitter(),
+      onDefaultLangChange: new EventEmitter(),
+    };
     TestBed.configureTestingModule({
-      imports: [MetadataLinkViewAvatarPopoverComponent],
+      imports: [
+        MetadataLinkViewAvatarPopoverComponent,
+        TranslateModule.forRoot(),
+      ],
       providers: [
         { provide: AuthService, useValue: authService },
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: FileService, useValue: fileService },
-        { provide: TranslateService, useValue: getMockTranslateService() },
+        { provide: TranslateService, useValue: translateServiceStub },
       ],
     })
       .overrideComponent(MetadataLinkViewAvatarPopoverComponent, { remove: { imports: [ThemedLoadingComponent] } }).compileComponents();
