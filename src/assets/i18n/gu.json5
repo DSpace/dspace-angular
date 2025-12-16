@@ -4595,8 +4595,8 @@
   "item.preview.dc.date.issued": "Published date:",
 
   // "item.preview.dc.description": "Description:",
-  // TODO New key - Add a translation
-  "item.preview.dc.description": "Description:",
+  // TODO Source message changed - Revise the translation
+  "item.preview.dc.description": "વર્ણન:",
 
   // "item.preview.dc.description.abstract": "Abstract:",
   // TODO New key - Add a translation
@@ -11121,6 +11121,18 @@
   // "file-download-link.request-copy": "Request a copy of ",
   // TODO New key - Add a translation
   "file-download-link.request-copy": "Request a copy of ",
+
+  // "item.preview.organization.url": "URL",
+  // TODO New key - Add a translation
+  "item.preview.organization.url": "URL",
+
+  // "item.preview.organization.address.addressLocality": "City",
+  // TODO New key - Add a translation
+  "item.preview.organization.address.addressLocality": "City",
+
+  // "item.preview.organization.alternateName": "Alternative name",
+  // TODO New key - Add a translation
+  "item.preview.organization.alternateName": "Alternative name",
 
 
 }
