@@ -28,7 +28,6 @@ import {
 
 import { ItemDataService } from '../../core/data/item-data.service';
 import { RemoteData } from '../../core/data/remote-data';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { Item } from '../../core/shared/item.model';
 import { MetadataValue } from '../../core/shared/metadata.models';
 import { Metadata } from '../../core/shared/metadata.utils';
@@ -61,16 +60,6 @@ export class MetadataLinkViewComponent implements OnInit {
    * Metadata value that we need to show in the template
    */
   @Input() metadata: MetadataValue;
-
-  /**
-   * Metadata name that we need to show in the template
-   */
-  @Input() metadataName: string|string[];
-
-  /**
-   * Item of the metadata value
-   */
-  @Input() item: DSpaceObject;
 
   /**
    * Processed metadata to create MetadataOrcid with the information needed to show

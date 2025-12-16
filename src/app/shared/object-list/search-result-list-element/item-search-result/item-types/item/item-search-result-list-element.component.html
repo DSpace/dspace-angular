@@ -54,7 +54,7 @@
                     @if (collapsed) {
                       @for (author of dso.limitedMetadata(authorMetadata, additionalMetadataLimit, placeholderFilter); track author; let last = $last) {
                         <span>
-                          <ds-metadata-link-view [item]="dso" [metadata]="author" [metadataName]="authorMetadata"></ds-metadata-link-view>
+                          <ds-metadata-link-view [metadata]="author"></ds-metadata-link-view>
                           @if (!last) {
                             <span>; </span>
                           }
@@ -64,7 +64,7 @@
                   @if (!collapsed) {
                     @for (author of dso.allMetadata(authorMetadata, placeholderFilter); track author; let last = $last) {
                       <span>
-                        <ds-metadata-link-view [item]="dso" [metadata]="author" [metadataName]="authorMetadata"></ds-metadata-link-view>
+                        <ds-metadata-link-view [metadata]="author"></ds-metadata-link-view>
                         @if (!last) {
                           <span>; </span>
                         }

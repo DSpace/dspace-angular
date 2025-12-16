@@ -120,7 +120,6 @@ describe('MetadataLinkViewComponent', () => {
       fixture = TestBed.createComponent(MetadataLinkViewComponent);
       itemService.findByIdWithProjections.and.returnValue(createSuccessfulRemoteDataObject$(testOrgunit));
       component = fixture.componentInstance;
-      component.item = testPerson;
       component.metadata = testMetadataValueWithoutAuthority;
       fixture.detectChanges();
     });
@@ -145,7 +144,6 @@ describe('MetadataLinkViewComponent', () => {
         fixture = TestBed.createComponent(MetadataLinkViewComponent);
         itemService.findByIdWithProjections.and.returnValue(createSuccessfulRemoteDataObject$(testPerson));
         component = fixture.componentInstance;
-        component.item = testPerson;
         component.metadata = testMetadataValueWithAuthority;
         fixture.detectChanges();
       });
@@ -172,7 +170,6 @@ describe('MetadataLinkViewComponent', () => {
         fixture = TestBed.createComponent(MetadataLinkViewComponent);
         itemService.findByIdWithProjections.and.returnValue(createSuccessfulRemoteDataObject$(testOrgunit));
         component = fixture.componentInstance;
-        component.item = testPerson;
         component.metadata = testMetadataValueWithAuthority;
         fixture.detectChanges();
       });
@@ -199,7 +196,6 @@ describe('MetadataLinkViewComponent', () => {
         fixture = TestBed.createComponent(MetadataLinkViewComponent);
         itemService.findByIdWithProjections.and.returnValue(createFailedRemoteDataObject$());
         component = fixture.componentInstance;
-        component.item = testPerson;
         component.metadata = testMetadataValueWithAuthority;
         fixture.detectChanges();
       });
