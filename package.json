@@ -1,6 +1,6 @@
 {
   "name": "dspace-angular",
-  "version": "9.2.0",
+  "version": "9.3.0-next",
   "scripts": {
     "ng": "ng",
     "test:rest": "ts-node --project ./tsconfig.ts-node.json scripts/test-rest.ts",
