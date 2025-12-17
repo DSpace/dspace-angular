@@ -55,10 +55,19 @@
       // The categories to use for specific diagnostics.
       "checks": {
         "missingControlFlowDirective": "error"
-      },
+      }
     }
   },
   "exclude": [
     "cypress.config.ts"
   ],
+  "include": [
+    "src/main/webapp/**/*.ts",
+    "src/main/webapp/**/*.html",
+    "!src/themes/custom/**/*.ts"  // Exclude custom theme files
+  ],
+  "exclude": [
+    "node_modules",
+    "src/themes/custom/**/*"
+  ]
 }
