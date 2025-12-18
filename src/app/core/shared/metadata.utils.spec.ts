@@ -50,11 +50,11 @@ const multiViewModelList = [
   { key: 'foo', ...bar, order: 0 },
 ];
 
-const testMethod = (fn, resultKind, mapOrMaps, keyOrKeys, hitHighlights, expected, filter?) => {
+const testMethod = (fn, resultKind, mapOrMaps, keyOrKeys, hitHighlights, expected, filter?, limit?: number) => {
   const keys = keyOrKeys instanceof Array ? keyOrKeys : [keyOrKeys];
   describe('and key' + (keys.length === 1 ? (' ' + keys[0]) : ('s ' + JSON.stringify(keys)))
     + ' with ' + (isUndefined(filter) ? 'no filter' : 'filter ' + JSON.stringify(filter)), () => {
-    const result = fn(mapOrMaps, keys, hitHighlights, filter);
+    const result = fn(mapOrMaps, keys, hitHighlights, filter, true, limit);
     let shouldReturn;
     if (resultKind === 'boolean') {
       shouldReturn = expected;
@@ -62,7 +62,8 @@ const testMethod = (fn, resultKind, mapOrMaps, keyOrKeys, hitHighlights, expecte
       shouldReturn = 'undefined';
     } else if (expected instanceof Array) {
       shouldReturn = 'an array with ' + expected.length + ' ' + (expected.length > 1 ? 'ordered ' : '')
-        + resultKind + (expected.length !== 1 ? 's' : '');
+        + resultKind + (expected.length !== 1 ? 's' : '')
+        + (isUndefined(limit) ? '' : ' (limited to ' + limit + ')');
     } else {
       shouldReturn = 'a ' + resultKind;
     }
@@ -255,4 +256,60 @@ describe('Metadata', () => {
 
   });
 
+  describe('all method with limit', () => {
+    const testAllWithLimit = (mapOrMaps, keyOrKeys, expected, limit) =>
+      testMethod(Metadata.all, 'value', mapOrMaps, keyOrKeys, undefined, expected, undefined, limit);
+
+    describe('with multiMap and limit', () => {
+      testAllWithLimit(multiMap, 'dc.title', [dcTitle1], 1);
+    });
+  });
+
+  describe('hasValue method', () => {
+    const testHasValue = (value, expected) =>
+      testMethod(Metadata.hasValue, 'boolean', value, undefined, undefined, expected);
+
+    describe('with undefined value', () => {
+      testHasValue(undefined, false);
+    });
+    describe('with null value', () => {
+      testHasValue(null, false);
+    });
+    describe('with string value', () => {
+      testHasValue('test', true);
+    });
+    describe('with empty string value', () => {
+      testHasValue('', false);
+    });
+    describe('with undefined value for a MetadataValue object', () => {
+      const value: Partial<MetadataValue> = {
+        value: undefined,
+      };
+      testHasValue(value, false);
+    });
+    describe('with null value for a MetadataValue object', () => {
+      const value: Partial<MetadataValue> = {
+        value: null,
+      };
+      testHasValue(value, false);
+    });
+    describe('with empty string for a MetadataValue object', () => {
+      const value: Partial<MetadataValue> = {
+        value: '',
+      };
+      testHasValue(value, false);
+    });
+    describe('with value for a MetadataValue object', () => {
+      const value: Partial<MetadataValue> = {
+        value: 'test',
+      };
+      testHasValue(value, true);
+    });
+    describe('with a generic object', () => {
+      const value: any = {
+        test: 'test',
+      };
+      testHasValue(value, true);
+    });
+  });
 });

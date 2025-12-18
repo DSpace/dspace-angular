@@ -45,6 +45,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
+import { v4 as uuidv4 } from 'uuid';
 
 import { ObjNgFor } from '../../../../../utils/object-ngfor.pipe';
 import { AuthorityConfidenceStateDirective } from '../../../../directives/authority-confidence-state.directive';
@@ -52,10 +53,13 @@ import { VocabularyTreeviewComponent } from '../../../../vocabulary-treeview/voc
 import { DsDynamicOneboxComponent } from './dynamic-onebox.component';
 import { DynamicOneboxModel } from './dynamic-onebox.model';
 
+
 export let ONEBOX_TEST_GROUP;
 
 export let ONEBOX_TEST_MODEL_CONFIG;
 
+
+const validAuthority = uuidv4();
 
 // Mock class for NgbModalRef
 export class MockNgbModalRef {
@@ -364,13 +368,13 @@ describe('DsDynamicOneboxComponent test suite', () => {
         oneboxComponent.group = ONEBOX_TEST_GROUP;
         oneboxComponent.model = new DynamicOneboxModel(ONEBOX_TEST_MODEL_CONFIG);
         const entry = of(Object.assign(new VocabularyEntry(), {
-          authority: 'test001',
+          authority: validAuthority,
           value: 'test001',
           display: 'test',
         }));
         spyOn((oneboxComponent as any).vocabularyService, 'getVocabularyEntryByValue').and.returnValue(entry);
         spyOn((oneboxComponent as any).vocabularyService, 'getVocabularyEntryByID').and.returnValue(entry);
-        (oneboxComponent.model as any).value = new FormFieldMetadataValueObject('test', null, 'test001');
+        (oneboxComponent.model as any).value = new FormFieldMetadataValueObject('test', null,  validAuthority, 'test001');
         oneboxCompFixture.detectChanges();
       });
 
@@ -381,7 +385,7 @@ describe('DsDynamicOneboxComponent test suite', () => {
 
       it('should init component properly', fakeAsync(() => {
         tick();
-        expect(oneboxComponent.currentValue).toEqual(new FormFieldMetadataValueObject('test001', null, 'test001', 'test'));
+        expect(oneboxComponent.currentValue).toEqual(new FormFieldMetadataValueObject('test001', null, validAuthority, 'test'));
         expect((oneboxComponent as any).vocabularyService.getVocabularyEntryByID).toHaveBeenCalled();
       }));
 
