@@ -8,10 +8,17 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
+import { LinkService } from '@dspace/core/cache/builders/link.service';
 import { SubmissionFormsModel } from '@dspace/core/config/models/config-submission-forms.model';
 import { JsonPatchOperationPathCombiner } from '@dspace/core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
 import { Bitstream } from '@dspace/core/shared/bitstream.model';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { Item } from '@dspace/core/shared/item.model';
+import {
+  getAllSucceededRemoteData,
+  getRemoteDataPayload,
+} from '@dspace/core/shared/operators';
 import { WorkspaceitemSectionUploadFileObject } from '@dspace/core/submission/models/workspaceitem-section-upload-file.model';
 import { SubmissionJsonPatchOperationsService } from '@dspace/core/submission/submission-json-patch-operations.service';
 import {
@@ -29,7 +36,11 @@ import {
   Observable,
   Subscription,
 } from 'rxjs';
-import { filter } from 'rxjs/operators';
+import {
+  filter,
+  map,
+  switchMap,
+} from 'rxjs/operators';
 
 import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import { ThemedFileDownloadLinkComponent } from '../../../../shared/file-download-link/themed-file-download-link.component';
@@ -37,6 +48,7 @@ import { FormService } from '../../../../shared/form/form.service';
 import { SubmissionService } from '../../../submission.service';
 import { SectionUploadService } from '../section-upload.service';
 import { SubmissionSectionUploadFileEditComponent } from './edit/section-upload-file-edit.component';
+import { SubmissionSectionUploadFileReplaceComponent } from './replace/submission-section-upload-file-replace/submission-section-upload-file-replace.component';
 import { SubmissionSectionUploadFileViewComponent } from './view/section-upload-file-view.component';
 
 /**
@@ -185,6 +197,12 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
   protected formMetadata: string[] = [];
 
   /**
+   * Whether to display the replace file button
+   * @protected
+   */
+  protected shouldShowReplaceButton$ = new BehaviorSubject(false);
+
+  /**
    * Initialize instance variables
    *
    * @param {ChangeDetectorRef} cdr
@@ -195,6 +213,7 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
    * @param {SubmissionJsonPatchOperationsService} operationsService
    * @param {SubmissionService} submissionService
    * @param {SectionUploadService} uploadService
+   * @param {LinkService} linkService
    */
   constructor(
     private formService: FormService,
@@ -203,6 +222,7 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
     private operationsService: SubmissionJsonPatchOperationsService,
     private submissionService: SubmissionService,
     private uploadService: SectionUploadService,
+    private linkService: LinkService,
   ) {
     this.readMode = true;
   }
@@ -233,6 +253,17 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
     this.processingSaveStatus$ = this.submissionService.getSubmissionSaveProcessingStatus(this.submissionId);
     this.pathCombiner = new JsonPatchOperationPathCombiner('sections', this.sectionId);
     this.loadFormMetadata();
+    this.subscriptions.push(this.submissionService.retrieveSubmission(this.submissionId)
+      .pipe(
+        getAllSucceededRemoteData(),
+        map((submissionObjectRD) => Object.assign(new Item(), submissionObjectRD.payload?.item)),
+        map((item: Item) => this.linkService.resolveLink(item, followLink('version'))),
+        switchMap((item: Item) => item.version),
+        getAllSucceededRemoteData(),
+        getRemoteDataPayload(),
+        map((version) => hasValue(version)))
+      .subscribe((isVersioned: boolean) => this.shouldShowReplaceButton$.next(isVersioned)),
+    );
   }
 
   /**
@@ -306,6 +337,19 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
       });
     },
     );
+  }
+
+  protected replaceBitstream(): void {
+    const options: NgbModalOptions = {
+      size: 'xl',
+      backdrop: 'static',
+    };
+    const modal = this.modalService.open(SubmissionSectionUploadFileReplaceComponent, options);
+    const instance: SubmissionSectionUploadFileReplaceComponent = modal.componentInstance;
+    instance.fileIndex = this.fileIndex;
+    instance.fileName = this.fileName;
+    instance.fileSizeBytes = this.fileData.sizeBytes;
+    instance.submissionId = this.submissionId;
   }
 
   /**
