@@ -26,7 +26,7 @@ import { LAZY_DATA_SERVICES } from '@dspace/core/data-services-map';
 import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
 import { LocaleService } from '@dspace/core/locale/locale.service';
 import { HeadTagService } from '@dspace/core/metadata/head-tag.service';
-import { DYNAMIC_FORM_CONTROL_MAP_FN } from '@ng-dynamic-forms/core';
+import { DYNAMIC_FORM_CONTROL_MAP_FN } from '@ng-dynamic-forms/core/service/dynamic-form-component.service';
 import {
   select,
   Store,

@@ -38,13 +38,11 @@ import {
   isEmpty,
   isNotEmpty,
 } from '@dspace/shared/utils/empty.util';
-import {
-  DynamicFormControlModel,
-  DynamicFormGroupModel,
-  DynamicFormLayout,
-  DynamicFormService,
-  DynamicInputModel,
-} from '@ng-dynamic-forms/core';
+import { DynamicFormControlModel } from '@ng-dynamic-forms/core/model/dynamic-form-control.model';
+import { DynamicFormGroupModel } from '@ng-dynamic-forms/core/model/form-group/dynamic-form-group.model';
+import { DynamicInputModel } from '@ng-dynamic-forms/core/model/input/dynamic-input.model';
+import { DynamicFormService } from '@ng-dynamic-forms/core/service/dynamic-form.service';
+import { DynamicFormLayout } from '@ng-dynamic-forms/core/service/dynamic-form-layout.service';
 import {
   TranslateModule,
   TranslateService,

@@ -34,10 +34,8 @@ import {
   isUndefined,
 } from '@dspace/shared/utils/empty.util';
 import { difference } from '@dspace/shared/utils/object.util';
-import {
-  DynamicFormControlEvent,
-  DynamicFormControlModel,
-} from '@ng-dynamic-forms/core';
+import { DynamicFormControlEvent } from '@ng-dynamic-forms/core/component/dynamic-form-control-event';
+import { DynamicFormControlModel } from '@ng-dynamic-forms/core/model/dynamic-form-control.model';
 import { TranslateService } from '@ngx-translate/core';
 import findIndex from 'lodash/findIndex';
 import isEqual from 'lodash/isEqual';

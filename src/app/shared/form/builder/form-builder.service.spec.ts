@@ -19,27 +19,21 @@ import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/fo
 import { VocabularyOptions } from '@dspace/core/submission/vocabularies/models/vocabulary-options.model';
 import { getMockTranslateService } from '@dspace/core/testing/translate.service.mock';
 import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
-import {
-  DynamicCheckboxGroupModel,
-  DynamicCheckboxModel,
-  DynamicColorPickerModel,
-  DynamicDatePickerModel,
-  DynamicEditorModel,
-  DynamicFileUploadModel,
-  DynamicFormArrayModel,
-  DynamicFormControlModel,
-  DynamicFormGroupModel,
-  DynamicFormValidationService,
-  DynamicFormValueControlModel,
-  DynamicInputModel,
-  DynamicRadioGroupModel,
-  DynamicRatingModel,
-  DynamicSelectModel,
-  DynamicSliderModel,
-  DynamicSwitchModel,
-  DynamicTextAreaModel,
-  DynamicTimePickerModel,
-} from '@ng-dynamic-forms/core';
+import { DynamicCheckboxModel } from '@ng-dynamic-forms/core/model/checkbox/dynamic-checkbox.model';
+import { DynamicCheckboxGroupModel } from '@ng-dynamic-forms/core/model/checkbox/dynamic-checkbox-group.model';
+import { DynamicDatePickerModel } from '@ng-dynamic-forms/core/model/datepicker/dynamic-datepicker.model';
+import { DynamicFormControlModel } from '@ng-dynamic-forms/core/model/dynamic-form-control.model';
+import { DynamicFormValueControlModel } from '@ng-dynamic-forms/core/model/dynamic-form-value-control.model';
+import { DynamicFileUploadModel } from '@ng-dynamic-forms/core/model/file-upload/dynamic-file-upload.model';
+import { DynamicFormArrayModel } from '@ng-dynamic-forms/core/model/form-array/dynamic-form-array.model';
+import { DynamicFormGroupModel } from '@ng-dynamic-forms/core/model/form-group/dynamic-form-group.model';
+import { DynamicInputModel } from '@ng-dynamic-forms/core/model/input/dynamic-input.model';
+import { DynamicRadioGroupModel } from '@ng-dynamic-forms/core/model/radio/dynamic-radio-group.model';
+import { DynamicSelectModel } from '@ng-dynamic-forms/core/model/select/dynamic-select.model';
+import { DynamicSwitchModel } from '@ng-dynamic-forms/core/model/switch/dynamic-switch.model';
+import { DynamicTextAreaModel } from '@ng-dynamic-forms/core/model/textarea/dynamic-textarea.model';
+import { DynamicTimePickerModel } from '@ng-dynamic-forms/core/model/timepicker/dynamic-timepicker.model';
+import { DynamicFormValidationService } from '@ng-dynamic-forms/core/service/dynamic-form-validation.service';
 import { TranslateService } from '@ngx-translate/core';
 
 import { DynamicDsDatePickerModel } from './ds-dynamic-form-ui/models/date-picker/date-picker.model';
@@ -199,21 +193,13 @@ describe('FormBuilderService test suite', () => {
         },
       ),
 
-      new DynamicSliderModel({ id: 'testSlider' }),
-
       new DynamicSwitchModel({ id: 'testSwitch' }),
 
       new DynamicDatePickerModel({ id: 'testDatepicker', value: new Date() }),
 
       new DynamicFileUploadModel({ id: 'testFileUpload' }),
 
-      new DynamicEditorModel({ id: 'testEditor' }),
-
       new DynamicTimePickerModel({ id: 'testTimePicker' }),
-
-      new DynamicRatingModel({ id: 'testRating' }),
-
-      new DynamicColorPickerModel({ id: 'testColorPicker' }),
 
       new DynamicOneboxModel({
         id: 'testOnebox',
@@ -477,14 +463,10 @@ describe('FormBuilderService test suite', () => {
     expect(service.findById('testInput', testModel) instanceof DynamicFormControlModel).toBe(true);
     expect(service.findById('testRadioGroup', testModel) instanceof DynamicFormControlModel).toBe(true);
     expect(service.findById('testSelect', testModel) instanceof DynamicFormControlModel).toBe(true);
-    expect(service.findById('testSlider', testModel) instanceof DynamicFormControlModel).toBe(true);
     expect(service.findById('testSwitch', testModel) instanceof DynamicFormControlModel).toBe(true);
     expect(service.findById('testTextArea', testModel) instanceof DynamicFormControlModel).toBe(true);
     expect(service.findById('testFileUpload', testModel) instanceof DynamicFormControlModel).toBe(true);
-    expect(service.findById('testEditor', testModel) instanceof DynamicEditorModel).toBe(true);
     expect(service.findById('testTimePicker', testModel) instanceof DynamicTimePickerModel).toBe(true);
-    expect(service.findById('testRating', testModel) instanceof DynamicRatingModel).toBe(true);
-    expect(service.findById('testColorPicker', testModel) instanceof DynamicColorPickerModel).toBe(true);
     expect(service.findById('testConcatGroup', testModel) instanceof DynamicConcatModel).toBe(true);
   });
 
@@ -702,10 +684,7 @@ describe('FormBuilderService test suite', () => {
     expect(formGroup.get('testSelect') instanceof UntypedFormControl).toBe(true);
     expect(formGroup.get('testTextArea') instanceof UntypedFormControl).toBe(true);
     expect(formGroup.get('testFileUpload') instanceof UntypedFormControl).toBe(true);
-    expect(formGroup.get('testEditor') instanceof UntypedFormControl).toBe(true);
     expect(formGroup.get('testTimePicker') instanceof UntypedFormControl).toBe(true);
-    expect(formGroup.get('testRating') instanceof UntypedFormControl).toBe(true);
-    expect(formGroup.get('testColorPicker') instanceof UntypedFormControl).toBe(true);
   });
 
   it('should throw when unknown DynamicFormControlModel id is specified in JSON', () => {

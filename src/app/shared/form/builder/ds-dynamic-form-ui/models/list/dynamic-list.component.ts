@@ -27,13 +27,10 @@ import {
   hasValue,
   isNotEmpty,
 } from '@dspace/shared/utils/empty.util';
-import { NgbButtonsModule } from '@ng-bootstrap/ng-bootstrap';
-import {
-  DynamicCheckboxModel,
-  DynamicFormControlComponent,
-  DynamicFormLayoutService,
-  DynamicFormValidationService,
-} from '@ng-dynamic-forms/core';
+import { DynamicFormControlComponent } from '@ng-dynamic-forms/core/component/dynamic-form-control.component';
+import { DynamicCheckboxModel } from '@ng-dynamic-forms/core/model/checkbox/dynamic-checkbox.model';
+import { DynamicFormLayoutService } from '@ng-dynamic-forms/core/service/dynamic-form-layout.service';
+import { DynamicFormValidationService } from '@ng-dynamic-forms/core/service/dynamic-form-validation.service';
 import { TranslateModule } from '@ngx-translate/core';
 import findKey from 'lodash/findKey';
 import {
@@ -66,7 +63,6 @@ export interface ListItem {
   templateUrl: './dynamic-list.component.html',
   imports: [
     AsyncPipe,
-    NgbButtonsModule,
     NgClass,
     ReactiveFormsModule,
     ThemedLoadingComponent,

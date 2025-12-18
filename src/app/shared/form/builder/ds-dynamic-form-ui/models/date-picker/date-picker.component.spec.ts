@@ -25,10 +25,8 @@ import {
 } from '@dspace/core/testing/dynamic-form-mock-services';
 import { createTestComponent } from '@dspace/core/testing/utils.test';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import {
-  DynamicFormLayoutService,
-  DynamicFormValidationService,
-} from '@ng-dynamic-forms/core';
+import { DynamicFormLayoutService } from '@ng-dynamic-forms/core/service/dynamic-form-layout.service';
+import { DynamicFormValidationService } from '@ng-dynamic-forms/core/service/dynamic-form-validation.service';
 import {
   TranslateModule,
   TranslateService,

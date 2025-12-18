@@ -30,12 +30,10 @@ import {
 import { createTestComponent } from '@dspace/core/testing/utils.test';
 import { VocabularyServiceStub } from '@dspace/core/testing/vocabulary-service.stub';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import {
-  DynamicFormLayoutService,
-  DynamicFormsCoreModule,
-  DynamicFormValidationService,
-} from '@ng-dynamic-forms/core';
-import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
+import { DynamicListDirective } from '@ng-dynamic-forms/core/directive/dynamic-list.directive';
+import { DynamicTemplateDirective } from '@ng-dynamic-forms/core/directive/dynamic-template.directive';
+import { DynamicFormLayoutService } from '@ng-dynamic-forms/core/service/dynamic-form-layout.service';
+import { DynamicFormValidationService } from '@ng-dynamic-forms/core/service/dynamic-form-validation.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { of } from 'rxjs';
@@ -164,8 +162,8 @@ describe('Dynamic Lookup component', () => {
     vocabularyServiceStub = new VocabularyServiceStub();
     TestBed.configureTestingModule({
       imports: [
-        DynamicFormsCoreModule,
-        DynamicFormsNGBootstrapUIModule,
+        DynamicListDirective,
+        DynamicTemplateDirective,
         FormsModule,
         InfiniteScrollModule,
         ReactiveFormsModule,
@@ -596,8 +594,8 @@ describe('Dynamic Lookup component', () => {
   selector: 'ds-test-cmp',
   template: ``,
   imports: [
-    DynamicFormsCoreModule,
-    DynamicFormsNGBootstrapUIModule,
+    DynamicListDirective,
+    DynamicTemplateDirective,
     FormsModule,
     InfiniteScrollModule,
     NgbModule,

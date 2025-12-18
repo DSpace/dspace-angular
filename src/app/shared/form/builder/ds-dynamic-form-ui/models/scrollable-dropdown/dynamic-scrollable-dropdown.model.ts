@@ -1,10 +1,8 @@
 import { ResourceType } from '@dspace/core/shared/resource-type';
 import { VocabularyOptions } from '@dspace/core/submission/vocabularies/models/vocabulary-options.model';
-import {
-  AUTOCOMPLETE_OFF,
-  DynamicFormControlLayout,
-  serializable,
-} from '@ng-dynamic-forms/core';
+import { serializable } from '@ng-dynamic-forms/core/decorator/serializable.decorator';
+import { DynamicFormControlLayout } from '@ng-dynamic-forms/core/model/misc/dynamic-form-control-layout.model';
+import { AUTOCOMPLETE_OFF } from '@ng-dynamic-forms/core/utils/autofill.utils';
 
 import {
   DsDynamicInputModel,

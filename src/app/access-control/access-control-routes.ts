@@ -6,7 +6,7 @@ import { siteAdministratorGuard } from '@dspace/core/data/feature-authorization/
 import {
   DYNAMIC_ERROR_MESSAGES_MATCHER,
   DynamicErrorMessagesMatcher,
-} from '@ng-dynamic-forms/core';
+} from '@ng-dynamic-forms/core/service/dynamic-form-validation-matchers';
 
 import {
   EPERSON_PATH,

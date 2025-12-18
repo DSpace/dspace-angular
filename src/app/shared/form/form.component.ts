@@ -23,14 +23,12 @@ import {
   isNull,
 } from '@dspace/shared/utils/empty.util';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import {
-  DynamicFormArrayModel,
-  DynamicFormControlEvent,
-  DynamicFormControlModel,
-  DynamicFormGroupModel,
-  DynamicFormLayout,
-  DynamicFormsCoreModule,
-} from '@ng-dynamic-forms/core';
+import { DynamicFormControlEvent } from '@ng-dynamic-forms/core/component/dynamic-form-control-event';
+import { DynamicTemplateDirective } from '@ng-dynamic-forms/core/directive/dynamic-template.directive';
+import { DynamicFormControlModel } from '@ng-dynamic-forms/core/model/dynamic-form-control.model';
+import { DynamicFormArrayModel } from '@ng-dynamic-forms/core/model/form-array/dynamic-form-array.model';
+import { DynamicFormGroupModel } from '@ng-dynamic-forms/core/model/form-group/dynamic-form-group.model';
+import { DynamicFormLayout } from '@ng-dynamic-forms/core/service/dynamic-form-layout.service';
 import { TranslateModule } from '@ngx-translate/core';
 import findIndex from 'lodash/findIndex';
 import {
@@ -64,7 +62,7 @@ import { FormService } from './form.service';
     AsyncPipe,
     BtnDisabledDirective,
     DsDynamicFormComponent,
-    DynamicFormsCoreModule,
+    DynamicTemplateDirective,
     ReactiveFormsModule,
     TranslateModule,
   ],

@@ -22,17 +22,19 @@ import {
 } from '@angular/forms';
 import { Relationship } from '@dspace/core/shared/item-relationships/relationship.model';
 import { hasValue } from '@dspace/shared/utils/empty.util';
+import { DynamicFormArrayComponent } from '@ng-dynamic-forms/core/component/dynamic-form-array.component';
 import {
-  DynamicFormArrayComponent,
   DynamicFormControlCustomEvent,
   DynamicFormControlEvent,
-  DynamicFormControlLayout,
-  DynamicFormControlModel,
+} from '@ng-dynamic-forms/core/component/dynamic-form-control-event';
+import { DynamicTemplateDirective } from '@ng-dynamic-forms/core/directive/dynamic-template.directive';
+import { DynamicFormControlModel } from '@ng-dynamic-forms/core/model/dynamic-form-control.model';
+import { DynamicFormControlLayout } from '@ng-dynamic-forms/core/model/misc/dynamic-form-control-layout.model';
+import {
   DynamicFormLayout,
   DynamicFormLayoutService,
-  DynamicFormValidationService,
-  DynamicTemplateDirective,
-} from '@ng-dynamic-forms/core';
+} from '@ng-dynamic-forms/core/service/dynamic-form-layout.service';
+import { DynamicFormValidationService } from '@ng-dynamic-forms/core/service/dynamic-form-validation.service';
 import {
   TranslateModule,
   TranslateService,

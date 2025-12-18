@@ -1,12 +1,12 @@
 import { RelationshipOptions } from '@dspace/core/shared/relationship-options.model';
 import { hasValue } from '@dspace/shared/utils/empty.util';
+import { serializable } from '@ng-dynamic-forms/core/decorator/serializable.decorator';
 import {
   DynamicFormArrayModel,
   DynamicFormArrayModelConfig,
-  DynamicFormControlLayout,
-  DynamicFormControlRelation,
-  serializable,
-} from '@ng-dynamic-forms/core';
+} from '@ng-dynamic-forms/core/model/form-array/dynamic-form-array.model';
+import { DynamicFormControlLayout } from '@ng-dynamic-forms/core/model/misc/dynamic-form-control-layout.model';
+import { DynamicFormControlRelation } from '@ng-dynamic-forms/core/model/misc/dynamic-form-control-relation.model';
 
 export interface DynamicRowArrayModelConfig extends DynamicFormArrayModelConfig {
   notRepeatable: boolean;

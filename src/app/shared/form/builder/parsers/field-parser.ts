@@ -16,7 +16,7 @@ import {
   isNotNull,
   isNotUndefined,
 } from '@dspace/shared/utils/empty.util';
-import { DynamicFormControlLayout } from '@ng-dynamic-forms/core';
+import { DynamicFormControlLayout } from '@ng-dynamic-forms/core/model/misc/dynamic-form-control-layout.model';
 import { TranslateService } from '@ngx-translate/core';
 import uniqueId from 'lodash/uniqueId';
 

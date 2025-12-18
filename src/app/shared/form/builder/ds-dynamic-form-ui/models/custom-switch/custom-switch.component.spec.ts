@@ -11,10 +11,9 @@ import {
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import {
-  DynamicFormsCoreModule,
-  DynamicFormService,
-} from '@ng-dynamic-forms/core';
+import { DynamicListDirective } from '@ng-dynamic-forms/core/directive/dynamic-list.directive';
+import { DynamicTemplateDirective } from '@ng-dynamic-forms/core/directive/dynamic-template.directive';
+import { DynamicFormService } from '@ng-dynamic-forms/core/service/dynamic-form.service';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { CustomSwitchComponent } from './custom-switch.component';
@@ -36,7 +35,8 @@ describe('CustomSwitchComponent', () => {
         TranslateModule.forRoot(),
         ReactiveFormsModule,
         NoopAnimationsModule,
-        DynamicFormsCoreModule.forRoot(),
+        DynamicListDirective,
+        DynamicTemplateDirective,
         CustomSwitchComponent,
       ],
     }).compileComponents().then(() => {

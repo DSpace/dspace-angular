@@ -44,7 +44,9 @@
     "paths": {
       "@dspace/core/*": ["src/app/core/*"],
       "@dspace/config/*": ["src/config/*"],
-      "@dspace/shared/utils/*": ["src/app/utils/*"]
+      "@dspace/shared/utils/*": ["src/app/utils/*"],
+      "@ng-dynamic-forms/core/*": ["src/external-libraries/ng-dynamic-forms/core/*"],
+      "@ng-dynamic-forms/ui-ng-bootstrap/*": ["src/external-libraries/ng-dynamic-forms/ui-ng-bootstrap/*"],
     }
   },
   "angularCompilerOptions": {

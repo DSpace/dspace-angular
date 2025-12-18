@@ -29,13 +29,11 @@ import { createTestComponent } from '@dspace/core/testing/utils.test';
 import { VocabularyServiceStub } from '@dspace/core/testing/vocabulary-service.stub';
 import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import {
-  DynamicFormControlLayout,
-  DynamicFormLayoutService,
-  DynamicFormsCoreModule,
-  DynamicFormValidationService,
-} from '@ng-dynamic-forms/core';
-import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
+import { DynamicListDirective } from '@ng-dynamic-forms/core/directive/dynamic-list.directive';
+import { DynamicTemplateDirective } from '@ng-dynamic-forms/core/directive/dynamic-template.directive';
+import { DynamicFormControlLayout } from '@ng-dynamic-forms/core/model/misc/dynamic-form-control-layout.model';
+import { DynamicFormLayoutService } from '@ng-dynamic-forms/core/service/dynamic-form-layout.service';
+import { DynamicFormValidationService } from '@ng-dynamic-forms/core/service/dynamic-form-validation.service';
 
 import { FormBuilderService } from '../../../form-builder.service';
 import { DsDynamicListComponent } from './dynamic-list.component';
@@ -103,8 +101,8 @@ describe('DsDynamicListComponent test suite', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        DynamicFormsCoreModule,
-        DynamicFormsNGBootstrapUIModule,
+        DynamicListDirective,
+        DynamicTemplateDirective,
         FormsModule,
         ReactiveFormsModule,
         NgbModule,

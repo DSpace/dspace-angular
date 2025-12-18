@@ -1,13 +1,14 @@
 import { VocabularyEntry } from '@dspace/core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyOptions } from '@dspace/core/submission/vocabularies/models/vocabulary-options.model';
 import { hasValue } from '@dspace/shared/utils/empty.util';
+import { serializable } from '@ng-dynamic-forms/core/decorator/serializable.decorator';
+import { DynamicFormControlLayout } from '@ng-dynamic-forms/core/model/misc/dynamic-form-control-layout.model';
+import { DynamicFormControlRelation } from '@ng-dynamic-forms/core/model/misc/dynamic-form-control-relation.model';
 import {
-  DynamicFormControlLayout,
-  DynamicFormControlRelation,
   DynamicRadioGroupModel,
   DynamicRadioGroupModelConfig,
-  serializable,
-} from '@ng-dynamic-forms/core';
+} from '@ng-dynamic-forms/core/model/radio/dynamic-radio-group.model';
+
 
 export interface DynamicListModelConfig extends DynamicRadioGroupModelConfig<any> {
   vocabularyOptions: VocabularyOptions;

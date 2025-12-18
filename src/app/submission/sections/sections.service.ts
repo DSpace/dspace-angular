@@ -15,7 +15,7 @@ import {
   isNotEmpty,
   isNotUndefined,
 } from '@dspace/shared/utils/empty.util';
-import { parseReviver } from '@ng-dynamic-forms/core';
+import { parseReviver } from '@ng-dynamic-forms/core/utils/json.utils';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import {

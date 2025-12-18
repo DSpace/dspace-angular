@@ -9,12 +9,10 @@ import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/fo
 import { FormFieldPreviousValueObject } from '@dspace/core/shared/form/models/form-field-previous-value-object';
 import { VocabularyEntry } from '@dspace/core/submission/vocabularies/models/vocabulary-entry.model';
 import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
-import {
-  DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
-  DYNAMIC_FORM_CONTROL_TYPE_GROUP,
-  DynamicFormControlEvent,
-  DynamicInputModel,
-} from '@ng-dynamic-forms/core';
+import { DynamicFormControlEvent } from '@ng-dynamic-forms/core/component/dynamic-form-control-event';
+import { DYNAMIC_FORM_CONTROL_TYPE_ARRAY } from '@ng-dynamic-forms/core/model/form-array/dynamic-form-array.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_GROUP } from '@ng-dynamic-forms/core/model/form-group/dynamic-form-group.model';
+import { DynamicInputModel } from '@ng-dynamic-forms/core/model/input/dynamic-input.model';
 import {
   TranslateLoader,
   TranslateModule,

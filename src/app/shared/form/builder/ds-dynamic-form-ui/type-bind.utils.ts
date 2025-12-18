@@ -1,9 +1,10 @@
+import { DynamicFormControlRelation } from '@ng-dynamic-forms/core/model/misc/dynamic-form-control-relation.model';
 import {
-  DynamicFormControlRelation,
   MATCH_ENABLED,
   MATCH_VISIBLE,
   OR_OPERATOR,
-} from '@ng-dynamic-forms/core';
+} from '@ng-dynamic-forms/core/service/dynamic-form-relation-matchers';
+
 
 /**
  * Get the type bind values from the REST data for a specific field

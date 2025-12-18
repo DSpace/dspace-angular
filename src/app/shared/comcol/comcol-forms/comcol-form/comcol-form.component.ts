@@ -34,11 +34,9 @@ import {
   NgbModal,
   NgbModalRef,
 } from '@ng-bootstrap/ng-bootstrap';
-import {
-  DynamicFormControlModel,
-  DynamicFormService,
-  DynamicInputModel,
-} from '@ng-dynamic-forms/core';
+import { DynamicFormControlModel } from '@ng-dynamic-forms/core/model/dynamic-form-control.model';
+import { DynamicInputModel } from '@ng-dynamic-forms/core/model/input/dynamic-input.model';
+import { DynamicFormService } from '@ng-dynamic-forms/core/service/dynamic-form.service';
 import {
   TranslateModule,
   TranslateService,

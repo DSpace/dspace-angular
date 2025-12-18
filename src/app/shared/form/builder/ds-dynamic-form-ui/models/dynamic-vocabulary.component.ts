@@ -10,11 +10,9 @@ import { PageInfo } from '@dspace/core/shared/page-info.model';
 import { VocabularyEntry } from '@dspace/core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
 import { isNotEmpty } from '@dspace/shared/utils/empty.util';
-import {
-  DynamicFormControlComponent,
-  DynamicFormLayoutService,
-  DynamicFormValidationService,
-} from '@ng-dynamic-forms/core';
+import { DynamicFormControlComponent } from '@ng-dynamic-forms/core/component/dynamic-form-control.component';
+import { DynamicFormLayoutService } from '@ng-dynamic-forms/core/service/dynamic-form-layout.service';
+import { DynamicFormValidationService } from '@ng-dynamic-forms/core/service/dynamic-form-validation.service';
 import {
   Observable,
   of,

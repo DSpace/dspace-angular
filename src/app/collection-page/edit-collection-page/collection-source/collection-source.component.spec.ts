@@ -35,10 +35,8 @@ import {
   createSuccessfulRemoteDataObject$,
 } from '@dspace/core/utilities/remote-data.utils';
 import { hasValue } from '@dspace/shared/utils/empty.util';
-import {
-  DynamicFormControlModel,
-  DynamicFormService,
-} from '@ng-dynamic-forms/core';
+import { DynamicFormControlModel } from '@ng-dynamic-forms/core/model/dynamic-form-control.model';
+import { DynamicFormService } from '@ng-dynamic-forms/core/service/dynamic-form.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
