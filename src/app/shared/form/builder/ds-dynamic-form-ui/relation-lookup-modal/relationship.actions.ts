@@ -9,6 +9,7 @@ import { Action } from '@ngrx/store';
 
 export const RelationshipActionTypes = {
   ADD_RELATIONSHIP: type('dspace/relationship/ADD_RELATIONSHIP'),
+  REPLACE_RELATIONSHIP: type('dspace/relationship/REPLACE_RELATIONSHIP'),
   REMOVE_RELATIONSHIP: type('dspace/relationship/REMOVE_RELATIONSHIP'),
   UPDATE_NAME_VARIANT: type('dspace/relationship/UPDATE_NAME_VARIANT'),
   UPDATE_RELATIONSHIP: type('dspace/relationship/UPDATE_RELATIONSHIP'),
@@ -132,10 +133,53 @@ export class RemoveRelationshipAction implements Action {
   }
 }
 
+/**
+ * An ngrx action to replace a plain-text metadata value with a new relationship
+ */
+export class ReplaceRelationshipAction implements Action {
+  type = RelationshipActionTypes.REPLACE_RELATIONSHIP;
+
+  payload: {
+    item1: Item;
+    item2: Item;
+    replaceLeftSide: boolean;
+    place: number;
+    mdField: string;
+    relationshipType: string;
+    submissionId: string;
+    nameVariant: string;
+  };
+
+  /**
+   * Create a new AddRelationshipAction
+   *
+   * @param item1 The first item in the relationship
+   * @param item2 The second item in the relationship
+   * @param replaceLeftSide If true, the item on the left side (item1) will have its metadata value replaced
+   * @param place The index of the metadata value that should be replaced with the new relationship
+   * @param mdField The metadata field of the value to replace
+   * @param relationshipType The label of the relationshipType
+   * @param submissionId The current submissionId
+   * @param nameVariant The nameVariant of the relationshipType
+   */
+  constructor(
+    item1: Item,
+    item2: Item,
+    replaceLeftSide: boolean,
+    place: number,
+    mdField: string,
+    relationshipType: string,
+    submissionId: string,
+    nameVariant?: string,
+  ) {
+    this.payload = { item1, item2, replaceLeftSide, place, mdField, relationshipType, submissionId, nameVariant };
+  }
+}
 
 /**
  * A type to encompass all RelationshipActions
  */
 export type RelationshipAction
   = AddRelationshipAction
+  | ReplaceRelationshipAction
   | RemoveRelationshipAction;
