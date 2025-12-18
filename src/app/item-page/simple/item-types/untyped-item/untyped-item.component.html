@@ -25,11 +25,6 @@
         <ds-thumbnail [thumbnail]="object?.thumbnail | async"></ds-thumbnail>
       </ds-metadata-field-wrapper>
     }
-    @if (mediaViewer.image || mediaViewer.video) {
-      <div class="mb-2">
-        <ds-media-viewer [item]="object"></ds-media-viewer>
-      </div>
-    }
     <ds-item-page-file-section [item]="object"></ds-item-page-file-section>
     <ds-item-page-date-field [item]="object"></ds-item-page-date-field>
     <ds-metadata-representation-list class="ds-item-page-mixed-author-field"
@@ -71,6 +66,11 @@
       [fields]="['dc.identifier.citation']"
       [label]="'item.page.citation'">
     </ds-generic-item-page-field>
+    @if (mediaViewer.image || mediaViewer.video || mediaViewer.pdf) {
+      <div class="mb-2">
+        <ds-media-viewer [item]="object"></ds-media-viewer>
+      </div>
+    }
     @if (geospatialItemPageFieldsEnabled) {
       <ds-geospatial-item-page-field [item]="object"
                                      [label]="'item.page.places'"
