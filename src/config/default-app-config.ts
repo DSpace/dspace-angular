@@ -16,7 +16,10 @@ import { FilterVocabularyConfig } from './filter-vocabulary-config';
 import { FormConfig } from './form-config.interfaces';
 import { GeospatialMapConfig } from './geospatial-map-config';
 import { HomeConfig } from './homepage-config.interface';
-import { IdentifierSubtypesConfig } from './identifier-subtypes-config.interface';
+import {
+  IdentifierSubtypesConfig,
+  IdentifierSubtypesIconPositionEnum,
+} from './identifier-subtypes-config.interface';
 import { InfoConfig } from './info-config.interface';
 import { ItemConfig } from './item-config.interface';
 import { LangConfig } from './lang-config.interface';
@@ -735,7 +738,7 @@ export class DefaultAppConfig implements AppConfig {
       },
       {
         entityType: 'OrgUnit',
-        metadataList: ['organization.parentOrganization', 'organization.identifier.ror', 'crisou.director', 'dc.description.abstract'],
+        metadataList: ['organization.parentOrganization', 'organization.identifier.ror', 'dc.description.abstract'],
       },
       {
         entityType: 'Project',
@@ -753,6 +756,12 @@ export class DefaultAppConfig implements AppConfig {
   };
 
   identifierSubtypes: IdentifierSubtypesConfig[] = [
+    {
+      name: 'ror',
+      icon: 'assets/images/ror.logo.icon.svg',
+      iconPosition: IdentifierSubtypesIconPositionEnum.LEFT,
+      link: 'https://ror.org',
+    },
   ];
 
   // The maximum number of item to process when following authority metadata values.

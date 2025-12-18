@@ -7,7 +7,12 @@
 
 <ng-template #hasInfo let-entry="entry">
   <ul class="list-unstyled mb-0">
-    <li class="list-item text-truncate text-primary fw-bold">{{entry.value}}</li>
+    <li class="list-item text-truncate text-primary fw-bold">
+      @if (entry.source) {
+        <img class="mr-2 source-icon" #imgTag [src]="getAuthoritySourceIcon(entry.source, imgTag)" [attr.alt]="('form.entry.source.' + entry.source) | translate" />
+      }
+      {{entry.value}}
+    </li>
     @for (item of entry.otherInformation | dsObjNgFor; track item) {
       <li class="list-item text-truncate text-secondary" >
         {{ 'form.other-information.' + item.key | translate }} : {{item.value}}
@@ -20,7 +25,7 @@
   <ul class="list-unstyled mb-0">
     <li class="list-item d-flex align-items-center">
       @if(entry.source) {
-        <img  class="mr-2" #imgTag [src]="getAuthoritySourceIcon(entry.source, imgTag)" [attr.alt]="('form.entry.source.' + entry.source) | translate" />
+        <img class="mr-2 source-icon" #imgTag [src]="getAuthoritySourceIcon(entry.source, imgTag)" [attr.alt]="('form.entry.source.' + entry.source) | translate" />
       }
       <div class="text-truncate text-primary font-weight-bold">{{entry.value}}</div>
       @if(entry.source) {

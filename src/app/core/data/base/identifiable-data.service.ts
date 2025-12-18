@@ -5,7 +5,6 @@
  *
  * http://www.dspace.org/license/
  */
-import { RequestParam } from '@dspace/core/cache/models/request-param.model';
 import { Observable } from 'rxjs';
 import {
   map,
@@ -18,7 +17,6 @@ import { CacheableObject } from '../../cache/cacheable-object.model';
 import { ObjectCacheService } from '../../cache/object-cache.service';
 import { FollowLinkConfig } from '../../shared/follow-link-config.model';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
-import { FindListOptions } from '../find-list-options.model';
 import { RemoteData } from '../remote-data';
 import { RequestService } from '../request.service';
 import { BaseDataService } from './base-data.service';
@@ -65,32 +63,6 @@ export class IdentifiableDataService<T extends CacheableObject> extends BaseData
    */
   findById(id: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<T>[]): Observable<RemoteData<T>> {
     const href$ = this.getIDHrefObs(encodeURIComponent(id), ...linksToFollow);
-    return this.findByHref(href$, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
-  }
-
-  /**
-   * Returns an observable of {@link RemoteData} of an object, based on its ID, with a list of
-   * {@link FollowLinkConfig}, to automatically resolve {@link HALLink}s of the object
-   * @param id                          ID of object we want to retrieve
-   * @param projections                 Array of string of projections to be added to the parameters
-   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
-   *                                    no valid cached version. Defaults to true
-   * @param reRequestOnStale            Whether or not the request should automatically be re-
-   *                                    requested after the response becomes stale
-   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
-   *                                    {@link HALLink}s should be automatically resolved
-   */
-  findByIdWithProjections(id: string, projections: string[], useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<T>[]): Observable<RemoteData<T>> {
-    const options = new FindListOptions();
-    options.searchParams = [];
-
-    projections.forEach((projection) => {
-      options.searchParams.push(new RequestParam('projection', projection));
-    });
-
-    const href$ = this.getEndpoint().pipe(
-      map((endpoint: string) => this.buildHrefFromFindOptions(endpoint + '/' + encodeURIComponent(id), options, [], ...linksToFollow)));
-
     return this.findByHref(href$, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
