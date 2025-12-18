@@ -30,7 +30,7 @@ import {
 })
 export class ThemedSearchResultsComponent extends ThemedComponent<SearchResultsComponent> {
 
-  protected inAndOutputNames: (keyof SearchResultsComponent & keyof this)[] = ['linkType', 'searchResults', 'searchConfig', 'showCsvExport', 'showThumbnails', 'sortConfig', 'viewMode', 'configuration', 'disableHeader', 'selectable', 'context', 'hidePaginationDetail', 'selectionConfig', 'contentChange', 'deselectObject', 'selectObject'];
+  protected inAndOutputNames: (keyof SearchResultsComponent & keyof this)[] = ['linkType', 'searchResults', 'searchConfig', 'showCsvExport', 'showThumbnails', 'sortConfig', 'viewMode', 'configuration', 'disableHeader', 'selectable', 'context', 'hidePaginationDetail', 'selectionConfig', 'contentChange', 'deselectObject', 'selectObject', 'retainScrollPosition'];
 
   @Input() linkType: CollectionElementLinkType;
 
@@ -57,6 +57,8 @@ export class ThemedSearchResultsComponent extends ThemedComponent<SearchResultsC
   @Input() hidePaginationDetail: boolean;
 
   @Input() selectionConfig: SelectionConfig;
+
+  @Input() retainScrollPosition: boolean;
 
   @Output() contentChange: EventEmitter<ListableObject> = new EventEmitter();
 

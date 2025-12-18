@@ -35,6 +35,8 @@ export class ThemedSearchFormComponent extends ThemedComponent<SearchFormCompone
 
   @Input() showScopeSelector: boolean;
 
+  @Input() retainScrollPosition: boolean;
+
   @Output() submitSearch: EventEmitter<any> = new EventEmitter();
 
   protected inAndOutputNames: (keyof SearchFormComponent & keyof this)[] = [
@@ -47,6 +49,7 @@ export class ThemedSearchFormComponent extends ThemedComponent<SearchFormCompone
     'brandColor',
     'searchPlaceholder',
     'showScopeSelector',
+    'retainScrollPosition',
     'submitSearch',
   ];
 
