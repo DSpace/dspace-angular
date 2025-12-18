@@ -49,7 +49,7 @@ import { SectionsService } from '../sections.service';
 
 
 /**
- * This component represents the submission section to select the Creative Commons license.
+ * This component represents the submission section for the custom url creation.
  */
 @Component({
   selector: 'ds-submission-section-custom-url',
