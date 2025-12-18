@@ -10,6 +10,7 @@ import {
   SortDirection,
   SortOptions,
 } from '@dspace/core/cache/models/sort-options.model';
+import { ActionType } from '@dspace/core/resource-policy/models/action-type.model';
 import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import { DSpaceObjectType } from '@dspace/core/shared/dspace-object-type.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -40,6 +41,8 @@ export class EditCollectionSelectorComponent extends DSOSelectorModalWrapperComp
   objectType = DSpaceObjectType.COLLECTION;
   selectorTypes = [DSpaceObjectType.COLLECTION];
   action = SelectorActionType.EDIT;
+  // for editing collections, admin permissions are required
+  rpActionType = ActionType.ADMIN;
   defaultSort = new SortOptions(environment.comcolSelectionSort.sortField, environment.comcolSelectionSort.sortDirection as SortDirection);
 
   constructor(protected activeModal: NgbActiveModal, protected route: ActivatedRoute, private router: Router) {

@@ -18,7 +18,7 @@ import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
+import { AuthorizedItemSelectorComponent } from '../../dso-selector/authorized-item-selector/authorized-item-selector.component';
 import { EditItemSelectorComponent } from './edit-item-selector.component';
 
 describe('EditItemSelectorComponent', () => {
@@ -67,7 +67,7 @@ describe('EditItemSelectorComponent', () => {
     })
       .overrideComponent(EditItemSelectorComponent, {
         remove: {
-          imports: [DSOSelectorComponent],
+          imports: [AuthorizedItemSelectorComponent],
         },
       })
       .compileComponents();
