@@ -5,6 +5,8 @@ import {
   ComponentRef,
   ElementRef,
   HostBinding,
+  inject,
+  Injector,
   OnChanges,
   OnDestroy,
   SimpleChanges,
@@ -39,6 +41,7 @@ import { ThemeService } from './theme.service';
   selector: 'ds-themed',
   styleUrls: ['./themed.component.scss'],
   templateUrl: './themed.component.html',
+  standalone: true,
 })
 export abstract class ThemedComponent<T extends object> implements AfterViewInit, OnDestroy, OnChanges {
   @ViewChild('vcr', { read: ViewContainerRef }) vcr: ViewContainerRef;
@@ -56,6 +59,8 @@ export abstract class ThemedComponent<T extends object> implements AfterViewInit
   protected themeSub: Subscription;
 
   protected inAndOutputNames: (keyof T & keyof this)[] = [];
+
+  protected injector = inject(Injector);
 
   /**
    * A data attribute on the ThemedComponent to indicate which theme the rendered component came from.
@@ -136,8 +141,15 @@ export abstract class ThemedComponent<T extends object> implements AfterViewInit
 
     this.lazyLoadSub = this.lazyLoadObs.subscribe(([simpleChanges, constructor]: [SimpleChanges, GenericConstructor<T>]) => {
       this.destroyComponentInstance();
+
+      // Get the ng-content selectors from the component metadata
+      const ngContentSelectors = this.getComponentNgContentSelectors(constructor);
+      const projectableNodes = this.getNgContent(this.themedElementContent.nativeElement, ngContentSelectors);
+
+      // Create component without using ComponentFactoryResolver
       this.compRef = this.vcr.createComponent(constructor, {
-        projectableNodes: [this.themedElementContent.nativeElement.childNodes],
+        injector: this.injector,
+        projectableNodes: projectableNodes,
       });
       if (hasValue(simpleChanges)) {
         this.ngOnChanges(simpleChanges);
@@ -150,6 +162,17 @@ export abstract class ThemedComponent<T extends object> implements AfterViewInit
     });
   }
 
+  /**
+   * Retrieves ng-content selectors from a component type
+   */
+  private getComponentNgContentSelectors(componentType: GenericConstructor<any>): string[] {
+    const componentDef = (componentType as any).ɵcmp;
+    if (componentDef && componentDef.ngContentSelectors) {
+      return componentDef.ngContentSelectors;
+    }
+    return ['*']; // Default fallback
+  }
+
   protected destroyComponentInstance(): void {
     if (hasValue(this.compRef)) {
       this.compRef.destroy();
@@ -158,6 +181,28 @@ export abstract class ThemedComponent<T extends object> implements AfterViewInit
     if (hasValue(this.vcr)) {
       this.vcr.clear();
     }
+  }
+
+  /**
+   * Extracts and returns the content nodes from the given element based on the provided ng-content selectors.
+   *
+   * @param {Element} element - The DOM element from which to extract content nodes.
+   * @param {string[]} ngSelectors - An array of ng-content selectors to match against the element's children.
+   * @returns {Node[][]} - A 2D array where each sub-array contains the nodes matching a specific selector.
+   */
+  protected getNgContent(element: Element, ngSelectors: string[]): Node[][] {
+    return ngSelectors.map(selector => {
+      if (selector === '*') {
+        // If the selector is '*', return all child nodes of the element.
+        return Array.from(element.childNodes);
+      } else {
+        // Otherwise, select and return the nodes matching the specific selector.
+        const selectedElements = Array.from(element.querySelectorAll(selector));
+        // Remove the selected elements from the DOM.
+        selectedElements.forEach(e => e.remove());
+        return selectedElements;
+      }
+    });
   }
 
   protected connectInputsAndOutputs(): void {
