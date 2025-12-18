@@ -31,9 +31,12 @@ export interface ConfidenceIconConfig extends Config {
   icon: string;
 }
 
+type ShowErrorStrategy = 'onload' | 'onblur';
+
 export interface SubmissionConfig extends Config {
   autosave: AutosaveConfig;
   duplicateDetection: DuplicateDetectionConfig;
   typeBind: TypeBindConfig;
   icons: IconsConfig;
+  showErrorStrategy: ShowErrorStrategy;
 }
