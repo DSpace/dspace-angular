@@ -477,8 +477,8 @@ export const environment: BuildConfig = {
     cookieExpirationDuration: 7,
   },
 
-  crisLayout: {
-    crisRef: [
+  layout: {
+    authorityRef: [
       {
         entityType: 'DEFAULT',
         entityStyle: {
@@ -515,9 +515,6 @@ export const environment: BuildConfig = {
         },
       },
     ],
-    crisRefStyleMetadata: {
-      default: 'cris.entity.style',
-    },
   },
 
   searchResult: {

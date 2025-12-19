@@ -1,3 +1,4 @@
+import { LayoutConfig } from '@dspace/config/layout-config.interfaces';
 import { SearchResultConfig } from '@dspace/config/search-result-config.interface';
 
 import { AccessibilitySettingsConfig } from './accessibility-settings.config';
@@ -23,7 +24,6 @@ import {
 import { InfoConfig } from './info-config.interface';
 import { ItemConfig } from './item-config.interface';
 import { LangConfig } from './lang-config.interface';
-import { CrisLayoutConfig } from './layout-config.interfaces';
 import { LiveRegionConfig } from './live-region.config';
 import { MarkdownConfig } from './markdown-config.interface';
 import { MatomoConfig } from './matomo-config.interface';
@@ -678,8 +678,8 @@ export class DefaultAppConfig implements AppConfig {
     cookieExpirationDuration: 7,
   };
 
-  crisLayout: CrisLayoutConfig = {
-    crisRef: [
+  layout: LayoutConfig = {
+    authorityRef: [
       {
         entityType: 'DEFAULT',
         entityStyle: {
@@ -717,9 +717,6 @@ export class DefaultAppConfig implements AppConfig {
         },
       },
     ],
-    crisRefStyleMetadata: {
-      default: 'cris.entity.style',
-    },
   };
 
   searchResult: SearchResultConfig = {

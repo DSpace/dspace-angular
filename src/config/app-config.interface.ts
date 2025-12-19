@@ -23,7 +23,7 @@ import { IdentifierSubtypesConfig } from './identifier-subtypes-config.interface
 import { InfoConfig } from './info-config.interface';
 import { ItemConfig } from './item-config.interface';
 import { LangConfig } from './lang-config.interface';
-import { CrisLayoutConfig } from './layout-config.interfaces';
+import { LayoutConfig } from './layout-config.interfaces';
 import { LiveRegionConfig } from './live-region.config';
 import { MarkdownConfig } from './markdown-config.interface';
 import { MatomoConfig } from './matomo-config.interface';
@@ -74,7 +74,7 @@ interface AppConfig extends Config {
   matomo?: MatomoConfig;
   geospatialMapViewer: GeospatialMapConfig;
   accessibility: AccessibilitySettingsConfig;
-  crisLayout: CrisLayoutConfig;
+  layout: LayoutConfig;
   metadataLinkViewPopoverData: MetadataLinkViewPopoverDataConfig;
   identifierSubtypes: IdentifierSubtypesConfig[];
   searchResult: SearchResultConfig;

@@ -5,8 +5,8 @@ import {
   OnInit,
 } from '@angular/core';
 import {
-  CrisRefConfig,
-  CrisRefEntityStyleConfig,
+  AuthorityRefConfig,
+  AuthorityRefEntityStyleConfig,
 } from '@dspace/config/layout-config.interfaces';
 import {
   isEmpty,
@@ -46,9 +46,9 @@ export class EntityIconDirective implements OnInit {
   @Input() iconPosition = 'after';
 
   /**
-   * A configuration representing crisRef values
+   * A configuration representing authorityRef values
    */
-  confValue = environment.crisLayout.crisRef;
+  confValue = environment.layout.authorityRef;
 
   /**
    * Initialize instance variables
@@ -62,9 +62,9 @@ export class EntityIconDirective implements OnInit {
    * Adding icon to element oninit
    */
   ngOnInit() {
-    const crisRefConfig: CrisRefConfig = this.getCrisRefConfigByType(this.entityType);
+    const crisRefConfig: AuthorityRefConfig = this.getCrisRefConfigByType(this.entityType);
     if (isNotEmpty(crisRefConfig)) {
-      const crisStyle: CrisRefEntityStyleConfig = this.getCrisRefEntityStyleConfig(crisRefConfig, this.entityStyle);
+      const crisStyle: AuthorityRefEntityStyleConfig = this.getCrisRefEntityStyleConfig(crisRefConfig, this.entityStyle);
       if (isNotEmpty(crisStyle)) {
         this.addIcon(crisStyle);
       }
@@ -72,13 +72,13 @@ export class EntityIconDirective implements OnInit {
   }
 
   /**
-   * Return the CrisRefConfig by the given type
+   * Return the AuthorityRefConfig by the given type
    *
    * @param type
    * @private
    */
-  private getCrisRefConfigByType(type: string): CrisRefConfig {
-    let filteredConf: CrisRefConfig = this.confValue.find((config) => config.entityType.toUpperCase() === type.toUpperCase());
+  private getCrisRefConfigByType(type: string): AuthorityRefConfig {
+    let filteredConf: AuthorityRefConfig = this.confValue.find((config) => config.entityType.toUpperCase() === type.toUpperCase());
     if (isEmpty(filteredConf) && this.fallbackOnDefault) {
       filteredConf = this.confValue.find((config) => config.entityType.toUpperCase() === 'DEFAULT');
     }
@@ -87,14 +87,14 @@ export class EntityIconDirective implements OnInit {
   }
 
   /**
-   * Return the CrisRefEntityStyleConfig by the given style
+   * Return the AuthorityRefEntityStyleConfig by the given style
    *
    * @param crisConfig
    * @param styles
    * @private
    */
-  private getCrisRefEntityStyleConfig(crisConfig: CrisRefConfig, styles: string|string[]): CrisRefEntityStyleConfig {
-    let filteredConf: CrisRefEntityStyleConfig;
+  private getCrisRefEntityStyleConfig(crisConfig: AuthorityRefConfig, styles: string|string[]): AuthorityRefEntityStyleConfig {
+    let filteredConf: AuthorityRefEntityStyleConfig;
     if (Array.isArray(styles)) {
       styles.forEach((style) => {
         if (Object.keys(crisConfig.entityStyle).includes(style)) {
@@ -118,8 +118,8 @@ export class EntityIconDirective implements OnInit {
    * @param crisStyle
    * @private
    */
-  private addIcon(crisStyle: CrisRefEntityStyleConfig): void {
-    const iconElement = `<i class="${crisStyle.icon} ${crisStyle.style}"></i>`;
+  private addIcon(entityStyle: AuthorityRefEntityStyleConfig): void {
+    const iconElement = `<i class="${entityStyle.icon} ${entityStyle.style}"></i>`;
     if (this.iconPosition === 'after') {
       this.elem.nativeElement.insertAdjacentHTML('afterend', '&nbsp;' + iconElement);
     } else {

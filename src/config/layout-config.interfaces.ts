@@ -1,24 +1,19 @@
 import { Config } from './config.interface';
 
-export interface CrisRefEntityStyleConfig extends Config {
+export interface AuthorityRefEntityStyleConfig extends Config {
   icon: string;
   style: string;
 }
 
-export interface CrisRefConfig extends Config {
+export interface AuthorityRefConfig extends Config {
   entityType: string;
   entityStyle: {
-    default: CrisRefEntityStyleConfig;
-    [entity: string]: CrisRefEntityStyleConfig;
+    default: AuthorityRefEntityStyleConfig;
+    [entity: string]: AuthorityRefEntityStyleConfig;
   };
 }
 
-export interface CrisRefStyleMetadata extends Config {
-  [metadata: string]: string;
-  default: string;
-}
 
-export interface CrisLayoutConfig extends Config {
-  crisRef: CrisRefConfig[];
-  crisRefStyleMetadata: CrisRefStyleMetadata;
+export interface LayoutConfig extends Config {
+  authorityRef: AuthorityRefConfig[];
 }

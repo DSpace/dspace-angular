@@ -630,11 +630,10 @@ accessibility:
   # The duration in days after which the accessibility settings cookie expires
   cookieExpirationDuration: 7
 
-# CRIS Layout
-# Configuration for custom CRIS layout
-crisLayout:
+# Configuration for custom layout
+layout:
   # Configuration of icons and styles to be used for each authority controlled link
-  crisRef:
+  authorityRef:
     - entityType: DEFAULT
       entityStyle:
         default:
@@ -658,8 +657,6 @@ crisLayout:
         default:
           icon: fas fa-project-diagram
           style: text-success
-  crisRefStyleMetadata:
-    default: cris.entity.style
 
 # When the search results are retrieved, for each item type the metadata with a valid authority value are inspected.
 # Referenced items will be fetched with a find all by id strategy to avoid individual rest requests
