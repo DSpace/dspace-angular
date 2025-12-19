@@ -15,6 +15,7 @@ import {
   DEFAULT_THEME,
   resolveTheme,
 } from '../object-collection/shared/listable-object/listable-object.decorator';
+import { AuthorityLinkMetadataListElementComponent } from '../object-list/metadata-representation-list-element/authority-link/authority-link-metadata-list-element.component';
 import { BrowseLinkMetadataListElementComponent } from '../object-list/metadata-representation-list-element/browse-link/browse-link-metadata-list-element.component';
 import { ItemMetadataListElementComponent } from '../object-list/metadata-representation-list-element/item/item-metadata-list-element.component';
 import { PlainTextMetadataListElementComponent } from '../object-list/metadata-representation-list-element/plain-text/plain-text-metadata-list-element.component';
@@ -34,7 +35,8 @@ export type MetadataRepresentationComponent =
   typeof ItemMetadataListElementComponent |
   typeof OrgUnitItemMetadataListElementComponent |
   typeof PersonItemMetadataListElementComponent |
-  typeof ProjectItemMetadataListElementComponent;
+  typeof ProjectItemMetadataListElementComponent |
+  typeof AuthorityLinkMetadataListElementComponent;
 
 export const METADATA_REPRESENTATION_COMPONENT_DECORATOR_MAP =
   new Map<string, Map<MetadataRepresentationType, Map<Context, Map<string, MetadataRepresentationComponent>>>>([
@@ -42,21 +44,27 @@ export const METADATA_REPRESENTATION_COMPONENT_DECORATOR_MAP =
       [MetadataRepresentationType.PlainText, new Map([
         [DEFAULT_CONTEXT, new Map([[DEFAULT_THEME, PlainTextMetadataListElementComponent as any]])]])],
       [MetadataRepresentationType.AuthorityControlled, new Map([
-        [DEFAULT_CONTEXT, new Map([[DEFAULT_THEME, PlainTextMetadataListElementComponent]])]])],
+        [DEFAULT_CONTEXT, new Map([[DEFAULT_THEME, AuthorityLinkMetadataListElementComponent]])]])],
       [MetadataRepresentationType.BrowseLink, new Map([
         [DEFAULT_CONTEXT, new Map([[DEFAULT_THEME, BrowseLinkMetadataListElementComponent]])]])],
       [MetadataRepresentationType.Item, new Map([
         [DEFAULT_CONTEXT, new Map([[DEFAULT_THEME, ItemMetadataListElementComponent]])]])],
     ])],
     ['Person', new Map([
+      [MetadataRepresentationType.AuthorityControlled, new Map([
+        [DEFAULT_CONTEXT, new Map([[DEFAULT_THEME, AuthorityLinkMetadataListElementComponent as any]])]])],
       [MetadataRepresentationType.Item, new Map([
         [DEFAULT_CONTEXT, new Map([[DEFAULT_THEME, PersonItemMetadataListElementComponent]])]])],
     ])],
     ['OrgUnit', new Map([
+      [MetadataRepresentationType.AuthorityControlled, new Map([
+        [DEFAULT_CONTEXT, new Map([[DEFAULT_THEME, AuthorityLinkMetadataListElementComponent as any]])]])],
       [MetadataRepresentationType.Item, new Map([
         [DEFAULT_CONTEXT, new Map([[DEFAULT_THEME, OrgUnitItemMetadataListElementComponent]])]])],
     ])],
     ['Project', new Map([
+      [MetadataRepresentationType.AuthorityControlled, new Map([
+        [DEFAULT_CONTEXT, new Map([[DEFAULT_THEME, AuthorityLinkMetadataListElementComponent as any]])]])],
       [MetadataRepresentationType.Item, new Map([
         [DEFAULT_CONTEXT, new Map([[DEFAULT_THEME, ProjectItemMetadataListElementComponent]])]])],
     ])],
