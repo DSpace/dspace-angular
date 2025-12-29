@@ -4,9 +4,6 @@
  * the backend only listens on IPv4.
  * See: https://github.com/nodejs/node/issues/40537
  */
-import * as dns from 'node:dns';
-dns.setDefaultResultOrder('ipv4first');
-
 import 'core-js/es/reflect';
 import 'zone.js';
 import 'reflect-metadata';
@@ -16,6 +13,8 @@ import 'reflect-metadata';
  */
 import '@angular/localize/init';
 
+import { setDefaultResultOrder } from 'node:dns';
+
 import {
   bootstrapApplication,
   BootstrapContext,
@@ -23,6 +22,9 @@ import {
 
 import { AppComponent } from './app/app.component';
 import { serverAppConfig } from './modules/app/server-app.config';
+
+// Apply DNS resolution order fix for Node.js 17+
+setDefaultResultOrder('ipv4first');
 
 const bootstrap = (context: BootstrapContext) => bootstrapApplication(AppComponent, serverAppConfig, context);
 
