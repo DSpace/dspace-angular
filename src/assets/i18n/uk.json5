@@ -2063,7 +2063,7 @@
   "collection.delete.notification.fail": "Зібрання не може бути видалене",
 
   // "collection.delete.notification.success": "Successfully deleted collection",
-  "collection.delete.notification.success": "Зібрання успішно видалено",
+  "collection.delete.notification.success": "Процес видалення зібрання було успішно розпочато",
 
   // "collection.delete.text": "Are you sure you want to delete collection \"{{ dso }}\"",
   "collection.delete.text": "Ви впевнені, що хочете видалити зібрання \"{{ dso }}\"?",
@@ -2564,7 +2564,7 @@
   "community.delete.notification.fail": "Фонд не може бути видалено",
 
   // "community.delete.notification.success": "Successfully deleted community",
-  "community.delete.notification.success": "Фонд успішно видалено",
+  "community.delete.notification.success": "Процес видалення фонду було успішно розпочато",
 
   // "community.delete.text": "Are you sure you want to delete community \"{{ dso }}\"",
   "community.delete.text": "Ви впевнені, що хочете видалити фонд \"{{ dso }}\"",
@@ -3899,9 +3899,8 @@
   "home.search-form.placeholder": "Search the repository ...",
 
   // "home.title": "Home",
-  // TODO Source message changed - Revise the translation
-  // TODO Change univer name
-  "home.title": "Репозитарій Львівської політехніки :: Головна",
+
+  "home.title": "Репозитарій :: Головна",
 
   // "home.top-level-communities.head": "Communities in DSpace",
   "home.top-level-communities.head": "Фонди",
@@ -4290,7 +4289,7 @@
   "item.edit.delete.header": "Видалити документ: {{ id }}",
 
   // "item.edit.delete.success": "The item has been deleted",
-  "item.edit.delete.success": "Документ видалено",
+  "item.edit.delete.success": "Процес видалення документу було успішно розпочато",
 
   // "item.edit.head": "Edit Item",
   "item.edit.head": "Редагувати документ",

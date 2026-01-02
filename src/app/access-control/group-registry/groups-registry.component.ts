@@ -83,7 +83,6 @@ import { getGroupEditPageRouterLink } from '../access-control-routing-paths';
     ThemedLoadingComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * A component used for managing all existing groups within the repository.

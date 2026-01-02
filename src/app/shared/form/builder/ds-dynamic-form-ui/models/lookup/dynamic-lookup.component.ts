@@ -75,7 +75,6 @@ import { DynamicLookupNameModel } from './dynamic-lookup-name.model';
     ObjNgFor,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class DsDynamicLookupComponent extends DsDynamicVocabularyComponent implements OnDestroy, OnInit {
 
