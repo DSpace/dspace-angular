@@ -17,10 +17,13 @@ import {
 } from '@dspace/core/auth/auth.reducer';
 import { AuthService } from '@dspace/core/auth/auth.service';
 import { AuthTokenInfo } from '@dspace/core/auth/models/auth-token-info.model';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
 import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
+import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
 import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
 import { EPersonMock } from '@dspace/core/testing/eperson.mock';
 import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { XSRFService } from '@dspace/core/xsrf/xsrf.service';
 import {
   Store,
@@ -34,9 +37,6 @@ import { cold } from 'jasmine-marbles';
 import { of } from 'rxjs';
 
 import { AppState } from '../../../app.reducer';
-import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
-import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
-import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import { UserMenuComponent } from './user-menu.component';
 
 describe('UserMenuComponent', () => {
