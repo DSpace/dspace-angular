@@ -23,19 +23,19 @@ import {
 } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { AppState } from '../../../app.reducer';
 import {
   getProfileModuleRoute,
   getSubscriptionsModuleRoute,
 } from '../../../app-routing-paths';
+import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
+import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
+import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
 import { MYDSPACE_ROUTE } from '../../../my-dspace-page/my-dspace-page.component';
 import { ThemedLoadingComponent } from '../../loading/themed-loading.component';
 import { LogOutComponent } from '../../log-out/log-out.component';
-import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
-import { map } from 'rxjs/operators';
-import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
-import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 
 /**
  * This component represents the user nav menu.
@@ -118,7 +118,7 @@ export class UserMenuComponent implements OnInit {
 
     this.subscribeFeature$ = this.configService.findByPropertyName('can-subscribe-feature.enable').pipe(
       getFirstSucceededRemoteDataPayload(),
-      map((res: ConfigurationProperty) => res?.values[0].toLowerCase() === 'true')
+      map((res: ConfigurationProperty) => res?.values[0].toLowerCase() === 'true'),
     );
   }
 
