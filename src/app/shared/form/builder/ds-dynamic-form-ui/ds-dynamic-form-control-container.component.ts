@@ -94,6 +94,10 @@ import {
   DynamicFormValidationService,
   DynamicTemplateDirective,
 } from '@ng-dynamic-forms/core';
+import {
+  Actions,
+  ofType,
+} from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import {
   TranslateModule,
@@ -113,6 +117,7 @@ import {
 } from 'rxjs/operators';
 
 import { AppState } from '../../../../app.reducer';
+import { SubmissionObjectActionTypes } from '../../../../submission/objects/submission-objects.actions';
 import { SubmissionService } from '../../../../submission/submission.service';
 import { SubmissionObjectService } from '../../../../submission/submission-object.service';
 import { LiveRegionService } from '../../../live-region/live-region.service';
@@ -174,6 +179,8 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
    */
   private subs: Subscription[] = [];
 
+  private liveRegionErrorMessagesShownAlready = false;
+
   /* eslint-disable @angular-eslint/no-output-rename */
   @Output('dfBlur') blur: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
   @Output('dfChange') change: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
@@ -215,6 +222,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     protected metadataService: MetadataService,
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
     @Inject(DYNAMIC_FORM_CONTROL_MAP_FN) protected dynamicFormControlFn: DynamicFormControlMapFn,
+    private actions$: Actions,
   ) {
     super(ref, componentFactoryResolver, layoutService, validationService, dynamicFormComponentService, relationService);
     this.fetchThumbnail = this.appConfig.browseBy.showThumbnails;
@@ -226,6 +234,18 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   ngOnInit(): void {
     this.isRelationship = hasValue(this.model.relationship);
     const isWrapperAroundRelationshipList = hasValue(this.model.relationshipConfig);
+
+    // Subscribe to specified submission actions to announce error messages
+    const errorAnnounceActionsSub = this.actions$.pipe(
+      ofType(
+        SubmissionObjectActionTypes.SAVE_SUBMISSION_FORM_SUCCESS,
+        SubmissionObjectActionTypes.SAVE_SUBMISSION_SECTION_FORM_SUCCESS,
+        SubmissionObjectActionTypes.SAVE_SUBMISSION_FORM_ERROR,
+        SubmissionObjectActionTypes.SAVE_FOR_LATER_SUBMISSION_FORM_ERROR,
+        SubmissionObjectActionTypes.SAVE_SUBMISSION_SECTION_FORM_ERROR,
+      ),
+    ).subscribe(() => this.announceErrorMessages());
+    this.subs.push(errorAnnounceActionsSub);
 
     if (this.isRelationship || isWrapperAroundRelationshipList) {
       const config = this.model.relationshipConfig || this.model.relationship;
@@ -359,15 +379,20 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
    * Announce error messages to the user
    */
   announceErrorMessages() {
-    const numberOfInvalidInputs = this.getNumberOfInvalidInputs() ?? 1;
-    setTimeout(() => {
+    if (!this.liveRegionErrorMessagesShownAlready) {
+      this.liveRegionErrorMessagesShownAlready = true;
+      const numberOfInvalidInputs = this.getNumberOfInvalidInputs() ?? 1;
+      const timeoutMs = numberOfInvalidInputs * 3500;
       this.errorMessages.forEach((errorMsg) => {
         // set timer based on the number of the invalid inputs
-        this.liveRegionService.setMessageTimeOutMs(numberOfInvalidInputs * 3500);
+        this.liveRegionService.setMessageTimeOutMs(timeoutMs);
         const message = this.translateService.instant(errorMsg);
         this.liveRegionService.addMessage(message);
       });
-    }, 14000);// wait for the general deposit alert to be announced
+      setTimeout(() => {
+        this.liveRegionErrorMessagesShownAlready = false;
+      }, timeoutMs);
+    }
   }
 
   /**

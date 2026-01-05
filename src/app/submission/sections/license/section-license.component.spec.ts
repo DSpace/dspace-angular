@@ -40,10 +40,14 @@ import {
   DynamicFormControlEvent,
   DynamicFormControlEventType,
 } from '@ng-dynamic-forms/core';
+import { provideMockActions } from '@ngrx/effects/testing';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
-import { of } from 'rxjs';
+import {
+  Observable,
+  of,
+} from 'rxjs';
 import { take } from 'rxjs/operators';
 
 import { environment } from '../../../../environments/environment.test';
@@ -182,6 +186,7 @@ describe('SubmissionSectionLicenseComponent test suite', () => {
         { provide: 'submissionIdProvider', useValue: submissionId },
         ChangeDetectorRef,
         provideMockStore({ initialState }),
+        provideMockActions(() => new Observable<any>()),
         FormBuilderService,
         { provide: DsDynamicTypeBindRelationService, useValue: getMockDsDynamicTypeBindRelationService() },
         { provide: APP_CONFIG, useValue: environment },

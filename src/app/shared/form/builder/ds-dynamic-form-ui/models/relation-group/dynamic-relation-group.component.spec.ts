@@ -35,8 +35,10 @@ import {
   DynamicFormLayoutService,
   DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
+import { provideMockActions } from '@ngrx/effects/testing';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
 
 import { environment } from '../../../../../../../environments/environment.test';
 import { SubmissionService } from '../../../../../../submission/submission.service';
@@ -171,6 +173,7 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
         FormComponent,
         FormService,
         provideMockStore({ initialState }),
+        provideMockActions(() => new Observable<any>()),
         { provide: VocabularyService, useValue: vocabularyServiceStub },
         { provide: DsDynamicTypeBindRelationService, useClass: DsDynamicTypeBindRelationService },
         { provide: SubmissionObjectService, useValue: {} },
@@ -183,6 +186,11 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
+      .overrideComponent(DsDynamicRelationGroupComponent, {
+        remove: {
+          imports: [FormComponent],
+        },
+      })
       .compileComponents();
 
   }));

@@ -44,11 +44,15 @@ import {
 import { isNotEmptyOperator } from '@dspace/shared/utils/empty.util';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DYNAMIC_FORM_CONTROL_MAP_FN } from '@ng-dynamic-forms/core';
+import { provideMockActions } from '@ngrx/effects/testing';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
 import { NgxMaskModule } from 'ngx-mask';
-import { of } from 'rxjs';
+import {
+  Observable,
+  of,
+} from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { TestScheduler } from 'rxjs/testing';
 
@@ -237,6 +241,7 @@ describe('ResourcePolicyFormComponent test suite', () => {
         { provide: APP_DATA_SERVICES_MAP, useValue: {} },
         { provide: DYNAMIC_FORM_CONTROL_MAP_FN, useValue: dsDynamicFormControlMapFn },
         provideMockStore({}),
+        provideMockActions(() => new Observable<any>()),
         { provide: LiveRegionService, useValue: getLiveRegionServiceStub() },
       ],
       schemas: [
