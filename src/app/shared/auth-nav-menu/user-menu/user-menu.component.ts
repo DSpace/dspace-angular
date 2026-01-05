@@ -10,6 +10,10 @@ import { MYDSPACE_ROUTE } from '../../../my-dspace-page/my-dspace-page.component
 import { AuthService } from '../../../core/auth/auth.service';
 import { getProfileModuleRoute, getSubscriptionsModuleRoute } from '../../../app-routing-paths';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
+import { map } from 'rxjs/operators';
+import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
+import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 
 /**
  * This component represents the user nav menu.
@@ -54,10 +58,14 @@ export class UserMenuComponent implements OnInit {
    */
   public subscriptionsRoute = getSubscriptionsModuleRoute();
 
+  subscribeFeature$: Observable<boolean>;
+
+
   constructor(
     protected store: Store<AppState>,
     protected authService: AuthService,
     public dsoNameService: DSONameService,
+    protected configService: ConfigurationDataService,
   ) {
   }
 
@@ -72,5 +80,9 @@ export class UserMenuComponent implements OnInit {
     // set user
     this.user$ = this.authService.getAuthenticatedUserFromStore();
 
+    this.subscribeFeature$ = this.configService.findByPropertyName('can-subscribe-feature.enable').pipe(
+      getFirstSucceededRemoteDataPayload(),
+      map((res: ConfigurationProperty) => res?.values[0].toLowerCase() === 'true')
+    );
   }
 }
