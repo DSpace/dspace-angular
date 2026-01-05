@@ -14,6 +14,9 @@ import { cold } from 'jasmine-marbles';
 import { By } from '@angular/platform-browser';
 import { AuthService } from '../../../core/auth/auth.service';
 import { of } from 'rxjs';
+import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
+import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
+import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
 
 describe('UserMenuComponent', () => {
 
@@ -23,10 +26,20 @@ describe('UserMenuComponent', () => {
   let authState: AuthState;
   let authStateLoading: AuthState;
   let authService: AuthService;
+  let configurationDataService: ConfigurationDataService;
 
   function serviceInit() {
     authService = jasmine.createSpyObj('authService', {
       getAuthenticatedUserFromStore: of(EPersonMock)
+    });
+
+    configurationDataService = jasmine.createSpyObj('configurationDataService', {
+      findByPropertyName: createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
+        name: 'can-subscribe-feature.enable',
+        values: [
+          'can-subscribe-feature.enable = true',
+        ]
+      }))
     });
   }
 
@@ -69,7 +82,8 @@ describe('UserMenuComponent', () => {
         })
       ],
       providers: [
-        { provide: AuthService, useValue: authService }
+        { provide: AuthService, useValue: authService },
+        { provide: ConfigurationDataService, useValue: configurationDataService },
       ],
       declarations: [
         UserMenuComponent
