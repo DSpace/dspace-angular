@@ -32,11 +32,11 @@ import {
 } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of } from 'rxjs';
-import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
-import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
-import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
 
 import { AppState } from '../../../app.reducer';
+import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
+import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
+import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import { UserMenuComponent } from './user-menu.component';
 
 describe('UserMenuComponent', () => {
@@ -59,8 +59,8 @@ describe('UserMenuComponent', () => {
         name: 'can-subscribe-feature.enable',
         values: [
           'can-subscribe-feature.enable = true',
-        ]
-      }))
+        ],
+      })),
     });
   }
 
