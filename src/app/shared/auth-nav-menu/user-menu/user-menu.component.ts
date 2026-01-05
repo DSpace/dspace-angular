@@ -32,6 +32,10 @@ import {
 import { MYDSPACE_ROUTE } from '../../../my-dspace-page/my-dspace-page.component';
 import { ThemedLoadingComponent } from '../../loading/themed-loading.component';
 import { LogOutComponent } from '../../log-out/log-out.component';
+import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
+import { map } from 'rxjs/operators';
+import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
+import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 
 /**
  * This component represents the user nav menu.
@@ -90,10 +94,14 @@ export class UserMenuComponent implements OnInit {
    */
   public subscriptionsRoute = getSubscriptionsModuleRoute();
 
+  subscribeFeature$: Observable<boolean>;
+
+
   constructor(
     protected store: Store<AppState>,
     protected authService: AuthService,
     public dsoNameService: DSONameService,
+    protected configService: ConfigurationDataService,
   ) {
   }
 
@@ -108,6 +116,10 @@ export class UserMenuComponent implements OnInit {
     // set user
     this.user$ = this.authService.getAuthenticatedUserFromStore();
 
+    this.subscribeFeature$ = this.configService.findByPropertyName('can-subscribe-feature.enable').pipe(
+      getFirstSucceededRemoteDataPayload(),
+      map((res: ConfigurationProperty) => res?.values[0].toLowerCase() === 'true')
+    );
   }
 
   /**
