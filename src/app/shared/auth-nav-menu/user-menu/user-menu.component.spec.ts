@@ -32,6 +32,9 @@ import {
 } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of } from 'rxjs';
+import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
+import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
+import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
 
 import { AppState } from '../../../app.reducer';
 import { UserMenuComponent } from './user-menu.component';
@@ -44,10 +47,20 @@ describe('UserMenuComponent', () => {
   let authState: AuthState;
   let authStateLoading: AuthState;
   let authService: AuthService;
+  let configurationDataService: ConfigurationDataService;
 
   function serviceInit() {
     authService = jasmine.createSpyObj('authService', {
       getAuthenticatedUserFromStore: of(EPersonMock),
+    });
+
+    configurationDataService = jasmine.createSpyObj('configurationDataService', {
+      findByPropertyName: createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
+        name: 'can-subscribe-feature.enable',
+        values: [
+          'can-subscribe-feature.enable = true',
+        ]
+      }))
     });
   }
 
@@ -96,6 +109,7 @@ describe('UserMenuComponent', () => {
         { provide: XSRFService, useValue: {} },
         { provide: APP_DATA_SERVICES_MAP, useValue: {} },
         { provide: APP_CONFIG, useValue: { cache: { msToLive: { default: 15 * 60 * 1000 } } } },
+        { provide: ConfigurationDataService, useValue: configurationDataService },
       ],
       schemas: [
         NO_ERRORS_SCHEMA,
