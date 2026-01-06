@@ -1,9 +1,3 @@
-/**
- * Fix for Node.js 17+ where DNS resolution prefers IPv6 over IPv4.
- * This causes "ECONNREFUSED ::1:8080" errors in PM2 cluster mode when
- * the backend only listens on IPv4.
- * See: https://github.com/nodejs/node/issues/40537
- */
 import 'core-js/es/reflect';
 import 'zone.js';
 import 'reflect-metadata';
@@ -23,7 +17,10 @@ import {
 import { AppComponent } from './app/app.component';
 import { serverAppConfig } from './modules/app/server-app.config';
 
-// Apply DNS resolution order fix for Node.js 17+
+// Apply DNS resolution order fix for Node.js 17+ by preferring IPv4 over IPv6.
+// This fixes "ECONNREFUSED ::1:8080" errors in PM2 cluster mode when
+// the backend only listens on IPv4
+// See https://github.com/DSpace/dspace-angular/issues/4960
 setDefaultResultOrder('ipv4first');
 
 const bootstrap = (context: BootstrapContext) => bootstrapApplication(AppComponent, serverAppConfig, context);
