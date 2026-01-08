@@ -28,7 +28,7 @@ import { VocabularyServiceStub } from '@dspace/core/testing/vocabulary-service.s
 import { XSRFService } from '@dspace/core/xsrf/xsrf.service';
 import {
   NgbModule,
-  NgbTooltipModule,
+  NgbTooltip,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
   DYNAMIC_FORM_CONTROL_MAP_FN,
@@ -364,7 +364,7 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
   selector: 'ds-test-cmp',
   template: ``,
   imports: [
-    NgbTooltipModule,
+    NgbTooltip,
     TranslateModule,
   ],
 })

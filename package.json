@@ -66,15 +66,10 @@
       "@angular/forms": "^20.3.12",
       "@angular/localize": "^20.3.12"
     },
-    "@ng-dynamic-forms/core": {
+    "@4science_ng-dynamic-forms/core": {
       "@angular/common": "^20.3.12",
       "@angular/core": "^20.3.12",
       "@angular/forms": "^20.3.12"
-    },
-    "@ng-dynamic-forms/ui-ng-bootstrap": {
-      "ngx-mask": "14.2.4",
-      "@ng-bootstrap/ng-bootstrap": "^12.1.2",
-      "bootstrap": "^5.3"
     },
     "@nicky-lenaers/ngx-scroll-to": {
       "@angular/common": "^20.3.12",
@@ -95,9 +90,9 @@
     "@angular/router": "^20.3.14",
     "@angular/ssr": "^20.3.10",
     "@kolkov/ngx-gallery": "^2.0.1",
-    "@ng-bootstrap/ng-bootstrap": "^12.1.2",
-    "@ng-dynamic-forms/core": "^16.0.0",
-    "@ng-dynamic-forms/ui-ng-bootstrap": "^16.0.0",
+    "@ng-bootstrap/ng-bootstrap": "^15.1.2",
+    "@4science_ng-dynamic-forms/core": "^19.0.1",
+    "@4science_ng-dynamic-forms/ui-ng-bootstrap": "^19.0.1",
     "@ngrx/effects": "^20.1.0",
     "@ngrx/router-store": "^20.1.0",
     "@ngrx/store": "^20.1.0",
@@ -217,7 +212,7 @@
     "karma-mocha-reporter": "2.2.5",
     "md5": "^2.3.0",
     "ng-mocks": "^14.14.0",
-    "ngx-mask": "14.2.4",
+    "ngx-mask": "^16.0.0",
     "postcss": "^8.5",
     "postcss-import": "^14.0.0",
     "postcss-loader": "^4.0.3",

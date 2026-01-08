@@ -27,7 +27,7 @@ import {
   isNotNull,
 } from '@dspace/shared/utils/empty.util';
 import { hasOnlyEmptyProperties } from '@dspace/shared/utils/object.util';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormControlComponent,
   DynamicFormControlModel,
@@ -77,7 +77,7 @@ import { DynamicRelationGroupModel } from './dynamic-relation-group.model';
     BtnDisabledDirective,
     ChipsComponent,
     forwardRef(() => FormComponent),
-    NgbTooltipModule,
+    NgbTooltip,
     NgClass,
     ThemedLoadingComponent,
     TranslateModule,
