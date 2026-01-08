@@ -17,6 +17,10 @@ networks:
         # Define a custom subnet for our DSpace network, so that we can easily trust requests from host to container.
         # If you customize this value, be sure to customize the 'proxies.trusted.ipranges' env variable below.
         - subnet: 172.23.0.0/16
+    # Explicitly set external=false because this script creates the network.
+    # NOTE: Because of how compose files are merged, this script should be specified LAST when passed
+    # to "docker compose" for the network to be created properly.
+    external: false
 services:
   # DSpace (backend) webapp container
   dspace:
@@ -36,6 +40,8 @@ services:
       db__P__url: 'jdbc:postgresql://dspacedb:5432/dspace'
       # solr.server: Ensure we are using the 'dspacesolr' image for Solr
       solr__P__server: http://dspacesolr:8983/solr
+      # matomo.tracker.url: Ensure we are using the 'matomo' image for Matomo
+      matomo__P__tracker__P__url: http://matomo
       # proxies.trusted.ipranges: This setting is required for a REST API running in Docker to trust requests 
       # from the host machine. This IP range MUST correspond to the 'dspacenet' subnet defined above.
       proxies__P__trusted__P__ipranges: '172.23.0'
@@ -126,6 +132,8 @@ services:
       cp -r /opt/solr/server/solr/configsets/qaevent/* qaevent
       precreate-core suggestion /opt/solr/server/solr/configsets/suggestion
       cp -r /opt/solr/server/solr/configsets/suggestion/* suggestion
+      precreate-core audit /opt/solr/server/solr/configsets/audit
+      cp -r /opt/solr/server/solr/configsets/audit/* audit
       chown -R solr:solr /var/solr
       runuser -u solr -- solr-foreground
 volumes:

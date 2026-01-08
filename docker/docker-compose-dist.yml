@@ -9,7 +9,11 @@
 # Docker Compose for running the DSpace Angular UI dist build
 # for previewing with the DSpace Demo site backend
 networks:
+  # Default to using network named 'dspacenet' from docker-compose.yml.
+  # Its full name will be prepended with the project name (e.g. "-p d7" means it will be named "d7_dspacenet")
   dspacenet:
+    name: ${COMPOSE_PROJECT_NAME}_dspacenet
+    external: true
 services:
   dspace-angular:
     container_name: dspace-angular
@@ -31,7 +35,7 @@ services:
       context: ..
       dockerfile: Dockerfile.dist
     networks:
-      dspacenet:
+    - dspacenet
     ports:
     - published: 4000
       target: 4000
