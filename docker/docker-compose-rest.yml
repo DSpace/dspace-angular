@@ -57,8 +57,6 @@ services:
     ports:
     - published: 8080
       target: 8080
-    stdin_open: true
-    tty: true
     volumes:
     # Keep DSpace assetstore directory between reboots
     - assetstore:/dspace/assetstore
@@ -102,8 +100,6 @@ services:
     ports:
     - published: 8983
       target: 8983
-    stdin_open: true
-    tty: true
     working_dir: /var/solr/data
     volumes:
     # Keep Solr data directory between reboots

@@ -41,8 +41,6 @@ services:
     - assetstore:/dspace/assetstore
     entrypoint: /dspace/bin/dspace
     command: help
-    tty: true
-    stdin_open: true
 
 volumes:
   assetstore:
