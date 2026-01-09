@@ -38,3 +38,7 @@ services:
       target: 4000
     - published: 9876
       target: 9876
+    volumes:
+    # Mount the local 'src' directory to the '/app' directory on the container.
+    # Allows the UI to "watch" this directory for changes and reload/rebuild when changes are detected.
+    - ../src:/app/src
