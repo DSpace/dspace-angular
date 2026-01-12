@@ -25,6 +25,7 @@ import {
   isEnumDeclaration,
   isExpressionWithTypeArguments,
   isIdentifier,
+  isNumericLiteral,
   isPropertyAccessExpression,
   isStringLiteral,
   ScriptTarget,
@@ -289,6 +290,9 @@ const parseDecoratorArguments = (
       args.push(true);
     } else if (arg.kind === SyntaxKind.FalseKeyword) {
       args.push(false);
+    // e.g. @decorator(123)
+    } else if (isNumericLiteral(arg)) {
+      args.push(Number(arg.text));
     }
   });
   return { args: args, imports: argImports };
