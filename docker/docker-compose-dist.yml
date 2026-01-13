@@ -9,7 +9,11 @@
 # Docker Compose for running the DSpace Angular UI dist build
 # for previewing with the DSpace Demo site backend
 networks:
+  # Default to using network named 'dspacenet' from docker-compose.yml.
+  # Its full name will be prepended with the project name (e.g. "-p d7" means it will be named "d7_dspacenet")
   dspacenet:
+    name: ${COMPOSE_PROJECT_NAME}_dspacenet
+    external: true
 services:
   dspace-angular:
     container_name: dspace-angular
@@ -18,22 +22,18 @@ services:
       DSPACE_UI_HOST: dspace-angular
       DSPACE_UI_PORT: '4000'
       DSPACE_UI_NAMESPACE: /
-      # NOTE: When running the UI in production mode (which the -dist image does),
-      # these DSPACE_REST_* variables MUST point at a public, HTTPS URL.
-      # This is because Server Side Rendering (SSR) currently requires a public URL,
-      # see this bug: https://github.com/DSpace/dspace-angular/issues/1485
-      DSPACE_REST_SSL: 'true'
-      DSPACE_REST_HOST: demo.dspace.org
-      DSPACE_REST_PORT: 443
+      DSPACE_REST_SSL: 'false'
+      DSPACE_REST_HOST: localhost
+      DSPACE_REST_PORT: 8080
       DSPACE_REST_NAMESPACE: /server
+      # Ensure SSR can use the 'dspace' Docker image directly (see docker-compose-rest.yml)
+      DSPACE_REST_SSRBASEURL: http://dspace:8080/server
     image: "${DOCKER_REGISTRY:-docker.io}/${DOCKER_OWNER:-dspace}/dspace-angular:${DSPACE_VER:-dspace-7_x}-dist"
     build:
       context: ..
       dockerfile: Dockerfile.dist
     networks:
-      dspacenet:
+    - dspacenet
     ports:
     - published: 4000
       target: 4000
-    stdin_open: true
-    tty: true
