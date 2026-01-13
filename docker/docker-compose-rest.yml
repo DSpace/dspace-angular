@@ -85,8 +85,6 @@ services:
     ports:
     - published: 5432
       target: 5432
-    stdin_open: true
-    tty: true
     volumes:
     # Keep Postgres data directory between reboots
     - pgdata:/pgdata
