@@ -10,7 +10,7 @@ import {
   ComponentFixture,
   inject,
   TestBed,
-  waitForAsync
+  waitForAsync,
 } from '@angular/core/testing';
 import {
   UntypedFormControl,
