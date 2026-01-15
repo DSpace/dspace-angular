@@ -92,7 +92,8 @@ describe('MetadataLinkViewPopoverComponent', () => {
       .withArgs('dc.identifier.uri').and.returnValue('http://example.com')
       .withArgs('dc.description.abstract').and.returnValue('Long text description')
       .withArgs('organization.identifier.ror').and.returnValue('https://ror.org/1234')
-      .withArgs('person.identifier.orcid').and.returnValue('https://orcid.org/0000-0000-0000-0000');
+      .withArgs('person.identifier.orcid').and.returnValue('https://orcid.org/0000-0000-0000-0000')
+      .withArgs('dc.nonexistent').and.returnValue(null);
 
     fixture.detectChanges();
   });
@@ -138,4 +139,40 @@ describe('MetadataLinkViewPopoverComponent', () => {
     const avatarPopoverElement = fixture.debugElement.query(By.css('ds-metadata-link-view-avatar-popover'));
     expect(avatarPopoverElement).toBeTruthy();
   });
+
+  describe('getTitleFromMetadataList', () => {
+
+    it('should return title from configured metadata when available', () => {
+      component.metadataLinkViewPopoverData = {
+        entityDataConfig: [
+          {
+            entityType: 'Publication',
+            metadataList: ['dc.title', 'dc.identifier.uri'],
+            titleMetadataList: ['dc.title', 'dc.identifier.uri'],
+          },
+        ],
+        fallbackMetdataList: [],
+      };
+
+      const title = component.getTitleFromMetadataList();
+      expect(title).toBe('Test Title, http://example.com');
+    });
+
+    it('should fallback to defaultTitleMetadataList when no configured title is present', () => {
+      component.metadataLinkViewPopoverData = {
+        entityDataConfig: [
+          {
+            entityType: 'Publication',
+            metadataList: ['dc.title', 'dc.identifier.uri'],
+            titleMetadataList: ['dc.nonexistent'],
+          },
+        ],
+        fallbackMetdataList: [],
+      };
+
+      const title = component.getTitleFromMetadataList();
+      expect(title).toBe('Test Title');
+    });
+  });
+
 });

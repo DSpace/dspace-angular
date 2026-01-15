@@ -81,6 +81,14 @@ export class MetadataLinkViewPopoverComponent implements OnInit {
   isOtherEntityType = false;
 
   /**
+   * The title to be displayed
+   */
+  title: string;
+
+  private readonly titleSeparator = ', ';
+  private readonly defaultTitleMetadataList = ['dc.title'];
+
+  /**
    * If `metadataLinkViewPopoverData` is provided, it retrieves the metadata fields based on the entity type.
    * If no metadata fields are found for the entity type, it falls back to the fallback metadata list.
    */
@@ -89,6 +97,7 @@ export class MetadataLinkViewPopoverComponent implements OnInit {
       const metadataFields = this.metadataLinkViewPopoverData.entityDataConfig.find((config) => config.entityType === this.item.entityType);
       this.entityMetdataFields = hasValue(metadataFields) ? metadataFields.metadataList : this.metadataLinkViewPopoverData.fallbackMetdataList;
       this.isOtherEntityType = hasNoValue(metadataFields);
+      this.title = this.getTitleFromMetadataList();
     }
   }
 
@@ -118,5 +127,16 @@ export class MetadataLinkViewPopoverComponent implements OnInit {
     const subtype = metadataValueSplited[metadataValueSplited.length - 1];
     const identifierSubtype = this.identifierSubtypeConfig.find((config) => config.name === subtype);
     return identifierSubtype;
+  }
+
+  /**
+   * Generates the title for the popover based on the title metadata list.
+   * @returns The generated title as a string.
+   */
+  getTitleFromMetadataList(): string {
+    const titleMetadataList = this.metadataLinkViewPopoverData.entityDataConfig.find((config) => config.entityType === this.item.entityType)?.titleMetadataList;
+    const itemHasConfiguredTitle = titleMetadataList?.length && titleMetadataList.map(metadata => this.item.firstMetadataValue(metadata)).some(value => hasValue(value));
+    return (itemHasConfiguredTitle ? titleMetadataList : this.defaultTitleMetadataList)
+      .map(metadataField => this.item.firstMetadataValue(metadataField)).join(this.titleSeparator);
   }
 }

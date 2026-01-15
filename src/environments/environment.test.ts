@@ -529,6 +529,7 @@ export const environment: BuildConfig = {
       {
         entityType: 'Person',
         metadataList: ['person.affiliation.name', 'person.email', 'person.identifier.orcid', 'dc.description.abstract'],
+        titleMetadataList: ['person.givenName', 'person.familyName' ],
       },
       {
         entityType: 'OrgUnit',

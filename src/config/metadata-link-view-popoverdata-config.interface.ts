@@ -20,4 +20,8 @@ export interface EntityDataConfig {
    * The list of metadata keys to display
    */
   metadataList: string[];
+  /**
+  * The list of title metadata keys to display as title (optional as default is on dc.title)
+  **/
+  titleMetadataList?: string[];
 }
