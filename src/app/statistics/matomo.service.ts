@@ -68,10 +68,16 @@ export class MatomoService {
     this.statusSubject.next('loading');
   }
 
+  /**
+   * This method indicates that the Matomo script loaded successfully thus we set state to loaded
+   */
   markAsLoaded() {
     this.statusSubject.next('loaded');
   }
 
+  /**
+   * This method indicates that the Matomo script failed to download or execute and sets state to error
+   */
   markAsError() {
     this.statusSubject.next('error');
   }
