@@ -176,6 +176,10 @@ export class MatomoService {
       );
   }
 
+  /**
+   * Checks if Matomo script loaded correctly
+   * @returns An Observable that emits a boolean indicating whether Matomo script loaded correctly.
+   */
   isMatomoScriptLoaded$(): Observable<boolean> {
     return this.status$.pipe(
       map(status => status === 'loaded'),
