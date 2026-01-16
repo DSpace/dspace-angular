@@ -2133,6 +2133,54 @@
 
   "form.other-information.orcid": "ORCID",
 
+  "form.other-information.oairecerif_author_affiliation": "Affiliation",
+
+  "form.other-information.oairecerif_editor_affiliation": "Affiliation",
+
+  "form.other-information.person_identifier_orcid": "ORCID iD",
+
+  "form.other-information.institution-affiliation-name": "Affiliation(s)",
+
+  "form.other-information.dc_relation_grantno": "Grant Number",
+
+  "form.other-information.not-available": "Not available",
+
+  "form.other-information.ror_orgunit_id": "ROR ID",
+
+  "form.other-information.ror_orgunit_type": "ROR type",
+
+  "form.other-information.ror_orgunit_acronym": "ROR acronym",
+
+  "form.other-information.ror_orgunit_countryName": "ROR country",
+
+  "form.other-information.oairecerif-author-affiliation": "Affiliation",
+
+  "form.other-information.oairecerif-editor-affiliation": "Affiliation",
+
+  "form.other-information.dc.publisher": "Publisher",
+
+  "form.other-information.dc.identifier.issn": "ISSN",
+
+  "form.other-information.alternative-names": "Alternative names",
+
+  "form.other-information.selection.data-oairecerif_author_affiliation": "Select alternative affiliation",
+
+  "form.other-information.data-oairecerif_author_affiliation": "Affiliation",
+
+  "form.other-information.selection.alternative-names": "Select alternative name",
+
+  "form.entry.source.local": "",
+
+  "form.entry.source.orcid": "",
+
+  "form.entry.source.ror": "",
+
+  "form.entry.source.openaire": "",
+
+  "form.entry.source.zdb": "",
+
+  "form.entry.source.sherpa": "- Sherpa Romeo",
+
   "form.remove": "Remove",
 
   "form.save": "Save",
