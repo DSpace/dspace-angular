@@ -109,7 +109,10 @@ export class ThumbnailComponent implements OnInit, OnChanges {
     if (this.thumbnail){
       if ('payload' in this.thumbnail) {
         this.listenThumbnail = this.thumbnail;
-        this.customDescription = this.listenThumbnail.payload.metadata['dc.description'][0].value;
+        const bitstream = this.listenThumbnail.payload;
+        if (bitstream && bitstream.hasMetadata('dc.description')) {
+          this.customDescription = bitstream.firstMetadataValue('dc.description');
+        }
       }
     }
   }
