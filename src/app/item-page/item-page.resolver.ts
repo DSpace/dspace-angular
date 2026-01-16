@@ -59,11 +59,20 @@ export const itemPageResolver: ResolveFn<RemoteData<Item>> = (
   return itemRD$.pipe(
     map((rd: RemoteData<Item>) => {
       if (rd.hasSucceeded && hasValue(rd.payload)) {
-        const isItemEditPage = state.url.includes('/edit');
+        const isItemEditPage = state.url.includes('/edit') || state.url.includes('/bitstreams');
         let itemRoute = isItemEditPage ? state.url : router.parseUrl(getItemPageRoute(rd.payload)).toString();
         if (hasValue(rd.payload.metadata) && rd.payload.hasMetadata('dspace.customurl')) {
-          if (route.params.id !== rd.payload.firstMetadataValue('dspace.customurl')) {
-            const newUrl = itemRoute.replace(route.params.id,rd.payload.firstMetadataValue('dspace.customurl'));
+          const customUrl = rd.payload.firstMetadataValue('dspace.customurl');
+          let newUrl: string;
+          if (route.params.id !== customUrl && !isItemEditPage) {
+            newUrl = itemRoute.replace(route.params.id,rd.payload.firstMetadataValue('dspace.customurl'));
+          } else if (isItemEditPage && route.params.id === customUrl) {
+            // In case of an edit page, we need to ensure we navigate to the edit page of the item ID, not the custom URL
+            const itemId = rd.payload.uuid;
+            newUrl = itemRoute.replace(rd.payload.firstMetadataValue('dspace.customurl'), itemId);
+          }
+
+          if (hasValue(newUrl)) {
             router.navigateByUrl(newUrl);
           }
         } else  {

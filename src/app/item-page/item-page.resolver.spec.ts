@@ -167,6 +167,20 @@ describe('itemPageResolver', () => {
           done();
         });
     });
+
+    it('should replace dspace.customurl if the current route is an administrative one', (done) => {
+      spyOn(router, 'navigateByUrl').and.callThrough();
+
+      const route = { params: { id: customUrl } } as any;
+      const state = { url: `/entities/person/${customUrl}/edit` } as any;
+
+      resolver(route, state, router, itemService, store, authService)
+        .pipe(first())
+        .subscribe(() => {
+          expect(router.navigateByUrl).toHaveBeenCalledWith(`/entities/person/${uuid}/edit`);
+          done();
+        });
+    });
   });
 
 });

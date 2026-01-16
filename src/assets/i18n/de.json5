@@ -2920,23 +2920,20 @@
 
   // "error.validation.license.required": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
   // TODO New key - Add a translation
-  "error.validation.license.required": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
+  "error.validation.license.required": "Um die Veröffentlichung abzuschließen, müssen Sie die Lizenzbedingungen akzeptieren. Wenn Sie zur Zeit dazu nicht in der Lage sind, können Sie Ihre Arbeit sichern und später dazu zurückkehren, um zuzustimmen oder die Einreichung zu löschen.",
 
   // "error.validation.cclicense.required": "You must grant this cclicense to complete your submission. If you are unable to grant the cclicense at this time, you may save your work and return later or remove the submission.",
   // TODO New key - Add a translation
   "error.validation.cclicense.required": "You must grant this cclicense to complete your submission. If you are unable to grant the cclicense at this time, you may save your work and return later or remove the submission.",
 
   // "error.validation.custom-url.conflict": "The custom url has been already used, please try with a new one.",
-  // TODO New key - Add a translation
-  "error.validation.custom-url.conflict": "The custom url has been already used, please try with a new one.",
+  "error.validation.custom-url.conflict": "Die sprechende URL wird bereits andersweitig genutzt. Bitte versuchen Sie es mit einer anderen URL.",
 
   // "error.validation.custom-url.empty": "The custom url is required and cannot be empty.",
-  // TODO New key - Add a translation
-  "error.validation.custom-url.empty": "The custom url is required and cannot be empty.",
+  "error.validation.custom-url.empty": "Die sprechende URL ist erforderlich und darf nicht leer sein.",
 
   // "error.validation.custom-url.invalid-characters": "The custom url contains invalid characters.",
-  // TODO New key - Add a translation
-  "error.validation.custom-url.invalid-characters": "The custom url contains invalid characters.",
+  "error.validation.custom-url.invalid-characters": "Die sprechende URL enthält ungültige Zeichen.",
 
   // "error.validation.pattern": "This input is restricted by the current pattern: {{ pattern }}.",
   "error.validation.pattern": "Die Eingabe muss dem folgenden Muster entsprechen: {{ pattern }}.",
@@ -8497,8 +8494,7 @@
   "submission.sections.submit.progressbar.CClicense": "Creative commons license",
 
   // "submission.sections.submit.progressbar.CustomUrlStep": "Custom Url",
-  // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.CustomUrlStep": "Custom Url",
+  "submission.sections.submit.progressbar.CustomUrlStep": "Sprechende URL",
 
   // "submission.sections.submit.progressbar.describe.recycle": "Recycle",
   "submission.sections.submit.progressbar.describe.recycle": "Wiederverwerten",
@@ -8670,12 +8666,10 @@
   "submission.sections.custom-url.label.previous-urls": "Previous Urls",
 
   // "submission.sections.custom-url.alert.info": "Define here a custom URL which will be used to reach the item instead of using an internal randomly generated UUID identifier. ",
-  // TODO New key - Add a translation
-  "submission.sections.custom-url.alert.info": "Define here a custom URL which will be used to reach the item instead of using an internal randomly generated UUID identifier. ",
+  "submission.sections.custom-url.alert.info": "Legen Sie hier eine sprechende URL fest, über die das Item anstelle eines zufällig generierten internen UUID Identifiers erreichbar ist. ",
 
   // "submission.sections.custom-url.url.placeholder": "Custom URL",
-  // TODO New key - Add a translation
-  "submission.sections.custom-url.url.placeholder": "Custom URL",
+  "submission.sections.custom-url.url.placeholder": "Sprechende URL",
 
   // "submission.sections.accesses.form.discoverable-description": "When checked, this item will be discoverable in search/browse. When unchecked, the item will only be available via a direct link and will never appear in search/browse.",
   "submission.sections.accesses.form.discoverable-description": "Wenn ausgewählt, kann das Item in der Suche/im Browsing gefunden werden. Wenn nicht ausgewählt, ist das Item nur über einen direkten Link aufrufbar und erscheint nie in der Suche/im Browsing.",
@@ -11145,8 +11139,7 @@
   "item.preview.organization.url": "URL",
 
   // "item.preview.organization.address.addressLocality": "City",
-  // TODO New key - Add a translation
-  "item.preview.organization.address.addressLocality": "City",
+  "item.preview.organization.address.addressLocality": "Stadt",
 
   // "item.preview.organization.alternateName": "Alternative name",
   // TODO New key - Add a translation
