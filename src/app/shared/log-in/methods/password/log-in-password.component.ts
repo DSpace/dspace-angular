@@ -1,4 +1,4 @@
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, NgClass } from '@angular/common';
 import {
   Component,
   Inject,
@@ -67,6 +67,7 @@ import { BrowserOnlyPipe } from '../../../utils/browser-only.pipe';
     ReactiveFormsModule,
     RouterLink,
     TranslateModule,
+    NgClass,
   ],
 })
 export class LogInPasswordComponent implements OnInit {
@@ -122,6 +123,11 @@ export class LogInPasswordComponent implements OnInit {
    */
   canShowDivider$: Observable<boolean>;
 
+  /**
+   * Has password visibility.
+   * @type {boolean}
+   */
+  public showPassword = false;
 
   constructor(
     @Inject('authMethodProvider') public injectedAuthMethodModel: AuthMethod,
@@ -140,7 +146,6 @@ export class LogInPasswordComponent implements OnInit {
    * @method ngOnInit
    */
   public ngOnInit() {
-
     // set formGroup
     this.form = this.formBuilder.group({
       email: ['', Validators.required],
@@ -150,10 +155,10 @@ export class LogInPasswordComponent implements OnInit {
     // set error
     this.error = this.store.pipe(select(
       getAuthenticationError),
-    map((error) => {
-      this.hasError = (isNotEmpty(error));
-      return error;
-    }),
+      map((error) => {
+        this.hasError = (isNotEmpty(error));
+        return error;
+      }),
     );
 
     // set error
@@ -186,6 +191,11 @@ export class LogInPasswordComponent implements OnInit {
   getForgotRoute() {
     return getForgotPasswordRoute();
   }
+
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
+  }
+
 
   /**
    * Reset error or message.
