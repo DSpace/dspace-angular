@@ -1,4 +1,7 @@
-import { AsyncPipe, NgClass } from '@angular/common';
+import {
+  AsyncPipe,
+  NgClass,
+} from '@angular/common';
 import {
   Component,
   Inject,
@@ -64,10 +67,10 @@ import { BrowserOnlyPipe } from '../../../utils/browser-only.pipe';
     BrowserOnlyPipe,
     BtnDisabledDirective,
     FormsModule,
+    NgClass,
     ReactiveFormsModule,
     RouterLink,
     TranslateModule,
-    NgClass,
   ],
 })
 export class LogInPasswordComponent implements OnInit {
@@ -155,10 +158,10 @@ export class LogInPasswordComponent implements OnInit {
     // set error
     this.error = this.store.pipe(select(
       getAuthenticationError),
-      map((error) => {
-        this.hasError = (isNotEmpty(error));
-        return error;
-      }),
+    map((error) => {
+      this.hasError = (isNotEmpty(error));
+      return error;
+    }),
     );
 
     // set error
