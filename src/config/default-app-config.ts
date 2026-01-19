@@ -734,22 +734,6 @@ export class DefaultAppConfig implements AppConfig {
         metadataList: ['person.affiliation.name', 'person.email', 'person.identifier.orcid', 'dc.description.abstract'],
         titleMetadataList: ['person.givenName', 'person.familyName' ],
       },
-      {
-        entityType: 'OrgUnit',
-        metadataList: ['organization.parentOrganization', 'organization.identifier.ror', 'dc.description.abstract'],
-      },
-      {
-        entityType: 'Project',
-        metadataList: ['oairecerif.project.status', 'dc.description.abstract'],
-      },
-      {
-        entityType: 'Funding',
-        metadataList: ['oairecerif.funder', 'oairecerif.fundingProgram', 'dc.description.abstract'],
-      },
-      {
-        entityType: 'Publication',
-        metadataList: ['dc.identifier.doi', 'dc.identifier.uri', 'dc.description.abstract'],
-      },
     ],
   };
 
