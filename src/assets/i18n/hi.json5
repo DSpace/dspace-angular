@@ -1380,106 +1380,6 @@
   // "admin.batch-import.page.remove": "remove",
   "admin.batch-import.page.remove": "हटाएं",
 
-  // "audit.data.not-found": "No audits found.",
-  // TODO New key - Add a translation
-  "audit.data.not-found": "No audits found.",
-
-  // "audit.data.self": "self",
-  // TODO New key - Add a translation
-  "audit.data.self": "self",
-
-  // "audit.detail.metadata.field": "Metadata field:",
-  // TODO New key - Add a translation
-  "audit.detail.metadata.field": "Metadata field:",
-
-  // "audit.detail.metadata.value": "Value:",
-  // TODO New key - Add a translation
-  "audit.detail.metadata.value": "Value:",
-
-  // "audit.detail.metadata.authority": "Authority:",
-  // TODO New key - Add a translation
-  "audit.detail.metadata.authority": "Authority:",
-
-  // "audit.detail.metadata.confidence": "Confidence:",
-  // TODO New key - Add a translation
-  "audit.detail.metadata.confidence": "Confidence:",
-
-  // "audit.detail.metadata.place": "Place:",
-  // TODO New key - Add a translation
-  "audit.detail.metadata.place": "Place:",
-
-  // "audit.detail.metadata.action": "Action:",
-  // TODO New key - Add a translation
-  "audit.detail.metadata.action": "Action:",
-
-  // "audit.detail.metadata.checksum": "Checksum:",
-  // TODO New key - Add a translation
-  "audit.detail.metadata.checksum": "Checksum:",
-
-  // "audit.overview.title": "All Audit Logs",
-  // TODO New key - Add a translation
-  "audit.overview.title": "All Audit Logs",
-
-  // "audit.overview.table.id": "Audit ID",
-  // TODO New key - Add a translation
-  "audit.overview.table.id": "Audit ID",
-
-  // "audit.overview.table.objectUUID": "Object ID",
-  // TODO New key - Add a translation
-  "audit.overview.table.objectUUID": "Object ID",
-
-  // "audit.overview.table.objectType": "Object Type",
-  // TODO New key - Add a translation
-  "audit.overview.table.objectType": "Object Type",
-
-  // "audit.overview.table.subjectUUID": "Subject ID",
-  // TODO New key - Add a translation
-  "audit.overview.table.subjectUUID": "Subject ID",
-
-  // "audit.overview.table.subjectType": "Subject Type",
-  // TODO New key - Add a translation
-  "audit.overview.table.subjectType": "Subject Type",
-
-  // "audit.overview.table.entityType": "Audit Type",
-  // TODO New key - Add a translation
-  "audit.overview.table.entityType": "Audit Type",
-
-  // "audit.overview.table.eperson": "EPerson",
-  // TODO New key - Add a translation
-  "audit.overview.table.eperson": "EPerson",
-
-  // "audit.overview.table.other": "Object",
-  // TODO New key - Add a translation
-  "audit.overview.table.other": "Object",
-
-  // "audit.overview.table.timestamp": "Time (UTC)",
-  // TODO New key - Add a translation
-  "audit.overview.table.timestamp": "Time (UTC)",
-
-  // "audit.overview.breadcrumbs": "Audit Logs",
-  // TODO New key - Add a translation
-  "audit.overview.breadcrumbs": "Audit Logs",
-
-  // "audit.object.back": "Back",
-  // TODO New key - Add a translation
-  "audit.object.back": "Back",
-
-  // "audit.object.breadcrumbs": "Object Audit Logs",
-  // TODO New key - Add a translation
-  "audit.object.breadcrumbs": "Object Audit Logs",
-
-  // "audit.object.overview.title": "Object Audit Logs",
-  // TODO New key - Add a translation
-  "audit.object.overview.title": "Object Audit Logs",
-
-  // "audit.object.logs.label": "Logs for object: ",
-  // TODO New key - Add a translation
-  "audit.object.logs.label": "Logs for object: ",
-
-  // "audit.object.overview.disabled.message": "Audit feature is currently disabled",
-  // TODO New key - Add a translation
-  "audit.object.overview.disabled.message": "Audit feature is currently disabled",
-
   // "auth.errors.invalid-user": "Invalid email address or password.",
   "auth.errors.invalid-user": "अमान्य ईमेल पता या पासवर्ड।",
 
@@ -1878,8 +1778,7 @@
   // "collection.delete.notification.fail": "Collection could not be deleted",
   "collection.delete.notification.fail": "संग्रह को हटाया नहीं जा सका",
 
-  // "collection.delete.notification.success": "Successfully started a process to delete this collection",
-  // TODO Source message changed - Revise the translation
+  // "collection.delete.notification.success": "Successfully deleted collection",
   "collection.delete.notification.success": "संग्रह सफलतापूर्वक हटाया गया",
 
   // "collection.delete.text": "Are you sure you want to delete collection \"{{ dso }}\"",
@@ -2326,8 +2225,7 @@
   // "community.delete.notification.fail": "Community could not be deleted",
   "community.delete.notification.fail": "समुदाय को हटाया नहीं जा सका",
 
-  // "community.delete.notification.success": "Successfully started a process to delete this community",
-  // TODO Source message changed - Revise the translation
+  // "community.delete.notification.success": "Successfully deleted community",
   "community.delete.notification.success": "समुदाय सफलतापूर्वक हटाया गया",
 
   // "community.delete.text": "Are you sure you want to delete community \"{{ dso }}\"",
@@ -2564,10 +2462,6 @@
 
   // "community.sub-community-list.head": "Communities in this Community",
   "community.sub-community-list.head": "इस समुदाय में समुदाय",
-
-  // "context-menu.actions.audit-item.btn": "Audit",
-  // TODO New key - Add a translation
-  "context-menu.actions.audit-item.btn": "Audit",
 
   // "cookies.consent.accept-all": "Accept all",
   "cookies.consent.accept-all": "सभी स्वीकार करें",
@@ -3289,102 +3183,6 @@
   // "form.other-information.orcid": "ORCID",
   "form.other-information.orcid": "ORCID",
 
-  // "form.other-information.oairecerif_author_affiliation": "Affiliation",
-  // TODO New key - Add a translation
-  "form.other-information.oairecerif_author_affiliation": "Affiliation",
-
-  // "form.other-information.oairecerif_editor_affiliation": "Affiliation",
-  // TODO New key - Add a translation
-  "form.other-information.oairecerif_editor_affiliation": "Affiliation",
-
-  // "form.other-information.person_identifier_orcid": "ORCID iD",
-  // TODO New key - Add a translation
-  "form.other-information.person_identifier_orcid": "ORCID iD",
-
-  // "form.other-information.institution-affiliation-name": "Affiliation(s)",
-  // TODO New key - Add a translation
-  "form.other-information.institution-affiliation-name": "Affiliation(s)",
-
-  // "form.other-information.dc_relation_grantno": "Grant Number",
-  // TODO New key - Add a translation
-  "form.other-information.dc_relation_grantno": "Grant Number",
-
-  // "form.other-information.not-available": "Not available",
-  // TODO New key - Add a translation
-  "form.other-information.not-available": "Not available",
-
-  // "form.other-information.ror_orgunit_id": "ROR ID",
-  // TODO New key - Add a translation
-  "form.other-information.ror_orgunit_id": "ROR ID",
-
-  // "form.other-information.ror_orgunit_type": "ROR type",
-  // TODO New key - Add a translation
-  "form.other-information.ror_orgunit_type": "ROR type",
-
-  // "form.other-information.ror_orgunit_acronym": "ROR acronym",
-  // TODO New key - Add a translation
-  "form.other-information.ror_orgunit_acronym": "ROR acronym",
-
-  // "form.other-information.ror_orgunit_countryName": "ROR country",
-  // TODO New key - Add a translation
-  "form.other-information.ror_orgunit_countryName": "ROR country",
-
-  // "form.other-information.oairecerif-author-affiliation": "Affiliation",
-  // TODO New key - Add a translation
-  "form.other-information.oairecerif-author-affiliation": "Affiliation",
-
-  // "form.other-information.oairecerif-editor-affiliation": "Affiliation",
-  // TODO New key - Add a translation
-  "form.other-information.oairecerif-editor-affiliation": "Affiliation",
-
-  // "form.other-information.dc.publisher": "Publisher",
-  // TODO New key - Add a translation
-  "form.other-information.dc.publisher": "Publisher",
-
-  // "form.other-information.dc.identifier.issn": "ISSN",
-  // TODO New key - Add a translation
-  "form.other-information.dc.identifier.issn": "ISSN",
-
-  // "form.other-information.alternative-names": "Alternative names",
-  // TODO New key - Add a translation
-  "form.other-information.alternative-names": "Alternative names",
-
-  // "form.other-information.selection.data-oairecerif_author_affiliation": "Select alternative affiliation",
-  // TODO New key - Add a translation
-  "form.other-information.selection.data-oairecerif_author_affiliation": "Select alternative affiliation",
-
-  // "form.other-information.data-oairecerif_author_affiliation": "Affiliation",
-  // TODO New key - Add a translation
-  "form.other-information.data-oairecerif_author_affiliation": "Affiliation",
-
-  // "form.other-information.selection.alternative-names": "Select alternative name",
-  // TODO New key - Add a translation
-  "form.other-information.selection.alternative-names": "Select alternative name",
-
-  // "form.entry.source.local": "",
-  // TODO New key - Add a translation
-  "form.entry.source.local": "",
-
-  // "form.entry.source.orcid": "",
-  // TODO New key - Add a translation
-  "form.entry.source.orcid": "",
-
-  // "form.entry.source.ror": "",
-  // TODO New key - Add a translation
-  "form.entry.source.ror": "",
-
-  // "form.entry.source.openaire": "",
-  // TODO New key - Add a translation
-  "form.entry.source.openaire": "",
-
-  // "form.entry.source.zdb": "",
-  // TODO New key - Add a translation
-  "form.entry.source.zdb": "",
-
-  // "form.entry.source.sherpa": "- Sherpa Romeo",
-  // TODO New key - Add a translation
-  "form.entry.source.sherpa": "- Sherpa Romeo",
-
   // "form.remove": "Remove",
   "form.remove": "हटाएं",
 
@@ -3940,8 +3738,7 @@
   // TODO New key - Add a translation
   "item.edit.delete.header": "Delete item: {{ id }}",
 
-  // "item.edit.delete.success": "Successfully started a process to delete this item",
-  // TODO Source message changed - Revise the translation
+  // "item.edit.delete.success": "The item has been deleted",
   "item.edit.delete.success": "आइटम हटा दिया गया है",
 
   // "item.edit.head": "Edit Item",
@@ -5513,10 +5310,6 @@
 
   // "menu.section.access_control_people": "People",
   "menu.section.access_control_people": "लोग",
-
-  // "menu.section.audit": "Audit Logs",
-  // TODO New key - Add a translation
-  "menu.section.audit": "Audit Logs",
 
   // "menu.section.reports": "Reports",
   "menu.section.reports": "रिपोर्ट्स",
@@ -11324,18 +11117,6 @@
   // "file-download-link.request-copy": "Request a copy of ",
   // TODO New key - Add a translation
   "file-download-link.request-copy": "Request a copy of ",
-
-  // "item.preview.organization.url": "URL",
-  // TODO New key - Add a translation
-  "item.preview.organization.url": "URL",
-
-  // "item.preview.organization.address.addressLocality": "City",
-  // TODO New key - Add a translation
-  "item.preview.organization.address.addressLocality": "City",
-
-  // "item.preview.organization.alternateName": "Alternative name",
-  // TODO New key - Add a translation
-  "item.preview.organization.alternateName": "Alternative name",
 
 
 }
