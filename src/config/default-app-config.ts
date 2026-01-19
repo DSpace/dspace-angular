@@ -731,7 +731,7 @@ export class DefaultAppConfig implements AppConfig {
     entityDataConfig: [
       {
         entityType: 'Person',
-        metadataList: ['person.affiliation.name', 'person.email', 'person.identifier.orcid', 'dc.description.abstract'],
+        metadataList: ['person.affiliation.name', 'person.email', 'person.jobTitle', 'dc.description.abstract'],
         titleMetadataList: ['person.givenName', 'person.familyName' ],
       },
     ],

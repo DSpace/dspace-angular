@@ -7278,6 +7278,8 @@
 
   "metadata-link-view.popover.label.Person.dc.description.abstract": "Abstract",
 
+  "metadata-link-view.popover.label.Person.person.jobTitle": "Job title",
+
   "metadata-link-view.popover.label.OrgUnit.dc.title": "Fullname",
 
   "metadata-link-view.popover.label.OrgUnit.organization.identifier.ror": "ROR",
