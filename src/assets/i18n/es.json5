@@ -2899,24 +2899,11 @@
   // "error.top-level-communities": "Error fetching top-level communities",
   "error.top-level-communities": "Error al recuperar las comunidades de primer nivel",
 
-  // "error.validation.license.required": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
-  // TODO New key - Add a translation
-  "error.validation.license.required": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
+  // "error.validation.license.notgranted": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
+  "error.validation.license.notgranted": "Debe conceder esta licencia de depósito para completar el envío. Si no puede conceder esta licencia en este momento, puede guardar su trabajo y regresar más tarde o bien eliminar el envío.",
 
   // "error.validation.cclicense.required": "You must grant this cclicense to complete your submission. If you are unable to grant the cclicense at this time, you may save your work and return later or remove the submission.",
   "error.validation.cclicense.required": "Debe conceder esta licencia CC para completar su envío. Si no puede conceder esta licencia CC en este momento, puede guardar su trabajo y regresar más tarde o bien eliminar el envío.",
-
-  // "error.validation.custom-url.conflict": "The custom url has been already used, please try with a new one.",
-  // TODO New key - Add a translation
-  "error.validation.custom-url.conflict": "The custom url has been already used, please try with a new one.",
-
-  // "error.validation.custom-url.empty": "The custom url is required and cannot be empty.",
-  // TODO New key - Add a translation
-  "error.validation.custom-url.empty": "The custom url is required and cannot be empty.",
-
-  // "error.validation.custom-url.invalid-characters": "The custom url contains invalid characters.",
-  // TODO New key - Add a translation
-  "error.validation.custom-url.invalid-characters": "The custom url contains invalid characters.",
 
   // "error.validation.pattern": "This input is restricted by the current pattern: {{ pattern }}.",
   "error.validation.pattern": "Esta entrada está restringida por este patrón: {{ pattern }}.",
@@ -4584,7 +4571,6 @@
   "item.preview.dc.rights": "Rights",
 
   // "item.preview.dc.identifier.other": "Other Identifier",
-  // TODO Source message changed - Revise the translation
   "item.preview.dc.identifier.other": "Otro identificador:",
 
   // "item.preview.dc.relation.issn": "ISSN",
@@ -4675,7 +4661,6 @@
   "item.preview.dc.identifier.openalex": "Identificador OpenAlex",
 
   // "item.preview.dc.description": "Description",
-  // TODO Source message changed - Revise the translation
   "item.preview.dc.description": "Descripción:",
 
   // "item.select.confirm": "Confirm selected",
@@ -8435,10 +8420,6 @@
   // "submission.sections.submit.progressbar.CClicense": "Creative commons license",
   "submission.sections.submit.progressbar.CClicense": "Licencia Creative Commons",
 
-  // "submission.sections.submit.progressbar.CustomUrlStep": "Custom Url",
-  // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.CustomUrlStep": "Custom Url",
-
   // "submission.sections.submit.progressbar.describe.recycle": "Recycle",
   "submission.sections.submit.progressbar.describe.recycle": "Reciclar",
 
@@ -8603,18 +8584,6 @@
 
   // "submission.sections.upload.upload-successful": "Upload successful",
   "submission.sections.upload.upload-successful": "Subida exitosa",
-
-  // "submission.sections.custom-url.label.previous-urls": "Previous Urls",
-  // TODO New key - Add a translation
-  "submission.sections.custom-url.label.previous-urls": "Previous Urls",
-
-  // "submission.sections.custom-url.alert.info": "Define here a custom URL which will be used to reach the item instead of using an internal randomly generated UUID identifier. ",
-  // TODO New key - Add a translation
-  "submission.sections.custom-url.alert.info": "Define here a custom URL which will be used to reach the item instead of using an internal randomly generated UUID identifier. ",
-
-  // "submission.sections.custom-url.url.placeholder": "Custom URL",
-  // TODO New key - Add a translation
-  "submission.sections.custom-url.url.placeholder": "Custom URL",
 
   // "submission.sections.accesses.form.discoverable-description": "When checked, this item will be discoverable in search/browse. When unchecked, the item will only be available via a direct link and will never appear in search/browse.",
   "submission.sections.accesses.form.discoverable-description": "Si lo marca, el ítem será detectable en el buscador/navegador. Si lo desmarca, el ítems solo estará disponible mediante el enlace directo, y no aparecerá en el buscador/navegador.",
@@ -11005,18 +10974,6 @@
   // "file-download-link.request-copy": "Request a copy of ",
   // TODO New key - Add a translation
   "file-download-link.request-copy": "Request a copy of ",
-
-  // "item.preview.organization.url": "URL",
-  // TODO New key - Add a translation
-  "item.preview.organization.url": "URL",
-
-  // "item.preview.organization.address.addressLocality": "City",
-  // TODO New key - Add a translation
-  "item.preview.organization.address.addressLocality": "City",
-
-  // "item.preview.organization.alternateName": "Alternative name",
-  // TODO New key - Add a translation
-  "item.preview.organization.alternateName": "Alternative name",
 
 
 }

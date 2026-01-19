@@ -2917,24 +2917,11 @@
   // "error.top-level-communities": "Error fetching top-level communities",
   "error.top-level-communities": "Erreur lors de la récupération des communautés de 1er niveau",
 
-  // "error.validation.license.required": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
-  // TODO New key - Add a translation
-  "error.validation.license.required": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
+  // "error.validation.license.notgranted": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
+  "error.validation.license.notgranted": "Vous devez accepter cette licence pour terminer votre dépôt. Si vous êtes dans l'incapacité d'accepter cette licence actuellement, vous pouvez sauvegarder votre dépôt et y revenir ultérieurement ou le supprimer.",
 
   // "error.validation.cclicense.required": "You must grant this cclicense to complete your submission. If you are unable to grant the cclicense at this time, you may save your work and return later or remove the submission.",
   "error.validation.cclicense.required": "Vous devez approuver cette Licence Creative Commons afin de finaliser votre sumissions. Si vous n'êtes pas en mesure d'approuver la licence pour le moment, vous pouvez souvegarder votre travail pour y revenir plus tard ou supprimer la soumission.",
-
-  // "error.validation.custom-url.conflict": "The custom url has been already used, please try with a new one.",
-  // TODO New key - Add a translation
-  "error.validation.custom-url.conflict": "The custom url has been already used, please try with a new one.",
-
-  // "error.validation.custom-url.empty": "The custom url is required and cannot be empty.",
-  // TODO New key - Add a translation
-  "error.validation.custom-url.empty": "The custom url is required and cannot be empty.",
-
-  // "error.validation.custom-url.invalid-characters": "The custom url contains invalid characters.",
-  // TODO New key - Add a translation
-  "error.validation.custom-url.invalid-characters": "The custom url contains invalid characters.",
 
   // "error.validation.pattern": "This input is restricted by the current pattern: {{ pattern }}.",
   "error.validation.pattern": "Cette entrée est invalide en vertu du modèle actuel : {{ pattern }}.",
@@ -4592,10 +4579,6 @@
   // "item.preview.dc.rights": "Rights",
   "item.preview.dc.rights": "Droits",
 
-  // "item.preview.dc.identifier.other": "Other Identifier",
-  // TODO Source message changed - Revise the translation
-  "item.preview.dc.identifier.other": "Autre identifiant :",
-
   // "item.preview.dc.relation.issn": "ISSN",
   "item.preview.dc.relation.issn": "ISSN",
 
@@ -4682,10 +4665,6 @@
 
   // "item.preview.dc.identifier.openalex": "OpenAlex Identifier",
   "item.preview.dc.identifier.openalex": "Identifiant OpenAlex",
-
-  // "item.preview.dc.description": "Description",
-  // TODO Source message changed - Revise the translation
-  "item.preview.dc.description": "Description :",
 
   // "item.select.confirm": "Confirm selected",
   "item.select.confirm": "Confirmer la sélection",
@@ -6973,6 +6952,7 @@
 
   // "search.filters.applied.f.original_bundle_descriptions": "File description",
   "search.filters.applied.f.original_bundle_descriptions": "Description du fichier",
+
   // "search.filters.applied.f.has_geospatial_metadata": "Has geographical location",
   "search.filters.applied.f.has_geospatial_metadata": "A l'emplacement géographique",
 
@@ -8406,10 +8386,6 @@
   // "submission.sections.submit.progressbar.CClicense": "Creative commons license",
   "submission.sections.submit.progressbar.CClicense": "Licence Creative Commons",
 
-  // "submission.sections.submit.progressbar.CustomUrlStep": "Custom Url",
-  // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.CustomUrlStep": "Custom Url",
-
   // "submission.sections.submit.progressbar.describe.recycle": "Recycle",
   "submission.sections.submit.progressbar.describe.recycle": "Recycler",
 
@@ -8574,18 +8550,6 @@
 
   // "submission.sections.upload.upload-successful": "Upload successful",
   "submission.sections.upload.upload-successful": "Téléchargement réussi",
-
-  // "submission.sections.custom-url.label.previous-urls": "Previous Urls",
-  // TODO New key - Add a translation
-  "submission.sections.custom-url.label.previous-urls": "Previous Urls",
-
-  // "submission.sections.custom-url.alert.info": "Define here a custom URL which will be used to reach the item instead of using an internal randomly generated UUID identifier. ",
-  // TODO New key - Add a translation
-  "submission.sections.custom-url.alert.info": "Define here a custom URL which will be used to reach the item instead of using an internal randomly generated UUID identifier. ",
-
-  // "submission.sections.custom-url.url.placeholder": "Custom URL",
-  // TODO New key - Add a translation
-  "submission.sections.custom-url.url.placeholder": "Custom URL",
 
   // "submission.sections.accesses.form.discoverable-description": "When checked, this item will be discoverable in search/browse. When unchecked, the item will only be available via a direct link and will never appear in search/browse.",
   "submission.sections.accesses.form.discoverable-description": "Si cette case est cochée, cet Item pourra être découvert dans la recherche/index parcourir. Si cette case n'est pas cochée, l'Item ne sera disponible que via un lien direct et n'apparaîtra jamais dans la recherche/index parcourir.",
@@ -10979,18 +10943,5 @@
 
   // "file-download-link.request-copy": "Request a copy of ",
   "file-download-link.request-copy": "Demander une copie de ",
-
-  // "item.preview.organization.url": "URL",
-  // TODO New key - Add a translation
-  "item.preview.organization.url": "URL",
-
-  // "item.preview.organization.address.addressLocality": "City",
-  // TODO New key - Add a translation
-  "item.preview.organization.address.addressLocality": "City",
-
-  // "item.preview.organization.alternateName": "Alternative name",
-  // TODO New key - Add a translation
-  "item.preview.organization.alternateName": "Alternative name",
-
 
 }
