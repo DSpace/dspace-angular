@@ -14,9 +14,11 @@
       <div class="ms-2 text-truncate text-primary fw-bold">{{entry.value}}</div>
     </li>
     @for (item of entry.otherInformation | dsObjNgFor; track item) {
-      <li class="list-item text-truncate text-secondary" >
-        {{ 'form.other-information.' + item.key | translate }} : {{item.value}}
-      </li>
+      @if(!item.key.startsWith('data-')) {
+        <li class="list-item text-truncate text-secondary" >
+          {{ 'form.other-information.' + item.key | translate }} : {{item.value}}
+        </li>
+      }
     }
   </ul>
 </ng-template>
