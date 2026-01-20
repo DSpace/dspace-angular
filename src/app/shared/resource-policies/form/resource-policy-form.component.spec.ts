@@ -19,12 +19,19 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbModal,
+  NgbNav,
+  NgbNavContent,
+  NgbNavItem,
+  NgbNavLink,
+  NgbNavOutlet,
+} from '@ng-bootstrap/ng-bootstrap';
 import { DYNAMIC_FORM_CONTROL_MAP_FN } from '@ng-dynamic-forms/core';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
-import { NgxMaskModule } from 'ngx-mask';
+import { provideEnvironmentNgxMask } from 'ngx-mask';
 import { of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { TestScheduler } from 'rxjs/testing';
@@ -209,17 +216,21 @@ describe('ResourcePolicyFormComponent test suite', () => {
       imports: [
         CommonModule,
         FormsModule,
-        NgbModule,
         NoopAnimationsModule,
         ReactiveFormsModule,
         TranslateModule.forRoot(),
         FormComponent,
         ResourcePolicyFormComponent,
         TestComponent,
-        NgxMaskModule.forRoot(),
         BtnDisabledDirective,
+        NgbNavLink,
+        NgbNavItem,
+        NgbNavContent,
+        NgbNavOutlet,
+        NgbNav,
       ],
       providers: [
+        provideEnvironmentNgxMask(),
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: Router, useValue: new RouterMock() },
         // { provide: Store, useValue: StoreMock },
@@ -237,6 +248,7 @@ describe('ResourcePolicyFormComponent test suite', () => {
         { provide: APP_DATA_SERVICES_MAP, useValue: {} },
         { provide: DYNAMIC_FORM_CONTROL_MAP_FN, useValue: dsDynamicFormControlMapFn },
         provideMockStore({}),
+        NgbModal,
       ],
       schemas: [
         NO_ERRORS_SCHEMA,
@@ -496,7 +508,6 @@ describe('ResourcePolicyFormComponent test suite', () => {
   template: ``,
   imports: [
     FormsModule,
-    NgbModule,
     ReactiveFormsModule,
   ],
 })

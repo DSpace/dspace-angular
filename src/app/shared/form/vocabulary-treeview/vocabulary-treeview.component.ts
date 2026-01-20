@@ -16,7 +16,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
@@ -71,7 +71,7 @@ export type VocabularyTreeItemType = FormFieldMetadataValueObject | VocabularyEn
     BtnDisabledDirective,
     CdkTreeModule,
     FormsModule,
-    NgbTooltipModule,
+    NgbTooltip,
     ThemedLoadingComponent,
     TranslateModule,
   ],

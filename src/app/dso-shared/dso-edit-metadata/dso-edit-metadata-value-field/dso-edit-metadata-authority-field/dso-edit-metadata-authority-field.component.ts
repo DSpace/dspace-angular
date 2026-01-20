@@ -14,7 +14,7 @@ import {
   UntypedFormControl,
   UntypedFormGroup,
 } from '@angular/forms';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
   TranslateService,
@@ -73,7 +73,7 @@ import { DsoEditMetadataFieldService } from '../dso-edit-metadata-field.service'
     DsDynamicOneboxComponent,
     DsDynamicScrollableDropdownComponent,
     FormsModule,
-    NgbTooltipModule,
+    NgbTooltip,
     NgClass,
     TranslateModule,
   ],

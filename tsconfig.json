@@ -40,7 +40,15 @@
       "jasmine"
     ],
     "useDefineForClassFields": false,
-    "useUnknownInCatchVariables": true
+    "useUnknownInCatchVariables": true,
+    "paths": {
+      "@ng-dynamic-forms/core": [
+        "node_modules/@4science_ng-dynamic-forms/core"
+      ],
+      "@ng-dynamic-forms/ui-ng-bootstrap": [
+        "node_modules/@4science_ng-dynamic-forms/ui-ng-bootstrap"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,

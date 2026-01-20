@@ -4,7 +4,7 @@ import {
 } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
@@ -21,7 +21,7 @@ import { BreadcrumbsService } from './breadcrumbs.service';
   styleUrls: ['./breadcrumbs.component.scss'],
   imports: [
     AsyncPipe,
-    NgbTooltipModule,
+    NgbTooltip,
     NgTemplateOutlet,
     RouterLink,
     TranslateModule,

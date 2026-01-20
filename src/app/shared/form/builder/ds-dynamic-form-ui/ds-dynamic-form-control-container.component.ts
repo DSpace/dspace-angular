@@ -33,7 +33,7 @@ import {
 import {
   NgbModal,
   NgbModalRef,
-  NgbTooltipModule,
+  NgbTooltip,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
   DYNAMIC_FORM_CONTROL_MAP_FN,
@@ -134,7 +134,7 @@ import { DsDynamicLookupRelationModalComponent } from './relation-lookup-modal/d
     ExistingMetadataListElementComponent,
     ExistingRelationListElementComponent,
     FormsModule,
-    NgbTooltipModule,
+    NgbTooltip,
     NgClass,
     NgTemplateOutlet,
     ReactiveFormsModule,

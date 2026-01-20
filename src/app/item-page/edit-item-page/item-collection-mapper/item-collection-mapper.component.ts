@@ -9,7 +9,13 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbNav,
+  NgbNavContent,
+  NgbNavItem,
+  NgbNavLink,
+  NgbNavOutlet,
+} from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
   TranslateService,
@@ -74,7 +80,11 @@ import { getItemPageRoute } from '../../item-page-routing-paths';
     AsyncPipe,
     BrowserOnlyPipe,
     CollectionSelectComponent,
-    NgbNavModule,
+    NgbNav,
+    NgbNavContent,
+    NgbNavItem,
+    NgbNavLink,
+    NgbNavOutlet,
     ThemedSearchFormComponent,
     TranslateModule,
   ],

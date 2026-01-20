@@ -23,7 +23,6 @@ import {
   DynamicFormsCoreModule,
   DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
-import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
 
 import { ConfigurationDataService } from '../../../../../../core/data/configuration-data.service';
 import { ConfigurationProperty } from '../../../../../../core/shared/configuration-property.model';
@@ -104,7 +103,6 @@ describe('DsDynamicListComponent test suite', () => {
     TestBed.configureTestingModule({
       imports: [
         DynamicFormsCoreModule,
-        DynamicFormsNGBootstrapUIModule,
         FormsModule,
         ReactiveFormsModule,
         NgbModule,

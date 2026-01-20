@@ -17,7 +17,7 @@ import {
   RouterLink,
   RouterOutlet,
 } from '@angular/router';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest as observableCombineLatest,
@@ -45,7 +45,7 @@ import { getItemPageRoute } from '../item-page-routing-paths';
   ],
   imports: [
     AsyncPipe,
-    NgbTooltipModule,
+    NgbTooltip,
     NgClass,
     RouterLink,
     RouterOutlet,

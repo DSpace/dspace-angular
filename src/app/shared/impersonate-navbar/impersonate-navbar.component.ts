@@ -4,7 +4,7 @@ import {
   ElementRef,
   OnInit,
 } from '@angular/core';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import {
   select,
   Store,
@@ -25,7 +25,7 @@ import { isAuthenticated } from '../../core/auth/selectors';
   templateUrl: 'impersonate-navbar.component.html',
   imports: [
     AsyncPipe,
-    NgbTooltipModule,
+    NgbTooltip,
     TranslateModule,
   ],
 })
