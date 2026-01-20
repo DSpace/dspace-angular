@@ -1,12 +1,17 @@
-import { CommonModule } from '@angular/common';
+import {
+  CommonModule,
+  DOCUMENT,
+} from '@angular/common';
 import {
   Component,
+  Inject,
   Input,
   OnChanges,
   OnDestroy,
   OnInit,
   SimpleChanges,
 } from '@angular/core';
+import { Router } from '@angular/router';
 import { PaginatedList } from '@dspace/core/data/paginated-list.model';
 import { RemoteData } from '@dspace/core/data/remote-data';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
@@ -41,6 +46,7 @@ import {
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
+import { ObjectTableComponent } from '../../../shared/object-table/object-table.component';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 
 @Component({
@@ -51,6 +57,7 @@ import { PaginationComponent } from '../../../shared/pagination/pagination.compo
     AlertComponent,
     CommonModule,
     NgbTooltipModule,
+    ObjectTableComponent,
     PaginationComponent,
     ThemedLoadingComponent,
     TranslateModule,
@@ -69,6 +76,7 @@ export class OrcidQueueComponent implements OnInit, OnDestroy, OnChanges {
   public paginationOptions: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'oqp',
     pageSize: 5,
+    currentPage: 1,
   });
 
   /**
@@ -98,6 +106,8 @@ export class OrcidQueueComponent implements OnInit, OnDestroy, OnChanges {
               private paginationService: PaginationService,
               private notificationsService: NotificationsService,
               private orcidHistoryService: OrcidHistoryDataService,
+              private router: Router,
+              @Inject(DOCUMENT) private _document: Document,
   ) {
   }
 
@@ -117,17 +127,36 @@ export class OrcidQueueComponent implements OnInit, OnDestroy, OnChanges {
   updateList() {
     this.subs.push(
       this.paginationService.getCurrentPagination(this.paginationOptions.id, this.paginationOptions).pipe(
-        debounceTime(100),
+        debounceTime(300),
         distinctUntilChanged(),
         tap(() => this.processing$.next(true)),
-        switchMap((config: PaginationComponentOptions) => this.orcidQueueService.searchByProfileItemId(this.item.id, config, false)),
+        switchMap((currentPaginationOptions) => this.orcidQueueService.searchByProfileItemId(this.item.id, currentPaginationOptions, false)),
         getFirstCompletedRemoteData(),
-      ).subscribe((result: RemoteData<PaginatedList<OrcidQueue>>) => {
-        this.processing$.next(false);
-        this.list$.next(result);
-        this.orcidQueueService.clearFindByProfileItemRequests();
+      ).subscribe({
+        next: (result: RemoteData<PaginatedList<OrcidQueue>>) => {
+          this.paginationOptions = Object.assign(this.paginationOptions, {
+            currentPage: result.payload.pageInfo.currentPage,
+          });
+          this.processing$.next(false);
+          this.list$.next(result);
+          this.orcidQueueService.clearFindByProfileItemRequests();
+        },
       }),
     );
+  }
+
+  /**
+   * Handle pagination change.
+   * Scroll to the pagination element and update the list with the new page
+   */
+  onPaginationChange(){
+    const element = this._document.getElementById(`p-${this.paginationOptions.id}`);
+    if (element) {
+      setTimeout(() => {
+        element.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
+      }, 300);
+    }
+    this.updateList();
   }
 
   /**
@@ -219,12 +248,36 @@ export class OrcidQueueComponent implements OnInit, OnDestroy, OnChanges {
     ).subscribe((remoteData) => {
       this.processing$.next(false);
       if (remoteData.isSuccess) {
+        this.removeEntryFromList(orcidQueue.id);
         this.notificationsService.success(this.translateService.get('person.page.orcid.sync-queue.discard.success'));
-        this.updateList();
       } else {
         this.notificationsService.error(this.translateService.get('person.page.orcid.sync-queue.discard.error'));
       }
     }));
+  }
+
+  /**
+   * Remove an entry from the list.
+   * If the last element of the page is removed, navigate to the previous page.
+   * @param id The id of the entry to remove
+   */
+  removeEntryFromList(id: number) {
+    const listDataRD = this.list$.value;
+    const index = this.list$.value?.payload?.page.findIndex((item) => item.id === id);
+    if (index > -1) {
+      listDataRD.payload.page.splice(index, 1);
+      this.list$.next(listDataRD);
+      if (listDataRD.payload.page.length === 0 && listDataRD.payload.pageInfo.currentPage > 0) {
+        this.paginationOptions.currentPage = this.paginationOptions.currentPage - 1;
+        this.router.navigate([], {
+          queryParams: {
+            [`${this.paginationOptions.id}.page`]: this.paginationOptions.currentPage,
+          },
+          fragment: `p-${this.paginationOptions.id}`,
+        });
+        this.updateList();
+      }
+    }
   }
 
   /**
