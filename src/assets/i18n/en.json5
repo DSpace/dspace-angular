@@ -1117,7 +1117,11 @@
 
   "browse.metadata.map.count.items": "items",
 
+  "pagination.go-to-page": "Go to page",
+
   "pagination.next.button": "Next",
+
+  "pagination.page": "Page",
 
   "pagination.previous.button": "Previous",
 
