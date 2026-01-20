@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   NO_ERRORS_SCHEMA,
+  TemplateRef,
 } from '@angular/core';
 import {
   ComponentFixture,
@@ -9,7 +10,7 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterLink } from '@angular/router';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 
 import { Item } from '../../../../core/shared/item.model';
 import { MetadataValue } from '../../../../core/shared/metadata.models';
@@ -32,7 +33,7 @@ describe('PersonItemMetadataListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
-        NgbModule,
+        NgbTooltip,
         PersonItemMetadataListElementComponent,
       ],
       schemas: [NO_ERRORS_SCHEMA],
@@ -58,9 +59,14 @@ describe('PersonItemMetadataListElementComponent', () => {
 
   it('should show the description on hover over the link in a tooltip', () => {
     const link = fixture.debugElement.query(By.css('a'));
-    link.triggerEventHandler('mouseenter', null);
-    fixture.detectChanges();
-    const tooltip = fixture.debugElement.query(By.css('.item-list-job-title')).nativeElement.textContent;
-    expect(tooltip).toBe(jobTitle);
+    const tooltipDir = link.injector.get(NgbTooltip);
+    const viewRef = (tooltipDir.ngbTooltip as TemplateRef<any>).createEmbeddedView({});
+    viewRef.detectChanges();
+    const textContent = viewRef.rootNodes
+      .map((node: any) => node.textContent)
+      .join('')
+      .trim();
+
+    expect(textContent).toEqual(jobTitle);
   });
 });

@@ -17,7 +17,7 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   EMPTY,
@@ -64,7 +64,7 @@ import { DsoEditMetadataValueFieldLoaderComponent } from '../dso-edit-metadata-v
     DebounceDirective,
     DsoEditMetadataValueFieldLoaderComponent,
     FormsModule,
-    NgbTooltipModule,
+    NgbTooltip,
     NgClass,
     RouterLink,
     ThemedTypeBadgeComponent,

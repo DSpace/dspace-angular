@@ -4,7 +4,7 @@ import {
   Injector,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
   TranslateService,
@@ -32,7 +32,7 @@ export const WORKFLOW_TASK_OPTION_DECLINE_TASK = 'submit_decline_task';
   imports: [
     AsyncPipe,
     BtnDisabledDirective,
-    NgbTooltipModule,
+    NgbTooltip,
     TranslateModule,
   ],
 })

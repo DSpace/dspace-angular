@@ -7,7 +7,7 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -39,7 +39,7 @@ export interface SupervisionOrderListEntry {
   styleUrls: ['./supervision-order-status.component.scss'],
   imports: [
     AsyncPipe,
-    NgbTooltipModule,
+    NgbTooltip,
     TranslateModule,
     VarDirective,
   ],

@@ -10,7 +10,13 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbNav,
+  NgbNavContent,
+  NgbNavItem,
+  NgbNavLink,
+  NgbNavOutlet,
+} from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
   TranslateService,
@@ -81,7 +87,11 @@ import { followLink } from '../../shared/utils/follow-link-config.model';
     AsyncPipe,
     BrowserOnlyPipe,
     ItemSelectComponent,
-    NgbNavModule,
+    NgbNav,
+    NgbNavContent,
+    NgbNavItem,
+    NgbNavLink,
+    NgbNavOutlet,
     ThemedSearchFormComponent,
     TranslateModule,
   ],

@@ -9,7 +9,7 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
   TranslateService,
@@ -41,7 +41,7 @@ import { ClaimedTaskActionsLoaderComponent } from './switcher/claimed-task-actio
   imports: [
     AsyncPipe,
     ClaimedTaskActionsLoaderComponent,
-    NgbTooltipModule,
+    NgbTooltip,
     RouterLink,
     TranslateModule,
     VarDirective,

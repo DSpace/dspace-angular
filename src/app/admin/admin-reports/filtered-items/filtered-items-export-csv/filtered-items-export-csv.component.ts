@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
   TranslateService,
@@ -36,7 +36,7 @@ import { QueryPredicate } from '../query-predicate.model';
   templateUrl: './filtered-items-export-csv.component.html',
   imports: [
     AsyncPipe,
-    NgbTooltipModule,
+    NgbTooltip,
     TranslateModule,
   ],
 })

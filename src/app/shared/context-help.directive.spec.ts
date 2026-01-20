@@ -7,7 +7,7 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -26,7 +26,7 @@ import { ContextHelpWrapperComponent } from './context-help-wrapper/context-help
   template: `<div *dsContextHelp="contextHelpParams()">some text</div>`,
   imports: [
     ContextHelpDirective,
-    NgbTooltipModule,
+    NgbTooltip,
   ],
 })
 class TestComponent {
@@ -72,7 +72,7 @@ describe('ContextHelpDirective', () => {
     ]);
 
     TestBed.configureTestingModule({
-      imports: [NgbTooltipModule, TestComponent, ContextHelpWrapperComponent, ContextHelpDirective],
+      imports: [NgbTooltip, TestComponent, ContextHelpWrapperComponent, ContextHelpDirective],
       providers: [
         { provide: TranslateService, useValue: translateService },
         { provide: ContextHelpService, useValue: contextHelpService },

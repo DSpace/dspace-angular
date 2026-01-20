@@ -18,7 +18,7 @@ import {
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   NgbModule,
-  NgbTooltipModule,
+  NgbTooltip,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
   DYNAMIC_FORM_CONTROL_MAP_FN,
@@ -366,7 +366,7 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
   selector: 'ds-test-cmp',
   template: ``,
   imports: [
-    NgbTooltipModule,
+    NgbTooltip,
     TranslateModule,
   ],
 })

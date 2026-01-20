@@ -27,7 +27,7 @@ import {
 } from '@ng-dynamic-forms/core';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { NgxMaskModule } from 'ngx-mask';
+import { provideEnvironmentNgxMask } from 'ngx-mask';
 import { of } from 'rxjs';
 
 import {
@@ -138,9 +138,9 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
         FormComponent,
         SubmissionSectionUploadFileEditComponent,
         TestComponent,
-        NgxMaskModule.forRoot(),
       ],
       providers: [
+        provideEnvironmentNgxMask(),
         { provide: FormService, useValue: getMockFormService() },
         { provide: SubmissionService, useClass: SubmissionServiceStub },
         { provide: SubmissionJsonPatchOperationsService, useValue: submissionJsonPatchOperationsServiceStub },
