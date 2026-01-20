@@ -33,7 +33,7 @@ import {
 import {
   NgbDropdownModule,
   NgbPaginationModule,
-  NgbTooltipModule,
+  NgbTooltip,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -74,7 +74,7 @@ interface PaginationDetails {
     EnumKeysPipe,
     NgbDropdownModule,
     NgbPaginationModule,
-    NgbTooltipModule,
+    NgbTooltip,
     NgClass,
     RSSComponent,
     TranslateModule,

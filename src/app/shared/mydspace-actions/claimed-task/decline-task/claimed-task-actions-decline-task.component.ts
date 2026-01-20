@@ -9,7 +9,7 @@ import { RequestService } from '@dspace/core/data/request.service';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import { ClaimedDeclinedTaskTaskSearchResult } from '@dspace/core/shared/object-collection/claimed-declined-task-task-search-result.model';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
   TranslateService,
@@ -32,7 +32,7 @@ export const WORKFLOW_TASK_OPTION_DECLINE_TASK = 'submit_decline_task';
   imports: [
     AsyncPipe,
     BtnDisabledDirective,
-    NgbTooltipModule,
+    NgbTooltip,
     TranslateModule,
   ],
 })
