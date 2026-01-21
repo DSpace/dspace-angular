@@ -4,11 +4,11 @@ import {
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { BrowseByDataType } from '@dspace/core/browse/browse-by-data-type';
+import { BrowseDefinition } from '@dspace/core/shared/browse-definition.model';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { BrowseDefinition } from '../../core/shared/browse-definition.model';
-import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
 import { BrowseBySwitcherComponent } from '../browse-by-switcher/browse-by-switcher.component';
 
 @Component({
@@ -19,7 +19,6 @@ import { BrowseBySwitcherComponent } from '../browse-by-switcher/browse-by-switc
     AsyncPipe,
     BrowseBySwitcherComponent,
   ],
-  standalone: true,
 })
 export class BrowseByPageComponent implements OnInit {
 

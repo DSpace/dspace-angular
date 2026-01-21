@@ -6,21 +6,20 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { BrowseByDataType } from '@dspace/core/browse/browse-by-data-type';
+import { BrowseDefinition } from '@dspace/core/shared/browse-definition.model';
+import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
 
-import { BrowseDefinition } from '../../core/shared/browse-definition.model';
-import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { DynamicComponentLoaderDirective } from '../../shared/abstract-component-loader/dynamic-component-loader.directive';
-import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
+import { getMockThemeService } from '../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';
-import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
 import { BrowseBySwitcherComponent } from '../browse-by-switcher/browse-by-switcher.component';
 import { BrowseByPageComponent } from './browse-by-page.component';
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: '',
-  standalone: true,
   template: '<span id="BrowseByTestComponent"></span>',
 })
 class BrowseByTestComponent {
@@ -30,7 +29,6 @@ class BrowseByTestComponent {
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'ds-browse-by-switcher',
   template: `<ng-template #DynamicComponentLoader dsDynamicComponentLoader></ng-template>`,
-  standalone: true,
   imports: [
     DynamicComponentLoaderDirective,
   ],

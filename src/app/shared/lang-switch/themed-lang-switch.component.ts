@@ -8,12 +8,7 @@ import { LangSwitchComponent } from './lang-switch.component';
  */
 @Component({
   selector: 'ds-lang-switch',
-  styleUrls: [],
   templateUrl: '../theme-support/themed.component.html',
-  standalone: true,
-  imports: [
-    LangSwitchComponent,
-  ],
 })
 export class ThemedLangSwitchComponent extends ThemedComponent<LangSwitchComponent> {
 

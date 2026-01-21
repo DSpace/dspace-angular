@@ -13,12 +13,7 @@ import {
 
 @Component({
   selector: 'ds-collection-dropdown',
-  styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
-  standalone: true,
-  imports: [
-    CollectionDropdownComponent,
-  ],
 })
 export class ThemedCollectionDropdownComponent extends ThemedComponent<CollectionDropdownComponent> {
 

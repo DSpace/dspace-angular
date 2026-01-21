@@ -4,19 +4,19 @@ import {
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ItemRequest } from '@dspace/core/shared/item-request.model';
+import {
+  dateToString,
+  stringToNgbDateStruct,
+} from '@dspace/shared/utils/date.util';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { ItemRequest } from '../../../core/shared/item-request.model';
-import {
-  dateToString,
-  stringToNgbDateStruct,
-} from '../../../shared/date.util';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../../shared/empty.util';
 import { VarDirective } from '../../../shared/utils/var.directive';
 
 @Component({
@@ -28,7 +28,6 @@ import { VarDirective } from '../../../shared/utils/var.directive';
     TranslateModule,
     VarDirective,
   ],
-  standalone: true,
 })
 export class AccessByTokenNotificationComponent implements OnInit {
 

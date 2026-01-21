@@ -5,9 +5,9 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterLinkActive } from '@angular/router';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { isNotEmpty } from '../../empty.util';
 import { ExternalLinkMenuItemModel } from './models/external-link.model';
 
 /**
@@ -17,7 +17,6 @@ import { ExternalLinkMenuItemModel } from './models/external-link.model';
   selector: 'ds-external-link-menu-item',
   styleUrls: ['./menu-item.component.scss'],
   templateUrl: './external-link-menu-item.component.html',
-  standalone: true,
   imports: [
     NgClass,
     RouterLinkActive,

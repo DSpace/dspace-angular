@@ -10,24 +10,33 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { SubmissionUploadsModel } from '@dspace/core/config/models/config-submission-uploads.model';
+import { SubmissionFormsConfigDataService } from '@dspace/core/config/submission-forms-config-data.service';
+import { SubmissionUploadsConfigDataService } from '@dspace/core/config/submission-uploads-config-data.service';
+import { CollectionDataService } from '@dspace/core/data/collection-data.service';
+import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
+import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
+import { GroupDataService } from '@dspace/core/eperson/group-data.service';
+import { Group } from '@dspace/core/eperson/models/group.model';
+import { ResourcePolicy } from '@dspace/core/resource-policy/models/resource-policy.model';
+import { ResourcePolicyDataService } from '@dspace/core/resource-policy/resource-policy-data.service';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { SectionsType } from '@dspace/core/submission/sections-type';
+import { getMockSectionUploadService } from '@dspace/core/testing/section-upload.service.mock';
+import { SectionsServiceStub } from '@dspace/core/testing/sections-service.stub';
+import { SubmissionServiceStub } from '@dspace/core/testing/submission-service.stub';
+import { createTestComponent } from '@dspace/core/testing/utils.test';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of } from 'rxjs';
 
-import { APP_DATA_SERVICES_MAP } from '../../../../config/app-config.interface';
-import { SubmissionUploadsModel } from '../../../core/config/models/config-submission-uploads.model';
-import { SubmissionFormsConfigDataService } from '../../../core/config/submission-forms-config-data.service';
-import { SubmissionUploadsConfigDataService } from '../../../core/config/submission-uploads-config-data.service';
-import { CollectionDataService } from '../../../core/data/collection-data.service';
-import { buildPaginatedList } from '../../../core/data/paginated-list.model';
-import { GroupDataService } from '../../../core/eperson/group-data.service';
-import { Group } from '../../../core/eperson/models/group.model';
-import { ResourcePolicy } from '../../../core/resource-policy/models/resource-policy.model';
-import { ResourcePolicyDataService } from '../../../core/resource-policy/resource-policy-data.service';
-import { Collection } from '../../../core/shared/collection.model';
-import { PageInfo } from '../../../core/shared/page-info.model';
 import { AlertComponent } from '../../../shared/alert/alert.component';
-import { getMockSectionUploadService } from '../../../shared/mocks/section-upload.service.mock';
+import { getMockThemeService } from '../../../shared/theme-support/test/theme-service.mock';
+import { ThemeService } from '../../../shared/theme-support/theme.service';
+import { SubmissionObjectState } from '../../objects/submission-objects.reducer';
+import { SubmissionService } from '../../submission.service';
 import {
   mockGroup,
   mockSubmissionCollectionId,
@@ -37,18 +46,9 @@ import {
   mockUploadConfigResponseNotRequired,
   mockUploadFiles,
   mockUploadFilesData,
-} from '../../../shared/mocks/submission.mock';
-import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
-import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
-import { createTestComponent } from '../../../shared/testing/utils.test';
-import { ThemeService } from '../../../shared/theme-support/theme.service';
-import { SubmissionObjectState } from '../../objects/submission-objects.reducer';
-import { SubmissionService } from '../../submission.service';
+} from '../../utils/submission.mock';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
-import { SectionsType } from '../sections-type';
 import { SubmissionSectionUploadComponent } from './section-upload.component';
 import { SectionUploadService } from './section-upload.service';
 
@@ -381,7 +381,6 @@ describe('SubmissionSectionUploadComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
-  standalone: true,
   imports: [],
 })
 class TestComponent {

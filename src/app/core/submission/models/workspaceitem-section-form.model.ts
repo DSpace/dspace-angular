@@ -1,4 +1,4 @@
-import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
+import { FormFieldMetadataValueObject } from '../../shared/form/models/form-field-metadata-value.model';
 import { MetadataMapInterface } from '../../shared/metadata.models';
 
 /**

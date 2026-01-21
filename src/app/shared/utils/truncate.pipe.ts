@@ -2,8 +2,7 @@ import {
   Pipe,
   PipeTransform,
 } from '@angular/core';
-
-import { hasValue } from '../empty.util';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 
 /**
  * Pipe to truncate a value in Angular. (Take a substring, starting at 0)
@@ -11,7 +10,6 @@ import { hasValue } from '../empty.util';
  */
 @Pipe({
   name: 'dsTruncate',
-  standalone: true,
 })
 export class TruncatePipe implements PipeTransform {
 

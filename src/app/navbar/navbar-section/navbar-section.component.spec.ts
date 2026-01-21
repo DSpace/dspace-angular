@@ -5,12 +5,12 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { HostWindowServiceStub } from '@dspace/core/testing/host-window-service.stub';
 import { of } from 'rxjs';
 
 import { HostWindowService } from '../../shared/host-window.service';
 import { MenuService } from '../../shared/menu/menu.service';
-import { HostWindowServiceStub } from '../../shared/testing/host-window-service.stub';
-import { MenuServiceStub } from '../../shared/testing/menu-service.stub';
+import { MenuServiceStub } from '../../shared/menu/menu-service.stub';
 import { NavbarSectionComponent } from './navbar-section.component';
 
 describe('NavbarSectionComponent', () => {
@@ -47,7 +47,6 @@ describe('NavbarSectionComponent', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
-  standalone: true,
 })
 class TestComponent {
 }

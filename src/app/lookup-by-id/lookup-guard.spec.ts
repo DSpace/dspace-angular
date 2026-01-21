@@ -1,6 +1,6 @@
+import { IdentifierType } from '@dspace/core/data/request.models';
 import { of } from 'rxjs';
 
-import { IdentifierType } from '../core/data/request.models';
 import { lookupGuard } from './lookup-guard';
 
 describe('lookupGuard', () => {

@@ -1,5 +1,10 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import {
+  hasValue,
+  isNotEmpty,
+  isNotEmptyOperator,
+} from '@dspace/shared/utils/empty.util';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import {
@@ -9,23 +14,18 @@ import {
   take,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isNotEmpty,
-  isNotEmptyOperator,
-} from '../../shared/empty.util';
-import { INotification } from '../../shared/notifications/models/notification.model';
-import { NotificationOptions } from '../../shared/notifications/models/notification-options.model';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { DSpaceSerializer } from '../dspace-rest/dspace.serializer';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { INotification } from '../notification-system/models/notification.model';
+import { NotificationOptions } from '../notification-system/models/notification-options.model';
+import { NotificationsService } from '../notification-system/notifications.service';
 import { Collection } from '../shared/collection.model';
 import { Community } from '../shared/community.model';
 import { ContentSource } from '../shared/content-source.model';
+import { FollowLinkConfig } from '../shared/follow-link-config.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
 import {
@@ -77,11 +77,11 @@ export class CollectionDataService extends ComColDataService<Collection> {
    *                                    requested after the response becomes stale
    * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
    *                                    {@link HALLink}s should be automatically resolved
+   * @param searchHref                  The backend search endpoint to use (default to submit)
    * @return Observable<RemoteData<PaginatedList<Collection>>>
    *    collection list
    */
-  getAuthorizedCollection(query: string, options: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Collection>[]): Observable<RemoteData<PaginatedList<Collection>>> {
-    const searchHref = 'findSubmitAuthorized';
+  getAuthorizedCollection(query: string, options: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, searchHref: string = 'findSubmitAuthorized', ...linksToFollow: FollowLinkConfig<Collection>[]): Observable<RemoteData<PaginatedList<Collection>>> {
     options = Object.assign({}, options, {
       searchParams: [new RequestParam('query', query)],
     });
@@ -282,9 +282,12 @@ export class CollectionDataService extends ComColDataService<Collection> {
   /**
    * Returns {@link RemoteData} of {@link Collection} that is the owning collection of the given item
    * @param item  Item we want the owning collection of
+   * @param useCachedVersionIfAvailable
+   * @param reRequestOnStale
+   * @param linksToFollow
    */
-  findOwningCollectionFor(item: Item): Observable<RemoteData<Collection>> {
-    return this.findByHref(item._links.owningCollection.href);
+  findOwningCollectionFor(item: Item, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Collection>[]): Observable<RemoteData<Collection>> {
+    return this.findByHref(item._links.owningCollection.href, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
   /**
