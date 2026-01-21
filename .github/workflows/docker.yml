@@ -74,10 +74,6 @@ jobs:
       DSPACE_REST_HOST: 127.0.0.1
       # Override default dspace.ui.url to also use 127.0.0.1.
       dspace__P__ui__P__url: http://127.0.0.1:4000
-      # Docker Registry to use for Docker compose scripts below.
-      # If this is a PR, then we need to use docker.io (as the registry must be public),
-      # Otherwise we default to ghcr.io to avoid aggressive rate limits at DockerHub.
-      DOCKER_REGISTRY: ${{ github.event_name == 'pull_request' && 'docker.io' || 'ghcr.io' }}
     steps:
       # Checkout our codebase (to get access to Docker Compose scripts)
       - name: Checkout codebase
@@ -98,6 +94,11 @@ jobs:
           docker image ls -a
       # Start backend using our compose script in the codebase.
       - name: Start backend in Docker
+        # MUST use docker.io as we don't have a copy of this backend image in our GitHub Action,
+        # and docker.io is the only public image. If we ever hit aggressive rate limits at DockerHub,
+        # we may need to consider making the 'ghcr.io' images public & switch this to 'ghcr.io'
+        env:
+          DOCKER_REGISTRY: docker.io
         run: |
           docker compose -f docker/docker-compose-rest.yml up -d
           sleep 10
