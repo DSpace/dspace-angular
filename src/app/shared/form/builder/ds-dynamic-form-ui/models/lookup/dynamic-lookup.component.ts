@@ -33,9 +33,11 @@ import {
 import {
   NgbDropdown,
   NgbDropdownModule,
+  NgbModal,
   NgbTooltipModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
+  DynamicFormControlCustomEvent,
   DynamicFormLayoutService,
   DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
@@ -53,8 +55,10 @@ import {
 import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
 import { ObjNgFor } from '../../../../../utils/object-ngfor.pipe';
 import { AuthorityConfidenceStateDirective } from '../../../../directives/authority-confidence-state.directive';
+import { FormBuilderService } from '../../../form-builder.service';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
 import { DynamicLookupNameModel } from './dynamic-lookup-name.model';
+import { SubmissionService } from '../../../../../../submission/submission.service';
 
 /**
  * Component representing a lookup or lookup-name input field
@@ -84,6 +88,7 @@ export class DsDynamicLookupComponent extends DsDynamicVocabularyComponent imple
   @Output() blur: EventEmitter<any> = new EventEmitter<any>();
   @Output() change: EventEmitter<any> = new EventEmitter<any>();
   @Output() focus: EventEmitter<any> = new EventEmitter<any>();
+  @Output() customEvent: EventEmitter<DynamicFormControlCustomEvent> = new EventEmitter();
 
   public editMode = false;
   public firstInputValue = '';
@@ -95,11 +100,14 @@ export class DsDynamicLookupComponent extends DsDynamicVocabularyComponent imple
   protected subs: Subscription[] = [];
 
   constructor(protected vocabularyService: VocabularyService,
-              private cdr: ChangeDetectorRef,
+              protected cdr: ChangeDetectorRef,
               protected layoutService: DynamicFormLayoutService,
               protected validationService: DynamicFormValidationService,
+              protected formBuilderService: FormBuilderService,
+              protected modalService: NgbModal,
+              protected submissionService: SubmissionService,
   ) {
-    super(vocabularyService, layoutService, validationService);
+    super(vocabularyService, layoutService, validationService, formBuilderService, modalService, submissionService);
   }
 
   /**

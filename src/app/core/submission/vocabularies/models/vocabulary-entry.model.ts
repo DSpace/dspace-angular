@@ -12,6 +12,7 @@ import { PLACEHOLDER_PARENT_METADATA } from '../../../shared/form/ds-dynamic-for
 import { OtherInformation } from '../../../shared/form/models/form-field-metadata-value.model';
 import { ListableObject } from '../../../shared/object-collection/listable-object.model';
 import { VOCABULARY_ENTRY } from './vocabularies.resource-type';
+import { Metadata } from "@dspace/core/shared/metadata.utils";
 
 /**
  * Model class for a VocabularyEntry
@@ -45,6 +46,12 @@ export class VocabularyEntry extends ListableObject {
   otherInformation: OtherInformation;
 
   /**
+   * A value representing security level value of the metadata
+   */
+  @autoserialize
+    securityLevel: number;
+
+  /**
    * A string representing the kind of vocabulary entry
    */
   @excludeFromEquals
@@ -66,7 +73,7 @@ export class VocabularyEntry extends ListableObject {
    * @return boolean
    */
   hasAuthority(): boolean {
-    return isNotEmpty(this.authority);
+    return Metadata.hasValidAuthority(this.authority);
   }
 
   /**

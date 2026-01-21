@@ -18,6 +18,11 @@ import {
   VOCABULARY_ENTRY,
 } from './vocabularies.resource-type';
 import { VocabularyEntry } from './vocabulary-entry.model';
+import { isNotEmpty } from "@dspace/shared/utils/empty.util";
+
+export interface VocabularyExternalSourceMap {
+  [metadata: string]: string;
+}
 
 /**
  * Model class for a Vocabulary
@@ -57,6 +62,27 @@ export class Vocabulary implements CacheableObject {
   preloadLevel: any;
 
   /**
+   * If externalSource is available represent the entity type that can be use to create a new entity from
+   * this vocabulary
+   */
+  @autoserialize
+    entity: string;
+
+  /**
+   * If available represent that this vocabulary can be use to create a new entity
+   */
+  @autoserialize
+    externalSource: VocabularyExternalSourceMap;
+
+
+  /**
+   * A boolean variable that indicates whether the functionality of
+   * multiple value generation is enabled within a generator context.
+   */
+  @autoserialize
+  multiValueOnGenerator: boolean;
+
+  /**
    * A string representing the kind of Vocabulary model
    */
   @excludeFromEquals
@@ -74,4 +100,13 @@ export class Vocabulary implements CacheableObject {
     self: HALLink,
     entries: HALLink
   };
+
+  public getExternalSourceByMetadata(metadata): string {
+    let sourceIdentifier = null;
+    if (isNotEmpty(this.externalSource) && this.externalSource.hasOwnProperty(metadata)) {
+      sourceIdentifier = this.externalSource[metadata];
+    }
+
+    return sourceIdentifier;
+  }
 }

@@ -66,6 +66,22 @@ export class VocabularyEntryDetailsDataService extends IdentifiableDataService<V
   }
 
   /**
+   * Returns an observable of {@link RemoteData} of an object, based on its ID, with a list of
+   * {@link FollowLinkConfig}, to automatically resolve {@link HALLink}s of the object
+   * @param id                          ID of object we want to retrieve
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
+   */
+  findById(id: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<VocabularyEntryDetail>[]): Observable<RemoteData<VocabularyEntryDetail>> {
+    const href$ = this.getIDHrefObs(id, ...linksToFollow);
+    return this.findByHref(href$, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+  }
+
+  /**
    * Make a new FindListRequest with given search method
    *
    * @param searchMethod                The search method for the object

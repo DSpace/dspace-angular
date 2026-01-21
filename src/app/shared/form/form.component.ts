@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 import {
   AbstractControl,
+  FormControl,
   ReactiveFormsModule,
   UntypedFormArray,
   UntypedFormControl,
@@ -305,7 +306,17 @@ export class FormComponent implements OnDestroy, OnInit {
   }
 
   onCustomEvent(event: any) {
-    this.customEvent.emit(event);
+    if (event?.type === 'authorityEnrichment') {
+      event.$event.updatedModels.forEach((model) => {
+        const control: FormControl = this.formBuilderService.getFormControlByModel(this.formGroup, model) as FormControl;
+        if (control) {
+          const changeEvent = this.formBuilderService.createDynamicFormControlEvent(control, control.parent as UntypedFormGroup, model, 'change');
+          this.onChange(changeEvent);
+        }
+      });
+    } else {
+      this.customEvent.emit(event);
+    }
   }
 
   onFocus(event: DynamicFormControlEvent): void {
