@@ -559,3 +559,9 @@ ngb-tooltip-window {
   // We use underline to discern link from text as we can't make color lighter on a white bg
   text-decoration: underline;
 }
+
+/* Hide the default password reveal and clear buttons in Edge and IE */
+input[type='password']::-ms-reveal,
+input[type='password']::-ms-clear {
+  display: none;
+}
