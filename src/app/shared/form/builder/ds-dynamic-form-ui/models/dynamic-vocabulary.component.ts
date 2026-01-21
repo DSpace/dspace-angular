@@ -6,10 +6,17 @@ import {
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
+import { Metadata } from '@dspace/core/shared/metadata.utils';
+import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
 import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { Vocabulary } from '@dspace/core/submission/vocabularies/models/vocabulary.model';
 import { VocabularyEntry } from '@dspace/core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
-import { hasValue, isNotEmpty } from '@dspace/shared/utils/empty.util';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormControlComponent,
   DynamicFormControlCustomEvent,
@@ -21,16 +28,15 @@ import {
   Observable,
   of,
 } from 'rxjs';
-import { distinctUntilChanged, filter, map,  tap } from 'rxjs/operators';
+import {
+  distinctUntilChanged,
+  map,
+  tap,
+} from 'rxjs/operators';
 
-import { DsDynamicInputModel } from './ds-dynamic-input.model';
-import { FormBuilderService } from '../../form-builder.service';
-import { Vocabulary } from '@dspace/core/submission/vocabularies/models/vocabulary.model';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SubmissionService } from '../../../../../submission/submission.service';
-import { Metadata } from "@dspace/core/shared/metadata.utils";
-import { SubmissionScopeType } from "@dspace/core/submission/submission-scope-type";
-import { getFirstSucceededRemoteDataPayload } from "@dspace/core/shared/operators";
+import { FormBuilderService } from '../../form-builder.service';
+import { DsDynamicInputModel } from './ds-dynamic-input.model';
 
 
 /**
@@ -143,16 +149,6 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
       ? this.model.value.hasAuthority() : false;
   }
 
-  /**
-   * Check if is available an external source for this vocabulary
-   */
-  hasExternalSource(): Observable<boolean> {
-    return this.vocabulary$.pipe(
-      filter((vocabulary: Vocabulary) => isNotEmpty(vocabulary)),
-      map((vocabulary: Vocabulary) => isNotEmpty(vocabulary.entity) && isNotEmpty(vocabulary.getExternalSourceByMetadata(this.model.name))
-        && (this.model as any).submissionScope === SubmissionScopeType.WorkflowItem),
-    );
-  }
 
   /**
    * Retrieve vocabulary object

@@ -16,7 +16,10 @@ import {
   FindAllDataImpl,
 } from '../../data/base/find-all-data';
 import { IdentifiableDataService } from '../../data/base/identifiable-data.service';
-import { SearchData, SearchDataImpl } from '../../data/base/search-data';
+import {
+  SearchData,
+  SearchDataImpl,
+} from '../../data/base/search-data';
 import { FindListOptions } from '../../data/find-list-options.model';
 import { PaginatedList } from '../../data/paginated-list.model';
 import { RemoteData } from '../../data/remote-data';

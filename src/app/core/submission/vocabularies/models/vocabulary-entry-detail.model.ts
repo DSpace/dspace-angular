@@ -1,16 +1,19 @@
-import { link, typedObject } from '@dspace/core/cache/builders/build-decorators';
+import {
+  link,
+  typedObject,
+} from '@dspace/core/cache/builders/build-decorators';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
 import { HALLink } from '@dspace/core/shared/hal-link.model';
 import {
   autoserialize,
   deserialize,
   inheritSerialization,
 } from 'cerialize';
+import { Observable } from 'rxjs';
 
 import { VOCABULARY_ENTRY_DETAIL } from './vocabularies.resource-type';
 import { VocabularyEntry } from './vocabulary-entry.model';
-import { Observable } from "rxjs";
-import { RemoteData } from "@dspace/core/data/remote-data";
-import { PaginatedList } from "@dspace/core/data/paginated-list.model";
 
 /**
  * Model class for a VocabularyEntryDetail

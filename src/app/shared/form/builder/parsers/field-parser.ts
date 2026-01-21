@@ -12,7 +12,6 @@ import { VocabularyOptions } from '@dspace/core/submission/vocabularies/models/v
 import { isNgbDateStruct } from '@dspace/shared/utils/date.util';
 import {
   hasValue,
-  isEmpty,
   isNotEmpty,
   isNotNull,
   isNotUndefined,
@@ -33,8 +32,6 @@ import { getTypeBindRelations } from '../ds-dynamic-form-ui/type-bind.utils';
 import { setLayout } from './parser.utils';
 import { ParserOptions } from './parser-options';
 import { ParserType } from './parser-type';
-import { MetadataValue } from "@dspace/core/shared/metadata.models";
-import { Metadata } from "@dspace/core/shared/metadata.utils";
 
 export const SUBMISSION_ID: InjectionToken<string> = new InjectionToken<string>('submissionId');
 export const CONFIG_DATA: InjectionToken<FormFieldModel> = new InjectionToken<FormFieldModel>('configData');

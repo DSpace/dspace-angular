@@ -36,7 +36,8 @@ import {
 } from '@dspace/shared/utils/empty.util';
 import {
   NgbModal,
-  NgbModalRef, NgbTooltipModule,
+  NgbModalRef,
+  NgbTooltipModule,
   NgbTypeahead,
   NgbTypeaheadModule,
   NgbTypeaheadSelectItemEvent,
@@ -66,14 +67,13 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../../../../../environments/environment';
+import { SubmissionService } from '../../../../../../submission/submission.service';
 import { ObjNgFor } from '../../../../../utils/object-ngfor.pipe';
 import { AuthorityConfidenceStateDirective } from '../../../../directives/authority-confidence-state.directive';
 import { VocabularyTreeviewModalComponent } from '../../../../vocabulary-treeview-modal/vocabulary-treeview-modal.component';
 import { FormBuilderService } from '../../../form-builder.service';
-import { SubmissionService } from '../../../../../../submission/submission.service';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
 import { DynamicOneboxModel } from './dynamic-onebox.model';
-import { BtnDisabledDirective } from "../../../../../btn-disabled.directive";
 
 /**
  * Component representing a onebox input field.

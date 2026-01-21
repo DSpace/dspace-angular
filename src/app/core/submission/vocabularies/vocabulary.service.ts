@@ -1,6 +1,13 @@
 import { Injectable } from '@angular/core';
-import { hasValue, isNotEmpty } from '@dspace/shared/utils/empty.util';
-import { Observable, of } from 'rxjs';
+import { createFailedRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
+import {
+  Observable,
+  of,
+} from 'rxjs';
 import {
   first,
   map,
@@ -30,7 +37,6 @@ import { VocabularyFindOptions } from './models/vocabulary-find-options.model';
 import { VocabularyOptions } from './models/vocabulary-options.model';
 import { VocabularyDataService } from './vocabulary.data.service';
 import { VocabularyEntryDetailsDataService } from './vocabulary-entry-details.data.service';
-import { createFailedRemoteDataObject } from "@dspace/core/utilities/remote-data.utils";
 
 /**
  * A service responsible for fetching/sending data from/to the REST API on the vocabularies endpoint

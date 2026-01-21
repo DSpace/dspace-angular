@@ -15,7 +15,7 @@ import { RemoteData } from '@dspace/core/data/remote-data';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { Collection } from '@dspace/core/shared/collection.model';
 import { Item } from '@dspace/core/shared/item.model';
-import { getAllSucceededRemoteData, getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import { getAllSucceededRemoteData } from '@dspace/core/shared/operators';
 import { SubmissionError } from '@dspace/core/submission/models/submission-error.model';
 import { SubmissionObject } from '@dspace/core/submission/models/submission-object.model';
 import { WorkspaceitemSectionsObject } from '@dspace/core/submission/models/workspaceitem-sections.model';
@@ -23,27 +23,23 @@ import { SubmissionJsonPatchOperationsService } from '@dspace/core/submission/su
 import {
   hasValue,
   isEmpty,
-  isNotEmpty,
   isNotEmptyOperator,
   isNotNull,
 } from '@dspace/shared/utils/empty.util';
 import { TranslateService } from '@ngx-translate/core';
 import {
   BehaviorSubject,
-  combineLatest, of,
   Subscription,
 } from 'rxjs';
 import {
   debounceTime,
   filter,
-  mergeMap,
   switchMap,
 } from 'rxjs/operators';
 
 import { ThemedSubmissionFormComponent } from '../form/themed-submission-form.component';
 import { SubmissionService } from '../submission.service';
 import parseSectionErrors from '../utils/parseSectionErrors';
-import { createFailedRemoteDataObject$ } from "@dspace/core/utilities/remote-data.utils";
 
 /**
  * This component allows to edit an existing workspaceitem/workflowitem.

@@ -52,13 +52,13 @@ import {
   distinctUntilChanged,
 } from 'rxjs/operators';
 
+import { SubmissionService } from '../../../../../../submission/submission.service';
 import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
 import { ObjNgFor } from '../../../../../utils/object-ngfor.pipe';
 import { AuthorityConfidenceStateDirective } from '../../../../directives/authority-confidence-state.directive';
 import { FormBuilderService } from '../../../form-builder.service';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
 import { DynamicLookupNameModel } from './dynamic-lookup-name.model';
-import { SubmissionService } from '../../../../../../submission/submission.service';
 
 /**
  * Component representing a lookup or lookup-name input field

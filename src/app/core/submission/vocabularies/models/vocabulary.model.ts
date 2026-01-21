@@ -18,7 +18,6 @@ import {
   VOCABULARY_ENTRY,
 } from './vocabularies.resource-type';
 import { VocabularyEntry } from './vocabulary-entry.model';
-import { isNotEmpty } from "@dspace/shared/utils/empty.util";
 
 export interface VocabularyExternalSourceMap {
   [metadata: string]: string;
@@ -66,14 +65,7 @@ export class Vocabulary implements CacheableObject {
    * this vocabulary
    */
   @autoserialize
-    entity: string;
-
-  /**
-   * If available represent that this vocabulary can be use to create a new entity
-   */
-  @autoserialize
-    externalSource: VocabularyExternalSourceMap;
-
+  entity: string;
 
   /**
    * A boolean variable that indicates whether the functionality of
@@ -100,13 +92,4 @@ export class Vocabulary implements CacheableObject {
     self: HALLink,
     entries: HALLink
   };
-
-  public getExternalSourceByMetadata(metadata): string {
-    let sourceIdentifier = null;
-    if (isNotEmpty(this.externalSource) && this.externalSource.hasOwnProperty(metadata)) {
-      sourceIdentifier = this.externalSource[metadata];
-    }
-
-    return sourceIdentifier;
-  }
 }

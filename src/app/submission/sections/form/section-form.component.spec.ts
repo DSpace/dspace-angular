@@ -209,7 +209,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
         SubmissionSectionFormComponent,
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents().then();
+    }).overrideComponent(SubmissionSectionFormComponent, { remove: { imports: [FormComponent] } }).compileComponents().then();
   }));
 
   describe('', () => {

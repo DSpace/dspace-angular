@@ -51,12 +51,12 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../../../../../environments/environment';
+import { SubmissionService } from '../../../../../../submission/submission.service';
 import { ChipsComponent } from '../../../../chips/chips.component';
 import { Chips } from '../../../../chips/models/chips.model';
 import { FormBuilderService } from '../../../form-builder.service';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
 import { DynamicTagModel } from './dynamic-tag.model';
-import { SubmissionService } from '../../../../../../submission/submission.service';
 
 /**
  * Component representing a tag input field

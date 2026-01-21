@@ -24,8 +24,6 @@ import {
   NewPatchReplaceOperationAction,
 } from '../json-patch-operations.actions';
 import { JsonPatchOperationPathObject } from './json-patch-operation-path-combiner';
-import { Metadata } from "@dspace/core/shared/metadata.utils";
-import { ConfidenceType } from "@dspace/core/shared/confidence-type";
 
 /**
  * Provides methods to dispatch JsonPatch Operations Actions

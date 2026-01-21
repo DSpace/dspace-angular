@@ -1,5 +1,7 @@
 import { FormRowModel } from '@dspace/core/config/models/config-submission-form.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from '@dspace/core/shared/form/ds-dynamic-form-constants';
+import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
+import { VocabularyEntry } from '@dspace/core/submission/vocabularies/models/vocabulary-entry.model';
 import {
   hasValue,
   isEmpty,
@@ -14,8 +16,6 @@ import {
   DsDynamicInputModel,
   DsDynamicInputModelConfig,
 } from '../ds-dynamic-input.model';
-import { VocabularyEntry } from "@dspace/core/submission/vocabularies/models/vocabulary-entry.model";
-import { FormFieldMetadataValueObject } from "@dspace/core/shared/form/models/form-field-metadata-value.model";
 
 /**
  * Dynamic Group Model configuration interface
@@ -23,7 +23,6 @@ import { FormFieldMetadataValueObject } from "@dspace/core/shared/form/models/fo
 export interface DynamicRelationGroupModelConfig extends DsDynamicInputModelConfig {
   submissionId: string;
   formConfiguration: FormRowModel[];
-  isInlineGroup: boolean;
   mandatoryField: string;
   relationFields: string[];
   scopeUUID: string;
@@ -36,7 +35,6 @@ export interface DynamicRelationGroupModelConfig extends DsDynamicInputModelConf
 export class DynamicRelationGroupModel extends DsDynamicInputModel {
   @serializable() submissionId: string;
   @serializable() formConfiguration: FormRowModel[];
-  @serializable() isInlineGroup: boolean;
   @serializable() mandatoryField: string;
   @serializable() relationFields: string[];
   @serializable() scopeUUID: string;

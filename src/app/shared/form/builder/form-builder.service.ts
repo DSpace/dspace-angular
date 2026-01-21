@@ -55,7 +55,10 @@ import {
 import { DsDynamicInputModel } from './ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { DynamicQualdropModel } from './ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
 import { DynamicRowArrayModel } from './ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
-import { DynamicRelationGroupModel, DynamicRelationGroupModelConfig } from './ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
+import {
+  DynamicRelationGroupModel,
+  DynamicRelationGroupModelConfig,
+} from './ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_TAG } from './ds-dynamic-form-ui/models/tag/dynamic-tag.model';
 import { RowParser } from './parsers/row-parser';
 
@@ -484,7 +487,6 @@ export class FormBuilderService extends DynamicFormService {
               const config: DynamicRelationGroupModelConfig = {
                 submissionId: fieldModel.submissionId,
                 formConfiguration: fieldModel.formConfiguration,
-                isInlineGroup: fieldModel.isInlineGroup,
                 mandatoryField: fieldModel.mandatoryField,
                 relationFields: fieldModel.relationFields,
                 scopeUUID: fieldModel.scopeUUID,

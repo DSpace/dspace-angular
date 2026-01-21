@@ -1,6 +1,7 @@
 import { typedObject } from '@dspace/core/cache/builders/build-decorators';
 import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
 import { HALLink } from '@dspace/core/shared/hal-link.model';
+import { Metadata } from '@dspace/core/shared/metadata.utils';
 import { excludeFromEquals } from '@dspace/core/utilities/equals.decorators';
 import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import {
@@ -12,7 +13,6 @@ import { PLACEHOLDER_PARENT_METADATA } from '../../../shared/form/ds-dynamic-for
 import { OtherInformation } from '../../../shared/form/models/form-field-metadata-value.model';
 import { ListableObject } from '../../../shared/object-collection/listable-object.model';
 import { VOCABULARY_ENTRY } from './vocabularies.resource-type';
-import { Metadata } from "@dspace/core/shared/metadata.utils";
 
 /**
  * Model class for a VocabularyEntry

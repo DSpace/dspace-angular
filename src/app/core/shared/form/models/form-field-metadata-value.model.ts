@@ -10,8 +10,8 @@ import {
   MetadataValueInterface,
   VIRTUAL_METADATA_PREFIX,
 } from '../../metadata.models';
+import { Metadata } from '../../metadata.utils';
 import { PLACEHOLDER_PARENT_METADATA } from '../ds-dynamic-form-constants';
-import { Metadata } from "../../metadata.utils";
 
 export interface OtherInformation {
   [name: string]: string;

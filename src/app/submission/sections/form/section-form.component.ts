@@ -58,6 +58,7 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../../environments/environment';
+import { DynamicQualdropModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
@@ -68,7 +69,6 @@ import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
 import { SectionFormOperationsService } from './section-form-operations.service';
-import { DynamicQualdropModel } from "../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model";
 
 /**
  * This component represents a section that contains a Form.

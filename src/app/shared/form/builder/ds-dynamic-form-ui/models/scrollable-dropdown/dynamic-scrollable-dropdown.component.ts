@@ -55,11 +55,11 @@ import {
   take,
   tap,
 } from 'rxjs/operators';
+import { FormBuilderService } from 'src/app/shared/form/builder/form-builder.service';
+import { SubmissionService } from 'src/app/submission/submission.service';
 
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
 import { DynamicScrollableDropdownModel } from './dynamic-scrollable-dropdown.model';
-import { FormBuilderService } from 'src/app/shared/form/builder/form-builder.service';
-import { SubmissionService } from 'src/app/submission/submission.service';
 
 /**
  * Component representing a dropdown input field
