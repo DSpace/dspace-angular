@@ -36,7 +36,10 @@ import {
   Observable,
   of,
 } from 'rxjs';
-import {map, switchMap} from 'rxjs/operators';
+import {
+  map,
+  switchMap,
+} from 'rxjs/operators';
 
 import { ThemedAccessStatusBadgeComponent } from '../object-collection/shared/badges/access-status-badge/themed-access-status-badge.component';
 
@@ -142,7 +145,7 @@ export class FileDownloadLinkComponent implements OnInit {
    * @param canDownloadWithToken user can download using a token granted by a request approver
    * @param canRequestACopy user can request approval to access a copy
    */
-  getBitstreamPathForRequestACopy(canDownloadWithToken, canRequestACopy: boolean) {
+  getBitstreamPathForRequestACopy(canDownloadWithToken: boolean, canRequestACopy: boolean) {
     //  if the access token is valid, use this
     if (canDownloadWithToken) {
       return this.getAccessByTokenBitstreamPath(this.itemRequest);
