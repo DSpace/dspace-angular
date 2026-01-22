@@ -117,3 +117,16 @@
     </cdk-tree-node>
   </cdk-tree>
 </div>
+<!-- Show previous/next results pagination -->
+<div class="mb-3 d-flex gap-2" *ngIf="(showPreviousPage$ | async) || (showNextPage$ | async)">
+  <button class="btn btn-outline-secondary"
+          *ngIf="showPreviousPage$ | async"
+          (click)="loadPreviousPage(selectedItems)">
+    {{ 'browse.taxonomy.show_previous_results' | translate }}
+  </button>
+  <button class="btn btn-outline-secondary"
+          *ngIf="showNextPage$ | async"
+          (click)="loadNextPage(selectedItems)">
+    {{ 'browse.taxonomy.show_next_results' | translate }}
+  </button>
+</div>
