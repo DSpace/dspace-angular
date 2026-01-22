@@ -1,10 +1,11 @@
 <ds-metadata-field-wrapper [label]="label | translate">
   @for (mdValue of mdValues; track mdValue; let last = $last) {
+    @let isVocabulary = isControlledVocabulary(mdValue);
     <!--
-    Choose a template. Priority: markdown, link, browse link.
+    Choose a template. Priority: vocabulary, markdown, link, browse link.
     -->
-      <ng-container *ngTemplateOutlet="(renderMarkdown ? markdown : (hasLink(mdValue) ? (hasValue(img) ? linkImg : link) : (hasBrowseDefinition() ? browselink : simple)));
-        context: {value: mdValue.value, img}">
+      <ng-container *ngTemplateOutlet="(isVocabulary ? controlledVocabulary : (renderMarkdown ? markdown : (hasLink(mdValue) ? (hasValue(img) ? linkImg : link) : (hasBrowseDefinition() ? browselink : simple))));
+        context: {value: (isVocabulary ? mdValue : mdValue.value), img}">
     </ng-container>
     @if (!last) {
       <span class="separator" [innerHTML]="separator"></span>
@@ -49,4 +50,15 @@
   <a class="dont-break-out preserve-line-breaks ds-browse-link"
     [routerLink]="['/browse', browseDefinition.id]"
   [queryParams]="getQueryParams(value)" role="link" tabindex="0">{{value}}</a>
+</ng-template>
+
+
+<!-- Render translated valueof vocabulary entry -->
+<ng-template #controlledVocabulary let-value="value">
+  @let label = getVocabularyValue(value) | async;
+  @if (hasBrowseDefinition()) {
+    <ng-container *ngTemplateOutlet="browselink; context: {value: label}"></ng-container>
+  } @else {
+    <span class="dont-break-out preserve-line-breaks">{{label}}</span>
+  }
 </ng-template>
