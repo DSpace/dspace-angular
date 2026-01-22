@@ -98,8 +98,8 @@ export class DsDatePickerComponent extends DynamicFormControlComponent implement
     // update year-month-day
     switch (event.field) {
       case 'year': {
-        if (event.value !== null) {
-          this.year = event.value;
+        if (hasValue(event.value)) {
+          this.year = this.completeDate(event.value.toString());
         } else {
           this.year = undefined;
           this.month = undefined;
@@ -149,11 +149,7 @@ export class DsDatePickerComponent extends DynamicFormControlComponent implement
     // update value
     let value = null;
     if (hasValue(this.year)) {
-      let yyyy = this.year.toString();
-      while (yyyy.length < 4) {
-        yyyy = '0' + yyyy;
-      }
-      value = yyyy;
+      value = this.completeDate(this.year);
     }
     if (hasValue(this.month)) {
       const mm = this.month.toString().length === 1
@@ -241,6 +237,24 @@ export class DsDatePickerComponent extends DynamicFormControlComponent implement
     // Last Day of the same month (+1 month, -1 day)
     date.setMonth(date.getMonth() + 1, 0);
     return date.getDate();
+  }
+
+  /**
+    * @Description convert a partial year to a full year
+    * @Return string
+   *  @Param string date current value to convert
+   **/
+  completeDate(date: string): string {
+    if (date.length === 1) {
+      const year = new Date().getFullYear().toString();
+      return year.substring(-1, 1) + '00' + date;
+    }
+    if (date.length < 4) {
+      const year = new Date().getFullYear().toString();
+      const difference  = date.length - year.length;
+      return year.substring(difference, Math.abs(difference)) + date;
+    }
+    return date;
   }
 
 }
