@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
+import { Context } from '@dspace/core/shared/context.model';
 
-import { Context } from '../../core/shared/context.model';
 import { ThemedConfigurationSearchPageComponent } from '../../search-page/themed-configuration-search-page.component';
 
 @Component({
   selector: 'ds-base-admin-workflow-page',
   templateUrl: './admin-workflow-page.component.html',
   styleUrls: ['./admin-workflow-page.component.scss'],
-  standalone: true,
   imports: [
     ThemedConfigurationSearchPageComponent,
   ],

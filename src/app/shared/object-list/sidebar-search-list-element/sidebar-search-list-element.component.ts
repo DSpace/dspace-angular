@@ -6,6 +6,18 @@ import {
   Component,
   OnInit,
 } from '@angular/core';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { LinkService } from '@dspace/core/cache/builders/link.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { ChildHALResource } from '@dspace/core/shared/child-hal-resource.model';
+import { Context } from '@dspace/core/shared/context.model';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
@@ -16,26 +28,13 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { LinkService } from '../../../core/cache/builders/link.service';
-import { RemoteData } from '../../../core/data/remote-data';
-import { ChildHALResource } from '../../../core/shared/child-hal-resource.model';
-import { Context } from '../../../core/shared/context.model';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../empty.util';
-import { SearchResult } from '../../search/models/search-result.model';
 import { TruncatableService } from '../../truncatable/truncatable.service';
 import { TruncatablePartComponent } from '../../truncatable/truncatable-part/truncatable-part.component';
-import { followLink } from '../../utils/follow-link-config.model';
 import { SearchResultListElementComponent } from '../search-result-list-element/search-result-list-element.component';
 
 @Component({
   selector: 'ds-sidebar-search-list-element',
   templateUrl: './sidebar-search-list-element.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     NgClass,
@@ -91,7 +90,7 @@ export class SidebarSearchListElementComponent<T extends SearchResult<K>, K exte
   getParentTitle(): Observable<string> {
     return this.getParent().pipe(
       map((parentRD: RemoteData<DSpaceObject>) => {
-        return hasValue(parentRD) && hasValue(parentRD.payload) ? this.dsoNameService.getName(parentRD.payload) : undefined;
+        return hasValue(parentRD) && hasValue(parentRD.payload) ? this.dsoNameService.getName(parentRD.payload, true) : undefined;
       }),
     );
   }

@@ -10,20 +10,20 @@ import {
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { RequestService } from '@dspace/core/data/request.service';
+import { GroupDataService } from '@dspace/core/eperson/group-data.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core/utilities/remote-data.utils';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
-import { RequestService } from '../../../../../core/data/request.service';
-import { GroupDataService } from '../../../../../core/eperson/group-data.service';
-import { DSONameServiceMock } from '../../../../mocks/dso-name.service.mock';
-import { NotificationsService } from '../../../../notifications/notifications.service';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '../../../../remote-data.utils';
-import { NotificationsServiceStub } from '../../../../testing/notifications-service.stub';
 import { ComcolRoleComponent } from './comcol-role.component';
 
 describe('ComcolRoleComponent', () => {

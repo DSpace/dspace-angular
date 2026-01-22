@@ -3,9 +3,8 @@ import {
   Component,
   Input,
 } from '@angular/core';
+import { Metadata } from '@dspace/core/submission/models/sherpa-policies-details.model';
 import { TranslateModule } from '@ngx-translate/core';
-
-import { Metadata } from '../../../../core/submission/models/sherpa-policies-details.model';
 
 /**
  * This component represents a section that contains the metadata information.
@@ -18,7 +17,6 @@ import { Metadata } from '../../../../core/submission/models/sherpa-policies-det
     DatePipe,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class MetadataInformationComponent {
   /**

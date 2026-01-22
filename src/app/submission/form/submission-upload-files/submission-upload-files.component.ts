@@ -5,6 +5,16 @@ import {
   OnChanges,
   OnDestroy,
 } from '@angular/core';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { WorkspaceItem } from '@dspace/core/submission/models/workspaceitem.model';
+import { SectionsType } from '@dspace/core/submission/sections-type';
+import { SubmissionJsonPatchOperationsService } from '@dspace/core/submission/submission-json-patch-operations.service';
+import { normalizeSectionData } from '@dspace/core/submission/submission-response-parsing.service';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import { TranslateService } from '@ngx-translate/core';
 import {
   Observable,
@@ -16,19 +26,9 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
-import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
-import { normalizeSectionData } from '../../../core/submission/submission-response-parsing.service';
-import {
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-} from '../../../shared/empty.util';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { UploaderComponent } from '../../../shared/upload/uploader/uploader.component';
 import { UploaderOptions } from '../../../shared/upload/uploader/uploader-options.model';
 import { SectionsService } from '../../sections/sections.service';
-import { SectionsType } from '../../sections/sections-type';
 import { SubmissionService } from '../../submission.service';
 import parseSectionErrors from '../../utils/parseSectionErrors';
 
@@ -41,7 +41,6 @@ import parseSectionErrors from '../../utils/parseSectionErrors';
   imports: [
     UploaderComponent,
   ],
-  standalone: true,
 })
 export class SubmissionUploadFilesComponent implements OnChanges, OnDestroy {
 

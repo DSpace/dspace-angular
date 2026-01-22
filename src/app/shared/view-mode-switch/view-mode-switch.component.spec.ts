@@ -11,20 +11,19 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
+import { SearchServiceStub } from '@dspace/core/testing/search-service.stub';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { SearchService } from '../../core/shared/search/search.service';
-import { ViewMode } from '../../core/shared/view-mode.model';
-import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
-import { SearchServiceStub } from '../testing/search-service.stub';
+import { SearchService } from '../search/search.service';
 import { ViewModeSwitchComponent } from './view-mode-switch.component';
 
 @Component({
   template: '',
-  standalone: true,
 })
 class DummyComponent {
 }

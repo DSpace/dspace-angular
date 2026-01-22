@@ -1,22 +1,22 @@
+import {
+  SortDirection,
+  SortOptions,
+} from '@dspace/core/cache/models/sort-options.model';
+import { FindListOptions } from '@dspace/core/data/find-list-options.model';
+import { SuggestionTarget } from '@dspace/core/notifications/suggestions/models/suggestion-target.model';
+import { SuggestionDataService } from '@dspace/core/notifications/suggestions/suggestion-data.service';
+import { SuggestionTargetDataService } from '@dspace/core/notifications/suggestions/target/suggestion-target-data.service';
+import { ResearcherProfile } from '@dspace/core/profile/model/researcher-profile.model';
+import { ResearcherProfileDataService } from '@dspace/core/profile/researcher-profile-data.service';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { ResourceType } from '@dspace/core/shared/resource-type';
+import { WorkspaceitemDataService } from '@dspace/core/submission/workspaceitem-data.service';
+import { mockSuggestionPublicationOne } from '@dspace/core/testing/publication-claim.mock';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { getTestScheduler } from 'jasmine-marbles';
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import {
-  SortDirection,
-  SortOptions,
-} from '../../core/cache/models/sort-options.model';
-import { FindListOptions } from '../../core/data/find-list-options.model';
-import { SuggestionTarget } from '../../core/notifications/suggestions/models/suggestion-target.model';
-import { SuggestionDataService } from '../../core/notifications/suggestions/suggestion-data.service';
-import { SuggestionTargetDataService } from '../../core/notifications/suggestions/target/suggestion-target-data.service';
-import { ResearcherProfile } from '../../core/profile/model/researcher-profile.model';
-import { ResearcherProfileDataService } from '../../core/profile/researcher-profile-data.service';
-import { ResourceType } from '../../core/shared/resource-type';
-import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
-import { mockSuggestionPublicationOne } from '../../shared/mocks/publication-claim.mock';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { followLink } from '../../shared/utils/follow-link-config.model';
 import { SuggestionsService } from './suggestions.service';
 
 describe('SuggestionsService test', () => {

@@ -11,6 +11,19 @@ import {
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { OrcidAuthService } from '@dspace/core/orcid/orcid-auth.service';
+import { ResearcherProfile } from '@dspace/core/profile/model/researcher-profile.model';
+import { NativeWindowService } from '@dspace/core/services/window.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { NativeWindowMockFactory } from '@dspace/core/testing/mock-native-window-ref';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core/utilities/remote-data.utils';
 import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateLoader,
@@ -20,19 +33,6 @@ import { getTestScheduler } from 'jasmine-marbles';
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { OrcidAuthService } from '../../../core/orcid/orcid-auth.service';
-import { ResearcherProfile } from '../../../core/profile/model/researcher-profile.model';
-import { NativeWindowService } from '../../../core/services/window.service';
-import { Item } from '../../../core/shared/item.model';
-import { NativeWindowMockFactory } from '../../../shared/mocks/mock-native-window-ref';
-import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '../../../shared/remote-data.utils';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { OrcidAuthComponent } from './orcid-auth.component';
 
 describe('OrcidAuthComponent test suite', () => {

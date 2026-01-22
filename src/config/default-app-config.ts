@@ -1,9 +1,6 @@
-import { AccessibilitySettingsConfig } from '../app/accessibility/accessibility-settings.config';
-import { AdminNotifyMetricsRow } from '../app/admin/admin-notify-dashboard/admin-notify-metrics/admin-notify-metrics.model';
-import { RestRequestMethod } from '../app/core/data/rest-request-method';
-import { LiveRegionConfig } from '../app/shared/live-region/live-region.config';
-import { NotificationAnimationsType } from '../app/shared/notifications/models/notification-animations-type';
+import { AccessibilitySettingsConfig } from './accessibility-settings.config';
 import { ActuatorsConfig } from './actuators.config';
+import { AdminNotifyMetricsRow } from './admin-notify-metrics.config';
 import { AppConfig } from './app-config.interface';
 import { AuthConfig } from './auth-config.interfaces';
 import { BrowseByConfig } from './browse-by-config.interface';
@@ -20,11 +17,16 @@ import { HomeConfig } from './homepage-config.interface';
 import { InfoConfig } from './info-config.interface';
 import { ItemConfig } from './item-config.interface';
 import { LangConfig } from './lang-config.interface';
+import { LiveRegionConfig } from './live-region.config';
 import { MarkdownConfig } from './markdown-config.interface';
 import { MatomoConfig } from './matomo-config.interface';
 import { MediaViewerConfig } from './media-viewer-config.interface';
-import { INotificationBoardOptions } from './notifications-config.interfaces';
+import {
+  INotificationBoardOptions,
+  NotificationAnimationsType,
+} from './notifications-config.interfaces';
 import { QualityAssuranceConfig } from './quality-assurance.config';
+import { RestRequestMethod } from './rest-request-method';
 import { SearchConfig } from './search-page-config.interface';
 import { ServerConfig } from './server-config.interface';
 import { SubmissionConfig } from './submission-config.interface';
@@ -253,8 +255,8 @@ export class DefaultAppConfig implements AppConfig {
     },
   };
 
-  // Default Language in which the UI will be rendered if the user's browser language is not an active language
-  defaultLanguage = 'en';
+  // Fallback language in which the UI will be rendered if the user's browser language is not an active language
+  fallbackLanguage = 'en';
 
   // Languages. DSpace Angular holds a message catalog for each of the following languages.
   // When set to active, users will be able to switch to the use of this language in the user interface.
@@ -286,6 +288,7 @@ export class DefaultAppConfig implements AppConfig {
     { code: 'sr-lat', label: 'Srpski (lat)', active: true },
     { code: 'sr-cyr', label: 'Српски', active: true },
     { code: 'sv', label: 'Svenska', active: true },
+    { code: 'ta', label: 'தமிழ்', active: true },
     { code: 'tr', label: 'Türkçe', active: true },
     { code: 'uk', label: 'Yкраї́нська', active: true },
     { code: 'vi', label: 'Tiếng Việt', active: true },

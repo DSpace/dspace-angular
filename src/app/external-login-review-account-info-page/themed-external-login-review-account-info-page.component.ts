@@ -8,12 +8,7 @@ import { ExternalLoginReviewAccountInfoPageComponent } from './external-login-re
  */
 @Component({
   selector: 'ds-external-login-page',
-  styleUrls: [],
   templateUrl: './../shared/theme-support/themed.component.html',
-  standalone: true,
-  imports: [
-    ExternalLoginReviewAccountInfoPageComponent,
-  ],
 })
 export class ThemedExternalLoginReviewAccountInfoPageComponent extends ThemedComponent<ExternalLoginReviewAccountInfoPageComponent> {
   protected getComponentName(): string {

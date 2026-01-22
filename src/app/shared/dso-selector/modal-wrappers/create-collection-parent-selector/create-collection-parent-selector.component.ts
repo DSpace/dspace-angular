@@ -8,6 +8,12 @@ import {
   NavigationExtras,
   Router,
 } from '@angular/router';
+import {
+  SortDirection,
+  SortOptions,
+} from '@dspace/core/cache/models/sort-options.model';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { DSpaceObjectType } from '@dspace/core/shared/dspace-object-type.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -16,12 +22,6 @@ import {
   COLLECTION_PARENT_PARAMETER,
   getCollectionCreateRoute,
 } from '../../../../collection-page/collection-page-routing-paths';
-import {
-  SortDirection,
-  SortOptions,
-} from '../../../../core/cache/models/sort-options.model';
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
-import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
 import { AuthorizedCommunitySelectorComponent } from '../../dso-selector/authorized-community-selector/authorized-community-selector.component';
 import {
   DSOSelectorModalWrapperComponent,
@@ -35,7 +35,6 @@ import {
 @Component({
   selector: 'ds-base-create-collection-parent-selector',
   templateUrl: './create-collection-parent-selector.component.html',
-  standalone: true,
   imports: [
     AuthorizedCommunitySelectorComponent,
     TranslateModule,
