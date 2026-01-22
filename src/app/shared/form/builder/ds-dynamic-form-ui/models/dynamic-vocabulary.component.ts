@@ -154,6 +154,9 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
    * Retrieve vocabulary object
    */
   initVocabulary(): void {
+    if (this.model.value) {
+      this.setCurrentValue(this.model.value, true);
+    }
     this.vocabulary$ = this.vocabularyService.findVocabularyById(this.model.vocabularyOptions.name).pipe(
       getFirstSucceededRemoteDataPayload(),
       distinctUntilChanged(),

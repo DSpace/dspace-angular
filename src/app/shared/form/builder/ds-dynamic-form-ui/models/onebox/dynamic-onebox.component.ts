@@ -357,7 +357,7 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
       if (isEmpty(value)) {
         result = '';
       } else {
-        result = value.value;
+        result = value;
       }
       this.currentValue = null;
       this.cdr.detectChanges();

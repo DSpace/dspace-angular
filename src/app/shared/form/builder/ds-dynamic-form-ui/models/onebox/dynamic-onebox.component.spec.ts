@@ -395,7 +395,7 @@ describe('DsDynamicOneboxComponent test suite', () => {
 
       it('should init component properly', fakeAsync(() => {
         tick();
-        expect(oneboxComponent.currentValue).toEqual(new FormFieldMetadataValueObject('test001', null, validAuthority, 'test'));
+        expect(oneboxComponent.currentValue).toEqual(new FormFieldMetadataValueObject('test', null, validAuthority, 'test001'));
         expect((oneboxComponent as any).vocabularyService.getVocabularyEntryByID).toHaveBeenCalled();
       }));
 
