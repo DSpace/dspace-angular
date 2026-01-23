@@ -39,7 +39,6 @@ import {
   DynamicFormsCoreModule,
   DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
-import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
@@ -106,7 +105,6 @@ describe('DsDynamicTagComponent test suite', () => {
       imports: [
         TranslateModule.forRoot(),
         DynamicFormsCoreModule,
-        DynamicFormsNGBootstrapUIModule,
         FormsModule,
         NgbModule,
         ReactiveFormsModule,
@@ -320,7 +318,6 @@ describe('DsDynamicTagComponent test suite', () => {
   selector: 'ds-test-cmp',
   template: ``,
   imports: [DynamicFormsCoreModule,
-    DynamicFormsNGBootstrapUIModule,
     FormsModule,
     NgbModule,
     ReactiveFormsModule],

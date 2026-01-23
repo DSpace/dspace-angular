@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   NO_ERRORS_SCHEMA,
+  TemplateRef,
 } from '@angular/core';
 import {
   ComponentFixture,
@@ -12,7 +13,7 @@ import { RouterLink } from '@angular/router';
 import { Item } from '@dspace/core/shared/item.model';
 import { MetadataValue } from '@dspace/core/shared/metadata.models';
 import { ItemMetadataRepresentation } from '@dspace/core/shared/metadata-representation/item/item-metadata-representation.model';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 
 import { TruncatableComponent } from '../../../../shared/truncatable/truncatable.component';
 import { OrgUnitItemMetadataListElementComponent } from './org-unit-item-metadata-list-element.component';
@@ -30,7 +31,7 @@ describe('OrgUnitItemMetadataListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
-        NgbModule,
+        NgbTooltip,
         OrgUnitItemMetadataListElementComponent,
       ],
       schemas: [NO_ERRORS_SCHEMA],
@@ -56,9 +57,14 @@ describe('OrgUnitItemMetadataListElementComponent', () => {
 
   it('should show the description on hover over the link in a tooltip', () => {
     const link = fixture.debugElement.query(By.css('a'));
-    link.triggerEventHandler('mouseenter', null);
-    fixture.detectChanges();
-    const tooltip = fixture.debugElement.query(By.css('.item-list-job-title')).nativeElement.textContent;
-    expect(tooltip).toBe(description);
+    const tooltipDir = link.injector.get(NgbTooltip);
+    const viewRef = (tooltipDir.ngbTooltip as TemplateRef<any>).createEmbeddedView({});
+    viewRef.detectChanges();
+    const textContent = viewRef.rootNodes
+      .map((node: any) => node.textContent)
+      .join('')
+      .trim();
+
+    expect(textContent).toEqual(description);
   });
 });

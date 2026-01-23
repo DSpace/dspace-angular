@@ -33,8 +33,8 @@ import {
 import {
   NgbDropdown,
   NgbDropdownModule,
+  NgbTooltip,
   NgbModal,
-  NgbTooltipModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormControlCustomEvent,
@@ -73,7 +73,7 @@ import { DynamicLookupNameModel } from './dynamic-lookup-name.model';
     FormsModule,
     InfiniteScrollModule,
     NgbDropdownModule,
-    NgbTooltipModule,
+    NgbTooltip,
     NgClass,
     NgTemplateOutlet,
     ObjNgFor,

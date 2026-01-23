@@ -39,7 +39,6 @@ import {
   DynamicFormsCoreModule,
   DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
-import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
@@ -190,7 +189,6 @@ describe('Dynamic Lookup component', () => {
     TestBed.configureTestingModule({
       imports: [
         DynamicFormsCoreModule,
-        DynamicFormsNGBootstrapUIModule,
         FormsModule,
         InfiniteScrollModule,
         ReactiveFormsModule,
@@ -627,7 +625,6 @@ describe('Dynamic Lookup component', () => {
   template: ``,
   imports: [
     DynamicFormsCoreModule,
-    DynamicFormsNGBootstrapUIModule,
     FormsModule,
     InfiniteScrollModule,
     NgbModule,

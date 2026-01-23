@@ -43,7 +43,6 @@ import {
   DynamicFormsCoreModule,
   DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
-import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
@@ -160,7 +159,6 @@ describe('DsDynamicOneboxComponent test suite', () => {
     TestBed.configureTestingModule({
       imports: [
         DynamicFormsCoreModule,
-        DynamicFormsNGBootstrapUIModule,
         FormsModule,
         NgbModule,
         ReactiveFormsModule,
@@ -490,7 +488,6 @@ describe('DsDynamicOneboxComponent test suite', () => {
   imports: [
     CdkTreeModule,
     DynamicFormsCoreModule,
-    DynamicFormsNGBootstrapUIModule,
     FormsModule,
     NgbModule,
     ReactiveFormsModule,
