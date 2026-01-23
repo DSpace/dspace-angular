@@ -19,6 +19,10 @@ Disallow: /workflowitems
 # Crawlers should be able to access entity pages, but not the facet search links present on entity pages
 Disallow: /entities/*?f
 
+# Heavy Discovery facet queries on browse pages
+Disallow: /collections/*?f
+Disallow: /communities/*?spc.page
+
 # Optionally uncomment the following line ONLY if sitemaps are working
 # and you have verified that your site is being indexed correctly.
 # Disallow: /browse/*
