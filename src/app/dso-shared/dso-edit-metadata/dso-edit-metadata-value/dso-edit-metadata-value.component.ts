@@ -33,7 +33,10 @@ import {
 import { Vocabulary } from '@dspace/core/submission/vocabularies/models/vocabulary.model';
 import { hasValue } from '@dspace/shared/utils/empty.util';
 import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   BehaviorSubject,
   EMPTY,
