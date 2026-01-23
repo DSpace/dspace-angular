@@ -5,6 +5,7 @@
         <button class="scope-button btn btn-outline-secondary text-truncate"
           [ngbTooltip]="dsoNameService.getName(selectedScope | async)" type="button"
           (click)="openScopeModal()" role="button" tabindex="0">
+          <i class="fa-solid fa-filter"></i>
           {{dsoNameService.getName(selectedScope | async) || ('search.form.scope.all' | translate)}}
         </button>
       }

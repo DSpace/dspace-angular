@@ -6,12 +6,10 @@ import {
   Component,
   OnInit,
 } from '@angular/core';
-import { Params } from '@angular/router';
 import {
   SortDirection,
   SortOptions,
 } from '@dspace/core/cache/models/sort-options.model';
-import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest as observableCombineLatest,

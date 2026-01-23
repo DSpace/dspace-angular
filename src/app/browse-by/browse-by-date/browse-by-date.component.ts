@@ -26,7 +26,6 @@ import {
 import { DSpaceObjectDataService } from '@dspace/core/data/dspace-object-data.service';
 import { RemoteData } from '@dspace/core/data/remote-data';
 import { PaginationService } from '@dspace/core/pagination/pagination.service';
-import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
 import { Item } from '@dspace/core/shared/item.model';
 import { isValidDate } from '@dspace/shared/utils/date.util';
 import {
