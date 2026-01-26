@@ -115,7 +115,7 @@ export class FileDownloadLinkComponent implements OnInit {
     if (this.enableRequestACopy) {
       // Obtain item request data from the route snapshot
       this.itemRequest = this.route.snapshot.data.itemRequest;
-      // Set up observable to test access rights for a normal download
+      // Set up observable to evaluate access rights for a normal download
       this.canDownload$ = this.authorizationService.isAuthorized(FeatureID.CanDownload, isNotEmpty(this.bitstream) ? this.bitstream.self : undefined);
       // Only set up and execute other observables if canDownload emits false
       this.bitstreamPath$ = this.canDownload$.pipe(
@@ -123,9 +123,11 @@ export class FileDownloadLinkComponent implements OnInit {
           if (canDownload) {
             return of(this.getBitstreamDownloadPath());
           }
-          // Set up and combine observables to test access rights to a valid token download and the request-a-copy feature
+          // Set up and combine observables to evaluate access rights to a valid token download and the request-a-copy feature
           this.canDownloadWithToken$ = of((this.itemRequest && this.itemRequest.acceptRequest && !this.itemRequest.accessExpired) ? (this.itemRequest.allfiles !== false || this.itemRequest.bitstreamId === this.bitstream.uuid) : false);
           this.canRequestACopy$ = this.authorizationService.isAuthorized(FeatureID.CanRequestACopy, isNotEmpty(this.bitstream) ? this.bitstream.self : undefined);
+          // Set up canDownload observable so the template can read the state
+          this.canDownload$ = of(false);
           return observableCombineLatest([this.canDownloadWithToken$, this.canRequestACopy$]).pipe(
             map(([canDownloadWithToken, canRequestACopy]) => this.getBitstreamPathForRequestACopy(canDownloadWithToken, canRequestACopy)),
           );
