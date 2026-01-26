@@ -20,7 +20,7 @@ import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-c
 import { Item } from '@dspace/core/shared/item.model';
 import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
 import { hasValue } from '@dspace/shared/utils/empty.util';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
   TranslateService,
@@ -50,7 +50,7 @@ import { PaginationComponent } from '../../../shared/pagination/pagination.compo
   imports: [
     AlertComponent,
     CommonModule,
-    NgbTooltipModule,
+    NgbTooltip,
     PaginationComponent,
     ThemedLoadingComponent,
     TranslateModule,

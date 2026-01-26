@@ -22,7 +22,7 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import { NgxMaskModule } from 'ngx-mask';
+import { provideEnvironmentNgxMask } from 'ngx-mask';
 import {
   Observable,
   of,
@@ -54,10 +54,10 @@ describe('DsDynamicFormArrayComponent', () => {
       imports: [
         ReactiveFormsModule,
         DsDynamicFormArrayComponent,
-        NgxMaskModule.forRoot(),
         TranslateModule.forRoot(),
       ],
       providers: [
+        provideEnvironmentNgxMask(),
         DynamicFormLayoutService,
         DynamicFormValidationService,
         provideMockStore(),

@@ -31,7 +31,7 @@ import {
 } from '@dspace/core/shared/metadata-representation/metadata-representation.model';
 import { Vocabulary } from '@dspace/core/submission/vocabularies/models/vocabulary.model';
 import { hasValue } from '@dspace/shared/utils/empty.util';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   EMPTY,
@@ -64,7 +64,7 @@ import { DsoEditMetadataValueFieldLoaderComponent } from '../dso-edit-metadata-v
     DebounceDirective,
     DsoEditMetadataValueFieldLoaderComponent,
     FormsModule,
-    NgbTooltipModule,
+    NgbTooltip,
     NgClass,
     RouterLink,
     ThemedTypeBadgeComponent,
