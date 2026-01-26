@@ -541,9 +541,20 @@ export class SubmissionService {
    *    The section type
    */
   notifyNewSection(submissionId: string, sectionId: string, sectionType?: SectionsType) {
-    const m = this.translate.instant('submission.sections.general.metadata-extracted-new-section', { sectionId });
-    this.notificationsService.info(null, m, null, true);
+    const specificKey =
+      `submission.sections.general.metadata-extracted-new-section.${sectionId}`;
+
+    let message = this.translate.instant(specificKey);
+    if (message === specificKey) {
+      message = this.translate.instant(
+        'submission.sections.general.metadata-extracted-new-section',
+        { sectionId },
+      );
+    }
+
+    this.notificationsService.info(null, message, null, true);
   }
+
 
   /**
    * Redirect to MyDspace page
