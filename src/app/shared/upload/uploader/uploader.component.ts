@@ -27,12 +27,14 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import uniqueId from 'lodash/uniqueId';
 import {
+  FileItem,
   FileUploader,
   FileUploadModule,
 } from 'ng2-file-upload';
 import { of } from 'rxjs';
 
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
+import { LiveRegionService } from '../../live-region/live-region.service';
 import { UploaderOptions } from './uploader-options.model';
 import { UploaderProperties } from './uploader-properties.model';
 
@@ -111,6 +113,17 @@ export class UploaderComponent implements OnInit, AfterViewInit {
   public isOverBaseDropZone = of(false);
   public isOverDocumentDropZone = of(false);
 
+  /**
+   * Set of progress values that have been announced to screen readers
+   */
+  private announcedProgress: Set<number> = new Set();
+
+  /**
+   * The uuid of the last progress message announced to screen readers
+   * @private
+   */
+  private lastProgressMessageUuid: string;
+
   @HostListener('window:dragover', ['$event'])
   onDragOver(event: any) {
 
@@ -128,6 +141,7 @@ export class UploaderComponent implements OnInit, AfterViewInit {
     private dragService: DragService,
     private tokenExtractor: HttpXsrfTokenExtractor,
     private cookieService: CookieService,
+    private liveRegionService: LiveRegionService,
   ) {
   }
 
@@ -215,7 +229,28 @@ export class UploaderComponent implements OnInit, AfterViewInit {
       this.uploader.cancelAll();
     };
     this.uploader.onProgressAll = () => this.onProgress();
-    this.uploader.onProgressItem = () => this.onProgress();
+    // Live region service setup
+    this.liveRegionService.setMessageTimeOutMs(1500);
+    this.liveRegionService.clear();
+    this.uploader.onProgressItem = (fileItem: FileItem, progress: any) => {
+      this.announceProgress(progress);
+      this.onProgress();
+    };
+  }
+
+  /**
+   * Announce the progress of the upload to screen readers
+   * @param progress
+   */
+  private announceProgress(progress: any) {
+    if (!this.announcedProgress.has(progress)) {
+      this.announcedProgress.add(progress);
+      const message = progress + '%';
+      if (this.lastProgressMessageUuid) {
+        this.liveRegionService.clearMessageByUUID(this.lastProgressMessageUuid);
+      }
+      this.lastProgressMessageUuid = this.liveRegionService.addMessage(message);
+    }
   }
 
   /**

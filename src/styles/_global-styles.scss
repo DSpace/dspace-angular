@@ -559,3 +559,17 @@ ngb-tooltip-window {
   // We use underline to discern link from text as we can't make color lighter on a white bg
   text-decoration: underline;
 }
+
+.drag-icon {
+  width: calc(2 * var(--bs-spacer));
+  height: calc(1.5 * var(--bs-spacer));
+  color: var(--bs-gray-600);
+  margin: var(--bs-btn-padding-y) 0;
+  line-height: var(--bs-btn-line-height);
+  display: inline-block;
+  -webkit-mask: url('/assets/images/grip-vertical.svg') no-repeat center;
+  mask: url('/assets/images/grip-vertical.svg') no-repeat center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  background-color: currentColor;
+}

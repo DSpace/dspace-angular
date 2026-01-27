@@ -2155,6 +2155,12 @@
 
   "form.number-picker.increment": "Increment {{field}}",
 
+  "form.number-picker.label.Year": "Year",
+
+  "form.number-picker.label.Month": "Month",
+
+  "form.number-picker.label.Day": "Day",
+
   "form.repeatable.sort.tip": "Drop the item in the new position",
 
   "grant-deny-request-copy.deny": "Deny access request",
