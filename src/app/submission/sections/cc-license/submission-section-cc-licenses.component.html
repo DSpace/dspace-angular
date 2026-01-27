@@ -72,7 +72,7 @@
           <div *ngFor="let value of field.enums"
                class="mb-4">
             <h5>
-              {{ value.label }}
+              {{ 'submission.sections.ccLicense.option.answer.' + value.label | translate: {default:value.label} }}
             </h5>
             <div [innerHTML]="value.description" class="font-weight-light"></div>
           </div>
@@ -85,7 +85,7 @@
     <ds-select *ngIf="field.enums?.length > 5" [disabled]="field.id === 'jurisdiction' && defaultJurisdiction !== undefined && defaultJurisdiction !== 'none'">
       <ng-container class="selection" *ngVar="getSelectedOption(getSelectedCcLicense(), field) as option">
         <span *ngIf="option">
-          {{ option.label }}
+          {{ 'submission.sections.ccLicense.option.answer.' + option.label | translate: {default:option.label} }}
         </span>
         <span *ngIf="!option">
           {{ 'submission.sections.ccLicense.option.select' | translate }}
@@ -96,7 +96,7 @@
           <button *ngFor="let option of field.enums"
                   class="dropdown-item"
                   (click)="selectOption(getSelectedCcLicense(), field, option)">
-            {{ option.label }}
+            {{ 'submission.sections.ccLicense.option.answer.' + option.label | translate: {default:option.label} }}
           </button>
         </div>
       </ng-container>
@@ -110,7 +110,7 @@
                  title="{{ option.label }}"
                  class="mr-1"
                  [checked]="isSelectedOption(getSelectedCcLicense(), field, option)">
-          <span>{{ option.label }}</span>
+          <span>{{ 'submission.sections.ccLicense.option.answer.' + option.label | translate: {default:option.label} }}</span>
         </div>
       </div>
     </ng-container>
