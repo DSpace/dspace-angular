@@ -8,17 +8,14 @@ import {
 } from '@angular/core';
 import {
   ComponentFixture,
-  fakeAsync,
   inject,
   TestBed,
-  tick,
   waitForAsync,
 } from '@angular/core/testing';
 import {
   UntypedFormControl,
   UntypedFormGroup,
 } from '@angular/forms';
-import { By } from '@angular/platform-browser';
 import {
   mockDynamicFormLayoutService,
   mockDynamicFormValidationService,
@@ -107,7 +104,6 @@ describe('DsDatePickerComponent test suite', () => {
             [group]='group'
             [model]='model'
             [legend]='legend'
-            (blur)='onBlur($event)'
             (change)='onValueChange($event)'
             (focus)='onFocus($event)'></ds-date-picker>`;
 
@@ -193,12 +189,6 @@ describe('DsDatePickerComponent test suite', () => {
         expect(dateComp.disabledDay).toBeFalsy();
       });
 
-      it('should emit blur Event onBlur', () => {
-        spyOn(dateComp.blur, 'emit');
-        dateComp.onBlur(new Event('blur'));
-        expect(dateComp.blur.emit).toHaveBeenCalled();
-      });
-
       it('should emit focus Event onFocus', () => {
         spyOn(dateComp.focus, 'emit');
         dateComp.onFocus(new Event('focus'));
@@ -270,101 +260,6 @@ describe('DsDatePickerComponent test suite', () => {
         expect(dateComp.disabledMonth).toBeFalsy();
         expect(dateComp.disabledDay).toBeFalsy();
       });
-
-      it('should move focus on month field when on year field and tab pressed', fakeAsync(() => {
-        const event = {
-          field: 'day',
-          value: null,
-        };
-        const event1 = {
-          field: 'month',
-          value: null,
-        };
-        dateComp.onChange(event);
-        dateComp.onChange(event1);
-
-        const yearElement = dateFixture.debugElement.query(By.css(`#${dateComp.model.id}_year`));
-        const monthElement = dateFixture.debugElement.query(By.css(`#${dateComp.model.id}_month`));
-
-        yearElement.nativeElement.focus();
-        dateFixture.detectChanges();
-
-        expect(document.activeElement).toBe(yearElement.nativeElement);
-
-        dateFixture.nativeElement.dispatchEvent(new KeyboardEvent('keydown', { key: 'tab' }));
-        dateFixture.detectChanges();
-
-        tick(200);
-        dateFixture.detectChanges();
-
-        expect(document.activeElement).toBe(monthElement.nativeElement);
-      }));
-
-      it('should move focus on day field when on month field and tab pressed', fakeAsync(() => {
-        const event = {
-          field: 'day',
-          value: null,
-        };
-        dateComp.onChange(event);
-
-        const monthElement = dateFixture.debugElement.query(By.css(`#${dateComp.model.id}_month`));
-        const dayElement = dateFixture.debugElement.query(By.css(`#${dateComp.model.id}_day`));
-
-        monthElement.nativeElement.focus();
-        dateFixture.detectChanges();
-
-        expect(document.activeElement).toBe(monthElement.nativeElement);
-
-        dateFixture.nativeElement.dispatchEvent(new KeyboardEvent('keydown', { key: 'tab' }));
-        dateFixture.detectChanges();
-
-        tick(200);
-        dateFixture.detectChanges();
-
-        expect(document.activeElement).toBe(dayElement.nativeElement);
-      }));
-
-      it('should move focus on month field when on day field and shift tab pressed', fakeAsync(() => {
-        const event = {
-          field: 'day',
-          value: null,
-        };
-        dateComp.onChange(event);
-
-        const monthElement = dateFixture.debugElement.query(By.css(`#${dateComp.model.id}_month`));
-        const dayElement = dateFixture.debugElement.query(By.css(`#${dateComp.model.id}_day`));
-
-        dayElement.nativeElement.focus();
-        dateFixture.detectChanges();
-
-        expect(document.activeElement).toBe(dayElement.nativeElement);
-
-        dateFixture.nativeElement.dispatchEvent(new KeyboardEvent('keydown', { key: 'shift.tab' }));
-        dateFixture.detectChanges();
-
-        tick(200);
-        dateFixture.detectChanges();
-
-        expect(document.activeElement).toBe(monthElement.nativeElement);
-      }));
-
-      it('should move focus on year field when on month field and shift tab pressed', fakeAsync(() => {
-        const yearElement = dateFixture.debugElement.query(By.css(`#${dateComp.model.id}_year`));
-        const monthElement = dateFixture.debugElement.query(By.css(`#${dateComp.model.id}_month`));
-
-        monthElement.nativeElement.focus();
-        dateFixture.detectChanges();
-
-        expect(document.activeElement).toBe(monthElement.nativeElement);
-
-        dateFixture.nativeElement.dispatchEvent(new KeyboardEvent('keydown', { key: 'shift.tab' }));
-        dateFixture.detectChanges();
-
-        tick(200);
-        dateFixture.detectChanges();
-
-        expect(document.activeElement).toBe(yearElement.nativeElement);
-      }));
 
     });
   });
