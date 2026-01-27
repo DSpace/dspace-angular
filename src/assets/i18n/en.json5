@@ -3773,13 +3773,21 @@
 
   "pagination.sort-direction": "Sort Options",
 
+  "patent.listelement.badge": "Patent",
+
   "person.listelement.badge": "Person",
+
+  "product.listelement.badge": "Product",
 
   "person.listelement.no-title": "No name found",
 
   "person.page.birthdate": "Birth Date",
 
+  "patent.page.edit": "Edit this item",
+
   "person.page.edit": "Edit this item",
+
+  "product.page.edit": "Edit this item",
 
   "person.page.email": "Email Address",
 
@@ -3797,7 +3805,11 @@
 
   "person.page.staffid": "Staff ID",
 
+  "patent.page.titleprefix": "Patent: ",
+
   "person.page.titleprefix": "Person: ",
+
+  "product.page.titleprefix": "Product: ",
 
   "person.search.results.head": "Person Search Results",
 
@@ -5133,9 +5145,19 @@
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isPublicationOfAuthor": "Publication of the Author",
 
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isCreatorOfProduct": "Creator of the Product",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isInventorOfPatent": "Inventor of the Patent",
+
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isOrgUnitOfProject": "OrgUnit of the Project",
 
+  "submission.sections.describe.relationship-lookup.selection-tab.title.openAIREFunding": "Funding OpenAIRE API",
+
   "submission.sections.describe.relationship-lookup.selection-tab.title.isProjectOfPublication": "Project",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isCreatorOfProduct": "Creator of the Product",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isInventorOfPatent": "Inventor of the Patent",
 
   "submission.sections.describe.relationship-lookup.title.isProjectOfPublication": "Projects",
 
@@ -5184,6 +5206,10 @@
   "submission.sections.describe.relationship-lookup.title.isPublicationOfAuthor": "Publication",
 
   "submission.sections.describe.relationship-lookup.title.isOrgUnitOfProject": "OrgUnit",
+
+  "submission.sections.describe.relationship-lookup.title.isCreatorOfProduct": "Product",
+
+  "submission.sections.describe.relationship-lookup.title.isInventorOfPatent": "Patent",
 
   "submission.sections.describe.relationship-lookup.search-tab.toggle-dropdown": "Toggle dropdown",
 
@@ -5913,6 +5939,10 @@
 
   "person.page.orcid.funding-preferences": "Funding preferences",
 
+  "person.page.orcid.product-preferences": "Product preferences",
+
+  "person.page.orcid.patent-preferences": "Patent preferences",
+
   "person.page.orcid.publications-preferences": "Publication preferences",
 
   "person.page.orcid.remove-orcid-message": "If you need to remove your ORCID, please contact the repository administrator",
@@ -5935,6 +5965,14 @@
 
   "person.page.orcid.sync-fundings.disabled": "Disabled",
 
+  "person.page.orcid.sync-patents.all": "All patents",
+
+  "person.page.orcid.sync-patents.mine": "My patents",
+
+  "person.page.orcid.sync-patents.my_selected": "Selected patents",
+
+  "person.page.orcid.sync-patents.disabled": "Disabled",
+
   "person.page.orcid.sync-publications.all": "All publications",
 
   "person.page.orcid.sync-publications.mine": "My publications",
@@ -5942,6 +5980,14 @@
   "person.page.orcid.sync-publications.my_selected": "Selected publications",
 
   "person.page.orcid.sync-publications.disabled": "Disabled",
+
+  "person.page.orcid.sync-products.all": "All products",
+
+  "person.page.orcid.sync-products.mine": "My products",
+
+  "person.page.orcid.sync-products.my_selected": "Selected products",
+
+  "person.page.orcid.sync-products.disabled": "Disabled",
 
   "person.page.orcid.sync-queue.discard": "Discard the change and do not synchronize with the ORCID registry",
 
@@ -5979,7 +6025,11 @@
 
   "person.page.orcid.sync-queue.tooltip.delete": "Remove this entry from the ORCID registry",
 
+  "person.page.orcid.sync-queue.tooltip.patent": "Patent",
+
   "person.page.orcid.sync-queue.tooltip.publication": "Publication",
+
+  "person.page.orcid.sync-queue.tooltip.product": "Product",
 
   "person.page.orcid.sync-queue.tooltip.project": "Project",
 
@@ -6061,7 +6111,11 @@
 
   "person.page.orcid.synchronization-mode-funding-message": "Select whether to send your linked Project entities to your ORCID record's list of funding information.",
 
+  "person.page.orcid.synchronization-mode-patent-message": "Select whether to send your linked Patent entities to your ORCID record's list of works.",
+
   "person.page.orcid.synchronization-mode-publication-message": "Select whether to send your linked Publication entities to your ORCID record's list of works.",
+
+  "person.page.orcid.synchronization-mode-product-message": "Select whether to send your linked Product entities to your ORCID record's list of works.",
 
   "person.page.orcid.synchronization-mode-profile-message": "Select whether to send your biographical data or personal identifiers to your ORCID record.",
 
