@@ -461,14 +461,39 @@ ngb-accordion {
 }
 
 .form-control, .page-link {
-    &:disabled::placeholder {
-        color: lighten($gray-700, 10%);
+  border: 0.119rem solid $gray-600;
+    &::placeholder {
+        color: $gray-600;
     }
     &:focus {
         box-shadow: none;
-        outline: 2px solid lighten($gray-700, 10%);
-        outline-offset: 2px !important;
+        outline: 1px solid lighten($gray-700, 10%);
+        outline-offset: 1px !important;
     }
+}
+
+.page-link.disabled, .disabled > .page-link {
+    border-color: $gray-600;
+}
+
+.input-group-text {
+  border: 0.119rem solid $gray-600;
+}
+
+.accordion-item {
+  border: 0.119rem solid $gray-600;
+}
+
+.accordion-button:not(.collapsed) {
+  box-shadow: inset 0 calc(-1 * var(--bs-accordion-border-width)) 0 $gray-600;
+}
+
+.modal-content {
+  border: 0.119rem solid $gray-600;
+}
+
+.modal-header {
+  border-bottom: 0.119rem solid $gray-600;
 }
 
 .alert-success {
