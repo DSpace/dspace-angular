@@ -15,16 +15,22 @@
           </div>
           @if (formGroup) {
             <ds-form [formId]="'edit-bitstream-form-id'"
-              [formGroup]="formGroup"
-              [formModel]="formModel"
-              [formLayout]="formLayout"
-              [submitLabel]="'form.save'"
-              (submitForm)="onSubmit()"
-              (cancel)="onCancel()"
-              (dfChange)="onChange($event)">
+                     [formGroup]="formGroup"
+                     [formModel]="formModel"
+                     [formLayout]="formLayout"
+                     [submitLabel]="'form.save'"
+                     (submitForm)="onSubmit()"
+                     (cancel)="onCancel()"
+                     (dfChange)="onChange($event)">
               <div additional class="container py-3">
-                <a [routerLink]="['/bitstreams', bitstreamRD?.payload?.id, 'authorizations']">{{'bitstream.edit.authorizations.link' | translate}}</a>
-              </div>
+                <p>
+                  <a
+                    [routerLink]="['/bitstreams', bitstreamRD?.payload?.id, 'authorizations']">{{'bitstream.edit.authorizations.link' | translate}}</a>
+                </p>
+                <p>
+                  <a
+                    [routerLink]="['/bitstreams', bitstreamRD?.payload?.id, 'content']">{{'bitstream.edit.replace.link' | translate}}</a>
+                </p>              </div>
             </ds-form>
           }
         </div>
@@ -35,7 +41,7 @@
     }
     @if (!bitstreamRD || bitstreamRD?.isLoading) {
       <ds-loading
-      message="{{'loading.bitstream' | translate}}"></ds-loading>
+        message="{{'loading.bitstream' | translate}}"></ds-loading>
     }
   </div>
 </ng-container>

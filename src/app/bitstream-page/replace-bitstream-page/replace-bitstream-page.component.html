@@ -1,0 +1,55 @@
+<ng-container *ngVar="(bitstreamRD$ | async) as bitstreamRD">
+  <div class="container">
+    <div>
+      <h3>{{
+          'bitstream.replace.page.header' | translate: {
+            fileName: bitstreamRD.payload.name,
+            fileSize: bitstreamRD.payload.sizeBytes | dsFileSize
+          }
+        }}</h3>
+      <p>
+        {{
+          'bitstream.replace.page.content' | translate: {
+            fileName: bitstreamRD.payload.name
+          }
+        }}
+      </p>
+    </div>
+    <ds-uploader #uploader class="w-100"
+                 [dropMsg]="'item.bitstreams.upload.drop-message'"
+                 [dropOverDocumentMsg]="'item.bitstreams.upload.drop-message'"
+                 [enableDragOverDocument]="true"
+                 [uploadFilesOptions]="uploadFilesOptions"
+                 (onCompleteItem)="onCompleteItem($event)"
+                 (onUploadError)="onUploadError()"></ds-uploader>
+    <div class="mb-2 d-flex">
+      <ui-switch size="small"
+                 [(ngModel)]="shouldReplaceName"></ui-switch>
+      <span class="font-weight-bold ms-2">{{ 'bitstream.replace.page.replace-name' | translate }}</span>
+    </div>
+    <div class="mb-2">
+      <span [ngClass]="{ 'invisible': shouldReplaceName }" class="text-muted"> {{ 'bitstream.replace.page.replace-name-hint' | translate }}</span>
+    </div>
+    @if (bitstreamRD?.hasFailed) {
+      <ds-error message="{{'error.bitstream' | translate}}"></ds-error>
+    }
+    @if (!bitstreamRD || bitstreamRD?.isLoading) {
+      <ds-loading
+        message="{{'loading.bitstream' | translate}}"></ds-loading>
+    }
+
+    <div class="button-row bottom">
+      <div class="mt-4 float-right">
+        <button class="back-button btn btn-outline-secondary"
+                (click)="back()"><i
+          class="fas fa-arrow-left"></i>
+          <span class="d-none d-sm-inline">&nbsp;{{ "bitstream.replace.page.button.return" | translate }}</span>
+        </button>
+        <button class="save-button btn btn-primary" (click)="save(uploader);"><i
+          class="fas fa-save"></i>
+          <span class="d-none d-sm-inline">&nbsp;{{ "bitstream.replace.page.button.save" | translate }}</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-container>

@@ -92,6 +92,11 @@ export class UploaderComponent implements OnInit, AfterViewInit {
   @Input() ariaLabel: string;
 
   /**
+   * Component that defines the area in which `dragOver` events are processed
+   */
+  @Input() dragoverContainer = 'ds-app';
+
+  /**
    * The function to call when upload is completed
    */
   @Output() onCompleteItem: EventEmitter<any> = new EventEmitter<any>();
@@ -113,7 +118,11 @@ export class UploaderComponent implements OnInit, AfterViewInit {
 
   @HostListener('window:dragover', ['$event'])
   onDragOver(event: any) {
-
+    if (hasValue(this.dragoverContainer)) {
+      if (!event.target.closest(this.dragoverContainer)) {
+        return;
+      }
+    }
     if (this.enableDragOverDocument && this.dragService.isAllowedDragOverPage()) {
       // Show drop area on the page
       event.preventDefault();
