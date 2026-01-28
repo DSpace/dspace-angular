@@ -68,6 +68,7 @@ import { environment } from '../../../../../environments/environment';
 import { SubmissionService } from '../../../../submission/submission.service';
 import { SubmissionObjectService } from '../../../../submission/submission-object.service';
 import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
+import { getMockFormBuilderService } from '../../testing/form-builder-service.mock';
 import { FormBuilderService } from '../form-builder.service';
 import { DsDynamicFormControlContainerComponent } from './ds-dynamic-form-control-container.component';
 import { dsDynamicFormControlMapFn } from './ds-dynamic-form-control-map-fn';
@@ -88,6 +89,7 @@ import { DsDynamicOneboxComponent } from './models/onebox/dynamic-onebox.compone
 import { DynamicOneboxModel } from './models/onebox/dynamic-onebox.model';
 import { DsDynamicRelationGroupComponent } from './models/relation-group/dynamic-relation-group.components';
 import { DynamicRelationGroupModel } from './models/relation-group/dynamic-relation-group.model';
+import { DsDynamicRelationInlineGroupComponent } from './models/relation-inline-group/dynamic-relation-inline-group.components';
 import { DsDynamicScrollableDropdownComponent } from './models/scrollable-dropdown/dynamic-scrollable-dropdown.component';
 import { DynamicScrollableDropdownModel } from './models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 import { DsDynamicTagComponent } from './models/tag/dynamic-tag.component';
@@ -173,8 +175,23 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
       submissionId: '1234',
       id: 'relationGroup',
       formConfiguration: [],
+      isInlineGroup: false,
       mandatoryField: '',
       name: 'relationGroup',
+      relationFields: [],
+      scopeUUID: '',
+      submissionScope: '',
+      repeatable: false,
+      metadataFields: [],
+      hasSelectableMetadata: false,
+    }),
+    new DynamicRelationGroupModel({
+      submissionId: '1234',
+      id: 'inlineRelationGroup',
+      formConfiguration: [],
+      isInlineGroup: true,
+      mandatoryField: '',
+      name: 'inlineRelationGroup',
       relationFields: [],
       scopeUUID: '',
       submissionScope: '',
@@ -229,7 +246,7 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
         { provide: Store, useValue: {} },
         { provide: RelationshipDataService, useValue: {} },
         { provide: SelectableListService, useValue: {} },
-        { provide: FormBuilderService, useValue: {} },
+        { provide: FormBuilderService, useValue: getMockFormBuilderService() },
         { provide: SubmissionService, useValue: {} },
         {
           provide: SubmissionObjectService,
@@ -375,10 +392,11 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
     expect(testFn(formModel[19])).toEqual(DsDynamicListComponent);
     expect(testFn(formModel[20])).toEqual(DsDynamicListComponent);
     expect(testFn(formModel[21])).toEqual(DsDynamicRelationGroupComponent);
-    expect(testFn(formModel[22])).toEqual(DsDatePickerComponent);
-    expect(testFn(formModel[23])).toEqual(DsDynamicLookupComponent);
+    expect(testFn(formModel[22])).toEqual(DsDynamicRelationInlineGroupComponent);
+    expect(testFn(formModel[23])).toEqual(DsDatePickerComponent);
     expect(testFn(formModel[24])).toEqual(DsDynamicLookupComponent);
-    expect(testFn(formModel[25])).toEqual(DsDynamicFormGroupComponent);
+    expect(testFn(formModel[25])).toEqual(DsDynamicLookupComponent);
+    expect(testFn(formModel[26])).toEqual(DsDynamicFormGroupComponent);
   });
 
 });

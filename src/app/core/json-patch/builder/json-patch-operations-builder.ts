@@ -64,7 +64,6 @@ export class JsonPatchOperationsBuilder {
    *    the value to update the referenced path
    * @param plain
    *    a boolean representing if the value to be added is a plain text value
-   * @param securityLevel
    * @param language
    */
   replace(path: JsonPatchOperationPathObject, value, plain = false, language = null) {

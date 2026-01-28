@@ -22,11 +22,15 @@ import { SubmissionFormsModel } from '@dspace/core/config/models/config-submissi
 import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
 import { FormFieldModel } from '@dspace/core/shared/form/models/form-field.model';
 import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
+import { Vocabulary } from '@dspace/core/submission/vocabularies/models/vocabulary.model';
 import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
+import { SubmissionServiceStub } from '@dspace/core/testing/submission-service.stub';
 import { createTestComponent } from '@dspace/core/testing/utils.test';
 import { VocabularyServiceStub } from '@dspace/core/testing/vocabulary-service.stub';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { XSRFService } from '@dspace/core/xsrf/xsrf.service';
 import {
+  NgbModal,
   NgbModule,
   NgbTooltip,
 } from '@ng-bootstrap/ng-bootstrap';
@@ -74,6 +78,49 @@ const initialState: any = {
     'route': {},
   },
 };
+
+const vocabulary: any = Object.assign(new Vocabulary(), {
+  id: 'types',
+  name: 'types',
+  scrollable: true,
+  hierarchical: false,
+  preloadLevel: 1,
+  entity: null,
+  externalSource: null,
+  type: 'vocabulary',
+  uuid: 'vocabulary-types',
+  _links: {
+    self: {
+      href: 'https://rest.api/rest/api/submission/vocabularies/types',
+    },
+    entries: {
+      href: 'https://rest.api/rest/api/submission/vocabularies/types/entries',
+    },
+  },
+});
+
+const vocabularyExternal: any = Object.assign(new Vocabulary(), {
+  id: 'author',
+  name: 'author',
+  scrollable: true,
+  hierarchical: false,
+  preloadLevel: 1,
+  entity: 'test',
+  externalSource: {
+    'dc.contributor.author': 'authorExternalSource',
+  },
+  type: 'vocabulary',
+  uuid: 'vocabulary-author',
+  _links: {
+    self: {
+      href: 'https://rest.api/rest/api/submission/vocabularies/types',
+    },
+    entries: {
+      href: 'https://rest.api/rest/api/submission/vocabularies/types/entries',
+    },
+  },
+});
+
 function init() {
   FORM_GROUP_TEST_MODEL_CONFIG = {
     disabled: false,
@@ -111,6 +158,7 @@ function init() {
     submissionId,
     id: 'dc_contributor_author',
     label: 'Authors',
+    isInlineGroup: false,
     mandatoryField: 'dc.contributor.author',
     name: 'dc.contributor.author',
     placeholder: 'Authors',
@@ -168,7 +216,9 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
         FormBuilderService,
         FormComponent,
         FormService,
+        NgbModal,
         provideMockStore({ initialState }),
+        { provide: SubmissionService, useClass: SubmissionServiceStub },
         { provide: VocabularyService, useValue: vocabularyServiceStub },
         { provide: DsDynamicTypeBindRelationService, useClass: DsDynamicTypeBindRelationService },
         { provide: SubmissionObjectService, useValue: {} },
@@ -187,6 +237,7 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
   describe('', () => {
     // synchronous beforeEach
     beforeEach(() => {
+      spyOn(vocabularyServiceStub, 'findVocabularyById').and.returnValue(createSuccessfulRemoteDataObject$(vocabulary));
       html = `<ds-dynamic-relation-group [model]="model"
                             [formId]="formId"
                             [group]="group"

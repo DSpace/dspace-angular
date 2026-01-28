@@ -290,6 +290,7 @@ describe('FormBuilderService test suite', () => {
             }],
           } as FormFieldModel],
         } as FormRowModel],
+        isInlineGroup: false,
         mandatoryField: '',
         name: 'testRelationGroup',
         relationFields: [],
