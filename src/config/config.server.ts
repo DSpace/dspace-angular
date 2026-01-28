@@ -169,6 +169,13 @@ const buildBaseUrl = (config: ServerConfig): void => {
   ].join('');
 };
 
+/**
+ * Removes all server-side specific settings from the application configuration.
+ * This method is used to ensure the "assets/config.json" that provides runtime
+ * configuration to CSR (client side rendering) excludes these server-side keys.
+ *
+ * @param config  the application configuration
+ */
 const removeServerSideConfig = (config: AppConfig): any => {
   const clientConfig = JSON.parse(JSON.stringify(config));
   delete clientConfig.rest.ssrBaseUrl;
