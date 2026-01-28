@@ -11,7 +11,7 @@ import { BitstreamDataService } from '../../../core/data/bitstream-data.service'
 import { hasValue, isNotEmpty } from '../../../shared/empty.util';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { RequestService } from '../../../core/data/request.service';
-import { getFirstSucceededRemoteData, getRemoteDataPayload } from '../../../core/shared/operators';
+import { getAllSucceededRemoteData, getRemoteDataPayload } from '../../../core/shared/operators';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { Bundle } from '../../../core/shared/bundle.model';
@@ -40,6 +40,16 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
    * The currently listed bundles
    */
   bundles$: Observable<Bundle[]>;
+
+  /**
+   * The URL used as the key for bundle updates in ObjectUpdatesService
+   */
+  bundleUpdatesUrl: string;
+
+  /**
+   * The current field updates for all bundles
+   */
+  bundleFieldUpdates$: Observable<FieldUpdates>;
 
   /**
    * The page options to use for fetching the bundles
@@ -97,10 +107,24 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
    * Actions to perform after the item has been initialized
    */
   postItemInit(): void {
+    // Set up the URL used to track bundle updates
+    this.bundleUpdatesUrl = `${this.item.self}/bundles`;
+
+    // Use getAllSucceededRemoteData to keep listening for updates after cache invalidation
     this.bundles$ = this.itemService.getBundles(this.item.id, new PaginatedSearchOptions({pagination: this.bundlesOptions})).pipe(
-      getFirstSucceededRemoteData(),
+      getAllSucceededRemoteData(),
       getRemoteDataPayload(),
       map((bundlePage: PaginatedList<Bundle>) => bundlePage.page)
+    );
+
+    // Initialize the bundle field updates in the object updates service
+    this.bundles$.pipe(take(1)).subscribe((bundles: Bundle[]) => {
+      this.objectUpdatesService.initialize(this.bundleUpdatesUrl, bundles, new Date());
+    });
+
+    // Get field updates for bundles to track their deletion state
+    this.bundleFieldUpdates$ = this.bundles$.pipe(
+      switchMap((bundles: Bundle[]) => this.objectUpdatesService.getFieldUpdatesExclusive(this.bundleUpdatesUrl, bundles))
     );
   }
 
@@ -114,36 +138,85 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
 
   /**
    * Submit the current changes
-   * Bitstreams marked as deleted send out a delete request to the rest API
+   * Bundles marked as deleted send out a delete request to the REST API (which also deletes their bitstreams)
+   * Bitstreams marked as deleted (in non-deleted bundles) send out a delete request to the REST API
    * Display notifications and reset the current item/updates
    */
   submit() {
     this.submitting = true;
     const bundlesOnce$ = this.bundles$.pipe(take(1));
 
-    // Fetch all removed bitstreams from the object update service
-    const removedBitstreams$ = bundlesOnce$.pipe(
-      switchMap((bundles: Bundle[]) => observableZip(
-        ...bundles.map((bundle: Bundle) => this.objectUpdatesService.getFieldUpdates(bundle.self, [], true))
-      )),
-      map((fieldUpdates: FieldUpdates[]) => ([] as FieldUpdate[]).concat(
-        ...fieldUpdates.map((updates: FieldUpdates) => Object.values(updates).filter((fieldUpdate: FieldUpdate) => fieldUpdate.changeType === FieldChangeType.REMOVE))
-      )),
-      map((fieldUpdates: FieldUpdate[]) => fieldUpdates.map((fieldUpdate: FieldUpdate) => fieldUpdate.field))
-    );
+    // Get bundle field updates to determine which bundles are marked for removal
+    const bundleUpdatesOnce$ = this.bundleFieldUpdates$.pipe(take(1));
 
-    // Send out delete requests for all deleted bitstreams
-    const removedResponses$: Observable<RemoteData<NoContent>> = removedBitstreams$.pipe(
+    observableZip(bundlesOnce$, bundleUpdatesOnce$).pipe(
       take(1),
-      switchMap((removedBitstreams: Bitstream[]) => {
-        return this.bitstreamService.removeMultiple(removedBitstreams);
-      })
-    );
+      switchMap(([bundles, bundleUpdates]: [Bundle[], FieldUpdates]) => {
+        // Separate bundles into removed and non-removed
+        const removedBundles: Bundle[] = [];
+        const nonRemovedBundles: Bundle[] = [];
 
-    // Perform the setup actions from above in order and display notifications
-    removedResponses$.subscribe((responses: RemoteData<NoContent>) => {
-      this.displayNotifications('item.edit.bitstreams.notifications.remove', [responses]);
+        bundles.forEach((bundle: Bundle) => {
+          const update = bundleUpdates[bundle.uuid];
+          if (update?.changeType === FieldChangeType.REMOVE) {
+            removedBundles.push(bundle);
+          } else {
+            nonRemovedBundles.push(bundle);
+          }
+        });
+
+        // Get bitstreams to remove from non-removed bundles only
+        const removedBitstreams$ = nonRemovedBundles.length > 0
+          ? observableZip(
+              ...nonRemovedBundles.map((bundle: Bundle) => this.objectUpdatesService.getFieldUpdates(bundle.self, [], true))
+            ).pipe(
+              map((fieldUpdates: FieldUpdates[]) => ([] as FieldUpdate[]).concat(
+                ...fieldUpdates.map((updates: FieldUpdates) => Object.values(updates).filter((fieldUpdate: FieldUpdate) => fieldUpdate.changeType === FieldChangeType.REMOVE))
+              )),
+              map((fieldUpdates: FieldUpdate[]) => fieldUpdates.map((fieldUpdate: FieldUpdate) => fieldUpdate.field as Bitstream))
+            )
+          : new Observable<Bitstream[]>((observer) => {
+              observer.next([]);
+              observer.complete();
+            });
+
+        return removedBitstreams$.pipe(
+          take(1),
+          switchMap((removedBitstreams: Bitstream[]) => {
+            const responses$: Observable<RemoteData<NoContent>>[] = [];
+
+            // Delete removed bundles (this also deletes their bitstreams)
+            if (removedBundles.length > 0) {
+              responses$.push(this.bundleService.removeMultiple(removedBundles));
+            }
+
+            // Delete removed bitstreams from non-removed bundles
+            if (removedBitstreams.length > 0) {
+              responses$.push(this.bitstreamService.removeMultiple(removedBitstreams));
+            }
+
+            // If no changes, return a successful empty response
+            if (responses$.length === 0) {
+              return new Observable<RemoteData<NoContent>[]>((observer) => {
+                observer.next([]);
+                observer.complete();
+              });
+            }
+
+            return observableZip(...responses$);
+          })
+        );
+      })
+    ).subscribe((responses: RemoteData<NoContent>[]) => {
+      this.displayNotifications('item.edit.bitstreams.notifications.remove', responses);
       this.submitting = false;
+
+      // Refresh the bundles list after successful deletion
+      const hasSuccessfulResponses = responses.some((response: RemoteData<NoContent>) => hasValue(response) && response.hasSucceeded);
+      if (hasSuccessfulResponses && hasValue(this.item?._links?.bundles?.href)) {
+        // Clear cache to trigger a refresh of the bundles list
+        this.requestService.removeByHrefSubstring(this.item._links.bundles.href);
+      }
     });
   }
 
@@ -203,13 +276,23 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
    */
   discard() {
     const undoNotification = this.notificationsService.info(this.getNotificationTitle('discarded'), this.getNotificationContent('discarded'), {timeOut: this.discardTimeOut});
-    this.objectUpdatesService.discardAllFieldUpdates(this.url, undoNotification);
+    // Discard bundle updates
+    this.objectUpdatesService.discardFieldUpdates(this.bundleUpdatesUrl, undoNotification);
+    // Discard bitstream updates for each bundle
+    this.bundles$.pipe(take(1)).subscribe((bundles: Bundle[]) => {
+      bundles.forEach((bundle: Bundle) => {
+        this.objectUpdatesService.discardFieldUpdates(bundle.self, undoNotification);
+      });
+    });
   }
 
   /**
    * Request the object updates service to undo discarding all changes to this item
    */
   reinstate() {
+    // Reinstate bundle updates
+    this.objectUpdatesService.reinstateFieldUpdates(this.bundleUpdatesUrl);
+    // Reinstate bitstream updates for each bundle
     this.bundles$.pipe(take(1)).subscribe((bundles: Bundle[]) => {
       bundles.forEach((bundle: Bundle) => {
         this.objectUpdatesService.reinstateFieldUpdates(bundle.self);
@@ -222,7 +305,10 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
    */
   isReinstatable(): Observable<boolean> {
     return this.bundles$.pipe(
-      switchMap((bundles: Bundle[]) => observableZip(...bundles.map((bundle: Bundle) => this.objectUpdatesService.isReinstatable(bundle.self)))),
+      switchMap((bundles: Bundle[]) => observableZip(
+        this.objectUpdatesService.isReinstatable(this.bundleUpdatesUrl),
+        ...bundles.map((bundle: Bundle) => this.objectUpdatesService.isReinstatable(bundle.self))
+      )),
       map((reinstatable: boolean[]) => reinstatable.includes(true))
     );
   }
@@ -232,7 +318,10 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
    */
   hasChanges(): Observable<boolean> {
     return this.bundles$.pipe(
-      switchMap((bundles: Bundle[]) => observableZip(...bundles.map((bundle: Bundle) => this.objectUpdatesService.hasUpdates(bundle.self)))),
+      switchMap((bundles: Bundle[]) => observableZip(
+        this.objectUpdatesService.hasUpdates(this.bundleUpdatesUrl),
+        ...bundles.map((bundle: Bundle) => this.objectUpdatesService.hasUpdates(bundle.self))
+      )),
       map((hasChanges: boolean[]) => hasChanges.includes(true))
     );
   }

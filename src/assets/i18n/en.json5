@@ -1926,6 +1926,12 @@
 
   "item.edit.bitstreams.bundle.edit.buttons.upload": "Upload",
 
+  "item.edit.bitstreams.bundle.edit.buttons.remove": "Remove bundle",
+
+  "item.edit.bitstreams.bundle.edit.buttons.undo": "Undo",
+
+  "item.edit.bitstreams.bundle.remove-warning": "All bitstreams in this bundle will be deleted.",
+
   "item.edit.bitstreams.bundle.displaying": "Currently displaying {{ amount }} bitstreams of {{ total }}.",
 
   "item.edit.bitstreams.bundle.load.all": "Load all ({{ total }})",

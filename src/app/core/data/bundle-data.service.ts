@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map, switchMap, take } from 'rxjs/operators';
+import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
+import { find, map, switchMap, take } from 'rxjs/operators';
 import { hasValue } from '../../shared/empty.util';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
@@ -9,9 +9,10 @@ import { Bundle } from '../shared/bundle.model';
 import { BUNDLE } from '../shared/bundle.resource-type';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
+import { NoContent } from '../shared/NoContent.model';
 import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
-import { GetRequest } from './request.models';
+import { GetRequest, PatchRequest } from './request.models';
 import { RequestService } from './request.service';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { Bitstream } from '../shared/bitstream.model';
@@ -21,7 +22,7 @@ import { IdentifiableDataService } from './base/identifiable-data.service';
 import { PatchData, PatchDataImpl } from './base/patch-data';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 import { RestRequestMethod } from './rest-request-method';
-import { Operation } from 'fast-json-patch';
+import { Operation, RemoveOperation } from 'fast-json-patch';
 import { dataService } from './base/data-service.decorator';
 
 /**
@@ -174,5 +175,35 @@ export class BundleDataService extends IdentifiableDataService<Bundle> implement
    */
   public createPatchFromCache(object: Bundle): Observable<Operation[]> {
     return this.patchData.createPatchFromCache(object);
+  }
+
+  /**
+   * Delete multiple {@link Bundle}s at once by sending a PATCH request to the backend
+   * This will also delete all bitstreams contained in the bundles.
+   *
+   * @param bundles The bundles that should be removed
+   */
+  removeMultiple(bundles: Bundle[]): Observable<RemoteData<NoContent>> {
+    const operations: RemoveOperation[] = bundles.map((bundle: Bundle) => {
+      return {
+        op: 'remove',
+        path: `/bundles/${bundle.id}`,
+      };
+    });
+    const requestId: string = this.requestService.generateRequestId();
+
+    const hrefObs: Observable<string> = this.getBrowseEndpoint();
+
+    hrefObs.pipe(
+      find((href: string) => hasValue(href)),
+    ).subscribe((href: string) => {
+      const request = new PatchRequest(requestId, href, operations);
+      if (hasValue(this.responseMsToLive)) {
+        request.responseMsToLive = this.responseMsToLive;
+      }
+      this.requestService.send(request);
+    });
+
+    return this.rdbService.buildFromRequestUUIDAndAwait(requestId, () => observableCombineLatest(bundles.map((bundle: Bundle) => this.invalidateByHref(bundle._links.self.href))));
   }
 }

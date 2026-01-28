@@ -5,6 +5,9 @@ import { ResponsiveColumnSizes } from '../../../../shared/responsive-table-sizes
 import { ResponsiveTableSizes } from '../../../../shared/responsive-table-sizes/responsive-table-sizes';
 import { getItemPageRoute } from '../../../item-page-routing-paths';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
+import { FieldUpdate } from '../../../../core/data/object-updates/field-update.model';
+import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
 
 @Component({
   selector: 'ds-item-edit-bitstream-bundle',
@@ -39,6 +42,16 @@ export class ItemEditBitstreamBundleComponent implements OnInit {
   @Input() columnSizes: ResponsiveTableSizes;
 
   /**
+   * The current field update state of the bundle (for tracking deletion)
+   */
+  @Input() bundleUpdate: FieldUpdate;
+
+  /**
+   * The URL used as the key for bundle updates in ObjectUpdatesService
+   */
+  @Input() bundleUpdatesUrl: string;
+
+  /**
    * Send an event when the user drops an object on the pagination
    * The event contains details about the index the object came from and is dropped to (across the entirety of the list,
    * not just within a single page)
@@ -59,6 +72,7 @@ export class ItemEditBitstreamBundleComponent implements OnInit {
   constructor(
     protected viewContainerRef: ViewContainerRef,
     public dsoNameService: DSONameService,
+    private objectUpdatesService: ObjectUpdatesService,
   ) {
   }
 
@@ -66,5 +80,40 @@ export class ItemEditBitstreamBundleComponent implements OnInit {
     this.bundleNameColumn = this.columnSizes.combineColumns(0, 2);
     this.viewContainerRef.createEmbeddedView(this.bundleView);
     this.itemPageRoute = getItemPageRoute(this.item);
+  }
+
+  /**
+   * Mark the bundle for removal
+   */
+  removeBundle(): void {
+    this.objectUpdatesService.saveRemoveFieldUpdate(this.bundleUpdatesUrl, this.bundle);
+  }
+
+  /**
+   * Undo the removal of this bundle
+   */
+  undoBundleRemove(): void {
+    this.objectUpdatesService.removeSingleFieldUpdate(this.bundleUpdatesUrl, this.bundle.uuid);
+  }
+
+  /**
+   * Check if the bundle can be removed (not already marked for removal)
+   */
+  canRemove(): boolean {
+    return this.bundleUpdate?.changeType !== FieldChangeType.REMOVE;
+  }
+
+  /**
+   * Check if the remove action can be undone (bundle is marked for some change)
+   */
+  canUndo(): boolean {
+    return this.bundleUpdate?.changeType >= 0;
+  }
+
+  /**
+   * Check if the bundle is currently marked for removal
+   */
+  isMarkedForRemoval(): boolean {
+    return this.bundleUpdate?.changeType === FieldChangeType.REMOVE;
   }
 }

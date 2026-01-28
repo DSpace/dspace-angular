@@ -31,7 +31,9 @@
                 [attr.data-test]="'download-button' | dsBrowserOnly">
           <i class="fas fa-download fa-fw"></i>
         </a>
-        <button [routerLink]="['/bitstreams/', bitstream.id, 'edit']" class="btn btn-outline-primary btn-sm"
+        <button [routerLink]="['/bitstreams/', bitstream.id, 'edit']" 
+                [disabled]="isBundleMarkedForRemoval()"
+                class="btn btn-outline-primary btn-sm"
                 title="{{'item.edit.bitstreams.edit.buttons.edit' | translate}}">
           <i class="fas fa-edit fa-fw"></i>
         </button>

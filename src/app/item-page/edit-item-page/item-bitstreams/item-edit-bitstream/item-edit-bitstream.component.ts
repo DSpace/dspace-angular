@@ -39,6 +39,12 @@ export class ItemEditBitstreamComponent implements OnChanges, OnInit {
   @Input() bundleUrl: string;
 
   /**
+   * The current field update state of the parent bundle (for tracking bundle deletion)
+   * When the bundle is marked for deletion, bitstream actions should be disabled
+   */
+  @Input() bundleUpdate: FieldUpdate;
+
+  /**
    * The bootstrap sizes used for the columns within this table
    */
   @Input() columnSizes: ResponsiveTableSizes;
@@ -101,16 +107,31 @@ export class ItemEditBitstreamComponent implements OnChanges, OnInit {
   }
 
   /**
+   * Check if the parent bundle is marked for removal
+   */
+  isBundleMarkedForRemoval(): boolean {
+    return this.bundleUpdate?.changeType === FieldChangeType.REMOVE;
+  }
+
+  /**
    * Check if a user should be allowed to remove this field
+   * Disabled if bundle is marked for removal (bitstreams will be deleted with bundle)
    */
   canRemove(): boolean {
+    if (this.isBundleMarkedForRemoval()) {
+      return false;
+    }
     return this.fieldUpdate.changeType !== FieldChangeType.REMOVE;
   }
 
   /**
    * Check if a user should be allowed to cancel the update to this field
+   * Disabled if bundle is marked for removal (bitstreams will be deleted with bundle)
    */
   canUndo(): boolean {
+    if (this.isBundleMarkedForRemoval()) {
+      return false;
+    }
     return this.fieldUpdate.changeType >= 0;
   }
 

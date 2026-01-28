@@ -222,9 +222,10 @@ describe('ItemBitstreamsComponent', () => {
   });
 
   describe('discard', () => {
-    it('should discard ALL field updates', () => {
+    it('should discard field updates for bundles and bitstreams', () => {
       comp.discard();
-      expect(objectUpdatesService.discardAllFieldUpdates).toHaveBeenCalled();
+      // Should discard bundle updates and bitstream updates for each bundle
+      expect(objectUpdatesService.discardFieldUpdates).toHaveBeenCalled();
     });
   });
 

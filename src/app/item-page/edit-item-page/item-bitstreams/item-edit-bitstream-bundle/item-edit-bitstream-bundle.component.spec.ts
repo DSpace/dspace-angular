@@ -6,11 +6,14 @@ import { Item } from '../../../../core/shared/item.model';
 import { Bundle } from '../../../../core/shared/bundle.model';
 import { ResponsiveTableSizes } from '../../../../shared/responsive-table-sizes/responsive-table-sizes';
 import { ResponsiveColumnSizes } from '../../../../shared/responsive-table-sizes/responsive-column-sizes';
+import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 
 describe('ItemEditBitstreamBundleComponent', () => {
   let comp: ItemEditBitstreamBundleComponent;
   let fixture: ComponentFixture<ItemEditBitstreamBundleComponent>;
   let viewContainerRef: ViewContainerRef;
+  let objectUpdatesService: ObjectUpdatesService;
 
   const columnSizes = new ResponsiveTableSizes([
     new ResponsiveColumnSizes(2, 2, 3, 4, 4),
@@ -32,9 +35,18 @@ describe('ItemEditBitstreamBundleComponent', () => {
   });
 
   beforeEach(waitForAsync(() => {
+    objectUpdatesService = jasmine.createSpyObj('objectUpdatesService', {
+      saveRemoveFieldUpdate: {},
+      removeSingleFieldUpdate: {}
+    });
+
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
       declarations: [ItemEditBitstreamBundleComponent],
+      providers: [
+        { provide: ObjectUpdatesService, useValue: objectUpdatesService },
+        { provide: DSONameService, useValue: { getName: () => 'Test Bundle' } }
+      ],
       schemas: [
         NO_ERRORS_SCHEMA
       ]

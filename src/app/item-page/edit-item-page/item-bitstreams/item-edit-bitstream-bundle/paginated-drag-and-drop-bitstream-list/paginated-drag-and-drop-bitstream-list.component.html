@@ -13,13 +13,14 @@
         <div class="row bitstream-row" *ngFor="let uuid of customOrder" cdkDrag
              [id]="uuid"
              [ngClass]="{
-                  'table-warning': updates[uuid].changeType === 0,
-                  'table-danger': updates[uuid].changeType === 2,
-                  'table-success': updates[uuid].changeType === 1,
-                  'bg-white': updates[uuid].changeType === undefined
+                  'table-danger': isBundleMarkedForRemoval() || updates[uuid].changeType === 2,
+                  'table-warning': !isBundleMarkedForRemoval() && updates[uuid].changeType === 0,
+                  'table-success': !isBundleMarkedForRemoval() && updates[uuid].changeType === 1,
+                  'bg-white': !isBundleMarkedForRemoval() && updates[uuid].changeType === undefined
                 }">
           <ds-item-edit-bitstream [fieldUpdate]="updates[uuid]"
                                   [bundleUrl]="bundle.self"
+                                  [bundleUpdate]="bundleUpdate"
                                   [columnSizes]="columnSizes">
             <div class="d-flex align-items-center bitstream-row-drag-handle" slot="drag-handle" cdkDragHandle tabindex="0">
               <ds-item-edit-bitstream-drag-handle></ds-item-edit-bitstream-drag-handle>

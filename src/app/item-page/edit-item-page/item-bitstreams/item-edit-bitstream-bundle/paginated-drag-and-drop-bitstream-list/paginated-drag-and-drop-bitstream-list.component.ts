@@ -12,6 +12,8 @@ import { ObjectValuesPipe } from '../../../../../shared/utils/object-values-pipe
 import { RequestService } from '../../../../../core/data/request.service';
 import { PaginationService } from '../../../../../core/pagination/pagination.service';
 import { PaginationComponentOptions } from '../../../../../shared/pagination/pagination-component-options.model';
+import { FieldUpdate } from '../../../../../core/data/object-updates/field-update.model';
+import { FieldChangeType } from '../../../../../core/data/object-updates/field-change-type.model';
 
 @Component({
   selector: 'ds-paginated-drag-and-drop-bitstream-list',
@@ -34,6 +36,19 @@ export class PaginatedDragAndDropBitstreamListComponent extends AbstractPaginate
    * The bootstrap sizes used for the columns within this table
    */
   @Input() columnSizes: ResponsiveTableSizes;
+
+  /**
+   * The current field update state of the parent bundle (for tracking bundle deletion)
+   * When the bundle is marked for deletion, all bitstreams should show as being deleted too
+   */
+  @Input() bundleUpdate: FieldUpdate;
+
+  /**
+   * Check if the parent bundle is marked for removal
+   */
+  isBundleMarkedForRemoval(): boolean {
+    return this.bundleUpdate?.changeType === FieldChangeType.REMOVE;
+  }
 
   constructor(protected objectUpdatesService: ObjectUpdatesService,
               protected elRef: ElementRef,
