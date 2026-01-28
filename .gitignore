@@ -36,9 +36,9 @@ yarn-error.log
 
 .java-version
 
-.env
 /nbproject/
 
 junit.xml
 
 /src/mirador-viewer/config.local.js
+config.bat
