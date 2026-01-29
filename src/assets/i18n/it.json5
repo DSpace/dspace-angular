@@ -3121,12 +3121,25 @@
   // "error.top-level-communities": "Error fetching top-level communities",
   "error.top-level-communities": "Errore durante il recupero delle community di primo livello",
 
-  // "error.validation.license.notgranted": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
-  "error.validation.license.notgranted": "È necessario concedere questa licenza per completare l'immisione. Se non sei in grado di concedere questa licenza in questo momento, puoi salvare il tuo lavoro e tornare più tardi o rimuovere l'immissione.",
+  // "error.validation.license.required": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
+  // TODO New key - Add a translation
+  "error.validation.license.required": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
 
   // "error.validation.cclicense.required": "You must grant this cclicense to complete your submission. If you are unable to grant the cclicense at this time, you may save your work and return later or remove the submission.",
   // TODO New key - Add a translation
   "error.validation.cclicense.required": "You must grant this cclicense to complete your submission. If you are unable to grant the cclicense at this time, you may save your work and return later or remove the submission.",
+
+  // "error.validation.custom-url.conflict": "The custom url has been already used, please try with a new one.",
+  // TODO New key - Add a translation
+  "error.validation.custom-url.conflict": "The custom url has been already used, please try with a new one.",
+
+  // "error.validation.custom-url.empty": "The custom url is required and cannot be empty.",
+  // TODO New key - Add a translation
+  "error.validation.custom-url.empty": "The custom url is required and cannot be empty.",
+
+  // "error.validation.custom-url.invalid-characters": "The custom url contains invalid characters.",
+  // TODO New key - Add a translation
+  "error.validation.custom-url.invalid-characters": "The custom url contains invalid characters.",
 
   // "error.validation.pattern": "This input is restricted by the current pattern: {{ pattern }}.",
   "error.validation.pattern": "L'input è limitato dal pattern in uso: {{ pattern }}.",
@@ -9017,6 +9030,10 @@
   // "submission.sections.submit.progressbar.CClicense": "Creative commons license",
   "submission.sections.submit.progressbar.CClicense": "Licenza Creative commons",
 
+  // "submission.sections.submit.progressbar.CustomUrlStep": "Custom Url",
+  // TODO New key - Add a translation
+  "submission.sections.submit.progressbar.CustomUrlStep": "Custom Url",
+
   // "submission.sections.submit.progressbar.describe.recycle": "Recycle",
   "submission.sections.submit.progressbar.describe.recycle": "Ricicla",
 
@@ -9184,6 +9201,18 @@
 
   // "submission.sections.upload.upload-successful": "Upload successful",
   "submission.sections.upload.upload-successful": "Caricamento riuscito",
+
+  // "submission.sections.custom-url.label.previous-urls": "Previous Urls",
+  // TODO New key - Add a translation
+  "submission.sections.custom-url.label.previous-urls": "Previous Urls",
+
+  // "submission.sections.custom-url.alert.info": "Define here a custom URL which will be used to reach the item instead of using an internal randomly generated UUID identifier. ",
+  // TODO New key - Add a translation
+  "submission.sections.custom-url.alert.info": "Define here a custom URL which will be used to reach the item instead of using an internal randomly generated UUID identifier. ",
+
+  // "submission.sections.custom-url.url.placeholder": "Custom URL",
+  // TODO New key - Add a translation
+  "submission.sections.custom-url.url.placeholder": "Custom URL",
 
   // "submission.sections.accesses.form.discoverable-description": "When checked, this item will be discoverable in search/browse. When unchecked, the item will only be available via a direct link and will never appear in search/browse.",
   "submission.sections.accesses.form.discoverable-description": "Una volta selezionato, questo item sarà individuabile nella ricerca/navigazione. Se deselezionato, l'item sarà disponibile solo tramite un collegamento diretto e non apparirà mai nella ricerca / navigazione.",
@@ -10195,7 +10224,7 @@
   "listable-notification-object.default-message": "Questo oggetto non può essere recuperato",
 
   // "system-wide-alert-banner.retrieval.error": "Something went wrong retrieving the system-wide alert banner",
-  "system-wide-alert-banner.retrieval.error": "Qualcosa è andato storto nel recupero del banner del messaggio di servizio",
+  "system-wide-alert-banner.retrieval.error": "Qualcosa è andato storto nel recupero del banner di allarme di sistema",
 
   // "system-wide-alert-banner.countdown.prefix": "In",
   "system-wide-alert-banner.countdown.prefix": "Tra",
@@ -10210,13 +10239,13 @@
   "system-wide-alert-banner.countdown.minutes": "{{minutes}} minuti:",
 
   // "menu.section.system-wide-alert": "System-wide Alert",
-  "menu.section.system-wide-alert": "Messaggio di servizio",
+  "menu.section.system-wide-alert": "Allarme di sistema",
 
   // "system-wide-alert.form.header": "System-wide Alert",
-  "system-wide-alert.form.header": "Messaggio di servizio",
+  "system-wide-alert.form.header": "Allarme di sistema",
 
   // "system-wide-alert-form.retrieval.error": "Something went wrong retrieving the system-wide alert",
-  "system-wide-alert-form.retrieval.error": "Qualcosa è andato storto nel recupero del messaggio di servizio",
+  "system-wide-alert-form.retrieval.error": "Qualcosa è andato storto nel recupero dell'allarme di sistema",
 
   // "system-wide-alert.form.cancel": "Cancel",
   "system-wide-alert.form.cancel": "Annulla",
@@ -10231,41 +10260,41 @@
   "system-wide-alert.form.label.inactive": "DISATTIVO",
 
   // "system-wide-alert.form.error.message": "The system wide alert must have a message",
-  "system-wide-alert.form.error.message": "Il messaggio di servizio deve avere del contenuto",
+  "system-wide-alert.form.error.message": "L'allarme di sistema deve avere un messaggio",
 
   // "system-wide-alert.form.label.message": "Alert message",
-  "system-wide-alert.form.label.message": "Messaggio di servizio",
+  "system-wide-alert.form.label.message": "Messaggio di allarme",
 
   // "system-wide-alert.form.label.countdownTo.enable": "Enable a countdown timer",
   "system-wide-alert.form.label.countdownTo.enable": "Attiva un conto alla rovescia",
 
   // "system-wide-alert.form.label.countdownTo.hint": "Hint: Set a countdown timer. When enabled, a date can be set in the future and the system-wide alert banner will perform a countdown to the set date. When this timer ends, it will disappear from the alert. The server will NOT be automatically stopped.",
-  "system-wide-alert.form.label.countdownTo.hint": "Suggerimento: Imposta un conto alla rovescia. Se abilitato, è possibile impostare una data futura e il banner di messaggio di servizio eseguirà un conto alla rovescia fino alla data impostata. Quando il timer terminerà, l'avviso scomparirà. Il server NON verrà arrestato automaticamente.",
+  "system-wide-alert.form.label.countdownTo.hint": "Suggerimento: Imposta un conto alla rovescia. Se abilitato, è possibile impostare una data futura e il banner di allarme di sistema eseguirà un conto alla rovescia fino alla data impostata. Quando il timer terminerà, l'avviso scomparirà. Il server NON verrà arrestato automaticamente.",
 
   // "system-wide-alert-form.select-date-by-calendar": "Select date using calendar",
   // TODO New key - Add a translation
   "system-wide-alert-form.select-date-by-calendar": "Select date using calendar",
 
   // "system-wide-alert.form.label.preview": "System-wide alert preview",
-  "system-wide-alert.form.label.preview": "Anteprima del messaggio di servizio",
+  "system-wide-alert.form.label.preview": "Anteprima dell'allarme di sistema",
 
   // "system-wide-alert.form.update.success": "The system-wide alert was successfully updated",
-  "system-wide-alert.form.update.success": "Il messaggio di servizio è stato aggiornato con successo",
+  "system-wide-alert.form.update.success": "L'allarme di sistema è stato aggiornato con successo",
 
   // "system-wide-alert.form.update.error": "Something went wrong when updating the system-wide alert",
-  "system-wide-alert.form.update.error": "Qualcosa è andato storto durante l'aggiornamento del messaggio di servizio",
+  "system-wide-alert.form.update.error": "Qualcosa è andato storto durante l'aggiornamento dell'allarme di sistema",
 
   // "system-wide-alert.form.create.success": "The system-wide alert was successfully created",
-  "system-wide-alert.form.create.success": "Il messaggio di servizio è stato creato con successo",
+  "system-wide-alert.form.create.success": "L'allarme di sistema è stato creato con successo",
 
   // "system-wide-alert.form.create.error": "Something went wrong when creating the system-wide alert",
-  "system-wide-alert.form.create.error": "Qualcosa è andato storto nella creazione del messaggio di servizio",
+  "system-wide-alert.form.create.error": "Qualcosa è andato storto nella creazione dell'allarme di sistema",
 
   // "admin.system-wide-alert.breadcrumbs": "System-wide Alerts",
-  "admin.system-wide-alert.breadcrumbs": "Messaggi di servizio",
+  "admin.system-wide-alert.breadcrumbs": "Allarmi di sistema",
 
   // "admin.system-wide-alert.title": "System-wide Alerts",
-  "admin.system-wide-alert.title": "Messaggi di servizio",
+  "admin.system-wide-alert.title": "Allarmi di sistema",
 
   // "discover.filters.head": "Discover",
   // TODO New key - Add a translation
@@ -12070,6 +12099,18 @@
   // "file-download-link.request-copy": "Request a copy of ",
   // TODO New key - Add a translation
   "file-download-link.request-copy": "Request a copy of ",
+
+  // "item.preview.organization.url": "URL",
+  // TODO New key - Add a translation
+  "item.preview.organization.url": "URL",
+
+  // "item.preview.organization.address.addressLocality": "City",
+  // TODO New key - Add a translation
+  "item.preview.organization.address.addressLocality": "City",
+
+  // "item.preview.organization.alternateName": "Alternative name",
+  // TODO New key - Add a translation
+  "item.preview.organization.alternateName": "Alternative name",
 
 
 }
