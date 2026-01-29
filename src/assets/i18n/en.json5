@@ -1177,6 +1177,10 @@
 
   "browse.title": "Browsing by {{ field }}{{ startsWith }} {{ value }}",
 
+  "browse.taxonomy.show_next_results": "Show next results",
+
+  "browse.taxonomy.show_previous_results": "Show previous results",
+
   "browse.title.page": "Browsing by {{ field }} {{ value }}",
 
   "search.browse.item-back": "Back to Results",
@@ -2150,6 +2154,12 @@
   "form.number-picker.decrement": "Decrement {{field}}",
 
   "form.number-picker.increment": "Increment {{field}}",
+
+  "form.number-picker.label.Year": "Year",
+
+  "form.number-picker.label.Month": "Month",
+
+  "form.number-picker.label.Day": "Day",
 
   "form.repeatable.sort.tip": "Drop the item in the new position",
 

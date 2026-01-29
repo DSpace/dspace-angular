@@ -22,7 +22,7 @@ import {
   hasValue,
   isNotEmpty,
 } from '@dspace/shared/utils/empty.util';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
   TranslateService,
@@ -43,7 +43,7 @@ import { getProcessDetailRoute } from '../../../process-page/process-page-routin
   templateUrl: './search-export-csv.component.html',
   imports: [
     AsyncPipe,
-    NgbTooltipModule,
+    NgbTooltip,
     TranslateModule,
   ],
 })

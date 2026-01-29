@@ -27,7 +27,6 @@ import {
   hasValue,
   isNotEmpty,
 } from '@dspace/shared/utils/empty.util';
-import { NgbButtonsModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicCheckboxModel,
   DynamicFormControlComponent,
@@ -66,7 +65,6 @@ export interface ListItem {
   templateUrl: './dynamic-list.component.html',
   imports: [
     AsyncPipe,
-    NgbButtonsModule,
     NgClass,
     ReactiveFormsModule,
     ThemedLoadingComponent,
