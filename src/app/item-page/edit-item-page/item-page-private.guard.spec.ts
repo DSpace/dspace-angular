@@ -61,7 +61,7 @@ describe('itemPagePrivateGuard', () => {
     item = new Item();
     item.uuid = uuid;
     item._links = { self: { href: itemSelfLink }  } as any;
-    itemService = jasmine.createSpyObj('itemService', { findById: createSuccessfulRemoteDataObject$(item) });
+    itemService = jasmine.createSpyObj('itemService', { findByIdOrCustomUrl: createSuccessfulRemoteDataObject$(item) });
 
     TestBed.configureTestingModule({
       providers: [

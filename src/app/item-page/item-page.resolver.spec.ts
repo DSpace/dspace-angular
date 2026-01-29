@@ -41,7 +41,7 @@ describe('itemPageResolver', () => {
           },
         });
         itemService = {
-          findById: (_id: string) => createSuccessfulRemoteDataObject$(item),
+          findByIdOrCustomUrl: (_id: string) => createSuccessfulRemoteDataObject$(item),
         };
         store = jasmine.createSpyObj('store', {
           dispatch: {},
@@ -130,7 +130,7 @@ describe('itemPageResolver', () => {
         },
       });
       itemService = {
-        findById: (_id: string) => createSuccessfulRemoteDataObject$(item),
+        findByIdOrCustomUrl: (_id: string) => createSuccessfulRemoteDataObject$(item),
       };
       store = jasmine.createSpyObj('store', {
         dispatch: {},
