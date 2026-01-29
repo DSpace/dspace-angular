@@ -46,6 +46,7 @@ import { environment } from '../../environments/environment';
 import { SubmissionJsonPatchOperationsService } from '../core/submission/submission-json-patch-operations.service';
 import { SubmissionSectionObject } from './objects/submission-section-object.model';
 import { SubmissionError } from './objects/submission-error.model';
+import { SectionScope } from './objects/section-visibility.model';
 
 function getSubmissionSelector(submissionId: string):  MemoizedSelector<SubmissionState, SubmissionObjectEntry> {
   return createSelector(
@@ -475,9 +476,15 @@ export class SubmissionService {
    *    true if section is hidden, false otherwise
    */
   isSectionHidden(sectionData: SubmissionSectionObject): boolean {
-    return (isNotUndefined(sectionData.visibility)
-      && sectionData.visibility.main === 'HIDDEN'
-      && sectionData.visibility.other === 'HIDDEN');
+    const submissionScope: SubmissionScopeType = this.getSubmissionScope();
+    if (isEmpty(submissionScope) || isEmpty(sectionData.visibility) || isEmpty(sectionData.scope)) {
+      return false;
+    }
+    const convertedSubmissionScope: SectionScope = submissionScope.valueOf() === SubmissionScopeType.WorkspaceItem.valueOf() ?
+      SectionScope.Submission : SectionScope.Workflow;
+    const visibility = convertedSubmissionScope.valueOf() === sectionData.scope.valueOf() ?
+      sectionData.visibility.main : sectionData.visibility.other;
+    return visibility ===  'HIDDEN';
   }
 
   /**

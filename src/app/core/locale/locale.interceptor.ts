@@ -3,13 +3,17 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/c
 
 import { Observable } from 'rxjs';
 
+import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { LocaleService } from './locale.service';
-import { mergeMap, scan } from 'rxjs/operators';
+import { mergeMap, scan, take } from 'rxjs/operators';
 
 @Injectable()
 export class LocaleInterceptor implements HttpInterceptor {
 
-  constructor(private localeService: LocaleService) {
+  constructor(
+    protected halEndpointService: HALEndpointService,
+    protected localeService: LocaleService,
+  ) {
   }
 
   /**
@@ -19,8 +23,9 @@ export class LocaleInterceptor implements HttpInterceptor {
    */
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let newReq: HttpRequest<any>;
-    return this.localeService.getLanguageCodeList()
+    return this.localeService.getLanguageCodeList(req.url === this.halEndpointService.getRootHref())
       .pipe(
+        take(1),
         scan((acc: any, value: any) => [...acc, value], []),
         mergeMap((languages) => {
           // Clone the request to add the new header.

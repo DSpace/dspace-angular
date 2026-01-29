@@ -1,7 +1,7 @@
 <div class="row">
   <div *ngIf="showThumbnails" class="col-3 col-md-2">
     <a *ngIf="linkType != linkTypes.None" [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'" [attr.rel]="(linkType == linkTypes.ExternalLink) ? 'noopener noreferrer' : null"
-       [routerLink]="[itemPageRoute]" class="dont-break-out">
+       [routerLink]="[itemPageRoute]" class="dont-break-out" role="link" tabindex="-1">
     <ds-thumbnail [thumbnail]="dso?.thumbnail | async" [limitWidth]="true">
     </ds-thumbnail>
     </a>
@@ -18,27 +18,27 @@
     <ds-truncatable [id]="dso.id" *ngIf="object !== undefined && object !== null">
       <a *ngIf="linkType != linkTypes.None" [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'" [attr.rel]="(linkType == linkTypes.ExternalLink) ? 'noopener noreferrer' : null"
          [routerLink]="[itemPageRoute]" class="lead item-list-title dont-break-out"
-         [innerHTML]="dsoTitle"></a>
+         [innerHTML]="dsoTitle" role="link" tabindex="0"></a>
       <span *ngIf="linkType == linkTypes.None" class="lead item-list-title dont-break-out"
             [innerHTML]="dsoTitle"></span>
       <span class="text-muted">
         <ds-truncatable-part [id]="dso.id" [minLines]="1">
-          <ng-container *ngIf="dso.firstMetadataValue('dc.publisher') || dso.firstMetadataValue('dc.date.issued')">
-            (<span *ngIf="dso.firstMetadataValue('dc.publisher')" class="item-list-publisher" [innerHTML]="firstMetadataValue('dc.publisher')"></span>
-            <span *ngIf="dso.firstMetadataValue('dc.publisher') && dso.firstMetadataValue('dc.date.issued')">, </span>
-          <span *ngIf="dso.firstMetadataValue('dc.date.issued')" class="item-list-date" [innerHTML]="firstMetadataValue('dc.date.issued')"></span>)
+          <ng-container *ngIf="firstMetadataValue('dc.publisher') || firstMetadataValue('dc.date.issued')">
+            (<span *ngIf="firstMetadataValue('dc.publisher') as publisher" class="item-list-publisher" [innerHTML]="publisher"></span>
+            <span *ngIf="firstMetadataValue('dc.publisher') && firstMetadataValue('dc.date.issued')">, </span>
+          <span *ngIf="firstMetadataValue('dc.date.issued') as dateIssued" class="item-list-date" [innerHTML]="dateIssued"></span>)
           </ng-container>
-          <span *ngIf="dso.allMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']).length > 0" class="item-list-authors">
-            <span *ngFor="let author of allMetadataValues(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']); let last=last;">
+          <span *ngIf="allMetadataValues(['dc.contributor.author', 'dc.creator', 'dc.contributor.*'], undefined).length > 0" class="item-list-authors">
+            <span *ngFor="let author of allMetadataValues(['dc.contributor.author', 'dc.creator', 'dc.contributor.*'], true); let last=last;">
                 <span [innerHTML]="author"><span [innerHTML]="author"></span></span>
                 <span *ngIf="!last">; </span>
             </span>
           </span>
         </ds-truncatable-part>
       </span>
-      <div *ngIf="dso.firstMetadataValue('dc.description.abstract')" class="item-list-abstract">
+      <div *ngIf="firstMetadataValue('dc.description.abstract') as abstract" class="item-list-abstract">
         <ds-truncatable-part [id]="dso.id" [minLines]="3"><span
-          [innerHTML]="firstMetadataValue('dc.description.abstract')"></span>
+          [innerHTML]="abstract"></span>
         </ds-truncatable-part>
       </div>
     </ds-truncatable>

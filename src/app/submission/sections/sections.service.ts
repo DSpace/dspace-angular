@@ -45,6 +45,7 @@ import { JsonPatchOperationPathCombiner } from '../../core/json-patch/builder/js
 import { FormError } from '../../shared/form/form.reducer';
 import { SubmissionSectionObject } from '../objects/submission-section-object.model';
 import { SubmissionSectionError } from '../objects/submission-section-error.model';
+import { SectionScope } from '../objects/section-visibility.model';
 
 /**
  * A service that provides methods used in submission process.
@@ -333,10 +334,14 @@ export class SectionsService {
     return this.store.select(submissionSectionFromIdSelector(submissionId, sectionId)).pipe(
       filter((sectionObj) => hasValue(sectionObj)),
       map((sectionObj: SubmissionSectionObject) => {
-        return isNotEmpty(sectionObj.visibility)
-          && ((sectionObj.visibility.other === 'READONLY' && submissionScope !== SubmissionScopeType.WorkspaceItem)
-              || (sectionObj.visibility.main === 'READONLY' && submissionScope === SubmissionScopeType.WorkspaceItem)
-             );
+        if (isEmpty(submissionScope) || isEmpty(sectionObj.visibility) || isEmpty(sectionObj.scope)) {
+          return false;
+        }
+        const convertedSubmissionScope: SectionScope = submissionScope.valueOf() === SubmissionScopeType.WorkspaceItem.valueOf() ?
+          SectionScope.Submission : SectionScope.Workflow;
+        const visibility = convertedSubmissionScope.valueOf() === sectionObj.scope.valueOf() ?
+          sectionObj.visibility.main : sectionObj.visibility.other;
+        return visibility ===  'READONLY';
       }),
       distinctUntilChanged());
   }

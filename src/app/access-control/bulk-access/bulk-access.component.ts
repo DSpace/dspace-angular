@@ -37,7 +37,7 @@ export class BulkAccessComponent implements OnInit {
 
   constructor(
     private bulkAccessControlService: BulkAccessControlService,
-    private selectableListService: SelectableListService
+    private selectableListService: SelectableListService,
   ) {
   }
 
@@ -51,7 +51,7 @@ export class BulkAccessComponent implements OnInit {
   }
 
   canExport(): boolean {
-    return this.objectsSelected$.value?.length > 0;
+    return this.objectsSelected$.value?.length > 0 && this.settings?.isFormValid();
   }
 
   /**

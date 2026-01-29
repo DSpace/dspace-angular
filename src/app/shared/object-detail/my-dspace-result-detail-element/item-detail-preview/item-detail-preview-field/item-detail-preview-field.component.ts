@@ -34,6 +34,11 @@ export class ItemDetailPreviewFieldComponent {
   @Input() metadata: string | string[];
 
   /**
+   * Escape HTML in the metadata value
+   */
+  @Input() escapeMetadataHTML: boolean;
+
+  /**
    * The placeholder if there are no value to show
    */
   @Input() placeholder: string;
@@ -50,6 +55,6 @@ export class ItemDetailPreviewFieldComponent {
    * @returns {string[]} the matching string values or an empty array.
    */
   allMetadataValues(keyOrKeys: string | string[]): string[] {
-    return Metadata.allValues([this.object.hitHighlights, this.item.metadata], keyOrKeys);
+    return Metadata.allValues(this.item.metadata, keyOrKeys, this.object.hitHighlights, undefined, this.escapeMetadataHTML);
   }
 }

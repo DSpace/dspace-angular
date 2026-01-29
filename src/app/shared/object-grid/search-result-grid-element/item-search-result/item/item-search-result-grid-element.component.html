@@ -3,7 +3,7 @@
         <ng-content></ng-content>
     </div>
     <a *ngIf="linkType != linkTypes.None" [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'" [attr.rel]="(linkType == linkTypes.ExternalLink) ? 'noopener noreferrer' : null" [routerLink]="[itemPageRoute]"
-        class="card-img-top full-width" [attr.title]="'search.results.view-result' | translate">
+        class="card-img-top full-width" tabindex="-1" [attr.title]="'search.results.view-result' | translate">
         <div>
               <ds-themed-thumbnail [thumbnail]="dso?.thumbnail | async" [limitWidth]="false">
               </ds-themed-thumbnail>
@@ -29,9 +29,9 @@
                     </span>
                 </p>
             </ds-truncatable-part>
-            <ds-truncatable-part *ngIf="dso.hasMetadata('dc.description.abstract')" [id]="dso.id" [minLines]="3">
+            <ds-truncatable-part *ngIf="firstMetadataValue('dc.description.abstract') as abstract" [id]="dso.id" [minLines]="3">
                 <p class="item-abstract card-text">
-                    <span [innerHTML]="firstMetadataValue('dc.description.abstract')"></span>
+                    <span [innerHTML]="abstract"></span>
                 </p>
             </ds-truncatable-part>
         </ds-truncatable>

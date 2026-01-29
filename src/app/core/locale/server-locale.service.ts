@@ -31,7 +31,7 @@ export class ServerLocaleService extends LocaleService {
    *
    * @returns {Observable<string[]>}
    */
-  getLanguageCodeList(): Observable<string[]> {
+  getLanguageCodeList(ignoreEPersonSettings = false): Observable<string[]> {
     const obs$ = combineLatest([
       this.authService.isAuthenticated(),
       this.authService.isAuthenticationLoaded()
@@ -41,7 +41,7 @@ export class ServerLocaleService extends LocaleService {
       take(1),
       mergeMap(([isAuthenticated, isLoaded]) => {
         let epersonLang$: Observable<string[]> = observableOf([]);
-        if (isAuthenticated && isLoaded) {
+        if (isAuthenticated && isLoaded && !ignoreEPersonSettings) {
           epersonLang$ = this.authService.getAuthenticatedUserFromStore().pipe(
             take(1),
             map((eperson) => {

@@ -35,7 +35,13 @@ describe('TabbedRelatedEntitiesSearchComponent', () => {
         {
           provide: ActivatedRoute,
           useValue: {
-            queryParams: observableOf({ tab: mockRelationType })
+            queryParams: observableOf({ tab: mockRelationType }),
+            snapshot: {
+              queryParams: {
+                scope: 'collection-uuid',
+                query: 'test',
+              },
+            },
           },
         },
         { provide: Router, useValue: router }
@@ -72,9 +78,11 @@ describe('TabbedRelatedEntitiesSearchComponent', () => {
       expect(router.navigate).toHaveBeenCalledWith([], {
         relativeTo: (comp as any).route,
         queryParams: {
-          tab: event.nextId
+          tab: event.nextId,
+          query: 'test',
+          scope: 'collection-uuid',
+          'spc.page': 1,
         },
-        queryParamsHandling: 'merge'
       });
     });
   });

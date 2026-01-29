@@ -41,8 +41,6 @@ services:
     ports:
     - published: 8080
       target: 8080
-    stdin_open: true
-    tty: true
     volumes:
     - assetstore:/dspace/assetstore
     # Ensure that the database is ready BEFORE starting tomcat
@@ -73,8 +71,6 @@ services:
     ports:
     - published: 5432
       target: 5432
-    stdin_open: true
-    tty: true
     volumes:
      # Keep Postgres data directory between reboots
     - pgdata:/pgdata
@@ -87,8 +83,6 @@ services:
     ports:
     - published: 8983
       target: 8983
-    stdin_open: true
-    tty: true
     working_dir: /var/solr/data
     volumes:
     # Keep Solr data directory between reboots

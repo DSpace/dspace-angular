@@ -11,13 +11,13 @@
 
           <ul class="list-unstyled mb-0">
             <li>
-              <a routerLink="./" class="">Lorem ipsum</a>
+              <a routerLink="./" class="" role="link" tabindex="0">Lorem ipsum</a>
             </li>
             <li>
-              <a routerLink="./" class="">Ut facilisis</a>
+              <a routerLink="./" class="" role="link" tabindex="0">Ut facilisis</a>
             </li>
             <li>
-              <a routerLink="./" class="">Aenean sit</a>
+              <a routerLink="./" class="" role="link" tabindex="0">Aenean sit</a>
             </li>
           </ul>
         </div>
@@ -29,7 +29,7 @@
 
           <ul class="list-unstyled mb-0">
             <li>
-              <a routerLink="./" class="">Suspendisse potenti</a>
+              <a routerLink="./" class="" role="link" tabindex="0">Suspendisse potenti</a>
             </li>
           </ul>
         </div>
@@ -57,28 +57,32 @@
     <div class="content-container">
       <p class="m-0">
         <a class="text-white"
-           href="http://www.dspace.org/">{{ 'footer.link.dspace' | translate}}</a>
+           href="http://www.dspace.org/" role="link" tabindex="0">{{ 'footer.link.dspace' | translate}}</a>
         {{ 'footer.copyright' | translate:{year: dateObj | date:'y'} }}
         <a class="text-white"
-           href="https://www.lyrasis.org/">{{ 'footer.link.lyrasis' | translate}}</a>
+           href="https://www.lyrasis.org/" role="link" tabindex="0">{{ 'footer.link.lyrasis' | translate}}</a>
       </p>
       <ul class="footer-info list-unstyled d-flex justify-content-center mb-0">
-        <li>
-          <button class="btn btn-link text-white" type="button" (click)="showCookieSettings()">
+        <li *ngIf="showCookieSettings">
+          <button class="btn btn-link text-white" type="button" (click)="openCookieSettings()" role="button" tabindex="0">
             {{ 'footer.link.cookies' | translate}}
           </button>
         </li>
+        <li>
+          <a class="btn text-white"
+             routerLink="info/accessibility" role="link" tabindex="0">{{ 'footer.link.accessibility' | translate }}</a>
+        </li>
         <li *ngIf="showPrivacyPolicy">
           <a class="btn text-white"
-             routerLink="info/privacy">{{ 'footer.link.privacy-policy' | translate}}</a>
+             routerLink="info/privacy" role="link" tabindex="0">{{ 'footer.link.privacy-policy' | translate}}</a>
         </li>
         <li *ngIf="showEndUserAgreement">
           <a class="btn text-white"
-             routerLink="info/end-user-agreement">{{ 'footer.link.end-user-agreement' | translate}}</a>
+             routerLink="info/end-user-agreement" role="link" tabindex="0">{{ 'footer.link.end-user-agreement' | translate}}</a>
         </li>
         <li *ngIf="showSendFeedback$ | async">
           <a class="btn text-white"
-             routerLink="info/feedback">{{ 'footer.link.feedback' | translate}}</a>
+             routerLink="info/feedback" role="link" tabindex="0">{{ 'footer.link.feedback' | translate}}</a>
         </li>
       </ul>
     </div>

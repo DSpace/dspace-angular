@@ -42,6 +42,7 @@ import { storeModuleConfig } from '../app.reducer';
 import { environment } from '../../environments/environment';
 import { SubmissionJsonPatchOperationsService } from '../core/submission/submission-json-patch-operations.service';
 import { SubmissionJsonPatchOperationsServiceStub } from '../shared/testing/submission-json-patch-operations-service.stub';
+import { SectionScope } from './objects/section-visibility.model';
 
 describe('SubmissionService test suite', () => {
   const collectionId = '43fe1f8c-09a6-4fcf-9c78-5d4fed8f2c8f';
@@ -58,6 +59,7 @@ describe('SubmissionService test suite', () => {
           extraction: {
             config: '',
             mandatory: true,
+            scope: SectionScope.Submission,
             sectionType: 'utils',
             visibility: {
               main: 'HIDDEN',
@@ -74,6 +76,7 @@ describe('SubmissionService test suite', () => {
           collection: {
             config: '',
             mandatory: true,
+            scope: SectionScope.Submission,
             sectionType: 'collection',
             visibility: {
               main: 'HIDDEN',
@@ -213,6 +216,7 @@ describe('SubmissionService test suite', () => {
           extraction: {
             config: '',
             mandatory: true,
+            scope: SectionScope.Submission,
             sectionType: 'utils',
             visibility: {
               main: 'HIDDEN',
@@ -229,6 +233,7 @@ describe('SubmissionService test suite', () => {
           collection: {
             config: '',
             mandatory: true,
+            scope: SectionScope.Submission,
             sectionType: 'collection',
             visibility: {
               main: 'HIDDEN',
@@ -566,6 +571,7 @@ describe('SubmissionService test suite', () => {
 
   describe('getSubmissionSections', () => {
     it('should return submission form sections', () => {
+      spyOn(service, 'getSubmissionScope').and.returnValue(SubmissionScopeType.WorkspaceItem);
       spyOn((service as any).store, 'select').and.returnValue(hot('a|', {
         a: subState.objects[826]
       }));
@@ -735,6 +741,7 @@ describe('SubmissionService test suite', () => {
 
   describe('getSubmissionStatus', () => {
     it('should return properly submission status', () => {
+      spyOn(service, 'getSubmissionScope').and.returnValue(SubmissionScopeType.WorkspaceItem);
       spyOn((service as any).store, 'select').and.returnValue(hot('-a-b', {
         a: subState,
         b: validSubState
@@ -794,41 +801,207 @@ describe('SubmissionService test suite', () => {
   });
 
   describe('isSectionHidden', () => {
-    it('should return true/false when section is hidden/visible', () => {
-      let section: any = {
-        config: '',
-        header: '',
-        mandatory: true,
-        sectionType: 'collection' as any,
-        visibility: {
-          main: 'HIDDEN',
-          other: 'HIDDEN'
-        },
-        collapsed: false,
-        enabled: true,
-        data: {},
-        errorsToShow: [],
-        serverValidationErrors: [],
-        isLoading: false,
-        isValid: false
-      };
-      expect(service.isSectionHidden(section)).toBeTruthy();
+    describe('when submission scope is workspace', () => {
+      beforeEach(() => {
+        spyOn(service, 'getSubmissionScope').and.returnValue(SubmissionScopeType.WorkspaceItem);
+      });
 
-      section = {
-        header: 'submit.progressbar.describe.keyinformation',
-        config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/keyinformation',
-        mandatory: true,
-        sectionType: 'submission-form',
-        collapsed: false,
-        enabled: true,
-        data: {},
-        errorsToShow: [],
-        serverValidationErrors: [],
-        isLoading: false,
-        isValid: false
-      };
-      expect(service.isSectionHidden(section)).toBeFalsy();
+      describe('and section scope is workspace', () => {
+        it('should return true when visibility main is HIDDEN and visibility other is null', () => {
+          let section: any = {
+            scope: SectionScope.Submission,
+            visibility: {
+              main: 'HIDDEN',
+              other: null,
+            },
+          };
+          expect(service.isSectionHidden(section)).toBeTrue();
+        });
+        it('should return true when both visibility main and other are HIDDEN', () => {
+          let section: any = {
+            scope: SectionScope.Submission,
+            visibility: {
+              main: 'HIDDEN',
+          other: 'HIDDEN'
+            },
+          };
+          expect(service.isSectionHidden(section)).toBeTrue();
+        });
+        it('should return false when visibility main is null and visibility other is HIDDEN', () => {
+          let section: any = {
+            scope: SectionScope.Submission,
+            visibility: {
+              main: null,
+              other: 'HIDDEN',
+            },
+          };
+          expect(service.isSectionHidden(section)).toBeFalse();
+        });
+        it('should return false when visibility is null', () => {
+          let section: any = {
+            scope: SectionScope.Submission,
+            visibility: null,
+          };
+          expect(service.isSectionHidden(section)).toBeFalse();
+        });
+      });
+
+      describe('and section scope is workflow', () => {
+        it('should return false when visibility main is HIDDEN and visibility other is null', () => {
+          let section: any = {
+            scope: SectionScope.Workflow,
+            visibility: {
+              main: 'HIDDEN',
+              other: null,
+            },
+          };
+          expect(service.isSectionHidden(section)).toBeFalse();
+        });
+        it('should return true when both visibility main and other are HIDDEN', () => {
+          let section: any = {
+            scope: SectionScope.Workflow,
+            visibility: {
+              main: 'HIDDEN',
+              other: 'HIDDEN',
+            },
+          };
+          expect(service.isSectionHidden(section)).toBeTrue();
+        });
+        it('should return true when visibility main is null and visibility other is HIDDEN', () => {
+          let section: any = {
+            scope: SectionScope.Workflow,
+            visibility: {
+              main: null,
+              other: 'HIDDEN',
+            },
+          };
+          expect(service.isSectionHidden(section)).toBeTrue();
+        });
+        it('should return false when visibility is null', () => {
+          let section: any = {
+            scope: SectionScope.Workflow,
+            visibility: null,
+          };
+          expect(service.isSectionHidden(section)).toBeFalse();
+        });
+      });
+
+      describe('and section scope is null', () => {
+        it('should return false', () => {
+          let section: any = {
+            scope: null,
+            visibility: {
+              main: 'HIDDEN',
+              other: null,
+            },
+          };
+          expect(service.isSectionHidden(section)).toBeFalse();
+        });
+      });
+
     });
+
+    describe('when submission scope is workflow', () => {
+      beforeEach(() => {
+        spyOn(service, 'getSubmissionScope').and.returnValue(SubmissionScopeType.WorkflowItem);
+      });
+
+      describe('and section scope is workspace', () => {
+        it('should return false when visibility main is HIDDEN and visibility other is null', () => {
+          let section: any = {
+            scope: SectionScope.Submission,
+            visibility: {
+              main: 'HIDDEN',
+              other: null,
+            },
+          };
+          expect(service.isSectionHidden(section)).toBeFalse();
+        });
+        it('should return true when both visibility main and other are HIDDEN', () => {
+          let section: any = {
+            scope: SectionScope.Submission,
+            visibility: {
+              main: 'HIDDEN',
+              other: 'HIDDEN',
+            },
+          };
+          expect(service.isSectionHidden(section)).toBeTrue();
+        });
+        it('should return true when visibility main is null and visibility other is HIDDEN', () => {
+          let section: any = {
+            scope: SectionScope.Submission,
+            visibility: {
+              main: null,
+              other: 'HIDDEN',
+            },
+          };
+          expect(service.isSectionHidden(section)).toBeTrue();
+        });
+        it('should return false when visibility is null', () => {
+          let section: any = {
+            scope: SectionScope.Submission,
+            visibility: null,
+          };
+          expect(service.isSectionHidden(section)).toBeFalse();
+        });
+      });
+
+      describe('and section scope is workflow', () => {
+        it('should return true when visibility main is HIDDEN and visibility other is null', () => {
+          let section: any = {
+            scope: SectionScope.Workflow,
+            visibility: {
+              main: 'HIDDEN',
+              other: null,
+            },
+          };
+          expect(service.isSectionHidden(section)).toBeTrue();
+        });
+        it('should return true when both visibility main and other are HIDDEN', () => {
+          let section: any = {
+            scope: SectionScope.Workflow,
+            visibility: {
+              main: 'HIDDEN',
+              other: 'HIDDEN',
+            },
+          };
+          expect(service.isSectionHidden(section)).toBeTrue();
+        });
+        it('should return false when visibility main is null and visibility other is HIDDEN', () => {
+          let section: any = {
+            scope: SectionScope.Workflow,
+            visibility: {
+              main: null,
+              other: 'HIDDEN',
+            },
+          };
+          expect(service.isSectionHidden(section)).toBeFalse();
+        });
+        it('should return false when visibility is null', () => {
+          let section: any = {
+            scope: SectionScope.Workflow,
+            visibility: null,
+          };
+          expect(service.isSectionHidden(section)).toBeFalse();
+        });
+      });
+
+      describe('and section scope is null', () => {
+        it('should return false', () => {
+          let section: any = {
+            scope: null,
+            visibility: {
+              main: 'HIDDEN',
+              other: null,
+            },
+          };
+          expect(service.isSectionHidden(section)).toBeFalse();
+        });
+      });
+
+    });
+
+
   });
 
   describe('isSubmissionLoading', () => {

@@ -18,6 +18,8 @@ import { cold } from 'jasmine-marbles';
 import { LiveRegionService } from '../../live-region/live-region.service';
 import { LiveRegionServiceStub } from '../../live-region/live-region.service.stub';
 import { NotificationOptions } from '../models/notification-options.model';
+import { AccessibilitySettingsService } from '../../../accessibility/accessibility-settings.service';
+import { getAccessibilitySettingsServiceStub } from '../../../accessibility/accessibility-settings.service.stub';
 
 export const bools = { f: false, t: true };
 
@@ -43,6 +45,7 @@ describe('NotificationsBoardComponent', () => {
       providers: [
         { provide: NotificationsService, useClass: NotificationsServiceStub },
         { provide: LiveRegionService, useValue: liveRegionService },
+        { provide: AccessibilitySettingsService, useValue: getAccessibilitySettingsServiceStub() },
         ChangeDetectorRef,
       ]
     }).compileComponents();  // compile template and css

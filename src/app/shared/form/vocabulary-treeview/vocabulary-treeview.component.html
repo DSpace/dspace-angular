@@ -7,15 +7,15 @@
              [placeholder]="'vocabulary-treeview.search.form.search-placeholder' | translate">
       <div class="input-group-append" id="button-addon4">
         <button class="btn btn-outline-primary" type="button" (click)="search()" [dsBtnDisabled]="!isSearchEnabled()"
-                [attr.aria-label]="'vocabulary-treeview.search.form.search' | translate">
+                [attr.aria-label]="'vocabulary-treeview.search.form.search' | translate" role="button" tabindex="0">
           {{'vocabulary-treeview.search.form.search' | translate}}
         </button>
         <button class="btn btn-outline-secondary" type="button" (click)="reset()"
-                [attr.aria-label]="'vocabulary-treeview.search.form.reset' | translate">
+                [attr.aria-label]="'vocabulary-treeview.search.form.reset' | translate" role="button" tabindex="0">
           {{'vocabulary-treeview.search.form.reset' | translate}}
         </button>
         <button class="btn btn-outline-primary" type="button" (click)="add()" [dsBtnDisabled]="this.vocabularyOptions.closed"
-                [attr.aria-label]="'vocabulary-treeview.search.form.add' | translate">
+                [attr.aria-label]="'vocabulary-treeview.search.form.add' | translate" role="button" tabindex="0">
           {{'vocabulary-treeview.search.form.add' | translate}}
         </button>
       </div>
@@ -46,6 +46,8 @@
                    [(ngModel)]="node.isSelected"
                    [checked]="node.isSelected"
                    (change)="onSelect(node.item)"
+                   role="checkbox"
+                   tabindex="0"
             >
             <span>{{node.item.display}}</span>
           </label>
@@ -55,7 +57,9 @@
                   [ngbTooltip]="node.item?.otherInformation?.note"
                   [openDelay]="500"
                   container="body"
-                  (click)="onSelect(node.item)">
+                  (click)="onSelect(node.item)"
+                  role="button"
+                  tabindex="0">
           <span>{{node.item.display}}</span>
         </button>
     </cdk-tree-node>
@@ -64,7 +68,9 @@
     <cdk-tree-node *cdkTreeNodeDef="let node; when: hasChildren" cdkTreeNodePadding class="d-flex">
         <button type="button" class="btn btn-default px-2 mr-1" cdkTreeNodeToggle
                 [attr.aria-label]="'toggle ' + node.name"
-                (click)="loadChildren(node)">
+                (click)="loadChildren(node)"
+                role="button"
+                tabindex="0">
           <i class="fas fa-fw {{treeControl.isExpanded(node) ? 'fa-angle-down' : 'fa-angle-right'}}"></i>
         </button>
 
@@ -78,6 +84,8 @@
                    [(ngModel)]="node.isSelected"
                    [checked]="node.isSelected"
                    (change)="onSelect(node.item)"
+                   role="checkbox"
+                   tabindex="0"
             >
             <span>{{node.item.display}}</span>
           </label>
@@ -87,23 +95,38 @@
                   [ngbTooltip]="node.item?.otherInformation?.note"
                   [openDelay]="500"
                   container="body"
-                  (click)="onSelect(node.item)">
+                  (click)="onSelect(node.item)"
+                  role="button"
+                  tabindex="0">
             <span>{{node.item.display}}</span>
           </button>
     </cdk-tree-node>
 
     <cdk-tree-node *cdkTreeNodeDef="let node; when: isLoadMore" cdkTreeNodePadding>
       <button class="btn btn-outline-secondary btn-sm" (click)="loadMore(node.loadMoreParentItem)"
-              [attr.aria-label]="'vocabulary-treeview.load-more' | translate">
+              [attr.aria-label]="'vocabulary-treeview.load-more' | translate" role="button" tabindex="0">
         {{'vocabulary-treeview.load-more' | translate}}...
       </button>
     </cdk-tree-node>
 
     <cdk-tree-node *cdkTreeNodeDef="let node; when: isLoadMoreRoot">
       <button class="btn btn-outline-secondary btn-sm" (click)="loadMoreRoot(node)"
-              [attr.aria-label]="'vocabulary-treeview.load-more' | translate">
+              [attr.aria-label]="'vocabulary-treeview.load-more' | translate" role="button" tabindex="0">
         {{'vocabulary-treeview.load-more' | translate}}...
       </button>
     </cdk-tree-node>
   </cdk-tree>
+</div>
+<!-- Show previous/next results pagination -->
+<div class="mb-3 d-flex gap-2" *ngIf="(showPreviousPage$ | async) || (showNextPage$ | async)">
+  <button class="btn btn-outline-secondary"
+          *ngIf="showPreviousPage$ | async"
+          (click)="loadPreviousPage(selectedItems)">
+    {{ 'browse.taxonomy.show_previous_results' | translate }}
+  </button>
+  <button class="btn btn-outline-secondary"
+          *ngIf="showNextPage$ | async"
+          (click)="loadNextPage(selectedItems)">
+    {{ 'browse.taxonomy.show_next_results' | translate }}
+  </button>
 </div>

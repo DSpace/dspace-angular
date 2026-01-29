@@ -139,9 +139,9 @@ describe('MediaViewerComponent', () => {
       expect(mediaItem.thumbnail).toBe(null);
     });
 
-    it('should display a default, thumbnail', () => {
+    it('should display a default thumbnail', () => {
       const defaultThumbnail = fixture.debugElement.query(
-        By.css('ds-themed-media-viewer-image')
+        By.css('ds-themed-thumbnail')
       );
       expect(defaultThumbnail.nativeElement).toBeDefined();
     });

@@ -22,6 +22,7 @@ import { authReducer } from '../../../core/auth/auth.reducer';
 import { storeModuleConfig } from '../../../app.reducer';
 import { By } from '@angular/platform-browser';
 import { VocabularyService } from '../../../core/submission/vocabularies/vocabulary.service';
+import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 
 describe('VocabularyTreeviewComponent test suite', () => {
 
@@ -56,7 +57,8 @@ describe('VocabularyTreeviewComponent test suite', () => {
     findEntryDetailById: jasmine.createSpy('findEntryDetailById'),
     searchTopEntries: jasmine.createSpy('searchTopEntries'),
     getEntryDetailChildren: jasmine.createSpy('getEntryDetailChildren'),
-    clearSearchTopRequests: jasmine.createSpy('clearSearchTopRequests')
+    clearSearchTopRequests: jasmine.createSpy('clearSearchTopRequests'),
+    findVocabularyById: createSuccessfulRemoteDataObject$({ preloadLevel: 2 }),
   });
 
   initialState = {
