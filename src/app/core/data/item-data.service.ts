@@ -431,9 +431,9 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
   }
 
   /**
-   * Returns an observable of {@link RemoteData} of an object, based on its CustomURL or ID, with a list of
+   * Returns an observable of {@link RemoteData} of an object, based on its custom URL, with a list of
    * {@link FollowLinkConfig}, to automatically resolve {@link HALLink}s of the object
-   * @param id                          CustomUrl or UUID of object we want to retrieve
+   * @param id                          custom URL of object we want to retrieve
    * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
    *                                    no valid cached version. Defaults to true
    * @param reRequestOnStale            Whether or not the request should automatically be re-
