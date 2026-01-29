@@ -8,12 +8,7 @@ import { ProfilePageComponent } from './profile-page.component';
  */
 @Component({
   selector: 'ds-profile-page',
-  styleUrls: [],
   templateUrl: './../shared/theme-support/themed.component.html',
-  standalone: true,
-  imports: [
-    ProfilePageComponent,
-  ],
 })
 export class ThemedProfilePageComponent extends ThemedComponent<ProfilePageComponent> {
   protected getComponentName(): string {

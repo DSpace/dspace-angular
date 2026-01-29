@@ -25,7 +25,6 @@ import { SearchResultListElementComponent } from '../../../search-result-list-el
   selector: 'ds-item-search-result-list-element',
   styleUrls: ['./item-search-result-list-element.component.scss'],
   templateUrl: './item-search-result-list-element.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     NgClass,

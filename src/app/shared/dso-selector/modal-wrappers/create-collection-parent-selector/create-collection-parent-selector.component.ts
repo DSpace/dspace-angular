@@ -35,7 +35,6 @@ import {
 @Component({
   selector: 'ds-base-create-collection-parent-selector',
   templateUrl: './create-collection-parent-selector.component.html',
-  standalone: true,
   imports: [
     AuthorizedCommunitySelectorComponent,
     TranslateModule,

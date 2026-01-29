@@ -12,7 +12,7 @@ import {
   TransferState,
 } from '@angular/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { provideServerRendering } from '@angular/platform-server';
+import { provideServerRendering } from '@angular/ssr';
 import { AuthService } from '@dspace/core/auth/auth.service';
 import { AuthRequestService } from '@dspace/core/auth/auth-request.service';
 import { ServerAuthService } from '@dspace/core/auth/server-auth.service';
@@ -45,8 +45,8 @@ import {
   StoreModule,
 } from '@ngrx/store';
 import {
+  provideTranslateService,
   TranslateLoader,
-  TranslateModule,
 } from '@ngx-translate/core';
 import {
   Angulartics2,
@@ -76,14 +76,14 @@ export const serverAppConfig: ApplicationConfig = mergeApplicationConfig({
     importProvidersFrom(
       StoreModule.forFeature('core', coreReducers, storeModuleConfig as StoreConfig<CoreState, Action>),
       EffectsModule.forFeature(coreEffects),
-      TranslateModule.forRoot({
-        loader: {
-          provide: TranslateLoader,
-          useFactory: (createTranslateLoader),
-          deps: [TransferState],
-        },
-      }),
     ),
+    provideTranslateService({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: createTranslateLoader,
+        deps: [TransferState],
+      },
+    }),
     ...ServerInitService.providers(),
     { provide: APP_ID, useValue: 'dspace-angular' },
     {

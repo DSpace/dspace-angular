@@ -31,7 +31,6 @@ import {
 @Component({
   selector: 'ds-base-edit-collection-selector',
   templateUrl: './edit-collection-selector.component.html',
-  standalone: true,
   imports: [
     AuthorizedCollectionSelectorComponent,
     TranslateModule,

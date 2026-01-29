@@ -33,7 +33,7 @@ import {
 import {
   NgbDropdown,
   NgbDropdownModule,
-  NgbTooltipModule,
+  NgbTooltip,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormLayoutService,
@@ -69,13 +69,12 @@ import { DynamicLookupNameModel } from './dynamic-lookup-name.model';
     FormsModule,
     InfiniteScrollModule,
     NgbDropdownModule,
-    NgbTooltipModule,
+    NgbTooltip,
     NgClass,
     NgTemplateOutlet,
     ObjNgFor,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class DsDynamicLookupComponent extends DsDynamicVocabularyComponent implements OnDestroy, OnInit {
 

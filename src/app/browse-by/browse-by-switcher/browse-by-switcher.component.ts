@@ -16,7 +16,6 @@ import { getComponentByBrowseByType } from './browse-by-decorator';
   imports: [
     DynamicComponentLoaderDirective,
   ],
-  standalone: true,
 })
 export class BrowseBySwitcherComponent extends AbstractComponentLoaderComponent<Component> {
 

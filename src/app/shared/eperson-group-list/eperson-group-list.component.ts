@@ -53,7 +53,6 @@ import { GroupSearchBoxComponent } from './group-search-box/group-search-box.com
   animations: [
     fadeInOut,
   ],
-  standalone: true,
   imports: [
     AsyncPipe,
     EpersonSearchBoxComponent,

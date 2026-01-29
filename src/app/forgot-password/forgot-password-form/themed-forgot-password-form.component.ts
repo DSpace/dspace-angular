@@ -8,12 +8,7 @@ import { ForgotPasswordFormComponent } from './forgot-password-form.component';
  */
 @Component({
   selector: 'ds-forgot-password-form',
-  styleUrls: [],
   templateUrl: './../../shared/theme-support/themed.component.html',
-  standalone: true,
-  imports: [
-    ForgotPasswordFormComponent,
-  ],
 })
 export class ThemedForgotPasswordFormComponent extends ThemedComponent<ForgotPasswordFormComponent> {
   protected getComponentName(): string {

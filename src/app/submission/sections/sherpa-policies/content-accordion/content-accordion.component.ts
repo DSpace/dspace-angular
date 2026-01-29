@@ -19,7 +19,6 @@ import { TranslateModule } from '@ngx-translate/core';
     TitleCasePipe,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class ContentAccordionComponent {
   /**

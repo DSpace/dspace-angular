@@ -35,7 +35,6 @@ import { FilteredCollections } from './filtered-collections.model';
     NgbAccordionModule,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class FilteredCollectionsComponent implements OnInit {
 

@@ -42,7 +42,6 @@ import { WorkflowItemAdminWorkflowActionsComponent } from '../../actions/workflo
   selector: 'ds-workflow-item-search-result-admin-workflow-grid-element',
   styleUrls: ['./workflow-item-search-result-admin-workflow-grid-element.component.scss'],
   templateUrl: './workflow-item-search-result-admin-workflow-grid-element.component.html',
-  standalone: true,
   imports: [
     DynamicComponentLoaderDirective,
     TranslateModule,

@@ -21,7 +21,6 @@ import { EditComColPageComponent } from '../../shared/comcol/comcol-forms/edit-c
 @Component({
   selector: 'ds-edit-community',
   templateUrl: '../../shared/comcol/comcol-forms/edit-comcol-page/edit-comcol-page.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     NgClass,

@@ -8,7 +8,6 @@ import { MetadataRepresentation } from '@dspace/core/shared/metadata-representat
 @Component({
   selector: 'ds-metadata-representation-list-element',
   template: '',
-  standalone: true,
 })
 /**
  * An abstract class for displaying a single MetadataRepresentation

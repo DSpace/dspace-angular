@@ -11,7 +11,6 @@ import {
   providers: [
     { provide: NG_VALIDATORS, useExisting: FileValidator, multi: true },
   ],
-  standalone: true,
 })
 /**
  * Validator directive to validate if a file is selected

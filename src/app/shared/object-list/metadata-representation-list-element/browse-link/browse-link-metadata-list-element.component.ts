@@ -8,7 +8,6 @@ import { MetadataRepresentationListElementComponent } from '../metadata-represen
 @Component({
   selector: 'ds-browse-link-metadata-list-element',
   templateUrl: './browse-link-metadata-list-element.component.html',
-  standalone: true,
   imports: [
     RouterLink,
   ],

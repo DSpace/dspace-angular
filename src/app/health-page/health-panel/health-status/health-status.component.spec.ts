@@ -5,7 +5,7 @@ import {
 import { By } from '@angular/platform-browser';
 import { HealthStatus } from '@dspace/core/shared/health-component.model';
 import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateLoader,
   TranslateModule,
@@ -20,7 +20,7 @@ describe('HealthStatusComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        NgbTooltipModule,
+        NgbTooltip,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,

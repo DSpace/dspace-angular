@@ -22,7 +22,6 @@ import { switchMap } from 'rxjs/operators';
 @Component({
   selector: 'ds-home-coar',
   template: '',
-  standalone: true,
 })
 export class HomeCoarComponent implements OnInit, OnDestroy {
 

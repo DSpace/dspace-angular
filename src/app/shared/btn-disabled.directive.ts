@@ -7,7 +7,6 @@ import {
 
 @Directive({
   selector: '[dsBtnDisabled]',
-  standalone: true,
 })
 
 /**

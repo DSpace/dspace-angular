@@ -31,6 +31,7 @@ export const METADATA_IMPORT_SCRIPT_NAME = 'metadata-import';
 export const METADATA_EXPORT_SCRIPT_NAME = 'metadata-export';
 export const BATCH_IMPORT_SCRIPT_NAME = 'import';
 export const BATCH_EXPORT_SCRIPT_NAME = 'export';
+export const DSPACE_OBJECT_DELETION_SCRIPT_NAME = 'object-deletion';
 
 @Injectable({ providedIn: 'root' })
 export class ScriptDataService extends IdentifiableDataService<Script> implements FindAllData<Script> {

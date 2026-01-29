@@ -18,7 +18,6 @@ import { map } from 'rxjs/operators';
 @Component({
   selector: 'ds-edit-comcol',
   template: '',
-  standalone: true,
 })
 export class EditComColPageComponent<TDomain extends DSpaceObject> implements OnInit {
   /**

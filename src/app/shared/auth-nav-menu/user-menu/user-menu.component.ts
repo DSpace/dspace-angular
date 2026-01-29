@@ -40,7 +40,6 @@ import { LogOutComponent } from '../../log-out/log-out.component';
   selector: 'ds-base-user-menu',
   templateUrl: './user-menu.component.html',
   styleUrls: ['./user-menu.component.scss'],
-  standalone: true,
   imports: [
     AsyncPipe,
     LogOutComponent,

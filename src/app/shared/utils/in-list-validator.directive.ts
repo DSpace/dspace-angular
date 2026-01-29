@@ -19,7 +19,6 @@ import { inListValidator } from '@dspace/shared/utils/validator.functions';
   providers: [
     { provide: NG_VALIDATORS, useExisting: InListValidator, multi: true },
   ],
-  standalone: true,
 })
 export class InListValidator implements Validator {
   /**

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CookieAttributes } from 'js-cookie';
+import Cookies from 'js-cookie';
 import {
   Observable,
   Subject,
@@ -12,19 +12,29 @@ export interface ICookieService {
 
   get(name: string): any;
 
-  set(name: string, value: any, options?: CookieAttributes): void;
+  set(name: string, value: any, options?: Cookies.CookieAttributes): void;
 
-  remove(name: string, options?: CookieAttributes): void;
+  remove(name: string, options?: Cookies.CookieAttributes): void;
 }
 
 @Injectable()
 export abstract class CookieService implements ICookieService {
-  protected readonly cookieSource = new Subject<{ readonly [key: string]: any }>();
+  protected readonly cookieSource = new Subject<{
+    readonly [key: string]: any;
+  }>();
+
   public readonly cookies$ = this.cookieSource.asObservable();
 
-  public abstract set(name: string, value: any, options?: CookieAttributes): void;
+  public abstract set(
+    name: string,
+    value: any,
+    options?: Cookies.CookieAttributes,
+  ): void;
 
-  public abstract remove(name: string, options?: CookieAttributes): void;
+  public abstract remove(
+    name: string,
+    options?: Cookies.CookieAttributes,
+  ): void;
 
   public abstract get(name: string): any;
 

@@ -79,7 +79,6 @@ import { SectionFormOperationsService } from './section-form-operations.service'
     FormComponent,
     ThemedLoadingComponent,
   ],
-  standalone: true,
 })
 export class SubmissionSectionFormComponent extends SectionModelComponent {
 

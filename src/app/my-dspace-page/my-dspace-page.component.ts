@@ -49,7 +49,6 @@ export const MYDSPACE_ROUTE = '/mydspace';
     SuggestionsNotificationComponent,
     ThemedSearchComponent,
   ],
-  standalone: true,
 })
 export class MyDSpacePageComponent implements OnInit {
 

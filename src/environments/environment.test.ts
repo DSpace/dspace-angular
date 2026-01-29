@@ -44,10 +44,11 @@ export const environment: BuildConfig = {
     // NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
     nameSpace: '/angular-dspace',
     baseUrl: 'http://dspace.com/angular-dspace',
-    // The rateLimiter settings limit each IP to a 'max' of 500 requests per 'windowMs' (1 minute).
+    // The rateLimiter settings limit each IP to a 'limit' of 500 requests per 'windowMs' (1 minute).
     rateLimiter: {
       windowMs: 1 * 60 * 1000, // 1 minute
-      max: 500, // limit each IP to 500 requests per windowMs
+      limit: 500, // limit each IP to 500 requests per windowMs
+      ipv6Subnet: 56,
     },
     useProxies: true,
   },
@@ -199,8 +200,8 @@ export const environment: BuildConfig = {
   // NOTE: will log all redux actions and transfers in console
   debug: false,
 
-  // Default Language in which the UI will be rendered if the user's browser language is not an active language
-  defaultLanguage: 'en',
+  // Fallback language in which the UI will be rendered if the user's browser language is not an active language
+  fallbackLanguage: 'en',
 
   // Languages. DSpace Angular holds a message catalog for each of the following languages.
   // When set to active, users will be able to switch to the use of this language in the user interface.

@@ -78,7 +78,6 @@ import { AltchaCaptchaComponent } from './altcha-captcha.component';
     TranslateModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  standalone: true,
 })
 /**
  * Page component for requesting a copy for a bitstream

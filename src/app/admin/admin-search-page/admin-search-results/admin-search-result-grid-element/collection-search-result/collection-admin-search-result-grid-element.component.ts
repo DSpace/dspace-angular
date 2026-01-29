@@ -18,7 +18,6 @@ import { SearchResultGridElementComponent } from '../../../../../shared/object-g
   selector: 'ds-collection-admin-search-result-list-element',
   styleUrls: ['./collection-admin-search-result-grid-element.component.scss'],
   templateUrl: './collection-admin-search-result-grid-element.component.html',
-  standalone: true,
   imports: [
     CollectionSearchResultGridElementComponent,
     RouterLink,

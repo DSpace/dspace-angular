@@ -23,7 +23,6 @@ import { SearchResultsSkeletonComponent } from '../../../../../../app/shared/sea
     fadeIn,
     fadeInOut,
   ],
-  standalone: true,
   imports: [
     AsyncPipe,
     ErrorComponent,

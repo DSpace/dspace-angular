@@ -48,7 +48,6 @@ import parseSectionErrors from '../utils/parseSectionErrors';
   selector: 'ds-base-submission-edit',
   styleUrls: ['./submission-edit.component.scss'],
   templateUrl: './submission-edit.component.html',
-  standalone: true,
   imports: [
     ThemedSubmissionFormComponent,
   ],

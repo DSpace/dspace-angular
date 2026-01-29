@@ -1,4 +1,5 @@
 import {
+  DynamicCheckboxModelConfig,
   DynamicDatePickerModelConfig,
   DynamicFormArrayModelConfig,
   DynamicFormControlLayout,
@@ -7,8 +8,6 @@ import {
   MATCH_ENABLED,
   OR_OPERATOR,
 } from '@ng-dynamic-forms/core';
-import { DynamicCheckboxModelConfig } from '@ng-dynamic-forms/core/lib/model/checkbox/dynamic-checkbox.model';
-
 
 export const ACCESS_FORM_CHECKBOX_CONFIG: DynamicCheckboxModelConfig = {
   id: 'discoverable',

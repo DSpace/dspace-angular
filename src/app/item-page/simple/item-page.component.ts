@@ -70,7 +70,6 @@ import { QaEventNotificationComponent } from './qa-event-notification/qa-event-n
   templateUrl: './item-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [fadeInOut],
-  standalone: true,
   imports: [
     AccessByTokenNotificationComponent,
     AsyncPipe,

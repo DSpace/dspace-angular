@@ -68,7 +68,6 @@ import { FormService } from './form.service';
     ReactiveFormsModule,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class FormComponent implements OnDestroy, OnInit {
 

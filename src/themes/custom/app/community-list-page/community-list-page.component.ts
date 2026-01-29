@@ -9,7 +9,6 @@ import { CommunityListPageComponent as BaseComponent } from '../../../../app/com
   // styleUrls: ['./community-list-page.component.scss'],
   // templateUrl: './community-list-page.component.html'
   templateUrl: '../../../../app/community-list-page/community-list-page.component.html',
-  standalone: true,
   imports: [
     ThemedCommunityListComponent,
     TranslateModule,

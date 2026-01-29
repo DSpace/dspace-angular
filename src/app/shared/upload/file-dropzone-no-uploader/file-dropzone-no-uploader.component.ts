@@ -19,7 +19,6 @@ import {
   of,
 } from 'rxjs';
 
-import { FileValidator } from '../../utils/require-file.validator';
 import { UploaderOptions } from '../uploader/uploader-options.model';
 
 /**
@@ -36,11 +35,9 @@ import { UploaderOptions } from '../uploader/uploader-options.model';
   imports: [
     CommonModule,
     FileUploadModule,
-    FileValidator,
     FormsModule,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class FileDropzoneNoUploaderComponent implements OnInit {
 

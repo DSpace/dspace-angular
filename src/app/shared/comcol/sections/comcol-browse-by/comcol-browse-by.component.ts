@@ -22,7 +22,6 @@ import { BrowseBySwitcherComponent } from '../../../../browse-by/browse-by-switc
     AsyncPipe,
     BrowseBySwitcherComponent,
   ],
-  standalone: true,
 })
 export class ComcolBrowseByComponent implements OnInit {
 

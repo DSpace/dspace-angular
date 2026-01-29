@@ -36,7 +36,6 @@ import { BtnDisabledDirective } from '../../btn-disabled.directive';
     NgClass,
     TranslateModule,
   ],
-  standalone: true,
 })
 
 export class NumberPickerComponent implements OnChanges, OnInit, ControlValueAccessor {
@@ -50,6 +49,7 @@ export class NumberPickerComponent implements OnChanges, OnInit, ControlValueAcc
   @Input() disabled: boolean;
   @Input() invalid: boolean;
   @Input() value: number;
+  @Input() widthClass: 'four-digits' | 'two-digits' | undefined;
 
   @Output() selected = new EventEmitter<number>();
   @Output() remove = new EventEmitter<number>();

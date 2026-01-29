@@ -59,14 +59,27 @@ import {
   DynamicNGBootstrapTextAreaComponent,
   DynamicNGBootstrapTimePickerComponent,
 } from '@ng-dynamic-forms/ui-ng-bootstrap';
+import { Actions } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
-import { NgxMaskModule } from 'ngx-mask';
-import { of } from 'rxjs';
+import { provideEnvironmentNgxMask } from 'ngx-mask';
+import {
+  of,
+  ReplaySubject,
+} from 'rxjs';
 
 import { environment } from '../../../../../environments/environment';
+import {
+  SaveForLaterSubmissionFormErrorAction,
+  SaveSubmissionFormErrorAction,
+  SaveSubmissionFormSuccessAction,
+  SaveSubmissionSectionFormErrorAction,
+  SaveSubmissionSectionFormSuccessAction,
+} from '../../../../submission/objects/submission-objects.actions';
 import { SubmissionService } from '../../../../submission/submission.service';
 import { SubmissionObjectService } from '../../../../submission/submission-object.service';
+import { LiveRegionService } from '../../../live-region/live-region.service';
+import { getLiveRegionServiceStub } from '../../../live-region/live-region.service.stub';
 import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
 import { FormBuilderService } from '../form-builder.service';
 import { DsDynamicFormControlContainerComponent } from './ds-dynamic-form-control-container.component';
@@ -206,6 +219,8 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
   const testItem: Item = new Item();
   const testWSI: WorkspaceItem = new WorkspaceItem();
   testWSI.item = of(createSuccessfulRemoteDataObject(testItem));
+  const actions$: ReplaySubject<any> = new ReplaySubject<any>(1);
+
   beforeEach(waitForAsync(() => {
 
     TestBed.configureTestingModule({
@@ -214,11 +229,11 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
         FormsModule,
         ReactiveFormsModule,
         NgbModule,
-        DynamicFormsCoreModule.forRoot(),
+        DynamicFormsCoreModule,
         TranslateModule.forRoot(),
-        NgxMaskModule.forRoot(),
       ],
       providers: [
+        provideEnvironmentNgxMask(),
         DsDynamicFormControlContainerComponent,
         DynamicFormService,
         { provide: DsDynamicTypeBindRelationService, useValue: getMockDsDynamicTypeBindRelationService() },
@@ -238,6 +253,8 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
         { provide: APP_CONFIG, useValue: environment },
         { provide: APP_DATA_SERVICES_MAP, useValue: {} },
         { provide: DYNAMIC_FORM_CONTROL_MAP_FN, useValue: dsDynamicFormControlMapFn },
+        { provide: LiveRegionService, useValue: getLiveRegionServiceStub() },
+        { provide: Actions, useValue: actions$ },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents().then(() => {
@@ -247,8 +264,7 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
       const ngZone = TestBed.inject(NgZone);
 
 
-      // eslint-disable-next-line @typescript-eslint/ban-types
-      spyOn(ngZone, 'runOutsideAngular').and.callFake((fn: Function) => fn());
+      spyOn(ngZone, 'runOutsideAngular').and.callFake((fn) => fn());
       component = fixture.componentInstance;
       debugElement = fixture.debugElement;
     });
@@ -378,6 +394,42 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
     expect(testFn(formModel[23])).toEqual(DsDynamicLookupComponent);
     expect(testFn(formModel[24])).toEqual(DsDynamicLookupComponent);
     expect(testFn(formModel[25])).toEqual(DsDynamicFormGroupComponent);
+  });
+
+  describe('store action subscriptions', () => {
+    beforeEach(() => {
+      fixture.detectChanges();
+    });
+
+    it('should call announceErrorMessages on SAVE_SUBMISSION_FORM_SUCCESS', () => {
+      spyOn(component, 'announceErrorMessages');
+      actions$.next(new SaveSubmissionFormSuccessAction('1234', [] as any));
+      expect(component.announceErrorMessages).toHaveBeenCalled();
+    });
+
+    it('should call announceErrorMessages on SAVE_SUBMISSION_SECTION_FORM_SUCCESS', () => {
+      spyOn(component, 'announceErrorMessages');
+      actions$.next(new SaveSubmissionSectionFormSuccessAction('1234', [] as any));
+      expect(component.announceErrorMessages).toHaveBeenCalled();
+    });
+
+    it('should call announceErrorMessages on SAVE_SUBMISSION_FORM_ERROR', () => {
+      spyOn(component, 'announceErrorMessages');
+      actions$.next(new SaveSubmissionFormErrorAction('1234'));
+      expect(component.announceErrorMessages).toHaveBeenCalled();
+    });
+
+    it('should call announceErrorMessages on SAVE_FOR_LATER_SUBMISSION_FORM_ERROR', () => {
+      spyOn(component, 'announceErrorMessages');
+      actions$.next(new SaveForLaterSubmissionFormErrorAction('1234'));
+      expect(component.announceErrorMessages).toHaveBeenCalled();
+    });
+
+    it('should call announceErrorMessages on SAVE_SUBMISSION_SECTION_FORM_ERROR', () => {
+      spyOn(component, 'announceErrorMessages');
+      actions$.next(new SaveSubmissionSectionFormErrorAction('1234'));
+      expect(component.announceErrorMessages).toHaveBeenCalled();
+    });
   });
 
 });

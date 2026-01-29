@@ -87,7 +87,7 @@ describe('BrowserOrejimeService', () => {
         enablePrivacyStatement: true,
         enableCookieConsentPopup: true,
       },
-      defaultLanguage: 'en',
+      fallbackLanguage: 'en',
     };
 
     TestBed.configureTestingModule({

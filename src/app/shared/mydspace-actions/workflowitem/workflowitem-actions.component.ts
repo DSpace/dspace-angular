@@ -11,7 +11,7 @@ import { RequestService } from '@dspace/core/data/request.service';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
 import { WorkflowItemDataService } from '@dspace/core/submission/workflowitem-data.service';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
   TranslateService,
@@ -28,9 +28,8 @@ import { MyDSpaceActionsComponent } from '../mydspace-actions';
   selector: 'ds-workflowitem-actions',
   styleUrls: ['./workflowitem-actions.component.scss'],
   templateUrl: './workflowitem-actions.component.html',
-  standalone: true,
   imports: [
-    NgbTooltipModule,
+    NgbTooltip,
     RouterLink,
     TranslateModule,
   ],

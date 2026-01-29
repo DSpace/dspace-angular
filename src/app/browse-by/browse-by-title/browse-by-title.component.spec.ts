@@ -17,6 +17,7 @@ import {
 import { RouterTestingModule } from '@angular/router/testing';
 import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import { BrowseService } from '@dspace/core/browse/browse.service';
+import { SortDirection } from '@dspace/core/cache/models/sort-options.model';
 import { DSpaceObjectDataService } from '@dspace/core/data/dspace-object-data.service';
 import { ItemDataService } from '@dspace/core/data/item-data.service';
 import { PaginationService } from '@dspace/core/pagination/pagination.service';
@@ -76,6 +77,7 @@ describe('BrowseByTitleComponent', () => {
   const mockBrowseService = {
     getBrowseItemsFor: () => toRemoteData(mockItems),
     getBrowseEntriesFor: () => toRemoteData([]),
+    getConfiguredSortDirection: () => of(SortDirection.ASC),
   };
 
   const mockDsoService = {

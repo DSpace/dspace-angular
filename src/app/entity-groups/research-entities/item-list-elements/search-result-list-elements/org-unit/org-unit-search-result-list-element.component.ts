@@ -19,7 +19,6 @@ import { ThemedThumbnailComponent } from '../../../../../thumbnail/themed-thumbn
   selector: 'ds-org-unit-search-result-list-element',
   styleUrls: ['./org-unit-search-result-list-element.component.scss'],
   templateUrl: './org-unit-search-result-list-element.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     NgClass,

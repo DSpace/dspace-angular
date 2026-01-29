@@ -26,7 +26,6 @@ import { SearchFilterService } from '../../search-filters/search-filter.service'
   selector: 'ds-search-label',
   templateUrl: './search-label.component.html',
   styleUrls: ['./search-label.component.scss'],
-  standalone: true,
   imports: [
     AsyncPipe,
     RouterLink,

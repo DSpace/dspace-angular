@@ -51,7 +51,6 @@ import { CollectionElementLinkType } from './collection-element-link.type';
   selector: 'ds-viewable-collection',
   styleUrls: ['./object-collection.component.scss'],
   templateUrl: './object-collection.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     NgClass,

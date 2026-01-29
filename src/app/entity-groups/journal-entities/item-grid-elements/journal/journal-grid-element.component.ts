@@ -11,7 +11,6 @@ import { JournalSearchResultGridElementComponent } from '../search-result-grid-e
   selector: 'ds-journal-grid-element',
   styleUrls: ['./journal-grid-element.component.scss'],
   templateUrl: './journal-grid-element.component.html',
-  standalone: true,
   imports: [
     JournalSearchResultGridElementComponent,
   ],

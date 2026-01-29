@@ -26,7 +26,6 @@ import { ThemedTopLevelCommunityListComponent } from './top-level-community-list
   selector: 'ds-base-home-page',
   styleUrls: ['./home-page.component.scss'],
   templateUrl: './home-page.component.html',
-  standalone: true,
   imports: [
     HomeCoarComponent,
     NgTemplateOutlet,

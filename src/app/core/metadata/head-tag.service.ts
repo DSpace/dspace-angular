@@ -173,6 +173,8 @@ export class HeadTagService {
 
   protected setDSOMetaTags(): void {
 
+    this.setNoIndexTag();
+
     this.setTitleTag();
     this.setDescriptionTag();
 
@@ -208,6 +210,15 @@ export class HeadTagService {
     // this.setCitationPatentCountryTag();
     // this.setCitationPatentNumberTag();
 
+  }
+
+  /**
+   * Add <meta name="robots" content="noindex">  to the <head> if non-discoverable item
+   */
+  protected setNoIndexTag(): void {
+    if (this.currentObject.value instanceof Item && this.currentObject.value.isDiscoverable === false) {
+      this.addMetaTag('robots', 'noindex');
+    }
   }
 
   /**

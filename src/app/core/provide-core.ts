@@ -5,6 +5,7 @@ import {
 } from '@angular/core';
 import { APP_CONFIG } from '@dspace/config/app-config.interface';
 
+import { Audit } from './audit/model/audit.model';
 import { AuthStatus } from './auth/models/auth-status.model';
 import { ShortLivedToken } from './auth/models/short-lived-token.model';
 import { Itemfilter } from './coar-notify/ldn-services/models/ldn-service-itemfilters';
@@ -209,6 +210,7 @@ export const models =
     NotifyRequestsStatus,
     SystemWideAlert,
     AdminNotifyMessage,
+    Audit,
     SubmissionAccessModel,
     SubmissionDefinitionModel,
     SubmissionFormModel,

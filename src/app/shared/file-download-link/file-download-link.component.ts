@@ -44,7 +44,6 @@ import { ThemedAccessStatusBadgeComponent } from '../object-collection/shared/ba
   selector: 'ds-base-file-download-link',
   templateUrl: './file-download-link.component.html',
   styleUrls: ['./file-download-link.component.scss'],
-  standalone: true,
   imports: [
     AsyncPipe,
     NgClass,

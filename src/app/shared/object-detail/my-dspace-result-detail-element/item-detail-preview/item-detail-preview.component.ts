@@ -36,7 +36,6 @@ import { ThemedItemDetailPreviewFieldComponent } from './item-detail-preview-fie
   styleUrls: ['./item-detail-preview.component.scss'],
   templateUrl: './item-detail-preview.component.html',
   animations: [fadeInOut],
-  standalone: true,
   imports: [
     AsyncPipe,
     FileSizePipe,

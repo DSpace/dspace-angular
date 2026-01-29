@@ -14,7 +14,6 @@ import { TranslateModule } from '@ngx-translate/core';
   selector: 'ds-base-forbidden',
   templateUrl: './forbidden.component.html',
   styleUrls: ['./forbidden.component.scss'],
-  standalone: true,
   imports: [
     RouterLink,
     TranslateModule,

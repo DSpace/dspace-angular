@@ -60,7 +60,6 @@ import { ItemVersionsSummaryModalComponent } from '../item-versions-summary-moda
 
 @Component({
   selector: 'ds-item-versions-row-element-version',
-  standalone: true,
   imports: [
     AsyncPipe,
     BtnDisabledDirective,

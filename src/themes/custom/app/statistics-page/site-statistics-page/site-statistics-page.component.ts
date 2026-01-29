@@ -13,7 +13,6 @@ import { StatisticsTableComponent } from '../../../../../app/statistics-page/sta
   styleUrls: ['../../../../../app/statistics-page/site-statistics-page/site-statistics-page.component.scss'],
   // templateUrl: './site-statistics-page.component.html',
   templateUrl: '../../../../../app/statistics-page/statistics-page/statistics-page.component.html',
-  standalone: true,
   imports: [
     CommonModule,
     StatisticsTableComponent,

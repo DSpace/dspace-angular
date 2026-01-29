@@ -16,7 +16,6 @@ import { TruncatableService } from '../../truncatable/truncatable.service';
 @Component({
   selector: 'ds-search-result-grid-element',
   template: ``,
-  standalone: true,
 })
 export class SearchResultGridElementComponent<T extends SearchResult<K>, K extends DSpaceObject> extends AbstractListableElementComponent<T> implements OnInit {
   /**
@@ -51,20 +50,22 @@ export class SearchResultGridElementComponent<T extends SearchResult<K>, K exten
    * Gets all matching metadata string values from hitHighlights or dso metadata, preferring hitHighlights.
    *
    * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see [[Metadata]].
+   * @param escapeHTML Whether the HTML is used inside a `[innerHTML]` attribute
    * @returns {string[]} the matching string values or an empty array.
    */
-  allMetadataValues(keyOrKeys: string | string[]): string[] {
-    return Metadata.allValues([this.object.hitHighlights, this.dso.metadata], keyOrKeys);
+  allMetadataValues(keyOrKeys: string | string[], escapeHTML = true): string[] {
+    return Metadata.allValues(this.dso.metadata, keyOrKeys, this.object.hitHighlights, undefined, escapeHTML);
   }
 
   /**
    * Gets the first matching metadata string value from hitHighlights or dso metadata, preferring hitHighlights.
    *
    * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see [[Metadata]].
+   * @param escapeHTML Whether the HTML is used inside a `[innerHTML]` attribute
    * @returns {string} the first matching string value, or `undefined`.
    */
-  firstMetadataValue(keyOrKeys: string | string[]): string {
-    return Metadata.firstValue([this.object.hitHighlights, this.dso.metadata], keyOrKeys);
+  firstMetadataValue(keyOrKeys: string | string[], escapeHTML = true): string {
+    return Metadata.firstValue(this.dso.metadata, keyOrKeys, this.object.hitHighlights, undefined, escapeHTML);
   }
 
   private isCollapsed(): Observable<boolean> {

@@ -274,7 +274,6 @@ describe('SubmissionFormComponent', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
-  standalone: true,
 })
 class TestComponent {
 

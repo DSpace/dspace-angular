@@ -23,7 +23,6 @@ import { listableObjectComponent } from '../../../../../../../app/shared/object-
   styleUrls: ['../../../../../../../app/entity-groups/research-entities/item-pages/person/person.component.scss'],
   // templateUrl: './person.component.html',
   templateUrl: '../../../../../../../app/entity-groups/research-entities/item-pages/person/person.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     DsoEditMenuComponent,

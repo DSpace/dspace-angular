@@ -28,7 +28,6 @@ import {
 @Component({
   selector: 'ds-import-batch-selector',
   templateUrl: '../dso-selector-modal-wrapper.component.html',
-  standalone: true,
   imports: [
     DSOSelectorComponent,
     TranslateModule,

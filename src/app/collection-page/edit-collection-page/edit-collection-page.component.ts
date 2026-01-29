@@ -29,7 +29,6 @@ import { EditComColPageComponent } from '../../shared/comcol/comcol-forms/edit-c
     RouterOutlet,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class EditCollectionPageComponent extends EditComColPageComponent<Collection> {
   type = 'collection';

@@ -50,7 +50,6 @@ import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wr
     RouterLink,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class CollectionsComponent implements OnInit {
 

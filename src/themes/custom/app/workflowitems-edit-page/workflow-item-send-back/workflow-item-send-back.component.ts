@@ -11,7 +11,6 @@ import { WorkflowItemSendBackComponent as BaseComponent } from '../../../../../a
   // styleUrls: ['./workflow-item-send-back.component.scss'],
   // templateUrl: './workflow-item-send-back.component.html'
   templateUrl: '../../../../../app/workflowitems-edit-page/workflow-item-action-page.component.html',
-  standalone: true,
   imports: [
     CommonModule,
     ModifyItemOverviewComponent,

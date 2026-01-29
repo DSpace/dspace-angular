@@ -67,7 +67,7 @@ describe('ObjectUpdatesEffects', () => {
   }));
 
   beforeEach(() => {
-    indexEffects = TestBed.get(UUIDIndexEffects);
+    indexEffects = TestBed.inject(UUIDIndexEffects);
   });
 
   describe('addAlternativeObjectLink$', () => {
