@@ -17,8 +17,12 @@ import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.c
   selector: 'ds-item-versions-summary-modal',
   templateUrl: './item-versions-summary-modal.component.html',
   styleUrls: ['./item-versions-summary-modal.component.scss'],
-  standalone: true,
-  imports: [FormsModule, ThemedLoadingComponent, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    FormsModule,
+    ThemedLoadingComponent,
+    TranslateModule,
+  ],
 })
 export class ItemVersionsSummaryModalComponent implements OnInit, ModalBeforeDismiss {
 

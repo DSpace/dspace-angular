@@ -4,6 +4,10 @@ import {
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { Community } from '@dspace/core/shared/community.model';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import {
@@ -12,11 +16,7 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { RemoteData } from '../../../core/data/remote-data';
-import { Community } from '../../../core/shared/community.model';
 import { CurationFormComponent } from '../../../curation-form/curation-form.component';
-import { hasValue } from '../../../shared/empty.util';
 
 /**
  * Component for managing a community's curation tasks
@@ -25,11 +25,10 @@ import { hasValue } from '../../../shared/empty.util';
   selector: 'ds-community-curate',
   templateUrl: './community-curate.component.html',
   imports: [
+    AsyncPipe,
     CurationFormComponent,
     TranslateModule,
-    AsyncPipe,
   ],
-  standalone: true,
 })
 export class CommunityCurateComponent implements OnInit {
 

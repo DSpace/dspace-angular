@@ -9,22 +9,22 @@ import {
   OnInit,
 } from '@angular/core';
 import {
+  NotifyRequestsStatus,
+  NotifyStatuses,
+} from '@dspace/core/coar-notify/notify-info/models/notify-requests-status.model';
+import { RequestStatusEnum } from '@dspace/core/coar-notify/notify-info/models/notify-status.enum';
+import { NotifyRequestsStatusDataService } from '@dspace/core/coar-notify/notify-info/notify-services-status-data.service';
+import {
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+} from '@dspace/core/shared/operators';
+import { hasValue } from '@dspace/shared/utils/empty.util';
+import {
   filter,
   map,
   Observable,
 } from 'rxjs';
 
-import { NotifyRequestsStatusDataService } from '../../../../core/data/notify-services-status-data.service';
-import {
-  getFirstCompletedRemoteData,
-  getRemoteDataPayload,
-} from '../../../../core/shared/operators';
-import { hasValue } from '../../../../shared/empty.util';
-import {
-  NotifyRequestsStatus,
-  NotifyStatuses,
-} from '../notify-requests-status.model';
-import { RequestStatusEnum } from '../notify-status.enum';
 import { RequestStatusAlertBoxComponent } from '../request-status-alert-box/request-status-alert-box.component';
 
 @Component({
@@ -32,11 +32,10 @@ import { RequestStatusAlertBoxComponent } from '../request-status-alert-box/requ
   templateUrl: './notify-requests-status.component.html',
   styleUrls: ['./notify-requests-status.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
   imports: [
-    RequestStatusAlertBoxComponent,
     AsyncPipe,
     KeyValuePipe,
+    RequestStatusAlertBoxComponent,
   ],
 })
 

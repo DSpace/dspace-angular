@@ -1,0 +1,59 @@
+<div class="col-12">
+  <h2 class="h4 border-bottom pb-2">{{'quality-assurance.source'| translate}}</h2>
+
+  @if (loading()) {
+    <ds-loading class="container" message="{{'quality-assurance.loading' | translate}}"></ds-loading>
+  } @else {
+    <ds-pagination
+      [paginationOptions]="paginationConfig()"
+      [collectionSize]="totalElements()"
+      [hideGear]="false"
+      [hideSortOptions]="true"
+      (paginationChange)="paginationChange.emit($event)">
+      @if (sources()?.length === 0) {
+        <div class="alert alert-info w-100 mb-2 mt-2" role="alert">
+          {{'quality-assurance.noSource' | translate}}
+        </div>
+      }
+      @if (sources()?.length !== 0) {
+        <div class="table-responsive mt-2">
+          <table id="epeople" class="table table-striped table-hover table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">{{'quality-assurance.table.source' | translate}}</th>
+                @if (showLastEvent()) {
+                  <th scope="col">{{'quality-assurance.table.last-event' | translate}}</th>
+                }
+                <th scope="col">{{'quality-assurance.table.actions' | translate}}</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (sourceElement of sources(); track sourceElement; let i = $index) {
+                <tr>
+                  <td>{{sourceElement.id}}</td>
+                  @if (showLastEvent()) {
+                    <td>{{sourceElement.lastEvent | date: 'dd/MM/yyyy hh:mm' }}</td>
+                  }
+                  <td>
+                    <div class="btn-group edit-field">
+                      <button
+                        class="btn btn-outline-primary btn-sm"
+                        title="{{'quality-assurance.source-list.button.detail' | translate : { param: sourceElement.id } }}"
+                        (click)="sourceSelected.emit(sourceElement.id)">
+                        <span class="badge bg-info">{{sourceElement.total}}</span>
+                        <i class="fas fa-info fa-fw"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      }
+
+    </ds-pagination>
+  }
+
+</div>
+

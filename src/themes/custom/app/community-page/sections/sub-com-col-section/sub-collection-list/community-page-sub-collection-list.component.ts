@@ -15,14 +15,13 @@ import { VarDirective } from '../../../../../../../app/shared/utils/var.directiv
   // templateUrl: './community-page-sub-collection-list.component.html',
   templateUrl: '../../../../../../../app/community-page/sections/sub-com-col-section/sub-collection-list/community-page-sub-collection-list.component.html',
   imports: [
-    ObjectCollectionComponent,
+    AsyncPipe,
     ErrorComponent,
+    ObjectCollectionComponent,
     ThemedLoadingComponent,
     TranslateModule,
-    AsyncPipe,
     VarDirective,
   ],
-  standalone: true,
 })
 export class CommunityPageSubCollectionListComponent extends BaseComponent {
 }

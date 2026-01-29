@@ -14,24 +14,26 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { FacetValue } from '@dspace/core/shared/search/models/facet-value.model';
+import { FilterType } from '@dspace/core/shared/search/models/filter-type.model';
+import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
+import { RouterStub } from '@dspace/core/testing/router.stub';
+import { SearchConfigurationServiceStub } from '@dspace/core/testing/search-configuration-service.stub';
+import { SearchFilterServiceStub } from '@dspace/core/testing/search-filter-service.stub';
+import { SearchServiceStub } from '@dspace/core/testing/search-service.stub';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
-import { PaginationService } from '../../../../../../core/pagination/pagination.service';
-import { SearchService } from '../../../../../../core/shared/search/search.service';
-import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
-import { SearchFilterService } from '../../../../../../core/shared/search/search-filter.service';
-import { ActivatedRouteStub } from '../../../../../../shared/testing/active-router.stub';
-import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
-import { PaginationServiceStub } from '../../../../../testing/pagination-service.stub';
-import { RouterStub } from '../../../../../testing/router.stub';
-import { SearchConfigurationServiceStub } from '../../../../../testing/search-configuration-service.stub';
-import { SearchFilterServiceStub } from '../../../../../testing/search-filter-service.stub';
-import { SearchServiceStub } from '../../../../../testing/search-service.stub';
+import { LiveRegionService } from '../../../../../live-region/live-region.service';
+import { getLiveRegionServiceStub } from '../../../../../live-region/live-region.service.stub';
 import { ShortNumberPipe } from '../../../../../utils/short-number.pipe';
-import { FacetValue } from '../../../../models/facet-value.model';
-import { FilterType } from '../../../../models/filter-type.model';
-import { SearchFilterConfig } from '../../../../models/search-filter-config.model';
+import { SearchService } from '../../../../search.service';
+import { SearchConfigurationService } from '../../../../search-configuration.service';
+import { SearchFilterService } from '../../../search-filter.service';
 import { SearchFacetOptionComponent } from './search-facet-option.component';
 
 describe('SearchFacetOptionComponent', () => {
@@ -84,6 +86,7 @@ describe('SearchFacetOptionComponent', () => {
         { provide: SearchConfigurationService, useValue: searchConfigurationService },
         { provide: SearchFilterService, useValue: searchFilterService },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        { provide: LiveRegionService, useValue: getLiveRegionServiceStub() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(SearchFacetOptionComponent, {
@@ -101,7 +104,7 @@ describe('SearchFacetOptionComponent', () => {
 
   describe('when isVisible emits true', () => {
     it('the facet option should be visible', () => {
-      comp.isVisible = observableOf(true);
+      comp.isVisible = of(true);
       fixture.detectChanges();
       const linkEl = fixture.debugElement.query(By.css('a'));
       expect(linkEl).not.toBeNull();
@@ -110,7 +113,7 @@ describe('SearchFacetOptionComponent', () => {
 
   describe('when isVisible emits false', () => {
     it('the facet option should not be visible', () => {
-      comp.isVisible = observableOf(false);
+      comp.isVisible = of(false);
       fixture.detectChanges();
       const linkEl = fixture.debugElement.query(By.css('a'));
       expect(linkEl).toBeNull();

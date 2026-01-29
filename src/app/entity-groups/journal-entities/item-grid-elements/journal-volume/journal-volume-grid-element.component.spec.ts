@@ -9,21 +9,21 @@ import {
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { AuthServiceMock } from '@dspace/core/testing/auth.service.mock';
+import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
-import { AuthService } from '../../../../core/auth/auth.service';
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
-import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
-import { buildPaginatedList } from '../../../../core/data/paginated-list.model';
-import { Item } from '../../../../core/shared/item.model';
-import { PageInfo } from '../../../../core/shared/page-info.model';
-import { AuthServiceMock } from '../../../../shared/mocks/auth.service.mock';
-import { DSONameServiceMock } from '../../../../shared/mocks/dso-name.service.mock';
-import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';
-import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
-import { ActivatedRouteStub } from '../../../../shared/testing/active-router.stub';
+import { getMockThemeService } from '../../../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../../shared/theme-support/theme.service';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
@@ -58,7 +58,7 @@ describe('JournalVolumeGridElementComponent', () => {
   let fixture;
 
   const truncatableServiceStub: any = {
-    isCollapsed: (id: number) => observableOf(true),
+    isCollapsed: (id: number) => of(true),
     expand: (id: number) => null,
     collapse: (id: number) => null,
   };

@@ -11,36 +11,36 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
+import { CommunityDataService } from '@dspace/core/data/community-data.service';
+import { DefaultChangeAnalyzer } from '@dspace/core/data/default-change-analyzer.service';
+import { DSOChangeAnalyzer } from '@dspace/core/data/dso-change-analyzer.service';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
+import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { Bitstream } from '@dspace/core/shared/bitstream.model';
+import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
+import { UUIDService } from '@dspace/core/shared/uuid.service';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+import { XSRFService } from '@dspace/core/xsrf/xsrf.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
-import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { REQUEST } from '../../../../../../express.tokens';
-import { AuthService } from '../../../../../core/auth/auth.service';
-import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../../../../../core/cache/object-cache.service';
-import { CommunityDataService } from '../../../../../core/data/community-data.service';
-import { DefaultChangeAnalyzer } from '../../../../../core/data/default-change-analyzer.service';
-import { DSOChangeAnalyzer } from '../../../../../core/data/dso-change-analyzer.service';
-import { ItemDataService } from '../../../../../core/data/item-data.service';
-import { buildPaginatedList } from '../../../../../core/data/paginated-list.model';
-import { RelationshipDataService } from '../../../../../core/data/relationship-data.service';
-import { RemoteData } from '../../../../../core/data/remote-data';
-import { Bitstream } from '../../../../../core/shared/bitstream.model';
-import { HALEndpointService } from '../../../../../core/shared/hal-endpoint.service';
-import { Item } from '../../../../../core/shared/item.model';
-import { UUIDService } from '../../../../../core/shared/uuid.service';
-import { XSRFService } from '../../../../../core/xsrf/xsrf.service';
-import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
+import { NameVariantService } from '../../../../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.service';
 import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
-import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
 import { SelectableListService } from '../../../../../shared/object-list/selectable-list/selectable-list.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/remote-data.utils';
+import { getMockThemeService } from '../../../../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';
@@ -53,11 +53,16 @@ let mockItemWithMetadata: ItemSearchResult;
 let mockItemWithoutMetadata: ItemSearchResult;
 
 let nameVariant;
-let mockRelationshipService;
+let mockNameVariantService;
 
 const environmentUseThumbs = {
   browseBy: {
     showThumbnails: true,
+  },
+  cache: {
+    msToLive: {
+      default: 15 * 60 * 1000,
+    },
   },
 };
 
@@ -65,14 +70,19 @@ const enviromentNoThumbs = {
   browseBy: {
     showThumbnails: false,
   },
+  cache: {
+    msToLive: {
+      default: 15 * 60 * 1000,
+    },
+  },
 };
 
 const translateServiceStub = {
-  get: () => observableOf('test' ),
+  get: () => of('test' ),
   instant: (key) => key,
   onLangChange: new EventEmitter(),
   onTranslationChange: new EventEmitter(),
-  onDefaultLangChange: new EventEmitter(),
+  onFallbackLangChange: new EventEmitter(),
 };
 
 function init() {
@@ -114,8 +124,8 @@ function init() {
     });
 
   nameVariant = 'Doe J.';
-  mockRelationshipService = {
-    getNameVariant: () => observableOf(nameVariant),
+  mockNameVariantService = {
+    getNameVariant: () => of(nameVariant),
   };
 }
 
@@ -131,7 +141,7 @@ describe('PersonSearchResultListElementSubmissionComponent', () => {
       imports: [TruncatePipe, PersonSearchResultListSubmissionElementComponent],
       providers: [
         { provide: TruncatableService, useValue: {} },
-        { provide: RelationshipDataService, useValue: mockRelationshipService },
+        { provide: NameVariantService, useValue: mockNameVariantService },
         { provide: TranslateService, useValue: translateServiceStub },
         { provide: NgbModal, useValue: {} },
         { provide: ItemDataService, useValue: {} },
@@ -232,7 +242,7 @@ describe('PersonSearchResultListElementSubmissionComponent', () => {
       imports: [TruncatePipe, PersonSearchResultListSubmissionElementComponent],
       providers: [
         { provide: TruncatableService, useValue: {} },
-        { provide: RelationshipDataService, useValue: mockRelationshipService },
+        { provide: NameVariantService, useValue: mockNameVariantService },
         { provide: TranslateService, useValue: translateServiceStub },
         { provide: NgbModal, useValue: {} },
         { provide: ItemDataService, useValue: {} },
@@ -276,7 +286,6 @@ describe('PersonSearchResultListElementSubmissionComponent', () => {
 @Component({
   selector: 'ds-mock-thumbnail',
   template: '<div></div>',
-  standalone: true,
 })
 export class ThumbnailStubComponent {
 

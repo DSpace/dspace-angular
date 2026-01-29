@@ -8,10 +8,10 @@ import {
   ReactiveFormsModule,
   UntypedFormBuilder,
 } from '@angular/forms';
+import { isNotNull } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 
-import { isNotNull } from '../../empty.util';
 import { SearchEvent } from '../eperson-group-list-event-type';
 
 /**
@@ -20,8 +20,11 @@ import { SearchEvent } from '../eperson-group-list-event-type';
 @Component({
   selector: 'ds-eperson-search-box',
   templateUrl: './eperson-search-box.component.html',
-  standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, TranslateModule],
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    TranslateModule,
+  ],
 })
 export class EpersonSearchBoxComponent {
 

@@ -12,7 +12,32 @@ import {
   TransferState,
 } from '@angular/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { provideServerRendering } from '@angular/platform-server';
+import { provideServerRendering } from '@angular/ssr';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { AuthRequestService } from '@dspace/core/auth/auth-request.service';
+import { ServerAuthService } from '@dspace/core/auth/server-auth.service';
+import { ServerAuthRequestService } from '@dspace/core/auth/server-auth-request.service';
+import { CookieService } from '@dspace/core/cookies/cookie.service';
+import { OrejimeService } from '@dspace/core/cookies/orejime.service';
+import { ServerCookieService } from '@dspace/core/cookies/server-cookie.service';
+import { ServerOrejimeService } from '@dspace/core/cookies/server-orejime.service';
+import { coreEffects } from '@dspace/core/core.effects';
+import { coreReducers } from '@dspace/core/core.reducers';
+import { CoreState } from '@dspace/core/core-state.model';
+import { ForwardClientIpInterceptor } from '@dspace/core/forward-client-ip/forward-client-ip.interceptor';
+import { LocaleService } from '@dspace/core/locale/locale.service';
+import { ServerLocaleService } from '@dspace/core/locale/server-locale.service';
+import { HardRedirectService } from '@dspace/core/services/hard-redirect.service';
+import { ReferrerService } from '@dspace/core/services/referrer.service';
+import { ServerReferrerService } from '@dspace/core/services/server.referrer.service';
+import { ServerHardRedirectService } from '@dspace/core/services/server-hard-redirect.service';
+import { ServerXhrService } from '@dspace/core/services/server-xhr.service';
+import { MathService } from '@dspace/core/shared/math.service';
+import { ServerMathService } from '@dspace/core/shared/server-math.service';
+import { AngularticsProviderMock } from '@dspace/core/testing/angulartics-provider.service.mock';
+import { Angulartics2Mock } from '@dspace/core/testing/angulartics2.service.mock';
+import { ServerXSRFService } from '@dspace/core/xsrf/server-xsrf.service';
+import { XSRFService } from '@dspace/core/xsrf/xsrf.service';
 import { EffectsModule } from '@ngrx/effects';
 import {
   Action,
@@ -20,41 +45,20 @@ import {
   StoreModule,
 } from '@ngrx/store';
 import {
+  provideTranslateService,
   TranslateLoader,
-  TranslateModule,
 } from '@ngx-translate/core';
 import {
   Angulartics2,
   Angulartics2GoogleAnalytics,
   Angulartics2GoogleGlobalSiteTag,
 } from 'angulartics2';
+import { MatomoTracker } from 'ngx-matomo-client';
 
 import { commonAppConfig } from '../../app/app.config';
 import { storeModuleConfig } from '../../app/app.reducer';
-import { AuthService } from '../../app/core/auth/auth.service';
-import { AuthRequestService } from '../../app/core/auth/auth-request.service';
-import { ServerAuthService } from '../../app/core/auth/server-auth.service';
-import { ServerAuthRequestService } from '../../app/core/auth/server-auth-request.service';
-import { coreEffects } from '../../app/core/core.effects';
-import { coreReducers } from '../../app/core/core.reducers';
-import { CoreState } from '../../app/core/core-state.model';
-import { ForwardClientIpInterceptor } from '../../app/core/forward-client-ip/forward-client-ip.interceptor';
-import { LocaleService } from '../../app/core/locale/locale.service';
-import { ServerLocaleService } from '../../app/core/locale/server-locale.service';
-import { CookieService } from '../../app/core/services/cookie.service';
-import { HardRedirectService } from '../../app/core/services/hard-redirect.service';
-import { ReferrerService } from '../../app/core/services/referrer.service';
-import { ServerReferrerService } from '../../app/core/services/server.referrer.service';
-import { ServerCookieService } from '../../app/core/services/server-cookie.service';
-import { ServerHardRedirectService } from '../../app/core/services/server-hard-redirect.service';
-import { ServerXhrService } from '../../app/core/services/server-xhr.service';
-import { MathService } from '../../app/core/shared/math.service';
-import { ServerMathService } from '../../app/core/shared/server-math.service';
-import { ServerXSRFService } from '../../app/core/xsrf/server-xsrf.service';
-import { XSRFService } from '../../app/core/xsrf/xsrf.service';
-import { AngularticsProviderMock } from '../../app/shared/mocks/angulartics-provider.service.mock';
-import { Angulartics2Mock } from '../../app/shared/mocks/angulartics2.service.mock';
 import { Angulartics2DSpace } from '../../app/statistics/angulartics/dspace-provider';
+import { MockMatomoTracker } from '../../app/statistics/mock-matomo-tracker';
 import { ServerSubmissionService } from '../../app/submission/server-submission.service';
 import { SubmissionService } from '../../app/submission/submission.service';
 import { TranslateServerLoader } from '../../ngx-translate-loaders/translate-server.loader';
@@ -72,14 +76,14 @@ export const serverAppConfig: ApplicationConfig = mergeApplicationConfig({
     importProvidersFrom(
       StoreModule.forFeature('core', coreReducers, storeModuleConfig as StoreConfig<CoreState, Action>),
       EffectsModule.forFeature(coreEffects),
-      TranslateModule.forRoot({
-        loader: {
-          provide: TranslateLoader,
-          useFactory: (createTranslateLoader),
-          deps: [TransferState],
-        },
-      }),
     ),
+    provideTranslateService({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: createTranslateLoader,
+        deps: [TransferState],
+      },
+    }),
     ...ServerInitService.providers(),
     { provide: APP_ID, useValue: 'dspace-angular' },
     {
@@ -143,6 +147,14 @@ export const serverAppConfig: ApplicationConfig = mergeApplicationConfig({
     {
       provide: MathService,
       useClass: ServerMathService,
+    },
+    {
+      provide: OrejimeService,
+      useClass: ServerOrejimeService,
+    },
+    {
+      provide: MatomoTracker,
+      useClass: MockMatomoTracker,
     },
   ],
 }, commonAppConfig);

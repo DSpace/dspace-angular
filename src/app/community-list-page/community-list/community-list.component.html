@@ -12,7 +12,7 @@
       <div class="align-middle my-auto">
         @if ((dataSource.loading$ | async) !== true) {
           <button (click)="getNextPage(node)"
-            class="btn btn-outline-primary btn-sm" role="button">
+            class="btn btn-outline-primary btn-sm" role="button" tabindex="0" data-test="show-more-button">
             <i class="fas fa-angle-down"></i> {{ 'communityList.showMore' | translate }}
           </button>
         }
@@ -34,7 +34,11 @@
         <button type="button" class="btn btn-default btn-transparent" cdkTreeNodeToggle
           [attr.aria-label]="(node.isExpanded ? 'communityList.collapse' : 'communityList.expand') | translate:{ name: dsoNameService.getName(node.payload) }"
           (click)="toggleExpanded(node)"
-          data-test="expand-button">
+          (keyup.enter)="toggleExpanded(node)"
+          (keyup.space)="toggleExpanded(node)"
+          data-test="expand-button"
+          role="button"
+          tabindex="0">
           <span class="{{node.isExpanded ? 'fa fa-chevron-down' : 'fa fa-chevron-right'}}"
           aria-hidden="true"></span>
           <span class="sr-only">{{ (node.isExpanded ? 'communityList.collapse' : 'communityList.expand') | translate:{ name: dsoNameService.getName(node.payload) } }}</span>
@@ -48,7 +52,7 @@
       }
       <div class="d-flex flex-row">
         <span class="d-flex align-middle my-auto">
-          <a [routerLink]="node.route" class="lead">{{ dsoNameService.getName(node.payload) }}</a>
+          <a [routerLink]="node.route" class="lead" role="link" tabindex="0">{{ dsoNameService.getName(node.payload) }}</a>
           <span class="pe-2">&nbsp;</span>
           @if (node.payload.archivedItemsCount >= 0) {
             <span class="badge rounded-pill bg-secondary align-top archived-items-lead my-auto ps-2 pe-2">{{node.payload.archivedItemsCount}}</span>
@@ -88,7 +92,7 @@
         <span class="fa fa-chevron-right"></span>
       </span>
       <h6 class="align-middle my-auto">
-        <a [routerLink]="node.route" class="lead">{{ dsoNameService.getName(node.payload) }}</a>
+        <a [routerLink]="node.route" class="lead" role="link" tabindex="0">{{ dsoNameService.getName(node.payload) }}</a>
       </h6>
     </div>
     <ds-truncatable [id]="node.id">

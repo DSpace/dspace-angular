@@ -5,7 +5,6 @@
         <div>
           <ds-item-alerts [item]="item"></ds-item-alerts>
           <ds-item-versions-notice [item]="item"></ds-item-versions-notice>
-          <ds-view-tracker [object]="item"></ds-view-tracker>
           @if (!item.isWithdrawn || (isAdmin$|async)) {
             <div class="full-item-info">
               <div class="d-flex flex-row">

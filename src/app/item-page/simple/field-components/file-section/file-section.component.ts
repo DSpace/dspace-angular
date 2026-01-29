@@ -6,27 +6,28 @@ import {
   OnInit,
 } from '@angular/core';
 import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Bitstream } from '@dspace/core/shared/bitstream.model';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import { hasValue } from '@dspace/shared/utils/empty.util';
+import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
-import {
-  APP_CONFIG,
-  AppConfig,
-} from 'src/config/app-config.interface';
 
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
-import { PaginatedList } from '../../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { Bitstream } from '../../../../core/shared/bitstream.model';
-import { Item } from '../../../../core/shared/item.model';
-import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
-import { hasValue } from '../../../../shared/empty.util';
 import { ThemedFileDownloadLinkComponent } from '../../../../shared/file-download-link/themed-file-download-link.component';
 import { ThemedLoadingComponent } from '../../../../shared/loading/themed-loading.component';
 import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { FileSizePipe } from '../../../../shared/utils/file-size-pipe';
 import { VarDirective } from '../../../../shared/utils/var.directive';
 
@@ -39,14 +40,13 @@ import { VarDirective } from '../../../../shared/utils/var.directive';
   templateUrl: './file-section.component.html',
   imports: [
     CommonModule,
-    ThemedFileDownloadLinkComponent,
+    FileSizePipe,
     MetadataFieldWrapperComponent,
+    ThemedFileDownloadLinkComponent,
     ThemedLoadingComponent,
     TranslateModule,
-    FileSizePipe,
     VarDirective,
   ],
-  standalone: true,
 })
 export class FileSectionComponent implements OnInit {
 
@@ -66,7 +66,7 @@ export class FileSectionComponent implements OnInit {
 
   pageSize: number;
 
-  primaryBitsreamId: string;
+  primaryBitstreamId: string;
 
   constructor(
     protected bitstreamDataService: BitstreamDataService,
@@ -88,7 +88,7 @@ export class FileSectionComponent implements OnInit {
       if (!primaryBitstream) {
         return;
       }
-      this.primaryBitsreamId = primaryBitstream?.id;
+      this.primaryBitstreamId = primaryBitstream?.id;
     });
   }
 
@@ -109,7 +109,7 @@ export class FileSectionComponent implements OnInit {
     this.bitstreamDataService.findAllByItemAndBundleName(this.item, 'ORIGINAL', {
       currentPage: this.currentPage,
       elementsPerPage: this.pageSize,
-    }).pipe(
+    }, true, true, followLink('accessStatus')).pipe(
       getFirstCompletedRemoteData(),
     ).subscribe((bitstreamsRD: RemoteData<PaginatedList<Bitstream>>) => {
       if (bitstreamsRD.errorMessage) {

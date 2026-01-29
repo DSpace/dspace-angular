@@ -42,12 +42,12 @@
       @if ((getResourcePolicies() | async)?.length > 0) {
         <tr class="text-center">
           <th>
-            <div class="custom-control custom-checkbox">
+            <div>
               <input #selectAllBtn type="checkbox"
-                class="custom-control-input"
+                class="form-check-input"
                 [id]="'selectAll_' + resourceUUID"
                 (change)="selectAllCheckbox($event)">
-              <label class="custom-control-label" [for]="'selectAll_' + resourceUUID">
+              <label class="form-check-label" [for]="'selectAll_' + resourceUUID">
                 <span class="sr-only">{{(selectAllBtn.checked ? 'resource-policies.table.headers.deselect-all' : 'resource-policies.table.headers.select-all') | translate}}</span>
               </label>
             </div>

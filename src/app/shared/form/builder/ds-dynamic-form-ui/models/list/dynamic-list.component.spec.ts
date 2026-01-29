@@ -16,6 +16,18 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
+import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
+import { VocabularyEntry } from '@dspace/core/submission/vocabularies/models/vocabulary-entry.model';
+import { VocabularyOptions } from '@dspace/core/submission/vocabularies/models/vocabulary-options.model';
+import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
+import {
+  mockDynamicFormLayoutService,
+  mockDynamicFormValidationService,
+} from '@dspace/core/testing/dynamic-form-mock-services';
+import { createTestComponent } from '@dspace/core/testing/utils.test';
+import { VocabularyServiceStub } from '@dspace/core/testing/vocabulary-service.stub';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormControlLayout,
@@ -23,20 +35,7 @@ import {
   DynamicFormsCoreModule,
   DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
-import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
 
-import { ConfigurationDataService } from '../../../../../../core/data/configuration-data.service';
-import { ConfigurationProperty } from '../../../../../../core/shared/configuration-property.model';
-import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
-import { VocabularyOptions } from '../../../../../../core/submission/vocabularies/models/vocabulary-options.model';
-import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../remote-data.utils';
-import {
-  mockDynamicFormLayoutService,
-  mockDynamicFormValidationService,
-} from '../../../../../testing/dynamic-form-mock-services';
-import { createTestComponent } from '../../../../../testing/utils.test';
-import { VocabularyServiceStub } from '../../../../../testing/vocabulary-service.stub';
 import { FormBuilderService } from '../../../form-builder.service';
 import { DsDynamicListComponent } from './dynamic-list.component';
 import { DynamicListCheckboxGroupModel } from './dynamic-list-checkbox-group.model';
@@ -104,7 +103,6 @@ describe('DsDynamicListComponent test suite', () => {
     TestBed.configureTestingModule({
       imports: [
         DynamicFormsCoreModule,
-        DynamicFormsNGBootstrapUIModule,
         FormsModule,
         ReactiveFormsModule,
         NgbModule,
@@ -179,8 +177,8 @@ describe('DsDynamicListComponent test suite', () => {
       });
 
       it('should set model value properly when a checkbox option is selected', () => {
-        const de = listFixture.debugElement.queryAll(By.css('div.custom-checkbox'));
-        const items = de[0].queryAll(By.css('input.custom-control-input'));
+        const de = listFixture.debugElement.queryAll(By.css('div.form-check'));
+        const items = de[0].queryAll(By.css('input.form-check-input'));
         const item = items[0];
         modelValue = [Object.assign(new VocabularyEntry(), { authority: 1, display: 'one', value: 1 })];
 
@@ -229,8 +227,8 @@ describe('DsDynamicListComponent test suite', () => {
       });
 
       it('should set model value properly when a checkbox option is deselected', () => {
-        const de = listFixture.debugElement.queryAll(By.css('div.custom-checkbox'));
-        const items = de[0].queryAll(By.css('input.custom-control-input'));
+        const de = listFixture.debugElement.queryAll(By.css('div.form-check'));
+        const items = de[0].queryAll(By.css('input.form-check-input'));
         const item = items[0];
         modelValue = [];
 
@@ -267,8 +265,8 @@ describe('DsDynamicListComponent test suite', () => {
       });
 
       it('should set model value when a radio option is selected', () => {
-        const de = listFixture.debugElement.queryAll(By.css('div.custom-radio'));
-        const items = de[0].queryAll(By.css('input.custom-control-input'));
+        const de = listFixture.debugElement.queryAll(By.css('div.form-check'));
+        const items = de[0].queryAll(By.css('input.form-check-input'));
         const item = items[0];
         modelValue = Object.assign(new VocabularyEntry(), { authority: 1, display: 'one', value: 1 });
 
@@ -311,8 +309,6 @@ describe('DsDynamicListComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
-  standalone: true,
-  imports: [DsDynamicListComponent],
 })
 class TestComponent {
 

@@ -3,9 +3,9 @@ import {
   TestBed,
   tick,
 } from '@angular/core/testing';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import { of } from 'rxjs';
 
-import { APP_CONFIG } from '../../../config/app-config.interface';
 import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
 import { SignpostingDataService } from './signposting-data.service';
 import { SignpostingLink } from './signposting-links.model';

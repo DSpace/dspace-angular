@@ -3,6 +3,19 @@ import {
   Inject,
   OnInit,
 } from '@angular/core';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { AuthMethod } from '@dspace/core/auth/models/auth.method';
+import {
+  isAuthenticated,
+  isAuthenticationLoading,
+} from '@dspace/core/auth/selectors';
+import { CoreState } from '@dspace/core/core-state.model';
+import { HardRedirectService } from '@dspace/core/services/hard-redirect.service';
+import {
+  NativeWindowRef,
+  NativeWindowService,
+} from '@dspace/core/services/window.service';
+import { isEmpty } from '@dspace/shared/utils/empty.util';
 import {
   select,
   Store,
@@ -11,30 +24,13 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { AuthService } from '../../../../core/auth/auth.service';
-import { AuthMethod } from '../../../../core/auth/models/auth.method';
-import {
-  isAuthenticated,
-  isAuthenticationLoading,
-} from '../../../../core/auth/selectors';
-import { CoreState } from '../../../../core/core-state.model';
-import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
-import {
-  NativeWindowRef,
-  NativeWindowService,
-} from '../../../../core/services/window.service';
-import { URLCombiner } from '../../../../core/url-combiner/url-combiner';
-import {
-  isEmpty,
-  isNotNull,
-} from '../../../empty.util';
-
 @Component({
   selector: 'ds-log-in-external-provider',
   templateUrl: './log-in-external-provider.component.html',
   styleUrls: ['./log-in-external-provider.component.scss'],
-  standalone: true,
-  imports: [TranslateModule],
+  imports: [
+    TranslateModule,
+  ],
 })
 export class LogInExternalProviderComponent implements OnInit {
 
@@ -104,24 +100,14 @@ export class LogInExternalProviderComponent implements OnInit {
       } else if (isEmpty(redirectRoute)) {
         redirectRoute = '/';
       }
-      const correctRedirectUrl = new URLCombiner(this._window.nativeWindow.origin, redirectRoute).toString();
-
-      let externalServerUrl = this.location;
-      const myRegexp = /\?redirectUrl=(.*)/g;
-      const match = myRegexp.exec(this.location);
-      const redirectUrlFromServer = (match && match[1]) ? match[1] : null;
-
-      // Check whether the current page is different from the redirect url received from rest
-      if (isNotNull(redirectUrlFromServer) && redirectUrlFromServer !== correctRedirectUrl) {
-        // change the redirect url with the current page url
-        const newRedirectUrl = `?redirectUrl=${correctRedirectUrl}`;
-        externalServerUrl = this.location.replace(/\?redirectUrl=(.*)/g, newRedirectUrl);
-      }
-
-      // redirect to shibboleth authentication url
+      const externalServerUrl = this.authService.getExternalServerRedirectUrl(
+        this._window.nativeWindow.origin,
+        redirectRoute,
+        this.location,
+      );
+      // redirect to shibboleth/orcid/(external) authentication url
       this.hardRedirectService.redirect(externalServerUrl);
     });
-
   }
 
   getButtonLabel() {

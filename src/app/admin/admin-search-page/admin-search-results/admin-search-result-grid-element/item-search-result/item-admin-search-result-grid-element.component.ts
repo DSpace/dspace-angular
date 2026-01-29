@@ -6,16 +6,16 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
+import { Context } from '@dspace/core/shared/context.model';
+import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
+import { Item } from '@dspace/core/shared/item.model';
+import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 
-import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
-import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
-import { Context } from '../../../../../core/shared/context.model';
-import { GenericConstructor } from '../../../../../core/shared/generic-constructor';
-import { Item } from '../../../../../core/shared/item.model';
-import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { DynamicComponentLoaderDirective } from '../../../../../shared/abstract-component-loader/dynamic-component-loader.directive';
-import { hasValue } from '../../../../../shared/empty.util';
-import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
 import {
   getListableObjectComponent,
   listableObjectComponent,
@@ -30,8 +30,10 @@ import { ItemAdminSearchResultActionsComponent } from '../../item-admin-search-r
   selector: 'ds-item-admin-search-result-grid-element',
   styleUrls: ['./item-admin-search-result-grid-element.component.scss'],
   templateUrl: './item-admin-search-result-grid-element.component.html',
-  standalone: true,
-  imports: [ItemAdminSearchResultActionsComponent, DynamicComponentLoaderDirective],
+  imports: [
+    DynamicComponentLoaderDirective,
+    ItemAdminSearchResultActionsComponent,
+  ],
 })
 /**
  * The component for displaying a list element for an item search result on the admin search page

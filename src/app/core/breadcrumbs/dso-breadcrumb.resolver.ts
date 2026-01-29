@@ -2,20 +2,20 @@ import {
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
 } from '@angular/router';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { getDSORoute } from '../../app-routing-paths';
-import { BreadcrumbConfig } from '../../breadcrumbs/breadcrumb/breadcrumb-config.model';
-import { hasValue } from '../../shared/empty.util';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { IdentifiableDataService } from '../data/base/identifiable-data.service';
+import { getDSORoute } from '../router/utils/dso-route.utils';
 import { DSpaceObject } from '../shared/dspace-object.model';
+import { FollowLinkConfig } from '../shared/follow-link-config.model';
 import {
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
 } from '../shared/operators';
 import { DSOBreadcrumbsService } from './dso-breadcrumbs.service';
+import { BreadcrumbConfig } from './models/breadcrumb-config.model';
 
 /**
  * Method for resolving a breadcrumb config object

@@ -7,15 +7,15 @@ import {
   Router,
   UrlTree,
 } from '@angular/router';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
+import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
-import { AuthService } from '../../core/auth/auth.service';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../core/data/feature-authorization/feature-id';
-import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import { groupPageGuard } from './group-page.guard';
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000; // Increase timeout to 10 seconds
@@ -37,7 +37,7 @@ describe('GroupPageGuard', () => {
 
   function init() {
     halEndpointService = jasmine.createSpyObj(['getEndpoint']);
-    ( halEndpointService as any ).getEndpoint.and.returnValue(observableOf(groupsEndpointUrl));
+    ( halEndpointService as any ).getEndpoint.and.returnValue(of(groupsEndpointUrl));
 
     authorizationService = jasmine.createSpyObj(['isAuthorized']);
     // NOTE: value is set in beforeEach
@@ -46,7 +46,7 @@ describe('GroupPageGuard', () => {
     ( router as any ).parseUrl.and.returnValue = {};
 
     authService = jasmine.createSpyObj(['isAuthenticated']);
-    ( authService as any ).isAuthenticated.and.returnValue(observableOf(true));
+    ( authService as any ).isAuthenticated.and.returnValue(of(true));
 
     TestBed.configureTestingModule({
       providers: [
@@ -69,7 +69,7 @@ describe('GroupPageGuard', () => {
   describe('canActivate', () => {
     describe('when the current user can manage the group', () => {
       beforeEach(() => {
-        ( authorizationService as any ).isAuthorized.and.returnValue(observableOf(true));
+        ( authorizationService as any ).isAuthorized.and.returnValue(of(true));
       });
 
       it('should return true', (done) => {
@@ -89,7 +89,7 @@ describe('GroupPageGuard', () => {
 
     describe('when the current user can not manage the group', () => {
       beforeEach(() => {
-        (authorizationService as any).isAuthorized.and.returnValue(observableOf(false));
+        (authorizationService as any).isAuthorized.and.returnValue(of(false));
       });
 
       it('should not return true', (done) => {

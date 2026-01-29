@@ -7,8 +7,9 @@ import { TranslateModule } from '@ngx-translate/core';
 @Component({
   selector: 'ds-process-detail-field',
   templateUrl: './process-detail-field.component.html',
-  standalone: true,
-  imports: [TranslateModule],
+  imports: [
+    TranslateModule,
+  ],
 })
 /**
  * A component displaying a single detail about a DSpace Process

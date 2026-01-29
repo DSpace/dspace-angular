@@ -6,18 +6,18 @@ import {
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { of as observableOf } from 'rxjs';
-
-import { AuthService } from '../../../core/auth/auth.service';
-import { VersionDataService } from '../../../core/data/version-data.service';
-import { Item } from '../../../core/shared/item.model';
-import { Version } from '../../../core/shared/version.model';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { VersionDataService } from '@dspace/core/data/version-data.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { Version } from '@dspace/core/shared/version.model';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../shared/remote-data.utils';
-import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
-import { createPaginatedList } from '../../../shared/testing/utils.test';
+} from '@dspace/core/utilities/remote-data.utils';
+import { of } from 'rxjs';
+
 import { createRelationshipsObservable } from '../../simple/item-types/shared/item.component.spec';
 import { VersionPageComponent } from './version-page.component';
 
@@ -35,7 +35,6 @@ const mockVersion: Version = Object.assign(new Version(), {
 
 @Component({
   template: '',
-  standalone: true,
 })
 class DummyComponent {
 }
@@ -46,12 +45,12 @@ describe('VersionPageComponent', () => {
   let authService: AuthService;
 
   const mockRoute = Object.assign(new ActivatedRouteStub(), {
-    data: observableOf({ dso: createSuccessfulRemoteDataObject(mockVersion) }),
+    data: of({ dso: createSuccessfulRemoteDataObject(mockVersion) }),
   });
 
   beforeEach(waitForAsync(() => {
     authService = jasmine.createSpyObj('authService', {
-      isAuthenticated: observableOf(true),
+      isAuthenticated: of(true),
       setRedirectUrl: {},
     });
     TestBed.configureTestingModule({

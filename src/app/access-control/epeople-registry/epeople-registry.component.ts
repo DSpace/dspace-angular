@@ -15,6 +15,28 @@ import {
   Router,
   RouterModule,
 } from '@angular/router';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { RequestService } from '@dspace/core/data/request.service';
+import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
+import { EPerson } from '@dspace/core/eperson/models/eperson.model';
+import { EpersonDtoModel } from '@dspace/core/eperson/models/eperson-dto.model';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { NoContent } from '@dspace/core/shared/NoContent.model';
+import {
+  getAllSucceededRemoteData,
+  getFirstCompletedRemoteData,
+} from '@dspace/core/shared/operators';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -32,51 +54,27 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../core/data/feature-authorization/feature-id';
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '../../core/data/paginated-list.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { RequestService } from '../../core/data/request.service';
-import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { EPerson } from '../../core/eperson/models/eperson.model';
-import { EpersonDtoModel } from '../../core/eperson/models/eperson-dto.model';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { NoContent } from '../../core/shared/NoContent.model';
-import {
-  getAllSucceededRemoteData,
-  getFirstCompletedRemoteData,
-} from '../../core/shared/operators';
-import { PageInfo } from '../../core/shared/page-info.model';
 import { ConfirmationModalComponent } from '../../shared/confirmation-modal/confirmation-modal.component';
-import { hasValue } from '../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import {
   getEPersonEditRoute,
   getEPersonsRoute,
 } from '../access-control-routing-paths';
-import { EPersonFormComponent } from './eperson-form/eperson-form.component';
+import { EpeopleRegistryService } from './epeople-registry.service';
 
 @Component({
   selector: 'ds-epeople-registry',
   templateUrl: './epeople-registry.component.html',
   imports: [
-    TranslateModule,
-    RouterModule,
     AsyncPipe,
-    EPersonFormComponent,
-    ReactiveFormsModule,
-    ThemedLoadingComponent,
-    PaginationComponent,
     NgClass,
+    PaginationComponent,
+    ReactiveFormsModule,
+    RouterModule,
+    ThemedLoadingComponent,
+    TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * A component used for managing all existing epeople within the repository.
@@ -135,6 +133,7 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
   subs: Subscription[] = [];
 
   constructor(private epersonService: EPersonDataService,
+              private epeopleRegistryService: EpeopleRegistryService,
               private translateService: TranslateService,
               private notificationsService: NotificationsService,
               private authorizationService: AuthorizationDataService,
@@ -163,7 +162,7 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
   initialisePage() {
     this.searching$.next(true);
     this.search({ scope: this.currentSearchScope, query: this.currentSearchQuery });
-    this.activeEPerson$ = this.epersonService.getActiveEPerson();
+    this.activeEPerson$ = this.epeopleRegistryService.getActiveEPerson();
     this.subs.push(this.ePeople$.pipe(
       switchMap((epeople: PaginatedList<EPerson>) => {
         if (epeople.pageInfo.totalElements > 0) {

@@ -4,18 +4,18 @@ import {
   Input,
   Output,
 } from '@angular/core';
+import { SortOptions } from '@dspace/core/cache/models/sort-options.model';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { Context } from '@dspace/core/shared/context.model';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
+import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
+import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
 
-import { SortOptions } from '../../../core/cache/models/sort-options.model';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { Context } from '../../../core/shared/context.model';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { ViewMode } from '../../../core/shared/view-mode.model';
 import { CollectionElementLinkType } from '../../object-collection/collection-element-link.type';
-import { ListableObject } from '../../object-collection/shared/listable-object.model';
 import { ThemedComponent } from '../../theme-support/themed.component';
-import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
-import { SearchResult } from '../models/search-result.model';
 import {
   SearchResultsComponent,
   SelectionConfig,
@@ -26,10 +26,7 @@ import {
  */
 @Component({
   selector: 'ds-search-results',
-  styleUrls: [],
   templateUrl: '../../theme-support/themed.component.html',
-  standalone: true,
-  imports: [SearchResultsComponent],
 })
 export class ThemedSearchResultsComponent extends ThemedComponent<SearchResultsComponent> {
 

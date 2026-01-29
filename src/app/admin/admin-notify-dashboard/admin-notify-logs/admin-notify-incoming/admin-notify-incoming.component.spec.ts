@@ -3,10 +3,10 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { RouterModule } from '@angular/router';
+import { SearchConfigurationServiceStub } from '@dspace/core/testing/search-configuration-service.stub';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-configuration.service';
-import { SearchConfigurationServiceStub } from '../../../../shared/testing/search-configuration-service.stub';
 import { AdminNotifyLogsResultComponent } from '../admin-notify-logs-result/admin-notify-logs-result.component';
 import { AdminNotifyIncomingComponent } from './admin-notify-incoming.component';
 

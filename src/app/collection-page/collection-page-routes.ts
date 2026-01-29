@@ -1,16 +1,16 @@
 import { Route } from '@angular/router';
+import { authenticatedGuard } from '@dspace/core/auth/authenticated.guard';
+import { collectionBreadcrumbResolver } from '@dspace/core/breadcrumbs/collection-breadcrumb.resolver';
+import { communityBreadcrumbResolver } from '@dspace/core/breadcrumbs/community-breadcrumb.resolver';
+import { i18nBreadcrumbResolver } from '@dspace/core/breadcrumbs/i18n-breadcrumb.resolver';
 
+import { ObjectAuditLogsComponent } from '../audit-page/object-audit-overview/object-audit-logs.component';
 import { browseByGuard } from '../browse-by/browse-by-guard';
 import { browseByI18nBreadcrumbResolver } from '../browse-by/browse-by-i18n-breadcrumb.resolver';
-import { authenticatedGuard } from '../core/auth/authenticated.guard';
-import { collectionBreadcrumbResolver } from '../core/breadcrumbs/collection-breadcrumb.resolver';
-import { communityBreadcrumbResolver } from '../core/breadcrumbs/community-breadcrumb.resolver';
-import { i18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { ComcolBrowseByComponent } from '../shared/comcol/sections/comcol-browse-by/comcol-browse-by.component';
 import { ComcolSearchSectionComponent } from '../shared/comcol/sections/comcol-search-section/comcol-search-section.component';
-import { dsoEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
-import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
-import { MenuItemType } from '../shared/menu/menu-item-type.model';
+import { MenuRoute } from '../shared/menu/menu-route.model';
+import { viewTrackerResolver } from '../statistics/angulartics/dspace/view-tracker.resolver';
 import { collectionPageResolver } from './collection-page.resolver';
 import { collectionPageAdministratorGuard } from './collection-page-administrator.guard';
 import {
@@ -64,6 +64,14 @@ export const ROUTES: Route[] = [
         canActivate: [collectionPageAdministratorGuard],
       },
       {
+        path: 'auditlogs',
+        component: ObjectAuditLogsComponent,
+        data: { title: 'audit.object.title', breadcrumbKey: 'audit.object' },
+        resolve: {
+          breadcrumb: i18nBreadcrumbResolver,
+        },
+      },
+      {
         path: 'delete',
         pathMatch: 'full',
         component: DeleteCollectionPageComponent,
@@ -82,14 +90,27 @@ export const ROUTES: Route[] = [
       {
         path: '',
         component: ThemedCollectionPageComponent,
-        resolve: {
-          menu: dsoEditMenuResolver,
+        data: {
+          menuRoute: MenuRoute.COLLECTION_PAGE,
         },
         children: [
           {
             path: '',
             pathMatch: 'full',
             component: ComcolSearchSectionComponent,
+          },
+          {
+            path: 'search',
+            pathMatch: 'full',
+            component: ComcolSearchSectionComponent,
+            resolve: {
+              breadcrumb: i18nBreadcrumbResolver,
+            },
+            data: {
+              breadcrumbKey: 'collection.search',
+              menuRoute: MenuRoute.COLLECTION_PAGE,
+              enableRSS: true,
+            },
           },
           {
             path: 'browse/:id',
@@ -99,25 +120,16 @@ export const ROUTES: Route[] = [
             resolve: {
               breadcrumb: browseByI18nBreadcrumbResolver,
             },
-            data: { breadcrumbKey: 'browse.metadata' },
+            data: {
+              breadcrumbKey: 'browse.metadata',
+              menuRoute: MenuRoute.COLLECTION_PAGE,
+            },
           },
         ],
+        resolve: {
+          tracking: viewTrackerResolver,
+        },
       },
     ],
-    data: {
-      menu: {
-        public: [{
-          id: 'statistics_collection_:id',
-          active: true,
-          visible: true,
-          index: 2,
-          model: {
-            type: MenuItemType.LINK,
-            text: 'menu.section.statistics',
-            link: 'statistics/collections/:id/',
-          } as LinkMenuItemModel,
-        }],
-      },
-    },
   },
 ];

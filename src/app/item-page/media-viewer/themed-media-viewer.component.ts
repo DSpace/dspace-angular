@@ -2,9 +2,9 @@ import {
   Component,
   Input,
 } from '@angular/core';
+import { MediaViewerConfig } from '@dspace/config/media-viewer-config.interface';
+import { Item } from '@dspace/core/shared/item.model';
 
-import { MediaViewerConfig } from '../../../config/media-viewer-config.interface';
-import { Item } from '../../core/shared/item.model';
 import { ThemedComponent } from '../../shared/theme-support/themed.component';
 import { MediaViewerComponent } from './media-viewer.component';
 
@@ -13,10 +13,7 @@ import { MediaViewerComponent } from './media-viewer.component';
  */
 @Component({
   selector: 'ds-media-viewer',
-  styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
-  standalone: true,
-  imports: [MediaViewerComponent],
 })
 export class ThemedMediaViewerComponent extends ThemedComponent<MediaViewerComponent> {
 

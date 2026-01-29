@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import { Observable } from 'rxjs';
 import {
   map,
@@ -6,16 +7,15 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { isNotEmpty } from '../../../shared/empty.util';
-import {
-  followLink,
-  FollowLinkConfig,
-} from '../../../shared/utils/follow-link-config.model';
 import { RequestParam } from '../../cache/models/request-param.model';
 import { FindListOptions } from '../../data/find-list-options.model';
 import { PaginatedList } from '../../data/paginated-list.model';
 import { RemoteData } from '../../data/remote-data';
 import { RequestService } from '../../data/request.service';
+import {
+  followLink,
+  FollowLinkConfig,
+} from '../../shared/follow-link-config.model';
 import {
   getFirstSucceededRemoteDataPayload,
   getFirstSucceededRemoteListPayload,

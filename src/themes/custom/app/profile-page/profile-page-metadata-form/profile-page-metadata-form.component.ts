@@ -10,7 +10,6 @@ import { FormComponent } from '../../../../../app/shared/form/form.component';
   imports: [
     FormComponent,
   ],
-  standalone: true,
 })
 export class ProfilePageMetadataFormComponent extends BaseComponent {
 }

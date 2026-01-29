@@ -6,7 +6,7 @@ import { MenuItemModel } from './menu-item.model';
  */
 export class ExternalLinkMenuItemModel implements MenuItemModel {
   type = MenuItemType.EXTERNAL;
-  disabled: boolean;
+  disabled?: boolean;
   text: string;
   href: string;
 }

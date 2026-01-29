@@ -11,13 +11,13 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { MetadataValue } from '@dspace/core/shared/metadata.models';
+import { RouterStub } from '@dspace/core/testing/router.stub';
+import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { Collection } from '../../../../core/shared/collection.model';
-import { MetadataValue } from '../../../../core/shared/metadata.models';
-import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
-import { RouterStub } from '../../../testing/router.stub';
 import { AuthorizedCollectionSelectorComponent } from '../../dso-selector/authorized-collection-selector/authorized-collection-selector.component';
 import { CreateItemParentSelectorComponent } from './create-item-parent-selector.component';
 

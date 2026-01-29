@@ -15,7 +15,7 @@
     <h1>{{ (configuration ? configuration + '.search.results.head' : 'search.results.head') | translate }}</h1>
   }
   @if (showCsvExport) {
-    <ds-search-export-csv [searchConfig]="searchConfig"></ds-search-export-csv>
+    <ds-search-export-csv [searchConfig]="searchConfig" [total]="searchResults?.payload?.totalElements"></ds-search-export-csv>
   }
 </div>
 @if (searchResults && searchResults?.hasSucceeded && !searchResults?.isLoading && searchResults?.payload?.page.length > 0) {
@@ -25,6 +25,7 @@
       [sortConfig]="searchConfig.sort"
       [objects]="searchResults"
       [hideGear]="true"
+      [showRSS]="true"
       [selectable]="selectable"
       [selectionConfig]="selectionConfig"
       [linkType]="linkType"
@@ -54,7 +55,7 @@
     {{ 'search.results.no-results' | translate }}
     <a [routerLink]="['/search']"
       [queryParams]="{ query: surroundStringWithQuotes(searchConfig?.query) }"
-      queryParamsHandling="merge">
+      queryParamsHandling="merge" role="link" tabindex="0">
       {{"search.results.no-results-link" | translate}}
     </a>
   </div>

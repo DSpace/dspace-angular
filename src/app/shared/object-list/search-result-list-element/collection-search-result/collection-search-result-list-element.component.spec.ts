@@ -10,25 +10,25 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { of as observableOf } from 'rxjs';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { CollectionSearchResult } from '@dspace/core/shared/object-collection/collection-search-result.model';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
+import { of } from 'rxjs';
 
-import { APP_CONFIG } from '../../../../../config/app-config.interface';
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { Collection } from '../../../../core/shared/collection.model';
-import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
-import { CollectionSearchResult } from '../../../object-collection/shared/collection-search-result.model';
-import { ActivatedRouteStub } from '../../../testing/active-router.stub';
+import { getMockThemeService } from '../../../theme-support/test/theme-service.mock';
+import { ThemeService } from '../../../theme-support/theme.service';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { TruncatePipe } from '../../../utils/truncate.pipe';
-import { getMockThemeService } from './../../../../shared/mocks/theme-service.mock';
-import { ThemeService } from './../../../../shared/theme-support/theme.service';
 import { CollectionSearchResultListElementComponent } from './collection-search-result-list-element.component';
 
 let collectionSearchResultListElementComponent: CollectionSearchResultListElementComponent;
 let fixture: ComponentFixture<CollectionSearchResultListElementComponent>;
 
 const truncatableServiceStub: any = {
-  isCollapsed: (id: number) => observableOf(true),
+  isCollapsed: (id: number) => of(true),
 };
 
 const mockCollectionWithAbstract: CollectionSearchResult = new CollectionSearchResult();

@@ -4,11 +4,11 @@ import {
   Input,
   Output,
 } from '@angular/core';
+import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
+import { Item } from '@dspace/core/shared/item.model';
+import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
+import { ClaimedTask } from '@dspace/core/tasks/models/claimed-task-object.model';
 
-import { GenericConstructor } from '../../../../core/shared/generic-constructor';
-import { Item } from '../../../../core/shared/item.model';
-import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
-import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
 import { AbstractComponentLoaderComponent } from '../../../abstract-component-loader/abstract-component-loader.component';
 import { DynamicComponentLoaderDirective } from '../../../abstract-component-loader/dynamic-component-loader.directive';
 import { MyDSpaceActionsResult } from '../../mydspace-actions';
@@ -18,8 +18,9 @@ import { getComponentByWorkflowTaskOption } from './claimed-task-actions-decorat
 @Component({
   selector: 'ds-claimed-task-actions-loader',
   templateUrl: '../../../abstract-component-loader/abstract-component-loader.component.html',
-  standalone: true,
-  imports: [ DynamicComponentLoaderDirective ],
+  imports: [
+    DynamicComponentLoaderDirective,
+  ],
 })
 /**
  * Component for loading a ClaimedTaskAction component depending on the "option" input

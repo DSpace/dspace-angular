@@ -14,37 +14,37 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateModule } from '@ngx-translate/core';
-import { getTestScheduler } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
-import { TestScheduler } from 'rxjs/testing';
-
-import { ExternalSourceDataService } from '../../core/data/external-source-data.service';
-import { RouteService } from '../../core/services/route.service';
-import { ExternalSourceEntry } from '../../core/shared/external-source-entry.model';
-import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
-import { AlertComponent } from '../../shared/alert/alert.component';
-import { HostWindowService } from '../../shared/host-window.service';
-import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { getMockExternalSourceService } from '../../shared/mocks/external-source.service.mock';
-import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
-import { ObjectCollectionComponent } from '../../shared/object-collection/object-collection.component';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
+import { ExternalSourceDataService } from '@dspace/core/data/external-source-data.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { RouteService } from '@dspace/core/services/route.service';
+import { ExternalSourceEntry } from '@dspace/core/shared/external-source-entry.model';
+import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { getMockExternalSourceService } from '@dspace/core/testing/external-source.service.mock';
+import { HostWindowServiceStub } from '@dspace/core/testing/host-window-service.stub';
+import { routeServiceStub } from '@dspace/core/testing/route-service.stub';
+import { RouterStub } from '@dspace/core/testing/router.stub';
+import {
+  createPaginatedList,
+  createTestComponent,
+} from '@dspace/core/testing/utils.test';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
-import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
-import { HostWindowServiceStub } from '../../shared/testing/host-window-service.stub';
-import { routeServiceStub } from '../../shared/testing/route-service.stub';
-import { RouterStub } from '../../shared/testing/router.stub';
-import {
-  createPaginatedList,
-  createTestComponent,
-} from '../../shared/testing/utils.test';
+} from '@dspace/core/utilities/remote-data.utils';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import { getTestScheduler } from 'jasmine-marbles';
+import { of } from 'rxjs';
+import { TestScheduler } from 'rxjs/testing';
+
+import { AlertComponent } from '../../shared/alert/alert.component';
+import { HostWindowService } from '../../shared/host-window.service';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { ObjectCollectionComponent } from '../../shared/object-collection/object-collection.component';
+import { SearchConfigurationService } from '../../shared/search/search-configuration.service';
+import { getMockThemeService } from '../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { SubmissionImportExternalPreviewComponent } from './import-external-preview/submission-import-external-preview.component';
@@ -57,7 +57,7 @@ describe('SubmissionImportExternalComponent test suite', () => {
   let fixture: ComponentFixture<SubmissionImportExternalComponent>;
   let scheduler: TestScheduler;
   const ngbModal = jasmine.createSpyObj('modal', ['open']);
-  const mockSearchOptions = observableOf(new PaginatedSearchOptions({
+  const mockSearchOptions = of(new PaginatedSearchOptions({
     pagination: Object.assign(new PaginationComponentOptions(), {
       pageSize: 10,
       currentPage: 0,
@@ -144,7 +144,7 @@ describe('SubmissionImportExternalComponent test suite', () => {
     it('Should init component properly (without route data)', () => {
       const expectedEntries = createSuccessfulRemoteDataObject(createPaginatedList([]));
       comp.routeData = { entity: '', sourceId: '', query: '' };
-      spyOn(compAsAny.routeService, 'getQueryParameterValue').and.returnValue(observableOf(''));
+      spyOn(compAsAny.routeService, 'getQueryParameterValue').and.returnValue(of(''));
       fixture.detectChanges();
 
       expect(comp.routeData).toEqual({ entity: '', sourceId: '', query: '' });
@@ -155,7 +155,7 @@ describe('SubmissionImportExternalComponent test suite', () => {
     it('Should init component properly (with route data)', () => {
       comp.routeData = { entity: '', sourceId: '', query: '' };
       spyOn(compAsAny, 'retrieveExternalSources');
-      spyOn(compAsAny.routeService, 'getQueryParameterValue').and.returnValues(observableOf('entity'), observableOf('source'), observableOf('dummy'));
+      spyOn(compAsAny.routeService, 'getQueryParameterValue').and.returnValues(of('entity'), of('source'), of('dummy'));
       fixture.detectChanges();
 
       expect(compAsAny.retrieveExternalSources).toHaveBeenCalled();
@@ -164,11 +164,11 @@ describe('SubmissionImportExternalComponent test suite', () => {
     it('Should call \'getExternalSourceEntries\' properly', () => {
       spyOn(routeServiceStub, 'getQueryParameterValue').and.callFake((param) => {
         if (param === 'sourceId') {
-          return observableOf('orcidV2');
+          return of('orcidV2');
         } else if (param === 'query') {
-          return observableOf('test');
+          return of('test');
         }
-        return observableOf({});
+        return of({});
       });
 
       fixture.detectChanges();
@@ -480,13 +480,13 @@ describe('SubmissionImportExternalComponent test suite', () => {
       const expectedEntries = createSuccessfulRemoteDataObject(paginatedData.payload);
       spyOn(routeServiceStub, 'getQueryParameterValue').and.callFake((param) => {
         if (param === 'entity') {
-          return observableOf('Publication');
+          return of('Publication');
         } else if (param === 'sourceId') {
-          return observableOf('scopus');
+          return of('scopus');
         } else if (param === 'query') {
-          return observableOf('test');
+          return of('test');
         }
-        return observableOf({});
+        return of({});
       });
       fixture.detectChanges();
 
@@ -501,9 +501,15 @@ describe('SubmissionImportExternalComponent test suite', () => {
       const expectedEntries = createSuccessfulRemoteDataObject(createPaginatedList([]));
       spyOn(routeServiceStub, 'getQueryParameterValue').and.callFake((param) => {
         if (param === 'entity') {
-          return observableOf('Publication');
+          return of('Publication');
         }
-        return observableOf({});
+        if (param === 'query') {
+          return of('test');
+        }
+        if (param === 'sourceId') {
+          return of('pubmed');
+        }
+        return of({});
       });
       fixture.detectChanges();
 
@@ -521,13 +527,13 @@ describe('SubmissionImportExternalComponent test suite', () => {
       ));
       spyOn(routeServiceStub, 'getQueryParameterValue').and.callFake((param) => {
         if (param === 'entity') {
-          return observableOf('Publication');
+          return of('Publication');
         } else if (param === 'sourceId') {
-          return observableOf('pubmed');
+          return of('pubmed');
         } else if (param === 'query') {
-          return observableOf('test');
+          return of('test');
         }
-        return observableOf({});
+        return of({});
       });
       fixture.detectChanges();
 
@@ -544,7 +550,6 @@ describe('SubmissionImportExternalComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
-  standalone: true,
 })
 class TestComponent {
 

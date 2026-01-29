@@ -9,42 +9,42 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { FindListOptions } from '@dspace/core/data/find-list-options.model';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import {
+  APP_DATA_SERVICES_MAP,
+  LazyDataServicesMap,
+} from '@dspace/core/data-services-map-type';
+import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
+import { GroupDataService } from '@dspace/core/eperson/group-data.service';
+import { EPerson } from '@dspace/core/eperson/models/eperson.model';
+import { EPERSON } from '@dspace/core/eperson/models/eperson.resource-type';
+import { Group } from '@dspace/core/eperson/models/group.model';
+import { GROUP } from '@dspace/core/eperson/models/group.resource-type';
+import { lazyDataService } from '@dspace/core/lazy-data-service';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import {
+  getAllCompletedRemoteData,
+  getRemoteDataPayload,
+} from '@dspace/core/shared/operators';
+import { ResourceType } from '@dspace/core/shared/resource-type';
 import { TranslateModule } from '@ngx-translate/core';
 import uniqueId from 'lodash/uniqueId';
 import {
   BehaviorSubject,
   Observable,
-  Subscription,
 } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
 
-import {
-  APP_DATA_SERVICES_MAP,
-  LazyDataServicesMap,
-} from '../../../config/app-config.interface';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { FindListOptions } from '../../core/data/find-list-options.model';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { GroupDataService } from '../../core/eperson/group-data.service';
-import { EPERSON } from '../../core/eperson/models/eperson.resource-type';
-import { GROUP } from '../../core/eperson/models/group.resource-type';
-import { lazyDataService } from '../../core/lazy-data-service';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
-import { ResourceType } from '../../core/shared/resource-type';
 import { fadeInOut } from '../animations/fade';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../empty.util';
 import { PaginationComponent } from '../pagination/pagination.component';
-import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import { SearchEvent } from './eperson-group-list-event-type';
 import { EpersonSearchBoxComponent } from './eperson-search-box/eperson-search-box.component';
 import { GroupSearchBoxComponent } from './group-search-box/group-search-box.component';
+
 
 @Component({
   selector: 'ds-eperson-group-list',
@@ -53,8 +53,13 @@ import { GroupSearchBoxComponent } from './group-search-box/group-search-box.com
   animations: [
     fadeInOut,
   ],
-  standalone: true,
-  imports: [EpersonSearchBoxComponent, GroupSearchBoxComponent, PaginationComponent, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    EpersonSearchBoxComponent,
+    GroupSearchBoxComponent,
+    PaginationComponent,
+    TranslateModule,
+  ],
 })
 /**
  * Component that shows a list of eperson or group
@@ -101,21 +106,13 @@ export class EpersonGroupListComponent implements OnInit, OnDestroy {
   /**
    * A list of eperson or group
    */
-  private list$: BehaviorSubject<RemoteData<PaginatedList<DSpaceObject>>> = new BehaviorSubject<RemoteData<PaginatedList<DSpaceObject>>>({} as any);
+  list$: Observable<PaginatedList<EPerson | Group>>;
 
   /**
    * The eperson or group's id selected
    * @type {string}
    */
-  private entrySelectedId: BehaviorSubject<string> = new BehaviorSubject<string>('');
-
-  /**
-   * Array to track all subscriptions and unsubscribe them onDestroy
-   * @type {Array}
-   */
-  private subs: Subscription[] = [];
-
-  private pageConfigSub: Subscription;
+  entrySelectedId$: BehaviorSubject<string> = new BehaviorSubject('');
 
   /**
    * Initialize instance variables and inject the properly UpdateDataServiceImpl
@@ -143,7 +140,7 @@ export class EpersonGroupListComponent implements OnInit, OnDestroy {
       this.paginationOptions.pageSize = 5;
 
       if (this.initSelected) {
-        this.entrySelectedId.next(this.initSelected);
+        this.entrySelectedId$.next(this.initSelected);
       }
 
       this.updateList(this.currentSearchScope, this.currentSearchQuery);
@@ -158,27 +155,8 @@ export class EpersonGroupListComponent implements OnInit, OnDestroy {
    */
   emitSelect(entry: DSpaceObject): void {
     this.select.emit(entry);
-    this.entrySelectedId.next(entry.id);
+    this.entrySelectedId$.next(entry.id);
   }
-
-  /**
-   * Return the list of eperson or group
-   */
-  getList(): Observable<RemoteData<PaginatedList<DSpaceObject>>> {
-    return this.list$.asObservable();
-  }
-
-  /**
-   * Return a boolean representing if a table row is selected
-   *
-   * @return {boolean}
-   */
-  isSelected(entry: DSpaceObject): Observable<boolean> {
-    return this.entrySelectedId.asObservable().pipe(
-      map((selectedId) => isNotEmpty(selectedId) && selectedId === entry.id),
-    );
-  }
-
 
   /**
    * Method called on search
@@ -194,38 +172,26 @@ export class EpersonGroupListComponent implements OnInit, OnDestroy {
    * Retrieve a paginate list of eperson or group
    */
   updateList(scope: string, query: string): void {
-    if (hasValue(this.pageConfigSub)) {
-      this.pageConfigSub.unsubscribe();
-    }
-    this.pageConfigSub = this.paginationService.getCurrentPagination(this.paginationOptions.id, this.paginationOptions)
-      .subscribe((paginationOptions) => {
-        const options: FindListOptions = Object.assign({}, new FindListOptions(), {
+    this.list$ = this.paginationService.getCurrentPagination(this.paginationOptions.id, this.paginationOptions).pipe(
+      switchMap((paginationOptions) => {
+        const options: FindListOptions = Object.assign(new FindListOptions(), {
           elementsPerPage: paginationOptions.pageSize,
           currentPage: paginationOptions.currentPage,
         });
 
-        const search$: Observable<RemoteData<PaginatedList<DSpaceObject>>> = this.isListOfEPerson ?
+        return this.isListOfEPerson ?
           (this.dataService as EPersonDataService).searchByScope(scope, query, options) :
           (this.dataService as GroupDataService).searchGroups(query, options);
-
-        this.subs.push(search$.pipe(getFirstCompletedRemoteData())
-          .subscribe((list: RemoteData<PaginatedList<DSpaceObject>>) => {
-            if (hasValue(this.list$)) {
-              this.list$.next(list);
-            }
-          }),
-        );
-      });
+      }),
+      getAllCompletedRemoteData(),
+      getRemoteDataPayload(),
+    );
   }
 
   /**
    * Unsubscribe from all subscriptions
    */
   ngOnDestroy(): void {
-    this.list$ = null;
-    this.subs
-      .filter((subscription) => hasValue(subscription))
-      .forEach((subscription) => subscription.unsubscribe());
     this.paginationService.clearPagination(this.paginationOptions.id);
   }
 

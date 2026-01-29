@@ -1,4 +1,5 @@
 import {
+  AsyncPipe,
   NgClass,
   NgStyle,
 } from '@angular/common';
@@ -7,20 +8,40 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
+import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
+import { Item } from '@dspace/core/shared/item.model';
+import {
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+} from '@dspace/core/shared/operators';
+import { hasValue } from '@dspace/shared/utils/empty.util';
+import { parseCcCode } from '@dspace/shared/utils/license.utils';
 import { TranslateModule } from '@ngx-translate/core';
-import { Item } from 'src/app/core/shared/item.model';
+import {
+  map,
+  Observable,
+  of,
+} from 'rxjs';
 import { MetadataFieldWrapperComponent } from 'src/app/shared/metadata-field-wrapper/metadata-field-wrapper.component';
+
 
 @Component({
   selector: 'ds-item-page-cc-license-field',
   templateUrl: './item-page-cc-license-field.component.html',
-  standalone: true,
-  imports: [NgClass, NgStyle, TranslateModule, MetadataFieldWrapperComponent],
+  imports: [
+    AsyncPipe,
+    MetadataFieldWrapperComponent,
+    NgClass,
+    NgStyle,
+    TranslateModule,
+  ],
 })
 /**
  * Displays the item's Creative Commons license image in it's simple item page
  */
 export class ItemPageCcLicenseFieldComponent implements OnInit {
+
   /**
    * The item to display the CC license image for
    */
@@ -33,16 +54,14 @@ export class ItemPageCcLicenseFieldComponent implements OnInit {
   @Input() variant?: 'small' | 'full' = 'small';
 
   /**
-   * Filed name containing the CC license URI, as configured in the back-end, in the 'dspace.cfg' file, property
-   * 'cc.license.uri'
+   * Field name containing the CC license URI
    */
-  @Input() ccLicenseUriField? = 'dc.rights.uri';
+  @Input() ccLicenseUriField?: string;
 
   /**
-   * Filed name containing the CC license name, as configured in the back-end, in the 'dspace.cfg' file, property
-   * 'cc.license.name'
+   * Field name containing the CC license name
    */
-  @Input() ccLicenseNameField? = 'dc.rights';
+  @Input() ccLicenseNameField?: string;
 
   /**
    * Shows the CC license name with the image. Always show if image fails to load
@@ -54,19 +73,47 @@ export class ItemPageCcLicenseFieldComponent implements OnInit {
    */
   @Input() showDisclaimer? = true;
 
-  uri: string;
-  name: string;
+
   showImage = true;
-  imgSrc: string;
 
-  ngOnInit() {
-    this.uri = this.item.firstMetadataValue(this.ccLicenseUriField);
-    this.name = this.item.firstMetadataValue(this.ccLicenseNameField);
+  name$: Observable<string>;
+  uri$: Observable<string>;
+  imgSrc$: Observable<string>;
 
-    // Extracts the CC license code from the URI
-    const regex = /.*creativecommons.org\/(licenses|publicdomain)\/([^/]+)/gm;
-    const matches = regex.exec(this.uri ?? '') ?? [];
-    const ccCode = matches.length > 2 ? matches[2] : null;
-    this.imgSrc = ccCode ? `assets/images/cc-licenses/${ccCode}.png` : null;
+
+  constructor(
+    protected configService: ConfigurationDataService,
+  ) {
+  }
+
+  ngOnInit(): void {
+    if (hasValue(this.ccLicenseNameField)) {
+      this.name$ = of(this.item.firstMetadataValue(this.ccLicenseNameField));
+    } else {
+      this.name$ = this.configService.findByPropertyName('cc.license.name').pipe(
+        getFirstCompletedRemoteData(),
+        getRemoteDataPayload(),
+        map((configurationProperty: ConfigurationProperty) => configurationProperty?.values?.[0]),
+        map((metadataField: string) => hasValue(metadataField) ? metadataField : 'dc.rights'),
+        map((metadataField: string) => this.item.firstMetadataValue(metadataField)),
+      );
+    }
+
+    if (hasValue(this.ccLicenseUriField)) {
+      this.uri$ = of(this.item.firstMetadataValue(this.ccLicenseUriField));
+    } else {
+      this.uri$ = this.configService.findByPropertyName('cc.license.uri').pipe(
+        getFirstCompletedRemoteData(),
+        getRemoteDataPayload(),
+        map((configurationProperty: ConfigurationProperty) => configurationProperty?.values?.[0]),
+        map((metadataField: string) => hasValue(metadataField) ? metadataField : 'dc.rights.uri'),
+        map((metadataField: string) => this.item.firstMetadataValue(metadataField)),
+      );
+    }
+
+    this.imgSrc$ = this.uri$.pipe(
+      map((uri: string) => parseCcCode(uri)),
+      map((ccCode: string) => ccCode ? `assets/images/cc-licenses/${ccCode}.png` : null),
+    );
   }
 }

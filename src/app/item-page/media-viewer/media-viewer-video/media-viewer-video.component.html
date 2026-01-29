@@ -1,6 +1,6 @@
 <video
   crossorigin="anonymous"
-  [src]="medias[currentIndex].bitstream._links.content.href"
+  [src]="constructHref(medias[currentIndex].bitstream._links.content.href)"
   id="singleVideo"
   [poster]="
     medias[currentIndex].thumbnail ||

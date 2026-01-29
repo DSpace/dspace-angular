@@ -7,18 +7,18 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { BrowseService } from '@dspace/core/browse/browse.service';
+import { BrowseDefinitionDataService } from '@dspace/core/browse/browse-definition-data.service';
+import { BrowseDefinitionDataServiceStub } from '@dspace/core/testing/browse-definition-data-service.stub';
+import { BrowseServiceStub } from '@dspace/core/testing/browse-service.stub';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../environments/environment';
-import { BrowseService } from '../../../../../core/browse/browse.service';
-import { BrowseDefinitionDataService } from '../../../../../core/browse/browse-definition-data.service';
-import { BrowseDefinitionDataServiceStub } from '../../../../../shared/testing/browse-definition-data-service.stub';
-import { BrowseServiceStub } from '../../../../../shared/testing/browse-service.stub';
-import { TranslateLoaderMock } from '../../../../../shared/testing/translate-loader.mock';
 import { MetadataValuesComponent } from '../../../../field-components/metadata-values/metadata-values.component';
 import { GenericItemPageFieldComponent } from '../generic/generic-item-page-field.component';
 import { ImageField } from '../image-field';

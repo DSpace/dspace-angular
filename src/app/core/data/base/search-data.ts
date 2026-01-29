@@ -5,20 +5,20 @@
  *
  * http://www.dspace.org/license/
  */
+import {
+  hasNoValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import { Observable } from 'rxjs';
 import {
   filter,
   map,
 } from 'rxjs/operators';
 
-import {
-  hasNoValue,
-  isNotEmpty,
-} from '../../../shared/empty.util';
-import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { CacheableObject } from '../../cache/cacheable-object.model';
 import { ObjectCacheService } from '../../cache/object-cache.service';
+import { FollowLinkConfig } from '../../shared/follow-link-config.model';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { FindListOptions } from '../find-list-options.model';
 import { PaginatedList } from '../paginated-list.model';

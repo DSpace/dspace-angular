@@ -13,17 +13,13 @@ import { BrowserOnlyPipe } from '../../../../../app/shared/utils/browser-only.pi
   styleUrls: ['../../../../../app/forgot-password/forgot-password-form/forgot-password-form.component.scss'],
   // templateUrl: './forgot-password-form.component.html'
   templateUrl: '../../../../../app/forgot-password/forgot-password-form/forgot-password-form.component.html',
-  standalone: true,
   imports: [
-    TranslateModule,
-    BrowserOnlyPipe,
-    ProfilePageSecurityFormComponent,
     AsyncPipe,
+    BrowserOnlyPipe,
     BtnDisabledDirective,
+    ProfilePageSecurityFormComponent,
+    TranslateModule,
   ],
 })
-/**
- * Component for a user to enter a new password for a forgot token.
- */
 export class ForgotPasswordFormComponent extends BaseComponent {
 }

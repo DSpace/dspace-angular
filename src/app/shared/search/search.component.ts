@@ -18,6 +18,40 @@ import {
   NavigationStart,
   Router,
 } from '@angular/router';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
+import { SortOptions } from '@dspace/core/cache/models/sort-options.model';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import {
+  COLLECTION_MODULE_PATH,
+  COMMUNITY_MODULE_PATH,
+  ITEM_MODULE_PATH,
+} from '@dspace/core/router/core-routing-paths';
+import { currentPath } from '@dspace/core/router/utils/route.utils';
+import { RouteService } from '@dspace/core/services/route.service';
+import { Context } from '@dspace/core/shared/context.model';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
+import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
+import { SearchObjects } from '@dspace/core/shared/search/models/search-objects.model';
+import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
+import { SearchConfig } from '@dspace/core/shared/search/search-filters/search-config.model';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
+import { SubmissionObject } from '@dspace/core/submission/models/submission-object.model';
+import { WorkspaceItem } from '@dspace/core/submission/models/workspaceitem.model';
+import {
+  hasValue,
+  hasValueOperator,
+  isEmpty,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 import uniqueId from 'lodash/uniqueId';
 import {
@@ -34,49 +68,17 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '../../../config/app-config.interface';
 import { environment } from '../../../environments/environment';
-import { COLLECTION_MODULE_PATH } from '../../collection-page/collection-page-routing-paths';
-import { COMMUNITY_MODULE_PATH } from '../../community-page/community-page-routing-paths';
-import { SortOptions } from '../../core/cache/models/sort-options.model';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { RouteService } from '../../core/services/route.service';
-import { Context } from '../../core/shared/context.model';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { Item } from '../../core/shared/item.model';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
-import { SearchService } from '../../core/shared/search/search.service';
-import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
-import { SearchConfig } from '../../core/shared/search/search-filters/search-config.model';
-import { ViewMode } from '../../core/shared/view-mode.model';
-import { SubmissionObject } from '../../core/submission/models/submission-object.model';
-import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
-import { ITEM_MODULE_PATH } from '../../item-page/item-page-routing-paths';
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 import { pushInOut } from '../animations/push';
-import {
-  hasValue,
-  hasValueOperator,
-  isEmpty,
-  isNotEmpty,
-} from '../empty.util';
 import { HostWindowService } from '../host-window.service';
 import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
-import { ListableObject } from '../object-collection/shared/listable-object.model';
 import { ThemedSearchFormComponent } from '../search-form/themed-search-form.component';
 import { PageWithSidebarComponent } from '../sidebar/page-with-sidebar.component';
 import { SidebarService } from '../sidebar/sidebar.service';
-import { followLink } from '../utils/follow-link-config.model';
-import { currentPath } from '../utils/route.utils';
 import { ViewModeSwitchComponent } from '../view-mode-switch/view-mode-switch.component';
-import { PaginatedSearchOptions } from './models/paginated-search-options.model';
-import { SearchFilterConfig } from './models/search-filter-config.model';
-import { SearchObjects } from './models/search-objects.model';
-import { SearchResult } from './models/search-result.model';
+import { SearchService } from './search.service';
+import { SearchConfigurationService } from './search-configuration.service';
 import { SearchLabelsComponent } from './search-labels/search-labels.component';
 import { SelectionConfig } from './search-results/search-results.component';
 import { ThemedSearchResultsComponent } from './search-results/themed-search-results.component';
@@ -89,16 +91,15 @@ import { SearchConfigurationOption } from './search-switch-configuration/search-
   templateUrl: './search.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [pushInOut],
-  standalone: true,
   imports: [
     AsyncPipe,
     NgTemplateOutlet,
     PageWithSidebarComponent,
+    SearchLabelsComponent,
     ThemedSearchFormComponent,
     ThemedSearchResultsComponent,
     ThemedSearchSidebarComponent,
     TranslateModule,
-    SearchLabelsComponent,
     ViewModeSwitchComponent,
   ],
 })

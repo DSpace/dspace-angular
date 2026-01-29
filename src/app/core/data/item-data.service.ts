@@ -8,6 +8,12 @@
 /* eslint-disable max-classes-per-file */
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { RestRequestMethod } from '@dspace/config/rest-request-method';
+import {
+  hasValue,
+  isNotEmpty,
+  isNotEmptyOperator,
+} from '@dspace/shared/utils/empty.util';
 import { Operation } from 'fast-json-patch';
 import { Observable } from 'rxjs';
 import {
@@ -19,18 +25,12 @@ import {
   take,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isNotEmpty,
-  isNotEmptyOperator,
-} from '../../shared/empty.util';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { BrowseService } from '../browse/browse.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { NotificationsService } from '../notification-system/notifications.service';
 import { Bundle } from '../shared/bundle.model';
 import { Collection } from '../shared/collection.model';
 import { ExternalSourceEntry } from '../shared/external-source-entry.model';
@@ -40,6 +40,7 @@ import { Item } from '../shared/item.model';
 import { MetadataMap } from '../shared/metadata.models';
 import { NoContent } from '../shared/NoContent.model';
 import { sendRequest } from '../shared/request.operators';
+import { PaginatedSearchOptions } from '../shared/search/models/paginated-search-options.model';
 import { URLCombiner } from '../url-combiner/url-combiner';
 import {
   CreateData,
@@ -71,7 +72,6 @@ import {
 } from './request.models';
 import { RequestService } from './request.service';
 import { RestRequest } from './rest-request.model';
-import { RestRequestMethod } from './rest-request-method';
 import { StatusCodeOnlyResponseParsingService } from './status-code-only-response-parsing.service';
 
 /**

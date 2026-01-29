@@ -1,6 +1,5 @@
+import { type } from '@dspace/core/ngrx/type';
 import { Action } from '@ngrx/store';
-
-import { type } from './ngrx/type';
 
 export const HostWindowActionTypes = {
   RESIZE: type('dspace/host-window/RESIZE'),

@@ -9,14 +9,14 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { createTestComponent } from '@dspace/core/testing/utils.test';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { CollectionListEntry } from '../../../shared/collection-dropdown/collection-dropdown.component';
 import { ThemedCollectionDropdownComponent } from '../../../shared/collection-dropdown/themed-collection-dropdown.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
-import { createTestComponent } from '../../../shared/testing/utils.test';
+import { getMockThemeService } from '../../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../shared/theme-support/theme.service';
 import { SubmissionImportExternalCollectionComponent } from './submission-import-external-collection.component';
 
@@ -157,7 +157,6 @@ describe('SubmissionImportExternalCollectionComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
-  standalone: true,
 })
 class TestComponent {
 

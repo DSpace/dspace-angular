@@ -14,31 +14,8 @@ import {
   compare,
   Operation,
 } from 'fast-json-patch';
-import { cold } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
-import {
-  EPeopleRegistryCancelEPersonAction,
-  EPeopleRegistryEditEPersonAction,
-} from '../../access-control/epeople-registry/epeople-registry.actions';
-import { getMockRemoteDataBuildServiceHrefMap } from '../../shared/mocks/remote-data-build.service.mock';
-import { getMockRequestService } from '../../shared/mocks/request.service.mock';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import {
-  createNoContentRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
-import {
-  EPersonMock,
-  EPersonMock2,
-} from '../../shared/testing/eperson.mock';
-import { GroupMock } from '../../shared/testing/group-mock';
-import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import {
-  createPaginatedList,
-  createRequestEntry$,
-} from '../../shared/testing/utils.test';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -46,17 +23,34 @@ import { CoreState } from '../core-state.model';
 import { ChangeAnalyzer } from '../data/change-analyzer';
 import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
 import { FindListOptions } from '../data/find-list-options.model';
+import { RemoteData } from '../data/remote-data';
 import {
   PatchRequest,
   PostRequest,
 } from '../data/request.models';
 import { RequestService } from '../data/request.service';
+import { NotificationsService } from '../notification-system/notifications.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
 import {
-  editEPersonSelector,
-  EPersonDataService,
-} from './eperson-data.service';
+  EPersonMock,
+  EPersonMock2,
+  EPersonMockWithNoName,
+} from '../testing/eperson.mock';
+import { GroupMock } from '../testing/group-mock';
+import { HALEndpointServiceStub } from '../testing/hal-endpoint-service.stub';
+import { NotificationsServiceStub } from '../testing/notifications-service.stub';
+import { getMockRemoteDataBuildServiceHrefMap } from '../testing/remote-data-build.service.mock';
+import { getMockRequestService } from '../testing/request.service.mock';
+import {
+  createPaginatedList,
+  createRequestEntry$,
+} from '../testing/utils.test';
+import {
+  createNoContentRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../utilities/remote-data.utils';
+import { EPersonDataService } from './eperson-data.service';
 import { EPerson } from './models/eperson.model';
 
 describe('EPersonDataService', () => {
@@ -280,10 +274,41 @@ describe('EPersonDataService', () => {
     });
   });
 
+  describe('updateEPerson with non existing metadata', () => {
+    beforeEach(() => {
+      spyOn(service, 'findByHref').and.returnValue(createSuccessfulRemoteDataObject$(EPersonMockWithNoName));
+    });
+    describe('add name that was not previously set', () => {
+      beforeEach(() => {
+        const changedEPerson = Object.assign(new EPerson(), {
+          id: EPersonMock.id,
+          metadata: Object.assign(EPersonMock.metadata, {
+            'eperson.firstname': [
+              {
+                language: null,
+                value: 'User',
+              },
+            ],
+          }),
+          email: EPersonMock.email,
+          canLogIn: EPersonMock.canLogIn,
+          requireCertificate: EPersonMock.requireCertificate,
+          _links: EPersonMock._links,
+        });
+        service.updateEPerson(changedEPerson).subscribe();
+      });
+      it('should send PatchRequest with add email operation', () => {
+        const operations = [{ op: 'add', path: '/eperson.firstname', value: [{ language: null, value: 'User' }] }];
+        const expected = new PatchRequest(requestService.generateRequestId(), epersonsEndpoint + '/' + EPersonMock.uuid, operations);
+        expect(requestService.send).toHaveBeenCalledWith(expected);
+      });
+    });
+  });
+
   describe('clearEPersonRequests', () => {
     beforeEach(() => {
       spyOn(halService, 'getEndpoint').and.callFake((linkPath: string) => {
-        return observableOf(`${restEndpointURL}/${linkPath}`);
+        return of(`${restEndpointURL}/${linkPath}`);
       });
     });
     it('should remove the eperson hrefs in the request service', fakeAsync(() => {
@@ -292,33 +317,6 @@ describe('EPersonDataService', () => {
 
       expect(requestService.removeByHrefSubstring).toHaveBeenCalledWith(epersonsEndpoint);
     }));
-  });
-
-  describe('getActiveEPerson', () => {
-    it('should retrieve the ePerson currently getting edited, if any', () => {
-      // Update the state with the ePerson (the provideMockStore doesn't update itself when dispatch is called)
-      store.overrideSelector(editEPersonSelector, EPersonMock);
-
-      expect(service.getActiveEPerson()).toBeObservable(cold('a', { a: EPersonMock }));
-    });
-
-    it('should retrieve the ePerson currently getting edited, null if none being edited', () => {
-      expect(service.getActiveEPerson()).toBeObservable(cold('a', { a: null }));
-    });
-  });
-
-  describe('cancelEditEPerson', () => {
-    it('should dispatch a CANCEL_EDIT_EPERSON action', () => {
-      service.cancelEditEPerson();
-      expect(store.dispatch).toHaveBeenCalledWith(new EPeopleRegistryCancelEPersonAction());
-    });
-  });
-
-  describe('editEPerson', () => {
-    it('should dispatch a EDIT_EPERSON action with the EPerson to start editing', () => {
-      service.editEPerson(EPersonMock);
-      expect(store.dispatch).toHaveBeenCalledWith(new EPeopleRegistryEditEPersonAction(EPersonMock));
-    });
   });
 
   describe('deleteEPerson', () => {
@@ -351,6 +349,21 @@ describe('EPersonDataService', () => {
     });
   });
 
+  describe('mergeEPersonDataWithToken', () => {
+    const uuid = '1234-5678-9012-3456';
+    const token = 'abcd-efgh-ijkl-mnop';
+    const metadataKey = 'eperson.firstname';
+    beforeEach(() => {
+      spyOn(service, 'mergeEPersonDataWithToken').and.returnValue(createSuccessfulRemoteDataObject$(EPersonMock));
+    });
+
+    it('should merge EPerson data with token', () => {
+      service.mergeEPersonDataWithToken(uuid, token, metadataKey).subscribe((result: RemoteData<EPerson>) => {
+        expect(result.hasSucceeded).toBeTrue();
+      });
+      expect(service.mergeEPersonDataWithToken).toHaveBeenCalledWith(uuid, token, metadataKey);
+    });
+  });
 });
 
 class DummyChangeAnalyzer implements ChangeAnalyzer<Item> {

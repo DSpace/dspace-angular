@@ -12,6 +12,14 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
+import { ObjectUpdatesService } from '@dspace/core/data/object-updates/object-updates.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { MetadataValue } from '@dspace/core/shared/metadata.models';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -19,14 +27,6 @@ import {
   Subscription,
 } from 'rxjs';
 
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '../../../../config/app-config.interface';
-import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
-import { Item } from '../../../core/shared/item.model';
-import { MetadataValue } from '../../../core/shared/metadata.models';
-import { hasValue } from '../../../shared/empty.util';
 import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { VarDirective } from '../../../shared/utils/var.directive';
 
@@ -42,13 +42,12 @@ interface ItemDTO {
   selector: 'ds-virtual-metadata',
   templateUrl: './virtual-metadata.component.html',
   imports: [
+    AsyncPipe,
+    ListableObjectComponentLoaderComponent,
     NgClass,
     TranslateModule,
     VarDirective,
-    AsyncPipe,
-    ListableObjectComponentLoaderComponent,
   ],
-  standalone: true,
 })
 /**
  * Component that lists both items of a relationship, along with their virtual metadata of the relationship.

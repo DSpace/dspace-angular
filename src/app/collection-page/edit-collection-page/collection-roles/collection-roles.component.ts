@@ -4,21 +4,21 @@ import {
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { HALLink } from '@dspace/core/shared/hal-link.model';
+import {
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '@dspace/core/shared/operators';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { Observable } from 'rxjs';
 import {
   first,
   map,
 } from 'rxjs/operators';
 
-import { RemoteData } from '../../../core/data/remote-data';
-import { Collection } from '../../../core/shared/collection.model';
-import { HALLink } from '../../../core/shared/hal-link.model';
-import {
-  getFirstSucceededRemoteData,
-  getRemoteDataPayload,
-} from '../../../core/shared/operators';
 import { ComcolRoleComponent } from '../../../shared/comcol/comcol-forms/edit-comcol-page/comcol-role/comcol-role.component';
-import { hasValue } from '../../../shared/empty.util';
 
 /**
  * Component for managing a collection's roles
@@ -27,10 +27,9 @@ import { hasValue } from '../../../shared/empty.util';
   selector: 'ds-collection-roles',
   templateUrl: './collection-roles.component.html',
   imports: [
-    ComcolRoleComponent,
     AsyncPipe,
+    ComcolRoleComponent,
   ],
-  standalone: true,
 })
 export class CollectionRolesComponent implements OnInit {
 

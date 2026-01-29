@@ -7,6 +7,8 @@ import {
   ActivatedRoute,
   RouterLink,
 } from '@angular/router';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import {
@@ -14,20 +16,17 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { RemoteData } from '../../core/data/remote-data';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { ResourcePoliciesComponent } from '../../shared/resource-policies/resource-policies.component';
 
 @Component({
   selector: 'ds-bitstream-authorizations',
   templateUrl: './bitstream-authorizations.component.html',
   imports: [
-    ResourcePoliciesComponent,
     AsyncPipe,
-    TranslateModule,
+    ResourcePoliciesComponent,
     RouterLink,
+    TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * Component that handles the Bitstream Authorizations

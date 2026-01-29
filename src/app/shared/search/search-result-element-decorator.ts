@@ -1,21 +1,21 @@
-import { AdminNotifyMessage } from '../../admin/admin-notify-dashboard/models/admin-notify-message.model';
-import { AdminNotifySearchResult } from '../../admin/admin-notify-dashboard/models/admin-notify-message-search-result.model';
-import { Collection } from '../../core/shared/collection.model';
-import { Community } from '../../core/shared/community.model';
-import { GenericConstructor } from '../../core/shared/generic-constructor';
-import { Item } from '../../core/shared/item.model';
-import { WorkflowItem } from '../../core/submission/models/workflowitem.model';
-import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
-import { ClaimedTask } from '../../core/tasks/models/claimed-task-object.model';
-import { PoolTask } from '../../core/tasks/models/pool-task-object.model';
-import { ClaimedTaskSearchResult } from '../object-collection/shared/claimed-task-search-result.model';
-import { CollectionSearchResult } from '../object-collection/shared/collection-search-result.model';
-import { CommunitySearchResult } from '../object-collection/shared/community-search-result.model';
-import { ItemSearchResult } from '../object-collection/shared/item-search-result.model';
-import { ListableObject } from '../object-collection/shared/listable-object.model';
-import { PoolTaskSearchResult } from '../object-collection/shared/pool-task-search-result.model';
-import { WorkflowItemSearchResult } from '../object-collection/shared/workflow-item-search-result.model';
-import { WorkspaceItemSearchResult } from '../object-collection/shared/workspace-item-search-result.model';
+import { AdminNotifyMessage } from '@dspace/core/coar-notify/notify-info/models/admin-notify-message.model';
+import { AdminNotifySearchResult } from '@dspace/core/coar-notify/notify-info/models/admin-notify-message-search-result.model';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { Community } from '@dspace/core/shared/community.model';
+import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
+import { Item } from '@dspace/core/shared/item.model';
+import { ClaimedTaskSearchResult } from '@dspace/core/shared/object-collection/claimed-task-search-result.model';
+import { CollectionSearchResult } from '@dspace/core/shared/object-collection/collection-search-result.model';
+import { CommunitySearchResult } from '@dspace/core/shared/object-collection/community-search-result.model';
+import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
+import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
+import { PoolTaskSearchResult } from '@dspace/core/shared/object-collection/pool-task-search-result.model';
+import { WorkflowItemSearchResult } from '@dspace/core/shared/object-collection/workflow-item-search-result.model';
+import { WorkspaceItemSearchResult } from '@dspace/core/shared/object-collection/workspace-item-search-result.model';
+import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
+import { WorkspaceItem } from '@dspace/core/submission/models/workspaceitem.model';
+import { ClaimedTask } from '@dspace/core/tasks/models/claimed-task-object.model';
+import { PoolTask } from '@dspace/core/tasks/models/pool-task-object.model';
 
 /**
  * Contains the mapping between a search result component and a DSpaceObject

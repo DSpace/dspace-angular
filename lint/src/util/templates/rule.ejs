@@ -7,6 +7,11 @@ _______
 
 [Source code](../../../../lint/src/rules/<%- plugin.name.replace('dspace-angular-', '') %>/<%- rule.name %>.ts)
 
+<% if (rule.optionDocs?.length > 0) { %>
+### Options
+<%- rule.optionDocs.map(optionDoc => Object.keys(optionDoc).map(option => '\n#### ' + optionDoc[option].title + '\n\n' + optionDoc[option].description)) %>
+<% } %>
+
 ### Examples
 
 <% if (tests.valid) {%>
@@ -19,6 +24,13 @@ Filename: `<%- test.filename %>`
 ```<%- plugin.language.toLowerCase() %>
 <%- test.code.trim() %>
 ```
+        <% if (test?.options?.length > 0) { %>
+With options:
+
+```json
+<%- JSON.stringify(test.options[0], null, 2) %>
+```
+        <% }%>
     <% }) %>
 <% } %>
 
@@ -31,6 +43,15 @@ Filename: `<%- test.filename %>`
         <% } %>
 ```<%- plugin.language.toLowerCase() %>
 <%- test.code.trim() %>
+
+        <% if (test?.options?.length > 0) { %>
+With options:
+
+```json
+<%- JSON.stringify(test.options[0], null, 2) %>
+```
+        <% }%>
+
 ```
 Will produce the following error(s):
 ```

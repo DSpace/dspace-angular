@@ -4,10 +4,16 @@ import {
   NavigationEnd,
   Router,
 } from '@angular/router';
+import { Breadcrumb } from '@dspace/core/breadcrumbs/models/breadcrumb.model';
+import {
+  hasNoValue,
+  hasValue,
+  isUndefined,
+} from '@dspace/shared/utils/empty.util';
 import {
   combineLatest,
   Observable,
-  of as observableOf,
+  of,
   ReplaySubject,
 } from 'rxjs';
 import {
@@ -16,13 +22,6 @@ import {
   switchMap,
   tap,
 } from 'rxjs/operators';
-
-import {
-  hasNoValue,
-  hasValue,
-  isUndefined,
-} from '../shared/empty.util';
-import { Breadcrumb } from './breadcrumb/breadcrumb.model';
 
 @Injectable({
   providedIn: 'root',
@@ -86,7 +85,7 @@ export class BreadcrumbsService {
         return provider.getBreadcrumbs(key, url);
       }
     }
-    return !last ? this.resolveBreadcrumbs(route.firstChild) : observableOf([]);
+    return !last ? this.resolveBreadcrumbs(route.firstChild) : of([]);
   }
 
   /**

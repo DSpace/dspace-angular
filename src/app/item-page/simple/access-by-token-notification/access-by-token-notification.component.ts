@@ -1,0 +1,55 @@
+import { AsyncPipe } from '@angular/common';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { ItemRequest } from '@dspace/core/shared/item-request.model';
+import {
+  dateToString,
+  stringToNgbDateStruct,
+} from '@dspace/shared/utils/date.util';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
+import { TranslateModule } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import { VarDirective } from '../../../shared/utils/var.directive';
+
+@Component({
+  selector: 'ds-access-by-token-notification',
+  templateUrl: './access-by-token-notification.component.html',
+  styleUrls: ['./access-by-token-notification.component.scss'],
+  imports: [
+    AsyncPipe,
+    TranslateModule,
+    VarDirective,
+  ],
+})
+export class AccessByTokenNotificationComponent implements OnInit {
+
+  itemRequest$: Observable<ItemRequest>;
+  protected readonly hasValue = hasValue;
+
+  constructor(protected route: ActivatedRoute) {
+  }
+
+  ngOnInit() {
+    this.itemRequest$ = this.route.data.pipe(
+      map((data) => data.itemRequest as ItemRequest),
+    );
+  }
+
+  /**
+   * Returns a date in simplified format (YYYY-MM-DD).
+   *
+   * @param date
+   * @return a string with formatted date
+   */
+  formatDate(date: string): string {
+    return isNotEmpty(date) ? dateToString(stringToNgbDateStruct(date)) : '';
+  }
+}

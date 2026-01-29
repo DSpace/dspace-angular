@@ -5,21 +5,21 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
-import { ActivatedRouteStub } from '../shared/testing/active-router.stub';
-import { TranslateLoaderMock } from '../shared/testing/translate-loader.mock';
 import { PageErrorComponent } from './page-error.component';
 
 describe('PageErrorComponent', () => {
   let component: PageErrorComponent;
   let fixture: ComponentFixture<PageErrorComponent>;
   const activatedRouteStub = Object.assign(new ActivatedRouteStub(), {
-    queryParams: observableOf({
+    queryParams: of({
       status: 401,
       code: 'orcid.generic-error',
     }),

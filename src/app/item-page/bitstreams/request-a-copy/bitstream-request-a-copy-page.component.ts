@@ -3,7 +3,9 @@ import {
   Location,
 } from '@angular/common';
 import {
+  ChangeDetectorRef,
   Component,
+  CUSTOM_ELEMENTS_SCHEMA,
   OnDestroy,
   OnInit,
 } from '@angular/core';
@@ -19,6 +21,31 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
+import { ItemRequestDataService } from '@dspace/core/data/item-request-data.service';
+import { ProofOfWorkCaptchaDataService } from '@dspace/core/data/proof-of-work-captcha-data.service';
+import { EPerson } from '@dspace/core/eperson/models/eperson.model';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { getForbiddenRoute } from '@dspace/core/router/core-routing-paths';
+import {
+  getBitstreamDownloadRoute,
+  getItemPageRoute,
+} from '@dspace/core/router/utils/dso-route.utils';
+import { Bitstream } from '@dspace/core/shared/bitstream.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { ItemRequest } from '@dspace/core/shared/item-request.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '@dspace/core/shared/operators';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import {
   TranslateModule,
   TranslateService,
@@ -26,7 +53,7 @@ import {
 import {
   combineLatest as observableCombineLatest,
   Observable,
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
 import {
@@ -36,43 +63,21 @@ import {
   take,
 } from 'rxjs/operators';
 
-import {
-  getBitstreamDownloadRoute,
-  getForbiddenRoute,
-} from '../../../app-routing-paths';
-import { AuthService } from '../../../core/auth/auth.service';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
-import { ItemRequestDataService } from '../../../core/data/item-request-data.service';
-import { EPerson } from '../../../core/eperson/models/eperson.model';
-import { Bitstream } from '../../../core/shared/bitstream.model';
-import { Item } from '../../../core/shared/item.model';
-import { ItemRequest } from '../../../core/shared/item-request.model';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
-} from '../../../core/shared/operators';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../../shared/empty.util';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { getItemPageRoute } from '../../item-page-routing-paths';
+import { AltchaCaptchaComponent } from './altcha-captcha.component';
 
 @Component({
   selector: 'ds-bitstream-request-a-copy-page',
   templateUrl: './bitstream-request-a-copy-page.component.html',
   imports: [
-    TranslateModule,
-    RouterLink,
+    AltchaCaptchaComponent,
     AsyncPipe,
-    ReactiveFormsModule,
     BtnDisabledDirective,
+    ReactiveFormsModule,
+    RouterLink,
+    TranslateModule,
   ],
-  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 /**
  * Page component for requesting a copy for a bitstream
@@ -92,6 +97,10 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
   bitstream: Bitstream;
   bitstreamName: string;
 
+  // Captcha settings
+  captchaEnabled$: Observable<boolean>;
+  challengeHref$: Observable<string>;
+
   constructor(private location: Location,
               private translateService: TranslateService,
               private route: ActivatedRoute,
@@ -103,6 +112,8 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
               private notificationsService: NotificationsService,
               private dsoNameService: DSONameService,
               private bitstreamService: BitstreamDataService,
+              private captchaService: ProofOfWorkCaptchaDataService,
+              private changeDetectorRef: ChangeDetectorRef,
   ) {
   }
 
@@ -117,8 +128,15 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
       }),
       allfiles: new UntypedFormControl(''),
       message: new UntypedFormControl(''),
+      // Payload here is initialised as "required", but this validator will be cleared
+      // if the config property comes back as 'captcha not enabled'
+      captchaPayload: new UntypedFormControl('', {
+        validators: [Validators.required],
+      }),
     });
 
+    this.captchaEnabled$ = this.itemRequestDataService.isProtectedByCaptcha();
+    this.challengeHref$ = this.captchaService.getChallengeHref();
 
     this.item$ = this.route.data.pipe(
       map((data) => data.dso),
@@ -172,6 +190,10 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
     return this.requestCopyForm.get('allfiles');
   }
 
+  get captchaPayload() {
+    return this.requestCopyForm.get('captchaPayload');
+  }
+
   /**
    * Initialise the form values based on the current user.
    */
@@ -185,6 +207,17 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
     this.bitstream$.pipe(take(1)).subscribe((bitstream) => {
       this.requestCopyForm.patchValue({ allfiles: 'false' });
     });
+    this.subs.push(this.captchaEnabled$.pipe(
+      take(1),
+    ).subscribe((enabled) => {
+      if (!enabled) {
+        // Captcha not required? Clear validators to allow the form to be submitted normally
+        this.requestCopyForm.get('captchaPayload').clearValidators();
+        this.requestCopyForm.get('captchaPayload').reset();
+        this.requestCopyForm.updateValueAndValidity();
+      }
+      this.changeDetectorRef.detectChanges();
+    }));
   }
 
   /**
@@ -196,7 +229,7 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
         if (authenticated) {
           return this.auth.getAuthenticatedUserFromStore();
         } else {
-          return observableOf(undefined);
+          return of(undefined);
         }
       }),
     );
@@ -218,8 +251,9 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
     itemRequest.requestEmail = this.email.value;
     itemRequest.requestName = this.name.value;
     itemRequest.requestMessage = this.message.value;
+    const captchaPayloadString: string = this.captchaPayload.value;
 
-    this.itemRequestDataService.requestACopy(itemRequest).pipe(
+    this.itemRequestDataService.requestACopy(itemRequest, captchaPayloadString).pipe(
       getFirstCompletedRemoteData(),
     ).subscribe((rd) => {
       if (rd.hasSucceeded) {
@@ -229,6 +263,10 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
         this.notificationsService.error(this.translateService.get('bitstream-request-a-copy.submit.error'));
       }
     });
+  }
+
+  handlePayload(event): void {
+    this.requestCopyForm.patchValue({ captchaPayload: event });
   }
 
   ngOnDestroy(): void {

@@ -10,12 +10,16 @@ import { VarDirective } from '../../../../../app/shared/utils/var.directive';
 @Component({
   selector: 'ds-themed-deny-request-copy',
   // styleUrls: ['./deny-request-copy.component.scss'],
-  styleUrls: [],
+  styleUrls: ['../../../../../app/request-copy/deny-request-copy/deny-request-copy.component.scss'],
   // templateUrl: './deny-request-copy.component.html',
-  templateUrl: './../../../../../app/request-copy/deny-request-copy/deny-request-copy.component.html',
-  standalone: true,
-  imports: [VarDirective, ThemedEmailRequestCopyComponent, ThemedLoadingComponent, AsyncPipe, TranslateModule],
+  templateUrl: '../../../../../app/request-copy/deny-request-copy/deny-request-copy.component.html',
+  imports: [
+    AsyncPipe,
+    ThemedEmailRequestCopyComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
+    VarDirective,
+  ],
 })
-export class DenyRequestCopyComponent
-  extends BaseComponent {
+export class DenyRequestCopyComponent extends BaseComponent {
 }

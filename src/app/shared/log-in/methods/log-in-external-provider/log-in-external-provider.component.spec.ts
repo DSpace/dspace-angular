@@ -8,21 +8,21 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { authReducer } from '@dspace/core/auth/auth.reducer';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { AuthMethod } from '@dspace/core/auth/models/auth.method';
+import { AuthMethodType } from '@dspace/core/auth/models/auth.method-type';
+import { HardRedirectService } from '@dspace/core/services/hard-redirect.service';
+import { NativeWindowService } from '@dspace/core/services/window.service';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { AuthServiceStub } from '@dspace/core/testing/auth-service.stub';
+import { NativeWindowMockFactory } from '@dspace/core/testing/mock-native-window-ref';
+import { RouterStub } from '@dspace/core/testing/router.stub';
 import { StoreModule } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { storeModuleConfig } from '../../../../app.reducer';
-import { authReducer } from '../../../../core/auth/auth.reducer';
-import { AuthService } from '../../../../core/auth/auth.service';
-import { AuthMethod } from '../../../../core/auth/models/auth.method';
-import { AuthMethodType } from '../../../../core/auth/models/auth.method-type';
-import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
-import { NativeWindowService } from '../../../../core/services/window.service';
-import { NativeWindowMockFactory } from '../../../mocks/mock-native-window-ref';
-import { ActivatedRouteStub } from '../../../testing/active-router.stub';
-import { AuthServiceStub } from '../../../testing/auth-service.stub';
-import { RouterStub } from '../../../testing/router.stub';
 import { LogInExternalProviderComponent } from './log-in-external-provider.component';
 
 describe('LogInExternalProviderComponent', () => {
@@ -108,8 +108,7 @@ describe('LogInExternalProviderComponent', () => {
 
     component.redirectToExternalProvider();
 
-    expect(setHrefSpy).toHaveBeenCalledWith(currentUrl);
-
+    expect(hardRedirectService.redirect).toHaveBeenCalled();
   });
 
   it('should not set a new redirectUrl', () => {

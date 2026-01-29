@@ -12,8 +12,8 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { getPageInternalServerErrorRoute } from '../../app-routing-paths';
 import { RootDataService } from '../data/root-data.service';
+import { getPageInternalServerErrorRoute } from '../router/core-routing-paths';
 
 /**
  * A guard that checks if root api endpoint is reachable.

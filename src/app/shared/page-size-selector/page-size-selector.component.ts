@@ -9,25 +9,28 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
 import { Observable } from 'rxjs';
 import {
   map,
   take,
 } from 'rxjs/operators';
 
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
-import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
-import { PaginatedSearchOptions } from '../search/models/paginated-search-options.model';
+import { SearchConfigurationService } from '../search/search-configuration.service';
 import { SidebarDropdownComponent } from '../sidebar/sidebar-dropdown.component';
 
 @Component({
   selector: 'ds-page-size-selector',
   styleUrls: ['./page-size-selector.component.scss'],
   templateUrl: './page-size-selector.component.html',
-  standalone: true,
-  imports: [SidebarDropdownComponent, FormsModule, AsyncPipe],
+  imports: [
+    AsyncPipe,
+    FormsModule,
+    SidebarDropdownComponent,
+  ],
 })
 
 /**

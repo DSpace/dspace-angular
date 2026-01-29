@@ -10,6 +10,22 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { CollectionDataService } from '@dspace/core/data/collection-data.service';
+import { FindListOptions } from '@dspace/core/data/find-list-options.model';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { CollectionSearchResult } from '@dspace/core/shared/object-collection/collection-search-result.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   TranslateModule,
   TranslateService,
@@ -18,34 +34,27 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { CollectionDataService } from '../../../../core/data/collection-data.service';
-import { FindListOptions } from '../../../../core/data/find-list-options.model';
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '../../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { Collection } from '../../../../core/shared/collection.model';
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
-import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
-import { SearchService } from '../../../../core/shared/search/search.service';
-import { hasValue } from '../../../empty.util';
 import { HoverClassDirective } from '../../../hover-class.directive';
 import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
-import { NotificationsService } from '../../../notifications/notifications.service';
-import { CollectionSearchResult } from '../../../object-collection/shared/collection-search-result.model';
 import { ListableObjectComponentLoaderComponent } from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
-import { SearchResult } from '../../../search/models/search-result.model';
-import { followLink } from '../../../utils/follow-link-config.model';
+import { SearchService } from '../../../search/search.service';
 import { DSOSelectorComponent } from '../dso-selector.component';
 
 @Component({
   selector: 'ds-authorized-collection-selector',
   styleUrls: ['../dso-selector.component.scss'],
   templateUrl: '../dso-selector.component.html',
-  standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, InfiniteScrollModule, HoverClassDirective, NgClass, ListableObjectComponentLoaderComponent, ThemedLoadingComponent, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    FormsModule,
+    HoverClassDirective,
+    InfiniteScrollModule,
+    ListableObjectComponentLoaderComponent,
+    NgClass,
+    ReactiveFormsModule,
+    ThemedLoadingComponent,
+    TranslateModule,
+  ],
 })
 /**
  * Component rendering a list of collections to select from
@@ -55,6 +64,12 @@ export class AuthorizedCollectionSelectorComponent extends DSOSelectorComponent 
    * If present this value is used to filter collection list by entity type
    */
   @Input() entityType: string;
+
+  /**
+   * Search endpoint to use for finding authorized collections.
+   * Defaults to 'findSubmitAuthorized', but can be overridden (e.g. to 'findAdminAuthorized')
+   */
+  @Input() searchHref = 'findSubmitAuthorized';
 
   constructor(
     protected searchService: SearchService,
@@ -94,7 +109,7 @@ export class AuthorizedCollectionSelectorComponent extends DSOSelectorComponent 
           findOptions);
     } else {
       searchListService$ = this.collectionDataService
-        .getAuthorizedCollection(query, findOptions, useCache, false, followLink('parentCommunity'));
+        .getAuthorizedCollection(query, findOptions, useCache, false, this.searchHref, followLink('parentCommunity'));
     }
     return searchListService$.pipe(
       getFirstCompletedRemoteData(),

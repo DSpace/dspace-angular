@@ -1,5 +1,5 @@
-<div [class.mb-3]="(model.type !== 'GROUP' && asBootstrapFormGroup) || getClass('element', 'container').includes('mb-3')"
-  [class.d-none]="model.hidden"
+<div [class.mb-2]="hasLabel || model.type === 'DATE' || (model.type !== 'GROUP' && asBootstrapFormGroup) || getClass('element', 'container').includes('mb-2')"
+     [class.d-none]="model.hidden"
   [formGroup]="group"
   [ngClass]="[getClass('element', 'container'), getClass('grid', 'container')]">
   @if (!isCheckbox && hasLabel) {
@@ -24,8 +24,7 @@
              class="text-muted ds-hint" [innerHTML]="model.hint | translate" [ngClass]="getClass('element', 'hint')"></small>
       }
       <!-- In case of repeatable fields show empty space for all elements except the first -->
-      @if (context?.index !== null
-        && (!showErrorMessages || errorMessages.length === 0)) {
+      @if (context?.parent?.groups?.length > 1 && (!showErrorMessages || errorMessages.length === 0)) {
         <div class="clearfix w-100 mb-2"></div>
       }
 
@@ -33,14 +32,19 @@
         <div [id]="id + '_errors'"
           [ngClass]="[getClass('element', 'errors'), getClass('grid', 'errors')]">
           @for (message of errorMessages; track message) {
-            <small class="invalid-feedback d-block">{{ message | translate: model.validators }}</small>
+            <small class="invalid-feedback d-block"
+               aria-required="true"
+               aria-invalid="true"
+               [attr.aria-describedby]="'label_' + model.id"
+               aria-live="assertive"
+          >{{ message | translate: model.validators }}</small>
           }
         </div>
       }
 
     </div>
     @if (model.languageCodes && model.languageCodes.length > 0) {
-      <div class="col-xs-2" >
+      <div class="col-2" >
         <select
           #language="ngModel"
           [disabled]="model.readOnly"
@@ -99,7 +103,9 @@
       <small
       class="text-muted ds-hint" [innerHTML]="model.hint | translate" [ngClass]="getClass('element', 'hint')"></small>
     }
-    <div class="clearfix w-100 mb-2"></div>
+    @if (context?.parent?.groups?.length > 1 && (!showErrorMessages || errorMessages.length === 0)) {
+      <div class="clearfix w-100 mb-2"></div>
+    }
   }
   <ng-content></ng-content>
 </div>

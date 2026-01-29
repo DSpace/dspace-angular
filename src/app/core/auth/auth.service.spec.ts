@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import {
-  inject,
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
@@ -8,53 +7,55 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import {
   Store,
   StoreModule,
 } from '@ngrx/store';
+import {
+  MockStore,
+  provideMockStore,
+} from '@ngrx/store/testing';
 import { TranslateService } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import { REQUEST } from '../../../express.tokens';
-import { AppState } from '../../app.reducer';
-import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
-import { AuthRequestServiceStub } from '../../shared/testing/auth-request-service.stub';
-import { authMethodsMock } from '../../shared/testing/auth-service.stub';
-import { EPersonMock } from '../../shared/testing/eperson.mock';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { routeServiceStub } from '../../shared/testing/route-service.stub';
-import { RouterStub } from '../../shared/testing/router.stub';
-import {
-  SpecialGroupDataMock,
-  SpecialGroupDataMock$,
-} from '../../shared/testing/special-group.mock';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { ClientCookieService } from '../cookies/client-cookie.service';
+import { CookieService } from '../cookies/cookie.service';
+import { CoreState } from '../core-state.model';
 import { RemoteData } from '../data/remote-data';
 import { EPersonDataService } from '../eperson/eperson-data.service';
 import { EPerson } from '../eperson/models/eperson.model';
-import { ClientCookieService } from '../services/client-cookie.service';
-import { CookieService } from '../services/cookie.service';
+import { NotificationsService } from '../notification-system/notifications.service';
 import { HardRedirectService } from '../services/hard-redirect.service';
 import { RouteService } from '../services/route.service';
 import {
   NativeWindowRef,
   NativeWindowService,
 } from '../services/window.service';
+import { ActivatedRouteStub } from '../testing/active-router.stub';
+import { AuthRequestServiceStub } from '../testing/auth-request-service.stub';
+import { authMethodsMock } from '../testing/auth-service.stub';
+import { EPersonMock } from '../testing/eperson.mock';
+import { NotificationsServiceStub } from '../testing/notifications-service.stub';
+import { routeServiceStub } from '../testing/route-service.stub';
+import { RouterStub } from '../testing/router.stub';
+import {
+  SpecialGroupDataMock,
+  SpecialGroupDataMock$,
+} from '../testing/special-group.mock';
+import { getMockTranslateService } from '../testing/translate.service.mock';
+import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
 import {
   SetUserAsIdleAction,
   UnsetUserAsIdleAction,
 } from './auth.actions';
-import {
-  authReducer,
-  AuthState,
-} from './auth.reducer';
+import { authReducer } from './auth.reducer';
 import {
   AuthService,
   IMPERSONATING_COOKIE,
@@ -63,6 +64,11 @@ import { AuthRequestService } from './auth-request.service';
 import { AuthMethod } from './models/auth.method';
 import { AuthStatus } from './models/auth-status.model';
 import { AuthTokenInfo } from './models/auth-token-info.model';
+import {
+  getAuthenticationToken,
+  isAuthenticated,
+  isIdle,
+} from './selectors';
 
 describe('AuthService test', () => {
 
@@ -72,7 +78,7 @@ describe('AuthService test', () => {
     },
   };
 
-  let mockStore: Store<AuthState>;
+  let mockStore: MockStore<CoreState>;
   let authService: AuthService;
   let routeServiceMock: RouteService;
   let authRequest;
@@ -86,6 +92,27 @@ describe('AuthService test', () => {
   let idleState;
   let linkService;
   let hardRedirectService;
+  const dateOfTest = Date.now();
+  const envConfig = {
+    auth: {
+      rest: {
+        timeLeftBeforeTokenRefresh: 20000, // 20 sec
+      },
+    },
+  };
+
+  const initialState: any = {
+    core: {
+      auth: {
+        authenticated: true,
+        loaded: true,
+        loading: false,
+        authToken: undefined,
+        user: undefined,
+        idle: false,
+      },
+    },
+  };
 
   const AuthStatusWithSpecialGroups = Object.assign(new AuthStatus(), {
     uuid: 'test',
@@ -95,14 +122,10 @@ describe('AuthService test', () => {
   });
 
   function init() {
-    mockStore = jasmine.createSpyObj('store', {
-      dispatch: {},
-      pipe: observableOf(true),
-    });
     window = new NativeWindowRef();
     routerStub = new RouterStub();
     token = new AuthTokenInfo('test_token');
-    token.expires = Date.now() + (1000 * 60 * 60);
+    token.expires = dateOfTest + (1000 * 60 * 60);
     authenticatedState = {
       authenticated: true,
       loaded: true,
@@ -133,13 +156,13 @@ describe('AuthService test', () => {
       resolveLinks: {},
     };
     hardRedirectService = jasmine.createSpyObj('hardRedirectService', ['redirect']);
-    spyOn(linkService, 'resolveLinks').and.returnValue({ authenticated: true, eperson: observableOf({ payload: {} }) });
-
+    spyOn(linkService, 'resolveLinks').and.returnValue({ authenticated: true, eperson: of({ payload: {} }) });
   }
 
   describe('', () => {
     beforeEach(() => {
       init();
+      initialState.core.auth = authenticatedState;
       TestBed.configureTestingModule({
         imports: [
           CommonModule,
@@ -151,13 +174,14 @@ describe('AuthService test', () => {
           }),
         ],
         providers: [
+          provideMockStore({ initialState }),
           { provide: AuthRequestService, useValue: authRequest },
           { provide: NativeWindowService, useValue: window },
           { provide: REQUEST, useValue: {} },
+          { provide: APP_CONFIG, useValue: envConfig },
           { provide: Router, useValue: routerStub },
           { provide: RouteService, useValue: routeServiceStub },
           { provide: ActivatedRoute, useValue: routeStub },
-          { provide: Store, useValue: mockStore },
           { provide: EPersonDataService, useValue: mockEpersonDataService },
           { provide: HardRedirectService, useValue: hardRedirectService },
           { provide: NotificationsService, useValue: NotificationsServiceStub },
@@ -167,6 +191,8 @@ describe('AuthService test', () => {
         ],
       });
       authService = TestBed.inject(AuthService);
+      mockStore = TestBed.inject(Store) as MockStore<CoreState>;
+      mockStore.setState(initialState);
     });
 
     it('should return the authentication status object when user credentials are correct', () => {
@@ -237,22 +263,18 @@ describe('AuthService test', () => {
     });
 
     describe('setIdle true', () => {
-      beforeEach(() => {
-        authService.setIdle(true);
-      });
-
       it('store should dispatch SetUserAsIdleAction', () => {
-        expect(mockStore.dispatch).toHaveBeenCalledWith(new SetUserAsIdleAction());
+        spyOn(mockStore, 'dispatch');
+        authService.setIdle(true);
+        expect(mockStore.dispatch as jasmine.Spy).toHaveBeenCalledWith(new SetUserAsIdleAction());
       });
     });
 
     describe('setIdle false', () => {
-      beforeEach(() => {
-        authService.setIdle(false);
-      });
-
       it('store should dispatch UnsetUserAsIdleAction', () => {
-        expect(mockStore.dispatch).toHaveBeenCalledWith(new UnsetUserAsIdleAction());
+        spyOn(mockStore, 'dispatch');
+        authService.setIdle(false);
+        expect(mockStore.dispatch as jasmine.Spy).toHaveBeenCalledWith(new UnsetUserAsIdleAction());
       });
     });
   });
@@ -261,6 +283,7 @@ describe('AuthService test', () => {
 
     beforeEach(waitForAsync(() => {
       init();
+      initialState.core.auth = authenticatedState;
       TestBed.configureTestingModule({
         imports: [
           StoreModule.forRoot({ authReducer }, {
@@ -271,47 +294,57 @@ describe('AuthService test', () => {
           }),
         ],
         providers: [
+          provideMockStore({ initialState }),
           { provide: AuthRequestService, useValue: authRequest },
+          { provide: NativeWindowService, useValue: window },
           { provide: REQUEST, useValue: {} },
+          { provide: APP_CONFIG, useValue: envConfig },
           { provide: Router, useValue: routerStub },
           { provide: RouteService, useValue: routeServiceStub },
-          { provide: RemoteDataBuildService, useValue: linkService },
+          { provide: ActivatedRoute, useValue: routeStub },
+          { provide: EPersonDataService, useValue: mockEpersonDataService },
+          { provide: HardRedirectService, useValue: hardRedirectService },
+          { provide: NotificationsService, useValue: NotificationsServiceStub },
+          { provide: TranslateService, useValue: getMockTranslateService() },
           CookieService,
           AuthService,
         ],
       }).compileComponents();
     }));
 
-    beforeEach(inject([CookieService, AuthRequestService, Store, Router, RouteService], (cookieService: CookieService, authReqService: AuthRequestService, store: Store<AppState>, router: Router, routeService: RouteService, notificationsService: NotificationsService, translateService: TranslateService) => {
-      store
-        .subscribe((state) => {
-          (state as any).core = Object.create({});
-          (state as any).core.auth = authenticatedState;
-        });
-      authService = new AuthService({}, window, undefined, authReqService, mockEpersonDataService, router, routeService, cookieService, store, hardRedirectService, notificationsService, translateService);
-    }));
+    beforeEach(() => {
+      mockStore = TestBed.inject(MockStore);
+      authService = TestBed.inject(AuthService);
+      mockStore.overrideSelector(isAuthenticated, true);
+      mockStore.refreshState();
+      storage = (authService as any).storage;
+      storage.get = jasmine.createSpy().and.returnValue(null);
+    });
 
-    it('should return true when user is logged in', () => {
+    it('should return true when user is logged in', (done) => {
       authService.isAuthenticated().subscribe((status: boolean) => {
         expect(status).toBe(true);
+        done();
       });
     });
 
-    it('should return the shortlived token when user is logged in', () => {
+    it('should return the shortlived token when user is logged in', (done) => {
       authService.getShortlivedToken().subscribe((shortlivedToken: string) => {
         expect(shortlivedToken).toEqual(authRequest.mockShortLivedToken);
+        done();
       });
     });
 
-    it('should return token object when it is valid', () => {
+    it('should return token object when it is valid', (done) => {
       authService.hasValidAuthenticationToken().subscribe((tokenState: AuthTokenInfo) => {
-        expect(tokenState).toBe(token);
+        expect(tokenState).toEqual(token);
+        done();
       });
     });
 
     it('should return a token object', () => {
       const result = authService.getToken();
-      expect(result).toBe(token);
+      expect(result).toEqual(token);
     });
 
     it('should return false when token is not expired', () => {
@@ -319,15 +352,17 @@ describe('AuthService test', () => {
       expect(result).toBe(false);
     });
 
-    it('should return true when authentication is loaded', () => {
+    it('should return true when authentication is loaded', (done) => {
       authService.isAuthenticationLoaded().subscribe((status: boolean) => {
         expect(status).toBe(true);
+        done();
       });
     });
 
-    it('isUserIdle should return false when user is not yet idle', () => {
+    it('isUserIdle should return false when user is not yet idle', (done) => {
       authService.isUserIdle().subscribe((status: boolean) => {
         expect(status).toBe(false);
+        done();
       });
     });
 
@@ -346,42 +381,40 @@ describe('AuthService test', () => {
           }),
         ],
         providers: [
+          provideMockStore({ initialState }),
           { provide: AuthRequestService, useValue: authRequest },
+          { provide: NativeWindowService, useValue: window },
           { provide: REQUEST, useValue: {} },
+          { provide: APP_CONFIG, useValue: envConfig },
           { provide: Router, useValue: routerStub },
           { provide: RouteService, useValue: routeServiceStub },
+          { provide: ActivatedRoute, useValue: routeStub },
+          { provide: EPersonDataService, useValue: mockEpersonDataService },
+          { provide: HardRedirectService, useValue: hardRedirectService },
+          { provide: NotificationsService, useValue: NotificationsServiceStub },
+          { provide: TranslateService, useValue: getMockTranslateService() },
           { provide: RemoteDataBuildService, useValue: linkService },
-          ClientCookieService,
           CookieService,
           AuthService,
+          ClientCookieService,
         ],
       }).compileComponents();
     }));
 
-    beforeEach(inject([ClientCookieService, AuthRequestService, Store, Router, RouteService], (cookieService: ClientCookieService, authReqService: AuthRequestService, store: Store<AppState>, router: Router, routeService: RouteService, notificationsService: NotificationsService, translateService: TranslateService) => {
-      const expiredToken: AuthTokenInfo = new AuthTokenInfo('test_token');
-      expiredToken.expires = Date.now() - (1000 * 60 * 60);
-      authenticatedState = {
-        authenticated: true,
-        loaded: true,
-        loading: false,
-        authToken: expiredToken,
-        user: EPersonMock,
-      };
-      store
-        .subscribe((state) => {
-          (state as any).core = Object.create({});
-          (state as any).core.auth = authenticatedState;
-        });
-      authService = new AuthService({}, window, undefined, authReqService, mockEpersonDataService, router, routeService, cookieService, store, hardRedirectService, notificationsService, translateService);
+    beforeEach(() => {
+      mockStore = TestBed.inject(MockStore);
+      authService = TestBed.inject(AuthService);
       storage = (authService as any).storage;
       routeServiceMock = TestBed.inject(RouteService);
       routerStub = TestBed.inject(Router);
-      spyOn(storage, 'get');
-      spyOn(storage, 'remove');
-      spyOn(storage, 'set');
-
-    }));
+      storage.get = jasmine.createSpy().and.returnValue(null);
+      storage.remove = jasmine.createSpy().and.returnValue(null);
+      storage.set = jasmine.createSpy().and.returnValue(null);
+      const expiredToken: AuthTokenInfo = new AuthTokenInfo('test_token_expired');
+      expiredToken.expires = dateOfTest - (1000 * 60 * 60);
+      mockStore.overrideSelector(getAuthenticationToken, expiredToken);
+      mockStore.refreshState();
+    });
 
     it('should throw false when token is not valid', () => {
       expect(authService.hasValidAuthenticationToken.bind(null)).toThrow();
@@ -566,6 +599,8 @@ describe('AuthService test', () => {
   describe('when user is not logged in', () => {
     beforeEach(waitForAsync(() => {
       init();
+      initialState.core.auth = unAuthenticatedState;
+      spyOn(authRequest, 'getShortlivedToken').and.returnValue(of(null));
       TestBed.configureTestingModule({
         imports: [
           StoreModule.forRoot({ authReducer }, {
@@ -576,24 +611,24 @@ describe('AuthService test', () => {
           }),
         ],
         providers: [
+          provideMockStore({ initialState }),
           { provide: AuthRequestService, useValue: authRequest },
+          { provide: NativeWindowService, useValue: window },
           { provide: REQUEST, useValue: {} },
+          { provide: APP_CONFIG, useValue: envConfig },
           { provide: Router, useValue: routerStub },
           { provide: RouteService, useValue: routeServiceStub },
+          { provide: ActivatedRoute, useValue: routeStub },
+          { provide: EPersonDataService, useValue: mockEpersonDataService },
+          { provide: HardRedirectService, useValue: hardRedirectService },
+          { provide: NotificationsService, useValue: NotificationsServiceStub },
+          { provide: TranslateService, useValue: getMockTranslateService() },
           { provide: RemoteDataBuildService, useValue: linkService },
           CookieService,
           AuthService,
         ],
       }).compileComponents();
-    }));
-
-    beforeEach(inject([CookieService, AuthRequestService, Store, Router, RouteService], (cookieService: CookieService, authReqService: AuthRequestService, store: Store<AppState>, router: Router, routeService: RouteService, notificationsService: NotificationsService, translateService: TranslateService) => {
-      store
-        .subscribe((state) => {
-          (state as any).core = Object.create({});
-          (state as any).core.auth = unAuthenticatedState;
-        });
-      authService = new AuthService({}, window, undefined, authReqService, mockEpersonDataService, router, routeService, cookieService, store, hardRedirectService, notificationsService, translateService);
+      authService = TestBed.inject(AuthService);
     }));
 
     it('should return null for the shortlived token', () => {
@@ -606,6 +641,7 @@ describe('AuthService test', () => {
   describe('when user is idle', () => {
     beforeEach(waitForAsync(() => {
       init();
+      initialState.core.auth = idleState;
       TestBed.configureTestingModule({
         imports: [
           StoreModule.forRoot({ authReducer }, {
@@ -616,10 +652,18 @@ describe('AuthService test', () => {
           }),
         ],
         providers: [
+          provideMockStore({ initialState }),
           { provide: AuthRequestService, useValue: authRequest },
+          { provide: NativeWindowService, useValue: window },
           { provide: REQUEST, useValue: {} },
+          { provide: APP_CONFIG, useValue: envConfig },
           { provide: Router, useValue: routerStub },
           { provide: RouteService, useValue: routeServiceStub },
+          { provide: ActivatedRoute, useValue: routeStub },
+          { provide: EPersonDataService, useValue: mockEpersonDataService },
+          { provide: HardRedirectService, useValue: hardRedirectService },
+          { provide: NotificationsService, useValue: NotificationsServiceStub },
+          { provide: TranslateService, useValue: getMockTranslateService() },
           { provide: RemoteDataBuildService, useValue: linkService },
           CookieService,
           AuthService,
@@ -627,16 +671,14 @@ describe('AuthService test', () => {
       }).compileComponents();
     }));
 
-    beforeEach(inject([CookieService, AuthRequestService, Store, Router, RouteService], (cookieService: CookieService, authReqService: AuthRequestService, store: Store<AppState>, router: Router, routeService: RouteService, notificationsService: NotificationsService, translateService: TranslateService) => {
-      store
-        .subscribe((state) => {
-          (state as any).core = Object.create({});
-          (state as any).core.auth = idleState;
-        });
-      authService = new AuthService({}, window, undefined, authReqService, mockEpersonDataService, router, routeService, cookieService, store, hardRedirectService, notificationsService, translateService);
-    }));
+    beforeEach(() => {
+      mockStore = TestBed.inject(MockStore);
+      authService = TestBed.inject(AuthService);
+      mockStore.overrideSelector(isIdle, true);
+      mockStore.refreshState();
+    });
 
-    it('isUserIdle should return true when user is not idle', () => {
+    it('isUserIdle should return true when user is idle', () => {
       authService.isUserIdle().subscribe((status: boolean) => {
         expect(status).toBe(true);
       });

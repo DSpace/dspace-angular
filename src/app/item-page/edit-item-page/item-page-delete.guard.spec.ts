@@ -3,21 +3,21 @@ import {
   Router,
   UrlTree,
 } from '@angular/router';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
+import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
+import { Item } from '@dspace/core/shared/item.model';
+import { getMockTranslateService } from '@dspace/core/testing/translate.service.mock';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
-import { AuthService } from 'src/app/core/auth/auth.service';
-import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from 'src/app/core/data/feature-authorization/feature-id';
 
-import { APP_DATA_SERVICES_MAP } from '../../../config/app-config.interface';
-import { ItemDataService } from '../../core/data/item-data.service';
-import { Item } from '../../core/shared/item.model';
-import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { itemPageDeleteGuard } from './item-page-delete.guard';
 
 describe('itemPageDeleteGuard', () => {
@@ -36,17 +36,17 @@ describe('itemPageDeleteGuard', () => {
 
     store = jasmine.createSpyObj('store', {
       dispatch: {},
-      pipe: observableOf(true),
+      pipe: of(true),
     });
     authorizationService = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: observableOf(true),
+      isAuthorized: of(true),
     });
     router = jasmine.createSpyObj('router', {
       parseUrl: {},
       navigateByUrl: undefined,
     });
     authService = jasmine.createSpyObj('authService', {
-      isAuthenticated: observableOf(true),
+      isAuthenticated: of(true),
     });
 
     parentRoute = {

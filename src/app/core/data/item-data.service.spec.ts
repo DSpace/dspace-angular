@@ -4,18 +4,18 @@ import {
   cold,
   getTestScheduler,
 } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
-import { getMockRequestService } from '../../shared/mocks/request.service.mock';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { BrowseService } from '../browse/browse.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { RestResponse } from '../cache/response.models';
 import { CoreState } from '../core-state.model';
+import { NotificationsService } from '../notification-system/notifications.service';
 import { ExternalSourceEntry } from '../shared/external-source-entry.model';
+import { HALEndpointServiceStub } from '../testing/hal-endpoint-service.stub';
+import { getMockRemoteDataBuildService } from '../testing/remote-data-build.service.mock';
+import { getMockRequestService } from '../testing/request.service.mock';
 import { testCreateDataImplementation } from './base/create-data.spec';
 import { testDeleteDataImplementation } from './base/delete-data.spec';
 import { testPatchDataImplementation } from './base/patch-data.spec';
@@ -39,7 +39,7 @@ describe('ItemDataService', () => {
     getByHref(requestHref: string) {
       const responseCacheEntry = new RequestEntry();
       responseCacheEntry.response = new RestResponse(true, 200, 'OK');
-      return observableOf(responseCacheEntry);
+      return of(responseCacheEntry);
     },
     removeByHrefSubstring(href: string) {
       // Do nothing

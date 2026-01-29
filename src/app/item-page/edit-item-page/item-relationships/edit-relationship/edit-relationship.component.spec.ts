@@ -8,22 +8,22 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { FieldChangeType } from '@dspace/core/data/object-updates/field-change-type.model';
+import { ObjectUpdatesService } from '@dspace/core/data/object-updates/object-updates.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { Relationship } from '@dspace/core/shared/item-relationships/relationship.model';
+import { RelationshipType } from '@dspace/core/shared/item-relationships/relationship-type.model';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import {
   NgbModal,
   NgbModalRef,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
-import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
-import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
-import { Item } from '../../../../core/shared/item.model';
-import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
-import { RelationshipType } from '../../../../core/shared/item-relationships/relationship-type.model';
-import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';
 import { ListableObjectComponentLoaderComponent } from '../../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
-import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
-import { createPaginatedList } from '../../../../shared/testing/utils.test';
+import { getMockThemeService } from '../../../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../../shared/theme-support/theme.service';
 import { VirtualMetadataComponent } from '../../virtual-metadata/virtual-metadata.component';
 import { EditRelationshipComponent } from './edit-relationship.component';
@@ -133,11 +133,11 @@ describe('EditRelationshipComponent', () => {
 
     mockNgbModal = {
       open: jasmine.createSpy('open').and.returnValue(
-        { componentInstance: {}, closed: observableOf({}) } as NgbModalRef,
+        { componentInstance: {}, closed: of({}) } as NgbModalRef,
       ),
     };
 
-    spyOn(objectUpdatesService, 'isSelectedVirtualMetadata').and.callFake((a, b, uuid) => observableOf(itemSelection[uuid]));
+    spyOn(objectUpdatesService, 'isSelectedVirtualMetadata').and.callFake((a, b, uuid) => of(itemSelection[uuid]));
 
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), EditRelationshipComponent],
@@ -241,13 +241,11 @@ describe('EditRelationshipComponent', () => {
 @Component({
   selector: 'ds-virtual-metadata',
   template: ``,
-  standalone: true,
 })
 class MockVirtualMetadataComponent {}
 
 @Component({
   selector: 'ds-listable-object-component-loader',
   template: ``,
-  standalone: true,
 })
 export class MockListableObjectComponentLoaderComponent {}

@@ -2,7 +2,7 @@
 Template for the detect duplicates submission section component
 @author Kim Shepherd
 -->
-<div class="text-sm-left" *ngVar="(this.getDuplicateData() | async) as data">
+<div class="text-sm-start" *ngVar="(this.getDuplicateData() | async) as data">
   @if (data?.potentialDuplicates.length === 0) {
     <div class="alert alert-success w-100">{{ 'submission.sections.duplicates.none' | translate }}</div>
   }

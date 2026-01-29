@@ -15,6 +15,13 @@ import {
   UntypedFormControl,
   UntypedFormGroup,
 } from '@angular/forms';
+import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
+import {
+  hasValue,
+  isNotEmpty,
+  isNotNull,
+  isNull,
+} from '@dspace/shared/utils/empty.util';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormArrayModel,
@@ -37,15 +44,8 @@ import {
 } from 'rxjs/operators';
 
 import { BtnDisabledDirective } from '../btn-disabled.directive';
-import {
-  hasValue,
-  isNotEmpty,
-  isNotNull,
-  isNull,
-} from '../empty.util';
 import { DsDynamicFormComponent } from './builder/ds-dynamic-form-ui/ds-dynamic-form.component';
 import { FormBuilderService } from './builder/form-builder.service';
-import { FormFieldMetadataValueObject } from './builder/models/form-field-metadata-value.model';
 import {
   FormEntry,
   FormError,
@@ -61,14 +61,13 @@ import { FormService } from './form.service';
   styleUrls: ['form.component.scss'],
   templateUrl: 'form.component.html',
   imports: [
-    DsDynamicFormComponent,
-    ReactiveFormsModule,
-    TranslateModule,
-    DynamicFormsCoreModule,
     AsyncPipe,
     BtnDisabledDirective,
+    DsDynamicFormComponent,
+    DynamicFormsCoreModule,
+    ReactiveFormsModule,
+    TranslateModule,
   ],
-  standalone: true,
 })
 export class FormComponent implements OnDestroy, OnInit {
 
@@ -232,7 +231,7 @@ export class FormComponent implements OnDestroy, OnInit {
               }
 
               if (field) {
-                const model: DynamicFormControlModel = this.formBuilderService.findById(fieldId, formModel);
+                const model: DynamicFormControlModel = this.formBuilderService.findById(fieldId, formModel, fieldIndex);
                 this.formService.addErrorToField(field, model, error.message);
                 this.changeDetectorRef.detectChanges();
 
@@ -255,7 +254,7 @@ export class FormComponent implements OnDestroy, OnInit {
               }
 
               if (field) {
-                const model: DynamicFormControlModel = this.formBuilderService.findById(fieldId, formModel);
+                const model: DynamicFormControlModel = this.formBuilderService.findById(fieldId, formModel, fieldIndex);
                 this.formService.removeErrorFromField(field, model, error.message);
               }
             });
@@ -358,7 +357,7 @@ export class FormComponent implements OnDestroy, OnInit {
   removeItem($event, arrayContext: DynamicFormArrayModel, index: number): void {
     const formArrayControl = this.formGroup.get(this.formBuilderService.getPath(arrayContext)) as UntypedFormArray;
     const event = this.getEvent($event, arrayContext, index, 'remove');
-    if (this.formBuilderService.isQualdropGroup(event.model as DynamicFormControlModel)) {
+    if (this.formBuilderService.isQualdropGroup(event.model as DynamicFormControlModel) && hasValue((event.model as any)?.value)) {
       // In case of qualdrop value remove event must be dispatched before removing the control from array
       this.removeArrayItem.emit(event);
     }

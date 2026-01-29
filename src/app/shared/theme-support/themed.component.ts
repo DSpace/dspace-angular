@@ -11,12 +11,19 @@ import {
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
+import { BASE_THEME_NAME } from '@dspace/config/theme.config';
+import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import {
   BehaviorSubject,
   combineLatest,
   from as fromPromise,
   Observable,
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
 import {
@@ -26,13 +33,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { GenericConstructor } from '../../core/shared/generic-constructor';
-import {
-  hasNoValue,
-  hasValue,
-  isNotEmpty,
-} from '../empty.util';
-import { BASE_THEME_NAME } from './theme.constants';
 import { ThemeService } from './theme.service';
 
 @Component({
@@ -99,6 +99,9 @@ export abstract class ThemedComponent<T extends object> implements AfterViewInit
   }
 
   initComponentInstance(changes?: SimpleChanges) {
+    if (hasValue(this.themeSub)) {
+      this.themeSub.unsubscribe();
+    }
     this.themeSub = this.themeService?.getThemeName$().subscribe(() => {
       this.renderComponentInstance(changes);
     });
@@ -111,7 +114,7 @@ export abstract class ThemedComponent<T extends object> implements AfterViewInit
 
     if (hasNoValue(this.lazyLoadObs)) {
       this.lazyLoadObs = combineLatest([
-        observableOf(changes),
+        of(changes),
         this.resolveThemedComponent(this.themeService.getThemeName()).pipe(
           switchMap((themedFile: any) => {
             if (hasValue(themedFile) && hasValue(themedFile[this.getComponentName()])) {
@@ -190,7 +193,7 @@ export abstract class ThemedComponent<T extends object> implements AfterViewInit
       );
     } else {
       // If we got here, we've failed to import this component from any ancestor theme → fall back to unthemed
-      return observableOf(null);
+      return of(null);
     }
   }
 }

@@ -1,12 +1,16 @@
 import { Injectable } from '@angular/core';
 import {
+  hasNoValue,
+  hasValue,
+} from '@dspace/shared/utils/empty.util';
+import {
   Actions,
   createEffect,
   ofType,
 } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import {
-  of as observableOf,
+  of,
   race as observableRace,
   Subject,
 } from 'rxjs';
@@ -19,18 +23,14 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import {
-  hasNoValue,
-  hasValue,
-} from '../../../shared/empty.util';
-import { NoOpAction } from '../../../shared/ngrx/no-op.action';
-import { INotification } from '../../../shared/notifications/models/notification.model';
+import { NoOpAction } from '../../ngrx/no-op.action';
+import { INotification } from '../../notification-system/models/notification.model';
 import {
   NotificationsActions,
   NotificationsActionTypes,
   RemoveNotificationAction,
-} from '../../../shared/notifications/notifications.actions';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
+} from '../../notification-system/notifications.actions';
+import { NotificationsService } from '../../notification-system/notifications.service';
 import {
   DiscardObjectUpdatesAction,
   ObjectUpdatesAction,
@@ -122,7 +122,7 @@ export class ObjectUpdatesEffects {
 
         return observableRace(
           // Either wait for the delay and perform a remove action
-          observableOf(removeAction).pipe(delay(timeOut)),
+          of(removeAction).pipe(delay(timeOut)),
           // Or wait for a a user action
           this.actionMap$[url].pipe(
             take(1),

@@ -2,11 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpHeaders } from '@angular/common/http';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import {
-  Store,
-  StoreModule,
-} from '@ngrx/store';
-import { createMockStore } from '@ngrx/store/testing';
+import { StoreModule } from '@ngrx/store';
 import {
   TranslateLoader,
   TranslateModule,
@@ -15,33 +11,10 @@ import {
   compare,
   Operation,
 } from 'fast-json-patch';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
-import {
-  GroupRegistryCancelGroupAction,
-  GroupRegistryEditGroupAction,
-} from '../../access-control/group-registry/group-registry.actions';
-import { getMockObjectCacheService } from '../../shared/mocks/object-cache.service.mock';
-import { getMockRemoteDataBuildServiceHrefMap } from '../../shared/mocks/remote-data-build.service.mock';
-import { getMockRequestService } from '../../shared/mocks/request.service.mock';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import {
-  EPersonMock,
-  EPersonMock2,
-} from '../../shared/testing/eperson.mock';
-import {
-  GroupMock,
-  GroupMock2,
-} from '../../shared/testing/group-mock';
-import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
-import { TranslateLoaderMock } from '../../shared/testing/translate-loader.mock';
-import {
-  createPaginatedList,
-  createRequestEntry$,
-} from '../../shared/testing/utils.test';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheEntry } from '../cache/object-cache.reducer';
-import { CoreState } from '../core-state.model';
 import { ChangeAnalyzer } from '../data/change-analyzer';
 import { FindListOptions } from '../data/find-list-options.model';
 import {
@@ -51,11 +24,28 @@ import {
 import { RequestService } from '../data/request.service';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { Item } from '../shared/item.model';
+import {
+  EPersonMock,
+  EPersonMock2,
+} from '../testing/eperson.mock';
+import {
+  GroupMock,
+  GroupMock2,
+} from '../testing/group-mock';
+import { HALEndpointServiceStub } from '../testing/hal-endpoint-service.stub';
+import { getMockObjectCacheService } from '../testing/object-cache.service.mock';
+import { getMockRemoteDataBuildServiceHrefMap } from '../testing/remote-data-build.service.mock';
+import { getMockRequestService } from '../testing/request.service.mock';
+import { TranslateLoaderMock } from '../testing/translate-loader.mock';
+import {
+  createPaginatedList,
+  createRequestEntry$,
+} from '../testing/utils.test';
+import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
 import { GroupDataService } from './group-data.service';
 
 describe('GroupDataService', () => {
   let service: GroupDataService;
-  let store: Store<CoreState>;
   let requestService: RequestService;
 
   let restEndpointURL;
@@ -98,16 +88,13 @@ describe('GroupDataService', () => {
       new DummyChangeAnalyzer() as any,
       null,
       null,
-      store,
     );
   }
 
   beforeEach(() => {
     init();
     requestService = getMockRequestService(createRequestEntry$(groups));
-    store = createMockStore({});
     service = initTestService();
-    spyOn(store, 'dispatch');
     spyOn(rdbService, 'buildFromRequestUUIDAndAwait').and.callThrough();
   });
 
@@ -159,7 +146,7 @@ describe('GroupDataService', () => {
 
   describe('addSubGroupToGroup', () => {
     beforeEach(() => {
-      objectCache.getByHref.and.returnValue(observableOf({
+      objectCache.getByHref.and.returnValue(of({
         requestUUIDs: ['request1', 'request2'],
         dependentRequestUUIDs: [],
       } as ObjectCacheEntry));
@@ -189,7 +176,7 @@ describe('GroupDataService', () => {
 
   describe('deleteSubGroupFromGroup', () => {
     beforeEach(() => {
-      objectCache.getByHref.and.returnValue(observableOf({
+      objectCache.getByHref.and.returnValue(of({
         requestUUIDs: ['request1', 'request2'],
         dependentRequestUUIDs: [],
       } as ObjectCacheEntry));
@@ -215,7 +202,7 @@ describe('GroupDataService', () => {
 
   describe('addMemberToGroup', () => {
     beforeEach(() => {
-      objectCache.getByHref.and.returnValue(observableOf({
+      objectCache.getByHref.and.returnValue(of({
         requestUUIDs: ['request1', 'request2'],
         dependentRequestUUIDs: [],
       } as ObjectCacheEntry));
@@ -244,7 +231,7 @@ describe('GroupDataService', () => {
 
   describe('deleteMemberFromGroup', () => {
     beforeEach(() => {
-      objectCache.getByHref.and.returnValue(observableOf({
+      objectCache.getByHref.and.returnValue(of({
         requestUUIDs: ['request1', 'request2'],
         dependentRequestUUIDs: [],
       } as ObjectCacheEntry));
@@ -264,20 +251,6 @@ describe('GroupDataService', () => {
       expect(objectCache.getByHref).toHaveBeenCalledWith(EPersonMock._links.self.href);
       expect(requestService.setStaleByUUID).toHaveBeenCalledTimes(2);
       expect(requestService.setStaleByUUID).toHaveBeenCalledWith('request2');
-    });
-  });
-
-  describe('editGroup', () => {
-    it('should dispatch a EDIT_GROUP action with the group to start editing', () => {
-      service.editGroup(GroupMock);
-      expect(store.dispatch).toHaveBeenCalledWith(new GroupRegistryEditGroupAction(GroupMock));
-    });
-  });
-
-  describe('cancelEditGroup', () => {
-    it('should dispatch a CANCEL_EDIT_GROUP action', () => {
-      service.cancelEditGroup();
-      expect(store.dispatch).toHaveBeenCalledWith(new GroupRegistryCancelGroupAction());
     });
   });
 });

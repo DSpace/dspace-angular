@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h1 class="border-bottom pb-2">{{'publication-claim.title'| translate}}</h1>
+      <ds-alert [type]="'alert-info'" [content]="'publication-claim.source.description'"></ds-alert>
+    </div>
+  </div>
+  <ds-source-list [loading]="loading$ | async"
+                  [paginationConfig]="paginationConfig"
+                  [showLastEvent]="false"
+                  [sources]="sources$ | async"
+                  [totalElements]="totalElements$ | async"
+                  (sourceSelected)="onSelect($event)"></ds-source-list>
+</div>

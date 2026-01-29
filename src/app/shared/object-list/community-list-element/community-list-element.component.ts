@@ -1,10 +1,10 @@
 
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { Community } from '@dspace/core/shared/community.model';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
 
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { Community } from '../../../core/shared/community.model';
-import { ViewMode } from '../../../core/shared/view-mode.model';
 import { listableObjectComponent } from '../../object-collection/shared/listable-object/listable-object.decorator';
 import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 
@@ -12,8 +12,9 @@ import { AbstractListableElementComponent } from '../../object-collection/shared
   selector: 'ds-community-list-element',
   styleUrls: ['./community-list-element.component.scss'],
   templateUrl: './community-list-element.component.html',
-  standalone: true,
-  imports: [RouterLink],
+  imports: [
+    RouterLink,
+  ],
 })
 /**
  * Component representing a list element for a community

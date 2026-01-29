@@ -58,13 +58,13 @@
       <div class="row mb-4">
         <div class="col-12">
           <div>{{'bitstream-request-a-copy.allfiles.label' |translate}}</div>
-          <div class="ms-4 form-check">
+          <div class="ms-2 form-check">
             <input [className]="'form-check-input'" type="radio"
               id="allfiles-true" formControlName="allfiles" value="true">
             <label class="form-check-label"
             for="allfiles-true">{{'bitstream-request-a-copy.files-all-true.label' | translate}}</label>
           </div>
-          <div class="ms-4">
+          <div class="ms-2 form-check">
             <input [className]="'form-check-input'" type="radio"
               id="allfiles-false" formControlName="allfiles" value="false" [attr.disabled]="bitstream === undefined ? true : null ">
             <label class="form-check-label"
@@ -83,6 +83,14 @@
       </div>
     </div>
   </form>
+
+  <!-- Captcha - to be rendered only if enabled in backend requestitem.cfg -->
+  @if (!!(captchaEnabled$ | async)) {
+    <div>
+      <ds-altcha-captcha autoload="onload" challengeUrl="{{ challengeHref$ | async }}" (payload)="handlePayload($event)">
+      </ds-altcha-captcha>
+    </div>
+  }
 
   <hr>
     <div class="row">

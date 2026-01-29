@@ -6,6 +6,8 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
+import { BulkAccessConfigDataService } from '@dspace/core/config/bulk-access-config-data.service';
+import { Item } from '@dspace/core/shared/item.model';
 import {
   NgbDatepickerModule,
   NgbModal,
@@ -15,8 +17,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { of } from 'rxjs';
 
-import { BulkAccessConfigDataService } from '../../core/config/bulk-access-config-data.service';
-import { Item } from '../../core/shared/item.model';
 import { SelectableListService } from '../object-list/selectable-list/selectable-list.service';
 import { AccessControlFormContainerComponent } from './access-control-form-container.component';
 import { createAccessControlInitialFormState } from './access-control-form-container-intial-state';
@@ -30,9 +30,13 @@ describe('AccessControlFormContainerComponent', () => {
 
   // Mock NgbModal
   @Component({
-    selector: 'ds-ngb-modal', template: '',
-    standalone: true,
-    imports: [FormsModule, NgbDatepickerModule, UiSwitchModule],
+    selector: 'ds-ngb-modal',
+    template: '',
+    imports: [
+      FormsModule,
+      NgbDatepickerModule,
+      UiSwitchModule,
+    ],
   })
   class MockNgbModalComponent {
   }

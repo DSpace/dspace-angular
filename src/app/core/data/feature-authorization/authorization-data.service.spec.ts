@@ -1,21 +1,21 @@
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   combineLatest as observableCombineLatest,
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
-import { hasValue } from '../../../shared/empty.util';
-import { getMockObjectCacheService } from '../../../shared/mocks/object-cache.service.mock';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '../../../shared/remote-data.utils';
-import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { RequestParam } from '../../cache/models/request-param.model';
 import { EPerson } from '../../eperson/models/eperson.model';
 import { Authorization } from '../../shared/authorization.model';
 import { Feature } from '../../shared/feature.model';
 import { Site } from '../../shared/site.model';
+import { getMockObjectCacheService } from '../../testing/object-cache.service.mock';
+import { createPaginatedList } from '../../testing/utils.test';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../../utilities/remote-data.utils';
 import { testSearchDataImplementation } from '../base/search-data.spec';
 import { FindListOptions } from '../find-list-options.model';
 import { SiteDataService } from '../site-data.service';
@@ -46,7 +46,7 @@ describe('AuthorizationDataService', () => {
       uuid: 'test-eperson',
     });
     siteService = jasmine.createSpyObj('siteService', {
-      find: observableOf(site),
+      find: of(site),
     });
     objectCache = getMockObjectCacheService();
     service = new AuthorizationDataService(requestService, undefined, objectCache, undefined, siteService);
@@ -54,7 +54,7 @@ describe('AuthorizationDataService', () => {
 
   beforeEach(() => {
     init();
-    spyOn(service, 'searchBy').and.returnValue(observableOf(undefined));
+    spyOn(service, 'searchBy').and.returnValue(of(undefined));
   });
 
   describe('composition', () => {
@@ -126,7 +126,7 @@ describe('AuthorizationDataService', () => {
       let addDependencySpy;
 
       beforeEach(() => {
-        (service.searchBy as any).and.returnValue(observableOf('searchBy RD$'));
+        (service.searchBy as any).and.returnValue(of('searchBy RD$'));
         addDependencySpy = spyOn(service as any, 'addDependency');
       });
 

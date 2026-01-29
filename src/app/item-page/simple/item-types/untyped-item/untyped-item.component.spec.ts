@@ -12,6 +12,34 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { BrowseDefinitionDataService } from '@dspace/core/browse/browse-definition-data.service';
+import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
+import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
+import { CommunityDataService } from '@dspace/core/data/community-data.service';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
+import { DefaultChangeAnalyzer } from '@dspace/core/data/default-change-analyzer.service';
+import { DSOChangeAnalyzer } from '@dspace/core/data/dso-change-analyzer.service';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
+import { RelationshipDataService } from '@dspace/core/data/relationship-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { VersionDataService } from '@dspace/core/data/version-data.service';
+import { VersionHistoryDataService } from '@dspace/core/data/version-history-data.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { RouteService } from '@dspace/core/services/route.service';
+import { Bitstream } from '@dspace/core/shared/bitstream.model';
+import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { MetadataMap } from '@dspace/core/shared/metadata.models';
+import { UUIDService } from '@dspace/core/shared/uuid.service';
+import { WorkspaceitemDataService } from '@dspace/core/submission/workspaceitem-data.service';
+import { BrowseDefinitionDataServiceStub } from '@dspace/core/testing/browse-definition-data-service.stub';
+import { ConfigurationDataServiceStub } from '@dspace/core/testing/configuration-data.service.stub';
+import { mockTruncatableService } from '@dspace/core/testing/mock-trucatable.service';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { Store } from '@ngrx/store';
 import {
   TranslateLoader,
@@ -22,37 +50,11 @@ import {
   of,
 } from 'rxjs';
 
-import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { environment } from '../../../../../environments/environment.test';
-import { BrowseDefinitionDataService } from '../../../../core/browse/browse-definition-data.service';
-import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
-import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
-import { CommunityDataService } from '../../../../core/data/community-data.service';
-import { DefaultChangeAnalyzer } from '../../../../core/data/default-change-analyzer.service';
-import { DSOChangeAnalyzer } from '../../../../core/data/dso-change-analyzer.service';
-import { ItemDataService } from '../../../../core/data/item-data.service';
-import { RelationshipDataService } from '../../../../core/data/relationship-data.service';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { VersionDataService } from '../../../../core/data/version-data.service';
-import { VersionHistoryDataService } from '../../../../core/data/version-history-data.service';
-import { RouteService } from '../../../../core/services/route.service';
-import { Bitstream } from '../../../../core/shared/bitstream.model';
-import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service';
-import { Item } from '../../../../core/shared/item.model';
-import { MetadataMap } from '../../../../core/shared/metadata.models';
-import { SearchService } from '../../../../core/shared/search/search.service';
-import { UUIDService } from '../../../../core/shared/uuid.service';
-import { WorkspaceitemDataService } from '../../../../core/submission/workspaceitem-data.service';
 import { DsoEditMenuComponent } from '../../../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
-import { mockTruncatableService } from '../../../../shared/mocks/mock-trucatable.service';
-import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { ThemedResultsBackButtonComponent } from '../../../../shared/results-back-button/themed-results-back-button.component';
-import { BrowseDefinitionDataServiceStub } from '../../../../shared/testing/browse-definition-data-service.stub';
-import { createPaginatedList } from '../../../../shared/testing/utils.test';
+import { SearchService } from '../../../../shared/search/search.service';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
 import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail.component';
@@ -88,6 +90,7 @@ function getItem(metadata: MetadataMap) {
 describe('UntypedItemComponent', () => {
   let comp: UntypedItemComponent;
   let fixture: ComponentFixture<UntypedItemComponent>;
+  let configurationDataService = new ConfigurationDataServiceStub();
 
   beforeEach(waitForAsync(() => {
     const mockBitstreamDataService = {
@@ -130,6 +133,7 @@ describe('UntypedItemComponent', () => {
         { provide: ItemVersionsSharedService, useValue: {} },
         { provide: RouteService, useValue: mockRouteService },
         { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub },
+        { provide: ConfigurationDataService, useValue: configurationDataService },
         { provide: APP_CONFIG, useValue: environment },
       ],
       schemas: [NO_ERRORS_SCHEMA],

@@ -4,6 +4,26 @@ import {
   EventEmitter,
   OnInit,
 } from '@angular/core';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { Context } from '@dspace/core/shared/context.model';
+import { ExternalSourceEntry } from '@dspace/core/shared/external-source-entry.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { ItemType } from '@dspace/core/shared/item-relationships/item-type.model';
+import { MetadataValue } from '@dspace/core/shared/metadata.models';
+import { Metadata } from '@dspace/core/shared/metadata.utils';
+import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
+import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
+import {
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '@dspace/core/shared/operators';
+import { RelationshipOptions } from '@dspace/core/shared/relationship-options.model';
+import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
+import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
 import {
   NgbActiveModal,
   NgbModal,
@@ -19,33 +39,13 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { ItemDataService } from '../../../../../../../core/data/item-data.service';
-import { LookupRelationService } from '../../../../../../../core/data/lookup-relation.service';
-import { PaginatedList } from '../../../../../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../../../../../core/data/remote-data';
-import { Context } from '../../../../../../../core/shared/context.model';
-import { ExternalSourceEntry } from '../../../../../../../core/shared/external-source-entry.model';
-import { Item } from '../../../../../../../core/shared/item.model';
-import { ItemType } from '../../../../../../../core/shared/item-relationships/item-type.model';
-import { MetadataValue } from '../../../../../../../core/shared/metadata.models';
-import { Metadata } from '../../../../../../../core/shared/metadata.utils';
-import {
-  getFirstSucceededRemoteData,
-  getRemoteDataPayload,
-} from '../../../../../../../core/shared/operators';
 import { SubmissionImportExternalCollectionComponent } from '../../../../../../../submission/import-external/import-external-collection/submission-import-external-collection.component';
 import { BtnDisabledDirective } from '../../../../../../btn-disabled.directive';
 import { CollectionListEntry } from '../../../../../../collection-dropdown/collection-dropdown.component';
-import { NotificationsService } from '../../../../../../notifications/notifications.service';
 import { CollectionElementLinkType } from '../../../../../../object-collection/collection-element-link.type';
-import { ItemSearchResult } from '../../../../../../object-collection/shared/item-search-result.model';
-import { ListableObject } from '../../../../../../object-collection/shared/listable-object.model';
 import { SelectableListService } from '../../../../../../object-list/selectable-list/selectable-list.service';
-import { PaginationComponentOptions } from '../../../../../../pagination/pagination-component-options.model';
-import { PaginatedSearchOptions } from '../../../../../../search/models/paginated-search-options.model';
-import { SearchResult } from '../../../../../../search/models/search-result.model';
 import { ThemedSearchResultsComponent } from '../../../../../../search/search-results/themed-search-results.component';
-import { RelationshipOptions } from '../../../../models/relationship-options.model';
+import { LookupRelationService } from '../../lookup-relation.service';
 
 /**
  * The possible types of import for the external entry
@@ -63,12 +63,11 @@ export enum ImportType {
   styleUrls: ['./external-source-entry-import-modal.component.scss'],
   templateUrl: './external-source-entry-import-modal.component.html',
   imports: [
-    TranslateModule,
-    ThemedSearchResultsComponent,
     AsyncPipe,
     BtnDisabledDirective,
+    ThemedSearchResultsComponent,
+    TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * Component to display a modal window for importing an external source entry

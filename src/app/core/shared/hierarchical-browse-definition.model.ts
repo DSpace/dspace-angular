@@ -4,7 +4,7 @@ import {
   inheritSerialization,
 } from 'cerialize';
 
-import { BrowseByDataType } from '../../browse-by/browse-by-switcher/browse-by-data-type';
+import { BrowseByDataType } from '../browse/browse-by-data-type';
 import { typedObject } from '../cache/builders/build-decorators';
 import { excludeFromEquals } from '../utilities/equals.decorators';
 import { BrowseDefinition } from './browse-definition.model';

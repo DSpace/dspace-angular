@@ -1,4 +1,11 @@
 import { Injectable } from '@angular/core';
+import { RestRequestMethod } from '@dspace/config/rest-request-method';
+import {
+  hasNoValue,
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import {
   createSelector,
   MemoizedSelector,
@@ -12,7 +19,7 @@ import {
 import {
   combineLatest as observableCombineLatest,
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import {
   distinctUntilChanged,
@@ -23,15 +30,8 @@ import {
   take,
 } from 'rxjs/operators';
 
-import {
-  hasNoValue,
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-} from '../../shared/empty.util';
 import { coreSelector } from '../core.selectors';
 import { CoreState } from '../core-state.model';
-import { RestRequestMethod } from '../data/rest-request-method';
 import { RemoveFromIndexBySubstringAction } from '../index/index.actions';
 import {
   selfLinkFromAlternativeLinkSelector,
@@ -271,7 +271,7 @@ export class ObjectCacheService {
    */
   getList<T extends CacheableObject>(selfLinks: string[]): Observable<T[]> {
     if (isEmpty(selfLinks)) {
-      return observableOf([]);
+      return of([]);
     } else {
       return observableCombineLatest(
         selfLinks.map((selfLink: string) => this.getObjectByHref<T>(selfLink)),
@@ -391,10 +391,10 @@ export class ObjectCacheService {
     }
 
     if (typeof href$ === 'string') {
-      href$ = observableOf(href$);
+      href$ = of(href$);
     }
     if (typeof dependsOnHref$ === 'string') {
-      dependsOnHref$ = observableOf(dependsOnHref$);
+      dependsOnHref$ = of(dependsOnHref$);
     }
 
     observableCombineLatest([
@@ -404,7 +404,7 @@ export class ObjectCacheService {
       ),
     ]).pipe(
       switchMap(([href, dependsOnSelfLink]: [string, string]) => {
-        const dependsOnSelfLink$ = observableOf(dependsOnSelfLink);
+        const dependsOnSelfLink$ = of(dependsOnSelfLink);
 
         return observableCombineLatest([
           dependsOnSelfLink$,

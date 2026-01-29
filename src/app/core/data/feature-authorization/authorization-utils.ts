@@ -1,18 +1,18 @@
 import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
+import {
   combineLatest as observableCombineLatest,
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import {
   map,
   switchMap,
 } from 'rxjs/operators';
 
-import {
-  hasNoValue,
-  hasValue,
-  isNotEmpty,
-} from '../../../shared/empty.util';
 import { AuthService } from '../../auth/auth.service';
 import { Authorization } from '../../shared/authorization.model';
 import { Feature } from '../../shared/feature.model';
@@ -35,7 +35,7 @@ export const addSiteObjectUrlIfEmpty = (siteService: SiteDataService) =>
             map((site) => Object.assign({}, params, { objectUrl: site.self })),
           );
         } else {
-          return observableOf(params);
+          return of(params);
         }
       }),
     );
@@ -57,12 +57,12 @@ export const addAuthenticatedUserUuidIfEmpty = (authService: AuthService) =>
                   map((ePerson) => Object.assign({}, params, { ePersonUuid: ePerson.uuid })),
                 );
               } else {
-                return observableOf(params);
+                return of(params);
               }
             }),
           );
         } else {
-          return observableOf(params);
+          return of(params);
         }
       }),
     );
@@ -88,7 +88,7 @@ export const oneAuthorizationMatchesFeature = (featureID: FeatureID) =>
               )),
           ]);
         } else {
-          return observableOf([]);
+          return of([]);
         }
       }),
       map((features: Feature[]) => features.filter((feature: Feature) => feature.id === featureID.valueOf()).length > 0),

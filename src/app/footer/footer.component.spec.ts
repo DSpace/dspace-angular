@@ -7,15 +7,15 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { NotifyInfoService } from '@dspace/core/coar-notify/notify-info/notify-info.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { AuthorizationDataServiceStub } from '@dspace/core/testing/authorization-service.stub';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { APP_CONFIG } from '../../config/app-config.interface';
 import { environment } from '../../environments/environment.test';
-import { NotifyInfoService } from '../core/coar-notify/notify-info/notify-info.service';
-import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
-import { ActivatedRouteStub } from '../shared/testing/active-router.stub';
-import { AuthorizationDataServiceStub } from '../shared/testing/authorization-service.stub';
 import { FooterComponent } from './footer.component';
 
 let comp: FooterComponent;
@@ -63,21 +63,21 @@ describe('Footer component', () => {
     expect(comp.showEndUserAgreement).toBe(environment.info.enableEndUserAgreement);
   });
 
-  describe('showCookieSettings', () => {
+  describe('openCookieSettings', () => {
     it('should call cookies.showSettings() if cookies is defined', () => {
       const cookies = jasmine.createSpyObj('cookies', ['showSettings']);
       comp.cookies = cookies;
-      comp.showCookieSettings();
+      comp.openCookieSettings();
       expect(cookies.showSettings).toHaveBeenCalled();
     });
 
     it('should not call cookies.showSettings() if cookies is undefined', () => {
       comp.cookies = undefined;
-      expect(() => comp.showCookieSettings()).not.toThrow();
+      expect(() => comp.openCookieSettings()).not.toThrow();
     });
 
     it('should return false', () => {
-      expect(comp.showCookieSettings()).toBeFalse();
+      expect(comp.openCookieSettings()).toBeFalse();
     });
   });
 

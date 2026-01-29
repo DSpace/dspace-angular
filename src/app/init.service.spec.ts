@@ -1,8 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  APP_INITIALIZER,
-  Injectable,
-} from '@angular/core';
+import { Injectable } from '@angular/core';
 import {
   inject,
   TestBed,
@@ -12,6 +9,17 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { authReducer } from '@dspace/core/auth/auth.reducer';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { CorrelationIdService } from '@dspace/core/correlation-id/correlation-id.service';
+import { LocaleService } from '@dspace/core/locale/locale.service';
+import { RouteService } from '@dspace/core/services/route.service';
+import { MockActivatedRoute } from '@dspace/core/testing/active-router.mock';
+import { AngularticsProviderMock } from '@dspace/core/testing/angulartics-provider.service.mock';
+import { AuthServiceMock } from '@dspace/core/testing/auth.service.mock';
+import { RouterMock } from '@dspace/core/testing/router.mock';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import {
   Store,
   StoreModule,
@@ -21,35 +29,23 @@ import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { APP_CONFIG } from 'src/config/app-config.interface';
 
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { getMockLocaleService } from './app.component.spec';
 import { storeModuleConfig } from './app.reducer';
 import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
-import { authReducer } from './core/auth/auth.reducer';
-import { AuthService } from './core/auth/auth.service';
-import { LocaleService } from './core/locale/locale.service';
-import { RouteService } from './core/services/route.service';
-import { CorrelationIdService } from './correlation-id/correlation-id.service';
 import { InitService } from './init.service';
 import { MenuService } from './shared/menu/menu.service';
-import { MockActivatedRoute } from './shared/mocks/active-router.mock';
-import { AngularticsProviderMock } from './shared/mocks/angulartics-provider.service.mock';
-import { AuthServiceMock } from './shared/mocks/auth.service.mock';
-import { RouterMock } from './shared/mocks/router.mock';
-import { getMockThemeService } from './shared/mocks/theme-service.mock';
-import { TranslateLoaderMock } from './shared/mocks/translate-loader.mock';
+import { getMockThemeService } from './shared/theme-support/test/theme-service.mock';
 import { ThemeService } from './shared/theme-support/theme.service';
 import { Angulartics2DSpace } from './statistics/angulartics/dspace-provider';
 import objectContaining = jasmine.objectContaining;
 import createSpyObj = jasmine.createSpyObj;
 import SpyObj = jasmine.SpyObj;
+import { HeadTagService } from '@dspace/core/metadata/head-tag.service';
+import { HeadTagServiceMock } from '@dspace/core/testing/head-tag-service.mock';
 import { getTestScheduler } from 'jasmine-marbles';
-
-import { HeadTagService } from './core/metadata/head-tag.service';
-import { HeadTagServiceMock } from './shared/mocks/head-tag-service.mock';
 
 let spy: SpyObj<any>;
 
@@ -99,12 +95,6 @@ describe('InitService', () => {
       expect(providers).toContain(objectContaining({
         provide: APP_CONFIG,
       }));
-
-      expect(providers).toContain(objectContaining({
-        provide: APP_INITIALIZER,
-        deps: [ InitService ],
-        multi: true,
-      }));
     });
 
     it('should call resolveAppConfig() in APP_CONFIG factory', () => {
@@ -117,22 +107,6 @@ describe('InitService', () => {
       factory();
       expect(spy.resolveAppConfig).toHaveBeenCalled();
       expect(spy.init).not.toHaveBeenCalled();
-    });
-
-    it('should defer to init() in APP_INITIALIZER factory', () => {
-      const factory = (
-        ConcreteInitServiceMock.providers()
-          .find((p: any) => p.provide === APP_INITIALIZER) as any
-      ).useFactory;
-
-      // we don't care about the dependencies here
-      // @ts-ignore
-      const instance = new ConcreteInitServiceMock(null, null, null);
-
-      // provider ensures that the right concrete instance is passed to the factory
-      factory(instance);
-      expect(spy.resolveAppConfig).not.toHaveBeenCalled();
-      expect(spy.init).toHaveBeenCalled();
     });
   });
 

@@ -1,5 +1,4 @@
 {
-
   "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
 
   "401.link.home-page": "Take me to the home page",
@@ -33,6 +32,8 @@
   "error-page.description.404": "Page not found",
 
   "error-page.orcid.generic-error": "An error occurred during login via ORCID. Make sure you have shared your ORCID account email address with DSpace. If the error persists, contact the administrator",
+
+  "listelement.badge.access-status": "Access status:",
 
   "access-status.embargo.listelement.badge": "Embargo",
 
@@ -304,6 +305,14 @@
 
   "admin.access-control.epeople.table.edit.buttons.remove": "Delete \"{{name}}\"",
 
+  "admin.access-control.epeople.table.edit.buttons.remove.modal.header": "Delete Group \"{{ dsoName }}\"",
+
+  "admin.access-control.epeople.table.edit.buttons.remove.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\" and all its associated policies?",
+
+  "admin.access-control.epeople.table.edit.buttons.remove.modal.cancel": "Cancel",
+
+  "admin.access-control.epeople.table.edit.buttons.remove.modal.confirm": "Delete",
+
   "admin.access-control.epeople.no-items": "No EPeople to show.",
 
   "admin.access-control.epeople.form.create": "Create EPerson",
@@ -432,7 +441,7 @@
 
   "admin.access-control.groups.form.delete-group.modal.header": "Delete Group \"{{ dsoName }}\"",
 
-  "admin.access-control.groups.form.delete-group.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\"",
+  "admin.access-control.groups.form.delete-group.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\" and all its associated policies?",
 
   "admin.access-control.groups.form.delete-group.modal.cancel": "Cancel",
 
@@ -640,7 +649,6 @@
 
   "admin.reports.items.title": "Title",
 
-
   "admin.reports.commons.filters": "Filters",
 
   "admin.reports.commons.additional-data": "Additional data to return",
@@ -660,7 +668,6 @@
   "admin.reports.commons.filters.select_all": "Select all filters",
 
   "admin.reports.commons.filters.matches_all": "Matches all specified filters",
-
 
   "admin.reports.commons.filters.property": "Item Property Filters",
 
@@ -796,7 +803,7 @@
 
   "admin.metadata-import.page.help": "You can drop or browse CSV files that contain batch metadata operations on files here",
 
-  "admin.batch-import.page.help": "Select the Collection to import into. Then, drop or browse to a Simple Archive Format (SAF) zip file that includes the Items to import",
+  "admin.batch-import.page.help": "Select the collection to import into. Then, drop or browse to a Simple Archive Format (SAF) zip file that includes the items to import",
 
   "admin.batch-import.page.toggle.help": "It is possible to perform import either with file upload or via URL, use above toggle to set the input source",
 
@@ -891,6 +898,56 @@
   "admin.batch-import.page.validateOnly.hint": "When selected, the uploaded ZIP will be validated. You will receive a report of detected changes, but no changes will be saved.",
 
   "admin.batch-import.page.remove": "remove",
+
+  "audit.data.not-found": "No audits found.",
+
+  "audit.data.self": "self",
+
+  "audit.detail.metadata.field": "Metadata field:",
+
+  "audit.detail.metadata.value": "Value:",
+
+  "audit.detail.metadata.authority": "Authority:",
+
+  "audit.detail.metadata.confidence": "Confidence:",
+
+  "audit.detail.metadata.place": "Place:",
+
+  "audit.detail.metadata.action": "Action:",
+
+  "audit.detail.metadata.checksum": "Checksum:",
+
+  "audit.overview.title": "All Audit Logs",
+
+  "audit.overview.table.id": "Audit ID",
+
+  "audit.overview.table.objectUUID": "Object ID",
+
+  "audit.overview.table.objectType": "Object Type",
+
+  "audit.overview.table.subjectUUID": "Subject ID",
+
+  "audit.overview.table.subjectType": "Subject Type",
+
+  "audit.overview.table.entityType": "Audit Type",
+
+  "audit.overview.table.eperson": "EPerson",
+
+  "audit.overview.table.other": "Object",
+
+  "audit.overview.table.timestamp": "Time (UTC)",
+
+  "audit.overview.breadcrumbs": "Audit Logs",
+
+  "audit.object.back": "Back",
+
+  "audit.object.breadcrumbs": "Object Audit Logs",
+
+  "audit.object.overview.title": "Object Audit Logs",
+
+  "audit.object.logs.label": "Logs for object: ",
+
+  "audit.object.overview.disabled.message": "Audit feature is currently disabled",
 
   "auth.errors.invalid-user": "Invalid email address or password.",
 
@@ -998,6 +1055,18 @@
 
   "bitstream-request-a-copy.submit.error": "Something went wrong with submitting the item request.",
 
+  "bitstream-request-a-copy.access-by-token.warning": "You are viewing this item with the secure access link provided to you by the author or repository staff. It is important not to share this link to unauthorised users.",
+
+  "bitstream-request-a-copy.access-by-token.expiry-label": "Access provided by this link will expire on",
+
+  "bitstream-request-a-copy.access-by-token.expired": "Access provided by this link is no longer possible. Access expired on",
+
+  "bitstream-request-a-copy.access-by-token.not-granted": "Access provided by this link is not possible. Access has either not been granted, or has been revoked.",
+
+  "bitstream-request-a-copy.access-by-token.re-request": "Follow restricted download links to submit a new request for access.",
+
+  "bitstream-request-a-copy.access-by-token.alt-text": "Access to this item is provided by a secure token",
+
   "browse.back.all-results": "All browse results",
 
   "browse.comcol.by.author": "By Author",
@@ -1041,6 +1110,12 @@
   "browse.metadata.nsi.tree.description": "Select an index to add as search filter",
 
   "browse.metadata.title.breadcrumbs": "Browse by Title",
+
+  "browse.metadata.map": "Browse by Geolocation",
+
+  "browse.metadata.map.breadcrumbs": "Browse by Geolocation",
+
+  "browse.metadata.map.count.items": "items",
 
   "pagination.next.button": "Next",
 
@@ -1102,6 +1177,10 @@
 
   "browse.title": "Browsing by {{ field }}{{ startsWith }} {{ value }}",
 
+  "browse.taxonomy.show_next_results": "Show next results",
+
+  "browse.taxonomy.show_previous_results": "Show previous results",
+
   "browse.title.page": "Browsing by {{ field }} {{ value }}",
 
   "search.browse.item-back": "Back to Results",
@@ -1120,7 +1199,7 @@
 
   "collection.create.head": "Create a Collection",
 
-  "collection.create.notifications.success": "Successfully created the Collection",
+  "collection.create.notifications.success": "Successfully created the collection",
 
   "collection.create.sub-head": "Create a Collection for Community {{ parent }}",
 
@@ -1136,7 +1215,7 @@
 
   "collection.delete.notification.fail": "Collection could not be deleted",
 
-  "collection.delete.notification.success": "Successfully deleted collection",
+  "collection.delete.notification.success": "Successfully started a process to delete this collection",
 
   "collection.delete.text": "Are you sure you want to delete collection \"{{ dso }}\"",
 
@@ -1192,9 +1271,9 @@
 
   "collection.edit.logo.label": "Collection logo",
 
-  "collection.edit.logo.notifications.add.error": "Uploading Collection logo failed. Please verify the content before retrying.",
+  "collection.edit.logo.notifications.add.error": "Uploading collection logo failed. Please verify the content before retrying.",
 
-  "collection.edit.logo.notifications.add.success": "Upload Collection logo successful.",
+  "collection.edit.logo.notifications.add.success": "Uploading collection logo successful.",
 
   "collection.edit.logo.notifications.delete.success.title": "Logo deleted",
 
@@ -1202,9 +1281,9 @@
 
   "collection.edit.logo.notifications.delete.error.title": "Error deleting logo",
 
-  "collection.edit.logo.upload": "Drop a Collection Logo to upload",
+  "collection.edit.logo.upload": "Drop a collection logo to upload",
 
-  "collection.edit.notifications.success": "Successfully edited the Collection",
+  "collection.edit.notifications.success": "Successfully edited the collection",
 
   "collection.edit.return": "Back",
 
@@ -1326,6 +1405,10 @@
 
   "collection.page.news": "News",
 
+  "collection.page.options": "Options",
+
+  "collection.search.breadcrumbs": "Search",
+
   "collection.search.results.head": "Search Results",
 
   "collection.select.confirm": "Confirm selected",
@@ -1410,7 +1493,7 @@
 
   "community.create.head": "Create a Community",
 
-  "community.create.notifications.success": "Successfully created the Community",
+  "community.create.notifications.success": "Successfully created the community",
 
   "community.create.sub-head": "Create a Sub-Community for Community {{ parent }}",
 
@@ -1426,7 +1509,7 @@
 
   "community.delete.notification.fail": "Community could not be deleted",
 
-  "community.delete.notification.success": "Successfully deleted community",
+  "community.delete.notification.success": "Successfully started a process to delete this community",
 
   "community.delete.text": "Are you sure you want to delete community \"{{ dso }}\"",
 
@@ -1458,7 +1541,7 @@
 
   "community.edit.logo.upload": "Drop a community logo to upload",
 
-  "community.edit.notifications.success": "Successfully edited the Community",
+  "community.edit.notifications.success": "Successfully edited the community",
 
   "community.edit.notifications.unauthorized": "You do not have privileges to make this change",
 
@@ -1501,6 +1584,14 @@
   "comcol-role.edit.delete": "Delete",
 
   "comcol-role.edit.delete.error.title": "Failed to delete the '{{ role }}' role's group",
+
+  "comcol-role.edit.delete.modal.header": "Delete Group \"{{ dsoName }}\"",
+
+  "comcol-role.edit.delete.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\" and all its associated policies?",
+
+  "comcol-role.edit.delete.modal.cancel": "Cancel",
+
+  "comcol-role.edit.delete.modal.confirm": "Delete",
 
   "comcol-role.edit.community-admin.name": "Administrators",
 
@@ -1562,13 +1653,19 @@
 
   "community.page.news": "News",
 
+  "community.page.options": "Options",
+
   "community.all-lists.head": "Subcommunities and Collections",
+
+  "community.search.breadcrumbs": "Search",
 
   "community.search.results.head": "Search Results",
 
-  "community.sub-collection-list.head": "Collections in this Community",
+  "community.sub-collection-list.head": "Collections in this community",
 
   "community.sub-community-list.head": "Communities in this Community",
+
+  "context-menu.actions.audit-item.btn": "Audit",
 
   "cookies.consent.accept-all": "Accept all",
 
@@ -1610,9 +1707,17 @@
 
   "cookies.consent.content-modal.title": "Information that we collect",
 
+  "cookies.consent.app.title.accessibility": "Accessibility Settings",
+
+  "cookies.consent.app.description.accessibility": "Required for saving your accessibility settings locally",
+
   "cookies.consent.app.title.authentication": "Authentication",
 
   "cookies.consent.app.description.authentication": "Required for signing you in",
+
+  "cookies.consent.app.title.correlation-id": "Correlation ID",
+
+  "cookies.consent.app.description.correlation-id": "Allow us to track your session in backend logs for support/debugging purposes",
 
   "cookies.consent.app.title.preferences": "Preferences",
 
@@ -1629,6 +1734,10 @@
   "cookies.consent.app.title.google-recaptcha": "Google reCaptcha",
 
   "cookies.consent.app.description.google-recaptcha": "We use google reCAPTCHA service during registration and password recovery",
+
+  "cookies.consent.app.title.matomo": "Matomo",
+
+  "cookies.consent.app.description.matomo": "Allows us to track statistical data",
 
   "cookies.consent.purpose.functional": "Functional",
 
@@ -1824,6 +1933,16 @@
 
   "confirmation-modal.delete-subscription.confirm": "Delete",
 
+  "confirmation-modal.review-account-info.header": "Save the changes",
+
+  "confirmation-modal.review-account-info.info": "Are you sure you want to save the changes to your profile",
+
+  "confirmation-modal.review-account-info.cancel": "Cancel",
+
+  "confirmation-modal.review-account-info.confirm": "Confirm",
+
+  "confirmation-modal.review-account-info.save": "Save",
+
   "error.bitstream": "Error fetching bitstream",
 
   "error.browse-by": "Error fetching items",
@@ -1894,9 +2013,13 @@
 
   "file-download-link.restricted": "Restricted bitstream",
 
+  "file-download-link.secure-access": "Restricted bitstream available via secure access token",
+
   "file-section.error.header": "Error obtaining files for this item",
 
   "footer.copyright": "copyright © 2002-{{ year }}",
+
+  "footer.link.accessibility": "Accessibility settings",
 
   "footer.link.dspace": "DSpace software",
 
@@ -2032,9 +2155,17 @@
 
   "form.number-picker.increment": "Increment {{field}}",
 
+  "form.number-picker.label.Year": "Year",
+
+  "form.number-picker.label.Month": "Month",
+
+  "form.number-picker.label.Day": "Day",
+
   "form.repeatable.sort.tip": "Drop the item in the new position",
 
-  "grant-deny-request-copy.deny": "Don't send copy",
+  "grant-deny-request-copy.deny": "Deny access request",
+
+  "grant-deny-request-copy.revoke": "Revoke access",
 
   "grant-deny-request-copy.email.back": "Back",
 
@@ -2052,7 +2183,7 @@
 
   "grant-deny-request-copy.email.subject.empty": "Please enter a subject",
 
-  "grant-deny-request-copy.grant": "Send copy",
+  "grant-deny-request-copy.grant": "Grant access request",
 
   "grant-deny-request-copy.header": "Document copy request",
 
@@ -2062,6 +2193,8 @@
 
   "grant-deny-request-copy.intro2": "After choosing an option, you will be presented with a suggested email reply which you may edit.",
 
+  "grant-deny-request-copy.previous-decision": "This request was previously granted with a secure access token. You may revoke this access now to immediately invalidate the access token",
+
   "grant-deny-request-copy.processed": "This request has already been processed. You can use the button below to get back to the home page.",
 
   "grant-request-copy.email.subject": "Request copy of document",
@@ -2070,9 +2203,25 @@
 
   "grant-request-copy.header": "Grant document copy request",
 
-  "grant-request-copy.intro": "A message will be sent to the applicant of the request. The requested document(s) will be attached.",
+  "grant-request-copy.intro.attachment": "A message will be sent to the applicant of the request. The requested document(s) will be attached.",
+
+  "grant-request-copy.intro.link": "A message will be sent to the applicant of the request. A secure link providing access to the requested document(s) will be attached. The link will provide access for the duration of time selected in the \"Access Period\" menu below.",
+
+  "grant-request-copy.intro.link.preview": "Below is a preview of the link that will be sent to the applicant:",
 
   "grant-request-copy.success": "Successfully granted item request",
+
+  "grant-request-copy.access-period.header": "Access period",
+
+  "grant-request-copy.access-period.+1DAY": "1 day",
+
+  "grant-request-copy.access-period.+7DAYS": "1 week",
+
+  "grant-request-copy.access-period.+1MONTH": "1 month",
+
+  "grant-request-copy.access-period.+3MONTHS": "3 months",
+
+  "grant-request-copy.access-period.FOREVER": "Forever",
 
   "health.breadcrumbs": "Health",
 
@@ -2125,6 +2274,44 @@
   "home.top-level-communities.head": "Communities in DSpace",
 
   "home.top-level-communities.help": "Select a community to browse its collections.",
+
+  "info.accessibility-settings.breadcrumbs": "Accessibility settings",
+
+  "info.accessibility-settings.cookie-warning": "Saving the accessibility settings is currently not possible. Either log in to save the settings in user data, or accept the 'Accessibility Settings' cookie using the 'Cookie Settings' menu at the bottom of the page. Once the cookie has been accepted, you can reload the page to remove this message.",
+
+  "info.accessibility-settings.disableNotificationTimeOut.label": "Automatically close notifications after time out",
+
+  "info.accessibility-settings.disableNotificationTimeOut.hint": "When this toggle is activated, notifications will close automatically after the time out passes. When deactivated, notifications will remain open untill manually closed.",
+
+  "info.accessibility-settings.failed-notification": "Failed to save accessibility settings",
+
+  "info.accessibility-settings.invalid-form-notification": "Did not save. The form contains invalid values.",
+
+  "info.accessibility-settings.liveRegionTimeOut.label": "ARIA Live region time out (in seconds)",
+
+  "info.accessibility-settings.liveRegionTimeOut.hint": "The duration after which a message in the ARIA live region disappears. ARIA live regions are not visible on the page, but provide announcements of notifications (or other actions) to screen readers.",
+
+  "info.accessibility-settings.liveRegionTimeOut.invalid": "Live region time out must be greater than 0",
+
+  "info.accessibility-settings.notificationTimeOut.label": "Notification time out (in seconds)",
+
+  "info.accessibility-settings.notificationTimeOut.hint": "The duration after which a notification disappears.",
+
+  "info.accessibility-settings.notificationTimeOut.invalid": "Notification time out must be greater than 0",
+
+  "info.accessibility-settings.save-notification.cookie": "Successfully saved settings locally.",
+
+  "info.accessibility-settings.save-notification.metadata": "Successfully saved settings on the user profile.",
+
+  "info.accessibility-settings.reset-failed": "Failed to reset. Either log in or accept the 'Accessibility Settings' cookie.",
+
+  "info.accessibility-settings.reset-notification": "Successfully reset settings.",
+
+  "info.accessibility-settings.reset": "Reset accessibility settings",
+
+  "info.accessibility-settings.submit": "Save accessibility settings",
+
+  "info.accessibility-settings.title": "Accessibility settings",
 
   "info.end-user-agreement.accept": "I have read and I agree to the End User Agreement",
 
@@ -2191,6 +2378,8 @@
   "item.edit.authorizations.heading": "With this editor you can view and alter the policies of an item, plus alter policies of individual item components: bundles and bitstreams. Briefly, an item is a container of bundles, and bundles are containers of bitstreams. Containers usually have ADD/REMOVE/READ/WRITE policies, while bitstreams only have READ/WRITE policies.",
 
   "item.edit.authorizations.title": "Edit item's Policies",
+
+  "item.badge.status": "Item status:",
 
   "item.badge.private": "Non-discoverable",
 
@@ -2306,7 +2495,7 @@
 
   "item.edit.delete.header": "Delete item: {{ id }}",
 
-  "item.edit.delete.success": "The item has been deleted",
+  "item.edit.delete.success": "Successfully started a process to delete this item",
 
   "item.edit.head": "Edit Item",
 
@@ -2606,7 +2795,7 @@
 
   "item.edit.tabs.status.buttons.mappedCollections.label": "Manage mapped collections",
 
-  "item.edit.tabs.status.buttons.move.button": "Move this Item to a different Collection",
+  "item.edit.tabs.status.buttons.move.button": "Move this item to a different collection",
 
   "item.edit.tabs.status.buttons.move.label": "Move item to another collection",
 
@@ -2670,6 +2859,34 @@
 
   "item.page.description": "Description",
 
+  "item.page.org-unit": "Organizational Unit",
+
+  "item.page.org-units": "Organizational Units",
+
+  "item.page.project": "Research Project",
+
+  "item.page.projects": "Research Projects",
+
+  "item.page.publication": "Publications",
+
+  "item.page.publications": "Publications",
+
+  "item.page.article": "Article",
+
+  "item.page.articles": "Articles",
+
+  "item.page.journal": "Journal",
+
+  "item.page.journals": "Journals",
+
+  "item.page.journal-issue": "Journal Issue",
+
+  "item.page.journal-issues": "Journal Issues",
+
+  "item.page.journal-volume": "Journal Volume",
+
+  "item.page.journal-volumes": "Journal Volumes",
+
   "item.page.journal-issn": "Journal ISSN",
 
   "item.page.journal-title": "Journal Title",
@@ -2679,6 +2896,8 @@
   "item.page.titleprefix": "Item: ",
 
   "item.page.volume-title": "Volume Title",
+
+  "item.page.dcterms.spatial": "Geospatial point",
 
   "item.search.results.head": "Item Search Results",
 
@@ -2732,7 +2951,9 @@
 
   "item.page.abstract": "Abstract",
 
-  "item.page.author": "Authors",
+  "item.page.author": "Author",
+
+  "item.page.authors": "Authors",
 
   "item.page.citation": "Citation",
 
@@ -2763,6 +2984,8 @@
   "item.page.link.full": "Full item page",
 
   "item.page.link.simple": "Simple item page",
+
+  "item.page.options": "Options",
 
   "item.page.orcid.title": "ORCID",
 
@@ -2832,9 +3055,25 @@
 
   "item.preview.dc.type": "Type:",
 
+  "item.preview.oaire.version": "Version",
+
   "item.preview.oaire.citation.issue": "Issue",
 
   "item.preview.oaire.citation.volume": "Volume",
+
+  "item.preview.oaire.citation.title": "Citation container",
+
+  "item.preview.oaire.citation.startPage": "Citation start page",
+
+  "item.preview.oaire.citation.endPage": "Citation end page",
+
+  "item.preview.dc.relation.hasversion": "Has version",
+
+  "item.preview.dc.relation.ispartofseries": "Is part of series",
+
+  "item.preview.dc.rights": "Rights",
+
+  "item.preview.dc.identifier.other": "Other Identifier",
 
   "item.preview.dc.relation.issn": "ISSN",
 
@@ -2853,6 +3092,8 @@
   "item.preview.person.givenName": "Name:",
 
   "item.preview.person.identifier.orcid": "ORCID:",
+
+  "item.preview.person.affiliation.name": "Affiliations:",
 
   "item.preview.project.funder.name": "Funder:",
 
@@ -2883,6 +3124,16 @@
   "item.preview.organization.legalName": "Legal Name",
 
   "item.preview.dspace.entity.type": "Entity Type:",
+
+  "item.preview.creativework.publisher": "Publisher",
+
+  "item.preview.creativeworkseries.issn": "ISSN",
+
+  "item.preview.dc.identifier.issn": "ISSN",
+
+  "item.preview.dc.identifier.openalex": "OpenAlex Identifier",
+
+  "item.preview.dc.description": "Description",
 
   "item.select.confirm": "Confirm selected",
 
@@ -3096,6 +3347,8 @@
 
   "journal.page.publisher": "Publisher",
 
+  "journal.page.options": "Options",
+
   "journal.page.titleprefix": "Journal: ",
 
   "journal.search.results.head": "Journal Search Results",
@@ -3120,6 +3373,8 @@
 
   "journalissue.page.number": "Number",
 
+  "journalissue.page.options": "Options",
+
   "journalissue.page.titleprefix": "Journal Issue: ",
 
   "journalissue.search.results.head": "Journal Issue Search Results",
@@ -3131,6 +3386,8 @@
   "journalvolume.page.edit": "Edit this item",
 
   "journalvolume.page.issuedate": "Issue Date",
+
+  "journalvolume.page.options": "Options",
 
   "journalvolume.page.titleprefix": "Journal Volume: ",
 
@@ -3244,6 +3501,8 @@
 
   "menu.section.access_control_people": "People",
 
+  "menu.section.audit": "Audit Logs",
+
   "menu.section.reports": "Reports",
 
   "menu.section.reports.collections": "Filtered Collections",
@@ -3275,6 +3534,8 @@
   "menu.section.browse_global_by_title": "By Title",
 
   "menu.section.browse_global_communities_and_collections": "Communities & Collections",
+
+  "menu.section.browse_global_geospatial_map": "By Geolocation (Map)",
 
   "menu.section.control_panel": "Control Panel",
 
@@ -3323,14 +3584,6 @@
   "menu.section.icon.new": "New menu section",
 
   "menu.section.icon.pin": "Pin sidebar",
-
-  "menu.section.icon.processes": "Processes Health",
-
-  "menu.section.icon.registries": "Registries menu section",
-
-  "menu.section.icon.statistics_task": "Statistics Task menu section",
-
-  "menu.section.icon.workflow": "Administer workflow menu section",
 
   "menu.section.icon.unpin": "Unpin sidebar",
 
@@ -3470,6 +3723,8 @@
 
   "mydspace.show.supervisedWorkspace": "Supervised items",
 
+  "mydspace.status": "My DSpace status:",
+
   "mydspace.status.mydspaceArchived": "Archived",
 
   "mydspace.status.mydspaceValidation": "Validation",
@@ -3534,7 +3789,13 @@
 
   "nav.user.description": "User profile bar",
 
+  "listelement.badge.dso-type": "Item type:",
+
   "none.listelement.badge": "Item",
+
+  "publication-claim.title": "Publication claim",
+
+  "publication-claim.source.description": "Below you can see all the sources.",
 
   "quality-assurance.title": "Quality Assurance",
 
@@ -3692,6 +3953,8 @@
 
   "orgunit.page.id": "ID",
 
+  "orgunit.page.options": "Options",
+
   "orgunit.page.titleprefix": "Organizational Unit: ",
 
   "orgunit.page.ror": "ROR Identifier",
@@ -3728,6 +3991,8 @@
 
   "person.page.link.full": "Show all metadata",
 
+  "person.page.options": "Options",
+
   "person.page.orcid": "ORCID",
 
   "person.page.staffid": "Staff ID",
@@ -3763,6 +4028,8 @@
   "process.new.parameter.file.upload-button": "Select file...",
 
   "process.new.parameter.file.required": "Please select a file",
+
+  "process.new.parameter.integer.required": "Parameter value is required",
 
   "process.new.parameter.string.required": "Parameter value is required",
 
@@ -3896,6 +4163,12 @@
 
   "profile.breadcrumbs": "Update Profile",
 
+  "profile.card.accessibility.content": "Accessibility settings can be configured on the accessibility settings page.",
+
+  "profile.card.accessibility.header": "Accessibility",
+
+  "profile.card.accessibility.link": "Go to Accessibility Settings Page",
+
   "profile.card.identify": "Identify",
 
   "profile.card.security": "Security",
@@ -3970,6 +4243,8 @@
 
   "project.page.keyword": "Keywords",
 
+  "project.page.options": "Options",
+
   "project.page.status": "Status",
 
   "project.page.titleprefix": "Research Project: ",
@@ -3989,6 +4264,8 @@
   "publication.page.journal-title": "Journal Title",
 
   "publication.page.publisher": "Publisher",
+
+  "publication.page.options": "Options",
 
   "publication.page.titleprefix": "Publication: ",
 
@@ -4063,6 +4340,8 @@
   "suggestion.suggestionFor.breadcrumb": "Suggestions for {{ name }}",
 
   "suggestion.source.openaire": "OpenAIRE Graph",
+
+  "suggestion.source.openalex": "OpenAlex",
 
   "suggestion.from.source": "from the ",
 
@@ -4160,47 +4439,57 @@
 
   "relationships.add.error.title": "Unable to add relationship",
 
-  "relationships.isAuthorOf": "Authors",
+  "relationships.Publication.isAuthorOfPublication.Person": "Authors (persons)",
 
-  "relationships.isAuthorOf.Person": "Authors (persons)",
+  "relationships.Publication.isProjectOfPublication.Project": "Research Projects",
 
-  "relationships.isAuthorOf.OrgUnit": "Authors (organizational units)",
+  "relationships.Publication.isOrgUnitOfPublication.OrgUnit": "Organizational Units",
 
-  "relationships.isIssueOf": "Journal Issues",
+  "relationships.Publication.isAuthorOfPublication.OrgUnit": "Authors (organizational units)",
 
-  "relationships.isIssueOf.JournalIssue": "Journal Issue",
+  "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Journal Issue",
 
-  "relationships.isJournalIssueOf": "Journal Issue",
+  "relationships.Publication.isContributorOfPublication.Person": "Contributor",
 
-  "relationships.isJournalOf": "Journals",
+  "relationships.Publication.isContributorOfPublication.OrgUnit": "Contributor (organizational units)",
 
-  "relationships.isJournalVolumeOf": "Journal Volume",
+  "relationships.Person.isPublicationOfAuthor.Publication": "Publications",
 
-  "relationships.isOrgUnitOf": "Organizational Units",
+  "relationships.Person.isProjectOfPerson.Project": "Research Projects",
 
-  "relationships.isPersonOf": "Authors",
+  "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Organizational Units",
 
-  "relationships.isProjectOf": "Research Projects",
+  "relationships.Person.isPublicationOfContributor.Publication": "Publications (contributor to)",
 
-  "relationships.isPublicationOf": "Publications",
+  "relationships.Project.isPublicationOfProject.Publication": "Publications",
 
-  "relationships.isPublicationOfJournalIssue": "Articles",
+  "relationships.Project.isPersonOfProject.Person": "Authors",
 
-  "relationships.isSingleJournalOf": "Journal",
+  "relationships.Project.isOrgUnitOfProject.OrgUnit": "Organizational Units",
 
-  "relationships.isSingleVolumeOf": "Journal Volume",
+  "relationships.Project.isFundingAgencyOfProject.OrgUnit": "Funder",
 
-  "relationships.isVolumeOf": "Journal Volumes",
+  "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Organisation Publications",
 
-  "relationships.isVolumeOf.JournalVolume": "Journal Volume",
+  "relationships.OrgUnit.isPersonOfOrgUnit.Person": "Authors",
 
-  "relationships.isContributorOf": "Contributors",
+  "relationships.OrgUnit.isProjectOfOrgUnit.Project": "Research Projects",
 
-  "relationships.isContributorOf.OrgUnit": "Contributor (Organizational Unit)",
+  "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
 
-  "relationships.isContributorOf.Person": "Contributor",
+  "relationships.OrgUnit.isPublicationOfContributor.Publication": "Publications (contributor to)",
 
-  "relationships.isFundingAgencyOf.OrgUnit": "Funder",
+  "relationships.OrgUnit.isProjectOfFundingAgency.Project": "Research Projects (funder of)",
+
+  "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Journal Volume",
+
+  "relationships.JournalIssue.isPublicationOfJournalIssue.Publication": "Publications",
+
+  "relationships.JournalVolume.isJournalOfVolume.Journal": "Journals",
+
+  "relationships.JournalVolume.isIssueOfJournalVolume.JournalIssue": "Journal Issue",
+
+  "relationships.Journal.isVolumeOfJournal.JournalVolume": "Journal Volume",
 
   "repository.image.logo": "Repository logo",
 
@@ -4365,6 +4654,7 @@
   "search.filters.applied.f.original_bundle_filenames": "File name",
 
   "search.filters.applied.f.original_bundle_descriptions": "File description",
+  "search.filters.applied.f.has_geospatial_metadata": "Has geographical location",
 
   "search.filters.applied.f.itemtype": "Type",
 
@@ -4398,6 +4688,8 @@
 
   "search.filters.applied.operator.query": "",
 
+  "search.filters.applied.f.point": "Coordinates",
+
   "search.filters.filter.title.head": "Title",
 
   "search.filters.filter.title.placeholder": "Title",
@@ -4423,6 +4715,10 @@
   "search.filters.filter.creativeDatePublished.placeholder": "Date Published",
 
   "search.filters.filter.creativeDatePublished.label": "Search date published",
+
+  "search.filters.filter.creativeDatePublished.min.label": "Start",
+
+  "search.filters.filter.creativeDatePublished.max.label": "End",
 
   "search.filters.filter.creativeWorkEditor.head": "Editor",
 
@@ -4473,6 +4769,8 @@
   "search.filters.filter.has_content_in_original_bundle.head": "Has files",
 
   "search.filters.filter.original_bundle_filenames.head": "File name",
+
+  "search.filters.filter.has_geospatial_metadata.head": "Has geographical location",
 
   "search.filters.filter.original_bundle_filenames.placeholder": "File name",
 
@@ -4532,6 +4830,10 @@
 
   "search.filters.filter.organizationFoundingDate.label": "Search date founded",
 
+  "search.filters.filter.organizationFoundingDate.min.label": "Start",
+
+  "search.filters.filter.organizationFoundingDate.max.label": "End",
+
   "search.filters.filter.scope.head": "Scope",
 
   "search.filters.filter.scope.placeholder": "Scope filter",
@@ -4588,6 +4890,10 @@
 
   "search.filters.has_content_in_original_bundle.false": "No",
 
+  "search.filters.has_geospatial_metadata.true": "Yes",
+
+  "search.filters.has_geospatial_metadata.false": "No",
+
   "search.filters.discoverable.true": "No",
 
   "search.filters.discoverable.false": "Yes",
@@ -4640,6 +4946,8 @@
 
   "search.results.empty": "Your search returned no results.",
 
+  "search.results.geospatial-map.empty": "No results on this page with geospatial locations",
+
   "search.results.view-result": "View",
 
   "search.results.response.500": "An error occurred during query execution, please try again later",
@@ -4677,6 +4985,8 @@
   "search.view-switch.show-grid": "Show as grid",
 
   "search.view-switch.show-list": "Show as list",
+
+  "search.view-switch.show-geospatialMap": "Show as map",
 
   "selectable-list-item-control.deselect": "Deselect item",
 
@@ -4854,6 +5164,22 @@
 
   "submission.import-external.source.ror": "Research Organization Registry (ROR)",
 
+  "submission.import-external.source.openalexPublication": "OpenAlex Search by Title",
+
+  "submission.import-external.source.openalexPublicationByAuthorId": "OpenAlex Search by Author ID",
+
+  "submission.import-external.source.openalexPublicationByDOI": "OpenAlex Search by DOI",
+
+  "submission.import-external.source.openalexPerson": "OpenAlex Search by name",
+
+  "submission.import-external.source.openalexJournal": "OpenAlex Journals",
+
+  "submission.import-external.source.openalexInstitution": "OpenAlex Institutions",
+
+  "submission.import-external.source.openalexPublisher": "OpenAlex Publishers",
+
+  "submission.import-external.source.openalexFunder": "OpenAlex Funders",
+
   "submission.import-external.preview.title": "Item Preview",
 
   "submission.import-external.preview.title.Publication": "Publication Preview",
@@ -5020,6 +5346,8 @@
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalIssue": "Local Journal Issues ({{ count }})",
 
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfIssue": "Local Journal Volumes ({{ count }})",
+
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfPublication": "Local Journal Volumes ({{ count }})",
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalVolume": "Local Journal Volumes ({{ count }})",
@@ -5052,6 +5380,16 @@
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournalIssn": "Sherpa Journals by ISSN ({{ count }})",
 
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.openalexPerson": "OpenAlex ({{ count }})",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.openalexInstitution": "OpenAlex Search by Institution ({{ count }})",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.openalexPublisher": "OpenAlex Search by Publisher ({{ count }})",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.openalexFunder": "OpenAlex Search by Funder ({{ count }})",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.dataciteProject": "DataCite Search by Project ({{ count }})",
+
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingAgencyOfPublication": "Search for Funding Agencies",
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingOfPublication": "Search for Funding",
@@ -5072,6 +5410,8 @@
 
   "submission.sections.describe.relationship-lookup.title.isFundingAgencyOfProject": "Funder of the Project",
 
+  "submission.sections.describe.relationship-lookup.title.isPersonOfProject": "Person of the Project",
+
   "submission.sections.describe.relationship-lookup.selection-tab.search-form.placeholder": "Search...",
 
   "submission.sections.describe.relationship-lookup.selection-tab.tab-title": "Current Selection ({{ count }})",
@@ -5081,6 +5421,8 @@
   "submission.sections.describe.relationship-lookup.title.isJournalIssueOfPublication": "Journal Issues",
 
   "submission.sections.describe.relationship-lookup.title.JournalIssue": "Journal Issues",
+
+  "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfIssue": "Journal Volumes",
 
   "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfPublication": "Journal Volumes",
 
@@ -5123,6 +5465,8 @@
   "submission.sections.describe.relationship-lookup.selection-tab.title.isAuthorOfPublication": "Selected Authors",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalOfPublication": "Selected Journals",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfIssue": "Selected Journal Volume",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfPublication": "Selected Journal Volume",
 
@@ -5183,6 +5527,16 @@
   "submission.sections.describe.relationship-lookup.selection-tab.title.wos": "Search Results",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.ror": "Search Results",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.openalexPerson": "Search Results",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.openalexInstitution": "Search Results",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.openalexPublisher": "Search Results",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.openalexFunder": "Search Results",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.dataciteProject": "Search Results",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title": "Search Results",
 
@@ -5556,6 +5910,8 @@
 
   "subscriptions.tooltip": "Subscribe",
 
+  "subscriptions.unsubscribe": "Unsubscribe",
+
   "subscriptions.modal.title": "Subscriptions",
 
   "subscriptions.modal.type-frequency": "Type and frequency",
@@ -5604,7 +5960,7 @@
 
   "subscriptions.table.not-available-message": "The subscribed item has been deleted, or you don't currently have the permission to view it",
 
-  "subscriptions.table.empty.message": "You do not have any subscriptions at this time. To subscribe to email updates for a Community or Collection, use the subscription button on the object's page.",
+  "subscriptions.table.empty.message": "You do not have any subscriptions at this time. To subscribe to email updates for a community or collection, use the subscription button on the object's page.",
 
   "thumbnail.default.alt": "Thumbnail Image",
 
@@ -6309,6 +6665,8 @@
 
   "item.page.endorsement": "Endorsement",
 
+  "item.page.places": "Related places",
+
   "item.page.review": "Review",
 
   "item.page.referenced": "Referenced By",
@@ -6810,6 +7168,86 @@
 
   "dynamic-form-array.sortable-list.label": "Sortable list",
 
+  "external-login.component.or": "or",
+
+  "external-login.confirmation.header": "Information needed to complete the login process",
+
+  "external-login.noEmail.informationText": "The information received from {{authMethod}} are not sufficient to complete the login process. Please provide the missing information below, or login via a different method to associate your {{authMethod}} to an existing account.",
+
+  "external-login.haveEmail.informationText": "It seems that you have not yet an account in this system. If this is the case, please confirm the data received from {{authMethod}} and a new account will be created for you. Otherwise, if you already have an account in the system, please update the email address to match the one already in use in the system or login via a different method to associate your {{authMethod}} to your existing account.",
+
+  "external-login.confirm-email.header": "Confirm or update email",
+
+  "external-login.confirmation.email-required": "Email is required.",
+
+  "external-login.confirmation.email-label": "User Email",
+
+  "external-login.confirmation.email-invalid": "Invalid email format.",
+
+  "external-login.confirm.button.label": "Confirm this email",
+
+  "external-login.confirm-email-sent.header": "Confirmation email sent",
+
+  "external-login.confirm-email-sent.info": " We have sent an email to the provided address to validate your input. <br> Please follow the instructions in the email to complete the login process.",
+
+  "external-login.provide-email.header": "Provide email",
+
+  "external-login.provide-email.button.label": "Send Verification link",
+
+  "external-login-validation.review-account-info.header": "Review your account information",
+
+  "external-login-validation.review-account-info.info": "The information received from ORCID differs from the one recorded in your profile. <br /> Please review them and decide if you want to update any of them.After saving you will be redirected to your profile page.",
+
+  "external-login-validation.review-account-info.table.header.information": "Information",
+
+  "external-login-validation.review-account-info.table.header.received-value": "Received value",
+
+  "external-login-validation.review-account-info.table.header.current-value": "Current value",
+
+  "external-login-validation.review-account-info.table.header.action": "Override",
+
+  "external-login-validation.review-account-info.table.row.not-applicable": "N/A",
+
+  "on-label": "ON",
+
+  "off-label": "OFF",
+
+  "review-account-info.merge-data.notification.success": "Your account information has been updated successfully",
+
+  "review-account-info.merge-data.notification.error": "Something went wrong while updating your account information",
+
+  "review-account-info.alert.error.content": "Something went wrong. Please try again later.",
+
+  "external-login-page.provide-email.notifications.error": "Something went wrong.Email address was omitted or the operation is not valid.",
+
+  "external-login.error.notification": "There was an error while processing your request. Please try again later.",
+
+  "external-login.connect-to-existing-account.label": "Connect to an existing user",
+
+  "external-login.modal.label.close": "Close",
+
+  "external-login-page.provide-email.create-account.notifications.error.header": "Something went wrong",
+
+  "external-login-page.provide-email.create-account.notifications.error.content": "Please check again your email address and try again.",
+
+  "external-login-page.confirm-email.create-account.notifications.error.no-netId": "Something went wrong with this email account. Try again or use a different method to login.",
+
+  "external-login-page.orcid-confirmation.firstname": "First name",
+
+  "external-login-page.orcid-confirmation.firstname.label": "First name",
+
+  "external-login-page.orcid-confirmation.lastname": "Last name",
+
+  "external-login-page.orcid-confirmation.lastname.label": "Last name",
+
+  "external-login-page.orcid-confirmation.netid": "Account Identifier",
+
+  "external-login-page.orcid-confirmation.netid.placeholder": "xxxx-xxxx-xxxx-xxxx",
+
+  "external-login-page.orcid-confirmation.email": "Email",
+
+  "external-login-page.orcid-confirmation.email.label": "Email",
+
   "search.filters.access_status.open.access": "Open access",
 
   "search.filters.access_status.restricted": "Restricted access",
@@ -6819,4 +7257,24 @@
   "search.filters.access_status.metadata.only": "Metadata only",
 
   "search.filters.access_status.unknown": "Unknown",
+
+  "metadata-export-filtered-items.tooltip": "Export report output as CSV",
+
+  "metadata-export-filtered-items.submit.success": "CSV export succeeded.",
+
+  "metadata-export-filtered-items.submit.error": "CSV export failed.",
+
+  "metadata-export-filtered-items.columns.warning": "CSV export automatically includes all relevant fields, so selections in this list are not taken into account.",
+
+  "embargo.listelement.badge": "Embargo until {{ date }}",
+
+  "metadata-export-search.submit.error.limit-exceeded": "Only the first {{limit}} items will be exported",
+
+  "file-download-link.request-copy": "Request a copy of ",
+
+  "item.preview.organization.url": "URL",
+
+  "item.preview.organization.address.addressLocality": "City",
+
+  "item.preview.organization.alternateName": "Alternative name",
 }

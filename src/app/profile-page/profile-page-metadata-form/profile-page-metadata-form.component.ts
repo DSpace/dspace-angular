@@ -5,6 +5,18 @@ import {
   OnInit,
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
+import { LangConfig } from '@dspace/config/lang-config.interface';
+import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
+import { EPerson } from '@dspace/core/eperson/models/eperson.model';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import {
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '@dspace/core/shared/operators';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import {
   DynamicFormControlModel,
   DynamicFormValueControlModel,
@@ -14,21 +26,9 @@ import {
 import { TranslateService } from '@ngx-translate/core';
 import cloneDeep from 'lodash/cloneDeep';
 
-import { LangConfig } from '../../../config/lang-config.interface';
 import { environment } from '../../../environments/environment';
-import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { EPerson } from '../../core/eperson/models/eperson.model';
-import {
-  getFirstSucceededRemoteData,
-  getRemoteDataPayload,
-} from '../../core/shared/operators';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../shared/empty.util';
 import { FormBuilderService } from '../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../shared/form/form.component';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 
 @Component({
   selector: 'ds-base-profile-page-metadata-form',
@@ -36,7 +36,6 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
   imports: [
     FormComponent,
   ],
-  standalone: true,
 })
 /**
  * Component for a user to edit their metadata

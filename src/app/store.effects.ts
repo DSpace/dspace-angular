@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { StoreActionTypes } from '@dspace/core/ngrx/type';
 import {
   Actions,
   createEffect,
@@ -8,12 +9,11 @@ import {
   Action,
   Store,
 } from '@ngrx/store';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { AppState } from './app.reducer';
 import { HostWindowResizeAction } from './shared/host-window.actions';
-import { StoreActionTypes } from './store.actions';
 
 @Injectable()
 export class StoreEffects {
@@ -25,7 +25,7 @@ export class StoreEffects {
       // replayAction.payload.forEach((action: Action) => {
       //   this.store.dispatch(action);
       // });
-      return observableOf({});
+      return of({});
     })), { dispatch: false });
 
   resize = createEffect(() => this.actions.pipe(

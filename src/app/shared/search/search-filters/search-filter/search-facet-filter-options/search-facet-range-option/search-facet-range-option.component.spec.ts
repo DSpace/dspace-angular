@@ -14,21 +14,21 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { FacetValue } from '@dspace/core/shared/search/models/facet-value.model';
+import { FilterType } from '@dspace/core/shared/search/models/filter-type.model';
+import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
+import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
+import { RouterStub } from '@dspace/core/testing/router.stub';
+import { SearchServiceStub } from '@dspace/core/testing/search-service.stub';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
-import { PaginationService } from '../../../../../../core/pagination/pagination.service';
-import { SearchService } from '../../../../../../core/shared/search/search.service';
-import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
-import { SearchFilterService } from '../../../../../../core/shared/search/search-filter.service';
-import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
-import { PaginationServiceStub } from '../../../../../testing/pagination-service.stub';
-import { RouterStub } from '../../../../../testing/router.stub';
-import { SearchServiceStub } from '../../../../../testing/search-service.stub';
 import { ShortNumberPipe } from '../../../../../utils/short-number.pipe';
-import { FacetValue } from '../../../../models/facet-value.model';
-import { FilterType } from '../../../../models/filter-type.model';
-import { SearchFilterConfig } from '../../../../models/search-filter-config.model';
+import { SearchService } from '../../../../search.service';
+import { SearchConfigurationService } from '../../../../search-configuration.service';
+import { SearchFilterService } from '../../../search-filter.service';
 import {
   RANGE_FILTER_MAX_SUFFIX,
   RANGE_FILTER_MIN_SUFFIX,
@@ -67,7 +67,7 @@ describe('SearchFacetRangeOptionComponent', () => {
   let filterService;
   let searchService;
   let router;
-  const page = observableOf(0);
+  const page = of(0);
 
   const pagination = Object.assign(new PaginationComponentOptions(), { id: 'page-id', currentPage: 1, pageSize: 20 });
   const paginationService = new PaginationServiceStub(pagination);
@@ -81,13 +81,13 @@ describe('SearchFacetRangeOptionComponent', () => {
         { provide: PaginationService, useValue: paginationService },
         {
           provide: SearchConfigurationService, useValue: {
-            searchOptions: observableOf({}),
+            searchOptions: of({}),
             paginationId: 'page-id',
           },
         },
         {
           provide: SearchFilterService, useValue: {
-            isFilterActiveWithValue: (paramName: string, filterValue: string) => observableOf(true),
+            isFilterActiveWithValue: (paramName: string, filterValue: string) => of(true),
             getPage: (paramName: string) => page,
             /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
             incrementPage: (filterName: string) => {
@@ -145,7 +145,7 @@ describe('SearchFacetRangeOptionComponent', () => {
 
   describe('when isVisible emits true', () => {
     it('the facet option should be visible', () => {
-      comp.isVisible = observableOf(true);
+      comp.isVisible = of(true);
       fixture.detectChanges();
       const linkEl = fixture.debugElement.query(By.css('a'));
       expect(linkEl).not.toBeNull();
@@ -154,7 +154,7 @@ describe('SearchFacetRangeOptionComponent', () => {
 
   describe('when isVisible emits false', () => {
     it('the facet option should not be visible', () => {
-      comp.isVisible = observableOf(false);
+      comp.isVisible = of(false);
       fixture.detectChanges();
       const linkEl = fixture.debugElement.query(By.css('a'));
       expect(linkEl).toBeNull();

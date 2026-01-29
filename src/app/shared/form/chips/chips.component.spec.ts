@@ -14,13 +14,13 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { ConfidenceType } from '@dspace/core/shared/confidence-type';
+import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
+import { createTestComponent } from '@dspace/core/testing/utils.test';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '../../../../environments/environment';
-import { ConfidenceType } from '../../../core/shared/confidence-type';
-import { createTestComponent } from '../../testing/utils.test';
-import { FormFieldMetadataValueObject } from '../builder/models/form-field-metadata-value.model';
 import { AuthorityConfidenceStateDirective } from '../directives/authority-confidence-state.directive';
 import { ChipsComponent } from './chips.component';
 import { Chips } from './models/chips.model';
@@ -190,8 +190,9 @@ describe('ChipsComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
-  standalone: true,
-  imports: [NgbModule],
+  imports: [
+    NgbModule,
+  ],
 })
 class TestComponent {
 

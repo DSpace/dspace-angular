@@ -1,13 +1,18 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { RestRequestMethod } from '@dspace/config/rest-request-method';
+import {
+  hasValue,
+  isEmpty,
+} from '@dspace/shared/utils/empty.util';
 import {
   Operation,
   ReplaceOperation,
 } from 'fast-json-patch';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import {
   find,
@@ -15,16 +20,6 @@ import {
   mergeMap,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isEmpty,
-} from '../../shared/empty.util';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { createFailedRemoteDataObject$ } from '../../shared/remote-data.utils';
-import {
-  followLink,
-  FollowLinkConfig,
-} from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -52,12 +47,17 @@ import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
 import { PostRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';
-import { RestRequestMethod } from '../data/rest-request-method';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { NotificationsService } from '../notification-system/notifications.service';
+import {
+  followLink,
+  FollowLinkConfig,
+} from '../shared/follow-link-config.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
 import { NoContent } from '../shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../shared/operators';
+import { createFailedRemoteDataObject$ } from '../utilities/remote-data.utils';
 import { ResearcherProfile } from './model/researcher-profile.model';
 
 /**
@@ -167,7 +167,7 @@ export class ResearcherProfileDataService extends IdentifiableDataService<Resear
         if (rd.hasSucceeded) {
           return this.findRelatedItemId(rd.payload);
         } else {
-          return observableOf(null);
+          return of(null);
         }
       }),
     );

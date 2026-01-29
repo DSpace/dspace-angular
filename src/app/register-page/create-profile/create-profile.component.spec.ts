@@ -15,28 +15,28 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Store } from '@ngrx/store';
-import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
-
-import { AuthenticateAction } from '../../core/auth/auth.actions';
-import { CoreState } from '../../core/core-state.model';
+import { AuthenticateAction } from '@dspace/core/auth/auth.actions';
+import { CoreState } from '@dspace/core/core-state.model';
 import {
   END_USER_AGREEMENT_METADATA_FIELD,
   EndUserAgreementService,
-} from '../../core/end-user-agreement/end-user-agreement.service';
-import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { EPerson } from '../../core/eperson/models/eperson.model';
-import { Registration } from '../../core/shared/registration.model';
-import { ProfilePageSecurityFormComponent } from '../../profile-page/profile-page-security-form/profile-page-security-form.component';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
+} from '@dspace/core/end-user-agreement/end-user-agreement.service';
+import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
+import { EPerson } from '@dspace/core/eperson/models/eperson.model';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Registration } from '@dspace/core/shared/registration.model';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { RouterStub } from '@dspace/core/testing/router.stub';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { RouterStub } from '../../shared/testing/router.stub';
+} from '@dspace/core/utilities/remote-data.utils';
+import { Store } from '@ngrx/store';
+import { TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
+
+import { ProfilePageSecurityFormComponent } from '../../profile-page/profile-page-security-form/profile-page-security-form.component';
 import { CreateProfileComponent } from './create-profile.component';
 
 describe('CreateProfileComponent', () => {
@@ -122,7 +122,7 @@ describe('CreateProfileComponent', () => {
     };
     epersonWithAgreement = Object.assign(new EPerson(), valuesWithAgreement);
 
-    route = { data: observableOf({ registration: createSuccessfulRemoteDataObject(registration) }) };
+    route = { data: of({ registration: createSuccessfulRemoteDataObject(registration) }) };
     router = new RouterStub();
     notificationsService = new NotificationsServiceStub();
 
@@ -195,7 +195,7 @@ describe('CreateProfileComponent', () => {
       comp.submitEperson();
 
       expect(ePersonDataService.createEPersonForToken).toHaveBeenCalledWith(eperson, 'test-token');
-      expect(store.dispatch).toHaveBeenCalledWith(new AuthenticateAction('test@email.org', 'password'));
+      expect(store.dispatch as jasmine.Spy).toHaveBeenCalledWith(new AuthenticateAction('test@email.org', 'password'));
       expect(router.navigate).toHaveBeenCalledWith(['/home']);
       expect(notificationsService.success).toHaveBeenCalled();
     });
@@ -216,7 +216,7 @@ describe('CreateProfileComponent', () => {
         comp.submitEperson();
 
         expect(ePersonDataService.createEPersonForToken).toHaveBeenCalledWith(epersonWithAgreement, 'test-token');
-        expect(store.dispatch).toHaveBeenCalledWith(new AuthenticateAction('test@email.org', 'password'));
+        expect(store.dispatch as jasmine.Spy).toHaveBeenCalledWith(new AuthenticateAction('test@email.org', 'password'));
         expect(router.navigate).toHaveBeenCalledWith(['/home']);
         expect(notificationsService.success).toHaveBeenCalled();
       });

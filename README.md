@@ -10,7 +10,7 @@ Overview
 
 DSpace open source software is a turnkey repository application used by more than
 2,000 organizations and institutions worldwide to provide durable access to digital resources.
-For more information, visit http://www.dspace.org/
+For more information, visit https://www.dspace.org/
 
 DSpace consists of both a Java-based backend and an Angular-based frontend.
 
@@ -30,12 +30,12 @@ Downloads
 Documentation for each release may be viewed online or downloaded via our [Documentation Wiki](https://wiki.lyrasis.org/display/DSDOC/).
 
 The latest DSpace Installation instructions are available at:
-https://wiki.lyrasis.org/display/DSDOC7x/Installing+DSpace
+https://wiki.lyrasis.org/display/DSDOC9x/Installing+DSpace
 
 Quick start
 -----------
 
-**Ensure you're running [Node](https://nodejs.org) `v18.x` or `v20.x`, [npm](https://www.npmjs.com/) >= `v10.x`**
+**Ensure you're running [Node](https://nodejs.org) `v20.x`, `v22.x` or `v24.x`, [npm](https://www.npmjs.com/) >= `v10.x`**
 
 ```bash
 # clone the repo
@@ -90,7 +90,7 @@ Requirements
 ------------
 
 -	[Node.js](https://nodejs.org)
--	Ensure you're running node `v18.x` or `v20.x`
+-	Ensure you're running node `v20.x`, `v22.x` or `v24.x`
 
 If you have [`nvm`](https://github.com/creationix/nvm#install-script) or [`nvm-windows`](https://github.com/coreybutler/nvm-windows) installed, which is highly recommended, you can run `nvm install --lts && nvm use` to install and start using the latest Node LTS.
 
@@ -349,7 +349,7 @@ See our [DSpace Code Testing Guide](https://wiki.lyrasis.org/display/DSPACE/Code
 Documentation
 --------------
 
-Official DSpace documentation is available in the DSpace wiki at https://wiki.lyrasis.org/display/DSDOC7x/
+Official DSpace documentation is available in the DSpace wiki at https://wiki.lyrasis.org/display/DSDOC9x/
 
 Some UI specific configuration documentation is also found in the [`./docs`](docs) folder of this codebase.
 
@@ -454,7 +454,6 @@ dspace-angular
 ├── karma.conf.js                                       * Karma configuration file for Unit Test
 ├── LICENSE                                             *
 ├── LICENSES_THIRD_PARTY                                *
-├── nodemon.json                                        * Nodemon (https://nodemon.io/) configuration
 ├── package.json                                        * This file describes the npm package for this project, its dependencies, scripts, etc.
 ├── package-lock.json                                   * npm lockfile (https://docs.npmjs.com/cli/v10/configuring-npm/package-lock-json)
 ├── postcss.config.js                                   * PostCSS (http://postcss.org/) configuration
@@ -552,7 +551,7 @@ Additional support options are at https://wiki.lyrasis.org/display/DSPACE/Suppor
 
 DSpace also has an active service provider network. If you'd rather hire a service provider to
 install, upgrade, customize or host DSpace, then we recommend getting in touch with one of our
-[Registered Service Providers](http://www.dspace.org/service-providers).
+[Registered Service Providers](https://dspace.org/registered-service-providers/).
 
 
 Issue Tracker
@@ -565,7 +564,7 @@ DSpace uses GitHub to track issues:
 License
 -------
 DSpace source code is freely available under a standard [BSD 3-Clause license](https://opensource.org/licenses/BSD-3-Clause).
-The full license is available in the [LICENSE](LICENSE) file or online at http://www.dspace.org/license/
+The full license is available in the [LICENSE](LICENSE) file or online at https://www.dspace.org/license/
 
 DSpace uses third-party libraries which may be distributed under different licenses. Those licenses are listed
 in the [LICENSES_THIRD_PARTY](LICENSES_THIRD_PARTY) file.

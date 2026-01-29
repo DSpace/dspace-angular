@@ -2,7 +2,7 @@
 import { Action } from '@ngrx/store';
 import { Operation } from 'fast-json-patch';
 
-import { type } from '../../shared/ngrx/type';
+import { type } from '../ngrx/type';
 import { CacheableObject } from './cacheable-object.model';
 
 /**

@@ -15,45 +15,45 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { SubmissionFormsConfigDataService } from '@dspace/core/config/submission-forms-config-data.service';
+import { CollectionDataService } from '@dspace/core/data/collection-data.service';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
+import { JsonPatchOperationPathCombiner } from '@dspace/core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { License } from '@dspace/core/shared/license.model';
+import { WorkspaceitemSectionIdentifiersObject } from '@dspace/core/submission/models/workspaceitem-section-identifiers.model';
+import { SectionsType } from '@dspace/core/submission/sections-type';
+import { SubmissionScopeType } from '@dspace/core/submission/submission-scope-type';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
+import { SectionsServiceStub } from '@dspace/core/testing/sections-service.stub';
+import { SubmissionServiceStub } from '@dspace/core/testing/submission-service.stub';
+import { createTestComponent } from '@dspace/core/testing/utils.test';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
-import { SubmissionFormsConfigDataService } from '../../../core/config/submission-forms-config-data.service';
-import { CollectionDataService } from '../../../core/data/collection-data.service';
-import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
-import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { Collection } from '../../../core/shared/collection.model';
-import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
-import { Item } from '../../../core/shared/item.model';
-import { License } from '../../../core/shared/license.model';
-import { WorkspaceitemSectionIdentifiersObject } from '../../../core/submission/models/workspaceitem-section-identifiers.model';
-import { SubmissionScopeType } from '../../../core/submission/submission-scope-type';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormService } from '../../../shared/form/form.service';
-import { getMockFormOperationsService } from '../../../shared/mocks/form-operations-service.mock';
-import { getMockFormService } from '../../../shared/mocks/form-service.mock';
-import {
-  mockSubmissionCollectionId,
-  mockSubmissionId,
-} from '../../../shared/mocks/submission.mock';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
-import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
-import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
-import { createTestComponent } from '../../../shared/testing/utils.test';
+import { getMockFormOperationsService } from '../../../shared/form/testing/form-operations-service.mock';
+import { getMockFormService } from '../../../shared/form/testing/form-service.mock';
 import { ObjNgFor } from '../../../shared/utils/object-ngfor.pipe';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { SubmissionService } from '../../submission.service';
+import {
+  mockSubmissionCollectionId,
+  mockSubmissionId,
+} from '../../utils/submission.mock';
 import { SectionFormOperationsService } from '../form/section-form-operations.service';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
-import { SectionsType } from '../sections-type';
 import { SubmissionSectionIdentifiersComponent } from './section-identifiers.component';
 
 function getMockSubmissionFormsConfigService(): SubmissionFormsConfigDataService {
@@ -202,9 +202,9 @@ describe('SubmissionSectionIdentifiersComponent test suite', () => {
 
     // synchronous beforeEach
     beforeEach(() => {
-      sectionsServiceStub.isSectionReadOnly.and.returnValue(observableOf(false));
-      sectionsServiceStub.getSectionErrors.and.returnValue(observableOf([]));
-      sectionsServiceStub.getSectionData.and.returnValue(observableOf(identifierData));
+      sectionsServiceStub.isSectionReadOnly.and.returnValue(of(false));
+      sectionsServiceStub.getSectionErrors.and.returnValue(of([]));
+      sectionsServiceStub.getSectionData.and.returnValue(of(identifierData));
       const html = `<ds-submission-section-identifiers></ds-submission-section-identifiers>`;
       testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
       testComp = testFixture.componentInstance;
@@ -241,11 +241,11 @@ describe('SubmissionSectionIdentifiersComponent test suite', () => {
     // Test initialisation of the submission section
     it('Should init section properly', () => {
       collectionDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(mockCollection));
-      sectionsServiceStub.getSectionErrors.and.returnValue(observableOf([]));
-      sectionsServiceStub.isSectionReadOnly.and.returnValue(observableOf(false));
+      sectionsServiceStub.getSectionErrors.and.returnValue(of([]));
+      sectionsServiceStub.isSectionReadOnly.and.returnValue(of(false));
       compAsAny.submissionService.getSubmissionScope.and.returnValue(SubmissionScopeType.WorkspaceItem);
-      spyOn(comp, 'getSectionStatus').and.returnValue(observableOf(true));
-      spyOn(comp, 'getIdentifierData').and.returnValue(observableOf(identifierData));
+      spyOn(comp, 'getSectionStatus').and.returnValue(of(true));
+      spyOn(comp, 'getIdentifierData').and.returnValue(of(identifierData));
       expect(comp.isLoading).toBeTruthy();
       comp.onSectionInit();
       fixture.detectChanges();
@@ -274,11 +274,10 @@ describe('SubmissionSectionIdentifiersComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
-  standalone: true,
   imports: [
     FormsModule,
-    ReactiveFormsModule,
     NgxPaginationModule,
+    ReactiveFormsModule,
   ],
 })
 class TestComponent {
