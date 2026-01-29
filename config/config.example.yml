@@ -238,7 +238,7 @@ submission:
     # Icons to be displayed next to an authority controlled value, to give indication of the source.
     sourceIcons:
       # Example of configuration for authority logo based on sources.
-      # The condigured icon will be displayed next to the authority value in submission and on item page or search results.
+      # The configured icon will be displayed next to the authority value in submission and on item page or search results.
       - source: orcid
       - path: assets/images/orcid.logo.icon.svg
 #  Fallback language in which the UI will be rendered if the user's browser language is not an active language
@@ -717,13 +717,6 @@ identifierSubtypes:
     icon: assets/images/ror.logo.icon.svg
     iconPosition: IdentifierSubtypesIconPositionEnum.LEFT
     link: https://ror.org
-
-# The maximum number of item to process when following authority metadata values.
-followAuthorityMaxItemLimit: 100
-
-# The maximum number of metadata values to process for each metadata key
-# when following authority metadata values.
-followAuthorityMetadataValuesLimit: 5;
 
 # When the search results are retrieved, for each item type the metadata with a valid authority value are inspected.
 # Referenced items will be fetched with a find all by id strategy to avoid individual rest requests to efficiently display the search results.

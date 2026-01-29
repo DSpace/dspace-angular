@@ -5,9 +5,10 @@ import {
   OnInit,
 } from '@angular/core';
 import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
 import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
 import { Item } from '@dspace/core/shared/item.model';
-import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -41,9 +42,11 @@ export class MetadataLinkViewOrcidComponent implements OnInit {
     this.orcidUrl$ = this.configurationService
       .findByPropertyName('orcid.domain-url')
       .pipe(
-        getFirstSucceededRemoteDataPayload(),
-        map((property: ConfigurationProperty) =>
-          property?.values?.length > 0 ? property.values[0] : null,
+        getFirstCompletedRemoteData(),
+        map((propertyPayload: RemoteData<ConfigurationProperty>) =>
+          propertyPayload.hasSucceeded ?
+            (propertyPayload.payload?.values?.length > 0 ? propertyPayload.payload.values[0] : null)
+            : null,
         ),
       );
     this.metadataValue = this.itemValue.firstMetadataValue(

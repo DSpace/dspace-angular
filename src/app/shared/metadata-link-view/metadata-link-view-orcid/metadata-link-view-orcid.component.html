@@ -1,14 +1,17 @@
-<span class="d-flex align-items-center txt-value">
-  @if ((orcidUrl$ | async)) {
-    <a href="{{(orcidUrl$ | async)}}/{{metadataValue}}" target="_blank">
+@let hasBadge = hasOrcidBadge();
+@let orcidUrl = orcidUrl$ | async;
+
+@if (hasBadge || orcidUrl) {
+  <span class="d-flex align-items-center txt-value">
+  @if (orcidUrl) {
+    <a href="{{orcidUrl}}/{{metadataValue}}" target="_blank">
       {{ metadataValue }}
     </a>
   } @else {
     {{ metadataValue }}
   }
 
-
-  @if (hasOrcidBadge()) {
+  @if (hasBadge) {
     <img
       placement="top"
       ngbTooltip="{{ 'orcid.badge.tooltip' | translate }}"
@@ -16,5 +19,5 @@
       alt="orcid-logo"
       src="assets/images/orcid.logo.icon.svg"/>
   }
-
 </span>
+}

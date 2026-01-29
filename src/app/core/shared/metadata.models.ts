@@ -1,5 +1,4 @@
 /* eslint-disable max-classes-per-file */
-import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   autoserialize,
   Deserialize,
@@ -57,25 +56,6 @@ export class MetadataValue implements MetadataValueInterface {
   /** The authority confidence value */
   @autoserialize
   confidence: number;
-
-  /**
-   * Returns true if this Metadatum's authority key starts with 'virtual::'
-   */
-  get isVirtual(): boolean {
-    return hasValue(this.authority) && this.authority.startsWith(VIRTUAL_METADATA_PREFIX);
-  }
-
-  /**
-   * If this is a virtual Metadatum, it returns everything in the authority key after 'virtual::'.
-   * Returns undefined otherwise.
-   */
-  get virtualValue(): string {
-    if (this.isVirtual) {
-      return this.authority.substring(this.authority.indexOf(VIRTUAL_METADATA_PREFIX) + VIRTUAL_METADATA_PREFIX.length);
-    } else {
-      return undefined;
-    }
-  }
 }
 
 /** Constraints for matching metadata values. */

@@ -122,18 +122,4 @@ export class ExternalSourceDataService extends IdentifiableDataService<ExternalS
   public searchBy(searchMethod: string, options?: FindListOptions, useCachedVersionIfAvailable?: boolean, reRequestOnStale?: boolean, ...linksToFollow: FollowLinkConfig<ExternalSource>[]): Observable<RemoteData<PaginatedList<ExternalSource>>> {
     return this.searchData.searchBy(searchMethod, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
-
-  /**
-   * Get an entry for an external source by given entry id
-   * @param externalSourceId  The id of the external source to fetch entries for
-   * @param entryId           The id of the entry to retrieve
-   */
-  getExternalSourceEntryById(externalSourceId: string, entryId: string): Observable<RemoteData<ExternalSourceEntry>> {
-    const href$ = this.getEntryIDHref(externalSourceId, entryId).pipe(
-      isNotEmptyOperator(),
-      distinctUntilChanged(),
-    );
-
-    return this.findByHref(href$) as any;
-  }
 }
