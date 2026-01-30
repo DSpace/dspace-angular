@@ -15,7 +15,7 @@ module.exports = function (config) {
     ],
     client: {
       clearContext: false, // leave Jasmine Spec Runner output visible in browser
-      captureConsole: true,
+      captureConsole: false,
       jasmine: {
         failSpecWithNoExpectations: true
       }
