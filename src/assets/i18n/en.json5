@@ -1978,11 +1978,23 @@
 
   "item.edit.bitstreams.notifications.outdated.title": "Changes outdated",
 
-  "item.edit.bitstreams.notifications.remove.failed.title": "Error deleting bitstream",
+  "item.edit.bitstreams.notifications.remove.bitstreams.failed.title": "Error deleting bitstreams",
 
-  "item.edit.bitstreams.notifications.remove.saved.content": "Your removal changes to this item's bitstreams have been saved.",
+  "item.edit.bitstreams.notifications.remove.bitstreams.saved.content": "Your removal changes to this item's bitstreams have been saved.",
 
-  "item.edit.bitstreams.notifications.remove.saved.title": "Removal changes saved",
+  "item.edit.bitstreams.notifications.remove.bitstreams.saved.title": "Bitstreams deleted",
+
+  "item.edit.bitstreams.notifications.remove.bundles.failed.title": "Error deleting bundles",
+
+  "item.edit.bitstreams.notifications.remove.bundles.saved.content": "Your removal changes to this item's bundles have been saved.",
+
+  "item.edit.bitstreams.notifications.remove.bundles.saved.title": "Bundles deleted",
+
+  "item.edit.bitstreams.notifications.remove.both.failed.title": "Error deleting bitstreams and bundles",
+
+  "item.edit.bitstreams.notifications.remove.both.saved.content": "Your removal changes to this item's bitstreams and bundles have been saved.",
+
+  "item.edit.bitstreams.notifications.remove.both.saved.title": "Bitstreams and bundles deleted",
 
   "item.edit.bitstreams.reinstate-button": "Undo",
 

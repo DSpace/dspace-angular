@@ -169,17 +169,19 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
 
         return removedBitstreams$.pipe(
           switchMap((removedBitstreams: Bitstream[]) => {
+            const deletingBundles = removedBundles.length > 0;
+            const deletingBitstreams = removedBitstreams.length > 0;
             const responses$: Observable<RemoteData<NoContent>>[] = [];
 
             // Delete removed bundles (this also deletes their bitstreams)
-            if (removedBundles.length > 0) {
+            if (deletingBundles) {
               responses$.push(this.bundleService.removeMultiple(removedBundles).pipe(
                 getFirstCompletedRemoteData(),
               ));
             }
 
             // Delete removed bitstreams from non-removed bundles
-            if (removedBitstreams.length > 0) {
+            if (deletingBitstreams) {
               responses$.push(this.bitstreamService.removeMultiple(removedBitstreams).pipe(
                 getFirstCompletedRemoteData(),
               ));
@@ -187,17 +189,59 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
 
             // If no changes, return a successful empty response
             if (responses$.length === 0) {
-              return of([]);
+              return of({ responses: [], deletingBundles: false, deletingBitstreams: false });
             }
 
-            return forkJoin(responses$);
+            return forkJoin(responses$).pipe(
+              map((responses: RemoteData<NoContent>[]) => ({ responses, deletingBundles, deletingBitstreams }))
+            );
           })
         );
       })
-    ).subscribe((responses: RemoteData<NoContent>[]) => {
-      this.displayNotifications('item.edit.bitstreams.notifications.remove', responses);
+    ).subscribe(({ responses, deletingBundles, deletingBitstreams }: { responses: RemoteData<NoContent>[], deletingBundles: boolean, deletingBitstreams: boolean }) => {
+      this.displayRemovalNotifications(responses, deletingBundles, deletingBitstreams);
       this.submitting = false;
     }));
+  }
+
+  /**
+   * Display notifications for removal operations
+   * Shows different messages based on whether bundles, bitstreams, or both were deleted
+   * @param responses         The responses from the delete operations
+   * @param deletingBundles   Whether bundles were deleted
+   * @param deletingBitstreams Whether bitstreams were deleted
+   */
+  displayRemovalNotifications(responses: RemoteData<NoContent>[], deletingBundles: boolean, deletingBitstreams: boolean) {
+    if (responses.length === 0) {
+      return;
+    }
+
+    const failedResponses = responses.filter((response: RemoteData<NoContent>) => hasValue(response) && response.hasFailed);
+    const successfulResponses = responses.filter((response: RemoteData<NoContent>) => hasValue(response) && response.hasSucceeded);
+
+    // Determine the notification key suffix based on what was deleted
+    let keySuffix: string;
+    if (deletingBundles && deletingBitstreams) {
+      keySuffix = 'both';
+    } else if (deletingBundles) {
+      keySuffix = 'bundles';
+    } else {
+      keySuffix = 'bitstreams';
+    }
+
+    failedResponses.forEach((response: RemoteData<NoContent>) => {
+      this.notificationsService.error(
+        this.translateService.instant(`item.edit.bitstreams.notifications.remove.${keySuffix}.failed.title`),
+        response.errorMessage
+      );
+    });
+
+    if (successfulResponses.length > 0) {
+      this.notificationsService.success(
+        this.translateService.instant(`item.edit.bitstreams.notifications.remove.${keySuffix}.saved.title`),
+        this.translateService.instant(`item.edit.bitstreams.notifications.remove.${keySuffix}.saved.content`)
+      );
+    }
   }
 
   /**
