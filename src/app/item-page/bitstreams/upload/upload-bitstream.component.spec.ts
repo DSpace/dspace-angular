@@ -84,11 +84,11 @@ describe('UploadBitstreamComponent', () => {
   const mockItemDataService = jasmine.createSpyObj('mockItemDataService', {
     getBitstreamsEndpoint: observableOf(restEndpoint),
     createBundle: createSuccessfulRemoteDataObject$(createdBundle),
-    getBundles: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [bundle])),
   });
   const bundleService = jasmine.createSpyObj('bundleService', {
     getBitstreamsEndpoint: observableOf(restEndpoint),
-    findById: createSuccessfulRemoteDataObject$(bundle)
+    findById: createSuccessfulRemoteDataObject$(bundle),
+    findAllByItem: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [bundle])),
   });
   const authToken = 'fake-auth-token';
   const authServiceStub = Object.assign(new AuthServiceStub(), {
@@ -156,7 +156,7 @@ describe('UploadBitstreamComponent', () => {
     describe('and bundle name changed', () => {
       beforeEach(waitForAsync(() => {
         jasmine.getEnv().allowRespy(true);
-        mockItemDataService.getBundles.and.returnValue(createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [bundle])));
+        bundleService.findAllByItem.and.returnValue(createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [bundle])));
         loadFixtureAndComp();
       }));
 
@@ -211,7 +211,7 @@ describe('UploadBitstreamComponent', () => {
         bundle: bundle.id
       });
       jasmine.getEnv().allowRespy(true);
-      mockItemDataService.getBundles.and.returnValue(createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])));
+      bundleService.findAllByItem.and.returnValue(createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])));
       loadFixtureAndComp();
     }));
 
@@ -230,7 +230,7 @@ describe('UploadBitstreamComponent', () => {
         bundle: bundle.id
       });
       jasmine.getEnv().allowRespy(true);
-      mockItemDataService.getBundles.and.returnValue(createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [bundle])));
+      bundleService.findAllByItem.and.returnValue(createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [bundle])));
       loadFixtureAndComp();
     }));
 
@@ -254,7 +254,7 @@ describe('UploadBitstreamComponent', () => {
         bundle: clonedBundle.id
       });
       jasmine.getEnv().allowRespy(true);
-      mockItemDataService.getBundles.and.returnValue(createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [clonedBundle])));
+      bundleService.findAllByItem.and.returnValue(createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [clonedBundle])));
       loadFixtureAndComp();
     }));
 

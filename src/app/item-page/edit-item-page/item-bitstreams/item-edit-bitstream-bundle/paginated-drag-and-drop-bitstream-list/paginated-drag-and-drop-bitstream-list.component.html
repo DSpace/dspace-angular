@@ -13,8 +13,8 @@
         <div class="row bitstream-row" *ngFor="let uuid of customOrder" cdkDrag
              [id]="uuid"
              [ngClass]="{
-                  'table-danger': isBundleMarkedForRemoval() || updates[uuid].changeType === 2,
                   'table-warning': !isBundleMarkedForRemoval() && updates[uuid].changeType === 0,
+                  'table-danger': isBundleMarkedForRemoval() || updates[uuid].changeType === 2,
                   'table-success': !isBundleMarkedForRemoval() && updates[uuid].changeType === 1,
                   'bg-white': !isBundleMarkedForRemoval() && updates[uuid].changeType === undefined
                 }">

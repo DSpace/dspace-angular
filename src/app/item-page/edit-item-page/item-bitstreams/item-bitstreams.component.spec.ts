@@ -135,7 +135,6 @@ describe('ItemBitstreamsComponent', () => {
       getBitstreams: () => createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1, bitstream2])),
       findByHref: () => createSuccessfulRemoteDataObject$(item),
       findById: () => createSuccessfulRemoteDataObject$(item),
-      getBundles: () => createSuccessfulRemoteDataObject$(createPaginatedList([bundle]))
     });
     route = Object.assign({
       parent: {
@@ -145,7 +144,8 @@ describe('ItemBitstreamsComponent', () => {
       url: url
     });
     bundleService = jasmine.createSpyObj('bundleService', {
-      patch: observableOf(new RestResponse(true, 200, 'OK'))
+      patch: observableOf(new RestResponse(true, 200, 'OK')),
+      findAllByItem: () => createSuccessfulRemoteDataObject$(createPaginatedList([bundle])),
     });
 
     TestBed.configureTestingModule({

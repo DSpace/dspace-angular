@@ -4,15 +4,10 @@
   border-color: var(--bs-table-dark-border-color);
 }
 
-.bundle-row {
+.bundle-row:not(.table-danger) {
   color: var(--bs-table-head-color);
   background-color: var(--bs-table-head-bg);
   border-color: var(--bs-table-border-color);
-
-  &.table-danger {
-    --bs-table-bg: #f8d7da;
-    background-color: #f2cbcb !important;
-  }
 }
 
 .row-element {

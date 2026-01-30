@@ -23,14 +23,11 @@ import { Item } from '../shared/item.model';
 import { ITEM } from '../shared/item.resource-type';
 import { URLCombiner } from '../url-combiner/url-combiner';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
-import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
-import { DeleteRequest, GetRequest, PostRequest, PutRequest } from './request.models';
+import { DeleteRequest, PostRequest, PutRequest } from './request.models';
 import { RequestService } from './request.service';
-import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { Bundle } from '../shared/bundle.model';
 import { MetadataMap } from '../shared/metadata.models';
-import { BundleDataService } from './bundle-data.service';
 import { Operation } from 'fast-json-patch';
 import { NoContent } from '../shared/NoContent.model';
 import { GenericConstructor } from '../shared/generic-constructor';
@@ -66,7 +63,6 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
     protected notificationsService: NotificationsService,
     protected comparator: DSOChangeAnalyzer<Item>,
     protected browseService: BrowseService,
-    protected bundleService: BundleDataService,
     protected constructIdEndpoint: ConstructIdEndpoint = (endpoint, resourceID) => `${endpoint}/${resourceID}`,
   ) {
     super(linkPath, requestService, rdbService, objectCache, halService, undefined, constructIdEndpoint);
@@ -182,25 +178,6 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
     return this.halService.getEndpoint(this.linkPath).pipe(
       switchMap((url: string) => this.halService.getEndpoint('bundles', `${url}/${itemId}`))
     );
-  }
-
-  /**
-   * Get an item's bundles using paginated search options
-   * @param itemId          The item's ID
-   * @param searchOptions   The search options to use
-   */
-  public getBundles(itemId: string, searchOptions?: PaginatedSearchOptions): Observable<RemoteData<PaginatedList<Bundle>>> {
-    const hrefObs = this.getBundlesEndpoint(itemId).pipe(
-      map((href) => searchOptions ? searchOptions.toRestUrl(href) : href)
-    );
-    hrefObs.pipe(
-      take(1)
-    ).subscribe((href) => {
-      const request = new GetRequest(this.requestService.generateRequestId(), href);
-      this.requestService.send(request);
-    });
-
-    return this.rdbService.buildList<Bundle>(hrefObs);
   }
 
   /**
@@ -414,8 +391,7 @@ export class ItemDataService extends BaseItemDataService {
     protected notificationsService: NotificationsService,
     protected comparator: DSOChangeAnalyzer<Item>,
     protected browseService: BrowseService,
-    protected bundleService: BundleDataService,
   ) {
-    super('items', requestService, rdbService, objectCache, halService, notificationsService, comparator, browseService, bundleService);
+    super('items', requestService, rdbService, objectCache, halService, notificationsService, comparator, browseService);
   }
 }

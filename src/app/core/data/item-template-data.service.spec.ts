@@ -85,7 +85,6 @@ describe('ItemTemplateDataService', () => {
       notificationsService,
       comparator,
       browseService,
-      undefined,
       collectionService,
     );
     byCollection = (service as any).byCollection;
@@ -96,7 +95,7 @@ describe('ItemTemplateDataService', () => {
   });
 
   describe('composition', () => {
-    const initService = () => new ItemTemplateDataService(null, null, null, null, null, null, null, null, null);
+    const initService = () => new ItemTemplateDataService(null, null, null, null, null, null, null, null);
     testCreateDataImplementation(initService);
     testPatchDataImplementation(initService);
     testDeleteDataImplementation(initService);

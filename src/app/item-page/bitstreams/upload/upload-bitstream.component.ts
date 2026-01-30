@@ -5,7 +5,7 @@ import { Item } from '../../../core/shared/item.model';
 import { map, take, switchMap } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UploaderOptions } from '../../../shared/upload/uploader/uploader-options.model';
-import { hasValue, isEmpty, isNotEmpty } from '../../../shared/empty.util';
+import { hasValue, isEmpty, isNotEmpty, hasValueOperator } from '../../../shared/empty.util';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { AuthService } from '../../../core/auth/auth.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
@@ -13,7 +13,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { Bundle } from '../../../core/shared/bundle.model';
 import { BundleDataService } from '../../../core/data/bundle-data.service';
-import { getFirstSucceededRemoteDataPayload, getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import { getFirstSucceededRemoteDataPayload, getFirstCompletedRemoteData, getRemoteDataPayload } from '../../../core/shared/operators';
 import { UploaderComponent } from '../../../shared/upload/uploader/uploader.component';
 import { RequestService } from '../../../core/data/request.service';
 import { getBitstreamModuleRoute } from '../../../app-routing-paths';
@@ -111,7 +111,11 @@ export class UploadBitstreamComponent implements OnInit, OnDestroy {
     this.itemId = this.route.snapshot.params.id;
     this.entityType = this.route.snapshot.params['entity-type'];
     this.itemRD$ = this.route.data.pipe(map((data) => data.dso));
-    const bundlesRD$ = this.itemService.getBundles(this.itemId).pipe(
+    const bundlesRD$ = this.itemRD$.pipe(
+      getFirstCompletedRemoteData(),
+      getRemoteDataPayload(),
+      hasValueOperator(),
+      switchMap((item: Item) => this.bundleService.findAllByItem(item)),
       getFirstCompletedRemoteData(),
       switchMap((remoteData: RemoteData<PaginatedList<Bundle>>) => {
         if (remoteData.hasSucceeded) {

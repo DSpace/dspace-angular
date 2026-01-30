@@ -6,7 +6,7 @@ import { ObjectUpdatesService } from '../../../core/data/object-updates/object-u
 import { ActivatedRoute, Router, Data } from '@angular/router';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
-import { first, map, switchMap, tap } from 'rxjs/operators';
+import { first, map, switchMap, tap, distinctUntilKeyChanged } from 'rxjs/operators';
 import { RemoteData } from '../../../core/data/remote-data';
 import { AbstractTrackableComponent } from '../../../shared/trackable/abstract-trackable.component';
 import { environment } from '../../../../environments/environment';
@@ -74,7 +74,8 @@ export class AbstractItemUpdateComponent extends AbstractTrackableComponent impl
         switchMap((rd: RemoteData<Item>) => {
           return this.itemService.findByHref(rd.payload._links.self.href, true, true, ...ITEM_PAGE_LINKS_TO_FOLLOW);
         }),
-        getAllSucceededRemoteData()
+        getAllSucceededRemoteData(),
+        distinctUntilKeyChanged('timeCompleted'),
       ).subscribe((rd: RemoteData<Item>) => {
         this.setItem(rd.payload);
       });

@@ -1,7 +1,7 @@
-import { ChangeDetectorRef, Component, NgZone, OnDestroy } from '@angular/core';
+import { Component, NgZone, OnDestroy } from '@angular/core';
 import { AbstractItemUpdateComponent } from '../abstract-item-update/abstract-item-update.component';
-import { filter, map, switchMap, take } from 'rxjs/operators';
-import { Observable, Subscription, zip as observableZip } from 'rxjs';
+import { filter, map, switchMap, take, distinctUntilKeyChanged } from 'rxjs/operators';
+import { Observable, Subscription, zip as observableZip, of, forkJoin } from 'rxjs';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -11,13 +11,12 @@ import { BitstreamDataService } from '../../../core/data/bitstream-data.service'
 import { hasValue, isNotEmpty } from '../../../shared/empty.util';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { RequestService } from '../../../core/data/request.service';
-import { getAllSucceededRemoteData, getRemoteDataPayload } from '../../../core/shared/operators';
+import { getAllSucceededRemoteData, getRemoteDataPayload, getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { Bundle } from '../../../core/shared/bundle.model';
 import { Bitstream } from '../../../core/shared/bitstream.model';
 import { BundleDataService } from '../../../core/data/bundle-data.service';
-import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
 import { ResponsiveColumnSizes } from '../../../shared/responsive-table-sizes/responsive-column-sizes';
 import { ResponsiveTableSizes } from '../../../shared/responsive-table-sizes/responsive-table-sizes';
 import { NoContent } from '../../../core/shared/NoContent.model';
@@ -25,6 +24,7 @@ import { Operation } from 'fast-json-patch';
 import { FieldUpdate } from '../../../core/data/object-updates/field-update.model';
 import { FieldUpdates } from '../../../core/data/object-updates/field-updates.model';
 import { FieldChangeType } from '../../../core/data/object-updates/field-change-type.model';
+import { FindListOptions } from '../../../core/data/find-list-options.model';
 
 @Component({
   selector: 'ds-item-bitstreams',
@@ -55,10 +55,10 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
    * The page options to use for fetching the bundles
    */
   bundlesOptions = {
-    id: 'bundles-pagination-options',
+    scopeID: 'bundles-pagination-options',
     currentPage: 1,
-    pageSize: 9999
-  } as any;
+    elementsPerPage: 9999
+  } as FindListOptions;
 
   /**
    * The bootstrap sizes used for the columns within this table
@@ -80,11 +80,7 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
    */
   submitting = false;
 
-  /**
-   * A subscription that checks when the item is deleted in cache and reloads the item by sending a new request
-   * This is used to update the item in cache after bitstreams are deleted
-   */
-  itemUpdateSubscription: Subscription;
+  subs: Subscription[] = [];
 
   constructor(
     public itemService: ItemDataService,
@@ -96,7 +92,6 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
     public bitstreamService: BitstreamDataService,
     public objectCache: ObjectCacheService,
     public requestService: RequestService,
-    public cdRef: ChangeDetectorRef,
     public bundleService: BundleDataService,
     public zone: NgZone
   ) {
@@ -107,20 +102,19 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
    * Actions to perform after the item has been initialized
    */
   postItemInit(): void {
-    // Set up the URL used to track bundle updates
     this.bundleUpdatesUrl = `${this.item.self}/bundles`;
 
-    // Use getAllSucceededRemoteData to keep listening for updates after cache invalidation
-    this.bundles$ = this.itemService.getBundles(this.item.id, new PaginatedSearchOptions({pagination: this.bundlesOptions})).pipe(
+    this.bundles$ = this.bundleService.findAllByItem(this.item, this.bundlesOptions).pipe(
       getAllSucceededRemoteData(),
+      distinctUntilKeyChanged('timeCompleted'),
       getRemoteDataPayload(),
-      map((bundlePage: PaginatedList<Bundle>) => bundlePage.page)
+      map((bundlePage: PaginatedList<Bundle>) => bundlePage.page),
     );
 
     // Initialize the bundle field updates in the object updates service
-    this.bundles$.pipe(take(1)).subscribe((bundles: Bundle[]) => {
+    this.subs.push(this.bundles$.subscribe((bundles: Bundle[]) => {
       this.objectUpdatesService.initialize(this.bundleUpdatesUrl, bundles, new Date());
-    });
+    }));
 
     // Get field updates for bundles to track their deletion state
     this.bundleFieldUpdates$ = this.bundles$.pipe(
@@ -149,8 +143,7 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
     // Get bundle field updates to determine which bundles are marked for removal
     const bundleUpdatesOnce$ = this.bundleFieldUpdates$.pipe(take(1));
 
-    observableZip(bundlesOnce$, bundleUpdatesOnce$).pipe(
-      take(1),
+    this.subs.push(forkJoin([bundlesOnce$, bundleUpdatesOnce$]).pipe(
       switchMap(([bundles, bundleUpdates]: [Bundle[], FieldUpdates]) => {
         // Separate bundles into removed and non-removed
         const removedBundles: Bundle[] = [];
@@ -166,58 +159,45 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
         });
 
         // Get bitstreams to remove from non-removed bundles only
-        const removedBitstreams$ = nonRemovedBundles.length > 0
-          ? observableZip(
-              ...nonRemovedBundles.map((bundle: Bundle) => this.objectUpdatesService.getFieldUpdates(bundle.self, [], true))
-            ).pipe(
-              map((fieldUpdates: FieldUpdates[]) => ([] as FieldUpdate[]).concat(
-                ...fieldUpdates.map((updates: FieldUpdates) => Object.values(updates).filter((fieldUpdate: FieldUpdate) => fieldUpdate.changeType === FieldChangeType.REMOVE))
-              )),
-              map((fieldUpdates: FieldUpdate[]) => fieldUpdates.map((fieldUpdate: FieldUpdate) => fieldUpdate.field as Bitstream))
-            )
-          : new Observable<Bitstream[]>((observer) => {
-              observer.next([]);
-              observer.complete();
-            });
+        const removedBitstreams$ = nonRemovedBundles.length > 0 ?
+          forkJoin(nonRemovedBundles.map((bundle: Bundle) => this.objectUpdatesService.getFieldUpdates(bundle.self, [], true).pipe(take(1)))).pipe(
+            map((fieldUpdates: FieldUpdates[]) => ([] as FieldUpdate[]).concat(
+              ...fieldUpdates.map((updates: FieldUpdates) => Object.values(updates).filter((fieldUpdate: FieldUpdate) => fieldUpdate.changeType === FieldChangeType.REMOVE))
+            )),
+            map((fieldUpdates: FieldUpdate[]) => fieldUpdates.map((fieldUpdate: FieldUpdate) => fieldUpdate.field as Bitstream))
+          ) : of([]);
 
         return removedBitstreams$.pipe(
-          take(1),
           switchMap((removedBitstreams: Bitstream[]) => {
             const responses$: Observable<RemoteData<NoContent>>[] = [];
 
             // Delete removed bundles (this also deletes their bitstreams)
             if (removedBundles.length > 0) {
-              responses$.push(this.bundleService.removeMultiple(removedBundles));
+              responses$.push(this.bundleService.removeMultiple(removedBundles).pipe(
+                getFirstCompletedRemoteData(),
+              ));
             }
 
             // Delete removed bitstreams from non-removed bundles
             if (removedBitstreams.length > 0) {
-              responses$.push(this.bitstreamService.removeMultiple(removedBitstreams));
+              responses$.push(this.bitstreamService.removeMultiple(removedBitstreams).pipe(
+                getFirstCompletedRemoteData(),
+              ));
             }
 
             // If no changes, return a successful empty response
             if (responses$.length === 0) {
-              return new Observable<RemoteData<NoContent>[]>((observer) => {
-                observer.next([]);
-                observer.complete();
-              });
+              return of([]);
             }
 
-            return observableZip(...responses$);
+            return forkJoin(responses$);
           })
         );
       })
     ).subscribe((responses: RemoteData<NoContent>[]) => {
       this.displayNotifications('item.edit.bitstreams.notifications.remove', responses);
       this.submitting = false;
-
-      // Refresh the bundles list after successful deletion
-      const hasSuccessfulResponses = responses.some((response: RemoteData<NoContent>) => hasValue(response) && response.hasSucceeded);
-      if (hasSuccessfulResponses && hasValue(this.item?._links?.bundles?.href)) {
-        // Clear cache to trigger a refresh of the bundles list
-        this.requestService.removeByHrefSubstring(this.item._links.bundles.href);
-      }
-    });
+    }));
   }
 
   /**
@@ -329,9 +309,8 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
   /**
    * Unsubscribe from open subscriptions whenever the component gets destroyed
    */
-  ngOnDestroy(): void {
-    if (this.itemUpdateSubscription) {
-      this.itemUpdateSubscription.unsubscribe();
-    }
+  override ngOnDestroy(): void {
+    super.ngOnDestroy();
+    this.subs.forEach((sub: Subscription) => sub.unsubscribe());
   }
 }

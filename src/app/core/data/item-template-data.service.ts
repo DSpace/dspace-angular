@@ -13,7 +13,6 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { BrowseService } from '../browse/browse.service';
 import { CollectionDataService } from './collection-data.service';
 import { switchMap } from 'rxjs/operators';
-import { BundleDataService } from './bundle-data.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { IdentifiableDataService } from './base/identifiable-data.service';
 import { CreateDataImpl } from './base/create-data';
@@ -75,10 +74,9 @@ export class ItemTemplateDataService extends BaseItemDataService {
     protected notificationsService: NotificationsService,
     protected comparator: DSOChangeAnalyzer<Item>,
     protected browseService: BrowseService,
-    protected bundleService: BundleDataService,
     protected collectionService: CollectionDataService,
   ) {
-    super('itemtemplates', requestService, rdbService, objectCache, halService, notificationsService, comparator, browseService, bundleService);
+    super('itemtemplates', requestService, rdbService, objectCache, halService, notificationsService, comparator, browseService);
 
     this.byCollection = new CollectionItemTemplateDataService(requestService, rdbService, objectCache, halService, notificationsService, collectionService);
   }

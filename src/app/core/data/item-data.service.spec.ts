@@ -45,9 +45,6 @@ describe('ItemDataService', () => {
   const store = {} as Store<CoreState>;
   const objectCache = {} as ObjectCacheService;
   const halEndpointService: any = new HALEndpointServiceStub(itemEndpoint);
-  const bundleService = jasmine.createSpyObj('bundleService', {
-    findByHref: {}
-  });
 
   const scopeID = '4af28e99-6a9c-4036-a199-e1b587046d39';
   const options = Object.assign(new FindListOptions(), {
@@ -86,12 +83,11 @@ describe('ItemDataService', () => {
       notificationsService,
       comparator,
       browseService,
-      bundleService,
     );
   }
 
   describe('composition', () => {
-    const initService = () => new ItemDataService(null, null, null, null, null, null, null, null);
+    const initService = () => new ItemDataService(null, null, null, null, null, null, null);
     testCreateDataImplementation(initService);
     testPatchDataImplementation(initService);
     testDeleteDataImplementation(initService);
