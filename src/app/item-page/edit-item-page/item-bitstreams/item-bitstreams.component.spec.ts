@@ -22,10 +22,11 @@ import { RestResponse } from '../../../core/cache/response.models';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { FieldChangeType } from '../../../core/data/object-updates/field-change-type.model';
 import { BitstreamDataServiceStub } from '../../../shared/testing/bitstream-data-service.stub';
+import { NoContent } from '../../../core/shared/NoContent.model';
 
 let comp: ItemBitstreamsComponent;
 let fixture: ComponentFixture<ItemBitstreamsComponent>;
@@ -57,6 +58,22 @@ const bundle = Object.assign(new Bundle(), {
   },
   bitstreams: createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1, bitstream2]))
 });
+const bundle2 = Object.assign(new Bundle(), {
+  id: 'bundle2',
+  uuid: 'bundle2',
+  _links: {
+    self: { href: 'bundle2-selflink' }
+  },
+  bitstreams: createSuccessfulRemoteDataObject$(createPaginatedList([]))
+});
+const bundleFieldUpdate = {
+  field: bundle,
+  changeType: undefined
+};
+const bundleFieldUpdateRemove = {
+  field: bundle2,
+  changeType: FieldChangeType.REMOVE
+};
 const moveOperations = [
   {
     op: 'move',
@@ -145,7 +162,8 @@ describe('ItemBitstreamsComponent', () => {
     });
     bundleService = jasmine.createSpyObj('bundleService', {
       patch: observableOf(new RestResponse(true, 200, 'OK')),
-      findAllByItem: () => createSuccessfulRemoteDataObject$(createPaginatedList([bundle])),
+      findAllByItem: createSuccessfulRemoteDataObject$(createPaginatedList([bundle])),
+      removeMultiple: createSuccessfulRemoteDataObject$({} as NoContent),
     });
 
     TestBed.configureTestingModule({
@@ -176,7 +194,7 @@ describe('ItemBitstreamsComponent', () => {
     fixture.detectChanges();
   });
 
-  describe('when submit is called', () => {
+  describe('when submit is called with bitstreams marked for removal', () => {
     beforeEach(() => {
       spyOn(bitstreamService, 'removeMultiple').and.callThrough();
       comp.submit();
@@ -188,6 +206,77 @@ describe('ItemBitstreamsComponent', () => {
 
     it('should not call removeMultiple on the bitstreamService for the unmarked field', () => {
       expect(bitstreamService.removeMultiple).not.toHaveBeenCalledWith([bitstream1]);
+    });
+  });
+
+  describe('when submit is called with bundles marked for removal', () => {
+    let bundleComp: ItemBitstreamsComponent;
+    let bundleFixture: ComponentFixture<ItemBitstreamsComponent>;
+
+    beforeEach(waitForAsync(() => {
+      // Create new mocks with bundle marked for removal
+      const bundleObjectUpdatesService = jasmine.createSpyObj('objectUpdatesService', {
+        getFieldUpdates: observableOf({}), // No bitstreams marked for removal
+        getFieldUpdatesExclusive: observableOf({
+          [bundle.uuid]: bundleFieldUpdate,
+          [bundle2.uuid]: bundleFieldUpdateRemove
+        }),
+        saveAddFieldUpdate: {},
+        discardFieldUpdates: {},
+        discardAllFieldUpdates: {},
+        reinstateFieldUpdates: observableOf(true),
+        initialize: {},
+        getUpdatedFields: observableOf([]),
+        getLastModified: observableOf(date),
+        hasUpdates: observableOf(true),
+        isReinstatable: observableOf(false),
+        isValidPage: observableOf(true),
+        getMoveOperations: observableOf([]),
+        removeSingleFieldUpdate: {}
+      });
+
+      const bundleBundleService = jasmine.createSpyObj('bundleService', {
+        patch: observableOf(new RestResponse(true, 200, 'OK')),
+        findAllByItem: createSuccessfulRemoteDataObject$(createPaginatedList([bundle, bundle2])),
+        removeMultiple: createSuccessfulRemoteDataObject$({} as NoContent),
+      });
+
+      TestBed.resetTestingModule();
+      TestBed.configureTestingModule({
+        imports: [TranslateModule.forRoot()],
+        declarations: [ItemBitstreamsComponent, ObjectValuesPipe, VarDirective],
+        providers: [
+          { provide: ItemDataService, useValue: itemService },
+          { provide: ObjectUpdatesService, useValue: bundleObjectUpdatesService },
+          { provide: Router, useValue: router },
+          { provide: ActivatedRoute, useValue: route },
+          { provide: NotificationsService, useValue: notificationsService },
+          { provide: BitstreamDataService, useValue: bitstreamService },
+          { provide: ObjectCacheService, useValue: objectCache },
+          { provide: RequestService, useValue: requestService },
+          { provide: SearchConfigurationService, useValue: searchConfig },
+          { provide: BundleDataService, useValue: bundleBundleService },
+          ChangeDetectorRef
+        ],
+        schemas: [NO_ERRORS_SCHEMA]
+      }).compileComponents();
+
+      bundleFixture = TestBed.createComponent(ItemBitstreamsComponent);
+      bundleComp = bundleFixture.componentInstance;
+      bundleComp.url = url;
+      bundleFixture.detectChanges();
+
+      bundleComp.submit();
+    }));
+
+    it('should call removeMultiple on the bundleService for the marked bundle', () => {
+      const injectedBundleService = TestBed.inject(BundleDataService);
+      expect(injectedBundleService.removeMultiple).toHaveBeenCalledWith([bundle2]);
+    });
+
+    it('should not call removeMultiple on the bundleService for the unmarked bundle', () => {
+      const injectedBundleService = TestBed.inject(BundleDataService);
+      expect(injectedBundleService.removeMultiple).not.toHaveBeenCalledWith([bundle]);
     });
   });
 
@@ -233,6 +322,50 @@ describe('ItemBitstreamsComponent', () => {
     it('should reinstate field updates on the bundle', () => {
       comp.reinstate();
       expect(objectUpdatesService.reinstateFieldUpdates).toHaveBeenCalledWith(bundle.self);
+    });
+  });
+
+  describe('displayRemovalNotifications', () => {
+    beforeEach(() => {
+      notificationsService.error = jasmine.createSpy('error');
+      notificationsService.success = jasmine.createSpy('success');
+    });
+
+    it('should not show any notification when responses array is empty', () => {
+      comp.displayRemovalNotifications([], false, false);
+      expect(notificationsService.success).not.toHaveBeenCalled();
+      expect(notificationsService.error).not.toHaveBeenCalled();
+    });
+
+    it('should show bitstreams notification when only deleting bitstreams', () => {
+      const successResponse = createSuccessfulRemoteDataObject({} as NoContent);
+      comp.displayRemovalNotifications([successResponse], false, true);
+      expect(notificationsService.success).toHaveBeenCalled();
+      const successCall = (notificationsService.success as jasmine.Spy).calls.mostRecent();
+      expect(successCall.args[0]).toContain('bitstreams');
+    });
+
+    it('should show bundles notification when only deleting bundles', () => {
+      const successResponse = createSuccessfulRemoteDataObject({} as NoContent);
+      comp.displayRemovalNotifications([successResponse], true, false);
+      expect(notificationsService.success).toHaveBeenCalled();
+      const successCall = (notificationsService.success as jasmine.Spy).calls.mostRecent();
+      expect(successCall.args[0]).toContain('bundles');
+    });
+
+    it('should show both notification when deleting both bundles and bitstreams', () => {
+      const successResponse = createSuccessfulRemoteDataObject({} as NoContent);
+      comp.displayRemovalNotifications([successResponse], true, true);
+      expect(notificationsService.success).toHaveBeenCalled();
+      const successCall = (notificationsService.success as jasmine.Spy).calls.mostRecent();
+      expect(successCall.args[0]).toContain('both');
+    });
+
+    it('should show error notification for failed responses', () => {
+      createFailedRemoteDataObject$('Test error').subscribe((failedResponse) => {
+        comp.displayRemovalNotifications([failedResponse], true, false);
+        expect(notificationsService.error).toHaveBeenCalled();
+      });
     });
   });
 });
