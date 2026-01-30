@@ -128,7 +128,7 @@ export abstract class FieldParser {
 
       const layout: DynamicFormControlLayout = {
         grid: {
-          group: 'row',
+          group: 'form-row',
         },
       };
 
@@ -400,6 +400,7 @@ export abstract class FieldParser {
 
   protected markAsNotRepeatable(controlModel) {
     controlModel.isModelOfNotRepeatableGroup = true;
+    controlModel.repeatable = false;
 
     controlModel.errorMessages = Object.assign(
       {},

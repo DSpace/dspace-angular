@@ -273,7 +273,6 @@ export class DsDynamicRelationInlineGroupComponent extends DynamicFormControlCom
 
   private copyArrayItem(event) {
     const index = Array.isArray(this.model.value) ? this.model.value.length : event.model.parent.index;
-    const mainRow = event.model.group.find(itemModel => itemModel.name === this.model.name);
     const groupValue = this.getRowValue(event.model as DynamicFormGroupModel);
     this.updateArrayModelValue(groupValue, index);
     this.change.emit();

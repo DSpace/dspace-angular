@@ -56,3 +56,13 @@ select.form-control {
   padding-left: 15px;
   padding-right: 15px;
 }
+
+.isInlineGroupForm-delete {
+  margin-bottom: -2.5rem;
+  z-index: var(--ds-submission-inline-group-form-delete-z-index);
+  padding-right: calc(0.5 * var(--bs-spacer));
+}
+
+.white-background{
+  background-color: #fff;
+}

@@ -19,7 +19,7 @@
         <ng-container #componentViewContainer></ng-container>
       </div>
 
-      @if (hasHint && (formBuilderService.hasArrayGroupValue(model) || (!model.repeatable && (isRelationship === false || value?.value === null)) || (model.repeatable === true && context?.index === context?.context?.groups?.length - 1)) && (!showErrorMessages || errorMessages.length === 0)) {
+      @if (hasHint && (formBuilderService.hasArrayGroupValue(model) || ((!model.repeatable && (!(model?.isModelOfNotRepeatableGroup) || model?.isModelOfNotRepeatableGroup && context?.index === context?.context?.groups?.length - 1)) && (isRelationship === false || value?.value === null)) || (model.repeatable === true && context?.index === context?.context?.groups?.length - 1)) && (!showErrorMessages || errorMessages.length === 0)) {
 <small
              class="text-muted ds-hint" [innerHTML]="model.hint | translate" [ngClass]="getClass('element', 'hint')"></small>
       }
@@ -28,7 +28,7 @@
         <div class="clearfix w-100 mb-2"></div>
       }
 
-      @if (!model.hideErrorMessages && showErrorMessages) {
+      @if (!model.hideErrorMessages && showErrorMessages && (!(model?.isModelOfNotRepeatableGroup) || model?.isModelOfNotRepeatableGroup && context?.index === context?.context?.groups?.length - 1) && isNotRequiredGroupAndEmpty()) {
         <div [id]="id + '_errors'"
           [ngClass]="[getClass('element', 'errors'), getClass('grid', 'errors')]">
           @for (message of errorMessages; track message) {

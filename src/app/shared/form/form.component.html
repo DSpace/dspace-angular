@@ -15,6 +15,8 @@
         <!--Array with repeatable items-->
         @if ((!context.notRepeatable) && !isVirtual(context, index) && group.context.groups.length !== 1 && !isItemReadOnly(context, index)) {
           <div
+            [class.isInlineGroupForm-delete]="isInlineGroupForm"
+            [ngClass]="{'justify-content-sm-end' : isInlineGroupForm }"
             class="col-2 d-flex flex-column justify-content-sm-start align-items-end">
             <button type="button" class="btn btn-secondary" role="button"
               title="{{'form.remove' | translate}}"
@@ -22,14 +24,36 @@
               (click)="removeItem($event, context, index)">
               <span><i class="fas fa-trash" aria-hidden="true"></i></span>
             </button>
+            @if (isInlineGroupForm) {
+              <div class="clearfix w-100 mb-2"></div>
+            }
           </div>
         }
+        @if ((!context.notRepeatable) && isInlineGroupForm) {
+          <div class="clearfix w-100">
+            <div class="btn-group" role="group" aria-label="remove button">
+              <button type="button" role="button" class="ds-form-add-more btn btn-link"
+                      title="{{'form.copy' | translate}}"
+                      attr.aria-label="{{'form.copy' | translate}}"
+                      [dsBtnDisabled]="isItemReadOnly(context, index)"
+                      (click)="copyItem($event, group.context, index)">
+                <span><i class="fas fa-copy"></i> {{'form.copy' | translate}}</span>
+              </button>
+            </div>
+          </div>
+        }
+
+
         @if ((!context.notRepeatable) && index === (group.context.groups.length - 1) && !isItemReadOnly(context, index)) {
-          <div class="clearfix ps-4 w-100">
+          <div class="clearfix w-100"
+               [class.ps-4]="!isInlineGroupForm"
+               [class.white-background]="isInlineGroupForm">
             <div class="btn-group" role="group">
               <button type="button" role="button" class="ds-form-add-more btn btn-link"
                 title="{{'form.add' | translate}}"
                 attr.aria-label="{{'form.add' | translate}}"
+                [class.ps-0]="isInlineGroupForm"
+                [dsBtnDisabled]="isItemReadOnly(context, index)"
                 (click)="insertItem($event, group.context, group.context.groups.length)">
                 <span><i class="fas fa-plus"></i> {{'form.add' | translate}}</span>
               </button>
@@ -49,6 +73,10 @@
                 [dsBtnDisabled]="group.context.groups.length === 1 || isItemReadOnly(context, index)">
                 <span>{{'form.discard' | translate}}</span>
               </button>
+              @if (isInlineGroupForm) {
+                <div class="clearfix w-100 mb-2"></div>
+              }
+
             </div>
           </div>
         }
