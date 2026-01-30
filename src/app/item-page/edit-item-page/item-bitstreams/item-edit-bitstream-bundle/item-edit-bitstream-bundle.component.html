@@ -2,13 +2,15 @@
   <div class="row bundle-row" [ngClass]="{'table-danger': isMarkedForRemoval()}">
     <div class="{{bundleNameColumn.buildClasses()}} font-weight-bold row-element d-flex align-items-center">
       <ds-item-edit-bitstream-drag-handle></ds-item-edit-bitstream-drag-handle>
-      <div class="float-left d-flex align-items-center">
-        {{'item.edit.bitstreams.bundle.name' | translate:{ name: dsoNameService.getName(bundle) } }}
+      <div class="d-flex flex-column-reverse flex-lg-row">
+        <div class="float-left d-flex align-items-center">
+          {{'item.edit.bitstreams.bundle.name' | translate:{ name: dsoNameService.getName(bundle) } }}
+        </div>
+        <span *ngIf="isMarkedForRemoval()" class="badge bg-danger text-white ml-lg-2 px-2 px-sm-3 py-2 bundle-remove-warning text-wrap">
+          <i class="fas fa-exclamation-triangle mr-1"></i>
+          {{ 'item.edit.bitstreams.bundle.remove-warning' | translate }}
+        </span>
       </div>
-      <span *ngIf="isMarkedForRemoval()" class="badge bg-danger text-white ml-2 px-3 py-2">
-        <i class="fas fa-exclamation-triangle"></i>
-        {{ 'item.edit.bitstreams.bundle.remove-warning' | translate }}
-      </span>
     </div>
     <div class="{{columnSizes.columns[3].buildClasses()}} text-center row-element">
       <div class="btn-group bundle-action-buttons">
