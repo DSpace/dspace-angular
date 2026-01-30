@@ -2111,6 +2111,12 @@
 
   "form.first-name": "First name",
 
+  "form.group.add": "Add",
+
+  "form.group.close": "Close",
+
+  "form.group.set": "Set",
+
   "form.group-collapse": "Collapse",
 
   "form.group-collapse-help": "Click here to collapse",

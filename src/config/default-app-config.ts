@@ -287,6 +287,7 @@ export class DefaultAppConfig implements AppConfig {
           },
         ],
       },
+      iconsVisibleWithNoAuthority: ['fas fa-user'],
     },
   };
 
