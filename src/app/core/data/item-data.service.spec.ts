@@ -20,6 +20,7 @@ import { HALEndpointServiceStub } from 'src/app/shared/testing/hal-endpoint-serv
 import { testCreateDataImplementation } from './base/create-data.spec';
 import { testPatchDataImplementation } from './base/patch-data.spec';
 import { testDeleteDataImplementation } from './base/delete-data.spec';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 
 describe('ItemDataService', () => {
   let scheduler: TestScheduler;
@@ -183,6 +184,29 @@ describe('ItemDataService', () => {
     it('should send a POST request', (done) => {
       result.subscribe(() => {
         expect(requestService.send).toHaveBeenCalledWith(jasmine.any(PostRequest));
+        done();
+      });
+    });
+
+    it('should call setStaleByHrefSubstring on the bundles endpoint', (done) => {
+      const rdbServiceWithSpy = Object.assign({}, rdbService, {
+        buildFromRequestUUIDAndAwait: (requestUUID$: any, callback: any) => {
+          // Execute callback and subscribe to verify cache invalidation
+          callback().subscribe();
+          return createSuccessfulRemoteDataObject$({});
+        },
+      });
+      service = new ItemDataService(
+        requestService,
+        rdbServiceWithSpy as any,
+        objectCache,
+        halEndpointService,
+        notificationsService,
+        comparator,
+        browseService,
+      );
+      service.createBundle(itemId, bundleName).subscribe(() => {
+        expect(requestService.setStaleByHrefSubstring).toHaveBeenCalled();
         done();
       });
     });
