@@ -1,4 +1,8 @@
-import { inject } from '@angular/core';
+import { isPlatformServer } from '@angular/common';
+import {
+  inject,
+  PLATFORM_ID,
+} from '@angular/core';
 import {
   ActivatedRouteSnapshot,
   ResolveFn,
@@ -10,6 +14,7 @@ import { ItemDataService } from '@dspace/core/data/item-data.service';
 import { RemoteData } from '@dspace/core/data/remote-data';
 import { ResolvedAction } from '@dspace/core/resolving/resolver.actions';
 import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
+import { HardRedirectService } from '@dspace/core/services/hard-redirect.service';
 import { redirectOn4xx } from '@dspace/core/shared/authorized.operators';
 import {
   getItemPageLinksToFollow,
@@ -41,6 +46,8 @@ export const itemPageResolver: ResolveFn<RemoteData<Item>> = (
   itemService: ItemDataService = inject(ItemDataService),
   store: Store<AppState> = inject(Store<AppState>),
   authService: AuthService = inject(AuthService),
+  platformId: any = inject(PLATFORM_ID),
+  hardRedirectService: HardRedirectService = inject(HardRedirectService),
 ): Observable<RemoteData<Item>> => {
   const itemRD$ = itemService.findByIdOrCustomUrl(
     route.params.id,
@@ -59,15 +66,16 @@ export const itemPageResolver: ResolveFn<RemoteData<Item>> = (
   return itemRD$.pipe(
     map((rd: RemoteData<Item>) => {
       if (rd.hasSucceeded && hasValue(rd.payload)) {
-        const isItemEditPage = state.url.includes('/edit') || state.url.includes('/bitstreams');
-        let itemRoute = isItemEditPage ? state.url : router.parseUrl(getItemPageRoute(rd.payload)).toString();
+        let itemRoute;
         if (hasValue(rd.payload.metadata) && rd.payload.hasMetadata('dspace.customurl')) {
           const customUrl = rd.payload.firstMetadataValue('dspace.customurl');
+          const isSubPath = !(state.url.endsWith(customUrl) || state.url.endsWith(rd.payload.id) || state.url.endsWith('/full'));
+          itemRoute = isSubPath ? state.url : router.parseUrl(getItemPageRoute(rd.payload)).toString();
           let newUrl: string;
-          if (route.params.id !== customUrl && !isItemEditPage) {
+          if (route.params.id !== customUrl && !isSubPath) {
             newUrl = itemRoute.replace(route.params.id,rd.payload.firstMetadataValue('dspace.customurl'));
-          } else if (isItemEditPage && route.params.id === customUrl) {
-            // In case of an edit page, we need to ensure we navigate to the edit page of the item ID, not the custom URL
+          } else if (isSubPath && route.params.id === customUrl) {
+            // In case of a sub path, we need to ensure we navigate to the edit page of the item ID, not the custom URL
             const itemId = rd.payload.uuid;
             newUrl = itemRoute.replace(rd.payload.firstMetadataValue('dspace.customurl'), itemId);
           }
@@ -87,7 +95,11 @@ export const itemPageResolver: ResolveFn<RemoteData<Item>> = (
           if (!thisRoute.startsWith(itemRoute)) {
             const itemId = rd.payload.uuid;
             const subRoute = thisRoute.substring(thisRoute.indexOf(itemId) + itemId.length, thisRoute.length);
-            void router.navigateByUrl(itemRoute + subRoute);
+            if (isPlatformServer(platformId)) {
+              hardRedirectService.redirect(itemRoute + subRoute, 301);
+            } else {
+              router.navigateByUrl(itemRoute + subRoute);
+            }
           }
         }
       }
