@@ -15,7 +15,10 @@ import { RemoteData } from '@dspace/core/data/remote-data';
 import { ResolvedAction } from '@dspace/core/resolving/resolver.actions';
 import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
 import { HardRedirectService } from '@dspace/core/services/hard-redirect.service';
-import { redirectOn4xx } from '@dspace/core/shared/authorized.operators';
+import {
+  redirectOn4xx,
+  redirectOn204,
+} from '@dspace/core/shared/authorized.operators';
 import {
   getItemPageLinksToFollow,
   Item,
@@ -56,6 +59,7 @@ export const itemPageResolver: ResolveFn<RemoteData<Item>> = (
     ...getItemPageLinksToFollow(),
   ).pipe(
     getFirstCompletedRemoteData(),
+    redirectOn204<Item>(router, authService),
     redirectOn4xx(router, authService),
   );
 
