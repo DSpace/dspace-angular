@@ -19,7 +19,7 @@
       &.open {
         height: auto;
         min-height: 100vh; //doesn't matter because wrapper is sticky
-        border-bottom: 1px var(--ds-header-navbar-border-bottom-color) solid; // open navbar covers header-navbar-wrapper border
+        border-bottom: var(--ds-header-navbar-border-bottom-height) var(--ds-header-navbar-border-bottom-color) solid; // open navbar covers header-navbar-wrapper border
       }
     }
   }
@@ -53,11 +53,36 @@
 
     .ds-menu-item {
       display: block;
-      color: var(--ds-navbar-link-color);
       padding: 0.5rem 0;
+    }
+  }
 
-      &:hover, &:focus {
+  #main-navbar ::ng-deep .ds-menu-item-wrapper {
+    background-color: var(--ds-navbar-link-bg-color);
+
+    .toggle-menu-icon, .ds-menu-item:not(.dropdown-menu .ds-menu-item) {
+      color: var(--ds-navbar-link-color);
+    }
+
+    &:hover, &:focus {
+      background-color: var(--ds-navbar-link-bg-color-hover);
+
+      .toggle-menu-icon, .ds-menu-item:not(.dropdown-menu .ds-menu-item) {
         color: var(--ds-navbar-link-color-hover);
+      }
+
+      .dropdown-menu {
+        background-color: var(--ds-expandable-navbar-bg);
+
+        .ds-menu-item {
+          color: var(--ds-expandable-navbar-link-color);
+          background-color: var(--ds-expandable-navbar-link-bg);
+
+          &:hover, &:focus {
+            color: var(--ds-expandable-navbar-link-color-hover);
+            background-color: var(--ds-expandable-navbar-link-bg-hover);
+          }
+        }
       }
     }
   }

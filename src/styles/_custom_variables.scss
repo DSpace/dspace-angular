@@ -22,26 +22,27 @@
 
   --ds-header-bg: #{$ds-header-bg};
   --ds-header-logo-height: 50px;
-  --ds-header-logo-height-xs: 50px;
   --ds-header-icon-color: #{$ds-header-icon-color};
   --ds-header-icon-color-hover: #{$ds-header-icon-color-hover};
 
   --ds-navbar-bg: #{$ds-navbar-bg};
   --ds-navbar-item-vertical-padding: 0;
   --ds-navbar-item-horizontal-padding: 0.25rem;
-  --ds-navbar-dropdown-bg: #{$ds-navbar-dropdown-bg};
   --ds-navbar-dropdown-item-vertical-padding: 0.5rem;
   --ds-navbar-dropdown-item-horizontal-padding: 1rem;
   --ds-navbar-link-color: #{$ds-navbar-link-color};
+  --ds-navbar-link-bg: var(--ds-navbar-bg);
   --ds-navbar-link-color-hover: #{$ds-navbar-link-color-hover};
+  --ds-navbar-link-bg-hover: var(--ds-navbar-link-bg);
 
-  --ds-header-navbar-border-top-color: #{$ds-header-navbar-border-bottom-color};
   --ds-header-navbar-border-bottom-color: #{$ds-header-navbar-border-bottom-color};
+  --ds-header-navbar-border-bottom-height: 1px;
 
   --ds-expandable-navbar-bg: #{$ds-expandable-navbar-bg};
-  --ds-expandable-navbar-link-color: #{$body-color};
-  --ds-expandable-navbar-link-color-hover: #{$body-color};
-  --ds-expandable-navbar-link-background-hover: #{$ds-navbar-link-color-hover};
+  --ds-expandable-navbar-link-color: #{$ds-navbar-link-color};
+  --ds-expandable-navbar-link-bg: var(--ds-expandable-navbar-bg);
+  --ds-expandable-navbar-link-color-hover: #{$ds-navbar-link-color-hover};
+  --ds-expandable-navbar-link-bg-hover: var(--ds-expandable-navbar-link-bg);
   --ds-expandable-navbar-item-vertical-padding: 0.25rem;
 
   --ds-user-menu-item-vertical-padding: 0.25rem;
