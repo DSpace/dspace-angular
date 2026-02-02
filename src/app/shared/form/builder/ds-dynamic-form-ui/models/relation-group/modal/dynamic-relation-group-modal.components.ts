@@ -74,7 +74,6 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
 
   @Input() item: any;
   @Input() itemIndex: number;
-  @Input() changedSecurity: boolean;
 
   @Input() value: any;
 
@@ -89,7 +88,6 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
 
   public formModel: DynamicFormControlModel[];
   public vocabulary$: Observable<Vocabulary>;
-  public securityLevelParent: number;
 
   private subs: Subscription[] = [];
 
@@ -199,8 +197,7 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
     const currentValue: string = (model.value instanceof FormFieldMetadataValueObject
       || model.value instanceof VocabularyEntry) ? model.value.value : model.value;
     const currentLang: string = (model.value instanceof FormFieldMetadataValueObject) ? model.value.language : model.language;
-    const security = null;
-    const valueWithAuthority: any = new FormFieldMetadataValueObject(currentValue, currentLang, security, authority);
+    const valueWithAuthority: any = new FormFieldMetadataValueObject(currentValue, currentLang, authority);
     model.value = valueWithAuthority;
     this.modifyChip();
     setTimeout(() => {
@@ -281,7 +278,6 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
           new FormFieldMetadataValueObject(
             controlValue,
             mainModel?.language,
-            controlValue === PLACEHOLDER_PARENT_METADATA ? null : mainModel.securityLevel,
             controlAuthority,
             null, 0, null,
             (control?.value as any)?.otherInformation || null,
