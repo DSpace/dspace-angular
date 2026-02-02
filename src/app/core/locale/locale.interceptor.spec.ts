@@ -8,13 +8,21 @@ import {
   provideHttpClientTesting,
 } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import { RestRequestMethod } from '@dspace/config/rest-request-method';
 import { of } from 'rxjs';
+import { take } from 'rxjs/operators';
 
 import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { LocaleInterceptor } from './locale.interceptor';
 import { LocaleService } from './locale.service';
+
+const envConfig = {
+  rest: {
+    baseUrl: 'server',
+  },
+};
 
 describe(`LocaleInterceptor`, () => {
   let service: DspaceRestService;
@@ -26,6 +34,7 @@ describe(`LocaleInterceptor`, () => {
   const mockLocaleService = jasmine.createSpyObj('LocaleService', {
     getCurrentLanguageCode: jasmine.createSpy('getCurrentLanguageCode'),
     getLanguageCodeList: of(languageList),
+    ignoreEPersonSettings: false,
   });
 
   const mockHalEndpointService = {
@@ -44,6 +53,7 @@ describe(`LocaleInterceptor`, () => {
         },
         { provide: HALEndpointService, useValue: mockHalEndpointService },
         { provide: LocaleService, useValue: mockLocaleService },
+        { provide: APP_CONFIG, useValue: envConfig  },
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting(),
       ],
@@ -82,6 +92,30 @@ describe(`LocaleInterceptor`, () => {
       const lang = httpRequest.request.headers.get('Accept-Language');
       expect(lang).toBeDefined();
       expect(lang).toBe(languageList.toString());
+    });
+
+  });
+
+  describe('', () => {
+
+    it('should call the getLanguageCodeList method with ignoreEPersonSettings as true', () => {
+      localeService.getLanguageCodeList.calls.reset();
+      service.request(RestRequestMethod.GET, 'server/api/eperson/epersons/123').pipe(take(1)).subscribe();
+
+      const httpRequest = httpMock.expectOne(`server/api/eperson/epersons/123`);
+      httpRequest.flush({});
+
+      expect(localeService.getLanguageCodeList).toHaveBeenCalledWith(true);
+    });
+
+    it('should call the getLanguageCodeList method with ignoreEPersonSettings as false', () => {
+      localeService.getLanguageCodeList.calls.reset();
+      service.request(RestRequestMethod.GET, 'server/api/submission/workspaceitems/123').pipe(take(1)).subscribe();
+
+      const httpRequest = httpMock.expectOne(`server/api/submission/workspaceitems/123`);
+      httpRequest.flush({});
+
+      expect(localeService.getLanguageCodeList).toHaveBeenCalledWith(false);
     });
 
   });
