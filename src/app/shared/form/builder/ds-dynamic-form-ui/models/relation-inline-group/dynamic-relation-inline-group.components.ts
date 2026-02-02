@@ -167,7 +167,6 @@ export class DsDynamicRelationInlineGroupComponent extends DynamicFormControlCom
   }
 
   private getRowValue(formGroup: DynamicFormGroupModel) {
-    let mainSecurityLevel;
     const mainRow = formGroup.group.find(itemModel => itemModel.name === this.model.name);
     const mainLanguage = (mainRow as any).language ?? null;
     const groupValue = Object.create({});
