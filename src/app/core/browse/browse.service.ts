@@ -134,6 +134,29 @@ export class BrowseService {
     return this.hrefOnlyDataService.findListByHref<BrowseEntry>(href$);
   }
 
+  /*
+   * Get the sort direction for a browse index based on its unique id
+   * @param browseId     The unique id of the browse index
+   * @param defaultDirection  The default sort direction to return if the browse index has no sort direction configured
+   * @returns {Observable<SortDirection>} The sort direction of the browse index
+   */
+  getConfiguredSortDirection(browseId: string, defaultDirection: SortDirection): Observable<SortDirection> {
+    return this.getBrowseDefinitions().pipe(
+      getRemoteDataPayload(),
+      getPaginatedListPayload(),
+      map((browseDefinitions: BrowseDefinition[]) => browseDefinitions
+        .find((def: BrowseDefinition) => def.id === browseId),
+      ),
+      map((browseDef: BrowseDefinition) => {
+        if (browseDef.order === SortDirection.ASC || browseDef.order === SortDirection.DESC) {
+          return browseDef.order;
+        } else {
+          return defaultDirection;
+        }
+      }),
+    );
+  }
+
   /**
    * Get all items linked to a certain metadata value
    * @param {string} filterValue      metadata value to filter by (e.g. author's name)
