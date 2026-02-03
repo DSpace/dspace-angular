@@ -26,6 +26,7 @@ import {
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { RemoteData } from './remote-data';
 import { RequestService } from './request.service';
+import { Item } from "@dspace/core/shared/item.model";
 
 /**
  * Service responsible for handling requests related to the Version object
@@ -104,6 +105,16 @@ export class VersionDataService extends IdentifiableDataService<Version> impleme
    */
   public createPatchFromCache(object: Version): Observable<Operation[]> {
     return this.patchData.createPatchFromCache(object);
+  }
+
+
+  /**
+   * Invalidates the cache of the version link for this item.
+   *
+   * @param item
+   */
+  invalidateVersionHrefCache(item: Item): void {
+    this.requestService.setStaleByHrefSubstring(item._links.version.href);
   }
 
 }

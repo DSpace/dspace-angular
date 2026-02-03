@@ -81,6 +81,7 @@ export class DsoVersioningModalService {
       switchMap((newVersionItem: Item) => this.workspaceItemDataService.findByItem(newVersionItem.uuid, true, false)),
       getFirstSucceededRemoteDataPayload<WorkspaceItem>(),
     ).subscribe((wsItem) => {
+      this.versionService.invalidateVersionHrefCache(item);
       const wsiId = wsItem.id;
       const route = 'workspaceitems/' + wsiId + '/edit';
       this.router.navigateByUrl(route);
