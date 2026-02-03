@@ -85,10 +85,6 @@ export class BitstreamDownloadPageComponent implements OnInit {
     this.initPageLinks();
   }
 
-  back(): void {
-    this.location.back();
-  }
-
   ngOnInit(): void {
     const accessToken$: Observable<string> = this.route.queryParams.pipe(
       map((queryParams: Params) => queryParams?.accessToken || null),
