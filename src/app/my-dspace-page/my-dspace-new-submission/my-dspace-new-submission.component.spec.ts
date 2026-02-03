@@ -37,6 +37,8 @@ import {
 import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 
 import { HostWindowService } from '../../shared/host-window.service';
+import { LiveRegionService } from '../../shared/live-region/live-region.service';
+import { getLiveRegionServiceStub } from '../../shared/live-region/live-region.service.stub';
 import { UploaderComponent } from '../../shared/upload/uploader/uploader.component';
 import { MyDSpaceNewSubmissionComponent } from './my-dspace-new-submission.component';
 import { getMockEntityTypeService } from './my-dspace-new-submission-dropdown/my-dspace-new-submission-dropdown.component.spec';
@@ -76,6 +78,7 @@ describe('MyDSpaceNewSubmissionComponent test', () => {
         { provide: CookieService, useValue: new CookieServiceMock() },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(800) },
         { provide: EntityTypeDataService, useValue: getMockEntityTypeService() },
+        { provide: LiveRegionService, useValue: getLiveRegionServiceStub() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();

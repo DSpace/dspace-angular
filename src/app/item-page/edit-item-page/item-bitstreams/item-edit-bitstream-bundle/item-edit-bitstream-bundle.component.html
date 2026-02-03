@@ -81,8 +81,7 @@
                     scope="row" id="{{ entry.nameStripped }}" headers="{{ bundleName }} name">
                     <div class="drag-handle text-muted float-start p-1 me-2 d-inline" tabindex="0" cdkDragHandle
                       (keydown.enter)="select($event, entry)" (keydown.space)="select($event, entry)" (click)="select($event, entry)">
-                      <i class="fas fa-grip-vertical fa-fw"
-                      [title]="'item.edit.bitstreams.edit.buttons.drag' | translate"></i>
+                      <i class="drag-icon" [title]="'item.edit.bitstreams.edit.buttons.drag' | translate"></i>
                     </div>
                     <span class="dont-break-out">{{ entry.name }}</span>
                   </th>

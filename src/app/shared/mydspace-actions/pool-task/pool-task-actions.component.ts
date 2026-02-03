@@ -19,7 +19,7 @@ import { ClaimedTaskDataService } from '@dspace/core/tasks/claimed-task-data.ser
 import { PoolTask } from '@dspace/core/tasks/models/pool-task-object.model';
 import { ProcessTaskResponse } from '@dspace/core/tasks/models/process-task-response';
 import { PoolTaskDataService } from '@dspace/core/tasks/pool-task-data.service';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
   TranslateService,
@@ -45,7 +45,7 @@ import { MyDSpaceReloadableActionsComponent } from '../mydspace-reloadable-actio
   imports: [
     AsyncPipe,
     BtnDisabledDirective,
-    NgbTooltipModule,
+    NgbTooltip,
     RouterLink,
     TranslateModule,
   ],
