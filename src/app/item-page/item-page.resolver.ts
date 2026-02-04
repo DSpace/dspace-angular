@@ -55,7 +55,7 @@ export const itemPageResolver: ResolveFn<RemoteData<Item>> = (
   const itemRD$ = itemService.findByIdOrCustomUrl(
     route.params.id,
     true,
-    false,
+    true,
     ...getItemPageLinksToFollow(),
   ).pipe(
     getFirstCompletedRemoteData(),

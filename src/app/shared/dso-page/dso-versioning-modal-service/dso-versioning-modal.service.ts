@@ -82,6 +82,10 @@ export class DsoVersioningModalService {
       getFirstSucceededRemoteDataPayload<WorkspaceItem>(),
     ).subscribe((wsItem) => {
       this.versionService.invalidateVersionHrefCache(item);
+      if (item.hasMetadata('dspace.customurl')) {
+        // when a new version is created we need to invalidate the cache for findByCustomURL so the item will not be resolved with the cached old version.
+        this.itemService.invalidateFindByCustomUrlCache(item.firstMetadataValue('dspace.customurl'));
+      }
       const wsiId = wsItem.id;
       const route = 'workspaceitems/' + wsiId + '/edit';
       this.router.navigateByUrl(route);

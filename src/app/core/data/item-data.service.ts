@@ -460,6 +460,26 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
     return this.findByHref(hrefObs, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
+
+  /**
+   * Invalidate cache of request findByCustomURL
+   *
+   * @param customUrl
+   * @param projections
+   */
+  public invalidateFindByCustomUrlCache(customUrl: string, projections: string[] = []): void {
+    const options: any = {
+      searchParams: [new RequestParam('q', customUrl)],
+    };
+
+    projections.forEach((p) => options.searchParams.push(new RequestParam('projection', p)));
+
+    this.searchData.getSearchByHref('findByCustomURL', options).pipe(take(1)).subscribe((href: string) => {
+      this.requestService.setStaleByHrefSubstring(href);
+      this.objectCache.remove(href);
+    });
+  }
+
   /**
    * Returns an observable of {@link RemoteData} of an object, based on its ID, with a list of
    * {@link FollowLinkConfig}, to automatically resolve {@link HALLink}s of the object

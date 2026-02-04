@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { RestRequestMethod } from '@dspace/config/rest-request-method';
+import { Item } from '@dspace/core/shared/item.model';
 import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import { Operation } from 'fast-json-patch';
 import {
@@ -26,7 +27,6 @@ import {
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { RemoteData } from './remote-data';
 import { RequestService } from './request.service';
-import { Item } from "@dspace/core/shared/item.model";
 
 /**
  * Service responsible for handling requests related to the Version object
