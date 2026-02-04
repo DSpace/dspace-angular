@@ -10195,7 +10195,7 @@
   "listable-notification-object.default-message": "Questo oggetto non può essere recuperato",
 
   // "system-wide-alert-banner.retrieval.error": "Something went wrong retrieving the system-wide alert banner",
-  "system-wide-alert-banner.retrieval.error": "Qualcosa è andato storto nel recupero del banner di allarme di sistema",
+  "system-wide-alert-banner.retrieval.error": "Qualcosa è andato storto nel recupero del banner del messaggio di servizio",
 
   // "system-wide-alert-banner.countdown.prefix": "In",
   "system-wide-alert-banner.countdown.prefix": "Tra",
@@ -10210,13 +10210,13 @@
   "system-wide-alert-banner.countdown.minutes": "{{minutes}} minuti:",
 
   // "menu.section.system-wide-alert": "System-wide Alert",
-  "menu.section.system-wide-alert": "Allarme di sistema",
+  "menu.section.system-wide-alert": "Messaggio di servizio",
 
   // "system-wide-alert.form.header": "System-wide Alert",
-  "system-wide-alert.form.header": "Allarme di sistema",
+  "system-wide-alert.form.header": "Messaggio di servizio",
 
   // "system-wide-alert-form.retrieval.error": "Something went wrong retrieving the system-wide alert",
-  "system-wide-alert-form.retrieval.error": "Qualcosa è andato storto nel recupero dell'allarme di sistema",
+  "system-wide-alert-form.retrieval.error": "Qualcosa è andato storto nel recupero del messaggio di servizio",
 
   // "system-wide-alert.form.cancel": "Cancel",
   "system-wide-alert.form.cancel": "Annulla",
@@ -10231,41 +10231,41 @@
   "system-wide-alert.form.label.inactive": "DISATTIVO",
 
   // "system-wide-alert.form.error.message": "The system wide alert must have a message",
-  "system-wide-alert.form.error.message": "L'allarme di sistema deve avere un messaggio",
+  "system-wide-alert.form.error.message": "Il messaggio di servizio deve avere del contenuto",
 
   // "system-wide-alert.form.label.message": "Alert message",
-  "system-wide-alert.form.label.message": "Messaggio di allarme",
+  "system-wide-alert.form.label.message": "Messaggio di servizio",
 
   // "system-wide-alert.form.label.countdownTo.enable": "Enable a countdown timer",
   "system-wide-alert.form.label.countdownTo.enable": "Attiva un conto alla rovescia",
 
   // "system-wide-alert.form.label.countdownTo.hint": "Hint: Set a countdown timer. When enabled, a date can be set in the future and the system-wide alert banner will perform a countdown to the set date. When this timer ends, it will disappear from the alert. The server will NOT be automatically stopped.",
-  "system-wide-alert.form.label.countdownTo.hint": "Suggerimento: Imposta un conto alla rovescia. Se abilitato, è possibile impostare una data futura e il banner di allarme di sistema eseguirà un conto alla rovescia fino alla data impostata. Quando il timer terminerà, l'avviso scomparirà. Il server NON verrà arrestato automaticamente.",
+  "system-wide-alert.form.label.countdownTo.hint": "Suggerimento: Imposta un conto alla rovescia. Se abilitato, è possibile impostare una data futura e il banner di messaggio di servizio eseguirà un conto alla rovescia fino alla data impostata. Quando il timer terminerà, l'avviso scomparirà. Il server NON verrà arrestato automaticamente.",
 
   // "system-wide-alert-form.select-date-by-calendar": "Select date using calendar",
   // TODO New key - Add a translation
   "system-wide-alert-form.select-date-by-calendar": "Select date using calendar",
 
   // "system-wide-alert.form.label.preview": "System-wide alert preview",
-  "system-wide-alert.form.label.preview": "Anteprima dell'allarme di sistema",
+  "system-wide-alert.form.label.preview": "Anteprima del messaggio di servizio",
 
   // "system-wide-alert.form.update.success": "The system-wide alert was successfully updated",
-  "system-wide-alert.form.update.success": "L'allarme di sistema è stato aggiornato con successo",
+  "system-wide-alert.form.update.success": "Il messaggio di servizio è stato aggiornato con successo",
 
   // "system-wide-alert.form.update.error": "Something went wrong when updating the system-wide alert",
-  "system-wide-alert.form.update.error": "Qualcosa è andato storto durante l'aggiornamento dell'allarme di sistema",
+  "system-wide-alert.form.update.error": "Qualcosa è andato storto durante l'aggiornamento del messaggio di servizio",
 
   // "system-wide-alert.form.create.success": "The system-wide alert was successfully created",
-  "system-wide-alert.form.create.success": "L'allarme di sistema è stato creato con successo",
+  "system-wide-alert.form.create.success": "Il messaggio di servizio è stato creato con successo",
 
   // "system-wide-alert.form.create.error": "Something went wrong when creating the system-wide alert",
-  "system-wide-alert.form.create.error": "Qualcosa è andato storto nella creazione dell'allarme di sistema",
+  "system-wide-alert.form.create.error": "Qualcosa è andato storto nella creazione del messaggio di servizio",
 
   // "admin.system-wide-alert.breadcrumbs": "System-wide Alerts",
-  "admin.system-wide-alert.breadcrumbs": "Allarmi di sistema",
+  "admin.system-wide-alert.breadcrumbs": "Messaggi di servizio",
 
   // "admin.system-wide-alert.title": "System-wide Alerts",
-  "admin.system-wide-alert.title": "Allarmi di sistema",
+  "admin.system-wide-alert.title": "Messaggi di servizio",
 
   // "discover.filters.head": "Discover",
   // TODO New key - Add a translation
