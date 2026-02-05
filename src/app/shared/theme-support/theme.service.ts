@@ -3,6 +3,7 @@ import {
   Inject,
   Injectable,
   Injector,
+  Optional,
 } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
@@ -62,6 +63,7 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
+import { HashedFileMapping } from '../../../modules/dynamic-hash/hashed-file-mapping';
 import { GET_THEME_CONFIG_FOR_FACTORY } from '../object-collection/shared/listable-object/listable-object.decorator';
 import {
   SetThemeAction,
@@ -106,6 +108,7 @@ export class ThemeService {
     private router: Router,
     @Inject(DOCUMENT) private document: any,
     @Inject(APP_CONFIG) private appConfig: BuildConfig,
+    @Optional() private hashedFileMapping: HashedFileMapping,
   ) {
     // Create objects from the theme configs in the environment file
     this.themes = environment.themes.map((themeConfig: ThemeConfig) => themeFactory(themeConfig, injector));
@@ -228,10 +231,14 @@ export class ThemeService {
     // automatically updated if we add nodes later
     const currentThemeLinks = Array.from(head.getElementsByClassName('theme-css'));
     const link = this.document.createElement('link');
+    const themeCSS = `${encodeURIComponent(themeName)}-theme.css`;
     link.setAttribute('rel', 'stylesheet');
     link.setAttribute('type', 'text/css');
     link.setAttribute('class', 'theme-css');
-    link.setAttribute('href', `${encodeURIComponent(themeName)}-theme.css`);
+    link.setAttribute(
+      'href',
+      this.hashedFileMapping?.resolve(themeCSS) ?? themeCSS,
+    );
     // wait for the new css to download before removing the old one to prevent a
     // flash of unstyled content
     link.onload = () => {

@@ -90,6 +90,9 @@ cache:
   # NOTE: When updates are made to compiled *.js files, it will automatically bypass this browser cache, because
   # all compiled *.js files include a unique hash in their name which updates when content is modified.
   control: max-age=604800 # revalidate browser
+  # These static files should not be cached (paths relative to dist/browser, including the leading slash)
+  noCacheFiles:
+    - '/index.html'
   autoSync:
     defaultTime: 0
     maxBufferSize: 100
