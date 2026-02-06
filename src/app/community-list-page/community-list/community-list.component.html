@@ -12,7 +12,7 @@
       <div class="align-middle my-auto">
         @if ((dataSource.loading$ | async) !== true) {
           <button (click)="getNextPage(node)"
-            class="btn btn-outline-primary btn-sm" role="button" tabindex="0">
+            class="btn btn-outline-primary btn-sm" role="button" tabindex="0" data-test="show-more-button">
             <i class="fas fa-angle-down"></i> {{ 'communityList.showMore' | translate }}
           </button>
         }
