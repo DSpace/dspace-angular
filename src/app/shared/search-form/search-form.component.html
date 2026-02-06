@@ -9,7 +9,12 @@
           {{dsoNameService.getName(selectedScope | async) || ('search.form.scope.all' | translate)}}
         </button>
       }
-      <input type="text" [(ngModel)]="query" name="query" class="form-control"
+    <div class="checkbox-wrapper-8">
+      <input class="tgl" id="cb3-8" name="expert" type="checkbox" [(ngModel)]="expert"/>
+      <label class="tgl-btn" [attr.data-tg-off]="('search.form.expert_off' | translate )" 
+        [attr.data-tg-on]="('search.form.expert_on' | translate )" for="cb3-8"></label>
+    </div>
+    <input type="text" [(ngModel)]="query" name="query" class="form-control"
         [attr.aria-label]="searchPlaceholder" [attr.data-test]="'search-box' | dsBrowserOnly"
         [placeholder]="searchPlaceholder" tabindex="0">
       <button type="submit" class="search-button btn btn-{{brandColor}}" [attr.data-test]="'search-button' | dsBrowserOnly" role="button" tabindex="0"><i class="fas fa-search"></i> {{ ('search.form.search' | translate) }}</button>

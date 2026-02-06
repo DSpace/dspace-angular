@@ -4940,6 +4940,10 @@
 
   "search.form.search": "Search",
 
+  "search.form.expert_on": "Expert",
+
+  "search.form.expert_off": "Simple",
+
   "search.form.search_dspace": "All repository",
 
   "search.form.scope.all": "All of DSpace",
