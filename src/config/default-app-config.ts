@@ -254,6 +254,7 @@ export class DefaultAppConfig implements AppConfig {
         ],
       },
     },
+    showErrorStrategy: 'onblur',
   };
 
   // Fallback language in which the UI will be rendered if the user's browser language is not an active language
