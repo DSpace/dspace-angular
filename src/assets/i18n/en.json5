@@ -7291,4 +7291,12 @@
   "item.preview.organization.address.addressLocality": "City",
 
   "item.preview.organization.alternateName": "Alternative name",
+
+  "media-viewer.pdf.files": "Files",
+
+  "media-viewer.pdf.browser-not-support": "Your browser does not support the PDF viewer.",
+
+  "media-viewer.pdf.download": "Download the PDF",
+
+  "media-viewer.loading": "Loading",
 }

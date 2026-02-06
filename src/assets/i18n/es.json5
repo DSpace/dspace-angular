@@ -10975,5 +10975,12 @@
   // TODO New key - Add a translation
   "file-download-link.request-copy": "Request a copy of ",
 
+  "media-viewer.pdf.files": "Archivos",
+
+  "media-viewer.pdf.browser-not-support": "Tu navegador no es compatible con el visor de PDF.",
+
+  "media-viewer.pdf.download": "Descargar el PDF",
+
+  "media-viewer.loading": "Cargando",
 
 }
