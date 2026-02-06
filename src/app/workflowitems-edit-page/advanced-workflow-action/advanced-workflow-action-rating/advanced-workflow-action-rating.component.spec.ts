@@ -38,11 +38,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
+import { ClaimedTaskType } from '../../../shared/mydspace-actions/claimed-task/claimed-task-type';
 import { VarDirective } from '../../../shared/utils/var.directive';
-import {
-  ADVANCED_WORKFLOW_TASK_OPTION_RATING,
-  AdvancedWorkflowActionRatingComponent,
-} from './advanced-workflow-action-rating.component';
+import { AdvancedWorkflowActionRatingComponent } from './advanced-workflow-action-rating.component';
 
 const claimedTaskId = '2';
 const workflowId = '1';
@@ -139,7 +137,7 @@ describe('AdvancedWorkflowActionRatingComponent', () => {
         component.performAction();
 
         expect(claimedTaskDataService.submitTask).toHaveBeenCalledWith(claimedTaskId, {
-          [ADVANCED_WORKFLOW_TASK_OPTION_RATING]: true,
+          [ClaimedTaskType.ADVANCED_WORKFLOW_TASK_OPTION_RATING]: true,
           review: 'Good job!',
           score: 4,
         });
@@ -178,7 +176,7 @@ describe('AdvancedWorkflowActionRatingComponent', () => {
         component.performAction();
 
         expect(claimedTaskDataService.submitTask).toHaveBeenCalledWith(claimedTaskId, {
-          [ADVANCED_WORKFLOW_TASK_OPTION_RATING]: true,
+          [ClaimedTaskType.ADVANCED_WORKFLOW_TASK_OPTION_RATING]: true,
           review: 'Good job!',
           score: 4,
         });
@@ -196,7 +194,7 @@ describe('AdvancedWorkflowActionRatingComponent', () => {
         component.performAction();
 
         expect(claimedTaskDataService.submitTask).toHaveBeenCalledWith(claimedTaskId, {
-          [ADVANCED_WORKFLOW_TASK_OPTION_RATING]: true,
+          [ClaimedTaskType.ADVANCED_WORKFLOW_TASK_OPTION_RATING]: true,
           score: 4,
         });
         expect(notificationService.success).toHaveBeenCalled();

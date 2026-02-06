@@ -1,5 +1,6 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { dataService } from '@dspace/core/cache/builders/build-decorators';
 import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import { Observable } from 'rxjs';
 import {
@@ -32,11 +33,13 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NoContent } from '../shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../shared/operators';
 import { SupervisionOrder } from './models/supervision-order.model';
+import { SUPERVISION_ORDER } from './models/supervision-order.resource-type';
 
 /**
  * A service responsible for fetching/sending data from/to the REST API on the supervisionorders endpoint
  */
 @Injectable({ providedIn: 'root' })
+@dataService(SUPERVISION_ORDER)
 export class SupervisionOrderDataService extends IdentifiableDataService<SupervisionOrder> {
   protected searchByGroupMethod = 'group';
   protected searchByItemMethod = 'byItem';

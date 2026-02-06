@@ -29,6 +29,7 @@ import {
 import { map } from 'rxjs/operators';
 
 import { VocabularyTreeviewComponent } from '../../shared/form/vocabulary-treeview/vocabulary-treeview.component';
+import { rendersBrowseBy } from '../browse-by-switcher/browse-by-decorator';
 
 @Component({
   selector: 'ds-browse-by-taxonomy',
@@ -43,6 +44,7 @@ import { VocabularyTreeviewComponent } from '../../shared/form/vocabulary-treevi
 /**
  * Component for browsing items by metadata in a hierarchical controlled vocabulary
  */
+@rendersBrowseBy(BrowseByDataType.Hierarchy)
 export class BrowseByTaxonomyComponent implements OnInit, OnChanges, OnDestroy {
 
   /**

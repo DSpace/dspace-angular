@@ -20,6 +20,7 @@ import {
 import { FilterVocabularyConfig } from '@dspace/config/filter-vocabulary-config';
 import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
 import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { FilterType } from '@dspace/core/shared/search/models/filter-type.model';
 import { VocabularyEntryDetail } from '@dspace/core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
 import { hasValue } from '@dspace/shared/utils/empty.util';
@@ -52,6 +53,7 @@ import {
 } from '../search-facet-filter/search-facet-filter.component';
 import { SearchFacetOptionComponent } from '../search-facet-filter-options/search-facet-option/search-facet-option.component';
 import { SearchFacetSelectedOptionComponent } from '../search-facet-filter-options/search-facet-selected-option/search-facet-selected-option.component';
+import { renderFacetFor } from '../search-filter-type-decorator';
 
 @Component({
   selector: 'ds-search-hierarchy-filter',
@@ -72,6 +74,7 @@ import { SearchFacetSelectedOptionComponent } from '../search-facet-filter-optio
 /**
  * Component that represents a hierarchy facet for a specific filter configuration
  */
+@renderFacetFor(FilterType.hierarchy)
 export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent implements OnDestroy, OnInit {
 
   constructor(protected searchService: SearchService,

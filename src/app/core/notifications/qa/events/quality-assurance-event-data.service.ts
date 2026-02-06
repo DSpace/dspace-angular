@@ -45,14 +45,17 @@ import {
   take,
 } from 'rxjs/operators';
 
+import { dataService } from '../../../cache/builders/build-decorators';
 import { NotificationsService } from '../../../notification-system/notifications.service';
 import { QualityAssuranceEventObject } from '../models/quality-assurance-event.model';
 import { QualityAssuranceEventData } from '../models/quality-assurance-event-data.model';
+import { QUALITY_ASSURANCE_EVENT_OBJECT } from '../models/quality-assurance-event-object.resource-type';
 
 /**
  * The service handling all Quality Assurance topic REST requests.
  */
 @Injectable({ providedIn: 'root' })
+@dataService(QUALITY_ASSURANCE_EVENT_OBJECT)
 export class QualityAssuranceEventDataService extends IdentifiableDataService<QualityAssuranceEventObject> {
 
   private createData: CreateData<QualityAssuranceEventObject>;

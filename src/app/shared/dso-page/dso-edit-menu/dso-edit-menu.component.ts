@@ -1,18 +1,9 @@
-import {
-  AsyncPipe,
-  NgComponentOutlet,
-} from '@angular/common';
-import {
-  Component,
-  Injector,
-} from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { AsyncPipe } from '@angular/common';
+import { Component } from '@angular/core';
 
 import { MenuComponent } from '../../menu/menu.component';
-import { MenuService } from '../../menu/menu.service';
+import { MenuComponentLoaderComponent } from '../../menu/menu-component-loader/menu-component-loader.component';
 import { MenuID } from '../../menu/menu-id.model';
-import { ThemeService } from '../../theme-support/theme.service';
 
 /**
  * Component representing the edit menu and other menus on the dspace object pages
@@ -23,7 +14,7 @@ import { ThemeService } from '../../theme-support/theme.service';
   templateUrl: './dso-edit-menu.component.html',
   imports: [
     AsyncPipe,
-    NgComponentOutlet,
+    MenuComponentLoaderComponent,
   ],
 })
 export class DsoEditMenuComponent extends MenuComponent {
@@ -32,15 +23,5 @@ export class DsoEditMenuComponent extends MenuComponent {
    * @type {MenuID.DSO_EDIT}
    */
   menuID = MenuID.DSO_EDIT;
-
-
-  constructor(protected menuService: MenuService,
-              protected injector: Injector,
-              public authorizationService: AuthorizationDataService,
-              public route: ActivatedRoute,
-              protected themeService: ThemeService,
-  ) {
-    super(menuService, injector, authorizationService, route, themeService);
-  }
 
 }

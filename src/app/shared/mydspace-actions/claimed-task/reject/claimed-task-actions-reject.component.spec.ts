@@ -191,8 +191,8 @@ describe('ClaimedTaskActionsRejectComponent', () => {
 
   describe('convertReloadedObject', () => {
 
-    it('should return a ClaimedDeclinedTaskSearchResult instance', () => {
-      const reloadedObject = component.convertReloadedObject(component.object);
+    it('should return a ClaimedDeclinedTaskSearchResult instance', async () => {
+      const reloadedObject = await component.convertReloadedObject(component.object);
       expect(reloadedObject instanceof ClaimedDeclinedTaskSearchResult).toEqual(true);
     });
   });

@@ -1,11 +1,12 @@
-/* eslint-disable max-classes-per-file */
 import {
   Injectable,
   OnDestroy,
 } from '@angular/core';
 import { Duplicate } from '@dspace/core/shared/duplicate-data/duplicate.model';
+import { DUPLICATE } from '@dspace/core/shared/duplicate-data/duplicate.resource-type';
 import { Observable } from 'rxjs';
 
+import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -36,6 +37,7 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
  *
  */
 @Injectable({ providedIn: 'root' })
+@dataService(DUPLICATE)
 export class SubmissionDuplicateDataService extends BaseDataService<Duplicate>
   implements SearchData<Duplicate>, OnDestroy {
 

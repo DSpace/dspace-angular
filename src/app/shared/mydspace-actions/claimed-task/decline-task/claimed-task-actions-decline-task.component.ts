@@ -22,8 +22,8 @@ import {
 import { BtnDisabledDirective } from '../../../btn-disabled.directive';
 import { SearchService } from '../../../search/search.service';
 import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
-
-export const WORKFLOW_TASK_OPTION_DECLINE_TASK = 'submit_decline_task';
+import { ClaimedTaskType } from '../claimed-task-type';
+import { rendersWorkflowTaskOption } from '../switcher/claimed-task-actions-decorator';
 
 @Component({
   selector: 'ds-claimed-task-actions-decline-task',
@@ -39,6 +39,7 @@ export const WORKFLOW_TASK_OPTION_DECLINE_TASK = 'submit_decline_task';
 /**
  * Component for displaying and processing the decline task action on a workflow task item
  */
+@rendersWorkflowTaskOption(ClaimedTaskType.WORKFLOW_TASK_OPTION_DECLINE_TASK)
 export class ClaimedTaskActionsDeclineTaskComponent extends ClaimedTaskActionsAbstractComponent {
 
   constructor(protected injector: Injector,
@@ -54,7 +55,7 @@ export class ClaimedTaskActionsDeclineTaskComponent extends ClaimedTaskActionsAb
     return of(this.object);
   }
 
-  convertReloadedObject(dso: DSpaceObject): DSpaceObject {
+  async convertReloadedObject(dso: DSpaceObject): Promise<DSpaceObject> {
     return Object.assign(new ClaimedDeclinedTaskTaskSearchResult(), dso, {
       indexableObject: dso,
     });

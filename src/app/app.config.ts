@@ -62,17 +62,7 @@ import {
   APP_ROUTING_CONF,
   APP_ROUTING_SCROLL_CONF,
 } from './app-routes';
-import { BROWSE_BY_DECORATOR_MAP } from './browse-by/browse-by-switcher/browse-by-decorator';
-import { LOGIN_METHOD_FOR_DECORATOR_MAP } from './external-log-in/decorators/external-log-in.methods-decorator';
 import { RootModule } from './root.module';
-import { ListableModule } from './shared/listable.module';
-import { AUTH_METHOD_FOR_DECORATOR_MAP } from './shared/log-in/methods/log-in.methods-decorator';
-import { METADATA_REPRESENTATION_COMPONENT_DECORATOR_MAP } from './shared/metadata-representation/metadata-representation.decorator';
-import {
-  ADVANCED_WORKFLOW_TASK_OPTION_DECORATOR_MAP,
-  WORKFLOW_TASK_OPTION_DECORATOR_MAP,
-} from './shared/mydspace-actions/claimed-task/switcher/claimed-task-actions-decorator';
-import { STARTS_WITH_DECORATOR_MAP } from './shared/starts-with/starts-with-decorator';
 
 export function getConfig() {
   return environment;
@@ -99,7 +89,6 @@ export const commonAppConfig: ApplicationConfig = {
       StoreRouterConnectingModule.forRoot(),
       StoreDevModules,
       RootModule,
-      ListableModule.withEntryComponents(),
     ),
     provideRouter(
       APP_ROUTES,
@@ -166,10 +155,3 @@ export const commonAppConfig: ApplicationConfig = {
 
 /* Use models object so all decorators are actually called */
 const modelList = models;
-const loginMethodForDecoratorMap = LOGIN_METHOD_FOR_DECORATOR_MAP;
-const workflowTasks = WORKFLOW_TASK_OPTION_DECORATOR_MAP;
-const advancedWorfklowTasks = ADVANCED_WORKFLOW_TASK_OPTION_DECORATOR_MAP;
-const metadataRepresentations = METADATA_REPRESENTATION_COMPONENT_DECORATOR_MAP;
-const startsWithDecoratorMap = STARTS_WITH_DECORATOR_MAP;
-const browseByDecoratorMap = BROWSE_BY_DECORATOR_MAP;
-const authMethodForDecoratorMap = AUTH_METHOD_FOR_DECORATOR_MAP;

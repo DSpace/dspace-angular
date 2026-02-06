@@ -3,7 +3,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   Injector,
-  NO_ERRORS_SCHEMA,
 } from '@angular/core';
 import {
   ComponentFixture,
@@ -13,8 +12,10 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ActivatedRoute } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
+import {
+  ActivatedRoute,
+  RouterModule,
+} from '@angular/router';
 import { authReducer } from '@dspace/core/auth/auth.reducer';
 import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
 import { Item } from '@dspace/core/shared/item.model';
@@ -28,10 +29,8 @@ import {
   provideMockStore,
 } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  BehaviorSubject,
-  of,
-} from 'rxjs';
+import { cold } from 'jasmine-marbles';
+import { of } from 'rxjs';
 
 import {
   AppState,
@@ -73,7 +72,6 @@ describe('MenuComponent', () => {
   let fixture: ComponentFixture<MenuComponent>;
   let menuService: MenuService;
   let store: MockStore;
-  let router: any;
 
   const menuSection: MenuSection =       {
     id: 'browse',
@@ -84,8 +82,6 @@ describe('MenuComponent', () => {
     icon: 'globe',
     visible: true,
   };
-
-  const mockStatisticSection = { 'id': 'statistics_site', 'active': true, 'visible': true, 'index': 2, 'type': 'statistics', 'model': { 'type': 1, 'text': 'menu.section.statistics', 'link': 'statistics' } };
 
   let authorizationService: AuthorizationDataService;
 
@@ -109,6 +105,31 @@ describe('MenuComponent', () => {
     children: [],
   };
 
+  const parentSection: MenuSection = {
+    id: 'section1',
+    active: false,
+    visible: true,
+    alwaysRenderExpandable: false,
+    model: {
+      type: MenuItemType.LINK,
+      text: 'test',
+      link: '/test',
+    } as LinkMenuItemModel,
+  };
+
+  const childSection: MenuSection = {
+    id: 'test',
+    parentID: 'section1',
+    active: false,
+    visible: true,
+    alwaysRenderExpandable: false,
+    model: {
+      type: MenuItemType.LINK,
+      text: 'test',
+      link: '/test',
+    } as LinkMenuItemModel,
+  };
+
   const initialState = {
     menus: {
       [mockMenuID]: {
@@ -119,17 +140,7 @@ describe('MenuComponent', () => {
           section1: [],
         },
         sections: {
-          section1: {
-            id: 'section1',
-            active: false,
-            visible: true,
-            alwaysRenderExpandable: false,
-            model: {
-              type: MenuItemType.LINK,
-              text: 'test',
-              link: '/test',
-            } as LinkMenuItemModel,
-          },
+          section1: parentSection,
         },
         visible: true,
       },
@@ -143,7 +154,15 @@ describe('MenuComponent', () => {
     });
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), NoopAnimationsModule, RouterTestingModule, MenuComponent, StoreModule.forRoot(authReducer, storeModuleConfig), TestExpandableMenuComponent, TestMenuComponent],
+      imports: [
+        TranslateModule.forRoot(),
+        NoopAnimationsModule,
+        RouterModule.forRoot([]),
+        MenuComponent,
+        StoreModule.forRoot(authReducer, storeModuleConfig),
+        TestExpandableMenuComponent,
+        TestMenuComponent,
+      ],
       providers: [
         Injector,
         { provide: ThemeService, useValue: getMockThemeService() },
@@ -152,7 +171,6 @@ describe('MenuComponent', () => {
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: ActivatedRoute, useValue: routeStub },
       ],
-      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(MenuComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
@@ -160,19 +178,18 @@ describe('MenuComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(MenuComponent);
-    comp = fixture.componentInstance; // SearchPageComponent test instance
+    comp = fixture.componentInstance;
     comp.menuID = mockMenuID;
     menuService = TestBed.inject(MenuService);
     store = TestBed.inject(Store) as MockStore<AppState>;
-    spyOn(comp as any, 'getSectionDataInjector').and.returnValue(menuSection);
+    jasmine.getEnv().allowRespy(true);
+    spyOn(comp, 'getSectionComponent').withArgs(parentSection).and.returnValue(of(TestMenuComponent));
+    spyOn(comp, 'getSectionComponent').withArgs(childSection).and.returnValue(of(TestExpandableMenuComponent));
     fixture.detectChanges();
   });
 
   describe('ngOnInit', () => {
     it('should trigger the section observable again when a new sub section has been added', () => {
-      spyOn(comp.sectionMap$, 'next').and.callThrough();
-      const hasSubSections = new BehaviorSubject(false);
-      spyOn(menuService, 'hasSubSections').and.returnValue(hasSubSections.asObservable());
       spyOn(store, 'dispatch').and.callThrough();
 
       store.setState({
@@ -185,38 +202,22 @@ describe('MenuComponent', () => {
               section1: ['test'],
             },
             sections: {
-              section1: {
-                id: 'section1',
-                active: false,
-                visible: true,
-                alwaysRenderExpandable: false,
-                model: {
-                  type: MenuItemType.LINK,
-                  text: 'test',
-                  link: '/test',
-                } as LinkMenuItemModel,
-              },
-              test: {
-                id: 'test',
-                parentID: 'section1',
-                active: false,
-                visible: true,
-                alwaysRenderExpandable: false,
-                model: {
-                  type: MenuItemType.LINK,
-                  text: 'test',
-                  link: '/test',
-                } as LinkMenuItemModel,
-              },
+              section1: parentSection,
+              test: childSection,
             },
             visible: true,
           },
         },
       });
-      expect(menuService.hasSubSections).toHaveBeenCalled();
-      hasSubSections.next(true);
 
-      expect(comp.sectionMap$.next).toHaveBeenCalled();
+      expect(comp.sectionDTOs$).toBeObservable(cold('a', {
+        a: [
+          {
+            menuSection: parentSection,
+            hasSubSections: true,
+          },
+        ],
+      }));
     });
   });
 

@@ -1,8 +1,5 @@
 // eslint-disable-next-line max-classes-per-file
-import {
-  Component,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
+import { Component } from '@angular/core';
 import {
   ComponentFixture,
   TestBed,
@@ -29,16 +26,15 @@ class BrowseByTestComponent {
 }
 
 @Component({
-  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'ds-browse-by-switcher',
-  template: `<ng-template #DynamicComponentLoader dsDynamicComponentLoader></ng-template>`,
+  templateUrl: '../../../abstract-component-loader/abstract-component-loader.component.html',
   imports: [
     DynamicComponentLoaderDirective,
   ],
 })
 class TestBrowseBySwitcherComponent extends BrowseBySwitcherComponent {
-  getComponent(): GenericConstructor<Component> {
-    return BrowseByTestComponent;
+  getComponent(): Promise<GenericConstructor<Component>> {
+    return Promise.resolve(BrowseByTestComponent);
   }
 }
 class TestBrowseByPageBrowseDefinition extends BrowseDefinition {
@@ -65,7 +61,6 @@ describe('ComcolBrowseByComponent', () => {
         { provide: ActivatedRoute, useValue: activatedRoute },
         { provide: ThemeService, useValue: themeService },
       ],
-      schemas: [NO_ERRORS_SCHEMA],
     })
       .overrideComponent(ComcolBrowseByComponent, {
         remove: {
@@ -81,12 +76,13 @@ describe('ComcolBrowseByComponent', () => {
     component = fixture.componentInstance;
   });
 
-  it('should create the correct browse section based on the route browseDefinition', () => {
+  it('should create the correct browse section based on the route browseDefinition', async () => {
     activatedRoute.testData = {
       browseDefinition: new TestBrowseByPageBrowseDefinition(),
     };
 
     fixture.detectChanges();
+    await fixture.whenStable();
 
     expect(component).toBeTruthy();
     expect(fixture.debugElement.query(By.css('#ComcolBrowseByComponent'))).not.toBeNull();

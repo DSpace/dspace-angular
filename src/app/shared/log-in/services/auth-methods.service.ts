@@ -11,8 +11,8 @@ import uniqBy from 'lodash/uniqBy';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { AuthMethodTypeComponent } from '../methods/auth-methods.type';
-import { rendersAuthMethodType } from '../methods/log-in.methods-decorator.utils';
+import { ThemeService } from '../../theme-support/theme.service';
+import { getAuthMethodFor } from '../methods/log-in.methods-decorator';
 
 @Injectable({
   providedIn: 'root',
@@ -22,26 +22,25 @@ import { rendersAuthMethodType } from '../methods/log-in.methods-decorator.utils
  * Provides methods to retrieve and process authentication methods from the application store.
  */
 export class AuthMethodsService {
-  constructor(protected store: Store<CoreState>) {
+  constructor(
+    protected store: Store<CoreState>,
+    protected themeService: ThemeService,
+  ) {
   }
 
   /**
    * Retrieves and processes authentication methods from the store.
    *
-   * @param authMethods A map of authentication method types to their corresponding components
    * @param excludedAuthMethod Optional authentication method type to exclude from the results
    * @returns An Observable of filtered and sorted authentication methods
    */
-  public getAuthMethods(
-    authMethods: Map<AuthMethodType, AuthMethodTypeComponent>,
-    excludedAuthMethod?: AuthMethodType,
-  ): Observable<AuthMethod[]> {
+  public getAuthMethods(excludedAuthMethod?: AuthMethodType): Observable<AuthMethod[]> {
     return this.store.pipe(
       select(getAuthenticationMethods),
       map((methods: AuthMethod[]) => methods
         // ignore the given auth method if it should be excluded
         .filter((authMethod: AuthMethod) => excludedAuthMethod == null || authMethod.authMethodType !== excludedAuthMethod)
-        .filter((authMethod: AuthMethod) => rendersAuthMethodType(authMethods, authMethod.authMethodType) !== undefined)
+        .filter((authMethod: AuthMethod) => getAuthMethodFor(authMethod.authMethodType, this.themeService.getThemeName()) !== undefined)
         .sort((method1: AuthMethod, method2: AuthMethod) => method1.position - method2.position),
       ),
       // ignore the ip authentication method when it's returned by the backend

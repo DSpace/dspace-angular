@@ -8,6 +8,7 @@ import {
   map,
 } from 'rxjs/operators';
 
+import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { FollowLinkConfig } from '../shared/follow-link-config.model';
@@ -17,11 +18,13 @@ import { BaseDataService } from './base/base-data.service';
 import { RemoteData } from './remote-data';
 import { RequestService } from './request.service';
 import { Root } from './root.model';
+import { ROOT } from './root.resource-type';
 
 /**
  * A service to retrieve the {@link Root} object from the REST API.
  */
 @Injectable({ providedIn: 'root' })
+@dataService(ROOT)
 export class RootDataService extends BaseDataService<Root> {
   constructor(
     protected requestService: RequestService,

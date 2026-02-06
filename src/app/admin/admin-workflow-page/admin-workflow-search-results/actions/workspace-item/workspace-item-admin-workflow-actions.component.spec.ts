@@ -1,6 +1,8 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
   ComponentFixture,
+  fakeAsync,
+  flush,
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
@@ -106,12 +108,13 @@ describe('WorkspaceItemAdminWorkflowActionsComponent', () => {
         supervisionOrderDataService.delete.and.returnValue(of(true));
       });
 
-      it('should notify success', () => {
+      it('should notify success', fakeAsync(() => {
         component.deleteSupervisionOrder(supervisionOrderEntryMock);
+        flush();
         expect((component as any).modalService.open).toHaveBeenCalledWith(ConfirmationModalComponent);
         expect(notificationService.success).toHaveBeenCalled();
         expect(component.delete.emit).toHaveBeenCalled();
-      });
+      }));
 
     });
 
@@ -141,14 +144,15 @@ describe('WorkspaceItemAdminWorkflowActionsComponent', () => {
       });
     });
 
-    it('should emit create event properly', () => {
+    it('should emit create event properly', fakeAsync(() => {
       component.openSupervisionModal();
+      flush();
       expect((component as any).modalService.open).toHaveBeenCalledWith(SupervisionOrderGroupSelectorComponent, {
         size: 'lg',
         backdrop: 'static',
       });
       expect(component.create.emit).toHaveBeenCalled();
-    });
+    }));
   });
 
 
