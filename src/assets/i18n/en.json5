@@ -5722,6 +5722,8 @@
 
   "submission.sections.upload.undo": "Cancel",
 
+  "submission.sections.upload.metadata-pending": "Upload successful. There are required fields for the file. Scroll to the \"Upload files\" section to view and edit uploaded files.",
+
   "submission.sections.upload.upload-failed": "Upload failed",
 
   "submission.sections.upload.upload-successful": "Upload successful",
