@@ -21,6 +21,7 @@ import { PageInfo } from '@dspace/core/shared/page-info.model';
 import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
 import { VocabularyEntryDetail } from '@dspace/core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
+import { routeServiceStub } from '@dspace/core/testing/route-service.stub';
 import { RouterStub } from '@dspace/core/testing/router.stub';
 import { SearchConfigurationServiceStub } from '@dspace/core/testing/search-configuration-service.stub';
 import { SearchServiceStub } from '@dspace/core/testing/search-service.stub';
@@ -35,6 +36,7 @@ import {
 } from 'rxjs';
 
 import { environment } from '../../../../../../environments/environment.test';
+import { RouteService } from '../../../../../core/services/route.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { SearchService } from '../../../search.service';
 import { SearchFilterService } from '../../search-filter.service';
@@ -89,6 +91,7 @@ describe('SearchHierarchyFilterComponent', () => {
         { provide: VocabularyService, useValue: vocabularyService },
         { provide: APP_CONFIG, useValue: environment },
         { provide: SEARCH_CONFIG_SERVICE, useValue: searchConfigService },
+        { provide: RouteService, useValue: routeServiceStub },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
@@ -100,6 +103,7 @@ describe('SearchHierarchyFilterComponent', () => {
     comp.inPlaceSearch = false;
     comp.filterConfig = Object.assign(new SearchFilterConfig(), { name: testSearchFilter });
     comp.refreshFilters = new BehaviorSubject<boolean>(false);
+    comp.retainScrollPosition = true;
     fixture.detectChanges();
     showVocabularyTreeLink = fixture.debugElement.query(By.css(`a#show-${testSearchFilter}-tree`));
   }
@@ -151,12 +155,14 @@ describe('SearchHierarchyFilterComponent', () => {
           expect(modalService.open).toHaveBeenCalled();
           tick();
           expect(searchConfigService.selectNewAppliedFilterParams).toHaveBeenCalled();
-          expect(router.navigate).toHaveBeenCalledWith(['/search'], {
-            queryParams: {
+          expect(router.navigate).toHaveBeenCalledWith(['', 'search'], {
+            queryParams: jasmine.objectContaining({
               [`f.${testSearchFilter}`]: [
                 'definedBy_selectNewAppliedFilterParams',
               ],
-            },
+            }),
+            queryParamsHandling: 'merge',
+            fragment: 'prevent-scroll',
           });
         }));
       });

@@ -46,6 +46,9 @@ export class PageWithSidebarComponent implements OnInit {
   @Input()
   sideBarWidth = 3;
 
+  @Input()
+  retainScrollPosition = false;
+
   /**
    * Observable for whether or not the sidebar is currently collapsed
    */

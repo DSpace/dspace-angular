@@ -13,6 +13,7 @@ import { RequestParam } from '@dspace/core/cache/models/request-param.model';
 import { ExternalSourceDataService } from '@dspace/core/data/external-source-data.service';
 import { FindListOptions } from '@dspace/core/data/find-list-options.model';
 import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
 import { Context } from '@dspace/core/shared/context.model';
 import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import { ExternalSource } from '@dspace/core/shared/external-source.model';
@@ -217,6 +218,7 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
     private zone: NgZone,
     private store: Store<AppState>,
     private router: Router,
+    protected paginationService: PaginationService,
   ) {
 
   }
@@ -365,7 +367,10 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
   }
 
   ngOnDestroy() {
-    this.router.navigate([], {});
+    this.paginationService.clearPagination(this.searchConfigService.paginationID);
+    this.paginationService.updateRoute(this.searchConfigService.paginationID, undefined, undefined, true, {
+      queryParamsHandling: '',
+    });
     Object.values(this.subMap).forEach((subscription) => subscription.unsubscribe());
   }
 
