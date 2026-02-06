@@ -237,11 +237,6 @@ submission:
         - value: default
           style: text-muted
           icon: fa-circle-xmark
-  # If set to true avoid setting placeholder for simple fields, where the placeholder would be the same as the label.
-  # The default is set to true as placeholders that do not provide additional information to the field are to be avoided as they could cause accessibility issue.
-  # More info on the topic can be found at https://www.deque.com/blog/accessible-forms-the-problem-with-placeholders/
-  omitSimpleFieldPlaceholders:
-
 
 #  Fallback language in which the UI will be rendered if the user's browser language is not an active language
 fallbackLanguage: en
