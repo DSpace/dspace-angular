@@ -10,6 +10,7 @@ import {
   find,
   map,
   take,
+  tap,
 } from 'rxjs/operators';
 
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
@@ -277,10 +278,10 @@ export class EPersonDataService extends IdentifiableDataService<EPerson> impleme
   /**
    * Method that clears a cached EPerson request
    */
-  public clearEPersonRequests(): void {
-    this.getBrowseEndpoint().pipe(take(1)).subscribe((link: string) => {
-      this.requestService.removeByHrefSubstring(link);
-    });
+  public clearEPersonRequests(): Observable<string> {
+    return this.getBrowseEndpoint().pipe(
+      tap((href: string) => this.requestService.setStaleByHrefSubstring(href)),
+    );
   }
 
   /**
