@@ -75,6 +75,10 @@ export const environment: BuildConfig = {
     },
     // msToLive: 1000, // 15 minutes
     control: 'max-age=60',
+    // These static files should not be cached (paths relative to dist/browser, including the leading slash)
+    noCacheFiles: [
+      '/index.html',  // see https://web.dev/articles/http-cache#unversioned-urls
+    ],
     autoSync: {
       defaultTime: 0,
       maxBufferSize: 100,
