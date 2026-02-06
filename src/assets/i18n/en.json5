@@ -7170,6 +7170,10 @@
 
   "forgot-email.form.aria.label": "Enter your e-mail address",
 
+  "community.form.thumbnail": "Thumbnail Description",
+
+  "collection.form.thumbnail": "Thumbnail Description",
+
   "search-facet-option.update.announcement": "The page will be reloaded. Filter {{ filter }} is selected.",
 
   "live-region.ordering.instructions": "Press spacebar to reorder {{ itemName }}.",
