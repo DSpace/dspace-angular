@@ -2,9 +2,10 @@
   <fieldset class="d-flex justify-content-start flex-wrap gap-2">
     @if (!model.repeatable) {
       <legend [id]="'legend_' + model.id" [ngClass]="[getClass('element', 'label'), getClass('grid', 'label')]">
-        {{model.label}} @if (model.required) {
-        <span>*</span>
-      }
+        {{model.label}}
+        @if (model.required) {
+          <span>*</span>
+        }
     </legend>
   }
   <ds-number-picker
