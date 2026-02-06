@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import {
   ActivatedRoute,
-  ParamMap,
+  Data,
   Router,
   RouterLink,
 } from '@angular/router';
@@ -111,9 +111,8 @@ export class ObjectAuditLogsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.objectId$ = this.route.paramMap.pipe(
-      map((paramMap: ParamMap) => paramMap.get('id')),
-      switchMap((id: string) => this.dSpaceObjectDataService.findById(id, true, true)),
+    this.objectId$ = this.route.data.pipe(
+      switchMap((data: Data) => this.dSpaceObjectDataService.findById(data.dso.payload.id, true, true)),
       getFirstSucceededRemoteDataPayload(),
       tap((object) => {
         this.objectRoute = getDSORoute(object);

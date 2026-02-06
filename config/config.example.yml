@@ -10,10 +10,13 @@ ui:
   port: 4000
   # NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
   nameSpace: /
-  # The rateLimiter settings limit each IP to a 'max' of 500 requests per 'windowMs' (1 minute).
+  # The rateLimiter settings limit each IP to a 'limit' of 500 requests per 'windowMs' (1 minute).
   rateLimiter:
     windowMs: 60000 # 1 minute
-    max: 500 # limit each IP to 500 requests per windowMs
+    limit: 500 # limit each IP to 500 requests per windowMs
+    # IPv6 subnet mask applied to IPv6 addresses.
+    # See: https://express-rate-limit.mintlify.app/reference/configuration#ipv6subnet
+    ipv6Subnet: 56
   # Trust X-FORWARDED-* headers from proxies (default = true)
   useProxies: true
 
@@ -301,11 +304,17 @@ languages:
   - code: lv
     label: Latviešu
     active: true
+  - code: ml
+    label: മലയാളം
+    active: true
   - code: mr
     label: मराठी
     active: true
   - code: nl
     label: Nederlands
+    active: true
+  - code: od
+    label: ଓଡିଆ
     active: true
   - code: pl
     label: Polski
@@ -327,6 +336,9 @@ languages:
     active: true
   - code: sv
     label: Svenska
+    active: true
+  - code: te
+    label: తెలుగు
     active: true
   - code: ta
     label: தமிழ்

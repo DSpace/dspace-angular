@@ -1987,7 +1987,7 @@
 
   "error.validation.custom-url.empty": "The custom url is required and cannot be empty.",
 
-  "error.validation.custom-url.invalid-characters": "The custom url contains invalid characters.",
+  "error.validation.custom-url.invalid-characters": "The custom url contains invalid characters. Only alphanumeric characters, dashes and underscores are supported.",
 
   "error.validation.pattern": "This input is restricted by the current pattern: {{ pattern }}.",
 
@@ -2194,6 +2194,12 @@
   "form.number-picker.decrement": "Decrement {{field}}",
 
   "form.number-picker.increment": "Increment {{field}}",
+
+  "form.number-picker.label.Year": "Year",
+
+  "form.number-picker.label.Month": "Month",
+
+  "form.number-picker.label.Day": "Day",
 
   "form.repeatable.sort.tip": "Drop the item in the new position",
 
@@ -7337,38 +7343,6 @@
   "metadata-link-view.popover.label.Person.dc.description.abstract": "Abstract",
 
   "metadata-link-view.popover.label.Person.person.jobTitle": "Job title",
-
-  "metadata-link-view.popover.label.OrgUnit.dc.title": "Fullname",
-
-  "metadata-link-view.popover.label.OrgUnit.organization.identifier.ror": "ROR",
-
-  "metadata-link-view.popover.label.OrgUnit.crisou.director": "Director",
-
-  "metadata-link-view.popover.label.OrgUnit.organization.parentOrganization": "Parent Organization",
-
-  "metadata-link-view.popover.label.OrgUnit.dc.description.abstract": "Description",
-
-  "metadata-link-view.popover.label.Project.dc.title": "Title",
-
-  "metadata-link-view.popover.label.Project.oairecerif.project.status": "Status",
-
-  "metadata-link-view.popover.label.Project.dc.description.abstract": "Abstract",
-
-  "metadata-link-view.popover.label.Funding.dc.title": "Title",
-
-  "metadata-link-view.popover.label.Funding.oairecerif.funder": "Funder",
-
-  "metadata-link-view.popover.label.Funding.oairecerif.fundingProgram": "Funding program",
-
-  "metadata-link-view.popover.label.Funding.dc.description.abstract": "Abstract",
-
-  "metadata-link-view.popover.label.Publication.dc.title": "Title",
-
-  "metadata-link-view.popover.label.Publication.dc.identifier.doi": "DOI",
-
-  "metadata-link-view.popover.label.Publication.dc.identifier.uri": "URL",
-
-  "metadata-link-view.popover.label.Publication.dc.description.abstract": "Abstract",
 
   "metadata-link-view.popover.label.other.dc.title": "Title",
 

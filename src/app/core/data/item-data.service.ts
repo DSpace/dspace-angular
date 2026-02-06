@@ -431,9 +431,9 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
   }
 
   /**
-   * Returns an observable of {@link RemoteData} of an object, based on its CustomURL or ID, with a list of
+   * Returns an observable of {@link RemoteData} of an object, based on its custom URL, with a list of
    * {@link FollowLinkConfig}, to automatically resolve {@link HALLink}s of the object
-   * @param id                          CustomUrl or UUID of object we want to retrieve
+   * @param id                          custom URL of object we want to retrieve
    * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
    *                                    no valid cached version. Defaults to true
    * @param reRequestOnStale            Whether or not the request should automatically be re-
@@ -460,6 +460,26 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
     return this.findByHref(hrefObs, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
+
+  /**
+   * Invalidate cache of request findByCustomURL
+   *
+   * @param customUrl
+   * @param projections
+   */
+  public invalidateFindByCustomUrlCache(customUrl: string, projections: string[] = []): void {
+    const options: any = {
+      searchParams: [new RequestParam('q', customUrl)],
+    };
+
+    projections.forEach((p) => options.searchParams.push(new RequestParam('projection', p)));
+
+    this.searchData.getSearchByHref('findByCustomURL', options).pipe(take(1)).subscribe((href: string) => {
+      this.requestService.setStaleByHrefSubstring(href);
+      this.objectCache.remove(href);
+    });
+  }
+
   /**
    * Returns an observable of {@link RemoteData} of an object, based on its ID, with a list of
    * {@link FollowLinkConfig}, to automatically resolve {@link HALLink}s of the object
@@ -472,16 +492,32 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
    *                                    {@link HALLink}s should be automatically resolved
    */
   public findById(id: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Item>[]): Observable<RemoteData<Item>> {
+    const href$ = this.getIDHrefObs(encodeURIComponent(id), ...linksToFollow);
+    return this.findByHref(href$, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+  }
 
+  /**
+   * Returns an observable of {@link RemoteData} of an object, based on its ID or custom URL if the parameter is not a valid id/uuid, with a list of
+   * {@link FollowLinkConfig}, to automatically resolve {@link HALLink}s of the object
+   * @param id                          ID of object we want to retrieve
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
+   */
+  public findByIdOrCustomUrl(id: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Item>[]): Observable<RemoteData<Item>> {
     if (uuidValidate(id)) {
-      const href$ = this.getIDHrefObs(encodeURIComponent(id), ...linksToFollow);
-      return this.findByHref(href$, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+      return this.findById(id, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
     } else {
       return this.findByCustomUrl(id, useCachedVersionIfAvailable, reRequestOnStale, linksToFollow);
     }
   }
 
 }
+
+
 
 /**
  * A service for CRUD operations on Items

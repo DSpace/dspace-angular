@@ -292,7 +292,7 @@ describe('ItemDataService', () => {
 
     it('should call findByCustomUrl when given a non-UUID id', () => {
       const nonUuid = 'custom-url';
-      itemDataService.findById(nonUuid).subscribe();
+      itemDataService.findByIdOrCustomUrl(nonUuid).subscribe();
 
       expect(itemDataService.findByCustomUrl).toHaveBeenCalledWith(nonUuid, true, true, []);
       expect(itemDataService.findByHref).not.toHaveBeenCalled();

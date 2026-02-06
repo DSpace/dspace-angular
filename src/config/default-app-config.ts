@@ -58,10 +58,11 @@ export class DefaultAppConfig implements AppConfig {
     // NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
     nameSpace: '/',
 
-    // The rateLimiter settings limit each IP to a 'max' of 500 requests per 'windowMs' (1 minute).
+    // The rateLimiter settings limit each IP to a 'limit' of 500 requests per 'windowMs' (1 minute).
     rateLimiter: {
       windowMs: 1 * 60 * 1000, // 1 minute
-      max: 500, // limit each IP to 500 requests per windowMs
+      limit: 500, // limit each IP to 500 requests per windowMs
+      ipv6Subnet: 56, // IPv6 subnet mask applied to IPv6 addresses
     },
 
     // Trust X-FORWARDED-* headers from proxies
@@ -314,8 +315,10 @@ export class DefaultAppConfig implements AppConfig {
     { code: 'it', label: 'Italiano', active: true },
     { code: 'kk', label: 'Қазақ', active: true },
     { code: 'lv', label: 'Latviešu', active: true },
+    { code: 'ml', label: 'മലയാളം', active: true },
     { code: 'mr', label: 'मराठी', active: true },
     { code: 'nl', label: 'Nederlands', active: true },
+    { code: 'od', label: 'ଓଡିଆ', active: true },
     { code: 'pl', label: 'Polski', active: true },
     { code: 'pt-PT', label: 'Português', active: true },
     { code: 'pt-BR', label: 'Português do Brasil', active: true },
@@ -323,6 +326,7 @@ export class DefaultAppConfig implements AppConfig {
     { code: 'sr-lat', label: 'Srpski (lat)', active: true },
     { code: 'sr-cyr', label: 'Српски', active: true },
     { code: 'sv', label: 'Svenska', active: true },
+    { code: 'te', label: 'తెలుగు', active: true },
     { code: 'ta', label: 'தமிழ்', active: true },
     { code: 'tr', label: 'Türkçe', active: true },
     { code: 'uk', label: 'Yкраї́нська', active: true },
