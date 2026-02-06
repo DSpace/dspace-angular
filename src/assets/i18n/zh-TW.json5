@@ -403,7 +403,7 @@
 
   "admin.access-control.groups.form.alert.permanent": "該群組是永久性的，因此無法編輯或刪除。您仍然可以使用此頁面新增和刪除群組成員。",
 
-  "admin.access-control.groups.form.alert.workflowGroup": "該群組無法修改或刪除，因為它對應於「{{name}}\」{{comcol}}中提交和工作流程過程中的角色。您可以從編輯 {{comcol}} 頁面上的<a href='{{comcolEditRolesRolesRoute}}'>\"指派角色\"</a>標籤將其刪除。您仍然可以使用此頁面新增和刪除群組成員。",
+  "admin.access-control.groups.form.alert.workflowGroup": "該群組無法修改或刪除，因為它對應於「{{name}}」{{comcol}}中提交和工作流程過程中的角色。您可以從編輯 {{comcol}} 頁面上的<a href='{{comcolEditRolesRolesRoute}}'>\"指派角色\"</a>標籤將其刪除。您仍然可以使用此頁面新增和刪除群組成員。",
 
   "admin.access-control.groups.form.head.create": "建立群組",
 
@@ -923,7 +923,7 @@
 
   "bitstream.edit.form.newFormat.label": "描述新格式",
 
-  "bitstream.edit.form.newFormat.hint": "用於建立檔案的應用程式以及版本號碼（例如，\“<i>ACMESoft SuperApp 版本 1.5</i>\”）。",
+  "bitstream.edit.form.newFormat.hint": "用於建立檔案的應用程式以及版本號碼（例如，“<i>ACMESoft SuperApp 版本 1.5</i>”）。",
 
   "bitstream.edit.form.primaryBitstream.label": "主文件",
 
@@ -5149,7 +5149,7 @@
 
   "submission.sections.describe.relationship-lookup.selection-tab.title": "搜尋結果",
 
-  "submission.sections.describe.relationship-lookup.name-variant.notification.content": "您是否想將“{{ value }}\”保存為此人的姓名變體，以便您和其他人可以在將來提交時重複使用它？如果不這樣做，您仍然可以將其用於本次提交。",
+  "submission.sections.describe.relationship-lookup.name-variant.notification.content": "您是否想將“{{ value }}”保存為此人的姓名變體，以便您和其他人可以在將來提交時重複使用它？如果不這樣做，您仍然可以將其用於本次提交。",
 
   "submission.sections.describe.relationship-lookup.name-variant.notification.confirm": "儲存新的名稱變體",
 
