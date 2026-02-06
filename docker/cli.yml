@@ -16,7 +16,7 @@ networks:
   # Default to using network named 'dspacenet' from docker-compose-rest.yml.
   # Its full name will be prepended with the project name (e.g. "-p d7" means it will be named "d7_dspacenet")
   # If COMPOSITE_PROJECT_NAME is missing, default value will be "docker" (name of folder this file is in)
-  default:
+  dspacenet:
     name: ${COMPOSE_PROJECT_NAME:-docker}_dspacenet
     external: true
 services:
@@ -28,19 +28,15 @@ services:
       # See https://github.com/DSpace/DSpace/blob/main/dspace/config/config-definition.xml
       # __P__ => "." (e.g. dspace__P__dir => dspace.dir)
       # __D__ => "-" (e.g. google__D__metadata => google-metadata)
-      # dspace.dir
-      dspace__P__dir: /dspace
       # db.url: Ensure we are using the 'dspacedb' image for our database
       db__P__url: 'jdbc:postgresql://dspacedb:5432/dspace'
       # solr.server: Ensure we are using the 'dspacesolr' image for Solr
       solr__P__server: http://dspacesolr:8983/solr
+    networks:
+    - dspacenet
     volumes:
     # Keep DSpace assetstore directory between reboots
     - assetstore:/dspace/assetstore
-    entrypoint: /dspace/bin/dspace
-    command: help
-    tty: true
-    stdin_open: true
 
 volumes:
   assetstore:

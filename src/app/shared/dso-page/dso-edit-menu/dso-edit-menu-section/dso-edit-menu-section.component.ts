@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { isNotEmpty } from '@dspace/shared/utils/empty.util';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { AbstractMenuSectionComponent } from 'src/app/shared/menu/menu-section/abstract-menu-section.component';
 
@@ -25,7 +25,7 @@ import { MenuSection } from '../../../menu/menu-section.model';
   styleUrls: ['./dso-edit-menu-section.component.scss'],
   imports: [
     BtnDisabledDirective,
-    NgbTooltipModule,
+    NgbTooltip,
     RouterLink,
     TranslateModule,
   ],

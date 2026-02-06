@@ -8,7 +8,7 @@ import {
 } from '@angular/router';
 import { RequestService } from '@dspace/core/data/request.service';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
   TranslateService,
@@ -26,7 +26,7 @@ import { AdvancedClaimedTaskActionsAbstractComponent } from '../abstract/advance
   templateUrl: './advanced-claimed-task-action-rating.component.html',
   styleUrls: ['./advanced-claimed-task-action-rating.component.scss'],
   imports: [
-    NgbTooltipModule,
+    NgbTooltip,
     TranslateModule,
   ],
 })

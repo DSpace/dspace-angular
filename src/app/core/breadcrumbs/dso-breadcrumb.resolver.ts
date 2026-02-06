@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { IdentifiableDataService } from '../data/base/identifiable-data.service';
+import { ItemDataService } from '../data/item-data.service';
 import { getDSORoute } from '../router/utils/dso-route.utils';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { FollowLinkConfig } from '../shared/follow-link-config.model';
@@ -55,7 +56,9 @@ export const DSOBreadcrumbResolverByUuid: (route: ActivatedRouteSnapshot, state:
   dataService: IdentifiableDataService<DSpaceObject>,
   ...linksToFollow: FollowLinkConfig<DSpaceObject>[]
 ): Observable<BreadcrumbConfig<DSpaceObject>> => {
-  return dataService.findById(uuid, true, false, ...linksToFollow).pipe(
+  const isItemDataService = dataService instanceof ItemDataService;
+  const findMethod = isItemDataService ? dataService.findByIdOrCustomUrl.bind(dataService) : dataService.findById.bind(dataService);
+  return findMethod(uuid, true, false, ...linksToFollow).pipe(
     getFirstCompletedRemoteData(),
     getRemoteDataPayload(),
     map((object: DSpaceObject) => {

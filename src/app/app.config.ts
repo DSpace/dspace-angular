@@ -43,10 +43,9 @@ import {
   USER_PROVIDED_META_REDUCERS,
 } from '@ngrx/store';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
-import { NgxMaskModule } from 'ngx-mask';
+import { provideEnvironmentNgxMask } from 'ngx-mask';
 
 import { environment } from '../environments/environment';
-import { EagerThemesModule } from '../themes/eager-themes.module';
 import { appEffects } from './app.effects';
 import { MENUS } from './app.menus';
 import {
@@ -99,10 +98,8 @@ export const commonAppConfig: ApplicationConfig = {
       StoreModule.forRoot(appReducers, storeModuleConfig),
       StoreRouterConnectingModule.forRoot(),
       StoreDevModules,
-      EagerThemesModule,
       RootModule,
       ListableModule.withEntryComponents(),
-      NgxMaskModule.forRoot(),
     ),
     provideRouter(
       APP_ROUTES,
@@ -161,7 +158,7 @@ export const commonAppConfig: ApplicationConfig = {
 
     // DI-composable menus
     ...MENUS,
-
+    provideEnvironmentNgxMask(),
     provideCore(),
   ],
 };

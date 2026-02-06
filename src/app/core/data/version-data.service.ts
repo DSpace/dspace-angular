@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { RestRequestMethod } from '@dspace/config/rest-request-method';
+import { Item } from '@dspace/core/shared/item.model';
 import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import { Operation } from 'fast-json-patch';
 import {
@@ -104,6 +105,16 @@ export class VersionDataService extends IdentifiableDataService<Version> impleme
    */
   public createPatchFromCache(object: Version): Observable<Operation[]> {
     return this.patchData.createPatchFromCache(object);
+  }
+
+
+  /**
+   * Invalidates the cache of the version link for this item.
+   *
+   * @param item
+   */
+  invalidateVersionHrefCache(item: Item): void {
+    this.requestService.setStaleByHrefSubstring(item._links.version.href);
   }
 
 }

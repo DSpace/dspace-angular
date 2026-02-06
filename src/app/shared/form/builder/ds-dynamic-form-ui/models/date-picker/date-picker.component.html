@@ -1,5 +1,5 @@
 <div>
-  <fieldset class="d-flex">
+  <fieldset class="d-flex justify-content-start flex-wrap gap-2">
     @if (!model.repeatable) {
       <legend [id]="'legend_' + model.id" [ngClass]="[getClass('element', 'label'), getClass('grid', 'label')]">
         {{model.label}} @if (model.required) {
@@ -19,28 +19,30 @@
     [value]="year"
     [invalid]="showErrorMessages"
     [placeholder]="'form.date-picker.placeholder.year' | translate"
+    [widthClass]="'four-digits'"
     (blur)="onBlur($event)"
     (change)="onChange($event)"
     (focus)="onFocus($event)"
   ></ds-number-picker>
 
-  <ds-number-picker
+  <ds-number-picker class="date-month"
     tabindex="0"
     [id]="model.id + '_month'"
     [min]="minMonth"
     [max]="maxMonth"
     [name]="'month'"
-    [size]="6"
+    [size]="2"
     [(ngModel)]="initialMonth"
     [value]="month"
     [placeholder]="'form.date-picker.placeholder.month' | translate"
     [disabled]="!year || model.disabled"
+    [widthClass]="'two-digits'"
     (blur)="onBlur($event)"
     (change)="onChange($event)"
     (focus)="onFocus($event)"
   ></ds-number-picker>
 
-  <ds-number-picker
+  <ds-number-picker class="date-day"
     tabindex="0"
     [id]="model.id + '_day'"
     [min]="minDay"
@@ -51,6 +53,7 @@
     [value]="day"
     [placeholder]="'form.date-picker.placeholder.day' | translate"
     [disabled]="!month || model.disabled"
+    [widthClass]="'two-digits'"
     (blur)="onBlur($event)"
     (change)="onChange($event)"
     (focus)="onFocus($event)"
