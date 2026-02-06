@@ -7424,6 +7424,15 @@
   // "search.filters.namedresourcetype.Workspace": "Workspace",
   "search.filters.namedresourcetype.Workspace": "Área de trabalho",
 
+  // "search.filters.namedresourcetype.workflow": "Workflow",
+  "search.filters.namedresourcetype.workflow": "Fluxo de trabalho",
+
+  // "search.filters.namedresourcetype.workspace": "Workspace",
+  "search.filters.namedresourcetype.workspace": "Área de trabalho",
+
+  // "search.filters.namedresourcetype.item": "Archived",
+  "search.filters.namedresourcetype.item": "Arquivado",
+
   // "search.filters.withdrawn.true": "Yes",
   "search.filters.withdrawn.true": "Sim",
 
