@@ -1,6 +1,7 @@
 import { typedObject } from '@dspace/core/cache/builders/build-decorators';
 import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
 import { HALLink } from '@dspace/core/shared/hal-link.model';
+import { Metadata } from '@dspace/core/shared/metadata.utils';
 import { excludeFromEquals } from '@dspace/core/utilities/equals.decorators';
 import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import {
@@ -45,6 +46,12 @@ export class VocabularyEntry extends ListableObject {
   otherInformation: OtherInformation;
 
   /**
+   * A value representing security level value of the metadata
+   */
+  @autoserialize
+    securityLevel: number;
+
+  /**
    * A string representing the kind of vocabulary entry
    */
   @excludeFromEquals
@@ -66,7 +73,7 @@ export class VocabularyEntry extends ListableObject {
    * @return boolean
    */
   hasAuthority(): boolean {
-    return isNotEmpty(this.authority);
+    return Metadata.hasValidAuthority(this.authority);
   }
 
   /**

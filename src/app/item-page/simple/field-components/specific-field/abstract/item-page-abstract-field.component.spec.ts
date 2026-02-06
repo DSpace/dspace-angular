@@ -11,6 +11,7 @@ import { By } from '@angular/platform-browser';
 import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import { BrowseService } from '@dspace/core/browse/browse.service';
 import { BrowseDefinitionDataService } from '@dspace/core/browse/browse-definition-data.service';
+import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
 import { BrowseDefinitionDataServiceStub } from '@dspace/core/testing/browse-definition-data-service.stub';
 import { BrowseServiceStub } from '@dspace/core/testing/browse-service.stub';
 import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
@@ -24,6 +25,9 @@ import { ItemPageAbstractFieldComponent } from './item-page-abstract-field.compo
 
 let comp: ItemPageAbstractFieldComponent;
 let fixture: ComponentFixture<ItemPageAbstractFieldComponent>;
+const vocabularyServiceMock = {
+  getPublicVocabularyEntryByID: jasmine.createSpy('getPublicVocabularyEntryByID'),
+};
 
 describe('ItemPageAbstractFieldComponent', () => {
   beforeEach(waitForAsync(() => {
@@ -41,6 +45,7 @@ describe('ItemPageAbstractFieldComponent', () => {
         { provide: APP_CONFIG, useValue: environment },
         { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub },
         { provide: BrowseService, useValue: BrowseServiceStub },
+        { provide: VocabularyService, useValue: vocabularyServiceMock },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ItemPageAbstractFieldComponent, {

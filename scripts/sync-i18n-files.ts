@@ -37,14 +37,11 @@ function parseCliInput() {
     .option('-o, --output-file <output>', 'where output of script ends up; mutually exclusive with -i')
     .usage('([-d <output-dir>] [-s <source-file>]) || (-t <target-file> (-i | -o <output>) [-s <source-file>])')
     .parse(process.argv);
-
-  const sourceFile = program.opts().sourceFile;
-
-    if (!program.targetFile) {
+  if (!program.targetFile) {
     fs.readdirSync(projectRoot(LANGUAGE_FILES_LOCATION)).forEach(file => {
-      if (!sourceFile.toString().endsWith(file)) {
+      if (program.opts().sourceFile && !program.opts().sourceFile.toString().endsWith(file)) {
         const targetFileLocation = projectRoot(LANGUAGE_FILES_LOCATION + "/" + file);
-        console.log('Syncing file at: ' + targetFileLocation + ' with source file at: ' + sourceFile);
+        console.log('Syncing file at: ' + targetFileLocation + ' with source file at: ' + program.opts().sourceFile);
         if (program.outputDir) {
           if (!fs.existsSync(program.outputDir)) {
             fs.mkdirSync(program.outputDir);
@@ -69,7 +66,7 @@ function parseCliInput() {
       console.log(program.outputHelp());
       process.exit(1);
     }
-    if (!checkIfFileExists(sourceFile)) {
+    if (!checkIfFileExists(program.opts().sourceFile)) {
       console.error('Path of source file is not valid.');
       console.log(program.outputHelp());
       process.exit(1);
