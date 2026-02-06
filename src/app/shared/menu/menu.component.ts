@@ -191,7 +191,7 @@ export class MenuComponent implements OnInit, OnDestroy {
    * @param {Function} handler The function to delay
    * @param {number} ms The amount of ms to delay the handler function by
    */
-  private previewToggleDebounce(handler: () => void, ms: number): void {
+  protected previewToggleDebounce(handler: () => void, ms: number): void {
     if (hasValue(this.previewTimer)) {
       clearTimeout(this.previewTimer);
     }
