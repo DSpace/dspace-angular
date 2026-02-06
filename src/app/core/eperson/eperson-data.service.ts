@@ -227,6 +227,34 @@ export class EPersonDataService extends IdentifiableDataService<EPerson> impleme
   }
 
   /**
+  * Searches for all EPerons which are a member of a given group, via a passed in query
+  * (searches all EPerson metadata and by exact UUID).
+  * Endpoint used: /eperson/epesons/search/isMemberOf?query=<:string>&group=<:uuid>
+  * @param query                       search query param
+  * @param group                       UUID of group to include results from. Members of this group will only be returned.
+  * @param options
+  * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+  *                                    no valid cached version. Defaults to true
+  * @param reRequestOnStale            Whether or not the request should automatically be re-
+  *                                    requested after the response becomes stale
+  * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+  *                                    {@link HALLink}s should be automatically resolved
+  */
+  public searchMembers(query: string, group: string, options?: FindListOptions, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<EPerson>[]): Observable<RemoteData<PaginatedList<EPerson>>> {
+    const searchParams = [new RequestParam('query', query), new RequestParam('group', group)];
+    let findListOptions = new FindListOptions();
+    if (options) {
+      findListOptions = Object.assign(new FindListOptions(), options);
+    }
+    if (findListOptions.searchParams) {
+      findListOptions.searchParams = [...findListOptions.searchParams, ...searchParams];
+    } else {
+      findListOptions.searchParams = searchParams;
+    }
+    return this.searchBy('isMemberOf', findListOptions, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+  }
+
+  /**
    * Add a new patch to the object cache
    * The patch is derived from the differences between the given object and its version in the object cache
    * @param {DSpaceObject} ePerson The given object

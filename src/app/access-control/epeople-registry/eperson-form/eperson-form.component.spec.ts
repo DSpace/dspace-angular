@@ -48,7 +48,10 @@ import { NotificationsServiceStub } from '@dspace/core/testing/notifications-ser
 import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
 import { RouterStub } from '@dspace/core/testing/router.stub';
 import { createPaginatedList } from '@dspace/core/testing/utils.test';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core/utilities/remote-data.utils';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -223,6 +226,7 @@ describe('EPersonFormComponent', () => {
     groupsDataService = jasmine.createSpyObj('groupsDataService', {
       findListByHref: createSuccessfulRemoteDataObject$(createPaginatedList([])),
       getGroupRegistryRouterLink: '',
+      deleteMemberFromGroup: 'deleteMemberFromGroup',
     });
     groupRegistryService = jasmine.createSpyObj('GroupRegistryService', {
       startEditingNewGroup: jasmine.createSpy('startEditingNewGroup'),
@@ -536,6 +540,52 @@ describe('EPersonFormComponent', () => {
       expect(component.epersonService.deleteEPerson).toHaveBeenCalledWith(eperson);
     });
   });
+
+  describe('delete group from member', () => {
+    let successSpy: jasmine.Spy;
+    let errorSpy: jasmine.Spy;
+
+    beforeEach(() => {
+      successSpy = spyOn((component as any).notificationsService, 'success');
+      errorSpy = spyOn((component as any).notificationsService, 'error');
+    });
+
+    it('should delete group from member and show notification', (done) => {
+      const group = { id: 'group1' } as any;
+      const activeEperson = EPersonMock;
+
+      spyOn(component.epeopleRegistryService, 'getActiveEPerson').and.returnValue(of(activeEperson));
+      (groupsDataService.deleteMemberFromGroup as jasmine.Spy)
+        .and.returnValue(createSuccessfulRemoteDataObject$(null));
+
+      spyOn(component.dsoNameService, 'getName').and.returnValue('Mock Group Name');
+
+      const notifySpy = spyOn(component, 'showNotifications').and.callFake(() => {
+        expect(groupsDataService.deleteMemberFromGroup).toHaveBeenCalledWith(group, activeEperson);
+        expect(notifySpy).toHaveBeenCalled();
+        done();
+      });
+
+      component.deleteGroupFromMember(group);
+    });
+
+    it('should show success notification on successful operation', () => {
+      const response = createSuccessfulRemoteDataObject$(null);
+
+      component.showNotifications('deleteMembership', response, 'TestGroup', EPersonMock);
+
+      expect(successSpy).toHaveBeenCalled();
+    });
+
+    it('should show error notification when response hasSucceeded is false', () => {
+      const response = createFailedRemoteDataObject$(null);
+
+      component.showNotifications('deleteMembership', response, 'TestGroup', EPersonMock);
+
+      expect(errorSpy).toHaveBeenCalled();
+    });
+  });
+
 
   describe('Reset Password', () => {
     let ePersonId;
