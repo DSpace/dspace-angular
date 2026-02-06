@@ -4906,9 +4906,13 @@
 
   "search.filters.namedresourcetype.Archived": "Archived",
 
+  "search.filters.namedresourcetype.item": "Archived",
+
   "search.filters.namedresourcetype.Validation": "Validation",
 
   "search.filters.namedresourcetype.Waiting for Controller": "Waiting for reviewer",
+
+  "search.filters.namedresourcetype.workflow": "Workflow",
 
   "search.filters.namedresourcetype.Workflow": "Workflow",
 
