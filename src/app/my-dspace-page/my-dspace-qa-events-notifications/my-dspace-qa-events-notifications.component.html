@@ -14,7 +14,11 @@
         </div>
         <div class="w-100 d-flex justify-content-between">
           <div class="ps-4 align-self-center">
-            {{ "mydspace.qa-event-notification.check.notification-info" | translate : { num: source.totalEvents } }}
+            @if (source.totalEvents === 1) {
+              {{ "mydspace.qa-event-notification.check.notification-info.one" | translate : { num: source.totalEvents } }}
+            } @else {
+              {{ "mydspace.qa-event-notification.check.notification-info.other" | translate : { num: source.totalEvents } }}
+            }
           </div>
           <button
             [routerLink]="[getQualityAssuranceRoute(), source.id]"

@@ -2913,11 +2913,15 @@
 
   "item.truncatable-part.show-less": "Collapse",
 
-  "item.qa-event-notification.check.notification-info": "There are {{num}} pending suggestions related to your account",
+  "item.qa-event-notification.check.notification-info.one": "There is {{num}} pending suggestion related to your account",
+
+  "item.qa-event-notification.check.notification-info.other": "There are {{num}} pending suggestions related to your account",
 
   "item.qa-event-notification-info.check.button": "View",
 
-  "mydspace.qa-event-notification.check.notification-info": "There are {{num}} pending suggestions related to your account",
+  "mydspace.qa-event-notification.check.notification-info.one": "There is {{num}} pending suggestion related to your account",
+
+  "mydspace.qa-event-notification.check.notification-info.other": "There are {{num}} pending suggestions related to your account",
 
   "mydspace.qa-event-notification-info.check.button": "View",
 
