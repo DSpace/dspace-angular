@@ -14,48 +14,48 @@
  * from your application's main.server.ts file, as seen below with the
  * import for `ngExpressEngine`.
  */
+
+/* eslint-disable import/no-namespace, @typescript-eslint/no-require-imports */
+
 import 'reflect-metadata';
 import 'zone.js/node';
 
-/* eslint-disable import/no-namespace */
-import * as morgan from 'morgan';
-import express from 'express';
-import * as ejs from 'ejs';
-import * as compression from 'compression';
-import expressStaticGzip from 'express-static-gzip';
-import { LRUCache } from 'lru-cache';
-import { isbot } from 'isbot';
-import { createCertificate } from 'pem';
-import { createServer } from 'https';
-import { json } from 'body-parser';
-import { createHttpTerminator } from 'http-terminator';
+import { readFileSync } from 'node:fs';
+import { createServer } from 'node:https';
+import { join } from 'node:path';
 
-import { readFileSync } from 'fs';
-import { join } from 'path';
-
+import { APP_BASE_HREF } from '@angular/common';
 import { enableProdMode } from '@angular/core';
-
-
-import { environment } from './src/environments/environment';
-import { createProxyMiddleware } from 'http-proxy-middleware';
+import { CommonEngine } from '@angular/ssr/node';
+import { TOKENITEM } from '@dspace/core/auth/models/auth-token-info.model';
 import { hasValue } from '@dspace/shared/utils/empty.util';
-import { UIServerConfig } from './src/config/ui-server-config.interface';
-import bootstrap from './src/main.server';
-import { buildAppConfig } from './src/config/config.server';
+import { json } from 'body-parser';
+import * as compression from 'compression';
+import { renderFile } from 'ejs';
+import express from 'express';
+import expressStaticGzip from 'express-static-gzip';
+import { createProxyMiddleware } from 'http-proxy-middleware';
+import { createHttpTerminator } from 'http-terminator';
+import { isbot } from 'isbot';
+import { LRUCache } from 'lru-cache';
+import * as morgan from 'morgan';
+import { createCertificate } from 'pem';
+
 import {
   APP_CONFIG,
   AppConfig,
 } from './src/config/app-config.interface';
+import { buildAppConfig } from './src/config/config.server';
 import { extendEnvironmentWithAppConfig } from './src/config/config.util';
-import { logStartupMessage } from './startup-message';
-import { TOKENITEM } from '@dspace/core/auth/models/auth-token-info.model';
-import { CommonEngine } from '@angular/ssr/node';
-import { APP_BASE_HREF } from '@angular/common';
+import { SsrExcludePatterns } from './src/config/ssr-config.interface';
+import { UIServerConfig } from './src/config/ui-server-config.interface';
+import { environment } from './src/environments/environment';
 import {
   REQUEST,
   RESPONSE,
 } from './src/express.tokens';
-import { SsrExcludePatterns } from './src/config/ssr-config.interface';
+import bootstrap from './src/main.server';
+import { logStartupMessage } from './startup-message';
 
 /*
  * Set path for the browser application's dist folder
@@ -130,7 +130,7 @@ export function app() {
    */
   server.use(json());
 
-  server.engine('ejs', ejs.renderFile);
+  server.engine('ejs', renderFile);
 
   /*
    * Register the view engines for html and ejs
@@ -320,7 +320,7 @@ function clientSideRender(req, res) {
   // Replace base href dynamically
   html = html.replace(
     /<base href="[^"]*">/,
-    `<base href="${namespace.endsWith('/') ? namespace : namespace + '/'}">`
+    `<base href="${namespace.endsWith('/') ? namespace : namespace + '/'}">`,
   );
 
   // Replace REST URL with UI URL
@@ -654,10 +654,10 @@ function start() {
  */
 function isExcludedFromSsr(path: string, excludePathPattern: SsrExcludePatterns[]): boolean {
   const patterns = excludePathPattern.map(p =>
-    new RegExp(p.pattern, p.flag || '')
+    new RegExp(p.pattern, p.flag || ''),
   );
   return patterns.some((regex) => {
-    return regex.test(path)
+    return regex.test(path);
   });
 }
 
