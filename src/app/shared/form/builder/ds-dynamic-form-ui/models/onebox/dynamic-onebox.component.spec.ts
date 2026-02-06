@@ -28,6 +28,7 @@ import {
   mockDynamicFormLayoutService,
   mockDynamicFormValidationService,
 } from '@dspace/core/testing/dynamic-form-mock-services';
+import { SearchServiceStub } from '@dspace/core/testing/search-service.stub';
 import { createTestComponent } from '@dspace/core/testing/utils.test';
 import { VocabularyServiceStub } from '@dspace/core/testing/vocabulary-service.stub';
 import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
@@ -44,6 +45,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
+import { SearchService } from 'src/app/shared/search/search.service';
 
 import { ObjNgFor } from '../../../../../utils/object-ngfor.pipe';
 import { AuthorityConfidenceStateDirective } from '../../../../directives/authority-confidence-state.directive';
@@ -97,6 +99,7 @@ describe('DsDynamicOneboxComponent test suite', () => {
   let testFixture: ComponentFixture<TestComponent>;
   let oneboxCompFixture: ComponentFixture<DsDynamicOneboxComponent>;
   let vocabularyServiceStub: any;
+  let searchServiceStub: any;
   let modalService: any;
   let html;
   let modal;
@@ -137,6 +140,7 @@ describe('DsDynamicOneboxComponent test suite', () => {
   // waitForAsync beforeEach
   beforeEach(() => {
     vocabularyServiceStub = new VocabularyServiceStub();
+    searchServiceStub = new SearchServiceStub();
 
     modal = jasmine.createSpyObj('modal',
       {
@@ -164,6 +168,7 @@ describe('DsDynamicOneboxComponent test suite', () => {
         ChangeDetectorRef,
         DsDynamicOneboxComponent,
         { provide: VocabularyService, useValue: vocabularyServiceStub },
+        { provide: SearchService, useValue: searchServiceStub },
         { provide: DynamicFormLayoutService, useValue: mockDynamicFormLayoutService },
         { provide: DynamicFormValidationService, useValue: mockDynamicFormValidationService },
         { provide: NgbModal, useValue: modal },
@@ -259,14 +264,14 @@ describe('DsDynamicOneboxComponent test suite', () => {
 
       it('should emit blur Event onBlur when popup is closed', () => {
         spyOn(oneboxComponent.blur, 'emit');
-        spyOn(oneboxComponent.instance, 'isPopupOpen').and.returnValue(false);
+        spyOn(oneboxComponent.typeahead, 'isPopupOpen').and.returnValue(false);
         oneboxComponent.onBlur(new Event('blur'));
         expect(oneboxComponent.blur.emit).toHaveBeenCalled();
       });
 
       it('should not emit blur Event onBlur when popup is opened', () => {
         spyOn(oneboxComponent.blur, 'emit');
-        spyOn(oneboxComponent.instance, 'isPopupOpen').and.returnValue(true);
+        spyOn(oneboxComponent.typeahead, 'isPopupOpen').and.returnValue(true);
         const input = oneboxCompFixture.debugElement.query(By.css('input'));
 
         input.nativeElement.blur();
@@ -278,7 +283,7 @@ describe('DsDynamicOneboxComponent test suite', () => {
         oneboxCompFixture.detectChanges();
         spyOn(oneboxComponent.blur, 'emit');
         spyOn(oneboxComponent.change, 'emit');
-        spyOn(oneboxComponent.instance, 'isPopupOpen').and.returnValue(false);
+        spyOn(oneboxComponent.typeahead, 'isPopupOpen').and.returnValue(false);
         oneboxComponent.onBlur(new Event('blur'));
         expect(oneboxComponent.change.emit).toHaveBeenCalled();
         expect(oneboxComponent.blur.emit).toHaveBeenCalled();
@@ -291,7 +296,7 @@ describe('DsDynamicOneboxComponent test suite', () => {
         oneboxCompFixture.detectChanges();
         spyOn(oneboxComponent.blur, 'emit');
         spyOn(oneboxComponent.change, 'emit');
-        spyOn(oneboxComponent.instance, 'isPopupOpen').and.returnValue(false);
+        spyOn(oneboxComponent.typeahead, 'isPopupOpen').and.returnValue(false);
         oneboxComponent.onBlur(new Event('blur'));
         expect(oneboxComponent.change.emit).not.toHaveBeenCalled();
         expect(oneboxComponent.blur.emit).toHaveBeenCalled();
@@ -304,7 +309,7 @@ describe('DsDynamicOneboxComponent test suite', () => {
         oneboxCompFixture.detectChanges();
         spyOn(oneboxComponent.blur, 'emit');
         spyOn(oneboxComponent.change, 'emit');
-        spyOn(oneboxComponent.instance, 'isPopupOpen').and.returnValue(false);
+        spyOn(oneboxComponent.typeahead, 'isPopupOpen').and.returnValue(false);
         oneboxComponent.onBlur(new Event('blur'));
         expect(oneboxComponent.change.emit).not.toHaveBeenCalled();
         expect(oneboxComponent.blur.emit).toHaveBeenCalled();
