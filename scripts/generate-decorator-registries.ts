@@ -5,15 +5,16 @@ import {
   readFileSync,
   rmSync,
   writeFileSync,
-} from 'fs';
-import { sync } from 'glob';
+} from 'node:fs';
 import {
   basename,
   dirname,
   join,
   relative,
   resolve,
-} from 'path';
+} from 'node:path';
+
+import { sync } from 'glob';
 import {
   createSourceFile,
   forEachChild,
@@ -28,6 +29,7 @@ import {
   isNumericLiteral,
   isPropertyAccessExpression,
   isStringLiteral,
+  Node,
   ScriptTarget,
   SourceFile,
   StringLiteral,
@@ -203,7 +205,7 @@ const writeRegistryFile = (
   const mapName = getDecoratorConstName(decoratorConfig.name) + '_MAP';
   const functionName = `${decoratorConfig.name}CreateMap`;
   const mapVarName = `${decoratorConfig.name}Map`;
-  let content = '';
+  let content: string;
 
   // Start the registry file with the import statements, if any.
   content = generateImportStatements(components);
@@ -250,11 +252,14 @@ const generateImportsMap = (file: SourceFile): Map<string, string> => {
  * Then resolve that to a relative path, relative to the decorator registries directory.
  */
 const parseImportPath = (allImports: Map<string, string>, arg: any, filePath: string): string => {
-  let absoluteImportPath = allImports.get(arg.text);
-  if (!absoluteImportPath.includes('src/app')) {
-    absoluteImportPath = resolve(dirname(filePath), allImports.get(arg.text));
+  const absoluteImportPath = allImports.get(arg.text);
+  if (absoluteImportPath.startsWith('.')) {
+    return relative(REGISTRY_OUTPUT_DIR, resolve(dirname(filePath), allImports.get(arg.text)));
   }
-  return relative(REGISTRY_OUTPUT_DIR, absoluteImportPath);
+  if (absoluteImportPath.startsWith('src/app')) {
+    return relative(REGISTRY_OUTPUT_DIR, absoluteImportPath);
+  }
+  return absoluteImportPath;
 };
 
 /**
@@ -266,7 +271,7 @@ const parseDecoratorArguments = (
 ) => {
   const args: any[] = [];
   const argImports: Map<string, string> = new Map();
-  decorator.expression.arguments.forEach((arg) => {
+  decorator.expression.arguments.forEach((arg: Node) => {
     // e.g. @decorator('range')
     if (isStringLiteral(arg)) {
       args.push(arg.text);

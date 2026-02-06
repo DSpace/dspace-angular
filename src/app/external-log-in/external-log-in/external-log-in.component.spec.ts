@@ -26,7 +26,7 @@ import { of } from 'rxjs';
 
 import { storeModuleConfig } from '../../app.reducer';
 import { AlertComponent } from '../../shared/alert/alert.component';
-import { AuthMethodsService } from '../../shared/log-in/services/auth-methods.service';
+import { ThemedLogInComponent } from '../../shared/log-in/themed-log-in.component';
 import { getMockThemeService } from '../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { ConfirmEmailComponent } from '../email-confirmation/confirm-email/confirm-email.component';
@@ -36,9 +36,13 @@ import { ExternalLogInComponent } from './external-log-in.component';
 describe('ExternalLogInComponent', () => {
   let component: ExternalLogInComponent;
   let fixture: ComponentFixture<ExternalLogInComponent>;
-  let modalService: NgbModal = jasmine.createSpyObj('modalService', ['open']);
-  let authServiceStub: jasmine.SpyObj<AuthService>;
-  let authMethodsServiceStub: jasmine.SpyObj<AuthMethodsService>;
+  let modalRef = Object.defineProperty({
+    close: jasmine.createSpy('close'),
+  },
+  'dismissed', {
+    get: () => of(),
+  });
+  let modalService = jasmine.createSpyObj('modalService', ['open']);
   let mockAuthMethodsArray: AuthMethod[] = [
     { id: 'password', authMethodType: AuthMethodType.Password, position: 2 } as AuthMethod,
     { id: 'shibboleth', authMethodType: AuthMethodType.Shibboleth, position: 1 } as AuthMethod,
@@ -81,6 +85,8 @@ describe('ExternalLogInComponent', () => {
   };
 
   beforeEach(async () => {
+    modalService.open.and.returnValue(modalRef);
+
     await TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
@@ -103,6 +109,7 @@ describe('ExternalLogInComponent', () => {
           ConfirmEmailComponent,
           ProvideEmailComponent,
           AlertComponent,
+          ThemedLogInComponent,
         ],
       },
     }).compileComponents();
@@ -110,7 +117,7 @@ describe('ExternalLogInComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ExternalLogInComponent);
     component = fixture.componentInstance;
-    component.registrationData = Object.assign(new Registration(), registrationDataMock);
+    component.registrationData = Object.assign(new Registration(), registrationDataMock, { email: 'user@institution.edu' });
     component.registrationType = registrationDataMock.registrationType;
     fixture.detectChanges();
   });
@@ -118,12 +125,6 @@ describe('ExternalLogInComponent', () => {
   it('should create', () => {
     fixture.detectChanges();
     expect(component).toBeTruthy();
-  });
-
-  beforeEach(() => {
-    component.registrationData = Object.assign(new Registration(), registrationDataMock, { email: 'user@institution.edu' });
-
-    fixture.detectChanges();
   });
 
   it('should set registrationType and informationText correctly when email is present', () => {

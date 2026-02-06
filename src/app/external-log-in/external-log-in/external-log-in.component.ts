@@ -30,6 +30,7 @@ import {
 import {
   from,
   Observable,
+  Subscription,
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -111,6 +112,8 @@ export class ExternalLogInComponent implements OnInit, OnDestroy {
    */
   externalLoginConfirmationComponent$: Observable<GenericConstructor<Component>>;
 
+  sub: Subscription;
+
   constructor(
     protected injector: Injector,
     protected translate: TranslateService,
@@ -161,9 +164,12 @@ export class ExternalLogInComponent implements OnInit, OnDestroy {
    * @param content - The content to be displayed in the modal.
    */
   openLoginModal(content: any) {
+    if (hasValue(this.sub)) {
+      this.sub.unsubscribe();
+    }
     this.modalRef = this.modalService.open(content);
     this.authService.setRedirectUrl(`/review-account/${this.token}`);
-    this.modalRef.dismissed.subscribe(() => {
+    this.sub = this.modalRef.dismissed.subscribe(() => {
       this.clearRedirectUrl();
     });
   }
@@ -176,6 +182,7 @@ export class ExternalLogInComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.sub?.unsubscribe();
     this.modalRef?.close();
   }
 
