@@ -5054,6 +5054,14 @@
 
   "statistics.table.title.TopCities": "Top city views",
 
+  "statistics.table.title.TotalVisitsItems": "Total items visits",
+
+  "statistics.table.title.TotalDownloadsBitstreams": "Total file visits",
+
+  "statistics.table.title.TopItems": "Top items views",
+
+  "statistics.table.title.TopBitstreams": "Top file views",
+
   "statistics.table.header.views": "Views",
 
   "statistics.table.no-name": "(object name could not be loaded)",
