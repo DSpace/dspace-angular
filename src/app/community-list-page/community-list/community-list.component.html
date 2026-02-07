@@ -9,7 +9,7 @@
       </span>
       <div class="align-middle pt-2">
         <button *ngIf="!(dataSource.loading$ | async)" (click)="getNextPage(node)"
-           class="btn btn-outline-primary btn-sm" role="button" tabindex="0">
+           class="btn btn-outline-primary btn-sm" role="button" tabindex="0" data-test="show-more-button">
            <i class="fas fa-angle-down"></i> {{ 'communityList.showMore' | translate }}
         </button>
         <ds-themed-loading *ngIf="node===loadingNode && dataSource.loading$ | async" class="ds-themed-loading"></ds-themed-loading>
