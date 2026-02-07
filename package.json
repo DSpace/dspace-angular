@@ -224,7 +224,7 @@
     "ts-node": "^8.10.2",
     "tsconfig-paths": "^4.2.0",
     "typescript": "~5.9.3",
-    "webpack": "^5.54.0",
+    "webpack": "^5.104.1",
     "webpack-cli": "^6.0.1"
   },
   "engines": {
