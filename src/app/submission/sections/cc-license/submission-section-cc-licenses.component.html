@@ -20,12 +20,12 @@
         [scrollWindow]="false">
 
         @if(submissionCcLicenses?.length === 0) {
-          <button class="dropdown-item disabled">
+          <button type="button" class="dropdown-item disabled">
             {{ 'submission.sections.ccLicense.none' | translate }}
           </button>
         } @else {
           @for(license of submissionCcLicenses; track license.id) {
-            <button class="dropdown-item" (click)="selectCcLicense(license)">
+            <button type="button"class="dropdown-item" (click)="selectCcLicense(license)">
               {{ license.name }}
             </button>
           }
@@ -44,6 +44,7 @@
           {{ field.label }}
         </div>
         <button
+          type="button"
           class="btn btn-outline-info btn-sm ms-2"
           (click)="openInfoModal(infoModal)">
           <i class="fas fa-question"></i>
@@ -93,6 +94,7 @@
             <div class="options-select-menu overflow-auto">
               @for (option of field.enums; track option) {
                 <button
+                  type="button"
                   class="dropdown-item"
                   (click)="selectOption(getSelectedCcLicense(), field, option)">
                   {{ option.label }}

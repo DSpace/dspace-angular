@@ -23,7 +23,7 @@
               }
               <div class="row">
                 <span class="col-3"></span>
-                <button class="btn btn-primary mt-1 col-6" (click)="submit()">{{'admin.reports.items.run' | translate}}</button>
+                <button type="button" class="btn btn-primary mt-1 col-6" (click)="submit()">{{'admin.reports.items.run' | translate}}</button>
               </div>
             </ng-template>
           </ngb-panel>
@@ -66,9 +66,9 @@
                           <input class="form-control" formControlName="value"/>
                         </div>
                         <div class="col-auto">
-                          <button class="btn btn-light" (click)="addQueryPredicate()">+</button>
+                          <button type="button" class="btn btn-light" (click)="addQueryPredicate()">+</button>
                           &nbsp;
-                          <button class="btn btn-light" [dsBtnDisabled]="deleteQueryPredicateDisabled()" (click)="deleteQueryPredicate(i)">–</button>
+                          <button type="button" class="btn btn-light" [dsBtnDisabled]="deleteQueryPredicateDisabled()" (click)="deleteQueryPredicate(i)">–</button>
                         </div>
                       </div>
                     </div>
@@ -77,7 +77,7 @@
               </div>
               <div class="row">
                 <span class="col-3"></span>
-                <button class="btn btn-primary mt-1 col-6" (click)="submit()">{{'admin.reports.items.run' | translate}}</button>
+                <button type="button"class="btn btn-primary mt-1 col-6" (click)="submit()">{{'admin.reports.items.run' | translate}}</button>
               </div>
             </ng-template>
           </ngb-panel>
@@ -104,7 +104,7 @@
               </div>
               <div class="row">
                 <span class="col-3"></span>
-                <button class="btn btn-primary mt-1 col-6" (click)="submit()">{{'admin.reports.items.run' | translate}}</button>
+                <button type="button"class="btn btn-primary mt-1 col-6" (click)="submit()">{{'admin.reports.items.run' | translate}}</button>
               </div>
             </ng-template>
           </ngb-panel>
@@ -115,12 +115,12 @@
             <ng-template ngbPanelContent>
               <div class="row">
                 <span class="col-3"></span>
-                <button class="btn btn-primary mt-1 col-6" (click)="submit()">{{'admin.reports.items.run' | translate}}</button>
+                <button type="button"class="btn btn-primary mt-1 col-6" (click)="submit()">{{'admin.reports.items.run' | translate}}</button>
               </div>
               <ds-filters [filtersForm]="filtersFormGroup()"></ds-filters>
               <div class="row">
                 <span class="col-3"></span>
-                <button class="btn btn-primary mt-1 col-6" (click)="submit()">{{'admin.reports.items.run' | translate}}</button>
+                <button type="button"class="btn btn-primary mt-1 col-6" (click)="submit()">{{'admin.reports.items.run' | translate}}</button>
               </div>
             </ng-template>
           </ngb-panel>
@@ -142,7 +142,7 @@
                   <div class="warning">{{ 'metadata-export-filtered-items.columns.warning' | translate }}</div>
                 }
                 <span class="col-3"></span>
-                <button class="btn btn-primary mt-1 col-6" (click)="submit()">{{'admin.reports.items.run' | translate}}</button>
+                <button type="button" class="btn btn-primary mt-1 col-6" (click)="submit()">{{'admin.reports.items.run' | translate}}</button>
               </div>
             </ng-template>
           </ngb-panel>
@@ -193,8 +193,8 @@
                 {{'admin.reports.commons.page' | translate}} {{ currentPage + 1 }} {{'admin.reports.commons.of' | translate}} {{ pageCount() }}
               </div>
               <div>
-                <button id="prev" class="btn btn-light" (click)="prevPage()" [dsBtnDisabled]="!canNavigatePrevious()">{{'admin.reports.commons.previous-page' | translate}}</button>
-                <button id="next" class="btn btn-light" (click)="nextPage()" [dsBtnDisabled]="!canNavigateNext()">{{'admin.reports.commons.next-page' | translate}}</button>
+                <button type="button" id="prev" class="btn btn-light" (click)="prevPage()" [dsBtnDisabled]="!canNavigatePrevious()">{{'admin.reports.commons.previous-page' | translate}}</button>
+                <button type="button" id="next" class="btn btn-light" (click)="nextPage()" [dsBtnDisabled]="!canNavigateNext()">{{'admin.reports.commons.next-page' | translate}}</button>
                 <div style="float: right; margin-right: 60px;">
                   <ds-filtered-items-export-csv [reportParams]="queryForm"></ds-filtered-items-export-csv>
                 </div>

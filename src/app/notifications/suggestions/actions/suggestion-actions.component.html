@@ -19,10 +19,10 @@
     }
 
   </div>
-  <button (click)="ignoreSuggestion()" class="btn btn-danger ms-2"><i class="fa fa-ban"></i>
+  <button type="button" (click)="ignoreSuggestion()" class="btn btn-danger ms-2"><i class="fa fa-ban"></i>
 {{ ignoreSuggestionLabel() | translate}}</button>
 @if (!isBulk) {
-  <button (click)="toggleSeeEvidences()" [dsBtnDisabled]="!hasEvidence" class="btn btn-info ms-2">
+  <button type="button" (click)="toggleSeeEvidences()" [dsBtnDisabled]="!hasEvidence" class="btn btn-info ms-2">
     <i class="fa fa-eye"></i>
     @if (!seeEvidence) {
       {{ 'suggestion.seeEvidence' | translate}}

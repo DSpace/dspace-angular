@@ -1,6 +1,7 @@
 <div class="btn-group" data-toggle="buttons">
   @if (isToShow(viewModeEnum.ListElement)) {
     <button
+      type="button"
       [attr.aria-current]="currentMode === viewModeEnum.ListElement"
       [attr.aria-label]="'search.view-switch.show-list' | translate"
       [title]="'search.view-switch.show-list' | translate"
@@ -16,6 +17,7 @@
   }
   @if (isToShow(viewModeEnum.GridElement)) {
     <button
+      type="button"
       [attr.aria-current]="currentMode === viewModeEnum.GridElement"
       [attr.aria-label]="'search.view-switch.show-grid' | translate"
       [title]="'search.view-switch.show-grid' | translate"
@@ -31,6 +33,7 @@
   }
   @if (isToShow(viewModeEnum.DetailedListElement)) {
     <button
+      type="button"
       [attr.aria-current]="currentMode === viewModeEnum.DetailedListElement"
       [attr.aria-label]="'search.view-switch.show-detail' | translate"
       [title]="'search.view-switch.show-detail' | translate"
@@ -46,6 +49,7 @@
   }
   @if (isToShow(viewModeEnum.GeospatialMap)) {
     <button
+      type="button"
       [attr.aria-current]="currentMode === viewModeEnum.GeospatialMap"
       [attr.aria-label]="'search.view-switch.show-geospatialMap' | translate"
       [title]="'search.view-switch.show-geospatialMap' | translate"

@@ -12,7 +12,7 @@ import { BtnDisabledDirective } from './btn-disabled.directive';
 
 @Component({
   template: `
-    <button [dsBtnDisabled]="isDisabled">Test Button</button>
+    <button type="button" [dsBtnDisabled]="isDisabled">Test Button</button>
   `,
 })
 class TestComponent {

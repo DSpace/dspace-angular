@@ -11,7 +11,7 @@
       </span>
       <div class="align-middle my-auto">
         @if ((dataSource.loading$ | async) !== true) {
-          <button (click)="getNextPage(node)"
+          <button type="button" (click)="getNextPage(node)"
             class="btn btn-outline-primary btn-sm" role="button">
             <i class="fas fa-angle-down"></i> {{ 'communityList.showMore' | translate }}
           </button>

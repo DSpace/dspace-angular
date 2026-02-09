@@ -1,5 +1,6 @@
 @if (shouldShowButton$ | async) {
   <button
+    type="button"
     class="export-button btn btn-dark btn-sm"
     [ngbTooltip]="tooltipMsg | translate"
     (click)="export()"

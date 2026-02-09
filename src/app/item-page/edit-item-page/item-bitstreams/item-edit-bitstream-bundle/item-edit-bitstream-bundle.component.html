@@ -36,7 +36,7 @@
               </th>
               <td class="text-center">
                 <div class="btn-group">
-                  <button [routerLink]="[itemPageRoute, 'bitstreams', 'new']"
+                  <button type="button" [routerLink]="[itemPageRoute, 'bitstreams', 'new']"
                     [queryParams]="{bundle: bundle.id}"
                     [attr.aria-label]="'item.edit.bitstreams.bundle.edit.buttons.upload' | translate"
                     class="btn btn-outline-success btn-sm"
@@ -45,7 +45,7 @@
                   </button>
                   <div ngbDropdown #paginationControls="ngbDropdown" class="btn-group float-right btn-sm p-0"
                     placement="bottom-right">
-                    <button class="btn btn-outline-secondary" id="paginationControls" ngbDropdownToggle
+                    <button type="button" class="btn btn-outline-secondary" id="paginationControls" ngbDropdownToggle
                       [title]="'pagination.options.description' | translate"
                       [attr.aria-label]="'pagination.options.description' | translate" aria-haspopup="true"
                       aria-expanded="false">
@@ -60,7 +60,7 @@
                           @for (size of paginationOptions.pageSizeOptions; track size) {
                             <li role="option"
                               [attr.aria-selected]="size === (pageSize$ | async)">
-                              <button (click)="doPageSizeChange(size)" class="dropdown-item">
+                              <button type="button" (click)="doPageSizeChange(size)" class="dropdown-item">
                                 <i [ngClass]="{'invisible': size !== (pageSize$ | async) }" class="fas fa-check"
                                 aria-hidden="true"></i> {{size}}
                               </button>
@@ -105,18 +105,18 @@
                           [attr.data-test]="'download-button' | dsBrowserOnly">
                           <i class="fas fa-download fa-fw"></i>
                         </a>
-                        <button [routerLink]="['/bitstreams/', entry.id, 'edit']" class="btn btn-outline-primary btn-sm"
+                        <button type="button" [routerLink]="['/bitstreams/', entry.id, 'edit']" class="btn btn-outline-primary btn-sm"
                           [attr.aria-label]="'item.edit.bitstreams.edit.buttons.edit' | translate"
                           title="{{'item.edit.bitstreams.edit.buttons.edit' | translate}}">
                           <i class="fas fa-edit fa-fw"></i>
                         </button>
-                        <button [dsBtnDisabled]="!canRemove(update)" (click)="remove(entry.bitstream)"
+                        <button type="button" [dsBtnDisabled]="!canRemove(update)" (click)="remove(entry.bitstream)"
                           [attr.aria-label]=" 'item. edit bitstreams.edit.buttons.remove' | translate"
                           class="btn btn-outline-danger btn-sm"
                           title="{{'item.edit.bitstreams.edit.buttons.remove' | translate}}">
                           <i class="fas fa-trash-alt fa-fw"></i>
                         </button>
-                        <button [dsBtnDisabled]="!canUndo(update)" (click)="undo(entry.bitstream)"
+                        <button type="button" [dsBtnDisabled]="!canUndo(update)" (click)="undo(entry.bitstream)"
                           [attr.aria-label]="'item.edit.bitstreams.edit.buttons.undo' | translate"
                           class="btn btn-outline-warning btn-sm"
                           title="{{'item.edit.bitstreams.edit.buttons.undo' | translate}}">

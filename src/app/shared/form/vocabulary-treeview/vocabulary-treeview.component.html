@@ -65,6 +65,7 @@
       }
       @if (!multiSelect) {
         <button class="btn btn-outline-link btn-sm text-start"
+          type="button"
           [class.text-success]="node.isSelected"
           [dsBtnDisabled]="!node.item?.selectable"
           [ngbTooltip]="node.item?.otherInformation?.note"
@@ -101,6 +102,7 @@
       }
       @if (!multiSelect) {
         <button class="btn btn-outline-link btn-sm text-start"
+          type="button"
           [class.text-success]="node.isSelected"
           [dsBtnDisabled]="!node.item?.selectable"
           [ngbTooltip]="node.item?.otherInformation?.note"
@@ -113,14 +115,14 @@
     </cdk-tree-node>
 
     <cdk-tree-node *cdkTreeNodeDef="let node; when: isLoadMore" cdkTreeNodePadding>
-      <button class="btn btn-outline-secondary btn-sm" (click)="loadMore(node.loadMoreParentItem)"
+      <button class="btn btn-outline-secondary btn-sm" type="button" (click)="loadMore(node.loadMoreParentItem)"
         [attr.aria-label]="'vocabulary-treeview.load-more' | translate">
         {{'vocabulary-treeview.load-more' | translate}}...
       </button>
     </cdk-tree-node>
 
     <cdk-tree-node *cdkTreeNodeDef="let node; when: isLoadMoreRoot">
-      <button class="btn btn-outline-secondary btn-sm" (click)="loadMoreRoot(node)"
+      <button class="btn btn-outline-secondary btn-sm" type="button" (click)="loadMoreRoot(node)"
         [attr.aria-label]="'vocabulary-treeview.load-more' | translate">
         {{'vocabulary-treeview.load-more' | translate}}...
       </button>

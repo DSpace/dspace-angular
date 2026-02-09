@@ -9,7 +9,7 @@
           </ds-listable-object-component-loader>
         </div>
       }
-      <button (click)="onLoadMore()" class="btn btn-primary search-button mt-4 float-start ng-tns-c290-40"> {{'vocabulary-treeview.load-more' | translate }} ...</button>
+      <button type="button" (click)="onLoadMore()" class="btn btn-primary search-button mt-4 float-start ng-tns-c290-40"> {{'vocabulary-treeview.load-more' | translate }} ...</button>
     </div>
   }
   @if (itemRD?.hasFailed) {

@@ -16,7 +16,7 @@
     <div class="dropdown-list">
       @for (suggestionOption of suggestions; track suggestionOption) {
         <div>
-          <button class="d-block dropdown-item"  (click)="onClickSuggestion(suggestionOption)" #suggestion>
+          <button type="button" class="d-block dropdown-item"  (click)="onClickSuggestion(suggestionOption)" #suggestion>
             <ds-listable-object-component-loader [object]="suggestionOption" [viewMode]="viewMode" [linkType]="linkTypes.None"></ds-listable-object-component-loader>
           </button>
         </div>

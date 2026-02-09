@@ -12,14 +12,14 @@
           <div class="col">
             @if (!hideGear) {
               <div ngbDropdown #paginationControls="ngbDropdown" placement="bottom-right" class="d-inline-block float-end">
-                <button class="btn btn-secondary" id="paginationControls" ngbDropdownToggle [title]="'pagination.options.description' | translate" [attr.aria-label]="'pagination.options.description' | translate" aria-haspopup="true" aria-expanded="false"><i class="fas fa-cog" aria-hidden="true"></i></button>
+                <button type="button" class="btn btn-secondary" id="paginationControls" ngbDropdownToggle [title]="'pagination.options.description' | translate" [attr.aria-label]="'pagination.options.description' | translate" aria-haspopup="true" aria-expanded="false"><i class="fas fa-cog" aria-hidden="true"></i></button>
                 <ul id="paginationControlsDropdownMenu" aria-labelledby="paginationControls" role="menu" ngbDropdownMenu>
                   <li role="menuitem">
                     <span class="dropdown-header" id="pagination-control_results-per-page" role="heading">{{ 'pagination.results-per-page' | translate}}</span>
                     <ul aria-labelledby="pagination-control_results-per-page" class="list-unstyled" role="listbox">
                       @for (item of pageSizeOptions; track item) {
                         <li role="option" [attr.aria-selected]="item === (pageSize$ | async)">
-                          <button (click)="doPageSizeChange(item)" class="dropdown-item">
+                          <button type="button" (click)="doPageSizeChange(item)" class="dropdown-item">
                             <i [ngClass]="{'invisible': item !== (pageSize$ | async) }" class="fas fa-check" aria-hidden="true"></i> {{item}}
                           </button>
                         </li>
@@ -32,7 +32,7 @@
                       <ul aria-labelledby="pagination-control_sort-direction" class="list-unstyled" role="listbox">
                         @for (direction of (sortDirections | dsKeys); track direction) {
                           <li [attr.aria-selected]="direction.value === (sortDirection$ | async)" role="option">
-                            <button class="dropdown-item" (click)="doSortDirectionChange(direction.value)">
+                            <button type="button" class="dropdown-item" (click)="doSortDirectionChange(direction.value)">
                               <i [ngClass]="{'invisible': direction.value !== (sortDirection$ |async)}" class="fas fa-check" aria-hidden="true"></i> {{'sorting.' + direction.key | translate}}
                             </button>
                           </li>

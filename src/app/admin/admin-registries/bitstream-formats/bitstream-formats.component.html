@@ -59,7 +59,7 @@
 
       <div>
         @if ((bitstreamFormats$ | async)?.payload?.page?.length > 0) {
-          <button class="btn btn-primary deselect" (click)="deselectAll()">{{'admin.registries.bitstream-formats.table.deselect-all' | translate}}</button>
+          <button type="button" class="btn btn-primary deselect" (click)="deselectAll()">{{'admin.registries.bitstream-formats.table.deselect-all' | translate}}</button>
         }
         @if ((bitstreamFormats$ | async)?.payload?.page?.length > 0) {
           <button type="submit" class="btn btn-danger float-end" (click)="deleteFormats()">{{'admin.registries.bitstream-formats.table.delete' | translate}}</button>

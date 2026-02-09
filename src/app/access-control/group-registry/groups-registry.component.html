@@ -4,7 +4,7 @@
       <div class="d-flex justify-content-between border-bottom mb-3">
         <h1 id="header" class="pb-2">{{messagePrefix + 'head' | translate}}</h1>
         <div>
-          <button class="me-auto btn btn-success"
+          <button type="button" class="me-auto btn btn-success"
             [routerLink]="'create'">
             <i class="fas fa-plus"></i>
             <span class="d-none d-sm-inline ms-1">{{messagePrefix + 'button.add' | translate}}</span>
@@ -27,7 +27,7 @@
           </div>
         </div>
         <div>
-          <button (click)="clearFormAndResetResult();" class="btn btn-secondary">
+          <button type="button" (click)="clearFormAndResetResult();" class="btn btn-secondary">
             {{messagePrefix + 'button.see-all' | translate}}
           </button>
         </div>
@@ -65,6 +65,7 @@
                         @switch (groupDto.ableToEdit) {
                           @case (true) {
                             <button
+                              type="button"
                               [routerLink]="groupService.getGroupEditPageRouterLink(groupDto.group)"
                               class="btn btn-outline-primary btn-sm btn-edit"
                               title="{{messagePrefix + 'table.edit.buttons.edit' | translate: {name: dsoNameService.getName(groupDto.group) } }}"
@@ -74,6 +75,7 @@
                           }
                           @case (false) {
                             <button
+                              type="button"
                               [dsBtnDisabled]="true"
                               class="btn btn-outline-primary btn-sm btn-edit"
                               placement="left"
@@ -85,6 +87,7 @@
                         }
                         @if (!groupDto.group?.permanent && groupDto.ableToDelete) {
                           <button
+                            type="button"
                             (click)="deleteGroup(groupDto)" class="btn btn-outline-danger btn-sm btn-delete"
                             title="{{messagePrefix + 'table.edit.buttons.remove' | translate: {name: dsoNameService.getName(groupDto.group) } }}">
                             <i class="fas fa-trash-alt fa-fw"></i>

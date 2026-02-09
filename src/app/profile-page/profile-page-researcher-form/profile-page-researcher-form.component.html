@@ -17,7 +17,7 @@
     </div>
   }
   @if (!researcherProfile) {
-    <button class="btn btn-primary me-2"
+    <button type="button" class="btn btn-primary me-2"
       [dsBtnDisabled]="(isProcessingCreate() | async)"
       (click)="createProfile()">
       @if ((isProcessingCreate() | async)) {
@@ -33,10 +33,10 @@
     </button>
   }
   @if (researcherProfile) {
-    <button class="btn btn-primary me-2" [dsBtnDisabled]="!researcherProfile" (click)="viewProfile(researcherProfile)">
+    <button type="button" class="btn btn-primary me-2" [dsBtnDisabled]="!researcherProfile" (click)="viewProfile(researcherProfile)">
       <i class="fas fa-info-circle"></i> {{'researcher.profile.view' | translate}}
     </button>
-    <button class="btn btn-danger" [dsBtnDisabled]="!researcherProfile" (click)="deleteProfile(researcherProfile)">
+    <button type="button" class="btn btn-danger" [dsBtnDisabled]="!researcherProfile" (click)="deleteProfile(researcherProfile)">
       @if ((isProcessingDelete() | async)) {
         <span>
           <i class='fas fa-circle-notch fa-spin'></i> {{'researcher.profile.action.processing' | translate}}

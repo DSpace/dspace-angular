@@ -32,7 +32,7 @@
                 <td class="align-middle">{{ dsoNameService.getName((group.object | async)?.payload)}}</td>
                 <td class="align-middle">
                   <div class="btn-group edit-field">
-                    <button (click)="deleteSubgroupFromGroup(group)"
+                    <button type="button" (click)="deleteSubgroupFromGroup(group)"
                       class="btn btn-outline-danger btn-sm deleteButton"
                       title="{{messagePrefix + '.table.edit.buttons.remove' | translate: { name: dsoNameService.getName(group) } }}">
                       <i class="fas fa-trash-alt fa-fw"></i>
@@ -80,7 +80,7 @@
       </div>
     </div>
     <div>
-      <button (click)="clearFormAndResetResult();" class="btn btn-secondary float-end">
+      <button type="button"(click)="clearFormAndResetResult();" class="btn btn-secondary float-end">
         {{messagePrefix + '.button.see-all' | translate}}
       </button>
     </div>
@@ -115,7 +115,7 @@
                 <td class="align-middle">{{ dsoNameService.getName((group.object | async)?.payload) }}</td>
                 <td class="align-middle">
                   <div class="btn-group edit-field">
-                    <button (click)="addSubgroupToGroup(group)"
+                    <button type="button" (click)="addSubgroupToGroup(group)"
                       class="btn btn-outline-primary btn-sm addButton"
                       title="{{messagePrefix + '.table.edit.buttons.add' | translate: { name: dsoNameService.getName(group) } }}">
                       <i class="fas fa-plus fa-fw"></i>

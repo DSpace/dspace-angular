@@ -30,13 +30,13 @@
             [bitstream]="getBitstream()" [enableRequestACopy]="false" [showAccessStatusBadge]="false">
             <i class="fa fa-download fa-2x text-normal" aria-hidden="true"></i>
           </ds-file-download-link>
-          <button class="btn btn-link-focus"
+          <button type="button" class="btn btn-link-focus"
             [attr.aria-label]="'submission.sections.upload.edit.title' | translate"
             title="{{ 'submission.sections.upload.edit.title' | translate }}"
             (click)="$event.preventDefault();editBitstreamData();">
             <i class="fa fa-edit fa-2x text-normal"></i>
           </button>
-          <button class="btn btn-link-focus"
+          <button type="button" class="btn btn-link-focus"
             [attr.aria-label]="'submission.sections.upload.delete.confirm.title' | translate"
             title="{{ 'submission.sections.upload.delete.confirm.title' | translate }}"
             [dsBtnDisabled]="(processingDelete$ | async)"

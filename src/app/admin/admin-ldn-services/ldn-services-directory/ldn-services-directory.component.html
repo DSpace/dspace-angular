@@ -3,7 +3,7 @@
     <h1 class="flex-grow-1">{{ 'ldn-registered-services.title' | translate }}</h1>
   </div>
   <div class="d-flex justify-content-end">
-    <button class="btn btn-success" routerLink="/admin/ldn/services/new"><i
+    <button type="button" class="btn btn-success" routerLink="/admin/ldn/services/new"><i
     class="fas fa-plus pe-2"></i>{{ 'process.overview.new' | translate }}</button>
   </div>
   @if ((ldnServicesRD$ | async)?.payload?.totalElements > 0) {
@@ -46,12 +46,13 @@
                 <td>
                   <div class="btn-group">
                     <button
+                      type="button"
                       (click)="selectServiceToDelete(ldnService.id)"
                       [attr.aria-label]="'ldn-service-overview-select-delete' | translate"
                       class="btn btn-outline-danger">
                       <i class="fas fa-trash"></i>
                     </button>
-                    <button [routerLink]="['/admin/ldn/services/edit/', ldnService.id]"
+                    <button type="button"[routerLink]="['/admin/ldn/services/edit/', ldnService.id]"
                       [attr.aria-label]="'ldn-service-overview-select-edit' | translate"
                       class="btn btn-outline-dark">
                       <i class="fas fa-edit"></i>
@@ -87,10 +88,10 @@
         {{ 'service.overview.delete.body' | translate }}
       </div>
       <div class="mt-4 text-right">
-        <button (click)="closeModal()"
+        <button  type="button" (click)="closeModal()"
           [attr.aria-label]="'ldn-service-overview-close-modal' | translate"
         class="btn btn-outline-secondary me-2">{{ 'service.detail.delete.cancel' | translate }}</button>
-        <button (click)="deleteSelected(this.selectedServiceId.toString(), ldnServicesService)"
+        <button type="button" (click)="deleteSelected(this.selectedServiceId.toString(), ldnServicesService)"
           class="btn btn-danger"
           [attr.aria-label]="'ldn-service-overview-select-delete' | translate"
           id="delete-confirm">{{ 'service.overview.delete' | translate }}

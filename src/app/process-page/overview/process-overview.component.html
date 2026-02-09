@@ -31,18 +31,18 @@
 <ng-template #buttons>
   <div class="d-flex justify-content-end mb-2">
     @if (processBulkDeleteService.hasSelected()) {
-      <button class="btn btn-primary me-2"
+      <button type="button" class="btn btn-primary me-2"
         (click)="processBulkDeleteService.clearAllProcesses()"><i
       class="fas fa-undo pe-2"></i>{{'process.overview.delete.clear' | translate }}
     </button>
   }
   @if (processBulkDeleteService.hasSelected()) {
-    <button class="btn btn-danger me-2"
+    <button type="button" class="btn btn-danger me-2"
       (click)="openDeleteModal(deleteModal)"><i
     class="fas fa-trash pe-2"></i>{{'process.overview.delete' | translate: {count: processBulkDeleteService.getAmountOfSelectedProcesses()} }}
   </button>
 }
-<button class="btn btn-success" routerLink="/processes/new"><i
+<button type="button" class="btn btn-success" routerLink="/processes/new"><i
 class="fas fa-plus pe-2"></i>{{'process.overview.new' | translate}}</button>
 </div>
 </ng-template>
@@ -72,9 +72,9 @@ class="fas fa-plus pe-2"></i>{{'process.overview.new' | translate}}</button>
         </div>
       }
       <div class="mt-4">
-        <button class="btn btn-primary me-2" [dsBtnDisabled]="processBulkDeleteService.isProcessing$() |async"
+        <button type="button" class="btn btn-primary me-2" [dsBtnDisabled]="processBulkDeleteService.isProcessing$() |async"
         (click)="closeModal()">{{'process.detail.delete.cancel' | translate}}</button>
-        <button id="delete-confirm" class="btn btn-danger"
+        <button type="button" id="delete-confirm" class="btn btn-danger"
           [dsBtnDisabled]="processBulkDeleteService.isProcessing$() |async"
           (click)="deleteSelected()">{{ 'process.overview.delete' | translate: {count: processBulkDeleteService.getAmountOfSelectedProcesses()}  }}
         </button>

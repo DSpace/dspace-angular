@@ -45,7 +45,7 @@
   }
   @if ((isLoading | async)) {
     <li>
-      <button class="dropdown-item disabled">
+      <button type="button" class="dropdown-item disabled">
         <ds-loading message="{{'loading.default' | translate}}">
         </ds-loading>
       </button>
