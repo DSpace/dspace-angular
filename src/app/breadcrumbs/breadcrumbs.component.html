@@ -1,13 +1,24 @@
 <ng-container *ngVar="(breadcrumbs$ | async) as breadcrumbs">
     <nav *ngIf="(showBreadcrumbs$ | async)" aria-label="breadcrumb" class="nav-breadcrumb">
-        <ol class="container breadcrumb my-0">
-            <ng-container
-                    *ngTemplateOutlet="breadcrumbs?.length > 0 ? breadcrumb : activeBreadcrumb; context: {text: 'home.breadcrumbs', url: '/'}"></ng-container>
-            <ng-container *ngFor="let bc of breadcrumbs; let last = last;">
-                <ng-container *ngTemplateOutlet="!last ? breadcrumb : activeBreadcrumb; context: bc"></ng-container>
-            </ng-container>
-        </ol>
+       <ng-container *ngTemplateOutlet="(isMobile$ | async) ? displayOnMobile : displayOnDesktop"></ng-container>
     </nav>
+
+  <ng-template #displayOnMobile>
+    <ol class="container breadcrumb my-0">
+        <ng-container *ngTemplateOutlet="listBreadcrumb"></ng-container>
+        <li class="breadcrumb-separator"><p>{{'/'}}</p></li>
+        <ng-container *ngTemplateOutlet="currentBreadcrumb"></ng-container>
+    </ol>
+  </ng-template>
+
+    <ng-template #displayOnDesktop>
+      <ol class="container breadcrumb my-0">
+        <ng-container *ngTemplateOutlet="breadcrumbs?.length > 0 ? breadcrumb : activeBreadcrumb; context: {text: 'home.breadcrumbs', url: '/'}"></ng-container>
+        <ng-container *ngFor="let bc of breadcrumbs; let last = last;">
+          <ng-container *ngTemplateOutlet="!last ? breadcrumb : activeBreadcrumb; context: bc"></ng-container>
+        </ng-container>
+      </ol>
+    </ng-template>
 
     <ng-template #breadcrumb let-text="text" let-url="url">
         <li class="breadcrumb-item"><div class="breadcrumb-item-limiter"><a [routerLink]="url" class="text-truncate" [ngbTooltip]="text | translate" placement="bottom" role="link" tabindex="0">{{text | translate}}</a></div></li>
@@ -15,6 +26,38 @@
 
     <ng-template #activeBreadcrumb let-text="text">
         <li class="breadcrumb-item active" aria-current="page"><div class="breadcrumb-item-limiter"><div class="text-truncate">{{text | translate}}</div></div></li>
+    </ng-template>
+
+    <ng-template #listBreadcrumb>
+      <li class="breadcrumb-item">
+        <div  class="dropdown">
+          <div class="dso-button-menu mb-1" ngbDropdown container="body" placement="bottom-left">
+            <div class="d-flex flex-row flex-nowrap" >
+              <a type="button" class="breadcrumb-action" aria-expanded="false" ngbDropdownToggle>{{ ('...') }}</a>
+              <ul ngbDropdownMenu class="menu-dropdown">
+                <li class="nav-item nav-link d-flex flex-row">
+                  <div  class="mr-2">
+                    <ng-container  *ngTemplateOutlet="breadcrumbs?.length > 0 ? breadcrumb : activeBreadcrumb; context: {text: 'home.breadcrumbs', url: '/'}"></ng-container>
+                    <ng-container *ngFor="let bc of breadcrumbs; let last = last;">
+                      <div *ngIf="!last">
+                        <ng-container *ngTemplateOutlet="breadcrumb; context: bc"></ng-container>
+                      </div>
+                    </ng-container>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ng-template>
+
+    <ng-template #currentBreadcrumb >
+      <ng-container *ngFor="let bc of breadcrumbs; let last = last;">
+        <div *ngIf="last">
+          <ng-container *ngTemplateOutlet="activeBreadcrumb; context: bc"></ng-container>
+        </div>
+      </ng-container>
     </ng-template>
 </ng-container>
 
