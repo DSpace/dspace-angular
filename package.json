@@ -116,6 +116,7 @@
     "ngx-pagination": "6.0.3",
     "ngx-skeleton-loader": "^9.0.0",
     "ngx-ui-switch": "^14.1.0",
+    "node-html-parser": "^7.0.1",
     "nouislider": "^15.7.1",
     "pem": "1.14.8",
     "reflect-metadata": "^0.2.2",
