@@ -37,7 +37,7 @@ import {
 import {
   ThemedPageInternalServerErrorComponent
 } from './page-internal-server-error/themed-page-internal-server-error.component';
-import { ServerCheckGuard } from './core/server-check/server-check.guard';
+import { ServerStatusGuard } from './core/server-check/server-status-guard.service';
 import { MenuResolver } from './menu.resolver';
 import { ThemedPageErrorComponent } from './page-error/themed-page-error.component';
 import { HomePageResolver } from './home-page/home-page.resolver';
@@ -52,7 +52,7 @@ import { notAuthenticatedGuard } from './core/auth/not-authenticated.guard';
       {
         path: '',
         canActivate: [AuthBlockingGuard],
-        canActivateChild: [ServerCheckGuard],
+        canActivateChild: [ServerStatusGuard],
         resolve: [MenuResolver],
         children: [
           { path: '', redirectTo: '/home', pathMatch: 'full' },

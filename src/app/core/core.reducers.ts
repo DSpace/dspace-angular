@@ -14,6 +14,7 @@ import {
 import { historyReducer } from './history/history.reducer';
 import { metaTagReducer } from './metadata/meta-tag.reducer';
 import { CoreState } from './core-state.model';
+import { serverStatusReducer } from './history/server-status.reducer';
 
 export const coreReducers: ActionReducerMap<CoreState> = {
   'bitstreamFormats': bitstreamFormatReducer,
@@ -22,6 +23,7 @@ export const coreReducers: ActionReducerMap<CoreState> = {
   'cache/object-updates': objectUpdatesReducer,
   'data/request': requestReducer,
   'history': historyReducer,
+  'serverStatus': serverStatusReducer,
   'index': indexReducer,
   'auth': authReducer,
   'json/patch': jsonPatchOperationsReducer,
