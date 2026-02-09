@@ -1,4 +1,3 @@
-// Load the implementations that should be tested
 import { HttpClient } from '@angular/common/http';
 import {
   ChangeDetectorRef,
@@ -36,8 +35,10 @@ import {
   DynamicFormLayoutService,
   DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
+import { provideMockActions } from '@ngrx/effects/testing';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
 
 import { environment } from '../../../../../../../environments/environment.test';
 import { SubmissionService } from '../../../../../../submission/submission.service';
@@ -189,6 +190,7 @@ describe('DsDynamicRelationInlineGroupComponent test suite', () => {
         FormComponent,
         FormService,
         provideMockStore({ initialState }),
+        provideMockActions(() => new Observable<any>()),
         { provide: SubmissionService, useValue: submissionServiceStub },
         { provide: XSRFService, useValue: {} },
         { provide: LiveRegionService, useValue: {} },
