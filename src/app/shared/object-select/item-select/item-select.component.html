@@ -56,8 +56,8 @@
     <ds-loading message="{{'loading.items' | translate}}"></ds-loading>
   }
   <div *ngVar="(selectedIds$ | async) as selectedIds">
-    <button class="btn btn-outline-secondary item-cancel float-start" (click)="onCancel()">{{cancelButton | translate}}</button>
-    <button class="btn item-confirm float-end"
+    <button type="button" class="btn btn-outline-secondary item-cancel float-start" (click)="onCancel()">{{cancelButton | translate}}</button>
+    <button type="button"class="btn item-confirm float-end"
       [ngClass]="{'btn-danger': dangerConfirm, 'btn-primary': !dangerConfirm}"
       [dsBtnDisabled]="selectedIds?.length === 0"
       (click)="confirmSelected()">

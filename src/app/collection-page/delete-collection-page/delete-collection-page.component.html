@@ -6,10 +6,10 @@
         <p class="pb-2">{{ 'collection.delete.text' | translate:{ dso: dsoNameService.getName(dso) } }}</p>
         <div class="mb-3 row">
           <div class="col text-end space-children-mr">
-            <button class="btn btn-outline-secondary" (click)="onCancel(dso)" [dsBtnDisabled]="(processing$ | async)">
+            <button type="button" class="btn btn-outline-secondary" (click)="onCancel(dso)" [dsBtnDisabled]="(processing$ | async)">
               <i class="fas fa-times"></i> {{'collection.delete.cancel' | translate}}
             </button>
-            <button class="btn btn-danger" (click)="onConfirm(dso)" [dsBtnDisabled]="(processing$ | async)">
+            <button type="button" class="btn btn-danger" (click)="onConfirm(dso)" [dsBtnDisabled]="(processing$ | async)">
               @if (processing$ | async) {
                 <span><i class='fas fa-circle-notch fa-spin'></i> {{'collection.delete.processing' | translate}}</span>
               }

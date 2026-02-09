@@ -6,14 +6,14 @@
 <div class="col-12 col-md-9 float-start action-button">
   @if (operation.authorized) {
     <span>
-      <button class="btn btn-outline-primary" [dsBtnDisabled]="operation.disabled" [routerLink]="operation.operationUrl" [attr.aria-label]="'item.edit.tabs.status.buttons.' + operation.operationKey + '.button' | translate">
+      <button type="button" class="btn btn-outline-primary" [dsBtnDisabled]="operation.disabled" [routerLink]="operation.operationUrl" [attr.aria-label]="'item.edit.tabs.status.buttons.' + operation.operationKey + '.button' | translate">
         {{'item.edit.tabs.status.buttons.' + operation.operationKey + '.button' | translate}}
       </button>
     </span>
   }
   @if (!operation.authorized) {
     <span [ngbTooltip]="'item.edit.tabs.status.buttons.unauthorized' | translate">
-      <button class="btn btn-outline-primary" [dsBtnDisabled]="true" [attr.aria-label]="'item.edit.tabs.status.buttons.' + operation.operationKey + '.button' | translate">
+      <button type="button" class="btn btn-outline-primary" [dsBtnDisabled]="true" [attr.aria-label]="'item.edit.tabs.status.buttons.' + operation.operationKey + '.button' | translate">
         {{'item.edit.tabs.status.buttons.' + operation.operationKey + '.button' | translate}}
       </button>
     </span>

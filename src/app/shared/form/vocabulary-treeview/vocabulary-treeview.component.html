@@ -67,6 +67,7 @@
       }
       @if (!multiSelect) {
         <button class="btn btn-outline-link btn-sm text-start"
+          type="button"
           [class.text-success]="node.isSelected"
           [dsBtnDisabled]="!node.item?.selectable"
           [ngbTooltip]="node.item?.otherInformation?.note"
@@ -111,6 +112,7 @@
       }
       @if (!multiSelect) {
         <button class="btn btn-outline-link btn-sm text-start"
+          type="button"
           [class.text-success]="node.isSelected"
           [dsBtnDisabled]="!node.item?.selectable"
           [ngbTooltip]="node.item?.otherInformation?.note"
@@ -125,15 +127,15 @@
     </cdk-tree-node>
 
     <cdk-tree-node *cdkTreeNodeDef="let node; when: isLoadMore" cdkTreeNodePadding>
-      <button class="btn btn-outline-secondary btn-sm" (click)="loadMore(node.loadMoreParentItem)"
-        [attr.aria-label]="'vocabulary-treeview.load-more' | translate" role="button" tabindex="0">
+      <button class="btn btn-outline-secondary btn-sm" type="button" (click)="loadMore(node.loadMoreParentItem)"
+        [attr.aria-label]="'vocabulary-treeview.load-more' | translate">
         {{'vocabulary-treeview.load-more' | translate}}...
       </button>
     </cdk-tree-node>
 
     <cdk-tree-node *cdkTreeNodeDef="let node; when: isLoadMoreRoot">
-      <button class="btn btn-outline-secondary btn-sm" (click)="loadMoreRoot(node)"
-        [attr.aria-label]="'vocabulary-treeview.load-more' | translate" role="button" tabindex="0">
+      <button class="btn btn-outline-secondary btn-sm" type="button" (click)="loadMoreRoot(node)"
+        [attr.aria-label]="'vocabulary-treeview.load-more' | translate">
         {{'vocabulary-treeview.load-more' | translate}}...
       </button>
     </cdk-tree-node>
@@ -143,13 +145,13 @@
 @if ((showPreviousPage$ | async) || (showNextPage$ | async)) {
   <div class="mb-3 d-flex gap-2">
     @if (showPreviousPage$ | async) {
-      <button class="btn btn-outline-secondary"
+      <button class="btn btn-outline-secondary" type="button"
               (click)="loadPreviousPage()">
         {{ 'browse.taxonomy.show_previous_results' | translate }}
       </button>
     }
     @if (showNextPage$ | async) {
-      <button class="btn btn-outline-secondary"
+      <button class="btn btn-outline-secondary" type="button"
               (click)="loadNextPage()">
         {{ 'browse.taxonomy.show_next_results' | translate }}
       </button>
