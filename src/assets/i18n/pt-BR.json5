@@ -459,16 +459,16 @@
   "admin.access-control.epeople.table.edit.buttons.remove": "Excluir \"{{name}}\"",
 
   // "admin.access-control.epeople.table.edit.buttons.remove.modal.header": "Delete Group \"{{ dsoName }}\"",
-  "admin.access-control.epeople.table.edit.buttons.remove.modal.header": "Deletar grupo \"{{ dsoName }}\"",
+  "admin.access-control.epeople.table.edit.buttons.remove.modal.header": "Excluir Grupo \"{{ dsoName }}\"",
 
   // "admin.access-control.epeople.table.edit.buttons.remove.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\" and all its associated policies?",
-  "admin.access-control.epeople.table.edit.buttons.remove.modal.info": "Você tem certeza de que quer deletar o grupo \"{{ dsoName }}\" e todas as políticas associadas a ele?",
+  "admin.access-control.epeople.table.edit.buttons.remove.modal.info": "Você tem certeza de que quer excluir o Grupo \"{{ dsoName }}\" e todas as políticas associadas a ele?",
 
   // "admin.access-control.epeople.table.edit.buttons.remove.modal.cancel": "Cancel",
   "admin.access-control.epeople.table.edit.buttons.remove.modal.cancel": "Cancelar",
 
   // "admin.access-control.epeople.table.edit.buttons.remove.modal.confirm": "Delete",
-  "admin.access-control.epeople.table.edit.buttons.remove.modal.confirm": "Deletar",
+  "admin.access-control.epeople.table.edit.buttons.remove.modal.confirm": "Excluir",
 
   // "admin.access-control.epeople.no-items": "No EPeople to show.",
   "admin.access-control.epeople.no-items": "Nenhuma EPeople para mostrar.",
@@ -663,7 +663,7 @@
   "admin.access-control.groups.form.delete-group.modal.header": "Excluir grupo \"{{ dsoName }}\"",
 
   // "admin.access-control.groups.form.delete-group.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\" and all its associated policies?",
-  "admin.access-control.groups.form.delete-group.modal.info": "Você tem certeza que quer deletar o grupo \"{{ dsoName }}\" e todas as políticas associadas a ele?",
+  "admin.access-control.groups.form.delete-group.modal.info": "Você tem certeza que quer excluir o Grupo \"{{ dsoName }}\" e todas as políticas associadas a ele?",
 
   // "admin.access-control.groups.form.delete-group.modal.cancel": "Cancel",
   "admin.access-control.groups.form.delete-group.modal.cancel": "Cancelar",
@@ -2298,16 +2298,16 @@
   "comcol-role.edit.delete.error.title": "Falha ao excluir a função '{{ role }}' do cargo",
 
   // "comcol-role.edit.delete.modal.header": "Delete Group \"{{ dsoName }}\"",
-  "comcol-role.edit.delete.modal.header": "Deletar grupo \"{{ dsoName }}\"",
+  "comcol-role.edit.delete.modal.header": "Excluir Grupo \"{{ dsoName }}\"",
 
   // "comcol-role.edit.delete.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\" and all its associated policies?",
-  "comcol-role.edit.delete.modal.info": "Tem certeza de que quer deletar o grupo \"{{ dsoName }}\" e todas as políticas associadas a ele?",
+  "comcol-role.edit.delete.modal.info": "Tem certeza de que quer excluir o Grupo \"{{ dsoName }}\" e todas as políticas associadas a ele?",
 
   // "comcol-role.edit.delete.modal.cancel": "Cancel",
   "comcol-role.edit.delete.modal.cancel": "Cancelar",
 
   // "comcol-role.edit.delete.modal.confirm": "Delete",
-  "comcol-role.edit.delete.modal.confirm": "Deletar",
+  "comcol-role.edit.delete.modal.confirm": "Excluir",
 
   // "comcol-role.edit.community-admin.name": "Administrators",
   "comcol-role.edit.community-admin.name": "Administradores",
@@ -2478,7 +2478,7 @@
   "cookies.consent.content-modal.title": "Informações que coletamos",
 
   // "cookies.consent.app.title.accessibility": "Accessibility Settings",
-  "cookies.consent.app.title.accessibility": "Configurações de acessibilidade",
+  "cookies.consent.app.title.accessibility": "Configurações de Acessibilidade",
 
   // "cookies.consent.app.description.accessibility": "Required for saving your accessibility settings locally",
   "cookies.consent.app.description.accessibility": "Necessário para salvar localmente as suas configurações de acessibilidade",
@@ -3216,7 +3216,7 @@
   "grant-request-copy.intro.attachment": "Uma mensagem será enviada à pessoa que fez a solicitação. O(s) documento(s) solicitado(s) será(ão) anexado(s).",
 
   // "grant-request-copy.intro.link": "A message will be sent to the applicant of the request. A secure link providing access to the requested document(s) will be attached. The link will provide access for the duration of time selected in the \"Access Period\" menu below.",
-  "grant-request-copy.intro.link": "Uma mensagem será enviada à pessoa que fez a solicitação. Um link seguro provendo acesso ao(s) documento(s) solicitado(s) será anexado. O link irá fornecer acesso pela duração de tempo escolhida no menu \"Access Period\" abaixo.",
+  "grant-request-copy.intro.link": "Uma mensagem será enviada à pessoa que fez a solicitação. Um link seguro provendo acesso ao(s) documento(s) solicitado(s) será anexado. O link irá fornecer acesso pela duração de tempo escolhida no menu \"Período de Acesso\" abaixo.",
 
   // "grant-request-copy.intro.link.preview": "Below is a preview of the link that will be sent to the applicant:",
   "grant-request-copy.intro.link.preview": "Abaixo está a prévia do link que será enviado à pessoa que fez a solicitação:",
@@ -3324,13 +3324,13 @@
   "info.accessibility-settings.breadcrumbs": "Configurações de acessibilidade",
 
   // "info.accessibility-settings.cookie-warning": "Saving the accessibility settings is currently not possible. Either log in to save the settings in user data, or accept the 'Accessibility Settings' cookie using the 'Cookie Settings' menu at the bottom of the page. Once the cookie has been accepted, you can reload the page to remove this message.",
-  "info.accessibility-settings.cookie-warning": "Salvar as configurações de acessibilidade não é possível no momento. Realize o login para salvar as configurações nos dados de usuário, ou aceite o cookie de 'Configurações de acessibilidade' através do menu 'Configurações de cookies' na parte inferior da página. Assim que os cookies são aceitos, você pode recarregar a página para remover esta mensagem",
+  "info.accessibility-settings.cookie-warning": "Salvar as configurações de acessibilidade não é possível no momento. Realize o login para salvar as configurações nos dados de usuário, ou aceite o cookie de 'Configurações de Acessibilidade' através do menu 'Configurações de Cookies' na parte inferior da página. Assim que os cookies são aceitos, você pode recarregar a página para remover esta mensagem",
 
   // "info.accessibility-settings.disableNotificationTimeOut.label": "Automatically close notifications after time out",
   "info.accessibility-settings.disableNotificationTimeOut.label": "Fechar notificações automaticamente após período de tempo",
 
   // "info.accessibility-settings.disableNotificationTimeOut.hint": "When this toggle is activated, notifications will close automatically after the time out passes. When deactivated, notifications will remain open untill manually closed.",
-  "info.accessibility-settings.disableNotificationTimeOut.hint": "Quando essa opção está ativada, as notificações serão fechadas automaticamente após decorrer um período de tempo. Quando desativada, as notificações permanecerão abertar até que sejam fechadas manualmente.",
+  "info.accessibility-settings.disableNotificationTimeOut.hint": "Quando essa opção está ativada, as notificações serão fechadas automaticamente após decorrer um período de tempo. Quando desativada, as notificações permanecerão abertas até que sejam fechadas manualmente.",
 
   // "info.accessibility-settings.failed-notification": "Failed to save accessibility settings",
   "info.accessibility-settings.failed-notification": "Falha ao tentar salvar as configurações de acessibilidade",
@@ -3363,7 +3363,7 @@
   "info.accessibility-settings.save-notification.metadata": "Configurações salvas no perfil de usuário com sucesso.",
 
   // "info.accessibility-settings.reset-failed": "Failed to reset. Either log in or accept the 'Accessibility Settings' cookie.",
-  "info.accessibility-settings.reset-failed": "Falha ao redefinir. Faça login ou aceite o cookie 'Configurações de acessibilidade'.",
+  "info.accessibility-settings.reset-failed": "Falha ao redefinir. Faça login ou aceite o cookie 'Configurações de Acessibilidade'.",
 
   // "info.accessibility-settings.reset-notification": "Successfully reset settings.",
   "info.accessibility-settings.reset-notification": "Configurações redefinidas com sucesso.",
@@ -6156,7 +6156,7 @@
   "profile.card.accessibility.header": "Acessibilidade",
 
   // "profile.card.accessibility.link": "Go to Accessibility Settings Page",
-  "profile.card.accessibility.link": "Ir para a página de configurações de acessibilidade",
+  "profile.card.accessibility.link": "Ir para a página de Configurações de Acessibilidade",
 
   // "profile.card.identify": "Identify",
   "profile.card.identify": "Identificação",
@@ -6609,7 +6609,7 @@
   "relationships.Project.isFundingAgencyOfProject.OrgUnit": "Financiador",
 
   // "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Organisation Publications",
-  "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Publicações da organização",
+  "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Publicações da Organização",
 
   // "relationships.OrgUnit.isPersonOfOrgUnit.Person": "Authors",
   "relationships.OrgUnit.isPersonOfOrgUnit.Person": "Autores",
@@ -6618,7 +6618,7 @@
   "relationships.OrgUnit.isProjectOfOrgUnit.Project": "Projetos de Pesquisa",
 
   // "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
-  "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Publicações de autoria própria",
+  "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Publicações de Autoria Própria",
 
   // "relationships.OrgUnit.isPublicationOfContributor.Publication": "Publications (contributor to)",
   "relationships.OrgUnit.isPublicationOfContributor.Publication": "Publicações (como contribuidor)",
@@ -7635,7 +7635,7 @@
   "submission.import-external.source.openaireTitle": "Pesquisa OpenAIRE por Títulos",
 
   // "submission.import-external.source.openaireFunding": "OpenAIRE Search by Funder",
-  "submission.import-external.source.openaireFunding": "Pesquisa OpenAIRE por Financiamento",
+  "submission.import-external.source.openaireFunding": "Pesquisa OpenAIRE por Financiador",
 
   // "submission.import-external.source.orcid": "ORCID",
   "submission.import-external.source.orcid": "ORCID",
@@ -7968,7 +7968,7 @@
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.openaire": "Pesquisa OpenAIRE por Autores ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.openaireTitle": "OpenAIRE Search by Title ({{ count }})",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.openaireTitle": "Pesquisa OpenAIRE por Títulos ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.openaireTitle": "Pesquisa OpenAIRE por Título ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.openaireFunding": "OpenAIRE Search by Funder ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.openaireFunding": "Pesquisa OpenAIRE por Financiamento ({{ count }})",
@@ -7983,7 +7983,7 @@
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.openalexInstitution": "Pesquisa OpenAlex por Insituição ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.openalexPublisher": "OpenAlex Search by Publisher ({{ count }})",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.openalexPublisher": "Pesquisa OpenAlex por Editoras ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.openalexPublisher": "Pesquisa OpenAlex por Editora ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.openalexFunder": "OpenAlex Search by Funder ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.openalexFunder": "Pesquisa OpenAlex por Financiador ({{ count }})",
@@ -8199,19 +8199,19 @@
   "submission.sections.describe.relationship-lookup.selection-tab.title.ror": "Resultados da Pesquisa",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.openalexPerson": "Search Results",
-  "submission.sections.describe.relationship-lookup.selection-tab.title.openalexPerson": "Resultados da pesquisa",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.openalexPerson": "Resultados da Pesquisa",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.openalexInstitution": "Search Results",
-  "submission.sections.describe.relationship-lookup.selection-tab.title.openalexInstitution": "Resultados da pesquisa",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.openalexInstitution": "Resultados da Pesquisa",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.openalexPublisher": "Search Results",
-  "submission.sections.describe.relationship-lookup.selection-tab.title.openalexPublisher": "Resultados da pesquisa",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.openalexPublisher": "Resultados da Pesquisa",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.openalexFunder": "Search Results",
-  "submission.sections.describe.relationship-lookup.selection-tab.title.openalexFunder": "Resultados da pesquisa",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.openalexFunder": "Resultados da Pesquisa",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.dataciteProject": "Search Results",
-  "submission.sections.describe.relationship-lookup.selection-tab.title.dataciteProject": "Resultados da pesquisa",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.dataciteProject": "Resultados da Pesquisa",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title": "Search Results",
   "submission.sections.describe.relationship-lookup.selection-tab.title": "Resultados da Pesquisa",
@@ -10824,7 +10824,7 @@
   "external-login-page.orcid-confirmation.lastname.label": "Sobrenome",
 
   // "external-login-page.orcid-confirmation.netid": "Account Identifier",
-  "external-login-page.orcid-confirmation.netid": "Identificador da conta",
+  "external-login-page.orcid-confirmation.netid": "Identificador da Conta",
 
   // "external-login-page.orcid-confirmation.netid.placeholder": "xxxx-xxxx-xxxx-xxxx",
   "external-login-page.orcid-confirmation.netid.placeholder": "xxxx-xxxx-xxxx-xxxx",
