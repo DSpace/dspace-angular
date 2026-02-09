@@ -50,6 +50,29 @@
         </div>
       </div>
       <div class="col-md mb-3">
+        <div class="card h-100" data-test="sync-mode-product">
+          <div class="card-header">{{ 'person.page.orcid.product-preferences'| translate }}</div>
+          <div class="card-body">
+            <div class="container">
+              <div class="row">
+                <ds-alert [type]="'alert-info'">
+                  {{ 'person.page.orcid.synchronization-mode-product-message' | translate}}
+                </ds-alert>
+              </div>
+              <div class="form-group">
+                <div *ngFor="let option of syncProductOptions" class="row form-check">
+                  <input type="radio" [(ngModel)]="currentSyncProduct"
+                         name="syncProducts" id="productOption_{{option.value}}" [value]="option.value"
+                         required>
+                  <label for="productOption_{{option.value}}"
+                         class="ml-2">{{option.label | translate}}</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md mb-3">
         <div class="card h-100" data-test="sync-mode-funding">
           <div class="card-header">{{ 'person.page.orcid.funding-preferences'| translate }}</div>
           <div class="card-body">
@@ -65,6 +88,28 @@
                          name="syncFundings" id="fundingOption_{{option.value}}" [value]="option.value"
                          required>
                   <label for="fundingOption_{{option.value}}" class="ml-2">{{option.label | translate}}</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md mb-3">
+        <div class="card h-100" data-test="sync-mode-patent">
+          <div class="card-header">{{ 'person.page.orcid.patent-preferences'| translate }}</div>
+          <div class="card-body">
+            <div class="container">
+              <div class="row">
+                <ds-alert [type]="'alert-info'">
+                  {{ 'person.page.orcid.synchronization-mode-patent-message' | translate}}
+                </ds-alert>
+              </div>
+              <div class="form-group">
+                <div *ngFor="let option of syncPatentOptions" class="row form-check">
+                  <input type="radio" [(ngModel)]="currentSyncPatent"
+                         name="syncPatents" id="patentOption_{{option.value}}" [value]="option.value"
+                         required>
+                  <label for="patentOption_{{option.value}}" class="ml-2">{{option.label | translate}}</label>
                 </div>
               </div>
             </div>
