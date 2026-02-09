@@ -19,8 +19,8 @@
             [ngClass]="{'justify-content-sm-end' : isInlineGroupForm }"
             class="col-2 d-flex flex-column justify-content-sm-start align-items-end">
             <button type="button" class="btn btn-secondary" role="button"
-              title="{{'form.remove' | translate}}"
-              [attr.aria-label]="'form.remove' | translate"
+                    title="{{('form.remove' | translate) + ' ' + (context.label ?? context.name) + ' ' + index}}"
+                    [attr.aria-label]="('form.remove' | translate) + ' ' + (context.label ?? context.name) + ' ' + index"
               (click)="removeItem($event, context, index)">
               <span><i class="fas fa-trash" aria-hidden="true"></i></span>
             </button>
@@ -42,19 +42,17 @@
             </div>
           </div>
         }
-
-
         @if ((!context.notRepeatable) && index === (group.context.groups.length - 1) && !isItemReadOnly(context, index)) {
           <div class="clearfix w-100"
                [class.ps-4]="!isInlineGroupForm"
                [class.white-background]="isInlineGroupForm">
             <div class="btn-group" role="group">
               <button type="button" role="button" class="ds-form-add-more btn btn-link"
-                title="{{'form.add' | translate}}"
-                attr.aria-label="{{'form.add' | translate}}"
-                [class.ps-0]="isInlineGroupForm"
-                [dsBtnDisabled]="isItemReadOnly(context, index)"
-                (click)="insertItem($event, group.context, group.context.groups.length)">
+                    title="{{('form.add' | translate) + ' ' + (context.label ?? context.name)}}"
+                    [attr.aria-label]="('form.add' | translate ) + ' ' + (context.label ?? context.name)"
+                    [class.ps-0]="isInlineGroupForm"
+                    [dsBtnDisabled]="isItemReadOnly(context, index)"
+                    (click)="insertItem($event, group.context, group.context.groups.length)">
                 <span><i class="fas fa-plus"></i> {{'form.add' | translate}}</span>
               </button>
             </div>
