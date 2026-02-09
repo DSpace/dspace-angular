@@ -10,6 +10,8 @@ import { MetaReducer, StoreModule, USER_PROVIDED_META_REDUCERS } from '@ngrx/sto
 import { TranslateModule } from '@ngx-translate/core';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { DYNAMIC_MATCHER_PROVIDERS } from '@ng-dynamic-forms/core';
+import { HashedFileMapping } from '../modules/dynamic-hash/hashed-file-mapping';
+import { BrowserHashedFileMapping } from '../modules/dynamic-hash/hashed-file-mapping.browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -109,6 +111,10 @@ const PROVIDERS = [
     provide: HTTP_INTERCEPTORS,
     useClass: DspaceRestInterceptor,
     multi: true
+  },
+  {
+    provide: HashedFileMapping,
+    useClass: BrowserHashedFileMapping,
   },
   // register the dynamic matcher used by form. MUST be provided by the app module
   ...DYNAMIC_MATCHER_PROVIDERS,
