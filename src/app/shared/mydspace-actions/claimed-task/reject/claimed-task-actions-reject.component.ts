@@ -20,7 +20,7 @@ import { ClaimedDeclinedTaskSearchResult } from '@dspace/core/shared/object-coll
 import {
   NgbModal,
   NgbModalRef,
-  NgbTooltipModule,
+  NgbTooltip,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -45,7 +45,7 @@ export const WORKFLOW_TASK_OPTION_REJECT = 'submit_reject';
     AsyncPipe,
     BtnDisabledDirective,
     FormsModule,
-    NgbTooltipModule,
+    NgbTooltip,
     ReactiveFormsModule,
     TranslateModule,
   ],

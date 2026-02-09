@@ -176,10 +176,14 @@ export function app() {
    * When it is present, the rateLimiter will be enabled. When it is undefined, the rateLimiter will be disabled.
    */
   if (hasValue((environment.ui as UIServerConfig).rateLimiter)) {
-    const RateLimit = require('express-rate-limit');
-    const limiter = new RateLimit({
+    const { rateLimit } = require('express-rate-limit')
+    const limiter = rateLimit({
       windowMs: (environment.ui as UIServerConfig).rateLimiter.windowMs,
-      max: (environment.ui as UIServerConfig).rateLimiter.max,
+      limit: (environment.ui as UIServerConfig).rateLimiter.limit,
+      standardHeaders: true,
+      legacyHeaders: false,
+      // don't log ERR_ERL_PERMISSIVE_TRUST_PROXY if we are trusting proxies
+      validate: {trustProxy: !environment.ui.useProxies},
     });
     server.use(limiter);
   }

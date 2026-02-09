@@ -10,7 +10,13 @@ import {
   HealthResponseObj,
 } from '@dspace/core/testing/health-endpoint.mocks';
 import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
-import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbNav,
+  NgbNavContent,
+  NgbNavItem,
+  NgbNavLink,
+  NgbNavOutlet,
+} from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateLoader,
   TranslateModule,
@@ -45,7 +51,11 @@ describe('HealthPageComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         CommonModule,
-        NgbNavModule,
+        NgbNav,
+        NgbNavContent,
+        NgbNavItem,
+        NgbNavLink,
+        NgbNavOutlet,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
