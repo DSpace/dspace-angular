@@ -4,24 +4,23 @@ import {
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import { Observable } from 'rxjs';
 import {
   first,
   map,
 } from 'rxjs/operators';
 
-import { RemoteData } from '../../../core/data/remote-data';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { ResourcePoliciesComponent } from '../../../shared/resource-policies/resource-policies.component';
 
 @Component({
   selector: 'ds-community-authorizations',
   templateUrl: './community-authorizations.component.html',
   imports: [
-    ResourcePoliciesComponent,
     AsyncPipe,
+    ResourcePoliciesComponent,
   ],
-  standalone: true,
 })
 /**
  * Component that handles the community Authorizations

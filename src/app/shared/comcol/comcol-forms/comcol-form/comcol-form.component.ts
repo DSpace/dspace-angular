@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgClass,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -12,6 +9,27 @@ import {
   ViewChild,
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
+import { ComColDataService } from '@dspace/core/data/comcol-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { RequestService } from '@dspace/core/data/request.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Bitstream } from '@dspace/core/shared/bitstream.model';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { Community } from '@dspace/core/shared/community.model';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import {
+  MetadataMap,
+  MetadataValue,
+} from '@dspace/core/shared/metadata.models';
+import { NoContent } from '@dspace/core/shared/NoContent.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import { ResourceType } from '@dspace/core/shared/resource-type';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import {
   NgbModal,
   NgbModalRef,
@@ -39,31 +57,10 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { AuthService } from '../../../../core/auth/auth.service';
-import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
-import { ComColDataService } from '../../../../core/data/comcol-data.service';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { RequestService } from '../../../../core/data/request.service';
-import { Bitstream } from '../../../../core/shared/bitstream.model';
-import { Collection } from '../../../../core/shared/collection.model';
-import { Community } from '../../../../core/shared/community.model';
-import {
-  MetadataMap,
-  MetadataValue,
-} from '../../../../core/shared/metadata.models';
-import { NoContent } from '../../../../core/shared/NoContent.model';
-import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
-import { ResourceType } from '../../../../core/shared/resource-type';
 import { ConfirmationModalComponent } from '../../../confirmation-modal/confirmation-modal.component';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../../empty.util';
 import { FormComponent } from '../../../form/form.component';
-import { NotificationsService } from '../../../notifications/notifications.service';
 import { UploaderComponent } from '../../../upload/uploader/uploader.component';
 import { UploaderOptions } from '../../../upload/uploader/uploader-options.model';
-import { followLink } from '../../../utils/follow-link-config.model';
 import { VarDirective } from '../../../utils/var.directive';
 import { ComcolPageLogoComponent } from '../../comcol-page-logo/comcol-page-logo.component';
 
@@ -75,15 +72,13 @@ import { ComcolPageLogoComponent } from '../../comcol-page-logo/comcol-page-logo
   styleUrls: ['./comcol-form.component.scss'],
   templateUrl: './comcol-form.component.html',
   imports: [
+    AsyncPipe,
+    ComcolPageLogoComponent,
     FormComponent,
     TranslateModule,
     UploaderComponent,
-    AsyncPipe,
-    ComcolPageLogoComponent,
-    NgClass,
     VarDirective,
   ],
-  standalone: true,
 })
 export class ComColFormComponent<T extends Collection | Community> implements OnInit, OnDestroy {
 

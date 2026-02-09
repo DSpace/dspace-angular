@@ -6,12 +6,11 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-
-import { RemoteData } from '../../../../core/data/remote-data';
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
-import { isNotEmpty } from '../../../empty.util';
 
 /**
  * Component representing the edit page for communities and collections
@@ -19,7 +18,6 @@ import { isNotEmpty } from '../../../empty.util';
 @Component({
   selector: 'ds-edit-comcol',
   template: '',
-  standalone: true,
 })
 export class EditComColPageComponent<TDomain extends DSpaceObject> implements OnInit {
   /**

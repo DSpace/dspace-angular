@@ -14,36 +14,36 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { CollectionDataService } from '@dspace/core/data/collection-data.service';
+import { FieldUpdate } from '@dspace/core/data/object-updates/field-update.model';
+import { ObjectUpdatesService } from '@dspace/core/data/object-updates/object-updates.service';
+import { RequestService } from '@dspace/core/data/request.service';
+import {
+  INotification,
+  Notification,
+} from '@dspace/core/notification-system/models/notification.model';
+import { NotificationType } from '@dspace/core/notification-system/models/notification-type';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Collection } from '@dspace/core/shared/collection.model';
+import {
+  ContentSource,
+  ContentSourceHarvestType,
+} from '@dspace/core/shared/content-source.model';
+import { RouterStub } from '@dspace/core/testing/router.stub';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core/utilities/remote-data.utils';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   DynamicFormControlModel,
   DynamicFormService,
 } from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
-import { CollectionDataService } from '../../../core/data/collection-data.service';
-import { FieldUpdate } from '../../../core/data/object-updates/field-update.model';
-import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
-import { RequestService } from '../../../core/data/request.service';
-import { Collection } from '../../../core/shared/collection.model';
-import {
-  ContentSource,
-  ContentSourceHarvestType,
-} from '../../../core/shared/content-source.model';
-import { hasValue } from '../../../shared/empty.util';
 import { FormComponent } from '../../../shared/form/form.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import {
-  INotification,
-  Notification,
-} from '../../../shared/notifications/models/notification.model';
-import { NotificationType } from '../../../shared/notifications/models/notification-type';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../../shared/remote-data.utils';
-import { RouterStub } from '../../../shared/testing/router.stub';
 import { CollectionSourceComponent } from './collection-source.component';
 import { CollectionSourceControlsComponent } from './collection-source-controls/collection-source-controls.component';
 
@@ -97,18 +97,18 @@ describe('CollectionSourceComponent', () => {
     };
     objectUpdatesService = jasmine.createSpyObj('objectUpdatesService',
       {
-        getFieldUpdates: observableOf({
+        getFieldUpdates: of({
           [contentSource.uuid]: fieldUpdate,
         }),
         saveAddFieldUpdate: {},
         discardFieldUpdates: {},
-        reinstateFieldUpdates: observableOf(true),
+        reinstateFieldUpdates: of(true),
         initialize: {},
-        getUpdatedFields: observableOf([contentSource]),
-        getLastModified: observableOf(date),
-        hasUpdates: observableOf(true),
-        isReinstatable: observableOf(false),
-        isValidPage: observableOf(true),
+        getUpdatedFields: of([contentSource]),
+        getLastModified: of(date),
+        hasUpdates: of(true),
+        isReinstatable: of(false),
+        isValidPage: of(true),
       },
     );
     notificationsService = jasmine.createSpyObj('notificationsService',
@@ -139,8 +139,8 @@ describe('CollectionSourceComponent', () => {
     });
     collectionService = jasmine.createSpyObj('collectionService', {
       getContentSource: createSuccessfulRemoteDataObject$(contentSource),
-      updateContentSource: observableOf(contentSource),
-      getHarvesterEndpoint: observableOf('harvester-endpoint'),
+      updateContentSource: of(contentSource),
+      getHarvesterEndpoint: of('harvester-endpoint'),
     });
     requestService = jasmine.createSpyObj('requestService', ['removeByHrefSubstring', 'setStaleByHrefSubstring']);
 
@@ -151,7 +151,7 @@ describe('CollectionSourceComponent', () => {
         { provide: NotificationsService, useValue: notificationsService },
         { provide: Location, useValue: location },
         { provide: DynamicFormService, useValue: formService },
-        { provide: ActivatedRoute, useValue: { parent: { data: observableOf({ dso: createSuccessfulRemoteDataObject(collection) }) } } },
+        { provide: ActivatedRoute, useValue: { parent: { data: of({ dso: createSuccessfulRemoteDataObject(collection) }) } } },
         { provide: Router, useValue: router },
         { provide: CollectionDataService, useValue: collectionService },
         { provide: RequestService, useValue: requestService },

@@ -13,6 +13,24 @@ import {
   ActivatedRoute,
   Data,
 } from '@angular/router';
+import { ArrayMoveChangeAnalyzer } from '@dspace/core/data/array-move-change-analyzer.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { UpdateDataService } from '@dspace/core/data/update-data.service';
+import {
+  APP_DATA_SERVICES_MAP,
+  LazyDataServicesMap,
+} from '@dspace/core/data-services-map-type';
+import { lazyDataService } from '@dspace/core/lazy-data-service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Context } from '@dspace/core/shared/context.model';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import { ResourceType } from '@dspace/core/shared/resource-type';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import {
   TranslateModule,
   TranslateService,
@@ -30,28 +48,10 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import {
-  APP_DATA_SERVICES_MAP,
-  LazyDataServicesMap,
-} from '../../../config/app-config.interface';
-import { ArrayMoveChangeAnalyzer } from '../../core/data/array-move-change-analyzer.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { UpdateDataService } from '../../core/data/update-data.service';
-import { lazyDataService } from '../../core/lazy-data-service';
-import { Context } from '../../core/shared/context.model';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
-import { ResourceType } from '../../core/shared/resource-type';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { AlertType } from '../../shared/alert/alert-type';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
-import {
-  hasNoValue,
-  hasValue,
-  isNotEmpty,
-} from '../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { DsoEditMetadataFieldValuesComponent } from './dso-edit-metadata-field-values/dso-edit-metadata-field-values.component';
 import { DsoEditMetadataForm } from './dso-edit-metadata-form';
 import { DsoEditMetadataHeadersComponent } from './dso-edit-metadata-headers/dso-edit-metadata-headers.component';
@@ -63,8 +63,18 @@ import { MetadataFieldSelectorComponent } from './metadata-field-selector/metada
   selector: 'ds-base-dso-edit-metadata',
   styleUrls: ['./dso-edit-metadata.component.scss'],
   templateUrl: './dso-edit-metadata.component.html',
-  standalone: true,
-  imports: [DsoEditMetadataHeadersComponent, MetadataFieldSelectorComponent, DsoEditMetadataValueHeadersComponent, DsoEditMetadataValueComponent, DsoEditMetadataFieldValuesComponent, AlertComponent, ThemedLoadingComponent, AsyncPipe, TranslateModule, BtnDisabledDirective],
+  imports: [
+    AlertComponent,
+    AsyncPipe,
+    BtnDisabledDirective,
+    DsoEditMetadataFieldValuesComponent,
+    DsoEditMetadataHeadersComponent,
+    DsoEditMetadataValueComponent,
+    DsoEditMetadataValueHeadersComponent,
+    MetadataFieldSelectorComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
+  ],
 })
 /**
  * Component showing a table of all metadata on a DSpaceObject and options to modify them

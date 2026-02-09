@@ -6,14 +6,12 @@ import {
   Component,
   OnInit,
 } from '@angular/core';
+import { WidthCategory } from '@dspace/core/shared/host-window-type';
 import { Observable } from 'rxjs';
 
 import { ThemedHeaderComponent } from '../header/themed-header.component';
 import { ThemedNavbarComponent } from '../navbar/themed-navbar.component';
-import {
-  HostWindowService,
-  WidthCategory,
-} from '../shared/host-window.service';
+import { HostWindowService } from '../shared/host-window.service';
 import { MenuService } from '../shared/menu/menu.service';
 import { MenuID } from '../shared/menu/menu-id.model';
 
@@ -24,8 +22,12 @@ import { MenuID } from '../shared/menu/menu-id.model';
   selector: 'ds-base-header-navbar-wrapper',
   styleUrls: ['header-navbar-wrapper.component.scss'],
   templateUrl: 'header-navbar-wrapper.component.html',
-  standalone: true,
-  imports: [NgClass, ThemedHeaderComponent, ThemedNavbarComponent, AsyncPipe],
+  imports: [
+    AsyncPipe,
+    NgClass,
+    ThemedHeaderComponent,
+    ThemedNavbarComponent,
+  ],
 })
 export class HeaderNavbarWrapperComponent implements OnInit {
   public isNavBarCollapsed$: Observable<boolean>;

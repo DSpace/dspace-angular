@@ -12,6 +12,8 @@ import {
   Output,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { RequestCopyEmail } from '@dspace/core/shared/request-copy-email.model';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -21,15 +23,19 @@ import {
 import { takeUntil } from 'rxjs/operators';
 
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
-import { hasValue } from '../../shared/empty.util';
-import { RequestCopyEmail } from './request-copy-email.model';
 
 @Component({
   selector: 'ds-base-email-request-copy',
   styleUrls: ['./email-request-copy.component.scss'],
   templateUrl: './email-request-copy.component.html',
-  standalone: true,
-  imports: [FormsModule, NgClass, TranslateModule, BtnDisabledDirective, NgbDropdownModule, AsyncPipe],
+  imports: [
+    AsyncPipe,
+    BtnDisabledDirective,
+    FormsModule,
+    NgbDropdownModule,
+    NgClass,
+    TranslateModule,
+  ],
 })
 /**
  * A form component for an email to send back to the user requesting an item

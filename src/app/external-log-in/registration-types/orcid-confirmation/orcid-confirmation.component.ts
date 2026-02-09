@@ -9,9 +9,9 @@ import {
   FormGroup,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { Registration } from '@dspace/core/shared/registration.model';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { Registration } from '../../../core/shared/registration.model';
 import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
 import { ExternalLoginMethodEntryComponent } from '../../decorators/external-login-method-entry.component';
 
@@ -21,11 +21,10 @@ import { ExternalLoginMethodEntryComponent } from '../../decorators/external-log
   styleUrls: ['./orcid-confirmation.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
+    BrowserOnlyPipe,
     ReactiveFormsModule,
     TranslateModule,
-    BrowserOnlyPipe,
   ],
-  standalone: true,
 })
 /**
  * This component is responsible to show the registered data inside the registration token to the user

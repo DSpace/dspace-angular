@@ -7,10 +7,28 @@ import {
   OnDestroy,
   SimpleChanges,
 } from '@angular/core';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { SubmissionDefinitionsModel } from '@dspace/core/config/models/config-submission-definitions.model';
+import { SubmissionSectionModel } from '@dspace/core/config/models/config-submission-section.model';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { SectionVisibility } from '@dspace/core/submission/models/section-visibility.model';
+import { SubmissionError } from '@dspace/core/submission/models/submission-error.model';
+import { SubmissionObject } from '@dspace/core/submission/models/submission-object.model';
+import { WorkspaceitemSectionsObject } from '@dspace/core/submission/models/workspaceitem-sections.model';
+import { SectionsType } from '@dspace/core/submission/sections-type';
+import { VisibilityType } from '@dspace/core/submission/visibility-type';
+import {
+  hasValue,
+  isNotEmpty,
+  isNotUndefined,
+} from '@dspace/shared/utils/empty.util';
+import { TranslatePipe } from '@ngx-translate/core';
 import isEqual from 'lodash/isEqual';
 import {
   Observable,
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
 import {
@@ -20,32 +38,15 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { AuthService } from '../../core/auth/auth.service';
-import { SubmissionDefinitionsModel } from '../../core/config/models/config-submission-definitions.model';
-import { SubmissionSectionModel } from '../../core/config/models/config-submission-section.model';
-import { Collection } from '../../core/shared/collection.model';
-import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
-import { Item } from '../../core/shared/item.model';
-import { SubmissionObject } from '../../core/submission/models/submission-object.model';
-import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
-import {
-  hasValue,
-  isNotEmpty,
-  isNotUndefined,
-} from '../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { UploaderOptions } from '../../shared/upload/uploader/uploader-options.model';
-import { SectionVisibility } from '../objects/section-visibility.model';
-import { SubmissionError } from '../objects/submission-error.model';
 import { SubmissionObjectEntry } from '../objects/submission-objects.reducer';
-import { SubmissionSectionContainerComponent } from '../sections/container/section-container.component';
+import { ThemedSubmissionSectionContainerComponent } from '../sections/container/themed-section-container.component';
 import { SectionDataObject } from '../sections/models/section-data.model';
 import { SectionsService } from '../sections/sections.service';
-import { SectionsType } from '../sections/sections-type';
-import { VisibilityType } from '../sections/visibility-type';
 import { SubmissionService } from '../submission.service';
 import { SubmissionFormCollectionComponent } from './collection/submission-form-collection.component';
-import { SubmissionFormFooterComponent } from './footer/submission-form-footer.component';
+import { ThemedSubmissionFormFooterComponent } from './footer/themed-submission-form-footer.component';
 import { SubmissionFormSectionAddComponent } from './section-add/submission-form-section-add.component';
 import { ThemedSubmissionUploadFilesComponent } from './submission-upload-files/themed-submission-upload-files.component';
 
@@ -53,19 +54,19 @@ import { ThemedSubmissionUploadFilesComponent } from './submission-upload-files/
  * This component represents the submission form.
  */
 @Component({
-  selector: 'ds-submission-form',
+  selector: 'ds-base-submission-form',
   styleUrls: ['./submission-form.component.scss'],
   templateUrl: './submission-form.component.html',
   imports: [
     CommonModule,
-    ThemedLoadingComponent,
-    SubmissionSectionContainerComponent,
-    SubmissionFormFooterComponent,
-    ThemedSubmissionUploadFilesComponent,
     SubmissionFormCollectionComponent,
     SubmissionFormSectionAddComponent,
+    ThemedLoadingComponent,
+    ThemedSubmissionFormFooterComponent,
+    ThemedSubmissionSectionContainerComponent,
+    ThemedSubmissionUploadFilesComponent,
+    TranslatePipe,
   ],
-  standalone: true,
 })
 export class SubmissionFormComponent implements OnChanges, OnDestroy {
 
@@ -115,6 +116,12 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
   @Input() submissionId: string;
 
   /**
+   * The entity type input used to create a new submission
+   * @type {string}
+   */
+  @Input() entityType: string;
+
+  /**
    * The configuration id that define this submission
    * @type {string}
    */
@@ -124,7 +131,7 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
    * A boolean representing if a submission form is pending
    * @type {Observable<boolean>}
    */
-  public loading: Observable<boolean> = observableOf(true);
+  public isLoading$: Observable<boolean> = of(true);
 
   /**
    * Emits true when the submission config has bitstream uploading enabled in submission
@@ -190,13 +197,13 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
           if (!isLoading) {
             return this.getSectionsList();
           } else {
-            return observableOf([]);
+            return of([]);
           }
         }));
       this.uploadEnabled$ = this.sectionsService.isSectionTypeAvailable(this.submissionId, SectionsType.Upload);
 
       // check if is submission loading
-      this.loading = this.submissionService.getSubmissionObject(this.submissionId).pipe(
+      this.isLoading$ = this.submissionService.getSubmissionObject(this.submissionId).pipe(
         filter(() => this.isActive),
         map((submission: SubmissionObjectEntry) => submission.isLoading),
         map((isLoading: boolean) => isLoading),
@@ -209,6 +216,7 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
           distinctUntilChanged())
           .subscribe((endpointURL) => {
             this.uploadFilesOptions.authToken = this.authService.buildAuthHeader();
+            this.uploadFilesOptions.impersonatingID = this.authService.getImpersonateID();
             this.uploadFilesOptions.url = endpointURL.concat(`/${this.submissionId}`);
             this.definitionId = this.submissionDefinition.name;
             this.submissionService.dispatchInit(
@@ -285,13 +293,12 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
    *    new submission object
    */
   onCollectionChange(submissionObject: SubmissionObject) {
-    this.collectionId = (submissionObject.collection as Collection).id;
     if (this.definitionId !== (submissionObject.submissionDefinition as SubmissionDefinitionsModel).name) {
       this.sections = submissionObject.sections;
       this.submissionDefinition = (submissionObject.submissionDefinition as SubmissionDefinitionsModel);
       this.definitionId = this.submissionDefinition.name;
       this.submissionService.resetSubmissionObject(
-        this.collectionId,
+        (submissionObject.collection as Collection).id,
         this.submissionId,
         submissionObject._links.self.href,
         this.submissionDefinition,
@@ -302,16 +309,6 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
     }
   }
 
-  /**
-   * Check if submission form is loading
-   */
-  isLoading(): Observable<boolean> {
-    return this.loading;
-  }
-
-  /**
-   * Check if submission form is loading
-   */
   protected getSectionsList(): Observable<any> {
     return this.submissionService.getSubmissionSections(this.submissionId).pipe(
       filter((sections: SectionDataObject[]) => isNotEmpty(sections)),

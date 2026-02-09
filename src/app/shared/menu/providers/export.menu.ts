@@ -7,20 +7,20 @@
  */
 
 import { Injectable } from '@angular/core';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
+import {
+  METADATA_EXPORT_SCRIPT_NAME,
+  ScriptDataService,
+} from '@dspace/core/data/processes/script-data.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   combineLatest as observableCombineLatest,
   map,
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
-import {
-  METADATA_EXPORT_SCRIPT_NAME,
-  ScriptDataService,
-} from '../../../core/data/processes/script-data.service';
 import { ExportBatchSelectorComponent } from '../../dso-selector/modal-wrappers/export-batch-selector/export-batch-selector.component';
 import { ExportMetadataSelectorComponent } from '../../dso-selector/modal-wrappers/export-metadata-selector/export-metadata-selector.component';
 import { MenuItemType } from '../menu-item-type.model';
@@ -41,7 +41,7 @@ export class ExportMenuProvider extends AbstractExpandableMenuProvider {
   }
 
   public getTopSection(): Observable<PartialMenuSection> {
-    return observableOf(
+    return of(
       {
         accessibilityHandle: 'export',
         model: {

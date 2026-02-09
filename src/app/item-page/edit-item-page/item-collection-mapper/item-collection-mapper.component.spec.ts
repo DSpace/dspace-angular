@@ -12,46 +12,46 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  SortDirection,
+  SortOptions,
+} from '@dspace/core/cache/models/sort-options.model';
+import { CollectionDataService } from '@dspace/core/data/collection-data.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
+import { HostWindowServiceStub } from '@dspace/core/testing/host-window-service.stub';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { ObjectSelectServiceStub } from '@dspace/core/testing/object-select-service.stub';
+import { RouterStub } from '@dspace/core/testing/router.stub';
+import { SearchServiceStub } from '@dspace/core/testing/search-service.stub';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core/utilities/remote-data.utils';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
-import {
-  SortDirection,
-  SortOptions,
-} from '../../../core/cache/models/sort-options.model';
-import { CollectionDataService } from '../../../core/data/collection-data.service';
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { RemoteData } from '../../../core/data/remote-data';
-import { Collection } from '../../../core/shared/collection.model';
-import { Item } from '../../../core/shared/item.model';
-import { SearchService } from '../../../core/shared/search/search.service';
-import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { ErrorComponent } from '../../../shared/error/error.component';
 import { HostWindowService } from '../../../shared/host-window.service';
 import { LoadingComponent } from '../../../shared/loading/loading.component';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { CollectionSelectComponent } from '../../../shared/object-select/collection-select/collection-select.component';
 import { ObjectSelectService } from '../../../shared/object-select/object-select.service';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../../shared/remote-data.utils';
-import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
+import { SearchService } from '../../../shared/search/search.service';
+import { SearchConfigurationService } from '../../../shared/search/search-configuration.service';
 import { SearchFormComponent } from '../../../shared/search-form/search-form.component';
-import { HostWindowServiceStub } from '../../../shared/testing/host-window-service.stub';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { ObjectSelectServiceStub } from '../../../shared/testing/object-select-service.stub';
-import { RouterStub } from '../../../shared/testing/router.stub';
-import { SearchServiceStub } from '../../../shared/testing/search-service.stub';
-import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { EnumKeysPipe } from '../../../shared/utils/enum-keys-pipe';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { ItemCollectionMapperComponent } from './item-collection-mapper.component';
@@ -74,7 +74,7 @@ describe('ItemCollectionMapperComponent', () => {
     name: 'test-item',
   });
   const mockItemRD: RemoteData<Item> = createSuccessfulRemoteDataObject(mockItem);
-  const mockSearchOptions = observableOf(new PaginatedSearchOptions({
+  const mockSearchOptions = of(new PaginatedSearchOptions({
     pagination: Object.assign(new PaginationComponentOptions(), {
       id: 'search-page-configuration',
       pageSize: 10,
@@ -96,37 +96,37 @@ describe('ItemCollectionMapperComponent', () => {
   const itemDataServiceStub = {
     mapToCollection: () => createSuccessfulRemoteDataObject$({}),
     removeMappingFromCollection: () => createSuccessfulRemoteDataObject$({}),
-    getMappedCollectionsEndpoint: () => observableOf('rest/api/mappedCollectionsEndpoint'),
-    getMappedCollections: () => observableOf(mockCollectionsRD),
+    getMappedCollectionsEndpoint: () => of('rest/api/mappedCollectionsEndpoint'),
+    getMappedCollections: () => of(mockCollectionsRD),
     /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
     clearMappedCollectionsRequests: () => {},
     /* eslint-enable no-empty,@typescript-eslint/no-empty-function */
   };
   const collectionDataServiceStub = {
-    findListByHref: () => observableOf(mockCollectionsRD),
+    findListByHref: () => of(mockCollectionsRD),
   };
   const searchServiceStub = Object.assign(new SearchServiceStub(), {
-    search: () => observableOf(mockCollectionsRD),
+    search: () => of(mockCollectionsRD),
     /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
     clearDiscoveryRequests: () => {},
     /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
   });
   const activatedRouteStub = {
     parent: {
-      data: observableOf({
+      data: of({
         dso: mockItemRD,
       }),
     },
   };
   const translateServiceStub = {
-    get: () => observableOf('test-message of item ' + mockItem.name),
+    get: () => of('test-message of item ' + mockItem.name),
     onLangChange: new EventEmitter(),
     onTranslationChange: new EventEmitter(),
-    onDefaultLangChange: new EventEmitter(),
+    onFallbackLangChange: new EventEmitter(),
   };
 
   const authorizationDataService = jasmine.createSpyObj('authorizationDataService', {
-    isAuthorized: observableOf(true),
+    isAuthorized: of(true),
   });
 
   beforeEach(waitForAsync(() => {

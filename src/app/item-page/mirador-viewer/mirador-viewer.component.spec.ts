@@ -4,20 +4,20 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
+import { BundleDataService } from '@dspace/core/data/bundle-data.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { MetadataMap } from '@dspace/core/shared/metadata.models';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
-import { BitstreamDataService } from '../../core/data/bitstream-data.service';
-import { BundleDataService } from '../../core/data/bundle-data.service';
-import { Item } from '../../core/shared/item.model';
-import { MetadataMap } from '../../core/shared/metadata.models';
 import { HostWindowService } from '../../shared/host-window.service';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { createPaginatedList } from '../../shared/testing/utils.test';
 import { createRelationshipsObservable } from '../simple/item-types/shared/item.component.spec';
 import { MiradorViewerComponent } from './mirador-viewer.component';
 import { MiradorViewerService } from './mirador-viewer.service';
@@ -35,7 +35,7 @@ const noMetadata = new MetadataMap();
 
 const mockHostWindowService = {
   // This isn't really testing mobile status, the return observable just allows the test to run.
-  widthCategory: observableOf(true),
+  widthCategory: of(true),
 };
 
 describe('MiradorViewerComponent with search', () => {
@@ -106,7 +106,7 @@ describe('MiradorViewerComponent with multiple images', () => {
 
   beforeEach(waitForAsync(() => {
     viewerService.showEmbeddedViewer.and.returnValue(true);
-    viewerService.getImageCount.and.returnValue(observableOf(2));
+    viewerService.getImageCount.and.returnValue(of(2));
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot({
         loader: {
@@ -165,7 +165,7 @@ describe('MiradorViewerComponent with a single image', () => {
 
   beforeEach(waitForAsync(() => {
     viewerService.showEmbeddedViewer.and.returnValue(true);
-    viewerService.getImageCount.and.returnValue(observableOf(1));
+    viewerService.getImageCount.and.returnValue(of(1));
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot({
         loader: {
@@ -217,7 +217,7 @@ describe('MiradorViewerComponent in development mode', () => {
 
   beforeEach(waitForAsync(() => {
     viewerService.showEmbeddedViewer.and.returnValue(false);
-    viewerService.getImageCount.and.returnValue(observableOf(1));
+    viewerService.getImageCount.and.returnValue(of(1));
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot({
         loader: {

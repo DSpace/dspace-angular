@@ -4,6 +4,15 @@ import {
   OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { IdentifiableDataService } from '@dspace/core/data/base/identifiable-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { RequestService } from '@dspace/core/data/request.service';
+import { NotificationOptions } from '@dspace/core/notification-system/models/notification-options.model';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import { ResourceType } from '@dspace/core/shared/resource-type';
+import { ProcessTaskResponse } from '@dspace/core/tasks/models/process-task-response';
 import { TranslateService } from '@ngx-translate/core';
 import {
   Observable,
@@ -16,16 +25,7 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { IdentifiableDataService } from '../../core/data/base/identifiable-data.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { RequestService } from '../../core/data/request.service';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
-import { ResourceType } from '../../core/shared/resource-type';
-import { SearchService } from '../../core/shared/search/search.service';
-import { ProcessTaskResponse } from '../../core/tasks/models/process-task-response';
-import { NotificationOptions } from '../notifications/models/notification-options.model';
-import { NotificationsService } from '../notifications/notifications.service';
+import { SearchService } from '../search/search.service';
 import { getSearchResultFor } from '../search/search-result-element-decorator';
 import { MyDSpaceActionsComponent } from './mydspace-actions';
 
@@ -105,6 +105,8 @@ export abstract class MyDSpaceReloadableActionsComponent<T extends DSpaceObject,
     if (result) {
       if (reloadedObject) {
         this.processCompleted.emit({ result, reloadedObject });
+        // Ensure that next time the page is requested the objects have the correct render type.
+        this.invalidateCacheForCurrentSearchUrl();
       } else {
         this.reload();
       }

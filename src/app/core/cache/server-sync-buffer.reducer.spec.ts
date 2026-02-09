@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-namespace
+import { RestRequestMethod } from '@dspace/config/rest-request-method';
 import deepFreeze from 'deep-freeze';
 
-import { RestRequestMethod } from '../data/rest-request-method';
 import { RemoveFromObjectCacheAction } from './object-cache.actions';
 import {
   AddToSSBAction,

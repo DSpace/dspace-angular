@@ -7,16 +7,16 @@
  */
 
 import { Injectable } from '@angular/core';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   combineLatest,
   map,
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { ThemedEditCollectionSelectorComponent } from '../../dso-selector/modal-wrappers/edit-collection-selector/themed-edit-collection-selector.component';
 import { ThemedEditCommunitySelectorComponent } from '../../dso-selector/modal-wrappers/edit-community-selector/themed-edit-community-selector.component';
 import { ThemedEditItemSelectorComponent } from '../../dso-selector/modal-wrappers/edit-item-selector/themed-edit-item-selector.component';
@@ -37,7 +37,7 @@ export class EditMenuProvider extends AbstractExpandableMenuProvider {
   }
 
   public getTopSection(): Observable<PartialMenuSection> {
-    return observableOf(
+    return of(
       {
         accessibilityHandle: 'edit',
         model: {

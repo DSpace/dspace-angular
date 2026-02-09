@@ -3,11 +3,9 @@ import {
   cold,
   getTestScheduler,
 } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { RequestParam } from '../../cache/models/request-param.model';
 import { ObjectCacheService } from '../../cache/object-cache.service';
@@ -16,7 +14,9 @@ import { RemoteData } from '../../data/remote-data';
 import { RequestService } from '../../data/request.service';
 import { RequestEntry } from '../../data/request-entry.model';
 import { RequestEntryState } from '../../data/request-entry-state.model';
+import { NotificationsService } from '../../notification-system/notifications.service';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
+import { createSuccessfulRemoteDataObject$ } from '../../utilities/remote-data.utils';
 import { SuggestionDataService } from './suggestion-data.service';
 
 describe('SuggestionDataService test', () => {
@@ -64,13 +64,13 @@ describe('SuggestionDataService test', () => {
       generateRequestId: requestUUID,
       send: true,
       removeByHrefSubstring: {},
-      getByHref: observableOf(responseCacheEntry),
-      getByUUID: observableOf(responseCacheEntry),
-      setStaleByHrefSubstring: observableOf(true),
+      getByHref: of(responseCacheEntry),
+      getByUUID: of(responseCacheEntry),
+      setStaleByHrefSubstring: of(true),
     });
 
     halService = jasmine.createSpyObj('halService', {
-      getEndpoint: observableOf(endpointURL),
+      getEndpoint: of(endpointURL),
     });
 
     rdbService = jasmine.createSpyObj('rdbService', {
@@ -83,7 +83,7 @@ describe('SuggestionDataService test', () => {
 
   describe('Suggestion service', () => {
     it('should call suggestionsDataService.searchBy', () => {
-      spyOn((service as any).searchData, 'searchBy').and.returnValue(observableOf(null));
+      spyOn((service as any).searchData, 'searchBy').and.returnValue(of(null));
       const options = {
         searchParams: [new RequestParam('target', testUserId), new RequestParam('source', testSource)],
       };
@@ -92,7 +92,7 @@ describe('SuggestionDataService test', () => {
     });
 
     it('should call suggestionsDataService.delete', () => {
-      spyOn((service as any).deleteData, 'delete').and.returnValue(observableOf(null));
+      spyOn((service as any).deleteData, 'delete').and.returnValue(of(null));
       service.deleteSuggestion('1');
       expect((service as any).deleteData.delete).toHaveBeenCalledWith('1');
     });

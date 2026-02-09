@@ -5,24 +5,28 @@ import {
   Input,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TranslateModule } from '@ngx-translate/core';
-
 import {
   SortDirection,
   SortOptions,
-} from '../../../core/cache/models/sort-options.model';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
+} from '@dspace/core/cache/models/sort-options.model';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import { PageSizeSelectorComponent } from '../../page-size-selector/page-size-selector.component';
 import { SidebarDropdownComponent } from '../../sidebar/sidebar-dropdown.component';
+import { SearchConfigurationService } from '../search-configuration.service';
 
 @Component({
   selector: 'ds-base-search-settings',
   styleUrls: ['./search-settings.component.scss'],
   templateUrl: './search-settings.component.html',
-  standalone: true,
-  imports: [SidebarDropdownComponent, FormsModule, PageSizeSelectorComponent, TranslateModule],
+  imports: [
+    FormsModule,
+    PageSizeSelectorComponent,
+    SidebarDropdownComponent,
+    TranslateModule,
+  ],
 })
 
 /**

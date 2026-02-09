@@ -11,6 +11,19 @@ import {
   ActivatedRoute,
   RouterLink,
 } from '@angular/router';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { MetadataField } from '@dspace/core/metadata/metadata-field.model';
+import { MetadataSchema } from '@dspace/core/metadata/metadata-schema.model';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { toFindListOptions } from '@dspace/core/pagination/pagination.utils';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { NoContent } from '@dspace/core/shared/NoContent.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '@dspace/core/shared/operators';
 import {
   TranslateModule,
   TranslateService,
@@ -19,7 +32,7 @@ import {
   BehaviorSubject,
   combineLatest,
   Observable,
-  of as observableOf,
+  of,
   Subscription,
   zip,
 } from 'rxjs';
@@ -29,22 +42,9 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { MetadataField } from '../../../core/metadata/metadata-field.model';
-import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { RegistryService } from '../../../core/registry/registry.service';
-import { NoContent } from '../../../core/shared/NoContent.model';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
-} from '../../../core/shared/operators';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
-import { toFindListOptions } from '../../../shared/pagination/pagination.utils';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { VarDirective } from '../../../shared/utils/var.directive';
+import { RegistryService } from '../registry/registry.service';
 import { MetadataFieldFormComponent } from './metadata-field-form/metadata-field-form.component';
 
 @Component({
@@ -53,14 +53,13 @@ import { MetadataFieldFormComponent } from './metadata-field-form/metadata-field
   styleUrls: ['./metadata-schema.component.scss'],
   imports: [
     AsyncPipe,
-    VarDirective,
     MetadataFieldFormComponent,
-    TranslateModule,
-    PaginationComponent,
     NgClass,
+    PaginationComponent,
     RouterLink,
+    TranslateModule,
+    VarDirective,
   ],
-  standalone: true,
 })
 /**
  * A component used for managing all existing metadata fields within the current metadata schema.
@@ -126,7 +125,7 @@ export class MetadataSchemaComponent implements OnDestroy, OnInit {
    */
   private updateFields() {
     this.metadataFields$ = this.paginationService.getCurrentPagination(this.config.id, this.config).pipe(
-      switchMap((currentPagination) => combineLatest([this.metadataSchema$, this.needsUpdate$, observableOf(currentPagination)])),
+      switchMap((currentPagination) => combineLatest([this.metadataSchema$, this.needsUpdate$, of(currentPagination)])),
       switchMap(([schema, update, currentPagination]: [MetadataSchema, boolean, PaginationComponentOptions]) => {
         if (update) {
           this.needsUpdate$.next(false);
@@ -165,9 +164,11 @@ export class MetadataSchemaComponent implements OnDestroy, OnInit {
    * @param event
    */
   selectMetadataField(field: MetadataField, event) {
-    event.target.checked ?
-      this.registryService.selectMetadataField(field) :
+    if (event.target.checked) {
+      this.registryService.selectMetadataField(field);
+    } else {
       this.registryService.deselectMetadataField(field);
+    }
   }
 
   /**

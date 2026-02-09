@@ -17,6 +17,8 @@ _______
 
 [Source code](../../../../lint/src/rules/ts/themed-component-selectors.ts)
 
+
+
 ### Examples
 
 
@@ -31,6 +33,7 @@ _______
 class Something {
 }
 ```
+        
     
 ##### Themeable component selector should replace the original version, unthemed version should be changed to ds-base-
         
@@ -53,6 +56,7 @@ class ThemedSomething extends ThemedComponent<Something> {
 class OverrideSomething extends Something {
 }
 ```
+        
     
 ##### Other themed component wrappers should not interfere
         
@@ -69,6 +73,7 @@ class Something {
 class ThemedSomethingElse extends ThemedComponent<SomethingElse> {
 }
 ```
+        
     
 
 
@@ -85,6 +90,9 @@ Filename: `lint/test/fixture/src/app/test/test-themeable.component.ts`
 })
 class TestThemeableComponent {
 }
+
+        
+
 ```
 Will produce the following error(s):
 ```
@@ -111,6 +119,9 @@ Filename: `lint/test/fixture/src/app/test/themed-test-themeable.component.ts`
 })
 class ThemedTestThemeableComponent extends ThemedComponent<TestThemeableComponent> {
 }
+
+        
+
 ```
 Will produce the following error(s):
 ```
@@ -137,6 +148,9 @@ Filename: `lint/test/fixture/src/themes/test/app/test/test-themeable.component.t
 })
 class TestThememeableComponent extends BaseComponent {
 }
+
+        
+
 ```
 Will produce the following error(s):
 ```

@@ -6,12 +6,12 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import { Suggestion } from '@dspace/core/notifications/suggestions/models/suggestion.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
-import { Suggestion } from 'src/app/core/notifications/suggestions/models/suggestion.model';
 
-import { Item } from '../../../core/shared/item.model';
 import { fadeIn } from '../../../shared/animations/fade';
-import { isNotEmpty } from '../../../shared/empty.util';
 import { ItemSearchResultListElementComponent } from '../../../shared/object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
 import { SuggestionActionsComponent } from '../actions/suggestion-actions.component';
 import { SuggestionApproveAndImport } from './suggestion-approve-and-import';
@@ -26,12 +26,11 @@ import { SuggestionEvidencesComponent } from './suggestion-evidences/suggestion-
   templateUrl: './suggestion-list-element.component.html',
   animations: [fadeIn],
   imports: [
-    TranslateModule,
     ItemSearchResultListElementComponent,
     SuggestionActionsComponent,
     SuggestionEvidencesComponent,
+    TranslateModule,
   ],
-  standalone: true,
 })
 export class SuggestionListElementComponent implements OnInit {
 

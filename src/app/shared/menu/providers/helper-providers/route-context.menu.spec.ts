@@ -11,12 +11,12 @@ import {
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
 } from '@angular/router';
+import { CacheableObject } from '@dspace/core/cache/cacheable-object.model';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
-import { CacheableObject } from '../../../../core/cache/cacheable-object.model';
 import { MenuID } from '../../menu-id.model';
 import { MenuItemType } from '../../menu-item-type.model';
 import { PartialMenuSection } from '../../menu-provider.model';
@@ -26,11 +26,11 @@ describe('AbstractRouteContextMenuProvider', () => {
 
   class TestClass extends AbstractRouteContextMenuProvider<CacheableObject> {
     getRouteContext(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<CacheableObject> {
-      return observableOf(object);
+      return of(object);
     }
 
     getSectionsForContext(routeContext: CacheableObject): Observable<PartialMenuSection[]> {
-      return observableOf(expectedSections);
+      return of(expectedSections);
     }
   }
 

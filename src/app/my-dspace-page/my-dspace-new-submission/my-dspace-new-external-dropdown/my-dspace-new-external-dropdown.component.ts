@@ -5,12 +5,18 @@ import {
   OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { EntityTypeDataService } from '@dspace/core/data/entity-type-data.service';
+import { FindListOptions } from '@dspace/core/data/find-list-options.model';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { ItemType } from '@dspace/core/shared/item-relationships/item-type.model';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   Observable,
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
 import {
@@ -19,13 +25,7 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
-import { FindListOptions } from '../../../core/data/find-list-options.model';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
-import { hasValue } from '../../../shared/empty.util';
 import { EntityDropdownComponent } from '../../../shared/entity-dropdown/entity-dropdown.component';
 import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
 
@@ -37,14 +37,13 @@ import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
   styleUrls: ['./my-dspace-new-external-dropdown.component.scss'],
   templateUrl: './my-dspace-new-external-dropdown.component.html',
   imports: [
-    EntityDropdownComponent,
-    NgbDropdownModule,
     AsyncPipe,
-    TranslateModule,
     BrowserOnlyPipe,
     BtnDisabledDirective,
+    EntityDropdownComponent,
+    NgbDropdownModule,
+    TranslateModule,
   ],
-  standalone: true,
 })
 export class MyDSpaceNewExternalDropdownComponent implements OnInit, OnDestroy {
 
@@ -104,7 +103,7 @@ export class MyDSpaceNewExternalDropdownComponent implements OnInit, OnDestroy {
           );
         } else {
           this.initialized$.next(true);
-          return observableOf(null);
+          return of(null);
         }
       }),
       take(1),

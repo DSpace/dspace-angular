@@ -30,7 +30,7 @@
           </div>
         }
         @if (canImpersonate$ | async) {
-          <div between class="btn-group ms-1">
+          <div between class="btn-group">
             @if (!isImpersonated) {
               <button class="btn btn-primary" type="button" (click)="impersonate()">
                 <i class="fa fa-user-secret"></i> {{'admin.access-control.epeople.actions.impersonate' | translate}}
@@ -81,8 +81,8 @@
                       <tr>
                         <td class="align-middle">{{group.id}}</td>
                         <td class="align-middle">
-                          <a (click)="groupsDataService.startEditingNewGroup(group)"
-                            [routerLink]="[groupsDataService.getGroupEditPageRouterLink(group)]">
+                          <a (click)="groupRegistryService.startEditingNewGroup(group)"
+                            [routerLink]="[getGroupEditPageRouterLink(group)]">
                             {{ dsoNameService.getName(group) }}
                           </a>
                         </td>

@@ -2,8 +2,8 @@ import {
   Component,
   Input,
 } from '@angular/core';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 
-import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
 import { ThemedComponent } from '../../../../theme-support/themed.component';
 import { TypeBadgeComponent } from './type-badge.component';
 
@@ -12,10 +12,7 @@ import { TypeBadgeComponent } from './type-badge.component';
  */
 @Component({
   selector: 'ds-type-badge',
-  styleUrls: [],
   templateUrl: '../../../../theme-support/themed.component.html',
-  standalone: true,
-  imports: [TypeBadgeComponent],
 })
 export class ThemedTypeBadgeComponent extends ThemedComponent<TypeBadgeComponent> {
   @Input() object: DSpaceObject;

@@ -15,17 +15,15 @@ import { VarDirective } from '../../../../../../../app/shared/utils/var.directiv
   // templateUrl: './file-section.component.html',
   templateUrl: '../../../../../../../app/item-page/simple/field-components/file-section/file-section.component.html',
   animations: [slideSidebarPadding],
-  standalone: true,
   imports: [
     CommonModule,
-    ThemedFileDownloadLinkComponent,
+    FileSizePipe,
     MetadataFieldWrapperComponent,
+    ThemedFileDownloadLinkComponent,
     ThemedLoadingComponent,
     TranslateModule,
-    FileSizePipe,
     VarDirective,
   ],
 })
 export class FileSectionComponent extends BaseComponent {
-
 }

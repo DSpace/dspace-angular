@@ -4,10 +4,10 @@ import {
   ResolveFn,
   RouterStateSnapshot,
 } from '@angular/router';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { DSpaceObject } from '../../../shared/dspace-object.model';
 import { RemoteData } from '../../remote-data';
 import { FeatureID } from '../feature-id';
 import { dsoPageSomeFeatureGuard } from './dso-page-some-feature.guard';

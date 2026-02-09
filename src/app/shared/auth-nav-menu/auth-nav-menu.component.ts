@@ -10,6 +10,17 @@ import {
   RouterLink,
   RouterLinkActive,
 } from '@angular/router';
+import {
+  AuthService,
+  LOGIN_ROUTE,
+  LOGOUT_ROUTE,
+} from '@dspace/core/auth/auth.service';
+import {
+  isAuthenticated,
+  isAuthenticationLoading,
+} from '@dspace/core/auth/selectors';
+import { EPerson } from '@dspace/core/eperson/models/eperson.model';
+import { isNotUndefined } from '@dspace/shared/utils/empty.util';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterReducerState } from '@ngrx/router-store';
 import {
@@ -19,7 +30,7 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
 import {
@@ -32,20 +43,9 @@ import {
   routerStateSelector,
 } from '../../app.reducer';
 import {
-  AuthService,
-  LOGIN_ROUTE,
-  LOGOUT_ROUTE,
-} from '../../core/auth/auth.service';
-import {
-  isAuthenticated,
-  isAuthenticationLoading,
-} from '../../core/auth/selectors';
-import { EPerson } from '../../core/eperson/models/eperson.model';
-import {
   fadeInOut,
   fadeOut,
 } from '../animations/fade';
-import { isNotUndefined } from '../empty.util';
 import { HostWindowService } from '../host-window.service';
 import { ThemedLogInComponent } from '../log-in/themed-log-in.component';
 import { BrowserOnlyPipe } from '../utils/browser-only.pipe';
@@ -56,15 +56,24 @@ import { ThemedUserMenuComponent } from './user-menu/themed-user-menu.component'
   templateUrl: './auth-nav-menu.component.html',
   styleUrls: ['./auth-nav-menu.component.scss'],
   animations: [fadeInOut, fadeOut],
-  standalone: true,
-  imports: [NgClass, NgbDropdownModule, ThemedLogInComponent, RouterLink, RouterLinkActive, ThemedUserMenuComponent, AsyncPipe, TranslateModule, BrowserOnlyPipe],
+  imports: [
+    AsyncPipe,
+    BrowserOnlyPipe,
+    NgbDropdownModule,
+    NgClass,
+    RouterLink,
+    RouterLinkActive,
+    ThemedLogInComponent,
+    ThemedUserMenuComponent,
+    TranslateModule,
+  ],
 })
 export class AuthNavMenuComponent implements OnInit {
   /**
    * Whether user is authenticated.
    * @type {Observable<string>}
    */
-  public isAuthenticated: Observable<boolean>;
+  public isAuthenticated$: Observable<boolean>;
 
   /**
    * True if the authentication is loading.
@@ -74,7 +83,7 @@ export class AuthNavMenuComponent implements OnInit {
 
   public isMobile$: Observable<boolean>;
 
-  public showAuth = observableOf(false);
+  public showAuth$ = of(false);
 
   public user: Observable<EPerson>;
 
@@ -89,14 +98,14 @@ export class AuthNavMenuComponent implements OnInit {
 
   ngOnInit(): void {
     // set isAuthenticated
-    this.isAuthenticated = this.store.pipe(select(isAuthenticated));
+    this.isAuthenticated$ = this.store.pipe(select(isAuthenticated));
 
     // set loading
     this.loading = this.store.pipe(select(isAuthenticationLoading));
 
     this.user = this.authService.getAuthenticatedUserFromStore();
 
-    this.showAuth = this.store.pipe(
+    this.showAuth$ = this.store.pipe(
       select(routerStateSelector),
       filter((router: RouterReducerState) => isNotUndefined(router) && isNotUndefined(router.state)),
       map((router: RouterReducerState) => (!router.state.url.startsWith(LOGIN_ROUTE)

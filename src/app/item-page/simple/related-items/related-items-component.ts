@@ -11,23 +11,23 @@ import {
   OnInit,
   PLATFORM_ID,
 } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
-
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../../config/app-config.interface';
-import { FindListOptions } from '../../../core/data/find-list-options.model';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { RelationshipDataService } from '../../../core/data/relationship-data.service';
-import { RemoteData } from '../../../core/data/remote-data';
-import { Item } from '../../../core/shared/item.model';
-import { ViewMode } from '../../../core/shared/view-mode.model';
+} from '@dspace/config/app-config.interface';
+import { FindListOptions } from '@dspace/core/data/find-list-options.model';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RelationshipDataService } from '@dspace/core/data/relationship-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { Item } from '@dspace/core/shared/item.model';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
+import { setPlaceHolderAttributes } from '@dspace/shared/utils/object-list-utils';
+import { TranslateModule } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
-import { setPlaceHolderAttributes } from '../../../shared/utils/object-list-utils';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { AbstractIncrementalListComponent } from '../abstract-incremental-list/abstract-incremental-list.component';
 
@@ -35,8 +35,15 @@ import { AbstractIncrementalListComponent } from '../abstract-incremental-list/a
   selector: 'ds-related-items',
   styleUrls: ['./related-items.component.scss'],
   templateUrl: './related-items.component.html',
-  standalone: true,
-  imports: [MetadataFieldWrapperComponent, NgClass, VarDirective, ListableObjectComponentLoaderComponent, ThemedLoadingComponent, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    ListableObjectComponentLoaderComponent,
+    MetadataFieldWrapperComponent,
+    NgClass,
+    ThemedLoadingComponent,
+    TranslateModule,
+    VarDirective,
+  ],
 })
 /**
  * This component is used for displaying relations between items

@@ -5,9 +5,9 @@ import {
   RouterStateSnapshot,
   UrlSegment,
 } from '@angular/router';
-import { of as observableOf } from 'rxjs';
+import { COMMUNITY_MODULE_PATH } from '@dspace/core/router/core-routing-paths';
+import { of } from 'rxjs';
 
-import { COMMUNITY_MODULE_PATH } from '../../community-page/community-page-routing-paths';
 import { MenuService } from './menu.service';
 import { MenuID } from './menu-id.model';
 import { MenuItemType } from './menu-item-type.model';
@@ -37,7 +37,7 @@ describe('MenuProviderService', () => {
     }
 
     getSections(route?: ActivatedRouteSnapshot, state?: RouterStateSnapshot) {
-      return observableOf(this.sections);
+      return of(this.sections);
     }
   }
 
@@ -46,7 +46,7 @@ describe('MenuProviderService', () => {
   let menuService: MenuService;
 
   const router = {
-    events: observableOf(new ResolveEnd(1, 'test-url', 'test-url-after-redirect', {
+    events: of(new ResolveEnd(1, 'test-url', 'test-url-after-redirect', {
       url: 'test-url',
       root: {
         url: [new UrlSegment('test-url', {})], data: {},
@@ -114,8 +114,8 @@ describe('MenuProviderService', () => {
       {
         addSection: {},
         removeSection: {},
-        getMenu: observableOf({ id: MenuID.PUBLIC }),
-        getNonPersistentMenuSections: observableOf([sectionToBeRemoved]),
+        getMenu: of({ id: MenuID.PUBLIC }),
+        getNonPersistentMenuSections: of([sectionToBeRemoved]),
 
       });
 

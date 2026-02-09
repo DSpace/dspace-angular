@@ -1,11 +1,11 @@
 import { TestBed } from '@angular/core/testing';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { ITEM } from '@dspace/core/shared/item.resource-type';
+import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { Item } from '../../../core/shared/item.model';
-import { ITEM } from '../../../core/shared/item.resource-type';
-import { createSuccessfulRemoteDataObject } from '../../remote-data.utils';
 import { MenuItemType } from '../menu-item-type.model';
 import { PartialMenuSection } from '../menu-provider.model';
 import { StatisticsMenuProvider } from './statistics.menu';
@@ -75,7 +75,7 @@ describe('StatisticsMenuProvider', () => {
 
   beforeEach(() => {
     authorizationService = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: observableOf(true),
+      isAuthorized: of(true),
     });
 
     TestBed.configureTestingModule({
@@ -106,7 +106,7 @@ describe('StatisticsMenuProvider', () => {
       });
     });
     it('should not return anything if not authorized to view statistics', (done) => {
-      (TestBed.inject(AuthorizationDataService) as any).isAuthorized.and.returnValue(observableOf(false));
+      (TestBed.inject(AuthorizationDataService) as any).isAuthorized.and.returnValue(of(false));
       provider.getSectionsForContext(item).subscribe((sections) => {
         expect(sections).toEqual(expectedSectionsForItemInvisible);
         done();

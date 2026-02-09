@@ -9,25 +9,25 @@ import {
 } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
+import { AppliedFilter } from '@dspace/core/shared/search/models/applied-filter.model';
+import { FacetValues } from '@dspace/core/shared/search/models/facet-values.model';
+import { FilterType } from '@dspace/core/shared/search/models/filter-type.model';
+import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
+import { SequenceService } from '@dspace/core/shared/sequence.service';
+import { SearchConfigurationServiceStub } from '@dspace/core/testing/search-configuration-service.stub';
+import { SearchFilterServiceStub } from '@dspace/core/testing/search-filter-service.stub';
+import { SearchServiceStub } from '@dspace/core/testing/search-service.stub';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
-import { SearchFilterService } from 'src/app/core/shared/search/search-filter.service';
 
-import { SearchService } from '../../../../core/shared/search/search.service';
-import { SequenceService } from '../../../../core/shared/sequence.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-configuration.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
-import { SearchConfigurationServiceStub } from '../../../testing/search-configuration-service.stub';
-import { SearchFilterServiceStub } from '../../../testing/search-filter-service.stub';
-import { SearchServiceStub } from '../../../testing/search-service.stub';
-import { AppliedFilter } from '../../models/applied-filter.model';
-import { FacetValues } from '../../models/facet-values.model';
-import { FilterType } from '../../models/filter-type.model';
-import { SearchFilterConfig } from '../../models/search-filter-config.model';
+import { SearchService } from '../../search.service';
+import { SearchFilterService } from '../search-filter.service';
 import { SearchFacetFilterWrapperComponent } from './search-facet-filter-wrapper/search-facet-filter-wrapper.component';
 import { SearchFilterComponent } from './search-filter.component';
 
@@ -119,7 +119,7 @@ describe('SearchFilterComponent', () => {
   describe('when isCollapsed is called and the filter is collapsed', () => {
     let isActive: Observable<boolean>;
     beforeEach(() => {
-      searchFilterService.isCollapsed = () => observableOf(true);
+      searchFilterService.isCollapsed = () => of(true);
       isActive = (comp as any).isCollapsed();
     });
 
@@ -134,7 +134,7 @@ describe('SearchFilterComponent', () => {
   describe('when isCollapsed is called and the filter is not collapsed', () => {
     let isActive: Observable<boolean>;
     beforeEach(() => {
-      searchFilterService.isCollapsed = () => observableOf(false);
+      searchFilterService.isCollapsed = () => of(false);
       isActive = (comp as any).isCollapsed();
     });
 
@@ -153,7 +153,7 @@ describe('SearchFilterComponent', () => {
           totalElements: 5,
         },
       } as FacetValues)));
-      comp.appliedFilters$ = observableOf([appliedFilter2]);
+      comp.appliedFilters$ = of([appliedFilter2]);
 
       expect(comp.isActive()).toBeObservable(cold('(tt)', {
         t: true,
@@ -166,7 +166,7 @@ describe('SearchFilterComponent', () => {
           totalElements: 0,
         },
       } as FacetValues)));
-      comp.appliedFilters$ = observableOf([appliedFilter2]);
+      comp.appliedFilters$ = of([appliedFilter2]);
 
       expect(comp.isActive()).toBeObservable(cold('(tf)', {
         t: true,
@@ -180,7 +180,7 @@ describe('SearchFilterComponent', () => {
           totalElements: 0,
         },
       } as FacetValues)));
-      comp.appliedFilters$ = observableOf([appliedFilter1, appliedFilter2]);
+      comp.appliedFilters$ = of([appliedFilter1, appliedFilter2]);
 
       expect(comp.isActive()).toBeObservable(cold('(tt)', {
         t: true,
@@ -193,7 +193,7 @@ describe('SearchFilterComponent', () => {
           totalElements: 5,
         },
       } as FacetValues)));
-      comp.appliedFilters$ = observableOf([appliedFilter1, appliedFilter2]);
+      comp.appliedFilters$ = of([appliedFilter1, appliedFilter2]);
 
       expect(comp.isActive()).toBeObservable(cold('(tt)', {
         t: true,

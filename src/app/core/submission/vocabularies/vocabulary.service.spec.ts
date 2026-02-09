@@ -3,18 +3,9 @@ import {
   getTestScheduler,
   hot,
 } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { getMockHrefOnlyDataService } from '../../../shared/mocks/href-only-data.service.mock';
-import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data-build.service.mock';
-import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../../shared/remote-data.utils';
-import { ObjectCacheServiceStub } from '../../../shared/testing/object-cache-service.stub';
-import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { RequestParam } from '../../cache/models/request-param.model';
 import { ObjectCacheService } from '../../cache/object-cache.service';
@@ -25,6 +16,15 @@ import { RequestService } from '../../data/request.service';
 import { RequestEntry } from '../../data/request-entry.model';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { PageInfo } from '../../shared/page-info.model';
+import { getMockHrefOnlyDataService } from '../../testing/href-only-data.service.mock';
+import { ObjectCacheServiceStub } from '../../testing/object-cache-service.stub';
+import { getMockRemoteDataBuildService } from '../../testing/remote-data-build.service.mock';
+import { getMockRequestService } from '../../testing/request.service.mock';
+import { createPaginatedList } from '../../testing/utils.test';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../utilities/remote-data.utils';
 import { VocabularyFindOptions } from './models/vocabulary-find-options.model';
 import { VocabularyOptions } from './models/vocabulary-options.model';
 import { VocabularyDataService } from './vocabulary.data.service';
@@ -203,7 +203,7 @@ describe('VocabularyService', () => {
   const vocabularyEntryChildrenRD = createSuccessfulRemoteDataObject(childrenPaginatedList);
   const paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
   const getRequestEntries$ = (successful: boolean) => {
-    return observableOf({
+    return of({
       response: { isSuccessful: successful, payload: arrayEntries } as any,
     } as RequestEntry);
   };
@@ -242,8 +242,8 @@ describe('VocabularyService', () => {
           generateRequestId: requestUUID,
           send: true,
           removeByHrefSubstring: {},
-          getByHref: observableOf(responseCacheEntry),
-          getByUUID: observableOf(responseCacheEntry),
+          getByHref: of(responseCacheEntry),
+          getByUUID: of(responseCacheEntry),
         });
         rdbService = jasmine.createSpyObj('rdbService', {
           buildSingle: hot('a|', {
@@ -260,8 +260,8 @@ describe('VocabularyService', () => {
         spyOn((service as any).vocabularyDataService, 'findAll').and.callThrough();
         spyOn((service as any).vocabularyDataService, 'findByHref').and.callThrough();
         spyOn((service as any).vocabularyDataService, 'getVocabularyByMetadataAndCollection').and.callThrough();
-        spyOn((service as any).vocabularyDataService.findAllData, 'getFindAllHref').and.returnValue(observableOf(entriesRequestURL));
-        spyOn((service as any).vocabularyDataService.searchData, 'getSearchByHref').and.returnValue(observableOf(searchRequestURL));
+        spyOn((service as any).vocabularyDataService.findAllData, 'getFindAllHref').and.returnValue(of(entriesRequestURL));
+        spyOn((service as any).vocabularyDataService.searchData, 'getSearchByHref').and.returnValue(of(searchRequestURL));
       });
 
       afterEach(() => {
@@ -427,8 +427,8 @@ describe('VocabularyService', () => {
         generateRequestId: requestUUID,
         send: true,
         removeByHrefSubstring: {},
-        getByHref: observableOf(responseCacheEntry),
-        getByUUID: observableOf(responseCacheEntry),
+        getByHref: of(responseCacheEntry),
+        getByUUID: of(responseCacheEntry),
       });
       rdbService = jasmine.createSpyObj('rdbService', {
         buildSingle: hot('a|', {
@@ -446,9 +446,9 @@ describe('VocabularyService', () => {
       spyOn((service as any).vocabularyEntryDetailDataService, 'findByHref').and.callThrough();
       spyOn((service as any).vocabularyEntryDetailDataService, 'findListByHref').and.callThrough();
       spyOn((service as any).vocabularyEntryDetailDataService, 'searchBy').and.callThrough();
-      spyOn((service as any).vocabularyEntryDetailDataService.searchData, 'getSearchByHref').and.returnValue(observableOf(searchRequestURL));
-      spyOn((service as any).vocabularyEntryDetailDataService.findAllData, 'getFindAllHref').and.returnValue(observableOf(entryDetailChildrenRequestURL));
-      spyOn((service as any).vocabularyEntryDetailDataService, 'getBrowseEndpoint').and.returnValue(observableOf(entryDetailEndpointURL));
+      spyOn((service as any).vocabularyEntryDetailDataService.searchData, 'getSearchByHref').and.returnValue(of(searchRequestURL));
+      spyOn((service as any).vocabularyEntryDetailDataService.findAllData, 'getFindAllHref').and.returnValue(of(entryDetailChildrenRequestURL));
+      spyOn((service as any).vocabularyEntryDetailDataService, 'getBrowseEndpoint').and.returnValue(of(entryDetailEndpointURL));
     });
 
     afterEach(() => {

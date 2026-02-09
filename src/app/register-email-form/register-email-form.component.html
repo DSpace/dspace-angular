@@ -54,9 +54,9 @@
       </ds-alert>
     }
 
-    @if (isRecaptchaCookieAccepted() && (googleRecaptchaService.captchaVersion() | async) === 'v2') {
+    @if (isRecaptchaCookieAccepted() && (captchaVersion$ | async) === 'v2') {
       <div class="my-3">
-        <ds-google-recaptcha [captchaMode]="(googleRecaptchaService.captchaMode() | async)"
+        <ds-google-recaptcha [captchaMode]="(captchaMode$ | async)"
           (executeRecaptcha)="register($event)" (checkboxChecked)="onCheckboxChecked($event)"
         (showNotification)="showNotification($event)"></ds-google-recaptcha>
       </div>

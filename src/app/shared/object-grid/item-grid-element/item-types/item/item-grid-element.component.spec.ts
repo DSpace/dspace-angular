@@ -8,14 +8,14 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { of as observableOf } from 'rxjs';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+import { of } from 'rxjs';
 
-import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
-import { buildPaginatedList } from '../../../../../core/data/paginated-list.model';
-import { Item } from '../../../../../core/shared/item.model';
-import { PageInfo } from '../../../../../core/shared/page-info.model';
-import { DSONameServiceMock } from '../../../../mocks/dso-name.service.mock';
-import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
 import { TruncatableService } from '../../../../truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../utils/truncate.pipe';
 import { ItemSearchResultGridElementComponent } from '../../../search-result-grid-element/item-search-result/item/item-search-result-grid-element.component';
@@ -58,7 +58,7 @@ describe('ItemGridElementComponent', () => {
   let fixture;
 
   const truncatableServiceStub: any = {
-    isCollapsed: (id: number) => observableOf(true),
+    isCollapsed: (id: number) => of(true),
   };
 
   beforeEach(waitForAsync(() => {

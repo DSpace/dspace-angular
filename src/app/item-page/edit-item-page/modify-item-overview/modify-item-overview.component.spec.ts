@@ -4,9 +4,9 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { Item } from '@dspace/core/shared/item.model';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { Item } from '../../../core/shared/item.model';
 import { ModifyItemOverviewComponent } from './modify-item-overview.component';
 
 let comp: ModifyItemOverviewComponent;

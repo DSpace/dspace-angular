@@ -2,13 +2,11 @@ import {
   Pipe,
   PipeTransform,
 } from '@angular/core';
-
-import { isEmpty } from '../empty.util';
+import { isEmpty } from '@dspace/shared/utils/empty.util';
 
 
 @Pipe({
   name: 'dsShortNumber',
-  standalone: true,
 })
 export class ShortNumberPipe implements PipeTransform {
 

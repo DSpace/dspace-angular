@@ -10,8 +10,12 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
+import {
   NgbDropdownModule,
-  NgbTooltipModule,
+  NgbTooltip,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
@@ -21,10 +25,6 @@ import { MenuSection } from 'src/app/shared/menu/menu-section.model';
 import { AbstractMenuSectionComponent } from 'src/app/shared/menu/menu-section/abstract-menu-section.component';
 
 import { BtnDisabledDirective } from '../../../btn-disabled.directive';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../../empty.util';
 import { MenuService } from '../../../menu/menu.service';
 
 /**
@@ -34,8 +34,14 @@ import { MenuService } from '../../../menu/menu.service';
   selector: 'ds-dso-edit-menu-expandable-section',
   templateUrl: './dso-edit-menu-expandable-section.component.html',
   styleUrls: ['./dso-edit-menu-expandable-section.component.scss'],
-  standalone: true,
-  imports: [NgbDropdownModule, NgbTooltipModule, NgComponentOutlet, TranslateModule, AsyncPipe, BtnDisabledDirective],
+  imports: [
+    AsyncPipe,
+    BtnDisabledDirective,
+    NgbDropdownModule,
+    NgbTooltip,
+    NgComponentOutlet,
+    TranslateModule,
+  ],
 })
 export class DsoEditMenuExpandableSectionComponent extends AbstractMenuSectionComponent implements OnInit {
 

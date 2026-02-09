@@ -7,20 +7,20 @@ import {
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
-import {
-  Observable,
-  of as observableOf,
-} from 'rxjs';
-
-import { AuthService } from '../../core/auth/auth.service';
-import { EpersonRegistrationService } from '../../core/data/eperson-registration.service';
-import { EPerson } from '../../core/eperson/models/eperson.model';
-import { Registration } from '../../core/shared/registration.model';
-import { RouterMock } from '../../shared/mocks/router.mock';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { EpersonRegistrationService } from '@dspace/core/data/eperson-registration.service';
+import { EPerson } from '@dspace/core/eperson/models/eperson.model';
+import { Registration } from '@dspace/core/shared/registration.model';
+import { RouterMock } from '@dspace/core/testing/router.mock';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
+} from '@dspace/core/utilities/remote-data.utils';
+import {
+  Observable,
+  of,
+} from 'rxjs';
+
 import { registrationTokenGuard } from './registration-token-guard';
 
 describe('RegistrationTokenGuard',
@@ -35,7 +35,7 @@ describe('RegistrationTokenGuard',
       searchByTokenAndHandleError: createSuccessfulRemoteDataObject$(registrationWithGroups),
     });
     const authService = {
-      getAuthenticatedUserFromStore: () => observableOf(ePerson),
+      getAuthenticatedUserFromStore: () => of(ePerson),
       setRedirectUrl: () => {
         return true;
       },
@@ -100,7 +100,7 @@ describe('RegistrationTokenGuard',
       });
 
       const epersonDifferentUserFromLoggedIn = jasmine.createSpyObj('epersonRegistrationService', {
-        searchByTokenAndHandleError: observableOf(registrationWithDifferentUserFromLoggedIn),
+        searchByTokenAndHandleError: of(registrationWithDifferentUserFromLoggedIn),
       });
 
       beforeEach(() => {

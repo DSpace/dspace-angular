@@ -5,6 +5,14 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { LinkService } from '@dspace/core/cache/builders/link.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   EMPTY,
@@ -15,15 +23,6 @@ import {
   mergeMap,
 } from 'rxjs/operators';
 
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { LinkService } from '../../../../core/cache/builders/link.service';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { Collection } from '../../../../core/shared/collection.model';
-import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
-import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
-import { isNotEmpty } from '../../../empty.util';
-import { followLink } from '../../../utils/follow-link-config.model';
-
 /**
  * This component represents a badge with collection information.
  */
@@ -31,8 +30,11 @@ import { followLink } from '../../../utils/follow-link-config.model';
   selector: 'ds-item-collection',
   styleUrls: ['./item-collection.component.scss'],
   templateUrl: './item-collection.component.html',
-  standalone: true,
-  imports: [RouterLink, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    RouterLink,
+    TranslateModule,
+  ],
 })
 export class ItemCollectionComponent implements OnInit {
 

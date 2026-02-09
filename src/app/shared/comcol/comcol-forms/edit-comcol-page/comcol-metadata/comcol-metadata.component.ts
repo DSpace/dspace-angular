@@ -6,6 +6,18 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { ComColDataService } from '@dspace/core/data/comcol-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { Community } from '@dspace/core/shared/community.model';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+} from '@dspace/core/shared/operators';
+import { ResourceType } from '@dspace/core/shared/resource-type';
+import { isEmpty } from '@dspace/shared/utils/empty.util';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import {
@@ -13,23 +25,9 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { ComColDataService } from '../../../../../core/data/comcol-data.service';
-import { RemoteData } from '../../../../../core/data/remote-data';
-import { Collection } from '../../../../../core/shared/collection.model';
-import { Community } from '../../../../../core/shared/community.model';
-import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteData,
-} from '../../../../../core/shared/operators';
-import { ResourceType } from '../../../../../core/shared/resource-type';
-import { isEmpty } from '../../../../empty.util';
-import { NotificationsService } from '../../../../notifications/notifications.service';
-
 @Component({
   selector: 'ds-comcol-metadata',
   template: '',
-  standalone: true,
 })
 export class ComcolMetadataComponent<TDomain extends Community | Collection> implements OnInit {
   /**

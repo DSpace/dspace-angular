@@ -8,27 +8,27 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { AuthServiceMock } from '@dspace/core/testing/auth.service.mock';
+import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
+import { mockTruncatableService } from '@dspace/core/testing/mock-trucatable.service';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
-import { APP_CONFIG } from 'src/config/app-config.interface';
-import { environment } from 'src/environments/environment.test';
+import { of } from 'rxjs';
 
-import { AuthService } from '../../../../core/auth/auth.service';
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
-import { Item } from '../../../../core/shared/item.model';
-import { AuthServiceMock } from '../../../../shared/mocks/auth.service.mock';
-import { DSONameServiceMock } from '../../../../shared/mocks/dso-name.service.mock';
-import { mockTruncatableService } from '../../../../shared/mocks/mock-trucatable.service';
-import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';
-import { ActivatedRouteStub } from '../../../../shared/testing/active-router.stub';
+import { environment } from '../../../../../environments/environment.test';
+import { getMockThemeService } from '../../../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../../shared/theme-support/theme.service';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
 import { PersonListElementComponent } from './person-list-element.component';
 
 const mockItem: Item = Object.assign(new Item(), {
-  bundles: observableOf({}),
+  bundles: of({}),
   metadata: {
     'dc.title': [
       {

@@ -8,18 +8,18 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { Context } from '@dspace/core/shared/context.model';
+import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
+import { PoolTask } from '@dspace/core/tasks/models/pool-task-object.model';
+import { EPersonMock } from '@dspace/core/testing/eperson.mock';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
-import { Context } from '../../../../../core/shared/context.model';
-import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
-import { PoolTask } from '../../../../../core/tasks/models/pool-task-object.model';
-import { TranslateLoaderMock } from '../../../../mocks/translate-loader.mock';
-import { createSuccessfulRemoteDataObject } from '../../../../remote-data.utils';
-import { EPersonMock } from '../../../../testing/eperson.mock';
 import { MyDSpaceStatusBadgeComponent } from './my-dspace-status-badge.component';
 
 let component: MyDSpaceStatusBadgeComponent;
@@ -28,9 +28,9 @@ let fixture: ComponentFixture<MyDSpaceStatusBadgeComponent>;
 let mockResultObject: PoolTask;
 
 const rdSumbitter = createSuccessfulRemoteDataObject(EPersonMock);
-const workflowitem = Object.assign(new WorkflowItem(), { submitter: observableOf(rdSumbitter) });
+const workflowitem = Object.assign(new WorkflowItem(), { submitter: of(rdSumbitter) });
 const rdWorkflowitem = createSuccessfulRemoteDataObject(workflowitem);
-mockResultObject = Object.assign(new PoolTask(), { workflowitem: observableOf(rdWorkflowitem) });
+mockResultObject = Object.assign(new PoolTask(), { workflowitem: of(rdWorkflowitem) });
 
 describe('MyDSpaceItemStatusComponent', () => {
   beforeEach(waitForAsync(() => {

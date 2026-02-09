@@ -2,17 +2,14 @@ import {
   Component,
   Input,
 } from '@angular/core';
+import { Item } from '@dspace/core/shared/item.model';
 
-import { Item } from '../../../core/shared/item.model';
 import { ThemedComponent } from '../../../shared/theme-support/themed.component';
 import { MetadataRepresentationListComponent } from './metadata-representation-list.component';
 
 @Component({
   selector: 'ds-metadata-representation-list',
-  styleUrls: [],
   templateUrl: '../../../shared/theme-support/themed.component.html',
-  standalone: true,
-  imports: [MetadataRepresentationListComponent],
 })
 export class ThemedMetadataRepresentationListComponent extends ThemedComponent<MetadataRepresentationListComponent> {
   protected inAndOutputNames: (keyof MetadataRepresentationListComponent & keyof this)[] = ['parentItem', 'itemType', 'metadataFields', 'label', 'incrementBy'];

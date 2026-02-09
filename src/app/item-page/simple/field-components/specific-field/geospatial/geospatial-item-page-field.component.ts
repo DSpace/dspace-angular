@@ -1,16 +1,15 @@
-import { NgIf } from '@angular/common';
 import {
   Component,
   Input,
   OnInit,
 } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
-
-import { Item } from '../../../../../core/shared/item.model';
+import { Item } from '@dspace/core/shared/item.model';
 import {
   hasValue,
   isNotEmpty,
-} from '../../../../../shared/empty.util';
+} from '@dspace/shared/utils/empty.util';
+import { TranslatePipe } from '@ngx-translate/core';
+
 import { GeospatialMapComponent } from '../../../../../shared/geospatial-map/geospatial-map.component';
 import { MetadataFieldWrapperComponent } from '../../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { ItemPageFieldComponent } from '../item-page-field.component';
@@ -19,12 +18,10 @@ import { ItemPageFieldComponent } from '../item-page-field.component';
   selector: 'ds-geospatial-item-page-field',
   templateUrl: './geospatial-item-page-field.component.html',
   imports: [
-    MetadataFieldWrapperComponent,
     GeospatialMapComponent,
-    TranslateModule,
-    NgIf,
+    MetadataFieldWrapperComponent,
+    TranslatePipe,
   ],
-  standalone: true,
 })
 /**
  * This component can be used to represent metadata on a simple item page.

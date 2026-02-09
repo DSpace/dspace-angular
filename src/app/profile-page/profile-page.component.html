@@ -35,6 +35,15 @@
       <div class="col-12 text-end pe-0">
         <button type="button" class="btn btn-primary" (click)="updateProfile()"><i class="fas fa-edit"></i> {{'profile.form.submit' | translate}}</button>
       </div>
+
+      <div class="card mb-4">
+        <div class="card-header">{{'profile.card.accessibility.header' | translate}}</div>
+        <div class="card-body">
+          <ds-alert class="mb-4" [type]="'alert-info'">{{'profile.card.accessibility.content' | translate}}</ds-alert>
+          <a [routerLink]="'/info/accessibility'">{{'profile.card.accessibility.link' | translate}}</a>
+        </div>
+      </div>
+
       @if ((groupsRD$ | async); as groupsRD;) {
         <ng-container *ngTemplateOutlet="groupsRD?.isLoading ? loader : content"></ng-container>
         <ng-template #content>

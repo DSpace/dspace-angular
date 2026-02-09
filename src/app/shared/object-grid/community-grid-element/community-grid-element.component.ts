@@ -4,20 +4,20 @@ import {
   Input,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
-
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { LinkService } from '../../../core/cache/builders/link.service';
-import { Community } from '../../../core/shared/community.model';
-import { ViewMode } from '../../../core/shared/view-mode.model';
-import { ThemedThumbnailComponent } from '../../../thumbnail/themed-thumbnail.component';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { LinkService } from '@dspace/core/cache/builders/link.service';
+import { Community } from '@dspace/core/shared/community.model';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import {
   hasNoValue,
   hasValue,
-} from '../../empty.util';
+} from '@dspace/shared/utils/empty.util';
+import { TranslateModule } from '@ngx-translate/core';
+
+import { ThemedThumbnailComponent } from '../../../thumbnail/themed-thumbnail.component';
 import { listableObjectComponent } from '../../object-collection/shared/listable-object/listable-object.decorator';
 import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
-import { followLink } from '../../utils/follow-link-config.model';
 
 /**
  * Component representing a grid element for a community
@@ -26,8 +26,12 @@ import { followLink } from '../../utils/follow-link-config.model';
   selector: 'ds-community-grid-element',
   styleUrls: ['./community-grid-element.component.scss'],
   templateUrl: './community-grid-element.component.html',
-  standalone: true,
-  imports: [RouterLink, ThemedThumbnailComponent, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    RouterLink,
+    ThemedThumbnailComponent,
+    TranslateModule,
+  ],
 })
 
 @listableObjectComponent(Community, ViewMode.GridElement)

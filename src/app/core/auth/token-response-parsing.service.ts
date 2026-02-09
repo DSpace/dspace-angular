@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 
-import { isNotEmpty } from '../../shared/empty.util';
 import {
   RestResponse,
   TokenResponse,

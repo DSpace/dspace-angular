@@ -5,24 +5,21 @@ import {
   OnInit,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
-import { take } from 'rxjs/operators';
-
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../../../../config/app-config.interface';
-import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
-import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
-import { ItemDataService } from '../../../../../core/data/item-data.service';
-import { RelationshipDataService } from '../../../../../core/data/relationship-data.service';
-import { Context } from '../../../../../core/shared/context.model';
-import { Item } from '../../../../../core/shared/item.model';
-import { MetadataValue } from '../../../../../core/shared/metadata.models';
-import { ViewMode } from '../../../../../core/shared/view-mode.model';
-import { NotificationsService } from '../../../../../shared/notifications/notifications.service';
-import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
+} from '@dspace/config/app-config.interface';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
+import { Context } from '@dspace/core/shared/context.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { MetadataValue } from '@dspace/core/shared/metadata.models';
+import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { take } from 'rxjs/operators';
+
+import { NameVariantService } from '../../../../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.service';
 import { listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
 import { SearchResultListElementComponent } from '../../../../../shared/object-list/search-result-list-element/search-result-list-element.component';
 import { SelectableListService } from '../../../../../shared/object-list/selectable-list/selectable-list.service';
@@ -36,8 +33,10 @@ import { OrgUnitInputSuggestionsComponent } from './org-unit-suggestions/org-uni
   selector: 'ds-org-unit-search-result-list-submission-element',
   styleUrls: ['./org-unit-search-result-list-submission-element.component.scss'],
   templateUrl: './org-unit-search-result-list-submission-element.component.html',
-  standalone: true,
-  imports: [OrgUnitInputSuggestionsComponent, FormsModule],
+  imports: [
+    FormsModule,
+    OrgUnitInputSuggestionsComponent,
+  ],
 })
 
 /**
@@ -55,12 +54,9 @@ export class OrgUnitSearchResultListSubmissionElementComponent extends SearchRes
   showThumbnails: boolean;
 
   constructor(protected truncatableService: TruncatableService,
-              private relationshipService: RelationshipDataService,
-              private notificationsService: NotificationsService,
-              private translateService: TranslateService,
+              private nameVariantService: NameVariantService,
               private modalService: NgbModal,
               private itemDataService: ItemDataService,
-              private bitstreamDataService: BitstreamDataService,
               private selectableListService: SelectableListService,
               public dsoNameService: DSONameService,
               @Inject(APP_CONFIG) protected appConfig: AppConfig,
@@ -78,7 +74,7 @@ export class OrgUnitSearchResultListSubmissionElementComponent extends SearchRes
       const alternatives = this.allMetadataValues(this.alternativeField);
       this.allSuggestions = [defaultValue, ...alternatives];
 
-      this.relationshipService.getNameVariant(this.listID, this.dso.uuid)
+      this.nameVariantService.getNameVariant(this.listID, this.dso.uuid)
         .pipe(take(1))
         .subscribe((nameVariant: string) => {
           this.selectedName = nameVariant || defaultValue;
@@ -96,7 +92,7 @@ export class OrgUnitSearchResultListSubmissionElementComponent extends SearchRes
           this.selectableListService.selectSingle(this.listID, this.object);
         }
       });
-    this.relationshipService.setNameVariant(this.listID, this.dso.uuid, value);
+    this.nameVariantService.setNameVariant(this.listID, this.dso.uuid, value);
   }
 
   selectCustom(value) {

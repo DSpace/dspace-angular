@@ -8,15 +8,15 @@ import {
 } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
+import { RestResponse } from '@dspace/core/cache/response.models';
+import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
-import { RestResponse } from '../../core/cache/response.models';
-import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { FormBuilderService } from '../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../shared/form/form.component';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { ProfilePageSecurityFormComponent } from './profile-page-security-form.component';
 
@@ -29,7 +29,7 @@ describe('ProfilePageSecurityFormComponent', () => {
 
   function init() {
     epersonService = jasmine.createSpyObj('epersonService', {
-      patch: observableOf(new RestResponse(true, 200, 'OK')),
+      patch: of(new RestResponse(true, 200, 'OK')),
     });
     notificationsService = jasmine.createSpyObj('notificationsService', {
       success: {},

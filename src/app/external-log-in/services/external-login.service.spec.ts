@@ -5,23 +5,23 @@ import {
   tick,
 } from '@angular/core/testing';
 import { Router } from '@angular/router';
-import { provideMockStore } from '@ngrx/store/testing';
-import { TranslateService } from '@ngx-translate/core';
-import { getTestScheduler } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
-import { TestScheduler } from 'rxjs/testing';
-
-import { EpersonRegistrationService } from '../../core/data/eperson-registration.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { NoContent } from '../../core/shared/NoContent.model';
-import { Registration } from '../../core/shared/registration.model';
-import { RouterMock } from '../../shared/mocks/router.mock';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { EpersonRegistrationService } from '@dspace/core/data/eperson-registration.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { NoContent } from '@dspace/core/shared/NoContent.model';
+import { Registration } from '@dspace/core/shared/registration.model';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { RouterMock } from '@dspace/core/testing/router.mock';
 import {
   createFailedRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+} from '@dspace/core/utilities/remote-data.utils';
+import { provideMockStore } from '@ngrx/store/testing';
+import { TranslateService } from '@ngx-translate/core';
+import { getTestScheduler } from 'jasmine-marbles';
+import { of } from 'rxjs';
+import { TestScheduler } from 'rxjs/testing';
+
 import { ExternalLoginService } from './external-login.service';
 
 describe('ExternalLoginService', () => {
@@ -66,7 +66,7 @@ describe('ExternalLoginService', () => {
   });
 
   it('should call epersonRegistrationService.patchUpdateRegistration with the correct parameters', () => {
-    epersonRegistrationService.patchUpdateRegistration.and.returnValue(observableOf({} as RemoteData<Registration>));
+    epersonRegistrationService.patchUpdateRegistration.and.returnValue(of({} as RemoteData<Registration>));
     service.patchUpdateRegistration(values, field, registrationId, token, operation);
     expect(epersonRegistrationService.patchUpdateRegistration).toHaveBeenCalledWith(values, field, registrationId, token, operation);
   });
@@ -80,8 +80,8 @@ describe('ExternalLoginService', () => {
 
   it('should show an error notification if the remote data has failed', fakeAsync(() => {
     const remoteData = createFailedRemoteDataObject<NoContent>('error message');
-    epersonRegistrationService.patchUpdateRegistration.and.returnValue(observableOf(remoteData));
-    translate.get.and.returnValue(observableOf('error message'));
+    epersonRegistrationService.patchUpdateRegistration.and.returnValue(of(remoteData));
+    translate.get.and.returnValue(of('error message'));
 
     let result = null;
     service.patchUpdateRegistration(values, field, registrationId, token, operation).subscribe((data) => (result = data));

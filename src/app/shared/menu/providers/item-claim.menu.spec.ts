@@ -1,14 +1,14 @@
 import { TestBed } from '@angular/core/testing';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { ResearcherProfileDataService } from '@dspace/core/profile/researcher-profile-data.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { ITEM } from '@dspace/core/shared/item.resource-type';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { ResearcherProfileDataService } from '../../../core/profile/researcher-profile-data.service';
-import { Item } from '../../../core/shared/item.model';
-import { ITEM } from '../../../core/shared/item.resource-type';
-import { NotificationsService } from '../../notifications/notifications.service';
-import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
 import { MenuService } from '../menu.service';
 import { MenuItemType } from '../menu-item-type.model';
 import { PartialMenuSection } from '../menu-provider.model';
@@ -64,7 +64,7 @@ describe('ClaimMenuProvider', () => {
   beforeEach(() => {
 
     authorizationService = jasmine.createSpyObj('authorizationService', {
-      'isAuthorized': observableOf(true),
+      'isAuthorized': of(true),
       'invalidateAuthorizationsRequestCache': {},
     });
 
@@ -73,7 +73,7 @@ describe('ClaimMenuProvider', () => {
     notificationsService = new NotificationsServiceStub();
 
     researcherProfileService = jasmine.createSpyObj('authorizationService', {
-      'createFromExternalSourceAndReturnRelatedItemId': observableOf('profile-id'),
+      'createFromExternalSourceAndReturnRelatedItemId': of('profile-id'),
     });
 
     modalService = jasmine.createSpyObj('modalService', ['open']);
@@ -125,7 +125,7 @@ describe('ClaimMenuProvider', () => {
       expect(menuService.hideMenuSection).toHaveBeenCalled();
     });
     it('should show an error notification when no id is returned by the researcher profile service', () => {
-      (researcherProfileService.createFromExternalSourceAndReturnRelatedItemId as jasmine.Spy).and.returnValue(observableOf(null));
+      (researcherProfileService.createFromExternalSourceAndReturnRelatedItemId as jasmine.Spy).and.returnValue(of(null));
       (provider as any).claimResearcher(person);
       expect(notificationsService.error).toHaveBeenCalled();
       expect(authorizationService.invalidateAuthorizationsRequestCache).not.toHaveBeenCalled();

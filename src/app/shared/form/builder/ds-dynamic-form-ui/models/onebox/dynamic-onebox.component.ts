@@ -17,6 +17,24 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import {
+  buildPaginatedList,
+  PaginatedList,
+} from '@dspace/core/data/paginated-list.model';
+import { ConfidenceType } from '@dspace/core/shared/confidence-type';
+import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
+import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { Vocabulary } from '@dspace/core/submission/vocabularies/models/vocabulary.model';
+import { VocabularyEntry } from '@dspace/core/submission/vocabularies/models/vocabulary-entry.model';
+import { VocabularyEntryDetail } from '@dspace/core/submission/vocabularies/models/vocabulary-entry-detail.model';
+import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+  isNotNull,
+} from '@dspace/shared/utils/empty.util';
+import {
   NgbModal,
   NgbModalRef,
   NgbTypeahead,
@@ -30,7 +48,7 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
-  of as observableOf,
+  of,
   Subject,
   Subscription,
 } from 'rxjs';
@@ -46,28 +64,9 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '../../../../../../core/data/paginated-list.model';
-import { ConfidenceType } from '../../../../../../core/shared/confidence-type';
-import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
-import { PageInfo } from '../../../../../../core/shared/page-info.model';
-import { Vocabulary } from '../../../../../../core/submission/vocabularies/models/vocabulary.model';
-import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
-import { VocabularyEntryDetail } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
-import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
-import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
-import {
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-  isNotNull,
-} from '../../../../../empty.util';
 import { ObjNgFor } from '../../../../../utils/object-ngfor.pipe';
 import { AuthorityConfidenceStateDirective } from '../../../../directives/authority-confidence-state.directive';
 import { VocabularyTreeviewModalComponent } from '../../../../vocabulary-treeview-modal/vocabulary-treeview-modal.component';
-import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
 import { DynamicOneboxModel } from './dynamic-onebox.model';
 
@@ -80,16 +79,14 @@ import { DynamicOneboxModel } from './dynamic-onebox.model';
   styleUrls: ['./dynamic-onebox.component.scss'],
   templateUrl: './dynamic-onebox.component.html',
   imports: [
-    NgbTypeaheadModule,
     AsyncPipe,
     AuthorityConfidenceStateDirective,
-    NgTemplateOutlet,
-    TranslateModule,
-    ObjNgFor,
     FormsModule,
-    BtnDisabledDirective,
+    NgbTypeaheadModule,
+    NgTemplateOutlet,
+    ObjNgFor,
+    TranslateModule,
   ],
-  standalone: true,
 })
 export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent implements OnDestroy, OnInit {
 
@@ -144,7 +141,7 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
       tap(() => this.changeSearchingStatus(true)),
       switchMap((term) => {
         if (term === '' || term.length < this.model.minChars) {
-          return observableOf({ list: [] });
+          return of({ list: [] });
         } else {
           return this.vocabularyService.getVocabularyEntriesByValue(
             term,
@@ -155,7 +152,7 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
             tap(() => this.searchFailed = false),
             catchError(() => {
               this.searchFailed = true;
-              return observableOf(buildPaginatedList(
+              return of(buildPaginatedList(
                 new PageInfo(),
                 [],
               ));

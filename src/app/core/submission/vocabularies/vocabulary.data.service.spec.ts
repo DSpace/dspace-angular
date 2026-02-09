@@ -5,11 +5,10 @@
  *
  * http://www.dspace.org/license/
  */
-import { createSuccessfulRemoteDataObject$ } from 'src/app/shared/remote-data.utils';
-
 import { RequestParam } from '../../cache/models/request-param.model';
 import { testFindAllDataImplementation } from '../../data/base/find-all-data.spec';
 import { FindListOptions } from '../../data/find-list-options.model';
+import { createSuccessfulRemoteDataObject$ } from '../../utilities/remote-data.utils';
 import { VocabularyDataService } from './vocabulary.data.service';
 
 describe('VocabularyDataService', () => {

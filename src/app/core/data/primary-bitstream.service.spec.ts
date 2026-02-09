@@ -1,21 +1,21 @@
 import { getTestScheduler } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
-import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
-import { getMockRequestService } from '../../shared/mocks/request.service.mock';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { NotificationsService } from '../notification-system/notifications.service';
+import { Bitstream } from '../shared/bitstream.model';
+import { Bundle } from '../shared/bundle.model';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { HALEndpointServiceStub } from '../testing/hal-endpoint-service.stub';
+import { NotificationsServiceStub } from '../testing/notifications-service.stub';
+import { getMockRemoteDataBuildService } from '../testing/remote-data-build.service.mock';
+import { getMockRequestService } from '../testing/request.service.mock';
 import {
   createFailedRemoteDataObject,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
-import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { Bitstream } from '../shared/bitstream.model';
-import { Bundle } from '../shared/bundle.model';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
+} from '../utilities/remote-data.utils';
 import { BundleDataService } from './bundle-data.service';
 import { PrimaryBitstreamService } from './primary-bitstream.service';
 import {
@@ -80,7 +80,7 @@ describe('PrimaryBitstreamService', () => {
     beforeEach(() => {
       spyOn(service as any, 'getHttpOptions').and.returnValue(options);
       (requestService.generateRequestId as jasmine.Spy<any>).and.returnValue(testId);
-      spyOn(rdbService, 'buildFromRequestUUID').and.returnValue(observableOf(testResult));
+      spyOn(rdbService, 'buildFromRequestUUID').and.returnValue(of(testResult));
     });
 
     it('should return a Request object with the given constructor and the given parameters', () => {
@@ -96,7 +96,7 @@ describe('PrimaryBitstreamService', () => {
   describe('create', () => {
     const testResult = createSuccessfulRemoteDataObject(new Bundle());
     beforeEach(() => {
-      spyOn((service as any), 'createAndSendRequest').and.returnValue(observableOf(testResult));
+      spyOn((service as any), 'createAndSendRequest').and.returnValue(of(testResult));
     });
 
     it('should delegate the call to createAndSendRequest', () => {
@@ -113,7 +113,7 @@ describe('PrimaryBitstreamService', () => {
   describe('put', () => {
     const testResult = createSuccessfulRemoteDataObject(new Bundle());
     beforeEach(() => {
-      spyOn((service as any), 'createAndSendRequest').and.returnValue(observableOf(testResult));
+      spyOn((service as any), 'createAndSendRequest').and.returnValue(of(testResult));
     });
 
     it('should delegate the call to createAndSendRequest and return the requested bundle', () => {
@@ -144,8 +144,8 @@ describe('PrimaryBitstreamService', () => {
       const bundleServiceResult = createSuccessfulRemoteDataObject(testBundle);
 
       beforeEach(() => {
-        spyOn((service as any), 'createAndSendRequest').and.returnValue(observableOf(testResult));
-        (bundleDataService.findByHref as jasmine.Spy<any>).and.returnValue(observableOf(bundleServiceResult));
+        spyOn((service as any), 'createAndSendRequest').and.returnValue(of(testResult));
+        (bundleDataService.findByHref as jasmine.Spy<any>).and.returnValue(of(bundleServiceResult));
       });
 
       it('should delegate the call to createAndSendRequest', () => {
@@ -167,8 +167,8 @@ describe('PrimaryBitstreamService', () => {
       const bundleServiceResult = createSuccessfulRemoteDataObject(testBundle);
 
       beforeEach(() => {
-        spyOn((service as any), 'createAndSendRequest').and.returnValue(observableOf(testResult));
-        (bundleDataService.findByHref as jasmine.Spy<any>).and.returnValue(observableOf(bundleServiceResult));
+        spyOn((service as any), 'createAndSendRequest').and.returnValue(of(testResult));
+        (bundleDataService.findByHref as jasmine.Spy<any>).and.returnValue(of(bundleServiceResult));
       });
 
       it('should delegate the call to createAndSendRequest and request the bundle from the bundleDataService', () => {

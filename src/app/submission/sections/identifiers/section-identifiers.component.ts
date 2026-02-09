@@ -5,19 +5,16 @@ import {
   Inject,
   OnInit,
 } from '@angular/core';
+import { WorkspaceitemSectionIdentifiersObject } from '@dspace/core/submission/models/workspaceitem-section-identifiers.model';
 import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
 import {
   Observable,
-  of as observableOf,
-  Subscription,
+  of,
 } from 'rxjs';
 
-import { WorkspaceitemSectionIdentifiersObject } from '../../../core/submission/models/workspaceitem-section-identifiers.model';
-import { AlertType } from '../../../shared/alert/alert-type';
-import { VarDirective } from '../../../shared/utils/var.directive';
 import { SubmissionService } from '../../submission.service';
 import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';
@@ -35,19 +32,12 @@ import { SectionsService } from '../sections.service';
   templateUrl: './section-identifiers.component.html',
   changeDetection: ChangeDetectionStrategy.Default,
   imports: [
-    TranslateModule,
     AsyncPipe,
-    VarDirective,
+    TranslateModule,
   ],
-  standalone: true,
 })
 
 export class SubmissionSectionIdentifiersComponent extends SectionModelComponent implements OnInit {
-  /**
-   * The Alert categories.
-   * @type {AlertType}
-   */
-  public AlertTypeEnum = AlertType;
 
   /**
    * Variable to track if the section is loading.
@@ -59,14 +49,7 @@ export class SubmissionSectionIdentifiersComponent extends SectionModelComponent
    * Observable identifierData subject
    * @type {Observable<WorkspaceitemSectionIdentifiersObject>}
    */
-  public identifierData$: Observable<WorkspaceitemSectionIdentifiersObject> = new Observable<WorkspaceitemSectionIdentifiersObject>();
-
-  /**
-   * Array to track all subscriptions and unsubscribe them onDestroy
-   * @type {Array}
-   */
-  protected subs: Subscription[] = [];
-  public subbedIdentifierData: WorkspaceitemSectionIdentifiersObject;
+  public identifierData$: Observable<WorkspaceitemSectionIdentifiersObject>;
 
   /**
    * Initialize instance variables.
@@ -87,23 +70,12 @@ export class SubmissionSectionIdentifiersComponent extends SectionModelComponent
     super(injectedCollectionId, injectedSectionData, injectedSubmissionId);
   }
 
-  ngOnInit(): void {
-    super.ngOnInit();
-  }
-
   /**
    * Initialize all instance variables and retrieve configuration.
    */
   onSectionInit() {
     this.isLoading = false;
     this.identifierData$ = this.getIdentifierData();
-  }
-
-  /**
-   * Check if identifier section has read-only visibility
-   */
-  isReadOnly(): boolean {
-    return true;
   }
 
   /**
@@ -122,7 +94,7 @@ export class SubmissionSectionIdentifiersComponent extends SectionModelComponent
    *     the section status
    */
   public getSectionStatus(): Observable<boolean> {
-    return observableOf(!this.isLoading);
+    return of(!this.isLoading);
   }
 
   /**

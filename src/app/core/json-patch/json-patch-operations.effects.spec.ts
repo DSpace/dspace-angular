@@ -7,7 +7,7 @@ import {
 } from 'jasmine-marbles';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import {
@@ -24,7 +24,7 @@ describe('JsonPatchOperationsEffects test suite', () => {
     /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
     dispatch: {},
     /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
-    select: observableOf(true),
+    select: of(true),
   });
   const testJsonPatchResourceType = 'testResourceType';
   const testJsonPatchResourceId = 'testResourceId';

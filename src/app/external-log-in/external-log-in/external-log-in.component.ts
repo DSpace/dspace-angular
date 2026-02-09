@@ -10,6 +10,14 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { AuthMethodType } from '@dspace/core/auth/models/auth.method-type';
+import { AuthRegistrationType } from '@dspace/core/auth/models/auth.registration-type';
+import { Registration } from '@dspace/core/shared/registration.model';
+import {
+  hasValue,
+  isEmpty,
+} from '@dspace/shared/utils/empty.util';
 import {
   NgbModal,
   NgbModalRef,
@@ -21,18 +29,10 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { AuthService } from '../../core/auth/auth.service';
-import { AuthMethodsService } from '../../core/auth/auth-methods.service';
-import { AuthMethodType } from '../../core/auth/models/auth.method-type';
-import { AuthRegistrationType } from '../../core/auth/models/auth.registration-type';
-import { Registration } from '../../core/shared/registration.model';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { AlertType } from '../../shared/alert/alert-type';
-import {
-  hasValue,
-  isEmpty,
-} from '../../shared/empty.util';
 import { AuthMethodTypeComponent } from '../../shared/log-in/methods/auth-methods.type';
+import { AuthMethodsService } from '../../shared/log-in/services/auth-methods.service';
 import { ThemedLogInComponent } from '../../shared/log-in/themed-log-in.component';
 import {
   ExternalLoginTypeComponent,
@@ -47,15 +47,14 @@ import { ProvideEmailComponent } from '../email-confirmation/provide-email/provi
   styleUrls: ['./external-log-in.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    ProvideEmailComponent,
     AlertComponent,
-    TranslateModule,
-    ConfirmEmailComponent,
-    ThemedLogInComponent,
-    NgComponentOutlet,
     AsyncPipe,
+    ConfirmEmailComponent,
+    NgComponentOutlet,
+    ProvideEmailComponent,
+    ThemedLogInComponent,
+    TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * This component is responsible to handle the external-login depending on the RegistrationData details provided

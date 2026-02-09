@@ -4,7 +4,7 @@ import {
 } from '@angular/core/testing';
 import { getTestScheduler } from 'jasmine-marbles';
 
-import { Breadcrumb } from '../../breadcrumbs/breadcrumb/breadcrumb.model';
+import { Breadcrumb } from './models/breadcrumb.model';
 import { SourcesBreadcrumbService } from './sources-breadcrumb.service';
 
 describe('SourcesBreadcrumbService', () => {

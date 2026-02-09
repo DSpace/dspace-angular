@@ -14,7 +14,19 @@ import {
   UntypedFormControl,
   UntypedFormGroup,
 } from '@angular/forms';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { ConfidenceType } from '@dspace/core/shared/confidence-type';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
+import {
+  getFirstCompletedRemoteData,
+  metadataFieldsToString,
+} from '@dspace/core/shared/operators';
+import { Vocabulary } from '@dspace/core/submission/vocabularies/models/vocabulary.model';
+import { VocabularyOptions } from '@dspace/core/submission/vocabularies/models/vocabulary-options.model';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
   TranslateService,
@@ -22,7 +34,7 @@ import {
 import {
   BehaviorSubject,
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import {
   map,
@@ -31,16 +43,7 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { ItemDataService } from '../../../../core/data/item-data.service';
-import { RegistryService } from '../../../../core/registry/registry.service';
-import { ConfidenceType } from '../../../../core/shared/confidence-type';
-import {
-  getFirstCompletedRemoteData,
-  metadataFieldsToString,
-} from '../../../../core/shared/operators';
-import { Vocabulary } from '../../../../core/submission/vocabularies/models/vocabulary.model';
-import { VocabularyOptions } from '../../../../core/submission/vocabularies/models/vocabulary-options.model';
-import { isNotEmpty } from '../../../../shared/empty.util';
+import { RegistryService } from '../../../../admin/admin-registries/registry/registry.service';
 import { DsDynamicOneboxComponent } from '../../../../shared/form/builder/ds-dynamic-form-ui/models/onebox/dynamic-onebox.component';
 import {
   DsDynamicOneboxModelConfig,
@@ -51,11 +54,8 @@ import {
   DynamicScrollableDropdownModel,
   DynamicScrollableDropdownModelConfig,
 } from '../../../../shared/form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
-import { FormFieldMetadataValueObject } from '../../../../shared/form/builder/models/form-field-metadata-value.model';
 import { AuthorityConfidenceStateDirective } from '../../../../shared/form/directives/authority-confidence-state.directive';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { DebounceDirective } from '../../../../shared/utils/debounce.directive';
-import { followLink } from '../../../../shared/utils/follow-link-config.model';
 import { AbstractDsoEditMetadataValueFieldComponent } from '../abstract-dso-edit-metadata-value-field.component';
 import { DsoEditMetadataFieldService } from '../dso-edit-metadata-field.service';
 
@@ -66,17 +66,16 @@ import { DsoEditMetadataFieldService } from '../dso-edit-metadata-field.service'
   selector: 'ds-dso-edit-metadata-authority-field',
   templateUrl: './dso-edit-metadata-authority-field.component.html',
   styleUrls: ['./dso-edit-metadata-authority-field.component.scss'],
-  standalone: true,
   imports: [
-    DsDynamicScrollableDropdownComponent,
-    DsDynamicOneboxComponent,
-    AuthorityConfidenceStateDirective,
-    NgbTooltipModule,
     AsyncPipe,
-    TranslateModule,
-    FormsModule,
-    NgClass,
+    AuthorityConfidenceStateDirective,
     DebounceDirective,
+    DsDynamicOneboxComponent,
+    DsDynamicScrollableDropdownComponent,
+    FormsModule,
+    NgbTooltip,
+    NgClass,
+    TranslateModule,
   ],
 })
 export class DsoEditMetadataAuthorityFieldComponent extends AbstractDsoEditMetadataValueFieldComponent implements OnInit, OnChanges {
@@ -248,7 +247,7 @@ export class DsoEditMetadataAuthorityFieldComponent extends AbstractDsoEditMetad
       getFirstCompletedRemoteData(),
       switchMap((rd) => {
         if (rd.hasSucceeded) {
-          return observableOf(rd).pipe(
+          return of(rd).pipe(
             metadataFieldsToString(),
             take(1),
             map((fields: string[]) => fields.indexOf(this.mdField) > -1),

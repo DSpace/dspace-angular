@@ -5,23 +5,22 @@ import {
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
+import { CommunityDataService } from '@dspace/core/data/community-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { Community } from '@dspace/core/shared/community.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import {
+  hasNoValue,
+  hasValue,
+} from '@dspace/shared/utils/empty.util';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import {
   map,
   tap,
 } from 'rxjs/operators';
-
-import { CommunityDataService } from '../../core/data/community-data.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { Community } from '../../core/shared/community.model';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
-import {
-  hasNoValue,
-  hasValue,
-} from '../../shared/empty.util';
 
 /**
  * True when either NO parent ID query parameter has been provided, or the parent ID resolves to a valid parent community
@@ -35,7 +34,7 @@ export const createCommunityPageGuard: CanActivateFn = (
 ): Observable<boolean> => {
   const parentID = route.queryParams.parent;
   if (hasNoValue(parentID)) {
-    return observableOf(true);
+    return of(true);
   }
 
   return communityService.findById(parentID)

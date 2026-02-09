@@ -9,12 +9,28 @@ import {
   Output,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { RequestParam } from '@dspace/core/cache/models/request-param.model';
+import { ExternalSourceDataService } from '@dspace/core/data/external-source-data.service';
+import { FindListOptions } from '@dspace/core/data/find-list-options.model';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { ExternalSource } from '@dspace/core/shared/external-source.model';
+import {
+  getFirstSucceededRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '@dspace/core/shared/operators';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import {
   Observable,
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
 import {
@@ -22,24 +38,8 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { RequestParam } from '../../../core/cache/models/request-param.model';
-import { ExternalSourceDataService } from '../../../core/data/external-source-data.service';
-import { FindListOptions } from '../../../core/data/find-list-options.model';
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { ExternalSource } from '../../../core/shared/external-source.model';
-import {
-  getFirstSucceededRemoteData,
-  getFirstSucceededRemoteDataPayload,
-} from '../../../core/shared/operators';
-import { PageInfo } from '../../../core/shared/page-info.model';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
-import { hasValue } from '../../../shared/empty.util';
 import { HostWindowService } from '../../../shared/host-window.service';
-import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
 
 /**
  * Interface for the selected external source element.
@@ -66,14 +66,13 @@ export interface ExternalSourceData {
   styleUrls: ['./submission-import-external-searchbar.component.scss'],
   templateUrl: './submission-import-external-searchbar.component.html',
   imports: [
+    BtnDisabledDirective,
     CommonModule,
-    TranslateModule,
+    FormsModule,
     InfiniteScrollModule,
     NgbDropdownModule,
-    FormsModule,
-    BtnDisabledDirective,
+    TranslateModule,
   ],
-  standalone: true,
 })
 export class SubmissionImportExternalSearchbarComponent implements OnInit, OnDestroy {
   /**
@@ -154,7 +153,7 @@ export class SubmissionImportExternalSearchbarComponent implements OnInit, OnDes
         const pageInfo = new PageInfo();
         const paginatedList = buildPaginatedList(pageInfo, []);
         const paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
-        return observableOf(paginatedListRD);
+        return of(paginatedListRD);
       }),
       getFirstSucceededRemoteDataPayload(),
     ).subscribe((externalSource: PaginatedList<ExternalSource>) => {
@@ -199,7 +198,7 @@ export class SubmissionImportExternalSearchbarComponent implements OnInit, OnDes
           const pageInfo = new PageInfo();
           const paginatedList = buildPaginatedList(pageInfo, []);
           const paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
-          return observableOf(paginatedListRD);
+          return of(paginatedListRD);
         }),
         getFirstSucceededRemoteData(),
         tap(() => this.sourceListLoading = false),

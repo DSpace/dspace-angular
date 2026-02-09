@@ -4,14 +4,15 @@
       @if (showScopeSelector) {
         <button class="scope-button btn btn-outline-secondary text-truncate"
           [ngbTooltip]="dsoNameService.getName(selectedScope | async)" type="button"
-          (click)="openScopeModal()">
+          (click)="openScopeModal()" role="button" tabindex="0">
+          <i class="fa-solid fa-filter"></i>
           {{dsoNameService.getName(selectedScope | async) || ('search.form.scope.all' | translate)}}
         </button>
       }
       <input type="text" [(ngModel)]="query" name="query" class="form-control"
         [attr.aria-label]="searchPlaceholder" [attr.data-test]="'search-box' | dsBrowserOnly"
-        [placeholder]="searchPlaceholder">
-      <button type="submit" class="search-button btn btn-{{brandColor}}" [attr.data-test]="'search-button' | dsBrowserOnly"><i class="fas fa-search"></i> {{ ('search.form.search' | translate) }}</button>
+        [placeholder]="searchPlaceholder" tabindex="0">
+      <button type="submit" class="search-button btn btn-{{brandColor}}" [attr.data-test]="'search-button' | dsBrowserOnly" role="button" tabindex="0"><i class="fas fa-search"></i> {{ ('search.form.search' | translate) }}</button>
     </div>
   </div>
 </form>

@@ -26,6 +26,12 @@ describe('Homepage', () => {
     // Wait for homepage tag to appear
     cy.get('ds-home-page').should('be.visible');
 
+    // Wait for at least one loading component to show up
+    cy.get('ds-loading').should('exist');
+
+    // Wait until all loading components have disappeared
+    cy.get('ds-loading').should('not.exist');
+
     // Analyze <ds-home-page> for accessibility issues
     testA11y('ds-home-page');
   });

@@ -13,22 +13,22 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { HostWindowServiceStub } from '@dspace/core/testing/host-window-service.stub';
+import { SectionsServiceStub } from '@dspace/core/testing/sections-service.stub';
+import { SubmissionServiceStub } from '@dspace/core/testing/submission-service.stub';
+import { createTestComponent } from '@dspace/core/testing/utils.test';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { HostWindowService } from '../../../shared/host-window.service';
+import { SectionsService } from '../../sections/sections.service';
+import { SubmissionService } from '../../submission.service';
 import {
   mockSubmissionCollectionId,
   mockSubmissionId,
-} from '../../../shared/mocks/submission.mock';
-import { HostWindowServiceStub } from '../../../shared/testing/host-window-service.stub';
-import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
-import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
-import { createTestComponent } from '../../../shared/testing/utils.test';
-import { SectionsService } from '../../sections/sections.service';
-import { SubmissionService } from '../../submission.service';
+} from '../../utils/submission.mock';
 import { SubmissionFormSectionAddComponent } from './submission-form-section-add.component';
 
 const mockAvailableSections: any = [
@@ -95,7 +95,7 @@ describe('SubmissionFormSectionAddComponent Component', () => {
 
     // synchronous beforeEach
     beforeEach(() => {
-      submissionServiceStub.getDisabledSectionsList.and.returnValue(observableOf([]));
+      submissionServiceStub.getDisabledSectionsList.and.returnValue(of([]));
       const html = `
         <ds-submission-form-section-add [collectionId]="collectionId"
                                         [submissionId]="submissionId">
@@ -137,7 +137,7 @@ describe('SubmissionFormSectionAddComponent Component', () => {
     });
 
     it('should init sectionList properly', () => {
-      submissionServiceStub.getDisabledSectionsList.and.returnValue(observableOf(mockAvailableSections));
+      submissionServiceStub.getDisabledSectionsList.and.returnValue(of(mockAvailableSections));
 
       fixture.detectChanges();
 
@@ -151,7 +151,7 @@ describe('SubmissionFormSectionAddComponent Component', () => {
     });
 
     it('should call addSection', () => {
-      submissionServiceStub.getDisabledSectionsList.and.returnValue(observableOf(mockAvailableSections));
+      submissionServiceStub.getDisabledSectionsList.and.returnValue(of(mockAvailableSections));
 
       comp.addSection(mockAvailableSections[1].id);
 
@@ -167,7 +167,7 @@ describe('SubmissionFormSectionAddComponent Component', () => {
 
       beforeEach(() => {
 
-        submissionServiceStub.getDisabledSectionsList.and.returnValue(observableOf(mockAvailableSections));
+        submissionServiceStub.getDisabledSectionsList.and.returnValue(of(mockAvailableSections));
         comp.ngOnInit();
         fixture.detectChanges();
         dropdowBtn = fixture.debugElement.query(By.css('#sectionControls'));
@@ -221,8 +221,9 @@ describe('SubmissionFormSectionAddComponent Component', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
-  standalone: true,
-  imports: [NgbModule],
+  imports: [
+    NgbModule,
+  ],
 })
 class TestComponent {
 

@@ -15,6 +15,18 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
+import { JsonPatchOperationPathCombiner } from '@dspace/core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
+import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
+import { SubmissionJsonPatchOperationsService } from '@dspace/core/submission/submission-json-patch-operations.service';
+import { getMockSectionUploadService } from '@dspace/core/testing/section-upload.service.mock';
+import { SubmissionJsonPatchOperationsServiceStub } from '@dspace/core/testing/submission-json-patch-operations-service.stub';
+import { SubmissionServiceStub } from '@dspace/core/testing/submission-service.stub';
+import { createTestComponent } from '@dspace/core/testing/utils.test';
+import { XSRFService } from '@dspace/core/xsrf/xsrf.service';
+import { dateToISOFormat } from '@dspace/shared/utils/date.util';
 import {
   NgbActiveModal,
   NgbModal,
@@ -27,27 +39,17 @@ import {
 } from '@ng-dynamic-forms/core';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { NgxMaskModule } from 'ngx-mask';
+import { provideEnvironmentNgxMask } from 'ngx-mask';
 import { of } from 'rxjs';
 
-import {
-  APP_CONFIG,
-  APP_DATA_SERVICES_MAP,
-} from '../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../environments/environment.test';
-import { JsonPatchOperationPathCombiner } from '../../../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from '../../../../../core/json-patch/builder/json-patch-operations-builder';
-import { SubmissionJsonPatchOperationsService } from '../../../../../core/submission/submission-json-patch-operations.service';
-import { XSRFService } from '../../../../../core/xsrf/xsrf.service';
-import { dateToISOFormat } from '../../../../../shared/date.util';
 import { DsDynamicTypeBindRelationService } from '../../../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
 import { DynamicCustomSwitchModel } from '../../../../../shared/form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.model';
 import { FormBuilderService } from '../../../../../shared/form/builder/form-builder.service';
-import { FormFieldMetadataValueObject } from '../../../../../shared/form/builder/models/form-field-metadata-value.model';
 import { FormComponent } from '../../../../../shared/form/form.component';
 import { FormService } from '../../../../../shared/form/form.service';
-import { getMockFormService } from '../../../../../shared/mocks/form-service.mock';
-import { getMockSectionUploadService } from '../../../../../shared/mocks/section-upload.service.mock';
+import { getMockFormService } from '../../../../../shared/form/testing/form-service.mock';
+import { SubmissionService } from '../../../../submission.service';
 import {
   mockFileFormData,
   mockSubmissionCollectionId,
@@ -56,11 +58,7 @@ import {
   mockUploadConfigResponse,
   mockUploadConfigResponseMetadata,
   mockUploadFiles,
-} from '../../../../../shared/mocks/submission.mock';
-import { SubmissionJsonPatchOperationsServiceStub } from '../../../../../shared/testing/submission-json-patch-operations-service.stub';
-import { SubmissionServiceStub } from '../../../../../shared/testing/submission-service.stub';
-import { createTestComponent } from '../../../../../shared/testing/utils.test';
-import { SubmissionService } from '../../../../submission.service';
+} from '../../../../utils/submission.mock';
 import { SectionUploadService } from '../../section-upload.service';
 import { POLICY_DEFAULT_WITH_LIST } from '../../section-upload-constants';
 import { SubmissionSectionUploadFileEditComponent } from './section-upload-file-edit.component';
@@ -138,9 +136,9 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
         FormComponent,
         SubmissionSectionUploadFileEditComponent,
         TestComponent,
-        NgxMaskModule.forRoot(),
       ],
       providers: [
+        provideEnvironmentNgxMask(),
         { provide: FormService, useValue: getMockFormService() },
         { provide: SubmissionService, useClass: SubmissionServiceStub },
         { provide: SubmissionJsonPatchOperationsService, useValue: submissionJsonPatchOperationsServiceStub },
@@ -400,11 +398,8 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
-  standalone: true,
   imports: [
-    SubmissionSectionUploadFileEditComponent,
     FormsModule,
-    FormComponent,
     ReactiveFormsModule,
   ],
 })

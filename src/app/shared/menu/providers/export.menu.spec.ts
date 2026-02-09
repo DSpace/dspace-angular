@@ -7,12 +7,12 @@
  */
 
 import { TestBed } from '@angular/core/testing';
-import { of as observableOf } from 'rxjs';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { ScriptDataService } from '@dspace/core/data/processes/script-data.service';
+import { AuthorizationDataServiceStub } from '@dspace/core/testing/authorization-service.stub';
+import { ScriptServiceStub } from '@dspace/core/testing/script-service.stub';
+import { of } from 'rxjs';
 
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { ScriptDataService } from '../../../core/data/processes/script-data.service';
-import { AuthorizationDataServiceStub } from '../../testing/authorization-service.stub';
-import { ScriptServiceStub } from '../../testing/script-service.stub';
 import { MenuItemType } from '../menu-item-type.model';
 import { PartialMenuSection } from '../menu-provider.model';
 import { ExportMenuProvider } from './export.menu';
@@ -52,7 +52,7 @@ describe('ExportMenuProvider', () => {
 
   beforeEach(() => {
     spyOn(authorizationServiceStub, 'isAuthorized').and.returnValue(
-      observableOf(true),
+      of(true),
     );
 
     TestBed.configureTestingModule({

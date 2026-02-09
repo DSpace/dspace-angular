@@ -3,22 +3,22 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { getTestScheduler } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
-import { getDSORoute } from '../../app-routing-paths';
-import { Breadcrumb } from '../../breadcrumbs/breadcrumb/breadcrumb.model';
-import { getMockLinkService } from '../../shared/mocks/link-service.mock';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
 import { LinkService } from '../cache/builders/link.service';
+import { getDSORoute } from '../router/utils/dso-route.utils';
 import { Collection } from '../shared/collection.model';
 import { Community } from '../shared/community.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { Item } from '../shared/item.model';
+import { getMockLinkService } from '../testing/link-service.mock';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../utilities/remote-data.utils';
 import { DSOBreadcrumbsService } from './dso-breadcrumbs.service';
 import { DSONameService } from './dso-name.service';
+import { Breadcrumb } from './models/breadcrumb.model';
 
 describe('DSOBreadcrumbsService', () => {
   let service: DSOBreadcrumbsService;
@@ -53,7 +53,7 @@ describe('DSOBreadcrumbsService', () => {
           'dc.title': [{ value: 'community' }],
         },
         uuid: communityUUID,
-        parentCommunity: observableOf(Object.assign(createSuccessfulRemoteDataObject(undefined), { statusCode: 204 })),
+        parentCommunity: of(Object.assign(createSuccessfulRemoteDataObject(undefined), { statusCode: 204 })),
 
         _links: {
           parentCommunity: 'site',

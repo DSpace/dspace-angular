@@ -1,7 +1,21 @@
 import {
+  EnvironmentInjector,
   inject,
   Injectable,
+  runInInjectionContext,
 } from '@angular/core';
+import { OrejimeService } from '@dspace/core/cookies/orejime.service';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { NativeWindowService } from '@dspace/core/services/window.service';
+import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import {
+  MATOMO_ENABLED,
+  MATOMO_SITE_ID,
+  MATOMO_TRACKER_URL,
+} from '@dspace/core/statistics/models/matomo-type';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import {
   MatomoInitializerService,
   MatomoTracker,
@@ -11,27 +25,13 @@ import {
   from as fromPromise,
   Observable,
   of,
-  switchMap,
 } from 'rxjs';
 import {
   map,
   take,
-  tap,
 } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
-import { ConfigurationDataService } from '../core/data/configuration-data.service';
-import { RemoteData } from '../core/data/remote-data';
-import { NativeWindowService } from '../core/services/window.service';
-import { ConfigurationProperty } from '../core/shared/configuration-property.model';
-import { getFirstCompletedRemoteData } from '../core/shared/operators';
-import { OrejimeService } from '../shared/cookies/orejime.service';
-import { isNotEmpty } from '../shared/empty.util';
-
-export const MATOMO_TRACKER_URL = 'matomo.tracker.url';
-export const MATOMO_SITE_ID = 'matomo.request.siteid';
-
-export const MATOMO_ENABLED = 'matomo.enabled';
 
 /**
  * Service to manage Matomo analytics integration.
@@ -47,10 +47,10 @@ export const MATOMO_ENABLED = 'matomo.enabled';
 export class MatomoService {
 
   /** Injects the MatomoInitializerService to initialize the Matomo tracker. */
-  matomoInitializer = inject(MatomoInitializerService);
+  matomoInitializer: MatomoInitializerService;
 
   /** Injects the MatomoTracker to manage Matomo tracking operations. */
-  matomoTracker = inject(MatomoTracker);
+  matomoTracker: MatomoTracker;
 
   /** Injects the OrejimeService to manage cookie consent preferences. */
   orejimeService = inject(OrejimeService);
@@ -60,6 +60,10 @@ export class MatomoService {
 
   /** Injects the ConfigurationService. */
   configService = inject(ConfigurationDataService);
+
+  constructor(private injector: EnvironmentInjector) {
+
+  }
 
   /**
    * Initializes the Matomo tracker if in production environment.
@@ -74,14 +78,15 @@ export class MatomoService {
     if (environment.production) {
       const preferences$ = this.orejimeService.getSavedPreferences();
 
-      preferences$
-        .pipe(
-          tap(preferences => this.changeMatomoConsent(preferences?.matomo)),
-          switchMap(_ => combineLatest([this.getSiteId$(), this.getTrackerUrl$()])),
-        )
-        .subscribe(([siteId, trackerUrl]) => {
-          if (siteId && trackerUrl) {
+      combineLatest([preferences$, this.isMatomoEnabled$(), this.getSiteId$(), this.getTrackerUrl$()])
+        .subscribe(([preferences, isMatomoEnabled, siteId, trackerUrl]) => {
+          if (isMatomoEnabled && siteId && trackerUrl) {
+            runInInjectionContext(this.injector, () => {
+              this.matomoTracker = inject(MatomoTracker);
+              this.matomoInitializer = inject(MatomoInitializerService);
+            });
             this.matomoInitializer.initializeTracker({ siteId, trackerUrl });
+            this.changeMatomoConsent(preferences?.matomo);
           }
         });
     }
@@ -93,9 +98,9 @@ export class MatomoService {
    */
   changeMatomoConsent = (consent: boolean) => {
     if (consent) {
-      this.matomoTracker.setConsentGiven();
+      this.matomoTracker?.setConsentGiven();
     } else {
-      this.matomoTracker.forgetConsentGiven();
+      this.matomoTracker?.forgetConsentGiven();
     }
   };
 
@@ -105,7 +110,7 @@ export class MatomoService {
    * @returns An Observable that emits the URL with the visitor ID appended.
    */
   appendVisitorId(url: string): Observable<string> {
-    return fromPromise(this.matomoTracker.getVisitorId())
+    return fromPromise(this.matomoTracker?.getVisitorId())
       .pipe(
         map(visitorId => this.appendTrackerId(url, visitorId)),
         take(1),

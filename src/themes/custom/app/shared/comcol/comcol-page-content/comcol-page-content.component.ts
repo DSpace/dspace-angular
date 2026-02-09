@@ -12,7 +12,6 @@ import { ComcolPageContentComponent as BaseComponent } from '../../../../../../a
   imports: [
     TranslateModule,
   ],
-  standalone: true,
 })
 export class ComcolPageContentComponent extends BaseComponent {
 }

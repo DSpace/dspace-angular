@@ -9,17 +9,17 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { CSSVariableServiceStub } from '@dspace/core/testing/css-variable-service.stub';
+import { RouterStub } from '@dspace/core/testing/router.stub';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { MenuItemType } from 'src/app/shared/menu/menu-item-type.model';
 
 import { MenuService } from '../../../menu/menu.service';
 import { OnClickMenuItemModel } from '../../../menu/menu-item/models/onclick.model';
+import { MenuServiceStub } from '../../../menu/menu-service.stub';
 import { CSSVariableService } from '../../../sass-helper/css-variable.service';
-import { ActivatedRouteStub } from '../../../testing/active-router.stub';
-import { CSSVariableServiceStub } from '../../../testing/css-variable-service.stub';
-import { MenuServiceStub } from '../../../testing/menu-service.stub';
-import { RouterStub } from '../../../testing/router.stub';
 import { DsoEditMenuSectionComponent } from './dso-edit-menu-section.component';
 
 function initAsync(dummySectionText: {
@@ -93,7 +93,7 @@ describe('DsoEditMenuSectionComponent', () => {
     initAsync(dummySectionText, menuService);
 
     beforeEach(() => {
-      spyOn(menuService, 'getSubSectionsByParentID').and.returnValue(observableOf([]));
+      spyOn(menuService, 'getSubSectionsByParentID').and.returnValue(of([]));
       fixture = TestBed.createComponent(DsoEditMenuSectionComponent);
       component = fixture.componentInstance;
       spyOn(component as any, 'getMenuItemComponent').and.returnValue(TestComponent);
@@ -119,7 +119,7 @@ describe('DsoEditMenuSectionComponent', () => {
   describe('on click model', () => {
     initAsync(dummySectionClick, menuService);
     beforeEach(() => {
-      spyOn(menuService, 'getSubSectionsByParentID').and.returnValue(observableOf([]));
+      spyOn(menuService, 'getSubSectionsByParentID').and.returnValue(of([]));
       fixture = TestBed.createComponent(DsoEditMenuSectionComponent);
       component = fixture.componentInstance;
       spyOn(component as any, 'getMenuItemComponent').and.returnValue(TestComponent);
@@ -162,7 +162,7 @@ describe('DsoEditMenuSectionComponent', () => {
   describe('when the section model in a non disabled link', () => {
     initAsync(dummySectionLink, menuService);
     beforeEach(() => {
-      spyOn(menuService, 'getSubSectionsByParentID').and.returnValue(observableOf([]));
+      spyOn(menuService, 'getSubSectionsByParentID').and.returnValue(of([]));
       fixture = TestBed.createComponent(DsoEditMenuSectionComponent);
       component = fixture.componentInstance;
       spyOn(component as any, 'getMenuItemComponent').and.returnValue(TestComponent);
@@ -180,7 +180,6 @@ describe('DsoEditMenuSectionComponent', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
-  standalone: true,
 })
 class TestComponent {
 }

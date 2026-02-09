@@ -10,7 +10,37 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import {
+  SortDirection,
+  SortOptions,
+} from '@dspace/core/cache/models/sort-options.model';
+import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { DSpaceObjectType } from '@dspace/core/shared/dspace-object-type.model';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { NoContent } from '@dspace/core/shared/NoContent.model';
+import {
+  getAllSucceededRemoteData,
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+  toDSpaceObjectListRD,
+} from '@dspace/core/shared/operators';
+import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
+import {
+  NgbNav,
+  NgbNavContent,
+  NgbNavItem,
+  NgbNavLink,
+  NgbNavOutlet,
+} from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
   TranslateService,
@@ -27,40 +57,16 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import {
-  SortDirection,
-  SortOptions,
-} from '../../core/cache/models/sort-options.model';
-import { FeatureID } from '../../core/data/feature-authorization/feature-id';
-import { ItemDataService } from '../../core/data/item-data.service';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { Collection } from '../../core/shared/collection.model';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';
-import { NoContent } from '../../core/shared/NoContent.model';
-import {
-  getAllSucceededRemoteData,
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteData,
-  getRemoteDataPayload,
-  toDSpaceObjectListRD,
-} from '../../core/shared/operators';
-import { SearchService } from '../../core/shared/search/search.service';
-import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 import {
   fadeIn,
   fadeInOut,
 } from '../../shared/animations/fade';
-import { isNotEmpty } from '../../shared/empty.util';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { ItemSelectComponent } from '../../shared/object-select/item-select/item-select.component';
-import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
+import { SearchService } from '../../shared/search/search.service';
+import { SearchConfigurationService } from '../../shared/search/search-configuration.service';
 import { ThemedSearchFormComponent } from '../../shared/search-form/themed-search-form.component';
 import { BrowserOnlyPipe } from '../../shared/utils/browser-only.pipe';
-import { followLink } from '../../shared/utils/follow-link-config.model';
 
 @Component({
   selector: 'ds-collection-item-mapper',
@@ -78,14 +84,17 @@ import { followLink } from '../../shared/utils/follow-link-config.model';
     },
   ],
   imports: [
-    ThemedSearchFormComponent,
-    NgbNavModule,
-    TranslateModule,
     AsyncPipe,
-    ItemSelectComponent,
     BrowserOnlyPipe,
+    ItemSelectComponent,
+    NgbNav,
+    NgbNavContent,
+    NgbNavItem,
+    NgbNavLink,
+    NgbNavOutlet,
+    ThemedSearchFormComponent,
+    TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * Component used to map items to a collection
@@ -159,7 +168,7 @@ export class CollectionItemMapperComponent implements OnInit {
 
     this.collectionName$ = this.collectionRD$.pipe(
       map((rd: RemoteData<Collection>) => {
-        return this.dsoNameService.getName(rd.payload);
+        return this.dsoNameService.getName(rd.payload, true);
       }),
     );
     this.searchOptions$ = this.searchConfigService.paginatedSearchOptions;

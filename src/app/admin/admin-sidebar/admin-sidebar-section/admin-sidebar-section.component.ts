@@ -9,9 +9,9 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { isEmpty } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { isEmpty } from '../../../shared/empty.util';
 import { MenuService } from '../../../shared/menu/menu.service';
 import { MenuID } from '../../../shared/menu/menu-id.model';
 import { LinkMenuItemModel } from '../../../shared/menu/menu-item/models/link.model';
@@ -26,8 +26,12 @@ import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
   selector: 'ds-admin-sidebar-section',
   templateUrl: './admin-sidebar-section.component.html',
   styleUrls: ['./admin-sidebar-section.component.scss'],
-  standalone: true,
-  imports: [NgClass, RouterLink, TranslateModule, BrowserOnlyPipe],
+  imports: [
+    BrowserOnlyPipe,
+    NgClass,
+    RouterLink,
+    TranslateModule,
+  ],
 
 })
 export class AdminSidebarSectionComponent extends AbstractMenuSectionComponent implements OnInit {

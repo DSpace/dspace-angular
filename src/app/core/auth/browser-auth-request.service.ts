@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
@@ -31,7 +31,7 @@ export class BrowserAuthRequestService extends AuthRequestService {
    * @protected
    */
   protected createShortLivedTokenRequest(href: string): Observable<PostRequest> {
-    return observableOf(new PostRequest(this.requestService.generateRequestId(), href));
+    return of(new PostRequest(this.requestService.generateRequestId(), href));
   }
 
 }

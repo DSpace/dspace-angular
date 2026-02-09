@@ -43,13 +43,15 @@
                 </ul>
               </div>
             }
-            <ds-rss></ds-rss>
+            @if (showRSS !== false) {
+              <ds-rss [sortConfig]="rssSortOptions"></ds-rss>
+            }
           </div>
         </div>
       </div>
     }
     <ng-content></ng-content>
-    @if (shouldShowBottomPager | async) {
+    @if (showBottomPager$ | async) {
       <div>
         @if (showPaginator) {
           <div class="pagination justify-content-center clearfix bottom">
@@ -71,12 +73,12 @@
           <div class="d-flex justify-content-between">
             <button id="nav-prev" type="button" class="btn btn-outline-primary float-start"
               (click)="goPrev()"
-              [dsBtnDisabled]="(objects?.payload?.currentPage <= 1) && (paginationOptions?.currentPage <= 1)">
+              [dsBtnDisabled]="(objects?.payload?.currentPage <= 1) && (paginationOptions?.currentPage <= 1)" role="button" tabindex="0">
               <i class="fas fa-angle-left"></i> {{'pagination.previous.button' |translate}}
             </button>
             <button id="nav-next" type="button" class="btn btn-outline-primary float-end"
               (click)="goNext()"
-              [dsBtnDisabled]="(objects?.payload?.currentPage >= objects?.payload?.totalPages) || (paginationOptions?.currentPage >= objects?.payload?.totalPages)">
+              [dsBtnDisabled]="(objects?.payload?.currentPage >= objects?.payload?.totalPages) || (paginationOptions?.currentPage >= objects?.payload?.totalPages)" role="button" tabindex="0">
               <span [ngbTooltip]="objects?.payload?.currentPage >= objects?.payload?.totalPages ? ('pagination.next.button.disabled.tooltip' |translate) : null">
                 <i class="fas fa-angle-right"></i> {{'pagination.next.button' |translate}}
               </span>

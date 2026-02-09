@@ -7,12 +7,12 @@ import {
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
+import { CSSVariableServiceStub } from '@dspace/core/testing/css-variable-service.stub';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { MenuService } from '../../../shared/menu/menu.service';
+import { MenuServiceStub } from '../../../shared/menu/menu-service.stub';
 import { CSSVariableService } from '../../../shared/sass-helper/css-variable.service';
-import { CSSVariableServiceStub } from '../../../shared/testing/css-variable-service.stub';
-import { MenuServiceStub } from '../../../shared/testing/menu-service.stub';
 import { AdminSidebarSectionComponent } from './admin-sidebar-section.component';
 
 describe('AdminSidebarSectionComponent', () => {
@@ -95,8 +95,9 @@ describe('AdminSidebarSectionComponent', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
-  standalone: true,
-  imports: [RouterTestingModule],
+  imports: [
+    RouterTestingModule,
+  ],
 })
 class TestComponent {
 }

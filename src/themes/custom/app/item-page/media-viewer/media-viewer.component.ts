@@ -15,14 +15,13 @@ import { ThemedThumbnailComponent } from '../../../../../app/thumbnail/themed-th
   templateUrl: '../../../../../app/item-page/media-viewer/media-viewer.component.html',
   // styleUrls: ['./media-viewer.component.scss'],
   styleUrls: ['../../../../../app/item-page/media-viewer/media-viewer.component.scss'],
-  standalone: true,
   imports: [
-    ThemedMediaViewerImageComponent,
-    ThemedThumbnailComponent,
     AsyncPipe,
-    ThemedMediaViewerVideoComponent,
-    TranslateModule,
     ThemedLoadingComponent,
+    ThemedMediaViewerImageComponent,
+    ThemedMediaViewerVideoComponent,
+    ThemedThumbnailComponent,
+    TranslateModule,
     VarDirective,
   ],
 })

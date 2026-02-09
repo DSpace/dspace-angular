@@ -1,21 +1,21 @@
 import { TestBed } from '@angular/core/testing';
-import { cold } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
-
 import {
   SortDirection,
   SortOptions,
-} from '../../../core/cache/models/sort-options.model';
-import { FindListOptions } from '../../../core/data/find-list-options.model';
-import { buildPaginatedList } from '../../../core/data/paginated-list.model';
-import { QualityAssuranceSourceDataService } from '../../../core/notifications/qa/source/quality-assurance-source-data.service';
-import { PageInfo } from '../../../core/shared/page-info.model';
+} from '@dspace/core/cache/models/sort-options.model';
+import { FindListOptions } from '@dspace/core/data/find-list-options.model';
+import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
+import { QualityAssuranceSourceDataService } from '@dspace/core/notifications/qa/source/quality-assurance-source-data.service';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
 import {
   getMockQualityAssuranceSourceRestService,
   qualityAssuranceSourceObjectMoreAbstract,
   qualityAssuranceSourceObjectMorePid,
-} from '../../../shared/mocks/notifications.mock';
-import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
+} from '@dspace/core/testing/notifications.mock';
+import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
+import { cold } from 'jasmine-marbles';
+import { of } from 'rxjs';
+
 import { QualityAssuranceSourceService } from './quality-assurance-source.service';
 
 describe('QualityAssuranceSourceService', () => {
@@ -43,7 +43,7 @@ describe('QualityAssuranceSourceService', () => {
   beforeEach(() => {
     restService = TestBed.inject(QualityAssuranceSourceDataService);
     restServiceAsAny = restService;
-    restServiceAsAny.getSources.and.returnValue(observableOf(paginatedListRD));
+    restServiceAsAny.getSources.and.returnValue(of(paginatedListRD));
     service = new QualityAssuranceSourceService(restService);
     serviceAsAny = service;
   });

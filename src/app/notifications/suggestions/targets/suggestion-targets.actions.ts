@@ -1,8 +1,7 @@
 /* eslint-disable max-classes-per-file */
+import { type } from '@dspace/core/ngrx/type';
+import { SuggestionTarget } from '@dspace/core/notifications/suggestions/models/suggestion-target.model';
 import { Action } from '@ngrx/store';
-
-import { SuggestionTarget } from '../../../core/notifications/suggestions/models/suggestion-target.model';
-import { type } from '../../../shared/ngrx/type';
 
 /**
  * For each action type in an action group, make a simple

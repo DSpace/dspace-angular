@@ -10,32 +10,33 @@ import {
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
+import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
+import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
+import { CommunityDataService } from '@dspace/core/data/community-data.service';
+import { DefaultChangeAnalyzer } from '@dspace/core/data/default-change-analyzer.service';
+import { DSOChangeAnalyzer } from '@dspace/core/data/dso-change-analyzer.service';
+import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Bitstream } from '@dspace/core/shared/bitstream.model';
+import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { UUIDService } from '@dspace/core/shared/uuid.service';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
-import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../../../../../core/cache/object-cache.service';
-import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
-import { CommunityDataService } from '../../../../../core/data/community-data.service';
-import { DefaultChangeAnalyzer } from '../../../../../core/data/default-change-analyzer.service';
-import { DSOChangeAnalyzer } from '../../../../../core/data/dso-change-analyzer.service';
-import { buildPaginatedList } from '../../../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../../../core/data/remote-data';
-import { Bitstream } from '../../../../../core/shared/bitstream.model';
-import { HALEndpointService } from '../../../../../core/shared/hal-endpoint.service';
-import { Item } from '../../../../../core/shared/item.model';
-import { PageInfo } from '../../../../../core/shared/page-info.model';
-import { UUIDService } from '../../../../../core/shared/uuid.service';
+import { MetadataValue } from '../../../../../core/shared/metadata.models';
 import { ThemedThumbnailComponent } from '../../../../../thumbnail/themed-thumbnail.component';
-import { NotificationsService } from '../../../../notifications/notifications.service';
 import { ThemedBadgesComponent } from '../../../../object-collection/shared/badges/themed-badges.component';
-import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
-import { ActivatedRouteStub } from '../../../../testing/active-router.stub';
 import { TruncatableComponent } from '../../../../truncatable/truncatable.component';
 import { TruncatableService } from '../../../../truncatable/truncatable.service';
 import { TruncatablePartComponent } from '../../../../truncatable/truncatable-part/truncatable-part.component';
@@ -43,20 +44,21 @@ import { TruncatePipe } from '../../../../utils/truncate.pipe';
 import { ItemSearchResultGridElementComponent } from './item-search-result-grid-element.component';
 
 const mockItemWithMetadata: ItemSearchResult = new ItemSearchResult();
-mockItemWithMetadata.hitHighlights = {};
 const dcTitle = 'This is just another <em>title</em>';
-mockItemWithMetadata.indexableObject = Object.assign(new Item(), {
-  hitHighlights: {
-    'dc.title': [{
+mockItemWithMetadata.hitHighlights = {
+  'dc.title': [
+    Object.assign(new MetadataValue(), {
       value: dcTitle,
-    }],
-  },
+    }),
+  ],
+};
+mockItemWithMetadata.indexableObject = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
   metadata: {
     'dc.title': [
       {
         language: 'en_US',
-        value: dcTitle,
+        value: 'This is just another title',
       },
     ],
     'dc.contributor.author': [
@@ -219,7 +221,7 @@ export function getEntityGridElementTestComponent(component, searchResultWithMet
     let fixture;
 
     const truncatableServiceStub: any = {
-      isCollapsed: (id: number) => observableOf(true),
+      isCollapsed: (id: number) => of(true),
     };
 
     const mockBitstreamDataService = {

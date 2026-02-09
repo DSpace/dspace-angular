@@ -5,15 +5,16 @@
  *
  * http://www.dspace.org/license/
  */
-
 import {
   existsSync,
   mkdirSync,
   readFileSync,
   rmSync,
   writeFileSync,
-} from 'fs';
-import { join } from 'path';
+} from 'node:fs';
+import { join } from 'node:path';
+
+import { compile } from 'ejs';
 
 import { default as htmlPlugin } from './src/rules/html';
 import { default as tsPlugin } from './src/rules/ts';
@@ -22,7 +23,7 @@ const templates = new Map();
 
 function lazyEJS(path: string, data: object): string {
   if (!templates.has(path)) {
-    templates.set(path, require('ejs').compile(readFileSync(path).toString()));
+    templates.set(path, compile(readFileSync(path).toString()));
   }
 
   return templates.get(path)(data).replace(/\r\n/g, '\n');

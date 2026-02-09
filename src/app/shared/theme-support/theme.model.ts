@@ -1,30 +1,30 @@
 /* eslint-disable max-classes-per-file */
 import { Injector } from '@angular/core';
 import {
+  HandleThemeConfig,
+  NamedThemeConfig,
+  RegExThemeConfig,
+  ThemeConfig,
+  UUIDThemeConfig,
+} from '@dspace/config/theme.config';
+import { getDSORoute } from '@dspace/core/router/utils/dso-route.utils';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { HandleObject } from '@dspace/core/shared/handle-object.model';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
+import {
   combineLatest,
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import {
   map,
   take,
 } from 'rxjs/operators';
 
-import {
-  HandleThemeConfig,
-  NamedThemeConfig,
-  RegExThemeConfig,
-  ThemeConfig,
-  UUIDThemeConfig,
-} from '../../../config/theme.config';
-import { getDSORoute } from '../../app-routing-paths';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { HandleObject } from '../../core/shared/handle-object.model';
-import {
-  hasNoValue,
-  hasValue,
-  isNotEmpty,
-} from '../empty.util';
 import { HandleService } from '../handle.service';
 
 export class Theme {
@@ -32,7 +32,7 @@ export class Theme {
   }
 
   matches(url: string, dso: DSpaceObject): Observable<boolean> {
-    return observableOf(true);
+    return of(true);
   }
 }
 
@@ -56,7 +56,7 @@ export class RegExTheme extends Theme {
       match = url.match(this.regex);
     }
 
-    return observableOf(hasValue(match));
+    return of(hasValue(match));
   }
 }
 
@@ -80,7 +80,7 @@ export class HandleTheme extends Theme {
         take(1),
       );
     } else {
-      return observableOf(false);
+      return of(false);
     }
   }
 }
@@ -91,7 +91,7 @@ export class UUIDTheme extends Theme {
   }
 
   matches(url: string, dso: DSpaceObject): Observable<boolean> {
-    return observableOf(hasValue(dso) && dso.uuid === this.config.uuid);
+    return of(hasValue(dso) && dso.uuid === this.config.uuid);
   }
 }
 

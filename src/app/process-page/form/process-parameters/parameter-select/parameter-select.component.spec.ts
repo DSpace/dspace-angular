@@ -10,10 +10,10 @@ import {
 } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { of as observableOf } from 'rxjs';
+import { ScriptParameter } from '@dspace/core/shared/scripts/script-parameter.model';
+import { ScriptParameterType } from '@dspace/core/shared/scripts/script-parameter-type.model';
+import { of } from 'rxjs';
 
-import { ScriptParameter } from '../../../scripts/script-parameter.model';
-import { ScriptParameterType } from '../../../scripts/script-parameter-type.model';
 import { ParameterValueInputComponent } from '../parameter-value-input/parameter-value-input.component';
 import { ParameterSelectComponent } from './parameter-select.component';
 
@@ -23,7 +23,7 @@ describe('ParameterSelectComponent', () => {
   let scriptParams: ScriptParameter[];
 
   const translateServiceStub = {
-    get: () => observableOf('---'),
+    get: () => of('---'),
   };
 
   function init() {
@@ -94,7 +94,6 @@ describe('ParameterSelectComponent', () => {
 @Pipe({
   // eslint-disable-next-line @angular-eslint/pipe-prefix
   name: 'translate',
-  standalone: true,
 })
 class MockTranslatePipe implements PipeTransform {
   transform(value: string): string {

@@ -122,32 +122,28 @@
   }
 }
 
-@if (getCcLicenseLink$()) {
-  <ng-container *ngVar="getCcLicenseLink$() | async as licenseLink">
-    @if (!licenseLink) {
+@if (ccLicenseLink$) {
+  @let licenseLink = (ccLicenseLink$ | async);
+  @if (licenseLink) {
+    <div
+      class="mt-2 p-4 bg-light text-dark">
       <div>
-        <ds-loading></ds-loading>
+        {{ 'submission.sections.ccLicense.link' | translate }}
       </div>
-    }
-    @if (licenseLink) {
-      <div
-        class="mt-2 p-4 bg-light text-dark">
-        <div>
-          {{ 'submission.sections.ccLicense.link' | translate }}
-        </div>
-        <a class="license-link" href="{{ licenseLink }}" target="_blank" rel="noopener noreferrer">
-          {{ licenseLink }}
-        </a>
-        <div class="m-2">
-          <div (click)="setAccepted(!accepted)">
-            <input type="checkbox"
-              class="me-2"
-              title="accepted"
-              [checked]="accepted">
-            <span> {{ 'submission.sections.ccLicense.confirmation' | translate }}</span>
-          </div>
+      <a class="license-link" href="{{ licenseLink }}" target="_blank" rel="noopener noreferrer">
+        {{ licenseLink }}
+      </a>
+      <div class="m-2">
+        <div (click)="setAccepted(!accepted)">
+          <input type="checkbox"
+                 class="me-2"
+                 title="accepted"
+                 [checked]="accepted">
+          <span> {{ 'submission.sections.ccLicense.confirmation' | translate }}</span>
         </div>
       </div>
-    }
-  </ng-container>
+    </div>
+  } @else {
+    <ds-loading></ds-loading>
+  }
 }

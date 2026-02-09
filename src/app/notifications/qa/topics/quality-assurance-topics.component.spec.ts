@@ -11,22 +11,22 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
-import { cold } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
-import { ItemDataService } from 'src/app/core/data/item-data.service';
-
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { AlertComponent } from '../../../shared/alert/alert.component';
-import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
 import {
   getMockNotificationsStateService,
   qualityAssuranceTopicObjectMoreAbstract,
   qualityAssuranceTopicObjectMorePid,
-} from '../../../shared/mocks/notifications.mock';
+} from '@dspace/core/testing/notifications.mock';
+import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
+import { createTestComponent } from '@dspace/core/testing/utils.test';
+import { TranslateModule } from '@ngx-translate/core';
+import { cold } from 'jasmine-marbles';
+import { of } from 'rxjs';
+
+import { AlertComponent } from '../../../shared/alert/alert.component';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
-import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
-import { createTestComponent } from '../../../shared/testing/utils.test';
 import { NotificationsStateService } from '../../notifications-state.service';
 import { QualityAssuranceTopicsComponent } from './quality-assurance-topics.component';
 
@@ -53,7 +53,7 @@ describe('QualityAssuranceTopicsComponent test suite', () => {
       ],
       providers: [
         { provide: NotificationsStateService, useValue: mockNotificationsStateService },
-        { provide: ActivatedRoute, useValue: { data: observableOf(activatedRouteParams), snapshot: {
+        { provide: ActivatedRoute, useValue: { data: of(activatedRouteParams), snapshot: {
           params: {
             sourceId: 'openaire',
             targetId: null,
@@ -75,16 +75,16 @@ describe('QualityAssuranceTopicsComponent test suite', () => {
         },
       })
       .compileComponents().then(() => {
-        mockNotificationsStateService.getQualityAssuranceTopics.and.returnValue(observableOf([
+        mockNotificationsStateService.getQualityAssuranceTopics.and.returnValue(of([
           qualityAssuranceTopicObjectMorePid,
           qualityAssuranceTopicObjectMoreAbstract,
         ]));
-        mockNotificationsStateService.getQualityAssuranceTopicsTotalPages.and.returnValue(observableOf(1));
-        mockNotificationsStateService.getQualityAssuranceTopicsCurrentPage.and.returnValue(observableOf(0));
-        mockNotificationsStateService.getQualityAssuranceTopicsTotals.and.returnValue(observableOf(2));
-        mockNotificationsStateService.isQualityAssuranceTopicsLoaded.and.returnValue(observableOf(true));
-        mockNotificationsStateService.isQualityAssuranceTopicsLoading.and.returnValue(observableOf(false));
-        mockNotificationsStateService.isQualityAssuranceTopicsProcessing.and.returnValue(observableOf(false));
+        mockNotificationsStateService.getQualityAssuranceTopicsTotalPages.and.returnValue(of(1));
+        mockNotificationsStateService.getQualityAssuranceTopicsCurrentPage.and.returnValue(of(0));
+        mockNotificationsStateService.getQualityAssuranceTopicsTotals.and.returnValue(of(2));
+        mockNotificationsStateService.isQualityAssuranceTopicsLoaded.and.returnValue(of(true));
+        mockNotificationsStateService.isQualityAssuranceTopicsLoading.and.returnValue(of(false));
+        mockNotificationsStateService.isQualityAssuranceTopicsProcessing.and.returnValue(of(false));
       });
   }));
 
@@ -174,7 +174,6 @@ describe('QualityAssuranceTopicsComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
-  standalone: true,
   imports: [],
 })
 class TestComponent {

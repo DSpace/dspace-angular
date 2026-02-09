@@ -3,14 +3,14 @@ import {
   Component,
   Input,
 } from '@angular/core';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { Bitstream } from '@dspace/core/shared/bitstream.model';
+import { MediaViewerItem } from '@dspace/core/shared/media-viewer-item.model';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { Bitstream } from 'src/app/core/shared/bitstream.model';
 
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { MediaViewerItem } from '../../../core/shared/media-viewer-item.model';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
-import { hasValue } from '../../../shared/empty.util';
 import { CaptionInfo } from './caption-info';
 import { languageHelper } from './language-helper';
 
@@ -22,11 +22,10 @@ import { languageHelper } from './language-helper';
   templateUrl: './media-viewer-video.component.html',
   styleUrls: ['./media-viewer-video.component.scss'],
   imports: [
+    BtnDisabledDirective,
     NgbDropdownModule,
     TranslateModule,
-    BtnDisabledDirective,
   ],
-  standalone: true,
 })
 export class MediaViewerVideoComponent {
   @Input() medias: MediaViewerItem[];

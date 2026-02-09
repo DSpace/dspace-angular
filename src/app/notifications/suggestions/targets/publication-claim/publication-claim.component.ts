@@ -10,6 +10,10 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { SuggestionTarget } from '@dspace/core/notifications/suggestions/models/suggestion-target.model';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
@@ -20,12 +24,8 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { SuggestionTarget } from '../../../../core/notifications/suggestions/models/suggestion-target.model';
-import { PaginationService } from '../../../../core/pagination/pagination.service';
-import { hasValue } from '../../../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../../../shared/loading/themed-loading.component';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
-import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
 import { getSuggestionPageRoute } from '../../../../suggestions-page/suggestions-page-routing-paths';
 import { SuggestionsService } from '../../suggestions.service';
 import { SuggestionTargetsStateService } from '../suggestion-targets.state.service';
@@ -38,13 +38,12 @@ import { SuggestionTargetsStateService } from '../suggestion-targets.state.servi
   templateUrl: './publication-claim.component.html',
   styleUrls: ['./publication-claim.component.scss'],
   imports: [
-    ThemedLoadingComponent,
     AsyncPipe,
-    TranslateModule,
     PaginationComponent,
     RouterLink,
+    ThemedLoadingComponent,
+    TranslateModule,
   ],
-  standalone: true,
 })
 export class PublicationClaimComponent implements AfterViewInit, OnDestroy, OnInit {
 

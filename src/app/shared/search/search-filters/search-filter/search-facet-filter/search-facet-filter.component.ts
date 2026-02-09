@@ -16,11 +16,23 @@ import {
   Params,
   Router,
 } from '@angular/router';
+import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
+import { currentPath } from '@dspace/core/router/utils/route.utils';
+import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
+import { AppliedFilter } from '@dspace/core/shared/search/models/applied-filter.model';
+import { FacetValue } from '@dspace/core/shared/search/models/facet-value.model';
+import { FacetValues } from '@dspace/core/shared/search/models/facet-values.model';
+import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
+import { SearchOptions } from '@dspace/core/shared/search/models/search-options.model';
+import {
+  hasNoValue,
+  hasValue,
+} from '@dspace/shared/utils/empty.util';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
   Observable,
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
 import {
@@ -31,23 +43,11 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
-import { getFirstSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
-import { SearchService } from '../../../../../core/shared/search/search.service';
-import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
-import { SearchFilterService } from '../../../../../core/shared/search/search-filter.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
-import {
-  hasNoValue,
-  hasValue,
-} from '../../../../empty.util';
 import { InputSuggestion } from '../../../../input-suggestions/input-suggestions.model';
-import { currentPath } from '../../../../utils/route.utils';
-import { AppliedFilter } from '../../../models/applied-filter.model';
-import { FacetValue } from '../../../models/facet-value.model';
-import { FacetValues } from '../../../models/facet-values.model';
-import { SearchFilterConfig } from '../../../models/search-filter-config.model';
-import { SearchOptions } from '../../../models/search-options.model';
+import { SearchService } from '../../../search.service';
+import { SearchConfigurationService } from '../../../search-configuration.service';
+import { SearchFilterService } from '../../search-filter.service';
 
 /**
  * The operators the {@link AppliedFilter} should have in order to be shown in the facets
@@ -61,7 +61,6 @@ export const FACET_OPERATORS: string[] = [
 @Component({
   selector: 'ds-search-facet-filter',
   template: ``,
-  standalone: true,
 })
 
 /**
@@ -121,7 +120,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
   /**
    * Emits the result values for this filter found by the current filter query
    */
-  filterSearchResults$: Observable<InputSuggestion[]> = observableOf([]);
+  filterSearchResults$: Observable<InputSuggestion[]> = of([]);
 
   /**
    * Emits the active values for this filter
@@ -278,7 +277,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
           queryParams: params,
         });
         this.filter = '';
-        this.filterSearchResults$ = observableOf([]);
+        this.filterSearchResults$ = of([]);
       }));
     }
   }

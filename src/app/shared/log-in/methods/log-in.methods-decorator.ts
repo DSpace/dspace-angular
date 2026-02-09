@@ -1,4 +1,5 @@
-import { AuthMethodType } from '../../../core/auth/models/auth.method-type';
+import { AuthMethodType } from '@dspace/core/auth/models/auth.method-type';
+
 import { AuthMethodTypeComponent } from './auth-methods.type';
 import { LogInExternalProviderComponent } from './log-in-external-provider/log-in-external-provider.component';
 import { LogInPasswordComponent } from './password/log-in-password.component';

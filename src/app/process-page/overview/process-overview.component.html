@@ -62,14 +62,14 @@ class="fas fa-plus pe-2"></i>{{'process.overview.new' | translate}}</button>
     </div>
 
     <div class="modal-body">
-      @if ((processBulkDeleteService.isProcessing$() | async) !== true) {
-        <div>{{'process.overview.delete.body' | translate: {count: processBulkDeleteService.getAmountOfSelectedProcesses()} }}</div>
-      }
-      @if (processBulkDeleteService.isProcessing$() |async) {
+      @let isProcessing = (isProcessing$ | async);
+      @if (isProcessing) {
         <div class="alert alert-info">
           <span class="spinner-border spinner-border-sm spinner-button" role="status" aria-hidden="true"></span>
           <span> {{ 'process.overview.delete.processing' | translate: {count: processBulkDeleteService.getAmountOfSelectedProcesses()} }}</span>
         </div>
+      } @else {
+        <div>{{'process.overview.delete.body' | translate: {count: processBulkDeleteService.getAmountOfSelectedProcesses()} }}</div>
       }
       <div class="mt-4">
         <button type="button" class="btn btn-primary me-2" [dsBtnDisabled]="processBulkDeleteService.isProcessing$() |async"

@@ -1,10 +1,10 @@
 import { TestBed } from '@angular/core/testing';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { ITEM } from '@dspace/core/shared/item.resource-type';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { Item } from '../../../core/shared/item.model';
-import { ITEM } from '../../../core/shared/item.resource-type';
 import { DsoVersioningModalService } from '../../dso-page/dso-versioning-modal-service/dso-versioning-modal.service';
 import { MenuItemType } from '../menu-item-type.model';
 import { PartialMenuSection } from '../menu-provider.model';
@@ -55,12 +55,12 @@ describe('VersioningMenuProvider', () => {
 
   beforeEach(() => {
     authorizationService = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: observableOf(true),
+      isAuthorized: of(true),
     });
 
     dsoVersioningModalService = jasmine.createSpyObj('dsoVersioningModalService', {
-      isNewVersionButtonDisabled: observableOf(false),
-      getVersioningTooltipMessage: observableOf('item.page.version.create'),
+      isNewVersionButtonDisabled: of(false),
+      getVersioningTooltipMessage: of('item.page.version.create'),
     });
 
     TestBed.configureTestingModule({
@@ -86,8 +86,8 @@ describe('VersioningMenuProvider', () => {
       });
     });
     it('should return the section to that a version is present when a version draft is present', (done) => {
-      (dsoVersioningModalService.isNewVersionButtonDisabled as jasmine.Spy).and.returnValue(observableOf(true));
-      (dsoVersioningModalService.getVersioningTooltipMessage as jasmine.Spy).and.returnValue(observableOf('item.page.version.hasDraft'));
+      (dsoVersioningModalService.isNewVersionButtonDisabled as jasmine.Spy).and.returnValue(of(true));
+      (dsoVersioningModalService.getVersioningTooltipMessage as jasmine.Spy).and.returnValue(of('item.page.version.hasDraft'));
 
       provider.getSectionsForContext(item).subscribe((sections) => {
         expect(sections).toEqual(expectedSectionsWhenVersionPresent);

@@ -8,8 +8,9 @@ import { QualityAssuranceTopicsComponent } from '../../notifications/qa/topics/q
 @Component({
   selector: 'ds-notification-qa-page',
   templateUrl: './quality-assurance-topics-page.component.html',
-  standalone: true,
-  imports: [QualityAssuranceTopicsComponent],
+  imports: [
+    QualityAssuranceTopicsComponent,
+  ],
 })
 export class QualityAssuranceTopicsPageComponent {
 

@@ -10,13 +10,33 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { BundleDataService } from '@dspace/core/data/bundle-data.service';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { RequestService } from '@dspace/core/data/request.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { getBitstreamModuleRoute } from '@dspace/core/router/core-routing-paths';
+import { Bundle } from '@dspace/core/shared/bundle.model';
+import { Item } from '@dspace/core/shared/item.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '@dspace/core/shared/operators';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
 import {
   Observable,
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
 import {
@@ -26,27 +46,7 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../../environments/environment';
-import { getBitstreamModuleRoute } from '../../../app-routing-paths';
-import { AuthService } from '../../../core/auth/auth.service';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { BundleDataService } from '../../../core/data/bundle-data.service';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { RequestService } from '../../../core/data/request.service';
-import { Bundle } from '../../../core/shared/bundle.model';
-import { Item } from '../../../core/shared/item.model';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
-} from '../../../core/shared/operators';
-import {
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-} from '../../../shared/empty.util';
 import { DsoInputSuggestionsComponent } from '../../../shared/input-suggestions/dso-input-suggestions/dso-input-suggestions.component';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { UploaderComponent } from '../../../shared/upload/uploader/uploader.component';
 import { UploaderOptions } from '../../../shared/upload/uploader/uploader-options.model';
 import { VarDirective } from '../../../shared/utils/var.directive';
@@ -56,14 +56,13 @@ import { getEntityEditRoute } from '../../item-page-routing-paths';
   selector: 'ds-upload-bitstream',
   templateUrl: './upload-bitstream.component.html',
   imports: [
-    TranslateModule,
     AsyncPipe,
-    VarDirective,
     DsoInputSuggestionsComponent,
     FormsModule,
+    TranslateModule,
     UploaderComponent,
+    VarDirective,
   ],
-  standalone: true,
 })
 /**
  * Page component for uploading a bitstream to an item
@@ -179,7 +178,7 @@ export class UploadBitstreamComponent implements OnInit, OnDestroy {
             }),
             );
           }
-          return observableOf(remoteData.payload.page);
+          return of(remoteData.payload.page);
         }
       }));
     this.selectedBundleId = this.route.snapshot.queryParams.bundle;

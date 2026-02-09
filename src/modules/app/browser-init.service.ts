@@ -14,6 +14,25 @@ import {
   NavigationStart,
   Router,
 } from '@angular/router';
+import {
+  APP_CONFIG,
+  APP_CONFIG_STATE,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
+import { BuildConfig } from '@dspace/config/build-config.interface';
+import { extendEnvironmentWithAppConfig } from '@dspace/config/config.util';
+import { DefaultAppConfig } from '@dspace/config/default-app-config';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { OrejimeService } from '@dspace/core/cookies/orejime.service';
+import { coreSelector } from '@dspace/core/core.selectors';
+import { CorrelationIdService } from '@dspace/core/correlation-id/correlation-id.service';
+import { RequestService } from '@dspace/core/data/request.service';
+import { RootDataService } from '@dspace/core/data/root-data.service';
+import { LocaleService } from '@dspace/core/locale/locale.service';
+import { HeadTagService } from '@dspace/core/metadata/head-tag.service';
+import { StoreActionTypes } from '@dspace/core/ngrx/type';
+import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import {
@@ -30,35 +49,14 @@ import {
 import { logStartupMessage } from '../../../startup-message';
 import { AppState } from '../../app/app.reducer';
 import { BreadcrumbsService } from '../../app/breadcrumbs/breadcrumbs.service';
-import { AuthService } from '../../app/core/auth/auth.service';
-import { coreSelector } from '../../app/core/core.selectors';
-import { RequestService } from '../../app/core/data/request.service';
-import { RootDataService } from '../../app/core/data/root-data.service';
-import { LocaleService } from '../../app/core/locale/locale.service';
-import { HeadTagService } from '../../app/core/metadata/head-tag.service';
-import { HALEndpointService } from '../../app/core/shared/hal-endpoint.service';
-import { CorrelationIdService } from '../../app/correlation-id/correlation-id.service';
 import { InitService } from '../../app/init.service';
-import { OrejimeService } from '../../app/shared/cookies/orejime.service';
-import { isNotEmpty } from '../../app/shared/empty.util';
 import { MenuService } from '../../app/shared/menu/menu.service';
 import { MenuProviderService } from '../../app/shared/menu/menu-provider.service';
 import { ThemeService } from '../../app/shared/theme-support/theme.service';
 import { Angulartics2DSpace } from '../../app/statistics/angulartics/dspace-provider';
 import { GoogleAnalyticsService } from '../../app/statistics/google-analytics.service';
 import { MatomoService } from '../../app/statistics/matomo.service';
-import {
-  StoreAction,
-  StoreActionTypes,
-} from '../../app/store.actions';
-import {
-  APP_CONFIG,
-  APP_CONFIG_STATE,
-  AppConfig,
-} from '../../config/app-config.interface';
-import { BuildConfig } from '../../config/build-config.interface';
-import { extendEnvironmentWithAppConfig } from '../../config/config.util';
-import { DefaultAppConfig } from '../../config/default-app-config';
+import { StoreAction } from '../../app/store.actions';
 import { environment } from '../../environments/environment';
 
 /**

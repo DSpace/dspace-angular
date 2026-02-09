@@ -3,18 +3,18 @@ import {
   Injectable,
 } from '@angular/core';
 import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
+import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import {
   catchError,
   map,
 } from 'rxjs/operators';
 
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '../../../config/app-config.interface';
 import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
 import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
 import { SignpostingLink } from './signposting-links.model';
@@ -40,7 +40,7 @@ export class SignpostingDataService {
 
     return this.restService.get(`${baseUrl}/signposting/links/${uuid}`).pipe(
       catchError((err: unknown) => {
-        return observableOf([]);
+        return of([]);
       }),
       map((res: RawRestResponse) => res.statusCode === 200 ? res.payload as SignpostingLink[] : []),
     );

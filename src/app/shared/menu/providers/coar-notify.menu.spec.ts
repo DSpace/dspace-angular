@@ -7,10 +7,10 @@
  */
 
 import { TestBed } from '@angular/core/testing';
-import { of as observableOf } from 'rxjs';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { AuthorizationDataServiceStub } from '@dspace/core/testing/authorization-service.stub';
+import { of } from 'rxjs';
 
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { AuthorizationDataServiceStub } from '../../testing/authorization-service.stub';
 import { LinkMenuItemModel } from '../menu-item/models/link.model';
 import { TextMenuItemModel } from '../menu-item/models/text.model';
 import { MenuItemType } from '../menu-item-type.model';
@@ -52,7 +52,7 @@ describe('CoarNotifyMenuProvider', () => {
   beforeEach(() => {
 
     spyOn(authorizationServiceStub, 'isAuthorized').and.returnValue(
-      observableOf(true),
+      of(true),
     );
     TestBed.configureTestingModule({
       providers: [

@@ -10,21 +10,21 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { currentPath } from '@dspace/core/router/utils/route.utils';
+import { FacetValue } from '@dspace/core/shared/search/models/facet-value.model';
+import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   Observable,
   Subscription,
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { PaginationService } from '../../../../../../core/pagination/pagination.service';
-import { SearchService } from '../../../../../../core/shared/search/search.service';
-import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
-import { SearchFilterService } from '../../../../../../core/shared/search/search-filter.service';
-import { hasValue } from '../../../../../empty.util';
-import { currentPath } from '../../../../../utils/route.utils';
 import { ShortNumberPipe } from '../../../../../utils/short-number.pipe';
-import { FacetValue } from '../../../../models/facet-value.model';
-import { SearchFilterConfig } from '../../../../models/search-filter-config.model';
+import { SearchService } from '../../../../search.service';
+import { SearchConfigurationService } from '../../../../search-configuration.service';
+import { SearchFilterService } from '../../../search-filter.service';
 import {
   RANGE_FILTER_MAX_SUFFIX,
   RANGE_FILTER_MIN_SUFFIX,
@@ -37,8 +37,11 @@ const rangeDelimiter = '-';
   styleUrls: ['./search-facet-range-option.component.scss'],
   // templateUrl: './search-facet-range-option.component.html',
   templateUrl: './search-facet-range-option.component.html',
-  standalone: true,
-  imports: [RouterLink, AsyncPipe, ShortNumberPipe],
+  imports: [
+    AsyncPipe,
+    RouterLink,
+    ShortNumberPipe,
+  ],
 })
 
 /**

@@ -8,18 +8,18 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
+import { RequestService } from '@dspace/core/data/request.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
+import { Item } from '@dspace/core/shared/item.model';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
 
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { RequestService } from '../../../core/data/request.service';
-import { Item } from '../../../core/shared/item.model';
-import { SearchService } from '../../../core/shared/search/search.service';
-import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
-import { NotificationsService } from '../../notifications/notifications.service';
+import { SearchService } from '../../search/search.service';
 import { MyDSpaceActionsComponent } from '../mydspace-actions';
 
 /**
@@ -29,8 +29,11 @@ import { MyDSpaceActionsComponent } from '../mydspace-actions';
   selector: 'ds-item-actions',
   styleUrls: ['./item-actions.component.scss'],
   templateUrl: './item-actions.component.html',
-  standalone: true,
-  imports: [NgbTooltipModule, RouterLink, TranslateModule],
+  imports: [
+    NgbTooltip,
+    RouterLink,
+    TranslateModule,
+  ],
 })
 
 export class ItemActionsComponent extends MyDSpaceActionsComponent<Item, ItemDataService> implements OnInit {

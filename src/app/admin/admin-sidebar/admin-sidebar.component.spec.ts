@@ -14,24 +14,24 @@ import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { ScriptDataService } from '@dspace/core/data/processes/script-data.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { AuthServiceStub } from '@dspace/core/testing/auth-service.stub';
+import { CSSVariableServiceStub } from '@dspace/core/testing/css-variable-service.stub';
+import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import {
   NgbModal,
   NgbModalRef,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
-import { AuthService } from '../../core/auth/auth.service';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { ScriptDataService } from '../../core/data/processes/script-data.service';
-import { Item } from '../../core/shared/item.model';
 import { MenuService } from '../../shared/menu/menu.service';
-import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
-import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
+import { MenuServiceStub } from '../../shared/menu/menu-service.stub';
 import { CSSVariableService } from '../../shared/sass-helper/css-variable.service';
-import { AuthServiceStub } from '../../shared/testing/auth-service.stub';
-import { CSSVariableServiceStub } from '../../shared/testing/css-variable-service.stub';
-import { MenuServiceStub } from '../../shared/testing/menu-service.stub';
+import { getMockThemeService } from '../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { AdminSidebarComponent } from './admin-sidebar.component';
 
@@ -57,7 +57,7 @@ describe('AdminSidebarComponent', () => {
 
 
   const routeStub = {
-    data: observableOf({
+    data: of({
       dso: createSuccessfulRemoteDataObject(mockItem),
     }),
     children: [],
@@ -65,16 +65,16 @@ describe('AdminSidebarComponent', () => {
 
   const mockNgbModal = {
     open: jasmine.createSpy('open').and.returnValue(
-      { componentInstance: {}, closed: observableOf({}) } as NgbModalRef,
+      { componentInstance: {}, closed: of({}) } as NgbModalRef,
     ),
   };
 
 
   beforeEach(waitForAsync(() => {
     authorizationService = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: observableOf(true),
+      isAuthorized: of(true),
     });
-    scriptService = jasmine.createSpyObj('scriptService', { scriptWithNameExistsAndCanExecute: observableOf(true) });
+    scriptService = jasmine.createSpyObj('scriptService', { scriptWithNameExistsAndCanExecute: of(true) });
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), NoopAnimationsModule, RouterTestingModule, AdminSidebarComponent],
       providers: [
@@ -98,10 +98,10 @@ describe('AdminSidebarComponent', () => {
   }));
 
   beforeEach(() => {
-    spyOn(menuService, 'getMenuTopSections').and.returnValue(observableOf([]));
+    spyOn(menuService, 'getMenuTopSections').and.returnValue(of([]));
     fixture = TestBed.createComponent(AdminSidebarComponent);
     comp = fixture.componentInstance; // SearchPageComponent test instance
-    comp.sections = observableOf([]);
+    comp.sections = of([]);
     fixture.detectChanges();
   });
 

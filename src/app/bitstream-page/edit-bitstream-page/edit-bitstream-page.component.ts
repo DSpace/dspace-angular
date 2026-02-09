@@ -12,6 +12,32 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { FindAllDataImpl } from '@dspace/core/data/base/find-all-data';
+import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
+import { BitstreamFormatDataService } from '@dspace/core/data/bitstream-format-data.service';
+import { PrimaryBitstreamService } from '@dspace/core/data/primary-bitstream.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Bitstream } from '@dspace/core/shared/bitstream.model';
+import { BitstreamFormat } from '@dspace/core/shared/bitstream-format.model';
+import { BITSTREAM_FORMAT } from '@dspace/core/shared/bitstream-format.resource-type';
+import { BitstreamFormatSupportLevel } from '@dspace/core/shared/bitstream-format-support-level';
+import { Bundle } from '@dspace/core/shared/bundle.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { Metadata } from '@dspace/core/shared/metadata.utils';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+  getFirstSucceededRemoteDataPayload,
+  getRemoteDataPayload,
+} from '@dspace/core/shared/operators';
+import {
+  hasValue,
+  hasValueOperator,
+  isEmpty,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import {
   DynamicFormControlModel,
   DynamicFormGroupModel,
@@ -28,7 +54,7 @@ import {
   combineLatest,
   combineLatest as observableCombineLatest,
   Observable,
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
 import {
@@ -39,32 +65,7 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { FindAllDataImpl } from '../../core/data/base/find-all-data';
-import { BitstreamDataService } from '../../core/data/bitstream-data.service';
-import { BitstreamFormatDataService } from '../../core/data/bitstream-format-data.service';
-import { PrimaryBitstreamService } from '../../core/data/primary-bitstream.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { Bitstream } from '../../core/shared/bitstream.model';
-import { BitstreamFormat } from '../../core/shared/bitstream-format.model';
-import { BITSTREAM_FORMAT } from '../../core/shared/bitstream-format.resource-type';
-import { BitstreamFormatSupportLevel } from '../../core/shared/bitstream-format-support-level';
-import { Bundle } from '../../core/shared/bundle.model';
-import { Item } from '../../core/shared/item.model';
-import { Metadata } from '../../core/shared/metadata.utils';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteData,
-  getFirstSucceededRemoteDataPayload,
-  getRemoteDataPayload,
-} from '../../core/shared/operators';
 import { getEntityEditRoute } from '../../item-page/item-page-routing-paths';
-import {
-  hasValue,
-  hasValueOperator,
-  isEmpty,
-  isNotEmpty,
-} from '../../shared/empty.util';
 import { ErrorComponent } from '../../shared/error/error.component';
 import { DynamicCustomSwitchModel } from '../../shared/form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.model';
 import { DsDynamicInputModel } from '../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
@@ -72,7 +73,6 @@ import { DsDynamicTextAreaModel } from '../../shared/form/builder/ds-dynamic-for
 import { DynamicScrollableDropdownModel } from '../../shared/form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 import { FormComponent } from '../../shared/form/form.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { FileSizePipe } from '../../shared/utils/file-size-pipe';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { ThemedThumbnailComponent } from '../../thumbnail/themed-thumbnail.component';
@@ -83,17 +83,16 @@ import { ThemedThumbnailComponent } from '../../thumbnail/themed-thumbnail.compo
   templateUrl: './edit-bitstream-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    FormComponent,
-    VarDirective,
-    ThemedThumbnailComponent,
     AsyncPipe,
-    RouterLink,
     ErrorComponent,
-    ThemedLoadingComponent,
-    TranslateModule,
     FileSizePipe,
+    FormComponent,
+    RouterLink,
+    ThemedLoadingComponent,
+    ThemedThumbnailComponent,
+    TranslateModule,
+    VarDirective,
   ],
-  standalone: true,
 })
 /**
  * Page component for editing a bitstream
@@ -682,7 +681,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
       }));
 
     } else {
-      bundle$ = observableOf(this.bundle);
+      bundle$ = of(this.bundle);
     }
     if (isNewFormat) {
       bitstream$ = this.bitstreamService.updateFormat(this.bitstream, this.selectedFormat).pipe(
@@ -699,7 +698,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
         }),
       );
     } else {
-      bitstream$ = observableOf(this.bitstream);
+      bitstream$ = of(this.bitstream);
     }
 
     combineLatest([bundle$, bitstream$]).pipe(

@@ -7,6 +7,8 @@
  */
 
 import { Injectable } from '@angular/core';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
 import {
   combineLatest as observableCombineLatest,
   Observable,
@@ -14,8 +16,6 @@ import {
 import { map } from 'rxjs/operators';
 
 import { PUBLICATION_CLAIMS_PATH } from '../../../admin/admin-notifications/admin-notifications-routing-paths';
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { LinkMenuItemModel } from '../menu-item/models/link.model';
 import { TextMenuItemModel } from '../menu-item/models/text.model';
 import { MenuItemType } from '../menu-item-type.model';

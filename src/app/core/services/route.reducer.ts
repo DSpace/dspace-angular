@@ -1,6 +1,6 @@
 import { Params } from '@angular/router';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 
-import { isNotEmpty } from '../../shared/empty.util';
 import {
   AddParameterAction,
   AddQueryParameterAction,

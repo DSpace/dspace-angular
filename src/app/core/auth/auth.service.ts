@@ -1,18 +1,32 @@
 import { HttpHeaders } from '@angular/common/http';
 import {
   Inject,
+  inject,
   Injectable,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
+import {
+  hasNoValue,
+  hasValue,
+  hasValueOperator,
+  isEmpty,
+  isNotEmpty,
+  isNotNull,
+  isNotUndefined,
+} from '@dspace/shared/utils/empty.util';
 import {
   select,
   Store,
 } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { CookieAttributes } from 'js-cookie';
+import Cookies from 'js-cookie';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import {
   filter,
@@ -22,20 +36,8 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { environment } from '../../../environments/environment';
-import { AppState } from '../../app.reducer';
-import {
-  hasNoValue,
-  hasValue,
-  hasValueOperator,
-  isEmpty,
-  isNotEmpty,
-  isNotNull,
-  isNotUndefined,
-} from '../../shared/empty.util';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { followLink } from '../../shared/utils/follow-link-config.model';
+import { CookieService } from '../cookies/cookie.service';
+import { CoreState } from '../core-state.model';
 import {
   buildPaginatedList,
   PaginatedList,
@@ -45,19 +47,22 @@ import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { EPersonDataService } from '../eperson/eperson-data.service';
 import { EPerson } from '../eperson/models/eperson.model';
 import { Group } from '../eperson/models/group.model';
-import { CookieService } from '../services/cookie.service';
+import { NotificationsService } from '../notification-system/notifications.service';
 import { HardRedirectService } from '../services/hard-redirect.service';
 import { RouteService } from '../services/route.service';
 import {
   NativeWindowRef,
   NativeWindowService,
 } from '../services/window.service';
+import { followLink } from '../shared/follow-link-config.model';
 import {
   getAllSucceededRemoteDataPayload,
   getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
 } from '../shared/operators';
 import { PageInfo } from '../shared/page-info.model';
 import { URLCombiner } from '../url-combiner/url-combiner';
+import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
 import {
   CheckAuthenticationTokenAction,
   RefreshTokenAction,
@@ -107,6 +112,8 @@ export class AuthService {
    */
   private tokenRefreshTimer;
 
+  protected readonly appConfig: AppConfig = inject(APP_CONFIG);
+
   constructor(
     @Inject(NativeWindowService) protected _window: NativeWindowRef,
     protected authRequestService: AuthRequestService,
@@ -114,7 +121,7 @@ export class AuthService {
     protected router: Router,
     protected routeService: RouteService,
     protected storage: CookieService,
-    protected store: Store<AppState>,
+    protected store: Store<CoreState>,
     protected hardRedirectService: HardRedirectService,
     protected notificationService: NotificationsService,
     protected translateService: TranslateService,
@@ -257,6 +264,33 @@ export class AuthService {
   }
 
   /**
+   * Returns the authenticated user id from the store
+   * @returns {User}
+   */
+  public getAuthenticatedUserIdFromStore(): Observable<string> {
+    return this.store.pipe(
+      select(getAuthenticatedUserId),
+    );
+  }
+
+  /**
+   * Returns an observable which emits the currently authenticated user from the store,
+   * or null if the user is not authenticated.
+   */
+  public getAuthenticatedUserFromStoreIfAuthenticated(): Observable<EPerson> {
+    return this.store.pipe(
+      select(getAuthenticatedUserId),
+      switchMap((id: string) => {
+        if (hasValue(id)) {
+          return this.epersonService.findById(id).pipe(getFirstSucceededRemoteDataPayload());
+        } else {
+          return of(null);
+        }
+      }),
+    );
+  }
+
+  /**
    * Checks if token is present into browser storage and is valid.
    */
   public checkAuthenticationToken() {
@@ -292,6 +326,7 @@ export class AuthService {
         if (isNotEmpty(token) && token.hasOwnProperty('accessToken') && isNotEmpty(token.accessToken) && !this.isTokenExpired(token)) {
           return token;
         } else {
+          // eslint-disable-next-line @typescript-eslint/only-throw-error
           throw false;
         }
       }),
@@ -337,7 +372,7 @@ export class AuthService {
     if (isNotEmpty(status.authMethods)) {
       authMethods = status.authMethods;
     }
-    return observableOf(authMethods);
+    return of(authMethods);
   }
 
   /**
@@ -379,7 +414,6 @@ export class AuthService {
     let token: AuthTokenInfo;
     this.store.pipe(take(1), select(getAuthenticationToken))
       .subscribe((authTokenInfo: AuthTokenInfo) => {
-        // Retrieve authentication token info and check if is valid
         token = authTokenInfo || null;
       });
     return token;
@@ -407,7 +441,7 @@ export class AuthService {
       if (!currentlyRefreshingToken) {
         token = authTokenInfo || null;
         if (token !== undefined && token !== null) {
-          let timeLeftBeforeRefresh = token.expires - new Date().getTime() - environment.auth.rest.timeLeftBeforeTokenRefresh;
+          let timeLeftBeforeRefresh = token.expires - new Date().getTime() - this.appConfig.auth.rest.timeLeftBeforeTokenRefresh;
           if (timeLeftBeforeRefresh < 0) {
             timeLeftBeforeRefresh = 0;
           }
@@ -463,7 +497,7 @@ export class AuthService {
 
     // Set the cookie expire date
     const expires = new Date(expireDate);
-    const options: CookieAttributes = { expires: expires };
+    const options: Cookies.CookieAttributes = { expires: expires };
 
     // Save cookie with the token
     return this.storage.set(TOKENITEM, token, options);
@@ -551,7 +585,7 @@ export class AuthService {
 
     // Set the cookie expire date
     const expires = new Date(expireDate);
-    const options: CookieAttributes = { expires: expires };
+    const options: Cookies.CookieAttributes = { expires: expires };
     this.storage.set(REDIRECT_COOKIE, url, options);
     this.store.dispatch(new SetRedirectUrlAction(isNotUndefined(url) ? url : ''));
   }
@@ -656,7 +690,7 @@ export class AuthService {
    */
   getShortlivedToken(): Observable<string> {
     return this.isAuthenticated().pipe(
-      switchMap((authenticated) => authenticated ? this.authRequestService.getShortlivedToken() : observableOf(null)),
+      switchMap((authenticated) => authenticated ? this.authRequestService.getShortlivedToken() : of(null)),
     );
   }
 

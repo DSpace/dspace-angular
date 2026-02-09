@@ -1,13 +1,15 @@
 import { Route } from '@angular/router';
+import { authenticatedGuard } from '@dspace/core/auth/authenticated.guard';
+import { communityBreadcrumbResolver } from '@dspace/core/breadcrumbs/community-breadcrumb.resolver';
+import { i18nBreadcrumbResolver } from '@dspace/core/breadcrumbs/i18n-breadcrumb.resolver';
 
+import { ObjectAuditLogsComponent } from '../audit-page/object-audit-overview/object-audit-logs.component';
 import { browseByGuard } from '../browse-by/browse-by-guard';
 import { browseByI18nBreadcrumbResolver } from '../browse-by/browse-by-i18n-breadcrumb.resolver';
-import { authenticatedGuard } from '../core/auth/authenticated.guard';
-import { communityBreadcrumbResolver } from '../core/breadcrumbs/community-breadcrumb.resolver';
-import { i18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { ComcolBrowseByComponent } from '../shared/comcol/sections/comcol-browse-by/comcol-browse-by.component';
 import { ComcolSearchSectionComponent } from '../shared/comcol/sections/comcol-search-section/comcol-search-section.component';
 import { MenuRoute } from '../shared/menu/menu-route.model';
+import { viewTrackerResolver } from '../statistics/angulartics/dspace/view-tracker.resolver';
 import { communityPageResolver } from './community-page.resolver';
 import { communityPageAdministratorGuard } from './community-page-administrator.guard';
 import {
@@ -65,10 +67,21 @@ export const ROUTES: Route[] = [
         canActivate: [authenticatedGuard],
       },
       {
+        path: 'auditlogs',
+        component: ObjectAuditLogsComponent,
+        data: { title: 'audit.object.title', breadcrumbKey: 'audit.object' },
+        resolve: {
+          breadcrumb: i18nBreadcrumbResolver,
+        },
+      },
+      {
         path: '',
         component: ThemedCommunityPageComponent,
         data: {
           menuRoute: MenuRoute.COMMUNITY_PAGE,
+        },
+        resolve: {
+          tracking: viewTrackerResolver,
         },
         children: [
           {
@@ -86,6 +99,7 @@ export const ROUTES: Route[] = [
             data: {
               breadcrumbKey: 'community.search',
               menuRoute: MenuRoute.COMMUNITY_PAGE,
+              enableRSS: true,
             },
           },
           {

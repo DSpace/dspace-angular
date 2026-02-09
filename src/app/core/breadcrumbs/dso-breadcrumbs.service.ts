@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import {
   find,
@@ -9,16 +10,15 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { getDSORoute } from '../../app-routing-paths';
-import { Breadcrumb } from '../../breadcrumbs/breadcrumb/breadcrumb.model';
-import { hasValue } from '../../shared/empty.util';
-import { followLink } from '../../shared/utils/follow-link-config.model';
 import { LinkService } from '../cache/builders/link.service';
 import { RemoteData } from '../data/remote-data';
+import { getDSORoute } from '../router/utils/dso-route.utils';
 import { ChildHALResource } from '../shared/child-hal-resource.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
+import { followLink } from '../shared/follow-link-config.model';
 import { BreadcrumbsProviderService } from './breadcrumbsProviderService';
 import { DSONameService } from './dso-name.service';
+import { Breadcrumb } from './models/breadcrumb.model';
 
 /**
  * Service to calculate DSpaceObject breadcrumbs for a single part of the route
@@ -51,7 +51,7 @@ export class DSOBreadcrumbsService implements BreadcrumbsProviderService<ChildHA
           const parent = parentRD.payload;
           return this.getBreadcrumbs(parent, getDSORoute(parent));
         }
-        return observableOf([]);
+        return of([]);
 
       }),
       map((breadcrumbs: Breadcrumb[]) => [...breadcrumbs, crumb]),

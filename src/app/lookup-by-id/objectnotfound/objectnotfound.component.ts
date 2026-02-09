@@ -8,8 +8,8 @@ import {
   ActivatedRoute,
   RouterLink,
 } from '@angular/router';
+import { ServerResponseService } from '@dspace/core/services/server-response.service';
 import { TranslateModule } from '@ngx-translate/core';
-import { ServerResponseService } from 'src/app/core/services/server-response.service';
 
 /**
  * This component representing the `PageNotFound` DSpace page.
@@ -19,8 +19,10 @@ import { ServerResponseService } from 'src/app/core/services/server-response.ser
   styleUrls: ['./objectnotfound.component.scss'],
   templateUrl: './objectnotfound.component.html',
   changeDetection: ChangeDetectionStrategy.Default,
-  standalone: true,
-  imports: [RouterLink, TranslateModule],
+  imports: [
+    RouterLink,
+    TranslateModule,
+  ],
 })
 export class ObjectNotFoundComponent implements OnInit {
 

@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { COLLECTION } from '@dspace/core/shared/collection.resource-type';
 
-import { Collection } from '../../../core/shared/collection.model';
-import { COLLECTION } from '../../../core/shared/collection.resource-type';
 import { MenuItemType } from '../menu-item-type.model';
 import { PartialMenuSection } from '../menu-provider.model';
 import { DsoOptionMenuProvider } from './dso-option.menu';
