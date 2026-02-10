@@ -29,7 +29,6 @@ import { SubscriptionModalComponent } from '../subscription-modal/subscription-m
   selector: '[ds-subscription-view]',
   templateUrl: './subscription-view.component.html',
   styleUrls: ['./subscription-view.component.scss'],
-  standalone: true,
   imports: [
     BtnDisabledDirective,
     RouterLink,

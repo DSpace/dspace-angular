@@ -18,7 +18,7 @@ import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model'
 import { ClaimedTaskDataService } from '@dspace/core/tasks/claimed-task-data.service';
 import { ClaimedTask } from '@dspace/core/tasks/models/claimed-task-object.model';
 import { WorkflowAction } from '@dspace/core/tasks/models/workflow-action-object.model';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
   TranslateService,
@@ -38,11 +38,10 @@ import { ClaimedTaskActionsLoaderComponent } from './switcher/claimed-task-actio
   selector: 'ds-claimed-task-actions',
   styleUrls: ['./claimed-task-actions.component.scss'],
   templateUrl: './claimed-task-actions.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     ClaimedTaskActionsLoaderComponent,
-    NgbTooltipModule,
+    NgbTooltip,
     RouterLink,
     TranslateModule,
     VarDirective,

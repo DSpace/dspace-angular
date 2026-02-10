@@ -31,7 +31,6 @@ import {
 @Component({
   selector: 'ds-base-edit-community-selector',
   templateUrl: './edit-community-selector.component.html',
-  standalone: true,
   imports: [
     AuthorizedCommunitySelectorComponent,
     TranslateModule,

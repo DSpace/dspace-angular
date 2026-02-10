@@ -70,7 +70,6 @@ import { QaEventNotificationComponent } from './qa-event-notification/qa-event-n
   templateUrl: './item-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [fadeInOut],
-  standalone: true,
   imports: [
     AccessByTokenNotificationComponent,
     AsyncPipe,
@@ -171,42 +170,40 @@ export class ItemPageComponent implements OnInit, OnDestroy {
    * @private
    */
   private initPageLinks(): void {
-    this.route.params.subscribe(params => {
-      combineLatest([this.signpostingDataService.getLinks(params.id).pipe(take(1)), this.getCoarLdnLocalInboxUrls()])
-        .subscribe(([signpostingLinks, coarRestApiUrls]) => {
-          let links = '';
-          this.signpostingLinks = signpostingLinks;
+    combineLatest([this.route.data.pipe(take(1)), this.getCoarLdnLocalInboxUrls()])
+      .subscribe(([data, coarRestApiUrls]) => {
+        let links = '';
+        this.signpostingLinks = data.links ?? [];
 
-          signpostingLinks.forEach((link: SignpostingLink) => {
-            links = links + (isNotEmpty(links) ? ', ' : '') + `<${link.href}> ; rel="${link.rel}"` + (isNotEmpty(link.type) ? ` ; type="${link.type}" ` : ' ')
-              + (isNotEmpty(link.profile) ? ` ; profile="${link.profile}" ` : '');
-            let tag: LinkDefinition = {
-              href: link.href,
-              rel: link.rel,
-            };
-            if (isNotEmpty(link.type)) {
-              tag = Object.assign(tag, {
-                type: link.type,
-              });
-            }
-            if (isNotEmpty(link.profile)) {
-              tag = Object.assign(tag, {
-                profile: link.profile,
-              });
-            }
-            this.linkHeadService.addTag(tag);
-          });
-
-          if (coarRestApiUrls.length > 0) {
-            const inboxLinks = this.initPageInboxLinks(coarRestApiUrls);
-            links = links + (isNotEmpty(links) ? ', ' : '') + inboxLinks;
+        this.signpostingLinks.forEach((link: SignpostingLink) => {
+          links = links + (isNotEmpty(links) ? ', ' : '') + `<${link.href}> ; rel="${link.rel}"` + (isNotEmpty(link.type) ? ` ; type="${link.type}" ` : ' ')
+            + (isNotEmpty(link.profile) ? ` ; profile="${link.profile}" ` : '');
+          let tag: LinkDefinition = {
+            href: link.href,
+            rel: link.rel,
+          };
+          if (isNotEmpty(link.type)) {
+            tag = Object.assign(tag, {
+              type: link.type,
+            });
           }
-
-          if (isPlatformServer(this.platformId)) {
-            this.responseService.setHeader('Link', links);
+          if (isNotEmpty(link.profile)) {
+            tag = Object.assign(tag, {
+              profile: link.profile,
+            });
           }
+          this.linkHeadService.addTag(tag);
         });
-    });
+
+        if (coarRestApiUrls.length > 0) {
+          const inboxLinks = this.initPageInboxLinks(coarRestApiUrls);
+          links = links + (isNotEmpty(links) ? ', ' : '') + inboxLinks;
+        }
+
+        if (isPlatformServer(this.platformId)) {
+          this.responseService.setHeader('Link', links);
+        }
+      });
   }
 
   /**

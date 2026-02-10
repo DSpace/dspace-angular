@@ -25,7 +25,6 @@ import {
     fadeIn,
     fadeInOut,
   ],
-  standalone: true,
   imports: [
     AsyncPipe,
     ItemOperationComponent,

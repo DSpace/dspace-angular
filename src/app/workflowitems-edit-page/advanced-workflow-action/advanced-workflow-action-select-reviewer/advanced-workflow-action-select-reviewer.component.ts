@@ -51,7 +51,6 @@ export const ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER = 'selectrevieweraction';
     ReviewersListComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class AdvancedWorkflowActionSelectReviewerComponent extends AdvancedWorkflowActionComponent implements OnInit, OnDestroy {
 

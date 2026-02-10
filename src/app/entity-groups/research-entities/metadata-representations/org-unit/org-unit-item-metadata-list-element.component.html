@@ -8,5 +8,5 @@
 <ds-truncatable [id]="mdRepresentation.id">
   <a [routerLink]="[itemPageRoute]"
      [innerHTML]="mdRepresentation.getValue()"
-     [ngbTooltip]="mdRepresentation.allMetadata(['dc.description']).length > 0 ? descTemplate : null"></a>
+     [ngbTooltip]="mdRepresentation.hasMetadata(['dc.description']) ? descTemplate : null"></a>
 </ds-truncatable>

@@ -9,7 +9,6 @@ import { SuggestionSourcesComponent } from '../../notifications/suggestions/sour
   imports: [
     SuggestionSourcesComponent,
   ],
-  standalone: true,
 })
 export class NotificationsSuggestionTargetsPageComponent {
 

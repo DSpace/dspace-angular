@@ -11,7 +11,6 @@ import { CreateCommunityParentSelectorComponent as BaseComponent } from '../../.
   styleUrls: ['../../../../../../../app/shared/dso-selector/modal-wrappers/create-community-parent-selector/create-community-parent-selector.component.scss'],
   // templateUrl: './create-community-parent-selector.component.html',
   templateUrl: '../../../../../../../app/shared/dso-selector/modal-wrappers/create-community-parent-selector/create-community-parent-selector.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     AuthorizedCommunitySelectorComponent,

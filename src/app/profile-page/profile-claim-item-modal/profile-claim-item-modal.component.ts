@@ -41,7 +41,6 @@ import { ProfileClaimService } from '../profile-claim/profile-claim.service';
     ListableObjectComponentLoaderComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class ProfileClaimItemModalComponent extends DSOSelectorModalWrapperComponent implements OnInit {
 

@@ -66,7 +66,6 @@ import {
     AsyncPipe,
     FormComponent,
   ],
-  standalone: true,
 })
 export class SubmissionSectionLicenseComponent   extends SectionModelComponent implements AfterViewChecked {
 

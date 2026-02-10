@@ -14,7 +14,6 @@ import {
 } from '@angular/core';
 import {
   ActivatedRoute,
-  Params,
   Router,
 } from '@angular/router';
 import {
@@ -51,8 +50,8 @@ import {
   Subscription,
 } from 'rxjs';
 import {
-  distinctUntilChanged,
   map,
+  switchMap,
 } from 'rxjs/operators';
 import { ThemedBrowseByComponent } from 'src/app/shared/browse-by/themed-browse-by.component';
 
@@ -72,7 +71,6 @@ export const BBM_PAGINATION_ID = 'bbm';
     ThemedLoadingComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * Component for browsing (items) by metadata definition.
@@ -216,24 +214,18 @@ export class BrowseByMetadataComponent implements OnInit, OnChanges, OnDestroy {
       this.loading$ = of(false);
       return;
     }
-    const sortConfig = new SortOptions('default', SortDirection.ASC);
-    this.currentPagination$ = this.paginationService.getCurrentPagination(this.paginationConfig.id, this.paginationConfig);
-    this.currentSort$ = this.paginationService.getCurrentSort(this.paginationConfig.id, sortConfig);
-    const routeParams$: Observable<Params> = observableCombineLatest([
-      this.route.params,
-      this.route.queryParams,
-    ]).pipe(
-      map(([params, queryParams]: [Params, Params]) => Object.assign({}, params, queryParams)),
-      distinctUntilChanged((prev: Params, curr: Params) => prev.id === curr.id && prev.authority === curr.authority && prev.value === curr.value && prev.startsWith === curr.startsWith),
-    );
+    this.browseId = this.route.snapshot.params.id;
     this.subs.push(
-      observableCombineLatest([
-        routeParams$,
-        this.scope$,
-        this.currentPagination$,
-        this.currentSort$,
-      ]).subscribe(([params, scope, currentPage, currentSort]: [Params, string, PaginationComponentOptions, SortOptions]) => {
-        this.browseId = params.id || this.defaultBrowseId;
+      this.browseService.getConfiguredSortDirection(this.browseId, SortDirection.ASC).pipe(
+        map((sortDir) => new SortOptions(this.browseId, sortDir)),
+        switchMap((sortConfig) => {
+          this.currentSort$ = this.paginationService.getCurrentSort(this.paginationConfig.id, sortConfig, false);
+          this.currentPagination$ = this.paginationService.getCurrentPagination(this.paginationConfig.id, this.paginationConfig);
+          return observableCombineLatest([this.route.params, this.route.queryParams, this.scope$, this.currentPagination$, this.currentSort$]).pipe(
+            map(([routeParams, queryParams, scope, currentPage, currentSort]) => ({
+              params: Object.assign({}, routeParams, queryParams), scope, currentPage, currentSort,
+            })));
+        })).subscribe(({ params, scope, currentPage, currentSort }) => {
         this.authority = params.authority;
 
         if (typeof params.value === 'string') {
@@ -257,9 +249,8 @@ export class BrowseByMetadataComponent implements OnInit, OnChanges, OnDestroy {
         } else {
           this.updatePage(browseParamsToOptions(params, scope, currentPage, currentSort, this.browseId, false));
         }
+        this.updateStartsWithTextOptions();
       }));
-    this.updateStartsWithTextOptions();
-
   }
 
   ngOnChanges(changes: SimpleChanges): void {

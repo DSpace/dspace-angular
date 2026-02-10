@@ -23,7 +23,6 @@ import { ThemedThumbnailComponent } from '../../../../../../../app/thumbnail/the
   styleUrls: ['../../../../../../../app/entity-groups/journal-entities/item-pages/journal/journal.component.scss'],
   // templateUrl: './journal.component.html',
   templateUrl: '../../../../../../../app/entity-groups/journal-entities/item-pages/journal/journal.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     DsoEditMenuComponent,

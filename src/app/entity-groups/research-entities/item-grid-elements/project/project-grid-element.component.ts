@@ -11,7 +11,6 @@ import { ProjectSearchResultGridElementComponent } from '../search-result-grid-e
   selector: 'ds-project-grid-element',
   styleUrls: ['./project-grid-element.component.scss'],
   templateUrl: './project-grid-element.component.html',
-  standalone: true,
   imports: [
     ProjectSearchResultGridElementComponent,
   ],

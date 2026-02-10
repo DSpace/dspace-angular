@@ -19,7 +19,6 @@ import { ThemedThumbnailComponent } from '../../../../../thumbnail/themed-thumbn
   selector: 'ds-journal-volume-search-result-list-element',
   styleUrls: ['./journal-volume-search-result-list-element.component.scss'],
   templateUrl: './journal-volume-search-result-list-element.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     MetadataDirective,

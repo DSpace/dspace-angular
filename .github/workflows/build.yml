@@ -21,7 +21,7 @@ jobs:
       DSPACE_REST_PORT: 8080
       DSPACE_REST_NAMESPACE: '/server'
       DSPACE_REST_SSL: false
-      # Spin up UI on 127.0.0.1 to avoid host resolution issues in e2e tests with Node 18+
+      # Spin up UI on 127.0.0.1 to avoid host resolution issues in e2e tests with Node 20+
       DSPACE_UI_HOST: 127.0.0.1
       DSPACE_UI_PORT: 4000
       # Ensure all SSR caching is disabled in test environment
@@ -44,7 +44,7 @@ jobs:
     strategy:
       # Create a matrix of Node versions to test against (in parallel)
       matrix:
-        node-version: [18.x, 20.x]
+        node-version: [20.x, 22.x]
       # Do NOT exit immediately if one matrix job fails
       fail-fast: false
     # These are the actual CI steps to perform per job
@@ -114,7 +114,7 @@ jobs:
       # NOTE: Angular CLI only supports code coverage for specs. See https://github.com/angular/angular-cli/issues/6286
       - name: Upload code coverage report to Artifact
         uses: actions/upload-artifact@v4
-        if: matrix.node-version == '18.x'
+        if: matrix.node-version == '20.x'
         with:
           name: coverage-report-${{ matrix.node-version }}
           path: 'coverage/dspace-angular/lcov.info'

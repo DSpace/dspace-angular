@@ -44,7 +44,7 @@ describe('LdnServicesOverviewComponent', () => {
     get: () => of('translated-text'),
     onLangChange: new EventEmitter(),
     onTranslationChange: new EventEmitter(),
-    onDefaultLangChange: new EventEmitter(),
+    onFallbackLangChange: new EventEmitter(),
   };
 
   beforeEach(async () => {

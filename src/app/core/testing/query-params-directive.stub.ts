@@ -7,7 +7,6 @@ import {
 @Directive({
   // eslint-disable-next-line @angular-eslint/directive-selector
   selector: '[queryParams]',
-  standalone: true,
 })
 export class QueryParamsDirectiveStub {
   @Input() queryParams: any;

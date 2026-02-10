@@ -20,7 +20,6 @@ import { RelatedEntitiesSearchComponent } from '../related-entities-search/relat
 @Component({
   selector: 'ds-tabbed-related-entities-search',
   templateUrl: './tabbed-related-entities-search.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     NgbNavModule,

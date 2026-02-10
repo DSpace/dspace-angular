@@ -36,18 +36,18 @@
         }
         <span class="text-muted">
           <ds-truncatable-part [id]="dso.id" [minLines]="1">
-            @if (dso.firstMetadataValue('dc.publisher') || dso.firstMetadataValue('dc.date.issued')) {
-              (@if (dso.firstMetadataValue('dc.publisher')) {
+            @if (firstMetadataValue('dc.publisher') || firstMetadataValue('dc.date.issued')) {
+              (@if (firstMetadataValue('dc.publisher')) {
               <span class="item-list-publisher" [dsMetadata]="firstMetadata('dc.publisher')"></span>
             }
-            @if (dso.firstMetadataValue('dc.publisher') && dso.firstMetadataValue('dc.date.issued')) {
+            @if (firstMetadataValue('dc.publisher') && firstMetadataValue('dc.date.issued')) {
               <span>, </span>
             }
-            @if (dso.firstMetadataValue('dc.date.issued')) {
+            @if (firstMetadataValue('dc.date.issued')) {
               <span class="item-list-date" [dsMetadata]="firstMetadata('dc.date.issued')"></span>
               })
             }
-            @if (dso.allMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']).length > 0) {
+            @if (allMetadataValues(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']).length > 0) {
               <span class="item-list-authors">
                 @for (author of allMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']); track author; let last = $last) {
                   <span>
@@ -61,7 +61,7 @@
             }
           </ds-truncatable-part>
         </span>
-        @if (dso.firstMetadataValue('dc.description.abstract')) {
+        @if (firstMetadataValue('dc.description.abstract'); as abstract) {
           <div class="item-list-abstract">
             <ds-truncatable-part [id]="dso.id" [minLines]="3">
               <span [dsMetadata]="firstMetadata('dc.description.abstract')"></span>

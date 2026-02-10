@@ -29,7 +29,6 @@ export const ITEM_ACCESS_CONTROL_SELECT_BITSTREAMS_LIST_ID = 'item-access-contro
   selector: 'ds-item-access-control-select-bitstreams-modal',
   templateUrl: './item-access-control-select-bitstreams-modal.component.html',
   styleUrls: ['./item-access-control-select-bitstreams-modal.component.scss'],
-  standalone: true,
   imports: [
     AsyncPipe,
     ObjectCollectionComponent,

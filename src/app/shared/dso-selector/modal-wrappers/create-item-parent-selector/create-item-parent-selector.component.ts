@@ -35,7 +35,6 @@ import {
   // styleUrls: ['./create-item-parent-selector.component.scss'],
   // templateUrl: '../dso-selector-modal-wrapper.component.html',
   templateUrl: './create-item-parent-selector.component.html',
-  standalone: true,
   imports: [
     AuthorizedCollectionSelectorComponent,
     TranslateModule,

@@ -32,7 +32,6 @@ import { VarDirective } from '../../../../../../../../../app/shared/utils/var.di
     fadeIn,
     fadeInOut,
   ],
-  standalone: true,
   imports: [
     AsyncPipe,
     ErrorComponent,

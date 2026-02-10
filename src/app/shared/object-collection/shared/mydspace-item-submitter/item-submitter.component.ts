@@ -29,7 +29,6 @@ import {
   selector: 'ds-item-submitter',
   styleUrls: ['./item-submitter.component.scss'],
   templateUrl: './item-submitter.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     TranslateModule,

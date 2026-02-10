@@ -4,6 +4,7 @@ export enum SectionsType {
   Upload = 'upload',
   License = 'license',
   CcLicense = 'cclicense',
+  CustomUrl = 'custom-url',
   AccessesCondition = 'accessCondition',
   SherpaPolicies = 'sherpaPolicy',
   Identifiers = 'identifiers',

@@ -4,7 +4,9 @@ import {
   makeEnvironmentProviders,
 } from '@angular/core';
 import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { SubmissionCustomUrl } from '@dspace/core/submission/models/submission-custom-url.model';
 
+import { Audit } from './audit/model/audit.model';
 import { AuthStatus } from './auth/models/auth-status.model';
 import { ShortLivedToken } from './auth/models/short-lived-token.model';
 import { Itemfilter } from './coar-notify/ldn-services/models/ldn-service-itemfilters';
@@ -209,6 +211,7 @@ export const models =
     NotifyRequestsStatus,
     SystemWideAlert,
     AdminNotifyMessage,
+    Audit,
     SubmissionAccessModel,
     SubmissionDefinitionModel,
     SubmissionFormModel,
@@ -228,4 +231,5 @@ export const models =
     StatisticsEndpoint,
     CorrectionType,
     SupervisionOrder,
+    SubmissionCustomUrl,
   ];

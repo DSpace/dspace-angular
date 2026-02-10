@@ -22,7 +22,6 @@ import { ItemVersionsComponent } from '../../versions/item-versions.component';
     ItemVersionsComponent,
     VarDirective,
   ],
-  standalone: true,
 })
 /**
  * Component for listing and managing an item's version history

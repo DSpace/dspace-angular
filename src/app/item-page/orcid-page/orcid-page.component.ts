@@ -62,7 +62,6 @@ import { OrcidSyncSettingsComponent } from './orcid-sync-settings/orcid-sync-set
     ThemedLoadingComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class OrcidPageComponent implements OnInit {
   protected readonly AlertType = AlertType;

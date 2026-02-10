@@ -19,7 +19,6 @@ import { map } from 'rxjs/operators';
     AsyncPipe,
     TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * Component rendering an identifier, eg. DOI or handle

@@ -19,7 +19,6 @@ import { ThemedComponent } from './themed.component';
 @Component({
   selector: 'ds-test-themed-component',
   templateUrl: './themed.component.html',
-  standalone: true,
 })
 class TestThemedComponent extends ThemedComponent<TestComponent> {
   protected inAndOutputNames: (keyof TestComponent & keyof this)[] = ['testInput'];

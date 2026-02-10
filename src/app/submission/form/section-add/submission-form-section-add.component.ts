@@ -22,7 +22,6 @@ import { SubmissionService } from '../../submission.service';
   selector: 'ds-submission-form-section-add',
   styleUrls: ['./submission-form-section-add.component.scss'],
   templateUrl: './submission-form-section-add.component.html',
-  standalone: true,
   imports: [
     BtnDisabledDirective,
     CommonModule,

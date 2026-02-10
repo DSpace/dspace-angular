@@ -12,7 +12,6 @@ import { AlertComponent } from '../../../../../app/shared/alert/alert.component'
   templateUrl: '../../../../../app/item-page/alerts/item-alerts.component.html',
   // styleUrls: ['./item-alerts.component.scss'],
   styleUrls: ['../../../../../app/item-page/alerts/item-alerts.component.scss'],
-  standalone: true,
   imports: [
     AlertComponent,
     AsyncPipe,

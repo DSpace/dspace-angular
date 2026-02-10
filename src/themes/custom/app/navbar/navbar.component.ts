@@ -18,7 +18,6 @@ import { slideMobileNav } from '../../../../app/shared/animations/slide';
   // templateUrl: './navbar.component.html',
   templateUrl: '../../../../app/navbar/navbar.component.html',
   animations: [slideMobileNav],
-  standalone: true,
   imports: [
     AsyncPipe,
     NgbDropdownModule,

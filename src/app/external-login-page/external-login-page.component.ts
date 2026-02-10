@@ -31,7 +31,6 @@ import { AUTH_METHOD_FOR_DECORATOR_MAP } from '../shared/log-in/methods/log-in.m
     ExternalLogInComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * This component is a wrapper of the external-login component that loads up the RegistrationData.

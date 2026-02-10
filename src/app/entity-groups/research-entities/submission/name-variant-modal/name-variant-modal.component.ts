@@ -13,7 +13,6 @@ import { TranslateModule } from '@ngx-translate/core';
   selector: 'ds-name-variant-modal',
   templateUrl: './name-variant-modal.component.html',
   styleUrls: ['./name-variant-modal.component.scss'],
-  standalone: true,
   imports: [
     TranslateModule,
   ],

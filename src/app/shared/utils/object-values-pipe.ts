@@ -7,7 +7,6 @@ import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 @Pipe({
   name: 'dsObjectValues',
   pure: true,
-  standalone: true,
 })
 /**
  * Pipe for parsing all values of an object to an array of values

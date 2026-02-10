@@ -44,7 +44,6 @@ import { VarDirective } from '../../../../shared/utils/var.directive';
     TranslateModule,
     VarDirective,
   ],
-  standalone: true,
 })
 /**
  * Component to render the sub-communities of a Community

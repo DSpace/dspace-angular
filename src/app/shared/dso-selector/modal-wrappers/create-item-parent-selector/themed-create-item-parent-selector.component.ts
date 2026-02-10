@@ -15,12 +15,7 @@ import { CreateItemParentSelectorComponent } from './create-item-parent-selector
  */
 @Component({
   selector: 'ds-create-item-parent-selector',
-  styleUrls: [],
   templateUrl: '../../../theme-support/themed.component.html',
-  standalone: true,
-  imports: [
-    CreateItemParentSelectorComponent,
-  ],
 })
 export class ThemedCreateItemParentSelectorComponent extends ThemedComponent<CreateItemParentSelectorComponent> {
 

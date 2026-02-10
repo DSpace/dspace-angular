@@ -13,7 +13,6 @@ import { CollectionListElementComponent as BaseComponent } from '../../../../../
   styleUrls: ['../../../../../../app/shared/object-list/collection-list-element/collection-list-element.component.scss'],
   // templateUrl: './collection-list-element.component.html'
   templateUrl: '../../../../../../app/shared/object-list/collection-list-element/collection-list-element.component.html',
-  standalone: true,
   imports: [
     RouterLink,
   ],

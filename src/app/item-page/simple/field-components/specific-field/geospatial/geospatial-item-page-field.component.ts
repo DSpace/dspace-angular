@@ -22,7 +22,6 @@ import { ItemPageFieldComponent } from '../item-page-field.component';
     MetadataFieldWrapperComponent,
     TranslatePipe,
   ],
-  standalone: true,
 })
 /**
  * This component can be used to represent metadata on a simple item page.

@@ -44,7 +44,6 @@ import { VarDirective } from '../shared/utils/var.directive';
   selector: 'ds-subscriptions-page',
   templateUrl: './subscriptions-page.component.html',
   styleUrls: ['./subscriptions-page.component.scss'],
-  standalone: true,
   imports: [
     AlertComponent,
     AsyncPipe,
@@ -106,7 +105,10 @@ export class SubscriptionsPageComponent implements OnInit, OnDestroy {
     this.ePersonId$ = this.authService.getAuthenticatedUserFromStore().pipe(
       take(1),
       map((ePerson: EPerson) => ePerson.id),
-      shareReplay({ refCount: false }),
+      shareReplay({
+        bufferSize: 1,
+        refCount: false,
+      }),
     );
     this.retrieveSubscriptions();
   }

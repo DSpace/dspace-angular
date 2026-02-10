@@ -28,7 +28,6 @@ import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
   selector: 'ds-base-email-request-copy',
   styleUrls: ['./email-request-copy.component.scss'],
   templateUrl: './email-request-copy.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     BtnDisabledDirective,

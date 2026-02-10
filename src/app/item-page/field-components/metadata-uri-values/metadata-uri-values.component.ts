@@ -24,7 +24,6 @@ import { MetadataValuesComponent } from '../metadata-values/metadata-values.comp
     MetadataFieldWrapperComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class MetadataUriValuesComponent extends MetadataValuesComponent {
 

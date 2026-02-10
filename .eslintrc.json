@@ -5,13 +5,13 @@
     "@angular-eslint/eslint-plugin",
     "eslint-plugin-import",
     "eslint-plugin-jsdoc",
-    "eslint-plugin-deprecation",
     "unused-imports",
     "eslint-plugin-lodash",
     "eslint-plugin-jsonc",
-    "eslint-plugin-rxjs",
+    "@smarttools/rxjs",
     "eslint-plugin-simple-import-sort",
     "eslint-plugin-import-newlines",
+    "@stylistic",
     "dspace-angular-ts",
     "dspace-angular-html"
   ],
@@ -37,7 +37,7 @@
         "plugin:@typescript-eslint/recommended-requiring-type-checking",
         "plugin:@angular-eslint/recommended",
         "plugin:@angular-eslint/template/process-inline-templates",
-        "plugin:rxjs/recommended"
+        "plugin:@smarttools/rxjs/recommended-legacy"
       ],
       "rules": {
         "indent": [
@@ -175,7 +175,8 @@
             "ignoreParameters": true
           }
         ],
-        "@typescript-eslint/quotes": [
+        "@angular-eslint/prefer-inject": "off",
+        "@stylistic/quotes": [
           "error",
           "single",
           {
@@ -183,7 +184,7 @@
             "allowTemplateLiterals": true
           }
         ],
-        "@typescript-eslint/semi": "error",
+        "@stylistic/semi": "error",
         "@typescript-eslint/no-shadow": "error",
         "@typescript-eslint/dot-notation": "error",
         "@typescript-eslint/consistent-type-definitions": "error",
@@ -206,9 +207,9 @@
             ]
           }
         ],
-        "@typescript-eslint/type-annotation-spacing": "error",
+        "@stylistic/type-annotation-spacing": "error",
         "@typescript-eslint/unified-signatures": "error",
-        "@typescript-eslint/ban-types": "error",
+        "@typescript-eslint/no-restricted-types": "error",
         "@typescript-eslint/no-floating-promises": "warn",
         "@typescript-eslint/no-misused-promises": "warn",
         "@typescript-eslint/restrict-plus-operands": "warn",
@@ -223,6 +224,7 @@
         "@typescript-eslint/no-unsafe-call": "off",
         "@typescript-eslint/no-unsafe-argument": "off",
         "@typescript-eslint/no-unsafe-return": "off",
+        "@typescript-eslint/no-redundant-type-constituents": "off",
         "@typescript-eslint/restrict-template-expressions": "off",
         "@typescript-eslint/require-await": "off",
         "@typescript-eslint/no-base-to-string": [
@@ -235,7 +237,7 @@
           }
         ],
 
-        "deprecation/deprecation": "warn",
+        "@typescript-eslint/no-deprecated": "warn",
 
         "simple-import-sort/imports": "error",
         "simple-import-sort/exports": "error",
@@ -264,7 +266,7 @@
           "method"
         ],
 
-        "rxjs/no-nested-subscribe": "off",     // todo: go over _all_ cases
+        "@smarttools/rxjs/no-nested-subscribe": "off",     // todo: go over _all_ cases
 
         // Custom DSpace Angular rules
         "dspace-angular-ts/alias-imports": [
@@ -279,7 +281,7 @@
             ]
           }
         ],
-        "dspace-angular-ts/themed-component-classes": "error",
+        "dspace-angular-ts/no-default-standalone-value": "error",
         "dspace-angular-ts/themed-component-selectors": "error",
         "dspace-angular-ts/themed-component-usages": "error",
         "dspace-angular-ts/themed-decorators": [

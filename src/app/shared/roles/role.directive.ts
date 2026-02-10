@@ -24,7 +24,6 @@ import {
 
 @Directive({
   selector: '[dsShowOnlyForRole],[dsShowExceptForRole]',
-  standalone: true,
 })
 /**
  * Structural Directive for showing or hiding a template based on current user role

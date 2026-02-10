@@ -12,17 +12,17 @@
           <ds-badges [object]="item" [context]="badgeContext" [showAccessStatus]="true"></ds-badges>
         </div>
         <ds-truncatable [id]="item.id">
-          <h2 [innerHTML]="dsoTitle" [ngClass]="{'lead': true,'text-muted': !item.firstMetadataValue('dc.title')}"></h2>
+          <h2 [innerHTML]="dsoTitle" [ngClass]="{'lead': true,'text-muted': !item.hasMetadata('dc.title')}"></h2>
           <div>
             <span class="text-muted">
               <ds-truncatable-part [id]="item.id" [minLines]="1">
                 (@if (item.hasMetadata('dc.publisher')) {
                 <span class="item-list-publisher"
-                      [dsMetadata]="item.firstMetadata('dc.publisher')"></span><span>, </span>
+                      [dsMetadata]="item.firstMetadata('dc.publisher', undefined, true)"></span><span>, </span>
               }
                 @if (item.hasMetadata('dc.date.issued')) {
                   <span class="item-list-date"
-                        [dsMetadata]="item.firstMetadata('dc.date.issued')"></span>
+                        [dsMetadata]="item.firstMetadata('dc.date.issued', undefined, true)"></span>
                 } @else {
                   <span class="item-list-date">{{ 'mydspace.results.no-date' | translate }}</span>
                 })

@@ -1,7 +1,4 @@
-import {
-  Injector,
-  runInInjectionContext,
-} from '@angular/core';
+import { Injector } from '@angular/core';
 import {
   fakeAsync,
   TestBed,
@@ -43,7 +40,7 @@ describe('MatomoService', () => {
 
   beforeEach(() => {
     matomoTracker = jasmine.createSpyObj('MatomoTracker', ['setConsentGiven', 'forgetConsentGiven', 'getVisitorId']);
-    matomoInitializer = jasmine.createSpyObj('MatomoInitializerService', ['initializeTracker']);
+    matomoInitializer = jasmine.createSpyObj('MatomoInitializerService', ['initializeTracker', 'initialize']);
     orejimeService = jasmine.createSpyObj('OrejimeService', ['getSavedPreferences']);
     nativeWindowService = jasmine.createSpyObj('NativeWindowService', [], { nativeWindow: {} });
     configService = jasmine.createSpyObj('ConfigurationDataService', ['findByPropertyName']);
@@ -99,9 +96,7 @@ describe('MatomoService', () => {
       createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), { values: ['1'] })));
     orejimeService.getSavedPreferences.and.returnValue(of({ matomo: true }));
 
-    runInInjectionContext(TestBed, () => {
-      service.init();
-    });
+    service.init();
 
     expect(matomoTracker.setConsentGiven).toHaveBeenCalled();
     expect(matomoInitializer.initializeTracker).toHaveBeenCalledWith({
@@ -123,9 +118,7 @@ describe('MatomoService', () => {
       createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), { values: ['1'] })));
     orejimeService.getSavedPreferences.and.returnValue(of({ matomo: true }));
 
-    runInInjectionContext(TestBed, () => {
-      service.init();
-    });
+    service.init();
 
     tick();
 
@@ -139,9 +132,7 @@ describe('MatomoService', () => {
   it('should not initialize tracker if not in production', () => {
     environment.production = false;
 
-    runInInjectionContext(TestBed, () => {
-      service.init();
-    });
+    service.init();
 
     expect(matomoInitializer.initializeTracker).not.toHaveBeenCalled();
   });
@@ -159,9 +150,7 @@ describe('MatomoService', () => {
       createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), { values: ['1'] })));
     orejimeService.getSavedPreferences.and.returnValue(of({ matomo: true }));
 
-    runInInjectionContext(TestBed, () => {
-      service.init();
-    });
+    service.init();
 
     expect(matomoInitializer.initializeTracker).not.toHaveBeenCalled();
   });

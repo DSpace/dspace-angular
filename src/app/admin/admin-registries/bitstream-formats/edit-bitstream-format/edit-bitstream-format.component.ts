@@ -34,7 +34,6 @@ import { FormatFormComponent } from '../format-form/format-form.component';
     FormatFormComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class EditBitstreamFormatComponent implements OnInit {
 

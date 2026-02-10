@@ -37,7 +37,6 @@ import { SplitPipe } from '../../../shared/utils/split.pipe';
     SplitPipe,
     TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * Component for displaying quality assurance event notifications for an item.

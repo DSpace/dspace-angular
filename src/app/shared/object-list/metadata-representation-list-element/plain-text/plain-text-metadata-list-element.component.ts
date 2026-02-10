@@ -9,7 +9,6 @@ import { MetadataRepresentationListElementComponent } from '../metadata-represen
 @Component({
   selector: 'ds-plain-text-metadata-list-element',
   templateUrl: './plain-text-metadata-list-element.component.html',
-  standalone: true,
   imports: [
     NormalizeLanguageCodePipe,
     RouterLink,

@@ -8,12 +8,7 @@ import { ItemStatisticsPageComponent } from './item-statistics-page.component';
  */
 @Component({
   selector: 'ds-item-statistics-page',
-  styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
-  standalone: true,
-  imports: [
-    ItemStatisticsPageComponent,
-  ],
 })
 export class ThemedItemStatisticsPageComponent extends ThemedComponent<ItemStatisticsPageComponent> {
   protected getComponentName(): string {

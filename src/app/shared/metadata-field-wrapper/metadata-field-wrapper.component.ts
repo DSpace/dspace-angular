@@ -12,7 +12,6 @@ import {
   selector: 'ds-metadata-field-wrapper',
   styleUrls: ['./metadata-field-wrapper.component.scss'],
   templateUrl: './metadata-field-wrapper.component.html',
-  standalone: true,
   imports: [],
 })
 export class MetadataFieldWrapperComponent {

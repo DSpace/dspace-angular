@@ -14,7 +14,6 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'ds-abstract-trackable',
   template: '',
-  standalone: true,
 })
 export class AbstractTrackableComponent implements OnInit {
 

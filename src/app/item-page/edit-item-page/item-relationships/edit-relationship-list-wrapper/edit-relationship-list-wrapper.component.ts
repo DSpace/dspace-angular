@@ -24,7 +24,6 @@ import { EditRelationshipListComponent } from '../edit-relationship-list/edit-re
   selector: 'ds-edit-relationship-list-wrapper',
   styleUrls: ['./edit-relationship-list-wrapper.component.scss'],
   templateUrl: './edit-relationship-list-wrapper.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     EditRelationshipListComponent,

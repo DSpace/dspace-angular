@@ -17,7 +17,6 @@ import { AppState } from '../../app.reducer';
 @Component({
   selector: 'ds-idle-modal',
   templateUrl: 'idle-modal.component.html',
-  standalone: true,
   imports: [
     TranslateModule,
   ],

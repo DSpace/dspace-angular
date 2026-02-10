@@ -11,7 +11,6 @@ import { By } from '@angular/platform-browser';
 import { BtnDisabledDirective } from './btn-disabled.directive';
 
 @Component({
-  standalone: true,
   template: `
     <button [dsBtnDisabled]="isDisabled">Test Button</button>
   `,

@@ -15,7 +15,6 @@ import { StartsWithType } from './starts-with-type';
 @Component({
   selector: 'ds-starts-with-loader',
   templateUrl: '../abstract-component-loader/abstract-component-loader.component.html',
-  standalone: true,
 })
 export class StartsWithLoaderComponent extends AbstractComponentLoaderComponent<StartsWithAbstractComponent> {
 

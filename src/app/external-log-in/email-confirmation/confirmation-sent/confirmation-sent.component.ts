@@ -12,8 +12,6 @@ import { TranslateModule } from '@ngx-translate/core';
   imports: [
     TranslateModule,
   ],
-  standalone: true,
-
 })
 /**
  * Simple component that shows up a confirmation to the user.

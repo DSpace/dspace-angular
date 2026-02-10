@@ -63,7 +63,6 @@ export const TYPE_REQUEST_REGISTER = 'register';
 @Component({
   selector: 'ds-base-register-email-form',
   templateUrl: './register-email-form.component.html',
-  standalone: true,
   imports: [
     AlertComponent,
     AsyncPipe,

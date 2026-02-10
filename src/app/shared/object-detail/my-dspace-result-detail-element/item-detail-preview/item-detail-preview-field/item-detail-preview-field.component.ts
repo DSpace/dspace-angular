@@ -17,7 +17,6 @@ import { MetadataFieldWrapperComponent } from '../../../../metadata-field-wrappe
 @Component({
   selector: 'ds-base-item-detail-preview-field',
   templateUrl: './item-detail-preview-field.component.html',
-  standalone: true,
   imports: [
     MetadataDirective,
     MetadataFieldWrapperComponent,
@@ -45,6 +44,11 @@ export class ItemDetailPreviewFieldComponent {
    * The metadata to show
    */
   @Input() metadata: string | string[];
+
+  /**
+   * Escape HTML in the metadata value
+   */
+  @Input() escapeMetadataHTML: boolean;
 
   /**
    * The placeholder if there are no value to show
@@ -83,6 +87,6 @@ export class ItemDetailPreviewFieldComponent {
    * @returns {string[]} the matching string values or an empty array.
    */
   allMetadataValues(keyOrKeys: string | string[]): string[] {
-    return Metadata.allValues([this.object.hitHighlights, this.item.metadata], keyOrKeys);
+    return Metadata.allValues(this.item.metadata, keyOrKeys, this.object.hitHighlights, undefined, this.escapeMetadataHTML);
   }
 }

@@ -17,7 +17,6 @@ import { ImpersonateNavbarComponent } from '../../../../app/shared/impersonate-n
   styleUrls: ['../../../../app/header/header.component.scss'],
   // templateUrl: 'header.component.html',
   templateUrl: '../../../../app/header/header.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     ContextHelpToggleComponent,

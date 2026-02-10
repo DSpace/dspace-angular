@@ -20,7 +20,6 @@ import { AccessControlFormContainerComponent } from '../../../shared/access-cont
     AccessControlFormContainerComponent,
     AsyncPipe,
   ],
-  standalone: true,
 })
 export class ItemAccessControlComponent implements OnInit {
 

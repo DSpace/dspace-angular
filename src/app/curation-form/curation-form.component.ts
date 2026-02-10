@@ -49,7 +49,6 @@ export const CURATION_CFG = 'plugin.named.org.dspace.curate.CurationTask';
 @Component({
   selector: 'ds-curation-form',
   templateUrl: './curation-form.component.html',
-  standalone: true,
   imports: [
     FormsModule,
     ReactiveFormsModule,

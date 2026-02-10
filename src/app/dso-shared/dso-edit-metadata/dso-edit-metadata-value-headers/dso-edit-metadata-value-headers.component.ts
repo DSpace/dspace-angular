@@ -8,7 +8,6 @@ import { TranslateModule } from '@ngx-translate/core';
   selector: 'ds-dso-edit-metadata-value-headers',
   styleUrls: ['./dso-edit-metadata-value-headers.component.scss', '../dso-edit-metadata-shared/dso-edit-metadata-cells.scss'],
   templateUrl: './dso-edit-metadata-value-headers.component.html',
-  standalone: true,
   imports: [
     TranslateModule,
   ],

@@ -28,7 +28,6 @@ import { DsDynamicInputModel } from './ds-dynamic-input.model';
  */
 @Component({
   selector: 'ds-dynamic-vocabulary',
-  standalone: true,
   template: '',
 })
 export abstract class DsDynamicVocabularyComponent extends DynamicFormControlComponent {

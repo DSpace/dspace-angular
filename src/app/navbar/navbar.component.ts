@@ -38,7 +38,6 @@ import { ThemeService } from '../shared/theme-support/theme.service';
   styleUrls: ['./navbar.component.scss'],
   templateUrl: './navbar.component.html',
   animations: [slideMobileNav],
-  standalone: true,
   imports: [
     AsyncPipe,
     NgbDropdownModule,

@@ -18,7 +18,6 @@ import { rendersAuthMethodType } from '../methods/log-in.methods-decorator.utils
   selector: 'ds-log-in-container',
   templateUrl: './log-in-container.component.html',
   styleUrls: ['./log-in-container.component.scss'],
-  standalone: true,
   imports: [
     NgComponentOutlet,
   ],
