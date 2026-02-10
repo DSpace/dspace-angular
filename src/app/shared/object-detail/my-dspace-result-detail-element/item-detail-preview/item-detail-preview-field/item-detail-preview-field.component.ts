@@ -68,8 +68,8 @@ export class ItemDetailPreviewFieldComponent {
    * @returns {MetadataValue[]} the matching values or an empty array.
    */
   allMetadata(keyOrKeys: string | string[]): MetadataValue[] {
-    const dsoMetadata: MetadataValue[] = Metadata.all([this.item.metadata], keyOrKeys);
-    const highlights: MetadataValue[] = Metadata.all([this.object.hitHighlights], keyOrKeys);
+    const dsoMetadata: MetadataValue[] = Metadata.all(this.item.metadata, keyOrKeys);
+    const highlights: MetadataValue[] = Metadata.all(this.object.hitHighlights, keyOrKeys);
     const removedHighlights: string[] = highlights.map(mv => mv.value.replace(/<\/?em>/g, ''));
     for (let i = 0; i < removedHighlights.length; i++) {
       const index = dsoMetadata.findIndex(mv => mv.value === removedHighlights[i]);

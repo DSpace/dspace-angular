@@ -8,7 +8,6 @@ import { MetadataValue } from '../core/shared/metadata.models';
 import { MetadataDirective } from './metadata.directive';
 
 @Component({
-  standalone: true,
   imports: [
     MetadataDirective,
   ],
