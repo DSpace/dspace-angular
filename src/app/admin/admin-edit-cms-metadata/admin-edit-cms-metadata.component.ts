@@ -1,7 +1,5 @@
 import {
   AsyncPipe,
-  NgForOf,
-  NgIf,
   NgTemplateOutlet,
 } from '@angular/common';
 import {
@@ -9,6 +7,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import {
   TranslateModule,
   TranslateService,
@@ -21,7 +20,6 @@ import { environment } from '../../../environments/environment';
 import { SiteDataService } from '../../core/data/site-data.service';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { Site } from '../../core/shared/site.model';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 
 /**
  * Component representing the page to edit cms metadata for site.
@@ -31,13 +29,12 @@ import { NotificationsService } from '@dspace/core/notification-system/notificat
   templateUrl: './admin-edit-cms-metadata.component.html',
   styleUrls: ['./admin-edit-cms-metadata.component.scss'],
   imports: [
-    FormsModule,
-    TranslateModule,
     AsyncPipe,
-    NgTemplateOutlet,
     BtnDisabledDirective,
+    FormsModule,
+    NgTemplateOutlet,
+    TranslateModule,
   ],
-  standalone: true,
 })
 export class AdminEditCmsMetadataComponent implements OnInit {
   /**

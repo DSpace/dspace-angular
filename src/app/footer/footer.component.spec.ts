@@ -10,17 +10,17 @@ import { ActivatedRoute } from '@angular/router';
 import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import { NotifyInfoService } from '@dspace/core/coar-notify/notify-info/notify-info.service';
 import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
+import { LocaleService } from '@dspace/core/locale/locale.service';
+import { ResourceType } from '@dspace/core/shared/resource-type';
 import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
 import { AuthorizationDataServiceStub } from '@dspace/core/testing/authorization-service.stub';
+import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { environment } from '../../environments/environment.test';
 import { FooterComponent } from './footer.component';
-import { provideMockStore } from '@ngrx/store/testing';
-import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
-import { ResourceType } from '@dspace/core/shared/resource-type';
-import { LocaleService } from '@dspace/core/locale/locale.service';
 
 let comp: FooterComponent;
 let fixture: ComponentFixture<FooterComponent>;
@@ -29,8 +29,8 @@ let localeService: any;
 const TEST_MODEL = new ResourceType('testmodel');
 const languageList = ['en;q=1', 'de;q=0.8'];
 const mockLocaleService = jasmine.createSpyObj('LocaleService', {
-    getCurrentLanguageCode: jasmine.createSpy('getCurrentLanguageCode'),
-    getLanguageCodeList: of(languageList),
+  getCurrentLanguageCode: jasmine.createSpy('getCurrentLanguageCode'),
+  getLanguageCodeList: of(languageList),
 });
 
 let notifyInfoService = {
@@ -52,8 +52,8 @@ describe('Footer component', () => {
         provideMockStore({
           initialState: {
             index: {
-            }
-          }
+            },
+          },
         }),
         { provide: LocaleService, useValue: mockLocaleService },
         { provide: AuthorizationDataService, useClass: AuthorizationDataServiceStub },

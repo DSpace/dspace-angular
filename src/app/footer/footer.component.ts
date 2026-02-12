@@ -17,6 +17,7 @@ import { NotifyInfoService } from '@dspace/core/coar-notify/notify-info/notify-i
 import { OrejimeService } from '@dspace/core/cookies/orejime.service';
 import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
+import { SiteDataService } from '@dspace/core/data/site-data.service';
 import { LocaleService } from '@dspace/core/locale/locale.service';
 import { hasValue } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
@@ -27,8 +28,8 @@ import {
   of,
   take,
 } from 'rxjs';
+
 import { MarkdownViewerComponent } from '../shared/markdown-viewer/markdown-viewer.component';
-import { SiteDataService } from '@dspace/core/data/site-data.service';
 
 @Component({
   selector: 'ds-base-footer',
@@ -37,9 +38,9 @@ import { SiteDataService } from '@dspace/core/data/site-data.service';
   imports: [
     AsyncPipe,
     DatePipe,
+    MarkdownViewerComponent,
     RouterLink,
     TranslateModule,
-    MarkdownViewerComponent
   ],
 })
 export class FooterComponent implements OnInit {
@@ -75,7 +76,7 @@ export class FooterComponent implements OnInit {
 
     this.footerMetadataValue$ = combineLatest({
       site$: this.siteService.find().pipe(
-        take(1)
+        take(1),
       ),
       language$: this.locale.getCurrentLanguageCode(),
     }).pipe(

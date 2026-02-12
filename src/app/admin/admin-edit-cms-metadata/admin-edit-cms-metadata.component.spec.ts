@@ -6,6 +6,9 @@ import {
 } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import {
   TranslateLoader,
   TranslateModule,
@@ -16,9 +19,6 @@ import { environment } from '../../../environments/environment.test';
 import { SiteDataService } from '../../core/data/site-data.service';
 import { Site } from '../../core/shared/site.model';
 import { AdminEditCmsMetadataComponent } from './admin-edit-cms-metadata.component';
-import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
-import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 
 describe('AdminEditCmsMetadataComponent', () => {
 

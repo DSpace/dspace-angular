@@ -1,6 +1,10 @@
-import { AsyncPipe, NgTemplateOutlet } from '@angular/common';
+import {
+  AsyncPipe,
+  NgTemplateOutlet,
+} from '@angular/common';
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
+import { MarkdownViewerComponent } from 'src/app/shared/markdown-viewer/markdown-viewer.component';
 
 import { HomeCoarComponent } from '../../../../app/home-page/home-coar/home-coar.component';
 import { ThemedHomeNewsComponent } from '../../../../app/home-page/home-news/themed-home-news.component';
@@ -10,7 +14,6 @@ import { ThemedTopLevelCommunityListComponent } from '../../../../app/home-page/
 import { SuggestionsPopupComponent } from '../../../../app/notifications/suggestions/popup/suggestions-popup.component';
 import { ThemedConfigurationSearchPageComponent } from '../../../../app/search-page/themed-configuration-search-page.component';
 import { ThemedSearchFormComponent } from '../../../../app/shared/search-form/themed-search-form.component';
-import { MarkdownViewerComponent } from 'src/app/shared/markdown-viewer/markdown-viewer.component';
 
 @Component({
   selector: 'ds-themed-home-page',
@@ -19,7 +22,9 @@ import { MarkdownViewerComponent } from 'src/app/shared/markdown-viewer/markdown
   // templateUrl: './home-page.component.html'
   templateUrl: '../../../../app/home-page/home-page.component.html',
   imports: [
+    AsyncPipe,
     HomeCoarComponent,
+    MarkdownViewerComponent,
     NgTemplateOutlet,
     RecentItemListComponent,
     SuggestionsPopupComponent,
@@ -28,8 +33,6 @@ import { MarkdownViewerComponent } from 'src/app/shared/markdown-viewer/markdown
     ThemedSearchFormComponent,
     ThemedTopLevelCommunityListComponent,
     TranslateModule,
-    MarkdownViewerComponent,
-    AsyncPipe
   ],
 })
 export class HomePageComponent extends BaseComponent {

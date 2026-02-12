@@ -10,6 +10,7 @@ import { AuthConfig } from './auth-config.interfaces';
 import { BrowseByConfig } from './browse-by-config.interface';
 import { BundleConfig } from './bundle-config.interface';
 import { CacheConfig } from './cache-config.interface';
+import { CmsMetadata } from './cms-metadata';
 import { CollectionPageConfig } from './collection-page-config.interface';
 import { CommunityListConfig } from './community-list-config.interface';
 import { CommunityPageConfig } from './community-page-config.interface';
@@ -34,7 +35,6 @@ import { SubmissionConfig } from './submission-config.interface';
 import { SuggestionConfig } from './suggestion-config.interfaces';
 import { ThemeConfig } from './theme.config';
 import { UIServerConfig } from './ui-server-config.interface';
-import { CmsMetadata } from './cms-metadata';
 
 interface AppConfig extends Config {
   ui: UIServerConfig;

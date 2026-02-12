@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FollowLinkConfig } from '@dspace/core/shared/follow-link-config.model';
+import { Operation } from 'fast-json-patch/module/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -13,15 +14,16 @@ import {
   FindAllData,
   FindAllDataImpl,
 } from './base/find-all-data';
+import { constructIdEndpointDefault } from './base/identifiable-data.service';
+import {
+  PatchData,
+  PatchDataImpl,
+} from './base/patch-data';
+import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { FindListOptions } from './find-list-options.model';
 import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
 import { RequestService } from './request.service';
-import { Operation } from 'fast-json-patch/module/core';
-import { PatchData, PatchDataImpl } from './base/patch-data';
-import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
-
-import { constructIdEndpointDefault } from './base/identifiable-data.service';
 
 /**
  * Service responsible for handling requests related to the Site object

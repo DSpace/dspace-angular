@@ -5,9 +5,9 @@ import {
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { MarkdownViewerComponent } from 'src/app/shared/markdown-viewer/markdown-viewer.component';
 
 import { FooterComponent as BaseComponent } from '../../../../app/footer/footer.component';
-import { MarkdownViewerComponent } from 'src/app/shared/markdown-viewer/markdown-viewer.component';
 
 @Component({
   selector: 'ds-themed-footer',
@@ -18,9 +18,9 @@ import { MarkdownViewerComponent } from 'src/app/shared/markdown-viewer/markdown
   imports: [
     AsyncPipe,
     DatePipe,
+    MarkdownViewerComponent,
     RouterLink,
     TranslateModule,
-    MarkdownViewerComponent
   ],
 })
 export class FooterComponent extends BaseComponent {
