@@ -7253,20 +7253,20 @@
   // "search.filters.discoverable.false": "Yes",
   "search.filters.discoverable.false": "Sim",
 
-  // "search.filters.namedresourcetype.Archived": "Archived",
-  "search.filters.namedresourcetype.Archived": "Arquivado",
+  // "search.filters.namedresourcetype.archived": "Archived",
+  "search.filters.namedresourcetype.archived": "Arquivado",
 
-  // "search.filters.namedresourcetype.Validation": "Validation",
-  "search.filters.namedresourcetype.Validation": "Validação",
+  // "search.filters.namedresourcetype.validation": "Validation",
+  "search.filters.namedresourcetype.validation": "Validação",
 
-  // "search.filters.namedresourcetype.Waiting for Controller": "Waiting for reviewer",
-  "search.filters.namedresourcetype.Waiting for Controller": "Esperando por revisor(a)",
+  // "search.filters.namedresourcetype.waiting for Controller": "Waiting for reviewer",
+  "search.filters.namedresourcetype.waiting for Controller": "Esperando por revisor(a)",
 
-  // "search.filters.namedresourcetype.Workflow": "Workflow",
-  "search.filters.namedresourcetype.Workflow": "Fluxo de trabalho",
+  // "search.filters.namedresourcetype.workflow": "Workflow",
+  "search.filters.namedresourcetype.workflow": "Fluxo de trabalho",
 
-  // "search.filters.namedresourcetype.Workspace": "Workspace",
-  "search.filters.namedresourcetype.Workspace": "Área de trabalho",
+  // "search.filters.namedresourcetype.workspace": "Workspace",
+  "search.filters.namedresourcetype.workspace": "Área de trabalho",
 
   // "search.filters.withdrawn.true": "Yes",
   "search.filters.withdrawn.true": "Sim",

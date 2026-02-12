@@ -1,4 +1,7 @@
-import { AsyncPipe } from '@angular/common';
+import { 
+  AsyncPipe,
+  LowerCasePipe,
+} from '@angular/common';
 import {
   Component,
   Input,
@@ -26,6 +29,7 @@ import { SearchFilterService } from '../../../search-filter.service';
   templateUrl: './search-facet-selected-option.component.html',
   imports: [
     AsyncPipe,
+    LowerCasePipe,
     RouterLink,
     TranslateModule,
   ],

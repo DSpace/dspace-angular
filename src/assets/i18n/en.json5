@@ -4904,15 +4904,15 @@
 
   "search.filters.discoverable.false": "Yes",
 
-  "search.filters.namedresourcetype.Archived": "Archived",
+  "search.filters.namedresourcetype.archived": "Archived",
 
-  "search.filters.namedresourcetype.Validation": "Validation",
+  "search.filters.namedresourcetype.validation": "Validation",
 
-  "search.filters.namedresourcetype.Waiting for Controller": "Waiting for reviewer",
+  "search.filters.namedresourcetype.waiting for Controller": "Waiting for reviewer",
 
-  "search.filters.namedresourcetype.Workflow": "Workflow",
+  "search.filters.namedresourcetype.workflow": "Workflow",
 
-  "search.filters.namedresourcetype.Workspace": "Workspace",
+  "search.filters.namedresourcetype.workspace": "Workspace",
 
   "search.filters.withdrawn.true": "Yes",
 
