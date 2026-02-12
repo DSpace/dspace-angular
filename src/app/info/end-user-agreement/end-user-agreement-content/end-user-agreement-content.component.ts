@@ -1,14 +1,20 @@
-import { AsyncPipe, NgIf } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { SiteDataService } from '@dspace/core/data/site-data.service';
 import { LocaleService } from '@dspace/core/locale/locale.service';
 import { MetadatumViewModel } from '@dspace/core/shared/metadata.models';
 import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
-import { combineLatest } from 'rxjs';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import { Subscription } from 'rxjs/internal/Subscription';
+import {
+  BehaviorSubject,
+  combineLatest,
+  Subscription,
+} from 'rxjs';
 import { MarkdownViewerComponent } from 'src/app/shared/markdown-viewer/markdown-viewer.component';
 
 @Component({
@@ -16,10 +22,10 @@ import { MarkdownViewerComponent } from 'src/app/shared/markdown-viewer/markdown
   templateUrl: './end-user-agreement-content.component.html',
   styleUrls: ['./end-user-agreement-content.component.scss'],
   imports: [
+    AsyncPipe,
+    MarkdownViewerComponent,
     RouterLink,
     TranslateModule,
-    MarkdownViewerComponent,
-    AsyncPipe,
   ],
 })
 /**

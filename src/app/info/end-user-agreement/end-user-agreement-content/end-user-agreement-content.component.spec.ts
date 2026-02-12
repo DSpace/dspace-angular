@@ -5,16 +5,16 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { RouterLink } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
-
-import { EndUserAgreementContentComponent } from './end-user-agreement-content.component';
-import { provideMockStore } from '@ngrx/store/testing';
-import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
-import { ResourceType } from '@dspace/core/shared/resource-type';
-import { environment } from '../../../../environments/environment.test';
 import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
 import { LocaleService } from '@dspace/core/locale/locale.service';
+import { ResourceType } from '@dspace/core/shared/resource-type';
+import { provideMockStore } from '@ngrx/store/testing';
+import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
+
+import { environment } from '../../../../environments/environment.test';
+import { EndUserAgreementContentComponent } from './end-user-agreement-content.component';
 
 let localeService: any;
 
@@ -26,8 +26,8 @@ const mockDataServiceMap: any = new Map([
 
 const languageList = ['en;q=1', 'de;q=0.8'];
 const mockLocaleService = jasmine.createSpyObj('LocaleService', {
-    getCurrentLanguageCode: jasmine.createSpy('getCurrentLanguageCode'),
-    getLanguageCodeList: of(languageList),
+  getCurrentLanguageCode: jasmine.createSpy('getCurrentLanguageCode'),
+  getLanguageCodeList: of(languageList),
 });
 
 describe('EndUserAgreementContentComponent', () => {
@@ -42,8 +42,8 @@ describe('EndUserAgreementContentComponent', () => {
         provideMockStore({
           initialState: {
             index: {
-            }
-          }
+            },
+          },
         }),
         { provide: APP_DATA_SERVICES_MAP, useValue: mockDataServiceMap },
         { provide: APP_CONFIG, useValue: environment },
@@ -51,14 +51,14 @@ describe('EndUserAgreementContentComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
-    .overrideComponent(EndUserAgreementContentComponent, {
-      remove: {
-        imports: [RouterLink],
-      },
-    })
-    .compileComponents();
+      .overrideComponent(EndUserAgreementContentComponent, {
+        remove: {
+          imports: [RouterLink],
+        },
+      })
+      .compileComponents();
   }));
-  
+
   beforeEach(() => {
     fixture = TestBed.createComponent(EndUserAgreementContentComponent);
     localeService = TestBed.inject(LocaleService);

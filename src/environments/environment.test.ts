@@ -585,5 +585,5 @@ export const environment: BuildConfig = {
       'cris.cms.home-news',
       'cris.cms.footer',
     ],
-  }
+  },
 };

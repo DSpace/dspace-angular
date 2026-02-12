@@ -21,6 +21,8 @@ import { CurationMenuProvider } from './shared/menu/providers/curation.menu';
 import { DSpaceObjectEditMenuProvider } from './shared/menu/providers/dso-edit.menu';
 import { DsoOptionMenuProvider } from './shared/menu/providers/dso-option.menu';
 import { EditMenuProvider } from './shared/menu/providers/edit.menu';
+import { EditCMSMetadataMenuProvider } from './shared/menu/providers/edit-cms-metadata.menu';
+import { EditUserAgreementMenuProvider } from './shared/menu/providers/edit-user-agreement.menu';
 import { ExportMenuProvider } from './shared/menu/providers/export.menu';
 import { HealthMenuProvider } from './shared/menu/providers/health.menu';
 import { ImportMenuProvider } from './shared/menu/providers/import.menu';
@@ -35,8 +37,6 @@ import { StatisticsMenuProvider } from './shared/menu/providers/statistics.menu'
 import { SystemWideAlertMenuProvider } from './shared/menu/providers/system-wide-alert.menu';
 import { WithdrawnReinstateItemMenuProvider } from './shared/menu/providers/withdrawn-reinstate-item.menu';
 import { WorkflowMenuProvider } from './shared/menu/providers/workflow.menu';
-import { EditCMSMetadataMenuProvider } from './shared/menu/providers/edit-cms-metadata.menu';
-import { EditUserAgreementMenuProvider } from './shared/menu/providers/edit-user-agreement.menu';
 
 /**
  * Represents and builds the menu structure for the three available menus (public navbar, admin sidebar and the dso edit

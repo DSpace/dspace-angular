@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
-  waitForAsync,
   ComponentFixture,
   inject,
   TestBed,
+  waitForAsync,
 } from '@angular/core/testing';
 import {
   FormsModule,
@@ -12,7 +12,13 @@ import {
 } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
+import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { ResourceType } from '@dspace/core/shared/resource-type';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { provideMockStore } from '@ngrx/store/testing';
 import {
   TranslateLoader,
   TranslateModule,
@@ -27,12 +33,6 @@ import { SiteDataService } from '../../core/data/site-data.service';
 import { Site } from '../../core/shared/site.model';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { AdminEditUserAgreementComponent } from './admin-edit-user-agreement.component';
-import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
-import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { provideMockStore } from '@ngrx/store/testing';
-import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
-import { ResourceType } from '@dspace/core/shared/resource-type';
 
 const TEST_MODEL = new ResourceType('testmodel');
 
@@ -84,8 +84,8 @@ describe('AdminEditUserAgreementComponent', () => {
         provideMockStore({
           initialState: {
             index: {
-            }
-          }
+            },
+          },
         }),
         { provide: APP_DATA_SERVICES_MAP, useValue: mockDataServiceMap },
         { provide: NotificationsService, useValue: notificationService },

@@ -1,8 +1,8 @@
+import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
+import { MarkdownViewerComponent } from 'src/app/shared/markdown-viewer/markdown-viewer.component';
 
 import { HomeNewsComponent as BaseComponent } from '../../../../../app/home-page/home-news/home-news.component';
-import { MarkdownViewerComponent } from 'src/app/shared/markdown-viewer/markdown-viewer.component';
-import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'ds-themed-home-news',
@@ -11,9 +11,9 @@ import { AsyncPipe } from '@angular/common';
   // templateUrl: './home-news.component.html'
   templateUrl: '../../../../../app/home-page/home-news/home-news.component.html',
   imports: [
+    AsyncPipe,
     MarkdownViewerComponent,
-    AsyncPipe
-  ]
+  ],
 })
 export class HomeNewsComponent extends BaseComponent {
 }

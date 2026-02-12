@@ -11,10 +11,10 @@ import { Site } from '../shared/site.model';
 import { createPaginatedList } from '../testing/utils.test';
 import { createSuccessfulRemoteDataObject } from '../utilities/remote-data.utils';
 import { testFindAllDataImplementation } from './base/find-all-data.spec';
+import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { FindListOptions } from './find-list-options.model';
 import { RequestService } from './request.service';
 import { SiteDataService } from './site-data.service';
-import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 
 describe('SiteDataService', () => {
   let scheduler: TestScheduler;

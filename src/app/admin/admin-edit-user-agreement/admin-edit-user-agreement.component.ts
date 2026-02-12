@@ -1,13 +1,11 @@
-import {
-  KeyValuePipe,
-  NgForOf,
-} from '@angular/common';
+import { KeyValuePipe } from '@angular/common';
 import {
   Component,
   OnDestroy,
   OnInit,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -22,7 +20,6 @@ import { SiteDataService } from '../../core/data/site-data.service';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { Site } from '../../core/shared/site.model';
 import { AlertComponent } from '../../shared/alert/alert.component';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 
 /**
  * Component that represents the user agreement edit page for administrators.
@@ -32,11 +29,10 @@ import { NotificationsService } from '@dspace/core/notification-system/notificat
   templateUrl: './admin-edit-user-agreement.component.html',
   imports: [
     AlertComponent,
-    TranslateModule,
-    KeyValuePipe,
     FormsModule,
+    KeyValuePipe,
+    TranslateModule,
   ],
-  standalone: true,
 })
 export class AdminEditUserAgreementComponent implements OnInit, OnDestroy {
 

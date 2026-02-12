@@ -1,9 +1,17 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LocaleService } from '@dspace/core/locale/locale.service';
 import { Site } from '@dspace/core/shared/site.model';
-import { combineLatest, map, Observable, take, tap } from 'rxjs';
+import {
+  combineLatest,
+  map,
+  Observable,
+  take,
+} from 'rxjs';
 import { MarkdownViewerComponent } from 'src/app/shared/markdown-viewer/markdown-viewer.component';
 
 @Component({
@@ -11,9 +19,9 @@ import { MarkdownViewerComponent } from 'src/app/shared/markdown-viewer/markdown
   styleUrls: ['./home-news.component.scss'],
   templateUrl: './home-news.component.html',
   imports: [
-    MarkdownViewerComponent,
     AsyncPipe,
-  ]
+    MarkdownViewerComponent,
+  ],
 })
 
 /**

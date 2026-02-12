@@ -1,4 +1,7 @@
-import { AsyncPipe, NgTemplateOutlet } from '@angular/common';
+import {
+  AsyncPipe,
+  NgTemplateOutlet,
+} from '@angular/common';
 import {
   Component,
   Inject,
@@ -9,27 +12,35 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '@dspace/config/app-config.interface';
+import { LocaleService } from '@dspace/core/locale/locale.service';
 import { Site } from '@dspace/core/shared/site.model';
 import { TranslateModule } from '@ngx-translate/core';
-import { combineLatest, Observable } from 'rxjs';
-import { map, take } from 'rxjs/operators';
+import {
+  combineLatest,
+  Observable,
+} from 'rxjs';
+import {
+  map,
+  take,
+} from 'rxjs/operators';
 
 import { SuggestionsPopupComponent } from '../notifications/suggestions/popup/suggestions-popup.component';
 import { ThemedConfigurationSearchPageComponent } from '../search-page/themed-configuration-search-page.component';
+import { MarkdownViewerComponent } from '../shared/markdown-viewer/markdown-viewer.component';
 import { ThemedSearchFormComponent } from '../shared/search-form/themed-search-form.component';
 import { HomeCoarComponent } from './home-coar/home-coar.component';
 import { ThemedHomeNewsComponent } from './home-news/themed-home-news.component';
 import { RecentItemListComponent } from './recent-item-list/recent-item-list.component';
 import { ThemedTopLevelCommunityListComponent } from './top-level-community-list/themed-top-level-community-list.component';
-import { LocaleService } from '@dspace/core/locale/locale.service';
-import { MarkdownViewerComponent } from '../shared/markdown-viewer/markdown-viewer.component';
 
 @Component({
   selector: 'ds-base-home-page',
   styleUrls: ['./home-page.component.scss'],
   templateUrl: './home-page.component.html',
   imports: [
+    AsyncPipe,
     HomeCoarComponent,
+    MarkdownViewerComponent,
     NgTemplateOutlet,
     RecentItemListComponent,
     SuggestionsPopupComponent,
@@ -38,8 +49,6 @@ import { MarkdownViewerComponent } from '../shared/markdown-viewer/markdown-view
     ThemedSearchFormComponent,
     ThemedTopLevelCommunityListComponent,
     TranslateModule,
-    MarkdownViewerComponent,
-    AsyncPipe,
   ],
 })
 export class HomePageComponent implements OnInit {
