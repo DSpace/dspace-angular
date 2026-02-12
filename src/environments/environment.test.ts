@@ -477,4 +477,12 @@ export const environment: BuildConfig = {
   accessibility: {
     cookieExpirationDuration: 7,
   },
+
+  cms: {
+    metadataList: [
+      'cris.cms.home-header',
+      'cris.cms.home-news',
+      'cris.cms.footer',
+    ],
+  }
 };

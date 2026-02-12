@@ -7291,4 +7291,24 @@
   "item.preview.organization.address.addressLocality": "City",
 
   "item.preview.organization.alternateName": "Alternative name",
+
+  "admin.edit-cms-metadata.success": "Metadata successfully updated",
+
+  "admin.edit-cms-metadata.back-button": "Back",
+
+  "admin.edit-cms-metadata.save-button": "Save",
+
+  "admin.edit-cms-metadata.select-metadata": "Select metadata to edit",
+
+  "admin.edit-cms-metadata.edit-button": "Edit",
+
+  "admin.edit-cms-metadata.breadcrumbs": "Edit CMS Metadata",
+
+  "admin.edit-cms-metadata.title": "Edit CMS Metadata",
+
+  "admin.edit-cms-metadata.error": "An error occurred while updating the metadata",
+
+  "menu.section.edit-cms-metadata": "Edit CMS Metadata",
+
+  "menu.section.cms.edit.metadata.head": "Edit Metadata",
 }

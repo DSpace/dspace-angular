@@ -6,6 +6,7 @@ import { AuthConfig } from './auth-config.interfaces';
 import { BrowseByConfig } from './browse-by-config.interface';
 import { BundleConfig } from './bundle-config.interface';
 import { CacheConfig } from './cache-config.interface';
+import { CmsMetadata } from './cms-metadata';
 import { CollectionPageConfig } from './collection-page-config.interface';
 import { CommunityListConfig } from './community-list-config.interface';
 import { CommunityPageConfig } from './community-page-config.interface';
@@ -645,5 +646,13 @@ export class DefaultAppConfig implements AppConfig {
   // Accessibility settings configuration, used by the AccessibilitySettingsService
   accessibility: AccessibilitySettingsConfig = {
     cookieExpirationDuration: 7,
+  };
+
+  cms: CmsMetadata = {
+    metadataList: [
+      'cris.cms.home-header',
+      'cris.cms.home-news',
+      'cris.cms.footer',
+    ],
   };
 }

@@ -14,6 +14,7 @@ import { testFindAllDataImplementation } from './base/find-all-data.spec';
 import { FindListOptions } from './find-list-options.model';
 import { RequestService } from './request.service';
 import { SiteDataService } from './site-data.service';
+import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 
 describe('SiteDataService', () => {
   let scheduler: TestScheduler;
@@ -22,6 +23,7 @@ describe('SiteDataService', () => {
   let requestService: RequestService;
   let rdbService: RemoteDataBuildService;
   let objectCache: ObjectCacheService;
+  let comparator: DefaultChangeAnalyzer<Site>;
 
   const testObject = Object.assign(new Site(), {
     uuid: '9b4f22f4-164a-49db-8817-3316b6ee5746',
@@ -55,11 +57,12 @@ describe('SiteDataService', () => {
       rdbService,
       objectCache,
       halService,
+      comparator,
     );
   });
 
   describe('composition', () => {
-    const initService = () => new SiteDataService(null, null, null, null);
+    const initService = () => new SiteDataService(null, null, null, null, null);
 
     testFindAllDataImplementation(initService);
   });
