@@ -67,17 +67,6 @@ export class ExternalSourceDataService extends IdentifiableDataService<ExternalS
   }
 
   /**
-   * Get the endpoint for an external source's entryValues by given entry id
-   * @param externalSourceId  The id of the external source to fetch entry for
-   * @param entryId           The id of the external source entry to retrieve
-   */
-  getEntryIDHref(externalSourceId: string, entryId: string): Observable<string> {
-    return this.getBrowseEndpoint().pipe(
-      map((href) => href + '/' + externalSourceId + '/entryValues/' + entryId),
-    );
-  }
-
-  /**
    * Get the entries for an external source
    * @param externalSourceId            The id of the external source to fetch entries for
    * @param searchOptions               The search options to limit results to
