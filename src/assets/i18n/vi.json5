@@ -12266,5 +12266,44 @@
   // TODO New key - Add a translation
   "file-download-link.request-copy": "Request a copy of ",
 
+  // "admin.edit-cms-metadata.success": "Metadata successfully updated"
+  // TODO New key - Add a translation
+  "admin.edit-cms-metadata.success": "Metadata successfully updated",
+
+  // "admin.edit-cms-metadata.back-button": "Back"
+  // TODO New key - Add a translation
+  "admin.edit-cms-metadata.back-button": "Back",
+
+  // "admin.edit-cms-metadata.save-button": "Save"
+  // TODO New key - Add a translation
+  "admin.edit-cms-metadata.save-button": "Save",
+
+  // "admin.edit-cms-metadata.select-metadata": "Select metadata to edit"
+  // TODO New key - Add a translation
+  "admin.edit-cms-metadata.select-metadata": "Select metadata to edit",
+
+  // "admin.edit-cms-metadata.edit-button": "Edit"
+  // TODO New key - Add a translation
+  "admin.edit-cms-metadata.edit-button": "Edit",
+
+  // "admin.edit-cms-metadata.breadcrumbs": "Edit CMS Metadata"
+  // TODO New key - Add a translation
+  "admin.edit-cms-metadata.breadcrumbs": "Edit CMS Metadata",
+
+  // "admin.edit-cms-metadata.title": "Edit CMS Metadata",
+  // TODO New key - Add a translation
+  "admin.edit-cms-metadata.title": "Edit CMS Metadata",
+
+  // "admin.edit-cms-metadata.error": "An error occurred while updating the metadata"
+  // TODO New key - Add a translation
+  "admin.edit-cms-metadata.error": "An error occurred while updating the metadata",
+
+  // "menu.section.edit-cms-metadata": "Edit CMS Metadata"
+  // TODO New key - Add a translation
+  "menu.section.edit-cms-metadata": "Edit CMS Metadata",
+
+  // "menu.section.cms.edit.metadata.head": "Edit Metadata"
+  // TODO New key - Add a translation
+  "menu.section.cms.edit.metadata.head": "Edit Metadata",
 
 }

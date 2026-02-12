@@ -578,4 +578,12 @@ export const environment: BuildConfig = {
     showCounters: true,
     title: 'DSpace demo',
   },
+
+  cms: {
+    metadataList: [
+      'cris.cms.home-header',
+      'cris.cms.home-news',
+      'cris.cms.footer',
+    ],
+  }
 };

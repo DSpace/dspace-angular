@@ -7469,4 +7469,24 @@
   "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfDataset.added.local-entity": "Successfully added local organization to the selection",
 
   "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfDataset.added.new-entity": "Successfully imported and added external organization to the selection",
+  
+  "admin.edit-cms-metadata.success": "Metadata successfully updated",
+
+  "admin.edit-cms-metadata.back-button": "Back",
+
+  "admin.edit-cms-metadata.save-button": "Save",
+
+  "admin.edit-cms-metadata.select-metadata": "Select metadata to edit",
+
+  "admin.edit-cms-metadata.edit-button": "Edit",
+
+  "admin.edit-cms-metadata.breadcrumbs": "Edit CMS Metadata",
+
+  "admin.edit-cms-metadata.title": "Edit CMS Metadata",
+
+  "admin.edit-cms-metadata.error": "An error occurred while updating the metadata",
+
+  "menu.section.edit-cms-metadata": "Edit CMS Metadata",
+
+  "menu.section.cms.edit.metadata.head": "Edit Metadata",
 }

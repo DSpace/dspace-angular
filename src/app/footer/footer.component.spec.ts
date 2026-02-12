@@ -17,13 +17,29 @@ import { of } from 'rxjs';
 
 import { environment } from '../../environments/environment.test';
 import { FooterComponent } from './footer.component';
+import { provideMockStore } from '@ngrx/store/testing';
+import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
+import { ResourceType } from '@dspace/core/shared/resource-type';
+import { LocaleService } from '@dspace/core/locale/locale.service';
 
 let comp: FooterComponent;
 let fixture: ComponentFixture<FooterComponent>;
+let localeService: any;
+
+const TEST_MODEL = new ResourceType('testmodel');
+const languageList = ['en;q=1', 'de;q=0.8'];
+const mockLocaleService = jasmine.createSpyObj('LocaleService', {
+    getCurrentLanguageCode: jasmine.createSpy('getCurrentLanguageCode'),
+    getLanguageCodeList: of(languageList),
+});
 
 let notifyInfoService = {
   isCoarConfigEnabled: () => of(true),
 };
+
+const mockDataServiceMap: any = new Map([
+  [TEST_MODEL.value, () => import('../core/testing/test-data-service.mock').then(m => m.TestDataService)],
+]);
 
 describe('Footer component', () => {
   beforeEach(waitForAsync(() => {
@@ -33,16 +49,26 @@ describe('Footer component', () => {
       ],
       providers: [
         FooterComponent,
+        provideMockStore({
+          initialState: {
+            index: {
+            }
+          }
+        }),
+        { provide: LocaleService, useValue: mockLocaleService },
         { provide: AuthorizationDataService, useClass: AuthorizationDataServiceStub },
         { provide: NotifyInfoService, useValue: notifyInfoService },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         { provide: APP_CONFIG, useValue: environment },
+        { provide: APP_DATA_SERVICES_MAP, useValue: mockDataServiceMap },
       ],
     });
   }));
 
   // synchronous beforeEach
   beforeEach(() => {
+    localeService = TestBed.inject(LocaleService);
+    localeService.getCurrentLanguageCode.and.returnValue(of('en'));
     fixture = TestBed.createComponent(FooterComponent);
     comp = fixture.componentInstance;
   });

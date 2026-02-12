@@ -1,4 +1,4 @@
-import { NgTemplateOutlet } from '@angular/common';
+import { AsyncPipe, NgTemplateOutlet } from '@angular/common';
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -10,6 +10,7 @@ import { ThemedTopLevelCommunityListComponent } from '../../../../app/home-page/
 import { SuggestionsPopupComponent } from '../../../../app/notifications/suggestions/popup/suggestions-popup.component';
 import { ThemedConfigurationSearchPageComponent } from '../../../../app/search-page/themed-configuration-search-page.component';
 import { ThemedSearchFormComponent } from '../../../../app/shared/search-form/themed-search-form.component';
+import { MarkdownViewerComponent } from 'src/app/shared/markdown-viewer/markdown-viewer.component';
 
 @Component({
   selector: 'ds-themed-home-page',
@@ -27,6 +28,8 @@ import { ThemedSearchFormComponent } from '../../../../app/shared/search-form/th
     ThemedSearchFormComponent,
     ThemedTopLevelCommunityListComponent,
     TranslateModule,
+    MarkdownViewerComponent,
+    AsyncPipe
   ],
 })
 export class HomePageComponent extends BaseComponent {
