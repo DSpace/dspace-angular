@@ -7256,6 +7256,9 @@
   // "search.filters.namedresourcetype.archived": "Archived",
   "search.filters.namedresourcetype.archived": "Arquivado",
 
+  // "search.filters.namedresourcetype.item": "Archived",
+  "search.filters.namedresourcetype.item": "Arquivado",
+
   // "search.filters.namedresourcetype.validation": "Validation",
   "search.filters.namedresourcetype.validation": "Validação",
 

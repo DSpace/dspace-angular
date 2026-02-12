@@ -7255,6 +7255,9 @@
   // "search.filters.namedresourcetype.Archived": "Archived",
   "search.filters.namedresourcetype.Archived": "Archivált",
 
+  // "search.filters.namedresourcetype.item": "Archived",
+  "search.filters.namedresourcetype.item": "Archivált",
+
   // "search.filters.namedresourcetype.Validation": "Validation",
   "search.filters.namedresourcetype.Validation": "Ellenőrzés alatt",
 

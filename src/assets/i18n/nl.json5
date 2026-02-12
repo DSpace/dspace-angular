@@ -9060,6 +9060,10 @@
   // TODO New key - Add a translation
   "search.filters.namedresourcetype.Archived": "Archived",
 
+  // "search.filters.namedresourcetype.item": "Archived",
+  // TODO New key - Add a translation
+  "search.filters.namedresourcetype.item": "Archived",
+
   // "search.filters.namedresourcetype.Validation": "Validation",
   // TODO New key - Add a translation
   "search.filters.namedresourcetype.Validation": "Validation",

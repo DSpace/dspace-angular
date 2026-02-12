@@ -7257,6 +7257,9 @@
   // "search.filters.namedresourcetype.Archived": "Archived",
   "search.filters.namedresourcetype.Archived": "Archivováno",
 
+  // "search.filters.namedresourcetype.item": "Archived",
+  "search.filters.namedresourcetype.item": "Archivováno",
+
   // "search.filters.namedresourcetype.Validation": "Validation",
   "search.filters.namedresourcetype.Validation": "Ověřování",
 

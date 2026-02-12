@@ -3685,6 +3685,7 @@
   "search.filters.discoverable.true": "కాదు",
   "search.filters.discoverable.false": "అవును",
   "search.filters.namedresourcetype.Archived": "ఆర్కైవ్ చేయబడింది",
+  "search.filters.namedresourcetype.item": "ఆర్కైవ్ చేయబడింది",
   "search.filters.namedresourcetype.Validation": "వాలిడేషన్",
   "search.filters.namedresourcetype.Waiting for Controller": "రివ్యూయర్ కోసం వేచి ఉంది",
   "search.filters.namedresourcetype.Workflow": "వర్క్‌ఫ్లో",

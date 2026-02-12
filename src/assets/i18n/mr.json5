@@ -4797,6 +4797,8 @@
 
   "search.filters.namedresourcetype.Archived": "संग्रहित",
 
+  "search.filters.namedresourcetype.item": "संग्रहित",
+
   "search.filters.namedresourcetype.Validation": "प्रमाणीकरण",
 
   "search.filters.namedresourcetype.Waiting for Controller": "पुनरावलोककाची प्रतीक्षा",

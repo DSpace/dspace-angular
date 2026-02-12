@@ -7317,6 +7317,9 @@
   // "search.filters.namedresourcetype.Archived": "Archived",
   "search.filters.namedresourcetype.Archived": "Zarchiwizowane",
 
+  // "search.filters.namedresourcetype.item": "Archived",
+  "search.filters.namedresourcetype.item": "Zarchiwizowane",
+
   // "search.filters.namedresourcetype.Validation": "Validation",
   "search.filters.namedresourcetype.Validation": "Redakcja",
 

@@ -4841,6 +4841,8 @@
 
   "search.filters.namedresourcetype.Archived": "காப்பகப்படுத்தப்பட்டது",
 
+  "search.filters.namedresourcetype.item": "காப்பகப்படுத்தப்பட்டது",
+
   "search.filters.namedresourcetype.Validation": "சரிபார்ப்பு",
 
   "search.filters.namedresourcetype.Waiting for Controller": "மீளாய்வாளருக்காக காத்திருக்கிறது",

@@ -3792,6 +3792,7 @@
   "search.filters.discoverable.true": "ഇല്ല",
   "search.filters.discoverable.false": "അതെ",
   "search.filters.namedresourcetype.Archived": "ആർക്കൈവ് ചെയ്തത്",
+  "search.filters.namedresourcetype.item": "ആർക്കൈവ് ചെയ്തത്",
   "search.filters.namedresourcetype.Validation": "സാധൂകരണം",
   "search.filters.namedresourcetype.Waiting for Controller": "റിവ്യൂവറിനായി കാത്തിരിക്കുന്നു",
   "search.filters.namedresourcetype.Workflow": "വർക്ക്ഫ്ലോ",

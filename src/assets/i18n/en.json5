@@ -4906,6 +4906,8 @@
 
   "search.filters.namedresourcetype.archived": "Archived",
 
+  "search.filters.namedresourcetype.item": "Archived",
+
   "search.filters.namedresourcetype.validation": "Validation",
 
   "search.filters.namedresourcetype.waiting for Controller": "Waiting for reviewer",
