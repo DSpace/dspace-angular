@@ -36,6 +36,7 @@ import { SystemWideAlertMenuProvider } from './shared/menu/providers/system-wide
 import { WithdrawnReinstateItemMenuProvider } from './shared/menu/providers/withdrawn-reinstate-item.menu';
 import { WorkflowMenuProvider } from './shared/menu/providers/workflow.menu';
 import { EditCMSMetadataMenuProvider } from './shared/menu/providers/edit-cms-metadata.menu';
+import { EditUserAgreementMenuProvider } from './shared/menu/providers/edit-user-agreement.menu';
 
 /**
  * Represents and builds the menu structure for the three available menus (public navbar, admin sidebar and the dso edit
@@ -77,6 +78,7 @@ export const MENUS = buildMenuStructure({
     CoarNotifyMenuProvider,
     AuditOverviewMenuProvider,
     EditCMSMetadataMenuProvider,
+    EditUserAgreementMenuProvider,
   ],
   [MenuID.DSO_EDIT]: [
     DsoOptionMenuProvider.withSubs([
