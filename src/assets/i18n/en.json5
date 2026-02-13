@@ -7291,4 +7291,26 @@
   "item.preview.organization.address.addressLocality": "City",
 
   "item.preview.organization.alternateName": "Alternative name",
+
+  "item.cite.open-modal": "Cite",
+
+  "item.cite.modal.title": "Cite",
+
+  "item.cite.modal.close": "Close",
+
+  "item.cite.modal.copy": "Copy",
+
+  // TODO New key - Add a translation
+  "item.cite.modal.error": "Error",
+
+  "modern-language-association": "MLA",
+
+  "apa": "APA",
+
+  "vancouver": "Vancouver",
+
+  "bibtex": "BibTeX",
+
+  "instituto-brasileiro-de-informacao-em-ciencia-e-tecnologia-abnt": "ABNT",
+
 }

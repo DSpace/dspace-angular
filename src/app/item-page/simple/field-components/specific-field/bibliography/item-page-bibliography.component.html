@@ -1,0 +1,53 @@
+<a href="javascript:void(0)" (click)="openModal(citationModal)">
+  <i class="fas fa-quote-right"></i>
+  {{ "item.cite.open-modal" | translate }}
+</a>
+
+<ng-template #citationModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">{{ "item.cite.modal.title" | translate }}</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss()"
+    ></button>
+  </div>
+
+  <div class="modal-body">
+    @if (loading) {
+    <div class="text-center">
+      <i class="fas fa-spinner fa-spin"></i> {{ "loading" | translate }}
+    </div>
+    } @if (error) {
+    <div class="alert alert-danger">
+      {{ "item.cite.modal.error" | translate }}
+    </div>
+    } @if (bibliographies?.length) { @for (c of bibliographies; track c.style) {
+    <div class="mb-3">
+      <strong>{{ c.style | translate }}</strong>
+      <div>
+       @if (c.style === 'bibtex') {
+        <code>{{ c.value }}</code>
+       } @else {
+         <span>{{ c.value }}</span>
+       }
+        <button
+          title="{{ 'item.cite.modal.copy' | translate }}"
+          type="button"
+          class="btn btn-sm btn-outline-primary mt-1"
+          (click)="copyToClipboard(c.value)"
+        >
+          <i class="fas fa-copy"></i>
+        </button>
+      </div>
+    </div>
+    } }
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.close()">
+      {{ "item.cite.modal.close" | translate }}
+    </button>
+  </div>
+</ng-template>

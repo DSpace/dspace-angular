@@ -8,6 +8,7 @@ import { Context } from '@dspace/core/shared/context.model';
 import { Item } from '@dspace/core/shared/item.model';
 import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import { TranslateModule } from '@ngx-translate/core';
+import { ItemPageBibliographyComponent } from 'src/app/item-page/simple/field-components/specific-field/bibliography/item-page-bibliography.component';
 
 import { CollectionsComponent } from '../../../../../../../app/item-page/field-components/collections/collections.component';
 import { ThemedMediaViewerComponent } from '../../../../../../../app/item-page/media-viewer/themed-media-viewer.component';
@@ -45,6 +46,7 @@ import { ThemedThumbnailComponent } from '../../../../../../../app/thumbnail/the
     GenericItemPageFieldComponent,
     GeospatialItemPageFieldComponent,
     ItemPageAbstractFieldComponent,
+    ItemPageBibliographyComponent,
     ItemPageCcLicenseFieldComponent,
     ItemPageDateFieldComponent,
     ItemPageUriFieldComponent,

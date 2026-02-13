@@ -31,6 +31,7 @@ import { RESOURCE_POLICY } from './resource-policy/models/resource-policy.resour
 import { ACCESS_STATUS } from './shared/access-status.resource-type';
 import { ADMIN_NOTIFY_MESSAGE } from './shared/admin-notify-message.resource-type';
 import { AUTHORIZATION } from './shared/authorization.resource-type';
+import { BIBLIOGRAPHY } from './shared/bibliography/bibliography.resource-type';
 import { BITSTREAM } from './shared/bitstream.resource-type';
 import { BITSTREAM_FORMAT } from './shared/bitstream-format.resource-type';
 import { BROWSE_DEFINITION } from './shared/browse-definition.resource-type';
@@ -89,6 +90,7 @@ export const LAZY_DATA_SERVICES: LazyDataServicesMap = new Map([
   [SUBSCRIPTION.value, () => import('./data/subscriptions-data.service').then(m => m.SubscriptionsDataService)],
   [COMMUNITY.value, () => import('./data/community-data.service').then(m => m.CommunityDataService)],
   [VOCABULARY.value, () => import('./submission/vocabularies/vocabulary.data.service').then(m => m.VocabularyDataService)],
+  [BIBLIOGRAPHY.value, () => import('./data/bibliography-data.service').then(m => m.ItemBibliographyService)],
   [BUNDLE.value, () => import('./data/bundle-data.service').then(m => m.BundleDataService)],
   [CONFIG_PROPERTY.value, () => import('./data/configuration-data.service').then(m => m.ConfigurationDataService)],
   [POOL_TASK.value, () => import('./tasks/pool-task-data.service').then(m => m.PoolTaskDataService)],

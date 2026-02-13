@@ -18,6 +18,7 @@ import { ThemedMediaViewerComponent } from '../../../media-viewer/themed-media-v
 import { MiradorViewerComponent } from '../../../mirador-viewer/mirador-viewer.component';
 import { ThemedFileSectionComponent } from '../../field-components/file-section/themed-file-section.component';
 import { ItemPageAbstractFieldComponent } from '../../field-components/specific-field/abstract/item-page-abstract-field.component';
+import { ItemPageBibliographyComponent } from '../../field-components/specific-field/bibliography/item-page-bibliography.component';
 import { ItemPageCcLicenseFieldComponent } from '../../field-components/specific-field/cc-license/item-page-cc-license-field.component';
 import { ItemPageDateFieldComponent } from '../../field-components/specific-field/date/item-page-date-field.component';
 import { GenericItemPageFieldComponent } from '../../field-components/specific-field/generic/generic-item-page-field.component';
@@ -44,6 +45,7 @@ import { ItemComponent } from '../shared/item.component';
     GenericItemPageFieldComponent,
     GeospatialItemPageFieldComponent,
     ItemPageAbstractFieldComponent,
+    ItemPageBibliographyComponent,
     ItemPageCcLicenseFieldComponent,
     ItemPageDateFieldComponent,
     ItemPageUriFieldComponent,
@@ -59,4 +61,4 @@ import { ItemComponent } from '../shared/item.component';
     TranslateModule,
   ],
 })
-export class UntypedItemComponent extends ItemComponent {}
+export class UntypedItemComponent extends ItemComponent { }
