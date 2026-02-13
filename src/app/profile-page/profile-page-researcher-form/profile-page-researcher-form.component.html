@@ -17,9 +17,8 @@
     </div>
   }
   @if (!researcherProfile) {
-    @let processingCreate = (processingCreate$ | async);
-    <button class="btn btn-primary me-2"
-      [dsBtnDisabled]="processingCreate"
+    <button type="button" class="btn btn-primary me-2"
+      [dsBtnDisabled]="(isProcessingCreate() | async)"
       (click)="createProfile()">
       @if (processingCreate) {
         <span>
@@ -33,11 +32,11 @@
     </button>
   }
   @if (researcherProfile) {
-    <button class="btn btn-primary me-2" [dsBtnDisabled]="!researcherProfile" (click)="viewProfile(researcherProfile)">
+    <button type="button" class="btn btn-primary me-2" [dsBtnDisabled]="!researcherProfile" (click)="viewProfile(researcherProfile)">
       <i class="fas fa-info-circle"></i> {{'researcher.profile.view' | translate}}
     </button>
-    <button class="btn btn-danger" [dsBtnDisabled]="!researcherProfile" (click)="deleteProfile(researcherProfile)">
-      @if ((processingDelete$ | async)) {
+    <button type="button" class="btn btn-danger" [dsBtnDisabled]="!researcherProfile" (click)="deleteProfile(researcherProfile)">
+      @if ((isProcessingDelete() | async)) {
         <span>
           <i class='fas fa-circle-notch fa-spin'></i> {{'researcher.profile.action.processing' | translate}}
         </span>

@@ -5,7 +5,7 @@
         <h1 id="header" class="pb-2">{{labelPrefix + 'head' | translate}}</h1>
 
         <div>
-          <button class="me-auto btn btn-success addEPerson-button"
+          <button type="button" class="me-auto btn btn-success addEPerson-button"
             [routerLink]="'create'">
             <i class="fas fa-plus"></i>
             <span class="d-none d-sm-inline ms-1">{{labelPrefix + 'button.add' | translate}}</span>
@@ -36,7 +36,7 @@
           </div>
         </div>
         <div>
-          <button (click)="clearFormAndResetResult();"
+          <button type="button" (click)="clearFormAndResetResult();"
           class="search-button btn btn-secondary">{{labelPrefix + 'button.see-all' | translate}}</button>
         </div>
       </form>
@@ -69,13 +69,13 @@
                     <td>{{epersonDto.eperson.email}}</td>
                     <td>
                       <div class="btn-group edit-field">
-                        <button [routerLink]="getEditEPeoplePage(epersonDto.eperson.id)"
+                        <button type="button" [routerLink]="getEditEPeoplePage(epersonDto.eperson.id)"
                           class="btn btn-outline-primary btn-sm access-control-editEPersonButton"
                           title="{{labelPrefix + 'table.edit.buttons.edit' | translate: { name: dsoNameService.getName(epersonDto.eperson) } }}">
                           <i class="fas fa-edit fa-fw"></i>
                         </button>
                         @if (epersonDto.ableToDelete) {
-                          <button (click)="deleteEPerson(epersonDto.eperson)"
+                          <button type="button" (click)="deleteEPerson(epersonDto.eperson)"
                             class="delete-button btn btn-outline-danger btn-sm access-control-deleteEPersonButton"
                             title="{{labelPrefix + 'table.edit.buttons.remove' | translate: { name: dsoNameService.getName(epersonDto.eperson) } }}">
                             <i class="fas fa-trash-alt fa-fw"></i>

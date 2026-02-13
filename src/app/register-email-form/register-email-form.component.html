@@ -62,12 +62,12 @@
       </div>
     }
 
-    @if ((!registrationVerification  || ((captchaVersion$ | async) !== 'v2' && (captchaMode$ | async) === 'invisible'))) {
-      <button class="btn btn-primary" [dsBtnDisabled]="form.invalid || registrationVerification && !isRecaptchaCookieAccepted() || disableUntilChecked" (click)="register()">
+    @if ((!registrationVerification  || ((googleRecaptchaService.captchaVersion() | async) !== 'v2' && (googleRecaptchaService.captchaMode() | async) === 'invisible'))) {
+      <button type="submit" class="btn btn-primary" [dsBtnDisabled]="form.invalid || registrationVerification && !isRecaptchaCookieAccepted() || disableUntilChecked" (click)="register()">
         {{ MESSAGE_PREFIX + '.submit' | translate }}
       </button>
     } @else {
-      <button class="btn btn-primary" [dsBtnDisabled]="form.invalid" (click)="executeRecaptcha()">
+      <button type="submit" class="btn btn-primary" [dsBtnDisabled]="form.invalid" (click)="executeRecaptcha()">
         {{ MESSAGE_PREFIX + '.submit' | translate }}
       </button>
     }

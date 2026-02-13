@@ -3,8 +3,8 @@
   @if ((dso$ | async)) {
     <ds-modify-item-overview [item]="$any(dso$ | async)"></ds-modify-item-overview>
   }
-  <button class="btn btn-default" (click)="previousPage()">{{ 'workspace-item.delete.button.cancel' | translate }}</button>
-  <button class="btn btn-danger" (click)="$event.preventDefault();confirmDelete(content)">{{ 'workspace-item.delete.button.confirm' | translate }}</button>
+  <button type="button"class="btn btn-default" (click)="previousPage()">{{ 'workspace-item.delete.button.cancel' | translate }}</button>
+  <button type="button"class="btn btn-danger" (click)="$event.preventDefault();confirmDelete(content)">{{ 'workspace-item.delete.button.confirm' | translate }}</button>
 </div>
 
 <ng-template #content let-c="close" let-d="dismiss" id="delete-modal">

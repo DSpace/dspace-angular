@@ -36,9 +36,9 @@
               <span class="sr-only">{{ ('submission.sections.describe.relationship-lookup.toggle-dropdown' | translate) }}</span>
             </button>
             <div ngbDropdownMenu aria-labelledby="resultdropdown" *ngVar="(resultsRD$ | async) as resultsRD">
-              <button class="dropdown-item"
+              <button type="button" class="dropdown-item"
               (click)="selectPage(resultsRD?.page)">{{ ('submission.sections.describe.relationship-lookup.search-tab.select-page' | translate) }}</button>
-              <button class="dropdown-item"
+              <button type="button" class="dropdown-item"
               (click)="deselectPage(resultsRD?.page)">{{ ('submission.sections.describe.relationship-lookup.search-tab.deselect-page' | translate) }}</button>
             </div>
           </div>

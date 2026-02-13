@@ -19,6 +19,7 @@
 @if (medias?.length > 1) {
   <div class="buttons">
     <button
+      type="button"
       class="btn btn-primary previous"
       [dsBtnDisabled]="currentIndex === 0"
       (click)="prevMedia()"
@@ -26,6 +27,7 @@
       {{ "media-viewer.previous" | translate }}
     </button>
     <button
+      type="button"
       class="btn btn-primary next"
       [dsBtnDisabled]="currentIndex === medias.length - 1"
       (click)="nextMedia()"
@@ -34,6 +36,7 @@
     </button>
     <div ngbDropdown class="d-inline-block">
       <button
+        type="button"
         class="btn btn-outline-primary playlist"
         id="dropdownBasic1"
         ngbDropdownToggle
@@ -43,6 +46,7 @@
       <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
         @for (item of medias; track item; let indexOfelement = $index) {
           <button
+            type="button"
             ngbDropdownItem
             class="list-element"
             (click)="selectedMedia(indexOfelement)"

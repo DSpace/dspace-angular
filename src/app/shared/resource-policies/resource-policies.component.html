@@ -12,7 +12,7 @@
               }
             </span>
             <div class="space-children-mr flex-shrink-0">
-              <button class="btn btn-danger p-1"
+              <button type="button" class="btn btn-danger p-1"
                 [dsBtnDisabled]="((canDelete() | async) !== true) || (isProcessingDelete() | async)"
                 [title]="'resource-policies.delete.btn.title' | translate"
                 (click)="deleteSelectedResourcePolicies()">
@@ -28,7 +28,7 @@
                   </span>
                 }
               </button>
-              <button class="btn btn-success p-1"
+              <button type="button" class="btn btn-success p-1"
                 [dsBtnDisabled]="(isProcessingDelete() | async)"
                 [title]="'resource-policies.add.for.' + resourceType | translate"
                 (click)="redirectToResourcePolicyCreatePage()">

@@ -121,7 +121,7 @@
                             <span class="small">{{'quality-assurance.event.table.abstract' | translate}}</span><br>
                             <span class="text-ellipsis">{{eventElement.event.message.abstract}}</span>
                           </p>
-                          <button class="btn btn-outline-primary btn-sm" (click)="showMore = !showMore">
+                          <button type="button" class="btn btn-outline-primary btn-sm" (click)="showMore = !showMore">
                             @if (!showMore) {
                               <i class="fas fa-angle-down"></i>
                             }
@@ -187,6 +187,7 @@
                               <div class="btn-group">
                                 @if (!eventElement.hasProject) {
                                   <button
+                                    type="button"
                                     class="btn btn-outline-primary btn-sm"
                                     [dsBtnDisabled]="eventElement.isRunning"
                                     (click)="openModalLookup(eventElement); $event.stopPropagation();"
@@ -197,6 +198,7 @@
                                 }
                                 @if (eventElement.hasProject) {
                                   <button
+                                    type="button"
                                     class="btn btn-outline-danger btn-sm"
                                     [dsBtnDisabled]="eventElement.isRunning"
                                     (click)="removeProject(eventElement)"
@@ -214,6 +216,7 @@
                             <div class="btn-group button-width">
                               @if (showTopic.indexOf('/PROJECT') !== -1) {
                                 <button
+                                  type="button"
                                   class="btn btn-outline-success btn-sm button-width"
                                   ngbTooltip="{{'quality-assurance.event.action.import' | translate}}"
                                   container="body"
@@ -226,6 +229,7 @@
                               }
                               @if (showTopic.indexOf('/PROJECT') === -1) {
                                 <button
+                                  type="button"
                                   class="btn btn-outline-success btn-sm button-width"
                                   ngbTooltip="{{'quality-assurance.event.action.accept' | translate}}"
                                   container="body"
@@ -236,7 +240,7 @@
                                   <i class="fas fa-check"></i>
                                 </button>
                               }
-                              <button class="btn btn-outline-dark btn-sm button-width"
+                              <button type="button" class="btn btn-outline-dark btn-sm button-width"
                                 ngbTooltip="{{'quality-assurance.event.action.ignore' | translate}}"
                                 container="body"
                                 [dsBtnDisabled]="eventElement.isRunning"
@@ -246,7 +250,7 @@
                                 <i class="fas fa-ban"></i>
                               </button>
                               @if ((isAdmin$ | async)) {
-                                <button class="btn btn-outline-danger btn-sm button-width"
+                                <button type="button" class="btn btn-outline-danger btn-sm button-width"
                                   ngbTooltip="{{'quality-assurance.event.action.reject' | translate}}"
                                   container="body"
                                   [dsBtnDisabled]="eventElement.isRunning"
@@ -257,7 +261,7 @@
                                 </button>
                               }
                               @if ((isAdmin$ | async) === false) {
-                                <button class="btn btn-outline-danger btn-sm button-width"
+                                <button type="button" class="btn btn-outline-danger btn-sm button-width"
                                   ngbTooltip="{{'quality-assurance.event.action.undo' | translate }}"
                                   container="body"
                                   [dsBtnDisabled]="eventElement.isRunning"
@@ -270,7 +274,7 @@
                           }
                           @if ((isAdmin$ | async) !== true && isReinstateWithdrawnRequest) {
                             <div class="btn-group button-width">
-                              <button class="btn btn-outline-danger btn-sm button-width"
+                              <button type="button" class="btn btn-outline-danger btn-sm button-width"
                                 ngbTooltip="{{'quality-assurance.event.action.undo' | translate}}"
                                 container="body"
                                 [dsBtnDisabled]="eventElement.isRunning"
@@ -301,11 +305,11 @@
   <div class="modal-body">
     <p>{{'quality-assurance.event.accept.description' | translate}}</p>
 
-    <button class="btn btn-outline-success float-end" (click)="modal.close('do')">
+    <button type="button" class="btn btn-outline-success float-right" (click)="modal.close('do')">
       <i class="fas fa-check"></i>
       <span class="d-none d-sm-inline"> {{'quality-assurance.event.action.import' | translate}}</span>
     </button>
-    <button class="btn btn-outline-secondary" (click)="modal.close('cancel')">
+    <button type="button" class="btn btn-outline-secondary" (click)="modal.close('cancel')">
       <i class="fas fa-close"></i>
       <span class="d-none d-sm-inline"> {{'quality-assurance.event.action.cancel' | translate}}</span>
     </button>
@@ -318,11 +322,11 @@
   </div>
   <div class="modal-body">
     <p>{{'quality-assurance.event.ignore.description' | translate}}</p>
-    <button class="btn btn-outline-danger float-end" (click)="modal.close('do')">
+    <button type="button" class="btn btn-outline-danger float-right" (click)="modal.close('do')">
       <i class="fas fa-trash-alt"></i>
       <span class="d-none d-sm-inline"> {{'quality-assurance.event.action.ignore' | translate}}</span>
     </button>
-    <button class="btn btn-outline-secondary" (click)="modal.close('cancel')">
+    <button type="button" class="btn btn-outline-secondary" (click)="modal.close('cancel')">
       <i class="fas fa-close"></i>
       <span class="d-none d-sm-inline"> {{'quality-assurance.event.action.cancel' | translate}}</span>
     </button>
@@ -335,11 +339,11 @@
   </div>
   <div class="modal-body">
     <p>{{'quality-assurance.event.reject.description' | translate}}</p>
-    <button class="btn btn-outline-danger float-end" (click)="modal.close('do')">
+    <button type="button" class="btn btn-outline-danger float-right" (click)="modal.close('do')">
       <i class="fas fa-trash-alt"></i>
       <span class="d-none d-sm-inline"> {{'quality-assurance.event.action.reject' | translate}}</span>
     </button>
-    <button class="btn btn-outline-secondary" (click)="modal.close('cancel')">
+    <button type="button" class="btn btn-outline-secondary" (click)="modal.close('cancel')">
       <i class="fas fa-close"></i>
       <span class="d-none d-sm-inline"> {{'quality-assurance.event.action.cancel' | translate}}</span>
     </button>
@@ -352,11 +356,11 @@
   </div>
   <div class="modal-body">
     <p>{{'quality-assurance.event.undo.description' | translate}}</p>
-    <button class="btn btn-outline-danger float-end" (click)="modal.close('do')">
+    <button type="button" class="btn btn-outline-danger float-right" (click)="modal.close('do')">
       <i class="fas fa-trash-alt"></i>
       <span class="d-none d-sm-inline"> {{'quality-assurance.event.action.undo' | translate}}</span>
     </button>
-    <button class="btn btn-outline-secondary" (click)="modal.close('cancel')">
+    <button type="button" class="btn btn-outline-secondary" (click)="modal.close('cancel')">
       <i class="fas fa-close"></i>
       <span class="d-none d-sm-inline"> {{'quality-assurance.event.action.cancel' | translate}}</span>
     </button>
