@@ -10944,4 +10944,95 @@
   // "file-download-link.request-copy": "Request a copy of ",
   "file-download-link.request-copy": "Demander une copie de ",
 
+  // "admin.edit-cms-metadata.success": "Metadata successfully updated"
+  // TODO New key - Add a translation
+  "admin.edit-cms-metadata.success": "Metadata successfully updated",
+
+  // "admin.edit-cms-metadata.back-button": "Back"
+  // TODO New key - Add a translation
+  "admin.edit-cms-metadata.back-button": "Back",
+
+  // "admin.edit-cms-metadata.save-button": "Save"
+  // TODO New key - Add a translation
+  "admin.edit-cms-metadata.save-button": "Save",
+
+  // "admin.edit-cms-metadata.select-metadata": "Select metadata to edit"
+  // TODO New key - Add a translation
+  "admin.edit-cms-metadata.select-metadata": "Select metadata to edit",
+
+  // "admin.edit-cms-metadata.edit-button": "Edit"
+  // TODO New key - Add a translation
+  "admin.edit-cms-metadata.edit-button": "Edit",
+
+  // "admin.edit-cms-metadata.breadcrumbs": "Edit CMS Metadata"
+  // TODO New key - Add a translation
+  "admin.edit-cms-metadata.breadcrumbs": "Edit CMS Metadata",
+
+  // "admin.edit-cms-metadata.title": "Edit CMS Metadata",
+  // TODO New key - Add a translation
+  "admin.edit-cms-metadata.title": "Edit CMS Metadata",
+
+  // "admin.edit-cms-metadata.error": "An error occurred while updating the metadata"
+  // TODO New key - Add a translation
+  "admin.edit-cms-metadata.error": "An error occurred while updating the metadata",
+
+  // "menu.section.edit-cms-metadata": "Edit CMS Metadata"
+  // TODO New key - Add a translation
+  "menu.section.edit-cms-metadata": "Edit CMS Metadata",
+
+  // "menu.section.cms.edit.metadata.head": "Edit Metadata"
+  // TODO New key - Add a translation
+  "menu.section.cms.edit.metadata.head": "Edit Metadata",
+
+  // "admin.edit-user-agreement.breadcrumbs": "Edit User Agreement"
+  // TODO New key - Add a translation
+  "admin.edit-user-agreement.breadcrumbs": "Edit User Agreement",
+
+  // "admin.edit-user-agreement.confirm.title": "Force acceptance"
+  // TODO New key - Add a translation
+  "admin.edit-user-agreement.confirm.title": "Force acceptance",
+
+  // "admin.edit-user-agreement.confirm.info": "Do you want to force all users to accept the new user agreement?"
+  // TODO New key - Add a translation
+  "admin.edit-user-agreement.confirm.info": "Do you want to force all users to accept the new user agreement?",
+
+  // "admin.edit-user-agreement.confirm.cancel": "Cancel"
+  // TODO New key - Add a translation
+  "admin.edit-user-agreement.confirm.cancel": "Cancel",
+
+  // "admin.edit-user-agreement.confirm.no": "No, update only"
+  // TODO New key - Add a translation
+  "admin.edit-user-agreement.confirm.no": "No, update only",
+
+  // "admin.edit-user-agreement.confirm.yes": "Yes, update and force"
+  // TODO New key - Add a translation
+  "admin.edit-user-agreement.confirm.yes": "Yes, update and force",
+
+  // "menu.section.edit-user-agreement": "Edit User Agreement"
+  // TODO New key - Add a translation
+  "menu.section.edit-user-agreement": "Edit User Agreement",
+
+  // "admin.edit-user-agreement.save-button": "Save"
+  // TODO New key - Add a translation
+  "admin.edit-user-agreement.save-button": "Save",
+
+  // "admin.edit-user-agreement.markdown": "<i>End User Agreement</i> text supports <a href=\"https://www.markdownguide.org/basic-syntax/\" target=\"_blank\">Markdown</a> language."
+  // TODO New key - Add a translation
+  "admin.edit-user-agreement.markdown": "<i>End User Agreement</i> text supports <a href=\"https://www.markdownguide.org/basic-syntax/\" target=\"_blank\">Markdown</a> language.",
+
+  // "admin.edit-user-agreement.header": "Edit User Agreement"
+  // TODO New key - Add a translation
+  "admin.edit-user-agreement.header": "Edit User Agreement",
+
+  // "admin.edit-user-agreement.success": "User agreement successfully updated"
+  // TODO New key - Add a translation
+  "admin.edit-user-agreement.success": "User agreement successfully updated",
+
+  // "admin.edit-user-agreement.error": "An error occurred while updating the user agreement"
+  // TODO New key - Add a translation
+  "admin.edit-user-agreement.error": "An error occurred while updating the user agreement",
+
+  // "admin.edit-user-agreement.title": "Edit User Agreement"
+  // TODO New key - Add a translation
+  "admin.edit-user-agreement.title": "Edit User Agreement",
 }
