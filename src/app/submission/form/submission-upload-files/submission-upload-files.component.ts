@@ -156,10 +156,25 @@ export class SubmissionUploadFilesComponent implements OnChanges, OnDestroy {
                     .subscribe((isUpload) => {
                       if (isUpload) {
                         // Look for errors on upload
-                        if ((isEmpty(sectionErrors))) {
-                          this.notificationsService.success(null, this.translate.get('submission.sections.upload.upload-successful'));
+                        const hasOnlyPendingMetadataErrors = sectionErrors?.every(
+                          (error) => error.message === 'error.validation.metadata.pending',
+                        );
+
+                        if (isEmpty(sectionErrors)) {
+                          this.notificationsService.success(
+                            null,
+                            this.translate.get('submission.sections.upload.upload-successful'),
+                          );
+                        } else if (hasOnlyPendingMetadataErrors) {
+                          this.notificationsService.warning(
+                            null,
+                            this.translate.get('submission.sections.upload.metadata-pending'),
+                          );
                         } else {
-                          this.notificationsService.error(null, this.translate.get('submission.sections.upload.upload-failed'));
+                          this.notificationsService.error(
+                            null,
+                            this.translate.get('submission.sections.upload.upload-failed'),
+                          );
                         }
                       }
                     });
