@@ -7,8 +7,13 @@
             <header class="comcol-header me-auto">
               <!-- Community name -->
               <ds-comcol-page-header [name]="dsoNameService.getName(communityPayload)"></ds-comcol-page-header>
-              <!-- Community logo -->
-              @if (logoRD$) {
+              <!-- Community logo with custom description -->
+              @if (logoRD$ && communityPayload.descriptionThumbnail) {
+                <ds-comcol-page-logo [logo]="(logoRD$ | async)?.payload" [alternateText]="communityPayload.descriptionThumbnail">
+                </ds-comcol-page-logo>
+              }
+              <!-- Community logo with simple description -->
+              @if (logoRD$ && !communityPayload.descriptionThumbnail) {
                 <ds-comcol-page-logo [logo]="(logoRD$ | async)?.payload" [alternateText]="'community.logo' | translate">
                 </ds-comcol-page-logo>
               }

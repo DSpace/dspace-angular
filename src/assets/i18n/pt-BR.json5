@@ -10688,6 +10688,12 @@
   // "browse.search-form.placeholder": "Search the repository",
   "browse.search-form.placeholder": "Buscar no repositório",
 
+  // "community.form.thumbnail": "Thumbnail Description",
+  "community.form.thumbnail": "Descrição do logotipo da comunidade",
+
+  // "collection.form.thumbnail": "Thumbnail Description",
+  "collection.form.thumbnail": "Descrição do logotipo da coleção",
+
   // "file-download-link.download": "Download ",
   "file-download-link.download": "Baixar ",
 

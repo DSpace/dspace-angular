@@ -126,6 +126,14 @@ export class Community extends DSpaceObject implements ChildHALResource, HandleO
     return this.firstMetadataValue('dc.description.tableofcontents');
   }
 
+  /**
+   * The thumbail description of this Community
+   * Corresponds to the metadata field dspace.thumbnail.description
+   */
+  get descriptionThumbnail(): string {
+    return this.firstMetadataValue('dspace.thumbnail.description');
+  }
+
   getParentLinkKey(): keyof this['_links'] {
     return 'parentCommunity';
   }
