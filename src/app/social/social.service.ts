@@ -3,13 +3,11 @@ import {
   isPlatformBrowser,
 } from '@angular/common';
 import {
-  DestroyRef,
   Inject,
   inject,
   Injectable,
   PLATFORM_ID,
 } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   ChildActivationEnd,
   Router,
@@ -25,8 +23,6 @@ import { environment } from '../../environments/environment';
 
 @Injectable( { providedIn: 'root' } )
 export class SocialService {
-  private destroyRef = inject(DestroyRef);
-
   private showOnCurrentRouteSubject = new BehaviorSubject(false);
 
   /**
@@ -110,8 +106,7 @@ export class SocialService {
 
     const showSocialButtons = this.activatedRouteDataChanges$.pipe(
       map(data => data?.showSocialButtons === true),
-      distinctUntilChanged(),
-      takeUntilDestroyed(this.destroyRef),
+      distinctUntilChanged()
     );
 
     showSocialButtons.subscribe(this.showOnCurrentRouteSubject);
