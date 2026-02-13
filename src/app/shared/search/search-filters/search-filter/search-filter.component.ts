@@ -80,6 +80,11 @@ export class SearchFilterComponent implements OnInit, OnChanges, OnDestroy {
   @Input() refreshFilters: BehaviorSubject<boolean>;
 
   /**
+   * Should scroll to the pagination component after updating the route instead of the top of the page
+   */
+  @Input() retainScrollPosition = false;
+
+  /**
    * The current scope
    */
   @Input() scope: string;

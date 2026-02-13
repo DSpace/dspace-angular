@@ -19,8 +19,18 @@ import { DsDynamicLookupRelationExternalSourceTabComponent } from './dynamic-loo
   templateUrl: '../../../../../theme-support/themed.component.html',
 })
 export class ThemedDynamicLookupRelationExternalSourceTabComponent extends ThemedComponent<DsDynamicLookupRelationExternalSourceTabComponent> {
-  protected inAndOutputNames: (keyof DsDynamicLookupRelationExternalSourceTabComponent & keyof this)[] = ['label', 'listId',
-    'item', 'collection', 'relationship', 'context', 'query', 'repeatable', 'importedObject', 'externalSource'];
+  protected inAndOutputNames: (keyof DsDynamicLookupRelationExternalSourceTabComponent & keyof this)[] = [
+    'label',
+    'listId',
+    'item',
+    'collection',
+    'relationship',
+    'context',
+    'query', 'repeatable',
+    'importedObject',
+    'externalSource',
+    'retainScrollPosition',
+  ];
 
   @Input() label: string;
 
@@ -37,6 +47,8 @@ export class ThemedDynamicLookupRelationExternalSourceTabComponent extends Theme
   @Input() query: string;
 
   @Input() repeatable: boolean;
+
+  @Input() retainScrollPosition: boolean;
 
   @Output() importedObject: EventEmitter<ListableObject> = new EventEmitter();
 

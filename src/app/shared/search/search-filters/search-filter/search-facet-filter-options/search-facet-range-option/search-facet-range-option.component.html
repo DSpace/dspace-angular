@@ -2,6 +2,7 @@
   <a class="d-flex flex-row"
     (click)="filterService.minimizeAll()"
     [routerLink]="[searchLink]"
+    [preserveFragment]="retainScrollPosition"
     [queryParams]="changeQueryParams" queryParamsHandling="merge"
     role="button" tabindex="0">
     <span class="filter-value px-1">{{filterValue.label}}</span>

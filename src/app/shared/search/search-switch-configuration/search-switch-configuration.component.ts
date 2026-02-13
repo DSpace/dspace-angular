@@ -52,6 +52,10 @@ export class SearchSwitchConfigurationComponent implements OnDestroy, OnInit {
    */
   @Input() defaultConfiguration: string;
   /**
+   * Should scroll to the pagination component after updating the route instead of the top of the page
+   */
+  @Input() retainScrollPosition = false;
+  /**
    * The selected option
    */
   public selectedOption: SearchConfigurationOption;
@@ -88,6 +92,7 @@ export class SearchSwitchConfigurationComponent implements OnDestroy, OnInit {
   onSelect() {
     const navigationExtras: NavigationExtras = {
       queryParams: { configuration: this.selectedOption.value },
+      preserveFragment: this.retainScrollPosition,
     };
 
     this.changeConfiguration.emit(this.selectedOption);

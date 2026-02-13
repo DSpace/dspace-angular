@@ -112,6 +112,7 @@ describe('SearchSwitchConfigurationComponent', () => {
     comp.selectedOption = configurationList[1];
     const navigationExtras: NavigationExtras = {
       queryParams: { configuration: MyDSpaceConfigurationValueType.Workflow },
+      preserveFragment: false,
     };
 
     fixture.detectChanges();

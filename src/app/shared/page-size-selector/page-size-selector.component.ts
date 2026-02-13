@@ -2,6 +2,7 @@ import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Inject,
+  Input,
   OnInit,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -37,6 +38,12 @@ import { SidebarDropdownComponent } from '../sidebar/sidebar-dropdown.component'
  * This component represents the part of the search sidebar that contains the page size settings.
  */
 export class PageSizeSelectorComponent implements OnInit {
+
+  /**
+   * Should scroll to the pagination component after updating the route instead of the top of the page
+   */
+  @Input() retainScrollPosition = false;
+
   /**
    * The configuration for the current paginated search results
    */
@@ -65,7 +72,7 @@ export class PageSizeSelectorComponent implements OnInit {
     this.paginationOptions$.pipe(
       take(1),
     ).subscribe((pagination: PaginationComponentOptions) => {
-      this.paginationService.updateRoute(pagination.id, { page: 1, pageSize: +value });
+      this.paginationService.updateRoute(pagination.id, { page: 1, pageSize: +value }, undefined, this.retainScrollPosition);
     }) ;
   }
 }

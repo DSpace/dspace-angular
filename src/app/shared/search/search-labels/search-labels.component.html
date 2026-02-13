@@ -2,7 +2,8 @@
   @for (appliedFilter of appliedFilters$ | async; track appliedFilter) {
     <ds-search-label-loader
       [appliedFilter]="appliedFilter"
-      [inPlaceSearch]="inPlaceSearch">
+      [inPlaceSearch]="inPlaceSearch"
+      [retainScrollPosition]="retainScrollPosition">
     </ds-search-label-loader>
   }
 </div>
