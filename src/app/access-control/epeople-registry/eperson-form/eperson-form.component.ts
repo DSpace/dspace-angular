@@ -600,6 +600,38 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * Deletes a given group from the Group list of the eperson currently being edited present in
+   * @param group  group we want to delete as of which the current eperson being edited is member of
+   */
+  deleteGroupFromMember(group: Group) {
+    this.epeopleRegistryService.getActiveEPerson().pipe(take(1)).subscribe((activeEPerson: EPerson) => {
+      if (activeEPerson != null) {
+        const response = this.groupsDataService.deleteMemberFromGroup(group, activeEPerson);
+        this.showNotifications('deleteMembership', response, this.dsoNameService.getName(group), activeEPerson);
+      } else {
+        this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure.noActiveEPerson'));
+      }
+    });
+  }
+
+  /**
+     * Shows a notification based on the success/failure of the request
+     * @param messageSuffix   Suffix for message
+     * @param response        RestResponse observable containing success/failure request
+     * @param nameObject      Object request was about
+     * @param activeEPerson   EPerson currently being edited
+     */
+  showNotifications(messageSuffix: string, response: Observable<RemoteData<any>>, nameObject: string, activeEPerson: EPerson) {
+    response.pipe(getFirstCompletedRemoteData()).subscribe((rd: RemoteData<any>) => {
+      if (rd.hasSucceeded) {
+        this.notificationsService.success(this.translateService.get(this.messagePrefix + '.notification.success.' + messageSuffix, { name: nameObject }));
+      } else {
+        this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure.' + messageSuffix, { name: nameObject }));
+      }
+    });
+  }
+
+  /**
    * Cancel the current edit when component is destroyed & unsub all subscriptions
    */
   ngOnDestroy(): void {

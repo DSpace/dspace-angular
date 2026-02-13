@@ -176,6 +176,36 @@ describe('EPersonDataService', () => {
     });
   });
 
+  describe('searchMembers', () => {
+    beforeEach(() => {
+      spyOn(service, 'searchBy').and.returnValue(createSuccessfulRemoteDataObject$(createPaginatedList([EPersonMock])));
+    });
+
+    it('should build correct search params and call searchBy', () => {
+      const query = 'John';
+      const groupId = 'group-123';
+      const options = new FindListOptions();
+      options.currentPage = 1;
+      options.elementsPerPage = 10;
+
+      service.searchMembers(query, groupId, options);
+
+      expect(service.searchBy).toHaveBeenCalledWith(
+        'isMemberOf',
+        jasmine.objectContaining({
+          searchParams: jasmine.arrayContaining([
+            jasmine.objectContaining({ fieldName: 'query', fieldValue: query }),
+            jasmine.objectContaining({ fieldName: 'group', fieldValue: groupId }),
+          ]),
+          currentPage: 1,
+          elementsPerPage: 10,
+        }),
+        true,
+        true,
+      );
+    });
+  });
+
   describe('updateEPerson', () => {
     beforeEach(() => {
       spyOn(service, 'findByHref').and.returnValue(createSuccessfulRemoteDataObject$(EPersonMock));
