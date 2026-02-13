@@ -118,7 +118,7 @@ const getEnvConfigFilePath = (env: Environment) => {
 
 const overrideWithConfig = (config: Config, pathToConfig: string) => {
   try {
-    console.log(`Overriding app config with ${pathToConfig}`);
+    console.info(`Overriding app config with ${pathToConfig}`);
     const externalConfig = readFileSync(pathToConfig, 'utf8');
     mergeConfig(config, load(externalConfig));
   } catch (err) {
@@ -137,7 +137,7 @@ const overrideWithEnvironment = (config: Config, key: string = '') => {
       } else {
         const value = ENV(variable, true);
         if (isNotEmpty(value)) {
-          console.log(`Applying environment variable ${DSPACE(variable)} with value ${value}`);
+          console.info(`Applying environment variable ${DSPACE(variable)} with value ${value}`);
           switch (typeof innerConfig) {
             case 'number':
               config[property] = getNumberFromString(value);
@@ -187,13 +187,13 @@ export const buildAppConfig = (destConfigPath?: string): AppConfig => {
 
   switch (env) {
     case 'production':
-      console.log(`Building ${red.bold(`production`)} app config`);
+      console.info(`Building ${red.bold(`production`)} app config`);
       break;
     case 'test':
-      console.log(`Building ${blue.bold(`test`)} app config`);
+      console.info(`Building ${blue.bold(`test`)} app config`);
       break;
     default:
-      console.log(`Building ${green.bold(`development`)} app config`);
+      console.info(`Building ${green.bold(`development`)} app config`);
   }
 
   // override with default config
@@ -248,7 +248,7 @@ export const buildAppConfig = (destConfigPath?: string): AppConfig => {
   if (isNotEmpty(destConfigPath)) {
     writeFileSync(destConfigPath, JSON.stringify(appConfig, null, 2));
 
-    console.log(`Angular ${bold('config.json')} file generated correctly at ${bold(destConfigPath)} \n`);
+    console.info(`Angular ${bold('config.json')} file generated correctly at ${bold(destConfigPath)} \n`);
   }
 
   return appConfig;
