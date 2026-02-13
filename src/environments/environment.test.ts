@@ -568,4 +568,13 @@ export const environment: BuildConfig = {
       },
     ],
   },
+
+  addToAnyPlugin: {
+    scriptUrl: 'https://static.addtoany.com/menu/page.js',
+    socialNetworksEnabled: true,
+    buttons: ['btn1', 'btn2'],
+    showPlusButton: true,
+    showCounters: true,
+    title: 'DSpace demo',
+  },
 };

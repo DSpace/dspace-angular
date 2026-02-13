@@ -3,6 +3,7 @@ import { SearchResultConfig } from '@dspace/config/search-result-config.interfac
 
 import { AccessibilitySettingsConfig } from './accessibility-settings.config';
 import { ActuatorsConfig } from './actuators.config';
+import { AddToAnyPluginConfig } from './add-to-any-plugin-config';
 import { AdminNotifyMetricsRow } from './admin-notify-metrics.config';
 import { AppConfig } from './app-config.interface';
 import { AuthConfig } from './auth-config.interfaces';
@@ -782,4 +783,12 @@ export class DefaultAppConfig implements AppConfig {
     ],
   };
 
+  addToAnyPlugin: AddToAnyPluginConfig = {
+    scriptUrl: 'https://static.addtoany.com/menu/page.js',
+    socialNetworksEnabled: true,
+    buttons: ['facebook', 'x', 'linkedin', 'email', 'copy_link'],
+    showPlusButton: true,
+    showCounters: true,
+    title: 'DSpace CRIS demo',
+  };
 }
