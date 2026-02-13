@@ -5240,7 +5240,7 @@
   "menu.section.browse_community_by_title": "Titre",
 
   // "menu.section.browse_global": "All of DSpace",
-  "menu.section.browse_global": "Tout DSpace",
+  "menu.section.browse_global": "Parcourir DSpace",
 
   // "menu.section.browse_global_by_author": "By Author",
   "menu.section.browse_global_by_author": "Auteur",
@@ -8357,7 +8357,7 @@
   "submission.sections.general.save_success_notice": "Soumission sauvegardée avec succès.",
 
   // "submission.sections.general.search-collection": "Search for a collection",
-  "submission.sections.general.search-collection": "Rechercher une collection",
+  "submission.sections.general.search-collection": "Rechercher un(e) collection",
 
   // "submission.sections.general.sections_not_valid": "There are incomplete sections.",
   "submission.sections.general.sections_not_valid": "Sections incomplètes.",
