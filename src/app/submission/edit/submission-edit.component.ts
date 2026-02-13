@@ -147,7 +147,7 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
   ngOnInit() {
 
     this.collectionModifiable = this.route.snapshot.data?.collectionModifiable ?? null;
-
+    // TODO: add all languages projection
     this.subs.push(
       this.route.paramMap.pipe(
         switchMap((params: ParamMap) => this.submissionService.retrieveSubmission(params.get('id'))),

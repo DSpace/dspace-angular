@@ -35,10 +35,8 @@ export class DropdownFieldParser extends FieldParser {
     let layout: DynamicFormControlLayout;
 
     if (isNotEmpty(this.configData.selectableMetadata[0].controlledVocabulary)) {
-      this.setVocabularyOptions(dropdownModelConfig);
-      if (isNotEmpty(fieldValue)) {
-        dropdownModelConfig.value = fieldValue;
-      }
+      this.setVocabularyOptions(dropdownModelConfig, this.parserOptions.collectionUUID);
+      this.setValues(dropdownModelConfig, fieldValue, true);
       layout = {
         element: {
           control: 'col',

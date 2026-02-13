@@ -8,7 +8,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { RouterModule } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import { RelationshipDataService } from '@dspace/core/data/relationship-data.service';
 import {
@@ -74,7 +74,7 @@ describe('DsoEditMetadataValueComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
-        RouterModule.forRoot([]),
+        RouterTestingModule.withRoutes([]),
         DsoEditMetadataValueComponent,
         VarDirective,
         BtnDisabledDirective,
@@ -89,8 +89,8 @@ describe('DsoEditMetadataValueComponent', () => {
       .overrideComponent(DsoEditMetadataValueComponent, {
         remove: {
           imports: [
-            DsoEditMetadataValueFieldLoaderComponent,
             ThemedTypeBadgeComponent,
+            DsoEditMetadataValueFieldLoaderComponent,
           ],
         },
       })
@@ -101,6 +101,7 @@ describe('DsoEditMetadataValueComponent', () => {
     fixture = TestBed.createComponent(DsoEditMetadataValueComponent);
     component = fixture.componentInstance;
     component.mdValue = editMetadataValue;
+    component.mdField = 'person.birthDate';
     component.saving$ = of(false);
     fixture.detectChanges();
   });

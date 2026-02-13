@@ -2101,6 +2101,8 @@
 
   "form.clear-help": "Click here to remove the selected value",
 
+  "form.copy": "Duplicate",
+
   "form.discard": "Discard",
 
   "form.drag": "Drag",
@@ -2110,6 +2112,12 @@
   "form.edit-help": "Click here to edit the selected value",
 
   "form.first-name": "First name",
+
+  "form.group.add": "Add",
+
+  "form.group.close": "Close",
+
+  "form.group.set": "Set",
 
   "form.group-collapse": "Collapse",
 
@@ -2142,6 +2150,40 @@
   "form.other-information.last-name": "Last Name",
 
   "form.other-information.orcid": "ORCID",
+
+  "form.other-information.person_identifier_orcid": "ORCID",
+
+  "form.other-information.oairecerif_author_affiliation": "Affiliation",
+
+  "form.other-information.oairecerif_editor_affiliation": "Affiliation",
+
+  "form.other-information.person_identifier_orcid": "ORCID iD",
+
+  "form.other-information.institution-affiliation-name": "Affiliation(s)",
+
+  "form.other-information.dc_relation_grantno": "Grant Number",
+
+  "form.other-information.not-available": "Not available",
+
+  "form.other-information.ror_orgunit_id": "ROR ID",
+
+  "form.other-information.ror_orgunit_type": "ROR type",
+
+  "form.other-information.ror_orgunit_acronym": "ROR acronym",
+
+  "form.other-information.ror_orgunit_countryName": "ROR country",
+
+  "form.entry.source.local": "",
+
+  "form.entry.source.orcid": "",
+
+  "form.entry.source.ror": "",
+
+  "form.entry.source.openaire": "",
+
+  "form.entry.source.zdb": "",
+
+  "form.entry.source.sherpa": "- Sherpa Romeo",
 
   "form.remove": "Remove",
 
@@ -2626,6 +2668,8 @@
   "item.edit.metadata.headers.field": "Field",
 
   "item.edit.metadata.headers.language": "Lang",
+
+  "item.edit.metadata.headers.authority": "Authority",
 
   "item.edit.metadata.headers.value": "Value",
 
@@ -3310,6 +3354,8 @@
   "itemtemplate.edit.metadata.headers.language": "Lang",
 
   "itemtemplate.edit.metadata.headers.value": "Value",
+
+  "itemtemplate.edit.metadata.headers.authority": "Authority",
 
   "itemtemplate.edit.metadata.metadatafield": "Edit field",
 
@@ -6390,6 +6436,8 @@
 
   "home.recent-submissions.head": "Recent Submissions",
 
+  "authority-confidence.search-label": "Search",
+
   "listable-notification-object.default-message": "This object couldn't be retrieved",
 
   "system-wide-alert-banner.retrieval.error": "Something went wrong retrieving the system-wide alert banner",
@@ -7291,4 +7339,54 @@
   "item.preview.organization.address.addressLocality": "City",
 
   "item.preview.organization.alternateName": "Alternative name",
+
+  "metadata-link-view.popover.label.Person.dc.title": "Fullname",
+
+  "metadata-link-view.popover.label.Person.person.affiliation.name": "Main affiliation",
+
+  "metadata-link-view.popover.label.Person.person.email": "Email",
+
+  "metadata-link-view.popover.label.Person.person.identifier.orcid": "ORCID",
+
+  "metadata-link-view.popover.label.Person.dc.description.abstract": "Abstract",
+
+  "metadata-link-view.popover.label.Person.person.jobTitle": "Job title",
+
+  "metadata-link-view.popover.label.OrgUnit.dc.title": "Fullname",
+
+  "metadata-link-view.popover.label.OrgUnit.organization.identifier.ror": "ROR",
+
+  "metadata-link-view.popover.label.OrgUnit.crisou.director": "Director",
+
+  "metadata-link-view.popover.label.OrgUnit.organization.parentOrganization": "Parent Organization",
+
+  "metadata-link-view.popover.label.OrgUnit.dc.description.abstract": "Description",
+
+  "metadata-link-view.popover.label.Project.dc.title": "Title",
+
+  "metadata-link-view.popover.label.Project.oairecerif.project.status": "Status",
+
+  "metadata-link-view.popover.label.Project.dc.description.abstract": "Abstract",
+
+  "metadata-link-view.popover.label.Funding.dc.title": "Title",
+
+  "metadata-link-view.popover.label.Funding.oairecerif.funder": "Funder",
+
+  "metadata-link-view.popover.label.Funding.oairecerif.fundingProgram": "Funding program",
+
+  "metadata-link-view.popover.label.Funding.dc.description.abstract": "Abstract",
+
+  "metadata-link-view.popover.label.Publication.dc.title": "Title",
+
+  "metadata-link-view.popover.label.Publication.dc.identifier.doi": "DOI",
+
+  "metadata-link-view.popover.label.Publication.dc.identifier.uri": "URL",
+
+  "metadata-link-view.popover.label.Publication.dc.description.abstract": "Abstract",
+
+  "metadata-link-view.popover.label.other.dc.title": "Title",
+
+  "metadata-link-view.popover.label.other.dc.description.abstract": "Description",
+
+  "metadata-link-view.popover.label.more-info": "More info",
 }

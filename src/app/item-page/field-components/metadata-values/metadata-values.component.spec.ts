@@ -9,12 +9,17 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
 import { MetadataValue } from '@dspace/core/shared/metadata.models';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
 import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
+import { of } from 'rxjs';
 
 import { environment } from '../../../../environments/environment';
 import { MetadataValuesComponent } from './metadata-values.component';
@@ -37,6 +42,18 @@ const mockMetadata = [
   }] as MetadataValue[];
 const mockSeperator = '<br/>';
 const mockLabel = 'fake.message';
+const vocabularyServiceMock = {
+  getPublicVocabularyEntryByID: jasmine.createSpy('getPublicVocabularyEntryByID'),
+};
+
+const controlledMetadata = {
+  value: 'Original Value',
+  authority: 'srsc:1234',
+  uuid: 'metadata-uuid-1',
+  language: 'en_US',
+  place: null,
+  confidence: 600,
+} as MetadataValue;
 
 describe('MetadataValuesComponent', () => {
   beforeEach(waitForAsync(() => {
@@ -49,6 +66,7 @@ describe('MetadataValuesComponent', () => {
       }), MetadataValuesComponent],
       providers: [
         { provide: APP_CONFIG, useValue: environment },
+        { provide: VocabularyService, useValue: vocabularyServiceMock },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(MetadataValuesComponent, {
@@ -98,5 +116,30 @@ describe('MetadataValuesComponent', () => {
     expect(result.target).toBe('_blank');
     expect(result.rel).toBe('noopener noreferrer');
   });
+
+  it('should detect controlled vocabulary metadata', () => {
+    const result = comp.isControlledVocabulary(controlledMetadata);
+    expect(result).toBeTrue();
+  });
+
+  it('should return translated vocabulary value when available', (done) => {
+    const vocabEntry = {
+      display: 'Translated Value',
+    };
+
+    vocabularyServiceMock.getPublicVocabularyEntryByID.and.returnValue(
+      of(
+        createSuccessfulRemoteDataObject(
+          buildPaginatedList(new PageInfo(), [vocabEntry]),
+        ),
+      ),
+    );
+
+    comp.getVocabularyValue(controlledMetadata).subscribe((value) => {
+      expect(value).toBe('Translated Value');
+      done();
+    });
+  });
+
 
 });

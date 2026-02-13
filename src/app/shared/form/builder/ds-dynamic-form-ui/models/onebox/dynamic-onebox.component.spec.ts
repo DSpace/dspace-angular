@@ -20,7 +20,9 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
 import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
+import { Vocabulary } from '@dspace/core/submission/vocabularies/models/vocabulary.model';
 import { VocabularyEntry } from '@dspace/core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyOptions } from '@dspace/core/submission/vocabularies/models/vocabulary-options.model';
 import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
@@ -28,6 +30,7 @@ import {
   mockDynamicFormLayoutService,
   mockDynamicFormValidationService,
 } from '@dspace/core/testing/dynamic-form-mock-services';
+import { SubmissionServiceStub } from '@dspace/core/testing/submission-service.stub';
 import { createTestComponent } from '@dspace/core/testing/utils.test';
 import { VocabularyServiceStub } from '@dspace/core/testing/vocabulary-service.stub';
 import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
@@ -40,21 +43,28 @@ import {
   DynamicFormsCoreModule,
   DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
+import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
+import { SubmissionService } from 'src/app/submission/submission.service';
+import { v4 as uuidv4 } from 'uuid';
 
 import { ObjNgFor } from '../../../../../utils/object-ngfor.pipe';
 import { AuthorityConfidenceStateDirective } from '../../../../directives/authority-confidence-state.directive';
 import { VocabularyTreeviewComponent } from '../../../../vocabulary-treeview/vocabulary-treeview.component';
+import { FormBuilderService } from '../../../form-builder.service';
 import { DsDynamicOneboxComponent } from './dynamic-onebox.component';
 import { DynamicOneboxModel } from './dynamic-onebox.model';
+
 
 export let ONEBOX_TEST_GROUP;
 
 export let ONEBOX_TEST_MODEL_CONFIG;
 
+
+const validAuthority = uuidv4();
 
 // Mock class for NgbModalRef
 export class MockNgbModalRef {
@@ -100,7 +110,7 @@ describe('DsDynamicOneboxComponent test suite', () => {
   let modalService: any;
   let html;
   let modal;
-  const vocabulary = {
+  const vocabulary = Object.assign(new Vocabulary(), {
     id: 'vocabulary',
     name: 'vocabulary',
     scrollable: true,
@@ -115,9 +125,9 @@ describe('DsDynamicOneboxComponent test suite', () => {
         url: 'entries',
       },
     },
-  };
+  });
 
-  const hierarchicalVocabulary = {
+  const hierarchicalVocabulary = Object.assign(new Vocabulary(), {
     id: 'hierarchicalVocabulary',
     name: 'hierarchicalVocabulary',
     scrollable: true,
@@ -132,7 +142,7 @@ describe('DsDynamicOneboxComponent test suite', () => {
         url: 'entries',
       },
     },
-  };
+  });
 
   // waitForAsync beforeEach
   beforeEach(() => {
@@ -167,6 +177,10 @@ describe('DsDynamicOneboxComponent test suite', () => {
         { provide: DynamicFormLayoutService, useValue: mockDynamicFormLayoutService },
         { provide: DynamicFormValidationService, useValue: mockDynamicFormValidationService },
         { provide: NgbModal, useValue: modal },
+        { provide: FormBuilderService },
+        { provide: SubmissionService, useClass: SubmissionServiceStub },
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
+        provideMockStore({ initialState: { core: { index: { } } } }),
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
@@ -362,13 +376,13 @@ describe('DsDynamicOneboxComponent test suite', () => {
         oneboxComponent.group = ONEBOX_TEST_GROUP;
         oneboxComponent.model = new DynamicOneboxModel(ONEBOX_TEST_MODEL_CONFIG);
         const entry = of(Object.assign(new VocabularyEntry(), {
-          authority: 'test001',
+          authority: validAuthority,
           value: 'test001',
           display: 'test',
         }));
         spyOn((oneboxComponent as any).vocabularyService, 'getVocabularyEntryByValue').and.returnValue(entry);
         spyOn((oneboxComponent as any).vocabularyService, 'getVocabularyEntryByID').and.returnValue(entry);
-        (oneboxComponent.model as any).value = new FormFieldMetadataValueObject('test', null, 'test001');
+        (oneboxComponent.model as any).value = new FormFieldMetadataValueObject('test', null,  validAuthority, 'test001');
         oneboxCompFixture.detectChanges();
       });
 
@@ -379,7 +393,7 @@ describe('DsDynamicOneboxComponent test suite', () => {
 
       it('should init component properly', fakeAsync(() => {
         tick();
-        expect(oneboxComponent.currentValue).toEqual(new FormFieldMetadataValueObject('test001', null, 'test001', 'test'));
+        expect(oneboxComponent.currentValue).toEqual(new FormFieldMetadataValueObject('test', null, validAuthority, 'test001'));
         expect((oneboxComponent as any).vocabularyService.getVocabularyEntryByID).toHaveBeenCalled();
       }));
 

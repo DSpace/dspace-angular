@@ -1,3 +1,6 @@
+import { LayoutConfig } from '@dspace/config/layout-config.interfaces';
+import { SearchResultConfig } from '@dspace/config/search-result-config.interface';
+
 import { AccessibilitySettingsConfig } from './accessibility-settings.config';
 import { ActuatorsConfig } from './actuators.config';
 import { AdminNotifyMetricsRow } from './admin-notify-metrics.config';
@@ -14,6 +17,10 @@ import { FilterVocabularyConfig } from './filter-vocabulary-config';
 import { FormConfig } from './form-config.interfaces';
 import { GeospatialMapConfig } from './geospatial-map-config';
 import { HomeConfig } from './homepage-config.interface';
+import {
+  IdentifierSubtypesConfig,
+  IdentifierSubtypesIconPositionEnum,
+} from './identifier-subtypes-config.interface';
 import { InfoConfig } from './info-config.interface';
 import { ItemConfig } from './item-config.interface';
 import { LangConfig } from './lang-config.interface';
@@ -21,12 +28,14 @@ import { LiveRegionConfig } from './live-region.config';
 import { MarkdownConfig } from './markdown-config.interface';
 import { MatomoConfig } from './matomo-config.interface';
 import { MediaViewerConfig } from './media-viewer-config.interface';
+import { MetadataLinkViewPopoverDataConfig } from './metadata-link-view-popoverdata-config.interface';
 import {
   INotificationBoardOptions,
   NotificationAnimationsType,
 } from './notifications-config.interfaces';
 import { QualityAssuranceConfig } from './quality-assurance.config';
 import { RestRequestMethod } from './rest-request-method';
+import { FollowAuthorityMetadata } from './search-follow-metadata.interface';
 import { SearchConfig } from './search-page-config.interface';
 import { ServerConfig } from './server-config.interface';
 import { SubmissionConfig } from './submission-config.interface';
@@ -252,7 +261,34 @@ export class DefaultAppConfig implements AppConfig {
           },
 
         ],
+        sourceIcons: [
+          {
+            source: 'orcid',
+            path: 'assets/images/orcid.logo.icon.svg',
+          },
+          {
+            source: 'openaire',
+            path: 'assets/images/openaire.logo.icon.svg',
+          },
+          {
+            source: 'ror',
+            path: 'assets/images/ror.logo.icon.svg',
+          },
+          {
+            source: 'sherpa',
+            path: 'assets/images/sherpa.logo.icon.svg',
+          },
+          {
+            source: 'zdb',
+            path: 'assets/images/zdb.logo.icon.svg',
+          },
+          {
+            source: 'local',
+            path: 'assets/images/local.logo.icon.svg',
+          },
+        ],
       },
+      iconsVisibleWithNoAuthority: ['fas fa-user'],
     },
   };
 
@@ -646,4 +682,97 @@ export class DefaultAppConfig implements AppConfig {
   accessibility: AccessibilitySettingsConfig = {
     cookieExpirationDuration: 7,
   };
+
+  layout: LayoutConfig = {
+    authorityRef: [
+      {
+        entityType: 'DEFAULT',
+        entityStyle: {
+          default: {
+            icon: 'fa fa-info',
+            style: 'text-info',
+          },
+        },
+      },
+      {
+        entityType: 'PERSON',
+        entityStyle: {
+          default: {
+            icon: 'fa fa-user',
+            style: 'text-info',
+          },
+        },
+      },
+      {
+        entityType: 'ORGUNIT',
+        entityStyle: {
+          default: {
+            icon: 'fa fa-university',
+            style: 'text-info',
+          },
+        },
+      },
+      {
+        entityType: 'PROJECT',
+        entityStyle: {
+          default: {
+            icon: 'fas fa-project-diagram',
+            style: 'text-info',
+          },
+        },
+      },
+    ],
+  };
+
+  searchResult: SearchResultConfig = {
+    additionalMetadataFields: [],
+    authorMetadata: ['dc.contributor.author', 'dc.creator', 'dc.contributor.*'],
+  };
+
+  // Configuration for the metadata link view popover
+  metadataLinkViewPopoverData: MetadataLinkViewPopoverDataConfig = {
+    fallbackMetdataList: ['dc.description.abstract'],
+
+    entityDataConfig: [
+      {
+        entityType: 'Person',
+        metadataList: ['person.affiliation.name', 'person.email', 'person.jobTitle', 'dc.description.abstract'],
+        titleMetadataList: ['person.givenName', 'person.familyName' ],
+      },
+    ],
+  };
+
+  identifierSubtypes: IdentifierSubtypesConfig[] = [
+    {
+      name: 'ror',
+      icon: 'assets/images/ror.logo.icon.svg',
+      iconPosition: IdentifierSubtypesIconPositionEnum.LEFT,
+      link: 'https://ror.org',
+    },
+  ];
+
+  // The maximum number of item to process when following authority metadata values.
+  followAuthorityMaxItemLimit = 100;
+  // The maximum number of metadata values to process for each metadata key
+  // when following authority metadata values.
+  followAuthorityMetadataValuesLimit = 5;
+
+  // When the search results are retrieved, for each item type the metadata with a valid authority value are inspected.
+  // Referenced items will be fetched with a find all by id strategy to avoid individual rest requests
+  // to efficiently display the search results.
+  followAuthorityMetadata: FollowAuthorityMetadata[] = [
+    {
+      type: 'Publication',
+      metadata: ['dc.contributor.author'],
+    },
+    {
+      type: 'Product',
+      metadata: ['dc.contributor.author'],
+    },
+    {
+      type: 'Patent',
+      metadata: ['dc.contributor.author'],
+    },
+  ];
+
 }

@@ -49,7 +49,8 @@ export class RowParser {
     initFormValues: any,
     submissionScope,
     readOnly: boolean,
-    typeField: string): DynamicRowGroupModel {
+    typeField: string,
+    isInnerForm: boolean = false): DynamicRowGroupModel {
     let fieldModel: any = null;
     let parsedResult = null;
     const config: DynamicFormGroupModelConfig = {
@@ -67,6 +68,7 @@ export class RowParser {
       submissionScope: submissionScope,
       collectionUUID: scopeUUID,
       typeField: typeField,
+      isInnerForm: isInnerForm,
     };
 
     // Iterate over row's fields

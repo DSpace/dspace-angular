@@ -45,13 +45,14 @@ export class JsonPatchOperationsBuilder {
    *    A boolean representing if the value to be added is the first of an array
    * @param plain
    *    A boolean representing if the value to be added is a plain text value
+   * @param languages
    */
-  add(path: JsonPatchOperationPathObject, value, first = false, plain = false) {
+  add(path: JsonPatchOperationPathObject, value, first = false, plain = false, languages: string[] = null) {
     this.store.dispatch(
       new NewPatchAddOperationAction(
         path.rootElement,
         path.subRootElement,
-        path.path, this.prepareValue(value, plain, first)));
+        path.path, this.prepareValue(value, plain, first, languages)));
   }
 
   /**
@@ -63,8 +64,9 @@ export class JsonPatchOperationsBuilder {
    *    the value to update the referenced path
    * @param plain
    *    a boolean representing if the value to be added is a plain text value
+   * @param language
    */
-  replace(path: JsonPatchOperationPathObject, value, plain = false) {
+  replace(path: JsonPatchOperationPathObject, value, plain = false, language = null) {
     if (hasNoValue(value) || (typeof value === 'object' && hasNoValue(value.value))) {
       this.remove(path);
     } else {
@@ -73,7 +75,7 @@ export class JsonPatchOperationsBuilder {
           path.rootElement,
           path.subRootElement,
           path.path,
-          this.prepareValue(value, plain, false)));
+          this.prepareValue(value, plain, false, language)));
     }
   }
 
@@ -124,7 +126,7 @@ export class JsonPatchOperationsBuilder {
         path.path));
   }
 
-  protected prepareValue(value: any, plain: boolean, first: boolean) {
+  protected prepareValue(value: any, plain: boolean, first: boolean, languages: string[] = null) {
     let operationValue: any = null;
     if (hasValue(value)) {
       if (plain) {

@@ -68,6 +68,8 @@ export abstract class FieldParser {
     if (((this.getInitValueCount() > 1 && !this.configData.repeatable) || (this.configData.repeatable))
       && (this.configData.input.type !== ParserType.List.valueOf())
       && (this.configData.input.type !== ParserType.Tag.valueOf())
+      && (this.configData.input.type !== ParserType.RelationGroup.valueOf())
+      && (this.configData.input.type !== ParserType.InlineGroup.valueOf())
     ) {
       let arrayCounter = 0;
       let fieldArrayCounter = 0;
@@ -112,6 +114,9 @@ export abstract class FieldParser {
               }
             }
             model = this.modelFactory(fieldValue, false);
+            if (!this.configData.repeatable) {
+              this.markAsNotRepeatable(model);
+            }
           }
           setLayout(model, 'element', 'host', 'col');
           if (model.hasLanguages || isNotEmpty(model.relationship)) {
@@ -139,10 +144,12 @@ export abstract class FieldParser {
     }
   }
 
-  public setVocabularyOptions(controlModel) {
+  public setVocabularyOptions(controlModel, scope) {
     if (isNotEmpty(this.configData.selectableMetadata) && isNotEmpty(this.configData.selectableMetadata[0].controlledVocabulary)) {
       controlModel.vocabularyOptions = new VocabularyOptions(
         this.configData.selectableMetadata[0].controlledVocabulary,
+        this.configData.selectableMetadata[0].metadata,
+        scope,
         this.configData.selectableMetadata[0].closed,
       );
     }
@@ -293,6 +300,7 @@ export abstract class FieldParser {
     // Set read only option
     controlModel.readOnly = this.parserOptions.readOnly || this.isFieldReadOnly(this.configData.visibility, this.configData.scope, this.parserOptions.submissionScope);
     controlModel.disabled = controlModel.readOnly;
+    controlModel.isModelOfInnerForm = this.parserOptions.isInnerForm;
     if (hasValue(this.configData.selectableRelationship)) {
       controlModel.relationship = Object.assign(new RelationshipOptions(), this.configData.selectableRelationship);
     }
@@ -388,6 +396,16 @@ export abstract class FieldParser {
       {},
       controlModel.errorMessages,
       { required: this.configData.mandatoryMessage });
+  }
+
+  protected markAsNotRepeatable(controlModel) {
+    controlModel.isModelOfNotRepeatableGroup = true;
+    controlModel.repeatable = false;
+
+    controlModel.errorMessages = Object.assign(
+      {},
+      controlModel.errorMessages,
+      { notRepeatable: 'error.validation.notRepeatable' });
   }
 
   protected setLabel(controlModel, label = true, labelEmpty = false) {

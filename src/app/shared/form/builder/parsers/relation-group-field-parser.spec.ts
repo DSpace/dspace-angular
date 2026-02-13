@@ -8,6 +8,7 @@ import { RelationGroupFieldParser } from './relation-group-field-parser';
 
 describe('RelationGroupFieldParser test suite', () => {
   let field: FormFieldModel;
+  let inLineField: FormFieldModel;
   let initFormValues = {};
   let translateService = getMockTranslateService();
 
@@ -17,6 +18,7 @@ describe('RelationGroupFieldParser test suite', () => {
     submissionScope: 'testScopeUUID',
     collectionUUID: 'WORKSPACE',
     typeField: 'dc_type',
+    isInnerForm: false,
   };
 
   beforeEach(() => {
@@ -75,6 +77,11 @@ describe('RelationGroupFieldParser test suite', () => {
 
   });
 
+  afterEach(() => {
+    field = null;
+    inLineField = null;
+  });
+
   it('should init parser properly', () => {
     const parser = new RelationGroupFieldParser(submissionId, field, initFormValues, parserOptions, translateService);
 
@@ -87,6 +94,18 @@ describe('RelationGroupFieldParser test suite', () => {
     const fieldModel = parser.parse();
 
     expect(fieldModel instanceof DynamicRelationGroupModel).toBe(true);
+    expect(fieldModel.isInlineGroup).toBe(false);
+  });
+
+  it('should return a DynamicRelationGroupModel object when has a inline group', () => {
+    inLineField = Object.assign({}, field);
+    inLineField.input.type = 'inline-group';
+    const parser = new RelationGroupFieldParser(submissionId, inLineField, initFormValues, parserOptions, translateService);
+
+    const fieldModel = parser.parse();
+
+    expect(fieldModel instanceof DynamicRelationGroupModel).toBe(true);
+    expect(fieldModel.isInlineGroup).toBe(true);
   });
 
   it('should throw when rows configuration is empty', () => {

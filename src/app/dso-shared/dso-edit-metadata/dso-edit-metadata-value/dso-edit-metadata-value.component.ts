@@ -7,6 +7,7 @@ import {
   NgClass,
 } from '@angular/common';
 import {
+  ChangeDetectorRef,
   Component,
   EventEmitter,
   Input,
@@ -32,8 +33,12 @@ import {
 import { Vocabulary } from '@dspace/core/submission/vocabularies/models/vocabulary.model';
 import { hasValue } from '@dspace/shared/utils/empty.util';
 import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateModule } from '@ngx-translate/core';
 import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  BehaviorSubject,
   EMPTY,
   Observable,
 } from 'rxjs';
@@ -83,16 +88,30 @@ export class DsoEditMetadataValueComponent implements OnInit, OnChanges {
    * Also used to determine metadata-representations in case of virtual metadata
    */
   @Input() dso: DSpaceObject;
-
-  /**
-   * The metadata field that is being edited
-   */
-  @Input() mdField: string;
-
   /**
    * Editable metadata value to show
    */
   @Input() mdValue: DsoEditMetadataValue;
+
+
+  /**
+   * The metadata field to display a value for
+   */
+  @Input()
+  set mdField(mdField: string) {
+    this._mdField$.next(mdField);
+  }
+
+  get mdField() {
+    return this._mdField$.value;
+  }
+
+  protected readonly _mdField$ = new BehaviorSubject<string | null>(null);
+
+  /**
+   * Flag whether this is a new metadata field or exists already
+   */
+  @Input() isNewMdField = false;
 
   /**
    * Type of DSO we're displaying values for
@@ -169,6 +188,8 @@ export class DsoEditMetadataValueComponent implements OnInit, OnChanges {
     protected relationshipService: RelationshipDataService,
     protected dsoNameService: DSONameService,
     protected metadataService: MetadataService,
+    protected cdr: ChangeDetectorRef,
+    protected translate: TranslateService,
     protected dsoEditMetadataFieldService: DsoEditMetadataFieldService,
   ) {
   }
@@ -177,11 +198,6 @@ export class DsoEditMetadataValueComponent implements OnInit, OnChanges {
     this.initVirtualProperties();
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes.mdField) {
-      this.fieldType$ = this.getFieldType();
-    }
-  }
 
   /**
    * Initialise potential properties of a virtual metadata value
@@ -219,4 +235,15 @@ export class DsoEditMetadataValueComponent implements OnInit, OnChanges {
     );
   }
 
+  /**
+   * Change callback for the component. Check if the mdField has changed to retrieve whether it is metadata
+   * that uses a controlled vocabulary and update the related properties
+   *
+   * @param {SimpleChanges} changes
+   */
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.mdField) {
+      this.fieldType$ = this.getFieldType();
+    }
+  }
 }

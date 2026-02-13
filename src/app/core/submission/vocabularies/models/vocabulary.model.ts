@@ -19,6 +19,10 @@ import {
 } from './vocabularies.resource-type';
 import { VocabularyEntry } from './vocabulary-entry.model';
 
+export interface VocabularyExternalSourceMap {
+  [metadata: string]: string;
+}
+
 /**
  * Model class for a Vocabulary
  */
@@ -55,6 +59,20 @@ export class Vocabulary implements CacheableObject {
    */
   @autoserialize
   preloadLevel: any;
+
+  /**
+   * If externalSource is available represent the entity type that can be use to create a new entity from
+   * this vocabulary
+   */
+  @autoserialize
+  entity: string;
+
+  /**
+   * A boolean variable that indicates whether the functionality of
+   * multiple value generation is enabled within a generator context.
+   */
+  @autoserialize
+  multiValueOnGenerator: boolean;
 
   /**
    * A string representing the kind of Vocabulary model
