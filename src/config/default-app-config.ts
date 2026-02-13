@@ -654,6 +654,6 @@ export class DefaultAppConfig implements AppConfig {
     buttons: ['facebook', 'x', 'linkedin', 'email', 'copy_link'],
     showPlusButton: true,
     showCounters: true,
-    title: 'DSpace CRIS demo',
+    title: 'DSpace demo',
   };
 }
