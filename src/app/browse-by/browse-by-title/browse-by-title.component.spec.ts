@@ -84,8 +84,8 @@ describe('BrowseByTitleComponent', () => {
     findById: () => createSuccessfulRemoteDataObject$(mockCommunity),
   };
 
-  const activatedRouteStub = Object.assign(new ActivatedRouteStub(), {
-    params: of({}),
+  const activatedRouteStub = Object.assign(new ActivatedRouteStub({ id: 'title' }), {
+    params: of({ id: 'title' }),
     queryParams: of({}),
     data: of({ metadata: 'title' }),
   });
