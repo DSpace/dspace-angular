@@ -27,6 +27,7 @@ import {
 import { FindListOptions } from '@dspace/core/data/find-list-options.model';
 import { PaginationService } from '@dspace/core/pagination/pagination.service';
 import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { UUIDService } from '@dspace/core/shared/uuid.service';
 import { MockActivatedRoute } from '@dspace/core/testing/active-router.mock';
 import { HostWindowServiceMock } from '@dspace/core/testing/host-window-service.mock';
 import { RouterMock } from '@dspace/core/testing/router.mock';
@@ -170,6 +171,7 @@ describe('Pagination component', () => {
         RouterTestingModule.withRoutes([
           { path: 'home', component: TestComponent },
         ]),
+        UUIDService,
         PaginationComponent,
         TestComponent,
         EnumKeysPipe,
@@ -181,6 +183,7 @@ describe('Pagination component', () => {
         { provide: PaginationService, useValue: paginationService },
         ChangeDetectorRef,
         PaginationComponent,
+        UUIDService,
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).overrideComponent(PaginationComponent, {
