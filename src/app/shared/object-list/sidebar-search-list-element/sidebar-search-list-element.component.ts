@@ -20,12 +20,14 @@ import {
 } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 import {
+  from,
   Observable,
   of,
 } from 'rxjs';
 import {
+  catchError,
   find,
-  map,
+  switchMap,
 } from 'rxjs/operators';
 
 import { TruncatableService } from '../../truncatable/truncatable.service';
@@ -49,9 +51,9 @@ import { SearchResultListElementComponent } from '../search-result-list-element/
  */
 export class SidebarSearchListElementComponent<T extends SearchResult<K>, K extends DSpaceObject> extends SearchResultListElementComponent<T, K> implements OnInit {
   /**
-   * Observable for the title of the parent object (displayed above the object's title)
+   * Observable for the hierarchical title i.e community > subcommunity > collection
    */
-  parentTitle$: Observable<string>;
+  hierarchicalTitle$: Observable<string>;
 
   /**
    * A description to display below the title
@@ -71,7 +73,7 @@ export class SidebarSearchListElementComponent<T extends SearchResult<K>, K exte
   ngOnInit(): void {
     super.ngOnInit();
     if (hasValue(this.dso)) {
-      this.parentTitle$ = this.getParentTitle();
+      this.hierarchicalTitle$ = this.getHierarchicalName();
       this.description = this.getDescription();
     }
   }
@@ -85,14 +87,53 @@ export class SidebarSearchListElementComponent<T extends SearchResult<K>, K exte
 
   /**
    * Get the title of the object's parent
-   * Retrieve the parent by using the object's parent link and retrieving its 'dc.title' metadata
+   * keep on Retrieving recursively the parent by using the object's parent link and retrieving its 'dc.title' metadata
+   * and build a heirarchical name by concating the parent's names
    */
-  getParentTitle(): Observable<string> {
+  getHierarchicalName(): Observable<string> {
     return this.getParent().pipe(
-      map((parentRD: RemoteData<DSpaceObject>) => {
-        return hasValue(parentRD) && hasValue(parentRD.payload) ? this.dsoNameService.getName(parentRD.payload, true) : undefined;
+      switchMap((initialRD: RemoteData<DSpaceObject>) => {
+        if (!hasValue(initialRD) || !initialRD.hasSucceeded || !hasValue(initialRD.payload)) {
+          return of('');
+        }
+
+        return from((async () => {
+          const names: string[] = [];
+          let current: DSpaceObject | null = initialRD.payload;
+
+          const visited = new Set<string>(); // prevent cycles
+
+          while (current && !visited.has(current.id)) {
+            visited.add(current.id);
+            const name = this.dsoNameService.getName(current);
+            if (name) {
+              names.unshift(name);
+            }
+
+            const instance = this.createInstanceFromDSpaceObject(current);
+            const parentRD: RemoteData<DSpaceObject> = await instance.getParent().toPromise().catch(() => null);
+
+            if (hasValue(parentRD) && parentRD.hasSucceeded && hasValue(parentRD.payload)) {
+              current = parentRD.payload;
+            } else {
+              current = null;
+            }
+          }
+
+          return names.join(' > ');
+        })());
       }),
+      catchError(() => of('')),
     );
+  }
+
+  /**
+   * Utility method to create an instance of the current class from a DSpaceObject
+   */
+  private createInstanceFromDSpaceObject(dso: DSpaceObject): this {
+    const instance = Object.create(this);
+    instance.dso = dso;
+    return instance;
   }
 
   /**
@@ -101,9 +142,11 @@ export class SidebarSearchListElementComponent<T extends SearchResult<K>, K exte
   getParent(): Observable<RemoteData<DSpaceObject>> {
     if (typeof (this.dso as any).getParentLinkKey === 'function') {
       const propertyName = (this.dso as any).getParentLinkKey();
-      return this.linkService.resolveLink(this.dso, followLink(propertyName))[propertyName].pipe(
-        find((parentRD: RemoteData<ChildHALResource & DSpaceObject>) => parentRD.hasSucceeded || parentRD.statusCode === 204),
-      );
+      if (this.linkService.resolveLink(this.dso, followLink(propertyName))[propertyName]) {
+        return this.linkService.resolveLink(this.dso, followLink(propertyName))[propertyName].pipe(
+          find((parentRD: RemoteData<ChildHALResource & DSpaceObject>) => parentRD.hasSucceeded || parentRD.statusCode === 204),
+        );
+      }
     }
     return of(undefined);
   }
