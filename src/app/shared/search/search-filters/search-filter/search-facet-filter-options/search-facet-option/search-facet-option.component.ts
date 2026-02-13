@@ -1,4 +1,4 @@
-import { 
+import {
   AsyncPipe,
   LowerCasePipe,
 } from '@angular/common';
