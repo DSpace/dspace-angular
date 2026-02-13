@@ -16,38 +16,45 @@ import { of } from 'rxjs';
 import { environment } from '../../../../environments/environment.test';
 import { EndUserAgreementContentComponent } from './end-user-agreement-content.component';
 
-let localeService: any;
-
 const TEST_MODEL = new ResourceType('testmodel');
-
-const mockDataServiceMap: any = new Map([
+const LANGUAGE_LIST = ['en;q=1', 'de;q=0.8'];
+const MOCK_DATA_MAP = new Map([
   [TEST_MODEL.value, () => import('../../../core/testing/test-data-service.mock').then(m => m.TestDataService)],
 ]);
+const INITIAL_STATE = {
+  core: {
+    auth: {
+      authenticated: false,
+      loaded: false,
+      blocking: undefined,
+      loading: false,
+      authMethods: [],
+    },
+  },
+};
 
-const languageList = ['en;q=1', 'de;q=0.8'];
-const mockLocaleService = jasmine.createSpyObj('LocaleService', {
-  getCurrentLanguageCode: jasmine.createSpy('getCurrentLanguageCode'),
-  getLanguageCodeList: of(languageList),
-});
 
 describe('EndUserAgreementContentComponent', () => {
   let component: EndUserAgreementContentComponent;
   let fixture: ComponentFixture<EndUserAgreementContentComponent>;
+  let localeServiceSpy: jasmine.SpyObj<LocaleService>;
 
   beforeEach(waitForAsync(() => {
+    localeServiceSpy = jasmine.createSpyObj('LocaleService', [
+      'getCurrentLanguageCode',
+      'getLanguageCodeList',
+    ]);
+
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), EndUserAgreementContentComponent],
-      providers: [
+      imports: [
+        TranslateModule.forRoot(),
         EndUserAgreementContentComponent,
-        provideMockStore({
-          initialState: {
-            index: {
-            },
-          },
-        }),
-        { provide: APP_DATA_SERVICES_MAP, useValue: mockDataServiceMap },
+      ],
+      providers: [
+        provideMockStore({ initialState: INITIAL_STATE }),
+        { provide: APP_DATA_SERVICES_MAP, useValue: MOCK_DATA_MAP },
         { provide: APP_CONFIG, useValue: environment },
-        { provide: LocaleService, useValue: mockLocaleService },
+        { provide: LocaleService, useValue: localeServiceSpy },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
@@ -61,9 +68,9 @@ describe('EndUserAgreementContentComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(EndUserAgreementContentComponent);
-    localeService = TestBed.inject(LocaleService);
-    localeService.getCurrentLanguageCode.and.returnValue(of('en'));
     component = fixture.componentInstance;
+    localeServiceSpy.getCurrentLanguageCode.and.returnValue(of('en'));
+    localeServiceSpy.getLanguageCodeList.and.returnValue(of(LANGUAGE_LIST));
     fixture.detectChanges();
   });
 
