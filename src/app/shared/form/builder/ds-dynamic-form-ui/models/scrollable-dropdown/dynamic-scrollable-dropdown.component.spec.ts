@@ -28,20 +28,27 @@ import {
   mockDynamicFormLayoutService,
   mockDynamicFormValidationService,
 } from '@dspace/core/testing/dynamic-form-mock-services';
+import { SubmissionServiceStub } from '@dspace/core/testing/submission-service.stub';
 import {
   createTestComponent,
   hasClass,
 } from '@dspace/core/testing/utils.test';
 import { VocabularyServiceStub } from '@dspace/core/testing/vocabulary-service.stub';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbModal,
+  NgbModule,
+} from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormLayoutService,
   DynamicFormsCoreModule,
   DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
+import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { SubmissionService } from 'src/app/submission/submission.service';
 
+import { FormBuilderService } from '../../../form-builder.service';
 import { DsDynamicScrollableDropdownComponent } from './dynamic-scrollable-dropdown.component';
 import { DynamicScrollableDropdownModel } from './dynamic-scrollable-dropdown.model';
 
@@ -102,7 +109,11 @@ describe('Dynamic Dynamic Scrollable Dropdown component', () => {
         { provide: VocabularyService, useValue: vocabularyServiceStub },
         { provide: DynamicFormLayoutService, useValue: mockDynamicFormLayoutService },
         { provide: DynamicFormValidationService, useValue: mockDynamicFormValidationService },
+        { provide: FormBuilderService },
+        { provide: SubmissionService, useClass: SubmissionServiceStub },
         { provide: APP_DATA_SERVICES_MAP, useValue: {} },
+        NgbModal,
+        provideMockStore(),
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     });

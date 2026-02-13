@@ -9,10 +9,14 @@ import {
 import { RouterLink } from '@angular/router';
 import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
 import { Item } from '@dspace/core/shared/item.model';
+import { MetadataValueFilter } from '@dspace/core/shared/metadata.models';
+import { PLACEHOLDER_VALUE } from '@dspace/core/shared/metadata.utils';
 import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
 import { ViewMode } from '@dspace/core/shared/view-mode.model';
 
+import { environment } from '../../../../../../../environments/environment';
 import { ThemedThumbnailComponent } from '../../../../../../thumbnail/themed-thumbnail.component';
+import { MetadataLinkViewComponent } from '../../../../../metadata-link-view/metadata-link-view.component';
 import { ThemedBadgesComponent } from '../../../../../object-collection/shared/badges/themed-badges.component';
 import { listableObjectComponent } from '../../../../../object-collection/shared/listable-object/listable-object.decorator';
 import { TruncatableComponent } from '../../../../../truncatable/truncatable.component';
@@ -27,6 +31,7 @@ import { SearchResultListElementComponent } from '../../../search-result-list-el
   templateUrl: './item-search-result-list-element.component.html',
   imports: [
     AsyncPipe,
+    MetadataLinkViewComponent,
     NgClass,
     RouterLink,
     ThemedBadgesComponent,
@@ -43,6 +48,14 @@ export class ItemSearchResultListElementComponent extends SearchResultListElemen
    * Route to the item's page
    */
   itemPageRoute: string;
+
+  authorMetadata = environment.searchResult.authorMetadata;
+
+
+  readonly placeholderFilter: MetadataValueFilter = {
+    negate: true,
+    value: PLACEHOLDER_VALUE,
+  };
 
   ngOnInit(): void {
     super.ngOnInit();

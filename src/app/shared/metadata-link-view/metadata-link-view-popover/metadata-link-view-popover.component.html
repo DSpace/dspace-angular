@@ -1,0 +1,77 @@
+<div class="view-container">
+
+  <div class="d-flex flex-row align-items-center gap-4 mb-2">
+    @if (item.thumbnail | async) {
+      <ds-metadata-link-view-avatar-popover
+        [thumbnail]="item.thumbnail | async"
+        [entityType]="item.entityType"
+      ></ds-metadata-link-view-avatar-popover>
+    }
+    <div class="font-weight-bold h4 text-truncate"> {{title}} </div>
+  </div>
+
+  @for (metadata of entityMetdataFields; track metadata) {
+    @if (item.hasMetadata(metadata)) {
+      <div class="row">
+        <div class="col-4">
+          <span class="font-weight-bold">{{ "metadata-link-view.popover.label." +  (isOtherEntityType ? "other" : item.entityType) + "." +  metadata | translate }}</span>
+        </div>
+        <div class="col-8">
+          @if (longTextMetadataList.includes(metadata)) {
+            <span class="ellipsis-y-3">
+              {{ item.firstMetadataValue(metadata) }}
+            </span>
+          }
+          @if (isLink(item.firstMetadataValue(metadata)) && !getSourceSubTypeIdentifier(metadata)) {
+            <a [href]="item.firstMetadataValue(metadata)" target="_blank">
+              {{ item.firstMetadataValue(metadata) }}
+            </a>
+          }
+          @if (getSourceSubTypeIdentifier(metadata)) {
+            <div class="d-flex align-items-center">
+              <ng-container *ngVar="item.firstMetadataValue(metadata) as rorValue">
+                @if (isLink(rorValue)) {
+                  <a [href]="item.firstMetadataValue(metadata)" target="_blank" >
+                    {{ item.firstMetadataValue(metadata) }}
+                  </a>
+                }
+                @if (!isLink(rorValue)) {
+                  <a [href]="getSourceSubTypeIdentifier(metadata)?.link + '/' + item.firstMetadataValue(metadata)" target="_blank" >
+                    {{ item.firstMetadataValue(metadata) }}
+                  </a>
+                }
+              </ng-container>
+              <img
+                placement="top"
+                [ngbTooltip]="getSourceSubTypeIdentifier(metadata)?.link"
+                class="source-icon"
+                alt="source-logo"
+                [ngSrc]="getSourceSubTypeIdentifier(metadata)?.icon"
+                data-test="sourceIcon"
+                />
+            </div>
+          }
+          @if (!isLink(item.firstMetadataValue(metadata)) && !longTextMetadataList.includes(metadata)) {
+            <div class="d-flex">
+              @if (metadata === 'person.identifier.orcid') {
+                <ds-metadata-link-view-orcid [itemValue]="item"></ds-metadata-link-view-orcid>
+              } @else {
+                <span class="ellipsis-y-1">{{ item.firstMetadataValue(metadata) }}</span>
+              }
+            </div>
+          }
+        </div>
+      </div>
+    }
+  }
+
+  <div class="d-flex">
+    <a
+      class="font-weight-bold"
+      [routerLink]="[getItemPageRoute()]"
+      data-test="more-info-link"
+      >
+      {{ "metadata-link-view.popover.label.more-info" | translate }}
+    </a>
+  </div>
+</div>

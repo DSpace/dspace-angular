@@ -25,11 +25,13 @@ import {
   isNotEmpty,
 } from '@dspace/shared/utils/empty.util';
 import {
+  NgbModal,
   NgbTypeahead,
   NgbTypeaheadModule,
   NgbTypeaheadSelectItemEvent,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
+  DynamicFormControlCustomEvent,
   DynamicFormLayoutService,
   DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
@@ -49,8 +51,10 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../../../../../environments/environment';
+import { SubmissionService } from '../../../../../../submission/submission.service';
 import { ChipsComponent } from '../../../../chips/chips.component';
 import { Chips } from '../../../../chips/models/chips.model';
+import { FormBuilderService } from '../../../form-builder.service';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
 import { DynamicTagModel } from './dynamic-tag.model';
 
@@ -76,6 +80,7 @@ export class DsDynamicTagComponent extends DsDynamicVocabularyComponent implemen
   @Output() blur: EventEmitter<any> = new EventEmitter<any>();
   @Output() change: EventEmitter<any> = new EventEmitter<any>();
   @Output() focus: EventEmitter<any> = new EventEmitter<any>();
+  @Output() customEvent: EventEmitter<DynamicFormControlCustomEvent> = new EventEmitter();
 
   @ViewChild('instance') instance: NgbTypeahead;
 
@@ -92,8 +97,11 @@ export class DsDynamicTagComponent extends DsDynamicVocabularyComponent implemen
               private cdr: ChangeDetectorRef,
               protected layoutService: DynamicFormLayoutService,
               protected validationService: DynamicFormValidationService,
+              protected formBuilderService: FormBuilderService,
+              protected modalService: NgbModal,
+              protected submissionService: SubmissionService,
   ) {
-    super(vocabularyService, layoutService, validationService);
+    super(vocabularyService, layoutService, validationService, formBuilderService, modalService, submissionService);
   }
 
   /**

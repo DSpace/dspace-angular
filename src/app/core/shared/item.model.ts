@@ -100,6 +100,13 @@ export class Item extends DSpaceObject implements ChildHALResource, HandleObject
   isWithdrawn: boolean;
 
   /**
+   * A string representing the entity type of this Item
+   */
+  @autoserializeAs(String, 'entityType')
+    entityType: string;
+
+
+  /**
    * The {@link HALLink}s for this Item
    */
   @deserialize

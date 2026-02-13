@@ -109,6 +109,8 @@ export class SubmissionService {
 
   private workspaceLinkPath = 'workspaceitems';
   private workflowLinkPath = 'workflowitems';
+  private editItemsLinkPath = 'edititems';
+
   /**
    * Initialize service variables
    * @param {NotificationsService} notificationsService
@@ -226,8 +228,10 @@ export class SubmissionService {
    *    The [SubmissionDefinitionsModel] that define submission configuration
    * @param sections
    *    The [WorkspaceitemSectionsObject] that define submission sections init data
+   * @param item
    * @param errors
    *    The [SubmissionSectionError] that define submission sections init errors
+   * @param metadataSecurityConfiguration
    */
   dispatchInit(
     collectionId: string,
@@ -419,6 +423,9 @@ export class SubmissionService {
       case this.workflowLinkPath:
         scope = SubmissionScopeType.WorkflowItem;
         break;
+      case this.editItemsLinkPath:
+        scope = SubmissionScopeType.EditItem;
+        break;
     }
     return scope;
   }
@@ -588,6 +595,8 @@ export class SubmissionService {
    *    The [SubmissionDefinitionsModel] that define submission configuration
    * @param sections
    *    The [WorkspaceitemSectionsObject] that define submission sections init data
+   * @param item
+   * @param metadataSecurityConfiguration
    */
   resetSubmissionObject(
     collectionId: string,
@@ -606,8 +615,8 @@ export class SubmissionService {
    * @return Observable<RemoteData<SubmissionObject>>
    *    observable of RemoteData<SubmissionObject>
    */
-  retrieveSubmission(submissionId): Observable<RemoteData<SubmissionObject>> {
-    return this.restService.getDataById(this.getSubmissionObjectLinkName(), submissionId).pipe(
+  retrieveSubmission(submissionId, projections: string[] = []): Observable<RemoteData<SubmissionObject>> {
+    return this.restService.getDataById(this.getSubmissionObjectLinkName(), submissionId, false, projections).pipe(
       find((submissionObjects: SubmissionObject[]) => isNotUndefined(submissionObjects)),
       map((submissionObjects: SubmissionObject[]) => createSuccessfulRemoteDataObject(
         submissionObjects[0])),

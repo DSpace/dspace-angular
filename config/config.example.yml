@@ -238,6 +238,12 @@ submission:
           style: text-muted
           icon: fa-circle-xmark
 
+    # Icons to be displayed next to an authority controlled value, to give indication of the source.
+    sourceIcons:
+      # Example of configuration for authority logo based on sources.
+      # The configured icon will be displayed next to the authority value in submission and on item page or search results.
+      - source: orcid
+      - path: assets/images/orcid.logo.icon.svg
 #  Fallback language in which the UI will be rendered if the user's browser language is not an active language
 fallbackLanguage: en
 
@@ -641,3 +647,86 @@ geospatialMapViewer:
 accessibility:
   # The duration in days after which the accessibility settings cookie expires
   cookieExpirationDuration: 7
+
+# Configuration for custom layout
+layout:
+  # Configuration of icons and styles to be used for each authority controlled link
+  authorityRef:
+    - entityType: DEFAULT
+      entityStyle:
+        default:
+          icon: fa fa-user
+          style: text-info
+    - entityType: PERSON
+      entityStyle:
+        person:
+          icon: fa fa-user
+          style: text-success
+        default:
+          icon: fa fa-user
+          style: text-info
+    - entityType: ORGUNIT
+      entityStyle:
+        default:
+          icon: fa fa-university
+          style: text-success
+    - entityType: PROJECT
+      entityStyle:
+        default:
+          icon: fas fa-project-diagram
+          style: text-success
+
+# When the search results are retrieved, for each item type the metadata with a valid authority value are inspected.
+# Referenced items will be fetched with a find all by id strategy to avoid individual rest requests
+# to efficiently display the search results.
+followAuthorityMetadata:
+  - type: Publication
+    metadata: dc.contributor.author
+  - type: Product
+    metadata: dc.contributor.author
+
+# The maximum number of item to process when following authority metadata values.
+followAuthorityMaxItemLimit: 100
+
+# The maximum number of metadata values to process for each metadata key
+# when following authority metadata values.
+followAuthorityMetadataValuesLimit: 5
+
+# Configuration for customization of search results
+searchResults:
+  # Metadata fields to be displayed in the search results under the standard ones
+  additionalMetadataFields:
+    - dc.contributor.author
+    - dc.date.issued
+    - dc.type
+  # Metadata fields to be displayed in the search results for the author section
+  authorMetadata:
+    - dc.contributor.author
+    - dc.creator
+    - dc.contributor.*
+
+# Configuration of metadata to be displayed in the item metadata link view popover
+metadataLinkViewPopoverData:
+  # Metdadata list to be displayed for entities without a specific configuration
+  fallbackMetdataList:
+    - dc.description.abstract
+    - dc.description.note
+  # Configuration for each entity type
+  entityDataConfig:
+    - entityType: Person
+      # Descriptive metadata (popover body)
+      metadataList:
+        - person.affiliation.name
+        - person.email
+      # Title metadata (popover header)
+      titleMetadataList:
+          - person.givenName
+          - person.familyName
+# Configuration for identifier subtypes, based on metadata like dc.identifier.ror where ror is the subtype.
+# This is used to map the layout of the identifier in the popover and the icon displayed next to the metadata value.
+identifierSubtypes:
+  - name: ror
+    icon: assets/images/ror.logo.icon.svg
+    iconPosition: IdentifierSubtypesIconPositionEnum.LEFT
+    link: https://ror.org
+

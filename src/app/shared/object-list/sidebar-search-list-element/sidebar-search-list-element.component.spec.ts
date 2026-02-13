@@ -5,6 +5,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import { LinkService } from '@dspace/core/cache/builders/link.service';
 import { ChildHALResource } from '@dspace/core/shared/child-hal-resource.model';
@@ -16,6 +17,7 @@ import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote
 import { TranslateModule } from '@ngx-translate/core';
 
 import { TruncatableService } from '../../truncatable/truncatable.service';
+import { TruncatablePartComponent } from '../../truncatable/truncatable-part/truncatable-part.component';
 import { VarDirective } from '../../utils/var.directive';
 
 export function createSidebarSearchListElementTests(
@@ -33,6 +35,12 @@ export function createSidebarSearchListElementTests(
 
     let linkService;
 
+    const environment = {
+      browseBy: {
+        showThumbnails: true,
+      },
+    };
+
     beforeEach(waitForAsync(() => {
       linkService = jasmine.createSpyObj('linkService', {
         resolveLink: Object.assign(new HALResource(), {
@@ -44,11 +52,12 @@ export function createSidebarSearchListElementTests(
         providers: [
           { provide: TruncatableService, useValue: mockTruncatableService },
           { provide: LinkService, useValue: linkService },
+          { provide: APP_CONFIG, useValue: environment },
           DSONameService,
           ...extraProviders,
         ],
         schemas: [NO_ERRORS_SCHEMA],
-      }).compileComponents();
+      }).overrideComponent(componentClass, { remove: { imports: [TruncatablePartComponent] } }).compileComponents();
     }));
 
     beforeEach(() => {

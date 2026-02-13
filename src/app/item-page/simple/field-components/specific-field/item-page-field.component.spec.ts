@@ -18,6 +18,7 @@ import {
   MetadataMap,
   MetadataValue,
 } from '@dspace/core/shared/metadata.models';
+import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
 import { BrowseDefinitionDataServiceStub } from '@dspace/core/testing/browse-definition-data-service.stub';
 import { BrowseServiceStub } from '@dspace/core/testing/browse-service.stub';
 import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
@@ -43,6 +44,9 @@ const mockLabel = 'test label';
 const mockAuthorField = 'dc.contributor.author';
 const mockDateIssuedField = 'dc.date.issued';
 const mockFields = [mockField, mockAuthorField, mockDateIssuedField];
+const vocabularyServiceMock = {
+  getPublicVocabularyEntryByID: jasmine.createSpy('getPublicVocabularyEntryByID'),
+};
 
 describe('ItemPageFieldComponent', () => {
 
@@ -70,6 +74,7 @@ describe('ItemPageFieldComponent', () => {
         { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub },
         { provide: BrowseService, useValue: BrowseServiceStub },
         { provide: MathService, useValue: {} },
+        { provide: VocabularyService, useValue: vocabularyServiceMock },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ItemPageFieldComponent, {
