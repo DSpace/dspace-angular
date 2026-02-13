@@ -2,6 +2,7 @@ import { inject } from '@angular/core';
 import { CanActivateFn } from '@angular/router';
 import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import { of } from 'rxjs';
+import { take } from 'rxjs/operators';
 
 import { endUserAgreementGuard } from './end-user-agreement.guard';
 import { EndUserAgreementService } from './end-user-agreement.service';
@@ -20,6 +21,10 @@ export const endUserAgreementCurrentUserGuard: CanActivateFn =
         return of(true);
       }
 
-      return endUserAgreementService.hasCurrentUserAcceptedAgreement(true);
+      // Use hasCurrentUserOrCookieAcceptedAgreement to leverage synchronous cookie check
+      // This prevents guard hangs after PATCH operations when store cache may be stale
+      return endUserAgreementService.hasCurrentUserOrCookieAcceptedAgreement(true).pipe(
+        take(1),
+      );
     },
   );

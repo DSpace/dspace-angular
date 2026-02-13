@@ -69,7 +69,9 @@ export class EndUserAgreementComponent implements OnInit {
    * Initialize the "accepted" property of this component by checking if the current user has accepted it before
    */
   initAccepted() {
-    this.endUserAgreementService.hasCurrentUserOrCookieAcceptedAgreement(false).subscribe((accepted) => {
+    this.endUserAgreementService.hasCurrentUserOrCookieAcceptedAgreement(false).pipe(
+      take(1),
+    ).subscribe((accepted) => {
       this.accepted = accepted;
     });
   }
