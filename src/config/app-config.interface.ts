@@ -22,6 +22,7 @@ import { HomeConfig } from './homepage-config.interface';
 import { InfoConfig } from './info-config.interface';
 import { ItemConfig } from './item-config.interface';
 import { LangConfig } from './lang-config.interface';
+import { LanguageHashesConfig } from './languageHashes-config.interface';
 import { LiveRegionConfig } from './live-region.config';
 import { MarkdownConfig } from './markdown-config.interface';
 import { MatomoConfig } from './matomo-config.interface';
@@ -47,6 +48,7 @@ interface AppConfig extends Config {
   debug: boolean;
   fallbackLanguage: string;
   languages: LangConfig[];
+  languageHashes: LanguageHashesConfig[];
   browseBy: BrowseByConfig;
   communityList: CommunityListConfig;
   homePage: HomeConfig;
