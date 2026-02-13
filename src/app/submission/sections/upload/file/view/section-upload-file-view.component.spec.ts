@@ -10,7 +10,9 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
 
+import { LocaleService } from '../../../../../core/locale/locale.service';
 import { Metadata } from '../../../../../core/shared/metadata.utils';
 import { FormComponent } from '../../../../../shared/form/form.component';
 import { mockUploadFiles } from '../../../../../shared/mocks/submission.mock';
@@ -24,6 +26,12 @@ describe('SubmissionSectionUploadFileViewComponent test suite', () => {
   let comp: SubmissionSectionUploadFileViewComponent;
   let compAsAny: any;
   let fixture: ComponentFixture<SubmissionSectionUploadFileViewComponent>;
+  let localeService: any;
+  const languageList = ['en;q=1', 'de;q=0.8'];
+  const mockLocaleService = jasmine.createSpyObj('LocaleService', {
+    getCurrentLanguageCode: jasmine.createSpy('getCurrentLanguageCode'),
+    getLanguageCodeList: of(languageList),
+  });
 
   const fileData: any = mockUploadFiles[0];
 
@@ -38,6 +46,7 @@ describe('SubmissionSectionUploadFileViewComponent test suite', () => {
       ],
       providers: [
         SubmissionSectionUploadFileViewComponent,
+        { provide: LocaleService, useValue: mockLocaleService },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
@@ -56,14 +65,15 @@ describe('SubmissionSectionUploadFileViewComponent test suite', () => {
     let testComp: TestComponent;
     let testFixture: ComponentFixture<TestComponent>;
 
-    // synchronous beforeEach
-    beforeEach(() => {
+    beforeEach(waitForAsync(async () => {
       const html = `
       <ds-submission-section-upload-file-view [fileData]="fileData"></ds-submission-section-upload-file-view>`;
 
       testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
+      localeService = TestBed.inject(LocaleService);
+      localeService.getCurrentLanguageCode.and.returnValue(of('en'));
       testComp = testFixture.componentInstance;
-    });
+    }));
 
     afterEach(() => {
       testFixture.destroy();
@@ -77,11 +87,13 @@ describe('SubmissionSectionUploadFileViewComponent test suite', () => {
   });
 
   describe('', () => {
-    beforeEach(() => {
+    beforeEach(waitForAsync(async () => {
+      localeService = TestBed.inject(LocaleService);
+      localeService.getCurrentLanguageCode.and.returnValue(of('en'));
       fixture = TestBed.createComponent(SubmissionSectionUploadFileViewComponent);
       comp = fixture.componentInstance;
       compAsAny = comp;
-    });
+    }));
 
     afterEach(() => {
       fixture.destroy();
