@@ -67,7 +67,7 @@
               <div
                 class="mb-4">
                 <h5>
-                  {{ value.label }}
+                  {{ 'submission.sections.ccLicense.option.answer.' + value.label | translate: {default:value.label} }}
                 </h5>
                 <div [innerHTML]="value.description" class="fw-light"></div>
               </div>
@@ -80,7 +80,7 @@
           <ng-container class="selection" *ngVar="getSelectedOption(getSelectedCcLicense(), field) as option">
             @if (option) {
               <span>
-                {{ option.label }}
+                {{ 'submission.sections.ccLicense.option.answer.' + option.label | translate: {default:option.label} }}
               </span>
             }
             @if (!option) {
@@ -95,7 +95,7 @@
                 <button
                   class="dropdown-item"
                   (click)="selectOption(getSelectedCcLicense(), field, option)">
-                  {{ option.label }}
+                  {{ 'submission.sections.ccLicense.option.answer.' + option.label | translate: {default:option.label} }}
                 </button>
               }
             </div>
@@ -111,7 +111,7 @@
                 title="{{ option.label }}"
                 class="me-1"
                 [checked]="isSelectedOption(getSelectedCcLicense(), field, option)">
-              <span>{{ option.label }}</span>
+              <span>{{ 'submission.sections.ccLicense.option.answer.' + option.label | translate: {default:option.label} }}</span>
             </div>
           </div>
         }
