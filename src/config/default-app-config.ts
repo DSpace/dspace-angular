@@ -296,6 +296,7 @@ export class DefaultAppConfig implements AppConfig {
     { code: 'tr', label: 'Türkçe', active: true },
     { code: 'uk', label: 'Yкраї́нська', active: true },
     { code: 'vi', label: 'Tiếng Việt', active: true },
+    { code: 'zh-TW', label: '繁体中文', active: true },
   ];
 
   // Browse-By Pages
