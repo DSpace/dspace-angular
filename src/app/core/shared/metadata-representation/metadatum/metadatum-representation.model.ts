@@ -48,4 +48,11 @@ export class MetadatumRepresentation extends MetadataValue implements MetadataRe
     return this.value;
   }
 
+  /**
+   * Get the value language
+   */
+  getLanguage(): string {
+    return this.language || null;
+  }
+
 }

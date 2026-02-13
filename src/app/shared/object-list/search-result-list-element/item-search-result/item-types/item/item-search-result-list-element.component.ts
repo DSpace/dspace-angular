@@ -13,6 +13,7 @@ import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-sea
 import { ViewMode } from '@dspace/core/shared/view-mode.model';
 
 import { ThemedThumbnailComponent } from '../../../../../../thumbnail/themed-thumbnail.component';
+import { MetadataDirective } from '../../../../../metadata.directive';
 import { ThemedBadgesComponent } from '../../../../../object-collection/shared/badges/themed-badges.component';
 import { listableObjectComponent } from '../../../../../object-collection/shared/listable-object/listable-object.decorator';
 import { TruncatableComponent } from '../../../../../truncatable/truncatable.component';
@@ -27,6 +28,7 @@ import { SearchResultListElementComponent } from '../../../search-result-list-el
   templateUrl: './item-search-result-list-element.component.html',
   imports: [
     AsyncPipe,
+    MetadataDirective,
     NgClass,
     RouterLink,
     ThemedBadgesComponent,

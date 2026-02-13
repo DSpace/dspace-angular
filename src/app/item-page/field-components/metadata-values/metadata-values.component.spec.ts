@@ -99,4 +99,20 @@ describe('MetadataValuesComponent', () => {
     expect(result.rel).toBe('noopener noreferrer');
   });
 
+  it('should set the lang attribute for each rendered metadata value and convert underscores', () => {
+    const valueSpans = fixture.debugElement.queryAll(By.css('span.dont-break-out.preserve-line-breaks'));
+    expect(valueSpans.length).toBe(mockMetadata.length);
+    valueSpans.forEach(spanDebugEl => {
+      expect(spanDebugEl.attributes.lang).toBe('en-US');
+    });
+  });
+
+  it('should not set the lang attribute when a metadata value language is missing', () => {
+    comp.mdValues = [{ value: 'No language value' } as MetadataValue];
+    fixture.detectChanges();
+    const valueSpans = fixture.debugElement.queryAll(By.css('span.dont-break-out.preserve-line-breaks'));
+    expect(valueSpans.length).toBe(1);
+    expect(valueSpans[0].attributes.lang).toBeUndefined();
+  });
+
 });

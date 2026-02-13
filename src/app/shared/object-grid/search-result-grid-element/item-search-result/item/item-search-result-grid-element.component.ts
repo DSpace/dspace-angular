@@ -14,6 +14,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { ThemedThumbnailComponent } from '../../../../../thumbnail/themed-thumbnail.component';
 import { focusShadow } from '../../../../animations/focus';
+import { MetadataDirective } from '../../../../metadata.directive';
 import { ThemedBadgesComponent } from '../../../../object-collection/shared/badges/themed-badges.component';
 import { listableObjectComponent } from '../../../../object-collection/shared/listable-object/listable-object.decorator';
 import { TruncatableComponent } from '../../../../truncatable/truncatable.component';
@@ -30,6 +31,7 @@ import { SearchResultGridElementComponent } from '../../search-result-grid-eleme
   animations: [focusShadow],
   imports: [
     AsyncPipe,
+    MetadataDirective,
     RouterLink,
     ThemedBadgesComponent,
     ThemedThumbnailComponent,
