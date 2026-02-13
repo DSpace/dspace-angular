@@ -36,7 +36,10 @@ import {
   Observable,
   of,
 } from 'rxjs';
-import { map } from 'rxjs/operators';
+import {
+  map,
+  switchMap,
+} from 'rxjs/operators';
 
 import { ThemedAccessStatusBadgeComponent } from '../object-collection/shared/badges/access-status-badge/themed-access-status-badge.component';
 
@@ -112,16 +115,27 @@ export class FileDownloadLinkComponent implements OnInit {
     if (this.enableRequestACopy) {
       // Obtain item request data from the route snapshot
       this.itemRequest = this.route.snapshot.data.itemRequest;
-      // Set up observables to test access rights to a normal bitstream download, a valid token download, and the request-a-copy feature
+      // Set up observable to evaluate access rights for a normal download
       this.canDownload$ = this.authorizationService.isAuthorized(FeatureID.CanDownload, isNotEmpty(this.bitstream) ? this.bitstream.self : undefined);
-      this.canDownloadWithToken$ = of((this.itemRequest && this.itemRequest.acceptRequest && !this.itemRequest.accessExpired) ? (this.itemRequest.allfiles !== false || this.itemRequest.bitstreamId === this.bitstream.uuid) : false);
-      this.canRequestACopy$ = this.authorizationService.isAuthorized(FeatureID.CanRequestACopy, isNotEmpty(this.bitstream) ? this.bitstream.self : undefined);
-      // Set up observable to determine the path to the bitstream based on the user's access rights and features as above
-      this.bitstreamPath$ = observableCombineLatest([this.canDownload$, this.canDownloadWithToken$, this.canRequestACopy$]).pipe(
-        map(([canDownload, canDownloadWithToken, canRequestACopy]) => this.getBitstreamPath(canDownload, canDownloadWithToken, canRequestACopy)),
+      // Only set up and execute other observables if canDownload emits false
+      this.bitstreamPath$ = this.canDownload$.pipe(
+        switchMap(canDownload => {
+          if (canDownload) {
+            return of(this.getBitstreamDownloadPath());
+          }
+          // Set up and combine observables to evaluate access rights to a valid token download and the request-a-copy feature
+          this.canDownloadWithToken$ = of((this.itemRequest && this.itemRequest.acceptRequest && !this.itemRequest.accessExpired) ? (this.itemRequest.allfiles !== false || this.itemRequest.bitstreamId === this.bitstream.uuid) : false);
+          this.canRequestACopy$ = this.authorizationService.isAuthorized(FeatureID.CanRequestACopy, isNotEmpty(this.bitstream) ? this.bitstream.self : undefined);
+          // Set up canDownload observable so the template can read the state
+          this.canDownload$ = of(false);
+          return observableCombineLatest([this.canDownloadWithToken$, this.canRequestACopy$]).pipe(
+            map(([canDownloadWithToken, canRequestACopy]) => this.getBitstreamPathForRequestACopy(canDownloadWithToken, canRequestACopy)),
+          );
+        }),
       );
     } else {
       this.bitstreamPath$ = of(this.getBitstreamDownloadPath());
+      // TODO: do we really want this to be true always?
       this.canDownload$ = of(true);
     }
   }
@@ -130,21 +144,16 @@ export class FileDownloadLinkComponent implements OnInit {
    * Return a path to the bitstream based on what kind of access and authorization the user has, and whether
    * they may request a copy
    *
-   * @param canDownload user can download normally
    * @param canDownloadWithToken user can download using a token granted by a request approver
    * @param canRequestACopy user can request approval to access a copy
    */
-  getBitstreamPath(canDownload: boolean, canDownloadWithToken, canRequestACopy: boolean) {
-    // No matter what, if the user can download with their own authZ, allow it
-    if (canDownload) {
-      return this.getBitstreamDownloadPath();
-    }
-    // Otherwise, if they access token is valid, use this
+  getBitstreamPathForRequestACopy(canDownloadWithToken: boolean, canRequestACopy: boolean) {
+    //  if the access token is valid, use this
     if (canDownloadWithToken) {
       return this.getAccessByTokenBitstreamPath(this.itemRequest);
     }
     // If the user can't download, but can request a copy, show the request a copy link
-    if (!canDownload && canRequestACopy && hasValue(this.item)) {
+    if (canRequestACopy && hasValue(this.item)) {
       return getBitstreamRequestACopyRoute(this.item, this.bitstream);
     }
     // By default, return the plain path
