@@ -18,31 +18,31 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import {
+  SortDirection,
+  SortOptions,
+} from '@dspace/core/cache/models/sort-options.model';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { Context } from '@dspace/core/shared/context.model';
+import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
+import { isEmpty } from '@dspace/shared/utils/empty.util';
+import { setPlaceHolderAttributes } from '@dspace/shared/utils/object-list-utils';
 import { Observable } from 'rxjs';
 import {
   distinctUntilChanged,
   map,
 } from 'rxjs/operators';
 
-import {
-  SortDirection,
-  SortOptions,
-} from '../../core/cache/models/sort-options.model';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { Context } from '../../core/shared/context.model';
-import { PageInfo } from '../../core/shared/page-info.model';
-import { ViewMode } from '../../core/shared/view-mode.model';
-import { isEmpty } from '../empty.util';
 import { ObjectDetailComponent } from '../object-detail/object-detail.component';
 import { ObjectGeospatialMapComponent } from '../object-geospatial-map/object-geospatial-map.component';
 import { ObjectGridComponent } from '../object-grid/object-grid.component';
 import { ThemedObjectListComponent } from '../object-list/themed-object-list.component';
 import { ObjectTableComponent } from '../object-table/object-table.component';
-import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
-import { setPlaceHolderAttributes } from '../utils/object-list-utils';
 import { CollectionElementLinkType } from './collection-element-link.type';
-import { ListableObject } from './shared/listable-object.model';
 
 /**
  * Component that can render a list of listable objects in different view modes
@@ -51,8 +51,15 @@ import { ListableObject } from './shared/listable-object.model';
   selector: 'ds-viewable-collection',
   styleUrls: ['./object-collection.component.scss'],
   templateUrl: './object-collection.component.html',
-  standalone: true,
-  imports: [ThemedObjectListComponent, NgClass, ObjectGridComponent, ObjectDetailComponent, AsyncPipe, ObjectTableComponent, ObjectGeospatialMapComponent],
+  imports: [
+    AsyncPipe,
+    NgClass,
+    ObjectDetailComponent,
+    ObjectGeospatialMapComponent,
+    ObjectGridComponent,
+    ObjectTableComponent,
+    ThemedObjectListComponent,
+  ],
 })
 export class ObjectCollectionComponent implements OnInit {
   /**
@@ -71,16 +78,21 @@ export class ObjectCollectionComponent implements OnInit {
   @Input() sortConfig: SortOptions;
 
   /**
-   * Whether or not the list elements have a border or not
+   * Whether the list elements have a border or not
    */
   @Input() hasBorder = false;
 
   /**
-   * Whether or not to hide the gear to change the sort and pagination configuration
+   * Whether to hide the gear to change the sort and pagination configuration
    */
   @Input() hideGear = false;
   @Input() selectable = false;
   @Input() selectionConfig: {repeatable: boolean, listId: string};
+
+  /**
+   * Whether to show an RSS syndication button for the current search options
+   */
+  @Input() showRSS: SortOptions | boolean = false;
 
   /**
    * Emit custom event for listable object custom actions.

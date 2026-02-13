@@ -21,6 +21,31 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
+import { ItemRequestDataService } from '@dspace/core/data/item-request-data.service';
+import { ProofOfWorkCaptchaDataService } from '@dspace/core/data/proof-of-work-captcha-data.service';
+import { EPerson } from '@dspace/core/eperson/models/eperson.model';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { getForbiddenRoute } from '@dspace/core/router/core-routing-paths';
+import {
+  getBitstreamDownloadRoute,
+  getItemPageRoute,
+} from '@dspace/core/router/utils/dso-route.utils';
+import { Bitstream } from '@dspace/core/shared/bitstream.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { ItemRequest } from '@dspace/core/shared/item-request.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '@dspace/core/shared/operators';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import {
   TranslateModule,
   TranslateService,
@@ -28,7 +53,7 @@ import {
 import {
   combineLatest as observableCombineLatest,
   Observable,
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
 import {
@@ -38,47 +63,21 @@ import {
   take,
 } from 'rxjs/operators';
 
-import {
-  getBitstreamDownloadRoute,
-  getForbiddenRoute,
-} from '../../../app-routing-paths';
-import { AuthService } from '../../../core/auth/auth.service';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
-import { ItemRequestDataService } from '../../../core/data/item-request-data.service';
-import { ProofOfWorkCaptchaDataService } from '../../../core/data/proof-of-work-captcha-data.service';
-import { EPerson } from '../../../core/eperson/models/eperson.model';
-import { Bitstream } from '../../../core/shared/bitstream.model';
-import { Item } from '../../../core/shared/item.model';
-import { ItemRequest } from '../../../core/shared/item-request.model';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
-} from '../../../core/shared/operators';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../../shared/empty.util';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { getItemPageRoute } from '../../item-page-routing-paths';
 import { AltchaCaptchaComponent } from './altcha-captcha.component';
 
 @Component({
   selector: 'ds-bitstream-request-a-copy-page',
   templateUrl: './bitstream-request-a-copy-page.component.html',
   imports: [
-    TranslateModule,
-    RouterLink,
-    AsyncPipe,
-    ReactiveFormsModule,
-    BtnDisabledDirective,
     AltchaCaptchaComponent,
+    AsyncPipe,
+    BtnDisabledDirective,
+    ReactiveFormsModule,
+    RouterLink,
+    TranslateModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  standalone: true,
 })
 /**
  * Page component for requesting a copy for a bitstream
@@ -230,7 +229,7 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
         if (authenticated) {
           return this.auth.getAuthenticatedUserFromStore();
         } else {
-          return observableOf(undefined);
+          return of(undefined);
         }
       }),
     );

@@ -27,7 +27,6 @@ import { DynamicCustomSwitchModel } from './custom-switch.model';
     ReactiveFormsModule,
     TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * Component displaying a custom switch usable in dynamic forms

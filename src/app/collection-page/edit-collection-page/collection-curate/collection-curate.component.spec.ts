@@ -8,13 +8,13 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { Collection } from '../../../core/shared/collection.model';
 import { CurationFormComponent } from '../../../curation-form/curation-form.component';
-import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
 import { CollectionCurateComponent } from './collection-curate.component';
 
 describe('CollectionCurateComponent', () => {
@@ -32,7 +32,7 @@ describe('CollectionCurateComponent', () => {
   beforeEach(waitForAsync(() => {
     routeStub = {
       parent: {
-        data: observableOf({
+        data: of({
           dso: createSuccessfulRemoteDataObject(collection),
         }),
       },

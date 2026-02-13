@@ -13,9 +13,34 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { BundleDataService } from '@dspace/core/data/bundle-data.service';
+import { FieldChangeType } from '@dspace/core/data/object-updates/field-change-type.model';
+import { FieldUpdate } from '@dspace/core/data/object-updates/field-update.model';
+import { FieldUpdates } from '@dspace/core/data/object-updates/field-updates.model';
+import { ObjectUpdatesService } from '@dspace/core/data/object-updates/object-updates.service';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { RequestService } from '@dspace/core/data/request.service';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
+import { Bitstream } from '@dspace/core/shared/bitstream.model';
+import { Bundle } from '@dspace/core/shared/bundle.model';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { Item } from '@dspace/core/shared/item.model';
+import {
+  getAllSucceededRemoteData,
+  paginatedListToArray,
+} from '@dspace/core/shared/operators';
+import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
+import {
+  hasNoValue,
+  hasValue,
+} from '@dspace/shared/utils/empty.util';
 import {
   NgbDropdownModule,
-  NgbTooltipModule,
+  NgbTooltip,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -31,37 +56,12 @@ import {
   take,
   tap,
 } from 'rxjs/operators';
-import { PaginatedList } from 'src/app/core/data/paginated-list.model';
-import { RemoteData } from 'src/app/core/data/remote-data';
-import { Bitstream } from 'src/app/core/shared/bitstream.model';
 
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { BundleDataService } from '../../../../core/data/bundle-data.service';
-import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
-import { FieldUpdate } from '../../../../core/data/object-updates/field-update.model';
-import { FieldUpdates } from '../../../../core/data/object-updates/field-updates.model';
-import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
-import { RequestService } from '../../../../core/data/request.service';
-import { PaginationService } from '../../../../core/pagination/pagination.service';
-import { Bundle } from '../../../../core/shared/bundle.model';
-import { Item } from '../../../../core/shared/item.model';
-import {
-  getAllSucceededRemoteData,
-  paginatedListToArray,
-} from '../../../../core/shared/operators';
 import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
-import {
-  hasNoValue,
-  hasValue,
-} from '../../../../shared/empty.util';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
-import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
 import { ResponsiveColumnSizes } from '../../../../shared/responsive-table-sizes/responsive-column-sizes';
 import { ResponsiveTableSizes } from '../../../../shared/responsive-table-sizes/responsive-table-sizes';
-import { PaginatedSearchOptions } from '../../../../shared/search/models/paginated-search-options.model';
 import { BrowserOnlyPipe } from '../../../../shared/utils/browser-only.pipe';
-import { followLink } from '../../../../shared/utils/follow-link-config.model';
-import { getItemPageRoute } from '../../../item-page-routing-paths';
 import {
   BitstreamTableEntry,
   ItemBitstreamsService,
@@ -75,18 +75,17 @@ import {
   styleUrls: ['../item-bitstreams.component.scss', './item-edit-bitstream-bundle.component.scss'],
   templateUrl: './item-edit-bitstream-bundle.component.html',
   imports: [
-    CommonModule,
-    TranslateModule,
-    RouterLink,
-    PaginationComponent,
-    NgbTooltipModule,
-    CdkDropList,
-    NgbDropdownModule,
-    CdkDrag,
     BrowserOnlyPipe,
     BtnDisabledDirective,
+    CdkDrag,
+    CdkDropList,
+    CommonModule,
+    NgbDropdownModule,
+    NgbTooltip,
+    PaginationComponent,
+    RouterLink,
+    TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * Component that displays a single bundle of an item on the item bitstreams edit page

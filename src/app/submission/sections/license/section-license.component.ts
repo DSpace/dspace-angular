@@ -6,6 +6,20 @@ import {
   Inject,
   ViewChild,
 } from '@angular/core';
+import { CollectionDataService } from '@dspace/core/data/collection-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { JsonPatchOperationPathCombiner } from '@dspace/core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { License } from '@dspace/core/shared/license.model';
+import { WorkspaceitemSectionLicenseObject } from '@dspace/core/submission/models/workspaceitem-section-license.model';
+import {
+  hasValue,
+  isNotEmpty,
+  isNotNull,
+  isNotUndefined,
+} from '@dspace/shared/utils/empty.util';
 import {
   DynamicCheckboxModel,
   DynamicFormControlEvent,
@@ -27,23 +41,9 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { CollectionDataService } from '../../../core/data/collection-data.service';
-import { RemoteData } from '../../../core/data/remote-data';
-import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
-import { Collection } from '../../../core/shared/collection.model';
-import { License } from '../../../core/shared/license.model';
-import { WorkspaceitemSectionLicenseObject } from '../../../core/submission/models/workspaceitem-section-license.model';
-import {
-  hasValue,
-  isNotEmpty,
-  isNotNull,
-  isNotUndefined,
-} from '../../../shared/empty.util';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
-import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { SubmissionService } from '../../submission.service';
 import { SectionFormOperationsService } from '../form/section-form-operations.service';
 import { SectionModelComponent } from '../models/section.model';
@@ -63,10 +63,9 @@ import {
   templateUrl: './section-license.component.html',
   providers: [],
   imports: [
-    FormComponent,
     AsyncPipe,
+    FormComponent,
   ],
-  standalone: true,
 })
 export class SubmissionSectionLicenseComponent   extends SectionModelComponent implements AfterViewChecked {
 

@@ -1,4 +1,4 @@
-@if (registryService.getActiveMetadataField() | async) {
+@if (activeMetadataField$ | async) {
   <h2>{{messagePrefix + '.edit' | translate}}</h2>
 } @else {
   <h2>{{messagePrefix + '.create' | translate}}</h2>

@@ -10,33 +10,31 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
-
-import { buildPaginatedList } from '../../../core/data/paginated-list.model';
-import { Item } from '../../../core/shared/item.model';
-import { PageInfo } from '../../../core/shared/page-info.model';
-import { SearchService } from '../../../core/shared/search/search.service';
-import { AlertComponent } from '../../../shared/alert/alert.component';
-import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
+import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
+import { ImportType } from '@dspace/core/notifications/qa/models/quality-assurance-event-data.model';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
 import {
   ItemMockPid10,
   NotificationsMockDspaceObject,
   qualityAssuranceEventObjectMissingProjectFound,
-} from '../../../shared/mocks/notifications.mock';
-import { getMockSearchService } from '../../../shared/mocks/search-service.mock';
+} from '@dspace/core/testing/notifications.mock';
+import { getMockSearchService } from '@dspace/core/testing/search-service.mock';
+import { createTestComponent } from '@dspace/core/testing/utils.test';
+import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
+
+import { AlertComponent } from '../../../shared/alert/alert.component';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { SelectableListService } from '../../../shared/object-list/selectable-list/selectable-list.service';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
-import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
+import { SearchService } from '../../../shared/search/search.service';
 import { ThemedSearchResultsComponent } from '../../../shared/search/search-results/themed-search-results.component';
-import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
-import { createTestComponent } from '../../../shared/testing/utils.test';
-import {
-  ImportType,
-  ProjectEntryImportModalComponent,
-} from './project-entry-import-modal.component';
+import { ProjectEntryImportModalComponent } from './project-entry-import-modal.component';
 
 const eventData = {
   event: qualityAssuranceEventObjectMissingProjectFound,
@@ -122,7 +120,7 @@ describe('ProjectEntryImportModalComponent test suite', () => {
 
     // synchronous beforeEach
     beforeEach(() => {
-      searchServiceStub.search.and.returnValue(observableOf(paginatedListRD));
+      searchServiceStub.search.and.returnValue(of(paginatedListRD));
       const html = `
         <ds-project-entry-import-modal [externalSourceEntry]="eventData"></ds-project-entry-import-modal>`;
       testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
@@ -156,7 +154,7 @@ describe('ProjectEntryImportModalComponent test suite', () => {
     describe('search', () => {
       it('should call SearchService.search', () => {
 
-        (searchServiceStub as any).search.and.returnValue(observableOf(paginatedListRD));
+        (searchServiceStub as any).search.and.returnValue(of(paginatedListRD));
         comp.pagination = pagination;
 
         comp.search(searchString);
@@ -230,7 +228,6 @@ describe('ProjectEntryImportModalComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
-  standalone: true,
   imports: [],
 })
 class TestComponent {

@@ -4,11 +4,11 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { Community } from '@dspace/core/shared/community.model';
+import { CommunitySearchResult } from '@dspace/core/shared/object-collection/community-search-result.model';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
 
-import { Community } from '../../../../core/shared/community.model';
-import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { ThemedBadgesComponent } from '../../../object-collection/shared/badges/themed-badges.component';
-import { CommunitySearchResult } from '../../../object-collection/shared/community-search-result.model';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { SearchResultListElementComponent } from '../search-result-list-element.component';
 
@@ -16,8 +16,11 @@ import { SearchResultListElementComponent } from '../search-result-list-element.
   selector: 'ds-community-search-result-list-element',
   styleUrls: ['../search-result-list-element.component.scss', 'community-search-result-list-element.component.scss'],
   templateUrl: 'community-search-result-list-element.component.html',
-  standalone: true,
-  imports: [NgClass, ThemedBadgesComponent, RouterLink],
+  imports: [
+    NgClass,
+    RouterLink,
+    ThemedBadgesComponent,
+  ],
 })
 /**
  * Component representing a community search result in list view

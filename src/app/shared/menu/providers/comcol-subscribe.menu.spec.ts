@@ -1,9 +1,9 @@
 import { TestBed } from '@angular/core/testing';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { Collection } from '@dspace/core/shared/collection.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { Collection } from '../../../core/shared/collection.model';
 import { MenuItemType } from '../menu-item-type.model';
 import { PartialMenuSection } from '../menu-provider.model';
 import { SubscribeMenuProvider } from './comcol-subscribe.menu';
@@ -33,7 +33,7 @@ describe('SubscribeMenuProvider', () => {
   beforeEach(() => {
 
     authorizationService = jasmine.createSpyObj('authorizationService', {
-      'isAuthorized': observableOf(true),
+      'isAuthorized': of(true),
     });
 
     modalService = jasmine.createSpyObj('modalService', ['open']);

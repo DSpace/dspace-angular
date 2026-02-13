@@ -10,19 +10,19 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
-
-import { AuthService } from '../core/auth/auth.service';
-import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
-import { RemoteData } from '../core/data/remote-data';
-import { Bitstream } from '../core/shared/bitstream.model';
-import { FileService } from '../core/shared/file.service';
-import { getMockThemeService } from '../shared/mocks/theme-service.mock';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { Bitstream } from '@dspace/core/shared/bitstream.model';
+import { FileService } from '@dspace/core/shared/file.service';
 import {
   createFailedRemoteDataObject,
   createSuccessfulRemoteDataObject,
-} from '../shared/remote-data.utils';
+} from '@dspace/core/utilities/remote-data.utils';
+import { TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
+
+import { getMockThemeService } from '../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../shared/theme-support/theme.service';
 import { SafeUrlPipe } from '../shared/utils/safe-url-pipe';
 import { VarDirective } from '../shared/utils/var.directive';
@@ -31,7 +31,6 @@ import { ThumbnailComponent } from './thumbnail.component';
 @Pipe({
   // eslint-disable-next-line @angular-eslint/pipe-prefix
   name: 'translate',
-  standalone: true,
 })
 class MockTranslatePipe implements PipeTransform {
   transform(key: string): string {
@@ -54,15 +53,15 @@ describe('ThumbnailComponent', () => {
   describe('when platform is browser', () => {
     beforeEach(waitForAsync(() => {
       authService = jasmine.createSpyObj('AuthService', {
-        isAuthenticated: observableOf(true),
+        isAuthenticated: of(true),
       });
       authorizationService = jasmine.createSpyObj('AuthorizationService', {
-        isAuthorized: observableOf(true),
+        isAuthorized: of(true),
       });
       fileService = jasmine.createSpyObj('FileService', {
         retrieveFileDownloadLink: null,
       });
-      fileService.retrieveFileDownloadLink.and.callFake((url) => observableOf(`${url}?authentication-token=fake`));
+      fileService.retrieveFileDownloadLink.and.callFake((url) => of(`${url}?authentication-token=fake`));
 
       TestBed.configureTestingModule({
         imports: [
@@ -99,32 +98,32 @@ describe('ThumbnailComponent', () => {
     });
 
     describe('loading', () => {
-      it('should start out with isLoading$ true', () => {
-        expect(comp.isLoading).toBeTrue();
+      it('should start out with isLoading true', () => {
+        expect(comp.isLoading()).toBeTrue();
       });
 
       it('should set isLoading$ to false once an image is successfully loaded', () => {
         comp.setSrc('http://bit.stream');
         fixture.debugElement.query(By.css('img.thumbnail-content')).triggerEventHandler('load', new Event('load'));
-        expect(comp.isLoading).toBeFalse();
+        expect(comp.isLoading()).toBeFalse();
       });
 
       it('should set isLoading$ to false once the src is set to null', () => {
         comp.setSrc(null);
-        expect(comp.isLoading).toBeFalse();
+        expect(comp.isLoading()).toBeFalse();
       });
 
       it('should show a loading animation while isLoading$ is true', () => {
         expect(de.query(By.css('ds-loading'))).toBeTruthy();
 
-        comp.isLoading = false;
+        comp.isLoading.set(false);
         fixture.detectChanges();
         expect(fixture.debugElement.query(By.css('ds-loading'))).toBeFalsy();
       });
 
       describe('with a thumbnail image', () => {
         beforeEach(() => {
-          comp.src = 'https://bit.stream';
+          comp.src.set('https://bit.stream');
           fixture.detectChanges();
         });
 
@@ -133,7 +132,7 @@ describe('ThumbnailComponent', () => {
           expect(img).toBeTruthy();
           expect(img.classes['d-none']).toBeTrue();
 
-          comp.isLoading = false;
+          comp.isLoading.set(false);
           fixture.detectChanges();
           img = fixture.debugElement.query(By.css('img.thumbnail-content'));
           expect(img).toBeTruthy();
@@ -144,14 +143,14 @@ describe('ThumbnailComponent', () => {
 
       describe('without a thumbnail image', () => {
         beforeEach(() => {
-          comp.src = null;
+          comp.src.set(null);
           fixture.detectChanges();
         });
 
         it('should only show the HTML placeholder once done loading', () => {
           expect(fixture.debugElement.query(By.css('div.thumbnail-placeholder'))).toBeFalsy();
 
-          comp.isLoading = false;
+          comp.isLoading.set(false);
           fixture.detectChanges();
           expect(fixture.debugElement.query(By.css('div.thumbnail-placeholder'))).toBeTruthy();
         });
@@ -180,7 +179,7 @@ describe('ThumbnailComponent', () => {
 
         describe('if not logged in', () => {
           beforeEach(() => {
-            authService.isAuthenticated.and.returnValue(observableOf(false));
+            authService.isAuthenticated.and.returnValue(of(false));
           });
 
           it('should fall back to default', () => {
@@ -191,12 +190,12 @@ describe('ThumbnailComponent', () => {
 
         describe('if logged in', () => {
           beforeEach(() => {
-            authService.isAuthenticated.and.returnValue(observableOf(true));
+            authService.isAuthenticated.and.returnValue(of(true));
           });
 
           describe('and authorized to download the thumbnail', () => {
             beforeEach(() => {
-              authorizationService.isAuthorized.and.returnValue(observableOf(true));
+              authorizationService.isAuthorized.and.returnValue(of(true));
             });
 
             it('should add an authentication token to the thumbnail URL', () => {
@@ -213,7 +212,7 @@ describe('ThumbnailComponent', () => {
 
           describe('but not authorized to download the thumbnail', () => {
             beforeEach(() => {
-              authorizationService.isAuthorized.and.returnValue(observableOf(false));
+              authorizationService.isAuthorized.and.returnValue(of(false));
             });
 
             it('should fall back to default', () => {
@@ -247,14 +246,14 @@ describe('ThumbnailComponent', () => {
     describe('fallback', () => {
       describe('if there is a default image', () => {
         it('should display the default image', () => {
-          comp.src = 'http://bit.stream';
+          comp.src.set('http://bit.stream');
           comp.defaultImage = 'http://default.img';
           comp.errorHandler();
-          expect(comp.src).toBe(comp.defaultImage);
+          expect(comp.src()).toBe(comp.defaultImage);
         });
 
         it('should include the alt text', () => {
-          comp.src = 'http://bit.stream';
+          comp.src.set('http://bit.stream');
           comp.defaultImage = 'http://default.img';
           comp.errorHandler();
 
@@ -266,10 +265,10 @@ describe('ThumbnailComponent', () => {
 
       describe('if there is no default image', () => {
         it('should display the HTML placeholder', () => {
-          comp.src = 'http://default.img';
+          comp.src.set('http://default.img');
           comp.defaultImage = null;
           comp.errorHandler();
-          expect(comp.src).toBe(null);
+          expect(comp.src()).toBe(null);
 
           fixture.detectChanges();
           const placeholder = fixture.debugElement.query(By.css('div.thumbnail-placeholder')).nativeElement;
@@ -363,7 +362,7 @@ describe('ThumbnailComponent', () => {
         it('should show the default image', () => {
           comp.defaultImage = 'default/image.jpg';
           comp.ngOnChanges({});
-          expect(comp.src).toBe('default/image.jpg');
+          expect(comp.src()).toBe('default/image.jpg');
         });
       });
     });
@@ -373,15 +372,15 @@ describe('ThumbnailComponent', () => {
     beforeEach(waitForAsync(() => {
 
       authService = jasmine.createSpyObj('AuthService', {
-        isAuthenticated: observableOf(true),
+        isAuthenticated: of(true),
       });
       authorizationService = jasmine.createSpyObj('AuthorizationService', {
-        isAuthorized: observableOf(true),
+        isAuthorized: of(true),
       });
       fileService = jasmine.createSpyObj('FileService', {
         retrieveFileDownloadLink: null,
       });
-      fileService.retrieveFileDownloadLink.and.callFake((url) => observableOf(`${url}?authentication-token=fake`));
+      fileService.retrieveFileDownloadLink.and.callFake((url) => of(`${url}?authentication-token=fake`));
 
       TestBed.configureTestingModule({
         imports: [
@@ -419,7 +418,7 @@ describe('ThumbnailComponent', () => {
     });
 
     it('should start out with isLoading$ true', () => {
-      expect(comp.isLoading).toBeTrue();
+      expect(comp.isLoading()).toBeTrue();
       expect(de.query(By.css('ds-loading'))).toBeTruthy();
     });
 

@@ -12,12 +12,12 @@ import { BtnDisabledDirective } from '../../../../../app/shared/btn-disabled.dir
   styleUrls: ['../../../../../app/info/end-user-agreement/end-user-agreement.component.scss'],
   // templateUrl: './end-user-agreement.component.html'
   templateUrl: '../../../../../app/info/end-user-agreement/end-user-agreement.component.html',
-  standalone: true,
-  imports: [EndUserAgreementContentComponent, FormsModule, TranslateModule, BtnDisabledDirective],
+  imports: [
+    BtnDisabledDirective,
+    EndUserAgreementContentComponent,
+    FormsModule,
+    TranslateModule,
+  ],
 })
-
-/**
- * Component displaying the End User Agreement and an option to accept it
- */
-export class EndUserAgreementComponent extends BaseComponent {}
-
+export class EndUserAgreementComponent extends BaseComponent {
+}

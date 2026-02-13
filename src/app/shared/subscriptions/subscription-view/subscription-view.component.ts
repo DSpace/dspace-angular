@@ -6,31 +6,35 @@ import {
   Output,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { SubscriptionsDataService } from '@dspace/core/data/subscriptions-data.service';
+import { getDSORoute } from '@dspace/core/router/utils/dso-route.utils';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { Subscription } from '@dspace/core/shared/subscription.model';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   NgbModal,
   NgbModalRef,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { take } from 'rxjs/operators';
-import { getDSORoute } from 'src/app/app-routing-paths';
 
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import { ConfirmationModalComponent } from '../../confirmation-modal/confirmation-modal.component';
-import { hasValue } from '../../empty.util';
 import { ThemedTypeBadgeComponent } from '../../object-collection/shared/badges/type-badge/themed-type-badge.component';
-import { Subscription } from '../models/subscription.model';
 import { SubscriptionModalComponent } from '../subscription-modal/subscription-modal.component';
-import { SubscriptionsDataService } from '../subscriptions-data.service';
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: '[ds-subscription-view]',
   templateUrl: './subscription-view.component.html',
   styleUrls: ['./subscription-view.component.scss'],
-  standalone: true,
-  imports: [ThemedTypeBadgeComponent, RouterLink, TranslateModule, BtnDisabledDirective],
+  imports: [
+    BtnDisabledDirective,
+    RouterLink,
+    ThemedTypeBadgeComponent,
+    TranslateModule,
+  ],
 })
 /**
  * Table row representing a subscription that displays all information and action buttons to manage it

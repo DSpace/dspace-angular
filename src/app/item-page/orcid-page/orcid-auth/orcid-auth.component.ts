@@ -9,6 +9,17 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { OrcidAuthService } from '@dspace/core/orcid/orcid-auth.service';
+import { ResearcherProfile } from '@dspace/core/profile/model/researcher-profile.model';
+import {
+  NativeWindowRef,
+  NativeWindowService,
+} from '@dspace/core/services/window.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import { createFailedRemoteDataObjectFromError$ } from '@dspace/core/utilities/remote-data.utils';
 import {
   TranslateModule,
   TranslateService,
@@ -20,31 +31,20 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { RemoteData } from '../../../core/data/remote-data';
-import { OrcidAuthService } from '../../../core/orcid/orcid-auth.service';
-import { ResearcherProfile } from '../../../core/profile/model/researcher-profile.model';
-import {
-  NativeWindowRef,
-  NativeWindowService,
-} from '../../../core/services/window.service';
-import { Item } from '../../../core/shared/item.model';
-import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { AlertComponent } from '../../../shared/alert/alert.component';
+import { AlertType } from '../../../shared/alert/alert-type';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { createFailedRemoteDataObjectFromError$ } from '../../../shared/remote-data.utils';
 
 @Component({
   selector: 'ds-orcid-auth',
   templateUrl: './orcid-auth.component.html',
   styleUrls: ['./orcid-auth.component.scss'],
   imports: [
-    TranslateModule,
-    AsyncPipe,
     AlertComponent,
+    AsyncPipe,
     BtnDisabledDirective,
+    TranslateModule,
   ],
-  standalone: true,
 })
 export class OrcidAuthComponent implements OnInit, OnChanges {
 
@@ -56,42 +56,48 @@ export class OrcidAuthComponent implements OnInit, OnChanges {
   /**
    * The list of exposed orcid authorization scopes for the orcid profile
    */
-  profileAuthorizationScopes: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
+  profileAuthorizationScopes$: BehaviorSubject<string[]> = new BehaviorSubject([]);
+
+  hasOrcidAuthorizations$: Observable<boolean>;
 
   /**
    * The list of all orcid authorization scopes missing in the orcid profile
    */
-  missingAuthorizationScopes: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
+  missingAuthorizationScopes: BehaviorSubject<string[]> = new BehaviorSubject([]);
+
+  hasMissingOrcidAuthorizations$: Observable<boolean>;
 
   /**
    * The list of all orcid authorization scopes available
    */
-  orcidAuthorizationScopes: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
+  orcidAuthorizationScopes: BehaviorSubject<string[]> = new BehaviorSubject([]);
 
   /**
    * A boolean representing if unlink operation is processing
    */
-  unlinkProcessing: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  unlinkProcessing: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   /**
    * A boolean representing if orcid profile is linked
    */
-  private isOrcidLinked$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  isOrcidLinked$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   /**
    * A boolean representing if only admin can disconnect orcid profile
    */
-  private onlyAdminCanDisconnectProfileFromOrcid$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  onlyAdminCanDisconnectProfileFromOrcid$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   /**
    * A boolean representing if owner can disconnect orcid profile
    */
-  private ownerCanDisconnectProfileFromOrcid$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  ownerCanDisconnectProfileFromOrcid$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   /**
    * An event emitted when orcid profile is unliked successfully
    */
   @Output() unlink: EventEmitter<void> = new EventEmitter<void>();
+
+  readonly AlertType = AlertType;
 
   constructor(
     private orcidAuthService: OrcidAuthService,
@@ -106,6 +112,8 @@ export class OrcidAuthComponent implements OnInit, OnChanges {
       this.orcidAuthorizationScopes.next(scopes);
       this.initOrcidAuthSettings();
     });
+    this.hasOrcidAuthorizations$ = this.hasOrcidAuthorizations();
+    this.hasMissingOrcidAuthorizations$ = this.hasMissingOrcidAuthorizations();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -118,16 +126,9 @@ export class OrcidAuthComponent implements OnInit, OnChanges {
    * Check if the list of exposed orcid authorization scopes for the orcid profile has values
    */
   hasOrcidAuthorizations(): Observable<boolean> {
-    return this.profileAuthorizationScopes.asObservable().pipe(
+    return this.profileAuthorizationScopes$.pipe(
       map((scopes: string[]) => scopes.length > 0),
     );
-  }
-
-  /**
-   * Return the list of exposed orcid authorization scopes for the orcid profile
-   */
-  getOrcidAuthorizations(): Observable<string[]> {
-    return this.profileAuthorizationScopes.asObservable();
   }
 
   /**
@@ -139,26 +140,12 @@ export class OrcidAuthComponent implements OnInit, OnChanges {
     );
   }
 
-  /**
-   * Return the list of exposed orcid authorization scopes for the orcid profile
-   */
-  getMissingOrcidAuthorizations(): Observable<string[]> {
-    return this.profileAuthorizationScopes.asObservable();
-  }
-
-  /**
-   * Return a boolean representing if orcid profile is linked
-   */
-  isLinkedToOrcid(): Observable<boolean> {
-    return this.isOrcidLinked$.asObservable();
-  }
-
-  getOrcidNotLinkedMessage(): Observable<string> {
+  getOrcidNotLinkedMessage(): string {
     const orcid = this.item.firstMetadataValue('person.identifier.orcid');
     if (orcid) {
-      return this.translateService.get('person.page.orcid.orcid-not-linked-message', { 'orcid': orcid });
+      return this.translateService.instant('person.page.orcid.orcid-not-linked-message', { 'orcid': orcid });
     } else {
-      return this.translateService.get('person.page.orcid.no-orcid-message');
+      return this.translateService.instant('person.page.orcid.no-orcid-message');
     }
   }
 
@@ -169,13 +156,6 @@ export class OrcidAuthComponent implements OnInit, OnChanges {
    */
   getAuthorizationDescription(scope: string) {
     return 'person.page.orcid.scope.' + scope.substring(1).replace('/', '-');
-  }
-
-  /**
-   * Return a boolean representing if only admin can disconnect orcid profile
-   */
-  onlyAdminCanDisconnectProfileFromOrcid(): Observable<boolean> {
-    return this.onlyAdminCanDisconnectProfileFromOrcid$.asObservable();
   }
 
   /**
@@ -243,7 +223,7 @@ export class OrcidAuthComponent implements OnInit, OnChanges {
   }
 
   private setOrcidAuthorizationsFromItem(): void {
-    this.profileAuthorizationScopes.next(this.orcidAuthService.getOrcidAuthorizationScopesByItem(this.item));
+    this.profileAuthorizationScopes$.next(this.orcidAuthService.getOrcidAuthorizationScopesByItem(this.item));
   }
 
 }

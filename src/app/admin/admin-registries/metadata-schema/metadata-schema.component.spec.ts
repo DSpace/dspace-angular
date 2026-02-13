@@ -9,32 +9,32 @@ import {
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
+import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
+import { GroupDataService } from '@dspace/core/eperson/group-data.service';
+import { MetadataField } from '@dspace/core/metadata/metadata-field.model';
+import { MetadataSchema } from '@dspace/core/metadata/metadata-schema.model';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { HostWindowServiceStub } from '@dspace/core/testing/host-window-service.stub';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
+import { RegistryServiceStub } from '@dspace/core/testing/registry.service.stub';
+import { SearchConfigurationServiceStub } from '@dspace/core/testing/search-configuration-service.stub';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
-import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
-import { buildPaginatedList } from '../../../core/data/paginated-list.model';
-import { GroupDataService } from '../../../core/eperson/group-data.service';
-import { MetadataField } from '../../../core/metadata/metadata-field.model';
-import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { RegistryService } from '../../../core/registry/registry.service';
-import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
-import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { HostWindowService } from '../../../shared/host-window.service';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
-import { HostWindowServiceStub } from '../../../shared/testing/host-window-service.stub';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
-import { RegistryServiceStub } from '../../../shared/testing/registry.service.stub';
-import { SearchConfigurationServiceStub } from '../../../shared/testing/search-configuration-service.stub';
-import { createPaginatedList } from '../../../shared/testing/utils.test';
+import { SearchConfigurationService } from '../../../shared/search/search-configuration.service';
 import { EnumKeysPipe } from '../../../shared/utils/enum-keys-pipe';
 import { VarDirective } from '../../../shared/utils/var.directive';
+import { RegistryService } from '../registry/registry.service';
 import { MetadataFieldFormComponent } from './metadata-field-form/metadata-field-form.component';
 import { MetadataSchemaComponent } from './metadata-schema.component';
 
@@ -224,7 +224,7 @@ describe('MetadataSchemaComponent', () => {
     }));
 
     it('should cancel editing the selected field when clicked again', waitForAsync(() => {
-      comp.activeField$ = observableOf(mockFieldsList[2] as MetadataField);
+      comp.activeField$ = of(mockFieldsList[2] as MetadataField);
       spyOn(registryService, 'cancelEditMetadataField');
       row.click();
       fixture.detectChanges();
@@ -239,7 +239,7 @@ describe('MetadataSchemaComponent', () => {
 
     beforeEach(() => {
       spyOn(registryService, 'deleteMetadataField').and.callThrough();
-      comp.selectedMetadataFieldIDs$ = observableOf(selectedFields.map((metadataField: MetadataField) => metadataField.id));
+      comp.selectedMetadataFieldIDs$ = of(selectedFields.map((metadataField: MetadataField) => metadataField.id));
       comp.deleteFields();
       fixture.detectChanges();
     });

@@ -6,18 +6,18 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import {
+  SortDirection,
+  SortOptions,
+} from '@dspace/core/cache/models/sort-options.model';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { DSpaceObjectType } from '@dspace/core/shared/dspace-object-type.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '../../../../../environments/environment';
 import { getCollectionEditRoute } from '../../../../collection-page/collection-page-routing-paths';
-import {
-  SortDirection,
-  SortOptions,
-} from '../../../../core/cache/models/sort-options.model';
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
-import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
-import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
+import { AuthorizedCollectionSelectorComponent } from '../../dso-selector/authorized-collection-selector/authorized-collection-selector.component';
 import {
   DSOSelectorModalWrapperComponent,
   SelectorActionType,
@@ -30,9 +30,11 @@ import {
 
 @Component({
   selector: 'ds-base-edit-collection-selector',
-  templateUrl: '../dso-selector-modal-wrapper.component.html',
-  standalone: true,
-  imports: [ DSOSelectorComponent, TranslateModule],
+  templateUrl: './edit-collection-selector.component.html',
+  imports: [
+    AuthorizedCollectionSelectorComponent,
+    TranslateModule,
+  ],
 })
 export class EditCollectionSelectorComponent extends DSOSelectorModalWrapperComponent implements OnInit {
   objectType = DSpaceObjectType.COLLECTION;

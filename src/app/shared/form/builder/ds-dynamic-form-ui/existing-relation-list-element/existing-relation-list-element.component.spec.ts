@@ -4,20 +4,20 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { Item } from '@dspace/core/shared/item.model';
+import { Relationship } from '@dspace/core/shared/item-relationships/relationship.model';
+import { ReorderableRelationship } from '@dspace/core/shared/item-relationships/reorderable-relationship';
+import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
+import { RelationshipOptions } from '@dspace/core/shared/relationship-options.model';
+import { SubmissionServiceStub } from '@dspace/core/testing/submission-service.stub';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
-import { Item } from '../../../../../core/shared/item.model';
-import { Relationship } from '../../../../../core/shared/item-relationships/relationship.model';
 import { SubmissionService } from '../../../../../submission/submission.service';
-import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
 import { ListableObjectComponentLoaderComponent } from '../../../../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
-import { SubmissionServiceStub } from '../../../../testing/submission-service.stub';
-import { RelationshipOptions } from '../../models/relationship-options.model';
-import { ReorderableRelationship } from '../existing-metadata-list-element/existing-metadata-list-element.component';
 import { RemoveRelationshipAction } from '../relation-lookup-modal/relationship.actions';
 import { ExistingRelationListElementComponent } from './existing-relation-list-element.component';
 
@@ -60,12 +60,12 @@ describe('ExistingRelationListElementComponent', () => {
     rightItemRD$ = createSuccessfulRemoteDataObject$(submissionItem);
     relatedSearchResult = Object.assign(new ItemSearchResult(), { indexableObject: relatedItem });
     relationshipService = {
-      updatePlace: () => observableOf({}),
+      updatePlace: () => of({}),
     } as any;
 
     relationship = Object.assign(new Relationship(), { leftItem: leftItemRD$, rightItem: rightItemRD$ });
     submissionId = '1234';
-    reoRel = new ReorderableRelationship(relationship, true, relationshipService, {} as any, submissionId);
+    reoRel = new ReorderableRelationship(relationship, true);
   }
 
   beforeEach(waitForAsync(() => {

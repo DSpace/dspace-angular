@@ -13,6 +13,21 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
+import { ScriptDataService } from '@dspace/core/data/processes/script-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Process } from '@dspace/core/processes/process.model';
+import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '@dspace/core/shared/operators';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import {
   TranslateModule,
   TranslateService,
@@ -23,23 +38,8 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { ConfigurationDataService } from '../core/data/configuration-data.service';
-import { ScriptDataService } from '../core/data/processes/script-data.service';
-import { RemoteData } from '../core/data/remote-data';
-import { ConfigurationProperty } from '../core/shared/configuration-property.model';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
-} from '../core/shared/operators';
 import { getProcessDetailRoute } from '../process-page/process-page-routing.paths';
-import { Process } from '../process-page/processes/process.model';
-import {
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-} from '../shared/empty.util';
 import { HandleService } from '../shared/handle.service';
-import { NotificationsService } from '../shared/notifications/notifications.service';
 
 export const CURATION_CFG = 'plugin.named.org.dspace.curate.CurationTask';
 
@@ -49,8 +49,11 @@ export const CURATION_CFG = 'plugin.named.org.dspace.curate.CurationTask';
 @Component({
   selector: 'ds-curation-form',
   templateUrl: './curation-form.component.html',
-  standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, TranslateModule],
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    TranslateModule,
+  ],
 })
 export class CurationFormComponent implements OnDestroy, OnInit {
 

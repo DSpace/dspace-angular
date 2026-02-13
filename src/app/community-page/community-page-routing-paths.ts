@@ -1,17 +1,8 @@
-import { getCollectionPageRoute } from '../collection-page/collection-page-routing-paths';
-import { URLCombiner } from '../core/url-combiner/url-combiner';
+import { getCommunityModuleRoute } from '@dspace/core/router/core-routing-paths';
+import { getCollectionPageRoute } from '@dspace/core/router/utils/dso-route.utils';
+import { URLCombiner } from '@dspace/core/url-combiner/url-combiner';
 
 export const COMMUNITY_PARENT_PARAMETER = 'parent';
-
-export const COMMUNITY_MODULE_PATH = 'communities';
-
-export function getCommunityModuleRoute() {
-  return `/${COMMUNITY_MODULE_PATH}`;
-}
-
-export function getCommunityPageRoute(communityId: string) {
-  return new URLCombiner(getCommunityModuleRoute(), communityId).toString();
-}
 
 export function getCommunityEditRoute(id: string) {
   return new URLCombiner(getCommunityModuleRoute(), id, COMMUNITY_EDIT_PATH).toString();

@@ -19,8 +19,23 @@ import { Collection } from './collection.model';
 import { COLLECTION } from './collection.resource-type';
 import { COMMUNITY } from './community.resource-type';
 import { DSpaceObject } from './dspace-object.model';
+import {
+  followLink,
+  FollowLinkConfig,
+} from './follow-link-config.model';
 import { HALLink } from './hal-link.model';
 import { HandleObject } from './handle-object.model';
+
+/**
+ * The self links defined in this list are expected to be requested somewhere in the near future
+ * Requesting them as embeds will limit the number of requests
+ */
+export const COMMUNITY_PAGE_LINKS_TO_FOLLOW: FollowLinkConfig<Community>[] = [
+  followLink('logo'),
+  followLink('subcommunities'),
+  followLink('collections'),
+  followLink('parentCommunity'),
+];
 
 @typedObject
 @inheritSerialization(DSpaceObject)
@@ -115,3 +130,4 @@ export class Community extends DSpaceObject implements ChildHALResource, HandleO
     return 'parentCommunity';
   }
 }
+

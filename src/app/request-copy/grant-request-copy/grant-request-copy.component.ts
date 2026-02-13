@@ -1,8 +1,4 @@
-import {
-  AsyncPipe,
-  CommonModule,
-  NgClass,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   OnInit,
@@ -11,10 +7,24 @@ import { FormsModule } from '@angular/forms';
 import {
   ActivatedRoute,
   Router,
-  RouterLink,
 } from '@angular/router';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { ItemRequestDataService } from '@dspace/core/data/item-request-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { getItemModuleRoute } from '@dspace/core/router/core-routing-paths';
+import { HardRedirectService } from '@dspace/core/services/hard-redirect.service';
+import { redirectOn4xx } from '@dspace/core/shared/authorized.operators';
+import { ItemRequest } from '@dspace/core/shared/item-request.model';
 import {
-  TranslateModule,
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '@dspace/core/shared/operators';
+import { RequestCopyEmail } from '@dspace/core/shared/request-copy-email.model';
+import { URLCombiner } from '@dspace/core/url-combiner/url-combiner';
+import { hasValue } from '@dspace/shared/utils/empty.util';
+import {
+  TranslatePipe,
   TranslateService,
 } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
@@ -24,31 +34,22 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { AuthService } from '../../core/auth/auth.service';
-import { ItemRequestDataService } from '../../core/data/item-request-data.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { HardRedirectService } from '../../core/services/hard-redirect.service';
-import { redirectOn4xx } from '../../core/shared/authorized.operators';
-import { ItemRequest } from '../../core/shared/item-request.model';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
-} from '../../core/shared/operators';
-import { URLCombiner } from '../../core/url-combiner/url-combiner';
-import { getItemModuleRoute } from '../../item-page/item-page-routing-paths';
-import { hasValue } from '../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { VarDirective } from '../../shared/utils/var.directive';
-import { RequestCopyEmail } from '../email-request-copy/request-copy-email.model';
 import { ThemedEmailRequestCopyComponent } from '../email-request-copy/themed-email-request-copy.component';
 
 @Component({
   selector: 'ds-base-grant-request-copy',
   styleUrls: ['./grant-request-copy.component.scss'],
   templateUrl: './grant-request-copy.component.html',
-  standalone: true,
-  imports: [CommonModule, VarDirective, ThemedEmailRequestCopyComponent, FormsModule, ThemedLoadingComponent, AsyncPipe, TranslateModule, RouterLink, NgClass],
+  imports: [
+    AsyncPipe,
+    FormsModule,
+    ThemedEmailRequestCopyComponent,
+    ThemedLoadingComponent,
+    TranslatePipe,
+    VarDirective,
+  ],
 })
 /**
  * Component for granting an item request

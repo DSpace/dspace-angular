@@ -3,11 +3,11 @@ import {
   deserialize,
 } from 'cerialize';
 
-import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
 import { typedObject } from '../cache/builders/build-decorators';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { HALLink } from '../shared/hal-link.model';
 import { HALResource } from '../shared/hal-resource.model';
+import { ListableObject } from '../shared/object-collection/listable-object.model';
 import { ResourceType } from '../shared/resource-type';
 import { excludeFromEquals } from '../utilities/equals.decorators';
 import { METADATA_SCHEMA } from './metadata-schema.resource-type';

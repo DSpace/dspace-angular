@@ -4,6 +4,20 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { SubscriptionsDataService } from '@dspace/core/data/subscriptions-data.service';
+import { EPerson } from '@dspace/core/eperson/models/eperson.model';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { getAllCompletedRemoteData } from '@dspace/core/shared/operators';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { Subscription } from '@dspace/core/shared/subscription.model';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -19,33 +33,26 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { AuthService } from '../core/auth/auth.service';
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '../core/data/paginated-list.model';
-import { RemoteData } from '../core/data/remote-data';
-import { EPerson } from '../core/eperson/models/eperson.model';
-import { PaginationService } from '../core/pagination/pagination.service';
-import { getAllCompletedRemoteData } from '../core/shared/operators';
-import { PageInfo } from '../core/shared/page-info.model';
 import { AlertComponent } from '../shared/alert/alert.component';
 import { AlertType } from '../shared/alert/alert-type';
-import { hasValue } from '../shared/empty.util';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import { PaginationComponent } from '../shared/pagination/pagination.component';
-import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
-import { Subscription } from '../shared/subscriptions/models/subscription.model';
 import { SubscriptionViewComponent } from '../shared/subscriptions/subscription-view/subscription-view.component';
-import { SubscriptionsDataService } from '../shared/subscriptions/subscriptions-data.service';
 import { VarDirective } from '../shared/utils/var.directive';
 
 @Component({
   selector: 'ds-subscriptions-page',
   templateUrl: './subscriptions-page.component.html',
   styleUrls: ['./subscriptions-page.component.scss'],
-  standalone: true,
-  imports: [ThemedLoadingComponent, VarDirective, PaginationComponent, SubscriptionViewComponent, AlertComponent, AsyncPipe, TranslateModule],
+  imports: [
+    AlertComponent,
+    AsyncPipe,
+    PaginationComponent,
+    SubscriptionViewComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
+    VarDirective,
+  ],
 })
 /**
  * List and allow to manage all the active subscription for the current user
@@ -98,7 +105,10 @@ export class SubscriptionsPageComponent implements OnInit, OnDestroy {
     this.ePersonId$ = this.authService.getAuthenticatedUserFromStore().pipe(
       take(1),
       map((ePerson: EPerson) => ePerson.id),
-      shareReplay({ refCount: false }),
+      shareReplay({
+        bufferSize: 1,
+        refCount: false,
+      }),
     );
     this.retrieveSubscriptions();
   }

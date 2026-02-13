@@ -7,6 +7,12 @@ import {
   ViewChild,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { BulkAccessConfigDataService } from '@dspace/core/config/bulk-access-config-data.service';
+import { BulkAccessConditionOptions } from '@dspace/core/config/models/bulk-access-condition-options.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { UiSwitchModule } from 'ngx-ui-switch';
@@ -20,12 +26,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { BulkAccessConfigDataService } from '../../core/config/bulk-access-config-data.service';
-import { BulkAccessConditionOptions } from '../../core/config/models/bulk-access-condition-options.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { Item } from '../../core/shared/item.model';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { AlertComponent } from '../alert/alert.component';
 import { AlertType } from '../alert/alert-type';
 import { BtnDisabledDirective } from '../btn-disabled.directive';
@@ -43,8 +43,15 @@ import {
   templateUrl: './access-control-form-container.component.html',
   styleUrls: ['./access-control-form-container.component.scss'],
   exportAs: 'dsAccessControlForm',
-  standalone: true,
-  imports: [AlertComponent, UiSwitchModule, FormsModule, AccessControlArrayFormComponent, AsyncPipe, TranslateModule, BtnDisabledDirective],
+  imports: [
+    AccessControlArrayFormComponent,
+    AlertComponent,
+    AsyncPipe,
+    BtnDisabledDirective,
+    FormsModule,
+    TranslateModule,
+    UiSwitchModule,
+  ],
 })
 export class AccessControlFormContainerComponent<T extends DSpaceObject> implements OnDestroy {
 
@@ -141,9 +148,17 @@ export class AccessControlFormContainerComponent<T extends DSpaceObject> impleme
    */
   handleStatusChange(type: 'item' | 'bitstream', active: boolean) {
     if (type === 'bitstream') {
-      active ? this.bitstreamAccessCmp.enable() : this.bitstreamAccessCmp.disable();
+      if (active) {
+        this.bitstreamAccessCmp.enable();
+      } else {
+        this.bitstreamAccessCmp.disable();
+      }
     } else if (type === 'item') {
-      active ? this.itemAccessCmp.enable() : this.itemAccessCmp.disable();
+      if (active) {
+        this.itemAccessCmp.enable();
+      } else {
+        this.itemAccessCmp.disable();
+      }
     }
   }
 

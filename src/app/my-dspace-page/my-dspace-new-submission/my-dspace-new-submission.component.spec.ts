@@ -11,6 +11,21 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { CookieService } from '@dspace/core/cookies/cookie.service';
+import { EntityTypeDataService } from '@dspace/core/data/entity-type-data.service';
+import { DragService } from '@dspace/core/drag.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
+import { AuthServiceStub } from '@dspace/core/testing/auth-service.stub';
+import { CookieServiceMock } from '@dspace/core/testing/cookie.service.mock';
+import { HALEndpointServiceStub } from '@dspace/core/testing/hal-endpoint-service.stub';
+import { HostWindowServiceStub } from '@dspace/core/testing/host-window-service.stub';
+import { HttpXsrfTokenExtractorMock } from '@dspace/core/testing/http-xsrf-token-extractor.mock';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { getMockScrollToService } from '@dspace/core/testing/scroll-to-service.mock';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { createTestComponent } from '@dspace/core/testing/utils.test';
 import {
   NgbModal,
   NgbModule,
@@ -21,22 +36,9 @@ import {
 } from '@ngx-translate/core';
 import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 
-import { AuthService } from '../../core/auth/auth.service';
-import { EntityTypeDataService } from '../../core/data/entity-type-data.service';
-import { DragService } from '../../core/drag.service';
-import { CookieService } from '../../core/services/cookie.service';
-import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import { HostWindowService } from '../../shared/host-window.service';
-import { CookieServiceMock } from '../../shared/mocks/cookie.service.mock';
-import { HttpXsrfTokenExtractorMock } from '../../shared/mocks/http-xsrf-token-extractor.mock';
-import { getMockScrollToService } from '../../shared/mocks/scroll-to-service.mock';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { AuthServiceStub } from '../../shared/testing/auth-service.stub';
-import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
-import { HostWindowServiceStub } from '../../shared/testing/host-window-service.stub';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { createTestComponent } from '../../shared/testing/utils.test';
+import { LiveRegionService } from '../../shared/live-region/live-region.service';
+import { getLiveRegionServiceStub } from '../../shared/live-region/live-region.service.stub';
 import { UploaderComponent } from '../../shared/upload/uploader/uploader.component';
 import { MyDSpaceNewSubmissionComponent } from './my-dspace-new-submission.component';
 import { getMockEntityTypeService } from './my-dspace-new-submission-dropdown/my-dspace-new-submission-dropdown.component.spec';
@@ -76,6 +78,7 @@ describe('MyDSpaceNewSubmissionComponent test', () => {
         { provide: CookieService, useValue: new CookieServiceMock() },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(800) },
         { provide: EntityTypeDataService, useValue: getMockEntityTypeService() },
+        { provide: LiveRegionService, useValue: getLiveRegionServiceStub() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
@@ -131,7 +134,6 @@ describe('MyDSpaceNewSubmissionComponent test', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
-  standalone: true,
   imports: [NgbModule,
     RouterTestingModule],
 })

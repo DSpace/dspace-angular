@@ -7,16 +7,17 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { MathService } from '@dspace/core/shared/math.service';
+import { MockMathService } from '@dspace/core/shared/math.service.spec';
 
 import { environment } from '../../../environments/environment.test';
-import { MathService } from '../../core/shared/math.service';
-import { MockMathService } from '../../core/shared/math.service.spec';
 import { MarkdownDirective } from './markdown.directive';
 
 @Component({
   template: `<div [dsMarkdown]="'test<script>alert(1);</script>'"></div>`,
-  standalone: true,
-  imports: [ MarkdownDirective ],
+  imports: [
+    MarkdownDirective,
+  ],
 })
 class TestComponent {}
 

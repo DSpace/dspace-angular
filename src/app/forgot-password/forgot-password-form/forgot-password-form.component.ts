@@ -7,6 +7,17 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { AuthenticateAction } from '@dspace/core/auth/auth.actions';
+import { CoreState } from '@dspace/core/core-state.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
+import { EPerson } from '@dspace/core/eperson/models/eperson.model';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '@dspace/core/shared/operators';
+import { Registration } from '@dspace/core/shared/registration.model';
 import { Store } from '@ngrx/store';
 import {
   TranslateModule,
@@ -15,19 +26,8 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { AuthenticateAction } from '../../core/auth/auth.actions';
-import { CoreState } from '../../core/core-state.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { EPerson } from '../../core/eperson/models/eperson.model';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
-} from '../../core/shared/operators';
-import { Registration } from '../../core/shared/registration.model';
 import { ProfilePageSecurityFormComponent } from '../../profile-page/profile-page-security-form/profile-page-security-form.component';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { BrowserOnlyPipe } from '../../shared/utils/browser-only.pipe';
 
 @Component({
@@ -35,13 +35,12 @@ import { BrowserOnlyPipe } from '../../shared/utils/browser-only.pipe';
   styleUrls: ['./forgot-password-form.component.scss'],
   templateUrl: './forgot-password-form.component.html',
   imports: [
-    TranslateModule,
-    BrowserOnlyPipe,
-    ProfilePageSecurityFormComponent,
     AsyncPipe,
+    BrowserOnlyPipe,
     BtnDisabledDirective,
+    ProfilePageSecurityFormComponent,
+    TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * Component for a user to enter a new password for a forgot token.

@@ -17,32 +17,32 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { CollectionDataService } from '@dspace/core/data/collection-data.service';
+import { CommunityDataService } from '@dspace/core/data/community-data.service';
+import { JsonPatchOperationPathCombiner } from '@dspace/core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { SubmissionJsonPatchOperationsService } from '@dspace/core/submission/submission-json-patch-operations.service';
+import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
+import { SubmissionJsonPatchOperationsServiceStub } from '@dspace/core/testing/submission-json-patch-operations-service.stub';
+import { SubmissionServiceStub } from '@dspace/core/testing/submission-service.stub';
+import { createTestComponent } from '@dspace/core/testing/utils.test';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of } from 'rxjs';
 
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { CollectionDataService } from '../../../core/data/collection-data.service';
-import { CommunityDataService } from '../../../core/data/community-data.service';
-import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
-import { Collection } from '../../../core/shared/collection.model';
-import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { ThemedCollectionDropdownComponent } from '../../../shared/collection-dropdown/themed-collection-dropdown.component';
-import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
+import { SectionsService } from '../../sections/sections.service';
+import { SubmissionService } from '../../submission.service';
 import {
   mockSubmissionId,
   mockSubmissionRestResponse,
-} from '../../../shared/mocks/submission.mock';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { SubmissionJsonPatchOperationsServiceStub } from '../../../shared/testing/submission-json-patch-operations-service.stub';
-import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
-import { createTestComponent } from '../../../shared/testing/utils.test';
-import { SectionsService } from '../../sections/sections.service';
-import { SubmissionService } from '../../submission.service';
+} from '../../utils/submission.mock';
 import { SubmissionFormCollectionComponent } from './submission-form-collection.component';
 
 describe('SubmissionFormCollectionComponent Component', () => {
@@ -316,10 +316,11 @@ describe('SubmissionFormCollectionComponent Component', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
-  standalone: true,
-  imports: [FormsModule,
+  imports: [
+    FormsModule,
+    NgbModule,
     ReactiveFormsModule,
-    NgbModule],
+  ],
 })
 class TestComponent {
 

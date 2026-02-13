@@ -10,6 +10,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest as combineLatestObservable,
@@ -20,7 +21,6 @@ import { map } from 'rxjs/operators';
 import { bgColor } from '../../../shared/animations/bgColor';
 import { rotate } from '../../../shared/animations/rotate';
 import { slide } from '../../../shared/animations/slide';
-import { isNotEmpty } from '../../../shared/empty.util';
 import { MenuService } from '../../../shared/menu/menu.service';
 import { MenuID } from '../../../shared/menu/menu-id.model';
 import { MenuSection } from '../../../shared/menu/menu-section.model';
@@ -36,8 +36,13 @@ import { AdminSidebarSectionComponent } from '../admin-sidebar-section/admin-sid
   templateUrl: './expandable-admin-sidebar-section.component.html',
   styleUrls: ['./expandable-admin-sidebar-section.component.scss'],
   animations: [rotate, slide, bgColor],
-  standalone: true,
-  imports: [NgClass, NgComponentOutlet, AsyncPipe, TranslateModule, BrowserOnlyPipe],
+  imports: [
+    AsyncPipe,
+    BrowserOnlyPipe,
+    NgClass,
+    NgComponentOutlet,
+    TranslateModule,
+  ],
 })
 
 export class ExpandableAdminSidebarSectionComponent extends AdminSidebarSectionComponent implements OnInit {

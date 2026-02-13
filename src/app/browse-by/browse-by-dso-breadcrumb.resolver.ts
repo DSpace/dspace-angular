@@ -4,20 +4,19 @@ import {
   ResolveFn,
   RouterStateSnapshot,
 } from '@angular/router';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-
-import { getDSORoute } from '../app-routing-paths';
-import { BreadcrumbConfig } from '../breadcrumbs/breadcrumb/breadcrumb-config.model';
-import { DSOBreadcrumbsService } from '../core/breadcrumbs/dso-breadcrumbs.service';
-import { DSpaceObjectDataService } from '../core/data/dspace-object-data.service';
-import { Collection } from '../core/shared/collection.model';
-import { Community } from '../core/shared/community.model';
+import { DSOBreadcrumbsService } from '@dspace/core/breadcrumbs/dso-breadcrumbs.service';
+import { BreadcrumbConfig } from '@dspace/core/breadcrumbs/models/breadcrumb-config.model';
+import { DSpaceObjectDataService } from '@dspace/core/data/dspace-object-data.service';
+import { getDSORoute } from '@dspace/core/router/utils/dso-route.utils';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { Community } from '@dspace/core/shared/community.model';
 import {
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
-} from '../core/shared/operators';
-import { hasValue } from '../shared/empty.util';
+} from '@dspace/core/shared/operators';
+import { hasValue } from '@dspace/shared/utils/empty.util';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 /**
  * Method for resolving a breadcrumb config object

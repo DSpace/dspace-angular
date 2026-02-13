@@ -2,6 +2,20 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
+import { RestResponse } from '@dspace/core/cache/response.models';
+import { RelationshipDataService } from '@dspace/core/data/relationship-data.service';
+import { RelationshipTypeDataService } from '@dspace/core/data/relationship-type-data.service';
+import { RequestService } from '@dspace/core/data/request.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { ItemType } from '@dspace/core/shared/item-relationships/item-type.model';
+import { Relationship } from '@dspace/core/shared/item-relationships/relationship.model';
+import { RelationshipType } from '@dspace/core/shared/item-relationships/relationship-type.model';
+import { MetadataValue } from '@dspace/core/shared/metadata.models';
+import { DEBOUNCE_TIME_OPERATOR } from '@dspace/core/shared/operators';
+import { WorkspaceItem } from '@dspace/core/submission/models/workspaceitem.model';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
@@ -12,26 +26,12 @@ import {
 import {
   BehaviorSubject,
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import { last } from 'rxjs/operators';
 
-import { ObjectCacheService } from '../../../../../core/cache/object-cache.service';
-import { RestResponse } from '../../../../../core/cache/response.models';
-import { RelationshipDataService } from '../../../../../core/data/relationship-data.service';
-import { RelationshipTypeDataService } from '../../../../../core/data/relationship-type-data.service';
-import { RequestService } from '../../../../../core/data/request.service';
-import { Item } from '../../../../../core/shared/item.model';
-import { ItemType } from '../../../../../core/shared/item-relationships/item-type.model';
-import { Relationship } from '../../../../../core/shared/item-relationships/relationship.model';
-import { RelationshipType } from '../../../../../core/shared/item-relationships/relationship-type.model';
-import { MetadataValue } from '../../../../../core/shared/metadata.models';
-import { DEBOUNCE_TIME_OPERATOR } from '../../../../../core/shared/operators';
-import { WorkspaceItem } from '../../../../../core/submission/models/workspaceitem.model';
-import { SubmissionObjectDataService } from '../../../../../core/submission/submission-object-data.service';
-import { NotificationsService } from '../../../../notifications/notifications.service';
+import { SubmissionObjectService } from '../../../../../submission/submission-object.service';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
 import {
   AddRelationshipAction,
   RelationshipActionTypes,
@@ -106,21 +106,21 @@ describe('RelationshipEffects', () => {
 
     mockRelationshipService = {
       getRelationshipByItemsAndLabel:
-        () => observableOf(relationship),
-      deleteRelationship: () => observableOf(new RestResponse(true, 200, 'OK')),
-      addRelationship: () => observableOf(new RestResponse(true, 200, 'OK')),
+        () => of(relationship),
+      deleteRelationship: () => of(new RestResponse(true, 200, 'OK')),
+      addRelationship: () => of(new RestResponse(true, 200, 'OK')),
 
     };
     mockRelationshipTypeService = {
       getRelationshipTypeByLabelAndTypes:
-        () => observableOf(relationshipType),
+        () => of(relationshipType),
     };
     notificationsService = jasmine.createSpyObj('notificationsService', ['error']);
     translateService = jasmine.createSpyObj('translateService', {
       instant: 'translated-message',
     });
     selectableListService = jasmine.createSpyObj('selectableListService', {
-      findSelectedByCondition: observableOf({}),
+      findSelectedByCondition: of({}),
       deselectSingle: {},
     });
   }
@@ -134,10 +134,10 @@ describe('RelationshipEffects', () => {
         { provide: RelationshipTypeDataService, useValue: mockRelationshipTypeService },
         { provide: RelationshipDataService, useValue: mockRelationshipService },
         {
-          provide: SubmissionObjectDataService, useValue: {
+          provide: SubmissionObjectService, useValue: {
             findById: () => createSuccessfulRemoteDataObject$(new WorkspaceItem()),
           },
-          getHrefByID: () => observableOf(''),
+          getHrefByID: () => of(''),
         },
         { provide: Store, useValue: jasmine.createSpyObj('store', ['dispatch']) },
         { provide: ObjectCacheService, useValue: {} },

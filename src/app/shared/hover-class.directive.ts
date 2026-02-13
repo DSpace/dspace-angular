@@ -7,7 +7,6 @@ import {
 
 @Directive({
   selector: '[dsHoverClass]',
-  standalone: true,
 })
 /**
  * A directive adding a class to an element when hovered over

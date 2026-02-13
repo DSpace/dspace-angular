@@ -4,6 +4,7 @@ import {
   InjectionToken,
   NgZone,
 } from '@angular/core';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   Observable,
   Subscription,
@@ -14,15 +15,14 @@ import {
   find,
   switchMap,
 } from 'rxjs/operators';
-import { ProcessStatus } from 'src/app/process-page/processes/process-status.model';
 
-import { Process } from '../../../process-page/processes/process.model';
-import { hasValue } from '../../../shared/empty.util';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../cache/object-cache.service';
+import { NotificationsService } from '../../notification-system/notifications.service';
+import { Process } from '../../processes/process.model';
+import { ProcessStatus } from '../../processes/process-status.model';
 import { Bitstream } from '../../shared/bitstream.model';
+import { FollowLinkConfig } from '../../shared/follow-link-config.model';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { NoContent } from '../../shared/NoContent.model';
 import { getAllCompletedRemoteData } from '../../shared/operators';

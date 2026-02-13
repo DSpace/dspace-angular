@@ -6,12 +6,12 @@ import {
   Router,
   UrlTree,
 } from '@angular/router';
+import { AuthService } from '@dspace/core/auth/auth.service';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
-import { AuthService } from '../../../auth/auth.service';
 import { AuthorizationDataService } from '../authorization-data.service';
 import { FeatureID } from '../feature-id';
 import { singleFeatureAuthorizationGuard } from './single-feature-authorization.guard';
@@ -31,13 +31,13 @@ describe('singleFeatureAuthorizationGuard', () => {
     ePersonUuid = 'fake-eperson-uuid';
 
     authorizationService = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: observableOf(true),
+      isAuthorized: of(true),
     });
     router = jasmine.createSpyObj('router', {
       parseUrl: {},
     });
     authService = jasmine.createSpyObj('authService', {
-      isAuthenticated: observableOf(true),
+      isAuthenticated: of(true),
     });
 
     TestBed.configureTestingModule({
@@ -57,9 +57,9 @@ describe('singleFeatureAuthorizationGuard', () => {
     it('should call authorizationService.isAuthenticated with the appropriate arguments', (done: DoneFn) => {
       const result$ = TestBed.runInInjectionContext(() => {
         return singleFeatureAuthorizationGuard(
-          () => observableOf(featureId),
-          () => observableOf(objectUrl),
-          () => observableOf(ePersonUuid),
+          () => of(featureId),
+          () => of(objectUrl),
+          () => of(ePersonUuid),
         )(undefined, { url: 'current-url' } as any);
       }) as Observable<boolean | UrlTree>;
 

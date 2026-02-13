@@ -1,12 +1,12 @@
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
-import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RestResponse } from '../cache/response.models';
 import { MetadataSchema } from '../metadata/metadata-schema.model';
+import { NotificationsService } from '../notification-system/notifications.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { HALEndpointServiceStub } from '../testing/hal-endpoint-service.stub';
+import { getMockRemoteDataBuildService } from '../testing/remote-data-build.service.mock';
 import { testDeleteDataImplementation } from './base/delete-data.spec';
 import { testFindAllDataImplementation } from './base/find-all-data.spec';
 import { MetadataSchemaDataService } from './metadata-schema-data.service';
@@ -29,7 +29,7 @@ describe('MetadataSchemaDataService', () => {
     requestService = jasmine.createSpyObj('requestService', {
       generateRequestId: '34cfed7c-f597-49ef-9cbe-ea351f0023c2',
       send: {},
-      getByUUID: observableOf({ response: new RestResponse(true, 200, 'OK') }),
+      getByUUID: of({ response: new RestResponse(true, 200, 'OK') }),
       removeByHrefSubstring: {},
     });
     halService = Object.assign(new HALEndpointServiceStub(endpoint));

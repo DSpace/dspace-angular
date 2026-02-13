@@ -6,6 +6,12 @@ import {
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
+import {
+  hasValue,
+  isNotEmptyOperator,
+} from '@dspace/shared/utils/empty.util';
 import {
   BehaviorSubject,
   Observable,
@@ -17,12 +23,6 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { GenericConstructor } from '../../core/shared/generic-constructor';
-import {
-  hasValue,
-  isNotEmptyOperator,
-} from '../empty.util';
 import { ThemeService } from '../theme-support/theme.service';
 import { MenuService } from './menu.service';
 import { MenuID } from './menu-id.model';
@@ -36,7 +36,6 @@ import { AbstractMenuSectionComponent } from './menu-section/abstract-menu-secti
 @Component({
   selector: 'ds-menu',
   template: '',
-  standalone: true,
 })
 export class MenuComponent implements OnInit, OnDestroy {
   /**

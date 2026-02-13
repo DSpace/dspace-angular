@@ -9,7 +9,6 @@ import { ThemedConfigurationSearchPageComponent } from '../../../../../app/searc
   styleUrls: ['../../../../../app/admin/admin-workflow-page/admin-workflow-page.component.scss'],
   // templateUrl: './admin-workflow-page.component.html',
   templateUrl: '../../../../../app/admin/admin-workflow-page/admin-workflow-page.component.html',
-  standalone: true,
   imports: [
     ThemedConfigurationSearchPageComponent,
   ],

@@ -8,6 +8,31 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { LinkService } from '@dspace/core/cache/builders/link.service';
+import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
+import { Context } from '@dspace/core/shared/context.model';
+import { Duplicate } from '@dspace/core/shared/duplicate-data/duplicate.model';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { PoolTaskSearchResult } from '@dspace/core/shared/object-collection/pool-task-search-result.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
+import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
+import { SubmissionDuplicateDataService } from '@dspace/core/submission/submission-duplicate-data.service';
+import { PoolTask } from '@dspace/core/tasks/models/pool-task-object.model';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -21,35 +46,10 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '../../../../../config/app-config.interface';
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { LinkService } from '../../../../core/cache/builders/link.service';
-import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
-import { ConfigurationDataService } from '../../../../core/data/configuration-data.service';
-import { PaginatedList } from '../../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { ConfigurationProperty } from '../../../../core/shared/configuration-property.model';
-import { Context } from '../../../../core/shared/context.model';
-import { Item } from '../../../../core/shared/item.model';
-import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
-import { ViewMode } from '../../../../core/shared/view-mode.model';
-import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
-import { SubmissionDuplicateDataService } from '../../../../core/submission/submission-duplicate-data.service';
-import { PoolTask } from '../../../../core/tasks/models/pool-task-object.model';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../../empty.util';
 import { PoolTaskActionsComponent } from '../../../mydspace-actions/pool-task/pool-task-actions.component';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
-import { PoolTaskSearchResult } from '../../../object-collection/shared/pool-task-search-result.model';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
-import { followLink } from '../../../utils/follow-link-config.model';
 import { VarDirective } from '../../../utils/var.directive';
-import { Duplicate } from '../../duplicate-data/duplicate.model';
 import { SearchResultListElementComponent } from '../../search-result-list-element/search-result-list-element.component';
 import { ThemedItemListPreviewComponent } from '../item-list-preview/themed-item-list-preview.component';
 
@@ -60,8 +60,14 @@ import { ThemedItemListPreviewComponent } from '../item-list-preview/themed-item
   selector: 'ds-pool-search-result-list-element',
   styleUrls: ['../../search-result-list-element/search-result-list-element.component.scss'],
   templateUrl: './pool-search-result-list-element.component.html',
-  standalone: true,
-  imports: [ThemedItemListPreviewComponent, NgClass, PoolTaskActionsComponent, AsyncPipe, TranslateModule, VarDirective],
+  imports: [
+    AsyncPipe,
+    NgClass,
+    PoolTaskActionsComponent,
+    ThemedItemListPreviewComponent,
+    TranslateModule,
+    VarDirective,
+  ],
 })
 
 @listableObjectComponent(PoolTaskSearchResult, ViewMode.ListElement)

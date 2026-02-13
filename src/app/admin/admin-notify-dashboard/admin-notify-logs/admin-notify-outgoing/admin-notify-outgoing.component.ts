@@ -5,8 +5,8 @@ import {
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-configuration.service';
+import { SearchConfigurationService } from '../../../../shared/search/search-configuration.service';
 import { AdminNotifyLogsResultComponent } from '../admin-notify-logs-result/admin-notify-logs-result.component';
 
 @Component({
@@ -18,10 +18,9 @@ import { AdminNotifyLogsResultComponent } from '../admin-notify-logs-result/admi
       useClass: SearchConfigurationService,
     },
   ],
-  standalone: true,
   imports: [
-    RouterLink,
     AdminNotifyLogsResultComponent,
+    RouterLink,
     TranslateModule,
   ],
 })

@@ -12,6 +12,29 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { CollectionDataService } from '@dspace/core/data/collection-data.service';
+import { FieldUpdate } from '@dspace/core/data/object-updates/field-update.model';
+import { FieldUpdates } from '@dspace/core/data/object-updates/field-updates.model';
+import { ObjectUpdatesService } from '@dspace/core/data/object-updates/object-updates.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { RequestService } from '@dspace/core/data/request.service';
+import { INotification } from '@dspace/core/notification-system/models/notification.model';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Collection } from '@dspace/core/shared/collection.model';
+import {
+  ContentSource,
+  ContentSourceHarvestType,
+} from '@dspace/core/shared/content-source.model';
+import { MetadataConfig } from '@dspace/core/shared/metadata-config.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+} from '@dspace/core/shared/operators';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import {
   DynamicFormControlModel,
   DynamicFormGroupModel,
@@ -39,32 +62,9 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../../environments/environment';
-import { CollectionDataService } from '../../../core/data/collection-data.service';
-import { FieldUpdate } from '../../../core/data/object-updates/field-update.model';
-import { FieldUpdates } from '../../../core/data/object-updates/field-updates.model';
-import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
-import { RemoteData } from '../../../core/data/remote-data';
-import { RequestService } from '../../../core/data/request.service';
-import { Collection } from '../../../core/shared/collection.model';
-import {
-  ContentSource,
-  ContentSourceHarvestType,
-} from '../../../core/shared/content-source.model';
-import { MetadataConfig } from '../../../core/shared/metadata-config.model';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteData,
-} from '../../../core/shared/operators';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
-import {
-  hasNoValue,
-  hasValue,
-  isNotEmpty,
-} from '../../../shared/empty.util';
 import { FormComponent } from '../../../shared/form/form.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { INotification } from '../../../shared/notifications/models/notification.model';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { AbstractTrackableComponent } from '../../../shared/trackable/abstract-trackable.component';
 import { CollectionSourceControlsComponent } from './collection-source-controls/collection-source-controls.component';
 
@@ -76,13 +76,12 @@ import { CollectionSourceControlsComponent } from './collection-source-controls/
   templateUrl: './collection-source.component.html',
   imports: [
     AsyncPipe,
-    TranslateModule,
-    ThemedLoadingComponent,
-    FormComponent,
-    CollectionSourceControlsComponent,
     BtnDisabledDirective,
+    CollectionSourceControlsComponent,
+    FormComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
   ],
-  standalone: true,
 })
 export class CollectionSourceComponent extends AbstractTrackableComponent implements OnInit, OnDestroy {
   /**

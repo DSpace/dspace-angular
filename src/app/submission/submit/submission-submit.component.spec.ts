@@ -12,22 +12,22 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { RouterStub } from '@dspace/core/testing/router.stub';
+import { SubmissionServiceStub } from '@dspace/core/testing/submission-service.stub';
+import { getMockTranslateService } from '@dspace/core/testing/translate.service.mock';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
-import { ItemDataService } from '../../core/data/item-data.service';
-import { mockSubmissionObject } from '../../shared/mocks/submission.mock';
-import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { RouterStub } from '../../shared/testing/router.stub';
-import { SubmissionServiceStub } from '../../shared/testing/submission-service.stub';
 import { SubmissionService } from '../submission.service';
+import { mockSubmissionObject } from '../utils/submission.mock';
 import { SubmissionSubmitComponent } from './submission-submit.component';
 
 describe('SubmissionSubmitComponent Component', () => {
@@ -80,7 +80,7 @@ describe('SubmissionSubmitComponent Component', () => {
 
   it('should redirect to mydspace when an empty SubmissionObject has been retrieved',() => {
 
-    submissionServiceStub.createSubmission.and.returnValue(observableOf({}));
+    submissionServiceStub.createSubmission.and.returnValue(of({}));
 
     fixture.detectChanges();
 
@@ -90,7 +90,7 @@ describe('SubmissionSubmitComponent Component', () => {
 
   it('should redirect to workspaceitem edit when a not empty SubmissionObject has been retrieved',() => {
 
-    submissionServiceStub.createSubmission.and.returnValue(observableOf({ id: '1234' }));
+    submissionServiceStub.createSubmission.and.returnValue(of({ id: '1234' }));
 
     fixture.detectChanges();
 
@@ -100,7 +100,7 @@ describe('SubmissionSubmitComponent Component', () => {
 
   it('should not has effects when an invalid SubmissionObject has been retrieved',() => {
 
-    submissionServiceStub.createSubmission.and.returnValue(observableOf(null));
+    submissionServiceStub.createSubmission.and.returnValue(of(null));
 
     fixture.detectChanges();
 

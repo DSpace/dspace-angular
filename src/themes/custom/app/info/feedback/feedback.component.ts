@@ -9,11 +9,9 @@ import { ThemedFeedbackFormComponent } from '../../../../../app/info/feedback/fe
   styleUrls: ['../../../../../app/info/feedback/feedback.component.scss'],
   // templateUrl: './feedback.component.html'
   templateUrl: '../../../../../app/info/feedback/feedback.component.html',
-  standalone: true,
-  imports: [ThemedFeedbackFormComponent],
+  imports: [
+    ThemedFeedbackFormComponent,
+  ],
 })
-
-/**
- * Component displaying the feedback Statement
- */
-export class FeedbackComponent extends BaseComponent { }
+export class FeedbackComponent extends BaseComponent {
+}

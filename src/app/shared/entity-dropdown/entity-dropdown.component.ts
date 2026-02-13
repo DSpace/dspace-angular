@@ -10,6 +10,13 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import { EntityTypeDataService } from '@dspace/core/data/entity-type-data.service';
+import { FindListOptions } from '@dspace/core/data/find-list-options.model';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { ItemType } from '@dspace/core/shared/item-relationships/item-type.model';
+import { getFirstSucceededRemoteWithNotEmptyData } from '@dspace/core/shared/operators';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import {
@@ -23,21 +30,18 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { EntityTypeDataService } from '../../core/data/entity-type-data.service';
-import { FindListOptions } from '../../core/data/find-list-options.model';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { ItemType } from '../../core/shared/item-relationships/item-type.model';
-import { getFirstSucceededRemoteWithNotEmptyData } from '../../core/shared/operators';
-import { hasValue } from '../empty.util';
 import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 
 @Component({
   selector: 'ds-entity-dropdown',
   templateUrl: './entity-dropdown.component.html',
   styleUrls: ['./entity-dropdown.component.scss'],
-  standalone: true,
-  imports: [InfiniteScrollModule, ThemedLoadingComponent, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    InfiniteScrollModule,
+    ThemedLoadingComponent,
+    TranslateModule,
+  ],
 })
 export class EntityDropdownComponent implements OnInit, OnDestroy {
   /**

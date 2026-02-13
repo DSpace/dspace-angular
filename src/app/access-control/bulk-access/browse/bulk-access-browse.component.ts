@@ -6,8 +6,22 @@ import {
   OnInit,
 } from '@angular/core';
 import {
+  buildPaginatedList,
+  PaginatedList,
+} from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
+import { hasValue } from '@dspace/shared/utils/empty.util';
+import {
   NgbAccordionModule,
-  NgbNavModule,
+  NgbNav,
+  NgbNavContent,
+  NgbNavItem,
+  NgbNavLink,
+  NgbNavOutlet,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -20,23 +34,13 @@ import {
   map,
 } from 'rxjs/operators';
 
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { PageInfo } from '../../../core/shared/page-info.model';
-import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
-import { hasValue } from '../../../shared/empty.util';
-import { ListableObject } from '../../../shared/object-collection/shared/listable-object.model';
 import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { SelectableListItemControlComponent } from '../../../shared/object-collection/shared/selectable-list-item-control/selectable-list-item-control.component';
 import { SelectableListState } from '../../../shared/object-list/selectable-list/selectable-list.reducer';
 import { SelectableListService } from '../../../shared/object-list/selectable-list/selectable-list.service';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
+import { SearchConfigurationService } from '../../../shared/search/search-configuration.service';
 import { ThemedSearchComponent } from '../../../shared/search/themed-search.component';
 import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
 
@@ -51,18 +55,21 @@ import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
     },
   ],
   imports: [
-    PaginationComponent,
     AsyncPipe,
-    NgbAccordionModule,
-    TranslateModule,
-    NgbNavModule,
-    ThemedSearchComponent,
     BrowserOnlyPipe,
-    NgxPaginationModule,
-    SelectableListItemControlComponent,
     ListableObjectComponentLoaderComponent,
+    NgbAccordionModule,
+    NgbNav,
+    NgbNavContent,
+    NgbNavItem,
+    NgbNavLink,
+    NgbNavOutlet,
+    NgxPaginationModule,
+    PaginationComponent,
+    SelectableListItemControlComponent,
+    ThemedSearchComponent,
+    TranslateModule,
   ],
-  standalone: true,
 })
 export class BulkAccessBrowseComponent implements OnInit, OnDestroy {
 

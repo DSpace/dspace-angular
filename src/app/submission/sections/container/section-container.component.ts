@@ -23,19 +23,18 @@ import { rendersSectionType } from '../sections-decorator';
  * This component represents a section that contains the submission license form.
  */
 @Component({
-  selector: 'ds-submission-section-container',
+  selector: 'ds-base-submission-section-container',
   templateUrl: './section-container.component.html',
   styleUrls: ['./section-container.component.scss'],
   imports: [
     AlertComponent,
-    NgbAccordionModule,
-    NgComponentOutlet,
-    TranslateModule,
-    NgClass,
     AsyncPipe,
+    NgbAccordionModule,
+    NgClass,
+    NgComponentOutlet,
     SectionsDirective,
+    TranslateModule,
   ],
-  standalone: true,
 })
 export class SubmissionSectionContainerComponent implements OnInit {
 
@@ -44,6 +43,13 @@ export class SubmissionSectionContainerComponent implements OnInit {
    * @type {string}
    */
   @Input() collectionId: string;
+
+  /**
+   * The entity type, needed in order to search for metadata level security
+   */
+
+  @Input() entityType: string;
+
 
   /**
    * The section data
@@ -91,6 +97,7 @@ export class SubmissionSectionContainerComponent implements OnInit {
         { provide: 'collectionIdProvider', useFactory: () => (this.collectionId), deps: [] },
         { provide: 'sectionDataProvider', useFactory: () => (this.sectionData), deps: [] },
         { provide: 'submissionIdProvider', useFactory: () => (this.submissionId), deps: [] },
+        { provide: 'entityType', useFactory: () => (this.entityType), deps: [] },
       ],
       parent: this.injector,
     });

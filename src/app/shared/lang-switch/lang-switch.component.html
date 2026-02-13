@@ -1,25 +1,29 @@
 @if (moreThanOneLanguage) {
   <div ngbDropdown class="navbar-nav" display="dynamic" placement="bottom-right">
-    <a href="javascript:void(0);" role="menuitem"
-      [attr.aria-label]="'nav.language' |translate"
-      aria-controls="language-menu-list"
-      aria-haspopup="menu"
-      [title]="'nav.language' | translate"
-      (click)="$event.preventDefault()" data-toggle="dropdown" ngbDropdownToggle
-      data-test="lang-switch"
-      tabindex="0">
+    <button role="button"
+            [attr.aria-label]="'nav.language' |translate"
+            aria-controls="language-menu-list"
+            aria-haspopup="menu"
+            class="dropdown-toggle btn btn-link px-0"
+            [title]="'nav.language' | translate"
+            (click)="$event.preventDefault()" data-bs-toggle="dropdown" ngbDropdownToggle
+            data-test="lang-switch"
+            tabindex="0">
       <i class="fas fa-globe-asia fa-lg fa-fw"></i>
-    </a>
-    <ul ngbDropdownMenu class="dropdown-menu" [attr.aria-label]="'nav.language' |translate" id="language-menu-list" role="menu">
+    </button>
+    <div ngbDropdownMenu class="dropdown-menu" [attr.aria-label]="'nav.language' |translate" id="language-menu-list"
+         role="listbox">
       @for (lang of translate.getLangs(); track lang) {
-        <li class="dropdown-item" tabindex="0" #langSelect
-          role="menuitem"
-          (keyup.enter)="useLang(lang)"
-          (click)="useLang(lang)"
-          [class.active]="lang === translate.currentLang">
+        <div class="dropdown-item" tabindex="0"
+             role="option"
+             [lang]="lang"
+             (keyup.enter)="useLang(lang)"
+             (click)="useLang(lang)"
+             [attr.aria-selected]="lang === translate.getCurrentLang()"
+             [class.active]="lang === translate.getCurrentLang()">
           {{ langLabel(lang) }}
-        </li>
+        </div>
       }
-    </ul>
+    </div>
   </div>
 }

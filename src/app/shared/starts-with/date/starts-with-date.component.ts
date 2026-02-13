@@ -7,9 +7,9 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { hasValue } from '../../empty.util';
 import { StartsWithAbstractComponent } from '../starts-with-abstract.component';
 
 /**
@@ -20,8 +20,11 @@ import { StartsWithAbstractComponent } from '../starts-with-abstract.component';
   selector: 'ds-starts-with-date',
   styleUrls: ['./starts-with-date.component.scss'],
   templateUrl: './starts-with-date.component.html',
-  standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, TranslateModule],
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    TranslateModule,
+  ],
 })
 export class StartsWithDateComponent extends StartsWithAbstractComponent implements OnInit {
 

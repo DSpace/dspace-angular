@@ -4,7 +4,7 @@
       @if (linkType !== linkTypes.None) {
         <a [target]="(linkType === linkTypes.ExternalLink) ? '_blank' : '_self'"
           [attr.rel]="(linkType === linkTypes.ExternalLink) ? 'noopener noreferrer' : null"
-          [routerLink]="[itemPageRoute]" class="dont-break-out">
+          [routerLink]="[itemPageRoute]" class="dont-break-out" tabindex="-1">
           <ds-thumbnail [thumbnail]="dso?.thumbnail | async"
             [defaultImage]="'assets/images/person-placeholder.svg'"
             [alt]="'thumbnail.person.alt'"
@@ -32,7 +32,7 @@
         <a [target]="(linkType === linkTypes.ExternalLink) ? '_blank' : '_self'"
           [attr.rel]="(linkType === linkTypes.ExternalLink) ? 'noopener noreferrer' : null"
           [routerLink]="[itemPageRoute]" class="lead"
-        [innerHTML]="dsoTitle || ('person.listelement.no-title' | translate)"></a>
+        [innerHTML]="dsoTitle || ('person.listelement.no-title' | translate)" role="link" tabindex="0"></a>
       }
       @if (linkType === linkTypes.None) {
         <span

@@ -9,21 +9,21 @@ import {
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
-
-import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
-import { ScriptDataService } from '../../../../core/data/processes/script-data.service';
-import { getProcessDetailRoute } from '../../../../process-page/process-page-routing.paths';
-import { Process } from '../../../../process-page/processes/process.model';
-import { Script } from '../../../../process-page/scripts/script.model';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { ScriptDataService } from '@dspace/core/data/processes/script-data.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Process } from '@dspace/core/processes/process.model';
+import { Script } from '@dspace/core/shared/scripts/script.model';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../../../../shared/remote-data.utils';
-import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
+} from '@dspace/core/utilities/remote-data.utils';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
+
+import { getProcessDetailRoute } from '../../../../process-page/process-page-routing.paths';
 import { FiltersComponent } from '../../filters-section/filters-section.component';
 import { OptionVO } from '../option-vo.model';
 import { QueryPredicate } from '../query-predicate.model';
@@ -59,7 +59,7 @@ describe('FilteredItemsExportCsvComponent', () => {
       invoke: createSuccessfulRemoteDataObject$(process),
     });
     authorizationDataService = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: observableOf(true),
+      isAuthorized: of(true),
     });
 
     notificationsService = new NotificationsServiceStub();
@@ -110,7 +110,7 @@ describe('FilteredItemsExportCsvComponent', () => {
     describe('when the user is not an admin', () => {
       beforeEach(waitForAsync(() => {
         initBeforeEachAsync();
-        (authorizationDataService.isAuthorized as jasmine.Spy).and.returnValue(observableOf(false));
+        (authorizationDataService.isAuthorized as jasmine.Spy).and.returnValue(of(false));
       }));
       beforeEach(() => {
         initBeforeEach();

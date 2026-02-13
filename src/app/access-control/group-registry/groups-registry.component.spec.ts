@@ -20,57 +20,56 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
+import { DSpaceObjectDataService } from '@dspace/core/data/dspace-object-data.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { RequestService } from '@dspace/core/data/request.service';
+import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
+import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
+import { GroupDataService } from '@dspace/core/eperson/group-data.service';
+import { EPerson } from '@dspace/core/eperson/models/eperson.model';
+import { Group } from '@dspace/core/eperson/models/group.model';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { RouteService } from '@dspace/core/services/route.service';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { NoContent } from '@dspace/core/shared/NoContent.model';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import {
+  DSONameServiceMock,
+  UNDEFINED_NAME,
+} from '@dspace/core/testing/dso-name.service.mock';
+import {
+  EPersonMock,
+  EPersonMock2,
+} from '@dspace/core/testing/eperson.mock';
+import {
+  GroupMock,
+  GroupMock2,
+} from '@dspace/core/testing/group-mock';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
+import { routeServiceStub } from '@dspace/core/testing/route-service.stub';
+import { RouterMock } from '@dspace/core/testing/router.mock';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
-  of as observableOf,
   of,
 } from 'rxjs';
 
-import { APP_DATA_SERVICES_MAP } from '../../../config/app-config.interface';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { ConfigurationDataService } from '../../core/data/configuration-data.service';
-import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../core/data/feature-authorization/feature-id';
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '../../core/data/paginated-list.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { RequestService } from '../../core/data/request.service';
-import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { GroupDataService } from '../../core/eperson/group-data.service';
-import { EPerson } from '../../core/eperson/models/eperson.model';
-import { Group } from '../../core/eperson/models/group.model';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { RouteService } from '../../core/services/route.service';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { NoContent } from '../../core/shared/NoContent.model';
-import { PageInfo } from '../../core/shared/page-info.model';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
-import {
-  DSONameServiceMock,
-  UNDEFINED_NAME,
-} from '../../shared/mocks/dso-name.service.mock';
-import { RouterMock } from '../../shared/mocks/router.mock';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
-import {
-  EPersonMock,
-  EPersonMock2,
-} from '../../shared/testing/eperson.mock';
-import {
-  GroupMock,
-  GroupMock2,
-} from '../../shared/testing/group-mock';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
-import { routeServiceStub } from '../../shared/testing/route-service.stub';
 import { GroupsRegistryComponent } from './groups-registry.component';
 
 describe('GroupsRegistryComponent', () => {
@@ -95,11 +94,11 @@ describe('GroupsRegistryComponent', () => {
     (authorizationService as any).isAuthorized.and.callFake((featureId?: FeatureID) => {
       switch (featureId) {
         case FeatureID.AdministratorOf:
-          return observableOf(isAdmin);
+          return of(isAdmin);
         case FeatureID.CanManageGroup:
-          return observableOf(canManageGroup);
+          return of(canManageGroup);
         case FeatureID.CanDelete:
-          return observableOf(true);
+          return of(true);
         default:
           throw new Error(`setIsAuthorized: this fake implementation does not support ${featureId}.`);
       }
@@ -381,6 +380,8 @@ describe('GroupsRegistryComponent', () => {
     it('should call GroupDataService.delete', () => {
       deleteButton.click();
       fixture.detectChanges();
+
+      (document as any).querySelector('.modal-footer .confirm').click();
 
       expect(groupsDataServiceStub.delete).toHaveBeenCalledWith(mockGroups[0].id);
     });

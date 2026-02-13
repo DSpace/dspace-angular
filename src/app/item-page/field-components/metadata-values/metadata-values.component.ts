@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgTemplateOutlet,
-} from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 import {
   Component,
   Inject,
@@ -10,17 +7,17 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
-
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../../config/app-config.interface';
+} from '@dspace/config/app-config.interface';
+import { BrowseDefinition } from '@dspace/core/shared/browse-definition.model';
+import { MetadataValue } from '@dspace/core/shared/metadata.models';
+import { VALUE_LIST_BROWSE_DEFINITION } from '@dspace/core/shared/value-list-browse-definition.resource-type';
+import { hasValue } from '@dspace/shared/utils/empty.util';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { environment } from '../../../../environments/environment';
-import { BrowseDefinition } from '../../../core/shared/browse-definition.model';
-import { MetadataValue } from '../../../core/shared/metadata.models';
-import { VALUE_LIST_BROWSE_DEFINITION } from '../../../core/shared/value-list-browse-definition.resource-type';
-import { hasValue } from '../../../shared/empty.util';
 import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { MarkdownDirective } from '../../../shared/utils/markdown.directive';
 import { ImageField } from '../../simple/field-components/specific-field/image-field';
@@ -33,8 +30,13 @@ import { ImageField } from '../../simple/field-components/specific-field/image-f
   selector: 'ds-metadata-values',
   styleUrls: ['./metadata-values.component.scss'],
   templateUrl: './metadata-values.component.html',
-  standalone: true,
-  imports: [MetadataFieldWrapperComponent, NgTemplateOutlet, RouterLink, AsyncPipe, TranslateModule, MarkdownDirective],
+  imports: [
+    MarkdownDirective,
+    MetadataFieldWrapperComponent,
+    NgTemplateOutlet,
+    RouterLink,
+    TranslateModule,
+  ],
 })
 export class MetadataValuesComponent implements OnChanges {
 

@@ -5,6 +5,9 @@ import {
   Output,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { DSpaceObjectType } from '@dspace/core/shared/dspace-object-type.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -12,9 +15,6 @@ import {
   of,
 } from 'rxjs';
 
-import { Collection } from '../../../../core/shared/collection.model';
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
-import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
 import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
 import {
   DSOSelectorModalWrapperComponent,
@@ -28,8 +28,10 @@ import {
 @Component({
   selector: 'ds-import-batch-selector',
   templateUrl: '../dso-selector-modal-wrapper.component.html',
-  standalone: true,
-  imports: [ DSOSelectorComponent, TranslateModule],
+  imports: [
+    DSOSelectorComponent,
+    TranslateModule,
+  ],
 })
 export class ImportBatchSelectorComponent extends DSOSelectorModalWrapperComponent implements OnInit {
   objectType = DSpaceObjectType.DSPACEOBJECT;

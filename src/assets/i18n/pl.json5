@@ -1,5 +1,4 @@
 {
-
   // "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
   "401.help": "Nie masz uprawnień do dostępu do tej strony. Możesz użyć przycisku poniżej, aby powrócić do strony głównej.",
 
@@ -50,6 +49,10 @@
 
   // "error-page.orcid.generic-error": "An error occurred during login via ORCID. Make sure you have shared your ORCID account email address with DSpace. If the error persists, contact the administrator",
   "error-page.orcid.generic-error": "Podczas logowania za pomocą ORCID wystąpił błąd. Upewnij się, że udostępniłeś DSpace adres e-mail swojego konta ORCID. Jeśli błąd nadal występuje, skontaktuj się z administratorem",
+
+  // "listelement.badge.access-status": "Access status:",
+  // TODO New key - Add a translation
+  "listelement.badge.access-status": "Access status:",
 
   // "access-status.embargo.listelement.badge": "Embargo",
   "access-status.embargo.listelement.badge": "Embargo",
@@ -409,6 +412,7 @@
   "admin.access-control.epeople.add.breadcrumbs": "Dodaj osobę",
 
   // "admin.access-control.epeople.add.title": "Add EPerson",
+  // TODO Source message changed - Revise the translation
   "admin.access-control.epeople.add.title": "Dodaj osobę",
 
   // "admin.access-control.epeople.head": "EPeople",
@@ -455,6 +459,22 @@
 
   // "admin.access-control.epeople.table.edit.buttons.remove": "Delete \"{{name}}\"",
   "admin.access-control.epeople.table.edit.buttons.remove": "Usuń \"{{name}}\"",
+
+  // "admin.access-control.epeople.table.edit.buttons.remove.modal.header": "Delete Group \"{{ dsoName }}\"",
+  // TODO New key - Add a translation
+  "admin.access-control.epeople.table.edit.buttons.remove.modal.header": "Delete Group \"{{ dsoName }}\"",
+
+  // "admin.access-control.epeople.table.edit.buttons.remove.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\" and all its associated policies?",
+  // TODO New key - Add a translation
+  "admin.access-control.epeople.table.edit.buttons.remove.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\" and all its associated policies?",
+
+  // "admin.access-control.epeople.table.edit.buttons.remove.modal.cancel": "Cancel",
+  // TODO New key - Add a translation
+  "admin.access-control.epeople.table.edit.buttons.remove.modal.cancel": "Cancel",
+
+  // "admin.access-control.epeople.table.edit.buttons.remove.modal.confirm": "Delete",
+  // TODO New key - Add a translation
+  "admin.access-control.epeople.table.edit.buttons.remove.modal.confirm": "Delete",
 
   // "admin.access-control.epeople.no-items": "No EPeople to show.",
   "admin.access-control.epeople.no-items": "Brak użytkowników do wyświetlenia.",
@@ -648,7 +668,8 @@
   // "admin.access-control.groups.form.delete-group.modal.header": "Delete Group \"{{ dsoName }}\"",
   "admin.access-control.groups.form.delete-group.modal.header": "Usuń grupę \"{{ dsoName }}\"",
 
-  // "admin.access-control.groups.form.delete-group.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\"",
+  // "admin.access-control.groups.form.delete-group.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\" and all its associated policies?",
+  // TODO Source message changed - Revise the translation
   "admin.access-control.groups.form.delete-group.modal.info": "Czy na pewno chcesz usunąć grupę \"{{ dsoName }}\"",
 
   // "admin.access-control.groups.form.delete-group.modal.cancel": "Cancel",
@@ -931,7 +952,8 @@
   "admin.reports.items.preset.hasNonFullTextInProvenance": "Niepełny tekst w dc.description.provenance",
 
   // "admin.reports.items.preset.hasNonFullTextInProvenance": "Has non-full text in dc.description.provenance",
-  "admin.reports.items.preset.hasFullTextInProvenance": "Pełny tekst w dc.description.provenance",
+  // TODO Source message changed - Revise the translation
+  "admin.reports.items.preset.hasNonFullTextInProvenance": "Niepełny tekst w dc.description.provenance",
 
   // "admin.reports.items.preset.hasEmptyMetadata": "Has empty metadata",
   "admin.reports.items.preset.hasEmptyMetadata": "Puste metadane",
@@ -959,7 +981,6 @@
 
   // "admin.reports.items.title": "Title",
   "admin.reports.items.title": "Tytuł",
-
 
   // "admin.reports.commons.filters": "Filters",
   "admin.reports.commons.filters": "Filtry",
@@ -990,7 +1011,6 @@
 
   // "admin.reports.commons.filters.matches_all": "Matches all specified filters",
   "admin.reports.commons.filters.matches_all": "Pasuje do wszystkich określonych filtrów",
-
 
   // "admin.reports.commons.filters.property": "Item Property Filters",
   "admin.reports.commons.filters.property": "Filtry właściwości pozycji",
@@ -1193,7 +1213,7 @@
   // "admin.metadata-import.page.help": "You can drop or browse CSV files that contain batch metadata operations on files here",
   "admin.metadata-import.page.help": "Tutaj możesz zaimportować pliki CSV, w których znajdują się metadane do operacji wsadowej. Zaimportuj je poprzez upuszczenie ich lub znajdź je na swoim komputerze",
 
-  // "admin.batch-import.page.help": "Select the Collection to import into. Then, drop or browse to a Simple Archive Format (SAF) zip file that includes the Items to import",
+  // "admin.batch-import.page.help": "Select the collection to import into. Then, drop or browse to a Simple Archive Format (SAF) zip file that includes the items to import",
   "admin.batch-import.page.help": "Wybierz kolekcję do zaimportowania kolekcji. Potem, upuść lub przeszukaj plik SAF, który zawiera pozycje do importu",
 
   // "admin.batch-import.page.toggle.help": "It is possible to perform import either with file upload or via URL, use above toggle to set the input source",
@@ -1706,7 +1726,7 @@
   // "collection.create.head": "Create a Collection",
   "collection.create.head": "Utwórz kolekcję",
 
-  // "collection.create.notifications.success": "Successfully created the Collection",
+  // "collection.create.notifications.success": "Successfully created the collection",
   "collection.create.notifications.success": "Udało się utworzyć kolekcję",
 
   // "collection.create.sub-head": "Create a Collection for Community {{ parent }}",
@@ -1814,10 +1834,10 @@
   // "collection.edit.logo.label": "Collection logo",
   "collection.edit.logo.label": "Logo kolekcji",
 
-  // "collection.edit.logo.notifications.add.error": "Uploading Collection logo failed. Please verify the content before retrying.",
+  // "collection.edit.logo.notifications.add.error": "Uploading collection logo failed. Please verify the content before retrying.",
   "collection.edit.logo.notifications.add.error": "Przesyłanie logo kolekcji nie powiodło się. Proszę zweryfikować zawartość przed ponowną ",
 
-  // "collection.edit.logo.notifications.add.success": "Upload Collection logo successful.",
+  // "collection.edit.logo.notifications.add.success": "Uploading collection logo successful.",
   "collection.edit.logo.notifications.add.success": "Udało się przesłać logo kolekcji.",
 
   // "collection.edit.logo.notifications.delete.success.title": "Logo deleted",
@@ -1829,10 +1849,10 @@
   // "collection.edit.logo.notifications.delete.error.title": "Error deleting logo",
   "collection.edit.logo.notifications.delete.error.title": "Błąd podczas usuwania loga",
 
-  // "collection.edit.logo.upload": "Drop a Collection Logo to upload",
+  // "collection.edit.logo.upload": "Drop a collection logo to upload",
   "collection.edit.logo.upload": "Upuść logo kolekcji, aby je wgrać",
 
-  // "collection.edit.notifications.success": "Successfully edited the Collection",
+  // "collection.edit.notifications.success": "Successfully edited the collection",
   "collection.edit.notifications.success": "Udało się edytować kolekcję",
 
   // "collection.edit.return": "Back",
@@ -2147,7 +2167,7 @@
   // "community.create.head": "Create a Community",
   "community.create.head": "Utwórz zbiór",
 
-  // "community.create.notifications.success": "Successfully created the Community",
+  // "community.create.notifications.success": "Successfully created the community",
   "community.create.notifications.success": "Udało się utworzyć zbiór",
 
   // "community.create.sub-head": "Create a Sub-Community for Community {{ parent }}",
@@ -2219,7 +2239,7 @@
   // "community.edit.logo.upload": "Drop a community logo to upload",
   "community.edit.logo.upload": "Upuść logo zbioru, aby je przesłać",
 
-  // "community.edit.notifications.success": "Successfully edited the Community",
+  // "community.edit.notifications.success": "Successfully edited the community",
   "community.edit.notifications.success": "Udało się edytować zbiór",
 
   // "community.edit.notifications.unauthorized": "You do not have privileges to make this change",
@@ -2284,6 +2304,22 @@
 
   // "comcol-role.edit.delete.error.title": "Failed to delete the '{{ role }}' role's group",
   "comcol-role.edit.delete.error.title": "Nie udało się usunąć roli '{{ role }}' dla grup",
+
+  // "comcol-role.edit.delete.modal.header": "Delete Group \"{{ dsoName }}\"",
+  // TODO New key - Add a translation
+  "comcol-role.edit.delete.modal.header": "Delete Group \"{{ dsoName }}\"",
+
+  // "comcol-role.edit.delete.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\" and all its associated policies?",
+  // TODO New key - Add a translation
+  "comcol-role.edit.delete.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\" and all its associated policies?",
+
+  // "comcol-role.edit.delete.modal.cancel": "Cancel",
+  // TODO New key - Add a translation
+  "comcol-role.edit.delete.modal.cancel": "Cancel",
+
+  // "comcol-role.edit.delete.modal.confirm": "Delete",
+  // TODO New key - Add a translation
+  "comcol-role.edit.delete.modal.confirm": "Delete",
 
   // "comcol-role.edit.community-admin.name": "Administrators",
   "comcol-role.edit.community-admin.name": "Administratorzy",
@@ -2387,7 +2423,7 @@
   // "community.search.results.head": "Search Results",
   "community.search.results.head": "Wyniki wyszukiwania",
 
-  // "community.sub-collection-list.head": "Collections in this Community",
+  // "community.sub-collection-list.head": "Collections in this community",
   "community.sub-collection-list.head": "Kolekcje w tym zbiorze",
 
   // "community.sub-community-list.head": "Communities in this Community",
@@ -2453,11 +2489,27 @@
   // "cookies.consent.content-modal.title": "Information that we collect",
   "cookies.consent.content-modal.title": "Informacje, które zbieramy",
 
+  // "cookies.consent.app.title.accessibility": "Accessibility Settings",
+  // TODO New key - Add a translation
+  "cookies.consent.app.title.accessibility": "Accessibility Settings",
+
+  // "cookies.consent.app.description.accessibility": "Required for saving your accessibility settings locally",
+  // TODO New key - Add a translation
+  "cookies.consent.app.description.accessibility": "Required for saving your accessibility settings locally",
+
   // "cookies.consent.app.title.authentication": "Authentication",
   "cookies.consent.app.title.authentication": "Logowanie",
 
   // "cookies.consent.app.description.authentication": "Required for signing you in",
   "cookies.consent.app.description.authentication": "Musisz się zalogować",
+
+  // "cookies.consent.app.title.correlation-id": "Correlation ID",
+  // TODO New key - Add a translation
+  "cookies.consent.app.title.correlation-id": "Correlation ID",
+
+  // "cookies.consent.app.description.correlation-id": "Allow us to track your session in backend logs for support/debugging purposes",
+  // TODO New key - Add a translation
+  "cookies.consent.app.description.correlation-id": "Allow us to track your session in backend logs for support/debugging purposes",
 
   // "cookies.consent.app.title.preferences": "Preferences",
   "cookies.consent.app.title.preferences": "Preferencje",
@@ -2909,6 +2961,10 @@
   // "footer.copyright": "copyright © 2002-{{ year }}",
   "footer.copyright": "copyright © 2002-{{ year }}",
 
+  // "footer.link.accessibility": "Accessibility settings",
+  // TODO New key - Add a translation
+  "footer.link.accessibility": "Accessibility settings",
+
   // "footer.link.dspace": "DSpace software",
   "footer.link.dspace": "oprogramowanie DSpace",
 
@@ -3281,6 +3337,82 @@
   // "home.top-level-communities.help": "Select a community to browse its collections.",
   "home.top-level-communities.help": "Przeszukaj kolekcje",
 
+  // "info.accessibility-settings.breadcrumbs": "Accessibility settings",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.breadcrumbs": "Accessibility settings",
+
+  // "info.accessibility-settings.cookie-warning": "Saving the accessibility settings is currently not possible. Either log in to save the settings in user data, or accept the 'Accessibility Settings' cookie using the 'Cookie Settings' menu at the bottom of the page. Once the cookie has been accepted, you can reload the page to remove this message.",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.cookie-warning": "Saving the accessibility settings is currently not possible. Either log in to save the settings in user data, or accept the 'Accessibility Settings' cookie using the 'Cookie Settings' menu at the bottom of the page. Once the cookie has been accepted, you can reload the page to remove this message.",
+
+  // "info.accessibility-settings.disableNotificationTimeOut.label": "Automatically close notifications after time out",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.disableNotificationTimeOut.label": "Automatically close notifications after time out",
+
+  // "info.accessibility-settings.disableNotificationTimeOut.hint": "When this toggle is activated, notifications will close automatically after the time out passes. When deactivated, notifications will remain open untill manually closed.",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.disableNotificationTimeOut.hint": "When this toggle is activated, notifications will close automatically after the time out passes. When deactivated, notifications will remain open untill manually closed.",
+
+  // "info.accessibility-settings.failed-notification": "Failed to save accessibility settings",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.failed-notification": "Failed to save accessibility settings",
+
+  // "info.accessibility-settings.invalid-form-notification": "Did not save. The form contains invalid values.",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.invalid-form-notification": "Did not save. The form contains invalid values.",
+
+  // "info.accessibility-settings.liveRegionTimeOut.label": "ARIA Live region time out (in seconds)",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.liveRegionTimeOut.label": "ARIA Live region time out (in seconds)",
+
+  // "info.accessibility-settings.liveRegionTimeOut.hint": "The duration after which a message in the ARIA live region disappears. ARIA live regions are not visible on the page, but provide announcements of notifications (or other actions) to screen readers.",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.liveRegionTimeOut.hint": "The duration after which a message in the ARIA live region disappears. ARIA live regions are not visible on the page, but provide announcements of notifications (or other actions) to screen readers.",
+
+  // "info.accessibility-settings.liveRegionTimeOut.invalid": "Live region time out must be greater than 0",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.liveRegionTimeOut.invalid": "Live region time out must be greater than 0",
+
+  // "info.accessibility-settings.notificationTimeOut.label": "Notification time out (in seconds)",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.notificationTimeOut.label": "Notification time out (in seconds)",
+
+  // "info.accessibility-settings.notificationTimeOut.hint": "The duration after which a notification disappears.",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.notificationTimeOut.hint": "The duration after which a notification disappears.",
+
+  // "info.accessibility-settings.notificationTimeOut.invalid": "Notification time out must be greater than 0",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.notificationTimeOut.invalid": "Notification time out must be greater than 0",
+
+  // "info.accessibility-settings.save-notification.cookie": "Successfully saved settings locally.",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.save-notification.cookie": "Successfully saved settings locally.",
+
+  // "info.accessibility-settings.save-notification.metadata": "Successfully saved settings on the user profile.",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.save-notification.metadata": "Successfully saved settings on the user profile.",
+
+  // "info.accessibility-settings.reset-failed": "Failed to reset. Either log in or accept the 'Accessibility Settings' cookie.",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.reset-failed": "Failed to reset. Either log in or accept the 'Accessibility Settings' cookie.",
+
+  // "info.accessibility-settings.reset-notification": "Successfully reset settings.",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.reset-notification": "Successfully reset settings.",
+
+  // "info.accessibility-settings.reset": "Reset accessibility settings",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.reset": "Reset accessibility settings",
+
+  // "info.accessibility-settings.submit": "Save accessibility settings",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.submit": "Save accessibility settings",
+
+  // "info.accessibility-settings.title": "Accessibility settings",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.title": "Accessibility settings",
+
   // "info.end-user-agreement.accept": "I have read and I agree to the End User Agreement",
   "info.end-user-agreement.accept": "Przeczytałem/am i akceptuję umowę użytkownika",
 
@@ -3379,6 +3511,10 @@
 
   // "item.edit.authorizations.title": "Edit item's Policies",
   "item.edit.authorizations.title": "Edytuj politykę tej pozycji",
+
+  // "item.badge.status": "Item status:",
+  // TODO New key - Add a translation
+  "item.badge.status": "Item status:",
 
   // "item.badge.private": "Non-discoverable",
   "item.badge.private": "Prywatny status publikacji",
@@ -4001,7 +4137,7 @@
   // "item.edit.tabs.status.buttons.mappedCollections.label": "Manage mapped collections",
   "item.edit.tabs.status.buttons.mappedCollections.label": "Zarządzaj mapowanymi kolekcjami",
 
-  // "item.edit.tabs.status.buttons.move.button": "Move this Item to a different Collection",
+  // "item.edit.tabs.status.buttons.move.button": "Move this item to a different collection",
   "item.edit.tabs.status.buttons.move.button": "Przenieś...",
 
   // "item.edit.tabs.status.buttons.move.label": "Move item to another collection",
@@ -4096,6 +4232,53 @@
 
   // "item.page.description": "Description",
   "item.page.description": "Opis",
+
+  // "item.page.org-unit": "Organizational Unit",
+  // TODO New key - Add a translation
+  "item.page.org-unit": "Organizational Unit",
+
+  // "item.page.org-units": "Organizational Units",
+  "item.page.org-units": "Jednostki organizacyjne",
+
+  // "item.page.project": "Research Project",
+  // TODO New key - Add a translation
+  "item.page.project": "Research Project",
+
+  // "item.page.projects": "Research Projects",
+  "item.page.projects": "Projekty badawcze",
+
+  // "item.page.publication": "Publications",
+  // TODO New key - Add a translation
+  "item.page.publication": "Publications",
+
+  // "item.page.publications": "Publications",
+  "item.page.publications": "Publikacje",
+
+  // "item.page.article": "Article",
+  // TODO New key - Add a translation
+  "item.page.article": "Article",
+
+  // "item.page.articles": "Articles",
+  "item.page.articles": "Artykuły",
+
+  // "item.page.journal": "Journal",
+  "item.page.journal": "Czasopismo",
+
+  // "item.page.journals": "Journals",
+  // TODO New key - Add a translation
+  "item.page.journals": "Journals",
+
+  // "item.page.journal-issue": "Journal Issue",
+  "item.page.journal-issue": "Numer czasopisma",
+
+  // "item.page.journal-issues": "Journal Issues",
+  "item.page.journal-issues": "Numery czasopisma",
+
+  // "item.page.journal-volume": "Journal Volume",
+  "item.page.journal-volume": "Tom czasopisma",
+
+  // "item.page.journal-volumes": "Journal Volumes",
+  "item.page.journal-volumes": "Tomy czasopisma",
 
   // "item.page.journal-issn": "Journal ISSN",
   "item.page.journal-issn": "ISSN czasopisma",
@@ -4193,8 +4376,12 @@
   // "item.page.abstract": "Abstract",
   "item.page.abstract": "Abstrakt",
 
-  // "item.page.author": "Authors",
-  "item.page.author": "Autorzy",
+  // "item.page.author": "Author",
+  // TODO New key - Add a translation
+  "item.page.author": "Author",
+
+  // "item.page.authors": "Authors",
+  "item.page.authors": "Autorzy",
 
   // "item.page.citation": "Citation",
   "item.page.citation": "Cytowanie",
@@ -4364,6 +4551,22 @@
   // "item.preview.oaire.citation.endPage": "Citation end page",
   "item.preview.oaire.citation.endPage": "Ostatnia strona cytowania",
 
+  // "item.preview.dc.relation.hasversion": "Has version",
+  // TODO New key - Add a translation
+  "item.preview.dc.relation.hasversion": "Has version",
+
+  // "item.preview.dc.relation.ispartofseries": "Is part of series",
+  // TODO New key - Add a translation
+  "item.preview.dc.relation.ispartofseries": "Is part of series",
+
+  // "item.preview.dc.rights": "Rights",
+  // TODO New key - Add a translation
+  "item.preview.dc.rights": "Rights",
+
+  // "item.preview.dc.identifier.other": "Other Identifier",
+  // TODO Source message changed - Revise the translation
+  "item.preview.dc.identifier.other": "Inny identyfikator:",
+
   // "item.preview.dc.relation.issn": "ISSN",
   "item.preview.dc.relation.issn": "ISSN",
 
@@ -4452,7 +4655,8 @@
   "item.preview.dc.identifier.openalex": "OpenAlex ID",
 
   // "item.preview.dc.description": "Description",
-  "item.preview.dc.description": "Opis",
+  // TODO Source message changed - Revise the translation
+  "item.preview.dc.description": "Opis:",
 
   // "item.select.confirm": "Confirm selected",
   "item.select.confirm": "Potwierdź zaznaczone",
@@ -5333,6 +5537,10 @@
   // "mydspace.show.supervisedWorkspace": "Supervised items",
   "mydspace.show.supervisedWorkspace": "Pozycje recenzowane",
 
+  // "mydspace.status": "My DSpace status:",
+  // TODO New key - Add a translation
+  "mydspace.status": "My DSpace status:",
+
   // "mydspace.status.mydspaceArchived": "Archived",
   "mydspace.status.mydspaceArchived": "Zarchiwizowano",
 
@@ -5428,6 +5636,10 @@
 
   // "nav.user.description": "User profile bar",
   "nav.user.description": "Pasek profilu użytkownika",
+
+  // "listelement.badge.dso-type": "Item type:",
+  // TODO New key - Add a translation
+  "listelement.badge.dso-type": "Item type:",
 
   // "none.listelement.badge": "Item",
   "none.listelement.badge": "Pozycja",
@@ -5786,6 +5998,9 @@
   // "process.new.parameter.file.required": "Please select a file",
   "process.new.parameter.file.required": "Proszę wybrać plik",
 
+  // "process.new.parameter.integer.required": "Parameter value is required",
+  "process.new.parameter.integer.required": "Wartość parametru jest wymagana",
+
   // "process.new.parameter.string.required": "Parameter value is required",
   "process.new.parameter.string.required": "Wartość parametru jest wymagana",
 
@@ -5983,6 +6198,18 @@
 
   // "profile.breadcrumbs": "Update Profile",
   "profile.breadcrumbs": "Zaktualizuj profil",
+
+  // "profile.card.accessibility.content": "Accessibility settings can be configured on the accessibility settings page.",
+  // TODO New key - Add a translation
+  "profile.card.accessibility.content": "Accessibility settings can be configured on the accessibility settings page.",
+
+  // "profile.card.accessibility.header": "Accessibility",
+  // TODO New key - Add a translation
+  "profile.card.accessibility.header": "Accessibility",
+
+  // "profile.card.accessibility.link": "Go to Accessibility Settings Page",
+  // TODO New key - Add a translation
+  "profile.card.accessibility.link": "Go to Accessibility Settings Page",
 
   // "profile.card.identify": "Identify",
   "profile.card.identify": "Dane",
@@ -6389,68 +6616,88 @@
   // "relationships.add.error.title": "Unable to add relationship",
   "relationships.add.error.title": "Nie można dodać relacji",
 
-  // "relationships.isAuthorOf": "Authors",
-  "relationships.isAuthorOf": "Autorzy",
+  // "relationships.Publication.isAuthorOfPublication.Person": "Authors (persons)",
+  "relationships.Publication.isAuthorOfPublication.Person": "Autorzy (osoby)",
 
-  // "relationships.isAuthorOf.Person": "Authors (persons)",
-  "relationships.isAuthorOf.Person": "Autorzy (osoby)",
+  // "relationships.Publication.isProjectOfPublication.Project": "Research Projects",
+  "relationships.Publication.isProjectOfPublication.Project": "Projekty badawcze",
 
-  // "relationships.isAuthorOf.OrgUnit": "Authors (organizational units)",
-  "relationships.isAuthorOf.OrgUnit": "Autorzy (jednostki organizacyjne)",
+  // "relationships.Publication.isOrgUnitOfPublication.OrgUnit": "Organizational Units",
+  "relationships.Publication.isOrgUnitOfPublication.OrgUnit": "Jednostki organizacyjne",
 
-  // "relationships.isIssueOf": "Journal Issues",
-  "relationships.isIssueOf": "Numery czasopisma",
+  // "relationships.Publication.isAuthorOfPublication.OrgUnit": "Authors (organizational units)",
+  "relationships.Publication.isAuthorOfPublication.OrgUnit": "Autorzy (jednostki organizacyjne)",
 
-  // "relationships.isIssueOf.JournalIssue": "Journal Issue",
-  "relationships.isIssueOf.JournalIssue": "Numer czasopisma",
+  // "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Journal Issue",
+  "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Numer czasopisma",
 
-  // "relationships.isJournalIssueOf": "Journal Issue",
-  "relationships.isJournalIssueOf": "Numer czasopisma",
+  // "relationships.Publication.isContributorOfPublication.Person": "Contributor",
+  "relationships.Publication.isContributorOfPublication.Person": "Autor",
 
-  // "relationships.isJournalOf": "Journals",
-  "relationships.isJournalOf": "Czasopisma",
+  // "relationships.Publication.isContributorOfPublication.OrgUnit": "Contributor (organizational units)",
+  "relationships.Publication.isContributorOfPublication.OrgUnit": "Autor (Jednostka organizacyjna)",
 
-  // "relationships.isJournalVolumeOf": "Journal Volume",
-  "relationships.isJournalVolumeOf": "Tom czasopisma",
+  // "relationships.Person.isPublicationOfAuthor.Publication": "Publications",
+  "relationships.Person.isPublicationOfAuthor.Publication": "Publikacje",
 
-  // "relationships.isOrgUnitOf": "Organizational Units",
-  "relationships.isOrgUnitOf": "Jednostki organizacyjne",
+  // "relationships.Person.isProjectOfPerson.Project": "Research Projects",
+  "relationships.Person.isProjectOfPerson.Project": "Projekty badawcze",
 
-  // "relationships.isPersonOf": "Authors",
-  "relationships.isPersonOf": "Autorzy",
+  // "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Organizational Units",
+  "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Jednostki organizacyjne",
 
-  // "relationships.isProjectOf": "Research Projects",
-  "relationships.isProjectOf": "Projekty badawcze",
+  // "relationships.Person.isPublicationOfContributor.Publication": "Publications (contributor to)",
+  // TODO Source message changed - Revise the translation
+  "relationships.Person.isPublicationOfContributor.Publication": "Publikacje",
 
-  // "relationships.isPublicationOf": "Publications",
-  "relationships.isPublicationOf": "Publikacje",
+  // "relationships.Project.isPublicationOfProject.Publication": "Publications",
+  "relationships.Project.isPublicationOfProject.Publication": "Publikacje",
 
-  // "relationships.isPublicationOfJournalIssue": "Articles",
-  "relationships.isPublicationOfJournalIssue": "Artykuły",
+  // "relationships.Project.isPersonOfProject.Person": "Authors",
+  "relationships.Project.isPersonOfProject.Person": "Autorzy",
 
-  // "relationships.isSingleJournalOf": "Journal",
-  "relationships.isSingleJournalOf": "Czasopismo",
+  // "relationships.Project.isOrgUnitOfProject.OrgUnit": "Organizational Units",
+  "relationships.Project.isOrgUnitOfProject.OrgUnit": "Jednostki organizacyjne",
 
-  // "relationships.isSingleVolumeOf": "Journal Volume",
-  "relationships.isSingleVolumeOf": "Tom czasopisma",
+  // "relationships.Project.isFundingAgencyOfProject.OrgUnit": "Funder",
+  "relationships.Project.isFundingAgencyOfProject.OrgUnit": "Instytucja finansująca",
 
-  // "relationships.isVolumeOf": "Journal Volumes",
-  "relationships.isVolumeOf": "Tomy czasopisma",
+  // "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Organisation Publications",
+  // TODO New key - Add a translation
+  "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Organisation Publications",
 
-  // "relationships.isVolumeOf.JournalVolume": "Journal Volume",
-  "relationships.isVolumeOf.JournalVolume": "Rocznik czasopisma",
+  // "relationships.OrgUnit.isPersonOfOrgUnit.Person": "Authors",
+  "relationships.OrgUnit.isPersonOfOrgUnit.Person": "Autorzy",
 
-  // "relationships.isContributorOf": "Contributors",
-  "relationships.isContributorOf": "Autorzy",
+  // "relationships.OrgUnit.isProjectOfOrgUnit.Project": "Research Projects",
+  "relationships.OrgUnit.isProjectOfOrgUnit.Project": "Projekty badawcze",
 
-  // "relationships.isContributorOf.OrgUnit": "Contributor (Organizational Unit)",
-  "relationships.isContributorOf.OrgUnit": "Autor (Jednostka organizacyjna)",
+  // "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
+  // TODO New key - Add a translation
+  "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
 
-  // "relationships.isContributorOf.Person": "Contributor",
-  "relationships.isContributorOf.Person": "Autor",
+  // "relationships.OrgUnit.isPublicationOfContributor.Publication": "Publications (contributor to)",
+  // TODO Source message changed - Revise the translation
+  "relationships.OrgUnit.isPublicationOfContributor.Publication": "Publikacje",
 
-  // "relationships.isFundingAgencyOf.OrgUnit": "Funder",
-  "relationships.isFundingAgencyOf.OrgUnit": "Instytucja finansująca",
+  // "relationships.OrgUnit.isProjectOfFundingAgency.Project": "Research Projects (funder of)",
+  // TODO Source message changed - Revise the translation
+  "relationships.OrgUnit.isProjectOfFundingAgency.Project": "Projekty badawcze",
+
+  // "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Journal Volume",
+  "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Tom czasopisma",
+
+  // "relationships.JournalIssue.isPublicationOfJournalIssue.Publication": "Publications",
+  "relationships.JournalIssue.isPublicationOfJournalIssue.Publication": "Publikacje",
+
+  // "relationships.JournalVolume.isJournalOfVolume.Journal": "Journals",
+  "relationships.JournalVolume.isJournalOfVolume.Journal": "Czasopisma",
+
+  // "relationships.JournalVolume.isIssueOfJournalVolume.JournalIssue": "Journal Issue",
+  "relationships.JournalVolume.isIssueOfJournalVolume.JournalIssue": "Numer czasopisma",
+
+  // "relationships.Journal.isVolumeOfJournal.JournalVolume": "Journal Volume",
+  "relationships.Journal.isVolumeOfJournal.JournalVolume": "Tom czasopisma",
 
   // "repository.image.logo": "Repository logo",
   "repository.image.logo": "Logo repozytorium",
@@ -6697,7 +6944,6 @@
 
   // "search.filters.applied.f.original_bundle_descriptions": "File description",
   "search.filters.applied.f.original_bundle_descriptions": "Opis pliku",
-
   // "search.filters.applied.f.has_geospatial_metadata": "Has geographical location",
   "search.filters.applied.f.has_geospatial_metadata": "Ma lokalizację geograficzną",
 
@@ -6790,6 +7036,14 @@
 
   // "search.filters.filter.creativeDatePublished.label": "Search date published",
   "search.filters.filter.creativeDatePublished.label": "Wyszukaj datę opublikowania",
+
+  // "search.filters.filter.creativeDatePublished.min.label": "Start",
+  // TODO New key - Add a translation
+  "search.filters.filter.creativeDatePublished.min.label": "Start",
+
+  // "search.filters.filter.creativeDatePublished.max.label": "End",
+  // TODO New key - Add a translation
+  "search.filters.filter.creativeDatePublished.max.label": "End",
 
   // "search.filters.filter.creativeWorkEditor.head": "Editor",
   "search.filters.filter.creativeWorkEditor.head": "Redaktor",
@@ -6955,6 +7209,14 @@
 
   // "search.filters.filter.organizationFoundingDate.label": "Search date founded",
   "search.filters.filter.organizationFoundingDate.label": "Wyszukaj datę założenia",
+
+  // "search.filters.filter.organizationFoundingDate.min.label": "Start",
+  // TODO New key - Add a translation
+  "search.filters.filter.organizationFoundingDate.min.label": "Start",
+
+  // "search.filters.filter.organizationFoundingDate.max.label": "End",
+  // TODO New key - Add a translation
+  "search.filters.filter.organizationFoundingDate.max.label": "End",
 
   // "search.filters.filter.scope.head": "Scope",
   "search.filters.filter.scope.head": "Zakres",
@@ -7724,6 +7986,10 @@
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalIssue": "Local Journal Issues ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalIssue": "Lokalne numery czasopism ({{ count }})",
 
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfIssue": "Local Journal Volumes ({{ count }})",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfIssue": "Local Journal Volumes ({{ count }})",
+
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfPublication": "Local Journal Volumes ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfPublication": "Lokalne tomy czasopism ({{ count }})",
 
@@ -7772,6 +8038,26 @@
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournalIssn": "Sherpa Journals by ISSN ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournalIssn": "Sherpa Czasopisma wg ISSN ({{ count }})",
 
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.openalexPerson": "OpenAlex ({{ count }})",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.openalexPerson": "OpenAlex ({{ count }})",
+
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.openalexInstitution": "OpenAlex Search by Institution ({{ count }})",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.openalexInstitution": "OpenAlex Search by Institution ({{ count }})",
+
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.openalexPublisher": "OpenAlex Search by Publisher ({{ count }})",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.openalexPublisher": "OpenAlex Search by Publisher ({{ count }})",
+
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.openalexFunder": "OpenAlex Search by Funder ({{ count }})",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.openalexFunder": "OpenAlex Search by Funder ({{ count }})",
+
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.dataciteProject": "DataCite Search by Project ({{ count }})",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.dataciteProject": "DataCite Search by Project ({{ count }})",
+
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingAgencyOfPublication": "Search for Funding Agencies",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingAgencyOfPublication": "Wyszukaj instytucje finansujące",
 
@@ -7802,6 +8088,10 @@
   // "submission.sections.describe.relationship-lookup.title.isFundingAgencyOfProject": "Funder of the Project",
   "submission.sections.describe.relationship-lookup.title.isFundingAgencyOfProject": "Instytucja finansująca projekt",
 
+  // "submission.sections.describe.relationship-lookup.title.isPersonOfProject": "Person of the Project",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.title.isPersonOfProject": "Person of the Project",
+
   // "submission.sections.describe.relationship-lookup.selection-tab.search-form.placeholder": "Search...",
   "submission.sections.describe.relationship-lookup.selection-tab.search-form.placeholder": "Wyszukaj...",
 
@@ -7816,6 +8106,10 @@
 
   // "submission.sections.describe.relationship-lookup.title.JournalIssue": "Journal Issues",
   "submission.sections.describe.relationship-lookup.title.JournalIssue": "Numery czasopisma",
+
+  // "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfIssue": "Journal Volumes",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfIssue": "Journal Volumes",
 
   // "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfPublication": "Journal Volumes",
   "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfPublication": "Tomy czasopisma",
@@ -7879,6 +8173,10 @@
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalOfPublication": "Selected Journals",
   "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalOfPublication": "Wybrane czasopisma",
+
+  // "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfIssue": "Selected Journal Volume",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfIssue": "Selected Journal Volume",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfPublication": "Selected Journal Volume",
   "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfPublication": "Wybrane tomy czasopisma",
@@ -7969,6 +8267,26 @@
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.ror": "Search Results",
   "submission.sections.describe.relationship-lookup.selection-tab.title.ror": "Wyniki wyszukiwania",
+
+  // "submission.sections.describe.relationship-lookup.selection-tab.title.openalexPerson": "Search Results",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.selection-tab.title.openalexPerson": "Search Results",
+
+  // "submission.sections.describe.relationship-lookup.selection-tab.title.openalexInstitution": "Search Results",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.selection-tab.title.openalexInstitution": "Search Results",
+
+  // "submission.sections.describe.relationship-lookup.selection-tab.title.openalexPublisher": "Search Results",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.selection-tab.title.openalexPublisher": "Search Results",
+
+  // "submission.sections.describe.relationship-lookup.selection-tab.title.openalexFunder": "Search Results",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.selection-tab.title.openalexFunder": "Search Results",
+
+  // "submission.sections.describe.relationship-lookup.selection-tab.title.dataciteProject": "Search Results",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.selection-tab.title.dataciteProject": "Search Results",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title": "Search Results",
   "submission.sections.describe.relationship-lookup.selection-tab.title": "Wyniki wyszukiwania",
@@ -8528,6 +8846,10 @@
   // "subscriptions.tooltip": "Subscribe",
   "subscriptions.tooltip": "Subskrybuj",
 
+  // "subscriptions.unsubscribe": "Unsubscribe",
+  // TODO New key - Add a translation
+  "subscriptions.unsubscribe": "Unsubscribe",
+
   // "subscriptions.modal.title": "Subscriptions",
   "subscriptions.modal.title": "Subksrypcje",
 
@@ -8600,7 +8922,7 @@
   // "subscriptions.table.not-available-message": "The subscribed item has been deleted, or you don't currently have the permission to view it",
   "subscriptions.table.not-available-message": "Ta pozycja została usunięta lun nie masz do niej dostępu, aby ją wyswietlić",
 
-  // "subscriptions.table.empty.message": "You do not have any subscriptions at this time. To subscribe to email updates for a Community or Collection, use the subscription button on the object's page.",
+  // "subscriptions.table.empty.message": "You do not have any subscriptions at this time. To subscribe to email updates for a community or collection, use the subscription button on the object's page.",
   "subscriptions.table.empty.message": "Ta pozycja nie ma w tym momencie żadnych subksrypcji. Aby zasubkrybować i otrzymywać aktualizacje o tym zbiorze lub kolekcji, wybierz przycisk subskrypcji na stronie pozycji.",
 
   // "thumbnail.default.alt": "Thumbnail Image",
@@ -9324,10 +9646,12 @@
   "access-control-bitstream-header-toggle": "Pliki",
 
   // "access-control-bitstream-toggle.enable": "Enable option to perform changes on the bitstreams",
-  "access-control-item-toggle.enable": "Włącz opcję wprowadzania zmian w metadanych pozycji",
+  // TODO Source message changed - Revise the translation
+  "access-control-bitstream-toggle.enable": "Włącz opcję wprowadzania zmian w plikach",
 
   // "access-control-bitstream-toggle.disable": "Disable option to perform changes on the bitstreams",
-  "access-control-item-toggle.disable": "Wyłącz opcję wprowadzania zmian w metadanych pozycji",
+  // TODO Source message changed - Revise the translation
+  "access-control-bitstream-toggle.disable": "Wyłącz opcję wprowadzania zmian w plikach",
 
   // "access-control-mode": "Mode",
   "access-control-mode": "Tryb",
@@ -9430,391 +9754,281 @@
 
   // "ldn-registered-services.title": "Registered Services",
   "ldn-registered-services.title": "Zarejestrowane usługi",
-
   // "ldn-registered-services.table.name": "Name",
   "ldn-registered-services.table.name": "Nazwa",
-
   // "ldn-registered-services.table.description": "Description",
   "ldn-registered-services.table.description": "Opis",
-
   // "ldn-registered-services.table.status": "Status",
   "ldn-registered-services.table.status": "Status",
-
   // "ldn-registered-services.table.action": "Action",
   "ldn-registered-services.table.action": "Akcja",
-
   // "ldn-registered-services.new": "NEW",
   "ldn-registered-services.new": "NOWY",
-
   // "ldn-registered-services.new.breadcrumbs": "Registered Services",
   "ldn-registered-services.new.breadcrumbs": "Zarejestrowane usługi",
 
   // "ldn-service.overview.table.enabled": "Enabled",
   "ldn-service.overview.table.enabled": "Włączona",
-
   // "ldn-service.overview.table.disabled": "Disabled",
   "ldn-service.overview.table.disabled": "Wyłączona",
-
   // "ldn-service.overview.table.clickToEnable": "Click to enable",
   "ldn-service.overview.table.clickToEnable": "Kliknij, aby włączyć",
-
   // "ldn-service.overview.table.clickToDisable": "Click to disable",
   "ldn-service.overview.table.clickToDisable": "Kliknij, aby wyłączyć",
 
   // "ldn-edit-registered-service.title": "Edit Service",
   "ldn-edit-registered-service.title": "Edytuj usługę",
-
   // "ldn-create-service.title": "Create service",
   "ldn-create-service.title": "Utwórz usługę",
-
   // "service.overview.create.modal": "Create Service",
   "service.overview.create.modal": "Utwórz usługę",
-
   // "service.overview.create.body": "Please confirm the creation of this service.",
   "service.overview.create.body": "Proszę potwierdzić utworzenie tej usługi.",
-
   // "ldn-service-status": "Status",
   "ldn-service-status": "Status",
-
   // "service.confirm.create": "Create",
   "service.confirm.create": "Utwórz",
-
   // "service.refuse.create": "Cancel",
   "service.refuse.create": "Anuluj",
-
   // "ldn-register-new-service.title": "Register a new service",
   "ldn-register-new-service.title": "Zarejestruj nową usługę",
-
   // "ldn-new-service.form.label.submit": "Save",
   "ldn-new-service.form.label.submit": "Zapisz",
-
   // "ldn-new-service.form.label.name": "Name",
   "ldn-new-service.form.label.name": "Nazwa",
-
   // "ldn-new-service.form.label.description": "Description",
   "ldn-new-service.form.label.description": "Opis",
-
   // "ldn-new-service.form.label.url": "Service URL",
   "ldn-new-service.form.label.url": "URL usługi",
-
   // "ldn-new-service.form.label.ip-range": "Service IP range",
   "ldn-new-service.form.label.ip-range": "Zakres IP usługi",
-
   // "ldn-new-service.form.label.score": "Level of trust",
   "ldn-new-service.form.label.score": "Poziom weryfikacji",
-
   // "ldn-new-service.form.label.ldnUrl": "LDN Inbox URL",
   "ldn-new-service.form.label.ldnUrl": "URL LDN Inbox",
-
   // "ldn-new-service.form.placeholder.name": "Please provide service name",
   "ldn-new-service.form.placeholder.name": "Proszę podać nazwę usługi",
-
   // "ldn-new-service.form.placeholder.description": "Please provide a description regarding your service",
   "ldn-new-service.form.placeholder.description": "Proszę podać opis dotyczący usługi",
-
   // "ldn-new-service.form.placeholder.url": "Please input the URL for users to check out more information about the service",
   "ldn-new-service.form.placeholder.url": "Proszę wprowadzić URL, aby użytkownicy mogli sprawdzić więcej informacji o usłudze",
-
   // "ldn-new-service.form.placeholder.lowerIp": "IPv4 range lower bound",
   "ldn-new-service.form.placeholder.lowerIp": "Dolna granica zakresu IPv4",
-
   // "ldn-new-service.form.placeholder.upperIp": "IPv4 range upper bound",
   "ldn-new-service.form.placeholder.upperIp": "Górna granica zakresu IPv4",
-
   // "ldn-new-service.form.placeholder.ldnUrl": "Please specify the URL of the LDN Inbox",
   "ldn-new-service.form.placeholder.ldnUrl": "Proszę podać URL LDN Inbox",
-
   // "ldn-new-service.form.placeholder.score": "Please enter a value between 0 and 1. Use the “.” as decimal separator",
   "ldn-new-service.form.placeholder.score": "Proszę wprowadzić wartość między 0 a 1. Użyj „.” jako separatora dziesiętnego",
-
   // "ldn-service.form.label.placeholder.default-select": "Select a pattern",
   "ldn-service.form.label.placeholder.default-select": "Wybierz wzór",
 
   // "ldn-service.form.pattern.ack-accept.label": "Acknowledge and Accept",
   "ldn-service.form.pattern.ack-accept.label": "Potwierdź i zaakceptuj",
-
   // "ldn-service.form.pattern.ack-accept.description": "This pattern is used to acknowledge and accept a request (offer). It implies an intention to act on the request.",
   "ldn-service.form.pattern.ack-accept.description": "Ten wzorzec służy do potwierdzenia i zaakceptowania żądania (oferty). Oznacza zamiar działania na żądanie.",
-
   // "ldn-service.form.pattern.ack-accept.category": "Acknowledgements",
   "ldn-service.form.pattern.ack-reject.category": "Potwierdzenia",
 
   // "ldn-service.form.pattern.ack-reject.label": "Acknowledge and Reject",
   "ldn-service.form.pattern.ack-reject.label": "Potwierdź i odrzuć",
-
   // "ldn-service.form.pattern.ack-reject.description": "This pattern is used to acknowledge and reject a request (offer). It signifies no further action regarding the request.",
   "ldn-service.form.pattern.ack-reject.description": "Ten wzorzec służy do potwierdzenia i odrzucenia żądania. Oznacza brak dalszych działań w sprawie żądania.",
-
   // "ldn-service.form.pattern.ack-reject.category": "Acknowledgements",
+  // TODO Source message changed - Revise the translation
   "ldn-service.form.pattern.ack-reject.category": "Potwierdzenia",
 
   // "ldn-service.form.pattern.ack-tentative-accept.label": "Acknowledge and Tentatively Accept",
   "ldn-service.form.pattern.ack-tentative-accept.label": "Potwierdź i wstępnie zaakceptuj",
-
   // "ldn-service.form.pattern.ack-tentative-accept.description": "This pattern is used to acknowledge and tentatively accept a request (offer). It implies an intention to act, which may change.",
   "ldn-service.form.pattern.ack-tentative-accept.description": "Ten wzorzec służy do potwierdzenia i wstępnego zaakceptowania żądania. Oznacza zamiar działania, który może się zmienić.",
-
   // "ldn-service.form.pattern.ack-tentative-accept.category": "Acknowledgements",
   "ldn-service.form.pattern.ack-tentative-accept.category": "Potwierdzenia",
 
   // "ldn-service.form.pattern.ack-tentative-reject.label": "Acknowledge and Tentatively Reject",
   "ldn-service.form.pattern.ack-tentative-reject.label": "Potwierdź i wstępnie odrzuć",
-
   // "ldn-service.form.pattern.ack-tentative-reject.description": "This pattern is used to acknowledge and tentatively reject a request (offer). It signifies no further action, subject to change.",
   "ldn-service.form.pattern.ack-tentative-reject.description": "Ten wzorzec służy do potwierdzenia i wstępnego odrzucenia żądania. Oznacza on brak dalszych działań, z możliwością zmiany.",
-
   // "ldn-service.form.pattern.ack-tentative-reject.category": "Acknowledgements",
   "ldn-service.form.pattern.ack-tentative-reject.category": "Potwierdzenia",
 
   // "ldn-service.form.pattern.announce-endorsement.label": "Announce Endorsement",
   "ldn-service.form.pattern.announce-endorsement.label": "Ogłoś poparcie",
-
   // "ldn-service.form.pattern.announce-endorsement.description": "This pattern is used to announce the existence of an endorsement, referencing the endorsed resource.",
   "ldn-service.form.pattern.announce-endorsement.description": "Ten wzorzec służy do ogłoszenia weryfikacji, odnosząc się do zweryfikowanego rekordu.",
-
   // "ldn-service.form.pattern.announce-endorsement.category": "Announcements",
   "ldn-service.form.pattern.announce-endorsement.category": "Ogłoszenia",
 
   // "ldn-service.form.pattern.announce-ingest.label": "Announce Ingest",
   "ldn-service.form.pattern.announce-ingest.label": "Zgłoś przyjęcie",
-
   // "ldn-service.form.pattern.announce-ingest.description": "This pattern is used to announce that a resource has been ingested.",
   "ldn-service.form.pattern.announce-ingest.description": "Ten wzorzec służy do ogłoszenia, że zasób został przyjęty.",
-
   // "ldn-service.form.pattern.announce-ingest.category": "Announcements",
   "ldn-service.form.pattern.announce-ingest.category": "Ogłoszenia",
 
   // "ldn-service.form.pattern.announce-relationship.label": "Announce Relationship",
   "ldn-service.form.pattern.announce-relationship.label": "Zgłoś relację",
-
   // "ldn-service.form.pattern.announce-relationship.description": "This pattern is used to announce a relationship between two resources.",
   "ldn-service.form.pattern.announce-relationship.description": "Ten wzorzec służy do zgłoszenia relacji między dwoma zasobami.",
-
   // "ldn-service.form.pattern.announce-relationship.category": "Announcements",
   "ldn-service.form.pattern.announce-relationship.category": "Zgłoszenia",
 
   // "ldn-service.form.pattern.announce-review.label": "Announce Review",
   "ldn-service.form.pattern.announce-review.label": "Zgłoś recenzję",
-
   // "ldn-service.form.pattern.announce-review.description": "This pattern is used to announce the existence of a review, referencing the reviewed resource.",
   "ldn-service.form.pattern.announce-review.description": "Ten wzorzec służy do ogłoszenia istnienia recenzji, odnosząc się do recenzowanego zasobu.",
-
   // "ldn-service.form.pattern.announce-review.category": "Announcements",
   "ldn-service.form.pattern.announce-review.category": "Zgłoszenia",
 
   // "ldn-service.form.pattern.announce-service-result.label": "Announce Service Result",
   "ldn-service.form.pattern.announce-service-result.label": "Zgłoś wynik usługi",
-
   // "ldn-service.form.pattern.announce-service-result.description": "This pattern is used to announce the existence of a 'service result', referencing the relevant resource.",
   "ldn-service.form.pattern.announce-service-result.description": "Ten wzorzec służy do zgłoszenia istnienia 'wyniku usługi', odnosząc się do odpowiedniego zasobu.",
-
   // "ldn-service.form.pattern.announce-service-result.category": "Announcements",
   "ldn-service.form.pattern.announce-service-result.category": "Zgłoszenia",
 
   // "ldn-service.form.pattern.request-endorsement.label": "Request Endorsement",
   "ldn-service.form.pattern.request-endorsement.label": "Żądaj weryfikacji",
-
   // "ldn-service.form.pattern.request-endorsement.description": "This pattern is used to request endorsement of a resource owned by the origin system.",
   "ldn-service.form.pattern.request-endorsement.description": "Ten wzorzec służy do żądania poparcia zasobu należącego do systemu źródłowego.",
-
   // "ldn-service.form.pattern.request-endorsement.category": "Requests",
   "ldn-service.form.pattern.request-endorsement.category": "Żądania",
 
   // "ldn-service.form.pattern.request-ingest.label": "Request Ingest",
   "ldn-service.form.pattern.request-ingest.label": "Żądaj przyjęcia",
-
   // "ldn-service.form.pattern.request-ingest.description": "This pattern is used to request that the target system ingest a resource.",
   "ldn-service.form.pattern.request-ingest.description": "Ten wzorzec służy do żądania, aby system docelowy przyjął zasób.",
-
   // "ldn-service.form.pattern.request-ingest.category": "Requests",
   "ldn-service.form.pattern.request-ingest.category": "Żądania",
 
   // "ldn-service.form.pattern.request-review.label": "Request Review",
   "ldn-service.form.pattern.request-review.label": "Żądaj recenzji",
-
   // "ldn-service.form.pattern.request-review.description": "This pattern is used to request a review of a resource owned by the origin system.",
   "ldn-service.form.pattern.request-review.description": "Ten wzorzec służy do żądania recenzji zasobu należącego do systemu źródłowego.",
-
   // "ldn-service.form.pattern.request-review.category": "Requests",
   "ldn-service.form.pattern.request-review.category": "Żądania",
 
   // "ldn-service.form.pattern.undo-offer.label": "Undo Offer",
   "ldn-service.form.pattern.undo-offer.label": "Cofnij ofertę",
-
   // "ldn-service.form.pattern.undo-offer.description": "This pattern is used to undo (retract) an offer previously made.",
   "ldn-service.form.pattern.undo-offer.description": "Ten wzorzec służy do cofnięcia (wycofania) wcześniej złożonej oferty.",
-
   // "ldn-service.form.pattern.undo-offer.category": "Undo",
   "ldn-service.form.pattern.undo-offer.category": "Cofnij",
 
   // "ldn-new-service.form.label.placeholder.selectedItemFilter": "No Item Filter Selected",
   "ldn-new-service.form.label.placeholder.selectedItemFilter": "Nie wybrano filtra pozycji",
-
   // "ldn-new-service.form.label.ItemFilter": "Item Filter",
   "ldn-new-service.form.label.ItemFilter": "Filtr pozycji",
-
   // "ldn-new-service.form.label.automatic": "Automatic",
   "ldn-new-service.form.label.automatic": "Automatyczny",
-
   // "ldn-new-service.form.error.name": "Name is required",
   "ldn-new-service.form.error.name": "Nazwa jest wymagana",
-
   // "ldn-new-service.form.error.url": "URL is required",
   "ldn-new-service.form.error.url": "URL jest wymagany",
-
   // "ldn-new-service.form.error.ipRange": "Please enter a valid IP range",
   "ldn-new-service.form.error.ipRange": "Proszę wprowadzić prawidłowy zakres IP",
-
   // "ldn-new-service.form.hint.ipRange": "Please enter a valid IpV4 in both range bounds (note: for single IP, please enter the same value in both fields)",
   "ldn-new-service.form.hint.ipRange": "Proszę wprowadzić prawidłowy IpV4 w obu granicach zakresu (uwaga: dla pojedynczego IP proszę wprowadzić tę samą wartość w obu polach)",
-
   // "ldn-new-service.form.error.ldnurl": "LDN URL is required",
   "ldn-new-service.form.error.ldnurl": "URL LDN jest wymagany",
-
   // "ldn-new-service.form.error.patterns": "At least a pattern is required",
   "ldn-new-service.form.error.patterns": "Wymagany jest co najmniej jeden wzorzec",
-
   // "ldn-new-service.form.error.score": "Please enter a valid score (between 0 and 1). Use the “.” as decimal separator",
   "ldn-new-service.form.error.score": "Proszę wprowadzić prawidłowy wynik (między 0 a 1). Użyj „.” jako separatora dziesiętnego",
 
   // "ldn-new-service.form.label.inboundPattern": "Supported Pattern",
   "ldn-new-service.form.label.inboundPattern": "Obsługiwany wzorzec",
-
   // "ldn-new-service.form.label.addPattern": "+ Add more",
   "ldn-new-service.form.label.addPattern": "+ Dodaj więcej",
-
   // "ldn-new-service.form.label.removeItemFilter": "Remove",
   "ldn-new-service.form.label.removeItemFilter": "Usuń",
-
   // "ldn-register-new-service.breadcrumbs": "New Service",
   "ldn-register-new-service.breadcrumbs": "Nowa usługa",
-
   // "service.overview.delete.body": "Are you sure you want to delete this service?",
   "service.overview.delete.body": "Czy na pewno chcesz usunąć tę usługę?",
-
   // "service.overview.edit.body": "Do you confirm the changes?",
   "service.overview.edit.body": "Czy potwierdzasz zmiany?",
-
   // "service.overview.edit.modal": "Edit Service",
   "service.overview.edit.modal": "Edytuj usługę",
-
   // "service.detail.update": "Confirm",
   "service.detail.update": "Potwierdź",
-
   // "service.detail.return": "Cancel",
   "service.detail.return": "Anuluj",
-
   // "service.overview.reset-form.body": "Are you sure you want to discard the changes and leave?",
   "service.overview.reset-form.body": "Czy na pewno chcesz odrzucić zmiany i opuścić?",
-
   // "service.overview.reset-form.modal": "Discard Changes",
   "service.overview.reset-form.modal": "Odrzuć zmiany",
-
   // "service.overview.reset-form.reset-confirm": "Discard",
   "service.overview.reset-form.reset-confirm": "Odrzuć",
-
   // "admin.registries.services-formats.modify.success.head": "Successful Edit",
   "admin.registries.services-formats.modify.success.head": "Pomyślna edycja",
-
   // "admin.registries.services-formats.modify.success.content": "The service has been edited",
   "admin.registries.services-formats.modify.success.content": "Usługa została edytowana",
-
   // "admin.registries.services-formats.modify.failure.head": "Failed Edit",
   "admin.registries.services-formats.modify.failure.head": "Nieudana edycja",
-
   // "admin.registries.services-formats.modify.failure.content": "The service has not been edited",
   "admin.registries.services-formats.modify.failure.content": "Usługa nie została edytowana",
-
   // "ldn-service-notification.created.success.title": "Successful Create",
   "ldn-service-notification.created.success.title": "Pomyślne utworzenie",
-
   // "ldn-service-notification.created.success.body": "The service has been created",
   "ldn-service-notification.created.success.body": "Usługa została utworzona",
-
   // "ldn-service-notification.created.failure.title": "Failed Create",
   "ldn-service-notification.created.failure.title": "Nieudane utworzenie",
-
   // "ldn-service-notification.created.failure.body": "The service has not been created",
   "ldn-service-notification.created.failure.body": "Usługa nie została utworzona",
-
   // "ldn-service-notification.created.warning.title": "Please select at least one Inbound Pattern",
   "ldn-service-notification.created.warning.title": "Proszę wybrać co najmniej jeden wzorzec przychodzący",
-
   // "ldn-enable-service.notification.success.title": "Successful status updated",
   "ldn-enable-service.notification.success.title": "Pomyślna aktualizacja status",
-
   // "ldn-enable-service.notification.success.content": "The service status has been updated",
   "ldn-enable-service.notification.success.content": "Status usługi został zaktualizowany",
-
   // "ldn-service-delete.notification.success.title": "Successful Deletion",
   "ldn-service-delete.notification.success.title": "Pomyślne usunięcie",
-
   // "ldn-service-delete.notification.success.content": "The service has been deleted",
   "ldn-service-delete.notification.success.content": "Usługa została usunięta",
-
   // "ldn-service-delete.notification.error.title": "Failed Deletion",
   "ldn-service-delete.notification.error.title": "Nieudane usunięcie",
-
   // "ldn-service-delete.notification.error.content": "The service has not been deleted",
   "ldn-service-delete.notification.error.content": "Usługa nie została usunięta",
-
   // "service.overview.reset-form.reset-return": "Cancel",
   "service.overview.reset-form.reset-return": "Anuluj",
-
   // "service.overview.delete": "Delete service",
   "service.overview.delete": "Usuń usługę",
-
   // "ldn-edit-service.title": "Edit service",
   "ldn-edit-service.title": "Edytuj usługę",
-
   // "ldn-edit-service.form.label.name": "Name",
   "ldn-edit-service.form.label.name": "Nazwa",
-
   // "ldn-edit-service.form.label.description": "Description",
   "ldn-edit-service.form.label.description": "Opis",
-
   // "ldn-edit-service.form.label.url": "Service URL",
   "ldn-edit-service.form.label.url": "Serwis URL",
-
   // "ldn-edit-service.form.label.ldnUrl": "LDN Inbox URL",
   "ldn-edit-service.form.label.ldnUrl": "LDN Inbox URL",
-
   // "ldn-edit-service.form.label.inboundPattern": "Inbound Pattern",
   "ldn-edit-service.form.label.inboundPattern": "Wzorzec przychodzący",
-
   // "ldn-edit-service.form.label.noInboundPatternSelected": "No Inbound Pattern",
   "ldn-edit-service.form.label.noInboundPatternSelected": "Brak wybranego wzorca przychodzącego",
-
   // "ldn-edit-service.form.label.selectedItemFilter": "Selected Item Filter",
   "ldn-edit-service.form.label.selectedItemFilter": "Wybrany filtr pozycji",
-
   // "ldn-edit-service.form.label.selectItemFilter": "No Item Filter",
   "ldn-edit-service.form.label.selectItemFilter": "Brak filtra pozycji",
-
   // "ldn-edit-service.form.label.automatic": "Automatic",
   "ldn-edit-service.form.label.automatic": "Automatyczny",
-
   // "ldn-edit-service.form.label.addInboundPattern": "+ Add more",
   "ldn-edit-service.form.label.addInboundPattern": "+ Dodaj więcej",
-
   // "ldn-edit-service.form.label.submit": "Save",
   "ldn-edit-service.form.label.submit": "Zapisz",
-
   // "ldn-edit-service.breadcrumbs": "Edit Service",
   "ldn-edit-service.breadcrumbs": "Edytuj usługę",
-
   // "ldn-service.control-constaint-select-none": "Select none",
   "ldn-service.control-constaint-select-none": "Nie wybieraj żadnego",
 
   // "ldn-register-new-service.notification.error.title": "Error",
   "ldn-register-new-service.notification.error.title": "Błąd",
-
   // "ldn-register-new-service.notification.error.content": "An error occurred while creating this process",
   "ldn-register-new-service.notification.error.content": "Wystąpił błąd podczas tworzenia tego process",
-
   // "ldn-register-new-service.notification.success.title": "Success",
   "ldn-register-new-service.notification.success.title": "Sukces",
-
   // "ldn-register-new-service.notification.success.content": "The process was successfully created",
   "ldn-register-new-service.notification.success.content": "Proces został pomyślnie utworzony",
 
@@ -9847,7 +10061,6 @@
 
   // "quality-assurance.topics.description-with-target": "Below you can see all the topics received from the subscriptions to {{source}} in regards to the",
   "quality-assurance.topics.description-with-target": "Poniżej możesz zobaczyć wszystkie tematy otrzymane z subskrypcji do {{source}} w odniesieniu do",
-
   // "quality-assurance.events.description": "Below the list of all the suggestions for the selected topic <b>{{topic}}</b>, related to <b>{{source}}</b>.",
   "quality-assurance.topics.description": "Poniżej możesz zobaczyć wszystkie rekordy otrzymane z subskrypcji z {{source}}.",
 
@@ -10083,11 +10296,9 @@
   "admin-notify-dashboard.NOTIFY.incoming.failure": "Niepowodzenie",
 
   // "admin-notify-dashboard.NOTIFY.incoming.failure.description": "Failed inbound notifications",
-
   "admin-notify-dashboard.NOTIFY.incoming.failure.description": "Failed inbound notifications",
 
   // "admin-notify-logs.NOTIFY.outgoing.failure": "Currently displaying: Failed notifications",
-
   "admin-notify-logs.NOTIFY.outgoing.failure": "Currently displaying: Failed notifications",
 
   // "admin-notify-dashboard.NOTIFY.outgoing.failure": "Failure",
@@ -10562,6 +10773,7 @@
   "register-page.registration.aria.label": "Wprowadź swój adres e-mail",
 
   // "forgot-email.form.aria.label": "Enter your e-mail address",
+  // TODO Source message changed - Revise the translation
   "forgot-email.form.aria.label": "Wprowadź swój adres e-mail",
 
   // "search-facet-option.update.announcement": "The page will be reloaded. Filter {{ filter }} is selected.",
@@ -10583,7 +10795,6 @@
   "dynamic-form-array.sortable-list.label": "Lista możliwa do sortowania",
 
   // "external-login.component.or": "or",
-
   "external-login.component.or": "lub",
 
   // "external-login.confirmation.header": "Information needed to complete the login process",
@@ -10613,7 +10824,8 @@
   // "external-login.confirm-email-sent.header": "Confirmation email sent",
   "external-login.confirm-email-sent.header": "Wysłano e-mail potwierdzający",
 
-  // "external-login.confirm-email-sent.info": " We have sent an emait to the provided address to validate your input. <br> Please follow the instructions in the email to complete the login process.",
+  // "external-login.confirm-email-sent.info": " We have sent an email to the provided address to validate your input. <br> Please follow the instructions in the email to complete the login process.",
+  // TODO Source message changed - Revise the translation
   "external-login.confirm-email-sent.info": "Wysłaliśmy e-mail na podany adres, aby zweryfikować Twoje dane. <br> Proszę postępować zgodnie z instrukcjami w e-mailu, aby zakończyć proces logowania.",
 
   // "external-login.provide-email.header": "Provide email",
@@ -10732,6 +10944,14 @@
 
   // "embargo.listelement.badge": "Embargo until {{ date }}",
   "embargo.listelement.badge": "Embargo do {{ date }}",
+
+  // "metadata-export-search.submit.error.limit-exceeded": "Only the first {{limit}} items will be exported",
+  // TODO New key - Add a translation
+  "metadata-export-search.submit.error.limit-exceeded": "Only the first {{limit}} items will be exported",
+
+  // "file-download-link.request-copy": "Request a copy of ",
+  // TODO New key - Add a translation
+  "file-download-link.request-copy": "Request a copy of ",
 
 
 }

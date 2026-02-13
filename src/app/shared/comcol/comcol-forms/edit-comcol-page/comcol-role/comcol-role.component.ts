@@ -5,6 +5,25 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { RequestService } from '@dspace/core/data/request.service';
+import { GroupDataService } from '@dspace/core/eperson/group-data.service';
+import { Group } from '@dspace/core/eperson/models/group.model';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { Community } from '@dspace/core/shared/community.model';
+import { HALLink } from '@dspace/core/shared/hal-link.model';
+import { NoContent } from '@dspace/core/shared/NoContent.model';
+import {
+  getAllCompletedRemoteData,
+  getFirstCompletedRemoteData,
+} from '@dspace/core/shared/operators';
+import {
+  hasNoValue,
+  hasValue,
+} from '@dspace/shared/utils/empty.util';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
   TranslateService,
@@ -12,34 +31,19 @@ import {
 import {
   BehaviorSubject,
   Observable,
+  Subscription,
 } from 'rxjs';
 import {
   filter,
   map,
   switchMap,
+  takeUntil,
 } from 'rxjs/operators';
 
 import { getGroupEditRoute } from '../../../../../access-control/access-control-routing-paths';
-import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
-import { RemoteData } from '../../../../../core/data/remote-data';
-import { RequestService } from '../../../../../core/data/request.service';
-import { GroupDataService } from '../../../../../core/eperson/group-data.service';
-import { Group } from '../../../../../core/eperson/models/group.model';
-import { Collection } from '../../../../../core/shared/collection.model';
-import { Community } from '../../../../../core/shared/community.model';
-import { HALLink } from '../../../../../core/shared/hal-link.model';
-import { NoContent } from '../../../../../core/shared/NoContent.model';
-import {
-  getAllCompletedRemoteData,
-  getFirstCompletedRemoteData,
-} from '../../../../../core/shared/operators';
 import { AlertComponent } from '../../../../alert/alert.component';
-import {
-  hasNoValue,
-  hasValue,
-} from '../../../../empty.util';
+import { ConfirmationModalComponent } from '../../../../confirmation-modal/confirmation-modal.component';
 import { ThemedLoadingComponent } from '../../../../loading/themed-loading.component';
-import { NotificationsService } from '../../../../notifications/notifications.service';
 import { HasNoValuePipe } from '../../../../utils/has-no-value.pipe';
 import { VarDirective } from '../../../../utils/var.directive';
 
@@ -51,15 +55,14 @@ import { VarDirective } from '../../../../utils/var.directive';
   styleUrls: ['./comcol-role.component.scss'],
   templateUrl: './comcol-role.component.html',
   imports: [
-    ThemedLoadingComponent,
     AlertComponent,
     AsyncPipe,
-    TranslateModule,
-    RouterLink,
-    VarDirective,
     HasNoValuePipe,
+    RouterLink,
+    ThemedLoadingComponent,
+    TranslateModule,
+    VarDirective,
   ],
-  standalone: true,
 })
 export class ComcolRoleComponent implements OnInit {
 
@@ -115,6 +118,7 @@ export class ComcolRoleComponent implements OnInit {
     protected notificationsService: NotificationsService,
     protected translateService: TranslateService,
     public dsoNameService: DSONameService,
+    private modalService: NgbModal,
   ) {
   }
 
@@ -214,5 +218,32 @@ export class ComcolRoleComponent implements OnInit {
     );
 
     this.roleName$ = this.translateService.get(`comcol-role.edit.${this.comcolRole.name}.name`);
+  }
+
+  confirmDelete(groupName: string): void {
+    const modalRef = this.modalService.open(ConfirmationModalComponent);
+
+    modalRef.componentInstance.name = groupName;
+    modalRef.componentInstance.headerLabel = 'comcol-role.edit.delete.modal.header';
+    modalRef.componentInstance.infoLabel = 'comcol-role.edit.delete.modal.info';
+    modalRef.componentInstance.cancelLabel = 'comcol-role.edit.delete.modal.cancel';
+    modalRef.componentInstance.confirmLabel = 'comcol-role.edit.delete.modal.confirm';
+    modalRef.componentInstance.brandColor = 'danger';
+    modalRef.componentInstance.confirmIcon = 'fas fa-trash';
+
+    const modalSub: Subscription = modalRef.componentInstance.response.pipe(
+      takeUntil(modalRef.closed),
+    ).subscribe((result: boolean) => {
+      if (result === true) {
+        this.delete();
+      }
+    });
+
+    void modalRef.result.then().finally(() => {
+      modalRef.close();
+      if (modalSub && !modalSub.closed) {
+        modalSub.unsubscribe();
+      }
+    });
   }
 }

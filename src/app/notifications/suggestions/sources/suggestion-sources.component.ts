@@ -5,6 +5,13 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { SuggestionSource } from '@dspace/core/notifications/suggestions/models/suggestion-source.model';
+import { SuggestionSourceDataService } from '@dspace/core/notifications/suggestions/source/suggestion-source-data.service';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
 import { TranslatePipe } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -17,14 +24,7 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { SuggestionSource } from '../../../core/notifications/suggestions/models/suggestion-source.model';
-import { SuggestionSourceDataService } from '../../../core/notifications/suggestions/source/suggestion-source-data.service';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { AlertComponent } from '../../../shared/alert/alert.component';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import {
   SourceListComponent,
   SourceObject,
@@ -32,11 +32,10 @@ import {
 
 @Component({
   selector: 'ds-suggestion-sources',
-  standalone: true,
   imports: [
-    SourceListComponent,
-    AsyncPipe,
     AlertComponent,
+    AsyncPipe,
+    SourceListComponent,
     TranslatePipe,
   ],
   templateUrl: './suggestion-sources.component.html',

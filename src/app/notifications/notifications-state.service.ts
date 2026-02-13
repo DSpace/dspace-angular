@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { QualityAssuranceSourceObject } from '@dspace/core/notifications/qa/models/quality-assurance-source.model';
+import { QualityAssuranceTopicObject } from '@dspace/core/notifications/qa/models/quality-assurance-topic.model';
 import {
   select,
   Store,
@@ -6,8 +8,6 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { QualityAssuranceSourceObject } from '../core/notifications/qa/models/quality-assurance-source.model';
-import { QualityAssuranceTopicObject } from '../core/notifications/qa/models/quality-assurance-topic.model';
 import { SuggestionNotificationsState } from './notifications.reducer';
 import { RetrieveAllSourceAction } from './qa/source/quality-assurance-source.actions';
 import { RetrieveAllTopicsAction } from './qa/topics/quality-assurance-topics.actions';

@@ -13,6 +13,7 @@ import {
   DoCheck,
   EventEmitter,
   Inject,
+  inject,
   Input,
   OnChanges,
   OnDestroy,
@@ -25,15 +26,55 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import {
+  AbstractControl,
   FormsModule,
   ReactiveFormsModule,
   UntypedFormArray,
   UntypedFormGroup,
 } from '@angular/forms';
 import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RelationshipDataService } from '@dspace/core/data/relationship-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { MetadataService } from '@dspace/core/metadata/metadata.service';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { Relationship } from '@dspace/core/shared/item-relationships/relationship.model';
+import { ReorderableRelationship } from '@dspace/core/shared/item-relationships/reorderable-relationship';
+import {
+  MetadataValue,
+  VIRTUAL_METADATA_PREFIX,
+} from '@dspace/core/shared/metadata.models';
+import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
+import {
+  getAllSucceededRemoteData,
+  getFirstSucceededRemoteData,
+  getFirstSucceededRemoteDataPayload,
+  getPaginatedListPayload,
+  getRemoteDataPayload,
+} from '@dspace/core/shared/operators';
+import { RelationshipOptions } from '@dspace/core/shared/relationship-options.model';
+import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
+import { SubmissionObject } from '@dspace/core/submission/models/submission-object.model';
+import { SUBMISSION_LINKS_TO_FOLLOW } from '@dspace/core/submission/resolver/submission-links-to-follow';
+import { paginatedRelationsToItems } from '@dspace/core/utilities/item-relationships-utils';
+import { itemLinksToFollow } from '@dspace/core/utilities/relation-query.utils';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+  isNotUndefined,
+} from '@dspace/shared/utils/empty.util';
+import {
   NgbModal,
   NgbModalRef,
-  NgbTooltipModule,
+  NgbTooltip,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
   DYNAMIC_FORM_CONTROL_MAP_FN,
@@ -45,6 +86,7 @@ import {
   DynamicFormControlContainerComponent,
   DynamicFormControlEvent,
   DynamicFormControlEventType,
+  DynamicFormControlMapFn,
   DynamicFormControlModel,
   DynamicFormLayout,
   DynamicFormLayoutService,
@@ -52,7 +94,10 @@ import {
   DynamicFormValidationService,
   DynamicTemplateDirective,
 } from '@ng-dynamic-forms/core';
-import { DynamicFormControlMapFn } from '@ng-dynamic-forms/core/lib/service/dynamic-form-component.service';
+import {
+  Actions,
+  ofType,
+} from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import {
   TranslateModule,
@@ -71,58 +116,20 @@ import {
   take,
 } from 'rxjs/operators';
 
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '../../../../../config/app-config.interface';
 import { AppState } from '../../../../app.reducer';
-import { PaginatedList } from '../../../../core/data/paginated-list.model';
-import { RelationshipDataService } from '../../../../core/data/relationship-data.service';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { MetadataService } from '../../../../core/metadata/metadata.service';
-import { Collection } from '../../../../core/shared/collection.model';
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
-import { Item } from '../../../../core/shared/item.model';
-import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
-import {
-  MetadataValue,
-  VIRTUAL_METADATA_PREFIX,
-} from '../../../../core/shared/metadata.models';
-import {
-  getAllSucceededRemoteData,
-  getFirstSucceededRemoteData,
-  getFirstSucceededRemoteDataPayload,
-  getPaginatedListPayload,
-  getRemoteDataPayload,
-} from '../../../../core/shared/operators';
-import { SubmissionObject } from '../../../../core/submission/models/submission-object.model';
-import { SubmissionObjectDataService } from '../../../../core/submission/submission-object-data.service';
-import { paginatedRelationsToItems } from '../../../../item-page/simple/item-types/shared/item-relationships-utils';
+import { SubmissionObjectActionTypes } from '../../../../submission/objects/submission-objects.actions';
 import { SubmissionService } from '../../../../submission/submission.service';
-import { BtnDisabledDirective } from '../../../btn-disabled.directive';
-import {
-  hasNoValue,
-  hasValue,
-  isNotEmpty,
-  isNotUndefined,
-} from '../../../empty.util';
-import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
+import { SubmissionObjectService } from '../../../../submission/submission-object.service';
+import { LiveRegionService } from '../../../live-region/live-region.service';
 import { SelectableListState } from '../../../object-list/selectable-list/selectable-list.reducer';
 import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
-import { SearchResult } from '../../../search/models/search-result.model';
-import { followLink } from '../../../utils/follow-link-config.model';
-import { itemLinksToFollow } from '../../../utils/relation-query.utils';
 import { FormBuilderService } from '../form-builder.service';
-import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
-import { RelationshipOptions } from '../models/relationship-options.model';
 import { DsDynamicTypeBindRelationService } from './ds-dynamic-type-bind-relation.service';
-import {
-  ExistingMetadataListElementComponent,
-  ReorderableRelationship,
-} from './existing-metadata-list-element/existing-metadata-list-element.component';
+import { ExistingMetadataListElementComponent } from './existing-metadata-list-element/existing-metadata-list-element.component';
 import { ExistingRelationListElementComponent } from './existing-relation-list-element/existing-relation-list-element.component';
 import { DYNAMIC_FORM_CONTROL_TYPE_CUSTOM_SWITCH } from './models/custom-switch/custom-switch.model';
 import { DsDynamicLookupRelationModalComponent } from './relation-lookup-modal/dynamic-lookup-relation-modal.component';
+import { NameVariantService } from './relation-lookup-modal/name-variant.service';
 
 @Component({
   selector: 'ds-dynamic-form-control-container',
@@ -130,18 +137,16 @@ import { DsDynamicLookupRelationModalComponent } from './relation-lookup-modal/d
   templateUrl: './ds-dynamic-form-control-container.component.html',
   changeDetection: ChangeDetectionStrategy.Default,
   imports: [
-    ExistingMetadataListElementComponent,
-    NgClass,
     AsyncPipe,
-    TranslateModule,
-    ReactiveFormsModule,
-    FormsModule,
-    NgbTooltipModule,
-    NgTemplateOutlet,
+    ExistingMetadataListElementComponent,
     ExistingRelationListElementComponent,
-    BtnDisabledDirective,
+    FormsModule,
+    NgbTooltip,
+    NgClass,
+    NgTemplateOutlet,
+    ReactiveFormsModule,
+    TranslateModule,
   ],
-  standalone: true,
 })
 export class DsDynamicFormControlContainerComponent extends DynamicFormControlContainerComponent
   implements OnInit, OnChanges, OnDestroy, AfterViewInit, DoCheck {
@@ -174,6 +179,8 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
    */
   private subs: Subscription[] = [];
 
+  private liveRegionErrorMessagesShownAlready = false;
+
   /* eslint-disable @angular-eslint/no-output-rename */
   @Output('dfBlur') blur: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
   @Output('dfChange') change: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
@@ -193,6 +200,8 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     return this.dynamicFormControlFn(this.model);
   }
 
+  private readonly liveRegionService = inject(LiveRegionService);
+
   constructor(
     protected componentFactoryResolver: ComponentFactoryResolver,
     protected dynamicFormComponentService: DynamicFormComponentService,
@@ -202,16 +211,18 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     protected translateService: TranslateService,
     protected relationService: DynamicFormRelationService,
     protected modalService: NgbModal,
+    protected nameVariantService: NameVariantService,
     protected relationshipService: RelationshipDataService,
     protected selectableListService: SelectableListService,
     protected store: Store<AppState>,
-    protected submissionObjectService: SubmissionObjectDataService,
+    protected submissionObjectService: SubmissionObjectService,
     protected ref: ChangeDetectorRef,
     protected formBuilderService: FormBuilderService,
     protected submissionService: SubmissionService,
     protected metadataService: MetadataService,
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
     @Inject(DYNAMIC_FORM_CONTROL_MAP_FN) protected dynamicFormControlFn: DynamicFormControlMapFn,
+    private actions$: Actions,
   ) {
     super(ref, componentFactoryResolver, layoutService, validationService, dynamicFormComponentService, relationService);
     this.fetchThumbnail = this.appConfig.browseBy.showThumbnails;
@@ -223,6 +234,18 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   ngOnInit(): void {
     this.isRelationship = hasValue(this.model.relationship);
     const isWrapperAroundRelationshipList = hasValue(this.model.relationshipConfig);
+
+    // Subscribe to specified submission actions to announce error messages
+    const errorAnnounceActionsSub = this.actions$.pipe(
+      ofType(
+        SubmissionObjectActionTypes.SAVE_SUBMISSION_FORM_SUCCESS,
+        SubmissionObjectActionTypes.SAVE_SUBMISSION_SECTION_FORM_SUCCESS,
+        SubmissionObjectActionTypes.SAVE_SUBMISSION_FORM_ERROR,
+        SubmissionObjectActionTypes.SAVE_FOR_LATER_SUBMISSION_FORM_ERROR,
+        SubmissionObjectActionTypes.SAVE_SUBMISSION_SECTION_FORM_ERROR,
+      ),
+    ).subscribe(() => this.announceErrorMessages());
+    this.subs.push(errorAnnounceActionsSub);
 
     if (this.isRelationship || isWrapperAroundRelationshipList) {
       const config = this.model.relationshipConfig || this.model.relationship;
@@ -253,7 +276,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
                 const relationshipMD: MetadataValue = item.firstMetadata(relationshipOptions.metadataField, { authority: `${VIRTUAL_METADATA_PREFIX}${relationship.id}` });
                 const nameVariantMD: MetadataValue = item.firstMetadata(this.model.metadataFields, { authority: `${VIRTUAL_METADATA_PREFIX}${relationship.id}` });
                 if (hasValue(relationshipMD) && isNotEmpty(relationshipMD.value) && hasValue(nameVariantMD) && isNotEmpty(nameVariantMD.value)) {
-                  this.relationshipService.setNameVariant(this.listId, relationshipMD.value, nameVariantMD.value);
+                  this.nameVariantService.setNameVariant(this.listId, relationshipMD.value, nameVariantMD.value);
                 }
               });
             });
@@ -287,7 +310,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
               getAllSucceededRemoteData(),
               getRemoteDataPayload(),
               map((leftItem: Item) => {
-                return new ReorderableRelationship(relationship, leftItem.uuid !== item.uuid, this.store, this.model.submissionId);
+                return new ReorderableRelationship(relationship, leftItem.uuid !== item.uuid);
               }),
             ),
           ),
@@ -348,6 +371,36 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     if (this.showErrorMessages) {
       this.destroyFormControlComponent();
       this.createFormControlComponent();
+      this.announceErrorMessages();
+    }
+  }
+
+  /**
+   * Announce error messages to the user
+   */
+  announceErrorMessages() {
+    if (!this.liveRegionErrorMessagesShownAlready) {
+      this.liveRegionErrorMessagesShownAlready = true;
+      const numberOfInvalidInputs = this.getNumberOfInvalidInputs() ?? 1;
+      const timeoutMs = numberOfInvalidInputs * 3500;
+      this.errorMessages.forEach((errorMsg) => {
+        // set timer based on the number of the invalid inputs
+        this.liveRegionService.setMessageTimeOutMs(timeoutMs);
+        const message = this.translateService.instant(errorMsg);
+        this.liveRegionService.addMessage(message);
+      });
+      setTimeout(() => {
+        this.liveRegionErrorMessagesShownAlready = false;
+      }, timeoutMs);
+    }
+  }
+
+  /**
+   * Get the number of invalid inputs in the formGroup
+   */
+  private getNumberOfInvalidInputs(): number {
+    if (this.formGroup && this.formGroup.controls) {
+      return Object.values(this.formGroup.controls).filter((control: AbstractControl) => control.invalid).length;
     }
   }
 
@@ -436,6 +489,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
    * Unsubscribe from all subscriptions
    */
   ngOnDestroy(): void {
+    super.ngOnDestroy();
     this.subs
       .filter((sub) => hasValue(sub))
       .forEach((sub) => sub.unsubscribe());
@@ -450,7 +504,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
    */
   private setItem() {
     const submissionObject$ = this.submissionObjectService
-      .findById(this.model.submissionId, true, true, followLink('item'), followLink('collection')).pipe(
+      .findById(this.model.submissionId, true, true, ...SUBMISSION_LINKS_TO_FOLLOW).pipe(
         getAllSucceededRemoteData(),
         getRemoteDataPayload(),
       );

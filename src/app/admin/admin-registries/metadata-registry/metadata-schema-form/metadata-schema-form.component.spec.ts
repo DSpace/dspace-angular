@@ -7,17 +7,17 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { MetadataSchema } from '@dspace/core/metadata/metadata-schema.model';
+import { RegistryServiceStub } from '@dspace/core/testing/registry.service.stub';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
-import { MetadataSchema } from '../../../../core/metadata/metadata-schema.model';
-import { RegistryService } from '../../../../core/registry/registry.service';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../../shared/form/form.component';
-import { getMockFormBuilderService } from '../../../../shared/mocks/form-builder-service.mock';
-import { RegistryServiceStub } from '../../../../shared/testing/registry.service.stub';
+import { getMockFormBuilderService } from '../../../../shared/form/testing/form-builder-service.mock';
 import { EnumKeysPipe } from '../../../../shared/utils/enum-keys-pipe';
+import { RegistryService } from '../../registry/registry.service';
 import { MetadataSchemaFormComponent } from './metadata-schema-form.component';
 
 describe('MetadataSchemaFormComponent', () => {
@@ -72,7 +72,7 @@ describe('MetadataSchemaFormComponent', () => {
 
     describe('without an active schema', () => {
       beforeEach(() => {
-        component.activeMetadataSchema$ = observableOf(undefined);
+        component.activeMetadataSchema$ = of(undefined);
         component.onSubmit();
         fixture.detectChanges();
       });
@@ -91,7 +91,7 @@ describe('MetadataSchemaFormComponent', () => {
       } as MetadataSchema);
 
       beforeEach(() => {
-        component.activeMetadataSchema$ = observableOf(expectedWithId);
+        component.activeMetadataSchema$ = of(expectedWithId);
         component.onSubmit();
         fixture.detectChanges();
       });

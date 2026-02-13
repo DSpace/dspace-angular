@@ -1,4 +1,23 @@
 import { Injectable } from '@angular/core';
+import { JsonPatchOperationPathCombiner } from '@dspace/core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
+import { FormFieldLanguageValueObject } from '@dspace/core/shared/form/models/form-field-language-value.model';
+import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
+import { FormFieldPreviousValueObject } from '@dspace/core/shared/form/models/form-field-previous-value-object';
+import { VocabularyEntry } from '@dspace/core/submission/vocabularies/models/vocabulary-entry.model';
+import { VocabularyEntryDetail } from '@dspace/core/submission/vocabularies/models/vocabulary-entry-detail.model';
+import {
+  dateToString,
+  isNgbDateStruct,
+} from '@dspace/shared/utils/date.util';
+import {
+  hasValue,
+  isNotEmpty,
+  isNotNull,
+  isNotUndefined,
+  isNull,
+  isUndefined,
+} from '@dspace/shared/utils/empty.util';
 import {
   DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
   DYNAMIC_FORM_CONTROL_TYPE_GROUP,
@@ -11,30 +30,11 @@ import { deepClone } from 'fast-json-patch';
 import isEqual from 'lodash/isEqual';
 import isObject from 'lodash/isObject';
 
-import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
-import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vocabulary-entry.model';
-import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
-import {
-  dateToString,
-  isNgbDateStruct,
-} from '../../../shared/date.util';
-import {
-  hasValue,
-  isNotEmpty,
-  isNotNull,
-  isNotUndefined,
-  isNull,
-  isUndefined,
-} from '../../../shared/empty.util';
 import { DsDynamicInputModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { DynamicQualdropModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
 import { DynamicRowArrayModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
 import { DynamicRelationGroupModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
-import { FormFieldLanguageValueObject } from '../../../shared/form/builder/models/form-field-language-value.model';
-import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
-import { FormFieldPreviousValueObject } from '../../../shared/form/builder/models/form-field-previous-value-object';
 
 /**
  * The service handling all form section operations
@@ -412,7 +412,7 @@ export class SectionFormOperationsService {
             );
           }
         }
-      } else if (!value.hasValue()) {
+      } else if (isNotEmpty(value) && !value.hasValue()) {
         // New value is empty, so dispatch a remove operation
         if (this.getArrayIndexFromEvent(event) === 0) {
           this.operationsBuilder.remove(pathCombiner.getPath(segmentedPath));

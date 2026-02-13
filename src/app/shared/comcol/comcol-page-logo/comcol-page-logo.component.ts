@@ -3,15 +3,13 @@ import {
   Component,
   Input,
 } from '@angular/core';
-
-import { Bitstream } from '../../../core/shared/bitstream.model';
+import { Bitstream } from '@dspace/core/shared/bitstream.model';
 
 @Component({
   selector: 'ds-comcol-page-logo',
   styleUrls: ['./comcol-page-logo.component.scss'],
   templateUrl: './comcol-page-logo.component.html',
   imports: [],
-  standalone: true,
 })
 export class ComcolPageLogoComponent {
   @Input() logo: Bitstream;

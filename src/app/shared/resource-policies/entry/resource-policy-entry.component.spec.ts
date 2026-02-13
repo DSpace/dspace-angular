@@ -16,19 +16,19 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { GroupDataService } from '@dspace/core/eperson/group-data.service';
+import { ActionType } from '@dspace/core/resource-policy/models/action-type.model';
+import { PolicyType } from '@dspace/core/resource-policy/models/policy-type.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { EPersonMock } from '@dspace/core/testing/eperson.mock';
+import { GroupMock } from '@dspace/core/testing/group-mock';
+import { RouterStub } from '@dspace/core/testing/router.stub';
+import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { GroupDataService } from '../../../core/eperson/group-data.service';
-import { ActionType } from '../../../core/resource-policy/models/action-type.model';
-import { PolicyType } from '../../../core/resource-policy/models/policy-type.model';
-import { Item } from '../../../core/shared/item.model';
-import { createSuccessfulRemoteDataObject } from '../../remote-data.utils';
-import { EPersonMock } from '../../testing/eperson.mock';
-import { GroupMock } from '../../testing/group-mock';
-import { RouterStub } from '../../testing/router.stub';
 import { ResourcePolicyEntryComponent } from './resource-policy-entry.component';
 import createSpyObj = jasmine.createSpyObj;
 
@@ -53,8 +53,8 @@ const groupRP: any = {
       href: 'https://rest.api/rest/api/resourcepolicies/1',
     },
   },
-  eperson: observableOf(createSuccessfulRemoteDataObject(undefined)),
-  group: observableOf(createSuccessfulRemoteDataObject(GroupMock)),
+  eperson: of(createSuccessfulRemoteDataObject(undefined)),
+  group: of(createSuccessfulRemoteDataObject(GroupMock)),
 };
 
 const epersonRP: any = {
@@ -78,8 +78,8 @@ const epersonRP: any = {
       href: 'https://rest.api/rest/api/resourcepolicies/1',
     },
   },
-  eperson: observableOf(createSuccessfulRemoteDataObject(EPersonMock)),
-  group: observableOf(createSuccessfulRemoteDataObject(undefined)),
+  eperson: of(createSuccessfulRemoteDataObject(EPersonMock)),
+  group: of(createSuccessfulRemoteDataObject(undefined)),
 };
 
 const item = Object.assign(new Item(), {
@@ -112,7 +112,7 @@ describe('ResourcePolicyEntryComponent', () => {
       findByHref: jasmine.createSpy('findByHref'),
     });
     routeStub = {
-      data: observableOf({
+      data: of({
         item: createSuccessfulRemoteDataObject(item),
       }),
     };
@@ -201,7 +201,7 @@ describe('ResourcePolicyEntryComponent', () => {
     });
 
     it('should redirect to Group edit page', () => {
-      compAsAny.groupService.findByHref.and.returnValue(observableOf(createSuccessfulRemoteDataObject(GroupMock)));
+      compAsAny.groupService.findByHref.and.returnValue(of(createSuccessfulRemoteDataObject(GroupMock)));
 
       comp.redirectToGroupEditPage();
       expect(compAsAny.router.navigate).toHaveBeenCalled();

@@ -11,12 +11,12 @@ import {
   FormsModule,
   NG_VALUE_ACCESSOR,
 } from '@angular/forms';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { ViewMode } from '../../../core/shared/view-mode.model';
-import { hasValue } from '../../empty.util';
 import { CollectionElementLinkType } from '../../object-collection/collection-element-link.type';
 import { ListableObjectComponentLoaderComponent } from '../../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { ClickOutsideDirective } from '../../utils/click-outside.directive';
@@ -36,8 +36,15 @@ import { InputSuggestionsComponent } from '../input-suggestions.component';
       multi: true,
     },
   ],
-  standalone: true,
-  imports: [FormsModule, ClickOutsideDirective, DebounceDirective, NgClass, ListableObjectComponentLoaderComponent, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    ClickOutsideDirective,
+    DebounceDirective,
+    FormsModule,
+    ListableObjectComponentLoaderComponent,
+    NgClass,
+    TranslateModule,
+  ],
 })
 
 /**

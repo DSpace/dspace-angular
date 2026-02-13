@@ -11,10 +11,10 @@ import {
   FormsModule,
   NgForm,
 } from '@angular/forms';
+import { ProcessParameter } from '@dspace/core/processes/process-parameter.model';
+import { ScriptParameter } from '@dspace/core/shared/scripts/script-parameter.model';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { ProcessParameter } from '../../../processes/process-parameter.model';
-import { ScriptParameter } from '../../../scripts/script-parameter.model';
 import { controlContainerFactory } from '../../process-form-factory';
 import { ParameterValueInputComponent } from '../parameter-value-input/parameter-value-input.component';
 
@@ -30,8 +30,11 @@ import { ParameterValueInputComponent } from '../parameter-value-input/parameter
     useFactory: controlContainerFactory,
     deps: [[new Optional(), NgForm]],
   }],
-  standalone: true,
-  imports: [FormsModule, ParameterValueInputComponent, TranslateModule],
+  imports: [
+    FormsModule,
+    ParameterValueInputComponent,
+    TranslateModule,
+  ],
 })
 export class ParameterSelectComponent {
   @Input() index: number;

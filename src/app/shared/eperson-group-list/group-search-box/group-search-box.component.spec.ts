@@ -13,9 +13,9 @@ import {
   ReactiveFormsModule,
   UntypedFormBuilder,
 } from '@angular/forms';
+import { createTestComponent } from '@dspace/core/testing/utils.test';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { createTestComponent } from '../../testing/utils.test';
 import { SearchEvent } from '../eperson-group-list-event-type';
 import { GroupSearchBoxComponent } from './group-search-box.component';
 
@@ -117,7 +117,6 @@ describe('GroupSearchBoxComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
-  standalone: true,
   imports: [FormsModule,
     ReactiveFormsModule],
 })

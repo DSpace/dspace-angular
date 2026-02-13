@@ -12,10 +12,10 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { Subscription } from 'rxjs';
 
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { hasValue } from '../empty.util';
 import { StartsWithType } from './starts-with-type';
 
 /**
@@ -91,11 +91,10 @@ export abstract class StartsWithAbstractComponent implements OnInit, OnDestroy {
       this.startsWith = undefined;
     }
     if (resetPage) {
-      this.paginationService.updateRoute(this.paginationId, { page: 1 }, { startsWith: this.startsWith });
+      this.paginationService.updateRoute(this.paginationId, { page: 1 }, { startsWith: this.startsWith }, undefined, { queryParamsHandling: '' });
     } else {
       void this.router.navigate([], {
         queryParams: Object.assign({ startsWith: this.startsWith }),
-        queryParamsHandling: 'merge',
       });
     }
   }

@@ -13,6 +13,16 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { AppliedFilter } from '@dspace/core/shared/search/models/applied-filter.model';
+import { FacetValues } from '@dspace/core/shared/search/models/facet-values.model';
+import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
+import { SearchOptions } from '@dspace/core/shared/search/models/search-options.model';
+import { SequenceService } from '@dspace/core/shared/sequence.service';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -20,29 +30,18 @@ import {
   filter,
   map,
   Observable,
-  of as observableOf,
+  of,
   startWith,
   Subscription,
   switchMap,
 } from 'rxjs';
-import { take } from 'rxjs/operators';
 
-import { RemoteData } from '../../../../core/data/remote-data';
-import { SearchService } from '../../../../core/shared/search/search.service';
-import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
-import { SearchFilterService } from '../../../../core/shared/search/search-filter.service';
-import { SequenceService } from '../../../../core/shared/sequence.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-configuration.service';
 import { slide } from '../../../animations/slide';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../../empty.util';
 import { BrowserOnlyPipe } from '../../../utils/browser-only.pipe';
-import { AppliedFilter } from '../../models/applied-filter.model';
-import { FacetValues } from '../../models/facet-values.model';
-import { SearchFilterConfig } from '../../models/search-filter-config.model';
-import { SearchOptions } from '../../models/search-options.model';
+import { SearchService } from '../../search.service';
+import { SearchConfigurationService } from '../../search-configuration.service';
+import { SearchFilterService } from '../search-filter.service';
 import { FACET_OPERATORS } from './search-facet-filter/search-facet-filter.component';
 import { SearchFacetFilterWrapperComponent } from './search-facet-filter-wrapper/search-facet-filter-wrapper.component';
 
@@ -51,8 +50,14 @@ import { SearchFacetFilterWrapperComponent } from './search-facet-filter-wrapper
   styleUrls: ['./search-filter.component.scss'],
   templateUrl: './search-filter.component.html',
   animations: [slide],
-  standalone: true,
-  imports: [NgClass, SearchFacetFilterWrapperComponent, AsyncPipe, LowerCasePipe, TranslateModule, BrowserOnlyPipe],
+  imports: [
+    AsyncPipe,
+    BrowserOnlyPipe,
+    LowerCasePipe,
+    NgClass,
+    SearchFacetFilterWrapperComponent,
+    TranslateModule,
+  ],
 })
 
 /**
@@ -145,7 +150,7 @@ export class SearchFilterComponent implements OnInit, OnChanges, OnDestroy {
           this.filterService.expand(this.filter.name);
         }
       }),
-      this.getIsActive().pipe(take(1)).subscribe(() => {
+      this.getIsActive().subscribe(() => {
         this.isVisibilityComputed.emit(true);
       }),
     );
@@ -248,7 +253,7 @@ export class SearchFilterComponent implements OnInit, OnChanges, OnDestroy {
     ]).pipe(
       switchMap(([selectedValues, options, scope]: [AppliedFilter[], SearchOptions, string]) => {
         if (isNotEmpty(selectedValues.filter((appliedFilter: AppliedFilter) => FACET_OPERATORS.includes(appliedFilter.operator)))) {
-          return observableOf(true);
+          return of(true);
         } else {
           if (hasValue(scope)) {
             options.scope = scope;

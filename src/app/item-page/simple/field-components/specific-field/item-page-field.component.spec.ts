@@ -9,26 +9,26 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { BrowseService } from '@dspace/core/browse/browse.service';
+import { BrowseDefinitionDataService } from '@dspace/core/browse/browse-definition-data.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { MathService } from '@dspace/core/shared/math.service';
+import {
+  MetadataMap,
+  MetadataValue,
+} from '@dspace/core/shared/metadata.models';
+import { BrowseDefinitionDataServiceStub } from '@dspace/core/testing/browse-definition-data-service.stub';
+import { BrowseServiceStub } from '@dspace/core/testing/browse-service.stub';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { environment } from '../../../../../environments/environment';
-import { BrowseService } from '../../../../core/browse/browse.service';
-import { BrowseDefinitionDataService } from '../../../../core/browse/browse-definition-data.service';
-import { Item } from '../../../../core/shared/item.model';
-import { MathService } from '../../../../core/shared/math.service';
-import {
-  MetadataMap,
-  MetadataValue,
-} from '../../../../core/shared/metadata.models';
-import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
-import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
-import { BrowseDefinitionDataServiceStub } from '../../../../shared/testing/browse-definition-data-service.stub';
-import { BrowseServiceStub } from '../../../../shared/testing/browse-service.stub';
-import { createPaginatedList } from '../../../../shared/testing/utils.test';
 import { MarkdownDirective } from '../../../../shared/utils/markdown.directive';
 import { MetadataValuesComponent } from '../../../field-components/metadata-values/metadata-values.component';
 import { ItemPageFieldComponent } from './item-page-field.component';

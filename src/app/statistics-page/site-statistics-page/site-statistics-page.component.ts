@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { SiteDataService } from '@dspace/core/data/site-data.service';
+import { Site } from '@dspace/core/shared/site.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { switchMap } from 'rxjs/operators';
 
-import { SiteDataService } from '../../core/data/site-data.service';
-import { Site } from '../../core/shared/site.model';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { StatisticsPageDirective } from '../statistics-page/statistics-page.directive';
@@ -17,8 +17,13 @@ import { StatisticsTableComponent } from '../statistics-table/statistics-table.c
   selector: 'ds-base-site-statistics-page',
   templateUrl: '../statistics-page/statistics-page.component.html',
   styleUrls: ['./site-statistics-page.component.scss'],
-  standalone: true,
-  imports: [CommonModule, VarDirective, ThemedLoadingComponent, StatisticsTableComponent, TranslateModule],
+  imports: [
+    CommonModule,
+    StatisticsTableComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
+    VarDirective,
+  ],
 })
 export class SiteStatisticsPageComponent extends StatisticsPageDirective<Site> {
 

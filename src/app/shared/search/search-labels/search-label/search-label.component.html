@@ -4,7 +4,7 @@
    [queryParams]="(removeParameters$ | async)"
    (click)="searchFilterService.minimizeAll()">
   <span class="d-flex">
-    <span class="flex-grow-1 text-left">{{ ('search.filters.applied.f.' + appliedFilter.filter) | translate}}{{'search.filters.applied.operator.' + appliedFilter.operator | translate}}: {{'search.filters.' + appliedFilter.filter + '.' + appliedFilter.label | translate: { default: appliedFilter.label } }}</span>
+    <span class="flex-grow-1 text-start">{{ ('search.filters.applied.f.' + appliedFilter.filter) | translate}}{{'search.filters.applied.operator.' + appliedFilter.operator | translate}}: {{'search.filters.' + appliedFilter.filter + '.' + appliedFilter.label | translate: { default: appliedFilter.label } }}</span>
     <span class="ps-1" aria-hidden="true">×</span>
   </span>
 </a>

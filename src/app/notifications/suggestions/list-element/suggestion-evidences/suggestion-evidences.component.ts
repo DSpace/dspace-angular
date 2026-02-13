@@ -3,9 +3,9 @@ import {
   Component,
   Input,
 } from '@angular/core';
+import { SuggestionEvidences } from '@dspace/core/notifications/suggestions/models/suggestion.model';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { SuggestionEvidences } from '../../../../core/notifications/suggestions/models/suggestion.model';
 import { fadeIn } from '../../../../shared/animations/fade';
 import { ObjectKeysPipe } from '../../../../shared/utils/object-keys-pipe';
 
@@ -18,10 +18,9 @@ import { ObjectKeysPipe } from '../../../../shared/utils/object-keys-pipe';
   templateUrl: './suggestion-evidences.component.html',
   animations: [fadeIn],
   imports: [
-    TranslateModule,
     ObjectKeysPipe,
+    TranslateModule,
   ],
-  standalone: true,
 })
 export class SuggestionEvidencesComponent {
 

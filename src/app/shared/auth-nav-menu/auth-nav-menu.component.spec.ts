@@ -11,6 +11,19 @@ import {
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import {
+  authReducer,
+  AuthState,
+} from '@dspace/core/auth/auth.reducer';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { AuthTokenInfo } from '@dspace/core/auth/models/auth-token-info.model';
+import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { BrowserOnlyMockPipe } from '@dspace/core/testing/browser-only-mock.pipe';
+import { EPersonMock } from '@dspace/core/testing/eperson.mock';
+import { HostWindowServiceStub } from '@dspace/core/testing/host-window-service.stub';
+import { XSRFService } from '@dspace/core/xsrf/xsrf.service';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   Store,
@@ -19,20 +32,8 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { APP_DATA_SERVICES_MAP } from '../../../config/app-config.interface';
 import { AppState } from '../../app.reducer';
-import {
-  authReducer,
-  AuthState,
-} from '../../core/auth/auth.reducer';
-import { AuthService } from '../../core/auth/auth.service';
-import { AuthTokenInfo } from '../../core/auth/models/auth-token-info.model';
-import { XSRFService } from '../../core/xsrf/xsrf.service';
 import { HostWindowService } from '../host-window.service';
-import { ActivatedRouteStub } from '../testing/active-router.stub';
-import { BrowserOnlyMockPipe } from '../testing/browser-only-mock.pipe';
-import { EPersonMock } from '../testing/eperson.mock';
-import { HostWindowServiceStub } from '../testing/host-window-service.stub';
 import { AuthNavMenuComponent } from './auth-nav-menu.component';
 
 describe('AuthNavMenuComponent', () => {
@@ -104,6 +105,7 @@ describe('AuthNavMenuComponent', () => {
           { provide: AuthService, useValue: authService },
           { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
           { provide: XSRFService, useValue: {} },
+          { provide: APP_CONFIG, useValue: { cache: { msToLive: { default: 15 * 60 * 1000 } } } },
         ],
         schemas: [
           CUSTOM_ELEMENTS_SCHEMA,

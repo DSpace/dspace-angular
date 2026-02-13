@@ -7,6 +7,11 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { BitstreamFormatDataService } from '@dspace/core/data/bitstream-format-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { BitstreamFormat } from '@dspace/core/shared/bitstream-format.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
 import {
   TranslateModule,
   TranslateService,
@@ -14,11 +19,6 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { BitstreamFormatDataService } from '../../../../core/data/bitstream-format-data.service';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model';
-import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { getBitstreamFormatsModuleRoute } from '../../admin-registries-routing-paths';
 import { FormatFormComponent } from '../format-form/format-form.component';
 
@@ -30,11 +30,10 @@ import { FormatFormComponent } from '../format-form/format-form.component';
   selector: 'ds-edit-bitstream-format',
   templateUrl: './edit-bitstream-format.component.html',
   imports: [
+    AsyncPipe,
     FormatFormComponent,
     TranslateModule,
-    AsyncPipe,
   ],
-  standalone: true,
 })
 export class EditBitstreamFormatComponent implements OnInit {
 

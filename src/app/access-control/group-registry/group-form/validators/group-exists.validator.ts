@@ -2,12 +2,11 @@ import {
   AbstractControl,
   ValidationErrors,
 } from '@angular/forms';
+import { GroupDataService } from '@dspace/core/eperson/group-data.service';
+import { Group } from '@dspace/core/eperson/models/group.model';
+import { getFirstSucceededRemoteListPayload } from '@dspace/core/shared/operators';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-
-import { GroupDataService } from '../../../../core/eperson/group-data.service';
-import { Group } from '../../../../core/eperson/models/group.model';
-import { getFirstSucceededRemoteListPayload } from '../../../../core/shared/operators';
 
 export class ValidateGroupExists {
 

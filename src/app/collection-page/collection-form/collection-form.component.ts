@@ -8,6 +8,21 @@ import {
   SimpleChange,
   SimpleChanges,
 } from '@angular/core';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
+import { CollectionDataService } from '@dspace/core/data/collection-data.service';
+import { EntityTypeDataService } from '@dspace/core/data/entity-type-data.service';
+import { RequestService } from '@dspace/core/data/request.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { ItemType } from '@dspace/core/shared/item-relationships/item-type.model';
+import { NONE_ENTITY_TYPE } from '@dspace/core/shared/item-relationships/item-type.resource-type';
+import { MetadataValue } from '@dspace/core/shared/metadata.models';
+import { getFirstSucceededRemoteListPayload } from '@dspace/core/shared/operators';
+import {
+  hasNoValue,
+  isNotNull,
+} from '@dspace/shared/utils/empty.util';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormControlModel,
@@ -20,25 +35,10 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import {
-  hasNoValue,
-  isNotNull,
-} from 'src/app/shared/empty.util';
 
-import { AuthService } from '../../core/auth/auth.service';
-import { ObjectCacheService } from '../../core/cache/object-cache.service';
-import { CollectionDataService } from '../../core/data/collection-data.service';
-import { EntityTypeDataService } from '../../core/data/entity-type-data.service';
-import { RequestService } from '../../core/data/request.service';
-import { Collection } from '../../core/shared/collection.model';
-import { ItemType } from '../../core/shared/item-relationships/item-type.model';
-import { NONE_ENTITY_TYPE } from '../../core/shared/item-relationships/item-type.resource-type';
-import { MetadataValue } from '../../core/shared/metadata.models';
-import { getFirstSucceededRemoteListPayload } from '../../core/shared/operators';
 import { ComColFormComponent } from '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component';
 import { ComcolPageLogoComponent } from '../../shared/comcol/comcol-page-logo/comcol-page-logo.component';
 import { FormComponent } from '../../shared/form/form.component';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { UploaderComponent } from '../../shared/upload/uploader/uploader.component';
 import { VarDirective } from '../../shared/utils/var.directive';
 import {
@@ -53,13 +53,12 @@ import {
   selector: 'ds-collection-form',
   styleUrls: ['../../shared/comcol/comcol-forms/comcol-form/comcol-form.component.scss'],
   templateUrl: '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component.html',
-  standalone: true,
   imports: [
+    AsyncPipe,
+    ComcolPageLogoComponent,
     FormComponent,
     TranslateModule,
     UploaderComponent,
-    AsyncPipe,
-    ComcolPageLogoComponent,
     VarDirective,
   ],
 })

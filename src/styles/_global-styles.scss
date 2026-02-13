@@ -212,15 +212,31 @@ ds-dynamic-form-control-container.d-none {
 }
 
 .thumb-font-2 {
-    .thumbnail-placeholder {
-        font-size: 0.9rem;
-        padding: 0.125rem;
+  .thumbnail-placeholder {
+    @media screen and (max-width: map-get($grid-breakpoints, sm)) {
+      font-size: 0.4rem;
+      padding: 0.1rem;
     }
+    @media screen and (min-width: map-get($grid-breakpoints, sm)) and (max-width: map-get($grid-breakpoints, lg)) {
+        font-size: 0.7rem;
+        padding: 0.1rem;
+    }
+    font-size: 1rem;
+    padding: 0.5rem;
+  }
 }
 
 .thumb-font-3 {
     .thumbnail-placeholder {
-        font-size: 1.25rem;
+        @media screen and (max-width: map-get($grid-breakpoints, sm)) {
+          font-size: 0.4rem;
+          padding: 0.1rem;
+        }
+        @media screen and (min-width: map-get($grid-breakpoints, sm)) and (max-width: map-get($grid-breakpoints, lg)) {
+            font-size: 0.7rem;
+            padding: 0.1rem;
+        }
+        font-size: 1rem;
         padding: 0.5rem;
     }
 }
@@ -542,4 +558,18 @@ ngb-tooltip-window {
   color: darken($link-color, 5%);
   // We use underline to discern link from text as we can't make color lighter on a white bg
   text-decoration: underline;
+}
+
+.drag-icon {
+  width: calc(2 * var(--bs-spacer));
+  height: calc(1.5 * var(--bs-spacer));
+  color: var(--bs-gray-600);
+  margin: var(--bs-btn-padding-y) 0;
+  line-height: var(--bs-btn-line-height);
+  display: inline-block;
+  -webkit-mask: url('/assets/images/grip-vertical.svg') no-repeat center;
+  mask: url('/assets/images/grip-vertical.svg') no-repeat center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  background-color: currentColor;
 }

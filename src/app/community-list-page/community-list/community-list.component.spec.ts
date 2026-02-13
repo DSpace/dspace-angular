@@ -14,24 +14,24 @@ import {
 import { By } from '@angular/platform-browser';
 import { RouterLinkWithHref } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { Community } from '@dspace/core/shared/community.model';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+import {
+  isEmpty,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
 
-import { buildPaginatedList } from '../../core/data/paginated-list.model';
-import { Collection } from '../../core/shared/collection.model';
-import { Community } from '../../core/shared/community.model';
-import { PageInfo } from '../../core/shared/page-info.model';
-import {
-  isEmpty,
-  isNotEmpty,
-} from '../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { TruncatableComponent } from '../../shared/truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../../shared/truncatable/truncatable-part/truncatable-part.component';
 import {
@@ -110,7 +110,7 @@ describe('CommunityListComponent', () => {
         subcommunities: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), mockSubcommunities1Page1)),
         collections: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
         name: 'community1',
-      }), observableOf(true), 0, false, null,
+      }), of(true), 0, false, null,
     ),
     toFlatNode(
       Object.assign(new Community(), {
@@ -119,7 +119,7 @@ describe('CommunityListComponent', () => {
         subcommunities: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
         collections: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [...mockCollectionsPage1, ...mockCollectionsPage2])),
         name: 'community2',
-      }), observableOf(true), 0, false, null,
+      }), of(true), 0, false, null,
     ),
     toFlatNode(
       Object.assign(new Community(), {
@@ -128,7 +128,7 @@ describe('CommunityListComponent', () => {
         subcommunities: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
         collections: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
         name: 'community3',
-      }), observableOf(false), 0, false, null,
+      }), of(false), 0, false, null,
     ),
   ];
   let communityListServiceStub;
@@ -139,10 +139,10 @@ describe('CommunityListComponent', () => {
       expandedNodes: [],
       loadingNode: null,
       getLoadingNodeFromStore() {
-        return observableOf(this.loadingNode);
+        return of(this.loadingNode);
       },
       getExpandedNodesFromStore() {
-        return observableOf(this.expandedNodes);
+        return of(this.expandedNodes);
       },
       saveCommunityListStateToStore(expandedNodes, loadingNode) {
         this.expandedNodes = expandedNodes;
@@ -162,9 +162,9 @@ describe('CommunityListComponent', () => {
         }
         if (expandedNodes === null || isEmpty(expandedNodes)) {
           if (showMoreTopComNode) {
-            return observableOf([...mockTopFlatnodesUnexpanded.slice(0, endPageIndex), showMoreFlatNode(`community-${uuidv4()}`, 0, null)]);
+            return of([...mockTopFlatnodesUnexpanded.slice(0, endPageIndex), showMoreFlatNode(`community-${uuidv4()}`, 0, null)]);
           } else {
-            return observableOf(mockTopFlatnodesUnexpanded.slice(0, endPageIndex));
+            return of(mockTopFlatnodesUnexpanded.slice(0, endPageIndex));
           }
         } else {
           flatnodes = [];
@@ -178,12 +178,12 @@ describe('CommunityListComponent', () => {
                 const possibleSubcoms: Community[] = matchingTopComWithArrays.subcommunities;
                 let subComFlatnodes = [];
                 possibleSubcoms.map((subcom: Community) => {
-                  subComFlatnodes = [...subComFlatnodes, toFlatNode(subcom, observableOf(false), topNode.level + 1, false, topNode)];
+                  subComFlatnodes = [...subComFlatnodes, toFlatNode(subcom, of(false), topNode.level + 1, false, topNode)];
                 });
                 const possibleColls: Collection[] = matchingTopComWithArrays.collections;
                 let collFlatnodes = [];
                 possibleColls.map((coll: Collection) => {
-                  collFlatnodes = [...collFlatnodes, toFlatNode(coll, observableOf(false), topNode.level + 1, false, topNode)];
+                  collFlatnodes = [...collFlatnodes, toFlatNode(coll, of(false), topNode.level + 1, false, topNode)];
                 });
                 if (isNotEmpty(subComFlatnodes)) {
                   const endSubComIndex = this.pageSize * expandedParent.currentCommunityPage;
@@ -205,7 +205,7 @@ describe('CommunityListComponent', () => {
           if (showMoreTopComNode) {
             flatnodes = [...flatnodes, showMoreFlatNode(`community-${uuidv4()}`, 0, null)];
           }
-          return observableOf(flatnodes);
+          return of(flatnodes);
         }
       },
     };

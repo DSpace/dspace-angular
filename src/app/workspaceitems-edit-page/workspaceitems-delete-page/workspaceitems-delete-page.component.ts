@@ -1,5 +1,5 @@
 import {
-  CommonModule,
+  AsyncPipe,
   Location,
 } from '@angular/common';
 import {
@@ -12,6 +12,17 @@ import {
   Params,
   Router,
 } from '@angular/router';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { RouteService } from '@dspace/core/services/route.service';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { NoContent } from '@dspace/core/shared/NoContent.model';
+import {
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+} from '@dspace/core/shared/operators';
+import { WorkspaceItem } from '@dspace/core/submission/models/workspaceitem.model';
+import { WorkspaceitemDataService } from '@dspace/core/submission/workspaceitem-data.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -24,29 +35,17 @@ import {
   take,
 } from 'rxjs';
 
-import { RemoteData } from '../../core/data/remote-data';
-import { RouteService } from '../../core/services/route.service';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { NoContent } from '../../core/shared/NoContent.model';
-import {
-  getFirstCompletedRemoteData,
-  getRemoteDataPayload,
-} from '../../core/shared/operators';
-import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
-import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
 import { ModifyItemOverviewComponent } from '../../item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 
 @Component({
   selector: 'ds-base-workspaceitems-delete-page',
   templateUrl: './workspaceitems-delete-page.component.html',
   styleUrls: ['./workspaceitems-delete-page.component.scss'],
   imports: [
+    AsyncPipe,
     ModifyItemOverviewComponent,
     TranslateModule,
-    CommonModule,
   ],
-  standalone: true,
 })
 export class WorkspaceItemsDeletePageComponent implements OnInit {
 

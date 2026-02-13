@@ -6,16 +6,16 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { RequestService } from '@dspace/core/data/request.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
 
-import { RequestService } from '../../../../core/data/request.service';
-import { SearchService } from '../../../../core/shared/search/search.service';
 import { ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER } from '../../../../workflowitems-edit-page/advanced-workflow-action/advanced-workflow-action-select-reviewer/advanced-workflow-action-select-reviewer.component';
-import { NotificationsService } from '../../../notifications/notifications.service';
+import { SearchService } from '../../../search/search.service';
 import { AdvancedClaimedTaskActionsAbstractComponent } from '../abstract/advanced-claimed-task-actions-abstract.component';
 
 /**
@@ -25,8 +25,10 @@ import { AdvancedClaimedTaskActionsAbstractComponent } from '../abstract/advance
   selector: 'ds-advanced-claimed-task-action-select-reviewer',
   templateUrl: './advanced-claimed-task-action-select-reviewer.component.html',
   styleUrls: ['./advanced-claimed-task-action-select-reviewer.component.scss'],
-  standalone: true,
-  imports: [NgbTooltipModule, TranslateModule],
+  imports: [
+    NgbTooltip,
+    TranslateModule,
+  ],
 })
 export class AdvancedClaimedTaskActionSelectReviewerComponent extends AdvancedClaimedTaskActionsAbstractComponent {
 

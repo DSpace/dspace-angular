@@ -21,8 +21,10 @@ import { AbstractMenuSectionComponent } from '../../shared/menu/menu-section/abs
   selector: 'ds-navbar-section',
   templateUrl: './navbar-section.component.html',
   styleUrls: ['./navbar-section.component.scss'],
-  standalone: true,
-  imports: [NgComponentOutlet, AsyncPipe],
+  imports: [
+    AsyncPipe,
+    NgComponentOutlet,
+  ],
 })
 export class NavbarSectionComponent extends AbstractMenuSectionComponent implements OnInit {
   /**

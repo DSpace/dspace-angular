@@ -9,9 +9,9 @@ import { TranslateModule } from '@ngx-translate/core';
   templateUrl: './confirmation-sent.component.html',
   styleUrls: ['./confirmation-sent.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [TranslateModule],
-  standalone: true,
-
+  imports: [
+    TranslateModule,
+  ],
 })
 /**
  * Simple component that shows up a confirmation to the user.

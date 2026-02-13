@@ -7,6 +7,7 @@ import {
   ComponentFixture,
   TestBed,
 } from '@angular/core/testing';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import {
   TranslateLoader,
   TranslateModule,
@@ -14,7 +15,6 @@ import {
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 import { ConfirmationSentComponent } from './confirmation-sent.component';
 
 describe('ConfirmationSentComponent', () => {
@@ -27,7 +27,7 @@ describe('ConfirmationSentComponent', () => {
     instant: (key: any) => 'Mocked Translation Text',
     onLangChange: new EventEmitter(),
     onTranslationChange: new EventEmitter(),
-    onDefaultLangChange: new EventEmitter(),
+    onFallbackLangChange: new EventEmitter(),
   };
 
   beforeEach(async () => {

@@ -16,39 +16,40 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { provideMockStore } from '@ngrx/store/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
-
-import { APP_DATA_SERVICES_MAP } from '../../../../config/app-config.interface';
-import { AuthService } from '../../../core/auth/auth.service';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { RestResponse } from '../../../core/cache/response.models';
-import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { ItemRequestDataService } from '../../../core/data/item-request-data.service';
-import { RequestService } from '../../../core/data/request.service';
-import { RequestEntry } from '../../../core/data/request-entry.model';
-import { EPerson } from '../../../core/eperson/models/eperson.model';
-import { Bitstream } from '../../../core/shared/bitstream.model';
-import { Item } from '../../../core/shared/item.model';
-import { ITEM } from '../../../core/shared/item.resource-type';
-import { ItemRequest } from '../../../core/shared/item-request.model';
-import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
-import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { RestResponse } from '@dspace/core/cache/response.models';
+import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { ItemRequestDataService } from '@dspace/core/data/item-request-data.service';
+import { RequestService } from '@dspace/core/data/request.service';
+import { RequestEntry } from '@dspace/core/data/request-entry.model';
+import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
+import { EPerson } from '@dspace/core/eperson/models/eperson.model';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Bitstream } from '@dspace/core/shared/bitstream.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { ITEM } from '@dspace/core/shared/item.resource-type';
+import { ItemRequest } from '@dspace/core/shared/item-request.model';
+import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { getMockRequestService } from '@dspace/core/testing/request.service.mock';
+import { RouterStub } from '@dspace/core/testing/router.stub';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../shared/remote-data.utils';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { RouterStub } from '../../../shared/testing/router.stub';
+} from '@dspace/core/utilities/remote-data.utils';
+import { Store } from '@ngrx/store';
+import { provideMockStore } from '@ngrx/store/testing';
+import { TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
+
 import { BitstreamRequestACopyPageComponent } from './bitstream-request-a-copy-page.component';
 
 const mockDataServiceMap: any = new Map([
-  [ITEM.value, () => import('../../../shared/testing/test-data-service.mock').then(m => m.TestDataService)],
+  [ITEM.value, () => import('@dspace/core/testing/test-data-service.mock').then(m => m.TestDataService)],
 ]);
 
 describe('BitstreamRequestACopyPageComponent', () => {
@@ -78,23 +79,23 @@ describe('BitstreamRequestACopyPageComponent', () => {
       },
     });
     authService = jasmine.createSpyObj('authService', {
-      isAuthenticated: observableOf(false),
-      getAuthenticatedUserFromStore: observableOf(eperson),
+      isAuthenticated: of(false),
+      getAuthenticatedUserFromStore: of(eperson),
     });
     authorizationService = jasmine.createSpyObj('authorizationSerivice', {
-      isAuthorized: observableOf(true),
+      isAuthorized: of(true),
     });
 
     itemRequestDataService = jasmine.createSpyObj('itemRequestDataService', {
       requestACopy: createSuccessfulRemoteDataObject$({}),
-      isProtectedByCaptcha: observableOf(true),
+      isProtectedByCaptcha: of(true),
     });
 
     requestService = Object.assign(getMockRequestService(), {
       getByHref(requestHref: string) {
         const responseCacheEntry = new RequestEntry();
         responseCacheEntry.response = new RestResponse(true, 200, 'OK');
-        return observableOf(responseCacheEntry);
+        return of(responseCacheEntry);
       },
       removeByHrefSubstring(href: string) {
         // Do nothing
@@ -118,12 +119,12 @@ describe('BitstreamRequestACopyPageComponent', () => {
     });
 
     activatedRoute = {
-      data: observableOf({
+      data: of({
         dso: createSuccessfulRemoteDataObject(
           item,
         ),
       }),
-      queryParams: observableOf({
+      queryParams: of({
         bitstream : bitstream.uuid,
       }),
     };
@@ -151,6 +152,7 @@ describe('BitstreamRequestACopyPageComponent', () => {
         { provide: Store, useValue: provideMockStore() },
         { provide: RequestService, useValue: requestService },
         { provide: APP_DATA_SERVICES_MAP, useValue: mockDataServiceMap },
+        { provide: APP_CONFIG, useValue: {   rest: { baseUrl: 'https://rest.com/server' } } },
       ],
     })
       .compileComponents();
@@ -193,7 +195,7 @@ describe('BitstreamRequestACopyPageComponent', () => {
     describe('when the user is logged in', () => {
       beforeEach(waitForAsync(() => {
         init();
-        (authService.isAuthenticated as jasmine.Spy).and.returnValue(observableOf(true));
+        (authService.isAuthenticated as jasmine.Spy).and.returnValue(of(true));
         initTestbed();
       }));
       beforeEach(() => {
@@ -213,12 +215,12 @@ describe('BitstreamRequestACopyPageComponent', () => {
       beforeEach(waitForAsync(() => {
         init();
         activatedRoute = {
-          data: observableOf({
+          data: of({
             dso: createSuccessfulRemoteDataObject(
               item,
             ),
           }),
-          queryParams: observableOf({
+          queryParams: of({
           }),
         };
         initTestbed();
@@ -242,7 +244,7 @@ describe('BitstreamRequestACopyPageComponent', () => {
     describe('when the user has authorization to download the file', () => {
       beforeEach(waitForAsync(() => {
         init();
-        (authService.isAuthenticated as jasmine.Spy).and.returnValue(observableOf(true));
+        (authService.isAuthenticated as jasmine.Spy).and.returnValue(of(true));
         initTestbed();
       }));
       beforeEach(() => {

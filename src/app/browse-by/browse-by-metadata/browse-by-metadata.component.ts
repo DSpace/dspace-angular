@@ -14,51 +14,50 @@ import {
 } from '@angular/core';
 import {
   ActivatedRoute,
-  Params,
   Router,
 } from '@angular/router';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { BrowseService } from '@dspace/core/browse/browse.service';
+import { BrowseByDataType } from '@dspace/core/browse/browse-by-data-type';
+import { BrowseEntrySearchOptions } from '@dspace/core/browse/browse-entry-search-options.model';
+import {
+  SortDirection,
+  SortOptions,
+} from '@dspace/core/cache/models/sort-options.model';
+import { DSpaceObjectDataService } from '@dspace/core/data/dspace-object-data.service';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { BrowseEntry } from '@dspace/core/shared/browse-entry.model';
+import { Context } from '@dspace/core/shared/context.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { getFirstSucceededRemoteData } from '@dspace/core/shared/operators';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
   Observable,
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
 import {
-  distinctUntilChanged,
   map,
+  switchMap,
 } from 'rxjs/operators';
 import { ThemedBrowseByComponent } from 'src/app/shared/browse-by/themed-browse-by.component';
 
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '../../../config/app-config.interface';
 import { environment } from '../../../environments/environment';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { BrowseService } from '../../core/browse/browse.service';
-import { BrowseEntrySearchOptions } from '../../core/browse/browse-entry-search-options.model';
-import {
-  SortDirection,
-  SortOptions,
-} from '../../core/cache/models/sort-options.model';
-import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { BrowseEntry } from '../../core/shared/browse-entry.model';
-import { Context } from '../../core/shared/context.model';
-import { Item } from '../../core/shared/item.model';
-import { getFirstSucceededRemoteData } from '../../core/shared/operators';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { StartsWithType } from '../../shared/starts-with/starts-with-type';
-import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
 
 export const BBM_PAGINATION_ID = 'bbm';
 
@@ -68,11 +67,10 @@ export const BBM_PAGINATION_ID = 'bbm';
   templateUrl: './browse-by-metadata.component.html',
   imports: [
     AsyncPipe,
-    TranslateModule,
-    ThemedLoadingComponent,
     ThemedBrowseByComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * Component for browsing (items) by metadata definition.
@@ -186,7 +184,7 @@ export class BrowseByMetadataComponent implements OnInit, OnChanges, OnDestroy {
   /**
    * Observable determining if the loading animation needs to be shown
    */
-  loading$ = observableOf(true);
+  loading$ = of(true);
   /**
    * Whether this component should be rendered or not in SSR
    */
@@ -213,27 +211,21 @@ export class BrowseByMetadataComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnInit(): void {
     if (this.ssrRenderingDisabled) {
-      this.loading$ = observableOf(false);
+      this.loading$ = of(false);
       return;
     }
-    const sortConfig = new SortOptions('default', SortDirection.ASC);
-    this.currentPagination$ = this.paginationService.getCurrentPagination(this.paginationConfig.id, this.paginationConfig);
-    this.currentSort$ = this.paginationService.getCurrentSort(this.paginationConfig.id, sortConfig);
-    const routeParams$: Observable<Params> = observableCombineLatest([
-      this.route.params,
-      this.route.queryParams,
-    ]).pipe(
-      map(([params, queryParams]: [Params, Params]) => Object.assign({}, params, queryParams)),
-      distinctUntilChanged((prev: Params, curr: Params) => prev.id === curr.id && prev.authority === curr.authority && prev.value === curr.value && prev.startsWith === curr.startsWith),
-    );
+    this.browseId = this.route.snapshot.params.id;
     this.subs.push(
-      observableCombineLatest([
-        routeParams$,
-        this.scope$,
-        this.currentPagination$,
-        this.currentSort$,
-      ]).subscribe(([params, scope, currentPage, currentSort]: [Params, string, PaginationComponentOptions, SortOptions]) => {
-        this.browseId = params.id || this.defaultBrowseId;
+      this.browseService.getConfiguredSortDirection(this.browseId, SortDirection.ASC).pipe(
+        map((sortDir) => new SortOptions(this.browseId, sortDir)),
+        switchMap((sortConfig) => {
+          this.currentSort$ = this.paginationService.getCurrentSort(this.paginationConfig.id, sortConfig, false);
+          this.currentPagination$ = this.paginationService.getCurrentPagination(this.paginationConfig.id, this.paginationConfig);
+          return observableCombineLatest([this.route.params, this.route.queryParams, this.scope$, this.currentPagination$, this.currentSort$]).pipe(
+            map(([routeParams, queryParams, scope, currentPage, currentSort]) => ({
+              params: Object.assign({}, routeParams, queryParams), scope, currentPage, currentSort,
+            })));
+        })).subscribe(({ params, scope, currentPage, currentSort }) => {
         this.authority = params.authority;
 
         if (typeof params.value === 'string') {
@@ -248,6 +240,8 @@ export class BrowseByMetadataComponent implements OnInit, OnChanges, OnDestroy {
 
         if (typeof params.startsWith === 'string') {
           this.startsWith = params.startsWith.trim();
+        } else {
+          this.startsWith = '';
         }
 
         if (isNotEmpty(this.value)) {
@@ -255,9 +249,8 @@ export class BrowseByMetadataComponent implements OnInit, OnChanges, OnDestroy {
         } else {
           this.updatePage(browseParamsToOptions(params, scope, currentPage, currentSort, this.browseId, false));
         }
+        this.updateStartsWithTextOptions();
       }));
-    this.updateStartsWithTextOptions();
-
   }
 
   ngOnChanges(changes: SimpleChanges): void {

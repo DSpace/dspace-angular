@@ -1,9 +1,9 @@
 /* eslint-disable max-classes-per-file */
 
+import { type } from '@dspace/core/ngrx/type';
 import { Action } from '@ngrx/store';
 
 import { ContextHelp } from './context-help.model';
-import { type } from './ngrx/type';
 
 export const ContextHelpActionTypes = {
   'CONTEXT_HELP_TOGGLE_ICONS': type('dspace/context-help/CONTEXT_HELP_TOGGLE_ICONS'),

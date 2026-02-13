@@ -1,6 +1,8 @@
 import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { Context } from '@dspace/core/shared/context.model';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { GenericItemPageFieldComponent } from 'src/app/item-page/simple/field-components/specific-field/generic/generic-item-page-field.component';
 import { ThemedItemPageTitleFieldComponent } from 'src/app/item-page/simple/field-components/specific-field/title/themed-item-page-field.component';
@@ -11,8 +13,6 @@ import { MetadataFieldWrapperComponent } from 'src/app/shared/metadata-field-wra
 import { ThemedResultsBackButtonComponent } from 'src/app/shared/results-back-button/themed-results-back-button.component';
 import { ThemedThumbnailComponent } from 'src/app/thumbnail/themed-thumbnail.component';
 
-import { Context } from '../../../../../../../app/core/shared/context.model';
-import { ViewMode } from '../../../../../../../app/core/shared/view-mode.model';
 import { PersonComponent as BaseComponent } from '../../../../../../../app/entity-groups/research-entities/item-pages/person/person.component';
 import { listableObjectComponent } from '../../../../../../../app/shared/object-collection/shared/listable-object/listable-object.decorator';
 
@@ -23,8 +23,19 @@ import { listableObjectComponent } from '../../../../../../../app/shared/object-
   styleUrls: ['../../../../../../../app/entity-groups/research-entities/item-pages/person/person.component.scss'],
   // templateUrl: './person.component.html',
   templateUrl: '../../../../../../../app/entity-groups/research-entities/item-pages/person/person.component.html',
-  standalone: true,
-  imports: [ ThemedResultsBackButtonComponent, ThemedItemPageTitleFieldComponent, DsoEditMenuComponent, MetadataFieldWrapperComponent, ThemedThumbnailComponent, GenericItemPageFieldComponent, RelatedItemsComponent, RouterLink, TabbedRelatedEntitiesSearchComponent, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    DsoEditMenuComponent,
+    GenericItemPageFieldComponent,
+    MetadataFieldWrapperComponent,
+    RelatedItemsComponent,
+    RouterLink,
+    TabbedRelatedEntitiesSearchComponent,
+    ThemedItemPageTitleFieldComponent,
+    ThemedResultsBackButtonComponent,
+    ThemedThumbnailComponent,
+    TranslateModule,
+  ],
 })
 export class PersonComponent extends BaseComponent {
 }

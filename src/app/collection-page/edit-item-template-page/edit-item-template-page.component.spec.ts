@@ -7,19 +7,19 @@ import {
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
-
-import { ItemTemplateDataService } from '../../core/data/item-template-data.service';
-import { Collection } from '../../core/shared/collection.model';
-import { ThemedDsoEditMetadataComponent } from '../../dso-shared/dso-edit-metadata/themed-dso-edit-metadata.component';
-import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { ItemTemplateDataService } from '@dspace/core/data/item-template-data.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+} from '@dspace/core/utilities/remote-data.utils';
+import { TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
+
+import { ThemedDsoEditMetadataComponent } from '../../dso-shared/dso-edit-metadata/themed-dso-edit-metadata.component';
+import { getMockThemeService } from '../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { getCollectionEditRoute } from '../collection-page-routing-paths';
 import { EditItemTemplatePageComponent } from './edit-item-template-page.component';
@@ -43,7 +43,7 @@ describe('EditItemTemplatePageComponent', () => {
       imports: [TranslateModule.forRoot(), CommonModule, RouterTestingModule, EditItemTemplatePageComponent],
       providers: [
         { provide: ItemTemplateDataService, useValue: itemTemplateService },
-        { provide: ActivatedRoute, useValue: { parent: { data: observableOf({ dso: createSuccessfulRemoteDataObject(collection) }) } } },
+        { provide: ActivatedRoute, useValue: { parent: { data: of({ dso: createSuccessfulRemoteDataObject(collection) }) } } },
         { provide: ThemeService, useValue: getMockThemeService() },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
       ],

@@ -1,9 +1,8 @@
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   createSelector,
   MemoizedSelector,
 } from '@ngrx/store';
-
-import { hasValue } from './empty.util';
 
 /**
  * Export a function to return a subset of the state by key

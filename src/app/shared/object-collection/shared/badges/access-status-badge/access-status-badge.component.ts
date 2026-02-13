@@ -5,32 +5,33 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import { LinkService } from '@dspace/core/cache/builders/link.service';
+import { AccessStatusObject } from '@dspace/core/shared/access-status.model';
+import { Bitstream } from '@dspace/core/shared/bitstream.model';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
 import {
   catchError,
   map,
 } from 'rxjs/operators';
-import { LinkService } from 'src/app/core/cache/builders/link.service';
-import { Bitstream } from 'src/app/core/shared/bitstream.model';
-import { getFirstSucceededRemoteDataPayload } from 'src/app/core/shared/operators';
-import { followLink } from 'src/app/shared/utils/follow-link-config.model';
 import { environment } from 'src/environments/environment';
-
-import { Item } from '../../../../../core/shared/item.model';
-import { hasValue } from '../../../../empty.util';
-import { AccessStatusObject } from './access-status.model';
 
 @Component({
   selector: 'ds-base-access-status-badge',
   templateUrl: './access-status-badge.component.html',
   styleUrls: ['./access-status-badge.component.scss'],
-  standalone: true,
-  imports: [AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    TranslateModule,
+  ],
 })
 /**
  * Component rendering the access status of an item as a badge
@@ -101,7 +102,7 @@ export class AccessStatusBadgeComponent implements OnDestroy, OnInit {
       getFirstSucceededRemoteDataPayload(),
       map((accessStatus: AccessStatusObject) => hasValue(accessStatus.status) ? accessStatus.status : 'unknown'),
       map((status: string) => `access-status.${status.toLowerCase()}.listelement.badge`),
-      catchError(() => observableOf('access-status.unknown.listelement.badge')),
+      catchError(() => of('access-status.unknown.listelement.badge')),
     );
     // stylesheet based on the access status value
     this.subs.push(
@@ -125,14 +126,10 @@ export class AccessStatusBadgeComponent implements OnDestroy, OnInit {
     this.embargoDate$ = this.object.accessStatus.pipe(
       getFirstSucceededRemoteDataPayload(),
       map((accessStatus: AccessStatusObject) => hasValue(accessStatus.embargoDate) ? accessStatus.embargoDate : null),
-      catchError(() => observableOf(null)),
+      catchError(() => of(null)),
     );
-    this.subs.push(
-      this.embargoDate$.pipe().subscribe((embargoDate: string) => {
-        if (hasValue(embargoDate)) {
-          this.accessStatus$ = observableOf('embargo.listelement.badge');
-        }
-      }),
+    this.accessStatus$ = this.embargoDate$.pipe(
+      map(date => hasValue(date) ? 'embargo.listelement.badge' : null),
     );
   }
 }

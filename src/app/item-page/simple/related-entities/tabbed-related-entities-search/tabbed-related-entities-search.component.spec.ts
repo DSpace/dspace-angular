@@ -9,12 +9,12 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { Item } from '@dspace/core/shared/item.model';
+import { RouterMock } from '@dspace/core/testing/router.mock';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
-import { Item } from '../../../../core/shared/item.model';
-import { RouterMock } from '../../../../shared/mocks/router.mock';
 import { VarDirective } from '../../../../shared/utils/var.directive';
 import { RelatedEntitiesSearchComponent } from '../related-entities-search/related-entities-search.component';
 import { TabbedRelatedEntitiesSearchComponent } from './tabbed-related-entities-search.component';
@@ -43,7 +43,13 @@ describe('TabbedRelatedEntitiesSearchComponent', () => {
         {
           provide: ActivatedRoute,
           useValue: {
-            queryParams: observableOf({ tab: mockRelationType }),
+            queryParams: of({ tab: mockRelationType }),
+            snapshot: {
+              queryParams: {
+                scope: 'collection-uuid',
+                query: 'test',
+              },
+            },
           },
         },
         { provide: Router, useValue: router },
@@ -89,8 +95,10 @@ describe('TabbedRelatedEntitiesSearchComponent', () => {
         relativeTo: (comp as any).route,
         queryParams: {
           tab: event.nextId,
+          query: 'test',
+          scope: 'collection-uuid',
+          'spc.page': 1,
         },
-        queryParamsHandling: 'merge',
       });
     });
   });

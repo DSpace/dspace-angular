@@ -8,6 +8,15 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { IdentifierDataService } from '@dspace/core/data/identifier-data.service';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
+import { Identifier } from '@dspace/core/shared/identifiers-data/identifier.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { getFirstSucceededRemoteData } from '@dspace/core/shared/operators';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   TranslateModule,
   TranslateService,
@@ -18,15 +27,6 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { IdentifierDataService } from '../../../core/data/identifier-data.service';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { RemoteData } from '../../../core/data/remote-data';
-import { Item } from '../../../core/shared/item.model';
-import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
-import { hasValue } from '../../../shared/empty.util';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { Identifier } from '../../../shared/object-list/identifier-data/identifier.model';
-import { getItemPageRoute } from '../../item-page-routing-paths';
 import { ModifyItemOverviewComponent } from '../modify-item-overview/modify-item-overview.component';
 import { AbstractSimpleItemActionComponent } from '../simple-item-action/abstract-simple-item-action.component';
 
@@ -34,12 +34,11 @@ import { AbstractSimpleItemActionComponent } from '../simple-item-action/abstrac
   selector: 'ds-item-register-doi',
   templateUrl: './item-register-doi-component.html',
   imports: [
+    AsyncPipe,
     ModifyItemOverviewComponent,
     RouterLink,
     TranslateModule,
-    AsyncPipe,
   ],
-  standalone: true,
 })
 /**
  * Component responsible for rendering the Item Register DOI page

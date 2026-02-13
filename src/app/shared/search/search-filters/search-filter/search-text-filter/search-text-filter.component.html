@@ -13,13 +13,13 @@
     <div class="clearfix toggle-more-filters">
       @if ((isLastPage$ | async) !== true) {
         <a class="float-start"
-          (click)="showMore()" href="javascript:void(0);">
+          (click)="showMore()" href="javascript:void(0);" role="button" tabindex="0">
           {{"search.filters.filter.show-more" | translate}}
         </a>
       }
       @if ((currentPage | async) > 1) {
         <a class="float-end"
-          (click)="showFirstPageOnly()" href="javascript:void(0);">
+          (click)="showFirstPageOnly()" href="javascript:void(0);" role="button" tabindex="0">
           {{"search.filters.filter.show-less" | translate}}
         </a>
       }

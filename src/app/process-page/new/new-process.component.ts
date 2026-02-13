@@ -4,21 +4,21 @@ import {
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { LinkService } from '@dspace/core/cache/builders/link.service';
+import { ProcessDataService } from '@dspace/core/data/processes/process-data.service';
+import { Process } from '@dspace/core/processes/process.model';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
+import { Script } from '@dspace/core/shared/scripts/script.model';
 import { Observable } from 'rxjs';
 import {
   map,
   switchMap,
 } from 'rxjs/operators';
 
-import { LinkService } from '../../core/cache/builders/link.service';
-import { ProcessDataService } from '../../core/data/processes/process-data.service';
-import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
-import { followLink } from '../../shared/utils/follow-link-config.model';
 import { HasValuePipe } from '../../shared/utils/has-value.pipe';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { ProcessFormComponent } from '../form/process-form.component';
-import { Process } from '../processes/process.model';
-import { Script } from '../scripts/script.model';
 
 /**
  * Component to create a new script
@@ -27,8 +27,12 @@ import { Script } from '../scripts/script.model';
   selector: 'ds-new-process',
   templateUrl: './new-process.component.html',
   styleUrls: ['./new-process.component.scss'],
-  standalone: true,
-  imports: [VarDirective, ProcessFormComponent, AsyncPipe, HasValuePipe],
+  imports: [
+    AsyncPipe,
+    HasValuePipe,
+    ProcessFormComponent,
+    VarDirective,
+  ],
 })
 export class NewProcessComponent implements OnInit {
   /**

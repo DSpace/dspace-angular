@@ -1,4 +1,8 @@
 import { Injectable } from '@angular/core';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { QualityAssuranceSourceObject } from '@dspace/core/notifications/qa/models/quality-assurance-source.model';
+import { QualityAssuranceSourceDataService } from '@dspace/core/notifications/qa/source/quality-assurance-source-data.service';
 import {
   Actions,
   createEffect,
@@ -6,7 +10,7 @@ import {
 } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import {
   catchError,
   map,
@@ -15,10 +19,6 @@ import {
   withLatestFrom,
 } from 'rxjs/operators';
 
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { QualityAssuranceSourceObject } from '../../../core/notifications/qa/models/quality-assurance-source.model';
-import { QualityAssuranceSourceDataService } from '../../../core/notifications/qa/source/quality-assurance-source-data.service';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import {
   AddSourceAction,
   QualityAssuranceSourceActionTypes,
@@ -53,7 +53,7 @@ export class QualityAssuranceSourceEffects {
           } else {
             console.error('Unexpected object thrown', error);
           }
-          return observableOf(new RetrieveAllSourceErrorAction());
+          return of(new RetrieveAllSourceErrorAction());
         }),
       );
     }),

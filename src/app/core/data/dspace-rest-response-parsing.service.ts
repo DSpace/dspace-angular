@@ -1,12 +1,19 @@
 /* eslint-disable max-classes-per-file */
-import { Injectable } from '@angular/core';
-
-import { environment } from '../../../environments/environment';
+import {
+  inject,
+  Injectable,
+} from '@angular/core';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
+import { RestRequestMethod } from '@dspace/config/rest-request-method';
 import {
   hasNoValue,
   hasValue,
   isNotEmpty,
-} from '../../shared/empty.util';
+} from '@dspace/shared/utils/empty.util';
+
 import { getClassForType } from '../cache/builders/build-decorators';
 import { CacheableObject } from '../cache/cacheable-object.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -28,7 +35,6 @@ import {
 } from './paginated-list.model';
 import { ResponseParsingService } from './parsing.service';
 import { RestRequest } from './rest-request.model';
-import { RestRequestMethod } from './rest-request-method';
 
 
 /**
@@ -68,6 +74,8 @@ const splitUrlInParts = (url: string): string[] => {
 @Injectable({ providedIn: 'root' })
 export class DspaceRestResponseParsingService implements ResponseParsingService {
   protected serializerConstructor: GenericConstructor<Serializer<any>> = DSpaceSerializer;
+  protected readonly appConfig: AppConfig = inject(APP_CONFIG);
+
 
   constructor(
     protected objectCache: ObjectCacheService,
@@ -125,7 +133,7 @@ export class DspaceRestResponseParsingService implements ResponseParsingService 
                 this.addToObjectCache(null, request, data, embedAltUrl);
               } else if (!isCacheableObject(data._embedded[property])) {
                 // Embedded object exists, but doesn't contain a self link -> cache it using the alternative link instead
-                this.objectCache.add(data._embedded[property], hasValue(request.responseMsToLive) ? request.responseMsToLive : environment.cache.msToLive.default, request.uuid, embedAltUrl);
+                this.objectCache.add(data._embedded[property], hasValue(request.responseMsToLive) ? request.responseMsToLive : this.appConfig.cache.msToLive.default, request.uuid, embedAltUrl);
               }
               this.process<ObjectDomain>(data._embedded[property], request, embedAltUrl);
             });
@@ -262,7 +270,7 @@ export class DspaceRestResponseParsingService implements ResponseParsingService 
       alternativeURL = undefined;
     }
 
-    this.objectCache.add(co, hasValue(request.responseMsToLive) ? request.responseMsToLive : environment.cache.msToLive.default, request.uuid, alternativeURL);
+    this.objectCache.add(co, hasValue(request.responseMsToLive) ? request.responseMsToLive : this.appConfig.cache.msToLive.default, request.uuid, alternativeURL);
   }
 
   processPageInfo(payload: any): PageInfo {

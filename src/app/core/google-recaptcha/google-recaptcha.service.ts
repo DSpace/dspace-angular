@@ -1,10 +1,11 @@
-import { DOCUMENT } from '@angular/common';
 import {
+  DOCUMENT,
   Inject,
   Injectable,
   Renderer2,
   RendererFactory2,
 } from '@angular/core';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import {
   BehaviorSubject,
   combineLatest,
@@ -19,10 +20,9 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { isNotEmpty } from '../../shared/empty.util';
+import { CookieService } from '../cookies/cookie.service';
 import { ConfigurationDataService } from '../data/configuration-data.service';
 import { RemoteData } from '../data/remote-data';
-import { CookieService } from '../services/cookie.service';
 import {
   NativeWindowRef,
   NativeWindowService,

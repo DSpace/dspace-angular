@@ -8,34 +8,34 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
-
-import { RequestService } from '../../../core/data/request.service';
-import { WorkflowActionDataService } from '../../../core/data/workflow-action-data.service';
-import { RouteService } from '../../../core/services/route.service';
-import { Item } from '../../../core/shared/item.model';
-import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
-import { WorkflowItemDataService } from '../../../core/submission/workflowitem-data.service';
-import { ClaimedTaskDataService } from '../../../core/tasks/claimed-task-data.service';
-import { ProcessTaskResponse } from '../../../core/tasks/models/process-task-response';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../../shared/remote-data.utils';
-import { ClaimedTaskDataServiceStub } from '../../../shared/testing/claimed-task-data-service.stub';
+import { RequestService } from '@dspace/core/data/request.service';
+import { WorkflowActionDataService } from '@dspace/core/data/workflow-action-data.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { RouteService } from '@dspace/core/services/route.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
+import { WorkflowItemDataService } from '@dspace/core/submission/workflowitem-data.service';
+import { ClaimedTaskDataService } from '@dspace/core/tasks/claimed-task-data.service';
+import { ProcessTaskResponse } from '@dspace/core/tasks/models/process-task-response';
+import { ClaimedTaskDataServiceStub } from '@dspace/core/testing/claimed-task-data-service.stub';
 import {
   EPersonMock,
   EPersonMock2,
-} from '../../../shared/testing/eperson.mock';
-import { LocationStub } from '../../../shared/testing/location.stub';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { RequestServiceStub } from '../../../shared/testing/request-service.stub';
-import { routeServiceStub } from '../../../shared/testing/route-service.stub';
-import { RouterStub } from '../../../shared/testing/router.stub';
-import { WorkflowActionDataServiceStub } from '../../../shared/testing/workflow-action-data-service.stub';
-import { WorkflowItemDataServiceStub } from '../../../shared/testing/workflow-item-data-service.stub';
+} from '@dspace/core/testing/eperson.mock';
+import { LocationStub } from '@dspace/core/testing/location.stub';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { RequestServiceStub } from '@dspace/core/testing/request-service.stub';
+import { routeServiceStub } from '@dspace/core/testing/route-service.stub';
+import { RouterStub } from '@dspace/core/testing/router.stub';
+import { WorkflowActionDataServiceStub } from '@dspace/core/testing/workflow-action-data-service.stub';
+import { WorkflowItemDataServiceStub } from '@dspace/core/testing/workflow-item-data-service.stub';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core/utilities/remote-data.utils';
+import { TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
+
 import {
   ADVANCED_WORKFLOW_TASK_OPTION_SELECT_REVIEWER,
   AdvancedWorkflowActionSelectReviewerComponent,
@@ -74,7 +74,7 @@ describe('AdvancedWorkflowActionSelectReviewerComponent', () => {
         {
           provide: ActivatedRoute,
           useValue: {
-            data: observableOf({
+            data: of({
               id: workflowId,
               wfi: createSuccessfulRemoteDataObject(workflowItem),
             }),
@@ -137,7 +137,7 @@ describe('AdvancedWorkflowActionSelectReviewerComponent', () => {
     });
 
     it('should call the claimedTaskDataService with the list of selected ePersons', () => {
-      spyOn(claimedTaskDataService, 'submitTask').and.returnValue(observableOf(new ProcessTaskResponse(true)));
+      spyOn(claimedTaskDataService, 'submitTask').and.returnValue(of(new ProcessTaskResponse(true)));
       component.selectedReviewers = [EPersonMock, EPersonMock2];
 
       component.performAction();
@@ -151,7 +151,7 @@ describe('AdvancedWorkflowActionSelectReviewerComponent', () => {
     });
 
     it('should not call the claimedTaskDataService with the list of selected ePersons when it\'s empty', () => {
-      spyOn(claimedTaskDataService, 'submitTask').and.returnValue(observableOf(new ProcessTaskResponse(true)));
+      spyOn(claimedTaskDataService, 'submitTask').and.returnValue(of(new ProcessTaskResponse(true)));
       component.selectedReviewers = [];
 
       component.performAction();
@@ -160,7 +160,7 @@ describe('AdvancedWorkflowActionSelectReviewerComponent', () => {
     });
 
     it('should not call the return to mydspace page when the request failed', () => {
-      spyOn(claimedTaskDataService, 'submitTask').and.returnValue(observableOf(new ProcessTaskResponse(false)));
+      spyOn(claimedTaskDataService, 'submitTask').and.returnValue(of(new ProcessTaskResponse(false)));
       component.selectedReviewers = [EPersonMock, EPersonMock2];
 
       component.performAction();

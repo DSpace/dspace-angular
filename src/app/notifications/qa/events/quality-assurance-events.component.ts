@@ -9,8 +9,38 @@ import {
   RouterLink,
 } from '@angular/router';
 import {
+  SortDirection,
+  SortOptions,
+} from '@dspace/core/cache/models/sort-options.model';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
+import { FindListOptions } from '@dspace/core/data/find-list-options.model';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { QualityAssuranceEventDataService } from '@dspace/core/notifications/qa/events/quality-assurance-event-data.service';
+import {
+  QualityAssuranceEventObject,
+  SourceQualityAssuranceEventMessageObject,
+} from '@dspace/core/notifications/qa/models/quality-assurance-event.model';
+import { QualityAssuranceEventData } from '@dspace/core/notifications/qa/models/quality-assurance-event-data.model';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { Metadata } from '@dspace/core/shared/metadata.utils';
+import { NoContent } from '@dspace/core/shared/NoContent.model';
+import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
+import {
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+} from '@dspace/core/shared/operators';
+import { hasValue } from '@dspace/shared/utils/empty.util';
+import {
   NgbModal,
-  NgbTooltipModule,
+  NgbTooltip,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -36,43 +66,11 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../../environments/environment';
-import {
-  SortDirection,
-  SortOptions,
-} from '../../../core/cache/models/sort-options.model';
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
-import { FindListOptions } from '../../../core/data/find-list-options.model';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { QualityAssuranceEventDataService } from '../../../core/notifications/qa/events/quality-assurance-event-data.service';
-import {
-  QualityAssuranceEventObject,
-  SourceQualityAssuranceEventMessageObject,
-} from '../../../core/notifications/qa/models/quality-assurance-event.model';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { Item } from '../../../core/shared/item.model';
-import { Metadata } from '../../../core/shared/metadata.utils';
-import { NoContent } from '../../../core/shared/NoContent.model';
-import {
-  getFirstCompletedRemoteData,
-  getRemoteDataPayload,
-} from '../../../core/shared/operators';
-import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
-import { hasValue } from '../../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { ItemSearchResult } from '../../../shared/object-collection/shared/item-search-result.model';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { followLink } from '../../../shared/utils/follow-link-config.model';
-import {
-  ProjectEntryImportModalComponent,
-  QualityAssuranceEventData,
-} from '../project-entry-import-modal/project-entry-import-modal.component';
+import { ProjectEntryImportModalComponent } from '../project-entry-import-modal/project-entry-import-modal.component';
 import { EPersonDataComponent } from './ePerson-data/ePerson-data.component';
 
 /**
@@ -82,8 +80,17 @@ import { EPersonDataComponent } from './ePerson-data/ePerson-data.component';
   selector: 'ds-quality-assurance-events',
   templateUrl: './quality-assurance-events.component.html',
   styleUrls: ['./quality-assurance-events.component.scss'],
-  standalone: true,
-  imports: [AlertComponent, ThemedLoadingComponent, PaginationComponent, RouterLink, NgbTooltipModule, AsyncPipe, TranslateModule, EPersonDataComponent, BtnDisabledDirective],
+  imports: [
+    AlertComponent,
+    AsyncPipe,
+    BtnDisabledDirective,
+    EPersonDataComponent,
+    NgbTooltip,
+    PaginationComponent,
+    RouterLink,
+    ThemedLoadingComponent,
+    TranslateModule,
+  ],
 })
 export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
   /**

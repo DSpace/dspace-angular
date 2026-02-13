@@ -1,16 +1,16 @@
 import { TestBed } from '@angular/core/testing';
+import { Item } from '@dspace/core/shared/item.model';
+import { ITEM } from '@dspace/core/shared/item.resource-type';
+import { CorrectionTypeDataService } from '@dspace/core/submission/correctiontype-data.service';
+import { CorrectionType } from '@dspace/core/submission/models/correctiontype.model';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { Item } from '../../../core/shared/item.model';
-import { ITEM } from '../../../core/shared/item.resource-type';
-import { CorrectionTypeDataService } from '../../../core/submission/correctiontype-data.service';
-import { CorrectionType } from '../../../core/submission/models/correctiontype.model';
 import {
   DsoWithdrawnReinstateModalService,
   REQUEST_WITHDRAWN,
 } from '../../dso-page/dso-withdrawn-reinstate-service/dso-withdrawn-reinstate-modal.service';
-import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
-import { createPaginatedList } from '../../testing/utils.test';
 import { OnClickMenuItemModel } from '../menu-item/models/onclick.model';
 import { MenuItemType } from '../menu-item-type.model';
 import { PartialMenuSection } from '../menu-provider.model';

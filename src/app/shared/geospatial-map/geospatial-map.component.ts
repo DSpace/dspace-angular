@@ -10,6 +10,13 @@ import {
   PLATFORM_ID,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { FacetValue } from '@dspace/core/shared/search/models/facet-value.model';
+import { FacetValues } from '@dspace/core/shared/search/models/facet-values.model';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import { TranslateService } from '@ngx-translate/core';
 import { wktToGeoJSON } from '@terraformer/wkt';
 import {
@@ -18,25 +25,19 @@ import {
 } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
-import {
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-} from '../empty.util';
-import { FacetValue } from '../search/models/facet-value.model';
-import { FacetValues } from '../search/models/facet-values.model';
 import { GeospatialMapDetail } from './models/geospatial-map-detail.model';
 
 @Component({
   selector: 'ds-geospatial-map',
   templateUrl: './geospatial-map.component.html',
   styleUrls: ['./geospatial-map.component.scss'],
-  standalone: true,
 })
 /**
  * Component to draw points and polygons on a tiled map using leaflet.js
  * This component can be used by item page fields, the browse-by geospatial component, and the geospatial search
  * view mode to render related places of an item (e.g. metadata on a page), or items *as* places (e.g. browse / search)
+ *
+ * This component should be used in a `@defer` block to keep geospatial mapping libraries out of the main bundle!
  */
 export class GeospatialMapComponent implements AfterViewInit, OnInit, OnDestroy {
 
@@ -133,7 +134,9 @@ export class GeospatialMapComponent implements AfterViewInit, OnInit, OnDestroy 
    */
   private initMap(): void {
     // 'Import' leaflet packages in a browser-mode-only way to avoid issues with SSR
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
     const L = require('leaflet'); require('leaflet.markercluster'); require('leaflet-providers');
+
     // Set better default icons
     L.Icon.Default.mergeOptions({
       iconRetinaUrl: 'assets/images/marker-icon-2x.png',
@@ -150,13 +153,19 @@ export class GeospatialMapComponent implements AfterViewInit, OnInit, OnDestroy 
     this.map = L.map(el, {
       center: this.DEFAULT_CENTRE_POINT,
       zoom: 11,
+      worldCopyJump: true,
+      maxBoundsViscosity: 1.0,
+      maxBounds: [
+        [-85, -Infinity],
+        [85, Infinity],
+      ],
     });
     const tileProviders = environment.geospatialMapViewer.tileProviders;
     for (let i = 0; i < tileProviders.length; i++) {
       // Add tiles to the map
       const tiles = L.tileLayer.provider(tileProviders[i], {
         maxZoom: 18,
-        minZoom: 3,
+        minZoom: 1,
       });
       tiles.addTo(this.map);
     }

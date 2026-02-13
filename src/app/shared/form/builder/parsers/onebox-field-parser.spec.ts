@@ -1,9 +1,9 @@
-import { getMockTranslateService } from 'src/app/shared/mocks/translate.service.mock';
+import { FormFieldModel } from '@dspace/core/shared/form/models/form-field.model';
+import { getMockTranslateService } from '@dspace/core/testing/translate.service.mock';
 
 import { DsDynamicInputModel } from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { DynamicQualdropModel } from '../ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
 import { DynamicOneboxModel } from '../ds-dynamic-form-ui/models/onebox/dynamic-onebox.model';
-import { FormFieldModel } from '../models/form-field.model';
 import { FieldParser } from './field-parser';
 import { OneboxFieldParser } from './onebox-field-parser';
 import { ParserOptions } from './parser-options';

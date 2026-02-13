@@ -14,58 +14,63 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { SubmissionFormsConfigDataService } from '@dspace/core/config/submission-forms-config-data.service';
+import { CollectionDataService } from '@dspace/core/data/collection-data.service';
+import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
+import { JsonPatchOperationPathCombiner } from '@dspace/core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
+import { License } from '@dspace/core/shared/license.model';
+import { SectionsType } from '@dspace/core/submission/sections-type';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { SectionsServiceStub } from '@dspace/core/testing/sections-service.stub';
+import { SubmissionServiceStub } from '@dspace/core/testing/submission-service.stub';
+import { createTestComponent } from '@dspace/core/testing/utils.test';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core/utilities/remote-data.utils';
+import { XSRFService } from '@dspace/core/xsrf/xsrf.service';
 import {
   DYNAMIC_FORM_CONTROL_MAP_FN,
   DynamicCheckboxModel,
   DynamicFormControlEvent,
   DynamicFormControlEventType,
 } from '@ng-dynamic-forms/core';
+import { provideMockActions } from '@ngrx/effects/testing';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
-import { DsDynamicTypeBindRelationService } from 'src/app/shared/form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
 import {
-  APP_CONFIG,
-  APP_DATA_SERVICES_MAP,
-} from 'src/config/app-config.interface';
-import { environment } from 'src/environments/environment.test';
+  Observable,
+  of,
+} from 'rxjs';
+import { take } from 'rxjs/operators';
 
-import { SubmissionFormsConfigDataService } from '../../../core/config/submission-forms-config-data.service';
-import { CollectionDataService } from '../../../core/data/collection-data.service';
-import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
-import { Collection } from '../../../core/shared/collection.model';
-import { License } from '../../../core/shared/license.model';
-import { SubmissionObjectDataService } from '../../../core/submission/submission-object-data.service';
-import { XSRFService } from '../../../core/xsrf/xsrf.service';
+import { environment } from '../../../../environments/environment.test';
 import { dsDynamicFormControlMapFn } from '../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-map-fn';
+import { DsDynamicTypeBindRelationService } from '../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
-import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
-import { getMockFormOperationsService } from '../../../shared/mocks/form-operations-service.mock';
-import { getMockFormService } from '../../../shared/mocks/form-service.mock';
+import { getMockFormOperationsService } from '../../../shared/form/testing/form-operations-service.mock';
+import { getMockFormService } from '../../../shared/form/testing/form-service.mock';
+import { LiveRegionService } from '../../../shared/live-region/live-region.service';
+import { getLiveRegionServiceStub } from '../../../shared/live-region/live-region.service.stub';
+import { SubmissionService } from '../../submission.service';
+import { SubmissionObjectService } from '../../submission-object.service';
 import {
   mockLicenseParsedErrors,
   mockSubmissionCollectionId,
   mockSubmissionId,
   mockSubmissionObject,
-} from '../../../shared/mocks/submission.mock';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../../shared/remote-data.utils';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
-import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
-import { createTestComponent } from '../../../shared/testing/utils.test';
-import { SubmissionService } from '../../submission.service';
+} from '../../utils/submission.mock';
 import { SectionFormOperationsService } from '../form/section-form-operations.service';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
-import { SectionsType } from '../sections-type';
 import { SubmissionSectionLicenseComponent } from './section-license.component';
 
 function getMockDsDynamicTypeBindRelationService(): DsDynamicTypeBindRelationService {
@@ -181,19 +186,21 @@ describe('SubmissionSectionLicenseComponent test suite', () => {
         { provide: 'submissionIdProvider', useValue: submissionId },
         ChangeDetectorRef,
         provideMockStore({ initialState }),
+        provideMockActions(() => new Observable<any>()),
         FormBuilderService,
         { provide: DsDynamicTypeBindRelationService, useValue: getMockDsDynamicTypeBindRelationService() },
         { provide: APP_CONFIG, useValue: environment },
         { provide: APP_DATA_SERVICES_MAP, useValue: {} },
         { provide: DYNAMIC_FORM_CONTROL_MAP_FN, useValue: dsDynamicFormControlMapFn },
         {
-          provide: SubmissionObjectDataService,
+          provide: SubmissionObjectService,
           useValue: {
-            findById: () => observableOf(createSuccessfulRemoteDataObject(mockSubmissionObject)),
+            findById: () => of(createSuccessfulRemoteDataObject(mockSubmissionObject)),
           },
         },
         { provide: XSRFService, useValue: {} },
         SubmissionSectionLicenseComponent,
+        { provide: LiveRegionService, useValue: getLiveRegionServiceStub() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents().then();
@@ -206,8 +213,8 @@ describe('SubmissionSectionLicenseComponent test suite', () => {
     // synchronous beforeEach
     beforeEach(() => {
       mockCollectionDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(mockCollection));
-      sectionsServiceStub.isSectionReadOnly.and.returnValue(observableOf(false));
-      sectionsServiceStub.getSectionErrors.and.returnValue(observableOf([]));
+      sectionsServiceStub.isSectionReadOnly.and.returnValue(of(false));
+      sectionsServiceStub.getSectionErrors.and.returnValue(of([]));
 
       const html = `
         <ds-submission-section-license></ds-submission-section-license>`;
@@ -250,8 +257,8 @@ describe('SubmissionSectionLicenseComponent test suite', () => {
     describe('', () => {
       beforeEach(() => {
         mockCollectionDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(mockCollection));
-        sectionsServiceStub.getSectionErrors.and.returnValue(observableOf([]));
-        sectionsServiceStub.isSectionReadOnly.and.returnValue(observableOf(false));
+        sectionsServiceStub.getSectionErrors.and.returnValue(of([]));
+        sectionsServiceStub.isSectionReadOnly.and.returnValue(of(false));
         spyOn(formBuilderService, 'findById').and.returnValue(new DynamicCheckboxModel({ id: 'granted' }));
       });
 
@@ -293,7 +300,7 @@ describe('SubmissionSectionLicenseComponent test suite', () => {
         const model = formBuilderService.findById('granted', comp.formModel);
         (model as DynamicCheckboxModel).value = true;
 
-        compAsAny.getSectionStatus().subscribe((status) => {
+        compAsAny.getSectionStatus().pipe(take(1)).subscribe((status) => {
           expect(status).toBeTruthy();
           done();
         });
@@ -314,8 +321,8 @@ describe('SubmissionSectionLicenseComponent test suite', () => {
     describe('', () => {
       beforeEach(() => {
         mockCollectionDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(mockCollection));
-        sectionsServiceStub.getSectionErrors.and.returnValue(observableOf(mockLicenseParsedErrors.license));
-        sectionsServiceStub.isSectionReadOnly.and.returnValue(observableOf(false));
+        sectionsServiceStub.getSectionErrors.and.returnValue(of(mockLicenseParsedErrors.license));
+        sectionsServiceStub.isSectionReadOnly.and.returnValue(of(false));
       });
 
       it('should set section errors properly', () => {
@@ -374,11 +381,8 @@ describe('SubmissionSectionLicenseComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
-  standalone: true,
   imports: [
-    SubmissionSectionLicenseComponent,
     FormsModule,
-    FormComponent,
     ReactiveFormsModule,
   ],
 })

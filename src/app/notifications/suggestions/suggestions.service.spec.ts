@@ -1,22 +1,22 @@
-import { getTestScheduler } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
-import { TestScheduler } from 'rxjs/testing';
-
 import {
   SortDirection,
   SortOptions,
-} from '../../core/cache/models/sort-options.model';
-import { FindListOptions } from '../../core/data/find-list-options.model';
-import { SuggestionTarget } from '../../core/notifications/suggestions/models/suggestion-target.model';
-import { SuggestionDataService } from '../../core/notifications/suggestions/suggestion-data.service';
-import { SuggestionTargetDataService } from '../../core/notifications/suggestions/target/suggestion-target-data.service';
-import { ResearcherProfile } from '../../core/profile/model/researcher-profile.model';
-import { ResearcherProfileDataService } from '../../core/profile/researcher-profile-data.service';
-import { ResourceType } from '../../core/shared/resource-type';
-import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
-import { mockSuggestionPublicationOne } from '../../shared/mocks/publication-claim.mock';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { followLink } from '../../shared/utils/follow-link-config.model';
+} from '@dspace/core/cache/models/sort-options.model';
+import { FindListOptions } from '@dspace/core/data/find-list-options.model';
+import { SuggestionTarget } from '@dspace/core/notifications/suggestions/models/suggestion-target.model';
+import { SuggestionDataService } from '@dspace/core/notifications/suggestions/suggestion-data.service';
+import { SuggestionTargetDataService } from '@dspace/core/notifications/suggestions/target/suggestion-target-data.service';
+import { ResearcherProfile } from '@dspace/core/profile/model/researcher-profile.model';
+import { ResearcherProfileDataService } from '@dspace/core/profile/researcher-profile-data.service';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { ResourceType } from '@dspace/core/shared/resource-type';
+import { WorkspaceitemDataService } from '@dspace/core/submission/workspaceitem-data.service';
+import { mockSuggestionPublicationOne } from '@dspace/core/testing/publication-claim.mock';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+import { getTestScheduler } from 'jasmine-marbles';
+import { of } from 'rxjs';
+import { TestScheduler } from 'rxjs/testing';
+
 import { SuggestionsService } from './suggestions.service';
 
 describe('SuggestionsService test', () => {
@@ -56,21 +56,21 @@ describe('SuggestionsService test', () => {
 
     researcherProfileService = jasmine.createSpyObj('researcherProfileService', {
       findById: createSuccessfulRemoteDataObject$(mockResercherProfile as ResearcherProfile),
-      findRelatedItemId: observableOf('1234'),
+      findRelatedItemId: of('1234'),
     });
 
     suggestionTargetDataService = jasmine.createSpyObj('suggestionTargetsDataService', {
-      getTargetsBySource: observableOf(null),
-      findById: observableOf(null),
+      getTargetsBySource: of(null),
+      findById: of(null),
     });
 
     suggestionsDataService = jasmine.createSpyObj('suggestionsDataService', {
-      searchBy: observableOf(null),
-      delete: observableOf(null),
+      searchBy: of(null),
+      delete: of(null),
       deleteSuggestion: createSuccessfulRemoteDataObject$({}),
-      getSuggestionsByTargetAndSource : observableOf(null),
+      getSuggestionsByTargetAndSource : of(null),
       clearSuggestionRequests : null,
-      getTargetsByUser: observableOf(null),
+      getTargetsByUser: of(null),
     });
 
     service = initTestService();
@@ -121,14 +121,14 @@ describe('SuggestionsService test', () => {
 
     it('should approve and import suggestion', () => {
       spyOn(service, 'resolveCollectionId');
-      const workspaceitemService = { importExternalSourceEntry: (x,y) => observableOf(null) };
+      const workspaceitemService = { importExternalSourceEntry: (x,y) => of(null) };
       service.approveAndImport(workspaceitemService as unknown as WorkspaceitemDataService, mockSuggestionPublicationOne, '1234');
       expect(service.resolveCollectionId).toHaveBeenCalled();
     });
 
     it('should approve and import suggestions', () => {
       spyOn(service, 'approveAndImport');
-      const workspaceitemService = { importExternalSourceEntry: (x,y) => observableOf(null) };
+      const workspaceitemService = { importExternalSourceEntry: (x,y) => of(null) };
       service.approveAndImportMultiple(workspaceitemService as unknown as WorkspaceitemDataService, [mockSuggestionPublicationOne], '1234');
       expect(service.approveAndImport).toHaveBeenCalledWith(workspaceitemService as unknown as WorkspaceitemDataService, mockSuggestionPublicationOne, '1234');
     });

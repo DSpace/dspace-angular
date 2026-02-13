@@ -12,41 +12,41 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
-import {
-  combineLatest as observableCombineLatest,
-  of as observableOf,
-} from 'rxjs';
-
-import { ObjectCacheService } from '../../../core/cache/object-cache.service';
-import { RestResponse } from '../../../core/cache/response.models';
-import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { FieldChangeType } from '../../../core/data/object-updates/field-change-type.model';
-import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
-import { RelationshipDataService } from '../../../core/data/relationship-data.service';
-import { RelationshipTypeDataService } from '../../../core/data/relationship-type-data.service';
-import { RequestService } from '../../../core/data/request.service';
-import { Item } from '../../../core/shared/item.model';
-import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
-import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
-import { RelationshipType } from '../../../core/shared/item-relationships/relationship-type.model';
-import { AlertComponent } from '../../../shared/alert/alert.component';
-import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
+import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
+import { RestResponse } from '@dspace/core/cache/response.models';
+import { EntityTypeDataService } from '@dspace/core/data/entity-type-data.service';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
+import { FieldChangeType } from '@dspace/core/data/object-updates/field-change-type.model';
+import { ObjectUpdatesService } from '@dspace/core/data/object-updates/object-updates.service';
+import { RelationshipDataService } from '@dspace/core/data/relationship-data.service';
+import { RelationshipTypeDataService } from '@dspace/core/data/relationship-type-data.service';
+import { RequestService } from '@dspace/core/data/request.service';
 import {
   INotification,
   Notification,
-} from '../../../shared/notifications/models/notification.model';
-import { NotificationType } from '../../../shared/notifications/models/notification-type';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
+} from '@dspace/core/notification-system/models/notification.model';
+import { NotificationType } from '@dspace/core/notification-system/models/notification-type';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { ItemType } from '@dspace/core/shared/item-relationships/item-type.model';
+import { Relationship } from '@dspace/core/shared/item-relationships/relationship.model';
+import { RelationshipType } from '@dspace/core/shared/item-relationships/relationship-type.model';
+import { ItemDataServiceStub } from '@dspace/core/testing/item-data.service.stub';
+import { relationshipTypes } from '@dspace/core/testing/relationship-types.mock';
+import { RouterStub } from '@dspace/core/testing/router.stub';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../shared/remote-data.utils';
-import { ItemDataServiceStub } from '../../../shared/testing/item-data.service.stub';
-import { relationshipTypes } from '../../../shared/testing/relationship-types.mock';
-import { RouterStub } from '../../../shared/testing/router.stub';
-import { createPaginatedList } from '../../../shared/testing/utils.test';
+} from '@dspace/core/utilities/remote-data.utils';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  combineLatest as observableCombineLatest,
+  of,
+} from 'rxjs';
+
+import { AlertComponent } from '../../../shared/alert/alert.component';
+import { getMockThemeService } from '../../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../shared/theme-support/theme.service';
 import { ItemRelationshipsComponent } from './item-relationships.component';
 
@@ -158,58 +158,58 @@ describe('ItemRelationshipsComponent', () => {
 
     itemService = new ItemDataServiceStub();
     routeStub = {
-      data: observableOf({}),
+      data: of({}),
       parent: {
-        data: observableOf({ dso: createSuccessfulRemoteDataObject(item) }),
+        data: of({ dso: createSuccessfulRemoteDataObject(item) }),
       },
     };
 
     objectUpdatesService = jasmine.createSpyObj('objectUpdatesService',
       {
-        getFieldUpdates: observableOf({
+        getFieldUpdates: of({
           [relationships[0].uuid]: fieldUpdate1,
           [relationships[1].uuid]: fieldUpdate2,
         }),
-        getFieldUpdatesExclusive: observableOf({
+        getFieldUpdatesExclusive: of({
           [relationships[0].uuid]: fieldUpdate1,
           [relationships[1].uuid]: fieldUpdate2,
         }),
         saveAddFieldUpdate: {},
         discardFieldUpdates: {},
-        reinstateFieldUpdates: observableOf(true),
+        reinstateFieldUpdates: of(true),
         initialize: {},
-        getUpdatedFields: observableOf([author1, author2]),
-        getLastModified: observableOf(date),
-        hasUpdates: observableOf(true),
-        isReinstatable: observableOf(false), // should always return something --> its in ngOnInit
-        isValidPage: observableOf(true),
+        getUpdatedFields: of([author1, author2]),
+        getLastModified: of(date),
+        hasUpdates: of(true),
+        isReinstatable: of(false), // should always return something --> its in ngOnInit
+        isValidPage: of(true),
       },
     );
 
     relationshipService = jasmine.createSpyObj('relationshipService',
       {
-        getItemRelationshipLabels: observableOf(['isAuthorOfPublication']),
-        getRelatedItems: observableOf([author1, author2]),
-        getRelatedItemsByLabel: observableOf([author1, author2]),
-        getItemRelationshipsArray: observableOf(relationships),
-        deleteRelationship: observableOf(new RestResponse(true, 200, 'OK')),
-        getItemResolvedRelatedItemsAndRelationships: observableCombineLatest(observableOf([author1, author2]), observableOf([item, item]), observableOf(relationships)),
-        getRelationshipsByRelatedItemIds: observableOf(relationships),
-        getRelationshipTypeLabelsByItem: observableOf([relationshipType.leftwardType]),
+        getItemRelationshipLabels: of(['isAuthorOfPublication']),
+        getRelatedItems: of([author1, author2]),
+        getRelatedItemsByLabel: of([author1, author2]),
+        getItemRelationshipsArray: of(relationships),
+        deleteRelationship: of(new RestResponse(true, 200, 'OK')),
+        getItemResolvedRelatedItemsAndRelationships: observableCombineLatest(of([author1, author2]), of([item, item]), of(relationships)),
+        getRelationshipsByRelatedItemIds: of(relationships),
+        getRelationshipTypeLabelsByItem: of([relationshipType.leftwardType]),
       },
     );
 
 
     relationshipTypeService = jasmine.createSpyObj('searchByEntityType',
       {
-        searchByEntityType: observableOf(relationshipTypes),
+        searchByEntityType: of(relationshipTypes),
       },
     );
 
     requestService = jasmine.createSpyObj('requestService',
       {
         removeByHrefSubstring: {},
-        hasByHref$: observableOf(false),
+        hasByHref$: of(false),
       },
     );
 

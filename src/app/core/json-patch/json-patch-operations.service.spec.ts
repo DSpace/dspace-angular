@@ -4,17 +4,10 @@ import {
   getTestScheduler,
   hot,
 } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { TestScheduler } from 'rxjs/testing';
 
-import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
-import { getMockRequestService } from '../../shared/mocks/request.service.mock';
-import {
-  createFailedRemoteDataObject,
-  createSuccessfulRemoteDataObject,
-} from '../../shared/remote-data.utils';
-import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { CoreState } from '../core-state.model';
 import { SubmissionPatchRequest } from '../data/request.models';
@@ -22,6 +15,13 @@ import { RequestService } from '../data/request.service';
 import { RequestEntry } from '../data/request-entry.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { SubmitDataResponseDefinitionObject } from '../shared/submit-data-response-definition.model';
+import { HALEndpointServiceStub } from '../testing/hal-endpoint-service.stub';
+import { getMockRemoteDataBuildService } from '../testing/remote-data-build.service.mock';
+import { getMockRequestService } from '../testing/request.service.mock';
+import {
+  createFailedRemoteDataObject,
+  createSuccessfulRemoteDataObject,
+} from '../utilities/remote-data.utils';
 import {
   CommitPatchOperationsAction,
   DeletePendingJsonPatchOperationsAction,
@@ -95,7 +95,7 @@ describe('JsonPatchOperationsService test suite', () => {
   }];
 
   const getRequestEntry$ = (successful: boolean) => {
-    return observableOf({
+    return of({
       response: { isSuccessful: successful, timeCompleted: timestampResponse } as any,
     } as RequestEntry);
   };
@@ -113,20 +113,20 @@ describe('JsonPatchOperationsService test suite', () => {
   function getStore() {
     return jasmine.createSpyObj('store', {
       dispatch: {},
-      select: observableOf(mockState['json/patch'][testJsonPatchResourceType]),
-      pipe: observableOf(true),
+      select: of(mockState['json/patch'][testJsonPatchResourceType]),
+      pipe: of(true),
     });
   }
 
   function spyOnRdbServiceAndReturnSuccessfulRemoteData() {
     spyOn(rdbService, 'buildFromRequestUUID').and.returnValue(
-      observableOf(Object.assign(createSuccessfulRemoteDataObject({ dataDefinition: 'test' }), { timeCompleted: new Date().getTime() + 10000 })),
+      of(Object.assign(createSuccessfulRemoteDataObject({ dataDefinition: 'test' }), { timeCompleted: new Date().getTime() + 10000 })),
     );
   }
 
   function spyOnRdbServiceAndReturnFailedRemoteData() {
     spyOn(rdbService, 'buildFromRequestUUID').and.returnValue(
-      observableOf(Object.assign(createFailedRemoteDataObject('Error', 500), { timeCompleted: new Date().getTime() + 10000 })),
+      of(Object.assign(createFailedRemoteDataObject('Error', 500), { timeCompleted: new Date().getTime() + 10000 })),
     );
   }
 
@@ -191,7 +191,7 @@ describe('JsonPatchOperationsService test suite', () => {
         service = initTestService();
         spyOnRdbServiceAndReturnFailedRemoteData();
 
-        store.select.and.returnValue(observableOf(mockState['json/patch'][testJsonPatchResourceType]));
+        store.select.and.returnValue(of(mockState['json/patch'][testJsonPatchResourceType]));
         store.dispatch.and.callThrough();
       });
 
@@ -199,7 +199,7 @@ describe('JsonPatchOperationsService test suite', () => {
 
         const expectedAction = new RollbacktPatchOperationsAction(testJsonPatchResourceType, undefined);
         scheduler.schedule(() => service.jsonPatchByResourceType(resourceEndpoint, resourceScope, testJsonPatchResourceType)
-          .pipe(catchError(() => observableOf({})))
+          .pipe(catchError(() => of({})))
           .subscribe());
         scheduler.flush();
 
@@ -223,7 +223,7 @@ describe('JsonPatchOperationsService test suite', () => {
 
       const mockStateNoOp = deepClone(mockState);
       mockStateNoOp['json/patch'][testJsonPatchResourceType].children = [];
-      store.select.and.returnValue(observableOf(mockStateNoOp['json/patch'][testJsonPatchResourceType]));
+      store.select.and.returnValue(of(mockStateNoOp['json/patch'][testJsonPatchResourceType]));
 
       const expected = hot('(x|)', { x: false });
 
@@ -281,7 +281,7 @@ describe('JsonPatchOperationsService test suite', () => {
         service = initTestService();
         spyOnRdbServiceAndReturnFailedRemoteData();
 
-        store.select.and.returnValue(observableOf(mockState['json/patch'][testJsonPatchResourceType]));
+        store.select.and.returnValue(of(mockState['json/patch'][testJsonPatchResourceType]));
         store.dispatch.and.callThrough();
       });
 
@@ -289,7 +289,7 @@ describe('JsonPatchOperationsService test suite', () => {
 
         const expectedAction = new RollbacktPatchOperationsAction(testJsonPatchResourceType, testJsonPatchResourceId);
         scheduler.schedule(() => service.jsonPatchByResourceID(resourceEndpoint, resourceScope, testJsonPatchResourceType, testJsonPatchResourceId)
-          .pipe(catchError(() => observableOf({})))
+          .pipe(catchError(() => of({})))
           .subscribe());
         scheduler.flush();
 

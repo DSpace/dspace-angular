@@ -12,20 +12,20 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { of as observableOf } from 'rxjs';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { LinkService } from '@dspace/core/cache/builders/link.service';
+import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
+import { Context } from '@dspace/core/shared/context.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { ClaimedTaskSearchResult } from '@dspace/core/shared/object-collection/claimed-task-search-result.model';
+import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
+import { ClaimedTask } from '@dspace/core/tasks/models/claimed-task-object.model';
+import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
+import { getMockLinkService } from '@dspace/core/testing/link-service.mock';
+import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
+import { of } from 'rxjs';
 
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { LinkService } from '../../../../core/cache/builders/link.service';
-import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
-import { Context } from '../../../../core/shared/context.model';
-import { Item } from '../../../../core/shared/item.model';
-import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
-import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
-import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
-import { getMockLinkService } from '../../../mocks/link-service.mock';
 import { ClaimedTaskActionsComponent } from '../../../mydspace-actions/claimed-task/claimed-task-actions.component';
-import { ClaimedTaskSearchResult } from '../../../object-collection/shared/claimed-task-search-result.model';
-import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 import { VarDirective } from '../../../utils/var.directive';
 import { ItemDetailPreviewComponent } from '../item-detail-preview/item-detail-preview.component';
 import { ClaimedTaskSearchResultDetailElementComponent } from './claimed-task-search-result-detail-element.component';
@@ -39,7 +39,7 @@ const mockResultObject: ClaimedTaskSearchResult = new ClaimedTaskSearchResult();
 mockResultObject.hitHighlights = {};
 
 const item = Object.assign(new Item(), {
-  bundles: observableOf({}),
+  bundles: of({}),
   metadata: {
     'dc.title': [
       {
@@ -68,9 +68,9 @@ const item = Object.assign(new Item(), {
   },
 });
 const rdItem = createSuccessfulRemoteDataObject(item);
-const workflowitem = Object.assign(new WorkflowItem(), { item: observableOf(rdItem) });
+const workflowitem = Object.assign(new WorkflowItem(), { item: of(rdItem) });
 const rdWorkflowitem = createSuccessfulRemoteDataObject(workflowitem);
-mockResultObject.indexableObject = Object.assign(new ClaimedTask(), { workflowitem: observableOf(rdWorkflowitem) });
+mockResultObject.indexableObject = Object.assign(new ClaimedTask(), { workflowitem: of(rdWorkflowitem) });
 const linkService = getMockLinkService();
 const objectCacheServiceMock = jasmine.createSpyObj('ObjectCacheService', {
   remove: jasmine.createSpy('remove'),

@@ -13,13 +13,12 @@ import {
   withLatestFrom,
 } from 'rxjs/operators';
 
+import { AuthService } from '../auth/auth.service';
+import { RemoteData } from '../data/remote-data';
 import {
   getForbiddenRoute,
   getPageNotFoundRoute,
-} from '../../app-routing-paths';
-import { getEndUserAgreementPath } from '../../info/info-routing-paths';
-import { AuthService } from '../auth/auth.service';
-import { RemoteData } from '../data/remote-data';
+} from '../router/core-routing-paths';
 
 export const REDIRECT_ON_4XX = new InjectionToken<<T>(router: Router, authService: AuthService) => (source: Observable<RemoteData<T>>) => Observable<RemoteData<T>>>('redirectOn4xx', {
   providedIn: 'root',
@@ -57,6 +56,28 @@ export const redirectOn4xx = <T>(router: Router, authService: AuthService) =>
       }),
       map(([rd]: [RemoteData<T>, boolean]) => rd),
     );
+
+
+/**
+ * Redirect to 404 if the requested content is not found (204 No Content)
+ *
+ * @param router
+ * @param authService
+ */
+export const redirectOn204 = <T>(router: Router, authService: AuthService) =>
+  (source: Observable<RemoteData<T>>): Observable<RemoteData<T>> =>
+    source.pipe(
+      withLatestFrom(authService.isAuthenticated()),
+      filter(([rd, isAuthenticated]: [RemoteData<T>, boolean]) => {
+        if (rd.hasNoContent) {
+          router.navigateByUrl(getPageNotFoundRoute(), { skipLocationChange: true });
+          return false;
+        }
+        return true;
+      }),
+      map(([rd]: [RemoteData<T>, boolean]) => rd),
+    );
+
 /**
  * Operator that returns a UrlTree to a forbidden page or the login page when the boolean received is false
  * @param router      The router used to navigate to a forbidden page
@@ -89,17 +110,4 @@ export const returnForbiddenUrlTreeOrLoginOnAllFalse = (router: Router, authServ
             return router.parseUrl('login');
           }
         }
-      }));
-/**
- * Operator that returns a UrlTree to the unauthorized page when the boolean received is false
- * @param router    Router
- * @param redirect  Redirect URL to add to the UrlTree. This is used to redirect back to the original route after the
- *                  user accepts the agreement.
- */
-export const returnEndUserAgreementUrlTreeOnFalse = (router: Router, redirect: string) =>
-  (source: Observable<boolean>): Observable<boolean | UrlTree> =>
-    source.pipe(
-      map((hasAgreed: boolean) => {
-        const queryParams = { redirect: encodeURIComponent(redirect) };
-        return hasAgreed ? hasAgreed : router.createUrlTree([getEndUserAgreementPath()], { queryParams });
       }));

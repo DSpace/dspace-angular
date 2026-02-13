@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
-import { Breadcrumb } from '../../breadcrumbs/breadcrumb/breadcrumb.model';
 import { BreadcrumbsProviderService } from './breadcrumbsProviderService';
+import { Breadcrumb } from './models/breadcrumb.model';
 
 /**
  * Service to calculate QA breadcrumbs for a single part of the route
@@ -36,11 +36,11 @@ export class SourcesBreadcrumbService implements BreadcrumbsProviderService<stri
     const topicId = args.length > 3 ? args[args.length - 1] : args[2];
 
     if (topicId) {
-      return observableOf( [new Breadcrumb(this.translationService.instant(breadcrumbKey), url),
+      return of( [new Breadcrumb(this.translationService.instant(breadcrumbKey), url),
         new Breadcrumb(sourceId, `${url}${sourceId}`),
         new Breadcrumb(topicId, undefined)]);
     } else {
-      return observableOf([new Breadcrumb(this.translationService.instant(breadcrumbKey), url),
+      return of([new Breadcrumb(this.translationService.instant(breadcrumbKey), url),
         new Breadcrumb(sourceId, `${url}${sourceId}`)]);
     }
 

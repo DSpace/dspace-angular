@@ -8,6 +8,12 @@
 /* eslint-disable max-classes-per-file */
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { RestRequestMethod } from '@dspace/config/rest-request-method';
+import {
+  hasValue,
+  isNotEmpty,
+  isNotEmptyOperator,
+} from '@dspace/shared/utils/empty.util';
 import { Operation } from 'fast-json-patch';
 import { Observable } from 'rxjs';
 import {
@@ -18,28 +24,25 @@ import {
   switchMap,
   take,
 } from 'rxjs/operators';
+import { validate as uuidValidate } from 'uuid';
 
-import {
-  hasValue,
-  isNotEmpty,
-  isNotEmptyOperator,
-} from '../../shared/empty.util';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { BrowseService } from '../browse/browse.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { NotificationsService } from '../notification-system/notifications.service';
 import { Bundle } from '../shared/bundle.model';
 import { Collection } from '../shared/collection.model';
 import { ExternalSourceEntry } from '../shared/external-source-entry.model';
+import { FollowLinkConfig } from '../shared/follow-link-config.model';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
 import { MetadataMap } from '../shared/metadata.models';
 import { NoContent } from '../shared/NoContent.model';
 import { sendRequest } from '../shared/request.operators';
+import { PaginatedSearchOptions } from '../shared/search/models/paginated-search-options.model';
 import { URLCombiner } from '../url-combiner/url-combiner';
 import {
   CreateData,
@@ -57,6 +60,7 @@ import {
   PatchData,
   PatchDataImpl,
 } from './base/patch-data';
+import { SearchDataImpl } from './base/search-data';
 import { BundleDataService } from './bundle-data.service';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 import { FindListOptions } from './find-list-options.model';
@@ -71,7 +75,6 @@ import {
 } from './request.models';
 import { RequestService } from './request.service';
 import { RestRequest } from './rest-request.model';
-import { RestRequestMethod } from './rest-request-method';
 import { StatusCodeOnlyResponseParsingService } from './status-code-only-response-parsing.service';
 
 /**
@@ -83,6 +86,7 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
   private createData: CreateData<Item>;
   private patchData: PatchData<Item>;
   private deleteData: DeleteData<Item>;
+  private searchData: SearchDataImpl<Item>;
 
   protected constructor(
     protected linkPath,
@@ -101,6 +105,7 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
     this.createData = new CreateDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive);
     this.patchData = new PatchDataImpl<Item>(this.linkPath, requestService, rdbService, objectCache, halService, comparator, this.responseMsToLive, this.constructIdEndpoint);
     this.deleteData = new DeleteDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive, this.constructIdEndpoint);
+    this.searchData = new SearchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
   }
 
   /**
@@ -425,7 +430,94 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
     return this.createData.create(object, ...params);
   }
 
+  /**
+   * Returns an observable of {@link RemoteData} of an object, based on its custom URL, with a list of
+   * {@link FollowLinkConfig}, to automatically resolve {@link HALLink}s of the object
+   * @param id                          custom URL of object we want to retrieve
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
+   * @param projections                 List of {@link projections} used to pass as parameters
+   */
+  public findByCustomUrl(id: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, linksToFollow: FollowLinkConfig<Item>[], projections: string[] = []): Observable<RemoteData<Item>> {
+    const searchHref = 'findByCustomURL';
+
+    const options = Object.assign({}, {
+      searchParams: [
+        new RequestParam('q', id),
+      ],
+    });
+
+    projections.forEach((projection) => {
+      options.searchParams.push(new RequestParam('projection', projection));
+    });
+
+    const hrefObs = this.searchData.getSearchByHref(searchHref, options, ...linksToFollow);
+
+    return this.findByHref(hrefObs, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+  }
+
+
+  /**
+   * Invalidate cache of request findByCustomURL
+   *
+   * @param customUrl
+   * @param projections
+   */
+  public invalidateFindByCustomUrlCache(customUrl: string, projections: string[] = []): void {
+    const options: any = {
+      searchParams: [new RequestParam('q', customUrl)],
+    };
+
+    projections.forEach((p) => options.searchParams.push(new RequestParam('projection', p)));
+
+    this.searchData.getSearchByHref('findByCustomURL', options).pipe(take(1)).subscribe((href: string) => {
+      this.requestService.setStaleByHrefSubstring(href);
+      this.objectCache.remove(href);
+    });
+  }
+
+  /**
+   * Returns an observable of {@link RemoteData} of an object, based on its ID, with a list of
+   * {@link FollowLinkConfig}, to automatically resolve {@link HALLink}s of the object
+   * @param id                          ID of object we want to retrieve
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
+   */
+  public findById(id: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Item>[]): Observable<RemoteData<Item>> {
+    const href$ = this.getIDHrefObs(encodeURIComponent(id), ...linksToFollow);
+    return this.findByHref(href$, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+  }
+
+  /**
+   * Returns an observable of {@link RemoteData} of an object, based on its ID or custom URL if the parameter is not a valid id/uuid, with a list of
+   * {@link FollowLinkConfig}, to automatically resolve {@link HALLink}s of the object
+   * @param id                          ID of object we want to retrieve
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
+   */
+  public findByIdOrCustomUrl(id: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Item>[]): Observable<RemoteData<Item>> {
+    if (uuidValidate(id)) {
+      return this.findById(id, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+    } else {
+      return this.findByCustomUrl(id, useCachedVersionIfAvailable, reRequestOnStale, linksToFollow);
+    }
+  }
+
 }
+
+
 
 /**
  * A service for CRUD operations on Items

@@ -3,22 +3,22 @@ import {
   getTestScheduler,
   hot,
 } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { getMockHrefOnlyDataService } from '../../shared/mocks/href-only-data.service.mock';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { RestResponse } from '../cache/response.models';
+import { NotificationsService } from '../notification-system/notifications.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
 import { Version } from '../shared/version.model';
 import { VersionHistory } from '../shared/version-history.model';
+import { getMockHrefOnlyDataService } from '../testing/href-only-data.service.mock';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../utilities/remote-data.utils';
 import { testCreateDataImplementation } from './base/create-data.spec';
 import { testDeleteDataImplementation } from './base/delete-data.spec';
 import { testFindAllDataImplementation } from './base/find-all-data.spec';
@@ -45,7 +45,7 @@ describe('VersionDataService test', () => {
   const item = Object.assign(new Item(), {
     id: '1234-1234',
     uuid: '1234-1234',
-    bundles: observableOf({}),
+    bundles: of({}),
     metadata: {
       'dc.title': [
         {
@@ -120,8 +120,8 @@ describe('VersionDataService test', () => {
       generateRequestId: requestUUID,
       send: true,
       removeByHrefSubstring: {},
-      getByHref: observableOf(responseCacheEntry),
-      getByUUID: observableOf(responseCacheEntry),
+      getByHref: of(responseCacheEntry),
+      getByUUID: of(responseCacheEntry),
     });
     rdbService = jasmine.createSpyObj('rdbService', {
       buildSingle: hot('(a|)', {
