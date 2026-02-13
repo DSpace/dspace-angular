@@ -86,7 +86,7 @@ describe('DspaceRestService', () => {
     });
 
     it('should log an error', () => {
-      spyOn(console, 'log');
+      spyOn(console, 'info');
 
       dspaceRestService.get(url).subscribe(() => undefined, (err: unknown) => {
         expect(console.info).toHaveBeenCalled();
