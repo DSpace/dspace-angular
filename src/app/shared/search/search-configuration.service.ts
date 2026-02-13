@@ -188,6 +188,15 @@ export class SearchConfigurationService implements OnDestroy {
   }
 
   /**
+   * @returns {Observable<boolean>} Emits the current expert string
+   */
+  getCurrentExpert(defaultExpert: boolean) {
+    return this.routeService.getQueryParameterValue('expert').pipe(map((expert) => {
+      return expert === 'true' || defaultExpert;
+    }));
+  }
+
+  /**
    * @returns {Observable<number>} Emits the current DSpaceObject type as a number
    */
   getCurrentDSOType(): Observable<DSpaceObjectType> {
@@ -360,6 +369,7 @@ export class SearchConfigurationService implements OnDestroy {
       this.getConfigurationPart(defaults.configuration),
       this.getScopePart(defaults.scope),
       this.getQueryPart(defaults.query),
+      this.getExpertPart(defaults.expert),
       this.getDSOTypePart(),
       this.getFiltersPart(),
       this.getFixedFilterPart(),
@@ -384,6 +394,7 @@ export class SearchConfigurationService implements OnDestroy {
       this.getSortPart(paginationId, defaults.sort),
       this.getScopePart(defaults.scope),
       this.getQueryPart(defaults.query),
+      this.getExpertPart(defaults.expert),
       this.getDSOTypePart(),
       this.getFiltersPart(),
       this.getFixedFilterPart(),
@@ -432,6 +443,15 @@ export class SearchConfigurationService implements OnDestroy {
   private getQueryPart(defaultQuery: string): Observable<any> {
     return this.getCurrentQuery(defaultQuery).pipe(map((query) => {
       return { query };
+    }));
+  }
+
+  /**
+   * @returns {Observable<{expert: boolean}>} Emits the current expert boolean as a partial SearchOptions object
+   */
+  private getExpertPart(defaultExpert: boolean): Observable<{expert: boolean}> {
+    return this.getCurrentExpert(defaultExpert).pipe(map((expert) => {
+      return { expert };
     }));
   }
 
