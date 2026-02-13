@@ -4,7 +4,6 @@ import {
 } from '@angular/common';
 import {
   Inject,
-  inject,
   Injectable,
   PLATFORM_ID,
 } from '@angular/core';
@@ -106,7 +105,7 @@ export class SocialService {
 
     const showSocialButtons = this.activatedRouteDataChanges$.pipe(
       map(data => data?.showSocialButtons === true),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
 
     showSocialButtons.subscribe(this.showOnCurrentRouteSubject);
