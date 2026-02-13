@@ -477,4 +477,13 @@ export const environment: BuildConfig = {
   accessibility: {
     cookieExpirationDuration: 7,
   },
+
+  addToAnyPlugin: {
+    scriptUrl: 'https://static.addtoany.com/menu/page.js',
+    socialNetworksEnabled: true,
+    buttons: ['btn1', 'btn2'],
+    showPlusButton: true,
+    showCounters: true,
+    title: 'DSpace demo',
+  },
 };
