@@ -170,6 +170,23 @@ const buildBaseUrl = (config: ServerConfig): void => {
 };
 
 /**
+ * Removes all server-side specific settings from the application configuration.
+ * This method is used to ensure the "assets/config.json" that provides runtime
+ * configuration to CSR (client side rendering) excludes these server-side keys.
+ *
+ * @param config  the application configuration
+ */
+const removeServerSideConfig = (config: AppConfig): any => {
+  const clientConfig = JSON.parse(JSON.stringify(config));
+  delete clientConfig.rest.ssrBaseUrl;
+  delete clientConfig.rest.hasSsrBaseUrl;
+  delete clientConfig.cache.serverSide;
+  delete clientConfig.ui.rateLimiter;
+  delete clientConfig.ui.useProxies;
+  return clientConfig;
+};
+
+/**
  * Build app config with the following chain of override.
  *
  * local config -> environment local config -> external config -> environment variable
@@ -247,7 +264,8 @@ export const buildAppConfig = (destConfigPath?: string): AppConfig => {
   buildBaseUrl(appConfig.rest);
 
   if (isNotEmpty(destConfigPath)) {
-    writeFileSync(destConfigPath, JSON.stringify(appConfig, null, 2));
+    const clientConfig = removeServerSideConfig(appConfig);
+    writeFileSync(destConfigPath, JSON.stringify(clientConfig, null, 2));
 
     console.log(`Angular ${bold('config.json')} file generated correctly at ${bold(destConfigPath)} \n`);
   }
