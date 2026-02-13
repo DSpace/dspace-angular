@@ -3279,15 +3279,17 @@
 
   "search.filters.discoverable.false": "ହଁ",
 
-  "search.filters.namedresourcetype.Archived": "ଆର୍କାଇଭ୍ ହୋଇଛି",
+  "search.filters.namedresourcetype.archived": "ଆର୍କାଇଭ୍ ହୋଇଛି",
 
-  "search.filters.namedresourcetype.Validation": "ଯାଞ୍ଚ",
+  "search.filters.namedresourcetype.item": "ଆର୍କାଇଭ୍ ହୋଇଛି",
 
-  "search.filters.namedresourcetype.Waiting for Controller": "ସମୀକ୍ଷକ ପାଇଁ ଅପେକ୍ଷା",
+  "search.filters.namedresourcetype.validation": "ଯାଞ୍ଚ",
 
-  "search.filters.namedresourcetype.Workflow": "ୱର୍କଫ୍ଲୋ",
+  "search.filters.namedresourcetype.waiting for controller": "ସମୀକ୍ଷକ ପାଇଁ ଅପେକ୍ଷା",
 
-  "search.filters.namedresourcetype.Workspace": "ୱର୍କସ୍ପେସ୍",
+  "search.filters.namedresourcetype.workflow": "ୱର୍କଫ୍ଲୋ",
+
+  "search.filters.namedresourcetype.workspace": "ୱର୍କସ୍ପେସ୍",
 
   "search.filters.withdrawn.true": "ହଁ",
 

@@ -4834,15 +4834,17 @@
 
   "search.filters.discoverable.false": "হ্যাঁ",
 
-  "search.filters.namedresourcetype.Archived": "আর্কাইভ করা হয়েছে৷",
+  "search.filters.namedresourcetype.archived": "আর্কাইভ করা হয়েছে৷",
 
-  "search.filters.namedresourcetype.Validation": "যাচাইকরণ",
+  "search.filters.namedresourcetype.item": "আর্কাইভ করা হয়েছে৷",
 
-  "search.filters.namedresourcetype.Waiting for Controller": "পর্যালোচকের জন্য অপেক্ষা করা হচ্ছে",
+  "search.filters.namedresourcetype.validation": "যাচাইকরণ",
 
-  "search.filters.namedresourcetype.Workflow": "ওয়ার্কফ্লো",
+  "search.filters.namedresourcetype.waiting for controller": "পর্যালোচকের জন্য অপেক্ষা করা হচ্ছে",
 
-  "search.filters.namedresourcetype.Workspace": "ওয়ার্কস্পেস",
+  "search.filters.namedresourcetype.workflow": "ওয়ার্কফ্লো",
+
+  "search.filters.namedresourcetype.workspace": "ওয়ার্কস্পেস",
 
   "search.filters.withdrawn.true": "হ্যাঁ",
 

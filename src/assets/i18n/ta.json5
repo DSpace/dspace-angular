@@ -4839,15 +4839,17 @@
 
   "search.filters.discoverable.false": "ஆம்",
 
-  "search.filters.namedresourcetype.Archived": "காப்பகப்படுத்தப்பட்டது",
+  "search.filters.namedresourcetype.archived": "காப்பகப்படுத்தப்பட்டது",
 
-  "search.filters.namedresourcetype.Validation": "சரிபார்ப்பு",
+  "search.filters.namedresourcetype.item": "காப்பகப்படுத்தப்பட்டது",
 
-  "search.filters.namedresourcetype.Waiting for Controller": "மீளாய்வாளருக்காக காத்திருக்கிறது",
+  "search.filters.namedresourcetype.validation": "சரிபார்ப்பு",
 
-  "search.filters.namedresourcetype.Workflow": "பணிநிலை",
+  "search.filters.namedresourcetype.waiting for controller": "மீளாய்வாளருக்காக காத்திருக்கிறது",
 
-  "search.filters.namedresourcetype.Workspace": "பணிமேடை",
+  "search.filters.namedresourcetype.workflow": "பணிநிலை",
+
+  "search.filters.namedresourcetype.workspace": "பணிமேடை",
 
   "search.filters.withdrawn.true": "ஆம்",
 

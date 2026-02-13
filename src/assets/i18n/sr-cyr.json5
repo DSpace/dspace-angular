@@ -7874,20 +7874,23 @@
   // "search.filters.discoverable.false": "Yes",
   "search.filters.discoverable.false": "Да",
 
-  // "search.filters.namedresourcetype.Archived": "Archived",
-  "search.filters.namedresourcetype.Archived": "Архивирано",
+  // "search.filters.namedresourcetype.archived": "Archived",
+  "search.filters.namedresourcetype.archived": "Архивирано",
 
-  // "search.filters.namedresourcetype.Validation": "Validation",
-  "search.filters.namedresourcetype.Validation": "Исправност",
+  // "search.filters.namedresourcetype.item": "Archived",
+  "search.filters.namedresourcetype.item": "Архивирано",
 
-  // "search.filters.namedresourcetype.Waiting for Controller": "Waiting for reviewer",
-  "search.filters.namedresourcetype.Waiting for Controller": "Чека се контролор",
+  // "search.filters.namedresourcetype.validation": "Validation",
+  "search.filters.namedresourcetype.validation": "Исправност",
 
-  // "search.filters.namedresourcetype.Workflow": "Workflow",
-  "search.filters.namedresourcetype.Workflow": "Процес рада",
+  // "search.filters.namedresourcetype.waiting for controller": "Waiting for reviewer",
+  "search.filters.namedresourcetype.waiting for controller": "Чека се контролор",
 
-  // "search.filters.namedresourcetype.Workspace": "Workspace",
-  "search.filters.namedresourcetype.Workspace": "Радни простор",
+  // "search.filters.namedresourcetype.workflow": "Workflow",
+  "search.filters.namedresourcetype.workflow": "Процес рада",
+
+  // "search.filters.namedresourcetype.workspace": "Workspace",
+  "search.filters.namedresourcetype.workspace": "Радни простор",
 
   // "search.filters.withdrawn.true": "Yes",
   "search.filters.withdrawn.true": "Да",
