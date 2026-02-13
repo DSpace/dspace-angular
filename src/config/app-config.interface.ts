@@ -5,6 +5,7 @@ import {
 
 import { AccessibilitySettingsConfig } from './accessibility-settings.config';
 import { ActuatorsConfig } from './actuators.config';
+import { AddToAnyPluginConfig } from './add-to-any-plugin-config';
 import { AdminNotifyMetricsRow } from './admin-notify-metrics.config';
 import { AuthConfig } from './auth-config.interfaces';
 import { BrowseByConfig } from './browse-by-config.interface';
@@ -69,6 +70,7 @@ interface AppConfig extends Config {
   matomo?: MatomoConfig;
   geospatialMapViewer: GeospatialMapConfig;
   accessibility: AccessibilitySettingsConfig;
+  addToAnyPlugin: AddToAnyPluginConfig;
 }
 
 /**
