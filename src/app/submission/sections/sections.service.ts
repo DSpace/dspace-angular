@@ -28,12 +28,12 @@ import isEqual from 'lodash/isEqual';
 import {
   combineLatest,
   Observable,
+  switchMap,
 } from 'rxjs';
 import {
   distinctUntilChanged,
   filter,
   map,
-  mergeMap,
   take,
 } from 'rxjs/operators';
 
@@ -205,7 +205,7 @@ export class SectionsService {
       errorsState$ = this.getSectionErrors(submissionId, sectionId);
     } else {
       errorsState$ = this.getSectionState(submissionId, sectionId, sectionType).pipe(
-        mergeMap((state: SubmissionSectionObject) => this.formService.getFormErrors(state.formId).pipe(
+        switchMap((state: SubmissionSectionObject) => this.formService.getFormErrors(state.formId).pipe(
           map((formErrors: FormError[]) => {
             const pathCombiner = new JsonPatchOperationPathCombiner('sections', sectionId);
             const sectionErrors = formErrors
