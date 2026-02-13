@@ -4910,7 +4910,7 @@
 
   "search.filters.namedresourcetype.validation": "Validation",
 
-  "search.filters.namedresourcetype.waiting for Controller": "Waiting for reviewer",
+  "search.filters.namedresourcetype.waiting for controller": "Waiting for reviewer",
 
   "search.filters.namedresourcetype.workflow": "Workflow",
 

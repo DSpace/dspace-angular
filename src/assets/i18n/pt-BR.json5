@@ -7262,8 +7262,8 @@
   // "search.filters.namedresourcetype.validation": "Validation",
   "search.filters.namedresourcetype.validation": "Validação",
 
-  // "search.filters.namedresourcetype.waiting for Controller": "Waiting for reviewer",
-  "search.filters.namedresourcetype.waiting for Controller": "Esperando por revisor(a)",
+  // "search.filters.namedresourcetype.waiting for controller": "Waiting for reviewer",
+  "search.filters.namedresourcetype.waiting for controller": "Esperando por revisor(a)",
 
   // "search.filters.namedresourcetype.workflow": "Workflow",
   "search.filters.namedresourcetype.workflow": "Fluxo de trabalho",

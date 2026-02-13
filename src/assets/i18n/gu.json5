@@ -5729,17 +5729,17 @@
 
   "search.filters.discoverable.false": "હા",
 
-  "search.filters.namedresourcetype.Archived": "આર્કાઇવ્ડ",
+  "search.filters.namedresourcetype.archived": "આર્કાઇવ્ડ",
 
   "search.filters.namedresourcetype.item": "આર્કાઇવ્ડ",
 
-  "search.filters.namedresourcetype.Validation": "માન્યતા",
+  "search.filters.namedresourcetype.validation": "માન્યતા",
 
-  "search.filters.namedresourcetype.Waiting for Controller": "સમીક્ષકની રાહ જોવી",
+  "search.filters.namedresourcetype.waiting for controller": "સમીક્ષકની રાહ જોવી",
 
-  "search.filters.namedresourcetype.Workflow": "વર્કફ્લો",
+  "search.filters.namedresourcetype.workflow": "વર્કફ્લો",
 
-  "search.filters.namedresourcetype.Workspace": "વર્કસ્પેસ",
+  "search.filters.namedresourcetype.workspace": "વર્કસ્પેસ",
 
   "search.filters.withdrawn.true": "હા",
 
