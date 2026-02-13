@@ -23,12 +23,16 @@ import {
 } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { AppState } from '../../../app.reducer';
 import {
   getProfileModuleRoute,
   getSubscriptionsModuleRoute,
 } from '../../../app-routing-paths';
+import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
+import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
+import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
 import { MYDSPACE_ROUTE } from '../../../my-dspace-page/my-dspace-page.component';
 import { ThemedLoadingComponent } from '../../loading/themed-loading.component';
 import { LogOutComponent } from '../../log-out/log-out.component';
@@ -90,10 +94,14 @@ export class UserMenuComponent implements OnInit {
    */
   public subscriptionsRoute = getSubscriptionsModuleRoute();
 
+  subscribeFeature$: Observable<boolean>;
+
+
   constructor(
     protected store: Store<AppState>,
     protected authService: AuthService,
     public dsoNameService: DSONameService,
+    protected configService: ConfigurationDataService,
   ) {
   }
 
@@ -108,6 +116,10 @@ export class UserMenuComponent implements OnInit {
     // set user
     this.user$ = this.authService.getAuthenticatedUserFromStore();
 
+    this.subscribeFeature$ = this.configService.findByPropertyName('can-subscribe-feature.enable').pipe(
+      getFirstSucceededRemoteDataPayload(),
+      map((res: ConfigurationProperty) => res?.values[0].toLowerCase() === 'true'),
+    );
   }
 
   /**
