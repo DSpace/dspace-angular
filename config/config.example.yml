@@ -237,6 +237,8 @@ submission:
         - value: default
           style: text-muted
           icon: fa-circle-xmark
+  # Whether to show submission form errors 'onload' or 'onblur'
+  showErrorStrategy: onblur
 
 #  Fallback language in which the UI will be rendered if the user's browser language is not an active language
 fallbackLanguage: en
