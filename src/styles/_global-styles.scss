@@ -560,6 +560,12 @@ ngb-tooltip-window {
   text-decoration: underline;
 }
 
+/* Hide the default password reveal and clear buttons in Edge and IE */
+input[type='password']::-ms-reveal,
+input[type='password']::-ms-clear {
+  display: none;
+}
+
 .drag-icon {
   width: calc(2 * var(--bs-spacer));
   height: calc(1.5 * var(--bs-spacer));
