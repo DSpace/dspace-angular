@@ -130,7 +130,7 @@
     "leaflet.markercluster": "^1.5.3",
     "lodash-es": "^4.17.21",
     "lru-cache": "^11.2.2",
-    "markdown-it": "^13.0.1",
+    "markdown-it": "^14.1.1",
     "mirador": "^3.4.3",
     "mirador-dl-plugin": "^0.13.0",
     "mirador-share-plugin": "^0.16.0",
