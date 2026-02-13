@@ -337,6 +337,7 @@ export const environment: BuildConfig = {
   mediaViewer: {
     image: true,
     video: true,
+    pdf: true,
   },
   info: {
     enableEndUserAgreement: true,
@@ -348,8 +349,8 @@ export const environment: BuildConfig = {
     mathjax: false,
   },
   comcolSelectionSort: {
-    sortField:'dc.title',
-    sortDirection:'ASC',
+    sortField: 'dc.title',
+    sortDirection: 'ASC',
   },
   qualityAssuranceConfig: {
     sourceUrlMapForProjectSearch: {
