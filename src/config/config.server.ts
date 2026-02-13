@@ -14,7 +14,9 @@ import {
 import { load } from 'js-yaml';
 
 import { isNotEmpty } from '../app/shared/empty.util';
+import { ServerHashedFileMapping } from '../modules/dynamic-hash/hashed-file-mapping.server';
 import { AppConfig } from './app-config.interface';
+import { BuildConfig } from './build-config.interface';
 import { Config } from './config.interface';
 import { mergeConfig } from './config.util';
 import { DefaultAppConfig } from './default-app-config';
@@ -169,6 +171,7 @@ const buildBaseUrl = (config: ServerConfig): void => {
   ].join('');
 };
 
+
 /**
  * Build app config with the following chain of override.
  *
@@ -179,7 +182,7 @@ const buildBaseUrl = (config: ServerConfig): void => {
  * @param destConfigPath optional path to save config file
  * @returns app config
  */
-export const buildAppConfig = (destConfigPath?: string): AppConfig => {
+export const buildAppConfig = (destConfigPath?: string, mapping?: ServerHashedFileMapping): AppConfig => {
   // start with default app config
   const appConfig: AppConfig = new DefaultAppConfig();
 
@@ -247,7 +250,21 @@ export const buildAppConfig = (destConfigPath?: string): AppConfig => {
   buildBaseUrl(appConfig.rest);
 
   if (isNotEmpty(destConfigPath)) {
-    writeFileSync(destConfigPath, JSON.stringify(appConfig, null, 2));
+    const content = JSON.stringify(appConfig, null, 2);
+
+    writeFileSync(destConfigPath, content);
+    if (mapping !== undefined) {
+      mapping.add(destConfigPath, content);
+      if (!(appConfig as BuildConfig).ssr?.enabled) {
+        // If we're serving for CSR we can retrieve the configuration before JS is loaded/executed
+        mapping.addHeadLink({
+          path: destConfigPath,
+          rel: 'preload',
+          as: 'fetch',
+          crossorigin: 'anonymous',
+        });
+      }
+    }
 
     console.log(`Angular ${bold('config.json')} file generated correctly at ${bold(destConfigPath)} \n`);
   }
