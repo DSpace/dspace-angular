@@ -86,10 +86,10 @@ describe('DspaceRestService', () => {
     });
 
     it('should log an error', () => {
-      spyOn(console, 'log');
+      spyOn(console, 'error');
 
       dspaceRestService.get(url).subscribe(() => undefined, (err: unknown) => {
-        expect(console.log).toHaveBeenCalled();
+        expect(console.error).toHaveBeenCalled();
       });
 
       const req = httpMock.expectOne(url);

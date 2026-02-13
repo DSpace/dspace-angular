@@ -80,7 +80,7 @@ export class SuggestionSourcesComponent {
       }),
       takeUntilDestroyed(),
     ).subscribe((results: Partial<PaginatedList<SuggestionSource>>) =>  {
-      console.log(results);
+      console.info(results);
       this.sources$.next(results.page);
       this.totalElements$.next(results.pageInfo?.totalElements ?? 0);
       this.loading$.next(false);
@@ -104,7 +104,7 @@ export class SuggestionSourcesComponent {
 
     return this.suggestionSourceDataService.getSources(options).pipe(
       getFirstCompletedRemoteData(),
-      tap(console.log),
+      tap(console.info),
       map((result: RemoteData<PaginatedList<SuggestionSource>>) => {
         return result.hasSucceeded ? result.payload : { page: [], pageInfo: null };
       }),

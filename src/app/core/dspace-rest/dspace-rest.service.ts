@@ -65,7 +65,7 @@ export class DspaceRestService {
         statusText: res.statusText,
       })),
       catchError((err: unknown) => observableThrowError(() => {
-        console.log('Error: ', err);
+        console.error('Error: ', err);
         return this.handleHttpError(err);
       })),
     );
