@@ -144,6 +144,7 @@ export abstract class FieldParser {
       controlModel.vocabularyOptions = new VocabularyOptions(
         this.configData.selectableMetadata[0].controlledVocabulary,
         this.configData.selectableMetadata[0].closed,
+        this.configData.selectableMetadata[0].vocabularyType,
       );
     }
   }

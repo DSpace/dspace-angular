@@ -87,6 +87,7 @@ function addFormErrors(state: FormState, action: FormAddError) {
       fieldIndex: action.payload.fieldIndex,
       message: action.payload.errorMessage,
     };
+    console.dir(error);
     const metadata = action.payload.fieldId.replace(/\_/g, '.');
     const touched = Object.assign({}, state[formId].touched, {
       [metadata]: true,

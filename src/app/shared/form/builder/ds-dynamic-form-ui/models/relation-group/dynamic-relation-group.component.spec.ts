@@ -23,6 +23,7 @@ import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
 import { FormFieldModel } from '@dspace/core/shared/form/models/form-field.model';
 import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
 import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
+import { SearchServiceStub } from '@dspace/core/testing/search-service.stub';
 import { createTestComponent } from '@dspace/core/testing/utils.test';
 import { VocabularyServiceStub } from '@dspace/core/testing/vocabulary-service.stub';
 import { XSRFService } from '@dspace/core/xsrf/xsrf.service';
@@ -39,6 +40,7 @@ import { provideMockActions } from '@ngrx/effects/testing';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
+import { SearchService } from 'src/app/shared/search/search.service';
 
 import { environment } from '../../../../../../../environments/environment.test';
 import { SubmissionService } from '../../../../../../submission/submission.service';
@@ -141,6 +143,7 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
   let testFixture: ComponentFixture<TestComponent>;
   let groupFixture: ComponentFixture<DsDynamicRelationGroupComponent>;
   let vocabularyServiceStub: any;
+  let searchServiceStub: any;
   let modelValue: any;
   let html;
   let control1: UntypedFormControl;
@@ -152,6 +155,7 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
   beforeEach(waitForAsync(() => {
     init();
     vocabularyServiceStub = new VocabularyServiceStub();
+    searchServiceStub = new SearchServiceStub();
     /* TODO make sure these files use mocks instead of real services/components https://github.com/DSpace/dspace-angular/issues/281 */
     TestBed.configureTestingModule({
       imports: [
@@ -175,6 +179,7 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
         provideMockStore({ initialState }),
         provideMockActions(() => new Observable<any>()),
         { provide: VocabularyService, useValue: vocabularyServiceStub },
+        { provide: SearchService, useValue: SearchServiceStub },
         { provide: DsDynamicTypeBindRelationService, useClass: DsDynamicTypeBindRelationService },
         { provide: SubmissionObjectService, useValue: {} },
         { provide: SubmissionService, useValue: {} },

@@ -15,10 +15,12 @@ import { Item } from '@dspace/core/shared/item.model';
 import { MetadataValue } from '@dspace/core/shared/metadata.models';
 import { Vocabulary } from '@dspace/core/submission/vocabularies/models/vocabulary.model';
 import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
+import { SearchServiceStub } from '@dspace/core/testing/search-service.stub';
 import { createPaginatedList } from '@dspace/core/testing/utils.test';
 import { VocabularyServiceStub } from '@dspace/core/testing/vocabulary-service.stub';
 import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
+import { SearchService } from 'src/app/shared/search/search.service';
 
 import { RegistryService } from '../../../../admin/admin-registries/registry/registry.service';
 import { DynamicOneboxModel } from '../../../../shared/form/builder/ds-dynamic-form-ui/models/onebox/dynamic-onebox.model';
@@ -32,6 +34,7 @@ describe('DsoEditMetadataAuthorityFieldComponent', () => {
   let fixture: ComponentFixture<DsoEditMetadataAuthorityFieldComponent>;
 
   let vocabularyService: any;
+  let searchService: any;
   let itemService: ItemDataService;
   let registryService: RegistryService;
   let notificationsService: NotificationsService;
@@ -112,6 +115,7 @@ describe('DsoEditMetadataAuthorityFieldComponent', () => {
       findByHref: createSuccessfulRemoteDataObject$(item),
     });
     vocabularyService = new VocabularyServiceStub();
+    searchService = new SearchServiceStub();
     registryService = jasmine.createSpyObj('registryService', {
       queryMetadataFields: createSuccessfulRemoteDataObject$(createPaginatedList(metadataFields)),
     });
@@ -150,6 +154,7 @@ describe('DsoEditMetadataAuthorityFieldComponent', () => {
       ],
       providers: [
         { provide: VocabularyService, useValue: vocabularyService },
+        { provide: SearchService, useValue: searchService },
         { provide: ItemDataService, useValue: itemService },
         { provide: RegistryService, useValue: registryService },
         { provide: NotificationsService, useValue: notificationsService },
