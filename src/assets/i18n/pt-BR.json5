@@ -10871,9 +10871,25 @@
   // "file-download-link.request-copy": "Request a copy of ",
   "file-download-link.request-copy": "Solicitar uma cópia de ",
 
+  // "statistics.table.header.TotalVisits": "Object",
+  "statistics.table.header.TotalVisits": "Objeto",
+
+  // "statistics.table.header.TotalVisitsMonth": "Month",
+  "statistics.table.header.TotalVisitsMonth": "Mês",
+
+  // "statistics.table.header.TotalDownloads": "Downloads",
+  "statistics.table.header.TotalDownloads": "Downloads",
+
+  // "statistics.table.header.TopCities": "Cities",
+  "statistics.table.header.TopCities": "Cidades",
+
+  // "statistics.table.header.topCountries": "Countries",
+  "statistics.table.header.topCountries": "Países",
+
   "item.preview.organization.url": "URL",
 
   "item.preview.organization.address.addressLocality": "Cidade",
 
   "item.preview.organization.alternateName": "Nome alternativo",
+
 }
