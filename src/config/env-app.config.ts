@@ -19,7 +19,6 @@ import { load } from 'js-yaml';
 
 import { Config } from './config';
 import { DefaultAppConfig } from './default-app.config';
-import { ServerConfig } from './server.config';
 
 const CONFIG_PATH = join(process.cwd(), 'config');
 
@@ -76,20 +75,6 @@ export class EnvAppConfig extends DefaultAppConfig {
 
     // Load environment variables
     this.applyEnvironment(process.env);
-
-    const baseUrl = (config: ServerConfig) => [
-      config.ssl ? 'https://' : 'http://',
-      config.host,
-      config.port && config.port !== 80 && config.port !== 443
-        ? `:${config.port}`
-        : '',
-      config.nameSpace && config.nameSpace.startsWith('/')
-        ? config.nameSpace
-        : `/${config.nameSpace}`,
-    ].join('');
-
-    this.ui.baseUrl = baseUrl(this.ui);
-    this.rest.baseUrl = baseUrl(this.rest);
   }
 
   private get nodeEnv(): Environment {
