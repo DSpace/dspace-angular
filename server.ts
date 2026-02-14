@@ -262,7 +262,7 @@ function serverSideRender(req, res, next, sendToUser: boolean = true) {
         },
         {
           provide: APP_CONFIG,
-          useValue: environment,
+          useValue: environment.toPublic(),
         },
       ],
     })
