@@ -5,8 +5,7 @@ import {
 import {
   APP_CONFIG,
   AppConfig,
-} from '@dspace/config/app-config.interface';
-import { getDefaultThemeConfig } from '@dspace/config/config.util';
+} from '@dspace/config/app.config';
 import { BASE_THEME_NAME } from '@dspace/config/theme.config';
 import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
@@ -28,7 +27,7 @@ export class ThemeEffects {
     this.actions$.pipe(
       ofType(ROOT_EFFECTS_INIT),
       map(() => {
-        const defaultThemeConfig = getDefaultThemeConfig(this.appConfig);
+        const defaultThemeConfig = this.appConfig.defaultTheme;
         if (hasValue(defaultThemeConfig)) {
           return new SetThemeAction(defaultThemeConfig.name);
         } else {

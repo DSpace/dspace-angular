@@ -3,7 +3,7 @@ import {
   inject,
   Injectable,
 } from '@angular/core';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { APP_CONFIG } from '@dspace/config/app.config';
 import { RestRequestMethod } from '@dspace/config/rest-request-method';
 import {
   hasNoValue,

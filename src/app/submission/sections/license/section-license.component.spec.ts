@@ -14,7 +14,7 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { APP_CONFIG } from '@dspace/config/app.config';
 import { SubmissionFormsConfigDataService } from '@dspace/core/config/submission-forms-config-data.service';
 import { CollectionDataService } from '@dspace/core/data/collection-data.service';
 import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';

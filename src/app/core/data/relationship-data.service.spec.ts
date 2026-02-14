@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import {
   APP_CONFIG,
   AppConfig,
-} from '@dspace/config/app-config.interface';
+} from '@dspace/config/app.config';
 import { of } from 'rxjs';
 
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';

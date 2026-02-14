@@ -1,11 +1,9 @@
-import { Config } from './config.interface';
+import { Config } from './config';
 
-export interface BundleConfig extends Config {
-
+export class BundleConfig extends Config {
   /**
    * List of standard bundles to select in adding bitstreams to items
    * Used by {@link UploadBitstreamComponent}.
    */
-  standardBundles: string[];
-
+  @Config.publish() standardBundles: string[];
 }

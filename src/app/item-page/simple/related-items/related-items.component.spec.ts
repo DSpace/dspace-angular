@@ -8,7 +8,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { APP_CONFIG } from '@dspace/config/app.config';
 import { RelationshipDataService } from '@dspace/core/data/relationship-data.service';
 import { Item } from '@dspace/core/shared/item.model';
 import { createPaginatedList } from '@dspace/core/testing/utils.test';

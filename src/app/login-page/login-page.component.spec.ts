@@ -5,7 +5,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { APP_CONFIG } from '@dspace/config/app.config';
 import { AuthService } from '@dspace/core/auth/auth.service';
 import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
 import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';

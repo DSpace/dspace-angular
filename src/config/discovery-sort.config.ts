@@ -1,14 +1,13 @@
-import { Config } from './config.interface';
+import { Config } from './config';
 
 /**
  * Config that determines a metadata sorting config.
  * It's created mainly to sort by metadata community and collection edition and creation
  */
-export class DiscoverySortConfig implements Config {
-
-  public sortField: string;
+export class DiscoverySortConfig extends Config {
+  @Config.publish() sortField: string;
   /**
    * ASC / DESC values expected
    */
-  public sortDirection: string;
+  @Config.publish() sortDirection: string;
 }

@@ -8,7 +8,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { APP_CONFIG } from '@dspace/config/app.config';
 import { MetadataValue } from '@dspace/core/shared/metadata.models';
 import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import {

@@ -1,10 +1,12 @@
-import { BuildConfig } from '@dspace/config/build-config.interface';
+import { BuildConfig } from '@dspace/config/build.config';
+import { Config } from '@dspace/config/config';
+import { SSRConfig } from '@dspace/config/ssr.config';
 
-export const environment: Partial<BuildConfig> = {
+export const environment = Config.assign(BuildConfig, {
   production: true,
 
   // Angular SSR (Server Side Rendering) settings
-  ssr: {
+  ssr: Config.assign(SSRConfig, {
     enabled: true,
     enablePerformanceProfiler: false,
     inlineCriticalCss: false,
@@ -31,5 +33,5 @@ export const environment: Partial<BuildConfig> = {
     ],
     enableSearchComponent: false,
     enableBrowseComponent: false,
-  },
-};
+  }),
+});

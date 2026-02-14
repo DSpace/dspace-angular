@@ -1,11 +1,11 @@
-import { Config } from './config.interface';
+import { Config } from './config';
 
 export interface SsrExcludePatterns {
   pattern: string | RegExp;
   flag?: string;
 }
 
-export interface SSRConfig extends Config {
+export class SSRConfig extends Config {
   /**
    * A boolean flag indicating whether the SSR configuration is enabled
    * Defaults to true.

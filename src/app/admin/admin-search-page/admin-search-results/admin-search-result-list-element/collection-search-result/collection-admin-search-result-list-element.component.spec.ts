@@ -6,7 +6,7 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { APP_CONFIG } from '@dspace/config/app.config';
 import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import { Collection } from '@dspace/core/shared/collection.model';
 import { CollectionSearchResult } from '@dspace/core/shared/object-collection/collection-search-result.model';

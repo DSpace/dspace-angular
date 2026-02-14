@@ -8,7 +8,7 @@ import {
   ActivatedRoute,
   RouterLink,
 } from '@angular/router';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { APP_CONFIG } from '@dspace/config/app.config';
 import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
 import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';

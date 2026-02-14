@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SuggestionConfig } from '@dspace/config/suggestion-config.interfaces';
+import { SuggestionConfig } from '@dspace/config/suggestion.config';
 import {
   SortDirection,
   SortOptions,

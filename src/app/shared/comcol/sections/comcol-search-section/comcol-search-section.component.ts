@@ -11,7 +11,7 @@ import {
 import {
   APP_CONFIG,
   AppConfig,
-} from '@dspace/config/app-config.interface';
+} from '@dspace/config/app.config';
 import { RemoteData } from '@dspace/core/data/remote-data';
 import { Collection } from '@dspace/core/shared/collection.model';
 import { Community } from '@dspace/core/shared/community.model';
