@@ -18,10 +18,7 @@ import {
   APP_CONFIG,
   APP_CONFIG_STATE,
   AppConfig,
-} from '@dspace/config/app-config.interface';
-import { BuildConfig } from '@dspace/config/build-config.interface';
-import { extendEnvironmentWithAppConfig } from '@dspace/config/config.util';
-import { DefaultAppConfig } from '@dspace/config/default-app-config';
+} from '@dspace/config/app.config';
 import { AuthService } from '@dspace/core/auth/auth.service';
 import { OrejimeService } from '@dspace/core/cookies/orejime.service';
 import { coreSelector } from '@dspace/core/core.selectors';
@@ -63,7 +60,7 @@ import { environment } from '../../environments/environment';
  * Performs client-side initialization.
  */
 @Injectable()
-export class BrowserInitService extends InitService {
+export class BrowserInitService extends InitService<AppConfig> {
 
   sub: Subscription;
 
@@ -71,7 +68,7 @@ export class BrowserInitService extends InitService {
     protected store: Store<AppState>,
     protected correlationIdService: CorrelationIdService,
     protected transferState: TransferState,
-    @Inject(APP_CONFIG) protected appConfig: BuildConfig,
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
     protected translate: TranslateService,
     protected localeService: LocaleService,
     protected angulartics2DSpace: Angulartics2DSpace,
@@ -108,9 +105,12 @@ export class BrowserInitService extends InitService {
     transferState: TransferState,
   ) {
     if (transferState.hasKey<AppConfig>(APP_CONFIG_STATE)) {
-      const appConfig = transferState.get<AppConfig>(APP_CONFIG_STATE, new DefaultAppConfig());
+      const appConfig = transferState.get<Partial<AppConfig>>(
+        APP_CONFIG_STATE,
+        {},
+      );
       // extend environment with app config for browser
-      extendEnvironmentWithAppConfig(environment, appConfig);
+      environment.apply(appConfig);
     }
   }
 

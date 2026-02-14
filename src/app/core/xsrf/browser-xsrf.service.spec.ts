@@ -8,7 +8,7 @@ import {
   provideHttpClientTesting,
 } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { APP_CONFIG } from '@dspace/config/app.config';
 
 import { RESTURLCombiner } from '../url-combiner/rest-url-combiner';
 import { BrowserXSRFService } from './browser-xsrf.service';

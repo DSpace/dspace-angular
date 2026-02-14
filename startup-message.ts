@@ -1,12 +1,12 @@
 import PACKAGE_JSON from './package.json';
-import { BuildConfig } from '@dspace/config/build-config.interface';
+import { AppConfig } from '@dspace/config/app.config';
 
 /**
  * Log a message at the start of the application containing the version number and the environment.
  *
  * @param environment   the environment configuration
  */
-export const logStartupMessage = (environment: Partial<BuildConfig>) => {
+export const logStartupMessage = (environment: AppConfig) => {
   const env: string = environment.production ? 'Production' : 'Development';
   const color: string = environment.production ? 'red' : 'green';
 

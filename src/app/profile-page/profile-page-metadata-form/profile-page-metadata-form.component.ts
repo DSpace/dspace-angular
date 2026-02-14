@@ -5,7 +5,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
-import { LangConfig } from '@dspace/config/lang-config.interface';
+import { LangConfig } from '@dspace/config/lang.config';
 import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
 import { EPerson } from '@dspace/core/eperson/models/eperson.model';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';

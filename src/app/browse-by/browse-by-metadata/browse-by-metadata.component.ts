@@ -19,7 +19,7 @@ import {
 import {
   APP_CONFIG,
   AppConfig,
-} from '@dspace/config/app-config.interface';
+} from '@dspace/config/app.config';
 import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import { BrowseService } from '@dspace/core/browse/browse.service';
 import { BrowseByDataType } from '@dspace/core/browse/browse-by-data-type';

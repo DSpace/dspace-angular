@@ -36,18 +36,11 @@ import { join } from 'path';
 import { enableProdMode } from '@angular/core';
 
 
-import { environment } from './src/environments/environment';
 import { createProxyMiddleware } from 'http-proxy-middleware';
 import { hasValue } from '@dspace/shared/utils/empty.util';
-import { UIServerConfig } from './src/config/ui-server-config.interface';
+import { UIServerConfig } from './src/config/ui-server.config';
 import bootstrap from './src/main.server';
-import { buildAppConfig } from './src/config/config.server';
-import {
-  APP_CONFIG,
-  AppConfig,
-  toClientConfig,
-} from './src/config/app-config.interface';
-import { extendEnvironmentWithAppConfig } from './src/config/config.util';
+import { APP_CONFIG } from './src/config/app.config';
 import { logStartupMessage } from './startup-message';
 import { TOKENITEM } from '@dspace/core/auth/models/auth-token-info.model';
 import { CommonEngine } from '@angular/ssr/node';
@@ -56,7 +49,9 @@ import {
   REQUEST,
   RESPONSE,
 } from './src/express.tokens';
-import { SsrExcludePatterns } from './src/config/ssr-config.interface';
+import { SsrExcludePatterns } from './src/config/ssr.config';
+import { loadEnvInto, writeConfig } from '@dspace/config/env.config';
+import { environment } from 'src/environments/environment';
 
 /*
  * Set path for the browser application's dist folder
@@ -69,16 +64,14 @@ const indexHtml = join(DIST_FOLDER, 'index.html');
 
 const cookieParser = require('cookie-parser');
 
-const appConfig: AppConfig = buildAppConfig(join(DIST_FOLDER, 'assets/config.json'));
+loadEnvInto(environment);
+writeConfig(environment, join(DIST_FOLDER, 'assets/config.json'));
 
 // cache of SSR pages for known bots, only enabled in production mode
 let botCache: LRUCache<string, any>;
 
 // cache of SSR pages for anonymous users. Disabled by default, and only available in production mode
 let anonymousCache: LRUCache<string, any>;
-
-// extend environment with app config for server
-extendEnvironmentWithAppConfig(environment, appConfig);
 
 // The REST server base URL
 const REST_BASE_URL = environment.rest.ssrBaseUrl || environment.rest.baseUrl;
@@ -266,7 +259,7 @@ function serverSideRender(req, res, next, sendToUser: boolean = true) {
         },
         {
           provide: APP_CONFIG,
-          useValue: toClientConfig(environment as AppConfig),
+          useValue: environment,
         },
       ],
     })

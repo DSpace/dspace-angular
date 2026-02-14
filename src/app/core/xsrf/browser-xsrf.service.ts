@@ -6,7 +6,7 @@ import {
 import {
   APP_CONFIG,
   AppConfig,
-} from '@dspace/config/app-config.interface';
+} from '@dspace/config/app.config';
 import { take } from 'rxjs/operators';
 
 import { RESTURLCombiner } from '../url-combiner/rest-url-combiner';

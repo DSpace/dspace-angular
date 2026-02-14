@@ -1,10 +1,13 @@
-import { Config } from './config.interface';
+import { Config } from './config';
 
 export interface ValidatorMap {
   [validator: string]: string;
 }
 
-export interface FormConfig extends Config {
-  spellCheck: boolean;
-  validatorMap: ValidatorMap;
+export class FormConfig extends Config {
+  @Config.public spellCheck = true;
+  @Config.public validatorMap: ValidatorMap = {
+    required: 'required',
+    regex: 'pattern',
+  };
 }

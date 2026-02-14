@@ -8,8 +8,8 @@ import {
 import {
   APP_CONFIG,
   AppConfig,
-} from '@dspace/config/app-config.interface';
-import { LangConfig } from '@dspace/config/lang-config.interface';
+} from '@dspace/config/app.config';
+import { LangConfig } from '@dspace/config/lang.config';
 import {
   hasValue,
   isEmpty,

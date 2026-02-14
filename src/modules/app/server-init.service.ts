@@ -14,9 +14,7 @@ import {
   APP_CONFIG,
   APP_CONFIG_STATE,
   AppConfig,
-  toClientConfig,
-} from '@dspace/config/app-config.interface';
-import { BuildConfig } from '@dspace/config/build-config.interface';
+} from '@dspace/config/app.config';
 import { CorrelationIdService } from '@dspace/core/correlation-id/correlation-id.service';
 import { LocaleService } from '@dspace/core/locale/locale.service';
 import { HeadTagService } from '@dspace/core/metadata/head-tag.service';
@@ -44,7 +42,7 @@ export class ServerInitService extends InitService {
     protected store: Store<AppState>,
     protected correlationIdService: CorrelationIdService,
     protected transferState: TransferState,
-    @Inject(APP_CONFIG) protected appConfig: BuildConfig,
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
     protected translate: TranslateService,
     protected localeService: LocaleService,
     protected angulartics2DSpace: Angulartics2DSpace,
@@ -116,8 +114,7 @@ export class ServerInitService extends InitService {
 
   private saveAppConfigForCSR(): void {
     this.transferState.set<AppConfig>(
-      APP_CONFIG_STATE,
-      toClientConfig(environment as AppConfig) as AppConfig,
+      APP_CONFIG_STATE, environment.toPublic(),
     );
   }
 }

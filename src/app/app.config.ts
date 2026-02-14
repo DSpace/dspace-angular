@@ -17,7 +17,7 @@ import {
 import {
   APP_CONFIG,
   AppConfig,
-} from '@dspace/config/app-config.interface';
+} from '@dspace/config/app.config';
 import { StoreDevModules } from '@dspace/config/store/devtools';
 import { AuthInterceptor } from '@dspace/core/auth/auth.interceptor';
 import { ClientCookieService } from '@dspace/core/cookies/client-cookie.service';

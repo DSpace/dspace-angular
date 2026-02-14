@@ -2,7 +2,7 @@ import {
   Component,
   Input,
 } from '@angular/core';
-import { MediaViewerConfig } from '@dspace/config/media-viewer-config.interface';
+import { MediaViewerConfig } from '@dspace/config/media-viewer.config';
 import { Item } from '@dspace/core/shared/item.model';
 
 import { ThemedComponent } from '../../shared/theme-support/themed.component';
