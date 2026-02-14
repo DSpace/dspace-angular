@@ -123,9 +123,15 @@ export class Config {
     });
   }
 
-  // Return a plain object with only those properties marked with the
-  // 'public' metadata key.
-  protected toPublic(): any {
+  /**
+   * Return a plain object with only 'public' properties
+   *
+   * Only properties decorated with @Config.publish() will be added to
+   * the result.
+   *
+   * @returns A plain object of publicly available config properties
+   */
+  toPublic(): any {
     return {
       ...Object.keys(this).reduce((result, k) => {
         if (Reflect.getMetadata(publicMetadataKey, this, k)) {

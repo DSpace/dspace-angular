@@ -19,10 +19,7 @@ import { BuildConfig } from '@dspace/config/build.config';
 import { CorrelationIdService } from '@dspace/core/correlation-id/correlation-id.service';
 import { LocaleService } from '@dspace/core/locale/locale.service';
 import { HeadTagService } from '@dspace/core/metadata/head-tag.service';
-import {
-  isEmpty,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
+import { isEmpty } from '@dspace/shared/utils/empty.util';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { lastValueFrom } from 'rxjs';
@@ -117,14 +114,8 @@ export class ServerInitService extends InitService {
   }
 
   private saveAppConfigForCSR(): void {
-    if (isNotEmpty(environment.rest.ssrBaseUrl) && environment.rest.baseUrl !== environment.rest.ssrBaseUrl) {
-      // Avoid to transfer ssrBaseUrl in order to prevent security issues
-      const config: AppConfig = Object.assign({}, environment as AppConfig, {
-        rest: Object.assign({}, environment.rest, { ssrBaseUrl: '', hasSsrBaseUrl: true }),
-      });
-      this.transferState.set<AppConfig>(APP_CONFIG_STATE, config);
-    } else {
-      this.transferState.set<AppConfig>(APP_CONFIG_STATE, environment as AppConfig);
-    }
+    this.transferState.set<AppConfig>(
+      APP_CONFIG_STATE, environment.toPublic(),
+    );
   }
 }
