@@ -45,6 +45,7 @@ import { buildAppConfig } from './src/config/config.server';
 import {
   APP_CONFIG,
   AppConfig,
+  toClientConfig,
 } from './src/config/app-config.interface';
 import { extendEnvironmentWithAppConfig } from './src/config/config.util';
 import { logStartupMessage } from './startup-message';
@@ -265,7 +266,7 @@ function serverSideRender(req, res, next, sendToUser: boolean = true) {
         },
         {
           provide: APP_CONFIG,
-          useValue: environment,
+          useValue: toClientConfig(environment as AppConfig),
         },
       ],
     })
