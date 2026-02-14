@@ -10,7 +10,7 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { APP_CONFIG } from '@dspace/config/app.config';
 import { AuthService } from '@dspace/core/auth/auth.service';
 import { LinkService } from '@dspace/core/cache/builders/link.service';
 import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';

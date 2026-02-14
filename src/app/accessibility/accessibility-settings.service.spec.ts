@@ -2,7 +2,7 @@ import {
   fakeAsync,
   flush,
 } from '@angular/core/testing';
-import { AppConfig } from '@dspace/config/app-config.interface';
+import { AppConfig } from '@dspace/config/app.config';
 import { AuthService } from '@dspace/core/auth/auth.service';
 import { ACCESSIBILITY_COOKIE } from '@dspace/core/cookies/accessibility-cookie';
 import { CookieService } from '@dspace/core/cookies/cookie.service';

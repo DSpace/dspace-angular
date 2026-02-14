@@ -9,7 +9,7 @@ import {
 import {
   APP_CONFIG,
   AppConfig,
-} from '@dspace/config/app-config.interface';
+} from '@dspace/config/app.config';
 import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
 import { PaginatedList } from '@dspace/core/data/paginated-list.model';

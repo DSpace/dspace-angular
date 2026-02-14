@@ -1,4 +1,6 @@
 /* eslint-disable max-classes-per-file */
+import { Config } from '@dspace/config/config';
+import { ThemeConfig } from '@dspace/config/theme.config';
 import { Context } from '@dspace/core/shared/context.model';
 import { ViewMode } from '@dspace/core/shared/view-mode.model';
 
@@ -139,7 +141,7 @@ describe('ListableObject decorator function', () => {
     // as the cases where it does are already covered by the tests above
     describe('If requested theme has no match', () => {
       beforeEach(() => {
-        environment.themes = [
+        environment.themes = Config.assignArray(ThemeConfig, [
           {
             name: 'requested',        // Doesn't match any objectType
             extends: 'intermediate',
@@ -151,7 +153,7 @@ describe('ListableObject decorator function', () => {
           {
             name: 'ancestor',         // Matches typeAncestor, but not typeUnthemed
           },
-        ];
+        ]);
       });
 
       it('should return component from the first ancestor theme that matches its objectType', () => {
@@ -167,12 +169,12 @@ describe('ListableObject decorator function', () => {
 
     describe('If there is a theme extension cycle', () => {
       beforeEach(() => {
-        environment.themes = [
+        environment.themes = Config.assignArray(ThemeConfig, [
           { name: 'extension-cycle', extends: 'broken1' },
           { name: 'broken1', extends: 'broken2' },
           { name: 'broken2', extends: 'broken3' },
           { name: 'broken3', extends: 'broken1' },
-        ];
+        ]);
       });
 
       it('should throw an error', () => {
@@ -187,11 +189,11 @@ describe('ListableObject decorator function', () => {
 
   describe('priorities', () => {
     beforeEach(() => {
-      environment.themes = [
+      environment.themes = Config.assignArray(ThemeConfig, [
         {
           name: 'custom',
         },
-      ];
+      ]);
     });
 
     describe('If a component with default ViewMode contains specific context and/or theme', () => {

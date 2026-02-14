@@ -1,7 +1,8 @@
+import { Config } from './config';
+
 /**
  * The properties for each Box to be displayed in rows in the AdminNotifyMetricsComponent
  */
-
 export interface AdminNotifyMetricsBox {
   color: string;
   textColor?: string;
@@ -16,4 +17,9 @@ export interface AdminNotifyMetricsBox {
 export interface AdminNotifyMetricsRow {
   title: string;
   boxes: AdminNotifyMetricsBox[]
+}
+
+export class AdminNotifyMetricsRowConfig extends Config implements AdminNotifyMetricsRow {
+  @Config.publish() title: string;
+  @Config.publish() boxes: AdminNotifyMetricsBox[];
 }

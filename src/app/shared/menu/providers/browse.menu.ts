@@ -13,7 +13,7 @@ import {
 import {
   APP_CONFIG,
   AppConfig,
-} from '@dspace/config/app-config.interface';
+} from '@dspace/config/app.config';
 import { BrowseService } from '@dspace/core/browse/browse.service';
 import { PaginatedList } from '@dspace/core/data/paginated-list.model';
 import { RemoteData } from '@dspace/core/data/remote-data';

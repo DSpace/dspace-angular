@@ -3,7 +3,7 @@ import {
   inject,
   makeEnvironmentProviders,
 } from '@angular/core';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { APP_CONFIG } from '@dspace/config/app.config';
 import { SubmissionCustomUrl } from '@dspace/core/submission/models/submission-custom-url.model';
 
 import { Audit } from './audit/model/audit.model';

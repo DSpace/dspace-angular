@@ -14,8 +14,8 @@ import {
   APP_CONFIG,
   APP_CONFIG_STATE,
   AppConfig,
-} from '@dspace/config/app-config.interface';
-import { BuildConfig } from '@dspace/config/build-config.interface';
+} from '@dspace/config/app.config';
+import { BuildConfig } from '@dspace/config/build.config';
 import { CorrelationIdService } from '@dspace/core/correlation-id/correlation-id.service';
 import { LocaleService } from '@dspace/core/locale/locale.service';
 import { HeadTagService } from '@dspace/core/metadata/head-tag.service';

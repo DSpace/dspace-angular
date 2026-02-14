@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { AppConfig } from '@dspace/config/app-config.interface';
+import { AppConfig } from '@dspace/config/app.config';
 
 import { ServerHardRedirectService } from './server-hard-redirect.service';
 

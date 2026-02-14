@@ -18,7 +18,7 @@ import {
 import {
   APP_CONFIG,
   AppConfig,
-} from '@dspace/config/app-config.interface';
+} from '@dspace/config/app.config';
 import { CheckAuthenticationTokenAction } from '@dspace/core/auth/auth.actions';
 import { isAuthenticationBlocking } from '@dspace/core/auth/selectors';
 import { CorrelationIdService } from '@dspace/core/correlation-id/correlation-id.service';
@@ -58,7 +58,7 @@ import { Angulartics2DSpace } from './statistics/angulartics/dspace-provider';
  * Note that the service cannot (indirectly) depend on injection tokens that are only available _after_ provideAppInitializer.
  * For example, NgbModal depends on ApplicationRef and can therefore not be used during initialization.
  */
-export abstract class InitService {
+export abstract class InitService<C = AppConfig> {
   /**
    * The state transfer key to use for the NgRx store state
    * @protected
@@ -68,7 +68,7 @@ export abstract class InitService {
   protected constructor(
     protected store: Store<AppState>,
     protected correlationIdService: CorrelationIdService,
-    @Inject(APP_CONFIG) protected appConfig: AppConfig,
+    @Inject(APP_CONFIG) protected appConfig: C,
     protected translate: TranslateService,
     protected localeService: LocaleService,
     protected angulartics2DSpace: Angulartics2DSpace,

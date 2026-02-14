@@ -21,7 +21,7 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { APP_CONFIG } from '@dspace/config/app.config';
 import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';

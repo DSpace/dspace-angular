@@ -1,10 +1,9 @@
 import { request } from 'http';
 import { request as https_request } from 'https';
 
-import { AppConfig } from '@dspace/config/app-config.interface';
-import { buildAppConfig } from '@dspace/config/config.server';
+import { EnvAppConfig } from '@dspace/config/config.env';
 
-const appConfig: AppConfig = buildAppConfig();
+const appConfig = EnvAppConfig.loadEnv();
 
 /**
  * Script to test the connection with the configured REST API (in the 'rest' settings of your config.*.yaml)

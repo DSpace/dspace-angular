@@ -8,7 +8,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { APP_CONFIG } from '@dspace/config/app.config';
 import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import { LinkService } from '@dspace/core/cache/builders/link.service';
 import { Context } from '@dspace/core/shared/context.model';

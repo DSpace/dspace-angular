@@ -16,7 +16,7 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { APP_CONFIG } from '@dspace/config/app.config';
 import { FormRowModel } from '@dspace/core/config/models/config-submission-form.model';
 import { SubmissionFormsModel } from '@dspace/core/config/models/config-submission-forms.model';
 import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';

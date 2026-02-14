@@ -14,7 +14,7 @@ import {
 import {
   APP_CONFIG,
   AppConfig,
-} from '@dspace/config/app-config.interface';
+} from '@dspace/config/app.config';
 import { LinkService } from '@dspace/core/cache/builders/link.service';
 import { RequestParam } from '@dspace/core/cache/models/request-param.model';
 import { FieldChangeType } from '@dspace/core/data/object-updates/field-change-type.model';

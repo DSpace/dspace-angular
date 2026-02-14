@@ -12,7 +12,7 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { APP_CONFIG } from '@dspace/config/app.config';
 import { BrowseDefinitionDataService } from '@dspace/core/browse/browse-definition-data.service';
 import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';

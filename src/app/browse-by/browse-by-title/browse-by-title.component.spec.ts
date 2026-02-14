@@ -15,7 +15,7 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { APP_CONFIG } from '@dspace/config/app.config';
 import { BrowseService } from '@dspace/core/browse/browse.service';
 import { SortDirection } from '@dspace/core/cache/models/sort-options.model';
 import { DSpaceObjectDataService } from '@dspace/core/data/dspace-object-data.service';

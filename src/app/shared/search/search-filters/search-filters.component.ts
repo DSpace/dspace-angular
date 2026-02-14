@@ -12,7 +12,7 @@ import {
 import {
   APP_CONFIG,
   AppConfig,
-} from '@dspace/config/app-config.interface';
+} from '@dspace/config/app.config';
 import { RemoteData } from '@dspace/core/data/remote-data';
 import { currentPath } from '@dspace/core/router/utils/route.utils';
 import { AppliedFilter } from '@dspace/core/shared/search/models/applied-filter.model';

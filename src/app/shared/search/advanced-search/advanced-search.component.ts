@@ -14,7 +14,7 @@ import {
 import {
   APP_CONFIG,
   AppConfig,
-} from '@dspace/config/app-config.interface';
+} from '@dspace/config/app.config';
 import { FilterType } from '@dspace/core/shared/search/models/filter-type.model';
 import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
 import { FilterConfig } from '@dspace/core/shared/search/search-filters/search-config.model';

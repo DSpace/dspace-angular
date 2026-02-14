@@ -15,7 +15,7 @@ import {
 import {
   APP_CONFIG,
   AppConfig,
-} from '@dspace/config/app-config.interface';
+} from '@dspace/config/app.config';
 import { ObjectUpdatesService } from '@dspace/core/data/object-updates/object-updates.service';
 import { Item } from '@dspace/core/shared/item.model';
 import { MetadataValue } from '@dspace/core/shared/metadata.models';

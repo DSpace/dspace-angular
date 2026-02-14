@@ -4,7 +4,7 @@ import {
   ElementRef,
   OnInit,
 } from '@angular/core';
-import { LangConfig } from '@dspace/config/lang-config.interface';
+import { LangConfig } from '@dspace/config/lang.config';
 import { LocaleService } from '@dspace/core/locale/locale.service';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import {

@@ -11,7 +11,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { APP_CONFIG } from '@dspace/config/app.config';
 import { AuthService } from '@dspace/core/auth/auth.service';
 import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';

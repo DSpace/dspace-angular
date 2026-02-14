@@ -12,7 +12,7 @@ import {
   ActivatedRoute,
   RouterModule,
 } from '@angular/router';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { APP_CONFIG } from '@dspace/config/app.config';
 import { AuthRequestService } from '@dspace/core/auth/auth-request.service';
 import { LinkService } from '@dspace/core/cache/builders/link.service';
 import { CookieService } from '@dspace/core/cookies/cookie.service';

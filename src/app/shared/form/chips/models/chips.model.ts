@@ -1,4 +1,4 @@
-import { MetadataIconConfig } from '@dspace/config/submission-config.interface';
+import { MetadataIconConfig } from '@dspace/config/submission.config';
 import { PLACEHOLDER_PARENT_METADATA } from '@dspace/core/shared/form/ds-dynamic-form-constants';
 import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
 import { VocabularyEntry } from '@dspace/core/submission/vocabularies/models/vocabulary-entry.model';

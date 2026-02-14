@@ -12,7 +12,7 @@ import {
 import {
   APP_CONFIG,
   AppConfig,
-} from '@dspace/config/app-config.interface';
+} from '@dspace/config/app.config';
 import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
 import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';

@@ -3,7 +3,7 @@ import {
   ComponentFixture,
   TestBed,
 } from '@angular/core/testing';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { APP_CONFIG } from '@dspace/config/app.config';
 import { SubmissionAccessesConfigDataService } from '@dspace/core/config/submission-accesses-config-data.service';
 import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
 import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';

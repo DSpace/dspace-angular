@@ -5,7 +5,7 @@ import {
 import {
   APP_CONFIG,
   AppConfig,
-} from '@dspace/config/app-config.interface';
+} from '@dspace/config/app.config';
 import { IdentifiableDataService } from '@dspace/core/data/base/identifiable-data.service';
 import { RemoteData } from '@dspace/core/data/remote-data';
 import { RequestEntryState } from '@dspace/core/data/request-entry-state.model';

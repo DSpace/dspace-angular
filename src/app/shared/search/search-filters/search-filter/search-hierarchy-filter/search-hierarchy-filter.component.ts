@@ -16,7 +16,7 @@ import {
 import {
   APP_CONFIG,
   AppConfig,
-} from '@dspace/config/app-config.interface';
+} from '@dspace/config/app.config';
 import { FilterVocabularyConfig } from '@dspace/config/filter-vocabulary-config';
 import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
 import { PageInfo } from '@dspace/core/shared/page-info.model';

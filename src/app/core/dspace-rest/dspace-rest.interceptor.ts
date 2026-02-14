@@ -13,7 +13,7 @@ import {
 import {
   APP_CONFIG,
   AppConfig,
-} from '@dspace/config/app-config.interface';
+} from '@dspace/config/app.config';
 import { isEmpty } from '@dspace/shared/utils/empty.util';
 import { Observable } from 'rxjs';
 

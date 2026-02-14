@@ -1,4 +1,4 @@
-import { AppConfig } from '@dspace/config/app-config.interface';
+import { AppConfig } from '@dspace/config/app.config';
 
 import { FilteredDiscoveryQueryResponse } from '../cache/response.models';
 import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
