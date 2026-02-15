@@ -1,9 +1,9 @@
 import { Router } from '@angular/router';
 import { AppConfig } from '@dspace/config/app.config';
+import { Config } from '@dspace/config/config';
 import { DefaultAppConfig } from '@dspace/config/default-app.config';
 
 import { reloadGuard } from './reload.guard';
-import { Config } from '@dspace/config/config';
 
 describe('reloadGuard', () => {
   let guard: any;

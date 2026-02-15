@@ -7,6 +7,12 @@ const publicMetadataKey = Symbol('public');
 const envMetadataKey = Symbol('env');
 const arrayMetadataKey = Symbol('arrayType');
 
+type DSpaceEnvVar = `DSPACE_${string}`;
+
+interface DeepEnvSpec {
+  [k: string]: DeepEnvSpec | DSpaceEnvVar | [DSpaceEnvVar, (val: string) => any];
+}
+
 export class Config {
   /**
    * Decorator that marks a config property as public
@@ -31,8 +37,26 @@ export class Config {
    *   value of the environment variable and returns the appropriate
    *   type to use for the config property.
    */
-  static env(name: `DSPACE_${string}`, loader?: (val: string) => any) {
+  static env(name: DSpaceEnvVar, loader?: (val: string) => any) {
     return Reflect.metadata(envMetadataKey, { name, loader });
+  }
+
+
+  /**
+   * Decorator for changing a deeply nested config property via an environment variable
+   *
+   * The method 'Config#applyEnv' will load object properties with
+   * this decoration from the environment object passed in.
+   *
+   * @param spec A plain object whose structure at least partially
+   *   matches that of the property being decorated, with values being
+   *   either a string environment variable name for that nested
+   *   property, or an array of a string environment variable name and
+   *   loader function which can transform the environment variable
+   *   value into the desired type.
+   */
+  static deepEnv(spec: DeepEnvSpec) {
+    return Reflect.metadata(envMetadataKey, { deep: true, spec });
   }
 
   /**
@@ -152,6 +176,27 @@ export class Config {
   // be a map of environment variable names to their values, such as
   // in `process.env`.
   protected applyEnvironment(env: { [k: string]: string }) {
+    const deepEnv = (
+      target: any, spec: any, envObj: { [k: string]: string },
+    ) => {
+      Object.keys(spec).forEach(k => {
+        if (typeof spec[k] === 'string') {
+          const val = envObj[spec[k]];
+          if (isNotEmpty(val)) {
+            target[k] = val;
+          }
+        } else if (Array.isArray(spec[k])
+          && (typeof spec[k][0] === 'string')) {
+          const val = envObj[spec[k][0]];
+          if (isNotEmpty(val)) {
+            target[k] = spec[k][1](val);
+          }
+        } else {
+          deepEnv(target[k], spec[k], envObj);
+        }
+      });
+    };
+
     Object.keys(this).forEach(k => {
       if (this[k] instanceof Config) {
         this[k].applyEnvironment(env);
@@ -160,9 +205,13 @@ export class Config {
       } else {
         const envMeta = Reflect.getMetadata(envMetadataKey, this, k);
         if (envMeta) {
-          const val = env[envMeta.name];
-          if (isNotEmpty(val)) {
-            this[k] = envMeta.loader ? envMeta.loader(val) : val;
+          if (envMeta.deep) {
+            deepEnv(this[k], envMeta.spec, env);
+          } else {
+            const val = env[envMeta.name];
+            if (isNotEmpty(val)) {
+              this[k] = envMeta.loader ? envMeta.loader(val) : val;
+            }
           }
         }
       }
