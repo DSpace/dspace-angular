@@ -153,11 +153,17 @@ export class Config {
   // in `process.env`.
   protected applyEnvironment(env: { [k: string]: string }) {
     Object.keys(this).forEach(k => {
-      const envMeta = Reflect.getMetadata(envMetadataKey, this, k);
-      if (envMeta) {
-        const val = env[envMeta.name];
-        if (isNotEmpty(val)) {
-          this[k] = envMeta.loader ? envMeta.loader(val) : val;
+      if (this[k] instanceof Config) {
+        this[k].applyEnvironment(env);
+      } else if (Reflect.getMetadata(arrayMetadataKey, this, k)) {
+        this[k].forEach((c: Config) => c.applyEnvironment(env));
+      } else {
+        const envMeta = Reflect.getMetadata(envMetadataKey, this, k);
+        if (envMeta) {
+          const val = env[envMeta.name];
+          if (isNotEmpty(val)) {
+            this[k] = envMeta.loader ? envMeta.loader(val) : val;
+          }
         }
       }
     });

@@ -3,6 +3,7 @@ import { AppConfig } from '@dspace/config/app.config';
 import { DefaultAppConfig } from '@dspace/config/default-app.config';
 
 import { reloadGuard } from './reload.guard';
+import { Config } from '@dspace/config/config';
 
 describe('reloadGuard', () => {
   let guard: any;
@@ -11,7 +12,7 @@ describe('reloadGuard', () => {
 
   beforeEach(() => {
     router = jasmine.createSpyObj('router', ['parseUrl', 'createUrlTree']);
-    appConfig = new DefaultAppConfig();
+    appConfig = Config.assign(DefaultAppConfig, {});
     guard = reloadGuard;
   });
 
