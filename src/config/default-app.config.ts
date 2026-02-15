@@ -1,40 +1,41 @@
 import { AccessibilitySettingsConfig } from './accessibility-settings.config';
 import { ActuatorsConfig } from './actuators.config';
-import { AdminNotifyMetricsRow } from './admin-notify-metrics.config';
-import { AppConfig } from './app-config.interface';
-import { AuthConfig } from './auth-config.interfaces';
-import { BrowseByConfig } from './browse-by-config.interface';
-import { BundleConfig } from './bundle-config.interface';
-import { CacheConfig } from './cache-config.interface';
-import { CollectionPageConfig } from './collection-page-config.interface';
-import { CommunityListConfig } from './community-list-config.interface';
-import { CommunityPageConfig } from './community-page-config.interface';
+import { AdminNotifyMetricsRowConfig } from './admin-notify-metrics.config';
+import { AppConfig } from './app.config';
+import { AuthConfig } from './auth.config';
+import { BrowseByConfig } from './browse-by.config';
+import { BundleConfig } from './bundle.config';
+import { CacheConfig } from './cache.config';
+import { CollectionPageConfig } from './collection-page.config';
+import { CommunityListConfig } from './community-list.config';
+import { CommunityPageConfig } from './community-page.config';
+import { Config } from './config';
 import { DiscoverySortConfig } from './discovery-sort.config';
 import { FilterVocabularyConfig } from './filter-vocabulary-config';
 import { FormConfig } from './form-config.interfaces';
-import { GeospatialMapConfig } from './geospatial-map-config';
-import { HomeConfig } from './homepage-config.interface';
-import { InfoConfig } from './info-config.interface';
-import { ItemConfig } from './item-config.interface';
-import { LangConfig } from './lang-config.interface';
+import { GeospatialMapConfig } from './geospatial-map.config';
+import { HomeConfig } from './homepage.config';
+import { InfoConfig } from './info.config';
+import { ItemConfig } from './item.config';
+import { LangConfig } from './lang.config';
 import { LiveRegionConfig } from './live-region.config';
-import { MarkdownConfig } from './markdown-config.interface';
-import { MatomoConfig } from './matomo-config.interface';
-import { MediaViewerConfig } from './media-viewer-config.interface';
+import { MarkdownConfig } from './markdown.config';
+import { MatomoConfig } from './matomo.config';
+import { MediaViewerConfig } from './media-viewer.config';
 import {
   INotificationBoardOptions,
   NotificationAnimationsType,
-} from './notifications-config.interfaces';
+} from './notifications.config';
 import { QualityAssuranceConfig } from './quality-assurance.config';
 import { RestRequestMethod } from './rest-request-method';
-import { SearchConfig } from './search-page-config.interface';
-import { ServerConfig } from './server-config.interface';
-import { SubmissionConfig } from './submission-config.interface';
-import { SuggestionConfig } from './suggestion-config.interfaces';
+import { SearchConfig } from './search-page.config';
+import { ServerConfig } from './server.config';
+import { SubmissionConfig } from './submission.config';
+import { SuggestionConfig } from './suggestion.config';
 import { ThemeConfig } from './theme.config';
-import { UIServerConfig } from './ui-server-config.interface';
+import { UIServerConfig } from './ui-server.config';
 
-export class DefaultAppConfig implements AppConfig {
+export class DefaultAppConfig extends AppConfig {
   production = false;
 
   // NOTE: will log all redux actions and transfers in console
@@ -42,7 +43,7 @@ export class DefaultAppConfig implements AppConfig {
 
   // Angular express server settings
   // NOTE: these must be 'synced' with the 'dspace.ui.url' setting in your backend's local.cfg.
-  ui: UIServerConfig = {
+  ui = Config.assign(UIServerConfig, {
     ssl: false,
     host: 'localhost',
     port: 4000,
@@ -58,24 +59,24 @@ export class DefaultAppConfig implements AppConfig {
 
     // Trust X-FORWARDED-* headers from proxies
     useProxies: true,
-  };
+  });
 
   // The REST API server settings
   // NOTE: these must be 'synced' with the 'dspace.server.url' setting in your backend's local.cfg.
-  rest: ServerConfig = {
+  rest = Config.assign(ServerConfig, {
     ssl: false,
     host: 'localhost',
     port: 8080,
     // NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
     nameSpace: '/',
-  };
+  });
 
-  actuators: ActuatorsConfig = {
+  actuators = Config.assign(ActuatorsConfig, {
     endpointPath: '/actuator/health',
-  };
+  });
 
   // Caching settings
-  cache: CacheConfig = {
+  cache = Config.assign(CacheConfig, {
     // NOTE: how long should objects be cached for by default
     msToLive: {
       default: 15 * 60 * 1000, // 15 minutes
@@ -111,10 +112,10 @@ export class DefaultAppConfig implements AppConfig {
         allowStale: true,
       },
     },
-  };
+  });
 
   // Authentication settings
-  auth: AuthConfig = {
+  auth = Config.assign(AuthConfig, {
     // Authentication UI settings
     ui: {
       // the amount of time before the idle warning is shown
@@ -128,20 +129,20 @@ export class DefaultAppConfig implements AppConfig {
       // This is independent from the idle warning.
       timeLeftBeforeTokenRefresh: 2 * 60 * 1000, // 2 minutes
     },
-  };
+  });
 
   // Form settings
-  form: FormConfig = {
+  form = Config.assign(FormConfig, {
     spellCheck: true,
     // NOTE: Map server-side validators to comparative Angular form validators
     validatorMap: {
       required: 'required',
       regex: 'pattern',
     },
-  };
+  });
 
   // Notifications
-  notifications: INotificationBoardOptions = {
+  notifications = Config.assign(INotificationBoardOptions, {
     rtl: false,
     position: ['top', 'right'],
     maxStack: 8,
@@ -150,10 +151,10 @@ export class DefaultAppConfig implements AppConfig {
     clickToClose: true,
     // NOTE: 'fade' | 'fromTop' | 'fromRight' | 'fromBottom' | 'fromLeft' | 'rotate' | 'scale'
     animate: NotificationAnimationsType.Scale,
-  };
+  });
 
   // Submission settings
-  submission: SubmissionConfig = {
+  submission = Config.assign(SubmissionConfig, {
     autosave: {
       // NOTE: which metadata trigger an autosave
       metadata: [],
@@ -254,14 +255,14 @@ export class DefaultAppConfig implements AppConfig {
         ],
       },
     },
-  };
+  });
 
   // Fallback language in which the UI will be rendered if the user's browser language is not an active language
   fallbackLanguage = 'en';
 
   // Languages. DSpace Angular holds a message catalog for each of the following languages.
   // When set to active, users will be able to switch to the use of this language in the user interface.
-  languages: LangConfig[] = [
+  languages = Config.assignArray(LangConfig, [
     { code: 'en', label: 'English', active: true },
     { code: 'ar', label: 'العربية', active: true },
     { code: 'bn', label: 'বাংলা', active: true },
@@ -296,10 +297,10 @@ export class DefaultAppConfig implements AppConfig {
     { code: 'tr', label: 'Türkçe', active: true },
     { code: 'uk', label: 'Yкраї́нська', active: true },
     { code: 'vi', label: 'Tiếng Việt', active: true },
-  ];
+  ]);
 
   // Browse-By Pages
-  browseBy: BrowseByConfig = {
+  browseBy = Config.assign(BrowseByConfig, {
     // Amount of years to display using jumps of one year (current year - oneYearLimit)
     oneYearLimit: 10,
     // Limit for years to display using jumps of five years (current year - fiveYearLimit)
@@ -312,13 +313,13 @@ export class DefaultAppConfig implements AppConfig {
     // Rounded to the nearest size in the list of selectable sizes on the
     // settings menu.  See pageSizeOptions in 'pagination-component-options.model.ts'.
     pageSize: 20,
-  };
+  });
 
-  communityList: CommunityListConfig = {
+  communityList = Config.assign(CommunityListConfig, {
     pageSize: 20,
-  };
+  });
 
-  homePage: HomeConfig = {
+  homePage = Config.assign(HomeConfig, {
     recentSubmissions: {
       //The number of item showing in recent submission components
       pageSize: 5,
@@ -329,10 +330,10 @@ export class DefaultAppConfig implements AppConfig {
       pageSize: 5,
     },
     showDiscoverFilters: false,
-  };
+  });
 
   // Item Config
-  item: ItemConfig = {
+  item = Config.assign(ItemConfig, {
     edit: {
       undoTimeout: 10000, // 10 seconds
     },
@@ -346,18 +347,18 @@ export class DefaultAppConfig implements AppConfig {
       // Show the bitstream access status label
       showAccessStatuses: false,
     },
-  };
+  });
 
   // Community Page Config
-  community: CommunityPageConfig = {
+  community = Config.assign(CommunityPageConfig, {
     defaultBrowseTab: 'search',
     searchSection: {
       showSidebar: true,
     },
-  };
+  });
 
   // Collection Page Config
-  collection: CollectionPageConfig = {
+  collection = Config.assign(CollectionPageConfig, {
     defaultBrowseTab: 'search',
     searchSection: {
       showSidebar: true,
@@ -365,9 +366,9 @@ export class DefaultAppConfig implements AppConfig {
     edit: {
       undoTimeout: 10000, // 10 seconds
     },
-  };
+  });
 
-  suggestion: SuggestionConfig[] = [
+  suggestion = Config.assignArray(SuggestionConfig, [
     // {
     //   // Use this configuration to map a suggestion import to a specific collection based on the suggestion type.
     //   source: 'suggestionSource',
@@ -376,10 +377,10 @@ export class DefaultAppConfig implements AppConfig {
     // This is used as a default fallback in case there aren't collections where to import the suggestion
     // If not mapped the user will be allowed to import the suggestions only in the provided options, shown clicking the button "Approve and import"
     // If not mapped and no options available for import the user won't be able to import the suggestions.
-  ];
+  ]);
 
   // Theme Config
-  themes: ThemeConfig[] = [
+  themes = Config.assignArray(ThemeConfig, [
     // Add additional themes here. In the case where multiple themes match a route, the first one
     // in this list will get priority. It is advisable to always have a theme that matches
     // every route as the last one
@@ -467,19 +468,22 @@ export class DefaultAppConfig implements AppConfig {
         },
       ],
     },
-  ];
+  ]);
+
   // The default bundles that should always be displayed when you edit or add a bundle even when no bundle has been
   // added to the item yet.
-  bundle: BundleConfig = {
+  bundle = Config.assign(BundleConfig, {
     standardBundles: ['ORIGINAL', 'THUMBNAIL', 'LICENSE'],
-  };
+  });
+
   // Whether to enable media viewer for image and/or video Bitstreams (i.e. Bitstreams whose MIME type starts with "image" or "video").
   // For images, this enables a gallery viewer where you can zoom or page through images.
   // For videos, this enables embedded video streaming
-  mediaViewer: MediaViewerConfig = {
+  mediaViewer = Config.assign(MediaViewerConfig, {
     image: false,
     video: false,
-  };
+  });
+
   // Whether the end-user-agreement and privacy policy feature should be enabled or not.
   // Disabling the end user agreement feature will result in:
   // - Users no longer being forced to accept the end-user-agreement before they can access the repository
@@ -491,54 +495,53 @@ export class DefaultAppConfig implements AppConfig {
   // Disabling the COAR notify support page feature will result in:
   // - A 404 page if you manually try to navigate to the COAR notify support page
   // - All mentions of the COAR notify support page being removed from the UI (e.g. in the footer)
-  info: InfoConfig = {
+  info = Config.assign(InfoConfig, {
     enableEndUserAgreement: true,
     enablePrivacyStatement: true,
     enableCOARNotifySupport: true,
     enableCookieConsentPopup: true,
-  };
+  });
 
   // Whether to enable Markdown (https://commonmark.org/) and MathJax (https://www.mathjax.org/)
   // display in supported metadata fields. By default, only dc.description.abstract is supported.
-  markdown: MarkdownConfig = {
+  markdown = Config.assign(MarkdownConfig, {
     enabled: false,
     mathjax: false,
-  };
+  });
 
   // Which vocabularies should be used for which search filters
   // and whether to show the filter in the search sidebar
   // Take a look at the filter-vocabulary-config.ts file for documentation on how the options are obtained
-  vocabularies: FilterVocabularyConfig[] = [
+  vocabularies = Config.assignArray(FilterVocabularyConfig, [
     {
       filter: 'subject',
       vocabulary: 'srsc',
       enabled: false,
     },
-  ];
+  ]);
 
   // Configuration that determines the metadata sorting of community and collection edition and creation when there are not a search query.
-  comcolSelectionSort: DiscoverySortConfig = {
+  comcolSelectionSort = Config.assign(DiscoverySortConfig, {
     sortField:'dc.title',
     sortDirection:'ASC',
-  };
+  });
 
-  qualityAssuranceConfig: QualityAssuranceConfig = {
+  qualityAssuranceConfig = Config.assign(QualityAssuranceConfig, {
     sourceUrlMapForProjectSearch: {
       openaire: 'https://explore.openaire.eu/search/project?projectId=',
     },
     pageSize: 5,
-  };
+  });
 
-
-  search: SearchConfig = {
+  search = Config.assign(SearchConfig, {
     advancedFilters: {
       enabled: false,
       filter: ['title', 'author', 'subject', 'entityType'],
     },
     filterPlaceholdersCount: 5,
-  };
+  });
 
-  notifyMetrics: AdminNotifyMetricsRow[] = [
+  notifyMetrics = Config.assignArray(AdminNotifyMetricsRowConfig, [
     {
       title: 'admin-notify-dashboard.received-ldn',
       boxes: [
@@ -611,18 +614,18 @@ export class DefaultAppConfig implements AppConfig {
         },
       ],
     },
-  ];
+  ]);
 
   // Live Region configuration, used by the LiveRegionService
-  liveRegion: LiveRegionConfig = {
+  liveRegion = Config.assign(LiveRegionConfig, {
     messageTimeOutDurationMs: 30000,
     isVisible: false,
-  };
+  });
 
-  matomo: MatomoConfig = {};
+  matomo = Config.assign(MatomoConfig, {});
 
   // Leaflet tile providers and other configurable attributes
-  geospatialMapViewer: GeospatialMapConfig = {
+  geospatialMapViewer = Config.assign(GeospatialMapConfig, {
     spatialMetadataFields: [
       'dcterms.spatial',
     ],
@@ -640,10 +643,10 @@ export class DefaultAppConfig implements AppConfig {
       lat: 41.015137,
       lng: 28.979530,
     },
-  };
+  });
 
   // Accessibility settings configuration, used by the AccessibilitySettingsService
-  accessibility: AccessibilitySettingsConfig = {
+  accessibility = Config.assign(AccessibilitySettingsConfig, {
     cookieExpirationDuration: 7,
-  };
+  });
 }

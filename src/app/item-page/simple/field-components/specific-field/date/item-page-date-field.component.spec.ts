@@ -8,7 +8,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { APP_CONFIG } from '@dspace/config/app.config';
 import { BrowseService } from '@dspace/core/browse/browse.service';
 import { BrowseDefinitionDataService } from '@dspace/core/browse/browse-definition-data.service';
 import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';

@@ -12,7 +12,7 @@ import {
   Router,
   RouterOutlet,
 } from '@angular/router';
-import { INotificationBoardOptions } from '@dspace/config/notifications-config.interfaces';
+import { INotificationBoardOptions } from '@dspace/config/notifications.config';
 import { ThemeConfig } from '@dspace/config/theme.config';
 import { getPageInternalServerErrorRoute } from '@dspace/core/router/core-routing-paths';
 import {

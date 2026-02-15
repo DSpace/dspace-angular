@@ -1,6 +1,6 @@
 /* eslint-disable no-empty, @typescript-eslint/no-empty-function */
 import { Params } from '@angular/router';
-import { AppConfig } from '@dspace/config/app-config.interface';
+import { AppConfig } from '@dspace/config/app.config';
 import {
   SortDirection,
   SortOptions,

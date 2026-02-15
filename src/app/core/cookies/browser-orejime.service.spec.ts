@@ -2,7 +2,9 @@ import { TestBed } from '@angular/core/testing';
 import {
   APP_CONFIG,
   AppConfig,
-} from '@dspace/config/app-config.interface';
+} from '@dspace/config/app.config';
+import { Config } from '@dspace/config/config';
+import { InfoConfig } from '@dspace/config/info.config';
 import { TranslateService } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
 import clone from 'lodash/clone';
@@ -82,13 +84,13 @@ describe('BrowserOrejimeService', () => {
       },
     });
 
-    const appConfig: Partial<AppConfig> = {
-      info: {
+    const appConfig = Config.assign(AppConfig, {
+      info: Config.assign(InfoConfig, {
         enablePrivacyStatement: true,
         enableCookieConsentPopup: true,
-      },
+      }),
       fallbackLanguage: 'en',
-    };
+    });
 
     TestBed.configureTestingModule({
       providers: [

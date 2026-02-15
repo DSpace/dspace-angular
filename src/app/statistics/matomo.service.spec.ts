@@ -4,6 +4,8 @@ import {
   TestBed,
   tick,
 } from '@angular/core/testing';
+import { Config } from '@dspace/config/config';
+import { MatomoConfig } from '@dspace/config/matomo.config';
 import { OrejimeService } from '@dspace/core/cookies/orejime.service';
 import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
 import {
@@ -85,7 +87,7 @@ describe('MatomoService', () => {
 
   it('should initialize tracker with values from angular configuration', () => {
     environment.production = true;
-    environment.matomo = { trackerUrl: 'http://localhost:80801' };
+    environment.matomo = Config.assign(MatomoConfig, { trackerUrl: 'http://localhost:80801' });
     configService.findByPropertyName.withArgs(MATOMO_TRACKER_URL).and.returnValue(
       createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(),{ values: ['http://matomo'] })),
     );
@@ -107,7 +109,7 @@ describe('MatomoService', () => {
 
   it('should initialize tracker with REST configuration correct parameters in production', fakeAsync(() => {
     environment.production = true;
-    environment.matomo = { trackerUrl: '' };
+    environment.matomo = Config.assign(MatomoConfig, { trackerUrl: '' });
     configService.findByPropertyName.withArgs(MATOMO_TRACKER_URL).and.returnValue(
       createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(),{ values: ['http://example.com'] })),
     );
@@ -139,7 +141,7 @@ describe('MatomoService', () => {
 
   it('should not initialize tracker if matomo is disabled', () => {
     environment.production = true;
-    environment.matomo = { trackerUrl: '' };
+    environment.matomo = Config.assign(MatomoConfig, { trackerUrl: '' });
     configService.findByPropertyName.withArgs(MATOMO_TRACKER_URL).and.returnValue(
       createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(),{ values: ['http://example.com'] })),
     );

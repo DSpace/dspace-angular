@@ -3,7 +3,7 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { APP_CONFIG } from '@dspace/config/app.config';
 import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
 
 import { environment } from '../../../../../environments/environment.test';

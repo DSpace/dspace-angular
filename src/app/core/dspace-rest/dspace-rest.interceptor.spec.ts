@@ -11,7 +11,9 @@ import { TestBed } from '@angular/core/testing';
 import {
   APP_CONFIG,
   AppConfig,
-} from '@dspace/config/app-config.interface';
+} from '@dspace/config/app.config';
+import { Config } from '@dspace/config/config';
+import { ServerConfig } from '@dspace/config/server.config';
 
 import { DspaceRestInterceptor } from './dspace-rest.interceptor';
 import { DspaceRestService } from './dspace-rest.service';
@@ -19,25 +21,25 @@ import { DspaceRestService } from './dspace-rest.service';
 describe('DspaceRestInterceptor', () => {
   let httpMock: HttpTestingController;
   let httpClient: HttpClient;
-  const appConfig: Partial<AppConfig> = {
-    rest: {
+  const appConfig = Config.assign(AppConfig, {
+    rest: Config.assign(ServerConfig, {
       ssl: false,
       host: 'localhost',
       port: 8080,
       nameSpace: '/server',
       baseUrl: 'http://api.example.com/server',
-    },
-  };
-  const appConfigWithSSR: Partial<AppConfig> = {
-    rest: {
+    }),
+  });
+  const appConfigWithSSR = Config.assign(AppConfig, {
+    rest: Config.assign(ServerConfig, {
       ssl: false,
       host: 'localhost',
       port: 8080,
       nameSpace: '/server',
       baseUrl: 'http://api.example.com/server',
       ssrBaseUrl: 'http://ssr.example.com/server',
-    },
-  };
+    }),
+  });
 
   describe('When SSR base URL is not set ', () => {
     describe('and it\'s in the browser', () => {

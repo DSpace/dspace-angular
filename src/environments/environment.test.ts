@@ -1,13 +1,46 @@
 // This configuration is only used for unit tests, end-to-end tests use environment.production.ts
-import { NotificationAnimationsType } from '@dspace/config/notifications-config.interfaces';
+import { AccessibilitySettingsConfig } from '@dspace/config/accessibility-settings.config';
+import { ActuatorsConfig } from '@dspace/config/actuators.config';
+import { AdminNotifyMetricsRowConfig } from '@dspace/config/admin-notify-metrics.config';
+import { AuthConfig } from '@dspace/config/auth.config';
+import { BrowseByConfig } from '@dspace/config/browse-by.config';
+import { BundleConfig } from '@dspace/config/bundle.config';
+import { CacheConfig } from '@dspace/config/cache.config';
+import { CollectionPageConfig } from '@dspace/config/collection-page.config';
+import { CommunityListConfig } from '@dspace/config/community-list.config';
+import { CommunityPageConfig } from '@dspace/config/community-page.config';
+import { Config } from '@dspace/config/config';
+import { DiscoverySortConfig } from '@dspace/config/discovery-sort.config';
+import { FilterVocabularyConfig } from '@dspace/config/filter-vocabulary-config';
+import { FormConfig } from '@dspace/config/form-config.interfaces';
+import { GeospatialMapConfig } from '@dspace/config/geospatial-map.config';
+import { HomeConfig } from '@dspace/config/homepage.config';
+import { InfoConfig } from '@dspace/config/info.config';
+import { ItemConfig } from '@dspace/config/item.config';
+import { LangConfig } from '@dspace/config/lang.config';
+import { LiveRegionConfig } from '@dspace/config/live-region.config';
+import { MarkdownConfig } from '@dspace/config/markdown.config';
+import { MediaViewerConfig } from '@dspace/config/media-viewer.config';
+import {
+  INotificationBoardOptions,
+  NotificationAnimationsType,
+} from '@dspace/config/notifications.config';
+import { QualityAssuranceConfig } from '@dspace/config/quality-assurance.config';
 import { RestRequestMethod } from '@dspace/config/rest-request-method';
-import { BuildConfig } from 'src/config/build-config.interface';
+import { SearchConfig } from '@dspace/config/search-page.config';
+import { ServerConfig } from '@dspace/config/server.config';
+import { SSRConfig } from '@dspace/config/ssr.config';
+import { SubmissionConfig } from '@dspace/config/submission.config';
+import { SuggestionConfig } from '@dspace/config/suggestion.config';
+import { ThemeConfig } from '@dspace/config/theme.config';
+import { UIServerConfig } from '@dspace/config/ui-server.config';
+import { BuildConfig } from 'src/config/build.config';
 
-export const environment: BuildConfig = {
+export const environment = Config.assign(BuildConfig, {
   production: false,
 
   // Angular SSR (Server Side Rendering) settings
-  ssr: {
+  ssr: Config.assign(SSRConfig, {
     enabled: true,
     enablePerformanceProfiler: false,
     inlineCriticalCss: false,
@@ -34,10 +67,10 @@ export const environment: BuildConfig = {
     ],
     enableSearchComponent: false,
     enableBrowseComponent: false,
-  },
+  }),
 
   // Angular express server settings.
-  ui: {
+  ui: Config.assign(UIServerConfig, {
     ssl: false,
     host: 'dspace.com',
     port: 80,
@@ -51,24 +84,24 @@ export const environment: BuildConfig = {
       ipv6Subnet: 56,
     },
     useProxies: true,
-  },
+  }),
 
   // The REST API server settings.
-  rest: {
+  rest: Config.assign(ServerConfig, {
     ssl: true,
     host: 'rest.com',
     port: 443,
     // NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
     nameSpace: '/api',
     baseUrl: 'https://rest.com/server',
-  },
+  }),
 
-  actuators: {
+  actuators: Config.assign(ActuatorsConfig, {
     endpointPath: '/actuator/health',
-  },
+  }),
 
   // Caching settings
-  cache: {
+  cache: Config.assign(CacheConfig, {
     // NOTE: how long should objects be cached for by default
     msToLive: {
       default: 15 * 60 * 1000, // 15 minutes
@@ -95,10 +128,10 @@ export const environment: BuildConfig = {
         allowStale: true,
       },
     },
-  },
+  }),
 
   // Authentication settings
-  auth: {
+  auth: Config.assign(AuthConfig, {
     // Authentication UI settings
     ui: {
       // the amount of time before the idle warning is shown
@@ -113,20 +146,20 @@ export const environment: BuildConfig = {
       // This is independent from the idle warning.
       timeLeftBeforeTokenRefresh: 20000, // 20 sec
     },
-  },
+  }),
 
   // Form settings
-  form: {
+  form: Config.assign(FormConfig, {
     spellCheck: true,
     // NOTE: Map server-side validators to comparative Angular form validators
     validatorMap: {
       required: 'required',
       regex: 'pattern',
     },
-  },
+  }),
 
   // Notifications
-  notifications: {
+  notifications: Config.assign(INotificationBoardOptions, {
     rtl: false,
     position: ['top', 'right'],
     maxStack: 8,
@@ -135,10 +168,10 @@ export const environment: BuildConfig = {
     clickToClose: true,
     // NOTE: 'fade' | 'fromTop' | 'fromRight' | 'fromBottom' | 'fromLeft' | 'rotate' | 'scale'
     animate: NotificationAnimationsType.Scale,
-  },
+  }),
 
   // Submission settings
-  submission: {
+  submission: Config.assign(SubmissionConfig, {
     autosave: {
       // NOTE: which metadata trigger an autosave
       metadata: ['dc.title', 'dc.identifier.doi', 'dc.identifier.pmid', 'dc.identifier.arxiv'],
@@ -195,7 +228,7 @@ export const environment: BuildConfig = {
         ],
       },
     },
-  },
+  }),
 
   // NOTE: will log all redux actions and transfers in console
   debug: false,
@@ -205,50 +238,61 @@ export const environment: BuildConfig = {
 
   // Languages. DSpace Angular holds a message catalog for each of the following languages.
   // When set to active, users will be able to switch to the use of this language in the user interface.
-  languages: [{
-    code: 'en',
-    label: 'English',
-    active: true,
-  }, {
-    code: 'de',
-    label: 'Deutsch',
-    active: true,
-  }, {
-    code: 'cs',
-    label: 'Čeština',
-    active: true,
-  }, {
-    code: 'nl',
-    label: 'Nederlands',
-    active: true,
-  }, {
-    code: 'pt',
-    label: 'Português',
-    active: true,
-  }, {
-    code: 'fr',
-    label: 'Français',
-    active: true,
-  }, {
-    code: 'lv',
-    label: 'Latviešu',
-    active: true,
-  }, {
-    code: 'bn',
-    label: 'বাংলা',
-    active: true,
-  }, {
-    code: 'el',
-    label: 'Ελληνικά',
-    active: true,
-  }, {
-    code: 'disabled',
-    label: 'Disabled',
-    active: false,
-  }],
+  languages: Config.assignArray(LangConfig, [
+    {
+      code: 'en',
+      label: 'English',
+      active: true,
+    },
+    {
+      code: 'de',
+      label: 'Deutsch',
+      active: true,
+    },
+    {
+      code: 'cs',
+      label: 'Čeština',
+      active: true,
+    },
+    {
+      code: 'nl',
+      label: 'Nederlands',
+      active: true,
+    },
+    {
+      code: 'pt',
+      label: 'Português',
+      active: true,
+    },
+    {
+      code: 'fr',
+      label: 'Français',
+      active: true,
+    },
+    {
+      code: 'lv',
+      label: 'Latviešu',
+      active: true,
+    },
+    {
+      code: 'bn',
+      label: 'বাংলা',
+      active: true,
+    },
+    {
+      code: 'el',
+      label: 'Ελληνικά',
+      active: true,
+    },
+    {
+      code: 'disabled',
+      label: 'Disabled',
+      active: false,
+    },
+  ]),
 
   // Browse-By Pages
-  browseBy: {
+  browseBy: Config.assign(BrowseByConfig, {
     // Amount of years to display using jumps of one year (current year - oneYearLimit)
     oneYearLimit: 10,
     // Limit for years to display using jumps of five years (current year - fiveYearLimit)
@@ -261,11 +305,13 @@ export const environment: BuildConfig = {
     // Rounded to the nearest size in the list of selectable sizes on the
     // settings menu.  See pageSizeOptions in 'pagination-component-options.model.ts'.
     pageSize: 20,
-  },
-  communityList: {
+  }),
+
+  communityList: Config.assign(CommunityListConfig, {
     pageSize: 20,
-  },
-  homePage: {
+  }),
+
+  homePage: Config.assign(HomeConfig, {
     recentSubmissions: {
       pageSize: 5,
       //sort record of recent submission
@@ -275,8 +321,9 @@ export const environment: BuildConfig = {
       pageSize: 5,
     },
     showDiscoverFilters: false,
-  },
-  item: {
+  }),
+
+  item: Config.assign(ItemConfig, {
     edit: {
       undoTimeout: 10000, // 10 seconds
     },
@@ -290,14 +337,14 @@ export const environment: BuildConfig = {
       // Show the bitstream access status label
       showAccessStatuses: false,
     },
-  },
-  community: {
+  }),
+  community: Config.assign(CommunityPageConfig, {
     defaultBrowseTab: 'search',
     searchSection: {
       showSidebar: true,
     },
-  },
-  collection: {
+  }),
+  collection: Config.assign(CollectionPageConfig, {
     defaultBrowseTab: 'search',
     searchSection: {
       showSidebar: true,
@@ -305,8 +352,8 @@ export const environment: BuildConfig = {
     edit: {
       undoTimeout: 10000, // 10 seconds
     },
-  },
-  themes: [
+  }),
+  themes: Config.assignArray(ThemeConfig, [
     {
       name: 'full-item-page-theme',
       regex: 'items/aa6c6c83-3a83-4953-95d1-2bc2e67854d2/full',
@@ -330,52 +377,52 @@ export const environment: BuildConfig = {
     {
       name: 'base',
     },
-  ],
-  bundle: {
+  ]),
+  bundle: Config.assign(BundleConfig, {
     standardBundles: ['ORIGINAL', 'THUMBNAIL', 'LICENSE'],
-  },
-  mediaViewer: {
+  }),
+  mediaViewer: Config.assign(MediaViewerConfig, {
     image: true,
     video: true,
-  },
-  info: {
+  }),
+  info: Config.assign(InfoConfig, {
     enableEndUserAgreement: true,
     enablePrivacyStatement: true,
     enableCOARNotifySupport: true,
-  },
-  markdown: {
+  }),
+  markdown: Config.assign(MarkdownConfig, {
     enabled: false,
     mathjax: false,
-  },
-  comcolSelectionSort: {
+  }),
+  comcolSelectionSort: Config.assign(DiscoverySortConfig, {
     sortField:'dc.title',
     sortDirection:'ASC',
-  },
-  qualityAssuranceConfig: {
+  }),
+  qualityAssuranceConfig: Config.assign(QualityAssuranceConfig, {
     sourceUrlMapForProjectSearch: {
       openaire: 'https://explore.openaire.eu/search/project?projectId=',
     },
     pageSize: 5,
-  },
+  }),
 
-  vocabularies: [
+  vocabularies: Config.assignArray(FilterVocabularyConfig, [
     {
       filter: 'subject',
       vocabulary: 'srsc',
       enabled: true,
     },
-  ],
+  ]),
 
-  suggestion: [],
+  suggestion: Config.assignArray(SuggestionConfig, []),
 
-  search: {
+  search: Config.assign(SearchConfig, {
     advancedFilters: {
       enabled: false,
       filter: ['title', 'author', 'subject', 'entityType'],
     },
-  },
+  }),
 
-  notifyMetrics: [
+  notifyMetrics: Config.assignArray(AdminNotifyMetricsRowConfig, [
     {
       title: 'admin-notify-dashboard.received-ldn',
       boxes: [
@@ -448,15 +495,15 @@ export const environment: BuildConfig = {
         },
       ],
     },
-  ],
+  ]),
 
-  liveRegion: {
+  liveRegion: Config.assign(LiveRegionConfig, {
     messageTimeOutDurationMs: 30000,
     isVisible: false,
-  },
+  }),
 
   // Leaflet tile providers and other configurable attributes
-  geospatialMapViewer: {
+  geospatialMapViewer: Config.assign(GeospatialMapConfig, {
     spatialMetadataFields: [
       'dcterms.spatial',
     ],
@@ -472,9 +519,9 @@ export const environment: BuildConfig = {
       lat: 41.015137,
       lng: 28.979530,
     },
-  },
+  }),
 
-  accessibility: {
+  accessibility: Config.assign(AccessibilitySettingsConfig, {
     cookieExpirationDuration: 7,
-  },
-};
+  }),
+});

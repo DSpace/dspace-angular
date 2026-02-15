@@ -3,7 +3,7 @@ import {
   TestBed,
   tick,
 } from '@angular/core/testing';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { APP_CONFIG } from '@dspace/config/app.config';
 import { of } from 'rxjs';
 
 import { DspaceRestService } from '../dspace-rest/dspace-rest.service';

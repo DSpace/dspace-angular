@@ -4,8 +4,7 @@ import 'core-js/es/reflect';
 
 import { enableProdMode } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
-import { AppConfig } from '@dspace/config/app-config.interface';
-import { extendEnvironmentWithAppConfig } from '@dspace/config/config.util';
+import { AppConfig } from '@dspace/config/app.config';
 
 import { AppComponent } from './app/app.component';
 import { environment } from './environments/environment';
@@ -37,7 +36,7 @@ const main = () => {
       .then((response) => response.json())
       .then((config: AppConfig) => {
         // extend environment with app config for browser when not prerendered
-        extendEnvironmentWithAppConfig(environment, config);
+        environment.apply(config);
         return bootstrap();
       });
   }

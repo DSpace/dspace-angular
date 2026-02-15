@@ -14,7 +14,7 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { LangConfig } from '@dspace/config/lang-config.interface';
+import { LangConfig } from '@dspace/config/lang.config';
 import { AuthenticateAction } from '@dspace/core/auth/auth.actions';
 import { CoreState } from '@dspace/core/core-state.model';
 import { RemoteData } from '@dspace/core/data/remote-data';

@@ -16,7 +16,7 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { APP_CONFIG } from '@dspace/config/app.config';
 import { AuthService } from '@dspace/core/auth/auth.service';
 import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import { RestResponse } from '@dspace/core/cache/response.models';

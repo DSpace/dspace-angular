@@ -7,7 +7,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { MediaViewerConfig } from '@dspace/config/media-viewer-config.interface';
+import { MediaViewerConfig } from '@dspace/config/media-viewer.config';
 import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
 import { PaginatedList } from '@dspace/core/data/paginated-list.model';
 import { RemoteData } from '@dspace/core/data/remote-data';

@@ -10,7 +10,7 @@ import { TestBed } from '@angular/core/testing';
 import {
   APP_CONFIG,
   AppConfig,
-} from '@dspace/config/app-config.interface';
+} from '@dspace/config/app.config';
 import { BrowseService } from '@dspace/core/browse/browse.service';
 import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
 import { BrowseDefinition } from '@dspace/core/shared/browse-definition.model';

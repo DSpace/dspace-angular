@@ -19,7 +19,7 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { APP_CONFIG } from '@dspace/config/app.config';
 import { RemoteData } from '@dspace/core/data/remote-data';
 import { RequestService } from '@dspace/core/data/request.service';
 import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';

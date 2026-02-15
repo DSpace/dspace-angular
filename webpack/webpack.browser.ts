@@ -1,7 +1,7 @@
-import { buildAppConfig } from '@dspace/config/config.server';
 import { join } from 'path';
 
 import { commonExports } from './webpack.common';
+import { EnvAppConfig } from '@dspace/config/env-app.config';
 
 const CompressionPlugin = require('compression-webpack-plugin');
 const zlib = require('zlib');
@@ -32,7 +32,8 @@ module.exports = Object.assign({}, commonExports, {
   ],
   devServer: {
     setupMiddlewares(middlewares, server) {
-      buildAppConfig(join(process.cwd(), 'src/assets/config.json'));
+      const config = EnvAppConfig.loadEnv();
+      config.write(join(process.cwd(), 'src/assets/config.json'));
       return middlewares;
     },
   },

@@ -6,7 +6,7 @@ import {
 import {
   APP_CONFIG,
   AppConfig,
-} from '@dspace/config/app-config.interface';
+} from '@dspace/config/app.config';
 import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import { Metadata } from '@dspace/core/shared/metadata.utils';

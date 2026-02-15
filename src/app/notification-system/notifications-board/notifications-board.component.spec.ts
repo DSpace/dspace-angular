@@ -11,7 +11,7 @@ import {
   By,
 } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { INotificationBoardOptions } from '@dspace/config/notifications-config.interfaces';
+import { INotificationBoardOptions } from '@dspace/config/notifications.config';
 import { Notification } from '@dspace/core/notification-system/models/notification.model';
 import { NotificationOptions } from '@dspace/core/notification-system/models/notification-options.model';
 import { NotificationType } from '@dspace/core/notification-system/models/notification-type';

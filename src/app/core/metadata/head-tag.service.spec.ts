@@ -10,7 +10,7 @@ import {
   NavigationEnd,
   Router,
 } from '@angular/router';
-import { AppConfig } from '@dspace/config/app-config.interface';
+import { AppConfig } from '@dspace/config/app.config';
 import { createMockStore } from '@ngrx/store/testing';
 import { TranslateService } from '@ngx-translate/core';
 import {

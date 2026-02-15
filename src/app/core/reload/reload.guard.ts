@@ -9,7 +9,7 @@ import {
 import {
   APP_CONFIG,
   AppConfig,
-} from '@dspace/config/app-config.interface';
+} from '@dspace/config/app.config';
 import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 
 import { HOME_PAGE_PATH } from '../router/core-routing-paths';

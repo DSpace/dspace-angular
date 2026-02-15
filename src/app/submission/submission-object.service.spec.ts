@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { APP_CONFIG } from '@dspace/config/app.config';
 import { RemoteData } from '@dspace/core/data/remote-data';
 import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
 import { SubmissionObject } from '@dspace/core/submission/models/submission-object.model';

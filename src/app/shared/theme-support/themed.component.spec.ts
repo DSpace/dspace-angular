@@ -8,6 +8,7 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { Config } from '@dspace/config/config';
 import { ThemeConfig } from '@dspace/config/theme.config';
 
 import { VarDirective } from '../utils/var.directive';
@@ -116,9 +117,9 @@ describe('ThemedComponent', () => {
     describe('and it extends another theme', () => {
       describe('that doesn\'t match it either', () => {
         beforeEach(waitForAsync(() => {
-          setupTestingModuleForTheme('current-theme', [
+          setupTestingModuleForTheme('current-theme', Config.assignArray(ThemeConfig, [
             { name: 'current-theme', extends: 'non-existing-theme' },
-          ]);
+          ]));
         }));
 
         beforeEach(initComponent);
@@ -146,9 +147,9 @@ describe('ThemedComponent', () => {
 
       describe('that does match it', () => {
         beforeEach(waitForAsync(() => {
-          setupTestingModuleForTheme('current-theme', [
+          setupTestingModuleForTheme('current-theme', Config.assignArray(ThemeConfig, [
             { name: 'current-theme', extends: 'custom' },
-          ]);
+          ]));
         }));
 
         beforeEach(initComponent);
@@ -176,10 +177,10 @@ describe('ThemedComponent', () => {
 
       describe('that extends another theme that doesn\'t match it either', () => {
         beforeEach(waitForAsync(() => {
-          setupTestingModuleForTheme('current-theme', [
+          setupTestingModuleForTheme('current-theme', Config.assignArray(ThemeConfig, [
             { name: 'current-theme', extends: 'parent-theme' },
             { name: 'parent-theme', extends: 'non-existing-theme' },
-          ]);
+          ]));
         }));
 
         beforeEach(initComponent);
@@ -208,10 +209,10 @@ describe('ThemedComponent', () => {
 
       describe('that extends another theme that does match it', () => {
         beforeEach(waitForAsync(() => {
-          setupTestingModuleForTheme('current-theme', [
+          setupTestingModuleForTheme('current-theme', Config.assignArray(ThemeConfig, [
             { name: 'current-theme', extends: 'parent-theme' },
             { name: 'parent-theme', extends: 'custom' },
-          ]);
+          ]));
         }));
 
         beforeEach(initComponent);

@@ -7,7 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import {
   APP_CONFIG,
   AppConfig,
-} from '@dspace/config/app-config.interface';
+} from '@dspace/config/app.config';
 import { LinkService } from '@dspace/core/cache/builders/link.service';
 import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
 import {

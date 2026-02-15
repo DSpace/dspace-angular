@@ -9,7 +9,7 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { APP_CONFIG } from '@dspace/config/app.config';
 import { BrowseService } from '@dspace/core/browse/browse.service';
 import { BrowseDefinitionDataService } from '@dspace/core/browse/browse-definition-data.service';
 import { Item } from '@dspace/core/shared/item.model';

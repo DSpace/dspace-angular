@@ -5,8 +5,7 @@ import {
 } from 'node:fs';
 import { join } from 'node:path';
 
-import { AppConfig } from '../src/config/app-config.interface';
-import { buildAppConfig } from '../src/config/config.server';
+import { EnvAppConfig } from '@dspace/config/config.env';
 
 /**
  * Script to set baseHref as `ui.nameSpace` for development mode. Adds `baseHref` to angular.json build options.
@@ -16,7 +15,7 @@ import { buildAppConfig } from '../src/config/config.server';
  * yarn base-href
  */
 
-const appConfig: AppConfig = buildAppConfig();
+const appConfig = EnvAppConfig.loadEnv();
 
 const angularJsonPath = join(process.cwd(), 'angular.json');
 
