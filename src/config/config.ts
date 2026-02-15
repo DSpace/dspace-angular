@@ -31,7 +31,7 @@ export class Config {
    *   value of the environment variable and returns the appropriate
    *   type to use for the config property.
    */
-  static env(name: string, loader?: (val: string) => any) {
+  static env(name: `DSPACE_${string}`, loader?: (val: string) => any) {
     return Reflect.metadata(envMetadataKey, { name, loader });
   }
 
