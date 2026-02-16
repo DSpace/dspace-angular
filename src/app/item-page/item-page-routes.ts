@@ -21,17 +21,31 @@ import {
 } from './item-page-routing-paths';
 import { OrcidPageComponent } from './orcid-page/orcid-page.component';
 import { orcidPageGuard } from './orcid-page/orcid-page.guard';
+import { signpostingLinksResolver } from './simple/link-resolver/signposting-links.resolver';
 import { ThemedItemPageComponent } from './simple/themed-item-page.component';
 import { versionResolver } from './version-page/version.resolver';
 import { VersionPageComponent } from './version-page/version-page/version-page.component';
 
 export const ROUTES: Route[] = [
   {
+    path: 'version',
+    children: [
+      {
+        path: ':id',
+        component: VersionPageComponent,
+        resolve: {
+          dso: versionResolver,
+        },
+      },
+    ],
+  },
+  {
     path: ':id',
     resolve: {
       dso: itemPageResolver,
       itemRequest: accessTokenResolver,
       breadcrumb: itemBreadcrumbResolver,
+      links: signpostingLinksResolver,
     },
     runGuardsAndResolvers: 'always',
     children: [
@@ -88,18 +102,6 @@ export const ROUTES: Route[] = [
         component: ThemedFullItemPageComponent,
         resolve: {
           menu: accessTokenResolver,
-        },
-      },
-    ],
-  },
-  {
-    path: 'version',
-    children: [
-      {
-        path: ':id',
-        component: VersionPageComponent,
-        resolve: {
-          dso: versionResolver,
         },
       },
     ],

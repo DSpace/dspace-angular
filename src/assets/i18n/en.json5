@@ -1987,9 +1987,15 @@
 
   "error.top-level-communities": "Error fetching top-level communities",
 
-  "error.validation.license.notgranted": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
+  "error.validation.license.required": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
 
   "error.validation.cclicense.required": "You must grant this cclicense to complete your submission. If you are unable to grant the cclicense at this time, you may save your work and return later or remove the submission.",
+
+  "error.validation.custom-url.conflict": "The custom url has been already used, please try with a new one.",
+
+  "error.validation.custom-url.empty": "The custom url is required and cannot be empty.",
+
+  "error.validation.custom-url.invalid-characters": "The custom url contains invalid characters. Only alphanumeric characters, dashes and underscores are supported.",
 
   "error.validation.pattern": "This input is restricted by the current pattern: {{ pattern }}.",
 
@@ -2103,6 +2109,8 @@
 
   "form.clear-help": "Click here to remove the selected value",
 
+  "form.copy": "Duplicate",
+
   "form.discard": "Discard",
 
   "form.drag": "Drag",
@@ -2112,6 +2120,12 @@
   "form.edit-help": "Click here to edit the selected value",
 
   "form.first-name": "First name",
+
+  "form.group.add": "Add",
+
+  "form.group.close": "Close",
+
+  "form.group.set": "Set",
 
   "form.group-collapse": "Collapse",
 
@@ -2144,6 +2158,40 @@
   "form.other-information.last-name": "Last Name",
 
   "form.other-information.orcid": "ORCID",
+
+  "form.other-information.person_identifier_orcid": "ORCID",
+
+  "form.other-information.oairecerif_author_affiliation": "Affiliation",
+
+  "form.other-information.oairecerif_editor_affiliation": "Affiliation",
+
+  "form.other-information.person_identifier_orcid": "ORCID iD",
+
+  "form.other-information.institution-affiliation-name": "Affiliation(s)",
+
+  "form.other-information.dc_relation_grantno": "Grant Number",
+
+  "form.other-information.not-available": "Not available",
+
+  "form.other-information.ror_orgunit_id": "ROR ID",
+
+  "form.other-information.ror_orgunit_type": "ROR type",
+
+  "form.other-information.ror_orgunit_acronym": "ROR acronym",
+
+  "form.other-information.ror_orgunit_countryName": "ROR country",
+
+  "form.entry.source.local": "",
+
+  "form.entry.source.orcid": "",
+
+  "form.entry.source.ror": "",
+
+  "form.entry.source.openaire": "",
+
+  "form.entry.source.zdb": "",
+
+  "form.entry.source.sherpa": "- Sherpa Romeo",
 
   "form.remove": "Remove",
 
@@ -2628,6 +2676,8 @@
   "item.edit.metadata.headers.field": "Field",
 
   "item.edit.metadata.headers.language": "Lang",
+
+  "item.edit.metadata.headers.authority": "Authority",
 
   "item.edit.metadata.headers.value": "Value",
 
@@ -3316,6 +3366,8 @@
   "itemtemplate.edit.metadata.headers.language": "Lang",
 
   "itemtemplate.edit.metadata.headers.value": "Value",
+
+  "itemtemplate.edit.metadata.headers.authority": "Authority",
 
   "itemtemplate.edit.metadata.metadatafield": "Edit field",
 
@@ -5632,6 +5684,8 @@
 
   "submission.sections.submit.progressbar.CClicense": "Creative commons license",
 
+  "submission.sections.submit.progressbar.CustomUrlStep": "Custom Url",
+
   "submission.sections.submit.progressbar.describe.recycle": "Recycle",
 
   "submission.sections.submit.progressbar.describe.stepcustom": "Describe",
@@ -5741,6 +5795,12 @@
   "submission.sections.upload.upload-failed": "Upload failed",
 
   "submission.sections.upload.upload-successful": "Upload successful",
+
+  "submission.sections.custom-url.label.previous-urls": "Previous Urls",
+
+  "submission.sections.custom-url.alert.info": "Define here a custom URL which will be used to reach the item instead of using an internal randomly generated UUID identifier. ",
+
+  "submission.sections.custom-url.url.placeholder": "Custom URL",
 
   "submission.sections.accesses.form.discoverable-description": "When checked, this item will be discoverable in search/browse. When unchecked, the item will only be available via a direct link and will never appear in search/browse.",
 
@@ -6399,6 +6459,8 @@
   "person.orcid-tooltip.not-authenticated": "{{orcid}} (unconfirmed)",
 
   "home.recent-submissions.head": "Recent Submissions",
+
+  "authority-confidence.search-label": "Search",
 
   "listable-notification-object.default-message": "This object couldn't be retrieved",
 
@@ -7301,4 +7363,54 @@
   "item.preview.organization.address.addressLocality": "City",
 
   "item.preview.organization.alternateName": "Alternative name",
+
+  "metadata-link-view.popover.label.Person.dc.title": "Fullname",
+
+  "metadata-link-view.popover.label.Person.person.affiliation.name": "Main affiliation",
+
+  "metadata-link-view.popover.label.Person.person.email": "Email",
+
+  "metadata-link-view.popover.label.Person.person.identifier.orcid": "ORCID",
+
+  "metadata-link-view.popover.label.Person.dc.description.abstract": "Abstract",
+
+  "metadata-link-view.popover.label.Person.person.jobTitle": "Job title",
+
+  "metadata-link-view.popover.label.OrgUnit.dc.title": "Fullname",
+
+  "metadata-link-view.popover.label.OrgUnit.organization.identifier.ror": "ROR",
+
+  "metadata-link-view.popover.label.OrgUnit.crisou.director": "Director",
+
+  "metadata-link-view.popover.label.OrgUnit.organization.parentOrganization": "Parent Organization",
+
+  "metadata-link-view.popover.label.OrgUnit.dc.description.abstract": "Description",
+
+  "metadata-link-view.popover.label.Project.dc.title": "Title",
+
+  "metadata-link-view.popover.label.Project.oairecerif.project.status": "Status",
+
+  "metadata-link-view.popover.label.Project.dc.description.abstract": "Abstract",
+
+  "metadata-link-view.popover.label.Funding.dc.title": "Title",
+
+  "metadata-link-view.popover.label.Funding.oairecerif.funder": "Funder",
+
+  "metadata-link-view.popover.label.Funding.oairecerif.fundingProgram": "Funding program",
+
+  "metadata-link-view.popover.label.Funding.dc.description.abstract": "Abstract",
+
+  "metadata-link-view.popover.label.Publication.dc.title": "Title",
+
+  "metadata-link-view.popover.label.Publication.dc.identifier.doi": "DOI",
+
+  "metadata-link-view.popover.label.Publication.dc.identifier.uri": "URL",
+
+  "metadata-link-view.popover.label.Publication.dc.description.abstract": "Abstract",
+
+  "metadata-link-view.popover.label.other.dc.title": "Title",
+
+  "metadata-link-view.popover.label.other.dc.description.abstract": "Description",
+
+  "metadata-link-view.popover.label.more-info": "More info",
 }

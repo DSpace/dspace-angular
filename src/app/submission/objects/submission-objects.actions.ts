@@ -431,6 +431,7 @@ export class InitSubmissionFormAction implements Action {
    *    the submission's sections definition
    * @param sections
    *    the submission's sections
+   * @param item
    * @param errors
    *    the submission's sections errors
    */
@@ -654,6 +655,7 @@ export class ResetSubmissionFormAction implements Action {
    *    the submission's sections
    * @param submissionDefinition
    *    the submission's form definition
+   * @param item
    */
   constructor(collectionId: string, submissionId: string, selfUrl: string, sections: WorkspaceitemSectionsObject, submissionDefinition: SubmissionDefinitionsModel, item: Item) {
     this.payload = { collectionId, submissionId, selfUrl, sections, submissionDefinition, item };

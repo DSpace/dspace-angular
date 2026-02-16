@@ -404,6 +404,11 @@ export const mockSubmissionObject = {
         language: null,
         value: 'Collection of Sample Items',
       },
+      {
+        key: 'dspace.entity.type',
+        language: null,
+        value: 'Entity type of Sample Collection',
+      },
     ],
     _links: {
       license: { href: 'https://rest.api/dspace-spring-rest/api/core/collections/1c11f3f1-ba1f-4f36-908a-3f1ea9a557eb/license' },

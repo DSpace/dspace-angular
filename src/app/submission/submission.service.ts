@@ -243,8 +243,10 @@ export class SubmissionService {
    *    The [SubmissionDefinitionsModel] that define submission configuration
    * @param sections
    *    The [WorkspaceitemSectionsObject] that define submission sections init data
+   * @param item
    * @param errors
    *    The [SubmissionSectionError] that define submission sections init errors
+   * @param metadataSecurityConfiguration
    */
   dispatchInit(
     collectionId: string,
@@ -631,6 +633,8 @@ export class SubmissionService {
    *    The [SubmissionDefinitionsModel] that define submission configuration
    * @param sections
    *    The [WorkspaceitemSectionsObject] that define submission sections init data
+   * @param item
+   * @param metadataSecurityConfiguration
    */
   resetSubmissionObject(
     collectionId: string,
