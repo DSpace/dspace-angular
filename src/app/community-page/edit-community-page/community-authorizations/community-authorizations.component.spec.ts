@@ -9,12 +9,12 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import { cold } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
-import { Collection } from '../../../core/shared/collection.model';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
 import { ResourcePoliciesComponent } from '../../../shared/resource-policies/resource-policies.component';
 import { CommunityAuthorizationsComponent } from './community-authorizations.component';
 
@@ -35,7 +35,7 @@ describe('CommunityAuthorizationsComponent', () => {
   const routeStub = {
     parent: {
       parent: {
-        data: observableOf({
+        data: of({
           dso: communityRD,
         }),
       },

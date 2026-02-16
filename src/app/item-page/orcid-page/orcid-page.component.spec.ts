@@ -12,37 +12,34 @@ import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { OrcidAuthService } from '@dspace/core/orcid/orcid-auth.service';
+import { OrcidHistoryDataService } from '@dspace/core/orcid/orcid-history-data.service';
+import { OrcidQueueDataService } from '@dspace/core/orcid/orcid-queue-data.service';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { ResearcherProfile } from '@dspace/core/profile/model/researcher-profile.model';
+import { ResearcherProfileDataService } from '@dspace/core/profile/researcher-profile-data.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core/utilities/remote-data.utils';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
-import {
-  of as observableOf,
-  of,
-} from 'rxjs';
+import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { AuthService } from '../../core/auth/auth.service';
-import { ItemDataService } from '../../core/data/item-data.service';
-import { OrcidAuthService } from '../../core/orcid/orcid-auth.service';
-import { OrcidHistoryDataService } from '../../core/orcid/orcid-history-data.service';
-import { OrcidQueueDataService } from '../../core/orcid/orcid-queue-data.service';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { ResearcherProfile } from '../../core/profile/model/researcher-profile.model';
-import { ResearcherProfileDataService } from '../../core/profile/researcher-profile-data.service';
-import { Item } from '../../core/shared/item.model';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
-import { createPaginatedList } from '../../shared/testing/utils.test';
 import { OrcidPageComponent } from './orcid-page.component';
 
 describe('OrcidPageComponent test suite', () => {
@@ -170,7 +167,7 @@ describe('OrcidPageComponent test suite', () => {
     scheduler = getTestScheduler();
     fixture = TestBed.createComponent(OrcidPageComponent);
     comp = fixture.componentInstance;
-    authService.isAuthenticated.and.returnValue(observableOf(true));
+    authService.isAuthenticated.and.returnValue(of(true));
   }));
 
   describe('whn has no query param', () => {

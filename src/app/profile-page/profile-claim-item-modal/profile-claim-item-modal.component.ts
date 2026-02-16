@@ -10,23 +10,23 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { EPerson } from '@dspace/core/eperson/models/eperson.model';
+import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import { SearchObjects } from '@dspace/core/shared/search/models/search-objects.model';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { EPerson } from '../../core/eperson/models/eperson.model';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { Item } from '../../core/shared/item.model';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
-import { ViewMode } from '../../core/shared/view-mode.model';
-import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { DSOSelectorModalWrapperComponent } from '../../shared/dso-selector/modal-wrappers/dso-selector-modal-wrapper.component';
 import { CollectionElementLinkType } from '../../shared/object-collection/collection-element-link.type';
 import { ListableObjectComponentLoaderComponent } from '../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
-import { SearchObjects } from '../../shared/search/models/search-objects.model';
 import { ProfileClaimService } from '../profile-claim/profile-claim.service';
 
 /**
@@ -36,12 +36,11 @@ import { ProfileClaimService } from '../profile-claim/profile-claim.service';
   selector: 'ds-profile-claim-item-modal',
   templateUrl: './profile-claim-item-modal.component.html',
   imports: [
-    ListableObjectComponentLoaderComponent,
     AsyncPipe,
-    TranslateModule,
     BtnDisabledDirective,
+    ListableObjectComponentLoaderComponent,
+    TranslateModule,
   ],
-  standalone: true,
 })
 export class ProfileClaimItemModalComponent extends DSOSelectorModalWrapperComponent implements OnInit {
 

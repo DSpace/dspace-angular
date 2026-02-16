@@ -1,13 +1,26 @@
-import { DOCUMENT } from '@angular/common';
 import {
+  DOCUMENT,
   Inject,
+  inject,
   Injectable,
+  OnDestroy,
 } from '@angular/core';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
+import { LangConfig } from '@dspace/config/lang-config.interface';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import { TranslateService } from '@ngx-translate/core';
 import {
   combineLatest,
   Observable,
-  of as observableOf,
+  of,
+  Subscription,
 } from 'rxjs';
 import {
   map,
@@ -15,14 +28,8 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { LangConfig } from '../../../config/lang-config.interface';
-import { environment } from '../../../environments/environment';
-import {
-  isEmpty,
-  isNotEmpty,
-} from '../../shared/empty.util';
 import { AuthService } from '../auth/auth.service';
-import { CookieService } from '../services/cookie.service';
+import { CookieService } from '../cookies/cookie.service';
 import { RouteService } from '../services/route.service';
 import {
   NativeWindowRef,
@@ -44,12 +51,14 @@ export enum LANG_ORIGIN {
  * Service to provide localization handler
  */
 @Injectable()
-export class LocaleService {
-
+export class LocaleService implements OnDestroy {
+  protected readonly appConfig: AppConfig = inject(APP_CONFIG);
   /**
    * Eperson language metadata
    */
   EPERSON_LANG_METADATA = 'eperson.language';
+
+  subs: Subscription[] = [];
 
   constructor(
     @Inject(NativeWindowService) protected _window: NativeWindowRef,
@@ -64,20 +73,25 @@ export class LocaleService {
   /**
    * Get the language currently used
    *
-   * @returns {string} The language code
+   * @returns {Observable<string>} The language code
    */
-  getCurrentLanguageCode(): string {
+  getCurrentLanguageCode(): Observable<string> {
     // Attempt to get the language from a cookie
-    let lang = this.getLanguageCodeFromCookie();
-    if (isEmpty(lang) || environment.languages.find((langConfig: LangConfig) => langConfig.code === lang && langConfig.active) === undefined) {
+    const lang = this.getLanguageCodeFromCookie();
+    if (isEmpty(lang) || this.appConfig.languages.find((langConfig: LangConfig) => langConfig.code === lang && langConfig.active) === undefined) {
       // Attempt to get the browser language from the user
-      if (this.translate.getLangs().includes(this.translate.getBrowserLang())) {
-        lang = this.translate.getBrowserLang();
-      } else {
-        lang = environment.defaultLanguage;
-      }
+      return this.getLanguageCodeList()
+        .pipe(
+          map(browserLangs => {
+            return browserLangs
+              .map(browserLang => browserLang.split(';')[0])
+              .find(browserLang =>
+                this.translate.getLangs().some(userLang => userLang.toLowerCase() === browserLang.toLowerCase()),
+              ) || this.appConfig.fallbackLanguage;
+          }),
+        );
     }
-    return lang;
+    return of(lang);
   }
 
   /**
@@ -85,18 +99,16 @@ export class LocaleService {
    *
    * @returns {Observable<string[]>}
    */
-  getLanguageCodeList(): Observable<string[]> {
+  getLanguageCodeList(ignoreEPersonSettings = false): Observable<string[]> {
     const obs$ = combineLatest([
       this.authService.isAuthenticated(),
       this.authService.isAuthenticationLoaded(),
     ]);
 
     return obs$.pipe(
-      take(1),
       mergeMap(([isAuthenticated, isLoaded]) => {
-        // TODO to enabled again when https://github.com/DSpace/dspace-angular/issues/739 will be resolved
-        const epersonLang$: Observable<string[]> = observableOf([]);
-        /*        if (isAuthenticated && isLoaded) {
+        let epersonLang$: Observable<string[]> = of([]);
+        if (isAuthenticated && isLoaded && !ignoreEPersonSettings) {
           epersonLang$ = this.authService.getAuthenticatedUserFromStore().pipe(
             take(1),
             map((eperson) => {
@@ -106,29 +118,29 @@ export class LocaleService {
                 languages.push(...this.setQuality(
                   [ePersonLang],
                   LANG_ORIGIN.EPERSON,
-                  !isEmpty(this.translate.currentLang)));
+                  !isEmpty(this.translate.getCurrentLang())));
               }
               return languages;
-            })
+            }),
           );
-        }*/
+        }
         return epersonLang$.pipe(
           map((epersonLang: string[]) => {
             const languages: string[] = [];
-            if (this.translate.currentLang) {
-              languages.push(...this.setQuality(
-                [this.translate.currentLang],
-                LANG_ORIGIN.UI,
-                false));
-            }
             if (isNotEmpty(epersonLang)) {
               languages.push(...epersonLang);
+            }
+            if (this.translate.currentLang) {
+              languages.push(...this.setQuality(
+                [this.translate.getCurrentLang()],
+                LANG_ORIGIN.UI,
+                false));
             }
             if (navigator.languages) {
               languages.push(...this.setQuality(
                 Object.assign([], navigator.languages),
                 LANG_ORIGIN.BROWSER,
-                !isEmpty(this.translate.currentLang)),
+                !isEmpty(this.translate.getCurrentLang())),
               );
             }
             return languages;
@@ -163,11 +175,16 @@ export class LocaleService {
    */
   setCurrentLanguageCode(lang?: string): void {
     if (isEmpty(lang)) {
-      lang = this.getCurrentLanguageCode();
+      this.subs.push(this.getCurrentLanguageCode().subscribe(curLang => {
+        lang = curLang;
+        this.translate.use(lang);
+        this.document.documentElement.lang = lang;
+      }));
+    } else {
+      this.saveLanguageCodeToCookie(lang);
+      this.translate.use(lang);
+      this.document.documentElement.lang = lang;
     }
-    this.translate.use(lang);
-    this.saveLanguageCodeToCookie(lang);
-    this.document.documentElement.lang = lang;
   }
 
   /**
@@ -211,6 +228,12 @@ export class LocaleService {
       this._window.nativeWindow.location.href = `reload/${new Date().getTime()}?redirect=` + encodeURIComponent(currentURL);
     });
 
+  }
+
+  ngOnDestroy(): void {
+    this.subs
+      .filter((sub) => hasValue(sub))
+      .forEach((sub) => sub.unsubscribe());
   }
 
 }

@@ -6,6 +6,21 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
+import {
+  SortDirection,
+  SortOptions,
+} from '@dspace/core/cache/models/sort-options.model';
+import { CommunityDataService } from '@dspace/core/data/community-data.service';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { Community } from '@dspace/core/shared/community.model';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -13,26 +28,11 @@ import {
   Subscription,
 } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import {
-  APP_CONFIG,
-  AppConfig,
-} from 'src/config/app-config.interface';
 
-import {
-  SortDirection,
-  SortOptions,
-} from '../../core/cache/models/sort-options.model';
-import { CommunityDataService } from '../../core/data/community-data.service';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { Community } from '../../core/shared/community.model';
 import { fadeInOut } from '../../shared/animations/fade';
-import { hasValue } from '../../shared/empty.util';
 import { ErrorComponent } from '../../shared/error/error.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { ObjectCollectionComponent } from '../../shared/object-collection/object-collection.component';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { VarDirective } from '../../shared/utils/var.directive';
 
 /**
@@ -44,8 +44,14 @@ import { VarDirective } from '../../shared/utils/var.directive';
   templateUrl: './top-level-community-list.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [fadeInOut],
-  standalone: true,
-  imports: [VarDirective, ObjectCollectionComponent, ErrorComponent, ThemedLoadingComponent, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    ErrorComponent,
+    ObjectCollectionComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
+    VarDirective,
+  ],
 })
 
 export class TopLevelCommunityListComponent implements OnInit, OnDestroy {
@@ -65,9 +71,10 @@ export class TopLevelCommunityListComponent implements OnInit, OnDestroy {
   pageId = 'tl';
 
   /**
-   * The sorting configuration
+   * The sorting configuration for the community list itself, and the optional RSS feed button
    */
   sortConfig: SortOptions;
+  rssSortConfig: SortOptions;
 
   /**
    * The subscription to the observable for the current page.
@@ -84,6 +91,7 @@ export class TopLevelCommunityListComponent implements OnInit, OnDestroy {
     this.config.pageSize = appConfig.homePage.topLevelCommunityList.pageSize;
     this.config.currentPage = 1;
     this.sortConfig = new SortOptions('dc.title', SortDirection.ASC);
+    this.rssSortConfig = new SortOptions('dc.date.accessioned', SortDirection.DESC);
   }
 
   ngOnInit() {

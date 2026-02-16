@@ -5,12 +5,12 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { FormBuilder } from '@angular/forms';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 import { ExternalLoginService } from '../../services/external-login.service';
 import { ProvideEmailComponent } from './provide-email.component';
 

@@ -1,14 +1,13 @@
 import {
-  ChangeDetectorRef,
   Component,
   EventEmitter,
   Input,
   Output,
 } from '@angular/core';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import { ThemedComponent } from 'src/app/shared/theme-support/themed.component';
 
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
-import { ThemeService } from '../../../theme-support/theme.service';
 import { CreateItemParentSelectorComponent } from './create-item-parent-selector.component';
 
 /**
@@ -16,25 +15,27 @@ import { CreateItemParentSelectorComponent } from './create-item-parent-selector
  */
 @Component({
   selector: 'ds-create-item-parent-selector',
-  styleUrls: [],
   templateUrl: '../../../theme-support/themed.component.html',
-  standalone: true,
-  imports: [CreateItemParentSelectorComponent],
 })
-export class ThemedCreateItemParentSelectorComponent
-  extends ThemedComponent<CreateItemParentSelectorComponent> {
+export class ThemedCreateItemParentSelectorComponent extends ThemedComponent<CreateItemParentSelectorComponent> {
+
+  @Input() dsoRD: RemoteData<DSpaceObject>;
+
+  @Input() emitOnly: boolean;
+
+  @Input() header: string;
+
   @Input() entityType: string;
-  @Output() select: EventEmitter<DSpaceObject> = new EventEmitter<DSpaceObject>();
-  @Input() emitOnly = false;
 
-  protected inAndOutputNames: (keyof CreateItemParentSelectorComponent & keyof this)[] = ['entityType', 'select', 'emitOnly'];
+  @Output() select: EventEmitter<DSpaceObject> = new EventEmitter();
 
-  constructor(
-    protected cdr: ChangeDetectorRef,
-    protected themeService: ThemeService,
-  ) {
-    super(cdr, themeService);
-  }
+  protected inAndOutputNames: (keyof CreateItemParentSelectorComponent & keyof this)[] = [
+    'dsoRD',
+    'emitOnly',
+    'header',
+    'entityType',
+    'select',
+  ];
 
   protected getComponentName(): string {
     return 'CreateItemParentSelectorComponent';

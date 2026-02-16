@@ -10,27 +10,28 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { LinkService } from '@dspace/core/cache/builders/link.service';
+import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
+import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
+import { BitstreamFormatDataService } from '@dspace/core/data/bitstream-format-data.service';
+import { CommunityDataService } from '@dspace/core/data/community-data.service';
+import { DefaultChangeAnalyzer } from '@dspace/core/data/default-change-analyzer.service';
+import { DSOChangeAnalyzer } from '@dspace/core/data/dso-change-analyzer.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
+import { CollectionSearchResult } from '@dspace/core/shared/object-collection/collection-search-result.model';
+import { UUIDService } from '@dspace/core/shared/uuid.service';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { AuthServiceStub } from '@dspace/core/testing/auth-service.stub';
+import { XSRFService } from '@dspace/core/xsrf/xsrf.service';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
-import { AuthService } from '../../../../core/auth/auth.service';
-import { LinkService } from '../../../../core/cache/builders/link.service';
-import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
-import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
-import { BitstreamFormatDataService } from '../../../../core/data/bitstream-format-data.service';
-import { CommunityDataService } from '../../../../core/data/community-data.service';
-import { DefaultChangeAnalyzer } from '../../../../core/data/default-change-analyzer.service';
-import { DSOChangeAnalyzer } from '../../../../core/data/dso-change-analyzer.service';
-import { Collection } from '../../../../core/shared/collection.model';
-import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service';
-import { UUIDService } from '../../../../core/shared/uuid.service';
-import { XSRFService } from '../../../../core/xsrf/xsrf.service';
-import { NotificationsService } from '../../../notifications/notifications.service';
-import { CollectionSearchResult } from '../../../object-collection/shared/collection-search-result.model';
-import { ActivatedRouteStub } from '../../../testing/active-router.stub';
-import { AuthServiceStub } from '../../../testing/auth-service.stub';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { TruncatePipe } from '../../../utils/truncate.pipe';
 import { CollectionSearchResultGridElementComponent } from './collection-search-result-grid-element.component';
@@ -39,7 +40,7 @@ let collectionSearchResultGridElementComponent: CollectionSearchResultGridElemen
 let fixture: ComponentFixture<CollectionSearchResultGridElementComponent>;
 
 const truncatableServiceStub: any = {
-  isCollapsed: (id: number) => observableOf(true),
+  isCollapsed: (id: number) => of(true),
 };
 
 const mockCollectionWithAbstract: CollectionSearchResult = new CollectionSearchResult();
@@ -98,6 +99,7 @@ describe('CollectionSearchResultGridElementComponent', () => {
         { provide: BitstreamFormatDataService, useValue: {} },
         { provide: XSRFService, useValue: {} },
         { provide: LinkService, useValue: linkService },
+        { provide: APP_CONFIG, useValue: { cache: { msToLive: 15 * 60 * 1000  } } },
         provideMockStore({}),
       ],
       schemas: [NO_ERRORS_SCHEMA],

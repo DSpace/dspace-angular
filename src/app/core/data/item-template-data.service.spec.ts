@@ -1,15 +1,16 @@
+import { RestRequestMethod } from '@dspace/config/rest-request-method';
 import { Store } from '@ngrx/store';
 import { cold } from 'jasmine-marbles';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { BrowseService } from '../browse/browse.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RestResponse } from '../cache/response.models';
 import { CoreState } from '../core-state.model';
+import { NotificationsService } from '../notification-system/notifications.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
 import { testCreateDataImplementation } from './base/create-data.spec';
@@ -20,7 +21,6 @@ import { ItemTemplateDataService } from './item-template-data.service';
 import { RequestService } from './request.service';
 import { RequestEntry } from './request-entry.model';
 import { RestRequest } from './rest-request.model';
-import { RestRequestMethod } from './rest-request-method';
 import createSpyObj = jasmine.createSpyObj;
 
 describe('ItemTemplateDataService', () => {
@@ -41,12 +41,12 @@ describe('ItemTemplateDataService', () => {
     getByHref(requestHref: string) {
       const responseCacheEntry = new RequestEntry();
       responseCacheEntry.response = new RestResponse(true, 200, 'OK');
-      return observableOf(responseCacheEntry);
+      return of(responseCacheEntry);
     },
     getByUUID(uuid: string) {
       const responseCacheEntry = new RequestEntry();
       responseCacheEntry.response = new RestResponse(true, 200, 'OK');
-      return observableOf(responseCacheEntry);
+      return of(responseCacheEntry);
     },
     commit(method?: RestRequestMethod) {
       // Do nothing
@@ -57,7 +57,7 @@ describe('ItemTemplateDataService', () => {
   const browseService = {} as BrowseService;
   const objectCache = {
     getObjectBySelfLink(self) {
-      return observableOf({});
+      return of({});
     },
     addPatch(self, operations) {
       // Do nothing
@@ -76,7 +76,7 @@ describe('ItemTemplateDataService', () => {
   } as any;
   const collectionService = {
     getIDHrefObs(id): Observable<string> {
-      return observableOf(collectionEndpoint);
+      return of(collectionEndpoint);
     },
   } as CollectionDataService;
 

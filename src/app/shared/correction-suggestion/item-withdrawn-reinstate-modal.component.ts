@@ -5,11 +5,11 @@ import {
   Output,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { ModalBeforeDismiss } from '../interfaces/modal-before-dismiss.interface';
 import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 
@@ -18,12 +18,11 @@ import { ThemedLoadingComponent } from '../loading/themed-loading.component';
   templateUrl: './item-withdrawn-reinstate-modal.component.html',
   styleUrls: ['./item-withdrawn-reinstate-modal.component.scss'],
   imports: [
-    TranslateModule,
-    ThemedLoadingComponent,
-    FormsModule,
     AsyncPipe,
+    FormsModule,
+    ThemedLoadingComponent,
+    TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * Represents a modal component for withdrawing or reinstating an item.

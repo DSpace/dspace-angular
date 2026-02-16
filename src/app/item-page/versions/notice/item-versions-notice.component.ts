@@ -4,6 +4,21 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { VersionHistoryDataService } from '@dspace/core/data/version-history-data.service';
+import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
+import { Item } from '@dspace/core/shared/item.model';
+import {
+  getAllSucceededRemoteData,
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+} from '@dspace/core/shared/operators';
+import { Version } from '@dspace/core/shared/version.model';
+import { VersionHistory } from '@dspace/core/shared/version-history.model';
+import {
+  hasValue,
+  hasValueOperator,
+} from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   EMPTY,
@@ -16,29 +31,17 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { RemoteData } from '../../../core/data/remote-data';
-import { VersionHistoryDataService } from '../../../core/data/version-history-data.service';
-import { Item } from '../../../core/shared/item.model';
-import {
-  getAllSucceededRemoteData,
-  getFirstCompletedRemoteData,
-  getRemoteDataPayload,
-} from '../../../core/shared/operators';
-import { Version } from '../../../core/shared/version.model';
-import { VersionHistory } from '../../../core/shared/version-history.model';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
-import {
-  hasValue,
-  hasValueOperator,
-} from '../../../shared/empty.util';
-import { getItemPageRoute } from '../../item-page-routing-paths';
 
 @Component({
   selector: 'ds-item-versions-notice',
   templateUrl: './item-versions-notice.component.html',
-  standalone: true,
-  imports: [AlertComponent, AsyncPipe, TranslateModule],
+  imports: [
+    AlertComponent,
+    AsyncPipe,
+    TranslateModule,
+  ],
 })
 /**
  * Component for displaying a warning notice when the item is not the latest version within its version history

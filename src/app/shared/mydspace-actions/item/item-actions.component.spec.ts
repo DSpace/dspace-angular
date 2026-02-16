@@ -12,22 +12,22 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
+import { RequestService } from '@dspace/core/data/request.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { getMockRequestService } from '@dspace/core/testing/request.service.mock';
+import { RouterStub } from '@dspace/core/testing/router.stub';
+import { getMockSearchService } from '@dspace/core/testing/search-service.mock';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { RequestService } from '../../../core/data/request.service';
-import { Item } from '../../../core/shared/item.model';
-import { SearchService } from '../../../core/shared/search/search.service';
-import { getMockRequestService } from '../../mocks/request.service.mock';
-import { getMockSearchService } from '../../mocks/search-service.mock';
-import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
-import { NotificationsService } from '../../notifications/notifications.service';
-import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
-import { RouterStub } from '../../testing/router.stub';
+import { SearchService } from '../../search/search.service';
 import { ItemActionsComponent } from './item-actions.component';
 
 let component: ItemActionsComponent;
@@ -38,7 +38,7 @@ let mockObject: Item;
 const mockDataService = {};
 
 mockObject = Object.assign(new Item(), {
-  bundles: observableOf({}),
+  bundles: of({}),
   metadata: {
     'dc.title': [
       {

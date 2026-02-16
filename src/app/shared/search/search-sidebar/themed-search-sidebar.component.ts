@@ -4,17 +4,17 @@ import {
   Input,
   Output,
 } from '@angular/core';
+import { SortOptions } from '@dspace/core/cache/models/sort-options.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
+import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import {
   BehaviorSubject,
   Observable,
 } from 'rxjs';
 
-import { SortOptions } from '../../../core/cache/models/sort-options.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { ViewMode } from '../../../core/shared/view-mode.model';
 import { ThemedComponent } from '../../theme-support/themed.component';
-import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
-import { SearchFilterConfig } from '../models/search-filter-config.model';
 import { SearchConfigurationOption } from '../search-switch-configuration/search-configuration-option.model';
 import { SearchSidebarComponent } from './search-sidebar.component';
 
@@ -24,8 +24,6 @@ import { SearchSidebarComponent } from './search-sidebar.component';
 @Component({
   selector: 'ds-search-sidebar',
   templateUrl: '../../theme-support/themed.component.html',
-  standalone: true,
-  imports: [SearchSidebarComponent],
 })
 export class ThemedSearchSidebarComponent extends ThemedComponent<SearchSidebarComponent> {
 

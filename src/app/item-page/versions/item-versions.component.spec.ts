@@ -21,35 +21,34 @@ import {
   ActivatedRoute,
   RouterModule,
 } from '@angular/router';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
+import { VersionDataService } from '@dspace/core/data/version-data.service';
+import { VersionHistoryDataService } from '@dspace/core/data/version-history-data.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { Version } from '@dspace/core/shared/version.model';
+import { VersionHistory } from '@dspace/core/shared/version-history.model';
+import { WorkflowItemDataService } from '@dspace/core/submission/workflowitem-data.service';
+import { WorkspaceitemDataService } from '@dspace/core/submission/workspaceitem-data.service';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   EMPTY,
-  of as observableOf,
   of,
 } from 'rxjs';
 
-import { AuthService } from '../../core/auth/auth.service';
-import { ConfigurationDataService } from '../../core/data/configuration-data.service';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../core/data/feature-authorization/feature-id';
-import { ItemDataService } from '../../core/data/item-data.service';
-import { VersionDataService } from '../../core/data/version-data.service';
-import { VersionHistoryDataService } from '../../core/data/version-history-data.service';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { Item } from '../../core/shared/item.model';
-import { Version } from '../../core/shared/version.model';
-import { VersionHistory } from '../../core/shared/version-history.model';
-import { WorkflowItemDataService } from '../../core/submission/workflowitem-data.service';
-import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
-import { createPaginatedList } from '../../shared/testing/utils.test';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { ItemVersionsComponent } from './item-versions.component';
 
@@ -128,11 +127,11 @@ describe('ItemVersionsComponent', () => {
     getLatestVersionItemFromHistory$: of(item1),  // called when version2 is deleted
   });
   const authenticationServiceSpy = jasmine.createSpyObj('authenticationService', {
-    isAuthenticated: observableOf(true),
+    isAuthenticated: of(true),
     setRedirectUrl: {},
   });
   const authorizationServiceSpy = jasmine.createSpyObj('authorizationService', {
-    isAuthorized: observableOf(true),
+    isAuthorized: of(true),
   });
   const workspaceItemDataServiceSpy = jasmine.createSpyObj('workspaceItemDataService', {
     findByItem: EMPTY,

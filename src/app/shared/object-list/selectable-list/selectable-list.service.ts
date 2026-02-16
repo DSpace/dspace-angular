@@ -1,4 +1,9 @@
 import { Injectable } from '@angular/core';
+import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import {
   MemoizedSelector,
   select,
@@ -14,11 +19,6 @@ import {
   AppState,
   keySelector,
 } from '../../../app.reducer';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../empty.util';
-import { ListableObject } from '../../object-collection/shared/listable-object.model';
 import {
   SelectableListDeselectAction,
   SelectableListDeselectAllAction,

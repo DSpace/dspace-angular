@@ -7,6 +7,18 @@ import {
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { MediaViewerConfig } from '@dspace/config/media-viewer-config.interface';
+import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { Bitstream } from '@dspace/core/shared/bitstream.model';
+import { BitstreamFormat } from '@dspace/core/shared/bitstream-format.model';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { ItemRequest } from '@dspace/core/shared/item-request.model';
+import { MediaViewerItem } from '@dspace/core/shared/media-viewer-item.model';
+import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -18,20 +30,8 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { MediaViewerConfig } from '../../../config/media-viewer-config.interface';
 import { environment } from '../../../environments/environment';
-import { BitstreamDataService } from '../../core/data/bitstream-data.service';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { Bitstream } from '../../core/shared/bitstream.model';
-import { BitstreamFormat } from '../../core/shared/bitstream-format.model';
-import { Item } from '../../core/shared/item.model';
-import { ItemRequest } from '../../core/shared/item-request.model';
-import { MediaViewerItem } from '../../core/shared/media-viewer-item.model';
-import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
-import { hasValue } from '../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { followLink } from '../../shared/utils/follow-link-config.model';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { ThemedThumbnailComponent } from '../../thumbnail/themed-thumbnail.component';
 import { ThemedMediaViewerImageComponent } from './media-viewer-image/themed-media-viewer-image.component';
@@ -45,15 +45,14 @@ import { ThemedMediaViewerVideoComponent } from './media-viewer-video/themed-med
   templateUrl: './media-viewer.component.html',
   styleUrls: ['./media-viewer.component.scss'],
   imports: [
-    ThemedMediaViewerImageComponent,
-    ThemedThumbnailComponent,
     AsyncPipe,
-    ThemedMediaViewerVideoComponent,
-    TranslateModule,
     ThemedLoadingComponent,
+    ThemedMediaViewerImageComponent,
+    ThemedMediaViewerVideoComponent,
+    ThemedThumbnailComponent,
+    TranslateModule,
     VarDirective,
   ],
-  standalone: true,
 })
 export class MediaViewerComponent implements OnDestroy, OnInit {
   @Input() item: Item;

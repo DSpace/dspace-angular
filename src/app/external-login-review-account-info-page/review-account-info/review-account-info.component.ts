@@ -8,6 +8,19 @@ import {
   OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { AuthRegistrationType } from '@dspace/core/auth/models/auth.registration-type';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
+import { EPerson } from '@dspace/core/eperson/models/eperson.model';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { HardRedirectService } from '@dspace/core/services/hard-redirect.service';
+import {
+  NativeWindowRef,
+  NativeWindowService,
+} from '@dspace/core/services/window.service';
+import { Registration } from '@dspace/core/shared/registration.model';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -26,23 +39,10 @@ import {
   tap,
 } from 'rxjs';
 
-import { AuthService } from '../../core/auth/auth.service';
-import { AuthRegistrationType } from '../../core/auth/models/auth.registration-type';
-import { RemoteData } from '../../core/data/remote-data';
-import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { EPerson } from '../../core/eperson/models/eperson.model';
-import { HardRedirectService } from '../../core/services/hard-redirect.service';
-import {
-  NativeWindowRef,
-  NativeWindowService,
-} from '../../core/services/window.service';
-import { Registration } from '../../core/shared/registration.model';
 import { ExternalLoginService } from '../../external-log-in/services/external-login.service';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { AlertType } from '../../shared/alert/alert-type';
 import { ConfirmationModalComponent } from '../../shared/confirmation-modal/confirmation-modal.component';
-import { hasValue } from '../../shared/empty.util';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { CompareValuesPipe } from '../helpers/compare-values.pipe';
 
 export interface ReviewAccountInfoData {
@@ -58,14 +58,13 @@ export interface ReviewAccountInfoData {
   templateUrl: './review-account-info.component.html',
   styleUrls: ['./review-account-info.component.scss'],
   imports: [
+    AlertComponent,
     CompareValuesPipe,
     TitleCasePipe,
     TranslateModule,
-    AlertComponent,
     UiSwitchModule,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
 })
 /**
  * This component shows up the difference between the current account details and the one provided by the

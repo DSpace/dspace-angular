@@ -9,6 +9,26 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import {
+  SortDirection,
+  SortOptions,
+} from '@dspace/core/cache/models/sort-options.model';
+import { FindListOptions } from '@dspace/core/data/find-list-options.model';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Suggestion } from '@dspace/core/notifications/suggestions/models/suggestion.model';
+import { SuggestionTarget } from '@dspace/core/notifications/suggestions/models/suggestion-target.model';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { redirectOn4xx } from '@dspace/core/shared/authorized.operators';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '@dspace/core/shared/operators';
+import { WorkspaceItem } from '@dspace/core/submission/models/workspaceitem.model';
+import { WorkspaceitemDataService } from '@dspace/core/submission/workspaceitem-data.service';
 import {
   TranslateModule,
   TranslateService,
@@ -25,24 +45,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { AuthService } from '../core/auth/auth.service';
-import {
-  SortDirection,
-  SortOptions,
-} from '../core/cache/models/sort-options.model';
-import { FindListOptions } from '../core/data/find-list-options.model';
-import { PaginatedList } from '../core/data/paginated-list.model';
-import { RemoteData } from '../core/data/remote-data';
-import { Suggestion } from '../core/notifications/suggestions/models/suggestion.model';
-import { SuggestionTarget } from '../core/notifications/suggestions/models/suggestion-target.model';
-import { PaginationService } from '../core/pagination/pagination.service';
-import { redirectOn4xx } from '../core/shared/authorized.operators';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
-} from '../core/shared/operators';
-import { WorkspaceItem } from '../core/submission/models/workspaceitem.model';
-import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
 import { SuggestionActionsComponent } from '../notifications/suggestions/actions/suggestion-actions.component';
 import { SuggestionApproveAndImport } from '../notifications/suggestions/list-element/suggestion-approve-and-import';
 import { SuggestionListElementComponent } from '../notifications/suggestions/list-element/suggestion-list-element.component';
@@ -53,9 +55,7 @@ import {
 import { SuggestionTargetsStateService } from '../notifications/suggestions/targets/suggestion-targets.state.service';
 import { AlertComponent } from '../shared/alert/alert.component';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
-import { NotificationsService } from '../shared/notifications/notifications.service';
 import { PaginationComponent } from '../shared/pagination/pagination.component';
-import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { VarDirective } from '../shared/utils/var.directive';
 import { getWorkspaceItemEditRoute } from '../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
 
@@ -64,17 +64,16 @@ import { getWorkspaceItemEditRoute } from '../workflowitems-edit-page/workflowit
   templateUrl: './suggestions-page.component.html',
   styleUrls: ['./suggestions-page.component.scss'],
   imports: [
-    AsyncPipe,
-    VarDirective,
-    RouterLink,
-    TranslateModule,
-    SuggestionActionsComponent,
-    ThemedLoadingComponent,
-    PaginationComponent,
-    SuggestionListElementComponent,
     AlertComponent,
+    AsyncPipe,
+    PaginationComponent,
+    RouterLink,
+    SuggestionActionsComponent,
+    SuggestionListElementComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
+    VarDirective,
   ],
-  standalone: true,
 })
 
 /**

@@ -3,13 +3,13 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { Community } from '@dspace/core/shared/community.model';
+import { Context } from '@dspace/core/shared/context.model';
+import { CommunitySearchResult } from '@dspace/core/shared/object-collection/community-search-result.model';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { getCommunityEditRoute } from '../../../../../community-page/community-page-routing-paths';
-import { Community } from '../../../../../core/shared/community.model';
-import { Context } from '../../../../../core/shared/context.model';
-import { ViewMode } from '../../../../../core/shared/view-mode.model';
-import { CommunitySearchResult } from '../../../../../shared/object-collection/shared/community-search-result.model';
 import { listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
 import { CommunitySearchResultListElementComponent } from '../../../../../shared/object-list/search-result-list-element/community-search-result/community-search-result-list-element.component';
 import { SearchResultListElementComponent } from '../../../../../shared/object-list/search-result-list-element/search-result-list-element.component';
@@ -19,8 +19,11 @@ import { SearchResultListElementComponent } from '../../../../../shared/object-l
   selector: 'ds-community-admin-search-result-list-element',
   styleUrls: ['./community-admin-search-result-list-element.component.scss'],
   templateUrl: './community-admin-search-result-list-element.component.html',
-  standalone: true,
-  imports: [CommunitySearchResultListElementComponent, RouterLink, TranslateModule],
+  imports: [
+    CommunitySearchResultListElementComponent,
+    RouterLink,
+    TranslateModule,
+  ],
 })
 /**
  * The component for displaying a list element for a community search result on the admin search page

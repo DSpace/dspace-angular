@@ -8,6 +8,24 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { ExternalSourceDataService } from '@dspace/core/data/external-source-data.service';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { RouteService } from '@dspace/core/services/route.service';
+import { Context } from '@dspace/core/shared/context.model';
+import { ExternalSourceEntry } from '@dspace/core/shared/external-source-entry.model';
+import { NONE_ENTITY_TYPE } from '@dspace/core/shared/item-relationships/item-type.resource-type';
+import { getFinishedRemoteData } from '@dspace/core/shared/operators';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import {
   NgbModal,
   NgbModalRef,
@@ -27,29 +45,11 @@ import {
 } from 'rxjs/operators';
 import { AlertType } from 'src/app/shared/alert/alert-type';
 
-import { ExternalSourceDataService } from '../../core/data/external-source-data.service';
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '../../core/data/paginated-list.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { RouteService } from '../../core/services/route.service';
-import { Context } from '../../core/shared/context.model';
-import { ExternalSourceEntry } from '../../core/shared/external-source-entry.model';
-import { NONE_ENTITY_TYPE } from '../../core/shared/item-relationships/item-type.resource-type';
-import { getFinishedRemoteData } from '../../core/shared/operators';
-import { PageInfo } from '../../core/shared/page-info.model';
-import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { fadeIn } from '../../shared/animations/fade';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { ObjectCollectionComponent } from '../../shared/object-collection/object-collection.component';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
+import { SearchConfigurationService } from '../../shared/search/search-configuration.service';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { SubmissionImportExternalPreviewComponent } from './import-external-preview/submission-import-external-preview.component';
 import {
@@ -66,16 +66,15 @@ import {
   templateUrl: './submission-import-external.component.html',
   animations: [fadeIn],
   imports: [
-    ObjectCollectionComponent,
-    ThemedLoadingComponent,
     AlertComponent,
     AsyncPipe,
+    ObjectCollectionComponent,
+    RouterLink,
     SubmissionImportExternalSearchbarComponent,
+    ThemedLoadingComponent,
     TranslateModule,
     VarDirective,
-    RouterLink,
   ],
-  standalone: true,
 })
 export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
 

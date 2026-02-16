@@ -2,8 +2,8 @@ import {
   Component,
   Input,
 } from '@angular/core';
+import { EPerson } from '@dspace/core/eperson/models/eperson.model';
 
-import { EPerson } from '../../core/eperson/models/eperson.model';
 import { ThemedComponent } from '../../shared/theme-support/themed.component';
 import { ProfilePageMetadataFormComponent } from './profile-page-metadata-form.component';
 
@@ -13,8 +13,6 @@ import { ProfilePageMetadataFormComponent } from './profile-page-metadata-form.c
 @Component({
   selector: 'ds-profile-page-metadata-form',
   templateUrl: '../../shared/theme-support/themed.component.html',
-  standalone: true,
-  imports: [ProfilePageMetadataFormComponent],
 })
 export class ThemedProfilePageMetadataFormComponent extends ThemedComponent<ProfilePageMetadataFormComponent> {
 

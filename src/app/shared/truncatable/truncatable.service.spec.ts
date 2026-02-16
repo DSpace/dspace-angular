@@ -3,7 +3,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { Store } from '@ngrx/store';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import {
   TruncatableCollapseAction,
@@ -20,7 +20,7 @@ describe('TruncatableService', () => {
     /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
     dispatch: {},
     /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
-    select: observableOf(true),
+    select: of(true),
   });
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -43,7 +43,7 @@ describe('TruncatableService', () => {
     });
 
     it('TruncatableCollapseAction should be dispatched to the store', () => {
-      expect(store.dispatch).toHaveBeenCalledWith(new TruncatableCollapseAction(id1));
+      expect(store.dispatch as jasmine.Spy).toHaveBeenCalledWith(new TruncatableCollapseAction(id1));
     });
 
   });
@@ -54,7 +54,7 @@ describe('TruncatableService', () => {
     });
 
     it('TruncatableExpandAction should be dispatched to the store', () => {
-      expect(store.dispatch).toHaveBeenCalledWith(new TruncatableExpandAction(id2));
+      expect(store.dispatch as jasmine.Spy).toHaveBeenCalledWith(new TruncatableExpandAction(id2));
     });
   });
 

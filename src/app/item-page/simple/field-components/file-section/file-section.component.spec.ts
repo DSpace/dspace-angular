@@ -7,31 +7,30 @@ import {
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
+import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
+import { LocaleService } from '@dspace/core/locale/locale.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Bitstream } from '@dspace/core/shared/bitstream.model';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { MockBitstreamFormat1 } from '@dspace/core/testing/item.mock';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+import { XSRFService } from '@dspace/core/xsrf/xsrf.service';
 import { provideMockStore } from '@ngrx/store/testing';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
-import {
-  APP_CONFIG,
-  APP_DATA_SERVICES_MAP,
-} from '../../../../../config/app-config.interface';
-import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
-import { Bitstream } from '../../../../core/shared/bitstream.model';
-import { PageInfo } from '../../../../core/shared/page-info.model';
-import { XSRFService } from '../../../../core/xsrf/xsrf.service';
 import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
-import { MockBitstreamFormat1 } from '../../../../shared/mocks/item.mock';
-import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';
-import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
-import { ActivatedRouteStub } from '../../../../shared/testing/active-router.stub';
-import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
-import { createPaginatedList } from '../../../../shared/testing/utils.test';
+import { getMockThemeService } from '../../../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../../shared/theme-support/theme.service';
 import { FileSizePipe } from '../../../../shared/utils/file-size-pipe';
 import { VarDirective } from '../../../../shared/utils/var.directive';
@@ -40,17 +39,23 @@ import { FileSectionComponent } from './file-section.component';
 describe('FileSectionComponent', () => {
   let comp: FileSectionComponent;
   let fixture: ComponentFixture<FileSectionComponent>;
+  let localeService: any;
+  const languageList = ['en;q=1', 'de;q=0.8'];
+  const mockLocaleService = jasmine.createSpyObj('LocaleService', {
+    getCurrentLanguageCode: jasmine.createSpy('getCurrentLanguageCode'),
+    getLanguageCodeList: of(languageList),
+  });
 
   const bitstreamDataService = jasmine.createSpyObj('bitstreamDataService', {
     findAllByItemAndBundleName: createSuccessfulRemoteDataObject$(createPaginatedList([])),
-    findPrimaryBitstreamByItemAndName: observableOf(null),
+    findPrimaryBitstreamByItemAndName: of(null),
   });
 
   const mockBitstream: Bitstream = Object.assign(new Bitstream(),
     {
       sizeBytes: 10201,
       content: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/cf9b0c8e-a1eb-4b65-afd0-567366448713/content',
-      format: observableOf(MockBitstreamFormat1),
+      format: of(MockBitstreamFormat1),
       bundleName: 'ORIGINAL',
       _links: {
         self: {
@@ -90,6 +95,7 @@ describe('FileSectionComponent', () => {
         { provide: APP_CONFIG, useValue: environment },
         { provide: ThemeService, useValue: getMockThemeService() },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        { provide: LocaleService, useValue: mockLocaleService },
         provideMockStore(),
       ],
       schemas: [NO_ERRORS_SCHEMA],
@@ -105,6 +111,8 @@ describe('FileSectionComponent', () => {
   }));
 
   beforeEach(waitForAsync(() => {
+    localeService = TestBed.inject(LocaleService);
+    localeService.getCurrentLanguageCode.and.returnValue(of('en'));
     fixture = TestBed.createComponent(FileSectionComponent);
     comp = fixture.componentInstance;
     fixture.detectChanges();
@@ -112,14 +120,14 @@ describe('FileSectionComponent', () => {
 
   it('should set the id of primary bitstream', () => {
     comp.primaryBitstreamId = undefined;
-    bitstreamDataService.findPrimaryBitstreamByItemAndName.and.returnValue(observableOf(mockBitstream));
+    bitstreamDataService.findPrimaryBitstreamByItemAndName.and.returnValue(of(mockBitstream));
     comp.ngOnInit();
     expect(comp.primaryBitstreamId).toBe(mockBitstream.id);
   });
 
   it('should not set the id of primary bitstream', () => {
     comp.primaryBitstreamId = undefined;
-    bitstreamDataService.findPrimaryBitstreamByItemAndName.and.returnValue(observableOf(null));
+    bitstreamDataService.findPrimaryBitstreamByItemAndName.and.returnValue(of(null));
     comp.ngOnInit();
     expect(comp.primaryBitstreamId).toBeUndefined();
   });

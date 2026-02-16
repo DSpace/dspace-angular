@@ -1,13 +1,11 @@
 import {
   InjectionToken,
   makeStateKey,
-  Type,
 } from '@angular/core';
 
-import { AdminNotifyMetricsRow } from '../app/admin/admin-notify-dashboard/admin-notify-metrics/admin-notify-metrics.model';
-import { HALDataService } from '../app/core/data/base/hal-data-service.interface';
-import { LiveRegionConfig } from '../app/shared/live-region/live-region.config';
+import { AccessibilitySettingsConfig } from './accessibility-settings.config';
 import { ActuatorsConfig } from './actuators.config';
+import { AdminNotifyMetricsRow } from './admin-notify-metrics.config';
 import { AuthConfig } from './auth-config.interfaces';
 import { BrowseByConfig } from './browse-by-config.interface';
 import { BundleConfig } from './bundle-config.interface';
@@ -24,6 +22,7 @@ import { HomeConfig } from './homepage-config.interface';
 import { InfoConfig } from './info-config.interface';
 import { ItemConfig } from './item-config.interface';
 import { LangConfig } from './lang-config.interface';
+import { LiveRegionConfig } from './live-region.config';
 import { MarkdownConfig } from './markdown-config.interface';
 import { MatomoConfig } from './matomo-config.interface';
 import { MediaViewerConfig } from './media-viewer-config.interface';
@@ -36,7 +35,6 @@ import { SuggestionConfig } from './suggestion-config.interfaces';
 import { ThemeConfig } from './theme.config';
 import { UIServerConfig } from './ui-server-config.interface';
 
-
 interface AppConfig extends Config {
   ui: UIServerConfig;
   rest: ServerConfig;
@@ -47,7 +45,7 @@ interface AppConfig extends Config {
   notifications: INotificationBoardOptions;
   submission: SubmissionConfig;
   debug: boolean;
-  defaultLanguage: string;
+  fallbackLanguage: string;
   languages: LangConfig[];
   browseBy: BrowseByConfig;
   communityList: CommunityListConfig;
@@ -70,6 +68,7 @@ interface AppConfig extends Config {
   liveRegion: LiveRegionConfig;
   matomo?: MatomoConfig;
   geospatialMapViewer: GeospatialMapConfig;
+  accessibility: AccessibilitySettingsConfig;
 }
 
 /**
@@ -79,10 +78,6 @@ interface AppConfig extends Config {
 const APP_CONFIG = new InjectionToken<AppConfig>('APP_CONFIG');
 
 const APP_CONFIG_STATE = makeStateKey<AppConfig>('APP_CONFIG_STATE');
-
-export type LazyDataServicesMap = Map<string, () => Promise<Type<HALDataService<any>> | { default: HALDataService<any> }>>;
-
-export const APP_DATA_SERVICES_MAP: InjectionToken<LazyDataServicesMap> = new InjectionToken<LazyDataServicesMap>('APP_DATA_SERVICES_MAP');
 
 export {
   APP_CONFIG,

@@ -15,13 +15,26 @@ import {
   ReactiveFormsModule,
   UntypedFormControl,
 } from '@angular/forms';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { CollectionDataService } from '@dspace/core/data/collection-data.service';
+import { FindListOptions } from '@dspace/core/data/find-list-options.model';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { Community } from '@dspace/core/shared/community.model';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '@dspace/core/shared/operators';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import {
   BehaviorSubject,
   from as observableFrom,
   Observable,
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
 import {
@@ -35,20 +48,7 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { CollectionDataService } from '../../core/data/collection-data.service';
-import { FindListOptions } from '../../core/data/find-list-options.model';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { Collection } from '../../core/shared/collection.model';
-import { Community } from '../../core/shared/community.model';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
-} from '../../core/shared/operators';
-import { hasValue } from '../empty.util';
 import { ThemedLoadingComponent } from '../loading/themed-loading.component';
-import { followLink } from '../utils/follow-link-config.model';
 
 /**
  * An interface to represent a collection entry
@@ -71,8 +71,14 @@ export interface CollectionListEntry {
   selector: 'ds-base-collection-dropdown',
   templateUrl: './collection-dropdown.component.html',
   styleUrls: ['./collection-dropdown.component.scss'],
-  standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, InfiniteScrollModule, ThemedLoadingComponent, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    FormsModule,
+    InfiniteScrollModule,
+    ReactiveFormsModule,
+    ThemedLoadingComponent,
+    TranslateModule,
+  ],
 })
 export class CollectionDropdownComponent implements OnInit, OnDestroy {
 
@@ -136,6 +142,12 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
    * If present this value is used to filter collection list by entity type
    */
   @Input() entityType: string;
+
+  /**
+   * Search endpoint to use for finding authorized collections.
+   * Defaults to 'findSubmitAuthorized', but can be overridden (e.g. to 'findAdminAuthorized')
+   */
+  @Input() searchHref = 'findSubmitAuthorized';
 
   /**
    * Emit to notify whether search is complete
@@ -245,7 +257,7 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
           followLink('parentCommunity'));
     } else {
       searchListService$ = this.collectionDataService
-        .getAuthorizedCollection(query, findOptions, true, true, followLink('parentCommunity'));
+        .getAuthorizedCollection(query, findOptions, true, true, this.searchHref, followLink('parentCommunity'));
     }
     this.searchListCollection$ = searchListService$.pipe(
       getFirstCompletedRemoteData(),
@@ -268,7 +280,7 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
           );
         } else {
           this.hasNextPage = false;
-          return observableOf([]);
+          return of([]);
         }
       }),
     );

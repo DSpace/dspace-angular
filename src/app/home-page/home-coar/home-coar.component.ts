@@ -6,24 +6,22 @@ import {
   OnInit,
   PLATFORM_ID,
 } from '@angular/core';
+import { NotifyInfoService } from '@dspace/core/coar-notify/notify-info/notify-info.service';
 import {
-  of as observableOf,
+  LinkDefinition,
+  LinkHeadService,
+} from '@dspace/core/services/link-head.service';
+import { ServerResponseService } from '@dspace/core/services/server-response.service';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
+import {
+  of,
   Subscription,
 } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-import { NotifyInfoService } from '../../core/coar-notify/notify-info/notify-info.service';
-import {
-  LinkDefinition,
-  LinkHeadService,
-} from '../../core/services/link-head.service';
-import { ServerResponseService } from '../../core/services/server-response.service';
-import { isNotEmpty } from '../../shared/empty.util';
-
 @Component({
   selector: 'ds-home-coar',
   template: '',
-  standalone: true,
 })
 export class HomeCoarComponent implements OnInit, OnDestroy {
 
@@ -46,7 +44,7 @@ export class HomeCoarComponent implements OnInit, OnDestroy {
     // Get COAR REST API URLs from REST configuration
     // only if COAR configuration is enabled
     this.subs.push(this.notifyInfoService.isCoarConfigEnabled().pipe(
-      switchMap((coarLdnEnabled: boolean) => coarLdnEnabled ? this.notifyInfoService.getCoarLdnLocalInboxUrls() : observableOf([])),
+      switchMap((coarLdnEnabled: boolean) => coarLdnEnabled ? this.notifyInfoService.getCoarLdnLocalInboxUrls() : of([])),
     ).subscribe((coarRestApiUrls: string[]) => {
       if (coarRestApiUrls.length > 0) {
         this.initPageLinks(coarRestApiUrls);

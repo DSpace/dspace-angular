@@ -12,19 +12,20 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { SignpostingDataService } from '@dspace/core/data/signposting-data.service';
+import { getForbiddenRoute } from '@dspace/core/router/core-routing-paths';
+import { HardRedirectService } from '@dspace/core/services/hard-redirect.service';
+import { ServerResponseService } from '@dspace/core/services/server-response.service';
+import { Bitstream } from '@dspace/core/shared/bitstream.model';
+import { FileService } from '@dspace/core/shared/file.service';
+import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
-import { getForbiddenRoute } from '../../app-routing-paths';
-import { AuthService } from '../../core/auth/auth.service';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { SignpostingDataService } from '../../core/data/signposting-data.service';
-import { HardRedirectService } from '../../core/services/hard-redirect.service';
-import { ServerResponseService } from '../../core/services/server-response.service';
-import { Bitstream } from '../../core/shared/bitstream.model';
-import { FileService } from '../../core/shared/file.service';
-import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { MatomoService } from '../../statistics/matomo.service';
 import { BitstreamDownloadPageComponent } from './bitstream-download-page.component';
 
@@ -60,16 +61,16 @@ describe('BitstreamDownloadPageComponent', () => {
 
   function init() {
     authService = jasmine.createSpyObj('authService', {
-      isAuthenticated: observableOf(true),
+      isAuthenticated: of(true),
       setRedirectUrl: {},
-      getShortlivedToken: observableOf('token'),
+      getShortlivedToken: of('token'),
     });
     authorizationService = jasmine.createSpyObj('authorizationSerivice', {
-      isAuthorized: observableOf(true),
+      isAuthorized: of(true),
     });
 
     fileService = jasmine.createSpyObj('fileService', {
-      retrieveFileDownloadLink: observableOf('content-url-with-headers'),
+      retrieveFileDownloadLink: of('content-url-with-headers'),
     });
 
     hardRedirectService = jasmine.createSpyObj('hardRedirectService', {
@@ -92,13 +93,13 @@ describe('BitstreamDownloadPageComponent', () => {
       },
     });
     activatedRoute = {
-      data: observableOf({
+      data: of({
         bitstream: createSuccessfulRemoteDataObject(bitstream),
       }),
-      params: observableOf({
+      params: of({
         id: 'testid',
       }),
-      queryParams: observableOf({
+      queryParams: of({
         accessToken: undefined,
       }),
     };
@@ -110,10 +111,13 @@ describe('BitstreamDownloadPageComponent', () => {
     });
 
     signpostingDataService = jasmine.createSpyObj('SignpostingDataService', {
-      getLinks: observableOf([mocklink, mocklink2]),
+      getLinks: of([mocklink, mocklink2]),
     });
-    matomoService = jasmine.createSpyObj('MatomoService', ['appendVisitorId']);
-    matomoService.appendVisitorId.and.callFake((link) => observableOf(link));
+    matomoService = jasmine.createSpyObj('MatomoService', {
+      appendVisitorId: of(''),
+      isMatomoEnabled$: of(true),
+    });
+    matomoService.appendVisitorId.and.callFake((link) => of(link));
   }
 
   function initTestbed() {
@@ -132,6 +136,7 @@ describe('BitstreamDownloadPageComponent', () => {
         { provide: PLATFORM_ID, useValue: 'server' },
         { provide: Location, useValue: location },
         { provide: DSONameService, useValue: dsoNameService },
+        { provide: ConfigurationDataService, useValue: {} },
       ],
     })
       .compileComponents();
@@ -156,7 +161,7 @@ describe('BitstreamDownloadPageComponent', () => {
     describe('when the user is authorized and not logged in', () => {
       beforeEach(waitForAsync(() => {
         init();
-        (authService.isAuthenticated as jasmine.Spy).and.returnValue(observableOf(false));
+        (authService.isAuthenticated as jasmine.Spy).and.returnValue(of(false));
 
         initTestbed();
       }));
@@ -193,7 +198,7 @@ describe('BitstreamDownloadPageComponent', () => {
     describe('when the user is not authorized and logged in', () => {
       beforeEach(waitForAsync(() => {
         init();
-        (authorizationService.isAuthorized as jasmine.Spy).and.returnValue(observableOf(false));
+        (authorizationService.isAuthorized as jasmine.Spy).and.returnValue(of(false));
         initTestbed();
       }));
       beforeEach(() => {
@@ -210,8 +215,8 @@ describe('BitstreamDownloadPageComponent', () => {
     describe('when the user is not authorized and not logged in', () => {
       beforeEach(waitForAsync(() => {
         init();
-        (authService.isAuthenticated as jasmine.Spy).and.returnValue(observableOf(false));
-        (authorizationService.isAuthorized as jasmine.Spy).and.returnValue(observableOf(false));
+        (authService.isAuthenticated as jasmine.Spy).and.returnValue(of(false));
+        (authorizationService.isAuthorized as jasmine.Spy).and.returnValue(of(false));
         initTestbed();
       }));
       beforeEach(() => {
@@ -226,5 +231,43 @@ describe('BitstreamDownloadPageComponent', () => {
         });
       }));
     });
+  });
+
+  describe('when Matomo is enabled', () => {
+    beforeEach(waitForAsync(() => {
+      init();
+      (matomoService.appendVisitorId as jasmine.Spy).and.callFake((link) => of(link + '?visitorId=12345'));
+      initTestbed();
+    }));
+    beforeEach(() => {
+      fixture = TestBed.createComponent(BitstreamDownloadPageComponent);
+      component = fixture.componentInstance;
+      fixture.detectChanges();
+    });
+    it('should append visitor ID to the file link', waitForAsync(() => {
+      fixture.whenStable().then(() => {
+        expect(matomoService.appendVisitorId).toHaveBeenCalledWith('content-url-with-headers');
+        expect(hardRedirectService.redirect).toHaveBeenCalledWith('content-url-with-headers?visitorId=12345');
+      });
+    }));
+  });
+
+  describe('when Matomo is not enabled', () => {
+    beforeEach(waitForAsync(() => {
+      init();
+      (matomoService.isMatomoEnabled$ as jasmine.Spy).and.returnValue(of(false));
+      initTestbed();
+    }));
+    beforeEach(() => {
+      fixture = TestBed.createComponent(BitstreamDownloadPageComponent);
+      component = fixture.componentInstance;
+      fixture.detectChanges();
+    });
+    it('should not append visitor ID to the file link', waitForAsync(() => {
+      fixture.whenStable().then(() => {
+        expect(matomoService.appendVisitorId).not.toHaveBeenCalled();
+        expect(hardRedirectService.redirect).toHaveBeenCalledWith('content-url-with-headers');
+      });
+    }));
   });
 });

@@ -16,9 +16,6 @@ import { pushInOut } from '../../../../app/shared/animations/push';
 import { RoleDirective } from '../../../../app/shared/roles/role.directive';
 import { ThemedSearchComponent } from '../../../../app/shared/search/themed-search.component';
 
-/**
- * This component represents the whole mydspace page
- */
 @Component({
   selector: 'ds-themed-my-dspace-page',
   // styleUrls: ['./my-dspace-page.component.scss'],
@@ -33,14 +30,13 @@ import { ThemedSearchComponent } from '../../../../app/shared/search/themed-sear
       useClass: MyDSpaceConfigurationService,
     },
   ],
-  standalone: true,
   imports: [
-    ThemedSearchComponent,
-    MyDSpaceNewSubmissionComponent,
     AsyncPipe,
+    MyDSpaceNewSubmissionComponent,
+    MyDspaceQaEventsNotificationsComponent,
     RoleDirective,
     SuggestionsNotificationComponent,
-    MyDspaceQaEventsNotificationsComponent,
+    ThemedSearchComponent,
   ],
 })
 export class MyDSpacePageComponent extends BaseComponent {

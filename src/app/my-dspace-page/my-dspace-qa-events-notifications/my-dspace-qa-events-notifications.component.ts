@@ -5,21 +5,21 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { QualityAssuranceSourceObject } from '@dspace/core/notifications/qa/models/quality-assurance-source.model';
+import { QualityAssuranceSourceDataService } from '@dspace/core/notifications/qa/source/quality-assurance-source-data.service';
+import {
+  getFirstCompletedRemoteData,
+  getPaginatedListPayload,
+  getRemoteDataPayload,
+} from '@dspace/core/shared/operators';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
   of,
   tap,
 } from 'rxjs';
-import { QualityAssuranceSourceObject } from 'src/app/core/notifications/qa/models/quality-assurance-source.model';
 
 import { getNotificatioQualityAssuranceRoute } from '../../admin/admin-routing-paths';
-import { QualityAssuranceSourceDataService } from '../../core/notifications/qa/source/quality-assurance-source-data.service';
-import {
-  getFirstCompletedRemoteData,
-  getPaginatedListPayload,
-  getRemoteDataPayload,
-} from '../../core/shared/operators';
 
 @Component({
   selector: 'ds-my-dspace-qa-events-notifications',
@@ -28,10 +28,9 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     AsyncPipe,
-    TranslateModule,
     RouterLink,
+    TranslateModule,
   ],
-  standalone: true,
 })
 export class MyDspaceQaEventsNotificationsComponent  implements OnInit {
 

@@ -10,37 +10,37 @@ import {
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
+import { ExternalSourceDataService } from '@dspace/core/data/external-source-data.service';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { ExternalSource } from '@dspace/core/shared/external-source.model';
+import { ExternalSourceEntry } from '@dspace/core/shared/external-source-entry.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { ItemType } from '@dspace/core/shared/item-relationships/item-type.model';
+import { RelationshipOptions } from '@dspace/core/shared/relationship-options.model';
+import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
+import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
+import {
+  createFailedRemoteDataObject$,
+  createPendingRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core/utilities/remote-data.utils';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   EMPTY,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
-import { ExternalSourceDataService } from '../../../../../../core/data/external-source-data.service';
-import { PaginationService } from '../../../../../../core/pagination/pagination.service';
-import { Collection } from '../../../../../../core/shared/collection.model';
-import { ExternalSource } from '../../../../../../core/shared/external-source.model';
-import { ExternalSourceEntry } from '../../../../../../core/shared/external-source-entry.model';
-import { Item } from '../../../../../../core/shared/item.model';
-import { ItemType } from '../../../../../../core/shared/item-relationships/item-type.model';
-import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { ErrorComponent } from '../../../../../error/error.component';
 import { ThemedLoadingComponent } from '../../../../../loading/themed-loading.component';
 import { ObjectCollectionComponent } from '../../../../../object-collection/object-collection.component';
 import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';
 import { PageSizeSelectorComponent } from '../../../../../page-size-selector/page-size-selector.component';
-import {
-  createFailedRemoteDataObject$,
-  createPendingRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '../../../../../remote-data.utils';
-import { PaginatedSearchOptions } from '../../../../../search/models/paginated-search-options.model';
+import { SearchConfigurationService } from '../../../../../search/search-configuration.service';
 import { ThemedSearchFormComponent } from '../../../../../search-form/themed-search-form.component';
-import { PaginationServiceStub } from '../../../../../testing/pagination-service.stub';
-import { createPaginatedList } from '../../../../../testing/utils.test';
 import { VarDirective } from '../../../../../utils/var.directive';
-import { RelationshipOptions } from '../../../models/relationship-options.model';
 import { DsDynamicLookupRelationExternalSourceTabComponent } from './dynamic-lookup-relation-external-source-tab.component';
 import { ThemedExternalSourceEntryImportModalComponent } from './external-source-entry-import-modal/themed-external-source-entry-import-modal.component';
 
@@ -120,7 +120,7 @@ describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
       providers: [
         {
           provide: SearchConfigurationService, useValue: {
-            paginatedSearchOptions: observableOf(pSearchOptions),
+            paginatedSearchOptions: of(pSearchOptions),
           },
         },
         { provide: ExternalSourceDataService, useValue: externalSourceService },

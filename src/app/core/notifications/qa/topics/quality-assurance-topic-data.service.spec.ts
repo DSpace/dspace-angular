@@ -1,26 +1,26 @@
 import { HttpClient } from '@angular/common/http';
+import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
+import { RestResponse } from '@dspace/core/cache/response.models';
+import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RequestService } from '@dspace/core/data/request.service';
+import { RequestEntry } from '@dspace/core/data/request-entry.model';
+import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import {
   cold,
   getTestScheduler,
 } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
+import { NotificationsService } from '../../../notification-system/notifications.service';
 import {
   qualityAssuranceTopicObjectMoreAbstract,
   qualityAssuranceTopicObjectMorePid,
-} from '../../../../shared/mocks/notifications.mock';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject } from '../../../../shared/remote-data.utils';
-import { ObjectCacheServiceStub } from '../../../../shared/testing/object-cache-service.stub';
-import { RemoteDataBuildService } from '../../../cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../../../cache/object-cache.service';
-import { RestResponse } from '../../../cache/response.models';
-import { buildPaginatedList } from '../../../data/paginated-list.model';
-import { RequestService } from '../../../data/request.service';
-import { RequestEntry } from '../../../data/request-entry.model';
-import { HALEndpointService } from '../../../shared/hal-endpoint.service';
-import { PageInfo } from '../../../shared/page-info.model';
+} from '../../../testing/notifications.mock';
+import { ObjectCacheServiceStub } from '../../../testing/object-cache-service.stub';
 import { QualityAssuranceTopicDataService } from './quality-assurance-topic-data.service';
 
 describe('QualityAssuranceTopicDataService', () => {
@@ -53,8 +53,8 @@ describe('QualityAssuranceTopicDataService', () => {
       generateRequestId: requestUUID,
       send: true,
       removeByHrefSubstring: {},
-      getByHref: observableOf(responseCacheEntry),
-      getByUUID: observableOf(responseCacheEntry),
+      getByHref: of(responseCacheEntry),
+      getByUUID: of(responseCacheEntry),
     });
 
     rdbService = jasmine.createSpyObj('rdbService', {

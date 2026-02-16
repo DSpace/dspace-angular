@@ -3,6 +3,13 @@ import {
   Component,
   Inject,
 } from '@angular/core';
+import { JsonPatchOperationPathCombiner } from '@dspace/core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
+import { WorkspaceitemSectionSherpaPoliciesObject } from '@dspace/core/submission/models/workspaceitem-section-sherpa-policies.model';
+import {
+  hasValue,
+  isEmpty,
+} from '@dspace/shared/utils/empty.util';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -12,15 +19,8 @@ import {
   Subscription,
 } from 'rxjs';
 
-import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
-import { WorkspaceitemSectionSherpaPoliciesObject } from '../../../core/submission/models/workspaceitem-section-sherpa-policies.model';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
-import {
-  hasValue,
-  isEmpty,
-} from '../../../shared/empty.util';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { SubmissionService } from '../../submission.service';
 import { SectionModelComponent } from '../models/section.model';
@@ -38,16 +38,15 @@ import { PublisherPolicyComponent } from './publisher-policy/publisher-policy.co
   templateUrl: './section-sherpa-policies.component.html',
   styleUrls: ['./section-sherpa-policies.component.scss'],
   imports: [
+    AlertComponent,
+    AsyncPipe,
     MetadataInformationComponent,
     NgbCollapseModule,
-    AlertComponent,
-    TranslateModule,
-    PublisherPolicyComponent,
     PublicationInformationComponent,
-    AsyncPipe,
+    PublisherPolicyComponent,
+    TranslateModule,
     VarDirective,
   ],
-  standalone: true,
 })
 export class SubmissionSectionSherpaPoliciesComponent extends SectionModelComponent {
 

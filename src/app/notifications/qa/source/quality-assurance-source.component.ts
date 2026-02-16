@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  DatePipe,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   AfterViewInit,
   Component,
@@ -11,8 +8,12 @@ import {
 import {
   ActivatedRoute,
   Router,
-  RouterLink,
 } from '@angular/router';
+import { SortOptions } from '@dspace/core/cache/models/sort-options.model';
+import { QualityAssuranceSourceObject } from '@dspace/core/notifications/qa/models/quality-assurance-source.model';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
@@ -24,15 +25,8 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { SortOptions } from '../../../core/cache/models/sort-options.model';
-import { QualityAssuranceSourceObject } from '../../../core/notifications/qa/models/quality-assurance-source.model';
-import { PaginationService } from '../../../core/pagination/pagination.service';
 import { QualityAssuranceSourcePageParams } from '../../../quality-assurance-notifications-pages/quality-assurance-source-page-component/quality-assurance-source-page-resolver.service';
 import { AlertComponent } from '../../../shared/alert/alert.component';
-import { hasValue } from '../../../shared/empty.util';
-import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { PaginationComponent } from '../../../shared/pagination/pagination.component';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { NotificationsStateService } from '../../notifications-state.service';
 import {
   SourceListComponent,
@@ -46,8 +40,12 @@ import {
   selector: 'ds-quality-assurance-source',
   templateUrl: './quality-assurance-source.component.html',
   styleUrls: ['./quality-assurance-source.component.scss'],
-  standalone: true,
-  imports: [AlertComponent, ThemedLoadingComponent, PaginationComponent, RouterLink, AsyncPipe, TranslateModule, DatePipe, SourceListComponent],
+  imports: [
+    AlertComponent,
+    AsyncPipe,
+    SourceListComponent,
+    TranslateModule,
+  ],
 })
 export class QualityAssuranceSourceComponent implements OnDestroy, OnInit, AfterViewInit {
 

@@ -16,10 +16,10 @@ import {
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
+import { ObjectUpdatesService } from '@dspace/core/data/object-updates/object-updates.service';
+import { MetadatumViewModel } from '@dspace/core/shared/metadata.models';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
-import { MetadatumViewModel } from '../../../core/shared/metadata.models';
 import { ClickOutsideDirective } from '../../utils/click-outside.directive';
 import { DebounceDirective } from '../../utils/debounce.directive';
 import { MetadataFieldValidator } from '../../utils/metadatafield-validator.directive';
@@ -39,8 +39,15 @@ import { InputSuggestion } from '../input-suggestions.model';
       multi: true,
     },
   ],
-  standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, ClickOutsideDirective, DebounceDirective, NgClass, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    ClickOutsideDirective,
+    DebounceDirective,
+    FormsModule,
+    NgClass,
+    ReactiveFormsModule,
+    TranslateModule,
+  ],
 })
 
 /**

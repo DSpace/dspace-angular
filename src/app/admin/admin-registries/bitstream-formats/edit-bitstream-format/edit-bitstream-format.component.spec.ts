@@ -10,22 +10,22 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
-
-import { BitstreamFormatDataService } from '../../../../core/data/bitstream-format-data.service';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model';
-import { BitstreamFormatSupportLevel } from '../../../../core/shared/bitstream-format-support-level';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
+import { BitstreamFormatDataService } from '@dspace/core/data/bitstream-format-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { BitstreamFormat } from '@dspace/core/shared/bitstream-format.model';
+import { BitstreamFormatSupportLevel } from '@dspace/core/shared/bitstream-format-support-level';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { RouterStub } from '@dspace/core/testing/router.stub';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../../shared/remote-data.utils';
-import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
-import { RouterStub } from '../../../../shared/testing/router.stub';
+} from '@dspace/core/utilities/remote-data.utils';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
+
 import { FormatFormComponent } from '../format-form/format-form.component';
 import { EditBitstreamFormatComponent } from './edit-bitstream-format.component';
 
@@ -44,7 +44,7 @@ describe('EditBitstreamFormatComponent', () => {
   bitstreamFormat.extensions = null;
 
   const routeStub = {
-    data: observableOf({
+    data: of({
       bitstreamFormat: createSuccessfulRemoteDataObject(bitstreamFormat),
     }),
   };

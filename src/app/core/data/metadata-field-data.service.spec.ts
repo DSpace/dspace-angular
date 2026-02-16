@@ -1,14 +1,14 @@
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
-import { createPaginatedList } from '../../shared/testing/utils.test';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { RestResponse } from '../cache/response.models';
 import { MetadataSchema } from '../metadata/metadata-schema.model';
+import { NotificationsService } from '../notification-system/notifications.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { HALEndpointServiceStub } from '../testing/hal-endpoint-service.stub';
+import { createPaginatedList } from '../testing/utils.test';
+import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
 import { testCreateDataImplementation } from './base/create-data.spec';
 import { testDeleteDataImplementation } from './base/delete-data.spec';
 import { testPutDataImplementation } from './base/put-data.spec';
@@ -38,7 +38,7 @@ describe('MetadataFieldDataService', () => {
     requestService = jasmine.createSpyObj('requestService', {
       generateRequestId: '34cfed7c-f597-49ef-9cbe-ea351f0023c2',
       send: {},
-      getByUUID: observableOf({ response: new RestResponse(true, 200, 'OK') }),
+      getByUUID: of({ response: new RestResponse(true, 200, 'OK') }),
       setStaleByHrefSubstring: {},
     });
     halService = Object.assign(new HALEndpointServiceStub(endpoint));
@@ -82,7 +82,7 @@ describe('MetadataFieldDataService', () => {
 
   describe('clearRequests', () => {
     it('should remove requests on the data service\'s endpoint', () => {
-      spyOn(metadataFieldService, 'getBrowseEndpoint').and.returnValue(observableOf(endpoint));
+      spyOn(metadataFieldService, 'getBrowseEndpoint').and.returnValue(of(endpoint));
       metadataFieldService.clearRequests();
       expect(requestService.setStaleByHrefSubstring).toHaveBeenCalledWith(endpoint);
     });

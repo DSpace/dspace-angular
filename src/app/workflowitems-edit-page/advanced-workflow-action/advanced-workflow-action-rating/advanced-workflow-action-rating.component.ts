@@ -12,11 +12,11 @@ import {
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
+import { RatingAdvancedWorkflowInfo } from '@dspace/core/tasks/models/rating-advanced-workflow-info.model';
+import { WorkflowAction } from '@dspace/core/tasks/models/workflow-action-object.model';
 import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { RatingAdvancedWorkflowInfo } from '../../../core/tasks/models/rating-advanced-workflow-info.model';
-import { WorkflowAction } from '../../../core/tasks/models/workflow-action-object.model';
 import { ModifyItemOverviewComponent } from '../../../item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { AdvancedWorkflowActionComponent } from '../advanced-workflow-action/advanced-workflow-action.component';
@@ -33,15 +33,14 @@ export const ADVANCED_WORKFLOW_ACTION_RATING = 'scorereviewaction';
   styleUrls: ['./advanced-workflow-action-rating.component.scss'],
   preserveWhitespaces: false,
   imports: [
-    ModifyItemOverviewComponent,
     AsyncPipe,
-    TranslateModule,
+    ModifyItemOverviewComponent,
     NgbRatingModule,
     NgClass,
     ReactiveFormsModule,
+    TranslateModule,
     VarDirective,
   ],
-  standalone: true,
 })
 export class AdvancedWorkflowActionRatingComponent extends AdvancedWorkflowActionComponent implements OnInit {
 

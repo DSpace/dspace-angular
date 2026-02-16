@@ -17,6 +17,15 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { FindListOptions } from '@dspace/core/data/find-list-options.model';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { ScriptDataService } from '@dspace/core/data/processes/script-data.service';
+import {
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+} from '@dspace/core/shared/operators';
+import { Script } from '@dspace/core/shared/scripts/script.model';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
@@ -29,16 +38,7 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { FindListOptions } from '../../../core/data/find-list-options.model';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { ScriptDataService } from '../../../core/data/processes/script-data.service';
-import {
-  getFirstCompletedRemoteData,
-  getRemoteDataPayload,
-} from '../../../core/shared/operators';
-import { hasValue } from '../../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { Script } from '../../scripts/script.model';
 import { controlContainerFactory } from '../process-form-factory';
 
 const SCRIPT_QUERY_PARAMETER = 'script';
@@ -53,8 +53,14 @@ const SCRIPT_QUERY_PARAMETER = 'script';
   viewProviders: [{ provide: ControlContainer,
     useFactory: controlContainerFactory,
     deps: [[new Optional(), NgForm]] }],
-  standalone: true,
-  imports: [FormsModule, AsyncPipe, TranslateModule, InfiniteScrollModule, ThemedLoadingComponent, NgbDropdownModule],
+  imports: [
+    AsyncPipe,
+    FormsModule,
+    InfiniteScrollModule,
+    NgbDropdownModule,
+    ThemedLoadingComponent,
+    TranslateModule,
+  ],
 })
 export class ScriptsSelectComponent implements OnInit, OnDestroy {
   /**

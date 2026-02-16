@@ -1,22 +1,22 @@
 import { TestBed } from '@angular/core/testing';
-import { cold } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
-
-import { RequestParam } from '../../../core/cache/models/request-param.model';
+import { RequestParam } from '@dspace/core/cache/models/request-param.model';
 import {
   SortDirection,
   SortOptions,
-} from '../../../core/cache/models/sort-options.model';
-import { FindListOptions } from '../../../core/data/find-list-options.model';
-import { buildPaginatedList } from '../../../core/data/paginated-list.model';
-import { QualityAssuranceTopicDataService } from '../../../core/notifications/qa/topics/quality-assurance-topic-data.service';
-import { PageInfo } from '../../../core/shared/page-info.model';
+} from '@dspace/core/cache/models/sort-options.model';
+import { FindListOptions } from '@dspace/core/data/find-list-options.model';
+import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
+import { QualityAssuranceTopicDataService } from '@dspace/core/notifications/qa/topics/quality-assurance-topic-data.service';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
 import {
   getMockQualityAssuranceTopicRestService,
   qualityAssuranceTopicObjectMoreAbstract,
   qualityAssuranceTopicObjectMorePid,
-} from '../../../shared/mocks/notifications.mock';
-import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
+} from '@dspace/core/testing/notifications.mock';
+import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
+import { cold } from 'jasmine-marbles';
+import { of } from 'rxjs';
+
 import { QualityAssuranceTopicsService } from './quality-assurance-topics.service';
 
 describe('QualityAssuranceTopicsService', () => {
@@ -44,8 +44,8 @@ describe('QualityAssuranceTopicsService', () => {
   beforeEach(() => {
     restService = TestBed.inject(QualityAssuranceTopicDataService);
     restServiceAsAny = restService;
-    restServiceAsAny.searchTopicsBySource.and.returnValue(observableOf(paginatedListRD));
-    restServiceAsAny.searchTopicsByTarget.and.returnValue(observableOf(paginatedListRD));
+    restServiceAsAny.searchTopicsBySource.and.returnValue(of(paginatedListRD));
+    restServiceAsAny.searchTopicsByTarget.and.returnValue(of(paginatedListRD));
     service = new QualityAssuranceTopicsService(restService);
     serviceAsAny = service;
   });

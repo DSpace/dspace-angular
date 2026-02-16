@@ -8,29 +8,34 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
+import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
+import { Item } from '@dspace/core/shared/item.model';
+import {
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+} from '@dspace/core/shared/operators';
+import { hasValue } from '@dspace/shared/utils/empty.util';
+import { parseCcCode } from '@dspace/shared/utils/license.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   map,
   Observable,
   of,
 } from 'rxjs';
-import { ConfigurationDataService } from 'src/app/core/data/configuration-data.service';
-import { ConfigurationProperty } from 'src/app/core/shared/configuration-property.model';
-import { Item } from 'src/app/core/shared/item.model';
-import {
-  getFirstCompletedRemoteData,
-  getRemoteDataPayload,
-} from 'src/app/core/shared/operators';
-import { hasValue } from 'src/app/shared/empty.util';
 import { MetadataFieldWrapperComponent } from 'src/app/shared/metadata-field-wrapper/metadata-field-wrapper.component';
-import { parseCcCode } from 'src/app/shared/utils/license.utils';
 
 
 @Component({
   selector: 'ds-item-page-cc-license-field',
   templateUrl: './item-page-cc-license-field.component.html',
-  standalone: true,
-  imports: [AsyncPipe, NgClass, NgStyle, TranslateModule, MetadataFieldWrapperComponent],
+  imports: [
+    AsyncPipe,
+    MetadataFieldWrapperComponent,
+    NgClass,
+    NgStyle,
+    TranslateModule,
+  ],
 })
 /**
  * Displays the item's Creative Commons license image in it's simple item page

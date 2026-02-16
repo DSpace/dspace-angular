@@ -9,23 +9,23 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
-
-import { APP_CONFIG } from '../../../../../../../config/app-config.interface';
-import { AuthService } from '../../../../../../core/auth/auth.service';
-import { DSONameService } from '../../../../../../core/breadcrumbs/dso-name.service';
-import { AuthorizationDataService } from '../../../../../../core/data/feature-authorization/authorization-data.service';
-import { Item } from '../../../../../../core/shared/item.model';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { AuthServiceStub } from '@dspace/core/testing/auth-service.stub';
 import {
   DSONameServiceMock,
   UNDEFINED_NAME,
-} from '../../../../../mocks/dso-name.service.mock';
-import { mockTruncatableService } from '../../../../../mocks/mock-trucatable.service';
-import { getMockThemeService } from '../../../../../mocks/theme-service.mock';
-import { ItemSearchResult } from '../../../../../object-collection/shared/item-search-result.model';
-import { ActivatedRouteStub } from '../../../../../testing/active-router.stub';
-import { AuthServiceStub } from '../../../../../testing/auth-service.stub';
+} from '@dspace/core/testing/dso-name.service.mock';
+import { mockTruncatableService } from '@dspace/core/testing/mock-trucatable.service';
+import { TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
+
+import { getMockThemeService } from '../../../../../theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../../../theme-support/theme.service';
 import { TruncatableService } from '../../../../../truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../../utils/truncate.pipe';
@@ -42,7 +42,7 @@ const mockItemWithMetadata: ItemSearchResult = Object.assign(new ItemSearchResul
   },
   indexableObject:
     Object.assign(new Item(), {
-      bundles: observableOf({}),
+      bundles: of({}),
       metadata: {
         'dc.title': [
           {
@@ -80,7 +80,7 @@ const mockItemWithMetadata: ItemSearchResult = Object.assign(new ItemSearchResul
 const mockItemWithoutMetadata: ItemSearchResult = Object.assign(new ItemSearchResult(), {
   indexableObject:
     Object.assign(new Item(), {
-      bundles: observableOf({}),
+      bundles: of({}),
       metadata: {},
     }),
 });
@@ -92,7 +92,7 @@ const mockPerson: ItemSearchResult = Object.assign(new ItemSearchResult(), {
   },
   indexableObject:
     Object.assign(new Item(), {
-      bundles: observableOf({}),
+      bundles: of({}),
       entityType: 'Person',
       metadata: {
         'dc.title': [
@@ -146,7 +146,7 @@ const mockOrgUnit: ItemSearchResult = Object.assign(new ItemSearchResult(), {
   },
   indexableObject:
     Object.assign(new Item(), {
-      bundles: observableOf({}),
+      bundles: of({}),
       entityType: 'OrgUnit',
       metadata: {
         'dc.title': [

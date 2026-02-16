@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import {
   map,
@@ -9,10 +10,9 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { hasValue } from '../../shared/empty.util';
 import { AuthService } from '../auth/auth.service';
+import { CookieService } from '../cookies/cookie.service';
 import { EPersonDataService } from '../eperson/eperson-data.service';
-import { CookieService } from '../services/cookie.service';
 import { getFirstCompletedRemoteData } from '../shared/operators';
 
 export const END_USER_AGREEMENT_COOKIE = 'hasAgreedEndUser';
@@ -36,7 +36,7 @@ export class EndUserAgreementService {
    */
   hasCurrentUserOrCookieAcceptedAgreement(acceptedWhenAnonymous: boolean): Observable<boolean> {
     if (this.isCookieAccepted()) {
-      return observableOf(true);
+      return of(true);
     } else {
       return this.hasCurrentUserAcceptedAgreement(acceptedWhenAnonymous);
     }
@@ -55,7 +55,7 @@ export class EndUserAgreementService {
             map((user) => hasValue(user) && user.hasMetadata(END_USER_AGREEMENT_METADATA_FIELD) && user.firstMetadata(END_USER_AGREEMENT_METADATA_FIELD).value === 'true'),
           );
         } else {
-          return observableOf(acceptedWhenAnonymous);
+          return of(acceptedWhenAnonymous);
         }
       }),
     );
@@ -88,7 +88,7 @@ export class EndUserAgreementService {
           );
         } else {
           this.setCookieAccepted(accepted);
-          return observableOf(true);
+          return of(true);
         }
       }),
       take(1),

@@ -1,17 +1,17 @@
+import { RestRequestMethod } from '@dspace/config/rest-request-method';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RemoteData } from '../data/remote-data';
 import { PostRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';
-import { RestRequestMethod } from '../data/rest-request-method';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { createSuccessfulRemoteDataObject } from '../utilities/remote-data.utils';
 import { AuthRequestService } from './auth-request.service';
 import { AuthStatus } from './models/auth-status.model';
 import { ShortLivedToken } from './models/short-lived-token.model';
@@ -40,7 +40,7 @@ describe(`AuthRequestService`, () => {
     }
 
     protected createShortLivedTokenRequest(href: string): Observable<PostRequest> {
-      return observableOf(new PostRequest(this.requestService.generateRequestId(), href));
+      return of(new PostRequest(this.requestService.generateRequestId(), href));
     }
   }
 

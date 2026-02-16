@@ -4,48 +4,50 @@ import {
   Injectable,
 } from '@angular/core';
 import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
+import { CollectionDataService } from '@dspace/core/data/collection-data.service';
+import { CommunityDataService } from '@dspace/core/data/community-data.service';
+import { FindListOptions } from '@dspace/core/data/find-list-options.model';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import {
+  getCollectionPageRoute,
+  getCommunityPageRoute,
+} from '@dspace/core/router/utils/dso-route.utils';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { Community } from '@dspace/core/shared/community.model';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+} from '@dspace/core/shared/operators';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
+import {
   createSelector,
   Store,
 } from '@ngrx/store';
 import {
   combineLatest as observableCombineLatest,
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import {
   filter,
   map,
   switchMap,
 } from 'rxjs/operators';
-import {
-  APP_CONFIG,
-  AppConfig,
-} from 'src/config/app-config.interface';
 import { v4 as uuidv4 } from 'uuid';
 
 import { AppState } from '../app.reducer';
-import { getCollectionPageRoute } from '../collection-page/collection-page-routing-paths';
-import { getCommunityPageRoute } from '../community-page/community-page-routing-paths';
-import { CollectionDataService } from '../core/data/collection-data.service';
-import { CommunityDataService } from '../core/data/community-data.service';
-import { FindListOptions } from '../core/data/find-list-options.model';
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '../core/data/paginated-list.model';
-import { RemoteData } from '../core/data/remote-data';
-import { Collection } from '../core/shared/collection.model';
-import { Community } from '../core/shared/community.model';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteData,
-} from '../core/shared/operators';
-import { PageInfo } from '../core/shared/page-info.model';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../shared/empty.util';
-import { followLink } from '../shared/utils/follow-link-config.model';
 import { CommunityListSaveAction } from './community-list.actions';
 import { CommunityListState } from './community-list.reducer';
 import { FlatNode } from './flat-node.model';
@@ -92,7 +94,7 @@ export const showMoreFlatNode = (
   level: number,
   parent: FlatNode,
 ): FlatNode => ({
-  isExpandable$: observableOf(false),
+  isExpandable$: of(false),
   name: 'Show More Flatnode',
   id: id,
   level: level,
@@ -212,12 +214,12 @@ export class CommunityListService {
           return this.transformCommunity(community, level, parent, expandedNodes);
         });
       if (currentPage < listOfPaginatedCommunities.totalPages && currentPage === listOfPaginatedCommunities.currentPage) {
-        obsList = [...obsList, observableOf([showMoreFlatNode(`community-${uuidv4()}`, level, parent)])];
+        obsList = [...obsList, of([showMoreFlatNode(`community-${uuidv4()}`, level, parent)])];
       }
 
       return combineAndFlatten(obsList);
     } else {
-      return observableOf([]);
+      return of([]);
     }
   }
 
@@ -241,7 +243,7 @@ export class CommunityListService {
 
     const communityFlatNode = toFlatNode(community, isExpandable$, level, isExpanded, parent);
 
-    let obsList = [observableOf([communityFlatNode])];
+    let obsList = [of([communityFlatNode])];
 
     if (isExpanded) {
       const currentCommunityPage = expandedNodes.find((node: FlatNode) => node.id === community.id).currentCommunityPage;
@@ -259,7 +261,7 @@ export class CommunityListService {
               if (hasValue(rd) && hasValue(rd.payload)) {
                 return this.transformListOfCommunities(rd.payload, level + 1, communityFlatNode, expandedNodes);
               } else {
-                return observableOf([]);
+                return of([]);
               }
             }),
           );
@@ -281,7 +283,7 @@ export class CommunityListService {
             map((rd: RemoteData<PaginatedList<Collection>>) => {
               if (hasValue(rd) && hasValue(rd.payload)) {
                 let nodes = rd.payload.page
-                  .map((collection: Collection) => toFlatNode(collection, observableOf(false), level + 1, false, communityFlatNode));
+                  .map((collection: Collection) => toFlatNode(collection, of(false), level + 1, false, communityFlatNode));
                 if (currentCollectionPage < rd.payload.totalPages && currentCollectionPage === rd.payload.currentPage) {
                   nodes = [...nodes, showMoreFlatNode(`collection-${uuidv4()}`, level + 1, communityFlatNode)];
                 }

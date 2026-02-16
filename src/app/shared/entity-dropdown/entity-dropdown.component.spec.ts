@@ -11,22 +11,21 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { EntityTypeDataService } from '@dspace/core/data/entity-type-data.service';
+import { ItemType } from '@dspace/core/shared/item-relationships/item-type.model';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { TestScheduler } from 'rxjs/testing';
 
-import { EntityTypeDataService } from '../../core/data/entity-type-data.service';
-import { ItemType } from '../../core/shared/item-relationships/item-type.model';
 import { ThemedLoadingComponent } from '../loading/themed-loading.component';
-import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
-import { createPaginatedList } from '../testing/utils.test';
 import { EntityDropdownComponent } from './entity-dropdown.component';
 
 @Pipe({
   // eslint-disable-next-line @angular-eslint/pipe-prefix
   name: 'translate',
-  standalone: true,
 })
 class MockTranslatePipe implements PipeTransform {
   transform(value: string): string {

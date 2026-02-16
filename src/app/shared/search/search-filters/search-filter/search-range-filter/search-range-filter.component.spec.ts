@@ -10,29 +10,29 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
+import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RouteService } from '@dspace/core/services/route.service';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { FacetValue } from '@dspace/core/shared/search/models/facet-value.model';
+import { FilterType } from '@dspace/core/shared/search/models/filter-type.model';
+import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { routeServiceStub } from '@dspace/core/testing/route-service.stub';
+import { RouterStub } from '@dspace/core/testing/router.stub';
+import { SearchConfigurationServiceStub } from '@dspace/core/testing/search-configuration-service.stub';
+import { SearchFilterServiceStub } from '@dspace/core/testing/search-filter-service.stub';
+import { SearchServiceStub } from '@dspace/core/testing/search-service.stub';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
-import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
-import { buildPaginatedList } from '../../../../../core/data/paginated-list.model';
-import { RouteService } from '../../../../../core/services/route.service';
-import { PageInfo } from '../../../../../core/shared/page-info.model';
-import { SearchService } from '../../../../../core/shared/search/search.service';
-import { SearchFilterService } from '../../../../../core/shared/search/search-filter.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
-import { ActivatedRouteStub } from '../../../../testing/active-router.stub';
-import { routeServiceStub } from '../../../../testing/route-service.stub';
-import { RouterStub } from '../../../../testing/router.stub';
-import { SearchConfigurationServiceStub } from '../../../../testing/search-configuration-service.stub';
-import { SearchFilterServiceStub } from '../../../../testing/search-filter-service.stub';
-import { SearchServiceStub } from '../../../../testing/search-service.stub';
-import { FacetValue } from '../../../models/facet-value.model';
-import { FilterType } from '../../../models/filter-type.model';
-import { SearchFilterConfig } from '../../../models/search-filter-config.model';
+import { SearchService } from '../../../search.service';
+import { SearchFilterService } from '../../search-filter.service';
 import { SearchFacetRangeOptionComponent } from '../search-facet-filter-options/search-facet-range-option/search-facet-range-option.component';
 import { SearchRangeFilterComponent } from './search-range-filter.component';
 
@@ -112,7 +112,7 @@ describe('SearchRangeFilterComponent', () => {
         { provide: SearchFilterService, useValue: filterService },
         { provide: Router, useValue: router },
         { provide: RouteService, useValue: routeServiceStub },
-        { provide: RemoteDataBuildService, useValue: { aggregate: () => observableOf({}) } },
+        { provide: RemoteDataBuildService, useValue: { aggregate: () => of({}) } },
         { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],

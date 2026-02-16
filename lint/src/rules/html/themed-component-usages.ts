@@ -8,7 +8,10 @@
 import { TmplAstElement } from '@angular-eslint/bundled-angular-compiler';
 import { TemplateParserServices } from '@angular-eslint/utils';
 import { ESLintUtils } from '@typescript-eslint/utils';
-import { RuleContext } from '@typescript-eslint/utils/ts-eslint';
+import {
+  RuleContext,
+  RuleListener,
+} from '@typescript-eslint/utils/ts-eslint';
 
 import { fixture } from '../../../test/fixture';
 import {
@@ -45,12 +48,13 @@ The only exception to this rule are unit tests, where we may want to use the bas
       [Message.WRONG_SELECTOR]: 'Themeable components should be used via their ThemedComponent wrapper\'s selector',
     },
   },
+  optionDocs: [],
   defaultOptions: [],
 } as DSpaceESLintRuleInfo;
 
 export const rule = ESLintUtils.RuleCreator.withoutDocs({
   ...info,
-  create(context: RuleContext<Message, unknown[]>) {
+  create(context: RuleContext<Message, unknown[]>): RuleListener {
     if (getFilename(context).includes('.spec.ts')) {
       // skip inline templates in unit tests
       return {};
@@ -59,7 +63,7 @@ export const rule = ESLintUtils.RuleCreator.withoutDocs({
     const parserServices = getSourceCode(context).parserServices as TemplateParserServices;
 
     return {
-      [`Element$1[name = /^${DISALLOWED_THEME_SELECTORS}/]`](node: TmplAstElement) {
+      [`Element[name = /^${DISALLOWED_THEME_SELECTORS}/]`](node: TmplAstElement) {
         const { startSourceSpan, endSourceSpan } = node;
         const openStart = startSourceSpan.start.offset as number;
 
@@ -104,33 +108,21 @@ export const tests = {
     {
       name: 'use no-prefix selectors in TypeScript templates',
       code: `
-@Component({
-  template: '<ds-test-themeable></ds-test-themeable>'
-})
-class Test {
-}
+<ds-test-themeable></ds-test-themeable>
         `,
     },
     {
       name: 'use no-prefix selectors in TypeScript test templates',
       filename: fixture('src/test.spec.ts'),
       code: `
-@Component({
-  template: '<ds-test-themeable></ds-test-themeable>'
-})
-class Test {
-}
+<ds-test-themeable></ds-test-themeable>
         `,
     },
     {
       name: 'base selectors are also allowed in TypeScript test templates',
       filename: fixture('src/test.spec.ts'),
       code: `
-@Component({
-  template: '<ds-base-test-themeable></ds-base-test-themeable>'
-})
-class Test {
-}
+<ds-base-test-themeable></ds-base-test-themeable>
         `,
     },
   ],

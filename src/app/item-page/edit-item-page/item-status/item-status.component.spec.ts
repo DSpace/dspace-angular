@@ -8,22 +8,22 @@ import {
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
-
-import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { IdentifierDataService } from '../../../core/data/identifier-data.service';
-import { OrcidAuthService } from '../../../core/orcid/orcid-auth.service';
-import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
-import { Item } from '../../../core/shared/item.model';
-import { HostWindowService } from '../../../shared/host-window.service';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { IdentifierDataService } from '@dspace/core/data/identifier-data.service';
+import { OrcidAuthService } from '@dspace/core/orcid/orcid-auth.service';
+import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { HostWindowServiceStub } from '@dspace/core/testing/host-window-service.stub';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../shared/remote-data.utils';
-import { HostWindowServiceStub } from '../../../shared/testing/host-window-service.stub';
+} from '@dspace/core/utilities/remote-data.utils';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
+
+import { HostWindowService } from '../../../shared/host-window.service';
 import { ItemStatusComponent } from './item-status.component';
 
 let mockIdentifierDataService: IdentifierDataService;
@@ -61,7 +61,7 @@ describe('ItemStatusComponent', () => {
 
   const routeStub = {
     parent: {
-      data: observableOf({ dso: createSuccessfulRemoteDataObject(mockItem) }),
+      data: of({ dso: createSuccessfulRemoteDataObject(mockItem) }),
     },
   };
 
@@ -70,11 +70,11 @@ describe('ItemStatusComponent', () => {
 
   beforeEach(waitForAsync(() => {
     authorizationService = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: observableOf(true),
+      isAuthorized: of(true),
     });
 
     orcidAuthService = jasmine.createSpyObj('OrcidAuthService', {
-      onlyAdminCanDisconnectProfileFromOrcid: observableOf ( true ),
+      onlyAdminCanDisconnectProfileFromOrcid: of ( true ),
       isLinkedToOrcid: true,
     });
 

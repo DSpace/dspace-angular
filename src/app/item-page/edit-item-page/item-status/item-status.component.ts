@@ -12,6 +12,22 @@ import {
   ActivatedRoute,
   RouterLink,
 } from '@angular/router';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
+import { IdentifierDataService } from '@dspace/core/data/identifier-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { OrcidAuthService } from '@dspace/core/orcid/orcid-auth.service';
+import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
+import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
+import { Identifier } from '@dspace/core/shared/identifiers-data/identifier.model';
+import { IdentifierData } from '@dspace/core/shared/identifiers-data/identifier-data.model';
+import { Item } from '@dspace/core/shared/item.model';
+import {
+  getAllSucceededRemoteDataPayload,
+  getFirstCompletedRemoteData,
+} from '@dspace/core/shared/operators';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -30,29 +46,11 @@ import {
   toArray,
 } from 'rxjs/operators';
 
-import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
-import { IdentifierDataService } from '../../../core/data/identifier-data.service';
-import { RemoteData } from '../../../core/data/remote-data';
-import { OrcidAuthService } from '../../../core/orcid/orcid-auth.service';
-import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
-import { Item } from '../../../core/shared/item.model';
-import {
-  getAllSucceededRemoteDataPayload,
-  getFirstCompletedRemoteData,
-} from '../../../core/shared/operators';
 import {
   fadeIn,
   fadeInOut,
 } from '../../../shared/animations/fade';
-import { hasValue } from '../../../shared/empty.util';
-import { Identifier } from '../../../shared/object-list/identifier-data/identifier.model';
-import { IdentifierData } from '../../../shared/object-list/identifier-data/identifier-data.model';
-import {
-  getItemEditRoute,
-  getItemPageRoute,
-} from '../../item-page-routing-paths';
+import { getItemEditRoute } from '../../item-page-routing-paths';
 import { ItemOperationComponent } from '../item-operation/item-operation.component';
 import { ItemOperation } from '../item-operation/itemOperation.model';
 
@@ -65,13 +63,12 @@ import { ItemOperation } from '../item-operation/itemOperation.model';
     fadeInOut,
   ],
   imports: [
-    TranslateModule,
     AsyncPipe,
-    RouterLink,
     ItemOperationComponent,
     NgClass,
+    RouterLink,
+    TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * Component for displaying an item's status

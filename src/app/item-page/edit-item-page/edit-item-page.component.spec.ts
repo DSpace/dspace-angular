@@ -16,18 +16,18 @@ import {
   RouterModule,
   RouterStateSnapshot,
 } from '@angular/router';
+import { Item } from '@dspace/core/shared/item.model';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
-import { Item } from '../../core/shared/item.model';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { EditItemPageComponent } from './edit-item-page.component';
 
 describe('EditItemPageComponent', () => {
@@ -38,14 +38,14 @@ describe('EditItemPageComponent', () => {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot,
   ): Observable<boolean> => {
-    return observableOf(true);
+    return of(true);
   };
 
   const AcceptNoneGuard: CanActivateFn = (
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot,
   ): Observable<boolean> => {
-    return observableOf(false);
+    return of(false);
   };
 
   const accessiblePages = ['accessible'];
@@ -75,7 +75,7 @@ describe('EditItemPageComponent', () => {
         },
       ],
     },
-    data: observableOf({ dso: createSuccessfulRemoteDataObject(new Item()) }),
+    data: of({ dso: createSuccessfulRemoteDataObject(new Item()) }),
   };
 
   beforeEach(waitForAsync(() => {

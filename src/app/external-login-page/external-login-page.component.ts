@@ -4,6 +4,10 @@ import {
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { AuthMethodType } from '@dspace/core/auth/models/auth.method-type';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { Registration } from '@dspace/core/shared/registration.model';
+import { hasNoValue } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   first,
@@ -12,13 +16,9 @@ import {
   tap,
 } from 'rxjs';
 
-import { AuthMethodType } from '../core/auth/models/auth.method-type';
-import { RemoteData } from '../core/data/remote-data';
-import { Registration } from '../core/shared/registration.model';
 import { ExternalLogInComponent } from '../external-log-in/external-log-in/external-log-in.component';
 import { AlertComponent } from '../shared/alert/alert.component';
 import { AlertType } from '../shared/alert/alert-type';
-import { hasNoValue } from '../shared/empty.util';
 import { AuthMethodTypeComponent } from '../shared/log-in/methods/auth-methods.type';
 import { AUTH_METHOD_FOR_DECORATOR_MAP } from '../shared/log-in/methods/log-in.methods-decorator';
 
@@ -26,12 +26,11 @@ import { AUTH_METHOD_FOR_DECORATOR_MAP } from '../shared/log-in/methods/log-in.m
   templateUrl: './external-login-page.component.html',
   styleUrls: ['./external-login-page.component.scss'],
   imports: [
-    TranslateModule,
+    AlertComponent,
     AsyncPipe,
     ExternalLogInComponent,
-    AlertComponent,
+    TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * This component is a wrapper of the external-login component that loads up the RegistrationData.

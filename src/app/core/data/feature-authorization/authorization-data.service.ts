@@ -1,7 +1,12 @@
 import { Injectable } from '@angular/core';
 import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
+import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import {
   catchError,
@@ -9,19 +14,14 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import {
-  hasNoValue,
-  hasValue,
-  isNotEmpty,
-} from '../../../shared/empty.util';
-import {
-  followLink,
-  FollowLinkConfig,
-} from '../../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { RequestParam } from '../../cache/models/request-param.model';
 import { ObjectCacheService } from '../../cache/object-cache.service';
 import { Authorization } from '../../shared/authorization.model';
+import {
+  followLink,
+  FollowLinkConfig,
+} from '../../shared/follow-link-config.model';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { getFirstCompletedRemoteData } from '../../shared/operators';
 import { BaseDataService } from '../base/base-data.service';
@@ -89,7 +89,7 @@ export class AuthorizationDataService extends BaseDataService<Authorization> imp
           return [];
         }
       }),
-      catchError(() => observableOf([])),
+      catchError(() => of([])),
       oneAuthorizationMatchesFeature(featureId),
     );
   }
@@ -111,14 +111,14 @@ export class AuthorizationDataService extends BaseDataService<Authorization> imp
    *                                    {@link HALLink}s should be automatically resolved
    */
   searchByObject(featureId?: FeatureID, objectUrl?: string, ePersonUuid?: string, options: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Authorization>[]): Observable<RemoteData<PaginatedList<Authorization>>> {
-    const objectUrl$ = observableOf(objectUrl).pipe(
+    const objectUrl$ = of(objectUrl).pipe(
       switchMap((url) => {
         if (hasNoValue(url)) {
           return this.siteService.find().pipe(
             map((site) => site.self),
           );
         } else {
-          return observableOf(url);
+          return of(url);
         }
       }),
     );

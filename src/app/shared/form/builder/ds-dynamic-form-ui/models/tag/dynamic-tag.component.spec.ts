@@ -18,6 +18,16 @@ import {
   UntypedFormControl,
   UntypedFormGroup,
 } from '@angular/forms';
+import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
+import { VocabularyEntry } from '@dspace/core/submission/vocabularies/models/vocabulary-entry.model';
+import { VocabularyOptions } from '@dspace/core/submission/vocabularies/models/vocabulary-options.model';
+import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
+import {
+  mockDynamicFormLayoutService,
+  mockDynamicFormValidationService,
+} from '@dspace/core/testing/dynamic-form-mock-services';
+import { createTestComponent } from '@dspace/core/testing/utils.test';
+import { VocabularyServiceStub } from '@dspace/core/testing/vocabulary-service.stub';
 import {
   NgbModule,
   NgbTypeaheadSelectItemEvent,
@@ -27,28 +37,17 @@ import {
   DynamicFormsCoreModule,
   DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
-import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
-import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
-import { VocabularyOptions } from '../../../../../../core/submission/vocabularies/models/vocabulary-options.model';
-import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
-import {
-  mockDynamicFormLayoutService,
-  mockDynamicFormValidationService,
-} from '../../../../../testing/dynamic-form-mock-services';
-import { createTestComponent } from '../../../../../testing/utils.test';
-import { VocabularyServiceStub } from '../../../../../testing/vocabulary-service.stub';
 import { Chips } from '../../../../chips/models/chips.model';
-import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { DsDynamicTagComponent } from './dynamic-tag.component';
 import { DynamicTagModel } from './dynamic-tag.model';
 
-function createKeyUpEvent(key: number) {
+function createKeyUpEvent(key: string) {
   /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
   const event = {
-    keyCode: key, preventDefault: () => {
+    key: key, preventDefault: () => {
     }, stopPropagation: () => {
     },
   };
@@ -101,7 +100,6 @@ describe('DsDynamicTagComponent test suite', () => {
       imports: [
         TranslateModule.forRoot(),
         DynamicFormsCoreModule,
-        DynamicFormsNGBootstrapUIModule,
         FormsModule,
         NgbModule,
         ReactiveFormsModule,
@@ -167,7 +165,7 @@ describe('DsDynamicTagComponent test suite', () => {
       it('should search when 3+ characters typed', fakeAsync(() => {
         spyOn((tagComp as any).vocabularyService, 'getVocabularyEntriesByValue').and.callThrough();
 
-        tagComp.search(observableOf('test')).subscribe(() => {
+        tagComp.search(of('test')).subscribe(() => {
           expect((tagComp as any).vocabularyService.getVocabularyEntriesByValue).toHaveBeenCalled();
         });
       }));
@@ -278,8 +276,8 @@ describe('DsDynamicTagComponent test suite', () => {
         expect(tagComp.chips.getChipsItems()).toEqual(chips.getChipsItems());
       });
 
-      it('should add an item on ENTER or key press is \',\' or \';\'', fakeAsync(() => {
-        let event = createKeyUpEvent(13);
+      it('should add an item on ENTER or key press is \',\'', fakeAsync(() => {
+        let event = createKeyUpEvent('Enter');
         tagComp.currentValue = 'test value';
 
         tagFixture.detectChanges();
@@ -290,7 +288,7 @@ describe('DsDynamicTagComponent test suite', () => {
         expect(tagComp.model.value).toEqual(['test value']);
         expect(tagComp.currentValue).toBeNull();
 
-        event = createKeyUpEvent(188);
+        event = createKeyUpEvent(',');
         tagComp.currentValue = 'test value';
 
         tagFixture.detectChanges();
@@ -310,9 +308,7 @@ describe('DsDynamicTagComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
-  standalone: true,
   imports: [DynamicFormsCoreModule,
-    DynamicFormsNGBootstrapUIModule,
     FormsModule,
     NgbModule,
     ReactiveFormsModule],

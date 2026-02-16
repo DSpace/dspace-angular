@@ -7,34 +7,34 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
-
 import {
   SortDirection,
   SortOptions,
-} from '../../core/cache/models/sort-options.model';
-import { ConfigurationDataService } from '../../core/data/configuration-data.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { GroupDataService } from '../../core/eperson/group-data.service';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { LinkHeadService } from '../../core/services/link-head.service';
-import { Collection } from '../../core/shared/collection.model';
-import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
-import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
-import { MockActivatedRoute } from '../mocks/active-router.mock';
-import { RouterMock } from '../mocks/router.mock';
-import { getMockTranslateService } from '../mocks/translate.service.mock';
-import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
+} from '@dspace/core/cache/models/sort-options.model';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { GroupDataService } from '@dspace/core/eperson/group-data.service';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { LinkHeadService } from '@dspace/core/services/link-head.service';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
+import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
+import { SearchFilter } from '@dspace/core/shared/search/models/search-filter.model';
+import { MockActivatedRoute } from '@dspace/core/testing/active-router.mock';
+import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
+import { RouterMock } from '@dspace/core/testing/router.mock';
+import { SearchConfigurationServiceStub } from '@dspace/core/testing/search-configuration-service.stub';
+import { getMockTranslateService } from '@dspace/core/testing/translate.service.mock';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../remote-data.utils';
-import { PaginatedSearchOptions } from '../search/models/paginated-search-options.model';
-import { SearchFilter } from '../search/models/search-filter.model';
-import { PaginationServiceStub } from '../testing/pagination-service.stub';
-import { SearchConfigurationServiceStub } from '../testing/search-configuration-service.stub';
-import { createPaginatedList } from '../testing/utils.test';
+} from '@dspace/core/utilities/remote-data.utils';
+import { TranslateService } from '@ngx-translate/core';
+import { of } from 'rxjs';
+
+import { SearchConfigurationService } from '../search/search-configuration.service';
 import { RSSComponent } from './rss.component';
 
 describe('RssComponent', () => {
@@ -73,7 +73,7 @@ describe('RssComponent', () => {
       addTag: '',
     });
     const mockCollectionRD: RemoteData<Collection> = createSuccessfulRemoteDataObject(mockCollection);
-    const mockSearchOptions = observableOf(new PaginatedSearchOptions({
+    const mockSearchOptions = of(new PaginatedSearchOptions({
       pagination: Object.assign(new PaginationComponentOptions(), {
         id: 'search-page-configuration',
         pageSize: 10,

@@ -5,22 +5,23 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
-
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { ScriptDataService } from '../../../core/data/processes/script-data.service';
-import { getProcessDetailRoute } from '../../../process-page/process-page-routing.paths';
-import { Process } from '../../../process-page/processes/process.model';
-import { NotificationsService } from '../../notifications/notifications.service';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { ScriptDataService } from '@dspace/core/data/processes/script-data.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Process } from '@dspace/core/processes/process.model';
+import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
+import { SearchFilter } from '@dspace/core/shared/search/models/search-filter.model';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../../remote-data.utils';
-import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
-import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
-import { SearchFilter } from '../models/search-filter.model';
+} from '@dspace/core/utilities/remote-data.utils';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
+
+import { getProcessDetailRoute } from '../../../process-page/process-page-routing.paths';
 import { SearchExportCsvComponent } from './search-export-csv.component';
 
 describe('SearchExportCsvComponent', () => {
@@ -31,6 +32,7 @@ describe('SearchExportCsvComponent', () => {
   let authorizationDataService: AuthorizationDataService;
   let notificationsService;
   let router;
+  let configurationDataService: jasmine.SpyObj<ConfigurationDataService>;
 
   const process = Object.assign(new Process(), { processId: 5, scriptName: 'metadata-export-search' });
 
@@ -45,13 +47,17 @@ describe('SearchExportCsvComponent', () => {
     ],
   });
 
+  configurationDataService = jasmine.createSpyObj('ConfigurationDataService', {
+    findByPropertyName: of({ payload: { value: '500' } }),
+  });
+
   function initBeforeEachAsync() {
     scriptDataService = jasmine.createSpyObj('scriptDataService', {
-      scriptWithNameExistsAndCanExecute: observableOf(true),
+      scriptWithNameExistsAndCanExecute: of(true),
       invoke: createSuccessfulRemoteDataObject$(process),
     });
     authorizationDataService = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: observableOf(true),
+      isAuthorized: of(true),
     });
 
     notificationsService = new NotificationsServiceStub();
@@ -64,6 +70,7 @@ describe('SearchExportCsvComponent', () => {
         { provide: AuthorizationDataService, useValue: authorizationDataService },
         { provide: NotificationsService, useValue: notificationsService },
         { provide: Router, useValue: router },
+        { provide: ConfigurationDataService, useValue: configurationDataService },
       ],
     }).compileComponents();
   }
@@ -102,7 +109,7 @@ describe('SearchExportCsvComponent', () => {
     describe('when the user is not an admin', () => {
       beforeEach(waitForAsync(() => {
         initBeforeEachAsync();
-        (authorizationDataService.isAuthorized as jasmine.Spy).and.returnValue(observableOf(false));
+        (authorizationDataService.isAuthorized as jasmine.Spy).and.returnValue(of(false));
       }));
       beforeEach(() => {
         initBeforeEach();
@@ -115,7 +122,7 @@ describe('SearchExportCsvComponent', () => {
     describe('when the metadata-export-search script is not present', () => {
       beforeEach(waitForAsync(() => {
         initBeforeEachAsync();
-        (scriptDataService.scriptWithNameExistsAndCanExecute as jasmine.Spy).and.returnValue(observableOf(false));
+        (scriptDataService.scriptWithNameExistsAndCanExecute as jasmine.Spy).and.returnValue(of(false));
       }));
 
       it('should should not add the button', () => {
@@ -126,7 +133,7 @@ describe('SearchExportCsvComponent', () => {
       });
 
       it('should not call scriptWithNameExistsAndCanExecute when unauthorized', () => {
-        (authorizationDataService.isAuthorized as jasmine.Spy).and.returnValue(observableOf(false));
+        (authorizationDataService.isAuthorized as jasmine.Spy).and.returnValue(of(false));
         initBeforeEach();
 
         expect(scriptDataService.scriptWithNameExistsAndCanExecute).not.toHaveBeenCalled();

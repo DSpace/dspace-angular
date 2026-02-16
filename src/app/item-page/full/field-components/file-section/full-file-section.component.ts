@@ -7,6 +7,24 @@ import {
   OnInit,
 } from '@angular/core';
 import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { Bitstream } from '@dspace/core/shared/bitstream.model';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { Item } from '@dspace/core/shared/item.model';
+import {
+  hasValue,
+  isEmpty,
+} from '@dspace/shared/utils/empty.util';
+import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
@@ -15,29 +33,11 @@ import {
   switchMap,
   tap,
 } from 'rxjs/operators';
-import {
-  APP_CONFIG,
-  AppConfig,
-} from 'src/config/app-config.interface';
 
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
-import { PaginatedList } from '../../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { PaginationService } from '../../../../core/pagination/pagination.service';
-import { Bitstream } from '../../../../core/shared/bitstream.model';
-import { Item } from '../../../../core/shared/item.model';
-import {
-  hasValue,
-  isEmpty,
-} from '../../../../shared/empty.util';
 import { ThemedFileDownloadLinkComponent } from '../../../../shared/file-download-link/themed-file-download-link.component';
 import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
-import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
 import { FileSizePipe } from '../../../../shared/utils/file-size-pipe';
-import { followLink } from '../../../../shared/utils/follow-link-config.model';
 import { VarDirective } from '../../../../shared/utils/var.directive';
 import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail.component';
 import { FileSectionComponent } from '../../../simple/field-components/file-section/file-section.component';
@@ -52,16 +52,15 @@ import { FileSectionComponent } from '../../../simple/field-components/file-sect
   styleUrls: ['./full-file-section.component.scss'],
   templateUrl: './full-file-section.component.html',
   imports: [
-    PaginationComponent,
-    TranslateModule,
     AsyncPipe,
-    VarDirective,
-    ThemedThumbnailComponent,
-    ThemedFileDownloadLinkComponent,
     FileSizePipe,
     MetadataFieldWrapperComponent,
+    PaginationComponent,
+    ThemedFileDownloadLinkComponent,
+    ThemedThumbnailComponent,
+    TranslateModule,
+    VarDirective,
   ],
-  standalone: true,
 })
 export class FullFileSectionComponent extends FileSectionComponent implements OnDestroy, OnInit {
 

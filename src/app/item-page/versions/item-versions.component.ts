@@ -1,7 +1,6 @@
 import {
   AsyncPipe,
   DatePipe,
-  NgClass,
 } from '@angular/common';
 import {
   Component,
@@ -10,6 +9,32 @@ import {
   OnInit,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { VersionDataService } from '@dspace/core/data/version-data.service';
+import { VersionHistoryDataService } from '@dspace/core/data/version-history-data.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { Item } from '@dspace/core/shared/item.model';
+import {
+  getAllSucceededRemoteData,
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+  getFirstSucceededRemoteDataPayload,
+  getRemoteDataPayload,
+} from '@dspace/core/shared/operators';
+import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
+import { Version } from '@dspace/core/shared/version.model';
+import { VersionHistory } from '@dspace/core/shared/version-history.model';
+import {
+  hasValue,
+  hasValueOperator,
+} from '@dspace/shared/utils/empty.util';
 import {
   TranslateModule,
   TranslateService,
@@ -26,36 +51,10 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { ConfigurationDataService } from '../../core/data/configuration-data.service';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../core/data/feature-authorization/feature-id';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { VersionDataService } from '../../core/data/version-data.service';
-import { VersionHistoryDataService } from '../../core/data/version-history-data.service';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { Item } from '../../core/shared/item.model';
-import {
-  getAllSucceededRemoteData,
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteData,
-  getFirstSucceededRemoteDataPayload,
-  getRemoteDataPayload,
-} from '../../core/shared/operators';
-import { Version } from '../../core/shared/version.model';
-import { VersionHistory } from '../../core/shared/version-history.model';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { AlertType } from '../../shared/alert/alert-type';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
-import {
-  hasValue,
-  hasValueOperator,
-} from '../../shared/empty.util';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
-import { followLink } from '../../shared/utils/follow-link-config.model';
 import { ItemVersionsRowElementVersionComponent } from './item-versions-row-element-version/item-versions-row-element-version.component';
 
 interface VersionsDTO {
@@ -72,17 +71,15 @@ interface VersionDTO {
   selector: 'ds-item-versions',
   templateUrl: './item-versions.component.html',
   styleUrls: ['./item-versions.component.scss'],
-  standalone: true,
   imports: [
     AlertComponent,
     AsyncPipe,
+    BtnDisabledDirective,
     DatePipe,
     FormsModule,
     ItemVersionsRowElementVersionComponent,
-    NgClass,
     PaginationComponent,
     TranslateModule,
-    BtnDisabledDirective,
   ],
 })
 

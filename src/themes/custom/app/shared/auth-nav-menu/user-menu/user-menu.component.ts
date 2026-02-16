@@ -13,18 +13,21 @@ import { LogOutComponent } from 'src/app/shared/log-out/log-out.component';
 
 import { UserMenuComponent as BaseComponent } from '../../../../../../app/shared/auth-nav-menu/user-menu/user-menu.component';
 
-/**
- * Component representing the {@link UserMenuComponent} of a page
- */
 @Component({
   selector: 'ds-themed-user-menu',
   // templateUrl: 'user-menu.component.html',
   templateUrl: '../../../../../../app/shared/auth-nav-menu/user-menu/user-menu.component.html',
   // styleUrls: ['user-menu.component.scss'],
   styleUrls: ['../../../../../../app/shared/auth-nav-menu/user-menu/user-menu.component.scss'],
-  standalone: true,
-  imports: [ ThemedLoadingComponent, RouterLinkActive, NgClass, RouterLink, LogOutComponent, AsyncPipe, TranslateModule],
-
+  imports: [
+    AsyncPipe,
+    LogOutComponent,
+    NgClass,
+    RouterLink,
+    RouterLinkActive,
+    ThemedLoadingComponent,
+    TranslateModule,
+  ],
 })
 export class UserMenuComponent extends BaseComponent {
 }

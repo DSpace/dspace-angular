@@ -7,15 +7,15 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { RequestService } from '@dspace/core/data/request.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
 
-import { RequestService } from '../../../../core/data/request.service';
-import { SearchService } from '../../../../core/shared/search/search.service';
-import { NotificationsService } from '../../../notifications/notifications.service';
+import { SearchService } from '../../../search/search.service';
 import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
 
 export const WORKFLOW_TASK_OPTION_EDIT_METADATA = 'submit_edit_metadata';
@@ -24,8 +24,12 @@ export const WORKFLOW_TASK_OPTION_EDIT_METADATA = 'submit_edit_metadata';
   selector: 'ds-claimed-task-actions-edit-metadata',
   styleUrls: ['./claimed-task-actions-edit-metadata.component.scss'],
   templateUrl: './claimed-task-actions-edit-metadata.component.html',
-  standalone: true,
-  imports: [NgbTooltipModule, RouterLink, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    NgbTooltip,
+    RouterLink,
+    TranslateModule,
+  ],
 })
 /**
  * Component for displaying the edit metadata action on a workflow task item

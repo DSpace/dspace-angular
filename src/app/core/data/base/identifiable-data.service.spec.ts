@@ -5,16 +5,16 @@
  *
  * http://www.dspace.org/license/
  */
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data-build.service.mock';
-import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
-import { HALEndpointServiceStub } from '../../../shared/testing/hal-endpoint-service.stub';
-import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../cache/object-cache.service';
+import { followLink } from '../../shared/follow-link-config.model';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
+import { HALEndpointServiceStub } from '../../testing/hal-endpoint-service.stub';
+import { getMockRemoteDataBuildService } from '../../testing/remote-data-build.service.mock';
+import { getMockRequestService } from '../../testing/request.service.mock';
 import { RemoteData } from '../remote-data';
 import { RequestService } from '../request.service';
 import { RequestEntryState } from '../request-entry-state.model';
@@ -143,7 +143,7 @@ describe('IdentifiableDataService', () => {
 
   describe('invalidateById', () => {
     it('should invalidate the correct resource by href', () => {
-      spyOn(service, 'invalidateByHref').and.returnValue(observableOf(true));
+      spyOn(service, 'invalidateByHref').and.returnValue(of(true));
       service.invalidateById('123');
       expect(service.invalidateByHref).toHaveBeenCalledWith(`${base}/${endpoint}/123`);
     });

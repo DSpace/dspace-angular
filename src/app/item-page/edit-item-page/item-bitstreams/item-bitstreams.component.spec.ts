@@ -12,35 +12,35 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
-
-import { ObjectCacheService } from '../../../core/cache/object-cache.service';
-import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
-import { BundleDataService } from '../../../core/data/bundle-data.service';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { FieldChangeType } from '../../../core/data/object-updates/field-change-type.model';
-import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
-import { RequestService } from '../../../core/data/request.service';
-import { Bitstream } from '../../../core/shared/bitstream.model';
-import { Bundle } from '../../../core/shared/bundle.model';
-import { Item } from '../../../core/shared/item.model';
-import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
-import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
+import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
+import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
+import { BundleDataService } from '@dspace/core/data/bundle-data.service';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
+import { FieldChangeType } from '@dspace/core/data/object-updates/field-change-type.model';
+import { ObjectUpdatesService } from '@dspace/core/data/object-updates/object-updates.service';
+import { RequestService } from '@dspace/core/data/request.service';
 import {
   INotification,
   Notification,
-} from '../../../shared/notifications/models/notification.model';
-import { NotificationType } from '../../../shared/notifications/models/notification-type';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
+} from '@dspace/core/notification-system/models/notification.model';
+import { NotificationType } from '@dspace/core/notification-system/models/notification-type';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Bitstream } from '@dspace/core/shared/bitstream.model';
+import { Bundle } from '@dspace/core/shared/bundle.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { BitstreamDataServiceStub } from '@dspace/core/testing/bitstream-data-service.stub';
+import { getMockRequestService } from '@dspace/core/testing/request.service.mock';
+import { RouterStub } from '@dspace/core/testing/router.stub';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../shared/remote-data.utils';
-import { BitstreamDataServiceStub } from '../../../shared/testing/bitstream-data-service.stub';
-import { RouterStub } from '../../../shared/testing/router.stub';
-import { createPaginatedList } from '../../../shared/testing/utils.test';
+} from '@dspace/core/utilities/remote-data.utils';
+import { TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
+
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
+import { SearchConfigurationService } from '../../../shared/search/search-configuration.service';
 import { ObjectValuesPipe } from '../../../shared/utils/object-values-pipe';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { ItemBitstreamsComponent } from './item-bitstreams.component';
@@ -107,25 +107,25 @@ describe('ItemBitstreamsComponent', () => {
   beforeEach(waitForAsync(() => {
     objectUpdatesService = jasmine.createSpyObj('objectUpdatesService',
       {
-        getFieldUpdates: observableOf({
+        getFieldUpdates: of({
           [bitstream1.uuid]: fieldUpdate1,
           [bitstream2.uuid]: fieldUpdate2,
         }),
-        getFieldUpdatesExclusive: observableOf({
+        getFieldUpdatesExclusive: of({
           [bitstream1.uuid]: fieldUpdate1,
           [bitstream2.uuid]: fieldUpdate2,
         }),
         saveAddFieldUpdate: {},
         discardFieldUpdates: {},
         discardAllFieldUpdates: {},
-        reinstateFieldUpdates: observableOf(true),
+        reinstateFieldUpdates: of(true),
         initialize: {},
-        getUpdatedFields: observableOf([bitstream1, bitstream2]),
-        getLastModified: observableOf(date),
-        hasUpdates: observableOf(true),
-        isReinstatable: observableOf(false),
-        isValidPage: observableOf(true),
-        getMoveOperations: observableOf(moveOperations),
+        getUpdatedFields: of([bitstream1, bitstream2]),
+        getLastModified: of(date),
+        hasUpdates: of(true),
+        isReinstatable: of(false),
+        isValidPage: of(true),
+        getMoveOperations: of(moveOperations),
       },
     );
     router = Object.assign(new RouterStub(), {
@@ -144,7 +144,7 @@ describe('ItemBitstreamsComponent', () => {
     });
     requestService = getMockRequestService();
     searchConfig = Object.assign({
-      paginatedSearchOptions: observableOf({}),
+      paginatedSearchOptions: of({}),
     });
 
     item = Object.assign(new Item(), {
@@ -164,9 +164,9 @@ describe('ItemBitstreamsComponent', () => {
     });
     route = Object.assign({
       parent: {
-        data: observableOf({ dso: createSuccessfulRemoteDataObject(item) }),
+        data: of({ dso: createSuccessfulRemoteDataObject(item) }),
       },
-      data: observableOf({}),
+      data: of({}),
       url: url,
     });
     bundleService = jasmine.createSpyObj('bundleService', {

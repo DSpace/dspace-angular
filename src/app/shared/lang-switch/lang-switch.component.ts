@@ -4,22 +4,24 @@ import {
   ElementRef,
   OnInit,
 } from '@angular/core';
+import { LangConfig } from '@dspace/config/lang-config.interface';
+import { LocaleService } from '@dspace/core/locale/locale.service';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
 
-import { LangConfig } from '../../../config/lang-config.interface';
 import { environment } from '../../../environments/environment';
-import { LocaleService } from '../../core/locale/locale.service';
 
 @Component({
   selector: 'ds-base-lang-switch',
   styleUrls: ['lang-switch.component.scss'],
   templateUrl: 'lang-switch.component.html',
-  standalone: true,
-  imports: [NgbDropdownModule, TranslateModule],
+  imports: [
+    NgbDropdownModule,
+    TranslateModule,
+  ],
 })
 
 /**
@@ -53,7 +55,7 @@ export class LangSwitchComponent implements OnInit {
    * Returns the label for the current language
    */
   currentLangLabel(): string {
-    return this.activeLangs.find((MyLangConfig) => MyLangConfig.code === this.translate.currentLang).label;
+    return this.activeLangs.find((MyLangConfig) => MyLangConfig.code === this.translate.getCurrentLang()).label;
   }
 
   /**

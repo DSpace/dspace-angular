@@ -1,8 +1,8 @@
 import { inject } from '@angular/core';
 import { CanActivateFn } from '@angular/router';
-import { of as observableOf } from 'rxjs';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { of } from 'rxjs';
 
-import { environment } from '../../../environments/environment';
 import { endUserAgreementGuard } from './end-user-agreement.guard';
 import { EndUserAgreementService } from './end-user-agreement.service';
 
@@ -16,8 +16,8 @@ export const endUserAgreementCurrentUserGuard: CanActivateFn =
   endUserAgreementGuard(
     () => {
       const endUserAgreementService = inject(EndUserAgreementService);
-      if (!environment.info.enableEndUserAgreement) {
-        return observableOf(true);
+      if (!inject(APP_CONFIG).info.enableEndUserAgreement) {
+        return of(true);
       }
 
       return endUserAgreementService.hasCurrentUserAcceptedAgreement(true);

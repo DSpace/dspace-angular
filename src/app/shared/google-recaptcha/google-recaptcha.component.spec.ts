@@ -3,11 +3,11 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
+import { NativeWindowService } from '@dspace/core/services/window.service';
+import { NativeWindowMockFactory } from '@dspace/core/testing/mock-native-window-ref';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 
-import { ConfigurationDataService } from '../../core/data/configuration-data.service';
-import { NativeWindowService } from '../../core/services/window.service';
-import { NativeWindowMockFactory } from '../mocks/mock-native-window-ref';
-import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { GoogleRecaptchaComponent } from './google-recaptcha.component';
 
 describe('GoogleRecaptchaComponent', () => {

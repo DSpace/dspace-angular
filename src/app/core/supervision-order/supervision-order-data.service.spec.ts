@@ -3,12 +3,9 @@ import {
   getTestScheduler,
   hot,
 } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
-import { ObjectCacheServiceStub } from '../../shared/testing/object-cache-service.stub';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -18,8 +15,11 @@ import { buildPaginatedList } from '../data/paginated-list.model';
 import { RequestService } from '../data/request.service';
 import { RequestEntry } from '../data/request-entry.model';
 import { GroupDataService } from '../eperson/group-data.service';
+import { NotificationsService } from '../notification-system/notifications.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { PageInfo } from '../shared/page-info.model';
+import { ObjectCacheServiceStub } from '../testing/object-cache-service.stub';
+import { createSuccessfulRemoteDataObject } from '../utilities/remote-data.utils';
 import { ActionType } from './models/action-type.model';
 import { SupervisionOrderDataService } from './supervision-order-data.service';
 
@@ -101,8 +101,8 @@ describe('SupervisionOrderService', () => {
       generateRequestId: requestUUID,
       send: true,
       removeByHrefSubstring: {},
-      getByHref: observableOf(responseCacheEntry),
-      getByUUID: observableOf(responseCacheEntry),
+      getByHref: of(responseCacheEntry),
+      getByUUID: of(responseCacheEntry),
       setStaleByHrefSubstring: {},
     });
     rdbService = jasmine.createSpyObj('rdbService', {
@@ -148,12 +148,12 @@ describe('SupervisionOrderService', () => {
 
     spyOn(service, 'findById').and.callThrough();
     spyOn(service, 'findByHref').and.callThrough();
-    spyOn(service, 'invalidateByHref').and.returnValue(observableOf(true));
+    spyOn(service, 'invalidateByHref').and.returnValue(of(true));
     spyOn((service as any).createData, 'create').and.callThrough();
     spyOn((service as any).deleteData, 'delete').and.callThrough();
     spyOn((service as any).patchData, 'update').and.callThrough();
     spyOn((service as any).searchData, 'searchBy').and.callThrough();
-    spyOn((service as any).searchData, 'getSearchByHref').and.returnValue(observableOf(requestURL));
+    spyOn((service as any).searchData, 'getSearchByHref').and.returnValue(of(requestURL));
   });
 
   describe('create', () => {

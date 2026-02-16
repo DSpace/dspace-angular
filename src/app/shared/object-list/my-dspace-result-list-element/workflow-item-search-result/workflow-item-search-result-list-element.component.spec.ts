@@ -11,24 +11,24 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { of as observableOf } from 'rxjs';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { LinkService } from '@dspace/core/cache/builders/link.service';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
+import { Context } from '@dspace/core/shared/context.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { WorkflowItemSearchResult } from '@dspace/core/shared/object-collection/workflow-item-search-result.model';
+import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
+import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
+import { getMockLinkService } from '@dspace/core/testing/link-service.mock';
+import { mockTruncatableService } from '@dspace/core/testing/mock-trucatable.service';
+import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
+import { of } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { APP_CONFIG } from '../../../../../config/app-config.interface';
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { LinkService } from '../../../../core/cache/builders/link.service';
-import { ItemDataService } from '../../../../core/data/item-data.service';
-import { Context } from '../../../../core/shared/context.model';
-import { Item } from '../../../../core/shared/item.model';
-import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
-import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
-import { getMockLinkService } from '../../../mocks/link-service.mock';
-import { mockTruncatableService } from '../../../mocks/mock-trucatable.service';
 import { WorkflowitemActionsComponent } from '../../../mydspace-actions/workflowitem/workflowitem-actions.component';
 import { ListableObjectComponentLoaderComponent } from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
-import { WorkflowItemSearchResult } from '../../../object-collection/shared/workflow-item-search-result.model';
-import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { WorkflowItemSearchResultListElementComponent } from './workflow-item-search-result-list-element.component';
 
@@ -40,7 +40,7 @@ const mockResultObject: WorkflowItemSearchResult = new WorkflowItemSearchResult(
 mockResultObject.hitHighlights = {};
 
 const item = Object.assign(new Item(), {
-  bundles: observableOf({}),
+  bundles: of({}),
   metadata: {
     'dc.title': [
       {
@@ -76,7 +76,7 @@ const environmentUseThumbs = {
 };
 
 const rd = createSuccessfulRemoteDataObject(item);
-mockResultObject.indexableObject = Object.assign(new WorkflowItem(), { item: observableOf(rd) });
+mockResultObject.indexableObject = Object.assign(new WorkflowItem(), { item: of(rd) });
 
 let linkService;
 

@@ -10,25 +10,25 @@ import {
 } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
-import { cold } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
-
-import { LinkService } from '../../../core/cache/builders/link.service';
-import { Bitstream } from '../../../core/shared/bitstream.model';
-import { Bundle } from '../../../core/shared/bundle.model';
-import { Item } from '../../../core/shared/item.model';
-import { AlertComponent } from '../../../shared/alert/alert.component';
-import { getMockLinkService } from '../../../shared/mocks/link-service.mock';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../../shared/remote-data.utils';
-import { ResourcePoliciesComponent } from '../../../shared/resource-policies/resource-policies.component';
+import { LinkService } from '@dspace/core/cache/builders/link.service';
+import { Bitstream } from '@dspace/core/shared/bitstream.model';
+import { Bundle } from '@dspace/core/shared/bundle.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { getMockLinkService } from '@dspace/core/testing/link-service.mock';
 import {
   createPaginatedList,
   createTestComponent,
-} from '../../../shared/testing/utils.test';
+} from '@dspace/core/testing/utils.test';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core/utilities/remote-data.utils';
+import { TranslateModule } from '@ngx-translate/core';
+import { cold } from 'jasmine-marbles';
+import { of } from 'rxjs';
+
+import { AlertComponent } from '../../../shared/alert/alert.component';
+import { ResourcePoliciesComponent } from '../../../shared/resource-policies/resource-policies.component';
 import { ItemAuthorizationsComponent } from './item-authorizations.component';
 
 describe('ItemAuthorizationsComponent test suite', () => {
@@ -83,7 +83,7 @@ describe('ItemAuthorizationsComponent test suite', () => {
   });
 
   const routeStub = {
-    data: observableOf({
+    data: of({
       dso: createSuccessfulRemoteDataObject(item),
     }),
   };
@@ -169,17 +169,9 @@ describe('ItemAuthorizationsComponent test suite', () => {
       }));
     });
 
-    it('should get the item UUID', () => {
-
-      expect(comp.getItemUUID()).toBeObservable(cold('(a|)', {
-        a: item.id,
-      }));
-
-    });
-
     it('should get the item\'s bundle', () => {
 
-      expect(comp.getItemBundles()).toBeObservable(cold('a', {
+      expect(comp.bundles$).toBeObservable(cold('a', {
         a: bundles,
       }));
 
@@ -191,7 +183,6 @@ describe('ItemAuthorizationsComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
-  standalone: true,
 })
 class TestComponent {
 

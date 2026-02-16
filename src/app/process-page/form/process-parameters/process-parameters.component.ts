@@ -13,12 +13,12 @@ import {
   ControlContainer,
   NgForm,
 } from '@angular/forms';
+import { ProcessParameter } from '@dspace/core/processes/process-parameter.model';
+import { Script } from '@dspace/core/shared/scripts/script.model';
+import { ScriptParameter } from '@dspace/core/shared/scripts/script-parameter.model';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { hasValue } from '../../../shared/empty.util';
-import { ProcessParameter } from '../../processes/process-parameter.model';
-import { Script } from '../../scripts/script.model';
-import { ScriptParameter } from '../../scripts/script-parameter.model';
 import { controlContainerFactory } from '../process-form-factory';
 import { ParameterSelectComponent } from './parameter-select/parameter-select.component';
 
@@ -34,8 +34,10 @@ import { ParameterSelectComponent } from './parameter-select/parameter-select.co
     useFactory: controlContainerFactory,
     deps: [[new Optional(), NgForm]],
   }],
-  standalone: true,
-  imports: [ParameterSelectComponent, TranslateModule],
+  imports: [
+    ParameterSelectComponent,
+    TranslateModule,
+  ],
 })
 export class ProcessParametersComponent implements OnChanges, OnInit {
   /**

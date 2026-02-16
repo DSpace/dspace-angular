@@ -15,30 +15,30 @@ import {
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import {
-  TranslateLoader,
-  TranslateModule,
-} from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
-
-import { AuthService } from '../core/auth/auth.service';
-import { buildPaginatedList } from '../core/data/paginated-list.model';
-import { PaginationService } from '../core/pagination/pagination.service';
-import { PageInfo } from '../core/shared/page-info.model';
-import { AlertComponent } from '../shared/alert/alert.component';
-import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
-import { MockActivatedRoute } from '../shared/mocks/active-router.mock';
-import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
-import { PaginationComponent } from '../shared/pagination/pagination.component';
-import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
-import { SubscriptionViewComponent } from '../shared/subscriptions/subscription-view/subscription-view.component';
-import { SubscriptionsDataService } from '../shared/subscriptions/subscriptions-data.service';
-import { PaginationServiceStub } from '../shared/testing/pagination-service.stub';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
+import { SubscriptionsDataService } from '@dspace/core/data/subscriptions-data.service';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { MockActivatedRoute } from '@dspace/core/testing/active-router.mock';
+import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
 import {
   mockSubscriptionEperson,
   subscriptionMock,
   subscriptionMock2,
-} from '../shared/testing/subscriptions-data.mock';
+} from '@dspace/core/testing/subscriptions-data.mock';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import { of } from 'rxjs';
+
+import { AlertComponent } from '../shared/alert/alert.component';
+import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
+import { PaginationComponent } from '../shared/pagination/pagination.component';
+import { SubscriptionViewComponent } from '../shared/subscriptions/subscription-view/subscription-view.component';
 import { VarDirective } from '../shared/utils/var.directive';
 import { SubscriptionsPageComponent } from './subscriptions-page.component';
 
@@ -48,7 +48,7 @@ describe('SubscriptionsPageComponent', () => {
   let de: DebugElement;
 
   const authServiceStub = jasmine.createSpyObj('authorizationService', {
-    getAuthenticatedUserFromStore: observableOf(mockSubscriptionEperson),
+    getAuthenticatedUserFromStore: of(mockSubscriptionEperson),
   });
 
   const subscriptionServiceStub = jasmine.createSpyObj('SubscriptionsDataService', {

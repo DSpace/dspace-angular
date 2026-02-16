@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import {
   ComponentFixture,
   TestBed,
@@ -17,27 +17,26 @@ import {
   ActivatedRoute,
   RouterModule,
 } from '@angular/router';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
+import { VersionDataService } from '@dspace/core/data/version-data.service';
+import { VersionHistoryDataService } from '@dspace/core/data/version-history-data.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { Version } from '@dspace/core/shared/version.model';
+import { VersionHistory } from '@dspace/core/shared/version-history.model';
+import { WorkflowItemDataService } from '@dspace/core/submission/workflowitem-data.service';
+import { WorkspaceitemDataService } from '@dspace/core/submission/workspaceitem-data.service';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   EMPTY,
-  of as observableOf,
   of,
 } from 'rxjs';
 
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { VersionDataService } from '../../../core/data/version-data.service';
-import { VersionHistoryDataService } from '../../../core/data/version-history-data.service';
-import { Item } from '../../../core/shared/item.model';
-import { Version } from '../../../core/shared/version.model';
-import { VersionHistory } from '../../../core/shared/version-history.model';
-import { WorkflowItemDataService } from '../../../core/submission/workflowitem-data.service';
-import { WorkspaceitemDataService } from '../../../core/submission/workspaceitem-data.service';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { ItemVersionsComponent } from '../item-versions.component';
 import { ItemVersionsRowElementVersionComponent } from './item-versions-row-element-version.component';
 
@@ -86,7 +85,7 @@ describe('ItemVersionsRowElementVersionComponent', () => {
     getLatestVersionItemFromHistory$: of(item),
   });
   const authorizationServiceSpy = jasmine.createSpyObj('authorizationService', {
-    isAuthorized: observableOf(true),
+    isAuthorized: of(true),
   });
   const workspaceItemDataServiceSpy = jasmine.createSpyObj('workspaceItemDataService', {
     findByItem: EMPTY,
@@ -116,9 +115,11 @@ describe('ItemVersionsRowElementVersionComponent', () => {
         { provide: WorkflowItemDataService, useValue: workflowItemDataServiceSpy },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],
-      schemas: [NO_ERRORS_SCHEMA],
-    })
-      .compileComponents();
+    }).overrideComponent(ItemVersionsRowElementVersionComponent, {
+      add: {
+        schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      },
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ItemVersionsRowElementVersionComponent);
     component = fixture.componentInstance;

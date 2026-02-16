@@ -6,25 +6,24 @@ import {
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
+import { BrowseDefinitionDataService } from '@dspace/core/browse/browse-definition-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { PAGE_NOT_FOUND_PATH } from '@dspace/core/router/core-routing-paths';
+import { BrowseDefinition } from '@dspace/core/shared/browse-definition.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import {
+  hasNoValue,
+  hasValue,
+} from '@dspace/shared/utils/empty.util';
 import { TranslateService } from '@ngx-translate/core';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import {
   map,
   switchMap,
 } from 'rxjs/operators';
-
-import { PAGE_NOT_FOUND_PATH } from '../app-routing-paths';
-import { BrowseDefinitionDataService } from '../core/browse/browse-definition-data.service';
-import { RemoteData } from '../core/data/remote-data';
-import { BrowseDefinition } from '../core/shared/browse-definition.model';
-import { getFirstCompletedRemoteData } from '../core/shared/operators';
-import {
-  hasNoValue,
-  hasValue,
-} from '../shared/empty.util';
 
 export const browseByGuard: CanActivateFn = (
   route: ActivatedRouteSnapshot,
@@ -42,7 +41,7 @@ export const browseByGuard: CanActivateFn = (
       map((browseDefinitionRD: RemoteData<BrowseDefinition>) => browseDefinitionRD.payload),
     );
   } else {
-    browseDefinition$ = observableOf(route.data.browseDefinition);
+    browseDefinition$ = of(route.data.browseDefinition);
   }
   const scope = route.queryParams.scope ?? route.parent?.params.id;
   const value = route.queryParams.value;
@@ -51,10 +50,10 @@ export const browseByGuard: CanActivateFn = (
     switchMap((browseDefinition: BrowseDefinition | undefined) => {
       if (hasValue(browseDefinition)) {
         route.data = createData(title, id, browseDefinition, metadataTranslated, value, route, scope);
-        return observableOf(true);
+        return of(true);
       } else {
         void router.navigate([PAGE_NOT_FOUND_PATH]);
-        return observableOf(false);
+        return of(false);
       }
     }),
   );

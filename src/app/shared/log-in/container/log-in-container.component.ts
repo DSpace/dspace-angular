@@ -5,8 +5,8 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { AuthMethod } from '@dspace/core/auth/models/auth.method';
 
-import { AuthMethod } from '../../../core/auth/models/auth.method';
 import { AuthMethodTypeComponent } from '../methods/auth-methods.type';
 import { AUTH_METHOD_FOR_DECORATOR_MAP } from '../methods/log-in.methods-decorator';
 import { rendersAuthMethodType } from '../methods/log-in.methods-decorator.utils';
@@ -18,8 +18,9 @@ import { rendersAuthMethodType } from '../methods/log-in.methods-decorator.utils
   selector: 'ds-log-in-container',
   templateUrl: './log-in-container.component.html',
   styleUrls: ['./log-in-container.component.scss'],
-  standalone: true,
-  imports: [NgComponentOutlet],
+  imports: [
+    NgComponentOutlet,
+  ],
 })
 export class LogInContainerComponent implements OnInit {
 

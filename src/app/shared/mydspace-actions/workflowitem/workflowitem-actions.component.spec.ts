@@ -13,25 +13,25 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { RequestService } from '@dspace/core/data/request.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
+import { WorkflowItemDataService } from '@dspace/core/submission/workflowitem-data.service';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { getMockRequestService } from '@dspace/core/testing/request.service.mock';
+import { RouterStub } from '@dspace/core/testing/router.stub';
+import { getMockSearchService } from '@dspace/core/testing/search-service.mock';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
-import { RequestService } from '../../../core/data/request.service';
-import { Item } from '../../../core/shared/item.model';
-import { SearchService } from '../../../core/shared/search/search.service';
-import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
-import { WorkflowItemDataService } from '../../../core/submission/workflowitem-data.service';
-import { getMockRequestService } from '../../mocks/request.service.mock';
-import { getMockSearchService } from '../../mocks/search-service.mock';
-import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
-import { NotificationsService } from '../../notifications/notifications.service';
-import { createSuccessfulRemoteDataObject } from '../../remote-data.utils';
-import { ActivatedRouteStub } from '../../testing/active-router.stub';
-import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
-import { RouterStub } from '../../testing/router.stub';
+import { SearchService } from '../../search/search.service';
 import { WorkflowitemActionsComponent } from './workflowitem-actions.component';
 
 let component: WorkflowitemActionsComponent;
@@ -46,7 +46,7 @@ const searchService = getMockSearchService();
 const requestServce = getMockRequestService();
 
 const item = Object.assign(new Item(), {
-  bundles: observableOf({}),
+  bundles: of({}),
   metadata: {
     'dc.title': [
       {
@@ -75,7 +75,7 @@ const item = Object.assign(new Item(), {
   },
 });
 const rd = createSuccessfulRemoteDataObject(item);
-mockObject = Object.assign(new WorkflowItem(), { item: observableOf(rd), id: '1234', uuid: '1234' });
+mockObject = Object.assign(new WorkflowItem(), { item: of(rd), id: '1234', uuid: '1234' });
 
 describe('WorkflowitemActionsComponent', () => {
   beforeEach(waitForAsync(() => {

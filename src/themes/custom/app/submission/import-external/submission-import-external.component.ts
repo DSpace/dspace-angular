@@ -11,9 +11,6 @@ import { VarDirective } from '../../../../../app/shared/utils/var.directive';
 import { SubmissionImportExternalSearchbarComponent } from '../../../../../app/submission/import-external/import-external-searchbar/submission-import-external-searchbar.component';
 import { SubmissionImportExternalComponent as BaseComponent } from '../../../../../app/submission/import-external/submission-import-external.component';
 
-/**
- * This component allows to submit a new workspaceitem importing the data from an external source.
- */
 @Component({
   selector: 'ds-themed-submission-import-external',
   // styleUrls: ['./submission-import-external.component.scss'],
@@ -21,18 +18,16 @@ import { SubmissionImportExternalComponent as BaseComponent } from '../../../../
   // templateUrl: './submission-import-external.component.html',
   templateUrl: '../../../../../app/submission/import-external/submission-import-external.component.html',
   animations: [fadeIn],
-  standalone: true,
   imports: [
-    ObjectCollectionComponent,
-    ThemedLoadingComponent,
     AlertComponent,
     AsyncPipe,
+    ObjectCollectionComponent,
+    RouterLink,
     SubmissionImportExternalSearchbarComponent,
+    ThemedLoadingComponent,
     TranslateModule,
     VarDirective,
-    RouterLink,
   ],
 })
 export class SubmissionImportExternalComponent extends BaseComponent {
-
 }

@@ -6,6 +6,23 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
+import { CollectionDataService } from '@dspace/core/data/collection-data.service';
+import { ProcessDataService } from '@dspace/core/data/processes/process-data.service';
+import { ScriptDataService } from '@dspace/core/data/processes/script-data.service';
+import { RequestService } from '@dspace/core/data/request.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Process } from '@dspace/core/processes/process.model';
+import { ProcessStatus } from '@dspace/core/processes/process-status.model';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { ContentSource } from '@dspace/core/shared/content-source.model';
+import { ContentSourceSetSerializer } from '@dspace/core/shared/content-source-set-serializer';
+import {
+  getAllSucceededRemoteDataPayload,
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '@dspace/core/shared/operators';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   TranslateModule,
   TranslateService,
@@ -22,24 +39,7 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
-import { CollectionDataService } from '../../../../core/data/collection-data.service';
-import { ProcessDataService } from '../../../../core/data/processes/process-data.service';
-import { ScriptDataService } from '../../../../core/data/processes/script-data.service';
-import { RequestService } from '../../../../core/data/request.service';
-import { Collection } from '../../../../core/shared/collection.model';
-import { ContentSource } from '../../../../core/shared/content-source.model';
-import { ContentSourceSetSerializer } from '../../../../core/shared/content-source-set-serializer';
-import {
-  getAllSucceededRemoteDataPayload,
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
-} from '../../../../core/shared/operators';
-import { Process } from '../../../../process-page/processes/process.model';
-import { ProcessStatus } from '../../../../process-page/processes/process-status.model';
 import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
-import { hasValue } from '../../../../shared/empty.util';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { VarDirective } from '../../../../shared/utils/var.directive';
 
 /**
@@ -50,12 +50,11 @@ import { VarDirective } from '../../../../shared/utils/var.directive';
   styleUrls: ['./collection-source-controls.component.scss'],
   templateUrl: './collection-source-controls.component.html',
   imports: [
-    TranslateModule,
     AsyncPipe,
-    VarDirective,
     BtnDisabledDirective,
+    TranslateModule,
+    VarDirective,
   ],
-  standalone: true,
 })
 export class CollectionSourceControlsComponent implements OnInit, OnDestroy {
 

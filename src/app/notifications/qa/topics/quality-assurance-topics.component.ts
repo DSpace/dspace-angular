@@ -13,6 +13,18 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { SortOptions } from '@dspace/core/cache/models/sort-options.model';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
+import { QualityAssuranceTopicObject } from '@dspace/core/notifications/qa/models/quality-assurance-topic.model';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
+import { Item } from '@dspace/core/shared/item.model';
+import {
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+} from '@dspace/core/shared/operators';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
@@ -26,22 +38,10 @@ import {
 } from 'rxjs/operators';
 
 import { getNotificatioQualityAssuranceRoute } from '../../../admin/admin-routing-paths';
-import { SortOptions } from '../../../core/cache/models/sort-options.model';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { QualityAssuranceTopicObject } from '../../../core/notifications/qa/models/quality-assurance-topic.model';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { Item } from '../../../core/shared/item.model';
-import {
-  getFirstCompletedRemoteData,
-  getRemoteDataPayload,
-} from '../../../core/shared/operators';
-import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 import { QualityAssuranceTopicsPageParams } from '../../../quality-assurance-notifications-pages/quality-assurance-topics-page/quality-assurance-topics-page-resolver.service';
 import { AlertComponent } from '../../../shared/alert/alert.component';
-import { hasValue } from '../../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { NotificationsStateService } from '../../notifications-state.service';
 
 /**
@@ -51,8 +51,15 @@ import { NotificationsStateService } from '../../notifications-state.service';
   selector: 'ds-quality-assurance-topic',
   templateUrl: './quality-assurance-topics.component.html',
   styleUrls: ['./quality-assurance-topics.component.scss'],
-  standalone: true,
-  imports: [AlertComponent, ThemedLoadingComponent, PaginationComponent, RouterLink, AsyncPipe, TranslateModule, DatePipe],
+  imports: [
+    AlertComponent,
+    AsyncPipe,
+    DatePipe,
+    PaginationComponent,
+    RouterLink,
+    ThemedLoadingComponent,
+    TranslateModule,
+  ],
 })
 export class QualityAssuranceTopicsComponent implements OnInit, OnDestroy, AfterViewInit {
   /**

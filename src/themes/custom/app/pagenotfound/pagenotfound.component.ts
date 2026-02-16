@@ -14,12 +14,10 @@ import { PageNotFoundComponent as BaseComponent } from '../../../../app/pagenotf
   // templateUrl: './pagenotfound.component.html'
   templateUrl: '../../../../app/pagenotfound/pagenotfound.component.html',
   changeDetection: ChangeDetectionStrategy.Default,
-  standalone: true,
-  imports: [RouterLink, TranslateModule],
+  imports: [
+    RouterLink,
+    TranslateModule,
+  ],
 })
-
-/**
- * This component representing the `PageNotFound` DSpace page.
- */
-export class PageNotFoundComponent extends BaseComponent {}
-
+export class PageNotFoundComponent extends BaseComponent {
+}

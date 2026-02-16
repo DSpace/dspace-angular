@@ -5,11 +5,11 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { mockSuggestionTargetsObjectOne } from '@dspace/core/testing/publication-claim-targets.mock';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
-import { mockSuggestionTargetsObjectOne } from '../../../shared/mocks/publication-claim-targets.mock';
-import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
 import { SuggestionsService } from '../suggestions.service';
 import { SuggestionTargetsStateService } from '../targets/suggestion-targets.state.service';
 import { SuggestionsPopupComponent } from './suggestions-popup.component';
@@ -63,10 +63,10 @@ describe('SuggestionsPopupComponent', () => {
   describe('when there are publication suggestions', () => {
 
     beforeEach(() => {
-      suggestionStateService.hasUserVisitedSuggestions.and.returnValue(observableOf(false));
-      suggestionStateService.getCurrentUserSuggestionTargets.and.returnValue(observableOf([mockSuggestionTargetsObjectOne]));
-      suggestionStateService.dispatchMarkUserSuggestionsAsVisitedAction.and.returnValue(observableOf(null));
-      suggestionStateService.dispatchRefreshUserSuggestionsAction.and.returnValue(observableOf(null));
+      suggestionStateService.hasUserVisitedSuggestions.and.returnValue(of(false));
+      suggestionStateService.getCurrentUserSuggestionTargets.and.returnValue(of([mockSuggestionTargetsObjectOne]));
+      suggestionStateService.dispatchMarkUserSuggestionsAsVisitedAction.and.returnValue(of(null));
+      suggestionStateService.dispatchRefreshUserSuggestionsAction.and.returnValue(of(null));
 
       fixture = TestBed.createComponent(SuggestionsPopupComponent);
       component = fixture.componentInstance;

@@ -8,6 +8,21 @@ import {
 } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
+import { EPerson } from '@dspace/core/eperson/models/eperson.model';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { HardRedirectService } from '@dspace/core/services/hard-redirect.service';
+import { NativeWindowService } from '@dspace/core/services/window.service';
+import { Registration } from '@dspace/core/shared/registration.model';
+import { AuthServiceMock } from '@dspace/core/testing/auth.service.mock';
+import { EPersonMock } from '@dspace/core/testing/eperson.mock';
+import { NativeWindowMockFactory } from '@dspace/core/testing/mock-native-window-ref';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { RouterMock } from '@dspace/core/testing/router.mock';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateLoader,
@@ -20,22 +35,7 @@ import {
   Subscription,
 } from 'rxjs';
 
-import { AuthService } from '../../core/auth/auth.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { EPerson } from '../../core/eperson/models/eperson.model';
-import { HardRedirectService } from '../../core/services/hard-redirect.service';
-import { NativeWindowService } from '../../core/services/window.service';
-import { Registration } from '../../core/shared/registration.model';
 import { ExternalLoginService } from '../../external-log-in/services/external-login.service';
-import { AuthServiceMock } from '../../shared/mocks/auth.service.mock';
-import { NativeWindowMockFactory } from '../../shared/mocks/mock-native-window-ref';
-import { RouterMock } from '../../shared/mocks/router.mock';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { EPersonMock } from '../../shared/testing/eperson.mock';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { CompareValuesPipe } from '../helpers/compare-values.pipe';
 import { ReviewAccountInfoComponent } from './review-account-info.component';
 
@@ -54,7 +54,7 @@ describe('ReviewAccountInfoComponent', () => {
     get: () => of('test-message'),
     onLangChange: new EventEmitter(),
     onTranslationChange: new EventEmitter(),
-    onDefaultLangChange: new EventEmitter(),
+    onFallbackLangChange: new EventEmitter(),
   };
   const mockEPerson = EPersonMock;
   const modalStub = {

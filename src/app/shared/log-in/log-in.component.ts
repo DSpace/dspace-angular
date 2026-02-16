@@ -5,34 +5,37 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { AuthMethod } from '@dspace/core/auth/models/auth.method';
+import { AuthMethodType } from '@dspace/core/auth/models/auth.method-type';
+import {
+  getAuthenticationError,
+  isAuthenticated,
+  isAuthenticationLoading,
+} from '@dspace/core/auth/selectors';
+import { CoreState } from '@dspace/core/core-state.model';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   select,
   Store,
 } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import { AuthService } from '../../core/auth/auth.service';
-import { AuthMethodsService } from '../../core/auth/auth-methods.service';
-import { AuthMethod } from '../../core/auth/models/auth.method';
-import { AuthMethodType } from '../../core/auth/models/auth.method-type';
-import {
-  getAuthenticationError,
-  isAuthenticated,
-  isAuthenticationLoading,
-} from '../../core/auth/selectors';
-import { CoreState } from '../../core/core-state.model';
-import { hasValue } from '../empty.util';
 import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 import { LogInContainerComponent } from './container/log-in-container.component';
 import { AUTH_METHOD_FOR_DECORATOR_MAP } from './methods/log-in.methods-decorator';
+import { AuthMethodsService } from './services/auth-methods.service';
 
 @Component({
   selector: 'ds-base-log-in',
   templateUrl: './log-in.component.html',
   styleUrls: ['./log-in.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
-  imports: [ThemedLoadingComponent, LogInContainerComponent, AsyncPipe],
+  imports: [
+    AsyncPipe,
+    LogInContainerComponent,
+    ThemedLoadingComponent,
+  ],
 })
 export class LogInComponent implements OnInit {
 

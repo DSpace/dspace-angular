@@ -2,8 +2,8 @@ import {
   Component,
   Input,
 } from '@angular/core';
+import { Item } from '@dspace/core/shared/item.model';
 
-import { Item } from '../../../../../core/shared/item.model';
 import { ThemedComponent } from '../../../../../shared/theme-support/themed.component';
 import { ItemPageTitleFieldComponent } from './item-page-title-field.component';
 
@@ -12,10 +12,7 @@ import { ItemPageTitleFieldComponent } from './item-page-title-field.component';
  */
 @Component({
   selector: 'ds-item-page-title-field',
-  styleUrls: [],
   templateUrl: '../../../../../shared/theme-support/themed.component.html',
-  standalone: true,
-  imports: [ItemPageTitleFieldComponent],
 })
 export class ThemedItemPageTitleFieldComponent extends ThemedComponent<ItemPageTitleFieldComponent> {
 

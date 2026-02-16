@@ -6,6 +6,14 @@ import {
   Output,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { IdentifiableDataService } from '@dspace/core/data/base/identifiable-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { RequestService } from '@dspace/core/data/request.service';
+import { NotificationOptions } from '@dspace/core/notification-system/models/notification-options.model';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { getFirstSucceededRemoteData } from '@dspace/core/shared/operators';
+import { ResourceType } from '@dspace/core/shared/resource-type';
 import { TranslateService } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -16,15 +24,7 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { IdentifiableDataService } from '../../core/data/base/identifiable-data.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { RequestService } from '../../core/data/request.service';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { getFirstSucceededRemoteData } from '../../core/shared/operators';
-import { ResourceType } from '../../core/shared/resource-type';
-import { SearchService } from '../../core/shared/search/search.service';
-import { NotificationOptions } from '../notifications/models/notification-options.model';
-import { NotificationsService } from '../notifications/notifications.service';
+import { SearchService } from '../search/search.service';
 import { MyDSpaceActionsServiceFactory } from './mydspace-actions-service.factory';
 
 export interface MyDSpaceActionsResult {
@@ -101,17 +101,25 @@ export abstract class MyDSpaceActionsComponent<T extends DSpaceObject, TService 
   reload(): void {
 
     this.router.navigated = false;
-    const url = decodeURIComponent(this.router.url);
     // override the route reuse strategy
     this.router.routeReuseStrategy.shouldReuseRoute = () => {
       return false;
     };
     // This assures that the search cache is empty before reloading mydspace.
     // See https://github.com/DSpace/dspace-angular/pull/468
+    this.invalidateCacheForCurrentSearchUrl(true);
+  }
+
+  invalidateCacheForCurrentSearchUrl(shouldNavigate = false): void {
+    const url = decodeURIComponent(this.router.url);
     this.searchService.getEndpoint().pipe(
       take(1),
       tap((cachedHref: string) => this.requestService.removeByHrefSubstring(cachedHref)),
-    ).subscribe(() => this.router.navigateByUrl(url));
+    ).subscribe(() => {
+      if (shouldNavigate) {
+        this.router.navigateByUrl(url);
+      }
+    });
   }
 
   /**

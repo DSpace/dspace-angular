@@ -9,6 +9,8 @@ import {
   OnInit,
   ViewContainerRef,
 } from '@angular/core';
+import { hasValue } from '@dspace/shared/utils/empty.util';
+import { isCcLicense } from '@dspace/shared/utils/license.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   map,
@@ -23,15 +25,19 @@ import {
   getRemoteDataPayload,
 } from 'src/app/core/shared/operators';
 import { ItemPageCcLicenseFieldComponent } from 'src/app/item-page/simple/field-components/specific-field/cc-license/item-page-cc-license-field.component';
-import { hasValue } from 'src/app/shared/empty.util';
 import { MetadataFieldWrapperComponent } from 'src/app/shared/metadata-field-wrapper/metadata-field-wrapper.component';
-import { isCcLicense } from 'src/app/shared/utils/license.utils';
 
 @Component({
   selector: 'ds-item-page-license-field',
   templateUrl: './item-page-license-field.component.html',
-  standalone: true,
-  imports: [NgClass, NgStyle, TranslateModule, MetadataFieldWrapperComponent, ItemPageCcLicenseFieldComponent, AsyncPipe],
+  imports: [
+    AsyncPipe,
+    ItemPageCcLicenseFieldComponent,
+    MetadataFieldWrapperComponent,
+    NgClass,
+    NgStyle,
+    TranslateModule,
+  ],
 })
 /**
  * Displays the item's licenses

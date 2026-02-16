@@ -12,52 +12,52 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  SortDirection,
+  SortOptions,
+} from '@dspace/core/cache/models/sort-options.model';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { GroupDataService } from '@dspace/core/eperson/group-data.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { LinkHeadService } from '@dspace/core/services/link-head.service';
+import { RouteService } from '@dspace/core/services/route.service';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
+import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
+import { HostWindowServiceStub } from '@dspace/core/testing/host-window-service.stub';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { ObjectSelectServiceStub } from '@dspace/core/testing/object-select-service.stub';
+import { RouterStub } from '@dspace/core/testing/router.stub';
+import { SearchConfigurationServiceStub } from '@dspace/core/testing/search-configuration-service.stub';
+import { SearchServiceStub } from '@dspace/core/testing/search-service.stub';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core/utilities/remote-data.utils';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
-import {
-  SortDirection,
-  SortOptions,
-} from '../../core/cache/models/sort-options.model';
-import { ConfigurationDataService } from '../../core/data/configuration-data.service';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { ItemDataService } from '../../core/data/item-data.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { GroupDataService } from '../../core/eperson/group-data.service';
-import { LinkHeadService } from '../../core/services/link-head.service';
-import { RouteService } from '../../core/services/route.service';
-import { Collection } from '../../core/shared/collection.model';
-import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
-import { SearchService } from '../../core/shared/search/search.service';
-import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 import { ErrorComponent } from '../../shared/error/error.component';
 import { HostWindowService } from '../../shared/host-window.service';
 import { LoadingComponent } from '../../shared/loading/loading.component';
-import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { ItemSelectComponent } from '../../shared/object-select/item-select/item-select.component';
 import { ObjectSelectService } from '../../shared/object-select/object-select.service';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
-import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
+import { SearchService } from '../../shared/search/search.service';
+import { SearchConfigurationService } from '../../shared/search/search-configuration.service';
 import { SearchFormComponent } from '../../shared/search-form/search-form.component';
-import { HostWindowServiceStub } from '../../shared/testing/host-window-service.stub';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { ObjectSelectServiceStub } from '../../shared/testing/object-select-service.stub';
-import { RouterStub } from '../../shared/testing/router.stub';
-import { SearchConfigurationServiceStub } from '../../shared/testing/search-configuration-service.stub';
-import { SearchServiceStub } from '../../shared/testing/search-service.stub';
-import { createPaginatedList } from '../../shared/testing/utils.test';
+import { getMockThemeService } from '../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { EnumKeysPipe } from '../../shared/utils/enum-keys-pipe';
 import { VarDirective } from '../../shared/utils/var.directive';
@@ -87,7 +87,7 @@ describe('CollectionItemMapperComponent', () => {
     },
   });
   const mockCollectionRD: RemoteData<Collection> = createSuccessfulRemoteDataObject(mockCollection);
-  const mockSearchOptions = observableOf(new PaginatedSearchOptions({
+  const mockSearchOptions = of(new PaginatedSearchOptions({
     pagination: Object.assign(new PaginationComponentOptions(), {
       id: 'search-page-configuration',
       pageSize: 10,
@@ -109,11 +109,11 @@ describe('CollectionItemMapperComponent', () => {
   const emptyList = createSuccessfulRemoteDataObject(createPaginatedList([]));
   const itemDataServiceStub = {
     mapToCollection: () => createSuccessfulRemoteDataObject$({}),
-    findListByHref: () => observableOf(emptyList),
+    findListByHref: () => of(emptyList),
   };
   const activatedRouteStub = {
     parent: {
-      data: observableOf({
+      data: of({
         dso: mockCollectionRD,
       }),
     },
@@ -124,42 +124,42 @@ describe('CollectionItemMapperComponent', () => {
     },
   };
   const translateServiceStub = {
-    get: () => observableOf('test-message of collection ' + mockCollection.name),
+    get: () => of('test-message of collection ' + mockCollection.name),
     onLangChange: new EventEmitter(),
     onTranslationChange: new EventEmitter(),
-    onDefaultLangChange: new EventEmitter(),
+    onFallbackLangChange: new EventEmitter(),
   };
   const searchServiceStub = Object.assign(new SearchServiceStub(), {
-    search: () => observableOf(emptyList),
+    search: () => of(emptyList),
     /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
     clearDiscoveryRequests: () => {},
     /* eslint-enable no-empty,@typescript-eslint/no-empty-function */
   });
   const collectionDataServiceStub = {
-    getMappedItems: () => observableOf(emptyList),
+    getMappedItems: () => of(emptyList),
     /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
     clearMappedItemsRequests: () => {},
     /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
   };
   const routeServiceStub = {
     getRouteParameterValue: () => {
-      return observableOf('');
+      return of('');
     },
     getQueryParameterValue: () => {
-      return observableOf('');
+      return of('');
     },
     getQueryParamsWithPrefix: () => {
-      return observableOf('');
+      return of('');
     },
   };
   const fixedFilterServiceStub = {
     getQueryByFilterName: () => {
-      return observableOf('');
+      return of('');
     },
   };
 
   const authorizationDataService = jasmine.createSpyObj('authorizationDataService', {
-    isAuthorized: observableOf(true),
+    isAuthorized: of(true),
   });
 
   const linkHeadService = jasmine.createSpyObj('linkHeadService', {

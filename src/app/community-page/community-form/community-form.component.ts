@@ -6,6 +6,12 @@ import {
   SimpleChange,
   SimpleChanges,
 } from '@angular/core';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
+import { CommunityDataService } from '@dspace/core/data/community-data.service';
+import { RequestService } from '@dspace/core/data/request.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Community } from '@dspace/core/shared/community.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormControlModel,
@@ -19,15 +25,9 @@ import {
 } from '@ngx-translate/core';
 
 import { environment } from '../../../environments/environment';
-import { AuthService } from '../../core/auth/auth.service';
-import { ObjectCacheService } from '../../core/cache/object-cache.service';
-import { CommunityDataService } from '../../core/data/community-data.service';
-import { RequestService } from '../../core/data/request.service';
-import { Community } from '../../core/shared/community.model';
 import { ComColFormComponent } from '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component';
 import { ComcolPageLogoComponent } from '../../shared/comcol/comcol-page-logo/comcol-page-logo.component';
 import { FormComponent } from '../../shared/form/form.component';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { UploaderComponent } from '../../shared/upload/uploader/uploader.component';
 import { VarDirective } from '../../shared/utils/var.directive';
 
@@ -38,13 +38,12 @@ import { VarDirective } from '../../shared/utils/var.directive';
   selector: 'ds-community-form',
   styleUrls: ['../../shared/comcol/comcol-forms/comcol-form/comcol-form.component.scss'],
   templateUrl: '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component.html',
-  standalone: true,
   imports: [
+    AsyncPipe,
+    ComcolPageLogoComponent,
     FormComponent,
     TranslateModule,
     UploaderComponent,
-    AsyncPipe,
-    ComcolPageLogoComponent,
     VarDirective,
   ],
 })

@@ -11,25 +11,26 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
-
-import { APP_DATA_SERVICES_MAP } from '../../../../config/app-config.interface';
-import { AuthService } from '../../../core/auth/auth.service';
-import { ObjectCacheService } from '../../../core/cache/object-cache.service';
-import { CollectionDataService } from '../../../core/data/collection-data.service';
-import { CommunityDataService } from '../../../core/data/community-data.service';
-import { ItemTemplateDataService } from '../../../core/data/item-template-data.service';
-import { RequestService } from '../../../core/data/request.service';
-import { Collection } from '../../../core/shared/collection.model';
-import { Item } from '../../../core/shared/item.model';
-import { AuthServiceMock } from '../../../shared/mocks/auth.service.mock';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
+import { CollectionDataService } from '@dspace/core/data/collection-data.service';
+import { CommunityDataService } from '@dspace/core/data/community-data.service';
+import { ItemTemplateDataService } from '@dspace/core/data/item-template-data.service';
+import { RequestService } from '@dspace/core/data/request.service';
+import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { AuthServiceMock } from '@dspace/core/testing/auth.service.mock';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../shared/remote-data.utils';
+} from '@dspace/core/utilities/remote-data.utils';
+import { TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
+
 import { getCollectionItemTemplateRoute } from '../../collection-page-routing-paths';
 import { CollectionMetadataComponent } from './collection-metadata.component';
 
@@ -57,8 +58,8 @@ describe('CollectionMetadataComponent', () => {
   const itemTemplateServiceStub = jasmine.createSpyObj('itemTemplateService', {
     findByCollectionID: createSuccessfulRemoteDataObject$(template),
     createByCollectionID: createSuccessfulRemoteDataObject$(template),
-    delete: observableOf(true),
-    getCollectionEndpoint: observableOf(collectionTemplateHref),
+    delete: of(true),
+    getCollectionEndpoint: of(collectionTemplateHref),
   });
 
   const notificationsService = jasmine.createSpyObj('notificationsService', {
@@ -70,7 +71,7 @@ describe('CollectionMetadataComponent', () => {
   });
 
   const routerMock = {
-    events: observableOf(new NavigationEnd(1, 'url', 'url')),
+    events: of(new NavigationEnd(1, 'url', 'url')),
     navigate: jasmine.createSpy('navigate'),
   };
 
@@ -80,7 +81,7 @@ describe('CollectionMetadataComponent', () => {
       providers: [
         { provide: CollectionDataService, useValue: {} },
         { provide: ItemTemplateDataService, useValue: itemTemplateServiceStub },
-        { provide: ActivatedRoute, useValue: { parent: { data: observableOf({ dso: createSuccessfulRemoteDataObject(collection) }) } } },
+        { provide: ActivatedRoute, useValue: { parent: { data: of({ dso: createSuccessfulRemoteDataObject(collection) }) } } },
         { provide: NotificationsService, useValue: notificationsService },
         { provide: RequestService, useValue: requestService },
         { provide: Router, useValue: routerMock },
@@ -88,6 +89,7 @@ describe('CollectionMetadataComponent', () => {
         { provide: CommunityDataService, useValue: {} },
         { provide: ObjectCacheService, useValue: {} },
         { provide: APP_DATA_SERVICES_MAP, useValue: {} },
+        { provide: APP_CONFIG, useValue: {} },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
@@ -100,7 +102,7 @@ describe('CollectionMetadataComponent', () => {
     spyOn(comp, 'ngOnInit');
     spyOn(comp, 'initTemplateItem');
 
-    routerMock.events = observableOf(new NavigationEnd(1, 'url', 'url'));
+    routerMock.events = of(new NavigationEnd(1, 'url', 'url'));
     fixture.detectChanges();
   });
 

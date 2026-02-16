@@ -21,49 +21,51 @@ import {
   Router,
   RouterModule,
 } from '@angular/router';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { EpersonRegistrationService } from '@dspace/core/data/eperson-registration.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { FindListOptions } from '@dspace/core/data/find-list-options.model';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { RequestService } from '@dspace/core/data/request.service';
+import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
+import { GroupDataService } from '@dspace/core/eperson/group-data.service';
+import { EPerson } from '@dspace/core/eperson/models/eperson.model';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { FollowLinkConfig } from '@dspace/core/shared/follow-link-config.model';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { AuthServiceStub } from '@dspace/core/testing/auth-service.stub';
+import {
+  EPersonMock,
+  EPersonMock2,
+} from '@dspace/core/testing/eperson.mock';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
+import { RouterStub } from '@dspace/core/testing/router.stub';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
-import { AuthService } from '../../../core/auth/auth.service';
-import { EpersonRegistrationService } from '../../../core/data/eperson-registration.service';
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { FindListOptions } from '../../../core/data/find-list-options.model';
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { RequestService } from '../../../core/data/request.service';
-import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
-import { GroupDataService } from '../../../core/eperson/group-data.service';
-import { EPerson } from '../../../core/eperson/models/eperson.model';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { PageInfo } from '../../../core/shared/page-info.model';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';
+import { getMockFormBuilderService } from '../../../shared/form/testing/form-builder-service.mock';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
-import { AuthServiceStub } from '../../../shared/testing/auth-service.stub';
-import {
-  EPersonMock,
-  EPersonMock2,
-} from '../../../shared/testing/eperson.mock';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
-import { RouterStub } from '../../../shared/testing/router.stub';
-import { createPaginatedList } from '../../../shared/testing/utils.test';
-import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { HasNoValuePipe } from '../../../shared/utils/has-no-value.pipe';
+import { GroupRegistryService } from '../../group-registry/group-registry.service';
 import { EPeopleRegistryComponent } from '../epeople-registry.component';
+import { EpeopleRegistryService } from '../epeople-registry.service';
 import { EPersonFormComponent } from './eperson-form.component';
 import { ValidateEmailNotTaken } from './validators/email-taken.validator';
 
@@ -74,12 +76,15 @@ describe('EPersonFormComponent', () => {
 
   let mockEPeople;
   let ePersonDataServiceStub: any;
+  let epeopleRegistryServiceStub: any;
   let authService: AuthServiceStub;
   let authorizationService: AuthorizationDataService;
   let groupsDataService: GroupDataService;
+  let groupRegistryService: GroupRegistryService;
   let epersonRegistrationService: EpersonRegistrationService;
   let route: ActivatedRouteStub;
   let router: RouterStub;
+  let activeEPerson = null;
 
   let paginationService;
 
@@ -87,12 +92,14 @@ describe('EPersonFormComponent', () => {
 
   beforeEach(waitForAsync(() => {
     mockEPeople = [EPersonMock, EPersonMock2];
+    epeopleRegistryServiceStub = {
+      getActiveEPerson(): Observable<EPerson> {
+        return of(activeEPerson);
+      },
+    };
     ePersonDataServiceStub = {
       activeEPerson: null,
       allEpeople: mockEPeople,
-      getActiveEPerson(): Observable<EPerson> {
-        return observableOf(this.activeEPerson);
-      },
       searchByScope(scope: string, query: string, options: FindListOptions = {}): Observable<RemoteData<PaginatedList<EPerson>>> {
         if (scope === 'email') {
           const result = this.allEpeople.find((ePerson: EPerson) => {
@@ -115,17 +122,17 @@ describe('EPersonFormComponent', () => {
         this.allEpeople = this.allEpeople.filter((ePerson2: EPerson) => {
           return (ePerson2.uuid !== ePerson.uuid);
         });
-        return observableOf(true);
+        return of(true);
       },
       create(ePerson: EPerson): Observable<RemoteData<EPerson>> {
         this.allEpeople = [...this.allEpeople, ePerson];
         return createSuccessfulRemoteDataObject$(ePerson);
       },
       editEPerson(ePerson: EPerson) {
-        this.activeEPerson = ePerson;
+        activeEPerson = ePerson;
       },
       cancelEditEPerson() {
-        this.activeEPerson = null;
+        activeEPerson = null;
       },
       clearEPersonRequests(): void {
         // empty
@@ -210,12 +217,15 @@ describe('EPersonFormComponent', () => {
     });
     authService = new AuthServiceStub();
     authorizationService = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: observableOf(true),
+      isAuthorized: of(true),
 
     });
     groupsDataService = jasmine.createSpyObj('groupsDataService', {
       findListByHref: createSuccessfulRemoteDataObject$(createPaginatedList([])),
       getGroupRegistryRouterLink: '',
+    });
+    groupRegistryService = jasmine.createSpyObj('GroupRegistryService', {
+      startEditingNewGroup: jasmine.createSpy('startEditingNewGroup'),
     });
 
     paginationService = new PaginationServiceStub();
@@ -230,7 +240,9 @@ describe('EPersonFormComponent', () => {
       ],
       providers: [
         { provide: EPersonDataService, useValue: ePersonDataServiceStub },
+        { provide: EpeopleRegistryService, useValue: epeopleRegistryServiceStub },
         { provide: GroupDataService, useValue: groupsDataService },
+        { provide: GroupRegistryService, useValue: groupRegistryService },
         { provide: FormBuilderService, useValue: builderService },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: AuthService, useValue: authService },
@@ -389,7 +401,7 @@ describe('EPersonFormComponent', () => {
     });
     describe('without active EPerson', () => {
       beforeEach(() => {
-        spyOn(ePersonDataServiceStub, 'getActiveEPerson').and.returnValue(observableOf(undefined));
+        spyOn(epeopleRegistryServiceStub, 'getActiveEPerson').and.returnValue(of(undefined));
         component.onSubmit();
         fixture.detectChanges();
       });
@@ -429,7 +441,7 @@ describe('EPersonFormComponent', () => {
             },
           },
         });
-        spyOn(ePersonDataServiceStub, 'getActiveEPerson').and.returnValue(observableOf(expectedWithId));
+        spyOn(epeopleRegistryServiceStub, 'getActiveEPerson').and.returnValue(of(expectedWithId));
         component.ngOnInit();
         component.onSubmit();
         fixture.detectChanges();
@@ -485,10 +497,10 @@ describe('EPersonFormComponent', () => {
       spyOn(authService, 'impersonate').and.callThrough();
       eperson = EPersonMock;
       component.epersonInitial = eperson;
-      component.canDelete$ = observableOf(true);
-      spyOn(component.epersonService, 'getActiveEPerson').and.returnValue(observableOf(eperson));
+      component.canDelete$ = of(true);
+      spyOn(component.epeopleRegistryService, 'getActiveEPerson').and.returnValue(of(eperson));
       modalService = (component as any).modalService;
-      spyOn(modalService, 'open').and.returnValue(Object.assign({ componentInstance: Object.assign({ response: observableOf(true) }) }));
+      spyOn(modalService, 'open').and.returnValue(Object.assign({ componentInstance: Object.assign({ response: of(true) }) }));
       component.ngOnInit();
       fixture.detectChanges();
     });
@@ -499,7 +511,7 @@ describe('EPersonFormComponent', () => {
     });
 
     it('the delete button should be hidden if the ePerson cannot be deleted', () => {
-      component.canDelete$ = observableOf(false);
+      component.canDelete$ = of(false);
       fixture.detectChanges();
       const deleteButton = fixture.debugElement.query(By.css('.delete-button'));
       expect(deleteButton).toBeNull();

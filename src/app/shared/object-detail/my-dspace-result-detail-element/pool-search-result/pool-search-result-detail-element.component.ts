@@ -4,6 +4,22 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { LinkService } from '@dspace/core/cache/builders/link.service';
+import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { Context } from '@dspace/core/shared/context.model';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { PoolTaskSearchResult } from '@dspace/core/shared/object-collection/pool-task-search-result.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
+import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
+import { PoolTask } from '@dspace/core/tasks/models/pool-task-object.model';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import {
   BehaviorSubject,
   EMPTY,
@@ -13,25 +29,9 @@ import {
   mergeMap,
   tap,
 } from 'rxjs/operators';
-import { Context } from 'src/app/core/shared/context.model';
 
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { LinkService } from '../../../../core/cache/builders/link.service';
-import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { Item } from '../../../../core/shared/item.model';
-import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
-import { ViewMode } from '../../../../core/shared/view-mode.model';
-import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
-import { PoolTask } from '../../../../core/tasks/models/pool-task-object.model';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../../empty.util';
 import { PoolTaskActionsComponent } from '../../../mydspace-actions/pool-task/pool-task-actions.component';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
-import { PoolTaskSearchResult } from '../../../object-collection/shared/pool-task-search-result.model';
-import { followLink } from '../../../utils/follow-link-config.model';
 import { ItemDetailPreviewComponent } from '../item-detail-preview/item-detail-preview.component';
 import { SearchResultDetailElementComponent } from '../search-result-detail-element.component';
 
@@ -42,8 +42,11 @@ import { SearchResultDetailElementComponent } from '../search-result-detail-elem
   selector: 'ds-pool-search-result-detail-element',
   styleUrls: ['../search-result-detail-element.component.scss'],
   templateUrl: './pool-search-result-detail-element.component.html',
-  standalone: true,
-  imports: [ItemDetailPreviewComponent, PoolTaskActionsComponent, AsyncPipe],
+  imports: [
+    AsyncPipe,
+    ItemDetailPreviewComponent,
+    PoolTaskActionsComponent,
+  ],
 })
 
 @listableObjectComponent(PoolTaskSearchResult, ViewMode.DetailedListElement)

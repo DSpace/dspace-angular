@@ -1,8 +1,4 @@
-import {
-  AsyncPipe,
-  NgClass,
-  NgComponentOutlet,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -13,6 +9,18 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import {
+  SortDirection,
+  SortOptions,
+} from '@dspace/core/cache/models/sort-options.model';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { RouteService } from '@dspace/core/services/route.service';
+import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   TranslateModule,
   TranslateService,
@@ -26,24 +34,12 @@ import {
 import { map } from 'rxjs/operators';
 
 import {
-  SortDirection,
-  SortOptions,
-} from '../../core/cache/models/sort-options.model';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { RouteService } from '../../core/services/route.service';
-import { ViewMode } from '../../core/shared/view-mode.model';
-import {
   fadeIn,
   fadeInOut,
 } from '../animations/fade';
-import { hasValue } from '../empty.util';
 import { ErrorComponent } from '../error/error.component';
 import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 import { ObjectCollectionComponent } from '../object-collection/object-collection.component';
-import { ListableObject } from '../object-collection/shared/listable-object.model';
-import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import { ThemedResultsBackButtonComponent } from '../results-back-button/themed-results-back-button.component';
 import { StartsWithLoaderComponent } from '../starts-with/starts-with-loader.component';
 import { StartsWithType } from '../starts-with/starts-with-type';
@@ -57,8 +53,16 @@ import { VarDirective } from '../utils/var.directive';
     fadeIn,
     fadeInOut,
   ],
-  standalone: true,
-  imports: [VarDirective, NgClass, NgComponentOutlet, ThemedResultsBackButtonComponent, ObjectCollectionComponent, ThemedLoadingComponent, ErrorComponent, AsyncPipe, TranslateModule, StartsWithLoaderComponent],
+  imports: [
+    AsyncPipe,
+    ErrorComponent,
+    ObjectCollectionComponent,
+    StartsWithLoaderComponent,
+    ThemedLoadingComponent,
+    ThemedResultsBackButtonComponent,
+    TranslateModule,
+    VarDirective,
+  ],
 })
 /**
  * Component to display a browse-by page for any ListableObject

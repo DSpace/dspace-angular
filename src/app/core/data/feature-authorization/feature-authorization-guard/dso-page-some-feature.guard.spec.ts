@@ -4,14 +4,14 @@ import {
   Router,
   UrlTree,
 } from '@angular/router';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
-import { AuthService } from '../../../auth/auth.service';
-import { DSpaceObject } from '../../../shared/dspace-object.model';
 import { RemoteData } from '../../remote-data';
 import { AuthorizationDataService } from '../authorization-data.service';
 import { FeatureID } from '../feature-id';
@@ -39,14 +39,14 @@ describe('dsoPageSomeFeatureGuard and its functions', () => {
     } as DSpaceObject;
     featureIds = [FeatureID.LoginOnBehalfOf, FeatureID.CanDelete];
     authorizationService = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: observableOf(true),
+      isAuthorized: of(true),
     });
     router = jasmine.createSpyObj('router', {
       parseUrl: {},
     });
     resolver = () => createSuccessfulRemoteDataObject$(object);
     authService = jasmine.createSpyObj('authService', {
-      isAuthenticated: observableOf(true),
+      isAuthenticated: of(true),
     });
     parentRoute = {
       params: {
@@ -95,7 +95,7 @@ describe('dsoPageSomeFeatureGuard and its functions', () => {
     it('should call authorizationService.isAuthenticated with the appropriate arguments', (done) => {
       const result$ = TestBed.runInInjectionContext(() => {
         return dsoPageSomeFeatureGuard(
-          () => resolver, () => observableOf(featureIds),
+          () => resolver, () => of(featureIds),
         )(route, { url: 'current-url' } as any);
       }) as Observable<boolean | UrlTree>;
 

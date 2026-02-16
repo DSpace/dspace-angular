@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { Community } from '@dspace/core/shared/community.model';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { Community } from '../../core/shared/community.model';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { StatisticsPageDirective } from '../statistics-page/statistics-page.directive';
@@ -15,8 +15,13 @@ import { StatisticsTableComponent } from '../statistics-table/statistics-table.c
   selector: 'ds-base-community-statistics-page',
   templateUrl: '../statistics-page/statistics-page.component.html',
   styleUrls: ['./community-statistics-page.component.scss'],
-  standalone: true,
-  imports: [CommonModule, VarDirective, ThemedLoadingComponent, StatisticsTableComponent, TranslateModule],
+  imports: [
+    CommonModule,
+    StatisticsTableComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
+    VarDirective,
+  ],
 })
 export class CommunityStatisticsPageComponent extends StatisticsPageDirective<Community> {
 

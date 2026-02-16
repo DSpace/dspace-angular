@@ -2,9 +2,9 @@ import {
   Component,
   Input,
 } from '@angular/core';
+import { Item } from '@dspace/core/shared/item.model';
+import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
 
-import { Item } from '../../../../../core/shared/item.model';
-import { SearchResult } from '../../../../search/models/search-result.model';
 import { ThemedComponent } from '../../../../theme-support/themed.component';
 import { ItemDetailPreviewFieldComponent } from './item-detail-preview-field.component';
 
@@ -14,8 +14,6 @@ import { ItemDetailPreviewFieldComponent } from './item-detail-preview-field.com
 @Component({
   selector: 'ds-item-detail-preview-field',
   templateUrl: '../../../../theme-support/themed.component.html',
-  standalone: true,
-  imports: [ItemDetailPreviewFieldComponent],
 })
 export class ThemedItemDetailPreviewFieldComponent  extends ThemedComponent<ItemDetailPreviewFieldComponent> {
 
@@ -26,6 +24,7 @@ export class ThemedItemDetailPreviewFieldComponent  extends ThemedComponent<Item
     'metadata',
     'placeholder',
     'separator',
+    'escapeMetadataHTML',
   ];
 
   @Input() item: Item;
@@ -39,6 +38,8 @@ export class ThemedItemDetailPreviewFieldComponent  extends ThemedComponent<Item
   @Input() placeholder: string;
 
   @Input() separator: string;
+
+  @Input() escapeMetadataHTML: boolean;
 
   protected getComponentName(): string {
     return 'ItemDetailPreviewFieldComponent';

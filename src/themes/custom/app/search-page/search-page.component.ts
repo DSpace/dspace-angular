@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { SEARCH_CONFIG_SERVICE } from 'src/app/my-dspace-page/my-dspace-configuration.service';
 
-import { SearchConfigurationService } from '../../../../app/core/shared/search/search-configuration.service';
 import { SearchPageComponent as BaseComponent } from '../../../../app/search-page/search-page.component';
+import { SearchConfigurationService } from '../../../../app/shared/search/search-configuration.service';
 import { ThemedSearchComponent } from '../../../../app/shared/search/themed-search.component';
 
 @Component({
@@ -16,12 +16,9 @@ import { ThemedSearchComponent } from '../../../../app/shared/search/themed-sear
       useClass: SearchConfigurationService,
     },
   ],
-  standalone: true,
-  imports: [ThemedSearchComponent],
+  imports: [
+    ThemedSearchComponent,
+  ],
 })
-/**
- * This component represents the whole search page
- * It renders search results depending on the current search options
- */
-export class SearchPageComponent extends BaseComponent {}
-
+export class SearchPageComponent extends BaseComponent {
+}

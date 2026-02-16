@@ -1,27 +1,40 @@
 import {
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { BrowseDefinitionDataService } from '@dspace/core/browse/browse-definition-data.service';
+import { HrefOnlyDataService } from '@dspace/core/data/href-only-data.service';
+import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import {
   cold,
   getTestScheduler,
   hot,
 } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { getMockHrefOnlyDataService } from '../../shared/mocks/href-only-data.service.mock';
-import { getMockRequestService } from '../../shared/mocks/request.service.mock';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
-import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
-import {
-  createPaginatedList,
-  getFirstUsedArgumentOfSpyMethod,
-} from '../../shared/testing/utils.test';
 import { RequestService } from '../data/request.service';
 import { RequestEntry } from '../data/request-entry.model';
 import { FlatBrowseDefinition } from '../shared/flat-browse-definition.model';
 import { HierarchicalBrowseDefinition } from '../shared/hierarchical-browse-definition.model';
 import { ValueListBrowseDefinition } from '../shared/value-list-browse-definition.model';
+import { HALEndpointServiceStub } from '../testing/hal-endpoint-service.stub';
+import { getMockHrefOnlyDataService } from '../testing/href-only-data.service.mock';
+import { getMockRequestService } from '../testing/request.service.mock';
+import { TranslateLoaderMock } from '../testing/translate-loader.mock';
+import {
+  createPaginatedList,
+  getFirstUsedArgumentOfSpyMethod,
+} from '../testing/utils.test';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../utilities/remote-data.utils';
 import { BrowseService } from './browse.service';
 import { BrowseEntrySearchOptions } from './browse-entry-search-options.model';
 
@@ -111,33 +124,47 @@ describe('BrowseService', () => {
   let hrefOnlyDataService;
 
   const getRequestEntry$ = (successful: boolean) => {
-    return observableOf({
+    return of({
       response: { isSuccessful: successful, payload: browseDefinitions } as any,
     } as RequestEntry);
   };
 
-  function initTestService() {
+  beforeEach(waitForAsync(() => {
     browseDefinitionDataService = jasmine.createSpyObj('browseDefinitionDataService', {
       findAll: createSuccessfulRemoteDataObject$(createPaginatedList(browseDefinitions)),
     });
     hrefOnlyDataService = getMockHrefOnlyDataService();
-    return new BrowseService(
-      requestService,
-      halService,
-      browseDefinitionDataService,
-      hrefOnlyDataService,
-    );
-  }
+
+    return TestBed.configureTestingModule({
+      imports: [
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
+        }),
+      ],
+      providers: [
+        { provide: RequestService, useValue: requestService },
+        { provide: HALEndpointService, useValue: halService },
+        { provide: BrowseDefinitionDataService, useValue: browseDefinitionDataService },
+        { provide: HrefOnlyDataService, useValue: hrefOnlyDataService },
+        { provide: APP_CONFIG, useValue: { item : { showAccessStatuses: false } } },
+        BrowseService,
+      ],
+    });
+  }));
 
   beforeEach(() => {
+    service = TestBed.inject(BrowseService);
     scheduler = getTestScheduler();
   });
+
 
   describe('getBrowseDefinitions', () => {
 
     beforeEach(() => {
       requestService = getMockRequestService(getRequestEntry$(true));
-      service = initTestService();
       spyOn(halService, 'getEndpoint').and
         .returnValue(hot('--a-', { a: browsesEndpointURL }));
     });
@@ -156,7 +183,6 @@ describe('BrowseService', () => {
 
     beforeEach(() => {
       requestService = getMockRequestService(getRequestEntry$(true));
-      service = initTestService();
     });
 
     describe('when getBrowseEntriesFor is called with a valid browse definition id', () => {
@@ -207,7 +233,6 @@ describe('BrowseService', () => {
     describe('if getBrowseDefinitions fires', () => {
       beforeEach(() => {
         requestService = getMockRequestService(getRequestEntry$(true));
-        service = initTestService();
         spyOn(service, 'getBrowseDefinitions').and
           .returnValue(hot('--a-', {
             a: createSuccessfulRemoteDataObject(createPaginatedList(browseDefinitions)),
@@ -261,7 +286,6 @@ describe('BrowseService', () => {
     describe('if getBrowseDefinitions doesn\'t fire', () => {
       it('should return undefined', () => {
         requestService = getMockRequestService(getRequestEntry$(true));
-        service = initTestService();
         spyOn(service, 'getBrowseDefinitions').and
           .returnValue(hot('----'));
 
@@ -278,7 +302,6 @@ describe('BrowseService', () => {
   describe('getFirstItemFor', () => {
     beforeEach(() => {
       requestService = getMockRequestService();
-      service = initTestService();
     });
 
     describe('when getFirstItemFor is called with a valid browse definition id', () => {

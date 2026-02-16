@@ -6,7 +6,15 @@ import {
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
+import { ScriptDataService } from '@dspace/core/data/processes/script-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Process } from '@dspace/core/processes/process.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import { hasValue } from '@dspace/shared/utils/empty.util';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
   TranslateService,
@@ -17,15 +25,7 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../../../core/data/feature-authorization/feature-id';
-import { ScriptDataService } from '../../../../core/data/processes/script-data.service';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { getProcessDetailRoute } from '../../../../process-page/process-page-routing.paths';
-import { Process } from '../../../../process-page/processes/process.model';
-import { hasValue } from '../../../../shared/empty.util';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { FiltersComponent } from '../../filters-section/filters-section.component';
 import { OptionVO } from '../option-vo.model';
 import { QueryPredicate } from '../query-predicate.model';
@@ -34,8 +34,11 @@ import { QueryPredicate } from '../query-predicate.model';
   selector: 'ds-filtered-items-export-csv',
   styleUrls: ['./filtered-items-export-csv.component.scss'],
   templateUrl: './filtered-items-export-csv.component.html',
-  standalone: true,
-  imports: [NgbTooltipModule, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    NgbTooltip,
+    TranslateModule,
+  ],
 })
 /**
  * Display a button to export the MetadataQuery (aka Filtered Items) Report results as csv

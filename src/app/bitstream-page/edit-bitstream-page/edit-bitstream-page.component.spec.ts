@@ -16,35 +16,35 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
+import { BitstreamFormatDataService } from '@dspace/core/data/bitstream-format-data.service';
+import { PrimaryBitstreamService } from '@dspace/core/data/primary-bitstream.service';
+import {
+  INotification,
+  Notification,
+} from '@dspace/core/notification-system/models/notification.model';
+import { NotificationType } from '@dspace/core/notification-system/models/notification-type';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Bitstream } from '@dspace/core/shared/bitstream.model';
+import { BitstreamFormat } from '@dspace/core/shared/bitstream-format.model';
+import { BitstreamFormatSupportLevel } from '@dspace/core/shared/bitstream-format-support-level';
+import { Item } from '@dspace/core/shared/item.model';
+import { MetadataValueFilter } from '@dspace/core/shared/metadata.models';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core/utilities/remote-data.utils';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   DynamicFormControlModel,
   DynamicFormService,
 } from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { BitstreamDataService } from '../../core/data/bitstream-data.service';
-import { BitstreamFormatDataService } from '../../core/data/bitstream-format-data.service';
-import { PrimaryBitstreamService } from '../../core/data/primary-bitstream.service';
-import { Bitstream } from '../../core/shared/bitstream.model';
-import { BitstreamFormat } from '../../core/shared/bitstream-format.model';
-import { BitstreamFormatSupportLevel } from '../../core/shared/bitstream-format-support-level';
-import { Item } from '../../core/shared/item.model';
-import { MetadataValueFilter } from '../../core/shared/metadata.models';
 import { getEntityEditRoute } from '../../item-page/item-page-routing-paths';
-import { hasValue } from '../../shared/empty.util';
-import {
-  INotification,
-  Notification,
-} from '../../shared/notifications/models/notification.model';
-import { NotificationType } from '../../shared/notifications/models/notification-type';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
-import { createPaginatedList } from '../../shared/testing/utils.test';
 import { FileSizePipe } from '../../shared/utils/file-size-pipe';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { EditBitstreamPageComponent } from './edit-bitstream-page.component';
@@ -222,7 +222,7 @@ describe('EditBitstreamPageComponent', () => {
           {
             provide: ActivatedRoute,
             useValue: {
-              data: observableOf({ bitstream: createSuccessfulRemoteDataObject(bitstream) }),
+              data: of({ bitstream: createSuccessfulRemoteDataObject(bitstream) }),
               snapshot: { queryParams: {} },
             },
           },
@@ -517,7 +517,7 @@ describe('EditBitstreamPageComponent', () => {
           {
             provide: ActivatedRoute,
             useValue: {
-              data: observableOf({ bitstream: createSuccessfulRemoteDataObject(bitstream) }),
+              data: of({ bitstream: createSuccessfulRemoteDataObject(bitstream) }),
               snapshot: { queryParams: {} },
             },
           },
@@ -640,7 +640,7 @@ describe('EditBitstreamPageComponent', () => {
           { provide: DynamicFormService, useValue: formService },
           { provide: ActivatedRoute,
             useValue: {
-              data: observableOf({ bitstream: createSuccessfulRemoteDataObject(bitstream) }),
+              data: of({ bitstream: createSuccessfulRemoteDataObject(bitstream) }),
               snapshot: { queryParams: {} },
             },
           },

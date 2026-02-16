@@ -6,25 +6,25 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { GroupDataService } from '@dspace/core/eperson/group-data.service';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { LinkHeadService } from '@dspace/core/services/link-head.service';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
+import { HostWindowServiceStub } from '@dspace/core/testing/host-window-service.stub';
+import { ObjectSelectServiceStub } from '@dspace/core/testing/object-select-service.stub';
+import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
+import { SearchConfigurationServiceStub } from '@dspace/core/testing/search-configuration-service.stub';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
-import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { GroupDataService } from '../../../core/eperson/group-data.service';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { LinkHeadService } from '../../../core/services/link-head.service';
-import { Collection } from '../../../core/shared/collection.model';
-import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
-import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { HostWindowService } from '../../host-window.service';
-import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
-import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
-import { HostWindowServiceStub } from '../../testing/host-window-service.stub';
-import { ObjectSelectServiceStub } from '../../testing/object-select-service.stub';
-import { PaginationServiceStub } from '../../testing/pagination-service.stub';
-import { SearchConfigurationServiceStub } from '../../testing/search-configuration-service.stub';
-import { createPaginatedList } from '../../testing/utils.test';
+import { SearchConfigurationService } from '../../search/search-configuration.service';
 import { ObjectSelectService } from '../object-select.service';
 import { CollectionSelectComponent } from './collection-select.component';
 
@@ -51,7 +51,7 @@ describe('CollectionSelectComponent', () => {
   });
 
   const authorizationDataService = jasmine.createSpyObj('authorizationDataService', {
-    isAuthorized: observableOf(true),
+    isAuthorized: of(true),
   });
 
   const linkHeadService = jasmine.createSpyObj('linkHeadService', {

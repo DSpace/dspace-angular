@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
-import { Breadcrumb } from '../../breadcrumbs/breadcrumb/breadcrumb.model';
 import { BreadcrumbsProviderService } from './breadcrumbsProviderService';
+import { Breadcrumb } from './models/breadcrumb.model';
 
 /**
  * The postfix for i18n breadcrumbs
@@ -29,6 +29,6 @@ export class NavigationBreadcrumbsService implements BreadcrumbsProviderService<
     const keys = key.split(':');
     const urls = url.split(':');
     const breadcrumbs = keys.map((currentKey, index) => new Breadcrumb(currentKey + BREADCRUMB_MESSAGE_POSTFIX, urls[index] ));
-    return observableOf(breadcrumbs.reverse());
+    return of(breadcrumbs.reverse());
   }
 }

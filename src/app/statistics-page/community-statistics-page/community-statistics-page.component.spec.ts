@@ -10,16 +10,16 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { DSpaceObjectDataService } from '@dspace/core/data/dspace-object-data.service';
+import { Community } from '@dspace/core/shared/community.model';
+import { UsageReport } from '@dspace/core/statistics/models/usage-report.model';
+import { UsageReportDataService } from '@dspace/core/statistics/usage-report-data.service';
+import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
-import { AuthService } from '../../core/auth/auth.service';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
-import { Community } from '../../core/shared/community.model';
-import { UsageReport } from '../../core/statistics/models/usage-report.model';
-import { UsageReportDataService } from '../../core/statistics/usage-report-data.service';
-import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { StatisticsTableComponent } from '../statistics-table/statistics-table.component';
 import { CommunityStatisticsPageComponent } from './community-statistics-page.component';
 
@@ -32,7 +32,7 @@ describe('CommunityStatisticsPageComponent', () => {
   beforeEach(waitForAsync(() => {
 
     const activatedRoute = {
-      data: observableOf({
+      data: of({
         scope: createSuccessfulRemoteDataObject(
           Object.assign(new Community(), {
             id: 'community_id',
@@ -49,7 +49,7 @@ describe('CommunityStatisticsPageComponent', () => {
     };
 
     spyOn(usageReportService, 'getStatistic').and.callFake(
-      (scope, type) => observableOf(
+      (scope, type) => of(
         Object.assign(
           new UsageReport(), {
             id: `${scope}-${type}-report`,
@@ -60,11 +60,11 @@ describe('CommunityStatisticsPageComponent', () => {
     );
 
     const nameService = {
-      getName: () => observableOf('test dso name'),
+      getName: () => of('test dso name'),
     };
 
     const authService = jasmine.createSpyObj('authService', {
-      isAuthenticated: observableOf(true),
+      isAuthenticated: of(true),
       setRedirectUrl: {},
     });
 

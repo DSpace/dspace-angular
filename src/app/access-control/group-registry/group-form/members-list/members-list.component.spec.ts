@@ -24,6 +24,33 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { RestResponse } from '@dspace/core/cache/response.models';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
+import { GroupDataService } from '@dspace/core/eperson/group-data.service';
+import { EPerson } from '@dspace/core/eperson/models/eperson.model';
+import { Group } from '@dspace/core/eperson/models/group.model';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
+import {
+  EPersonMock,
+  EPersonMock2,
+} from '@dspace/core/testing/eperson.mock';
+import { GroupMock } from '@dspace/core/testing/group-mock';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
+import { RouterMock } from '@dspace/core/testing/router.mock';
+import { getMockTranslateService } from '@dspace/core/testing/translate.service.mock';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateLoader,
@@ -32,40 +59,14 @@ import {
 } from '@ngx-translate/core';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { RestResponse } from '../../../../core/cache/response.models';
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '../../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { EPersonDataService } from '../../../../core/eperson/eperson-data.service';
-import { GroupDataService } from '../../../../core/eperson/group-data.service';
-import { EPerson } from '../../../../core/eperson/models/eperson.model';
-import { Group } from '../../../../core/eperson/models/group.model';
-import { PaginationService } from '../../../../core/pagination/pagination.service';
-import { PageInfo } from '../../../../core/shared/page-info.model';
 import { ContextHelpDirective } from '../../../../shared/context-help.directive';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
-import { DSONameServiceMock } from '../../../../shared/mocks/dso-name.service.mock';
-import { getMockFormBuilderService } from '../../../../shared/mocks/form-builder-service.mock';
-import { RouterMock } from '../../../../shared/mocks/router.mock';
-import { getMockTranslateService } from '../../../../shared/mocks/translate.service.mock';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
+import { getMockFormBuilderService } from '../../../../shared/form/testing/form-builder-service.mock';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
-import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
-import { ActivatedRouteStub } from '../../../../shared/testing/active-router.stub';
-import {
-  EPersonMock,
-  EPersonMock2,
-} from '../../../../shared/testing/eperson.mock';
-import { GroupMock } from '../../../../shared/testing/group-mock';
-import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
-import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';
-import { TranslateLoaderMock } from '../../../../shared/testing/translate-loader.mock';
+import { GroupRegistryService } from '../../group-registry.service';
 import { MembersListComponent } from './members-list.component';
 
 // todo: optimize imports
@@ -77,6 +78,7 @@ describe('MembersListComponent', () => {
   let builderService: FormBuilderService;
   let ePersonDataServiceStub: any;
   let groupsDataServiceStub: any;
+  let groupRegistryServiceStub: any;
   let activeGroup;
   let epersonMembers: EPerson[];
   let epersonNonMembers: EPerson[];
@@ -108,13 +110,16 @@ describe('MembersListComponent', () => {
         // empty
       },
     };
+    groupRegistryServiceStub = {
+      getActiveGroup(): Observable<Group> {
+        return of(activeGroup);
+      },
+    };
     groupsDataServiceStub = {
       activeGroup: activeGroup,
       epersonMembers: epersonMembers,
       epersonNonMembers: epersonNonMembers,
-      getActiveGroup(): Observable<Group> {
-        return observableOf(activeGroup);
-      },
+
       getEPersonMembers() {
         return this.epersonMembers;
       },
@@ -127,7 +132,7 @@ describe('MembersListComponent', () => {
             this.epersonNonMembers.splice(index, 1);
           }
         });
-        return observableOf(new RestResponse(true, 200, 'Success'));
+        return of(new RestResponse(true, 200, 'Success'));
       },
       clearGroupsRequests() {
         // empty
@@ -147,7 +152,7 @@ describe('MembersListComponent', () => {
         });
         // Add eperson to list of non-members
         this.epersonNonMembers = [...this.epersonNonMembers, epersonToDelete];
-        return observableOf(new RestResponse(true, 200, 'Success'));
+        return of(new RestResponse(true, 200, 'Success'));
       },
     };
     builderService = getMockFormBuilderService();
@@ -165,6 +170,7 @@ describe('MembersListComponent', () => {
       providers: [MembersListComponent,
         { provide: EPersonDataService, useValue: ePersonDataServiceStub },
         { provide: GroupDataService, useValue: groupsDataServiceStub },
+        { provide: GroupRegistryService, useValue: groupRegistryServiceStub },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: FormBuilderService, useValue: builderService },
         { provide: Router, useValue: new RouterMock() },

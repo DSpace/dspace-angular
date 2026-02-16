@@ -16,16 +16,15 @@ import { ThemedThumbnailComponent } from '../../../../../../../app/thumbnail/the
   styleUrls: ['../../../../../../../app/item-page/full/field-components/file-section/full-file-section.component.scss'],
   // templateUrl: './full-file-section.component.html',
   templateUrl: '../../../../../../../app/item-page/full/field-components/file-section/full-file-section.component.html',
-  standalone: true,
   imports: [
-    PaginationComponent,
-    TranslateModule,
     AsyncPipe,
-    VarDirective,
-    ThemedThumbnailComponent,
-    ThemedFileDownloadLinkComponent,
     FileSizePipe,
     MetadataFieldWrapperComponent,
+    PaginationComponent,
+    ThemedFileDownloadLinkComponent,
+    ThemedThumbnailComponent,
+    TranslateModule,
+    VarDirective,
   ],
 })
 export class FullFileSectionComponent extends BaseComponent {

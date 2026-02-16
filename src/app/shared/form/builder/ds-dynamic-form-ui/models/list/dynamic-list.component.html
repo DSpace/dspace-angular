@@ -7,10 +7,10 @@
       [formGroupName]="model.id"
       [ngClass]="model.layout.element?.control">
       @for (columnItems of items; track columnItems) {
-        <div class="col-sm ms-3">
+        <div class="col-sm">
           @for (item of columnItems; track item) {
-            <div  class="custom-control custom-checkbox">
-              <input type="checkbox" class="custom-control-input"
+            <div  class="form-check">
+              <input type="checkbox" class="form-check-input"
                 [attr.aria-labelledby]="'label_' + model.id"
                 [attr.tabindex]="item.index"
                 [checked]="item.value"
@@ -21,7 +21,7 @@
                 (blur)="onBlur($event)"
                 (change)="onChange($event)"
                 (focus)="onFocus($event)"/>
-              <label class="custom-control-label"
+              <label class="form-check-label"
                 [class.disabled]="model.disabled"
                 [ngClass]="model.layout.element?.control"
                 [for]="item.id">
@@ -37,24 +37,23 @@
   @if (!model.repeatable) {
     <div
       class="row"
-      ngbRadioGroup
       [attr.tabindex]="model.tabIndex"
       [id]="id"
-      [ngClass]="model.layout.element?.control"
-      (change)="onChange($event)">
+      [ngClass]="model.layout.element?.control">
       @for (columnItems of items; track columnItems) {
-        <div class="col-sm ms-3">
+        <div class="col-sm">
           @for (item of columnItems; track item) {
-            <div  class="custom-control custom-radio">
-              <input type="radio" class="custom-control-input"
+            <div  class="form-check">
+              <input type="radio" class="form-check-input"
                 [checked]="item.value"
                 [id]="item.id"
                 [name]="model.id"
                 [required]="model.required"
                 [value]="item.index"
+                (change)="onChange($event)"
                 (blur)="onBlur($event)"
                 (focus)="onFocus($event)"/>
-              <label class="custom-control-label"
+              <label class="form-check-label"
                 [class.disabled]="model.disabled"
                 [ngClass]="model.layout.element?.control"
                 [for]="item.id">

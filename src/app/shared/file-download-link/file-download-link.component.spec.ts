@@ -8,25 +8,28 @@ import {
   ActivatedRoute,
   RouterLink,
 } from '@angular/router';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
+import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
+import {
+  getBitstreamModuleRoute,
+  getItemModuleRoute,
+} from '@dspace/core/router/core-routing-paths';
+import { Bitstream } from '@dspace/core/shared/bitstream.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { ItemRequest } from '@dspace/core/shared/item-request.model';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { RouterLinkDirectiveStub } from '@dspace/core/testing/router-link-directive.stub';
+import { URLCombiner } from '@dspace/core/url-combiner/url-combiner';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   cold,
   getTestScheduler,
 } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
-import { APP_DATA_SERVICES_MAP } from 'src/config/app-config.interface';
+import { of } from 'rxjs';
 
-import { getBitstreamModuleRoute } from '../../app-routing-paths';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../core/data/feature-authorization/feature-id';
-import { Bitstream } from '../../core/shared/bitstream.model';
-import { Item } from '../../core/shared/item.model';
-import { ItemRequest } from '../../core/shared/item-request.model';
-import { URLCombiner } from '../../core/url-combiner/url-combiner';
-import { getItemModuleRoute } from '../../item-page/item-page-routing-paths';
-import { ActivatedRouteStub } from '../testing/active-router.stub';
-import { RouterLinkDirectiveStub } from '../testing/router-link-directive.stub';
 import { FileDownloadLinkComponent } from './file-download-link.component';
 
 describe('FileDownloadLinkComponent', () => {
@@ -68,7 +71,7 @@ describe('FileDownloadLinkComponent', () => {
     storeMock = jasmine.createSpyObj('store', {
       dispatch: jasmine.createSpy('dispatch'),
       select: jasmine.createSpy('select'),
-      pipe: observableOf(true),
+      pipe: of(true),
     });
   }
 
@@ -85,6 +88,7 @@ describe('FileDownloadLinkComponent', () => {
         { provide: ActivatedRoute, useValue: activatedRoute },
         { provide: Store, useValue: storeMock },
         { provide: APP_DATA_SERVICES_MAP, useValue: {} },
+        { provide: APP_CONFIG, useValue: { cache: { msToLive: { default: 15 * 60 * 1000 } } } },
       ],
     })
       .overrideComponent(FileDownloadLinkComponent, {

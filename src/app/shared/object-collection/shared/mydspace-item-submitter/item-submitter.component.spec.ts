@@ -9,20 +9,20 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { LinkService } from '@dspace/core/cache/builders/link.service';
+import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
+import { PoolTask } from '@dspace/core/tasks/models/pool-task-object.model';
+import { EPersonMock } from '@dspace/core/testing/eperson.mock';
+import { getMockLinkService } from '@dspace/core/testing/link-service.mock';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
-import { LinkService } from '../../../../core/cache/builders/link.service';
-import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
-import { PoolTask } from '../../../../core/tasks/models/pool-task-object.model';
-import { getMockLinkService } from '../../../mocks/link-service.mock';
-import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
-import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
-import { EPersonMock } from '../../../testing/eperson.mock';
 import { ItemSubmitterComponent } from './item-submitter.component';
 
 let component: ItemSubmitterComponent;
@@ -30,9 +30,9 @@ let fixture: ComponentFixture<ItemSubmitterComponent>;
 let mockResultObject: PoolTask;
 
 const rdSumbitter = createSuccessfulRemoteDataObject(EPersonMock);
-const workflowitem = Object.assign(new WorkflowItem(), { submitter: observableOf(rdSumbitter) });
+const workflowitem = Object.assign(new WorkflowItem(), { submitter: of(rdSumbitter) });
 const rdWorkflowitem = createSuccessfulRemoteDataObject(workflowitem);
-mockResultObject = Object.assign(new PoolTask(), { workflowitem: observableOf(rdWorkflowitem) });
+mockResultObject = Object.assign(new PoolTask(), { workflowitem: of(rdWorkflowitem) });
 
 describe('ItemSubmitterComponent', () => {
   beforeEach(waitForAsync(() => {
@@ -72,7 +72,7 @@ describe('ItemSubmitterComponent', () => {
   });
 
   it('should show N/A when submitter is null', () => {
-    component.submitter$ = observableOf(null);
+    component.submitter$ = of(null);
     fixture.detectChanges();
 
     const badge: DebugElement = fixture.debugElement.query(By.css('.badge'));

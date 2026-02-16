@@ -6,7 +6,7 @@ import { MenuItemModel } from './menu-item.model';
  */
 export class OnClickMenuItemModel implements MenuItemModel {
   type = MenuItemType.ONCLICK;
-  disabled: boolean;
+  disabled?: boolean;
   text: string;
   function: () => void;
 }

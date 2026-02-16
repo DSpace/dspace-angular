@@ -1,6 +1,32 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { ErrorResponse } from '@dspace/core/cache/response.models';
+import { SubmissionDefinitionsModel } from '@dspace/core/config/models/config-submission-definitions.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { RequestService } from '@dspace/core/data/request.service';
+import { HttpOptions } from '@dspace/core/dspace-rest/dspace-rest.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { RouteService } from '@dspace/core/services/route.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { SectionScope } from '@dspace/core/submission/models/section-visibility.model';
+import { SubmissionError } from '@dspace/core/submission/models/submission-error.model';
+import { SubmissionObject } from '@dspace/core/submission/models/submission-object.model';
+import { SubmissionSectionObject } from '@dspace/core/submission/models/submission-section-object.model';
+import { WorkspaceitemSectionsObject } from '@dspace/core/submission/models/workspaceitem-sections.model';
+import { SectionsType } from '@dspace/core/submission/sections-type';
+import { SubmissionJsonPatchOperationsService } from '@dspace/core/submission/submission-json-patch-operations.service';
+import { SubmissionRestService } from '@dspace/core/submission/submission-rest.service';
+import { SubmissionScopeType } from '@dspace/core/submission/submission-scope-type';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+} from '@dspace/core/utilities/remote-data.utils';
+import {
+  hasValue,
+  isEmpty,
+  isNotUndefined,
+} from '@dspace/shared/utils/empty.util';
 import {
   createSelector,
   MemoizedSelector,
@@ -10,7 +36,7 @@ import {
 import { TranslateService } from '@ngx-translate/core';
 import {
   Observable,
-  of as observableOf,
+  of,
   Subscription,
   timer as observableTimer,
 } from 'rxjs';
@@ -27,31 +53,7 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
-import { ErrorResponse } from '../core/cache/response.models';
-import { SubmissionDefinitionsModel } from '../core/config/models/config-submission-definitions.model';
-import { RemoteData } from '../core/data/remote-data';
-import { RequestService } from '../core/data/request.service';
-import { HttpOptions } from '../core/dspace-rest/dspace-rest.service';
-import { RouteService } from '../core/services/route.service';
-import { Item } from '../core/shared/item.model';
-import { SearchService } from '../core/shared/search/search.service';
-import { SubmissionObject } from '../core/submission/models/submission-object.model';
-import { WorkspaceitemSectionsObject } from '../core/submission/models/workspaceitem-sections.model';
-import { SubmissionJsonPatchOperationsService } from '../core/submission/submission-json-patch-operations.service';
-import { SubmissionRestService } from '../core/submission/submission-rest.service';
-import { SubmissionScopeType } from '../core/submission/submission-scope-type';
-import {
-  hasValue,
-  isEmpty,
-  isNotUndefined,
-} from '../shared/empty.util';
-import { NotificationsService } from '../shared/notifications/notifications.service';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-} from '../shared/remote-data.utils';
-import { SectionScope } from './objects/section-visibility.model';
-import { SubmissionError } from './objects/submission-error.model';
+import { SearchService } from '../shared/search/search.service';
 import {
   CancelSubmissionFormAction,
   ChangeSubmissionCollectionAction,
@@ -68,9 +70,7 @@ import {
   SubmissionObjectEntry,
   SubmissionSectionEntry,
 } from './objects/submission-objects.reducer';
-import { SubmissionSectionObject } from './objects/submission-section-object.model';
 import { SectionDataObject } from './sections/models/section-data.model';
-import { SectionsType } from './sections/sections-type';
 import { submissionObjectFromIdSelector } from './selectors';
 import {
   submissionSelector,
@@ -164,7 +164,7 @@ export class SubmissionService {
   createSubmission(collectionId?: string): Observable<SubmissionObject> {
     return this.restService.postToEndpoint(this.workspaceLinkPath, {}, null, null, collectionId).pipe(
       map((workspaceitem: SubmissionObject[]) => workspaceitem[0] as SubmissionObject),
-      catchError(() => observableOf({} as SubmissionObject)));
+      catchError(() => of({} as SubmissionObject)));
   }
 
   /**

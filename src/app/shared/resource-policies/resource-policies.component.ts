@@ -10,6 +10,20 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { RequestService } from '@dspace/core/data/request.service';
+import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
+import { GroupDataService } from '@dspace/core/eperson/group-data.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { ResourcePolicy } from '@dspace/core/resource-policy/models/resource-policy.model';
+import { ResourcePolicyDataService } from '@dspace/core/resource-policy/resource-policy-data.service';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { getAllSucceededRemoteData } from '@dspace/core/shared/operators';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import {
   TranslateModule,
   TranslateService,
@@ -30,21 +44,7 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { RequestService } from '../../core/data/request.service';
-import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { GroupDataService } from '../../core/eperson/group-data.service';
-import { ResourcePolicy } from '../../core/resource-policy/models/resource-policy.model';
-import { ResourcePolicyDataService } from '../../core/resource-policy/resource-policy-data.service';
-import { getAllSucceededRemoteData } from '../../core/shared/operators';
 import { BtnDisabledDirective } from '../btn-disabled.directive';
-import {
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-} from '../empty.util';
-import { NotificationsService } from '../notifications/notifications.service';
-import { followLink } from '../utils/follow-link-config.model';
 import {
   ResourcePolicyCheckboxEntry,
   ResourcePolicyEntryComponent,
@@ -55,12 +55,11 @@ import {
   styleUrls: ['./resource-policies.component.scss'],
   templateUrl: './resource-policies.component.html',
   imports: [
-    ResourcePolicyEntryComponent,
-    TranslateModule,
     AsyncPipe,
     BtnDisabledDirective,
+    ResourcePolicyEntryComponent,
+    TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * Component that shows the policies for given resource

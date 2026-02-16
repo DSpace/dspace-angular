@@ -6,32 +6,34 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import { provideMockStore } from '@ngrx/store/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { hot } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
-
-import { BitstreamFormatDataService } from '../../../core/data/bitstream-format-data.service';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { BitstreamFormat } from '../../../core/shared/bitstream-format.model';
-import { BitstreamFormatSupportLevel } from '../../../core/shared/bitstream-format-support-level';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { PaginationComponent } from '../../../shared/pagination/pagination.component';
+import { BitstreamFormatDataService } from '@dspace/core/data/bitstream-format-data.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { BitstreamFormat } from '@dspace/core/shared/bitstream-format.model';
+import { BitstreamFormatSupportLevel } from '@dspace/core/shared/bitstream-format-support-level';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
 import {
   createFailedRemoteDataObject$,
   createNoContentRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../shared/remote-data.utils';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
-import { createPaginatedList } from '../../../shared/testing/utils.test';
+} from '@dspace/core/utilities/remote-data.utils';
+import { provideMockStore } from '@ngrx/store/testing';
+import { TranslateModule } from '@ngx-translate/core';
+import { hot } from 'jasmine-marbles';
+import { of } from 'rxjs';
+
+import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { EnumKeysPipe } from '../../../shared/utils/enum-keys-pipe';
+import { BitstreamFormatService } from './bitstream-format.service';
 import { BitstreamFormatsComponent } from './bitstream-formats.component';
 
 describe('BitstreamFormatsComponent', () => {
   let comp: BitstreamFormatsComponent;
   let fixture: ComponentFixture<BitstreamFormatsComponent>;
+  let bitstreamFormatDataService;
   let bitstreamFormatService;
   let notificationsServiceStub;
   let paginationService;
@@ -87,15 +89,17 @@ describe('BitstreamFormatsComponent', () => {
   const initAsync = () => {
     notificationsServiceStub = new NotificationsServiceStub();
 
-    bitstreamFormatService = jasmine.createSpyObj('bitstreamFormatService', {
-      findAll: observableOf(mockFormatsRD),
+    bitstreamFormatDataService = jasmine.createSpyObj('bitstreamFormatDataService', {
+      findAll: of(mockFormatsRD),
       find: createSuccessfulRemoteDataObject$(mockFormatsList[0]),
+      delete: createSuccessfulRemoteDataObject$({}),
+      clearBitStreamFormatRequests: of('cleared'),
+    });
+    bitstreamFormatService = jasmine.createSpyObj('bitstreamFormatService', {
       getSelectedBitstreamFormats: hot('a', { a: mockFormatsList }),
       selectBitstreamFormat: {},
       deselectBitstreamFormat: {},
       deselectAllBitstreamFormats: {},
-      delete: createSuccessfulRemoteDataObject$({}),
-      clearBitStreamFormatRequests: observableOf('cleared'),
     });
 
     paginationService = new PaginationServiceStub();
@@ -109,7 +113,8 @@ describe('BitstreamFormatsComponent', () => {
       ],
       providers: [
         provideMockStore(),
-        { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
+        { provide: BitstreamFormatDataService, useValue: bitstreamFormatDataService },
+        { provide: BitstreamFormatService, useValue: bitstreamFormatService },
         { provide: NotificationsService, useValue: notificationsServiceStub },
         { provide: PaginationService, useValue: paginationService },
       ],
@@ -224,15 +229,18 @@ describe('BitstreamFormatsComponent', () => {
     beforeEach(waitForAsync(() => {
       notificationsServiceStub = new NotificationsServiceStub();
 
-      bitstreamFormatService = jasmine.createSpyObj('bitstreamFormatService', {
-        findAll: observableOf(mockFormatsRD),
+      bitstreamFormatDataService = jasmine.createSpyObj('bitstreamFormatDataService', {
+        findAll: of(mockFormatsRD),
         find: createSuccessfulRemoteDataObject$(mockFormatsList[0]),
-        getSelectedBitstreamFormats: observableOf(mockFormatsList),
+        delete: createNoContentRemoteDataObject$(),
+        clearBitStreamFormatRequests: of('cleared'),
+      });
+
+      bitstreamFormatService = jasmine.createSpyObj('bitstreamFormatService', {
+        getSelectedBitstreamFormats: of(mockFormatsList),
         selectBitstreamFormat: {},
         deselectBitstreamFormat: {},
         deselectAllBitstreamFormats: {},
-        delete: createNoContentRemoteDataObject$(),
-        clearBitStreamFormatRequests: observableOf('cleared'),
       });
 
       paginationService = new PaginationServiceStub();
@@ -247,7 +255,8 @@ describe('BitstreamFormatsComponent', () => {
         ],
         providers: [
           provideMockStore(),
-          { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
+          { provide: BitstreamFormatDataService, useValue: bitstreamFormatDataService },
+          { provide: BitstreamFormatService, useValue: bitstreamFormatService },
           { provide: NotificationsService, useValue: notificationsServiceStub },
           { provide: PaginationService, useValue: paginationService },
         ],
@@ -264,11 +273,11 @@ describe('BitstreamFormatsComponent', () => {
     it('should clear bitstream formats and show a success notification', () => {
       comp.deleteFormats();
 
-      expect(bitstreamFormatService.clearBitStreamFormatRequests).toHaveBeenCalled();
-      expect(bitstreamFormatService.delete).toHaveBeenCalledWith(bitstreamFormat1.id);
-      expect(bitstreamFormatService.delete).toHaveBeenCalledWith(bitstreamFormat2.id);
-      expect(bitstreamFormatService.delete).toHaveBeenCalledWith(bitstreamFormat3.id);
-      expect(bitstreamFormatService.delete).toHaveBeenCalledWith(bitstreamFormat4.id);
+      expect(bitstreamFormatDataService.clearBitStreamFormatRequests).toHaveBeenCalled();
+      expect(bitstreamFormatDataService.delete).toHaveBeenCalledWith(bitstreamFormat1.id);
+      expect(bitstreamFormatDataService.delete).toHaveBeenCalledWith(bitstreamFormat2.id);
+      expect(bitstreamFormatDataService.delete).toHaveBeenCalledWith(bitstreamFormat3.id);
+      expect(bitstreamFormatDataService.delete).toHaveBeenCalledWith(bitstreamFormat4.id);
 
       expect(notificationsServiceStub.success).toHaveBeenCalledWith('admin.registries.bitstream-formats.delete.success.head',
         'admin.registries.bitstream-formats.delete.success.amount');
@@ -281,17 +290,19 @@ describe('BitstreamFormatsComponent', () => {
     beforeEach(waitForAsync(() => {
       notificationsServiceStub = new NotificationsServiceStub();
 
-      bitstreamFormatService = jasmine.createSpyObj('bitstreamFormatService', {
-        findAll: observableOf(mockFormatsRD),
+      bitstreamFormatDataService = jasmine.createSpyObj('bitstreamFormatDataService', {
+        findAll: of(mockFormatsRD),
         find: createSuccessfulRemoteDataObject$(mockFormatsList[0]),
-        getSelectedBitstreamFormats: observableOf(mockFormatsList),
+        delete: createFailedRemoteDataObject$(),
+        clearBitStreamFormatRequests: of('cleared'),
+      });
+
+      bitstreamFormatService = jasmine.createSpyObj('bitstreamFormatService', {
+        getSelectedBitstreamFormats: of(mockFormatsList),
         selectBitstreamFormat: {},
         deselectBitstreamFormat: {},
         deselectAllBitstreamFormats: {},
-        delete: createFailedRemoteDataObject$(),
-        clearBitStreamFormatRequests: observableOf('cleared'),
       });
-
       paginationService = new PaginationServiceStub();
 
       TestBed.configureTestingModule({
@@ -302,7 +313,8 @@ describe('BitstreamFormatsComponent', () => {
           TranslateModule.forRoot(),
         ],
         providers: [
-          { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
+          { provide: BitstreamFormatDataService, useValue: bitstreamFormatDataService },
+          { provide: BitstreamFormatService, useValue: bitstreamFormatService },
           { provide: NotificationsService, useValue: notificationsServiceStub },
           { provide: PaginationService, useValue: paginationService },
         ],
@@ -319,11 +331,11 @@ describe('BitstreamFormatsComponent', () => {
     it('should clear bitstream formats and show an error notification', () => {
       comp.deleteFormats();
 
-      expect(bitstreamFormatService.clearBitStreamFormatRequests).toHaveBeenCalled();
-      expect(bitstreamFormatService.delete).toHaveBeenCalledWith(bitstreamFormat1.id);
-      expect(bitstreamFormatService.delete).toHaveBeenCalledWith(bitstreamFormat2.id);
-      expect(bitstreamFormatService.delete).toHaveBeenCalledWith(bitstreamFormat3.id);
-      expect(bitstreamFormatService.delete).toHaveBeenCalledWith(bitstreamFormat4.id);
+      expect(bitstreamFormatDataService.clearBitStreamFormatRequests).toHaveBeenCalled();
+      expect(bitstreamFormatDataService.delete).toHaveBeenCalledWith(bitstreamFormat1.id);
+      expect(bitstreamFormatDataService.delete).toHaveBeenCalledWith(bitstreamFormat2.id);
+      expect(bitstreamFormatDataService.delete).toHaveBeenCalledWith(bitstreamFormat3.id);
+      expect(bitstreamFormatDataService.delete).toHaveBeenCalledWith(bitstreamFormat4.id);
 
       expect(notificationsServiceStub.error).toHaveBeenCalledWith('admin.registries.bitstream-formats.delete.failure.head',
         'admin.registries.bitstream-formats.delete.failure.amount');

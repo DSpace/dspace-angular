@@ -12,16 +12,16 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { Community } from '@dspace/core/shared/community.model';
+import { MetadataValue } from '@dspace/core/shared/metadata.models';
+import { RouterStub } from '@dspace/core/testing/router.stub';
+import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
-import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
-import { Community } from '../../../../core/shared/community.model';
-import { MetadataValue } from '../../../../core/shared/metadata.models';
-import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
-import { RouterStub } from '../../../testing/router.stub';
-import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
+import { AuthorizedCommunitySelectorComponent } from '../../dso-selector/authorized-community-selector/authorized-community-selector.component';
 import { CreateCommunityParentSelectorComponent } from './create-community-parent-selector.component';
 
 describe('CreateCommunityParentSelectorComponent', () => {
@@ -42,7 +42,7 @@ describe('CreateCommunityParentSelectorComponent', () => {
   const modalStub = jasmine.createSpyObj('modalStub', ['close']);
   const createPath = '/communities/create';
   const mockAuthorizationDataService = jasmine.createSpyObj('authorizationService', {
-    isAuthorized: observableOf(true),
+    isAuthorized: of(true),
   });
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -69,7 +69,7 @@ describe('CreateCommunityParentSelectorComponent', () => {
       schemas: [NO_ERRORS_SCHEMA],
     })
       .overrideComponent(CreateCommunityParentSelectorComponent, {
-        remove: { imports: [DSOSelectorComponent] },
+        remove: { imports: [AuthorizedCommunitySelectorComponent] },
       })
       .compileComponents();
 
@@ -92,7 +92,7 @@ describe('CreateCommunityParentSelectorComponent', () => {
   });
 
   it('should show the div when user is an admin', (waitForAsync(() => {
-    component.isAdmin$ = observableOf(true);
+    component.isAdmin$ = of(true);
     fixture.detectChanges();
 
     const divElement = fixture.debugElement.query(By.css('div[data-test="admin-div"]'));
@@ -100,7 +100,7 @@ describe('CreateCommunityParentSelectorComponent', () => {
   })));
 
   it('should hide the div when user is not an admin', (waitForAsync(() => {
-    component.isAdmin$ = observableOf(false);
+    component.isAdmin$ = of(false);
     fixture.detectChanges();
 
     const divElement = fixture.debugElement.query(By.css('div[data-test="admin-div"]'));

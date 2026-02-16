@@ -3,6 +3,19 @@ import {
   ComponentFixture,
   TestBed,
 } from '@angular/core/testing';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { SubmissionAccessesConfigDataService } from '@dspace/core/config/submission-accesses-config-data.service';
+import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
+import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
+import { SubmissionJsonPatchOperationsService } from '@dspace/core/submission/submission-json-patch-operations.service';
+import { getSectionAccessesService } from '@dspace/core/testing/section-accesses.service.mock';
+import {
+  getSubmissionAccessesConfigNotChangeDiscoverableService,
+  getSubmissionAccessesConfigService,
+} from '@dspace/core/testing/section-accesses-config.service.mock';
+import { SectionsServiceStub } from '@dspace/core/testing/sections-service.stub';
+import { SubmissionJsonPatchOperationsServiceStub } from '@dspace/core/testing/submission-json-patch-operations-service.stub';
+import { XSRFService } from '@dspace/core/xsrf/xsrf.service';
 import {
   DYNAMIC_FORM_CONTROL_MAP_FN,
   DynamicCheckboxModel,
@@ -13,39 +26,26 @@ import {
 import { Store } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
-import {
-  APP_CONFIG,
-  APP_DATA_SERVICES_MAP,
-} from 'src/config/app-config.interface';
-import { environment } from 'src/environments/environment.test';
+import { of } from 'rxjs';
 
-import { SubmissionAccessesConfigDataService } from '../../../core/config/submission-accesses-config-data.service';
-import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
-import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
-import { SubmissionObjectDataService } from '../../../core/submission/submission-object-data.service';
-import { XSRFService } from '../../../core/xsrf/xsrf.service';
+import { environment } from '../../../../environments/environment.test';
 import { dsDynamicFormControlMapFn } from '../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-map-fn';
 import { DsDynamicTypeBindRelationService } from '../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
-import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
-import { getMockFormOperationsService } from '../../../shared/mocks/form-operations-service.mock';
-import { getMockFormService } from '../../../shared/mocks/form-service.mock';
-import { getSectionAccessesService } from '../../../shared/mocks/section-accesses.service.mock';
-import {
-  getSubmissionAccessesConfigNotChangeDiscoverableService,
-  getSubmissionAccessesConfigService,
-} from '../../../shared/mocks/section-accesses-config.service.mock';
-import { mockAccessesFormData } from '../../../shared/mocks/submission.mock';
+import { getMockFormBuilderService } from '../../../shared/form/testing/form-builder-service.mock';
 import {
   accessConditionChangeEvent,
   checkboxChangeEvent,
-} from '../../../shared/testing/form-event.stub';
-import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
-import { SubmissionJsonPatchOperationsServiceStub } from '../../../shared/testing/submission-json-patch-operations-service.stub';
+} from '../../../shared/form/testing/form-event.stub';
+import { getMockFormOperationsService } from '../../../shared/form/testing/form-operations-service.mock';
+import { getMockFormService } from '../../../shared/form/testing/form-service.mock';
+import { LiveRegionService } from '../../../shared/live-region/live-region.service';
+import { getLiveRegionServiceStub } from '../../../shared/live-region/live-region.service.stub';
 import { SubmissionService } from '../../submission.service';
+import { SubmissionObjectService } from '../../submission-object.service';
+import { mockAccessesFormData } from '../../utils/submission.mock';
 import { SectionFormOperationsService } from '../form/section-form-operations.service';
 import { SectionsService } from '../sections.service';
 import { SubmissionSectionAccessesComponent } from './section-accesses.component';
@@ -119,16 +119,22 @@ describe('SubmissionSectionAccessesComponent', () => {
           { provide: 'sectionDataProvider', useValue: sectionData },
           { provide: 'submissionIdProvider', useValue: '1508' },
           { provide: DsDynamicTypeBindRelationService, useValue: getMockDsDynamicTypeBindRelationService() },
-          { provide: SubmissionObjectDataService, useValue: {} },
+          { provide: SubmissionObjectService, useValue: {} },
           { provide: SubmissionService, useValue: {} },
           { provide: XSRFService, useValue: {} },
           { provide: APP_CONFIG, useValue: environment },
           { provide: APP_DATA_SERVICES_MAP, useValue: {} },
           { provide: DYNAMIC_FORM_CONTROL_MAP_FN, useValue: dsDynamicFormControlMapFn },
+          { provide: LiveRegionService, useValue: getLiveRegionServiceStub() },
           FormBuilderService,
           provideMockStore({}),
         ],
       })
+        .overrideComponent(SubmissionSectionAccessesComponent, {
+          remove: {
+            imports: [FormComponent],
+          },
+        })
         .compileComponents();
     });
 
@@ -138,8 +144,8 @@ describe('SubmissionSectionAccessesComponent', () => {
       formService = TestBed.inject(FormService);
       formbuilderService = TestBed.inject(FormBuilderService);
       formService.validateAllFormFields.and.callFake(() => null);
-      formService.isValid.and.returnValue(observableOf(true));
-      formService.getFormData.and.returnValue(observableOf(mockAccessesFormData));
+      formService.isValid.and.returnValue(of(true));
+      formService.getFormData.and.returnValue(of(mockAccessesFormData));
       fixture.detectChanges();
     });
 
@@ -216,17 +222,23 @@ describe('SubmissionSectionAccessesComponent', () => {
           { provide: 'sectionDataProvider', useValue: sectionData },
           { provide: 'submissionIdProvider', useValue: '1508' },
           { provide: DsDynamicTypeBindRelationService, useValue: getMockDsDynamicTypeBindRelationService() },
-          { provide: SubmissionObjectDataService, useValue: {} },
+          { provide: SubmissionObjectService, useValue: {} },
           { provide: SubmissionService, useValue: {} },
           { provide: XSRFService, useValue: {} },
           { provide: APP_CONFIG, useValue: environment },
           { provide: APP_DATA_SERVICES_MAP, useValue: {} },
           { provide: DYNAMIC_FORM_CONTROL_MAP_FN, useValue: dsDynamicFormControlMapFn },
+          { provide: LiveRegionService, useValue: getLiveRegionServiceStub() },
           FormBuilderService,
           provideMockStore({}),
 
         ],
       })
+        .overrideComponent(SubmissionSectionAccessesComponent, {
+          remove: {
+            imports: [FormComponent],
+          },
+        })
         .compileComponents();
     });
 
@@ -234,8 +246,8 @@ describe('SubmissionSectionAccessesComponent', () => {
       fixture = TestBed.createComponent(SubmissionSectionAccessesComponent);
       component = fixture.componentInstance;
       formService.validateAllFormFields.and.callFake(() => null);
-      formService.isValid.and.returnValue(observableOf(true));
-      formService.getFormData.and.returnValue(observableOf(mockAccessesFormData));
+      formService.isValid.and.returnValue(of(true));
+      formService.getFormData.and.returnValue(of(mockAccessesFormData));
       fixture.detectChanges();
     });
 

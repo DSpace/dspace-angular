@@ -8,6 +8,12 @@ import {
   Output,
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
+import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import {
+  hasValue,
+  isEmpty,
+} from '@dspace/shared/utils/empty.util';
 import {
   DynamicFormControlModel,
   DynamicFormService,
@@ -20,25 +26,18 @@ import {
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { debounceTimeWorkaround as debounceTime } from '../../core/shared/operators';
 import { AlertComponent } from '../../shared/alert/alert.component';
-import {
-  hasValue,
-  isEmpty,
-} from '../../shared/empty.util';
 import { FormComponent } from '../../shared/form/form.component';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 
 @Component({
   selector: 'ds-profile-page-security-form',
   templateUrl: './profile-page-security-form.component.html',
   imports: [
-    FormComponent,
     AlertComponent,
+    FormComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * Component for a user to edit their security information

@@ -12,6 +12,13 @@ import {
   Router,
   RouterOutlet,
 } from '@angular/router';
+import { INotificationBoardOptions } from '@dspace/config/notifications-config.interfaces';
+import { ThemeConfig } from '@dspace/config/theme.config';
+import { getPageInternalServerErrorRoute } from '@dspace/core/router/core-routing-paths';
+import {
+  NativeWindowRef,
+  NativeWindowService,
+} from '@dspace/core/services/window.service';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -25,26 +32,19 @@ import {
   skipWhile,
   startWith,
 } from 'rxjs/operators';
-import { INotificationBoardOptions } from 'src/config/notifications-config.interfaces';
 
-import { ThemeConfig } from '../../config/theme.config';
 import { environment } from '../../environments/environment';
 import { ThemedAdminSidebarComponent } from '../admin/admin-sidebar/themed-admin-sidebar.component';
-import { getPageInternalServerErrorRoute } from '../app-routing-paths';
 import { ThemedBreadcrumbsComponent } from '../breadcrumbs/themed-breadcrumbs.component';
-import {
-  NativeWindowRef,
-  NativeWindowService,
-} from '../core/services/window.service';
 import { ThemedFooterComponent } from '../footer/themed-footer.component';
 import { ThemedHeaderNavbarWrapperComponent } from '../header-nav-wrapper/themed-header-navbar-wrapper.component';
+import { NotificationsBoardComponent } from '../notification-system/notifications-board/notifications-board.component';
 import { slideSidebarPadding } from '../shared/animations/slide';
 import { HostWindowService } from '../shared/host-window.service';
 import { LiveRegionComponent } from '../shared/live-region/live-region.component';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import { MenuService } from '../shared/menu/menu.service';
 import { MenuID } from '../shared/menu/menu-id.model';
-import { NotificationsBoardComponent } from '../shared/notifications/notifications-board/notifications-board.component';
 import { CSSVariableService } from '../shared/sass-helper/css-variable.service';
 import { SystemWideAlertBannerComponent } from '../system-wide-alert/alert-banner/system-wide-alert-banner.component';
 
@@ -53,20 +53,19 @@ import { SystemWideAlertBannerComponent } from '../system-wide-alert/alert-banne
   templateUrl: './root.component.html',
   styleUrls: ['./root.component.scss'],
   animations: [slideSidebarPadding],
-  standalone: true,
   imports: [
-    TranslateModule,
-    ThemedAdminSidebarComponent,
-    SystemWideAlertBannerComponent,
-    ThemedHeaderNavbarWrapperComponent,
-    ThemedBreadcrumbsComponent,
-    NgClass,
-    ThemedLoadingComponent,
-    RouterOutlet,
-    ThemedFooterComponent,
-    NotificationsBoardComponent,
     AsyncPipe,
     LiveRegionComponent,
+    NgClass,
+    NotificationsBoardComponent,
+    RouterOutlet,
+    SystemWideAlertBannerComponent,
+    ThemedAdminSidebarComponent,
+    ThemedBreadcrumbsComponent,
+    ThemedFooterComponent,
+    ThemedHeaderNavbarWrapperComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
   ],
 })
 export class RootComponent implements OnInit {

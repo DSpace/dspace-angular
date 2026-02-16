@@ -1,24 +1,13 @@
 import { TestBed } from '@angular/core/testing';
-import { Store } from '@ngrx/store';
-import { provideMockStore } from '@ngrx/store/testing';
-import { of as observableOf } from 'rxjs';
-
-import { APP_CONFIG } from '../../../config/app-config.interface';
-import { environment } from '../../../environments/environment.test';
-import { PAGINATED_RELATIONS_TO_ITEMS_OPERATOR } from '../../item-page/simple/item-types/shared/item-relationships-utils';
-import { getMockRemoteDataBuildServiceHrefMap } from '../../shared/mocks/remote-data-build.service.mock';
-import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
-import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
-import { ObjectCacheServiceStub } from '../../shared/testing/object-cache-service.stub';
-import { createPaginatedList } from '../../shared/testing/utils.test';
-import { followLink } from '../../shared/utils/follow-link-config.model';
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
+import { of } from 'rxjs';
+
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
+import { followLink } from '../shared/follow-link-config.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
 import { Relationship } from '../shared/item-relationships/relationship.model';
@@ -26,6 +15,17 @@ import { RelationshipType } from '../shared/item-relationships/relationship-type
 import { MetadataValue } from '../shared/metadata.models';
 import { MetadataRepresentationType } from '../shared/metadata-representation/metadata-representation.model';
 import { PageInfo } from '../shared/page-info.model';
+import { HALEndpointServiceStub } from '../testing/hal-endpoint-service.stub';
+import { ObjectCacheServiceStub } from '../testing/object-cache-service.stub';
+import { getMockRemoteDataBuildServiceHrefMap } from '../testing/remote-data-build.service.mock';
+import { getMockRequestService } from '../testing/request.service.mock';
+import { createPaginatedList } from '../testing/utils.test';
+import { PAGINATED_RELATIONS_TO_ITEMS_OPERATOR } from '../utilities/item-relationships-utils';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../utilities/remote-data.utils';
 import { testSearchDataImplementation } from './base/search-data.spec';
 import { FindListOptions } from './find-list-options.model';
 import { ItemDataService } from './item-data.service';
@@ -35,7 +35,7 @@ import { DeleteRequest } from './request.models';
 import { RequestService } from './request.service';
 import { RequestEntry } from './request-entry.model';
 
-describe('RelationshipDataService', () => {
+describe('NameVariantService', () => {
   let service: RelationshipDataService;
   let requestService: RequestService;
 
@@ -130,14 +130,16 @@ describe('RelationshipDataService', () => {
   const itemService = jasmine.createSpyObj('itemService', {
     findById: (uuid) => createSuccessfulRemoteDataObject(relatedItems.find((relatedItem) => relatedItem.id === uuid)),
     findByHref: createSuccessfulRemoteDataObject$(relatedItems[0]),
-    getIDHrefObs: (uuid: string) => observableOf(`https://demo.dspace.org/server/api/core/items/${uuid}`),
+    getIDHrefObs: (uuid: string) => of(`https://demo.dspace.org/server/api/core/items/${uuid}`),
   });
 
   const getRequestEntry$ = (successful: boolean) => {
-    return observableOf({
+    return of({
       response: { isSuccessful: successful, payload: relationships } as any,
     } as RequestEntry);
   };
+
+  const envConfig = { item: { showAccessStatuses: false } } as AppConfig;
 
   beforeEach(() => {
     requestService = getMockRequestService(getRequestEntry$(true));
@@ -151,8 +153,7 @@ describe('RelationshipDataService', () => {
         { provide: ItemDataService, useValue: itemService },
         { provide: RequestService, useValue: requestService },
         { provide: PAGINATED_RELATIONS_TO_ITEMS_OPERATOR, useValue: jasmine.createSpy('paginatedRelationsToItems').and.returnValue((v) => v) },
-        { provide: Store, useValue: provideMockStore() },
-        { provide: APP_CONFIG, useValue: environment },
+        { provide: APP_CONFIG, useValue: envConfig },
         RelationshipDataService,
       ],
     });
@@ -160,7 +161,7 @@ describe('RelationshipDataService', () => {
   });
 
   describe('composition', () => {
-    const initService = () => new RelationshipDataService(null, null, null, null, null, null, null, null, environment);
+    const initService = () => new RelationshipDataService(null, null, null, null, null, null, null, envConfig);
 
     testSearchDataImplementation(initService);
   });

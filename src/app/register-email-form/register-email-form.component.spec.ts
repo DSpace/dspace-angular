@@ -15,25 +15,22 @@ import {
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { RestResponse } from '@dspace/core/cache/response.models';
+import { CookieService } from '@dspace/core/cookies/cookie.service';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
+import { EpersonRegistrationService } from '@dspace/core/data/eperson-registration.service';
+import { GoogleRecaptchaService } from '@dspace/core/google-recaptcha/google-recaptcha.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
+import { CookieServiceMock } from '@dspace/core/testing/cookie.service.mock';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { RouterStub } from '@dspace/core/testing/router.stub';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  of as observableOf,
-  of,
-} from 'rxjs';
+import { of } from 'rxjs';
 
-import { RestResponse } from '../core/cache/response.models';
-import { ConfigurationDataService } from '../core/data/configuration-data.service';
-import { EpersonRegistrationService } from '../core/data/eperson-registration.service';
-import { GoogleRecaptchaService } from '../core/google-recaptcha/google-recaptcha.service';
-import { CookieService } from '../core/services/cookie.service';
-import { ConfigurationProperty } from '../core/shared/configuration-property.model';
 import { AlertComponent } from '../shared/alert/alert.component';
 import { GoogleRecaptchaComponent } from '../shared/google-recaptcha/google-recaptcha.component';
-import { CookieServiceMock } from '../shared/mocks/cookie.service.mock';
-import { NotificationsService } from '../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
-import { NotificationsServiceStub } from '../shared/testing/notifications-service.stub';
-import { RouterStub } from '../shared/testing/router.stub';
 import {
   RegisterEmailFormComponent,
   TYPE_REQUEST_FORGOT,
@@ -171,7 +168,7 @@ describe('RegisterEmailFormComponent', () => {
       expect(router.navigate).toHaveBeenCalledWith(['/home']);
     });
     it('should send a registration to the service and on error display a message', () => {
-      (epersonRegistrationService.registerEmail as jasmine.Spy).and.returnValue(observableOf(new RestResponse(false, 400, 'Bad Request')));
+      (epersonRegistrationService.registerEmail as jasmine.Spy).and.returnValue(of(new RestResponse(false, 400, 'Bad Request')));
 
       comp.form.patchValue({ email: 'valid@email.org' });
 
@@ -199,7 +196,7 @@ describe('RegisterEmailFormComponent', () => {
       expect(router.navigate).toHaveBeenCalledWith(['/home']);
     }));
     it('should send a registration to the service and on error display a message', fakeAsync(() => {
-      (epersonRegistrationService.registerEmail as jasmine.Spy).and.returnValue(observableOf(new RestResponse(false, 400, 'Bad Request')));
+      (epersonRegistrationService.registerEmail as jasmine.Spy).and.returnValue(of(new RestResponse(false, 400, 'Bad Request')));
 
       comp.form.patchValue({ email: 'valid@email.org' });
 

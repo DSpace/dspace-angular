@@ -7,22 +7,22 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { Observable } from 'rxjs';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
 import {
   NativeWindowRef,
   NativeWindowService,
-} from 'src/app/core/services/window.service';
-
-import { ConfigurationDataService } from '../../core/data/configuration-data.service';
-import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
-import { isNotEmpty } from '../empty.util';
+} from '@dspace/core/services/window.service';
+import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'ds-google-recaptcha',
   templateUrl: './google-recaptcha.component.html',
   styleUrls: ['./google-recaptcha.component.scss'],
-  standalone: true,
-  imports: [AsyncPipe],
+  imports: [
+    AsyncPipe,
+  ],
 })
 export class GoogleRecaptchaComponent implements OnInit {
 

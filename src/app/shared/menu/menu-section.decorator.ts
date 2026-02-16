@@ -1,10 +1,11 @@
+import { hasValue } from '@dspace/shared/utils/empty.util';
+
 import { AdminSidebarSectionComponent } from '../../admin/admin-sidebar/admin-sidebar-section/admin-sidebar-section.component';
 import { ExpandableAdminSidebarSectionComponent } from '../../admin/admin-sidebar/expandable-admin-sidebar-section/expandable-admin-sidebar-section.component';
 import { ThemedExpandableNavbarSectionComponent } from '../../navbar/expandable-navbar-section/themed-expandable-navbar-section.component';
 import { NavbarSectionComponent } from '../../navbar/navbar-section/navbar-section.component';
 import { DsoEditMenuExpandableSectionComponent } from '../dso-page/dso-edit-menu/dso-edit-expandable-menu-section/dso-edit-menu-expandable-section.component';
 import { DsoEditMenuSectionComponent } from '../dso-page/dso-edit-menu/dso-edit-menu-section/dso-edit-menu-section.component';
-import { hasValue } from '../empty.util';
 import { DEFAULT_THEME } from '../object-collection/shared/listable-object/listable-object.decorator';
 import { MenuID } from './menu-id.model';
 

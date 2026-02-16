@@ -1,5 +1,5 @@
-import { DOCUMENT } from '@angular/common';
 import {
+  DOCUMENT,
   Inject,
   Injectable,
   Injector,
@@ -9,6 +9,34 @@ import {
   ResolveEnd,
   Router,
 } from '@angular/router';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { BuildConfig } from '@dspace/config/build-config.interface';
+import { getDefaultThemeConfig } from '@dspace/config/config.util';
+import {
+  BASE_THEME_NAME,
+  HeadTagConfig,
+  ThemeConfig,
+} from '@dspace/config/theme.config';
+import { LinkService } from '@dspace/core/cache/builders/link.service';
+import { DSpaceObjectDataService } from '@dspace/core/data/dspace-object-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import {
+  NO_OP_ACTION_TYPE,
+  NoOpAction,
+} from '@dspace/core/ngrx/no-op.action';
+import { distinctNext } from '@dspace/core/shared/distinct-next';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '@dspace/core/shared/operators';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import {
   createFeatureSelector,
   createSelector,
@@ -21,7 +49,7 @@ import {
   EMPTY,
   from,
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import {
   defaultIfEmpty,
@@ -33,38 +61,12 @@ import {
   toArray,
 } from 'rxjs/operators';
 
-import { getDefaultThemeConfig } from '../../../config/config.util';
-import {
-  HeadTagConfig,
-  ThemeConfig,
-} from '../../../config/theme.config';
 import { environment } from '../../../environments/environment';
-import { LinkService } from '../../core/cache/builders/link.service';
-import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { distinctNext } from '../../core/shared/distinct-next';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteData,
-  getRemoteDataPayload,
-} from '../../core/shared/operators';
-import {
-  hasNoValue,
-  hasValue,
-  isNotEmpty,
-} from '../empty.util';
-import {
-  NO_OP_ACTION_TYPE,
-  NoOpAction,
-} from '../ngrx/no-op.action';
 import { GET_THEME_CONFIG_FOR_FACTORY } from '../object-collection/shared/listable-object/listable-object.decorator';
-import { followLink } from '../utils/follow-link-config.model';
 import {
   SetThemeAction,
   ThemeActionTypes,
 } from './theme.actions';
-import { BASE_THEME_NAME } from './theme.constants';
 import {
   Theme,
   themeFactory,
@@ -103,6 +105,7 @@ export class ThemeService {
     @Inject(GET_THEME_CONFIG_FOR_FACTORY) private gtcf: (str) => ThemeConfig,
     private router: Router,
     @Inject(DOCUMENT) private document: any,
+    @Inject(APP_CONFIG) private appConfig: BuildConfig,
   ) {
     // Create objects from the theme configs in the environment file
     this.themes = environment.themes.map((themeConfig: ThemeConfig) => themeFactory(themeConfig, injector));
@@ -167,7 +170,7 @@ export class ThemeService {
       if (hasValue(themeName)) {
         this.loadGlobalThemeConfig(themeName);
       } else {
-        const defaultThemeConfig = getDefaultThemeConfig();
+        const defaultThemeConfig = getDefaultThemeConfig(this.appConfig);
         if (hasValue(defaultThemeConfig)) {
           this.loadGlobalThemeConfig(defaultThemeConfig.name);
         } else {
@@ -346,7 +349,7 @@ export class ThemeService {
             const dsoRD: RemoteData<DSpaceObject> = snapshotWithData.data.dso;
             if (dsoRD.hasSucceeded) {
               // Start with the resolved dso and go recursively through its parents until you reach the top-level community
-              return observableOf(dsoRD.payload).pipe(
+              return of(dsoRD.payload).pipe(
                 this.getAncestorDSOs(),
                 switchMap((dsos: DSpaceObject[]) => {
                   return this.matchThemeToDSOs(dsos, currentRouteUrl);
@@ -385,7 +388,7 @@ export class ThemeService {
           );
         } else {
           // If there are no themes configured, do nothing
-          return observableOf(new NoOpAction());
+          return of(new NoOpAction());
         }
       }),
       take(1),

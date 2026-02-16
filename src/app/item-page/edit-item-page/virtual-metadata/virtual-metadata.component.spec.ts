@@ -7,15 +7,15 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { ObjectUpdatesService } from '@dspace/core/data/object-updates/object-updates.service';
+import { Item } from '@dspace/core/shared/item.model';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
-import { APP_CONFIG } from '../../../../config/app-config.interface';
 import { environment } from '../../../../environments/environment';
-import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
-import { Item } from '../../../core/shared/item.model';
-import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
 import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
+import { getMockThemeService } from '../../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../shared/theme-support/theme.service';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { VirtualMetadataComponent } from './virtual-metadata.component';
@@ -49,7 +49,7 @@ describe('VirtualMetadataComponent', () => {
     });
 
     objectUpdatesService = jasmine.createSpyObj('objectUpdatesService', {
-      isSelectedVirtualMetadata: observableOf(false),
+      isSelectedVirtualMetadata: of(false),
       setSelectedVirtualMetadata: null,
     });
 

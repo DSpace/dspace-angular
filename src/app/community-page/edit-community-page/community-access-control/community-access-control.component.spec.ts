@@ -3,14 +3,11 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
-import {
-  of as observableOf,
-  of,
-} from 'rxjs';
+import { Community } from '@dspace/core/shared/community.model';
+import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
+import { of } from 'rxjs';
 
-import { Community } from '../../../core/shared/community.model';
 import { AccessControlFormContainerComponent } from '../../../shared/access-control-form-container/access-control-form-container.component';
-import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
 import { CommunityAccessControlComponent } from './community-access-control.component';
 
 describe('CommunityAccessControlComponent', () => {
@@ -24,7 +21,7 @@ describe('CommunityAccessControlComponent', () => {
         'dc.title': [{ value: 'community' }],
       },
       uuid: 'communityUUID',
-      parentCommunity: observableOf(Object.assign(createSuccessfulRemoteDataObject(undefined), { statusCode: 204 })),
+      parentCommunity: of(Object.assign(createSuccessfulRemoteDataObject(undefined), { statusCode: 204 })),
 
       _links: {
         parentCommunity: 'site',

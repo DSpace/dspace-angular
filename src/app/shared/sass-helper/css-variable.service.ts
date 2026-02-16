@@ -1,5 +1,16 @@
 import { Injectable } from '@angular/core';
 import {
+  buildPaginatedList,
+  PaginatedList,
+} from '@dspace/core/data/paginated-list.model';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { KeyValuePair } from '@dspace/core/utilities/key-value-pair.model';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
+import {
   createSelector,
   MemoizedSelector,
   select,
@@ -11,17 +22,6 @@ import {
   AppState,
   keySelector,
 } from '../../app.reducer';
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '../../core/data/paginated-list.model';
-import { PageInfo } from '../../core/shared/page-info.model';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../empty.util';
-import { KeyValuePair } from '../key-value-pair.model';
-import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import {
   AddAllCSSVariablesAction,
   AddCSSVariableAction,

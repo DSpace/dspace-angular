@@ -7,16 +7,16 @@ import {
 } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { CommunityDataService } from '@dspace/core/data/community-data.service';
+import { RequestService } from '@dspace/core/data/request.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { RouteService } from '@dspace/core/services/route.service';
+import { AuthServiceMock } from '@dspace/core/testing/auth.service.mock';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
-import { AuthService } from '../../core/auth/auth.service';
-import { CommunityDataService } from '../../core/data/community-data.service';
-import { RequestService } from '../../core/data/request.service';
-import { RouteService } from '../../core/services/route.service';
-import { AuthServiceMock } from '../../shared/mocks/auth.service.mock';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { CommunityFormComponent } from '../community-form/community-form.component';
 import { CreateCommunityPageComponent } from './create-community-page.component';
 
@@ -28,8 +28,8 @@ describe('CreateCommunityPageComponent', () => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), CommonModule, RouterTestingModule, CreateCommunityPageComponent],
       providers: [
-        { provide: CommunityDataService, useValue: { findById: () => observableOf({}) } },
-        { provide: RouteService, useValue: { getQueryParameterValue: () => observableOf('1234') } },
+        { provide: CommunityDataService, useValue: { findById: () => of({}) } },
+        { provide: RouteService, useValue: { getQueryParameterValue: () => of('1234') } },
         { provide: Router, useValue: {} },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: RequestService, useValue: {} },

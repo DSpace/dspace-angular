@@ -15,6 +15,10 @@ trim_trailing_whitespace = false
 
 [*.ts]
 quote_type = single
+ij_typescript_enforce_trailing_comma = whenmultiline
+
+[*.js]
+ij_javascript_enforce_trailing_comma = whenmultiline
 
 [*.json5]
 ij_json_keep_blank_lines_in_code = 3

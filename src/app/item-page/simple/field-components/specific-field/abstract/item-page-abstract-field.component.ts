@@ -3,18 +3,17 @@ import {
   Component,
   Input,
 } from '@angular/core';
+import { Item } from '@dspace/core/shared/item.model';
 
-import { Item } from '../../../../../core/shared/item.model';
 import { MetadataValuesComponent } from '../../../../field-components/metadata-values/metadata-values.component';
 import { ItemPageFieldComponent } from '../item-page-field.component';
 
 @Component({
   selector: 'ds-item-page-abstract-field',
   templateUrl: '../item-page-field.component.html',
-  standalone: true,
   imports: [
-    MetadataValuesComponent,
     AsyncPipe,
+    MetadataValuesComponent,
   ],
 })
 /**

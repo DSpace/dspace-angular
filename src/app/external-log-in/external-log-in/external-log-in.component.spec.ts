@@ -1,12 +1,20 @@
-import { CommonModule } from '@angular/common';
-import { EventEmitter } from '@angular/core';
+import {
+  CUSTOM_ELEMENTS_SCHEMA,
+  EventEmitter,
+} from '@angular/core';
 import {
   ComponentFixture,
   TestBed,
 } from '@angular/core/testing';
-import { FormBuilder } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { authReducer } from '@dspace/core/auth/auth.reducer';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { AuthMethod } from '@dspace/core/auth/models/auth.method';
+import { AuthMethodType } from '@dspace/core/auth/models/auth.method-type';
+import { AuthRegistrationType } from '@dspace/core/auth/models/auth.registration-type';
+import { MetadataValue } from '@dspace/core/shared/metadata.models';
+import { Registration } from '@dspace/core/shared/registration.model';
+import { AuthServiceMock } from '@dspace/core/testing/auth.service.mock';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { StoreModule } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
@@ -14,28 +22,22 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { storeModuleConfig } from '../../app.reducer';
-import { authReducer } from '../../core/auth/auth.reducer';
-import { AuthService } from '../../core/auth/auth.service';
-import { AuthMethodsService } from '../../core/auth/auth-methods.service';
-import { AuthMethod } from '../../core/auth/models/auth.method';
-import { AuthMethodType } from '../../core/auth/models/auth.method-type';
-import { AuthRegistrationType } from '../../core/auth/models/auth.registration-type';
-import { MetadataValue } from '../../core/shared/metadata.models';
-import { Registration } from '../../core/shared/registration.model';
+import { AlertComponent } from '../../shared/alert/alert.component';
 import { AuthMethodTypeComponent } from '../../shared/log-in/methods/auth-methods.type';
-import { AuthServiceMock } from '../../shared/mocks/auth.service.mock';
-import { BrowserOnlyPipe } from '../../shared/utils/browser-only.pipe';
+import { AuthMethodsService } from '../../shared/log-in/services/auth-methods.service';
 import { ConfirmEmailComponent } from '../email-confirmation/confirm-email/confirm-email.component';
-import { OrcidConfirmationComponent } from '../registration-types/orcid-confirmation/orcid-confirmation.component';
+import { ProvideEmailComponent } from '../email-confirmation/provide-email/provide-email.component';
 import { ExternalLogInComponent } from './external-log-in.component';
 
 describe('ExternalLogInComponent', () => {
   let component: ExternalLogInComponent;
   let fixture: ComponentFixture<ExternalLogInComponent>;
-  let modalService: NgbModal = jasmine.createSpyObj('modalService', ['open']);
+  let modalService: NgbModal = jasmine.createSpyObj('modalService', {
+    open: { dismissed: of(), close: () => {} },
+  });
   let authServiceStub: jasmine.SpyObj<AuthService>;
   let authMethodsServiceStub: jasmine.SpyObj<AuthMethodsService>;
   let mockAuthMethodsArray: AuthMethod[] = [
@@ -72,11 +74,11 @@ describe('ExternalLogInComponent', () => {
     },
   };
   const translateServiceStub = {
-    get: () => observableOf('Info Text'),
+    get: () => of('Info Text'),
     instant: (key: any) => 'Info Text',
     onLangChange: new EventEmitter(),
     onTranslationChange: new EventEmitter(),
-    onDefaultLangChange: new EventEmitter(),
+    onFallbackLangChange: new EventEmitter(),
   };
 
   beforeEach(async () => {
@@ -85,28 +87,28 @@ describe('ExternalLogInComponent', () => {
 
     await TestBed.configureTestingModule({
       imports: [
-        CommonModule,
-        TranslateModule.forRoot({}),
-        BrowserOnlyPipe,
+        TranslateModule.forRoot(),
         ExternalLogInComponent,
-        OrcidConfirmationComponent,
-        BrowserAnimationsModule,
         StoreModule.forRoot(authReducer, storeModuleConfig),
       ],
       providers: [
         { provide: TranslateService, useValue: translateServiceStub },
         { provide: AuthService, useValue: new AuthServiceMock() },
         { provide: NgbModal, useValue: modalService },
-        FormBuilder,
         provideMockStore({ initialState }),
       ],
-    })
-      .overrideComponent(ExternalLogInComponent, {
-        remove: {
-          imports: [ConfirmEmailComponent],
-        },
-      })
-      .compileComponents();
+    }).overrideComponent(ExternalLogInComponent, {
+      add: {
+        schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      },
+      remove: {
+        imports: [
+          ConfirmEmailComponent,
+          ProvideEmailComponent,
+          AlertComponent,
+        ],
+      },
+    }).compileComponents();
   });
   beforeEach(() => {
     fixture = TestBed.createComponent(ExternalLogInComponent);

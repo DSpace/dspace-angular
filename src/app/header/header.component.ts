@@ -4,16 +4,14 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { WidthCategory } from '@dspace/core/shared/host-window-type';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
 import { ThemedSearchNavbarComponent } from '../search-navbar/themed-search-navbar.component';
 import { ThemedAuthNavMenuComponent } from '../shared/auth-nav-menu/themed-auth-nav-menu.component';
-import {
-  HostWindowService,
-  WidthCategory,
-} from '../shared/host-window.service';
+import { HostWindowService } from '../shared/host-window.service';
 import { ImpersonateNavbarComponent } from '../shared/impersonate-navbar/impersonate-navbar.component';
 import { ThemedLangSwitchComponent } from '../shared/lang-switch/themed-lang-switch.component';
 import { MenuService } from '../shared/menu/menu.service';
@@ -27,8 +25,17 @@ import { ContextHelpToggleComponent } from './context-help-toggle/context-help-t
   selector: 'ds-base-header',
   styleUrls: ['header.component.scss'],
   templateUrl: 'header.component.html',
-  standalone: true,
-  imports: [RouterLink, ThemedLangSwitchComponent, NgbDropdownModule, ThemedSearchNavbarComponent, ContextHelpToggleComponent, ThemedAuthNavMenuComponent, ImpersonateNavbarComponent, TranslateModule, AsyncPipe],
+  imports: [
+    AsyncPipe,
+    ContextHelpToggleComponent,
+    ImpersonateNavbarComponent,
+    NgbDropdownModule,
+    RouterLink,
+    ThemedAuthNavMenuComponent,
+    ThemedLangSwitchComponent,
+    ThemedSearchNavbarComponent,
+    TranslateModule,
+  ],
 })
 export class HeaderComponent implements OnInit {
   /**

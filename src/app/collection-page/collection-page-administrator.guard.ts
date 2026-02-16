@@ -1,8 +1,8 @@
 import { CanActivateFn } from '@angular/router';
-import { of as observableOf } from 'rxjs';
+import { dsoPageSingleFeatureGuard } from '@dspace/core/data/feature-authorization/feature-authorization-guard/dso-page-single-feature.guard';
+import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
+import { of } from 'rxjs';
 
-import { dsoPageSingleFeatureGuard } from '../core/data/feature-authorization/feature-authorization-guard/dso-page-single-feature.guard';
-import { FeatureID } from '../core/data/feature-authorization/feature-id';
 import { collectionPageResolver } from './collection-page.resolver';
 
 /**
@@ -12,5 +12,5 @@ import { collectionPageResolver } from './collection-page.resolver';
 export const collectionPageAdministratorGuard: CanActivateFn =
   dsoPageSingleFeatureGuard(
     () => collectionPageResolver,
-    () => observableOf(FeatureID.AdministratorOf),
+    () => of(FeatureID.AdministratorOf),
   );

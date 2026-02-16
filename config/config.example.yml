@@ -10,10 +10,13 @@ ui:
   port: 4000
   # NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
   nameSpace: /
-  # The rateLimiter settings limit each IP to a 'max' of 500 requests per 'windowMs' (1 minute).
+  # The rateLimiter settings limit each IP to a 'limit' of 500 requests per 'windowMs' (1 minute).
   rateLimiter:
     windowMs: 60000 # 1 minute
-    max: 500 # limit each IP to 500 requests per windowMs
+    limit: 500 # limit each IP to 500 requests per windowMs
+    # IPv6 subnet mask applied to IPv6 addresses.
+    # See: https://express-rate-limit.mintlify.app/reference/configuration#ipv6subnet
+    ipv6Subnet: 56
   # Trust X-FORWARDED-* headers from proxies (default = true)
   useProxies: true
 
@@ -23,10 +26,24 @@ ssr:
   # Determining which styles are critical is a relatively expensive operation; this option is
   # disabled (false) by default to boost server performance at the expense of loading smoothness.
   inlineCriticalCss: false
-  # Path prefixes to enable SSR for. By default these are limited to paths of primary DSpace objects.
-  # NOTE: The "/handle/" path ensures Handle redirects work via SSR.  The "/reload/" path ensures
-  # hard refreshes (e.g. after login) trigger SSR while fully reloading the page.
-  paths: [ '/home', '/items/', '/entities/', '/collections/', '/communities/', '/bitstream/', '/bitstreams/', '/handle/', '/reload/' ]
+  # Patterns to be run as regexes against the path of the page to check if SSR is allowed.
+  # If the path match any of the regexes it will be served directly in CSR.
+  # By default, excludes community and collection browse, global browse, global search, community list, statistics and various administrative tools.
+  excludePathPatterns:
+    - pattern: "^/communities/[a-f0-9-]{36}/browse(/.*)?$"
+      flag: "i"
+    - pattern: "^/collections/[a-f0-9-]{36}/browse(/.*)?$"
+      flag: "i"
+    - pattern: "^/browse/"
+    - pattern: "^/search$"
+    - pattern: "^/community-list$"
+    - pattern: "^/admin/"
+    - pattern: "^/processes/?"
+    - pattern: "^/notifications/"
+    - pattern: "^/statistics/?"
+    - pattern: "^/access-control/"
+    - pattern: "^/health$"
+
   # Whether to enable rendering of Search component on SSR.
   # If set to true the component will be included in the HTML returned from the server side rendering.
   # If set to false the component will not be included in the HTML returned from the server side rendering.
@@ -221,8 +238,8 @@ submission:
           style: text-muted
           icon: fa-circle-xmark
 
-#  Default Language in which the UI will be rendered if the user's browser language is not an active language
-defaultLanguage: en
+#  Fallback language in which the UI will be rendered if the user's browser language is not an active language
+fallbackLanguage: en
 
 # Languages. DSpace Angular holds a message catalog for each of the following languages.
 # When set to active, users will be able to switch to the use of this language in the user interface.
@@ -251,6 +268,9 @@ languages:
   - code: es
     label: Español
     active: true
+  - code: fa
+    label: فارسی
+    active: true
   - code: fi
     label: Suomi
     active: true
@@ -259,6 +279,9 @@ languages:
     active: true
   - code: gd
     label: Gàidhlig
+    active: true
+  - code: gu
+    label: ગુજરાતી
     active: true
   - code: hi
     label: हिंदी
@@ -275,8 +298,17 @@ languages:
   - code: lv
     label: Latviešu
     active: true
+  - code: ml
+    label: മലയാളം
+    active: true
+  - code: mr
+    label: मराठी
+    active: true
   - code: nl
     label: Nederlands
+    active: true
+  - code: od
+    label: ଓଡିଆ
     active: true
   - code: pl
     label: Polski
@@ -287,6 +319,9 @@ languages:
   - code: pt-BR
     label: Português do Brasil
     active: true
+  - code: ru
+    label: Русский
+    active: true
   - code: sr-lat
     label: Srpski (lat)
     active: true
@@ -295,6 +330,12 @@ languages:
     active: true
   - code: sv
     label: Svenska
+    active: true
+  - code: te
+    label: తెలుగు
+    active: true
+  - code: ta
+    label: தமிழ்
     active: true
   - code: tr
     label: Türkçe
@@ -453,6 +494,8 @@ info:
   enableEndUserAgreement: true
   enablePrivacyStatement: true
   enableCOARNotifySupport: true
+  # Whether to show the cookie consent popup and the cookie settings footer link or not.
+  enableCookieConsentPopup: true
 
 # Whether to enable Markdown (https://commonmark.org/) and MathJax (https://www.mathjax.org/)
 # display in supported metadata fields. By default, only dc.description.abstract is supported.
@@ -593,3 +636,8 @@ geospatialMapViewer:
   defaultCentrePoint:
     lat: 41.015137
     lng: 28.979530
+
+# Configuration for storing accessibility settings, used by the AccessibilitySettingsService
+accessibility:
+  # The duration in days after which the accessibility settings cookie expires
+  cookieExpirationDuration: 7

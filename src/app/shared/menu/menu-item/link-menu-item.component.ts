@@ -8,9 +8,9 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { isNotEmpty } from '../../empty.util';
 import { LinkMenuItemModel } from './models/link.model';
 
 /**
@@ -20,8 +20,11 @@ import { LinkMenuItemModel } from './models/link.model';
   selector: 'ds-link-menu-item',
   styleUrls: ['./menu-item.component.scss'],
   templateUrl: './link-menu-item.component.html',
-  standalone: true,
-  imports: [NgClass, RouterLink, TranslateModule],
+  imports: [
+    NgClass,
+    RouterLink,
+    TranslateModule,
+  ],
 })
 export class LinkMenuItemComponent implements OnInit {
   item: LinkMenuItemModel;

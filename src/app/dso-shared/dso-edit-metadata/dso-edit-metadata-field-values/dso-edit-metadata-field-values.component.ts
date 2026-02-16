@@ -10,13 +10,13 @@ import {
   Input,
   Output,
 } from '@angular/core';
+import { Context } from '@dspace/core/shared/context.model';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import {
   BehaviorSubject,
   Observable,
 } from 'rxjs';
 
-import { Context } from '../../../core/shared/context.model';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import {
   DsoEditMetadataChangeType,
   DsoEditMetadataForm,
@@ -29,8 +29,12 @@ import { DsoEditMetadataValueHeadersComponent } from '../dso-edit-metadata-value
   selector: 'ds-dso-edit-metadata-field-values',
   styleUrls: ['./dso-edit-metadata-field-values.component.scss'],
   templateUrl: './dso-edit-metadata-field-values.component.html',
-  standalone: true,
-  imports: [CdkDropList, DsoEditMetadataValueHeadersComponent, DsoEditMetadataValueComponent, AsyncPipe],
+  imports: [
+    AsyncPipe,
+    CdkDropList,
+    DsoEditMetadataValueComponent,
+    DsoEditMetadataValueHeadersComponent,
+  ],
 })
 /**
  * Component displaying table rows for each value for a certain metadata field within a form

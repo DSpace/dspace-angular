@@ -1,4 +1,5 @@
-import { hasValue } from '../empty.util';
+import { hasValue } from '@dspace/shared/utils/empty.util';
+
 import { initialMenusState } from './initial-menus-state';
 import {
   ActivateMenuSectionAction,
@@ -14,7 +15,7 @@ import {
 } from './menu.actions';
 import { MenuID } from './menu-id.model';
 import { MenuSection } from './menu-section.model';
-import { MenuSectionIndex } from './menu-section-Index.model';
+import { MenuSectionIndex } from './menu-section-index.model';
 import { MenuSections } from './menu-sections.model';
 import { MenuState } from './menu-state.model';
 import { MenusState } from './menus-state.model';

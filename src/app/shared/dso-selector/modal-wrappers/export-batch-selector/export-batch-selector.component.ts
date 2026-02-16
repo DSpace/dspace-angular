@@ -6,6 +6,23 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
+import {
+  BATCH_EXPORT_SCRIPT_NAME,
+  ScriptDataService,
+} from '@dspace/core/data/processes/script-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Process } from '@dspace/core/processes/process.model';
+import { ProcessParameter } from '@dspace/core/processes/process-parameter.model';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { DSpaceObjectType } from '@dspace/core/shared/dspace-object-type.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import {
   NgbActiveModal,
   NgbModal,
@@ -16,32 +33,15 @@ import {
 } from '@ngx-translate/core';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import {
   map,
   switchMap,
 } from 'rxjs/operators';
 
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../../../core/data/feature-authorization/feature-id';
-import {
-  BATCH_EXPORT_SCRIPT_NAME,
-  ScriptDataService,
-} from '../../../../core/data/processes/script-data.service';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { Collection } from '../../../../core/shared/collection.model';
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
-import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
-import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { getProcessDetailRoute } from '../../../../process-page/process-page-routing.paths';
-import { Process } from '../../../../process-page/processes/process.model';
-import { ProcessParameter } from '../../../../process-page/processes/process-parameter.model';
 import { ConfirmationModalComponent } from '../../../confirmation-modal/confirmation-modal.component';
-import { isNotEmpty } from '../../../empty.util';
-import { NotificationsService } from '../../../notifications/notifications.service';
-import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
 import {
   DSOSelectorModalWrapperComponent,
@@ -55,8 +55,10 @@ import {
 @Component({
   selector: 'ds-export-batch-selector',
   templateUrl: '../dso-selector-modal-wrapper.component.html',
-  standalone: true,
-  imports: [ DSOSelectorComponent, TranslateModule],
+  imports: [
+    DSOSelectorComponent,
+    TranslateModule,
+  ],
 })
 export class ExportBatchSelectorComponent extends DSOSelectorModalWrapperComponent implements OnInit {
   objectType = DSpaceObjectType.DSPACEOBJECT;
@@ -90,7 +92,7 @@ export class ExportBatchSelectorComponent extends DSOSelectorModalWrapperCompone
           const startScriptSucceeded$ = this.startScriptNotifyAndRedirect(dso);
           return startScriptSucceeded$.pipe(
             switchMap((r: boolean) => {
-              return observableOf(r);
+              return of(r);
             }),
           );
         } else {
@@ -101,7 +103,7 @@ export class ExportBatchSelectorComponent extends DSOSelectorModalWrapperCompone
       resp$.subscribe();
       return resp$;
     } else {
-      return observableOf(false);
+      return of(false);
     }
   }
 

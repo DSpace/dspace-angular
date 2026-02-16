@@ -12,19 +12,19 @@ import {
   RouterLink,
   RouterLinkActive,
 } from '@angular/router';
+import { currentPath } from '@dspace/core/router/utils/route.utils';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
+import {
+  isEmpty,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
-import { SearchService } from '../../core/shared/search/search.service';
-import { ViewMode } from '../../core/shared/view-mode.model';
-import {
-  isEmpty,
-  isNotEmpty,
-} from '../empty.util';
+import { SearchService } from '../search/search.service';
 import { BrowserOnlyPipe } from '../utils/browser-only.pipe';
-import { currentPath } from '../utils/route.utils';
 
 /**
  * Component to switch between list and grid views.
@@ -33,8 +33,12 @@ import { currentPath } from '../utils/route.utils';
   selector: 'ds-view-mode-switch',
   styleUrls: ['./view-mode-switch.component.scss'],
   templateUrl: './view-mode-switch.component.html',
-  standalone: true,
-  imports: [RouterLink, RouterLinkActive, TranslateModule, BrowserOnlyPipe],
+  imports: [
+    BrowserOnlyPipe,
+    RouterLink,
+    RouterLinkActive,
+    TranslateModule,
+  ],
 })
 export class ViewModeSwitchComponent implements OnInit, OnDestroy {
 

@@ -11,11 +11,11 @@ import {
   TemplateRef,
   ViewChild,
 } from '@angular/core';
+import { hasValueOperator } from '@dspace/shared/utils/empty.util';
 import {
   NgbTooltip,
-  NgbTooltipModule,
+  Placement,
 } from '@ng-bootstrap/ng-bootstrap';
-import { PlacementArray } from '@ng-bootstrap/ng-bootstrap/util/positioning';
 import { TranslateService } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -31,7 +31,6 @@ import {
 
 import { ContextHelp } from '../context-help.model';
 import { ContextHelpService } from '../context-help.service';
-import { hasValueOperator } from '../empty.util';
 import { PlacementDir } from './placement-dir.model';
 
 type ParsedContent = ({href?: string, text: string})[];
@@ -44,8 +43,12 @@ type ParsedContent = ({href?: string, text: string})[];
   selector: 'ds-context-help-wrapper',
   templateUrl: './context-help-wrapper.component.html',
   styleUrls: ['./context-help-wrapper.component.scss'],
-  standalone: true,
-  imports: [NgClass, NgbTooltipModule, NgTemplateOutlet, AsyncPipe],
+  imports: [
+    AsyncPipe,
+    NgbTooltip,
+    NgClass,
+    NgTemplateOutlet,
+  ],
 })
 export class ContextHelpWrapperComponent implements OnInit, OnDestroy {
   /**
@@ -61,7 +64,7 @@ export class ContextHelpWrapperComponent implements OnInit, OnDestroy {
   /**
    * Indicate where the tooltip should show up, relative to the info icon.
    */
-  @Input() tooltipPlacement?: PlacementArray = [];
+  @Input() tooltipPlacement?: Placement[] = [];
 
   /**
    * Indicate whether the info icon should appear to the left or to
