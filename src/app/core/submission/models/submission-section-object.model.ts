@@ -76,6 +76,11 @@ export interface SubmissionSectionObject {
   isLoading: boolean;
 
   /**
+   * A boolean representing if this section removal is pending
+   */
+  removePending: boolean;
+
+  /**
    * A boolean representing if this section is valid
    */
   isValid: boolean;

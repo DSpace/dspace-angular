@@ -1,4 +1,7 @@
-import { HttpHeaders } from '@angular/common/http';
+import {
+  HttpHeaders,
+  HttpParams,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { ErrorResponse } from '@dspace/core/cache/response.models';
@@ -25,6 +28,7 @@ import {
 import {
   hasValue,
   isEmpty,
+  isNotEmpty,
   isNotUndefined,
 } from '@dspace/shared/utils/empty.util';
 import {
@@ -109,6 +113,8 @@ export class SubmissionService {
 
   private workspaceLinkPath = 'workspaceitems';
   private workflowLinkPath = 'workflowitems';
+  private editItemsLinkPath = 'edititems';
+
   /**
    * Initialize service variables
    * @param {NotificationsService} notificationsService
@@ -158,11 +164,22 @@ export class SubmissionService {
    *
    * @param collectionId
    *    The owning collection id
+   * @param entityType
+   *    The entity type
    * @return Observable<SubmissionObject>
    *    observable of SubmissionObject
    */
-  createSubmission(collectionId?: string): Observable<SubmissionObject> {
-    return this.restService.postToEndpoint(this.workspaceLinkPath, {}, null, null, collectionId).pipe(
+  createSubmission(collectionId?: string, entityType?: string): Observable<SubmissionObject> {
+    const paramsObj = Object.create({});
+
+    if (isNotEmpty(entityType)) {
+      paramsObj.entityType = entityType;
+    }
+
+    const params = new HttpParams({ fromObject: paramsObj });
+    const options: HttpOptions = Object.create({});
+    options.params = params;
+    return this.restService.postToEndpoint(this.workspaceLinkPath, {}, null, options, collectionId).pipe(
       map((workspaceitem: SubmissionObject[]) => workspaceitem[0] as SubmissionObject),
       catchError(() => of({} as SubmissionObject)));
   }
@@ -400,7 +417,7 @@ export class SubmissionService {
     } else if (url.startsWith('/workflowitems')) {
       return this.workflowLinkPath;
     } else {
-      return 'edititems';
+      return this.editItemsLinkPath;
     }
   }
 
@@ -418,6 +435,9 @@ export class SubmissionService {
         break;
       case this.workflowLinkPath:
         scope = SubmissionScopeType.WorkflowItem;
+        break;
+      case this.editItemsLinkPath:
+        scope = SubmissionScopeType.EditItem;
         break;
     }
     return scope;
@@ -531,6 +551,21 @@ export class SubmissionService {
   }
 
   /**
+   * Return the discard status of the submission
+   *
+   * @param submissionId
+   *    The submission id
+   * @return Observable<boolean>
+   *    observable with submission discard status
+   */
+  isSubmissionDiscarding(submissionId: string): Observable<boolean> {
+    return this.store.select(submissionObjectFromIdSelector(submissionId)).pipe(
+      map((submission: SubmissionObjectEntry) => isEmpty(submission) || submission?.isDiscarding),
+      distinctUntilChanged(),
+    );
+  }
+
+  /**
    * Show a notification when a new section is added to submission form
    *
    * @param submissionId
@@ -566,6 +601,14 @@ export class SubmissionService {
             }
           }))),
     ).subscribe();
+  }
+
+  /**
+   * Redirect to Item page
+   */
+  redirectToItemPage(submissionId: string) {
+    const itemUuid = submissionId.indexOf(':') > -1 ? submissionId.split(':')[0] : submissionId;
+    this.router.navigateByUrl('/items/' + itemUuid, { replaceUrl: true });
   }
 
   /**
@@ -606,8 +649,8 @@ export class SubmissionService {
    * @return Observable<RemoteData<SubmissionObject>>
    *    observable of RemoteData<SubmissionObject>
    */
-  retrieveSubmission(submissionId): Observable<RemoteData<SubmissionObject>> {
-    return this.restService.getDataById(this.getSubmissionObjectLinkName(), submissionId).pipe(
+  retrieveSubmission(submissionId, projections: string[] = []): Observable<RemoteData<SubmissionObject>> {
+    return this.restService.getDataById(this.getSubmissionObjectLinkName(), submissionId, false, projections).pipe(
       find((submissionObjects: SubmissionObject[]) => isNotUndefined(submissionObjects)),
       map((submissionObjects: SubmissionObject[]) => createSuccessfulRemoteDataObject(
         submissionObjects[0])),

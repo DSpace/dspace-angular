@@ -169,7 +169,6 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
             // redirect to not found page
             this.router.navigate(['/404'], { skipLocationChange: true });
           }
-          // TODO handle generic error
         }
       }),
       this.itemLink$.pipe(

@@ -1665,6 +1665,14 @@
 
   "community.sub-community-list.head": "Communities in this Community",
 
+  "confirmation-modal.pending-changes.header": "Unsaved changes",
+
+  "confirmation-modal.pending-changes.info": "There are unsaved changes. Do you want to leave the page?",
+
+  "confirmation-modal.pending-changes.cancel": "Cancel",
+
+  "confirmation-modal.pending-changes.confirm": "Leave",
+
   "context-menu.actions.audit-item.btn": "Audit",
 
   "cookies.consent.accept-all": "Accept all",
@@ -2967,14 +2975,6 @@
 
   "item.page.edit": "Administer",
 
-  "item.page.edit.FULL": "Edit all the details",
-
-  "item.page.edit.OWNER": "Edit",
-
-  "item.page.edit.DIRECTOR": "Edit",
-
-  "item.page.edit.INVESTIGATOR": "Edit",
-
   "item.page.files": "Files",
 
   "item.page.filesection.description": "Description:",
@@ -3666,6 +3666,14 @@
   "menu.section.toggle.statistics_task": "Toggle Statistics Task section",
 
   "menu.section.workflow": "Administer Workflow",
+
+  "menu.section.FULL": "Edit all the details",
+
+  "menu.section.OWNER": "Edit",
+
+  "menu.section.DIRECTOR": "Edit",
+
+  "menu.section.INVESTIGATOR": "Edit",
 
   "metadata-export-search.tooltip": "Export search results as CSV",
 
