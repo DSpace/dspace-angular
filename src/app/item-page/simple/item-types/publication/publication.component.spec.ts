@@ -18,6 +18,7 @@ import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-
 import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
 import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
 import { CommunityDataService } from '@dspace/core/data/community-data.service';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
 import { DefaultChangeAnalyzer } from '@dspace/core/data/default-change-analyzer.service';
 import { DSOChangeAnalyzer } from '@dspace/core/data/dso-change-analyzer.service';
 import { ItemDataService } from '@dspace/core/data/item-data.service';
@@ -35,6 +36,7 @@ import { MetadataMap } from '@dspace/core/shared/metadata.models';
 import { UUIDService } from '@dspace/core/shared/uuid.service';
 import { WorkspaceitemDataService } from '@dspace/core/submission/workspaceitem-data.service';
 import { BrowseDefinitionDataServiceStub } from '@dspace/core/testing/browse-definition-data-service.stub';
+import { ConfigurationDataServiceStub } from '@dspace/core/testing/configuration-data.service.stub';
 import { mockTruncatableService } from '@dspace/core/testing/mock-trucatable.service';
 import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import { createPaginatedList } from '@dspace/core/testing/utils.test';
@@ -48,8 +50,6 @@ import {
   Observable,
   of,
 } from 'rxjs';
-import { ConfigurationDataService } from 'src/app/core/data/configuration-data.service';
-import { ConfigurationDataServiceStub } from 'src/app/shared/testing/configuration-data.service.stub';
 
 import { environment } from '../../../../../environments/environment.test';
 import { DsoEditMenuComponent } from '../../../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
