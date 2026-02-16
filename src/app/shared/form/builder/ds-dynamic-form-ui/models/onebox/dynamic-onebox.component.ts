@@ -186,12 +186,13 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
     this.isHierarchicalVocabulary$ = this.vocabulary$.pipe(
       filter((vocabulary: Vocabulary) => isNotEmpty(vocabulary)),
       map((vocabulary: Vocabulary) => vocabulary.hierarchical),
-      tap((isHierarchical: boolean) => {
-        if (this.model.value) {
-          this.setCurrentValue(this.model.value, isHierarchical);
-        }
-      }),
     );
+
+    this.subs.push(this.isHierarchicalVocabulary$.subscribe((isHierarchical) => {
+      if (this.model.value) {
+        this.setCurrentValue(this.model.value, isHierarchical);
+      }
+    }));
 
     this.subs.push(this.group.get(this.model.id).valueChanges.pipe(
       filter((value) => this.currentValue !== value))
