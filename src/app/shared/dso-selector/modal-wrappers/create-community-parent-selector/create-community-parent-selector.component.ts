@@ -14,6 +14,7 @@ import {
 } from '@dspace/core/cache/models/sort-options.model';
 import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
+import { ActionType } from '@dspace/core/resource-policy/models/action-type.model';
 import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import { DSpaceObjectType } from '@dspace/core/shared/dspace-object-type.model';
 import { hasValue } from '@dspace/shared/utils/empty.util';
@@ -53,6 +54,7 @@ export class CreateCommunityParentSelectorComponent extends DSOSelectorModalWrap
   objectType = DSpaceObjectType.COMMUNITY;
   selectorTypes = [DSpaceObjectType.COMMUNITY];
   action = SelectorActionType.CREATE;
+  rpActionType = ActionType.ADD;
   defaultSort = new SortOptions(environment.comcolSelectionSort.sortField, environment.comcolSelectionSort.sortDirection as SortDirection);
   isAdmin$: Observable<boolean>;
 
