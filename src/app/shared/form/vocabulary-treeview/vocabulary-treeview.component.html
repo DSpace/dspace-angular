@@ -44,7 +44,7 @@
   <cdk-tree [dataSource]="dataSource" [treeControl]="treeControl">
     <!-- Leaf node -->
     <cdk-tree-node *cdkTreeNodeDef="let node" cdkTreeNodePadding class="d-flex">
-      <span aria-hidden="true" type="button" class="btn btn-default px-2 me-1 btn-transparent" cdkTreeNodeToggle>
+      <span aria-hidden="true" class="btn btn-default px-2 me-1 btn-transparent" cdkTreeNodeToggle>
         <i class="fas fa-fw fa-angle-right invisible"></i>
       </span>
       @if (multiSelect) {
@@ -145,13 +145,13 @@
 @if ((showPreviousPage$ | async) || (showNextPage$ | async)) {
   <div class="mb-3 d-flex gap-2">
     @if (showPreviousPage$ | async) {
-      <button class="btn btn-outline-secondary" type="button"
+      <button type="button" class="btn btn-outline-secondary"
               (click)="loadPreviousPage()">
         {{ 'browse.taxonomy.show_previous_results' | translate }}
       </button>
     }
     @if (showNextPage$ | async) {
-      <button class="btn btn-outline-secondary" type="button"
+      <button type="button" class="btn btn-outline-secondary"
               (click)="loadNextPage()">
         {{ 'browse.taxonomy.show_next_results' | translate }}
       </button>
