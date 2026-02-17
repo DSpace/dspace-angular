@@ -53,6 +53,7 @@ import {
   BrowseByMetadataComponent,
   browseParamsToOptions,
 } from '../browse-by-metadata/browse-by-metadata.component';
+import { BrowseDefinition } from 'src/app/core/shared/browse-definition.model';
 
 @Component({
   selector: 'ds-browse-by-date',
@@ -100,6 +101,13 @@ export class BrowseByDateComponent extends BrowseByMetadataComponent implements 
     this.startsWithType = StartsWithType.date;
     this.currentPagination$ = this.paginationService.getCurrentPagination(this.paginationConfig.id, this.paginationConfig);
     this.currentSort$ = this.paginationService.getCurrentSort(this.paginationConfig.id, sortConfig);
+     const browseDefinition$: Observable<BrowseDefinition | undefined> = observableCombineLatest([
+      this.route.data,
+      this.route.parent ? this.route.parent.data : of({} as Record<string, any>),
+    ]).pipe(
+      map(([data, parentData]) => (data?.browseDefinition ?? parentData?.browseDefinition) as BrowseDefinition | undefined),
+      distinctUntilChanged((prev, curr) => prev?.id === curr?.id),
+    );
     const routeParams$: Observable<Params> = observableCombineLatest([
       this.route.params,
       this.route.queryParams,
@@ -113,8 +121,9 @@ export class BrowseByDateComponent extends BrowseByMetadataComponent implements 
         this.scope$,
         this.currentPagination$,
         this.currentSort$,
-      ]).subscribe(([params, scope, currentPage, currentSort]: [Params, string, PaginationComponentOptions, SortOptions]) => {
-        const metadataKeys = params.browseDefinition ? params.browseDefinition.metadataKeys : this.defaultMetadataKeys;
+        browseDefinition$,
+      ]).subscribe(([params, scope, currentPage, currentSort, browseDefinition]: [Params, string, PaginationComponentOptions, SortOptions, BrowseDefinition | undefined]) => {
+        const metadataKeys = browseDefinition?.metadataKeys ?? this.defaultMetadataKeys;
         this.browseId = params.id || this.defaultBrowseId;
         this.startsWith = +params.startsWith || params.startsWith;
         const searchOptions = browseParamsToOptions(params, scope, currentPage, currentSort, this.browseId, this.fetchThumbnails);
