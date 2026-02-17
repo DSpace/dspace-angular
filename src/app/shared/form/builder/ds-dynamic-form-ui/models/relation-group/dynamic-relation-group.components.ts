@@ -12,6 +12,7 @@ import { SubmissionFormsModel } from '@dspace/core/config/models/config-submissi
 import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
 import { Metadata } from '@dspace/core/shared/metadata.utils';
 import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
+import { MetadataSecurityConfiguration } from '@dspace/core/submission/models/metadata-security-configuration';
 import { VocabularyEntryDetail } from '@dspace/core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
 import {
@@ -142,6 +143,10 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
   openModal(): NgbModalRef {
     const modalRef = this.modalService.open(DsDynamicRelationGroupModalComponent, {
       size: 'lg',
+    });
+    this.submissionService.getSubmissionSecurityConfiguration(this.model.submissionId).pipe(
+      take(1)).subscribe((res: MetadataSecurityConfiguration) => {
+      modalRef.componentInstance.metadataSecurityConfiguration = res;
     });
     modalRef.componentInstance.group = this.group;
     modalRef.componentInstance.model = this.model;

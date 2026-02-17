@@ -204,6 +204,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
         { provide: 'collectionIdProvider', useValue: collectionId },
         { provide: 'sectionDataProvider', useValue: Object.assign({}, sectionObject) },
         { provide: 'submissionIdProvider', useValue: submissionId },
+        { provide: 'entityType', useValue: 'Publication' },
         { provide: SubmissionObjectService, useValue: { getHrefByID: () => of('testUrl'), findById: () => createSuccessfulRemoteDataObject$(new WorkspaceItem()) } },
         ChangeDetectorRef,
         SubmissionSectionFormComponent,
@@ -270,6 +271,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
       formConfigService.findByHref.and.returnValue(createSuccessfulRemoteDataObject$(testFormConfiguration));
       sectionsServiceStub.getSectionData.and.returnValue(of(sectionData));
       sectionsServiceStub.getSectionServerErrors.and.returnValue(of([]));
+      submissionServiceStub.getSubmissionSecurityConfiguration.and.returnValue(of(sectionData));
       sectionsServiceStub.isSectionReadOnly.and.returnValue(of(false));
 
       spyOn(comp, 'initForm');

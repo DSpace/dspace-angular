@@ -23,6 +23,7 @@ import {
   FieldParser,
   INIT_FORM_VALUES,
   PARSER_OPTIONS,
+  SECURITY_CONFIG,
   SUBMISSION_ID,
 } from './field-parser';
 import { setLayout } from './parser.utils';
@@ -50,7 +51,8 @@ export class RowParser {
     submissionScope,
     readOnly: boolean,
     typeField: string,
-    isInnerForm: boolean = false): DynamicRowGroupModel {
+    isInnerForm: boolean = false,
+    securityConfig: any = null): DynamicRowGroupModel {
     let fieldModel: any = null;
     let parsedResult = null;
     const config: DynamicFormGroupModelConfig = {
@@ -84,6 +86,7 @@ export class RowParser {
             { provide: CONFIG_DATA, useValue: fieldData },
             { provide: INIT_FORM_VALUES, useValue: initFormValues },
             { provide: PARSER_OPTIONS, useValue: parserOptions },
+            { provide: SECURITY_CONFIG, useValue: securityConfig },
           ],
           parent: this.parentInjector,
         });

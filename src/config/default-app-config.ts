@@ -29,6 +29,7 @@ import { MarkdownConfig } from './markdown-config.interface';
 import { MatomoConfig } from './matomo-config.interface';
 import { MediaViewerConfig } from './media-viewer-config.interface';
 import { MetadataLinkViewPopoverDataConfig } from './metadata-link-view-popoverdata-config.interface';
+import { MetadataSecurityConfig } from './metadata-security-config';
 import {
   INotificationBoardOptions,
   NotificationAnimationsType,
@@ -777,5 +778,26 @@ export class DefaultAppConfig implements AppConfig {
       metadata: ['dc.contributor.author'],
     },
   ];
+
+
+  security: MetadataSecurityConfig = {
+    levels: [
+      {
+        value: 0,
+        icon: 'fa fa-globe',
+        color: 'green',
+      },
+      {
+        value: 1,
+        icon: 'fa fa-key',
+        color: 'orange',
+      },
+      {
+        value: 2,
+        icon: 'fa fa-lock',
+        color: 'red',
+      },
+    ],
+  };
 
 }

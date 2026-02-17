@@ -29,6 +29,7 @@ import { MarkdownConfig } from './markdown-config.interface';
 import { MatomoConfig } from './matomo-config.interface';
 import { MediaViewerConfig } from './media-viewer-config.interface';
 import { MetadataLinkViewPopoverDataConfig } from './metadata-link-view-popoverdata-config.interface';
+import { MetadataSecurityConfig } from './metadata-security-config';
 import { INotificationBoardOptions } from './notifications-config.interfaces';
 import { QualityAssuranceConfig } from './quality-assurance.config';
 import { FollowAuthorityMetadata } from './search-follow-metadata.interface';
@@ -81,6 +82,7 @@ interface AppConfig extends Config {
   followAuthorityMetadata: FollowAuthorityMetadata[];
   followAuthorityMaxItemLimit: number;
   followAuthorityMetadataValuesLimit: number;
+  security: MetadataSecurityConfig;
 }
 
 /**

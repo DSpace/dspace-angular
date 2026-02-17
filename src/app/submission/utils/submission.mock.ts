@@ -3,6 +3,8 @@ import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
 import { Group } from '@dspace/core/eperson/models/group.model';
 import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
 import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { METADATA_SECURITY_TYPE } from '@dspace/core/submission/models/metadata-security-config.resource-type';
+import { MetadataSecurityConfiguration } from '@dspace/core/submission/models/metadata-security-configuration';
 import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 
 import { SubmissionObjectState } from '../objects/submission-objects.reducer';
@@ -324,6 +326,18 @@ export const mockSubmissionRestResponse = [
   },
 ];
 
+export const mockSecurityConfig: MetadataSecurityConfiguration = {
+  'uuid' : 'Person',
+  'metadataSecurityDefault' : [ 0, 1, 2 ],
+  'metadataCustomSecurity' : { 'person.birthDate': [ 0, 1 ] },
+  'type' : METADATA_SECURITY_TYPE,
+  '_links' : {
+    'self' : {
+      'href' : 'http://localhost:8080/server/api/core/securitysettings/Person',
+    },
+  },
+};
+
 export const mockSubmissionObject = {
   collection: {
     handle: '10673/2',
@@ -581,6 +595,7 @@ export const mockSubmissionObject = {
       ],
     },
   ],
+  metadataSecurityConfiguration: mockSecurityConfig,
   type: 'workspaceitem',
   _links: {
     collection: { href: 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826/collection' },
@@ -1834,4 +1849,3 @@ export const mockAccessesFormData = {
     },
   ],
 };
-

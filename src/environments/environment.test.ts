@@ -572,4 +572,23 @@ export const environment: BuildConfig = {
       metadata: ['dc.contributor.author'],
     },
   ],
+
+  security: {
+    levels: [
+      {
+        value: 0,
+        icon: 'fa fa-globe',
+        color: 'green',
+      },
+      {
+        value: 1,
+        icon: 'fa fa-key',
+        color: 'orange',
+      },
+      {
+        value: 2,
+        icon: 'fa fa-lock',
+        color: 'red',
+      }],
+  },
 };

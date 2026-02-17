@@ -14,6 +14,7 @@ import { VocabularyEntry } from '@dspace/core/submission/vocabularies/models/voc
 import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
 import {
   hasValue,
+  isEmpty,
   isNotEmpty,
 } from '@dspace/shared/utils/empty.util';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -110,6 +111,7 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
           const formField = new FormFieldMetadataValueObject(
             initEntry.value,
             null,
+            (this.model.value as any).securityLevel,
             initEntry.authority,
             initEntry.display,
             (this.model.value as any).place,
@@ -130,6 +132,7 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
         new FormFieldMetadataValueObject(
           this.model.value.value,
           null,
+          (this.model.value as any).securityLevel,
           this.model.value.authority,
           this.model.value.display,
           0,
@@ -197,7 +200,15 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
   updateAuthority(authority: string) {
     const currentValue: string = (this.model.value instanceof FormFieldMetadataValueObject
       || this.model.value instanceof VocabularyEntry) ? this.model.value.value : this.model.value;
-    const valueWithAuthority: any = new FormFieldMetadataValueObject(currentValue, null, authority);
+    let security = null;
+    if ( this.model.value instanceof VocabularyEntry) {
+      security  = this.model.value.securityLevel;
+    } else {
+      if (this.model.metadataValue) {
+        security  = this.model.metadataValue.securityLevel;
+      }
+    }
+    const valueWithAuthority: any = new FormFieldMetadataValueObject(currentValue, null, security, authority);
     this.model.value = valueWithAuthority;
     this.change.emit(valueWithAuthority);
     setTimeout(() => {
@@ -258,7 +269,7 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
   }
 
   getOtherInformationValue(value: string, key: string): FormFieldMetadataValueObject[] {
-    if (!isNotEmpty(value) || key === 'alternative-names' ) {
+    if (isEmpty(value) || key === 'alternative-names' ) {
       return null;
     }
 
@@ -283,6 +294,7 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
           null,
           null,
           authorityValue,
+          null,
           null,
           null,
           otherInfo,

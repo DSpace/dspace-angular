@@ -12,7 +12,7 @@
   }
   <ng-container *ngTemplateOutlet="startTemplate?.templateRef; context: { $implicit: model };"></ng-container>
   <!--    Should be *ngIf instead of class d-none, but that breaks the #componentViewContainer reference-->
-  <div [ngClass]="{'row': model.hasLanguages || isRelationship,
+  <div [ngClass]="{'row': model.hasLanguages || isRelationship || model.hasSecurityToggle,
                       'd-none': this.metadataService.isVirtual(value) && (model.hasSelectableMetadata || context?.index > 0)}">
     <div [ngClass]="getClass('grid', 'control')">
       <div>
@@ -58,6 +58,17 @@
             <option [value]="lang.code">{{lang.display}}</option>
           }
         </select>
+      </div>
+    }
+    @if (model.hasSecurityToggle) {
+      <div class="col-xs-2" [class.date-field-security]="model.type === 'DATE'">
+        @if (model.toggleSecurityVisibility) {
+          <ds-edit-metadata-security [readOnly]="model.readOnly"
+                                     [securityConfigLevel]="model.securityConfigLevel"
+                                     [securityLevel]="securityLevel"
+                                     (changeSecurityLevel)="addSecurityLevelToMetadata($event)">
+          </ds-edit-metadata-security>
+        }
       </div>
     }
     @if (isRelationship) {

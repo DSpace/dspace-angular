@@ -21,6 +21,7 @@ import {
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
 } from '@dspace/core/shared/operators';
+import { MetadataSecurityConfiguration } from '@dspace/core/submission/models/metadata-security-configuration';
 import { SubmissionObject } from '@dspace/core/submission/models/submission-object.model';
 import { SubmissionSectionError } from '@dspace/core/submission/models/submission-section-error.model';
 import { SubmissionSectionObject } from '@dspace/core/submission/models/submission-section-object.model';
@@ -44,7 +45,9 @@ import findIndex from 'lodash/findIndex';
 import isEqual from 'lodash/isEqual';
 import {
   combineLatest as observableCombineLatest,
+  interval,
   Observable,
+  race,
   Subscription,
 } from 'rxjs';
 import {
@@ -52,6 +55,7 @@ import {
   filter,
   find,
   map,
+  mapTo,
   mergeMap,
   take,
   tap,
@@ -150,6 +154,8 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
    */
   protected subs: Subscription[] = [];
 
+  protected metadataSecurityConfiguration: MetadataSecurityConfiguration;
+
   protected submissionObject: SubmissionObject;
 
   /**
@@ -178,6 +184,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
    * @param {ObjectCacheService} objectCache
    * @param {RequestService} requestService
    * @param {string} injectedCollectionId
+   * @param {string} entityType
    * @param {SectionDataObject} injectedSectionData
    * @param {string} injectedSubmissionId
    */
@@ -194,6 +201,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
               protected objectCache: ObjectCacheService,
               protected requestService: RequestService,
               @Inject('collectionIdProvider') public injectedCollectionId: string,
+              @Inject('entityType') public entityType: string,
               @Inject('sectionDataProvider') public injectedSectionData: SectionDataObject,
               @Inject('submissionIdProvider') public injectedSubmissionId: string) {
     super(injectedCollectionId, injectedSectionData, injectedSubmissionId);
@@ -209,17 +217,28 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
     this.formConfigService.findByHref(this.sectionData.config).pipe(
       map((configData: RemoteData<ConfigObject>) => configData.payload),
       tap((config: SubmissionFormsModel) => this.formConfig = config),
-      mergeMap(() =>
-        observableCombineLatest([
-          this.sectionService.getSectionData(this.submissionId, this.sectionData.id, this.sectionData.sectionType),
-          this.submissionObjectService.findById(this.submissionId, true, false, followLink('item')).pipe(
+      mergeMap(() => {
+        const findById$ = this.submissionObjectService.findById(this.submissionId, false, true, followLink('item')).pipe(
+          getFirstSucceededRemoteData(),
+          getRemoteDataPayload(),
+        );
+        const findByIdCached$ = interval(200).pipe(
+          mapTo(this.submissionObjectService.findById(this.submissionId, true, true, followLink('item')).pipe(
             getFirstSucceededRemoteData(),
-            getRemoteDataPayload()),
+            getRemoteDataPayload(),
+          )),
+        );
+        return observableCombineLatest([
+          this.sectionService.getSectionData(this.submissionId, this.sectionData.id, this.sectionData.sectionType),
+          race([findById$, findByIdCached$]),
+          this.submissionService.getSubmissionSecurityConfiguration(this.submissionId).pipe(take(1)),
           this.sectionService.isSectionReadOnly(this.submissionId, this.sectionData.id, this.submissionService.getSubmissionScope()),
-        ])),
+        ]);
+      }),
       take(1))
-      .subscribe(([sectionData, submissionObject, isSectionReadOnly]: [WorkspaceitemSectionFormObject, SubmissionObject, boolean]) => {
+      .subscribe(([sectionData, submissionObject, metadataSecurity, isSectionReadOnly]: [WorkspaceitemSectionFormObject, SubmissionObject, MetadataSecurityConfiguration, boolean]) => {
         if (isUndefined(this.formModel)) {
+          this.metadataSecurityConfiguration = metadataSecurity;
           // this.sectionData.errorsToShow = [];
           this.submissionObject = submissionObject;
           this.isSectionReadonly = isSectionReadOnly;
@@ -339,6 +358,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
         this.isSectionReadonly,
         null,
         false,
+        this.metadataSecurityConfiguration,
       );
       const sectionMetadata = this.sectionService.computeSectionConfiguredMetadata(this.formConfig);
       this.sectionService.updateSectionData(this.submissionId, this.sectionData.id, sectionData, errorsToShow, serverValidationErrors, sectionMetadata);

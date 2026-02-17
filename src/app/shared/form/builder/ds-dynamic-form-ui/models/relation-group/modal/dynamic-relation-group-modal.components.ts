@@ -14,6 +14,7 @@ import { SubmissionFormsModel } from '@dspace/core/config/models/config-submissi
 import { PLACEHOLDER_PARENT_METADATA } from '@dspace/core/shared/form/ds-dynamic-form-constants';
 import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
 import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
+import { MetadataSecurityConfiguration } from '@dspace/core/submission/models/metadata-security-configuration';
 import { Vocabulary } from '@dspace/core/submission/vocabularies/models/vocabulary.model';
 import { VocabularyEntry } from '@dspace/core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyOptions } from '@dspace/core/submission/vocabularies/models/vocabulary-options.model';
@@ -74,6 +75,8 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
 
   @Input() item: any;
   @Input() itemIndex: number;
+  @Input() changedSecurity: boolean;
+  @Input() metadataSecurityConfiguration: MetadataSecurityConfiguration;
 
   @Input() value: any;
 
@@ -88,6 +91,7 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
 
   public formModel: DynamicFormControlModel[];
   public vocabulary$: Observable<Vocabulary>;
+  public securityLevelParent: number;
 
   private subs: Subscription[] = [];
 
@@ -116,7 +120,8 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
       this.model.submissionScope,
       this.model.readOnly,
       null,
-      true);
+      true,
+      this.metadataSecurityConfiguration);
     this.formBuilderService.addFormModel(this.formId, this.formModel);
     if (this.item) {
       this.formModel.forEach((row) => {
@@ -135,6 +140,7 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
             }
           }
 
+          this.initSecurityLevelConfig(model, modelRow);
         });
       });
     }
@@ -197,7 +203,15 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
     const currentValue: string = (model.value instanceof FormFieldMetadataValueObject
       || model.value instanceof VocabularyEntry) ? model.value.value : model.value;
     const currentLang: string = (model.value instanceof FormFieldMetadataValueObject) ? model.value.language : model.language;
-    const valueWithAuthority: any = new FormFieldMetadataValueObject(currentValue, currentLang, authority);
+    let security = null;
+    if (this.model.value instanceof VocabularyEntry) {
+      security = this.model.value.securityLevel;
+    } else {
+      if (this.model.metadataValue) {
+        security = this.model.metadataValue.securityLevel;
+      }
+    }
+    const valueWithAuthority: any = new FormFieldMetadataValueObject(currentValue, currentLang, security, authority);
     model.value = valueWithAuthority;
     this.modifyChip();
     setTimeout(() => {
@@ -231,6 +245,7 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
       modelRow.group.forEach((model: DynamicInputModel) => {
         if (model.name === this.model.mandatoryField) {
           mandatoryFieldModel = model;
+          this.initSecurityLevelConfig(model, modelRow);
           return;
         }
       });
@@ -278,6 +293,7 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
           new FormFieldMetadataValueObject(
             controlValue,
             mainModel?.language,
+            controlValue === PLACEHOLDER_PARENT_METADATA ? null : mainModel.securityLevel,
             controlAuthority,
             null, 0, null,
             (control?.value as any)?.otherInformation || null,
@@ -287,10 +303,43 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
     return item;
   }
 
+  private initSecurityLevelConfig(chipModel: DynamicInputModel, modelGroup: DynamicFormGroupModel) {
+    if (this.model.name === chipModel.name && this.model.securityConfigLevel.length > 1) {
+      (chipModel as any).securityConfigLevel = this.model.securityConfigLevel;
+      (chipModel as any).toggleSecurityVisibility = true;
+
+      const mainRow = modelGroup.group.find(itemModel => itemModel.name === this.model.name);
+
+      (chipModel as any).securityLevel = (mainRow as any).securityLevel || 0;
+      this.securityLevelParent = (mainRow as any).securityLevel;
+
+      modelGroup.group.forEach((item: any) => {
+        if (item.name !== this.model.name) {
+          item.securityConfigLevel = this.model.securityConfigLevel;
+          item.toggleSecurityVisibility = false;
+          item.securityLevel = this.securityLevelParent;
+        }
+      });
+    }
+    if (this.model.securityConfigLevel.length === 1) {
+      modelGroup.group.forEach((item: any) => {
+        item.securityConfigLevel = this.model.securityConfigLevel;
+        item.toggleSecurityVisibility = false;
+        item.securityLevel = this.model.securityLevel;
+      });
+    }
+  }
+
   private retrieveVocabulary(vocabularyOptions: VocabularyOptions): void {
     this.vocabulary$ = this.vocabularyService.findVocabularyById(vocabularyOptions.name).pipe(
       getFirstSucceededRemoteDataPayload(),
       distinctUntilChanged(),
     );
+  }
+
+  changeSecurity($event) {
+    if ($event.type === 'changeSecurityLevelGroup') {
+      this.changedSecurity = true;
+    }
   }
 }

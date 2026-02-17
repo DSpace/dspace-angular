@@ -12,6 +12,7 @@ import { HttpOptions } from '@dspace/core/dspace-rest/dspace-rest.service';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { RouteService } from '@dspace/core/services/route.service';
 import { Item } from '@dspace/core/shared/item.model';
+import { MetadataSecurityConfiguration } from '@dspace/core/submission/models/metadata-security-configuration';
 import { SectionScope } from '@dspace/core/submission/models/section-visibility.model';
 import { SubmissionError } from '@dspace/core/submission/models/submission-error.model';
 import { SubmissionObject } from '@dspace/core/submission/models/submission-object.model';
@@ -75,7 +76,10 @@ import {
   SubmissionSectionEntry,
 } from './objects/submission-objects.reducer';
 import { SectionDataObject } from './sections/models/section-data.model';
-import { submissionObjectFromIdSelector } from './selectors';
+import {
+  securityConfigurationObjectFromIdSelector,
+  submissionObjectFromIdSelector,
+} from './selectors';
 import {
   submissionSelector,
   SubmissionState,
@@ -185,6 +189,30 @@ export class SubmissionService {
   }
 
   /**
+   * Perform a REST call to create a new workspaceitem for a specified collection and return response
+   *
+   * @param collectionId
+   *    The collection id
+   * @return Observable<SubmissionObject>
+   *    observable of SubmissionObject
+   */
+  createSubmissionForCollection(collectionId: string): Observable<SubmissionObject> {
+    const paramsObj = Object.create({});
+
+    if (isNotEmpty(collectionId)) {
+      paramsObj.collection = collectionId;
+    }
+
+    const params = new HttpParams({ fromObject: paramsObj });
+    const options: HttpOptions = Object.create({});
+    options.params = params;
+
+    return this.restService.postToEndpoint(this.workspaceLinkPath, {}, null, options).pipe(
+      map((workspaceitem: SubmissionObject[]) => workspaceitem[0] as SubmissionObject),
+      catchError(() => of({} as SubmissionObject)));
+  }
+
+  /**
    * Perform a REST call to deposit a workspaceitem and return response
    *
    * @param selfUrl
@@ -200,6 +228,30 @@ export class SubmissionService {
     headers = headers.append('Content-Type', 'text/uri-list');
     options.headers = headers;
     return this.restService.postToEndpoint(this.workspaceLinkPath, selfUrl, null, options, collectionId) as Observable<SubmissionObject[]>;
+  }
+
+  /**
+   * Perform a REST call to create a new workspaceitem by item and return response
+   *
+   * @return Observable<SubmissionObject>
+   *    observable of SubmissionObject
+   */
+  createSubmissionByItem(itemId: string, relationshipName?: string): Observable<SubmissionObject> {
+    const paramsObj = Object.create({});
+
+    if (isNotEmpty(itemId)) {
+      paramsObj.item = itemId;
+    }
+    if (isNotEmpty(relationshipName)) {
+      paramsObj.relationship = relationshipName;
+    }
+
+    const params = new HttpParams({ fromObject: paramsObj });
+    const options: HttpOptions = Object.create({});
+    options.params = params;
+
+    return this.restService.postToEndpoint(this.workspaceLinkPath, {}, null, options).pipe(
+      map((workspaceitem: SubmissionObject[]) => workspaceitem[0] as SubmissionObject));
   }
 
   /**
@@ -255,8 +307,9 @@ export class SubmissionService {
     submissionDefinition: SubmissionDefinitionsModel,
     sections: WorkspaceitemSectionsObject,
     item: Item,
-    errors: SubmissionError) {
-    this.store.dispatch(new InitSubmissionFormAction(collectionId, submissionId, selfUrl, submissionDefinition, sections, item, errors));
+    errors: SubmissionError,
+    metadataSecurityConfiguration?: MetadataSecurityConfiguration) {
+    this.store.dispatch(new InitSubmissionFormAction(collectionId, submissionId, selfUrl, submissionDefinition, sections, item, errors, metadataSecurityConfiguration));
   }
 
   /**
@@ -341,6 +394,19 @@ export class SubmissionService {
   getSubmissionObject(submissionId: string): Observable<SubmissionObjectEntry> {
     return this.store.select(submissionObjectFromIdSelector(submissionId)).pipe(
       filter((submission: SubmissionObjectEntry) => isNotUndefined(submission)));
+  }
+
+  /**
+   * Return the [MetadataSecurityConfiguration] for the specified submission
+   *
+   * @param submissionId
+   *    The submission id
+   * @return Observable<MetadataSecurityConfiguration>
+   *    observable of MetadataSecurityConfiguration
+   */
+  getSubmissionSecurityConfiguration(submissionId: string): Observable<MetadataSecurityConfiguration> {
+    return this.store.select(securityConfigurationObjectFromIdSelector(submissionId)).pipe(
+      filter((securityConfiguration: MetadataSecurityConfiguration) => isNotUndefined(securityConfiguration)));
   }
 
   /**
@@ -643,8 +709,9 @@ export class SubmissionService {
     submissionDefinition: SubmissionDefinitionsModel,
     sections: WorkspaceitemSectionsObject,
     item: Item,
+    metadataSecurityConfiguration: MetadataSecurityConfiguration = null,
   ) {
-    this.store.dispatch(new ResetSubmissionFormAction(collectionId, submissionId, selfUrl, sections, submissionDefinition, item));
+    this.store.dispatch(new ResetSubmissionFormAction(collectionId, submissionId, selfUrl, sections, submissionDefinition, item, metadataSecurityConfiguration));
   }
 
   /**

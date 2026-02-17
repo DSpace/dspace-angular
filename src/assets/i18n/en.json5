@@ -1379,6 +1379,10 @@
 
   "collection.form.errors.title.required": "Please enter a collection name",
 
+  "collection.form.errors.submissionDefinition.required": "Please choose a submission definition for this collection",
+
+  "collection.form.errors.entityType.required": "Please choose an entity type for this collection",
+
   "collection.form.license": "License",
 
   "collection.form.provenance": "Provenance",

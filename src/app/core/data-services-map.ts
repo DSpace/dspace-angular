@@ -59,6 +59,7 @@ import { VERSION_HISTORY } from './shared/version-history.resource-type';
 import { USAGE_REPORT } from './statistics/models/usage-report.resource-type';
 import { CorrectionType } from './submission/models/correctiontype.model';
 import { EditItem } from './submission/models/edititem.model';
+import { METADATA_SECURITY_TYPE } from './submission/models/metadata-security-config.resource-type';
 import { SUBMISSION_CC_LICENSE } from './submission/models/submission-cc-licence.resource-type';
 import { SUBMISSION_CC_LICENSE_URL } from './submission/models/submission-cc-licence-link.resource-type';
 import {
@@ -140,4 +141,5 @@ export const LAZY_DATA_SERVICES: LazyDataServicesMap = new Map([
   [CorrectionType.type.value, () => import('./submission/correctiontype-data.service').then(m => m.CorrectionTypeDataService)],
   [AUDIT.value, () => import('./data/audit-data.service').then(m => m.AuditDataService)],
   [EditItem.type.value, () => import('./submission/edititem-data.service').then(m => m.EditItemDataService)],
+  [METADATA_SECURITY_TYPE.value, () => import('./submission/metadatasecurityconfig-data.service').then(m => m.MetadataSecurityConfigurationService)],
 ]);

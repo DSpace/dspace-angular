@@ -2,6 +2,7 @@
 import { SubmissionDefinitionsModel } from '@dspace/core/config/models/config-submission-definitions.model';
 import { type } from '@dspace/core/ngrx/type';
 import { Item } from '@dspace/core/shared/item.model';
+import { MetadataSecurityConfiguration } from '@dspace/core/submission/models/metadata-security-configuration';
 import {
   SectionScope,
   SectionVisibility,
@@ -131,6 +132,7 @@ export class InitSectionAction implements Action {
     enabled: boolean;
     data: WorkspaceitemSectionDataType;
     errors: SubmissionSectionError[];
+    metadataSecurityConfiguration?: MetadataSecurityConfiguration;
   };
 
   /**
@@ -158,6 +160,7 @@ export class InitSectionAction implements Action {
    *    the section's data
    * @param errors
    *    the section's errors
+   * @param metadataSecurityConfiguration
    */
   constructor(submissionId: string,
     sectionId: string,
@@ -169,7 +172,8 @@ export class InitSectionAction implements Action {
     visibility: SectionVisibility,
     enabled: boolean,
     data: WorkspaceitemSectionDataType,
-    errors: SubmissionSectionError[]) {
+    errors: SubmissionSectionError[],
+    metadataSecurityConfiguration?: MetadataSecurityConfiguration) {
     this.payload = { submissionId, sectionId, header, config, mandatory, scope, sectionType, visibility, enabled, data, errors };
   }
 }
@@ -416,6 +420,7 @@ export class InitSubmissionFormAction implements Action {
     sections: WorkspaceitemSectionsObject;
     item: Item;
     errors: SubmissionError;
+    metadataSecurityConfiguration?: MetadataSecurityConfiguration
   };
 
   /**
@@ -434,6 +439,7 @@ export class InitSubmissionFormAction implements Action {
    * @param item
    * @param errors
    *    the submission's sections errors
+   * @param metadataSecurityConfiguration
    */
   constructor(collectionId: string,
     submissionId: string,
@@ -441,8 +447,18 @@ export class InitSubmissionFormAction implements Action {
     submissionDefinition: SubmissionDefinitionsModel,
     sections: WorkspaceitemSectionsObject,
     item: Item,
-    errors: SubmissionError) {
-    this.payload = { collectionId, submissionId, selfUrl, submissionDefinition, sections, item, errors };
+    errors: SubmissionError,
+    metadataSecurityConfiguration?: MetadataSecurityConfiguration) {
+    this.payload = {
+      collectionId,
+      submissionId,
+      selfUrl,
+      submissionDefinition,
+      sections,
+      item,
+      errors,
+      metadataSecurityConfiguration,
+    };
   }
 }
 
@@ -640,6 +656,7 @@ export class ResetSubmissionFormAction implements Action {
     sections: WorkspaceitemSectionsObject;
     submissionDefinition: SubmissionDefinitionsModel;
     item: Item;
+    metadataSecurityConfiguration?: MetadataSecurityConfiguration;
   };
 
   /**
@@ -656,9 +673,18 @@ export class ResetSubmissionFormAction implements Action {
    * @param submissionDefinition
    *    the submission's form definition
    * @param item
+   * @param metadataSecurityConfiguration
    */
-  constructor(collectionId: string, submissionId: string, selfUrl: string, sections: WorkspaceitemSectionsObject, submissionDefinition: SubmissionDefinitionsModel, item: Item) {
-    this.payload = { collectionId, submissionId, selfUrl, sections, submissionDefinition, item };
+  constructor(collectionId: string, submissionId: string, selfUrl: string, sections: WorkspaceitemSectionsObject, submissionDefinition: SubmissionDefinitionsModel, item: Item, metadataSecurityConfiguration = null) {
+    this.payload = {
+      collectionId,
+      submissionId,
+      selfUrl,
+      sections,
+      submissionDefinition,
+      item,
+      metadataSecurityConfiguration,
+    };
   }
 }
 
