@@ -721,6 +721,7 @@ export class DefaultAppConfig implements AppConfig {
         },
       },
     ],
+    showDownloadLinkAsButton: true,
   };
 
   searchResult: SearchResultConfig = {

@@ -516,6 +516,7 @@ export const environment: BuildConfig = {
         },
       },
     ],
+    showDownloadLinkAsButton: false,
   },
 
   searchResult: {

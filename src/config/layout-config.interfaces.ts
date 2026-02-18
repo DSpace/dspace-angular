@@ -16,4 +16,5 @@ export interface AuthorityRefConfig extends Config {
 
 export interface LayoutConfig extends Config {
   authorityRef: AuthorityRefConfig[];
+  showDownloadLinkAsButton: boolean;
 }

@@ -3,18 +3,37 @@
     <ds-metadata-field-wrapper [label]="label | translate">
       <div class="file-section">
         @for (file of bitstreams; track file; let last = $last) {
-          <ds-file-download-link [bitstream]="file" [item]="item">
-          <span>
-            @if (primaryBitstreamId === file.id) {
-              <span class="badge bg-primary">{{ 'item.page.bitstreams.primary' | translate }}</span>
-            }
-            {{ dsoNameService.getName(file) }}
-          </span>
-            <span> ({{(file?.sizeBytes) | dsFileSize }})</span>
+          <ng-template #fileContent>
+            <span>
+              @if (primaryBitstreamId === file.id) {
+                <span class="badge bg-primary">
+                  {{ 'item.page.bitstreams.primary' | translate }}
+                </span>
+              }
+              {{ dsoNameService.getName(file) }}
+            </span>
+
+            <span>({{ file?.sizeBytes | dsFileSize }})</span>
+
             @if (!last) {
-              <span innerHTML="{{separator}}"></span>
+              <span [innerHTML]="separator"></span>
             }
-          </ds-file-download-link>
+          </ng-template>
+
+          @if (showLinkAsButton) {
+            <ds-file-download-button
+              [bitstream]="file"
+              [item]="item">
+              <ng-container *ngTemplateOutlet="fileContent"></ng-container>
+            </ds-file-download-button>
+          } @else {
+            <ds-file-download-link
+              [bitstream]="file"
+              [item]="item">
+              <ng-container *ngTemplateOutlet="fileContent"></ng-container>
+            </ds-file-download-link>
+          }
+
         }
         @if (isLoading) {
           <ds-loading message="{{'loading.default' | translate}}" [showMessage]="false"></ds-loading>

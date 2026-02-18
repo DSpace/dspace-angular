@@ -25,6 +25,7 @@ import {
 } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 
+import { FileDownloadButtonComponent } from '../../../../shared/file-download-button/file-download-button.component';
 import { ThemedFileDownloadLinkComponent } from '../../../../shared/file-download-link/themed-file-download-link.component';
 import { ThemedLoadingComponent } from '../../../../shared/loading/themed-loading.component';
 import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
@@ -40,6 +41,7 @@ import { VarDirective } from '../../../../shared/utils/var.directive';
   templateUrl: './file-section.component.html',
   imports: [
     CommonModule,
+    FileDownloadButtonComponent,
     FileSizePipe,
     MetadataFieldWrapperComponent,
     ThemedFileDownloadLinkComponent,
@@ -68,6 +70,8 @@ export class FileSectionComponent implements OnInit {
 
   primaryBitstreamId: string;
 
+  showLinkAsButton: boolean;
+
   constructor(
     protected bitstreamDataService: BitstreamDataService,
     protected notificationsService: NotificationsService,
@@ -76,6 +80,7 @@ export class FileSectionComponent implements OnInit {
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
   ) {
     this.pageSize = this.appConfig.item.bitstream.pageSize;
+    this.showLinkAsButton = this.appConfig.layout.showDownloadLinkAsButton;
   }
 
   ngOnInit(): void {
