@@ -8,6 +8,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { CollectionDataService } from '../../../../core/data/collection-data.service';
+import { ActionType } from '../../../../core/resource-policy/models/action-type.model';
 import { Collection } from '../../../../core/shared/collection.model';
 import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
 import { SearchService } from '../../../../core/shared/search/search.service';
@@ -33,7 +34,9 @@ describe('AuthorizedCollectionSelectorComponent', () => {
       id: 'authorized-collection',
     });
     collectionService = jasmine.createSpyObj('collectionService', {
-      getAuthorizedCollection: createSuccessfulRemoteDataObject$(createPaginatedList([collection])),
+      getSubmitAuthorizedCollection: createSuccessfulRemoteDataObject$(createPaginatedList([collection])),
+      getAdminAuthorizedCollection: createSuccessfulRemoteDataObject$(createPaginatedList([collection])),
+      getEditAuthorizedCollection: createSuccessfulRemoteDataObject$(createPaginatedList([collection])),
       getAuthorizedCollectionByEntityType: createSuccessfulRemoteDataObject$(createPaginatedList([collection])),
     });
     notificationsService = jasmine.createSpyObj('notificationsService', ['error']);
@@ -60,23 +63,41 @@ describe('AuthorizedCollectionSelectorComponent', () => {
   });
 
   describe('search', () => {
-    describe('when has no entity type', () => {
-      it('should call getAuthorizedCollection and return the authorized collection in a SearchResult', (done) => {
-        component.search('', 1).subscribe((resultRD) => {
-          expect(collectionService.getAuthorizedCollection).toHaveBeenCalled();
-          expect(resultRD.payload.page.length).toEqual(1);
-          expect(resultRD.payload.page[0].indexableObject).toEqual(collection);
-          done();
+    describe('when action type is ADD', () => {
+      describe('when has no entity type', () => {
+        it('should call getSubmitAuthorizedCollection and return the authorized collection in a SearchResult', (done) => {
+          component.action = ActionType.ADD;
+          fixture.detectChanges();
+          component.search('', 1).subscribe((resultRD) => {
+            expect(collectionService.getSubmitAuthorizedCollection).toHaveBeenCalled();
+            expect(resultRD.payload.page.length).toEqual(1);
+            expect(resultRD.payload.page[0].indexableObject).toEqual(collection);
+            done();
+          });
+        });
+      });
+
+      describe('when has entity type', () => {
+        it('should call getAuthorizedCollectionByEntityType and return the authorized collection in a SearchResult', (done) => {
+          component.entityType = 'test';
+          component.action = ActionType.ADD;
+          fixture.detectChanges();
+          component.search('', 1).subscribe((resultRD) => {
+            expect(collectionService.getAuthorizedCollectionByEntityType).toHaveBeenCalled();
+            expect(resultRD.payload.page.length).toEqual(1);
+            expect(resultRD.payload.page[0].indexableObject).toEqual(collection);
+            done();
+          });
         });
       });
     });
 
-    describe('when has entity type', () => {
-      it('should call getAuthorizedCollectionByEntityType and return the authorized collection in a SearchResult', (done) => {
-        component.entityType = 'test';
+    describe('when action type is WRITE', () => {
+      it('should call getEditAuthorizedCollection', (done) => {
+        component.action = ActionType.WRITE;
         fixture.detectChanges();
         component.search('', 1).subscribe((resultRD) => {
-          expect(collectionService.getAuthorizedCollectionByEntityType).toHaveBeenCalled();
+          expect(collectionService.getEditAuthorizedCollection).toHaveBeenCalled();
           expect(resultRD.payload.page.length).toEqual(1);
           expect(resultRD.payload.page[0].indexableObject).toEqual(collection);
           done();
@@ -84,18 +105,15 @@ describe('AuthorizedCollectionSelectorComponent', () => {
       });
     });
 
-    describe('when using searchHref', () => {
-      it('should call getAuthorizedCollection with "findAdminAuthorized" when overridden', (done) => {
-        component.searchHref = 'findAdminAuthorized';
-
-        component.search('', 1).subscribe(() => {
-          expect(collectionService.getAuthorizedCollection).toHaveBeenCalledWith(
-            '', jasmine.any(Object), true, false, 'findAdminAuthorized', jasmine.anything(),
-          );
+    describe('when action is not provided', () => {
+      it('should call getAdminAuthorizedCollection', (done) => {
+        component.search('', 1).subscribe((resultRD) => {
+          expect(collectionService.getAdminAuthorizedCollection).toHaveBeenCalled();
+          expect(resultRD.payload.page.length).toEqual(1);
+          expect(resultRD.payload.page[0].indexableObject).toEqual(collection);
           done();
         });
       });
     });
-
   });
 });

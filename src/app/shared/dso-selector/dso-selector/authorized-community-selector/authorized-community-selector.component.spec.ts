@@ -6,6 +6,7 @@ import {
 } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
+import { ActionType } from 'src/app/core/resource-policy/models/action-type.model';
 
 import { CommunityDataService } from '../../../../core/data/community-data.service';
 import { Community } from '../../../../core/shared/community.model';
@@ -33,7 +34,9 @@ describe('AuthorizedCommunitySelectorComponent', () => {
       id: 'authorized-community',
     });
     communityService = jasmine.createSpyObj('communityService', {
-      getAuthorizedCommunity: createSuccessfulRemoteDataObject$(createPaginatedList([community])),
+      getAddAuthorizedCommunity: createSuccessfulRemoteDataObject$(createPaginatedList([community])),
+      getEditAuthorizedCommunity: createSuccessfulRemoteDataObject$(createPaginatedList([community])),
+      getAdminAuthorizedCommunity: createSuccessfulRemoteDataObject$(createPaginatedList([community])),
     });
     notificationsService = jasmine.createSpyObj('notificationsService', ['error']);
     TestBed.configureTestingModule({
@@ -59,12 +62,38 @@ describe('AuthorizedCommunitySelectorComponent', () => {
   });
 
   describe('search', () => {
-    it('should call getAuthorizedCommunity and return the authorized community in a SearchResult', (done) => {
-      component.search('', 1).subscribe((resultRD) => {
-        expect(communityService.getAuthorizedCommunity).toHaveBeenCalled();
-        expect(resultRD.payload.page.length).toEqual(1);
-        expect(resultRD.payload.page[0].indexableObject).toEqual(community);
-        done();
+    describe('when action type is ADD', () => {
+      it('should call getAddAuthorizedCommunity and return the authorized community in a SearchResult', (done) => {
+        component.action = ActionType.ADD;
+        fixture.detectChanges();
+        component.search('', 1).subscribe((resultRD) => {
+          expect(communityService.getAddAuthorizedCommunity).toHaveBeenCalled();
+          expect(resultRD.payload.page.length).toEqual(1);
+          expect(resultRD.payload.page[0].indexableObject).toEqual(community);
+          done();
+        });
+      });
+    });
+    describe('when action type is WRITE', () => {
+      it('should call getEditAuthorizedCommunity and return the authorized community in a SearchResult', (done) => {
+        component.action = ActionType.WRITE;
+        fixture.detectChanges();
+        component.search('', 1).subscribe((resultRD) => {
+          expect(communityService.getEditAuthorizedCommunity).toHaveBeenCalled();
+          expect(resultRD.payload.page.length).toEqual(1);
+          expect(resultRD.payload.page[0].indexableObject).toEqual(community);
+          done();
+        });
+      });
+    });
+    describe('when action type is not provided', () => {
+      it('should call getAdminAuthorizedCommunity and return the authorized community in a SearchResult', (done) => {
+        component.search('', 1).subscribe((resultRD) => {
+          expect(communityService.getAdminAuthorizedCommunity).toHaveBeenCalled();
+          expect(resultRD.payload.page.length).toEqual(1);
+          expect(resultRD.payload.page[0].indexableObject).toEqual(community);
+          done();
+        });
       });
     });
   });
