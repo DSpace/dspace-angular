@@ -113,6 +113,12 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
   @Input() entityType: string;
 
   /**
+   * Search endpoint to use for finding authorized collections.
+   * Defaults to 'findSubmitAuthorized', but can be overridden (e.g. to 'findAdminAuthorized')
+   */
+  @Input() searchHref = 'findSubmitAuthorized';
+
+  /**
    * Emit to notify whether search is complete
    */
   @Output() searchComplete = new EventEmitter<any>();
@@ -220,7 +226,7 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
         followLink('parentCommunity'));
     } else {
       searchListService$ = this.collectionDataService
-      .getAuthorizedCollection(query, findOptions, true, true, followLink('parentCommunity'));
+        .getAuthorizedCollection(query, findOptions, true, true, this.searchHref, followLink('parentCommunity'));
     }
     this.searchListCollection$ = searchListService$.pipe(
         getFirstCompletedRemoteData(),

@@ -6,6 +6,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { DSOSelectorModalWrapperComponent, SelectorActionType } from '../dso-selector-modal-wrapper.component';
 import { SortDirection, SortOptions } from '../../../../core/cache/models/sort-options.model';
 import { environment } from '../../../../../environments/environment';
+import { ActionType } from 'src/app/core/resource-policy/models/action-type.model';
 
 /**
  * Component to wrap a list of existing collections inside a modal
@@ -22,6 +23,7 @@ export class CreateItemParentSelectorComponent extends DSOSelectorModalWrapperCo
   objectType = DSpaceObjectType.ITEM;
   selectorTypes = [DSpaceObjectType.COLLECTION];
   action = SelectorActionType.CREATE;
+  rpActionType = ActionType.ADD;
   header = 'dso-selector.create.item.sub-level';
   defaultSort = new SortOptions(environment.comcolSelectionSort.sortField, environment.comcolSelectionSort.sortDirection as SortDirection);
 

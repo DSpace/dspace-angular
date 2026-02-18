@@ -6,6 +6,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { DSOSelectorModalWrapperComponent, SelectorActionType } from '../dso-selector-modal-wrapper.component';
 import { getItemEditRoute } from '../../../../item-page/item-page-routing-paths';
 import { Item } from '../../../../core/shared/item.model';
+import { ActionType } from 'src/app/core/resource-policy/models/action-type.model';
 
 /**
  * Component to wrap a list of existing items inside a modal
@@ -20,6 +21,7 @@ export class EditItemSelectorComponent extends DSOSelectorModalWrapperComponent 
   objectType = DSpaceObjectType.ITEM;
   selectorTypes = [DSpaceObjectType.ITEM];
   action = SelectorActionType.EDIT;
+  rpActionType = ActionType.WRITE;
 
   constructor(protected activeModal: NgbActiveModal, protected route: ActivatedRoute, private router: Router) {
     super(activeModal, route);

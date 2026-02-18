@@ -17,6 +17,7 @@ import { environment } from '../../../../../environments/environment';
 import { FeatureID } from '../../../../core/data/feature-authorization/feature-id';
 import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
 import { Observable } from 'rxjs';
+import { ActionType } from 'src/app/core/resource-policy/models/action-type.model';
 
 /**
  * Component to wrap a button - for top communities -
@@ -34,6 +35,7 @@ export class CreateCommunityParentSelectorComponent extends DSOSelectorModalWrap
   objectType = DSpaceObjectType.COMMUNITY;
   selectorTypes = [DSpaceObjectType.COMMUNITY];
   action = SelectorActionType.CREATE;
+  rpActionType = ActionType.ADD;
   defaultSort = new SortOptions(environment.comcolSelectionSort.sortField, environment.comcolSelectionSort.sortDirection as SortDirection);
   isAdmin$: Observable<boolean>;
 
@@ -42,7 +44,6 @@ export class CreateCommunityParentSelectorComponent extends DSOSelectorModalWrap
   }
 
   ngOnInit() {
-    super.ngOnInit();
     this.isAdmin$ = this.authorizationService.isAuthorized(FeatureID.AdministratorOf);
   }
 

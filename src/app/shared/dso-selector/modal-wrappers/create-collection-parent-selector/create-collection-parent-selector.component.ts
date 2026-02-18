@@ -10,6 +10,7 @@ import {
 } from '../../../../collection-page/collection-page-routing-paths';
 import { SortDirection, SortOptions } from '../../../../core/cache/models/sort-options.model';
 import { environment } from '../../../../../environments/environment';
+import { ActionType } from 'src/app/core/resource-policy/models/action-type.model';
 /**
  * Component to wrap a list of existing communities inside a modal
  * Used to choose a community from to create a new collection in
@@ -17,12 +18,13 @@ import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'ds-create-collection-parent-selector',
-  templateUrl: '../dso-selector-modal-wrapper.component.html',
+  templateUrl: './create-collection-parent-selector.component.html',
 })
 export class CreateCollectionParentSelectorComponent extends DSOSelectorModalWrapperComponent implements OnInit {
   objectType = DSpaceObjectType.COLLECTION;
   selectorTypes = [DSpaceObjectType.COMMUNITY];
   action = SelectorActionType.CREATE;
+  rpActionType = ActionType.ADD;
   header = 'dso-selector.create.collection.sub-level';
   defaultSort = new SortOptions(environment.comcolSelectionSort.sortField, environment.comcolSelectionSort.sortDirection as SortDirection);
 
