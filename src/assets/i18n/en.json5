@@ -2503,6 +2503,12 @@
 
   "item.edit.delete.success": "Successfully started a process to delete this item",
 
+  "item.edit.delete.confirmation-title": "Confirm deletion",
+  
+  "item.edit.delete.confirmation-message": "Are you sure you want to permanently delete this item?",
+   
+  "item.edit.delete.confirmation-detail": "This item may have been cited, has (or had) a persistent identifier (Handle/DOI), and deleting it may break scholarly references and external links.",
+
   "item.edit.head": "Edit Item",
 
   "item.edit.breadcrumbs": "Edit Item",
