@@ -147,7 +147,7 @@ export class SearchService {
     }
   }
 
-  getSuggestEndpoint(searchOptions?: PaginatedSearchOptions): Observable<string> {
+  getDiscoverEndpoint(searchOptions?: PaginatedSearchOptions): Observable<string> {
     // TODO: HAL link to 'suggest' endpoint does not exist yet, need to fix this
     return this.halService.getEndpoint('discover').pipe(
       map((url: string) => {
@@ -359,7 +359,7 @@ export class SearchService {
    * @returns serialised JSON of Solr term suggestions
    */
   getSuggestionsFor(query: string, dictionary: string): Observable<SuggestionEntry[]> {
-    return this.getSuggestEndpoint().pipe(
+    return this.getDiscoverEndpoint().pipe(
       take(1),
       switchMap((baseUrl: string) => {
         const href = new URLCombiner(baseUrl, 'suggest').toString();
@@ -375,12 +375,16 @@ export class SearchService {
         this.requestService.send(request, false);
         return this.rdb.buildFromRequestUUID(request.uuid).pipe(
           getFirstSucceededRemoteDataPayload(),
-          map((data: any) => data.suggest[dictionary][query].suggestions
-            ?.map(((suggestion: any) => new SuggestionEntry(
-              new DOMParser().parseFromString(suggestion.term, 'text/html')
-                .body.textContent,
-              this.sanitizer.bypassSecurityTrustHtml(suggestion.term),
-              suggestion.weight)))));
+          map((data: any) => {
+            if (data.suggest && data.suggest[dictionary] && data.suggest[dictionary][query]?.suggestions) {
+              return data.suggest[dictionary][query].suggestions
+                .map(((suggestion: any) => new SuggestionEntry(
+                  new DOMParser().parseFromString(suggestion.term, 'text/html')
+                    .body.textContent,
+                  this.sanitizer.bypassSecurityTrustHtml(suggestion.term),
+                  suggestion.weight)));
+            }
+          }));
       }));
   }
 
