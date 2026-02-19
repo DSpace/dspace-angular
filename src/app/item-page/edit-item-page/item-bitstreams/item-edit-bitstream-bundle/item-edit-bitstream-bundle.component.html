@@ -34,7 +34,7 @@
               <th id="{{ bundleName }}" class="row-element" colspan="3" scope="colgroup">
                 {{'item.edit.bitstreams.bundle.name' | translate:{ name: bundleName } }}
               </th>
-              <td class="text-center row-element">
+              <td class="text-center row-element {{ columnSizes.columns[3].buildClasses() }}">
                 <div class="btn-group">
                   <button [routerLink]="[itemPageRoute, 'bitstreams', 'new']"
                     [queryParams]="{bundle: bundle.id}"
