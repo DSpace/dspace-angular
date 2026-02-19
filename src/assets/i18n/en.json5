@@ -7291,4 +7291,16 @@
   "item.preview.organization.address.addressLocality": "City",
 
   "item.preview.organization.alternateName": "Alternative name",
+
+  "item.page.extended-file-section": "Bitstreams",
+
+  "file.section.name": "Document",
+
+  "file.section.type": "Type",
+
+  "file.section.size": "Size",
+
+  "dataset.page.titleprefix": "Dataset",
+
+  "dataset.listelement.badge": "Dataset",
 }
