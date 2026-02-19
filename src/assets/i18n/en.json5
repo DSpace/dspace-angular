@@ -7363,4 +7363,16 @@
   "metadata-link-view.popover.label.other.dc.description.abstract": "Description",
 
   "metadata-link-view.popover.label.more-info": "More info",
+
+  "item.page.extended-file-section": "Bitstreams",
+
+  "file.section.name": "Document",
+
+  "file.section.type": "Type",
+
+  "file.section.size": "Size",
+
+  "dataset.page.titleprefix": "Dataset",
+
+  "dataset.listelement.badge": "Dataset"
 }
