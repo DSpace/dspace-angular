@@ -185,7 +185,7 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
         this.canDeactivate = res;
       }),
       this.route.paramMap.pipe(
-        switchMap((params: ParamMap) => this.submissionService.retrieveSubmission(params.get('id'), ['allLanguages']).pipe(
+        switchMap((params: ParamMap) => this.submissionService.retrieveSubmission(params.get('id'), ['full','allLanguages']).pipe(
           // NOTE new submission is retrieved on the browser side only, so get null on server side rendering
           filter((submissionObjectRD: RemoteData<SubmissionObject>) => isNotNull(submissionObjectRD)),
           mergeMap((submissionObjectRD: RemoteData<SubmissionObject>) => combineLatest([

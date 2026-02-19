@@ -41,7 +41,6 @@ export class EditItemDetailsMenuProvider extends DSpaceObjectPageMenuProvider {
     return this.editItemService.searchEditModesById(dso.id).pipe(
       getAllSucceededRemoteDataPayload(),
       getPaginatedListPayload(),
-      startWith([]),
       map((editModes: EditItemMode[]) => {
         return editModes.map(editMode => {
           return {
