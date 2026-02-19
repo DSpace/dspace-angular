@@ -123,6 +123,7 @@ import { PublicationSidebarSearchListElementComponent } from './object-list/side
 import { ThemedResultsBackButtonComponent } from './results-back-button/themed-results-back-button.component';
 import { TruncatableComponent } from './truncatable/truncatable.component';
 import { TruncatablePartComponent } from './truncatable/truncatable-part/truncatable-part.component';
+import {DatasetComponent} from "../item-page/simple/item-types/dataset/dataset.component";
 
 const ENTRY_COMPONENTS = [
   ...THEME_LISTABLE_COMPONENTS,
@@ -208,6 +209,7 @@ const ENTRY_COMPONENTS = [
   PoolSearchResultDetailElementComponent,
   ItemSearchResultListElementSubmissionComponent,
   PublicationComponent,
+  DatasetComponent,
   UntypedItemComponent,
 ];
 
