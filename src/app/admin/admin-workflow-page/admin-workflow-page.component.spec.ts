@@ -5,8 +5,8 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 
-import { ThemedConfigurationSearchPageComponent } from '../../search-page/themed-configuration-search-page.component';
 import { AdminWorkflowPageComponent } from './admin-workflow-page.component';
+import { ThemedSearchComponent } from '../../shared/search/themed-search.component';
 
 describe('AdminSearchPageComponent', () => {
   let component: AdminWorkflowPageComponent;
@@ -20,7 +20,7 @@ describe('AdminSearchPageComponent', () => {
       .overrideComponent(AdminWorkflowPageComponent, {
         remove: {
           imports: [
-            ThemedConfigurationSearchPageComponent,
+            ThemedSearchComponent,
           ],
         },
       })

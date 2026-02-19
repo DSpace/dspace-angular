@@ -18,17 +18,25 @@ import {
 
 import { Site } from '../core/shared/site.model';
 import { SuggestionsPopupComponent } from '../notifications/suggestions/popup/suggestions-popup.component';
-import { ThemedConfigurationSearchPageComponent } from '../search-page/themed-configuration-search-page.component';
 import { ThemedSearchFormComponent } from '../shared/search-form/themed-search-form.component';
 import { HomeCoarComponent } from './home-coar/home-coar.component';
 import { ThemedHomeNewsComponent } from './home-news/themed-home-news.component';
 import { RecentItemListComponent } from './recent-item-list/recent-item-list.component';
 import { ThemedTopLevelCommunityListComponent } from './top-level-community-list/themed-top-level-community-list.component';
+import { ThemedSearchComponent } from '../shared/search/themed-search.component';
+import { SEARCH_CONFIG_SERVICE } from '../my-dspace-page/my-dspace-configuration.service';
+import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
 
 @Component({
   selector: 'ds-base-home-page',
   styleUrls: ['./home-page.component.scss'],
   templateUrl: './home-page.component.html',
+  providers: [
+    {
+      provide: SEARCH_CONFIG_SERVICE,
+      useClass: SearchConfigurationService,
+    },
+  ],
   standalone: true,
   imports: [
     AsyncPipe,
@@ -36,11 +44,11 @@ import { ThemedTopLevelCommunityListComponent } from './top-level-community-list
     NgTemplateOutlet,
     RecentItemListComponent,
     SuggestionsPopupComponent,
-    ThemedConfigurationSearchPageComponent,
     ThemedHomeNewsComponent,
     ThemedSearchFormComponent,
     ThemedTopLevelCommunityListComponent,
     TranslateModule,
+    ThemedSearchComponent,
   ],
 })
 export class HomePageComponent implements OnInit {

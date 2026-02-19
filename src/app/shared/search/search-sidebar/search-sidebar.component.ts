@@ -31,6 +31,7 @@ import { ThemedSearchFiltersComponent } from '../search-filters/themed-search-fi
 import { ThemedSearchSettingsComponent } from '../search-settings/themed-search-settings.component';
 import { SearchConfigurationOption } from '../search-switch-configuration/search-configuration-option.model';
 import { SearchSwitchConfigurationComponent } from '../search-switch-configuration/search-switch-configuration.component';
+import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 
 /**
  * This component renders a simple item page.
@@ -138,7 +139,7 @@ export class SearchSidebarComponent implements OnInit {
 
   constructor(
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
-    protected searchConfigurationService: SearchConfigurationService,
+    @Inject(SEARCH_CONFIG_SERVICE) protected searchConfigurationService: SearchConfigurationService,
   ) {
   }
 

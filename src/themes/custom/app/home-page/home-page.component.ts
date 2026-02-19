@@ -11,8 +11,10 @@ import { HomePageComponent as BaseComponent } from '../../../../app/home-page/ho
 import { RecentItemListComponent } from '../../../../app/home-page/recent-item-list/recent-item-list.component';
 import { ThemedTopLevelCommunityListComponent } from '../../../../app/home-page/top-level-community-list/themed-top-level-community-list.component';
 import { SuggestionsPopupComponent } from '../../../../app/notifications/suggestions/popup/suggestions-popup.component';
-import { ThemedConfigurationSearchPageComponent } from '../../../../app/search-page/themed-configuration-search-page.component';
 import { ThemedSearchFormComponent } from '../../../../app/shared/search-form/themed-search-form.component';
+import { ThemedSearchComponent } from '../../../../app/shared/search/themed-search.component';
+import { SEARCH_CONFIG_SERVICE } from '../../../../app/my-dspace-page/my-dspace-configuration.service';
+import { SearchConfigurationService } from '../../../../app/core/shared/search/search-configuration.service';
 
 @Component({
   selector: 'ds-themed-home-page',
@@ -20,6 +22,12 @@ import { ThemedSearchFormComponent } from '../../../../app/shared/search-form/th
   styleUrls: ['../../../../app/home-page/home-page.component.scss'],
   // templateUrl: './home-page.component.html'
   templateUrl: '../../../../app/home-page/home-page.component.html',
+  providers: [
+    {
+      provide: SEARCH_CONFIG_SERVICE,
+      useClass: SearchConfigurationService,
+    },
+  ],
   standalone: true,
   imports: [
     AsyncPipe,
@@ -27,11 +35,11 @@ import { ThemedSearchFormComponent } from '../../../../app/shared/search-form/th
     NgTemplateOutlet,
     RecentItemListComponent,
     SuggestionsPopupComponent,
-    ThemedConfigurationSearchPageComponent,
     ThemedHomeNewsComponent,
     ThemedSearchFormComponent,
     ThemedTopLevelCommunityListComponent,
     TranslateModule,
+    ThemedSearchComponent,
   ],
 })
 export class HomePageComponent extends BaseComponent {

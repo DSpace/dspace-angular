@@ -1,14 +1,14 @@
 <ds-home-coar></ds-home-coar>
 <ds-home-news></ds-home-news>
 @if (showDiscoverFilters) {
-  <ds-configuration-search-page
+  <ds-search
     [sideBarWidth]="3"
     [showViewModes]="false"
     [searchEnabled]="false"
     [inPlaceSearch]="false"
     [showScopeSelector]="false">
     <ng-container searchContentTop *ngTemplateOutlet="homeContent"></ng-container>
-  </ds-configuration-search-page>
+  </ds-search>
 }
 @if (!showDiscoverFilters) {
   <div class="container">

@@ -68,7 +68,6 @@ import { DenyRequestCopyComponent } from './app/request-copy/deny-request-copy/d
 import { EmailRequestCopyComponent } from './app/request-copy/email-request-copy/email-request-copy.component';
 import { GrantRequestCopyComponent } from './app/request-copy/grant-request-copy/grant-request-copy.component';
 import { RootComponent } from './app/root/root.component';
-import { ConfigurationSearchPageComponent } from './app/search-page/configuration-search-page.component';
 import { SearchPageComponent } from './app/search-page/search-page.component';
 import { AuthNavMenuComponent } from './app/shared/auth-nav-menu/auth-nav-menu.component';
 import { UserMenuComponent } from './app/shared/auth-nav-menu/user-menu/user-menu.component';
@@ -118,7 +117,6 @@ const DECLARATIONS = [
   RootComponent,
   CommunityListPageComponent,
   SearchPageComponent,
-  ConfigurationSearchPageComponent,
   SearchFormComponent,
   EndUserAgreementComponent,
   PageNotFoundComponent,

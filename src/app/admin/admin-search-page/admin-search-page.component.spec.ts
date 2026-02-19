@@ -6,9 +6,9 @@ import {
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 
-import { ThemedConfigurationSearchPageComponent } from '../../search-page/themed-configuration-search-page.component';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { AdminSearchPageComponent } from './admin-search-page.component';
+import { ThemedSearchComponent } from '../../shared/search/themed-search.component';
 
 describe('AdminSearchPageComponent', () => {
   let component: AdminSearchPageComponent;
@@ -23,7 +23,9 @@ describe('AdminSearchPageComponent', () => {
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(AdminSearchPageComponent, {
       remove: {
-        imports: [ThemedConfigurationSearchPageComponent],
+        imports: [
+          ThemedSearchComponent,
+        ],
       },
     })
       .compileComponents();

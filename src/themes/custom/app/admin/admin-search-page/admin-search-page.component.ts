@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 import { AdminSearchPageComponent as BaseComponent } from '../../../../../app/admin/admin-search-page/admin-search-page.component';
-import { ThemedConfigurationSearchPageComponent } from '../../../../../app/search-page/themed-configuration-search-page.component';
+import { ThemedSearchComponent } from '../../../../../app/shared/search/themed-search.component';
 
 @Component({
   selector: 'ds-themed-admin-search-page',
@@ -11,7 +11,7 @@ import { ThemedConfigurationSearchPageComponent } from '../../../../../app/searc
   templateUrl: '../../../../../app/admin/admin-search-page/admin-search-page.component.html',
   standalone: true,
   imports: [
-    ThemedConfigurationSearchPageComponent,
+    ThemedSearchComponent,
   ],
 })
 export class AdminSearchPageComponent extends BaseComponent {

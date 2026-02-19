@@ -1,7 +1,7 @@
 import { AsyncPipe } from '@angular/common';
 import {
   Component,
-  EventEmitter,
+  EventEmitter, Inject,
   Input,
   OnChanges,
   Output,
@@ -31,6 +31,7 @@ import {
 import { BrowserOnlyPipe } from '../utils/browser-only.pipe';
 import { currentPath } from '../utils/route.utils';
 import { ScopeSelectorModalComponent } from './scope-selector-modal/scope-selector-modal.component';
+import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 
 @Component({
   selector: 'ds-base-search-form',
@@ -104,7 +105,7 @@ export class SearchFormComponent implements OnChanges {
     protected searchService: SearchService,
     protected searchFilterService: SearchFilterService,
     protected paginationService: PaginationService,
-    protected searchConfig: SearchConfigurationService,
+    @Inject(SEARCH_CONFIG_SERVICE) protected searchConfig: SearchConfigurationService,
     protected modalService: NgbModal,
     protected dsoService: DSpaceObjectDataService,
     public dsoNameService: DSONameService,

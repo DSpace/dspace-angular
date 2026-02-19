@@ -1,7 +1,7 @@
 import { AsyncPipe } from '@angular/common';
 import {
   Component,
-  EventEmitter,
+  EventEmitter, Inject,
   Input,
   Output,
 } from '@angular/core';
@@ -39,6 +39,7 @@ import { SearchFilter } from '../models/search-filter.model';
 import { SearchResult } from '../models/search-result.model';
 import { SearchExportCsvComponent } from '../search-export-csv/search-export-csv.component';
 import { SearchResultsSkeletonComponent } from './search-results-skeleton/search-results-skeleton.component';
+import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 
 export interface SelectionConfig {
   repeatable: boolean;
@@ -154,7 +155,7 @@ export class SearchResultsComponent {
   @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
 
   constructor(
-    protected searchConfigService: SearchConfigurationService,
+    @Inject(SEARCH_CONFIG_SERVICE) protected searchConfigService: SearchConfigurationService,
     protected searchService: SearchService,
   ) {
     this.activeFilters$ = this.searchConfigService.getCurrentFilters();
