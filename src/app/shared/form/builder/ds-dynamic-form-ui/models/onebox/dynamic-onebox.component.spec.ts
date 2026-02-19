@@ -142,6 +142,7 @@ describe('DsDynamicOneboxComponent test suite', () => {
     vocabularyServiceStub = new VocabularyServiceStub();
     searchServiceStub = new SearchServiceStub();
 
+
     modal = jasmine.createSpyObj('modal',
       {
         open: jasmine.createSpy('open'),
@@ -470,6 +471,33 @@ describe('DsDynamicOneboxComponent test suite', () => {
     });
 
   });
+
+  describe('When vocabulary type is \'suggest\'', () => {
+    beforeEach(() => {
+      oneboxCompFixture = TestBed.createComponent(DsDynamicOneboxComponent);
+      oneboxComponent = oneboxCompFixture.componentInstance; // FormComponent test instance
+      oneboxComponent.group = ONEBOX_TEST_GROUP;
+      oneboxComponent.model = new DynamicOneboxModel(ONEBOX_TEST_MODEL_CONFIG);
+      oneboxComponent.model.vocabularyOptions.type = 'suggest';
+      oneboxComponent.model.vocabularyOptions.name = 'authors';
+      spyOn(oneboxComponent, 'setCurrentValue').and.callThrough();
+      spyOn(searchServiceStub, 'getSuggestionsFor');
+    });
+
+    it('should not call setCurrentValue with \'init\' during init', () => {
+      oneboxComponent.model.value = 'hi!';
+      oneboxComponent.ngOnInit();
+      expect(oneboxComponent.setCurrentValue)
+        .toHaveBeenCalledWith('hi!', false);
+    });
+
+    it('should call getSuggestionsFor() when searching', fakeAsync(() => {
+      oneboxComponent.search(of('hello')).subscribe();
+      tick(400);
+      expect(searchServiceStub.getSuggestionsFor).toHaveBeenCalledWith(
+        'hello', 'authors');
+    }));
+  });
 });
 
 // declare a test component
@@ -491,4 +519,3 @@ class TestComponent {
   model = new DynamicOneboxModel(ONEBOX_TEST_MODEL_CONFIG);
 
 }
-
