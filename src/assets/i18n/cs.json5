@@ -3124,6 +3124,9 @@
   // "form.other-information.orcid": "ORCID",
   "form.other-information.orcid": "ORCID",
 
+  // "form.other-information.weight": "Weight",
+  "form.other-information.weight": "Hmotnost",
+
   // "form.remove": "Remove",
   "form.remove": "Odstranit",
 

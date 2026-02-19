@@ -1,5 +1,6 @@
 /* eslint-disable max-classes-per-file */
 import { Injectable } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
 import { BaseDataService } from '@dspace/core/data/base/base-data.service';
 import { DSpaceObjectDataService } from '@dspace/core/data/dspace-object-data.service';
@@ -20,6 +21,7 @@ import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
 import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
 import {
   getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
   getRemoteDataPayload,
 } from '@dspace/core/shared/operators';
 import { AppliedFilter } from '@dspace/core/shared/search/models/applied-filter.model';
@@ -52,6 +54,7 @@ import {
 
 import { SearchConfigurationService } from './search-configuration.service';
 import { getSearchResultFor } from './search-result-element-decorator';
+import { SuggestionEntry } from './suggestion-entry.model';
 
 /**
  * A limited data service implementation for the 'discover' endpoint
@@ -113,6 +116,7 @@ export class SearchService {
     private paginationService: PaginationService,
     private searchConfigurationService: SearchConfigurationService,
     private angulartics2: Angulartics2,
+    private sanitizer: DomSanitizer,
   ) {
     this.searchDataService = new SearchDataService();
   }
@@ -143,6 +147,18 @@ export class SearchService {
     }
   }
 
+  getSuggestEndpoint(searchOptions?: PaginatedSearchOptions): Observable<string> {
+    // TODO: HAL link to 'suggest' endpoint does not exist yet, need to fix this
+    return this.halService.getEndpoint('discover').pipe(
+      map((url: string) => {
+        if (hasValue(searchOptions)) {
+          return (searchOptions as PaginatedSearchOptions).toRestUrl(url);
+        } else {
+          return url;
+        }
+      }),
+    );
+  }
   getEndpoint(searchOptions?: PaginatedSearchOptions): Observable<string> {
     return this.halService.getEndpoint(this.searchLinkPath).pipe(
       map((url: string) => {
@@ -334,6 +350,38 @@ export class SearchService {
         }
       }),
     );
+  }
+
+  /**
+   * Get Solr suggestions as serialised JSON, for the given search query and dictionary name
+   * @param {string} query the search query
+   * @param {string} dictionary the configured dictionary in solrconfig.xml
+   * @returns serialised JSON of Solr term suggestions
+   */
+  getSuggestionsFor(query: string, dictionary: string): Observable<SuggestionEntry[]> {
+    return this.getSuggestEndpoint().pipe(
+      take(1),
+      switchMap((baseUrl: string) => {
+        const href = new URLCombiner(baseUrl, 'suggest').toString();
+        const request = new this.request(
+          this.requestService.generateRequestId(),
+          href, null,
+          {
+            params: {
+              dict: dictionary,
+              q: query,
+            },
+          });
+        this.requestService.send(request, false);
+        return this.rdb.buildFromRequestUUID(request.uuid).pipe(
+          getFirstSucceededRemoteDataPayload(),
+          map((data: any) => data.suggest[dictionary][query].suggestions
+            ?.map(((suggestion: any) => new SuggestionEntry(
+              new DOMParser().parseFromString(suggestion.term, 'text/html')
+                .body.textContent,
+              this.sanitizer.bypassSecurityTrustHtml(suggestion.term),
+              suggestion.weight)))));
+      }));
   }
 
   /**
