@@ -84,6 +84,9 @@ import { RatingAdvancedWorkflowInfo } from './tasks/models/rating-advanced-workf
 import { SelectReviewerAdvancedWorkflowInfo } from './tasks/models/select-reviewer-advanced-workflow-info.model';
 import { TaskObject } from './tasks/models/task-object.model';
 import { WorkflowAction } from './tasks/models/workflow-action-object.model';
+import { DiscoveryConfiguration } from '../shared/search/models/discovery-configuration.model';
+import { Facet } from '../shared/search/models/facet.model';
+import { SearchSortOption } from '../shared/search/models/search-sort-option.model';
 
 
 export const provideCore = () => {
@@ -187,4 +190,7 @@ export const models =
     SubmissionCoarNotifyConfig,
     NotifyRequestsStatus,
     SystemWideAlert,
+    DiscoveryConfiguration,
+    Facet,
+    SearchSortOption,
   ];

@@ -6,4 +6,4 @@ import { ResourceType } from '../../../../core/shared/resource-type';
  * Needs to be in a separate file to prevent circular
  * dependencies in webpack.
  */
-export const SEARCH_FILTER_CONFIG = new ResourceType('discovery-filter');
+export const SEARCH_FILTER_CONFIG = new ResourceType('searchfilter');

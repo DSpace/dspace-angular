@@ -10,6 +10,7 @@ import { HALLink } from '../../../core/shared/hal-link.model';
 import { excludeFromEquals } from '../../../core/utilities/equals.decorators';
 import { FilterType } from './filter-type.model';
 import { SEARCH_FILTER_CONFIG } from './types/search-filter-config.resource-type';
+import { SearchFilterOperator } from './search-filter-operator.model';
 
 /**
  * The configuration for a search filter
@@ -18,68 +19,77 @@ import { SEARCH_FILTER_CONFIG } from './types/search-filter-config.resource-type
 export class SearchFilterConfig implements CacheableObject {
   static type = SEARCH_FILTER_CONFIG;
 
-    /**
-     * The object type,
-     * hardcoded because rest doesn't set one.
-     */
-    @excludeFromEquals
-      type = SEARCH_FILTER_CONFIG;
+  /**
+   * The object type,
+   * hardcoded because rest doesn't set one.
+   */
+  @excludeFromEquals
+  @autoserialize
+  type = SEARCH_FILTER_CONFIG;
 
-    /**
-     * The name of this filter
-     */
-    @autoserialize
-      name: string;
+  /**
+   * The name of this filter
+   */
+  @autoserializeAs(String, 'filter')
+  name: string;
 
-    /**
-     * The FilterType of this filter
-     */
-    @autoserializeAs(String, 'facetType')
-      filterType: FilterType;
+  @autoserialize
+  filter: string;
 
-    /**
-     * True if the filter has facets
-     */
-    @autoserialize
-      hasFacets: boolean;
+  /**
+   * The FilterType of this filter
+   */
+  @autoserializeAs(String)
+  filterType: FilterType;
 
-    /**
-     * @type {number} The page size used for this facet
-     */
-    @autoserializeAs(String, 'facetLimit')
-      pageSize = 5;
+  /**
+   * True if the filter has facets
+   */
+  @autoserialize
+  hasFacets: boolean;
 
-    /**
-     * Defines if the item facet is collapsed by default or not on the search page
-     */
-    @autoserializeAs(Boolean, 'openByDefault')
-      isOpenByDefault: boolean;
+  /**
+   * @type {number} The page size used for this facet
+   */
+  @autoserialize
+  pageSize = 5;
 
-    /**
-     * Minimum value possible for this facet in the repository
-     */
-    @autoserialize
-      maxValue: string;
+  @autoserialize
+  operators: SearchFilterOperator[];
 
-    /**
-     * Maximum value possible for this facet in the repository
-     */
-    @autoserialize
-      minValue: string;
+  /**
+   * Defines if the item facet is collapsed by default or not on the search page
+   */
+  @autoserializeAs(Boolean, 'openByDefault')
+  isOpenByDefault: boolean;
 
-    /**
-     * The {@link HALLink}s for this SearchFilterConfig
-     */
-    @deserialize
-      _links: {
-      self: HALLink;
-    };
+  /**
+   * Minimum value possible for this facet in the repository
+   */
+  // TODO: This was moved to the Facet response
+  @autoserialize
+  maxValue: string;
 
-    /**
-     * Name of this configuration that can be used in a url
-     * @returns Parameter name
-     */
-    get paramName(): string {
-      return 'f.' + this.name;
-    }
+  /**
+   * Maximum value possible for this facet in the repository
+   */
+  // TODO: This was moved to the Facet response
+  @autoserialize
+  minValue: string;
+
+  /**
+   * The {@link HALLink}s for this SearchFilterConfig
+   */
+  @deserialize
+  _links: {
+    self: HALLink;
+  };
+
+  /**
+   * Name of this configuration that can be used in a url
+   * @returns Parameter name
+   */
+  get paramName(): string {
+    return 'f.' + this.filter;
+  }
 }

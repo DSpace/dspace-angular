@@ -68,6 +68,8 @@ import { SUPERVISION_ORDER } from './supervision-order/models/supervision-order.
 import { CLAIMED_TASK } from './tasks/models/claimed-task-object.resource-type';
 import { POOL_TASK } from './tasks/models/pool-task-object.resource-type';
 import { WORKFLOW_ACTION } from './tasks/models/workflow-action-object.resource-type';
+import { SEARCH_FILTER_CONFIG } from '../shared/search/models/types/search-filter-config.resource-type';
+import { SEARCH_SORT_OPTION } from '../shared/search/models/types/search-sort-option.resource-type';
 
 export const LAZY_DATA_SERVICES: LazyDataServicesMap = new Map([
   [AUTHORIZATION.value, () => import('./data/feature-authorization/authorization-data.service').then(m => m.AuthorizationDataService)],
@@ -136,4 +138,6 @@ export const LAZY_DATA_SERVICES: LazyDataServicesMap = new Map([
   [SUGGESTION_TARGET.value, () => import('./notifications/suggestions/target/suggestion-target-data.service').then(m => m.SuggestionTargetDataService)],
   [DUPLICATE.value, () => import('./submission/submission-duplicate-data.service').then(m => m.SubmissionDuplicateDataService)],
   [CorrectionType.type.value, () => import('./submission/correctiontype-data.service').then(m => m.CorrectionTypeDataService)],
+  [SEARCH_FILTER_CONFIG.value, () => import('./data/href-only-data.service').then(m => m.HrefOnlyDataService)],
+  [SEARCH_SORT_OPTION.value, () => import('./data/href-only-data.service').then(m => m.HrefOnlyDataService)],
 ]);
