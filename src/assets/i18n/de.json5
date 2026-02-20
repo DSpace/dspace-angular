@@ -3392,9 +3392,9 @@
   // TODO New key - Add a translation
   "info.accessibility-settings.disableNotificationTimeOut.label": "Automatically close notifications after time out",
 
-  // "info.accessibility-settings.disableNotificationTimeOut.hint": "When this toggle is activated, notifications will close automatically after the time out passes. When deactivated, notifications will remain open untill manually closed.",
+  // "info.accessibility-settings.disableNotificationTimeOut.hint": "When this toggle is activated, notifications will close automatically after the time out passes. When deactivated, notifications will remain open until manually closed.",
   // TODO New key - Add a translation
-  "info.accessibility-settings.disableNotificationTimeOut.hint": "When this toggle is activated, notifications will close automatically after the time out passes. When deactivated, notifications will remain open untill manually closed.",
+  "info.accessibility-settings.disableNotificationTimeOut.hint": "When this toggle is activated, notifications will close automatically after the time out passes. When deactivated, notifications will remain open until manually closed.",
 
   // "info.accessibility-settings.failed-notification": "Failed to save accessibility settings",
   // TODO New key - Add a translation
@@ -5633,10 +5633,10 @@
   "mydspace.upload.upload-failed": "Fehler beim Anlegen eines neuen Arbeitsbereiches. Bitte überprüfen Sie den Inhalt bevor Sie es nochmal versuchen.",
 
   // "mydspace.upload.upload-failed-manyentries": "Unprocessable file. Detected too many entries but allowed only one for file.",
-  "mydspace.upload.upload-failed-manyentries": "Unverarbeitbare Datei. Es wurden zu viele Einträge erkannt, aber nur einer für die Datei zugelassen.",
+  "mydspace.upload.upload-failed-manyentries": "Nicht verarbeitbare Datei. Es wurden zu viele Einträge erkannt, aber nur einer für die Datei zugelassen.",
 
   // "mydspace.upload.upload-failed-moreonefile": "Unprocessable request. Only one file is allowed.",
-  "mydspace.upload.upload-failed-moreonefile": "Unverarbeitbare Anfrage. Nur eine Datei ist erlaubt.",
+  "mydspace.upload.upload-failed-moreonefile": "Nicht verarbeitbare Anfrage. Nur eine Datei ist erlaubt.",
 
   // "mydspace.upload.upload-multiple-successful": "{{qty}} new workspace items created.",
   "mydspace.upload.upload-multiple-successful": "{{qty}} neue(s) Arbeitsbereichsitem(s) angelegt.",
@@ -6261,13 +6261,13 @@
   // "process.overview.unknown.user": "Unknown",
   "process.overview.unknown.user": "Unbekannt",
 
-  // "process.bulk.delete.error.head": "Error on deleteing process",
+  // "process.bulk.delete.error.head": "Error on deleting process",
   "process.bulk.delete.error.head": "Fehler beim Löschen des Prozesses",
 
   // "process.bulk.delete.error.body": "The process with ID {{processId}} could not be deleted. The remaining processes will continue being deleted. ",
   "process.bulk.delete.error.body": "Der Prozess mit der ID {{processId}} konnte nicht gelöscht werden. Die verbleibenden Prozesse werden weiterhin gelöscht.",
 
-  // "process.bulk.delete.success": "{{count}} process(es) have been succesfully deleted",
+  // "process.bulk.delete.success": "{{count}} process(es) have been successfully deleted",
   "process.bulk.delete.success": "{{count}} Prozess(e) wurden erfolgreich gelöscht",
 
   // "profile.breadcrumbs": "Update Profile",
@@ -8812,7 +8812,7 @@
   // "submission.sections.sherpa.record.information.uri": "URI",
   "submission.sections.sherpa.record.information.uri": "URI",
 
-  // "submission.sections.sherpa.error.message": "There was an error retrieving sherpa informations",
+  // "submission.sections.sherpa.error.message": "There was an error retrieving sherpa information",
   "submission.sections.sherpa.error.message": "Es ist ein Fehler beim Abrufen von Sherpa-Informationen aufgetreten",
 
   // "submission.submit.breadcrumbs": "New submission",
@@ -10470,13 +10470,13 @@
   "admin-notify-dashboard.NOTIFY.outgoing.queued_for_retry.description": "Derzeit wartende Benachrichtigungen für erneuten Versuch",
 
   // "admin-notify-dashboard.NOTIFY.incoming.involvedItems": "Items involved",
-  "admin-notify-dashboard.NOTIFY.incoming.involvedItems": "Betroffende Items",
+  "admin-notify-dashboard.NOTIFY.incoming.involvedItems": "Betroffene Items",
 
   // "admin-notify-dashboard.NOTIFY.incoming.involvedItems.description": "Items related to inbound notifications",
   "admin-notify-dashboard.NOTIFY.incoming.involvedItems.description": "Items im Zusammenhang mit eingehenden Benachrichtigungen",
 
   // "admin-notify-dashboard.NOTIFY.outgoing.involvedItems": "Items involved",
-  "admin-notify-dashboard.NOTIFY.outgoing.involvedItems": "Betroffende Items",
+  "admin-notify-dashboard.NOTIFY.outgoing.involvedItems": "Betroffene Items",
 
   // "admin-notify-dashboard.NOTIFY.outgoing.involvedItems.description": "Items related to outbound notifications",
   "admin-notify-dashboard.NOTIFY.outgoing.involvedItems.description": "Items im Zusammenhang mit ausgehenden Benachrichtigungen",
@@ -10884,7 +10884,7 @@
   // "item.page.cc.license.title": "Creative Commons license",
   "item.page.cc.license.title": "Creative-Commons-Lizenz",
 
-  // "item.page.cc.license.disclaimer": "Except where otherwised noted, this item's license is described as",
+  // "item.page.cc.license.disclaimer": "Except where otherwise noted, this item's license is described as",
   "item.page.cc.license.disclaimer": "Wenn nicht anders vermerkt, wird die Lizenz dieses Items wie folgt beschrieben",
 
   // "browse.search-form.placeholder": "Search the repository",

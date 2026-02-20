@@ -346,6 +346,10 @@ languages:
   - code: vi
     label: Tiếng Việt
     active: true
+  - code: zh-TW
+    label: 繁體中文
+    active: true
+
 
 
 # Browse-By Pages
