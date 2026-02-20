@@ -39,7 +39,7 @@ describe('BitstreamAttachmentComponent', () => {
   );
   const languageList = ['en;q=1', 'de;q=0.8'];
   const mockLocaleService = jasmine.createSpyObj('LocaleService', {
-    getCurrentLanguageCode: jasmine.createSpy('getCurrentLanguageCode'),
+    getCurrentLanguageCode: of('en'),
     getLanguageCodeList: of(languageList),
   });
 
