@@ -99,6 +99,6 @@ export class Bitstream extends DSpaceObject implements ChildHALResource {
   accessStatus?: Observable<RemoteData<AccessStatusObject>>;
 
   getParentLinkKey(): keyof this['_links'] {
-    return 'format';
+    return 'bundle';
   }
 }

@@ -17,10 +17,11 @@ import { DSpaceObject } from './dspace-object.model';
 import { HALLink } from './hal-link.model';
 import { Item } from './item.model';
 import { ITEM } from './item.resource-type';
+import { ChildHALResource } from './child-hal-resource.model';
 
 @typedObject
 @inheritSerialization(DSpaceObject)
-export class Bundle extends DSpaceObject {
+export class Bundle extends DSpaceObject implements ChildHALResource {
   static type = BUNDLE;
 
   /**
@@ -54,4 +55,8 @@ export class Bundle extends DSpaceObject {
      */
   @link(ITEM)
   item?: Observable<RemoteData<Item>>;
+
+  getParentLinkKey(): keyof this['_links'] {
+    return 'item';
+  }
 }
