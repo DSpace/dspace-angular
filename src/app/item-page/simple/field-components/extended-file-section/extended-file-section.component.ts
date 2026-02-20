@@ -19,7 +19,7 @@ import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-c
 import { Bitstream } from '@dspace/core/shared/bitstream.model';
 import { followLink } from '@dspace/core/shared/follow-link-config.model';
 import { Item } from '@dspace/core/shared/item.model';
-import { TranslatePipe } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   from,
   Observable,
@@ -38,7 +38,7 @@ import { VarDirective } from '../../../../shared/utils/var.directive';
     FileSizePipe,
     PaginationComponent,
     ThemedFileDownloadLinkComponent,
-    TranslatePipe,
+    TranslateModule,
     VarDirective,
   ],
   templateUrl: './extended-file-section.component.html',
@@ -52,18 +52,18 @@ export class ExtendedFileSectionComponent implements OnInit {
 
   @Input() label = 'item.page.extended-file-section';
 
-  pageSize = 10;
-
   bitstreamsRD$: Observable<RemoteData<PaginatedList<Bitstream>>>;
+
+  pageSize = this.appConfig.item.bitstream.pageSize;
 
 
   /**
    * The current pagination configuration for the page
    */
   pageConfig: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-    id: 'afs',
-    pageSize: this.pageSize,
-    pageSizeOptions: [10, 20, 40, 60, 80, 100],
+    id: 'efs',
+    currentPage: 1,
+    pageSize: this.appConfig.item.bitstream.pageSize,
   });
 
 
@@ -74,7 +74,6 @@ export class ExtendedFileSectionComponent implements OnInit {
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
     private paginationService: PaginationService,
   ) {
-    this.pageSize = appConfig.item.bitstream.pageSize;
     this.bitstreamsRD$ = from([]);
   }
 
