@@ -675,7 +675,8 @@ layout:
         default:
           icon: fas fa-project-diagram
           style: text-success
-
+  # If true the dowmload link in item page will rerendered as an advanced attachment, the view can be then configured with the config advancedAttachmentRendering
+  showDownloadLinkAsAttachment: true
 # When the search results are retrieved, for each item type the metadata with a valid authority value are inspected.
 # Referenced items will be fetched with a find all by id strategy to avoid individual rest requests
 # to efficiently display the search results.
