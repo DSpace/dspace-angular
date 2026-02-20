@@ -1389,11 +1389,23 @@
 
   "collection.form.rights": "Copyright text (HTML)",
 
+  "collection.form.sharedWorkspace": "Shared workspace",
+
   "collection.form.tableofcontents": "News (HTML)",
 
   "collection.form.title": "Name",
 
   "collection.form.entityType": "Entity Type",
+
+  "collection.form.errors.entityType.required": "Please choose an entity type for this collection",
+
+  "collection.form.errors.submissionDefinition.required": "Please choose a submission definition for this collection",
+
+  "collection.form.submissionDefinition": "Submission definition",
+
+  "collection.form.correctionSubmissionDefinition": "Submission definition for correction request",
+
+
 
   "collection.listelement.badge": "Collection",
 
@@ -3797,6 +3809,8 @@
 
   "mydspace.show.workspace": "Your submissions",
 
+  "mydspace.show.otherworkspace": "Other Workspace Submissions",
+
   "mydspace.show.supervisedWorkspace": "Supervised items",
 
   "mydspace.status": "My DSpace status:",
@@ -6111,6 +6125,8 @@
   "workflowAdmin.search.results.head": "Administer Workflow",
 
   "workflow.search.results.head": "Workflow tasks",
+
+  "otherworkspace.search.results.head": "Workspace submissions",
 
   "supervision.search.results.head": "Workflow and Workspace tasks",
 

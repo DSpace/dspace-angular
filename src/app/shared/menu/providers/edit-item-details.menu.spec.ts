@@ -79,9 +79,8 @@ describe('EditItemDetailsMenuProvider', () => {
 
     const result = provider.getSectionsForContext(mockDSO);
 
-    const expected = cold('(ab|)', {
-      a: [],
-      b: expectedSections,
+    const expected = cold('(a|)', {
+      a: expectedSections,
     });
 
     expect(result).toBeObservable(expected);

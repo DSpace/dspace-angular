@@ -18,7 +18,6 @@ import {
   map,
   Observable,
 } from 'rxjs';
-import { startWith } from 'rxjs/operators';
 
 import { getEditItemPageRoute } from '../../../app-routing-paths';
 import { MenuItemType } from '../menu-item-type.model';
