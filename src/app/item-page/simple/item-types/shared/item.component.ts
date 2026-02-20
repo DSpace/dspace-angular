@@ -79,10 +79,13 @@ export class ItemComponent implements OnInit {
    */
   geospatialItemPageFieldsEnabled = false;
 
+  showDownloadLinkAsAttachment: boolean;
+
   constructor(protected routeService: RouteService,
               protected router: Router) {
     this.mediaViewer = environment.mediaViewer;
     this.geospatialItemPageFieldsEnabled = environment.geospatialMapViewer.enableItemPageFields;
+    this.showDownloadLinkAsAttachment = environment.layout.showDownloadLinkAsAttachment;
   }
 
   /**

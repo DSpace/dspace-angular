@@ -3,13 +3,13 @@ import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { FullFileSectionComponent as BaseComponent } from '../../../../../../../app/item-page/full/field-components/file-section/full-file-section.component';
-import { FileDownloadButtonComponent } from '../../../../../../../app/shared/file-download-button/file-download-button.component';
 import { ThemedFileDownloadLinkComponent } from '../../../../../../../app/shared/file-download-link/themed-file-download-link.component';
 import { MetadataFieldWrapperComponent } from '../../../../../../../app/shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { PaginationComponent } from '../../../../../../../app/shared/pagination/pagination.component';
 import { FileSizePipe } from '../../../../../../../app/shared/utils/file-size-pipe';
 import { VarDirective } from '../../../../../../../app/shared/utils/var.directive';
 import { ThemedThumbnailComponent } from '../../../../../../../app/thumbnail/themed-thumbnail.component';
+
 
 @Component({
   selector: 'ds-themed-item-page-full-file-section',
@@ -19,7 +19,6 @@ import { ThemedThumbnailComponent } from '../../../../../../../app/thumbnail/the
   templateUrl: '../../../../../../../app/item-page/full/field-components/file-section/full-file-section.component.html',
   imports: [
     AsyncPipe,
-    FileDownloadButtonComponent,
     FileSizePipe,
     MetadataFieldWrapperComponent,
     PaginationComponent,

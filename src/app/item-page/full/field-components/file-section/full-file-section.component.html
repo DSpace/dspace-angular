@@ -40,16 +40,11 @@
             </dl>
           </div>
           <div class="col-2">
-            @if (showLinkAsButton) {
-              <ds-file-download-button [bitstream]="file" [item]="item"></ds-file-download-button>
-            } @else {
-              <ds-file-download-link [showIcon]="true" [bitstream]="file" [item]="item" cssClasses="btn btn-outline-primary btn-download">
+            <ds-file-download-link [showIcon]="true" [bitstream]="file" [item]="item" cssClasses="btn btn-outline-primary btn-download">
                 <span class="d-none d-md-inline">
                   {{ "item.page.filesection.download" | translate }}
                 </span>
-              </ds-file-download-link>
-            }
-
+            </ds-file-download-link>
           </div>
         </div>
         }
@@ -97,15 +92,11 @@
             </dl>
           </div>
           <div class="col-2">
-            @if (showLinkAsButton) {
-              <ds-file-download-button [bitstream]="file" [item]="item"></ds-file-download-button>
-            } @else {
-              <ds-file-download-link [showIcon]="true" [bitstream]="file" [item]="item" cssClasses="btn btn-outline-primary btn-download">
+            <ds-file-download-link [showIcon]="true" [bitstream]="file" [item]="item" cssClasses="btn btn-outline-primary btn-download">
                 <span class="d-none d-md-inline">
                   {{ "item.page.filesection.download" | translate }}
                 </span>
-              </ds-file-download-link>
-            }
+            </ds-file-download-link>
           </div>
         </div>
         }

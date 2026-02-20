@@ -34,7 +34,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { FileDownloadButtonComponent } from '../../../../shared/file-download-button/file-download-button.component';
 import { ThemedFileDownloadLinkComponent } from '../../../../shared/file-download-link/themed-file-download-link.component';
 import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
@@ -54,7 +53,6 @@ import { FileSectionComponent } from '../../../simple/field-components/file-sect
   templateUrl: './full-file-section.component.html',
   imports: [
     AsyncPipe,
-    FileDownloadButtonComponent,
     FileSizePipe,
     MetadataFieldWrapperComponent,
     PaginationComponent,

@@ -7,7 +7,7 @@ import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { BtnDisabledDirective } from 'src/app/shared/btn-disabled.directive';
 
-import { FileDownloadLinkComponent } from '../file-download-link/file-download-link.component';
+import { FileDownloadLinkComponent } from '../../../../file-download-link/file-download-link.component';
 
 
 @Component({

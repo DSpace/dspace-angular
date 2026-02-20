@@ -4,6 +4,10 @@ import { SearchResultConfig } from '@dspace/config/search-result-config.interfac
 import { AccessibilitySettingsConfig } from './accessibility-settings.config';
 import { ActuatorsConfig } from './actuators.config';
 import { AdminNotifyMetricsRow } from './admin-notify-metrics.config';
+import {
+  AdvancedAttachmentElementType,
+  AdvancedAttachmentRenderingConfig,
+} from './advanced-attachment-rendering.config';
 import { AppConfig } from './app-config.interface';
 import { AuthConfig } from './auth-config.interfaces';
 import { BrowseByConfig } from './browse-by-config.interface';
@@ -721,7 +725,7 @@ export class DefaultAppConfig implements AppConfig {
         },
       },
     ],
-    showDownloadLinkAsButton: true,
+    showDownloadLinkAsAttachment: true,
   };
 
   searchResult: SearchResultConfig = {
@@ -774,5 +778,41 @@ export class DefaultAppConfig implements AppConfig {
       metadata: ['dc.contributor.author'],
     },
   ];
+
+  advancedAttachmentRendering: AdvancedAttachmentRenderingConfig = {
+    pagination: {
+      enabled: true,
+      elementsPerPage: 2,
+    },
+    metadata: [
+      {
+        name: 'dc.title',
+        type: AdvancedAttachmentElementType.Metadata,
+        truncatable: false,
+      },
+      {
+        name: 'dc.type',
+        type: AdvancedAttachmentElementType.Metadata,
+        truncatable: false,
+      },
+      {
+        name: 'dc.description',
+        type: AdvancedAttachmentElementType.Metadata,
+        truncatable: true,
+      },
+      {
+        name: 'size',
+        type: AdvancedAttachmentElementType.Attribute,
+      },
+      {
+        name: 'format',
+        type: AdvancedAttachmentElementType.Attribute,
+      },
+      {
+        name: 'checksum',
+        type: AdvancedAttachmentElementType.Attribute,
+      },
+    ],
+  };
 
 }

@@ -6,6 +6,7 @@ import {
 import { AccessibilitySettingsConfig } from './accessibility-settings.config';
 import { ActuatorsConfig } from './actuators.config';
 import { AdminNotifyMetricsRow } from './admin-notify-metrics.config';
+import { AdvancedAttachmentRenderingConfig } from './advanced-attachment-rendering.config';
 import { AuthConfig } from './auth-config.interfaces';
 import { BrowseByConfig } from './browse-by-config.interface';
 import { BundleConfig } from './bundle-config.interface';
@@ -81,6 +82,7 @@ interface AppConfig extends Config {
   followAuthorityMetadata: FollowAuthorityMetadata[];
   followAuthorityMaxItemLimit: number;
   followAuthorityMetadataValuesLimit: number;
+  advancedAttachmentRendering: AdvancedAttachmentRenderingConfig;
 }
 
 /**
