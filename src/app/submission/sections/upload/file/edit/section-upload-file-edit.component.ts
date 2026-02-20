@@ -52,7 +52,10 @@ import { FormComponent } from '../../../../../shared/form/form.component';
 import { FormService } from '../../../../../shared/form/form.service';
 import { SubmissionService } from '../../../../submission.service';
 import { SectionUploadService } from '../../section-upload.service';
-import { ALTERNATIVE_CONTENT_TAG, POLICY_DEFAULT_WITH_LIST } from '../../section-upload-constants';
+import {
+  ALTERNATIVE_CONTENT_TAG,
+  POLICY_DEFAULT_WITH_LIST,
+} from '../../section-upload-constants';
 import {
   BITSTREAM_ACCESS_CONDITION_GROUP_CONFIG,
   BITSTREAM_ACCESS_CONDITION_GROUP_LAYOUT,

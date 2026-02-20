@@ -1,5 +1,5 @@
 rest:
   ssl: true
-  host: colmex-dev.conocimientovirtual.org
+  host: sandbox.dspace.org
   port: 443
-  nameSpace: /colmex_server
+  nameSpace: /server

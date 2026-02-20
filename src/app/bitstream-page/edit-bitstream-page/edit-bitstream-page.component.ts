@@ -64,6 +64,7 @@ import {
   take,
   tap,
 } from 'rxjs/operators';
+import { ALTERNATIVE_CONTENT_TAG } from 'src/app/submission/sections/upload/section-upload-constants';
 
 import { getEntityEditRoute } from '../../item-page/item-page-routing-paths';
 import { ErrorComponent } from '../../shared/error/error.component';
@@ -76,7 +77,6 @@ import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.comp
 import { FileSizePipe } from '../../shared/utils/file-size-pipe';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { ThemedThumbnailComponent } from '../../thumbnail/themed-thumbnail.component';
-import { ALTERNATIVE_CONTENT_TAG } from 'src/app/submission/sections/upload/section-upload-constants';
 
 @Component({
   selector: 'ds-base-edit-bitstream-page',

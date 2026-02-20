@@ -24,13 +24,13 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
+import { ALTERNATIVE_CONTENT_TAG } from 'src/app/submission/sections/upload/section-upload-constants';
 
 import { ThemedFileDownloadLinkComponent } from '../../../../shared/file-download-link/themed-file-download-link.component';
 import { ThemedLoadingComponent } from '../../../../shared/loading/themed-loading.component';
 import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { FileSizePipe } from '../../../../shared/utils/file-size-pipe';
 import { VarDirective } from '../../../../shared/utils/var.directive';
-import { ALTERNATIVE_CONTENT_TAG } from 'src/app/submission/sections/upload/section-upload-constants';
 
 /**
  * This component renders the file section of the item
