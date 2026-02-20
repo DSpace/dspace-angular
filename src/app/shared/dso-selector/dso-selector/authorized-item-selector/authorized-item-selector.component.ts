@@ -1,6 +1,8 @@
 import {
   AsyncPipe,
   NgClass,
+  NgFor,
+  NgIf,
 } from '@angular/common';
 import {
   Component,
@@ -56,6 +58,8 @@ import { DSOSelectorComponent } from '../dso-selector.component';
     ReactiveFormsModule,
     ThemedLoadingComponent,
     TranslateModule,
+    NgIf,
+    NgFor,
   ],
 })
 /**
