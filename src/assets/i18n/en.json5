@@ -7303,4 +7303,28 @@
   "dataset.page.titleprefix": "Dataset",
 
   "dataset.listelement.badge": "Dataset",
+
+  "dataset.page.options": "Options",
+
+  "dataset.page.edit": "Edit this Dataset",
+
+  "relationships.Dataset.isAuthorOfDataset.Person": "Authors (Persons)",
+
+  "relationships.Dataset.isProjectOfDataset.Project": "Research Projects",
+
+  "relationships.Dataset.isAuthorOfDataset.OrgUnit": "Organizational Units",
+
+  "relationships.Dataset.isOrgUnitOfDataset.OrgUnit": "Authors (Organizational Units)",
+
+  "relationships.Dataset.isPublicationOfDataset.Publication": "Publications",
+
+  "relationships.Publication.isDatasetOfPublication.Dataset": "Datasets",
+
+  "relationships.Person.isDatasetOfAuthor.Dataset": "Datasets",
+
+  "relationships.Project.isDatasetOfProject.Dataset": "Datasets",
+
+  "relationships.OrgUnit.isDatasetOfAuthor.Dataset": "Authored Datasets",
+
+  "relationships.OrgUnit.isDatasetOfOrgUnit.Dataset": "Organisation Datasets",
 }
