@@ -51,7 +51,11 @@ export const copyWebpackOptions = {
     {
       from: path.join(__dirname, '..', 'src', 'robots.txt.ejs'),
       to: 'assets/robots.txt.ejs'
-    }
+    },
+    {
+      from: path.join(__dirname, '..', 'node_modules', 'ngx-extended-pdf-viewer', 'assets'),
+      to: 'assets',
+    },
   ]
 };
 
