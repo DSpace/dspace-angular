@@ -76,6 +76,7 @@ import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.comp
 import { FileSizePipe } from '../../shared/utils/file-size-pipe';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { ThemedThumbnailComponent } from '../../thumbnail/themed-thumbnail.component';
+import { PdfViewerEnableComponent } from '../../pdf-viewer/pdf-viewer-enable/pdf-viewer-enable.component';
 
 @Component({
   selector: 'ds-base-edit-bitstream-page',
@@ -84,6 +85,7 @@ import { ThemedThumbnailComponent } from '../../thumbnail/themed-thumbnail.compo
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     AsyncPipe,
+    PdfViewerEnableComponent,
     ErrorComponent,
     FileSizePipe,
     FormComponent,
@@ -93,6 +95,7 @@ import { ThemedThumbnailComponent } from '../../thumbnail/themed-thumbnail.compo
     TranslateModule,
     VarDirective,
   ],
+  standalone: true,
 })
 /**
  * Page component for editing a bitstream
@@ -114,6 +117,11 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
    * The bitstream to edit
    */
   bitstream: Bitstream;
+
+  /**
+   * Whether the PDF viewer is enabled for this bitstream
+   */
+  viewerEnabled: string;
 
   /**
    * The originally selected format
@@ -445,16 +453,16 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
    */
   private selectedFormat: BitstreamFormat;
 
-  constructor(private route: ActivatedRoute,
-              private router: Router,
-              private changeDetectorRef: ChangeDetectorRef,
-              private formService: DynamicFormService,
-              private translate: TranslateService,
-              private bitstreamService: BitstreamDataService,
-              public dsoNameService: DSONameService,
-              private notificationsService: NotificationsService,
-              private bitstreamFormatService: BitstreamFormatDataService,
-              private primaryBitstreamService: PrimaryBitstreamService,
+  constructor(protected route: ActivatedRoute,
+              protected router: Router,
+              protected changeDetectorRef: ChangeDetectorRef,
+              protected formService: DynamicFormService,
+              protected translate: TranslateService,
+              protected bitstreamService: BitstreamDataService,
+              protected dsoNameService: DSONameService,
+              protected notificationsService: NotificationsService,
+              protected bitstreamFormatService: BitstreamFormatDataService,
+              protected primaryBitstreamService: PrimaryBitstreamService,
   ) {
   }
 
@@ -733,6 +741,9 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     } else {
       Metadata.setFirstValue(newMetadata, 'dc.description', rawForm.descriptionContainer.description);
     }
+    if (hasValue(this.viewerEnabled)) {
+      Metadata.setFirstValue(newMetadata, 'dspace.pdfviewer.enabled', this.viewerEnabled);
+    }
     if (this.isIIIF) {
       // It's helpful to remove these metadata elements entirely when the form value is empty.
       // This avoids potential issues on the REST side and makes it possible to do things like
@@ -777,6 +788,10 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
    * When the item ID is present, navigate back to the item's edit bitstreams page,
    * otherwise retrieve the item ID based on the owning bundle's link
    */
+  updateViewerEnabled(viewerEnabled: string) {
+    this.viewerEnabled = viewerEnabled;
+  }
+
   navigateToItemEditBitstreams() {
     this.router.navigate([getEntityEditRoute(this.entityType, this.itemId), 'bitstreams']);
   }

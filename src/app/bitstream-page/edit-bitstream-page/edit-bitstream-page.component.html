@@ -25,6 +25,10 @@
               <div additional class="container py-3">
                 <a [routerLink]="['/bitstreams', bitstreamRD?.payload?.id, 'authorizations']">{{'bitstream.edit.authorizations.link' | translate}}</a>
               </div>
+              <div additional class="container mt-2">
+                <ds-pdf-viewer-enable [dso]="bitstreamRD?.payload"
+                                           (onChange)="updateViewerEnabled($event)"></ds-pdf-viewer-enable>
+              </div>
             </ds-form>
           }
         </div>

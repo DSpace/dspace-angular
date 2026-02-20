@@ -44,6 +44,10 @@ import {
 import { menusReducer } from './shared/menu/menu.reducer';
 import { MenusState } from './shared/menu/menus-state.model';
 import {
+  pdfViewerFullscreenReducer,
+  PdfViewerFullscreenState,
+} from './shared/pdf-viewer-fullscreen/pdf-viewer-fullscreen.reducer';
+import {
   selectableListReducer,
   SelectableListsState,
 } from './shared/object-list/selectable-list/selectable-list.reducer';
@@ -95,6 +99,7 @@ export interface AppState {
   groupRegistry: GroupRegistryState;
   contextHelp: ContextHelpState;
   bitstreamFormats: BitstreamFormatRegistryState;
+  pdfViewerFullscreen: PdfViewerFullscreenState;
 }
 
 export const appReducers: ActionReducerMap<AppState> = {
@@ -116,6 +121,7 @@ export const appReducers: ActionReducerMap<AppState> = {
   groupRegistry: groupRegistryReducer,
   contextHelp: contextHelpReducer,
   bitstreamFormats: bitstreamFormatReducer,
+  pdfViewerFullscreen: pdfViewerFullscreenReducer,
 };
 
 export const routerStateSelector = (state: AppState) => state.router;

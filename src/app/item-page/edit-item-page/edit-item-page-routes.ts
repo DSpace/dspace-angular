@@ -1,6 +1,6 @@
 import { Route } from '@angular/router';
 import { i18nBreadcrumbResolver } from '@dspace/core/breadcrumbs/i18n-breadcrumb.resolver';
-
+import { PdfViewerEnableDsoComponent } from '../../pdf-viewer/pdf-viewer-enable-dso/pdf-viewer-enable-dso.component';
 import { ThemedDsoEditMetadataComponent } from '../../dso-shared/dso-edit-metadata/themed-dso-edit-metadata.component';
 import { ResourcePolicyCreateComponent } from '../../shared/resource-policies/create/resource-policy-create.component';
 import { ResourcePolicyEditComponent } from '../../shared/resource-policies/edit/resource-policy-edit.component';
@@ -128,6 +128,16 @@ export const ROUTES: Route[] = [
             component: ItemCollectionMapperComponent,
             data: { title: 'item.edit.tabs.item-mapper.title', showBreadcrumbs: true },
             canActivate: [itemPageCollectionMapperGuard],
+          },
+          {
+            path: 'pdf-viewer',
+            component: PdfViewerEnableDsoComponent,
+            data: {
+              title: 'item.edit.tabs.pdf-viewer.title',
+              showBreadcrumbs: true,
+              hideReturnButton: true,
+              buttonStyle: 'item',
+            },
           },
         ],
       },

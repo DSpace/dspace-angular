@@ -1,0 +1,29 @@
+<div class="container">
+  <h3 class="mt-3">{{ 'pdf-viewer.enable-viewer.title' |translate }}</h3>
+  <ds-pdf-viewer-enable [dso]="(dsoRD$|async)?.payload"
+                             (onChange)="setEnabled($event)">
+
+  </ds-pdf-viewer-enable>
+  @if ((buttonStyle$ | async) === 'comcol') {
+    <div>
+      <hr>
+      <div class="mb-3 row">
+        <div class="col text-end">
+          <button (click)="back()" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left"></i> {{ 'pdf-viewer.enable-viewer.return' | translate }}
+          </button>
+          <button type="submit" class="btn btn-primary" (click)="onSubmit()"
+          ><i class="fas fa-save"></i> {{ 'pdf-viewer.enable-viewer.submit' | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  }
+</div>
+@if ((buttonStyle$ | async) === 'item') {
+  <div class="mt-4 float-end">
+    <button type="submit" class="ms-2 btn btn-primary" (click)="onSubmit()"
+    ><i class="fas fa-save"></i> {{ 'pdf-viewer.enable-viewer.submit' | translate }}
+    </button>
+  </div>
+}
