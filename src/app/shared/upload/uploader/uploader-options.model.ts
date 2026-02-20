@@ -1,4 +1,4 @@
-import { RestRequestMethod } from '../../../core/data/rest-request-method';
+import { RestRequestMethod } from '@dspace/config/rest-request-method';
 
 export class UploaderOptions {
   /**
@@ -21,6 +21,11 @@ export class UploaderOptions {
    * Set the max number of files that can be loaded
    */
   maxFileNumber: number;
+
+  /**
+   * Impersonating user uuid
+   */
+  impersonatingID: string;
 
   /**
    * The request method to use for the file upload request

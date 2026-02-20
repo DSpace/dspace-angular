@@ -1,13 +1,13 @@
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import {
   map,
   switchMap,
 } from 'rxjs/operators';
 
-import { hasValue } from '../../shared/empty.util';
 import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../data/feature-authorization/feature-id';
 import { Bitstream } from './bitstream.model';
@@ -25,7 +25,7 @@ export const getDownloadableBitstream = (authService: AuthorizationDataService) 
               return canDownload ? bit : null;
             }));
         } else {
-          return observableOf(null);
+          return of(null);
         }
       }),
     );

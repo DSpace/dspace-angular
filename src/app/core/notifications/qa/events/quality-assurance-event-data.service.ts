@@ -3,6 +3,40 @@ import {
   HttpParams,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
+import { RequestParam } from '@dspace/core/cache/models/request-param.model';
+import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
+import {
+  CreateData,
+  CreateDataImpl,
+} from '@dspace/core/data/base/create-data';
+import {
+  DeleteData,
+  DeleteDataImpl,
+} from '@dspace/core/data/base/delete-data';
+import { IdentifiableDataService } from '@dspace/core/data/base/identifiable-data.service';
+import {
+  PatchData,
+  PatchDataImpl,
+} from '@dspace/core/data/base/patch-data';
+import {
+  SearchData,
+  SearchDataImpl,
+} from '@dspace/core/data/base/search-data';
+import { DefaultChangeAnalyzer } from '@dspace/core/data/default-change-analyzer.service';
+import { FindListOptions } from '@dspace/core/data/find-list-options.model';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import {
+  DeleteByIDRequest,
+  PostRequest,
+} from '@dspace/core/data/request.models';
+import { RequestService } from '@dspace/core/data/request.service';
+import { HttpOptions } from '@dspace/core/dspace-rest/dspace-rest.service';
+import { FollowLinkConfig } from '@dspace/core/shared/follow-link-config.model';
+import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
+import { NoContent } from '@dspace/core/shared/NoContent.model';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { ReplaceOperation } from 'fast-json-patch';
 import { Observable } from 'rxjs';
 import {
@@ -11,43 +45,9 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { QualityAssuranceEventData } from '../../../../notifications/qa/project-entry-import-modal/project-entry-import-modal.component';
-import { hasValue } from '../../../../shared/empty.util';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { FollowLinkConfig } from '../../../../shared/utils/follow-link-config.model';
-import { RemoteDataBuildService } from '../../../cache/builders/remote-data-build.service';
-import { RequestParam } from '../../../cache/models/request-param.model';
-import { ObjectCacheService } from '../../../cache/object-cache.service';
-import {
-  CreateData,
-  CreateDataImpl,
-} from '../../../data/base/create-data';
-import {
-  DeleteData,
-  DeleteDataImpl,
-} from '../../../data/base/delete-data';
-import { IdentifiableDataService } from '../../../data/base/identifiable-data.service';
-import {
-  PatchData,
-  PatchDataImpl,
-} from '../../../data/base/patch-data';
-import {
-  SearchData,
-  SearchDataImpl,
-} from '../../../data/base/search-data';
-import { DefaultChangeAnalyzer } from '../../../data/default-change-analyzer.service';
-import { FindListOptions } from '../../../data/find-list-options.model';
-import { PaginatedList } from '../../../data/paginated-list.model';
-import { RemoteData } from '../../../data/remote-data';
-import {
-  DeleteByIDRequest,
-  PostRequest,
-} from '../../../data/request.models';
-import { RequestService } from '../../../data/request.service';
-import { HttpOptions } from '../../../dspace-rest/dspace-rest.service';
-import { HALEndpointService } from '../../../shared/hal-endpoint.service';
-import { NoContent } from '../../../shared/NoContent.model';
+import { NotificationsService } from '../../../notification-system/notifications.service';
 import { QualityAssuranceEventObject } from '../models/quality-assurance-event.model';
+import { QualityAssuranceEventData } from '../models/quality-assurance-event-data.model';
 
 /**
  * The service handling all Quality Assurance topic REST requests.

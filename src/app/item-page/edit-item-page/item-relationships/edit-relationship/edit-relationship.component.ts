@@ -4,6 +4,23 @@ import {
   Input,
   OnChanges,
 } from '@angular/core';
+import { FieldChangeType } from '@dspace/core/data/object-updates/field-change-type.model';
+import { FieldUpdate } from '@dspace/core/data/object-updates/field-update.model';
+import {
+  DeleteRelationship,
+  RelationshipIdentifiable,
+} from '@dspace/core/data/object-updates/object-updates.reducer';
+import { ObjectUpdatesService } from '@dspace/core/data/object-updates/object-updates.service';
+import { Item } from '@dspace/core/shared/item.model';
+import {
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '@dspace/core/shared/operators';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import {
   NgbModal,
   NgbModalRef,
@@ -21,24 +38,7 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
-import { FieldUpdate } from '../../../../core/data/object-updates/field-update.model';
-import {
-  DeleteRelationship,
-  RelationshipIdentifiable,
-} from '../../../../core/data/object-updates/object-updates.reducer';
-import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
-import { Item } from '../../../../core/shared/item.model';
-import {
-  getFirstSucceededRemoteData,
-  getRemoteDataPayload,
-} from '../../../../core/shared/operators';
-import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../../../shared/empty.util';
 import { ListableObjectComponentLoaderComponent } from '../../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { VirtualMetadataComponent } from '../../virtual-metadata/virtual-metadata.component';
 
@@ -47,13 +47,12 @@ import { VirtualMetadataComponent } from '../../virtual-metadata/virtual-metadat
   styleUrls: ['./edit-relationship.component.scss'],
   templateUrl: './edit-relationship.component.html',
   imports: [
-    ListableObjectComponentLoaderComponent,
     AsyncPipe,
+    BtnDisabledDirective,
+    ListableObjectComponentLoaderComponent,
     TranslateModule,
     VirtualMetadataComponent,
-    BtnDisabledDirective,
   ],
-  standalone: true,
 })
 export class EditRelationshipComponent implements OnChanges {
   /**

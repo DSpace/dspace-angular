@@ -9,14 +9,14 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { of as observableOf } from 'rxjs';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { RouteService } from '@dspace/core/services/route.service';
+import { BrowseEntry } from '@dspace/core/shared/browse-entry.model';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
+import { of } from 'rxjs';
 
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { RouteService } from '../../../core/services/route.service';
-import { BrowseEntry } from '../../../core/shared/browse-entry.model';
-import { DSONameServiceMock } from '../../mocks/dso-name.service.mock';
-import { ActivatedRouteStub } from '../../testing/active-router.stub';
 import { TruncatePipe } from '../../utils/truncate.pipe';
 import { BrowseEntryListElementComponent } from './browse-entry-list-element.component';
 
@@ -38,7 +38,7 @@ function init() {
   });
 
   routeService = jasmine.createSpyObj('routeService', {
-    getQueryParameterValue: observableOf('1'),
+    getQueryParameterValue: of('1'),
   });
 }
 describe('BrowseEntryListElementComponent', () => {

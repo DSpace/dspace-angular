@@ -7,6 +7,23 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RelationshipDataService } from '@dspace/core/data/relationship-data.service';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { Context } from '@dspace/core/shared/context.model';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { Relationship } from '@dspace/core/shared/item-relationships/relationship.model';
+import { RelationshipType } from '@dspace/core/shared/item-relationships/relationship-type.model';
+import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
+import {
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '@dspace/core/shared/operators';
+import { RelationshipOptions } from '@dspace/core/shared/relationship-options.model';
+import { SearchObjects } from '@dspace/core/shared/search/models/search-objects.model';
+import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -15,31 +32,14 @@ import {
 } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { LookupRelationService } from '../../../../../../core/data/lookup-relation.service';
-import { PaginatedList } from '../../../../../../core/data/paginated-list.model';
-import { RelationshipDataService } from '../../../../../../core/data/relationship-data.service';
-import { PaginationService } from '../../../../../../core/pagination/pagination.service';
-import { Context } from '../../../../../../core/shared/context.model';
-import { DSpaceObject } from '../../../../../../core/shared/dspace-object.model';
-import { Item } from '../../../../../../core/shared/item.model';
-import { Relationship } from '../../../../../../core/shared/item-relationships/relationship.model';
-import { RelationshipType } from '../../../../../../core/shared/item-relationships/relationship-type.model';
-import {
-  getFirstSucceededRemoteData,
-  getRemoteDataPayload,
-} from '../../../../../../core/shared/operators';
-import { SearchService } from '../../../../../../core/shared/search/search.service';
-import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspace-configuration.service';
-import { hasValue } from '../../../../../empty.util';
 import { CollectionElementLinkType } from '../../../../../object-collection/collection-element-link.type';
-import { ListableObject } from '../../../../../object-collection/shared/listable-object.model';
 import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';
-import { SearchObjects } from '../../../../../search/models/search-objects.model';
-import { SearchResult } from '../../../../../search/models/search-result.model';
+import { SearchService } from '../../../../../search/search.service';
+import { SearchConfigurationService } from '../../../../../search/search-configuration.service';
 import { ThemedSearchComponent } from '../../../../../search/themed-search.component';
 import { VarDirective } from '../../../../../utils/var.directive';
-import { RelationshipOptions } from '../../../models/relationship-options.model';
+import { LookupRelationService } from '../lookup-relation.service';
 
 
 @Component({
@@ -54,12 +54,11 @@ import { RelationshipOptions } from '../../../models/relationship-options.model'
   ],
   imports: [
     AsyncPipe,
-    VarDirective,
-    TranslateModule,
     NgbDropdownModule,
     ThemedSearchComponent,
+    TranslateModule,
+    VarDirective,
   ],
-  standalone: true,
 })
 
 /**

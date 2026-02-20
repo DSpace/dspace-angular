@@ -8,10 +8,10 @@ import {
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { SearchConfigurationService } from '../../../../app/core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../app/my-dspace-page/my-dspace-configuration.service';
 import { ConfigurationSearchPageComponent as BaseComponent } from '../../../../app/search-page/configuration-search-page.component';
 import { pushInOut } from '../../../../app/shared/animations/push';
+import { SearchConfigurationService } from '../../../../app/shared/search/search-configuration.service';
 import { SearchLabelsComponent } from '../../../../app/shared/search/search-labels/search-labels.component';
 import { ThemedSearchResultsComponent } from '../../../../app/shared/search/search-results/themed-search-results.component';
 import { ThemedSearchSidebarComponent } from '../../../../app/shared/search/search-sidebar/themed-search-sidebar.component';
@@ -33,12 +33,17 @@ import { ViewModeSwitchComponent } from '../../../../app/shared/view-mode-switch
       useClass: SearchConfigurationService,
     },
   ],
-  standalone: true,
-  imports: [ NgTemplateOutlet, PageWithSidebarComponent, ViewModeSwitchComponent, ThemedSearchResultsComponent, ThemedSearchSidebarComponent, ThemedSearchFormComponent, SearchLabelsComponent, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    NgTemplateOutlet,
+    PageWithSidebarComponent,
+    SearchLabelsComponent,
+    ThemedSearchFormComponent,
+    ThemedSearchResultsComponent,
+    ThemedSearchSidebarComponent,
+    TranslateModule,
+    ViewModeSwitchComponent,
+  ],
 })
-
-/**
- * This component renders a search page using a configuration as input.
- */
-export class ConfigurationSearchPageComponent extends BaseComponent {}
-
+export class ConfigurationSearchPageComponent extends BaseComponent {
+}

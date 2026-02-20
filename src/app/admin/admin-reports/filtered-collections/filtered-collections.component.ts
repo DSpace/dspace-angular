@@ -8,15 +8,15 @@ import {
   FormBuilder,
   FormGroup,
 } from '@angular/forms';
+import { RestRequestMethod } from '@dspace/config/rest-request-method';
+import { DspaceRestService } from '@dspace/core/dspace-rest/dspace-rest.service';
+import { RawRestResponse } from '@dspace/core/dspace-rest/raw-rest-response.model';
 import {
   NgbAccordion,
   NgbAccordionModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { RestRequestMethod } from 'src/app/core/data/rest-request-method';
-import { DspaceRestService } from 'src/app/core/dspace-rest/dspace-rest.service';
-import { RawRestResponse } from 'src/app/core/dspace-rest/raw-rest-response.model';
 import { environment } from 'src/environments/environment';
 
 import { FiltersComponent } from '../filters-section/filters-section.component';
@@ -30,12 +30,11 @@ import { FilteredCollections } from './filtered-collections.model';
   templateUrl: './filtered-collections.component.html',
   styleUrls: ['./filtered-collections.component.scss'],
   imports: [
-    TranslateModule,
-    NgbAccordionModule,
     FiltersComponent,
     KeyValuePipe,
+    NgbAccordionModule,
+    TranslateModule,
   ],
-  standalone: true,
 })
 export class FilteredCollectionsComponent implements OnInit {
 

@@ -4,7 +4,7 @@ import {
 } from '@angular/core';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import { REQUEST } from '../../../express.tokens';
@@ -33,6 +33,6 @@ export class ServerReferrerService extends ReferrerService {
    */
   public getReferrer(): Observable<string> {
     const referrer = this.request.headers.referer || '';
-    return observableOf(referrer);
+    return of(referrer);
   }
 }

@@ -2,6 +2,14 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { VocabularyEntry } from '@dspace/core/submission/vocabularies/models/vocabulary-entry.model';
+import { VocabularyEntryDetail } from '@dspace/core/submission/vocabularies/models/vocabulary-entry-detail.model';
+import { VocabularyOptions } from '@dspace/core/submission/vocabularies/models/vocabulary-options.model';
+import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import {
   TranslateLoader,
   TranslateModule,
@@ -20,14 +28,6 @@ import {
 } from 'rxjs/operators';
 import { TestScheduler } from 'rxjs/testing';
 
-import { buildPaginatedList } from '../../../core/data/paginated-list.model';
-import { PageInfo } from '../../../core/shared/page-info.model';
-import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vocabulary-entry.model';
-import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
-import { VocabularyOptions } from '../../../core/submission/vocabularies/models/vocabulary-options.model';
-import { VocabularyService } from '../../../core/submission/vocabularies/vocabulary.service';
-import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
-import { createSuccessfulRemoteDataObject } from '../../remote-data.utils';
 import { VocabularyTreeviewService } from './vocabulary-treeview.service';
 import {
   LOAD_MORE_NODE,

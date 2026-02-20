@@ -9,6 +9,19 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import { Item } from '@dspace/core/shared/item.model';
+import { ReorderableRelationship } from '@dspace/core/shared/item-relationships/reorderable-relationship';
+import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
+import {
+  getAllSucceededRemoteData,
+  getRemoteDataPayload,
+} from '@dspace/core/shared/operators';
+import { RelationshipOptions } from '@dspace/core/shared/relationship-options.model';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import { Store } from '@ngrx/store';
 import {
   BehaviorSubject,
@@ -18,23 +31,10 @@ import {
 import { filter } from 'rxjs/operators';
 
 import { AppState } from '../../../../../app.reducer';
-import { Item } from '../../../../../core/shared/item.model';
-import {
-  getAllSucceededRemoteData,
-  getRemoteDataPayload,
-} from '../../../../../core/shared/operators';
-import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { SubmissionService } from '../../../../../submission/submission.service';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../../../empty.util';
 import { ThemedLoadingComponent } from '../../../../loading/themed-loading.component';
-import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
 import { ListableObjectComponentLoaderComponent } from '../../../../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
-import { RelationshipOptions } from '../../models/relationship-options.model';
-import { ReorderableRelationship } from '../existing-metadata-list-element/existing-metadata-list-element.component';
 import { RemoveRelationshipAction } from '../relation-lookup-modal/relationship.actions';
 
 /**
@@ -77,11 +77,10 @@ export abstract class Reorderable {
   templateUrl: './existing-relation-list-element.component.html',
   styleUrls: ['./existing-relation-list-element.component.scss'],
   imports: [
-    ThemedLoadingComponent,
     AsyncPipe,
     ListableObjectComponentLoaderComponent,
+    ThemedLoadingComponent,
   ],
-  standalone: true,
 })
 export class ExistingRelationListElementComponent implements OnInit, OnChanges, OnDestroy {
   @Input() listId: string;

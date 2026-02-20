@@ -1,16 +1,16 @@
 import { HttpHeaders } from '@angular/common/http';
 import { getTestScheduler } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { getMockRequestService } from '../../shared/mocks/request.service.mock';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { testSearchDataImplementation } from '../data/base/search-data.spec';
 import { FindListOptions } from '../data/find-list-options.model';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { HALEndpointServiceStub } from '../testing/hal-endpoint-service.stub';
+import { getMockRequestService } from '../testing/request.service.mock';
+import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
 import { ClaimedTaskDataService } from './claimed-task-data.service';
 
 describe('ClaimedTaskDataService', () => {
@@ -74,7 +74,7 @@ describe('ClaimedTaskDataService', () => {
 
     it('should call postToEndpoint method', () => {
 
-      spyOn(service, 'postToEndpoint').and.returnValue(observableOf(null));
+      spyOn(service, 'postToEndpoint').and.returnValue(of(null));
 
       scheduler.schedule(() => service.claimTask('scopeId', 'poolTaskHref').subscribe());
       scheduler.flush();
@@ -103,7 +103,7 @@ describe('ClaimedTaskDataService', () => {
   describe('findByItem', () => {
 
     it('should call searchTask method', () => {
-      spyOn((service as any), 'searchTask').and.returnValue(observableOf(createSuccessfulRemoteDataObject$({})));
+      spyOn((service as any), 'searchTask').and.returnValue(of(createSuccessfulRemoteDataObject$({})));
 
       scheduler.schedule(() => service.findByItem('a0db0fde-1d12-4d43-bd0d-0f43df8d823c').subscribe());
       scheduler.flush();

@@ -4,6 +4,7 @@ import { Config } from './config.interface';
  * Collection Page Config
  */
 export interface CollectionPageConfig extends Config {
+  defaultBrowseTab: string;
   searchSection: CollectionSearchSectionConfig;
   edit: {
     undoTimeout: number;

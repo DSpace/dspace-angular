@@ -1,13 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { TransferState } from '@angular/core';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { TranslateLoader } from '@ngx-translate/core';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { hasValue } from '../app/shared/empty.util';
 import { environment } from '../environments/environment';
 import {
   NGX_TRANSLATE_STATE,
@@ -39,7 +39,7 @@ export class TranslateBrowserLoader implements TranslateLoader {
     const state = this.transferState.get<NgxTranslateState>(NGX_TRANSLATE_STATE, {});
     const messages = state[lang];
     if (hasValue(messages)) {
-      return observableOf(messages);
+      return of(messages);
     } else {
       const translationHash: string = environment.production ? `.${(process.env.languageHashes as any)[lang + '.json5']}` : '';
       // If they're not available on the transfer state (e.g. when running in dev mode), retrieve

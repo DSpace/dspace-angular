@@ -7,7 +7,7 @@
   <ds-dso-edit-menu></ds-dso-edit-menu>
 </div>
 <div class="row">
-  <div class="col-xs-12 col-md-4">
+  <div class="col-12 col-md-4">
     <ds-metadata-field-wrapper [hideIfNoTextContent]="false">
       <ds-thumbnail
         [thumbnail]="object?.thumbnail | async"
@@ -39,21 +39,21 @@
   <!--[label]="'project.page.expectedcompletion'">-->
 <!--</ds-generic-item-page-field>-->
 </div>
-<div class="col-xs-12 col-md-7">
+<div class="col-12 col-md-7">
   <ds-related-items
     [parentItem]="object"
     [relationType]="'isPersonOfProject'"
-    [label]="'relationships.isPersonOf' | translate">
+    [label]="'item.page.authors' | translate">
   </ds-related-items>
   <ds-related-items
     [parentItem]="object"
     [relationType]="'isPublicationOfProject'"
-    [label]="'relationships.isPublicationOf' | translate">
+    [label]="'item.page.publications' | translate">
   </ds-related-items>
   <ds-related-items
     [parentItem]="object"
     [relationType]="'isOrgUnitOfProject'"
-    [label]="'relationships.isOrgUnitOf' | translate">
+    [label]="'item.page.org-units' | translate">
   </ds-related-items>
   <ds-generic-item-page-field [item]="object"
     [fields]="['dc.description']"
@@ -64,7 +64,7 @@
     [label]="'project.page.keyword'">
   </ds-generic-item-page-field>
   <div>
-    <a class="btn btn-outline-primary" [routerLink]="[itemPageRoute + '/full']">
+    <a class="btn btn-outline-primary" [routerLink]="[itemPageRoute + '/full']" role="button" tabindex="0">
       {{"item.page.link.full" | translate}}
     </a>
   </div>

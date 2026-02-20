@@ -7,12 +7,12 @@ import {
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { CommunityDataService } from '@dspace/core/data/community-data.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
-import { CommunityDataService } from '../../../core/data/community-data.service';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { CommunityFormComponent } from '../../community-form/community-form.component';
 import { CommunityMetadataComponent } from './community-metadata.component';
 
@@ -25,7 +25,7 @@ describe('CommunityMetadataComponent', () => {
       imports: [TranslateModule.forRoot(), CommonModule, RouterTestingModule, CommunityMetadataComponent],
       providers: [
         { provide: CommunityDataService, useValue: {} },
-        { provide: ActivatedRoute, useValue: { parent: { data: observableOf({ dso: { payload: {} } }) } } },
+        { provide: ActivatedRoute, useValue: { parent: { data: of({ dso: { payload: {} } }) } } },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
       ],
       schemas: [NO_ERRORS_SCHEMA],

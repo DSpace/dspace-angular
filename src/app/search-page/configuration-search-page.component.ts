@@ -9,19 +9,19 @@ import {
   PLATFORM_ID,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
-
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../config/app-config.interface';
-import { RouteService } from '../core/services/route.service';
-import { SearchService } from '../core/shared/search/search.service';
-import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
+} from '@dspace/config/app-config.interface';
+import { RouteService } from '@dspace/core/services/route.service';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { SEARCH_CONFIG_SERVICE } from '../my-dspace-page/my-dspace-configuration.service';
 import { pushInOut } from '../shared/animations/push';
 import { HostWindowService } from '../shared/host-window.service';
 import { SearchComponent } from '../shared/search/search.component';
+import { SearchService } from '../shared/search/search.service';
+import { SearchConfigurationService } from '../shared/search/search-configuration.service';
 import { SearchLabelsComponent } from '../shared/search/search-labels/search-labels.component';
 import { ThemedSearchResultsComponent } from '../shared/search/search-results/themed-search-results.component';
 import { ThemedSearchSidebarComponent } from '../shared/search/search-sidebar/themed-search-sidebar.component';
@@ -45,8 +45,17 @@ import { ViewModeSwitchComponent } from '../shared/view-mode-switch/view-mode-sw
       useClass: SearchConfigurationService,
     },
   ],
-  standalone: true,
-  imports: [NgTemplateOutlet, PageWithSidebarComponent, ViewModeSwitchComponent, ThemedSearchResultsComponent, ThemedSearchSidebarComponent, ThemedSearchFormComponent, SearchLabelsComponent, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    NgTemplateOutlet,
+    PageWithSidebarComponent,
+    SearchLabelsComponent,
+    ThemedSearchFormComponent,
+    ThemedSearchResultsComponent,
+    ThemedSearchSidebarComponent,
+    TranslateModule,
+    ViewModeSwitchComponent,
+  ],
 })
 
 export class ConfigurationSearchPageComponent extends SearchComponent {

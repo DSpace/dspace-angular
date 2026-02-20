@@ -3,10 +3,9 @@ import {
   Component,
   Input,
 } from '@angular/core';
+import { PermittedVersions } from '@dspace/core/submission/models/sherpa-policies-details.model';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-
-import { PermittedVersions } from '../../../../core/submission/models/sherpa-policies-details.model';
 
 /**
  * This component represents a section that contains the inner accordions for the publisher policy versions.
@@ -16,11 +15,10 @@ import { PermittedVersions } from '../../../../core/submission/models/sherpa-pol
   templateUrl: './content-accordion.component.html',
   styleUrls: ['./content-accordion.component.scss'],
   imports: [
-    TranslateModule,
     NgbCollapseModule,
     TitleCasePipe,
+    TranslateModule,
   ],
-  standalone: true,
 })
 export class ContentAccordionComponent {
   /**

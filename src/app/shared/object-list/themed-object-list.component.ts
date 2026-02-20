@@ -4,17 +4,17 @@ import {
   Input,
   Output,
 } from '@angular/core';
-
 import {
   SortDirection,
   SortOptions,
-} from '../../core/cache/models/sort-options.model';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { Context } from '../../core/shared/context.model';
+} from '@dspace/core/cache/models/sort-options.model';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { Context } from '@dspace/core/shared/context.model';
+import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
+
 import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
-import { ListableObject } from '../object-collection/shared/listable-object.model';
-import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import { ThemedComponent } from '../theme-support/themed.component';
 import { ObjectListComponent } from './object-list.component';
 
@@ -23,10 +23,7 @@ import { ObjectListComponent } from './object-list.component';
  */
 @Component({
   selector: 'ds-object-list',
-  styleUrls: [],
   templateUrl: '../theme-support/themed.component.html',
-  standalone: true,
-  imports: [ObjectListComponent],
 })
 export class ThemedObjectListComponent extends ThemedComponent<ObjectListComponent> {
 
@@ -58,6 +55,8 @@ export class ThemedObjectListComponent extends ThemedComponent<ObjectListCompone
   @Input() selectable: boolean;
 
   @Input() selectionConfig: { repeatable: boolean, listId: string };
+
+  @Input() showRSS: SortOptions | boolean;
 
   /**
    * The link type of the listable elements
@@ -163,6 +162,7 @@ export class ThemedObjectListComponent extends ThemedComponent<ObjectListCompone
     'sortConfig',
     'hasBorder',
     'hideGear',
+    'showRSS',
     'hidePagerWhenSinglePage',
     'selectable',
     'selectionConfig',

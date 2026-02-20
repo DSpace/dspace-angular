@@ -12,8 +12,8 @@ import {
   inject,
   TestBed,
 } from '@angular/core/testing';
+import { RestRequestMethod } from '@dspace/config/rest-request-method';
 
-import { RestRequestMethod } from '../data/rest-request-method';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import {
   DEFAULT_CONTENT_TYPE,

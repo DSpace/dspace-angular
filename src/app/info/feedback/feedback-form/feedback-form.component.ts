@@ -11,35 +11,40 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { EPerson } from '@dspace/core/eperson/models/eperson.model';
+import { FeedbackDataService } from '@dspace/core/feedback/feedback-data.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { getHomePageRoute } from '@dspace/core/router/core-routing-paths';
+import { RouteService } from '@dspace/core/services/route.service';
+import {
+  NativeWindowRef,
+  NativeWindowService,
+} from '@dspace/core/services/window.service';
+import { NoContent } from '@dspace/core/shared/NoContent.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import { URLCombiner } from '@dspace/core/url-combiner/url-combiner';
 import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
 import { take } from 'rxjs/operators';
 
-import { getHomePageRoute } from '../../../app-routing-paths';
-import { AuthService } from '../../../core/auth/auth.service';
-import { RemoteData } from '../../../core/data/remote-data';
-import { EPerson } from '../../../core/eperson/models/eperson.model';
-import { FeedbackDataService } from '../../../core/feedback/feedback-data.service';
-import { RouteService } from '../../../core/services/route.service';
-import {
-  NativeWindowRef,
-  NativeWindowService,
-} from '../../../core/services/window.service';
-import { NoContent } from '../../../core/shared/NoContent.model';
-import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
-import { URLCombiner } from '../../../core/url-combiner/url-combiner';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { ErrorComponent } from '../../../shared/error/error.component';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 
 @Component({
   selector: 'ds-base-feedback-form',
   templateUrl: './feedback-form.component.html',
   styleUrls: ['./feedback-form.component.scss'],
-  standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, ErrorComponent, TranslateModule, BtnDisabledDirective],
+  imports: [
+    BtnDisabledDirective,
+    ErrorComponent,
+    FormsModule,
+    ReactiveFormsModule,
+    TranslateModule,
+  ],
 })
 /**
  * Component displaying the contents of the Feedback Statement

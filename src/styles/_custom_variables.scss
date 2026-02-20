@@ -105,7 +105,7 @@
   --ds-home-news-link-hover-color: #{darken($ds-home-news-link-color, 15%)};
   --ds-home-news-background-color: #{$gray-200};
 
-  --ds-breadcrumb-bg: #{$gray-200} !important;
+  --ds-breadcrumb-bg: #{$gray-200};
   --ds-breadcrumb-link-color: #{$ds-breadcrumb-link-color};
   --ds-breadcrumb-link-active-color: #{darken($ds-breadcrumb-link-color, 30%)};
   --ds-breadcrumb-max-length: 200px;

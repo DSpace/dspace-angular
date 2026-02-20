@@ -12,36 +12,36 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
-
-import { APP_CONFIG } from '../../../../../config/app-config.interface';
-import { environment } from '../../../../../environments/environment';
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { LinkService } from '../../../../core/cache/builders/link.service';
-import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
-import { ConfigurationDataService } from '../../../../core/data/configuration-data.service';
-import { ConfigurationProperty } from '../../../../core/shared/configuration-property.model';
-import { Context } from '../../../../core/shared/context.model';
-import { Item } from '../../../../core/shared/item.model';
-import { SearchService } from '../../../../core/shared/search/search.service';
-import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
-import { SubmissionDuplicateDataService } from '../../../../core/submission/submission-duplicate-data.service';
-import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
-import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
-import { getMockLinkService } from '../../../mocks/link-service.mock';
-import { mockTruncatableService } from '../../../mocks/mock-trucatable.service';
-import { getMockThemeService } from '../../../mocks/theme-service.mock';
-import { ClaimedTaskActionsComponent } from '../../../mydspace-actions/claimed-task/claimed-task-actions.component';
-import { NotificationsService } from '../../../notifications/notifications.service';
-import { ClaimedTaskSearchResult } from '../../../object-collection/shared/claimed-task-search-result.model';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { LinkService } from '@dspace/core/cache/builders/link.service';
+import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
+import { Context } from '@dspace/core/shared/context.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { ClaimedTaskSearchResult } from '@dspace/core/shared/object-collection/claimed-task-search-result.model';
+import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
+import { SubmissionDuplicateDataService } from '@dspace/core/submission/submission-duplicate-data.service';
+import { ClaimedTask } from '@dspace/core/tasks/models/claimed-task-object.model';
+import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
+import { getMockLinkService } from '@dspace/core/testing/link-service.mock';
+import { mockTruncatableService } from '@dspace/core/testing/mock-trucatable.service';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { SearchServiceStub } from '@dspace/core/testing/search-service.stub';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../remote-data.utils';
-import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
-import { SearchServiceStub } from '../../../testing/search-service.stub';
-import { createPaginatedList } from '../../../testing/utils.test';
+} from '@dspace/core/utilities/remote-data.utils';
+import { TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
+
+import { environment } from '../../../../../environments/environment';
+import { ClaimedTaskActionsComponent } from '../../../mydspace-actions/claimed-task/claimed-task-actions.component';
+import { SearchService } from '../../../search/search.service';
+import { getMockThemeService } from '../../../theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../theme-support/theme.service';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { VarDirective } from '../../../utils/var.directive';
@@ -65,12 +65,12 @@ const configurationDataService = jasmine.createSpyObj('configurationDataService'
   })),
 });
 const duplicateDataServiceStub = {
-  findListByHref: () => observableOf(emptyList),
+  findListByHref: () => of(emptyList),
   findDuplicates: () => createSuccessfulRemoteDataObject$({}),
 };
 
 const item = Object.assign(new Item(), {
-  bundles: observableOf({}),
+  bundles: of({}),
   metadata: {
     'dc.title': [
       {
@@ -99,9 +99,9 @@ const item = Object.assign(new Item(), {
   },
 });
 const rdItem = createSuccessfulRemoteDataObject(item);
-const workflowitem = Object.assign(new WorkflowItem(), { item: observableOf(rdItem) });
+const workflowitem = Object.assign(new WorkflowItem(), { item: of(rdItem) });
 const rdWorkflowitem = createSuccessfulRemoteDataObject(workflowitem);
-mockResultObject.indexableObject = Object.assign(new ClaimedTask(), { workflowitem: observableOf(rdWorkflowitem) });
+mockResultObject.indexableObject = Object.assign(new ClaimedTask(), { workflowitem: of(rdWorkflowitem) });
 const linkService = getMockLinkService();
 const objectCacheServiceMock = jasmine.createSpyObj('ObjectCacheService', {
   remove: jasmine.createSpy('remove'),

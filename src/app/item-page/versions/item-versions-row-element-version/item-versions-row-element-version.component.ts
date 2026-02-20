@@ -13,6 +13,23 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { VersionDataService } from '@dspace/core/data/version-data.service';
+import { VersionHistoryDataService } from '@dspace/core/data/version-history-data.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Item } from '@dspace/core/shared/item.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '@dspace/core/shared/operators';
+import { Version } from '@dspace/core/shared/version.model';
+import { VersionHistory } from '@dspace/core/shared/version-history.model';
+import { WorkspaceItem } from '@dspace/core/submission/models/workspaceitem.model';
+import { WorkflowItemDataService } from '@dspace/core/submission/workflowitem-data.service';
+import { WorkspaceitemDataService } from '@dspace/core/submission/workspaceitem-data.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -32,24 +49,7 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { RemoteData } from '../../../core/data/remote-data';
-import { VersionDataService } from '../../../core/data/version-data.service';
-import { VersionHistoryDataService } from '../../../core/data/version-history-data.service';
-import { Item } from '../../../core/shared/item.model';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
-} from '../../../core/shared/operators';
-import { Version } from '../../../core/shared/version.model';
-import { VersionHistory } from '../../../core/shared/version-history.model';
-import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
-import { WorkflowItemDataService } from '../../../core/submission/workflowitem-data.service';
-import { WorkspaceitemDataService } from '../../../core/submission/workspaceitem-data.service';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import {
   getItemEditVersionhistoryRoute,
   getItemVersionRoute,
@@ -60,13 +60,12 @@ import { ItemVersionsSummaryModalComponent } from '../item-versions-summary-moda
 
 @Component({
   selector: 'ds-item-versions-row-element-version',
-  standalone: true,
   imports: [
     AsyncPipe,
+    BtnDisabledDirective,
+    NgClass,
     RouterLink,
     TranslateModule,
-    NgClass,
-    BtnDisabledDirective,
   ],
   templateUrl: './item-versions-row-element-version.component.html',
   styleUrl: './item-versions-row-element-version.component.scss',

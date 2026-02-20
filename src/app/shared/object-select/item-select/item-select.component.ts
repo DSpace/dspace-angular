@@ -9,19 +9,19 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
+import { Item } from '@dspace/core/shared/item.model';
+import { getAllSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
+import {
+  hasValueOperator,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { Item } from '../../../core/shared/item.model';
-import { getAllSucceededRemoteDataPayload } from '../../../core/shared/operators';
-import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
-import {
-  hasValueOperator,
-  isNotEmpty,
-} from '../../empty.util';
 import { ErrorComponent } from '../../error/error.component';
 import { ThemedLoadingComponent } from '../../loading/themed-loading.component';
 import { PaginationComponent } from '../../pagination/pagination.component';
@@ -32,8 +32,18 @@ import { ObjectSelectComponent } from '../object-select/object-select.component'
 @Component({
   selector: 'ds-item-select',
   templateUrl: './item-select.component.html',
-  standalone: true,
-  imports: [VarDirective, PaginationComponent, FormsModule, RouterLink, ErrorComponent, ThemedLoadingComponent, NgClass, AsyncPipe, TranslateModule, BtnDisabledDirective],
+  imports: [
+    AsyncPipe,
+    BtnDisabledDirective,
+    ErrorComponent,
+    FormsModule,
+    NgClass,
+    PaginationComponent,
+    RouterLink,
+    ThemedLoadingComponent,
+    TranslateModule,
+    VarDirective,
+  ],
 })
 
 /**

@@ -4,6 +4,22 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { LinkService } from '@dspace/core/cache/builders/link.service';
+import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { Context } from '@dspace/core/shared/context.model';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { ClaimedTaskSearchResult } from '@dspace/core/shared/object-collection/claimed-task-search-result.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
+import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
+import { ClaimedTask } from '@dspace/core/tasks/models/claimed-task-object.model';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import {
   BehaviorSubject,
   EMPTY,
@@ -13,25 +29,9 @@ import {
   mergeMap,
   tap,
 } from 'rxjs/operators';
-import { Context } from 'src/app/core/shared/context.model';
 
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { LinkService } from '../../../../core/cache/builders/link.service';
-import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { Item } from '../../../../core/shared/item.model';
-import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
-import { ViewMode } from '../../../../core/shared/view-mode.model';
-import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
-import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../../empty.util';
 import { ClaimedTaskActionsComponent } from '../../../mydspace-actions/claimed-task/claimed-task-actions.component';
-import { ClaimedTaskSearchResult } from '../../../object-collection/shared/claimed-task-search-result.model';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
-import { followLink } from '../../../utils/follow-link-config.model';
 import { ItemDetailPreviewComponent } from '../item-detail-preview/item-detail-preview.component';
 import { SearchResultDetailElementComponent } from '../search-result-detail-element.component';
 
@@ -42,8 +42,11 @@ import { SearchResultDetailElementComponent } from '../search-result-detail-elem
   selector: 'ds-claimed-task-search-result-detail-element',
   styleUrls: ['../search-result-detail-element.component.scss'],
   templateUrl: './claimed-task-search-result-detail-element.component.html',
-  standalone: true,
-  imports: [ItemDetailPreviewComponent, ClaimedTaskActionsComponent, AsyncPipe],
+  imports: [
+    AsyncPipe,
+    ClaimedTaskActionsComponent,
+    ItemDetailPreviewComponent,
+  ],
 })
 
 @listableObjectComponent(ClaimedTaskSearchResult, ViewMode.DetailedListElement)

@@ -7,7 +7,20 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { OrcidHistory } from '@dspace/core/orcid/model/orcid-history.model';
+import { OrcidQueue } from '@dspace/core/orcid/model/orcid-queue.model';
+import { OrcidAuthService } from '@dspace/core/orcid/orcid-auth.service';
+import { OrcidHistoryDataService } from '@dspace/core/orcid/orcid-history-data.service';
+import { OrcidQueueDataService } from '@dspace/core/orcid/orcid-queue-data.service';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import { hasValue } from '@dspace/shared/utils/empty.util';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
   TranslateService,
@@ -25,37 +38,23 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { OrcidHistory } from '../../../core/orcid/model/orcid-history.model';
-import { OrcidQueue } from '../../../core/orcid/model/orcid-queue.model';
-import { OrcidAuthService } from '../../../core/orcid/orcid-auth.service';
-import { OrcidHistoryDataService } from '../../../core/orcid/orcid-history-data.service';
-import { OrcidQueueDataService } from '../../../core/orcid/orcid-queue-data.service';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { Item } from '../../../core/shared/item.model';
-import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
-import { hasValue } from '../../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 
 @Component({
   selector: 'ds-orcid-queue',
   templateUrl: './orcid-queue.component.html',
   styleUrls: ['./orcid-queue.component.scss'],
   imports: [
-    CommonModule,
-    NgbTooltipModule,
-    TranslateModule,
-    ThemedLoadingComponent,
     AlertComponent,
+    CommonModule,
+    NgbTooltip,
     PaginationComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
   ],
-  standalone: true,
 })
 export class OrcidQueueComponent implements OnInit, OnDestroy, OnChanges {
 
@@ -80,13 +79,12 @@ export class OrcidQueueComponent implements OnInit, OnDestroy, OnChanges {
   /**
    * A list of orcid queue records
    */
-  private list$: BehaviorSubject<RemoteData<PaginatedList<OrcidQueue>>> = new BehaviorSubject<RemoteData<PaginatedList<OrcidQueue>>>({} as any);
+  list$: BehaviorSubject<RemoteData<PaginatedList<OrcidQueue>>> = new BehaviorSubject<RemoteData<PaginatedList<OrcidQueue>>>({} as any);
 
   /**
    * The AlertType enumeration
-   * @type {AlertType}
    */
-  AlertTypeEnum = AlertType;
+  readonly AlertTypeEnum = AlertType;
 
   /**
    * Array to track all subscriptions and unsubscribe them onDestroy
@@ -130,13 +128,6 @@ export class OrcidQueueComponent implements OnInit, OnDestroy, OnChanges {
         this.orcidQueueService.clearFindByProfileItemRequests();
       }),
     );
-  }
-
-  /**
-   * Return the list of orcid queue records
-   */
-  getList(): Observable<RemoteData<PaginatedList<OrcidQueue>>> {
-    return this.list$.asObservable();
   }
 
   /**

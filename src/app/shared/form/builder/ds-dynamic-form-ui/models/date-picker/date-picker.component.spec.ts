@@ -19,6 +19,11 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import {
+  mockDynamicFormLayoutService,
+  mockDynamicFormValidationService,
+} from '@dspace/core/testing/dynamic-form-mock-services';
+import { createTestComponent } from '@dspace/core/testing/utils.test';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormLayoutService,
@@ -28,13 +33,8 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
-import {
-  mockDynamicFormLayoutService,
-  mockDynamicFormValidationService,
-} from '../../../../../testing/dynamic-form-mock-services';
-import { createTestComponent } from '../../../../../testing/utils.test';
 import { DsDatePickerComponent } from './date-picker.component';
 import { DynamicDsDatePickerModel } from './date-picker.model';
 
@@ -72,10 +72,10 @@ describe('DsDatePickerComponent test suite', () => {
   beforeEach(waitForAsync(() => {
 
     const translateServiceStub = {
-      get: () => observableOf('test-message'),
+      get: () => of('test-message'),
       onLangChange: new EventEmitter(),
       onTranslationChange: new EventEmitter(),
-      onDefaultLangChange: new EventEmitter(),
+      onFallbackLangChange: new EventEmitter(),
     };
 
     TestBed.configureTestingModule({
@@ -375,8 +375,9 @@ describe('DsDatePickerComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
-  standalone: true,
-  imports: [NgbModule],
+  imports: [
+    NgbModule,
+  ],
 })
 class TestComponent {
 

@@ -1,5 +1,5 @@
 import {
-  CommonModule,
+  AsyncPipe,
   isPlatformBrowser,
 } from '@angular/common';
 import {
@@ -14,6 +14,19 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { OrcidAuthService } from '@dspace/core/orcid/orcid-auth.service';
+import { ResearcherProfile } from '@dspace/core/profile/model/researcher-profile.model';
+import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
+import { redirectOn4xx } from '@dspace/core/shared/authorized.operators';
+import { Item } from '@dspace/core/shared/item.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '@dspace/core/shared/operators';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -25,22 +38,9 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { AuthService } from '../../core/auth/auth.service';
-import { ItemDataService } from '../../core/data/item-data.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { OrcidAuthService } from '../../core/orcid/orcid-auth.service';
-import { ResearcherProfile } from '../../core/profile/model/researcher-profile.model';
-import { redirectOn4xx } from '../../core/shared/authorized.operators';
-import { Item } from '../../core/shared/item.model';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
-} from '../../core/shared/operators';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { AlertType } from '../../shared/alert/alert-type';
-import { isNotEmpty } from '../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { getItemPageRoute } from '../item-page-routing-paths';
 import { OrcidAuthComponent } from './orcid-auth/orcid-auth.component';
 import { OrcidQueueComponent } from './orcid-queue/orcid-queue.component';
 import { OrcidSyncSettingsComponent } from './orcid-sync-settings/orcid-sync-settings.component';
@@ -53,16 +53,15 @@ import { OrcidSyncSettingsComponent } from './orcid-sync-settings/orcid-sync-set
   templateUrl: './orcid-page.component.html',
   styleUrls: ['./orcid-page.component.scss'],
   imports: [
-    CommonModule,
-    ThemedLoadingComponent,
     AlertComponent,
+    AsyncPipe,
     OrcidAuthComponent,
-    OrcidSyncSettingsComponent,
     OrcidQueueComponent,
-    TranslateModule,
+    OrcidSyncSettingsComponent,
     RouterLink,
+    ThemedLoadingComponent,
+    TranslateModule,
   ],
-  standalone: true,
 })
 export class OrcidPageComponent implements OnInit {
   protected readonly AlertType = AlertType;

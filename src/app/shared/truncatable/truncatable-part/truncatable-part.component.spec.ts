@@ -10,19 +10,19 @@ import {
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {
+  NativeWindowRef,
+  NativeWindowService,
+} from '@dspace/core/services/window.service';
+import { mockTruncatableService } from '@dspace/core/testing/mock-trucatable.service';
+import { getMockTranslateService } from '@dspace/core/testing/translate.service.mock';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import {
   TranslateLoader,
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
-import {
-  NativeWindowRef,
-  NativeWindowService,
-} from '../../../core/services/window.service';
-import { mockTruncatableService } from '../../mocks/mock-trucatable.service';
-import { getMockTranslateService } from '../../mocks/translate.service.mock';
-import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { TruncatableService } from '../truncatable.service';
 import { TruncatablePartComponent } from './truncatable-part.component';
 
@@ -40,9 +40,9 @@ describe('TruncatablePartComponent', () => {
     truncatableService = {
       isCollapsed: (id: string) => {
         if (id === id1) {
-          return observableOf(true);
+          return of(true);
         } else {
-          return observableOf(false);
+          return of(false);
         }
       },
     };

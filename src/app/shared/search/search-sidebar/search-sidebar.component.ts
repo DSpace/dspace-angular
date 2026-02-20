@@ -7,6 +7,16 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
+import { SortOptions } from '@dspace/core/cache/models/sort-options.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
+import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
+import { FilterConfig } from '@dspace/core/shared/search/search-filters/search-config.model';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -14,19 +24,9 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '../../../../config/app-config.interface';
-import { SortOptions } from '../../../core/cache/models/sort-options.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
-import { FilterConfig } from '../../../core/shared/search/search-filters/search-config.model';
-import { ViewMode } from '../../../core/shared/view-mode.model';
 import { ViewModeSwitchComponent } from '../../view-mode-switch/view-mode-switch.component';
 import { AdvancedSearchComponent } from '../advanced-search/advanced-search.component';
-import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
-import { SearchFilterConfig } from '../models/search-filter-config.model';
+import { SearchConfigurationService } from '../search-configuration.service';
 import { ThemedSearchFiltersComponent } from '../search-filters/themed-search-filters.component';
 import { ThemedSearchSettingsComponent } from '../search-settings/themed-search-settings.component';
 import { SearchConfigurationOption } from '../search-switch-configuration/search-configuration-option.model';
@@ -42,8 +42,15 @@ import { SearchSwitchConfigurationComponent } from '../search-switch-configurati
   selector: 'ds-base-search-sidebar',
   styleUrls: ['./search-sidebar.component.scss'],
   templateUrl: './search-sidebar.component.html',
-  standalone: true,
-  imports: [ViewModeSwitchComponent, SearchSwitchConfigurationComponent, ThemedSearchFiltersComponent, ThemedSearchSettingsComponent, TranslateModule, AdvancedSearchComponent, AsyncPipe],
+  imports: [
+    AdvancedSearchComponent,
+    AsyncPipe,
+    SearchSwitchConfigurationComponent,
+    ThemedSearchFiltersComponent,
+    ThemedSearchSettingsComponent,
+    TranslateModule,
+    ViewModeSwitchComponent,
+  ],
 })
 
 /**

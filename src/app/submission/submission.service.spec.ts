@@ -10,6 +10,25 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { ErrorResponse } from '@dspace/core/cache/response.models';
+import { RequestService } from '@dspace/core/data/request.service';
+import { RequestError } from '@dspace/core/data/request-error.model';
+import { HttpOptions } from '@dspace/core/dspace-rest/dspace-rest.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { RouteService } from '@dspace/core/services/route.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { SectionScope } from '@dspace/core/submission/models/section-visibility.model';
+import { SubmissionJsonPatchOperationsService } from '@dspace/core/submission/submission-json-patch-operations.service';
+import { SubmissionRestService } from '@dspace/core/submission/submission-rest.service';
+import { SubmissionScopeType } from '@dspace/core/submission/submission-scope-type';
+import { MockActivatedRoute } from '@dspace/core/testing/active-router.mock';
+import { getMockRequestService } from '@dspace/core/testing/request.service.mock';
+import { RouterMock } from '@dspace/core/testing/router.mock';
+import { getMockSearchService } from '@dspace/core/testing/search-service.mock';
+import { SubmissionJsonPatchOperationsServiceStub } from '@dspace/core/testing/submission-json-patch-operations-service.stub';
+import { SubmissionRestServiceStub } from '@dspace/core/testing/submission-rest-service.stub';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { createFailedRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import { StoreModule } from '@ngrx/store';
 import {
   TranslateLoader,
@@ -22,37 +41,14 @@ import {
   hot,
 } from 'jasmine-marbles';
 import {
-  of as observableOf,
+  of,
   throwError as observableThrowError,
 } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { environment } from '../../environments/environment';
 import { storeModuleConfig } from '../app.reducer';
-import { ErrorResponse } from '../core/cache/response.models';
-import { RequestService } from '../core/data/request.service';
-import { RequestError } from '../core/data/request-error.model';
-import { HttpOptions } from '../core/dspace-rest/dspace-rest.service';
-import { RouteService } from '../core/services/route.service';
-import { Item } from '../core/shared/item.model';
-import { SearchService } from '../core/shared/search/search.service';
-import { SubmissionJsonPatchOperationsService } from '../core/submission/submission-json-patch-operations.service';
-import { SubmissionRestService } from '../core/submission/submission-rest.service';
-import { SubmissionScopeType } from '../core/submission/submission-scope-type';
-import { MockActivatedRoute } from '../shared/mocks/active-router.mock';
-import { getMockRequestService } from '../shared/mocks/request.service.mock';
-import { RouterMock } from '../shared/mocks/router.mock';
-import { getMockSearchService } from '../shared/mocks/search-service.mock';
-import {
-  mockSubmissionDefinition,
-  mockSubmissionRestResponse,
-} from '../shared/mocks/submission.mock';
-import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
-import { NotificationsService } from '../shared/notifications/notifications.service';
-import { createFailedRemoteDataObject } from '../shared/remote-data.utils';
-import { SubmissionJsonPatchOperationsServiceStub } from '../shared/testing/submission-json-patch-operations-service.stub';
-import { SubmissionRestServiceStub } from '../shared/testing/submission-rest-service.stub';
-import { SectionScope } from './objects/section-visibility.model';
+import { SearchService } from '../shared/search/search.service';
 import {
   CancelSubmissionFormAction,
   ChangeSubmissionCollectionAction,
@@ -67,6 +63,10 @@ import {
 } from './objects/submission-objects.actions';
 import { submissionReducers } from './submission.reducers';
 import { SubmissionService } from './submission.service';
+import {
+  mockSubmissionDefinition,
+  mockSubmissionRestResponse,
+} from './utils/submission.mock';
 
 describe('SubmissionService test suite', () => {
   const collectionId = '43fe1f8c-09a6-4fcf-9c78-5d4fed8f2c8f';
@@ -813,7 +813,7 @@ describe('SubmissionService test suite', () => {
   describe('hasUnsavedModification', () => {
     it('should call jsonPatchOperationService hasPendingOperation observable', () => {
       (service as any).jsonPatchOperationService.hasPendingOperations = jasmine.createSpy('hasPendingOperations')
-        .and.returnValue(observableOf(true));
+        .and.returnValue(of(true));
 
       scheduler = getTestScheduler();
       scheduler.schedule(() => service.hasUnsavedModification());
@@ -1030,7 +1030,7 @@ describe('SubmissionService test suite', () => {
 
   describe('isSubmissionLoading', () => {
     it('should return true/false when section is loading/not loading', () => {
-      const spy = spyOn(service, 'getSubmissionObject').and.returnValue(observableOf({ isLoading: true }));
+      const spy = spyOn(service, 'getSubmissionObject').and.returnValue(of({ isLoading: true }));
 
       let expected = cold('(b|)', {
         b: true,
@@ -1038,7 +1038,7 @@ describe('SubmissionService test suite', () => {
 
       expect(service.isSubmissionLoading(submissionId)).toBeObservable(expected);
 
-      spy.and.returnValue(observableOf({ isLoading: false }));
+      spy.and.returnValue(of({ isLoading: false }));
 
       expected = cold('(b|)', {
         b: false,
@@ -1050,7 +1050,7 @@ describe('SubmissionService test suite', () => {
 
   describe('notifyNewSection', () => {
     it('should return true/false when section is loading/not loading', fakeAsync(() => {
-      spyOn((service as any).translate, 'get').and.returnValue(observableOf('test'));
+      spyOn((service as any).translate, 'get').and.returnValue(of('test'));
 
       spyOn((service as any).notificationsService, 'info');
 
@@ -1066,19 +1066,19 @@ describe('SubmissionService test suite', () => {
       scheduler = getTestScheduler();
       const spy = spyOn((service as any).routeService, 'getPreviousUrl');
 
-      spy.and.returnValue(observableOf('/mydspace?configuration=workflow'));
+      spy.and.returnValue(of('/mydspace?configuration=workflow'));
       scheduler.schedule(() => service.redirectToMyDSpace());
       scheduler.flush();
 
       expect((service as any).router.navigateByUrl).toHaveBeenCalledWith('/mydspace?configuration=workflow');
 
-      spy.and.returnValue(observableOf(''));
+      spy.and.returnValue(of(''));
       scheduler.schedule(() => service.redirectToMyDSpace());
       scheduler.flush();
 
       expect((service as any).router.navigate).toHaveBeenCalledWith(['/mydspace']);
 
-      spy.and.returnValue(observableOf('/home'));
+      spy.and.returnValue(of('/home'));
       scheduler.schedule(() => service.redirectToMyDSpace());
       scheduler.flush();
 

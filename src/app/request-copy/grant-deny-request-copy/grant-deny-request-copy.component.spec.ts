@@ -1,7 +1,9 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
   ComponentFixture,
+  fakeAsync,
   TestBed,
+  tick,
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
@@ -10,19 +12,19 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
-
-import { AuthService } from '../../core/auth/auth.service';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { ItemDataService } from '../../core/data/item-data.service';
-import { Item } from '../../core/shared/item.model';
-import { ItemRequest } from '../../core/shared/item-request.model';
-import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
+import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
+import { Item } from '@dspace/core/shared/item.model';
+import { ItemRequest } from '@dspace/core/shared/item-request.model';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
+} from '@dspace/core/utilities/remote-data.utils';
+import { TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
+
 import { VarDirective } from '../../shared/utils/var.directive';
 import {
   getRequestCopyDenyRoute,
@@ -69,12 +71,12 @@ describe('GrantDenyRequestCopyComponent', () => {
     itemUrl = getItemPageRoute(item);
 
     route = jasmine.createSpyObj('route', {}, {
-      data: observableOf({
+      data: of({
         request: createSuccessfulRemoteDataObject(itemRequest),
       }),
     });
     authService = jasmine.createSpyObj('authService', {
-      isAuthenticated: observableOf(true),
+      isAuthenticated: of(true),
     });
     itemDataService = jasmine.createSpyObj('itemDataService', {
       findById: createSuccessfulRemoteDataObject$(item),
@@ -138,14 +140,16 @@ describe('GrantDenyRequestCopyComponent', () => {
       expect(message).toBeNull();
     });
 
-    it('should be displayed when decisionDate is defined', () => {
+    it('should be displayed when decisionDate is defined', fakeAsync(() => {
       component.itemRequestRD$ = createSuccessfulRemoteDataObject$(Object.assign(new ItemRequest(), itemRequest, {
         decisionDate: 'defined-date',
       }));
       fixture.detectChanges();
+      tick(); // Simulate passage of time
+      fixture.detectChanges();
 
       const message = fixture.debugElement.query(By.css('.processed-message'));
       expect(message).not.toBeNull();
-    });
+    }));
   });
 });

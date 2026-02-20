@@ -46,6 +46,16 @@ export class OptionVO {
       subscriber.next(value);
       subscriber.complete();
     });
-
   }
+
+  static toString(obj: any): string {
+    if (obj) {
+      if (obj instanceof OptionVO && obj.id) {
+        return obj.id;
+      }
+      return obj as string;
+    }
+    return '';
+  }
+
 }

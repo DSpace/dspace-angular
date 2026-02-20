@@ -16,23 +16,23 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Store } from '@ngrx/store';
-import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
-
-import { AuthenticateAction } from '../../core/auth/auth.actions';
-import { CoreState } from '../../core/core-state.model';
-import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { Registration } from '../../core/shared/registration.model';
-import { ProfilePageSecurityFormComponent } from '../../profile-page/profile-page-security-form/profile-page-security-form.component';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { AuthenticateAction } from '@dspace/core/auth/auth.actions';
+import { CoreState } from '@dspace/core/core-state.model';
+import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Registration } from '@dspace/core/shared/registration.model';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { RouterStub } from '@dspace/core/testing/router.stub';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { RouterStub } from '../../shared/testing/router.stub';
+} from '@dspace/core/utilities/remote-data.utils';
+import { Store } from '@ngrx/store';
+import { TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
+
+import { ProfilePageSecurityFormComponent } from '../../profile-page/profile-page-security-form/profile-page-security-form.component';
 import { BrowserOnlyPipe } from '../../shared/utils/browser-only.pipe';
 import { ForgotPasswordFormComponent } from './forgot-password-form.component';
 
@@ -54,7 +54,7 @@ describe('ForgotPasswordFormComponent', () => {
 
   beforeEach(waitForAsync(() => {
 
-    route = { data: observableOf({ registration: createSuccessfulRemoteDataObject(registration) }) };
+    route = { data: of({ registration: createSuccessfulRemoteDataObject(registration) }) };
     router = new RouterStub();
     notificationsService = new NotificationsServiceStub();
 
@@ -112,7 +112,7 @@ describe('ForgotPasswordFormComponent', () => {
       comp.submit();
 
       expect(ePersonDataService.patchPasswordWithToken).toHaveBeenCalledWith('test-uuid', 'test-token', 'password');
-      expect(store.dispatch).toHaveBeenCalledWith(new AuthenticateAction('test@email.org', 'password'));
+      expect(store.dispatch as jasmine.Spy).toHaveBeenCalledWith(new AuthenticateAction('test@email.org', 'password'));
       expect(router.navigate).toHaveBeenCalledWith(['/home']);
       expect(notificationsService.success).toHaveBeenCalled();
     });

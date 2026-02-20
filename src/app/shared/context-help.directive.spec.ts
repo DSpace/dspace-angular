@@ -7,11 +7,11 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import {
   BehaviorSubject,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import {
@@ -24,8 +24,10 @@ import { ContextHelpWrapperComponent } from './context-help-wrapper/context-help
 
 @Component({
   template: `<div *dsContextHelp="contextHelpParams()">some text</div>`,
-  standalone: true,
-  imports: [NgbTooltipModule, ContextHelpDirective],
+  imports: [
+    ContextHelpDirective,
+    NgbTooltip,
+  ],
 })
 class TestComponent {
   @Input() content = '';
@@ -70,7 +72,7 @@ describe('ContextHelpDirective', () => {
     ]);
 
     TestBed.configureTestingModule({
-      imports: [NgbTooltipModule, TestComponent, ContextHelpWrapperComponent, ContextHelpDirective],
+      imports: [NgbTooltip, TestComponent, ContextHelpWrapperComponent, ContextHelpDirective],
       providers: [
         { provide: TranslateService, useValue: translateService },
         { provide: ContextHelpService, useValue: contextHelpService },
@@ -84,7 +86,7 @@ describe('ContextHelpDirective', () => {
     shouldShowIcons$ = new BehaviorSubject<boolean>(false);
     contextHelpService.getContextHelp$.and.returnValue(getContextHelp$);
     contextHelpService.shouldShowIcons$.and.returnValue(shouldShowIcons$);
-    translateService.get.and.callFake((content) => observableOf(messages[content]));
+    translateService.get.and.callFake((content) => of(messages[content]));
 
     // Set up fixture and component.
     fixture = TestBed.createComponent(TestComponent);

@@ -29,7 +29,7 @@
           [title]="'process.detail.output-files'">
           <div class="d-flex flex-column">
             @for (file of files; track file; let last = $last) {
-              <ds-file-download-link [bitstream]="file">
+              <ds-file-download-link [bitstream]="file" [showAccessStatusBadge]="false">
                 <span>{{getFileName(file)}}</span>
                 <span>({{(file?.sizeBytes) | dsFileSize }})</span>
               </ds-file-download-link>

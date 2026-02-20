@@ -7,28 +7,28 @@ import {
   Inject,
   OnInit,
 } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../../../config/app-config.interface';
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { LinkService } from '../../../../core/cache/builders/link.service';
-import { Context } from '../../../../core/shared/context.model';
-import { Item } from '../../../../core/shared/item.model';
-import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
-import { ViewMode } from '../../../../core/shared/view-mode.model';
-import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
+} from '@dspace/config/app-config.interface';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { LinkService } from '@dspace/core/cache/builders/link.service';
+import { Context } from '@dspace/core/shared/context.model';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
+import { WorkflowItemSearchResult } from '@dspace/core/shared/object-collection/workflow-item-search-result.model';
+import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
+import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
+import { BehaviorSubject } from 'rxjs';
+
 import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
 import { WorkflowitemActionsComponent } from '../../../mydspace-actions/workflowitem/workflowitem-actions.component';
 import { CollectionElementLinkType } from '../../../object-collection/collection-element-link.type';
-import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { ListableObjectComponentLoaderComponent } from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
-import { WorkflowItemSearchResult } from '../../../object-collection/shared/workflow-item-search-result.model';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
-import { followLink } from '../../../utils/follow-link-config.model';
 import { SearchResultListElementComponent } from '../../search-result-list-element/search-result-list-element.component';
 
 /**
@@ -38,8 +38,13 @@ import { SearchResultListElementComponent } from '../../search-result-list-eleme
   selector: 'ds-workflow-item-my-dspace-result-list-element',
   styleUrls: ['../../search-result-list-element/search-result-list-element.component.scss'],
   templateUrl: './workflow-item-search-result-list-element.component.html',
-  standalone: true,
-  imports: [ListableObjectComponentLoaderComponent, NgClass, WorkflowitemActionsComponent, ThemedLoadingComponent, AsyncPipe],
+  imports: [
+    AsyncPipe,
+    ListableObjectComponentLoaderComponent,
+    NgClass,
+    ThemedLoadingComponent,
+    WorkflowitemActionsComponent,
+  ],
 })
 
 @listableObjectComponent(WorkflowItemSearchResult, ViewMode.ListElement)

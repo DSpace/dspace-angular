@@ -8,6 +8,12 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
+import { Item } from '@dspace/core/shared/item.model';
+import { getFirstSucceededRemoteData } from '@dspace/core/shared/operators';
 import {
   TranslateModule,
   TranslateService,
@@ -18,15 +24,7 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { RemoteData } from '../../../core/data/remote-data';
-import { Item } from '../../../core/shared/item.model';
-import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import {
-  getItemEditRoute,
-  getItemPageRoute,
-} from '../../item-page-routing-paths';
+import { getItemEditRoute } from '../../item-page-routing-paths';
 import { findSuccessfulAccordingTo } from '../edit-item-operators';
 import { ModifyItemOverviewComponent } from '../modify-item-overview/modify-item-overview.component';
 
@@ -39,10 +37,9 @@ import { ModifyItemOverviewComponent } from '../modify-item-overview/modify-item
   templateUrl: './abstract-simple-item-action.component.html',
   imports: [
     ModifyItemOverviewComponent,
-    TranslateModule,
     RouterLink,
+    TranslateModule,
   ],
-  standalone: true,
 })
 export class AbstractSimpleItemActionComponent implements OnInit {
 

@@ -17,6 +17,23 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { CookieService } from '@dspace/core/cookies/cookie.service';
+import { OrejimeService } from '@dspace/core/cookies/orejime.service';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
+import { EpersonRegistrationService } from '@dspace/core/data/eperson-registration.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import {
+  CAPTCHA_NAME,
+  GoogleRecaptchaService,
+} from '@dspace/core/google-recaptcha/google-recaptcha.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
+import {
+  getAllSucceededRemoteDataPayload,
+  getFirstSucceededRemoteDataPayload,
+} from '@dspace/core/shared/operators';
+import { Registration } from '@dspace/core/shared/registration.model';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import {
   TranslateModule,
   TranslateService,
@@ -35,27 +52,10 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { ConfigurationDataService } from '../core/data/configuration-data.service';
-import { EpersonRegistrationService } from '../core/data/eperson-registration.service';
-import { RemoteData } from '../core/data/remote-data';
-import {
-  CAPTCHA_NAME,
-  GoogleRecaptchaService,
-} from '../core/google-recaptcha/google-recaptcha.service';
-import { CookieService } from '../core/services/cookie.service';
-import { ConfigurationProperty } from '../core/shared/configuration-property.model';
-import {
-  getAllSucceededRemoteDataPayload,
-  getFirstSucceededRemoteDataPayload,
-} from '../core/shared/operators';
-import { Registration } from '../core/shared/registration.model';
 import { AlertComponent } from '../shared/alert/alert.component';
 import { AlertType } from '../shared/alert/alert-type';
 import { BtnDisabledDirective } from '../shared/btn-disabled.directive';
-import { OrejimeService } from '../shared/cookies/orejime.service';
-import { isNotEmpty } from '../shared/empty.util';
 import { GoogleRecaptchaComponent } from '../shared/google-recaptcha/google-recaptcha.component';
-import { NotificationsService } from '../shared/notifications/notifications.service';
 
 export const TYPE_REQUEST_FORGOT = 'forgot';
 export const TYPE_REQUEST_REGISTER = 'register';
@@ -63,8 +63,15 @@ export const TYPE_REQUEST_REGISTER = 'register';
 @Component({
   selector: 'ds-base-register-email-form',
   templateUrl: './register-email-form.component.html',
-  standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, AlertComponent, GoogleRecaptchaComponent, AsyncPipe, TranslateModule, BtnDisabledDirective],
+  imports: [
+    AlertComponent,
+    AsyncPipe,
+    BtnDisabledDirective,
+    FormsModule,
+    GoogleRecaptchaComponent,
+    ReactiveFormsModule,
+    TranslateModule,
+  ],
 })
 /**
  * Component responsible to render an email registration form.
@@ -107,13 +114,9 @@ export class RegisterEmailFormComponent implements OnDestroy, OnInit {
 
   subscriptions: Subscription[] = [];
 
-  captchaVersion(): Observable<string> {
-    return this.googleRecaptchaService.captchaVersion();
-  }
+  captchaVersion$: Observable<string>;
 
-  captchaMode(): Observable<string> {
-    return this.googleRecaptchaService.captchaMode();
-  }
+  captchaMode$: Observable<string>;
 
   constructor(
     private epersonRegistrationService: EpersonRegistrationService,
@@ -135,6 +138,8 @@ export class RegisterEmailFormComponent implements OnDestroy, OnInit {
   }
 
   ngOnInit(): void {
+    this.captchaVersion$ = this.googleRecaptchaService.captchaVersion();
+    this.captchaMode$ = this.googleRecaptchaService.captchaMode();
     const validators: ValidatorFn[] = [
       Validators.required,
       Validators.email,
@@ -191,7 +196,7 @@ export class RegisterEmailFormComponent implements OnDestroy, OnInit {
   register(tokenV2?) {
     if (!this.form.invalid) {
       if (this.registrationVerification) {
-        this.subscriptions.push(combineLatest([this.captchaVersion(), this.captchaMode()]).pipe(
+        this.subscriptions.push(combineLatest([this.captchaVersion$, this.captchaMode$]).pipe(
           switchMap(([captchaVersion, captchaMode])  => {
             if (captchaVersion === 'v3') {
               return this.googleRecaptchaService.getRecaptchaToken('register_email');
@@ -254,7 +259,7 @@ export class RegisterEmailFormComponent implements OnDestroy, OnInit {
    */
   disableUntilCheckedFcn(): Observable<boolean> {
     const checked$ = this.checkboxCheckedSubject$.asObservable();
-    return combineLatest([this.captchaVersion(), this.captchaMode(), checked$]).pipe(
+    return combineLatest([this.captchaVersion$, this.captchaMode$, checked$]).pipe(
       // disable if checkbox is not checked or if reCaptcha is not in v2 checkbox mode
       switchMap(([captchaVersion, captchaMode, checked])  => captchaVersion === 'v2' && captchaMode === 'checkbox' ? of(!checked) : of(false)),
       startWith(true),

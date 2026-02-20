@@ -4,12 +4,12 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { CommunityDataService } from '@dspace/core/data/community-data.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Community } from '@dspace/core/shared/community.model';
 import { TranslateService } from '@ngx-translate/core';
 
-import { CommunityDataService } from '../../../core/data/community-data.service';
-import { Community } from '../../../core/shared/community.model';
 import { ComcolMetadataComponent } from '../../../shared/comcol/comcol-forms/edit-comcol-page/comcol-metadata/comcol-metadata.component';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { CommunityFormComponent } from '../../community-form/community-form.component';
 
 /**
@@ -19,10 +19,9 @@ import { CommunityFormComponent } from '../../community-form/community-form.comp
   selector: 'ds-community-metadata',
   templateUrl: './community-metadata.component.html',
   imports: [
-    CommunityFormComponent,
     AsyncPipe,
+    CommunityFormComponent,
   ],
-  standalone: true,
 })
 export class CommunityMetadataComponent extends ComcolMetadataComponent<Community> {
   protected frontendURL = '/communities/';

@@ -17,8 +17,12 @@ import { SearchFacetSelectedOptionComponent } from '../search-facet-filter-optio
   styleUrls: ['./search-boolean-filter.component.scss'],
   templateUrl: './search-boolean-filter.component.html',
   animations: [facetLoad],
-  standalone: true,
-  imports: [SearchFacetSelectedOptionComponent, SearchFacetOptionComponent, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    SearchFacetOptionComponent,
+    SearchFacetSelectedOptionComponent,
+    TranslateModule,
+  ],
 })
 
 /**

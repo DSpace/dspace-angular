@@ -7,24 +7,25 @@ import {
   ComponentFixture,
   TestBed,
 } from '@angular/core/testing';
+import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
+import { FindListOptions } from '@dspace/core/data/find-list-options.model';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { Bitstream } from '@dspace/core/shared/bitstream.model';
+import { FollowLinkConfig } from '@dspace/core/shared/follow-link-config.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
-import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
-import { FindListOptions } from '../../../core/data/find-list-options.model';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { Bitstream } from '../../../core/shared/bitstream.model';
-import { Item } from '../../../core/shared/item.model';
 import { ObjectCollectionComponent } from '../../object-collection/object-collection.component';
-import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
-import { createPaginatedList } from '../../testing/utils.test';
-import { FollowLinkConfig } from '../../utils/follow-link-config.model';
 import { ItemAccessControlSelectBitstreamsModalComponent } from './item-access-control-select-bitstreams-modal.component';
 
 describe('ItemAccessControlSelectBitstreamsModalComponent', () => {
@@ -37,11 +38,13 @@ describe('ItemAccessControlSelectBitstreamsModalComponent', () => {
     },
   };
 
+  const mockPaginationService = new PaginationServiceStub();
+
   const translateServiceStub = {
-    get: () => observableOf('test-message'),
+    get: () => of('test-message'),
     onLangChange: new EventEmitter(),
     onTranslationChange: new EventEmitter(),
-    onDefaultLangChange: new EventEmitter(),
+    onFallbackLangChange: new EventEmitter(),
   };
 
   beforeEach(async () => {
@@ -50,7 +53,7 @@ describe('ItemAccessControlSelectBitstreamsModalComponent', () => {
       providers: [
         NgbActiveModal,
         { provide: BitstreamDataService, useValue: mockBitstreamDataService },
-        { provide: PaginationService, useValue: {} },
+        { provide: PaginationService, useValue: mockPaginationService },
         { provide: TranslateService, useValue: translateServiceStub },
       ],
     })
@@ -79,7 +82,6 @@ describe('ItemAccessControlSelectBitstreamsModalComponent', () => {
 @Pipe({
   // eslint-disable-next-line @angular-eslint/pipe-prefix
   name: 'translate',
-  standalone: true,
 })
 class MockTranslatePipe implements PipeTransform {
   transform(value: string): string {

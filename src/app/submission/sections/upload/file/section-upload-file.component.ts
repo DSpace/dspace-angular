@@ -8,8 +8,20 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { NgbModalOptions } from '@ng-bootstrap/ng-bootstrap/modal/modal-config';
+import { SubmissionFormsModel } from '@dspace/core/config/models/config-submission-forms.model';
+import { JsonPatchOperationPathCombiner } from '@dspace/core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
+import { Bitstream } from '@dspace/core/shared/bitstream.model';
+import { WorkspaceitemSectionUploadFileObject } from '@dspace/core/submission/models/workspaceitem-section-upload-file.model';
+import { SubmissionJsonPatchOperationsService } from '@dspace/core/submission/submission-json-patch-operations.service';
+import {
+  hasValue,
+  isNotUndefined,
+} from '@dspace/shared/utils/empty.util';
+import {
+  NgbModal,
+  NgbModalOptions,
+} from '@ng-bootstrap/ng-bootstrap';
 import { DynamicFormControlModel } from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -19,20 +31,9 @@ import {
 } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
-import { SubmissionFormsModel } from '../../../../core/config/models/config-submission-forms.model';
-import { JsonPatchOperationPathCombiner } from '../../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from '../../../../core/json-patch/builder/json-patch-operations-builder';
-import { Bitstream } from '../../../../core/shared/bitstream.model';
-import { WorkspaceitemSectionUploadFileObject } from '../../../../core/submission/models/workspaceitem-section-upload-file.model';
-import { SubmissionJsonPatchOperationsService } from '../../../../core/submission/submission-json-patch-operations.service';
 import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
-import {
-  hasValue,
-  isNotUndefined,
-} from '../../../../shared/empty.util';
 import { ThemedFileDownloadLinkComponent } from '../../../../shared/file-download-link/themed-file-download-link.component';
 import { FormService } from '../../../../shared/form/form.service';
-import { FileSizePipe } from '../../../../shared/utils/file-size-pipe';
 import { SubmissionService } from '../../../submission.service';
 import { SectionUploadService } from '../section-upload.service';
 import { SubmissionSectionUploadFileEditComponent } from './edit/section-upload-file-edit.component';
@@ -46,14 +47,12 @@ import { SubmissionSectionUploadFileViewComponent } from './view/section-upload-
   styleUrls: ['./section-upload-file.component.scss'],
   templateUrl: './section-upload-file.component.html',
   imports: [
-    TranslateModule,
-    SubmissionSectionUploadFileViewComponent,
     AsyncPipe,
-    ThemedFileDownloadLinkComponent,
-    FileSizePipe,
     BtnDisabledDirective,
+    SubmissionSectionUploadFileViewComponent,
+    ThemedFileDownloadLinkComponent,
+    TranslateModule,
   ],
-  standalone: true,
 })
 export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, OnDestroy {
   /**

@@ -9,11 +9,11 @@ import {
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { Item } from '@dspace/core/shared/item.model';
+import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
-import { Item } from '../../../core/shared/item.model';
-import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { ItemVersionsComponent } from '../../versions/item-versions.component';
 import { ItemVersionHistoryComponent } from './item-version-history.component';
@@ -30,7 +30,7 @@ describe('ItemVersionHistoryComponent', () => {
   const activatedRoute = {
     parent: {
       parent: {
-        data: observableOf({ dso: createSuccessfulRemoteDataObject(item) }),
+        data: of({ dso: createSuccessfulRemoteDataObject(item) }),
       },
     },
   };
@@ -72,6 +72,5 @@ describe('ItemVersionHistoryComponent', () => {
 @Component({
   selector: 'ds-item-versions',
   template: '',
-  standalone: true,
 })
 class MockItemVersionsComponent {}

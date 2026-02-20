@@ -3,10 +3,9 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { ServerResponseService } from '@dspace/core/services/server-response.service';
 import { TranslateModule } from '@ngx-translate/core';
-
-import { AuthService } from '../core/auth/auth.service';
-import { ServerResponseService } from '../core/services/server-response.service';
 
 /**
  * This component representing the `Forbidden` DSpace page.
@@ -15,8 +14,10 @@ import { ServerResponseService } from '../core/services/server-response.service'
   selector: 'ds-base-forbidden',
   templateUrl: './forbidden.component.html',
   styleUrls: ['./forbidden.component.scss'],
-  standalone: true,
-  imports: [RouterLink, TranslateModule],
+  imports: [
+    RouterLink,
+    TranslateModule,
+  ],
 })
 export class ForbiddenComponent implements OnInit {
 

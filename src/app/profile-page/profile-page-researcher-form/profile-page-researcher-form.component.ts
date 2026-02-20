@@ -5,16 +5,26 @@ import {
   OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { EPerson } from '@dspace/core/eperson/models/eperson.model';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { ResearcherProfile } from '@dspace/core/profile/model/researcher-profile.model';
+import { ResearcherProfileDataService } from '@dspace/core/profile/researcher-profile-data.service';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { NoContent } from '@dspace/core/shared/NoContent.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '@dspace/core/shared/operators';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
 import { UiSwitchModule } from 'ngx-ui-switch';
-import {
-  BehaviorSubject,
-  Observable,
-} from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import {
   map,
   mergeMap,
@@ -23,21 +33,8 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { AuthService } from '../../core/auth/auth.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { EPerson } from '../../core/eperson/models/eperson.model';
-import { ResearcherProfile } from '../../core/profile/model/researcher-profile.model';
-import { ResearcherProfileDataService } from '../../core/profile/researcher-profile-data.service';
-import { NoContent } from '../../core/shared/NoContent.model';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
-} from '../../core/shared/operators';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { ConfirmationModalComponent } from '../../shared/confirmation-modal/confirmation-modal.component';
-import { isNotEmpty } from '../../shared/empty.util';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { followLink } from '../../shared/utils/follow-link-config.model';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { ProfileClaimService } from '../profile-claim/profile-claim.service';
 import { ProfileClaimItemModalComponent } from '../profile-claim-item-modal/profile-claim-item-modal.component';
@@ -47,12 +44,11 @@ import { ProfileClaimItemModalComponent } from '../profile-claim-item-modal/prof
   templateUrl: './profile-page-researcher-form.component.html',
   imports: [
     AsyncPipe,
+    BtnDisabledDirective,
     TranslateModule,
     UiSwitchModule,
     VarDirective,
-    BtnDisabledDirective,
   ],
-  standalone: true,
 })
 /**
  * Component for a user to create/delete or change their researcher profile.
@@ -185,24 +181,6 @@ export class ProfilePageResearcherFormComponent implements OnInit {
         this.notificationService.error(null, this.translationService.get('researcher.profile.change-visibility.fail'));
       }
     });
-  }
-
-  /**
-   * Return a boolean representing if a delete operation is pending.
-   *
-   * @return {Observable<boolean>}
-   */
-  isProcessingDelete(): Observable<boolean> {
-    return this.processingDelete$.asObservable();
-  }
-
-  /**
-   * Return a boolean representing if a create operation is pending.
-   *
-   * @return {Observable<boolean>}
-   */
-  isProcessingCreate(): Observable<boolean> {
-    return this.processingCreate$.asObservable();
   }
 
   /**

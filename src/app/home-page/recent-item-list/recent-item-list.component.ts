@@ -12,27 +12,32 @@ import {
   OnInit,
   PLATFORM_ID,
 } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
-
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../config/app-config.interface';
-import { environment } from '../../../environments/environment';
+} from '@dspace/config/app-config.interface';
 import {
   SortDirection,
   SortOptions,
-} from '../../core/cache/models/sort-options.model';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';
-import { Item } from '../../core/shared/item.model';
-import { toDSpaceObjectListRD } from '../../core/shared/operators';
-import { SearchService } from '../../core/shared/search/search.service';
-import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
-import { ViewMode } from '../../core/shared/view-mode.model';
+} from '@dspace/core/cache/models/sort-options.model';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { DSpaceObjectType } from '@dspace/core/shared/dspace-object-type.model';
+import {
+  followLink,
+  FollowLinkConfig,
+} from '@dspace/core/shared/follow-link-config.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { toDSpaceObjectListRD } from '@dspace/core/shared/operators';
+import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
+import { setPlaceHolderAttributes } from '@dspace/shared/utils/object-list-utils';
+import { TranslateModule } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+
+import { environment } from '../../../environments/environment';
 import {
   fadeIn,
   fadeInOut,
@@ -40,13 +45,8 @@ import {
 import { ErrorComponent } from '../../shared/error/error.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { ListableObjectComponentLoaderComponent } from '../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
-import {
-  followLink,
-  FollowLinkConfig,
-} from '../../shared/utils/follow-link-config.model';
-import { setPlaceHolderAttributes } from '../../shared/utils/object-list-utils';
+import { SearchService } from '../../shared/search/search.service';
+import { SearchConfigurationService } from '../../shared/search/search-configuration.service';
 import { VarDirective } from '../../shared/utils/var.directive';
 
 @Component({
@@ -58,8 +58,15 @@ import { VarDirective } from '../../shared/utils/var.directive';
     fadeIn,
     fadeInOut,
   ],
-  standalone: true,
-  imports: [VarDirective, NgClass, ListableObjectComponentLoaderComponent, ErrorComponent, ThemedLoadingComponent, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    ErrorComponent,
+    ListableObjectComponentLoaderComponent,
+    NgClass,
+    ThemedLoadingComponent,
+    TranslateModule,
+    VarDirective,
+  ],
 })
 export class RecentItemListComponent implements OnInit, OnDestroy {
   itemRD$: Observable<RemoteData<PaginatedList<Item>>>;

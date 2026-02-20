@@ -5,19 +5,19 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { Router } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
-import { getTestScheduler } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
-import { TestScheduler } from 'rxjs/testing';
-
-import { ObjectUpdatesService } from '../../core/data/object-updates/object-updates.service';
+import { ObjectUpdatesService } from '@dspace/core/data/object-updates/object-updates.service';
 import {
   INotification,
   Notification,
-} from '../notifications/models/notification.model';
-import { NotificationType } from '../notifications/models/notification-type';
-import { NotificationsService } from '../notifications/notifications.service';
-import { RouterStub } from '../testing/router.stub';
+} from '@dspace/core/notification-system/models/notification.model';
+import { NotificationType } from '@dspace/core/notification-system/models/notification-type';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { RouterStub } from '@dspace/core/testing/router.stub';
+import { TranslateModule } from '@ngx-translate/core';
+import { getTestScheduler } from 'jasmine-marbles';
+import { of } from 'rxjs';
+import { TestScheduler } from 'rxjs/testing';
+
 import { AbstractTrackableComponent } from './abstract-trackable.component';
 
 describe('AbstractTrackableComponent', () => {
@@ -46,11 +46,11 @@ describe('AbstractTrackableComponent', () => {
       {
         saveAddFieldUpdate: {},
         discardFieldUpdates: {},
-        reinstateFieldUpdates: observableOf(true),
+        reinstateFieldUpdates: of(true),
         initialize: {},
-        hasUpdates: observableOf(true),
-        isReinstatable: observableOf(false), // should always return something --> its in ngOnInit
-        isValidPage: observableOf(true),
+        hasUpdates: of(true),
+        isReinstatable: of(false), // should always return something --> its in ngOnInit
+        isValidPage: of(true),
       },
     );
     router = new RouterStub();
@@ -90,7 +90,7 @@ describe('AbstractTrackableComponent', () => {
 
   describe('isReinstatable', () => {
     beforeEach(() => {
-      objectUpdatesService.isReinstatable.and.returnValue(observableOf(true));
+      objectUpdatesService.isReinstatable.and.returnValue(of(true));
     });
 
     it('should return an observable that emits true', () => {
@@ -101,7 +101,7 @@ describe('AbstractTrackableComponent', () => {
 
   describe('hasChanges', () => {
     beforeEach(() => {
-      objectUpdatesService.hasUpdates.and.returnValue(observableOf(true));
+      objectUpdatesService.hasUpdates.and.returnValue(of(true));
     });
 
     it('should return an observable that emits true', () => {

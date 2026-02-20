@@ -13,39 +13,39 @@ import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { NotifyInfoService } from '@dspace/core/coar-notify/notify-info/notify-info.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { SignpostingDataService } from '@dspace/core/data/signposting-data.service';
+import { HeadTagService } from '@dspace/core/metadata/head-tag.service';
+import { HardRedirectService } from '@dspace/core/services/hard-redirect.service';
+import { LinkHeadService } from '@dspace/core/services/link-head.service';
+import { ServerResponseService } from '@dspace/core/services/server-response.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { HeadTagServiceMock } from '@dspace/core/testing/head-tag-service.mock';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core/utilities/remote-data.utils';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 import {
   BehaviorSubject,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
-import { NotifyInfoService } from '../../core/coar-notify/notify-info/notify-info.service';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { ItemDataService } from '../../core/data/item-data.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { SignpostingDataService } from '../../core/data/signposting-data.service';
-import { HeadTagService } from '../../core/metadata/head-tag.service';
-import { LinkHeadService } from '../../core/services/link-head.service';
-import { ServerResponseService } from '../../core/services/server-response.service';
-import { Item } from '../../core/shared/item.model';
 import { DsoEditMenuComponent } from '../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { HeadTagServiceMock } from '../../shared/mocks/head-tag-service.mock';
-import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
-import { createPaginatedList } from '../../shared/testing/utils.test';
+import { getMockThemeService } from '../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { TruncatePipe } from '../../shared/utils/truncate.pipe';
 import { VarDirective } from '../../shared/utils/var.directive';
-import { ViewTrackerComponent } from '../../statistics/angulartics/dspace/view-tracker.component';
 import { ThemedItemAlertsComponent } from '../alerts/themed-item-alerts.component';
 import { CollectionsComponent } from '../field-components/collections/collections.component';
 import { ThemedItemPageTitleFieldComponent } from '../simple/field-components/specific-field/title/themed-item-page-field.component';
@@ -102,14 +102,15 @@ describe('FullItemPageComponent', () => {
   beforeEach(waitForAsync(() => {
     routeData = {
       dso: createSuccessfulRemoteDataObject(mockItem),
+      links: [mocklink, mocklink2],
     };
 
     routeStub = Object.assign(new ActivatedRouteStub(), {
-      data: observableOf(routeData),
+      data: of(routeData),
     });
 
     authorizationDataService = jasmine.createSpyObj('authorizationDataService', {
-      isAuthorized: observableOf(false),
+      isAuthorized: of(false),
     });
 
     serverResponseService = jasmine.createSpyObj('ServerResponseService', {
@@ -117,7 +118,7 @@ describe('FullItemPageComponent', () => {
     });
 
     signpostingDataService = jasmine.createSpyObj('SignpostingDataService', {
-      getLinks: observableOf([mocklink, mocklink2]),
+      getLinks: of([mocklink, mocklink2]),
     });
 
     linkHeadService = jasmine.createSpyObj('LinkHeadService', {
@@ -126,9 +127,9 @@ describe('FullItemPageComponent', () => {
     });
 
     notifyInfoService = jasmine.createSpyObj('NotifyInfoService', {
-      isCoarConfigEnabled: observableOf(true),
-      getCoarLdnLocalInboxUrls: observableOf(['http://test.org']),
-      getInboxRelationLink: observableOf('http://test.org'),
+      isCoarConfigEnabled: of(true),
+      getCoarLdnLocalInboxUrls: of(['http://test.org']),
+      getInboxRelationLink: of('http://test.org'),
     });
 
     headTagService = new HeadTagServiceMock();
@@ -151,6 +152,7 @@ describe('FullItemPageComponent', () => {
         { provide: NotifyInfoService, useValue: notifyInfoService },
         { provide: PLATFORM_ID, useValue: 'server' },
         { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: HardRedirectService, useValue: {} },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
@@ -162,7 +164,6 @@ describe('FullItemPageComponent', () => {
             ThemedLoadingComponent,
             ThemedItemPageTitleFieldComponent,
             DsoEditMenuComponent,
-            ViewTrackerComponent,
             ThemedItemAlertsComponent,
             CollectionsComponent,
             ThemedFullFileSectionComponent,
@@ -208,7 +209,7 @@ describe('FullItemPageComponent', () => {
 
   describe('when the item is withdrawn and the user is an admin', () => {
     beforeEach(() => {
-      comp.isAdmin$ = observableOf(true);
+      comp.isAdmin$ = of(true);
       comp.itemRD$ = new BehaviorSubject<RemoteData<Item>>(createSuccessfulRemoteDataObject(mockWithdrawnItem));
       fixture.detectChanges();
     });
@@ -237,7 +238,7 @@ describe('FullItemPageComponent', () => {
 
   describe('when the item is not withdrawn and the user is an admin', () => {
     beforeEach(() => {
-      comp.isAdmin$ = observableOf(true);
+      comp.isAdmin$ = of(true);
       comp.itemRD$ = new BehaviorSubject<RemoteData<Item>>(createSuccessfulRemoteDataObject(mockItem));
       fixture.detectChanges();
     });

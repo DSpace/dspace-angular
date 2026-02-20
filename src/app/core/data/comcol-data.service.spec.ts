@@ -3,24 +3,24 @@ import { Store } from '@ngrx/store';
 import { cold } from 'jasmine-marbles';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { getMockRequestService } from '../../shared/mocks/request.service.mock';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { CoreState } from '../core-state.model';
+import { NotificationsService } from '../notification-system/notifications.service';
+import { Bitstream } from '../shared/bitstream.model';
+import { Community } from '../shared/community.model';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { getMockRequestService } from '../testing/request.service.mock';
 import {
   createFailedRemoteDataObject,
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { CoreState } from '../core-state.model';
-import { Bitstream } from '../shared/bitstream.model';
-import { Community } from '../shared/community.model';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
+} from '../utilities/remote-data.utils';
 import { testCreateDataImplementation } from './base/create-data.spec';
 import { testDeleteDataImplementation } from './base/delete-data.spec';
 import { testFindAllDataImplementation } from './base/find-all-data.spec';
@@ -66,7 +66,7 @@ class TestService extends ComColDataService<any> {
 
   protected getScopeCommunityHref(options: FindListOptions): Observable<string> {
     // implementation in subclasses for communities/collections
-    return observableOf(communityEndpoint);
+    return of(communityEndpoint);
   }
 }
 
@@ -93,7 +93,7 @@ describe('ComColDataService', () => {
   const scopedEndpoint = `${communityEndpoint}/${LINK_NAME}`;
 
   const mockHalService = {
-    getEndpoint: (linkPath) => observableOf(communitiesEndpoint),
+    getEndpoint: (linkPath) => of(communitiesEndpoint),
   };
 
   function initRdbService(): RemoteDataBuildService {

@@ -8,18 +8,18 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { RelationshipDataService } from '@dspace/core/data/relationship-data.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
-import { APP_CONFIG } from '../../../../config/app-config.interface';
-import { RelationshipDataService } from '../../../core/data/relationship-data.service';
-import { Item } from '../../../core/shared/item.model';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
-import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
 import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { createPaginatedList } from '../../../shared/testing/utils.test';
+import { getMockThemeService } from '../../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../shared/theme-support/theme.service';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { createRelationshipsObservable } from '../item-types/shared/item.component.spec';
@@ -126,7 +126,7 @@ describe('RelatedItemsComponent', () => {
   describe('when decrease is called', () => {
     beforeEach(() => {
       // Add a second page
-      comp.objects.push(observableOf(undefined));
+      comp.objects.push(of(undefined));
       comp.decrease();
     });
 

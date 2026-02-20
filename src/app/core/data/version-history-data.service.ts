@@ -1,9 +1,13 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
+  hasValue,
+  hasValueOperator,
+} from '@dspace/shared/utils/empty.util';
+import {
   combineLatest,
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import {
   filter,
@@ -13,19 +17,14 @@ import {
   take,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  hasValueOperator,
-} from '../../shared/empty.util';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
-import {
-  followLink,
-  FollowLinkConfig,
-} from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
+import {
+  followLink,
+  FollowLinkConfig,
+} from '../shared/follow-link-config.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
 import {
@@ -34,6 +33,7 @@ import {
   getFirstSucceededRemoteDataPayload,
   getRemoteDataPayload,
 } from '../shared/operators';
+import { PaginatedSearchOptions } from '../shared/search/models/paginated-search-options.model';
 import { Version } from '../shared/version.model';
 import { VersionHistory } from '../shared/version-history.model';
 import { IdentifiableDataService } from './base/identifiable-data.service';
@@ -111,7 +111,7 @@ export class VersionHistoryDataService extends IdentifiableDataService<VersionHi
 
     this.halService.getEndpoint(this.versionsEndpoint).pipe(
       take(1),
-      map((endpointUrl: string) => (summary?.length > 0) ? `${endpointUrl}?summary=${summary}` : `${endpointUrl}`),
+      map((endpointUrl: string) => (summary?.length > 0) ? `${endpointUrl}?summary=${encodeURIComponent(summary)}` : `${endpointUrl}`),
       find((href: string) => hasValue(href)),
     ).subscribe((href) => {
       const request = new PostRequest(requestId, href, itemHref, requestOptions);
@@ -166,7 +166,7 @@ export class VersionHistoryDataService extends IdentifiableDataService<VersionHi
       switchMap((res) => res.versionhistory),
       getFirstSucceededRemoteDataPayload(),
       switchMap((versionHistoryRD) => this.getLatestVersionFromHistory$(versionHistoryRD)),
-    ) : observableOf(null);
+    ) : of(null);
   }
 
   /**
@@ -177,8 +177,8 @@ export class VersionHistoryDataService extends IdentifiableDataService<VersionHi
   isLatest$(version: Version): Observable<boolean> {
     return version ? this.getLatestVersion$(version).pipe(
       take(1),
-      switchMap((latestVersion) => observableOf(version.version === latestVersion.version)),
-    ) : observableOf(null);
+      switchMap((latestVersion) => of(version.version === latestVersion.version)),
+    ) : of(null);
   }
 
   /**
@@ -202,7 +202,7 @@ export class VersionHistoryDataService extends IdentifiableDataService<VersionHi
             }),
           );
         } else {
-          return observableOf(false);
+          return of(false);
         }
       }),
     );

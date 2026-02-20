@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
+import { AccessStatusObject } from '@dspace/core/shared/access-status.model';
 import { Observable } from 'rxjs';
-import { AccessStatusObject } from 'src/app/shared/object-collection/shared/badges/access-status-badge/access-status.model';
 
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -29,7 +29,7 @@ export class AccessStatusDataService extends BaseDataService<AccessStatusObject>
    * Returns {@link RemoteData} of {@link AccessStatusObject} that is the access status of the given item
    * @param item Item we want the access status of
    */
-  findAccessStatusFor(item: Item): Observable<RemoteData<AccessStatusObject>> {
+  findItemAccessStatusFor(item: Item): Observable<RemoteData<AccessStatusObject>> {
     return this.findByHref(item._links.accessStatus.href);
   }
 }

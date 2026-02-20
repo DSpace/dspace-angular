@@ -11,32 +11,37 @@ import {
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  SortDirection,
+  SortOptions,
+} from '@dspace/core/cache/models/sort-options.model';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
+import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
+import { GroupDataService } from '@dspace/core/eperson/group-data.service';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { LinkHeadService } from '@dspace/core/services/link-head.service';
+import { RouteService } from '@dspace/core/services/route.service';
+import { BrowseEntry } from '@dspace/core/shared/browse-entry.model';
+import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
+import { ITEM } from '@dspace/core/shared/item.resource-type';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
+import { HostWindowServiceStub } from '@dspace/core/testing/host-window-service.stub';
+import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
+import { routeServiceStub } from '@dspace/core/testing/route-service.stub';
+import { SearchConfigurationServiceStub } from '@dspace/core/testing/search-configuration-service.stub';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
-import {
-  SortDirection,
-  SortOptions,
-} from '../../core/cache/models/sort-options.model';
-import { ConfigurationDataService } from '../../core/data/configuration-data.service';
-import { buildPaginatedList } from '../../core/data/paginated-list.model';
-import { GroupDataService } from '../../core/eperson/group-data.service';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { LinkHeadService } from '../../core/services/link-head.service';
-import { RouteService } from '../../core/services/route.service';
-import { BrowseEntry } from '../../core/shared/browse-entry.model';
-import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
-import { ITEM } from '../../core/shared/item.resource-type';
-import { PageInfo } from '../../core/shared/page-info.model';
-import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
-import { ViewMode } from '../../core/shared/view-mode.model';
 import { HostWindowService } from '../host-window.service';
-import { getMockThemeService } from '../mocks/theme-service.mock';
-import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
 import {
   DEFAULT_CONTEXT,
   listableObjectComponent,
@@ -44,13 +49,8 @@ import {
 import { ListableObjectComponentLoaderComponent } from '../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { BrowseEntryListElementComponent } from '../object-list/browse-entry-list-element/browse-entry-list-element.component';
 import { SelectableListService } from '../object-list/selectable-list/selectable-list.service';
-import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
-import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
-import { HostWindowServiceStub } from '../testing/host-window-service.stub';
-import { PaginationServiceStub } from '../testing/pagination-service.stub';
-import { routeServiceStub } from '../testing/route-service.stub';
-import { SearchConfigurationServiceStub } from '../testing/search-configuration-service.stub';
-import { createPaginatedList } from '../testing/utils.test';
+import { SearchConfigurationService } from '../search/search-configuration.service';
+import { getMockThemeService } from '../theme-support/test/theme-service.mock';
 import { ThemeService } from '../theme-support/theme.service';
 import { BrowseByComponent } from './browse-by.component';
 
@@ -183,7 +183,7 @@ describe('BrowseByComponent', () => {
     describe('when theme is base', () => {
       beforeEach(async () => {
         themeService.getThemeName.and.returnValue('base');
-        themeService.getThemeName$.and.returnValue(observableOf('base'));
+        themeService.getThemeName$.and.returnValue(of('base'));
         fixture.detectChanges();
         await fixture.whenStable();
         fixture.detectChanges();
@@ -202,7 +202,7 @@ describe('BrowseByComponent', () => {
     describe('when theme is dspace', () => {
       beforeEach(async () => {
         themeService.getThemeName.and.returnValue('dspace');
-        themeService.getThemeName$.and.returnValue(observableOf('dspace'));
+        themeService.getThemeName$.and.returnValue(of('dspace'));
         fixture.detectChanges();
         await fixture.whenStable();
         fixture.detectChanges();
@@ -234,7 +234,7 @@ describe('BrowseByComponent', () => {
           count: 1,
         }),
       ]));
-      comp.shouldDisplayResetButton$ = observableOf(true);
+      comp.shouldDisplayResetButton$ = of(true);
       fixture.detectChanges();
 
       const button = fixture.debugElement.query(By.css('.reset'));

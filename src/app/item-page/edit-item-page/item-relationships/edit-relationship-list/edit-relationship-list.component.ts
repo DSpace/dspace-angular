@@ -12,6 +12,44 @@ import {
   Output,
 } from '@angular/core';
 import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
+import { LinkService } from '@dspace/core/cache/builders/link.service';
+import { RequestParam } from '@dspace/core/cache/models/request-param.model';
+import { FieldChangeType } from '@dspace/core/data/object-updates/field-change-type.model';
+import { FieldUpdate } from '@dspace/core/data/object-updates/field-update.model';
+import { FieldUpdates } from '@dspace/core/data/object-updates/field-updates.model';
+import { RelationshipIdentifiable } from '@dspace/core/data/object-updates/object-updates.reducer';
+import { ObjectUpdatesService } from '@dspace/core/data/object-updates/object-updates.service';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RelationshipDataService } from '@dspace/core/data/relationship-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { FollowLinkConfig } from '@dspace/core/shared/follow-link-config.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { ItemType } from '@dspace/core/shared/item-relationships/item-type.model';
+import { Relationship } from '@dspace/core/shared/item-relationships/relationship.model';
+import { RelationshipType } from '@dspace/core/shared/item-relationships/relationship-type.model';
+import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
+import {
+  getAllSucceededRemoteData,
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+  getFirstSucceededRemoteDataPayload,
+  getRemoteDataPayload,
+} from '@dspace/core/shared/operators';
+import { RelationshipOptions } from '@dspace/core/shared/relationship-options.model';
+import { itemLinksToFollow } from '@dspace/core/utilities/relation-query.utils';
+import {
+  hasNoValue,
+  hasValue,
+  hasValueOperator,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
+import {
   NgbModal,
   NgbModalRef,
 } from '@ng-bootstrap/ng-bootstrap';
@@ -36,50 +74,13 @@ import {
   toArray,
 } from 'rxjs/operators';
 
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '../../../../../config/app-config.interface';
-import { LinkService } from '../../../../core/cache/builders/link.service';
-import { RequestParam } from '../../../../core/cache/models/request-param.model';
-import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
-import { FieldUpdate } from '../../../../core/data/object-updates/field-update.model';
-import { FieldUpdates } from '../../../../core/data/object-updates/field-updates.model';
-import { RelationshipIdentifiable } from '../../../../core/data/object-updates/object-updates.reducer';
-import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
-import { PaginatedList } from '../../../../core/data/paginated-list.model';
-import { RelationshipDataService } from '../../../../core/data/relationship-data.service';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { PaginationService } from '../../../../core/pagination/pagination.service';
-import { Collection } from '../../../../core/shared/collection.model';
-import { Item } from '../../../../core/shared/item.model';
-import { ItemType } from '../../../../core/shared/item-relationships/item-type.model';
-import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
-import { RelationshipType } from '../../../../core/shared/item-relationships/relationship-type.model';
-import {
-  getAllSucceededRemoteData,
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteData,
-  getFirstSucceededRemoteDataPayload,
-  getRemoteDataPayload,
-} from '../../../../core/shared/operators';
 import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
-import {
-  hasNoValue,
-  hasValue,
-  hasValueOperator,
-  isNotEmpty,
-} from '../../../../shared/empty.util';
 import { DsDynamicLookupRelationModalComponent } from '../../../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/dynamic-lookup-relation-modal.component';
-import { RelationshipOptions } from '../../../../shared/form/builder/models/relationship-options.model';
+import { NameVariantService } from '../../../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.service';
 import { ThemedLoadingComponent } from '../../../../shared/loading/themed-loading.component';
-import { ItemSearchResult } from '../../../../shared/object-collection/shared/item-search-result.model';
 import { SelectableListService } from '../../../../shared/object-list/selectable-list/selectable-list.service';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
-import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
-import { FollowLinkConfig } from '../../../../shared/utils/follow-link-config.model';
 import { ObjectValuesPipe } from '../../../../shared/utils/object-values-pipe';
-import { itemLinksToFollow } from '../../../../shared/utils/relation-query.utils';
 import { VarDirective } from '../../../../shared/utils/var.directive';
 import { EditItemRelationshipsService } from '../edit-item-relationships.service';
 import { EditRelationshipComponent } from '../edit-relationship/edit-relationship.component';
@@ -89,17 +90,16 @@ import { EditRelationshipComponent } from '../edit-relationship/edit-relationshi
   styleUrls: ['./edit-relationship-list.component.scss'],
   templateUrl: './edit-relationship-list.component.html',
   imports: [
-    EditRelationshipComponent,
-    PaginationComponent,
     AsyncPipe,
-    ObjectValuesPipe,
-    VarDirective,
-    TranslateModule,
-    NgClass,
-    ThemedLoadingComponent,
     BtnDisabledDirective,
+    EditRelationshipComponent,
+    NgClass,
+    ObjectValuesPipe,
+    PaginationComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
+    VarDirective,
   ],
-  standalone: true,
 })
 /**
  * A component creating a list of editable relationships of a certain type
@@ -152,6 +152,8 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
    * The translation key for the entity type
    */
   relationshipMessageKey$: Observable<string>;
+
+  currentEntityType$: Observable<ItemType>;
 
   /**
    * The list ID to save selected entities under
@@ -207,6 +209,7 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
   constructor(
     protected objectUpdatesService: ObjectUpdatesService,
     protected linkService: LinkService,
+    protected nameVariantService: NameVariantService,
     protected relationshipService: RelationshipDataService,
     protected modalService: NgbModal,
     protected paginationService: PaginationService,
@@ -222,20 +225,12 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
    */
   public getRelationshipMessageKey(): Observable<string> {
     return observableCombineLatest([
+      this.currentEntityType$,
       this.getLabel(),
       this.relatedEntityType$,
     ]).pipe(
-      map(([label, relatedEntityType]) => {
-        if (hasValue(label) && label.indexOf('is') > -1 && label.indexOf('Of') > -1) {
-          const relationshipLabel = `${label.substring(2, label.indexOf('Of'))}`;
-          if (relationshipLabel !== relatedEntityType.label) {
-            return `relationships.is${relationshipLabel}Of.${relatedEntityType.label}`;
-          } else {
-            return `relationships.is${relationshipLabel}Of`;
-          }
-        } else {
-          return label;
-        }
+      map(([currentEntityType, label, relatedEntityType]: [ItemType, string, ItemType]) => {
+        return `relationships.${currentEntityType.label}.${label}.${relatedEntityType.label}`;
       }),
     );
   }
@@ -358,7 +353,7 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
         concatMap(({ type, searchResult }: { type: string, searchResult: ItemSearchResult }) => {
           const relatedItem: Item = searchResult.indexableObject;
           if (type === 'add') {
-            return this.relationshipService.getNameVariant(this.listId, relatedItem.uuid).pipe(
+            return this.nameVariantService.getNameVariant(this.listId, relatedItem.uuid).pipe(
               switchMap((nameVariant) => {
                 const update = {
                   uuid: `${this.relationshipType.id}-${relatedItem.uuid}`,
@@ -373,7 +368,7 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
               take(1),
             );
           } else if (type === 'remove') {
-            return this.relationshipService.getNameVariant(this.listId, relatedItem.uuid).pipe(
+            return this.nameVariantService.getNameVariant(this.listId, relatedItem.uuid).pipe(
               switchMap((nameVariant) => {
                 return this.getRelationFromId(searchResult.indexableObject).pipe(
                   map( (relationship: Relationship) => {
@@ -461,6 +456,17 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
     this.relatedEntityType$ = this.relationshipLeftAndRightType$.pipe(
       map(([leftType, rightType]: [ItemType, ItemType]) => {
         if (leftType.uuid !== this.itemType.uuid) {
+          return leftType;
+        } else {
+          return rightType;
+        }
+      }),
+      hasValueOperator(),
+    );
+
+    this.currentEntityType$ = this.relationshipLeftAndRightType$.pipe(
+      map(([leftType, rightType]: [ItemType, ItemType]) => {
+        if (leftType.uuid === this.itemType.uuid) {
           return leftType;
         } else {
           return rightType;

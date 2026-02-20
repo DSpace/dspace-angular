@@ -5,15 +5,15 @@ import {
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../config/app-config.interface';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { QualityAssuranceSourceObject } from '../../core/notifications/qa/models/quality-assurance-source.model';
+} from '@dspace/config/app-config.interface';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { QualityAssuranceSourceObject } from '@dspace/core/notifications/qa/models/quality-assurance-source.model';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 import { QualityAssuranceSourceService } from '../../notifications/qa/source/quality-assurance-source.service';
 
 /**
@@ -34,7 +34,7 @@ export const qualityAssuranceSourceDataResolver: ResolveFn<QualityAssuranceSourc
 ): Observable<QualityAssuranceSourceObject[]> => {
   const pageSize = appConfig.qualityAssuranceConfig.pageSize;
 
-  return qualityAssuranceSourceService.getSources(pageSize, 0).pipe(
+  return qualityAssuranceSourceService.getSources(pageSize, 1).pipe(
     map((sources: PaginatedList<QualityAssuranceSourceObject>) => {
       if (sources.page.length === 1) {
         router.navigate([getResolvedUrl(route) + '/' + sources.page[0].id]);

@@ -7,7 +7,7 @@ import {
   Injector,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
 
 import { MenuComponent } from '../../menu/menu.component';
 import { MenuService } from '../../menu/menu.service';
@@ -21,8 +21,10 @@ import { ThemeService } from '../../theme-support/theme.service';
   selector: 'ds-dso-edit-menu',
   styleUrls: ['./dso-edit-menu.component.scss'],
   templateUrl: './dso-edit-menu.component.html',
-  standalone: true,
-  imports: [NgComponentOutlet, AsyncPipe],
+  imports: [
+    AsyncPipe,
+    NgComponentOutlet,
+  ],
 })
 export class DsoEditMenuComponent extends MenuComponent {
   /**

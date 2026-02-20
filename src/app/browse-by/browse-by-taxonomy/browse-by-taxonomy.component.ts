@@ -1,4 +1,3 @@
-import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Input,
@@ -11,8 +10,15 @@ import {
   Params,
   RouterLink,
 } from '@angular/router';
+import { BrowseByDataType } from '@dspace/core/browse/browse-by-data-type';
+import { BrowseDefinition } from '@dspace/core/shared/browse-definition.model';
+import { Context } from '@dspace/core/shared/context.model';
+import { HierarchicalBrowseDefinition } from '@dspace/core/shared/hierarchical-browse-definition.model';
+import { VocabularyEntryDetail } from '@dspace/core/submission/vocabularies/models/vocabulary-entry-detail.model';
+import { VocabularyOptions } from '@dspace/core/submission/vocabularies/models/vocabulary-options.model';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
-  TranslateModule,
+  TranslatePipe,
   TranslateService,
 } from '@ngx-translate/core';
 import {
@@ -22,44 +28,17 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { BrowseDefinition } from '../../core/shared/browse-definition.model';
-import { Context } from '../../core/shared/context.model';
-import { HierarchicalBrowseDefinition } from '../../core/shared/hierarchical-browse-definition.model';
-import { VocabularyEntryDetail } from '../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
-import { VocabularyOptions } from '../../core/submission/vocabularies/models/vocabulary-options.model';
-import { ThemedBrowseByComponent } from '../../shared/browse-by/themed-browse-by.component';
-import { ThemedComcolPageBrowseByComponent } from '../../shared/comcol/comcol-page-browse-by/themed-comcol-page-browse-by.component';
-import { ThemedComcolPageContentComponent } from '../../shared/comcol/comcol-page-content/themed-comcol-page-content.component';
-import { ThemedComcolPageHandleComponent } from '../../shared/comcol/comcol-page-handle/themed-comcol-page-handle.component';
-import { ComcolPageHeaderComponent } from '../../shared/comcol/comcol-page-header/comcol-page-header.component';
-import { ComcolPageLogoComponent } from '../../shared/comcol/comcol-page-logo/comcol-page-logo.component';
-import { DsoEditMenuComponent } from '../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
-import { hasValue } from '../../shared/empty.util';
 import { VocabularyTreeviewComponent } from '../../shared/form/vocabulary-treeview/vocabulary-treeview.component';
-import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { VarDirective } from '../../shared/utils/var.directive';
-import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
 
 @Component({
   selector: 'ds-browse-by-taxonomy',
   templateUrl: './browse-by-taxonomy.component.html',
   styleUrls: ['./browse-by-taxonomy.component.scss'],
   imports: [
-    VarDirective,
-    AsyncPipe,
-    ComcolPageHeaderComponent,
-    ComcolPageLogoComponent,
-    ThemedComcolPageHandleComponent,
-    ThemedComcolPageContentComponent,
-    DsoEditMenuComponent,
-    ThemedComcolPageBrowseByComponent,
-    TranslateModule,
-    ThemedLoadingComponent,
-    ThemedBrowseByComponent,
-    VocabularyTreeviewComponent,
     RouterLink,
+    TranslatePipe,
+    VocabularyTreeviewComponent,
   ],
-  standalone: true,
 })
 /**
  * Component for browsing items by metadata in a hierarchical controlled vocabulary

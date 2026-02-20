@@ -2,8 +2,8 @@ import {
   Component,
   Input,
 } from '@angular/core';
+import { Item } from '@dspace/core/shared/item.model';
 
-import { Item } from '../../../../core/shared/item.model';
 import { ThemedComponent } from '../../../../shared/theme-support/themed.component';
 import { FullFileSectionComponent } from './full-file-section.component';
 
@@ -12,10 +12,7 @@ import { FullFileSectionComponent } from './full-file-section.component';
  */
 @Component({
   selector: 'ds-item-page-full-file-section',
-  styleUrls: [],
   templateUrl: './../../../../shared/theme-support/themed.component.html',
-  standalone: true,
-  imports: [FullFileSectionComponent],
 })
 export class ThemedFullFileSectionComponent extends ThemedComponent<FullFileSectionComponent> {
 

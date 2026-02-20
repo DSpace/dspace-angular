@@ -7,18 +7,18 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { of as observableOf } from 'rxjs';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
+import { of } from 'rxjs';
 
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { Item } from '../../../../core/shared/item.model';
-import { DSONameServiceMock } from '../../../../shared/mocks/dso-name.service.mock';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
 import { JournalVolumeSearchResultListElementComponent } from '../search-result-list-elements/journal-volume/journal-volume-search-result-list-element.component';
 import { JournalVolumeListElementComponent } from './journal-volume-list-element.component';
 
 const mockItem: Item = Object.assign(new Item(), {
-  bundles: observableOf({}),
+  bundles: of({}),
   metadata: {
     'dc.title': [
       {
@@ -46,7 +46,7 @@ describe('JournalVolumeListElementComponent', () => {
   let fixture;
 
   const truncatableServiceStub: any = {
-    isCollapsed: (id: number) => observableOf(true),
+    isCollapsed: (id: number) => of(true),
   };
 
   beforeEach(waitForAsync(() => {

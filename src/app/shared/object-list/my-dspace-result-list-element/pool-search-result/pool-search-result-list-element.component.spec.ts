@@ -12,29 +12,29 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { of as observableOf } from 'rxjs';
-
-import { APP_CONFIG } from '../../../../../config/app-config.interface';
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { LinkService } from '../../../../core/cache/builders/link.service';
-import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
-import { ConfigurationDataService } from '../../../../core/data/configuration-data.service';
-import { ConfigurationProperty } from '../../../../core/shared/configuration-property.model';
-import { Context } from '../../../../core/shared/context.model';
-import { Item } from '../../../../core/shared/item.model';
-import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
-import { SubmissionDuplicateDataService } from '../../../../core/submission/submission-duplicate-data.service';
-import { PoolTask } from '../../../../core/tasks/models/pool-task-object.model';
-import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
-import { getMockLinkService } from '../../../mocks/link-service.mock';
-import { getMockThemeService } from '../../../mocks/theme-service.mock';
-import { PoolTaskActionsComponent } from '../../../mydspace-actions/pool-task/pool-task-actions.component';
-import { PoolTaskSearchResult } from '../../../object-collection/shared/pool-task-search-result.model';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { LinkService } from '@dspace/core/cache/builders/link.service';
+import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
+import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
+import { Context } from '@dspace/core/shared/context.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { PoolTaskSearchResult } from '@dspace/core/shared/object-collection/pool-task-search-result.model';
+import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
+import { SubmissionDuplicateDataService } from '@dspace/core/submission/submission-duplicate-data.service';
+import { PoolTask } from '@dspace/core/tasks/models/pool-task-object.model';
+import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
+import { getMockLinkService } from '@dspace/core/testing/link-service.mock';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../remote-data.utils';
-import { createPaginatedList } from '../../../testing/utils.test';
+} from '@dspace/core/utilities/remote-data.utils';
+import { of } from 'rxjs';
+
+import { PoolTaskActionsComponent } from '../../../mydspace-actions/pool-task/pool-task-actions.component';
+import { getMockThemeService } from '../../../theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../theme-support/theme.service';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { VarDirective } from '../../../utils/var.directive';
@@ -58,13 +58,13 @@ const configurationDataService = jasmine.createSpyObj('configurationDataService'
   })),
 });
 const duplicateDataServiceStub = {
-  findListByHref: () => observableOf(emptyList),
+  findListByHref: () => of(emptyList),
   findDuplicates: () => createSuccessfulRemoteDataObject$({}),
 };
 
 const item = Object.assign(new Item(), {
-  duplicates: observableOf([]),
-  bundles: observableOf({}),
+  duplicates: of([]),
+  bundles: of({}),
   metadata: {
     'dc.title': [
       {
@@ -100,9 +100,9 @@ const environmentUseThumbs = {
 };
 
 const rdItem = createSuccessfulRemoteDataObject(item);
-const workflowitem = Object.assign(new WorkflowItem(), { item: observableOf(rdItem) });
+const workflowitem = Object.assign(new WorkflowItem(), { item: of(rdItem) });
 const rdWorkflowitem = createSuccessfulRemoteDataObject(workflowitem);
-mockResultObject.indexableObject = Object.assign(new PoolTask(), { workflowitem: observableOf(rdWorkflowitem) });
+mockResultObject.indexableObject = Object.assign(new PoolTask(), { workflowitem: of(rdWorkflowitem) });
 const linkService = getMockLinkService();
 const objectCacheServiceMock = jasmine.createSpyObj('ObjectCacheService', {
   remove: jasmine.createSpy('remove'),

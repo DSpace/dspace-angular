@@ -21,7 +21,7 @@ import {
 } from './menu.actions';
 import { menusReducer } from './menu.reducer';
 import { MenuID } from './menu-id.model';
-import { MenuSectionIndex } from './menu-section-Index.model';
+import { MenuSectionIndex } from './menu-section-index.model';
 
 let visibleSection1;
 let dummyState;

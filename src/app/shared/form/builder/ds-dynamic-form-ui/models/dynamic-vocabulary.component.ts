@@ -5,6 +5,11 @@ import {
   Output,
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
+import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { VocabularyEntry } from '@dspace/core/submission/vocabularies/models/vocabulary-entry.model';
+import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import {
   DynamicFormControlComponent,
   DynamicFormLayoutService,
@@ -12,15 +17,10 @@ import {
 } from '@ng-dynamic-forms/core';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { PageInfo } from '../../../../../core/shared/page-info.model';
-import { VocabularyEntry } from '../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
-import { VocabularyService } from '../../../../../core/submission/vocabularies/vocabulary.service';
-import { isNotEmpty } from '../../../../empty.util';
-import { FormFieldMetadataValueObject } from '../../models/form-field-metadata-value.model';
 import { DsDynamicInputModel } from './ds-dynamic-input.model';
 
 /**
@@ -90,7 +90,7 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
         }
       }));
     } else if (isNotEmpty(this.model.value) && (this.model.value instanceof VocabularyEntry)) {
-      initValue$ = observableOf(
+      initValue$ = of(
         new FormFieldMetadataValueObject(
           this.model.value.value,
           null,
@@ -102,7 +102,7 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
         ),
       );
     } else {
-      initValue$ = observableOf(new FormFieldMetadataValueObject(this.model.value));
+      initValue$ = of(new FormFieldMetadataValueObject(this.model.value));
     }
     return initValue$;
   }

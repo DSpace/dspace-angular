@@ -13,6 +13,21 @@ import {
 } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import {
+  AuthenticateAction,
+  ResetAuthenticationMessagesAction,
+} from '@dspace/core/auth/auth.actions';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { AuthMethod } from '@dspace/core/auth/models/auth.method';
+import {
+  getAuthenticationError,
+  getAuthenticationInfo,
+} from '@dspace/core/auth/selectors';
+import { CoreState } from '@dspace/core/core-state.model';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
+import { HardRedirectService } from '@dspace/core/services/hard-redirect.service';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
+import {
   select,
   Store,
 } from '@ngrx/store';
@@ -31,23 +46,8 @@ import {
   getForgotPasswordRoute,
   getRegisterRoute,
 } from '../../../../app-routing-paths';
-import {
-  AuthenticateAction,
-  ResetAuthenticationMessagesAction,
-} from '../../../../core/auth/auth.actions';
-import { AuthService } from '../../../../core/auth/auth.service';
-import { AuthMethod } from '../../../../core/auth/models/auth.method';
-import {
-  getAuthenticationError,
-  getAuthenticationInfo,
-} from '../../../../core/auth/selectors';
-import { CoreState } from '../../../../core/core-state.model';
-import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../../../core/data/feature-authorization/feature-id';
-import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
 import { fadeOut } from '../../../animations/fade';
 import { BtnDisabledDirective } from '../../../btn-disabled.directive';
-import { isNotEmpty } from '../../../empty.util';
 import { BrowserOnlyPipe } from '../../../utils/browser-only.pipe';
 
 /**
@@ -59,8 +59,15 @@ import { BrowserOnlyPipe } from '../../../utils/browser-only.pipe';
   templateUrl: './log-in-password.component.html',
   styleUrls: ['./log-in-password.component.scss'],
   animations: [fadeOut],
-  standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, RouterLink, AsyncPipe, TranslateModule, BrowserOnlyPipe, BtnDisabledDirective],
+  imports: [
+    AsyncPipe,
+    BrowserOnlyPipe,
+    BtnDisabledDirective,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterLink,
+    TranslateModule,
+  ],
 })
 export class LogInPasswordComponent implements OnInit {
 
@@ -165,11 +172,11 @@ export class LogInPasswordComponent implements OnInit {
       shareReplay({ refCount: false, bufferSize: 1 }),
     );
     this.canShowDivider$ =
-        combineLatest([this.canRegister$, this.canForgot$])
-          .pipe(
-            map(([canRegister, canForgot]) => canRegister || canForgot),
-            filter(Boolean),
-          );
+      combineLatest([this.canRegister$, this.canForgot$])
+        .pipe(
+          map(([canRegister, canForgot]) => canRegister || canForgot),
+          filter(Boolean),
+        );
   }
 
   getRegisterRoute() {

@@ -4,7 +4,13 @@ import {
   Injector,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { RequestService } from '@dspace/core/data/request.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { ClaimedApprovedTaskSearchResult } from '@dspace/core/shared/object-collection/claimed-approved-task-search-result.model';
+import { WorkflowItemDataService } from '@dspace/core/submission/workflowitem-data.service';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
   TranslateService,
@@ -14,14 +20,8 @@ import {
   of,
 } from 'rxjs';
 
-import { RemoteData } from '../../../../core/data/remote-data';
-import { RequestService } from '../../../../core/data/request.service';
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
-import { SearchService } from '../../../../core/shared/search/search.service';
-import { WorkflowItemDataService } from '../../../../core/submission/workflowitem-data.service';
 import { BtnDisabledDirective } from '../../../btn-disabled.directive';
-import { NotificationsService } from '../../../notifications/notifications.service';
-import { ClaimedApprovedTaskSearchResult } from '../../../object-collection/shared/claimed-approved-task-search-result.model';
+import { SearchService } from '../../../search/search.service';
 import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
 
 export const WORKFLOW_TASK_OPTION_APPROVE = 'submit_approve';
@@ -30,8 +30,12 @@ export const WORKFLOW_TASK_OPTION_APPROVE = 'submit_approve';
   selector: 'ds-claimed-task-actions-approve',
   styleUrls: ['./claimed-task-actions-approve.component.scss'],
   templateUrl: './claimed-task-actions-approve.component.html',
-  standalone: true,
-  imports: [NgbTooltipModule, AsyncPipe, TranslateModule, BtnDisabledDirective],
+  imports: [
+    AsyncPipe,
+    BtnDisabledDirective,
+    NgbTooltip,
+    TranslateModule,
+  ],
 })
 /**
  * Component for displaying and processing the approve action on a workflow task item

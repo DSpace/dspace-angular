@@ -9,15 +9,15 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { currentPath } from '@dspace/core/router/utils/route.utils';
+import { AppliedFilter } from '@dspace/core/shared/search/models/applied-filter.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
-import { PaginationService } from '../../../../core/pagination/pagination.service';
-import { SearchService } from '../../../../core/shared/search/search.service';
-import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
-import { SearchFilterService } from '../../../../core/shared/search/search-filter.service';
-import { currentPath } from '../../../utils/route.utils';
-import { AppliedFilter } from '../../models/applied-filter.model';
+import { SearchService } from '../../search.service';
+import { SearchConfigurationService } from '../../search-configuration.service';
+import { SearchFilterService } from '../../search-filters/search-filter.service';
 
 /**
  * Component that represents the label containing the currently active filters
@@ -26,7 +26,6 @@ import { AppliedFilter } from '../../models/applied-filter.model';
   selector: 'ds-search-label-range',
   templateUrl: './search-label-range.component.html',
   styleUrls: ['./search-label-range.component.scss'],
-  standalone: true,
   imports: [
     AsyncPipe,
     RouterLink,

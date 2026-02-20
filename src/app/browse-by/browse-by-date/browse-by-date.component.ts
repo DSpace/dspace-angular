@@ -11,43 +11,41 @@ import {
 } from '@angular/core';
 import {
   ActivatedRoute,
-  Params,
   Router,
 } from '@angular/router';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { BrowseService } from '@dspace/core/browse/browse.service';
+import {
+  SortDirection,
+  SortOptions,
+} from '@dspace/core/cache/models/sort-options.model';
+import { DSpaceObjectDataService } from '@dspace/core/data/dspace-object-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { isValidDate } from '@dspace/shared/utils/date.util';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest as observableCombineLatest,
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import {
-  distinctUntilChanged,
   map,
+  switchMap,
 } from 'rxjs/operators';
 import { ThemedBrowseByComponent } from 'src/app/shared/browse-by/themed-browse-by.component';
 
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '../../../config/app-config.interface';
 import { environment } from '../../../environments/environment';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { BrowseService } from '../../core/browse/browse.service';
-import {
-  SortDirection,
-  SortOptions,
-} from '../../core/cache/models/sort-options.model';
-import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { Item } from '../../core/shared/item.model';
-import { isValidDate } from '../../shared/date.util';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { StartsWithType } from '../../shared/starts-with/starts-with-type';
 import {
   BrowseByMetadataComponent,
@@ -58,12 +56,11 @@ import {
   selector: 'ds-browse-by-date',
   styleUrls: ['../browse-by-metadata/browse-by-metadata.component.scss'],
   templateUrl: '../browse-by-metadata/browse-by-metadata.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
-    TranslateModule,
-    ThemedLoadingComponent,
     ThemedBrowseByComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
   ],
 })
 /**
@@ -94,30 +91,26 @@ export class BrowseByDateComponent extends BrowseByMetadataComponent implements 
 
   ngOnInit(): void {
     if (!this.renderOnServerSide && !environment.ssr.enableBrowseComponent && isPlatformServer(this.platformId)) {
-      this.loading$ = observableOf(false);
+      this.loading$ = of(false);
       return;
     }
-    const sortConfig = new SortOptions('default', SortDirection.ASC);
+    this.browseId = this.route.snapshot.params.id;
     this.startsWithType = StartsWithType.date;
-    this.currentPagination$ = this.paginationService.getCurrentPagination(this.paginationConfig.id, this.paginationConfig);
-    this.currentSort$ = this.paginationService.getCurrentSort(this.paginationConfig.id, sortConfig);
-    const routeParams$: Observable<Params> = observableCombineLatest([
-      this.route.params,
-      this.route.queryParams,
-    ]).pipe(
-      map(([params, queryParams]: [Params, Params]) => Object.assign({}, params, queryParams)),
-      distinctUntilChanged((prev: Params, curr: Params) => prev.id === curr.id && prev.startsWith === curr.startsWith),
-    );
+
     this.subs.push(
-      observableCombineLatest([
-        routeParams$,
-        this.scope$,
-        this.currentPagination$,
-        this.currentSort$,
-      ]).subscribe(([params, scope, currentPage, currentSort]: [Params, string, PaginationComponentOptions, SortOptions]) => {
+      this.browseService.getConfiguredSortDirection(this.browseId, SortDirection.ASC).pipe(
+        map((sortDir) => new SortOptions(this.browseId, sortDir)),
+        switchMap((sortConfig) => {
+          this.currentPagination$ = this.paginationService.getCurrentPagination(this.paginationConfig.id, this.paginationConfig);
+          this.currentSort$ = this.paginationService.getCurrentSort(this.paginationConfig.id, sortConfig, false);
+          return observableCombineLatest([this.route.params, this.route.queryParams, this.scope$, this.route.data, this.currentPagination$, this.currentSort$]).pipe(
+            map(([routeParams, queryParams, scope, data, currentPage, currentSort]) => ({
+              params: Object.assign({}, routeParams, queryParams, data), scope, currentPage, currentSort,
+            })));
+        })).subscribe(({ params, scope, currentPage, currentSort }) => {
         const metadataKeys = params.browseDefinition ? params.browseDefinition.metadataKeys : this.defaultMetadataKeys;
-        this.browseId = params.id || this.defaultBrowseId;
         this.startsWith = +params.startsWith || params.startsWith;
+        this.browseId = params.id || this.defaultBrowseId;
         const searchOptions = browseParamsToOptions(params, scope, currentPage, currentSort, this.browseId, this.fetchThumbnails);
         this.updatePageWithItems(searchOptions, this.value, undefined);
         this.updateStartsWithOptions(this.browseId, metadataKeys, params.scope);

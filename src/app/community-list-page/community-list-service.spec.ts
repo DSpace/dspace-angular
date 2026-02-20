@@ -2,29 +2,29 @@ import {
   inject,
   TestBed,
 } from '@angular/core/testing';
-import { Store } from '@ngrx/store';
-import { of as observableOf } from 'rxjs';
-import { take } from 'rxjs/operators';
-import { APP_CONFIG } from 'src/config/app-config.interface';
-import { environment } from 'src/environments/environment.test';
-
-import { AppState } from '../app.reducer';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import {
   SortDirection,
   SortOptions,
-} from '../core/cache/models/sort-options.model';
-import { CollectionDataService } from '../core/data/collection-data.service';
-import { CommunityDataService } from '../core/data/community-data.service';
-import { FindListOptions } from '../core/data/find-list-options.model';
-import { buildPaginatedList } from '../core/data/paginated-list.model';
-import { Collection } from '../core/shared/collection.model';
-import { Community } from '../core/shared/community.model';
-import { PageInfo } from '../core/shared/page-info.model';
+} from '@dspace/core/cache/models/sort-options.model';
+import { CollectionDataService } from '@dspace/core/data/collection-data.service';
+import { CommunityDataService } from '@dspace/core/data/community-data.service';
+import { FindListOptions } from '@dspace/core/data/find-list-options.model';
+import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { Community } from '@dspace/core/shared/community.model';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { StoreMock } from '@dspace/core/testing/store.mock';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../shared/remote-data.utils';
-import { StoreMock } from '../shared/testing/store.mock';
+} from '@dspace/core/utilities/remote-data.utils';
+import { Store } from '@ngrx/store';
+import { of } from 'rxjs';
+import { take } from 'rxjs/operators';
+
+import { environment } from '../../environments/environment.test';
+import { AppState } from '../app.reducer';
 import {
   CommunityListService,
   toFlatNode,
@@ -285,7 +285,7 @@ describe('CommunityListService', () => {
         beforeEach((done) => {
           const expandedNodes = [];
           mockListOfTopCommunitiesPage1.map((community: Community) => {
-            const communityFlatNode = toFlatNode(community, observableOf(true), 0, true, null);
+            const communityFlatNode = toFlatNode(community, of(true), 0, true, null);
             communityFlatNode.currentCollectionPage = 1;
             communityFlatNode.currentCommunityPage = 1;
             expandedNodes.push(communityFlatNode);
@@ -314,7 +314,7 @@ describe('CommunityListService', () => {
       });
       describe('Just first top comm expanded, all page 1: should return list containing flatnodes of the communities in the test list and all its possible page-limited children (subcommunities and collections)', () => {
         beforeEach((done) => {
-          const communityFlatNode = toFlatNode(mockListOfTopCommunitiesPage1[0], observableOf(true), 0, true, null);
+          const communityFlatNode = toFlatNode(mockListOfTopCommunitiesPage1[0], of(true), 0, true, null);
           communityFlatNode.currentCollectionPage = 1;
           communityFlatNode.currentCommunityPage = 1;
           const expandedNodes = [communityFlatNode];
@@ -339,7 +339,7 @@ describe('CommunityListService', () => {
       });
       describe('Just second top comm expanded, collections at page 2: should return list containing flatnodes of the communities in the test list and all its possible page-limited children (subcommunities and collections)', () => {
         beforeEach((done) => {
-          const communityFlatNode = toFlatNode(mockListOfTopCommunitiesPage1[1], observableOf(true), 0, true, null);
+          const communityFlatNode = toFlatNode(mockListOfTopCommunitiesPage1[1], of(true), 0, true, null);
           communityFlatNode.currentCollectionPage = 2;
           communityFlatNode.currentCommunityPage = 1;
           const expandedNodes = [communityFlatNode];
@@ -403,7 +403,7 @@ describe('CommunityListService', () => {
           beforeEach((done) => {
             const expandedNodes = [];
             listOfCommunities.map((community: Community) => {
-              const communityFlatNode = toFlatNode(community, observableOf(true), 0, true, null);
+              const communityFlatNode = toFlatNode(community, of(true), 0, true, null);
               communityFlatNode.currentCollectionPage = 1;
               communityFlatNode.currentCommunityPage = 1;
               expandedNodes.push(communityFlatNode);
@@ -513,7 +513,7 @@ describe('CommunityListService', () => {
           });
           let flatNodeList;
           beforeEach((done) => {
-            const communityFlatNode = toFlatNode(communityWithSubcoms, observableOf(true), 0, true, null);
+            const communityFlatNode = toFlatNode(communityWithSubcoms, of(true), 0, true, null);
             communityFlatNode.currentCollectionPage = 1;
             communityFlatNode.currentCommunityPage = 1;
             const expandedNodes = [communityFlatNode];
@@ -556,7 +556,7 @@ describe('CommunityListService', () => {
                 'dc.title': [{ language: 'en_US', value: 'Community 1' }],
               },
             });
-            const communityFlatNode = toFlatNode(communityWithCollections, observableOf(true), 0, true, null);
+            const communityFlatNode = toFlatNode(communityWithCollections, of(true), 0, true, null);
             communityFlatNode.currentCollectionPage = 2;
             communityFlatNode.currentCommunityPage = 1;
             const expandedNodes = [communityFlatNode];

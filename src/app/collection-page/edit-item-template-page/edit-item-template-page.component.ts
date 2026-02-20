@@ -7,6 +7,12 @@ import {
   ActivatedRoute,
   RouterLink,
 } from '@angular/router';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { ItemTemplateDataService } from '@dspace/core/data/item-template-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import {
@@ -15,12 +21,6 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { ItemTemplateDataService } from '../../core/data/item-template-data.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { Collection } from '../../core/shared/collection.model';
-import { Item } from '../../core/shared/item.model';
-import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
 import { ThemedDsoEditMetadataComponent } from '../../dso-shared/dso-edit-metadata/themed-dso-edit-metadata.component';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { AlertType } from '../../shared/alert/alert-type';
@@ -32,15 +32,14 @@ import { getCollectionEditRoute } from '../collection-page-routing-paths';
   selector: 'ds-base-edit-item-template-page',
   templateUrl: './edit-item-template-page.component.html',
   imports: [
-    ThemedDsoEditMetadataComponent,
-    RouterLink,
-    AsyncPipe,
-    VarDirective,
-    TranslateModule,
-    ThemedLoadingComponent,
     AlertComponent,
+    AsyncPipe,
+    RouterLink,
+    ThemedDsoEditMetadataComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
+    VarDirective,
   ],
-  standalone: true,
 })
 /**
  * Component for editing the item template of a collection

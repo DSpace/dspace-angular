@@ -10,18 +10,18 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
-
-import { ComColDataService } from '../../../../../core/data/comcol-data.service';
-import { Community } from '../../../../../core/shared/community.model';
-import { NotificationsService } from '../../../../notifications/notifications.service';
+import { ComColDataService } from '@dspace/core/data/comcol-data.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Community } from '@dspace/core/shared/community.model';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../../remote-data.utils';
-import { NotificationsServiceStub } from '../../../../testing/notifications-service.stub';
+} from '@dspace/core/utilities/remote-data.utils';
+import { TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
+
 import { ComcolMetadataComponent } from './comcol-metadata.component';
 
 describe('ComColMetadataComponent', () => {
@@ -64,7 +64,7 @@ describe('ComColMetadataComponent', () => {
 
     routeStub = {
       parent: {
-        data: observableOf({
+        data: of({
           dso: createSuccessfulRemoteDataObject(community),
         }),
       },

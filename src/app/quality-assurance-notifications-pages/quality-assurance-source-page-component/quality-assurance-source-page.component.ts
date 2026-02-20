@@ -11,6 +11,5 @@ import { QualityAssuranceSourceComponent } from '../../notifications/qa/source/q
   imports: [
     QualityAssuranceSourceComponent,
   ],
-  standalone: true,
 })
 export class QualityAssuranceSourcePageComponent {}

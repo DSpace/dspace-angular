@@ -18,7 +18,15 @@ import {
   ValidationErrors,
   ValidatorFn,
 } from '@angular/forms';
-import { NgbButtonsModule } from '@ng-bootstrap/ng-bootstrap';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { VocabularyEntry } from '@dspace/core/submission/vocabularies/models/vocabulary-entry.model';
+import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import {
   DynamicCheckboxModel,
   DynamicFormControlComponent,
@@ -36,15 +44,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { PaginatedList } from '../../../../../../core/data/paginated-list.model';
-import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
-import { PageInfo } from '../../../../../../core/shared/page-info.model';
-import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
-import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../../../../empty.util';
 import { ThemedLoadingComponent } from '../../../../../loading/themed-loading.component';
 import { FormBuilderService } from '../../../form-builder.service';
 import { DynamicListCheckboxGroupModel } from './dynamic-list-checkbox-group.model';
@@ -65,14 +64,12 @@ export interface ListItem {
   styleUrls: ['./dynamic-list.component.scss'],
   templateUrl: './dynamic-list.component.html',
   imports: [
-    NgClass,
-    NgbButtonsModule,
-    ReactiveFormsModule,
     AsyncPipe,
-    TranslateModule,
+    NgClass,
+    ReactiveFormsModule,
     ThemedLoadingComponent,
+    TranslateModule,
   ],
-  standalone: true,
 })
 export class DsDynamicListComponent extends DynamicFormControlComponent implements OnInit, OnDestroy {
 

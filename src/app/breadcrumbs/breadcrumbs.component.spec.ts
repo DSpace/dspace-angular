@@ -6,15 +6,15 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
+import { Breadcrumb } from '@dspace/core/breadcrumbs/models/breadcrumb.model';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
-import { TranslateLoaderMock } from '../shared/testing/translate-loader.mock';
 import { VarDirective } from '../shared/utils/var.directive';
-import { Breadcrumb } from './breadcrumb/breadcrumb.model';
 import { BreadcrumbsComponent } from './breadcrumbs.component';
 import { BreadcrumbsService } from './breadcrumbs.service';
 
@@ -38,12 +38,12 @@ describe('BreadcrumbsComponent', () => {
 
   beforeEach(waitForAsync(() => {
     breadcrumbsServiceMock = {
-      breadcrumbs$: observableOf([
+      breadcrumbs$: of([
         // NOTE: a root breadcrumb is automatically rendered
         new Breadcrumb('bc 1', 'example.com'),
         new Breadcrumb('bc 2', 'another.com'),
       ]),
-      showBreadcrumbs$: observableOf(true),
+      showBreadcrumbs$: of(true),
     } as BreadcrumbsService;
 
     TestBed.configureTestingModule({

@@ -9,13 +9,10 @@ import { CommunityListPageComponent as BaseComponent } from '../../../../app/com
   // styleUrls: ['./community-list-page.component.scss'],
   // templateUrl: './community-list-page.component.html'
   templateUrl: '../../../../app/community-list-page/community-list-page.component.html',
-  standalone: true,
-  imports: [ThemedCommunityListComponent, TranslateModule],
+  imports: [
+    ThemedCommunityListComponent,
+    TranslateModule,
+  ],
 })
-
-/**
- * Page with title and the community list tree, as described in community-list.component;
- * navigated to with community-list.page.routing.module
- */
-export class CommunityListPageComponent extends BaseComponent {}
-
+export class CommunityListPageComponent extends BaseComponent {
+}

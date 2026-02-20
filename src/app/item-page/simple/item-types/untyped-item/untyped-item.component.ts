@@ -4,10 +4,10 @@ import {
   Component,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { Item } from '@dspace/core/shared/item.model';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { Item } from '../../../../core/shared/item.model';
-import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { DsoEditMenuComponent } from '../../../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { listableObjectComponent } from '../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
@@ -21,6 +21,7 @@ import { ItemPageAbstractFieldComponent } from '../../field-components/specific-
 import { ItemPageCcLicenseFieldComponent } from '../../field-components/specific-field/cc-license/item-page-cc-license-field.component';
 import { ItemPageDateFieldComponent } from '../../field-components/specific-field/date/item-page-date-field.component';
 import { GenericItemPageFieldComponent } from '../../field-components/specific-field/generic/generic-item-page-field.component';
+import { GeospatialItemPageFieldComponent } from '../../field-components/specific-field/geospatial/geospatial-item-page-field.component';
 import { ThemedItemPageTitleFieldComponent } from '../../field-components/specific-field/title/themed-item-page-field.component';
 import { ItemPageUriFieldComponent } from '../../field-components/specific-field/uri/item-page-uri-field.component';
 import { ThemedMetadataRepresentationListComponent } from '../../metadata-representation-list/themed-metadata-representation-list.component';
@@ -36,26 +37,26 @@ import { ItemComponent } from '../shared/item.component';
   styleUrls: ['./untyped-item.component.scss'],
   templateUrl: './untyped-item.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
   imports: [
-    ThemedResultsBackButtonComponent,
-    MiradorViewerComponent,
-    ThemedItemPageTitleFieldComponent,
-    DsoEditMenuComponent,
-    MetadataFieldWrapperComponent,
-    ThemedThumbnailComponent,
-    ThemedMediaViewerComponent,
-    ThemedFileSectionComponent,
-    ItemPageDateFieldComponent,
-    ThemedMetadataRepresentationListComponent,
-    GenericItemPageFieldComponent,
-    ItemPageAbstractFieldComponent,
-    ItemPageUriFieldComponent,
-    CollectionsComponent,
-    RouterLink,
     AsyncPipe,
-    TranslateModule,
+    CollectionsComponent,
+    DsoEditMenuComponent,
+    GenericItemPageFieldComponent,
+    GeospatialItemPageFieldComponent,
+    ItemPageAbstractFieldComponent,
     ItemPageCcLicenseFieldComponent,
+    ItemPageDateFieldComponent,
+    ItemPageUriFieldComponent,
+    MetadataFieldWrapperComponent,
+    MiradorViewerComponent,
+    RouterLink,
+    ThemedFileSectionComponent,
+    ThemedItemPageTitleFieldComponent,
+    ThemedMediaViewerComponent,
+    ThemedMetadataRepresentationListComponent,
+    ThemedResultsBackButtonComponent,
+    ThemedThumbnailComponent,
+    TranslateModule,
   ],
 })
 export class UntypedItemComponent extends ItemComponent {}

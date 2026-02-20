@@ -16,42 +16,42 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { BrowseService } from '@dspace/core/browse/browse.service';
+import { BrowseEntrySearchOptions } from '@dspace/core/browse/browse-entry-search-options.model';
+import { SortDirection } from '@dspace/core/cache/models/sort-options.model';
+import { DSpaceObjectDataService } from '@dspace/core/data/dspace-object-data.service';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { RouteService } from '@dspace/core/services/route.service';
+import { BrowseEntry } from '@dspace/core/shared/browse-entry.model';
+import { Community } from '@dspace/core/shared/community.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
+import { routeServiceStub } from '@dspace/core/testing/route-service.stub';
+import { RouterMock } from '@dspace/core/testing/router.mock';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
-import { RouteService } from 'src/app/core/services/route.service';
 import { DsoEditMenuComponent } from 'src/app/shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import { HostWindowService } from 'src/app/shared/host-window.service';
 import { ThemedLoadingComponent } from 'src/app/shared/loading/themed-loading.component';
-import { getMockThemeService } from 'src/app/shared/mocks/theme-service.mock';
 import { SelectableListService } from 'src/app/shared/object-list/selectable-list/selectable-list.service';
-import { routeServiceStub } from 'src/app/shared/testing/route-service.stub';
 import { ThemeService } from 'src/app/shared/theme-support/theme.service';
 
-import { APP_CONFIG } from '../../../config/app-config.interface';
-import { BrowseService } from '../../core/browse/browse.service';
-import { BrowseEntrySearchOptions } from '../../core/browse/browse-entry-search-options.model';
-import { SortDirection } from '../../core/cache/models/sort-options.model';
-import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '../../core/data/paginated-list.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { BrowseEntry } from '../../core/shared/browse-entry.model';
-import { Community } from '../../core/shared/community.model';
-import { Item } from '../../core/shared/item.model';
-import { PageInfo } from '../../core/shared/page-info.model';
-import { RouterMock } from '../../shared/mocks/router.mock';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
-import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
+import { getMockThemeService } from '../../shared/theme-support/test/theme-service.mock';
 import { EnumKeysPipe } from '../../shared/utils/enum-keys-pipe';
 import { VarDirective } from '../../shared/utils/var.directive';
 import {
@@ -117,6 +117,7 @@ describe('BrowseByMetadataComponent', () => {
   const mockBrowseService = {
     getBrowseEntriesFor: (options: BrowseEntrySearchOptions) => toRemoteData(mockEntries),
     getBrowseItemsFor: (value: string, options: BrowseEntrySearchOptions) => toRemoteData(mockItems),
+    getConfiguredSortDirection: () => of(SortDirection.ASC),
   };
 
   const mockDsoService = {
@@ -124,7 +125,7 @@ describe('BrowseByMetadataComponent', () => {
   };
 
   const activatedRouteStub = Object.assign(new ActivatedRouteStub(), {
-    params: observableOf({}),
+    params: of({}),
   });
 
   paginationService = new PaginationServiceStub();
@@ -170,7 +171,7 @@ describe('BrowseByMetadataComponent', () => {
     fixture.detectChanges();
     browseService = (comp as any).browseService;
     route = (comp as any).route;
-    route.params = observableOf({});
+    route.params = of({});
     comp.ngOnInit();
     fixture.detectChanges();
   });
@@ -190,7 +191,7 @@ describe('BrowseByMetadataComponent', () => {
         value: 'John Doe',
       };
 
-      route.params = observableOf(paramsWithValue);
+      route.params = of(paramsWithValue);
       comp.ngOnInit();
       fixture.detectChanges();
     });

@@ -1,15 +1,15 @@
 import { Route } from '@angular/router';
+import { authenticatedGuard } from '@dspace/core/auth/authenticated.guard';
+import { communityBreadcrumbResolver } from '@dspace/core/breadcrumbs/community-breadcrumb.resolver';
+import { i18nBreadcrumbResolver } from '@dspace/core/breadcrumbs/i18n-breadcrumb.resolver';
 
+import { ObjectAuditLogsComponent } from '../audit-page/object-audit-overview/object-audit-logs.component';
 import { browseByGuard } from '../browse-by/browse-by-guard';
 import { browseByI18nBreadcrumbResolver } from '../browse-by/browse-by-i18n-breadcrumb.resolver';
-import { authenticatedGuard } from '../core/auth/authenticated.guard';
-import { communityBreadcrumbResolver } from '../core/breadcrumbs/community-breadcrumb.resolver';
-import { i18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { ComcolBrowseByComponent } from '../shared/comcol/sections/comcol-browse-by/comcol-browse-by.component';
 import { ComcolSearchSectionComponent } from '../shared/comcol/sections/comcol-search-section/comcol-search-section.component';
-import { dsoEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
-import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
-import { MenuItemType } from '../shared/menu/menu-item-type.model';
+import { MenuRoute } from '../shared/menu/menu-route.model';
+import { viewTrackerResolver } from '../statistics/angulartics/dspace/view-tracker.resolver';
 import { communityPageResolver } from './community-page.resolver';
 import { communityPageAdministratorGuard } from './community-page-administrator.guard';
 import {
@@ -67,10 +67,21 @@ export const ROUTES: Route[] = [
         canActivate: [authenticatedGuard],
       },
       {
+        path: 'auditlogs',
+        component: ObjectAuditLogsComponent,
+        data: { title: 'audit.object.title', breadcrumbKey: 'audit.object' },
+        resolve: {
+          breadcrumb: i18nBreadcrumbResolver,
+        },
+      },
+      {
         path: '',
         component: ThemedCommunityPageComponent,
+        data: {
+          menuRoute: MenuRoute.COMMUNITY_PAGE,
+        },
         resolve: {
-          menu: dsoEditMenuResolver,
+          tracking: viewTrackerResolver,
         },
         children: [
           {
@@ -79,13 +90,29 @@ export const ROUTES: Route[] = [
             component: ComcolSearchSectionComponent,
           },
           {
+            path: 'search',
+            pathMatch: 'full',
+            component: ComcolSearchSectionComponent,
+            resolve: {
+              breadcrumb: i18nBreadcrumbResolver,
+            },
+            data: {
+              breadcrumbKey: 'community.search',
+              menuRoute: MenuRoute.COMMUNITY_PAGE,
+              enableRSS: true,
+            },
+          },
+          {
             path: 'subcoms-cols',
             pathMatch: 'full',
             component: SubComColSectionComponent,
             resolve: {
               breadcrumb: i18nBreadcrumbResolver,
             },
-            data: { breadcrumbKey: 'community.subcoms-cols' },
+            data: {
+              breadcrumbKey: 'community.subcoms-cols',
+              menuRoute: MenuRoute.COMMUNITY_PAGE,
+            },
           },
           {
             path: 'browse/:id',
@@ -95,25 +122,13 @@ export const ROUTES: Route[] = [
             resolve: {
               breadcrumb: browseByI18nBreadcrumbResolver,
             },
-            data: { breadcrumbKey: 'browse.metadata' },
+            data: {
+              breadcrumbKey: 'browse.metadata',
+              menuRoute: MenuRoute.COMMUNITY_PAGE,
+            },
           },
         ],
       },
     ],
-    data: {
-      menu: {
-        public: [{
-          id: 'statistics_community_:id',
-          active: true,
-          visible: true,
-          index: 2,
-          model: {
-            type: MenuItemType.LINK,
-            text: 'menu.section.statistics',
-            link: 'statistics/communities/:id/',
-          } as LinkMenuItemModel,
-        }],
-      },
-    },
   },
 ];

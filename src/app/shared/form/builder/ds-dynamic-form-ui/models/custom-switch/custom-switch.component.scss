@@ -1,16 +1,3 @@
-div.custom-switch {
-  &.custom-control-right {
-    margin-left: 0;
-    margin-right: 0;
-
-    &::after {
-      right: -1.5rem;
-      left: auto;
-    }
-
-    &::before {
-      right: -2.35rem;
-      left: auto;
-    }
-  }
+.form-check-input {
+  appearance: none;
 }

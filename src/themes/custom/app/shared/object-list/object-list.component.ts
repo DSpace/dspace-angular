@@ -8,18 +8,20 @@ import { ObjectListComponent as BaseComponent } from '../../../../../app/shared/
 import { PaginationComponent } from '../../../../../app/shared/pagination/pagination.component';
 import { BrowserOnlyPipe } from '../../../../../app/shared/utils/browser-only.pipe';
 
-/**
- * A component to display the "Browse By" section of a Community or Collection page
- * It expects the ID of the Community or Collection as input to be passed on as a scope
- */
 @Component({
   selector: 'ds-themed-object-list',
   // styleUrls: ['./object-list.component.scss'],
   styleUrls: ['../../../../../app/shared/object-list/object-list.component.scss'],
   // templateUrl: './object-list.component.html'
   templateUrl: '../../../../../app/shared/object-list/object-list.component.html',
-  imports: [PaginationComponent,  NgClass, SelectableListItemControlComponent, ImportableListItemControlComponent, ListableObjectComponentLoaderComponent, BrowserOnlyPipe],
-  standalone: true,
+  imports: [
+    BrowserOnlyPipe,
+    ImportableListItemControlComponent,
+    ListableObjectComponentLoaderComponent,
+    NgClass,
+    PaginationComponent,
+    SelectableListItemControlComponent,
+  ],
 })
-
-export class ObjectListComponent extends BaseComponent {}
+export class ObjectListComponent extends BaseComponent {
+}

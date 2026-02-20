@@ -8,27 +8,26 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { BundleDataService } from '@dspace/core/data/bundle-data.service';
+import { FieldChangeType } from '@dspace/core/data/object-updates/field-change-type.model';
+import { FieldUpdate } from '@dspace/core/data/object-updates/field-update.model';
+import { ObjectUpdatesService } from '@dspace/core/data/object-updates/object-updates.service';
+import { RequestService } from '@dspace/core/data/request.service';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { Bundle } from '@dspace/core/shared/bundle.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
+import { getMockRequestService } from '@dspace/core/testing/request.service.mock';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import {
-  of as observableOf,
   of,
   Subject,
 } from 'rxjs';
 
-import { BundleDataService } from '../../../../core/data/bundle-data.service';
-import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
-import { FieldUpdate } from '../../../../core/data/object-updates/field-update.model';
-import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
-import { RequestService } from '../../../../core/data/request.service';
-import { PaginationService } from '../../../../core/pagination/pagination.service';
-import { Bundle } from '../../../../core/shared/bundle.model';
-import { Item } from '../../../../core/shared/item.model';
-import { getMockRequestService } from '../../../../shared/mocks/request.service.mock';
-import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { ResponsiveColumnSizes } from '../../../../shared/responsive-table-sizes/responsive-column-sizes';
 import { ResponsiveTableSizes } from '../../../../shared/responsive-table-sizes/responsive-table-sizes';
-import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';
-import { createPaginatedList } from '../../../../shared/testing/utils.test';
 import {
   BitstreamTableEntry,
   ItemBitstreamsService,
@@ -66,7 +65,7 @@ describe('ItemEditBitstreamBundleComponent', () => {
 
   const restEndpoint = 'fake-rest-endpoint';
   const bundleService = jasmine.createSpyObj('bundleService', {
-    getBitstreamsEndpoint: observableOf(restEndpoint),
+    getBitstreamsEndpoint: of(restEndpoint),
     getBitstreams: createSuccessfulRemoteDataObject$(createPaginatedList([])),
   });
 

@@ -7,6 +7,32 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
+import { EPerson } from '@dspace/core/eperson/models/eperson.model';
+import { Group } from '@dspace/core/eperson/models/group.model';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import {
+  getAllCompletedRemoteData,
+  getAllSucceededRemoteData,
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+} from '@dspace/core/shared/operators';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import {
   TranslateModule,
   TranslateService,
@@ -22,35 +48,11 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { AuthService } from '../core/auth/auth.service';
-import { DSONameService } from '../core/breadcrumbs/dso-name.service';
-import { ConfigurationDataService } from '../core/data/configuration-data.service';
-import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../core/data/feature-authorization/feature-id';
-import { PaginatedList } from '../core/data/paginated-list.model';
-import { RemoteData } from '../core/data/remote-data';
-import { EPersonDataService } from '../core/eperson/eperson-data.service';
-import { EPerson } from '../core/eperson/models/eperson.model';
-import { Group } from '../core/eperson/models/group.model';
-import { PaginationService } from '../core/pagination/pagination.service';
-import { ConfigurationProperty } from '../core/shared/configuration-property.model';
-import {
-  getAllCompletedRemoteData,
-  getAllSucceededRemoteData,
-  getFirstCompletedRemoteData,
-  getRemoteDataPayload,
-} from '../core/shared/operators';
-import { SuggestionsNotificationComponent } from '../notifications/suggestions-notification/suggestions-notification.component';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../shared/empty.util';
+import { SuggestionsNotificationComponent } from '../notifications/suggestions/notification/suggestions-notification.component';
+import { AlertComponent } from '../shared/alert/alert.component';
 import { ErrorComponent } from '../shared/error/error.component';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
-import { NotificationsService } from '../shared/notifications/notifications.service';
 import { PaginationComponent } from '../shared/pagination/pagination.component';
-import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
-import { followLink } from '../shared/utils/follow-link-config.model';
 import { VarDirective } from '../shared/utils/var.directive';
 import { ThemedProfilePageMetadataFormComponent } from './profile-page-metadata-form/themed-profile-page-metadata-form.component';
 import { ProfilePageResearcherFormComponent } from './profile-page-researcher-form/profile-page-researcher-form.component';
@@ -61,19 +63,20 @@ import { ProfilePageSecurityFormComponent } from './profile-page-security-form/p
   styleUrls: ['./profile-page.component.scss'],
   templateUrl: './profile-page.component.html',
   imports: [
-    ThemedProfilePageMetadataFormComponent,
-    ProfilePageSecurityFormComponent,
+    AlertComponent,
     AsyncPipe,
-    TranslateModule,
-    ProfilePageResearcherFormComponent,
-    VarDirective,
-    SuggestionsNotificationComponent,
+    ErrorComponent,
     NgTemplateOutlet,
     PaginationComponent,
+    ProfilePageResearcherFormComponent,
+    ProfilePageSecurityFormComponent,
+    RouterModule,
+    SuggestionsNotificationComponent,
     ThemedLoadingComponent,
-    ErrorComponent,
+    ThemedProfilePageMetadataFormComponent,
+    TranslateModule,
+    VarDirective,
   ],
-  standalone: true,
 })
 /**
  * Component for a user to edit their profile information

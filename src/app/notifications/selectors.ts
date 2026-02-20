@@ -1,11 +1,11 @@
+import { QualityAssuranceSourceObject } from '@dspace/core/notifications/qa/models/quality-assurance-source.model';
+import { QualityAssuranceTopicObject } from '@dspace/core/notifications/qa/models/quality-assurance-topic.model';
 import {
   createFeatureSelector,
   createSelector,
   MemoizedSelector,
 } from '@ngrx/store';
 
-import { QualityAssuranceSourceObject } from '../core/notifications/qa/models/quality-assurance-source.model';
-import { QualityAssuranceTopicObject } from '../core/notifications/qa/models/quality-assurance-topic.model';
 import { subStateSelector } from '../shared/selector.util';
 import {
   suggestionNotificationsSelector,

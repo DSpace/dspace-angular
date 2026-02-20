@@ -17,44 +17,44 @@ import {
 } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { SubmissionFormsConfigDataService } from '@dspace/core/config/submission-forms-config-data.service';
+import { CollectionDataService } from '@dspace/core/data/collection-data.service';
+import { JsonPatchOperationPathCombiner } from '@dspace/core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { Duplicate } from '@dspace/core/shared/duplicate-data/duplicate.model';
+import { DUPLICATE } from '@dspace/core/shared/duplicate-data/duplicate.resource-type';
+import { License } from '@dspace/core/shared/license.model';
+import { MetadataValue } from '@dspace/core/shared/metadata.models';
+import { SectionsType } from '@dspace/core/submission/sections-type';
+import { SubmissionScopeType } from '@dspace/core/submission/submission-scope-type';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
+import { SectionsServiceStub } from '@dspace/core/testing/sections-service.stub';
+import { SubmissionServiceStub } from '@dspace/core/testing/submission-service.stub';
+import { defaultUUID } from '@dspace/core/testing/uuid.service.mock';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
-import { SubmissionFormsConfigDataService } from '../../../core/config/submission-forms-config-data.service';
-import { CollectionDataService } from '../../../core/data/collection-data.service';
-import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { Collection } from '../../../core/shared/collection.model';
-import { License } from '../../../core/shared/license.model';
-import { MetadataValue } from '../../../core/shared/metadata.models';
-import { SubmissionScopeType } from '../../../core/submission/submission-scope-type';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormService } from '../../../shared/form/form.service';
-import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
-import { getMockFormOperationsService } from '../../../shared/mocks/form-operations-service.mock';
-import { getMockFormService } from '../../../shared/mocks/form-service.mock';
-import {
-  mockSubmissionCollectionId,
-  mockSubmissionId,
-} from '../../../shared/mocks/submission.mock';
-import { defaultUUID } from '../../../shared/mocks/uuid.service.mock';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { Duplicate } from '../../../shared/object-list/duplicate-data/duplicate.model';
-import { DUPLICATE } from '../../../shared/object-list/duplicate-data/duplicate.resource-type';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
-import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
-import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
+import { getMockFormBuilderService } from '../../../shared/form/testing/form-builder-service.mock';
+import { getMockFormOperationsService } from '../../../shared/form/testing/form-operations-service.mock';
+import { getMockFormService } from '../../../shared/form/testing/form-service.mock';
 import { ObjNgFor } from '../../../shared/utils/object-ngfor.pipe';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { SubmissionService } from '../../submission.service';
+import {
+  mockSubmissionCollectionId,
+  mockSubmissionId,
+} from '../../utils/submission.mock';
 import { SectionFormOperationsService } from '../form/section-form-operations.service';
 import { SectionsService } from '../sections.service';
-import { SectionsType } from '../sections-type';
 import { SubmissionSectionDuplicatesComponent } from './section-duplicates.component';
 
 function getMockSubmissionFormsConfigService(): SubmissionFormsConfigDataService {
@@ -184,9 +184,9 @@ describe('SubmissionSectionDuplicatesComponent test suite', () => {
 
     // synchronous beforeEach
     beforeEach(() => {
-      sectionsServiceStub.isSectionReadOnly.and.returnValue(observableOf(false));
-      sectionsServiceStub.getSectionErrors.and.returnValue(observableOf([]));
-      sectionsServiceStub.getSectionData.and.returnValue(observableOf(sectionObject));
+      sectionsServiceStub.isSectionReadOnly.and.returnValue(of(false));
+      sectionsServiceStub.getSectionErrors.and.returnValue(of([]));
+      sectionsServiceStub.getSectionData.and.returnValue(of(sectionObject));
       testFixture = TestBed.createComponent(SubmissionSectionDuplicatesComponent);
       testComp = testFixture.componentInstance;
 
@@ -212,10 +212,10 @@ describe('SubmissionSectionDuplicatesComponent test suite', () => {
       formOperationsService = TestBed.inject(SectionFormOperationsService);
       collectionDataService = TestBed.inject(CollectionDataService);
       compAsAny.pathCombiner = new JsonPatchOperationPathCombiner('sections', sectionObject.id);
-      spyOn(comp, 'getDuplicateData').and.returnValue(observableOf({ potentialDuplicates: duplicates }));
+      spyOn(comp, 'getDuplicateData').and.returnValue(of({ potentialDuplicates: duplicates }));
       collectionDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(mockCollection));
-      sectionsServiceStub.getSectionErrors.and.returnValue(observableOf([]));
-      sectionsServiceStub.isSectionReadOnly.and.returnValue(observableOf(false));
+      sectionsServiceStub.getSectionErrors.and.returnValue(of([]));
+      sectionsServiceStub.isSectionReadOnly.and.returnValue(of(false));
       compAsAny.submissionService.getSubmissionScope.and.returnValue(SubmissionScopeType.WorkspaceItem);
     });
 
@@ -227,7 +227,7 @@ describe('SubmissionSectionDuplicatesComponent test suite', () => {
 
     // Test initialisation of the submission section
     it('Should init section properly', fakeAsync(() => {
-      spyOn(comp, 'getSectionStatus').and.returnValue(observableOf(true));
+      spyOn(comp, 'getSectionStatus').and.returnValue(of(true));
       expect(comp.isLoading).toBeTruthy();
       comp.onSectionInit();
       tick(100);
@@ -256,8 +256,12 @@ describe('SubmissionSectionDuplicatesComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
-  standalone: true,
-  imports: [BrowserModule, FormsModule, ReactiveFormsModule, NgxPaginationModule],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    NgxPaginationModule,
+    ReactiveFormsModule,
+  ],
 })
 class TestComponent {
 

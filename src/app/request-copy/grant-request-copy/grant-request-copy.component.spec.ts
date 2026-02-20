@@ -9,30 +9,31 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
-
-import { AuthService } from '../../core/auth/auth.service';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { ItemDataService } from '../../core/data/item-data.service';
-import { ItemRequestDataService } from '../../core/data/item-request-data.service';
-import { EPerson } from '../../core/eperson/models/eperson.model';
-import { Item } from '../../core/shared/item.model';
-import { ItemRequest } from '../../core/shared/item-request.model';
-import { DSONameServiceMock } from '../../shared/mocks/dso-name.service.mock';
-import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
+import { ItemRequestDataService } from '@dspace/core/data/item-request-data.service';
+import { EPerson } from '@dspace/core/eperson/models/eperson.model';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { HardRedirectService } from '@dspace/core/services/hard-redirect.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { ItemRequest } from '@dspace/core/shared/item-request.model';
+import { RequestCopyEmail } from '@dspace/core/shared/request-copy-email.model';
+import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
+} from '@dspace/core/utilities/remote-data.utils';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import { of } from 'rxjs';
+
+import { getMockThemeService } from '../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { VarDirective } from '../../shared/utils/var.directive';
-import { RequestCopyEmail } from '../email-request-copy/request-copy-email.model';
 import { GrantRequestCopyComponent } from './grant-request-copy.component';
 
 describe('GrantRequestCopyComponent', () => {
@@ -46,6 +47,7 @@ describe('GrantRequestCopyComponent', () => {
   let itemDataService: ItemDataService;
   let itemRequestService: ItemRequestDataService;
   let notificationsService: NotificationsService;
+  let hardRedirectService: HardRedirectService;
 
   let itemRequest: ItemRequest;
   let user: EPerson;
@@ -90,27 +92,32 @@ describe('GrantRequestCopyComponent', () => {
         ],
       },
     });
-
     router = jasmine.createSpyObj('router', {
       navigateByUrl: jasmine.createSpy('navigateByUrl'),
     });
     route = jasmine.createSpyObj('route', {}, {
-      data: observableOf({
+      data: of({
         request: createSuccessfulRemoteDataObject(itemRequest),
       }),
     });
     authService = jasmine.createSpyObj('authService', {
-      isAuthenticated: observableOf(true),
-      getAuthenticatedUserFromStore: observableOf(user),
+      isAuthenticated: of(true),
+      getAuthenticatedUserFromStore: of(user),
     });
     itemDataService = jasmine.createSpyObj('itemDataService', {
       findById: createSuccessfulRemoteDataObject$(item),
     });
-    itemRequestService = jasmine.createSpyObj('itemRequestService', {
+    itemRequestService = jasmine.createSpyObj('ItemRequestDataService', {
+      getSanitizedRequestByAccessToken: of(createSuccessfulRemoteDataObject(itemRequest)),
       grant: createSuccessfulRemoteDataObject$(itemRequest),
+      getConfiguredAccessPeriods: of([3600, 7200, 14400]), // Common access periods in seconds
+    });
+
+    authService = jasmine.createSpyObj('authService', {
+      isAuthenticated: of(true),
+      getAuthenticatedUserFromStore: of(user),
     });
     notificationsService = jasmine.createSpyObj('notificationsService', ['success', 'error']);
-
     return TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), GrantRequestCopyComponent, VarDirective],
       providers: [
@@ -121,6 +128,7 @@ describe('GrantRequestCopyComponent', () => {
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: ItemRequestDataService, useValue: itemRequestService },
         { provide: NotificationsService, useValue: notificationsService },
+        { provide: HardRedirectService, useValue: hardRedirectService },
         { provide: ThemeService, useValue: getMockThemeService() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
@@ -133,7 +141,7 @@ describe('GrantRequestCopyComponent', () => {
     fixture.detectChanges();
 
     translateService = (component as any).translateService;
-    spyOn(translateService, 'get').and.returnValue(observableOf('translated-message'));
+    spyOn(translateService, 'get').and.returnValue(of('translated-message'));
   });
 
   describe('grant', () => {

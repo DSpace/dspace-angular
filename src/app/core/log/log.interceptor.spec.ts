@@ -9,21 +9,23 @@ import {
 } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
+import { RestRequestMethod } from '@dspace/config/rest-request-method';
+import { coreReducers } from '@dspace/core/core.reducers';
+import { CorrelationIdService } from '@dspace/core/correlation-id/correlation-id.service';
 import { StoreModule } from '@ngrx/store';
+import { of } from 'rxjs';
 
+import { CookieService } from '../cookies/cookie.service';
+import { OrejimeService } from '../cookies/orejime.service';
 import {
-  appReducers,
-  storeModuleConfig,
-} from '../../app.reducer';
-import { CorrelationIdService } from '../../correlation-id/correlation-id.service';
-import { CookieServiceMock } from '../../shared/mocks/cookie.service.mock';
-import { RouterStub } from '../../shared/testing/router.stub';
-import { RestRequestMethod } from '../data/rest-request-method';
+  CORRELATION_ID_COOKIE,
+  CORRELATION_ID_OREJIME_KEY,
+} from '../cookies/orejime-configuration';
 import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
-import { CookieService } from '../services/cookie.service';
 import { UUIDService } from '../shared/uuid.service';
+import { CookieServiceMock } from '../testing/cookie.service.mock';
+import { RouterStub } from '../testing/router.stub';
 import { LogInterceptor } from './log.interceptor';
-
 
 describe('LogInterceptor', () => {
   let service: DspaceRestService;
@@ -40,13 +42,22 @@ describe('LogInterceptor', () => {
   const mockStatusCode = 200;
   const mockStatusText = 'SUCCESS';
 
+  const mockOrejimeService = jasmine.createSpyObj('OrejimeService', ['getSavedPreferences']);
 
+  const mockStoreModuleConfig: any = {
+    runtimeChecks: {
+      strictStateImmutability: true,
+      strictActionImmutability: true,
+    },
+  };
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [StoreModule.forRoot(appReducers, storeModuleConfig)],
+      imports: [
+        StoreModule.forRoot(),
+        StoreModule.forFeature('core', coreReducers, mockStoreModuleConfig),
+      ],
       providers: [
         DspaceRestService,
-        // LogInterceptor,
         {
           provide: HTTP_INTERCEPTORS,
           useClass: LogInterceptor,
@@ -56,6 +67,7 @@ describe('LogInterceptor', () => {
         { provide: Router, useValue: router },
         { provide: CorrelationIdService, useClass: CorrelationIdService },
         { provide: UUIDService, useClass: UUIDService },
+        { provide: OrejimeService, useValue: mockOrejimeService },
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting(),
       ],
@@ -66,12 +78,14 @@ describe('LogInterceptor', () => {
     cookieService = TestBed.inject(CookieService);
     correlationIdService = TestBed.inject(CorrelationIdService);
 
-    cookieService.set('CORRELATION-ID','123455');
-    correlationIdService.initCorrelationId();
+    cookieService.set(CORRELATION_ID_COOKIE,'123455');
+    correlationIdService.setCorrelationId();
   });
 
 
-  it('headers should be set', (done) => {
+  it('headers should be set when cookie is accepted', (done) => {
+    mockOrejimeService.getSavedPreferences.and.returnValue(of({ [CORRELATION_ID_OREJIME_KEY]: true }));
+
     service.request(RestRequestMethod.POST, 'server/api/core/items', 'test', { withCredentials: false }).subscribe((response) => {
       expect(response).toBeTruthy();
       done();
@@ -83,7 +97,23 @@ describe('LogInterceptor', () => {
     expect(httpRequest.request.headers.has('X-REFERRER')).toBeTrue();
   });
 
-  it('headers should have the right values', (done) => {
+  it('headers should not be set when cookie is declined', (done) => {
+    mockOrejimeService.getSavedPreferences.and.returnValue(of({ [CORRELATION_ID_OREJIME_KEY]: false }));
+
+    service.request(RestRequestMethod.POST, 'server/api/core/items', 'test', { withCredentials: false }).subscribe((response) => {
+      expect(response).toBeTruthy();
+      done();
+    });
+
+    const httpRequest = httpMock.expectOne('server/api/core/items');
+    httpRequest.flush(mockPayload, { status: mockStatusCode, statusText: mockStatusText });
+    expect(httpRequest.request.headers.has('X-CORRELATION-ID')).toBeFalse();
+    expect(httpRequest.request.headers.has('X-REFERRER')).toBeTrue();
+  });
+
+  it('headers should have the right values when cookie is accepted', (done) => {
+    mockOrejimeService.getSavedPreferences.and.returnValue(of({ [CORRELATION_ID_OREJIME_KEY]: true }));
+
     service.request(RestRequestMethod.POST, 'server/api/core/items', 'test', { withCredentials: false }).subscribe((response) => {
       expect(response).toBeTruthy();
       done();

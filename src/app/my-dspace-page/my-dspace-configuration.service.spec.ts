@@ -1,23 +1,23 @@
 import {
+  SortDirection,
+  SortOptions,
+} from '@dspace/core/cache/models/sort-options.model';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { Context } from '@dspace/core/shared/context.model';
+import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
+import { SearchFilter } from '@dspace/core/shared/search/models/search-filter.model';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { HALEndpointServiceStub } from '@dspace/core/testing/hal-endpoint-service.stub';
+import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
+import { getMockRemoteDataBuildService } from '@dspace/core/testing/remote-data-build.service.mock';
+import { RoleServiceMock } from '@dspace/core/testing/role-service.mock';
+import {
   cold,
   hot,
 } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { environment } from '../../environments/environment.test';
-import {
-  SortDirection,
-  SortOptions,
-} from '../core/cache/models/sort-options.model';
-import { Context } from '../core/shared/context.model';
-import { getMockRemoteDataBuildService } from '../shared/mocks/remote-data-build.service.mock';
-import { RoleServiceMock } from '../shared/mocks/role-service.mock';
-import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
-import { PaginatedSearchOptions } from '../shared/search/models/paginated-search-options.model';
-import { SearchFilter } from '../shared/search/models/search-filter.model';
-import { ActivatedRouteStub } from '../shared/testing/active-router.stub';
-import { HALEndpointServiceStub } from '../shared/testing/hal-endpoint-service.stub';
-import { PaginationServiceStub } from '../shared/testing/pagination-service.stub';
 import { MyDSpaceConfigurationService } from './my-dspace-configuration.service';
 import { MyDSpaceConfigurationValueType } from './my-dspace-configuration-value-type';
 
@@ -42,10 +42,10 @@ describe('MyDSpaceConfigurationService', () => {
   ];
 
   const spy = jasmine.createSpyObj('RouteService', {
-    getQueryParameterValue: observableOf(value1),
-    getQueryParamsWithPrefix: observableOf(prefixFilter),
-    getRouteParameterValue: observableOf(''),
-    getRouteDataValue: observableOf({}),
+    getQueryParameterValue: of(value1),
+    getQueryParamsWithPrefix: of(prefixFilter),
+    getRouteParameterValue: of(''),
+    getRouteDataValue: of({}),
   });
 
   const paginationService = new PaginationServiceStub();

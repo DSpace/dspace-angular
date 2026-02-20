@@ -21,7 +21,7 @@
   }
   <div class="row">
     <div class="col-md-2">
-      <span class="text-left font-weight-bold">{{ 'bitstream.edit.form.primaryBitstream.label' | translate }}</span>
+      <span class="text-start fw-bold">{{ 'bitstream.edit.form.primaryBitstream.label' | translate }}</span>
     </div>
   </div>
   <div class="row">
@@ -32,7 +32,7 @@
   @for (fileEntry of fileList; track fileEntry; let i = $index) {
     <ds-submission-upload-section-file
       [isPrimary]="primaryBitstreamUUID ? primaryBitstreamUUID === fileEntry.uuid : null"
-      [isAlternativeContent]="fileEntry.metadata['dc.type'] ? fileEntry.metadata['dc.type'][0].value === 'alternative content' : null"
+      [isAlternativeContent]="fileEntry.metadata['dspace.bitstream.type'] ? fileEntry.metadata['dspace.bitstream.type'][0].value === alternativeContentTag : null"
       [availableAccessConditionOptions]="availableAccessConditionOptions"
       [collectionId]="collectionId"
       [collectionPolicyType]="collectionPolicyType"

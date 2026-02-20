@@ -8,8 +8,7 @@ import {
   ValidationErrors,
   Validator,
 } from '@angular/forms';
-
-import { inListValidator } from './validator.functions';
+import { inListValidator } from '@dspace/shared/utils/validator.functions';
 
 /**
  * Directive for validating if a ngModel value is in a given list
@@ -20,7 +19,6 @@ import { inListValidator } from './validator.functions';
   providers: [
     { provide: NG_VALIDATORS, useExisting: InListValidator, multi: true },
   ],
-  standalone: true,
 })
 export class InListValidator implements Validator {
   /**

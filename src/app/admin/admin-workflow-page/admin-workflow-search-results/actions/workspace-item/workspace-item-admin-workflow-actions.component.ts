@@ -7,6 +7,15 @@ import {
   Output,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
+import { WorkspaceItem } from '@dspace/core/submission/models/workspaceitem.model';
+import { SupervisionOrder } from '@dspace/core/supervision-order/models/supervision-order.model';
+import { SupervisionOrderDataService } from '@dspace/core/supervision-order/supervision-order-data.service';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   NgbModal,
   NgbModalRef,
@@ -25,17 +34,8 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
-import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
-import { Item } from '../../../../../core/shared/item.model';
-import { getFirstSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
-import { WorkspaceItem } from '../../../../../core/submission/models/workspaceitem.model';
-import { SupervisionOrder } from '../../../../../core/supervision-order/models/supervision-order.model';
-import { SupervisionOrderDataService } from '../../../../../core/supervision-order/supervision-order-data.service';
 import { ITEM_EDIT_AUTHORIZATIONS_PATH } from '../../../../../item-page/edit-item-page/edit-item-page.routing-paths';
 import { ConfirmationModalComponent } from '../../../../../shared/confirmation-modal/confirmation-modal.component';
-import { hasValue } from '../../../../../shared/empty.util';
-import { NotificationsService } from '../../../../../shared/notifications/notifications.service';
 import { getSearchResultFor } from '../../../../../shared/search/search-result-element-decorator';
 import { getWorkspaceItemDeleteRoute } from '../../../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
 import { SupervisionOrderGroupSelectorComponent } from './supervision-order-group-selector/supervision-order-group-selector.component';
@@ -48,8 +48,12 @@ import {
   selector: 'ds-workspace-item-admin-workflow-actions-element',
   styleUrls: ['./workspace-item-admin-workflow-actions.component.scss'],
   templateUrl: './workspace-item-admin-workflow-actions.component.html',
-  standalone: true,
-  imports: [SupervisionOrderStatusComponent, NgClass, RouterLink, TranslateModule],
+  imports: [
+    NgClass,
+    RouterLink,
+    SupervisionOrderStatusComponent,
+    TranslateModule,
+  ],
 })
 /**
  * The component for displaying the actions for a list element for a workspace-item on the admin workflow search page

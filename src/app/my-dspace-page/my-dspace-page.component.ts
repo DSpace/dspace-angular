@@ -5,17 +5,17 @@ import {
   Inject,
   OnInit,
 } from '@angular/core';
+import { MyDSpaceResponseParsingService } from '@dspace/core/data/mydspace-response-parsing.service';
+import { MyDSpaceRequest } from '@dspace/core/data/request.models';
+import { RoleType } from '@dspace/core/roles/role-types';
+import { Context } from '@dspace/core/shared/context.model';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { MyDSpaceResponseParsingService } from '../core/data/mydspace-response-parsing.service';
-import { MyDSpaceRequest } from '../core/data/request.models';
-import { RoleType } from '../core/roles/role-types';
-import { Context } from '../core/shared/context.model';
-import { SearchService } from '../core/shared/search/search.service';
-import { ViewMode } from '../core/shared/view-mode.model';
-import { SuggestionsNotificationComponent } from '../notifications/suggestions-notification/suggestions-notification.component';
+import { SuggestionsNotificationComponent } from '../notifications/suggestions/notification/suggestions-notification.component';
 import { RoleDirective } from '../shared/roles/role.directive';
+import { SearchService } from '../shared/search/search.service';
 import { SearchConfigurationOption } from '../shared/search/search-switch-configuration/search-configuration-option.model';
 import { ThemedSearchComponent } from '../shared/search/themed-search.component';
 import {
@@ -42,14 +42,13 @@ export const MYDSPACE_ROUTE = '/mydspace';
     },
   ],
   imports: [
-    ThemedSearchComponent,
-    MyDSpaceNewSubmissionComponent,
     AsyncPipe,
+    MyDSpaceNewSubmissionComponent,
+    MyDspaceQaEventsNotificationsComponent,
     RoleDirective,
     SuggestionsNotificationComponent,
-    MyDspaceQaEventsNotificationsComponent,
+    ThemedSearchComponent,
   ],
-  standalone: true,
 })
 export class MyDSpacePageComponent implements OnInit {
 

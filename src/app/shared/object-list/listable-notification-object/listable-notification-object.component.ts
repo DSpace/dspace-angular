@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
+import { ListableNotificationObject } from '@dspace/core/shared/listable-notification-object.model';
+import { LISTABLE_NOTIFICATION_OBJECT } from '@dspace/core/shared/object-collection/listable-notification-object.resource-type';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { ViewMode } from '../../../core/shared/view-mode.model';
 import { listableObjectComponent } from '../../object-collection/shared/listable-object/listable-object.decorator';
 import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
-import { ListableNotificationObject } from './listable-notification-object.model';
-import { LISTABLE_NOTIFICATION_OBJECT } from './listable-notification-object.resource-type';
 
 /**
  * The component for displaying a notifications inside an object list
@@ -16,8 +16,9 @@ import { LISTABLE_NOTIFICATION_OBJECT } from './listable-notification-object.res
   selector: 'ds-listable-notification-object',
   templateUrl: './listable-notification-object.component.html',
   styleUrls: ['./listable-notification-object.component.scss'],
-  standalone: true,
-  imports: [TranslateModule],
+  imports: [
+    TranslateModule,
+  ],
 })
 export class ListableNotificationObjectComponent extends AbstractListableElementComponent<ListableNotificationObject> {
 }

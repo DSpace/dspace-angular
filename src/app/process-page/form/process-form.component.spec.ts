@@ -9,22 +9,22 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { ScriptDataService } from '@dspace/core/data/processes/script-data.service';
+import { RequestService } from '@dspace/core/data/request.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { ProcessParameter } from '@dspace/core/processes/process-parameter.model';
+import { Script } from '@dspace/core/shared/scripts/script.model';
+import { ScriptParameter } from '@dspace/core/shared/scripts/script-parameter.model';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { RouterMock } from '@dspace/core/testing/router.mock';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
-import { ScriptDataService } from '../../core/data/processes/script-data.service';
-import { RequestService } from '../../core/data/request.service';
-import { RouterMock } from '../../shared/mocks/router.mock';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { ProcessParameter } from '../processes/process-parameter.model';
-import { Script } from '../scripts/script.model';
-import { ScriptParameter } from '../scripts/script-parameter.model';
 import { ProcessFormComponent } from './process-form.component';
 import { ScriptsSelectComponent } from './scripts-select/scripts-select.component';
 
@@ -48,7 +48,7 @@ describe('ProcessFormComponent', () => {
     scriptService = jasmine.createSpyObj(
       'scriptService',
       {
-        invoke: observableOf({
+        invoke: of({
           response:
             {
               isSuccessful: true,

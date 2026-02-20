@@ -6,33 +6,33 @@
  * http://www.dspace.org/license/
  */
 /* eslint-disable max-classes-per-file */
+import { RestRequestMethod } from '@dspace/config/rest-request-method';
 import {
   compare,
   Operation,
 } from 'fast-json-patch';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data-build.service.mock';
-import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { HALEndpointServiceStub } from '../../../shared/testing/hal-endpoint-service.stub';
-import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../cache/object-cache.service';
 import { DSpaceObject } from '../../shared/dspace-object.model';
+import { followLink } from '../../shared/follow-link-config.model';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { Item } from '../../shared/item.model';
+import { HALEndpointServiceStub } from '../../testing/hal-endpoint-service.stub';
+import { getMockRemoteDataBuildService } from '../../testing/remote-data-build.service.mock';
+import { getMockRequestService } from '../../testing/request.service.mock';
+import { createSuccessfulRemoteDataObject$ } from '../../utilities/remote-data.utils';
 import { ChangeAnalyzer } from '../change-analyzer';
 import { FindListOptions } from '../find-list-options.model';
 import { RemoteData } from '../remote-data';
 import { PatchRequest } from '../request.models';
 import { RequestService } from '../request.service';
 import { RequestEntryState } from '../request-entry-state.model';
-import { RestRequestMethod } from '../rest-request-method';
 import { constructIdEndpointDefault } from './identifiable-data.service';
 import {
   PatchData,
@@ -107,7 +107,7 @@ class TestService extends PatchDataImpl<any> {
   }
 
   public getBrowseEndpoint(options: FindListOptions = {}, linkPath: string = this.linkPath): Observable<string> {
-    return observableOf(endpoint);
+    return of(endpoint);
   }
 }
 

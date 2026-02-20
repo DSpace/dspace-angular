@@ -9,30 +9,30 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { getTestScheduler } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
-import { TestScheduler } from 'rxjs/testing';
-
-import { RequestParam } from '../../../core/cache/models/request-param.model';
-import { ExternalSourceDataService } from '../../../core/data/external-source-data.service';
-import { FindListOptions } from '../../../core/data/find-list-options.model';
+import { RequestParam } from '@dspace/core/cache/models/request-param.model';
+import { ExternalSourceDataService } from '@dspace/core/data/external-source-data.service';
+import { FindListOptions } from '@dspace/core/data/find-list-options.model';
 import {
   buildPaginatedList,
   PaginatedList,
-} from '../../../core/data/paginated-list.model';
-import { ExternalSource } from '../../../core/shared/external-source.model';
-import { PageInfo } from '../../../core/shared/page-info.model';
-import { HostWindowService } from '../../../shared/host-window.service';
+} from '@dspace/core/data/paginated-list.model';
+import { ExternalSource } from '@dspace/core/shared/external-source.model';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
 import {
   externalSourceCiencia,
   externalSourceMyStaffDb,
   externalSourceOrcid,
   getMockExternalSourceService,
-} from '../../../shared/mocks/external-source.service.mock';
-import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
-import { HostWindowServiceStub } from '../../../shared/testing/host-window-service.stub';
-import { createTestComponent } from '../../../shared/testing/utils.test';
+} from '@dspace/core/testing/external-source.service.mock';
+import { HostWindowServiceStub } from '@dspace/core/testing/host-window-service.stub';
+import { createTestComponent } from '@dspace/core/testing/utils.test';
+import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
+import { TranslateModule } from '@ngx-translate/core';
+import { getTestScheduler } from 'jasmine-marbles';
+import { of } from 'rxjs';
+import { TestScheduler } from 'rxjs/testing';
+
+import { HostWindowService } from '../../../shared/host-window.service';
 import {
   SourceElement,
   SubmissionImportExternalSearchbarComponent,
@@ -75,7 +75,7 @@ describe('SubmissionImportExternalSearchbarComponent test suite', () => {
 
     // synchronous beforeEach
     beforeEach(() => {
-      mockExternalSourceService.searchBy.and.returnValue(observableOf(paginatedListRD));
+      mockExternalSourceService.searchBy.and.returnValue(of(paginatedListRD));
       const html = `
         <ds-submission-import-external-searchbar [initExternalSourceData]="initExternalSourceData"></ds-submission-import-external-searchbar>`;
       testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
@@ -100,7 +100,7 @@ describe('SubmissionImportExternalSearchbarComponent test suite', () => {
       const pageInfo = new PageInfo();
       paginatedList = buildPaginatedList(pageInfo, [externalSourceOrcid, externalSourceCiencia, externalSourceMyStaffDb]);
       paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
-      compAsAny.externalService.searchBy.and.returnValue(observableOf(paginatedListRD));
+      compAsAny.externalService.searchBy.and.returnValue(of(paginatedListRD));
       sourceList = [
         { id: 'orcid', name: 'orcid' },
         { id: 'ciencia', name: 'ciencia' },
@@ -182,7 +182,6 @@ describe('SubmissionImportExternalSearchbarComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
-  standalone: true,
 })
 class TestComponent {
   initExternalSourceData = { entity: 'Publication', query: 'dummy', sourceId: 'ciencia' };

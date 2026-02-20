@@ -95,7 +95,7 @@ describe('New Submission page', () => {
       // A success alert should be visible
       cy.get('ds-notification div.alert-success').should('be.visible');
       // Now, dismiss any open alert boxes (may be multiple, as tests run quickly)
-      cy.get('[data-dismiss="alert"]').click({ multiple: true });
+      cy.get('[data-bs-dismiss="alert"]').click({ multiple: true });
 
       // This is the GET command that will actually run the search
       cy.intercept('GET', '/server/api/discover/search/objects*').as('search-results');

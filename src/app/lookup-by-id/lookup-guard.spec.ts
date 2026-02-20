@@ -1,6 +1,6 @@
-import { of as observableOf } from 'rxjs';
+import { IdentifierType } from '@dspace/core/data/request.models';
+import { of } from 'rxjs';
 
-import { IdentifierType } from '../core/data/request.models';
 import { lookupGuard } from './lookup-guard';
 
 describe('lookupGuard', () => {
@@ -9,7 +9,7 @@ describe('lookupGuard', () => {
 
   beforeEach(() => {
     dsoService = {
-      findByIdAndIDType: jasmine.createSpy('findByIdAndIDType').and.returnValue(observableOf({ hasFailed: false,
+      findByIdAndIDType: jasmine.createSpy('findByIdAndIDType').and.returnValue(of({ hasFailed: false,
         hasSucceeded: true })),
     };
     guard = lookupGuard;

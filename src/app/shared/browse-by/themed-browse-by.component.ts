@@ -4,16 +4,16 @@ import {
   Input,
   Output,
 } from '@angular/core';
-import { Observable } from 'rxjs';
-
 import {
   SortDirection,
   SortOptions,
-} from '../../core/cache/models/sort-options.model';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { ListableObject } from '../object-collection/shared/listable-object.model';
-import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
+} from '@dspace/core/cache/models/sort-options.model';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
+import { Observable } from 'rxjs';
+
 import { StartsWithType } from '../starts-with/starts-with-type';
 import { ThemedComponent } from '../theme-support/themed.component';
 import { BrowseByComponent } from './browse-by.component';
@@ -23,10 +23,7 @@ import { BrowseByComponent } from './browse-by.component';
  */
 @Component({
   selector: 'ds-browse-by',
-  styleUrls: [],
   templateUrl: '../theme-support/themed.component.html',
-  standalone: true,
-  imports: [BrowseByComponent],
 })
 export class ThemedBrowseByComponent extends ThemedComponent<BrowseByComponent> {
 

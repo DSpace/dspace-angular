@@ -12,23 +12,23 @@ import {
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
-
-import { ConfigurationDataService } from '../core/data/configuration-data.service';
-import { ProcessDataService } from '../core/data/processes/process-data.service';
-import { ScriptDataService } from '../core/data/processes/script-data.service';
-import { ConfigurationProperty } from '../core/shared/configuration-property.model';
-import { getProcessDetailRoute } from '../process-page/process-page-routing.paths';
-import { Process } from '../process-page/processes/process.model';
-import { HandleService } from '../shared/handle.service';
-import { NotificationsService } from '../shared/notifications/notifications.service';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
+import { ProcessDataService } from '@dspace/core/data/processes/process-data.service';
+import { ScriptDataService } from '@dspace/core/data/processes/script-data.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Process } from '@dspace/core/processes/process.model';
+import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { RouterStub } from '@dspace/core/testing/router.stub';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../shared/remote-data.utils';
-import { NotificationsServiceStub } from '../shared/testing/notifications-service.stub';
-import { RouterStub } from '../shared/testing/router.stub';
+} from '@dspace/core/utilities/remote-data.utils';
+import { TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
+
+import { getProcessDetailRoute } from '../process-page/process-page-routing.paths';
+import { HandleService } from '../shared/handle.service';
 import { CurationFormComponent } from './curation-form.component';
 
 describe('CurationFormComponent', () => {
@@ -68,7 +68,7 @@ describe('CurationFormComponent', () => {
     });
 
     handleService = {
-      normalizeHandle: (a: string) => observableOf(a),
+      normalizeHandle: (a: string) => of(a),
     } as any;
 
     notificationsService = new NotificationsServiceStub();
@@ -166,7 +166,7 @@ describe('CurationFormComponent', () => {
 
   it(`should show an error notification and return when an invalid dsoHandle is provided`, fakeAsync(() => {
     comp.dsoHandle = 'test-handle';
-    spyOn(handleService, 'normalizeHandle').and.returnValue(observableOf(null));
+    spyOn(handleService, 'normalizeHandle').and.returnValue(of(null));
     comp.submit();
     flush();
 

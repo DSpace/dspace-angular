@@ -1,4 +1,4 @@
-import { URLCombiner } from '../core/url-combiner/url-combiner';
+import { URLCombiner } from '@dspace/core/url-combiner/url-combiner';
 
 export const PROCESS_MODULE_PATH = 'processes';
 

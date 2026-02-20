@@ -1,9 +1,9 @@
-import { of as observableOf } from 'rxjs';
+import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
+import { Community } from '@dspace/core/shared/community.model';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+import { of } from 'rxjs';
 
-import { buildPaginatedList } from '../core/data/paginated-list.model';
-import { Community } from '../core/shared/community.model';
-import { PageInfo } from '../core/shared/page-info.model';
-import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 import { CommunityListSaveAction } from './community-list.actions';
 import { CommunityListReducer } from './community-list.reducer';
 import { toFlatNode } from './community-list-service';
@@ -21,7 +21,7 @@ describe('communityListReducer', () => {
       subcommunities: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), mockSubcommunities1Page1)),
       collections: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
       name: 'community1',
-    }), observableOf(true), 0, false, null,
+    }), of(true), 0, false, null,
   );
 
   it ('should set init state of the expandedNodes and loadingNode', () => {

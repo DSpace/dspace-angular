@@ -1,14 +1,19 @@
-import {
-  AsyncPipe,
-  DatePipe,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   AfterViewInit,
   Component,
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { SortOptions } from '@dspace/core/cache/models/sort-options.model';
+import { QualityAssuranceSourceObject } from '@dspace/core/notifications/qa/models/quality-assurance-source.model';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
@@ -16,19 +21,17 @@ import {
 } from 'rxjs';
 import {
   distinctUntilChanged,
+  map,
   take,
 } from 'rxjs/operators';
 
-import { SortOptions } from '../../../core/cache/models/sort-options.model';
-import { QualityAssuranceSourceObject } from '../../../core/notifications/qa/models/quality-assurance-source.model';
-import { PaginationService } from '../../../core/pagination/pagination.service';
 import { QualityAssuranceSourcePageParams } from '../../../quality-assurance-notifications-pages/quality-assurance-source-page-component/quality-assurance-source-page-resolver.service';
 import { AlertComponent } from '../../../shared/alert/alert.component';
-import { hasValue } from '../../../shared/empty.util';
-import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { PaginationComponent } from '../../../shared/pagination/pagination.component';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { NotificationsStateService } from '../../notifications-state.service';
+import {
+  SourceListComponent,
+  SourceObject,
+} from '../../shared/source-list.component';
 
 /**
  * Component to display the Quality Assurance source list.
@@ -37,8 +40,12 @@ import { NotificationsStateService } from '../../notifications-state.service';
   selector: 'ds-quality-assurance-source',
   templateUrl: './quality-assurance-source.component.html',
   styleUrls: ['./quality-assurance-source.component.scss'],
-  standalone: true,
-  imports: [AlertComponent, ThemedLoadingComponent, PaginationComponent, RouterLink, AsyncPipe, TranslateModule, DatePipe],
+  imports: [
+    AlertComponent,
+    AsyncPipe,
+    SourceListComponent,
+    TranslateModule,
+  ],
 })
 export class QualityAssuranceSourceComponent implements OnDestroy, OnInit, AfterViewInit {
 
@@ -59,7 +66,7 @@ export class QualityAssuranceSourceComponent implements OnDestroy, OnInit, After
   /**
    * The Quality Assurance source list.
    */
-  public sources$: Observable<QualityAssuranceSourceObject[]>;
+  public sources$: Observable<SourceObject[]>;
   /**
    * The total number of Quality Assurance sources.
    */
@@ -74,10 +81,14 @@ export class QualityAssuranceSourceComponent implements OnDestroy, OnInit, After
    * Initialize the component variables.
    * @param {PaginationService} paginationService
    * @param {NotificationsStateService} notificationsStateService
+   * @param {Router} router
+   * @param {ActivatedRoute} route
    */
   constructor(
     private paginationService: PaginationService,
     private notificationsStateService: NotificationsStateService,
+    private router: Router,
+    private route: ActivatedRoute,
   ) {
   }
 
@@ -85,7 +96,15 @@ export class QualityAssuranceSourceComponent implements OnDestroy, OnInit, After
    * Component initialization.
    */
   ngOnInit(): void {
-    this.sources$ = this.notificationsStateService.getQualityAssuranceSource();
+    this.sources$ = this.notificationsStateService.getQualityAssuranceSource().pipe(
+      map((sources: QualityAssuranceSourceObject[])=> {
+        return sources.map((source: QualityAssuranceSourceObject) => ({
+          id: source.id,
+          lastEvent: source.lastEvent,
+          total: source.totalEvents,
+        }));
+      }),
+    );
     this.totalElements$ = this.notificationsStateService.getQualityAssuranceSourceTotals();
   }
 
@@ -100,6 +119,14 @@ export class QualityAssuranceSourceComponent implements OnDestroy, OnInit, After
         this.getQualityAssuranceSource();
       }),
     );
+  }
+
+  /**
+   * Navigate to the specified source
+   * @param sourceId
+   */
+  onSelect(sourceId: string) {
+    this.router.navigate([sourceId], { relativeTo: this.route });
   }
 
   /**

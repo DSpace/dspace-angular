@@ -4,13 +4,12 @@ import {
   ResolveFn,
   RouterStateSnapshot,
 } from '@angular/router';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import { WorkspaceItem } from '@dspace/core/submission/models/workspaceitem.model';
+import { SUBMISSION_LINKS_TO_FOLLOW } from '@dspace/core/submission/resolver/submission-links-to-follow';
+import { WorkspaceitemDataService } from '@dspace/core/submission/workspaceitem-data.service';
 import { Observable } from 'rxjs';
-
-import { RemoteData } from '../core/data/remote-data';
-import { getFirstCompletedRemoteData } from '../core/shared/operators';
-import { WorkspaceItem } from '../core/submission/models/workspaceitem.model';
-import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
-import { followLink } from '../shared/utils/follow-link-config.model';
 
 /**
  * Method for resolving a workflow item based on the parameters in the current route
@@ -28,7 +27,7 @@ export const workspaceItemPageResolver: ResolveFn<RemoteData<WorkspaceItem>> = (
   return workspaceItemService.findById(route.params.id,
     true,
     false,
-    followLink('item'),
+    ...SUBMISSION_LINKS_TO_FOLLOW,
   ).pipe(
     getFirstCompletedRemoteData(),
   );

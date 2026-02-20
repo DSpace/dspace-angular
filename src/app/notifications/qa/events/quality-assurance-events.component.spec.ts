@@ -10,6 +10,41 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
+import {
+  SortDirection,
+  SortOptions,
+} from '@dspace/core/cache/models/sort-options.model';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { FindListOptions } from '@dspace/core/data/find-list-options.model';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
+import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { QualityAssuranceEventDataService } from '@dspace/core/notifications/qa/events/quality-assurance-event-data.service';
+import { QualityAssuranceEventObject } from '@dspace/core/notifications/qa/models/quality-assurance-event.model';
+import { QualityAssuranceEventData } from '@dspace/core/notifications/qa/models/quality-assurance-event-data.model';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import {
+  getMockQualityAssuranceEventRestService,
+  ItemMockPid8,
+  ItemMockPid9,
+  ItemMockPid10,
+  NotificationsMockDspaceObject,
+  qualityAssuranceEventObjectMissingProjectFound,
+  qualityAssuranceEventObjectMissingProjectNotFound,
+} from '@dspace/core/testing/notifications.mock';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
+import { getMockTranslateService } from '@dspace/core/testing/translate.service.mock';
+import { createTestComponent } from '@dspace/core/testing/utils.test';
+import {
+  createNoContentRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core/utilities/remote-data.utils';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -19,44 +54,9 @@ import {
   cold,
   getTestScheduler,
 } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
-import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
-import { ItemDataService } from 'src/app/core/data/item-data.service';
 
-import {
-  SortDirection,
-  SortOptions,
-} from '../../../core/cache/models/sort-options.model';
-import { FindListOptions } from '../../../core/data/find-list-options.model';
-import { buildPaginatedList } from '../../../core/data/paginated-list.model';
-import { QualityAssuranceEventDataService } from '../../../core/notifications/qa/events/quality-assurance-event-data.service';
-import { QualityAssuranceEventObject } from '../../../core/notifications/qa/models/quality-assurance-event.model';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { PageInfo } from '../../../core/shared/page-info.model';
-import {
-  getMockQualityAssuranceEventRestService,
-  ItemMockPid8,
-  ItemMockPid9,
-  ItemMockPid10,
-  NotificationsMockDspaceObject,
-  qualityAssuranceEventObjectMissingProjectFound,
-  qualityAssuranceEventObjectMissingProjectNotFound,
-} from '../../../shared/mocks/notifications.mock';
-import { getMockTranslateService } from '../../../shared/mocks/translate.service.mock';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import {
-  createNoContentRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../../shared/remote-data.utils';
-import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
-import { createTestComponent } from '../../../shared/testing/utils.test';
-import { followLink } from '../../../shared/utils/follow-link-config.model';
-import { QualityAssuranceEventData } from '../project-entry-import-modal/project-entry-import-modal.component';
 import { QualityAssuranceEventsComponent } from './quality-assurance-events.component';
 
 describe('QualityAssuranceEventsComponent test suite', () => {
@@ -228,7 +228,7 @@ describe('QualityAssuranceEventsComponent test suite', () => {
             componentInstance: {
               externalSourceEntry: null,
               label: null,
-              importedObject: observableOf({
+              importedObject: of({
                 indexableObject: NotificationsMockDspaceObject,
               }),
             },
@@ -247,7 +247,7 @@ describe('QualityAssuranceEventsComponent test suite', () => {
     describe('executeAction', () => {
       it('should call getQualityAssuranceEvents on 200 response from REST', () => {
         const action = 'ACCEPTED';
-        spyOn(compAsAny, 'getQualityAssuranceEvents').and.returnValue(observableOf([
+        spyOn(compAsAny, 'getQualityAssuranceEvents').and.returnValue(of([
           getQualityAssuranceEventData1(),
           getQualityAssuranceEventData2(),
         ]));
@@ -323,8 +323,8 @@ describe('QualityAssuranceEventsComponent test suite', () => {
         ];
         const paginatedList = buildPaginatedList(pageInfo, array);
         const paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
-        qualityAssuranceEventRestServiceStub.getEventsByTopic.and.returnValue(observableOf(paginatedListRD));
-        spyOn(compAsAny, 'fetchEvents').and.returnValue(observableOf([
+        qualityAssuranceEventRestServiceStub.getEventsByTopic.and.returnValue(of(paginatedListRD));
+        spyOn(compAsAny, 'fetchEvents').and.returnValue(of([
           getQualityAssuranceEventData1(),
           getQualityAssuranceEventData2(),
         ]));
@@ -350,7 +350,6 @@ describe('QualityAssuranceEventsComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
-  standalone: true,
   imports: [],
 })
 class TestComponent {

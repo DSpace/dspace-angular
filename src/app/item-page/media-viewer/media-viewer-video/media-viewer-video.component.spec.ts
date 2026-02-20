@@ -6,17 +6,17 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { Bitstream } from '@dspace/core/shared/bitstream.model';
+import { MediaViewerItem } from '@dspace/core/shared/media-viewer-item.model';
+import { MockBitstreamFormat1 } from '@dspace/core/testing/item.mock';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
-import { Bitstream } from '../../../core/shared/bitstream.model';
-import { MediaViewerItem } from '../../../core/shared/media-viewer-item.model';
 import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
-import { MockBitstreamFormat1 } from '../../../shared/mocks/item.mock';
-import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 import { FileSizePipe } from '../../../shared/utils/file-size-pipe';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { MediaViewerVideoComponent } from './media-viewer-video.component';
@@ -48,7 +48,7 @@ describe('MediaViewerVideoComponent', () => {
     sizeBytes: 10201,
     content:
       'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/cf9b0c8e-a1eb-4b65-afd0-567366448713/content',
-    format: observableOf(MockBitstreamFormat1),
+    format: of(MockBitstreamFormat1),
     bundleName: 'ORIGINAL',
     _links: {
       self: {

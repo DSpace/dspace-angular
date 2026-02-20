@@ -16,6 +16,21 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { RequestService } from '@dspace/core/data/request.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { RouteService } from '@dspace/core/services/route.service';
+import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
+import { WorkflowItemDataService } from '@dspace/core/submission/workflowitem-data.service';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { LocationStub } from '@dspace/core/testing/location.stub';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { RequestServiceStub } from '@dspace/core/testing/request-service.stub';
+import { RouterStub } from '@dspace/core/testing/router.stub';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core/utilities/remote-data.utils';
 import {
   TranslateLoader,
   TranslateModule,
@@ -23,25 +38,10 @@ import {
 } from '@ngx-translate/core';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
-import { RequestService } from '../core/data/request.service';
-import { RouteService } from '../core/services/route.service';
-import { WorkflowItem } from '../core/submission/models/workflowitem.model';
-import { WorkflowItemDataService } from '../core/submission/workflowitem-data.service';
 import { ModifyItemOverviewComponent } from '../item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
-import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
-import { NotificationsService } from '../shared/notifications/notifications.service';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../shared/remote-data.utils';
-import { ActivatedRouteStub } from '../shared/testing/active-router.stub';
-import { LocationStub } from '../shared/testing/location.stub';
-import { NotificationsServiceStub } from '../shared/testing/notifications-service.stub';
-import { RequestServiceStub } from '../shared/testing/request-service.stub';
-import { RouterStub } from '../shared/testing/router.stub';
 import { VarDirective } from '../shared/utils/var.directive';
 import { WorkflowItemActionPageDirective } from './workflow-item-action-page.component';
 
@@ -56,7 +56,7 @@ describe('WorkflowItemActionPageComponent', () => {
 
   function init() {
     wfiService = jasmine.createSpyObj('workflowItemService', {
-      sendBack: observableOf(true),
+      sendBack: of(true),
     });
     itemRD$ = createSuccessfulRemoteDataObject$(itemRD$);
     wfi = new WorkflowItem();
@@ -131,8 +131,12 @@ describe('WorkflowItemActionPageComponent', () => {
 @Component({
   selector: 'ds-workflow-item-test-action-page',
   templateUrl: 'workflow-item-action-page.component.html',
-  imports: [VarDirective, TranslateModule, CommonModule, ModifyItemOverviewComponent],
-  standalone: true,
+  imports: [
+    CommonModule,
+    ModifyItemOverviewComponent,
+    TranslateModule,
+    VarDirective,
+  ],
 })
 class TestComponent extends WorkflowItemActionPageDirective {
   constructor(protected route: ActivatedRoute,
@@ -152,6 +156,6 @@ class TestComponent extends WorkflowItemActionPageDirective {
   }
 
   sendRequest(id: string): Observable<boolean> {
-    return observableOf(true);
+    return of(true);
   }
 }
