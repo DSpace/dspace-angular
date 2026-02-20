@@ -36,6 +36,7 @@ import {
   WORKFLOW_ITEM_MODULE_PATH,
 } from './app-routing-paths';
 import { notAuthenticatedGuard } from './core/auth/not-authenticated.guard';
+import { PDF_VIEWER_MODULE_PATH } from './pdf-viewer/pdf-viewer-routing-paths';
 import { ThemedForbiddenComponent } from './forbidden/themed-forbidden.component';
 import { homePageResolver } from './home-page/home-page.resolver';
 import { provideSuggestionNotificationsState } from './notifications/provide-suggestion-notifications-state';
@@ -141,6 +142,12 @@ export const APP_ROUTES: Route[] = [
       {
         path: BITSTREAM_MODULE_PATH,
         loadChildren: () => import('./bitstream-page/bitstream-page-routes')
+          .then((m) => m.ROUTES),
+        canActivate: [endUserAgreementCurrentUserGuard],
+      },
+      {
+        path: PDF_VIEWER_MODULE_PATH,
+        loadChildren: () => import('./pdf-viewer/pdf-viewer.routes')
           .then((m) => m.ROUTES),
         canActivate: [endUserAgreementCurrentUserGuard],
       },

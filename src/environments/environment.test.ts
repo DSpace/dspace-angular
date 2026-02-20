@@ -578,4 +578,8 @@ export const environment: BuildConfig = {
     showCounters: true,
     title: 'DSpace demo',
   },
+
+  pdfViewer: {
+    enabled: true,
+  },
 };

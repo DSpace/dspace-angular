@@ -4,6 +4,7 @@ import {
   NgTemplateOutlet,
 } from '@angular/common';
 import { Component } from '@angular/core';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { ThemedAccessStatusBadgeComponent } from 'src/app/shared/object-collection/shared/badges/access-status-badge/themed-access-status-badge.component';
@@ -19,6 +20,7 @@ import { FileDownloadLinkComponent as BaseComponent } from '../../../../../app/s
   imports: [
     AsyncPipe,
     NgClass,
+    NgbTooltipModule,
     NgTemplateOutlet,
     RouterLink,
     ThemedAccessStatusBadgeComponent,

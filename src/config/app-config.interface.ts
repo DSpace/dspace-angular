@@ -75,6 +75,7 @@ interface AppConfig extends Config {
   layout: LayoutConfig;
   searchResult: SearchResultConfig;
   addToAnyPlugin: AddToAnyPluginConfig;
+  pdfViewer?: { enabled: boolean };
 }
 
 /**
