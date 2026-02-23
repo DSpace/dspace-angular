@@ -1,5 +1,10 @@
 import { Injectable } from '@angular/core';
 import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
+import {
   combineLatest,
   EMPTY,
   Observable,
@@ -18,16 +23,11 @@ import { BitstreamFormatDataService } from '../../core/data/bitstream-format-dat
 import { RemoteData } from '../../core/data/remote-data';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import { followLink } from '../../core/shared/follow-link-config.model';
 import {
   getAllSucceededRemoteDataPayload,
   getFirstCompletedRemoteData,
 } from '../../core/shared/operators';
-import {
-  hasNoValue,
-  hasValue,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
-import { followLink } from '../../core/shared/follow-link-config.model';
 
 @Injectable({
   providedIn: 'root',

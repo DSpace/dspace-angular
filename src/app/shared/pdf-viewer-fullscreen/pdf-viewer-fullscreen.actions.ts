@@ -1,7 +1,6 @@
 /* eslint-disable max-classes-per-file */
-import { Action } from '@ngrx/store';
-
 import { type } from '@dspace/core/ngrx/type';
+import { Action } from '@ngrx/store';
 
 export const PdfViewerFullscreenActionTypes = {
   SET_FULLSCREEN: type('dspace/pdf-viewer-fullscreen/SET_FULLSCREEN'),

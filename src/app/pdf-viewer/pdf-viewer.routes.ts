@@ -1,8 +1,8 @@
 import { Route } from '@angular/router';
 
 import { bitstreamPageResolver } from '../bitstream-page/bitstream-page.resolver';
-import { PdfViewerPageComponent } from './pdf-viewer-page/pdf-viewer-page.component';
 import { pdfViewerPageBreadcrumbResolver } from './breadcrumbs/pdf-viewer-page-breadcrumb.resolver';
+import { PdfViewerPageComponent } from './pdf-viewer-page/pdf-viewer-page.component';
 
 export const ROUTES: Route[] = [
   {

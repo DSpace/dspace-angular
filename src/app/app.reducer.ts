@@ -44,10 +44,6 @@ import {
 import { menusReducer } from './shared/menu/menu.reducer';
 import { MenusState } from './shared/menu/menus-state.model';
 import {
-  pdfViewerFullscreenReducer,
-  PdfViewerFullscreenState,
-} from './shared/pdf-viewer-fullscreen/pdf-viewer-fullscreen.reducer';
-import {
   selectableListReducer,
   SelectableListsState,
 } from './shared/object-list/selectable-list/selectable-list.reducer';
@@ -55,6 +51,10 @@ import {
   ObjectSelectionListState,
   objectSelectionReducer,
 } from './shared/object-select/object-select.reducer';
+import {
+  pdfViewerFullscreenReducer,
+  PdfViewerFullscreenState,
+} from './shared/pdf-viewer-fullscreen/pdf-viewer-fullscreen.reducer';
 import {
   cssVariablesReducer,
   CSSVariablesState,
