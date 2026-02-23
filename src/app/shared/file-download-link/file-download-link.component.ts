@@ -27,11 +27,11 @@ import {
   hasValue,
   isNotEmpty,
 } from '@dspace/shared/utils/empty.util';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   combineLatest as observableCombineLatest,
   Observable,
@@ -47,12 +47,11 @@ import { ThemedAccessStatusBadgeComponent } from '../object-collection/shared/ba
   selector: 'ds-base-file-download-link',
   templateUrl: './file-download-link.component.html',
   styleUrls: ['./file-download-link.component.scss'],
-  standalone: true,
   imports: [
     AsyncPipe,
+    NgbTooltipModule,
     NgClass,
     NgTemplateOutlet,
-    NgbTooltipModule,
     RouterLink,
     ThemedAccessStatusBadgeComponent,
     TranslateModule,

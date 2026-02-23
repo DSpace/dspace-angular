@@ -36,13 +36,13 @@ import {
   WORKFLOW_ITEM_MODULE_PATH,
 } from './app-routing-paths';
 import { notAuthenticatedGuard } from './core/auth/not-authenticated.guard';
-import { PDF_VIEWER_MODULE_PATH } from './pdf-viewer/pdf-viewer-routing-paths';
 import { ThemedForbiddenComponent } from './forbidden/themed-forbidden.component';
 import { homePageResolver } from './home-page/home-page.resolver';
 import { provideSuggestionNotificationsState } from './notifications/provide-suggestion-notifications-state';
 import { ThemedPageErrorComponent } from './page-error/themed-page-error.component';
 import { ThemedPageInternalServerErrorComponent } from './page-internal-server-error/themed-page-internal-server-error.component';
 import { ThemedPageNotFoundComponent } from './pagenotfound/themed-pagenotfound.component';
+import { PDF_VIEWER_MODULE_PATH } from './pdf-viewer/pdf-viewer-routing-paths';
 import { PROCESS_MODULE_PATH } from './process-page/process-page-routing.paths';
 import { viewTrackerResolver } from './statistics/angulartics/dspace/view-tracker.resolver';
 import { provideSubmissionState } from './submission/provide-submission-state';

@@ -15,7 +15,6 @@ import { PdfViewerFullscreenService } from '../../shared/pdf-viewer-fullscreen/p
   selector: 'ds-pdf-viewer-back-button',
   templateUrl: './pdf-viewer-back-button.component.html',
   styleUrls: ['./pdf-viewer-back-button.component.scss'],
-  standalone: true,
 })
 export class PdfViewerBackButtonComponent implements OnInit {
   canGoBack: boolean;

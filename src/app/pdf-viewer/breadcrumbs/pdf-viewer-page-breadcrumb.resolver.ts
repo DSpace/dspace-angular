@@ -6,8 +6,8 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { BreadcrumbConfig } from '../../core/breadcrumbs/models/breadcrumb-config.model';
 import { DSOBreadcrumbResolver } from '../../core/breadcrumbs/dso-breadcrumb.resolver';
+import { BreadcrumbConfig } from '../../core/breadcrumbs/models/breadcrumb-config.model';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';

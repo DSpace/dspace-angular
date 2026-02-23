@@ -60,6 +60,7 @@ describe('FileDownloadLinkComponent', () => {
       uuid: 'bitstreamUuid',
       _links: {
         self: { href: 'obj-selflink' },
+        format: { href: 'obj-formatlink' },
       },
     });
     item = Object.assign(new Item(), {

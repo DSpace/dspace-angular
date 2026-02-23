@@ -13,11 +13,11 @@ import { RemoteData } from '../data/remote-data';
 import { Bitstream } from './bitstream.model';
 import { BITSTREAM } from './bitstream.resource-type';
 import { BUNDLE } from './bundle.resource-type';
+import { ChildHALResource } from './child-hal-resource.model';
 import { DSpaceObject } from './dspace-object.model';
 import { HALLink } from './hal-link.model';
 import { Item } from './item.model';
 import { ITEM } from './item.resource-type';
-import { ChildHALResource } from './child-hal-resource.model';
 
 @typedObject
 @inheritSerialization(DSpaceObject)

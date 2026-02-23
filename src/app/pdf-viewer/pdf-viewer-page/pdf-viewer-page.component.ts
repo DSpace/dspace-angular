@@ -11,6 +11,7 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   NgxExtendedPdfViewerModule,
   PdfLoadedEvent,
@@ -26,11 +27,10 @@ import { AuthService } from '../../core/auth/auth.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { redirectOn4xx } from '../../core/shared/authorized.operators';
 import { Bitstream } from '../../core/shared/bitstream.model';
-import { hasValue } from '@dspace/shared/utils/empty.util';
 import { HostWindowService } from '../../shared/host-window.service';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { VarDirective } from '../../shared/utils/var.directive';
 import { PdfViewerFullscreenService } from '../../shared/pdf-viewer-fullscreen/pdf-viewer-fullscreen.service';
+import { VarDirective } from '../../shared/utils/var.directive';
 import { PdfViewerBackButtonComponent } from '../pdf-viewer-back-button/pdf-viewer-back-button.component';
 import { getPdfViewerPageRoute } from '../pdf-viewer-routing-paths';
 
@@ -38,11 +38,10 @@ import { getPdfViewerPageRoute } from '../pdf-viewer-routing-paths';
   selector: 'ds-pdf-viewer-page',
   templateUrl: './pdf-viewer-page.component.html',
   styleUrls: ['./pdf-viewer-page.component.scss'],
-  standalone: true,
   imports: [
-    PdfViewerBackButtonComponent,
     CommonModule,
     NgxExtendedPdfViewerModule,
+    PdfViewerBackButtonComponent,
     ThemedLoadingComponent,
     VarDirective,
   ],

@@ -1,6 +1,7 @@
 import { Route } from '@angular/router';
 import { i18nBreadcrumbResolver } from '@dspace/core/breadcrumbs/i18n-breadcrumb.resolver';
 import { communityAdministratorGuard } from '@dspace/core/data/feature-authorization/feature-authorization-guard/community-administrator.guard';
+
 import { PdfViewerEnableDsoComponent } from '../../pdf-viewer/pdf-viewer-enable-dso/pdf-viewer-enable-dso.component';
 import { ResourcePolicyCreateComponent } from '../../shared/resource-policies/create/resource-policy-create.component';
 import { ResourcePolicyEditComponent } from '../../shared/resource-policies/edit/resource-policy-edit.component';

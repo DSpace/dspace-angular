@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   Observable,
   of,
@@ -9,17 +10,16 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { getDSORoute } from '../../core/router/utils/dso-route.utils';
-import { Breadcrumb } from '../../core/breadcrumbs/models/breadcrumb.model';
 import { DSOBreadcrumbsService } from '../../core/breadcrumbs/dso-breadcrumbs.service';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { Breadcrumb } from '../../core/breadcrumbs/models/breadcrumb.model';
 import { LinkService } from '../../core/cache/builders/link.service';
 import { RemoteData } from '../../core/data/remote-data';
+import { getDSORoute } from '../../core/router/utils/dso-route.utils';
 import { BITSTREAM } from '../../core/shared/bitstream.resource-type';
 import { BUNDLE } from '../../core/shared/bundle.resource-type';
 import { ChildHALResource } from '../../core/shared/child-hal-resource.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { hasValue } from '@dspace/shared/utils/empty.util';
 import { followLink } from '../../core/shared/follow-link-config.model';
 
 @Injectable({

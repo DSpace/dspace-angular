@@ -66,6 +66,7 @@ import {
 } from 'rxjs/operators';
 
 import { getEntityEditRoute } from '../../item-page/item-page-routing-paths';
+import { PdfViewerEnableComponent } from '../../pdf-viewer/pdf-viewer-enable/pdf-viewer-enable.component';
 import { ErrorComponent } from '../../shared/error/error.component';
 import { DynamicCustomSwitchModel } from '../../shared/form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.model';
 import { DsDynamicInputModel } from '../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
@@ -76,7 +77,6 @@ import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.comp
 import { FileSizePipe } from '../../shared/utils/file-size-pipe';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { ThemedThumbnailComponent } from '../../thumbnail/themed-thumbnail.component';
-import { PdfViewerEnableComponent } from '../../pdf-viewer/pdf-viewer-enable/pdf-viewer-enable.component';
 
 @Component({
   selector: 'ds-base-edit-bitstream-page',
@@ -85,17 +85,16 @@ import { PdfViewerEnableComponent } from '../../pdf-viewer/pdf-viewer-enable/pdf
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     AsyncPipe,
-    PdfViewerEnableComponent,
     ErrorComponent,
     FileSizePipe,
     FormComponent,
+    PdfViewerEnableComponent,
     RouterLink,
     ThemedLoadingComponent,
     ThemedThumbnailComponent,
     TranslateModule,
     VarDirective,
   ],
-  standalone: true,
 })
 /**
  * Page component for editing a bitstream

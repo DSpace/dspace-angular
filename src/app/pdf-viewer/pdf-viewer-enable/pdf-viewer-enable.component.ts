@@ -18,7 +18,6 @@ import { PdfViewerService } from '../pdf-viewer-service/pdf-viewer-service';
   selector: 'ds-pdf-viewer-enable',
   templateUrl: './pdf-viewer-enable.component.html',
   styleUrls: ['./pdf-viewer-enable.component.scss'],
-  standalone: true,
   imports: [
     CommonModule,
     TranslateModule,

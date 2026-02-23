@@ -45,16 +45,15 @@ import { LiveRegionComponent } from '../shared/live-region/live-region.component
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import { MenuService } from '../shared/menu/menu.service';
 import { MenuID } from '../shared/menu/menu-id.model';
+import { PdfViewerFullscreenService } from '../shared/pdf-viewer-fullscreen/pdf-viewer-fullscreen.service';
 import { CSSVariableService } from '../shared/sass-helper/css-variable.service';
 import { SystemWideAlertBannerComponent } from '../system-wide-alert/alert-banner/system-wide-alert-banner.component';
-import { PdfViewerFullscreenService } from '../shared/pdf-viewer-fullscreen/pdf-viewer-fullscreen.service';
 
 @Component({
   selector: 'ds-base-root',
   templateUrl: './root.component.html',
   styleUrls: ['./root.component.scss'],
   animations: [slideSidebarPadding],
-  standalone: true,
   imports: [
     AsyncPipe,
     LiveRegionComponent,
