@@ -3043,9 +3043,17 @@
 
   "item.preview.dc.identifier.uri": "Identifier:",
 
+  "item.preview.dc.contributor": "Contributors:",
+
   "item.preview.dc.contributor.author": "Authors:",
 
+  "item.preview.dc.contributor.editor": "Editors:",
+
+  "item.preview.dc.contributor.other": "Other contributors:",
+
   "item.preview.dc.date.issued": "Published date:",
+
+  "item.preview.dc.date.submitted": "Submission date:",
 
   "item.preview.dc.description": "Description:",
 
@@ -3055,6 +3063,8 @@
 
   "item.preview.dc.language.iso": "Language:",
 
+  "item.preview.dc.source": "Source:",
+
   "item.preview.dc.subject": "Subjects:",
 
   "item.preview.dc.title": "Title:",
@@ -3062,6 +3072,8 @@
   "item.preview.dc.type": "Type:",
 
   "item.preview.oaire.version": "Version",
+
+  "item.preview.oaire.citation.edition": "Edition",
 
   "item.preview.oaire.citation.issue": "Issue",
 
@@ -3079,11 +3091,21 @@
 
   "item.preview.dc.rights": "Rights",
 
+  "item.preview.dc.rights.license": "License",
+
   "item.preview.dc.identifier.other": "Other Identifier",
 
   "item.preview.dc.relation.issn": "ISSN",
 
   "item.preview.dc.identifier.isbn": "ISBN",
+
+  "item.preview.dc.identifier.isni": "ISNI",
+
+  "item.preview.dc.identifier.mag": "Microsoft Academic Graph (MAG) Identifier",
+
+  "item.preview.dc.identifier.rid": "ResearcherID (RID)",
+
+  "item.preview.dc.identifier.scopus-author-id": "Scopus Author ID",
 
   "item.preview.dc.identifier": "Identifier:",
 
@@ -3099,6 +3121,10 @@
 
   "item.preview.person.identifier.orcid": "ORCID:",
 
+  "item.preview.person.identifier.rid": "ResearcherID (RID):",
+
+  "item.preview.person.identifier.scopus-author-id": "Scopus Author ID:",
+
   "item.preview.person.affiliation.name": "Affiliations:",
 
   "item.preview.project.funder.name": "Funder:",
@@ -3109,13 +3135,29 @@
 
   "item.preview.oaire.awardNumber": "Funding ID:",
 
+  "item.preview.oaire.awardURI": "Award URI:",
+
   "item.preview.dc.title.alternative": "Acronym:",
 
   "item.preview.dc.coverage.spatial": "Jurisdiction:",
 
   "item.preview.oaire.fundingStream": "Funding Stream:",
 
+  "item.preview.oairecerif.acronym": "Acronym:",
+
+  "item.preview.oairecerif.funder": "Funder:",
+
+  "item.preview.oairecerif.funding.endDate": "Funding End Date:",
+
+  "item.preview.oairecerif.funding.identifier": "Funding Identifier:",
+
+  "item.preview.oairecerif.funding.startDate": "Funding Start Date:",
+
+  "item.preview.oairecerif.fundingParent": "Funding Programme:",
+
   "item.preview.oairecerif.identifier.url": "URL",
+
+  "item.preview.oairecerif.oamandate": "OA Mandate:",
 
   "item.preview.organization.address.addressCountry": "Country",
 
@@ -3128,6 +3170,8 @@
   "item.preview.organization.identifier.ror": "ROR ID",
 
   "item.preview.organization.legalName": "Legal Name",
+
+  "item.preview.organization.parentOrganization": "Parent Organization",
 
   "item.preview.dspace.entity.type": "Entity Type:",
 
