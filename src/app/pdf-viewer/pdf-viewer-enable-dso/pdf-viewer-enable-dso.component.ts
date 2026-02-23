@@ -10,6 +10,18 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { UpdateDataService } from '@dspace/core/data/update-data.service';
+import {
+  APP_DATA_SERVICES_MAP,
+  LazyDataServicesMap,
+} from '@dspace/core/data-services-map-type';
+import { lazyDataService } from '@dspace/core/lazy-data-service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import {
   TranslateModule,
   TranslateService,
@@ -22,35 +34,26 @@ import {
 import {
   first,
   map,
+  switchMap,
 } from 'rxjs/operators';
 
-import { getDSORoute } from '../../core/router/utils/dso-route.utils';
-import { DATA_SERVICE_FACTORY } from '../../core/cache/builders/build-decorators';
-import { PatchData } from '../../core/data/base/patch-data';
 import { RemoteData } from '../../core/data/remote-data';
+import { getDSORoute } from '../../core/router/utils/dso-route.utils';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { GenericConstructor } from '../../core/shared/generic-constructor';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
 } from '../../core/shared/operators';
 import { ResourceType } from '../../core/shared/resource-type';
-import {
-  hasNoValue,
-  hasValue,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { PdfViewerEnableComponent } from '../pdf-viewer-enable/pdf-viewer-enable.component';
 
 @Component({
   selector: 'ds-pdf-viewer-enable-dso',
   templateUrl: './pdf-viewer-enable-dso.component.html',
   styleUrls: ['./pdf-viewer-enable-dso.component.scss'],
-  standalone: true,
   imports: [
-    PdfViewerEnableComponent,
     CommonModule,
+    PdfViewerEnableComponent,
     TranslateModule,
   ],
 })
@@ -62,7 +65,7 @@ export class PdfViewerEnableDsoComponent implements OnInit, OnDestroy {
 
   enableViewer: boolean;
 
-  protected dataservice: PatchData<DSpaceObject>;
+  protected dsoDataService: UpdateDataService<DSpaceObject>;
 
   buttonStyle$: Observable<string>;
 
@@ -75,7 +78,7 @@ export class PdfViewerEnableDsoComponent implements OnInit, OnDestroy {
     protected notificationsService: NotificationsService,
     protected translate: TranslateService,
     protected parentInjector: Injector,
-    @Inject(DATA_SERVICE_FACTORY) private getDataServiceFor: (resourceType: ResourceType) => GenericConstructor<any>,
+    @Inject(APP_DATA_SERVICES_MAP) private dataServiceMap: LazyDataServicesMap,
   ) {
   }
 
@@ -85,38 +88,33 @@ export class PdfViewerEnableDsoComponent implements OnInit, OnDestroy {
     this.subs.push(
       this.dsoRD$.pipe(
         getFirstSucceededRemoteDataPayload(),
-      ).subscribe(async (dso) => {
-        this.initialDSO = dso;
+        switchMap((dso: DSpaceObject) => {
+          this.initialDSO = dso;
 
-        let resourceType = this.initialDSO.type;
+          let resourceType = this.initialDSO.type;
+          if (isNotEmpty(resourceType) && hasNoValue(resourceType.value)) {
+            resourceType = new ResourceType(resourceType as any as string);
+          }
 
-        if (isNotEmpty(resourceType) && hasNoValue(resourceType.value)) {
-          resourceType = new ResourceType(resourceType as any as string);
-        }
-
-        const provider = this.getDataServiceFor(resourceType);
-        const DataServiceClass = hasValue(provider) && typeof (provider as any).then === 'function'
-          ? await (provider as unknown as Promise<any>)
-          : provider;
-        if (hasValue(DataServiceClass)) {
-          this.dataservice = Injector.create({
-            providers: [],
-            parent: this.parentInjector,
-          }).get(DataServiceClass);
-        }
-      }));
+          const lazyProvider$: Observable<UpdateDataService<DSpaceObject>> = lazyDataService(this.dataServiceMap, resourceType.value, this.parentInjector);
+          return lazyProvider$;
+        }),
+      ).subscribe((lazyDsoDataService: UpdateDataService<DSpaceObject>) => {
+        this.dsoDataService = lazyDsoDataService;
+      }),
+    );
     this.buttonStyle$ = this.route.data.pipe(first(),
       map((data) => data.buttonStyle));
   }
 
   onSubmit(): void {
-    if (hasNoValue(this.dataservice) || hasNoValue(this.initialDSO)) {
+    if (hasNoValue(this.dsoDataService) || hasNoValue(this.initialDSO)) {
       return;
     }
-    const operations: Operation[] = [];
 
+    const operations: Operation[] = [];
     operations.push({
-      op: 'replace',
+      op: hasValue(this.initialDSO.firstMetadataValue('dspace.pdfviewer.enabled')) ? 'replace' : 'add',
       path: `/metadata/dspace.pdfviewer.enabled`,
       value: {
         value: this.enableViewer,
@@ -124,7 +122,7 @@ export class PdfViewerEnableDsoComponent implements OnInit, OnDestroy {
       },
     });
 
-    this.handleResponse(this.dataservice.patch(this.initialDSO, operations));
+    this.handleResponse(this.dsoDataService.patch(this.initialDSO, operations));
   }
 
   handleResponse(response: Observable<RemoteData<DSpaceObject>>): void {
