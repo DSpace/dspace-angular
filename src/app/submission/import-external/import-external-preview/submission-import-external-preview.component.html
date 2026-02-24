@@ -18,8 +18,15 @@
       </div>
       @for (metadata of metadataList; track metadata) {
         <div class="row">
-          <p class="col-md-12">
-            <strong class="">{{'item.preview.' + metadata.key | translate}}</strong><br>
+          <p id="{{metadata.key}}" class="col-md-12">
+            <strong class="">{{'item.preview.' + metadata.key | translate}}</strong>
+            @if ([MetadataFieldViewMode.Labeled, MetadataFieldViewMode.Full].includes(viewMode)) {
+              <span class="text-muted ps-2">({{metadata.key}})</span>
+            }
+            @if ([MetadataFieldViewMode.Tooltip, MetadataFieldViewMode.Full].includes(viewMode)) {
+              <i class="fas fa-info-circle text-primary ps-2" [ngbTooltip]="metadata.key"></i>
+            }
+            <br>
             @for (metadatum of metadata.values; track metadatum) {
               <span>{{metadatum.value}}</span><br>
             }
