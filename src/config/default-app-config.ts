@@ -1,3 +1,4 @@
+import { ImportExternalMetadataViewMode } from '@dspace/config/import-external-metadata-view.mode';
 import { LayoutConfig } from '@dspace/config/layout-config.interfaces';
 import { SearchResultConfig } from '@dspace/config/search-result-config.interface';
 
@@ -292,6 +293,10 @@ export class DefaultAppConfig implements AppConfig {
       },
       // Icons that should remain visible even when no authority value is present for the metadata field
       iconsVisibleWithNoAuthority: ['fas fa-user'],
+    },
+    importExternal: {
+      // Visibility of metadatafield names in preview item from an external source
+      viewMode: ImportExternalMetadataViewMode.Default,
     },
   };
 
