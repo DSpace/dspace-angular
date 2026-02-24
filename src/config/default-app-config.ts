@@ -1,3 +1,5 @@
+import { ImportExternalMetadataViewMode } from '@dspace/config/import-external-metadata-view.mode';
+
 import { AccessibilitySettingsConfig } from './accessibility-settings.config';
 import { ActuatorsConfig } from './actuators.config';
 import { AdminNotifyMetricsRow } from './admin-notify-metrics.config';
@@ -253,6 +255,10 @@ export class DefaultAppConfig implements AppConfig {
 
         ],
       },
+    },
+    importExternal: {
+      // Visibility of metadatafield names in preview item from an external source
+      viewMode: ImportExternalMetadataViewMode.Default,
     },
   };
 
