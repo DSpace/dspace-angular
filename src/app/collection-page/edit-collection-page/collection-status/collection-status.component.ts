@@ -57,7 +57,6 @@ import { CollectionOperation } from '../collection-operation/collectionOperation
     RouterLink,
     TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * Component for displaying a collection's status
