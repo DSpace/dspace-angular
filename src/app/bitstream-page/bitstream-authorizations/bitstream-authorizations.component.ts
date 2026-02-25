@@ -27,7 +27,6 @@ import { ResourcePoliciesComponent } from '../../shared/resource-policies/resour
     RouterLink,
     TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * Component that handles the Bitstream Authorizations

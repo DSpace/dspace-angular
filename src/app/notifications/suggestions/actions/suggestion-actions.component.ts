@@ -33,7 +33,6 @@ import { SuggestionApproveAndImport } from '../list-element/suggestion-approve-a
     NgbDropdownModule,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class SuggestionActionsComponent {
 

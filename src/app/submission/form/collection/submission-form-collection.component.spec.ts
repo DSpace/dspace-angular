@@ -316,7 +316,6 @@ describe('SubmissionFormCollectionComponent Component', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
-  standalone: true,
   imports: [
     FormsModule,
     NgbModule,

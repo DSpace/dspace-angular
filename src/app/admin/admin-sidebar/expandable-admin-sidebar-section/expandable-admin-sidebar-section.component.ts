@@ -36,7 +36,6 @@ import { AdminSidebarSectionComponent } from '../admin-sidebar-section/admin-sid
   templateUrl: './expandable-admin-sidebar-section.component.html',
   styleUrls: ['./expandable-admin-sidebar-section.component.scss'],
   animations: [rotate, slide, bgColor],
-  standalone: true,
   imports: [
     AsyncPipe,
     BrowserOnlyPipe,

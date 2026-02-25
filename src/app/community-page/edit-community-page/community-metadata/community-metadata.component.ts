@@ -22,7 +22,6 @@ import { CommunityFormComponent } from '../../community-form/community-form.comp
     AsyncPipe,
     CommunityFormComponent,
   ],
-  standalone: true,
 })
 export class CommunityMetadataComponent extends ComcolMetadataComponent<Community> {
   protected frontendURL = '/communities/';

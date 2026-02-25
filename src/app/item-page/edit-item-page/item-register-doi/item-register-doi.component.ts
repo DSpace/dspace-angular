@@ -39,7 +39,6 @@ import { AbstractSimpleItemActionComponent } from '../simple-item-action/abstrac
     RouterLink,
     TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * Component responsible for rendering the Item Register DOI page

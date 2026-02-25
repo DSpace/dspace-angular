@@ -14,7 +14,7 @@ import { NotificationsService } from '@dspace/core/notification-system/notificat
 import { Process } from '@dspace/core/processes/process.model';
 import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
 import { hasValue } from '@dspace/shared/utils/empty.util';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
   TranslateService,
@@ -34,10 +34,9 @@ import { QueryPredicate } from '../query-predicate.model';
   selector: 'ds-filtered-items-export-csv',
   styleUrls: ['./filtered-items-export-csv.component.scss'],
   templateUrl: './filtered-items-export-csv.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
-    NgbTooltipModule,
+    NgbTooltip,
     TranslateModule,
   ],
 })

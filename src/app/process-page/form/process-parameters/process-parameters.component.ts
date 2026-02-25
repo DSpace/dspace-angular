@@ -34,7 +34,6 @@ import { ParameterSelectComponent } from './parameter-select/parameter-select.co
     useFactory: controlContainerFactory,
     deps: [[new Optional(), NgForm]],
   }],
-  standalone: true,
   imports: [
     ParameterSelectComponent,
     TranslateModule,

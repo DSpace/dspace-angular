@@ -36,10 +36,8 @@ import { ThemedThumbnailComponent } from '../../../../../../../app/thumbnail/the
     '../../../../../../../app/item-page/simple/item-types/untyped-item/untyped-item.component.scss',
   ],
   // templateUrl: './untyped-item.component.html',
-  templateUrl:
-    '../../../../../../../app/item-page/simple/item-types/untyped-item/untyped-item.component.html',
+  templateUrl: '../../../../../../../app/item-page/simple/item-types/untyped-item/untyped-item.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
   imports: [
     AsyncPipe,
     CollectionsComponent,

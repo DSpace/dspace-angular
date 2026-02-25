@@ -36,7 +36,6 @@ import { FormComponent } from '../../shared/form/form.component';
   imports: [
     FormComponent,
   ],
-  standalone: true,
 })
 /**
  * Component for a user to edit their metadata

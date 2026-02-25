@@ -27,7 +27,7 @@ describe('ConfirmationSentComponent', () => {
     instant: (key: any) => 'Mocked Translation Text',
     onLangChange: new EventEmitter(),
     onTranslationChange: new EventEmitter(),
-    onDefaultLangChange: new EventEmitter(),
+    onFallbackLangChange: new EventEmitter(),
   };
 
   beforeEach(async () => {

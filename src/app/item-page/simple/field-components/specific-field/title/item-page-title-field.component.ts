@@ -10,7 +10,6 @@ import { TranslateModule } from '@ngx-translate/core';
 @Component({
   selector: 'ds-base-item-page-title-field',
   templateUrl: './item-page-title-field.component.html',
-  standalone: true,
   imports: [
     TranslateModule,
   ],

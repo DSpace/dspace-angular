@@ -53,7 +53,6 @@ import { SystemWideAlertBannerComponent } from '../system-wide-alert/alert-banne
   templateUrl: './root.component.html',
   styleUrls: ['./root.component.scss'],
   animations: [slideSidebarPadding],
-  standalone: true,
   imports: [
     AsyncPipe,
     LiveRegionComponent,

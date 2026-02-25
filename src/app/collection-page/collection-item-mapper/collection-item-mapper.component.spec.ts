@@ -127,7 +127,7 @@ describe('CollectionItemMapperComponent', () => {
     get: () => of('test-message of collection ' + mockCollection.name),
     onLangChange: new EventEmitter(),
     onTranslationChange: new EventEmitter(),
-    onDefaultLangChange: new EventEmitter(),
+    onFallbackLangChange: new EventEmitter(),
   };
   const searchServiceStub = Object.assign(new SearchServiceStub(), {
     search: () => of(emptyList),

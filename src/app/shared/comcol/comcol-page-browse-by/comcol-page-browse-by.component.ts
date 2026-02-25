@@ -64,7 +64,6 @@ export interface ComColPageNavOption {
     RouterLink,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class ComcolPageBrowseByComponent implements OnDestroy, OnInit {
   /**

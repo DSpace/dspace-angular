@@ -22,7 +22,6 @@ import { getDsoEditMetadataValueFieldComponent } from './dso-edit-metadata-value
 @Component({
   selector: 'ds-dso-edit-metadata-value-field-loader',
   templateUrl: '../../../../shared/abstract-component-loader/abstract-component-loader.component.html',
-  standalone: true,
   imports: [
     DynamicComponentLoaderDirective,
   ],

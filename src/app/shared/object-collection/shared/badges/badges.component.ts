@@ -31,7 +31,6 @@ const MY_DSPACE_STATUS_CONTEXTS = [
   selector: 'ds-base-badges',
   templateUrl: './badges.component.html',
   styleUrls: ['./badges.component.scss'],
-  standalone: true,
   imports: [
     ThemedAccessStatusBadgeComponent,
     ThemedMyDSpaceStatusBadgeComponent,

@@ -27,7 +27,6 @@ import { ProcessFormComponent } from '../form/process-form.component';
   selector: 'ds-new-process',
   templateUrl: './new-process.component.html',
   styleUrls: ['./new-process.component.scss'],
-  standalone: true,
   imports: [
     AsyncPipe,
     HasValuePipe,

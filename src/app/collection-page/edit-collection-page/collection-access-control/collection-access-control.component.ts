@@ -20,7 +20,6 @@ import { AccessControlFormContainerComponent } from '../../../shared/access-cont
     AccessControlFormContainerComponent,
     AsyncPipe,
   ],
-  standalone: true,
 })
 export class CollectionAccessControlComponent  implements OnInit {
   itemRD$: Observable<RemoteData<Community>>;

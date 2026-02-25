@@ -30,7 +30,6 @@ import { ItemAdminSearchResultActionsComponent } from '../../item-admin-search-r
   selector: 'ds-item-admin-search-result-grid-element',
   styleUrls: ['./item-admin-search-result-grid-element.component.scss'],
   templateUrl: './item-admin-search-result-grid-element.component.html',
-  standalone: true,
   imports: [
     DynamicComponentLoaderDirective,
     ItemAdminSearchResultActionsComponent,

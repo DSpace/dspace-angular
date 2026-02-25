@@ -52,7 +52,6 @@ import { SubmissionService } from '../../submission.service';
   selector: 'ds-submission-form-collection',
   styleUrls: ['./submission-form-collection.component.scss'],
   templateUrl: './submission-form-collection.component.html',
-  standalone: true,
   imports: [
     BtnDisabledDirective,
     CommonModule,

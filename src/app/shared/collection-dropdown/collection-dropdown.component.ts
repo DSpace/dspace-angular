@@ -71,7 +71,6 @@ export interface CollectionListEntry {
   selector: 'ds-base-collection-dropdown',
   templateUrl: './collection-dropdown.component.html',
   styleUrls: ['./collection-dropdown.component.scss'],
-  standalone: true,
   imports: [
     AsyncPipe,
     FormsModule,

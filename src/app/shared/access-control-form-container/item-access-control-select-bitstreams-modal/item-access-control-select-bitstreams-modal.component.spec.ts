@@ -44,7 +44,7 @@ describe('ItemAccessControlSelectBitstreamsModalComponent', () => {
     get: () => of('test-message'),
     onLangChange: new EventEmitter(),
     onTranslationChange: new EventEmitter(),
-    onDefaultLangChange: new EventEmitter(),
+    onFallbackLangChange: new EventEmitter(),
   };
 
   beforeEach(async () => {
@@ -82,7 +82,6 @@ describe('ItemAccessControlSelectBitstreamsModalComponent', () => {
 @Pipe({
   // eslint-disable-next-line @angular-eslint/pipe-prefix
   name: 'translate',
-  standalone: true,
 })
 class MockTranslatePipe implements PipeTransform {
   transform(value: string): string {

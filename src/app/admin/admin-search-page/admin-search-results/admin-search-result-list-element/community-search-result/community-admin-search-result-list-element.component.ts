@@ -19,7 +19,6 @@ import { SearchResultListElementComponent } from '../../../../../shared/object-l
   selector: 'ds-community-admin-search-result-list-element',
   styleUrls: ['./community-admin-search-result-list-element.component.scss'],
   templateUrl: './community-admin-search-result-list-element.component.html',
-  standalone: true,
   imports: [
     CommunitySearchResultListElementComponent,
     RouterLink,

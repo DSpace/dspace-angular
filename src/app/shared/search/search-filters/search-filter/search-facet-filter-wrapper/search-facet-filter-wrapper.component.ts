@@ -13,7 +13,6 @@ import { renderFilterType } from '../search-filter-type-decorator';
 @Component({
   selector: 'ds-search-facet-filter-wrapper',
   templateUrl: '../../../../abstract-component-loader/abstract-component-loader.component.html',
-  standalone: true,
   imports: [
     DynamicComponentLoaderDirective,
   ],

@@ -71,7 +71,6 @@ interface VersionDTO {
   selector: 'ds-item-versions',
   templateUrl: './item-versions.component.html',
   styleUrls: ['./item-versions.component.scss'],
-  standalone: true,
   imports: [
     AlertComponent,
     AsyncPipe,

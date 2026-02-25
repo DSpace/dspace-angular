@@ -41,7 +41,7 @@ import { PageInfo } from '@dspace/core/shared/page-info.model';
 import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   NgbModal,
-  NgbTooltipModule,
+  NgbTooltip,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -76,14 +76,13 @@ import { getGroupEditPageRouterLink } from '../access-control-routing-paths';
   imports: [
     AsyncPipe,
     BtnDisabledDirective,
-    NgbTooltipModule,
+    NgbTooltip,
     PaginationComponent,
     ReactiveFormsModule,
     RouterLink,
     ThemedLoadingComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * A component used for managing all existing groups within the repository.

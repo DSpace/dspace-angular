@@ -40,7 +40,6 @@ import { TabulatableObjectsDirective } from './tabulatable-objects.directive';
   imports: [
     TabulatableObjectsDirective,
   ],
-  standalone: true,
 })
 /**
  * Component to load the matching component flagged by the tabulatableObjectsComponent decorator.

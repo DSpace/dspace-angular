@@ -12,12 +12,7 @@ import { SubmissionFormComponent } from './submission-form.component';
 
 @Component({
   selector: 'ds-submission-form',
-  styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
-  standalone: true,
-  imports: [
-    SubmissionFormComponent,
-  ],
 })
 export class ThemedSubmissionFormComponent extends ThemedComponent<SubmissionFormComponent> {
   @Input() collectionId: string;
@@ -36,7 +31,9 @@ export class ThemedSubmissionFormComponent extends ThemedComponent<SubmissionFor
 
   @Input() submissionId: string;
 
-  protected inAndOutputNames: (keyof SubmissionFormComponent & keyof this)[] = ['collectionId', 'item', 'collectionModifiable', 'sections', 'submissionErrors', 'selfUrl', 'submissionDefinition', 'submissionId'];
+  @Input() entityType: string;
+
+  protected inAndOutputNames: (keyof SubmissionFormComponent & keyof this)[] = ['collectionId', 'item', 'collectionModifiable', 'sections', 'submissionErrors', 'selfUrl', 'submissionDefinition', 'submissionId', 'entityType'];
 
   protected getComponentName(): string {
     return 'SubmissionFormComponent';

@@ -76,7 +76,6 @@ import { SearchService } from '../../search/search.service';
   selector: 'ds-dso-selector',
   styleUrls: ['./dso-selector.component.scss'],
   templateUrl: './dso-selector.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     FormsModule,

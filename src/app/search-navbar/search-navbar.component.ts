@@ -24,7 +24,6 @@ import { ClickOutsideDirective } from '../shared/utils/click-outside.directive';
   templateUrl: './search-navbar.component.html',
   styleUrls: ['./search-navbar.component.scss'],
   animations: [expandSearchInput],
-  standalone: true,
   imports: [
     BrowserOnlyPipe,
     ClickOutsideDirective,

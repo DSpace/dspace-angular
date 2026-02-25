@@ -56,7 +56,6 @@ import { ThemedUserMenuComponent } from './user-menu/themed-user-menu.component'
   templateUrl: './auth-nav-menu.component.html',
   styleUrls: ['./auth-nav-menu.component.scss'],
   animations: [fadeInOut, fadeOut],
-  standalone: true,
   imports: [
     AsyncPipe,
     BrowserOnlyPipe,

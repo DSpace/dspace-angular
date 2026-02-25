@@ -44,7 +44,6 @@ import { SuggestionTargetsStateService } from '../suggestion-targets.state.servi
     ThemedLoadingComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class PublicationClaimComponent implements AfterViewInit, OnDestroy, OnInit {
 

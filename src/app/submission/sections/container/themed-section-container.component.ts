@@ -9,19 +9,15 @@ import { SubmissionSectionContainerComponent } from './section-container.compone
 
 @Component({
   selector: 'ds-submission-section-container',
-  styleUrls: [],
   templateUrl: '../../../shared/theme-support/themed.component.html',
-  standalone: true,
-  imports: [
-    SubmissionSectionContainerComponent,
-  ],
 })
 export class ThemedSubmissionSectionContainerComponent extends ThemedComponent<SubmissionSectionContainerComponent> {
   @Input() collectionId: string;
   @Input() sectionData: SectionDataObject;
   @Input() submissionId: string;
+  @Input() entityType: string;
 
-  protected inAndOutputNames: (keyof SubmissionSectionContainerComponent & keyof this)[] = ['collectionId', 'sectionData', 'submissionId'];
+  protected inAndOutputNames: (keyof SubmissionSectionContainerComponent & keyof this)[] = ['collectionId', 'sectionData', 'submissionId', 'entityType'];
 
   protected getComponentName(): string {
     return 'SubmissionSectionContainerComponent';

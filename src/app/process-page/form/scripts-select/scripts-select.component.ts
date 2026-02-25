@@ -53,7 +53,6 @@ const SCRIPT_QUERY_PARAMETER = 'script';
   viewProviders: [{ provide: ControlContainer,
     useFactory: controlContainerFactory,
     deps: [[new Optional(), NgForm]] }],
-  standalone: true,
   imports: [
     AsyncPipe,
     FormsModule,

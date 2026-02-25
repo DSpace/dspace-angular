@@ -34,7 +34,13 @@ import {
 } from '@dspace/core/shared/operators';
 import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
 import { isNotEmpty } from '@dspace/shared/utils/empty.util';
-import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbNav,
+  NgbNavContent,
+  NgbNavItem,
+  NgbNavLink,
+  NgbNavOutlet,
+} from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
   TranslateService,
@@ -81,11 +87,14 @@ import { BrowserOnlyPipe } from '../../shared/utils/browser-only.pipe';
     AsyncPipe,
     BrowserOnlyPipe,
     ItemSelectComponent,
-    NgbNavModule,
+    NgbNav,
+    NgbNavContent,
+    NgbNavItem,
+    NgbNavLink,
+    NgbNavOutlet,
     ThemedSearchFormComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * Component used to map items to a collection
@@ -159,7 +168,7 @@ export class CollectionItemMapperComponent implements OnInit {
 
     this.collectionName$ = this.collectionRD$.pipe(
       map((rd: RemoteData<Collection>) => {
-        return this.dsoNameService.getName(rd.payload);
+        return this.dsoNameService.getName(rd.payload, true);
       }),
     );
     this.searchOptions$ = this.searchConfigService.paginatedSearchOptions;

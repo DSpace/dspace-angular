@@ -36,7 +36,6 @@ import { AbstractMenuSectionComponent } from './menu-section/abstract-menu-secti
 @Component({
   selector: 'ds-menu',
   template: '',
-  standalone: true,
 })
 export class MenuComponent implements OnInit, OnDestroy {
   /**

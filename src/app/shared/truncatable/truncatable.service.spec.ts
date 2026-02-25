@@ -43,7 +43,7 @@ describe('TruncatableService', () => {
     });
 
     it('TruncatableCollapseAction should be dispatched to the store', () => {
-      expect(store.dispatch).toHaveBeenCalledWith(new TruncatableCollapseAction(id1));
+      expect(store.dispatch as jasmine.Spy).toHaveBeenCalledWith(new TruncatableCollapseAction(id1));
     });
 
   });
@@ -54,7 +54,7 @@ describe('TruncatableService', () => {
     });
 
     it('TruncatableExpandAction should be dispatched to the store', () => {
-      expect(store.dispatch).toHaveBeenCalledWith(new TruncatableExpandAction(id2));
+      expect(store.dispatch as jasmine.Spy).toHaveBeenCalledWith(new TruncatableExpandAction(id2));
     });
   });
 

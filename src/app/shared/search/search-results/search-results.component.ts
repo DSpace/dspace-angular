@@ -53,7 +53,6 @@ export interface SelectionConfig {
     fadeIn,
     fadeInOut,
   ],
-  standalone: true,
   imports: [
     AsyncPipe,
     ErrorComponent,

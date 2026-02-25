@@ -27,7 +27,6 @@ import { ClaimedTaskActionsAbstractComponent } from './claimed-task-actions-abst
  */
 @Component({
   selector: 'ds-advanced-claimed-task-action-abstract',
-  standalone: true,
   template: '',
 })
 export abstract class AdvancedClaimedTaskActionsAbstractComponent extends ClaimedTaskActionsAbstractComponent implements OnInit {

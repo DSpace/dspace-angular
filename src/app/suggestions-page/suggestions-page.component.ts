@@ -74,7 +74,6 @@ import { getWorkspaceItemEditRoute } from '../workflowitems-edit-page/workflowit
     TranslateModule,
     VarDirective,
   ],
-  standalone: true,
 })
 
 /**

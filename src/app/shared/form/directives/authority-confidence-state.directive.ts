@@ -38,7 +38,6 @@ import { environment } from '../../../../environments/environment';
  */
 @Directive({
   selector: '[dsAuthorityConfidenceState]',
-  standalone: true,
 })
 export class AuthorityConfidenceStateDirective implements OnChanges, AfterViewInit {
 

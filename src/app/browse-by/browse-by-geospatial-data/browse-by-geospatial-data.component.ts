@@ -46,7 +46,6 @@ import { SearchConfigurationService } from '../../shared/search/search-configura
     GeospatialMapComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * Component displaying a large 'browse map', which is really a geolocation few of the 'point' facet defined
