@@ -44,10 +44,6 @@ import { BitstreamFormat } from 'src/app/core/shared/bitstream-format.model';
 import { BitstreamFormatSupportLevel } from 'src/app/core/shared/bitstream-format-support-level';
 import { provideEnvironmentNgxMask } from 'ngx-mask';
 import {
-  NgxMaskModule,
-  provideEnvironmentNgxMask,
-} from 'ngx-mask';
-import {
   delay,
   of,
 } from 'rxjs';
