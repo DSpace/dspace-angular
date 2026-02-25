@@ -10,7 +10,7 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import {
-  NgbTooltipModule,
+  NgbTooltip,
   Placement,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
@@ -40,7 +40,7 @@ import { PlacementDir } from './placement-dir.model';
   `,
   imports: [
     ContextHelpWrapperComponent,
-    NgbTooltipModule,
+    NgbTooltip,
   ],
 })
 class TemplateComponent {
@@ -90,7 +90,7 @@ describe('ContextHelpWrapperComponent', () => {
     ]);
 
     TestBed.configureTestingModule({
-      imports: [NgbTooltipModule, TemplateComponent, ContextHelpWrapperComponent],
+      imports: [NgbTooltip, TemplateComponent, ContextHelpWrapperComponent],
       providers: [
         { provide: TranslateService, useValue: translateService },
         { provide: ContextHelpService, useValue: contextHelpService },

@@ -10,7 +10,11 @@
 # Requires also running a REST API backend (either locally or remotely),
 # for example via 'docker-compose-rest.yml'
 networks:
+  # Default to using an existing external network named 'dspacenet' (created in docker-compose-rest.yml)
+  # Its full name will be prepended with the project name (e.g. "-p d7" means it will be named "d7_dspacenet")
   dspacenet:
+    name: ${COMPOSE_PROJECT_NAME}_dspacenet
+    external: true
 services:
   dspace-angular:
     container_name: dspace-angular
@@ -28,11 +32,13 @@ services:
       context: ..
       dockerfile: Dockerfile
     networks:
-      dspacenet:
+    - dspacenet
     ports:
     - published: 4000
       target: 4000
     - published: 9876
       target: 9876
-    stdin_open: true
-    tty: true
+    volumes:
+    # Mount the local 'src' directory to the '/app' directory on the container.
+    # Allows the UI to "watch" this directory for changes and reload/rebuild when changes are detected.
+    - ../src:/app/src
