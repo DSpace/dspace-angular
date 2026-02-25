@@ -7,7 +7,6 @@ import { CollectionStatusComponent } from './collection-status.component';
   selector: 'ds-collection-status',
   styleUrls: [],
   templateUrl: '../../../shared/theme-support/themed.component.html',
-  standalone: true,
   imports: [
     CollectionStatusComponent,
   ],
