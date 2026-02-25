@@ -28,19 +28,23 @@ import { VocabularyServiceStub } from '@dspace/core/testing/vocabulary-service.s
 import { XSRFService } from '@dspace/core/xsrf/xsrf.service';
 import {
   NgbModule,
-  NgbTooltipModule,
+  NgbTooltip,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
   DYNAMIC_FORM_CONTROL_MAP_FN,
   DynamicFormLayoutService,
   DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
+import { provideMockActions } from '@ngrx/effects/testing';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
 
 import { environment } from '../../../../../../../environments/environment.test';
 import { SubmissionService } from '../../../../../../submission/submission.service';
 import { SubmissionObjectService } from '../../../../../../submission/submission-object.service';
+import { LiveRegionService } from '../../../../../live-region/live-region.service';
+import { getLiveRegionServiceStub } from '../../../../../live-region/live-region.service.stub';
 import { Chips } from '../../../../chips/models/chips.model';
 import { FormComponent } from '../../../../form.component';
 import { FormService } from '../../../../form.service';
@@ -169,6 +173,7 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
         FormComponent,
         FormService,
         provideMockStore({ initialState }),
+        provideMockActions(() => new Observable<any>()),
         { provide: VocabularyService, useValue: vocabularyServiceStub },
         { provide: DsDynamicTypeBindRelationService, useClass: DsDynamicTypeBindRelationService },
         { provide: SubmissionObjectService, useValue: {} },
@@ -177,9 +182,15 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
         { provide: APP_CONFIG, useValue: environment },
         { provide: APP_DATA_SERVICES_MAP, useValue: {} },
         { provide: DYNAMIC_FORM_CONTROL_MAP_FN, useValue: dsDynamicFormControlMapFn },
+        { provide: LiveRegionService, useValue: getLiveRegionServiceStub() },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
+      .overrideComponent(DsDynamicRelationGroupComponent, {
+        remove: {
+          imports: [FormComponent],
+        },
+      })
       .compileComponents();
 
   }));
@@ -364,7 +375,7 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
   selector: 'ds-test-cmp',
   template: ``,
   imports: [
-    NgbTooltipModule,
+    NgbTooltip,
     TranslateModule,
   ],
 })

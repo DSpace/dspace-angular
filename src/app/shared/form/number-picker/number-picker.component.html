@@ -1,38 +1,46 @@
-<div class="d-flex flex-column align-items-center justify-content-around me-3">
-    <button
-      class="btn btn-link-focus"
-      type="button"
-      tabindex="0"
-      [dsBtnDisabled]="disabled"
-      (click)="toggleUp()">
+<div class="d-flex flex-column align-items-center">
+  <label class="ml-n3" [for]="id">{{'form.number-picker.label.' + placeholder | translate }}</label>
+  <div class="d-flex flex-column align-items-stretch justify-content-around position-relative">
+    <button id="increment-{{id}}"
+            class="btn btn-link-focus btn-date ml-2"
+            type="button"
+            tabindex="0"
+            [dsBtnDisabled]="disabled"
+            (click)="toggleUp()"
+            title="{{'form.number-picker.increment' | translate: {field: placeholder} }}"
+            [attr.aria-label]="'form.number-picker.increment' | translate: {field: placeholder}">
       <span class="chevron"></span>
       <span class="sr-only">{{'form.number-picker.increment' | translate: {field: name} }}</span>
     </button>
     <input
-      id="{{id}}"
-      type="text"
-      class="form-control d-inline-block text-center"
-      maxlength="{{size}}"
-      size="{{size}}"
-      placeholder="{{placeholder}}"
-      [name]="name"
-      [(ngModel)]="value"
-      (blur)="onBlur($event); $event.stopPropagation();"
-      (change)="update($event); $event.stopPropagation();"
-      (focus)="onFocus($event); $event.stopPropagation();"
-      [readonly]="disabled"
-      [disabled]="disabled"
-      [ngClass]="{'is-invalid': invalid}"
-      title="{{placeholder}}"
-      [attr.aria-label]="placeholder"
+        id="{{id}}"
+        type="text"
+        class="form-control d-inline-block text-center {{ widthClass }}"
+        maxlength="{{size}}"
+        size="{{size}}"
+        [name]="name"
+        [(ngModel)]="value"
+        (blur)="onBlur($event); $event.stopPropagation();"
+        (change)="update($event); $event.stopPropagation();"
+        (focus)="onFocus($event); $event.stopPropagation();"
+        [readonly]="disabled"
+        [disabled]="disabled"
+        [ngClass]="{'is-invalid': invalid}"
+        placeholder="{{'form.number-picker.label.' + placeholder | translate }}"
+        title="{{'form.number-picker.label.' + placeholder | translate}}"
+        [attr.aria-labelledby]="id + ' increment-' + id + ' decrement-' + id"
     >
-    <button
-      class="btn btn-link-focus"
-      type="button"
-      tabindex="0"
-      [dsBtnDisabled]="disabled"
-      (click)="toggleDown()">
-      <span class="chevron bottom"></span>
-      <span class="sr-only">{{'form.number-picker.decrement' | translate: {field: name} }}</span>
-    </button>
+
+        <button id="decrement-{{id}}"
+                class="btn btn-link-focus btn-date ml-2"
+                type="button"
+                tabindex="0"
+                [dsBtnDisabled]="disabled"
+                (click)="toggleDown()"
+                title="{{'form.number-picker.decrement' | translate: {field: placeholder} }}"
+                [attr.aria-label]="'form.number-picker.decrement' | translate: {field: placeholder}">
+            <span class="chevron bottom"></span>
+            <span class="sr-only">{{'form.number-picker.decrement' | translate: {field: name} }}</span>
+        </button>
+  </div>
 </div>

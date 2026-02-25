@@ -51,7 +51,13 @@ describe('SubmissionEditComponent Component', () => {
 
   const submissionId = '826';
   const route: ActivatedRouteStub = new ActivatedRouteStub();
-  const submissionObject: any = mockSubmissionObject;
+  const submissionObject: any = Object.assign({}, mockSubmissionObject, {
+    collection: {
+      ...mockSubmissionObject.collection,
+      hasMetadata: (_: string) => true,
+      firstMetadataValue: (_: string) => true,
+    },
+  });
 
   beforeEach(waitForAsync(() => {
     itemDataService = jasmine.createSpyObj('itemDataService', {
