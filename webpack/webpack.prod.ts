@@ -14,6 +14,9 @@ module.exports = Object.assign({}, commonExports, {
     }),
   ],
   mode: 'production',
+  optimization: {
+    minimize: false,
+  },
   recordsOutputPath: projectRoot('webpack.records.json'),
   entry: projectRoot('./server.ts'),
   target: 'node',
