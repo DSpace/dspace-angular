@@ -6,7 +6,7 @@ import {
 } from '@ngrx/effects';
 import { map } from 'rxjs/operators';
 
-import { StoreActionTypes } from '../../store.actions';
+import { StoreActionTypes } from '../ngrx/type';
 import { ResetObjectCacheTimestampsAction } from './object-cache.actions';
 
 @Injectable()

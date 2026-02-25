@@ -15,24 +15,24 @@ import {
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { authReducer } from '@dspace/core/auth/auth.reducer';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { HardRedirectService } from '@dspace/core/services/hard-redirect.service';
+import { NativeWindowService } from '@dspace/core/services/window.service';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import {
+  authMethodsMock,
+  AuthServiceStub,
+} from '@dspace/core/testing/auth-service.stub';
+import { NativeWindowMockFactory } from '@dspace/core/testing/mock-native-window-ref';
+import { createTestComponent } from '@dspace/core/testing/utils.test';
 import { StoreModule } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { authReducer } from '../../core/auth/auth.reducer';
-import { AuthService } from '../../core/auth/auth.service';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { HardRedirectService } from '../../core/services/hard-redirect.service';
-import { NativeWindowService } from '../../core/services/window.service';
-import { NativeWindowMockFactory } from '../mocks/mock-native-window-ref';
-import { getMockThemeService } from '../mocks/theme-service.mock';
-import { ActivatedRouteStub } from '../testing/active-router.stub';
-import {
-  authMethodsMock,
-  AuthServiceStub,
-} from '../testing/auth-service.stub';
-import { createTestComponent } from '../testing/utils.test';
+import { getMockThemeService } from '../theme-support/test/theme-service.mock';
 import { ThemeService } from '../theme-support/theme.service';
 import { LogInComponent } from './log-in.component';
 
@@ -146,7 +146,6 @@ describe('LogInComponent', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
-  standalone: true,
   imports: [FormsModule,
     ReactiveFormsModule,
     RouterTestingModule],

@@ -18,7 +18,6 @@ import { AccessControlFormContainerComponent } from '../../../shared/access-cont
     NgbAccordionModule,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class BulkAccessSettingsComponent {
 

@@ -1,11 +1,11 @@
+import { AccessStatusObject } from '@dspace/core/shared/access-status.model';
+import { ACCESS_STATUS } from '@dspace/core/shared/access-status.resource-type';
 import {
   autoserialize,
   deserialize,
   inheritSerialization,
 } from 'cerialize';
 import { Observable } from 'rxjs';
-import { AccessStatusObject } from 'src/app/shared/object-collection/shared/badges/access-status-badge/access-status.model';
-import { ACCESS_STATUS } from 'src/app/shared/object-collection/shared/badges/access-status-badge/access-status.resource-type';
 
 import {
   link,
@@ -19,7 +19,20 @@ import { Bundle } from './bundle.model';
 import { BUNDLE } from './bundle.resource-type';
 import { ChildHALResource } from './child-hal-resource.model';
 import { DSpaceObject } from './dspace-object.model';
+import {
+  followLink,
+  FollowLinkConfig,
+} from './follow-link-config.model';
 import { HALLink } from './hal-link.model';
+
+/**
+ * The self links defined in this list are expected to be requested somewhere in the near future
+ * Requesting them as embeds will limit the number of requests
+ */
+export const BITSTREAM_PAGE_LINKS_TO_FOLLOW: FollowLinkConfig<Bitstream>[] = [
+  followLink('bundle', {}, followLink('primaryBitstream'), followLink('item')),
+  followLink('format'),
+];
 
 @typedObject
 @inheritSerialization(DSpaceObject)

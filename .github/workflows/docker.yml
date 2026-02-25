@@ -58,3 +58,117 @@ jobs:
       # these sites as specified in reusable-docker-build.xml
       REDEPLOY_SANDBOX_URL:  ${{ secrets.REDEPLOY_SANDBOX_URL }}
       REDEPLOY_DEMO_URL:  ${{ secrets.REDEPLOY_DEMO_URL }}
+
+  #################################################################################
+  # Test Deployment via Docker to ensure newly built images are working properly
+  #################################################################################
+  docker-deploy:
+    # Ensure this job never runs on forked repos. It's only executed for 'dspace/dspace-angular'
+    if: github.repository == 'dspace/dspace-angular'
+    runs-on: ubuntu-latest
+        # Must run after all major images are built
+    needs: [dspace-angular, dspace-angular-dist]
+    env:
+      # Override default dspace.server.url & REST 'host' because backend starts at http://127.0.0.1:8080
+      dspace__P__server__P__url: http://127.0.0.1:8080/server
+      DSPACE_REST_HOST: 127.0.0.1
+      # Override default dspace.ui.url to also use 127.0.0.1.
+      dspace__P__ui__P__url: http://127.0.0.1:4000
+    steps:
+      # Checkout our codebase (to get access to Docker Compose scripts)
+      - name: Checkout codebase
+        uses: actions/checkout@v4
+      # Download Docker image artifacts (which were just built by reusable-docker-build.yml)
+      - name: Download Docker image artifacts
+        uses: actions/download-artifact@v4
+        with:
+          # Download all amd64 Docker images (TAR files) into the /tmp/docker directory
+          pattern: docker-image-*-linux-amd64
+          path: /tmp/docker
+          merge-multiple: true
+      # Load each of the images into Docker by calling "docker image load" for each.
+      # This ensures we are using the images just built & not any prior versions on DockerHub
+      - name: Load all downloaded Docker images
+        run: |
+          find /tmp/docker -type f -name "*.tar" -exec docker image load --input "{}" \;
+          docker image ls -a
+      # Start backend using our compose script in the codebase.
+      - name: Start backend in Docker
+        # MUST use docker.io as we don't have a copy of this backend image in our GitHub Action,
+        # and docker.io is the only public image. If we ever hit aggressive rate limits at DockerHub,
+        # we may need to consider making the 'ghcr.io' images public & switch this to 'ghcr.io'
+        env:
+          DOCKER_REGISTRY: docker.io
+        run: |
+          docker compose -f docker/docker-compose-rest.yml up -d
+          sleep 10
+          docker container ls
+      # Create a test admin account. Load test data from a simple set of AIPs as defined in cli.ingest.yml
+      - name: Load test data into Backend
+        run: |
+          docker compose -f docker/cli.yml run --rm dspace-cli create-administrator -e test@test.edu -f admin -l user -p admin -c en
+          docker compose -f docker/cli.yml -f docker/cli.ingest.yml run --rm dspace-cli
+      # Verify backend started successfully.
+      # 1. Make sure root endpoint is responding (check for dspace.name defined in docker-compose.yml)
+      # 2. Also check /collections endpoint to ensure the test data loaded properly (check for a collection name in AIPs)
+      - name: Verify backend is responding properly
+        run: |
+          result=$(wget -O- -q http://127.0.0.1:8080/server/api)
+          echo "$result"
+          echo "$result" |  grep -oE "\"DSpace Started with Docker Compose\""
+          result=$(wget -O- -q http://127.0.0.1:8080/server/api/core/collections)
+          echo "$result"
+          echo "$result" |  grep -oE "\"Dog in Yard\""
+      # Start production frontend using our compose script in the codebase.
+      - name: Start production frontend in Docker
+        # Specify the GHCR copy of the production frontend, so that we use the newly built image
+        env:
+          DOCKER_REGISTRY: ghcr.io
+        run: |
+          docker compose -f docker/docker-compose-dist.yml up -d
+          sleep 10
+          docker container ls
+      # Verify production frontend started successfully.
+      # 1. Make sure /home path has "DSpace software" (this is in the footer of the page)
+      # 2. Also check /community-list page lists one of the test Communities in the loaded test data
+      - name: Verify production frontend is responding properly
+        run: |
+          result=$(wget -O- -q http://127.0.0.1:4000/home)
+          echo "$result"
+          echo "$result" |  grep -oE "\"DSpace software\""
+      - name: Error logs of production frontend (if error in startup)
+        if: ${{ failure() }}
+        run: |
+          docker compose -f docker/docker-compose-dist.yml logs
+      # Now shutdown the production frontend image and startup the development frontend image
+      - name: Shutdown production frontend
+        run: |
+          docker compose -f docker/docker-compose-dist.yml down
+          sleep 10
+          docker container ls
+      - name: Startup development frontend
+        # Specify the GHCR copy of the development frontend, so that we use the newly built image
+        env:
+          DOCKER_REGISTRY: ghcr.io
+        run: |
+          docker compose -f docker/docker-compose.yml up -d
+          sleep 10
+          docker container ls
+      # Verify development frontend started successfully.
+      # 1. First, keep requesting the frontend every 10 seconds to wait until its up. Timeout after 10 minutes.
+      # 2. Once it's responding, check to see if the word "DSpace" appears.
+      #    We cannot check for anything more specific because development mode doesn't have SSR.
+      - name: Verify development frontend is responding properly
+        run: |
+          timeout 10m wget --retry-connrefused -t 0 --waitretry=10 http://127.0.0.1:4000
+          result=$(wget -O- -q http://127.0.0.1:4000)
+          echo "$result"
+          echo "$result" |  grep -oE "DSpace"
+      - name: Error logs of development frontend (if error in startup)
+        if: ${{ failure() }}
+        run: |
+          docker compose -f docker/docker-compose.yml logs
+      # Shutdown our containers
+      - name: Shutdown running Docker containers
+        run: |
+          docker compose -f docker/docker-compose.yml -f docker/docker-compose-rest.yml down

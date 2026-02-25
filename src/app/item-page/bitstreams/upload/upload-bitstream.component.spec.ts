@@ -10,30 +10,30 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { BundleDataService } from '@dspace/core/data/bundle-data.service';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
+import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RequestService } from '@dspace/core/data/request.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Bitstream } from '@dspace/core/shared/bitstream.model';
+import { Bundle } from '@dspace/core/shared/bundle.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { AuthServiceStub } from '@dspace/core/testing/auth-service.stub';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { RouterStub } from '@dspace/core/testing/router.stub';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core/utilities/remote-data.utils';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { environment } from '../../../../environments/environment';
-import { AuthService } from '../../../core/auth/auth.service';
-import { BundleDataService } from '../../../core/data/bundle-data.service';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { buildPaginatedList } from '../../../core/data/paginated-list.model';
-import { RequestService } from '../../../core/data/request.service';
-import { Bitstream } from '../../../core/shared/bitstream.model';
-import { Bundle } from '../../../core/shared/bundle.model';
-import { Item } from '../../../core/shared/item.model';
-import { PageInfo } from '../../../core/shared/page-info.model';
 import { DsoInputSuggestionsComponent } from '../../../shared/input-suggestions/dso-input-suggestions/dso-input-suggestions.component';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../../shared/remote-data.utils';
-import { AuthServiceStub } from '../../../shared/testing/auth-service.stub';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { RouterStub } from '../../../shared/testing/router.stub';
-import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { UploaderComponent } from '../../../shared/upload/uploader/uploader.component';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { UploadBitstreamComponent } from './upload-bitstream.component';

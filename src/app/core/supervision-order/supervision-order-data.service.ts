@@ -1,14 +1,12 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import { Observable } from 'rxjs';
 import {
   first,
   map,
 } from 'rxjs/operators';
 
-import { isNotEmpty } from '../../shared/empty.util';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -27,6 +25,8 @@ import { RequestService } from '../data/request.service';
 import { StatusCodeOnlyResponseParsingService } from '../data/status-code-only-response-parsing.service';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { GroupDataService } from '../eperson/group-data.service';
+import { NotificationsService } from '../notification-system/notifications.service';
+import { FollowLinkConfig } from '../shared/follow-link-config.model';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NoContent } from '../shared/NoContent.model';

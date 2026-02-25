@@ -1,5 +1,12 @@
 import { Injectable } from '@angular/core';
 import {
+  hasNoValue,
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+  isUndefined,
+} from '@dspace/shared/utils/empty.util';
+import {
   AsyncSubject,
   combineLatest as observableCombineLatest,
   Observable,
@@ -13,18 +20,6 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import {
-  hasNoValue,
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-  isUndefined,
-} from '../../../shared/empty.util';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import {
-  followLink,
-  FollowLinkConfig,
-} from '../../../shared/utils/follow-link-config.model';
 import { PaginatedList } from '../../data/paginated-list.model';
 import { PAGINATED_LIST } from '../../data/paginated-list.resource-type';
 import { RemoteData } from '../../data/remote-data';
@@ -37,6 +32,10 @@ import {
 } from '../../data/request-entry-state.model';
 import { ResponseState } from '../../data/response-state.model';
 import { getUrlWithoutEmbedParams } from '../../index/index.selectors';
+import {
+  followLink,
+  FollowLinkConfig,
+} from '../../shared/follow-link-config.model';
 import { GenericConstructor } from '../../shared/generic-constructor';
 import { HALLink } from '../../shared/hal-link.model';
 import { HALResource } from '../../shared/hal-resource.model';
@@ -45,6 +44,7 @@ import {
   getRequestFromRequestHref,
   getRequestFromRequestUUID,
 } from '../../shared/request.operators';
+import { createSuccessfulRemoteDataObject$ } from '../../utilities/remote-data.utils';
 import { getResourceTypeValueFor } from '../object-cache.reducer';
 import { ObjectCacheService } from '../object-cache.service';
 import { getClassForType } from './build-decorators';

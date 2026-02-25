@@ -6,6 +6,9 @@ import {
 } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
+import { CSSVariableServiceStub } from '@dspace/core/testing/css-variable-service.stub';
+import { HostWindowServiceStub } from '@dspace/core/testing/host-window-service.stub';
+import { RouterMock } from '@dspace/core/testing/router.mock';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { AccessibilitySettingsService } from '../accessibility/accessibility-settings.service';
@@ -14,15 +17,12 @@ import { ThemedAdminSidebarComponent } from '../admin/admin-sidebar/themed-admin
 import { ThemedBreadcrumbsComponent } from '../breadcrumbs/themed-breadcrumbs.component';
 import { ThemedFooterComponent } from '../footer/themed-footer.component';
 import { ThemedHeaderNavbarWrapperComponent } from '../header-nav-wrapper/themed-header-navbar-wrapper.component';
+import { NotificationsBoardComponent } from '../notification-system/notifications-board/notifications-board.component';
 import { HostWindowService } from '../shared/host-window.service';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import { MenuService } from '../shared/menu/menu.service';
-import { RouterMock } from '../shared/mocks/router.mock';
-import { NotificationsBoardComponent } from '../shared/notifications/notifications-board/notifications-board.component';
+import { MenuServiceStub } from '../shared/menu/menu-service.stub';
 import { CSSVariableService } from '../shared/sass-helper/css-variable.service';
-import { CSSVariableServiceStub } from '../shared/testing/css-variable-service.stub';
-import { HostWindowServiceStub } from '../shared/testing/host-window-service.stub';
-import { MenuServiceStub } from '../shared/testing/menu-service.stub';
 import { SystemWideAlertBannerComponent } from '../system-wide-alert/alert-banner/system-wide-alert-banner.component';
 import { RootComponent } from './root.component';
 

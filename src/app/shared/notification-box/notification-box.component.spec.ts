@@ -2,9 +2,9 @@ import {
   ComponentFixture,
   TestBed,
 } from '@angular/core/testing';
+import { AdminNotifyMetricsBox } from '@dspace/config/admin-notify-metrics.config';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { AdminNotifyMetricsBox } from '../../admin/admin-notify-dashboard/admin-notify-metrics/admin-notify-metrics.model';
 import { NotificationBoxComponent } from './notification-box.component';
 
 describe('NotificationBoxComponent', () => {

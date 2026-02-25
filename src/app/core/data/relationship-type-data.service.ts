@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   combineLatest as observableCombineLatest,
   Observable,
@@ -10,14 +11,13 @@ import {
   toArray,
 } from 'rxjs/operators';
 
-import { hasValue } from '../../shared/empty.util';
-import {
-  followLink,
-  FollowLinkConfig,
-} from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
+import {
+  followLink,
+  FollowLinkConfig,
+} from '../shared/follow-link-config.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { ItemType } from '../shared/item-relationships/item-type.model';
 import { RelationshipType } from '../shared/item-relationships/relationship-type.model';

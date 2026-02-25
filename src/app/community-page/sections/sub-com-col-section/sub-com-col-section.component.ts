@@ -7,11 +7,11 @@ import {
   ActivatedRoute,
   Data,
 } from '@angular/router';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { Community } from '@dspace/core/shared/community.model';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { RemoteData } from '../../../core/data/remote-data';
-import { Community } from '../../../core/shared/community.model';
 import { ThemedCollectionPageSubCollectionListComponent } from './sub-collection-list/themed-community-page-sub-collection-list.component';
 import { ThemedCommunityPageSubCommunityListComponent } from './sub-community-list/themed-community-page-sub-community-list.component';
 
@@ -24,7 +24,6 @@ import { ThemedCommunityPageSubCommunityListComponent } from './sub-community-li
     ThemedCollectionPageSubCollectionListComponent,
     ThemedCommunityPageSubCommunityListComponent,
   ],
-  standalone: true,
 })
 export class SubComColSectionComponent implements OnInit {
 

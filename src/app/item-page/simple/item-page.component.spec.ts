@@ -14,35 +14,37 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { NotifyInfoService } from '@dspace/core/coar-notify/notify-info/notify-info.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
+import { SignpostingDataService } from '@dspace/core/data/signposting-data.service';
+import { SignpostingLink } from '@dspace/core/data/signposting-links.model';
+import { HardRedirectService } from '@dspace/core/services/hard-redirect.service';
+import {
+  LinkDefinition,
+  LinkHeadService,
+} from '@dspace/core/services/link-head.service';
+import { ServerResponseService } from '@dspace/core/services/server-response.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { RouterMock } from '@dspace/core/testing/router.mock';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
+import {
+  createFailedRemoteDataObject$,
+  createPendingRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core/utilities/remote-data.utils';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { NotifyInfoService } from '../../core/coar-notify/notify-info/notify-info.service';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { ItemDataService } from '../../core/data/item-data.service';
-import { SignpostingDataService } from '../../core/data/signposting-data.service';
-import { SignpostingLink } from '../../core/data/signposting-links.model';
-import {
-  LinkDefinition,
-  LinkHeadService,
-} from '../../core/services/link-head.service';
-import { ServerResponseService } from '../../core/services/server-response.service';
-import { Item } from '../../core/shared/item.model';
 import { ErrorComponent } from '../../shared/error/error.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { ListableObjectComponentLoaderComponent } from '../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
-import {
-  createFailedRemoteDataObject$,
-  createPendingRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
-import { createPaginatedList } from '../../shared/testing/utils.test';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { ThemedItemAlertsComponent } from '../alerts/themed-item-alerts.component';
 import { ItemVersionsComponent } from '../versions/item-versions.component';
@@ -87,9 +89,10 @@ describe('ItemPageComponent', () => {
   let signpostingDataService: jasmine.SpyObj<SignpostingDataService>;
   let linkHeadService: jasmine.SpyObj<LinkHeadService>;
   let notifyInfoService: jasmine.SpyObj<NotifyInfoService>;
+  let hardRedirectService: HardRedirectService;
 
   const mockRoute = Object.assign(new ActivatedRouteStub(), {
-    data: of({ dso: createSuccessfulRemoteDataObject(mockItem) }),
+    data: of({ dso: createSuccessfulRemoteDataObject(mockItem) , links: [mocklink, mocklink2] }),
   });
 
   const getCoarLdnLocalInboxUrls = ['http://InboxUrls.org', 'http://InboxUrls2.org'];
@@ -117,6 +120,11 @@ describe('ItemPageComponent', () => {
       getCoarLdnLocalInboxUrls: of(getCoarLdnLocalInboxUrls),
     });
 
+    hardRedirectService = jasmine.createSpyObj('hardRedirectService', {
+      redirect: {},
+      getCurrentRoute: {},
+    });
+
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot({
         loader: {
@@ -127,13 +135,14 @@ describe('ItemPageComponent', () => {
       providers: [
         { provide: ActivatedRoute, useValue: mockRoute },
         { provide: ItemDataService, useValue: {} },
-        { provide: Router, useValue: {} },
+        { provide: Router, useValue: new RouterMock() },
         { provide: AuthorizationDataService, useValue: authorizationDataService },
         { provide: ServerResponseService, useValue: serverResponseService },
         { provide: SignpostingDataService, useValue: signpostingDataService },
         { provide: LinkHeadService, useValue: linkHeadService },
         { provide: NotifyInfoService, useValue: notifyInfoService },
         { provide: PLATFORM_ID, useValue: 'server' },
+        { provide: HardRedirectService, useValue: hardRedirectService },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ItemPageComponent, {

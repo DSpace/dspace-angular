@@ -5,6 +5,35 @@ import {
   Inject,
   ViewChild,
 } from '@angular/core';
+import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
+import { ConfigObject } from '@dspace/core/config/models/config.model';
+import { FormRowModel } from '@dspace/core/config/models/config-submission-form.model';
+import { SubmissionFormsModel } from '@dspace/core/config/models/config-submission-forms.model';
+import { SubmissionFormsConfigDataService } from '@dspace/core/config/submission-forms-config-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { RequestService } from '@dspace/core/data/request.service';
+import { JsonPatchOperationPathCombiner } from '@dspace/core/json-patch/builder/json-patch-operation-path-combiner';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { FormFieldPreviousValueObject } from '@dspace/core/shared/form/models/form-field-previous-value-object';
+import {
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '@dspace/core/shared/operators';
+import { SubmissionObject } from '@dspace/core/submission/models/submission-object.model';
+import { SubmissionSectionError } from '@dspace/core/submission/models/submission-section-error.model';
+import { SubmissionSectionObject } from '@dspace/core/submission/models/submission-section-object.model';
+import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
+import { WorkspaceItem } from '@dspace/core/submission/models/workspaceitem.model';
+import { WorkspaceitemSectionFormObject } from '@dspace/core/submission/models/workspaceitem-section-form.model';
+import { SubmissionScopeType } from '@dspace/core/submission/submission-scope-type';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+  isUndefined,
+} from '@dspace/shared/utils/empty.util';
+import { difference } from '@dspace/shared/utils/object.util';
 import {
   DynamicFormControlEvent,
   DynamicFormControlModel,
@@ -28,41 +57,12 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../../environments/environment';
-import { ObjectCacheService } from '../../../core/cache/object-cache.service';
-import { ConfigObject } from '../../../core/config/models/config.model';
-import { FormRowModel } from '../../../core/config/models/config-submission-form.model';
-import { SubmissionFormsModel } from '../../../core/config/models/config-submission-forms.model';
-import { SubmissionFormsConfigDataService } from '../../../core/config/submission-forms-config-data.service';
-import { RemoteData } from '../../../core/data/remote-data';
-import { RequestService } from '../../../core/data/request.service';
-import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import {
-  getFirstSucceededRemoteData,
-  getRemoteDataPayload,
-} from '../../../core/shared/operators';
-import { SubmissionObject } from '../../../core/submission/models/submission-object.model';
-import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
-import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
-import { WorkspaceitemSectionFormObject } from '../../../core/submission/models/workspaceitem-section-form.model';
-import { SubmissionObjectDataService } from '../../../core/submission/submission-object-data.service';
-import { SubmissionScopeType } from '../../../core/submission/submission-scope-type';
-import {
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-  isUndefined,
-} from '../../../shared/empty.util';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
-import { FormFieldPreviousValueObject } from '../../../shared/form/builder/models/form-field-previous-value-object';
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { difference } from '../../../shared/object.util';
-import { followLink } from '../../../shared/utils/follow-link-config.model';
-import { SubmissionSectionError } from '../../objects/submission-section-error.model';
-import { SubmissionSectionObject } from '../../objects/submission-section-object.model';
 import { SubmissionService } from '../../submission.service';
+import { SubmissionObjectService } from '../../submission-object.service';
 import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
@@ -79,7 +79,6 @@ import { SectionFormOperationsService } from './section-form-operations.service'
     FormComponent,
     ThemedLoadingComponent,
   ],
-  standalone: true,
 })
 export class SubmissionSectionFormComponent extends SectionModelComponent {
 
@@ -173,7 +172,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
    * @param {SectionsService} sectionService
    * @param {SubmissionService} submissionService
    * @param {TranslateService} translate
-   * @param {SubmissionObjectDataService} submissionObjectService
+   * @param {SubmissionObjectService} submissionObjectService
    * @param {ObjectCacheService} objectCache
    * @param {RequestService} requestService
    * @param {string} injectedCollectionId
@@ -189,7 +188,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
               protected sectionService: SectionsService,
               protected submissionService: SubmissionService,
               protected translate: TranslateService,
-              protected submissionObjectService: SubmissionObjectDataService,
+              protected submissionObjectService: SubmissionObjectService,
               protected objectCache: ObjectCacheService,
               protected requestService: RequestService,
               @Inject('collectionIdProvider') public injectedCollectionId: string,

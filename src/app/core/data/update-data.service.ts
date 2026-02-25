@@ -1,3 +1,5 @@
+import { RestRequestMethod } from '@dspace/config/rest-request-method';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { Operation } from 'fast-json-patch';
 import {
   AsyncSubject,
@@ -13,14 +15,13 @@ import {
   toArray,
 } from 'rxjs/operators';
 
-import { hasValue } from '../../shared/empty.util';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { CacheableObject } from '../cache/cacheable-object.model';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheEntry } from '../cache/object-cache.reducer';
 import { ObjectCacheService } from '../cache/object-cache.service';
+import { NotificationsService } from '../notification-system/notifications.service';
+import { FollowLinkConfig } from '../shared/follow-link-config.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NoContent } from '../shared/NoContent.model';
 import {
@@ -57,7 +58,6 @@ import {
   PostRequest,
 } from './request.models';
 import { RequestService } from './request.service';
-import { RestRequestMethod } from './rest-request-method';
 
 /**
  * Interface to list the methods used by the injected service in components

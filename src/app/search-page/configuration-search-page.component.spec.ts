@@ -8,11 +8,11 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { Router } from '@angular/router';
+import { RouteService } from '@dspace/core/services/route.service';
 import { of } from 'rxjs';
 
-import { RouteService } from '../core/services/route.service';
-import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
 import { configureSearchComponentTestingModule } from '../shared/search/search.component.spec';
+import { SearchConfigurationService } from '../shared/search/search-configuration.service';
 import { ConfigurationSearchPageComponent } from './configuration-search-page.component';
 import createSpy = jasmine.createSpy;
 
@@ -29,7 +29,6 @@ const QUERY = 'test query';
   imports: [
     ConfigurationSearchPageComponent,
   ],
-  standalone: true,
 })
 class HostComponent {
   @ViewChild('configurationSearchPage') configurationSearchPage: ConfigurationSearchPageComponent;

@@ -4,6 +4,12 @@ import {
   NavigationEnd,
   Router,
 } from '@angular/router';
+import { Breadcrumb } from '@dspace/core/breadcrumbs/models/breadcrumb.model';
+import {
+  hasNoValue,
+  hasValue,
+  isUndefined,
+} from '@dspace/shared/utils/empty.util';
 import {
   combineLatest,
   Observable,
@@ -16,13 +22,6 @@ import {
   switchMap,
   tap,
 } from 'rxjs/operators';
-
-import {
-  hasNoValue,
-  hasValue,
-  isUndefined,
-} from '../shared/empty.util';
-import { Breadcrumb } from './breadcrumb/breadcrumb.model';
 
 @Injectable({
   providedIn: 'root',

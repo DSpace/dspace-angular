@@ -1,5 +1,10 @@
 import { Injectable } from '@angular/core';
 import {
+  hasValue,
+  hasValueOperator,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
+import {
   Observable,
   skipWhile,
 } from 'rxjs';
@@ -12,11 +17,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  hasValueOperator,
-  isNotEmpty,
-} from '../../shared/empty.util';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ErrorResponse } from '../cache/response.models';
 import { RemoteData } from '../data/remote-data';
@@ -46,6 +46,7 @@ export const getFirstDataDefinition = () =>
       getFirstCompletedRemoteData(),
       map((response: RemoteData<SubmissionResponse>) => {
         if (response.hasFailed) {
+          // eslint-disable-next-line @typescript-eslint/only-throw-error
           throw new ErrorResponse({ statusText: response.errorMessage, statusCode: response.statusCode } as RequestError);
         } else {
           return hasValue(response?.payload?.dataDefinition) ? response.payload.dataDefinition : [response.payload];

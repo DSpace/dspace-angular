@@ -12,7 +12,6 @@ import { TruncatableService } from './truncatable.service';
   selector: 'ds-truncatable',
   templateUrl: './truncatable.component.html',
   styleUrls: ['./truncatable.component.scss'],
-  standalone: true,
 })
 
 /**

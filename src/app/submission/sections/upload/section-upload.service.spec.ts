@@ -3,12 +3,12 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { JsonPatchOperationPathCombiner } from '@dspace/core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
 import {
   Store,
   StoreModule,
 } from '@ngrx/store';
-import { JsonPatchOperationPathCombiner } from 'src/app/core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from 'src/app/core/json-patch/builder/json-patch-operations-builder';
 
 import { SectionUploadService } from './section-upload.service';
 

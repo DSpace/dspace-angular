@@ -10,6 +10,17 @@ import {
   RouterModule,
   RouterOutlet,
 } from '@angular/router';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { getCommunityPageRoute } from '@dspace/core/router/utils/dso-route.utils';
+import { redirectOn4xx } from '@dspace/core/shared/authorized.operators';
+import { Bitstream } from '@dspace/core/shared/bitstream.model';
+import { Community } from '@dspace/core/shared/community.model';
+import { getAllSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import {
@@ -18,15 +29,6 @@ import {
   mergeMap,
 } from 'rxjs/operators';
 
-import { AuthService } from '../core/auth/auth.service';
-import { DSONameService } from '../core/breadcrumbs/dso-name.service';
-import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../core/data/feature-authorization/feature-id';
-import { RemoteData } from '../core/data/remote-data';
-import { redirectOn4xx } from '../core/shared/authorized.operators';
-import { Bitstream } from '../core/shared/bitstream.model';
-import { Community } from '../core/shared/community.model';
-import { getAllSucceededRemoteDataPayload } from '../core/shared/operators';
 import { fadeInOut } from '../shared/animations/fade';
 import { ThemedComcolPageBrowseByComponent } from '../shared/comcol/comcol-page-browse-by/themed-comcol-page-browse-by.component';
 import { ThemedComcolPageContentComponent } from '../shared/comcol/comcol-page-content/themed-comcol-page-content.component';
@@ -34,11 +36,9 @@ import { ThemedComcolPageHandleComponent } from '../shared/comcol/comcol-page-ha
 import { ComcolPageHeaderComponent } from '../shared/comcol/comcol-page-header/comcol-page-header.component';
 import { ComcolPageLogoComponent } from '../shared/comcol/comcol-page-logo/comcol-page-logo.component';
 import { DsoEditMenuComponent } from '../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
-import { hasValue } from '../shared/empty.util';
 import { ErrorComponent } from '../shared/error/error.component';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import { VarDirective } from '../shared/utils/var.directive';
-import { getCommunityPageRoute } from './community-page-routing-paths';
 
 @Component({
   selector: 'ds-base-community-page',
@@ -61,7 +61,6 @@ import { getCommunityPageRoute } from './community-page-routing-paths';
     TranslateModule,
     VarDirective,
   ],
-  standalone: true,
 })
 /**
  * This component represents a detail page for a single community
