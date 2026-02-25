@@ -5,7 +5,7 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { MetadataValue } from '@dspace/core/shared/metadata.models';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 
 import { OrcidBadgeAndTooltipComponent } from './orcid-badge-and-tooltip.component';
@@ -19,7 +19,7 @@ describe('OrcidBadgeAndTooltipComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         OrcidBadgeAndTooltipComponent,
-        NgbTooltipModule,
+        NgbTooltip,
         NgClass,
       ],
       providers: [

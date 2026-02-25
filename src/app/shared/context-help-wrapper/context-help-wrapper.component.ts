@@ -14,7 +14,6 @@ import {
 import { hasValueOperator } from '@dspace/shared/utils/empty.util';
 import {
   NgbTooltip,
-  NgbTooltipModule,
   Placement,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
@@ -46,7 +45,7 @@ type ParsedContent = ({href?: string, text: string})[];
   styleUrls: ['./context-help-wrapper.component.scss'],
   imports: [
     AsyncPipe,
-    NgbTooltipModule,
+    NgbTooltip,
     NgClass,
     NgTemplateOutlet,
   ],

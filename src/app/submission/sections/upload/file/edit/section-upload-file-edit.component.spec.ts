@@ -47,6 +47,8 @@ import {
 import { BitstreamDataService } from 'src/app/core/data/bitstream-data.service';
 import { BitstreamFormat } from 'src/app/core/shared/bitstream-format.model';
 import { BitstreamFormatSupportLevel } from 'src/app/core/shared/bitstream-format-support-level';
+import { provideEnvironmentNgxMask } from 'ngx-mask';
+import { of } from 'rxjs';
 
 import { environment } from '../../../../../../environments/environment.test';
 import { DsDynamicTypeBindRelationService } from '../../../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
@@ -148,9 +150,9 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
         FormComponent,
         SubmissionSectionUploadFileEditComponent,
         TestComponent,
-        NgxMaskModule.forRoot(),
       ],
       providers: [
+        provideEnvironmentNgxMask(),
         { provide: FormService, useValue: getMockFormService() },
         { provide: SubmissionService, useClass: SubmissionServiceStub },
         { provide: SubmissionJsonPatchOperationsService, useValue: submissionJsonPatchOperationsServiceStub },

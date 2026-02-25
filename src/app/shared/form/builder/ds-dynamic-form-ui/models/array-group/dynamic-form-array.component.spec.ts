@@ -16,13 +16,17 @@ import {
   DynamicFormValidationService,
   DynamicInputModel,
 } from '@ng-dynamic-forms/core';
+import { provideMockActions } from '@ngrx/effects/testing';
 import { provideMockStore } from '@ngrx/store/testing';
 import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import { NgxMaskModule } from 'ngx-mask';
-import { of } from 'rxjs';
+import { provideEnvironmentNgxMask } from 'ngx-mask';
+import {
+  Observable,
+  of,
+} from 'rxjs';
 import { LiveRegionService } from 'src/app/shared/live-region/live-region.service';
 
 import { environment } from '../../../../../../../environments/environment.test';
@@ -50,10 +54,10 @@ describe('DsDynamicFormArrayComponent', () => {
       imports: [
         ReactiveFormsModule,
         DsDynamicFormArrayComponent,
-        NgxMaskModule.forRoot(),
         TranslateModule.forRoot(),
       ],
       providers: [
+        provideEnvironmentNgxMask(),
         DynamicFormLayoutService,
         DynamicFormValidationService,
         provideMockStore(),
@@ -61,6 +65,7 @@ describe('DsDynamicFormArrayComponent', () => {
         { provide: TranslateService, useValue: translateServiceStub },
         { provide: HttpClient, useValue: {} },
         { provide: SubmissionService, useValue: {} },
+        provideMockActions(() => new Observable<any>()),
         { provide: APP_CONFIG, useValue: environment },
         { provide: DYNAMIC_FORM_CONTROL_MAP_FN, useValue: dsDynamicFormControlMapFn },
         { provide: LiveRegionService, useValue: getLiveRegionServiceStub() },
