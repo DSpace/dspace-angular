@@ -17,8 +17,11 @@ import {
 } from '@angular/forms';
 import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
+import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
 import { JsonPatchOperationPathCombiner } from '@dspace/core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
+import { BitstreamFormat } from '@dspace/core/shared/bitstream-format.model';
+import { BitstreamFormatSupportLevel } from '@dspace/core/shared/bitstream-format-support-level';
 import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
 import { SubmissionJsonPatchOperationsService } from '@dspace/core/submission/submission-json-patch-operations.service';
 import { getMockSectionUploadService } from '@dspace/core/testing/section-upload.service.mock';
@@ -39,9 +42,6 @@ import {
 } from '@ng-dynamic-forms/core';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { BitstreamDataService } from 'src/app/core/data/bitstream-data.service';
-import { BitstreamFormat } from 'src/app/core/shared/bitstream-format.model';
-import { BitstreamFormatSupportLevel } from 'src/app/core/shared/bitstream-format-support-level';
 import { provideEnvironmentNgxMask } from 'ngx-mask';
 import {
   delay,
