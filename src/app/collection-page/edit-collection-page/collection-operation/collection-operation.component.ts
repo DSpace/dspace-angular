@@ -19,7 +19,6 @@ import { CollectionOperation } from './collectionOperation.model';
     RouterLink,
     TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * Operation that can be performed on an item
