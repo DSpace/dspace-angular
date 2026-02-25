@@ -14,6 +14,7 @@ import {
   editGroupSelector,
   GroupRegistryService,
 } from './group-registry.service';
+import Jasmine = jasmine.Jasmine;
 
 describe('GroupRegistryService', () => {
   let service: GroupRegistryService;
@@ -52,13 +53,13 @@ describe('GroupRegistryService', () => {
   it('should dispatch cancel edit group action', () => {
     const dispatchSpy = spyOn(store, 'dispatch');
     service.cancelEditGroup();
-    expect(dispatchSpy).toHaveBeenCalledWith(new GroupRegistryCancelGroupAction());
+    expect(dispatchSpy as jasmine.Spy).toHaveBeenCalledWith(new GroupRegistryCancelGroupAction());
   });
 
   it('should dispatch edit group action with group', () => {
     const dispatchSpy = spyOn(store, 'dispatch');
     const group: Group = { id: '123', name: 'New Group' } as Group;
     service.editGroup(group);
-    expect(dispatchSpy).toHaveBeenCalledWith(new GroupRegistryEditGroupAction(group));
+    expect(dispatchSpy as jasmine.Spy).toHaveBeenCalledWith(new GroupRegistryEditGroupAction(group));
   });
 });

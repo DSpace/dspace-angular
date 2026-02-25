@@ -12,6 +12,7 @@ import {
   SortDirection,
   SortOptions,
 } from '@dspace/core/cache/models/sort-options.model';
+import { ActionType } from '@dspace/core/resource-policy/models/action-type.model';
 import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import { DSpaceObjectType } from '@dspace/core/shared/dspace-object-type.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -35,7 +36,6 @@ import {
 @Component({
   selector: 'ds-base-create-collection-parent-selector',
   templateUrl: './create-collection-parent-selector.component.html',
-  standalone: true,
   imports: [
     AuthorizedCommunitySelectorComponent,
     TranslateModule,
@@ -45,6 +45,7 @@ export class CreateCollectionParentSelectorComponent extends DSOSelectorModalWra
   objectType = DSpaceObjectType.COLLECTION;
   selectorTypes = [DSpaceObjectType.COMMUNITY];
   action = SelectorActionType.CREATE;
+  rpActionType = ActionType.ADD;
   header = 'dso-selector.create.collection.sub-level';
   defaultSort = new SortOptions(environment.comcolSelectionSort.sortField, environment.comcolSelectionSort.sortDirection as SortDirection);
 

@@ -59,7 +59,6 @@ export interface ResourcePolicyCheckboxEntry {
     HasValuePipe,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class ResourcePolicyEntryComponent implements OnInit {
   @Input()

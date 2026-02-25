@@ -36,7 +36,6 @@ import { InputSuggestionsComponent } from '../input-suggestions.component';
       multi: true,
     },
   ],
-  standalone: true,
   imports: [
     AsyncPipe,
     ClickOutsideDirective,

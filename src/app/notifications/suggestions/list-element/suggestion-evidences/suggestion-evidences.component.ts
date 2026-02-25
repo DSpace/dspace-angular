@@ -21,7 +21,6 @@ import { ObjectKeysPipe } from '../../../../shared/utils/object-keys-pipe';
     ObjectKeysPipe,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class SuggestionEvidencesComponent {
 

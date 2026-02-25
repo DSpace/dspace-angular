@@ -67,7 +67,6 @@ import { ThemedSubmissionUploadFilesComponent } from './submission-upload-files/
     ThemedSubmissionUploadFilesComponent,
     TranslatePipe,
   ],
-  standalone: true,
 })
 export class SubmissionFormComponent implements OnChanges, OnDestroy {
 
@@ -115,6 +114,12 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
    * @type {string}
    */
   @Input() submissionId: string;
+
+  /**
+   * The entity type input used to create a new submission
+   * @type {string}
+   */
+  @Input() entityType: string;
 
   /**
    * The configuration id that define this submission

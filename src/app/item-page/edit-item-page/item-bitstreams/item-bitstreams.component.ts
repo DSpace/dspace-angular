@@ -80,7 +80,6 @@ import { ItemEditBitstreamBundleComponent } from './item-edit-bitstream-bundle/i
     VarDirective,
   ],
   providers: [ObjectValuesPipe],
-  standalone: true,
 })
 /**
  * Component for displaying an item's bitstreams edit page

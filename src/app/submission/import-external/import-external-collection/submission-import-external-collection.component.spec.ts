@@ -157,7 +157,6 @@ describe('SubmissionImportExternalCollectionComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
-  standalone: true,
 })
 class TestComponent {
 

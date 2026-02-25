@@ -1,4 +1,3 @@
-/* eslint-disable max-classes-per-file */
 import {
   link,
   typedObject,
@@ -18,14 +17,6 @@ import {
 import { Observable } from 'rxjs';
 
 import { QUALITY_ASSURANCE_EVENT_OBJECT } from './quality-assurance-event-object.resource-type';
-
-/**
- * The interface representing the Quality Assurance event message
- */
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface QualityAssuranceEventMessageObject {
-
-}
 
 /**
  * The interface representing the Quality Assurance event message

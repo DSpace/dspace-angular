@@ -12,12 +12,7 @@ import { AccessStatusBadgeComponent } from './access-status-badge.component';
  */
 @Component({
   selector: 'ds-access-status-badge',
-  styleUrls: [],
   templateUrl: '../../../../theme-support/themed.component.html',
-  standalone: true,
-  imports: [
-    AccessStatusBadgeComponent,
-  ],
 })
 export class ThemedAccessStatusBadgeComponent extends ThemedComponent<AccessStatusBadgeComponent> {
   @Input() object: DSpaceObject;

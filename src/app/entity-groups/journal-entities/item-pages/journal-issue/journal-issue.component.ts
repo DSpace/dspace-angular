@@ -19,7 +19,6 @@ import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail
   selector: 'ds-journal-issue',
   styleUrls: ['./journal-issue.component.scss'],
   templateUrl: './journal-issue.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     DsoEditMenuComponent,

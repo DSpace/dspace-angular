@@ -68,7 +68,6 @@ export enum ImportType {
     ThemedSearchResultsComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * Component to display a modal window for importing an external source entry

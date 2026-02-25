@@ -59,7 +59,6 @@ import { BrowserOnlyPipe } from '../../../utils/browser-only.pipe';
   templateUrl: './log-in-password.component.html',
   styleUrls: ['./log-in-password.component.scss'],
   animations: [fadeOut],
-  standalone: true,
   imports: [
     AsyncPipe,
     BrowserOnlyPipe,

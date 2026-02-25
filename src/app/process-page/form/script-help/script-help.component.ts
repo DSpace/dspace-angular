@@ -14,7 +14,6 @@ import { TranslateModule } from '@ngx-translate/core';
   selector: 'ds-script-help',
   templateUrl: './script-help.component.html',
   styleUrls: ['./script-help.component.scss'],
-  standalone: true,
   imports: [
     NgTemplateOutlet,
     TranslateModule,

@@ -7,7 +7,6 @@ import { isEmpty } from '@dspace/shared/utils/empty.util';
 
 @Pipe({
   name: 'dsShortNumber',
-  standalone: true,
 })
 export class ShortNumberPipe implements PipeTransform {
 

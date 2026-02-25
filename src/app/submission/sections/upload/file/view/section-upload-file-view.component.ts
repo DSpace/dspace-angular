@@ -29,7 +29,6 @@ import { SubmissionSectionUploadAccessConditionsComponent } from '../../accessCo
     TranslateModule,
     TruncatePipe,
   ],
-  standalone: true,
 })
 export class SubmissionSectionUploadFileViewComponent implements OnInit {
 

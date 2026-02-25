@@ -31,7 +31,6 @@ import { getNotificatioQualityAssuranceRoute } from '../../admin/admin-routing-p
     RouterLink,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class MyDspaceQaEventsNotificationsComponent  implements OnInit {
 

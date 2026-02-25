@@ -46,7 +46,6 @@ import { ModifyItemOverviewComponent } from '../../item-page/edit-item-page/modi
     ModifyItemOverviewComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class WorkspaceItemsDeletePageComponent implements OnInit {
 

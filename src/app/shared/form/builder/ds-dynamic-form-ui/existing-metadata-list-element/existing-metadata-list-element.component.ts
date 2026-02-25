@@ -56,7 +56,6 @@ import { RemoveRelationshipAction } from '../relation-lookup-modal/relationship.
     ThemedLoadingComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class ExistingMetadataListElementComponent implements OnInit, OnChanges, OnDestroy   {
   @Input() listId: string;

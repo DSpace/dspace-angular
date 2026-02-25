@@ -32,7 +32,6 @@ const MARKDOWN_IT = new InjectionToken<LazyMarkdownIt>(
 
 @Directive({
   selector: '[dsMarkdown]',
-  standalone: true,
 })
 export class MarkdownDirective implements OnInit, OnDestroy {
 

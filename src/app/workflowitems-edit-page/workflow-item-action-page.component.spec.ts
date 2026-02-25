@@ -137,7 +137,6 @@ describe('WorkflowItemActionPageComponent', () => {
     TranslateModule,
     VarDirective,
   ],
-  standalone: true,
 })
 class TestComponent extends WorkflowItemActionPageDirective {
   constructor(protected route: ActivatedRoute,

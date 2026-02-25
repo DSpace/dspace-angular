@@ -50,7 +50,6 @@ import {
   styleUrls: ['./search-range-filter.component.scss'],
   templateUrl: './search-range-filter.component.html',
   animations: [facetLoad],
-  standalone: true,
   imports: [
     AsyncPipe,
     DebounceDirective,

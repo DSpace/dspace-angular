@@ -19,7 +19,6 @@ import { TranslateModule } from '@ngx-translate/core';
   styleUrls: ['./objectnotfound.component.scss'],
   templateUrl: './objectnotfound.component.html',
   changeDetection: ChangeDetectionStrategy.Default,
-  standalone: true,
   imports: [
     RouterLink,
     TranslateModule,

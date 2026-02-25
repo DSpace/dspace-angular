@@ -35,7 +35,6 @@ import {
   DynamicFormsCoreModule,
   DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
-import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
 
 import { FormBuilderService } from '../../../form-builder.service';
 import { DsDynamicListComponent } from './dynamic-list.component';
@@ -104,7 +103,6 @@ describe('DsDynamicListComponent test suite', () => {
     TestBed.configureTestingModule({
       imports: [
         DynamicFormsCoreModule,
-        DynamicFormsNGBootstrapUIModule,
         FormsModule,
         ReactiveFormsModule,
         NgbModule,
@@ -311,10 +309,6 @@ describe('DsDynamicListComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
-  standalone: true,
-  imports: [
-    DsDynamicListComponent,
-  ],
 })
 class TestComponent {
 

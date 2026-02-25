@@ -19,6 +19,7 @@ import { ItemDataService } from '@dspace/core/data/item-data.service';
 import { RemoteData } from '@dspace/core/data/remote-data';
 import { SignpostingDataService } from '@dspace/core/data/signposting-data.service';
 import { HeadTagService } from '@dspace/core/metadata/head-tag.service';
+import { HardRedirectService } from '@dspace/core/services/hard-redirect.service';
 import { LinkHeadService } from '@dspace/core/services/link-head.service';
 import { ServerResponseService } from '@dspace/core/services/server-response.service';
 import { Item } from '@dspace/core/shared/item.model';
@@ -101,6 +102,7 @@ describe('FullItemPageComponent', () => {
   beforeEach(waitForAsync(() => {
     routeData = {
       dso: createSuccessfulRemoteDataObject(mockItem),
+      links: [mocklink, mocklink2],
     };
 
     routeStub = Object.assign(new ActivatedRouteStub(), {
@@ -150,6 +152,7 @@ describe('FullItemPageComponent', () => {
         { provide: NotifyInfoService, useValue: notifyInfoService },
         { provide: PLATFORM_ID, useValue: 'server' },
         { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: HardRedirectService, useValue: {} },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })

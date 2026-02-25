@@ -11,7 +11,6 @@ import { TranslateModule } from '@ngx-translate/core';
 @Component({
   selector: 'ds-modify-item-overview',
   templateUrl: './modify-item-overview.component.html',
-  standalone: true,
   imports: [
     KeyValuePipe,
     TranslateModule,

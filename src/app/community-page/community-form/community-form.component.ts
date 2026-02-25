@@ -38,7 +38,6 @@ import { VarDirective } from '../../shared/utils/var.directive';
   selector: 'ds-community-form',
   styleUrls: ['../../shared/comcol/comcol-forms/comcol-form/comcol-form.component.scss'],
   templateUrl: '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     ComcolPageLogoComponent,

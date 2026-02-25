@@ -39,7 +39,6 @@ import {
     ResourcePolicyFormComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class ResourcePolicyCreateComponent implements OnInit {
 

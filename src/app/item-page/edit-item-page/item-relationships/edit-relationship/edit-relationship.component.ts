@@ -53,7 +53,6 @@ import { VirtualMetadataComponent } from '../../virtual-metadata/virtual-metadat
     TranslateModule,
     VirtualMetadataComponent,
   ],
-  standalone: true,
 })
 export class EditRelationshipComponent implements OnChanges {
   /**

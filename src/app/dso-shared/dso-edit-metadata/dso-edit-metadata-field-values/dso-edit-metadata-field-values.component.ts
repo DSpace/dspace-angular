@@ -29,7 +29,6 @@ import { DsoEditMetadataValueHeadersComponent } from '../dso-edit-metadata-value
   selector: 'ds-dso-edit-metadata-field-values',
   styleUrls: ['./dso-edit-metadata-field-values.component.scss'],
   templateUrl: './dso-edit-metadata-field-values.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     CdkDropList,

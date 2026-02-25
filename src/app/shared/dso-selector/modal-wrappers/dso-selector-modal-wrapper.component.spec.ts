@@ -165,7 +165,6 @@ describe('DSOSelectorModalWrapperComponent', () => {
     DSOSelectorComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 class TestComponent extends DSOSelectorModalWrapperComponent implements OnInit {
   objectType = DSpaceObjectType.ITEM;

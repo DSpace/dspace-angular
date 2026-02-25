@@ -31,7 +31,6 @@ import { DebounceDirective } from '../utils/debounce.directive';
 @Component({
   selector: 'ds-input-suggestions',
   templateUrl: './input-suggestions.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     ClickOutsideDirective,

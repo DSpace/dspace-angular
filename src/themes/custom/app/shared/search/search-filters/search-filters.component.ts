@@ -21,7 +21,6 @@ import { SearchFiltersComponent as BaseComponent } from '../../../../../../app/s
       useClass: SearchConfigurationService,
     },
   ],
-  standalone: true,
   imports: [
     AsyncPipe,
     NgxSkeletonLoaderModule,

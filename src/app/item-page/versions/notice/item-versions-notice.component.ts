@@ -37,7 +37,6 @@ import { AlertType } from '../../../shared/alert/alert-type';
 @Component({
   selector: 'ds-item-versions-notice',
   templateUrl: './item-versions-notice.component.html',
-  standalone: true,
   imports: [
     AlertComponent,
     AsyncPipe,

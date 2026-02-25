@@ -33,7 +33,6 @@ import { ErrorComponent } from '../../../../../../shared/error/error.component';
   selector: 'ds-supervision-group-selector',
   styleUrls: ['./supervision-order-group-selector.component.scss'],
   templateUrl: './supervision-order-group-selector.component.html',
-  standalone: true,
   imports: [
     EpersonGroupListComponent,
     ErrorComponent,

@@ -8,12 +8,7 @@ import { FeedbackComponent } from './feedback.component';
  */
 @Component({
   selector: 'ds-feedback',
-  styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
-  standalone: true,
-  imports: [
-    FeedbackComponent,
-  ],
 })
 export class ThemedFeedbackComponent extends ThemedComponent<FeedbackComponent> {
   protected getComponentName(): string {

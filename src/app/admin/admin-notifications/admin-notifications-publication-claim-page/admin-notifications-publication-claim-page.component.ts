@@ -9,7 +9,6 @@ import { SuggestionSourcesComponent } from '../../../notifications/suggestions/s
   imports: [
     SuggestionSourcesComponent,
   ],
-  standalone: true,
 })
 export class AdminNotificationsPublicationClaimPageComponent {
 

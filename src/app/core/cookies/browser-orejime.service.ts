@@ -164,7 +164,7 @@ export class BrowserOrejimeService extends OrejimeService {
       }),
     );
 
-    this.translateService.setDefaultLang(this.appConfig.defaultLanguage);
+    this.translateService.setFallbackLang(this.appConfig.fallbackLanguage);
 
     const user$: Observable<EPerson> = this.getUser$();
 
@@ -353,7 +353,7 @@ export class BrowserOrejimeService extends OrejimeService {
     /**
      * Make sure the fallback language is english
      */
-    this.translateService.setDefaultLang(this.appConfig.defaultLanguage);
+    this.translateService.setFallbackLang(this.appConfig.fallbackLanguage);
 
     this.translate(this.orejimeConfig.translations.zz);
   }

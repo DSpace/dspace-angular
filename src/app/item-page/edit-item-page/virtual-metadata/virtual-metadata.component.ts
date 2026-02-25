@@ -48,7 +48,6 @@ interface ItemDTO {
     TranslateModule,
     VarDirective,
   ],
-  standalone: true,
 })
 /**
  * Component that lists both items of a relationship, along with their virtual metadata of the relationship.

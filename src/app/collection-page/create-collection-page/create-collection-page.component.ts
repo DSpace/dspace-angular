@@ -30,7 +30,6 @@ import { CollectionFormComponent } from '../collection-form/collection-form.comp
     ThemedLoadingComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class CreateCollectionPageComponent extends CreateComColPageComponent<Collection> {
   protected frontendURL = '/collections/';

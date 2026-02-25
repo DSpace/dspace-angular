@@ -30,7 +30,6 @@ import { ComcolRoleComponent } from '../../../shared/comcol/comcol-forms/edit-co
     AsyncPipe,
     ComcolRoleComponent,
   ],
-  standalone: true,
 })
 export class CollectionRolesComponent implements OnInit {
 

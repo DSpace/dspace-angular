@@ -36,7 +36,6 @@ import { ThemedLoadingComponent } from '../loading/themed-loading.component';
   selector: 'ds-entity-dropdown',
   templateUrl: './entity-dropdown.component.html',
   styleUrls: ['./entity-dropdown.component.scss'],
-  standalone: true,
   imports: [
     AsyncPipe,
     InfiniteScrollModule,
