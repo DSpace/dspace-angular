@@ -51,11 +51,11 @@
     }
     <ng-container *ngTemplateOutlet="content"></ng-container>
     <span>
-      <a [routerLink]="pdfViewerPath" [ngClass]="cssClasses"
+      <a role="link" [routerLink]="pdfViewerPath" [ngClass]="cssClasses"
          title="{{'pdf-viewer.link.view' | translate}}">
         <i class="fa fa-eye ms-2" ngbTooltip="{{'pdf-viewer.link.view' | translate}}"
            container="body"></i></a>
-      <a [routerLink]="(bitstreamPath$| async)?.routerLink" [queryParams]="(bitstreamPath$| async)?.queryParams"
+      <a role="link" [routerLink]="(bitstreamPath$| async)?.routerLink" [queryParams]="(bitstreamPath$| async)?.queryParams"
          [target]="isBlank ? '_blank': '_self'" [ngClass]="cssClasses"
          title="{{'pdf-viewer.link.download' | translate}}">
         <i class="fa fa-file-download ms-2" ngbTooltip="{{'pdf-viewer.link.download' | translate}}"

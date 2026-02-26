@@ -2,6 +2,7 @@ import {
   InjectionToken,
   makeStateKey,
 } from '@angular/core';
+import { PdfViewerConfig } from '@dspace/config/pdf-viewer-config';
 
 import { AccessibilitySettingsConfig } from './accessibility-settings.config';
 import { ActuatorsConfig } from './actuators.config';
@@ -69,7 +70,7 @@ interface AppConfig extends Config {
   matomo?: MatomoConfig;
   geospatialMapViewer: GeospatialMapConfig;
   accessibility: AccessibilitySettingsConfig;
-  pdfViewer?: { enabled: boolean };
+  pdfViewer: PdfViewerConfig;
 }
 
 /**
