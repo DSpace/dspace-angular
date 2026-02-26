@@ -4,9 +4,14 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
-import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbNav,
+  NgbNavContent,
+  NgbNavItem,
+  NgbNavLink,
+  NgbNavOutlet,
+} from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-
 import { APP_CONFIG } from '../../../config/app-config.interface';
 import { environment } from '../../../environments/environment.test';
 import { buildPaginatedList } from '../../core/data/paginated-list.model';
@@ -125,7 +130,13 @@ describe('AdminNotifyDashboardComponent', () => {
     results = buildPaginatedList(undefined, [searchResult1, searchResult2, searchResult3]);
 
     await TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), NgbNavModule, AdminNotifyDashboardComponent],
+      imports: [TranslateModule.forRoot(),
+        NgbNav,
+        NgbNavContent,
+        NgbNavItem,
+        NgbNavLink,
+        NgbNavOutlet,
+        AdminNotifyDashboardComponent],
       providers: [
         { provide: APP_CONFIG, useValue: environment },
         { provide: SearchService, useValue: { search: () => createSuccessfulRemoteDataObject$(results) } },
