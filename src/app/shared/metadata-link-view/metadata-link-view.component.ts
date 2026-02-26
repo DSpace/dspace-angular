@@ -62,6 +62,11 @@ export class MetadataLinkViewComponent implements OnInit {
   @Input() metadata: MetadataValue;
 
   /**
+   * Where to place the popover
+   */
+  @Input() popoverPlacement: string;
+
+  /**
    * Processed metadata to create MetadataOrcid with the information needed to show
    */
   metadataView$: Observable<MetadataView>;

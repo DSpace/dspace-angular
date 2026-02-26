@@ -19,7 +19,6 @@ import { FilterVocabularyConfig } from './filter-vocabulary-config';
 import { FormConfig } from './form-config.interfaces';
 import { GeospatialMapConfig } from './geospatial-map-config';
 import { HomeConfig } from './homepage-config.interface';
-import { IdentifierSubtypesConfig } from './identifier-subtypes-config.interface';
 import { InfoConfig } from './info-config.interface';
 import { ItemConfig } from './item-config.interface';
 import { LangConfig } from './lang-config.interface';
@@ -28,10 +27,8 @@ import { LiveRegionConfig } from './live-region.config';
 import { MarkdownConfig } from './markdown-config.interface';
 import { MatomoConfig } from './matomo-config.interface';
 import { MediaViewerConfig } from './media-viewer-config.interface';
-import { MetadataLinkViewPopoverDataConfig } from './metadata-link-view-popoverdata-config.interface';
 import { INotificationBoardOptions } from './notifications-config.interfaces';
 import { QualityAssuranceConfig } from './quality-assurance.config';
-import { FollowAuthorityMetadata } from './search-follow-metadata.interface';
 import { SearchConfig } from './search-page-config.interface';
 import { SearchResultConfig } from './search-result-config.interface';
 import { ServerConfig } from './server-config.interface';
@@ -75,12 +72,7 @@ interface AppConfig extends Config {
   geospatialMapViewer: GeospatialMapConfig;
   accessibility: AccessibilitySettingsConfig;
   layout: LayoutConfig;
-  metadataLinkViewPopoverData: MetadataLinkViewPopoverDataConfig;
-  identifierSubtypes: IdentifierSubtypesConfig[];
   searchResult: SearchResultConfig;
-  followAuthorityMetadata: FollowAuthorityMetadata[];
-  followAuthorityMaxItemLimit: number;
-  followAuthorityMetadataValuesLimit: number;
 }
 
 /**
