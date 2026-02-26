@@ -147,7 +147,7 @@ export class FileDownloadLinkComponent implements OnInit {
     }
 
     this.pdfViewerPath = getPdfViewerRoute(this.bitstream.id);
-    this.pdfViewerAllowed$ = this.pdfViewerService.viewerAllowed(this.bitstream);
+    this.pdfViewerAllowed$ = this.pdfViewerService.viewerAllowed$(this.bitstream);
   }
 
   /**

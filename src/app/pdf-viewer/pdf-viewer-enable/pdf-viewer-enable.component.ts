@@ -43,11 +43,11 @@ export class PdfViewerEnableComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.isEnabled$ = this.pdfViewerService.isViewerEnabled(this.dso);
+    this.isEnabled$ = this.pdfViewerService.isViewerEnabled$(this.dso);
     this.isEnabled$.pipe(
       take(1),
     ).subscribe((isEnabled) => this.update(isEnabled));
-    this.isViewerConfigAllowed$ = this.pdfViewerService.viewerAllowedForBitstreamFormat(this.dso);
+    this.isViewerConfigAllowed$ = this.pdfViewerService.viewerAllowedForBitstreamFormat$(this.dso);
   }
 
   update($event: boolean) {

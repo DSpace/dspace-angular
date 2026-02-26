@@ -46,9 +46,9 @@ export class PdfViewerService {
    * Is the user allowed to visit the PDF viewer for a given bitstream
    * @param bitstream The bitstream to view
    */
-  viewerAllowed(bitstream: Bitstream): Observable<boolean> {
-    return combineLatest([this.viewerAllowedForBitstreamFormat(bitstream),
-      this.isViewerEnabled(bitstream)]).pipe(
+  viewerAllowed$(bitstream: Bitstream): Observable<boolean> {
+    return combineLatest([this.viewerAllowedForBitstreamFormat$(bitstream),
+      this.isViewerEnabled$(bitstream)]).pipe(
       map(([viewerAllowed, viewerEnabled]) => viewerAllowed && viewerEnabled),
     );
   }
@@ -59,7 +59,7 @@ export class PdfViewerService {
    * is a pdf when the dso is a bitstream
    * @param dso The dspace object to check
    */
-  viewerAllowedForBitstreamFormat(dso: DSpaceObject): Observable<boolean> {
+  viewerAllowedForBitstreamFormat$(dso: DSpaceObject): Observable<boolean> {
     if (dso instanceof Bitstream) {
       return this.bitstreamFormatService.findByBitstream(dso).pipe(
         getAllSucceededRemoteDataPayload(),
@@ -74,7 +74,7 @@ export class PdfViewerService {
    * Is the viewer enabled for this dspace object
    * @param dsoToCheck  The dspace object to check
    */
-  isViewerEnabled(dsoToCheck: DSpaceObject): Observable<boolean> {
+  isViewerEnabled$(dsoToCheck: DSpaceObject): Observable<boolean> {
     return of(dsoToCheck).pipe(
       expand((dso: DSpaceObject) => {
         if (hasValue(dso) && typeof (dso as any).firstMetadataValue === 'function' && hasNoValue(dso.firstMetadataValue('dspace.pdfviewer.enabled')) && typeof (dso as any).getParentLinkKey === 'function') {
@@ -95,10 +95,10 @@ export class PdfViewerService {
       toArray(),
       map((dsos: DSpaceObject[]) => {
         const dsosWithViewerInfo = dsos.filter((dso) => dso.firstMetadataValue('dspace.pdfviewer.enabled'));
-        if (isNotEmpty(dsosWithViewerInfo)) {
+        if (isNotEmpty(dsosWithViewerInfo) && environment.pdfViewer.enabled) {
           return dsosWithViewerInfo[0].firstMetadataValue('dspace.pdfviewer.enabled') === 'true';
         } else {
-          return environment.pdfViewer?.enabled ?? true;
+          return environment.pdfViewer.enabled;
         }
       }),
     );
