@@ -48,6 +48,7 @@ export class SearchResult<T extends DSpaceObject> extends ListableObject impleme
    * The DSpaceObject that was found
    */
   @fieldsForEquals('uuid')
+  @autoserialize
   indexableObject: T;
 
   /**

@@ -47,7 +47,11 @@ import {
 } from '../../shared/request.operators';
 import { getResourceTypeValueFor } from '../object-cache.reducer';
 import { ObjectCacheService } from '../object-cache.service';
-import { getClassForType } from './build-decorators';
+import {
+  getClassForType,
+  getPaginatedListClassForType,
+  isExtendedPaginatedList,
+} from './build-decorators';
 import { LinkService } from './link.service';
 
 @Injectable({ providedIn: 'root' })
@@ -93,7 +97,7 @@ export class RemoteDataBuildService {
       }),
       switchMap((obj: T) => {
         if (hasValue(obj)) {
-          if (getResourceTypeValueFor((obj as any).type) === PAGINATED_LIST.value) {
+          if (isExtendedPaginatedList((obj as any).type) || getResourceTypeValueFor((obj as any).type) === PAGINATED_LIST.value) {
             return this.buildPaginatedList<T>(obj, ...linksToFollow);
           } else if (isNotEmpty(linksToFollow)) {
             return [this.linkService.resolveLinks(obj as any, ...linksToFollow)];
@@ -165,7 +169,15 @@ export class RemoteDataBuildService {
     const pageLink = linksToFollow.find((linkToFollow: FollowLinkConfig<any>) => linkToFollow.name === 'page');
     const otherLinks = linksToFollow.filter((linkToFollow: FollowLinkConfig<any>) => linkToFollow.name !== 'page');
 
-    const paginatedList = Object.assign(new PaginatedList(), object);
+    // Resolve the type of PaginatedList, in case it extends the class
+    let type: GenericConstructor<T>;
+    const isExtended = isExtendedPaginatedList(object.type);
+    if (isExtended) {
+      type = getPaginatedListClassForType(object.type);
+    } else {
+      type = getClassForType(PAGINATED_LIST);
+    }
+    const paginatedList = Object.assign(new type(), object);
 
     if (hasValue(pageLink)) {
       if (isEmpty(paginatedList.page)) {
@@ -181,7 +193,7 @@ export class RemoteDataBuildService {
           }
           return paginatedList;
         }));
-      } else {
+      } else if (!isExtended) {
         // in case the elements of the paginated list were already filled in, because they're UnCacheableObjects
         paginatedList.page = paginatedList.page
           .filter((obj: any) => obj != null)

@@ -25,6 +25,9 @@ import { GenericConstructor } from '../../../core/shared/generic-constructor';
 import { ResponseParsingService } from '../../../core/data/parsing.service';
 import { SearchResponseParsingService } from '../../../core/data/search-response-parsing.service';
 
+/**
+ * Custom SearchDataImpl attaching a custom response-parser for search-results to the GET request
+ */
 class SearchResultsSearchDataImpl extends SearchDataImpl<SearchResult<DSpaceObject>> {
   private parser: GenericConstructor<ResponseParsingService> = SearchResponseParsingService;
 
@@ -60,7 +63,7 @@ class SearchResultsSearchDataImpl extends SearchDataImpl<SearchResult<DSpaceObje
  * Data service for retrieving search results from the REST API.
  */
 @Injectable({ providedIn: 'root' })
-export class SearchResultsDataService extends BaseDataService<SearchObjects<DSpaceObject>> {
+export class SearchResultsDataService extends BaseDataService<SearchResult<DSpaceObject>> {
   private searchData: SearchDataImpl<SearchResult<DSpaceObject>>;
 
   constructor(

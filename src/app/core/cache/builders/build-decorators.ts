@@ -28,6 +28,7 @@ const resolvedLinkKey = Symbol('resolvedLink');
 
 const resolvedLinkMap = new Map();
 const typeMap = new Map();
+const extendedPaginatedListTypeMap = new Map();
 const dataServiceMap = new Map();
 const linkMap = new Map();
 
@@ -40,11 +41,35 @@ export function typedObject(target: TypedObject) {
 }
 
 /**
+ * Decorator function to map an extended PaginatedList to its class
+ * @param target the typed class to map
+ */
+export function extendedPaginatedList(target: TypedObject) {
+  extendedPaginatedListTypeMap.set(target.type.value, target);
+}
+
+/**
  * Returns the mapped class for the given type
  * @param type The resource type
  */
 export function getClassForType(type: string | ResourceType) {
   return typeMap.get(getResourceTypeValueFor(type));
+}
+
+/**
+ * Returns the mapped class for the given type of an extended PaginatedList
+ * @param type The resource type
+ */
+export function getPaginatedListClassForType(type: string | ResourceType) {
+  return extendedPaginatedListTypeMap.get(getResourceTypeValueFor(type));
+}
+
+/**
+ * Check if a given type is an extended PaginatedList
+ * @param type The resource type
+ */
+export function isExtendedPaginatedList(type: string | ResourceType): boolean {
+  return extendedPaginatedListTypeMap.has(getResourceTypeValueFor(type));
 }
 
 /**

@@ -3,7 +3,7 @@ import {
   inheritSerialization,
 } from 'cerialize';
 
-import { typedObject } from '../../../core/cache/builders/build-decorators';
+import { inheritLinkAnnotations, extendedPaginatedList, typedObject } from '../../../core/cache/builders/build-decorators';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { excludeFromEquals } from '../../../core/utilities/equals.decorators';
@@ -15,8 +15,10 @@ import { SEARCH_OBJECTS } from './types/search-objects.resource-type';
  * Class representing the response returned by the server when performing a search request
  */
 @typedObject
+@extendedPaginatedList
 @inheritSerialization(PaginatedList)
 @inheritSerialization(SearchQueryResponse)
+@inheritLinkAnnotations(PaginatedList)
 export class SearchObjects<T extends DSpaceObject> extends SearchQueryResponse<SearchResult<T>> {
   static type = SEARCH_OBJECTS;
 
