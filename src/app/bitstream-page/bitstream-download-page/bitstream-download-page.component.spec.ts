@@ -12,6 +12,10 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
 import { AuthService } from '@dspace/core/auth/auth.service';
 import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
@@ -19,6 +23,7 @@ import { AuthorizationDataService } from '@dspace/core/data/feature-authorizatio
 import { SignpostingDataService } from '@dspace/core/data/signposting-data.service';
 import { getForbiddenRoute } from '@dspace/core/router/core-routing-paths';
 import { HardRedirectService } from '@dspace/core/services/hard-redirect.service';
+import { LinkHeadService } from '@dspace/core/services/link-head.service';
 import { ServerResponseService } from '@dspace/core/services/server-response.service';
 import { Bitstream } from '@dspace/core/shared/bitstream.model';
 import { FileService } from '@dspace/core/shared/file.service';
@@ -46,6 +51,8 @@ describe('BitstreamDownloadPageComponent', () => {
   let serverResponseService: jasmine.SpyObj<ServerResponseService>;
   let signpostingDataService: jasmine.SpyObj<SignpostingDataService>;
   let matomoService: jasmine.SpyObj<MatomoService>;
+  let linkHeadService: jasmine.SpyObj<LinkHeadService>;
+  let appConfig: AppConfig;
 
   const mocklink = {
     href: 'http://test.org',
@@ -118,6 +125,20 @@ describe('BitstreamDownloadPageComponent', () => {
       isMatomoEnabled$: of(true),
     });
     matomoService.appendVisitorId.and.callFake((link) => of(link));
+    linkHeadService = jasmine.createSpyObj('LinkHeadService', {
+      addTag: {},
+      removeTag: {},
+    });
+    appConfig = {
+      seo: {
+        canonical: {
+          items: true,
+          bitstreams: true,
+        },
+      },
+    } as any;
+
+    (hardRedirectService as any).getCurrentOrigin = jasmine.createSpy('getCurrentOrigin').and.returnValue('https://example.org');
   }
 
   function initTestbed() {
@@ -137,6 +158,8 @@ describe('BitstreamDownloadPageComponent', () => {
         { provide: Location, useValue: location },
         { provide: DSONameService, useValue: dsoNameService },
         { provide: ConfigurationDataService, useValue: {} },
+        { provide: APP_CONFIG, useValue: appConfig },
+        { provide: LinkHeadService, useValue: linkHeadService },
       ],
     })
       .compileComponents();
@@ -269,5 +292,52 @@ describe('BitstreamDownloadPageComponent', () => {
         expect(hardRedirectService.redirect).toHaveBeenCalledWith('content-url-with-headers');
       });
     }));
+  });
+
+  describe('canonical link', () => {
+    describe('when seo.canonical.bitstreams is true', () => {
+      beforeEach(waitForAsync(() => {
+        init();
+        initTestbed();
+      }));
+      beforeEach(() => {
+        fixture = TestBed.createComponent(BitstreamDownloadPageComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+      });
+      it('should add canonical link tag to the head', () => {
+        expect(linkHeadService.addTag).toHaveBeenCalledWith({
+          rel: 'canonical',
+          href: 'https://example.org/bitstreams/testid/download',
+        });
+      });
+      it('should include canonical in the Link header', () => {
+        expect(serverResponseService.setHeader).toHaveBeenCalled();
+        const linkHeaderValue = (serverResponseService.setHeader as jasmine.Spy).calls.mostRecent().args[1];
+        expect(linkHeaderValue).toContain('rel="canonical"');
+        expect(linkHeaderValue).toContain('https://example.org/bitstreams/testid/download');
+      });
+      it('should remove canonical link tag on destroy', () => {
+        component.ngOnDestroy();
+        expect(linkHeadService.removeTag).toHaveBeenCalledWith('rel="canonical"');
+      });
+    });
+
+    describe('when seo.canonical.bitstreams is false', () => {
+      beforeEach(waitForAsync(() => {
+        init();
+        appConfig = { seo: { canonical: { items: true, bitstreams: false } } } as any;
+        (hardRedirectService as any).getCurrentOrigin = jasmine.createSpy('getCurrentOrigin').and.returnValue('https://example.org');
+        initTestbed();
+      }));
+      beforeEach(() => {
+        fixture = TestBed.createComponent(BitstreamDownloadPageComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+      });
+      it('should not add canonical link tag', () => {
+        expect(linkHeadService.addTag).not.toHaveBeenCalled();
+      });
+    });
   });
 });

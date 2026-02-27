@@ -28,6 +28,7 @@ import {
 import { QualityAssuranceConfig } from './quality-assurance.config';
 import { RestRequestMethod } from './rest-request-method';
 import { SearchConfig } from './search-page-config.interface';
+import { SeoConfig } from './seo-config.interface';
 import { ServerConfig } from './server-config.interface';
 import { SubmissionConfig } from './submission-config.interface';
 import { SuggestionConfig } from './suggestion-config.interfaces';
@@ -646,5 +647,13 @@ export class DefaultAppConfig implements AppConfig {
   // Accessibility settings configuration, used by the AccessibilitySettingsService
   accessibility: AccessibilitySettingsConfig = {
     cookieExpirationDuration: 7,
+  };
+
+  // SEO settings
+  seo: SeoConfig = {
+    canonical: {
+      items: true,
+      bitstreams: true,
+    },
   };
 }
