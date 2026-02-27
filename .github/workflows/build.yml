@@ -80,7 +80,7 @@ jobs:
         id: npm-cache-dir
         run: echo "dir=$(npm config get cache)" >> $GITHUB_OUTPUT
       - name: Cache NPM dependencies
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           # Cache entire NPM cache directory (see previous step)
           path: ${{ steps.npm-cache-dir.outputs.dir }}
