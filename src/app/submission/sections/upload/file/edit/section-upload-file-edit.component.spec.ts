@@ -65,10 +65,9 @@ import {
   mockUploadConfigResponseMetadata,
   mockUploadFiles,
 } from '../../../../utils/submission.mock';
-import { SectionUploadService } from '../../section-upload.service';
 import { POLICY_DEFAULT_WITH_LIST } from '../../section-upload-constants';
+import { SectionUploadService } from '../../section-upload.service';
 import { SubmissionSectionUploadFileEditComponent } from './section-upload-file-edit.component';
-
 
 function getMockDsDynamicTypeBindRelationService(): DsDynamicTypeBindRelationService {
   return jasmine.createSpyObj('DsDynamicTypeBindRelationService', {
