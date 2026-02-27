@@ -1,4 +1,11 @@
-import { Injectable } from '@angular/core';
+import {
+  Inject,
+  Injectable,
+} from '@angular/core';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
 import {
   hasNoValue,
   hasValue,
@@ -16,7 +23,6 @@ import {
   map,
   toArray,
 } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
 
 import { LinkService } from '../../core/cache/builders/link.service';
 import { BitstreamFormatDataService } from '../../core/data/bitstream-format-data.service';
@@ -39,6 +45,7 @@ export class PdfViewerService {
   constructor(
     protected bitstreamFormatService: BitstreamFormatDataService,
     protected linkService: LinkService,
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
   ) {
   }
 
@@ -95,10 +102,10 @@ export class PdfViewerService {
       toArray(),
       map((dsos: DSpaceObject[]) => {
         const dsosWithViewerInfo = dsos.filter((dso) => dso.firstMetadataValue('dspace.pdfviewer.enabled'));
-        if (isNotEmpty(dsosWithViewerInfo) && environment.pdfViewer.enabled) {
+        if (isNotEmpty(dsosWithViewerInfo) && this.appConfig.pdfViewer.enabled) {
           return dsosWithViewerInfo[0].firstMetadataValue('dspace.pdfviewer.enabled') === 'true';
         } else {
-          return environment.pdfViewer.enabled;
+          return this.appConfig.pdfViewer.enabled;
         }
       }),
     );
