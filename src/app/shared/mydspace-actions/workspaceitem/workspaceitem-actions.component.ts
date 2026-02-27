@@ -25,7 +25,7 @@ import { WorkspaceItem } from '@dspace/core/submission/models/workspaceitem.mode
 import { WorkspaceitemDataService } from '@dspace/core/submission/workspaceitem-data.service';
 import {
   NgbModal,
-  NgbTooltipModule,
+  NgbTooltip,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -50,7 +50,7 @@ import { MyDSpaceActionsComponent } from '../mydspace-actions';
   templateUrl: './workspaceitem-actions.component.html',
   imports: [
     AsyncPipe,
-    NgbTooltipModule,
+    NgbTooltip,
     RouterLink,
     TranslateModule,
   ],
