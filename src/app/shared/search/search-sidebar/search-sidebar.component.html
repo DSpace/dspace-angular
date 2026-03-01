@@ -32,6 +32,7 @@
       <ds-advanced-search
         [configuration]="configuration"
         [filtersConfig]="(filters | async)?.payload"
+        [inPlaceSearch]="inPlaceSearch"
         [scope]="currentScope">
       </ds-advanced-search>
     }

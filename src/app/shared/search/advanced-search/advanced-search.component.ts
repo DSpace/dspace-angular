@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  KeyValuePipe,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Inject,
@@ -37,6 +34,7 @@ import {
 } from '../../empty.util';
 import { FilterInputSuggestionsComponent } from '../../input-suggestions/filter-suggestions/filter-input-suggestions.component';
 import { InputSuggestion } from '../../input-suggestions/input-suggestions.model';
+import { currentPath } from '../../utils/route.utils';
 import { FilterType } from '../models/filter-type.model';
 import { SearchFilterConfig } from '../models/search-filter-config.model';
 
@@ -53,7 +51,6 @@ import { SearchFilterConfig } from '../models/search-filter-config.model';
     BtnDisabledDirective,
     FilterInputSuggestionsComponent,
     FormsModule,
-    KeyValuePipe,
     TranslateModule,
   ],
 })
@@ -68,6 +65,11 @@ export class AdvancedSearchComponent implements OnInit, OnDestroy {
    * The facet configurations, used to determine if suggestions should be retrieved for the selected search filter
    */
   @Input() filtersConfig: SearchFilterConfig[];
+
+  /**
+   * True when the search component should show results on the current page
+   */
+  @Input() inPlaceSearch: boolean;
 
   /**
    * The current search scope
@@ -134,11 +136,21 @@ export class AdvancedSearchComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * @returns {string} The base path to the search page, or the current page when inPlaceSearch is true
+   */
+  getSearchLink(): string {
+    if (this.inPlaceSearch) {
+      return currentPath(this.router);
+    }
+    return this.searchService.getSearchLink();
+  }
+
   applyFilter(): void {
     if (isNotEmpty(this.currentValue)) {
       this.searchFilterService.minimizeAll();
       this.subs.push(this.searchConfigurationService.selectNewAppliedFilterParams(this.currentFilter, this.currentValue.trim(), this.currentOperator).pipe(take(1)).subscribe((params: Params) => {
-        void this.router.navigate([this.searchService.getSearchLink()], {
+        void this.router.navigate([this.getSearchLink()], {
           queryParams: params,
         });
         this.currentValue = '';
