@@ -72,7 +72,7 @@ import { SearchService } from '../../../../shared/search/search.service';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
 import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail.component';
-import { GenericItemPageFieldComponent } from '../../field-components/specific-field/generic/generic-item-page-field.component';
+import { ThemedGenericItemPageFieldComponent } from '../../field-components/specific-field/generic/themed-generic-item-page-field.component';
 import { ThemedItemPageTitleFieldComponent } from '../../field-components/specific-field/title/themed-item-page-field.component';
 import { ThemedMetadataRepresentationListComponent } from '../../metadata-representation-list/themed-metadata-representation-list.component';
 import { TabbedRelatedEntitiesSearchComponent } from '../../related-entities/tabbed-related-entities-search/tabbed-related-entities-search.component';
@@ -148,7 +148,6 @@ export function getItemPageFieldsTest(mockItem: Item, component) {
             },
           }),
           RouterTestingModule,
-          GenericItemPageFieldComponent,
           TruncatePipe,
           AsyncPipe,
           component,
@@ -196,6 +195,7 @@ export function getItemPageFieldsTest(mockItem: Item, component) {
             imports: [
               ThemedResultsBackButtonComponent,
               ThemedItemPageTitleFieldComponent,
+              ThemedGenericItemPageFieldComponent,
               DsoEditMenuComponent,
               MetadataFieldWrapperComponent,
               ThemedThumbnailComponent,
@@ -233,7 +233,7 @@ export function getItemPageFieldsTest(mockItem: Item, component) {
  */
 export function containsFieldInput(fields: DebugElement[], metadataKey: string): boolean {
   for (const field of fields) {
-    const fieldComp = field.componentInstance;
+    const fieldComp = field.nativeElement;
     if (isNotEmpty(fieldComp.fields)) {
       if (fieldComp.fields.indexOf(metadataKey) > -1) {
         return true;
@@ -495,7 +495,8 @@ describe('ItemComponent', () => {
             },
           }),
           RouterTestingModule,
-          ItemComponent, GenericItemPageFieldComponent, TruncatePipe,
+          ItemComponent,
+          TruncatePipe,
         ],
         providers: [
           { provide: ItemDataService, useValue: {} },
