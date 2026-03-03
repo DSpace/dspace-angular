@@ -17,6 +17,7 @@ import { map } from 'rxjs/operators';
 import { SuggestionsPopupComponent } from '../notifications/suggestions/popup/suggestions-popup.component';
 import { ThemedConfigurationSearchPageComponent } from '../search-page/themed-configuration-search-page.component';
 import { ThemedSearchFormComponent } from '../shared/search-form/themed-search-form.component';
+import { GeoIpWarningComponent } from './geoip-warning/geoip-warning.component';
 import { HomeCoarComponent } from './home-coar/home-coar.component';
 import { ThemedHomeNewsComponent } from './home-news/themed-home-news.component';
 import { RecentItemListComponent } from './recent-item-list/recent-item-list.component';
@@ -27,6 +28,7 @@ import { ThemedTopLevelCommunityListComponent } from './top-level-community-list
   styleUrls: ['./home-page.component.scss'],
   templateUrl: './home-page.component.html',
   imports: [
+    GeoIpWarningComponent,
     HomeCoarComponent,
     NgTemplateOutlet,
     RecentItemListComponent,

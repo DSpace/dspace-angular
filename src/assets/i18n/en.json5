@@ -2273,6 +2273,8 @@
 
   "home.breadcrumbs": "Home",
 
+  "home.geoip-warning": "The GeoLite database is not installed. Location-based statistics (countries, cities) are unavailable. See the DSpace installation instructions for details.",
+
   "home.search-form.placeholder": "Search the repository ...",
 
   "home.title": "Home",
