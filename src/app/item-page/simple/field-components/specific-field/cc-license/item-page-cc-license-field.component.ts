@@ -27,7 +27,7 @@ import { parseCcCode } from 'src/app/shared/utils/license.utils';
 
 
 @Component({
-  selector: 'ds-item-page-cc-license-field',
+  selector: 'ds-base-item-page-cc-license-field',
   templateUrl: './item-page-cc-license-field.component.html',
   standalone: true,
   imports: [
@@ -52,7 +52,7 @@ export class ItemPageCcLicenseFieldComponent implements OnInit {
    * 'full' variant shows image, a disclaimer (optional) and name (always), better for the item page content.
    * 'small' variant shows image and name (optional), better for the item page sidebar
    */
-  @Input() variant?: 'small' | 'full' = 'small';
+  @Input() variant: 'small' | 'full' = 'small';
 
   /**
    * Field name containing the CC license URI
@@ -67,12 +67,12 @@ export class ItemPageCcLicenseFieldComponent implements OnInit {
   /**
    * Shows the CC license name with the image. Always show if image fails to load
    */
-  @Input() showName? = true;
+  @Input() showName = true;
 
   /**
    * Shows the disclaimer in the 'full' variant of the component
    */
-  @Input() showDisclaimer? = true;
+  @Input() showDisclaimer = true;
 
 
   showImage = true;

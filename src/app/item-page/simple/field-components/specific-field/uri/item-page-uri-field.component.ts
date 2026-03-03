@@ -8,7 +8,7 @@ import { MetadataUriValuesComponent } from '../../../../field-components/metadat
 import { ItemPageFieldComponent } from '../item-page-field.component';
 
 @Component({
-  selector: 'ds-item-page-uri-field',
+  selector: 'ds-base-item-page-uri-field',
   templateUrl: './item-page-uri-field.component.html',
   imports: [
     MetadataUriValuesComponent,

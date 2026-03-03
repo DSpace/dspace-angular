@@ -50,7 +50,14 @@ import { MediaViewerComponent } from './app/item-page/media-viewer/media-viewer.
 import { MediaViewerImageComponent } from './app/item-page/media-viewer/media-viewer-image/media-viewer-image.component';
 import { MediaViewerVideoComponent } from './app/item-page/media-viewer/media-viewer-video/media-viewer-video.component';
 import { FileSectionComponent } from './app/item-page/simple/field-components/file-section/file-section.component';
+import { ItemPageAbstractFieldComponent } from './app/item-page/simple/field-components/specific-field/abstract/item-page-abstract-field.component';
+import { ItemPageAuthorFieldComponent } from './app/item-page/simple/field-components/specific-field/author/item-page-author-field.component';
+import { ItemPageCcLicenseFieldComponent } from './app/item-page/simple/field-components/specific-field/cc-license/item-page-cc-license-field.component';
+import { ItemPageDateFieldComponent } from './app/item-page/simple/field-components/specific-field/date/item-page-date-field.component';
+import { GenericItemPageFieldComponent } from './app/item-page/simple/field-components/specific-field/generic/generic-item-page-field.component';
+import { GeospatialItemPageFieldComponent } from './app/item-page/simple/field-components/specific-field/geospatial/geospatial-item-page-field.component';
 import { ItemPageTitleFieldComponent } from './app/item-page/simple/field-components/specific-field/title/item-page-title-field.component';
+import { ItemPageUriFieldComponent } from './app/item-page/simple/field-components/specific-field/uri/item-page-uri-field.component';
 import { ItemPageComponent } from './app/item-page/simple/item-page.component';
 import { MetadataRepresentationListComponent } from './app/item-page/simple/metadata-representation-list/metadata-representation-list.component';
 import { LoginPageComponent } from './app/login-page/login-page.component';
@@ -209,6 +216,13 @@ const DECLARATIONS = [
   SubmissionSectionContainerComponent,
   SubmissionFormFooterComponent,
   SubmissionFormComponent,
+  ItemPageAbstractFieldComponent,
+  ItemPageAuthorFieldComponent,
+  ItemPageCcLicenseFieldComponent,
+  ItemPageDateFieldComponent,
+  GenericItemPageFieldComponent,
+  GeospatialItemPageFieldComponent,
+  ItemPageUriFieldComponent,
 ];
 
 @NgModule({

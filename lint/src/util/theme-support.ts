@@ -189,7 +189,7 @@ function getSource(file: string): ts.SourceFile {
 function resolveLocalPath(path: string, relativeTo: string) {
   if (path.startsWith('src/')) {
     return path;
-  } else if (path.startsWith('./')) {
+  } else if (path.startsWith('./') || path.startsWith('../')) {
     const parts = relativeTo.split('/');
     return [
       ...parts.slice(0, parts.length - 1),

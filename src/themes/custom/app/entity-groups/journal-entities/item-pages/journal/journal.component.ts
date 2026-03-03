@@ -6,7 +6,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Context } from '../../../../../../../app/core/shared/context.model';
 import { ViewMode } from '../../../../../../../app/core/shared/view-mode.model';
 import { JournalComponent as BaseComponent } from '../../../../../../../app/entity-groups/journal-entities/item-pages/journal/journal.component';
-import { GenericItemPageFieldComponent } from '../../../../../../../app/item-page/simple/field-components/specific-field/generic/generic-item-page-field.component';
+import { ThemedGenericItemPageFieldComponent } from '../../../../../../../app/item-page/simple/field-components/specific-field/generic/themed-generic-item-page-field.component';
 import { ThemedItemPageTitleFieldComponent } from '../../../../../../../app/item-page/simple/field-components/specific-field/title/themed-item-page-field.component';
 import { TabbedRelatedEntitiesSearchComponent } from '../../../../../../../app/item-page/simple/related-entities/tabbed-related-entities-search/tabbed-related-entities-search.component';
 import { RelatedItemsComponent } from '../../../../../../../app/item-page/simple/related-items/related-items-component';
@@ -27,11 +27,11 @@ import { ThemedThumbnailComponent } from '../../../../../../../app/thumbnail/the
   imports: [
     AsyncPipe,
     DsoEditMenuComponent,
-    GenericItemPageFieldComponent,
     MetadataFieldWrapperComponent,
     RelatedItemsComponent,
     RouterLink,
     TabbedRelatedEntitiesSearchComponent,
+    ThemedGenericItemPageFieldComponent,
     ThemedItemPageTitleFieldComponent,
     ThemedResultsBackButtonComponent,
     ThemedThumbnailComponent,

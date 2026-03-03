@@ -63,11 +63,14 @@ import { CollectionsComponent } from '../../../field-components/collections/coll
 import { ThemedMediaViewerComponent } from '../../../media-viewer/themed-media-viewer.component';
 import { MiradorViewerComponent } from '../../../mirador-viewer/mirador-viewer.component';
 import { ThemedFileSectionComponent } from '../../field-components/file-section/themed-file-section.component';
-import { ItemPageAbstractFieldComponent } from '../../field-components/specific-field/abstract/item-page-abstract-field.component';
-import { ItemPageDateFieldComponent } from '../../field-components/specific-field/date/item-page-date-field.component';
-import { GenericItemPageFieldComponent } from '../../field-components/specific-field/generic/generic-item-page-field.component';
+import { ThemedItemPageAbstractFieldComponent } from '../../field-components/specific-field/abstract/themed-item-page-abstract-field.component';
+import { ThemedItemPageCcLicenseFieldComponent } from '../../field-components/specific-field/cc-license/themed-item-page-cc-license-field.component';
+import { ThemedItemPageDateFieldComponent } from '../../field-components/specific-field/date/themed-item-page-date-field.component';
+import { ThemedGenericItemPageFieldComponent } from '../../field-components/specific-field/generic/themed-generic-item-page-field.component';
+import { ThemedGeospatialItemPageFieldComponent } from '../../field-components/specific-field/geospatial/themed-geospatial-item-page-field.component';
 import { ThemedItemPageTitleFieldComponent } from '../../field-components/specific-field/title/themed-item-page-field.component';
 import { ItemPageUriFieldComponent } from '../../field-components/specific-field/uri/item-page-uri-field.component';
+import { ThemedGenericItemPageUriFieldComponent } from '../../field-components/specific-field/uri/themed-item-page-uri-field.component';
 import { ThemedMetadataRepresentationListComponent } from '../../metadata-representation-list/themed-metadata-representation-list.component';
 import { RelatedItemsComponent } from '../../related-items/related-items-component';
 import {
@@ -107,7 +110,7 @@ describe('PublicationComponent', () => {
           },
         }),
         RouterTestingModule,
-        GenericItemPageFieldComponent, TruncatePipe,
+        TruncatePipe,
         PublicationComponent,
       ],
       providers: [
@@ -138,7 +141,25 @@ describe('PublicationComponent', () => {
     }).overrideComponent(PublicationComponent, {
       add: { changeDetection: ChangeDetectionStrategy.Default },
       remove: {
-        imports: [ThemedResultsBackButtonComponent, MiradorViewerComponent, ThemedItemPageTitleFieldComponent, DsoEditMenuComponent, MetadataFieldWrapperComponent, ThemedThumbnailComponent, ThemedMediaViewerComponent, ThemedFileSectionComponent, ItemPageDateFieldComponent, ThemedMetadataRepresentationListComponent, GenericItemPageFieldComponent, RelatedItemsComponent, ItemPageAbstractFieldComponent, ItemPageUriFieldComponent, CollectionsComponent,
+        imports: [
+          ThemedResultsBackButtonComponent,
+          MiradorViewerComponent,
+          ThemedItemPageTitleFieldComponent,
+          DsoEditMenuComponent,
+          MetadataFieldWrapperComponent,
+          ThemedThumbnailComponent,
+          ThemedMediaViewerComponent,
+          ThemedFileSectionComponent,
+          ThemedItemPageDateFieldComponent,
+          ThemedMetadataRepresentationListComponent,
+          ThemedGenericItemPageFieldComponent,
+          RelatedItemsComponent,
+          ThemedItemPageAbstractFieldComponent,
+          ItemPageUriFieldComponent,
+          CollectionsComponent,
+          ThemedGenericItemPageUriFieldComponent,
+          ThemedGeospatialItemPageFieldComponent,
+          ThemedItemPageCcLicenseFieldComponent,
         ],
       },
     });

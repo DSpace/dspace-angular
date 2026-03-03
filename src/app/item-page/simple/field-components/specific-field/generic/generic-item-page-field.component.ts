@@ -9,7 +9,7 @@ import { MetadataValuesComponent } from '../../../../field-components/metadata-v
 import { ItemPageFieldComponent } from '../item-page-field.component';
 
 @Component({
-  selector: 'ds-generic-item-page-field',
+  selector: 'ds-base-generic-item-page-field',
   templateUrl: '../item-page-field.component.html',
   standalone: true,
   imports: [

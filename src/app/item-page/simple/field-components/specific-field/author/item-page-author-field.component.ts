@@ -9,7 +9,7 @@ import { MetadataValuesComponent } from '../../../../field-components/metadata-v
 import { ItemPageFieldComponent } from '../item-page-field.component';
 
 @Component({
-  selector: 'ds-item-page-author-field',
+  selector: 'ds-base-item-page-author-field',
   templateUrl: '../item-page-field.component.html',
   standalone: true,
   imports: [

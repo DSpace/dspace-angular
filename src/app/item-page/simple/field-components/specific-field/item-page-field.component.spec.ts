@@ -1,40 +1,32 @@
-import {
-  ChangeDetectionStrategy,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
+import { AsyncPipe } from '@angular/common';
+import { Component } from '@angular/core';
 import {
   ComponentFixture,
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { RouterTestingModule } from '@angular/router/testing';
-import {
-  TranslateLoader,
-  TranslateModule,
-} from '@ngx-translate/core';
+import { RouterModule } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { environment } from '../../../../../environments/environment';
 import { BrowseService } from '../../../../core/browse/browse.service';
-import { BrowseDefinitionDataService } from '../../../../core/browse/browse-definition-data.service';
 import { Item } from '../../../../core/shared/item.model';
 import { MathService } from '../../../../core/shared/math.service';
 import {
   MetadataMap,
   MetadataValue,
 } from '../../../../core/shared/metadata.models';
-import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
-import { BrowseDefinitionDataServiceStub } from '../../../../shared/testing/browse-definition-data-service.stub';
 import { BrowseServiceStub } from '../../../../shared/testing/browse-service.stub';
 import { createPaginatedList } from '../../../../shared/testing/utils.test';
 import { MarkdownDirective } from '../../../../shared/utils/markdown.directive';
 import { MetadataValuesComponent } from '../../../field-components/metadata-values/metadata-values.component';
 import { ItemPageFieldComponent } from './item-page-field.component';
 
-let comp: ItemPageFieldComponent;
-let fixture: ComponentFixture<ItemPageFieldComponent>;
+let comp: TestItemPageFieldComponent;
+let fixture: ComponentFixture<TestItemPageFieldComponent>;
 let markdownSpy;
 
 const mockValue = 'test value';
@@ -43,6 +35,18 @@ const mockLabel = 'test label';
 const mockAuthorField = 'dc.contributor.author';
 const mockDateIssuedField = 'dc.date.issued';
 const mockFields = [mockField, mockAuthorField, mockDateIssuedField];
+
+@Component({
+  selector: 'ds-test-item-page-field',
+  templateUrl: './item-page-field.component.html',
+  imports: [
+    AsyncPipe,
+    MetadataValuesComponent,
+  ],
+  standalone: true,
+})
+class TestItemPageFieldComponent extends ItemPageFieldComponent {
+}
 
 describe('ItemPageFieldComponent', () => {
 
@@ -56,27 +60,18 @@ describe('ItemPageFieldComponent', () => {
   beforeEach(waitForAsync(() => {
     void TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule.withRoutes([]),
-        TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock,
-          },
-        }),
-        ItemPageFieldComponent, MetadataValuesComponent,
+        RouterModule.forRoot([]),
+        TranslateModule.forRoot(),
+        MetadataValuesComponent,
       ],
       providers: [
         { provide: APP_CONFIG, useValue: appConfig },
-        { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub },
         { provide: BrowseService, useValue: BrowseServiceStub },
         { provide: MathService, useValue: {} },
       ],
-      schemas: [NO_ERRORS_SCHEMA],
-    }).overrideComponent(ItemPageFieldComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
     markdownSpy = spyOn(MarkdownDirective.prototype, 'render');
-    fixture = TestBed.createComponent(ItemPageFieldComponent);
+    fixture = TestBed.createComponent(TestItemPageFieldComponent);
     comp = fixture.componentInstance;
     comp.item = mockItemWithMetadataFieldsAndValue(mockFields, mockValue);
     comp.fields = mockFields;
