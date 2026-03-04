@@ -68,8 +68,8 @@ export class LocaleService implements OnDestroy {
     protected translate: TranslateService,
     protected authService: AuthService,
     protected routeService: RouteService,
-    private router: Router,
-    @Inject(DOCUMENT) protected document: any,
+    private router?: Router,
+    @Inject(DOCUMENT) protected document?: any,
   ) {
     this.checkQueryParamLanguage();
   }
