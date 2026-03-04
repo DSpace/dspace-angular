@@ -167,6 +167,7 @@
     "@fortawesome/fontawesome-free": "^6.7.2",
     "@ngrx/store-devtools": "^20.1.0",
     "@ngtools/webpack": "^20.3.10",
+    "@eslint/js": "^9.39.1",
     "@stylistic/eslint-plugin": "^3.1.0",
     "@types/deep-freeze": "0.1.5",
     "@types/ejs": "^3.1.2",
@@ -176,6 +177,7 @@
     "@types/js-cookie": "3.0.6",
     "@types/lodash-es": "^4.17.12",
     "@types/node": "^20.19.25",
+    "angular-eslint": "^20.7.0",
     "@typescript-eslint/eslint-plugin": "^8.48.0",
     "@typescript-eslint/parser": "^8.48.0",
     "@typescript-eslint/rule-tester": "^8.48.0",
@@ -224,6 +226,7 @@
     "ts-node": "^8.10.2",
     "tsconfig-paths": "^4.2.0",
     "typescript": "~5.9.3",
+    "typescript-eslint": "^8.48.0",
     "webpack": "^5.54.0",
     "webpack-cli": "^6.0.1"
   },

@@ -151,8 +151,7 @@ class ThemeableComponentRegistry {
       traverse(source);
     }
 
-    // note: this outputs Unix-style paths on Windows
-    const wrappers: string[] = globSync(prefix + 'src/app/**/themed-*.component.ts', { ignore: 'node_modules/**' });
+    const wrappers: string[] = globSync(prefix + 'src/app/**/themed-*.component.ts', { ignore: 'node_modules/**' }).map(toUnixStylePath);
 
     for (const wrapper of wrappers) {
       registerWrapper(wrapper);
@@ -271,7 +270,7 @@ export function fixSelectors(text: string): string {
  */
 export function getFileTheme(context: RuleContext<any, any>): string | undefined {
   // note: shouldn't use plain .filename (doesn't work in DSpace Angular 7.4)
-  const m = context.getFilename()?.match(/\/src\/themes\/([^/]+)\//);
+  const m = toUnixStylePath(context.getFilename())?.match(/\/src\/themes\/([^/]+)\//);
 
   if (m?.length === 2) {
     return m[1];
