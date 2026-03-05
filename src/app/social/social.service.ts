@@ -20,6 +20,11 @@ import {
 
 import { environment } from '../../environments/environment';
 
+/**
+ * Singleton service responsible for integration with AddToAny plugin to initialize 3rd party script and hold state
+ * Bootstrap with Angular start in {@link AppComponent} which initializess route subscription
+ * Bootstrap of integration starts at clientside with {@link SocialComponent} which loads 3rd party script
+ */
 @Injectable( { providedIn: 'root' } )
 export class SocialService {
   private showOnCurrentRouteSubject = new BehaviorSubject(false);

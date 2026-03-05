@@ -649,9 +649,13 @@ export class DefaultAppConfig implements AppConfig {
     cookieExpirationDuration: 7,
   };
 
+  /**
+   * Default configuration of AddToAny plugin for social media integration
+   * Check more details at {@link AddToAnyPluginConfig}
+   */
   addToAnyPlugin: AddToAnyPluginConfig = {
     scriptUrl: 'https://static.addtoany.com/menu/page.js',
-    socialNetworksEnabled: true,
+    socialNetworksEnabled: false,
     buttons: ['facebook', 'x', 'linkedin', 'email', 'copy_link'],
     showPlusButton: true,
     showCounters: true,
