@@ -16,8 +16,8 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { APP_CONFIG } from '@dspace/config/app-config.interface';
-import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
 import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
+import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
 import { JsonPatchOperationPathCombiner } from '@dspace/core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
 import { BitstreamFormat } from '@dspace/core/shared/bitstream-format.model';
@@ -65,8 +65,8 @@ import {
   mockUploadConfigResponseMetadata,
   mockUploadFiles,
 } from '../../../../utils/submission.mock';
-import { POLICY_DEFAULT_WITH_LIST } from '../../section-upload-constants';
 import { SectionUploadService } from '../../section-upload.service';
+import { POLICY_DEFAULT_WITH_LIST } from '../../section-upload-constants';
 import { SubmissionSectionUploadFileEditComponent } from './section-upload-file-edit.component';
 
 function getMockDsDynamicTypeBindRelationService(): DsDynamicTypeBindRelationService {
@@ -168,7 +168,8 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
         { provide: XSRFService, useValue: {} },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents().then();
+    });
+    void TestBed.compileComponents();
   }));
 
   describe('', () => {
