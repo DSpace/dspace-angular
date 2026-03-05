@@ -574,4 +574,4 @@ ngb-tooltip-window {
   background-color: currentColor;
 }
 
-ds-search-filter .facet-filter:has([type="checkbox"]:checked) { background: var(--bs-highlight-color); }
+ds-search-filter .facet-filter.filter-active { background-color: var(--bs-highlight-color); }
