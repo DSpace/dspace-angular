@@ -2905,6 +2905,8 @@
 
   "item.page.dcterms.spatial": "Geospatial point",
 
+  "item.page.doi": "DOI",
+
   "item.search.results.head": "Item Search Results",
 
   "item.search.title": "Item Search",
@@ -4276,6 +4278,8 @@
   "publication.page.titleprefix": "Publication: ",
 
   "publication.page.volume-title": "Volume Title",
+
+  "publication.page.doi": "DOI",
 
   "publication.search.results.head": "Publication Search Results",
 
