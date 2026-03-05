@@ -54,6 +54,7 @@
     }
     @if(mdValue.editing) {
       <textarea class="form-control" rows="5" [(ngModel)]="mdValue.newValue.authority"
+                [attr.aria-label]="(dsoType + '.edit.metadata.edit.authority') | translate"
                 [dsDebounce]="300" (onDebounce)="confirm.emit(false)"></textarea>
     }
   </div>

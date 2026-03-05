@@ -398,6 +398,12 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
     this.additionalInfoSelectIsOpen = !this.additionalInfoSelectIsOpen;
   }
 
+  /**
+   * Handles the selection of an alternative information value from a list of multiple values.
+   * This method is used when a vocabulary entry has multiple values for the same field
+   * (e.g., alternative names or multiple affiliations separated by '|||').
+   * @param info The selected alternative information value
+   */
   selectAlternativeInfo(info: string) {
     this.searching = true;
 
@@ -434,6 +440,13 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
   }
 
 
+  /**
+   * Configures the component to handle multiple values for additional information fields.
+   * This method is called when a vocabulary entry contains fields with multiple values
+   * separated by '|||' (e.g., alternative names or multiple affiliations).
+   * @param keys Array of keys from the otherInformation object to check for multiple values
+   * @param item The vocabulary entry item containing the otherInformation data
+   */
   setMultipleValuesForOtherInfo(keys: string[], item: any) {
     const hasAlternativeNames = keys.includes(this.alternativeNamesKey);
 

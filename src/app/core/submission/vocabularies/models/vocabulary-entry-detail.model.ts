@@ -51,13 +51,13 @@ export class VocabularyEntryDetail extends VocabularyEntry {
    * Will be undefined unless the submitter {@link HALLink} has been resolved.
    */
   @link(VOCABULARY_ENTRY_DETAIL)
-    parent?: Observable<RemoteData<VocabularyEntryDetail>>;
+  parent?: Observable<RemoteData<VocabularyEntryDetail>>;
 
   /**
    * The submitter for this SubmissionObject
    * Will be undefined unless the submitter {@link HALLink} has been resolved.
    */
   @link(VOCABULARY_ENTRY_DETAIL, true)
-    children?: Observable<RemoteData<PaginatedList<VocabularyEntryDetail>>>;
+  children?: Observable<RemoteData<PaginatedList<VocabularyEntryDetail>>>;
 
 }

@@ -698,6 +698,12 @@ export class DefaultAppConfig implements AppConfig {
     cookieExpirationDuration: 7,
   };
 
+  // Layout configuration for authority-controlled metadata display
+  // Defines visual styling (icons and CSS classes) for different entity types when they appear
+  // as authority-controlled values in metadata fields (e.g., authors, organizations, projects).
+  // Each entity type can have custom Font Awesome icons and Bootstrap CSS classes applied.
+  // These styles are used in components like MetadataLinkViewComponent to display entity type indicators
+  // alongside metadata values, providing visual cues about the type of referenced entity.
   layout: LayoutConfig = {
     authorityRef: [
       {
@@ -739,7 +745,14 @@ export class DefaultAppConfig implements AppConfig {
     ],
   };
 
+  // Search result configuration for authority metadata processing
+  // Controls how search results handle and display authority-controlled metadata values.
+  // When search results are retrieved, the system can automatically fetch referenced entities
+  // (e.g., Person, OrgUnit items) for metadata fields with authority values to enable
+  // rich displays with entity information, icons, and popovers.
   searchResult: SearchResultConfig = {
+    // Defines which metadata fields should be treated as author/contributor fields
+    // for special handling in search result displays
     authorMetadata: ['dc.contributor.author', 'dc.creator', 'dc.contributor.*'],
     // The maximum number of item to process when following authority metadata values.
     followAuthorityMaxItemLimit: 100,

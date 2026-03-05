@@ -27,7 +27,7 @@
       placement="top"
       ngbTooltip="{{ metadataView.orcidAuthenticated }}"
       class="orcid-icon"
-      alt="orcid-logo"
+      [alt]="'metadata-link-view.orcid.logo' | translate"
       src="assets/images/orcid.logo.icon.svg"
       data-test="orcidIcon"/>
   }

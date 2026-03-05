@@ -16,6 +16,7 @@ import {
   NgbPopoverModule,
   NgbTooltipModule,
 } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
   of,
@@ -38,6 +39,24 @@ import { MetadataLinkViewPopoverComponent } from './metadata-link-view-popover/m
 import { MetadataView } from './metadata-view.model';
 import { StickyPopoverDirective } from './sticky-popover.directive';
 
+/**
+ * Component for displaying metadata values with authority-controlled links and enhanced entity information.
+ * This is a core component used throughout DSpace to render metadata fields that reference other entities
+ * (e.g., authors, contributors, organizations) with rich interactive features.
+ *
+ * Key Features:
+ * - Displays metadata values as clickable links when they have authority control (reference other items)
+ * - Shows entity type icons (person, organization, etc.) alongside the metadata value
+ * - Provides an interactive popover on hover/click showing:
+ *   - Entity thumbnail/avatar
+ *   - ORCID information for Person entities (if available)
+ *   - Quick preview of the referenced entity
+ *
+ * Used in:
+ * - Item metadata displays (author lists, contributor fields, etc.)
+ * - Relationship metadata rendering
+ * - Any metadata field that references another DSpace entity with authority control
+ */
 @Component({
   selector: 'ds-metadata-link-view',
   templateUrl: './metadata-link-view.component.html',
@@ -51,6 +70,7 @@ import { StickyPopoverDirective } from './sticky-popover.directive';
     NgTemplateOutlet,
     RouterLink,
     StickyPopoverDirective,
+    TranslateModule,
     VarDirective,
   ],
 })

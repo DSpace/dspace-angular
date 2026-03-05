@@ -1,4 +1,7 @@
-import { DOCUMENT } from '@angular/common';
+import {
+  DOCUMENT,
+  isPlatformBrowser,
+} from '@angular/common';
 import {
   ApplicationRef,
   ChangeDetectorRef,
@@ -10,6 +13,7 @@ import {
   NgZone,
   OnDestroy,
   OnInit,
+  PLATFORM_ID,
   Renderer2,
   TemplateRef,
   ViewContainerRef,
@@ -48,6 +52,12 @@ export class StickyPopoverDirective extends NgbPopover implements OnInit, OnDest
   /** Renderer to listen to and manipulate DOM elements */
   private readonly _render;
 
+  /** Reference to the document object (works in both browser and SSR) */
+  private readonly document: Document;
+
+  /** Platform identifier to check if running in browser */
+  private readonly isBrowser: boolean;
+
   /** Reference to the popover element */
   private popoverElement: HTMLElement | null = null;
 
@@ -61,10 +71,13 @@ export class StickyPopoverDirective extends NgbPopover implements OnInit, OnDest
     _changeDetector: ChangeDetectorRef,
     applicationRef: ApplicationRef,
     private router: Router,
+    @Inject(PLATFORM_ID) platformId: object,
   ) {
-    super(_elementRef, _renderer, injector, viewContainerRef, config, _ngZone, document, _changeDetector, applicationRef);
+    super(_elementRef, _renderer, injector, viewContainerRef, config, _ngZone, _document, _changeDetector, applicationRef);
     this._elRef = _elementRef;
     this._render = _renderer;
+    this.document = _document;
+    this.isBrowser = isPlatformBrowser(platformId);
     this.triggers = 'manual';
     this.container = 'body';
   }
@@ -75,6 +88,11 @@ export class StickyPopoverDirective extends NgbPopover implements OnInit, OnDest
   ngOnInit(): void {
     super.ngOnInit();
     this.ngbPopover = this.dsStickyPopover;
+
+    // Only set up event listeners in browser environment
+    if (!this.isBrowser) {
+      return;
+    }
 
     this._render.listen(this._elRef.nativeElement, 'mouseenter', () => {
       this.canClosePopover = true;
@@ -111,8 +129,14 @@ export class StickyPopoverDirective extends NgbPopover implements OnInit, OnDest
    */
   open() {
     super.open();
+
+    // Only access DOM in browser environment
+    if (!this.isBrowser) {
+      return;
+    }
+
     // Store reference to the popover element after it's created
-    this.popoverElement = window.document.querySelector('.popover') as HTMLElement;
+    this.popoverElement = this.document.querySelector('.popover') as HTMLElement;
 
     if (this.popoverElement) {
       this._render.listen(this.popoverElement, 'mouseover', () => {

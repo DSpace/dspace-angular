@@ -2631,6 +2631,8 @@
 
   "item.edit.metadata.edit.language": "Edit language",
 
+  "item.edit.metadata.edit.authority": "Edit authority",
+
   "item.edit.metadata.edit.value": "Edit value",
 
   "item.edit.metadata.edit.authority.key": "Edit authority key",
@@ -3323,6 +3325,8 @@
 
   "itemtemplate.edit.metadata.edit.language": "Edit language",
 
+  "itemtemplate.edit.metadata.edit.authority": "Edit authority",
+
   "itemtemplate.edit.metadata.edit.value": "Edit value",
 
   "itemtemplate.edit.metadata.edit.buttons.confirm": "Confirm",
@@ -3980,6 +3984,8 @@
   "quality-assurance.event.project.error": "An error has occurred. No operation performed.",
 
   "quality-assurance.event.reason": "Reason",
+
+  "orcid.badge.tooltip": "Connected to ORCID",
 
   "orgunit.listelement.badge": "Organizational Unit",
 
@@ -7331,6 +7337,10 @@
   "item.preview.organization.address.addressLocality": "City",
 
   "item.preview.organization.alternateName": "Alternative name",
+
+  "metadata-link-view.orcid.logo": "ORCID logo",
+
+  "metadata-link-view.source.logo": "Source logo",
 
   "metadata-link-view.popover.label.Person.dc.title": "Fullname",
 

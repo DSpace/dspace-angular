@@ -54,8 +54,10 @@
             (whenClickOnConfidenceNotAccepted)="whenClickOnConfidenceNotAccepted($event)"></i>
         }
         @if(otherInfoValues.length > 0 && (model.id === otherInfoKey || otherInfoKey === alternativeNamesKey || 'data-' + model.id === otherInfoKey)) {
-          <i class="fa-solid fa-angle-down fa-fw fa-2x fa-fw position-absolute mt-1 p-0 additional-items-icon"
-              (click)="toggleOtherInfoSelection()"
+          <i
+            class="fa-solid fa-angle-down fa-fw fa-2x fa-fw position-absolute mt-1 p-0 additional-items-icon"
+            aria-hidden="true"
+            (click)="toggleOtherInfoSelection()"
           ></i>
         }
       </div>
