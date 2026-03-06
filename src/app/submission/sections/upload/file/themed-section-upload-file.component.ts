@@ -27,6 +27,12 @@ export class ThemedSubmissionSectionUploadFileComponent
    */
    @Input() isPrimary: boolean | null;
 
+   /**
+   * The indicator if is alternative content bitstream
+   * @type {boolean, null}
+   */
+   @Input() isAlternativeContent: boolean | null;
+
   /**
    * The submission id
    * @type {string}
@@ -80,6 +86,7 @@ export class ThemedSubmissionSectionUploadFileComponent
   protected inAndOutputNames: (keyof SubmissionSectionUploadFileComponent & keyof this)[] = [
     'availableAccessConditionOptions',
     'isPrimary',
+    'isAlternativeContent',
     'collectionId',
     'collectionPolicyType',
     'configMetadataForm',

@@ -24,6 +24,7 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
+import { ALTERNATIVE_CONTENT_TAG } from 'src/app/submission/sections/upload/section-upload-constants';
 
 import { ThemedFileDownloadLinkComponent } from '../../../../shared/file-download-link/themed-file-download-link.component';
 import { ThemedLoadingComponent } from '../../../../shared/loading/themed-loading.component';
@@ -67,6 +68,11 @@ export class FileSectionComponent implements OnInit {
   pageSize: number;
 
   primaryBitstreamId: string;
+
+  /**
+   * Alternative content tag variable, this variable is only used to make tag available in HTMl
+   */
+  public alternativeContentTag: string = ALTERNATIVE_CONTENT_TAG;
 
   constructor(
     protected bitstreamDataService: BitstreamDataService,

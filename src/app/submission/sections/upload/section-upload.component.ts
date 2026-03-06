@@ -51,6 +51,7 @@ import { SectionsService } from '../sections.service';
 import { SubmissionSectionUploadAccessConditionsComponent } from './accessConditions/submission-section-upload-access-conditions.component';
 import { ThemedSubmissionSectionUploadFileComponent } from './file/themed-section-upload-file.component';
 import { SectionUploadService } from './section-upload.service';
+import { ALTERNATIVE_CONTENT_TAG } from './section-upload-constants';
 
 export const POLICY_DEFAULT_NO_LIST = 1; // Banner1
 export const POLICY_DEFAULT_WITH_LIST = 2; // Banner2
@@ -142,6 +143,11 @@ export class SubmissionSectionUploadComponent extends SectionModelComponent {
    * @type {Array}
    */
   protected subs: Subscription[] = [];
+
+  /**
+   * Alternative content tag variable, this variable is only used to make tag available in HTMl
+   */
+  public alternativeContentTag: string = ALTERNATIVE_CONTENT_TAG;
 
   /**
    * Initialize instance variables
