@@ -25,26 +25,21 @@ import { RecentItemListComponent } from './recent-item-list.component';
 describe('RecentItemListComponent', () => {
   let component: RecentItemListComponent;
   let fixture: ComponentFixture<RecentItemListComponent>;
-  const emptyList = createSuccessfulRemoteDataObject(createPaginatedList([]));
   let paginationService;
+
+  const emptyList = createSuccessfulRemoteDataObject(createPaginatedList([]));
+
   const searchServiceStub = Object.assign(new SearchServiceStub(), {
     search: () => of(emptyList),
-    /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
-    clearDiscoveryRequests: () => {},
-    /* eslint-enable no-empty,@typescript-eslint/no-empty-function */
+    clearDiscoveryRequests: () => { },
   });
+
   paginationService = new PaginationServiceStub();
-  const mockSearchOptions = of(new PaginatedSearchOptions({
-    pagination: Object.assign(new PaginationComponentOptions(), {
-      id: 'search-page-configuration',
-      pageSize: 10,
-      currentPage: 1,
-    }),
-    sort: new SortOptions('dc.date.accessioned', SortDirection.DESC),
-  }));
+
   const searchConfigServiceStub = {
-    paginatedSearchOptions: mockSearchOptions,
+    paginationID: 'search-page-configuration',
   };
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [RecentItemListComponent],
@@ -55,24 +50,58 @@ describe('RecentItemListComponent', () => {
         { provide: APP_CONFIG, useValue: environment },
         { provide: PLATFORM_ID, useValue: 'browser' },
       ],
-    })
-      .compileComponents();
+    }).compileComponents();
   });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(RecentItemListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+
+    spyOn(paginationService, 'updateRouteWithUrl');
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should call the navigate method on the Router with view mode list parameter as a parameter when setViewMode is called', () => {
-    component.onLoadMore();
-    expect(paginationService.updateRouteWithUrl).toHaveBeenCalledWith(undefined, ['search'], Object({ sortField: 'dc.date.accessioned', sortDirection: 'DESC', page: 1 }));
+  it('should load items on init', () => {
+    component.ngOnInit();
+    expect(component.itemRD$).toBeDefined();
   });
+
+  it('should call paginationService.updateRouteWithUrl when onLoadMore is called', () => {
+
+    const entityTypes = environment.homePage.recentSubmissions.entityTypes;
+
+    const extraParams: Record<string, unknown> = {};
+
+    if (entityTypes?.length) {
+      extraParams['f.entityType'] = entityTypes.map(
+        type => `${type},equals`
+      );
+    }
+
+    component.onLoadMore();
+
+    expect(paginationService.updateRouteWithUrl).toHaveBeenCalledWith(
+      'search-page-configuration',
+      ['search'],
+      {
+        sortField: environment.homePage.recentSubmissions.sortField,
+        sortDirection: 'DESC',
+        page: 1,
+      },
+      extraParams
+    );
+  });
+
+  it('should clear pagination on destroy', () => {
+    spyOn(paginationService, 'clearPagination');
+
+    component.ngOnDestroy();
+
+    expect(paginationService.clearPagination).toHaveBeenCalledWith(component.paginationConfig.id);
+  });
+
 });
-
-
