@@ -18,22 +18,25 @@
               <ds-truncatable-part [id]="item.id" [minLines]="1">
                 (@if (item.hasMetadata('dc.publisher')) {
                 <span class="item-list-publisher"
-                [innerHTML]="item.firstMetadataValue('dc.publisher', undefined, true) + ', '"></span>
+                      [dsMetadata]="item.firstMetadata('dc.publisher', undefined, true)"></span><span>, </span>
               }
-              <span class="item-list-date"
-              [innerHTML]="item.firstMetadataValue('dc.date.issued', undefined, true) || ('mydspace.results.no-date' | translate)"></span>)
-              @if (item.hasMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']);) {
+                @if (item.hasMetadata('dc.date.issued')) {
+                  <span class="item-list-date"
+                        [dsMetadata]="item.firstMetadata('dc.date.issued', undefined, true)"></span>
+                } @else {
+                  <span class="item-list-date">{{ 'mydspace.results.no-date' | translate }}</span>
+                })
+                @if (item.hasMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']);) {
                 <span
                   class="item-list-authors">
-                  @if (item.allMetadataValues(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']).length === 0) {
-                    <span
-                      >{{'mydspace.results.no-authors'
-                    | translate}}</span>
+                  @let authors = item.allMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']);
+                  @if (authors.length === 0) {
+                    <span>{{'mydspace.results.no-authors' | translate}}</span>
                   }
-                  @for (author of item.allMetadataValues(['dc.contributor.author', 'dc.creator', 'dc.contributor.*'], undefined, true); track author; let last = $last) {
+                  @for (author of authors; track author; let last = $last) {
                     <span
                       >
-                      <span [innerHTML]="author"><span [innerHTML]="author"></span></span>
+                      <span [dsMetadata]="author"><span [dsMetadata]="author"></span></span>
                       @if (!last) {
                         <span>; </span>
                       }
@@ -44,8 +47,11 @@
             </ds-truncatable-part>
           </span>
           <ds-truncatable-part [id]="item.id" [minLines]="1" class="item-list-abstract">
-            <span [ngClass]="{'text-muted': !item.hasMetadata('dc.description.abstract')}"
-            [innerHTML]="(item.firstMetadataValue('dc.description.abstract', undefined, true)) || ('mydspace.results.no-abstract' | translate)"></span>
+            @if (item.firstMetadata('dc.description.abstract'); as abstract) {
+              <span [dsMetadata]="abstract"></span>
+            } @else {
+              <span class="text-muted">{{ 'mydspace.results.no-abstract' | translate }}</span>
+            }
           </ds-truncatable-part>
         </div>
       </ds-truncatable>

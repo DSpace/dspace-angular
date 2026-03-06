@@ -4,6 +4,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { FullFileSectionComponent as BaseComponent } from '../../../../../../../app/item-page/full/field-components/file-section/full-file-section.component';
 import { ThemedFileDownloadLinkComponent } from '../../../../../../../app/shared/file-download-link/themed-file-download-link.component';
+import { MetadataDirective } from '../../../../../../../app/shared/metadata.directive';
 import { MetadataFieldWrapperComponent } from '../../../../../../../app/shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { PaginationComponent } from '../../../../../../../app/shared/pagination/pagination.component';
 import { FileSizePipe } from '../../../../../../../app/shared/utils/file-size-pipe';
@@ -19,6 +20,7 @@ import { ThemedThumbnailComponent } from '../../../../../../../app/thumbnail/the
   imports: [
     AsyncPipe,
     FileSizePipe,
+    MetadataDirective,
     MetadataFieldWrapperComponent,
     PaginationComponent,
     ThemedFileDownloadLinkComponent,
