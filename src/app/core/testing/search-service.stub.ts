@@ -3,6 +3,7 @@ import {
   Observable,
   of,
 } from 'rxjs';
+import { SuggestionEntry } from 'src/app/shared/search/suggestion-entry.model';
 
 import { AppliedFilter } from '../shared/search/models/applied-filter.model';
 import { PaginatedSearchOptions } from '../shared/search/models/paginated-search-options.model';
@@ -37,6 +38,10 @@ export class SearchServiceStub {
 
   getFacetValuesFor(_filterConfig: SearchFilterConfig, _valuePage: number, _searchOptions?: PaginatedSearchOptions, _filterQuery?: string, _useCachedVersionIfAvailable = true) {
     return null;
+  }
+
+  getSuggestionsFor(_query: string, _dictionary: string): Observable<SuggestionEntry[]> {
+    return of([]);
   }
 
   get testViewMode(): ViewMode {

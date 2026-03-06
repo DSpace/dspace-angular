@@ -121,7 +121,7 @@ const overrideWithConfig = (config: Config, pathToConfig: string) => {
   try {
     console.log(`Overriding app config with ${pathToConfig}`);
     const externalConfig = readFileSync(pathToConfig, 'utf8');
-    mergeConfig(config, load(externalConfig));
+    mergeConfig(config, load(externalConfig) as AppConfig);
   } catch (err) {
     console.error(err);
   }

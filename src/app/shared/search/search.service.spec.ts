@@ -146,6 +146,45 @@ describe('SearchService', () => {
     });
   });
 
+  describe('getSuggestionsFor', () => {
+    let remoteDataMocks: Record<string, RemoteData<any>>;
+    let dictionary = 'supermodels';
+    let query = 'strawburster';
+
+    beforeEach(() => {
+      remoteDataMocks = {
+        RequestPending: new RemoteData(undefined, msToLive, remoteDataTimestamp, RequestEntryState.RequestPending, undefined, undefined, undefined),
+        ResponsePending: new RemoteData(undefined, msToLive, remoteDataTimestamp, RequestEntryState.ResponsePending, undefined, undefined, undefined),
+        Success: new RemoteData(remoteDataTimestamp, msToLive, remoteDataTimestamp, RequestEntryState.Success, undefined,
+          { suggest: { [dictionary]: { [query]: ['strawburster', 'lesser', 'known', 'people'] } } },
+          200),
+        SuccessStale: new RemoteData(remoteDataTimestamp, msToLive, remoteDataTimestamp, RequestEntryState.SuccessStale, undefined, new SearchObjects(), 200),
+      };
+    });
+
+    it('should call getEndpoint on the halService with the suggest endpoint', () => {
+      spyOn(halService, 'getEndpoint').and.callThrough();
+
+      service.getSuggestionsFor(dictionary, query).subscribe();
+
+      expect(halService.getEndpoint).toHaveBeenCalledWith('discover');
+    });
+
+    it('should send out the request on the request service', () => {
+      service.getSuggestionsFor(dictionary, query).subscribe();
+
+      expect(requestService.send).toHaveBeenCalled();
+    });
+
+    it('should call buildFromUUID on the request service', () => {
+      spyOn(remoteDataBuildService, 'buildFromRequestUUID').and.callThrough();
+
+      service.getSuggestionsFor(dictionary, query).subscribe();
+
+      expect(remoteDataBuildService.buildFromRequestUUID).toHaveBeenCalled();
+    });
+  });
+
   describe('search', () => {
     let remoteDataMocks: Record<string, RemoteData<SearchObjects<any>>>;
 
