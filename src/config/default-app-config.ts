@@ -1,3 +1,5 @@
+import { PdfViewerConfig } from '@dspace/config/pdf-viewer-config';
+
 import { AccessibilitySettingsConfig } from './accessibility-settings.config';
 import { ActuatorsConfig } from './actuators.config';
 import { AdminNotifyMetricsRow } from './admin-notify-metrics.config';
@@ -646,5 +648,10 @@ export class DefaultAppConfig implements AppConfig {
   // Accessibility settings configuration, used by the AccessibilitySettingsService
   accessibility: AccessibilitySettingsConfig = {
     cookieExpirationDuration: 7,
+  };
+
+  // PDF viewer configuration, used by the PdfViewerService
+  pdfViewer: PdfViewerConfig = {
+    enabled: true,
   };
 }

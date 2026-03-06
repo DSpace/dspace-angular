@@ -1,0 +1,9 @@
+@if (isViewerConfigAllowed$ | async) {
+  <div class="d-flex">
+    <ui-switch
+      [checked]="isEnabled$ | async"
+      (change)="update($event)"></ui-switch>
+    <span
+      class="ms-2 align-self-center">{{ 'pdf-viewer.enable-viewer.' + dso.type + '.info' | translate }}</span>
+  </div>
+}

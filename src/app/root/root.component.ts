@@ -45,6 +45,7 @@ import { LiveRegionComponent } from '../shared/live-region/live-region.component
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import { MenuService } from '../shared/menu/menu.service';
 import { MenuID } from '../shared/menu/menu-id.model';
+import { PdfViewerFullscreenService } from '../shared/pdf-viewer-fullscreen/pdf-viewer-fullscreen.service';
 import { CSSVariableService } from '../shared/sass-helper/css-variable.service';
 import { SystemWideAlertBannerComponent } from '../system-wide-alert/alert-banner/system-wide-alert-banner.component';
 
@@ -89,12 +90,15 @@ export class RootComponent implements OnInit {
    */
   @Input() shouldShowRouteLoader: boolean;
 
+  isFullscreen$: Observable<boolean>;
+
   constructor(
     private router: Router,
     private cssService: CSSVariableService,
     private menuService: MenuService,
     private windowService: HostWindowService,
     @Inject(NativeWindowService) private _window: NativeWindowRef,
+    protected pdfViewerFullscreenService: PdfViewerFullscreenService,
   ) {
     this.notificationOptions = environment.notifications;
   }
@@ -132,6 +136,8 @@ export class RootComponent implements OnInit {
     if (this.router.url === getPageInternalServerErrorRoute()) {
       this.shouldShowRouteLoader = false;
     }
+
+    this.isFullscreen$ = this.pdfViewerFullscreenService.isFullscreen();
   }
 
   skipToMainContent() {

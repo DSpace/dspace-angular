@@ -42,6 +42,7 @@ import { provideSuggestionNotificationsState } from './notifications/provide-sug
 import { ThemedPageErrorComponent } from './page-error/themed-page-error.component';
 import { ThemedPageInternalServerErrorComponent } from './page-internal-server-error/themed-page-internal-server-error.component';
 import { ThemedPageNotFoundComponent } from './pagenotfound/themed-pagenotfound.component';
+import { PDF_VIEWER_MODULE_PATH } from './pdf-viewer/pdf-viewer-routing-paths';
 import { PROCESS_MODULE_PATH } from './process-page/process-page-routing.paths';
 import { viewTrackerResolver } from './statistics/angulartics/dspace/view-tracker.resolver';
 import { provideSubmissionState } from './submission/provide-submission-state';
@@ -141,6 +142,12 @@ export const APP_ROUTES: Route[] = [
       {
         path: BITSTREAM_MODULE_PATH,
         loadChildren: () => import('./bitstream-page/bitstream-page-routes')
+          .then((m) => m.ROUTES),
+        canActivate: [endUserAgreementCurrentUserGuard],
+      },
+      {
+        path: PDF_VIEWER_MODULE_PATH,
+        loadChildren: () => import('./pdf-viewer/pdf-viewer.routes')
           .then((m) => m.ROUTES),
         canActivate: [endUserAgreementCurrentUserGuard],
       },

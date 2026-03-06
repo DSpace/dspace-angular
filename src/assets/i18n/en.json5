@@ -7295,4 +7295,54 @@
   "item.preview.organization.address.addressLocality": "City",
 
   "item.preview.organization.alternateName": "Alternative name",
+
+  "pdf-viewer.link.download": "Download",
+
+  "pdf-viewer.link.view": "View",
+
+  "community.edit.tabs.pdf-viewer.title": "PDF viewer",
+
+  "community.edit.tabs.pdf-viewer.head": "PDF viewer",
+
+  "collection.edit.tabs.pdf-viewer.title": "PDF viewer",
+
+  "collection.edit.tabs.pdf-viewer.head": "PDF viewer",
+
+  "item.edit.tabs.pdf-viewer.title": "PDF viewer",
+
+  "item.edit.tabs.pdf-viewer.head": "PDF viewer",
+
+  "pdf-viewer.enable-viewer.return": "Back",
+
+  "pdf-viewer.enable-viewer.submit": "Save",
+
+  "pdf-viewer.enable.community.submit.success": "PDF viewer for this community was successfully updated",
+
+  "pdf-viewer.enable.community.submit.error": "Something went wrong when updating the PDF viewer for this community",
+
+  "pdf-viewer.enable.collection.submit.success": "PDF viewer for this collection was successfully updated",
+
+  "pdf-viewer.enable.collection.submit.error": "Something went wrong when updating the PDF viewer for this collection",
+
+  "pdf-viewer.enable.item.submit.success": "PDF viewer for this item was successfully updated",
+
+  "pdf-viewer.enable.item.submit.error": "Something went wrong when updating the PDF viewer for this item",
+
+  "pdf-viewer.enable-viewer.title": "Enable PDF viewer",
+
+  "pdf-viewer.enable-viewer.item.info": "Enable the PDF viewer by default for this item",
+
+  "pdf-viewer.enable-viewer.collection.info": "Enable the PDF viewer by default for items in this collection",
+
+  "pdf-viewer.enable-viewer.community.info": "Enable the PDF viewer by default for items in this community",
+
+  "pdf-viewer.enable-viewer.bitstream.info": "Enable the PDF viewer for this bitstream",
+
+  "pdf-viewer.breadcrumb.pdf-viewer": "PDF Viewer",
+
+  "pdf-viewer.page.loading": "Loading PDF Viewer",
+
+  "pdf-viewer.page.error": "Something went wrong with loading the PDF.",
+
+  "pdf-viewer.page.error.link": "Go back",
 }
