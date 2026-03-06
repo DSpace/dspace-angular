@@ -219,6 +219,8 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
   const testItem: Item = new Item();
   const testWSI: WorkspaceItem = new WorkspaceItem();
   testWSI.item = of(createSuccessfulRemoteDataObject(testItem));
+  const renderer = jasmine.createSpyObj('Renderer2', ['setAttribute']);
+
   const actions$: ReplaySubject<any> = new ReplaySubject<any>(1);
 
   beforeEach(waitForAsync(() => {
@@ -284,6 +286,7 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
     });
 
     fixture.detectChanges();
+    renderer.setAttribute.calls.reset();
     testElement = debugElement.query(By.css(`input[id='${testModel.id}']`));
   }));
 
@@ -430,6 +433,45 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
       actions$.next(new SaveSubmissionSectionFormErrorAction('1234'));
       expect(component.announceErrorMessages).toHaveBeenCalled();
     });
+  });
+
+  it('should not show a label if is a checkbox or a date field', () => {
+    const checkboxLabel =  fixture.debugElement.query(By.css('#label_' + formModel[0].id));
+    const dsDatePickerLabel =  fixture.debugElement.query(By.css('#label_' + formModel[22].id));
+
+    expect(checkboxLabel).toBeNull();
+    expect(dsDatePickerLabel).toBeNull();
+  });
+
+  it('should not call handleAriaLabelForLibraryComponents if is SSR', () => {
+    (component as any).platformId = 'server';
+    (component as any).componentRef = {
+      instance: new DynamicNGBootstrapInputComponent(null, null),
+      location: { nativeElement: document.createElement('div') },
+    } as any;
+    fixture.detectChanges();
+
+    (component as any).handleAriaLabelForLibraryComponents();
+
+    expect(renderer.setAttribute).not.toHaveBeenCalled();
+  });
+
+  it('should set aria-label when valid input and additional property ariaLabel exist and is on browser', () => {
+    (component as any).platformId = 'browser';
+    const inputEl = document.createElement('input');
+    const hostEl = {
+      querySelector: jasmine.createSpy('querySelector').and.returnValue(inputEl),
+    };
+
+    (component as any).componentRef = {
+      instance: new DynamicNGBootstrapInputComponent(null, null),
+      location: { nativeElement: hostEl },
+    } as any;
+    (component as any).renderer = renderer;
+    component.model = { additional: { ariaLabel: 'Accessible Label' } } as any;
+    fixture.detectChanges();
+    (component as any).handleAriaLabelForLibraryComponents();
+    expect(renderer.setAttribute).toHaveBeenCalledWith(inputEl, 'aria-label', 'Accessible Label');
   });
 
 });
