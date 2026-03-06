@@ -22,6 +22,7 @@ import {
   getRemoteDataPayload,
 } from '@dspace/core/shared/operators';
 import { SubmissionSectionError } from '@dspace/core/submission/models/submission-section-error.model';
+import { SectionsType } from '@dspace/core/submission/sections-type';
 import {
   hasValue,
   isEmpty,
@@ -47,6 +48,7 @@ import {
 import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
+import { renderSectionFor } from '../sections-decorator';
 
 /**
  * This component represents a section that contains the submission section-coar-notify form.
@@ -64,6 +66,7 @@ import { SectionsService } from '../sections.service';
   ],
   providers: [NgbDropdown],
 })
+@renderSectionFor(SectionsType.CoarNotify)
 export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent {
 
   hasSectionData = false;

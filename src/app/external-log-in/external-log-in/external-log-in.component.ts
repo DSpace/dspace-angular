@@ -13,6 +13,7 @@ import {
 import { AuthService } from '@dspace/core/auth/auth.service';
 import { AuthMethodType } from '@dspace/core/auth/models/auth.method-type';
 import { AuthRegistrationType } from '@dspace/core/auth/models/auth.registration-type';
+import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
 import { Registration } from '@dspace/core/shared/registration.model';
 import {
   hasValue,
@@ -26,18 +27,19 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
+import {
+  from,
+  Observable,
+  Subscription,
+} from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { AlertType } from '../../shared/alert/alert-type';
-import { AuthMethodTypeComponent } from '../../shared/log-in/methods/auth-methods.type';
 import { AuthMethodsService } from '../../shared/log-in/services/auth-methods.service';
 import { ThemedLogInComponent } from '../../shared/log-in/themed-log-in.component';
-import {
-  ExternalLoginTypeComponent,
-  getExternalLoginConfirmationType,
-} from '../decorators/external-log-in.methods-decorator';
+import { ThemeService } from '../../shared/theme-support/theme.service';
+import { getExternalLoginConfirmationType } from '../decorators/external-log-in.methods-decorator';
 import { ConfirmEmailComponent } from '../email-confirmation/confirm-email/confirm-email.component';
 import { ProvideEmailComponent } from '../email-confirmation/provide-email/provide-email.component';
 
@@ -80,11 +82,6 @@ export class ExternalLogInComponent implements OnInit, OnDestroy {
    */
   @Input() token: string;
   /**
-   * The authMethods taken from the configuration
-   * @memberof ExternalLogInComponent
-   */
-  @Input() authMethods: Map<AuthMethodType, AuthMethodTypeComponent>;
-  /**
    * The information text to be displayed,
    * depending on the registration type and the presence of an email
    * @memberof ExternalLogInComponent
@@ -108,14 +105,22 @@ export class ExternalLogInComponent implements OnInit, OnDestroy {
   /**
    * The observable to check if any auth method type is configured
    */
-  hasAuthMethodTypes: Observable<boolean>;
+  hasAuthMethodTypes$: Observable<boolean>;
+
+  /**
+   * The dynamic component that should be rendered
+   */
+  externalLoginConfirmationComponent$: Observable<GenericConstructor<Component>>;
+
+  sub: Subscription;
 
   constructor(
-    private injector: Injector,
-    private translate: TranslateService,
-    private modalService: NgbModal,
-    private authService: AuthService,
-    private authMethodsService: AuthMethodsService,
+    protected injector: Injector,
+    protected translate: TranslateService,
+    protected modalService: NgbModal,
+    protected authService: AuthService,
+    protected authMethodsService: AuthMethodsService,
+    protected themeService: ThemeService,
   ) {
   }
 
@@ -140,16 +145,17 @@ export class ExternalLogInComponent implements OnInit, OnDestroy {
     this.informationText = hasValue(this.registrationData?.email)
       ? this.generateInformationTextWhenEmail(this.registrationType)
       : this.generateInformationTextWhenNOEmail(this.registrationType);
-    this.hasAuthMethodTypes =
-      this.authMethodsService.getAuthMethods(this.authMethods, this.relatedAuthMethod)
-        .pipe(map(methods => methods.length > 0));
+    this.hasAuthMethodTypes$ = this.authMethodsService.getAuthMethods(this.relatedAuthMethod).pipe(
+      map(methods => methods.length > 0),
+    );
+    this.externalLoginConfirmationComponent$ = this.getExternalLoginConfirmationType();
   }
 
   /**
    * Get the registration type to be rendered
    */
-  getExternalLoginConfirmationType(): ExternalLoginTypeComponent {
-    return getExternalLoginConfirmationType(this.registrationType);
+  getExternalLoginConfirmationType(): Observable<GenericConstructor<Component>> {
+    return from(getExternalLoginConfirmationType(this.registrationType, this.themeService.getThemeName()));
   }
 
   /**
@@ -158,9 +164,12 @@ export class ExternalLogInComponent implements OnInit, OnDestroy {
    * @param content - The content to be displayed in the modal.
    */
   openLoginModal(content: any) {
+    if (hasValue(this.sub)) {
+      this.sub.unsubscribe();
+    }
     this.modalRef = this.modalService.open(content);
     this.authService.setRedirectUrl(`/review-account/${this.token}`);
-    this.modalRef.dismissed.subscribe(() => {
+    this.sub = this.modalRef.dismissed.subscribe(() => {
       this.clearRedirectUrl();
     });
   }
@@ -173,6 +182,7 @@ export class ExternalLogInComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.sub?.unsubscribe();
     this.modalRef?.close();
   }
 

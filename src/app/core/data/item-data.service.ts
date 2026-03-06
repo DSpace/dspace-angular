@@ -27,6 +27,7 @@ import {
 import { validate as uuidValidate } from 'uuid';
 
 import { BrowseService } from '../browse/browse.service';
+import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -39,6 +40,7 @@ import { FollowLinkConfig } from '../shared/follow-link-config.model';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
+import { ITEM } from '../shared/item.resource-type';
 import { MetadataMap } from '../shared/metadata.models';
 import { NoContent } from '../shared/NoContent.model';
 import { sendRequest } from '../shared/request.operators';
@@ -561,6 +563,7 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
  * A service for CRUD operations on Items
  */
 @Injectable({ providedIn: 'root' })
+@dataService(ITEM)
 export class ItemDataService extends BaseItemDataService {
   constructor(
     protected requestService: RequestService,

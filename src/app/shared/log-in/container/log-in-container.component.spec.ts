@@ -25,6 +25,8 @@ import { createTestComponent } from '@dspace/core/testing/utils.test';
 import { StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { getMockThemeService } from '../../theme-support/test/theme-service.mock';
+import { ThemeService } from '../../theme-support/theme.service';
 import { LogInContainerComponent } from './log-in-container.component';
 
 describe('LogInContainerComponent', () => {
@@ -55,6 +57,7 @@ describe('LogInContainerComponent', () => {
         { provide: AuthService, useClass: AuthServiceStub },
         { provide: AuthorizationDataService, useClass: AuthorizationDataServiceStub },
         { provide: HardRedirectService, useValue: hardRedirectService },
+        { provide: ThemeService, useValue: getMockThemeService() },
         LogInContainerComponent,
       ],
       schemas: [
@@ -94,7 +97,7 @@ describe('LogInContainerComponent', () => {
       fixture = TestBed.createComponent(LogInContainerComponent);
       component = fixture.componentInstance;
 
-      spyOn(component, 'getAuthMethodContent').and.callThrough();
+      spyOn(component, 'getAuthMethodComponent').and.callThrough();
       component.authMethod = authMethod;
       fixture.detectChanges();
     });
@@ -109,7 +112,7 @@ describe('LogInContainerComponent', () => {
       component.ngOnInit();
       fixture.detectChanges();
 
-      expect(component.getAuthMethodContent).toHaveBeenCalled();
+      expect(component.getAuthMethodComponent).toHaveBeenCalled();
 
     });
 

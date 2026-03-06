@@ -1,8 +1,13 @@
 import {
   Component,
   Injector,
+  Input,
+  OnChanges,
   OnDestroy,
   OnInit,
+  signal,
+  SimpleChanges,
+  WritableSignal,
 } from '@angular/core';
 import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
 import {
@@ -11,20 +16,30 @@ import {
 } from '@dspace/shared/utils/empty.util';
 import {
   BehaviorSubject,
+  from,
   Observable,
   Subscription,
 } from 'rxjs';
 import {
   distinctUntilChanged,
+  map,
+  mergeMap,
   switchMap,
 } from 'rxjs/operators';
 
+import { ThemeService } from '../../theme-support/theme.service';
 import { MenuService } from '../menu.service';
 import { MenuID } from '../menu-id.model';
 import { getComponentForMenuItemType } from '../menu-item.decorator';
+import { LinkMenuItemModel } from '../menu-item/models/link.model';
 import { MenuItemModel } from '../menu-item/models/menu-item.model';
 import { MenuItemType } from '../menu-item-type.model';
 import { MenuSection } from '../menu-section.model';
+
+export interface MenuSectionDTO {
+  injector: Injector;
+  component: GenericConstructor<Component>;
+}
 
 /**
  * A basic implementation of a menu section's component
@@ -33,18 +48,29 @@ import { MenuSection } from '../menu-section.model';
   selector: 'ds-menu-section',
   template: '',
 })
-export abstract class AbstractMenuSectionComponent implements OnInit, OnDestroy {
-  protected abstract section: MenuSection;
+export abstract class AbstractMenuSectionComponent implements OnInit, OnChanges, OnDestroy {
+
+  /**
+   * Whether the menu is expandable
+   */
+  @Input() expandable: boolean;
+
+  /**
+   * The ID of the menu this section resides in
+   */
+  @Input() menuID: MenuID;
+
+  /**
+   * The section data
+   */
+  @Input() section: MenuSection;
 
   /**
    * {@link BehaviorSubject} containing the current state to whether this section is currently active
    */
   active$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
-  /**
-   * The ID of the menu this section resides in
-   */
-  menuID: MenuID;
+  itemModel;
 
   /**
    * List of available subsections in this section
@@ -54,10 +80,7 @@ export abstract class AbstractMenuSectionComponent implements OnInit, OnDestroy 
   /**
    * Map of components and injectors for each dynamically rendered menu section
    */
-  sectionMap$: BehaviorSubject<Map<string, {
-    injector: Injector,
-    component: GenericConstructor<AbstractMenuSectionComponent>
-  }>> = new BehaviorSubject(new Map());
+  sectionMap: WritableSignal<Map<string, MenuSectionDTO>> = signal(new Map<string, MenuSectionDTO>());
 
   /**
    * Array to track all subscriptions and unsubscribe them onDestroy
@@ -68,6 +91,7 @@ export abstract class AbstractMenuSectionComponent implements OnInit, OnDestroy 
   protected constructor(
     protected menuService: MenuService,
     protected injector: Injector,
+    protected themeService: ThemeService,
   ) {
   }
 
@@ -81,6 +105,12 @@ export abstract class AbstractMenuSectionComponent implements OnInit, OnDestroy 
       }
     }));
     this.initializeInjectorData();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (hasValue(changes.section)) {
+      this.itemModel = this.section.model as LinkMenuItemModel;
+    }
   }
 
   /**
@@ -125,22 +155,29 @@ export abstract class AbstractMenuSectionComponent implements OnInit, OnDestroy 
    * Method for initializing all injectors and component constructors for the menu items in this section
    */
   private initializeInjectorData() {
-    this.updateSectionMap(
-      this.section.id,
-      this.getItemModelInjector(this.section.model),
-      this.getMenuItemComponent(this.section.model),
-    );
+    // We need to await the component resolution before calling updateSectionMap
+    void this.getMenuItemComponent(this.section.model).then((component: GenericConstructor<Component>) => {
+      this.updateSectionMap(
+        this.section.id,
+        this.getItemModelInjector(this.section.model),
+        component,
+      );
+    });
+
     this.subSections$ = this.menuService.getSubSectionsByParentID(this.menuID, this.section.id);
     this.subs.push(
       this.subSections$.pipe(
         // if you return an array from a switchMap it will emit each element as a separate event.
         // So this switchMap is equivalent to a subscribe with a forEach inside
         switchMap((sections: MenuSection[]) => sections),
-      ).subscribe((section: MenuSection) => {
+        mergeMap((section: MenuSection) => from(this.getMenuItemComponent(section.model)).pipe(
+          map((component: GenericConstructor<Component>) => ({ section, component })),
+        )),
+      ).subscribe(({ section, component }) => {
         this.updateSectionMap(
           section.id,
           this.getItemModelInjector(section.model),
-          this.getMenuItemComponent(section.model),
+          component,
         );
       }),
     );
@@ -149,23 +186,24 @@ export abstract class AbstractMenuSectionComponent implements OnInit, OnDestroy 
   /**
    * Update the sectionMap
    */
-  private updateSectionMap(id, injector, component) {
-    const nextMap = this.sectionMap$.getValue();
-    nextMap.set(id, { injector, component });
-    this.sectionMap$.next(nextMap);
+  private updateSectionMap(id: string, injector: Injector, component: GenericConstructor<Component>) {
+    this.sectionMap.update((sectionMap: Map<string, MenuSectionDTO>) => new Map(sectionMap.set(id, {
+      injector,
+      component,
+    })));
   }
 
   /**
    * Retrieve the component for a given MenuItemModel object
    * @param {MenuItemModel} itemModel The given MenuItemModel
-   * @returns {GenericConstructor} Emits the constructor of the Component that should be used to render this menu item model
+   * @returns {Promise<GenericConstructor>} Emits the constructor of the Component that should be used to render this menu item model
    */
-  private getMenuItemComponent(itemModel?: MenuItemModel) {
+  getMenuItemComponent(itemModel?: MenuItemModel): Promise<GenericConstructor<Component>> {
     if (hasNoValue(itemModel)) {
       itemModel = this.section.model;
     }
     const type: MenuItemType = itemModel.type;
-    return getComponentForMenuItemType(type);
+    return getComponentForMenuItemType(type, this.themeService.getThemeName());
   }
 
   /**

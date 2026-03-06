@@ -6,6 +6,7 @@ import {
 import { JsonPatchOperationPathCombiner } from '@dspace/core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
 import { WorkspaceitemSectionSherpaPoliciesObject } from '@dspace/core/submission/models/workspaceitem-section-sherpa-policies.model';
+import { SectionsType } from '@dspace/core/submission/sections-type';
 import {
   hasValue,
   isEmpty,
@@ -26,6 +27,7 @@ import { SubmissionService } from '../../submission.service';
 import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
+import { renderSectionFor } from '../sections-decorator';
 import { MetadataInformationComponent } from './metadata-information/metadata-information.component';
 import { PublicationInformationComponent } from './publication-information/publication-information.component';
 import { PublisherPolicyComponent } from './publisher-policy/publisher-policy.component';
@@ -48,6 +50,7 @@ import { PublisherPolicyComponent } from './publisher-policy/publisher-policy.co
     VarDirective,
   ],
 })
+@renderSectionFor(SectionsType.SherpaPolicies)
 export class SubmissionSectionSherpaPoliciesComponent extends SectionModelComponent {
 
   /**

@@ -1,8 +1,4 @@
-// Load the implementations that should be tested
-import {
-  Component,
-  CUSTOM_ELEMENTS_SCHEMA,
-} from '@angular/core';
+import { Component } from '@angular/core';
 import {
   ComponentFixture,
   inject,
@@ -18,6 +14,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
+import { getMockThemeService } from '../../../shared/theme-support/test/theme-service.mock';
+import { ThemeService } from '../../../shared/theme-support/theme.service';
 import { SubmissionService } from '../../submission.service';
 import {
   mockSubmissionCollectionId,
@@ -53,10 +51,9 @@ const sectionObject: SectionDataObject = {
   sectionType:	SectionsType.SubmissionForm,
 };
 
-describe('SubmissionSectionContainerComponent test suite', () => {
+describe('SubmissionSectionContainerComponent', () => {
 
   let comp: SubmissionSectionContainerComponent;
-  let compAsAny: any;
   let fixture: ComponentFixture<SubmissionSectionContainerComponent>;
 
   const submissionServiceStub: SubmissionServiceStub = new SubmissionServiceStub();
@@ -86,15 +83,14 @@ describe('SubmissionSectionContainerComponent test suite', () => {
       providers: [
         { provide: SectionsService, useValue: sectionsServiceStub },
         { provide: SubmissionService, useValue: submissionServiceStub },
+        { provide: ThemeService, useValue: getMockThemeService() },
         SubmissionSectionContainerComponent,
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
 
   }));
 
   describe('', () => {
-    let testComp: TestComponent;
     let testFixture: ComponentFixture<TestComponent>;
     let html;
 
@@ -107,8 +103,6 @@ describe('SubmissionSectionContainerComponent test suite', () => {
                                          [sectionData]="object"></ds-submission-section-container>`;
 
       testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
-      testComp = testFixture.componentInstance;
-
     });
 
     it('should create SubmissionSectionContainerComponent', inject([SubmissionSectionContainerComponent], (app: SubmissionSectionContainerComponent) => {
@@ -121,7 +115,6 @@ describe('SubmissionSectionContainerComponent test suite', () => {
       init();
       fixture = TestBed.createComponent(SubmissionSectionContainerComponent);
       comp = fixture.componentInstance;
-      compAsAny = comp;
       comp.submissionId = submissionId;
       comp.collectionId = collectionId;
       comp.sectionData = sectionObject;
@@ -133,7 +126,6 @@ describe('SubmissionSectionContainerComponent test suite', () => {
     afterEach(() => {
       fixture.destroy();
       comp = null;
-      compAsAny = null;
     });
 
     it('should inject section properly', () => {

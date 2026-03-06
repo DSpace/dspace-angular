@@ -26,6 +26,7 @@ import { SubmissionSectionObject } from '@dspace/core/submission/models/submissi
 import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
 import { WorkspaceItem } from '@dspace/core/submission/models/workspaceitem.model';
 import { WorkspaceitemSectionFormObject } from '@dspace/core/submission/models/workspaceitem-section-form.model';
+import { SectionsType } from '@dspace/core/submission/sections-type';
 import { SubmissionScopeType } from '@dspace/core/submission/submission-scope-type';
 import {
   hasValue,
@@ -66,6 +67,7 @@ import { SubmissionObjectService } from '../../submission-object.service';
 import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
+import { renderSectionFor } from '../sections-decorator';
 import { SectionFormOperationsService } from './section-form-operations.service';
 
 /**
@@ -80,6 +82,7 @@ import { SectionFormOperationsService } from './section-form-operations.service'
     ThemedLoadingComponent,
   ],
 })
+@renderSectionFor(SectionsType.SubmissionForm)
 export class SubmissionSectionFormComponent extends SectionModelComponent {
 
   /**
