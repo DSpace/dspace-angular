@@ -1,5 +1,10 @@
-<ds-home-coar></ds-home-coar>
-<ds-home-news></ds-home-news>
+@if (homeHeaderMetadataValue$ | async; as homeHeaderMetadataValue) {
+  <ds-markdown-viewer [value]="homeHeaderMetadataValue"></ds-markdown-viewer>
+}
+@else {
+  <ds-home-coar></ds-home-coar>
+  <ds-home-news></ds-home-news>
+}
 @if (showDiscoverFilters) {
   <ds-configuration-search-page
     [sideBarWidth]="3"
