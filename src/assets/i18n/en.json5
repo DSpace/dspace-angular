@@ -1231,6 +1231,48 @@
 
   "collection.edit.item-mapper.cancel": "Cancel",
 
+  "collection.edit.tabs.move.head": "Move",
+
+  "collection.edit.move.title": "Move Collection",
+
+  "collection.edit.move.description": "Select the community you wish to move this collection to. To narrow down the list of displayed community, you can enter a search query in the box.",
+
+  "collection.edit.move.cancel": "Back",
+
+  "collection.edit.move.save-button": "Save",
+
+  "collection.edit.move.processing": "Moving...",
+
+  "collection.edit.move.discard-button": "Discard",
+
+  "collection.edit.move.success": "The collection has been moved successfully",
+
+  "collection.edit.move.error": "An error occurred when attempting to move the collection",
+
+  "collection.edit.tabs.status.description": "Welcome to the collection management page. From here you can move or delete the collection. You may also update or add new metadata on the other tabs.",
+
+  "collection.edit.tabs.status.head": "Status",
+
+  "collection.edit.tabs.status.labels.handle": "Handle",
+
+  "collection.edit.tabs.status.labels.id": "Collection Internal ID",
+
+  "collection.edit.tabs.status.labels.collectionPage": "Collection Page",
+
+  "collection.edit.tabs.status.labels.name": "Collection Name",
+
+  "collection.edit.tabs.status.title": "Collection Edit -  Status",
+
+  "collection.edit.tabs.status.buttons.move.button": "Move this collection to a different community",
+
+  "collection.edit.tabs.status.buttons.move.label": "Move collection to another community",
+
+  "collection.edit.tabs.status.buttons.delete.button": "Delete this collection",
+
+  "collection.edit.tabs.status.buttons.delete.label": "Delete collection",
+
+  "collection.edit.tabs.status.buttons.unauthorized": "You're not authorized to perform this action",
+
   "collection.edit.item-mapper.collection": "Collection: \"<b>{{name}}</b>\"",
 
   "collection.edit.item-mapper.confirm": "Map selected items",
