@@ -87,6 +87,10 @@ export class UploaderComponent {
   onDragOver(event: any) {
 
     if (this.enableDragOverDocument && this.dragService.isAllowedDragOverPage()) {
+      // Only show drop area when dragging files, not text selections (fixes Firefox bug)
+      if (!event.dataTransfer?.types?.includes('Files')) {
+        return;
+      }
       // Show drop area on the page
       event.preventDefault();
       if ((event.target as any).tagName !== 'HTML') {
