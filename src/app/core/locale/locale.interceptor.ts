@@ -4,7 +4,15 @@ import {
   HttpInterceptor,
   HttpRequest,
 } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import {
+  inject,
+  Injectable,
+} from '@angular/core';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
+import { RESTURLCombiner } from '@dspace/core/url-combiner/rest-url-combiner';
 import { Observable } from 'rxjs';
 import {
   mergeMap,
@@ -17,6 +25,7 @@ import { LocaleService } from './locale.service';
 
 @Injectable()
 export class LocaleInterceptor implements HttpInterceptor {
+  protected readonly appConfig: AppConfig = inject(APP_CONFIG);
 
   constructor(
     protected halEndpointService: HALEndpointService,
@@ -31,7 +40,14 @@ export class LocaleInterceptor implements HttpInterceptor {
    */
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let newReq: HttpRequest<any>;
-    return this.localeService.getLanguageCodeList(req.url === this.halEndpointService.getRootHref())
+    let ignoreEPersonSettings = false;
+    const ePersonEndpointUrl = new RESTURLCombiner(this.appConfig.rest.baseUrl, 'eperson/epersons').toString();
+
+    if (req.url === this.halEndpointService.getRootHref() || req.url.startsWith(ePersonEndpointUrl)) {
+      ignoreEPersonSettings = true;
+    }
+
+    return this.localeService.getLanguageCodeList(ignoreEPersonSettings)
       .pipe(
         take(1),
         scan((acc: any, value: any) => [...acc, value], []),
