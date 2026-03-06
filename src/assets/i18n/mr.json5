@@ -4795,15 +4795,17 @@
 
   "search.filters.discoverable.false": "होय",
 
-  "search.filters.namedresourcetype.Archived": "संग्रहित",
+  "search.filters.namedresourcetype.archived": "संग्रहित",
 
-  "search.filters.namedresourcetype.Validation": "प्रमाणीकरण",
+  "search.filters.namedresourcetype.item": "संग्रहित",
 
-  "search.filters.namedresourcetype.Waiting for Controller": "पुनरावलोककाची प्रतीक्षा",
+  "search.filters.namedresourcetype.validation": "प्रमाणीकरण",
 
-  "search.filters.namedresourcetype.Workflow": "वर्कफ्लो",
+  "search.filters.namedresourcetype.waiting for controller": "पुनरावलोककाची प्रतीक्षा",
 
-  "search.filters.namedresourcetype.Workspace": "वर्कस्पेस",
+  "search.filters.namedresourcetype.workflow": "वर्कफ्लो",
+
+  "search.filters.namedresourcetype.workspace": "वर्कस्पेस",
 
   "search.filters.withdrawn.true": "होय",
 

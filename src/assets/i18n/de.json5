@@ -7403,20 +7403,23 @@
   // "search.filters.discoverable.false": "Yes",
   "search.filters.discoverable.false": "Ja",
 
-  // "search.filters.namedresourcetype.Archived": "Archived",
-  "search.filters.namedresourcetype.Archived": "Archiviert",
+  // "search.filters.namedresourcetype.archived": "Archived",
+  "search.filters.namedresourcetype.archived": "Archiviert",
 
-  // "search.filters.namedresourcetype.Validation": "Validation",
-  "search.filters.namedresourcetype.Validation": "Validierung",
+  // "search.filters.namedresourcetype.item": "Archived",
+  "search.filters.namedresourcetype.item": "Archiviert",
 
-  // "search.filters.namedresourcetype.Waiting for Controller": "Waiting for reviewer",
-  "search.filters.namedresourcetype.Waiting for Controller": "Auf Überprüfung warten",
+  // "search.filters.namedresourcetype.validation": "Validation",
+  "search.filters.namedresourcetype.validation": "Validierung",
 
-  // "search.filters.namedresourcetype.Workflow": "Workflow",
-  "search.filters.namedresourcetype.Workflow": "Geschäftsgang",
+  // "search.filters.namedresourcetype.waiting for controller": "Waiting for reviewer",
+  "search.filters.namedresourcetype.waiting for controller": "Auf Überprüfung warten",
 
-  // "search.filters.namedresourcetype.Workspace": "Workspace",
-  "search.filters.namedresourcetype.Workspace": "Arbeitsbereich",
+  // "search.filters.namedresourcetype.workflow": "Workflow",
+  "search.filters.namedresourcetype.workflow": "Geschäftsgang",
+
+  // "search.filters.namedresourcetype.workspace": "Workspace",
+  "search.filters.namedresourcetype.workspace": "Arbeitsbereich",
 
   // "search.filters.withdrawn.true": "Yes",
   "search.filters.withdrawn.true": "Ja",

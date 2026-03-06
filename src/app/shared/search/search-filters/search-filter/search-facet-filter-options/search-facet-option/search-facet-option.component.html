@@ -9,7 +9,7 @@
       <input type="checkbox" [checked]="false" class="my-1 align-self-stretch filter-checkbox" role="checkbox" tabindex="0"/>
       <span class="w-100 ps-1 break-facet">
         <span class="float-end badge bg-secondary rounded-pill mt-1 ms-1">{{filterValue.count | dsShortNumber}}</span>
-        {{ 'search.filters.' + filterConfig.name + '.' + filterValue.value | translate: {default: filterValue.value} }}
+        {{ 'search.filters.' + filterConfig.name + '.' + (filterValue.value | lowercase) | translate: {default: filterValue.value} }}
       </span>
     </label>
   </a>
