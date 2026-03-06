@@ -108,3 +108,29 @@ export function yearFromString(date: string) {
   return isValidDate(date) ? new Date(date).getUTCFullYear() : null;
 }
 
+/**
+ * Converts a date model value (string | Date | object) to a YYYY-MM-DD formatted string.
+ *
+ * The dynamic form library defines date values as string | object | Date.
+ * This function safely handles all supported types and throws an informative
+ * error if an unsupported object type is encountered.
+ *
+ * @param value The date value to convert
+ * @returns The date as a string (e.g. "1983-11-18")
+ * @throws Error if value is an object without year/month/day properties
+ */
+export function dateValueToString(value: string | Date | object): string {
+  if (typeof value === 'string') {
+    return value;
+  }
+  if (value instanceof Date) {
+    return dateToString(value);
+  }
+  if (isNgbDateStruct(value)) {
+    return dateToString(value as NgbDateStruct);
+  }
+  throw new Error(
+    `Unsupported date value type: expected a string, Date, or object with {year, month, day} properties, but received: ${JSON.stringify(value)}`,
+  );
+}
+
