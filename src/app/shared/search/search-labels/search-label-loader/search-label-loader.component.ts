@@ -22,6 +22,8 @@ export class SearchLabelLoaderComponent extends AbstractComponentLoaderComponent
 
   @Input() inPlaceSearch: boolean;
 
+  @Input() retainScrollPosition: boolean;
+
   @Input() appliedFilter: AppliedFilter;
 
   protected inputNamesDependentForComponent: (keyof this & string)[] = [
@@ -31,6 +33,7 @@ export class SearchLabelLoaderComponent extends AbstractComponentLoaderComponent
   protected inputNames: (keyof this & string)[] = [
     'inPlaceSearch',
     'appliedFilter',
+    'retainScrollPosition',
   ];
 
   public getComponent(): GenericConstructor<Component> {
