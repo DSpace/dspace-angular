@@ -227,7 +227,7 @@ describe('RelationshipEffects', () => {
         let action;
 
         it('should set the current value debounceMap and the value of the initialActionMap to REPLACE_RELATIONSHIP', () => {
-          action = new ReplaceRelationshipAction(leftItem, rightItem, true, 0, 'dc.subject', relationshipType.leftwardType, '1234');
+          action = new ReplaceRelationshipAction(leftItem, rightItem, true, 0, 'dc.subject', 'traditionalpageone', relationshipType.leftwardType, '1234');
           actions = hot('--a-|', { a: action });
           const expected = cold('--b-|', { b: undefined });
           expect(relationEffects.mapLastActions$).toBeObservable(expected);
@@ -246,7 +246,7 @@ describe('RelationshipEffects', () => {
         });
 
         it('should set the current value debounceMap to REPLACE_RELATIONSHIP but not change the value of the initialActionMap', () => {
-          action = new ReplaceRelationshipAction(leftItem, rightItem, true, 0, 'dc.subject', relationshipType.leftwardType, '1234');
+          action = new ReplaceRelationshipAction(leftItem, rightItem, true, 0, 'dc.subject', 'traditionalpageone', relationshipType.leftwardType, '1234');
           actions = hot('--a-|', { a: action });
 
           const expected = cold('--b-|', { b: undefined });
@@ -269,17 +269,17 @@ describe('RelationshipEffects', () => {
           });
 
           it('should call replaceRelationship on the effect', () => {
-            action = new ReplaceRelationshipAction(leftItem, rightItem, true, 0, 'dc.subject', relationshipType.leftwardType, '1234');
+            action = new ReplaceRelationshipAction(leftItem, rightItem, true, 0, 'dc.subject', 'traditionalpageone', relationshipType.leftwardType, '1234');
             actions = hot('--a-|', { a: action });
             const expected = cold('--b-|', { b: undefined });
             expect(relationEffects.mapLastActions$).toBeObservable(expected);
-            expect((relationEffects as any).replaceRelationship).toHaveBeenCalledWith(leftItem, rightItem, true, 0, 'dc.subject', relationshipType.leftwardType, '1234', undefined);
+            expect((relationEffects as any).replaceRelationship).toHaveBeenCalledWith(leftItem, rightItem, true, 0, 'dc.subject', 'traditionalpageone', relationshipType.leftwardType, '1234', undefined);
           });
         });
 
         describe('When the last value in the debounceMap is instead a REMOVE_RELATIONSHIP action', () => {
           it('should <b>not</b> call removeRelationship or replaceRelationship on the effect', () => {
-            const actiona = new ReplaceRelationshipAction(leftItem, rightItem, true, 0, 'dc.subject', relationshipType.leftwardType, '1234');
+            const actiona = new ReplaceRelationshipAction(leftItem, rightItem, true, 0, 'dc.subject', 'traditionalpageone', relationshipType.leftwardType, '1234');
             const actionb = new RemoveRelationshipAction(leftItem, rightItem, relationshipType.leftwardType, '1234');
             actions = hot('--ab-|', { a: actiona, b: actionb });
             const expected = cold('--bb-|', { b: undefined });

@@ -30,6 +30,7 @@
                                              [class.d-none]="_model.hidden"
                                              [layout]="formLayout"
                                              [model]="_model"
+                                             [arrayIndex]="idx"
                                              [templates]="templates"
                                              [ngClass]="[getClass('element', 'host', _model), getClass('grid', 'host', _model)]"
                                              (dfBlur)="onBlur($event)"

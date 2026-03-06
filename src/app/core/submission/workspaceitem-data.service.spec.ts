@@ -21,6 +21,7 @@ import { RequestEntry } from '../data/request-entry.model';
 import { CoreState } from '../core-state.model';
 import { testSearchDataImplementation } from '../data/base/search-data.spec';
 import { testDeleteDataImplementation } from '../data/base/delete-data.spec';
+import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
 
 describe('WorkspaceitemDataService test', () => {
   let scheduler: TestScheduler;
@@ -89,11 +90,12 @@ describe('WorkspaceitemDataService test', () => {
       objectCache,
       halService,
       notificationsService,
+      new DefaultChangeAnalyzer(),
     );
   }
 
   describe('composition', () => {
-    const initService = () => new WorkspaceitemDataService(null, null, null, null, null);
+    const initService = () => new WorkspaceitemDataService(null, null, null, null, null, null);
     testSearchDataImplementation(initService);
     testDeleteDataImplementation(initService);
   });

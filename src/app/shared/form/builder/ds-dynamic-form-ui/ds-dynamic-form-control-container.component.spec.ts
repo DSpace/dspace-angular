@@ -235,7 +235,8 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
           }
         },
         { provide: NgZone, useValue: new NgZone({}) },
-        { provide: APP_CONFIG, useValue: environment }
+        { provide: APP_CONFIG, useValue: environment },
+        { provide: 'sectionDataProvider', useValue: { id: 'mock-section-id' } },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents().then(() => {

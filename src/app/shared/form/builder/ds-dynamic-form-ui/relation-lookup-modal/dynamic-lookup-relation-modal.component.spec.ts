@@ -180,11 +180,12 @@ describe('DsDynamicLookupRelationModalComponent', () => {
       beforeEach(() => {
         component.replaceValuePlace = 3;
         component.replaceValueMetadataField = 'dc.subject';
+        component.replaceValueSection = 'traditionalpageone';
       });
 
       it('should dispatch a ReplaceRelationshipAction for the first selected object and a AddRelationshipAction for every other selected object', () => {
         component.select(searchResult1, searchResult2, searchResult3);
-        const action1 = new ReplaceRelationshipAction(component.item, searchResult1.indexableObject, true, 3, 'dc.subject', relationship.relationshipType, submissionId, nameVariant);
+        const action1 = new ReplaceRelationshipAction(component.item, searchResult1.indexableObject, true, 3, 'dc.subject', 'traditionalpageone', relationship.relationshipType, submissionId, nameVariant);
         const action2 = new AddRelationshipAction(component.item, searchResult2.indexableObject, relationship.relationshipType, submissionId, nameVariant);
         const action3 = new AddRelationshipAction(component.item, searchResult3.indexableObject, relationship.relationshipType, submissionId, nameVariant);
 
@@ -193,6 +194,7 @@ describe('DsDynamicLookupRelationModalComponent', () => {
         expect((component as any).store.dispatch).toHaveBeenCalledWith(action3);
         expect(component.replaceValuePlace).toBeUndefined();
         expect(component.replaceValueMetadataField).toBeUndefined();
+        expect(component.replaceValueSection).toBeUndefined();
       });
     });
 

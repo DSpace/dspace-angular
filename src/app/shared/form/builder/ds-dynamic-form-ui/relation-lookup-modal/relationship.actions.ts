@@ -145,6 +145,7 @@ export class ReplaceRelationshipAction implements Action {
     replaceLeftSide: boolean;
     place: number;
     mdField: string;
+    section: string;
     relationshipType: string;
     submissionId: string;
     nameVariant: string;
@@ -158,6 +159,7 @@ export class ReplaceRelationshipAction implements Action {
    * @param replaceLeftSide If true, the item on the left side (item1) will have its metadata value replaced
    * @param place The index of the metadata value that should be replaced with the new relationship
    * @param mdField The metadata field of the value to replace
+   * @param section The submission section of the value to replace
    * @param relationshipType The label of the relationshipType
    * @param submissionId The current submissionId
    * @param nameVariant The nameVariant of the relationshipType
@@ -168,11 +170,12 @@ export class ReplaceRelationshipAction implements Action {
     replaceLeftSide: boolean,
     place: number,
     mdField: string,
+    section: string,
     relationshipType: string,
     submissionId: string,
     nameVariant?: string,
   ) {
-    this.payload = { item1, item2, replaceLeftSide, place, mdField, relationshipType, submissionId, nameVariant };
+    this.payload = { item1, item2, replaceLeftSide, place, mdField, section, relationshipType, submissionId, nameVariant };
   }
 }
 

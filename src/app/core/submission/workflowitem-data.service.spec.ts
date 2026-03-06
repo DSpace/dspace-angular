@@ -19,6 +19,7 @@ import { WorkflowItemDataService } from './workflowitem-data.service';
 import { WorkflowItem } from './models/workflowitem.model';
 import { CoreState } from '../core-state.model';
 import { RequestEntry } from '../data/request-entry.model';
+import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
 
 describe('WorkflowItemDataService test', () => {
   let scheduler: TestScheduler;
@@ -87,6 +88,7 @@ describe('WorkflowItemDataService test', () => {
       objectCache,
       halService,
       notificationsService,
+      new DefaultChangeAnalyzer(),
     );
   }
 

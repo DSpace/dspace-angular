@@ -12,6 +12,7 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { environment } from '../../../environments/environment';
 import { RequestEntryState } from '../data/request-entry-state.model';
 import { IdentifiableDataService } from '../data/base/identifiable-data.service';
+import { Operation } from 'fast-json-patch';
 
 /**
  * A service to retrieve submission objects (WorkspaceItem/WorkflowItem)
@@ -57,6 +58,26 @@ export class SubmissionObjectDataService {
         return this.workspaceitemDataService.findById(id, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
       case SubmissionScopeType.WorkflowItem:
         return this.workflowItemDataService.findById(id, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+      default:
+        const now = new Date().getTime();
+        return observableOf(new RemoteData(
+          now,
+          environment.cache.msToLive.default,
+          now,
+          RequestEntryState.Error,
+          'The request couldn\'t be sent. Unable to determine the type of submission object',
+          undefined,
+          400
+        ));
+    }
+  }
+
+  patch(object: SubmissionObject, operations: Operation[]): Observable<RemoteData<SubmissionObject>> {
+    switch (this.submissionService.getSubmissionScope()) {
+      case SubmissionScopeType.WorkspaceItem:
+        return this.workspaceitemDataService.patch(object, operations);
+      case SubmissionScopeType.WorkflowItem:
+        return this.workflowItemDataService.patch(object, operations);
       default:
         const now = new Date().getTime();
         return observableOf(new RemoteData(

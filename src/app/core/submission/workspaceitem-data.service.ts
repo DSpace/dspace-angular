@@ -16,17 +16,32 @@ import { PaginatedList } from '../data/paginated-list.model';
 import { DeleteData, DeleteDataImpl } from '../data/base/delete-data';
 import { NoContent } from '../shared/NoContent.model';
 import { dataService } from '../data/base/data-service.decorator';
+import { PatchData, PatchDataImpl } from '../data/base/patch-data';
+import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
+import { RestRequestMethod } from '../data/rest-request-method';
+import { Operation } from 'fast-json-patch';
+
+/**
+ * Constructs an endpoint taking into account that the WorkspaceItem's "uuid" has a prefix by removing that prefix from the ID
+ * @param endpoint    Endpoint to append ID to
+ * @param resourceID  WorkspaceItem's "uuid" including the prefix to remove
+ */
+const constructWorkspaceItemIdEndpoint = (endpoint, resourceID) => {
+  const regex = new RegExp(`^${WorkspaceItem.type.value}-`);
+  return `${endpoint}/${resourceID.replace(regex, '')}`;
+};
 
 /**
  * A service that provides methods to make REST requests with workspaceitems endpoint.
  */
 @Injectable()
 @dataService(WorkspaceItem.type)
-export class WorkspaceitemDataService extends IdentifiableDataService<WorkspaceItem> implements SearchData<WorkspaceItem>, DeleteData<WorkspaceItem> {
+export class WorkspaceitemDataService extends IdentifiableDataService<WorkspaceItem> implements SearchData<WorkspaceItem>, DeleteData<WorkspaceItem>, PatchData<WorkspaceItem> {
   protected searchByItemLinkPath = 'item';
 
   private searchData: SearchDataImpl<WorkspaceItem>;
   private deleteData: DeleteDataImpl<WorkspaceItem>;
+  private patchData: PatchDataImpl<WorkspaceItem>;
 
   constructor(
     protected requestService: RequestService,
@@ -34,11 +49,13 @@ export class WorkspaceitemDataService extends IdentifiableDataService<WorkspaceI
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
+    protected comparator: DefaultChangeAnalyzer<WorkspaceItem>,
   ) {
     super('workspaceitems', requestService, rdbService, objectCache, halService);
 
     this.searchData = new SearchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
     this.deleteData = new DeleteDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive, this.constructIdEndpoint);
+    this.patchData = new PatchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.comparator, this.responseMsToLive, constructWorkspaceItemIdEndpoint);
   }
 
   /**
@@ -113,6 +130,22 @@ export class WorkspaceitemDataService extends IdentifiableDataService<WorkspaceI
    */
   public deleteByHref(href: string, copyVirtualMetadata?: string[]): Observable<RemoteData<NoContent>> {
     return this.deleteData.deleteByHref(href, copyVirtualMetadata);
+  }
+
+  commitUpdates(method?: RestRequestMethod): void {
+    this.patchData.commitUpdates(method);
+  }
+
+  createPatchFromCache(object: WorkspaceItem): Observable<Operation[]> {
+    return this.patchData.createPatchFromCache(object);
+  }
+
+  patch(object: WorkspaceItem, operations: Operation[]): Observable<RemoteData<WorkspaceItem>> {
+    return this.patchData.patch(object, operations);
+  }
+
+  update(object: WorkspaceItem): Observable<RemoteData<WorkspaceItem>> {
+    return this.patchData.update(object);
   }
 
 }

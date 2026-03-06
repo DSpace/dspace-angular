@@ -36,7 +36,6 @@ import { RemoteData } from '../../../../../core/data/remote-data';
 import { NotificationsService } from '../../../../notifications/notifications.service';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
 import { TranslateService } from '@ngx-translate/core';
-import { ItemDataService } from '../../../../../core/data/item-data.service';
 import { Operation } from 'fast-json-patch';
 
 const DEBOUNCE_TIME = 500;
@@ -57,6 +56,7 @@ interface RelationOperation {
   replaceLeftSide?: boolean
   place?: number
   mdField?: string
+  section?: string
 }
 
 /**
@@ -132,6 +132,7 @@ export class RelationshipEffects {
                         replaceLeftSide: replaceAction.payload.replaceLeftSide,
                         place: replaceAction.payload.place,
                         mdField: replaceAction.payload.mdField,
+                        section: replaceAction.payload.section,
                       });
                     }
                   } else {
@@ -209,7 +210,6 @@ export class RelationshipEffects {
   constructor(private actions$: Actions,
               private relationshipService: RelationshipDataService,
               private relationshipTypeService: RelationshipTypeDataService,
-              private itemService: ItemDataService,
               private submissionObjectService: SubmissionObjectDataService,
               private store: Store<SubmissionState>,
               private objectCache: ObjectCacheService,
@@ -237,7 +237,7 @@ export class RelationshipEffects {
               map(() => next)
             );
           case RelationOperationType.Replace:
-            return this.replaceRelationship(next.item1, next.item2, next.replaceLeftSide, next.place, next.mdField, next.relationshipType, next.submissionId, next.nameVariant).pipe(
+            return this.replaceRelationship(next.item1, next.item2, next.replaceLeftSide, next.place, next.mdField, next.section, next.relationshipType, next.submissionId, next.nameVariant).pipe(
               map(() => next)
             );
           case RelationOperationType.Remove:
@@ -318,34 +318,50 @@ export class RelationshipEffects {
    * @param replaceLeftSide   If true, item1 will have its metadata value replaced, otherwise item2
    * @param place             The index of the metadata value to replace
    * @param metadataField     The metadata field of the metadata value to replace
+   * @param section           The submission section of the metadata value to replace
    * @param relationshipType  The type of relationship
    * @param submissionId      The ID of the submission this action is taking place in
    * @param nameVariant       Optional name variant of the to-be-created relationship
    * @private
    */
-  private replaceRelationship(item1: Item, item2: Item, replaceLeftSide: boolean, place: number, metadataField: string, relationshipType: string, submissionId: string, nameVariant?: string) {
-    return this.itemService.patch(replaceLeftSide ? item1 : item2, [{ op: 'remove', path: `/metadata/${metadataField}/${place}` } as Operation]).pipe(
+  private replaceRelationship(item1: Item, item2: Item, replaceLeftSide: boolean, place: number, metadataField: string, section: string, relationshipType: string, submissionId: string, nameVariant?: string) {
+    return this.submissionObjectService.findById(submissionId).pipe(
       getFirstCompletedRemoteData(),
-      switchMap((rd: RemoteData<Item>) => {
+      switchMap((rd: RemoteData<SubmissionObject>) => {
         if (rd.hasSucceeded) {
-          return this.addRelationship(item1, item2, relationshipType, submissionId, nameVariant);
-        } else {
-          this.deselectAndShowError(item1, item2, relationshipType, submissionId);
-          return [undefined];
-        }
-      }),
-      switchMap((rel: Relationship) => {
-        if (hasValue(rel)) {
-          const updatedRelationship: Relationship = Object.assign(new Relationship(), rel);
-          if (replaceLeftSide) {
-            updatedRelationship.leftPlace = place;
-          } else {
-            updatedRelationship.rightPlace = place;
+          // If the place of the metadata value to replace is missing or -1, pick the last place with the section and field
+          let updatedPlace = place;
+          if (hasNoValue(place) || place < 0) {
+            updatedPlace = rd.payload.sections?.[section]?.[metadataField]?.length - 1;
           }
-          return this.relationshipService.update(updatedRelationship).pipe(
+          return this.submissionObjectService.patch(rd.payload, [{ op: 'remove', path: `/sections/${section}/${metadataField}/${updatedPlace}` } as Operation]).pipe(
             getFirstCompletedRemoteData(),
+            switchMap((patchedRd: RemoteData<SubmissionObject>) => {
+              if (patchedRd.hasSucceeded) {
+                return this.addRelationship(item1, item2, relationshipType, submissionId, nameVariant);
+              } else if (hasValue(patchedRd)) {
+                this.deselectAndShowError(item1, item2, relationshipType, submissionId);
+              }
+              return [undefined];
+            }),
+            switchMap((rel: Relationship) => {
+              if (hasValue(rel)) {
+                const updatedRelationship: Relationship = Object.assign(new Relationship(), rel);
+                if (replaceLeftSide) {
+                  updatedRelationship.leftPlace = updatedPlace;
+                } else {
+                  updatedRelationship.rightPlace = updatedPlace;
+                }
+                return this.relationshipService.update(updatedRelationship).pipe(
+                  getFirstCompletedRemoteData(),
+                );
+              } else {
+                return [undefined];
+              }
+            }),
           );
         } else {
+          this.deselectAndShowError(item1, item2, relationshipType, submissionId);
           return [undefined];
         }
       }),
