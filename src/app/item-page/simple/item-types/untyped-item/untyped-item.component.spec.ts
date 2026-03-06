@@ -133,6 +133,7 @@ describe('UntypedItemComponent', () => {
         { provide: ItemVersionsSharedService, useValue: {} },
         { provide: RouteService, useValue: mockRouteService },
         { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub },
+        { provide: ConfigurationDataService, useValue: new ConfigurationDataServiceStub() },
         { provide: ConfigurationDataService, useValue: configurationDataService },
         { provide: APP_CONFIG, useValue: environment },
       ],

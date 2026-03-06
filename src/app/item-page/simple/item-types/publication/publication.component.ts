@@ -20,6 +20,7 @@ import { ItemPageAbstractFieldComponent } from '../../field-components/specific-
 import { ItemPageDateFieldComponent } from '../../field-components/specific-field/date/item-page-date-field.component';
 import { GenericItemPageFieldComponent } from '../../field-components/specific-field/generic/generic-item-page-field.component';
 import { GeospatialItemPageFieldComponent } from '../../field-components/specific-field/geospatial/geospatial-item-page-field.component';
+import { ItemPageLicenseFieldComponent } from '../../field-components/specific-field/license/item-page-license-field.component';
 import { ThemedItemPageTitleFieldComponent } from '../../field-components/specific-field/title/themed-item-page-field.component';
 import { ItemPageUriFieldComponent } from '../../field-components/specific-field/uri/item-page-uri-field.component';
 import { ThemedMetadataRepresentationListComponent } from '../../metadata-representation-list/themed-metadata-representation-list.component';
@@ -44,6 +45,7 @@ import { ItemComponent } from '../shared/item.component';
     GeospatialItemPageFieldComponent,
     ItemPageAbstractFieldComponent,
     ItemPageDateFieldComponent,
+    ItemPageLicenseFieldComponent,
     ItemPageUriFieldComponent,
     MetadataFieldWrapperComponent,
     MiradorViewerComponent,
