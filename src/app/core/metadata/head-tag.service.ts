@@ -52,8 +52,12 @@ import { FindListOptions } from '../data/find-list-options.model';
 import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
 import { RootDataService } from '../data/root-data.service';
-import { getBitstreamDownloadRoute } from '../router/utils/dso-route.utils';
+import {
+  getBitstreamDownloadRoute,
+  getItemPageRoute,
+} from '../router/utils/dso-route.utils';
 import { HardRedirectService } from '../services/hard-redirect.service';
+import { LinkHeadService } from '../services/link-head.service';
 import { Bitstream } from '../shared/bitstream.model';
 import { getDownloadableBitstream } from '../shared/bitstream.operators';
 import { BitstreamFormat } from '../shared/bitstream-format.model';
@@ -123,6 +127,7 @@ export class HeadTagService {
     protected hardRedirectService: HardRedirectService,
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
     protected authorizationService: AuthorizationDataService,
+    protected linkHeadService: LinkHeadService,
   ) {
   }
 
@@ -143,6 +148,7 @@ export class HeadTagService {
 
   protected processRouteChange(routeInfo: any): void {
     this.clearMetaTags();
+    this.linkHeadService.removeTag('rel="canonical"');
 
     if (hasValue(routeInfo.data.value.dso) && hasValue(routeInfo.data.value.dso.payload)) {
       this.currentObject.next(routeInfo.data.value.dso.payload);
@@ -210,6 +216,7 @@ export class HeadTagService {
     // this.setCitationPatentCountryTag();
     // this.setCitationPatentNumberTag();
 
+    this.setCanonicalLinkTag();
   }
 
   /**
@@ -218,6 +225,20 @@ export class HeadTagService {
   protected setNoIndexTag(): void {
     if (this.currentObject.value instanceof Item && this.currentObject.value.isDiscoverable === false) {
       this.addMetaTag('robots', 'noindex');
+    }
+  }
+
+  /**
+   * Add <link rel="canonical"> to the <head> for Item pages.
+   * The canonical URL always points to the simple item view route.
+   */
+  protected setCanonicalLinkTag(): void {
+    if (this.appConfig.seo?.canonical?.items !== false
+      && this.currentObject.value instanceof Item) {
+      const origin = this.hardRedirectService.getCurrentOrigin();
+      const route = getItemPageRoute(this.currentObject.value as Item);
+      const canonicalUrl = new URLCombiner(origin, route).toString();
+      this.linkHeadService.addTag({ rel: 'canonical', href: canonicalUrl });
     }
   }
 
