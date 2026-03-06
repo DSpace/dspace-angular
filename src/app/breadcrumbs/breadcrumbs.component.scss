@@ -8,6 +8,11 @@
   padding-top: calc(var(--ds-content-spacing) / 2);
   background-color: var(--ds-breadcrumb-bg);
 }
+.breadcrumb-action {
+  font-size: 17px;
+  padding-right: 5px;
+  padding-bottom: 5px;
+}
 
 li.breadcrumb-item {
   display: flex;
@@ -35,4 +40,12 @@ li.breadcrumb-item.active {
 .breadcrumb-item+ .breadcrumb-item::before {
   display: block;
   content: quote("•") !important;
+}
+.breadcrumb-separator {
+  padding-right: 5px;
+  padding-left: 5px;
+}
+
+.dropdown-toggle::after {
+  display: none!Important;
 }
