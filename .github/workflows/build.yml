@@ -51,7 +51,7 @@ jobs:
     steps:
       # https://github.com/actions/checkout
       - name: Checkout codebase
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       # https://github.com/actions/setup-node
       - name: Install Node.js ${{ matrix.node-version }}
@@ -310,7 +310,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       # Download artifacts from previous 'tests' job
       - name: Download coverage artifacts
