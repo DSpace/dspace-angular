@@ -1,4 +1,5 @@
 import { testA11y } from 'cypress/support/utils';
+import { method } from 'node_modules/cypress/types/bluebird';
 
 describe('My DSpace page', () => {
   it('should display recent submissions and pass accessibility tests', () => {
@@ -149,10 +150,7 @@ describe('My DSpace page', () => {
     //Intercept the request to filter.
     cy.intercept({
       method: 'GET',
-      url: '**/server/api/discover/facets/namedresourcetype**',
-      query: {
-        'f.namedresourcetype': 'item,authority'
-      }
+      url: '/server/api/discover/search/objects**',
     }).as('filterByItem');
 
     //Apply the filter to the “archived” items.
@@ -202,5 +200,43 @@ describe('My DSpace page', () => {
 
     // New URL should include /workspaceitems, as we've started a new submission
     cy.url().should('include', '/workspaceitems');
+  });
+
+  it('should let you take task from workflow', () => {
+    cy.visit('/mydspace');
+
+    //This page is restricted, so we will be shown the login form. Fill it in and submit it
+    cy.loginViaForm(Cypress.env('DSPACE_TEST_ADMIN_USER'), Cypress.env('DSPACE_TEST_ADMIN_PASSWORD'));
+
+    //Wait for the page to display
+    cy.get('ds-my-dspace-page').should('be.visible');
+
+    //Intercept to await backend response
+    cy.intercept({
+      method: 'GET',
+      url: '/server/api/discover/search/objects**'
+    }).as('workflowSearch');
+
+    //Change view to see workflow tasks
+    cy.get('ds-search-switch-configuration select').select('2: Object');
+
+    //Await backend search response
+    cy.wait('@workflowSearch');
+
+    //Check that we have at least one item and that they all have the archived badge.
+    cy.get('[data-test="objects"]')
+    .find('[data-test="list-object"]')
+    .each(($item) => {
+      cy.wrap($item)
+        .find('ds-claimed-task-actions, ds-pool-task-actions').should('exist')
+        .within(() => {
+          cy.get('button, a.btn').each(($btn) => {
+              cy.wrap($btn)
+                .should('exist')
+                .and('be.visible')
+                .and('not.be.disabled');
+            });
+        });
+    });
   });
 });
