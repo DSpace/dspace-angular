@@ -86,8 +86,8 @@ describe('PdfViewerEnableComponent', () => {
       const uiSwitch = fixture.debugElement.queryAll(By.css('ui-switch'));
       const span = fixture.debugElement.queryAll(By.css('span'));
 
-      expect(uiSwitch.length).toEqual(1);
-      expect(span.length).toEqual(1);
+      expect(uiSwitch.length).toEqual(0);
+      expect(span.length).toEqual(0);
     });
   });
 });

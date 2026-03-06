@@ -3,6 +3,7 @@ import { i18nBreadcrumbResolver } from '@dspace/core/breadcrumbs/i18n-breadcrumb
 
 import { ThemedDsoEditMetadataComponent } from '../../dso-shared/dso-edit-metadata/themed-dso-edit-metadata.component';
 import { PdfViewerEnableDsoComponent } from '../../pdf-viewer/pdf-viewer-enable-dso/pdf-viewer-enable-dso.component';
+import { pdfViewerEnabledGuard } from '../../pdf-viewer/pdf-viewer-enabled-guard';
 import { ResourcePolicyCreateComponent } from '../../shared/resource-policies/create/resource-policy-create.component';
 import { ResourcePolicyEditComponent } from '../../shared/resource-policies/edit/resource-policy-edit.component';
 import { resourcePolicyResolver } from '../../shared/resource-policies/resolvers/resource-policy.resolver';
@@ -138,7 +139,9 @@ export const ROUTES: Route[] = [
               showBreadcrumbs: true,
               hideReturnButton: true,
               buttonStyle: 'item',
+              hideWhenDisabled: true,
             },
+            canActivate: [pdfViewerEnabledGuard],
           },
         ],
       },
