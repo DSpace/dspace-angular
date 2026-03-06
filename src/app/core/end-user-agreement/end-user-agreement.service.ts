@@ -52,6 +52,7 @@ export class EndUserAgreementService {
       switchMap((authenticated) => {
         if (authenticated) {
           return this.authService.getAuthenticatedUserFromStore().pipe(
+            take(1),
             map((user) => hasValue(user) && user.hasMetadata(END_USER_AGREEMENT_METADATA_FIELD) && user.firstMetadata(END_USER_AGREEMENT_METADATA_FIELD).value === 'true'),
           );
         } else {
@@ -84,7 +85,14 @@ export class EndUserAgreementService {
               return this.ePersonService.patch(user, [operation]);
             }),
             getFirstCompletedRemoteData(),
-            map((response) => response.hasSucceeded),
+            map((response) => {
+              const success = response.hasSucceeded;
+              // Set cookie as synchronous fallback to prevent guard hangs after PATCH
+              if (success) {
+                this.setCookieAccepted(accepted);
+              }
+              return success;
+            }),
           );
         } else {
           this.setCookieAccepted(accepted);
