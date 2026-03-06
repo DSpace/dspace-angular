@@ -9,9 +9,11 @@ import {
   ResolveEnd,
   Router,
 } from '@angular/router';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
-import { BuildConfig } from '@dspace/config/build-config.interface';
-import { getDefaultThemeConfig } from '@dspace/config/config.util';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app.config';
+import { BuildConfig } from '@dspace/config/build.config';
 import {
   BASE_THEME_NAME,
   HeadTagConfig,
@@ -157,7 +159,7 @@ export class ThemeService {
   /**
    * Every time the theme is changed
    *   - if the theme name is valid, load it (CSS + <head> tags)
-   *   - otherwise fall back to {@link getDefaultThemeConfig} or {@link BASE_THEME_NAME}
+   *   - otherwise fall back to {@link AppConfig.defaultTheme} or {@link BASE_THEME_NAME}
    * Should be called when initializing the app.
    * @param isBrowser
    */
@@ -170,7 +172,7 @@ export class ThemeService {
       if (hasValue(themeName)) {
         this.loadGlobalThemeConfig(themeName);
       } else {
-        const defaultThemeConfig = getDefaultThemeConfig(this.appConfig);
+        const defaultThemeConfig = this.appConfig.defaultTheme;
         if (hasValue(defaultThemeConfig)) {
           this.loadGlobalThemeConfig(defaultThemeConfig.name);
         } else {

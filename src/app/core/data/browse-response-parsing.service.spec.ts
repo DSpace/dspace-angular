@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { APP_CONFIG } from '@dspace/config/app.config';
 
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { FLAT_BROWSE_DEFINITION } from '../shared/flat-browse-definition.resource-type';

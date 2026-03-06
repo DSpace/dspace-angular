@@ -1,6 +1,6 @@
-import { Config } from './config.interface';
+import { Config } from './config';
 
-export interface NamedThemeConfig extends Config {
+export interface NamedThemeConfig {
   name: string;
 
   /**
@@ -18,7 +18,7 @@ export interface NamedThemeConfig extends Config {
 /**
  * Interface that represents a single theme-specific HTML tag in the HEAD section of the page.
  */
-export interface HeadTagConfig extends Config {
+export interface HeadTagConfig {
   /**
    * The name of the HTML tag
    */
@@ -44,9 +44,12 @@ export interface UUIDThemeConfig extends NamedThemeConfig {
   uuid: string;
 }
 
-export type ThemeConfig
-  = NamedThemeConfig
-  | RegExThemeConfig
-  | HandleThemeConfig
-  | UUIDThemeConfig;
+export class ThemeConfig extends Config implements NamedThemeConfig, RegExThemeConfig, HandleThemeConfig, UUIDThemeConfig {
+  @Config.publish() name: string;
+  @Config.publish() extends?: string;
+  @Config.publish() headTags?: HeadTagConfig[];
+  @Config.publish() regex: string;
+  @Config.publish() handle: string;
+  @Config.publish() uuid: string;
+}
 export const BASE_THEME_NAME = 'base';

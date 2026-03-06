@@ -12,7 +12,7 @@ import { RouterLink } from '@angular/router';
 import {
   APP_CONFIG,
   AppConfig,
-} from '@dspace/config/app-config.interface';
+} from '@dspace/config/app.config';
 import { NotifyInfoService } from '@dspace/core/coar-notify/notify-info/notify-info.service';
 import { OrejimeService } from '@dspace/core/cookies/orejime.service';
 import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';

@@ -6,7 +6,7 @@ import {
 import {
   APP_CONFIG,
   AppConfig,
-} from '@dspace/config/app-config.interface';
+} from '@dspace/config/app.config';
 import { CollectionDataService } from '@dspace/core/data/collection-data.service';
 import { CommunityDataService } from '@dspace/core/data/community-data.service';
 import { FindListOptions } from '@dspace/core/data/find-list-options.model';

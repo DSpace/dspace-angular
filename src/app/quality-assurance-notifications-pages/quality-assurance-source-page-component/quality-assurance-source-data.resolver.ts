@@ -8,7 +8,7 @@ import {
 import {
   APP_CONFIG,
   AppConfig,
-} from '@dspace/config/app-config.interface';
+} from '@dspace/config/app.config';
 import { PaginatedList } from '@dspace/core/data/paginated-list.model';
 import { QualityAssuranceSourceObject } from '@dspace/core/notifications/qa/models/quality-assurance-source.model';
 import { Observable } from 'rxjs';

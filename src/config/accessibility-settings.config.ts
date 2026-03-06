@@ -1,11 +1,11 @@
-import { Config } from './config.interface';
+import { Config } from './config';
 
 /**
  * Configuration interface used by the AccessibilitySettingsService
  */
-export class AccessibilitySettingsConfig implements Config {
+export class AccessibilitySettingsConfig extends Config {
   /**
    * The duration in days after which the accessibility settings cookie expires
    */
-  cookieExpirationDuration: number;
+  @Config.publish() cookieExpirationDuration: number;
 }

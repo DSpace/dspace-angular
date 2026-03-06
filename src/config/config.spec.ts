@@ -1,15 +1,20 @@
-import { BuildConfig } from './build-config.interface';
-import { extendEnvironmentWithAppConfig } from './config.util';
-import { DefaultAppConfig } from './default-app-config';
-import { HandleThemeConfig } from './theme.config';
+import { AppConfig } from './app.config';
+import { BuildConfig } from './build.config';
+import { Config } from './config';
+import { DefaultAppConfig } from './default-app.config';
+import { SSRConfig } from './ssr.config';
+import {
+  HandleThemeConfig,
+  ThemeConfig,
+} from './theme.config';
 
-describe('Config Util', () => {
+describe('Config Model', () => {
 
-  const mockProductionEnvironment: Partial<BuildConfig> = {
+  const mockProductionEnvironment = Config.assign(BuildConfig, {
     production: true,
 
     // Angular SSR (Server Side Rendering) settings
-    ssr: {
+    ssr: Config.assign(SSRConfig, {
       enabled: true,
       enablePerformanceProfiler: false,
       inlineCriticalCss: false,
@@ -36,12 +41,12 @@ describe('Config Util', () => {
       ],
       enableSearchComponent: false,
       enableBrowseComponent: false,
-    },
-  };
+    }),
+  });
 
   describe('extendEnvironmentWithAppConfig', () => {
     it('should extend prod environment with app config', () => {
-      const appConfig = new DefaultAppConfig();
+      const appConfig: AppConfig = Config.assign(DefaultAppConfig, {});
       expect(appConfig.cache.msToLive.default).toEqual(15 * 60 * 1000); // 15 minute
       expect(appConfig.ui.rateLimiter.windowMs).toEqual(1 * 60 * 1000); // 1 minute
       expect(appConfig.ui.rateLimiter.limit).toEqual(500);
@@ -78,9 +83,9 @@ describe('Config Util', () => {
         handle: '10673/1233',
       };
 
-      appConfig.themes.push(customTheme);
+      appConfig.themes.push(Config.assign(ThemeConfig, customTheme));
 
-      extendEnvironmentWithAppConfig(mockProductionEnvironment, appConfig);
+      mockProductionEnvironment.apply(appConfig);
 
       expect(mockProductionEnvironment.cache.msToLive.default).toEqual(msToLive);
       expect(mockProductionEnvironment.ui.rateLimiter.windowMs).toEqual(rateLimiter.windowMs);

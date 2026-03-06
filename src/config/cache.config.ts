@@ -1,15 +1,25 @@
-import { AutoSyncConfig } from './auto-sync-config.interface';
-import { Config } from './config.interface';
+import { AutoSyncConfig } from './auto-sync.config';
+import { Config } from './config';
 
-export interface CacheConfig extends Config {
-  msToLive: {
+export class CacheConfig extends Config {
+
+  @Config.publish() msToLive: {
     default: number;
   };
   // Cache-Control HTTP Header
-  control: string;
-  autoSync: AutoSyncConfig;
+  @Config.publish() control: string;
+  @Config.publish() autoSync: AutoSyncConfig;
+
   // In-memory caches of server-side rendered (SSR) content. These caches can be used to limit the frequency
   // of re-generating SSR pages to improve performance.
+  @Config.deepEnv({
+    botCache: {
+      max: ['DSPACE_CACHE_SERVERSIDE_BOTCACHE_MAX', Number],
+    },
+    anonymousCache: {
+      max: ['DSPACE_CACHE_SERVERSIDE_ANONYMOUSCACHE_MAX', Number],
+    },
+  })
   serverSide: {
     // Debug server-side caching.  Set to true to see cache hits/misses/refreshes in console logs.
     debug: boolean,
@@ -33,5 +43,5 @@ export interface CacheConfig extends Config {
       // true = return page from cache after timeToLive expires. false = return a fresh page after timeToLive expires
       allowStale: boolean;
     }
-  }
+  };
 }

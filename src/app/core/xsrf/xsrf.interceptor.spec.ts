@@ -10,7 +10,7 @@ import {
   provideHttpClientTesting,
 } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { APP_CONFIG } from '@dspace/config/app.config';
 import { RestRequestMethod } from '@dspace/config/rest-request-method';
 
 import { CookieService } from '../cookies/cookie.service';

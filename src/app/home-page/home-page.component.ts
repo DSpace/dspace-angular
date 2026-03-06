@@ -8,7 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 import {
   APP_CONFIG,
   AppConfig,
-} from '@dspace/config/app-config.interface';
+} from '@dspace/config/app.config';
 import { Site } from '@dspace/core/shared/site.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';

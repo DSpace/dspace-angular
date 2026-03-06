@@ -3,7 +3,7 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { Router } from '@angular/router';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { APP_CONFIG } from '@dspace/config/app.config';
 import { RouterStub } from '@dspace/core/testing/router.stub';
 import { SearchConfigurationServiceStub } from '@dspace/core/testing/search-configuration-service.stub';
 import { SearchFilterServiceStub } from '@dspace/core/testing/search-filter-service.stub';

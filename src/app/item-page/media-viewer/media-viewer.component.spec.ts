@@ -10,6 +10,8 @@ import {
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
+import { Config } from '@dspace/config/config';
+import { MediaViewerConfig } from '@dspace/config/media-viewer.config';
 import { AuthService } from '@dspace/core/auth/auth.service';
 import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
 import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
@@ -129,10 +131,10 @@ describe('MediaViewerComponent', () => {
   describe('when the bitstreams are loading', () => {
     beforeEach(() => {
       comp.mediaList$.next([mockMediaViewerItem]);
-      comp.mediaOptions = {
+      comp.mediaOptions = Config.assign(MediaViewerConfig, {
         image: true,
         video: true,
-      };
+      });
       comp.isLoading = true;
       fixture.detectChanges();
     });
@@ -156,10 +158,10 @@ describe('MediaViewerComponent', () => {
   describe('when the bitstreams loading is failed', () => {
     beforeEach(() => {
       comp.mediaList$.next([]);
-      comp.mediaOptions = {
+      comp.mediaOptions = Config.assign(MediaViewerConfig, {
         image: true,
         video: true,
-      };
+      });
       comp.isLoading = false;
       fixture.detectChanges();
     });

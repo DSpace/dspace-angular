@@ -14,7 +14,7 @@ import {
 import {
   APP_CONFIG,
   AppConfig,
-} from '@dspace/config/app-config.interface';
+} from '@dspace/config/app.config';
 import { FindListOptions } from '@dspace/core/data/find-list-options.model';
 import { PaginatedList } from '@dspace/core/data/paginated-list.model';
 import { RelationshipDataService } from '@dspace/core/data/relationship-data.service';

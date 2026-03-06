@@ -3,13 +3,15 @@
 // `ng test --configuration test` replaces `environment.ts` with `environment.test.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-import { BuildConfig } from '@dspace/config/build-config.interface';
+import { BuildConfig } from '@dspace/config/build.config';
+import { Config } from '@dspace/config/config';
+import { SSRConfig } from '@dspace/config/ssr.config';
 
-export const environment: Partial<BuildConfig> = {
+export const environment = Config.assign(BuildConfig, {
   production: false,
 
   // Angular SSR (Server Side Rendering) settings
-  ssr: {
+  ssr: Config.assign(SSRConfig, {
     enabled: false,
     enablePerformanceProfiler: false,
     inlineCriticalCss: false,
@@ -36,8 +38,8 @@ export const environment: Partial<BuildConfig> = {
     ],
     enableSearchComponent: false,
     enableBrowseComponent: false,
-  },
-};
+  }),
+});
 
 /*
  * For easier debugging in development mode, you can import the following file

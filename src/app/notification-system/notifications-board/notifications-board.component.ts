@@ -8,7 +8,7 @@ import {
   OnInit,
   ViewEncapsulation,
 } from '@angular/core';
-import { INotificationBoardOptions } from '@dspace/config/notifications-config.interfaces';
+import { INotificationBoardOptions } from '@dspace/config/notifications.config';
 import { CoreState } from '@dspace/core/core-state.model';
 import { INotification } from '@dspace/core/notification-system/models/notification.model';
 import { NotificationsState } from '@dspace/core/notification-system/notifications.reducers';

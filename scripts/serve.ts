@@ -1,9 +1,7 @@
+import { EnvAppConfig } from '@dspace/config/config.env';
 import { spawn } from 'child_process';
 
-import { AppConfig } from '../src/config/app-config.interface';
-import { buildAppConfig } from '../src/config/config.server';
-
-const appConfig: AppConfig = buildAppConfig();
+const appConfig = EnvAppConfig.loadEnv();
 
 /**
  * Calls `ng serve` with the following arguments configured for the UI in the app config: host, port, nameSpace, ssl

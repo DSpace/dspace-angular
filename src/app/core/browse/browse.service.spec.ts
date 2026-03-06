@@ -2,7 +2,7 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { APP_CONFIG } from '@dspace/config/app.config';
 import { BrowseDefinitionDataService } from '@dspace/core/browse/browse-definition-data.service';
 import { HrefOnlyDataService } from '@dspace/core/data/href-only-data.service';
 import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';

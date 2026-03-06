@@ -8,7 +8,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { APP_CONFIG } from '@dspace/config/app.config';
 import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
 import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
 import { Item } from '@dspace/core/shared/item.model';
