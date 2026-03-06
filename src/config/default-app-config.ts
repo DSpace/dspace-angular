@@ -480,6 +480,7 @@ export class DefaultAppConfig implements AppConfig {
   mediaViewer: MediaViewerConfig = {
     image: false,
     video: false,
+    pdf: false,
   };
   // Whether the end-user-agreement and privacy policy feature should be enabled or not.
   // Disabling the end user agreement feature will result in:
