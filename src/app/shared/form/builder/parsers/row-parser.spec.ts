@@ -1,6 +1,7 @@
 import { Injector } from '@angular/core';
 import { FormRowModel } from '@dspace/core/config/models/config-submission-form.model';
 import { FormFieldModel } from '@dspace/core/shared/form/models/form-field.model';
+import { SubmissionScopeType } from '@dspace/core/submission/submission-scope-type';
 import { getMockTranslateService } from '@dspace/core/testing/translate.service.mock';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -25,7 +26,7 @@ describe('RowParser test suite', () => {
   const submissionId = '1234';
   const scopeUUID = 'testScopeUUID';
   const initFormValues = {};
-  const submissionScope = 'WORKSPACE';
+  const submissionScope = SubmissionScopeType.WorkspaceItem;
   const readOnly = false;
   const typeField = 'dc_type';
 
@@ -127,7 +128,7 @@ describe('RowParser test suite', () => {
           mandatory: 'false',
           repeatable: false,
           hints: 'Enter the name of the events, if any.',
-          scope: 'WORKFLOW',
+          scope: SubmissionScopeType.WorkflowItem,
           selectableMetadata: [
             {
               metadata: 'otherTitle',

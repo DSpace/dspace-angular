@@ -17,6 +17,7 @@ export class SubmissionServiceStub {
   getDisabledSectionsList = jasmine.createSpy('getDisabledSectionsList');
   getSubmissionObjectLinkName = jasmine.createSpy('getSubmissionObjectLinkName');
   getSubmissionScope = jasmine.createSpy('getSubmissionScope');
+  getSubmissionSecurityConfiguration = jasmine.createSpy('getSubmissionSecurityConfiguration');
   getSubmissionStatus = jasmine.createSpy('getSubmissionStatus');
   getSubmissionSaveProcessingStatus = jasmine.createSpy('getSubmissionSaveProcessingStatus');
   getSubmissionDepositProcessingStatus = jasmine.createSpy('getSubmissionDepositProcessingStatus');
@@ -25,6 +26,7 @@ export class SubmissionServiceStub {
   isSubmissionLoading = jasmine.createSpy('isSubmissionLoading');
   notifyNewSection = jasmine.createSpy('notifyNewSection');
   redirectToMyDSpace = jasmine.createSpy('redirectToMyDSpace');
+  redirectToItemPage = jasmine.createSpy('redirectToItemPage');
   resetAllSubmissionObjects = jasmine.createSpy('resetAllSubmissionObjects');
   resetSubmissionObject = jasmine.createSpy('resetSubmissionObject');
   retrieveSubmission = jasmine.createSpy('retrieveSubmission');

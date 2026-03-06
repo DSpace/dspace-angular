@@ -79,10 +79,16 @@ export class ItemComponent implements OnInit {
    */
   geospatialItemPageFieldsEnabled = false;
 
+  /**
+   * Flag to check whether to use the default relations or the authority based ones
+   */
+  areAuthorityRelationsEnabled: boolean;
+
   constructor(protected routeService: RouteService,
               protected router: Router) {
     this.mediaViewer = environment.mediaViewer;
     this.geospatialItemPageFieldsEnabled = environment.geospatialMapViewer.enableItemPageFields;
+    this.areAuthorityRelationsEnabled = environment.item.showAuthorithyRelations;
   }
 
   /**

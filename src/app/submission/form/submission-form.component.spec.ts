@@ -12,11 +12,13 @@ import {
 import { AuthService } from '@dspace/core/auth/auth.service';
 import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
 import { Item } from '@dspace/core/shared/item.model';
+import { MetadataSecurityConfigurationService } from '@dspace/core/submission/metadatasecurityconfig-data.service';
 import { VisibilityType } from '@dspace/core/submission/visibility-type';
 import { AuthServiceStub } from '@dspace/core/testing/auth-service.stub';
 import { HALEndpointServiceStub } from '@dspace/core/testing/hal-endpoint-service.stub';
 import { SubmissionServiceStub } from '@dspace/core/testing/submission-service.stub';
 import { createTestComponent } from '@dspace/core/testing/utils.test';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   cold,
@@ -35,6 +37,7 @@ import {
   mockSubmissionCollectionId,
   mockSubmissionDefinition,
   mockSubmissionId,
+  mockSubmissionObject,
   mockSubmissionObjectNew,
   mockSubmissionSelfUrl,
   mockSubmissionState,
@@ -52,7 +55,9 @@ describe('SubmissionFormComponent', () => {
   let fixture: ComponentFixture<SubmissionFormComponent>;
   let authServiceStub: AuthServiceStub;
   let scheduler: TestScheduler;
+  let metadataSecurityConfigDataService: MetadataSecurityConfigurationService;
 
+  const submissionObject: any = mockSubmissionObject;
   const submissionServiceStub: SubmissionServiceStub = new SubmissionServiceStub();
   const submissionId = mockSubmissionId;
   const collectionId = mockSubmissionCollectionId;
@@ -64,6 +69,9 @@ describe('SubmissionFormComponent', () => {
   const sectionsData: any = mockSectionsData;
 
   beforeEach(waitForAsync(() => {
+    metadataSecurityConfigDataService = jasmine.createSpyObj('metadataSecurityConfigDataService', {
+      findById: createSuccessfulRemoteDataObject$(submissionObject.metadataSecurityConfiguration),
+    });
     TestBed.configureTestingModule({
       imports: [
         SubmissionFormComponent,
@@ -74,6 +82,7 @@ describe('SubmissionFormComponent', () => {
         { provide: AuthService, useClass: AuthServiceStub },
         { provide: HALEndpointService, useValue: new HALEndpointServiceStub('workspaceitems') },
         { provide: SubmissionService, useValue: submissionServiceStub },
+        { provide: MetadataSecurityConfigurationService, useValue: metadataSecurityConfigDataService },
         { provide: SectionsService, useValue: { isSectionTypeAvailable: () => of(true) } },
         ChangeDetectorRef,
         SubmissionFormComponent,
@@ -158,7 +167,7 @@ describe('SubmissionFormComponent', () => {
       comp.sections = sectionsData;
       comp.submissionErrors = null;
       comp.item = new Item();
-
+      comp.entityType = 'publication';
       submissionServiceStub.getSubmissionObject.and.returnValue(of(submissionState));
       submissionServiceStub.getSubmissionSections.and.returnValue(of(sectionsList));
       spyOn(authServiceStub, 'buildAuthHeader').and.returnValue('token');
@@ -181,7 +190,8 @@ describe('SubmissionFormComponent', () => {
         submissionDefinition,
         sectionsData,
         comp.item,
-        null);
+        null,
+        undefined);
       expect(submissionServiceStub.startAutoSave).toHaveBeenCalled();
       done();
     });
@@ -219,6 +229,7 @@ describe('SubmissionFormComponent', () => {
       comp.selfUrl = selfUrl;
       comp.sections = sectionsData;
       comp.item = new Item();
+      comp.entityType = 'publication';
 
       scheduler.schedule(() => {
         comp.onCollectionChange(submissionObjectNew);
@@ -237,6 +248,7 @@ describe('SubmissionFormComponent', () => {
         submissionObjectNew.submissionDefinition,
         submissionObjectNew.sections,
         comp.item,
+        submissionObject.metadataSecurityConfiguration,
       );
       done();
     });
@@ -249,6 +261,7 @@ describe('SubmissionFormComponent', () => {
       comp.selfUrl = selfUrl;
       comp.sections = sectionsData;
       comp.item = new Item();
+      comp.entityType = 'publication';
 
       scheduler.schedule(() => {
         comp.onCollectionChange({

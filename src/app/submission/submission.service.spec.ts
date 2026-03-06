@@ -1,4 +1,7 @@
-import { HttpHeaders } from '@angular/common/http';
+import {
+  HttpHeaders,
+  HttpParams,
+} from '@angular/common/http';
 import {
   fakeAsync,
   flush,
@@ -225,6 +228,7 @@ describe('SubmissionService test suite', () => {
         },
         isLoading: false,
         savePending: false,
+        saveDecisionPending: false,
         depositPending: false,
       },
     },
@@ -382,6 +386,7 @@ describe('SubmissionService test suite', () => {
         },
         isLoading: false,
         savePending: false,
+        saveDecisionPending: false,
         depositPending: false,
       },
     },
@@ -442,17 +447,38 @@ describe('SubmissionService test suite', () => {
 
   describe('createSubmission', () => {
     it('should create a new submission', () => {
+      const paramsObj = Object.create({});
+      const params = new HttpParams({ fromObject: paramsObj });
+      const options: HttpOptions = Object.create({});
+      options.params = params;
       service.createSubmission();
 
       expect((service as any).restService.postToEndpoint).toHaveBeenCalled();
-      expect((service as any).restService.postToEndpoint).toHaveBeenCalledWith('workspaceitems', {}, null, null, undefined);
+      expect((service as any).restService.postToEndpoint).toHaveBeenCalledWith('workspaceitems', {}, null, options, undefined);
+    });
+
+    it('should create a new submission with entity type', () => {
+      const entityType = 'Publication';
+      const params = new HttpParams({ fromObject: { entityType: entityType } });
+      const options: HttpOptions = Object.create({});
+      options.params = params;
+
+      service.createSubmission(undefined, 'Publication');
+
+      expect((service as any).restService.postToEndpoint).toHaveBeenCalled();
+      expect((service as any).restService.postToEndpoint).toHaveBeenCalledWith('workspaceitems', {}, null, options, undefined);
     });
 
     it('should create a new submission with collection', () => {
+      const paramsObj = Object.create({});
+      const params = new HttpParams({ fromObject: paramsObj });
+      const options: HttpOptions = Object.create({});
+      options.params = params;
+
       service.createSubmission(collectionId);
 
       expect((service as any).restService.postToEndpoint).toHaveBeenCalled();
-      expect((service as any).restService.postToEndpoint).toHaveBeenCalledWith('workspaceitems', {}, null, null, collectionId);
+      expect((service as any).restService.postToEndpoint).toHaveBeenCalledWith('workspaceitems', {}, null, options, collectionId);
     });
   });
 
@@ -1083,6 +1109,27 @@ describe('SubmissionService test suite', () => {
       scheduler.flush();
 
       expect((service as any).router.navigate).toHaveBeenCalledWith(['/mydspace']);
+    });
+  });
+
+  describe('redirectToEditItem', () => {
+    it('should redirect to Item page', () => {
+      scheduler = getTestScheduler();
+
+      const itemUuid = 'd62fc60f-e9a5-48e6-973a-90819acf23ae';
+      let itemSubmissionId = itemUuid + ':FULL';
+
+      scheduler.schedule(() => service.redirectToItemPage(itemSubmissionId));
+      scheduler.flush();
+
+      expect((service as any).router.navigateByUrl).toHaveBeenCalledWith('/items/' + itemUuid, { replaceUrl: true });
+
+      itemSubmissionId = itemUuid;
+      scheduler.schedule(() => service.redirectToItemPage(itemSubmissionId));
+      scheduler.flush();
+
+      expect((service as any).router.navigateByUrl).toHaveBeenCalledWith('/items/' + itemUuid, { replaceUrl: true });
+
     });
   });
 

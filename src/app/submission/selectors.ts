@@ -2,6 +2,7 @@ import {
   keySelector,
   subStateSelector,
 } from '@dspace/core/ngrx/selectors-utils';
+import { MetadataSecurityConfiguration } from '@dspace/core/submission/models/metadata-security-configuration';
 import { SubmissionSectionObject } from '@dspace/core/submission/models/submission-section-object.model';
 import { MemoizedSelector } from '@ngrx/store';
 
@@ -51,3 +52,7 @@ export function submissionSectionServerErrorsFromIdSelector(submissionId: string
   return subStateSelector<SubmissionState, SubmissionSectionObject>(submissionIdSelector, 'serverValidationErrors');
 }
 
+export function securityConfigurationObjectFromIdSelector(submissionId: string): MemoizedSelector<SubmissionState, MetadataSecurityConfiguration> {
+  const submissionIdSelector  = submissionObjectFromIdSelector(submissionId);
+  return subStateSelector<SubmissionState, MetadataSecurityConfiguration>(submissionIdSelector, 'metadataSecurityConfiguration');
+}

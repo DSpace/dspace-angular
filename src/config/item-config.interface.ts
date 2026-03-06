@@ -15,4 +15,6 @@ export interface ItemConfig extends Config {
     // Show the bitstream access status label
     showAccessStatuses: boolean;
   }
+
+  showAuthorithyRelations: boolean;
 }

@@ -23,6 +23,8 @@ import {
   DepositSubmissionErrorAction,
   DepositSubmissionSuccessAction,
   DisableSectionAction,
+  DisableSectionErrorAction,
+  DiscardSubmissionSuccessAction,
   EditFileDataAction,
   EditFilePrimaryBitstreamAction,
   EnableSectionAction,
@@ -48,6 +50,7 @@ import {
   SubmissionObjectAction,
   SubmissionObjectActionTypes,
   UpdateSectionDataAction,
+  UpdateSectionErrorsAction,
 } from './submission-objects.actions';
 
 /**
@@ -97,9 +100,18 @@ export interface SubmissionObjectEntry {
   savePending?: boolean;
 
   /**
+   * A boolean representing if a duplicate decision is pending
+   */
+  saveDecisionPending?: boolean;
+
+  /**
    * A boolean representing if a submission deposit operation is pending
    */
   depositPending?: boolean;
+  /**
+   * A boolean representing if a submission is discarded or not
+   */
+   isDiscarding?: boolean;
 }
 
 /**
@@ -170,7 +182,7 @@ export function submissionObjectReducer(state = initialState, action: Submission
     }
 
     case SubmissionObjectActionTypes.DISCARD_SUBMISSION_SUCCESS: {
-      return initialState;
+      return discardSuccess(state, action as DiscardSubmissionSuccessAction);
     }
 
     case SubmissionObjectActionTypes.DISCARD_SUBMISSION_ERROR: {
@@ -199,8 +211,20 @@ export function submissionObjectReducer(state = initialState, action: Submission
       return updateSectionData(state, action as UpdateSectionDataAction);
     }
 
+    case SubmissionObjectActionTypes.UPDATE_SECTION_ERRORS: {
+      return updateSectionErrors(state, action as UpdateSectionErrorsAction);
+    }
+
     case SubmissionObjectActionTypes.DISABLE_SECTION: {
+      return changeSectionRemoveState(state, action as DisableSectionAction, true);
+    }
+
+    case SubmissionObjectActionTypes.DISABLE_SECTION_SUCCESS: {
       return changeSectionState(state, action as DisableSectionAction, false);
+    }
+
+    case SubmissionObjectActionTypes.DISABLE_SECTION_ERROR: {
+      return changeSectionRemoveState(state, action as DisableSectionErrorAction, false);
     }
 
     case SubmissionObjectActionTypes.SECTION_STATUS_CHANGE: {
@@ -346,7 +370,9 @@ function initSubmission(state: SubmissionObjectState, action: InitSubmissionForm
     sections: Object.create(null),
     isLoading: true,
     savePending: false,
+    saveDecisionPending: false,
     depositPending: false,
+    isDiscarding: false,
   };
   return newState;
 }
@@ -389,6 +415,28 @@ function completeInit(state: SubmissionObjectState, action: CompleteInitSubmissi
     return Object.assign({}, state, {
       [ action.payload.submissionId ]: Object.assign({}, state[ action.payload.submissionId ], {
         isLoading: false,
+      }),
+    });
+  } else {
+    return state;
+  }
+}
+
+/**
+ * Set submission discard to true.
+ *
+ * @param state
+ *    the current state
+ * @param action
+ *    a DiscardSubmissionSuccessAction
+ * @return SubmissionObjectState
+ *    the new state, with the discard success.
+ */
+function discardSuccess(state: SubmissionObjectState, action: DiscardSubmissionSuccessAction): SubmissionObjectState {
+  if (hasValue(state[ action.payload.submissionId ])) {
+    return Object.assign({}, state, {
+      [ action.payload.submissionId ]: Object.assign({}, state[ action.payload.submissionId ], {
+        isDiscarding: true,
       }),
     });
   } else {
@@ -575,6 +623,7 @@ function initSection(state: SubmissionObjectState, action: InitSectionAction): S
             serverValidationErrors: action.payload.errors || [],
             isLoading: false,
             isValid: isEmpty(action.payload.errors),
+            removePending: false,
           },
         }),
       }),
@@ -643,6 +692,36 @@ function updateSectionData(state: SubmissionObjectState, action: UpdateSectionDa
 }
 
 /**
+ * Update section's data.
+ *
+ * @param state
+ *    the current state
+ * @param action
+ *    an UpdateSectionDataAction
+ * @return SubmissionObjectState
+ *    the new state, with the section's data updated.
+ */
+function updateSectionErrors(state: SubmissionObjectState, action: UpdateSectionErrorsAction): SubmissionObjectState {
+  if (isNotEmpty(state[ action.payload.submissionId ])
+    && isNotEmpty(state[ action.payload.submissionId ].sections[ action.payload.sectionId])) {
+    return Object.assign({}, state, {
+      [ action.payload.submissionId ]: Object.assign({}, state[ action.payload.submissionId ], {
+        sections: Object.assign({}, state[ action.payload.submissionId ].sections, {
+          [ action.payload.sectionId ]: Object.assign({}, state[ action.payload.submissionId ].sections [ action.payload.sectionId ], {
+            enabled: true,
+            errorsToShow: action.payload.errorsToShow,
+            serverValidationErrors: action.payload.errorsToShow,
+          }),
+        }),
+        savePending: false,
+      }),
+    });
+  } else {
+    return state;
+  }
+}
+
+/**
  * Updates the state of the section metadata only when a new value is provided.
  * Keep the existent otherwise.
  * @param newMetadata
@@ -680,6 +759,37 @@ function changeSectionState(state: SubmissionObjectState, action: EnableSectionA
         sections: Object.assign({}, state[ action.payload.submissionId ].sections, {
           [ action.payload.sectionId ]: Object.assign({}, state[ action.payload.submissionId ].sections [ action.payload.sectionId ], {
             enabled,
+            data: (enabled) ? state[ action.payload.submissionId ].sections [ action.payload.sectionId ] : {},
+            removePending: false,
+          }),
+        }),
+      }),
+    });
+  } else {
+    return state;
+  }
+}
+
+/**
+ * Change removePending flag.
+ *
+ * @param state
+ *    the current state
+ * @param action
+ *    a DisableSectionAction or a DisableSectionErrorAction
+ * @param removePending
+ *    representing if remove operation is pending or not.
+ * @return SubmissionObjectState
+ *    the new state, with the section removed.
+ */
+function changeSectionRemoveState(state: SubmissionObjectState, action: DisableSectionAction | DisableSectionErrorAction, removePending: boolean): SubmissionObjectState {
+  if (hasValue(state[ action.payload.submissionId ].sections[ action.payload.sectionId ])) {
+    return Object.assign({}, state, {
+      [ action.payload.submissionId ]: Object.assign({}, state[ action.payload.submissionId ], {
+        // sections: deleteProperty(state[ action.payload.submissionId ].sections, action.payload.sectionId),
+        sections: Object.assign({}, state[ action.payload.submissionId ].sections, {
+          [ action.payload.sectionId ]: Object.assign({}, state[ action.payload.submissionId ].sections [ action.payload.sectionId ], {
+            removePending,
           }),
         }),
       }),
@@ -845,12 +955,20 @@ function editFileData(state: SubmissionObjectState, action: EditFileDataAction):
  */
 function deleteFile(state: SubmissionObjectState, action: DeleteUploadedFileAction): SubmissionObjectState {
   const filesData = state[ action.payload.submissionId ].sections[ action.payload.sectionId ].data as WorkspaceitemSectionUploadObject;
+  const filesErrorsToShow = state[ action.payload.submissionId ].sections[ action.payload.sectionId ].errorsToShow ?? [];
+  const filesSeverValidationErrors = state[ action.payload.submissionId ].sections[ action.payload.sectionId ].serverValidationErrors ?? [];
+
   if (hasValue(filesData.files)) {
     const fileIndex: any = findKey(
       filesData.files,
       { uuid: action.payload.fileId });
     if (isNotNull(fileIndex)) {
       const newData = Array.from(filesData.files);
+      const newErrorsToShow = filesData.files.length > 1  ? filesErrorsToShow
+        .filter(errorToShow => !errorToShow.path.includes(fileIndex)) : [];
+      const newServerErrorsToShow = filesData.files.length > 1  ? filesSeverValidationErrors
+        .filter(serverError => !serverError.path.includes(fileIndex)) : [];
+
       newData.splice(fileIndex, 1);
       return Object.assign({}, state, {
         [ action.payload.submissionId ]: Object.assign({}, state[action.payload.submissionId], {
@@ -860,6 +978,8 @@ function deleteFile(state: SubmissionObjectState, action: DeleteUploadedFileActi
                 data: Object.assign({}, state[ action.payload.submissionId ].sections[ action.payload.sectionId ].data, {
                   files: newData,
                 }),
+                errorsToShow: newErrorsToShow,
+                serverValidationErrors: newServerErrorsToShow,
               }),
             }),
           ),

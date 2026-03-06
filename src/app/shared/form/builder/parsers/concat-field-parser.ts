@@ -24,6 +24,7 @@ import {
   FieldParser,
   INIT_FORM_VALUES,
   PARSER_OPTIONS,
+  SECURITY_CONFIG,
   SUBMISSION_ID,
 } from './field-parser';
 import { ParserOptions } from './parser-options';
@@ -35,11 +36,12 @@ export class ConcatFieldParser extends FieldParser {
     @Inject(CONFIG_DATA) configData: FormFieldModel,
     @Inject(INIT_FORM_VALUES) initFormValues,
     @Inject(PARSER_OPTIONS) parserOptions: ParserOptions,
-      translate: TranslateService,
+    @Inject(SECURITY_CONFIG) securityConfig: any,
+    protected translate: TranslateService,
     protected separator: string,
     protected firstPlaceholder: string = null,
     protected secondPlaceholder: string = null) {
-    super(submissionId, configData, initFormValues, parserOptions, translate);
+    super(submissionId, configData, initFormValues, parserOptions, translate, securityConfig);
 
     this.separator = separator;
     this.firstPlaceholder = firstPlaceholder;
@@ -108,6 +110,9 @@ export class ConcatFieldParser extends FieldParser {
 
     const model1 = new DsDynamicInputModel(input1ModelConfig, clsInput);
     const model2 = new DsDynamicInputModel(input2ModelConfig, clsInput);
+    // attach the security config for children
+    (model1 as any).securityConfigLevel = (concatGroup as any).securityConfigLevel;
+    (model2 as any).securityConfigLevel = (concatGroup as any).securityConfigLevel;
     concatGroup.group.push(model1);
     concatGroup.group.push(model2);
 
@@ -116,6 +121,7 @@ export class ConcatFieldParser extends FieldParser {
         control: 'row',
       },
     };
+    this.initSecurityValue(concatGroup, fieldValue as any);
     const concatModel = new DynamicConcatModel(concatGroup, clsGroup);
     concatModel.name = this.getFieldId();
 

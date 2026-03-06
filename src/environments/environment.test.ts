@@ -290,6 +290,7 @@ export const environment: BuildConfig = {
       // Show the bitstream access status label
       showAccessStatuses: false,
     },
+    showAuthorithyRelations: false,
   },
   community: {
     defaultBrowseTab: 'search',
@@ -476,5 +477,118 @@ export const environment: BuildConfig = {
 
   accessibility: {
     cookieExpirationDuration: 7,
+  },
+
+  layout: {
+    authorityRef: [
+      {
+        entityType: 'DEFAULT',
+        entityStyle: {
+          default: {
+            icon: 'fa fa-user',
+            style: 'text-success',
+          },
+        },
+      },
+      {
+        entityType: 'PERSON',
+        entityStyle: {
+          person: {
+            icon: 'fa fa-user',
+            style: 'text-success',
+          },
+          personStaff: {
+            icon: 'fa fa-user',
+            style: 'text-primary',
+          },
+          default: {
+            icon: 'fa fa-user',
+            style: 'text-success',
+          },
+        },
+      },
+      {
+        entityType: 'ORGUNIT',
+        entityStyle: {
+          default: {
+            icon: 'fa fa-university',
+            style: 'text-success',
+          },
+        },
+      },
+    ],
+  },
+
+  searchResult: {
+    additionalMetadataFields: [],
+    authorMetadata: ['dc.contributor.author', 'dc.creator', 'dc.contributor.*'],
+  },
+
+  metadataLinkViewPopoverData:  {
+    fallbackMetdataList: ['dc.description.abstract'],
+
+    entityDataConfig: [
+      {
+        entityType: 'Person',
+        metadataList: ['person.affiliation.name', 'person.email', 'person.identifier.orcid', 'dc.description.abstract'],
+        titleMetadataList: ['person.givenName', 'person.familyName' ],
+      },
+      {
+        entityType: 'OrgUnit',
+        metadataList: ['organization.parentOrganization', 'organization.identifier.ror', 'crisou.director', 'dc.description.abstract'],
+      },
+      {
+        entityType: 'Project',
+        metadataList: ['oairecerif.project.status', 'dc.description.abstract'],
+      },
+      {
+        entityType: 'Funding',
+        metadataList: ['oairecerif.funder', 'oairecerif.fundingProgram', 'dc.description.abstract'],
+      },
+      {
+        entityType: 'Publication',
+        metadataList: ['dc.identifier.doi', 'dc.identifier.uri', 'dc.description.abstract'],
+      },
+    ],
+  },
+
+  identifierSubtypes: [],
+
+  followAuthorityMaxItemLimit: 100,
+
+  followAuthorityMetadataValuesLimit: 5,
+
+  followAuthorityMetadata:   [
+    {
+      type: 'Publication',
+      metadata: ['dc.contributor.author'],
+    },
+    {
+      type: 'Product',
+      metadata: ['dc.contributor.author'],
+    },
+    {
+      type: 'Patent',
+      metadata: ['dc.contributor.author'],
+    },
+  ],
+
+  security: {
+    levels: [
+      {
+        value: 0,
+        icon: 'fa fa-globe',
+        color: 'green',
+      },
+      {
+        value: 1,
+        icon: 'fa fa-key',
+        color: 'orange',
+      },
+      {
+        value: 2,
+        icon: 'fa fa-lock',
+        color: 'red',
+      }],
   },
 };

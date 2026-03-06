@@ -10,6 +10,9 @@ import {
 } from '@angular/core';
 import { AuthService } from '@dspace/core/auth/auth.service';
 import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
+import { ConfigObject } from '@dspace/core/config/models/config.model';
+import { SubmissionDefinitionModel } from '@dspace/core/config/models/config-submission-definition.model';
+import { SubmissionDefinitionsConfigDataService } from '@dspace/core/config/submission-definitions-config-data.service';
 import { CollectionDataService } from '@dspace/core/data/collection-data.service';
 import { EntityTypeDataService } from '@dspace/core/data/entity-type-data.service';
 import { RequestService } from '@dspace/core/data/request.service';
@@ -25,6 +28,7 @@ import {
 } from '@dspace/shared/utils/empty.util';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
+  DynamicCheckboxModel,
   DynamicFormControlModel,
   DynamicFormOptionConfig,
   DynamicFormService,
@@ -34,7 +38,12 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
+import {
+  catchError,
+  combineLatest,
+  Observable,
+  of,
+} from 'rxjs';
 
 import { ComColFormComponent } from '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component';
 import { ComcolPageLogoComponent } from '../../shared/comcol/comcol-page-logo/comcol-page-logo.component';
@@ -42,8 +51,11 @@ import { FormComponent } from '../../shared/form/form.component';
 import { UploaderComponent } from '../../shared/upload/uploader/uploader.component';
 import { VarDirective } from '../../shared/utils/var.directive';
 import {
+  collectionFormCorrectionSubmissionDefinitionSelectionConfig,
   collectionFormEntityTypeSelectionConfig,
   collectionFormModels,
+  collectionFormSharedWorkspaceCheckboxConfig,
+  collectionFormSubmissionDefinitionSelectionConfig,
 } from './collection-form.models';
 
 /**
@@ -80,6 +92,20 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
   entityTypeSelection: DynamicSelectModel<string> = new DynamicSelectModel(collectionFormEntityTypeSelectionConfig);
 
   /**
+   * The dynamic form field used for submission definition selection
+   * @type {DynamicSelectModel<string>}
+   */
+  submissionDefinitionSelection: DynamicSelectModel<string> = new DynamicSelectModel(collectionFormSubmissionDefinitionSelectionConfig);
+
+  /**
+   * The dynamic form field used for correction submission definition selection
+   * @type {DynamicSelectModel<string>}
+   */
+  correctionSubmissionDefinitionSelection: DynamicSelectModel<string> = new DynamicSelectModel(collectionFormCorrectionSubmissionDefinitionSelectionConfig);
+
+  sharedWorkspaceChekbox: DynamicCheckboxModel = new DynamicCheckboxModel(collectionFormSharedWorkspaceCheckboxConfig);
+
+  /**
    * The dynamic form fields used for creating/editing a collection
    * @type {DynamicFormControlModel[]}
    */
@@ -94,6 +120,7 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
                      protected objectCache: ObjectCacheService,
                      protected entityTypeService: EntityTypeDataService,
                      protected chd: ChangeDetectorRef,
+                     protected submissionDefinitionService: SubmissionDefinitionsConfigDataService,
                      protected modalService: NgbModal) {
     super(formService, translate, notificationsService, authService, requestService, objectCache, modalService);
   }
@@ -117,35 +144,76 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
 
   initializeForm() {
     let currentRelationshipValue: MetadataValue[];
+    let currentDefinitionValue: MetadataValue[];
+    let currentCorrectionDefinitionValue: MetadataValue[];
+    let currentSharedWorkspaceValue: MetadataValue[];
     if (this.dso && this.dso.metadata) {
       currentRelationshipValue = this.dso.metadata['dspace.entity.type'];
+      currentDefinitionValue = this.dso.metadata['cris.submission.definition'];
+      currentCorrectionDefinitionValue = this.dso.metadata['cris.submission.definition-correction'];
+      currentSharedWorkspaceValue = this.dso.metadata['cris.workspace.shared'];
     }
 
     const entities$: Observable<ItemType[]> = this.entityTypeService.findAll({ elementsPerPage: 100, currentPage: 1 }).pipe(
       getFirstSucceededRemoteListPayload(),
     );
 
-    // retrieve all entity types to populate the dropdowns selection
-    entities$.subscribe((entityTypes: ItemType[]) => {
+    const definitions$: Observable<ConfigObject[]> = this.submissionDefinitionService
+      .findAll({ elementsPerPage: 100, currentPage: 1 }).pipe(
+        getFirstSucceededRemoteListPayload(),
+        catchError(() => of([])),
+      );
 
-      entityTypes = entityTypes.filter((type: ItemType) => type.label !== NONE_ENTITY_TYPE);
-      entityTypes.forEach((type: ItemType, index: number) => {
-        this.entityTypeSelection.add({
-          disabled: false,
-          label: type.label,
-          value: type.label,
-        } as DynamicFormOptionConfig<string>);
-        if (currentRelationshipValue && currentRelationshipValue.length > 0 && currentRelationshipValue[0].value === type.label) {
-          this.entityTypeSelection.select(index);
-          this.entityTypeSelection.disabled = true;
+    // retrieve all entity types and submission definitions to populate the dropdowns selection
+    combineLatest([entities$, definitions$])
+      .subscribe(([entityTypes, definitions]: [ItemType[], SubmissionDefinitionModel[]]) => {
+
+        const sortedEntityTypes = entityTypes
+          .filter((type: ItemType) => type.label !== NONE_ENTITY_TYPE)
+          .sort((a, b) => a.label.localeCompare(b.label));
+
+        sortedEntityTypes.forEach((type: ItemType, index: number) => {
+          this.entityTypeSelection.add({
+            disabled: false,
+            label: type.label,
+            value: type.label,
+          } as DynamicFormOptionConfig<string>);
+          if (currentRelationshipValue && currentRelationshipValue.length > 0 && currentRelationshipValue[0].value === type.label) {
+            this.entityTypeSelection.select(index);
+            this.entityTypeSelection.disabled = true;
+          }
+        });
+
+        definitions.forEach((definition: SubmissionDefinitionModel, index: number) => {
+          this.submissionDefinitionSelection.add({
+            disabled: false,
+            label: definition.name,
+            value: definition.name,
+          } as DynamicFormOptionConfig<string>);
+          this.correctionSubmissionDefinitionSelection.add({
+            disabled: false,
+            label: definition.name,
+            value: definition.name,
+          } as DynamicFormOptionConfig<string>);
+          if (currentDefinitionValue && currentDefinitionValue.length > 0 && currentDefinitionValue[0].value === definition.name) {
+            this.submissionDefinitionSelection.select(index);
+          }
+          if (currentCorrectionDefinitionValue && currentCorrectionDefinitionValue.length > 0 && currentCorrectionDefinitionValue[0].value === definition.name) {
+            this.correctionSubmissionDefinitionSelection.select(index);
+          }
+        });
+
+        this.formModel = entityTypes.length === 0 ?
+          [...collectionFormModels, this.submissionDefinitionSelection, this.correctionSubmissionDefinitionSelection, this.sharedWorkspaceChekbox] :
+          [...collectionFormModels, this.entityTypeSelection, this.submissionDefinitionSelection, this.correctionSubmissionDefinitionSelection, this.sharedWorkspaceChekbox];
+
+        super.ngOnInit();
+
+        if (currentSharedWorkspaceValue && currentSharedWorkspaceValue.length > 0) {
+          this.sharedWorkspaceChekbox.value = currentSharedWorkspaceValue[0].value === 'true';
         }
+        this.chd.detectChanges();
       });
-
-      this.formModel = entityTypes.length === 0 ? collectionFormModels : [...collectionFormModels, this.entityTypeSelection];
-
-      super.ngOnInit();
-      this.chd.detectChanges();
-    });
 
   }
 }

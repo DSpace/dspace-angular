@@ -21,6 +21,7 @@ import { CurationMenuProvider } from './shared/menu/providers/curation.menu';
 import { DSpaceObjectEditMenuProvider } from './shared/menu/providers/dso-edit.menu';
 import { DsoOptionMenuProvider } from './shared/menu/providers/dso-option.menu';
 import { EditMenuProvider } from './shared/menu/providers/edit.menu';
+import { EditItemDetailsMenuProvider } from './shared/menu/providers/edit-item-details.menu';
 import { ExportMenuProvider } from './shared/menu/providers/export.menu';
 import { HealthMenuProvider } from './shared/menu/providers/health.menu';
 import { ImportMenuProvider } from './shared/menu/providers/import.menu';
@@ -102,6 +103,9 @@ export const MENUS = buildMenuStructure({
         MenuRoute.ITEM_PAGE,
       ),
       ClaimMenuProvider.onRoute(
+        MenuRoute.ITEM_PAGE,
+      ),
+      EditItemDetailsMenuProvider.onRoute(
         MenuRoute.ITEM_PAGE,
       ),
     ]),

@@ -12,14 +12,14 @@
   }
   <ng-container *ngTemplateOutlet="startTemplate?.templateRef; context: { $implicit: model };"></ng-container>
   <!--    Should be *ngIf instead of class d-none, but that breaks the #componentViewContainer reference-->
-  <div [ngClass]="{'row': model.hasLanguages || isRelationship,
+  <div [ngClass]="{'row': model.hasLanguages || isRelationship || model.hasSecurityToggle,
                       'd-none': this.metadataService.isVirtual(value) && (model.hasSelectableMetadata || context?.index > 0)}">
     <div [ngClass]="getClass('grid', 'control')">
       <div>
         <ng-container #componentViewContainer></ng-container>
       </div>
 
-      @if (hasHint && (formBuilderService.hasArrayGroupValue(model) || (!model.repeatable && (isRelationship === false || value?.value === null)) || (model.repeatable === true && context?.index === context?.context?.groups?.length - 1)) && (!showErrorMessages || errorMessages.length === 0)) {
+      @if (hasHint && (formBuilderService.hasArrayGroupValue(model) || ((!model.repeatable && (!(model?.isModelOfNotRepeatableGroup) || model?.isModelOfNotRepeatableGroup && context?.index === context?.context?.groups?.length - 1)) && (isRelationship === false || value?.value === null)) || (model.repeatable === true && context?.index === context?.context?.groups?.length - 1)) && (!showErrorMessages || errorMessages.length === 0)) {
 <small
              class="text-muted ds-hint" [innerHTML]="model.hint | translate" [ngClass]="getClass('element', 'hint')"></small>
       }
@@ -28,7 +28,7 @@
         <div class="clearfix w-100 mb-2"></div>
       }
 
-      @if (!model.hideErrorMessages && showErrorMessages) {
+      @if (!model.hideErrorMessages && showErrorMessages && (!(model?.isModelOfNotRepeatableGroup) || model?.isModelOfNotRepeatableGroup && context?.index === context?.context?.groups?.length - 1) && isNotRequiredGroupAndEmpty()) {
         <div [id]="id + '_errors'"
           [ngClass]="[getClass('element', 'errors'), getClass('grid', 'errors')]">
           @for (message of errorMessages; track message) {
@@ -58,6 +58,17 @@
             <option [value]="lang.code">{{lang.display}}</option>
           }
         </select>
+      </div>
+    }
+    @if (model.hasSecurityToggle) {
+      <div class="col-xs-2" [class.date-field-security]="model.type === 'DATE'">
+        @if (model.toggleSecurityVisibility) {
+          <ds-edit-metadata-security [readOnly]="model.readOnly"
+                                     [securityConfigLevel]="model.securityConfigLevel"
+                                     [securityLevel]="securityLevel"
+                                     (changeSecurityLevel)="addSecurityLevelToMetadata($event)">
+          </ds-edit-metadata-security>
+        }
       </div>
     }
     @if (isRelationship) {

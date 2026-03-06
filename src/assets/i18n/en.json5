@@ -1379,17 +1379,33 @@
 
   "collection.form.errors.title.required": "Please enter a collection name",
 
+  "collection.form.errors.submissionDefinition.required": "Please choose a submission definition for this collection",
+
+  "collection.form.errors.entityType.required": "Please choose an entity type for this collection",
+
   "collection.form.license": "License",
 
   "collection.form.provenance": "Provenance",
 
   "collection.form.rights": "Copyright text (HTML)",
 
+  "collection.form.sharedWorkspace": "Shared workspace",
+
   "collection.form.tableofcontents": "News (HTML)",
 
   "collection.form.title": "Name",
 
   "collection.form.entityType": "Entity Type",
+
+  "collection.form.errors.entityType.required": "Please choose an entity type for this collection",
+
+  "collection.form.errors.submissionDefinition.required": "Please choose a submission definition for this collection",
+
+  "collection.form.submissionDefinition": "Submission definition",
+
+  "collection.form.correctionSubmissionDefinition": "Submission definition for correction request",
+
+
 
   "collection.listelement.badge": "Collection",
 
@@ -1664,6 +1680,14 @@
   "community.sub-collection-list.head": "Collections in this community",
 
   "community.sub-community-list.head": "Communities in this Community",
+
+  "confirmation-modal.pending-changes.header": "Unsaved changes",
+
+  "confirmation-modal.pending-changes.info": "There are unsaved changes. Do you want to leave the page?",
+
+  "confirmation-modal.pending-changes.cancel": "Cancel",
+
+  "confirmation-modal.pending-changes.confirm": "Leave",
 
   "context-menu.actions.audit-item.btn": "Audit",
 
@@ -2101,6 +2125,8 @@
 
   "form.clear-help": "Click here to remove the selected value",
 
+  "form.copy": "Duplicate",
+
   "form.discard": "Discard",
 
   "form.drag": "Drag",
@@ -2110,6 +2136,12 @@
   "form.edit-help": "Click here to edit the selected value",
 
   "form.first-name": "First name",
+
+  "form.group.add": "Add",
+
+  "form.group.close": "Close",
+
+  "form.group.set": "Set",
 
   "form.group-collapse": "Collapse",
 
@@ -2142,6 +2174,40 @@
   "form.other-information.last-name": "Last Name",
 
   "form.other-information.orcid": "ORCID",
+
+  "form.other-information.person_identifier_orcid": "ORCID",
+
+  "form.other-information.oairecerif_author_affiliation": "Affiliation",
+
+  "form.other-information.oairecerif_editor_affiliation": "Affiliation",
+
+  "form.other-information.person_identifier_orcid": "ORCID iD",
+
+  "form.other-information.institution-affiliation-name": "Affiliation(s)",
+
+  "form.other-information.dc_relation_grantno": "Grant Number",
+
+  "form.other-information.not-available": "Not available",
+
+  "form.other-information.ror_orgunit_id": "ROR ID",
+
+  "form.other-information.ror_orgunit_type": "ROR type",
+
+  "form.other-information.ror_orgunit_acronym": "ROR acronym",
+
+  "form.other-information.ror_orgunit_countryName": "ROR country",
+
+  "form.entry.source.local": "",
+
+  "form.entry.source.orcid": "",
+
+  "form.entry.source.ror": "",
+
+  "form.entry.source.openaire": "",
+
+  "form.entry.source.zdb": "",
+
+  "form.entry.source.sherpa": "- Sherpa Romeo",
 
   "form.remove": "Remove",
 
@@ -2627,6 +2693,8 @@
 
   "item.edit.metadata.headers.language": "Lang",
 
+  "item.edit.metadata.headers.authority": "Authority",
+
   "item.edit.metadata.headers.value": "Value",
 
   "item.edit.metadata.metadatafield": "Edit field",
@@ -2973,7 +3041,7 @@
 
   "item.page.date": "Date",
 
-  "item.page.edit": "Edit this item",
+  "item.page.edit": "Administer",
 
   "item.page.files": "Files",
 
@@ -3012,6 +3080,10 @@
   "item.page.relationships.isOrgUnitOfPerson": "Authors",
 
   "item.page.relationships.isOrgUnitOfProject": "Research Projects",
+
+  "item.page.relationships.RELATION.Person.researchoutputs": "Publications",
+
+  "item.page.relationships.RELATION.Person.projects": "Projects",
 
   "item.page.subject": "Keywords",
 
@@ -3313,6 +3385,8 @@
 
   "itemtemplate.edit.metadata.headers.value": "Value",
 
+  "itemtemplate.edit.metadata.headers.authority": "Authority",
+
   "itemtemplate.edit.metadata.metadatafield": "Edit field",
 
   "itemtemplate.edit.metadata.metadatafield.error": "An error occurred validating the metadata field",
@@ -3347,7 +3421,7 @@
 
   "journal.page.description": "Description",
 
-  "journal.page.edit": "Edit this item",
+  "journal.page.edit": "Administer",
 
   "journal.page.editor": "Editor-in-Chief",
 
@@ -3369,7 +3443,7 @@
 
   "journalissue.page.description": "Description",
 
-  "journalissue.page.edit": "Edit this item",
+  "journalissue.page.edit": "Administer",
 
   "journalissue.page.issuedate": "Issue Date",
 
@@ -3391,7 +3465,7 @@
 
   "journalvolume.page.description": "Description",
 
-  "journalvolume.page.edit": "Edit this item",
+  "journalvolume.page.edit": "Administer",
 
   "journalvolume.page.issuedate": "Issue Date",
 
@@ -3663,6 +3737,14 @@
 
   "menu.section.workflow": "Administer Workflow",
 
+  "menu.section.FULL": "Edit all the details",
+
+  "menu.section.OWNER": "Edit",
+
+  "menu.section.DIRECTOR": "Edit",
+
+  "menu.section.INVESTIGATOR": "Edit",
+
   "metadata-export-search.tooltip": "Export search results as CSV",
 
   "metadata-export-search.submit.success": "The export was started successfully",
@@ -3728,6 +3810,8 @@
   "mydspace.show.workflow": "Workflow tasks",
 
   "mydspace.show.workspace": "Your submissions",
+
+  "mydspace.show.otherworkspace": "Other Workspace Submissions",
 
   "mydspace.show.supervisedWorkspace": "Supervised items",
 
@@ -3957,7 +4041,7 @@
 
   "orgunit.page.description": "Description",
 
-  "orgunit.page.edit": "Edit this item",
+  "orgunit.page.edit": "Administer",
 
   "orgunit.page.id": "ID",
 
@@ -3985,7 +4069,7 @@
 
   "person.page.birthdate": "Birth Date",
 
-  "person.page.edit": "Edit this item",
+  "person.page.edit": "Administer",
 
   "person.page.email": "Email Address",
 
@@ -4241,7 +4325,7 @@
 
   "project.page.description": "Description",
 
-  "project.page.edit": "Edit this item",
+  "project.page.edit": "Administer",
 
   "project.page.expectedcompletion": "Expected Completion",
 
@@ -4265,7 +4349,7 @@
 
   "publication.page.description": "Description",
 
-  "publication.page.edit": "Edit this item",
+  "publication.page.edit": "Administer",
 
   "publication.page.journal-issn": "Journal ISSN",
 
@@ -4630,6 +4714,10 @@
   "resource-policies.table.headers.title.for.community": "Policies for Community",
 
   "resource-policies.table.headers.title.for.collection": "Policies for Collection",
+
+  "RELATION.Person.researchoutputs.search.results.head": "Research Output",
+
+  "RELATION.Person.projects.search.results.head": "Projects",
 
   "root.skip-to-content": "Skip to main content",
 
@@ -6042,6 +6130,8 @@
 
   "workflow.search.results.head": "Workflow tasks",
 
+  "otherworkspace.search.results.head": "Workspace submissions",
+
   "supervision.search.results.head": "Workflow and Workspace tasks",
 
   "workflow-item.edit.breadcrumbs": "Edit workflowitem",
@@ -6393,6 +6483,8 @@
   "person.orcid-tooltip.not-authenticated": "{{orcid}} (unconfirmed)",
 
   "home.recent-submissions.head": "Recent Submissions",
+
+  "authority-confidence.search-label": "Search",
 
   "listable-notification-object.default-message": "This object couldn't be retrieved",
 
@@ -7295,4 +7387,22 @@
   "item.preview.organization.address.addressLocality": "City",
 
   "item.preview.organization.alternateName": "Alternative name",
+
+  "metadata-link-view.popover.label.Person.dc.title": "Fullname",
+
+  "metadata-link-view.popover.label.Person.person.affiliation.name": "Main affiliation",
+
+  "metadata-link-view.popover.label.Person.person.email": "Email",
+
+  "metadata-link-view.popover.label.Person.person.identifier.orcid": "ORCID",
+
+  "metadata-link-view.popover.label.Person.dc.description.abstract": "Abstract",
+
+  "metadata-link-view.popover.label.Person.person.jobTitle": "Job title",
+
+  "metadata-link-view.popover.label.other.dc.title": "Title",
+
+  "metadata-link-view.popover.label.other.dc.description.abstract": "Description",
+
+  "metadata-link-view.popover.label.more-info": "More info",
 }
