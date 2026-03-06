@@ -745,7 +745,7 @@ describe('SectionFormOperationsService test suite', () => {
 
       serviceAsAny.dispatchOperationsFromMap(valueMap, pathCombiner, dynamicFormControlChangeEvent, previousValue);
 
-      expect(jsonPatchOpBuilder.add).toHaveBeenCalledWith(pathCombiner.getPath('path'), ['testMapNew'], true);
+      expect(jsonPatchOpBuilder.add).toHaveBeenCalledWith(pathCombiner.getPath('path'), ['testMapNew'], true, null, undefined);
     });
 
     it('should dispatch a json-path add operation when a map entry has changed', () => {
@@ -758,7 +758,7 @@ describe('SectionFormOperationsService test suite', () => {
 
       serviceAsAny.dispatchOperationsFromMap(valueMap, pathCombiner, dynamicFormControlChangeEvent, previousValue);
 
-      expect(jsonPatchOpBuilder.add).toHaveBeenCalledWith(pathCombiner.getPath('path'), ['testMapNew'], true);
+      expect(jsonPatchOpBuilder.add).toHaveBeenCalledWith(pathCombiner.getPath('path'), ['testMapNew'], true, false, undefined);
     });
 
     it('should dispatch a json-path remove operation when a map entry has changed', () => {
