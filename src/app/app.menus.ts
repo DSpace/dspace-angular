@@ -13,6 +13,7 @@ import { AdminSearchMenuProvider } from './shared/menu/providers/admin-search.me
 import { AuditLogsMenuProvider } from './shared/menu/providers/audit-item.menu';
 import { AuditOverviewMenuProvider } from './shared/menu/providers/audit-overview.menu';
 import { BrowseMenuProvider } from './shared/menu/providers/browse.menu';
+import { BulkImportMenuProvider } from './shared/menu/providers/bulk-import.menu';
 import { CoarNotifyMenuProvider } from './shared/menu/providers/coar-notify.menu';
 import { SubscribeMenuProvider } from './shared/menu/providers/comcol-subscribe.menu';
 import { CommunityListMenuProvider } from './shared/menu/providers/community-list.menu';
@@ -103,6 +104,9 @@ export const MENUS = buildMenuStructure({
       ),
       ClaimMenuProvider.onRoute(
         MenuRoute.ITEM_PAGE,
+      ),
+      BulkImportMenuProvider.onRoute(
+        MenuRoute.COLLECTION_PAGE,
       ),
     ]),
   ],

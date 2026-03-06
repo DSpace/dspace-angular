@@ -15,12 +15,14 @@ import {
 import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import { Context } from '@dspace/core/shared/context.model';
 import { Item } from '@dspace/core/shared/item.model';
+import { MetadataValue } from '@dspace/core/shared/metadata.models';
 import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
 import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail.component';
 import { fadeInOut } from '../../../animations/fade';
+import { MetadataLinkViewComponent } from '../../../metadata-link-view/metadata-link-view.component';
 import { ThemedBadgesComponent } from '../../../object-collection/shared/badges/themed-badges.component';
 import { ItemCollectionComponent } from '../../../object-collection/shared/mydspace-item-collection/item-collection.component';
 import { ItemSubmitterComponent } from '../../../object-collection/shared/mydspace-item-submitter/item-submitter.component';
@@ -39,6 +41,7 @@ import { TruncatablePartComponent } from '../../../truncatable/truncatable-part/
     AsyncPipe,
     ItemCollectionComponent,
     ItemSubmitterComponent,
+    MetadataLinkViewComponent,
     NgClass,
     ThemedBadgesComponent,
     ThemedThumbnailComponent,
@@ -81,6 +84,8 @@ export class ItemListPreviewComponent implements OnInit {
 
   dsoTitle: string;
 
+  authorMetadataList: MetadataValue[] = [];
+
   constructor(
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
     public dsoNameService: DSONameService,
@@ -90,6 +95,7 @@ export class ItemListPreviewComponent implements OnInit {
   ngOnInit(): void {
     this.showThumbnails = this.appConfig.browseBy.showThumbnails;
     this.dsoTitle = this.dsoNameService.getHitHighlights(this.object, this.item, true);
+    this.authorMetadataList = this.item.allMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*'], undefined, true);
   }
 
 

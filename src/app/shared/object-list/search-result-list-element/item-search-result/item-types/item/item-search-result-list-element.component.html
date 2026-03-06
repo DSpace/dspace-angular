@@ -23,45 +23,60 @@
       }
     </div>
 
-    @if (object !== undefined && object !== null) {
-      <ds-truncatable [id]="dso.id">
-        @if (linkType !== linkTypes.None) {
-          <a [target]="(linkType === linkTypes.ExternalLink) ? '_blank' : '_self'" [attr.rel]="(linkType === linkTypes.ExternalLink) ? 'noopener noreferrer' : null"
-            [routerLink]="[itemPageRoute]" class="lead item-list-title dont-break-out"
-          [innerHTML]="dsoTitle" role="link" tabindex="0"></a>
-        }
-        @if (linkType === linkTypes.None) {
-          <span class="lead item-list-title dont-break-out"
-          [innerHTML]="dsoTitle"></span>
-        }
-        <span class="text-muted">
-          <ds-truncatable-part [id]="dso.id" [minLines]="1">
-            @if (firstMetadataValue('dc.publisher') || firstMetadataValue('dc.date.issued')) {
-              (@if (firstMetadataValue('dc.publisher')) {
-              <span class="item-list-publisher" [innerHTML]="firstMetadataValue('dc.publisher')"></span>
-            }
-            @if (firstMetadataValue('dc.publisher') && firstMetadataValue('dc.date.issued')) {
-              <span>, </span>
-            }
-            @if (firstMetadataValue('dc.date.issued')) {
-              <span class="item-list-date" [innerHTML]="firstMetadataValue('dc.date.issued')"></span>
-              })
-            }
-            @if (allMetadataValues(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']).length > 0) {
-              <span class="item-list-authors">
-                @for (author of allMetadataValues(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']); track author; let last = $last) {
-                  <span>
-                    <span [innerHTML]="author"><span [innerHTML]="author"></span></span>
-                    @if (!last) {
-                      <span>; </span>
+      @if (object !== undefined && object !== null) {
+        <ds-truncatable [id]="dso.id">
+          @if (linkType !== linkTypes.None) {
+            <a [target]="(linkType === linkTypes.ExternalLink) ? '_blank' : '_self'" [attr.rel]="(linkType === linkTypes.ExternalLink) ? 'noopener noreferrer' : null"
+              [routerLink]="[itemPageRoute]" class="lead item-list-title dont-break-out"
+            [innerHTML]="dsoTitle" role="link" tabindex="0"></a>
+          }
+          @if (linkType === linkTypes.None) {
+            <span class="lead item-list-title dont-break-out"
+            [innerHTML]="dsoTitle"></span>
+          }
+          <span class="text-muted">
+            <ds-truncatable-part [id]="dso.id" [minLines]="1">
+              @if (firstMetadataValue('dc.publisher') || firstMetadataValue('dc.date.issued')) {
+                (@if (firstMetadataValue('dc.publisher')) {
+                <span class="item-list-publisher" [innerHTML]="firstMetadataValue('dc.publisher')"></span>
+              }
+              @if (firstMetadataValue('dc.publisher') && firstMetadataValue('dc.date.issued')) {
+                <span>, </span>
+              }
+              @if (firstMetadataValue('dc.date.issued')) {
+                <span class="item-list-date" [innerHTML]="firstMetadataValue('dc.date.issued')"></span>
+                })
+              }
+              @if (dso.allMetadataValues(authorMetadata, placeholderFilter).length > 0) {
+                <span class="item-list-authors">
+                  @let collapsed = isCollapsed() | async;
+                  <ng-container>
+                    @if (collapsed) {
+                      @for (author of dso.limitedMetadata(authorMetadata, additionalMetadataLimit, placeholderFilter); track author; let last = $last) {
+                        <span>
+                          <ds-metadata-link-view [metadata]="author"></ds-metadata-link-view>
+                          @if (!last) {
+                            <span>; </span>
+                          }
+                        </span>
+                      }
+                  }
+                  @if (!collapsed) {
+                    @for (author of dso.allMetadata(authorMetadata, placeholderFilter); track author; let last = $last) {
+                      <span>
+                        <ds-metadata-link-view [metadata]="author"></ds-metadata-link-view>
+                        @if (!last) {
+                          <span>; </span>
+                        }
+                      </span>
                     }
-                  </span>
                 }
-              </span>
-            }
-          </ds-truncatable-part>
-        </span>
-        @if (firstMetadataValue('dc.description.abstract'); as abstract) {
+                  </ng-container>
+                </span>
+              }
+            </ds-truncatable-part>
+          </span>
+      @if (firstMetadataValue('dc.description.abstract'); as abstract) {
           <div class="item-list-abstract">
             <ds-truncatable-part [id]="dso.id" [minLines]="3"><span
             [innerHTML]="abstract"></span>
@@ -69,6 +84,6 @@
         </div>
       }
     </ds-truncatable>
-  }
-</div>
+    }
+  </div>
 </div>
