@@ -13,10 +13,10 @@
     <ds-themed-breadcrumbs></ds-themed-breadcrumbs>
     <main class="my-cs" id="main-content">
 
-      <div class="container d-flex justify-content-center align-items-center h-100" *ngIf="shouldShowRouteLoader">
+      <div class="container d-flex justify-content-center align-items-center h-100" *ngIf="shouldShowRouteLoader$ | async">
         <ds-themed-loading [showMessage]="false"></ds-themed-loading>
       </div>
-      <div [class.d-none]="shouldShowRouteLoader">
+      <div [class.d-none]="shouldShowRouteLoader && (shouldShowRouteLoader$ | async)">
         <router-outlet></router-outlet>
       </div>
     </main>
