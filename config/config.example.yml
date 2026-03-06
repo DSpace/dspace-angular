@@ -397,7 +397,8 @@ item:
     pageSize: 5
     # Show the bitstream access status label on the item page
     showAccessStatuses: false
-
+  # Enable authority based relations in item page
+  showAuthorithyRelations: false
 # Community Page Config
 community:
   # Default tab to be shown when browsing a Community. Valid values are: comcols, search, or browse_<field>

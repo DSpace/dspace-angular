@@ -347,6 +347,9 @@ export class DefaultAppConfig implements AppConfig {
       // Show the bitstream access status label
       showAccessStatuses: false,
     },
+    // If true, the search result in item page will display relations based on authority.
+    // If false,the search result in item page will display default DSpace relations.
+    showAuthorithyRelations: true,
   };
 
   // Community Page Config

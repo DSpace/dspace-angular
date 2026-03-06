@@ -290,6 +290,7 @@ export const environment: BuildConfig = {
       // Show the bitstream access status label
       showAccessStatuses: false,
     },
+    showAuthorithyRelations: false,
   },
   community: {
     defaultBrowseTab: 'search',
