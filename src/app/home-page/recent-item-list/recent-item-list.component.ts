@@ -108,15 +108,7 @@ export class RecentItemListComponent implements OnInit, OnDestroy {
       linksToFollow.push(followLink('accessStatus'));
     }
     const entityTypes = this.appConfig.homePage.recentSubmissions.entityTypes;
-    const filters = entityTypes?.length
-      ? [
-        new SearchFilter(
-          'f.entityType',
-          entityTypes,   // multiple values supported automatically
-          'equals'
-        )
-      ]
-      : [];
+    const filters = entityTypes?.length ? [new SearchFilter('f.entityType', entityTypes, 'equals')] : [];
 
     this.itemRD$ = this.searchService.search(
       new PaginatedSearchOptions({
@@ -144,9 +136,7 @@ export class RecentItemListComponent implements OnInit, OnDestroy {
     const extraParams: Record<string, unknown> = {};
 
     if (entityTypes?.length) {
-      extraParams['f.entityType'] = entityTypes.map(
-        type => `${type},equals`
-      );
+      extraParams['f.entityType'] = entityTypes.map(type => `${type},equals`);
     }
 
     this.paginationService.updateRouteWithUrl(

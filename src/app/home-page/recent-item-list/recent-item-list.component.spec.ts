@@ -4,13 +4,7 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { APP_CONFIG } from '@dspace/config/app-config.interface';
-import {
-  SortDirection,
-  SortOptions,
-} from '@dspace/core/cache/models/sort-options.model';
 import { PaginationService } from '@dspace/core/pagination/pagination.service';
-import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
-import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
 import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
 import { SearchServiceStub } from '@dspace/core/testing/search-service.stub';
 import { createPaginatedList } from '@dspace/core/testing/utils.test';
@@ -77,9 +71,7 @@ describe('RecentItemListComponent', () => {
     const extraParams: Record<string, unknown> = {};
 
     if (entityTypes?.length) {
-      extraParams['f.entityType'] = entityTypes.map(
-        type => `${type},equals`
-      );
+      extraParams['f.entityType'] = entityTypes.map(type => `${type},equals`);
     }
 
     component.onLoadMore();
