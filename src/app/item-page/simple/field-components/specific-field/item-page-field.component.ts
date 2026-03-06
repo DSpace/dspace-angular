@@ -1,10 +1,8 @@
-import { AsyncPipe } from '@angular/common';
 import {
-  Component,
+  Directive,
   Input,
 } from '@angular/core';
 import { BrowseService } from '@dspace/core/browse/browse.service';
-import { BrowseDefinitionDataService } from '@dspace/core/browse/browse-definition-data.service';
 import { BrowseDefinition } from '@dspace/core/shared/browse-definition.model';
 import { Item } from '@dspace/core/shared/item.model';
 import {
@@ -20,7 +18,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { MetadataValuesComponent } from '../../../field-components/metadata-values/metadata-values.component';
 import { ImageField } from './image-field';
 
 /**
@@ -29,17 +26,12 @@ import { ImageField } from './image-field';
  * This class can be extended to print certain metadata.
  */
 
-@Component({
-  templateUrl: './item-page-field.component.html',
-  imports: [
-    AsyncPipe,
-    MetadataValuesComponent,
-  ],
-})
-export class ItemPageFieldComponent {
+@Directive()
+export abstract class ItemPageFieldComponent {
 
-  constructor(protected browseDefinitionDataService: BrowseDefinitionDataService,
-              protected browseService: BrowseService) {
+  constructor(
+    protected browseService: BrowseService,
+  ) {
   }
 
     /**
