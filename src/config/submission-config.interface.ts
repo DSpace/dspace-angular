@@ -1,3 +1,5 @@
+import { ImportExternalMetadataViewMode } from '@dspace/config/import-external-metadata-view.mode';
+
 import { Config } from './config.interface';
 
 interface AutosaveConfig extends Config {
@@ -36,4 +38,7 @@ export interface SubmissionConfig extends Config {
   duplicateDetection: DuplicateDetectionConfig;
   typeBind: TypeBindConfig;
   icons: IconsConfig;
+  importExternal: {
+    viewMode: ImportExternalMetadataViewMode;
+  };
 }
