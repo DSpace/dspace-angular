@@ -27,17 +27,23 @@ import { SearchOptions } from '@dspace/core/shared/search/models/search-options.
 import {
   hasNoValue,
   hasValue,
+  isNotEmpty,
 } from '@dspace/shared/utils/empty.util';
 import {
   BehaviorSubject,
+  combineLatest,
   combineLatest as observableCombineLatest,
+  from,
   Observable,
   of,
   Subscription,
 } from 'rxjs';
 import {
   distinctUntilChanged,
+  filter,
   map,
+  mergeMap,
+  reduce,
   switchMap,
   take,
   tap,
@@ -46,6 +52,10 @@ import {
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { InputSuggestion } from '../../../../input-suggestions/input-suggestions.model';
 import { SearchService } from '../../../search.service';
+import {
+  getFacetValueForType,
+  stripOperatorFromFilterValue,
+} from '../../../search.utils';
 import { SearchConfigurationService } from '../../../search-configuration.service';
 import { SearchFilterService } from '../../search-filter.service';
 
@@ -167,7 +177,29 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
       this.searchOptions$.subscribe(() => this.updateFilterValueList()),
       this.retrieveFilterValues().subscribe(),
     );
-    this.selectedAppliedFilters$ = this.searchService.getSelectedValuesForFilter(this.filterConfig.name).pipe(
+
+    this.selectedAppliedFilters$ = combineLatest([
+      this.searchService.getSelectedValuesForFilter(this.filterConfig.name),
+      this.facetValues$.asObservable().pipe(
+        mergeMap((values: FacetValues[]) => from(values).pipe(
+          reduce((acc: FacetValue[], value: FacetValues) => acc.concat(value.page), []),
+        )),
+      ),
+    ]).pipe(
+      filter(([allAppliedFilters, facetValues]: [AppliedFilter[], FacetValue[]]) => isNotEmpty(facetValues)),
+      map(([allAppliedFilters, facetValues]) =>
+        allAppliedFilters.map((appliedValue) => {
+          const fValue = facetValues.find((facetValue: FacetValue) => {
+            const valueForType = getFacetValueForType(facetValue, this.filterConfig);
+            return hasValue(valueForType) &&
+              stripOperatorFromFilterValue(valueForType) === appliedValue.value;
+          });
+
+          return hasValue(fValue)
+            ? Object.assign(appliedValue, { label: fValue.label })
+            : appliedValue;
+        }),
+      ),
       map((allAppliedFilters: AppliedFilter[]) => allAppliedFilters.filter((appliedFilter: AppliedFilter) => FACET_OPERATORS.includes(appliedFilter.operator))),
       distinctUntilChanged((previous: AppliedFilter[], next: AppliedFilter[]) => JSON.stringify(previous) === JSON.stringify(next)),
     );

@@ -48,6 +48,15 @@
       <div class="dont-break-out preserve-line-breaks">{{ mdValue.newValue.language }}</div>
     }
   </div>
+  <div class="ds-flex-cell ds-authority-cell" role="cell">
+    @if (!mdValue.editing) {
+      <div class="dont-break-out preserve-line-breaks">{{ mdValue.newValue.authority }}</div>
+    }
+    @if(mdValue.editing) {
+      <textarea class="form-control" rows="5" [(ngModel)]="mdValue.newValue.authority"
+                [dsDebounce]="300" (onDebounce)="confirm.emit(false)"></textarea>
+    }
+  </div>
   <div class="text-center ds-flex-cell ds-edit-cell" role="cell">
     <div class="btn-group">
       <div class="edit-field">

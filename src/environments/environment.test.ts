@@ -1,4 +1,5 @@
 // This configuration is only used for unit tests, end-to-end tests use environment.production.ts
+import { AdvancedAttachmentElementType } from '@dspace/config/advanced-attachment-rendering.config';
 import { NotificationAnimationsType } from '@dspace/config/notifications-config.interfaces';
 import { RestRequestMethod } from '@dspace/config/rest-request-method';
 import { BuildConfig } from 'src/config/build-config.interface';
@@ -476,5 +477,136 @@ export const environment: BuildConfig = {
 
   accessibility: {
     cookieExpirationDuration: 7,
+  },
+
+  layout: {
+    authorityRef: [
+      {
+        entityType: 'DEFAULT',
+        entityStyle: {
+          default: {
+            icon: 'fa fa-user',
+            style: 'text-success',
+          },
+        },
+      },
+      {
+        entityType: 'PERSON',
+        entityStyle: {
+          person: {
+            icon: 'fa fa-user',
+            style: 'text-success',
+          },
+          personStaff: {
+            icon: 'fa fa-user',
+            style: 'text-primary',
+          },
+          default: {
+            icon: 'fa fa-user',
+            style: 'text-success',
+          },
+        },
+      },
+      {
+        entityType: 'ORGUNIT',
+        entityStyle: {
+          default: {
+            icon: 'fa fa-university',
+            style: 'text-success',
+          },
+        },
+      },
+    ],
+    showDownloadLinkAsAttachment: false,
+  },
+
+  searchResult: {
+    additionalMetadataFields: [],
+    authorMetadata: ['dc.contributor.author', 'dc.creator', 'dc.contributor.*'],
+  },
+
+  metadataLinkViewPopoverData:  {
+    fallbackMetdataList: ['dc.description.abstract'],
+
+    entityDataConfig: [
+      {
+        entityType: 'Person',
+        metadataList: ['person.affiliation.name', 'person.email', 'person.identifier.orcid', 'dc.description.abstract'],
+        titleMetadataList: ['person.givenName', 'person.familyName' ],
+      },
+      {
+        entityType: 'OrgUnit',
+        metadataList: ['organization.parentOrganization', 'organization.identifier.ror', 'crisou.director', 'dc.description.abstract'],
+      },
+      {
+        entityType: 'Project',
+        metadataList: ['oairecerif.project.status', 'dc.description.abstract'],
+      },
+      {
+        entityType: 'Funding',
+        metadataList: ['oairecerif.funder', 'oairecerif.fundingProgram', 'dc.description.abstract'],
+      },
+      {
+        entityType: 'Publication',
+        metadataList: ['dc.identifier.doi', 'dc.identifier.uri', 'dc.description.abstract'],
+      },
+    ],
+  },
+
+  identifierSubtypes: [],
+
+  followAuthorityMaxItemLimit: 100,
+
+  followAuthorityMetadataValuesLimit: 5,
+
+  followAuthorityMetadata:   [
+    {
+      type: 'Publication',
+      metadata: ['dc.contributor.author'],
+    },
+    {
+      type: 'Product',
+      metadata: ['dc.contributor.author'],
+    },
+    {
+      type: 'Patent',
+      metadata: ['dc.contributor.author'],
+    },
+  ],
+
+  advancedAttachmentRendering: {
+    pagination: {
+      enabled: true,
+      elementsPerPage: 2,
+    },
+    metadata: [
+      {
+        name: 'dc.title',
+        type: AdvancedAttachmentElementType.Metadata,
+        truncatable: false,
+      },
+      {
+        name: 'dc.type',
+        type: AdvancedAttachmentElementType.Metadata,
+        truncatable: false,
+      },
+      {
+        name: 'dc.description',
+        type: AdvancedAttachmentElementType.Metadata,
+        truncatable: true,
+      },
+      {
+        name: 'size',
+        type: AdvancedAttachmentElementType.Attribute,
+      },
+      {
+        name: 'format',
+        type: AdvancedAttachmentElementType.Attribute,
+      },
+      {
+        name: 'checksum',
+        type: AdvancedAttachmentElementType.Attribute,
+      },
+    ],
   },
 };

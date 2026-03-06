@@ -1747,6 +1747,32 @@
 
   "cookies.consent.purpose.sharing": "Sharing",
 
+  "cris-layout.advanced-attachment.dc.title": "Name",
+
+  "cris-layout.advanced-attachment.size": "Size",
+
+  "cris-layout.advanced-attachment.checksum": "Checksum",
+
+  "cris-layout.advanced-attachment.checksum.info.MD5": "The <b>MD5 message-digest algorithm</b> can be used to verify the integrity of the file that you have uploaded. You can calculate its value locally via tools that are generally available in each operative system like <b>md5sum</b>",
+
+  "cris-layout.advanced-attachment.format": "Format",
+
+  "cris-layout.advanced-attachment.dc.type": "Type",
+
+  "cris-layout.advanced-attachment.dc.description": "Description",
+
+  "cris-layout.advanced-attachment.no_thumbnail": "No Thumbnail Available",
+
+  "cris-layout.advanced-attachment.download": "Download",
+
+  "cris-layout.advanced-attachment.requestACopy": "Request a copy",
+
+  "cris-layout.advanced-attachment.viewMore": "View More",
+
+  "cris-layout.advanced-attachment.label.not-present": "(not present)",
+
+  "cris-layout.attachment.viewMore": "View More",
+
   "curation-task.task.citationpage.label": "Generate Citation Page",
 
   "curation-task.task.checklinks.label": "Check Links in Metadata",
@@ -2142,6 +2168,40 @@
   "form.other-information.last-name": "Last Name",
 
   "form.other-information.orcid": "ORCID",
+
+  "form.other-information.person_identifier_orcid": "ORCID",
+
+  "form.other-information.oairecerif_author_affiliation": "Affiliation",
+
+  "form.other-information.oairecerif_editor_affiliation": "Affiliation",
+
+  "form.other-information.person_identifier_orcid": "ORCID iD",
+
+  "form.other-information.institution-affiliation-name": "Affiliation(s)",
+
+  "form.other-information.dc_relation_grantno": "Grant Number",
+
+  "form.other-information.not-available": "Not available",
+
+  "form.other-information.ror_orgunit_id": "ROR ID",
+
+  "form.other-information.ror_orgunit_type": "ROR type",
+
+  "form.other-information.ror_orgunit_acronym": "ROR acronym",
+
+  "form.other-information.ror_orgunit_countryName": "ROR country",
+
+  "form.entry.source.local": "",
+
+  "form.entry.source.orcid": "",
+
+  "form.entry.source.ror": "",
+
+  "form.entry.source.openaire": "",
+
+  "form.entry.source.zdb": "",
+
+  "form.entry.source.sherpa": "- Sherpa Romeo",
 
   "form.remove": "Remove",
 
@@ -2626,6 +2686,8 @@
   "item.edit.metadata.headers.field": "Field",
 
   "item.edit.metadata.headers.language": "Lang",
+
+  "item.edit.metadata.headers.authority": "Authority",
 
   "item.edit.metadata.headers.value": "Value",
 
@@ -3312,6 +3374,8 @@
   "itemtemplate.edit.metadata.headers.language": "Lang",
 
   "itemtemplate.edit.metadata.headers.value": "Value",
+
+  "itemtemplate.edit.metadata.headers.authority": "Authority",
 
   "itemtemplate.edit.metadata.metadatafield": "Edit field",
 
@@ -6394,6 +6458,8 @@
 
   "home.recent-submissions.head": "Recent Submissions",
 
+  "authority-confidence.search-label": "Search",
+
   "listable-notification-object.default-message": "This object couldn't be retrieved",
 
   "system-wide-alert-banner.retrieval.error": "Something went wrong retrieving the system-wide alert banner",
@@ -7170,6 +7236,8 @@
 
   "file-download-link.download": "Download ",
 
+  "file-download-button.download": "Download",
+
   "register-page.registration.aria.label": "Enter your e-mail address",
 
   "forgot-email.form.aria.label": "Enter your e-mail address",
@@ -7290,9 +7358,29 @@
 
   "file-download-link.request-copy": "Request a copy of ",
 
+  "file-download-button.request-copy": "Request a copy",
+
   "item.preview.organization.url": "URL",
 
   "item.preview.organization.address.addressLocality": "City",
 
   "item.preview.organization.alternateName": "Alternative name",
+
+  "metadata-link-view.popover.label.Person.dc.title": "Fullname",
+
+  "metadata-link-view.popover.label.Person.person.affiliation.name": "Main affiliation",
+
+  "metadata-link-view.popover.label.Person.person.email": "Email",
+
+  "metadata-link-view.popover.label.Person.person.identifier.orcid": "ORCID",
+
+  "metadata-link-view.popover.label.Person.dc.description.abstract": "Abstract",
+
+  "metadata-link-view.popover.label.Person.person.jobTitle": "Job title",
+
+  "metadata-link-view.popover.label.other.dc.title": "Title",
+
+  "metadata-link-view.popover.label.other.dc.description.abstract": "Description",
+
+  "metadata-link-view.popover.label.more-info": "More info",
 }
