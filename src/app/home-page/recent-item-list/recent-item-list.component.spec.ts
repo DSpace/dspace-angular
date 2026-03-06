@@ -75,7 +75,7 @@ describe('RecentItemListComponent', () => {
     }
     component.onLoadMore();
 
-    expect(paginationService.updateRouteWithUrl).toHaveBeenCalledWith('search-page-configuration', ['search'], { sortField: environment.homePage.recentSubmissions.sortField, sortDirection: 'DESC', page: 1, }, extraParams);
+    expect(paginationService.updateRouteWithUrl).toHaveBeenCalledWith('search-page-configuration', ['search'], { sortField: environment.homePage.recentSubmissions.sortField, sortDirection: 'DESC', page: 1 }, extraParams);
   });
 
   it('should clear pagination on destroy', () => {
