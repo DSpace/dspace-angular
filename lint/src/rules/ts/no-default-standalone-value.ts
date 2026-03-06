@@ -35,7 +35,8 @@ export const info: DSpaceESLintRuleInfo = {
 };
 
 export const rule = ESLintUtils.RuleCreator.withoutDocs({
-  ...info,
+  meta: info.meta,
+  defaultOptions: info.defaultOptions,
   create(context: RuleContext<any, any>, options: any) {
     return {
       ['ClassDeclaration > Decorator > CallExpression[callee.name="Component"] > ObjectExpression > Property[key.name="standalone"]']: (node: TSESTree.Property) => {
