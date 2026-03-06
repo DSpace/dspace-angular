@@ -115,7 +115,7 @@ export class RecentItemListComponent implements OnInit, OnDestroy {
         pagination: this.paginationConfig,
         dsoTypes: [DSpaceObjectType.ITEM],
         sort: this.sortConfig,
-        filters: filters
+        filters: filters,
       }),
       undefined,
       undefined,
@@ -147,8 +147,7 @@ export class RecentItemListComponent implements OnInit, OnDestroy {
         sortDirection: 'DESC' as SortDirection,
         page: 1,
       },
-      extraParams
-    );
+      extraParams);
   }
 
   get placeholderFontClass(): string {
