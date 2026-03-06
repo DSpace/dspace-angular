@@ -36,7 +36,7 @@
                           }
                           <div class="ms-auto">
                             <div class="btn-group">
-                              <button class="btn btn-outline-info btn-sm"
+                              <button type="button" class="btn btn-outline-info btn-sm"
                                 (click)="openVirtualMetadataModal(virtualMetadataModal)">
                                 <i class="fas fa-info fa-fw"></i>
                               </button>
@@ -85,10 +85,10 @@
       </ng-container>
 
       <div class="space-children-mr">
-        <button [dsBtnDisabled]="isDeleting$ | async" (click)="performAction()"
-          class="btn btn-danger perform-action">{{confirmMessage | translate}}
+        <button type="button" [dsBtnDisabled]="isDeleting$ | async" (click)="performAction()"
+          class="btn btn-outline-secondary perform-action">{{confirmMessage | translate}}
         </button>
-        <button [dsBtnDisabled]="isDeleting$ | async" [routerLink]="[itemPageRoute, 'edit']"
+        <button type="button" [dsBtnDisabled]="isDeleting$ | async" [routerLink]="[itemPageRoute, 'edit']"
           class="btn btn-outline-secondary cancel">
           {{cancelMessage| translate}}
         </button>

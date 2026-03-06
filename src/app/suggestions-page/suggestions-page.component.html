@@ -13,7 +13,7 @@
               {{'suggestion.from.source' | translate}} {{ translateSuggestionSource() | translate }}
             </h1>
             <div class="mb-3 mt-3">
-              <button class="btn me-2 btn-light" (click)="onToggleSelectAll(suggestionsRD.page)">Select / Deselect All</button>
+              <button type="button" class="btn me-2 btn-light" (click)="onToggleSelectAll(suggestionsRD.page)">Select / Deselect All</button>
               <em>({{ getSelectedSuggestionsCount() }})</em>
               @if (getSelectedSuggestionsCount() > 0) {
                 <ds-suggestion-actions

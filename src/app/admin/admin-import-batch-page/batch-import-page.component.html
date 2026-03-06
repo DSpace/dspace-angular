@@ -8,7 +8,7 @@
     </p>
   }
   <p>
-    <button class="btn btn-primary" (click)="this.selectCollection();">{{'admin.metadata-import.page.button.select-collection' | translate}}</button>
+    <button type="button" class="btn btn-primary" (click)="this.selectCollection();">{{'admin.metadata-import.page.button.select-collection' | translate}}</button>
   </p>
   <div class="mb-3">
     <div class="form-check">
@@ -49,9 +49,9 @@
   }
 
   <div class="space-children-mr">
-    <button class="btn btn-secondary" id="backButton"
+    <button type="button"class="btn btn-secondary" id="backButton"
     (click)="this.onReturn();">{{'admin.metadata-import.page.button.return' | translate}}</button>
-    <button class="btn btn-primary" id="proceedButton"
+    <button type="button" class="btn btn-primary" id="proceedButton"
     (click)="this.importMetadata();">{{'admin.metadata-import.page.button.proceed' | translate}}</button>
   </div>
 </div>
