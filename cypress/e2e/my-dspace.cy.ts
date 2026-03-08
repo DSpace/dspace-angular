@@ -1,5 +1,4 @@
 import { testA11y } from 'cypress/support/utils';
-import { method } from 'node_modules/cypress/types/bluebird';
 
 describe('My DSpace page', () => {
   it('should display recent submissions and pass accessibility tests', () => {
@@ -162,11 +161,11 @@ describe('My DSpace page', () => {
     //Check that we have at least one item and that they all have the archived badge.
     cy.get('ds-item-search-result-list-element-submission').should('exist');
     cy.get('ds-item-search-result-list-element-submission')
-    .each(($item) => {
-      cy.wrap($item)
-        .find('.badge-archived')
-        .should('exist');
-    });
+      .each(($item) => {
+        cy.wrap($item)
+          .find('.badge-archived')
+          .should('exist');
+      });
   });
 
   it('should upload a file via drag & drop and display it in the UI', () => {
@@ -181,7 +180,7 @@ describe('My DSpace page', () => {
     cy.get('ds-my-dspace-page').should('be.visible');
 
     //Select the uploader and perform the drag-and-drop action.
-    cy.get('ds-uploader .ds-base-drop-zone').selectFile(`cypress/fixtures/${fileName}`, {action: 'drag-drop'});
+    cy.get('ds-uploader .well').selectFile(`cypress/fixtures/${fileName}`, { action: 'drag-drop' });
 
     //Validate that the file appears in the UI
     cy.get('ds-uploader .filename').should('exist').and('contain.text', fileName);
@@ -214,7 +213,7 @@ describe('My DSpace page', () => {
     //Intercept to await backend response
     cy.intercept({
       method: 'GET',
-      url: '/server/api/discover/search/objects**'
+      url: '/server/api/discover/search/objects**',
     }).as('workflowSearch');
 
     //Change view to see workflow tasks
@@ -225,18 +224,18 @@ describe('My DSpace page', () => {
 
     //Check that we have at least one item and that they all have the archived badge.
     cy.get('[data-test="objects"]')
-    .find('[data-test="list-object"]')
-    .each(($item) => {
-      cy.wrap($item)
-        .find('ds-claimed-task-actions, ds-pool-task-actions').should('exist')
-        .within(() => {
-          cy.get('button, a.btn').each(($btn) => {
+      .find('[data-test="list-object"]')
+      .each(($item) => {
+        cy.wrap($item)
+          .find('ds-claimed-task-actions, ds-pool-task-actions').should('exist')
+          .within(() => {
+            cy.get('button, a.btn').each(($btn) => {
               cy.wrap($btn)
                 .should('exist')
                 .and('be.visible')
                 .and('not.be.disabled');
             });
-        });
-    });
+          });
+      });
   });
 });
