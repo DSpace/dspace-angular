@@ -10,6 +10,7 @@ import {
   OnChanges,
   OnDestroy,
   OnInit,
+  Optional,
   Output,
   QueryList,
   SimpleChanges,
@@ -264,7 +265,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     public formBuilderService: FormBuilderService,
     private submissionService: SubmissionService,
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
-    @Inject('sectionDataProvider') public sectionData: SectionDataObject,
+    @Optional() @Inject('sectionDataProvider') public sectionData: SectionDataObject,
   ) {
     super(ref, componentFactoryResolver, layoutService, validationService, dynamicFormComponentService, relationService);
     this.fetchThumbnail = this.appConfig.browseBy.showThumbnails;
@@ -459,7 +460,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
       } else if (typeof this.model.value.value === 'string') {
         modalComp.query = this.model.value.value;
         // If the existing value is not virtual, store properties on the modal required to perform a replace operation
-        if (!this.model.value.isVirtual && hasValue(this.arrayIndex)) {
+        if (hasValue(this.sectionData) && !this.model.value.isVirtual && hasValue(this.arrayIndex)) {
           modalComp.replaceValuePlace = this.arrayIndex;
           modalComp.replaceValueMetadataField = this.model.name;
           modalComp.replaceValueSection = this.sectionData?.id;
