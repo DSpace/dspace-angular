@@ -37,8 +37,7 @@ describe('PdfViewerPageComponent', () => {
   let pageNumber: number;
 
   beforeEach(waitForAsync(() => {
-    authToken = new AuthTokenInfo('Bearer eyJhbGciOiJIUzI1NiJ9.eyJlaWQiOiIzMzU2NDdiNi04YTUyLTRlY2ItYThjMS03Z' +
-      'WJhYmIxOTliZGEiLCJzZyI6W10sImV4cCI6MTYyODUwMTQzOX0.6KgIoUiftGEIbQTXPM2kqQ_lgXUS6-JHLLJP6faDqoA');
+    authToken = new AuthTokenInfo('test_token');
     authHeader = 'test-auth-header';
     bitstream = Object.assign(new Bitstream(), {
       id: 'test-bitstream',

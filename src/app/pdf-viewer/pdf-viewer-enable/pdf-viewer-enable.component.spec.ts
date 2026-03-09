@@ -72,15 +72,16 @@ describe('PdfViewerEnableComponent', () => {
     });
   });
   describe('form', () => {
-    it('should display the ui-switch and text span when configuration is allowed', () => {
+    it('should display the ui-switch and text span when bitstream format is allowed', () => {
       const uiSwitch = fixture.debugElement.queryAll(By.css('ui-switch'));
       const span = fixture.debugElement.queryAll(By.css('span'));
 
       expect(uiSwitch.length).toEqual(1);
       expect(span.length).toEqual(1);
     });
-    it('should not display the ui-switch and text span when configuration is not allowed', () => {
-      (pdfViewerService.viewerAllowedForBitstreamFormat$ as jasmine.Spy).and.returnValue(of(false));
+
+    it('should not display the ui-switch and text span when bitstream format is not allowed', () => {
+      comp.isViewerConfigAllowed$ = of(false);
       fixture.detectChanges();
 
       const uiSwitch = fixture.debugElement.queryAll(By.css('ui-switch'));
@@ -91,4 +92,3 @@ describe('PdfViewerEnableComponent', () => {
     });
   });
 });
-
