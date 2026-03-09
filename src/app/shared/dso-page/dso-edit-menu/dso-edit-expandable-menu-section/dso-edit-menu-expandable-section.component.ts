@@ -15,7 +15,7 @@ import {
 } from '@dspace/shared/utils/empty.util';
 import {
   NgbDropdownModule,
-  NgbTooltipModule,
+  NgbTooltip,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
@@ -38,7 +38,7 @@ import { MenuService } from '../../../menu/menu.service';
     AsyncPipe,
     BtnDisabledDirective,
     NgbDropdownModule,
-    NgbTooltipModule,
+    NgbTooltip,
     NgComponentOutlet,
     TranslateModule,
   ],
