@@ -3,8 +3,10 @@ import {
   HttpHeaders,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { RestRequestMethod } from '@dspace/config/rest-request-method';
 import { hasValue } from '@dspace/shared/utils/empty.util';
 import { Store } from '@ngrx/store';
+import { Operation } from 'fast-json-patch';
 import { Observable } from 'rxjs';
 import {
   find,
@@ -20,6 +22,10 @@ import {
   DeleteDataImpl,
 } from '../data/base/delete-data';
 import { IdentifiableDataService } from '../data/base/identifiable-data.service';
+import {
+  PatchData,
+  PatchDataImpl,
+} from '../data/base/patch-data';
 import {
   SearchData,
   SearchDataImpl,
@@ -38,14 +44,25 @@ import { NoContent } from '../shared/NoContent.model';
 import { WorkspaceItem } from './models/workspaceitem.model';
 
 /**
+ * Constructs an endpoint taking into account that the WorkspaceItem's "uuid" has a prefix by removing that prefix from the ID
+ * @param endpoint    Endpoint to append ID to
+ * @param resourceID  WorkspaceItem's "uuid" including the prefix to remove
+ */
+const constructWorkspaceItemIdEndpoint = (endpoint, resourceID) => {
+  const regex = new RegExp(`^${WorkspaceItem.type.value}-`);
+  return `${endpoint}/${resourceID.replace(regex, '')}`;
+};
+
+/**
  * A service that provides methods to make REST requests with workspaceitems endpoint.
  */
 @Injectable({ providedIn: 'root' })
-export class WorkspaceitemDataService extends IdentifiableDataService<WorkspaceItem> implements DeleteData<WorkspaceItem>, SearchData<WorkspaceItem>{
+export class WorkspaceitemDataService extends IdentifiableDataService<WorkspaceItem> implements DeleteData<WorkspaceItem>, SearchData<WorkspaceItem>, PatchData<WorkspaceItem> {
   protected linkPath = 'workspaceitems';
   protected searchByItemLinkPath = 'item';
   private deleteData: DeleteData<WorkspaceItem>;
   private searchData: SearchDataImpl<WorkspaceItem>;
+  private patchData: PatchDataImpl<WorkspaceItem>;
 
   constructor(
     protected comparator: DSOChangeAnalyzer<WorkspaceItem>,
@@ -55,10 +72,12 @@ export class WorkspaceitemDataService extends IdentifiableDataService<WorkspaceI
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
     protected objectCache: ObjectCacheService,
-    protected store: Store<CoreState>) {
+    protected store: Store<CoreState>,
+  ) {
     super('workspaceitems', requestService, rdbService, objectCache, halService);
     this.deleteData = new DeleteDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive, this.constructIdEndpoint);
     this.searchData = new SearchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
+    this.patchData = new PatchDataImpl<WorkspaceItem>(this.linkPath, requestService, rdbService, objectCache, halService, this.comparator, this.responseMsToLive, constructWorkspaceItemIdEndpoint);
   }
   public delete(objectId: string, copyVirtualMetadata?: string[]): Observable<RemoteData<NoContent>> {
     return this.deleteData.delete(objectId, copyVirtualMetadata);
@@ -137,4 +156,21 @@ export class WorkspaceitemDataService extends IdentifiableDataService<WorkspaceI
   searchBy(searchMethod: string, options?: FindListOptions, useCachedVersionIfAvailable?: boolean, reRequestOnStale?: boolean, ...linksToFollow: FollowLinkConfig<WorkspaceItem>[]): Observable<RemoteData<PaginatedList<WorkspaceItem>>> {
     return this.searchData.searchBy(searchMethod, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
+
+  commitUpdates(method?: RestRequestMethod): void {
+    this.patchData.commitUpdates(method);
+  }
+
+  createPatchFromCache(object: WorkspaceItem): Observable<Operation[]> {
+    return this.patchData.createPatchFromCache(object);
+  }
+
+  patch(object: WorkspaceItem, operations: Operation[]): Observable<RemoteData<WorkspaceItem>> {
+    return this.patchData.patch(object, operations);
+  }
+
+  update(object: WorkspaceItem): Observable<RemoteData<WorkspaceItem>> {
+    return this.patchData.update(object);
+  }
+
 }

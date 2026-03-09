@@ -169,6 +169,11 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
   replaceValueMetadataField: string;
 
   /**
+   * The submission section of the plain-text value that should be replaced by adding a relationship
+   */
+  replaceValueSection: string;
+
+  /**
    * A map of subscriptions within this component
    */
   subMap: {
@@ -326,7 +331,7 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
               let action;
               if (i === 0 && hasValue(this.replaceValueMetadataField)) {
                 // This is the first action this modal performs and "replace" properties are present to replace an existing metadata value
-                action = new ReplaceRelationshipAction(this.item, object.item, true, this.replaceValuePlace, this.replaceValueMetadataField, this.relationshipOptions.relationshipType, this.submissionId, object.nameVariant);
+                action = new ReplaceRelationshipAction(this.item, object.item, true, this.replaceValuePlace, this.replaceValueMetadataField, this.replaceValueSection, this.relationshipOptions.relationshipType, this.submissionId, object.nameVariant);
                 // Only "replace" once, reset replace properties so future actions become "add"
                 this.resetReplaceProperties();
               } else {
@@ -396,6 +401,7 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
   private resetReplaceProperties() {
     this.replaceValueMetadataField = undefined;
     this.replaceValuePlace = undefined;
+    this.replaceValueSection = undefined;
   }
 
   ngOnDestroy() {

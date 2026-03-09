@@ -118,6 +118,7 @@ import {
 
 import { AppState } from '../../../../app.reducer';
 import { SubmissionObjectActionTypes } from '../../../../submission/objects/submission-objects.actions';
+import { SectionDataObject } from '../../../../submission/sections/models/section-data.model';
 import { SubmissionService } from '../../../../submission/submission.service';
 import { SubmissionObjectService } from '../../../../submission/submission-object.service';
 import { LiveRegionService } from '../../../live-region/live-region.service';
@@ -165,6 +166,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   @Input() hasErrorMessaging = false;
   @Input() layout = null as DynamicFormLayout;
   @Input() model: any;
+  @Input() arrayIndex: number;
   relationshipValue$: Observable<ReorderableRelationship>;
   isRelationship: boolean;
   modalRef: NgbModalRef;
@@ -223,6 +225,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
     @Inject(DYNAMIC_FORM_CONTROL_MAP_FN) protected dynamicFormControlFn: DynamicFormControlMapFn,
     private actions$: Actions,
+    @Inject('sectionDataProvider') public sectionData: SectionDataObject,
   ) {
     super(ref, componentFactoryResolver, layoutService, validationService, dynamicFormComponentService, relationService);
     this.fetchThumbnail = this.appConfig.browseBy.showThumbnails;
@@ -459,9 +462,10 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
       } else if (typeof this.model.value.value === 'string') {
         modalComp.query = this.model.value.value;
         // If the existing value is not virtual, store properties on the modal required to perform a replace operation
-        if (!this.model.value.isVirtual) {
-          modalComp.replaceValuePlace = this.model.value.place;
+        if (!this.model.value.isVirtual && hasValue(this.arrayIndex)) {
+          modalComp.replaceValuePlace = this.arrayIndex;
           modalComp.replaceValueMetadataField = this.model.name;
+          modalComp.replaceValueSection = this.sectionData?.id;
         }
       }
     }

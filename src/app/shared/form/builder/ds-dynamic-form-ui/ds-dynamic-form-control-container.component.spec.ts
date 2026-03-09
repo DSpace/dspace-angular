@@ -255,6 +255,7 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
         { provide: DYNAMIC_FORM_CONTROL_MAP_FN, useValue: dsDynamicFormControlMapFn },
         { provide: LiveRegionService, useValue: getLiveRegionServiceStub() },
         { provide: Actions, useValue: actions$ },
+        { provide: 'sectionDataProvider', useValue: { id: 'mock-section-id' } },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents().then(() => {
