@@ -1,3 +1,4 @@
+import { AUDIT } from './audit/model/audit.resource-type';
 import {
   LDN_SERVICE,
   LDN_SERVICE_CONSTRAINT_FILTERS,
@@ -136,4 +137,5 @@ export const LAZY_DATA_SERVICES: LazyDataServicesMap = new Map([
   [SUGGESTION_TARGET.value, () => import('./notifications/suggestions/target/suggestion-target-data.service').then(m => m.SuggestionTargetDataService)],
   [DUPLICATE.value, () => import('./submission/submission-duplicate-data.service').then(m => m.SubmissionDuplicateDataService)],
   [CorrectionType.type.value, () => import('./submission/correctiontype-data.service').then(m => m.CorrectionTypeDataService)],
+  [AUDIT.value, () => import('./data/audit-data.service').then(m => m.AuditDataService)],
 ]);

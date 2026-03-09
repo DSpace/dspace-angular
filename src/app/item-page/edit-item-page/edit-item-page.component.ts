@@ -21,7 +21,7 @@ import { RemoteData } from '@dspace/core/data/remote-data';
 import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
 import { Item } from '@dspace/core/shared/item.model';
 import { isNotEmpty } from '@dspace/shared/utils/empty.util';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest as observableCombineLatest,
@@ -45,7 +45,7 @@ import {
   ],
   imports: [
     AsyncPipe,
-    NgbTooltipModule,
+    NgbTooltip,
     NgClass,
     RouterLink,
     RouterOutlet,
