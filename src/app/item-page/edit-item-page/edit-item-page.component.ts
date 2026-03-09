@@ -95,7 +95,7 @@ export class EditItemPageComponent implements OnInit {
           ).pipe(
             map((canActivateOutcomes: any[]) => canActivateOutcomes.every((e) => e === true)),
           );
-          if (hasValue(child.data) && hasValue(child.data.hideWhenDisabled)) {
+          if (hasValue(child.data?.hideWhenDisabled)) {
             hidden = enabled.pipe(
               map((allowedByGuard: boolean) => !allowedByGuard && child.data.hideWhenDisabled),
             );
