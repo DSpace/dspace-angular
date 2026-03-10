@@ -581,9 +581,9 @@ export const environment: BuildConfig = {
 
   cms: {
     metadataList: [
-      'cris.cms.home-header',
-      'cris.cms.home-news',
-      'cris.cms.footer',
+      'dspace.cms.home-header',
+      'dspace.cms.home-news',
+      'dspace.cms.footer',
     ],
   },
 };

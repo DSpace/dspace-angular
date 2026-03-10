@@ -81,7 +81,7 @@ export class FooterComponent implements OnInit {
       language$: this.locale.getCurrentLanguageCode(),
     }).pipe(
       take(1),
-      map(({ site$, language$ }) => site$?.firstMetadataValue('cris.cms.footer', { language: language$ })),
+      map(({ site$, language$ }) => site$?.firstMetadataValue('dspace.cms.footer', { language: language$ })),
     );
   }
 

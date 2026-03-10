@@ -44,7 +44,7 @@ export class HomeNewsComponent implements OnInit {
       language$: this.locale.getCurrentLanguageCode(),
     }).pipe(
       take(1),
-      map(({ site$, language$ }) => site$?.firstMetadataValue('cris.cms.home-news', { language: language$ })),
+      map(({ site$, language$ }) => site$?.firstMetadataValue('dspace.cms.home-news', { language: language$ })),
     );
   }
 

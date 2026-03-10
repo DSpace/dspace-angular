@@ -803,9 +803,9 @@ export class DefaultAppConfig implements AppConfig {
 
   cms: CmsMetadata = {
     metadataList: [
-      'cris.cms.home-header',
-      'cris.cms.home-news',
-      'cris.cms.footer',
+      'dspace.cms.home-header',
+      'dspace.cms.home-news',
+      'dspace.cms.footer',
     ],
   };
 }
