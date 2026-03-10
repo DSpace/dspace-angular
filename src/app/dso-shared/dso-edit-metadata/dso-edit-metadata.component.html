@@ -1,4 +1,4 @@
-@if (form) {
+@if (isFormInitialized$ | async) {
   <div class="item-metadata">
     <div class="button-row top d-flex my-2 space-children-mr ms-gap">
       <button class="me-auto btn btn-success" id="dso-add-btn" [dsBtnDisabled]="form.newValue || (saving$ | async)"
@@ -79,6 +79,7 @@
                                              [form]="form"
                                              [dsoType]="dsoType"
                                              [saving$]="saving$"
+                                             [metadataSecurityConfiguration]="(securitySettings$ | async)"
                                              [draggingMdField$]="draggingMdField$"
                                              [mdField]="mdField"
                                              (valueSaved)="onValueSaved()">

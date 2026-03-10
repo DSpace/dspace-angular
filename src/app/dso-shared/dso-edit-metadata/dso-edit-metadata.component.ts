@@ -243,7 +243,7 @@ export class DsoEditMetadataComponent implements OnInit, OnDestroy {
         }),
       );
     } else {
-      of(null);
+      return of(null);
     }
   }
 

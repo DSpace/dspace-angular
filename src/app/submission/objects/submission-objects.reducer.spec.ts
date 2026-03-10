@@ -55,6 +55,20 @@ describe('submissionReducer test suite', () => {
   const submissionId = mockSubmissionId;
   const submissionDefinition = mockSubmissionDefinitionResponse;
   const selfUrl = mockSubmissionSelfUrl;
+  const metadataSecurityConfiguration = {
+    'uuid': null,
+    'metadataSecurityDefault': [
+      0,
+      1,
+    ],
+    'metadataCustomSecurity': {},
+    'type': 'securitysetting',
+    '_links': {
+      'self': {
+        'href': 'http://localhost:8080/server/api/core/securitysettings',
+      },
+    },
+  };
 
   let initState: any;
 
@@ -75,10 +89,11 @@ describe('submissionReducer test suite', () => {
         savePending: false,
         saveDecisionPending: false,
         depositPending: false,
+        metadataSecurityConfiguration: metadataSecurityConfiguration as any,
       },
     };
 
-    const action = new InitSubmissionFormAction(collectionId, submissionId, selfUrl, submissionDefinition, {}, new Item(), null);
+    const action = new InitSubmissionFormAction(collectionId, submissionId, selfUrl, submissionDefinition, {}, new Item(), null, metadataSecurityConfiguration as any);
     const newState = submissionObjectReducer({}, action);
 
     expect(newState).toEqual(expectedState);
@@ -112,9 +127,8 @@ describe('submissionReducer test suite', () => {
       },
     };
 
-    const action = new ResetSubmissionFormAction(collectionId, submissionId, selfUrl, {}, submissionDefinition, new Item());
+    const action = new ResetSubmissionFormAction(collectionId, submissionId, selfUrl, {}, submissionDefinition, new Item(), metadataSecurityConfiguration);
     const newState = submissionObjectReducer(initState, action);
-    console.log('NEW STATE ', newState);
     expect(newState).toEqual(expectedState);
   });
 

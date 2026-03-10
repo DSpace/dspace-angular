@@ -160,6 +160,7 @@ export class SubmissionObjectEffects {
         action.payload.sections,
         action.payload.item,
         null,
+        action.payload.metadataSecurityConfiguration,
       ))));
 
   /**

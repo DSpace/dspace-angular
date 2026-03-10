@@ -2693,6 +2693,8 @@
 
   "item.edit.metadata.headers.language": "Lang",
 
+  "item.edit.metadata.headers.security": "Security level",
+
   "item.edit.metadata.headers.authority": "Authority",
 
   "item.edit.metadata.headers.value": "Value",

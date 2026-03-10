@@ -44,7 +44,7 @@
 
     </div>
     @if (model.languageCodes && model.languageCodes.length > 0) {
-      <div class="col-2" >
+      <div class="col-sm-2" >
         <select
           #language="ngModel"
           [disabled]="model.readOnly"
@@ -61,7 +61,7 @@
       </div>
     }
     @if (model.hasSecurityToggle) {
-      <div class="col-xs-2" [class.date-field-security]="model.type === 'DATE'">
+      <div class="col-sm-2" [class.date-field-security]="model.type === 'DATE'">
         @if (model.toggleSecurityVisibility) {
           <ds-edit-metadata-security [readOnly]="model.readOnly"
                                      [securityConfigLevel]="model.securityConfigLevel"

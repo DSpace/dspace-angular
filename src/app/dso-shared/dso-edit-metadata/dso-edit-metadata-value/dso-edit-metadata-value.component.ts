@@ -62,6 +62,7 @@ import {
 } from 'rxjs';
 import {
   distinctUntilChanged,
+  filter,
   map,
   shareReplay,
   switchMap,
@@ -274,7 +275,7 @@ export class DsoEditMetadataValueComponent implements OnInit, OnChanges, OnDestr
 
     this.sub = combineLatest([
       this._mdField$,
-      this._metadataSecurityConfiguration$,
+      this._metadataSecurityConfiguration$.pipe(filter(config => !!config)),
     ]).subscribe(([mdField, metadataSecurityConfig]) => this.initSecurityLevel(mdField, metadataSecurityConfig));
 
     this.canShowMetadataSecurity$ =

@@ -1,3 +1,4 @@
+import { MetadataSecurityConfiguration } from '@dspace/core/submission/models/metadata-security-configuration';
 import { SubmissionSectionObject } from '@dspace/core/submission/models/submission-section-object.model';
 import { WorkspaceitemSectionUploadObject } from '@dspace/core/submission/models/workspaceitem-section-upload.model';
 import {
@@ -109,9 +110,14 @@ export interface SubmissionObjectEntry {
    */
   depositPending?: boolean;
   /**
+   * Configurations of security levels for metadatas of an entity type
+   */
+  metadataSecurityConfiguration?: MetadataSecurityConfiguration;
+
+  /**
    * A boolean representing if a submission is discarded or not
    */
-   isDiscarding?: boolean;
+  isDiscarding?: boolean;
 }
 
 /**
@@ -372,6 +378,7 @@ function initSubmission(state: SubmissionObjectState, action: InitSubmissionForm
     savePending: false,
     saveDecisionPending: false,
     depositPending: false,
+    metadataSecurityConfiguration: action.payload.metadataSecurityConfiguration,
     isDiscarding: false,
   };
   return newState;
