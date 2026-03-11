@@ -7399,4 +7399,10 @@
   "relationships.OrgUnit.isDatasetOfAuthor.Dataset": "Authored Datasets",
 
   "relationships.OrgUnit.isDatasetOfOrgUnit.Dataset": "Organisation Datasets",
+
+  "submission.sections.describe.relationship-lookup.title.Dataset": "Datasets",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Dataset": "Local Datasets",
+
+  "dataset.search.results.head": "Dataset Search Results"
 }
