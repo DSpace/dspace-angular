@@ -63,6 +63,7 @@ export function normalizeSectionData(obj: any, objIndex?: number) {
         obj.place || objIndex,
         obj.confidence,
         obj.otherInformation,
+        obj.source,
       );
     } else if (Array.isArray(obj)) {
       result = [];

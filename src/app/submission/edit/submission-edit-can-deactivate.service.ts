@@ -1,9 +1,5 @@
 import { Injectable } from '@angular/core';
 import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
-import {
   combineLatest,
   Observable,
 } from 'rxjs';
@@ -21,8 +17,6 @@ interface PendingChangesGuardComponentInterface {
 export class SubmissionEditCanDeactivateService implements PendingChangesGuardComponentInterface {
 
   constructor(
-    private route: ActivatedRoute,
-    private router: Router,
     private submissionService: SubmissionService,
   ) { }
 
