@@ -10,6 +10,9 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { FormBuilder } from '@angular/forms';
+import { DspaceRestService } from '@dspace/core/dspace-rest/dspace-rest.service';
+import { RawRestResponse } from '@dspace/core/dspace-rest/raw-rest-response.model';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import {
   NgbAccordion,
   NgbAccordionModule,
@@ -19,9 +22,6 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
-import { DspaceRestService } from 'src/app/core/dspace-rest/dspace-rest.service';
-import { RawRestResponse } from 'src/app/core/dspace-rest/raw-rest-response.model';
-import { TranslateLoaderMock } from 'src/app/shared/mocks/translate-loader.mock';
 
 import { FilteredCollectionsComponent } from './filtered-collections.component';
 

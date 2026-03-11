@@ -24,7 +24,6 @@ import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.c
     ThemedLoadingComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class SubmissionImportExternalCollectionComponent {
   /**

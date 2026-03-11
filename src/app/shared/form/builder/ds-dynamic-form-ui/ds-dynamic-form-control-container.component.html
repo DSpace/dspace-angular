@@ -32,14 +32,19 @@
         <div [id]="id + '_errors'"
           [ngClass]="[getClass('element', 'errors'), getClass('grid', 'errors')]">
           @for (message of errorMessages; track message) {
-            <small class="invalid-feedback d-block">{{ message | translate: model.validators }}</small>
+            <small class="invalid-feedback d-block"
+               aria-required="true"
+               aria-invalid="true"
+               [attr.aria-describedby]="'label_' + model.id"
+               aria-live="assertive"
+          >{{ message | translate: model.validators }}</small>
           }
         </div>
       }
 
     </div>
     @if (model.languageCodes && model.languageCodes.length > 0) {
-      <div class="col-xs-2" >
+      <div class="col-2" >
         <select
           #language="ngModel"
           [disabled]="model.readOnly"

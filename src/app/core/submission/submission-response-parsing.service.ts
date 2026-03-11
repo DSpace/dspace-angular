@@ -1,12 +1,18 @@
-import { Injectable } from '@angular/core';
-import { deepClone } from 'fast-json-patch';
-
+import {
+  Inject,
+  Injectable,
+} from '@angular/core';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
 import {
   isEmpty,
   isNotEmpty,
   isNotNull,
-} from '../../shared/empty.util';
-import { FormFieldMetadataValueObject } from '../../shared/form/builder/models/form-field-metadata-value.model';
+} from '@dspace/shared/utils/empty.util';
+import { deepClone } from 'fast-json-patch';
+
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { ParsedResponse } from '../cache/response.models';
 import { ConfigObject } from '../config/models/config.model';
@@ -15,6 +21,7 @@ import { DSOResponseParsingService } from '../data/dso-response-parsing.service'
 import { ResponseParsingService } from '../data/parsing.service';
 import { RestRequest } from '../data/rest-request.model';
 import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
+import { FormFieldMetadataValueObject } from '../shared/form/models/form-field-metadata-value.model';
 import { SubmissionObject } from './models/submission-object.model';
 import { WorkflowItem } from './models/workflowitem.model';
 import { WorkspaceItem } from './models/workspaceitem.model';
@@ -93,8 +100,10 @@ export class SubmissionResponseParsingService extends BaseResponseParsingService
 
   constructor(protected objectCache: ObjectCacheService,
               protected dsoParser: DSOResponseParsingService,
+              @Inject(APP_CONFIG) protected appConfig: AppConfig,
   ) {
     super();
+    this.defaultResponseMsToLive = this.appConfig?.cache.msToLive.default;
   }
 
   /**

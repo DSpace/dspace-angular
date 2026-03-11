@@ -13,7 +13,6 @@ import { SubmissionSectionUploadFileViewComponent } from '../../../../../../../a
   styleUrls: ['../../../../../../../app/submission/sections/upload/file/section-upload-file.component.scss'],
   // templateUrl: './section-upload-file.component.html'
   templateUrl: '../../../../../../../app/submission/sections/upload/file/section-upload-file.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     BtnDisabledDirective,

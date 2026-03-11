@@ -67,11 +67,11 @@ interface WebpackRequire {
 }
 
 // Extend typings
-/* eslint-disable @typescript-eslint/no-empty-interface */
+/* eslint-disable @typescript-eslint/no-empty-object-type */
 interface NodeRequire extends WebpackRequire { }
 interface NodeModule extends WebpackModule { }
 interface Global extends GlobalEnvironment { }
-/* eslint-enable @typescript-eslint/no-empty-interface */
+/* eslint-enable @typescript-eslint/no-empty-object-type */
 
 // Allows us to import json files in typescript
 // See https://hackernoon.com/import-json-into-typescript-8d465beded79#.88tfoy2df

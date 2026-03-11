@@ -7,13 +7,13 @@
  */
 
 import { TestBed } from '@angular/core/testing';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
+import { ScriptDataService } from '@dspace/core/data/processes/script-data.service';
+import { AuthorizationDataServiceStub } from '@dspace/core/testing/authorization-service.stub';
+import { ScriptServiceStub } from '@dspace/core/testing/script-service.stub';
 import { of } from 'rxjs';
 
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
-import { ScriptDataService } from '../../../core/data/processes/script-data.service';
-import { AuthorizationDataServiceStub } from '../../testing/authorization-service.stub';
-import { ScriptServiceStub } from '../../testing/script-service.stub';
 import { MenuItemType } from '../menu-item-type.model';
 import { PartialMenuSection } from '../menu-provider.model';
 import { AccessControlMenuProvider } from './access-control.menu';

@@ -1,13 +1,13 @@
-import { first } from 'rxjs/operators';
-
-import { ValueListBrowseDefinition } from '../core/shared/value-list-browse-definition.model';
+import { BrowseByDataType } from '@dspace/core/browse/browse-by-data-type';
+import { ValueListBrowseDefinition } from '@dspace/core/shared/value-list-browse-definition.model';
+import { RouterStub } from '@dspace/core/testing/router.stub';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../shared/remote-data.utils';
-import { RouterStub } from '../shared/testing/router.stub';
+} from '@dspace/core/utilities/remote-data.utils';
+import { first } from 'rxjs/operators';
+
 import { browseByGuard } from './browse-by-guard';
-import { BrowseByDataType } from './browse-by-switcher/browse-by-data-type';
 
 describe('browseByGuard', () => {
   describe('canActivate', () => {

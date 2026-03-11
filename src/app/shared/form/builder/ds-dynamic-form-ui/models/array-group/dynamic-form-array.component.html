@@ -26,7 +26,7 @@
             (keydown.escape)="cancelKeyboardDragAndDrop(sortableElement, idx, length)"
             (keydown.arrowUp)="handleArrowPress($event, dropList, length, idx, 'up')"
             (keydown.arrowDown)="handleArrowPress($event, dropList, length, idx, 'down')">
-            <i class="drag-icon fas fa-grip-vertical fa-fw" [class.drag-disable]="dragDisabled" ></i>
+            <i class="drag-icon" [class.drag-disable]="dragDisabled" aria-hidden="true"></i>
           </div>
           <ng-container *ngTemplateOutlet="startTemplate?.templateRef; context: groupModel"></ng-container>
           @for (_model of groupModel.group; track _model) {

@@ -8,22 +8,22 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
-import { Context } from 'src/app/core/shared/context.model';
-import { WorkflowItem } from 'src/app/core/submission/models/workflowitem.model';
-
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../../../config/app-config.interface';
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { Item } from '../../../../core/shared/item.model';
+} from '@dspace/config/app-config.interface';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { Context } from '@dspace/core/shared/context.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
+import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail.component';
 import { fadeInOut } from '../../../animations/fade';
 import { ThemedBadgesComponent } from '../../../object-collection/shared/badges/themed-badges.component';
 import { ItemCollectionComponent } from '../../../object-collection/shared/mydspace-item-collection/item-collection.component';
 import { ItemSubmitterComponent } from '../../../object-collection/shared/mydspace-item-submitter/item-submitter.component';
-import { SearchResult } from '../../../search/models/search-result.model';
 import { TruncatableComponent } from '../../../truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../../../truncatable/truncatable-part/truncatable-part.component';
 
@@ -35,7 +35,6 @@ import { TruncatablePartComponent } from '../../../truncatable/truncatable-part/
   styleUrls: ['item-list-preview.component.scss'],
   templateUrl: 'item-list-preview.component.html',
   animations: [fadeInOut],
-  standalone: true,
   imports: [
     AsyncPipe,
     ItemCollectionComponent,
@@ -90,7 +89,7 @@ export class ItemListPreviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.showThumbnails = this.appConfig.browseBy.showThumbnails;
-    this.dsoTitle = this.dsoNameService.getHitHighlights(this.object, this.item);
+    this.dsoTitle = this.dsoNameService.getHitHighlights(this.object, this.item, true);
   }
 
 

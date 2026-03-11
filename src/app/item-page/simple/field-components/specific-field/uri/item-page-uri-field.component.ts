@@ -2,8 +2,8 @@ import {
   Component,
   Input,
 } from '@angular/core';
+import { Item } from '@dspace/core/shared/item.model';
 
-import { Item } from '../../../../../core/shared/item.model';
 import { MetadataUriValuesComponent } from '../../../../field-components/metadata-uri-values/metadata-uri-values.component';
 import { ItemPageFieldComponent } from '../item-page-field.component';
 
@@ -13,7 +13,6 @@ import { ItemPageFieldComponent } from '../item-page-field.component';
   imports: [
     MetadataUriValuesComponent,
   ],
-  standalone: true,
 })
 /**
  * This component can be used to represent any uri on a simple item page.

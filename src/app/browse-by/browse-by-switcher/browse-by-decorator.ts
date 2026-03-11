@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { BrowseByDataType } from '@dspace/core/browse/browse-by-data-type';
+import { Context } from '@dspace/core/shared/context.model';
+import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
+import { hasNoValue } from '@dspace/shared/utils/empty.util';
 
-import { Context } from '../../core/shared/context.model';
-import { GenericConstructor } from '../../core/shared/generic-constructor';
-import { hasNoValue } from '../../shared/empty.util';
 import {
   DEFAULT_THEME,
   resolveTheme,
@@ -11,7 +12,6 @@ import { BrowseByDateComponent } from '../browse-by-date/browse-by-date.componen
 import { BrowseByMetadataComponent } from '../browse-by-metadata/browse-by-metadata.component';
 import { BrowseByTaxonomyComponent } from '../browse-by-taxonomy/browse-by-taxonomy.component';
 import { BrowseByTitleComponent } from '../browse-by-title/browse-by-title.component';
-import { BrowseByDataType } from './browse-by-data-type';
 
 export const DEFAULT_BROWSE_BY_TYPE = BrowseByDataType.Metadata;
 export const DEFAULT_BROWSE_BY_CONTEXT = Context.Any;

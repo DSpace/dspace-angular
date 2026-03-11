@@ -1,10 +1,10 @@
 import { TestBed } from '@angular/core/testing';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { Collection } from '@dspace/core/shared/collection.model';
+import { COLLECTION } from '@dspace/core/shared/collection.resource-type';
+import { URLCombiner } from '@dspace/core/url-combiner/url-combiner';
 import { of } from 'rxjs';
 
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { Collection } from '../../../core/shared/collection.model';
-import { COLLECTION } from '../../../core/shared/collection.resource-type';
-import { URLCombiner } from '../../../core/url-combiner/url-combiner';
 import { MenuItemType } from '../menu-item-type.model';
 import { PartialMenuSection } from '../menu-provider.model';
 import { DSpaceObjectEditMenuProvider } from './dso-edit.menu';

@@ -4,13 +4,13 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { Bitstream } from '@dspace/core/shared/bitstream.model';
+import { MediaViewerItem } from '@dspace/core/shared/media-viewer-item.model';
+import { MockBitstreamFormat1 } from '@dspace/core/testing/item.mock';
 import { NgxGalleryOptions } from '@kolkov/ngx-gallery';
 import { of } from 'rxjs';
 
-import { AuthService } from '../../../core/auth/auth.service';
-import { Bitstream } from '../../../core/shared/bitstream.model';
-import { MediaViewerItem } from '../../../core/shared/media-viewer-item.model';
-import { MockBitstreamFormat1 } from '../../../shared/mocks/item.mock';
 import { MediaViewerImageComponent } from './media-viewer-image.component';
 
 describe('MediaViewerImageComponent', () => {

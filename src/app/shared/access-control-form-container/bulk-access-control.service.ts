@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { ScriptDataService } from '@dspace/core/data/processes/script-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Process } from '@dspace/core/processes/process.model';
+import { ProcessParameter } from '@dspace/core/processes/process-parameter.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { ScriptDataService } from '../../core/data/processes/script-data.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { getProcessDetailRoute } from '../../process-page/process-page-routing.paths';
-import { Process } from '../../process-page/processes/process.model';
-import { ProcessParameter } from '../../process-page/processes/process-parameter.model';
-import { isNotEmpty } from '../empty.util';
-import { NotificationsService } from '../notifications/notifications.service';
 import { AccessControlFormState } from './access-control-form-container-intial-state';
 
 export interface BulkAccessPayload {

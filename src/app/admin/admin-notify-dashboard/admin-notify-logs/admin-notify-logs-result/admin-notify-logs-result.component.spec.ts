@@ -6,14 +6,14 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { MockActivatedRoute } from '@dspace/core/testing/active-router.mock';
+import { RouterStub } from '@dspace/core/testing/router.stub';
+import { SearchConfigurationServiceStub } from '@dspace/core/testing/search-configuration-service.stub';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-configuration.service';
-import { MockActivatedRoute } from '../../../../shared/mocks/active-router.mock';
 import { SearchLabelsComponent } from '../../../../shared/search/search-labels/search-labels.component';
 import { ThemedSearchComponent } from '../../../../shared/search/themed-search.component';
-import { RouterStub } from '../../../../shared/testing/router.stub';
-import { SearchConfigurationServiceStub } from '../../../../shared/testing/search-configuration-service.stub';
 import { AdminNotifyLogsResultComponent } from './admin-notify-logs-result.component';
 
 describe('AdminNotifyLogsResultComponent', () => {

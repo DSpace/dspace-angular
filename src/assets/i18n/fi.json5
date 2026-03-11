@@ -2656,7 +2656,7 @@
 
   // "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: {purposes}",
   // TODO Source message changed - Revise the translation
-  "cookies.consent.content-notice.description": "Keräämme ja käsittelemme tietojasi seuraaviin tarkoituksiin: <strong>todentaminen, asetukset, kuittaus ja tilastot</strong>. <br/> Lisätietoa saat lukemalla tämän: {privacyPolicy}.",
+  "cookies.consent.content-notice.description": "Keräämme ja käsittelemme tietojasi seuraaviin tarkoituksiin: todentaminen, asetukset, kuittaus ja tilastot. Lisätietoa saat lukemalla tämän: {privacyPolicy}.",
 
   // "cookies.consent.content-notice.learnMore": "Customize",
   "cookies.consent.content-notice.learnMore": "Räätälöi",

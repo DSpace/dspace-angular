@@ -1,4 +1,3 @@
-import { environment } from '../../../environments/environment';
 import { URLCombiner } from './url-combiner';
 
 /**
@@ -8,7 +7,7 @@ import { URLCombiner } from './url-combiner';
  * TODO write tests once GlobalConfig becomes injectable
  */
 export class RESTURLCombiner extends URLCombiner {
-  constructor(...parts: string[]) {
-    super(environment.rest.baseUrl, '/api', ...parts);
+  constructor(baseUrl: string, ...parts: string[]) {
+    super(baseUrl, '/api', ...parts);
   }
 }

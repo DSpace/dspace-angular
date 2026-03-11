@@ -10,9 +10,9 @@ import {
   ControlContainer,
   NgForm,
 } from '@angular/forms';
+import { ScriptParameter } from '@dspace/core/shared/scripts/script-parameter.model';
+import { ScriptParameterType } from '@dspace/core/shared/scripts/script-parameter-type.model';
 
-import { ScriptParameter } from '../../../scripts/script-parameter.model';
-import { ScriptParameterType } from '../../../scripts/script-parameter-type.model';
 import { controlContainerFactory } from '../../process-form-factory';
 import { BooleanValueInputComponent } from './boolean-value-input/boolean-value-input.component';
 import { DateValueInputComponent } from './date-value-input/date-value-input.component';
@@ -30,7 +30,6 @@ import { StringValueInputComponent } from './string-value-input/string-value-inp
   viewProviders: [{ provide: ControlContainer,
     useFactory: controlContainerFactory,
     deps: [[new Optional(), NgForm]] }],
-  standalone: true,
   imports: [
     BooleanValueInputComponent,
     DateValueInputComponent,

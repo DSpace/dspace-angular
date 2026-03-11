@@ -16,7 +16,7 @@
     <div>
       @for (subscriptionType of subscriptionForm?.controls | keyvalue; track subscriptionType) {
         <fieldset formGroupName="{{subscriptionType.key}}" class="mb-3 row">
-          <legend class="col-md-4 col-form-label float-md-left pt-0">
+          <legend class="col-md-4 col-form-label float-md-start pt-0">
             {{ 'subscriptions.modal.new-subscription-form.type.' + subscriptionType.key | translate }}:
           </legend>
           <div class="col-md-8">

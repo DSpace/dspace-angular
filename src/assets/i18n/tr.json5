@@ -2852,7 +2852,7 @@
 
   // "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: {purposes}",
   // TODO Source message changed - Revise the translation
-  "cookies.consent.content-notice.description": "Kişisel bilgilerinizi aşağıdaki amaçlarla topluyor ve işleriz: <strong>Kimlik Doğrulama, Tercihler, Onay ve İstatistikler</strong>. <br/> Daha fazla bilgi için, lütfen okuyun {privacyPolicy}.",
+  "cookies.consent.content-notice.description": "Kişisel bilgilerinizi aşağıdaki amaçlarla topluyor ve işleriz: Kimlik Doğrulama, Tercihler, Onay ve İstatistikler. Daha fazla bilgi için, lütfen okuyun {privacyPolicy}.",
 
   // "cookies.consent.content-notice.learnMore": "Customize",
   "cookies.consent.content-notice.learnMore": "Özelleştir",
