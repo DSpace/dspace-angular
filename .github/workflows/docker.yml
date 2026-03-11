@@ -74,6 +74,8 @@ jobs:
       DSPACE_REST_HOST: 127.0.0.1
       # Override default dspace.ui.url to also use 127.0.0.1.
       dspace__P__ui__P__url: http://127.0.0.1:4000
+      # Override default ui.baseUrl to also use 127.0.0.1. This should match 'dspace.ui.url'.
+      DSPACE_UI_BASEURL: http://127.0.0.1:4000
     steps:
       # Checkout our codebase (to get access to Docker Compose scripts)
       - name: Checkout codebase
