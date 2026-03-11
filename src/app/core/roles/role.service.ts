@@ -1,6 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Observable, combineLatest } from 'rxjs';
-import { distinctUntilChanged, map } from 'rxjs/operators';
+import {
+  combineLatest,
+  Observable,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  map,
+} from 'rxjs/operators';
+
 import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../data/feature-authorization/feature-id';
 import { CollectionDataService } from '../data/collection-data.service';
