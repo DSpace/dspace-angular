@@ -241,7 +241,11 @@ function ngApp(req, res, next) {
  */
 function serverSideRender(req, res, next, sendToUser: boolean = true) {
   const { protocol, originalUrl, baseUrl, headers } = req;
-  const commonEngine = new CommonEngine({ enablePerformanceProfiler: environment.ssr.enablePerformanceProfiler });
+  // "allowedHosts" specifies which hosts are allowed to be rendered via SSR.
+  // By default, this is set to the host of the UI's baseUrl.
+  const commonEngine = new CommonEngine({ enablePerformanceProfiler: environment.ssr.enablePerformanceProfiler,
+                                          allowedHosts: [ new URL(environment.ui.baseUrl).hostname ],
+                                        });
   // Render the page via SSR (server side rendering)
   commonEngine
     .render({
