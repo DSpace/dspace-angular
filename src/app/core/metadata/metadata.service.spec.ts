@@ -84,7 +84,7 @@ describe('MetadataService', () => {
       }
     } as any as Router;
     hardRedirectService = jasmine.createSpyObj( {
-      getCurrentOrigin: 'https://request.org',
+      getBaseUrl: 'https://request.org',
     });
     authorizationService = jasmine.createSpyObj('authorizationService', {
       isAuthorized: observableOf(true)
