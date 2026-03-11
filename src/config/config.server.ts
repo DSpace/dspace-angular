@@ -12,7 +12,10 @@ import {
 import { load } from 'js-yaml';
 import { join } from 'path';
 
-import { isNotEmpty } from '../app/shared/empty.util';
+import {
+  isEmpty,
+  isNotEmpty,
+} from '../app/shared/empty.util';
 import { AppConfig } from './app-config.interface';
 import { Config } from './config.interface';
 import { mergeConfig } from './config.util';
@@ -158,14 +161,20 @@ const overrideWithEnvironment = (config: Config, key: string = '') => {
 };
 
 
-
+/**
+ * Construct the "baseUrl" property for a given config object (if it doesn't already exist),
+ * using the "host", "port", "nameSpace", and "ssl" properties of the config.
+ * @param config the config to build the baseUrl for
+ */
 const buildBaseUrl = (config: ServerConfig): void => {
-  config.baseUrl = [
-    config.ssl ? 'https://' : 'http://',
-    config.host,
-    config.port && config.port !== 80 && config.port !== 443 ? `:${config.port}` : '',
-    config.nameSpace && config.nameSpace.startsWith('/') ? config.nameSpace : `/${config.nameSpace}`,
-  ].join('');
+  if (isEmpty(config.baseUrl)) {
+    config.baseUrl = [
+      config.ssl ? 'https://' : 'http://',
+      config.host,
+      config.port && config.port !== 80 && config.port !== 443 ? `:${config.port}` : '',
+      config.nameSpace && config.nameSpace.startsWith('/') ? config.nameSpace : `/${config.nameSpace}`,
+    ].join('');
+  }
 };
 
 /**
@@ -241,7 +250,7 @@ export const buildAppConfig = (destConfigPath?: string): AppConfig => {
   // apply build defined production
   appConfig.production = env === 'production';
 
-  // build base URLs
+  // Build base URLs if not already specified via configuration or environment variables.
   buildBaseUrl(appConfig.ui);
   buildBaseUrl(appConfig.rest);
 
