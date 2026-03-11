@@ -8,11 +8,10 @@ import {
   map,
 } from 'rxjs/operators';
 
+import { CollectionDataService } from '../data/collection-data.service';
 import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../data/feature-authorization/feature-id';
-import { CollectionDataService } from '../data/collection-data.service';
 import { RoleType } from './role-types';
-
 /**
  * A service that provides methods to identify user role.
  */
