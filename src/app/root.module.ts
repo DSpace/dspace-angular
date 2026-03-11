@@ -1,6 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbDropdownModule,
+  NgbModule,
+  NgbTooltipModule,
+} from '@ng-bootstrap/ng-bootstrap';
 
 import { EAGER_THEME_COMPONENTS } from '../themes/eager-themes-components';
 import { AdminSidebarComponent } from './admin/admin-sidebar/admin-sidebar.component';
@@ -33,6 +37,8 @@ import { IdleModalComponent } from './shared/idle-modal/idle-modal.component';
 const IMPORTS = [
   CommonModule,
   NgbModule,
+  NgbDropdownModule,
+  NgbTooltipModule,
 ];
 
 const PROVIDERS = [
