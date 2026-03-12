@@ -79,8 +79,38 @@ const APP_CONFIG = new InjectionToken<AppConfig>('APP_CONFIG');
 
 const APP_CONFIG_STATE = makeStateKey<AppConfig>('APP_CONFIG_STATE');
 
+type DeepPartial<T> = T extends object ? { [k in keyof T]?: DeepPartial<T[k]>} : T;
+
+/**
+ * Removes all server-side specific settings from the application configuration.
+ * This method is used to ensure the "assets/config.json" that provides runtime
+ * configuration to CSR (client side rendering) excludes these server-side keys.
+ *
+ * @param config  the application configuration
+ */
+const toClientConfig = ({
+  rest: {
+    ssrBaseUrl: _ssrBaseUrl,
+    hasSsrBaseUrl: _hasSsrBaseUrl,
+    ...rest
+  },
+  cache: {
+    serverSide: _serverSide,
+    ...cache
+  },
+  ui: {
+    rateLimiter: _rateLimiter,
+    useProxies: _useProxies,
+    ...ui
+  },
+  ...config
+}: AppConfig): DeepPartial<AppConfig> => ({
+  ...config, rest, cache, ui,
+});
+
 export {
   APP_CONFIG,
   APP_CONFIG_STATE,
   AppConfig,
+  toClientConfig,
 };

@@ -14,7 +14,10 @@ import {
 } from 'colors';
 import { load } from 'js-yaml';
 
-import { AppConfig } from './app-config.interface';
+import {
+  AppConfig,
+  toClientConfig,
+} from './app-config.interface';
 import { Config } from './config.interface';
 import { mergeConfig } from './config.util';
 import { DefaultAppConfig } from './default-app-config';
@@ -121,7 +124,7 @@ const overrideWithConfig = (config: Config, pathToConfig: string) => {
   try {
     console.log(`Overriding app config with ${pathToConfig}`);
     const externalConfig = readFileSync(pathToConfig, 'utf8');
-    mergeConfig(config, load(externalConfig));
+    mergeConfig(config, load(externalConfig) as AppConfig);
   } catch (err) {
     console.error(err);
   }
@@ -247,7 +250,8 @@ export const buildAppConfig = (destConfigPath?: string): AppConfig => {
   buildBaseUrl(appConfig.rest);
 
   if (isNotEmpty(destConfigPath)) {
-    writeFileSync(destConfigPath, JSON.stringify(appConfig, null, 2));
+    const clientConfig = toClientConfig(appConfig);
+    writeFileSync(destConfigPath, JSON.stringify(clientConfig, null, 2));
 
     console.log(`Angular ${bold('config.json')} file generated correctly at ${bold(destConfigPath)} \n`);
   }
