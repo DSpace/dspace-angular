@@ -47,6 +47,10 @@ describe('BreadcrumbsComponent', () => {
       showBreadcrumbs$: of(true),
     } as BreadcrumbsService;
 
+    const hostWindowServiceMock = {
+      isUpTo: (width: number) => true,
+    };
+
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule.withRoutes([]),
@@ -61,15 +65,8 @@ describe('BreadcrumbsComponent', () => {
       ],
       providers: [
         { provide: BreadcrumbsService, useValue: breadcrumbsServiceMock },
+        { provide: HostWindowService, useValue: hostWindowServiceMock },
       ],
-    });
-
-    TestBed.overrideComponent(BreadcrumbsComponent, {
-      set: {
-        providers: [
-          { provide: HostWindowService, useValue: {} },
-        ],
-      },
     });
 
     TestBed.compileComponents();
