@@ -25,19 +25,19 @@ export class UIServerConfig extends ServerConfig {
   useProxies = true;
 
   @Config.public
-  @Config.env('DSPACE_SSL', toBoolean)
+  @Config.env('DSPACE_UI_SSL', toBoolean)
   ssl = false;
 
   @Config.public
-  @Config.env('DSPACE_HOST')
+  @Config.env('DSPACE_UI_HOST')
   host = 'localhost';
 
   @Config.public
-  @Config.env('DSPACE_PORT', Number)
+  @Config.env('DSPACE_UI_PORT', Number)
   port = 4000;
 
   @Config.public
-  @Config.env('DSPACE_NAMESPACE')
+  @Config.env('DSPACE_UI_NAMESPACE')
   // NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
   nameSpace = '/';
 }

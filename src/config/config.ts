@@ -199,18 +199,20 @@ export class Config {
   applyEnvironment(env: { [k: string]: string }) {
     const deepEnv = (target: any, spec: DeepEnvSpec) => {
       Object.entries(spec).forEach(([k, desc]) => {
-        if (typeof desc === 'string') {
-          const val = env[desc];
-          if (isNotEmpty(val)) {
-            target[k] = val;
+        if (target.hasOwnProperty(k)) {
+          if (typeof desc === 'string') {
+            const val = env[desc];
+            if (isNotEmpty(val)) {
+              target[k] = val;
+            }
+          } else if (Array.isArray(desc) && typeof desc[0] === 'string') {
+            const val = env[desc[0]];
+            if (isNotEmpty(val)) {
+              target[k] = desc[1](val);
+            }
+          } else {
+            deepEnv(target[k], desc as DeepEnvSpec);
           }
-        } else if (Array.isArray(desc) && typeof desc[0] === 'string') {
-          const val = env[desc[0]];
-          if (isNotEmpty(val)) {
-            target[k] = desc[1](val);
-          }
-        } else {
-          deepEnv(target[k], desc as DeepEnvSpec);
         }
       });
     };

@@ -16,7 +16,7 @@ export class CacheConfig extends Config {
   @Config.public autoSync: AutoSyncConfig = {
     defaultTime: 0,
     maxBufferSize: 100,
-    timePerMethod: { [RestRequestMethod.PATCH]: 3 } as any, // time in seconds
+    timePerMethod: { [RestRequestMethod.PATCH]: 3 }, // time in seconds
   };
 
   // In-memory caches of server-side rendered (SSR) content. These caches can be used to limit the frequency

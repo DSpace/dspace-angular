@@ -5,7 +5,7 @@ import { RestRequestMethod } from './rest-request-method';
  * server for requests using a certain HTTP Method
  */
 type TimePerMethod = {
-  [method in RestRequestMethod]: number;
+  [method in RestRequestMethod]?: number;
 };
 
 /**
