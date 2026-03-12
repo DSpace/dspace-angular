@@ -1,24 +1,27 @@
 <ng-container *ngVar="(breadcrumbs$ | async) as breadcrumbs">
-  @if ((showBreadcrumbs$ | async)) {
+  <ng-container *ngIf="showBreadcrumbs$ | async">
     <nav aria-label="breadcrumb" class="nav-breadcrumb">
       <ng-container *ngTemplateOutlet="(isMobile$ | async) ? displayOnMobile : displayOnDesktop"></ng-container>
-      <ng-template #displayOnMobile>
-        <ol class="container breadcrumb my-0">
-          <ng-container *ngTemplateOutlet="listBreadcrumb"></ng-container>
-          <li class="breadcrumb-separator"><p>{{'/'}}</p></li>
-          <ng-container *ngTemplateOutlet="currentBreadcrumb"></ng-container>
-        </ol>
-      </ng-template>
-      <ng-template #displayOnDesktop>
-        <ol class="container breadcrumb my-0">
-          <ng-container *ngTemplateOutlet="breadcrumbs?.length > 0 ? breadcrumb : activeBreadcrumb; context: {text: 'home.breadcrumbs', url: '/'}"></ng-container>
-            @for (bc of breadcrumbs; track $index; let last = $last) {
-              <ng-container *ngTemplateOutlet="!last ? breadcrumb : activeBreadcrumb; context: bc"></ng-container>
-            }
-        </ol>
-      </ng-template>
     </nav>
-  }
+  </ng-container>
+
+  <ng-template #displayOnMobile>
+    <ol class="container breadcrumb my-0">
+      <ng-container *ngTemplateOutlet="listBreadcrumb"></ng-container>
+      <li class="breadcrumb-separator"><p>{{'/'}}</p></li>
+      <ng-container *ngTemplateOutlet="currentBreadcrumb"></ng-container>
+    </ol>
+  </ng-template>
+
+  <ng-template #displayOnDesktop>
+    <ol class="container breadcrumb my-0">
+      <ng-container *ngTemplateOutlet="breadcrumbs?.length > 0 ? breadcrumb : activeBreadcrumb; context: {text: 'home.breadcrumbs', url: '/'}"></ng-container>
+      <ng-container *ngFor="let bc of breadcrumbs; let last = last">
+        <ng-container *ngTemplateOutlet="!last ? breadcrumb : activeBreadcrumb; context: bc"></ng-container>
+      </ng-container>
+    </ol>
+  </ng-template>
+
   <ng-template #breadcrumb let-text="text" let-url="url">
     <li class="breadcrumb-item">
       <div class="breadcrumb-item-limiter">
@@ -33,6 +36,7 @@
       </div>
     </li>
   </ng-template>
+
   <ng-template #activeBreadcrumb let-text="text">
     <li class="breadcrumb-item active" aria-current="page">
       <div class="breadcrumb-item-limiter">
@@ -40,6 +44,7 @@
       </div>
     </li>
   </ng-template>
+
   <ng-template #listBreadcrumb>
     <li class="breadcrumb-item">
       <div class="dropdown">
@@ -52,13 +57,13 @@
               <li class="nav-item nav-link d-flex flex-row">
                 <div class="mr-2">
                   <ng-container *ngTemplateOutlet="breadcrumbs?.length > 0 ? breadcrumb : activeBreadcrumb; context: {text: 'home.breadcrumbs', url: '/'}"></ng-container>
-                    @for (bc of breadcrumbs; track $index; let last = $last) {
-                      @if (!last) {
-                        <div>
-                          <ng-container *ngTemplateOutlet="breadcrumb; context: bc"></ng-container>
-                        </div>
-                      }
-                    }
+                  <ng-container *ngFor="let bc of breadcrumbs; let last = last">
+                    <ng-container *ngIf="!last">
+                      <div>
+                        <ng-container *ngTemplateOutlet="breadcrumb; context: bc"></ng-container>
+                      </div>
+                    </ng-container>
+                  </ng-container>
                 </div>
               </li>
             </ul>
@@ -67,13 +72,14 @@
       </div>
     </li>
   </ng-template>
+
   <ng-template #currentBreadcrumb>
-    @for (bc of breadcrumbs; track $index; let last = $last) {
-      @if (last) {
+    <ng-container *ngFor="let bc of breadcrumbs; let last = last">
+      <ng-container *ngIf="last">
         <div>
           <ng-container *ngTemplateOutlet="activeBreadcrumb; context: bc"></ng-container>
         </div>
-      }
-    }
+      </ng-container>
+    </ng-container>
   </ng-template>
 </ng-container>
