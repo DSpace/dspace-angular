@@ -14,6 +14,7 @@ import {
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
+import { HostWindowService } from '../shared/host-window.service';
 import { VarDirective } from '../shared/utils/var.directive';
 import { BreadcrumbsComponent } from './breadcrumbs.component';
 import { BreadcrumbsService } from './breadcrumbs.service';
@@ -61,7 +62,17 @@ describe('BreadcrumbsComponent', () => {
       providers: [
         { provide: BreadcrumbsService, useValue: breadcrumbsServiceMock },
       ],
-    }).compileComponents();
+    });
+
+    TestBed.overrideComponent(BreadcrumbsComponent, {
+      set: {
+        providers: [
+          { provide: HostWindowService, useValue: {} },
+        ],
+      },
+    });
+
+    TestBed.compileComponents();
 
     fixture = TestBed.createComponent(BreadcrumbsComponent);
     component = fixture.componentInstance;
