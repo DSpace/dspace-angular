@@ -121,15 +121,10 @@ export class MyDSpaceConfigurationService extends SearchConfigurationService {
       first(),
       map(([isSubmitter, isController, isAdmin]: [boolean, boolean, boolean]) => {
         const availableConf: MyDSpaceConfigurationValueType[] = [];
-        if (isSubmitter) {
-          availableConf.push(MyDSpaceConfigurationValueType.Workspace);
-        }
+        availableConf.push(MyDSpaceConfigurationValueType.Workspace);
         if (isController || isAdmin) {
           availableConf.push(MyDSpaceConfigurationValueType.SupervisedItems);
           availableConf.push(MyDSpaceConfigurationValueType.Workflow);
-        }
-        if (!isSubmitter && !isController && !isAdmin) {
-          availableConf.push(MyDSpaceConfigurationValueType.Workspace);
         }
         return availableConf;
       }));
