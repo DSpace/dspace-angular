@@ -10,7 +10,7 @@ import { RouterLink } from '@angular/router';
 import {
   APP_CONFIG,
   AppConfig,
-} from '@dspace/config/app-config.interface';
+} from '@dspace/config/app.config';
 import { BrowseDefinition } from '@dspace/core/shared/browse-definition.model';
 import { MetadataValue } from '@dspace/core/shared/metadata.models';
 import { VALUE_LIST_BROWSE_DEFINITION } from '@dspace/core/shared/value-list-browse-definition.resource-type';

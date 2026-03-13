@@ -1,6 +1,6 @@
 import { ChangeDetectorRef } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { NotificationAnimationsType } from '@dspace/config/notifications-config.interfaces';
+import { NotificationAnimationsType } from '@dspace/config/notifications.config';
 import { StoreModule } from '@ngrx/store';
 import uniqueId from 'lodash/uniqueId';
 

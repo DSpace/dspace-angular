@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { APP_CONFIG } from '@dspace/config/app.config';
 import { RestRequestMethod } from '@dspace/config/rest-request-method';
 import { provideMockActions } from '@ngrx/effects/testing';
 import {

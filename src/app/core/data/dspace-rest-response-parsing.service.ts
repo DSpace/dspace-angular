@@ -6,7 +6,7 @@ import {
 import {
   APP_CONFIG,
   AppConfig,
-} from '@dspace/config/app-config.interface';
+} from '@dspace/config/app.config';
 import { RestRequestMethod } from '@dspace/config/rest-request-method';
 import {
   hasNoValue,
@@ -144,8 +144,10 @@ export class DspaceRestResponseParsingService implements ResponseParsingService 
       }
       const result = {};
       Object.keys(data)
-        .filter((property) => data.hasOwnProperty(property))
-        .filter((property) => hasValue(data[property]))
+        .filter((property) => (
+          data.hasOwnProperty(property)
+            && property !== data // Ignore circular references
+            && hasValue(data[property])))
         .forEach((property) => {
           result[property] = this.process(data[property], request);
         });

@@ -10,7 +10,7 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { APP_CONFIG } from '@dspace/config/app.config';
 import { authReducer } from '@dspace/core/auth/auth.reducer';
 import { AuthService } from '@dspace/core/auth/auth.service';
 import { LocaleService } from '@dspace/core/locale/locale.service';

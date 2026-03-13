@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 import {
   APP_CONFIG,
   AppConfig,
-} from '@dspace/config/app-config.interface';
+} from '@dspace/config/app.config';
 import {
   hasNoValue,
   hasValue,

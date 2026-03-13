@@ -17,7 +17,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { NotificationAnimationsStatus } from '@dspace/config/notifications-config.interfaces';
+import { NotificationAnimationsStatus } from '@dspace/config/notifications.config';
 import { INotification } from '@dspace/core/notification-system/models/notification.model';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { isNotEmpty } from '@dspace/shared/utils/empty.util';

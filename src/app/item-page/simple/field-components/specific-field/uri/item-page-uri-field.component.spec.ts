@@ -7,7 +7,7 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { APP_CONFIG } from '@dspace/config/app.config';
 import { BrowseService } from '@dspace/core/browse/browse.service';
 import { BrowseDefinitionDataService } from '@dspace/core/browse/browse-definition-data.service';
 import { BrowseDefinitionDataServiceStub } from '@dspace/core/testing/browse-definition-data-service.stub';

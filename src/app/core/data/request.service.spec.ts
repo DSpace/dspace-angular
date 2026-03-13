@@ -4,7 +4,7 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
-import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { APP_CONFIG } from '@dspace/config/app.config';
 import {
   Store,
   StoreModule,

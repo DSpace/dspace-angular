@@ -35,7 +35,7 @@ import {
 import {
   APP_CONFIG,
   AppConfig,
-} from '@dspace/config/app-config.interface';
+} from '@dspace/config/app.config';
 import { PaginatedList } from '@dspace/core/data/paginated-list.model';
 import { RelationshipDataService } from '@dspace/core/data/relationship-data.service';
 import { RemoteData } from '@dspace/core/data/remote-data';
