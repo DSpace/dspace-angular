@@ -7,6 +7,7 @@ import {
   OnDestroy,
   SimpleChanges,
 } from '@angular/core';
+import { AbstractControl } from '@angular/forms';
 import { AuthService } from '@dspace/core/auth/auth.service';
 import { SubmissionDefinitionsModel } from '@dspace/core/config/models/config-submission-definitions.model';
 import { SubmissionSectionModel } from '@dspace/core/config/models/config-submission-section.model';
@@ -24,6 +25,11 @@ import {
   isNotEmpty,
   isNotUndefined,
 } from '@dspace/shared/utils/empty.util';
+import {
+  DYNAMIC_ERROR_MESSAGES_MATCHER,
+  DynamicFormControlModel,
+  DynamicFormValidationService,
+} from '@ng-dynamic-forms/core';
 import { TranslatePipe } from '@ngx-translate/core';
 import isEqual from 'lodash/isEqual';
 import {
@@ -38,6 +44,7 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
+import { environment } from '../../../environments/environment';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { UploaderOptions } from '../../shared/upload/uploader/uploader-options.model';
 import { SubmissionObjectEntry } from '../objects/submission-objects.reducer';
@@ -67,6 +74,18 @@ import { ThemedSubmissionUploadFilesComponent } from './submission-upload-files/
     ThemedSubmissionUploadFilesComponent,
     TranslatePipe,
   ],
+  providers: environment.submission.showErrorStrategy === 'onload' ? [
+    // Always show validation errors, even if input hasn't been
+    // blurred yet
+    DynamicFormValidationService,
+    {
+      provide: DYNAMIC_ERROR_MESSAGES_MATCHER,
+      useValue: (
+        _control: AbstractControl,
+        _model: DynamicFormControlModel,
+        hasFocus: boolean) => !hasFocus,
+    },
+  ] : [],
 })
 export class SubmissionFormComponent implements OnChanges, OnDestroy {
 
