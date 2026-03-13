@@ -10975,5 +10975,19 @@
   // TODO New key - Add a translation
   "file-download-link.request-copy": "Request a copy of ",
 
+  // "statistics.table.header.TotalVisits": "Object",
+  "statistics.table.header.TotalVisits": "Objeto",
+
+  // "statistics.table.header.TotalVisitsMonth": "Month",
+  "statistics.table.header.TotalVisitsMonth": "Mes",
+
+  // "statistics.table.header.TotalDownloads": "Downloads",
+  "statistics.table.header.TotalDownloads": "Descargas",
+
+  // "statistics.table.header.TopCities": "Cities",
+  "statistics.table.header.TopCities": "Ciudades",
+
+  // "statistics.table.header.topCountries": "Countries",
+  "statistics.table.header.topCountries": "Países",
 
 }
