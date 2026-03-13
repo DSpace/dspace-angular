@@ -4,7 +4,6 @@ import { RouterLink } from '@angular/router';
 import { Context } from '@dspace/core/shared/context.model';
 import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import { TranslateModule } from '@ngx-translate/core';
-import { GenericItemPageFieldComponent } from 'src/app/item-page/simple/field-components/specific-field/generic/generic-item-page-field.component';
 import { ThemedItemPageTitleFieldComponent } from 'src/app/item-page/simple/field-components/specific-field/title/themed-item-page-field.component';
 import { TabbedRelatedEntitiesSearchComponent } from 'src/app/item-page/simple/related-entities/tabbed-related-entities-search/tabbed-related-entities-search.component';
 import { RelatedItemsComponent } from 'src/app/item-page/simple/related-items/related-items-component';
@@ -14,6 +13,7 @@ import { ThemedResultsBackButtonComponent } from 'src/app/shared/results-back-bu
 import { ThemedThumbnailComponent } from 'src/app/thumbnail/themed-thumbnail.component';
 
 import { PersonComponent as BaseComponent } from '../../../../../../../app/entity-groups/research-entities/item-pages/person/person.component';
+import { ThemedGenericItemPageFieldComponent } from '../../../../../../../app/item-page/simple/field-components/specific-field/generic/themed-generic-item-page-field.component';
 import { listableObjectComponent } from '../../../../../../../app/shared/object-collection/shared/listable-object/listable-object.decorator';
 
 @listableObjectComponent('Person', ViewMode.StandalonePage, Context.Any, 'custom')
@@ -26,11 +26,11 @@ import { listableObjectComponent } from '../../../../../../../app/shared/object-
   imports: [
     AsyncPipe,
     DsoEditMenuComponent,
-    GenericItemPageFieldComponent,
     MetadataFieldWrapperComponent,
     RelatedItemsComponent,
     RouterLink,
     TabbedRelatedEntitiesSearchComponent,
+    ThemedGenericItemPageFieldComponent,
     ThemedItemPageTitleFieldComponent,
     ThemedResultsBackButtonComponent,
     ThemedThumbnailComponent,

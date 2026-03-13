@@ -4,7 +4,7 @@ import { RouterLink } from '@angular/router';
 import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { GenericItemPageFieldComponent } from '../../../../item-page/simple/field-components/specific-field/generic/generic-item-page-field.component';
+import { ThemedGenericItemPageFieldComponent } from '../../../../item-page/simple/field-components/specific-field/generic/themed-generic-item-page-field.component';
 import { ThemedItemPageTitleFieldComponent } from '../../../../item-page/simple/field-components/specific-field/title/themed-item-page-field.component';
 import { ItemComponent } from '../../../../item-page/simple/item-types/shared/item.component';
 import { ThemedMetadataRepresentationListComponent } from '../../../../item-page/simple/metadata-representation-list/themed-metadata-representation-list.component';
@@ -23,10 +23,10 @@ import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail
   imports: [
     AsyncPipe,
     DsoEditMenuComponent,
-    GenericItemPageFieldComponent,
     MetadataFieldWrapperComponent,
     RelatedItemsComponent,
     RouterLink,
+    ThemedGenericItemPageFieldComponent,
     ThemedItemPageTitleFieldComponent,
     ThemedMetadataRepresentationListComponent,
     ThemedResultsBackButtonComponent,

@@ -6,7 +6,7 @@ import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { JournalIssueComponent as BaseComponent } from '../../../../../../../app/entity-groups/journal-entities/item-pages/journal-issue/journal-issue.component';
-import { GenericItemPageFieldComponent } from '../../../../../../../app/item-page/simple/field-components/specific-field/generic/generic-item-page-field.component';
+import { ThemedGenericItemPageFieldComponent } from '../../../../../../../app/item-page/simple/field-components/specific-field/generic/themed-generic-item-page-field.component';
 import { ThemedItemPageTitleFieldComponent } from '../../../../../../../app/item-page/simple/field-components/specific-field/title/themed-item-page-field.component';
 import { RelatedItemsComponent } from '../../../../../../../app/item-page/simple/related-items/related-items-component';
 import { DsoEditMenuComponent } from '../../../../../../../app/shared/dso-page/dso-edit-menu/dso-edit-menu.component';
@@ -25,10 +25,10 @@ import { ThemedThumbnailComponent } from '../../../../../../../app/thumbnail/the
   imports: [
     AsyncPipe,
     DsoEditMenuComponent,
-    GenericItemPageFieldComponent,
     MetadataFieldWrapperComponent,
     RelatedItemsComponent,
     RouterLink,
+    ThemedGenericItemPageFieldComponent,
     ThemedItemPageTitleFieldComponent,
     ThemedResultsBackButtonComponent,
     ThemedThumbnailComponent,

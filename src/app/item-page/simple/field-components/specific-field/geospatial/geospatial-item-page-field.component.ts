@@ -15,7 +15,7 @@ import { MetadataFieldWrapperComponent } from '../../../../../shared/metadata-fi
 import { ItemPageFieldComponent } from '../item-page-field.component';
 
 @Component({
-  selector: 'ds-geospatial-item-page-field',
+  selector: 'ds-base-geospatial-item-page-field',
   templateUrl: './geospatial-item-page-field.component.html',
   imports: [
     GeospatialMapComponent,

@@ -46,8 +46,7 @@ import {
 } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
-import { MetadataValuesComponent } from '../../../../item-page/field-components/metadata-values/metadata-values.component';
-import { GenericItemPageFieldComponent } from '../../../../item-page/simple/field-components/specific-field/generic/generic-item-page-field.component';
+import { ThemedGenericItemPageFieldComponent } from '../../../../item-page/simple/field-components/specific-field/generic/themed-generic-item-page-field.component';
 import { ThemedItemPageTitleFieldComponent } from '../../../../item-page/simple/field-components/specific-field/title/themed-item-page-field.component';
 import { mockRouteService } from '../../../../item-page/simple/item-types/shared/item.component.spec';
 import { ThemedMetadataRepresentationListComponent } from '../../../../item-page/simple/metadata-representation-list/themed-metadata-representation-list.component';
@@ -105,7 +104,7 @@ describe('JournalComponent', () => {
           },
         }),
         RouterTestingModule,
-        GenericItemPageFieldComponent, TruncatePipe,
+        TruncatePipe,
         JournalComponent,
       ],
       providers: [
@@ -144,14 +143,11 @@ describe('JournalComponent', () => {
           RelatedItemsComponent,
           TabbedRelatedEntitiesSearchComponent,
           ThemedMetadataRepresentationListComponent,
+          ThemedGenericItemPageFieldComponent,
         ],
       },
       add: { changeDetection: ChangeDetectionStrategy.Default },
-    })
-      .overrideComponent(GenericItemPageFieldComponent, {
-        remove: { imports: [MetadataValuesComponent] },
-      })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(waitForAsync(() => {
@@ -171,7 +167,7 @@ describe('JournalComponent', () => {
 
 function containsFieldInput(fields: DebugElement[], metadataKey: string): boolean {
   for (const field of fields) {
-    const fieldComp = field.componentInstance;
+    const fieldComp = field.nativeElement;
     if (isNotEmpty(fieldComp.fields)) {
       if (fieldComp.fields.indexOf(metadataKey) > -1) {
         return true;

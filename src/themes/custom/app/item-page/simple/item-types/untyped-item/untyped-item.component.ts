@@ -13,13 +13,13 @@ import { CollectionsComponent } from '../../../../../../../app/item-page/field-c
 import { ThemedMediaViewerComponent } from '../../../../../../../app/item-page/media-viewer/themed-media-viewer.component';
 import { MiradorViewerComponent } from '../../../../../../../app/item-page/mirador-viewer/mirador-viewer.component';
 import { ThemedFileSectionComponent } from '../../../../../../../app/item-page/simple/field-components/file-section/themed-file-section.component';
-import { ItemPageAbstractFieldComponent } from '../../../../../../../app/item-page/simple/field-components/specific-field/abstract/item-page-abstract-field.component';
-import { ItemPageCcLicenseFieldComponent } from '../../../../../../../app/item-page/simple/field-components/specific-field/cc-license/item-page-cc-license-field.component';
-import { ItemPageDateFieldComponent } from '../../../../../../../app/item-page/simple/field-components/specific-field/date/item-page-date-field.component';
-import { GenericItemPageFieldComponent } from '../../../../../../../app/item-page/simple/field-components/specific-field/generic/generic-item-page-field.component';
-import { GeospatialItemPageFieldComponent } from '../../../../../../../app/item-page/simple/field-components/specific-field/geospatial/geospatial-item-page-field.component';
+import { ThemedItemPageAbstractFieldComponent } from '../../../../../../../app/item-page/simple/field-components/specific-field/abstract/themed-item-page-abstract-field.component';
+import { ThemedItemPageCcLicenseFieldComponent } from '../../../../../../../app/item-page/simple/field-components/specific-field/cc-license/themed-item-page-cc-license-field.component';
+import { ThemedItemPageDateFieldComponent } from '../../../../../../../app/item-page/simple/field-components/specific-field/date/themed-item-page-date-field.component';
+import { ThemedGenericItemPageFieldComponent } from '../../../../../../../app/item-page/simple/field-components/specific-field/generic/themed-generic-item-page-field.component';
+import { ThemedGeospatialItemPageFieldComponent } from '../../../../../../../app/item-page/simple/field-components/specific-field/geospatial/themed-geospatial-item-page-field.component';
 import { ThemedItemPageTitleFieldComponent } from '../../../../../../../app/item-page/simple/field-components/specific-field/title/themed-item-page-field.component';
-import { ItemPageUriFieldComponent } from '../../../../../../../app/item-page/simple/field-components/specific-field/uri/item-page-uri-field.component';
+import { ThemedGenericItemPageUriFieldComponent } from '../../../../../../../app/item-page/simple/field-components/specific-field/uri/themed-item-page-uri-field.component';
 import { UntypedItemComponent as BaseComponent } from '../../../../../../../app/item-page/simple/item-types/untyped-item/untyped-item.component';
 import { ThemedMetadataRepresentationListComponent } from '../../../../../../../app/item-page/simple/metadata-representation-list/themed-metadata-representation-list.component';
 import { DsoEditMenuComponent } from '../../../../../../../app/shared/dso-page/dso-edit-menu/dso-edit-menu.component';
@@ -42,16 +42,16 @@ import { ThemedThumbnailComponent } from '../../../../../../../app/thumbnail/the
     AsyncPipe,
     CollectionsComponent,
     DsoEditMenuComponent,
-    GenericItemPageFieldComponent,
-    GeospatialItemPageFieldComponent,
-    ItemPageAbstractFieldComponent,
-    ItemPageCcLicenseFieldComponent,
-    ItemPageDateFieldComponent,
-    ItemPageUriFieldComponent,
     MetadataFieldWrapperComponent,
     MiradorViewerComponent,
     RouterLink,
     ThemedFileSectionComponent,
+    ThemedGenericItemPageFieldComponent,
+    ThemedGenericItemPageUriFieldComponent,
+    ThemedGeospatialItemPageFieldComponent,
+    ThemedItemPageAbstractFieldComponent,
+    ThemedItemPageCcLicenseFieldComponent,
+    ThemedItemPageDateFieldComponent,
     ThemedItemPageTitleFieldComponent,
     ThemedMediaViewerComponent,
     ThemedMetadataRepresentationListComponent,

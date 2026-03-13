@@ -12,12 +12,12 @@ import { CollectionsComponent } from '../../../../../../../app/item-page/field-c
 import { ThemedMediaViewerComponent } from '../../../../../../../app/item-page/media-viewer/themed-media-viewer.component';
 import { MiradorViewerComponent } from '../../../../../../../app/item-page/mirador-viewer/mirador-viewer.component';
 import { ThemedFileSectionComponent } from '../../../../../../../app/item-page/simple/field-components/file-section/themed-file-section.component';
-import { ItemPageAbstractFieldComponent } from '../../../../../../../app/item-page/simple/field-components/specific-field/abstract/item-page-abstract-field.component';
-import { ItemPageDateFieldComponent } from '../../../../../../../app/item-page/simple/field-components/specific-field/date/item-page-date-field.component';
-import { GenericItemPageFieldComponent } from '../../../../../../../app/item-page/simple/field-components/specific-field/generic/generic-item-page-field.component';
-import { GeospatialItemPageFieldComponent } from '../../../../../../../app/item-page/simple/field-components/specific-field/geospatial/geospatial-item-page-field.component';
+import { ThemedItemPageAbstractFieldComponent } from '../../../../../../../app/item-page/simple/field-components/specific-field/abstract/themed-item-page-abstract-field.component';
+import { ThemedItemPageDateFieldComponent } from '../../../../../../../app/item-page/simple/field-components/specific-field/date/themed-item-page-date-field.component';
+import { ThemedGenericItemPageFieldComponent } from '../../../../../../../app/item-page/simple/field-components/specific-field/generic/themed-generic-item-page-field.component';
+import { ThemedGeospatialItemPageFieldComponent } from '../../../../../../../app/item-page/simple/field-components/specific-field/geospatial/themed-geospatial-item-page-field.component';
 import { ThemedItemPageTitleFieldComponent } from '../../../../../../../app/item-page/simple/field-components/specific-field/title/themed-item-page-field.component';
-import { ItemPageUriFieldComponent } from '../../../../../../../app/item-page/simple/field-components/specific-field/uri/item-page-uri-field.component';
+import { ThemedGenericItemPageUriFieldComponent } from '../../../../../../../app/item-page/simple/field-components/specific-field/uri/themed-item-page-uri-field.component';
 import { PublicationComponent as BaseComponent } from '../../../../../../../app/item-page/simple/item-types/publication/publication.component';
 import { ThemedMetadataRepresentationListComponent } from '../../../../../../../app/item-page/simple/metadata-representation-list/themed-metadata-representation-list.component';
 import { RelatedItemsComponent } from '../../../../../../../app/item-page/simple/related-items/related-items-component';
@@ -39,16 +39,16 @@ import { ThemedThumbnailComponent } from '../../../../../../../app/thumbnail/the
     AsyncPipe,
     CollectionsComponent,
     DsoEditMenuComponent,
-    GenericItemPageFieldComponent,
-    GeospatialItemPageFieldComponent,
-    ItemPageAbstractFieldComponent,
-    ItemPageDateFieldComponent,
-    ItemPageUriFieldComponent,
     MetadataFieldWrapperComponent,
     MiradorViewerComponent,
     RelatedItemsComponent,
     RouterLink,
     ThemedFileSectionComponent,
+    ThemedGenericItemPageFieldComponent,
+    ThemedGenericItemPageUriFieldComponent,
+    ThemedGeospatialItemPageFieldComponent,
+    ThemedItemPageAbstractFieldComponent,
+    ThemedItemPageDateFieldComponent,
     ThemedItemPageTitleFieldComponent,
     ThemedMediaViewerComponent,
     ThemedMetadataRepresentationListComponent,
