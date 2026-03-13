@@ -66,12 +66,12 @@ describe('RecentItemListComponent', () => {
 
   it('should call paginationService.updateRouteWithUrl when onLoadMore is called', () => {
 
-    const entityTypes = environment.homePage.recentSubmissions.entityTypes;
+    const entityType = environment.homePage.recentSubmissions.entityType;
 
     const extraParams: Record<string, unknown> = {};
 
-    if (entityTypes?.length) {
-      extraParams['f.entityType'] = entityTypes.map(type => `${type},equals`);
+    if (entityType) {
+      extraParams['f.entityType'] = `${entityType},equals`;
     }
     component.onLoadMore();
 
