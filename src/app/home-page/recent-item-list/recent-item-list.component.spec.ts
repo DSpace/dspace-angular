@@ -53,7 +53,6 @@ describe('RecentItemListComponent', () => {
     fixture.detectChanges();
 
     spyOn(paginationService, 'updateRouteWithUrl');
-    spyOn(paginationService, 'clearPagination');
   });
 
   it('should create', () => {
@@ -80,6 +79,8 @@ describe('RecentItemListComponent', () => {
   });
 
   it('should clear pagination on destroy', () => {
+    spyOn(paginationService, 'clearPagination');
+
     component.ngOnDestroy();
 
     expect(paginationService.clearPagination).toHaveBeenCalledWith(component.paginationConfig.id);
