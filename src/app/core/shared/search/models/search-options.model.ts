@@ -9,6 +9,14 @@ import { ViewMode } from '../../view-mode.model';
 import { SearchFilter } from './search-filter.model';
 
 /**
+ * Escapes all Lucene special characters in a query string so they are treated as literals.
+ * Special characters: + - & | ! ( ) { } [ ] ^ " ~ * ? : \ /
+ */
+export function escapeLuceneSpecialChars(query: string): string {
+  return query.replace(/[+\-&|!(){}[\]^"~*?:\\/]/g, '\\$&');
+}
+
+/**
  * This model class represents all parameters needed to request information about a certain search request
  */
 export class SearchOptions {
@@ -51,7 +59,7 @@ export class SearchOptions {
     }
     if (isNotEmpty(this.query)) {
       if (!this.expert) {
-        args.push(`query=${encodeURIComponent(this.query.replace(':', '\\:'))}`);
+        args.push(`query=${encodeURIComponent(escapeLuceneSpecialChars(this.query))}`);
       } else {
         args.push(`query=${encodeURIComponent(this.query)}`);
       }
