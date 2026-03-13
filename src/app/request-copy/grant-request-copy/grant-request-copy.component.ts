@@ -134,7 +134,7 @@ export class GrantRequestCopyComponent implements OnInit {
               accessToken: rd.payload.accessToken,
             },
           };
-          this.previewLink = this.hardRedirectService.getCurrentOrigin()
+          this.previewLink = this.hardRedirectService.getBaseUrl()
             + this.previewLinkOptions.routerLink + '?accessToken=' + rd.payload.accessToken;
         }
       }),
