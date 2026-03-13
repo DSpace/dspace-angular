@@ -23,7 +23,7 @@ describe('PdfViewerEnableComponent', () => {
   beforeEach(waitForAsync(() => {
     pdfViewerService = jasmine.createSpyObj('pdfViewerService', {
       isViewerEnabled$: of(false),
-      viewerAllowedForBitstreamFormat$: of(true),
+      viewerEnabledAndAllowedForBitstreamFormat$: of(true),
     });
 
     TestBed.configureTestingModule({

@@ -78,6 +78,20 @@ export class PdfViewerService {
   }
 
   /**
+   * Is the PDF viewer enabled and allowed for a given dspace object
+   * @param dso The dspace object to check
+   */
+  viewerEnabledAndAllowedForBitstreamFormat$(dso: DSpaceObject): Observable<boolean> {
+    if (dso instanceof Bitstream) {
+      return this.viewerAllowedForBitstreamFormat$(dso).pipe(
+        map(allowedForBsFormat => allowedForBsFormat && this.appConfig.pdfViewer.enabled),
+      );
+    } else {
+      return of(this.appConfig.pdfViewer.enabled);
+    }
+  }
+
+  /**
    * Is the viewer enabled for this dspace object
    * @param dsoToCheck  The dspace object to check
    */

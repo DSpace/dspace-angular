@@ -47,7 +47,7 @@ export class PdfViewerEnableComponent implements OnInit {
     this.isEnabled$.pipe(
       take(1),
     ).subscribe((isEnabled) => this.update(isEnabled));
-    this.isViewerConfigAllowed$ = this.pdfViewerService.viewerAllowedForBitstreamFormat$(this.dso);
+    this.isViewerConfigAllowed$ = this.pdfViewerService.viewerEnabledAndAllowedForBitstreamFormat$(this.dso);
   }
 
   update($event: boolean) {

@@ -803,6 +803,6 @@ export class DefaultAppConfig implements AppConfig {
 
   // PDF viewer configuration, used by the PdfViewerService
   pdfViewer: PdfViewerConfig = {
-    enabled: true,
+    enabled: false,
   };
 }
