@@ -41,7 +41,11 @@ export class TranslateBrowserLoader implements TranslateLoader {
     if (hasValue(messages)) {
       return of(messages);
     } else {
-      const translationHash: string = environment.production ? `.${(process.env.languageHashes as any)[lang + '.json5']}` : '';
+      let translationHash = '';
+      if (environment.production) {
+        const languageHashesConfigFromEnvironment = environment.languageHashes.filter((languageHashConfig) => languageHashConfig.lang === lang);
+        translationHash = `.${languageHashesConfigFromEnvironment.length > 0 ? languageHashesConfigFromEnvironment[0].md5 : (process.env.languageHashes as any)[lang + '.json5']}`;
+      }
       // If they're not available on the transfer state (e.g. when running in dev mode), retrieve
       // them using HttpClient
       return this.http.get(`${this.prefix}${lang}${translationHash}${this.suffix}`, { responseType: 'text' }).pipe(
