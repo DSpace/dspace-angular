@@ -24,8 +24,10 @@ import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
 import { RootDataService } from '../data/root-data.service';
 import { HardRedirectService } from '../services/hard-redirect.service';
+import { LinkHeadService } from '../services/link-head.service';
 import { Bitstream } from '../shared/bitstream.model';
 import { Bundle } from '../shared/bundle.model';
+import { DSpaceObject } from '../shared/dspace-object.model';
 import { Item } from '../shared/item.model';
 import { MetadataValue } from '../shared/metadata.models';
 import {
@@ -64,6 +66,7 @@ describe('HeadTagService', () => {
 
   let router: Router;
   let store;
+  let linkHeadService: LinkHeadService;
 
   let appConfig: AppConfig;
 
@@ -101,6 +104,10 @@ describe('HeadTagService', () => {
     authorizationService = jasmine.createSpyObj('authorizationService', {
       isAuthorized: of(true),
     });
+    linkHeadService = jasmine.createSpyObj('linkHeadService', {
+      addTag: {},
+      removeTag: {},
+    });
 
     store = createMockStore({ initialState });
     spyOn(store, 'dispatch');
@@ -125,6 +132,7 @@ describe('HeadTagService', () => {
       hardRedirectService,
       appConfig,
       authorizationService,
+      linkHeadService,
     );
   });
 
@@ -491,6 +499,78 @@ describe('HeadTagService', () => {
       expect(store.dispatch.calls.argsFor(1)).toEqual([new AddMetaTagAction('title')]);
       expect(store.dispatch.calls.argsFor(2)).toEqual([new AddMetaTagAction('description')]);
     });
+  });
+
+  describe('canonical link tag', () => {
+    it('should add canonical link tag for Item DSO', fakeAsync(() => {
+      (headTagService as any).processRouteChange({
+        data: {
+          value: {
+            dso: createSuccessfulRemoteDataObject(ItemMock),
+          },
+        },
+      });
+      tick();
+      expect(linkHeadService.addTag).toHaveBeenCalledWith({
+        rel: 'canonical',
+        href: 'https://request.org/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357',
+      });
+    }));
+
+    it('should remove canonical link tag on route change', fakeAsync(() => {
+      (headTagService as any).processRouteChange({
+        data: {
+          value: {
+            dso: createSuccessfulRemoteDataObject(ItemMock),
+          },
+        },
+      });
+      tick();
+      expect(linkHeadService.removeTag).toHaveBeenCalledWith('rel="canonical"');
+    }));
+
+    it('should not add canonical link tag when navigating to a non-DSO page', fakeAsync(() => {
+      (translateService.get as jasmine.Spy).and.returnValues(of('DSpace :: '), of('Dummy Title'));
+      (headTagService as any).processRouteChange({
+        data: {
+          value: {
+            title: 'Dummy Title',
+          },
+        },
+      });
+      tick();
+      expect(linkHeadService.addTag).not.toHaveBeenCalled();
+    }));
+
+    it('should not add canonical link tag when seo.canonical.items is false', fakeAsync(() => {
+      (appConfig as any).seo = { canonical: { items: false, bitstreams: true } };
+      (headTagService as any).processRouteChange({
+        data: {
+          value: {
+            dso: createSuccessfulRemoteDataObject(ItemMock),
+          },
+        },
+      });
+      tick();
+      expect(linkHeadService.addTag).not.toHaveBeenCalled();
+    }));
+
+    it('should not add canonical link tag for non-Item DSO', fakeAsync(() => {
+      const nonItemDso = Object.assign(new DSpaceObject(), {
+        uuid: 'some-uuid',
+        metadata: {},
+      });
+      (dsoNameService.getName as jasmine.Spy).and.returnValue('Non-Item');
+      (headTagService as any).processRouteChange({
+        data: {
+          value: {
+            dso: createSuccessfulRemoteDataObject(nonItemDso),
+          },
+        },
+      });
+      tick();
+      expect(linkHeadService.addTag).not.toHaveBeenCalled();
+    }));
   });
 
   const mockType = (mockItem: Item, type: string): Item => {

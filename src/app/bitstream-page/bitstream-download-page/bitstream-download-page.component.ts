@@ -7,6 +7,7 @@ import {
   Component,
   Inject,
   inject,
+  OnDestroy,
   OnInit,
   PLATFORM_ID,
 } from '@angular/core';
@@ -15,6 +16,10 @@ import {
   Params,
   Router,
 } from '@angular/router';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
 import { AuthService } from '@dspace/core/auth/auth.service';
 import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
@@ -25,6 +30,7 @@ import { SignpostingDataService } from '@dspace/core/data/signposting-data.servi
 import { SignpostingLink } from '@dspace/core/data/signposting-links.model';
 import { getForbiddenRoute } from '@dspace/core/router/core-routing-paths';
 import { HardRedirectService } from '@dspace/core/services/hard-redirect.service';
+import { LinkHeadService } from '@dspace/core/services/link-head.service';
 import { ServerResponseService } from '@dspace/core/services/server-response.service';
 import { redirectOn4xx } from '@dspace/core/shared/authorized.operators';
 import { Bitstream } from '@dspace/core/shared/bitstream.model';
@@ -60,7 +66,7 @@ import { MatomoService } from '../../statistics/matomo.service';
 /**
  * Page component for downloading a bitstream
  */
-export class BitstreamDownloadPageComponent implements OnInit {
+export class BitstreamDownloadPageComponent implements OnInit, OnDestroy {
 
   bitstream$: Observable<Bitstream>;
   bitstreamRD$: Observable<RemoteData<Bitstream>>;
@@ -80,6 +86,8 @@ export class BitstreamDownloadPageComponent implements OnInit {
     private responseService: ServerResponseService,
     private matomoService: MatomoService,
     @Inject(PLATFORM_ID) protected platformId: string,
+    @Inject(APP_CONFIG) private appConfig: AppConfig,
+    private linkHeadService: LinkHeadService,
   ) {
     this.initPageLinks();
   }
@@ -159,8 +167,14 @@ export class BitstreamDownloadPageComponent implements OnInit {
    * @private
    */
   private initPageLinks(): void {
-    if (isPlatformServer(this.platformId)) {
-      this.route.params.subscribe(params => {
+    this.route.params.subscribe(params => {
+      if (this.appConfig.seo?.canonical?.bitstreams !== false) {
+        const origin = this.hardRedirectService.getCurrentOrigin();
+        const canonicalUrl = `${origin}/bitstreams/${params.id}/download`;
+        this.linkHeadService.addTag({ rel: 'canonical', href: canonicalUrl });
+      }
+
+      if (isPlatformServer(this.platformId)) {
         this.signpostingDataService.getLinks(params.id).pipe(take(1)).subscribe((signpostingLinks: SignpostingLink[]) => {
           let links = '';
 
@@ -168,9 +182,19 @@ export class BitstreamDownloadPageComponent implements OnInit {
             links = links + (isNotEmpty(links) ? ', ' : '') + `<${link.href}> ; rel="${link.rel}"` + (isNotEmpty(link.type) ? ` ; type="${link.type}" ` : ' ');
           });
 
+          if (this.appConfig.seo?.canonical?.bitstreams !== false) {
+            const origin = this.hardRedirectService.getCurrentOrigin();
+            const canonicalUrl = `${origin}/bitstreams/${params.id}/download`;
+            links = links + (isNotEmpty(links) ? ', ' : '') + `<${canonicalUrl}> ; rel="canonical"`;
+          }
+
           this.responseService.setHeader('Link', links);
         });
-      });
-    }
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.linkHeadService.removeTag('rel="canonical"');
   }
 }
