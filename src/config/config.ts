@@ -166,7 +166,7 @@ export class Config {
           .forEach(([k, desc]) => {
             if (Reflect.getMetadata(publicMetadataKey, this, k)
               && typeof desc.get === 'function') {
-              result[k] = desc.get.bind(this)();
+              result[k] = desc.get.call(this);
             }
           });
         handleGetters(Object.getPrototypeOf(obj));
