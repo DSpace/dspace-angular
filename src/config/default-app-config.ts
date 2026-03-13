@@ -326,7 +326,7 @@ export class DefaultAppConfig implements AppConfig {
       //sort record of recent submission
       sortField: 'dc.date.accessioned',
       // The entity types to show in the recent submission list. If not set, all entity types will be shown
-      entityTypes: ['Publication'],
+      entityTypes: [],
     },
     topLevelCommunityList: {
       pageSize: 5,
