@@ -5,7 +5,10 @@ import {
 } from 'node:fs';
 import { join } from 'node:path';
 
-import { isNotEmpty } from '@dspace/shared/utils/empty.util';
+import {
+  isEmpty,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import {
   blue,
   bold,
@@ -14,7 +17,10 @@ import {
 } from 'colors';
 import { load } from 'js-yaml';
 
-import { AppConfig } from './app-config.interface';
+import {
+  AppConfig,
+  toClientConfig,
+} from './app-config.interface';
 import { Config } from './config.interface';
 import { mergeConfig } from './config.util';
 import { DefaultAppConfig } from './default-app-config';
@@ -121,7 +127,7 @@ const overrideWithConfig = (config: Config, pathToConfig: string) => {
   try {
     console.log(`Overriding app config with ${pathToConfig}`);
     const externalConfig = readFileSync(pathToConfig, 'utf8');
-    mergeConfig(config, load(externalConfig));
+    mergeConfig(config, load(externalConfig) as AppConfig);
   } catch (err) {
     console.error(err);
   }
@@ -159,14 +165,20 @@ const overrideWithEnvironment = (config: Config, key: string = '') => {
 };
 
 
-
+/**
+ * Construct the "baseUrl" property for a given config object (if it doesn't already exist),
+ * using the "host", "port", "nameSpace", and "ssl" properties of the config.
+ * @param config the config to build the baseUrl for
+ */
 const buildBaseUrl = (config: ServerConfig): void => {
-  config.baseUrl = [
-    config.ssl ? 'https://' : 'http://',
-    config.host,
-    config.port && config.port !== 80 && config.port !== 443 ? `:${config.port}` : '',
-    config.nameSpace && config.nameSpace.startsWith('/') ? config.nameSpace : `/${config.nameSpace}`,
-  ].join('');
+  if (isEmpty(config.baseUrl)) {
+    config.baseUrl = [
+      config.ssl ? 'https://' : 'http://',
+      config.host,
+      config.port && config.port !== 80 && config.port !== 443 ? `:${config.port}` : '',
+      config.nameSpace && config.nameSpace.startsWith('/') ? config.nameSpace : `/${config.nameSpace}`,
+    ].join('');
+  }
 };
 
 /**
@@ -242,12 +254,13 @@ export const buildAppConfig = (destConfigPath?: string): AppConfig => {
   // apply build defined production
   appConfig.production = env === 'production';
 
-  // build base URLs
+  // Build base URLs if not already specified via configuration or environment variables.
   buildBaseUrl(appConfig.ui);
   buildBaseUrl(appConfig.rest);
 
   if (isNotEmpty(destConfigPath)) {
-    writeFileSync(destConfigPath, JSON.stringify(appConfig, null, 2));
+    const clientConfig = toClientConfig(appConfig);
+    writeFileSync(destConfigPath, JSON.stringify(clientConfig, null, 2));
 
     console.log(`Angular ${bold('config.json')} file generated correctly at ${bold(destConfigPath)} \n`);
   }

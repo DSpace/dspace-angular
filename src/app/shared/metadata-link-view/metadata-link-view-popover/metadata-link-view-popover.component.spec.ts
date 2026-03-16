@@ -116,7 +116,7 @@ describe('MetadataLinkViewPopoverComponent', () => {
 
   it('should retrieve the identifier subtype configuration based on the given metadata value', () => {
     const metadataValue = 'organization.identifier.ror';
-    const expectedSubtypeConfig = environment.identifierSubtypes.find((config) => config.name === 'ror');
+    const expectedSubtypeConfig = environment.item.metadataLinkViewPopoverData.identifierSubtypes.find((config) => config.name === 'ror');
     expect(component.getSourceSubTypeIdentifier(metadataValue)).toEqual(expectedSubtypeConfig);
   });
 
@@ -152,6 +152,7 @@ describe('MetadataLinkViewPopoverComponent', () => {
           },
         ],
         fallbackMetdataList: [],
+        identifierSubtypes: [],
       };
 
       const title = component.getTitleFromMetadataList();
@@ -168,6 +169,7 @@ describe('MetadataLinkViewPopoverComponent', () => {
           },
         ],
         fallbackMetdataList: [],
+        identifierSubtypes: [],
       };
 
       const title = component.getTitleFromMetadataList();

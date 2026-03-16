@@ -63,6 +63,7 @@ export class CreateCommunityParentSelectorComponent extends DSOSelectorModalWrap
   }
 
   ngOnInit() {
+    super.ngOnInit();
     this.isAdmin$ = this.authorizationService.isAuthorized(FeatureID.AdministratorOf);
   }
 

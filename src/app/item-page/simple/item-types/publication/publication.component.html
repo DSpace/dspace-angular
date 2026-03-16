@@ -53,6 +53,11 @@
       [fields]="['dc.publisher']"
       [label]="'publication.page.publisher'">
     </ds-generic-item-page-field>
+    <ds-generic-item-page-field [item]="object"
+      [fields]="['dc.identifier.doi', 'dc.relation.hasversion']"
+      [label]="'publication.page.doi'"
+      urlRegex="^https?://">
+    </ds-generic-item-page-field>
   </div>
   <div class="col-12 col-md-7">
     <ds-related-items
