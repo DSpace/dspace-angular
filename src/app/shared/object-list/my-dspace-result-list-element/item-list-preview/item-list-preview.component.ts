@@ -95,7 +95,7 @@ export class ItemListPreviewComponent implements OnInit {
   ngOnInit(): void {
     this.showThumbnails = this.appConfig.browseBy.showThumbnails;
     this.dsoTitle = this.dsoNameService.getHitHighlights(this.object, this.item, true);
-    this.authorMetadataList = this.item.allMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*'], undefined, true);
+    this.authorMetadataList = this.item.allMetadata(this.appConfig.searchResult.authorMetadata, undefined, true);
   }
 
 

@@ -12,12 +12,14 @@ import {
   Response,
 } from 'express';
 
+import { environment } from '../../../environments/environment';
 import {
   REQUEST,
   RESPONSE,
 } from '../../../express.tokens';
 import { HardRedirectService } from './hard-redirect.service';
 import { ServerResponseService } from './server-response.service';
+
 
 /**
  * Service for performing hard redirects within the server app module
@@ -95,13 +97,12 @@ export class ServerHardRedirectService extends HardRedirectService {
   }
 
   /**
-   * Get the origin of the current URL
+   * Get the base public URL of our application.
+   * This is used as the base URL for redirects, and should be in the format of
    * i.e. <scheme> "://" <hostname> [ ":" <port> ]
-   * e.g. if the URL is https://demo.dspace.org/search?query=test,
-   * the origin would be https://demo.dspace.org
    */
-  getCurrentOrigin(): string {
-    return this.req.protocol + '://' + this.req.headers.host;
+  getBaseUrl(): string {
+    return environment.ui.baseUrl;
   }
 
   /**

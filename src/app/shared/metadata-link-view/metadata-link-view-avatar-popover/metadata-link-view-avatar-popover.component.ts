@@ -15,6 +15,15 @@ import { getDefaultImageUrlByEntityType } from '../../image.utils';
 import { ThemedLoadingComponent } from '../../loading/themed-loading.component';
 import { SafeUrlPipe } from '../../utils/safe-url-pipe';
 
+/**
+ * Component that displays an avatar thumbnail within a popover.
+ * This component is used by the MetadataLinkViewComponent to show entity avatars (e.g., person photos,
+ * organization logos) in a popover when hovering over or clicking on metadata links.
+ *
+ * The popover displays:
+ * - The entity's thumbnail image if available
+ * - A placeholder image based on the entity type if no thumbnail is available
+ */
 @Component({
   selector: 'ds-metadata-link-view-avatar-popover',
   templateUrl: './metadata-link-view-avatar-popover.component.html',

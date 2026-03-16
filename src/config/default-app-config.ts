@@ -21,10 +21,7 @@ import { FilterVocabularyConfig } from './filter-vocabulary-config';
 import { FormConfig } from './form-config.interfaces';
 import { GeospatialMapConfig } from './geospatial-map-config';
 import { HomeConfig } from './homepage-config.interface';
-import {
-  IdentifierSubtypesConfig,
-  IdentifierSubtypesIconPositionEnum,
-} from './identifier-subtypes-config.interface';
+import { IdentifierSubtypesIconPositionEnum } from './identifier-subtypes-config.interface';
 import { InfoConfig } from './info-config.interface';
 import { ItemConfig } from './item-config.interface';
 import { LangConfig } from './lang-config.interface';
@@ -32,14 +29,12 @@ import { LiveRegionConfig } from './live-region.config';
 import { MarkdownConfig } from './markdown-config.interface';
 import { MatomoConfig } from './matomo-config.interface';
 import { MediaViewerConfig } from './media-viewer-config.interface';
-import { MetadataLinkViewPopoverDataConfig } from './metadata-link-view-popoverdata-config.interface';
 import {
   INotificationBoardOptions,
   NotificationAnimationsType,
 } from './notifications-config.interfaces';
 import { QualityAssuranceConfig } from './quality-assurance.config';
 import { RestRequestMethod } from './rest-request-method';
-import { FollowAuthorityMetadata } from './search-follow-metadata.interface';
 import { SearchConfig } from './search-page-config.interface';
 import { ServerConfig } from './server-config.interface';
 import { SubmissionConfig } from './submission-config.interface';
@@ -61,6 +56,9 @@ export class DefaultAppConfig implements AppConfig {
     port: 4000,
     // NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
     nameSpace: '/',
+    // Specify the public URL that this user interface responds to. This corresponds to the "dspace.ui.url" property in your backend's local.cfg.
+    // SSR is only enabled when the client's "Host" HTTP header matches this baseUrl. The baseUrl is also used for redirects and SEO links (in robots.txt).
+    baseUrl: 'http://localhost:4000',
 
     // The rateLimiter settings limit each IP to a 'limit' of 500 requests per 'windowMs' (1 minute).
     rateLimiter: {
@@ -335,6 +333,7 @@ export class DefaultAppConfig implements AppConfig {
     { code: 'tr', label: 'Türkçe', active: true },
     { code: 'uk', label: 'Yкраї́нська', active: true },
     { code: 'vi', label: 'Tiếng Việt', active: true },
+    { code: 'zh-TW', label: '繁体中文', active: true },
   ];
 
   // Browse-By Pages
@@ -384,6 +383,27 @@ export class DefaultAppConfig implements AppConfig {
       pageSize: 5,
       // Show the bitstream access status label
       showAccessStatuses: false,
+    },
+    // Configuration for the metadata link view popover
+    metadataLinkViewPopoverData: {
+      fallbackMetdataList: ['dc.description.abstract'],
+
+      entityDataConfig: [
+        {
+          entityType: 'Person',
+          metadataList: ['person.affiliation.name', 'person.email', 'person.jobTitle', 'dc.description.abstract'],
+          titleMetadataList: ['person.givenName', 'person.familyName' ],
+        },
+      ],
+
+      identifierSubtypes: [
+        {
+          name: 'ror',
+          icon: 'assets/images/ror.logo.icon.svg',
+          iconPosition: IdentifierSubtypesIconPositionEnum.LEFT,
+          link: 'https://ror.org',
+        },
+      ],
     },
   };
 
@@ -686,6 +706,12 @@ export class DefaultAppConfig implements AppConfig {
     cookieExpirationDuration: 7,
   };
 
+  // Layout configuration for authority-controlled metadata display
+  // Defines visual styling (icons and CSS classes) for different entity types when they appear
+  // as authority-controlled values in metadata fields (e.g., authors, organizations, projects).
+  // Each entity type can have custom Font Awesome icons and Bootstrap CSS classes applied.
+  // These styles are used in components like MetadataLinkViewComponent to display entity type indicators
+  // alongside metadata values, providing visual cues about the type of referenced entity.
   layout: LayoutConfig = {
     authorityRef: [
       {
@@ -728,56 +754,38 @@ export class DefaultAppConfig implements AppConfig {
     showDownloadLinkAsAttachment: true,
   };
 
+  // Search result configuration for authority metadata processing
+  // Controls how search results handle and display authority-controlled metadata values.
+  // When search results are retrieved, the system can automatically fetch referenced entities
+  // (e.g., Person, OrgUnit items) for metadata fields with authority values to enable
+  // rich displays with entity information, icons, and popovers.
   searchResult: SearchResultConfig = {
-    additionalMetadataFields: [],
+    // Defines which metadata fields should be treated as author/contributor fields
+    // for special handling in search result displays
     authorMetadata: ['dc.contributor.author', 'dc.creator', 'dc.contributor.*'],
-  };
-
-  // Configuration for the metadata link view popover
-  metadataLinkViewPopoverData: MetadataLinkViewPopoverDataConfig = {
-    fallbackMetdataList: ['dc.description.abstract'],
-
-    entityDataConfig: [
+    // The maximum number of item to process when following authority metadata values.
+    followAuthorityMaxItemLimit: 100,
+    // The maximum number of metadata values to process for each metadata key
+    // when following authority metadata values.
+    followAuthorityMetadataValuesLimit: 5,
+    // When the search results are retrieved, for each item type the metadata with a valid authority value are inspected.
+    // Referenced items will be fetched with a find all by id strategy to avoid individual rest requests
+    // to efficiently display the search results.
+    followAuthorityMetadata: [
       {
-        entityType: 'Person',
-        metadataList: ['person.affiliation.name', 'person.email', 'person.jobTitle', 'dc.description.abstract'],
-        titleMetadataList: ['person.givenName', 'person.familyName' ],
+        type: 'Publication',
+        metadata: ['dc.contributor.author'],
+      },
+      {
+        type: 'Product',
+        metadata: ['dc.contributor.author'],
+      },
+      {
+        type: 'Patent',
+        metadata: ['dc.contributor.author'],
       },
     ],
   };
-
-  identifierSubtypes: IdentifierSubtypesConfig[] = [
-    {
-      name: 'ror',
-      icon: 'assets/images/ror.logo.icon.svg',
-      iconPosition: IdentifierSubtypesIconPositionEnum.LEFT,
-      link: 'https://ror.org',
-    },
-  ];
-
-  // The maximum number of item to process when following authority metadata values.
-  followAuthorityMaxItemLimit = 100;
-  // The maximum number of metadata values to process for each metadata key
-  // when following authority metadata values.
-  followAuthorityMetadataValuesLimit = 5;
-
-  // When the search results are retrieved, for each item type the metadata with a valid authority value are inspected.
-  // Referenced items will be fetched with a find all by id strategy to avoid individual rest requests
-  // to efficiently display the search results.
-  followAuthorityMetadata: FollowAuthorityMetadata[] = [
-    {
-      type: 'Publication',
-      metadata: ['dc.contributor.author'],
-    },
-    {
-      type: 'Product',
-      metadata: ['dc.contributor.author'],
-    },
-    {
-      type: 'Patent',
-      metadata: ['dc.contributor.author'],
-    },
-  ];
 
   advancedAttachmentRendering: AdvancedAttachmentRenderingConfig = {
     pagination: {

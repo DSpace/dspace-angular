@@ -291,6 +291,34 @@ export const environment: BuildConfig = {
       // Show the bitstream access status label
       showAccessStatuses: false,
     },
+    metadataLinkViewPopoverData:  {
+      fallbackMetdataList: ['dc.description.abstract'],
+
+      entityDataConfig: [
+        {
+          entityType: 'Person',
+          metadataList: ['person.affiliation.name', 'person.email', 'person.identifier.orcid', 'dc.description.abstract'],
+          titleMetadataList: ['person.givenName', 'person.familyName' ],
+        },
+        {
+          entityType: 'OrgUnit',
+          metadataList: ['organization.parentOrganization', 'organization.identifier.ror', 'crisou.director', 'dc.description.abstract'],
+        },
+        {
+          entityType: 'Project',
+          metadataList: ['oairecerif.project.status', 'dc.description.abstract'],
+        },
+        {
+          entityType: 'Funding',
+          metadataList: ['oairecerif.funder', 'oairecerif.fundingProgram', 'dc.description.abstract'],
+        },
+        {
+          entityType: 'Publication',
+          metadataList: ['dc.identifier.doi', 'dc.identifier.uri', 'dc.description.abstract'],
+        },
+      ],
+      identifierSubtypes: [],
+    },
   },
   community: {
     defaultBrowseTab: 'search',
@@ -479,6 +507,7 @@ export const environment: BuildConfig = {
     cookieExpirationDuration: 7,
   },
 
+  // Configuration for layout customization of metadata rendering in Item page
   layout: {
     authorityRef: [
       {
@@ -521,58 +550,26 @@ export const environment: BuildConfig = {
   },
 
   searchResult: {
-    additionalMetadataFields: [],
     authorMetadata: ['dc.contributor.author', 'dc.creator', 'dc.contributor.*'],
-  },
+    followAuthorityMaxItemLimit: 100,
 
-  metadataLinkViewPopoverData:  {
-    fallbackMetdataList: ['dc.description.abstract'],
+    followAuthorityMetadataValuesLimit: 5,
 
-    entityDataConfig: [
+    followAuthorityMetadata:   [
       {
-        entityType: 'Person',
-        metadataList: ['person.affiliation.name', 'person.email', 'person.identifier.orcid', 'dc.description.abstract'],
-        titleMetadataList: ['person.givenName', 'person.familyName' ],
+        type: 'Publication',
+        metadata: ['dc.contributor.author'],
       },
       {
-        entityType: 'OrgUnit',
-        metadataList: ['organization.parentOrganization', 'organization.identifier.ror', 'crisou.director', 'dc.description.abstract'],
+        type: 'Product',
+        metadata: ['dc.contributor.author'],
       },
       {
-        entityType: 'Project',
-        metadataList: ['oairecerif.project.status', 'dc.description.abstract'],
-      },
-      {
-        entityType: 'Funding',
-        metadataList: ['oairecerif.funder', 'oairecerif.fundingProgram', 'dc.description.abstract'],
-      },
-      {
-        entityType: 'Publication',
-        metadataList: ['dc.identifier.doi', 'dc.identifier.uri', 'dc.description.abstract'],
+        type: 'Patent',
+        metadata: ['dc.contributor.author'],
       },
     ],
   },
-
-  identifierSubtypes: [],
-
-  followAuthorityMaxItemLimit: 100,
-
-  followAuthorityMetadataValuesLimit: 5,
-
-  followAuthorityMetadata:   [
-    {
-      type: 'Publication',
-      metadata: ['dc.contributor.author'],
-    },
-    {
-      type: 'Product',
-      metadata: ['dc.contributor.author'],
-    },
-    {
-      type: 'Patent',
-      metadata: ['dc.contributor.author'],
-    },
-  ],
 
   advancedAttachmentRendering: {
     pagination: {

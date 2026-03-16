@@ -56,6 +56,11 @@
       [fields]="['dc.publisher']"
       [label]="'item.page.publisher'">
     </ds-generic-item-page-field>
+    <ds-generic-item-page-field [item]="object"
+      [fields]="['dc.identifier.doi', 'dc.relation.hasversion']"
+      [label]="'item.page.doi'"
+      urlRegex="^https?://">
+    </ds-generic-item-page-field>
   </div>
   <div class="col-12 col-md-6">
     @if (showDownloadLinkAsAttachment) {
