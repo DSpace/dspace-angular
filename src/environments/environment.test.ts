@@ -547,15 +547,48 @@ export const environment: BuildConfig = {
       },
     ],
     showDownloadLinkAsAttachment: false,
+    advancedAttachmentRendering: {
+      pagination: {
+        enabled: true,
+        elementsPerPage: 2,
+      },
+      metadata: [
+        {
+          name: 'dc.title',
+          type: AdvancedAttachmentElementType.Metadata,
+          truncatable: false,
+        },
+        {
+          name: 'dc.type',
+          type: AdvancedAttachmentElementType.Metadata,
+          truncatable: false,
+        },
+        {
+          name: 'dc.description',
+          type: AdvancedAttachmentElementType.Metadata,
+          truncatable: true,
+        },
+        {
+          name: 'size',
+          type: AdvancedAttachmentElementType.Attribute,
+        },
+        {
+          name: 'format',
+          type: AdvancedAttachmentElementType.Attribute,
+        },
+        {
+          name: 'checksum',
+          type: AdvancedAttachmentElementType.Attribute,
+        },
+      ],
+    },
   },
 
   searchResult: {
     authorMetadata: ['dc.contributor.author', 'dc.creator', 'dc.contributor.*'],
     followAuthorityMaxItemLimit: 100,
-
     followAuthorityMetadataValuesLimit: 5,
-
-    followAuthorityMetadata:   [
+    followAuthorityMetadata: [
       {
         type: 'Publication',
         metadata: ['dc.contributor.author'],
@@ -567,42 +600,6 @@ export const environment: BuildConfig = {
       {
         type: 'Patent',
         metadata: ['dc.contributor.author'],
-      },
-    ],
-  },
-
-  advancedAttachmentRendering: {
-    pagination: {
-      enabled: true,
-      elementsPerPage: 2,
-    },
-    metadata: [
-      {
-        name: 'dc.title',
-        type: AdvancedAttachmentElementType.Metadata,
-        truncatable: false,
-      },
-      {
-        name: 'dc.type',
-        type: AdvancedAttachmentElementType.Metadata,
-        truncatable: false,
-      },
-      {
-        name: 'dc.description',
-        type: AdvancedAttachmentElementType.Metadata,
-        truncatable: true,
-      },
-      {
-        name: 'size',
-        type: AdvancedAttachmentElementType.Attribute,
-      },
-      {
-        name: 'format',
-        type: AdvancedAttachmentElementType.Attribute,
-      },
-      {
-        name: 'checksum',
-        type: AdvancedAttachmentElementType.Attribute,
       },
     ],
   },

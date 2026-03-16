@@ -117,7 +117,7 @@ export class BitstreamAttachmentComponent implements OnInit {
     protected readonly route: ActivatedRoute,
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
   ) {
-    this.metadataConfig = this.appConfig.advancedAttachmentRendering.metadata;
+    this.metadataConfig = this.appConfig.layout.advancedAttachmentRendering.metadata;
   }
 
   ngOnInit() {
