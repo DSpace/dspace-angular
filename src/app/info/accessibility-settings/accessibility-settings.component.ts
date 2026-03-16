@@ -5,6 +5,10 @@ import {
   OnInit,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { OrejimeService } from '@dspace/core/cookies/orejime.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { isEmpty } from '@dspace/shared/utils/empty.util';
 import {
   TranslateModule,
   TranslateService,
@@ -26,12 +30,8 @@ import {
   AccessibilitySettingsFormValues,
   AccessibilitySettingsService,
 } from '../../accessibility/accessibility-settings.service';
-import { AuthService } from '../../core/auth/auth.service';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { ContextHelpDirective } from '../../shared/context-help.directive';
-import { OrejimeService } from '../../shared/cookies/orejime.service';
-import { isEmpty } from '../../shared/empty.util';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 
 /**
  * Component providing the form where users can update accessibility settings.
@@ -47,7 +47,6 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
     TranslateModule,
     UiSwitchModule,
   ],
-  standalone: true,
 })
 export class AccessibilitySettingsComponent implements OnInit, OnDestroy {
   // Redeclared for use in template

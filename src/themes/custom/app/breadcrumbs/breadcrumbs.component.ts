@@ -16,7 +16,6 @@ import { VarDirective } from '../../../../app/shared/utils/var.directive';
   templateUrl: '../../../../app/breadcrumbs/breadcrumbs.component.html',
   // styleUrls: ['./breadcrumbs.component.scss']
   styleUrls: ['../../../../app/breadcrumbs/breadcrumbs.component.scss'],
-  standalone: true,
   imports: [
     AsyncPipe,
     NgbTooltipModule,

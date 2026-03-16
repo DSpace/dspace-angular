@@ -9,6 +9,15 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { RequestService } from '@dspace/core/data/request.service';
+import { WorkflowActionDataService } from '@dspace/core/data/workflow-action-data.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
+import { ClaimedTaskDataService } from '@dspace/core/tasks/claimed-task-data.service';
+import { ClaimedTask } from '@dspace/core/tasks/models/claimed-task-object.model';
+import { WorkflowAction } from '@dspace/core/tasks/models/workflow-action-object.model';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -16,17 +25,8 @@ import {
 } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
-import { RemoteData } from '../../../core/data/remote-data';
-import { RequestService } from '../../../core/data/request.service';
-import { WorkflowActionDataService } from '../../../core/data/workflow-action-data.service';
-import { Item } from '../../../core/shared/item.model';
-import { SearchService } from '../../../core/shared/search/search.service';
-import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
-import { ClaimedTaskDataService } from '../../../core/tasks/claimed-task-data.service';
-import { ClaimedTask } from '../../../core/tasks/models/claimed-task-object.model';
-import { WorkflowAction } from '../../../core/tasks/models/workflow-action-object.model';
 import { getWorkflowItemViewRoute } from '../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
-import { NotificationsService } from '../../notifications/notifications.service';
+import { SearchService } from '../../search/search.service';
 import { VarDirective } from '../../utils/var.directive';
 import { MyDSpaceActionsComponent } from '../mydspace-actions';
 import { ClaimedTaskActionsLoaderComponent } from './switcher/claimed-task-actions-loader.component';
@@ -38,7 +38,6 @@ import { ClaimedTaskActionsLoaderComponent } from './switcher/claimed-task-actio
   selector: 'ds-claimed-task-actions',
   styleUrls: ['./claimed-task-actions.component.scss'],
   templateUrl: './claimed-task-actions.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     ClaimedTaskActionsLoaderComponent,

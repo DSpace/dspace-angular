@@ -1,9 +1,9 @@
 /* eslint-disable max-classes-per-file */
 // import @ngrx
+// import type function
 import { Action } from '@ngrx/store';
 
-// import type function
-import { type } from '../../shared/ngrx/type';
+import { type } from '../ngrx/type';
 import { AuthMethod } from './models/auth.method';
 import { AuthStatus } from './models/auth-status.model';
 // import models

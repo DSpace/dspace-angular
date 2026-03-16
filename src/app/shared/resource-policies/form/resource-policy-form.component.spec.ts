@@ -19,6 +19,29 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { RequestService } from '@dspace/core/data/request.service';
+import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
+import { EPersonDataService } from '@dspace/core/eperson/eperson-data.service';
+import { GroupDataService } from '@dspace/core/eperson/group-data.service';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { ActionType } from '@dspace/core/resource-policy/models/action-type.model';
+import { PolicyType } from '@dspace/core/resource-policy/models/policy-type.model';
+import { ResourcePolicy } from '@dspace/core/resource-policy/models/resource-policy.model';
+import { RESOURCE_POLICY } from '@dspace/core/resource-policy/models/resource-policy.resource-type';
+import { EPersonMock } from '@dspace/core/testing/eperson.mock';
+import { GroupMock } from '@dspace/core/testing/group-mock';
+import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
+import { getMockRequestService } from '@dspace/core/testing/request.service.mock';
+import { RouterMock } from '@dspace/core/testing/router.mock';
+import { createTestComponent } from '@dspace/core/testing/utils.test';
+import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
+import {
+  dateToISOFormat,
+  stringToNgbDateStruct,
+} from '@dspace/shared/utils/date.util';
+import { isNotEmptyOperator } from '@dspace/shared/utils/empty.util';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DYNAMIC_FORM_CONTROL_MAP_FN } from '@ng-dynamic-forms/core';
 import { provideMockStore } from '@ngrx/store/testing';
@@ -28,43 +51,18 @@ import { NgxMaskModule } from 'ngx-mask';
 import { of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { TestScheduler } from 'rxjs/testing';
-import {
-  APP_CONFIG,
-  APP_DATA_SERVICES_MAP,
-} from 'src/config/app-config.interface';
-import { environment } from 'src/environments/environment.test';
 
-import { RemoteData } from '../../../core/data/remote-data';
-import { RequestService } from '../../../core/data/request.service';
-import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
-import { GroupDataService } from '../../../core/eperson/group-data.service';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { ActionType } from '../../../core/resource-policy/models/action-type.model';
-import { PolicyType } from '../../../core/resource-policy/models/policy-type.model';
-import { ResourcePolicy } from '../../../core/resource-policy/models/resource-policy.model';
-import { RESOURCE_POLICY } from '../../../core/resource-policy/models/resource-policy.resource-type';
-import { SubmissionObjectDataService } from '../../../core/submission/submission-object-data.service';
+import { environment } from '../../../../environments/environment.test';
 import { SubmissionService } from '../../../submission/submission.service';
+import { SubmissionObjectService } from '../../../submission/submission-object.service';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
-import {
-  dateToISOFormat,
-  stringToNgbDateStruct,
-} from '../../date.util';
-import { isNotEmptyOperator } from '../../empty.util';
 import { EpersonGroupListComponent } from '../../eperson-group-list/eperson-group-list.component';
 import { dsDynamicFormControlMapFn } from '../../form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-map-fn';
 import { DsDynamicTypeBindRelationService } from '../../form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
 import { FormBuilderService } from '../../form/builder/form-builder.service';
 import { FormComponent } from '../../form/form.component';
 import { FormService } from '../../form/form.service';
-import { getMockFormService } from '../../mocks/form-service.mock';
-import { getMockRequestService } from '../../mocks/request.service.mock';
-import { RouterMock } from '../../mocks/router.mock';
-import { createSuccessfulRemoteDataObject } from '../../remote-data.utils';
-import { EPersonMock } from '../../testing/eperson.mock';
-import { GroupMock } from '../../testing/group-mock';
-import { PaginationServiceStub } from '../../testing/pagination-service.stub';
-import { createTestComponent } from '../../testing/utils.test';
+import { getMockFormService } from '../../form/testing/form-service.mock';
 import {
   ResourcePolicyEvent,
   ResourcePolicyFormComponent,
@@ -231,7 +229,7 @@ describe('ResourcePolicyFormComponent test suite', () => {
         FormBuilderService,
         ResourcePolicyFormComponent,
         { provide: DsDynamicTypeBindRelationService, useClass: DsDynamicTypeBindRelationService },
-        { provide: SubmissionObjectDataService, useValue: {} },
+        { provide: SubmissionObjectService, useValue: {} },
         { provide: SubmissionService, useValue: {} },
         { provide: APP_CONFIG, useValue: environment },
         { provide: APP_DATA_SERVICES_MAP, useValue: {} },
@@ -494,7 +492,6 @@ describe('ResourcePolicyFormComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
-  standalone: true,
   imports: [
     FormsModule,
     NgbModule,

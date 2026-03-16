@@ -14,16 +14,15 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { MenuServiceStub } from '../../testing/menu-service.stub';
 import { MenuService } from '../menu.service';
 import { LinkMenuItemComponent } from '../menu-item/link-menu-item.component';
 import { MenuSection } from '../menu-section.model';
+import { MenuServiceStub } from '../menu-service.stub';
 import { AbstractMenuSectionComponent } from './abstract-menu-section.component';
 
 @Component({
   selector: 'ds-some-menu-section',
   template: '',
-  standalone: true,
 })
 class SomeMenuSectionComponent extends AbstractMenuSectionComponent {
   constructor(

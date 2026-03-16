@@ -1,11 +1,11 @@
 import { Route } from '@angular/router';
+import { authenticatedGuard } from '@dspace/core/auth/authenticated.guard';
+import { collectionBreadcrumbResolver } from '@dspace/core/breadcrumbs/collection-breadcrumb.resolver';
+import { communityBreadcrumbResolver } from '@dspace/core/breadcrumbs/community-breadcrumb.resolver';
+import { i18nBreadcrumbResolver } from '@dspace/core/breadcrumbs/i18n-breadcrumb.resolver';
 
 import { browseByGuard } from '../browse-by/browse-by-guard';
 import { browseByI18nBreadcrumbResolver } from '../browse-by/browse-by-i18n-breadcrumb.resolver';
-import { authenticatedGuard } from '../core/auth/authenticated.guard';
-import { collectionBreadcrumbResolver } from '../core/breadcrumbs/collection-breadcrumb.resolver';
-import { communityBreadcrumbResolver } from '../core/breadcrumbs/community-breadcrumb.resolver';
-import { i18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { ComcolBrowseByComponent } from '../shared/comcol/sections/comcol-browse-by/comcol-browse-by.component';
 import { ComcolSearchSectionComponent } from '../shared/comcol/sections/comcol-search-section/comcol-search-section.component';
 import { MenuRoute } from '../shared/menu/menu-route.model';

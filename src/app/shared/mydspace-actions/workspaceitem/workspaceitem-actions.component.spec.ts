@@ -13,6 +13,25 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { RequestService } from '@dspace/core/data/request.service';
+import { EPerson } from '@dspace/core/eperson/models/eperson.model';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { WorkspaceItem } from '@dspace/core/submission/models/workspaceitem.model';
+import { WorkspaceitemDataService } from '@dspace/core/submission/workspaceitem-data.service';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { getMockRequestService } from '@dspace/core/testing/request.service.mock';
+import { RouterStub } from '@dspace/core/testing/router.stub';
+import { getMockSearchService } from '@dspace/core/testing/search-service.mock';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core/utilities/remote-data.utils';
 import {
   NgbModal,
   NgbModule,
@@ -23,26 +42,7 @@ import {
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { AuthService } from '../../../core/auth/auth.service';
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { RequestService } from '../../../core/data/request.service';
-import { EPerson } from '../../../core/eperson/models/eperson.model';
-import { Item } from '../../../core/shared/item.model';
-import { SearchService } from '../../../core/shared/search/search.service';
-import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
-import { WorkspaceitemDataService } from '../../../core/submission/workspaceitem-data.service';
-import { getMockRequestService } from '../../mocks/request.service.mock';
-import { getMockSearchService } from '../../mocks/search-service.mock';
-import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
-import { NotificationsService } from '../../notifications/notifications.service';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../remote-data.utils';
-import { ActivatedRouteStub } from '../../testing/active-router.stub';
-import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
-import { RouterStub } from '../../testing/router.stub';
+import { SearchService } from '../../search/search.service';
 import { WorkspaceitemActionsComponent } from './workspaceitem-actions.component';
 
 let component: WorkspaceitemActionsComponent;

@@ -7,25 +7,25 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
-
 import {
   SortDirection,
   SortOptions,
-} from '../../../core/cache/models/sort-options.model';
-import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
-import { Item } from '../../../core/shared/item.model';
-import { SearchService } from '../../../core/shared/search/search.service';
-import { hasValue } from '../../empty.util';
-import { NotificationsService } from '../../notifications/notifications.service';
-import { ItemSearchResult } from '../../object-collection/shared/item-search-result.model';
-import { ListableObjectComponentLoaderComponent } from '../../object-collection/shared/listable-object/listable-object-component-loader.component';
+} from '@dspace/core/cache/models/sort-options.model';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { DSpaceObjectType } from '@dspace/core/shared/dspace-object-type.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
+import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../../remote-data.utils';
-import { PaginatedSearchOptions } from '../../search/models/paginated-search-options.model';
-import { createPaginatedList } from '../../testing/utils.test';
+} from '@dspace/core/utilities/remote-data.utils';
+import { hasValue } from '@dspace/shared/utils/empty.util';
+import { TranslateModule } from '@ngx-translate/core';
+
+import { ListableObjectComponentLoaderComponent } from '../../object-collection/shared/listable-object/listable-object-component-loader.component';
+import { SearchService } from '../../search/search.service';
 import { DSOSelectorComponent } from './dso-selector.component';
 
 describe('DSOSelectorComponent', () => {

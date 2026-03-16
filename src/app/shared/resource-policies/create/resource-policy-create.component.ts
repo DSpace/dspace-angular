@@ -6,6 +6,13 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { ResourcePolicy } from '@dspace/core/resource-policy/models/resource-policy.model';
+import { ResourcePolicyDataService } from '@dspace/core/resource-policy/resource-policy-data.service';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
 import {
   TranslateModule,
   TranslateService,
@@ -19,14 +26,7 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { RemoteData } from '../../../core/data/remote-data';
-import { ResourcePolicy } from '../../../core/resource-policy/models/resource-policy.model';
-import { ResourcePolicyDataService } from '../../../core/resource-policy/resource-policy-data.service';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { ITEM_EDIT_AUTHORIZATIONS_PATH } from '../../../item-page/edit-item-page/edit-item-page.routing-paths';
-import { NotificationsService } from '../../notifications/notifications.service';
 import {
   ResourcePolicyEvent,
   ResourcePolicyFormComponent,
@@ -39,7 +39,6 @@ import {
     ResourcePolicyFormComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class ResourcePolicyCreateComponent implements OnInit {
 

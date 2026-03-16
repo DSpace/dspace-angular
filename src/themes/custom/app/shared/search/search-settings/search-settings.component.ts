@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { SearchConfigurationService } from '../../../../../../app/core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../../app/my-dspace-page/my-dspace-configuration.service';
 import { PageSizeSelectorComponent } from '../../../../../../app/shared/page-size-selector/page-size-selector.component';
+import { SearchConfigurationService } from '../../../../../../app/shared/search/search-configuration.service';
 import { SearchSettingsComponent as BaseComponent } from '../../../../../../app/shared/search/search-settings/search-settings.component';
 import { SidebarDropdownComponent } from '../../../../../../app/shared/sidebar/sidebar-dropdown.component';
 
@@ -20,7 +20,6 @@ import { SidebarDropdownComponent } from '../../../../../../app/shared/sidebar/s
       useClass: SearchConfigurationService,
     },
   ],
-  standalone: true,
   imports: [
     FormsModule,
     PageSizeSelectorComponent,

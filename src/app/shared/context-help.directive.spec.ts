@@ -24,7 +24,6 @@ import { ContextHelpWrapperComponent } from './context-help-wrapper/context-help
 
 @Component({
   template: `<div *dsContextHelp="contextHelpParams()">some text</div>`,
-  standalone: true,
   imports: [
     ContextHelpDirective,
     NgbTooltipModule,

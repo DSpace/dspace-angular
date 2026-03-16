@@ -7,6 +7,19 @@ import {
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
+import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Bitstream } from '@dspace/core/shared/bitstream.model';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { MockBitstreamFormat1 } from '@dspace/core/testing/item.mock';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+import { XSRFService } from '@dspace/core/xsrf/xsrf.service';
 import { provideMockStore } from '@ngrx/store/testing';
 import {
   TranslateLoader,
@@ -15,23 +28,8 @@ import {
 import { of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
-import {
-  APP_CONFIG,
-  APP_DATA_SERVICES_MAP,
-} from '../../../../../config/app-config.interface';
-import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
-import { Bitstream } from '../../../../core/shared/bitstream.model';
-import { PageInfo } from '../../../../core/shared/page-info.model';
-import { XSRFService } from '../../../../core/xsrf/xsrf.service';
 import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
-import { MockBitstreamFormat1 } from '../../../../shared/mocks/item.mock';
-import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';
-import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
-import { ActivatedRouteStub } from '../../../../shared/testing/active-router.stub';
-import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
-import { createPaginatedList } from '../../../../shared/testing/utils.test';
+import { getMockThemeService } from '../../../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../../shared/theme-support/theme.service';
 import { FileSizePipe } from '../../../../shared/utils/file-size-pipe';
 import { VarDirective } from '../../../../shared/utils/var.directive';

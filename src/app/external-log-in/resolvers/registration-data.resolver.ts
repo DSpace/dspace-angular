@@ -4,13 +4,12 @@ import {
   Resolve,
   RouterStateSnapshot,
 } from '@angular/router';
+import { EpersonRegistrationService } from '@dspace/core/data/eperson-registration.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import { Registration } from '@dspace/core/shared/registration.model';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { Observable } from 'rxjs';
-
-import { EpersonRegistrationService } from '../../core/data/eperson-registration.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
-import { Registration } from '../../core/shared/registration.model';
-import { hasValue } from '../../shared/empty.util';
 
 @Injectable({
   providedIn: 'root',

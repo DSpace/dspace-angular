@@ -12,6 +12,11 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { RequestService } from '@dspace/core/data/request.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { ClaimedDeclinedTaskSearchResult } from '@dspace/core/shared/object-collection/claimed-declined-task-search-result.model';
 import {
   NgbModal,
   NgbModalRef,
@@ -26,13 +31,8 @@ import {
   of,
 } from 'rxjs';
 
-import { RemoteData } from '../../../../core/data/remote-data';
-import { RequestService } from '../../../../core/data/request.service';
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
-import { SearchService } from '../../../../core/shared/search/search.service';
 import { BtnDisabledDirective } from '../../../btn-disabled.directive';
-import { NotificationsService } from '../../../notifications/notifications.service';
-import { ClaimedDeclinedTaskSearchResult } from '../../../object-collection/shared/claimed-declined-task-search-result.model';
+import { SearchService } from '../../../search/search.service';
 import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
 
 export const WORKFLOW_TASK_OPTION_REJECT = 'submit_reject';
@@ -41,7 +41,6 @@ export const WORKFLOW_TASK_OPTION_REJECT = 'submit_reject';
   selector: 'ds-claimed-task-actions-reject',
   styleUrls: ['./claimed-task-actions-reject.component.scss'],
   templateUrl: './claimed-task-actions-reject.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     BtnDisabledDirective,

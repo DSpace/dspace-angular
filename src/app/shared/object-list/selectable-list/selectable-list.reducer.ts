@@ -1,5 +1,6 @@
-import { hasNoValue } from '../../empty.util';
-import { ListableObject } from '../../object-collection/shared/listable-object.model';
+import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
+import { hasNoValue } from '@dspace/shared/utils/empty.util';
+
 import {
   SelectableListAction,
   SelectableListActionTypes,

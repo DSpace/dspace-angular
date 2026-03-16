@@ -7,17 +7,17 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Process } from '@dspace/core/processes/process.model';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { Process } from '../../process-page/processes/process.model';
 import { BulkAccessControlService } from '../../shared/access-control-form-container/bulk-access-control.service';
-import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { SelectableListState } from '../../shared/object-list/selectable-list/selectable-list.reducer';
 import { SelectableListService } from '../../shared/object-list/selectable-list/selectable-list.service';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import { getMockThemeService } from '../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { BulkAccessComponent } from './bulk-access.component';
 import { BulkAccessSettingsComponent } from './settings/bulk-access-settings.component';
@@ -69,7 +69,6 @@ describe('BulkAccessComponent', () => {
     selector: 'ds-bulk-access-settings',
     template: '',
     exportAs: 'dsBulkSettings',
-    standalone: true,
   })
   class MockBulkAccessSettingsComponent {
     isFormValid = jasmine.createSpy('isFormValid').and.returnValue(false);

@@ -2,6 +2,7 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { StoreActionTypes } from '@dspace/core/ngrx/type';
 import { provideMockActions } from '@ngrx/effects/testing';
 import {
   cold,
@@ -9,14 +10,11 @@ import {
 } from 'jasmine-marbles';
 import { Observable } from 'rxjs';
 
-import {
-  StoreAction,
-  StoreActionTypes,
-} from '../../store.actions';
-import { MenuServiceStub } from '../testing/menu-service.stub';
+import { StoreAction } from '../../store.actions';
 import { ReinitMenuAction } from './menu.actions';
 import { MenuEffects } from './menu.effects';
 import { MenuService } from './menu.service';
+import { MenuServiceStub } from './menu-service.stub';
 
 describe('MenuEffects', () => {
   let menuEffects: MenuEffects;

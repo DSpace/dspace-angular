@@ -4,12 +4,12 @@ import {
 } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { Breadcrumb } from '@dspace/core/breadcrumbs/models/breadcrumb.model';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
 import { VarDirective } from '../shared/utils/var.directive';
-import { Breadcrumb } from './breadcrumb/breadcrumb.model';
 import { BreadcrumbsService } from './breadcrumbs.service';
 
 /**
@@ -19,7 +19,6 @@ import { BreadcrumbsService } from './breadcrumbs.service';
   selector: 'ds-base-breadcrumbs',
   templateUrl: './breadcrumbs.component.html',
   styleUrls: ['./breadcrumbs.component.scss'],
-  standalone: true,
   imports: [
     AsyncPipe,
     NgbTooltipModule,

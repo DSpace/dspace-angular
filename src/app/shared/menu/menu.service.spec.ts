@@ -3,6 +3,8 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { NavigationEnd } from '@angular/router';
+import { CookieService } from '@dspace/core/cookies/cookie.service';
+import { CookieServiceMock } from '@dspace/core/testing/cookie.service.mock';
 import {
   Store,
   StoreModule,
@@ -12,8 +14,6 @@ import { cold } from 'jasmine-marbles';
 import { of } from 'rxjs';
 
 import { storeModuleConfig } from '../../app.reducer';
-import { CookieService } from '../../core/services/cookie.service';
-import { CookieServiceMock } from '../mocks/cookie.service.mock';
 import {
   ActivateMenuSectionAction,
   AddMenuSectionAction,

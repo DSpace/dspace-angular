@@ -13,7 +13,7 @@
     "experimentalDecorators": true,
     "sourceMap": true,
     "module": "es2020",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "noEmitHelpers": true,
     "importHelpers": true,
     "noImplicitAny": false,
@@ -40,7 +40,12 @@
       "jasmine"
     ],
     "useDefineForClassFields": false,
-    "useUnknownInCatchVariables": true
+    "useUnknownInCatchVariables": true,
+    "paths": {
+      "@dspace/core/*": ["src/app/core/*"],
+      "@dspace/config/*": ["src/config/*"],
+      "@dspace/shared/utils/*": ["src/app/utils/*"]
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
@@ -55,5 +60,5 @@
   },
   "exclude": [
     "cypress.config.ts"
-  ]
+  ],
 }

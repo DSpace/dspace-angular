@@ -6,21 +6,21 @@ import {
 } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { EPerson } from '@dspace/core/eperson/models/eperson.model';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { ResearcherProfile } from '@dspace/core/profile/model/researcher-profile.model';
+import { ResearcherProfileDataService } from '@dspace/core/profile/researcher-profile-data.service';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core/utilities/remote-data.utils';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { AuthService } from '../../core/auth/auth.service';
-import { EPerson } from '../../core/eperson/models/eperson.model';
-import { ResearcherProfile } from '../../core/profile/model/researcher-profile.model';
-import { ResearcherProfileDataService } from '../../core/profile/researcher-profile-data.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { followLink } from '../../shared/utils/follow-link-config.model';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { ProfileClaimService } from '../profile-claim/profile-claim.service';
 import { ProfilePageResearcherFormComponent } from './profile-page-researcher-form.component';

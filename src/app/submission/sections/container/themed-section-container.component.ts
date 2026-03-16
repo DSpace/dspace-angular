@@ -9,12 +9,7 @@ import { SubmissionSectionContainerComponent } from './section-container.compone
 
 @Component({
   selector: 'ds-submission-section-container',
-  styleUrls: [],
   templateUrl: '../../../shared/theme-support/themed.component.html',
-  standalone: true,
-  imports: [
-    SubmissionSectionContainerComponent,
-  ],
 })
 export class ThemedSubmissionSectionContainerComponent extends ThemedComponent<SubmissionSectionContainerComponent> {
   @Input() collectionId: string;

@@ -6,16 +6,16 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { CSSVariableServiceStub } from '@dspace/core/testing/css-variable-service.stub';
+import { RouterStub } from '@dspace/core/testing/router.stub';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { MenuService } from '../../../menu/menu.service';
 import { MenuItemType } from '../../../menu/menu-item-type.model';
 import { MenuItemModels } from '../../../menu/menu-section.model';
+import { MenuServiceStub } from '../../../menu/menu-service.stub';
 import { CSSVariableService } from '../../../sass-helper/css-variable.service';
-import { CSSVariableServiceStub } from '../../../testing/css-variable-service.stub';
-import { MenuServiceStub } from '../../../testing/menu-service.stub';
-import { RouterStub } from '../../../testing/router.stub';
 import { DsoEditMenuExpandableSectionComponent } from './dso-edit-menu-expandable-section.component';
 
 describe('DsoEditMenuExpandableSectionComponent', () => {
@@ -107,7 +107,6 @@ describe('DsoEditMenuExpandableSectionComponent', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
-  standalone: true,
 })
 class TestComponent {
 }

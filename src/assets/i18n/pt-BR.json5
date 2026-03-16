@@ -2484,7 +2484,7 @@
 
   // "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: {purposes}",
   // TODO Source message changed - Revise the translation
-  "cookies.consent.content-notice.description": "Coletamos e processamos suas informações pessoais para os seguintes propósitos: <strong>Autenticação, Preferências, Reconhecimento e Estatísticas</strong>. <br/> Para aprender mais, por favor leia  nossa {privacyPolicy}.",
+  "cookies.consent.content-notice.description": "Coletamos e processamos suas informações pessoais para os seguintes propósitos: Autenticação, Preferências, Reconhecimento e Estatísticas. Para aprender mais, por favor leia  nossa {privacyPolicy}.",
 
   // "cookies.consent.content-notice.learnMore": "Customize",
   "cookies.consent.content-notice.learnMore": "Customizar",
@@ -11139,5 +11139,9 @@
   // TODO New key - Add a translation
   "file-download-link.request-copy": "Request a copy of ",
 
+  "item.preview.organization.url": "URL",
 
+  "item.preview.organization.address.addressLocality": "Cidade",
+
+  "item.preview.organization.alternateName": "Nome alternativo",
 }

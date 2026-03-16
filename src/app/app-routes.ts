@@ -3,38 +3,41 @@ import {
   Route,
   RouterConfigOptions,
 } from '@angular/router';
-
-import { NOTIFICATIONS_MODULE_PATH } from './admin/admin-routing-paths';
+import { authBlockingGuard } from '@dspace/core/auth/auth-blocking.guard';
+import { authenticatedGuard } from '@dspace/core/auth/authenticated.guard';
+import { groupAdministratorGuard } from '@dspace/core/data/feature-authorization/feature-authorization-guard/group-administrator.guard';
+import { siteAdministratorGuard } from '@dspace/core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
+import { siteRegisterGuard } from '@dspace/core/data/feature-authorization/feature-authorization-guard/site-register.guard';
+import { endUserAgreementCurrentUserGuard } from '@dspace/core/end-user-agreement/end-user-agreement-current-user.guard';
+import { reloadGuard } from '@dspace/core/reload/reload.guard';
+import { forgotPasswordCheckGuard } from '@dspace/core/rest-property/forgot-password-check-guard.guard';
 import {
-  ACCESS_CONTROL_MODULE_PATH,
-  ADMIN_MODULE_PATH,
   BITSTREAM_MODULE_PATH,
+  COLLECTION_MODULE_PATH,
+  COMMUNITY_MODULE_PATH,
   ERROR_PAGE,
   FORBIDDEN_PATH,
+  INTERNAL_SERVER_ERROR,
+  ITEM_MODULE_PATH,
+  LEGACY_BITSTREAM_MODULE_PATH,
+} from '@dspace/core/router/core-routing-paths';
+import { INFO_MODULE_PATH } from '@dspace/core/router/info-routing-paths';
+import { ServerCheckGuard } from '@dspace/core/server-check/server-check.guard';
+
+import { ACCESS_CONTROL_MODULE_PATH } from './access-control/access-control-routing-paths';
+import { NOTIFICATIONS_MODULE_PATH } from './admin/admin-routing-paths';
+import {
+  ADMIN_MODULE_PATH,
   FORGOT_PASSWORD_PATH,
   HEALTH_PAGE_PATH,
-  INFO_MODULE_PATH,
-  INTERNAL_SERVER_ERROR,
-  LEGACY_BITSTREAM_MODULE_PATH,
   PROFILE_MODULE_PATH,
   REGISTER_PATH,
   REQUEST_COPY_MODULE_PATH,
   WORKFLOW_ITEM_MODULE_PATH,
 } from './app-routing-paths';
-import { COLLECTION_MODULE_PATH } from './collection-page/collection-page-routing-paths';
-import { COMMUNITY_MODULE_PATH } from './community-page/community-page-routing-paths';
-import { authBlockingGuard } from './core/auth/auth-blocking.guard';
-import { authenticatedGuard } from './core/auth/authenticated.guard';
-import { groupAdministratorGuard } from './core/data/feature-authorization/feature-authorization-guard/group-administrator.guard';
-import { siteAdministratorGuard } from './core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
-import { siteRegisterGuard } from './core/data/feature-authorization/feature-authorization-guard/site-register.guard';
-import { endUserAgreementCurrentUserGuard } from './core/end-user-agreement/end-user-agreement-current-user.guard';
-import { reloadGuard } from './core/reload/reload.guard';
-import { forgotPasswordCheckGuard } from './core/rest-property/forgot-password-check-guard.guard';
-import { ServerCheckGuard } from './core/server-check/server-check.guard';
+import { notAuthenticatedGuard } from './core/auth/not-authenticated.guard';
 import { ThemedForbiddenComponent } from './forbidden/themed-forbidden.component';
 import { homePageResolver } from './home-page/home-page.resolver';
-import { ITEM_MODULE_PATH } from './item-page/item-page-routing-paths';
 import { provideSuggestionNotificationsState } from './notifications/provide-suggestion-notifications-state';
 import { ThemedPageErrorComponent } from './page-error/themed-page-error.component';
 import { ThemedPageInternalServerErrorComponent } from './page-internal-server-error/themed-page-internal-server-error.component';
@@ -97,13 +100,13 @@ export const APP_ROUTES: Route[] = [
         path: REGISTER_PATH,
         loadChildren: () => import('./register-page/register-page-routes')
           .then((m) => m.ROUTES),
-        canActivate: [siteRegisterGuard],
+        canActivate: [notAuthenticatedGuard, siteRegisterGuard],
       },
       {
         path: FORGOT_PASSWORD_PATH,
         loadChildren: () => import('./forgot-password/forgot-password-routes')
           .then((m) => m.ROUTES),
-        canActivate: [endUserAgreementCurrentUserGuard, forgotPasswordCheckGuard],
+        canActivate: [notAuthenticatedGuard, endUserAgreementCurrentUserGuard, forgotPasswordCheckGuard],
       },
       {
         path: COMMUNITY_MODULE_PATH,
@@ -180,11 +183,13 @@ export const APP_ROUTES: Route[] = [
         path: 'login',
         loadChildren: () => import('./login-page/login-page-routes')
           .then((m) => m.ROUTES),
+        canActivate: [notAuthenticatedGuard],
       },
       {
         path: 'logout',
         loadChildren: () => import('./logout-page/logout-page-routes')
           .then((m) => m.ROUTES),
+        canActivate: [authenticatedGuard],
       },
       {
         path: 'submit',
@@ -272,6 +277,7 @@ export const APP_ROUTES: Route[] = [
       {
         path: 'external-login/:token',
         loadChildren: () => import('./external-login-page/external-login-routes').then((m) => m.ROUTES),
+        canActivate: [notAuthenticatedGuard],
       },
       {
         path: 'review-account/:token',
@@ -282,6 +288,7 @@ export const APP_ROUTES: Route[] = [
         path: 'email-confirmation',
         loadChildren: () => import('./external-login-email-confirmation-page/external-login-email-confirmation-page-routes')
           .then((m) => m.ROUTES),
+        canActivate: [notAuthenticatedGuard],
       },
       { path: '**', pathMatch: 'full', component: ThemedPageNotFoundComponent },
     ],

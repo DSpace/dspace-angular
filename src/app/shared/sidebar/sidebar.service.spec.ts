@@ -51,7 +51,7 @@ describe('SidebarService', () => {
     });
 
     it('SidebarCollapseAction should be dispatched to the store', () => {
-      expect(store.dispatch).toHaveBeenCalledWith(new SidebarCollapseAction());
+      expect(store.dispatch as jasmine.Spy).toHaveBeenCalledWith(new SidebarCollapseAction());
     });
 
   });
@@ -62,7 +62,7 @@ describe('SidebarService', () => {
     });
 
     it('SidebarExpandAction should be dispatched to the store', () => {
-      expect(store.dispatch).toHaveBeenCalledWith(new SidebarExpandAction());
+      expect(store.dispatch as jasmine.Spy).toHaveBeenCalledWith(new SidebarExpandAction());
     });
   });
 

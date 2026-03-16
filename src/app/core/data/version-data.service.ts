@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { RestRequestMethod } from '@dspace/config/rest-request-method';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import { Operation } from 'fast-json-patch';
 import {
   EMPTY,
@@ -9,10 +11,9 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { isNotEmpty } from '../../shared/empty.util';
-import { followLink } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
+import { followLink } from '../shared/follow-link-config.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { getFirstSucceededRemoteDataPayload } from '../shared/operators';
 import { Version } from '../shared/version.model';
@@ -25,7 +26,6 @@ import {
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { RemoteData } from './remote-data';
 import { RequestService } from './request.service';
-import { RestRequestMethod } from './rest-request-method';
 
 /**
  * Service responsible for handling requests related to the Version object

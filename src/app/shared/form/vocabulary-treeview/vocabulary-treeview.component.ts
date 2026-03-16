@@ -16,6 +16,20 @@ import {
   ViewChild,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { Vocabulary } from '@dspace/core/submission/vocabularies/models/vocabulary.model';
+import { VocabularyEntry } from '@dspace/core/submission/vocabularies/models/vocabulary-entry.model';
+import { VocabularyEntryDetail } from '@dspace/core/submission/vocabularies/models/vocabulary-entry-detail.model';
+import { VocabularyOptions } from '@dspace/core/submission/vocabularies/models/vocabulary-options.model';
+import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -27,25 +41,11 @@ import {
   switchMap,
   tap,
 } from 'rxjs/operators';
-import { VocabularyService } from 'src/app/core/submission/vocabularies/vocabulary.service';
 
-import { RemoteData } from '../../../core/data/remote-data';
-import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
-import { PageInfo } from '../../../core/shared/page-info.model';
-import { Vocabulary } from '../../../core/submission/vocabularies/models/vocabulary.model';
-import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vocabulary-entry.model';
-import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
-import { VocabularyOptions } from '../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { AlertComponent } from '../../alert/alert.component';
 import { AlertType } from '../../alert/alert-type';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
-import {
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-} from '../../empty.util';
 import { ThemedLoadingComponent } from '../../loading/themed-loading.component';
-import { FormFieldMetadataValueObject } from '../builder/models/form-field-metadata-value.model';
 import { VocabularyTreeFlatDataSource } from './vocabulary-tree-flat-data-source';
 import { VocabularyTreeFlattener } from './vocabulary-tree-flattener';
 import { VocabularyTreeviewService } from './vocabulary-treeview.service';
@@ -75,7 +75,6 @@ export type VocabularyTreeItemType = FormFieldMetadataValueObject | VocabularyEn
     ThemedLoadingComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class VocabularyTreeviewComponent implements OnDestroy, OnInit, OnChanges {
 

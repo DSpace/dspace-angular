@@ -7,6 +7,21 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
+import { ScriptDataService } from '@dspace/core/data/processes/script-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { Process } from '@dspace/core/processes/process.model';
+import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
+import { SearchFilter } from '@dspace/core/shared/search/models/search-filter.model';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -20,28 +35,12 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
-import { ScriptDataService } from '../../../core/data/processes/script-data.service';
-import { RemoteData } from '../../../core/data/remote-data';
-import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
-import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { getProcessDetailRoute } from '../../../process-page/process-page-routing.paths';
-import { Process } from '../../../process-page/processes/process.model';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../empty.util';
-import { NotificationsService } from '../../notifications/notifications.service';
-import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
-import { SearchFilter } from '../models/search-filter.model';
 
 @Component({
   selector: 'ds-search-export-csv',
   styleUrls: ['./search-export-csv.component.scss'],
   templateUrl: './search-export-csv.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     NgbTooltipModule,

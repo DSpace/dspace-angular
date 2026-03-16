@@ -3,6 +3,14 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { CookieService } from '@dspace/core/cookies/cookie.service';
+import { compareArraysUsingIds } from '@dspace/core/utilities/item-relationships-utils';
+import {
+  hasNoValue,
+  hasValue,
+  hasValueOperator,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import {
   createSelector,
   MemoizedSelector,
@@ -23,14 +31,6 @@ import {
   AppState,
   keySelector,
 } from '../../app.reducer';
-import { CookieService } from '../../core/services/cookie.service';
-import { compareArraysUsingIds } from '../../item-page/simple/item-types/shared/item-relationships-utils';
-import {
-  hasNoValue,
-  hasValue,
-  hasValueOperator,
-  isNotEmpty,
-} from '../empty.util';
 import {
   ActivateMenuSectionAction,
   AddMenuSectionAction,

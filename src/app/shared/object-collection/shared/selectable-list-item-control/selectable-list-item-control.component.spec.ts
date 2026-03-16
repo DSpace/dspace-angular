@@ -8,13 +8,13 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
+import { Item } from '@dspace/core/shared/item.model';
+import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { Item } from '../../../../core/shared/item.model';
 import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
 import { VarDirective } from '../../../utils/var.directive';
-import { ListableObject } from '../listable-object.model';
 import { SelectableListItemControlComponent } from './selectable-list-item-control.component';
 
 describe('SelectableListItemControlComponent', () => {

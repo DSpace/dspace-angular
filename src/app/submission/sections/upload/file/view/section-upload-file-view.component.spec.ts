@@ -9,13 +9,13 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { Metadata } from '@dspace/core/shared/metadata.utils';
+import { createTestComponent } from '@dspace/core/testing/utils.test';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { Metadata } from '../../../../../core/shared/metadata.utils';
 import { FormComponent } from '../../../../../shared/form/form.component';
-import { mockUploadFiles } from '../../../../../shared/mocks/submission.mock';
-import { createTestComponent } from '../../../../../shared/testing/utils.test';
 import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';
+import { mockUploadFiles } from '../../../../utils/submission.mock';
 import { SubmissionSectionUploadAccessConditionsComponent } from '../../accessConditions/submission-section-upload-access-conditions.component';
 import { SubmissionSectionUploadFileViewComponent } from './section-upload-file-view.component';
 
@@ -109,7 +109,6 @@ describe('SubmissionSectionUploadFileViewComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
-  standalone: true,
 })
 class TestComponent {
 

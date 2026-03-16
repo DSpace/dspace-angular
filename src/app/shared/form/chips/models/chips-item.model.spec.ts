@@ -1,4 +1,5 @@
-import { FormFieldMetadataValueObject } from '../../builder/models/form-field-metadata-value.model';
+import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
+
 import {
   ChipsItem,
   ChipsItemIcon,

@@ -12,6 +12,8 @@ import {
   DomSanitizer,
   SafeHtml,
 } from '@angular/platform-browser';
+import { MathService } from '@dspace/core/shared/math.service';
+import { isEmpty } from '@dspace/shared/utils/empty.util';
 import { Subject } from 'rxjs';
 import {
   filter,
@@ -20,8 +22,6 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
-import { MathService } from '../../core/shared/math.service';
-import { isEmpty } from '../empty.util';
 
 const markdownItLoader = async () => (await import('markdown-it')).default;
 type LazyMarkdownIt = ReturnType<typeof markdownItLoader>;
@@ -32,7 +32,6 @@ const MARKDOWN_IT = new InjectionToken<LazyMarkdownIt>(
 
 @Directive({
   selector: '[dsMarkdown]',
-  standalone: true,
 })
 export class MarkdownDirective implements OnInit, OnDestroy {
 

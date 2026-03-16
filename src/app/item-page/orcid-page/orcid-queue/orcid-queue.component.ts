@@ -7,6 +7,19 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { OrcidHistory } from '@dspace/core/orcid/model/orcid-history.model';
+import { OrcidQueue } from '@dspace/core/orcid/model/orcid-queue.model';
+import { OrcidAuthService } from '@dspace/core/orcid/orcid-auth.service';
+import { OrcidHistoryDataService } from '@dspace/core/orcid/orcid-history-data.service';
+import { OrcidQueueDataService } from '@dspace/core/orcid/orcid-queue-data.service';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -25,23 +38,10 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { OrcidHistory } from '../../../core/orcid/model/orcid-history.model';
-import { OrcidQueue } from '../../../core/orcid/model/orcid-queue.model';
-import { OrcidAuthService } from '../../../core/orcid/orcid-auth.service';
-import { OrcidHistoryDataService } from '../../../core/orcid/orcid-history-data.service';
-import { OrcidQueueDataService } from '../../../core/orcid/orcid-queue-data.service';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { Item } from '../../../core/shared/item.model';
-import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
-import { hasValue } from '../../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 
 @Component({
   selector: 'ds-orcid-queue',
@@ -55,7 +55,6 @@ import { PaginationComponentOptions } from '../../../shared/pagination/paginatio
     ThemedLoadingComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class OrcidQueueComponent implements OnInit, OnDestroy, OnChanges {
 

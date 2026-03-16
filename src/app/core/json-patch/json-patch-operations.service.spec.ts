@@ -8,13 +8,6 @@ import { of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { TestScheduler } from 'rxjs/testing';
 
-import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
-import { getMockRequestService } from '../../shared/mocks/request.service.mock';
-import {
-  createFailedRemoteDataObject,
-  createSuccessfulRemoteDataObject,
-} from '../../shared/remote-data.utils';
-import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { CoreState } from '../core-state.model';
 import { SubmissionPatchRequest } from '../data/request.models';
@@ -22,6 +15,13 @@ import { RequestService } from '../data/request.service';
 import { RequestEntry } from '../data/request-entry.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { SubmitDataResponseDefinitionObject } from '../shared/submit-data-response-definition.model';
+import { HALEndpointServiceStub } from '../testing/hal-endpoint-service.stub';
+import { getMockRemoteDataBuildService } from '../testing/remote-data-build.service.mock';
+import { getMockRequestService } from '../testing/request.service.mock';
+import {
+  createFailedRemoteDataObject,
+  createSuccessfulRemoteDataObject,
+} from '../utilities/remote-data.utils';
 import {
   CommitPatchOperationsAction,
   DeletePendingJsonPatchOperationsAction,

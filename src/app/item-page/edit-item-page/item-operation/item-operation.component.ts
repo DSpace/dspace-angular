@@ -19,7 +19,6 @@ import { ItemOperation } from './itemOperation.model';
     RouterLink,
     TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * Operation that can be performed on an item

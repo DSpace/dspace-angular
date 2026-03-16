@@ -35,7 +35,6 @@ import { rendersSectionType } from '../sections-decorator';
     SectionsDirective,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class SubmissionSectionContainerComponent implements OnInit {
 

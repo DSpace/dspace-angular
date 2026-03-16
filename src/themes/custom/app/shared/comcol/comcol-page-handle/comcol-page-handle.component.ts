@@ -9,7 +9,6 @@ import { ComcolPageHandleComponent as BaseComponent } from '../../../../../../ap
   templateUrl: '../../../../../../app/shared/comcol/comcol-page-handle/comcol-page-handle.component.html',
   // styleUrls: ['./comcol-page-handle.component.scss'],
   styleUrls: ['../../../../../../app/shared/comcol/comcol-page-handle/comcol-page-handle.component.scss'],
-  standalone: true,
   imports: [
     TranslateModule,
   ],

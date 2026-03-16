@@ -5,6 +5,11 @@ import {
   PLATFORM_ID,
 } from '@angular/core';
 import {
+  maxMobileWidth,
+  WidthCategory,
+} from '@dspace/core/shared/host-window-type';
+import { hasValue } from '@dspace/shared/utils/empty.util';
+import {
   createSelector,
   select,
   Store,
@@ -21,19 +26,8 @@ import {
 } from 'rxjs/operators';
 
 import { AppState } from '../app.reducer';
-import { hasValue } from './empty.util';
 import { CSSVariableService } from './sass-helper/css-variable.service';
 import { HostWindowState } from './search/host-window.reducer';
-
-export enum WidthCategory {
-  XS = 0,
-  SM = 1,
-  MD = 2,
-  LG = 3,
-  XL = 4,
-}
-
-export const maxMobileWidth = WidthCategory.SM;
 
 const hostWindowStateSelector = (state: AppState) => state.hostWindow;
 const widthSelector = createSelector(hostWindowStateSelector, (hostWindow: HostWindowState) => hostWindow.width);

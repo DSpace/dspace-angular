@@ -15,7 +15,6 @@ import { MetadataFieldWrapperComponent } from './metadata-field-wrapper.componen
   selector: 'ds-component-without-content',
   template: '<ds-metadata-field-wrapper [hideIfNoTextContent]="hideIfNoTextContent" [label]="\'test label\'">\n' +
         '</ds-metadata-field-wrapper>',
-  standalone: true,
   imports: [
     MetadataFieldWrapperComponent,
   ],
@@ -30,7 +29,6 @@ class NoContentComponent {
         '    <span></span>\n' +
         '    <span></span>\n' +
         '</ds-metadata-field-wrapper>',
-  standalone: true,
   imports: [
     MetadataFieldWrapperComponent,
   ],
@@ -44,7 +42,6 @@ class SpanContentComponent {
   template: '<ds-metadata-field-wrapper [hideIfNoTextContent]="hideIfNoTextContent" [label]="\'test label\'">\n' +
         '    <span>The quick brown fox jumps over the lazy dog</span>\n' +
         '</ds-metadata-field-wrapper>',
-  standalone: true,
   imports: [
     MetadataFieldWrapperComponent,
   ],

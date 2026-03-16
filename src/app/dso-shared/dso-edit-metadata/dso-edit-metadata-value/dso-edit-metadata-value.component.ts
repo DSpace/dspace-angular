@@ -17,6 +17,20 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { RelationshipDataService } from '@dspace/core/data/relationship-data.service';
+import { MetadataService } from '@dspace/core/metadata/metadata.service';
+import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
+import { ConfidenceType } from '@dspace/core/shared/confidence-type';
+import { Context } from '@dspace/core/shared/context.model';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { ItemMetadataRepresentation } from '@dspace/core/shared/metadata-representation/item/item-metadata-representation.model';
+import {
+  MetadataRepresentation,
+  MetadataRepresentationType,
+} from '@dspace/core/shared/metadata-representation/metadata-representation.model';
+import { Vocabulary } from '@dspace/core/submission/vocabularies/models/vocabulary.model';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -25,21 +39,7 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { RelationshipDataService } from '../../../core/data/relationship-data.service';
-import { MetadataService } from '../../../core/metadata/metadata.service';
-import { ConfidenceType } from '../../../core/shared/confidence-type';
-import { Context } from '../../../core/shared/context.model';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { ItemMetadataRepresentation } from '../../../core/shared/metadata-representation/item/item-metadata-representation.model';
-import {
-  MetadataRepresentation,
-  MetadataRepresentationType,
-} from '../../../core/shared/metadata-representation/metadata-representation.model';
-import { Vocabulary } from '../../../core/submission/vocabularies/models/vocabulary.model';
-import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
-import { hasValue } from '../../../shared/empty.util';
 import { AuthorityConfidenceStateDirective } from '../../../shared/form/directives/authority-confidence-state.directive';
 import { ThemedTypeBadgeComponent } from '../../../shared/object-collection/shared/badges/type-badge/themed-type-badge.component';
 import { DebounceDirective } from '../../../shared/utils/debounce.directive';
@@ -55,7 +55,6 @@ import { DsoEditMetadataValueFieldLoaderComponent } from '../dso-edit-metadata-v
   selector: 'ds-dso-edit-metadata-value',
   styleUrls: ['./dso-edit-metadata-value.component.scss', '../dso-edit-metadata-shared/dso-edit-metadata-cells.scss'],
   templateUrl: './dso-edit-metadata-value.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     AuthorityConfidenceStateDirective,

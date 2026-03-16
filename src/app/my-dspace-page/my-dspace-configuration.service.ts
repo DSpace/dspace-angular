@@ -5,6 +5,23 @@ import {
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
+import { LinkService } from '@dspace/core/cache/builders/link.service';
+import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
+import {
+  SortDirection,
+  SortOptions,
+} from '@dspace/core/cache/models/sort-options.model';
+import { RequestService } from '@dspace/core/data/request.service';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { RoleService } from '@dspace/core/roles/role.service';
+import { RouteService } from '@dspace/core/services/route.service';
+import { Context } from '@dspace/core/shared/context.model';
+import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
+import {
   combineLatest,
   Observable,
 } from 'rxjs';
@@ -13,24 +30,7 @@ import {
   map,
 } from 'rxjs/operators';
 
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '../../config/app-config.interface';
-import { LinkService } from '../core/cache/builders/link.service';
-import { RemoteDataBuildService } from '../core/cache/builders/remote-data-build.service';
-import {
-  SortDirection,
-  SortOptions,
-} from '../core/cache/models/sort-options.model';
-import { RequestService } from '../core/data/request.service';
-import { PaginationService } from '../core/pagination/pagination.service';
-import { RoleService } from '../core/roles/role.service';
-import { RouteService } from '../core/services/route.service';
-import { Context } from '../core/shared/context.model';
-import { HALEndpointService } from '../core/shared/hal-endpoint.service';
-import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
-import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
+import { SearchConfigurationService } from '../shared/search/search-configuration.service';
 import { SearchConfigurationOption } from '../shared/search/search-switch-configuration/search-configuration-option.model';
 import { MyDSpaceConfigurationValueType } from './my-dspace-configuration-value-type';
 

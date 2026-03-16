@@ -12,6 +12,18 @@ import {
   Output,
   ViewEncapsulation,
 } from '@angular/core';
+import { CookieService } from '@dspace/core/cookies/cookie.service';
+import { DragService } from '@dspace/core/drag.service';
+import {
+  XSRF_COOKIE,
+  XSRF_REQUEST_HEADER,
+  XSRF_RESPONSE_HEADER,
+} from '@dspace/core/xsrf/xsrf.constants';
+import {
+  hasValue,
+  isNotEmpty,
+  isUndefined,
+} from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 import uniqueId from 'lodash/uniqueId';
 import {
@@ -20,19 +32,7 @@ import {
 } from 'ng2-file-upload';
 import { of } from 'rxjs';
 
-import { DragService } from '../../../core/drag.service';
-import { CookieService } from '../../../core/services/cookie.service';
-import {
-  XSRF_COOKIE,
-  XSRF_REQUEST_HEADER,
-  XSRF_RESPONSE_HEADER,
-} from '../../../core/xsrf/xsrf.constants';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
-import {
-  hasValue,
-  isNotEmpty,
-  isUndefined,
-} from '../../empty.util';
 import { UploaderOptions } from './uploader-options.model';
 import { UploaderProperties } from './uploader-properties.model';
 
@@ -42,7 +42,6 @@ import { UploaderProperties } from './uploader-properties.model';
   styleUrls: ['uploader.component.scss'],
   changeDetection: ChangeDetectionStrategy.Default,
   encapsulation: ViewEncapsulation.Emulated,
-  standalone: true,
   imports: [
     BtnDisabledDirective,
     CommonModule,

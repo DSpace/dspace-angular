@@ -3,6 +3,7 @@ import {
   TestBed,
   tick,
 } from '@angular/core/testing';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import { provideMockActions } from '@ngrx/effects/testing';
 import {
   Store,
@@ -22,17 +23,14 @@ import {
   throwError as observableThrow,
 } from 'rxjs';
 
-import {
-  AppState,
-  storeModuleConfig,
-} from '../../app.reducer';
+import { CoreState } from '../core-state.model';
+import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
+import { StoreActionTypes } from '../ngrx/type';
 import {
   authMethodsMock,
   AuthServiceStub,
-} from '../../shared/testing/auth-service.stub';
-import { EPersonMock } from '../../shared/testing/eperson.mock';
-import { StoreActionTypes } from '../../store.actions';
-import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
+} from '../testing/auth-service.stub';
+import { EPersonMock } from '../testing/eperson.mock';
 import {
   AuthActionTypes,
   AuthenticatedAction,
@@ -68,9 +66,16 @@ describe('AuthEffects', () => {
   let authServiceStub;
   let initialState;
   let token;
-  let store: MockStore<AppState>;
+  let store: MockStore<CoreState>;
 
   const authorizationService = jasmine.createSpyObj(['invalidateAuthorizationsRequestCache']);
+
+  const mockStoreModuleConfig = {
+    runtimeChecks: {
+      strictStateImmutability: true,
+      strictActionImmutability: true,
+    },
+  };
 
   function init() {
     authServiceStub = new AuthServiceStub();
@@ -91,15 +96,15 @@ describe('AuthEffects', () => {
     init();
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot({ auth: authReducer }, storeModuleConfig),
+        StoreModule.forRoot({ auth: authReducer }, mockStoreModuleConfig),
       ],
       providers: [
         AuthEffects,
         provideMockStore({ initialState }),
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: AuthService, useValue: authServiceStub },
+        { provide: APP_CONFIG, useValue: {} },
         provideMockActions(() => actions),
-        // other providers
       ],
     });
 

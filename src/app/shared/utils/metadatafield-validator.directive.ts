@@ -8,6 +8,11 @@ import {
   NG_VALIDATORS,
   ValidationErrors,
 } from '@angular/forms';
+import { MetadataFieldDataService } from '@dspace/core/data/metadata-field-data.service';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { MetadataField } from '@dspace/core/metadata/metadata-field.model';
+import { getFirstSucceededRemoteData } from '@dspace/core/shared/operators';
 import {
   Observable,
   of,
@@ -19,12 +24,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { MetadataFieldDataService } from '../../core/data/metadata-field-data.service';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { MetadataField } from '../../core/metadata/metadata-field.model';
-import { getFirstSucceededRemoteData } from '../../core/shared/operators';
-
 /**
  * Directive for validating if a ngModel value is a valid metadata field
  */
@@ -34,7 +33,6 @@ import { getFirstSucceededRemoteData } from '../../core/shared/operators';
   providers: [
     { provide: NG_VALIDATORS, useExisting: MetadataFieldValidator, multi: true },
   ],
-  standalone: true,
 })
 @Injectable({ providedIn: 'root' })
 export class MetadataFieldValidator implements AsyncValidator {

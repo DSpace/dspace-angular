@@ -5,6 +5,17 @@ import {
 } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { RequestService } from '@dspace/core/data/request.service';
+import { SystemWideAlertDataService } from '@dspace/core/data/system-wide-alert-data.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { SystemWideAlert } from '@dspace/core/shared/system-wide-alert.model';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { RouterStub } from '@dspace/core/testing/router.stub';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   utcToZonedTime,
@@ -12,17 +23,6 @@ import {
 } from 'date-fns-tz';
 import { UiSwitchModule } from 'ngx-ui-switch';
 
-import { RequestService } from '../../core/data/request.service';
-import { SystemWideAlertDataService } from '../../core/data/system-wide-alert-data.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { RouterStub } from '../../shared/testing/router.stub';
-import { createPaginatedList } from '../../shared/testing/utils.test';
-import { SystemWideAlert } from '../system-wide-alert.model';
 import { SystemWideAlertFormComponent } from './system-wide-alert-form.component';
 
 describe('SystemWideAlertFormComponent', () => {

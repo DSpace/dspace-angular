@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { StoreActionTypes } from '@dspace/core/ngrx/type';
 import {
   Actions,
   createEffect,
@@ -9,7 +10,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { StoreActionTypes } from '../../store.actions';
 import {
   CollapseMenuAction,
   ExpandMenuAction,

@@ -2870,7 +2870,7 @@
 
   // "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: {purposes}",
   // TODO Source message changed - Revise the translation
-  "cookies.consent.content-notice.description": "Ми збираємо та обробляємо вашу особисту інформацію для таких цілей: <strong>автентифікація, налаштування та статистика</strong>. <br/> Щоб дізнатися більше, прочитайте нашу політику {privacyPolicy}.",
+  "cookies.consent.content-notice.description": "Ми збираємо та обробляємо вашу особисту інформацію для таких цілей: автентифікація, налаштування та статистика. Щоб дізнатися більше, прочитайте нашу політику {privacyPolicy}.",
 
   // "cookies.consent.content-notice.learnMore": "Customize",
   "cookies.consent.content-notice.learnMore": "Налаштувати",

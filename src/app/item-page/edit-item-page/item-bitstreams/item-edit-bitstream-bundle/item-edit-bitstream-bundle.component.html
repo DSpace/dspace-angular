@@ -14,7 +14,7 @@
         <table class="table" [class.mt-n1]="!isFirstTable"
           [attr.aria-label]="'item.edit.bitstreams.bundle.table.aria-label' | translate: { bundle: bundleName } ">
           <thead [class.visually-hidden]="!isFirstTable">
-            <tr class="header-row font-weight-bold">
+            <tr class="header-row fw-bold">
               <th id="name" scope="col" class="{{ columnSizes.columns[0].buildClasses() }}">
                 {{'item.edit.bitstreams.headers.name' | translate}}
               </th>
@@ -31,10 +31,10 @@
           </thead>
           <tbody cdkDropList (cdkDropListDropped)="drop($event)">
             <tr class="bundle-row">
-              <th id="{{ bundleName }}" class="span" colspan="3" scope="colgroup">
+              <th id="{{ bundleName }}" class="row-element" colspan="3" scope="colgroup">
                 {{'item.edit.bitstreams.bundle.name' | translate:{ name: bundleName } }}
               </th>
-              <td class="text-center">
+              <td class="text-center row-element">
                 <div class="btn-group">
                   <button [routerLink]="[itemPageRoute, 'bitstreams', 'new']"
                     [queryParams]="{bundle: bundle.id}"
@@ -43,9 +43,9 @@
                     title="{{'item.edit.bitstreams.bundle.edit.buttons.upload' | translate}}">
                     <i class="fas fa-upload fa-fw"></i>
                   </button>
-                  <div ngbDropdown #paginationControls="ngbDropdown" class="btn-group float-right btn-sm p-0"
-                    placement="bottom-right">
-                    <button class="btn btn-outline-secondary" id="paginationControls" ngbDropdownToggle
+                  <div ngbDropdown #paginationControls="ngbDropdown" class="btn-group float-end p-0"
+                       container="body" placement="bottom-right">
+                    <button class="btn btn-outline-secondary btn-sm" id="paginationControls" ngbDropdownToggle
                       [title]="'pagination.options.description' | translate"
                       [attr.aria-label]="'pagination.options.description' | translate" aria-haspopup="true"
                       aria-expanded="false">
@@ -79,7 +79,7 @@
                   (cdkDragStarted)="dragStart()" (cdkDragEnded)="dragEnd()">
                   <th class="bitstream-name row-element {{ columnSizes.columns[0].buildClasses() }}"
                     scope="row" id="{{ entry.nameStripped }}" headers="{{ bundleName }} name">
-                    <div class="drag-handle text-muted float-left p-1 mr-2 d-inline" tabindex="0" cdkDragHandle
+                    <div class="drag-handle text-muted float-start p-1 me-2 d-inline" tabindex="0" cdkDragHandle
                       (keydown.enter)="select($event, entry)" (keydown.space)="select($event, entry)" (click)="select($event, entry)">
                       <i class="fas fa-grip-vertical fa-fw"
                       [title]="'item.edit.bitstreams.edit.buttons.drag' | translate"></i>

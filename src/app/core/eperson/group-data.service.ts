@@ -1,10 +1,6 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {
-  createSelector,
-  select,
-  Store,
-} from '@ngrx/store';
+import { RestRequestMethod } from '@dspace/config/rest-request-method';
 import { Operation } from 'fast-json-patch';
 import {
   Observable,
@@ -12,15 +8,6 @@ import {
 } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { getGroupEditRoute } from '../../access-control/access-control-routing-paths';
-import {
-  GroupRegistryCancelGroupAction,
-  GroupRegistryEditGroupAction,
-} from '../../access-control/group-registry/group-registry.actions';
-import { GroupRegistryState } from '../../access-control/group-registry/group-registry.reducers';
-import { AppState } from '../../app.reducer';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { DSONameService } from '../breadcrumbs/dso-name.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
@@ -52,18 +39,16 @@ import {
   PostRequest,
 } from '../data/request.models';
 import { RequestService } from '../data/request.service';
-import { RestRequestMethod } from '../data/rest-request-method';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { NotificationsService } from '../notification-system/notifications.service';
 import { Collection } from '../shared/collection.model';
 import { Community } from '../shared/community.model';
+import { FollowLinkConfig } from '../shared/follow-link-config.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NoContent } from '../shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../shared/operators';
 import { EPerson } from './models/eperson.model';
 import { Group } from './models/group.model';
-
-const groupRegistryStateSelector = (state: AppState) => state.groupRegistry;
-const editGroupSelector = createSelector(groupRegistryStateSelector, (groupRegistryState: GroupRegistryState) => groupRegistryState.editGroup);
 
 /**
  * Provides methods to retrieve eperson group resources from the REST API & Group related CRUD actions.
@@ -87,7 +72,6 @@ export class GroupDataService extends IdentifiableDataService<Group> implements 
     protected comparator: DSOChangeAnalyzer<Group>,
     protected notificationsService: NotificationsService,
     protected nameService: DSONameService,
-    protected store: Store<any>,
   ) {
     super('groups', requestService, rdbService, objectCache, halService);
 
@@ -230,27 +214,7 @@ export class GroupDataService extends IdentifiableDataService<Group> implements 
     ));
   }
 
-  /**
-   * Method to retrieve the group that is currently being edited
-   */
-  public getActiveGroup(): Observable<Group> {
-    return this.store.pipe(select(editGroupSelector));
-  }
 
-  /**
-   * Method to cancel editing a group, dispatches a cancel group action
-   */
-  public cancelEditGroup() {
-    this.store.dispatch(new GroupRegistryCancelGroupAction());
-  }
-
-  /**
-   * Method to set the group being edited, dispatches an edit group action
-   * @param group The group to edit
-   */
-  public editGroup(group: Group) {
-    this.store.dispatch(new GroupRegistryEditGroupAction(group));
-  }
 
   /**
    * Method that clears a cached groups request
@@ -270,37 +234,6 @@ export class GroupDataService extends IdentifiableDataService<Group> implements 
 
   public getGroupRegistryRouterLink(): string {
     return '/access-control/groups';
-  }
-
-  /**
-   * Change which group is being edited and return the link for the edit page of the new group being edited
-   * @param newGroup New group to edit
-   */
-  public startEditingNewGroup(newGroup: Group): string {
-    this.getActiveGroup().pipe(take(1)).subscribe((activeGroup: Group) => {
-      if (newGroup === activeGroup) {
-        this.cancelEditGroup();
-      } else {
-        this.editGroup(newGroup);
-      }
-    });
-    return this.getGroupEditPageRouterLinkWithID(newGroup.id);
-  }
-
-  /**
-   * Get Edit page of group
-   * @param group Group we want edit page for
-   */
-  public getGroupEditPageRouterLink(group: Group): string {
-    return getGroupEditRoute(group.id);
-  }
-
-  /**
-   * Get Edit page of group
-   * @param groupID Group ID we want edit page for
-   */
-  public getGroupEditPageRouterLinkWithID(groupID: string): string {
-    return getGroupEditRoute(groupID);
   }
 
   /**

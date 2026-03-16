@@ -2,22 +2,17 @@ import {
   Component,
   Input,
 } from '@angular/core';
+import { SubmissionDefinitionsModel } from '@dspace/core/config/models/config-submission-definitions.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { SubmissionError } from '@dspace/core/submission/models/submission-error.model';
+import { WorkspaceitemSectionsObject } from '@dspace/core/submission/models/workspaceitem-sections.model';
 
-import { SubmissionDefinitionsModel } from '../../core/config/models/config-submission-definitions.model';
-import { Item } from '../../core/shared/item.model';
-import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
 import { ThemedComponent } from '../../shared/theme-support/themed.component';
-import { SubmissionError } from '../objects/submission-error.model';
 import { SubmissionFormComponent } from './submission-form.component';
 
 @Component({
   selector: 'ds-submission-form',
-  styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
-  standalone: true,
-  imports: [
-    SubmissionFormComponent,
-  ],
 })
 export class ThemedSubmissionFormComponent extends ThemedComponent<SubmissionFormComponent> {
   @Input() collectionId: string;
