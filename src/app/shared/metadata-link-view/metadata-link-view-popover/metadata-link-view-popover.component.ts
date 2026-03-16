@@ -52,7 +52,7 @@ export class MetadataLinkViewPopoverComponent implements OnInit {
    * The metadata link view popover data configuration.
    * This configuration is used to determine which metadata fields to display for the given entity type
    */
-  metadataLinkViewPopoverData: MetadataLinkViewPopoverDataConfig = environment.metadataLinkViewPopoverData;
+  metadataLinkViewPopoverData: MetadataLinkViewPopoverDataConfig = environment.item.metadataLinkViewPopoverData;
 
   /**
    * The metadata fields to display for the given entity type
@@ -73,7 +73,7 @@ export class MetadataLinkViewPopoverComponent implements OnInit {
   /**
    * The identifier subtype configurations
    */
-  identifierSubtypeConfig: IdentifierSubtypesConfig[] = environment.identifierSubtypes;
+  identifierSubtypeConfig: IdentifierSubtypesConfig[] = environment.item.metadataLinkViewPopoverData.identifierSubtypes;
 
   /**
    * Whether the entity type is not found in the metadataLinkViewPopoverData configuration

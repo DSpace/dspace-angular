@@ -623,7 +623,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
   ngOnDestroy(): void {
     super.ngOnDestroy();
     // Remove this model from formBulderService
-    this.formBuilderService.removeFormModel(this.sectionData.id);
+    this.formBuilderService.removeFormModel(this.formId);
   }
 
 }

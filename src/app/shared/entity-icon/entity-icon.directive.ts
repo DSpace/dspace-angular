@@ -119,7 +119,7 @@ export class EntityIconDirective implements OnInit {
    * @private
    */
   private addIcon(entityStyle: AuthorityRefEntityStyleConfig): void {
-    const iconElement = `<i class="${entityStyle.icon} ${entityStyle.style}"></i>`;
+    const iconElement = `<i aria-hidden="true" class="${entityStyle.icon} ${entityStyle.style}"></i>`;
     if (this.iconPosition === 'after') {
       this.elem.nativeElement.insertAdjacentHTML('afterend', '&nbsp;' + iconElement);
     } else {

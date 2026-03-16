@@ -19,7 +19,6 @@ import { FilterVocabularyConfig } from './filter-vocabulary-config';
 import { FormConfig } from './form-config.interfaces';
 import { GeospatialMapConfig } from './geospatial-map-config';
 import { HomeConfig } from './homepage-config.interface';
-import { IdentifierSubtypesConfig } from './identifier-subtypes-config.interface';
 import { InfoConfig } from './info-config.interface';
 import { ItemConfig } from './item-config.interface';
 import { LangConfig } from './lang-config.interface';
@@ -28,11 +27,9 @@ import { LiveRegionConfig } from './live-region.config';
 import { MarkdownConfig } from './markdown-config.interface';
 import { MatomoConfig } from './matomo-config.interface';
 import { MediaViewerConfig } from './media-viewer-config.interface';
-import { MetadataLinkViewPopoverDataConfig } from './metadata-link-view-popoverdata-config.interface';
 import { MetadataSecurityConfig } from './metadata-security-config';
 import { INotificationBoardOptions } from './notifications-config.interfaces';
 import { QualityAssuranceConfig } from './quality-assurance.config';
-import { FollowAuthorityMetadata } from './search-follow-metadata.interface';
 import { SearchConfig } from './search-page-config.interface';
 import { SearchResultConfig } from './search-result-config.interface';
 import { ServerConfig } from './server-config.interface';
@@ -76,12 +73,7 @@ interface AppConfig extends Config {
   geospatialMapViewer: GeospatialMapConfig;
   accessibility: AccessibilitySettingsConfig;
   layout: LayoutConfig;
-  metadataLinkViewPopoverData: MetadataLinkViewPopoverDataConfig;
-  identifierSubtypes: IdentifierSubtypesConfig[];
   searchResult: SearchResultConfig;
-  followAuthorityMetadata: FollowAuthorityMetadata[];
-  followAuthorityMaxItemLimit: number;
-  followAuthorityMetadataValuesLimit: number;
   security: MetadataSecurityConfig;
 }
 
@@ -93,8 +85,38 @@ const APP_CONFIG = new InjectionToken<AppConfig>('APP_CONFIG');
 
 const APP_CONFIG_STATE = makeStateKey<AppConfig>('APP_CONFIG_STATE');
 
+type DeepPartial<T> = T extends object ? { [k in keyof T]?: DeepPartial<T[k]>} : T;
+
+/**
+ * Removes all server-side specific settings from the application configuration.
+ * This method is used to ensure the "assets/config.json" that provides runtime
+ * configuration to CSR (client side rendering) excludes these server-side keys.
+ *
+ * @param config  the application configuration
+ */
+const toClientConfig = ({
+  rest: {
+    ssrBaseUrl: _ssrBaseUrl,
+    hasSsrBaseUrl: _hasSsrBaseUrl,
+    ...rest
+  },
+  cache: {
+    serverSide: _serverSide,
+    ...cache
+  },
+  ui: {
+    rateLimiter: _rateLimiter,
+    useProxies: _useProxies,
+    ...ui
+  },
+  ...config
+}: AppConfig): DeepPartial<AppConfig> => ({
+  ...config, rest, cache, ui,
+});
+
 export {
   APP_CONFIG,
   APP_CONFIG_STATE,
   AppConfig,
+  toClientConfig,
 };

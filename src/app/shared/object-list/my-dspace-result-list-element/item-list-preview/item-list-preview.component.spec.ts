@@ -87,11 +87,8 @@ const environmentUseThumbs = {
   browseBy: {
     showThumbnails: true,
   },
-};
-
-const enviromentNoThumbs = {
-  browseBy: {
-    showThumbnails: false,
+  searchResult: {
+    authorMetadata: ['dc.contributor.author', 'dc.creator', 'dc.contributor.*'],
   },
 };
 

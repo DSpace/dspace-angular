@@ -49,7 +49,7 @@ export class VocabularyEntry extends ListableObject {
    * A value representing security level value of the metadata
    */
   @autoserialize
-    securityLevel: number;
+  securityLevel: number;
 
   /**
    * A string representing the kind of vocabulary entry

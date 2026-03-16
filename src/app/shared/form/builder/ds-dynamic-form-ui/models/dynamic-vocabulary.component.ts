@@ -268,6 +268,13 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
     }
   }
 
+  /**
+   * Extracts and converts other information values from a vocabulary entry into FormFieldMetadataValueObject array.
+   * This method processes values that may contain multiple entries separated by '|||' and authority values after '::'.
+   * @param value The raw value string from otherInformation, possibly containing '|||' separators and '::' authority markers
+   * @param key The otherInformation key (e.g., 'data-dc.contributor.affiliation')
+   * @returns Array of FormFieldMetadataValueObject to populate form fields, or null if value is empty or key is 'alternative-names'
+   */
   getOtherInformationValue(value: string, key: string): FormFieldMetadataValueObject[] {
     if (isEmpty(value) || key === 'alternative-names' ) {
       return null;

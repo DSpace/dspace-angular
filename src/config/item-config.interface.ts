@@ -1,3 +1,5 @@
+import { MetadataLinkViewPopoverDataConfig } from '@dspace/config/metadata-link-view-popoverdata-config.interface';
+
 import { Config } from './config.interface';
 
 export interface ItemConfig extends Config {
@@ -17,4 +19,6 @@ export interface ItemConfig extends Config {
   }
 
   showAuthorithyRelations: boolean;
+
+  metadataLinkViewPopoverData: MetadataLinkViewPopoverDataConfig
 }
