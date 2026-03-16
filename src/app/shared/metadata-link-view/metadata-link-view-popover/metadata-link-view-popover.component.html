@@ -45,7 +45,7 @@
                 placement="top"
                 [ngbTooltip]="getSourceSubTypeIdentifier(metadata)?.link"
                 class="source-icon"
-                alt="source-logo"
+                [alt]="'metadata-link-view.source.logo' | translate"
                 [ngSrc]="getSourceSubTypeIdentifier(metadata)?.icon"
                 data-test="sourceIcon"
                 />

@@ -53,12 +53,10 @@
                   <ng-container>
                     @if (collapsed) {
                       @for (author of dso.limitedMetadata(authorMetadata, additionalMetadataLimit, placeholderFilter); track author; let last = $last) {
-                        <span>
-                          <ds-metadata-link-view [metadata]="author"></ds-metadata-link-view>
-                          @if (!last) {
-                            <span>; </span>
-                          }
-                        </span>
+                        <ds-metadata-link-view [metadata]="author"></ds-metadata-link-view>
+                        @if (!last) {
+                          <span>; </span>
+                        }
                       }
                   }
                   @if (!collapsed) {

@@ -16,6 +16,15 @@ import {
   Observable,
 } from 'rxjs';
 
+/**
+ * Component that displays ORCID information for Person entities.
+ * This component is used by the MetadataLinkViewComponent to show ORCID identifiers and authentication status
+ * on person/author pages and in metadata displays.
+ *
+ * The component displays:
+ * - A clickable ORCID icon/link that opens the researcher's ORCID profile in a new tab
+ * - An authenticated badge if the person has connected their ORCID account through DSpace
+ */
 @Component({
   selector: 'ds-metadata-link-view-orcid',
   templateUrl: './metadata-link-view-orcid.component.html',

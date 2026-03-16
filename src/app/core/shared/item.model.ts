@@ -103,7 +103,7 @@ export class Item extends DSpaceObject implements ChildHALResource, HandleObject
    * A string representing the entity type of this Item
    */
   @autoserializeAs(String, 'entityType')
-    entityType: string;
+  entityType: string;
 
 
   /**
