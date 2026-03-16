@@ -30,10 +30,9 @@
                       >{{'mydspace.results.no-authors'
                     | translate}}</span>
                   }
-                  @for (author of item.allMetadataValues(['dc.contributor.author', 'dc.creator', 'dc.contributor.*'], undefined, true); track author; let last = $last) {
-                    <span
-                      >
-                      <span [innerHTML]="author"><span [innerHTML]="author"></span></span>
+                  @for (author of authorMetadataList; track author.uuid; let last = $last) {
+                    <span class="item-list-authors">
+                      <ds-metadata-link-view [metadata]="author"></ds-metadata-link-view>
                       @if (!last) {
                         <span>; </span>
                       }
