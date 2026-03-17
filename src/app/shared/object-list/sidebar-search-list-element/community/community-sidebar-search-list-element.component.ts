@@ -11,7 +11,11 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { TruncatablePartComponent } from '../../../truncatable/truncatable-part/truncatable-part.component';
+import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { SidebarSearchListElementComponent } from '../sidebar-search-list-element.component';
+import { DSOBreadcrumbsService } from '@dspace/core/breadcrumbs/dso-breadcrumbs.service';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { LinkService } from '@dspace/core/cache/builders/link.service';
 
 @listableObjectComponent(CommunitySearchResult, ViewMode.ListElement, Context.SideBarSearchModal)
 @listableObjectComponent(CommunitySearchResult, ViewMode.ListElement, Context.SideBarSearchModalCurrent)
@@ -31,6 +35,16 @@ import { SidebarSearchListElementComponent } from '../sidebar-search-list-elemen
  * Component displaying a list element for a {@link CommunitySearchResult} within the context of a sidebar search modal
  */
 export class CommunitySidebarSearchListElementComponent extends SidebarSearchListElementComponent<CommunitySearchResult, Community> {
+
+  constructor(
+    protected truncatableService: TruncatableService,
+    protected linkService: LinkService,
+    public dsoNameService: DSONameService,
+    protected dsoBreadcrumbsService: DSOBreadcrumbsService,
+  ) {
+    super(truncatableService, linkService, dsoNameService, dsoBreadcrumbsService);
+  }
+
   /**
    * Get the description of the Community by returning its abstract
    */

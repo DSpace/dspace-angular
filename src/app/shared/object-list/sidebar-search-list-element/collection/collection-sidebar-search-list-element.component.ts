@@ -12,6 +12,10 @@ import { TranslateModule } from '@ngx-translate/core';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { TruncatablePartComponent } from '../../../truncatable/truncatable-part/truncatable-part.component';
 import { SidebarSearchListElementComponent } from '../sidebar-search-list-element.component';
+import { TruncatableService } from '../../../truncatable/truncatable.service';
+import { LinkService } from '../../../../core/cache/builders/link.service';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { DSOBreadcrumbsService } from '../../../../core/breadcrumbs/dso-breadcrumbs.service';
 
 @listableObjectComponent(CollectionSearchResult, ViewMode.ListElement, Context.SideBarSearchModal)
 @listableObjectComponent(CollectionSearchResult, ViewMode.ListElement, Context.SideBarSearchModalCurrent)
@@ -31,6 +35,16 @@ import { SidebarSearchListElementComponent } from '../sidebar-search-list-elemen
  * Component displaying a list element for a {@link CollectionSearchResult} within the context of a sidebar search modal
  */
 export class CollectionSidebarSearchListElementComponent extends SidebarSearchListElementComponent<CollectionSearchResult, Collection> {
+
+  constructor(
+    protected truncatableService: TruncatableService,
+    protected linkService: LinkService,
+    public dsoNameService: DSONameService,
+    protected dsoBreadcrumbsService: DSOBreadcrumbsService,
+  ) {
+    super(truncatableService, linkService, dsoNameService, dsoBreadcrumbsService);
+  }
+
   /**
    * Get the description of the Collection by returning its abstract
    */

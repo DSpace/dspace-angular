@@ -19,6 +19,7 @@ import { listableObjectComponent } from '../../../../../shared/object-collection
 import { SidebarSearchListElementComponent } from '../../../../../shared/object-list/sidebar-search-list-element/sidebar-search-list-element.component';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { TruncatablePartComponent } from '../../../../../shared/truncatable/truncatable-part/truncatable-part.component';
+import { DSOBreadcrumbsService } from '@dspace/core/breadcrumbs/dso-breadcrumbs.service';
 
 @listableObjectComponent('PersonSearchResult', ViewMode.ListElement, Context.SideBarSearchModal)
 @listableObjectComponent('PersonSearchResult', ViewMode.ListElement, Context.SideBarSearchModalCurrent)
@@ -43,8 +44,9 @@ export class PersonSidebarSearchListElementComponent extends SidebarSearchListEl
               protected linkService: LinkService,
               protected translateService: TranslateService,
               public dsoNameService: DSONameService,
+              protected dsoBreadcrumbsService: DSOBreadcrumbsService,
   ) {
-    super(truncatableService, linkService, dsoNameService);
+    super(truncatableService, linkService, dsoNameService, dsoBreadcrumbsService);
   }
 
   /**
