@@ -19,7 +19,7 @@ export const collectionFormEntityTypeSelectionConfig: DynamicSelectModelConfig<s
 
 export const collectionFormSubmissionDefinitionSelectionConfig: DynamicSelectModelConfig<string> = {
   id: 'submissionDefinition',
-  name: 'cris.submission.definition',
+  name: 'dspace.submission.definition',
   disabled: false,
   errorMessages: {
     required: 'collection.form.errors.submissionDefinition.required',
@@ -29,7 +29,7 @@ export const collectionFormSubmissionDefinitionSelectionConfig: DynamicSelectMod
 
 export const collectionFormSharedWorkspaceCheckboxConfig: DynamicCheckboxModelConfig = {
   id: 'sharedWorkspace',
-  name: 'cris.workspace.shared',
+  name: 'dspace.workspace.shared',
   disabled: false,
 };
 
