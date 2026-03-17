@@ -11,11 +11,7 @@ import { environment } from '../../../environments/environment';
 export const collectionFormEntityTypeSelectionConfig: DynamicSelectModelConfig<string> = {
   id: 'entityType',
   name: 'dspace.entity.type',
-  required: true,
   disabled: false,
-  validators: {
-    required: null,
-  },
   errorMessages: {
     required: 'collection.form.errors.entityType.required',
   },
@@ -24,21 +20,12 @@ export const collectionFormEntityTypeSelectionConfig: DynamicSelectModelConfig<s
 export const collectionFormSubmissionDefinitionSelectionConfig: DynamicSelectModelConfig<string> = {
   id: 'submissionDefinition',
   name: 'cris.submission.definition',
-  required: true,
   disabled: false,
-  validators: {
-    required: null,
-  },
   errorMessages: {
     required: 'collection.form.errors.submissionDefinition.required',
   },
 };
-export const collectionFormCorrectionSubmissionDefinitionSelectionConfig: DynamicSelectModelConfig<string> = {
-  id: 'correctionSubmissionDefinition',
-  name: 'cris.submission.definition-correction',
-  required: false,
-  disabled: false,
-};
+
 
 export const collectionFormSharedWorkspaceCheckboxConfig: DynamicCheckboxModelConfig = {
   id: 'sharedWorkspace',
