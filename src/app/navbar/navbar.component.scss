@@ -10,7 +10,7 @@
   /** Mobile menu styling **/
   @media screen and (max-width: map-get($grid-breakpoints, md)-0.02) {
     .navbar {
-      width: 100vw;
+      width: 100%;
       background-color: var(--bs-white);
       position: absolute;
       overflow: hidden;
@@ -21,13 +21,6 @@
         min-height: 100vh; //doesn't matter because wrapper is sticky
         border-bottom: var(--ds-header-navbar-border-bottom-height) var(--ds-header-navbar-border-bottom-color) solid; // open navbar covers header-navbar-wrapper border
       }
-    }
-  }
-
-  @media screen and (min-width: map-get($grid-breakpoints, md)) {
-    .reset-padding-md {
-      margin-left: calc(var(--bs-spacer) / -1);
-      margin-right: calc(var(--bs-spacer) / -1);
     }
   }
 
@@ -42,30 +35,30 @@
   }
 
   #main-navbar ::ng-deep {
-    .ds-menu-item, .ds-menu-toggler-wrapper {
-      white-space: nowrap;
+    .ds-menu-toggler-wrapper {
       text-decoration: none;
     }
 
-    .dropdown-menu {
-      padding: 0.5rem !important;
-    }
-
     .ds-menu-item {
+      text-decoration: none;
       display: block;
-      padding: 0.5rem 0;
+      width: 100%;
+
+      &:not(.dropdown-menu .ds-menu-item) {
+        padding: var(--ds-navbar-item-padding);
+      }
     }
   }
 
-  #main-navbar ::ng-deep .ds-menu-item-wrapper {
-    background-color: var(--ds-navbar-link-bg-color);
+  #main-navbar ::ng-deep .ds-menu-item-wrapper:not(ds-user-menu .ds-menu-item-wrapper) {
+    background-color: var(--ds-navbar-link-bg);
 
     .toggle-menu-icon, .ds-menu-item:not(.dropdown-menu .ds-menu-item) {
       color: var(--ds-navbar-link-color);
     }
 
     &:hover, &:focus {
-      background-color: var(--ds-navbar-link-bg-color-hover);
+      background-color: var(--ds-navbar-link-bg-hover);
 
       .toggle-menu-icon, .ds-menu-item:not(.dropdown-menu .ds-menu-item) {
         color: var(--ds-navbar-link-color-hover);
