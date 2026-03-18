@@ -7,7 +7,7 @@ import { SubmissionFormCollectionComponent } from '../../../../../app/submission
 import { ThemedSubmissionFormFooterComponent } from '../../../../../app/submission/form/footer/themed-submission-form-footer.component';
 import { SubmissionFormSectionAddComponent } from '../../../../../app/submission/form/section-add/submission-form-section-add.component';
 import { SubmissionFormComponent as BaseComponent } from '../../../../../app/submission/form/submission-form.component';
-import { ThemedSubmissionUploadFilesComponent } from '../../../../../app/submission/form/submission-upload-files/themed-submission-upload-files.component';
+import { SubmissionUploadFilesComponent } from './submission-upload-files/submission-upload-files.component';
 import { ThemedSubmissionSectionContainerComponent } from '../../../../../app/submission/sections/container/themed-section-container.component';
 
 @Component({
@@ -15,7 +15,8 @@ import { ThemedSubmissionSectionContainerComponent } from '../../../../../app/su
   // styleUrls: ['./submission-form.component.scss'],
   styleUrls: ['../../../../../app/submission/form/submission-form.component.scss'],
   // templateUrl: './submission-form.component.html'
-  templateUrl: '../../../../../app/submission/form/submission-form.component.html',
+  templateUrl: './submission-form.component.html',
+  standalone: true,
   imports: [
     CommonModule,
     SubmissionFormCollectionComponent,
@@ -23,7 +24,7 @@ import { ThemedSubmissionSectionContainerComponent } from '../../../../../app/su
     ThemedLoadingComponent,
     ThemedSubmissionFormFooterComponent,
     ThemedSubmissionSectionContainerComponent,
-    ThemedSubmissionUploadFilesComponent,
+    SubmissionUploadFilesComponent,
     TranslatePipe,
   ],
 })

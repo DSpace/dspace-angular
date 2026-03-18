@@ -788,6 +788,33 @@
   "admin.workflow.item.policies": "Policies",
 
   "admin.workflow.item.supervision": "Supervision",
+  "admin.dashboard.title": "Admin Statistics Dashboard",
+  "admin.dashboard.refresh": "Refresh Data",
+  "admin.dashboard.communities": "Communities",
+  "admin.dashboard.collections": "Collections",
+  "admin.dashboard.archived-items": "Archived Items",
+  "admin.dashboard.total-files": "Total Files",
+  "admin.dashboard.workflow-items": "Workflow Items",
+  "admin.dashboard.workflow-tasks": "Workflow Tasks",
+  "admin.dashboard.workspace-items": "Awaiting Submission",
+  "admin.dashboard.collection-name": "Collection Name",
+  "admin.dashboard.user-dashboard": "User Dashboard",
+  "admin.dashboard.admin-dashboard": "Admin Dashboard",
+  "admin.dashboard.statistics.collections": "Collection Statistics",
+  "admin.dashboard.no-data": "No collection statistics available.",
+  "admin.dashboard.task-id": "Task ID",
+  "admin.dashboard.task-type": "Type",
+  "admin.dashboard.action": "Action",
+  "admin.dashboard.view-task": "View Details",
+  "admin.dashboard.no-tasks": "No workflow tasks pending approval.",
+  "admin.dashboard.recent-submissions": "Recent Submissions",
+  "admin.dashboard.no-recent": "No recent items found.",
+  "admin.dashboard.collection-stats": "Top Collections by Size",
+  "admin.dashboard.no-collection-stats": "No collection statistics available.",
+  "menu.section.admin-dashboard": "Admin Dashboard",
+  "menu.section.analytics": "Analytics",
+  "menu.analitics": "Analytics",
+  "menu.analytics": "Analytics",
 
   "admin.metadata-import.breadcrumbs": "Import Metadata",
 
@@ -2277,7 +2304,7 @@
 
   "home.title": "Home",
 
-  "home.top-level-communities.head": "Communities in DSpace",
+  "home.top-level-communities.head": "Communities in Womezeker",
 
   "home.top-level-communities.help": "Select a community to browse its collections.",
 

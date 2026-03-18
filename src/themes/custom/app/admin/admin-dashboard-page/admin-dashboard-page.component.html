@@ -1,0 +1,130 @@
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 id="admin-dashboard-title">{{ (activeTab === 'admin' ? 'admin.dashboard.title' :
+            'admin.dashboard.user-dashboard') | translate }}</h1>
+        <button *ngIf="activeTab === 'admin'" class="btn btn-primary" (click)="refresh()" id="admin-dashboard-refresh">
+            <i class="fas fa-sync-alt mr-1"></i> {{ 'admin.dashboard.refresh' | translate }}
+        </button>
+    </div>
+
+    <!-- Tabs Navigation -->
+    <ul class="nav nav-tabs mb-4" *ngIf="(isAdmin$ | async)">
+        <li class="nav-item">
+            <a class="nav-link" [class.active]="activeTab === 'admin'" (click)="activeTab = 'admin'"
+                href="javascript:void(0)">
+                <i class="fas fa-user-shield mr-1"></i> {{ 'admin.dashboard.admin-dashboard' | translate }}
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" [class.active]="activeTab === 'user'" (click)="activeTab = 'user'"
+                href="javascript:void(0)">
+                <i class="fas fa-user mr-1"></i> {{ 'admin.dashboard.user-dashboard' | translate }}
+            </a>
+        </li>
+    </ul>
+
+    <!-- Admin Dashboard Content -->
+    <div *ngIf="activeTab === 'admin'">
+        <div class="row mb-4">
+            <!-- Collections Card -->
+            <div class="col-md-4">
+                <div class="card bg-secondary text-white shadow-sm h-100">
+                    <div class="card-body p-3">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h5 class="card-title mb-1 small">{{ 'admin.dashboard.collections' | translate }}</h5>
+                                <h3 class="mb-0" id="collections-count">{{ collectionsCount$ | async }}</h3>
+                            </div>
+                            <i class="fas fa-layer-group fa-2x opacity-50"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Archived Items Card -->
+            <div class="col-md-4">
+                <div class="card bg-info text-white shadow-sm h-100">
+                    <div class="card-body p-3">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h5 class="card-title mb-1 small">{{ 'admin.dashboard.archived-items' | translate }}
+                                </h5>
+                                <h3 class="mb-0" id="archived-items-count">{{ archivedItemsCount$ | async }}</h3>
+                            </div>
+                            <i class="fas fa-archive fa-2x opacity-50"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Workflow Items Card -->
+            <div class="col-md-4">
+                <div class="card bg-primary text-white shadow-sm h-100">
+                    <div class="card-body p-3">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h5 class="card-title mb-1 small">{{ 'admin.dashboard.workflow-items' | translate }}
+                                </h5>
+                                <h3 class="mb-0" id="workflow-items-count">{{ workflowItemsCount$ | async }}</h3>
+                            </div>
+                            <i class="fas fa-tasks fa-2x opacity-50"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <!-- Collection Statistics -->
+            <div class="col-lg-12 mb-4">
+                <div class="card shadow-sm h-100">
+                    <div class="card-header bg-white">
+                        <h4 class="mb-0">{{ 'admin.dashboard.statistics.collections' | translate }}</h4>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>{{ 'admin.dashboard.collection-name' | translate }}</th>
+                                        <th class="text-center">{{ 'admin.dashboard.archived-items' | translate }}</th>
+                                        <th class="text-center">{{ 'admin.dashboard.workflow-items' | translate }}</th>
+                                    </tr>
+                                </thead>
+                                <tbody style="background-color: #ffffff !important;">
+                                    <tr *ngFor="let stat of collectionsStats$ | async"
+                                        style="background-color: #ffffff !important; border-bottom: 1px solid #dee2e6;">
+                                        <td
+                                            style="color: #000000 !important; background-color: #ffffff !important; padding: 12px; font-weight: 500;">
+                                            {{ stat.label }}
+                                        </td>
+                                        <td class="text-center"
+                                            style="color: #000000 !important; font-weight: 700; background-color: #ffffff !important; padding: 12px;">
+                                            {{ stat.archivedCount }}
+                                        </td>
+                                        <td class="text-center"
+                                            style="color: #000000 !important; font-weight: 700; background-color: #ffffff !important; padding: 12px;">
+                                            {{ stat.workflowCount }}
+                                        </td>
+                                    </tr>
+                                    <tr *ngIf="(collectionsStats$ | async)?.length === 0">
+                                        <td colspan="3" class="text-center py-4"
+                                            style="color: #6c757d !important; background-color: #ffffff !important;">
+                                            {{ 'admin.dashboard.no-data' | translate }}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Dashboard Content -->
+    <div *ngIf="activeTab === 'user'">
+        <ds-user-dashboard></ds-user-dashboard>
+    </div>
+</div>

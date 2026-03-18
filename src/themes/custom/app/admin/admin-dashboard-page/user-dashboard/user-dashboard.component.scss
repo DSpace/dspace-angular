@@ -1,0 +1,93 @@
+.user-dashboard {
+    .card {
+        border-radius: 0.5rem;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+
+        .card-header {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+    }
+
+    .border-left-primary {
+        border-left: 0.25rem solid #007bff !important;
+    }
+
+    .border-left-success {
+        border-left: 0.25rem solid #28a745 !important;
+    }
+
+    .border-left-info {
+        border-left: 0.25rem solid #17a2b8 !important;
+    }
+
+    .border-left-warning {
+        border-left: 0.25rem solid #ffc107 !important;
+    }
+
+    .border-left-danger {
+        border-left: 0.25rem solid #dc3545 !important;
+    }
+
+    .border-left-secondary {
+        border-left: 0.25rem solid #6c757d !important;
+    }
+
+    .text-xs {
+        font-size: 0.7rem;
+        letter-spacing: 0.1em;
+    }
+
+    .opacity-75 {
+        opacity: 0.75;
+    }
+
+    .opacity-25 {
+        opacity: 0.25;
+    }
+
+    .border-right {
+        border-right: 1px solid rgba(0, 0, 0, 0.1) !important;
+    }
+
+    .table {
+        th {
+            border-top: none;
+            background-color: rgba(0, 0, 0, 0.02);
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            color: #6c757d;
+        }
+
+        td {
+            padding: 1rem 0.75rem;
+            vertical-align: middle;
+        }
+    }
+
+    .badge {
+        padding: 0.5em 0.8em;
+        font-weight: 600;
+        border-radius: 10rem;
+    }
+
+    .badge-success {
+        background-color: #28a745;
+        color: white;
+    }
+
+    .badge-danger {
+        background-color: #dc3545;
+        color: white;
+    }
+
+    .badge-info {
+        background-color: #17a2b8;
+        color: white;
+    }
+
+    h3 {
+        font-family: inherit;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+    }
+}

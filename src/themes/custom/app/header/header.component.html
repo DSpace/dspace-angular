@@ -1,0 +1,46 @@
+<header>
+  <div class="container">
+    <div class="d-flex flex-row justify-content-between align-items-center">
+      <div class="d-flex flex-row align-items-center">
+        <a class="navbar-brand my-2 me-4" routerLink="/home" role="button" tabindex="0">
+          <span class="site-logo">Womezeker</span>
+        </a>
+
+        <div class="header-nav-links d-none d-lg-flex align-items-center gap-4 ms-5">
+          <a class="header-link" routerLink="/community-list">Communities & Collections</a>
+          <div ngbDropdown class="d-inline-block">
+            <a class="header-link dropdown-toggle" id="browseDropdown" ngbDropdownToggle role="button" tabindex="0">
+              All of DSpace
+            </a>
+            <div ngbDropdownMenu aria-labelledby="browseDropdown" class="dropdown-menu">
+              <a ngbDropdownItem class="dropdown-item" routerLink="/browse/title">By Title</a>
+              <a ngbDropdownItem class="dropdown-item" routerLink="/browse/author">By Author</a>
+              <a ngbDropdownItem class="dropdown-item" routerLink="/browse/dateissued">By Date Issued</a>
+              <a ngbDropdownItem class="dropdown-item" routerLink="/browse/subject">By Subject</a>
+            </div>
+          </div>
+          <a class="header-link" routerLink="/statistics">Statistics</a>
+        </div>
+      </div>
+
+      <div class="navbar navbar-expand-md flex-shrink-0 px-0 gap-3">
+        <ds-search-navbar></ds-search-navbar>
+        <div class="d-flex align-items-center gap-2" role="toolbar"
+          [attr.aria-label]="'nav.user.description' | translate">
+          <ds-lang-switch></ds-lang-switch>
+          <ds-context-help-toggle></ds-context-help-toggle>
+          <ds-auth-nav-menu></ds-auth-nav-menu>
+          <ds-impersonate-navbar></ds-impersonate-navbar>
+        </div>
+        @if (isMobile$ | async) {
+        <div class="ps-2">
+          <button class="navbar-toggler px-0" type="button" (click)="toggleNavbar()" aria-controls="collapsingNav"
+            aria-expanded="false" [attr.aria-label]="'nav.toggle' | translate">
+            <span class="fas fa-bars fa-fw toggler-icon" aria-hidden="true"></span>
+          </button>
+        </div>
+        }
+      </div>
+    </div>
+  </div>
+</header>

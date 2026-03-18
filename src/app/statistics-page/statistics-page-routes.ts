@@ -10,6 +10,8 @@ import { ThemedCommunityStatisticsPageComponent } from './community-statistics-p
 import { ThemedItemStatisticsPageComponent } from './item-statistics-page/themed-item-statistics-page.component';
 import { ThemedSiteStatisticsPageComponent } from './site-statistics-page/themed-site-statistics-page.component';
 
+import { authenticatedGuard } from '../core/auth/authenticated.guard';
+
 export const ROUTES: Route[] = [
   {
     path: '',
@@ -24,6 +26,18 @@ export const ROUTES: Route[] = [
       {
         path: '',
         component: ThemedSiteStatisticsPageComponent,
+      },
+      {
+        path: 'admin-dashboard',
+        resolve: {
+          breadcrumb: i18nBreadcrumbResolver,
+        },
+        data: {
+          title: 'admin.dashboard.title',
+          breadcrumbKey: 'admin.dashboard',
+        },
+        loadComponent: () => import('../../themes/custom/app/admin/admin-dashboard-page/admin-dashboard-page.component').then((m) => m.AdminDashboardPageComponent),
+        canActivate: [authenticatedGuard],
       },
     ],
     canActivate: [statisticsAdministratorGuard],

@@ -1,0 +1,21 @@
+<div class="row g-3">
+  <!-- Full width uploader at top -->
+  <div class="col-12 mb-4">
+    @if (uploadFilesOptions.url) {
+    <ds-uploader [dropMsg]="dropMsg" [dropOverDocumentMsg]="dropOverDocumentMsg"
+      [enableDragOverDocument]="enableDragOverDocument" [onBeforeUpload]="onBeforeUpload"
+      [uploadFilesOptions]="uploadFilesOptions" (onCompleteItem)="onCompleteItem($event)"
+      (onUploadError)="onUploadError()"></ds-uploader>
+    }
+  </div>
+
+  <!-- Note: The user wants Collection/Describe forms TO THE LEFT of the preview.
+       We will put the Preview Panel here, but SubmissionFormComponent will wrap this whole thing in a column.
+       Actually, if we want them side-by-side, we should put the Preview Panel in its own component and use it in SubmissionFormComponent.
+  -->
+  <div class="col-12">
+    <ds-file-preview-panel [fileList]="fileList" [selectedFile]="selectedFile"
+      (fileSelected)="onFileSelectedForPreview($event)">
+    </ds-file-preview-panel>
+  </div>
+</div>

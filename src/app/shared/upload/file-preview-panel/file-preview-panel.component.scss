@@ -1,0 +1,15 @@
+.file-preview-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.preview-viewer {
+  flex-grow: 1;
+  overflow: auto;
+  position: relative;
+}
+
+object {
+  border: none;
+}

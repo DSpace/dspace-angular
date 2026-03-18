@@ -4,4 +4,16 @@
 
   // DSpace default: "DSpace Angular :: "
   "repository.title.prefix": "DSpace :: ",
+
+  "admin.dashboard.title": "Admin Dashboard",
+  "admin.dashboard.user-dashboard": "User Dashboard",
+  "menu.analitics": "Analytics",
+  "admin.dashboard.archived-items": "Archived Items",
+  "admin.dashboard.refresh": "Refresh",
+  "admin.dashboard.admin-dashboard": "Admin Dashboard",
+  "admin.dashboard.collections": "Collections",
+  "admin.dashboard.workflow-items": "Workflow Items",
+  "admin.dashboard.statistics.collections": "Collection Statistics",
+  "admin.dashboard.collection-name": "Collection Name",
+  "admin.dashboard.no-data": "No Data Found"
 }

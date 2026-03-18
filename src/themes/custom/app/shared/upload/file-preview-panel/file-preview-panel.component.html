@@ -1,0 +1,42 @@
+<div class="file-preview-container p-3 border rounded bg-light">
+  <div class="mb-3">
+    <label for="fileSelect" class="form-label">{{ 'submission.sections.upload.preview.select-file' | translate
+      }}</label>
+    <select id="fileSelect" class="form-select" [ngModel]="selectedFile?.uuid" (change)="onFileChange($event)">
+      @for (file of fileList; track file.uuid) {
+      <option [value]="file.uuid">{{ getFileName(file) }}</option>
+      }
+    </select>
+  </div>
+
+  <div class="preview-viewer border rounded bg-white d-flex align-items-center justify-content-center"
+    style="min-height: 400px;">
+    @if (selectedFile) {
+    @if (isPdf(selectedFile)) {
+    <div class="pdf-container w-100 h-100">
+      @if (pdfUrl) {
+      <iframe [src]="pdfUrl" width="100%" height="1000px" frameborder="0">
+        <p>{{ 'submission.sections.upload.preview.pdf-not-supported' | translate }}
+          <ds-file-download-link [bitstream]="getBitstream(selectedFile)" [showIcon]="true"></ds-file-download-link>
+        </p>
+      </iframe>
+      } @else {
+      <div class="text-center p-5">
+        <i class="fas fa-circle-notch fa-spin fa-3x mb-3 text-primary"></i>
+        <p>Loading preview...</p>
+      </div>
+      }
+    </div>
+    } @else {
+    <div class="text-center">
+      <i class="fas fa-file fa-4x mb-3 text-secondary"></i>
+      <p>{{ 'submission.sections.upload.preview.unsupported-format' | translate }}</p>
+      <ds-file-download-link [bitstream]="getBitstream(selectedFile)" [showIcon]="true"
+        [cssClasses]="'btn btn-primary'"></ds-file-download-link>
+    </div>
+    }
+    } @else {
+    <p class="text-muted">{{ 'submission.sections.upload.preview.no-file-selected' | translate }}</p>
+    }
+  </div>
+</div>

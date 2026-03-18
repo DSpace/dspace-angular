@@ -1,0 +1,276 @@
+// Force global styles to override DSpace components
+:host ::ng-deep {
+  header {
+    background-color: #132333 !important;
+    border-bottom: 1px solid #C4C8CC !important; // Distinct line requested
+    box-shadow: none !important;
+    position: relative !important;
+    z-index: 1000 !important;
+  }
+
+  .navbar-brand {
+    margin: 0.5rem 0 !important;
+    padding: 0 !important;
+  }
+
+  .site-logo {
+    color: #C4C8CC !important;
+    font-size: 1.5rem !important;
+    font-weight: 500 !important;
+    letter-spacing: -0.5px !important;
+    text-transform: uppercase !important;
+    text-decoration: none !important;
+  }
+
+  .header-link {
+    color: #C4C8CC !important;
+    text-decoration: none !important;
+    font-size: 0.95rem !important;
+    font-weight: 400 !important;
+    white-space: nowrap !important;
+    transition: color 0.2s ease-in-out !important;
+
+    &:hover,
+    &:focus {
+      color: #ffffff !important;
+      text-decoration: none !important;
+    }
+  }
+
+  [role="toolbar"] {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 0.75rem !important;
+
+    &>* {
+      display: flex !important;
+      align-items: center !important;
+    }
+  }
+
+  // Target all possible DSpace navigation elements
+  .navbar,
+  .navbar-nav,
+  .nav-item,
+  .nav-link,
+  .dropdown,
+  .dropdown-toggle,
+  .btn,
+  .btn-link,
+  ds-search-navbar button,
+  ds-lang-switch button,
+  ds-context-help-toggle button,
+  ds-auth-nav-menu button,
+  ds-impersonate-navbar button,
+  [role="toolbar"] * {
+    background-color: transparent !important;
+    color: #C4C8CC !important;
+    border: none !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  // Override all possible states
+  .nav-link:hover,
+  .nav-link:focus,
+  .nav-link:active,
+  .dropdown-toggle:hover,
+  .dropdown-toggle:focus,
+  .dropdown-toggle:active,
+  .btn:hover,
+  .btn:focus,
+  .btn:active,
+  .btn-link:hover,
+  .btn-link:focus,
+  .btn-link:active {
+    color: #C4C8CC !important;
+    background-color: transparent !important;
+    border: none !important;
+    outline: none !important;
+  }
+
+  // Override dropdown menus
+  .dropdown-menu {
+    background-color: #132333 !important;
+    border: 1px solid #333 !important;
+    border-radius: 0 !important;
+    margin-top: 0 !important;
+    padding: 0.25rem 0 !important;
+    box-shadow: none !important;
+  }
+
+  .dropdown-item {
+    color: #C4C8CC !important;
+    padding: 0.5rem 1rem !important;
+    background: transparent !important;
+    border: none !important;
+  }
+
+  .dropdown-item:hover,
+  .dropdown-item:focus,
+  .dropdown-item:active {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    color: #ffffff !important;
+  }
+
+  .dropdown-toggle::after {
+    display: inline-block;
+    margin-left: 0.255em;
+    vertical-align: 0.255em;
+    content: "";
+    border-top: 0.3em solid;
+    border-right: 0.3em solid transparent;
+    border-bottom: 0;
+    border-left: 0.3em solid transparent;
+    color: #C4C8CC !important;
+  }
+
+  // Override search navbar
+  ds-search-navbar {
+
+    form,
+    input,
+    button {
+      background: transparent !important;
+      border: none !important;
+      color: #C4C8CC !important;
+    }
+
+    input::placeholder {
+      color: #999 !important;
+    }
+  }
+
+  // Override toggler icon
+  .navbar-toggler {
+    border: none !important;
+    padding: 0 !important;
+
+    .toggler-icon,
+    .fas,
+    .fa-bars {
+      color: #C4C8CC !important;
+    }
+
+    &:hover .toggler-icon,
+    &:focus .toggler-icon {
+      color: #C4C8CC !important;
+    }
+  }
+
+  // Remove any lingering background colors
+  .bg-dark,
+  .bg-light,
+  .bg-primary,
+  [class*="bg-"] {
+    background-color: #132333 !important;
+  }
+
+  // Override all inputs and buttons for visibility
+  input,
+  input[type="email"],
+  input[type="password"],
+  input[type="text"],
+  .form-control {
+    color: #C4C8CC !important;
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid #333 !important;
+    margin-bottom: 0.75rem !important; // Add vertical gap
+
+    &::placeholder {
+      color: #666 !important;
+    }
+
+    &:focus,
+    &:active,
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus {
+      background-color: rgba(255, 255, 255, 0.1) !important;
+      border-color: #C4C8CC !important;
+      color: #C4C8CC !important;
+      box-shadow: none !important;
+      outline: none !important;
+      -webkit-text-fill-color: #C4C8CC !important;
+      transition: background-color 5000s ease-in-out 0s; // Hack for autofill background
+    }
+  }
+
+  // Specific styling for action buttons (like Login)
+  button[type="submit"],
+  .btn-primary,
+  .btn-secondary {
+    background-color: #C4C8CC !important;
+    color: #132333 !important;
+    border: none !important;
+    font-weight: 600 !important;
+    padding: 0.5rem 1rem !important;
+
+    &:hover,
+    &:focus {
+      background-color: #ffffff !important;
+      color: #132333 !important;
+    }
+  }
+
+  // Navigation buttons should remain transparent
+  .nav-link,
+  .navbar-toggler,
+  [role="toolbar"] button:not([type="submit"]):not(.btn-primary) {
+    background-color: transparent !important;
+    color: #C4C8CC !important;
+  }
+
+  // Override any DSpace specific classes
+  .navbar-section,
+  .expandable-navbar-section,
+  .menu-section,
+  .ds-menu-item {
+    color: #C4C8CC !important;
+    background: transparent !important;
+  }
+
+  // Remove the white sidebar/navbar bars
+  ds-themed-admin-sidebar,
+  ds-admin-sidebar,
+  ds-themed-navbar,
+  ds-navbar,
+  .admin-sidebar,
+  .navbar-container,
+  #admin-sidebar,
+  #sidebar-header-container,
+  .sidebar-collapsible-element-outer-wrapper {
+    display: none !important;
+    height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  // Ensure the main wrapper and breadcrumbs don't show white
+  .outer-wrapper,
+  .inner-wrapper,
+  main,
+  ds-themed-breadcrumbs,
+  .breadcrumb,
+  ds-home-page,
+  .ds-home-page {
+    background-color: #132333 !important;
+    border: none !important;
+    color: #C4C8CC !important;
+    padding-top: 0 !important; // Remove spacing between header and content
+    margin-top: 0 !important;
+  }
+
+  // Remove spacing from the main content container specifically
+  #main-container,
+  .main-container {
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+  }
+}
+
+// Global body background
+:host-context(body) {
+  background-color: #132333 !important;
+}

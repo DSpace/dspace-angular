@@ -1,0 +1,182 @@
+<div class="user-dashboard" *ngIf="stats$ | async as stats; else loading">
+    <div *ngIf="hasSubmissions(stats); else noSubmissions">
+        <div class="row">
+            <!-- Workspace Section -->
+            <div class="col-md-6 mb-4">
+                <div class="card shadow-sm h-100 border-left-primary">
+                    <div class="card-header bg-white py-3">
+                        <h5 class="mb-0 text-primary font-weight-bold">
+                            <i class="fas fa-laptop-code mr-2"></i> Workspace Submissions
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col-6 pr-3 border-right">
+                                <div class="text-xs font-weight-bold text-uppercase mb-1 opacity-75">Total Items</div>
+                                <div class="h3 mb-0 font-weight-bold">{{ stats.mySubmission.workspace.total }}</div>
+                            </div>
+                            <div class="col-6 pl-4">
+                                <div class="text-xs font-weight-bold text-danger text-uppercase mb-1 opacity-75">
+                                    Rejected
+                                </div>
+                                <div class="h3 mb-0 font-weight-bold text-danger">{{
+                                    stats.mySubmission.workspace.rejected
+                                    }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Workflow Section -->
+            <div class="col-md-6 mb-4">
+                <div class="card shadow-sm h-100 border-left-success">
+                    <div class="card-header bg-white py-3">
+                        <h5 class="mb-0 text-success font-weight-bold">
+                            <i class="fas fa-project-diagram mr-2"></i> Workflow Submissions
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col-4 pr-3 border-right">
+                                <div class="text-xs font-weight-bold text-uppercase mb-1 opacity-75">Review Step</div>
+                                <div class="h3 mb-0 font-weight-bold">{{ stats.mySubmission.workflow.reviewstep || 0 }}
+                                </div>
+                            </div>
+                            <div class="col-4 pr-3 border-right">
+                                <div class="text-xs font-weight-bold text-uppercase mb-1 opacity-75">Edit Step</div>
+                                <div class="h3 mb-0 font-weight-bold">{{ stats.mySubmission.workflow.editstep || 0 }}
+                                </div>
+                            </div>
+                            <div class="col-4 pl-4">
+                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1 opacity-75">Final
+                                    Edit
+                                    Step</div>
+                                <div class="h3 mb-0 font-weight-bold text-warning">{{
+                                    stats.mySubmission.workflow.finaleditstep || 0 }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats row 2 -->
+        <div class="row mb-4">
+            <!-- Archived Section -->
+            <div class="col-md-6 mb-3">
+                <div class="card shadow-sm border-left-info h-100">
+                    <div class="card-body py-4">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Archived Submissions
+                                </div>
+                                <div class="h3 mb-0 font-weight-bold">{{ stats.mySubmission.archived }}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-archive fa-2x text-gray-300 opacity-25"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Withdrawn Section -->
+            <div class="col-md-6 mb-3">
+                <div class="card shadow-sm border-left-secondary h-100">
+                    <div class="card-body py-4">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-secondary text-uppercase mb-1">Withdrawn
+                                    Submissions</div>
+                                <div class="h3 mb-0 font-weight-bold">{{ stats.mySubmission.withdrawn }}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-ban fa-2x text-gray-300 opacity-25"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <ng-template #noSubmissions>
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card shadow-sm border-0 bg-light">
+                    <div class="card-body text-center py-5">
+                        <i class="fas fa-folder-open fa-3x text-muted mb-3 opacity-25"></i>
+                        <h5 class="text-muted">No Submissions Found</h5>
+                        <p class="text-muted mb-0 small">You haven't made any submissions yet.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+
+    <!-- My Actions Section -->
+    <div>
+
+        <div class="col-12 mb-3">
+            <h5 class="text-dark font-weight-bold ml-1">
+                <i class="fas fa-user-check mr-2 text-primary"></i> My Activity Summary
+            </h5>
+        </div>
+
+        <div class="row pt-2" *ngIf="getActionEntries(stats.myActions).length > 0; else noActions">
+
+            <div class="col-md-4 mb-4" *ngFor="let entry of getActionEntries(stats.myActions)">
+                <div class="card shadow-sm h-100 border-left-info">
+                    <div class="card-header bg-white py-2">
+                        <div class="text-xs font-weight-bold text-info text-uppercase">{{ getStepLabel(entry.step) }}
+                        </div>
+                    </div>
+                    <div class="card-body py-3">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col-6 pr-3 border-right">
+                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1 opacity-75">
+                                    Approved
+                                </div>
+                                <div class="h3 mb-0 font-weight-bold text-success">{{ getActionCount(entry.details,
+                                    'Approved') }}</div>
+                            </div>
+                            <div class="col-6 pl-4">
+                                <div class="text-xs font-weight-bold text-danger text-uppercase mb-1 opacity-75">
+                                    Rejected
+                                </div>
+                                <div class="h3 mb-0 font-weight-bold text-danger">
+                                    {{ getActionCount(entry.details, 'Rejected') || getActionCount(entry.details,
+                                    'rejected') }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <ng-template #noActions>
+            <div class="row pt-2">
+                <div class="col-12">
+                    <div class="card shadow-sm border-0 bg-light">
+                        <div class="card-body text-center py-5">
+                            <i class="fas fa-tasks fa-3x text-muted mb-3 opacity-25"></i>
+                            <h5 class="text-muted">No Activity Found</h5>
+                            <p class="text-muted mb-0 small">You haven't performed any workflow actions yet.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </div>
+
+</div>
+
+<ng-template #loading>
+    <div class="d-flex justify-content-center py-5">
+        <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+</ng-template>
