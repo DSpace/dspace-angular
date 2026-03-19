@@ -6,25 +6,28 @@ import {
 } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { DSOBreadcrumbsService } from '@dspace/core/breadcrumbs/dso-breadcrumbs.service';
 import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { Breadcrumb } from '@dspace/core/breadcrumbs/models/breadcrumb.model';
 import { LinkService } from '@dspace/core/cache/builders/link.service';
 import { ChildHALResource } from '@dspace/core/shared/child-hal-resource.model';
 import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import { HALResource } from '@dspace/core/shared/hal-resource.model';
+import { ResourceType } from '@dspace/core/shared/resource-type';
 import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
 import { mockTruncatableService } from '@dspace/core/testing/mock-trucatable.service';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+import {
+  createNoContentRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
 
 import { TruncatableService } from '../../truncatable/truncatable.service';
 import { TruncatablePartComponent } from '../../truncatable/truncatable-part/truncatable-part.component';
 import { VarDirective } from '../../utils/var.directive';
-import { DSOBreadcrumbsService } from '@dspace/core/breadcrumbs/dso-breadcrumbs.service';
-import { Breadcrumb } from '@dspace/core/breadcrumbs/models/breadcrumb.model';
-import { ResourceType } from '@dspace/core/shared/resource-type';
-import { createNoContentRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
-import { of as observableOf } from 'rxjs';
 import { BREADCRUMB_SEPARATOR } from './sidebar-search-list-element.component';
+
 
 export function createSidebarSearchListElementTests(
   componentClass: any,
@@ -34,7 +37,7 @@ export function createSidebarSearchListElementTests(
   expectedTitle: string,
   expectedDescription: string,
   extraProviders: any[] = [],
-  assertBreadcrumbsUsed = false
+  assertBreadcrumbsUsed = false,
 ) {
   return () => {
     let component;
@@ -68,7 +71,7 @@ export function createSidebarSearchListElementTests(
       }
       breadcrumbs.push(new Breadcrumb(expectedTitle, ''));
       dsoBreadcrumbsService = jasmine.createSpyObj('dsoBreadcrumbsService', {
-        getBreadcrumbs: observableOf(breadcrumbs)
+        getBreadcrumbs: of(breadcrumbs),
       });
       TestBed.configureTestingModule({
         imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), VarDirective],
@@ -104,7 +107,7 @@ export function createSidebarSearchListElementTests(
         component.parentTitle$.subscribe(() => {
           expect(dsoBreadcrumbsService.getBreadcrumbs).toHaveBeenCalledWith(
             object.indexableObject,
-            ''
+            '',
           );
           done();
         });
@@ -136,7 +139,7 @@ export function createHierarchicalParentTitleTests(
   componentClass: any,
   object: SearchResult<DSpaceObject & ChildHALResource>,
   expectedTitle: string,
-  extraProviders: any[] = []
+  extraProviders: any[] = [],
 ) {
   return () => {
     let component;
@@ -163,11 +166,11 @@ export function createHierarchicalParentTitleTests(
       const parentLinkKey = (object.indexableObject as ChildHALResource).getParentLinkKey() as string;
       const linkService = jasmine.createSpyObj('linkService', {
         resolveLink: Object.assign(new HALResource(), {
-          [parentLinkKey]: createNoContentRemoteDataObject$()
-        })
+          [parentLinkKey]: createNoContentRemoteDataObject$(),
+        }),
       });
       dsoBreadcrumbsService = jasmine.createSpyObj('dsoBreadcrumbsService', {
-        getBreadcrumbs: observableOf(breadcrumbs)
+        getBreadcrumbs: of(breadcrumbs),
       });
 
       TestBed.configureTestingModule({
@@ -202,7 +205,7 @@ export function createHierarchicalParentTitleTests(
       component.parentTitle$.subscribe(() => {
         expect(dsoBreadcrumbsService.getBreadcrumbs).toHaveBeenCalledWith(
           object.indexableObject,
-          ''
+          '',
         );
         done();
       });

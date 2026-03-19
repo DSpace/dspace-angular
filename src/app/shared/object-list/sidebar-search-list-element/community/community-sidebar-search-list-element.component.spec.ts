@@ -1,7 +1,10 @@
 import { Community } from '@dspace/core/shared/community.model';
 import { CommunitySearchResult } from '@dspace/core/shared/object-collection/community-search-result.model';
 
-import { createHierarchicalParentTitleTests, createSidebarSearchListElementTests } from '../sidebar-search-list-element.component.spec';
+import {
+  createHierarchicalParentTitleTests,
+  createSidebarSearchListElementTests,
+} from '../sidebar-search-list-element.component.spec';
 import { CommunitySidebarSearchListElementComponent } from './community-sidebar-search-list-element.component';
 
 const object = Object.assign(new CommunitySearchResult(), {
@@ -37,5 +40,5 @@ describe('CommunitySidebarSearchListElementComponent',
 );
 
 describe('CommunitySidebarSearchListElementComponent - hierarchical path',
-  createHierarchicalParentTitleTests(CommunitySidebarSearchListElementComponent, object, 'title')
+  createHierarchicalParentTitleTests(CommunitySidebarSearchListElementComponent, object, 'title'),
 );

@@ -3,19 +3,20 @@ import {
   NgClass,
 } from '@angular/common';
 import { Component } from '@angular/core';
+import { DSOBreadcrumbsService } from '@dspace/core/breadcrumbs/dso-breadcrumbs.service';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { LinkService } from '@dspace/core/cache/builders/link.service';
 import { Community } from '@dspace/core/shared/community.model';
 import { Context } from '@dspace/core/shared/context.model';
 import { CommunitySearchResult } from '@dspace/core/shared/object-collection/community-search-result.model';
 import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import { TranslateModule } from '@ngx-translate/core';
+import { listableObjectComponent } from 'src/app/shared/object-collection/shared/listable-object/listable-object.decorator';
+import { TruncatableService } from 'src/app/shared/truncatable/truncatable.service';
+import { TruncatablePartComponent } from 'src/app/shared/truncatable/truncatable-part/truncatable-part.component';
 
-import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
-import { TruncatablePartComponent } from '../../../truncatable/truncatable-part/truncatable-part.component';
-import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { SidebarSearchListElementComponent } from '../sidebar-search-list-element.component';
-import { DSOBreadcrumbsService } from '@dspace/core/breadcrumbs/dso-breadcrumbs.service';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { LinkService } from '@dspace/core/cache/builders/link.service';
+
 
 @listableObjectComponent(CommunitySearchResult, ViewMode.ListElement, Context.SideBarSearchModal)
 @listableObjectComponent(CommunitySearchResult, ViewMode.ListElement, Context.SideBarSearchModalCurrent)
