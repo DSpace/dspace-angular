@@ -134,19 +134,25 @@ describe('My DSpace page', () => {
   it('should let you filter to only archived items', () => {
     cy.visit('/mydspace');
 
+    //To wait filter be ready
+    cy.intercept({
+      method: 'GET',
+      url: '/server/api/discover/facets/namedresourcetype**',
+    }).as('facetNamedResourceType');
+
     //This page is restricted, so we will be shown the login form. Fill it in and submit it
     cy.loginViaForm(Cypress.env('DSPACE_TEST_ADMIN_USER'), Cypress.env('DSPACE_TEST_ADMIN_PASSWORD'));
 
     //Wait for the page to display
-    cy.get('ds-my-dspace-page').should('be.visible');
+    cy.wait('@facetNamedResourceType');
 
     //Open all filters
     cy.get('.filter-toggle').click({ multiple: true });
 
     //The authority filter should be visible.
-    cy.get('ds-search-authority-filter').should('be.visible');
+    cy.get('ds-search-authority-filter').scrollIntoView().should('be.visible');
 
-    //Intercept the request to filter.
+    //Intercept the request to filter and the request of filter.
     cy.intercept({
       method: 'GET',
       url: '/server/api/discover/search/objects**',
@@ -168,8 +174,10 @@ describe('My DSpace page', () => {
       });
   });
 
-  it('should upload a file via drag & drop and display it in the UI', () => {
+  //This test also generate an item to validate workflow task section
+  it('should upload a file via drag & drop, display it in the UI and submit the item', () => {
     const fileName = 'example.pdf';
+    const currentYear = new Date().getFullYear();
 
     cy.visit('/mydspace');
 
@@ -192,13 +200,27 @@ describe('My DSpace page', () => {
     cy.get('ds-collection-dropdown').should('be.visible');
 
     // Type in a known Collection name in the search box
-    cy.get('ds-collection-dropdown input[type="search"]').type(Cypress.env('DSPACE_TEST_SUBMIT_COLLECTION_NAME'));
+    cy.get('ds-collection-dropdown input[type="search"]').type(Cypress.env('DSPACE_TEST_SUBMIT_WORKFLOW_COLLECTION_NAME'));
 
     // Click on the button matching that known Collection name
-    cy.get('ds-collection-dropdown li[title="'.concat(Cypress.env('DSPACE_TEST_SUBMIT_COLLECTION_NAME')).concat('"]')).click();
+    cy.get('ds-collection-dropdown li[title="'.concat(Cypress.env('DSPACE_TEST_SUBMIT_WORKFLOW_COLLECTION_NAME')).concat('"]')).click();
 
     // New URL should include /workspaceitems, as we've started a new submission
     cy.url().should('include', '/workspaceitems');
+
+    //Fill required fields
+    cy.get('#dc_title').type('Workflow test item');
+    cy.get('#dc_date_issued_year').type(currentYear.toString());
+    cy.get('input[name="dc.type"]').click();
+    cy.get('.dropdown-menu').should('be.visible').contains('button', 'Other').click();
+    cy.get('#granted').check();
+
+    //Press deposit button
+    cy.get('button[data-test="deposit"]').click();
+
+    //validate that URL is /mydspace
+    cy.url().should('include', '/mydspace');
+
   });
 
   it('should let you take task from workflow', () => {
@@ -222,20 +244,30 @@ describe('My DSpace page', () => {
     //Await backend search response
     cy.wait('@workflowSearch');
 
-    //Check that we have at least one item and that they all have the archived badge.
-    cy.get('[data-test="objects"]')
-      .find('[data-test="list-object"]')
-      .each(($item) => {
-        cy.wrap($item)
-          .find('ds-claimed-task-actions, ds-pool-task-actions').should('exist')
-          .within(() => {
-            cy.get('button, a.btn').each(($btn) => {
-              cy.wrap($btn)
-                .should('exist')
-                .and('be.visible')
-                .and('not.be.disabled');
-            });
-          });
+    //Validate URL
+    cy.url().should('include', 'configuration=workflow');
+
+    //Wait to render the list and at leat one item
+    cy.get('[data-test="list-object"]').should('have.length.greaterThan', 0);
+    cy.get('[data-test="claim-button"]').should('exist');
+
+    //Check that we have at least one item in worflow search, the item have claim-button and can click in it.
+    cy.get('[data-test="list-object"]')
+      .then(($items) => {
+        const itemWithClaim = [...$items].find(item =>
+          item.querySelector('[data-test="claim-button"]')
+        );
+        expect(itemWithClaim, 'item with claim button').to.exist;
+        cy.wrap(itemWithClaim).as('selectedItem');
+        cy.wrap(itemWithClaim).within(() => {
+          cy.get('ds-pool-task-actions').should('exist');
+          cy.get('[data-test="claim-button"]').click();
+        });
       });
+
+    //Finally, when you click the ‘Claim’ button, the actions for the selected item change
+    cy.get('@selectedItem').within(() => {
+      cy.get('ds-claimed-task-actions').should('exist');
+    });
   });
 });
