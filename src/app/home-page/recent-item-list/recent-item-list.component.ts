@@ -27,10 +27,8 @@ import {
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginationService } from '../../core/pagination/pagination.service';
-import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';
 import { Item } from '../../core/shared/item.model';
 import { toDSpaceObjectListRD } from '../../core/shared/operators';
-import { SearchService } from '../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import {
@@ -41,13 +39,13 @@ import { ErrorComponent } from '../../shared/error/error.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { ListableObjectComponentLoaderComponent } from '../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import {
   followLink,
   FollowLinkConfig,
 } from '../../shared/utils/follow-link-config.model';
 import { setPlaceHolderAttributes } from '../../shared/utils/object-list-utils';
 import { VarDirective } from '../../shared/utils/var.directive';
+import { SearchResultsDataService } from '../../shared/search/services/search-results.data.service';
 
 @Component({
   selector: 'ds-recent-item-list',
@@ -83,7 +81,7 @@ export class RecentItemListComponent implements OnInit, OnDestroy {
   private _placeholderFontClass: string;
 
   constructor(
-    private searchService: SearchService,
+    private searchResultsService: SearchResultsDataService,
     private paginationService: PaginationService,
     public searchConfigurationService: SearchConfigurationService,
     protected elementRef: ElementRef,
@@ -108,13 +106,12 @@ export class RecentItemListComponent implements OnInit, OnDestroy {
       linksToFollow.push(followLink('accessStatus'));
     }
 
-    this.itemRD$ = this.searchService.search(
-      new PaginatedSearchOptions({
-        pagination: this.paginationConfig,
-        dsoTypes: [DSpaceObjectType.ITEM],
+    this.itemRD$ = this.searchResultsService.searchObjects(
+      {
+        currentPage: this.paginationConfig.currentPage,
+        elementsPerPage: this.paginationConfig.pageSize,
         sort: this.sortConfig,
-      }),
-      undefined,
+      },
       undefined,
       undefined,
       ...linksToFollow,

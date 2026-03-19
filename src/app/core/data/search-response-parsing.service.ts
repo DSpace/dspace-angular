@@ -11,6 +11,7 @@ import {
 } from '../shared/metadata.models';
 import { DspaceRestResponseParsingService } from './dspace-rest-response-parsing.service';
 import { RestRequest } from './rest-request.model';
+import { getClassForType } from '../cache/builders/build-decorators';
 
 @Injectable({ providedIn: 'root' })
 export class SearchResponseParsingService extends DspaceRestResponseParsingService {
@@ -35,13 +36,6 @@ export class SearchResponseParsingService extends DspaceRestResponseParsingServi
         return mdMap;
       });
 
-    const dsoSelfLinks = payload._embedded.objects
-      .filter((object) => hasValue(object._embedded))
-      .map((object) => object._embedded.indexableObject)
-      .map((dso) => this.process(dso, request))
-      .map((obj) => obj._links.self.href)
-      .reduce((combined, thisElement) => [...combined, thisElement], []);
-
     const objects = payload._embedded.objects
       .filter((object) => hasValue(object._embedded))
       .map((object, index) => Object.assign({}, object, {
@@ -49,7 +43,10 @@ export class SearchResponseParsingService extends DspaceRestResponseParsingServi
         hitHighlights: hitHighlights[index],
       }));
     payload.objects = objects;
-    const deserialized: any = new DSpaceSerializer(SearchObjects).deserialize(payload);
+    const deserialized: SearchObjects<any> = new DSpaceSerializer(SearchObjects).deserialize(payload);
+    deserialized.page.forEach((result) => {
+      result.indexableObject = new DSpaceSerializer(getClassForType(result.indexableObject.type)).deserialize(result.indexableObject);
+    });
     deserialized.pageInfo = this.processPageInfo(payload);
     this.addToObjectCache(deserialized, request, data);
     return new ParsedResponse(data.statusCode, deserialized._links.self);
