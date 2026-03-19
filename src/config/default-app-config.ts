@@ -403,7 +403,7 @@ export class DefaultAppConfig implements AppConfig {
     },
     // If true, the search result in item page will display relations based on authority.
     // If false,the search result in item page will display default DSpace relations.
-    showAuthorithyRelations: true,
+    showAuthorithyRelations: false,
   };
 
   // Community Page Config
