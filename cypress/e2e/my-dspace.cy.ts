@@ -255,9 +255,9 @@ describe('My DSpace page', () => {
     cy.get('[data-test="list-object"]')
       .then(($items) => {
         const itemWithClaim = [...$items].find(item =>
-          item.querySelector('[data-test="claim-button"]')
+          item.querySelector('[data-test="claim-button"]'),
         );
-        expect(itemWithClaim, 'item with claim button').to.exist;
+        cy.wrap(itemWithClaim).should('exist');
         cy.wrap(itemWithClaim).as('selectedItem');
         cy.wrap(itemWithClaim).within(() => {
           cy.get('ds-pool-task-actions').should('exist');

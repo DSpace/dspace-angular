@@ -15,6 +15,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { SearchManager } from '@dspace/core/browse/search-manager';
 import {
   SortDirection,
   SortOptions,
@@ -138,6 +139,9 @@ const searchServiceStub = jasmine.createSpyObj('SearchService', {
   getSearchConfigurationFor: createSuccessfulRemoteDataObject$(searchConfig),
   trackSearch: {},
 }) as SearchService;
+const searchManagerStub = jasmine.createSpyObj('SearchManager', {
+  search: mockResultsRD$,
+});
 const queryParam = 'test query';
 const hiddenQuery = 'hidden query';
 const scopeParam = '7669c72a-3f2a-451f-a3b9-9210e7a4c02f';
@@ -216,6 +220,7 @@ export function configureSearchComponentTestingModule(compType, additionalDeclar
     imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule, NgbCollapseModule, compType, ...additionalDeclarations],
     providers: [
       { provide: SearchService, useValue: searchServiceStub },
+      { provide: SearchManager, useValue: searchManagerStub },
       {
         provide: CommunityDataService,
         useValue: jasmine.createSpyObj('communityService', ['findById', 'findAll']),
@@ -443,7 +448,7 @@ describe('SearchComponent', () => {
         comp.ngOnInit();
         tick(100);
         //Check that the last method from which the search depend upon is being called
-        expect(searchServiceStub.search).toHaveBeenCalled();
+        expect(searchManagerStub.search).toHaveBeenCalled();
       }));
     });
   });

@@ -24,6 +24,7 @@ jobs:
       # Spin up UI on 127.0.0.1 to avoid host resolution issues in e2e tests with Node 20+
       DSPACE_UI_HOST: 127.0.0.1
       DSPACE_UI_PORT: 4000
+      DSPACE_UI_BASEURL: http://127.0.0.1:4000
       # Ensure all SSR caching is disabled in test environment
       DSPACE_CACHE_SERVERSIDE_BOTCACHE_MAX: 0
       DSPACE_CACHE_SERVERSIDE_ANONYMOUSCACHE_MAX: 0

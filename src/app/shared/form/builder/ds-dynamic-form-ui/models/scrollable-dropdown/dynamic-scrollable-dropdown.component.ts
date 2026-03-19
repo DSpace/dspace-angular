@@ -35,8 +35,10 @@ import {
 import {
   NgbDropdown,
   NgbDropdownModule,
+  NgbModal,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
+  DynamicFormControlCustomEvent,
   DynamicFormLayoutService,
   DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
@@ -53,10 +55,11 @@ import {
   take,
   tap,
 } from 'rxjs/operators';
+import { FormBuilderService } from 'src/app/shared/form/builder/form-builder.service';
+import { SubmissionService } from 'src/app/submission/submission.service';
 
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
 import { DynamicScrollableDropdownModel } from './dynamic-scrollable-dropdown.model';
-
 
 /**
  * Component representing a dropdown input field
@@ -82,6 +85,7 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
   @Output() blur: EventEmitter<any> = new EventEmitter<any>();
   @Output() change: EventEmitter<any> = new EventEmitter<any>();
   @Output() focus: EventEmitter<any> = new EventEmitter<any>();
+  @Output() customEvent: EventEmitter<DynamicFormControlCustomEvent> = new EventEmitter();
 
   public currentValue: Observable<string>;
   public loading = false;
@@ -111,10 +115,13 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
     protected cdr: ChangeDetectorRef,
     protected layoutService: DynamicFormLayoutService,
     protected validationService: DynamicFormValidationService,
+    protected formBuilderService: FormBuilderService,
+    protected modalService: NgbModal,
+    protected submissionService: SubmissionService,
     protected parentInjector: Injector,
     @Inject(APP_DATA_SERVICES_MAP) private dataServiceMap: LazyDataServicesMap,
   ) {
-    super(vocabularyService, layoutService, validationService);
+    super(vocabularyService, layoutService, validationService, formBuilderService, modalService, submissionService);
   }
 
   /**
