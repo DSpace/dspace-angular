@@ -77,8 +77,6 @@
     }
   },
   "dependencies": {
-    "@4science_ng-dynamic-forms/core": "^19.1.0",
-    "@4science_ng-dynamic-forms/ui-ng-bootstrap": "^19.1.0",
     "@angular/animations": "^20.3.17",
     "@angular/cdk": "^20.2.14",
     "@angular/common": "^20.3.17",
@@ -93,6 +91,8 @@
     "@angular/ssr": "^20.3.19",
     "@kolkov/ngx-gallery": "^2.0.1",
     "@ng-bootstrap/ng-bootstrap": "^15.1.2",
+    "@4science_ng-dynamic-forms/core": "^19.1.0",
+    "@4science_ng-dynamic-forms/ui-ng-bootstrap": "^19.1.0",
     "@ngrx/effects": "^20.1.0",
     "@ngrx/router-store": "^20.1.0",
     "@ngrx/store": "^20.1.0",
@@ -167,7 +167,6 @@
     "@fortawesome/fontawesome-free": "^6.7.2",
     "@ngrx/store-devtools": "^20.1.0",
     "@ngtools/webpack": "^20.3.10",
-    "@smarttools/eslint-plugin-rxjs": "^1.0.22",
     "@stylistic/eslint-plugin": "^3.1.0",
     "@types/deep-freeze": "0.1.5",
     "@types/ejs": "^3.1.2",
@@ -197,6 +196,7 @@
     "eslint-plugin-jsdoc": "^61.7.1",
     "eslint-plugin-jsonc": "^2.21.1",
     "eslint-plugin-lodash": "^7.4.0",
+    "@smarttools/eslint-plugin-rxjs": "^1.0.22",
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "eslint-plugin-unused-imports": "^4.4.1",
     "express-static-gzip": "^2.2.0",
