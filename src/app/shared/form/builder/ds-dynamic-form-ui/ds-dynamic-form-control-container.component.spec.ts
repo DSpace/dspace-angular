@@ -118,6 +118,8 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
 
   const vocabularyOptions: VocabularyOptions = {
     name: 'type_programme',
+    metadata: null,
+    scope: null,
     closed: false,
   };
   const formModel = [

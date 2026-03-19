@@ -74,13 +74,15 @@ jobs:
       DSPACE_REST_HOST: 127.0.0.1
       # Override default dspace.ui.url to also use 127.0.0.1.
       dspace__P__ui__P__url: http://127.0.0.1:4000
+      # Override default ui.baseUrl to also use 127.0.0.1. This must match 'dspace.ui.url' for SSR to be enabled.
+      DSPACE_UI_BASEURL: http://127.0.0.1:4000
     steps:
       # Checkout our codebase (to get access to Docker Compose scripts)
       - name: Checkout codebase
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       # Download Docker image artifacts (which were just built by reusable-docker-build.yml)
       - name: Download Docker image artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           # Download all amd64 Docker images (TAR files) into the /tmp/docker directory
           pattern: docker-image-*-linux-amd64

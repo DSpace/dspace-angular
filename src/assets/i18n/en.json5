@@ -2143,6 +2143,40 @@
 
   "form.other-information.orcid": "ORCID",
 
+  "form.other-information.person_identifier_orcid": "ORCID",
+
+  "form.other-information.oairecerif_author_affiliation": "Affiliation",
+
+  "form.other-information.oairecerif_editor_affiliation": "Affiliation",
+
+  "form.other-information.person_identifier_orcid": "ORCID iD",
+
+  "form.other-information.institution-affiliation-name": "Affiliation(s)",
+
+  "form.other-information.dc_relation_grantno": "Grant Number",
+
+  "form.other-information.not-available": "Not available",
+
+  "form.other-information.ror_orgunit_id": "ROR ID",
+
+  "form.other-information.ror_orgunit_type": "ROR type",
+
+  "form.other-information.ror_orgunit_acronym": "ROR acronym",
+
+  "form.other-information.ror_orgunit_countryName": "ROR country",
+
+  "form.entry.source.local": "",
+
+  "form.entry.source.orcid": "",
+
+  "form.entry.source.ror": "",
+
+  "form.entry.source.openaire": "",
+
+  "form.entry.source.zdb": "",
+
+  "form.entry.source.sherpa": "- Sherpa Romeo",
+
   "form.remove": "Remove",
 
   "form.save": "Save",
@@ -2287,7 +2321,7 @@
 
   "info.accessibility-settings.disableNotificationTimeOut.label": "Automatically close notifications after time out",
 
-  "info.accessibility-settings.disableNotificationTimeOut.hint": "When this toggle is activated, notifications will close automatically after the time out passes. When deactivated, notifications will remain open untill manually closed.",
+  "info.accessibility-settings.disableNotificationTimeOut.hint": "When this toggle is activated, notifications will close automatically after the time out passes. When deactivated, notifications will remain open until manually closed.",
 
   "info.accessibility-settings.failed-notification": "Failed to save accessibility settings",
 
@@ -2597,6 +2631,8 @@
 
   "item.edit.metadata.edit.language": "Edit language",
 
+  "item.edit.metadata.edit.authority": "Edit authority",
+
   "item.edit.metadata.edit.value": "Edit value",
 
   "item.edit.metadata.edit.authority.key": "Edit authority key",
@@ -2626,6 +2662,8 @@
   "item.edit.metadata.headers.field": "Field",
 
   "item.edit.metadata.headers.language": "Lang",
+
+  "item.edit.metadata.headers.authority": "Authority",
 
   "item.edit.metadata.headers.value": "Value",
 
@@ -2904,6 +2942,8 @@
   "item.page.volume-title": "Volume Title",
 
   "item.page.dcterms.spatial": "Geospatial point",
+
+  "item.page.doi": "DOI",
 
   "item.search.results.head": "Item Search Results",
 
@@ -3287,6 +3327,8 @@
 
   "itemtemplate.edit.metadata.edit.language": "Edit language",
 
+  "itemtemplate.edit.metadata.edit.authority": "Edit authority",
+
   "itemtemplate.edit.metadata.edit.value": "Edit value",
 
   "itemtemplate.edit.metadata.edit.buttons.confirm": "Confirm",
@@ -3310,6 +3352,8 @@
   "itemtemplate.edit.metadata.headers.language": "Lang",
 
   "itemtemplate.edit.metadata.headers.value": "Value",
+
+  "itemtemplate.edit.metadata.headers.authority": "Authority",
 
   "itemtemplate.edit.metadata.metadatafield": "Edit field",
 
@@ -3943,6 +3987,8 @@
 
   "quality-assurance.event.reason": "Reason",
 
+  "orcid.badge.tooltip": "Connected to ORCID",
+
   "orgunit.listelement.badge": "Organizational Unit",
 
   "orgunit.listelement.no-title": "Untitled",
@@ -4161,11 +4207,11 @@
 
   "process.overview.unknown.user": "Unknown",
 
-  "process.bulk.delete.error.head": "Error on deleteing process",
+  "process.bulk.delete.error.head": "Error on deleting process",
 
   "process.bulk.delete.error.body": "The process with ID {{processId}} could not be deleted. The remaining processes will continue being deleted. ",
 
-  "process.bulk.delete.success": "{{count}} process(es) have been succesfully deleted",
+  "process.bulk.delete.success": "{{count}} process(es) have been successfully deleted",
 
   "profile.breadcrumbs": "Update Profile",
 
@@ -4276,6 +4322,8 @@
   "publication.page.titleprefix": "Publication: ",
 
   "publication.page.volume-title": "Volume Title",
+
+  "publication.page.doi": "DOI",
 
   "publication.search.results.head": "Publication Search Results",
 
@@ -5826,7 +5874,7 @@
 
   "submission.sections.sherpa.record.information.uri": "URI",
 
-  "submission.sections.sherpa.error.message": "There was an error retrieving sherpa informations",
+  "submission.sections.sherpa.error.message": "There was an error retrieving sherpa information",
 
   "submission.submit.breadcrumbs": "New submission",
 
@@ -6389,6 +6437,8 @@
   "person.orcid-tooltip.not-authenticated": "{{orcid}} (unconfirmed)",
 
   "home.recent-submissions.head": "Recent Submissions",
+
+  "authority-confidence.search-label": "Search",
 
   "listable-notification-object.default-message": "This object couldn't be retrieved",
 
@@ -7160,7 +7210,7 @@
 
   "item.page.cc.license.title": "Creative Commons license",
 
-  "item.page.cc.license.disclaimer": "Except where otherwised noted, this item's license is described as",
+  "item.page.cc.license.disclaimer": "Except where otherwise noted, this item's license is described as",
 
   "browse.search-form.placeholder": "Search the repository",
 
@@ -7291,4 +7341,26 @@
   "item.preview.organization.address.addressLocality": "City",
 
   "item.preview.organization.alternateName": "Alternative name",
+
+  "metadata-link-view.orcid.logo": "ORCID logo",
+
+  "metadata-link-view.source.logo": "Source logo",
+
+  "metadata-link-view.popover.label.Person.dc.title": "Fullname",
+
+  "metadata-link-view.popover.label.Person.person.affiliation.name": "Main affiliation",
+
+  "metadata-link-view.popover.label.Person.person.email": "Email",
+
+  "metadata-link-view.popover.label.Person.person.identifier.orcid": "ORCID",
+
+  "metadata-link-view.popover.label.Person.dc.description.abstract": "Abstract",
+
+  "metadata-link-view.popover.label.Person.person.jobTitle": "Job title",
+
+  "metadata-link-view.popover.label.other.dc.title": "Title",
+
+  "metadata-link-view.popover.label.other.dc.description.abstract": "Description",
+
+  "metadata-link-view.popover.label.more-info": "More info",
 }
