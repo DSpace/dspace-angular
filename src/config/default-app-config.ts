@@ -748,7 +748,7 @@ export class DefaultAppConfig implements AppConfig {
         },
       },
     ],
-    showDownloadLinkAsAttachment: true,
+    showDownloadLinkAsAttachment: false,
     advancedAttachmentRendering: {
       pagination: {
         enabled: true,
