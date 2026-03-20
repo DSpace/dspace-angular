@@ -239,7 +239,11 @@ describe('My DSpace page', () => {
     }).as('workflowSearch');
 
     //Change view to see workflow tasks
-    cy.get('ds-search-switch-configuration select').select('2: Object');
+    cy.get('ds-search-switch-configuration select')
+      .find('option[data-test="workflow"]')
+      .then(option => {
+        cy.get('ds-search-switch-configuration select').select(option.val());
+      });
 
     //Await backend search response
     cy.wait('@workflowSearch');
