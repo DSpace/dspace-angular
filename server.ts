@@ -45,6 +45,7 @@ import { buildAppConfig } from './src/config/config.server';
 import {
   APP_CONFIG,
   AppConfig,
+  toClientConfig,
 } from './src/config/app-config.interface';
 import { extendEnvironmentWithAppConfig } from './src/config/config.util';
 import { ServerHashedFileMapping } from './src/modules/dynamic-hash/hashed-file-mapping.server';
@@ -149,7 +150,7 @@ export function app() {
   server.get('/robots.txt', (req, res) => {
     res.setHeader('content-type', 'text/plain');
     res.render('assets/robots.txt.ejs', {
-      'origin': req.protocol + '://' + req.headers.host,
+      'origin': environment.ui.baseUrl,
     });
   });
 
@@ -249,7 +250,11 @@ function ngApp(req, res, next) {
  */
 function serverSideRender(req, res, next, sendToUser: boolean = true) {
   const { protocol, originalUrl, baseUrl, headers } = req;
-  const commonEngine = new CommonEngine({ enablePerformanceProfiler: environment.ssr.enablePerformanceProfiler });
+  // "allowedHosts" specifies which hosts are allowed to be rendered via SSR.
+  // By default, this is set to the host of the UI's baseUrl.
+  const commonEngine = new CommonEngine({ enablePerformanceProfiler: environment.ssr.enablePerformanceProfiler,
+                                          allowedHosts: [ new URL(environment.ui.baseUrl).hostname ],
+                                        });
   // Render the page via SSR (server side rendering)
   commonEngine
     .render({
@@ -270,7 +275,7 @@ function serverSideRender(req, res, next, sendToUser: boolean = true) {
         },
         {
           provide: APP_CONFIG,
-          useValue: environment,
+          useValue: toClientConfig(environment as AppConfig),
         },
       ],
     })
