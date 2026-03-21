@@ -232,6 +232,9 @@ describe('My DSpace page', () => {
     //Wait for the page to display
     cy.get('ds-my-dspace-page').should('be.visible');
 
+    //And wait to list is ready
+    cy.get('[data-test="objects"]').should('be.visible');
+
     //Intercept to await backend response
     cy.intercept({
       method: 'GET',
@@ -239,10 +242,11 @@ describe('My DSpace page', () => {
     }).as('workflowSearch');
 
     //Change view to see workflow tasks
-    cy.get('ds-search-switch-configuration select')
-      .find('option[data-test="workflow"]')
-      .then(option => {
-        cy.get('ds-search-switch-configuration select').select(option.val());
+    cy.get('ds-search-switch-configuration select option[data-test="workflow"]')
+      .should('exist')
+      .invoke('attr', 'value')
+      .then(value => {
+        cy.get('ds-search-switch-configuration select').select(value);
       });
 
     //Await backend search response
