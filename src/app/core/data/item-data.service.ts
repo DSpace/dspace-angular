@@ -58,7 +58,6 @@ import {
   PatchData,
   PatchDataImpl,
 } from './base/patch-data';
-import { BundleDataService } from './bundle-data.service';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 import { FindListOptions } from './find-list-options.model';
 import { PaginatedList } from './paginated-list.model';
@@ -93,7 +92,6 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
     protected notificationsService: NotificationsService,
     protected comparator: DSOChangeAnalyzer<Item>,
     protected browseService: BrowseService,
-    protected bundleService: BundleDataService,
     protected constructIdEndpoint: ConstructIdEndpoint = (endpoint, resourceID) => `${endpoint}/${resourceID}`,
   ) {
     super(linkPath, requestService, rdbService, objectCache, halService, undefined, constructIdEndpoint);
@@ -256,7 +254,12 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
       this.requestService.send(request);
     });
 
-    return this.rdbService.buildFromRequestUUID(requestId);
+    return this.rdbService.buildFromRequestUUIDAndAwait(requestId, () =>
+      hrefObs.pipe(
+        take(1),
+        switchMap((href: string) => this.requestService.setStaleByHrefSubstring(href)),
+      ),
+    );
   }
 
   /**
@@ -440,8 +443,7 @@ export class ItemDataService extends BaseItemDataService {
     protected notificationsService: NotificationsService,
     protected comparator: DSOChangeAnalyzer<Item>,
     protected browseService: BrowseService,
-    protected bundleService: BundleDataService,
   ) {
-    super('items', requestService, rdbService, objectCache, halService, notificationsService, comparator, browseService, bundleService);
+    super('items', requestService, rdbService, objectCache, halService, notificationsService, comparator, browseService);
   }
 }

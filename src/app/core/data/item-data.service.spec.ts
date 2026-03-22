@@ -16,6 +16,7 @@ import { ExternalSourceEntry } from '../shared/external-source-entry.model';
 import { HALEndpointServiceStub } from '../testing/hal-endpoint-service.stub';
 import { getMockRemoteDataBuildService } from '../testing/remote-data-build.service.mock';
 import { getMockRequestService } from '../testing/request.service.mock';
+import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
 import { testCreateDataImplementation } from './base/create-data.spec';
 import { testDeleteDataImplementation } from './base/delete-data.spec';
 import { testPatchDataImplementation } from './base/patch-data.spec';
@@ -52,9 +53,6 @@ describe('ItemDataService', () => {
   const store = {} as Store<CoreState>;
   const objectCache = {} as ObjectCacheService;
   const halEndpointService: any = new HALEndpointServiceStub(itemEndpoint);
-  const bundleService = jasmine.createSpyObj('bundleService', {
-    findByHref: {},
-  });
 
   const scopeID = '4af28e99-6a9c-4036-a199-e1b587046d39';
   const options = Object.assign(new FindListOptions(), {
@@ -93,12 +91,11 @@ describe('ItemDataService', () => {
       notificationsService,
       comparator,
       browseService,
-      bundleService,
     );
   }
 
   describe('composition', () => {
-    const initService = () => new ItemDataService(null, null, null, null, null, null, null, null);
+    const initService = () => new ItemDataService(null, null, null, null, null, null, null);
     testCreateDataImplementation(initService);
     testPatchDataImplementation(initService);
     testDeleteDataImplementation(initService);
@@ -194,6 +191,29 @@ describe('ItemDataService', () => {
     it('should send a POST request', (done) => {
       result.subscribe(() => {
         expect(requestService.send).toHaveBeenCalledWith(jasmine.any(PostRequest));
+        done();
+      });
+    });
+
+    it('should call setStaleByHrefSubstring on the bundles endpoint', (done) => {
+      const rdbServiceWithSpy = Object.assign({}, rdbService, {
+        buildFromRequestUUIDAndAwait: (requestUUID$: any, callback: any) => {
+          // Execute callback and subscribe to verify cache invalidation
+          callback().subscribe();
+          return createSuccessfulRemoteDataObject$({});
+        },
+      });
+      service = new ItemDataService(
+        requestService,
+        rdbServiceWithSpy as any,
+        objectCache,
+        halEndpointService,
+        notificationsService,
+        comparator,
+        browseService,
+      );
+      service.createBundle(itemId, bundleName).subscribe(() => {
+        expect(requestService.setStaleByHrefSubstring).toHaveBeenCalled();
         done();
       });
     });

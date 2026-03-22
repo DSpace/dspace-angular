@@ -30,20 +30,40 @@
             </tr>
           </thead>
           <tbody cdkDropList (cdkDropListDropped)="drop($event)">
-            <tr class="bundle-row">
-              <th id="{{ bundleName }}" class="row-element" colspan="3" scope="colgroup">
-                {{'item.edit.bitstreams.bundle.name' | translate:{ name: bundleName } }}
+            <tr class="bundle-row" [ngClass]="{'table-danger': isMarkedForRemoval()}">
+              <th id="{{ bundleName }}" class="row-element bundle-row-name" colspan="3" scope="colgroup">
+                <div class="d-flex flex-column flex-lg-row align-items-lg-center gap-2">
+                  <span>{{'item.edit.bitstreams.bundle.name' | translate:{ name: bundleName } }}</span>
+                  @if (isMarkedForRemoval()) {
+                    <span class="badge bg-danger text-white bundle-remove-warning text-wrap">
+                      <i class="fas fa-exclamation-triangle me-1"></i>
+                      {{ 'item.edit.bitstreams.bundle.remove-warning' | translate }}
+                    </span>
+                  }
+                </div>
               </th>
-              <td class="text-center row-element">
+              <td class="text-end row-element bundle-row-actions {{ columnSizes.columns[3].buildClasses() }}">
+                <div class="d-flex justify-content-end w-100">
                 <div class="btn-group">
                   <button [routerLink]="[itemPageRoute, 'bitstreams', 'new']"
                     [queryParams]="{bundle: bundle.id}"
+                    [dsBtnDisabled]="isMarkedForRemoval()"
                     [attr.aria-label]="'item.edit.bitstreams.bundle.edit.buttons.upload' | translate"
                     class="btn btn-outline-success btn-sm"
                     title="{{'item.edit.bitstreams.bundle.edit.buttons.upload' | translate}}">
                     <i class="fas fa-upload fa-fw"></i>
                   </button>
-                  <div ngbDropdown #paginationControls="ngbDropdown" class="btn-group float-end p-0"
+                  <button [dsBtnDisabled]="!canRemoveBundle()" (click)="removeBundle()"
+                    class="btn btn-outline-danger btn-sm"
+                    title="{{'item.edit.bitstreams.bundle.edit.buttons.remove' | translate}}">
+                    <i class="fas fa-trash-alt fa-fw"></i>
+                  </button>
+                  <button [dsBtnDisabled]="!canUndoBundleRemove()" (click)="undoBundleRemove()"
+                    class="btn btn-outline-warning btn-sm"
+                    title="{{'item.edit.bitstreams.bundle.edit.buttons.undo' | translate}}">
+                    <i class="fas fa-undo-alt fa-fw"></i>
+                  </button>
+                  <div ngbDropdown #paginationControls="ngbDropdown" class="btn-group p-0"
                        container="body" placement="bottom-right">
                     <button class="btn btn-outline-secondary btn-sm" id="paginationControls" ngbDropdownToggle
                       [title]="'pagination.options.description' | translate"
@@ -71,11 +91,13 @@
                     </ul>
                   </div>
                 </div>
+                </div>
               </td>
             </tr>
             @for (entry of (tableEntries$ | async); track entry) {
               @if (updates[entry.id]; as update) {
                 <tr [ngClass]="getRowClass(update, entry)" class="bitstream-row" cdkDrag
+                  [cdkDragDisabled]="isMarkedForRemoval()"
                   (cdkDragStarted)="dragStart()" (cdkDragEnded)="dragEnd()">
                   <th class="bitstream-name row-element {{ columnSizes.columns[0].buildClasses() }}"
                     scope="row" id="{{ entry.nameStripped }}" headers="{{ bundleName }} name">
@@ -110,7 +132,7 @@
                           <i class="fas fa-edit fa-fw"></i>
                         </button>
                         <button [dsBtnDisabled]="!canRemove(update)" (click)="remove(entry.bitstream)"
-                          [attr.aria-label]=" 'item. edit bitstreams.edit.buttons.remove' | translate"
+                          [attr.aria-label]="'item.edit.bitstreams.edit.buttons.remove' | translate"
                           class="btn btn-outline-danger btn-sm"
                           title="{{'item.edit.bitstreams.edit.buttons.remove' | translate}}">
                           <i class="fas fa-trash-alt fa-fw"></i>
