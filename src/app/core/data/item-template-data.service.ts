@@ -12,6 +12,7 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
 import { CreateDataImpl } from './base/create-data';
 import { IdentifiableDataService } from './base/identifiable-data.service';
+import { BundleDataService } from './bundle-data.service';
 import { CollectionDataService } from './collection-data.service';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 import { BaseItemDataService } from './item-data.service';
@@ -75,9 +76,10 @@ export class ItemTemplateDataService extends BaseItemDataService {
     protected notificationsService: NotificationsService,
     protected comparator: DSOChangeAnalyzer<Item>,
     protected browseService: BrowseService,
+    protected bundleService: BundleDataService,
     protected collectionService: CollectionDataService,
   ) {
-    super('itemtemplates', requestService, rdbService, objectCache, halService, notificationsService, comparator, browseService);
+    super('itemtemplates', requestService, rdbService, objectCache, halService, notificationsService, comparator, browseService, bundleService);
 
     this.byCollection = new CollectionItemTemplateDataService(requestService, rdbService, objectCache, halService, notificationsService, collectionService);
   }

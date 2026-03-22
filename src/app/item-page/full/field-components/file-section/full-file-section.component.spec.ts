@@ -8,6 +8,7 @@ import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
+import { LocaleService } from '@dspace/core/locale/locale.service';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { PaginationService } from '@dspace/core/pagination/pagination.service';
 import { Bitstream } from '@dspace/core/shared/bitstream.model';
@@ -37,6 +38,12 @@ import { FullFileSectionComponent } from './full-file-section.component';
 describe('FullFileSectionComponent', () => {
   let comp: FullFileSectionComponent;
   let fixture: ComponentFixture<FullFileSectionComponent>;
+  let localeService: any;
+  const languageList = ['en;q=1', 'de;q=0.8'];
+  const mockLocaleService = jasmine.createSpyObj('LocaleService', {
+    getCurrentLanguageCode: jasmine.createSpy('getCurrentLanguageCode'),
+    getLanguageCodeList: of(languageList),
+  });
 
   const mockBitstream: Bitstream = Object.assign(new Bitstream(),
     {
@@ -93,6 +100,7 @@ describe('FullFileSectionComponent', () => {
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: SearchConfigurationService, useValue: jasmine.createSpyObj(['getCurrentConfiguration']) },
         { provide: PaginationService, useValue: paginationService },
+        { provide: LocaleService, useValue: mockLocaleService },
         { provide: APP_CONFIG, useValue: environment },
       ],
       schemas: [NO_ERRORS_SCHEMA],
@@ -104,6 +112,8 @@ describe('FullFileSectionComponent', () => {
   }));
 
   beforeEach(waitForAsync(() => {
+    localeService = TestBed.inject(LocaleService);
+    localeService.getCurrentLanguageCode.and.returnValue(of('en'));
     fixture = TestBed.createComponent(FullFileSectionComponent);
     comp = fixture.componentInstance;
     fixture.detectChanges();

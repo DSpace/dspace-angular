@@ -46,7 +46,6 @@ import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { provideEnvironmentNgxMask } from 'ngx-mask';
 
 import { environment } from '../environments/environment';
-import { EagerThemesModule } from '../themes/eager-themes.module';
 import { appEffects } from './app.effects';
 import { MENUS } from './app.menus';
 import {
@@ -99,7 +98,6 @@ export const commonAppConfig: ApplicationConfig = {
       StoreModule.forRoot(appReducers, storeModuleConfig),
       StoreRouterConnectingModule.forRoot(),
       StoreDevModules,
-      EagerThemesModule,
       RootModule,
       ListableModule.withEntryComponents(),
     ),

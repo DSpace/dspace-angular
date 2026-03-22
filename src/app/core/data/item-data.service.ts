@@ -15,7 +15,10 @@ import {
   isNotEmptyOperator,
 } from '@dspace/shared/utils/empty.util';
 import { Operation } from 'fast-json-patch';
-import { Observable } from 'rxjs';
+import {
+  Observable,
+  of,
+} from 'rxjs';
 import {
   distinctUntilChanged,
   filter,
@@ -24,6 +27,7 @@ import {
   switchMap,
   take,
 } from 'rxjs/operators';
+import { validate as uuidValidate } from 'uuid';
 
 import { BrowseService } from '../browse/browse.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
@@ -34,6 +38,7 @@ import { NotificationsService } from '../notification-system/notifications.servi
 import { Bundle } from '../shared/bundle.model';
 import { Collection } from '../shared/collection.model';
 import { ExternalSourceEntry } from '../shared/external-source-entry.model';
+import { FollowLinkConfig } from '../shared/follow-link-config.model';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
@@ -58,8 +63,11 @@ import {
   PatchData,
   PatchDataImpl,
 } from './base/patch-data';
+import { SearchDataImpl } from './base/search-data';
+import { BundleDataService } from './bundle-data.service';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 import { FindListOptions } from './find-list-options.model';
+import { ItemSearchParams } from './item-search-params';
 import { PaginatedList } from './paginated-list.model';
 import { ResponseParsingService } from './parsing.service';
 import { RemoteData } from './remote-data';
@@ -82,6 +90,9 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
   private createData: CreateData<Item>;
   private patchData: PatchData<Item>;
   private deleteData: DeleteData<Item>;
+  private searchData: SearchDataImpl<Item>;
+  protected searchFindAllByIdPath = 'findAllById';
+
 
   protected constructor(
     protected linkPath,
@@ -92,6 +103,7 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
     protected notificationsService: NotificationsService,
     protected comparator: DSOChangeAnalyzer<Item>,
     protected browseService: BrowseService,
+    protected bundleService: BundleDataService,
     protected constructIdEndpoint: ConstructIdEndpoint = (endpoint, resourceID) => `${endpoint}/${resourceID}`,
   ) {
     super(linkPath, requestService, rdbService, objectCache, halService, undefined, constructIdEndpoint);
@@ -99,6 +111,7 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
     this.createData = new CreateDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive);
     this.patchData = new PatchDataImpl<Item>(this.linkPath, requestService, rdbService, objectCache, halService, comparator, this.responseMsToLive, this.constructIdEndpoint);
     this.deleteData = new DeleteDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive, this.constructIdEndpoint);
+    this.searchData = new SearchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
   }
 
   /**
@@ -352,6 +365,26 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
   }
 
   /**
+   * Find the list of items for which the current user has editing rights.
+   *
+   * @param query                       limit the returned collection to those with metadata values
+   *                                    matching the query terms
+   * @param options                     The [[FindListOptions]] object
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
+   * @return Observable<RemoteData<PaginatedList<Item>>>
+   *    item list
+   */
+  public findEditAuthorized(query: string, options: FindListOptions, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Item>[]): Observable<RemoteData<PaginatedList<Item>>> {
+    options = { ...options, searchParams: [new RequestParam('query', query)] };
+    return this.searchBy('findEditAuthorized', options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+  }
+
+  /**
    * Invalidate the cache of the item
    * @param itemUUID
    */
@@ -365,6 +398,24 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
    */
   public commitUpdates(method?: RestRequestMethod): void {
     this.patchData.commitUpdates(method);
+  }
+
+  /**
+   * Make a new FindListRequest with given search method
+   *
+   * @param searchMethod                The search method for the object
+   * @param options                     The [[FindListOptions]] object
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
+   * @return {Observable<RemoteData<PaginatedList<T>>}
+   *    Return an observable that emits response from the server
+   */
+  public searchBy(searchMethod: string, options?: FindListOptions, useCachedVersionIfAvailable?: boolean, reRequestOnStale?: boolean, ...linksToFollow: FollowLinkConfig<Item>[]): Observable<RemoteData<PaginatedList<Item>>> {
+    return this.searchData.searchBy(searchMethod, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
   /**
@@ -428,7 +479,132 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
     return this.createData.create(object, ...params);
   }
 
+  /**
+   * Returns an observable of {@link RemoteData} of an object, based on its custom URL, with a list of
+   * {@link FollowLinkConfig}, to automatically resolve {@link HALLink}s of the object
+   * @param id                          custom URL of object we want to retrieve
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
+   * @param projections                 List of {@link projections} used to pass as parameters
+   */
+  public findByCustomUrl(id: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, linksToFollow: FollowLinkConfig<Item>[], projections: string[] = []): Observable<RemoteData<Item>> {
+    const searchHref = 'findByCustomURL';
+
+    const options = Object.assign({}, {
+      searchParams: [
+        new RequestParam('q', id),
+      ],
+    });
+
+    projections.forEach((projection) => {
+      options.searchParams.push(new RequestParam('projection', projection));
+    });
+
+    const hrefObs = this.searchData.getSearchByHref(searchHref, options, ...linksToFollow);
+
+    return this.findByHref(hrefObs, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+  }
+
+
+  /**
+   * Invalidate cache of request findByCustomURL
+   *
+   * @param customUrl
+   * @param projections
+   */
+  public invalidateFindByCustomUrlCache(customUrl: string, projections: string[] = []): void {
+    const options: any = {
+      searchParams: [new RequestParam('q', customUrl)],
+    };
+
+    projections.forEach((p) => options.searchParams.push(new RequestParam('projection', p)));
+
+    this.searchData.getSearchByHref('findByCustomURL', options).pipe(take(1)).subscribe((href: string) => {
+      this.requestService.setStaleByHrefSubstring(href);
+      this.objectCache.remove(href);
+    });
+  }
+
+  /**
+   * Returns an observable of {@link RemoteData} of an object, based on its ID, with a list of
+   * {@link FollowLinkConfig}, to automatically resolve {@link HALLink}s of the object
+   * @param id                          ID of object we want to retrieve
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
+   */
+  public findById(id: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Item>[]): Observable<RemoteData<Item>> {
+    const href$ = this.getIDHrefObs(encodeURIComponent(id), ...linksToFollow);
+    return this.findByHref(href$, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+  }
+
+  /**
+   * Returns an observable of {@link RemoteData} of an object, based on its ID or custom URL if the parameter is not a valid id/uuid, with a list of
+   * {@link FollowLinkConfig}, to automatically resolve {@link HALLink}s of the object
+   * @param id                          ID of object we want to retrieve
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
+   */
+  public findByIdOrCustomUrl(id: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Item>[]): Observable<RemoteData<Item>> {
+    if (uuidValidate(id)) {
+      return this.findById(id, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+    } else {
+      return this.findByCustomUrl(id, useCachedVersionIfAvailable, reRequestOnStale, linksToFollow);
+    }
+  }
+
+  /**
+   * Search for a list of {@link Item}s using the "findAllById" search endpoint.
+   * @param uuidList                    UUID to the objects to search {@link Item}s for. Required.
+   * @param options                     {@link FindListOptions} to provide pagination and/or additional arguments
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
+   */
+  findAllById(uuidList: string[], options: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Item>[]): Observable<RemoteData<PaginatedList<Item>>> {
+    return of(new ItemSearchParams(uuidList)).pipe(
+      switchMap((params: ItemSearchParams) => {
+        return this.searchData.searchBy(this.searchFindAllByIdPath,
+          this.createSearchOptionsObjectsFindAllByID(params.uuidList, options), useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+      }),
+    );
+  }
+
+  /**
+   * Create {@link FindListOptions} with {@link RequestParam}s containing a "uuid" list
+   * @param uuidList  Required parameter values to add to {@link RequestParam} "id"
+   * @param options     Optional initial {@link FindListOptions} to add parameters to
+   */
+  private createSearchOptionsObjectsFindAllByID(uuidList: string[], options: FindListOptions = {}): FindListOptions {
+    let params = [];
+    if (isNotEmpty(options.searchParams)) {
+      params = [...options.searchParams];
+    }
+    uuidList.forEach((uuid) => {
+      params.push(new RequestParam('id', uuid));
+    });
+    return Object.assign(new FindListOptions(), options, {
+      searchParams: [...params],
+    });
+  }
+
 }
+
+
 
 /**
  * A service for CRUD operations on Items
@@ -443,7 +619,8 @@ export class ItemDataService extends BaseItemDataService {
     protected notificationsService: NotificationsService,
     protected comparator: DSOChangeAnalyzer<Item>,
     protected browseService: BrowseService,
+    protected bundleService: BundleDataService,
   ) {
-    super('items', requestService, rdbService, objectCache, halService, notificationsService, comparator, browseService);
+    super('items', requestService, rdbService, objectCache, halService, notificationsService, comparator, browseService, bundleService);
   }
 }
