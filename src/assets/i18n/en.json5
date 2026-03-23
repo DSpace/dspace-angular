@@ -17,7 +17,7 @@
 
   "500.link.home-page": "Take me to the home page",
 
-  "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page. ",
+  "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page.",
 
   "404.link.home-page": "Take me to the home page",
 
@@ -2359,7 +2359,7 @@
 
   "item.edit.bitstreams.bundle.name": "BUNDLE: {{ name }}",
 
-  "item.edit.bitstreams.bundle.table.aria-label": "Bitstreams in the  {{ bundle }} Bundle",
+  "item.edit.bitstreams.bundle.table.aria-label": "Bitstreams in the {{ bundle }} Bundle",
 
   "item.edit.bitstreams.bundle.tooltip": "You can move a bitstream to a different page by dropping it on the page number.",
 
@@ -2719,7 +2719,7 @@
 
   "item.edit.tabs.metadata.head": "Metadata",
 
-  "item.edit.tabs.metadata.title": "Item Edit -  Metadata",
+  "item.edit.tabs.metadata.title": "Item Edit - Metadata",
 
   "item.edit.tabs.relationships.head": "Relationships",
 
@@ -2771,7 +2771,7 @@
 
   "item.edit.tabs.status.labels.lastModified": "Last Modified",
 
-  "item.edit.tabs.status.title": "Item Edit -  Status",
+  "item.edit.tabs.status.title": "Item Edit - Status",
 
   "item.edit.tabs.versionhistory.head": "Version History",
 
@@ -2781,7 +2781,7 @@
 
   "item.edit.tabs.view.head": "View Item",
 
-  "item.edit.tabs.view.title": "Item Edit -  View",
+  "item.edit.tabs.view.title": "Item Edit - View",
 
   "item.edit.withdraw.cancel": "Cancel",
 
@@ -4097,7 +4097,7 @@
 
   "process.bulk.delete.error.head": "Error on deleting process",
 
-  "process.bulk.delete.error.body": "The process with ID {{processId}} could not be deleted. The remaining processes will continue being deleted. ",
+  "process.bulk.delete.error.body": "The process with ID {{processId}} could not be deleted. The remaining processes will continue being deleted.",
 
   "process.bulk.delete.success": "{{count}} process(es) have been successfully deleted",
 
@@ -5800,7 +5800,7 @@
 
   "submission.workflow.tasks.claimed.reject.submit": "Reject",
 
-  "submission.workflow.tasks.claimed.reject_help": "If you have reviewed the item and found it is <strong>not</strong> suitable for inclusion in the collection, select \"Reject\".  You will then be asked to enter a message indicating why the item is unsuitable, and whether the submitter should change something and resubmit.",
+  "submission.workflow.tasks.claimed.reject_help": "If you have reviewed the item and found it is <strong>not</strong> suitable for inclusion in the collection, select \"Reject\". You will then be asked to enter a message indicating why the item is unsuitable, and whether the submitter should change something and resubmit.",
 
   "submission.workflow.tasks.claimed.return": "Return to pool",
 
@@ -6684,13 +6684,13 @@
 
   "error.validation.coarnotify.invalidfilter": "Invalid filter, try to select another service or none.",
 
-  "request-status-alert-box.accepted": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> has been taken in charge.",
+  "request-status-alert-box.accepted": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'>{{ serviceName }}</a> has been taken in charge.",
 
-  "request-status-alert-box.rejected": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> has been rejected.",
+  "request-status-alert-box.rejected": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'>{{ serviceName }}</a> has been rejected.",
 
-  "request-status-alert-box.tentative_rejected": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> has been tentatively rejected. Revisions are required",
+  "request-status-alert-box.tentative_rejected": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'>{{ serviceName }}</a> has been tentatively rejected. Revisions are required",
 
-  "request-status-alert-box.requested": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> is pending.",
+  "request-status-alert-box.requested": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'>{{ serviceName }}</a> is pending.",
 
   "ldn-service-button-mark-inbound-deletion": "Mark supported pattern for deletion",
 
@@ -7100,7 +7100,7 @@
 
   "live-region.ordering.instructions": "Press spacebar to reorder {{ itemName }}.",
 
-  "live-region.ordering.status": "{{ itemName }}, grabbed. Current position in list: {{ index }} of  {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
+  "live-region.ordering.status": "{{ itemName }}, grabbed. Current position in list: {{ index }} of {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
 
   "live-region.ordering.moved": "{{ itemName }}, moved to position {{ index }} of {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
 
