@@ -1,7 +1,11 @@
 import { SortOptions } from '../../../core/cache/models/sort-options.model';
+import { FindListOptions } from '../../../core/data/find-list-options.model';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { ViewMode } from '../../../core/shared/view-mode.model';
-import { isNotEmpty } from '../../empty.util';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../empty.util';
 import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
 import { SearchFilter } from './search-filter.model';
 import { SearchOptions } from './search-options.model';
@@ -35,5 +39,20 @@ export class PaginatedSearchOptions extends SearchOptions {
       args.push(`size=${this.pagination.pageSize}`);
     }
     return super.toRestUrl(url, args);
+  }
+
+  /**
+   * Transform this {@link PaginatedSearchOptions} into a {@link FindListOptions}
+   */
+  toFindListOptions(): FindListOptions {
+    const findListOptions = super.toFindListOptions();
+    if (hasValue(this.pagination)) {
+      findListOptions.currentPage = this.pagination.currentPage;
+      findListOptions.elementsPerPage = this.pagination.pageSize;
+    }
+    if (hasValue(this.sort)) {
+      findListOptions.sort = this.sort;
+    }
+    return findListOptions;
   }
 }

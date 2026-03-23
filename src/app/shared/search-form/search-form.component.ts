@@ -1,7 +1,8 @@
 import { AsyncPipe } from '@angular/common';
 import {
   Component,
-  EventEmitter, Inject,
+  EventEmitter,
+  Inject,
   Input,
   OnChanges,
   Output,
@@ -24,6 +25,7 @@ import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators'
 import { SearchService } from '../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { SearchFilterService } from '../../core/shared/search/search-filter.service';
+import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 import {
   hasValue,
   isNotEmpty,
@@ -31,7 +33,6 @@ import {
 import { BrowserOnlyPipe } from '../utils/browser-only.pipe';
 import { currentPath } from '../utils/route.utils';
 import { ScopeSelectorModalComponent } from './scope-selector-modal/scope-selector-modal.component';
-import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 
 @Component({
   selector: 'ds-base-search-form',

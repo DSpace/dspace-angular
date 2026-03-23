@@ -16,16 +16,16 @@ import {
   AppConfig,
 } from 'src/config/app-config.interface';
 
+import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
 import { Site } from '../core/shared/site.model';
+import { SEARCH_CONFIG_SERVICE } from '../my-dspace-page/my-dspace-configuration.service';
 import { SuggestionsPopupComponent } from '../notifications/suggestions/popup/suggestions-popup.component';
+import { ThemedSearchComponent } from '../shared/search/themed-search.component';
 import { ThemedSearchFormComponent } from '../shared/search-form/themed-search-form.component';
 import { HomeCoarComponent } from './home-coar/home-coar.component';
 import { ThemedHomeNewsComponent } from './home-news/themed-home-news.component';
 import { RecentItemListComponent } from './recent-item-list/recent-item-list.component';
 import { ThemedTopLevelCommunityListComponent } from './top-level-community-list/themed-top-level-community-list.component';
-import { ThemedSearchComponent } from '../shared/search/themed-search.component';
-import { SEARCH_CONFIG_SERVICE } from '../my-dspace-page/my-dspace-configuration.service';
-import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
 
 @Component({
   selector: 'ds-base-home-page',
@@ -45,10 +45,10 @@ import { SearchConfigurationService } from '../core/shared/search/search-configu
     RecentItemListComponent,
     SuggestionsPopupComponent,
     ThemedHomeNewsComponent,
+    ThemedSearchComponent,
     ThemedSearchFormComponent,
     ThemedTopLevelCommunityListComponent,
     TranslateModule,
-    ThemedSearchComponent,
   ],
 })
 export class HomePageComponent implements OnInit {

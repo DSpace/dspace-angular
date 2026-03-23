@@ -6,8 +6,8 @@ import {
 
 import { Item } from '../../../../core/shared/item.model';
 import { isNotEmpty } from '../../../../shared/empty.util';
-import { getFilterByRelation } from '../../../../shared/utils/relation-query.utils';
 import { ThemedSearchComponent } from '../../../../shared/search/themed-search.component';
+import { getFilterByRelation } from '../../../../shared/utils/relation-query.utils';
 
 @Component({
   selector: 'ds-related-entities-search',

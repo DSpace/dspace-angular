@@ -1,11 +1,16 @@
+import {
+  autoserialize,
+  autoserializeAs,
+  deserialize,
+} from 'cerialize';
+
 import { typedObject } from '../../../core/cache/builders/build-decorators';
 import { CacheableObject } from '../../../core/cache/cacheable-object.model';
-import { FACET } from './types/facet.resource-type';
-import { excludeFromEquals } from '../../../core/utilities/equals.decorators';
-import { autoserialize, autoserializeAs, deserialize } from 'cerialize';
-import { ResourceType } from '../../../core/shared/resource-type';
-import { FilterType } from './filter-type.model';
 import { HALLink } from '../../../core/shared/hal-link.model';
+import { ResourceType } from '../../../core/shared/resource-type';
+import { excludeFromEquals } from '../../../core/utilities/equals.decorators';
+import { FilterType } from './filter-type.model';
+import { FACET } from './types/facet.resource-type';
 
 /**
  * The configuration for a discovery facet

@@ -6,17 +6,21 @@
  * http://www.dspace.org/license/
  */
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+
 import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
-import { FindAllData, FindAllDataImpl } from '../../../core/data/base/find-all-data';
+import {
+  FindAllData,
+  FindAllDataImpl,
+} from '../../../core/data/base/find-all-data';
 import { IdentifiableDataService } from '../../../core/data/base/identifiable-data.service';
+import { FindListOptions } from '../../../core/data/find-list-options.model';
+import { PaginatedList } from '../../../core/data/paginated-list.model';
+import { RemoteData } from '../../../core/data/remote-data';
 import { RequestService } from '../../../core/data/request.service';
 import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
 import { Facet } from '../models/facet.model';
-import { FindListOptions } from '../../../core/data/find-list-options.model';
-import { Observable } from 'rxjs';
-import { RemoteData } from '../../../core/data/remote-data';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
 
 /**
  * Data service for retrieving search facets and facet values from the REST API.

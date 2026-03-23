@@ -23,6 +23,7 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { FilterConfig } from '../../../core/shared/search/search-filters/search-config.model';
 import { ViewMode } from '../../../core/shared/view-mode.model';
+import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import { ViewModeSwitchComponent } from '../../view-mode-switch/view-mode-switch.component';
 import { AdvancedSearchComponent } from '../advanced-search/advanced-search.component';
 import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
@@ -31,7 +32,6 @@ import { ThemedSearchFiltersComponent } from '../search-filters/themed-search-fi
 import { ThemedSearchSettingsComponent } from '../search-settings/themed-search-settings.component';
 import { SearchConfigurationOption } from '../search-switch-configuration/search-configuration-option.model';
 import { SearchSwitchConfigurationComponent } from '../search-switch-configuration/search-switch-configuration.component';
-import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 
 /**
  * This component renders a simple item page.

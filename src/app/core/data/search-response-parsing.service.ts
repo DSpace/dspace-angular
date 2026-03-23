@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { hasValue } from '../../shared/empty.util';
 import { SearchObjects } from '../../shared/search/models/search-objects.model';
+import { getClassForType } from '../cache/builders/build-decorators';
 import { ParsedResponse } from '../cache/response.models';
 import { DSpaceSerializer } from '../dspace-rest/dspace.serializer';
 import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
@@ -11,7 +12,6 @@ import {
 } from '../shared/metadata.models';
 import { DspaceRestResponseParsingService } from './dspace-rest-response-parsing.service';
 import { RestRequest } from './rest-request.model';
-import { getClassForType } from '../cache/builders/build-decorators';
 
 @Injectable({ providedIn: 'root' })
 export class SearchResponseParsingService extends DspaceRestResponseParsingService {

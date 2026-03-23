@@ -10,6 +10,8 @@ import { SCRIPT } from '../process-page/scripts/script.resource-type';
 import { ACCESS_STATUS } from '../shared/object-collection/shared/badges/access-status-badge/access-status.resource-type';
 import { DUPLICATE } from '../shared/object-list/duplicate-data/duplicate.resource-type';
 import { IDENTIFIERS } from '../shared/object-list/identifier-data/identifier-data.resource-type';
+import { SEARCH_FILTER_CONFIG } from '../shared/search/models/types/search-filter-config.resource-type';
+import { SEARCH_SORT_OPTION } from '../shared/search/models/types/search-sort-option.resource-type';
 import { SUBSCRIPTION } from '../shared/subscriptions/models/subscription.resource-type';
 import { SUBMISSION_COAR_NOTIFY_CONFIG } from '../submission/sections/section-coar-notify/section-coar-notify-service.resource-type';
 import { SYSTEMWIDEALERT } from '../system-wide-alert/system-wide-alert.resource-type';
@@ -68,8 +70,6 @@ import { SUPERVISION_ORDER } from './supervision-order/models/supervision-order.
 import { CLAIMED_TASK } from './tasks/models/claimed-task-object.resource-type';
 import { POOL_TASK } from './tasks/models/pool-task-object.resource-type';
 import { WORKFLOW_ACTION } from './tasks/models/workflow-action-object.resource-type';
-import { SEARCH_FILTER_CONFIG } from '../shared/search/models/types/search-filter-config.resource-type';
-import { SEARCH_SORT_OPTION } from '../shared/search/models/types/search-sort-option.resource-type';
 
 export const LAZY_DATA_SERVICES: LazyDataServicesMap = new Map([
   [AUTHORIZATION.value, () => import('./data/feature-authorization/authorization-data.service').then(m => m.AuthorizationDataService)],

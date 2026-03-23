@@ -5,8 +5,8 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 
-import { AdminWorkflowPageComponent } from './admin-workflow-page.component';
 import { ThemedSearchComponent } from '../../shared/search/themed-search.component';
+import { AdminWorkflowPageComponent } from './admin-workflow-page.component';
 
 describe('AdminSearchPageComponent', () => {
   let component: AdminWorkflowPageComponent;

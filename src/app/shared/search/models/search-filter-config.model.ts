@@ -9,8 +9,8 @@ import { CacheableObject } from '../../../core/cache/cacheable-object.model';
 import { HALLink } from '../../../core/shared/hal-link.model';
 import { excludeFromEquals } from '../../../core/utilities/equals.decorators';
 import { FilterType } from './filter-type.model';
-import { SEARCH_FILTER_CONFIG } from './types/search-filter-config.resource-type';
 import { SearchFilterOperator } from './search-filter-operator.model';
+import { SEARCH_FILTER_CONFIG } from './types/search-filter-config.resource-type';
 
 /**
  * The configuration for a search filter

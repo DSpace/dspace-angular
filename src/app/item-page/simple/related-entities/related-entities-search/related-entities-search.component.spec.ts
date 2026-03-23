@@ -9,8 +9,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { Item } from '../../../../core/shared/item.model';
-import { RelatedEntitiesSearchComponent } from './related-entities-search.component';
 import { ThemedSearchComponent } from '../../../../shared/search/themed-search.component';
+import { RelatedEntitiesSearchComponent } from './related-entities-search.component';
 
 describe('RelatedEntitiesSearchComponent', () => {
   let comp: RelatedEntitiesSearchComponent;

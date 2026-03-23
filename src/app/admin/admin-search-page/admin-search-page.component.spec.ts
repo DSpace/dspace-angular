@@ -6,9 +6,9 @@ import {
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 
+import { ThemedSearchComponent } from '../../shared/search/themed-search.component';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { AdminSearchPageComponent } from './admin-search-page.component';
-import { ThemedSearchComponent } from '../../shared/search/themed-search.component';
 
 describe('AdminSearchPageComponent', () => {
   let component: AdminSearchPageComponent;

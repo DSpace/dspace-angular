@@ -3,7 +3,11 @@ import {
   inheritSerialization,
 } from 'cerialize';
 
-import { inheritLinkAnnotations, extendedPaginatedList, typedObject } from '../../../core/cache/builders/build-decorators';
+import {
+  extendedPaginatedList,
+  inheritLinkAnnotations,
+  typedObject,
+} from '../../../core/cache/builders/build-decorators';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { excludeFromEquals } from '../../../core/utilities/equals.decorators';

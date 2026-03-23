@@ -44,8 +44,8 @@ import {
   getRemoteDataPayload,
   toDSpaceObjectListRD,
 } from '../../../core/shared/operators';
-import { SearchService } from '../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
+import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import {
   fadeIn,
   fadeInOut,
@@ -57,6 +57,7 @@ import {
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { CollectionSelectComponent } from '../../../shared/object-select/collection-select/collection-select.component';
 import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
+import { SearchResultsDataService } from '../../../shared/search/services/search-results.data.service';
 import { ThemedSearchFormComponent } from '../../../shared/search-form/themed-search-form.component';
 import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
 import { getItemPageRoute } from '../../item-page-routing-paths';
@@ -69,6 +70,12 @@ import { getItemPageRoute } from '../../item-page-routing-paths';
   animations: [
     fadeIn,
     fadeInOut,
+  ],
+  providers: [
+    {
+      provide: SEARCH_CONFIG_SERVICE,
+      useClass: SearchConfigurationService,
+    },
   ],
   imports: [
     AsyncPipe,
@@ -129,7 +136,7 @@ export class ItemCollectionMapperComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private searchConfigService: SearchConfigurationService,
-              private searchService: SearchService,
+              private searchResultsService: SearchResultsDataService,
               private notificationsService: NotificationsService,
               private itemDataService: ItemDataService,
               private collectionDataService: CollectionDataService,
@@ -187,10 +194,10 @@ export class ItemCollectionMapperComponent implements OnInit {
     );
     this.mappedCollectionsRD$ = itemCollectionsAndOptions$.pipe(
       switchMap(([itemCollectionsRD, owningCollectionRD, searchOptions]) => {
-        return this.searchService.search(Object.assign(new PaginatedSearchOptions(searchOptions), {
+        return this.searchResultsService.searchObjects(Object.assign(new PaginatedSearchOptions(searchOptions), {
           query: this.buildQuery([...itemCollectionsRD.payload.page, owningCollectionRD.payload], searchOptions.query),
           dsoTypes: [DSpaceObjectType.COLLECTION],
-        }), 10000).pipe(
+        })).pipe(
           toDSpaceObjectListRD(),
           startWith(undefined),
         );

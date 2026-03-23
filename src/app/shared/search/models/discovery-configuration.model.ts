@@ -2,20 +2,23 @@ import {
   autoserialize,
   deserialize,
 } from 'cerialize';
-
-import { link, typedObject } from '../../../core/cache/builders/build-decorators';
-import { CacheableObject } from '../../../core/cache/cacheable-object.model';
-import { HALLink } from '../../../core/shared/hal-link.model';
-import { excludeFromEquals } from '../../../core/utilities/equals.decorators';
-import { DISCOVERY_CONFIGURATION } from './types/discovery-configuration.resource-type';
-import { ResourceType } from '../../../core/shared/resource-type';
-import { SEARCH_FILTER_CONFIG } from './types/search-filter-config.resource-type';
 import { Observable } from 'rxjs';
-import { RemoteData } from '../../../core/data/remote-data';
+
+import {
+  link,
+  typedObject,
+} from '../../../core/cache/builders/build-decorators';
+import { CacheableObject } from '../../../core/cache/cacheable-object.model';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
+import { RemoteData } from '../../../core/data/remote-data';
+import { HALLink } from '../../../core/shared/hal-link.model';
+import { ResourceType } from '../../../core/shared/resource-type';
+import { excludeFromEquals } from '../../../core/utilities/equals.decorators';
 import { SearchFilterConfig } from './search-filter-config.model';
-import { SEARCH_SORT_OPTION } from './types/search-sort-option.resource-type';
 import { SearchSortOption } from './search-sort-option.model';
+import { DISCOVERY_CONFIGURATION } from './types/discovery-configuration.resource-type';
+import { SEARCH_FILTER_CONFIG } from './types/search-filter-config.resource-type';
+import { SEARCH_SORT_OPTION } from './types/search-sort-option.resource-type';
 
 /**
  * Model representing a Discovery configuration from the REST API

@@ -1,7 +1,8 @@
 import { AsyncPipe } from '@angular/common';
 import {
   Component,
-  EventEmitter, Inject,
+  EventEmitter,
+  Inject,
   Input,
   Output,
 } from '@angular/core';
@@ -21,6 +22,7 @@ import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { ViewMode } from '../../../core/shared/view-mode.model';
+import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import {
   fadeIn,
   fadeInOut,
@@ -39,7 +41,6 @@ import { SearchFilter } from '../models/search-filter.model';
 import { SearchResult } from '../models/search-result.model';
 import { SearchExportCsvComponent } from '../search-export-csv/search-export-csv.component';
 import { SearchResultsSkeletonComponent } from './search-results-skeleton/search-results-skeleton.component';
-import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 
 export interface SelectionConfig {
   repeatable: boolean;

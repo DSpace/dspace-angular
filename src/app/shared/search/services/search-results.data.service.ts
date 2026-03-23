@@ -6,28 +6,38 @@
  * http://www.dspace.org/license/
  */
 import { Injectable } from '@angular/core';
+import {
+  Observable,
+  of,
+} from 'rxjs';
+import { take } from 'rxjs/operators';
+
 import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
-import { RequestService } from '../../../core/data/request.service';
 import { BaseDataService } from '../../../core/data/base/base-data.service';
-import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { SearchResult } from '../models/search-result.model';
 import { SearchDataImpl } from '../../../core/data/base/search-data';
-import { Observable, of } from 'rxjs';
-import { RemoteData } from '../../../core/data/remote-data';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
-import { SearchObjects } from '../models/search-objects.model';
-import { hasValue, isNotEmpty, isNotEmptyOperator } from '../../empty.util';
-import { take } from 'rxjs/operators';
-import { GetRequest } from '../../../core/data/request.models';
-import { GenericConstructor } from '../../../core/shared/generic-constructor';
 import { ResponseParsingService } from '../../../core/data/parsing.service';
+import { RemoteData } from '../../../core/data/remote-data';
+import { GetRequest } from '../../../core/data/request.models';
+import { RequestService } from '../../../core/data/request.service';
 import { SearchResponseParsingService } from '../../../core/data/search-response-parsing.service';
+import { DSpaceObject } from '../../../core/shared/dspace-object.model';
+import { GenericConstructor } from '../../../core/shared/generic-constructor';
+import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
+import {
+  hasValue,
+  isNotEmpty,
+  isNotEmptyOperator,
+} from '../../empty.util';
+import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
+import { SearchObjects } from '../models/search-objects.model';
+import { SearchResult } from '../models/search-result.model';
 
 /**
  * Custom SearchDataImpl attaching a custom response-parser for search-results to the GET request
  */
+/* eslint-disable max-classes-per-file */
 class SearchResultsSearchDataImpl extends SearchDataImpl<SearchResult<DSpaceObject>> {
   private parser: GenericConstructor<ResponseParsingService> = SearchResponseParsingService;
 
@@ -77,8 +87,14 @@ export class SearchResultsDataService extends BaseDataService<SearchResult<DSpac
     this.searchData = new SearchResultsSearchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
   }
 
-  searchObjects(options?: FindListOptions, useCachedVersionIfAvailable?: boolean, reRequestOnStale?: boolean, ...linksToFollow): Observable<RemoteData<SearchObjects<DSpaceObject>>> {
-    return this.searchData.searchBy('objects', options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow) as Observable<RemoteData<SearchObjects<DSpaceObject>>>;
+  searchObjects(options?: FindListOptions | PaginatedSearchOptions, useCachedVersionIfAvailable?: boolean, reRequestOnStale?: boolean, ...linksToFollow): Observable<RemoteData<SearchObjects<DSpaceObject>>> {
+    let findListOptions: FindListOptions;
+    if (hasValue(options) && options instanceof PaginatedSearchOptions) {
+      findListOptions = options.toFindListOptions();
+    } else {
+      findListOptions = options;
+    }
+    return this.searchData.searchBy('objects', findListOptions, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow) as Observable<RemoteData<SearchObjects<DSpaceObject>>>;
   }
 
 }
