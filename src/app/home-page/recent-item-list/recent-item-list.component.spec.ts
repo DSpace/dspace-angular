@@ -6,7 +6,6 @@ import {
 import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import { PaginationService } from '@dspace/core/pagination/pagination.service';
 import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
-import { SearchServiceStub } from '@dspace/core/testing/search-service.stub';
 import { createPaginatedList } from '@dspace/core/testing/utils.test';
 import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import { of } from 'rxjs';
@@ -111,9 +110,9 @@ describe('RecentItemListComponent', () => {
 
     fixture = TestBed.createComponent(RecentItemListComponent);
     component = fixture.componentInstance;
-    
+
     component.ngOnInit();
-    
+
     expect(searchServiceSpy.search).toHaveBeenCalled();
     const searchCall = searchServiceSpy.search.calls.mostRecent();
     const searchOptions = searchCall.args[0];
@@ -146,9 +145,9 @@ describe('RecentItemListComponent', () => {
 
     fixture = TestBed.createComponent(RecentItemListComponent);
     component = fixture.componentInstance;
-    
+
     component.ngOnInit();
-    
+
     expect(searchServiceSpy.search).toHaveBeenCalled();
     const searchCall = searchServiceSpy.search.calls.mostRecent();
     const searchOptions = searchCall.args[0];
@@ -181,9 +180,9 @@ describe('RecentItemListComponent', () => {
 
     fixture = TestBed.createComponent(RecentItemListComponent);
     component = fixture.componentInstance;
-    
+
     component.ngOnInit();
-    
+
     expect(searchServiceSpy.search).toHaveBeenCalled();
     const searchCall = searchServiceSpy.search.calls.mostRecent();
     const searchOptions = searchCall.args[0];
@@ -219,14 +218,14 @@ describe('RecentItemListComponent', () => {
 
     fixture = TestBed.createComponent(RecentItemListComponent);
     component = fixture.componentInstance;
-    
+
     component.onLoadMore();
-    
+
     expect(paginationService.updateRouteWithUrl).toHaveBeenCalledWith(
       'search-page-configuration',
       ['search'],
       { sortField: mockEnvironment.homePage.recentSubmissions.sortField, sortDirection: 'DESC', page: 1 },
-      {}
+      {},
     );
   });
 
@@ -256,14 +255,14 @@ describe('RecentItemListComponent', () => {
 
     fixture = TestBed.createComponent(RecentItemListComponent);
     component = fixture.componentInstance;
-    
+
     component.onLoadMore();
-    
+
     expect(paginationService.updateRouteWithUrl).toHaveBeenCalledWith(
       'search-page-configuration',
       ['search'],
       { sortField: mockEnvironment.homePage.recentSubmissions.sortField, sortDirection: 'DESC', page: 1 },
-      { 'f.entityType': 'Publication,equals' }
+      { 'f.entityType': 'Publication,equals' },
     );
   });
 
