@@ -19,30 +19,35 @@ describe('RecentItemListComponent', () => {
   let component: RecentItemListComponent;
   let fixture: ComponentFixture<RecentItemListComponent>;
   let paginationService;
+  let searchServiceSpy;
 
   const emptyList = createSuccessfulRemoteDataObject(createPaginatedList([]));
 
-  const searchServiceSpy = jasmine.createSpyObj('SearchService', ['search', 'clearDiscoveryRequests']);
-  searchServiceSpy.search.and.returnValue(of(emptyList));
-  searchServiceSpy.clearDiscoveryRequests.and.returnValue();
+  function createTestBed(mockEnvironment?: any) {
+    searchServiceSpy = jasmine.createSpyObj('SearchService', ['search', 'clearDiscoveryRequests']);
+    searchServiceSpy.search.and.returnValue(of(emptyList));
+    searchServiceSpy.clearDiscoveryRequests.and.returnValue();
 
-  paginationService = new PaginationServiceStub();
+    paginationService = new PaginationServiceStub();
 
-  const searchConfigServiceStub = {
-    paginationID: 'search-page-configuration',
-  };
+    const searchConfigServiceStub = {
+      paginationID: 'search-page-configuration',
+    };
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
+    return TestBed.configureTestingModule({
       imports: [RecentItemListComponent],
       providers: [
         { provide: SearchService, useValue: searchServiceSpy },
         { provide: PaginationService, useValue: paginationService },
         { provide: SearchConfigurationService, useValue: searchConfigServiceStub },
-        { provide: APP_CONFIG, useValue: environment },
+        { provide: APP_CONFIG, useValue: mockEnvironment || environment },
         { provide: PLATFORM_ID, useValue: 'browser' },
       ],
-    }).compileComponents();
+    });
+  }
+
+  beforeEach(async () => {
+    await createTestBed().compileComponents();
   });
 
   beforeEach(() => {
@@ -68,7 +73,7 @@ describe('RecentItemListComponent', () => {
 
     const extraParams: Record<string, unknown> = {};
 
-    if (entityType) {
+    if (entityType && entityType.trim()) {
       extraParams['f.entityType'] = `${entityType},equals`;
     }
     component.onLoadMore();
@@ -96,18 +101,7 @@ describe('RecentItemListComponent', () => {
       },
     };
 
-    TestBed.resetTestingModule();
-    TestBed.configureTestingModule({
-      imports: [RecentItemListComponent],
-      providers: [
-        { provide: SearchService, useValue: searchServiceSpy },
-        { provide: PaginationService, useValue: paginationService },
-        { provide: SearchConfigurationService, useValue: searchConfigServiceStub },
-        { provide: APP_CONFIG, useValue: mockEnvironment },
-        { provide: PLATFORM_ID, useValue: 'browser' },
-      ],
-    }).compileComponents();
-
+    createTestBed(mockEnvironment).compileComponents();
     fixture = TestBed.createComponent(RecentItemListComponent);
     component = fixture.componentInstance;
 
@@ -131,18 +125,7 @@ describe('RecentItemListComponent', () => {
       },
     };
 
-    TestBed.resetTestingModule();
-    TestBed.configureTestingModule({
-      imports: [RecentItemListComponent],
-      providers: [
-        { provide: SearchService, useValue: searchServiceSpy },
-        { provide: PaginationService, useValue: paginationService },
-        { provide: SearchConfigurationService, useValue: searchConfigServiceStub },
-        { provide: APP_CONFIG, useValue: mockEnvironment },
-        { provide: PLATFORM_ID, useValue: 'browser' },
-      ],
-    }).compileComponents();
-
+    createTestBed(mockEnvironment).compileComponents();
     fixture = TestBed.createComponent(RecentItemListComponent);
     component = fixture.componentInstance;
 
@@ -166,18 +149,7 @@ describe('RecentItemListComponent', () => {
       },
     };
 
-    TestBed.resetTestingModule();
-    TestBed.configureTestingModule({
-      imports: [RecentItemListComponent],
-      providers: [
-        { provide: SearchService, useValue: searchServiceSpy },
-        { provide: PaginationService, useValue: paginationService },
-        { provide: SearchConfigurationService, useValue: searchConfigServiceStub },
-        { provide: APP_CONFIG, useValue: mockEnvironment },
-        { provide: PLATFORM_ID, useValue: 'browser' },
-      ],
-    }).compileComponents();
-
+    createTestBed(mockEnvironment).compileComponents();
     fixture = TestBed.createComponent(RecentItemListComponent);
     component = fixture.componentInstance;
 
@@ -204,20 +176,10 @@ describe('RecentItemListComponent', () => {
       },
     };
 
-    TestBed.resetTestingModule();
-    TestBed.configureTestingModule({
-      imports: [RecentItemListComponent],
-      providers: [
-        { provide: SearchService, useValue: searchServiceSpy },
-        { provide: PaginationService, useValue: paginationService },
-        { provide: SearchConfigurationService, useValue: searchConfigServiceStub },
-        { provide: APP_CONFIG, useValue: mockEnvironment },
-        { provide: PLATFORM_ID, useValue: 'browser' },
-      ],
-    }).compileComponents();
-
+    createTestBed(mockEnvironment).compileComponents();
     fixture = TestBed.createComponent(RecentItemListComponent);
     component = fixture.componentInstance;
+    spyOn(paginationService, 'updateRouteWithUrl');
 
     component.onLoadMore();
 
@@ -241,20 +203,10 @@ describe('RecentItemListComponent', () => {
       },
     };
 
-    TestBed.resetTestingModule();
-    TestBed.configureTestingModule({
-      imports: [RecentItemListComponent],
-      providers: [
-        { provide: SearchService, useValue: searchServiceSpy },
-        { provide: PaginationService, useValue: paginationService },
-        { provide: SearchConfigurationService, useValue: searchConfigServiceStub },
-        { provide: APP_CONFIG, useValue: mockEnvironment },
-        { provide: PLATFORM_ID, useValue: 'browser' },
-      ],
-    }).compileComponents();
-
+    createTestBed(mockEnvironment).compileComponents();
     fixture = TestBed.createComponent(RecentItemListComponent);
     component = fixture.componentInstance;
+    spyOn(paginationService, 'updateRouteWithUrl');
 
     component.onLoadMore();
 
