@@ -11,18 +11,13 @@
                 <ds-comcol-page-header
                   [name]="dsoNameService.getName(collection)">
                 </ds-comcol-page-header>
-                <!-- Collection logo with custom description -->
-                @if (logoRD$ && collection.descriptionThumbnail) {
+                <!-- Collection logo -->
+                @if (logoRD$) {
                   <ds-comcol-page-logo
                     [logo]="(logoRD$ | async)?.payload"
-                    [alternateText]="collection.descriptionThumbnail">
-                  </ds-comcol-page-logo>
-                }
-                <!-- Collection logo with simple description -->
-                @if (logoRD$ && !collection.descriptionThumbnail) {
-                  <ds-comcol-page-logo
-                    [logo]="(logoRD$ | async)?.payload"
-                    [alternateText]="'collection.logo' | translate">
+                    [alternateText]="collection.descriptionThumbnail ?
+                      collection.descriptionThumbnail :
+                      'collection.logo' | translate">
                   </ds-comcol-page-logo>
                 }
                 <!-- Handle -->
