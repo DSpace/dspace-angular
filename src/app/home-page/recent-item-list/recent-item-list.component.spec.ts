@@ -99,11 +99,11 @@ describe('RecentItemListComponent', () => {
 
     TestBed.resetTestingModule();
     createTestBed(mockEnvironment).compileComponents();
-    
-    const fixture = TestBed.createComponent(RecentItemListComponent);
-    const component = fixture.componentInstance;
 
-    component.ngOnInit();
+    const testFixture = TestBed.createComponent(RecentItemListComponent);
+    const testComponent = testFixture.componentInstance;
+
+    testComponent.ngOnInit();
 
     expect(searchServiceSpy.search).toHaveBeenCalled();
     const searchCall = searchServiceSpy.search.calls.mostRecent();
@@ -125,11 +125,11 @@ describe('RecentItemListComponent', () => {
 
     TestBed.resetTestingModule();
     createTestBed(mockEnvironment).compileComponents();
-    
-    const fixture = TestBed.createComponent(RecentItemListComponent);
-    const component = fixture.componentInstance;
 
-    component.ngOnInit();
+    const testFixture = TestBed.createComponent(RecentItemListComponent);
+    const testComponent = testFixture.componentInstance;
+
+    testComponent.ngOnInit();
 
     expect(searchServiceSpy.search).toHaveBeenCalled();
     const searchCall = searchServiceSpy.search.calls.mostRecent();
@@ -151,11 +151,11 @@ describe('RecentItemListComponent', () => {
 
     TestBed.resetTestingModule();
     createTestBed(mockEnvironment).compileComponents();
-    
-    const fixture = TestBed.createComponent(RecentItemListComponent);
-    const component = fixture.componentInstance;
 
-    component.ngOnInit();
+    const testFixture = TestBed.createComponent(RecentItemListComponent);
+    const testComponent = testFixture.componentInstance;
+
+    testComponent.ngOnInit();
 
     expect(searchServiceSpy.search).toHaveBeenCalled();
     const searchCall = searchServiceSpy.search.calls.mostRecent();
@@ -180,11 +180,11 @@ describe('RecentItemListComponent', () => {
 
     TestBed.resetTestingModule();
     createTestBed(mockEnvironment).compileComponents();
-    
-    const fixture = TestBed.createComponent(RecentItemListComponent);
-    const component = fixture.componentInstance;
 
-    component.onLoadMore();
+    const testFixture = TestBed.createComponent(RecentItemListComponent);
+    const testComponent = testFixture.componentInstance;
+
+    testComponent.onLoadMore();
 
     expect(paginationService.updateRouteWithUrl).toHaveBeenCalledWith(
       'search-page-configuration',
@@ -208,11 +208,11 @@ describe('RecentItemListComponent', () => {
 
     TestBed.resetTestingModule();
     createTestBed(mockEnvironment).compileComponents();
-    
-    const fixture = TestBed.createComponent(RecentItemListComponent);
-    const component = fixture.componentInstance;
 
-    component.onLoadMore();
+    const testFixture = TestBed.createComponent(RecentItemListComponent);
+    const testComponent = testFixture.componentInstance;
+
+    testComponent.onLoadMore();
 
     expect(paginationService.updateRouteWithUrl).toHaveBeenCalledWith(
       'search-page-configuration',
