@@ -48,7 +48,7 @@ import { RouteService } from '../../core/services/route.service';
 import { Context } from '../../core/shared/context.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { Item } from '../../core/shared/item.model';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { getAllSucceededRemoteDataPayload, getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { SearchService } from '../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { SearchConfig } from '../../core/shared/search/search-filters/search-config.model';
@@ -82,6 +82,10 @@ import { SelectionConfig } from './search-results/search-results.component';
 import { ThemedSearchResultsComponent } from './search-results/themed-search-results.component';
 import { ThemedSearchSidebarComponent } from './search-sidebar/themed-search-sidebar.component';
 import { SearchConfigurationOption } from './search-switch-configuration/search-configuration-option.model';
+import { SearchResultsDataService } from './services/search-results.data.service';
+import { DiscoveryConfigurationDataService } from './services/discovery-configuration.data.service';
+import { DiscoveryConfiguration } from './models/discovery-configuration.model';
+import { SearchSortOption } from './models/search-sort-option.model';
 
 @Component({
   selector: 'ds-base-search',
@@ -346,6 +350,8 @@ export class SearchComponent implements OnDestroy, OnInit {
   @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
 
   constructor(protected service: SearchService,
+              protected searchResultsService: SearchResultsDataService,
+              protected discoveryConfigurationService: DiscoveryConfigurationDataService,
               protected sidebarService: SidebarService,
               protected windowService: HostWindowService,
               @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
@@ -398,16 +404,23 @@ export class SearchComponent implements OnDestroy, OnInit {
     // Determinate PaginatedSearchOptions and listen to any update on it
     const configuration$: Observable<string> = this.searchConfigService
       .getCurrentConfiguration(this.configuration).pipe(distinctUntilChanged());
-    const searchSortOptions$: Observable<SortOptions[]> = combineLatest([configuration$, this.currentScope$]).pipe(
-      switchMap(([configuration, scope]: [string, string]) => this.searchConfigService.getConfigurationSearchConfig(configuration, scope)),
-      map((searchConfig: SearchConfig) => this.searchConfigService.getConfigurationSortOptions(searchConfig)),
+    const discoveryConfiguration$: Observable<DiscoveryConfiguration> = combineLatest([configuration$, this.currentScope$]).pipe(
+      switchMap(([configuration, scope]: [string, string]) => this.discoveryConfigurationService.findByIdOrScope(configuration, scope, undefined, undefined, followLink('sortoptions'), followLink('defaultsortoption'))),
+      getAllSucceededRemoteDataPayload(),
+    );
+    const defaultSortOption$: Observable<SortOptions> = discoveryConfiguration$.pipe(
+      switchMap((discoveryConfiguration: DiscoveryConfiguration) => discoveryConfiguration.defaultsortoption),
+      getAllSucceededRemoteDataPayload(),
+      map((searchSortOption: SearchSortOption) => searchSortOption.option),
+    );
+    const searchSortOptions$: Observable<SortOptions[]> = discoveryConfiguration$.pipe(
+      switchMap((discoveryConfiguration: DiscoveryConfiguration) => discoveryConfiguration.sortoptions),
+      getAllSucceededRemoteDataPayload(),
+      map((sortOptions: PaginatedList<SearchSortOption>) => sortOptions.page.map((searchSortOption: SearchSortOption) => searchSortOption.option)),
       distinctUntilChanged(),
     );
-    const sortOption$: Observable<SortOptions> = searchSortOptions$.pipe(
-      switchMap((searchSortOptions: SortOptions[]) => {
-        const defaultSort: SortOptions = searchSortOptions[0];
-        return this.searchConfigService.getCurrentSort(this.paginationId, defaultSort);
-      }),
+    const sortOption$: Observable<SortOptions> = defaultSortOption$.pipe(
+      switchMap((defaultSort: SortOptions) => this.searchConfigService.getCurrentSort(this.paginationId, defaultSort)),
       distinctUntilChanged(),
     );
     const searchOptions$: Observable<PaginatedSearchOptions> = this.getSearchOptions().pipe(distinctUntilChanged());
@@ -544,7 +557,7 @@ export class SearchComponent implements OnDestroy, OnInit {
       }
     }
 
-    this.service.search(
+    this.searchResultsService.searchObjects(
       searchOptionsWithHidden,
       undefined,
       this.useCachedVersionIfAvailable,
