@@ -95,6 +95,8 @@ export class EndUserAgreementComponent implements OnInit {
     ).subscribe((redirectUrl) => {
       if (isNotEmpty(redirectUrl)) {
         this.router.navigateByUrl(decodeURIComponent(redirectUrl));
+      } else {
+        this.router.navigate(['/home']);
       }
     });
   }
@@ -107,6 +109,7 @@ export class EndUserAgreementComponent implements OnInit {
   cancel() {
     this.authService.isAuthenticated().pipe(take(1)).subscribe((authenticated) => {
       if (authenticated) {
+        this.endUserAgreementService.removeCookieAccepted();
         this.store.dispatch(new LogOutAction());
       } else {
         this.router.navigate(['home']);

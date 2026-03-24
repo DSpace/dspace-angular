@@ -35,11 +35,16 @@ export class EndUserAgreementService {
    *                              currently not authenticated (anonymous)
    */
   hasCurrentUserOrCookieAcceptedAgreement(acceptedWhenAnonymous: boolean): Observable<boolean> {
-    if (this.isCookieAccepted()) {
-      return of(true);
-    } else {
-      return this.hasCurrentUserAcceptedAgreement(acceptedWhenAnonymous);
-    }
+    return this.authService.isAuthenticated().pipe(
+      switchMap((authenticated) => {
+        if (authenticated) {
+          return this.hasCurrentUserAcceptedAgreement(acceptedWhenAnonymous);
+        } else {
+          return of(this.isCookieAccepted());
+        }
+      }),
+      take(1),
+    );
   }
 
   /**
@@ -53,12 +58,17 @@ export class EndUserAgreementService {
         if (authenticated) {
           return this.authService.getAuthenticatedUserFromStore().pipe(
             take(1),
-            map((user) => hasValue(user) && user.hasMetadata(END_USER_AGREEMENT_METADATA_FIELD) && user.firstMetadata(END_USER_AGREEMENT_METADATA_FIELD).value === 'true'),
+            map((user) =>
+              hasValue(user) &&
+              user.hasMetadata(END_USER_AGREEMENT_METADATA_FIELD) &&
+              user.firstMetadata(END_USER_AGREEMENT_METADATA_FIELD).value === 'true'
+            ),
           );
         } else {
           return of(acceptedWhenAnonymous);
         }
       }),
+      take(1),
     );
   }
 
@@ -87,10 +97,9 @@ export class EndUserAgreementService {
             getFirstCompletedRemoteData(),
             map((response) => {
               const success = response.hasSucceeded;
-              // Set cookie as synchronous fallback to prevent guard hangs after PATCH
-              if (success) {
-                this.setCookieAccepted(accepted);
-              }
+                if (success) {
+                  this.setCookieAccepted(true);
+                }
               return success;
             }),
           );

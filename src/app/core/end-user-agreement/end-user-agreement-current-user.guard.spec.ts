@@ -14,6 +14,7 @@ import {
 
 import { EndUserAgreementService } from './end-user-agreement.service';
 import { endUserAgreementCurrentUserGuard } from './end-user-agreement-current-user.guard';
+import { AuthService } from '../auth/auth.service';
 
 describe('endUserAgreementGuard', () => {
   let endUserAgreementService: EndUserAgreementService;
@@ -22,7 +23,7 @@ describe('endUserAgreementGuard', () => {
 
   beforeEach(() => {
     endUserAgreementService = jasmine.createSpyObj('endUserAgreementService', {
-      hasCurrentUserOrCookieAcceptedAgreement: of(true),
+      hasCurrentUserAcceptedAgreement: of(true),
     });
 
     router = jasmine.createSpyObj('router', {
@@ -40,6 +41,7 @@ describe('endUserAgreementGuard', () => {
         { provide: Router, useValue: router },
         { provide: EndUserAgreementService, useValue: endUserAgreementService },
         { provide: APP_CONFIG, useValue: environment },
+        { provide: AuthService, useValue: jasmine.createSpyObj('AuthService', { isAuthenticated: of(true) }) },
       ],
     });
 
@@ -61,7 +63,7 @@ describe('endUserAgreementGuard', () => {
 
     describe('when the user hasn\'t accepted the agreement', () => {
       beforeEach(() => {
-        (endUserAgreementService.hasCurrentUserOrCookieAcceptedAgreement as jasmine.Spy).and.returnValue(of(false));
+        (endUserAgreementService.hasCurrentUserAcceptedAgreement as jasmine.Spy).and.returnValue(of(false));
       });
 
       it('should return a UrlTree', (done) => {
