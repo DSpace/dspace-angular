@@ -126,6 +126,9 @@ export class FormFieldModel {
   @autoserialize
   value: any;
 
+  /**
+   * The visibility object for this field
+   */
   @autoserialize
   visibility: SectionVisibility;
 }
