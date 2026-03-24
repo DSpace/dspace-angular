@@ -54,8 +54,6 @@ describe('RecentItemListComponent', () => {
     fixture = TestBed.createComponent(RecentItemListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-
-    spyOn(paginationService, 'updateRouteWithUrl');
   });
 
   it('should create', () => {
@@ -82,8 +80,6 @@ describe('RecentItemListComponent', () => {
   });
 
   it('should clear pagination on destroy', () => {
-    spyOn(paginationService, 'clearPagination');
-
     component.ngOnDestroy();
 
     expect(paginationService.clearPagination).toHaveBeenCalledWith(component.paginationConfig.id);
@@ -101,9 +97,11 @@ describe('RecentItemListComponent', () => {
       },
     };
 
+    TestBed.resetTestingModule();
     createTestBed(mockEnvironment).compileComponents();
-    fixture = TestBed.createComponent(RecentItemListComponent);
-    component = fixture.componentInstance;
+    
+    const fixture = TestBed.createComponent(RecentItemListComponent);
+    const component = fixture.componentInstance;
 
     component.ngOnInit();
 
@@ -125,9 +123,11 @@ describe('RecentItemListComponent', () => {
       },
     };
 
+    TestBed.resetTestingModule();
     createTestBed(mockEnvironment).compileComponents();
-    fixture = TestBed.createComponent(RecentItemListComponent);
-    component = fixture.componentInstance;
+    
+    const fixture = TestBed.createComponent(RecentItemListComponent);
+    const component = fixture.componentInstance;
 
     component.ngOnInit();
 
@@ -149,9 +149,11 @@ describe('RecentItemListComponent', () => {
       },
     };
 
+    TestBed.resetTestingModule();
     createTestBed(mockEnvironment).compileComponents();
-    fixture = TestBed.createComponent(RecentItemListComponent);
-    component = fixture.componentInstance;
+    
+    const fixture = TestBed.createComponent(RecentItemListComponent);
+    const component = fixture.componentInstance;
 
     component.ngOnInit();
 
@@ -176,10 +178,11 @@ describe('RecentItemListComponent', () => {
       },
     };
 
+    TestBed.resetTestingModule();
     createTestBed(mockEnvironment).compileComponents();
-    fixture = TestBed.createComponent(RecentItemListComponent);
-    component = fixture.componentInstance;
-    spyOn(paginationService, 'updateRouteWithUrl');
+    
+    const fixture = TestBed.createComponent(RecentItemListComponent);
+    const component = fixture.componentInstance;
 
     component.onLoadMore();
 
@@ -203,10 +206,11 @@ describe('RecentItemListComponent', () => {
       },
     };
 
+    TestBed.resetTestingModule();
     createTestBed(mockEnvironment).compileComponents();
-    fixture = TestBed.createComponent(RecentItemListComponent);
-    component = fixture.componentInstance;
-    spyOn(paginationService, 'updateRouteWithUrl');
+    
+    const fixture = TestBed.createComponent(RecentItemListComponent);
+    const component = fixture.componentInstance;
 
     component.onLoadMore();
 
