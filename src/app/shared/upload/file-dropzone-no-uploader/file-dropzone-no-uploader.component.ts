@@ -64,7 +64,9 @@ export class FileDropzoneNoUploaderComponent implements OnInit {
   @HostListener('window:dragover', ['$event'])
   onDragOver(event: any) {
     // Only show drop area when dragging files, not text selections (fixes Firefox bug)
-    if (!event.dataTransfer?.types?.includes('Files')) {
+    const hasFiles = event.dataTransfer?.types ? Array.from(event.dataTransfer.types).includes('Files') : true;
+
+    if (!hasFiles) {
       return;
     }
     // Show drop area on the page
