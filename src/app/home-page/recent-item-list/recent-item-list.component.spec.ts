@@ -23,10 +23,9 @@ describe('RecentItemListComponent', () => {
 
   const emptyList = createSuccessfulRemoteDataObject(createPaginatedList([]));
 
-  const searchServiceStub = Object.assign(new SearchServiceStub(), {
-    search: () => of(emptyList),
-    clearDiscoveryRequests: () => { },
-  });
+  const searchServiceSpy = jasmine.createSpyObj('SearchService', ['search', 'clearDiscoveryRequests']);
+  searchServiceSpy.search.and.returnValue(of(emptyList));
+  searchServiceSpy.clearDiscoveryRequests.and.returnValue();
 
   paginationService = new PaginationServiceStub();
 
@@ -38,7 +37,7 @@ describe('RecentItemListComponent', () => {
     await TestBed.configureTestingModule({
       imports: [RecentItemListComponent],
       providers: [
-        { provide: SearchService, useValue: searchServiceStub },
+        { provide: SearchService, useValue: searchServiceSpy },
         { provide: PaginationService, useValue: paginationService },
         { provide: SearchConfigurationService, useValue: searchConfigServiceStub },
         { provide: APP_CONFIG, useValue: environment },
@@ -84,6 +83,188 @@ describe('RecentItemListComponent', () => {
     component.ngOnDestroy();
 
     expect(paginationService.clearPagination).toHaveBeenCalledWith(component.paginationConfig.id);
+  });
+
+  it('should not add filter when entityType is undefined', () => {
+    const mockEnvironment = {
+      ...environment,
+      homePage: {
+        ...environment.homePage,
+        recentSubmissions: {
+          ...environment.homePage.recentSubmissions,
+          entityType: undefined,
+        },
+      },
+    };
+
+    TestBed.resetTestingModule();
+    TestBed.configureTestingModule({
+      imports: [RecentItemListComponent],
+      providers: [
+        { provide: SearchService, useValue: searchServiceSpy },
+        { provide: PaginationService, useValue: paginationService },
+        { provide: SearchConfigurationService, useValue: searchConfigServiceStub },
+        { provide: APP_CONFIG, useValue: mockEnvironment },
+        { provide: PLATFORM_ID, useValue: 'browser' },
+      ],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(RecentItemListComponent);
+    component = fixture.componentInstance;
+    
+    component.ngOnInit();
+    
+    expect(searchServiceSpy.search).toHaveBeenCalled();
+    const searchCall = searchServiceSpy.search.calls.mostRecent();
+    const searchOptions = searchCall.args[0];
+    expect(searchOptions.filters).toEqual([]);
+  });
+
+  it('should not add filter when entityType is empty string', () => {
+    const mockEnvironment = {
+      ...environment,
+      homePage: {
+        ...environment.homePage,
+        recentSubmissions: {
+          ...environment.homePage.recentSubmissions,
+          entityType: '',
+        },
+      },
+    };
+
+    TestBed.resetTestingModule();
+    TestBed.configureTestingModule({
+      imports: [RecentItemListComponent],
+      providers: [
+        { provide: SearchService, useValue: searchServiceSpy },
+        { provide: PaginationService, useValue: paginationService },
+        { provide: SearchConfigurationService, useValue: searchConfigServiceStub },
+        { provide: APP_CONFIG, useValue: mockEnvironment },
+        { provide: PLATFORM_ID, useValue: 'browser' },
+      ],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(RecentItemListComponent);
+    component = fixture.componentInstance;
+    
+    component.ngOnInit();
+    
+    expect(searchServiceSpy.search).toHaveBeenCalled();
+    const searchCall = searchServiceSpy.search.calls.mostRecent();
+    const searchOptions = searchCall.args[0];
+    expect(searchOptions.filters).toEqual([]);
+  });
+
+  it('should add filter when entityType is valid string', () => {
+    const mockEnvironment = {
+      ...environment,
+      homePage: {
+        ...environment.homePage,
+        recentSubmissions: {
+          ...environment.homePage.recentSubmissions,
+          entityType: 'Publication',
+        },
+      },
+    };
+
+    TestBed.resetTestingModule();
+    TestBed.configureTestingModule({
+      imports: [RecentItemListComponent],
+      providers: [
+        { provide: SearchService, useValue: searchServiceSpy },
+        { provide: PaginationService, useValue: paginationService },
+        { provide: SearchConfigurationService, useValue: searchConfigServiceStub },
+        { provide: APP_CONFIG, useValue: mockEnvironment },
+        { provide: PLATFORM_ID, useValue: 'browser' },
+      ],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(RecentItemListComponent);
+    component = fixture.componentInstance;
+    
+    component.ngOnInit();
+    
+    expect(searchServiceSpy.search).toHaveBeenCalled();
+    const searchCall = searchServiceSpy.search.calls.mostRecent();
+    const searchOptions = searchCall.args[0];
+    expect(searchOptions.filters.length).toBe(1);
+    expect(searchOptions.filters[0].key).toBe('f.entityType');
+    expect(searchOptions.filters[0].values).toEqual(['Publication']);
+    expect(searchOptions.filters[0].operator).toBe('equals');
+  });
+
+  it('should not add extra params when entityType is undefined in onLoadMore', () => {
+    const mockEnvironment = {
+      ...environment,
+      homePage: {
+        ...environment.homePage,
+        recentSubmissions: {
+          ...environment.homePage.recentSubmissions,
+          entityType: undefined,
+        },
+      },
+    };
+
+    TestBed.resetTestingModule();
+    TestBed.configureTestingModule({
+      imports: [RecentItemListComponent],
+      providers: [
+        { provide: SearchService, useValue: searchServiceSpy },
+        { provide: PaginationService, useValue: paginationService },
+        { provide: SearchConfigurationService, useValue: searchConfigServiceStub },
+        { provide: APP_CONFIG, useValue: mockEnvironment },
+        { provide: PLATFORM_ID, useValue: 'browser' },
+      ],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(RecentItemListComponent);
+    component = fixture.componentInstance;
+    
+    component.onLoadMore();
+    
+    expect(paginationService.updateRouteWithUrl).toHaveBeenCalledWith(
+      'search-page-configuration',
+      ['search'],
+      { sortField: mockEnvironment.homePage.recentSubmissions.sortField, sortDirection: 'DESC', page: 1 },
+      {}
+    );
+  });
+
+  it('should add extra params when entityType is valid string in onLoadMore', () => {
+    const mockEnvironment = {
+      ...environment,
+      homePage: {
+        ...environment.homePage,
+        recentSubmissions: {
+          ...environment.homePage.recentSubmissions,
+          entityType: 'Publication',
+        },
+      },
+    };
+
+    TestBed.resetTestingModule();
+    TestBed.configureTestingModule({
+      imports: [RecentItemListComponent],
+      providers: [
+        { provide: SearchService, useValue: searchServiceSpy },
+        { provide: PaginationService, useValue: paginationService },
+        { provide: SearchConfigurationService, useValue: searchConfigServiceStub },
+        { provide: APP_CONFIG, useValue: mockEnvironment },
+        { provide: PLATFORM_ID, useValue: 'browser' },
+      ],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(RecentItemListComponent);
+    component = fixture.componentInstance;
+    
+    component.onLoadMore();
+    
+    expect(paginationService.updateRouteWithUrl).toHaveBeenCalledWith(
+      'search-page-configuration',
+      ['search'],
+      { sortField: mockEnvironment.homePage.recentSubmissions.sortField, sortDirection: 'DESC', page: 1 },
+      { 'f.entityType': 'Publication,equals' }
+    );
   });
 
 });
