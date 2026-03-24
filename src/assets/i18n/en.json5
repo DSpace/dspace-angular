@@ -5129,6 +5129,10 @@
 
   "sorting.person.birthDate.DESC": "Birth Date Descending",
 
+  "sorting.ownerselection.ASC": "Owner Relevance Ascending",
+
+  "sorting.ownerselection.DESC": "Owner Relevance Descending",
+
   "statistics.title": "Statistics",
 
   "statistics.header": "Statistics for {{ scope }}",
