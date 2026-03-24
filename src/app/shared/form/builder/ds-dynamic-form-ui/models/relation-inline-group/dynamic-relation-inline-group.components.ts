@@ -16,6 +16,7 @@ import {
 import { SubmissionFormsModel } from '@dspace/core/config/models/config-submission-forms.model';
 import { PLACEHOLDER_PARENT_METADATA } from '@dspace/core/shared/form/ds-dynamic-form-constants';
 import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
+import { MetadataSecurityConfiguration } from '@dspace/core/submission/models/metadata-security-configuration';
 import {
   isEmpty,
   isNotEmpty,
@@ -29,9 +30,12 @@ import {
   DynamicFormGroupModel,
   DynamicFormLayoutService,
   DynamicFormValidationService,
+  DynamicInputModel,
 } from '@ng-dynamic-forms/core';
 import { of } from 'rxjs';
+import { take } from 'rxjs/operators';
 
+import { SubmissionService } from '../../../../../../submission/submission.service';
 import { shrinkInOut } from '../../../../../animations/shrink';
 import { FormComponent } from '../../../../form.component';
 import { FormService } from '../../../../form.service';
@@ -69,16 +73,22 @@ export class DsDynamicRelationInlineGroupComponent extends DynamicFormControlCom
   public formModel: DynamicFormControlModel[];
 
   @ViewChild('formRef', { static: false }) private formRef: FormComponent;
+  protected metadataSecurityConfiguration: MetadataSecurityConfiguration;
 
   constructor(private formBuilderService: FormBuilderService,
     private formService: FormService,
     protected layoutService: DynamicFormLayoutService,
+    protected submissionService: SubmissionService,
     protected validationService: DynamicFormValidationService,
   ) {
     super(layoutService, validationService);
   }
 
   ngOnInit() {
+    this.submissionService.getSubmissionSecurityConfiguration(this.model.submissionId).pipe(
+      take(1)).subscribe(security => {
+      this.metadataSecurityConfiguration = security;
+    });
     const config = { rows: this.model.formConfiguration } as SubmissionFormsModel;
 
     this.formId = this.formService.getUniqueId(this.model.id);
@@ -124,8 +134,12 @@ export class DsDynamicRelationInlineGroupComponent extends DynamicFormControlCom
       this.model.submissionScope,
       this.model.readOnly,
       this.formBuilderService.getTypeBindModel(),
-      true)[0];
+      true,
+      this.metadataSecurityConfiguration)[0];
 
+    (formModel as any).group?.forEach((modelItem: DynamicInputModel) => {
+      this.initSecurityLevelConfig(modelItem, (formModel as any));
+    });
     return formModel;
   }
 
@@ -135,7 +149,11 @@ export class DsDynamicRelationInlineGroupComponent extends DynamicFormControlCom
 
   onChange(event: DynamicFormControlEvent) {
     const index = event.model.parent.parent.index;
-    const groupValue = this.getRowValue(event.model.parent as DynamicFormGroupModel);
+    let parentSecurityLevel;
+    if (event.type === 'change') {
+      parentSecurityLevel = this.model.securityLevel;
+    }
+    const groupValue = this.getRowValue(event.model.parent as DynamicFormGroupModel, parentSecurityLevel);
 
     if (this.hasEmptyGroupValue(groupValue)) {
       this.removeItemFromArray(event);
@@ -166,8 +184,60 @@ export class DsDynamicRelationInlineGroupComponent extends DynamicFormControlCom
     }
   }
 
-  private getRowValue(formGroup: DynamicFormGroupModel) {
+  private findModelGroups() {
+    this.formModel.forEach((row: any) => {
+      row.groups.forEach((groupArray) => {
+        groupArray.group.forEach((groupRow) => {
+          const modelRow = groupRow as DynamicFormGroupModel;
+          modelRow.group.forEach((model: DynamicInputModel) => {
+            this.initSecurityLevelConfig(model, modelRow);
+          });
+        });
+      });
+    });
+  }
+
+  private initSecurityLevelConfig(model: any, modelGroup: DynamicFormGroupModel) {
+    if (this.model.name === model.name && this.model.securityConfigLevel?.length > 1) {
+      model.securityConfigLevel = this.model.securityConfigLevel;
+      model.toggleSecurityVisibility = true;
+
+      let mainSecurityLevel;
+      const mainRow = modelGroup.group.find(itemModel => itemModel.name === this.model.name);
+      if (isNotEmpty(this.model.securityLevel)) {
+        mainSecurityLevel = this.model.securityLevel;
+      } else {
+        mainSecurityLevel = (mainRow as any).securityLevel;
+      }
+
+      model.securityLevel = mainSecurityLevel;
+      model.language = (mainRow as any).language ?? null;
+
+      modelGroup.group.forEach((item: any) => {
+        if (item.name !== this.model.name) {
+          item.securityConfigLevel = this.model.securityConfigLevel;
+          item.toggleSecurityVisibility = false;
+          item.securityLevel = mainSecurityLevel;
+        }
+      });
+    }
+    if (this.model.securityConfigLevel?.length === 1) {
+      modelGroup.group.forEach((item: any) => {
+        item.securityConfigLevel = this.model.securityConfigLevel;
+        item.toggleSecurityVisibility = false;
+        item.securityLevel = this.model.securityLevel;
+      });
+    }
+  }
+
+  private getRowValue(formGroup: DynamicFormGroupModel, securityLevel?: number) {
+    let mainSecurityLevel;
     const mainRow = formGroup.group.find(itemModel => itemModel.name === this.model.name);
+    if (isNotEmpty(securityLevel)) {
+      mainSecurityLevel = securityLevel;
+    } else {
+      mainSecurityLevel = (mainRow as any).securityLevel;
+    }
     const mainLanguage = (mainRow as any).language ?? null;
     const groupValue = Object.create({});
     formGroup.group.forEach((model: any) => {
@@ -176,16 +246,16 @@ export class DsDynamicRelationInlineGroupComponent extends DynamicFormControlCom
           groupValue[model.name] = PLACEHOLDER_PARENT_METADATA;
         } else {
           if (typeof model.value === 'string') {
-            groupValue[model.name] = new FormFieldMetadataValueObject(model.value, mainLanguage);
+            groupValue[model.name] = new FormFieldMetadataValueObject(model.value, mainLanguage, mainSecurityLevel);
           } else {
-            groupValue[model.name] = Object.assign(new FormFieldMetadataValueObject(), model.value, { language: mainLanguage });
+            groupValue[model.name] = Object.assign(new FormFieldMetadataValueObject(), model.value, { language: mainLanguage, securityLevel: mainSecurityLevel || null });
           }
         }
       } else {
         if (typeof model.value === 'string') {
-          groupValue[model.name] = new FormFieldMetadataValueObject(model.value, mainLanguage);
+          groupValue[model.name] = new FormFieldMetadataValueObject(model.value, mainLanguage, mainSecurityLevel);
         } else {
-          groupValue[model.name] = Object.assign(new FormFieldMetadataValueObject(), model.value, { language: mainLanguage });
+          groupValue[model.name] = Object.assign(new FormFieldMetadataValueObject(), model.value, { language: mainLanguage, securityLevel: mainSecurityLevel || null });
         }
       }
     });
