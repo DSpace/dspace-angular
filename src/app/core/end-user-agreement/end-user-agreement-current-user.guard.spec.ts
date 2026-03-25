@@ -22,9 +22,20 @@ describe('endUserAgreementGuard', () => {
   let environment: AppConfig;
 
   beforeEach(() => {
-    endUserAgreementService = jasmine.createSpyObj('endUserAgreementService', {
-      hasCurrentUserAcceptedAgreement: of(true),
-    });
+    endUserAgreementService = jasmine.createSpyObj('EndUserAgreementService', [
+      'hasCurrentUserAcceptedAgreement',
+      'hasCurrentUserOrCookieAcceptedAgreement',
+      'removeCookieAccepted',
+      'setUserAcceptedAgreement',
+      'isCookieAccepted',
+      'setCookieAccepted'
+    ]);
+
+    (endUserAgreementService.hasCurrentUserAcceptedAgreement as jasmine.Spy).and.returnValue(of(true));
+    (endUserAgreementService.hasCurrentUserOrCookieAcceptedAgreement as jasmine.Spy).and.returnValue(of(true));
+    (endUserAgreementService.setUserAcceptedAgreement as jasmine.Spy).and.returnValue(of(true));
+    (endUserAgreementService.removeCookieAccepted as jasmine.Spy).and.callFake(() => {});
+    (endUserAgreementService.setCookieAccepted as jasmine.Spy).and.callFake(() => {});
 
     router = jasmine.createSpyObj('router', {
       navigateByUrl: {},

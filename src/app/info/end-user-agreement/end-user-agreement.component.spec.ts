@@ -41,12 +41,14 @@ describe('EndUserAgreementComponent', () => {
     endUserAgreementService = jasmine.createSpyObj('endUserAgreementService', {
       hasCurrentUserOrCookieAcceptedAgreement: of(false),
       setUserAcceptedAgreement: of(true),
+      removeCookieAccepted: jasmine.createSpy('removeCookieAccepted')
     });
     notificationsService = jasmine.createSpyObj('notificationsService', ['success', 'error']);
-    authService = jasmine.createSpyObj('authService', {
-      isAuthenticated: of(true),
-    });
-    store = jasmine.createSpyObj('store', ['dispatch']);
+    authService = jasmine.createSpyObj('AuthService', ['isAuthenticated']);
+    (authService.isAuthenticated as jasmine.Spy).and.returnValue(of(true));
+
+    store = jasmine.createSpyObj('Store', ['dispatch']);
+    (store.dispatch as jasmine.Spy).and.callFake(() => {});
     router = jasmine.createSpyObj('router', ['navigate', 'navigateByUrl']);
     route = Object.assign(new ActivatedRouteStub(), {
       queryParams: of({
