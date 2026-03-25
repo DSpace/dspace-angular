@@ -13,8 +13,8 @@ import {
 } from 'rxjs';
 
 import { AuthService } from '../auth/auth.service';
-import { endUserAgreementCurrentUserGuard } from './end-user-agreement-current-user.guard';
 import { EndUserAgreementService } from './end-user-agreement.service';
+import { endUserAgreementCurrentUserGuard } from './end-user-agreement-current-user.guard';
 
 describe('endUserAgreementGuard', () => {
   let endUserAgreementService: EndUserAgreementService;

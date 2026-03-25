@@ -61,7 +61,7 @@ export class EndUserAgreementService {
             map((user) =>
               hasValue(user) &&
               user.hasMetadata(END_USER_AGREEMENT_METADATA_FIELD) &&
-              user.firstMetadata(END_USER_AGREEMENT_METADATA_FIELD).value === 'true'
+              user.firstMetadata(END_USER_AGREEMENT_METADATA_FIELD).value === 'true',
             ),
           );
         } else {
@@ -97,9 +97,9 @@ export class EndUserAgreementService {
             getFirstCompletedRemoteData(),
             map((response) => {
               const success = response.hasSucceeded;
-                if (success) {
-                  this.setCookieAccepted(true);
-                }
+              if (success) {
+                this.setCookieAccepted(true);
+              }
               return success;
             }),
           );
