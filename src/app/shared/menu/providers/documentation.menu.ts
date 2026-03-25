@@ -8,12 +8,10 @@
 
 import { Injectable } from '@angular/core';
 import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
 import { RootDataService } from '@dspace/core/data/root-data.service';
 import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
 import {
   catchError,
-  combineLatest,
   map,
   Observable,
   of,
@@ -27,6 +25,8 @@ import {
 
 const DSDOC_BASE_URL = 'https://wiki.lyrasis.org/display/DSDOC';
 const DSDOC_FALLBACK_URL = `${DSDOC_BASE_URL}/`;
+
+declare const window: any;
 
 /**
  * Menu provider to create the "Documentation" link in the admin sidebar.
@@ -43,18 +43,14 @@ export class DocumentationMenuProvider extends AbstractMenuProvider {
   }
 
   public getSections(): Observable<PartialMenuSection[]> {
-    return combineLatest([
-      this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
-      this.rootDataService.findRoot().pipe(
-        getFirstSucceededRemoteDataPayload(),
-        catchError(() => of(null)),
-      ),
-    ]).pipe(
-      map(([isSiteAdmin, root]) => {
+    return this.rootDataService.findRoot().pipe(
+      getFirstSucceededRemoteDataPayload(),
+      catchError(() => of(null)),
+      map((root) => {
         const docsUrl = this.buildDocsUrl(root?.dspaceVersion);
         return [
           {
-            visible: isSiteAdmin,
+            visible: true,
             model: {
               type: MenuItemType.EXTERNAL,
               text: 'menu.section.documentation',
@@ -68,13 +64,24 @@ export class DocumentationMenuProvider extends AbstractMenuProvider {
   }
 
   private buildDocsUrl(dspaceVersion?: string): string {
+
+    const customUrl = window?.documentationUrl;
+
+    if (customUrl) {
+      return customUrl;
+    }
+
+    // fallback (lo de Jorge)
     if (!dspaceVersion) {
       return DSDOC_FALLBACK_URL;
     }
+
     const majorVersion = dspaceVersion.replace(/[^\d.]/g, '').split('.')[0];
+
     if (!majorVersion) {
       return DSDOC_FALLBACK_URL;
     }
+
     return `${DSDOC_BASE_URL}${majorVersion}x`;
   }
 }
