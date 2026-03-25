@@ -33,7 +33,7 @@ export const endUserAgreementCurrentUserGuard: CanActivateFn =
             return of(true);
           }
 
-          return endUserAgreementService.hasCurrentUserAcceptedAgreement(false);
+          return endUserAgreementService.hasCurrentUserOrCookieAcceptedAgreement(false);
         }),
         take(1),
       );
