@@ -2,8 +2,7 @@ import { inject } from '@angular/core';
 import { CanActivateFn } from '@angular/router';
 import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import { of } from 'rxjs';
-import { take } from 'rxjs/operators';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, take } from 'rxjs/operators';
 import { AuthService } from '../auth/auth.service';
 
 import { endUserAgreementGuard } from './end-user-agreement.guard';
