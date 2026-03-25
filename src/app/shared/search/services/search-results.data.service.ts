@@ -5,6 +5,7 @@
  *
  * http://www.dspace.org/license/
  */
+/* eslint-disable max-classes-per-file */
 import { Injectable } from '@angular/core';
 import {
   Observable,
@@ -33,11 +34,11 @@ import {
 import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
 import { SearchObjects } from '../models/search-objects.model';
 import { SearchResult } from '../models/search-result.model';
+import { parseFindListOptions } from './search-service.util';
 
 /**
  * Custom SearchDataImpl attaching a custom response-parser for search-results to the GET request
  */
-/* eslint-disable max-classes-per-file */
 class SearchResultsSearchDataImpl extends SearchDataImpl<SearchResult<DSpaceObject>> {
   private parser: GenericConstructor<ResponseParsingService> = SearchResponseParsingService;
 
@@ -88,13 +89,7 @@ export class SearchResultsDataService extends BaseDataService<SearchResult<DSpac
   }
 
   searchObjects(options?: FindListOptions | PaginatedSearchOptions, useCachedVersionIfAvailable?: boolean, reRequestOnStale?: boolean, ...linksToFollow): Observable<RemoteData<SearchObjects<DSpaceObject>>> {
-    let findListOptions: FindListOptions;
-    if (hasValue(options) && options instanceof PaginatedSearchOptions) {
-      findListOptions = options.toFindListOptions();
-    } else {
-      findListOptions = options;
-    }
-    return this.searchData.searchBy('objects', findListOptions, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow) as Observable<RemoteData<SearchObjects<DSpaceObject>>>;
+    return this.searchData.searchBy('objects', parseFindListOptions(options), useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow) as Observable<RemoteData<SearchObjects<DSpaceObject>>>;
   }
 
 }

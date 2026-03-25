@@ -12,7 +12,6 @@ import {
   skipWhile,
   switchMap,
   take,
-  tap,
 } from 'rxjs/operators';
 
 import {
@@ -23,17 +22,19 @@ import {
 import { ListableObject } from '../../../shared/object-collection/shared/listable-object.model';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { AppliedFilter } from '../../../shared/search/models/applied-filter.model';
-import { FacetValues } from '../../../shared/search/models/facet-values.model';
+import { FacetValue } from '../../../shared/search/models/facet-value.model';
 import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
 import { SearchFilterConfig } from '../../../shared/search/models/search-filter-config.model';
 import { SearchObjects } from '../../../shared/search/models/search-objects.model';
 import { SearchResult } from '../../../shared/search/models/search-result.model';
 import { getSearchResultFor } from '../../../shared/search/search-result-element-decorator';
+import { SearchFacetDataService } from '../../../shared/search/services/search-facet.data.service';
 import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
+import { RequestParam } from '../../cache/models/request-param.model';
 import { BaseDataService } from '../../data/base/base-data.service';
 import { DSpaceObjectDataService } from '../../data/dspace-object-data.service';
-import { FacetValueResponseParsingService } from '../../data/facet-value-response-parsing.service';
+import { PaginatedList } from '../../data/paginated-list.model';
 import { ResponseParsingService } from '../../data/parsing.service';
 import { RemoteData } from '../../data/remote-data';
 import { GetRequest } from '../../data/request.models';
@@ -113,6 +114,7 @@ export class SearchService {
     private paginationService: PaginationService,
     private searchConfigurationService: SearchConfigurationService,
     private angulartics2: Angulartics2,
+    private searchFacetService: SearchFacetDataService,
   ) {
     this.searchDataService = new SearchDataService();
   }
@@ -288,12 +290,7 @@ export class SearchService {
    *                                    no valid cached version. Defaults to true
    * @returns {Observable<RemoteData<PaginatedList<FacetValue>>>} Emits the given page of facet values
    */
-  getFacetValuesFor(filterConfig: SearchFilterConfig, valuePage: number, searchOptions?: PaginatedSearchOptions, filterQuery?: string, useCachedVersionIfAvailable = true): Observable<RemoteData<FacetValues>> {
-    let href;
-    let args: string[] = [];
-    if (hasValue(filterQuery)) {
-      args.push(`prefix=${encodeURIComponent(filterQuery)}`);
-    }
+  getFacetValuesFor(filterConfig: SearchFilterConfig, valuePage: number, searchOptions?: PaginatedSearchOptions, filterQuery?: string, useCachedVersionIfAvailable = true): Observable<RemoteData<PaginatedList<FacetValue>>> {
     if (hasValue(searchOptions)) {
       searchOptions = Object.assign(new PaginatedSearchOptions({}), searchOptions, {
         pagination: Object.assign({}, searchOptions.pagination, {
@@ -301,39 +298,20 @@ export class SearchService {
           pageSize: filterConfig.pageSize,
         }),
       });
-      href = searchOptions.toRestUrl(filterConfig._links.self.href, args);
     } else {
-      args = [`page=${valuePage - 1}`, `size=${filterConfig.pageSize}`, ...args];
-      href = new URLCombiner(filterConfig._links.self.href, `?${args.join('&')}`).toString();
+      searchOptions = new PaginatedSearchOptions({
+        pagination: Object.assign(new PaginationComponentOptions(), {
+          currentPage: valuePage,
+          pageSize: filterConfig.pageSize,
+        }),
+      });
+    }
+    const listOptions = searchOptions.toFindListOptions();
+    if (hasValue(filterQuery)) {
+      listOptions.searchParams.push(new RequestParam('prefix', filterQuery));
     }
 
-    let request = new this.request(this.requestService.generateRequestId(), href);
-    request = Object.assign(request, {
-      getResponseParser(): GenericConstructor<ResponseParsingService> {
-        return FacetValueResponseParsingService;
-      },
-    });
-    const startTime = new Date().getTime();
-    this.requestService.send(request, useCachedVersionIfAvailable);
-
-    return this.rdb.buildFromHref(href).pipe(
-      // This skip ensures that if a stale object is present in the cache when you do a
-      // call it isn't immediately returned, but we wait until the remote data for the new request
-      // is created. If useCachedVersionIfAvailable is false it also ensures you don't get a
-      // cached completed object
-      skipWhile((rd: RemoteData<FacetValues>) => rd.isStale || (!useCachedVersionIfAvailable && rd.lastUpdated < startTime)),
-      tap((facetValuesRD: RemoteData<FacetValues>) => {
-        if (facetValuesRD.hasSucceeded) {
-          const appliedFilters: AppliedFilter[] = (facetValuesRD.payload.appliedFilters ?? [])
-            .filter((appliedFilter: AppliedFilter) => hasValue(appliedFilter))
-            // TODO this should ideally be fixed in the backend
-            .map((appliedFilter: AppliedFilter) => Object.assign({}, appliedFilter, {
-              operator: hasValue(appliedFilter.value.match(/\[\s*(\*|\d+)\s*TO\s*(\*|\d+)\s*]/)) ? 'range' : appliedFilter.operator,
-            }));
-          this.appliedFilters$.next(appliedFilters);
-        }
-      }),
-    );
+    return this.searchFacetService.findValues(filterConfig.name, listOptions, useCachedVersionIfAvailable);
   }
 
   /**

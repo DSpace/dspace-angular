@@ -46,6 +46,7 @@ import { hasValue } from '../../../../empty.util';
 import { VocabularyTreeviewModalComponent } from '../../../../form/vocabulary-treeview-modal/vocabulary-treeview-modal.component';
 import { FilterInputSuggestionsComponent } from '../../../../input-suggestions/filter-suggestions/filter-input-suggestions.component';
 import { addOperatorToFilterValue } from '../../../search.utils';
+import { SearchFacetDataService } from '../../../services/search-facet.data.service';
 import {
   facetLoad,
   SearchFacetFilterComponent,
@@ -76,6 +77,7 @@ import { SearchFacetSelectedOptionComponent } from '../search-facet-filter-optio
 export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent implements OnDestroy, OnInit {
 
   constructor(protected searchService: SearchService,
+              protected facetService: SearchFacetDataService,
               protected filterService: SearchFilterService,
               protected rdbs: RemoteDataBuildService,
               protected router: Router,
@@ -86,6 +88,7 @@ export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent i
   ) {
     super(
       searchService,
+      facetService,
       filterService,
       rdbs,
       router,

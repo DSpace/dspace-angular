@@ -4,15 +4,15 @@
   <h2>{{filterLabel+'.filters.head' | translate}}</h2>
 }
 
-@if ((filters | async)?.hasSucceeded) {
-  <div [class.visually-hidden]="getCurrentFiltersComputed(this.currentConfiguration) < (filters | async)?.payload?.length">
-    @for (filter of (filters | async)?.payload; track filter.name) {
+@if ((filters | async)?.length > 0) {
+  <div [class.visually-hidden]="getCurrentFiltersComputed(this.currentConfiguration) < (filters | async)?.length">
+    @for (filter of (filters | async); track filter.name) {
       <ds-search-filter (isVisibilityComputed)="countFiltersWithComputedVisibility($event)" [scope]="currentScope" [filter]="filter" [inPlaceSearch]="inPlaceSearch" [refreshFilters]="refreshFilters"></ds-search-filter>
     }
   </div>
 }
 
-@if(getCurrentFiltersComputed(this.currentConfiguration) < (filters | async)?.payload?.length) {
+@if(getCurrentFiltersComputed(this.currentConfiguration) < (filters | async)?.length) {
   <ngx-skeleton-loader [count]="defaultFilterCount"/>
 }
 

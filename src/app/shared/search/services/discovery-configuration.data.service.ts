@@ -6,17 +6,17 @@
  * http://www.dspace.org/license/
  */
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { IdentifiableDataService } from '../../../core/data/base/identifiable-data.service';
+import { RemoteData } from '../../../core/data/remote-data';
 import { RequestService } from '../../../core/data/request.service';
 import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
-import { DiscoveryConfiguration } from '../models/discovery-configuration.model';
-import { Observable } from 'rxjs';
-import { RemoteData } from '../../../core/data/remote-data';
-import { map } from 'rxjs/operators';
 import { isNotEmpty } from '../../empty.util';
+import { DiscoveryConfiguration } from '../models/discovery-configuration.model';
 
 /**
  * Data service for retrieving Discovery configurations from the REST API.
@@ -35,7 +35,7 @@ export class DiscoveryConfigurationDataService extends IdentifiableDataService<D
 
   findByScope(scopeID: string, useCachedVersionIfAvailable: boolean = true, reRequestOnStale: boolean = true, ...linksToFollow): Observable<RemoteData<DiscoveryConfiguration>> {
     const href$ = this.getEndpoint().pipe(
-      map((endpoint) => this.buildHrefFromFindOptions(this.constructIdEndpoint(endpoint, 'scope'), { scopeID }, [], ...linksToFollow))
+      map((endpoint) => this.buildHrefFromFindOptions(this.constructIdEndpoint(endpoint, 'scope'), { scopeID }, [], ...linksToFollow)),
     );
     return this.findByHref(href$, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }

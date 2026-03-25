@@ -4,7 +4,6 @@ import {
 } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { RemoteData } from '../../../core/data/remote-data';
 import { ThemedComponent } from '../../theme-support/themed.component';
 import { SearchFilterConfig } from '../models/search-filter-config.model';
 import { SearchFiltersComponent } from './search-filters.component';
@@ -26,7 +25,7 @@ export class ThemedSearchFiltersComponent extends ThemedComponent<SearchFiltersC
   @Input() currentScope: string;
   @Input() inPlaceSearch: boolean;
   @Input() refreshFilters: Observable<boolean>;
-  @Input() filters: Observable<RemoteData<SearchFilterConfig[]>>;
+  @Input() filters: Observable<SearchFilterConfig[]>;
 
   protected inAndOutputNames: (keyof SearchFiltersComponent & keyof this)[] = [
     'filters', 'currentConfiguration', 'currentScope', 'inPlaceSearch', 'refreshFilters',

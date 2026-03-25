@@ -48,10 +48,13 @@ import { RouteService } from '../../core/services/route.service';
 import { Context } from '../../core/shared/context.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { Item } from '../../core/shared/item.model';
-import { getAllSucceededRemoteDataPayload, getFirstCompletedRemoteData } from '../../core/shared/operators';
+import {
+  getAllCompletedRemoteData,
+  getAllSucceededRemoteDataPayload,
+  getFirstCompletedRemoteData,
+} from '../../core/shared/operators';
 import { SearchService } from '../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
-import { SearchConfig } from '../../core/shared/search/search-filters/search-config.model';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
 import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
@@ -73,19 +76,21 @@ import { SidebarService } from '../sidebar/sidebar.service';
 import { followLink } from '../utils/follow-link-config.model';
 import { currentPath } from '../utils/route.utils';
 import { ViewModeSwitchComponent } from '../view-mode-switch/view-mode-switch.component';
+import { DiscoveryConfiguration } from './models/discovery-configuration.model';
+import { Facet } from './models/facet.model';
 import { PaginatedSearchOptions } from './models/paginated-search-options.model';
 import { SearchFilterConfig } from './models/search-filter-config.model';
 import { SearchObjects } from './models/search-objects.model';
 import { SearchResult } from './models/search-result.model';
+import { SearchSortOption } from './models/search-sort-option.model';
 import { SearchLabelsComponent } from './search-labels/search-labels.component';
 import { SelectionConfig } from './search-results/search-results.component';
 import { ThemedSearchResultsComponent } from './search-results/themed-search-results.component';
 import { ThemedSearchSidebarComponent } from './search-sidebar/themed-search-sidebar.component';
 import { SearchConfigurationOption } from './search-switch-configuration/search-configuration-option.model';
-import { SearchResultsDataService } from './services/search-results.data.service';
 import { DiscoveryConfigurationDataService } from './services/discovery-configuration.data.service';
-import { DiscoveryConfiguration } from './models/discovery-configuration.model';
-import { SearchSortOption } from './models/search-sort-option.model';
+import { SearchFacetDataService } from './services/search-facet.data.service';
+import { SearchResultsDataService } from './services/search-results.data.service';
 
 @Component({
   selector: 'ds-base-search',
@@ -268,9 +273,19 @@ export class SearchComponent implements OnDestroy, OnInit {
   currentSortOptions$: BehaviorSubject<SortOptions> = new BehaviorSubject<SortOptions>(null);
 
   /**
-   * An observable containing configuration about which filters are shown and how they are shown
+   * An observable containing configuration about which filters are available
    */
-  filtersRD$: BehaviorSubject<RemoteData<SearchFilterConfig[]>> = new BehaviorSubject<RemoteData<SearchFilterConfig[]>>(null);
+  filtersRD$: BehaviorSubject<RemoteData<PaginatedList<SearchFilterConfig>>> = new BehaviorSubject<RemoteData<PaginatedList<SearchFilterConfig>>>(null);
+
+  /**
+   * An observable containing configuration about which facets are shown and how they are shown
+   */
+  facetsRD$: BehaviorSubject<RemoteData<PaginatedList<Facet>>> = new BehaviorSubject<RemoteData<PaginatedList<Facet>>>(null);
+
+  /**
+   * An observable containing configuration of filters that are supported by the current available facets
+   */
+  facetFilters$: BehaviorSubject<SearchFilterConfig[]> = new BehaviorSubject<SearchFilterConfig[]>([]);
 
   /**
    * Maintains the last search options, so it can be used in refresh
@@ -351,6 +366,7 @@ export class SearchComponent implements OnDestroy, OnInit {
 
   constructor(protected service: SearchService,
               protected searchResultsService: SearchResultsDataService,
+              protected facetService: SearchFacetDataService,
               protected discoveryConfigurationService: DiscoveryConfigurationDataService,
               protected sidebarService: SidebarService,
               protected windowService: HostWindowService,
@@ -405,7 +421,9 @@ export class SearchComponent implements OnDestroy, OnInit {
     const configuration$: Observable<string> = this.searchConfigService
       .getCurrentConfiguration(this.configuration).pipe(distinctUntilChanged());
     const discoveryConfiguration$: Observable<DiscoveryConfiguration> = combineLatest([configuration$, this.currentScope$]).pipe(
-      switchMap(([configuration, scope]: [string, string]) => this.discoveryConfigurationService.findByIdOrScope(configuration, scope, undefined, undefined, followLink('sortoptions'), followLink('defaultsortoption'))),
+      switchMap(([configuration, scope]: [string, string]) =>
+        this.discoveryConfigurationService.findByIdOrScope(configuration, scope, undefined, undefined,
+          followLink('sortoptions'), followLink('defaultsortoption'), followLink('searchfilters'))),
       getAllSucceededRemoteDataPayload(),
     );
     const defaultSortOption$: Observable<SortOptions> = discoveryConfiguration$.pipe(
@@ -424,14 +442,38 @@ export class SearchComponent implements OnDestroy, OnInit {
       distinctUntilChanged(),
     );
     const searchOptions$: Observable<PaginatedSearchOptions> = this.getSearchOptions().pipe(distinctUntilChanged());
+    const searchFilters$: Observable<RemoteData<PaginatedList<SearchFilterConfig>>> = discoveryConfiguration$.pipe(
+      switchMap((discoveryConfiguration: DiscoveryConfiguration) => discoveryConfiguration.searchfilters),
+      getAllCompletedRemoteData(),
+    );
+    const facets$: Observable<RemoteData<PaginatedList<Facet>>> = combineLatest([configuration$, this.currentScope$]).pipe(
+      switchMap(([configuration, scope]: [string, string]) => this.facetService.findAll(new PaginatedSearchOptions({ configuration, scope }))),
+      getAllCompletedRemoteData(),
+    );
+    const facetFilters$: Observable<SearchFilterConfig[]> = combineLatest([
+      searchFilters$,
+      facets$,
+    ]).pipe(
+      map(([filters, facets]: [RemoteData<PaginatedList<SearchFilterConfig>>, RemoteData<PaginatedList<Facet>>]) => {
+        if (filters.hasSucceeded) {
+          if (facets.hasSucceeded) {
+            return filters.payload.page.filter((searchFilter) => facets.payload.page.some((facet) => facet.name === searchFilter.name));
+          } else {
+            return filters.payload.page;
+          }
+        } else {
+          return [];
+        }
+      }),
+    );
 
-    this.subs.push(combineLatest([configuration$, searchSortOptions$, searchOptions$, sortOption$, this.currentScope$]).pipe(
-      filter(([configuration, searchSortOptions, searchOptions, sortOption, scope]: [string, SortOptions[], PaginatedSearchOptions, SortOptions, string]) => {
+    this.subs.push(combineLatest([configuration$, searchSortOptions$, searchOptions$, sortOption$, searchFilters$, facets$, facetFilters$, this.currentScope$]).pipe(
+      filter(([configuration, searchSortOptions, searchOptions, sortOption, searchFilters, facets, facetFilters, scope]: [string, SortOptions[], PaginatedSearchOptions, SortOptions, RemoteData<PaginatedList<SearchFilterConfig>>, RemoteData<PaginatedList<Facet>>, SearchFilterConfig[], string]) => {
         // filter for search options related to instanced paginated id
         return searchOptions.pagination.id === this.paginationId;
       }),
       debounceTime(100),
-    ).subscribe(([configuration, searchSortOptions, searchOptions, sortOption, scope]: [string, SortOptions[], PaginatedSearchOptions, SortOptions, string]) => {
+    ).subscribe(([configuration, searchSortOptions, searchOptions, sortOption, searchFilters, facets, facetFilters, scope]: [string, SortOptions[], PaginatedSearchOptions, SortOptions, RemoteData<PaginatedList<SearchFilterConfig>>, RemoteData<PaginatedList<Facet>>, SearchFilterConfig[], string]) => {
       // Build the PaginatedSearchOptions object
       const combinedOptions = Object.assign({}, searchOptions,
         {
@@ -456,7 +498,9 @@ export class SearchComponent implements OnDestroy, OnInit {
         this.initialized$.next(true);
         // retrieve results
         this.retrieveSearchResults(newSearchOptions);
-        this.retrieveFilters(newSearchOptions);
+        this.filtersRD$.next(searchFilters);
+        this.facetsRD$.next(facets);
+        this.facetFilters$.next(facetFilters);
       }
     }));
 
@@ -493,15 +537,6 @@ export class SearchComponent implements OnDestroy, OnInit {
   }
 
   /**
-   * Emit event to refresh filter content
-   * @param $event
-   */
-  public onContentChange($event: any) {
-    this.retrieveFilters(this.lastSearchOptions);
-    this.refreshFilters.next(true);
-  }
-
-  /**
    * Unsubscribe from the subscriptions
    */
   ngOnDestroy(): void {
@@ -514,19 +549,6 @@ export class SearchComponent implements OnDestroy, OnInit {
    */
   protected getSearchOptions(): Observable<PaginatedSearchOptions> {
     return this.searchConfigService.paginatedSearchOptions;
-  }
-
-  /**
-   * Retrieve search filters by the given search options
-   * @param searchOptions
-   * @private
-   */
-  private retrieveFilters(searchOptions: PaginatedSearchOptions) {
-    this.searchConfigService.getConfig(searchOptions.scope, searchOptions.configuration).pipe(
-      getFirstCompletedRemoteData(),
-    ).subscribe((filtersRD: RemoteData<SearchFilterConfig[]>) => {
-      this.filtersRD$.next(filtersRD);
-    });
   }
 
   /**

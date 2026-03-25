@@ -19,6 +19,7 @@ import {
   AppConfig,
 } from '../../../../config/app-config.interface';
 import { SortOptions } from '../../../core/cache/models/sort-options.model';
+import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { FilterConfig } from '../../../core/shared/search/search-filters/search-config.model';
@@ -26,6 +27,7 @@ import { ViewMode } from '../../../core/shared/view-mode.model';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import { ViewModeSwitchComponent } from '../../view-mode-switch/view-mode-switch.component';
 import { AdvancedSearchComponent } from '../advanced-search/advanced-search.component';
+import { Facet } from '../models/facet.model';
 import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
 import { SearchFilterConfig } from '../models/search-filter-config.model';
 import { ThemedSearchFiltersComponent } from '../search-filters/themed-search-filters.component';
@@ -81,9 +83,14 @@ export class SearchSidebarComponent implements OnInit {
   @Input() currentSortOption: SortOptions;
 
   /**
-   * An observable containing configuration about which filters are shown and how they are shown
+   * An observable containing configuration about which facets are shown and how they are shown
    */
-  @Input() filters: Observable<RemoteData<SearchFilterConfig[]>>;
+  @Input() facets: Observable<RemoteData<PaginatedList<Facet>>>;
+
+  /**
+   * An observable containing configuration of filters that are supported by the current available facets
+   */
+  @Input() facetFilters: Observable<SearchFilterConfig[]>;
 
   /**
    * The total amount of results

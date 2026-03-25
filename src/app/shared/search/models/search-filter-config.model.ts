@@ -30,8 +30,9 @@ export class SearchFilterConfig implements CacheableObject {
   /**
    * The name of this filter
    */
-  @autoserializeAs(String, 'filter')
-  name: string;
+  get name(): string {
+    return this.filter;
+  }
 
   @autoserialize
   filter: string;

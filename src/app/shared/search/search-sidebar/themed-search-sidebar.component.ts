@@ -10,9 +10,11 @@ import {
 } from 'rxjs';
 
 import { SortOptions } from '../../../core/cache/models/sort-options.model';
+import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { ViewMode } from '../../../core/shared/view-mode.model';
 import { ThemedComponent } from '../../theme-support/themed.component';
+import { Facet } from '../models/facet.model';
 import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
 import { SearchFilterConfig } from '../models/search-filter-config.model';
 import { SearchConfigurationOption } from '../search-switch-configuration/search-configuration-option.model';
@@ -35,7 +37,8 @@ export class ThemedSearchSidebarComponent extends ThemedComponent<SearchSidebarC
   @Input() configurationList: SearchConfigurationOption[];
   @Input() currentScope: string;
   @Input() currentSortOption: SortOptions;
-  @Input() filters: Observable<RemoteData<SearchFilterConfig[]>>;
+  @Input() facets: Observable<RemoteData<PaginatedList<Facet>>>;
+  @Input() facetFilters: Observable<SearchFilterConfig[]>;
   @Input() resultCount: number;
   @Input() viewModeList: ViewMode[];
   @Input() showViewModes: boolean;
@@ -49,7 +52,7 @@ export class ThemedSearchSidebarComponent extends ThemedComponent<SearchSidebarC
 
   protected inAndOutputNames: (keyof SearchSidebarComponent & keyof this)[] = [
     'configuration', 'configurationList', 'currentScope', 'currentSortOption',
-    'resultCount', 'filters', 'viewModeList', 'showViewModes', 'inPlaceSearch',
+    'resultCount', 'facets', 'facetFilters', 'viewModeList', 'showViewModes', 'inPlaceSearch',
     'searchOptions', 'sortOptionsList', 'refreshFilters', 'toggleSidebar', 'changeConfiguration',
     'changeViewMode',
   ];

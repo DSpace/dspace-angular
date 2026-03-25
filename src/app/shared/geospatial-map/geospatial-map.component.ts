@@ -18,13 +18,13 @@ import {
 } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
+import { PaginatedList } from '../../core/data/paginated-list.model';
 import {
   hasValue,
   isEmpty,
   isNotEmpty,
 } from '../empty.util';
 import { FacetValue } from '../search/models/facet-value.model';
-import { FacetValues } from '../search/models/facet-values.model';
 import { GeospatialMapDetail } from './models/geospatial-map-detail.model';
 
 @Component({
@@ -74,7 +74,7 @@ export class GeospatialMapComponent implements AfterViewInit, OnInit, OnDestroy 
   /**
    * Facet values and current scope used by browse-by components
    */
-  @Input() facetValues?: Observable<FacetValues>;
+  @Input() facetValues?: Observable<PaginatedList<FacetValue>>;
 
   /**
    * Current search scope, if any (for marker click links)

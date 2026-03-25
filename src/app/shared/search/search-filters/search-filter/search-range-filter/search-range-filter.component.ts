@@ -30,6 +30,7 @@ import { SearchFilterService } from '../../../../../core/shared/search/search-fi
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { hasValue } from '../../../../empty.util';
 import { DebounceDirective } from '../../../../utils/debounce.directive';
+import { SearchFacetDataService } from '../../../services/search-facet.data.service';
 import {
   facetLoad,
   SearchFacetFilterComponent,
@@ -108,6 +109,7 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
   keyboardControl: boolean;
 
   constructor(protected searchService: SearchService,
+              protected facetService: SearchFacetDataService,
               protected filterService: SearchFilterService,
               protected router: Router,
               protected route: RouteService,
@@ -118,6 +120,7 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
   ) {
     super(
       searchService,
+      facetService,
       filterService,
       rdbs,
       router,

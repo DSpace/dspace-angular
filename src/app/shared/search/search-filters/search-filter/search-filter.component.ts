@@ -26,6 +26,7 @@ import {
   switchMap,
 } from 'rxjs';
 
+import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
@@ -39,7 +40,7 @@ import {
 } from '../../../empty.util';
 import { BrowserOnlyPipe } from '../../../utils/browser-only.pipe';
 import { AppliedFilter } from '../../models/applied-filter.model';
-import { FacetValues } from '../../models/facet-values.model';
+import { FacetValue } from '../../models/facet-value.model';
 import { SearchFilterConfig } from '../../models/search-filter-config.model';
 import { SearchOptions } from '../../models/search-options.model';
 import { FACET_OPERATORS } from './search-facet-filter/search-facet-filter.component';
@@ -260,8 +261,8 @@ export class SearchFilterComponent implements OnInit, OnChanges, OnDestroy {
             options.scope = scope;
           }
           return this.searchService.getFacetValuesFor(this.filter, 1, options).pipe(
-            filter((RD: RemoteData<FacetValues>) => !RD.isLoading),
-            map((valuesRD: RemoteData<FacetValues>) => {
+            filter((RD: RemoteData<PaginatedList<FacetValue>>) => !RD.isLoading),
+            map((valuesRD: RemoteData<PaginatedList<FacetValue>>) => {
               return valuesRD.payload?.totalElements > 0;
             }),
           );

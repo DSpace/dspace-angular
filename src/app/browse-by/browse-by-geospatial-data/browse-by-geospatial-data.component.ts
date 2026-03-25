@@ -28,6 +28,7 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
+import { PaginatedList } from '../../core/data/paginated-list.model';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
@@ -36,7 +37,7 @@ import { SearchService } from '../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { hasValue } from '../../shared/empty.util';
 import { GeospatialMapComponent } from '../../shared/geospatial-map/geospatial-map.component';
-import { FacetValues } from '../../shared/search/models/facet-values.model';
+import { FacetValue } from '../../shared/search/models/facet-value.model';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 
 @Component({
@@ -64,7 +65,7 @@ export class BrowseByGeospatialDataComponent implements OnInit {
 
   protected readonly isPlatformBrowser = isPlatformBrowser;
 
-  public facetValues$: Observable<FacetValues> = of(null);
+  public facetValues$: Observable<PaginatedList<FacetValue>> = of(null);
 
   constructor(
     @Inject(PLATFORM_ID) public platformId: string,
@@ -85,7 +86,7 @@ export class BrowseByGeospatialDataComponent implements OnInit {
   /**
    * Get facet values for use in rendering 'browse by' geospatial map
    */
-  getFacetValues(): Observable<FacetValues> {
+  getFacetValues(): Observable<PaginatedList<FacetValue>> {
     return combineLatest([this.scope$, this.searchConfigurationService.getConfig(
       // If the geospatial configuration is not found, default will be returned and used
       '', environment.geospatialMapViewer.spatialFacetDiscoveryConfiguration).pipe(
