@@ -3,6 +3,7 @@ import { SearchResultConfig } from '@dspace/config/search-result-config.interfac
 
 import { AccessibilitySettingsConfig } from './accessibility-settings.config';
 import { ActuatorsConfig } from './actuators.config';
+import { AddToAnyPluginConfig } from './add-to-any-plugin-config';
 import { AdminNotifyMetricsRow } from './admin-notify-metrics.config';
 import { AppConfig } from './app-config.interface';
 import { AuthConfig } from './auth-config.interfaces';
@@ -782,4 +783,16 @@ export class DefaultAppConfig implements AppConfig {
     ],
   };
 
+  /**
+   * Default configuration of AddToAny plugin for social media integration
+   * Check more details at {@link AddToAnyPluginConfig}
+   */
+  addToAnyPlugin: AddToAnyPluginConfig = {
+    socialNetworksEnabled: false,
+    scriptUrl: 'https://static.addtoany.com/menu/page.js',
+    buttons: ['facebook', 'x', 'linkedin', 'email', 'copy_link'],
+    showPlusButton: true,
+    showCounters: true,
+    title: 'DSpace demo',
+  };
 }
