@@ -748,3 +748,22 @@ searchResults:
   followAuthorityMetadataValuesLimit: 5
 
 
+# Configuration of social links using AddToAny plugin
+addToAnyPlugin:
+  # This is enabled flag
+  socialNetworksEnabled: false
+  # If you want to self-host check https://www.addtoany.com/buttons/customize/host_cache
+  scriptUrl: "https://static.addtoany.com/menu/page.js"
+  # Check available integrations, visit https://www.addtoany.com/buttons/for/website
+  # 1. Click "Choose Services", select integrations, then click Done
+  # 2. Get Button Code
+  # 3. You will get a HTML e.g. <a class="a2a_button_facebook"></a> where "facebook" is part you want to include in list
+  buttons:
+    - facebook
+    - twitter
+    - linkedin
+    - email
+    - copy_link
+  showPlusButton: true
+  showCounters: true
+  title: DSpace demo

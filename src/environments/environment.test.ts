@@ -603,4 +603,13 @@ export const environment: BuildConfig = {
       },
     ],
   },
+
+  addToAnyPlugin: {
+    socialNetworksEnabled: true,
+    scriptUrl: 'https://static.addtoany.com/menu/page.js',
+    buttons: ['btn1', 'btn2'],
+    showPlusButton: true,
+    showCounters: true,
+    title: 'DSpace demo',
+  },
 };
