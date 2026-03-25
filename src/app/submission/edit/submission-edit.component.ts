@@ -66,6 +66,11 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
    */
   public collectionModifiable: boolean | null = null;
 
+  /**
+   * The entity type of the submission
+   * @type {string}
+   */
+  public entityType: string;
 
   /**
    * The list of submission's sections
@@ -142,7 +147,6 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
   ngOnInit() {
 
     this.collectionModifiable = this.route.snapshot.data?.collectionModifiable ?? null;
-
     this.subs.push(
       this.route.paramMap.pipe(
         switchMap((params: ParamMap) => this.submissionService.retrieveSubmission(params.get('id'))),
@@ -154,6 +158,9 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
             this.notificationsService.info(null, this.translate.get('submission.general.cannot_submit'));
             this.router.navigate(['/mydspace']);
           } else {
+            const collection = submissionObjectRD.payload.collection as Collection;
+            this.entityType = (hasValue(collection) && collection.hasMetadata('dspace.entity.type'))
+              ? collection.firstMetadataValue('dspace.entity.type') : null;
             const { errors } = submissionObjectRD.payload;
             this.submissionErrors = parseSectionErrors(errors);
             this.submissionId = submissionObjectRD.payload.id.toString();

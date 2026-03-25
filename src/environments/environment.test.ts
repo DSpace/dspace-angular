@@ -44,10 +44,11 @@ export const environment: BuildConfig = {
     // NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
     nameSpace: '/angular-dspace',
     baseUrl: 'http://dspace.com/angular-dspace',
-    // The rateLimiter settings limit each IP to a 'max' of 500 requests per 'windowMs' (1 minute).
+    // The rateLimiter settings limit each IP to a 'limit' of 500 requests per 'windowMs' (1 minute).
     rateLimiter: {
       windowMs: 1 * 60 * 1000, // 1 minute
-      max: 500, // limit each IP to 500 requests per windowMs
+      limit: 500, // limit each IP to 500 requests per windowMs
+      ipv6Subnet: 56,
     },
     useProxies: true,
   },
@@ -289,6 +290,34 @@ export const environment: BuildConfig = {
       // Show the bitstream access status label
       showAccessStatuses: false,
     },
+    metadataLinkViewPopoverData:  {
+      fallbackMetdataList: ['dc.description.abstract'],
+
+      entityDataConfig: [
+        {
+          entityType: 'Person',
+          metadataList: ['person.affiliation.name', 'person.email', 'person.identifier.orcid', 'dc.description.abstract'],
+          titleMetadataList: ['person.givenName', 'person.familyName' ],
+        },
+        {
+          entityType: 'OrgUnit',
+          metadataList: ['organization.parentOrganization', 'organization.identifier.ror', 'crisou.director', 'dc.description.abstract'],
+        },
+        {
+          entityType: 'Project',
+          metadataList: ['oairecerif.project.status', 'dc.description.abstract'],
+        },
+        {
+          entityType: 'Funding',
+          metadataList: ['oairecerif.funder', 'oairecerif.fundingProgram', 'dc.description.abstract'],
+        },
+        {
+          entityType: 'Publication',
+          metadataList: ['dc.identifier.doi', 'dc.identifier.uri', 'dc.description.abstract'],
+        },
+      ],
+      identifierSubtypes: [],
+    },
   },
   community: {
     defaultBrowseTab: 'search',
@@ -475,5 +504,77 @@ export const environment: BuildConfig = {
 
   accessibility: {
     cookieExpirationDuration: 7,
+  },
+
+  // Configuration for layout customization of metadata rendering in Item page
+  layout: {
+    authorityRef: [
+      {
+        entityType: 'DEFAULT',
+        entityStyle: {
+          default: {
+            icon: 'fa fa-user',
+            style: 'text-success',
+          },
+        },
+      },
+      {
+        entityType: 'PERSON',
+        entityStyle: {
+          person: {
+            icon: 'fa fa-user',
+            style: 'text-success',
+          },
+          personStaff: {
+            icon: 'fa fa-user',
+            style: 'text-primary',
+          },
+          default: {
+            icon: 'fa fa-user',
+            style: 'text-success',
+          },
+        },
+      },
+      {
+        entityType: 'ORGUNIT',
+        entityStyle: {
+          default: {
+            icon: 'fa fa-university',
+            style: 'text-success',
+          },
+        },
+      },
+    ],
+  },
+
+  searchResult: {
+    authorMetadata: ['dc.contributor.author', 'dc.creator', 'dc.contributor.*'],
+    followAuthorityMaxItemLimit: 100,
+
+    followAuthorityMetadataValuesLimit: 5,
+
+    followAuthorityMetadata:   [
+      {
+        type: 'Publication',
+        metadata: ['dc.contributor.author'],
+      },
+      {
+        type: 'Product',
+        metadata: ['dc.contributor.author'],
+      },
+      {
+        type: 'Patent',
+        metadata: ['dc.contributor.author'],
+      },
+    ],
+  },
+
+  addToAnyPlugin: {
+    socialNetworksEnabled: true,
+    scriptUrl: 'https://static.addtoany.com/menu/page.js',
+    buttons: ['btn1', 'btn2'],
+    showPlusButton: true,
+    showCounters: true,
+    title: 'DSpace demo',
   },
 };

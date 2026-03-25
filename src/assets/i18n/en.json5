@@ -17,7 +17,7 @@
 
   "500.link.home-page": "Take me to the home page",
 
-  "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page. ",
+  "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page.",
 
   "404.link.home-page": "Take me to the home page",
 
@@ -899,6 +899,56 @@
 
   "admin.batch-import.page.remove": "remove",
 
+  "audit.data.not-found": "No audits found.",
+
+  "audit.data.self": "self",
+
+  "audit.detail.metadata.field": "Metadata field:",
+
+  "audit.detail.metadata.value": "Value:",
+
+  "audit.detail.metadata.authority": "Authority:",
+
+  "audit.detail.metadata.confidence": "Confidence:",
+
+  "audit.detail.metadata.place": "Place:",
+
+  "audit.detail.metadata.action": "Action:",
+
+  "audit.detail.metadata.checksum": "Checksum:",
+
+  "audit.overview.title": "All Audit Logs",
+
+  "audit.overview.table.id": "Audit ID",
+
+  "audit.overview.table.objectUUID": "Object ID",
+
+  "audit.overview.table.objectType": "Object Type",
+
+  "audit.overview.table.subjectUUID": "Subject ID",
+
+  "audit.overview.table.subjectType": "Subject Type",
+
+  "audit.overview.table.entityType": "Audit Type",
+
+  "audit.overview.table.eperson": "EPerson",
+
+  "audit.overview.table.other": "Object",
+
+  "audit.overview.table.timestamp": "Time (UTC)",
+
+  "audit.overview.breadcrumbs": "Audit Logs",
+
+  "audit.object.back": "Back",
+
+  "audit.object.breadcrumbs": "Object Audit Logs",
+
+  "audit.object.overview.title": "Object Audit Logs",
+
+  "audit.object.logs.label": "Logs for object: ",
+
+  "audit.object.overview.disabled.message": "Audit feature is currently disabled",
+
   "auth.errors.invalid-user": "Invalid email address or password.",
 
   "auth.messages.expired": "Your session has expired. Please log in again.",
@@ -1127,6 +1177,10 @@
 
   "browse.title": "Browsing by {{ field }}{{ startsWith }} {{ value }}",
 
+  "browse.taxonomy.show_next_results": "Show next results",
+
+  "browse.taxonomy.show_previous_results": "Show previous results",
+
   "browse.title.page": "Browsing by {{ field }} {{ value }}",
 
   "search.browse.item-back": "Back to Results",
@@ -1161,7 +1215,7 @@
 
   "collection.delete.notification.fail": "Collection could not be deleted",
 
-  "collection.delete.notification.success": "Successfully deleted collection",
+  "collection.delete.notification.success": "Successfully started a process to delete this collection",
 
   "collection.delete.text": "Are you sure you want to delete collection \"{{ dso }}\"",
 
@@ -1455,7 +1509,7 @@
 
   "community.delete.notification.fail": "Community could not be deleted",
 
-  "community.delete.notification.success": "Successfully deleted community",
+  "community.delete.notification.success": "Successfully started a process to delete this community",
 
   "community.delete.text": "Are you sure you want to delete community \"{{ dso }}\"",
 
@@ -1610,6 +1664,8 @@
   "community.sub-collection-list.head": "Collections in this community",
 
   "community.sub-community-list.head": "Communities in this Community",
+
+  "context-menu.actions.audit-item.btn": "Audit",
 
   "cookies.consent.accept-all": "Accept all",
 
@@ -1923,9 +1979,15 @@
 
   "error.top-level-communities": "Error fetching top-level communities",
 
-  "error.validation.license.notgranted": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
+  "error.validation.license.required": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
 
   "error.validation.cclicense.required": "You must grant this cclicense to complete your submission. If you are unable to grant the cclicense at this time, you may save your work and return later or remove the submission.",
+
+  "error.validation.custom-url.conflict": "The custom url has been already used, please try with a new one.",
+
+  "error.validation.custom-url.empty": "The custom url is required and cannot be empty.",
+
+  "error.validation.custom-url.invalid-characters": "The custom url contains invalid characters. Only alphanumeric characters, dashes and underscores are supported.",
 
   "error.validation.pattern": "This input is restricted by the current pattern: {{ pattern }}.",
 
@@ -2081,6 +2143,40 @@
 
   "form.other-information.orcid": "ORCID",
 
+  "form.other-information.person_identifier_orcid": "ORCID",
+
+  "form.other-information.oairecerif_author_affiliation": "Affiliation",
+
+  "form.other-information.oairecerif_editor_affiliation": "Affiliation",
+
+  "form.other-information.person_identifier_orcid": "ORCID iD",
+
+  "form.other-information.institution-affiliation-name": "Affiliation(s)",
+
+  "form.other-information.dc_relation_grantno": "Grant Number",
+
+  "form.other-information.not-available": "Not available",
+
+  "form.other-information.ror_orgunit_id": "ROR ID",
+
+  "form.other-information.ror_orgunit_type": "ROR type",
+
+  "form.other-information.ror_orgunit_acronym": "ROR acronym",
+
+  "form.other-information.ror_orgunit_countryName": "ROR country",
+
+  "form.entry.source.local": "",
+
+  "form.entry.source.orcid": "",
+
+  "form.entry.source.ror": "",
+
+  "form.entry.source.openaire": "",
+
+  "form.entry.source.zdb": "",
+
+  "form.entry.source.sherpa": "- Sherpa Romeo",
+
   "form.remove": "Remove",
 
   "form.save": "Save",
@@ -2098,6 +2194,12 @@
   "form.number-picker.decrement": "Decrement {{field}}",
 
   "form.number-picker.increment": "Increment {{field}}",
+
+  "form.number-picker.label.Year": "Year",
+
+  "form.number-picker.label.Month": "Month",
+
+  "form.number-picker.label.Day": "Day",
 
   "form.repeatable.sort.tip": "Drop the item in the new position",
 
@@ -2219,7 +2321,7 @@
 
   "info.accessibility-settings.disableNotificationTimeOut.label": "Automatically close notifications after time out",
 
-  "info.accessibility-settings.disableNotificationTimeOut.hint": "When this toggle is activated, notifications will close automatically after the time out passes. When deactivated, notifications will remain open untill manually closed.",
+  "info.accessibility-settings.disableNotificationTimeOut.hint": "When this toggle is activated, notifications will close automatically after the time out passes. When deactivated, notifications will remain open until manually closed.",
 
   "info.accessibility-settings.failed-notification": "Failed to save accessibility settings",
 
@@ -2355,7 +2457,7 @@
 
   "item.edit.bitstreams.bundle.name": "BUNDLE: {{ name }}",
 
-  "item.edit.bitstreams.bundle.table.aria-label": "Bitstreams in the  {{ bundle }} Bundle",
+  "item.edit.bitstreams.bundle.table.aria-label": "Bitstreams in the {{ bundle }} Bundle",
 
   "item.edit.bitstreams.bundle.tooltip": "You can move a bitstream to a different page by dropping it on the page number.",
 
@@ -2433,7 +2535,7 @@
 
   "item.edit.delete.header": "Delete item: {{ id }}",
 
-  "item.edit.delete.success": "The item has been deleted",
+  "item.edit.delete.success": "Successfully started a process to delete this item",
 
   "item.edit.head": "Edit Item",
 
@@ -2529,6 +2631,8 @@
 
   "item.edit.metadata.edit.language": "Edit language",
 
+  "item.edit.metadata.edit.authority": "Edit authority",
+
   "item.edit.metadata.edit.value": "Edit value",
 
   "item.edit.metadata.edit.authority.key": "Edit authority key",
@@ -2558,6 +2662,8 @@
   "item.edit.metadata.headers.field": "Field",
 
   "item.edit.metadata.headers.language": "Lang",
+
+  "item.edit.metadata.headers.authority": "Authority",
 
   "item.edit.metadata.headers.value": "Value",
 
@@ -2715,7 +2821,7 @@
 
   "item.edit.tabs.metadata.head": "Metadata",
 
-  "item.edit.tabs.metadata.title": "Item Edit -  Metadata",
+  "item.edit.tabs.metadata.title": "Item Edit - Metadata",
 
   "item.edit.tabs.relationships.head": "Relationships",
 
@@ -2767,7 +2873,7 @@
 
   "item.edit.tabs.status.labels.lastModified": "Last Modified",
 
-  "item.edit.tabs.status.title": "Item Edit -  Status",
+  "item.edit.tabs.status.title": "Item Edit - Status",
 
   "item.edit.tabs.versionhistory.head": "Version History",
 
@@ -2777,7 +2883,7 @@
 
   "item.edit.tabs.view.head": "View Item",
 
-  "item.edit.tabs.view.title": "Item Edit -  View",
+  "item.edit.tabs.view.title": "Item Edit - View",
 
   "item.edit.withdraw.cancel": "Cancel",
 
@@ -2836,6 +2942,8 @@
   "item.page.volume-title": "Volume Title",
 
   "item.page.dcterms.spatial": "Geospatial point",
+
+  "item.page.doi": "DOI",
 
   "item.search.results.head": "Item Search Results",
 
@@ -3219,6 +3327,8 @@
 
   "itemtemplate.edit.metadata.edit.language": "Edit language",
 
+  "itemtemplate.edit.metadata.edit.authority": "Edit authority",
+
   "itemtemplate.edit.metadata.edit.value": "Edit value",
 
   "itemtemplate.edit.metadata.edit.buttons.confirm": "Confirm",
@@ -3242,6 +3352,8 @@
   "itemtemplate.edit.metadata.headers.language": "Lang",
 
   "itemtemplate.edit.metadata.headers.value": "Value",
+
+  "itemtemplate.edit.metadata.headers.authority": "Authority",
 
   "itemtemplate.edit.metadata.metadatafield": "Edit field",
 
@@ -3438,6 +3550,8 @@
   "menu.section.access_control_groups": "Groups",
 
   "menu.section.access_control_people": "People",
+
+  "menu.section.audit": "Audit Logs",
 
   "menu.section.reports": "Reports",
 
@@ -3873,6 +3987,8 @@
 
   "quality-assurance.event.reason": "Reason",
 
+  "orcid.badge.tooltip": "Connected to ORCID",
+
   "orgunit.listelement.badge": "Organizational Unit",
 
   "orgunit.listelement.no-title": "Untitled",
@@ -4091,11 +4207,11 @@
 
   "process.overview.unknown.user": "Unknown",
 
-  "process.bulk.delete.error.head": "Error on deleteing process",
+  "process.bulk.delete.error.head": "Error on deleting process",
 
-  "process.bulk.delete.error.body": "The process with ID {{processId}} could not be deleted. The remaining processes will continue being deleted. ",
+  "process.bulk.delete.error.body": "The process with ID {{processId}} could not be deleted. The remaining processes will continue being deleted.",
 
-  "process.bulk.delete.success": "{{count}} process(es) have been succesfully deleted",
+  "process.bulk.delete.success": "{{count}} process(es) have been successfully deleted",
 
   "profile.breadcrumbs": "Update Profile",
 
@@ -4206,6 +4322,8 @@
   "publication.page.titleprefix": "Publication: ",
 
   "publication.page.volume-title": "Volume Title",
+
+  "publication.page.doi": "DOI",
 
   "publication.search.results.head": "Publication Search Results",
 
@@ -5544,6 +5662,8 @@
 
   "submission.sections.submit.progressbar.CClicense": "Creative commons license",
 
+  "submission.sections.submit.progressbar.CustomUrlStep": "Custom Url",
+
   "submission.sections.submit.progressbar.describe.recycle": "Recycle",
 
   "submission.sections.submit.progressbar.describe.stepcustom": "Describe",
@@ -5654,6 +5774,12 @@
 
   "submission.sections.upload.upload-successful": "Upload successful",
 
+  "submission.sections.custom-url.label.previous-urls": "Previous Urls",
+
+  "submission.sections.custom-url.alert.info": "Define here a custom URL which will be used to reach the item instead of using an internal randomly generated UUID identifier. ",
+
+  "submission.sections.custom-url.url.placeholder": "Custom URL",
+
   "submission.sections.accesses.form.discoverable-description": "When checked, this item will be discoverable in search/browse. When unchecked, the item will only be available via a direct link and will never appear in search/browse.",
 
   "submission.sections.accesses.form.discoverable-label": "Discoverable",
@@ -5748,7 +5874,7 @@
 
   "submission.sections.sherpa.record.information.uri": "URI",
 
-  "submission.sections.sherpa.error.message": "There was an error retrieving sherpa informations",
+  "submission.sections.sherpa.error.message": "There was an error retrieving sherpa information",
 
   "submission.submit.breadcrumbs": "New submission",
 
@@ -5796,7 +5922,7 @@
 
   "submission.workflow.tasks.claimed.reject.submit": "Reject",
 
-  "submission.workflow.tasks.claimed.reject_help": "If you have reviewed the item and found it is <strong>not</strong> suitable for inclusion in the collection, select \"Reject\".  You will then be asked to enter a message indicating why the item is unsuitable, and whether the submitter should change something and resubmit.",
+  "submission.workflow.tasks.claimed.reject_help": "If you have reviewed the item and found it is <strong>not</strong> suitable for inclusion in the collection, select \"Reject\". You will then be asked to enter a message indicating why the item is unsuitable, and whether the submitter should change something and resubmit.",
 
   "submission.workflow.tasks.claimed.return": "Return to pool",
 
@@ -6312,6 +6438,8 @@
 
   "home.recent-submissions.head": "Recent Submissions",
 
+  "authority-confidence.search-label": "Search",
+
   "listable-notification-object.default-message": "This object couldn't be retrieved",
 
   "system-wide-alert-banner.retrieval.error": "Something went wrong retrieving the system-wide alert banner",
@@ -6680,13 +6808,13 @@
 
   "error.validation.coarnotify.invalidfilter": "Invalid filter, try to select another service or none.",
 
-  "request-status-alert-box.accepted": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> has been taken in charge.",
+  "request-status-alert-box.accepted": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'>{{ serviceName }}</a> has been taken in charge.",
 
-  "request-status-alert-box.rejected": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> has been rejected.",
+  "request-status-alert-box.rejected": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'>{{ serviceName }}</a> has been rejected.",
 
-  "request-status-alert-box.tentative_rejected": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> has been tentatively rejected. Revisions are required",
+  "request-status-alert-box.tentative_rejected": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'>{{ serviceName }}</a> has been tentatively rejected. Revisions are required",
 
-  "request-status-alert-box.requested": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> is pending.",
+  "request-status-alert-box.requested": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'>{{ serviceName }}</a> is pending.",
 
   "ldn-service-button-mark-inbound-deletion": "Mark supported pattern for deletion",
 
@@ -7082,7 +7210,7 @@
 
   "item.page.cc.license.title": "Creative Commons license",
 
-  "item.page.cc.license.disclaimer": "Except where otherwised noted, this item's license is described as",
+  "item.page.cc.license.disclaimer": "Except where otherwise noted, this item's license is described as",
 
   "browse.search-form.placeholder": "Search the repository",
 
@@ -7096,7 +7224,7 @@
 
   "live-region.ordering.instructions": "Press spacebar to reorder {{ itemName }}.",
 
-  "live-region.ordering.status": "{{ itemName }}, grabbed. Current position in list: {{ index }} of  {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
+  "live-region.ordering.status": "{{ itemName }}, grabbed. Current position in list: {{ index }} of {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
 
   "live-region.ordering.moved": "{{ itemName }}, moved to position {{ index }} of {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
 
@@ -7213,4 +7341,26 @@
   "item.preview.organization.address.addressLocality": "City",
 
   "item.preview.organization.alternateName": "Alternative name",
+
+  "metadata-link-view.orcid.logo": "ORCID logo",
+
+  "metadata-link-view.source.logo": "Source logo",
+
+  "metadata-link-view.popover.label.Person.dc.title": "Fullname",
+
+  "metadata-link-view.popover.label.Person.person.affiliation.name": "Main affiliation",
+
+  "metadata-link-view.popover.label.Person.person.email": "Email",
+
+  "metadata-link-view.popover.label.Person.person.identifier.orcid": "ORCID",
+
+  "metadata-link-view.popover.label.Person.dc.description.abstract": "Abstract",
+
+  "metadata-link-view.popover.label.Person.person.jobTitle": "Job title",
+
+  "metadata-link-view.popover.label.other.dc.title": "Title",
+
+  "metadata-link-view.popover.label.other.dc.description.abstract": "Description",
+
+  "metadata-link-view.popover.label.more-info": "More info",
 }

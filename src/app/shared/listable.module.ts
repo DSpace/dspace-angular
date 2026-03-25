@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { THEME_LISTABLE_COMPONENTS } from '../../themes/themes-listable-components';
 import { CollectionAdminSearchResultGridElementComponent } from '../admin/admin-search-page/admin-search-results/admin-search-result-grid-element/collection-search-result/collection-admin-search-result-grid-element.component';
 import { CommunityAdminSearchResultGridElementComponent } from '../admin/admin-search-page/admin-search-results/admin-search-result-grid-element/community-search-result/community-admin-search-result-grid-element.component';
 import { ItemAdminSearchResultGridElementComponent } from '../admin/admin-search-page/admin-search-results/admin-search-result-grid-element/item-search-result/item-admin-search-result-grid-element.component';
@@ -124,6 +125,7 @@ import { TruncatableComponent } from './truncatable/truncatable.component';
 import { TruncatablePartComponent } from './truncatable/truncatable-part/truncatable-part.component';
 
 const ENTRY_COMPONENTS = [
+  ...THEME_LISTABLE_COMPONENTS,
   BitstreamListItemComponent,
   BrowseEntryListElementComponent,
   BundleListElementComponent,
