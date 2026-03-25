@@ -67,6 +67,13 @@ describe('AdminSidebarSectionComponent', () => {
       expect(disabled).toBeFalsy();
     });
 
+    it('should navigate on keypress', () => {
+      const routerSpy = spyOn(component['router'], 'navigate');
+      const event = { preventDefault: jasmine.createSpy() };
+      component.navigate(event);
+      expect(routerSpy).toHaveBeenCalled();
+    });
+
   });
 
   describe('when disabled', () => {
@@ -112,6 +119,15 @@ describe('AdminSidebarSectionComponent', () => {
     it('should contain the disabled class', () => {
       const disabled = fixture.debugElement.query(By.css('.disabled'));
       expect(disabled).toBeTruthy();
+    });
+
+    it('should not navigate when disabled', () => {
+      const routerSpy = spyOn(component['router'], 'navigate');
+      spyOn(window, 'open');
+      const event = { preventDefault: jasmine.createSpy() };
+      component.navigate(event);
+      expect(routerSpy).not.toHaveBeenCalled();
+      expect(window.open).not.toHaveBeenCalled();
     });
 
   });
@@ -162,6 +178,13 @@ describe('AdminSidebarSectionComponent', () => {
 
     it('should not be disabled when external href exists', () => {
       expect(component.isDisabled).toBeFalse();
+    });
+
+    it('should open external link on navigate', () => {
+      spyOn(window, 'open');
+      const event = { preventDefault: jasmine.createSpy() };
+      component.navigate(event);
+      expect(window.open).toHaveBeenCalledWith('https://test.com', '_blank');
     });
 
   });
