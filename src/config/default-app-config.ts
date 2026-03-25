@@ -788,8 +788,8 @@ export class DefaultAppConfig implements AppConfig {
    * Check more details at {@link AddToAnyPluginConfig}
    */
   addToAnyPlugin: AddToAnyPluginConfig = {
-    scriptUrl: 'https://static.addtoany.com/menu/page.js',
     socialNetworksEnabled: false,
+    scriptUrl: 'https://static.addtoany.com/menu/page.js',
     buttons: ['facebook', 'x', 'linkedin', 'email', 'copy_link'],
     showPlusButton: true,
     showCounters: true,
