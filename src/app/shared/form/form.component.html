@@ -16,7 +16,7 @@
         @if ((!context.notRepeatable) && !isVirtual(context, index) && group.context.groups.length !== 1 && !isItemReadOnly(context, index)) {
           <div
             [class.isInlineGroupForm-delete]="isInlineGroupForm"
-            [ngClass]="{'justify-content-sm-end' : isInlineGroupForm }"
+            [ngClass]="{'justify-content-sm-center' : isInlineGroupForm }"
             class="col-2 d-flex flex-column justify-content-sm-start align-items-end">
             <button type="button" class="btn btn-secondary" role="button"
                     title="{{('form.remove' | translate) + ' ' + (context.label ?? context.name) + ' ' + index}}"
@@ -29,9 +29,9 @@
             }
           </div>
         }
-        @if ((!context.notRepeatable) && isInlineGroupForm) {
+        @if ((!context.notRepeatable) && isInlineGroupForm && enableInlineGroupCopy) {
           <div class="clearfix w-100">
-            <div class="btn-group" role="group" aria-label="remove button">
+            <div class="btn-group" role="group" aria-label="copy button">
               <button type="button" role="button" class="ds-form-add-more btn btn-link"
                       title="{{'form.copy' | translate}}"
                       attr.aria-label="{{'form.copy' | translate}}"

@@ -517,6 +517,10 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
 
   }
 
+  /**
+   * Determines whether a form field should be validated based on its parent group's state.
+   * @returns {boolean} True if the field should be validated, false otherwise
+   */
   isNotRequiredGroupAndEmpty(): boolean {
     const parent = this.model.parent;
     // Check if the model is part of a group, the group needs to be an inner form and be in the submission form not in a nested form.

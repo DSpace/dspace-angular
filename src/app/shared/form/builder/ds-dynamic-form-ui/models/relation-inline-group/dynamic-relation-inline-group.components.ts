@@ -108,7 +108,7 @@ export class DsDynamicRelationInlineGroupComponent extends DynamicFormControlCom
 
     const layout: DynamicFormControlLayout = {
       grid: {
-        group: 'form-row',
+        group: 'row',
       },
     };
 
