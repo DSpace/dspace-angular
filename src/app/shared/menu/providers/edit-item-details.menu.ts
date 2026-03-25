@@ -15,8 +15,10 @@ import { EditItemDataService } from '@dspace/core/submission/edititem-data.servi
 import { EditItemMode } from '@dspace/core/submission/models/edititem-mode.model';
 import { URLCombiner } from '@dspace/core/url-combiner/url-combiner';
 import {
+  catchError,
   map,
   Observable,
+  of,
 } from 'rxjs';
 
 import { getEditItemPageRoute } from '../../../app-routing-paths';
@@ -52,6 +54,7 @@ export class EditItemDetailsMenuProvider extends DSpaceObjectPageMenuProvider {
           };
         });
       }),
+      catchError(() => of([])),
     );
   }
 

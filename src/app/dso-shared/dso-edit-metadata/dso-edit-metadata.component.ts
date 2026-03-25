@@ -50,6 +50,7 @@ import {
   Subscription,
 } from 'rxjs';
 import {
+  catchError,
   map,
   switchMap,
   tap,
@@ -241,6 +242,7 @@ export class DsoEditMetadataComponent implements OnInit, OnDestroy {
         map((securitySettingsRD: RemoteData<MetadataSecurityConfiguration>) => {
           return securitySettingsRD.hasSucceeded ? securitySettingsRD.payload : null;
         }),
+        catchError(() => of(null)),
       );
     } else {
       return of(null);
