@@ -68,7 +68,7 @@ describe('AdminSidebarSectionComponent', () => {
     });
 
     it('should navigate on keypress', () => {
-      const routerSpy = spyOn(component['router'], 'navigate');
+      const routerSpy = spyOn((component as any).router, 'navigate');
       const event = { preventDefault: jasmine.createSpy() };
       component.navigate(event);
       expect(routerSpy).toHaveBeenCalled();
@@ -122,7 +122,7 @@ describe('AdminSidebarSectionComponent', () => {
     });
 
     it('should not navigate when disabled', () => {
-      const routerSpy = spyOn(component['router'], 'navigate');
+      const routerSpy = spyOn((component as any).router, 'navigate');
       spyOn(window, 'open');
       const event = { preventDefault: jasmine.createSpy() };
       component.navigate(event);
