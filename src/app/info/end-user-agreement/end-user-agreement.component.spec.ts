@@ -41,7 +41,7 @@ describe('EndUserAgreementComponent', () => {
     endUserAgreementService = jasmine.createSpyObj('endUserAgreementService', {
       hasCurrentUserOrCookieAcceptedAgreement: of(false),
       setUserAcceptedAgreement: of(true),
-      removeCookieAccepted: jasmine.createSpy('removeCookieAccepted')
+      removeCookieAccepted: jasmine.createSpy('removeCookieAccepted'),
     });
     notificationsService = jasmine.createSpyObj('notificationsService', ['success', 'error']);
     authService = jasmine.createSpyObj('AuthService', ['isAuthenticated']);

@@ -28,7 +28,7 @@ describe('endUserAgreementGuard', () => {
       'removeCookieAccepted',
       'setUserAcceptedAgreement',
       'isCookieAccepted',
-      'setCookieAccepted'
+      'setCookieAccepted',
     ]);
 
     (endUserAgreementService.hasCurrentUserAcceptedAgreement as jasmine.Spy).and.returnValue(of(true));
