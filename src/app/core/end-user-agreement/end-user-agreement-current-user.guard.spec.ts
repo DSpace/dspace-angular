@@ -74,7 +74,7 @@ describe('endUserAgreementGuard', () => {
 
     describe('when the user hasn\'t accepted the agreement', () => {
       beforeEach(() => {
-        (endUserAgreementService.hasCurrentUserAcceptedAgreement as jasmine.Spy).and.returnValue(of(false));
+        (endUserAgreementService.hasCurrentUserOrCookieAcceptedAgreement as jasmine.Spy).and.returnValue(of(false));
       });
 
       it('should return a UrlTree', (done) => {
