@@ -738,10 +738,10 @@ searchResults:
 
 # Configuration of social links using AddToAny plugin
 addToAnyPlugin:
+  # This is enabled flag
+  socialNetworksEnabled: false
   # If you want to self-host check https://www.addtoany.com/buttons/customize/host_cache
   scriptUrl: "https://static.addtoany.com/menu/page.js"
-  # This is enabled flag
-  socialNetworksEnabled: true
   # Check available integrations, visit https://www.addtoany.com/buttons/for/website
   # 1. Click "Choose Services", select integrations, then click Done
   # 2. Get Button Code
