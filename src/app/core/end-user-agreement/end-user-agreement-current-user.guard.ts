@@ -1,41 +1,47 @@
 import { inject } from '@angular/core';
-import { CanActivateFn } from '@angular/router';
+import {
+  CanActivateFn,
+  Router,
+  UrlTree,
+} from '@angular/router';
 import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import { of } from 'rxjs';
 import {
+  map,
   switchMap,
   take,
 } from 'rxjs/operators';
 
 import { AuthService } from '../auth/auth.service';
-import { endUserAgreementGuard } from './end-user-agreement.guard';
 import { EndUserAgreementService } from './end-user-agreement.service';
 
+export const endUserAgreementCurrentUserGuard: CanActivateFn = (route, state) => {
+  const endUserAgreementService = inject(EndUserAgreementService);
+  const router = inject(Router);
+  const config = inject(APP_CONFIG);
 
-/**
- * Guard for preventing unauthorized access to certain pages
- * requiring the end user agreement to have been accepted by the current user
+  if (!config.info.enableEndUserAgreement) {
+    return of(true);
+  }
 
- */
-export const endUserAgreementCurrentUserGuard: CanActivateFn =
-  endUserAgreementGuard(
-    () => {
-      const endUserAgreementService = inject(EndUserAgreementService);
-      if (!inject(APP_CONFIG).info.enableEndUserAgreement) {
+  return inject(AuthService).isAuthenticated().pipe(
+    switchMap(authenticated => {
+      if (!authenticated) {
         return of(true);
       }
 
-      // Use hasCurrentUserOrCookieAcceptedAgreement to leverage synchronous cookie check
-      // This prevents guard hangs after PATCH operations when store cache may be stale
-      return inject(AuthService).isAuthenticated().pipe(
-        switchMap((authenticated) => {
-          if (!authenticated) {
-            return of(true);
+      return endUserAgreementService.hasCurrentUserOrCookieAcceptedAgreement(false).pipe(
+        map(accepted => {
+          if (accepted) {
+            return true;
           }
 
-          return endUserAgreementService.hasCurrentUserOrCookieAcceptedAgreement(false);
+          return router.createUrlTree(['/end-user-agreement'], {
+            queryParams: { redirect: state.url },
+          }) as UrlTree;
         }),
-        take(1),
       );
-    },
+    }),
+    take(1),
   );
+};
