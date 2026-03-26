@@ -10,7 +10,7 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { SherpaDataResponse } from '../../../../shared/mocks/section-sherpa-policies.service.mock';
+import { OpfDataResponse } from '../../../../shared/mocks/section-opf-policies.service.mock';
 import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
 import { ContentAccordionComponent } from './content-accordion.component';
 
@@ -40,7 +40,7 @@ describe('ContentAccordionComponent', () => {
     component = fixture.componentInstance;
     de = fixture.debugElement;
     component.isCollapsed = false;
-    component.version = SherpaDataResponse.sherpaResponse.journals[0].policies[0].permittedVersions[0];
+    component.version = OpfDataResponse.opfResponse.journals[0].policies[0].permittedVersions[0];
     fixture.detectChanges();
   });
 
@@ -49,13 +49,13 @@ describe('ContentAccordionComponent', () => {
   });
 
   it('should show 2 rows', () => {
-    component.version = SherpaDataResponse.sherpaResponse.journals[0].policies[0].permittedVersions[0];
+    component.version = OpfDataResponse.opfResponse.journals[0].policies[0].permittedVersions[0];
     fixture.detectChanges();
     expect(de.queryAll(By.css('.row')).length).toEqual(2);
   });
 
   it('should show 5 rows', () => {
-    component.version = SherpaDataResponse.sherpaResponse.journals[0].policies[0].permittedVersions[2];
+    component.version = OpfDataResponse.opfResponse.journals[0].policies[0].permittedVersions[2];
     fixture.detectChanges();
     expect(de.queryAll(By.css('.row')).length).toEqual(5);
   });
