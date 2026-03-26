@@ -88,7 +88,7 @@ export class ItemComponent implements OnInit {
               protected router: Router) {
     this.mediaViewer = environment.mediaViewer;
     this.geospatialItemPageFieldsEnabled = environment.geospatialMapViewer.enableItemPageFields;
-    this.areAuthorityRelationsEnabled = environment.item.showAuthorithyRelations;
+    this.areAuthorityRelationsEnabled = environment.item.showAuthorityRelations;
   }
 
   /**

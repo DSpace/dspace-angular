@@ -318,7 +318,7 @@ export const environment: BuildConfig = {
       ],
       identifierSubtypes: [],
     },
-    showAuthorithyRelations: false,
+    showAuthorityRelations: false,
   },
   community: {
     defaultBrowseTab: 'search',
