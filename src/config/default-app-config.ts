@@ -1,6 +1,6 @@
 import { LayoutConfig } from '@dspace/config/layout-config.interfaces';
-import { SearchResultConfig } from '@dspace/config/search-result-config.interface';
 import { PdfViewerConfig } from '@dspace/config/pdf-viewer-config';
+import { SearchResultConfig } from '@dspace/config/search-result-config.interface';
 
 import { AccessibilitySettingsConfig } from './accessibility-settings.config';
 import { ActuatorsConfig } from './actuators.config';
