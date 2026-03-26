@@ -3428,9 +3428,9 @@
   // TODO New key - Add a translation
   "form.entry.source.zdb": "",
 
-  // "form.entry.source.sherpa": "- Sherpa Romeo",
+  // "form.entry.source.jisc": "- Jisc Open policy finder",
   // TODO New key - Add a translation
-  "form.entry.source.sherpa": "- Sherpa Romeo",
+  "form.entry.source.jisc": "- Jisc Open policy finder",
 
   // "form.remove": "Remove",
   "form.remove": "നീക്കം ചെയ്യുക",
@@ -8255,14 +8255,14 @@
   // "submission.import-external.source.loading": "Loading ...",
   "submission.import-external.source.loading": "ലോഡിംഗ് ...",
 
-  // "submission.import-external.source.sherpaJournal": "SHERPA Journals",
-  "submission.import-external.source.sherpaJournal": "SHERPA Journals",
+  // "submission.import-external.source.opfJournal": "Jisc Open policy finder Journals",
+  "submission.import-external.source.opfJournal": "Jisc Open policy finder Journals",
 
-  // "submission.import-external.source.sherpaJournalIssn": "SHERPA Journals by ISSN",
-  "submission.import-external.source.sherpaJournalIssn": "SHERPA Journals by ISSN",
+  // "submission.import-external.source.opfJournalIssn": "Jisc Open policy finder Journals by ISSN",
+  "submission.import-external.source.opfJournalIssn": "Jisc Open policy finder Journals by ISSN",
 
-  // "submission.import-external.source.sherpaPublisher": "SHERPA Publishers",
-  "submission.import-external.source.sherpaPublisher": "SHERPA Publishers",
+  // "submission.import-external.source.opfPublisher": "Jisc Open policy finder Publishers",
+  "submission.import-external.source.opfPublisher": "Jisc Open policy finder Publishers",
 
   // "submission.import-external.source.openaire": "OpenAIRE Search by Authors",
   "submission.import-external.source.openaire": "OpenAIRE Search by Authors",
@@ -8444,11 +8444,13 @@
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openaireFunding": "Importing from OpenAIRE",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openaireFunding": "OpenAIRE-ൽ നിന്ന് ഇമ്പോർട്ട് ചെയ്യുന്നു",
 
-  // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaJournal": "Importing from Sherpa Journal",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaJournal": "Sherpa ജേണലിൽ നിന്ന് ഇമ്പോർട്ട് ചെയ്യുന്നു",
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.jiscJournal": "Importing from Jisc Open policy finder Journal",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.jiscJournal": "Importing from Jisc Open policy finder Journal",
 
-  // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaPublisher": "Importing from Sherpa Publisher",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaPublisher": "Sherpa പബ്ലിഷറിൽ നിന്ന് ഇമ്പോർട്ട് ചെയ്യുന്നു",
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.jiscPublisher": "Importing from Jisc Open policy finder Publisher",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.jiscPublisher": "Importing from Jisc Open policy finder Publisher",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.pubmed": "Importing from PubMed",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.head.pubmed": "PubMed-ൽ നിന്ന് ഇമ്പോർട്ട് ചെയ്യുന്നു",
@@ -8571,11 +8573,13 @@
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalVolume": "Local Journal Volumes ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalVolume": "ലോക്കൽ ജേണൽ വോളിയങ്ങൾ ({{ count }})",
 
-  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournal": "Sherpa Journals ({{ count }})",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournal": "Sherpa ജേണലുകൾ ({{ count }})",
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.jiscJournal": "Jisc Open policy finder Journals ({{ count }})",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.jiscJournal": "Jisc Open policy finder Journals ({{ count }})",
 
-  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaPublisher": "Sherpa Publishers ({{ count }})",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaPublisher": "Sherpa പബ്ലിഷർമാർ ({{ count }})",
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.jiscPublisher": "Jisc Open policy finder Publishers ({{ count }})",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.jiscPublisher": "Jisc Open policy finder Publishers ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.orcid": "ORCID ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.orcid": "ORCID ({{ count }})",
@@ -8610,8 +8614,9 @@
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.openaireFunding": "OpenAIRE Search by Funder ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.openaireFunding": "OpenAIRE ഫണ്ടർ അനുസരിച്ച് തിരയുക ({{ count }})",
 
-  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournalIssn": "Sherpa Journals by ISSN ({{ count }})",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournalIssn": "ISSN അനുസരിച്ച് Sherpa ജേണലുകൾ ({{ count }})",
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.jiscJournalIssn": "Jisc Open policy finder Journals by ISSN ({{ count }})",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.jiscJournalIssn": "Jisc Open policy finder Journals by ISSN ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.openalexPerson": "OpenAlex ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.openalexPerson": "OpenAlex ({{ count }})",
@@ -8787,11 +8792,11 @@
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isChildOrgUnitOf": "Selected Organizational Unit",
   "submission.sections.describe.relationship-lookup.selection-tab.title.isChildOrgUnitOf": "തിരഞ്ഞെടുത്ത ഓർഗനൈസേഷണൽ യൂണിറ്റ്",
 
-  // "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaJournal": "Search Results",
-  "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaJournal": "തിരയൽ ഫലങ്ങൾ",
+  // "submission.sections.describe.relationship-lookup.selection-tab.title.jiscJournal": "തിരയൽ ഫലങ്ങൾ",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.jiscJournal": "തിരയൽ ഫലങ്ങൾ",
 
-  // "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaPublisher": "Search Results",
-  "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaPublisher": "തിരയൽ ഫലങ്ങൾ",
+  // "submission.sections.describe.relationship-lookup.selection-tab.title.jiscPublisher": "തിരയൽ ഫലങ്ങൾ",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.jiscPublisher": "തിരയൽ ഫലങ്ങൾ",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.orcid": "Search Results",
   "submission.sections.describe.relationship-lookup.selection-tab.title.orcid": "തിരയൽ ഫലങ്ങൾ",
@@ -8988,17 +8993,18 @@
   // TODO New key - Add a translation
   "submission.sections.submit.progressbar.describe.owner": "Owner",
 
-  // "submission.sections.submit.progressbar.sherpapolicy": "Sherpa policies",
-  "submission.sections.submit.progressbar.sherpapolicy": "ഷെർപ്പാ പോളിസികൾ",
+  // "submission.sections.submit.progressbar.jiscpolicy": "Jisc Open policy finder policies",
+  // TODO New key - Add a translation
+  "submission.sections.submit.progressbar.jiscpolicy": "Jisc Open policy finder policies",
 
   // "submission.sections.submit.progressbar.upload": "Upload files",
   "submission.sections.submit.progressbar.upload": "ഫയലുകൾ അപ്ലോഡ് ചെയ്യുക",
 
-  // "submission.sections.submit.progressbar.sherpaPolicies": "Publisher open access policy information",
-  "submission.sections.submit.progressbar.sherpaPolicies": "പ്രസാധകരുടെ ഓപ്പൺ ആക്സസ് പോളിസി വിവരം",
+  // "submission.sections.submit.progressbar.jiscPolicies": "Publisher open access policy information",
+  "submission.sections.submit.progressbar.jiscPolicies": "പ്രസാധകരുടെ ഓപ്പൺ ആക്സസ് പോളിസി വിവരം",
 
-  // "submission.sections.sherpa-policy.title-empty": "No publisher policy information available. If your work has an associated ISSN, please enter it above to see any related publisher open access policies.",
-  "submission.sections.sherpa-policy.title-empty": "പ്രസാധക പോളിസി വിവരം ലഭ്യമല്ല. നിങ്ങളുടെ ജോലിയുമായി ബന്ധപ്പെട്ട ഒരു ISSN ഉണ്ടെങ്കിൽ, ബന്ധപ്പെട്ട പ്രസാധക ഓപ്പൺ ആക്സസ് പോളിസികൾ കാണാൻ ദയവായി ഇത് മുകളിൽ നൽകുക.",
+  // "submission.sections.jisc-policy.title-empty": "No publisher policy information available. If your work has an associated ISSN, please enter it above to see any related publisher open access policies.",
+  "submission.sections.jisc-policy.title-empty": "പ്രസാധക പോളിസി വിവരം ലഭ്യമല്ല. നിങ്ങളുടെ ജോലിയുമായി ബന്ധപ്പെട്ട ഒരു ISSN ഉണ്ടെങ്കിൽ, ബന്ധപ്പെട്ട പ്രസാധക ഓപ്പൺ ആക്സസ് പോളിസികൾ കാണാൻ ദയവായി ഇത് മുകളിൽ നൽകുക.",
 
   // "submission.sections.status.errors.title": "Errors",
   "submission.sections.status.errors.title": "പിശകുകൾ",
@@ -9212,84 +9218,58 @@
   // "submission.sections.license.notgranted": "You must accept the license",
   "submission.sections.license.notgranted": "നിങ്ങൾ ലൈസൻസ് സ്വീകരിക്കണം",
 
-  // "submission.sections.sherpa.publication.information": "Publication information",
-  "submission.sections.sherpa.publication.information": "പ്രസിദ്ധീകരണ വിവരം",
+  "submission.sections.jisc.publication.information": "പ്രസിദ്ധീകരണ വിവരം",
 
-  // "submission.sections.sherpa.publication.information.title": "Title",
-  "submission.sections.sherpa.publication.information.title": "തലക്കെട്ട്",
+  "submission.sections.jisc.publication.information.title": "തലക്കെട്ട്",
 
-  // "submission.sections.sherpa.publication.information.issns": "ISSNs",
-  "submission.sections.sherpa.publication.information.issns": "ISSNs",
+  "submission.sections.jisc.publication.information.issns": "ISSNs",
 
-  // "submission.sections.sherpa.publication.information.url": "URL",
-  "submission.sections.sherpa.publication.information.url": "URL",
+  "submission.sections.jisc.publication.information.url": "URL",
 
-  // "submission.sections.sherpa.publication.information.publishers": "Publisher",
-  "submission.sections.sherpa.publication.information.publishers": "പ്രസാധകർ",
+  "submission.sections.jisc.publication.information.publishers": "പ്രസാധകർ",
 
-  // "submission.sections.sherpa.publication.information.romeoPub": "Romeo Pub",
-  "submission.sections.sherpa.publication.information.romeoPub": "റോമിയോ പബ്",
+  "submission.sections.jisc.publication.information.romeoPub": "റോമിയോ പബ്",
 
-  // "submission.sections.sherpa.publication.information.zetoPub": "Zeto Pub",
-  "submission.sections.sherpa.publication.information.zetoPub": "സെറ്റോ പബ്",
+  "submission.sections.jisc.publication.information.zetoPub": "സെറ്റോ പബ്",
 
-  // "submission.sections.sherpa.publisher.policy": "Publisher Policy",
-  "submission.sections.sherpa.publisher.policy": "പ്രസാധക പോളിസി",
+  "submission.sections.jisc.publisher.policy": "പ്രസാധക പോളിസി",
 
-  // "submission.sections.sherpa.publisher.policy.description": "The below information was found via Sherpa Romeo. Based on the policies of your publisher, it provides advice regarding whether an embargo may be necessary and/or which files you are allowed to upload. If you have questions, please contact your site administrator via the feedback form in the footer.",
-  "submission.sections.sherpa.publisher.policy.description": "ഷെർപ്പ റോമിയോ വഴി ചുവടെയുള്ള വിവരം കണ്ടെത്തി. നിങ്ങളുടെ പ്രസാധകരുടെ പോളിസികളെ അടിസ്ഥാനമാക്കി, ഒരു എംബാർഗോ ആവശ്യമായി വരാം എന്നോ നിങ്ങൾ അപ്ലോഡ് ചെയ്യാൻ അനുവദിച്ചിരിക്കുന്ന ഫയലുകൾ ഏതൊക്കെയാണെന്നോ ഇത് ഉപദേശം നൽകുന്നു. നിങ്ങൾക്ക് എന്തെങ്കിലും ചോദ്യങ്ങൾ ഉണ്ടെങ്കിൽ, ഫീഡ്ബാക്ക് ഫോം വഴി നിങ്ങളുടെ സൈറ്റ് അഡ്മിനിസ്ട്രേറ്ററെ സമീപിക്കുക.",
+  "submission.sections.jisc.publisher.policy.description": "ഷെർപ്പ റോമിയോ വഴി ചുവടെയുള്ള വിവരം കണ്ടെത്തി. നിങ്ങളുടെ പ്രസാധകരുടെ പോളിസികളെ അടിസ്ഥാനമാക്കി, ഒരു എംബാർഗോ ആവശ്യമായി വരാം എന്നോ നിങ്ങൾ അപ്ലോഡ് ചെയ്യാൻ അനുവദിച്ചിരിക്കുന്ന ഫയലുകൾ ഏതൊക്കെയാണെന്നോ ഇത് ഉപദേശം നൽകുന്നു. നിങ്ങൾക്ക് എന്തെങ്കിലും ചോദ്യങ്ങൾ ഉണ്ടെങ്കിൽ, ഫീഡ്ബാക്ക് ഫോം വഴി നിങ്ങളുടെ സൈറ്റ് അഡ്മിനിസ്ട്രേറ്ററെ സമീപിക്കുക.",
 
-  // "submission.sections.sherpa.publisher.policy.openaccess": "Open Access pathways permitted by this journal's policy are listed below by article version. Click on a pathway for a more detailed view",
-  "submission.sections.sherpa.publisher.policy.openaccess": "ഈ ജേണലിന്റെ പോളിസി അനുവദിക്കുന്ന ഓപ്പൺ ആക്സസ് പാതകൾ ലേഖന പതിപ്പ് അനുസരിച്ച് താഴെ ലിസ്റ്റ് ചെയ്തിരിക്കുന്നു. കൂടുതൽ വിശദമായ കാഴ്ചയ്ക്ക് ഒരു പാതയിൽ ക്ലിക്ക് ചെയ്യുക",
+  "submission.sections.jisc.publisher.policy.openaccess": "ഈ ജേണലിന്റെ പോളിസി അനുവദിക്കുന്ന ഓപ്പൺ ആക്സസ് പാതകൾ ലേഖന പതിപ്പ് അനുസരിച്ച് താഴെ ലിസ്റ്റ് ചെയ്തിരിക്കുന്നു. കൂടുതൽ വിശദമായ കാഴ്ചയ്ക്ക് ഒരു പാതയിൽ ക്ലിക്ക് ചെയ്യുക",
 
-  // "submission.sections.sherpa.publisher.policy.more.information": "For more information, please see the following links:",
+  "submission.sections.jisc.publisher.policy.more.information": "കൂടുതൽ വിവരങ്ങൾക്ക്, ഇനിപ്പറയുന്ന ലിങ്കുകൾ കാണുക:",
+
+  "submission.sections.jisc.publisher.policy.version": "പതിപ്പ്",
+
+  "submission.sections.jisc.publisher.policy.embargo": "എംബാർഗോ",
+
+  "submission.sections.jisc.publisher.policy.noembargo": "എംബാർഗോ ഇല്ല",
+
+  "submission.sections.jisc.publisher.policy.nolocation": "ഒന്നുമില്ല",
+
+  "submission.sections.jisc.publisher.policy.license": "ലൈസൻസ്",
+
+  "submission.sections.jisc.publisher.policy.prerequisites": "മുൻഗണനകൾ",
+
+  "submission.sections.jisc.publisher.policy.location": "സ്ഥാനം",
+
+  "submission.sections.jisc.publisher.policy.conditions": "വ്യവസ്ഥകൾ",
+
+  "submission.sections.jisc.publisher.policy.refresh": "റിഫ്രഷ്",
+
+  "submission.sections.jisc.record.information": "റെക്കോർഡ് വിവരം",
+
+  "submission.sections.jisc.record.information.id": "ID",
+
+  "submission.sections.jisc.record.information.date.created": "തീയതി സൃഷ്ടിച്ചു",
+
+  "submission.sections.jisc.record.information.date.modified": "അവസാനം പരിഷ്കരിച്ചത്",
+
+  "submission.sections.jisc.record.information.uri": "URI",
+
   // TODO New key - Add a translation
-  "submission.sections.sherpa.publisher.policy.more.information": "For more information, please see the following links:",
-
-  // "submission.sections.sherpa.publisher.policy.version": "Version",
-  "submission.sections.sherpa.publisher.policy.version": "പതിപ്പ്",
-
-  // "submission.sections.sherpa.publisher.policy.embargo": "Embargo",
-  "submission.sections.sherpa.publisher.policy.embargo": "എംബാർഗോ",
-
-  // "submission.sections.sherpa.publisher.policy.noembargo": "No Embargo",
-  "submission.sections.sherpa.publisher.policy.noembargo": "എംബാർഗോ ഇല്ല",
-
-  // "submission.sections.sherpa.publisher.policy.nolocation": "None",
-  "submission.sections.sherpa.publisher.policy.nolocation": "ഒന്നുമില്ല",
-
-  // "submission.sections.sherpa.publisher.policy.license": "License",
-  "submission.sections.sherpa.publisher.policy.license": "ലൈസൻസ്",
-
-  // "submission.sections.sherpa.publisher.policy.prerequisites": "Prerequisites",
-  "submission.sections.sherpa.publisher.policy.prerequisites": "മുൻഗണനകൾ",
-
-  // "submission.sections.sherpa.publisher.policy.location": "Location",
-  "submission.sections.sherpa.publisher.policy.location": "സ്ഥാനം",
-
-  // "submission.sections.sherpa.publisher.policy.conditions": "Conditions",
-  "submission.sections.sherpa.publisher.policy.conditions": "വ്യവസ്ഥകൾ",
-
-  // "submission.sections.sherpa.publisher.policy.refresh": "Refresh",
-  "submission.sections.sherpa.publisher.policy.refresh": "റിഫ്രഷ്",
-
-  // "submission.sections.sherpa.record.information": "Record Information",
-  "submission.sections.sherpa.record.information": "റെക്കോർഡ് വിവരം",
-
-  // "submission.sections.sherpa.record.information.id": "ID",
-  "submission.sections.sherpa.record.information.id": "ID",
-
-  // "submission.sections.sherpa.record.information.date.created": "Date Created",
-  "submission.sections.sherpa.record.information.date.created": "തീയതി സൃഷ്ടിച്ചു",
-
-  // "submission.sections.sherpa.record.information.date.modified": "Last Modified",
-  "submission.sections.sherpa.record.information.date.modified": "അവസാനം പരിഷ്കരിച്ചത്",
-
-  // "submission.sections.sherpa.record.information.uri": "URI",
-  "submission.sections.sherpa.record.information.uri": "URI",
-
-  // "submission.sections.sherpa.error.message": "There was an error retrieving sherpa information",
-  "submission.sections.sherpa.error.message": "ഷെർപ്പ വിവരങ്ങൾ വീണ്ടെടുക്കുന്നതിൽ ഒരു പിശക് ഉണ്ടായിരുന്നു",
+  "submission.sections.jisc.error.message": "There was an error retrieving Jisc Open policy finder information",
 
   // "submission.submit.breadcrumbs": "New submission",
   "submission.submit.breadcrumbs": "പുതിയ സമർപ്പണം",

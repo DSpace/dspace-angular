@@ -1,9 +1,9 @@
-import { WorkspaceitemSectionSherpaPoliciesObject } from '../submission/models/workspaceitem-section-sherpa-policies.model';
+import { WorkspaceitemSectionJiscOpfPoliciesObject } from '../submission/models/workspaceitem-section-opf-policies.model';
 
-export const SherpaDataResponse = {
-  'id': 'sherpaPolicies',
+export const OpfDataResponse = {
+  'id': 'opfPolicies',
   'retrievalTime': '2022-04-20T09:44:39.870+00:00',
-  'sherpaResponse':
+  'opfResponse':
   {
     'error': false,
     'message': null,
@@ -96,4 +96,4 @@ export const SherpaDataResponse = {
       'inDOAJ': false,
     }],
   },
-} as WorkspaceitemSectionSherpaPoliciesObject;
+} as WorkspaceitemSectionJiscOpfPoliciesObject;

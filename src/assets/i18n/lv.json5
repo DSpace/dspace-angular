@@ -4035,9 +4035,9 @@
   // TODO New key - Add a translation
   "form.entry.source.zdb": "",
 
-  // "form.entry.source.sherpa": "- Sherpa Romeo",
+  // "form.entry.source.jisc": "- Jisc Open policy finder",
   // TODO New key - Add a translation
-  "form.entry.source.sherpa": "- Sherpa Romeo",
+  "form.entry.source.jisc": "- Jisc Open policy finder",
 
   // "form.remove": "Remove",
   "form.remove": "Dzēst",
@@ -9746,17 +9746,17 @@
   // TODO New key - Add a translation
   "submission.import-external.source.loading": "Loading ...",
 
-  // "submission.import-external.source.sherpaJournal": "SHERPA Journals",
+  // "submission.import-external.source.opfJournal": "Jisc Open policy finder Journals",
   // TODO New key - Add a translation
-  "submission.import-external.source.sherpaJournal": "SHERPA Journals",
+  "submission.import-external.source.opfJournal": "Jisc Open policy finder Journals",
 
-  // "submission.import-external.source.sherpaJournalIssn": "SHERPA Journals by ISSN",
+  // "submission.import-external.source.opfJournalIssn": "Jisc Open policy finder Journals by ISSN",
   // TODO New key - Add a translation
-  "submission.import-external.source.sherpaJournalIssn": "SHERPA Journals by ISSN",
+  "submission.import-external.source.opfJournalIssn": "Jisc Open policy finder Journals by ISSN",
 
-  // "submission.import-external.source.sherpaPublisher": "SHERPA Publishers",
+  // "submission.import-external.source.opfPublisher": "Jisc Open policy finder Publishers",
   // TODO New key - Add a translation
-  "submission.import-external.source.sherpaPublisher": "SHERPA Publishers",
+  "submission.import-external.source.opfPublisher": "Jisc Open policy finder Publishers",
 
   // "submission.import-external.source.openaire": "OpenAIRE Search by Authors",
   // TODO New key - Add a translation
@@ -9985,11 +9985,13 @@
   // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openaireFunding": "Importing from OpenAIRE",
 
-  // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaJournal": "Importing from Sherpa Journal",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaJournal": "Importē no Sherpa Žurnāla",
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.jiscJournal": "Importing from Jisc Open policy finder Journal",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.jiscJournal": "Importing from Jisc Open policy finder Journal",
 
-  // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaPublisher": "Importing from Sherpa Publisher",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaPublisher": "Importēt no Sherpa Izdevēja",
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.jiscPublisher": "Importing from Jisc Open policy finder Publisher",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.jiscPublisher": "Importing from Jisc Open policy finder Publisher",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.pubmed": "Importing from PubMed",
   // TODO New key - Add a translation
@@ -10131,11 +10133,13 @@
   // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalVolume": "Local Journal Volumes ({{ count }})",
 
-  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournal": "Sherpa Journals ({{ count }})",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournal": "Sherpa Žurnāli ({{ count }})",
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.jiscJournal": "Jisc Open policy finder Journals ({{ count }})",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.jiscJournal": "Jisc Open policy finder Journals ({{ count }})",
 
-  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaPublisher": "Sherpa Publishers ({{ count }})",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaPublisher": "Sherpa Izdevēji ({{ count }})",
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.jiscPublisher": "Jisc Open policy finder Publishers ({{ count }})",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.jiscPublisher": "Jisc Open policy finder Publishers ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.orcid": "ORCID ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.orcid": "ORCID ({{ count }})",
@@ -10179,9 +10183,9 @@
   // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.openaireFunding": "OpenAIRE Search by Funder ({{ count }})",
 
-  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournalIssn": "Sherpa Journals by ISSN ({{ count }})",
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.jiscJournalIssn": "Jisc Open policy finder Journals by ISSN ({{ count }})",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournalIssn": "Sherpa Journals by ISSN ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.jiscJournalIssn": "Jisc Open policy finder Journals by ISSN ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.openalexPerson": "OpenAlex ({{ count }})",
   // TODO New key - Add a translation
@@ -10409,11 +10413,11 @@
   // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.selection-tab.title.isChildOrgUnitOf": "Selected Organizational Unit",
 
-  // "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaJournal": "Search Results",
-  "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaJournal": "Meklēšanas rezultāti",
+  // "submission.sections.describe.relationship-lookup.selection-tab.title.jiscJournal": "Search Results",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.jiscJournal": "Meklēšanas rezultāti",
 
-  // "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaPublisher": "Search Results",
-  "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaPublisher": "Meklēšanas rezultāti",
+  // "submission.sections.describe.relationship-lookup.selection-tab.title.jiscPublisher": "Search Results",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.jiscPublisher": "Meklēšanas rezultāti",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.orcid": "Search Results",
   "submission.sections.describe.relationship-lookup.selection-tab.title.orcid": "Meklēšanas rezultāti",
@@ -10643,20 +10647,20 @@
   // TODO New key - Add a translation
   "submission.sections.submit.progressbar.describe.owner": "Owner",
 
-  // "submission.sections.submit.progressbar.sherpapolicy": "Sherpa policies",
+  // "submission.sections.submit.progressbar.jiscpolicy": "Jisc Open policy finder policies",
   // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.sherpapolicy": "Sherpa policies",
+  "submission.sections.submit.progressbar.jiscpolicy": "Jisc Open policy finder policies",
 
   // "submission.sections.submit.progressbar.upload": "Upload files",
   "submission.sections.submit.progressbar.upload": "Augšupielādēt failus",
 
-  // "submission.sections.submit.progressbar.sherpaPolicies": "Publisher open access policy information",
+  // "submission.sections.submit.progressbar.jiscPolicies": "Publisher open access policy information",
   // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.sherpaPolicies": "Publisher open access policy information",
+  "submission.sections.submit.progressbar.jiscPolicies": "Publisher open access policy information",
 
-  // "submission.sections.sherpa-policy.title-empty": "No publisher policy information available. If your work has an associated ISSN, please enter it above to see any related publisher open access policies.",
+  // "submission.sections.jisc-policy.title-empty": "No publisher policy information available. If your work has an associated ISSN, please enter it above to see any related publisher open access policies.",
   // TODO New key - Add a translation
-  "submission.sections.sherpa-policy.title-empty": "No publisher policy information available. If your work has an associated ISSN, please enter it above to see any related publisher open access policies.",
+  "submission.sections.jisc-policy.title-empty": "No publisher policy information available. If your work has an associated ISSN, please enter it above to see any related publisher open access policies.",
 
   // "submission.sections.status.errors.title": "Errors",
   // TODO New key - Add a translation
@@ -10913,109 +10917,109 @@
   // TODO New key - Add a translation
   "submission.sections.license.notgranted": "You must accept the license",
 
-  // "submission.sections.sherpa.publication.information": "Publication information",
+  // "submission.sections.jisc.publication.information": "Publication information",
   // TODO New key - Add a translation
-  "submission.sections.sherpa.publication.information": "Publication information",
+  "submission.sections.jisc.publication.information": "Publication information",
 
-  // "submission.sections.sherpa.publication.information.title": "Title",
+  // "submission.sections.jisc.publication.information.title": "Title",
   // TODO New key - Add a translation
-  "submission.sections.sherpa.publication.information.title": "Title",
+  "submission.sections.jisc.publication.information.title": "Title",
 
-  // "submission.sections.sherpa.publication.information.issns": "ISSNs",
+  // "submission.sections.jisc.publication.information.issns": "ISSNs",
   // TODO New key - Add a translation
-  "submission.sections.sherpa.publication.information.issns": "ISSNs",
+  "submission.sections.jisc.publication.information.issns": "ISSNs",
 
-  // "submission.sections.sherpa.publication.information.url": "URL",
+  // "submission.sections.jisc.publication.information.url": "URL",
   // TODO New key - Add a translation
-  "submission.sections.sherpa.publication.information.url": "URL",
+  "submission.sections.jisc.publication.information.url": "URL",
 
-  // "submission.sections.sherpa.publication.information.publishers": "Publisher",
+  // "submission.sections.jisc.publication.information.publishers": "Publisher",
   // TODO New key - Add a translation
-  "submission.sections.sherpa.publication.information.publishers": "Publisher",
+  "submission.sections.jisc.publication.information.publishers": "Publisher",
 
-  // "submission.sections.sherpa.publication.information.romeoPub": "Romeo Pub",
+  // "submission.sections.jisc.publication.information.romeoPub": "Romeo Pub",
   // TODO New key - Add a translation
-  "submission.sections.sherpa.publication.information.romeoPub": "Romeo Pub",
+  "submission.sections.jisc.publication.information.romeoPub": "Romeo Pub",
 
-  // "submission.sections.sherpa.publication.information.zetoPub": "Zeto Pub",
+  // "submission.sections.jisc.publication.information.zetoPub": "Zeto Pub",
   // TODO New key - Add a translation
-  "submission.sections.sherpa.publication.information.zetoPub": "Zeto Pub",
+  "submission.sections.jisc.publication.information.zetoPub": "Zeto Pub",
 
-  // "submission.sections.sherpa.publisher.policy": "Publisher Policy",
+  // "submission.sections.jisc.publisher.policy": "Publisher Policy",
   // TODO New key - Add a translation
-  "submission.sections.sherpa.publisher.policy": "Publisher Policy",
+  "submission.sections.jisc.publisher.policy": "Publisher Policy",
 
-  // "submission.sections.sherpa.publisher.policy.description": "The below information was found via Sherpa Romeo. Based on the policies of your publisher, it provides advice regarding whether an embargo may be necessary and/or which files you are allowed to upload. If you have questions, please contact your site administrator via the feedback form in the footer.",
+  // "submission.sections.jisc.publisher.policy.description": "The below information was found via Jisc Open policy finder. Based on the policies of your publisher, it provides advice regarding whether an embargo may be necessary and/or which files you are allowed to upload. If you have questions, please contact your site administrator via the feedback form in the footer.",
   // TODO New key - Add a translation
-  "submission.sections.sherpa.publisher.policy.description": "The below information was found via Sherpa Romeo. Based on the policies of your publisher, it provides advice regarding whether an embargo may be necessary and/or which files you are allowed to upload. If you have questions, please contact your site administrator via the feedback form in the footer.",
+  "submission.sections.jisc.publisher.policy.description": "The below information was found via Jisc Open policy finder. Based on the policies of your publisher, it provides advice regarding whether an embargo may be necessary and/or which files you are allowed to upload. If you have questions, please contact your site administrator via the feedback form in the footer.",
 
-  // "submission.sections.sherpa.publisher.policy.openaccess": "Open Access pathways permitted by this journal's policy are listed below by article version. Click on a pathway for a more detailed view",
+  // "submission.sections.jisc.publisher.policy.openaccess": "Open Access pathways permitted by this journal's policy are listed below by article version. Click on a pathway for a more detailed view",
   // TODO New key - Add a translation
-  "submission.sections.sherpa.publisher.policy.openaccess": "Open Access pathways permitted by this journal's policy are listed below by article version. Click on a pathway for a more detailed view",
+  "submission.sections.jisc.publisher.policy.openaccess": "Open Access pathways permitted by this journal's policy are listed below by article version. Click on a pathway for a more detailed view",
 
-  // "submission.sections.sherpa.publisher.policy.more.information": "For more information, please see the following links:",
+  // "submission.sections.jisc.publisher.policy.more.information": "For more information, please see the following links:",
   // TODO New key - Add a translation
-  "submission.sections.sherpa.publisher.policy.more.information": "For more information, please see the following links:",
+  "submission.sections.jisc.publisher.policy.more.information": "For more information, please see the following links:",
 
-  // "submission.sections.sherpa.publisher.policy.version": "Version",
+  // "submission.sections.jisc.publisher.policy.version": "Version",
   // TODO New key - Add a translation
-  "submission.sections.sherpa.publisher.policy.version": "Version",
+  "submission.sections.jisc.publisher.policy.version": "Version",
 
-  // "submission.sections.sherpa.publisher.policy.embargo": "Embargo",
+  // "submission.sections.jisc.publisher.policy.embargo": "Embargo",
   // TODO New key - Add a translation
-  "submission.sections.sherpa.publisher.policy.embargo": "Embargo",
+  "submission.sections.jisc.publisher.policy.embargo": "Embargo",
 
-  // "submission.sections.sherpa.publisher.policy.noembargo": "No Embargo",
+  // "submission.sections.jisc.publisher.policy.noembargo": "No Embargo",
   // TODO New key - Add a translation
-  "submission.sections.sherpa.publisher.policy.noembargo": "No Embargo",
+  "submission.sections.jisc.publisher.policy.noembargo": "No Embargo",
 
-  // "submission.sections.sherpa.publisher.policy.nolocation": "None",
+  // "submission.sections.jisc.publisher.policy.nolocation": "None",
   // TODO New key - Add a translation
-  "submission.sections.sherpa.publisher.policy.nolocation": "None",
+  "submission.sections.jisc.publisher.policy.nolocation": "None",
 
-  // "submission.sections.sherpa.publisher.policy.license": "License",
+  // "submission.sections.jisc.publisher.policy.license": "License",
   // TODO New key - Add a translation
-  "submission.sections.sherpa.publisher.policy.license": "License",
+  "submission.sections.jisc.publisher.policy.license": "License",
 
-  // "submission.sections.sherpa.publisher.policy.prerequisites": "Prerequisites",
+  // "submission.sections.jisc.publisher.policy.prerequisites": "Prerequisites",
   // TODO New key - Add a translation
-  "submission.sections.sherpa.publisher.policy.prerequisites": "Prerequisites",
+  "submission.sections.jisc.publisher.policy.prerequisites": "Prerequisites",
 
-  // "submission.sections.sherpa.publisher.policy.location": "Location",
+  // "submission.sections.jisc.publisher.policy.location": "Location",
   // TODO New key - Add a translation
-  "submission.sections.sherpa.publisher.policy.location": "Location",
+  "submission.sections.jisc.publisher.policy.location": "Location",
 
-  // "submission.sections.sherpa.publisher.policy.conditions": "Conditions",
+  // "submission.sections.jisc.publisher.policy.conditions": "Conditions",
   // TODO New key - Add a translation
-  "submission.sections.sherpa.publisher.policy.conditions": "Conditions",
+  "submission.sections.jisc.publisher.policy.conditions": "Conditions",
 
-  // "submission.sections.sherpa.publisher.policy.refresh": "Refresh",
+  // "submission.sections.jisc.publisher.policy.refresh": "Refresh",
   // TODO New key - Add a translation
-  "submission.sections.sherpa.publisher.policy.refresh": "Refresh",
+  "submission.sections.jisc.publisher.policy.refresh": "Refresh",
 
-  // "submission.sections.sherpa.record.information": "Record Information",
+  // "submission.sections.jisc.record.information": "Record Information",
   // TODO New key - Add a translation
-  "submission.sections.sherpa.record.information": "Record Information",
+  "submission.sections.jisc.record.information": "Record Information",
 
-  // "submission.sections.sherpa.record.information.id": "ID",
+  // "submission.sections.jisc.record.information.id": "ID",
   // TODO New key - Add a translation
-  "submission.sections.sherpa.record.information.id": "ID",
+  "submission.sections.jisc.record.information.id": "ID",
 
-  // "submission.sections.sherpa.record.information.date.created": "Date Created",
+  // "submission.sections.jisc.record.information.date.created": "Date Created",
   // TODO New key - Add a translation
-  "submission.sections.sherpa.record.information.date.created": "Date Created",
+  "submission.sections.jisc.record.information.date.created": "Date Created",
 
-  // "submission.sections.sherpa.record.information.date.modified": "Last Modified",
+  // "submission.sections.jisc.record.information.date.modified": "Last Modified",
   // TODO New key - Add a translation
-  "submission.sections.sherpa.record.information.date.modified": "Last Modified",
+  "submission.sections.jisc.record.information.date.modified": "Last Modified",
 
-  // "submission.sections.sherpa.record.information.uri": "URI",
+  // "submission.sections.jisc.record.information.uri": "URI",
   // TODO New key - Add a translation
-  "submission.sections.sherpa.record.information.uri": "URI",
+  "submission.sections.jisc.record.information.uri": "URI",
 
-  // "submission.sections.sherpa.error.message": "There was an error retrieving sherpa information",
+  // "submission.sections.jisc.error.message": "There was an error retrieving Jisc Open policy finder information",
   // TODO New key - Add a translation
-  "submission.sections.sherpa.error.message": "There was an error retrieving sherpa information",
+  "submission.sections.jisc.error.message": "There was an error retrieving Jisc Open policy finder information",
 
   // "submission.submit.breadcrumbs": "New submission",
   // TODO New key - Add a translation
