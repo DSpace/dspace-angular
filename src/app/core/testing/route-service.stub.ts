@@ -41,6 +41,16 @@ export const routeServiceStub: any = {
   getPreviousUrl: () => {
     return of('/home');
   },
+  // Added generic session helpers used by ItemComponent
+  storeUrlInSession: (key: string, url: string) => {
+    // no-op for tests
+  },
+  getUrlFromSession: (key: string): string | null => {
+    return null;
+  },
+  clearUrlFromSession: (key: string) => {
+    // no-op for tests
+  },
   setParameter: (key: any, value: any) => {
     return;
   },
