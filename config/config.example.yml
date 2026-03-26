@@ -709,12 +709,8 @@ layout:
   # If true the download link in item page will be rendered as an advanced attachment, the view can be then configured with the layout.advancedAttachmentRendering config
   showDownloadLinkAsAttachment: false
   # Configuration for advanced attachment rendering in item pages. This controls how files are displayed when showDownloadLinkAsAttachment is enabled.
-  # Defines pagination settings and which metadata/attributes to display for bitstream attachments.
+  # Defines which metadata/attributes to display for bitstream attachments.
   advancedAttachmentRendering:
-    # Pagination configuration for attachment lists
-    pagination:
-      enabled: true
-      elementsPerPage: 2
     # Metadata and attributes to display for each attachment
     metadata:
       - name: dc.title
