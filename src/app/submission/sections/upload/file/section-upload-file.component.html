@@ -6,6 +6,7 @@
         <input
           type="checkbox"
           class="form-check-input"
+          role="switch"
           id="primaryBitstream{{fileIndex}}"
           [disabled]="processingSaveStatus$ | async"
           [checked]="isPrimary"
@@ -24,31 +25,29 @@
       <div class="float-start w-75">
         <ds-submission-section-upload-file-view [fileData]="fileData"></ds-submission-section-upload-file-view>
       </div>
-      <div class="float-end w-15">
-        <ng-container>
-          <ds-file-download-link [cssClasses]="'btn btn-link-focus'" [isBlank]="true"
-            [bitstream]="getBitstream()" [enableRequestACopy]="false" [showAccessStatusBadge]="false">
-            <i class="fa fa-download fa-2x text-normal" aria-hidden="true"></i>
-          </ds-file-download-link>
-          <button class="btn btn-link-focus"
-                  attr.aria-label="{{'submission.sections.upload.edit.title' | translate}} {{fileName}}"
-                  title="{{ 'submission.sections.upload.edit.title' | translate }} {{fileName}}"
-            (click)="$event.preventDefault();editBitstreamData();">
-            <i class="fa fa-edit fa-2x text-normal"></i>
-          </button>
-          <button class="btn btn-link-focus"
-            attr.aria-label="{{'submission.sections.upload.delete.confirm.title' | translate}} {{fileName}}"
-                  title="{{ 'submission.sections.upload.delete.confirm.title' | translate }} {{fileName}}"
-            [dsBtnDisabled]="(processingDelete$ | async)"
-            (click)="$event.preventDefault();confirmDelete(content);">
-            @if ((processingDelete$ | async)) {
-              <i class="fas fa-circle-notch fa-spin fa-2x link-danger"></i>
-            }
-            @if ((processingDelete$ | async) !== true) {
-              <i class="fa fa-trash fa-2x link-danger"></i>
-            }
-          </button>
-        </ng-container>
+      <div class="float-end w-15 d-flex flex-row justify-content-center align-items-center h-100">
+        <ds-file-download-link [cssClasses]="'btn btn-link-focus'" [isBlank]="true"
+          [bitstream]="getBitstream()" [enableRequestACopy]="false" [showAccessStatusBadge]="false">
+          <i class="fa fa-download fa-2x text-normal" aria-hidden="true"></i>
+        </ds-file-download-link>
+        <button class="btn btn-link-focus"
+                attr.aria-label="{{'submission.sections.upload.edit.title' | translate}} {{fileName}}"
+                title="{{ 'submission.sections.upload.edit.title' | translate }} {{fileName}}"
+          (click)="$event.preventDefault();editBitstreamData();">
+          <i class="fa fa-edit fa-2x text-normal"></i>
+        </button>
+        <button class="btn btn-link-focus"
+          attr.aria-label="{{'submission.sections.upload.delete.confirm.title' | translate}} {{fileName}}"
+                title="{{ 'submission.sections.upload.delete.confirm.title' | translate }} {{fileName}}"
+          [dsBtnDisabled]="(processingDelete$ | async)"
+          (click)="$event.preventDefault();confirmDelete(content);">
+          @if ((processingDelete$ | async)) {
+            <i class="fas fa-circle-notch fa-spin fa-2x link-danger"></i>
+          }
+          @if ((processingDelete$ | async) !== true) {
+            <i class="fa fa-trash fa-2x link-danger"></i>
+          }
+        </button>
       </div>
       <div class="clearfix"></div>
     </div>
