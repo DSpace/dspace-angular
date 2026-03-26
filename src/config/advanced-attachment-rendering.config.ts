@@ -3,7 +3,6 @@
  */
 export interface AdvancedAttachmentRenderingConfig {
   metadata: AttachmentMetadataConfig[];
-  pagination: AdvancedAttachmentRenderingPaginationConfig;
 }
 
 /**
@@ -23,10 +22,3 @@ export enum AdvancedAttachmentElementType {
   Attribute = 'attribute'
 }
 
-/**
- * Interface configuration to define the pagination of the advanced attachment rendering
- */
-export interface AdvancedAttachmentRenderingPaginationConfig {
-  enabled: boolean;
-  elementsPerPage: number;
-}

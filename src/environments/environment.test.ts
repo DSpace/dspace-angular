@@ -548,10 +548,6 @@ export const environment: BuildConfig = {
     ],
     showDownloadLinkAsAttachment: false,
     advancedAttachmentRendering: {
-      pagination: {
-        enabled: true,
-        elementsPerPage: 2,
-      },
       metadata: [
         {
           name: 'dc.title',
