@@ -69,16 +69,4 @@
       </a>
     </div>
   </div>
-  <div class="mt-5 w-100 px-0">
-    @if (areAuthorityRelationsEnabled) {
-      <ds-authority-related-entities-search
-        [item]="object"
-        [configurations]="[
-          'RELATION.Project.projects',
-          'RELATION.Project.fundings',
-          'RELATION.Project.researchoutputs'
-        ]"
-      ></ds-authority-related-entities-search>
-    }
-  </div>
 </div>
