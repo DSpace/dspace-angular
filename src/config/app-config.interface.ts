@@ -25,6 +25,7 @@ import { ItemConfig } from './item-config.interface';
 import { LangConfig } from './lang-config.interface';
 import { LayoutConfig } from './layout-config.interfaces';
 import { LiveRegionConfig } from './live-region.config';
+import { LoggingConfig } from './logging-config.interface';
 import { MarkdownConfig } from './markdown-config.interface';
 import { MatomoConfig } from './matomo-config.interface';
 import { MediaViewerConfig } from './media-viewer-config.interface';
@@ -69,6 +70,7 @@ interface AppConfig extends Config {
   search: SearchConfig;
   notifyMetrics: AdminNotifyMetricsRow[];
   liveRegion: LiveRegionConfig;
+  logging?: LoggingConfig;
   matomo?: MatomoConfig;
   geospatialMapViewer: GeospatialMapConfig;
   accessibility: AccessibilitySettingsConfig;
