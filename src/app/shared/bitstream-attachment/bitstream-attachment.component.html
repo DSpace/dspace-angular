@@ -19,7 +19,7 @@
       @for (attachmentConf of metadataConfig;  track $index) {
         @if (attachment.firstMetadataValue(attachmentConf.name) || attachmentConf.type === AdvancedAttachmentElementType.Attribute) {
           <div class="content" [attr.data-test]="attachmentConf.name">
-            <strong>{{ 'cris-layout.advanced-attachment.' + attachmentConf.name | translate }}</strong>
+            <strong>{{ 'layout.advanced-attachment.' + attachmentConf.name | translate }}</strong>
 
             @if (attachmentConf.type === AdvancedAttachmentElementType.Metadata) {
 
@@ -47,7 +47,7 @@
               @if (attachmentConf.name === 'format') {
                 @if ((bitstreamFormat$ | async) === null || (bitstreamFormat$ | async) === undefined) {
                   <p class="text-muted">
-                    {{'cris-layout.advanced-attachment.label.not-present' | translate}}
+                    {{'layout.advanced-attachment.label.not-present' | translate}}
                   </p>
                 } @else {
                   <p class="word-break m-0">{{(bitstreamFormat$ | async)}}</p>
@@ -61,7 +61,7 @@
               @if (attachmentConf.name === 'checksum') {
                 @if (checksumInfo?.value === null || checksumInfo?.value === undefined) {
                   <p class="text-muted">
-                    {{'cris-layout.advanced-attachment.label.not-present' | translate}}
+                    {{'layout.advanced-attachment.label.not-present' | translate}}
                   </p>
                 } @else {
                   <p class="word-break m-0">({{checksumInfo.checkSumAlgorithm}}):{{ checksumInfo.value }}</p>

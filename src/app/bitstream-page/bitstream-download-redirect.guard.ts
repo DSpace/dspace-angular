@@ -37,7 +37,30 @@ import {
   isNotEmpty,
 } from '../utils/empty.util';
 
-
+/**
+ * Guard that handles bitstream download authorization and redirection logic.
+ * This guard intercepts bitstream download requests and performs the following checks and actions:
+ *
+ * 1. **Retrieves the bitstream** by ID from the route parameters
+ * 2. **Checks authorization** using the CanDownload feature permission
+ * 3. **Determines authentication status** of the current user
+ * 4. **Handles different scenarios**:
+ *    - **Authorized + Logged in**: Retrieves a secure download link and redirects to it
+ *    - **Authorized + Not logged in + No access token**: Direct redirect to bitstream content URL
+ *    - **Not authorized + Has access token**: Redirect to content URL with access token appended
+ *    - **Not authorized + Logged in**: Redirect to forbidden page
+ *    - **Not authorized + Not logged in**: Store current URL and redirect to login page
+ *
+ * @param route - The activated route snapshot containing the bitstream ID and optional access token
+ * @param state - The router state snapshot
+ * @param bitstreamDataService - Service for retrieving bitstream data
+ * @param authorizationService - Service for checking download authorization
+ * @param auth - Service for authentication operations
+ * @param fileService - Service for retrieving secure file download links
+ * @param hardRedirectService - Service for performing hard redirects to download URLs
+ * @param router - Angular router for navigation
+ * @returns Observable that emits a UrlTree for navigation or boolean to allow/prevent route activation
+ */
 export const bitstreamDownloadRedirectGuard: CanActivateFn = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot,

@@ -1747,32 +1747,6 @@
 
   "cookies.consent.purpose.sharing": "Sharing",
 
-  "cris-layout.advanced-attachment.dc.title": "Name",
-
-  "cris-layout.advanced-attachment.size": "Size",
-
-  "cris-layout.advanced-attachment.checksum": "Checksum",
-
-  "cris-layout.advanced-attachment.checksum.info.MD5": "The <b>MD5 message-digest algorithm</b> can be used to verify the integrity of the file that you have uploaded. You can calculate its value locally via tools that are generally available in each operative system like <b>md5sum</b>",
-
-  "cris-layout.advanced-attachment.format": "Format",
-
-  "cris-layout.advanced-attachment.dc.type": "Type",
-
-  "cris-layout.advanced-attachment.dc.description": "Description",
-
-  "cris-layout.advanced-attachment.no_thumbnail": "No Thumbnail Available",
-
-  "cris-layout.advanced-attachment.download": "Download",
-
-  "cris-layout.advanced-attachment.requestACopy": "Request a copy",
-
-  "cris-layout.advanced-attachment.viewMore": "View More",
-
-  "cris-layout.advanced-attachment.label.not-present": "(not present)",
-
-  "cris-layout.attachment.viewMore": "View More",
-
   "curation-task.task.citationpage.label": "Generate Citation Page",
 
   "curation-task.task.checklinks.label": "Check Links in Metadata",
@@ -3492,6 +3466,30 @@
   "iiif.page.issue": "Issue: ",
 
   "iiif.page.description": "Description: ",
+
+  "layout.advanced-attachment.dc.title": "Name",
+
+  "layout.advanced-attachment.size": "Size",
+
+  "layout.advanced-attachment.checksum": "Checksum",
+
+  "layout.advanced-attachment.checksum.info.MD5": "The <b>MD5 message-digest algorithm</b> can be used to verify the integrity of the file that you have uploaded. You can calculate its value locally via tools that are generally available in each operative system like <b>md5sum</b>",
+
+  "layout.advanced-attachment.format": "Format",
+
+  "layout.advanced-attachment.dc.type": "Type",
+
+  "layout.advanced-attachment.dc.description": "Description",
+
+  "layout.advanced-attachment.no_thumbnail": "No Thumbnail Available",
+
+  "layout.advanced-attachment.download": "Download",
+
+  "layout.advanced-attachment.requestACopy": "Request a copy",
+
+  "layout.advanced-attachment.viewMore": "View More",
+
+  "layout.advanced-attachment.label.not-present": "(not present)",
 
   "loading.bitstream": "Loading bitstream...",
 

@@ -707,17 +707,31 @@ layout:
           icon: fas fa-project-diagram
           style: text-success
   # If true the download link in item page will be rendered as an advanced attachment, the view can be then configured with the layout.advancedAttachmentRendering config
-  showDownloadLinkAsAttachment: true
+  showDownloadLinkAsAttachment: false
   # Configuration for advanced attachment rendering in item pages. This controls how files are displayed when showDownloadLinkAsAttachment is enabled.
-  # Each configuration maps a bundle name to specific metadata fields that should be displayed alongside the file.
+  # Defines pagination settings and which metadata/attributes to display for bitstream attachments.
   advancedAttachmentRendering:
-    - bundle: ORIGINAL
-      metadata:
-        - dc.description
-        - dc.title
-    - bundle: LICENSE
-      metadata:
-        - dc.rights
+    # Pagination configuration for attachment lists
+    pagination:
+      enabled: true
+      elementsPerPage: 2
+    # Metadata and attributes to display for each attachment
+    metadata:
+      - name: dc.title
+        type: metadata
+        truncatable: false
+      - name: dc.type
+        type: metadata
+        truncatable: false
+      - name: dc.description
+        type: metadata
+        truncatable: true
+      - name: size
+        type: attribute
+      - name: format
+        type: attribute
+      - name: checksum
+        type: attribute
 
 # Configuration for customization of search results
 searchResults:

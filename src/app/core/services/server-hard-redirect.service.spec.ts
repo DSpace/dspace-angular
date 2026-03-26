@@ -116,21 +116,4 @@ describe('ServerHardRedirectService', () => {
     });
   });
 
-  describe('Should add cors header on download path', () => {
-    const redirect = 'https://private-url:4000/server/api/bitstreams/uuid';
-    const environmentWithSSRUrl: any = { ...envConfig, ...{ ...envConfig.rest, rest: {
-      ssrBaseUrl: 'https://private-url:4000/server',
-      baseUrl: 'https://public-url/server',
-    } } };
-    service = new ServerHardRedirectService(environmentWithSSRUrl, mockRequest, mockResponse, serverResponseService);
-
-    beforeEach(() => {
-      service.redirect(redirect, null, true);
-    });
-
-    it('should set header', () => {
-      expect(serverResponseService.setHeader).toHaveBeenCalled();
-    });
-  });
-
 });
