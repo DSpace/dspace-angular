@@ -1,25 +1,25 @@
-<ds-alert [type]="'alert-info'" *ngIf="hasNoData()" [content]="'submission.sections.sherpa-policy.title-empty'">
+<ds-alert [type]="'alert-info'" *ngIf="hasNoData()" [content]="'submission.sections.jisc-policy.title-empty'">
 </ds-alert>
 
 <div *ngIf="!hasNoData()" class="d-flex flex-column flex-nowrap mt-2 mb-4">
   <ds-alert [type]="'alert-info'" >
-    {{'submission.sections.sherpa.publisher.policy.description' | translate}}
+    {{'submission.sections.jisc.publisher.policy.description' | translate}}
   </ds-alert>
   <div>
     <button type="button" class="btn btn-secondary float-right" (click)="refresh()" data-test="refresh-btn">
-      <span><i class="fas fa-sync"></i> {{'submission.sections.sherpa.publisher.policy.refresh' | translate}} </span>
+      <span><i class="fas fa-sync"></i> {{'submission.sections.jisc.publisher.policy.refresh' | translate}} </span>
     </button>
   </div>
 </div>
 
-<ng-container *ngVar="(sherpaPoliciesData$ | async)?.sherpaResponse as sherpaData">
-    <ng-container *ngIf="!hasNoData() && (!!sherpaData && !sherpaData.error)">
-        <ng-container *ngFor="let journal of sherpaData.journals;let j=index;">
+<ng-container *ngVar="(jiscOpfPoliciesData$ | async)?.opfResponse as opfData">
+    <ng-container *ngIf="!hasNoData() && (!!opfData && !opfData.error)">
+        <ng-container *ngFor="let journal of opfData.journals;let j=index;">
             <div class="mb-3 border-bottom" data-test="collapse">
                 <div class="w-100 d-flex justify-content-between collapse-toggle mb-3" (click)="collapse.toggle()">
                     <button type="button" class="btn btn-link p-0" (click)="$event.preventDefault()"
                         [attr.aria-expanded]="!collapse.collapsed" aria-controls="collapseExample">
-                        {{'submission.sections.sherpa.publication.information' | translate}}
+                        {{'submission.sections.jisc.publication.information' | translate}}
                     </button>
                     <div class="d-inline-block">
                         <span *ngIf="collapse.collapsed" class="fas fa-chevron-down"></span>
@@ -34,7 +34,7 @@
                 <div class="w-100 d-flex justify-content-between collapse-toggle mb-3" (click)="collapse.toggle()">
                     <button type="button" class="btn btn-link p-0" (click)="$event.preventDefault()"
                         [attr.aria-expanded]="!collapse.collapsed" aria-controls="collapseExample">
-                        {{'submission.sections.sherpa.publisher.policy' | translate}}
+                        {{'submission.sections.jisc.publisher.policy' | translate}}
                     </button>
                     <div class="d-inline-block">
                         <span *ngIf="collapse.collapsed" class="fas fa-chevron-down"></span>
@@ -51,7 +51,7 @@
             <div class="w-100 d-flex justify-content-between collapse-toggle mb-3" (click)="collapse.toggle()">
                 <button type="button" class="btn btn-link p-0" (click)="$event.preventDefault()"
                     [attr.aria-expanded]="!collapse.collapsed" aria-controls="collapseExample">
-                    {{'submission.sections.sherpa.record.information' | translate}}
+                    {{'submission.sections.jisc.record.information' | translate}}
                 </button>
                 <div class="d-inline-block">
                     <span *ngIf="collapse.collapsed" class="fas fa-chevron-down"></span>
@@ -59,14 +59,14 @@
                 </div>
             </div>
             <div #collapse="ngbCollapse" [ngbCollapse]="isCollapsed">
-                <ds-metadata-information [metadata]="sherpaData.metadata"></ds-metadata-information>
+                <ds-metadata-information [metadata]="opfData.metadata"></ds-metadata-information>
             </div>
         </div>
     </ng-container>
 
-    <ng-container *ngIf="!!sherpaData && sherpaData.error">
+    <ng-container *ngIf="!!opfData && opfData.error">
         <ds-alert [type]="AlertTypeEnum.Error"
-            [content]="!!sherpaData.message ? sherpaData.message : 'submission.sections.sherpa.error.message'| translate">
+            [content]="!!opfData.message ? opfData.message : 'submission.sections.jisc.error.message'| translate">
         </ds-alert>
     </ng-container>
 </ng-container>

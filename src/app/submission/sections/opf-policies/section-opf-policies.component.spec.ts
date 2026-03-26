@@ -21,7 +21,7 @@ import { APP_DATA_SERVICES_MAP } from '../../../../config/app-config.interface';
 import { AppState } from '../../../app.reducer';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { AlertComponent } from '../../../shared/alert/alert.component';
-import { SherpaDataResponse } from '../../../shared/mocks/section-sherpa-policies.service.mock';
+import { OpfDataResponse } from '../../../shared/mocks/section-opf-policies.service.mock';
 import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
 import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
@@ -30,11 +30,11 @@ import { SectionsService } from '../sections.service';
 import { MetadataInformationComponent } from './metadata-information/metadata-information.component';
 import { PublicationInformationComponent } from './publication-information/publication-information.component';
 import { PublisherPolicyComponent } from './publisher-policy/publisher-policy.component';
-import { SubmissionSectionSherpaPoliciesComponent } from './section-sherpa-policies.component';
+import { SubmissionSectionJiscOpfPoliciesComponent } from './section-opf-policies.component';
 
-describe('SubmissionSectionSherpaPoliciesComponent', () => {
-  let component: SubmissionSectionSherpaPoliciesComponent;
-  let fixture: ComponentFixture<SubmissionSectionSherpaPoliciesComponent>;
+describe('SubmissionSectionJiscOpfPoliciesComponent', () => {
+  let component: SubmissionSectionJiscOpfPoliciesComponent;
+  let fixture: ComponentFixture<SubmissionSectionJiscOpfPoliciesComponent>;
   let de: DebugElement;
 
   const sectionsServiceStub = new SectionsServiceStub();
@@ -48,20 +48,20 @@ describe('SubmissionSectionSherpaPoliciesComponent', () => {
   const storeStub = jasmine.createSpyObj('store', ['dispatch']);
 
   const sectionData = {
-    header: 'submit.progressbar.sherpaPolicies',
-    config: 'http://localhost:8080/server/api/config/submissionaccessoptions/SherpaPoliciesDefaultConfiguration',
+    header: 'submit.progressbar.opfPolicies',
+    config: 'http://localhost:8080/server/api/config/submissionaccessoptions/OpfPoliciesDefaultConfiguration',
     mandatory: true,
-    sectionType: 'sherpaPolicies',
+    sectionType: 'opfPolicies',
     collapsed: false,
     enabled: true,
-    data: SherpaDataResponse,
+    data: OpfDataResponse,
     errorsToShow: [],
     serverValidationErrors: [],
     isLoading: false,
     isValid: true,
   };
 
-  describe('SubmissionSectionSherpaPoliciesComponent', () => {
+  describe('SubmissionSectionJiscOpfPoliciesComponent', () => {
 
     beforeEach(async () => {
       await TestBed.configureTestingModule({
@@ -75,7 +75,7 @@ describe('SubmissionSectionSherpaPoliciesComponent', () => {
             },
           }),
           NgbCollapseModule,
-          SubmissionSectionSherpaPoliciesComponent,
+          SubmissionSectionJiscOpfPoliciesComponent,
         ],
         providers: [
           { provide: SectionsService, useValue: sectionsServiceStub },
@@ -87,7 +87,7 @@ describe('SubmissionSectionSherpaPoliciesComponent', () => {
           { provide: APP_DATA_SERVICES_MAP, useValue: {} },
         ],
       })
-        .overrideComponent(SubmissionSectionSherpaPoliciesComponent, {
+        .overrideComponent(SubmissionSectionJiscOpfPoliciesComponent, {
           remove: { imports: [
             MetadataInformationComponent,
             AlertComponent,
@@ -99,10 +99,10 @@ describe('SubmissionSectionSherpaPoliciesComponent', () => {
     });
 
     beforeEach(inject([Store], (store: Store<AppState>) => {
-      fixture = TestBed.createComponent(SubmissionSectionSherpaPoliciesComponent);
+      fixture = TestBed.createComponent(SubmissionSectionJiscOpfPoliciesComponent);
       component = fixture.componentInstance;
       de = fixture.debugElement;
-      sectionsServiceStub.getSectionData.and.returnValue(observableOf(SherpaDataResponse));
+      sectionsServiceStub.getSectionData.and.returnValue(observableOf(OpfDataResponse));
       fixture.detectChanges();
     }));
 
