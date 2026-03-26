@@ -3429,9 +3429,9 @@
   // TODO New key - Add a translation
   "form.entry.source.zdb": "",
 
-  // "form.entry.source.sherpa": "- Sherpa Romeo",
+  // "form.entry.source.jisc": "- Jisc Open policy finder",
   // TODO New key - Add a translation
-  "form.entry.source.sherpa": "- Sherpa Romeo",
+  "form.entry.source.jisc": "- Jisc Open policy finder",
 
   // "form.remove": "Remove",
   "form.remove": "ଅପସାରଣ କରନ୍ତୁ",
@@ -8256,14 +8256,17 @@
   // "submission.import-external.source.loading": "Loading ...",
   "submission.import-external.source.loading": "ଲୋଡ୍ ହେଉଛି ...",
 
-  // "submission.import-external.source.sherpaJournal": "SHERPA Journals",
-  "submission.import-external.source.sherpaJournal": "SHERPA ଜର୍ଣ୍ଣାଲଗୁଡିକ",
+  // "submission.import-external.source.opfJournal": "Jisc Open policy finder Journals",
+  // TODO New key - Add a translation
+  "submission.import-external.source.opfJournal": "Jisc Open policy finder Journals",
 
-  // "submission.import-external.source.sherpaJournalIssn": "SHERPA Journals by ISSN",
-  "submission.import-external.source.sherpaJournalIssn": "ISSN ଦ୍ୱାରା SHERPA ଜର୍ଣ୍ଣାଲଗୁଡିକ",
+  // "submission.import-external.source.opfJournalIssn": "Jisc Open policy finder Journals by ISSN",
+  // TODO New key - Add a translation
+  "submission.import-external.source.opfJournalIssn": "Jisc Open policy finder Journals by ISSN",
 
-  // "submission.import-external.source.sherpaPublisher": "SHERPA Publishers",
-  "submission.import-external.source.sherpaPublisher": "SHERPA ପ୍ରକାଶକଗୁଡିକ",
+  // "submission.import-external.source.opfPublisher": "Jisc Open policy finder Publishers",
+  // TODO New key - Add a translation
+  "submission.import-external.source.opfPublisher": "Jisc Open policy finder Publishers",
 
   // "submission.import-external.source.openaire": "OpenAIRE Search by Authors",
   "submission.import-external.source.openaire": "OpenAIRE ଲେଖକଙ୍କ ଦ୍ୱାରା ଖୋଜନ୍ତୁ",
@@ -8445,11 +8448,13 @@
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openaireFunding": "Importing from OpenAIRE",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openaireFunding": "OpenAIRE ରୁ ଆମଦାନୀ କରୁଛି",
 
-  // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaJournal": "Importing from Sherpa Journal",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaJournal": "Sherpa ଜର୍ଣ୍ଣାଲରୁ ଆମଦାନୀ କରୁଛି",
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.jiscJournal": "Importing from Jisc Open policy finder Journal",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.jiscJournal": "Importing from Jisc Open policy finder Journal",
 
-  // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaPublisher": "Importing from Sherpa Publisher",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaPublisher": "Sherpa ପ୍ରକାଶକରୁ ଆମଦାନୀ କରୁଛି",
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.jiscPublisher": "Importing from Jisc Open policy finder Publisher",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.jiscPublisher": "Importing from Jisc Open policy finder Publisher",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.pubmed": "Importing from PubMed",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.head.pubmed": "PubMed ରୁ ଆମଦାନୀ କରୁଛି",
@@ -8572,11 +8577,13 @@
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalVolume": "Local Journal Volumes ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalVolume": "ସ୍ଥାନୀୟ ଜର୍ଣ୍ଣାଲ ଭଲ୍ୟୁମ୍ ({{ count }})",
 
-  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournal": "Sherpa Journals ({{ count }})",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournal": "ଶେରପା ଜର୍ଣ୍ଣାଲ ({{ count }})",
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.jiscJournal": "Jisc Open policy finder Journals ({{ count }})",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.jiscJournal": "Jisc Open policy finder Journals ({{ count }})",
 
-  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaPublisher": "Sherpa Publishers ({{ count }})",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaPublisher": "ଶେରପା ପ୍ରକାଶକ ({{ count }})",
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.jiscPublisher": "Jisc Open policy finder Publishers ({{ count }})",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.jiscPublisher": "Jisc Open policy finder Publishers ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.orcid": "ORCID ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.orcid": "ORCID ({{ count }})",
@@ -8611,8 +8618,8 @@
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.openaireFunding": "OpenAIRE Search by Funder ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.openaireFunding": "ଫଣ୍ଡର୍ ଦ୍ୱାରା ଓପେନଏଆଇଆରଇ ସନ୍ଧାନ ({{ count }})",
 
-  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournalIssn": "Sherpa Journals by ISSN ({{ count }})",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournalIssn": "ISSN ଦ୍ୱାରା ଶେରପା ଜର୍ଣ୍ଣାଲ ({{ count }})",
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.jiscJournalIssn": "Jisc Open policy finder Journals by ISSN ({{ count }})",
+  // TODO New key - Add a translation
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.openalexPerson": "OpenAlex ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.openalexPerson": "ଓପେନଆଲେକ୍ସ ({{ count }})",
@@ -8788,11 +8795,11 @@
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isChildOrgUnitOf": "Selected Organizational Unit",
   "submission.sections.describe.relationship-lookup.selection-tab.title.isChildOrgUnitOf": "ଚୟନିତ ସାଂଗଠନିକ ୟୁନିଟ୍",
 
-  // "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaJournal": "Search Results",
-  "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaJournal": "ସନ୍ଧାନ ଫଳାଫଳ",
+  // "submission.sections.describe.relationship-lookup.selection-tab.title.jiscJournal": "Search Results",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.jiscJournal": "ସନ୍ଧାନ ଫଳାଫଳ",
 
-  // "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaPublisher": "Search Results",
-  "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaPublisher": "ସନ୍ଧାନ ଫଳାଫଳ",
+  // "submission.sections.describe.relationship-lookup.selection-tab.title.jiscPublisher": "Search Results",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.jiscPublisher": "ସନ୍ଧାନ ଫଳାଫଳ",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.orcid": "Search Results",
   "submission.sections.describe.relationship-lookup.selection-tab.title.orcid": "ସନ୍ଧାନ ଫଳାଫଳ",
@@ -8989,17 +8996,18 @@
   // TODO New key - Add a translation
   "submission.sections.submit.progressbar.describe.owner": "Owner",
 
-  // "submission.sections.submit.progressbar.sherpapolicy": "Sherpa policies",
-  "submission.sections.submit.progressbar.sherpapolicy": "ଶେରପା ନୀତି",
+  // "submission.sections.submit.progressbar.jiscpolicy": "Jisc Open policy finder policies",
+  // TODO New key - Add a translation
+  "submission.sections.submit.progressbar.jiscpolicy": "Jisc Open policy finder policies",
 
   // "submission.sections.submit.progressbar.upload": "Upload files",
   "submission.sections.submit.progressbar.upload": "ଫାଇଲ୍ ଅପଲୋଡ୍ କରନ୍ତୁ",
 
-  // "submission.sections.submit.progressbar.sherpaPolicies": "Publisher open access policy information",
-  "submission.sections.submit.progressbar.sherpaPolicies": "ପ୍ରକାଶକ ଖୋଲା ପ୍ରବେଶ ନୀତି ସୂଚନା",
+  // "submission.sections.submit.progressbar.jiscPolicies": "Publisher open access policy information",
+  "submission.sections.submit.progressbar.jiscPolicies": "ପ୍ରକାଶକ ଖୋଲା ପ୍ରବେଶ ନୀତି ସୂଚନା",
 
-  // "submission.sections.sherpa-policy.title-empty": "No publisher policy information available. If your work has an associated ISSN, please enter it above to see any related publisher open access policies.",
-  "submission.sections.sherpa-policy.title-empty": "କୌଣସି ପ୍ରକାଶକ ନୀତି ସୂଚନା ଉପଲବ୍ଧ ନାହିଁ। ଯଦି ଆପଣଙ୍କ କାର୍ଯ୍ୟରେ ଏକ ସମ୍ବନ୍ଧିତ ISSN ଅଛି, ଦୟାକରି ଉପରେ ଏହାକୁ ପ୍ରବେଶ କରନ୍ତୁ ଯେପରିକି ସମ୍ବନ୍ଧିତ ପ୍ରକାଶକ ଖୋଲା ପ୍ରବେଶ ନୀତିଗୁଡିକ ଦେଖାଯାଇପାରିବ।",
+  // "submission.sections.jisc-policy.title-empty": "No publisher policy information available. If your work has an associated ISSN, please enter it above to see any related publisher open access policies.",
+  "submission.sections.jisc-policy.title-empty": "କୌଣସି ପ୍ରକାଶକ ନୀତି ସୂଚନା ଉପଲବ୍ଧ ନାହିଁ। ଯଦି ଆପଣଙ୍କ କାର୍ଯ୍ୟରେ ଏକ ସମ୍ବନ୍ଧିତ ISSN ଅଛି, ଦୟାକରି ଉପରେ ଏହାକୁ ପ୍ରବେଶ କରନ୍ତୁ ଯେପରିକି ସମ୍ବନ୍ଧିତ ପ୍ରକାଶକ ଖୋଲା ପ୍ରବେଶ ନୀତିଗୁଡିକ ଦେଖାଯାଇପାରିବ।",
 
   // "submission.sections.status.errors.title": "Errors",
   "submission.sections.status.errors.title": "ତ୍ରୁଟିଗୁଡିକ",
@@ -9213,84 +9221,59 @@
   // "submission.sections.license.notgranted": "You must accept the license",
   "submission.sections.license.notgranted": "ଆପଣଙ୍କୁ ଲାଇସେନ୍ସ ଗ୍ରହଣ କରିବାକୁ ପଡିବ",
 
-  // "submission.sections.sherpa.publication.information": "Publication information",
-  "submission.sections.sherpa.publication.information": "ପ୍ରକାଶନ ସୂଚନା",
+  "submission.sections.jisc.publication.information": "ପ୍ରକାଶନ ସୂଚନା",
 
-  // "submission.sections.sherpa.publication.information.title": "Title",
-  "submission.sections.sherpa.publication.information.title": "ଶୀର୍ଷକ",
+  "submission.sections.jisc.publication.information.title": "ଶୀର୍ଷକ",
 
-  // "submission.sections.sherpa.publication.information.issns": "ISSNs",
-  "submission.sections.sherpa.publication.information.issns": "ISSNs",
+  "submission.sections.jisc.publication.information.issns": "ISSNs",
 
-  // "submission.sections.sherpa.publication.information.url": "URL",
-  "submission.sections.sherpa.publication.information.url": "URL",
+  "submission.sections.jisc.publication.information.url": "URL",
 
-  // "submission.sections.sherpa.publication.information.publishers": "Publisher",
-  "submission.sections.sherpa.publication.information.publishers": "ପ୍ରକାଶକ",
+  "submission.sections.jisc.publication.information.publishers": "ପ୍ରକାଶକ",
 
-  // "submission.sections.sherpa.publication.information.romeoPub": "Romeo Pub",
-  "submission.sections.sherpa.publication.information.romeoPub": "ରୋମିଓ ପବ୍",
+  "submission.sections.jisc.publication.information.romeoPub": "ରୋମିଓ ପବ୍",
 
-  // "submission.sections.sherpa.publication.information.zetoPub": "Zeto Pub",
-  "submission.sections.sherpa.publication.information.zetoPub": "ଜେଟୋ ପବ୍",
+  "submission.sections.jisc.publication.information.zetoPub": "ଜେଟୋ ପବ୍",
 
-  // "submission.sections.sherpa.publisher.policy": "Publisher Policy",
-  "submission.sections.sherpa.publisher.policy": "ପ୍ରକାଶକ ନୀତି",
+  "submission.sections.jisc.publisher.policy": "ପ୍ରକାଶକ ନୀତି",
 
-  // "submission.sections.sherpa.publisher.policy.description": "The below information was found via Sherpa Romeo. Based on the policies of your publisher, it provides advice regarding whether an embargo may be necessary and/or which files you are allowed to upload. If you have questions, please contact your site administrator via the feedback form in the footer.",
-  "submission.sections.sherpa.publisher.policy.description": "ନିମ୍ନରେ ଥିବା ସୂଚନା ଶେରପା ରୋମିଓ ମାଧ୍ୟମରେ ମିଳିଛି। ଆପଣଙ୍କ ପ୍ରକାଶକର ନୀତି ଉପରେ ଆଧାରିତ, ଏହା ଏକ ଏମ୍ବାର୍ଗୋ ଆବଶ୍ୟକ କି ନାହିଁ ଏବଂ/କିମ୍ବା କେଉଁ ଫାଇଲ୍ ଆପଣ ଅପଲୋଡ୍ କରିପାରିବେ ସେ ସମ୍ବନ୍ଧରେ ପରାମର୍ଶ ଦିଏ। ଯଦି ଆପଣଙ୍କର ପ୍ରଶ୍ନ ଅଛି, ଦୟାକରି ଫୁଟରରେ ଥିବା ଫିଡବ୍ୟାକ୍ ଫର୍ମ ମାଧ୍ୟମରେ ଆପଣଙ୍କ ସାଇଟ୍ ପ୍ରଶାସକଙ୍କ ସହିତ ଯୋଗାଯୋଗ କରନ୍ତୁ।",
+  "submission.sections.jisc.publisher.policy.description": "ନିମ୍ନରେ ଥିବା ସୂଚନା ଶେରପା ରୋମିଓ ମାଧ୍ୟମରେ ମିଳିଛି। ଆପଣଙ୍କ ପ୍ରକାଶକର ନୀତି ଉପରେ ଆଧାରିତ, ଏହା ଏକ ଏମ୍ବାର୍ଗୋ ଆବଶ୍ୟକ କି ନାହିଁ ଏବଂ/କିମ୍ବା କେଉଁ ଫାଇଲ୍ ଆପଣ ଅପଲୋଡ୍ କରିପାରିବେ ସେ ସମ୍ବନ୍ଧରେ ପରାମର୍ଶ ଦିଏ। ଯଦି ଆପଣଙ୍କର ପ୍ରଶ୍ନ ଅଛି, ଦୟାକରି ଫୁଟରରେ ଥିବା ଫିଡବ୍ୟାକ୍ ଫର୍ମ ମାଧ୍ୟମରେ ଆପଣଙ୍କ ସାଇଟ୍ ପ୍ରଶାସକଙ୍କ ସହିତ ଯୋଗାଯୋଗ କରନ୍ତୁ।",
 
-  // "submission.sections.sherpa.publisher.policy.openaccess": "Open Access pathways permitted by this journal's policy are listed below by article version. Click on a pathway for a more detailed view",
-  "submission.sections.sherpa.publisher.policy.openaccess": "ଏହି ଜର୍ଣ୍ଣାଲର ନୀତି ଦ୍ୱାରା ଅନୁମୋଦିତ ଖୋଲା ପ୍ରବେଶ ପଥଗୁଡିକ ନିମ୍ନରେ ଆର୍ଟିକଲ୍ ସଂସ୍କରଣ ଅନୁଯାୟୀ ତାଲିକାଭୁକ୍ତ ହୋଇଛି। ଅଧିକ ବିସ୍ତୃତ ଦୃଶ୍ୟ ପାଇଁ ଏକ ପଥ ଉପରେ କ୍ଲିକ୍ କରନ୍ତୁ",
+  "submission.sections.jisc.publisher.policy.openaccess": "ଏହି ଜର୍ଣ୍ଣାଲର ନୀତି ଦ୍ୱାରା ଅନୁମୋଦିତ ଖୋଲା ପ୍ରବେଶ ପଥଗୁଡିକ ନିମ୍ନରେ ଆର୍ଟିକଲ୍ ସଂସ୍କରଣ ଅନୁଯାୟୀ ତାଲିକାଭୁକ୍ତ ହୋଇଛି। ଅଧିକ ବିସ୍ତୃତ ଦୃଶ୍ୟ ପାଇଁ ଏକ ପଥ ଉପରେ କ୍ଲିକ୍ କରନ୍ତୁ",
 
-  // "submission.sections.sherpa.publisher.policy.more.information": "For more information, please see the following links:",
+  "submission.sections.jisc.publisher.policy.more.information": "ଅଧିକ ସୂଚନା ପାଇଁ, ଦୟାକରି ନିମ୍ନଲିଖିତ ଲିଙ୍କ୍ ଦେଖନ୍ତୁ:",
+
+  "submission.sections.jisc.publisher.policy.version": "ସଂସ୍କରଣ",
+
+  "submission.sections.jisc.publisher.policy.embargo": "ଏମ୍ବାର୍ଗୋ",
+
+  "submission.sections.jisc.publisher.policy.noembargo": "କୌଣସି ଏମ୍ବାର୍ଗୋ ନାହିଁ",
+
+  "submission.sections.jisc.publisher.policy.nolocation": "କିଛି ନାହିଁ",
+
+  "submission.sections.jisc.publisher.policy.license": "ଲାଇସେନ୍ସ",
+
+  "submission.sections.jisc.publisher.policy.prerequisites": "ପୂର୍ବାପେକ୍ଷା",
+
+  "submission.sections.jisc.publisher.policy.location": "ଅବସ୍ଥାନ",
+
+  "submission.sections.jisc.publisher.policy.conditions": "ସର୍ତ୍ତଗୁଡିକ",
+
+  "submission.sections.jisc.publisher.policy.refresh": "ରିଫ୍ରେସ୍ କରନ୍ତୁ",
+
+  "submission.sections.jisc.record.information": "ରେକର୍ଡ ସୂଚନା",
+
+  "submission.sections.jisc.record.information.id": "ID",
+
+  "submission.sections.jisc.record.information.date.created": "ତାରିଖ ସୃଷ୍ଟି ହୋଇଛି",
+
+  "submission.sections.jisc.record.information.date.modified": "ଶେଷ ପରିବର୍ତ୍ତିତ",
+
+  "submission.sections.jisc.record.information.uri": "URI",
+
+  // "submission.sections.jisc.error.message": "There was an error retrieving Jisc Open policy finder information",
   // TODO New key - Add a translation
-  "submission.sections.sherpa.publisher.policy.more.information": "For more information, please see the following links:",
-
-  // "submission.sections.sherpa.publisher.policy.version": "Version",
-  "submission.sections.sherpa.publisher.policy.version": "ସଂସ୍କରଣ",
-
-  // "submission.sections.sherpa.publisher.policy.embargo": "Embargo",
-  "submission.sections.sherpa.publisher.policy.embargo": "ଏମ୍ବାର୍ଗୋ",
-
-  // "submission.sections.sherpa.publisher.policy.noembargo": "No Embargo",
-  "submission.sections.sherpa.publisher.policy.noembargo": "କୌଣସି ଏମ୍ବାର୍ଗୋ ନାହିଁ",
-
-  // "submission.sections.sherpa.publisher.policy.nolocation": "None",
-  "submission.sections.sherpa.publisher.policy.nolocation": "କିଛି ନାହିଁ",
-
-  // "submission.sections.sherpa.publisher.policy.license": "License",
-  "submission.sections.sherpa.publisher.policy.license": "ଲାଇସେନ୍ସ",
-
-  // "submission.sections.sherpa.publisher.policy.prerequisites": "Prerequisites",
-  "submission.sections.sherpa.publisher.policy.prerequisites": "ପୂର୍ବାପେକ୍ଷା",
-
-  // "submission.sections.sherpa.publisher.policy.location": "Location",
-  "submission.sections.sherpa.publisher.policy.location": "ଅବସ୍ଥାନ",
-
-  // "submission.sections.sherpa.publisher.policy.conditions": "Conditions",
-  "submission.sections.sherpa.publisher.policy.conditions": "ସର୍ତ୍ତଗୁଡିକ",
-
-  // "submission.sections.sherpa.publisher.policy.refresh": "Refresh",
-  "submission.sections.sherpa.publisher.policy.refresh": "ରିଫ୍ରେସ୍ କରନ୍ତୁ",
-
-  // "submission.sections.sherpa.record.information": "Record Information",
-  "submission.sections.sherpa.record.information": "ରେକର୍ଡ ସୂଚନା",
-
-  // "submission.sections.sherpa.record.information.id": "ID",
-  "submission.sections.sherpa.record.information.id": "ID",
-
-  // "submission.sections.sherpa.record.information.date.created": "Date Created",
-  "submission.sections.sherpa.record.information.date.created": "ତାରିଖ ସୃଷ୍ଟି ହୋଇଛି",
-
-  // "submission.sections.sherpa.record.information.date.modified": "Last Modified",
-  "submission.sections.sherpa.record.information.date.modified": "ଶେଷ ପରିବର୍ତ୍ତିତ",
-
-  // "submission.sections.sherpa.record.information.uri": "URI",
-  "submission.sections.sherpa.record.information.uri": "URI",
-
-  // "submission.sections.sherpa.error.message": "There was an error retrieving sherpa information",
-  "submission.sections.sherpa.error.message": "ଶେରପା ସୂଚନା ପ୍ରାପ୍ତିରେ ଏକ ତ୍ରୁଟି ହୋଇଛି",
+  "submission.sections.jisc.error.message": "There was an error retrieving Jisc Open policy finder information",
 
   // "submission.submit.breadcrumbs": "New submission",
   "submission.submit.breadcrumbs": "ନୂତନ ଦାଖଲା",
