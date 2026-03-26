@@ -123,6 +123,7 @@ export const environment: BuildConfig = {
       required: 'required',
       regex: 'pattern',
     },
+    showInlineGroupDuplicateButton: false,
   },
 
   // Notifications

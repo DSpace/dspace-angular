@@ -146,6 +146,8 @@ export class DefaultAppConfig implements AppConfig {
       required: 'required',
       regex: 'pattern',
     },
+    // Enable the possibility to duplicate the inline form group, values included.
+    showInlineGroupDuplicateButton: false,
   };
 
   // Notifications
@@ -287,6 +289,8 @@ export class DefaultAppConfig implements AppConfig {
           },
         ],
       },
+      // Icons that should remain visible even when no authority value is present for the metadata field
+      iconsVisibleWithNoAuthority: ['fas fa-user'],
     },
   };
 
