@@ -1,29 +1,11 @@
-<ng-container *ngVar="(bitstreams$ | async) as bitstreams">
+@let bitstreams = (bitstreams$ | async);
+<ng-container>
   @if (bitstreams?.length > 0) {
     <ds-metadata-field-wrapper [label]="label | translate">
       <div class="file-section">
-        @for (file of bitstreams; track file; let last = $last) {
-          <ng-template #fileContent>
-            <span>
-              @if (primaryBitstreamId === file.id) {
-                <span class="badge bg-primary">
-                  {{ 'item.page.bitstreams.primary' | translate }}
-                </span>
-              }
-              {{ dsoNameService.getName(file) }}
-            </span>
 
-            <span>({{ file?.sizeBytes | dsFileSize }})</span>
-
-            @if (!last) {
-              <span [innerHTML]="separator"></span>
-            }
-          </ng-template>
-          <ds-file-download-link
-            [bitstream]="file"
-            [item]="item">
-            <ng-container *ngTemplateOutlet="fileContent"></ng-container>
-          </ds-file-download-link>
+        @for (file of bitstreams; track file) {
+          <ds-bitstream-attachment [item]="item" [attachment]="file"></ds-bitstream-attachment>
         }
         @if (isLoading) {
           <ds-loading message="{{'loading.default' | translate}}" [showMessage]="false"></ds-loading>

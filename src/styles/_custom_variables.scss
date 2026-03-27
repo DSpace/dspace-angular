@@ -87,6 +87,11 @@
   --ds-thumbnail-placeholder-border: 1px solid #{$gray-300};
   --ds-thumbnail-placeholder-color: #{lighten($gray-800, 7%)};
 
+  --ds-advanced-attachment-image-max-height: 160px;
+  --ds-advanced-attachment-image-object-fit: cover;
+  --ds-advanced-attachment-image-object-position: 0% 0%;
+  --ds-advanced-attachment-thumbnail-placeholder-font-weight: bold;
+
   --ds-dso-selector-list-max-height: 475px;
   --ds-dso-selector-current-background-color: #eeeeee;
   --ds-dso-selector-current-background-hover-color: #{darken(#eeeeee, 10%)};
