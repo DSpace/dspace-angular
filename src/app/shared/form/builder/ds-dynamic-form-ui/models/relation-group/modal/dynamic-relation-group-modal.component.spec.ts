@@ -144,6 +144,7 @@ function init() {
     repeatable: false,
     metadataFields: [],
     hasSelectableMetadata: false,
+    securityConfigLevel: [],
   } as DynamicRelationGroupModelConfig;
 
   FORM_GROUP_TEST_GROUP = new UntypedFormGroup({
