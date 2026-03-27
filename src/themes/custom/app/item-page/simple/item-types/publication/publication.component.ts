@@ -7,6 +7,7 @@ import { RouterLink } from '@angular/router';
 import { Context } from '@dspace/core/shared/context.model';
 import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import { TranslateModule } from '@ngx-translate/core';
+import { ItemPageLicenseFieldComponent } from 'src/app/item-page/simple/field-components/specific-field/license/item-page-license-field.component';
 
 import { CollectionsComponent } from '../../../../../../../app/item-page/field-components/collections/collections.component';
 import { ThemedMediaViewerComponent } from '../../../../../../../app/item-page/media-viewer/themed-media-viewer.component';
@@ -45,6 +46,7 @@ import { ThemedThumbnailComponent } from '../../../../../../../app/thumbnail/the
     GeospatialItemPageFieldComponent,
     ItemPageAbstractFieldComponent,
     ItemPageDateFieldComponent,
+    ItemPageLicenseFieldComponent,
     ItemPageUriFieldComponent,
     MetadataFieldWrapperComponent,
     MiradorViewerComponent,
