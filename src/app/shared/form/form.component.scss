@@ -58,11 +58,15 @@ select.form-control {
 }
 
 .isInlineGroupForm-delete {
-  margin-bottom: -2.5rem;
+  margin-bottom: 4px;
   z-index: var(--ds-submission-inline-group-form-delete-z-index);
   padding-right: calc(0.5 * var(--bs-spacer));
 }
 
 .white-background{
   background-color: #fff;
+}
+
+.cdk-drag-handle {
+  padding: 0;
 }

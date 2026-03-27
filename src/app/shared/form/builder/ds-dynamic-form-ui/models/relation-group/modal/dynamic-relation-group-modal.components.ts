@@ -53,7 +53,11 @@ import { DsDynamicInputModel } from '../../ds-dynamic-input.model';
 import { DynamicRelationGroupModel } from '../dynamic-relation-group.model';
 
 /**
- * Component representing a group input field
+ * Modal component for managing relation group fields in submission forms.
+ *
+ * This component displays a modal dialog that allows users to add or edit grouped metadata fields,
+ * such as author information with multiple related fields (name, affiliation, etc.).
+ * It's used in submission workflows where metadata fields need to be grouped together logically.
  */
 @Component({
   selector: 'ds-dynamic-relation-group-modal',
@@ -69,33 +73,109 @@ import { DynamicRelationGroupModel } from '../dynamic-relation-group.model';
 })
 export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComponent implements OnDestroy, OnInit {
 
+  /**
+   * Unique identifier for the form instance
+   */
   @Input() formId: string;
+
+  /**
+   * The reactive FormGroup instance containing the form controls
+   */
   @Input() group: FormGroup;
+
+  /**
+   * The dynamic model configuration for this relation group
+   */
   @Input() model: DynamicRelationGroupModel;
 
+  /**
+   * Optional existing item data when editing (null when adding new)
+   */
   @Input() item: any;
+
+  /**
+   * Index of the item being edited in the parent collection
+   */
   @Input() itemIndex: number;
+
+  /**
+   * Whether the security has been changed
+   */
   @Input() changedSecurity: boolean;
+
+  /**
+   * Config for metadata security toggle
+   */
   @Input() metadataSecurityConfiguration: MetadataSecurityConfiguration;
 
+  /**
+   * Current value of the relation group
+   */
   @Input() value: any;
 
+  /**
+   * Event emitted when a form field loses focus
+   */
   @Output() blur: EventEmitter<any> = new EventEmitter<any>();
+
+  /**
+   * Event emitted when a form value changes
+   */
   @Output() change: EventEmitter<any> = new EventEmitter<any>();
+
+  /**
+   * Event emitted when a form field receives focus
+   */
   @Output() focus: EventEmitter<any> = new EventEmitter<any>();
 
+  /**
+   * Event emitted when editing an existing chip item
+   */
   @Output() edit: EventEmitter<any> = new EventEmitter<any>();
+
+  /**
+   * Event emitted when adding a new chip item
+   */
   @Output() add: EventEmitter<any> = new EventEmitter<any>();
 
+  /**
+   * Reference to the child FormComponent for accessing form state
+   */
   @ViewChild('formRef', { static: false }) private formRef: FormComponent;
 
+  /**
+   * Array of dynamic form control models representing the fields in this group
+   */
   public formModel: DynamicFormControlModel[];
+
+  /**
+   * Observable stream of the vocabulary configuration for autocomplete functionality
+   */
   public vocabulary$: Observable<Vocabulary>;
+
+  /**
+   * Security level of the parent model
+   */
   public securityLevelParent: number;
 
+  /**
+   * Array of subscriptions to be cleaned up on component destruction
+   */
   private subs: Subscription[] = [];
 
-
+  /**
+   * Creates an instance of DsDynamicRelationGroupModalComponent.
+   *
+   * @param vocabularyService Service for retrieving controlled vocabulary data
+   * @param formBuilderService Service for constructing dynamic form models
+   * @param formService Service for form validation and management
+   * @param cdr Angular change detector reference for manual change detection
+   * @param layoutService Service for managing form layout
+   * @param validationService Service for form validation
+   * @param modalService NgBootstrap modal service
+   * @param submissionService Service for managing submission state
+   * @param activeModal Reference to the active modal instance for closing
+   */
   constructor(private vocabularyService: VocabularyService,
     private formBuilderService: FormBuilderService,
     private formService: FormService,
@@ -109,6 +189,9 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
     super(layoutService, validationService);
   }
 
+  /**
+   * Initializes the component on creation.
+   */
   ngOnInit() {
     const config = { rows: this.model.formConfiguration } as SubmissionFormsModel;
     this.formId = this.formService.getUniqueId(this.model.id);
@@ -144,22 +227,43 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
         });
       });
     }
-    const mandatoryFieldModel = this.getMandatoryFieldModel(); // @Input
+    const mandatoryFieldModel = this.getMandatoryFieldModel();
     if (mandatoryFieldModel.vocabularyOptions && isNotEmpty(mandatoryFieldModel.vocabularyOptions.name)) {
       this.retrieveVocabulary(mandatoryFieldModel.vocabularyOptions);
     }
 
   }
 
+  /**
+   * Gets the header text for the modal.
+   *
+   * @returns The label of the mandatory field to be used as the modal header
+   */
   getHeader() {
     return this.getMandatoryFieldModel().label;
   }
 
+  /**
+   * Checks if any mandatory field in the form is empty.
+   *
+   * This validation ensures that all required fields have values before
+   * allowing the user to save the chip item.
+   *
+   * @returns True if any mandatory field is empty, false otherwise
+   */
   isMandatoryFieldEmpty() {
     const models = this.getMandatoryFields();
     return models.some(model => !model.value);
   }
 
+  /**
+   * Checks if the mandatory field has an authority value.
+   *
+   * Authority values are used for external integrations and controlled
+   * vocabularies to link metadata to external authority sources.
+   *
+   * @returns True if the mandatory field has an authority value, false otherwise
+   */
   hasMandatoryFieldAuthority() {
     const model = this.getMandatoryFieldModel();
     return hasValue(model.value)
@@ -167,14 +271,30 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
       && (model.value as any).hasAuthority();
   }
 
+  /**
+   * Handles blur events from form fields.
+   *
+   * @param event The blur event object
+   */
   onBlur(event) {
     this.blur.emit();
   }
 
+  /**
+   * Handles focus events from form fields.
+   *
+   * @param event The focus event object
+   */
   onFocus(event) {
     this.focus.emit(event);
   }
 
+  /**
+   * Saves the current form data.
+   *
+   * This method determines whether to add a new chip item or modify an existing one
+   * based on whether the `item` input is set. After saving, it closes the modal.
+   */
   save() {
     if (this.item) {
       this.modifyChip();
@@ -184,19 +304,34 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
     this.closeModal();
   }
 
-
+  /**
+   * Determines if the current item can be imported from an external source.
+   *
+   * @returns True if import functionality should be available, false otherwise
+   */
   canImport() {
     return !this.isMandatoryFieldEmpty() && this.item && !this.hasMandatoryFieldAuthority();
   }
 
+  /**
+   * Closes the modal dialog.
+   *
+   * This triggers the modal's close event, which the parent component
+   * can listen to for cleanup or state management.
+   */
   closeModal() {
     this.activeModal.close();
   }
 
-
   /**
-   * Update the model authority value.
-   * @param authority
+   * Updates the authority value for the mandatory field.
+   *
+   * This method is typically called when importing metadata from an external source.
+   * It preserves the current field value and language while adding the authority identifier.
+   * After updating, it saves the modified chip and triggers a submission save.
+   *
+   * @param authority The authority identifier to associate with the field value
+   *
    */
   updateAuthority(authority: string) {
     const model = this.getMandatoryFieldModel();
@@ -219,6 +354,9 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
     }, 100);
   }
 
+  /**
+   * Cleans up resources when the component is destroyed.
+   */
   ngOnDestroy(): void {
     this.subs
       .filter((sub) => hasValue(sub))
@@ -226,6 +364,10 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
     this.formBuilderService.removeFormModel(this.formId);
   }
 
+  /**
+   * Adds a new chip item to the parent collection.
+   * @private
+   */
   private addToChips() {
     if (!this.formRef.formGroup.valid) {
       this.formService.validateAllFormFields(this.formRef.formGroup);
@@ -238,6 +380,14 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
     }
   }
 
+  /**
+   * Retrieves the dynamic model for the mandatory field.
+   * The mandatory field is the primary field in the relation group that must
+   * always have a value (e.g., author name in an author group).
+   *
+   * @private
+   * @returns The DsDynamicInputModel for the mandatory field, or null if not found
+   */
   private getMandatoryFieldModel(): DsDynamicInputModel {
     let mandatoryFieldModel = null;
     this.formModel.forEach((row) => {
@@ -253,6 +403,11 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
     return mandatoryFieldModel;
   }
 
+  /**
+   * Retrieves all fields marked as mandatory in the form configuration.
+   * @private
+   * @returns Array of DsDynamicInputModel instances for all mandatory fields
+   */
   private getMandatoryFields(): DsDynamicInputModel[] {
     return this.formModel
       .map(row => (row as DynamicFormGroupModel).group)
@@ -261,6 +416,10 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
       .filter(model => !!model.validators && 'required' in model.validators);
   }
 
+  /**
+   * Modifies an existing chip item in the parent collection.
+   * @private
+   */
   private modifyChip() {
     if (!this.formRef.formGroup.valid) {
       this.formService.validateAllFormFields(this.formRef.formGroup);
@@ -273,6 +432,11 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
     }
   }
 
+  /**
+   * Builds a chip item object from the current form values.
+   * @private
+   * @returns An object containing all field values as FormFieldMetadataValueObject instances
+   */
   private buildChipItem() {
     const item = Object.create({});
     let mainModel;
@@ -330,6 +494,14 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
     }
   }
 
+  /**
+   * Retrieves vocabulary configuration for autocomplete functionality.
+   * This method fetches the vocabulary data from the server based on the
+   * vocabulary name specified in the field configuration. The vocabulary
+   * is used to provide autocomplete suggestions as the user types.
+   * @private
+   * @param vocabularyOptions The vocabulary options containing the vocabulary name and configuration
+   */
   private retrieveVocabulary(vocabularyOptions: VocabularyOptions): void {
     this.vocabulary$ = this.vocabularyService.findVocabularyById(vocabularyOptions.name).pipe(
       getFirstSucceededRemoteDataPayload(),
