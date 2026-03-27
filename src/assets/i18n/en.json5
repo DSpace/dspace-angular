@@ -3065,6 +3065,29 @@
 
   "item.page.relationships.isOrgUnitOfProject": "Research Projects",
 
+  "item.page.relationships.RELATION.Person.researchoutputs": "Publications",
+
+  "item.page.relationships.RELATION.Person.projects": "Projects",
+
+  "item.page.relationships.RELATION.OrgUnit.rpprojects": "Researchers Projects",
+
+  "item.page.relationships.RELATION.OrgUnit.publications": "Publications",
+
+  "item.page.relationships.RELATION.OrgUnit.rppublications": "Researchers Publications",
+
+  "item.page.relationships.RELATION.OrgUnit.people": "People",
+
+  "item.page.relationships.RELATION.OrgUnit.projects": "Projects",
+
+  "item.page.relationships.RELATION.OrgUnit.organizations": "Organizations",
+
+  "item.page.relationships.RELATION.Project.projects": "Projects",
+
+  "item.page.relationships.RELATION.Project.fundings": "Fundings",
+
+  "item.page.relationships.RELATION.Project.researchoutputs": "Publications",
+
+
   "item.page.subject": "Keywords",
 
   "item.page.uri": "URI",
@@ -4713,6 +4736,30 @@
 
   "resource-policies.table.headers.title.for.collection": "Policies for Collection",
 
+  "RELATION.Person.researchoutputs.search.results.head": "Research Output",
+
+  "RELATION.Person.projects.search.results.head": "Projects",
+
+  "RELATION.Project.researchoutputs.search.results.head": "Publications",
+
+  "RELATION.Project.fundings.search.results.head": "Fundings",
+
+  "RELATION.Project.projects.search.results.head": "Projects",
+
+  "RELATION.OrgUnit.organizations.search.results.head": "Organizations",
+
+  "RELATION.OrgUnit.rppublications.search.results.head": "Researchers Publications",
+
+  "RELATION.OrgUnit.publications.search.results.head": "Publications",
+
+  "RELATION.OrgUnit.rpprojects.search.results.head": "Researchers Projects",
+
+  "RELATION.OrgUnit.projects.search.results.head": "Projects",
+
+  "RELATION.Project.researchoutputs.search.results.head": "Publications",
+
+  "RELATION.OrgUnit.people.search.results.head": "People",
+
   "root.skip-to-content": "Skip to main content",
 
   "search.description": "",
@@ -5119,6 +5166,10 @@
   "sorting.person.birthDate.ASC": "Birth Date Ascending",
 
   "sorting.person.birthDate.DESC": "Birth Date Descending",
+
+  "sorting.ownerselection.ASC": "Owner Relevance Ascending",
+
+  "sorting.ownerselection.DESC": "Owner Relevance Descending",
 
   "statistics.title": "Statistics",
 

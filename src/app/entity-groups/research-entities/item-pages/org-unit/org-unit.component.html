@@ -62,8 +62,19 @@
     </div>
   </div>
   <div class="mt-5 w-100 px-0">
-    <ds-tabbed-related-entities-search  [item]="object"
-                                        [relationTypes]="[{
+    @if (areAuthorityRelationsEnabled) {
+      <ds-authority-related-entities-search
+        [item]="object"
+        [configurations]="[
+          'RELATION.OrgUnit.rpprojects',
+          'RELATION.OrgUnit.rppublications',
+          'RELATION.OrgUnit.people',
+          'RELATION.OrgUnit.projects',
+        ]"
+      ></ds-authority-related-entities-search>
+    } @else {
+      <ds-tabbed-related-entities-search  [item]="object"
+                                          [relationTypes]="[{
                                           label: 'isOrgUnitOfPerson',
                                           filter: 'isOrgUnitOfPerson',
                                           configuration: 'person-relationships'
@@ -73,6 +84,7 @@
                                           filter: 'isOrgUnitOfProject',
                                           configuration: 'project-relationships'
                                         }]">
-    </ds-tabbed-related-entities-search>
+      </ds-tabbed-related-entities-search>
+    }
   </div>
 </div>

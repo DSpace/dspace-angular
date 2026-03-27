@@ -320,6 +320,7 @@ export const environment: BuildConfig = {
       ],
       identifierSubtypes: [],
     },
+    showAuthorityRelations: false,
   },
   community: {
     defaultBrowseTab: 'search',

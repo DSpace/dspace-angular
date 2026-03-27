@@ -437,6 +437,8 @@ item:
         iconPosition: IdentifierSubtypesIconPositionEnum.LEFT
         link: https://ror.org
 
+  # Enable authority based relations in item page
+  showAuthorityRelations: false
 # Community Page Config
 community:
   # Default tab to be shown when browsing a Community. Valid values are: comcols, search, or browse_<field>
