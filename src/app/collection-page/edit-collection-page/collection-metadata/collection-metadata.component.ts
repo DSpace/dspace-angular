@@ -29,12 +29,12 @@ import { ItemTemplateDataService } from '../../../core/data/item-template-data.s
 import { RemoteData } from '../../../core/data/remote-data';
 import { RequestService } from '../../../core/data/request.service';
 import { Collection } from '../../../core/shared/collection.model';
-import { Item } from '../../../core/shared/item.model';
 import { NoContent } from '../../../core/shared/NoContent.model';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
 } from '../../../core/shared/operators';
+import { TemplateItem } from '../../../core/shared/template-item.model';
 import { ComcolMetadataComponent } from '../../../shared/comcol/comcol-forms/edit-comcol-page/comcol-metadata/comcol-metadata.component';
 import { hasValue } from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
@@ -64,7 +64,7 @@ export class CollectionMetadataComponent extends ComcolMetadataComponent<Collect
   /**
    * The collection's item template
    */
-  itemTemplateRD$: Observable<RemoteData<Item>>;
+  itemTemplateRD$: Observable<RemoteData<TemplateItem>>;
 
   public constructor(
     protected collectionDataService: CollectionDataService,
@@ -115,7 +115,7 @@ export class CollectionMetadataComponent extends ComcolMetadataComponent<Collect
       getFirstSucceededRemoteDataPayload(),
     );
     const template$ = collection$.pipe(
-      switchMap((collection: Collection) => this.itemTemplateService.createByCollectionID(new Item(), collection.uuid).pipe(
+      switchMap((collection: Collection) => this.itemTemplateService.createByCollectionID(new TemplateItem(), collection.uuid).pipe(
         getFirstSucceededRemoteDataPayload(),
       )),
     );

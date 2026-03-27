@@ -14,6 +14,7 @@ import { Collection } from '../../../../core/shared/collection.model';
 import { ConfidenceType } from '../../../../core/shared/confidence-type';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { Item } from '../../../../core/shared/item.model';
+import { ITEM } from '../../../../core/shared/item.resource-type';
 import { MetadataValue } from '../../../../core/shared/metadata.models';
 import { Vocabulary } from '../../../../core/submission/vocabularies/models/vocabulary.model';
 import { VocabularyService } from '../../../../core/submission/vocabularies/vocabulary.service';
@@ -48,6 +49,7 @@ describe('DsoEditMetadataAuthorityFieldComponent', () => {
     },
     id: 'item',
     uuid: 'item',
+    type: ITEM.value,
     owningCollection: createSuccessfulRemoteDataObject$(collection),
   });
 

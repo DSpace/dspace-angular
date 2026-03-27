@@ -9,7 +9,7 @@ import { BrowseService } from '../browse/browse.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { Item } from '../shared/item.model';
+import { TemplateItem } from '../shared/template-item.model';
 import { CreateDataImpl } from './base/create-data';
 import { IdentifiableDataService } from './base/identifiable-data.service';
 import { BundleDataService } from './bundle-data.service';
@@ -22,8 +22,8 @@ import { RequestService } from './request.service';
 /**
  * Data service for interacting with Item templates via their Collection
  */
-class CollectionItemTemplateDataService extends IdentifiableDataService<Item> {
-  private createData: CreateDataImpl<Item>;
+class CollectionItemTemplateDataService extends IdentifiableDataService<TemplateItem> {
+  private createData: CreateDataImpl<TemplateItem>;
 
   constructor(
     protected requestService: RequestService,
@@ -36,7 +36,7 @@ class CollectionItemTemplateDataService extends IdentifiableDataService<Item> {
     super('itemtemplates', requestService, rdbService, objectCache, halService, undefined);
 
     // We only intend to use createOnEndpoint, so this inner data service feature doesn't need an endpoint at all
-    this.createData = new CreateDataImpl<Item>(undefined, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive);
+    this.createData = new CreateDataImpl<TemplateItem>(undefined, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive);
   }
 
   /**
@@ -56,7 +56,7 @@ class CollectionItemTemplateDataService extends IdentifiableDataService<Item> {
    * @param item
    * @param collectionID
    */
-  public createTemplate(item: Item, collectionID: string): Observable<RemoteData<Item>> {
+  public createTemplate(item: TemplateItem, collectionID: string): Observable<RemoteData<TemplateItem>> {
     return this.createData.createOnEndpoint(item, this.getIDHrefObs(collectionID));
   }
 }
@@ -74,7 +74,7 @@ export class ItemTemplateDataService extends BaseItemDataService {
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
-    protected comparator: DSOChangeAnalyzer<Item>,
+    protected comparator: DSOChangeAnalyzer<TemplateItem>,
     protected browseService: BrowseService,
     protected bundleService: BundleDataService,
     protected collectionService: CollectionDataService,
@@ -94,7 +94,7 @@ export class ItemTemplateDataService extends BaseItemDataService {
    * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
    *                                    {@link HALLink}s should be automatically resolved
    */
-  findByCollectionID(collectionID: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Item>[]): Observable<RemoteData<Item>> {
+  findByCollectionID(collectionID: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<TemplateItem>[]): Observable<RemoteData<TemplateItem>> {
     return this.byCollection.findById(collectionID, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
@@ -103,7 +103,7 @@ export class ItemTemplateDataService extends BaseItemDataService {
    * @param item
    * @param collectionID
    */
-  createByCollectionID(item: Item, collectionID: string): Observable<RemoteData<Item>> {
+  createByCollectionID(item: TemplateItem, collectionID: string): Observable<RemoteData<TemplateItem>> {
     return this.byCollection.createTemplate(item, collectionID);
   }
 

@@ -9,7 +9,9 @@ import { ItemDataService } from '../../../core/data/item-data.service';
 import { Collection } from '../../../core/shared/collection.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { Item } from '../../../core/shared/item.model';
+import { ITEM } from '../../../core/shared/item.resource-type';
 import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
+import { TemplateItem } from '../../../core/shared/template-item.model';
 import { Vocabulary } from '../../../core/submission/vocabularies/models/vocabulary.model';
 import { VocabularyService } from '../../../core/submission/vocabularies/vocabulary.service';
 import { isNotEmpty } from '../../../shared/empty.util';
@@ -38,9 +40,9 @@ export class DsoEditMetadataFieldService {
    */
   findDsoFieldVocabulary(dso: DSpaceObject, mdField: string): Observable<Vocabulary> {
     if (isNotEmpty(mdField)) {
-      const owningCollection$: Observable<Collection> = this.itemService.findByHref(dso._links.self.href, true, true, followLink('owningCollection')).pipe(
+      const owningCollection$: Observable<Collection> = this.itemService.findByHref(dso._links.self.href, true, true, followLink('owningCollection', { isOptional: true }), followLink('templateItemOf', { isOptional: true })).pipe(
         getFirstSucceededRemoteDataPayload(),
-        switchMap((item: Item) => item.owningCollection),
+        switchMap((item: Item | TemplateItem) => item.type as unknown === ITEM.value ? item.owningCollection : (item as TemplateItem).templateItemOf),
         getFirstSucceededRemoteDataPayload(),
       );
 
