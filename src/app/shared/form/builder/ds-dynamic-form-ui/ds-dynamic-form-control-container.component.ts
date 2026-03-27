@@ -516,4 +516,85 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     this.subs.push(collection$.subscribe((collection) => this.collection = collection));
 
   }
+
+  /**
+   * Determines whether a form field should be validated based on its parent group's state.
+   * @returns {boolean} True if the field should be validated, false otherwise
+   */
+  isNotRequiredGroupAndEmpty(): boolean {
+    const parent = this.model.parent;
+    // Check if the model is part of a group, the group needs to be an inner form and be in the submission form not in a nested form.
+    // The check hasValue(parent.parent) tells if the parent is in the submission or in a modal (nested cases)
+    if (hasValue(parent) && parent.type === 'GROUP' && this.model.isModelOfInnerForm && hasValue(parent.parent)) {
+
+      const groupHasSomeValue = parent.group.some(elem => !!elem.value);
+
+      if (!groupHasSomeValue && !parent.isRequired && parent.group?.length > 1) {
+        this.group.reset();
+      }
+
+      return (groupHasSomeValue && !parent.isRequired) || (hasValue(parent.isRequired) && parent.isRequired);
+    } else {
+      return true;
+    }
+  }
+
+  /**
+   * Determines whether the hint should be displayed for the current field.
+   * Hint is shown when:
+   * - The field has a hint
+   * - It's the last element in a repeatable group OR non-repeatable field OR has array group value
+   * - No error messages are currently displayed
+   * @returns {boolean} True if hint should be displayed, false otherwise
+   */
+  shouldShowHint(): boolean {
+    return this.hasHint &&
+      (this.formBuilderService.hasArrayGroupValue(this.model) ||
+        ((!this.model.repeatable && (!(this.model?.isModelOfNotRepeatableGroup) || this.model?.isModelOfNotRepeatableGroup && this.context?.index === this.context?.context?.groups?.length - 1)) && (this.isRelationship === false || this.value?.value === null)) ||
+        (this.model.repeatable === true && this.context?.index === this.context?.context?.groups?.length - 1)) &&
+      (!this.showErrorMessages || this.errorMessages.length === 0);
+  }
+
+  /**
+   * Determines whether error messages should be displayed for the current field.
+   * Error messages are shown when:
+   * - Error messages are not hidden by the model configuration
+   * - There are error messages to show
+   * - For non-repeatable groups: only shown on the last element
+   * - The field passes the required group validation check
+   * @returns {boolean} True if error messages should be displayed, false otherwise
+   */
+  shouldShowErrorMessages(): boolean {
+    return !this.model.hideErrorMessages &&
+      this.showErrorMessages &&
+      (!(this.model?.isModelOfNotRepeatableGroup) ||
+        this.model?.isModelOfNotRepeatableGroup && this.context?.index === this.context?.context?.groups?.length - 1) &&
+      this.isNotRequiredGroupAndEmpty();
+  }
+
+  /**
+   * Determines whether the hint should be displayed for virtual metadata fields.
+   * Hint is shown when:
+   * - The field has a hint
+   * - It's non-repeatable OR the last element in a repeatable group
+   * - No error messages are currently displayed
+   * @returns {boolean} True if hint should be displayed for virtual metadata, false otherwise
+   */
+  shouldShowVirtualMetadataHint(): boolean {
+    return this.hasHint &&
+      (this.model.repeatable === false || this.context?.index === this.context?.context?.groups?.length - 1) &&
+      (!this.showErrorMessages || this.errorMessages.length === 0);
+  }
+
+  /**
+   * Determines whether a clearfix spacer should be displayed after the field.
+   * Clearfix is shown when:
+   * - The parent has multiple groups (more than 1)
+   * - No error messages are currently displayed
+   * @returns {boolean} True if clearfix should be displayed, false otherwise
+   */
+  shouldShowClearfix(): boolean {
+    return this.context?.parent?.groups?.length > 1 &&
+      (!this.showErrorMessages || this.errorMessages.length === 0);
+  }
 }

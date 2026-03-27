@@ -2101,6 +2101,8 @@
 
   "form.clear-help": "Click here to remove the selected value",
 
+  "form.copy": "Duplicate",
+
   "form.discard": "Discard",
 
   "form.drag": "Drag",
@@ -2110,6 +2112,12 @@
   "form.edit-help": "Click here to edit the selected value",
 
   "form.first-name": "First name",
+
+  "form.group.add": "Add",
+
+  "form.group.close": "Close",
+
+  "form.group.set": "Set",
 
   "form.group-collapse": "Collapse",
 
@@ -3057,6 +3065,29 @@
 
   "item.page.relationships.isOrgUnitOfProject": "Research Projects",
 
+  "item.page.relationships.RELATION.Person.researchoutputs": "Publications",
+
+  "item.page.relationships.RELATION.Person.projects": "Projects",
+
+  "item.page.relationships.RELATION.OrgUnit.rpprojects": "Researchers Projects",
+
+  "item.page.relationships.RELATION.OrgUnit.publications": "Publications",
+
+  "item.page.relationships.RELATION.OrgUnit.rppublications": "Researchers Publications",
+
+  "item.page.relationships.RELATION.OrgUnit.people": "People",
+
+  "item.page.relationships.RELATION.OrgUnit.projects": "Projects",
+
+  "item.page.relationships.RELATION.OrgUnit.organizations": "Organizations",
+
+  "item.page.relationships.RELATION.Project.projects": "Projects",
+
+  "item.page.relationships.RELATION.Project.fundings": "Fundings",
+
+  "item.page.relationships.RELATION.Project.researchoutputs": "Publications",
+
+
   "item.page.subject": "Keywords",
 
   "item.page.uri": "URI",
@@ -3472,6 +3503,30 @@
   "iiif.page.issue": "Issue: ",
 
   "iiif.page.description": "Description: ",
+
+  "layout.advanced-attachment.dc.title": "Name",
+
+  "layout.advanced-attachment.size": "Size",
+
+  "layout.advanced-attachment.checksum": "Checksum",
+
+  "layout.advanced-attachment.checksum.info.MD5": "The <b>MD5 message-digest algorithm</b> can be used to verify the integrity of the file that you have uploaded. You can calculate its value locally via tools that are generally available in each operative system like <b>md5sum</b>",
+
+  "layout.advanced-attachment.format": "Format",
+
+  "layout.advanced-attachment.dc.type": "Type",
+
+  "layout.advanced-attachment.dc.description": "Description",
+
+  "layout.advanced-attachment.no_thumbnail": "No Thumbnail Available",
+
+  "layout.advanced-attachment.download": "Download",
+
+  "layout.advanced-attachment.requestACopy": "Request a copy",
+
+  "layout.advanced-attachment.viewMore": "View More",
+
+  "layout.advanced-attachment.label.not-present": "(not present)",
 
   "loading.bitstream": "Loading bitstream...",
 
@@ -4681,6 +4736,30 @@
 
   "resource-policies.table.headers.title.for.collection": "Policies for Collection",
 
+  "RELATION.Person.researchoutputs.search.results.head": "Research Output",
+
+  "RELATION.Person.projects.search.results.head": "Projects",
+
+  "RELATION.Project.researchoutputs.search.results.head": "Publications",
+
+  "RELATION.Project.fundings.search.results.head": "Fundings",
+
+  "RELATION.Project.projects.search.results.head": "Projects",
+
+  "RELATION.OrgUnit.organizations.search.results.head": "Organizations",
+
+  "RELATION.OrgUnit.rppublications.search.results.head": "Researchers Publications",
+
+  "RELATION.OrgUnit.publications.search.results.head": "Publications",
+
+  "RELATION.OrgUnit.rpprojects.search.results.head": "Researchers Projects",
+
+  "RELATION.OrgUnit.projects.search.results.head": "Projects",
+
+  "RELATION.Project.researchoutputs.search.results.head": "Publications",
+
+  "RELATION.OrgUnit.people.search.results.head": "People",
+
   "root.skip-to-content": "Skip to main content",
 
   "search.description": "",
@@ -5087,6 +5166,10 @@
   "sorting.person.birthDate.ASC": "Birth Date Ascending",
 
   "sorting.person.birthDate.DESC": "Birth Date Descending",
+
+  "sorting.ownerselection.ASC": "Owner Relevance Ascending",
+
+  "sorting.ownerselection.DESC": "Owner Relevance Descending",
 
   "statistics.title": "Statistics",
 
@@ -7222,6 +7305,8 @@
 
   "file-download-link.download": "Download ",
 
+  "file-download-button.download": "Download",
+
   "register-page.registration.aria.label": "Enter your e-mail address",
 
   "forgot-email.form.aria.label": "Enter your e-mail address",
@@ -7341,6 +7426,8 @@
   "metadata-export-search.submit.error.limit-exceeded": "Only the first {{limit}} items will be exported",
 
   "file-download-link.request-copy": "Request a copy of ",
+
+  "file-download-button.request-copy": "Request a copy",
 
   "item.preview.organization.url": "URL",
 
