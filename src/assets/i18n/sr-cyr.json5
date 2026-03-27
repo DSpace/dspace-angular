@@ -5517,8 +5517,8 @@
   // "login.form.oidc": "Log in with OIDC",
   "login.form.oidc": "Пријавите се са OIDC",
 
-  // "login.form.orcid": "Log in with ORCID",
-  "login.form.orcid": "Пријавите се са ORCID-ом",
+  // "login.form.orcid": "Sign in with ORCID",
+  "login.form.orcid": "Пријавите се помоћу ORCID-а",
 
   // "login.form.password": "Password",
   "login.form.password": "Лозинка",

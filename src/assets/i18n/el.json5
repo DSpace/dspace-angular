@@ -5697,7 +5697,7 @@
   // "login.form.oidc": "Log in with OIDC",
   "login.form.oidc": "Συνδεθείτε με το OIDC",
 
-  // "login.form.orcid": "Log in with ORCID",
+  // "login.form.orcid": "Sign in with ORCID",
   "login.form.orcid": "Συνδεθείτε με το ORCID",
 
   // "login.form.password": "Password",

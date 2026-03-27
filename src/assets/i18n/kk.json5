@@ -5691,8 +5691,8 @@
   // "login.form.oidc": "Log in with OIDC",
   "login.form.oidc": "OIDC-пен кіру",
 
-  // "login.form.orcid": "Log in with ORCID",
-  "login.form.orcid": "ORCID-пен кіру",
+  // "login.form.orcid": "Sign in with ORCID",
+  "login.form.orcid": "ORCID арқылы жүйеге кіріңіз",
 
   // "login.form.password": "Password",
   "login.form.password": "Пароль",

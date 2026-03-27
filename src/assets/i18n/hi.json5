@@ -5254,8 +5254,8 @@
   // "login.form.oidc": "Log in with OIDC",
   "login.form.oidc": "OIDC के साथ लॉग इन करें",
 
-  // "login.form.orcid": "Log in with ORCID",
-  "login.form.orcid": "ORCID के साथ लॉग इन करें",
+  // "login.form.orcid": "Sign in with ORCID",
+  "login.form.orcid": "ORCID से साइन इन करें",
 
   // "login.form.password": "Password",
   "login.form.password": "पासवर्ड",

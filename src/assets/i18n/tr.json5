@@ -5972,9 +5972,8 @@
   // TODO New key - Add a translation
   "login.form.oidc": "Log in with OIDC",
 
-  // "login.form.orcid": "Log in with ORCID",
-  // TODO New key - Add a translation
-  "login.form.orcid": "Log in with ORCID",
+  // "login.form.orcid": "Sign in with ORCID",
+  "login.form.orcid": "ORCID ile giriş yapın",
 
   // "login.form.password": "Password",
   "login.form.password": "Parola",

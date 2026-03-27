@@ -5515,7 +5515,7 @@
   // "login.form.oidc": "Log in with OIDC",
   "login.form.oidc": "Prijavite se sa OIDC",
 
-  // "login.form.orcid": "Log in with ORCID",
+  // "login.form.orcid": "Sign in with ORCID",
   "login.form.orcid": "Prijavite se sa ORCID-om",
 
   // "login.form.password": "Password",

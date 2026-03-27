@@ -110,6 +110,14 @@ export class LogInExternalProviderComponent implements OnInit {
     });
   }
 
+  isOrcid() {
+    if (this.authMethod.authMethodType === 'orcid') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   getButtonLabel() {
     return `login.form.${this.authMethod.authMethodType}`;
   }
