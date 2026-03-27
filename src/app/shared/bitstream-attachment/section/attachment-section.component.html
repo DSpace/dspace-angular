@@ -1,0 +1,26 @@
+@let bitstreams = (bitstreams$ | async);
+<ng-container>
+  @if (bitstreams?.length > 0) {
+    <ds-metadata-field-wrapper [label]="label | translate">
+      <div class="file-section">
+
+        @for (file of bitstreams; track file) {
+          <ds-bitstream-attachment [item]="item" [attachment]="file"></ds-bitstream-attachment>
+        }
+        @if (isLoading) {
+          <ds-loading message="{{'loading.default' | translate}}" [showMessage]="false"></ds-loading>
+        }
+        @if (!isLastPage) {
+          <div class="mt-1" id="view-more">
+            <button class="bitstream-view-more btn btn-outline-secondary btn-sm" (click)="getNextPage()">{{'item.page.bitstreams.view-more' | translate}}</button>
+          </div>
+        }
+        @if (isLastPage && currentPage !== 1) {
+          <div class="mt-1" id="collapse">
+            <button class="bitstream-collapse btn btn-outline-secondary btn-sm" (click)="currentPage = undefined; getNextPage();">{{'item.page.bitstreams.collapse' | translate}}</button>
+          </div>
+        }
+      </div>
+    </ds-metadata-field-wrapper>
+  }
+</ng-container>

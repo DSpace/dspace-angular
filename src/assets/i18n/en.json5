@@ -2101,6 +2101,8 @@
 
   "form.clear-help": "Click here to remove the selected value",
 
+  "form.copy": "Duplicate",
+
   "form.discard": "Discard",
 
   "form.drag": "Drag",
@@ -2110,6 +2112,12 @@
   "form.edit-help": "Click here to edit the selected value",
 
   "form.first-name": "First name",
+
+  "form.group.add": "Add",
+
+  "form.group.close": "Close",
+
+  "form.group.set": "Set",
 
   "form.group-collapse": "Collapse",
 
@@ -2536,6 +2544,12 @@
   "item.edit.delete.header": "Delete item: {{ id }}",
 
   "item.edit.delete.success": "Successfully started a process to delete this item",
+
+  "item.edit.delete.confirmation-title": "Confirm deletion",
+
+  "item.edit.delete.confirmation-message": "Are you sure you want to permanently delete this item?",
+
+  "item.edit.delete.confirmation-detail": "This item may have been cited, has (or had) a persistent identifier (Handle/DOI), and deleting it may break scholarly references and external links.",
 
   "item.edit.head": "Edit Item",
 
@@ -3489,6 +3503,30 @@
   "iiif.page.issue": "Issue: ",
 
   "iiif.page.description": "Description: ",
+
+  "layout.advanced-attachment.dc.title": "Name",
+
+  "layout.advanced-attachment.size": "Size",
+
+  "layout.advanced-attachment.checksum": "Checksum",
+
+  "layout.advanced-attachment.checksum.info.MD5": "The <b>MD5 message-digest algorithm</b> can be used to verify the integrity of the file that you have uploaded. You can calculate its value locally via tools that are generally available in each operative system like <b>md5sum</b>",
+
+  "layout.advanced-attachment.format": "Format",
+
+  "layout.advanced-attachment.dc.type": "Type",
+
+  "layout.advanced-attachment.dc.description": "Description",
+
+  "layout.advanced-attachment.no_thumbnail": "No Thumbnail Available",
+
+  "layout.advanced-attachment.download": "Download",
+
+  "layout.advanced-attachment.requestACopy": "Request a copy",
+
+  "layout.advanced-attachment.viewMore": "View More",
+
+  "layout.advanced-attachment.label.not-present": "(not present)",
 
   "loading.bitstream": "Loading bitstream...",
 
@@ -7267,6 +7305,8 @@
 
   "file-download-link.download": "Download ",
 
+  "file-download-button.download": "Download",
+
   "register-page.registration.aria.label": "Enter your e-mail address",
 
   "forgot-email.form.aria.label": "Enter your e-mail address",
@@ -7387,6 +7427,8 @@
 
   "file-download-link.request-copy": "Request a copy of ",
 
+  "file-download-button.request-copy": "Request a copy",
+
   "item.preview.organization.url": "URL",
 
   "item.preview.organization.address.addressLocality": "City",
@@ -7414,4 +7456,96 @@
   "metadata-link-view.popover.label.other.dc.description.abstract": "Description",
 
   "metadata-link-view.popover.label.more-info": "More info",
+
+  "item.page.extended-file-section": "Bitstreams",
+
+  "file.section.name": "Document",
+
+  "file.section.type": "Type",
+
+  "file.section.size": "Size",
+
+  "dataset.page.titleprefix": "Dataset",
+
+  "dataset.listelement.badge": "Dataset",
+
+  "dataset.page.options": "Options",
+
+  "dataset.page.edit": "Edit this Dataset",
+
+  "relationships.Dataset.isAuthorOfDataset.Person": "Authors (Persons)",
+
+  "relationships.Dataset.isProjectOfDataset.Project": "Research Projects",
+
+  "relationships.Dataset.isAuthorOfDataset.OrgUnit": "Organizational Units",
+
+  "relationships.Dataset.isOrgUnitOfDataset.OrgUnit": "Authors (Organizational Units)",
+
+  "relationships.Dataset.isPublicationOfDataset.Publication": "Publications",
+
+  "relationships.Publication.isDatasetOfPublication.Dataset": "Datasets",
+
+  "relationships.Person.isDatasetOfAuthor.Dataset": "Datasets",
+
+  "relationships.Project.isDatasetOfProject.Dataset": "Datasets",
+
+  "relationships.OrgUnit.isDatasetOfAuthor.Dataset": "Authored Datasets",
+
+  "relationships.OrgUnit.isDatasetOfOrgUnit.Dataset": "Organisation Datasets",
+
+  "submission.sections.describe.relationship-lookup.title.Dataset": "Datasets",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Dataset": "Local Datasets",
+
+  "dataset.search.results.head": "Dataset Search Results",
+
+  "submission.sections.describe.relationship-lookup.title.isAuthorOfDataset": "Authors",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isAuthorOfDataset": "Local Authors ({{ count }})",
+
+  "submission.sections.describe.relationship-lookup.title.isPublicationOfDataset": "Publications",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isPublicationOfDataset": "Local Publications ({{ count }})",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.cinii": "CiNii ({{ count }})",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.cinii": "Importing from CiNii",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.cinii": "Search Results",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.datacite": "DataCite ({{ count }})",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.datacite": "Importing from DataCite",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.datacite": "Search Results",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.doi": "DOI ({{ count }})",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.doi": "Importing from DOI",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.doi": "Search Results",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isPublicationOfDataset.title": "Import Remote Publication",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isPublicationOfDataset.added.local-entity": "Successfully added local publication to the selection",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isPublicationOfDataset.added.new-entity": "Successfully imported and added external publication to the selection",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfDataset.title": "Import Remote Author",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfDataset.added.local-entity": "Successfully added local author to the selection",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfDataset.added.new-entity": "Successfully imported and added external author to the selection",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfDataset.title": "Import Remote Project",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfDataset.added.local-entity": "Successfully added local project to the selection",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfDataset.added.new-entity": "Successfully imported and added external project to the selection",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfDataset.title": "Import Remote Organization",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfDataset.added.local-entity": "Successfully added local organization to the selection",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfDataset.added.new-entity": "Successfully imported and added external organization to the selection",
 }

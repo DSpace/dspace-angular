@@ -84,11 +84,14 @@ export class ItemComponent implements OnInit {
    */
   areAuthorityRelationsEnabled: boolean;
 
+  showDownloadLinkAsAttachment: boolean;
+
   constructor(protected routeService: RouteService,
               protected router: Router) {
     this.mediaViewer = environment.mediaViewer;
     this.geospatialItemPageFieldsEnabled = environment.geospatialMapViewer.enableItemPageFields;
     this.areAuthorityRelationsEnabled = environment.item.showAuthorityRelations;
+    this.showDownloadLinkAsAttachment = environment.layout.showDownloadLinkAsAttachment;
   }
 
   /**
