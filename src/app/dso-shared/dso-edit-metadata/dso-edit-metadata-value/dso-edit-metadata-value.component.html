@@ -48,16 +48,6 @@
       <div class="dont-break-out preserve-line-breaks">{{ mdValue.newValue.language }}</div>
     }
   </div>
-  <div class="ds-flex-cell ds-authority-cell" role="cell">
-    @if (!mdValue.editing) {
-      <div class="dont-break-out preserve-line-breaks">{{ mdValue.newValue.authority }}</div>
-    }
-    @if(mdValue.editing) {
-      <textarea class="form-control" rows="5" [(ngModel)]="mdValue.newValue.authority"
-                [attr.aria-label]="(dsoType + '.edit.metadata.edit.authority') | translate"
-                [dsDebounce]="300" (onDebounce)="confirm.emit(false)"></textarea>
-    }
-  </div>
   <div class="flex-grow-1 ds-flex-cell ds-security-cell d-flex justify-content-center" role="cell">
     <div class="btn-group edit-field">
       @if (canShowMetadataSecurity$ | async) {
@@ -111,7 +101,7 @@
                   [class.disabled]="isOnlyValue || saving" [dsBtnDisabled]="isOnlyValue || saving"
                   [title]="dsoType + '.edit.metadata.edit.buttons.drag' | translate"
                   ngbTooltip="{{ dsoType + '.edit.metadata.edit.buttons.drag' | translate }}">
-            <i class="drag-icon"></i>
+            <i class="drag-icon d-flex m-auto"></i>
           </button>
         </div>
       </div>

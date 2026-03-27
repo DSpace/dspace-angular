@@ -2703,8 +2703,6 @@
 
   "item.edit.metadata.headers.security": "Security level",
 
-  "item.edit.metadata.headers.authority": "Authority",
-
   "item.edit.metadata.headers.value": "Value",
 
   "item.edit.metadata.metadatafield": "Edit field",
@@ -3421,8 +3419,6 @@
   "itemtemplate.edit.metadata.headers.language": "Lang",
 
   "itemtemplate.edit.metadata.headers.value": "Value",
-
-  "itemtemplate.edit.metadata.headers.authority": "Authority",
 
   "itemtemplate.edit.metadata.metadatafield": "Edit field",
 
