@@ -18,7 +18,7 @@ export interface ItemConfig extends Config {
     showAccessStatuses: boolean;
   }
 
-  showAuthorithyRelations: boolean;
-
   metadataLinkViewPopoverData: MetadataLinkViewPopoverDataConfig
+
+  showAuthorityRelations: boolean;
 }

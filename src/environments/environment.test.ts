@@ -292,7 +292,6 @@ export const environment: BuildConfig = {
       // Show the bitstream access status label
       showAccessStatuses: false,
     },
-    showAuthorithyRelations: false,
     metadataLinkViewPopoverData:  {
       fallbackMetdataList: ['dc.description.abstract'],
 
@@ -321,6 +320,7 @@ export const environment: BuildConfig = {
       ],
       identifierSubtypes: [],
     },
+    showAuthorityRelations: false,
   },
   community: {
     defaultBrowseTab: 'search',

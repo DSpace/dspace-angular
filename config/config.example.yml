@@ -412,8 +412,6 @@ item:
     pageSize: 5
     # Show the bitstream access status label on the item page
     showAccessStatuses: false
-  # Enable authority based relations in item page
-  showAuthorithyRelations: false
   # Configuration of metadata to be displayed in the item metadata link view popover
   metadataLinkViewPopoverData:
     # Metdadata list to be displayed for entities without a specific configuration
@@ -439,6 +437,8 @@ item:
         iconPosition: IdentifierSubtypesIconPositionEnum.LEFT
         link: https://ror.org
 
+  # Enable authority based relations in item page
+  showAuthorityRelations: false
 # Community Page Config
 community:
   # Default tab to be shown when browsing a Community. Valid values are: comcols, search, or browse_<field>
