@@ -38,7 +38,6 @@ import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.comp
 import { UploaderComponent } from '../../shared/upload/uploader/uploader.component';
 import { UploaderOptions } from '../../shared/upload/uploader/uploader-options.model';
 import { FileSizePipe } from '../../shared/utils/file-size-pipe';
-import { VarDirective } from '../../shared/utils/var.directive';
 
 @Component({
   selector: 'ds-replace-bitstream-page',
@@ -54,7 +53,6 @@ import { VarDirective } from '../../shared/utils/var.directive';
     TranslatePipe,
     UiSwitchModule,
     UploaderComponent,
-    VarDirective,
   ],
 })
 export class ReplaceBitstreamPageComponent implements OnInit {

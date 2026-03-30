@@ -11,6 +11,7 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { AuthService } from '@dspace/core/auth/auth.service';
+import { LocaleService } from '@dspace/core/locale/locale.service';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { Bitstream } from '@dspace/core/shared/bitstream.model';
 import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
@@ -21,6 +22,7 @@ import { SectionsServiceStub } from '@dspace/core/testing/sections-service.stub'
 import { SubmissionServiceStub } from '@dspace/core/testing/submission-service.stub';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
 
 import { UploaderComponent } from '../../../../../../shared/upload/uploader/uploader.component';
 import { UploaderOptions } from '../../../../../../shared/upload/uploader/uploader-options.model';
@@ -50,6 +52,12 @@ describe('SubmissionSectionUploadFileReplaceComponent', () => {
   });
   const fileIndex = '0';
   const submissionId = '0';
+  let localeService;
+  const languageList = ['en;q=1', 'de;q=0.8'];
+  const mockLocaleService = jasmine.createSpyObj('LocaleService', {
+    getCurrentLanguageCode: jasmine.createSpy('getCurrentLanguageCode'),
+    getLanguageCodeList: of(languageList),
+  });
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -67,12 +75,15 @@ describe('SubmissionSectionUploadFileReplaceComponent', () => {
         { provide: SectionsService, useClass: SectionsServiceStub },
         { provide: SubmissionService, useClass: SubmissionServiceStub },
         { provide: NgbActiveModal },
+        { provide: LocaleService, useValue: mockLocaleService },
       ],
     }).overrideComponent(SubmissionSectionUploadFileReplaceComponent, {
       remove: { imports: [UploaderComponent] },
       add: { imports: [TestUploaderComponent] },
     }).compileComponents();
 
+    localeService = TestBed.inject(LocaleService);
+    localeService.getCurrentLanguageCode.and.returnValue(of('en'));
     fixture = TestBed.createComponent(SubmissionSectionUploadFileReplaceComponent);
     component = fixture.componentInstance;
     component.fileIndex = fileIndex;

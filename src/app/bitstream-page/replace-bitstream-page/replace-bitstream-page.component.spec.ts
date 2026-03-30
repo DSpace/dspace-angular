@@ -17,6 +17,7 @@ import {
 } from '@angular/router';
 import { AuthService } from '@dspace/core/auth/auth.service';
 import { RequestService } from '@dspace/core/data/request.service';
+import { LocaleService } from '@dspace/core/locale/locale.service';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { Bitstream } from '@dspace/core/shared/bitstream.model';
 import { AuthServiceStub } from '@dspace/core/testing/auth-service.stub';
@@ -30,7 +31,6 @@ import { UploaderComponent } from '../../shared/upload/uploader/uploader.compone
 import { UploaderOptions } from '../../shared/upload/uploader/uploader-options.model';
 import { UploaderProperties } from '../../shared/upload/uploader/uploader-properties.model';
 import { FileSizePipe } from '../../shared/utils/file-size-pipe';
-import { VarDirective } from '../../shared/utils/var.directive';
 import { ReplaceBitstreamPageComponent } from './replace-bitstream-page.component';
 
 describe('ReplaceBitstreamPageComponent', () => {
@@ -49,13 +49,18 @@ describe('ReplaceBitstreamPageComponent', () => {
   const route = { data: of({ bitstream: createSuccessfulRemoteDataObject(bitstream) }) };
   const requestService = jasmine.createSpyObj('requestService', ['setStaleByHrefSubstring']);
   const router = new RouterStub();
+  let localeService;
+  const languageList = ['en;q=1', 'de;q=0.8'];
+  const mockLocaleService = jasmine.createSpyObj('LocaleService', {
+    getCurrentLanguageCode: jasmine.createSpy('getCurrentLanguageCode'),
+    getLanguageCodeList: of(languageList),
+  });
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         ReplaceBitstreamPageComponent,
         TranslateModule.forRoot(),
-        VarDirective,
         FileSizePipe,
       ],
       providers: [
@@ -65,6 +70,7 @@ describe('ReplaceBitstreamPageComponent', () => {
         { provide: AuthService, useClass: AuthServiceStub },
         { provide: Router, useValue: router },
         { provide: RequestService, useValue: requestService },
+        { provide: LocaleService, useValue: mockLocaleService },
       ],
     }).overrideComponent(ReplaceBitstreamPageComponent, {
       remove: { imports: [UploaderComponent] },
@@ -74,6 +80,8 @@ describe('ReplaceBitstreamPageComponent', () => {
   );
 
   beforeEach(() => {
+    localeService = TestBed.inject(LocaleService);
+    localeService.getCurrentLanguageCode.and.returnValue(of('en'));
     fixture = TestBed.createComponent(ReplaceBitstreamPageComponent);
     component = fixture.componentInstance;
     notificationsService = TestBed.inject(NotificationsService);
