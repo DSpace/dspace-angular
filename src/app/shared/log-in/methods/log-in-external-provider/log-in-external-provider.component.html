@@ -1,4 +1,4 @@
-@if (isOrcid()) {
+@if (isOrcid) {
   <button class="btn btn-lg btn-primary w-100" (click)="redirectToExternalProvider()" role="button" tabindex="0">
     <i class="fa-brands fa-orcid"></i><span>{{getButtonLabel() | translate}}</span>
   </button>
