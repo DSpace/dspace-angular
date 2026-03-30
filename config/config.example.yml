@@ -403,6 +403,20 @@ homePage:
 item:
   edit:
     undoTimeout: 10000 # 10 seconds
+    # Defines the security levels available for metadata fields.
+    # Each level maps to a numeric value stored on the metadata field in the backend and controls visibility of that field based on the user's role.
+    # Levels are displayed as toggle buttons in the metadata edit UI.
+    security:
+      levels:
+          - value: 0       # Public — visible to everyone
+            icon: fa fa-globe
+            color: green
+          - value: 1       # Registered users — visible to authenticated users only
+            icon: fa fa-key
+            color: orange
+          - value: 2       # Administrators only — restricted to admin users
+            icon: fa fa-lock
+            color: red
   # Show the item access status label in items lists
   showAccessStatuses: false
   bitstream:

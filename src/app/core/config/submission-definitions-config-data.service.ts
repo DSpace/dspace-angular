@@ -1,3 +1,11 @@
+/**
+ * The contents of this file are subject to the license and copyright
+ * detailed in the LICENSE and NOTICE files at the root of the source
+ * tree and available online at
+ *
+ * http://www.dspace.org/license/
+ */
+
 import { Injectable } from '@angular/core';
 import { FollowLinkConfig } from '@dspace/core/shared/follow-link-config.model';
 import { Observable } from 'rxjs';
@@ -16,6 +24,13 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { ConfigDataService } from './config-data.service';
 import { ConfigObject } from './models/config.model';
 
+/**
+ * Data service responsible for retrieving submission definition configurations from the REST API.
+ * Submission definitions describe the structure of submission forms (steps, sections, and fields)
+ * used when depositing or editing items.
+ *
+ * It extends {@link ConfigDataService} targeting the `submissiondefinitions` endpoint.
+ */
 @Injectable({ providedIn: 'root' })
 export class SubmissionDefinitionsConfigDataService extends ConfigDataService {
   constructor(
@@ -27,6 +42,15 @@ export class SubmissionDefinitionsConfigDataService extends ConfigDataService {
     super('submissiondefinitions', requestService, rdbService, objectCache, halService);
   }
 
+  /**
+   * Retrieves the full list of submission definition configurations from the REST API.
+   *
+   * @param options
+   * @param useCachedVersionIfAvailable
+   * @param reRequestOnStale
+   * @param linksToFollow
+   * @returns An {@link Observable} emitting a {@link RemoteData} wrapper around a {@link PaginatedList} of {@link ConfigObject} entries.
+   */
   findAll(options: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<ConfigObject>[]): Observable<RemoteData<PaginatedList<ConfigObject>>> {
     return this.getBrowseEndpoint(options).pipe(
       take(1),

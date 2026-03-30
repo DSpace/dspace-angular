@@ -14,11 +14,11 @@ import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote
 import { cold } from 'jasmine-marbles';
 
 import { MenuItemType } from '../menu-item-type.model';
-import { EditItemDetailsMenuProvider } from './edit-item-details.menu';
+import { EditItemMenuProvider } from './edit-item-details.menu';
 
-describe('EditItemDetailsMenuProvider', () => {
+describe('EditItemMenuProvider', () => {
 
-  let provider: EditItemDetailsMenuProvider;
+  let provider: EditItemMenuProvider;
 
   const editItemServiceStub = jasmine.createSpyObj('EditItemDataService', [
     'searchEditModesById',
@@ -41,6 +41,7 @@ describe('EditItemDetailsMenuProvider', () => {
         text: 'menu.section.quickedit',
         link: jasmine.any(String),
       },
+      icon: 'pencil-alt',
       visible: true,
     },
     {
@@ -49,6 +50,7 @@ describe('EditItemDetailsMenuProvider', () => {
         text: 'menu.section.full',
         link: jasmine.any(String),
       },
+      icon: 'pencil-alt',
       visible: true,
     },
   ];
@@ -63,12 +65,12 @@ describe('EditItemDetailsMenuProvider', () => {
 
     TestBed.configureTestingModule({
       providers: [
-        EditItemDetailsMenuProvider,
+        EditItemMenuProvider,
         { provide: EditItemDataService, useValue: editItemServiceStub },
       ],
     });
 
-    provider = TestBed.inject(EditItemDetailsMenuProvider);
+    provider = TestBed.inject(EditItemMenuProvider);
   });
 
   it('should be created', () => {

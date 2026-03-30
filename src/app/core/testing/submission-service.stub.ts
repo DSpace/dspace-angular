@@ -26,7 +26,7 @@ export class SubmissionServiceStub {
   isSubmissionLoading = jasmine.createSpy('isSubmissionLoading');
   notifyNewSection = jasmine.createSpy('notifyNewSection');
   redirectToMyDSpace = jasmine.createSpy('redirectToMyDSpace');
-  redirectToItemPage = jasmine.createSpy('redirectToItemPage');
+  invalidateCacheAndRedirectToItemPage = jasmine.createSpy('redirectToItemPage');
   resetAllSubmissionObjects = jasmine.createSpy('resetAllSubmissionObjects');
   resetSubmissionObject = jasmine.createSpy('resetSubmissionObject');
   retrieveSubmission = jasmine.createSpy('retrieveSubmission');

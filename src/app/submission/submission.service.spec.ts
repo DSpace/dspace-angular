@@ -14,6 +14,7 @@ import {
   Router,
 } from '@angular/router';
 import { ErrorResponse } from '@dspace/core/cache/response.models';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
 import { RequestService } from '@dspace/core/data/request.service';
 import { RequestError } from '@dspace/core/data/request-error.model';
 import { HttpOptions } from '@dspace/core/dspace-rest/dspace-rest.service';
@@ -31,7 +32,11 @@ import { getMockSearchService } from '@dspace/core/testing/search-service.mock';
 import { SubmissionJsonPatchOperationsServiceStub } from '@dspace/core/testing/submission-json-patch-operations-service.stub';
 import { SubmissionRestServiceStub } from '@dspace/core/testing/submission-rest-service.stub';
 import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
-import { createFailedRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
+import {
+  createFailedRemoteDataObject,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core/utilities/remote-data.utils';
 import { StoreModule } from '@ngrx/store';
 import {
   TranslateLoader,
@@ -392,6 +397,9 @@ describe('SubmissionService test suite', () => {
     },
   };
   const restService = new SubmissionRestServiceStub();
+  const itemService: ItemDataService = jasmine.createSpyObj('itemService', {
+    findById: createSuccessfulRemoteDataObject$(new Item()),
+  });;
   const router = new RouterMock();
   const selfUrl = 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826';
   const submissionDefinition: any = mockSubmissionDefinition;
@@ -423,6 +431,7 @@ describe('SubmissionService test suite', () => {
         { provide: SearchService, useValue: searchService },
         { provide: RequestService, useValue: requestServce },
         { provide: SubmissionJsonPatchOperationsService, useValue: submissionJsonPatchOperationsService },
+        { provide: ItemDataService, useValue: itemService },
         NotificationsService,
         RouteService,
         SubmissionService,
@@ -1113,24 +1122,36 @@ describe('SubmissionService test suite', () => {
   });
 
   describe('redirectToEditItem', () => {
-    it('should redirect to Item page', () => {
+    it('should redirect to Item page', fakeAsync(() => {
       scheduler = getTestScheduler();
 
       const itemUuid = 'd62fc60f-e9a5-48e6-973a-90819acf23ae';
+      const mockItem = Object.assign(new Item(), {
+        uuid: itemUuid,
+        _links: {
+          self: {
+            href: 'test-href',
+          },
+        },
+      });
       let itemSubmissionId = itemUuid + ':FULL';
+      spyOn(itemService as any, 'findById').and.returnValue(cold('a', { a: createSuccessfulRemoteDataObject(mockItem) }));
+      spyOn(requestServce as any, 'setStaleByHrefSubstring').and.returnValue(cold('a', { a: true }));
 
-      scheduler.schedule(() => service.redirectToItemPage(itemSubmissionId));
+      scheduler.schedule(() => service.invalidateCacheAndRedirectToItemPage(itemSubmissionId));
       scheduler.flush();
+      tick();
 
       expect((service as any).router.navigateByUrl).toHaveBeenCalledWith('/items/' + itemUuid, { replaceUrl: true });
 
       itemSubmissionId = itemUuid;
-      scheduler.schedule(() => service.redirectToItemPage(itemSubmissionId));
+      scheduler.schedule(() => service.invalidateCacheAndRedirectToItemPage(itemSubmissionId));
       scheduler.flush();
+      tick();
 
       expect((service as any).router.navigateByUrl).toHaveBeenCalledWith('/items/' + itemUuid, { replaceUrl: true });
 
-    });
+    }));
   });
 
   describe('resetAllSubmissionObjects', () => {

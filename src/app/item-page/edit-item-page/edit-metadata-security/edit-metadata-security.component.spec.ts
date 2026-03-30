@@ -3,6 +3,7 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { EditMetadataSecurityComponent } from './edit-metadata-security.component';
 
@@ -12,7 +13,7 @@ describe('EditMetadataSecurityComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [EditMetadataSecurityComponent],
+      imports: [TranslateModule.forRoot(), EditMetadataSecurityComponent],
     })
       .compileComponents();
   });

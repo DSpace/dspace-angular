@@ -3792,7 +3792,7 @@
 
   "menu.section.workflow": "Administer Workflow",
 
-  "menu.section.FULL": "Edit all the details",
+  "menu.section.FULL": "Edit",
 
   "menu.section.OWNER": "Edit",
 
@@ -3805,6 +3805,8 @@
   "metadata-export-search.submit.success": "The export was started successfully",
 
   "metadata-export-search.submit.error": "Starting the export has failed",
+
+  "metadata.security.level.title": "Metatada security level {{level}}",
 
   "mydspace.breadcrumbs": "MyDSpace",
 
@@ -3866,7 +3868,7 @@
 
   "mydspace.show.workspace": "Your submissions",
 
-  "mydspace.show.otherworkspace": "Other Workspace Submissions",
+  "mydspace.show.otherworkspace": "Shared Submissions",
 
   "mydspace.show.supervisedWorkspace": "Supervised items",
 

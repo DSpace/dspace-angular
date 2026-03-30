@@ -24,7 +24,10 @@ import { EditItemMode } from './edititem-mode.model';
 import { SubmissionObject } from './submission-object.model';
 
 /**
- * A model class for a EditItem.
+ * Represents the object type of the edit submission object.
+ *
+ * Used to map responses from {@link EditItemDataService} wich is used to retrieve available edit modes for a given item.
+ * {@link EditItemMenuProvider}.
  */
 @typedObject
 @inheritSerialization(SubmissionObject)

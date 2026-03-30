@@ -569,6 +569,35 @@ export class SectionFormOperationsService {
     }
   }
 
+  /**
+   * Handles a security level change event by dispatching the appropriate
+   * JSON Patch `replace` operation for the affected metadata field.
+   *
+   * The method branches into three distinct paths depending on the structure
+   * of the form model that triggered the event:
+   *
+   * **1. Array group model (`DynamicFormArrayGroupModel`):**
+   * - When `event.context` is an instance of `DynamicFormArrayGroupModel`,
+   *   the field belongs to a repeatable row array (e.g. an inline relation group).
+   * - Delegates to {@link handleArrayGroupPatch} to handle the patch and returns early.
+   *
+   * **2. Qualdrop group model:**
+   * - When the field's parent (or the field itself) is identified as a qualdrop group
+   *   via {@link FormBuilderService.isQualdropGroup}, the value is structured as a
+   *   key-value qualifier pair (e.g. `dc.identifier.uri` with a qualifier dropdown).
+   * - Delegates to {@link dispatchOperationsFromMap} using the qualdrop value map
+   *   built by {@link getQualdropValueMap}.
+   *
+   * **3. Standard field:**
+   * - For all other fields, resolves the field path and current value from the event.
+   * - If the model carries a `securityLevel`, dispatches a JSON Patch `replace`
+   *   operation on the resolved path, embedding the security level in the payload.
+   * - Clears the `previousValue` after the operation is dispatched.
+   *
+   * @param pathCombiner
+   * @param event
+   * @param previousValue
+   */
   protected changeSecurityLevel(pathCombiner: JsonPatchOperationPathCombiner,
     event: DynamicFormControlEvent,
     previousValue: FormFieldPreviousValueObject): void {

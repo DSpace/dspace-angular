@@ -1155,7 +1155,7 @@ describe('SubmissionObjectEffects test suite', () => {
       submissionObjectEffects.saveForLaterSubmissionSuccess$.subscribe();
 
       getTestScheduler().flush();
-      expect(submissionServiceStub.redirectToItemPage).toHaveBeenCalled();
+      expect(submissionServiceStub.invalidateCacheAndRedirectToItemPage).toHaveBeenCalled();
     });
   });
 

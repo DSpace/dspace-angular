@@ -1,3 +1,11 @@
+/**
+ * The contents of this file are subject to the license and copyright
+ * detailed in the LICENSE and NOTICE files at the root of the source
+ * tree and available online at
+ *
+ * http://www.dspace.org/license/
+ */
+
 import {
   autoserialize,
   deserialize,
@@ -16,7 +24,15 @@ interface MetadataCustomSecurityEntries {
   [metadata: string]: number[];
 }
 /**
- * A model class for a security configuration of metadata.
+ * Model class representing the metadata security configuration associated with a given entity type.
+ * This class is used to determine which security levels are applied
+ * to metadata fields — either globally via a default, or on a per-field
+ * basis via custom entries.
+ *
+ * Security levels are represented as integers:
+ * - `0` → Public (visible to everyone)
+ * - `1` → Registered users (visible to authenticated users only)
+ * - `2` → Administrator (visible to administrators only)
  */
 @typedObject
 export class MetadataSecurityConfiguration extends CacheableObject {
@@ -29,17 +45,37 @@ export class MetadataSecurityConfiguration extends CacheableObject {
   @deserializeAs(new IDToUUIDSerializer(MetadataSecurityConfiguration.type.value), 'id')
     uuid: string;
   /**
-   * List of security configurations for all of the metadatas of the entity type
+   * Array of security levels applied by default to all metadata fields
+   * of the entity type, when no custom rule is defined for a specific field.
+   *
+   * Each element is an integer representing a security level
+   * (0 = public, 1 = registered users, 2 = administrators).
+   *
+   * @example [0, 1]
    */
   @autoserialize
     metadataSecurityDefault: number[];
   /**
-   * List of security configurations for all of the metadatas of the entity type
+   * Map of custom security configurations for individual metadata fields
+   * of the entity type.
+   *
+   * Allows overriding the default behavior (`metadataSecurityDefault`)
+   * for specific fields. The key is the qualified metadata field name
+   * (e.g. `dc.title`), and the value is the array of security levels applied.
+   *
+   * @see MetadataCustomSecurityEntries
+   *
+   * @example
+   * {
+   *   "dc.title": [0,1],
+   *   "dc.rights": [1,2]
+   * }
    */
   @autoserialize
     metadataCustomSecurity: MetadataCustomSecurityEntries;
   /**
-   * The object type
+   * The REST resource type, automatically populated during
+   * deserialization from the backend response.
    */
   @excludeFromEquals
   @autoserialize

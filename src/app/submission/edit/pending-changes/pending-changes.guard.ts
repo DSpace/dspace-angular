@@ -15,6 +15,30 @@ import { ConfirmationModalComponent } from '../../../shared/confirmation-modal/c
 import { SubmissionEditCanDeactivateService } from '../submission-edit-can-deactivate.service';
 import { ThemedSubmissionEditComponent } from '../themed-submission-edit.component';
 
+
+/**
+ * Route deactivation guard that protects against accidental navigation away
+ * from the submission edit page when there are unsaved changes.
+ *
+ * Delegates to {@link SubmissionEditCanDeactivateService} to check whether
+ * the current submission (identified by the route `id` parameter) has any
+ * pending changes.
+ *
+ * Deactivation logic:
+ * - If **no pending changes** are detected, navigation is allowed immediately
+ *   by emitting `true`.
+ * - If **pending changes** exist, a {@link ConfirmationModalComponent} is opened
+ *   asking the user to confirm or cancel the navigation. The guard then returns
+ *   the modal's `response` observable, which emits:
+ *   - `true` — user confirmed, navigation proceeds.
+ *   - `false` — user cancelled, navigation is blocked.
+ *
+ * @param component - The {@link ThemedSubmissionEditComponent} instance being deactivated.
+ * @param route - The current activated route snapshot, used to extract the submission `id`.
+ * @param state - The target router state snapshot (unused, required by the interface).
+ * @returns An `Observable<boolean>` that resolves to `true` to allow navigation
+ *          or `false` to block it.
+ */
 export const pendingChangesGuard: CanDeactivateFn<ThemedSubmissionEditComponent> = (
   component: ThemedSubmissionEditComponent,
   route: ActivatedRouteSnapshot,

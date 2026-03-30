@@ -173,7 +173,7 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
           }
         });
 
-        definitions.forEach((definition: SubmissionDefinitionModel, index: number) => {
+        definitions.filter(def => !def.id.includes('-edit')).forEach((definition: SubmissionDefinitionModel, index: number) => {
           this.submissionDefinitionSelection.add({
             disabled: false,
             label: definition.name,

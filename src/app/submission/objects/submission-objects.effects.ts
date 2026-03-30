@@ -303,6 +303,13 @@ export class SubmissionObjectEffects {
         }));
     })));
 
+  /**
+   * Handles the {@link SubmissionObjectActionTypes.DISABLE_SECTION} action by sending
+   * a JSON Patch request to remove the specified section from the submission.
+   *
+   * On success, dispatches {@link DisableSectionSuccessAction}.
+   * On error, dispatches {@link DisableSectionErrorAction}.
+   */
   removeSection$ = createEffect(() => this.actions$.pipe(
     ofType(SubmissionObjectActionTypes.DISABLE_SECTION),
     concatMap((action: DisableSectionAction) => {
@@ -337,7 +344,7 @@ export class SubmissionObjectEffects {
     tap((action: SaveForLaterSubmissionFormSuccessAction) => {
       const scope = this.submissionService.getSubmissionScope();
       if (scope === SubmissionScopeType.EditItem) {
-        this.submissionService.redirectToItemPage(action.payload.submissionId);
+        this.submissionService.invalidateCacheAndRedirectToItemPage(action.payload.submissionId);
       } else {
         this.submissionService.redirectToMyDSpace();
       }

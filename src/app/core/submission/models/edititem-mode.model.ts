@@ -19,7 +19,16 @@ import { ResourceType } from '../../shared/resource-type';
 import { excludeFromEquals } from '../../utilities/equals.decorators';
 
 /**
- * Describes a EditItem mode
+ * Represents a single edit mode available for an existing {@link Item}.
+ *
+ * Edit modes are returned by the REST API (`/api/submission/edititems/:id/modes`) and define
+ * the different ways in which an item can be edited (e.g. full edit, correction, withdraw).
+ * Each mode references a specific submission definition that determines which sections and
+ * fields are shown in the edit form.
+ *
+ * Consumed by {@link EditItemDataService} to retrieve available modes for a given item, and
+ * used by the edit-item page to build the appropriate submission form via
+ * {@link EditItemMenuProvider}.
  */
 @typedObject
 export class EditItemMode extends CacheableObject {

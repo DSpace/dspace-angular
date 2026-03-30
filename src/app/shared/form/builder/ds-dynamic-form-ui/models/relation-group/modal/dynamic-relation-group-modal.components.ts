@@ -467,6 +467,29 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
     return item;
   }
 
+  /**
+   * Initializes the security level configuration for a form control model
+   * within a relation group row.
+   *
+   * This method handles two distinct cases based on the number of available
+   * security levels in `securityConfigLevel`:
+   *
+   * Multiple levels (`securityConfigLevel.length > 1`):
+   * - Enables the security level toggle (`toggleSecurityVisibility = true`)
+   *   on the main field, and sets its `securityLevel` from the current model value.
+   * - Propagates the same security level to all sibling fields in the row,
+   *   but hides their toggles (`toggleSecurityVisibility = false`), since
+   *   only the parent field controls the security level for the whole group.
+   * - Stores the parent security level in `securityLevelParent` for reference.
+   *
+   * Single level (`securityConfigLevel.length === 1`):
+   * - Applies to all fields in the row regardless of which field is the main one.
+   * - Assigns the model's fixed security level to every field in the group
+   *   and hides the toggle on all of them, since there is no choice to be made.
+   *
+   * @param chipModel
+   * @param modelGroup
+   */
   private initSecurityLevelConfig(chipModel: DynamicInputModel, modelGroup: DynamicFormGroupModel) {
     if (this.model.name === chipModel.name && this.model.securityConfigLevel.length > 1) {
       (chipModel as any).securityConfigLevel = this.model.securityConfigLevel;

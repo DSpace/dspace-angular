@@ -27,7 +27,6 @@ import { LiveRegionConfig } from './live-region.config';
 import { MarkdownConfig } from './markdown-config.interface';
 import { MatomoConfig } from './matomo-config.interface';
 import { MediaViewerConfig } from './media-viewer-config.interface';
-import { MetadataSecurityConfig } from './metadata-security-config';
 import {
   INotificationBoardOptions,
   NotificationAnimationsType,
@@ -376,6 +375,27 @@ export class DefaultAppConfig implements AppConfig {
   item: ItemConfig = {
     edit: {
       undoTimeout: 10000, // 10 seconds
+      // UI configuration of the security levels available for metadata fields across the application, allows to customize color and icon for each value.
+      // `0` = Public, `1` = Registered users, `2` = Administrators only.
+      security: {
+        levels: [
+          {
+            value: 0,
+            icon: 'fa fa-globe',
+            color: 'green',
+          },
+          {
+            value: 1,
+            icon: 'fa fa-key',
+            color: 'orange',
+          },
+          {
+            value: 2,
+            icon: 'fa fa-lock',
+            color: 'red',
+          },
+        ],
+      },
     },
     // Show the item access status label in items lists
     showAccessStatuses: false,
@@ -820,27 +840,6 @@ export class DefaultAppConfig implements AppConfig {
       {
         type: 'Patent',
         metadata: ['dc.contributor.author'],
-      },
-    ],
-  };
-
-
-  security: MetadataSecurityConfig = {
-    levels: [
-      {
-        value: 0,
-        icon: 'fa fa-globe',
-        color: 'green',
-      },
-      {
-        value: 1,
-        icon: 'fa fa-key',
-        color: 'orange',
-      },
-      {
-        value: 2,
-        icon: 'fa fa-lock',
-        color: 'red',
       },
     ],
   };

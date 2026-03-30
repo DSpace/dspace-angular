@@ -197,6 +197,27 @@ export class DsDynamicRelationInlineGroupComponent extends DynamicFormControlCom
     });
   }
 
+  /**
+   * Initializes the security level configuration for a field model
+   * within an inline relation group row.
+   *
+   * Multiple levels (`securityConfigLevel.length > 1`):
+   * - Enables the security toggle (`toggleSecurityVisibility = true`) on the
+   *   primary field and resolves its security level with the following priority:
+   *   1. `this.model.securityLevel` if it is not empty.
+   *   2. The existing `securityLevel` read directly from the matched row model.
+   * - Propagates the resolved security level to all sibling fields in the row,
+   *   hiding their toggles (`toggleSecurityVisibility = false`) since only the
+   *   primary field drives the level for the entire group.
+   *
+   * Single level (`securityConfigLevel.length === 1`):
+   * - Applies to every field in the row regardless of which field is primary.
+   * - Locks all fields to `this.model.securityLevel` and hides all toggles,
+   *   since there is no user choice to be made.
+   *
+   * @param model - The dynamic input model of the field being initialized.
+   * @param modelGroup - The parent form group row containing `model` and its siblings.
+   */
   private initSecurityLevelConfig(model: any, modelGroup: DynamicFormGroupModel) {
     if (this.model.name === model.name && this.model.securityConfigLevel?.length > 1) {
       model.securityConfigLevel = this.model.securityConfigLevel;

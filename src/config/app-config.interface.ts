@@ -28,7 +28,6 @@ import { LiveRegionConfig } from './live-region.config';
 import { MarkdownConfig } from './markdown-config.interface';
 import { MatomoConfig } from './matomo-config.interface';
 import { MediaViewerConfig } from './media-viewer-config.interface';
-import { MetadataSecurityConfig } from './metadata-security-config';
 import { INotificationBoardOptions } from './notifications-config.interfaces';
 import { QualityAssuranceConfig } from './quality-assurance.config';
 import { SearchConfig } from './search-page-config.interface';
@@ -75,7 +74,6 @@ interface AppConfig extends Config {
   accessibility: AccessibilitySettingsConfig;
   layout: LayoutConfig;
   searchResult: SearchResultConfig;
-  security: MetadataSecurityConfig;
   addToAnyPlugin: AddToAnyPluginConfig;
 }
 

@@ -6,12 +6,14 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { ErrorResponse } from '@dspace/core/cache/response.models';
 import { SubmissionDefinitionsModel } from '@dspace/core/config/models/config-submission-definitions.model';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
 import { RemoteData } from '@dspace/core/data/remote-data';
 import { RequestService } from '@dspace/core/data/request.service';
 import { HttpOptions } from '@dspace/core/dspace-rest/dspace-rest.service';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { RouteService } from '@dspace/core/services/route.service';
 import { Item } from '@dspace/core/shared/item.model';
+import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
 import { MetadataSecurityConfiguration } from '@dspace/core/submission/models/metadata-security-configuration';
 import { SectionScope } from '@dspace/core/submission/models/section-visibility.model';
 import { SubmissionError } from '@dspace/core/submission/models/submission-error.model';
@@ -53,6 +55,7 @@ import {
   find,
   map,
   startWith,
+  switchMap,
   take,
   tap,
 } from 'rxjs/operators';
@@ -139,7 +142,8 @@ export class SubmissionService {
               protected translate: TranslateService,
               protected searchService: SearchService,
               protected requestService: RequestService,
-              protected jsonPatchOperationService: SubmissionJsonPatchOperationsService) {
+              protected jsonPatchOperationService: SubmissionJsonPatchOperationsService,
+              protected itemDataService: ItemDataService) {
   }
 
   /**
@@ -672,11 +676,15 @@ export class SubmissionService {
   }
 
   /**
-   * Redirect to Item page
+   * Invalidate item cache and redirect to Item page
    */
-  redirectToItemPage(submissionId: string) {
+  invalidateCacheAndRedirectToItemPage(submissionId: string) {
     const itemUuid = submissionId.indexOf(':') > -1 ? submissionId.split(':')[0] : submissionId;
-    this.router.navigateByUrl('/items/' + itemUuid, { replaceUrl: true });
+    this.itemDataService.findById(itemUuid).pipe(
+      getFirstSucceededRemoteDataPayload(),
+      switchMap((item) => this.requestService.setStaleByHrefSubstring(item._links.self.href)),
+      take(1),
+    ).subscribe(() => this.router.navigateByUrl('/items/' + itemUuid, { replaceUrl: true }));
   }
 
   /**

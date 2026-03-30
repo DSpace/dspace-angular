@@ -27,10 +27,10 @@ import { PartialMenuSection } from '../menu-provider.model';
 import { DSpaceObjectPageMenuProvider } from './helper-providers/dso.menu';
 
 /**
- * Menu provider to create the "Edit details" option in the DSO audit menu
+ * Menu provider to create the "Edit" option in the DSO audit menu
  */
 @Injectable()
-export class EditItemDetailsMenuProvider extends DSpaceObjectPageMenuProvider {
+export class EditItemMenuProvider extends DSpaceObjectPageMenuProvider {
   constructor(
     protected editItemService: EditItemDataService,
   ) {
@@ -50,6 +50,7 @@ export class EditItemDetailsMenuProvider extends DSpaceObjectPageMenuProvider {
               text: `menu.section.${editMode.name}`,
               link: new URLCombiner(getEditItemPageRoute(), `${dso.uuid}:${editMode.name}`).toString(),
             },
+            icon: 'pencil-alt',
             visible: true,
           };
         });
