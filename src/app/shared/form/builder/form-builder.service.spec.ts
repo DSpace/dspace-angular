@@ -102,6 +102,8 @@ describe('FormBuilderService test suite', () => {
 
     const vocabularyOptions: VocabularyOptions = {
       name: 'type_programme',
+      metadata: null,
+      scope: null,
       closed: false,
     };
 
@@ -288,6 +290,7 @@ describe('FormBuilderService test suite', () => {
             }],
           } as FormFieldModel],
         } as FormRowModel],
+        isInlineGroup: false,
         mandatoryField: '',
         name: 'testRelationGroup',
         relationFields: [],
