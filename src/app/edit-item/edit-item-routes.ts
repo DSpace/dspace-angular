@@ -1,4 +1,5 @@
 import { Route } from '@angular/router';
+import { i18nBreadcrumbResolver } from '@dspace/core/breadcrumbs/i18n-breadcrumb.resolver';
 
 import { authenticatedGuard } from '../core/auth/authenticated.guard';
 import { pendingChangesGuard } from '../submission/edit/pending-changes/pending-changes.guard';
@@ -14,7 +15,13 @@ export const ROUTES: Route[] = [
         canActivate: [authenticatedGuard],
         canDeactivate: [pendingChangesGuard],
         component: ThemedSubmissionEditComponent,
-        data: { title: 'submission.edit.title' },
+        resolve: {
+          breadcrumb: i18nBreadcrumbResolver,
+        },
+        data: {
+          title: 'submission.edit.title',
+          breadcrumbKey: 'submission.edit.item',
+        },
       },
     ],
   },

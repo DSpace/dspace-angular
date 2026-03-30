@@ -41,7 +41,7 @@ export class ConcatFieldParser extends FieldParser {
     protected separator: string,
     protected firstPlaceholder: string = null,
     protected secondPlaceholder: string = null) {
-    super(submissionId, configData, initFormValues, parserOptions, translate, securityConfig);
+    super(submissionId, configData, initFormValues, parserOptions, securityConfig, translate);
 
     this.separator = separator;
     this.firstPlaceholder = firstPlaceholder;

@@ -363,6 +363,10 @@ export class DsoEditMetadataValueComponent implements OnInit, OnChanges, OnDestr
    * @param {SimpleChanges} changes
    */
   ngOnChanges(changes: SimpleChanges): void {
+    if (changes.mdField) {
+      this.fieldType$ = this.getFieldType();
+    }
+
     if (isNotEmpty(changes.mdField) && !changes.mdField.firstChange) {
       if (isNotEmpty(changes.mdField.currentValue) ) {
         if (isNotEmpty(changes.mdField.previousValue) &&

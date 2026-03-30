@@ -39,7 +39,7 @@ import {
 } from '@ngx-translate/core';
 import {
   catchError,
-  combineLatest,
+  forkJoin,
   Observable,
   of,
 } from 'rxjs';
@@ -155,46 +155,47 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
       );
 
     // retrieve all entity types and submission definitions to populate the dropdowns selection
-    combineLatest([entities$, definitions$])
-      .subscribe(([entityTypes, definitions]: [ItemType[], SubmissionDefinitionModel[]]) => {
+    forkJoin({
+      entityTypes: entities$,
+      definitions: definitions$,
+    }).subscribe(({ entityTypes, definitions }:  {entityTypes: ItemType[]; definitions: ConfigObject[]}) => {
+      const sortedEntityTypes = entityTypes
+        .sort((a, b) => a.label.localeCompare(b.label));
 
-        const sortedEntityTypes = entityTypes
-          .sort((a, b) => a.label.localeCompare(b.label));
-
-        sortedEntityTypes.forEach((type: ItemType, index: number) => {
-          this.entityTypeSelection.add({
-            disabled: false,
-            label: type.label,
-            value: type.label,
-          } as DynamicFormOptionConfig<string>);
-          if (currentRelationshipValue && currentRelationshipValue.length > 0 && currentRelationshipValue[0].value === type.label) {
-            this.entityTypeSelection.select(index);
-            this.entityTypeSelection.disabled = true;
-          }
-        });
-
-        definitions.filter(def => !def.id.includes('-edit')).forEach((definition: SubmissionDefinitionModel, index: number) => {
-          this.submissionDefinitionSelection.add({
-            disabled: false,
-            label: definition.name,
-            value: definition.name,
-          } as DynamicFormOptionConfig<string>);
-          if (currentDefinitionValue && currentDefinitionValue.length > 0 && currentDefinitionValue[0].value === definition.name) {
-            this.submissionDefinitionSelection.select(index);
-          }
-        });
-
-        this.formModel = entityTypes.length === 0 ?
-          [...collectionFormModels, this.submissionDefinitionSelection, this.sharedWorkspaceChekbox] :
-          [...collectionFormModels, this.entityTypeSelection, this.submissionDefinitionSelection, this.sharedWorkspaceChekbox];
-
-        super.ngOnInit();
-
-        if (currentSharedWorkspaceValue && currentSharedWorkspaceValue.length > 0) {
-          this.sharedWorkspaceChekbox.value = currentSharedWorkspaceValue[0].value === 'true';
+      sortedEntityTypes.forEach((type: ItemType, index: number) => {
+        this.entityTypeSelection.add({
+          disabled: false,
+          label: type.label,
+          value: type.label,
+        } as DynamicFormOptionConfig<string>);
+        if (currentRelationshipValue && currentRelationshipValue.length > 0 && currentRelationshipValue[0].value === type.label) {
+          this.entityTypeSelection.select(index);
+          this.entityTypeSelection.disabled = true;
         }
-        this.chd.detectChanges();
       });
+
+      definitions.filter(def => !def.id.includes('-edit')).forEach((definition: SubmissionDefinitionModel, index: number) => {
+        this.submissionDefinitionSelection.add({
+          disabled: false,
+          label: definition.name,
+          value: definition.name,
+        } as DynamicFormOptionConfig<string>);
+        if (currentDefinitionValue && currentDefinitionValue.length > 0 && currentDefinitionValue[0].value === definition.name) {
+          this.submissionDefinitionSelection.select(index);
+        }
+      });
+
+      this.formModel = entityTypes.length === 0 ?
+        [...collectionFormModels, this.submissionDefinitionSelection, this.sharedWorkspaceChekbox] :
+        [...collectionFormModels, this.entityTypeSelection, this.submissionDefinitionSelection, this.sharedWorkspaceChekbox];
+
+      super.ngOnInit();
+
+      if (currentSharedWorkspaceValue && currentSharedWorkspaceValue.length > 0) {
+        this.sharedWorkspaceChekbox.value = currentSharedWorkspaceValue[0].value === 'true';
+      }
+      this.chd.detectChanges();
+    });
 
   }
 }

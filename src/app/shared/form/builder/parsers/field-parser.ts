@@ -7,6 +7,7 @@ import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/fo
 import { MetadataValue } from '@dspace/core/shared/metadata.models';
 import { Metadata } from '@dspace/core/shared/metadata.utils';
 import { RelationshipOptions } from '@dspace/core/shared/relationship-options.model';
+import { MetadataSecurityConfiguration } from '@dspace/core/submission/models/metadata-security-configuration';
 import { SectionVisibility } from '@dspace/core/submission/models/section-visibility.model';
 import { SubmissionScopeType } from '@dspace/core/submission/submission-scope-type';
 import { VisibilityType } from '@dspace/core/submission/visibility-type';
@@ -46,7 +47,7 @@ export const PARSER_OPTIONS: InjectionToken<ParserOptions> = new InjectionToken<
  * The regex itself is encapsulated inside a `RegExp` object, that will validate the pattern syntax.
  */
 export const REGEX_FIELD_VALIDATOR = new RegExp('(\\/?)(.+)\\1([gimsuy]*)', 'i');
-export const SECURITY_CONFIG: InjectionToken<any> = new InjectionToken<any>('securityConfig');
+export const SECURITY_CONFIG: InjectionToken<MetadataSecurityConfiguration> = new InjectionToken<MetadataSecurityConfiguration>('securityConfig');
 
 export abstract class FieldParser {
 
@@ -62,7 +63,7 @@ export abstract class FieldParser {
     @Inject(CONFIG_DATA) protected configData: FormFieldModel,
     @Inject(INIT_FORM_VALUES) protected initFormValues: any,
     @Inject(PARSER_OPTIONS) protected parserOptions: ParserOptions,
-    @Inject(SECURITY_CONFIG) protected securityConfig: any = null,
+    @Inject(SECURITY_CONFIG) protected securityConfig: MetadataSecurityConfiguration = null,
     protected translate: TranslateService,
   ) {
   }
@@ -456,7 +457,7 @@ export abstract class FieldParser {
     // look to find security for metadata
     if (this.securityConfig && metadata) {
       if (this.securityConfig.metadataCustomSecurity) {
-        const metadataConfig = (this.securityConfig.metadataCustomSecurity as any)[metadata];
+        const metadataConfig = this.securityConfig.metadataCustomSecurity[metadata];
         if (metadataConfig) {
           return metadataConfig;
         } else {

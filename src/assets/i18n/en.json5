@@ -5237,6 +5237,8 @@
 
   "submission.edit.title": "Edit Submission",
 
+  "submission.edit.item.breadcrumbs": "Edit item",
+
   "submission.general.cancel": "Cancel",
 
   "submission.general.cannot_submit": "You don't have permission to make a new submission.",
