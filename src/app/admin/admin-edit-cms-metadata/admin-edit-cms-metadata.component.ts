@@ -21,6 +21,7 @@ import { environment } from '../../../environments/environment';
 import { SiteDataService } from '../../core/data/site-data.service';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { Site } from '../../core/shared/site.model';
+import { AlertComponent } from '../../shared/alert/alert.component';
 
 /**
  * Component representing the page to edit cms metadata for site.
@@ -30,6 +31,7 @@ import { Site } from '../../core/shared/site.model';
   templateUrl: './admin-edit-cms-metadata.component.html',
   styleUrls: ['./admin-edit-cms-metadata.component.scss'],
   imports: [
+    AlertComponent,
     AsyncPipe,
     BtnDisabledDirective,
     FormsModule,

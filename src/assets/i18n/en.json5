@@ -7508,6 +7508,8 @@
 
   "admin.edit-user-agreement.markdown": "<i>End User Agreement</i> text supports <a href=\"https://www.markdownguide.org/basic-syntax/\" target=\"_blank\">Markdown</a> language.",
 
+  "admin.edit-cms-metadata.markdown": "<i>CMS Metadata</i> text supports <a href=\"https://www.markdownguide.org/basic-syntax/\" target=\"_blank\">Markdown</a> language.",
+
   "admin.edit-user-agreement.header": "Edit User Agreement",
 
   "admin.edit-user-agreement.success": "User agreement successfully updated",

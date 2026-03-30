@@ -6,6 +6,7 @@ import {
 } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
 import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
@@ -59,6 +60,7 @@ describe('AdminEditCmsMetadataComponent', () => {
       providers: [
         { provide: NotificationsService, useValue: NotificationsServiceStub },
         { provide: SiteDataService, useValue: siteServiceStub },
+        provideNoopAnimations(),
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();

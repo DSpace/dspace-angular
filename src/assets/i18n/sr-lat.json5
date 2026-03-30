@@ -12131,4 +12131,8 @@
   // "admin.edit-user-agreement.title": "Edit User Agreement"
   // TODO New key - Add a translation
   "admin.edit-user-agreement.title": "Edit User Agreement",
+
+  // "admin.edit-cms-metadata.markdown": "<i>CMS Metadata</i> text supports <a href=\"https://www.markdownguide.org/basic-syntax/\" target=\"_blank\">Markdown</a> language."
+  // TODO New key - Add a translation
+  "admin.edit-cms-metadata.markdown": "<i>CMS Metadata</i> text supports <a href=\"https://www.markdownguide.org/basic-syntax/\" target=\"_blank\">Markdown</a> language.",
 }
