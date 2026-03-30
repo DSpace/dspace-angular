@@ -1,5 +1,6 @@
 import {
   AsyncPipe,
+  KeyValuePipe,
   NgTemplateOutlet,
 } from '@angular/common';
 import {
@@ -32,6 +33,7 @@ import { Site } from '../../core/shared/site.model';
     AsyncPipe,
     BtnDisabledDirective,
     FormsModule,
+    KeyValuePipe,
     NgTemplateOutlet,
     TranslateModule,
   ],
@@ -49,10 +51,6 @@ export class AdminEditCmsMetadataComponent implements OnInit {
    * The map between language codes available and their label
    */
   languageMap: Map<string, string> = new Map();
-  /**
-   * The list of languages available
-   */
-  languageList: string[] = [];
   /**
    * key value pair map with language and value of metadata
    */
@@ -76,7 +74,6 @@ export class AdminEditCmsMetadataComponent implements OnInit {
   ngOnInit(): void {
     environment.languages.filter((language) => language.active).forEach((language) => {
       this.languageMap.set(language.code, language.label);
-      this.languageList.push(language.code);
     });
     environment.cms.metadataList.forEach((md) => {
       this.metadataList.push(md);
@@ -131,9 +128,9 @@ export class AdminEditCmsMetadataComponent implements OnInit {
    */
   editSelectedMetadata() {
     if (this.selectedMetadata) {
-      this.languageList.forEach((languageCode: string) => {
-        const text = this.site.firstMetadataValue(this.selectedMetadata, { language: languageCode });
-        this.selectedMetadataValues.set(languageCode, text);
+      this.languageMap.forEach((value: string, key: string) => {
+        const text = this.site.firstMetadataValue(this.selectedMetadata, { language: key });
+        this.selectedMetadataValues.set(key, text);
       });
     }
     this.editMode.next(true);
