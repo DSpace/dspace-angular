@@ -337,6 +337,8 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
         sectionData,
         this.submissionService.getSubmissionScope(),
         this.isSectionReadonly,
+        null,
+        false,
       );
       const sectionMetadata = this.sectionService.computeSectionConfiguredMetadata(this.formConfig);
       this.sectionService.updateSectionData(this.submissionId, this.sectionData.id, sectionData, errorsToShow, serverValidationErrors, sectionMetadata);

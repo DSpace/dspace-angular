@@ -50,7 +50,8 @@ export class ParserFactory {
           deps: [...fieldParserDeps],
         };
       }
-      case ParserType.RelationGroup: {
+      case ParserType.RelationGroup:
+      case ParserType.InlineGroup: {
         return {
           provide: FieldParser,
           useClass: RelationGroupFieldParser,
