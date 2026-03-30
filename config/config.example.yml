@@ -8,6 +8,9 @@ ui:
   ssl: false
   host: localhost
   port: 4000
+  # Specify the public URL that this user interface responds to. This corresponds to the "dspace.ui.url" property in your backend's local.cfg.
+  # SSR is only enabled when the client's "Host" HTTP header matches this baseUrl. The baseUrl is also used for redirects and SEO links (in robots.txt).
+  baseUrl: http://localhost:4000
   # NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
   nameSpace: /
   # The rateLimiter settings limit each IP to a 'limit' of 500 requests per 'windowMs' (1 minute).
@@ -161,6 +164,9 @@ form:
   validatorMap:
     required: required
     regex: pattern
+  # If true it enables the button "Duplicate" inside inline form groups.
+  # The button will give the possibility to duplicate the whole form section copying the metadata values as well.
+  showInlineGroupDuplicateButton: false
 
 # Notification settings
 notifications:
@@ -199,6 +205,10 @@ submission:
       # default configuration
       - name: default
         style: ''
+    # Icons that should remain visible even when no authority value is present for the metadata field.
+    # This is useful for fields where you want to display an icon regardless of whether the value has an authority link.
+    # Example: ['fas fa-user'] will show the user icon for author fields even without authority data.
+    iconsVisibleWithNoAuthority: ['fas fa-user']
     authority:
       confidence:
         # NOTE: example of configuration
@@ -237,7 +247,12 @@ submission:
         - value: default
           style: text-muted
           icon: fa-circle-xmark
-
+      # Icons to be displayed next to an authority controlled value, to give indication of the source.
+      sourceIcons:
+        # Example of configuration for authority logo based on sources.
+        # The configured icon will be displayed next to the authority value in submission and on item page or search results.
+        - source: orcid
+        - path: assets/images/orcid.logo.icon.svg
 #  Fallback language in which the UI will be rendered if the user's browser language is not an active language
 fallbackLanguage: en
 
@@ -397,7 +412,33 @@ item:
     pageSize: 5
     # Show the bitstream access status label on the item page
     showAccessStatuses: false
+  # Configuration of metadata to be displayed in the item metadata link view popover
+  metadataLinkViewPopoverData:
+    # Metdadata list to be displayed for entities without a specific configuration
+    fallbackMetdataList:
+      - dc.description.abstract
+      - dc.description.note
+    # Configuration for each entity type
+    entityDataConfig:
+      - entityType: Person
+        # Descriptive metadata (popover body)
+        metadataList:
+          - person.affiliation.name
+          - person.email
+        # Title metadata (popover header)
+        titleMetadataList:
+          - person.givenName
+          - person.familyName
+    # Configuration for identifier subtypes, based on metadata like dc.identifier.ror where ror is the subtype.
+    # This is used to map the layout of the identifier in the popover and the icon displayed next to the metadata value.
+    identifierSubtypes:
+      - name: ror
+        icon: assets/images/ror.logo.icon.svg
+        iconPosition: IdentifierSubtypesIconPositionEnum.LEFT
+        link: https://ror.org
 
+  # Enable authority based relations in item page
+  showAuthorityRelations: false
 # Community Page Config
 community:
   # Default tab to be shown when browsing a Community. Valid values are: comcols, search, or browse_<field>
@@ -645,3 +686,103 @@ geospatialMapViewer:
 accessibility:
   # The duration in days after which the accessibility settings cookie expires
   cookieExpirationDuration: 7
+
+# Configuration for layout customization of metadata rendering in Item page
+# Currently only the authority reference config is available, more will follow with the integration of the so called CRIS layout.
+layout:
+  # Configuration of icons and styles to be used for each authority controlled link
+  authorityRef:
+    - entityType: DEFAULT
+      entityStyle:
+        default:
+          icon: fa fa-user
+          style: text-info
+    - entityType: PERSON
+      entityStyle:
+        person:
+          icon: fa fa-user
+          style: text-success
+        default:
+          icon: fa fa-user
+          style: text-info
+    - entityType: ORGUNIT
+      entityStyle:
+        default:
+          icon: fa fa-university
+          style: text-success
+    - entityType: PROJECT
+      entityStyle:
+        default:
+          icon: fas fa-project-diagram
+          style: text-success
+  # If true the download link in item page will be rendered as an advanced attachment, the view can be then configured with the layout.advancedAttachmentRendering config
+  showDownloadLinkAsAttachment: false
+  # Configuration for advanced attachment rendering in item pages. This controls how files are displayed when showDownloadLinkAsAttachment is enabled.
+  # Defines which metadata/attributes to display for bitstream attachments.
+  advancedAttachmentRendering:
+    # Metadata and attributes to display for each attachment
+    metadata:
+      - name: dc.title
+        type: metadata
+        truncatable: false
+      - name: dc.type
+        type: metadata
+        truncatable: false
+      - name: dc.description
+        type: metadata
+        truncatable: true
+      - name: size
+        type: attribute
+      - name: format
+        type: attribute
+      - name: checksum
+        type: attribute
+
+# Configuration for customization of search results
+searchResults:
+  # Metadata fields to be displayed in the search results under the standard ones
+  additionalMetadataFields:
+    - dc.contributor.author
+    - dc.date.issued
+    - dc.type
+  # Metadata fields to be displayed in the search results for the author section
+  authorMetadata:
+    - dc.contributor.author
+    - dc.creator
+    - dc.contributor.*
+  # When the search results are retrieved, for each item type the metadata with a valid authority value are inspected.
+  # Referenced items will be fetched with a find all by id strategy to avoid individual rest requests
+  # to efficiently display the search results.
+  followAuthorityMetadata:
+    - type: Publication
+      metadata: dc.contributor.author
+    - type: Product
+      metadata: dc.contributor.author
+
+  # The maximum number of item to process when following authority metadata values.
+  followAuthorityMaxItemLimit: 100
+
+  # The maximum number of metadata values to process for each metadata key
+  # when following authority metadata values.
+  followAuthorityMetadataValuesLimit: 5
+
+
+# Configuration of social links using AddToAny plugin
+addToAnyPlugin:
+  # This is enabled flag
+  socialNetworksEnabled: false
+  # If you want to self-host check https://www.addtoany.com/buttons/customize/host_cache
+  scriptUrl: "https://static.addtoany.com/menu/page.js"
+  # Check available integrations, visit https://www.addtoany.com/buttons/for/website
+  # 1. Click "Choose Services", select integrations, then click Done
+  # 2. Get Button Code
+  # 3. You will get a HTML e.g. <a class="a2a_button_facebook"></a> where "facebook" is part you want to include in list
+  buttons:
+    - facebook
+    - twitter
+    - linkedin
+    - email
+    - copy_link
+  showPlusButton: true
+  showCounters: true
+  title: DSpace demo
