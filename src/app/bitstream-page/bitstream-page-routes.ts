@@ -15,6 +15,7 @@ import { bitstreamPageAuthorizationsGuard } from './bitstream-page-authorization
 import { ThemedEditBitstreamPageComponent } from './edit-bitstream-page/themed-edit-bitstream-page.component';
 import { legacyBitstreamURLRedirectGuard } from './legacy-bitstream-url-redirect.guard';
 import { ReplaceBitstreamPageComponent } from './replace-bitstream-page/replace-bitstream-page.component';
+import { replaceBitstreamPageGuard } from './replace-bitstream-page/replace-bitstream-page.guard';
 
 const EDIT_BITSTREAM_PATH = ':id/edit';
 const EDIT_BITSTREAM_AUTHORIZATIONS_PATH = ':id/authorizations';
@@ -61,7 +62,7 @@ export const ROUTES: Route[] = [
       bitstream: bitstreamPageResolver,
       breadcrumb: i18nBreadcrumbResolver,
     },
-    canActivate: [authenticatedGuard],
+    canActivate: [authenticatedGuard, replaceBitstreamPageGuard],
     data: {
       title: 'bitstream.replace.page.title',
       breadcrumbKey: 'bitstream.replace.page',

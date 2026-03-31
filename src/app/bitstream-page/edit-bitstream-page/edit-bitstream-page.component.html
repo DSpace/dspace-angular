@@ -25,12 +25,15 @@
               <div additional class="container py-3">
                 <p>
                   <a
-                    [routerLink]="['/bitstreams', bitstreamRD?.payload?.id, 'authorizations']">{{'bitstream.edit.authorizations.link' | translate}}</a>
+                    [routerLink]="['/bitstreams', bitstreamRD?.payload?.id, 'authorizations']">{{ 'bitstream.edit.authorizations.link' | translate }}</a>
                 </p>
-                <p>
-                  <a
-                    [routerLink]="['/bitstreams', bitstreamRD?.payload?.id, 'replace']">{{'bitstream.edit.replace.link' | translate}}</a>
-                </p>              </div>
+                @if (showReplaceButton$ | async) {
+                  <p>
+                    <a
+                      [routerLink]="['/bitstreams', bitstreamRD?.payload?.id, 'replace']">{{ 'bitstream.edit.replace.link' | translate }}</a>
+                  </p>
+                }
+              </div>
             </ds-form>
           }
         </div>

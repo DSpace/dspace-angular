@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 import { LinkService } from '@dspace/core/cache/builders/link.service';
 import { SubmissionFormsModel } from '@dspace/core/config/models/config-submission-forms.model';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
 import { JsonPatchOperationPathCombiner } from '@dspace/core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
 import { Bitstream } from '@dspace/core/shared/bitstream.model';
@@ -17,6 +18,7 @@ import { followLink } from '@dspace/core/shared/follow-link-config.model';
 import { Item } from '@dspace/core/shared/item.model';
 import {
   getAllSucceededRemoteData,
+  getFirstSucceededRemoteDataPayload,
   getRemoteDataPayload,
 } from '@dspace/core/shared/operators';
 import { WorkspaceitemSectionUploadFileObject } from '@dspace/core/submission/models/workspaceitem-section-upload-file.model';
@@ -33,6 +35,7 @@ import { DynamicFormControlModel } from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
+  combineLatest,
   Observable,
   Subscription,
 } from 'rxjs';
@@ -200,20 +203,19 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
    * Whether to display the replace file button
    * @protected
    */
-  protected shouldShowReplaceButton$ = new BehaviorSubject(false);
+  protected showReplaceButton$ = new BehaviorSubject(false);
 
   /**
    * Initialize instance variables
    *
-   * @param {ChangeDetectorRef} cdr
    * @param {FormService} formService
-   * @param {HALEndpointService} halService
    * @param {NgbModal} modalService
    * @param {JsonPatchOperationsBuilder} operationsBuilder
    * @param {SubmissionJsonPatchOperationsService} operationsService
    * @param {SubmissionService} submissionService
    * @param {SectionUploadService} uploadService
    * @param {LinkService} linkService
+   * @param {ConfigurationDataService} configurationService
    */
   constructor(
     private formService: FormService,
@@ -223,6 +225,7 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
     private submissionService: SubmissionService,
     private uploadService: SectionUploadService,
     private linkService: LinkService,
+    private configurationService: ConfigurationDataService,
   ) {
     this.readMode = true;
   }
@@ -253,16 +256,21 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
     this.processingSaveStatus$ = this.submissionService.getSubmissionSaveProcessingStatus(this.submissionId);
     this.pathCombiner = new JsonPatchOperationPathCombiner('sections', this.sectionId);
     this.loadFormMetadata();
-    this.subscriptions.push(this.submissionService.retrieveSubmission(this.submissionId)
-      .pipe(
+    this.subscriptions.push(combineLatest([
+      this.submissionService.retrieveSubmission(this.submissionId).pipe(
         getAllSucceededRemoteData(),
         map((submissionObjectRD) => Object.assign(new Item(), submissionObjectRD.payload?.item)),
         map((item: Item) => this.linkService.resolveLink(item, followLink('version'))),
         switchMap((item: Item) => item.version),
         getAllSucceededRemoteData(),
         getRemoteDataPayload(),
-        map((version) => hasValue(version)))
-      .subscribe((isVersioned: boolean) => this.shouldShowReplaceButton$.next(isVersioned)),
+        map((version) => hasValue(version)),
+      ),
+      this.configurationService.findByPropertyName('replace-bitstream.enabled').pipe(
+        getFirstSucceededRemoteDataPayload(),
+        map(payload => payload?.values.length > 0 && payload?.values[0] === 'true'),
+      ),
+    ]).subscribe(([isVersioned, replaceEnabled]) => this.showReplaceButton$.next(isVersioned && replaceEnabled)),
     );
   }
 

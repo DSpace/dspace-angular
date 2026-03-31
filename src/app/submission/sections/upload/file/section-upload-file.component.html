@@ -36,9 +36,8 @@
                   (click)="$event.preventDefault();editBitstreamData();">
             <i class="fa fa-edit fa-2x text-normal"></i>
           </button>
-          @if (shouldShowReplaceButton$ | async) {
-            <button
-                    class="btn btn-link-focus"
+          @if (showReplaceButton$ | async) {
+            <button class="btn btn-link-focus"
                     [attr.aria-label]="'bitstream.edit.replace.link' | translate"
                     title="{{ 'bitstream.edit.replace.link' | translate }}"
                     (click)="$event.preventDefault();replaceBitstream();">

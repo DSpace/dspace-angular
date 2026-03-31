@@ -14,10 +14,12 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { LinkService } from '@dspace/core/cache/builders/link.service';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
 import { JsonPatchOperationPathCombiner } from '@dspace/core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
 import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
 import { SubmissionJsonPatchOperationsService } from '@dspace/core/submission/submission-json-patch-operations.service';
+import { ConfigurationDataServiceStub } from '@dspace/core/testing/configuration-data.service.stub';
 import { HALEndpointServiceStub } from '@dspace/core/testing/hal-endpoint-service.stub';
 import { getMockLinkService } from '@dspace/core/testing/link-service.mock';
 import { getMockSectionUploadService } from '@dspace/core/testing/section-upload.service.mock';
@@ -118,6 +120,7 @@ describe('SubmissionSectionUploadFileComponent', () => {
         SubmissionSectionUploadFileComponent,
         SubmissionSectionUploadFileEditComponent,
         FormBuilderService,
+        { provide: ConfigurationDataService, useValue: new ConfigurationDataServiceStub() },
       ],
     })
       .overrideComponent(SubmissionSectionUploadFileComponent, {
