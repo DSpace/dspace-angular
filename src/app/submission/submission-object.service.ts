@@ -15,6 +15,7 @@ import { SubmissionObject } from '@dspace/core/submission/models/submission-obje
 import { SubmissionScopeType } from '@dspace/core/submission/submission-scope-type';
 import { WorkflowItemDataService } from '@dspace/core/submission/workflowitem-data.service';
 import { WorkspaceitemDataService } from '@dspace/core/submission/workspaceitem-data.service';
+import { Operation } from 'fast-json-patch';
 import {
   Observable,
   of,
@@ -69,6 +70,27 @@ export class SubmissionObjectService {
         return this.workspaceitemDataService.findById(id, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
       case SubmissionScopeType.WorkflowItem:
         return this.workflowItemDataService.findById(id, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+      default: {
+        const now = new Date().getTime();
+        return of(new RemoteData(
+          now,
+          this.appConfig.cache.msToLive.default,
+          now,
+          RequestEntryState.Error,
+          'The request could not be sent. Unable to determine the type of submission object',
+          undefined,
+          400,
+        ));
+      }
+    }
+  }
+
+  patch(object: SubmissionObject, operations: Operation[]): Observable<RemoteData<SubmissionObject>> {
+    switch (this.submissionService.getSubmissionScope()) {
+      case SubmissionScopeType.WorkspaceItem:
+        return this.workspaceitemDataService.patch(object, operations);
+      case SubmissionScopeType.WorkflowItem:
+        return this.workflowItemDataService.patch(object, operations);
       default: {
         const now = new Date().getTime();
         return of(new RemoteData(

@@ -235,6 +235,7 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
         { provide: APP_DATA_SERVICES_MAP, useValue: {} },
         { provide: DYNAMIC_FORM_CONTROL_MAP_FN, useValue: dsDynamicFormControlMapFn },
         { provide: LiveRegionService, useValue: getLiveRegionServiceStub() },
+        { provide: 'sectionDataProvider', useValue: { id: 'mock-section-id' } },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
