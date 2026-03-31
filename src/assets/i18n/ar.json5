@@ -5102,8 +5102,8 @@
   // "login.form.oidc": "Log in with OIDC",
   "login.form.oidc": "تسجيل الدخول باستخدام أوركيد",
 
-  // "login.form.orcid": "Log in with ORCID",
-  "login.form.orcid": "تسجيل الدخول باستخدام أوركيد",
+  // "login.form.orcid": "Sign in with ORCID",
+  "login.form.orcid": "سجّل الدخول باستخدام ORCID",
 
   // "login.form.password": "Password",
   "login.form.password": "كلمة المرور",

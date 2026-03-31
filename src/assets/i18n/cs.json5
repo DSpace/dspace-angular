@@ -5104,7 +5104,7 @@
   // "login.form.oidc": "Log in with OIDC",
   "login.form.oidc": "Přihlásit se pomocí OIDC",
 
-  // "login.form.orcid": "Log in with ORCID",
+  // "login.form.orcid": "Sign in with ORCID",
   "login.form.orcid": "Přihlásit se pomocí ORCID",
 
   // "login.form.password": "Password",

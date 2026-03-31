@@ -5219,7 +5219,7 @@
   // "login.form.oidc": "Log in with OIDC",
   "login.form.oidc": "Mit OIDC anmelden",
 
-  // "login.form.orcid": "Log in with ORCID",
+  // "login.form.orcid": "Sign in with ORCID",
   "login.form.orcid": "Mit ORCID anmelden",
 
   // "login.form.password": "Password",

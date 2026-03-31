@@ -5158,8 +5158,8 @@
   // "login.form.oidc": "Log in with OIDC",
   "login.form.oidc": "Connexion par OpenID",
 
-  // "login.form.orcid": "Log in with ORCID",
-  "login.form.orcid": "Se connecter via ORCID",
+  // "login.form.orcid": "Sign in with ORCID",
+  "login.form.orcid": "Se connecter avec ORCID",
 
   // "login.form.password": "Password",
   "login.form.password": "Mot de passe",

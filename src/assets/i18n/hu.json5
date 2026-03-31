@@ -5102,8 +5102,8 @@
   // "login.form.oidc": "Log in with OIDC",
   "login.form.oidc": "Bejelentkezés ORCID azonosítóval",
 
-  // "login.form.orcid": "Log in with ORCID",
-  "login.form.orcid": "Bejelentkezés ORCID azonosítóval",
+  // "login.form.orcid": "Sign in with ORCID",
+  "login.form.orcid": "Bejelentkezés ORCID-val",
 
   // "login.form.password": "Password",
   "login.form.password": "Jelszó",

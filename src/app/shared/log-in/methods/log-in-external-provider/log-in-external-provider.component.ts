@@ -58,6 +58,8 @@ export class LogInExternalProviderComponent implements OnInit {
    */
   public isAuthenticated: Observable<boolean>;
 
+  isOrcid: boolean;
+
   /**
    * @constructor
    * @param {AuthMethod} injectedAuthMethodModel
@@ -87,6 +89,12 @@ export class LogInExternalProviderComponent implements OnInit {
 
     // set location
     this.location = decodeURIComponent(this.injectedAuthMethodModel.location);
+
+    if (this.authMethod.authMethodType === 'orcid') {
+      this.isOrcid = true;
+    } else {
+      this.isOrcid = false;
+    }
 
   }
 

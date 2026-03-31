@@ -5150,8 +5150,8 @@
   // "login.form.oidc": "Log in with OIDC",
   "login.form.oidc": "Zaloguj za pomocą OIDC",
 
-  // "login.form.orcid": "Log in with ORCID",
-  "login.form.orcid": "Zaloguj za pomocą ORCID",
+  // "login.form.orcid": "Sign in with ORCID",
+  "login.form.orcid": "Zaloguj się za pomocą ORCID",
 
   // "login.form.password": "Password",
   "login.form.password": "Hasło",

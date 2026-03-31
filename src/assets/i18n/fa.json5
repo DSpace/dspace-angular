@@ -5762,7 +5762,7 @@
   // "login.form.oidc": "Log in with OIDC",
   "login.form.oidc": "ورود با OIDC",
 
-  // "login.form.orcid": "Log in with ORCID",
+  // "login.form.orcid": "Sign in with ORCID",
   "login.form.orcid": "ورود با ORCID",
 
   // "login.form.password": "Password",

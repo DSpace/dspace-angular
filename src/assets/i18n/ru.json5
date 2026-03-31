@@ -4802,8 +4802,8 @@
   // "login.form.oidc": "Log in with OIDC",
   "login.form.oidc": "Войти через OIDC",
 
-  // "login.form.orcid": "Log in with ORCID",
-  "login.form.orcid": "Войти через ORCID",
+  // "login.form.orcid": "Sign in with ORCID",
+  "login.form.orcid": "Войдите через ORCID",
 
   // "login.form.password": "Password",
   "login.form.password": "Пароль",

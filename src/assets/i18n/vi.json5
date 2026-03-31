@@ -5599,8 +5599,8 @@
   // "login.form.oidc": "Log in with OIDC",
   "login.form.oidc": "Đăng nhập với OIDC",
 
-  // "login.form.orcid": "Log in with ORCID",
-  "login.form.orcid": "Đăng nhập với ORCID",
+  // "login.form.orcid": "Sign in with ORCID",
+  "login.form.orcid": "Đăng nhập bằng ORCID",
 
   // "login.form.password": "Password",
   "login.form.password": "Mật khẩu",

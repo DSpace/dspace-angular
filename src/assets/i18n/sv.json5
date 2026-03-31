@@ -5808,9 +5808,8 @@
   // "login.form.oidc": "Log in with OIDC",
   "login.form.oidc": "Logga in med OIDC",
 
-  // "login.form.orcid": "Log in with ORCID",
-  // TODO New key - Add a translation
-  "login.form.orcid": "Log in with ORCID",
+  // "login.form.orcid": "Sign in with ORCID",
+  "login.form.orcid": "Logga in med ORCID",
 
   // "login.form.password": "Password",
   "login.form.password": "Lösenord",
