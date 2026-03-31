@@ -73,6 +73,7 @@ export class FooterComponent implements OnInit {
     this.showEndUserAgreement = this.appConfig.info.enableEndUserAgreement;
     this.coarLdnEnabled$ = this.appConfig.info.enableCOARNotifySupport ? this.notifyInfoService.isCoarConfigEnabled() : of(false);
     this.showSendFeedback$ = this.authorizationService.isAuthorized(FeatureID.CanSendFeedback);
+    this.showTopFooter = this.appConfig.homePage.showTopFooter;
 
     this.footerMetadataValue$ = combineLatest({
       site$: this.siteService.find().pipe(

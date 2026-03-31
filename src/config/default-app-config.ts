@@ -359,6 +359,7 @@ export class DefaultAppConfig implements AppConfig {
   };
 
   homePage: HomeConfig = {
+    showTopFooter: false,
     recentSubmissions: {
       //The number of item showing in recent submission components
       pageSize: 5,
