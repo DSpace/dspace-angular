@@ -267,6 +267,7 @@ export const environment: BuildConfig = {
     pageSize: 20,
   },
   homePage: {
+    showTopFooter: false,
     recentSubmissions: {
       pageSize: 5,
       //sort record of recent submission
