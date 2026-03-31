@@ -145,7 +145,7 @@ export class ReplaceBitstreamPageComponent implements OnInit {
   }
 
   protected setUploadUrlParameters(uploader?: UploaderComponent) {
-    this.uploadFilesOptions.url = new URLCombiner(this.uploadFilesUrlNoParam, `/replace?replaceName=${this.shouldReplaceName}`).toString();
+    this.uploadFilesOptions.url = new URLCombiner(this.uploadFilesUrlNoParam, `/content?replaceName=${this.shouldReplaceName}`).toString();
     if (hasValue(uploader?.uploader?.options)) {
       uploader.uploader.options.url = this.uploadFilesOptions.url;
     }
