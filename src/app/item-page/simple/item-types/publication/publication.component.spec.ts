@@ -18,6 +18,7 @@ import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-
 import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
 import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
 import { CommunityDataService } from '@dspace/core/data/community-data.service';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
 import { DefaultChangeAnalyzer } from '@dspace/core/data/default-change-analyzer.service';
 import { DSOChangeAnalyzer } from '@dspace/core/data/dso-change-analyzer.service';
 import { ItemDataService } from '@dspace/core/data/item-data.service';
@@ -35,6 +36,7 @@ import { MetadataMap } from '@dspace/core/shared/metadata.models';
 import { UUIDService } from '@dspace/core/shared/uuid.service';
 import { WorkspaceitemDataService } from '@dspace/core/submission/workspaceitem-data.service';
 import { BrowseDefinitionDataServiceStub } from '@dspace/core/testing/browse-definition-data-service.stub';
+import { ConfigurationDataServiceStub } from '@dspace/core/testing/configuration-data.service.stub';
 import { mockTruncatableService } from '@dspace/core/testing/mock-trucatable.service';
 import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import { createPaginatedList } from '@dspace/core/testing/utils.test';
@@ -95,6 +97,12 @@ describe('PublicationComponent', () => {
       getThumbnailFor(item: Item): Observable<RemoteData<Bitstream>> {
         return createSuccessfulRemoteDataObject$(new Bitstream());
       },
+      findPrimaryBitstreamByItemAndName(item: Item, bundleName: string, useCachedVersionIfAvailable: boolean, reRequestOnStale: boolean): Observable<Bitstream | null> {
+        return of(null);
+      },
+      findAllByItemAndBundleName(item: Item, bundleName: string, options: any, useCachedVersionIfAvailable: boolean, reRequestOnStale: boolean, ...linksToFollow: any[]): Observable<RemoteData<any>> {
+        return createSuccessfulRemoteDataObject$(createPaginatedList([]));
+      },
     };
     TestBed.configureTestingModule({
       imports: [
@@ -129,6 +137,7 @@ describe('PublicationComponent', () => {
         { provide: SearchService, useValue: {} },
         { provide: RouteService, useValue: mockRouteService },
         { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub },
+        { provide: ConfigurationDataService, useValue: new ConfigurationDataServiceStub() },
         { provide: APP_CONFIG, useValue: environment },
         { provide: APP_DATA_SERVICES_MAP, useValue: {}  },
       ],
@@ -270,4 +279,63 @@ describe('PublicationComponent', () => {
     }));
 
   });
+
+  describe('when showDownloadLinkAsAttachment is false', () => {
+    beforeEach(waitForAsync(() => {
+      TestBed.overrideComponent(PublicationComponent, {
+        add: { changeDetection: ChangeDetectionStrategy.Default },
+        remove: {
+          imports: [
+            ThemedFileSectionComponent,
+          ],
+        },
+      });
+      TestBed.compileComponents();
+      fixture = TestBed.createComponent(PublicationComponent);
+      comp = fixture.componentInstance;
+      comp.object = getItem(noMetadata);
+      comp.showDownloadLinkAsAttachment = false;
+      fixture.detectChanges();
+    }));
+
+    it('should display the file section component', () => {
+      const fileSectionElements = fixture.debugElement.queryAll(By.css('ds-item-page-file-section'));
+      expect(fileSectionElements.length).toBe(1);
+    });
+
+    it('should not display the attachment section component', () => {
+      const attachmentSectionElements = fixture.debugElement.queryAll(By.css('ds-item-page-attachment-section'));
+      expect(attachmentSectionElements.length).toBe(0);
+    });
+  });
+
+  describe('when showDownloadLinkAsAttachment is true', () => {
+    beforeEach(waitForAsync(() => {
+      TestBed.overrideComponent(PublicationComponent, {
+        add: { changeDetection: ChangeDetectionStrategy.Default },
+        remove: {
+          imports: [
+            ThemedFileSectionComponent,
+          ],
+        },
+      });
+      TestBed.compileComponents();
+      fixture = TestBed.createComponent(PublicationComponent);
+      comp = fixture.componentInstance;
+      comp.object = getItem(noMetadata);
+      comp.showDownloadLinkAsAttachment = true;
+      fixture.detectChanges();
+    }));
+
+    it('should display the attachment section component', () => {
+      const attachmentSectionElements = fixture.debugElement.queryAll(By.css('ds-item-page-attachment-section'));
+      expect(attachmentSectionElements.length).toBe(1);
+    });
+
+    it('should not display the file section component', () => {
+      const fileSectionElements = fixture.debugElement.queryAll(By.css('ds-item-page-file-section'));
+      expect(fileSectionElements.length).toBe(0);
+    });
+  });
+
 });

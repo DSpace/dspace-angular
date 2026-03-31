@@ -164,6 +164,9 @@ form:
   validatorMap:
     required: required
     regex: pattern
+  # If true it enables the button "Duplicate" inside inline form groups.
+  # The button will give the possibility to duplicate the whole form section copying the metadata values as well.
+  showInlineGroupDuplicateButton: false
 
 # Notification settings
 notifications:
@@ -202,6 +205,10 @@ submission:
       # default configuration
       - name: default
         style: ''
+    # Icons that should remain visible even when no authority value is present for the metadata field.
+    # This is useful for fields where you want to display an icon regardless of whether the value has an authority link.
+    # Example: ['fas fa-user'] will show the user icon for author fields even without authority data.
+    iconsVisibleWithNoAuthority: ['fas fa-user']
     authority:
       confidence:
         # NOTE: example of configuration
@@ -430,6 +437,8 @@ item:
         iconPosition: IdentifierSubtypesIconPositionEnum.LEFT
         link: https://ror.org
 
+  # Enable authority based relations in item page
+  showAuthorityRelations: false
 # Community Page Config
 community:
   # Default tab to be shown when browsing a Community. Valid values are: comcols, search, or browse_<field>
@@ -706,6 +715,28 @@ layout:
         default:
           icon: fas fa-project-diagram
           style: text-success
+  # If true the download link in item page will be rendered as an advanced attachment, the view can be then configured with the layout.advancedAttachmentRendering config
+  showDownloadLinkAsAttachment: false
+  # Configuration for advanced attachment rendering in item pages. This controls how files are displayed when showDownloadLinkAsAttachment is enabled.
+  # Defines which metadata/attributes to display for bitstream attachments.
+  advancedAttachmentRendering:
+    # Metadata and attributes to display for each attachment
+    metadata:
+      - name: dc.title
+        type: metadata
+        truncatable: false
+      - name: dc.type
+        type: metadata
+        truncatable: false
+      - name: dc.description
+        type: metadata
+        truncatable: true
+      - name: size
+        type: attribute
+      - name: format
+        type: attribute
+      - name: checksum
+        type: attribute
 
 # Configuration for customization of search results
 searchResults:
@@ -736,3 +767,22 @@ searchResults:
   followAuthorityMetadataValuesLimit: 5
 
 
+# Configuration of social links using AddToAny plugin
+addToAnyPlugin:
+  # This is enabled flag
+  socialNetworksEnabled: false
+  # If you want to self-host check https://www.addtoany.com/buttons/customize/host_cache
+  scriptUrl: "https://static.addtoany.com/menu/page.js"
+  # Check available integrations, visit https://www.addtoany.com/buttons/for/website
+  # 1. Click "Choose Services", select integrations, then click Done
+  # 2. Get Button Code
+  # 3. You will get a HTML e.g. <a class="a2a_button_facebook"></a> where "facebook" is part you want to include in list
+  buttons:
+    - facebook
+    - twitter
+    - linkedin
+    - email
+    - copy_link
+  showPlusButton: true
+  showCounters: true
+  title: DSpace demo

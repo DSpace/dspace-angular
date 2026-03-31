@@ -26,6 +26,7 @@ import {
   isNotNull,
   isNotUndefined,
   isNull,
+  isObjectEmpty,
 } from '@dspace/shared/utils/empty.util';
 import {
   DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
@@ -59,6 +60,7 @@ import {
   DynamicRelationGroupModel,
   DynamicRelationGroupModelConfig,
 } from './ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_SCROLLABLE_DROPDOWN } from './ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_TAG } from './ds-dynamic-form-ui/models/tag/dynamic-tag.model';
 import { RowParser } from './parsers/row-parser';
 
@@ -134,7 +136,7 @@ export class FormBuilderService extends DynamicFormService {
         }
 
         if (this.isConcatGroup(controlModel)) {
-          if (controlModel.id.match(new RegExp(findId + CONCAT_GROUP_SUFFIX))) {
+          if (controlModel.id.match(new RegExp(findId + CONCAT_GROUP_SUFFIX)) || controlModel.id.match(new RegExp(findId + CONCAT_GROUP_SUFFIX + `_\\d+$`))) {
             result = (controlModel as DynamicConcatModel);
             break;
           }
@@ -304,7 +306,7 @@ export class FormBuilderService extends DynamicFormService {
     if (rawData.rows && !isEmpty(rawData.rows)) {
       rawData.rows.forEach((currentRow) => {
         const rowParsed = this.rowParser.parse(submissionId, currentRow, scopeUUID, sectionData, submissionScope,
-          readOnly, this.getTypeField());
+          readOnly, this.getTypeField(), isInnerForm);
         if (isNotNull(rowParsed)) {
           if (Array.isArray(rowParsed)) {
             rows = rows.concat(rowParsed);
@@ -336,6 +338,10 @@ export class FormBuilderService extends DynamicFormService {
   hasMappedGroupValue(model: DynamicFormControlModel): boolean {
     return (this.isQualdropGroup((model as any).parent)
       || this.isRelationGroup((model as any).parent));
+  }
+
+  isScrollableDropdown(model: DynamicFormControlModel): boolean {
+    return model && (model.type === DYNAMIC_FORM_CONTROL_TYPE_SCROLLABLE_DROPDOWN);
   }
 
   isGroup(model: DynamicFormControlModel): boolean {
@@ -487,6 +493,7 @@ export class FormBuilderService extends DynamicFormService {
               const config: DynamicRelationGroupModelConfig = {
                 submissionId: fieldModel.submissionId,
                 formConfiguration: fieldModel.formConfiguration,
+                isInlineGroup: fieldModel.isInlineGroup,
                 mandatoryField: fieldModel.mandatoryField,
                 relationFields: fieldModel.relationFields,
                 scopeUUID: fieldModel.scopeUUID,
@@ -616,5 +623,30 @@ export class FormBuilderService extends DynamicFormService {
     }
     return this.typeField;
   }
+
+  /**
+   * Add new formbuilder in forma array by copying current formBuilder index
+   * @param index index of formBuilder selected to be copied
+   * @param formArray formArray of the inline group forms
+   * @param formArrayModel formArrayModel model of forms that will be created
+   */
+  copyFormArrayGroup(index: number, formArray: FormArray, formArrayModel: DynamicFormArrayModel) {
+
+    const groupModel = formArrayModel.insertGroup(index);
+    const previousGroup = formArray.controls[index] as UntypedFormGroup;
+    const newGroup = this.createFormGroup(groupModel.group, null, groupModel);
+    const previousKey = Object.keys(previousGroup.getRawValue())[0];
+    const newKey = Object.keys(newGroup.getRawValue())[0];
+    const rawValue = previousGroup.getRawValue()[previousKey];
+    if (!isObjectEmpty(rawValue)) {
+      newGroup.get(newKey).patchValue(rawValue);
+    }
+
+    formArray.insert(index, newGroup);
+
+    return newGroup;
+  }
+
+
 
 }
