@@ -84,7 +84,8 @@ describe('AdminEditCmsMetadataComponent', () => {
     });
 
     it('should show metadata cms list correctly', () => {
-      const metadataListLength = environment.cms.metadataList.length;
+      // Substract 1 because the top footer is not included in the list if it is not enabled (and it's not, by default)
+      const metadataListLength = environment.cms.metadataList.length - 1;
       const selectMetadata = fixture.debugElement.query(By.css('select'));
       expect(selectMetadata.children).toHaveSize(metadataListLength + 1);
     });

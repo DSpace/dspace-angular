@@ -78,6 +78,10 @@ export class AdminEditCmsMetadataComponent implements OnInit {
       this.languageMap.set(language.code, language.label);
     });
     environment.cms.metadataList.forEach((md) => {
+      // Do not allow the user to edit the top footer if it is not enabled
+      if (md === 'dspace.cms.footer' && !environment.homePage.showTopFooter) {
+        return;
+      }
       this.metadataList.push(md);
     });
     this.siteService.find().subscribe((site) => {
