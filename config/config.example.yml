@@ -387,6 +387,8 @@ communityList:
   pageSize: 20
 
 homePage:
+  # Whether to show the top footer section or not
+  showTopFooter: false
   recentSubmissions:
     # The number of item showing in recent submission components
     pageSize: 5
