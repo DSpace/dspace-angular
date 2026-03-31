@@ -21,6 +21,8 @@ import { CurationMenuProvider } from './shared/menu/providers/curation.menu';
 import { DSpaceObjectEditMenuProvider } from './shared/menu/providers/dso-edit.menu';
 import { DsoOptionMenuProvider } from './shared/menu/providers/dso-option.menu';
 import { EditMenuProvider } from './shared/menu/providers/edit.menu';
+import { EditCMSMetadataMenuProvider } from './shared/menu/providers/edit-cms-metadata.menu';
+import { EditUserAgreementMenuProvider } from './shared/menu/providers/edit-user-agreement.menu';
 import { ExportMenuProvider } from './shared/menu/providers/export.menu';
 import { HealthMenuProvider } from './shared/menu/providers/health.menu';
 import { ImportMenuProvider } from './shared/menu/providers/import.menu';
@@ -75,6 +77,8 @@ export const MENUS = buildMenuStructure({
     SystemWideAlertMenuProvider,
     CoarNotifyMenuProvider,
     AuditOverviewMenuProvider,
+    EditCMSMetadataMenuProvider,
+    EditUserAgreementMenuProvider,
   ],
   [MenuID.DSO_EDIT]: [
     DsoOptionMenuProvider.withSubs([

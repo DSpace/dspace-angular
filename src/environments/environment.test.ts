@@ -268,6 +268,7 @@ export const environment: BuildConfig = {
     pageSize: 20,
   },
   homePage: {
+    showTopFooter: false,
     recentSubmissions: {
       pageSize: 5,
       //sort record of recent submission
@@ -609,5 +610,13 @@ export const environment: BuildConfig = {
     showPlusButton: true,
     showCounters: true,
     title: 'DSpace demo',
+  },
+
+  cms: {
+    metadataList: [
+      'dspace.cms.home-header',
+      'dspace.cms.home-news',
+      'dspace.cms.footer',
+    ],
   },
 };

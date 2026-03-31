@@ -11,6 +11,7 @@ import { AuthConfig } from './auth-config.interfaces';
 import { BrowseByConfig } from './browse-by-config.interface';
 import { BundleConfig } from './bundle-config.interface';
 import { CacheConfig } from './cache-config.interface';
+import { CmsMetadata } from './cms-metadata';
 import { CollectionPageConfig } from './collection-page-config.interface';
 import { CommunityListConfig } from './community-list-config.interface';
 import { CommunityPageConfig } from './community-page-config.interface';
@@ -359,6 +360,7 @@ export class DefaultAppConfig implements AppConfig {
   };
 
   homePage: HomeConfig = {
+    showTopFooter: false,
     recentSubmissions: {
       //The number of item showing in recent submission components
       pageSize: 5,
@@ -834,5 +836,13 @@ export class DefaultAppConfig implements AppConfig {
     showPlusButton: true,
     showCounters: true,
     title: 'DSpace demo',
+  };
+
+  cms: CmsMetadata = {
+    metadataList: [
+      'dspace.cms.home-header',
+      'dspace.cms.home-news',
+      'dspace.cms.footer',
+    ],
   };
 }
