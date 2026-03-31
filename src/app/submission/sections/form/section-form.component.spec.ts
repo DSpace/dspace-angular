@@ -16,6 +16,10 @@ import {
 } from '@angular/forms';
 import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
 import { FormRowModel } from '@dspace/core/config/models/config-submission-form.model';
+import {
+  SubmissionVisibilityType,
+  SubmissionVisibilityValue,
+} from '@dspace/core/config/models/config-submission-section.model';
 import { SubmissionFormsConfigDataService } from '@dspace/core/config/submission-forms-config-data.service';
 import { RequestService } from '@dspace/core/data/request.service';
 import { JsonPatchOperationPathCombiner } from '@dspace/core/json-patch/builder/json-patch-operation-path-combiner';
@@ -26,6 +30,7 @@ import { SubmissionSectionError } from '@dspace/core/submission/models/submissio
 import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
 import { WorkspaceItem } from '@dspace/core/submission/models/workspaceitem.model';
 import { SectionsType } from '@dspace/core/submission/sections-type';
+import { SubmissionScopeType } from '@dspace/core/submission/submission-scope-type';
 import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
 import { SectionsServiceStub } from '@dspace/core/testing/sections-service.stub';
 import { SubmissionServiceStub } from '@dspace/core/testing/submission-service.stub';
@@ -78,12 +83,14 @@ function getMockSubmissionFormsConfigService(): SubmissionFormsConfigDataService
 const sectionObject: SectionDataObject = {
   config: 'https://dspace7.4science.it/or2018/api/config/submissionforms/traditionalpageone',
   mandatory: true,
+  opened: true,
   data: {},
   errorsToShow: [],
   serverValidationErrors: [],
   header: 'submit.progressbar.describe.stepone',
   id: 'traditionalpageone',
   sectionType: SectionsType.SubmissionForm,
+  sectionVisibility: null,
 };
 
 const testFormConfiguration = {
@@ -360,7 +367,9 @@ describe('SubmissionSectionFormComponent test suite', () => {
               fields: [
                 {
                   selectableMetadata: [{ metadata: 'scoped.workflow' }],
-                  scope: 'WORKFLOW',
+                  visibility: {
+                    [SubmissionScopeType.WorkspaceItem]: SubmissionVisibilityValue.Hidden,
+                  } as SubmissionVisibilityType,
                 } as FormFieldModel,
               ],
             },
@@ -368,7 +377,9 @@ describe('SubmissionSectionFormComponent test suite', () => {
               fields: [
                 {
                   selectableMetadata: [{ metadata: 'scoped.workspace' }],
-                  scope: 'WORKSPACE',
+                  visibility: {
+                    [SubmissionScopeType.WorkflowItem]: SubmissionVisibilityValue.Hidden,
+                  } as SubmissionVisibilityType,
                 } as FormFieldModel,
               ],
             },
@@ -376,7 +387,9 @@ describe('SubmissionSectionFormComponent test suite', () => {
               fields: [
                 {
                   selectableMetadata: [{ metadata: 'scoped.workflow.relation' }],
-                  scope: 'WORKFLOW',
+                  visibility: {
+                    [SubmissionScopeType.WorkspaceItem]: SubmissionVisibilityValue.Hidden,
+                  } as SubmissionVisibilityType,
                 } as FormFieldModel,
               ],
             },
@@ -384,7 +397,9 @@ describe('SubmissionSectionFormComponent test suite', () => {
               fields: [
                 {
                   selectableMetadata: [{ metadata: 'scoped.workspace.relation' }],
-                  scope: 'WORKSPACE',
+                  visibility: {
+                    [SubmissionScopeType.WorkflowItem]: SubmissionVisibilityValue.Hidden,
+                  } as SubmissionVisibilityType,
                 } as FormFieldModel,
               ],
             },
@@ -403,6 +418,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
         beforeEach(() => {
           // @ts-ignore
           comp.submissionObject = { type: WorkspaceItem.type.value };
+          submissionServiceStub.getSubmissionScope.and.returnValue(SubmissionScopeType.WorkspaceItem);
         });
 
         it('should return true for unscoped fields', () => {
@@ -430,6 +446,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
         beforeEach(() => {
           // @ts-ignore
           comp.submissionObject = { type: WorkflowItem.type.value };
+          submissionServiceStub.getSubmissionScope.and.returnValue(SubmissionScopeType.WorkflowItem);
         });
 
         it('should return true when field is unscoped', () => {

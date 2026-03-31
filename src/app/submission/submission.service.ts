@@ -15,7 +15,6 @@ import { RouteService } from '@dspace/core/services/route.service';
 import { Item } from '@dspace/core/shared/item.model';
 import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
 import { MetadataSecurityConfiguration } from '@dspace/core/submission/models/metadata-security-configuration';
-import { SectionScope } from '@dspace/core/submission/models/section-visibility.model';
 import { SubmissionError } from '@dspace/core/submission/models/submission-error.model';
 import { SubmissionObject } from '@dspace/core/submission/models/submission-object.model';
 import { SubmissionSectionObject } from '@dspace/core/submission/models/submission-section-object.model';
@@ -87,6 +86,7 @@ import {
   submissionSelector,
   SubmissionState,
 } from './submission.reducers';
+import { SubmissionVisibility } from './utils/visibility.util';
 
 function getSubmissionSelector(submissionId: string):  MemoizedSelector<SubmissionState, SubmissionObjectEntry> {
   return createSelector(
@@ -433,12 +433,14 @@ export class SubmissionService {
             const sectionObject: SectionDataObject = Object.create({});
             sectionObject.config = sections[sectionId].config;
             sectionObject.mandatory = sections[sectionId].mandatory;
+            sectionObject.opened = sections[sectionId].opened;
             sectionObject.data = sections[sectionId].data;
             sectionObject.errorsToShow = sections[sectionId].errorsToShow;
             sectionObject.serverValidationErrors = sections[sectionId].serverValidationErrors;
             sectionObject.header = sections[sectionId].header;
             sectionObject.id = sectionId;
             sectionObject.sectionType = sections[sectionId].sectionType;
+            sectionObject.sectionVisibility = sections[sectionId].visibility;
             availableSections.push(sectionObject);
           });
         return availableSections;
@@ -596,16 +598,9 @@ export class SubmissionService {
    * @return boolean
    *    true if section is hidden, false otherwise
    */
-  isSectionHidden(sectionData: SubmissionSectionObject): boolean {
-    const submissionScope: SubmissionScopeType = this.getSubmissionScope();
-    if (isEmpty(submissionScope) || isEmpty(sectionData.visibility) || isEmpty(sectionData.scope)) {
-      return false;
-    }
-    const convertedSubmissionScope: SectionScope = submissionScope.valueOf() === SubmissionScopeType.WorkspaceItem.valueOf() ?
-      SectionScope.Submission : SectionScope.Workflow;
-    const visibility = convertedSubmissionScope.valueOf() === sectionData.scope.valueOf() ?
-      sectionData.visibility.main : sectionData.visibility.other;
-    return visibility ===  'HIDDEN';
+  private isSectionHidden(sectionData: SubmissionSectionObject): boolean {
+    const scope = this.getSubmissionScope();
+    return SubmissionVisibility.isHidden(sectionData.visibility, scope);
   }
 
   /**
@@ -728,8 +723,8 @@ export class SubmissionService {
    * @return Observable<RemoteData<SubmissionObject>>
    *    observable of RemoteData<SubmissionObject>
    */
-  retrieveSubmission(submissionId, projections: string[] = []): Observable<RemoteData<SubmissionObject>> {
-    return this.restService.getDataById(this.getSubmissionObjectLinkName(), submissionId, false, projections).pipe(
+  retrieveSubmission(submissionId, projections: string[] = [], isEditMode = false): Observable<RemoteData<SubmissionObject>> {
+    return this.restService.getDataById(this.getSubmissionObjectLinkName(), submissionId, false, projections, isEditMode).pipe(
       find((submissionObjects: SubmissionObject[]) => isNotUndefined(submissionObjects)),
       map((submissionObjects: SubmissionObject[]) => createSuccessfulRemoteDataObject(
         submissionObjects[0])),

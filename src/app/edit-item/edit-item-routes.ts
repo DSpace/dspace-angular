@@ -1,4 +1,5 @@
 import { Route } from '@angular/router';
+import { editItemBreadcrumbResolver } from '@dspace/core/breadcrumbs/edit-item-breadcrumb.resolver';
 import { i18nBreadcrumbResolver } from '@dspace/core/breadcrumbs/i18n-breadcrumb.resolver';
 
 import { authenticatedGuard } from '../core/auth/authenticated.guard';
@@ -9,6 +10,9 @@ export const ROUTES: Route[] = [
   {
     path: ':id',
     runGuardsAndResolvers: 'always',
+    resolve: {
+      breadcrumb: editItemBreadcrumbResolver,
+    },
     children: [
       {
         path: '',

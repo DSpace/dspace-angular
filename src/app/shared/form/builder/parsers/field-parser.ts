@@ -2,15 +2,13 @@ import {
   Inject,
   InjectionToken,
 } from '@angular/core';
+import { SubmissionVisibilityType } from '@dspace/core/config/models/config-submission-section.model';
 import { FormFieldModel } from '@dspace/core/shared/form/models/form-field.model';
 import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
 import { MetadataValue } from '@dspace/core/shared/metadata.models';
 import { Metadata } from '@dspace/core/shared/metadata.utils';
 import { RelationshipOptions } from '@dspace/core/shared/relationship-options.model';
 import { MetadataSecurityConfiguration } from '@dspace/core/submission/models/metadata-security-configuration';
-import { SectionVisibility } from '@dspace/core/submission/models/section-visibility.model';
-import { SubmissionScopeType } from '@dspace/core/submission/submission-scope-type';
-import { VisibilityType } from '@dspace/core/submission/visibility-type';
 import { VocabularyOptions } from '@dspace/core/submission/vocabularies/models/vocabulary-options.model';
 import { isNgbDateStruct } from '@dspace/shared/utils/date.util';
 import {
@@ -23,6 +21,7 @@ import {
 import { DynamicFormControlLayout } from '@ng-dynamic-forms/core';
 import { TranslateService } from '@ngx-translate/core';
 import uniqueId from 'lodash/uniqueId';
+import { SubmissionVisibility } from 'src/app/submission/utils/visibility.util';
 
 import {
   DsDynamicInputModel,
@@ -324,7 +323,8 @@ export abstract class FieldParser {
     controlModel.id = (this.fieldId).replace(/\./g, '_');
 
     // Set read only option
-    controlModel.readOnly = this.parserOptions.readOnly || this.isFieldReadOnly(this.configData.visibility, this.configData.scope, this.parserOptions.submissionScope);
+    controlModel.readOnly = this.parserOptions.readOnly
+      || this.isFieldReadOnly(this.configData.visibility, this.parserOptions.submissionScope);
     controlModel.disabled = controlModel.readOnly;
     controlModel.isModelOfInnerForm = this.parserOptions.isInnerForm;
     if (hasValue(this.configData.selectableRelationship)) {
@@ -372,19 +372,8 @@ export abstract class FieldParser {
    * @param visibility
    * @param submissionScope
    */
-  private isFieldReadOnly(visibility: SectionVisibility, fieldScope: string, submissionScope: string) {
-    return isNotEmpty(submissionScope)
-      && isNotEmpty(fieldScope)
-      && isNotEmpty(visibility)
-      && ((
-        submissionScope === SubmissionScopeType.WorkspaceItem.valueOf()
-          && visibility.main === VisibilityType.READONLY
-      )
-        ||
-          (visibility.other === VisibilityType.READONLY
-          && submissionScope === SubmissionScopeType.WorkflowItem.valueOf()
-          )
-      );
+  private isFieldReadOnly(visibility: SubmissionVisibilityType, submissionScope) {
+    return isNotEmpty(submissionScope) && SubmissionVisibility.isReadOnly(visibility, submissionScope);
   }
 
   protected hasRegex() {

@@ -9,19 +9,20 @@ import {
 } from '@angular/core';
 import { AuthService } from '@dspace/core/auth/auth.service';
 import { SubmissionDefinitionsModel } from '@dspace/core/config/models/config-submission-definitions.model';
-import { SubmissionSectionModel } from '@dspace/core/config/models/config-submission-section.model';
+import {
+  SubmissionSectionModel,
+  SubmissionVisibilityType,
+} from '@dspace/core/config/models/config-submission-section.model';
 import { Collection } from '@dspace/core/shared/collection.model';
 import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
 import { Item } from '@dspace/core/shared/item.model';
 import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
 import { MetadataSecurityConfigurationService } from '@dspace/core/submission/metadatasecurityconfig-data.service';
 import { MetadataSecurityConfiguration } from '@dspace/core/submission/models/metadata-security-configuration';
-import { SectionVisibility } from '@dspace/core/submission/models/section-visibility.model';
 import { SubmissionError } from '@dspace/core/submission/models/submission-error.model';
 import { SubmissionObject } from '@dspace/core/submission/models/submission-object.model';
 import { WorkspaceitemSectionsObject } from '@dspace/core/submission/models/workspaceitem-sections.model';
 import { SectionsType } from '@dspace/core/submission/sections-type';
-import { VisibilityType } from '@dspace/core/submission/visibility-type';
 import {
   hasValue,
   isNotEmpty,
@@ -30,6 +31,7 @@ import {
 import { TranslatePipe } from '@ngx-translate/core';
 import isEqual from 'lodash/isEqual';
 import {
+  combineLatest,
   Observable,
   of,
   Subscription,
@@ -48,6 +50,7 @@ import { ThemedSubmissionSectionContainerComponent } from '../sections/container
 import { SectionDataObject } from '../sections/models/section-data.model';
 import { SectionsService } from '../sections/sections.service';
 import { SubmissionService } from '../submission.service';
+import { SubmissionVisibility } from '../utils/visibility.util';
 import { SubmissionFormCollectionComponent } from './collection/submission-form-collection.component';
 import { ThemedSubmissionFormFooterComponent } from './footer/themed-submission-form-footer.component';
 import { SubmissionFormSectionAddComponent } from './section-add/submission-form-section-add.component';
@@ -209,7 +212,15 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
             return of([]);
           }
         }));
-      this.uploadEnabled$ = this.sectionsService.isSectionTypeAvailable(this.submissionId, SectionsType.Upload);
+      const isAvailable$ = this.sectionsService.isSectionTypeAvailable(this.submissionId, SectionsType.Upload);
+      const isReadOnly$ = this.sectionsService.isSectionReadOnlyByType(
+        this.submissionId,
+        SectionsType.Upload,
+        this.submissionService.getSubmissionScope(),
+      );
+      this.uploadEnabled$ = combineLatest([isAvailable$, isReadOnly$]).pipe(
+        map(([isAvailable, isReadOnly]: [boolean, boolean]) => isAvailable && !isReadOnly),
+      );
 
       // check if is submission loading
       this.isLoading$ = this.submissionService.getSubmissionObject(this.submissionId).pipe(
@@ -249,13 +260,13 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
   /**
    *  Returns the visibility object of the collection section
    */
-  private getCollectionVisibility(): SectionVisibility {
+  private getCollectionVisibility(): SubmissionVisibilityType {
     const submissionSectionModel: SubmissionSectionModel =
       this.submissionDefinition.sections.page.find(
         (section) => isEqual(section.sectionType, SectionsType.Collection),
       );
 
-    return isNotUndefined(submissionSectionModel.visibility) ? submissionSectionModel.visibility : null;
+    return (hasValue(submissionSectionModel) && isNotUndefined(submissionSectionModel.visibility)) ? submissionSectionModel.visibility : null;
   }
 
   /**
@@ -263,11 +274,7 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
    */
   get isSectionHidden(): boolean {
     const visibility = this.getCollectionVisibility();
-    return (
-      hasValue(visibility) &&
-      isEqual(visibility.main, VisibilityType.HIDDEN) &&
-      isEqual(visibility.other, VisibilityType.HIDDEN)
-    );
+    return SubmissionVisibility.isHidden(visibility, this.submissionService.getSubmissionScope());
   }
 
   /**
@@ -275,11 +282,7 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
    */
   get isSectionReadonly(): boolean {
     const visibility = this.getCollectionVisibility();
-    return (
-      hasValue(visibility) &&
-      isEqual(visibility.main, VisibilityType.READONLY) &&
-      isEqual(visibility.other, VisibilityType.READONLY)
-    );
+    return SubmissionVisibility.isReadOnly(visibility, this.submissionService.getSubmissionScope());
   }
 
   /**

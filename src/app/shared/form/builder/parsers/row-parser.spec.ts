@@ -1,5 +1,9 @@
 import { Injector } from '@angular/core';
 import { FormRowModel } from '@dspace/core/config/models/config-submission-form.model';
+import {
+  SubmissionVisibilityType,
+  SubmissionVisibilityValue,
+} from '@dspace/core/config/models/config-submission-section.model';
 import { FormFieldModel } from '@dspace/core/shared/form/models/form-field.model';
 import { SubmissionScopeType } from '@dspace/core/submission/submission-scope-type';
 import { getMockTranslateService } from '@dspace/core/testing/translate.service.mock';
@@ -128,7 +132,9 @@ describe('RowParser test suite', () => {
           mandatory: 'false',
           repeatable: false,
           hints: 'Enter the name of the events, if any.',
-          scope: SubmissionScopeType.WorkflowItem,
+          visibility: {
+            submission: SubmissionVisibilityValue.Hidden,
+          } as SubmissionVisibilityType,
           selectableMetadata: [
             {
               metadata: 'otherTitle',

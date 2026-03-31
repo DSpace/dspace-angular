@@ -1,12 +1,9 @@
 /* eslint-disable max-classes-per-file */
 import { SubmissionDefinitionsModel } from '@dspace/core/config/models/config-submission-definitions.model';
+import { SubmissionVisibilityType } from '@dspace/core/config/models/config-submission-section.model';
 import { type } from '@dspace/core/ngrx/type';
 import { Item } from '@dspace/core/shared/item.model';
 import { MetadataSecurityConfiguration } from '@dspace/core/submission/models/metadata-security-configuration';
-import {
-  SectionScope,
-  SectionVisibility,
-} from '@dspace/core/submission/models/section-visibility.model';
 import { SubmissionError } from '@dspace/core/submission/models/submission-error.model';
 import { SubmissionObject } from '@dspace/core/submission/models/submission-object.model';
 import { SubmissionSectionError } from '@dspace/core/submission/models/submission-section-error.model';
@@ -126,9 +123,9 @@ export class InitSectionAction implements Action {
     header: string;
     config: string;
     mandatory: boolean;
-    scope: SectionScope;
+    opened: boolean;
     sectionType: SectionsType;
-    visibility: SectionVisibility;
+    visibility: SubmissionVisibilityType;
     enabled: boolean;
     data: WorkspaceitemSectionDataType;
     errors: SubmissionSectionError[];
@@ -148,8 +145,8 @@ export class InitSectionAction implements Action {
    *    the section's config
    * @param mandatory
    *    the section's mandatory
-   * @param scope
-   *    the section's scope
+   * @param opened
+   *    the section's opened
    * @param sectionType
    *    the section's type
    * @param visibility
@@ -167,14 +164,14 @@ export class InitSectionAction implements Action {
     header: string,
     config: string,
     mandatory: boolean,
-    scope: SectionScope,
+    opened: boolean,
     sectionType: SectionsType,
-    visibility: SectionVisibility,
+    visibility: SubmissionVisibilityType,
     enabled: boolean,
     data: WorkspaceitemSectionDataType,
     errors: SubmissionSectionError[],
     metadataSecurityConfiguration?: MetadataSecurityConfiguration) {
-    this.payload = { submissionId, sectionId, header, config, mandatory, scope, sectionType, visibility, enabled, data, errors };
+    this.payload = { submissionId, sectionId, header, config, mandatory, opened, sectionType, visibility, enabled, data, errors };
   }
 }
 

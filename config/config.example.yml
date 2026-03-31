@@ -431,7 +431,6 @@ item:
     # Metdadata list to be displayed for entities without a specific configuration
     fallbackMetdataList:
       - dc.description.abstract
-      - dc.description.note
     # Configuration for each entity type
     entityDataConfig:
       - entityType: Person

@@ -79,6 +79,12 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
   public collectionModifiable: boolean | null = null;
 
   /**
+   * Checks if the collection is a new submission or is and edit of an archived item
+   * @type {booelan}
+   */
+  public isEditMode: boolean | null = null;
+
+  /**
    * The entity type of the submission
    * @type {string}
    */
@@ -177,6 +183,7 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
   ngOnInit() {
 
     this.collectionModifiable = this.route.snapshot.data?.collectionModifiable ?? null;
+    this.isEditMode = this.route.snapshot.data?.editMode ?? null;
 
     this.subs.push(
       this.route.paramMap.pipe(
@@ -185,7 +192,7 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
         this.canDeactivate = res;
       }),
       this.route.paramMap.pipe(
-        switchMap((params: ParamMap) => this.submissionService.retrieveSubmission(params.get('id'), ['full','allLanguages']).pipe(
+        switchMap((params: ParamMap) => this.submissionService.retrieveSubmission(params.get('id'), ['full','allLanguages'], this.isEditMode).pipe(
           // NOTE new submission is retrieved on the browser side only, so get null on server side rendering
           filter((submissionObjectRD: RemoteData<SubmissionObject>) => isNotNull(submissionObjectRD)),
           mergeMap((submissionObjectRD: RemoteData<SubmissionObject>) => combineLatest([

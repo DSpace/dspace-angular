@@ -1,6 +1,7 @@
 import { Inject } from '@angular/core';
 import { FormFieldModel } from '@dspace/core/shared/form/models/form-field.model';
 import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
+import { MetadataSecurityConfiguration } from '@dspace/core/submission/models/metadata-security-configuration';
 import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import { DynamicFormControlLayout } from '@ng-dynamic-forms/core';
 import { TranslateService } from '@ngx-translate/core';
@@ -26,7 +27,7 @@ export class DropdownFieldParser extends FieldParser {
     @Inject(CONFIG_DATA) configData: FormFieldModel,
     @Inject(INIT_FORM_VALUES) initFormValues,
     @Inject(PARSER_OPTIONS) parserOptions: ParserOptions,
-    @Inject(SECURITY_CONFIG)  securityConfig: any = null,
+    @Inject(SECURITY_CONFIG)  securityConfig: MetadataSecurityConfiguration = null,
       translate: TranslateService,
   ) {
     super(submissionId, configData, initFormValues, parserOptions, securityConfig, translate);

@@ -10,10 +10,11 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { AuthService } from '@dspace/core/auth/auth.service';
+import { SubmissionVisibilityValue } from '@dspace/core/config/models/config-submission-section.model';
 import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
 import { Item } from '@dspace/core/shared/item.model';
 import { MetadataSecurityConfigurationService } from '@dspace/core/submission/metadatasecurityconfig-data.service';
-import { VisibilityType } from '@dspace/core/submission/visibility-type';
+import { SubmissionScopeType } from '@dspace/core/submission/submission-scope-type';
 import { AuthServiceStub } from '@dspace/core/testing/auth-service.stub';
 import { HALEndpointServiceStub } from '@dspace/core/testing/hal-endpoint-service.stub';
 import { SubmissionServiceStub } from '@dspace/core/testing/submission-service.stub';
@@ -36,6 +37,7 @@ import {
   mockSectionsList,
   mockSubmissionCollectionId,
   mockSubmissionDefinition,
+  mockSubmissionDefinitionWithHiddenCollection,
   mockSubmissionId,
   mockSubmissionObject,
   mockSubmissionObjectNew,
@@ -83,7 +85,13 @@ describe('SubmissionFormComponent', () => {
         { provide: HALEndpointService, useValue: new HALEndpointServiceStub('workspaceitems') },
         { provide: SubmissionService, useValue: submissionServiceStub },
         { provide: MetadataSecurityConfigurationService, useValue: metadataSecurityConfigDataService },
-        { provide: SectionsService, useValue: { isSectionTypeAvailable: () => of(true) } },
+        { provide: SectionsService, useValue:
+          {
+            isSectionTypeAvailable: () => of(true),
+            isSectionReadOnlyByType: () => of(true),
+            isSectionReadOnly: () => of(false),
+          },
+        },
         ChangeDetectorRef,
         SubmissionFormComponent,
       ],
@@ -135,6 +143,7 @@ describe('SubmissionFormComponent', () => {
       comp = fixture.componentInstance;
       compAsAny = comp;
       authServiceStub = TestBed.inject(AuthService as any);
+      submissionServiceStub.isSectionReadOnly.and.returnValue(of(false));
       submissionServiceStub.startAutoSave.calls.reset();
       submissionServiceStub.resetSubmissionObject.calls.reset();
       submissionServiceStub.dispatchInit.calls.reset();
@@ -201,23 +210,20 @@ describe('SubmissionFormComponent', () => {
       fixture.detectChanges();
       const result = compAsAny.getCollectionVisibility();
       expect(result).toEqual({
-        main: VisibilityType.HIDDEN,
-        other: VisibilityType.HIDDEN,
+        workflow: SubmissionVisibilityValue.Hidden,
       });
     });
 
     it('should return true if collection section visibility is hidden', () => {
-      comp.submissionDefinition = submissionDefinition;
+      submissionServiceStub.getSubmissionScope.and.returnValue(SubmissionScopeType.WorkflowItem);
+      comp.submissionDefinition = mockSubmissionDefinitionWithHiddenCollection;
       fixture.detectChanges();
       expect(comp.isSectionHidden).toBe(true);
     });
 
     it('should return false for isSectionReadonly when collection section visibility is not READONLY', () => {
-      const visibility = {
-        main: VisibilityType.READONLY,
-        other: VisibilityType.READONLY,
-      };
-      comp.submissionDefinition = Object.assign({}, submissionDefinition, { visibility: visibility });
+      submissionServiceStub.getSubmissionScope.and.returnValue(SubmissionScopeType.WorkspaceItem);
+      comp.submissionDefinition = submissionDefinition;
       fixture.detectChanges();
       expect(comp.isSectionReadonly).toBe(false);
     });

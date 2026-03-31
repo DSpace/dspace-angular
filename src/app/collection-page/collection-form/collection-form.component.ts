@@ -4,6 +4,7 @@ import {
   Component,
   Input,
   OnChanges,
+  OnDestroy,
   OnInit,
   SimpleChange,
   SimpleChanges,
@@ -23,6 +24,7 @@ import { MetadataValue } from '@dspace/core/shared/metadata.models';
 import { getFirstSucceededRemoteListPayload } from '@dspace/core/shared/operators';
 import {
   hasNoValue,
+  hasValue,
   isNotNull,
 } from '@dspace/shared/utils/empty.util';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -42,6 +44,7 @@ import {
   forkJoin,
   Observable,
   of,
+  Subscription,
 } from 'rxjs';
 
 import { ComColFormComponent } from '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component';
@@ -72,7 +75,7 @@ import {
     VarDirective,
   ],
 })
-export class CollectionFormComponent extends ComColFormComponent<Collection> implements OnInit, OnChanges {
+export class CollectionFormComponent extends ComColFormComponent<Collection> implements OnInit, OnChanges, OnDestroy {
   /**
    * @type {Collection} A new collection when a collection is being created, an existing Input collection when a collection is being edited
    */
@@ -102,6 +105,13 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
    * @type {DynamicFormControlModel[]}
    */
   formModel: DynamicFormControlModel[];
+
+  /**
+   * Subscription to unsubscribe on destroy
+   *
+   * @private
+   */
+  private initSubscription: Subscription;
 
   public constructor(protected formService: DynamicFormService,
                      protected translate: TranslateService,
@@ -134,6 +144,16 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
     }
   }
 
+  /**
+   * Clean up eventual subscription when component gets destroyed
+   */
+  ngOnDestroy() {
+    super.ngOnDestroy();
+    if (hasValue(this.initSubscription)) {
+      this.initSubscription.unsubscribe();
+    }
+  }
+
   initializeForm() {
     let currentRelationshipValue: MetadataValue[];
     let currentDefinitionValue: MetadataValue[];
@@ -155,7 +175,7 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
       );
 
     // retrieve all entity types and submission definitions to populate the dropdowns selection
-    forkJoin({
+    this.initSubscription = forkJoin({
       entityTypes: entities$,
       definitions: definitions$,
     }).subscribe(({ entityTypes, definitions }:  {entityTypes: ItemType[]; definitions: ConfigObject[]}) => {

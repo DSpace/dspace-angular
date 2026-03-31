@@ -1,6 +1,7 @@
 import { Inject } from '@angular/core';
 import { FormFieldModel } from '@dspace/core/shared/form/models/form-field.model';
 import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
+import { MetadataSecurityConfiguration } from '@dspace/core/submission/models/metadata-security-configuration';
 import {
   hasNoValue,
   hasValue,
@@ -36,7 +37,7 @@ export class ConcatFieldParser extends FieldParser {
     @Inject(CONFIG_DATA) configData: FormFieldModel,
     @Inject(INIT_FORM_VALUES) initFormValues,
     @Inject(PARSER_OPTIONS) parserOptions: ParserOptions,
-    @Inject(SECURITY_CONFIG) securityConfig: any,
+    @Inject(SECURITY_CONFIG) securityConfig: MetadataSecurityConfiguration,
     protected translate: TranslateService,
     protected separator: string,
     protected firstPlaceholder: string = null,

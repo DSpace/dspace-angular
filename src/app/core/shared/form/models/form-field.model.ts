@@ -1,7 +1,7 @@
+import { SubmissionVisibilityType } from '@dspace/core/config/models/config-submission-section.model';
 import { autoserialize } from 'cerialize';
 
 import { FormRowModel } from '../../../config/models/config-submission-form.model';
-import { SectionVisibility } from '../../../submission/models/section-visibility.model';
 import { RelationshipOptions } from '../../relationship-options.model';
 import { LanguageCode } from './form-field-language-value.model';
 
@@ -130,5 +130,10 @@ export class FormFieldModel {
    * The visibility object for this field
    */
   @autoserialize
-  visibility: SectionVisibility;
+  visibility: SubmissionVisibilityType;
+
+  /**
+   * The security config values
+   */
+  securityConfigLevel?: number[];
 }

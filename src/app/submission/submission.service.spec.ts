@@ -14,6 +14,7 @@ import {
   Router,
 } from '@angular/router';
 import { ErrorResponse } from '@dspace/core/cache/response.models';
+import { SubmissionVisibilityValue } from '@dspace/core/config/models/config-submission-section.model';
 import { ItemDataService } from '@dspace/core/data/item-data.service';
 import { RequestService } from '@dspace/core/data/request.service';
 import { RequestError } from '@dspace/core/data/request-error.model';
@@ -91,11 +92,11 @@ describe('SubmissionService test suite', () => {
           extraction: {
             config: '',
             mandatory: true,
-            scope: SectionScope.Submission,
+            opened: true,
             sectionType: 'utils',
             visibility: {
-              main: 'HIDDEN',
-              other: 'HIDDEN',
+              submission: SubmissionVisibilityValue.Hidden,
+              workflow: SubmissionVisibilityValue.Hidden,
             },
             collapsed: false,
             enabled: true,
@@ -108,11 +109,11 @@ describe('SubmissionService test suite', () => {
           collection: {
             config: '',
             mandatory: true,
-            scope: SectionScope.Submission,
+            opened: true,
             sectionType: 'collection',
             visibility: {
-              main: 'HIDDEN',
-              other: 'HIDDEN',
+              submission: SubmissionVisibilityValue.Hidden,
+              workflow: SubmissionVisibilityValue.Hidden,
             },
             collapsed: false,
             enabled: true,
@@ -126,6 +127,7 @@ describe('SubmissionService test suite', () => {
             header: 'submit.progressbar.describe.keyinformation',
             config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/keyinformation',
             mandatory: true,
+            opened: true,
             sectionType: 'submission-form',
             collapsed: false,
             enabled: true,
@@ -139,6 +141,7 @@ describe('SubmissionService test suite', () => {
             header: 'submit.progressbar.describe.indexing',
             config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/indexing',
             mandatory: false,
+            opened: true,
             sectionType: 'submission-form',
             collapsed: false,
             enabled: false,
@@ -152,6 +155,7 @@ describe('SubmissionService test suite', () => {
             header: 'submit.progressbar.describe.publicationchannel',
             config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/publicationchannel',
             mandatory: true,
+            opened: false,
             sectionType: 'submission-form',
             collapsed: false,
             enabled: true,
@@ -165,6 +169,7 @@ describe('SubmissionService test suite', () => {
             header: 'submit.progressbar.describe.acknowledgement',
             config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/acknowledgement',
             mandatory: false,
+            opened: true,
             sectionType: 'submission-form',
             collapsed: false,
             enabled: false,
@@ -178,6 +183,7 @@ describe('SubmissionService test suite', () => {
             header: 'submit.progressbar.describe.identifiers',
             config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/identifiers',
             mandatory: false,
+            opened: true,
             sectionType: 'submission-form',
             collapsed: false,
             enabled: false,
@@ -191,6 +197,7 @@ describe('SubmissionService test suite', () => {
             header: 'submit.progressbar.describe.references',
             config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/references',
             mandatory: false,
+            opened: true,
             sectionType: 'submission-form',
             collapsed: false,
             enabled: false,
@@ -204,6 +211,7 @@ describe('SubmissionService test suite', () => {
             header: 'submit.progressbar.upload',
             config: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload',
             mandatory: true,
+            opened: true,
             sectionType: 'upload',
             collapsed: false,
             enabled: true,
@@ -217,10 +225,10 @@ describe('SubmissionService test suite', () => {
             header: 'submit.progressbar.license',
             config: '',
             mandatory: true,
+            opened: true,
             sectionType: 'license',
             visibility: {
-              main: null,
-              other: 'READONLY',
+              workflow: SubmissionVisibilityValue.ReadOnly,
             },
             collapsed: false,
             enabled: true,
@@ -252,8 +260,8 @@ describe('SubmissionService test suite', () => {
             scope: SectionScope.Submission,
             sectionType: 'utils',
             visibility: {
-              main: 'HIDDEN',
-              other: 'HIDDEN',
+              submission: SubmissionVisibilityValue.Hidden,
+              workflow: SubmissionVisibilityValue.Hidden,
             },
             collapsed: false,
             enabled: true,
@@ -269,8 +277,8 @@ describe('SubmissionService test suite', () => {
             scope: SectionScope.Submission,
             sectionType: 'collection',
             visibility: {
-              main: 'HIDDEN',
-              other: 'HIDDEN',
+              submission: SubmissionVisibilityValue.Hidden,
+              workflow: SubmissionVisibilityValue.Hidden,
             },
             collapsed: false,
             enabled: true,
@@ -377,8 +385,7 @@ describe('SubmissionService test suite', () => {
             mandatory: true,
             sectionType: 'license',
             visibility: {
-              main: null,
-              other: 'READONLY',
+              workflow: SubmissionVisibilityValue.ReadOnly,
             },
             collapsed: false,
             enabled: true,
@@ -645,80 +652,98 @@ describe('SubmissionService test suite', () => {
               id: 'keyinformation',
               config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/keyinformation',
               mandatory: true,
+              opened: true,
               sectionType: 'submission-form',
               data: {},
               errorsToShow: [],
               serverValidationErrors: [],
+              sectionVisibility: undefined,
             },
             {
               header: 'submit.progressbar.describe.indexing',
               id: 'indexing',
               config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/indexing',
               mandatory: false,
+              opened: true,
               sectionType: 'submission-form',
               data: {},
               errorsToShow: [],
               serverValidationErrors: [],
+              sectionVisibility: undefined,
             },
             {
               header: 'submit.progressbar.describe.publicationchannel',
               id: 'publicationchannel',
               config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/publicationchannel',
               mandatory: true,
+              opened: false,
               sectionType: 'submission-form',
               data: {},
               errorsToShow: [],
               serverValidationErrors: [],
+              sectionVisibility: undefined,
             },
             {
               header: 'submit.progressbar.describe.acknowledgement',
               id: 'acknowledgement',
               config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/acknowledgement',
               mandatory: false,
+              opened: true,
               sectionType: 'submission-form',
               data: {},
               errorsToShow: [],
               serverValidationErrors: [],
+              sectionVisibility: undefined,
             },
             {
               header: 'submit.progressbar.describe.identifiers',
               id: 'identifiers',
               config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/identifiers',
               mandatory: false,
+              opened: true,
               sectionType: 'submission-form',
               data: {},
               errorsToShow: [],
               serverValidationErrors: [],
+              sectionVisibility: undefined,
             },
             {
               header: 'submit.progressbar.describe.references',
               id: 'references',
               config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/references',
               mandatory: false,
+              opened: true,
               sectionType: 'submission-form',
               data: {},
               errorsToShow: [],
               serverValidationErrors: [],
+              sectionVisibility: undefined,
             },
             {
               header: 'submit.progressbar.upload',
               id: 'upload',
               config: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload',
               mandatory: true,
+              opened: true,
               sectionType: 'upload',
               data: {},
               errorsToShow: [],
               serverValidationErrors: [],
+              sectionVisibility: undefined,
             },
             {
               header: 'submit.progressbar.license',
               id: 'license',
               config: '',
               mandatory: true,
+              opened: true,
               sectionType: 'license',
               data: {},
               errorsToShow: [],
               serverValidationErrors: [],
+              sectionVisibility: {
+                workflow: SubmissionVisibilityValue.ReadOnly,
+              },
             },
           ],
       });
@@ -860,207 +885,41 @@ describe('SubmissionService test suite', () => {
   });
 
   describe('isSectionHidden', () => {
-    describe('when submission scope is workspace', () => {
-      beforeEach(() => {
-        spyOn(service, 'getSubmissionScope').and.returnValue(SubmissionScopeType.WorkspaceItem);
-      });
+    it('should return true/false when section is hidden/visible', () => {
+      spyOn(service, 'getSubmissionScope').and.returnValue(SubmissionScopeType.WorkspaceItem);
+      let section: any = {
+        config: '',
+        header: '',
+        mandatory: true,
+        sectionType: 'collection' as any,
+        visibility: {
+          submission: SubmissionVisibilityValue.Hidden,
+        },
+        collapsed: false,
+        enabled: true,
+        data: {},
+        errorsToShow: [],
+        serverValidationErrors: [],
+        isLoading: false,
+        isValid: false,
+      };
+      expect((service as  any).isSectionHidden(section)).toBeTruthy();
 
-      describe('and section scope is workspace', () => {
-        it('should return true when visibility main is HIDDEN and visibility other is null', () => {
-          let section: any = {
-            scope: SectionScope.Submission,
-            visibility: {
-              main: 'HIDDEN',
-              other: null,
-            },
-          };
-          expect(service.isSectionHidden(section)).toBeTrue();
-        });
-        it('should return true when both visibility main and other are HIDDEN', () => {
-          let section: any = {
-            scope: SectionScope.Submission,
-            visibility: {
-              main: 'HIDDEN',
-              other: 'HIDDEN',
-            },
-          };
-          expect(service.isSectionHidden(section)).toBeTrue();
-        });
-        it('should return false when visibility main is null and visibility other is HIDDEN', () => {
-          let section: any = {
-            scope: SectionScope.Submission,
-            visibility: {
-              main: null,
-              other: 'HIDDEN',
-            },
-          };
-          expect(service.isSectionHidden(section)).toBeFalse();
-        });
-        it('should return false when visibility is null', () => {
-          let section: any = {
-            scope: SectionScope.Submission,
-            visibility: null,
-          };
-          expect(service.isSectionHidden(section)).toBeFalse();
-        });
-      });
-
-      describe('and section scope is workflow', () => {
-        it('should return false when visibility main is HIDDEN and visibility other is null', () => {
-          let section: any = {
-            scope: SectionScope.Workflow,
-            visibility: {
-              main: 'HIDDEN',
-              other: null,
-            },
-          };
-          expect(service.isSectionHidden(section)).toBeFalse();
-        });
-        it('should return true when both visibility main and other are HIDDEN', () => {
-          let section: any = {
-            scope: SectionScope.Workflow,
-            visibility: {
-              main: 'HIDDEN',
-              other: 'HIDDEN',
-            },
-          };
-          expect(service.isSectionHidden(section)).toBeTrue();
-        });
-        it('should return true when visibility main is null and visibility other is HIDDEN', () => {
-          let section: any = {
-            scope: SectionScope.Workflow,
-            visibility: {
-              main: null,
-              other: 'HIDDEN',
-            },
-          };
-          expect(service.isSectionHidden(section)).toBeTrue();
-        });
-        it('should return false when visibility is null', () => {
-          let section: any = {
-            scope: SectionScope.Workflow,
-            visibility: null,
-          };
-          expect(service.isSectionHidden(section)).toBeFalse();
-        });
-      });
-
-      describe('and section scope is null', () => {
-        it('should return false', () => {
-          let section: any = {
-            scope: null,
-            visibility: {
-              main: 'HIDDEN',
-              other: null,
-            },
-          };
-          expect(service.isSectionHidden(section)).toBeFalse();
-        });
-      });
-
+      section = {
+        header: 'submit.progressbar.describe.keyinformation',
+        config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/keyinformation',
+        mandatory: true,
+        sectionType: 'submission-form',
+        collapsed: false,
+        enabled: true,
+        data: {},
+        errorsToShow: [],
+        serverValidationErrors: [],
+        isLoading: false,
+        isValid: false,
+      };
+      expect((service as  any).isSectionHidden(section)).toBeFalsy();
     });
-
-    describe('when submission scope is workflow', () => {
-      beforeEach(() => {
-        spyOn(service, 'getSubmissionScope').and.returnValue(SubmissionScopeType.WorkflowItem);
-      });
-
-      describe('and section scope is workspace', () => {
-        it('should return false when visibility main is HIDDEN and visibility other is null', () => {
-          let section: any = {
-            scope: SectionScope.Submission,
-            visibility: {
-              main: 'HIDDEN',
-              other: null,
-            },
-          };
-          expect(service.isSectionHidden(section)).toBeFalse();
-        });
-        it('should return true when both visibility main and other are HIDDEN', () => {
-          let section: any = {
-            scope: SectionScope.Submission,
-            visibility: {
-              main: 'HIDDEN',
-              other: 'HIDDEN',
-            },
-          };
-          expect(service.isSectionHidden(section)).toBeTrue();
-        });
-        it('should return true when visibility main is null and visibility other is HIDDEN', () => {
-          let section: any = {
-            scope: SectionScope.Submission,
-            visibility: {
-              main: null,
-              other: 'HIDDEN',
-            },
-          };
-          expect(service.isSectionHidden(section)).toBeTrue();
-        });
-        it('should return false when visibility is null', () => {
-          let section: any = {
-            scope: SectionScope.Submission,
-            visibility: null,
-          };
-          expect(service.isSectionHidden(section)).toBeFalse();
-        });
-      });
-
-      describe('and section scope is workflow', () => {
-        it('should return true when visibility main is HIDDEN and visibility other is null', () => {
-          let section: any = {
-            scope: SectionScope.Workflow,
-            visibility: {
-              main: 'HIDDEN',
-              other: null,
-            },
-          };
-          expect(service.isSectionHidden(section)).toBeTrue();
-        });
-        it('should return true when both visibility main and other are HIDDEN', () => {
-          let section: any = {
-            scope: SectionScope.Workflow,
-            visibility: {
-              main: 'HIDDEN',
-              other: 'HIDDEN',
-            },
-          };
-          expect(service.isSectionHidden(section)).toBeTrue();
-        });
-        it('should return false when visibility main is null and visibility other is HIDDEN', () => {
-          let section: any = {
-            scope: SectionScope.Workflow,
-            visibility: {
-              main: null,
-              other: 'HIDDEN',
-            },
-          };
-          expect(service.isSectionHidden(section)).toBeFalse();
-        });
-        it('should return false when visibility is null', () => {
-          let section: any = {
-            scope: SectionScope.Workflow,
-            visibility: null,
-          };
-          expect(service.isSectionHidden(section)).toBeFalse();
-        });
-      });
-
-      describe('and section scope is null', () => {
-        it('should return false', () => {
-          let section: any = {
-            scope: null,
-            visibility: {
-              main: 'HIDDEN',
-              other: null,
-            },
-          };
-          expect(service.isSectionHidden(section)).toBeFalse();
-        });
-      });
-
-    });
-
-
   });
 
   describe('isSubmissionLoading', () => {

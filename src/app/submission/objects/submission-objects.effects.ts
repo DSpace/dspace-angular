@@ -128,7 +128,7 @@ export class SubmissionObjectEffects {
             sectionDefinition.header,
             config,
             sectionDefinition.mandatory,
-            sectionDefinition.scope,
+            sectionDefinition.opened,
             sectionDefinition.sectionType,
             sectionDefinition.visibility,
             enabled,

@@ -10,6 +10,7 @@ import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
 import { ConfigObject } from '@dspace/core/config/models/config.model';
 import { FormRowModel } from '@dspace/core/config/models/config-submission-form.model';
 import { SubmissionFormsModel } from '@dspace/core/config/models/config-submission-forms.model';
+import { SubmissionVisibilityType } from '@dspace/core/config/models/config-submission-section.model';
 import { SubmissionFormsConfigDataService } from '@dspace/core/config/submission-forms-config-data.service';
 import { RemoteData } from '@dspace/core/data/remote-data';
 import { RequestService } from '@dspace/core/data/request.service';
@@ -25,10 +26,7 @@ import { MetadataSecurityConfiguration } from '@dspace/core/submission/models/me
 import { SubmissionObject } from '@dspace/core/submission/models/submission-object.model';
 import { SubmissionSectionError } from '@dspace/core/submission/models/submission-section-error.model';
 import { SubmissionSectionObject } from '@dspace/core/submission/models/submission-section-object.model';
-import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
-import { WorkspaceItem } from '@dspace/core/submission/models/workspaceitem.model';
 import { WorkspaceitemSectionFormObject } from '@dspace/core/submission/models/workspaceitem-section-form.model';
-import { SubmissionScopeType } from '@dspace/core/submission/submission-scope-type';
 import {
   hasValue,
   isEmpty,
@@ -69,6 +67,7 @@ import { FormService } from '../../../shared/form/form.service';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { SubmissionService } from '../../submission.service';
 import { SubmissionObjectService } from '../../submission-object.service';
+import { SubmissionVisibility } from '../../utils/visibility.util';
 import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
@@ -159,11 +158,6 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
   protected submissionObject: SubmissionObject;
 
   /**
-   * A flag representing if this section is readonly
-   */
-  protected isSectionReadonly = false;
-
-  /**
    * The FormComponent reference
    */
   @ViewChild('formRef') private formRef: FormComponent;
@@ -232,16 +226,14 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
           this.sectionService.getSectionData(this.submissionId, this.sectionData.id, this.sectionData.sectionType),
           race([findById$, findByIdCached$]),
           this.submissionService.getSubmissionSecurityConfiguration(this.submissionId).pipe(take(1)),
-          this.sectionService.isSectionReadOnly(this.submissionId, this.sectionData.id, this.submissionService.getSubmissionScope()),
         ]);
       }),
       take(1))
-      .subscribe(([sectionData, submissionObject, metadataSecurity, isSectionReadOnly]: [WorkspaceitemSectionFormObject, SubmissionObject, MetadataSecurityConfiguration, boolean]) => {
+      .subscribe(([sectionData, submissionObject, metadataSecurity]: [WorkspaceitemSectionFormObject, SubmissionObject, MetadataSecurityConfiguration]) => {
         if (isUndefined(this.formModel)) {
           this.metadataSecurityConfiguration = metadataSecurity;
           // this.sectionData.errorsToShow = [];
           this.submissionObject = submissionObject;
-          this.isSectionReadonly = isSectionReadOnly;
           // Is the first loading so init form
           this.initForm(sectionData, this.sectionData.errorsToShow, this.sectionData.serverValidationErrors);
           this.sectionData.data = sectionData;
@@ -318,7 +310,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
    * @private
    */
   private inCurrentSubmissionScope(field: string): boolean {
-    const scope = this.formConfig?.rows.find((row: FormRowModel) => {
+    const visibility: SubmissionVisibilityType = this.formConfig?.rows.find((row: FormRowModel) => {
       if (row.fields?.[0]?.selectableMetadata) {
         return row.fields?.[0]?.selectableMetadata?.[0]?.metadata === field;
       } else if (row.fields?.[0]?.selectableRelationship) {
@@ -326,19 +318,9 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
       } else {
         return false;
       }
-    })?.fields?.[0]?.scope;
+    })?.fields?.[0]?.visibility;
 
-    switch (scope) {
-      case SubmissionScopeType.WorkspaceItem.valueOf(): {
-        return (this.submissionObject as any).type === WorkspaceItem.type.value;
-      }
-      case SubmissionScopeType.WorkflowItem.valueOf(): {
-        return (this.submissionObject as any).type === WorkflowItem.type.value;
-      }
-      default: {
-        return true;
-      }
-    }
+    return SubmissionVisibility.isVisible(visibility, this.submissionService.getSubmissionScope());
   }
 
   /**
@@ -355,7 +337,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
         this.collectionId,
         sectionData,
         this.submissionService.getSubmissionScope(),
-        this.isSectionReadonly,
+        SubmissionVisibility.isReadOnly(this.sectionData.sectionVisibility, this.submissionService.getSubmissionScope()),
         null,
         false,
         this.metadataSecurityConfiguration,
