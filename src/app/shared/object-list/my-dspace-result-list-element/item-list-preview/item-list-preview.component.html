@@ -29,14 +29,14 @@
                 @if (item.hasMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']);) {
                 <span
                   class="item-list-authors">
-                  @let authors = item.allMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']);
-                  @if (authors.length === 0) {
-                    <span>{{'mydspace.results.no-authors' | translate}}</span>
-                  }
-                  @for (author of authors; track author; let last = $last) {
+                  @if (item.allMetadataValues(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']).length === 0) {
                     <span
-                      >
-                      <span [dsMetadata]="author"><span [dsMetadata]="author"></span></span>
+                      >{{'mydspace.results.no-authors'
+                    | translate}}</span>
+                  }
+                  @for (author of authorMetadataList; track author.uuid; let last = $last) {
+                    <span class="item-list-authors">
+                      <ds-metadata-link-view [metadata]="author"></ds-metadata-link-view>
                       @if (!last) {
                         <span>; </span>
                       }

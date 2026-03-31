@@ -29,6 +29,11 @@ export class SearchResultListElementComponent<T extends SearchResult<K>, K exten
   dso: K;
   dsoTitle: string;
 
+  /**
+   * Limit of additional metadata values to show
+   */
+  additionalMetadataLimit: number;
+
   public constructor(protected truncatableService: TruncatableService,
                      public dsoNameService: DSONameService,
                      @Inject(APP_CONFIG) protected appConfig?: AppConfig) {
@@ -39,6 +44,7 @@ export class SearchResultListElementComponent<T extends SearchResult<K>, K exten
    * Retrieve the dso from the search result
    */
   ngOnInit(): void {
+    this.additionalMetadataLimit = this.appConfig?.searchResult?.followAuthorityMetadataValuesLimit;
     if (hasValue(this.object)) {
       this.dso = this.object.indexableObject;
       this.dsoTitle = this.dsoNameService.getHitHighlights(this.object, this.dso, true);
