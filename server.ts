@@ -18,47 +18,45 @@
 import 'zone.js/node';
 import 'reflect-metadata';
 
-/* eslint-disable import/no-namespace */
-import * as morgan from 'morgan';
-import * as express from 'express';
-import * as ejs from 'ejs';
-import * as compression from 'compression';
-import * as expressStaticGzip from 'express-static-gzip';
+import { APP_BASE_HREF } from '@angular/common';
+import { enableProdMode } from '@angular/core';
+import { CommonEngine } from '@angular/ssr';
 /* eslint-enable import/no-namespace */
 import axios from 'axios';
-import LRU from 'lru-cache';
-import { isbot } from 'isbot';
-import { createCertificate } from 'pem';
-import { createServer } from 'https';
 import { json } from 'body-parser';
-import { createHttpTerminator } from 'http-terminator';
-
+import * as compression from 'compression';
+import * as ejs from 'ejs';
+import * as express from 'express';
+import * as expressStaticGzip from 'express-static-gzip';
 import { readFileSync } from 'fs';
-import { join } from 'path';
-
-import { enableProdMode } from '@angular/core';
-
-
-import { environment } from './src/environments/environment';
 import { createProxyMiddleware } from 'http-proxy-middleware';
+import { createHttpTerminator } from 'http-terminator';
+import { createServer } from 'https';
+import { isbot } from 'isbot';
+import LRU from 'lru-cache';
+/* eslint-disable import/no-namespace */
+import * as morgan from 'morgan';
+import { join } from 'path';
+import { createCertificate } from 'pem';
+
+import { TOKENITEM } from './src/app/core/auth/models/auth-token-info.model';
 import { hasValue } from './src/app/shared/empty.util';
-import { UIServerConfig } from './src/config/ui-server-config.interface';
-import bootstrap from './src/main.server';
-import { buildAppConfig } from './src/config/config.server';
 import {
   APP_CONFIG,
   AppConfig,
 } from './src/config/app-config.interface';
+import { buildAppConfig } from './src/config/config.server';
 import { extendEnvironmentWithAppConfig } from './src/config/config.util';
-import { logStartupMessage } from './startup-message';
-import { TOKENITEM } from './src/app/core/auth/models/auth-token-info.model';
-import { CommonEngine } from '@angular/ssr';
-import { APP_BASE_HREF } from '@angular/common';
+import { SsrExcludePatterns } from './src/config/ssr-config.interface';
+import { UIServerConfig } from './src/config/ui-server-config.interface';
+import { environment } from './src/environments/environment';
 import {
   REQUEST,
   RESPONSE,
 } from './src/express.tokens';
-import { SsrExcludePatterns } from "./src/config/ssr-config.interface";
+import bootstrap from './src/main.server';
+import { ServerHashedFileMapping } from './src/modules/dynamic-hash/hashed-file-mapping.server';
+import { logStartupMessage } from './startup-message';
 
 /*
  * Set path for the browser application's dist folder
@@ -71,7 +69,11 @@ const indexHtml = join(DIST_FOLDER, 'index.html');
 
 const cookieParser = require('cookie-parser');
 
-const appConfig: AppConfig = buildAppConfig(join(DIST_FOLDER, 'assets/config.json'));
+const configJson = join(DIST_FOLDER, 'assets/config.json');
+const hashedFileMapping = new ServerHashedFileMapping(DIST_FOLDER, 'index.html');
+const appConfig: AppConfig = buildAppConfig(configJson, hashedFileMapping);
+appConfig.themes.forEach(themeConfig => hashedFileMapping.addThemeStyle(themeConfig.name, themeConfig.prefetch));
+hashedFileMapping.save();
 
 // cache of SSR pages for known bots, only enabled in production mode
 let botCache: LRU<string, any>;
@@ -319,15 +321,14 @@ function clientSideRender(req, res) {
   // Replace base href dynamically
   html = html.replace(
     /<base href="[^"]*">/,
-    `<base href="${namespace.endsWith('/') ? namespace : namespace + '/'}">`
+    `<base href="${namespace.endsWith('/') ? namespace : namespace + '/'}">`,
   );
 
   // Replace REST URL with UI URL
   if (environment.ssr.replaceRestUrl && REST_BASE_URL !== environment.rest.baseUrl) {
     html = html.replace(new RegExp(REST_BASE_URL, 'g'), environment.rest.baseUrl);
   }
-
-  res.send(html);
+  res.set('Cache-Control', 'no-cache, no-store').send(html);
 }
 
 
@@ -338,7 +339,11 @@ function clientSideRender(req, res) {
  */
 function addCacheControl(req, res, next) {
   // instruct browser to revalidate
-  res.header('Cache-Control', environment.cache.control || 'max-age=604800');
+  if (environment.cache.noCacheFiles.includes(req.originalUrl)) {
+    res.header('Cache-Control', 'no-cache, no-store');
+  } else {
+    res.header('Cache-Control', environment.cache.control || 'max-age=604800');
+  }
   next();
 }
 
