@@ -978,6 +978,10 @@ describe('SubmissionService test suite', () => {
   });
 
   describe('redirectToEditItem', () => {
+    beforeEach(() => {
+      (itemService.findById as jasmine.Spy).calls.reset();
+    });
+
     it('should redirect to Item page', fakeAsync(() => {
       scheduler = getTestScheduler();
 
