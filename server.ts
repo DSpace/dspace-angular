@@ -26,7 +26,6 @@ import * as ejs from 'ejs';
 import * as compression from 'compression';
 import * as expressStaticGzip from 'express-static-gzip';
 /* eslint-enable import/no-namespace */
-import axios from 'axios';
 import LRU from 'lru-cache';
 import { isbot } from 'isbot';
 import { createCertificate } from 'pem';
@@ -657,9 +656,9 @@ function isExcludedFromSsr(path: string, excludePathPattern: SsrExcludePatterns[
  */
 function healthCheck(req, res) {
   const baseUrl = `${REST_BASE_URL}${environment.actuators.endpointPath}`;
-  axios.get(baseUrl)
+  fetch(baseUrl)
     .then((response) => {
-      res.status(response.status).send(response.data);
+      res.status(response.status).send(response);
     })
     .catch((error) => {
       res.status(error.response.status).send({
