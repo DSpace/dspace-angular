@@ -8,10 +8,11 @@ import {
   provideHttpClientTesting,
 } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
+import { RestRequestMethod } from '@dspace/config/rest-request-method';
 import { of } from 'rxjs';
 
-import { RestRequestMethod } from '../data/rest-request-method';
 import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { LocaleInterceptor } from './locale.interceptor';
 import { LocaleService } from './locale.service';
 
@@ -21,11 +22,16 @@ describe(`LocaleInterceptor`, () => {
   let localeService: any;
 
   const languageList = ['en;q=1', 'it;q=0.9', 'de;q=0.8', 'fr;q=0.7'];
+  const rootHref = 'https://sandbox.dspace.org/server/api';
 
-  const mockLocaleService = jasmine.createSpyObj('LocaleService', {
-    getCurrentLanguageCode: jasmine.createSpy('getCurrentLanguageCode'),
-    getLanguageCodeList: of(languageList),
-  });
+  const mockLocaleService = jasmine.createSpyObj('LocaleService', [
+    'getCurrentLanguageCode',
+    'getLanguageCodeList',
+  ]);
+
+  const mockHalEndpointService = {
+    getRootHref: jasmine.createSpy('getRootHref'),
+  };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -37,6 +43,7 @@ describe(`LocaleInterceptor`, () => {
           useClass: LocaleInterceptor,
           multi: true,
         },
+        { provide: HALEndpointService, useValue: mockHalEndpointService },
         { provide: LocaleService, useValue: mockLocaleService },
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting(),
@@ -47,7 +54,9 @@ describe(`LocaleInterceptor`, () => {
     httpMock = TestBed.inject(HttpTestingController);
     localeService = TestBed.inject(LocaleService);
 
-    localeService.getCurrentLanguageCode.and.returnValue('en');
+    localeService.getCurrentLanguageCode.and.returnValue(of('en'));
+    localeService.getLanguageCodeList.and.returnValue(of(languageList));
+    mockHalEndpointService.getRootHref.and.returnValue(rootHref);
   });
 
   describe('', () => {
@@ -76,6 +85,29 @@ describe(`LocaleInterceptor`, () => {
       const lang = httpRequest.request.headers.get('Accept-Language');
       expect(lang).toBeDefined();
       expect(lang).toBe(languageList.toString());
+      expect(localeService.getLanguageCodeList).toHaveBeenCalledWith(false);
+    });
+
+    it('should ignore EPerson settings for root endpoint requests', () => {
+      service.request(RestRequestMethod.GET, rootHref).subscribe((response) => {
+        expect(response).toBeTruthy();
+      });
+
+      httpMock.expectOne(rootHref);
+
+      expect(localeService.getLanguageCodeList).toHaveBeenCalledWith(true);
+    });
+
+    it('should ignore EPerson settings for eperson endpoint requests', () => {
+      const epersonHref = `${rootHref}/eperson/epersons/1234`;
+
+      service.request(RestRequestMethod.GET, epersonHref).subscribe((response) => {
+        expect(response).toBeTruthy();
+      });
+
+      httpMock.expectOne(epersonHref);
+
+      expect(localeService.getLanguageCodeList).toHaveBeenCalledWith(true);
     });
 
   });

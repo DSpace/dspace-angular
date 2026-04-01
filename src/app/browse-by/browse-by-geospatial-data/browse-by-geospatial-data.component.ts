@@ -11,6 +11,13 @@ import {
   ActivatedRoute,
   Params,
 } from '@angular/router';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '@dspace/core/shared/operators';
+import { FacetValues } from '@dspace/core/shared/search/models/facet-values.model';
+import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest,
@@ -25,16 +32,9 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
-} from '../../core/shared/operators';
-import { SearchService } from '../../core/shared/search/search.service';
-import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
-import { hasValue } from '../../shared/empty.util';
 import { GeospatialMapComponent } from '../../shared/geospatial-map/geospatial-map.component';
-import { FacetValues } from '../../shared/search/models/facet-values.model';
-import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
+import { SearchService } from '../../shared/search/search.service';
+import { SearchConfigurationService } from '../../shared/search/search-configuration.service';
 
 @Component({
   selector: 'ds-browse-by-geospatial-data',
@@ -46,7 +46,6 @@ import { PaginatedSearchOptions } from '../../shared/search/models/paginated-sea
     GeospatialMapComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * Component displaying a large 'browse map', which is really a geolocation few of the 'point' facet defined

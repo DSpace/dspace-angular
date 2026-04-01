@@ -30,7 +30,6 @@ import { ThemedSearchComponent } from '../../../../app/shared/search/themed-sear
       useClass: MyDSpaceConfigurationService,
     },
   ],
-  standalone: true,
   imports: [
     AsyncPipe,
     MyDSpaceNewSubmissionComponent,

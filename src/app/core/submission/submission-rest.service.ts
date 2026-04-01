@@ -1,5 +1,10 @@
 import { Injectable } from '@angular/core';
 import {
+  hasValue,
+  hasValueOperator,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
+import {
   Observable,
   skipWhile,
 } from 'rxjs';
@@ -12,11 +17,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  hasValueOperator,
-  isNotEmpty,
-} from '../../shared/empty.util';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ErrorResponse } from '../cache/response.models';
 import { RemoteData } from '../data/remote-data';
@@ -46,6 +46,7 @@ export const getFirstDataDefinition = () =>
       getFirstCompletedRemoteData(),
       map((response: RemoteData<SubmissionResponse>) => {
         if (response.hasFailed) {
+          // eslint-disable-next-line @typescript-eslint/only-throw-error
           throw new ErrorResponse({ statusText: response.errorMessage, statusCode: response.statusCode } as RequestError);
         } else {
           return hasValue(response?.payload?.dataDefinition) ? response.payload.dataDefinition : [response.payload];
@@ -90,10 +91,15 @@ export class SubmissionRestService {
    *    The identifier for the object
    * @param collectionId
    *    The owning collection for the object
+   * @param projections
    */
-  protected getEndpointByIDHref(endpoint, resourceID, collectionId?: string): string {
+  protected getEndpointByIDHref(endpoint, resourceID, collectionId?: string, projections: string[] = []): string {
     let url = isNotEmpty(resourceID) ? `${endpoint}/${resourceID}` : `${endpoint}`;
     url = new URLCombiner(url, '?embed=item,sections,collection').toString();
+
+    projections.forEach((projection) => {
+      url = new URLCombiner(url, '&projection=' + projection).toString();
+    });
     if (collectionId) {
       url = new URLCombiner(url, `&owningCollection=${collectionId}`).toString();
     }
@@ -134,9 +140,9 @@ export class SubmissionRestService {
    * @return Observable<SubmitDataResponseDefinitionObject>
    *     server response
    */
-  public getDataById(linkName: string, id: string, useCachedVersionIfAvailable = false): Observable<SubmitDataResponseDefinitionObject> {
+  public getDataById(linkName: string, id: string, useCachedVersionIfAvailable = false, projections: string[] = []): Observable<SubmitDataResponseDefinitionObject> {
     return this.halService.getEndpoint(linkName).pipe(
-      map((endpointURL: string) => this.getEndpointByIDHref(endpointURL, id)),
+      map((endpointURL: string) => this.getEndpointByIDHref(endpointURL, id, null, projections)),
       filter((href: string) => isNotEmpty(href)),
       distinctUntilChanged(),
       mergeMap((endpointURL: string) => {

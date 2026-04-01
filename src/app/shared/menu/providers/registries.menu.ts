@@ -7,6 +7,9 @@
  */
 
 import { Injectable } from '@angular/core';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
+import { ScriptDataService } from '@dspace/core/data/processes/script-data.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   combineLatest,
@@ -15,9 +18,6 @@ import {
   of,
 } from 'rxjs';
 
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
-import { ScriptDataService } from '../../../core/data/processes/script-data.service';
 import { MenuItemType } from '../menu-item-type.model';
 import { PartialMenuSection } from '../menu-provider.model';
 import { AbstractExpandableMenuProvider } from './helper-providers/expandable-menu-provider';

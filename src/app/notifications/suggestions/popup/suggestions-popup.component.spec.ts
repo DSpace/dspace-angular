@@ -5,11 +5,11 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { mockSuggestionTargetsObjectOne } from '@dspace/core/testing/publication-claim-targets.mock';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { mockSuggestionTargetsObjectOne } from '../../../shared/mocks/publication-claim-targets.mock';
-import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
 import { SuggestionsService } from '../suggestions.service';
 import { SuggestionTargetsStateService } from '../targets/suggestion-targets.state.service';
 import { SuggestionsPopupComponent } from './suggestions-popup.component';

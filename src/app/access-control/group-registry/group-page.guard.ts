@@ -5,17 +5,16 @@ import {
   RouterStateSnapshot,
 } from '@angular/router';
 import {
+  someFeatureAuthorizationGuard,
+  StringGuardParamFn,
+} from '@dspace/core/data/feature-authorization/feature-authorization-guard/some-feature-authorization.guard';
+import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
+import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
+import {
   Observable,
   of,
 } from 'rxjs';
 import { map } from 'rxjs/operators';
-
-import {
-  someFeatureAuthorizationGuard,
-  StringGuardParamFn,
-} from '../../core/data/feature-authorization/feature-authorization-guard/some-feature-authorization.guard';
-import { FeatureID } from '../../core/data/feature-authorization/feature-id';
-import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 
 const defaultGroupPageGetObjectUrl: StringGuardParamFn = (
   route: ActivatedRouteSnapshot,

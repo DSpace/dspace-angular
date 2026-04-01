@@ -2,22 +2,22 @@ import {
   Injectable,
   Injector,
 } from '@angular/core';
+import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from '@dspace/core/shared/form/ds-dynamic-form-constants';
+import { FormFieldModel } from '@dspace/core/shared/form/models/form-field.model';
+import { SectionVisibility } from '@dspace/core/submission/models/section-visibility.model';
+import { SubmissionFieldScopeType } from '@dspace/core/submission/submission-field-scope-type';
+import { SubmissionScopeType } from '@dspace/core/submission/submission-scope-type';
+import {
+  isEmpty,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import {
   DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
   DynamicFormGroupModelConfig,
 } from '@ng-dynamic-forms/core';
 import uniqueId from 'lodash/uniqueId';
 
-import { SubmissionScopeType } from '../../../../core/submission/submission-scope-type';
-import {
-  isEmpty,
-  isNotEmpty,
-} from '../../../empty.util';
-import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from '../ds-dynamic-form-ui/ds-dynamic-form-constants';
 import { DynamicRowGroupModel } from '../ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
-import { FormFieldModel } from '../models/form-field.model';
-import { SubmissionFieldScopeType } from './../../../../core/submission/submission-field-scope-type';
-import { SectionVisibility } from './../../../../submission/objects/section-visibility.model';
 import {
   CONFIG_DATA,
   FieldParser,
@@ -49,7 +49,8 @@ export class RowParser {
     initFormValues: any,
     submissionScope,
     readOnly: boolean,
-    typeField: string): DynamicRowGroupModel {
+    typeField: string,
+    isInnerForm: boolean = false): DynamicRowGroupModel {
     let fieldModel: any = null;
     let parsedResult = null;
     const config: DynamicFormGroupModelConfig = {
@@ -67,6 +68,7 @@ export class RowParser {
       submissionScope: submissionScope,
       collectionUUID: scopeUUID,
       typeField: typeField,
+      isInnerForm: isInnerForm,
     };
 
     // Iterate over row's fields

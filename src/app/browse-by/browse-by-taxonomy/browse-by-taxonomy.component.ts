@@ -10,6 +10,13 @@ import {
   Params,
   RouterLink,
 } from '@angular/router';
+import { BrowseByDataType } from '@dspace/core/browse/browse-by-data-type';
+import { BrowseDefinition } from '@dspace/core/shared/browse-definition.model';
+import { Context } from '@dspace/core/shared/context.model';
+import { HierarchicalBrowseDefinition } from '@dspace/core/shared/hierarchical-browse-definition.model';
+import { VocabularyEntryDetail } from '@dspace/core/submission/vocabularies/models/vocabulary-entry-detail.model';
+import { VocabularyOptions } from '@dspace/core/submission/vocabularies/models/vocabulary-options.model';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
   TranslatePipe,
   TranslateService,
@@ -21,14 +28,7 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { BrowseDefinition } from '../../core/shared/browse-definition.model';
-import { Context } from '../../core/shared/context.model';
-import { HierarchicalBrowseDefinition } from '../../core/shared/hierarchical-browse-definition.model';
-import { VocabularyEntryDetail } from '../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
-import { VocabularyOptions } from '../../core/submission/vocabularies/models/vocabulary-options.model';
-import { hasValue } from '../../shared/empty.util';
 import { VocabularyTreeviewComponent } from '../../shared/form/vocabulary-treeview/vocabulary-treeview.component';
-import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
 
 @Component({
   selector: 'ds-browse-by-taxonomy',
@@ -39,7 +39,6 @@ import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
     TranslatePipe,
     VocabularyTreeviewComponent,
   ],
-  standalone: true,
 })
 /**
  * Component for browsing items by metadata in a hierarchical controlled vocabulary
@@ -129,7 +128,7 @@ export class BrowseByTaxonomyComponent implements OnInit, OnChanges, OnDestroy {
       this.selectedItems = [];
       this.facetType = browseDefinition.facetType;
       this.vocabularyName = browseDefinition.vocabulary;
-      this.vocabularyOptions = { name: this.vocabularyName, closed: true };
+      this.vocabularyOptions = { name: this.vocabularyName, metadata: null, scope: null, closed: true };
       this.description = this.translate.instant(`browse.metadata.${this.vocabularyName}.tree.description`);
     }));
     this.subs.push(this.scope$.subscribe(() => {

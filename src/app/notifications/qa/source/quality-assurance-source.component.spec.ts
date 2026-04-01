@@ -10,19 +10,19 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
-import { cold } from 'jasmine-marbles';
-import { of } from 'rxjs';
-
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { AlertComponent } from '../../../shared/alert/alert.component';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
 import {
   getMockNotificationsStateService,
   qualityAssuranceSourceObjectMoreAbstract,
   qualityAssuranceSourceObjectMorePid,
-} from '../../../shared/mocks/notifications.mock';
-import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
-import { createTestComponent } from '../../../shared/testing/utils.test';
+} from '@dspace/core/testing/notifications.mock';
+import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
+import { createTestComponent } from '@dspace/core/testing/utils.test';
+import { TranslateModule } from '@ngx-translate/core';
+import { cold } from 'jasmine-marbles';
+import { of } from 'rxjs';
+
+import { AlertComponent } from '../../../shared/alert/alert.component';
 import { NotificationsStateService } from '../../notifications-state.service';
 import {
   SourceListComponent,
@@ -174,7 +174,6 @@ describe('QualityAssuranceSourceComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
-  standalone: true,
   imports: [],
 })
 class TestComponent {

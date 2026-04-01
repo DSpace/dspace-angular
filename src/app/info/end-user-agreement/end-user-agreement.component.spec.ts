@@ -1,7 +1,9 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
   ComponentFixture,
+  fakeAsync,
   TestBed,
+  tick,
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
@@ -9,16 +11,18 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { LogOutAction } from '@dspace/core/auth/auth.actions';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { EndUserAgreementService } from '@dspace/core/end-user-agreement/end-user-agreement.service';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { HardRedirectService } from '@dspace/core/services/hard-redirect.service';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { URLCombiner } from '@dspace/core/url-combiner/url-combiner';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { LogOutAction } from '../../core/auth/auth.actions';
-import { AuthService } from '../../core/auth/auth.service';
-import { EndUserAgreementService } from '../../core/end-user-agreement/end-user-agreement.service';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { EndUserAgreementComponent } from './end-user-agreement.component';
 import { EndUserAgreementContentComponent } from './end-user-agreement-content/end-user-agreement-content.component';
 
@@ -32,11 +36,14 @@ describe('EndUserAgreementComponent', () => {
   let store;
   let router: Router;
   let route: ActivatedRoute;
+  let hardRedirectService: HardRedirectService;
 
   let redirectUrl;
+  let baseUrl;
 
   function init() {
     redirectUrl = 'redirect/url';
+    baseUrl = 'https://dspace.test';
 
     endUserAgreementService = jasmine.createSpyObj('endUserAgreementService', {
       hasCurrentUserOrCookieAcceptedAgreement: of(false),
@@ -53,6 +60,15 @@ describe('EndUserAgreementComponent', () => {
         redirect: redirectUrl,
       }),
     }) as any;
+    hardRedirectService = jasmine.createSpyObj('hardRedirectService', {
+      redirect: null,
+      getBaseUrl: baseUrl,
+    });
+
+    endUserAgreementService = jasmine.createSpyObj('endUserAgreementService', {
+      hasCurrentUserOrCookieAcceptedAgreement: of(false),
+      setUserAcceptedAgreement: of(true),
+    });
   }
 
   beforeEach(waitForAsync(() => {
@@ -66,6 +82,7 @@ describe('EndUserAgreementComponent', () => {
         { provide: Store, useValue: store },
         { provide: Router, useValue: router },
         { provide: ActivatedRoute, useValue: route },
+        { provide: HardRedirectService, useValue: hardRedirectService },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
@@ -128,9 +145,10 @@ describe('EndUserAgreementComponent', () => {
           expect(notificationsService.success).toHaveBeenCalled();
         });
 
-        it('should navigate the user to the redirect url', () => {
-          expect(router.navigateByUrl).toHaveBeenCalledWith(redirectUrl);
-        });
+        it('should navigate the user to the redirect url', fakeAsync(() => {
+          tick();
+          expect(hardRedirectService.redirect).toHaveBeenCalledWith(new URLCombiner(baseUrl, redirectUrl).toString());
+        }));
       });
 
       describe('when accepting the agreement was unsuccessful', () => {

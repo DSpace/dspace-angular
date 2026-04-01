@@ -8,20 +8,20 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { RouterModule } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
-import { of } from 'rxjs';
-
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { RelationshipDataService } from '../../../core/data/relationship-data.service';
+import { RouterTestingModule } from '@angular/router/testing';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { RelationshipDataService } from '@dspace/core/data/relationship-data.service';
 import {
   MetadataValue,
   VIRTUAL_METADATA_PREFIX,
-} from '../../../core/shared/metadata.models';
-import { ItemMetadataRepresentation } from '../../../core/shared/metadata-representation/item/item-metadata-representation.model';
+} from '@dspace/core/shared/metadata.models';
+import { ItemMetadataRepresentation } from '@dspace/core/shared/metadata-representation/item/item-metadata-representation.model';
+import { DsoEditMetadataFieldServiceStub } from '@dspace/core/testing/dso-edit-metadata-field.service.stub';
+import { TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
+
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { ThemedTypeBadgeComponent } from '../../../shared/object-collection/shared/badges/type-badge/themed-type-badge.component';
-import { DsoEditMetadataFieldServiceStub } from '../../../shared/testing/dso-edit-metadata-field.service.stub';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import {
   DsoEditMetadataChangeType,
@@ -74,7 +74,7 @@ describe('DsoEditMetadataValueComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
-        RouterModule.forRoot([]),
+        RouterTestingModule.withRoutes([]),
         DsoEditMetadataValueComponent,
         VarDirective,
         BtnDisabledDirective,
@@ -89,8 +89,8 @@ describe('DsoEditMetadataValueComponent', () => {
       .overrideComponent(DsoEditMetadataValueComponent, {
         remove: {
           imports: [
-            DsoEditMetadataValueFieldLoaderComponent,
             ThemedTypeBadgeComponent,
+            DsoEditMetadataValueFieldLoaderComponent,
           ],
         },
       })
@@ -101,6 +101,7 @@ describe('DsoEditMetadataValueComponent', () => {
     fixture = TestBed.createComponent(DsoEditMetadataValueComponent);
     component = fixture.componentInstance;
     component.mdValue = editMetadataValue;
+    component.mdField = 'person.birthDate';
     component.saving$ = of(false);
     fixture.detectChanges();
   });

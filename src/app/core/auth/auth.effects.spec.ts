@@ -3,6 +3,7 @@ import {
   TestBed,
   tick,
 } from '@angular/core/testing';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import { provideMockActions } from '@ngrx/effects/testing';
 import {
   Store,
@@ -22,17 +23,14 @@ import {
   throwError as observableThrow,
 } from 'rxjs';
 
-import {
-  AppState,
-  storeModuleConfig,
-} from '../../app.reducer';
+import { CoreState } from '../core-state.model';
+import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
+import { StoreActionTypes } from '../ngrx/type';
 import {
   authMethodsMock,
   AuthServiceStub,
-} from '../../shared/testing/auth-service.stub';
-import { EPersonMock } from '../../shared/testing/eperson.mock';
-import { StoreActionTypes } from '../../store.actions';
-import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
+} from '../testing/auth-service.stub';
+import { EPersonMock } from '../testing/eperson.mock';
 import {
   AuthActionTypes,
   AuthenticatedAction,
@@ -68,9 +66,16 @@ describe('AuthEffects', () => {
   let authServiceStub;
   let initialState;
   let token;
-  let store: MockStore<AppState>;
+  let store: MockStore<CoreState>;
 
   const authorizationService = jasmine.createSpyObj(['invalidateAuthorizationsRequestCache']);
+
+  const mockStoreModuleConfig = {
+    runtimeChecks: {
+      strictStateImmutability: true,
+      strictActionImmutability: true,
+    },
+  };
 
   function init() {
     authServiceStub = new AuthServiceStub();
@@ -91,15 +96,15 @@ describe('AuthEffects', () => {
     init();
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot({ auth: authReducer }, storeModuleConfig),
+        StoreModule.forRoot({ auth: authReducer }, mockStoreModuleConfig),
       ],
       providers: [
         AuthEffects,
         provideMockStore({ initialState }),
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: AuthService, useValue: authServiceStub },
+        { provide: APP_CONFIG, useValue: {} },
         provideMockActions(() => actions),
-        // other providers
       ],
     });
 
@@ -156,7 +161,7 @@ describe('AuthEffects', () => {
 
     describe('when token is valid', () => {
       it('should return a AUTHENTICATED_SUCCESS action in response to a AUTHENTICATED action', () => {
-        actions = hot('--a-', { a: { type: AuthActionTypes.AUTHENTICATED, payload: token } });
+        actions = hot('--a-', { a: new AuthenticatedAction(token) });
 
         const expected = cold('--b-', { b: new AuthenticatedSuccessAction(true, token, EPersonMock._links.self.href) });
 
@@ -164,13 +169,25 @@ describe('AuthEffects', () => {
       });
     });
 
-    describe('when token is not valid', () => {
+    describe('when token is expired', () => {
       it('should return a AUTHENTICATED_ERROR action in response to a AUTHENTICATED action', () => {
         spyOn((authEffects as any).authService, 'authenticatedUser').and.returnValue(observableThrow(new Error('Message Error test')));
 
-        actions = hot('--a-', { a: { type: AuthActionTypes.AUTHENTICATED, payload: token } });
+        actions = hot('--a-', { a: new AuthenticatedAction(token) });
 
         const expected = cold('--b-', { b: new AuthenticatedErrorAction(new Error('Message Error test')) });
+
+        expect(authEffects.authenticated$).toBeObservable(expected);
+      });
+    });
+
+    describe('when token is not valid but also not expired (~ cookie)', () => {
+      it('should return a AUTHENTICATED_ERROR action in response to a AUTHENTICATED action', () => {
+        spyOn((authEffects as any).authService, 'authenticatedUser').and.returnValue(observableThrow(new Error('Message Error test')));
+
+        actions = hot('--a-', { a: new AuthenticatedAction(token, true) });
+
+        const expected = cold('--b-', { b: new CheckAuthenticationTokenCookieAction() });
 
         expect(authEffects.authenticated$).toBeObservable(expected);
       });
@@ -210,7 +227,7 @@ describe('AuthEffects', () => {
 
         actions = hot('--a-', { a: { type: AuthActionTypes.CHECK_AUTHENTICATION_TOKEN } });
 
-        const expected = cold('--b-', { b: new AuthenticatedAction(token) });
+        const expected = cold('--b-', { b: new AuthenticatedAction(token, true) });
 
         expect(authEffects.checkToken$).toBeObservable(expected);
       });

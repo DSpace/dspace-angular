@@ -1,4 +1,13 @@
+import { LanguageCode } from '@dspace/core/shared/form/models/form-field-language-value.model';
+import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
+import { RelationshipOptions } from '@dspace/core/shared/relationship-options.model';
+import { VocabularyOptions } from '@dspace/core/submission/vocabularies/models/vocabulary-options.model';
 import {
+  hasValue,
+  isNotUndefined,
+} from '@dspace/shared/utils/empty.util';
+import {
+  AUTOCOMPLETE_OFF,
   DynamicFormControlLayout,
   DynamicFormControlRelation,
   DynamicInputModel,
@@ -6,12 +15,6 @@ import {
   serializable,
 } from '@ng-dynamic-forms/core';
 import { Subject } from 'rxjs';
-
-import { VocabularyOptions } from '../../../../../core/submission/vocabularies/models/vocabulary-options.model';
-import { hasValue } from '../../../../empty.util';
-import { LanguageCode } from '../../models/form-field-language-value.model';
-import { FormFieldMetadataValueObject } from '../../models/form-field-metadata-value.model';
-import { RelationshipOptions } from '../../models/relationship-options.model';
 
 export interface DsDynamicInputModelConfig extends DynamicInputModelConfig {
   vocabularyOptions?: VocabularyOptions;
@@ -28,6 +31,7 @@ export interface DsDynamicInputModelConfig extends DynamicInputModelConfig {
   metadataValue?: FormFieldMetadataValueObject;
   isModelOfInnerForm?: boolean;
   hideErrorMessages?: boolean;
+  isModelOfNotRepeatableGroup?: boolean;
 }
 
 export class DsDynamicInputModel extends DynamicInputModel {
@@ -47,10 +51,12 @@ export class DsDynamicInputModel extends DynamicInputModel {
   @serializable() metadataValue: FormFieldMetadataValueObject;
   @serializable() isModelOfInnerForm: boolean;
   @serializable() hideErrorMessages?: boolean;
+  @serializable() isModelOfNotRepeatableGroup = false;
 
 
   constructor(config: DsDynamicInputModelConfig, layout?: DynamicFormControlLayout) {
     super(config, layout);
+    this.autoComplete = AUTOCOMPLETE_OFF;
     this.repeatable = config.repeatable;
     this.metadataFields = config.metadataFields;
     this.hint = config.hint;
@@ -62,6 +68,9 @@ export class DsDynamicInputModel extends DynamicInputModel {
     this.hasSelectableMetadata = config.hasSelectableMetadata;
     this.metadataValue = config.metadataValue;
     this.place = config.place;
+    if (isNotUndefined(config.isModelOfNotRepeatableGroup)) {
+      this.isModelOfNotRepeatableGroup = config.isModelOfNotRepeatableGroup;
+    }
     this.isModelOfInnerForm = (hasValue(config.isModelOfInnerForm) ? config.isModelOfInnerForm : false);
     this.hideErrorMessages = config.hideErrorMessages;
 

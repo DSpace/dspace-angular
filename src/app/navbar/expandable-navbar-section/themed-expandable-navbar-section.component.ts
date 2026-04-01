@@ -8,12 +8,7 @@ import { ExpandableNavbarSectionComponent } from './expandable-navbar-section.co
  */
 @Component({
   selector: 'ds-expandable-navbar-section',
-  styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
-  standalone: true,
-  imports: [
-    ExpandableNavbarSectionComponent,
-  ],
 })
 export class ThemedExpandableNavbarSectionComponent  extends ThemedComponent<ExpandableNavbarSectionComponent> {
   protected getComponentName(): string {

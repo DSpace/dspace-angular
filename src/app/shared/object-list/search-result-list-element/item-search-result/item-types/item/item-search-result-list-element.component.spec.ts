@@ -9,23 +9,28 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
-import { of } from 'rxjs';
-
-import { APP_CONFIG } from '../../../../../../../config/app-config.interface';
-import { AuthService } from '../../../../../../core/auth/auth.service';
-import { DSONameService } from '../../../../../../core/breadcrumbs/dso-name.service';
-import { AuthorizationDataService } from '../../../../../../core/data/feature-authorization/authorization-data.service';
-import { Item } from '../../../../../../core/shared/item.model';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
+import { Item } from '@dspace/core/shared/item.model';
+import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { AuthServiceStub } from '@dspace/core/testing/auth-service.stub';
 import {
   DSONameServiceMock,
   UNDEFINED_NAME,
-} from '../../../../../mocks/dso-name.service.mock';
-import { mockTruncatableService } from '../../../../../mocks/mock-trucatable.service';
-import { getMockThemeService } from '../../../../../mocks/theme-service.mock';
-import { ItemSearchResult } from '../../../../../object-collection/shared/item-search-result.model';
-import { ActivatedRouteStub } from '../../../../../testing/active-router.stub';
-import { AuthServiceStub } from '../../../../../testing/auth-service.stub';
+} from '@dspace/core/testing/dso-name.service.mock';
+import { mockTruncatableService } from '@dspace/core/testing/mock-trucatable.service';
+import { TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
+import { MetadataLinkViewComponent } from 'src/app/shared/metadata-link-view/metadata-link-view.component';
+import { TruncatableComponent } from 'src/app/shared/truncatable/truncatable.component';
+import { TruncatablePartComponent } from 'src/app/shared/truncatable/truncatable-part/truncatable-part.component';
+import { ThemedThumbnailComponent } from 'src/app/thumbnail/themed-thumbnail.component';
+
+import { getMockThemeService } from '../../../../../theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../../../theme-support/theme.service';
 import { TruncatableService } from '../../../../../truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../../utils/truncate.pipe';
@@ -225,10 +230,18 @@ describe('ItemSearchResultListElementComponent', () => {
             'invalidateAuthorizationsRequestCache',
           ]),
         },
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ItemSearchResultListElementComponent, {
       add: { changeDetection: ChangeDetectionStrategy.Default },
+    }).overrideComponent(ItemSearchResultListElementComponent, {
+      remove: { imports: [
+        ThemedThumbnailComponent,
+        TruncatableComponent,
+        TruncatablePartComponent,
+        MetadataLinkViewComponent,
+      ] },
     }).compileComponents();
   }));
 
@@ -274,6 +287,32 @@ describe('ItemSearchResultListElementComponent', () => {
     it('should not show the author paragraph', () => {
       const itemAuthorField = fixture.debugElement.query(By.css('span.item-list-authors'));
       expect(itemAuthorField).toBeNull();
+    });
+  });
+
+  describe('When the item has authors and isCollapsed is true', () => {
+    beforeEach(() => {
+      spyOn(publicationListElementComponent, 'isCollapsed').and.returnValue(of(true));
+      publicationListElementComponent.object = mockItemWithMetadata;
+      fixture.detectChanges();
+    });
+
+    it('should show limitedMetadata', () => {
+      const authorElements = fixture.debugElement.queryAll(By.css('span.item-list-authors ds-metadata-link-view'));
+      expect(authorElements.length).toBe(mockItemWithMetadata.indexableObject.limitedMetadata(publicationListElementComponent.authorMetadata, publicationListElementComponent.additionalMetadataLimit).length);
+    });
+  });
+
+  describe('When the item has authors and isCollapsed is false', () => {
+    beforeEach(() => {
+      spyOn(publicationListElementComponent, 'isCollapsed').and.returnValue(of(false));
+      publicationListElementComponent.object = mockItemWithMetadata;
+      fixture.detectChanges();
+    });
+
+    it('should show allMetadata', () => {
+      const authorElements = fixture.debugElement.queryAll(By.css('span.item-list-authors ds-metadata-link-view'));
+      expect(authorElements.length).toBe(mockItemWithMetadata.indexableObject.allMetadata(publicationListElementComponent.authorMetadata).length);
     });
   });
 
@@ -413,6 +452,13 @@ describe('ItemSearchResultListElementComponent', () => {
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ItemSearchResultListElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },
+    }).overrideComponent(ItemSearchResultListElementComponent, {
+      remove: { imports: [
+        ThemedThumbnailComponent,
+        TruncatableComponent,
+        TruncatablePartComponent,
+        MetadataLinkViewComponent,
+      ] },
     }).compileComponents();
   }));
 

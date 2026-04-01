@@ -10,17 +10,28 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
-
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../../config/app-config.interface';
+} from '@dspace/config/app-config.interface';
+import { BrowseDefinition } from '@dspace/core/shared/browse-definition.model';
+import { MetadataValue } from '@dspace/core/shared/metadata.models';
+import {
+  getFirstCompletedRemoteData,
+  getPaginatedListPayload,
+  getRemoteDataPayload,
+} from '@dspace/core/shared/operators';
+import { VALUE_LIST_BROWSE_DEFINITION } from '@dspace/core/shared/value-list-browse-definition.resource-type';
+import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
+import { hasValue } from '@dspace/shared/utils/empty.util';
+import { TranslateModule } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+import {
+  map,
+  take,
+} from 'rxjs/operators';
+
 import { environment } from '../../../../environments/environment';
-import { BrowseDefinition } from '../../../core/shared/browse-definition.model';
-import { MetadataValue } from '../../../core/shared/metadata.models';
-import { VALUE_LIST_BROWSE_DEFINITION } from '../../../core/shared/value-list-browse-definition.resource-type';
-import { hasValue } from '../../../shared/empty.util';
 import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { MarkdownDirective } from '../../../shared/utils/markdown.directive';
 import { ImageField } from '../../simple/field-components/specific-field/image-field';
@@ -33,7 +44,6 @@ import { ImageField } from '../../simple/field-components/specific-field/image-f
   selector: 'ds-metadata-values',
   styleUrls: ['./metadata-values.component.scss'],
   templateUrl: './metadata-values.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     MarkdownDirective,
@@ -46,6 +56,7 @@ import { ImageField } from '../../simple/field-components/specific-field/image-f
 export class MetadataValuesComponent implements OnChanges {
 
   constructor(
+    protected vocabularyService: VocabularyService,
     @Inject(APP_CONFIG) private appConfig: AppConfig,
   ) {
   }
@@ -116,6 +127,30 @@ export class MetadataValuesComponent implements OnChanges {
   }
 
   /**
+   * Whether the metadata is a controlled vocabulary
+   * @param value A MetadataValue being displayed
+   */
+  isControlledVocabulary(metadataValue: MetadataValue): boolean {
+    const vocabularyId = this.getVocabularyIdFromAuthorityValue(metadataValue);
+    return hasValue(this.getVocabularyName(vocabularyId));
+  }
+
+  /**
+   * Return configured vocabulary name for this metadata value
+   */
+  getVocabularyName(vocabularyId: string): string | null {
+    return this.appConfig.vocabularies.find(vocabulary => vocabulary.vocabulary === vocabularyId)?.vocabulary;
+  }
+
+  /**
+   * Get value from authority for vocabulary lookup
+   */
+  getVocabularyIdFromAuthorityValue(metadataValue: MetadataValue): string {
+    const authority = metadataValue.authority ? metadataValue.authority.split(':') : undefined;
+    return authority?.length > 1 ? authority[0] : null;
+  }
+
+  /**
    * Return a queryparams object for use in a link, with the key dependent on whether this browse
    * definition is metadata browse, or item browse
    * @param value the specific metadata value being linked
@@ -150,5 +185,22 @@ export class MetadataValuesComponent implements OnChanges {
     } else {
       return { target: '_blank', rel: 'noopener noreferrer' };
     }
+  }
+
+  /**
+   * Get vocabulary translated value from metadata value
+   */
+  getVocabularyValue(metadataValue: MetadataValue): Observable<string> {
+    const vocabularyId = this.getVocabularyIdFromAuthorityValue(metadataValue);
+    const vocabularyName = this.getVocabularyName(vocabularyId);
+
+    return this.vocabularyService.getPublicVocabularyEntryByID(vocabularyName, metadataValue.authority.split(':')[1]).pipe(
+      getFirstCompletedRemoteData(),
+      getRemoteDataPayload(),
+      getPaginatedListPayload(),
+      map((res) => res?.length > 0 ? res[0] : null),
+      map((res) => res?.display ?? metadataValue.value),
+      take(1),
+    );
   }
 }

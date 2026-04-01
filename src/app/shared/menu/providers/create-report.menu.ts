@@ -7,18 +7,18 @@
  */
 
 import { Injectable } from '@angular/core';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
 import {
   combineLatest as observableCombineLatest,
   Observable,
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
-import { RemoteData } from '../../../core/data/remote-data';
-import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
-import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { LinkMenuItemModel } from '../menu-item/models/link.model';
 import { TextMenuItemModel } from '../menu-item/models/text.model';
 import { MenuItemType } from '../menu-item-type.model';

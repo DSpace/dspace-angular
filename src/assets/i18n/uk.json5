@@ -2063,7 +2063,7 @@
   "collection.delete.notification.fail": "Зібрання не може бути видалене",
 
   // "collection.delete.notification.success": "Successfully deleted collection",
-  "collection.delete.notification.success": "Зібрання успішно видалено",
+  "collection.delete.notification.success": "Процес видалення зібрання було успішно розпочато",
 
   // "collection.delete.text": "Are you sure you want to delete collection \"{{ dso }}\"",
   "collection.delete.text": "Ви впевнені, що хочете видалити зібрання \"{{ dso }}\"?",
@@ -2564,7 +2564,7 @@
   "community.delete.notification.fail": "Фонд не може бути видалено",
 
   // "community.delete.notification.success": "Successfully deleted community",
-  "community.delete.notification.success": "Фонд успішно видалено",
+  "community.delete.notification.success": "Процес видалення фонду було успішно розпочато",
 
   // "community.delete.text": "Are you sure you want to delete community \"{{ dso }}\"",
   "community.delete.text": "Ви впевнені, що хочете видалити фонд \"{{ dso }}\"",
@@ -2870,7 +2870,7 @@
 
   // "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: {purposes}",
   // TODO Source message changed - Revise the translation
-  "cookies.consent.content-notice.description": "Ми збираємо та обробляємо вашу особисту інформацію для таких цілей: <strong>автентифікація, налаштування та статистика</strong>. <br/> Щоб дізнатися більше, прочитайте нашу політику {privacyPolicy}.",
+  "cookies.consent.content-notice.description": "Ми збираємо та обробляємо вашу особисту інформацію для таких цілей: автентифікація, налаштування та статистика. Щоб дізнатися більше, прочитайте нашу політику {privacyPolicy}.",
 
   // "cookies.consent.content-notice.learnMore": "Customize",
   "cookies.consent.content-notice.learnMore": "Налаштувати",
@@ -3899,9 +3899,8 @@
   "home.search-form.placeholder": "Search the repository ...",
 
   // "home.title": "Home",
-  // TODO Source message changed - Revise the translation
-  // TODO Change univer name
-  "home.title": "Репозитарій Львівської політехніки :: Головна",
+
+  "home.title": "Репозитарій :: Головна",
 
   // "home.top-level-communities.head": "Communities in DSpace",
   "home.top-level-communities.head": "Фонди",
@@ -4290,7 +4289,7 @@
   "item.edit.delete.header": "Видалити документ: {{ id }}",
 
   // "item.edit.delete.success": "The item has been deleted",
-  "item.edit.delete.success": "Документ видалено",
+  "item.edit.delete.success": "Процес видалення документу було успішно розпочато",
 
   // "item.edit.head": "Edit Item",
   "item.edit.head": "Редагувати документ",
@@ -13068,5 +13067,99 @@
   // TODO New key - Add a translation
   "file-download-link.request-copy": "Request a copy of ",
 
+  // "admin.edit-cms-metadata.success": "Metadata successfully updated"
+  // TODO New key - Add a translation
+  "admin.edit-cms-metadata.success": "Metadata successfully updated",
 
+  // "admin.edit-cms-metadata.back-button": "Back"
+  // TODO New key - Add a translation
+  "admin.edit-cms-metadata.back-button": "Back",
+
+  // "admin.edit-cms-metadata.save-button": "Save"
+  // TODO New key - Add a translation
+  "admin.edit-cms-metadata.save-button": "Save",
+
+  // "admin.edit-cms-metadata.select-metadata": "Select metadata to edit"
+  // TODO New key - Add a translation
+  "admin.edit-cms-metadata.select-metadata": "Select metadata to edit",
+
+  // "admin.edit-cms-metadata.edit-button": "Edit"
+  // TODO New key - Add a translation
+  "admin.edit-cms-metadata.edit-button": "Edit",
+
+  // "admin.edit-cms-metadata.breadcrumbs": "Edit CMS Metadata"
+  // TODO New key - Add a translation
+  "admin.edit-cms-metadata.breadcrumbs": "Edit CMS Metadata",
+
+  // "admin.edit-cms-metadata.title": "Edit CMS Metadata",
+  // TODO New key - Add a translation
+  "admin.edit-cms-metadata.title": "Edit CMS Metadata",
+
+  // "admin.edit-cms-metadata.error": "An error occurred while updating the metadata"
+  // TODO New key - Add a translation
+  "admin.edit-cms-metadata.error": "An error occurred while updating the metadata",
+
+  // "menu.section.edit-cms-metadata": "Edit CMS Metadata"
+  // TODO New key - Add a translation
+  "menu.section.edit-cms-metadata": "Edit CMS Metadata",
+
+  // "menu.section.cms.edit.metadata.head": "Edit Metadata"
+  // TODO New key - Add a translation
+  "menu.section.cms.edit.metadata.head": "Edit Metadata",
+
+  // "admin.edit-user-agreement.breadcrumbs": "Edit User Agreement"
+  // TODO New key - Add a translation
+  "admin.edit-user-agreement.breadcrumbs": "Edit User Agreement",
+
+  // "admin.edit-user-agreement.confirm.title": "Force acceptance"
+  // TODO New key - Add a translation
+  "admin.edit-user-agreement.confirm.title": "Force acceptance",
+
+  // "admin.edit-user-agreement.confirm.info": "Do you want to force all users to accept the new user agreement?"
+  // TODO New key - Add a translation
+  "admin.edit-user-agreement.confirm.info": "Do you want to force all users to accept the new user agreement?",
+
+  // "admin.edit-user-agreement.confirm.cancel": "Cancel"
+  // TODO New key - Add a translation
+  "admin.edit-user-agreement.confirm.cancel": "Cancel",
+
+  // "admin.edit-user-agreement.confirm.no": "No, update only"
+  // TODO New key - Add a translation
+  "admin.edit-user-agreement.confirm.no": "No, update only",
+
+  // "admin.edit-user-agreement.confirm.yes": "Yes, update and force"
+  // TODO New key - Add a translation
+  "admin.edit-user-agreement.confirm.yes": "Yes, update and force",
+
+  // "menu.section.edit-user-agreement": "Edit User Agreement"
+  // TODO New key - Add a translation
+  "menu.section.edit-user-agreement": "Edit User Agreement",
+
+  // "admin.edit-user-agreement.save-button": "Save"
+  // TODO New key - Add a translation
+  "admin.edit-user-agreement.save-button": "Save",
+
+  // "admin.edit-user-agreement.markdown": "<i>End User Agreement</i> text supports <a href=\"https://www.markdownguide.org/basic-syntax/\" target=\"_blank\">Markdown</a> language."
+  // TODO New key - Add a translation
+  "admin.edit-user-agreement.markdown": "<i>End User Agreement</i> text supports <a href=\"https://www.markdownguide.org/basic-syntax/\" target=\"_blank\">Markdown</a> language.",
+
+  // "admin.edit-user-agreement.header": "Edit User Agreement"
+  // TODO New key - Add a translation
+  "admin.edit-user-agreement.header": "Edit User Agreement",
+
+  // "admin.edit-user-agreement.success": "User agreement successfully updated"
+  // TODO New key - Add a translation
+  "admin.edit-user-agreement.success": "User agreement successfully updated",
+
+  // "admin.edit-user-agreement.error": "An error occurred while updating the user agreement"
+  // TODO New key - Add a translation
+  "admin.edit-user-agreement.error": "An error occurred while updating the user agreement",
+
+  // "admin.edit-user-agreement.title": "Edit User Agreement"
+  // TODO New key - Add a translation
+  "admin.edit-user-agreement.title": "Edit User Agreement",
+
+  // "admin.edit-cms-metadata.markdown": "<i>CMS Metadata</i> text supports <a href=\"https://www.markdownguide.org/basic-syntax/\" target=\"_blank\">Markdown</a> language."
+  // TODO New key - Add a translation
+  "admin.edit-cms-metadata.markdown": "<i>CMS Metadata</i> text supports <a href=\"https://www.markdownguide.org/basic-syntax/\" target=\"_blank\">Markdown</a> language.",
 }

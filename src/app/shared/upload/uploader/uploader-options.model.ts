@@ -1,4 +1,4 @@
-import { RestRequestMethod } from '../../../core/data/rest-request-method';
+import { RestRequestMethod } from '@dspace/config/rest-request-method';
 
 export class UploaderOptions {
   /**

@@ -7,19 +7,19 @@ import {
   PLATFORM_ID,
   ViewEncapsulation,
 } from '@angular/core';
-import { Item } from 'src/app/core/shared/item.model';
-import { getItemPageRoute } from 'src/app/item-page/item-page-routing-paths';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
+import { Item } from '@dspace/core/shared/item.model';
+import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
+import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 
 import { environment } from '../../../environments/environment';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { ViewMode } from '../../core/shared/view-mode.model';
 import { fadeIn } from '../animations/fade';
-import { hasValue } from '../empty.util';
 import { GeospatialMapComponent } from '../geospatial-map/geospatial-map.component';
 import { GeospatialMapDetail } from '../geospatial-map/models/geospatial-map-detail.model';
-import { ItemSearchResult } from '../object-collection/shared/item-search-result.model';
-import { ListableObject } from '../object-collection/shared/listable-object.model';
 import { parseGeoJsonFromMetadataValue } from '../utils/geospatial.functions';
 
 @Component({
@@ -29,7 +29,6 @@ import { parseGeoJsonFromMetadataValue } from '../utils/geospatial.functions';
   styleUrls: ['./object-geospatial-map.component.scss'],
   templateUrl: './object-geospatial-map.component.html',
   animations: [fadeIn],
-  standalone: true,
   imports: [
     GeospatialMapComponent,
   ],

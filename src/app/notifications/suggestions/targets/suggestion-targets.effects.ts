@@ -1,5 +1,16 @@
 import { Injectable } from '@angular/core';
 import {
+  AuthActionTypes,
+  RetrieveAuthenticatedEpersonSuccessAction,
+} from '@dspace/core/auth/auth.actions';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { SuggestionTarget } from '@dspace/core/notifications/suggestions/models/suggestion-target.model';
+import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import {
   Actions,
   createEffect,
   ofType,
@@ -13,18 +24,7 @@ import {
   switchMap,
   tap,
 } from 'rxjs/operators';
-import { ConfigurationDataService } from 'src/app/core/data/configuration-data.service';
-import { RemoteData } from 'src/app/core/data/remote-data';
-import { ConfigurationProperty } from 'src/app/core/shared/configuration-property.model';
-import { getFirstCompletedRemoteData } from 'src/app/core/shared/operators';
 
-import {
-  AuthActionTypes,
-  RetrieveAuthenticatedEpersonSuccessAction,
-} from '../../../core/auth/auth.actions';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { SuggestionTarget } from '../../../core/notifications/suggestions/models/suggestion-target.model';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { SuggestionsService } from '../suggestions.service';
 import {
   AddTargetAction,

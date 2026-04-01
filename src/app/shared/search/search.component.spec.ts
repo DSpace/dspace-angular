@@ -14,6 +14,37 @@ import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { SearchManager } from '@dspace/core/browse/search-manager';
+import {
+  SortDirection,
+  SortOptions,
+} from '@dspace/core/cache/models/sort-options.model';
+import { CommunityDataService } from '@dspace/core/data/community-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import {
+  getCollectionPageRoute,
+  getCommunityPageRoute,
+} from '@dspace/core/router/utils/dso-route.utils';
+import { RouteService } from '@dspace/core/services/route.service';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { FilterType } from '@dspace/core/shared/search/models/filter-type.model';
+import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
+import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
+import { SearchObjects } from '@dspace/core/shared/search/models/search-objects.model';
+import {
+  SearchConfig,
+  SortConfig,
+} from '@dspace/core/shared/search/search-filters/search-config.model';
+import { SidebarServiceStub } from '@dspace/core/testing/sidebar-service.stub';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core/utilities/remote-data.utils';
+import { XSRFService } from '@dspace/core/xsrf/xsrf.service';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
@@ -24,47 +55,17 @@ import {
   of,
 } from 'rxjs';
 
-import {
-  APP_CONFIG,
-  APP_DATA_SERVICES_MAP,
-} from '../../../config/app-config.interface';
 import { environment } from '../../../environments/environment.test';
-import { getCollectionPageRoute } from '../../collection-page/collection-page-routing-paths';
-import { getCommunityPageRoute } from '../../community-page/community-page-routing-paths';
-import {
-  SortDirection,
-  SortOptions,
-} from '../../core/cache/models/sort-options.model';
-import { CommunityDataService } from '../../core/data/community-data.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { RouteService } from '../../core/services/route.service';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { Item } from '../../core/shared/item.model';
-import { SearchService } from '../../core/shared/search/search.service';
-import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
-import { SearchFilterService } from '../../core/shared/search/search-filter.service';
-import {
-  SearchConfig,
-  SortConfig,
-} from '../../core/shared/search/search-filters/search-config.model';
-import { XSRFService } from '../../core/xsrf/xsrf.service';
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 import { HostWindowService } from '../host-window.service';
-import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../remote-data.utils';
 import { ThemedSearchFormComponent } from '../search-form/themed-search-form.component';
 import { PageWithSidebarComponent } from '../sidebar/page-with-sidebar.component';
 import { SidebarService } from '../sidebar/sidebar.service';
-import { SidebarServiceStub } from '../testing/sidebar-service.stub';
 import { ViewModeSwitchComponent } from '../view-mode-switch/view-mode-switch.component';
-import { FilterType } from './models/filter-type.model';
-import { PaginatedSearchOptions } from './models/paginated-search-options.model';
-import { SearchFilterConfig } from './models/search-filter-config.model';
-import { SearchObjects } from './models/search-objects.model';
 import { SearchComponent } from './search.component';
+import { SearchService } from './search.service';
+import { SearchConfigurationService } from './search-configuration.service';
+import { SearchFilterService } from './search-filters/search-filter.service';
 import { SearchLabelsComponent } from './search-labels/search-labels.component';
 import { ThemedSearchResultsComponent } from './search-results/themed-search-results.component';
 import { ThemedSearchSidebarComponent } from './search-sidebar/themed-search-sidebar.component';
@@ -138,6 +139,9 @@ const searchServiceStub = jasmine.createSpyObj('SearchService', {
   getSearchConfigurationFor: createSuccessfulRemoteDataObject$(searchConfig),
   trackSearch: {},
 }) as SearchService;
+const searchManagerStub = jasmine.createSpyObj('SearchManager', {
+  search: mockResultsRD$,
+});
 const queryParam = 'test query';
 const hiddenQuery = 'hidden query';
 const scopeParam = '7669c72a-3f2a-451f-a3b9-9210e7a4c02f';
@@ -216,6 +220,7 @@ export function configureSearchComponentTestingModule(compType, additionalDeclar
     imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule, NgbCollapseModule, compType, ...additionalDeclarations],
     providers: [
       { provide: SearchService, useValue: searchServiceStub },
+      { provide: SearchManager, useValue: searchManagerStub },
       {
         provide: CommunityDataService,
         useValue: jasmine.createSpyObj('communityService', ['findById', 'findAll']),
@@ -443,7 +448,7 @@ describe('SearchComponent', () => {
         comp.ngOnInit();
         tick(100);
         //Check that the last method from which the search depend upon is being called
-        expect(searchServiceStub.search).toHaveBeenCalled();
+        expect(searchManagerStub.search).toHaveBeenCalled();
       }));
     });
   });

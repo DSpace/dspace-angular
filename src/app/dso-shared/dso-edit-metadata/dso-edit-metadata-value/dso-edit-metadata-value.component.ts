@@ -7,6 +7,7 @@ import {
   NgClass,
 } from '@angular/common';
 import {
+  ChangeDetectorRef,
   Component,
   EventEmitter,
   Input,
@@ -17,29 +18,33 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateModule } from '@ngx-translate/core';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { RelationshipDataService } from '@dspace/core/data/relationship-data.service';
+import { MetadataService } from '@dspace/core/metadata/metadata.service';
+import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
+import { ConfidenceType } from '@dspace/core/shared/confidence-type';
+import { Context } from '@dspace/core/shared/context.model';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { ItemMetadataRepresentation } from '@dspace/core/shared/metadata-representation/item/item-metadata-representation.model';
 import {
+  MetadataRepresentation,
+  MetadataRepresentationType,
+} from '@dspace/core/shared/metadata-representation/metadata-representation.model';
+import { Vocabulary } from '@dspace/core/submission/vocabularies/models/vocabulary.model';
+import { hasValue } from '@dspace/shared/utils/empty.util';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  BehaviorSubject,
   EMPTY,
   Observable,
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { RelationshipDataService } from '../../../core/data/relationship-data.service';
-import { MetadataService } from '../../../core/metadata/metadata.service';
-import { ConfidenceType } from '../../../core/shared/confidence-type';
-import { Context } from '../../../core/shared/context.model';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { ItemMetadataRepresentation } from '../../../core/shared/metadata-representation/item/item-metadata-representation.model';
-import {
-  MetadataRepresentation,
-  MetadataRepresentationType,
-} from '../../../core/shared/metadata-representation/metadata-representation.model';
-import { Vocabulary } from '../../../core/submission/vocabularies/models/vocabulary.model';
-import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
-import { hasValue } from '../../../shared/empty.util';
 import { AuthorityConfidenceStateDirective } from '../../../shared/form/directives/authority-confidence-state.directive';
 import { ThemedTypeBadgeComponent } from '../../../shared/object-collection/shared/badges/type-badge/themed-type-badge.component';
 import { DebounceDirective } from '../../../shared/utils/debounce.directive';
@@ -55,7 +60,6 @@ import { DsoEditMetadataValueFieldLoaderComponent } from '../dso-edit-metadata-v
   selector: 'ds-dso-edit-metadata-value',
   styleUrls: ['./dso-edit-metadata-value.component.scss', '../dso-edit-metadata-shared/dso-edit-metadata-cells.scss'],
   templateUrl: './dso-edit-metadata-value.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     AuthorityConfidenceStateDirective,
@@ -65,7 +69,7 @@ import { DsoEditMetadataValueFieldLoaderComponent } from '../dso-edit-metadata-v
     DebounceDirective,
     DsoEditMetadataValueFieldLoaderComponent,
     FormsModule,
-    NgbTooltipModule,
+    NgbTooltip,
     NgClass,
     RouterLink,
     ThemedTypeBadgeComponent,
@@ -84,16 +88,30 @@ export class DsoEditMetadataValueComponent implements OnInit, OnChanges {
    * Also used to determine metadata-representations in case of virtual metadata
    */
   @Input() dso: DSpaceObject;
-
-  /**
-   * The metadata field that is being edited
-   */
-  @Input() mdField: string;
-
   /**
    * Editable metadata value to show
    */
   @Input() mdValue: DsoEditMetadataValue;
+
+
+  /**
+   * The metadata field to display a value for
+   */
+  @Input()
+  set mdField(mdField: string) {
+    this._mdField$.next(mdField);
+  }
+
+  get mdField() {
+    return this._mdField$.value;
+  }
+
+  protected readonly _mdField$ = new BehaviorSubject<string | null>(null);
+
+  /**
+   * Flag whether this is a new metadata field or exists already
+   */
+  @Input() isNewMdField = false;
 
   /**
    * Type of DSO we're displaying values for
@@ -170,6 +188,8 @@ export class DsoEditMetadataValueComponent implements OnInit, OnChanges {
     protected relationshipService: RelationshipDataService,
     protected dsoNameService: DSONameService,
     protected metadataService: MetadataService,
+    protected cdr: ChangeDetectorRef,
+    protected translate: TranslateService,
     protected dsoEditMetadataFieldService: DsoEditMetadataFieldService,
   ) {
   }
@@ -178,11 +198,6 @@ export class DsoEditMetadataValueComponent implements OnInit, OnChanges {
     this.initVirtualProperties();
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes.mdField) {
-      this.fieldType$ = this.getFieldType();
-    }
-  }
 
   /**
    * Initialise potential properties of a virtual metadata value
@@ -220,4 +235,15 @@ export class DsoEditMetadataValueComponent implements OnInit, OnChanges {
     );
   }
 
+  /**
+   * Change callback for the component. Check if the mdField has changed to retrieve whether it is metadata
+   * that uses a controlled vocabulary and update the related properties
+   *
+   * @param {SimpleChanges} changes
+   */
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.mdField) {
+      this.fieldType$ = this.getFieldType();
+    }
+  }
 }

@@ -1,13 +1,15 @@
-import { FormRowModel } from '../../../../core/config/models/config-submission-form.model';
-import { isNotEmpty } from '../../../empty.util';
-import { PLACEHOLDER_PARENT_METADATA } from '../ds-dynamic-form-ui/ds-dynamic-form-constants';
+import { FormRowModel } from '@dspace/core/config/models/config-submission-form.model';
+import { PLACEHOLDER_PARENT_METADATA } from '@dspace/core/shared/form/ds-dynamic-form-constants';
+import { FormFieldModel } from '@dspace/core/shared/form/models/form-field.model';
+import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
+import { isNotEmpty } from '@dspace/shared/utils/empty.util';
+
 import {
   DynamicRelationGroupModel,
   DynamicRelationGroupModelConfig,
 } from '../ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
-import { FormFieldModel } from '../models/form-field.model';
-import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { FieldParser } from './field-parser';
+import { ParserType } from './parser-type';
 
 export class RelationGroupFieldParser extends FieldParser {
 
@@ -17,6 +19,7 @@ export class RelationGroupFieldParser extends FieldParser {
     modelConfiguration.submissionId = this.submissionId;
     modelConfiguration.scopeUUID = this.parserOptions.collectionUUID;
     modelConfiguration.submissionScope = this.parserOptions.submissionScope;
+    this.setVocabularyOptions(modelConfiguration, this.parserOptions.collectionUUID);
     if (this.configData && this.configData.rows && this.configData.rows.length > 0) {
       modelConfiguration.formConfiguration = this.configData.rows;
       modelConfiguration.relationFields = [];
@@ -57,6 +60,8 @@ export class RelationGroupFieldParser extends FieldParser {
 
     const model = new DynamicRelationGroupModel(modelConfiguration, cls);
     model.name = this.getFieldId();
+    model.isInlineGroup = (this.configData.input.type === ParserType.InlineGroup.toString());
+
     return model;
   }
 

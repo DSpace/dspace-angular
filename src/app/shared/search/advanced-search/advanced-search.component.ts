@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  KeyValuePipe,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Inject,
@@ -14,6 +11,17 @@ import {
   Params,
   Router,
 } from '@angular/router';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
+import { FilterType } from '@dspace/core/shared/search/models/filter-type.model';
+import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
+import { FilterConfig } from '@dspace/core/shared/search/search-filters/search-config.model';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
@@ -22,23 +30,12 @@ import {
 } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '../../../../config/app-config.interface';
-import { SearchService } from '../../../core/shared/search/search.service';
-import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
-import { SearchFilterService } from '../../../core/shared/search/search-filter.service';
-import { FilterConfig } from '../../../core/shared/search/search-filters/search-config.model';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../empty.util';
 import { FilterInputSuggestionsComponent } from '../../input-suggestions/filter-suggestions/filter-input-suggestions.component';
 import { InputSuggestion } from '../../input-suggestions/input-suggestions.model';
-import { FilterType } from '../models/filter-type.model';
-import { SearchFilterConfig } from '../models/search-filter-config.model';
+import { SearchService } from '../search.service';
+import { SearchConfigurationService } from '../search-configuration.service';
+import { SearchFilterService } from '../search-filters/search-filter.service';
 
 /**
  * This component represents the advanced search in the search sidebar.
@@ -47,13 +44,11 @@ import { SearchFilterConfig } from '../models/search-filter-config.model';
   selector: 'ds-advanced-search',
   templateUrl: './advanced-search.component.html',
   styleUrls: ['./advanced-search.component.scss'],
-  standalone: true,
   imports: [
     AsyncPipe,
     BtnDisabledDirective,
     FilterInputSuggestionsComponent,
     FormsModule,
-    KeyValuePipe,
     TranslateModule,
   ],
 })

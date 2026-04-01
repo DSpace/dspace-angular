@@ -8,6 +8,20 @@ import {
   ActivatedRoute,
   RouterLink,
 } from '@angular/router';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
+import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
+import {
+  getBitstreamModuleRoute,
+  getItemModuleRoute,
+} from '@dspace/core/router/core-routing-paths';
+import { Bitstream } from '@dspace/core/shared/bitstream.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { ItemRequest } from '@dspace/core/shared/item-request.model';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { RouterLinkDirectiveStub } from '@dspace/core/testing/router-link-directive.stub';
+import { URLCombiner } from '@dspace/core/url-combiner/url-combiner';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -15,18 +29,7 @@ import {
   getTestScheduler,
 } from 'jasmine-marbles';
 import { of } from 'rxjs';
-import { APP_DATA_SERVICES_MAP } from 'src/config/app-config.interface';
 
-import { getBitstreamModuleRoute } from '../../app-routing-paths';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../core/data/feature-authorization/feature-id';
-import { Bitstream } from '../../core/shared/bitstream.model';
-import { Item } from '../../core/shared/item.model';
-import { ItemRequest } from '../../core/shared/item-request.model';
-import { URLCombiner } from '../../core/url-combiner/url-combiner';
-import { getItemModuleRoute } from '../../item-page/item-page-routing-paths';
-import { ActivatedRouteStub } from '../testing/active-router.stub';
-import { RouterLinkDirectiveStub } from '../testing/router-link-directive.stub';
 import { FileDownloadLinkComponent } from './file-download-link.component';
 
 describe('FileDownloadLinkComponent', () => {
@@ -85,6 +88,7 @@ describe('FileDownloadLinkComponent', () => {
         { provide: ActivatedRoute, useValue: activatedRoute },
         { provide: Store, useValue: storeMock },
         { provide: APP_DATA_SERVICES_MAP, useValue: {} },
+        { provide: APP_CONFIG, useValue: { cache: { msToLive: { default: 15 * 60 * 1000 } } } },
       ],
     })
       .overrideComponent(FileDownloadLinkComponent, {
@@ -113,9 +117,11 @@ describe('FileDownloadLinkComponent', () => {
           component.item = item;
           fixture.detectChanges();
         });
+        it('should return canDownload truthy', () => {
+          expect(component.canDownload$).toBeObservable(cold('-a', { a: true }));
+        });
         it('should return the bitstreamPath based on the input bitstream', () => {
           expect(component.bitstreamPath$).toBeObservable(cold('-a', { a: { routerLink: new URLCombiner(getBitstreamModuleRoute(), bitstream.uuid, 'download').toString(), queryParams: {} } }));
-          expect(component.canDownload$).toBeObservable(cold('--a', { a: true }));
 
         });
         it('should init the component', () => {
@@ -147,9 +153,11 @@ describe('FileDownloadLinkComponent', () => {
           component.bitstream = bitstream;
           fixture.detectChanges();
         });
+        it('should return canDownload falsy', () => {
+          expect(component.canDownload$).toBeObservable(cold('-a', { a: false }));
+        });
         it('should return the bitstreamPath based on the input bitstream', () => {
-          expect(component.bitstreamPath$).toBeObservable(cold('-a', { a: { routerLink: new URLCombiner(getItemModuleRoute(), item.uuid, 'request-a-copy').toString(), queryParams: { bitstream: bitstream.uuid } } }));
-          expect(component.canDownload$).toBeObservable(cold('--a', { a: false }));
+          expect(component.bitstreamPath$).toBeObservable(cold('--a', { a: { routerLink: new URLCombiner(getItemModuleRoute(), item.uuid, 'request-a-copy').toString(), queryParams: { bitstream: bitstream.uuid } } }));
 
         });
         it('should init the component', () => {
@@ -176,9 +184,11 @@ describe('FileDownloadLinkComponent', () => {
           component.item = item;
           fixture.detectChanges();
         });
+        it('should return canDownload falsy', () => {
+          expect(component.canDownload$).toBeObservable(cold('-a', { a: false }));
+        });
         it('should return the bitstreamPath based on the input bitstream', () => {
-          expect(component.bitstreamPath$).toBeObservable(cold('-a', { a: { routerLink: new URLCombiner(getBitstreamModuleRoute(), bitstream.uuid, 'download').toString(), queryParams: {} } }));
-          expect(component.canDownload$).toBeObservable(cold('--a', { a: false }));
+          expect(component.bitstreamPath$).toBeObservable(cold('--a', { a: { routerLink: new URLCombiner(getBitstreamModuleRoute(), bitstream.uuid, 'download').toString(), queryParams: {} } }));
 
         });
         it('should init the component and show the locked icon', () => {
@@ -205,9 +215,11 @@ describe('FileDownloadLinkComponent', () => {
           component.item = item;
           fixture.detectChanges();
         });
+        it('should return canDownload falsy', () => {
+          expect(component.canDownload$).toBeObservable(cold('-a', { a: false }));
+        });
         it('should return the bitstreamPath based on the access token and request-a-copy path', () => {
-          expect(component.bitstreamPath$).toBeObservable(cold('-a', { a: { routerLink: new URLCombiner(getBitstreamModuleRoute(), bitstream.uuid, 'download').toString(), queryParams: { accessToken: 'abc123' } } }));
-          expect(component.canDownload$).toBeObservable(cold('--a', { a: false }));
+          expect(component.bitstreamPath$).toBeObservable(cold('--a', { a: { routerLink: new URLCombiner(getBitstreamModuleRoute(), bitstream.uuid, 'download').toString(), queryParams: { accessToken: 'abc123' } } }));
 
         });
         it('should init the component and show an open lock', () => {

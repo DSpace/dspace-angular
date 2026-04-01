@@ -4,13 +4,13 @@ import {
   inheritSerialization,
 } from 'cerialize';
 
+import { typedObject } from '../../cache/builders/build-decorators';
+import { HALLink } from '../../shared/hal-link.model';
 import {
   SectionScope,
   SectionVisibility,
-} from '../../../submission/objects/section-visibility.model';
-import { SectionsType } from '../../../submission/sections/sections-type';
-import { typedObject } from '../../cache/builders/build-decorators';
-import { HALLink } from '../../shared/hal-link.model';
+} from '../../submission/models/section-visibility.model';
+import { SectionsType } from '../../submission/sections-type';
 import { ConfigObject } from './config.model';
 import { SUBMISSION_SECTION_TYPE } from './config-type';
 

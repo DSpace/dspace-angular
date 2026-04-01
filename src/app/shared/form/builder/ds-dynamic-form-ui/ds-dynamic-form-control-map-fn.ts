@@ -1,4 +1,5 @@
 import { Type } from '@angular/core';
+import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from '@dspace/core/shared/form/ds-dynamic-form-constants';
 import {
   DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
   DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX,
@@ -25,7 +26,6 @@ import {
   DynamicNGBootstrapTimePickerComponent,
 } from '@ng-dynamic-forms/ui-ng-bootstrap';
 
-import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './ds-dynamic-form-constants';
 import { DsDynamicFormArrayComponent } from './models/array-group/dynamic-form-array.component';
 import { CustomSwitchComponent } from './models/custom-switch/custom-switch.component';
 import { DYNAMIC_FORM_CONTROL_TYPE_CUSTOM_SWITCH } from './models/custom-switch/custom-switch.model';
@@ -44,6 +44,8 @@ import { DYNAMIC_FORM_CONTROL_TYPE_LOOKUP_NAME } from './models/lookup/dynamic-l
 import { DsDynamicOneboxComponent } from './models/onebox/dynamic-onebox.component';
 import { DYNAMIC_FORM_CONTROL_TYPE_ONEBOX } from './models/onebox/dynamic-onebox.model';
 import { DsDynamicRelationGroupComponent } from './models/relation-group/dynamic-relation-group.components';
+import { DynamicRelationGroupModel } from './models/relation-group/dynamic-relation-group.model';
+import { DsDynamicRelationInlineGroupComponent } from './models/relation-inline-group/dynamic-relation-inline-group.components';
 import { DsDynamicScrollableDropdownComponent } from './models/scrollable-dropdown/dynamic-scrollable-dropdown.component';
 import { DYNAMIC_FORM_CONTROL_TYPE_SCROLLABLE_DROPDOWN } from './models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 import { DsDynamicTagComponent } from './models/tag/dynamic-tag.component';
@@ -93,7 +95,7 @@ export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<
       return DsDynamicTagComponent;
 
     case DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP:
-      return DsDynamicRelationGroupComponent;
+      return (model as DynamicRelationGroupModel).isInlineGroup ? DsDynamicRelationInlineGroupComponent : DsDynamicRelationGroupComponent;
 
     case DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER:
       return DsDatePickerComponent;

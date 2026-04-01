@@ -1,7 +1,7 @@
 import { Route } from '@angular/router';
+import { authenticatedGuard } from '@dspace/core/auth/authenticated.guard';
+import { publicationClaimBreadcrumbResolver } from '@dspace/core/breadcrumbs/publication-claim-breadcrumb.resolver';
 
-import { authenticatedGuard } from '../core/auth/authenticated.guard';
-import { publicationClaimBreadcrumbResolver } from '../core/breadcrumbs/publication-claim-breadcrumb.resolver';
 import { SuggestionsPageComponent } from './suggestions-page.component';
 import { suggestionsPageResolver } from './suggestions-page.resolver';
 
