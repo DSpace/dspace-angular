@@ -1,6 +1,7 @@
 import { AsyncPipe } from '@angular/common';
 import {
   Component,
+  NgZone,
   OnDestroy,
   OnInit,
 } from '@angular/core';
@@ -134,6 +135,7 @@ export class SystemWideAlertFormComponent implements OnInit, OnDestroy {
     protected router: Router,
     protected requestService: RequestService,
     protected translateService: TranslateService,
+    protected ngZone: NgZone,
   ) {
   }
 
@@ -162,10 +164,12 @@ export class SystemWideAlertFormComponent implements OnInit, OnDestroy {
       this.initFormValues(alert);
     });
 
-    this.previewSubscription = interval(1000).subscribe(() => {
-      if (this.counterEnabled$.getValue() && this.date && this.time) {
-        this.updatePreviewTime();
-      }
+    this.ngZone.runOutsideAngular(() => {
+      this.previewSubscription = interval(1000).subscribe(() => {
+        if (this.counterEnabled$.getValue() && this.date && this.time) {
+          this.ngZone.run(() => this.updatePreviewTime());
+        }
+      });
     });
   }
 
