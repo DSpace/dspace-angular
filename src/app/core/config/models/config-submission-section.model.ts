@@ -6,25 +6,14 @@ import {
 
 import { typedObject } from '../../cache/builders/build-decorators';
 import { HALLink } from '../../shared/hal-link.model';
-import { SectionScope } from '../../submission/models/section-visibility.model';
+import {
+  SectionScope,
+  SubmissionVisibilityType,
+} from '../../submission/models/section-visibility.model';
 import { SectionsType } from '../../submission/sections-type';
 import { ConfigObject } from './config.model';
 import { SUBMISSION_SECTION_TYPE } from './config-type';
 
-/**
- * An Enum defining the possible visibility values
- */
-export enum SubmissionVisibilityValue {
-  ReadOnly = 'read-only',
-  Hidden = 'hidden'
-}
-
-/**
- * An interface that define section visibility and its properties.
- */
-export interface SubmissionVisibilityType {
-  [scope: string]: SubmissionVisibilityValue;
-}
 
 @typedObject
 @inheritSerialization(ConfigObject)
@@ -42,12 +31,6 @@ export class SubmissionSectionModel extends ConfigObject {
    */
   @autoserialize
   mandatory: boolean;
-
-  /**
-   * A boolean representing if this submission section is opened or collapsed by default
-   */
-  @autoserialize
-  opened: boolean;
 
   /**
    * The submission scope for this section

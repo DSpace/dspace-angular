@@ -1,4 +1,4 @@
-import { SubmissionVisibilityType } from '@dspace/core/config/models/config-submission-section.model';
+import { SubmissionVisibilityType } from '@dspace/core/submission/models/section-visibility.model';
 import { autoserialize } from 'cerialize';
 
 import { FormRowModel } from '../../../config/models/config-submission-form.model';

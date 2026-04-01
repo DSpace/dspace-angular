@@ -5811,6 +5811,8 @@
 
   "submission.sections.submit.progressbar.license": "Deposit license",
 
+  "submission.sections.submit.progressbar.describe.owner": "Owner",
+
   "submission.sections.submit.progressbar.sherpapolicy": "Sherpa policies",
 
   "submission.sections.submit.progressbar.upload": "Upload files",

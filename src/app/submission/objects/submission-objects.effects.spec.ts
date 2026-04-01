@@ -173,7 +173,7 @@ describe('SubmissionObjectEffects test suite', () => {
             sectionDefinition.header,
             config,
             sectionDefinition.mandatory,
-            sectionDefinition.opened,
+            sectionDefinition.scope,
             sectionDefinition.sectionType,
             sectionDefinition.visibility,
             enabled,

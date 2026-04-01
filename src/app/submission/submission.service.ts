@@ -12,8 +12,15 @@ import { RequestService } from '@dspace/core/data/request.service';
 import { HttpOptions } from '@dspace/core/dspace-rest/dspace-rest.service';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { RouteService } from '@dspace/core/services/route.service';
+import { Bundle } from '@dspace/core/shared/bundle.model';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
 import { Item } from '@dspace/core/shared/item.model';
-import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+  getPaginatedListPayload,
+  getRemoteDataPayload,
+} from '@dspace/core/shared/operators';
 import { MetadataSecurityConfiguration } from '@dspace/core/submission/models/metadata-security-configuration';
 import { SubmissionError } from '@dspace/core/submission/models/submission-error.model';
 import { SubmissionObject } from '@dspace/core/submission/models/submission-object.model';
@@ -41,6 +48,7 @@ import {
 } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import {
+  combineLatest,
   Observable,
   of,
   Subscription,
@@ -433,7 +441,7 @@ export class SubmissionService {
             const sectionObject: SectionDataObject = Object.create({});
             sectionObject.config = sections[sectionId].config;
             sectionObject.mandatory = sections[sectionId].mandatory;
-            sectionObject.opened = sections[sectionId].opened;
+            sectionObject.scope = sections[sectionId].scope;
             sectionObject.data = sections[sectionId].data;
             sectionObject.errorsToShow = sections[sectionId].errorsToShow;
             sectionObject.serverValidationErrors = sections[sectionId].serverValidationErrors;
@@ -675,9 +683,24 @@ export class SubmissionService {
    */
   invalidateCacheAndRedirectToItemPage(submissionId: string) {
     const itemUuid = submissionId.indexOf(':') > -1 ? submissionId.split(':')[0] : submissionId;
-    this.itemDataService.findById(itemUuid).pipe(
+    this.itemDataService.findById(
+      itemUuid,
+      false,
+      true,
+      followLink('bundles'),
+    ).pipe(
       getFirstSucceededRemoteDataPayload(),
-      switchMap((item) => this.requestService.setStaleByHrefSubstring(item._links.self.href)),
+      switchMap((item) => combineLatest([
+        this.requestService.setStaleByHrefSubstring(item._links.self.href),
+        item.bundles.pipe(
+          getFirstCompletedRemoteData(),
+          getRemoteDataPayload(),
+          getPaginatedListPayload(),
+          switchMap(bundles => combineLatest([
+            ...bundles.map((bundle: Bundle) => this.requestService.setStaleByHrefSubstring(bundle._links.bitstreams.href)),
+          ])),
+        ),
+      ])),
       take(1),
     ).subscribe(() => this.router.navigateByUrl('/items/' + itemUuid, { replaceUrl: true }));
   }

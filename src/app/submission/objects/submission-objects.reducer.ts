@@ -620,7 +620,7 @@ function initSection(state: SubmissionObjectState, action: InitSectionAction): S
             header: action.payload.header,
             config: action.payload.config,
             mandatory: action.payload.mandatory,
-            opened: action.payload.opened,
+            scope: action.payload.scope,
             sectionType: action.payload.sectionType,
             visibility: action.payload.visibility,
             collapsed: false,

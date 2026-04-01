@@ -1,9 +1,9 @@
 import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
+import { SubmissionVisibilityValue } from '@dspace/core/submission/models/section-visibility.model';
 import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { METADATA_SECURITY_TYPE } from 'src/app/core/submission/models/metadata-security-config.resource-type';
 
 import { SubmissionDefinitionsModel } from '../../core/config/models/config-submission-definitions.model';
-import { SubmissionVisibilityValue } from '../../core/config/models/config-submission-section.model';
 import { buildPaginatedList } from '../../core/data/paginated-list.model';
 import { Group } from '../../core/eperson/models/group.model';
 import { PageInfo } from '../../core/shared/page-info.model';

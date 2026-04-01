@@ -2,8 +2,8 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
-import { SubmissionVisibilityValue } from '@dspace/core/config/models/config-submission-section.model';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { SubmissionVisibilityValue } from '@dspace/core/submission/models/section-visibility.model';
 import { SubmissionSectionError } from '@dspace/core/submission/models/submission-section-error.model';
 import { SectionsType } from '@dspace/core/submission/sections-type';
 import { SubmissionScopeType } from '@dspace/core/submission/submission-scope-type';

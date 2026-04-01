@@ -2,13 +2,13 @@ import {
   Inject,
   InjectionToken,
 } from '@angular/core';
-import { SubmissionVisibilityType } from '@dspace/core/config/models/config-submission-section.model';
 import { FormFieldModel } from '@dspace/core/shared/form/models/form-field.model';
 import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
 import { MetadataValue } from '@dspace/core/shared/metadata.models';
 import { Metadata } from '@dspace/core/shared/metadata.utils';
 import { RelationshipOptions } from '@dspace/core/shared/relationship-options.model';
 import { MetadataSecurityConfiguration } from '@dspace/core/submission/models/metadata-security-configuration';
+import { SubmissionVisibilityType } from '@dspace/core/submission/models/section-visibility.model';
 import { VocabularyOptions } from '@dspace/core/submission/vocabularies/models/vocabulary-options.model';
 import { isNgbDateStruct } from '@dspace/shared/utils/date.util';
 import {

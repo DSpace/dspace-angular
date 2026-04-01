@@ -1,6 +1,9 @@
-import { SubmissionVisibilityType } from '@dspace/core/config/models/config-submission-section.model';
 
 import { SectionsType } from '../sections-type';
+import {
+  SectionScope,
+  SubmissionVisibilityType,
+} from './section-visibility.model';
 import { SubmissionSectionError } from './submission-section-error.model';
 import { WorkspaceitemSectionDataType } from './workspaceitem-sections.model';
 
@@ -24,9 +27,9 @@ export interface SubmissionSectionObject {
   mandatory: boolean;
 
   /**
-   * A boolean representing if this section is opened or collapsed by default
+   * The submission scope for this section
    */
-  opened: boolean;
+  scope: SectionScope;
 
   /**
    * The section type

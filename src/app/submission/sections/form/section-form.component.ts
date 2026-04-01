@@ -10,7 +10,6 @@ import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
 import { ConfigObject } from '@dspace/core/config/models/config.model';
 import { FormRowModel } from '@dspace/core/config/models/config-submission-form.model';
 import { SubmissionFormsModel } from '@dspace/core/config/models/config-submission-forms.model';
-import { SubmissionVisibilityType } from '@dspace/core/config/models/config-submission-section.model';
 import { SubmissionFormsConfigDataService } from '@dspace/core/config/submission-forms-config-data.service';
 import { RemoteData } from '@dspace/core/data/remote-data';
 import { RequestService } from '@dspace/core/data/request.service';
@@ -23,6 +22,7 @@ import {
   getRemoteDataPayload,
 } from '@dspace/core/shared/operators';
 import { MetadataSecurityConfiguration } from '@dspace/core/submission/models/metadata-security-configuration';
+import { SubmissionVisibilityType } from '@dspace/core/submission/models/section-visibility.model';
 import { SubmissionObject } from '@dspace/core/submission/models/submission-object.model';
 import { SubmissionSectionError } from '@dspace/core/submission/models/submission-section-error.model';
 import { SubmissionSectionObject } from '@dspace/core/submission/models/submission-section-object.model';

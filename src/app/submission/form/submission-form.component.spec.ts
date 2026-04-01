@@ -10,10 +10,10 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { AuthService } from '@dspace/core/auth/auth.service';
-import { SubmissionVisibilityValue } from '@dspace/core/config/models/config-submission-section.model';
 import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
 import { Item } from '@dspace/core/shared/item.model';
 import { MetadataSecurityConfigurationService } from '@dspace/core/submission/metadatasecurityconfig-data.service';
+import { SubmissionVisibilityValue } from '@dspace/core/submission/models/section-visibility.model';
 import { SubmissionScopeType } from '@dspace/core/submission/submission-scope-type';
 import { AuthServiceStub } from '@dspace/core/testing/auth-service.stub';
 import { HALEndpointServiceStub } from '@dspace/core/testing/hal-endpoint-service.stub';

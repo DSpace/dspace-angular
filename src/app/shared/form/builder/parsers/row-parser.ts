@@ -2,9 +2,9 @@ import {
   Injectable,
   Injector,
 } from '@angular/core';
-import { SubmissionVisibilityType } from '@dspace/core/config/models/config-submission-section.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from '@dspace/core/shared/form/ds-dynamic-form-constants';
 import { FormFieldModel } from '@dspace/core/shared/form/models/form-field.model';
+import { SubmissionVisibilityType } from '@dspace/core/submission/models/section-visibility.model';
 import { isEmpty } from '@dspace/shared/utils/empty.util';
 import {
   DYNAMIC_FORM_CONTROL_TYPE_ARRAY,

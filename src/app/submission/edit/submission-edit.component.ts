@@ -230,7 +230,7 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
             const { errors } = submissionObjectRD.payload;
             this.submissionErrors = parseSectionErrors(errors);
             this.submissionId = submissionObjectRD.payload.id.toString();
-            this.collectionId = (submissionObjectRD.payload.collection as Collection).id;
+            this.collectionId = collection.id;
             this.selfUrl = submissionObjectRD.payload._links.self.href;
             this.sections = submissionObjectRD.payload.sections;
             this.itemLink$.next(submissionObjectRD.payload._links.item.href);

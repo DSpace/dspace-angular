@@ -1,7 +1,8 @@
 import {
   SubmissionVisibilityType,
   SubmissionVisibilityValue,
-} from '../../core/config/models/config-submission-section.model';
+} from '@dspace/core/submission/models/section-visibility.model';
+
 import { SubmissionScopeType } from '../../core/submission/submission-scope-type';
 import { isNotEmpty } from '../../utils/empty.util';
 

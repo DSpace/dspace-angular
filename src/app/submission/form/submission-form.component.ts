@@ -9,16 +9,14 @@ import {
 } from '@angular/core';
 import { AuthService } from '@dspace/core/auth/auth.service';
 import { SubmissionDefinitionsModel } from '@dspace/core/config/models/config-submission-definitions.model';
-import {
-  SubmissionSectionModel,
-  SubmissionVisibilityType,
-} from '@dspace/core/config/models/config-submission-section.model';
+import { SubmissionSectionModel } from '@dspace/core/config/models/config-submission-section.model';
 import { Collection } from '@dspace/core/shared/collection.model';
 import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
 import { Item } from '@dspace/core/shared/item.model';
 import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
 import { MetadataSecurityConfigurationService } from '@dspace/core/submission/metadatasecurityconfig-data.service';
 import { MetadataSecurityConfiguration } from '@dspace/core/submission/models/metadata-security-configuration';
+import { SubmissionVisibilityType } from '@dspace/core/submission/models/section-visibility.model';
 import { SubmissionError } from '@dspace/core/submission/models/submission-error.model';
 import { SubmissionObject } from '@dspace/core/submission/models/submission-object.model';
 import { WorkspaceitemSectionsObject } from '@dspace/core/submission/models/workspaceitem-sections.model';
@@ -314,7 +312,6 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
       getFirstCompletedRemoteData(),
     ).subscribe(res => {
       this.metadataSecurityConfiguration   = res.payload;
-      this.collectionId = (submissionObject.collection as Collection).id;
       if (this.definitionId !== (submissionObject.submissionDefinition as SubmissionDefinitionsModel).name) {
         this.sections = submissionObject.sections;
         this.submissionDefinition = (submissionObject.submissionDefinition as SubmissionDefinitionsModel);
