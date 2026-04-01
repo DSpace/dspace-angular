@@ -97,7 +97,8 @@ export function isPartOfClassDeclaration(node: TSESTree.Identifier): boolean {
 }
 
 function fromSrc(path: string): string {
-  const m = path.match(/^.*(src\/.+)(\.(ts|json|js)?)$/);
+  const normalized = toUnixStylePath(path);
+  const m = normalized.match(/^.*(src\/.+)(\.(ts|json|js)?)$/);
 
   if (m) {
     return m[1];
