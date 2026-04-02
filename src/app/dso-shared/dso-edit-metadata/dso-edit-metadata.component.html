@@ -8,7 +8,7 @@
         <span class="d-none d-sm-inline">&nbsp;{{ dsoType + '.edit.metadata.add-button' | translate }}</span>
       </button>
       @if (isReinstatable) {
-        <button type="button" class="btn btn-warning ms-1" id="dso-reinstate-btn" [dsBtnDisabled]="(saving$ | async)"
+        <button type="button"class="btn btn-warning ms-1" id="dso-reinstate-btn" [dsBtnDisabled]="(saving$ | async)"
                 [attr.aria-label]="dsoType + '.edit.metadata.reinstate-button' | translate"
                 [title]="dsoType + '.edit.metadata.reinstate-button' | translate"
                 (click)="reinstate()"><i class="fas fa-undo-alt" aria-hidden="true"></i>
@@ -95,7 +95,7 @@
     <div class="button-row bottom d-inline-block w-100">
       <div class="mt-2 float-end space-children-mr ms-gap">
         @if (isReinstatable) {
-          <button type="button"type="button"class="btn btn-warning" [dsBtnDisabled]="(saving$ | async)"
+          <button type="button" class="btn btn-warning" [dsBtnDisabled]="(saving$ | async)"
                   [attr.aria-label]="dsoType + '.edit.metadata.reinstate-button' | translate"
                   [title]="dsoType + '.edit.metadata.reinstate-button' | translate"
                   (click)="reinstate()">

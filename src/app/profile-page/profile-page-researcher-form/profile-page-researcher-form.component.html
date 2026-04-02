@@ -17,10 +17,11 @@
     </div>
   }
   @if (!researcherProfile) {
+    @let processingCreate = (processingCreate$ | async);
     <button type="button" class="btn btn-primary me-2"
-      [dsBtnDisabled]="(processingCreate$ | async)"
+      [dsBtnDisabled]="processingCreate"
       (click)="createProfile()">
-      @if ((processingCreate$ | async)) {
+      @if (processingCreate) {
         <span>
           <i class='fas fa-circle-notch fa-spin'></i> {{'researcher.profile.action.processing' | translate}}
         </span>

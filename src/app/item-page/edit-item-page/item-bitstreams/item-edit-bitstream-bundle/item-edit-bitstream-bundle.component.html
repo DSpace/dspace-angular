@@ -43,9 +43,9 @@
                     title="{{'item.edit.bitstreams.bundle.edit.buttons.upload' | translate}}">
                     <i class="fas fa-upload fa-fw"></i>
                   </button>
-                  <div ngbDropdown #paginationControls="ngbDropdown" class="btn-group float-right btn-sm p-0"
-                    placement="bottom-right">
-                    <button type="button" class="btn btn-outline-secondary" id="paginationControls" ngbDropdownToggle
+                  <div ngbDropdown #paginationControls="ngbDropdown" class="btn-group float-end p-0"
+                       container="body" placement="bottom-right">
+                    <button type="button" class="btn btn-outline-secondary btn-sm" id="paginationControls" ngbDropdownToggle
                       [title]="'pagination.options.description' | translate"
                       [attr.aria-label]="'pagination.options.description' | translate" aria-haspopup="true"
                       aria-expanded="false">
