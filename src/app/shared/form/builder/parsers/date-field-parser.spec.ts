@@ -69,7 +69,7 @@ describe('DateFieldParser test suite', () => {
   });
 
   it('should skip setting the placeholder', () => {
-    const parser = new DateFieldParser(submissionId, field, initFormValues, parserOptions, translateService);
+    const parser = new DateFieldParser(submissionId, field, initFormValues, parserOptions, null, translateService);
     const fieldModel = parser.parse();
 
     expect(fieldModel.placeholder).toBeNull();
