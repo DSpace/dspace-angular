@@ -438,7 +438,7 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
 
     it('should call announceErrorMessages on SAVE_SUBMISSION_FORM_ERROR', () => {
       spyOn(component, 'announceErrorMessages');
-      actions$.next(new SaveSubmissionFormErrorAction('1234'));
+      actions$.next(new SaveSubmissionFormErrorAction('1234', null, null));
       expect(component.announceErrorMessages).toHaveBeenCalled();
     });
 
@@ -450,7 +450,7 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
 
     it('should call announceErrorMessages on SAVE_SUBMISSION_SECTION_FORM_ERROR', () => {
       spyOn(component, 'announceErrorMessages');
-      actions$.next(new SaveSubmissionSectionFormErrorAction('1234'));
+      actions$.next(new SaveSubmissionSectionFormErrorAction('1234', null, null));
       expect(component.announceErrorMessages).toHaveBeenCalled();
     });
   });

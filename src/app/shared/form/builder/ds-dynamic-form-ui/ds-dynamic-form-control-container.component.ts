@@ -122,6 +122,7 @@ import {
 } from 'rxjs/operators';
 
 import { AppState } from '../../../../app.reducer';
+import { EditMetadataSecurityComponent } from '../../../../item-page/edit-item-page/edit-metadata-security/edit-metadata-security.component';
 import { SubmissionObjectActionTypes } from '../../../../submission/objects/submission-objects.actions';
 import { SubmissionService } from '../../../../submission/submission.service';
 import { SubmissionObjectService } from '../../../../submission/submission-object.service';
@@ -134,6 +135,7 @@ import { ExistingMetadataListElementComponent } from './existing-metadata-list-e
 import { ExistingRelationListElementComponent } from './existing-relation-list-element/existing-relation-list-element.component';
 import { DYNAMIC_FORM_CONTROL_TYPE_CUSTOM_SWITCH } from './models/custom-switch/custom-switch.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER } from './models/date-picker/date-picker.model';
+import { DynamicConcatModel } from './models/ds-dynamic-concat.model';
 import { DsDynamicLookupRelationModalComponent } from './relation-lookup-modal/dynamic-lookup-relation-modal.component';
 import { NameVariantService } from './relation-lookup-modal/name-variant.service';
 
@@ -144,6 +146,7 @@ import { NameVariantService } from './relation-lookup-modal/name-variant.service
   changeDetection: ChangeDetectionStrategy.Default,
   imports: [
     AsyncPipe,
+    EditMetadataSecurityComponent,
     ExistingMetadataListElementComponent,
     ExistingRelationListElementComponent,
     FormsModule,
@@ -171,6 +174,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   @Input() hasErrorMessaging = false;
   @Input() layout = null as DynamicFormLayout;
   @Input() model: any;
+  securityLevel: number;
   relationshipValue$: Observable<ReorderableRelationship>;
   isRelationship: boolean;
   modalRef: NgbModalRef;
@@ -325,6 +329,14 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
           startWith(undefined),
         );
       }
+    }
+
+    if (isNotEmpty(this.model?.value?.securityLevel)) {
+      this.securityLevel = this.model.value.securityLevel;
+    } else if (isNotEmpty(this.model?.metadataValue?.securityLevel)) {
+      this.securityLevel = this.model.metadataValue.securityLevel;
+    } else {
+      this.securityLevel = this.model.securityLevel;
     }
   }
 
@@ -529,6 +541,39 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     this.subs.push(this.item$.subscribe((item) => this.item = item));
     this.subs.push(collection$.subscribe((collection) => this.collection = collection));
 
+  }
+
+  addSecurityLevelToMetadata($event) {
+    this.model.securityLevel = $event;
+    this.securityLevel = $event;
+    if (this.model.parent && (this.model.parent instanceof DynamicConcatModel)) {
+      this.model.parent.securityLevel = $event;
+    }
+    if (this.model.value) {
+      this.model.securityLevel = $event;
+      this.securityLevel = $event;
+      if (this.model.parent && (this.model.parent instanceof DynamicConcatModel)) {
+        this.model.parent.securityLevel = $event;
+      }
+      this.change.emit(
+        {
+          $event: new Event('change'),
+          context: this.context,
+          control: this.control,
+          model: this.model,
+          type: 'changeSecurityLevel',
+        } as DynamicFormControlEvent,
+      );
+      if (this.model.type === 'ONEBOX') {
+        this.customEvent.next({
+          $event: new Event('change'),
+          context: this.context,
+          control: this.control,
+          model: this.model,
+          type: 'changeSecurityLevelGroup',
+        } as DynamicFormControlEvent);
+      }
+    }
   }
 
   private handleAriaLabelForLibraryComponents(): void {

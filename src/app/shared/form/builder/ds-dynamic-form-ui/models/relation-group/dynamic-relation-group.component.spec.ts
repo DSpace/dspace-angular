@@ -22,6 +22,7 @@ import { FormRowModel } from '@dspace/core/config/models/config-submission-form.
 import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
 import { FormFieldModel } from '@dspace/core/shared/form/models/form-field.model';
 import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
+import { MetadataSecurityConfigurationService } from '@dspace/core/submission/metadatasecurityconfig-data.service';
 import { Vocabulary } from '@dspace/core/submission/vocabularies/models/vocabulary.model';
 import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
 import { SubmissionServiceStub } from '@dspace/core/testing/submission-service.stub';
@@ -43,7 +44,10 @@ import { provideMockActions } from '@ngrx/effects/testing';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { MockComponent } from 'ng-mocks';
-import { Observable } from 'rxjs';
+import {
+  Observable,
+  of,
+} from 'rxjs';
 import { ChipsComponent } from 'src/app/shared/form/chips/chips.component';
 import { ThemedLoadingComponent } from 'src/app/shared/loading/themed-loading.component';
 
@@ -177,6 +181,7 @@ function init() {
     repeatable: false,
     metadataFields: [],
     hasSelectableMetadata: false,
+    securityConfigLevel: [],
   } as DynamicRelationGroupModelConfig;
 
   FORM_GROUP_TEST_GROUP = new UntypedFormGroup({
@@ -196,6 +201,21 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
   let html;
   let submissionServiceStub: SubmissionServiceStub;
   const vocabularyService: any = new VocabularyServiceStub();
+
+  const metadataSecurityConfiguration = {
+    'uuid': 'test',
+    'metadataSecurityDefault': [
+      0,
+      1,
+    ],
+    'metadataCustomSecurity': {},
+    'type': 'securitysetting',
+    '_links': {
+      'self': {
+        'href': 'http://localhost:8080/server/api/core/securitysettings/test',
+      },
+    },
+  };
 
   // waitForAsync beforeEach
   beforeEach(waitForAsync(() => {
@@ -222,14 +242,14 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
         FormBuilderService,
         FormComponent,
         FormService,
+        MetadataSecurityConfigurationService,
         NgbModal,
         provideMockStore({ initialState }),
         { provide: VocabularyService, useValue: vocabularyService },
-        { provide: SubmissionService, useClass: SubmissionServiceStub },
         provideMockActions(() => new Observable<any>()),
         { provide: DsDynamicTypeBindRelationService, useClass: DsDynamicTypeBindRelationService },
         { provide: SubmissionObjectService, useValue: {} },
-        { provide: SubmissionService, useValue: {} },
+        { provide: SubmissionService, useClass: SubmissionServiceStub },
         { provide: XSRFService, useValue: {} },
         { provide: APP_CONFIG, useValue: environment },
         { provide: APP_DATA_SERVICES_MAP, useValue: {} },
@@ -305,6 +325,7 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
       }));
 
       it('should save a new chips item', () => {
+        submissionServiceStub.getSubmissionSecurityConfiguration.and.returnValue(of(metadataSecurityConfiguration));
         modelValue = [{
           'dc.contributor.author': new FormFieldMetadataValueObject('test author'),
           'local.contributor.affiliation': new FormFieldMetadataValueObject('test affiliation'),
@@ -349,6 +370,7 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
       }));
 
       it('should modify existing chips item', inject([FormBuilderService], (service: FormBuilderService) => {
+        submissionServiceStub.getSubmissionSecurityConfiguration.and.returnValue(of(metadataSecurityConfiguration));
         const modalRef = groupComp.onChipSelected(0);
         groupFixture.detectChanges();
 
