@@ -1003,7 +1003,7 @@ describe('SubmissionService test suite', () => {
         }),
       });
       let itemSubmissionId = itemUuid + ':FULL';
-      spyOn(itemService as any, 'findById').and.returnValue(cold('a', { a: createSuccessfulRemoteDataObject(mockItem) }));
+      (itemService.findById as jasmine.Spy).and.returnValue(cold('a', { a: createSuccessfulRemoteDataObject(mockItem) }));
       spyOn(requestServce as any, 'setStaleByHrefSubstring').and.returnValue(cold('a', { a: true }));
 
       scheduler.schedule(() => service.invalidateCacheAndRedirectToItemPage(itemSubmissionId));
