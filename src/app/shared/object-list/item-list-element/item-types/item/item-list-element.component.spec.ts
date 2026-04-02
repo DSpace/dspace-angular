@@ -10,6 +10,7 @@ import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import { AuthService } from '@dspace/core/auth/auth.service';
 import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
 import { Item } from '@dspace/core/shared/item.model';
 import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
 import { AuthServiceStub } from '@dspace/core/testing/auth-service.stub';
@@ -17,6 +18,7 @@ import { AuthorizationDataServiceStub } from '@dspace/core/testing/authorization
 import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
 import { TruncatableServiceStub } from '@dspace/core/testing/truncatable-service.stub';
 import { XSRFService } from '@dspace/core/xsrf/xsrf.service';
+import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
@@ -85,8 +87,6 @@ describe('ItemListElementComponent', () => {
         TranslateModule.forRoot(),
         TruncatePipe,
       ],
-      declarations: [
-      ],
       providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: APP_CONFIG, useValue: environment },
@@ -96,6 +96,8 @@ describe('ItemListElementComponent', () => {
         { provide: ThemeService, useValue: themeService },
         { provide: TruncatableService, useValue: truncatableService },
         { provide: XSRFService, useValue: {} },
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
+        provideMockStore(),
       ],
     }).overrideComponent(ItemListElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },

@@ -66,7 +66,6 @@ describe('SubmissionSectionCustomUrlComponent', () => {
   const sectionObject: SectionDataObject = {
     config: 'test config',
     mandatory: true,
-    opened: true,
     data: {},
     errorsToShow: [],
     serverValidationErrors: [],

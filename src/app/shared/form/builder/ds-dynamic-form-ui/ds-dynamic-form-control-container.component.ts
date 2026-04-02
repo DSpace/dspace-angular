@@ -117,6 +117,7 @@ import {
 } from 'rxjs/operators';
 
 import { AppState } from '../../../../app.reducer';
+import { EditMetadataSecurityComponent } from '../../../../item-page/edit-item-page/edit-metadata-security/edit-metadata-security.component';
 import { SubmissionObjectActionTypes } from '../../../../submission/objects/submission-objects.actions';
 import { SubmissionService } from '../../../../submission/submission.service';
 import { SubmissionObjectService } from '../../../../submission/submission-object.service';
@@ -128,6 +129,7 @@ import { DsDynamicTypeBindRelationService } from './ds-dynamic-type-bind-relatio
 import { ExistingMetadataListElementComponent } from './existing-metadata-list-element/existing-metadata-list-element.component';
 import { ExistingRelationListElementComponent } from './existing-relation-list-element/existing-relation-list-element.component';
 import { DYNAMIC_FORM_CONTROL_TYPE_CUSTOM_SWITCH } from './models/custom-switch/custom-switch.model';
+import { DynamicConcatModel } from './models/ds-dynamic-concat.model';
 import { DsDynamicLookupRelationModalComponent } from './relation-lookup-modal/dynamic-lookup-relation-modal.component';
 import { NameVariantService } from './relation-lookup-modal/name-variant.service';
 
@@ -138,6 +140,7 @@ import { NameVariantService } from './relation-lookup-modal/name-variant.service
   changeDetection: ChangeDetectionStrategy.Default,
   imports: [
     AsyncPipe,
+    EditMetadataSecurityComponent,
     ExistingMetadataListElementComponent,
     ExistingRelationListElementComponent,
     FormsModule,
@@ -165,6 +168,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   @Input() hasErrorMessaging = false;
   @Input() layout = null as DynamicFormLayout;
   @Input() model: any;
+  securityLevel: number;
   relationshipValue$: Observable<ReorderableRelationship>;
   isRelationship: boolean;
   modalRef: NgbModalRef;
@@ -317,6 +321,14 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
           startWith(undefined),
         );
       }
+    }
+
+    if (isNotEmpty(this.model?.value?.securityLevel)) {
+      this.securityLevel = this.model.value.securityLevel;
+    } else if (isNotEmpty(this.model?.metadataValue?.securityLevel)) {
+      this.securityLevel = this.model.metadataValue.securityLevel;
+    } else {
+      this.securityLevel = this.model.securityLevel;
     }
   }
 
@@ -515,5 +527,119 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     this.subs.push(this.item$.subscribe((item) => this.item = item));
     this.subs.push(collection$.subscribe((collection) => this.collection = collection));
 
+  }
+
+  addSecurityLevelToMetadata($event) {
+    this.model.securityLevel = $event;
+    this.securityLevel = $event;
+    if (this.model.parent && (this.model.parent instanceof DynamicConcatModel)) {
+      this.model.parent.securityLevel = $event;
+    }
+    if (this.model.value) {
+      this.model.securityLevel = $event;
+      this.securityLevel = $event;
+      if (this.model.parent && (this.model.parent instanceof DynamicConcatModel)) {
+        this.model.parent.securityLevel = $event;
+      }
+      this.change.emit(
+        {
+          $event: new Event('change'),
+          context: this.context,
+          control: this.control,
+          model: this.model,
+          type: 'changeSecurityLevel',
+        } as DynamicFormControlEvent,
+      );
+      if (this.model.type === 'ONEBOX') {
+        this.customEvent.next({
+          $event: new Event('change'),
+          context: this.context,
+          control: this.control,
+          model: this.model,
+          type: 'changeSecurityLevelGroup',
+        } as DynamicFormControlEvent);
+      }
+    }
+  }
+
+  /**
+   * Determines whether a form field should be validated based on its parent group's state.
+   * @returns {boolean} True if the field should be validated, false otherwise
+   */
+  isNotRequiredGroupAndEmpty(): boolean {
+    const parent = this.model.parent;
+    // Check if the model is part of a group, the group needs to be an inner form and be in the submission form not in a nested form.
+    // The check hasValue(parent.parent) tells if the parent is in the submission or in a modal (nested cases)
+    if (hasValue(parent) && parent.type === 'GROUP' && this.model.isModelOfInnerForm && hasValue(parent.parent)) {
+
+      const groupHasSomeValue = parent.group.some(elem => !!elem.value);
+
+      if (!groupHasSomeValue && !parent.isRequired && parent.group?.length > 1) {
+        this.group.reset();
+      }
+
+      return (groupHasSomeValue && !parent.isRequired) || (hasValue(parent.isRequired) && parent.isRequired);
+    } else {
+      return true;
+    }
+  }
+
+  /**
+   * Determines whether the hint should be displayed for the current field.
+   * Hint is shown when:
+   * - The field has a hint
+   * - It's the last element in a repeatable group OR non-repeatable field OR has array group value
+   * - No error messages are currently displayed
+   * @returns {boolean} True if hint should be displayed, false otherwise
+   */
+  shouldShowHint(): boolean {
+    return this.hasHint &&
+      (this.formBuilderService.hasArrayGroupValue(this.model) ||
+        ((!this.model.repeatable && (!(this.model?.isModelOfNotRepeatableGroup) || this.model?.isModelOfNotRepeatableGroup && this.context?.index === this.context?.context?.groups?.length - 1)) && (this.isRelationship === false || this.value?.value === null)) ||
+        (this.model.repeatable === true && this.context?.index === this.context?.context?.groups?.length - 1)) &&
+      (!this.showErrorMessages || this.errorMessages.length === 0);
+  }
+
+  /**
+   * Determines whether error messages should be displayed for the current field.
+   * Error messages are shown when:
+   * - Error messages are not hidden by the model configuration
+   * - There are error messages to show
+   * - For non-repeatable groups: only shown on the last element
+   * - The field passes the required group validation check
+   * @returns {boolean} True if error messages should be displayed, false otherwise
+   */
+  shouldShowErrorMessages(): boolean {
+    return !this.model.hideErrorMessages &&
+      this.showErrorMessages &&
+      (!(this.model?.isModelOfNotRepeatableGroup) ||
+        this.model?.isModelOfNotRepeatableGroup && this.context?.index === this.context?.context?.groups?.length - 1) &&
+      this.isNotRequiredGroupAndEmpty();
+  }
+
+  /**
+   * Determines whether the hint should be displayed for virtual metadata fields.
+   * Hint is shown when:
+   * - The field has a hint
+   * - It's non-repeatable OR the last element in a repeatable group
+   * - No error messages are currently displayed
+   * @returns {boolean} True if hint should be displayed for virtual metadata, false otherwise
+   */
+  shouldShowVirtualMetadataHint(): boolean {
+    return this.hasHint &&
+      (this.model.repeatable === false || this.context?.index === this.context?.context?.groups?.length - 1) &&
+      (!this.showErrorMessages || this.errorMessages.length === 0);
+  }
+
+  /**
+   * Determines whether a clearfix spacer should be displayed after the field.
+   * Clearfix is shown when:
+   * - The parent has multiple groups (more than 1)
+   * - No error messages are currently displayed
+   * @returns {boolean} True if clearfix should be displayed, false otherwise
+   */
+  shouldShowClearfix(): boolean {
+    return this.context?.parent?.groups?.length > 1 &&
+      (!this.showErrorMessages || this.errorMessages.length === 0);
   }
 }
