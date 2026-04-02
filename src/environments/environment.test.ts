@@ -282,6 +282,24 @@ export const environment: BuildConfig = {
   item: {
     edit: {
       undoTimeout: 10000, // 10 seconds
+      security: {
+        levels: [
+          {
+            value: 0,
+            icon: 'fa fa-globe',
+            color: 'green',
+          },
+          {
+            value: 1,
+            icon: 'fa fa-key',
+            color: 'orange',
+          },
+          {
+            value: 2,
+            icon: 'fa fa-lock',
+            color: 'red',
+          }],
+      },
     },
     // Show the item access status label in items lists
     showAccessStatuses: false,

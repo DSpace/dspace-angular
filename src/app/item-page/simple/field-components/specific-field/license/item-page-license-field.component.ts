@@ -1,8 +1,4 @@
-import {
-  AsyncPipe,
-  NgClass,
-  NgStyle,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Input,
@@ -34,8 +30,6 @@ import { MetadataFieldWrapperComponent } from 'src/app/shared/metadata-field-wra
     AsyncPipe,
     ItemPageCcLicenseFieldComponent,
     MetadataFieldWrapperComponent,
-    NgClass,
-    NgStyle,
     TranslateModule,
   ],
 })
