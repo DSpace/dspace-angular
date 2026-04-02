@@ -66,7 +66,7 @@
                           @case (true) {
                             <button
                               type="button"
-                              [routerLink]="groupService.getGroupEditPageRouterLink(groupDto.group)"
+                              [routerLink]="getGroupEditPageRouterLink(groupDto.group)"
                               class="btn btn-outline-primary btn-sm btn-edit"
                               title="{{messagePrefix + 'table.edit.buttons.edit' | translate: {name: dsoNameService.getName(groupDto.group) } }}"
                               >
