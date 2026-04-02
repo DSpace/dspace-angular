@@ -1,11 +1,11 @@
 import {
   AsyncPipe,
+  DOCUMENT,
   isPlatformBrowser,
 } from '@angular/common';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   Inject,
   OnInit,
@@ -42,16 +42,10 @@ export class SocialComponent implements OnInit, AfterViewInit {
   url: string;
   showCounters: boolean;
 
-  /**
-   * Whether the current page has a scrollbar or not.
-   * If false, we show the bar without waiting for scroll.
-   */
-  pageIsScrollable = true;
-
   constructor(
     private socialService: SocialService,
     @Inject(PLATFORM_ID) private platformId: object,
-    private cdr: ChangeDetectorRef,
+    @Inject(DOCUMENT) private _document: Document,
   ) {}
 
   ngOnInit() {
@@ -67,8 +61,20 @@ export class SocialComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     if (this.socialService.enabled && isPlatformBrowser(this.platformId)) {
-      this.pageIsScrollable = document.body.scrollHeight > window.innerHeight;
-      this.cdr.detectChanges();
+      setTimeout(() => {
+        const footer = this._document.querySelector('footer');
+        const bar = this._document.getElementById('dspace-a2a');
+
+        if (footer && bar) {
+          const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              bar.style.opacity = entry.isIntersecting ? '0' : '1';
+              bar.style.pointerEvents = entry.isIntersecting ? 'none' : 'auto';
+            });
+          });
+          observer.observe(footer);
+        }
+      }, 300);
     }
   }
 
