@@ -81,6 +81,12 @@ export class SubmissionFormCollectionComponent implements OnDestroy, OnChanges, 
   @Input() collectionModifiable: boolean | null = null;
 
   /**
+   * The entity type input used to create a new submission
+   * @type {string}
+   */
+  @Input() entityType: string;
+
+  /**
    * The submission id
    * @type {string}
    */

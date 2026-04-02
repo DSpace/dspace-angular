@@ -3,12 +3,15 @@ import { SearchResultConfig } from '@dspace/config/search-result-config.interfac
 
 import { AccessibilitySettingsConfig } from './accessibility-settings.config';
 import { ActuatorsConfig } from './actuators.config';
+import { AddToAnyPluginConfig } from './add-to-any-plugin-config';
 import { AdminNotifyMetricsRow } from './admin-notify-metrics.config';
+import { AdvancedAttachmentElementType } from './advanced-attachment-rendering.config';
 import { AppConfig } from './app-config.interface';
 import { AuthConfig } from './auth-config.interfaces';
 import { BrowseByConfig } from './browse-by-config.interface';
 import { BundleConfig } from './bundle-config.interface';
 import { CacheConfig } from './cache-config.interface';
+import { CmsMetadata } from './cms-metadata';
 import { CollectionPageConfig } from './collection-page-config.interface';
 import { CommunityListConfig } from './community-list-config.interface';
 import { CommunityPageConfig } from './community-page-config.interface';
@@ -145,6 +148,8 @@ export class DefaultAppConfig implements AppConfig {
       required: 'required',
       regex: 'pattern',
     },
+    // Enable the possibility to duplicate the inline form group, values included.
+    showInlineGroupDuplicateButton: false,
   };
 
   // Notifications
@@ -286,6 +291,8 @@ export class DefaultAppConfig implements AppConfig {
           },
         ],
       },
+      // Icons that should remain visible even when no authority value is present for the metadata field
+      iconsVisibleWithNoAuthority: ['fas fa-user'],
     },
   };
 
@@ -353,6 +360,7 @@ export class DefaultAppConfig implements AppConfig {
   };
 
   homePage: HomeConfig = {
+    showTopFooter: false,
     recentSubmissions: {
       //The number of item showing in recent submission components
       pageSize: 5,
@@ -369,6 +377,27 @@ export class DefaultAppConfig implements AppConfig {
   item: ItemConfig = {
     edit: {
       undoTimeout: 10000, // 10 seconds
+      // UI configuration of the security levels available for metadata fields across the application, allows to customize color and icon for each value.
+      // `0` = Public, `1` = Registered users, `2` = Administrators only.
+      security: {
+        levels: [
+          {
+            value: 0,
+            icon: 'fa fa-globe',
+            color: 'green',
+          },
+          {
+            value: 1,
+            icon: 'fa fa-key',
+            color: 'orange',
+          },
+          {
+            value: 2,
+            icon: 'fa fa-lock',
+            color: 'red',
+          },
+        ],
+      },
     },
     // Show the item access status label in items lists
     showAccessStatuses: false,
@@ -401,6 +430,9 @@ export class DefaultAppConfig implements AppConfig {
         },
       ],
     },
+    // If true, the search result in item page will display relations based on authority.
+    // If false,the search result in item page will display default DSpace relations.
+    showAuthorityRelations: false,
   };
 
   // Community Page Config
@@ -747,6 +779,38 @@ export class DefaultAppConfig implements AppConfig {
         },
       },
     ],
+    showDownloadLinkAsAttachment: false,
+    advancedAttachmentRendering: {
+      metadata: [
+        {
+          name: 'dc.title',
+          type: AdvancedAttachmentElementType.Metadata,
+          truncatable: false,
+        },
+        {
+          name: 'dc.type',
+          type: AdvancedAttachmentElementType.Metadata,
+          truncatable: false,
+        },
+        {
+          name: 'dc.description',
+          type: AdvancedAttachmentElementType.Metadata,
+          truncatable: true,
+        },
+        {
+          name: 'size',
+          type: AdvancedAttachmentElementType.Attribute,
+        },
+        {
+          name: 'format',
+          type: AdvancedAttachmentElementType.Attribute,
+        },
+        {
+          name: 'checksum',
+          type: AdvancedAttachmentElementType.Attribute,
+        },
+      ],
+    },
   };
 
   // Search result configuration for authority metadata processing
@@ -782,4 +846,24 @@ export class DefaultAppConfig implements AppConfig {
     ],
   };
 
+  /**
+   * Default configuration of AddToAny plugin for social media integration
+   * Check more details at {@link AddToAnyPluginConfig}
+   */
+  addToAnyPlugin: AddToAnyPluginConfig = {
+    socialNetworksEnabled: false,
+    scriptUrl: 'https://static.addtoany.com/menu/page.js',
+    buttons: ['facebook', 'x', 'linkedin', 'email', 'copy_link'],
+    showPlusButton: true,
+    showCounters: true,
+    title: 'DSpace demo',
+  };
+
+  cms: CmsMetadata = {
+    metadataList: [
+      'dspace.cms.home-header',
+      'dspace.cms.home-news',
+      'dspace.cms.footer',
+    ],
+  };
 }

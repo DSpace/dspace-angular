@@ -2,6 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import { RemoteData } from '@dspace/core/data/remote-data';
 import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
+import { EditItemDataService } from '@dspace/core/submission/edititem-data.service';
 import { SubmissionObject } from '@dspace/core/submission/models/submission-object.model';
 import { SubmissionScopeType } from '@dspace/core/submission/submission-scope-type';
 import { WorkflowItemDataService } from '@dspace/core/submission/workflowitem-data.service';
@@ -15,11 +16,13 @@ describe('SubmissionObjectService', () => {
   let submissionService: SubmissionService;
   let workspaceitemDataService: WorkspaceitemDataService;
   let workflowItemDataService: WorkflowItemDataService;
+  let editItemDataService: EditItemDataService;
   let halService: HALEndpointService;
 
   const submissionId = '1234';
   const wsiResult = 'wsiResult' as any;
   const wfiResult = 'wfiResult' as any;
+  const eiResult = 'eiResult' as any;
 
   beforeEach(() => {
     workspaceitemDataService = jasmine.createSpyObj('WorkspaceitemDataService', {
@@ -27,6 +30,9 @@ describe('SubmissionObjectService', () => {
     });
     workflowItemDataService = jasmine.createSpyObj('WorkflowItemDataService', {
       findById: wfiResult,
+    });
+    editItemDataService  = jasmine.createSpyObj('EditItemDataService', {
+      findById: eiResult,
     });
     halService = jasmine.createSpyObj('HALEndpointService', {
       getEndpoint: '/workspaceItem',
@@ -38,6 +44,7 @@ describe('SubmissionObjectService', () => {
         { provide: WorkflowItemDataService, useValue: workflowItemDataService },
         { provide: HALEndpointService, useValue: halService },
         { provide: SubmissionService, useValue: submissionService },
+        { provide: EditItemDataService, useValue: editItemDataService },
         { provide: APP_CONFIG, useValue: { cache : { msToLive: { default : 15 * 60 * 1000 } } } },
         SubmissionObjectService,
       ],

@@ -23,6 +23,7 @@ import {
 export interface DynamicRelationGroupModelConfig extends DsDynamicInputModelConfig {
   submissionId: string;
   formConfiguration: FormRowModel[];
+  isInlineGroup: boolean;
   mandatoryField: string;
   relationFields: string[];
   scopeUUID: string;
@@ -35,11 +36,15 @@ export interface DynamicRelationGroupModelConfig extends DsDynamicInputModelConf
 export class DynamicRelationGroupModel extends DsDynamicInputModel {
   @serializable() submissionId: string;
   @serializable() formConfiguration: FormRowModel[];
+  @serializable() isInlineGroup: boolean;
   @serializable() mandatoryField: string;
   @serializable() relationFields: string[];
   @serializable() scopeUUID: string;
   @serializable() submissionScope: string;
+  @serializable() securityLevels: any;
   @serializable() readonly type: string = DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP;
+  // will be shown only for parts of group
+  @serializable() toggleSecurityVisibility = false;
 
   constructor(config: DynamicRelationGroupModelConfig, layout?: DynamicFormControlLayout) {
     super(config, layout);
@@ -50,8 +55,8 @@ export class DynamicRelationGroupModel extends DsDynamicInputModel {
     this.relationFields = config.relationFields;
     this.scopeUUID = config.scopeUUID;
     this.submissionScope = config.submissionScope;
-    const value = config.value || [];
-    this.value = value;
+    this.isInlineGroup = config.isInlineGroup;
+    this.value = config.value || [];
   }
 
   /*  get value() {
