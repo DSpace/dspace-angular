@@ -3868,7 +3868,7 @@
 
   "mydspace.show.workspace": "Your submissions",
 
-  "mydspace.show.otherworkspace": "Shared Submissions",
+  "mydspace.show.otherWorkspace": "Shared Submissions",
 
   "mydspace.show.supervisedWorkspace": "Supervised items",
 
@@ -6221,7 +6221,7 @@
 
   "workflow.search.results.head": "Workflow tasks",
 
-  "otherworkspace.search.results.head": "Workspace submissions",
+  "otherWorkspace.search.results.head": "Shared workspace",
 
   "supervision.search.results.head": "Workflow and Workspace tasks",
 

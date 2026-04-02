@@ -6,11 +6,10 @@
  * http://www.dspace.org/license/
  */
 import { Injectable } from '@angular/core';
+import { PaginatedList } from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
 import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
-import {
-  getAllSucceededRemoteDataPayload,
-  getPaginatedListPayload,
-} from '@dspace/core/shared/operators';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
 import { EditItemDataService } from '@dspace/core/submission/edititem-data.service';
 import { EditItemMode } from '@dspace/core/submission/models/edititem-mode.model';
 import { URLCombiner } from '@dspace/core/url-combiner/url-combiner';
@@ -40,20 +39,24 @@ export class EditItemMenuProvider extends DSpaceObjectPageMenuProvider {
 
   public getSectionsForContext(dso: DSpaceObject): Observable<PartialMenuSection[]> {
     return this.editItemService.searchEditModesById(dso.id).pipe(
-      getAllSucceededRemoteDataPayload(),
-      getPaginatedListPayload(),
-      map((editModes: EditItemMode[]) => {
-        return editModes.map(editMode => {
-          return {
-            model: {
-              type: MenuItemType.LINK,
-              text: `menu.section.${editMode.name}`,
-              link: new URLCombiner(getEditItemPageRoute(), `${dso.uuid}:${editMode.name}`).toString(),
-            },
-            icon: 'pencil-alt',
-            visible: true,
-          };
-        });
+      getFirstCompletedRemoteData(),
+      map((editmodesRd: RemoteData<PaginatedList<EditItemMode>>) => {
+        if (editmodesRd.hasSucceeded) {
+          const editModes = editmodesRd.payload.page;
+          return editModes.map(editMode => {
+            return {
+              model: {
+                type: MenuItemType.LINK,
+                text: `menu.section.${editMode.name}`,
+                link: new URLCombiner(getEditItemPageRoute(), `${dso.uuid}:${editMode.name}`).toString(),
+              },
+              icon: 'pencil-alt',
+              visible: true,
+            };
+          });
+        } else  {
+          return [];
+        }
       }),
       catchError(() => of([])),
     );
