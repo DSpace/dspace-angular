@@ -1,6 +1,6 @@
 export enum MyDSpaceConfigurationValueType {
   Workspace = 'workspace',
   SupervisedItems = 'supervisedWorkspace',
-  OtherWorkspace = 'otherworkspace',
+  OtherWorkspace = 'otherWorkspace',
   Workflow = 'workflow'
 }
