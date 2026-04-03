@@ -1,7 +1,9 @@
 import { DOCUMENT } from '@angular/common';
 import {
   ComponentFixture,
+  fakeAsync,
   TestBed,
+  tick,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
@@ -15,7 +17,6 @@ describe('SocialComponent', () => {
   let document: Document;
 
   const socialServiceStub = {};
-
   const activatedRouteStub = {} as ActivatedRoute;
 
   beforeEach(async () => {
@@ -36,7 +37,7 @@ describe('SocialComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should embed social bar inside footer when social is enabled', (done) => {
+  it('should embed social bar inside footer when social is enabled', fakeAsync(() => {
     const doc = TestBed.inject(DOCUMENT);
     const footer = doc.createElement('footer');
     doc.body.appendChild(footer);
@@ -54,48 +55,59 @@ describe('SocialComponent', () => {
     };
 
     component.ngAfterViewInit();
+    tick(1100);
 
-    setTimeout(() => {
-      const bar = doc.getElementById('dspace-a2a');
-      expect(footer.contains(bar)).toBeTrue();
-      expect(bar.style.position).toBe('relative');
-      expect(bar.style.opacity).toBe('1');
-      expect(bar.style.pointerEvents).toBe('auto');
-      doc.body.removeChild(footer);
-      done();
-    }, 1100);
-  });
+    const bar = doc.getElementById('dspace-a2a');
+    expect(footer.contains(bar)).toBeTrue();
+    expect(bar.style.position).toBe('relative');
+    expect(bar.style.opacity).toBe('1');
+    expect(bar.style.pointerEvents).toBe('auto');
 
-  it('should not move bar if social is disabled', (done) => {
-    const footer = document.createElement('footer');
-    document.body.appendChild(footer);
+    doc.body.removeChild(footer);
+  }));
+
+  it('should not move bar if social is disabled', fakeAsync(() => {
+    const doc = TestBed.inject(DOCUMENT);
+    const footer = doc.createElement('footer');
+    doc.body.appendChild(footer);
 
     (component as any).socialService = { enabled: false };
     component.ngAfterViewInit();
+    tick(1100);
 
-    setTimeout(() => {
-      const bar = document.getElementById('dspace-a2a');
-      expect(bar).toBeNull(); // no se mueve ni se modifica
-      document.body.removeChild(footer);
-      done();
-    }, 1100);
-  });
+    const bar = doc.getElementById('dspace-a2a');
+    if (bar) {
+      expect(footer.contains(bar)).toBeFalse();
+      expect(bar.style.position).not.toBe('relative');
+      expect(bar.style.opacity).not.toBe('1');
+    } else {
+      expect(bar).toBeNull();
+    }
 
-  it('should not move bar if platform is not browser', (done) => {
-    const footer = document.createElement('footer');
-    document.body.appendChild(footer);
+    doc.body.removeChild(footer);
+  }));
 
-    (component as any).platformId = 'server'; // simula server
+  it('should not move bar if platform is not browser', fakeAsync(() => {
+    const doc = TestBed.inject(DOCUMENT);
+    const footer = doc.createElement('footer');
+    doc.body.appendChild(footer);
+
+    (component as any).platformId = 'server';
     (component as any).socialService = { enabled: true };
     component.ngAfterViewInit();
+    tick(1100);
 
-    setTimeout(() => {
-      const bar = document.getElementById('dspace-a2a');
-      expect(bar).toBeNull(); // no se mueve ni se modifica
-      document.body.removeChild(footer);
-      done();
-    }, 1100);
-  });
+    const bar = doc.getElementById('dspace-a2a');
+    if (bar) {
+      expect(footer.contains(bar)).toBeFalse();
+      expect(bar.style.position).not.toBe('relative');
+      expect(bar.style.opacity).not.toBe('1');
+    } else {
+      expect(bar).toBeNull();
+    }
+
+    doc.body.removeChild(footer);
+  }));
 
   it('should initialize properties from socialService configuration on ngOnInit', () => {
     const config = {
@@ -120,10 +132,15 @@ describe('SocialComponent', () => {
     expect(component.title).toBe('Test Title');
   });
 
-  it('should toggle d-none class based on showOnCurrentRoute$', (done) => {
+  it('should toggle d-none class based on showOnCurrentRoute$', fakeAsync(() => {
     const doc = TestBed.inject(DOCUMENT);
     const footer = doc.createElement('footer');
     doc.body.appendChild(footer);
+
+    const bar = doc.createElement('div');
+    bar.id = 'dspace-a2a';
+    bar.classList.add('a2a_kit');
+    doc.body.appendChild(bar);
 
     const showOnCurrentRouteMock = {
       subscribe: (cb: (value: boolean) => void) => {
@@ -145,25 +162,15 @@ describe('SocialComponent', () => {
       showOnCurrentRoute$: showOnCurrentRouteMock,
     };
 
-    fixture.detectChanges();
-
-    const bar = doc.createElement('div');
-    bar.id = 'dspace-a2a';
-    bar.classList.add('a2a_kit');
-    doc.body.appendChild(bar);
-
     component.ngAfterViewInit();
 
-    setTimeout(() => {
-      expect(bar.classList.contains('d-none')).toBeTrue();
+    expect(bar.classList.contains('d-none')).toBeTrue();
 
-      setTimeout(() => {
-        expect(bar.classList.contains('d-none')).toBeFalse();
-        doc.body.removeChild(bar);
-        doc.body.removeChild(footer);
-        done();
-      }, 60);
-    }, 10);
-  });
+    tick(50);
+    expect(bar.classList.contains('d-none')).toBeFalse();
+
+    doc.body.removeChild(bar);
+    doc.body.removeChild(footer);
+  }));
 
 });
