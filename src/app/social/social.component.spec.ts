@@ -7,6 +7,7 @@ import {
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
+import { BehaviorSubject } from 'rxjs';
 
 import { SocialComponent } from './social.component';
 import { SocialService } from './social.service';
@@ -137,18 +138,7 @@ describe('SocialComponent', () => {
     const footer = doc.createElement('footer');
     doc.body.appendChild(footer);
 
-    const bar = doc.createElement('div');
-    bar.id = 'dspace-a2a';
-    bar.classList.add('a2a_kit');
-    doc.body.appendChild(bar);
-
-    const showOnCurrentRouteMock = {
-      subscribe: (cb: (value: boolean) => void) => {
-        cb(false);
-        setTimeout(() => cb(true), 50);
-        return { unsubscribe: () => {} };
-      },
-    };
+    const showOnCurrentRoute$ = new BehaviorSubject(false);
 
     (component as any).socialService = {
       enabled: true,
@@ -159,17 +149,22 @@ describe('SocialComponent', () => {
         title: '',
       },
       initializeAddToAnyScript: () => {},
-      showOnCurrentRoute$: showOnCurrentRouteMock,
+      showOnCurrentRoute$: showOnCurrentRoute$,
     };
 
     component.ngAfterViewInit();
+    fixture.detectChanges();
 
+    const bar = doc.getElementById('dspace-a2a');
+    expect(bar).toBeTruthy();
     expect(bar.classList.contains('d-none')).toBeTrue();
 
-    tick(50);
+    showOnCurrentRoute$.next(true);
+    tick();
+    fixture.detectChanges();
+
     expect(bar.classList.contains('d-none')).toBeFalse();
 
-    doc.body.removeChild(bar);
     doc.body.removeChild(footer);
   }));
 
