@@ -136,6 +136,7 @@ describe('SocialComponent', () => {
     beforeEach(async () => {
       showOnCurrentRoute$ = new BehaviorSubject<boolean>(false);
 
+      TestBed.resetTestingModule();
       await TestBed.configureTestingModule({
         imports: [StoreModule.forRoot({}), SocialComponent],
         providers: [
