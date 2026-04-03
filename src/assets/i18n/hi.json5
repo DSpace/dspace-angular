@@ -7460,20 +7460,23 @@
   // "search.filters.discoverable.false": "Yes",
   "search.filters.discoverable.false": "हाँ",
 
-  // "search.filters.namedresourcetype.Archived": "Archived",
-  "search.filters.namedresourcetype.Archived": "संग्रहीत",
+  // "search.filters.namedresourcetype.archived": "Archived",
+  "search.filters.namedresourcetype.archived": "संग्रहीत",
 
-  // "search.filters.namedresourcetype.Validation": "Validation",
-  "search.filters.namedresourcetype.Validation": "सत्यापन",
+  // "search.filters.namedresourcetype.item": "Archived",
+  "search.filters.namedresourcetype.item": "संग्रहीत",
 
-  // "search.filters.namedresourcetype.Waiting for Controller": "Waiting for reviewer",
-  "search.filters.namedresourcetype.Waiting for Controller": "समीक्षक की प्रतीक्षा में",
+  // "search.filters.namedresourcetype.validation": "Validation",
+  "search.filters.namedresourcetype.validation": "सत्यापन",
 
-  // "search.filters.namedresourcetype.Workflow": "Workflow",
-  "search.filters.namedresourcetype.Workflow": "कार्यप्रवाह",
+  // "search.filters.namedresourcetype.waiting for controller": "Waiting for reviewer",
+  "search.filters.namedresourcetype.waiting for controller": "समीक्षक की प्रतीक्षा में",
 
-  // "search.filters.namedresourcetype.Workspace": "Workspace",
-  "search.filters.namedresourcetype.Workspace": "कार्यस्थान",
+  // "search.filters.namedresourcetype.workflow": "Workflow",
+  "search.filters.namedresourcetype.workflow": "कार्यप्रवाह",
+
+  // "search.filters.namedresourcetype.workspace": "Workspace",
+  "search.filters.namedresourcetype.workspace": "कार्यस्थान",
 
   // "search.filters.withdrawn.true": "Yes",
   "search.filters.withdrawn.true": "हाँ",

@@ -8781,25 +8781,29 @@
   // "search.filters.discoverable.false": "Yes",
   "search.filters.discoverable.false": "Jā",
 
-  // "search.filters.namedresourcetype.Archived": "Archived",
+  // "search.filters.namedresourcetype.archived": "Archived",
   // TODO New key - Add a translation
-  "search.filters.namedresourcetype.Archived": "Archived",
+  "search.filters.namedresourcetype.archived": "Archived",
 
-  // "search.filters.namedresourcetype.Validation": "Validation",
+  // "search.filters.namedresourcetype.item": "Archived",
   // TODO New key - Add a translation
-  "search.filters.namedresourcetype.Validation": "Validation",
+  "search.filters.namedresourcetype.item": "Archived",
 
-  // "search.filters.namedresourcetype.Waiting for Controller": "Waiting for reviewer",
+  // "search.filters.namedresourcetype.validation": "Validation",
   // TODO New key - Add a translation
-  "search.filters.namedresourcetype.Waiting for Controller": "Waiting for reviewer",
+  "search.filters.namedresourcetype.validation": "Validation",
 
-  // "search.filters.namedresourcetype.Workflow": "Workflow",
+  // "search.filters.namedresourcetype.waiting for controller": "Waiting for reviewer",
   // TODO New key - Add a translation
-  "search.filters.namedresourcetype.Workflow": "Workflow",
+  "search.filters.namedresourcetype.waiting for controller": "Waiting for reviewer",
 
-  // "search.filters.namedresourcetype.Workspace": "Workspace",
+  // "search.filters.namedresourcetype.workflow": "Workflow",
   // TODO New key - Add a translation
-  "search.filters.namedresourcetype.Workspace": "Workspace",
+  "search.filters.namedresourcetype.workflow": "Workflow",
+
+  // "search.filters.namedresourcetype.workspace": "Workspace",
+  // TODO New key - Add a translation
+  "search.filters.namedresourcetype.workspace": "Workspace",
 
   // "search.filters.withdrawn.true": "Yes",
   "search.filters.withdrawn.true": "Jā",
