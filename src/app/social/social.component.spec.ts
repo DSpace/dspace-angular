@@ -138,21 +138,16 @@ describe('SocialComponent', () => {
     const footer = doc.createElement('footer');
     doc.body.appendChild(footer);
 
-    const showOnCurrentRoute$ = new BehaviorSubject(false);
+    const showOnCurrentRoute$ = new BehaviorSubject<boolean>(false);
 
     (component as any).socialService = {
       enabled: true,
-      configuration: {
-        buttons: [],
-        showPlusButton: false,
-        showCounters: false,
-        title: '',
-      },
+      configuration: { buttons: [], showPlusButton: false, showCounters: false, title: '' },
       initializeAddToAnyScript: () => {},
       showOnCurrentRoute$: showOnCurrentRoute$,
     };
 
-    component.ngAfterViewInit();
+    component.ngOnInit();
     fixture.detectChanges();
 
     const bar = doc.getElementById('dspace-a2a');
@@ -160,7 +155,6 @@ describe('SocialComponent', () => {
     expect(bar.classList.contains('d-none')).toBeTrue();
 
     showOnCurrentRoute$.next(true);
-    tick();
     fixture.detectChanges();
 
     expect(bar.classList.contains('d-none')).toBeFalse();
