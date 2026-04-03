@@ -149,12 +149,14 @@ describe('SocialComponent', () => {
 
     component.ngOnInit();
     fixture.detectChanges();
+    tick();
 
     const bar = doc.getElementById('dspace-a2a');
     expect(bar).toBeTruthy();
     expect(bar.classList.contains('d-none')).toBeTrue();
 
     showOnCurrentRoute$.next(true);
+    tick();
     fixture.detectChanges();
 
     expect(bar.classList.contains('d-none')).toBeFalse();
