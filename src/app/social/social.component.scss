@@ -1,12 +1,11 @@
 ::ng-deep {
   #dspace-a2a {
     z-index: 998;
-    display: flex !important;
-    justify-content: center !important;
-    width: 100% !important;
-    position: relative !important;
-    bottom: auto !important;
-    right: auto !important;
-    padding: 8px 0;
+    right: 0px !important;
+    top: 150px !important;
+
+    @media screen and (max-width: 980px) {
+      display: none !important;
+    }
   }
 }

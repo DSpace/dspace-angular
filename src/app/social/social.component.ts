@@ -1,15 +1,8 @@
+import { AsyncPipe } from '@angular/common';
 import {
-  AsyncPipe,
-  DOCUMENT,
-  isPlatformBrowser,
-} from '@angular/common';
-import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
-  Inject,
   OnInit,
-  PLATFORM_ID,
 } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -27,7 +20,7 @@ import { SocialService } from './social.service';
 /**
  * Component to render dynamically the social2 buttons using addToAny plugin
  */
-export class SocialComponent implements OnInit, AfterViewInit {
+export class SocialComponent implements OnInit {
 
 
   /**
@@ -44,8 +37,6 @@ export class SocialComponent implements OnInit, AfterViewInit {
 
   constructor(
     private socialService: SocialService,
-    @Inject(PLATFORM_ID) private platformId: object,
-    @Inject(DOCUMENT) private _document: Document,
   ) {}
 
   ngOnInit() {
@@ -57,28 +48,6 @@ export class SocialComponent implements OnInit, AfterViewInit {
       this.socialService.initializeAddToAnyScript();
       this.showOnCurrentRoute$ = this.socialService.showOnCurrentRoute$;
     }
-  }
-
-  /**
-   * Embeds the social links bar inside the footer so it is always visible
-   * on all pages, including item pages that do not scroll.
-   */
-  ngAfterViewInit() {
-    if (!this.socialService.enabled || !isPlatformBrowser(this.platformId)) {return;}
-
-    setTimeout(() => {
-      const footer = this._document.querySelector('footer');
-      const bar = this._document.getElementById('dspace-a2a');
-      if (!footer || !bar) {return;}
-
-      bar.classList.remove('a2a_floating_style');
-      bar.style.setProperty('position', 'relative', 'important');
-      bar.style.setProperty('opacity', '1', 'important');
-      bar.style.setProperty('pointer-events', 'auto', 'important');
-      bar.style.bottom = 'auto';
-      bar.style.right = 'auto';
-      footer.prepend(bar);
-    }, 1000);
   }
 
 }
