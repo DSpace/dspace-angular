@@ -45,12 +45,7 @@ describe('SocialComponent', () => {
 
     (component as any).socialService = {
       enabled: true,
-      configuration: {
-        buttons: [],
-        showPlusButton: false,
-        showCounters: false,
-        title: '',
-      },
+      configuration: { buttons: [], showPlusButton: false, showCounters: false, title: '' },
       initializeAddToAnyScript: () => {},
       showOnCurrentRoute$: null,
     };
@@ -133,35 +128,49 @@ describe('SocialComponent', () => {
     expect(component.title).toBe('Test Title');
   });
 
-  it('should toggle d-none class based on showOnCurrentRoute$', fakeAsync(() => {
-    const doc = TestBed.inject(DOCUMENT);
-    const footer = doc.createElement('footer');
-    doc.body.appendChild(footer);
+  describe('toggle d-none', () => {
+    let toggleFixture: ComponentFixture<SocialComponent>;
+    let toggleComponent: SocialComponent;
+    let showOnCurrentRoute$: BehaviorSubject<boolean>;
 
-    const showOnCurrentRoute$ = new BehaviorSubject<boolean>(false);
+    beforeEach(async () => {
+      showOnCurrentRoute$ = new BehaviorSubject<boolean>(false);
 
-    (component as any).socialService = {
-      enabled: true,
-      configuration: { buttons: [], showPlusButton: false, showCounters: false, title: '' },
-      initializeAddToAnyScript: () => {},
-      showOnCurrentRoute$: showOnCurrentRoute$,
-    };
+      await TestBed.resetTestingModule();
+      await TestBed.configureTestingModule({
+        imports: [StoreModule.forRoot({}), SocialComponent],
+        providers: [
+          { provide: ActivatedRoute, useValue: activatedRouteStub },
+          {
+            provide: SocialService,
+            useValue: {
+              enabled: true,
+              configuration: { buttons: [], showPlusButton: false, showCounters: false, title: '' },
+              initializeAddToAnyScript: () => {},
+              showOnCurrentRoute$: showOnCurrentRoute$,
+            },
+          },
+        ],
+      }).compileComponents();
 
-    component.ngOnInit();
-    fixture.detectChanges();
-    tick();
+      toggleFixture = TestBed.createComponent(SocialComponent);
+      toggleComponent = toggleFixture.componentInstance;
+      toggleFixture.detectChanges();
+    });
 
-    const bar = doc.getElementById('dspace-a2a');
-    expect(bar).toBeTruthy();
-    expect(bar.classList.contains('d-none')).toBeTrue();
+    it('should toggle d-none class based on showOnCurrentRoute$', fakeAsync(() => {
+      const doc = TestBed.inject(DOCUMENT);
 
-    showOnCurrentRoute$.next(true);
-    tick();
-    fixture.detectChanges();
+      const bar = doc.getElementById('dspace-a2a');
+      expect(bar).toBeTruthy();
+      expect(bar.classList.contains('d-none')).toBeTrue();
 
-    expect(bar.classList.contains('d-none')).toBeFalse();
+      showOnCurrentRoute$.next(true);
+      tick();
+      toggleFixture.detectChanges();
 
-    doc.body.removeChild(footer);
-  }));
+      expect(bar.classList.contains('d-none')).toBeFalse();
+    }));
+  });
 
 });
