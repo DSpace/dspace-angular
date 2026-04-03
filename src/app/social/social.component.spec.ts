@@ -39,10 +39,8 @@ describe('SocialComponent', () => {
   it('should embed social bar inside footer when social is enabled', (done) => {
     const doc = TestBed.inject(DOCUMENT);
     const footer = doc.createElement('footer');
-    const bar = doc.createElement('div');
-    bar.id = 'dspace-a2a';
     doc.body.appendChild(footer);
-    doc.body.appendChild(bar);
+
     (component as any).socialService = {
       enabled: true,
       configuration: {
@@ -54,9 +52,12 @@ describe('SocialComponent', () => {
       initializeAddToAnyScript: () => {},
       showOnCurrentRoute$: null,
     };
+
     component.ngAfterViewInit();
+
     setTimeout(() => {
-      expect(footer.firstChild).toBe(bar);
+      const bar = doc.getElementById('dspace-a2a');
+      expect(footer.contains(bar)).toBeTrue();
       expect(bar.style.position).toBe('relative');
       expect(bar.style.opacity).toBe('1');
       expect(bar.style.pointerEvents).toBe('auto');
