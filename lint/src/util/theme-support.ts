@@ -17,6 +17,7 @@ import {
   getComponentClassName,
   isPartOfViewChild,
 } from './angular';
+import { toUnixStylePath } from './misc';
 import {
   isPartOfClassDeclaration,
   isPartOfTypeExpression,
@@ -127,7 +128,7 @@ class ThemeableComponentRegistry {
                   continue;
                 }
 
-                const basePath = resolveLocalPath((importDeclaration.moduleSpecifier as ts.StringLiteral).text, path);
+                const basePath = resolveLocalPath((importDeclaration.moduleSpecifier as ts.StringLiteral).text, toUnixStylePath(path));
 
                 themeableComponents.add({
                   baseClass,

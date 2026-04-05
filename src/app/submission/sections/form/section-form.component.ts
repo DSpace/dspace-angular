@@ -3,6 +3,7 @@ import {
   ChangeDetectorRef,
   Component,
   Inject,
+  OnDestroy,
   ViewChild,
 } from '@angular/core';
 import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
@@ -20,13 +21,12 @@ import {
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
 } from '@dspace/core/shared/operators';
+import { MetadataSecurityConfiguration } from '@dspace/core/submission/models/metadata-security-configuration';
+import { SubmissionVisibilityType } from '@dspace/core/submission/models/section-visibility.model';
 import { SubmissionObject } from '@dspace/core/submission/models/submission-object.model';
 import { SubmissionSectionError } from '@dspace/core/submission/models/submission-section-error.model';
 import { SubmissionSectionObject } from '@dspace/core/submission/models/submission-section-object.model';
-import { WorkflowItem } from '@dspace/core/submission/models/workflowitem.model';
-import { WorkspaceItem } from '@dspace/core/submission/models/workspaceitem.model';
 import { WorkspaceitemSectionFormObject } from '@dspace/core/submission/models/workspaceitem-section-form.model';
-import { SubmissionScopeType } from '@dspace/core/submission/submission-scope-type';
 import {
   hasValue,
   isEmpty,
@@ -43,7 +43,9 @@ import findIndex from 'lodash/findIndex';
 import isEqual from 'lodash/isEqual';
 import {
   combineLatest as observableCombineLatest,
+  interval,
   Observable,
+  race,
   Subscription,
 } from 'rxjs';
 import {
@@ -51,18 +53,21 @@ import {
   filter,
   find,
   map,
+  mapTo,
   mergeMap,
   take,
   tap,
 } from 'rxjs/operators';
 
 import { environment } from '../../../../environments/environment';
+import { DynamicQualdropModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { SubmissionService } from '../../submission.service';
 import { SubmissionObjectService } from '../../submission-object.service';
+import { SubmissionVisibility } from '../../utils/visibility.util';
 import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
@@ -80,7 +85,7 @@ import { SectionFormOperationsService } from './section-form-operations.service'
     ThemedLoadingComponent,
   ],
 })
-export class SubmissionSectionFormComponent extends SectionModelComponent {
+export class SubmissionSectionFormComponent extends SectionModelComponent implements OnDestroy {
 
   /**
    * The form id
@@ -148,12 +153,9 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
    */
   protected subs: Subscription[] = [];
 
-  protected submissionObject: SubmissionObject;
+  protected metadataSecurityConfiguration: MetadataSecurityConfiguration;
 
-  /**
-   * A flag representing if this section is readonly
-   */
-  protected isSectionReadonly = false;
+  protected submissionObject: SubmissionObject;
 
   /**
    * The FormComponent reference
@@ -176,6 +178,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
    * @param {ObjectCacheService} objectCache
    * @param {RequestService} requestService
    * @param {string} injectedCollectionId
+   * @param {string} entityType
    * @param {SectionDataObject} injectedSectionData
    * @param {string} injectedSubmissionId
    */
@@ -192,6 +195,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
               protected objectCache: ObjectCacheService,
               protected requestService: RequestService,
               @Inject('collectionIdProvider') public injectedCollectionId: string,
+              @Inject('entityType') public entityType: string,
               @Inject('sectionDataProvider') public injectedSectionData: SectionDataObject,
               @Inject('submissionIdProvider') public injectedSubmissionId: string) {
     super(injectedCollectionId, injectedSectionData, injectedSubmissionId);
@@ -207,20 +211,29 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
     this.formConfigService.findByHref(this.sectionData.config).pipe(
       map((configData: RemoteData<ConfigObject>) => configData.payload),
       tap((config: SubmissionFormsModel) => this.formConfig = config),
-      mergeMap(() =>
-        observableCombineLatest([
-          this.sectionService.getSectionData(this.submissionId, this.sectionData.id, this.sectionData.sectionType),
-          this.submissionObjectService.findById(this.submissionId, true, false, followLink('item')).pipe(
+      mergeMap(() => {
+        const findById$ = this.submissionObjectService.findById(this.submissionId, false, true, followLink('item')).pipe(
+          getFirstSucceededRemoteData(),
+          getRemoteDataPayload(),
+        );
+        const findByIdCached$ = interval(200).pipe(
+          mapTo(this.submissionObjectService.findById(this.submissionId, true, true, followLink('item')).pipe(
             getFirstSucceededRemoteData(),
-            getRemoteDataPayload()),
-          this.sectionService.isSectionReadOnly(this.submissionId, this.sectionData.id, this.submissionService.getSubmissionScope()),
-        ])),
+            getRemoteDataPayload(),
+          )),
+        );
+        return observableCombineLatest([
+          this.sectionService.getSectionData(this.submissionId, this.sectionData.id, this.sectionData.sectionType),
+          race([findById$, findByIdCached$]),
+          this.submissionService.getSubmissionSecurityConfiguration(this.submissionId).pipe(take(1)),
+        ]);
+      }),
       take(1))
-      .subscribe(([sectionData, submissionObject, isSectionReadOnly]: [WorkspaceitemSectionFormObject, SubmissionObject, boolean]) => {
+      .subscribe(([sectionData, submissionObject, metadataSecurity]: [WorkspaceitemSectionFormObject, SubmissionObject, MetadataSecurityConfiguration]) => {
         if (isUndefined(this.formModel)) {
+          this.metadataSecurityConfiguration = metadataSecurity;
           // this.sectionData.errorsToShow = [];
           this.submissionObject = submissionObject;
-          this.isSectionReadonly = isSectionReadOnly;
           // Is the first loading so init form
           this.initForm(sectionData, this.sectionData.errorsToShow, this.sectionData.serverValidationErrors);
           this.sectionData.data = sectionData;
@@ -297,7 +310,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
    * @private
    */
   private inCurrentSubmissionScope(field: string): boolean {
-    const scope = this.formConfig?.rows.find((row: FormRowModel) => {
+    const visibility: SubmissionVisibilityType = this.formConfig?.rows.find((row: FormRowModel) => {
       if (row.fields?.[0]?.selectableMetadata) {
         return row.fields?.[0]?.selectableMetadata?.[0]?.metadata === field;
       } else if (row.fields?.[0]?.selectableRelationship) {
@@ -305,19 +318,9 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
       } else {
         return false;
       }
-    })?.fields?.[0]?.scope;
+    })?.fields?.[0]?.visibility;
 
-    switch (scope) {
-      case SubmissionScopeType.WorkspaceItem.valueOf(): {
-        return (this.submissionObject as any).type === WorkspaceItem.type.value;
-      }
-      case SubmissionScopeType.WorkflowItem.valueOf(): {
-        return (this.submissionObject as any).type === WorkflowItem.type.value;
-      }
-      default: {
-        return true;
-      }
-    }
+    return SubmissionVisibility.isVisible(visibility, this.submissionService.getSubmissionScope());
   }
 
   /**
@@ -334,10 +337,15 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
         this.collectionId,
         sectionData,
         this.submissionService.getSubmissionScope(),
-        this.isSectionReadonly,
+        SubmissionVisibility.isReadOnly(this.sectionData.sectionVisibility, this.submissionService.getSubmissionScope()),
+        null,
+        false,
+        this.metadataSecurityConfiguration,
       );
       const sectionMetadata = this.sectionService.computeSectionConfiguredMetadata(this.formConfig);
       this.sectionService.updateSectionData(this.submissionId, this.sectionData.id, sectionData, errorsToShow, serverValidationErrors, sectionMetadata);
+      // Add created model to formBulderService
+      this.formBuilderService.addFormModel(this.formId, this.formModel);
     } catch (e: unknown) {
       const msg: string = this.translate.instant('error.submission.sections.init-form-error') + (e as Error).toString();
       const sectionError: SubmissionSectionError = {
@@ -435,22 +443,57 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
    *    the [[DynamicFormControlEvent]] emitted
    */
   onChange(event: DynamicFormControlEvent): void {
-    this.formOperationsService.dispatchOperationsFromEvent(
-      this.pathCombiner,
-      event,
-      this.previousValue,
-      this.hasStoredValue(this.formBuilderService.getId(event.model), this.formOperationsService.getArrayIndexFromEvent(event)));
+    const languageMap = new Map();
+    const isQualdrop = event.model.parent instanceof DynamicQualdropModel;
+
+    if (isQualdrop) {
+      const qualdropMap = this.formOperationsService.getQualdropValueMap(event);
+
+      if (qualdropMap) {
+        const groupMetadata = qualdropMap.keys();
+        this.formService.getForm(this.formId).pipe(take(1)).subscribe((form) => {
+          for (const metadata of groupMetadata) {
+            if (hasValue(form.data[metadata]) && form.data[metadata].length > 1) {
+              form.data[metadata].forEach((entry: any) => {
+                languageMap.set(metadata, [...(languageMap.get(metadata) ?? []), entry.language]);
+              });
+            } else {
+              languageMap.set(metadata, [form.data[metadata][0].language]);
+            }
+          }
+        });
+      }
+
+      this.formOperationsService.dispatchOperationsFromEvent(
+        this.pathCombiner,
+        event,
+        this.previousValue,
+        this.hasStoredValue(this.formBuilderService.getId(event.model), this.formOperationsService.getArrayIndexFromEvent(event)),
+        languageMap,
+      );
+    } else {
+      this.formOperationsService.dispatchOperationsFromEvent(
+        this.pathCombiner,
+        event,
+        this.previousValue,
+        this.hasStoredValue(this.formBuilderService.getId(event.model), this.formOperationsService.getArrayIndexFromEvent(event)),
+        null,
+      );
+    }
+
+
     const metadata = this.formOperationsService.getFieldPathSegmentedFromChangeEvent(event);
     const value = this.formOperationsService.getFieldValueFromChangeEvent(event);
 
-    if ((environment.submission.autosave.metadata.indexOf(metadata) !== -1 && isNotEmpty(value)) || this.hasRelatedCustomError(metadata)) {
+    const eventAutoSave = !event.$event?.hasOwnProperty('autoSave') || event.$event?.autoSave;
+    if (eventAutoSave && (environment.submission.autosave.metadata.indexOf(metadata) !== -1 && isNotEmpty(value)) || this.hasRelatedCustomError(metadata)) {
       this.submissionService.dispatchSave(this.submissionId);
     }
   }
 
   private hasRelatedCustomError(medatata): boolean {
     const index = findIndex(this.sectionData.errorsToShow, { path: this.pathCombiner.getPath(medatata).path });
-    if (index  !== -1) {
+    if (index !== -1) {
       const error = this.sectionData.errorsToShow[index];
       const validator = error.message.replace('error.validation.', '');
       return !environment.form.validatorMap.hasOwnProperty(validator);
@@ -467,6 +510,10 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
    *    the [[DynamicFormControlEvent]] emitted
    */
   onFocus(event: DynamicFormControlEvent): void {
+    this.updatePreviousValue(event);
+  }
+
+  private updatePreviousValue(event: DynamicFormControlEvent): void {
     const value = this.formOperationsService.getFieldValueFromChangeEvent(event);
     const path = this.formBuilderService.getPath(event.model);
     if (this.formBuilderService.hasMappedGroupValue(event.model)) {
@@ -478,6 +525,11 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
     }
   }
 
+  private clearPreviousValue(): void {
+    this.previousValue.path = null;
+    this.previousValue.value = null;
+  }
+
   /**
    * Method called when a form remove event is fired.
    * Dispatch form operations based on changes.
@@ -486,6 +538,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
    *    the [[DynamicFormControlEvent]] emitted
    */
   onRemove(event: DynamicFormControlEvent): void {
+    this.updatePreviousValue(event);
     const fieldId = this.formBuilderService.getId(event.model);
     const fieldIndex = this.formOperationsService.getArrayIndexFromEvent(event);
 
@@ -503,7 +556,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
       event,
       this.previousValue,
       this.hasStoredValue(fieldId, fieldIndex));
-
+    this.clearPreviousValue();
   }
 
   /**
@@ -539,7 +592,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
   /**
    * Handle the customEvent (ex. drag-drop move event).
    * The customEvent is stored inside event.$event
-   * @param $event
+   * @param event
    */
   onCustomEvent(event: DynamicFormControlEvent) {
     this.formOperationsService.dispatchOperationsFromEvent(
@@ -548,4 +601,11 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
       this.previousValue,
       null);
   }
+
+  ngOnDestroy(): void {
+    super.ngOnDestroy();
+    // Remove this model from formBulderService
+    this.formBuilderService.removeFormModel(this.formId);
+  }
+
 }

@@ -13,6 +13,7 @@ import {
   DoCheck,
   EventEmitter,
   Inject,
+  inject,
   Input,
   OnChanges,
   OnDestroy,
@@ -25,6 +26,7 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import {
+  AbstractControl,
   FormsModule,
   ReactiveFormsModule,
   UntypedFormArray,
@@ -72,7 +74,7 @@ import {
 import {
   NgbModal,
   NgbModalRef,
-  NgbTooltipModule,
+  NgbTooltip,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
   DYNAMIC_FORM_CONTROL_MAP_FN,
@@ -92,6 +94,10 @@ import {
   DynamicFormValidationService,
   DynamicTemplateDirective,
 } from '@ng-dynamic-forms/core';
+import {
+  Actions,
+  ofType,
+} from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import {
   TranslateModule,
@@ -111,8 +117,11 @@ import {
 } from 'rxjs/operators';
 
 import { AppState } from '../../../../app.reducer';
+import { EditMetadataSecurityComponent } from '../../../../item-page/edit-item-page/edit-metadata-security/edit-metadata-security.component';
+import { SubmissionObjectActionTypes } from '../../../../submission/objects/submission-objects.actions';
 import { SubmissionService } from '../../../../submission/submission.service';
 import { SubmissionObjectService } from '../../../../submission/submission-object.service';
+import { LiveRegionService } from '../../../live-region/live-region.service';
 import { SelectableListState } from '../../../object-list/selectable-list/selectable-list.reducer';
 import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
 import { FormBuilderService } from '../form-builder.service';
@@ -120,6 +129,7 @@ import { DsDynamicTypeBindRelationService } from './ds-dynamic-type-bind-relatio
 import { ExistingMetadataListElementComponent } from './existing-metadata-list-element/existing-metadata-list-element.component';
 import { ExistingRelationListElementComponent } from './existing-relation-list-element/existing-relation-list-element.component';
 import { DYNAMIC_FORM_CONTROL_TYPE_CUSTOM_SWITCH } from './models/custom-switch/custom-switch.model';
+import { DynamicConcatModel } from './models/ds-dynamic-concat.model';
 import { DsDynamicLookupRelationModalComponent } from './relation-lookup-modal/dynamic-lookup-relation-modal.component';
 import { NameVariantService } from './relation-lookup-modal/name-variant.service';
 
@@ -130,10 +140,11 @@ import { NameVariantService } from './relation-lookup-modal/name-variant.service
   changeDetection: ChangeDetectionStrategy.Default,
   imports: [
     AsyncPipe,
+    EditMetadataSecurityComponent,
     ExistingMetadataListElementComponent,
     ExistingRelationListElementComponent,
     FormsModule,
-    NgbTooltipModule,
+    NgbTooltip,
     NgClass,
     NgTemplateOutlet,
     ReactiveFormsModule,
@@ -157,6 +168,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   @Input() hasErrorMessaging = false;
   @Input() layout = null as DynamicFormLayout;
   @Input() model: any;
+  securityLevel: number;
   relationshipValue$: Observable<ReorderableRelationship>;
   isRelationship: boolean;
   modalRef: NgbModalRef;
@@ -170,6 +182,8 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
    * List of subscriptions to unsubscribe from
    */
   private subs: Subscription[] = [];
+
+  private liveRegionErrorMessagesShownAlready = false;
 
   /* eslint-disable @angular-eslint/no-output-rename */
   @Output('dfBlur') blur: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
@@ -189,6 +203,8 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   get componentType(): Type<DynamicFormControl> | null {
     return this.dynamicFormControlFn(this.model);
   }
+
+  private readonly liveRegionService = inject(LiveRegionService);
 
   constructor(
     protected componentFactoryResolver: ComponentFactoryResolver,
@@ -210,6 +226,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     protected metadataService: MetadataService,
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
     @Inject(DYNAMIC_FORM_CONTROL_MAP_FN) protected dynamicFormControlFn: DynamicFormControlMapFn,
+    private actions$: Actions,
   ) {
     super(ref, componentFactoryResolver, layoutService, validationService, dynamicFormComponentService, relationService);
     this.fetchThumbnail = this.appConfig.browseBy.showThumbnails;
@@ -221,6 +238,18 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   ngOnInit(): void {
     this.isRelationship = hasValue(this.model.relationship);
     const isWrapperAroundRelationshipList = hasValue(this.model.relationshipConfig);
+
+    // Subscribe to specified submission actions to announce error messages
+    const errorAnnounceActionsSub = this.actions$.pipe(
+      ofType(
+        SubmissionObjectActionTypes.SAVE_SUBMISSION_FORM_SUCCESS,
+        SubmissionObjectActionTypes.SAVE_SUBMISSION_SECTION_FORM_SUCCESS,
+        SubmissionObjectActionTypes.SAVE_SUBMISSION_FORM_ERROR,
+        SubmissionObjectActionTypes.SAVE_FOR_LATER_SUBMISSION_FORM_ERROR,
+        SubmissionObjectActionTypes.SAVE_SUBMISSION_SECTION_FORM_ERROR,
+      ),
+    ).subscribe(() => this.announceErrorMessages());
+    this.subs.push(errorAnnounceActionsSub);
 
     if (this.isRelationship || isWrapperAroundRelationshipList) {
       const config = this.model.relationshipConfig || this.model.relationship;
@@ -293,6 +322,14 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
         );
       }
     }
+
+    if (isNotEmpty(this.model?.value?.securityLevel)) {
+      this.securityLevel = this.model.value.securityLevel;
+    } else if (isNotEmpty(this.model?.metadataValue?.securityLevel)) {
+      this.securityLevel = this.model.metadataValue.securityLevel;
+    } else {
+      this.securityLevel = this.model.securityLevel;
+    }
   }
 
   get isCheckbox(): boolean {
@@ -346,6 +383,36 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     if (this.showErrorMessages) {
       this.destroyFormControlComponent();
       this.createFormControlComponent();
+      this.announceErrorMessages();
+    }
+  }
+
+  /**
+   * Announce error messages to the user
+   */
+  announceErrorMessages() {
+    if (!this.liveRegionErrorMessagesShownAlready) {
+      this.liveRegionErrorMessagesShownAlready = true;
+      const numberOfInvalidInputs = this.getNumberOfInvalidInputs() ?? 1;
+      const timeoutMs = numberOfInvalidInputs * 3500;
+      this.errorMessages.forEach((errorMsg) => {
+        // set timer based on the number of the invalid inputs
+        this.liveRegionService.setMessageTimeOutMs(timeoutMs);
+        const message = this.translateService.instant(errorMsg);
+        this.liveRegionService.addMessage(message);
+      });
+      setTimeout(() => {
+        this.liveRegionErrorMessagesShownAlready = false;
+      }, timeoutMs);
+    }
+  }
+
+  /**
+   * Get the number of invalid inputs in the formGroup
+   */
+  private getNumberOfInvalidInputs(): number {
+    if (this.formGroup && this.formGroup.controls) {
+      return Object.values(this.formGroup.controls).filter((control: AbstractControl) => control.invalid).length;
     }
   }
 
@@ -460,5 +527,119 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     this.subs.push(this.item$.subscribe((item) => this.item = item));
     this.subs.push(collection$.subscribe((collection) => this.collection = collection));
 
+  }
+
+  addSecurityLevelToMetadata($event) {
+    this.model.securityLevel = $event;
+    this.securityLevel = $event;
+    if (this.model.parent && (this.model.parent instanceof DynamicConcatModel)) {
+      this.model.parent.securityLevel = $event;
+    }
+    if (this.model.value) {
+      this.model.securityLevel = $event;
+      this.securityLevel = $event;
+      if (this.model.parent && (this.model.parent instanceof DynamicConcatModel)) {
+        this.model.parent.securityLevel = $event;
+      }
+      this.change.emit(
+        {
+          $event: new Event('change'),
+          context: this.context,
+          control: this.control,
+          model: this.model,
+          type: 'changeSecurityLevel',
+        } as DynamicFormControlEvent,
+      );
+      if (this.model.type === 'ONEBOX') {
+        this.customEvent.next({
+          $event: new Event('change'),
+          context: this.context,
+          control: this.control,
+          model: this.model,
+          type: 'changeSecurityLevelGroup',
+        } as DynamicFormControlEvent);
+      }
+    }
+  }
+
+  /**
+   * Determines whether a form field should be validated based on its parent group's state.
+   * @returns {boolean} True if the field should be validated, false otherwise
+   */
+  isNotRequiredGroupAndEmpty(): boolean {
+    const parent = this.model.parent;
+    // Check if the model is part of a group, the group needs to be an inner form and be in the submission form not in a nested form.
+    // The check hasValue(parent.parent) tells if the parent is in the submission or in a modal (nested cases)
+    if (hasValue(parent) && parent.type === 'GROUP' && this.model.isModelOfInnerForm && hasValue(parent.parent)) {
+
+      const groupHasSomeValue = parent.group.some(elem => !!elem.value);
+
+      if (!groupHasSomeValue && !parent.isRequired && parent.group?.length > 1) {
+        this.group.reset();
+      }
+
+      return (groupHasSomeValue && !parent.isRequired) || (hasValue(parent.isRequired) && parent.isRequired);
+    } else {
+      return true;
+    }
+  }
+
+  /**
+   * Determines whether the hint should be displayed for the current field.
+   * Hint is shown when:
+   * - The field has a hint
+   * - It's the last element in a repeatable group OR non-repeatable field OR has array group value
+   * - No error messages are currently displayed
+   * @returns {boolean} True if hint should be displayed, false otherwise
+   */
+  shouldShowHint(): boolean {
+    return this.hasHint &&
+      (this.formBuilderService.hasArrayGroupValue(this.model) ||
+        ((!this.model.repeatable && (!(this.model?.isModelOfNotRepeatableGroup) || this.model?.isModelOfNotRepeatableGroup && this.context?.index === this.context?.context?.groups?.length - 1)) && (this.isRelationship === false || this.value?.value === null)) ||
+        (this.model.repeatable === true && this.context?.index === this.context?.context?.groups?.length - 1)) &&
+      (!this.showErrorMessages || this.errorMessages.length === 0);
+  }
+
+  /**
+   * Determines whether error messages should be displayed for the current field.
+   * Error messages are shown when:
+   * - Error messages are not hidden by the model configuration
+   * - There are error messages to show
+   * - For non-repeatable groups: only shown on the last element
+   * - The field passes the required group validation check
+   * @returns {boolean} True if error messages should be displayed, false otherwise
+   */
+  shouldShowErrorMessages(): boolean {
+    return !this.model.hideErrorMessages &&
+      this.showErrorMessages &&
+      (!(this.model?.isModelOfNotRepeatableGroup) ||
+        this.model?.isModelOfNotRepeatableGroup && this.context?.index === this.context?.context?.groups?.length - 1) &&
+      this.isNotRequiredGroupAndEmpty();
+  }
+
+  /**
+   * Determines whether the hint should be displayed for virtual metadata fields.
+   * Hint is shown when:
+   * - The field has a hint
+   * - It's non-repeatable OR the last element in a repeatable group
+   * - No error messages are currently displayed
+   * @returns {boolean} True if hint should be displayed for virtual metadata, false otherwise
+   */
+  shouldShowVirtualMetadataHint(): boolean {
+    return this.hasHint &&
+      (this.model.repeatable === false || this.context?.index === this.context?.context?.groups?.length - 1) &&
+      (!this.showErrorMessages || this.errorMessages.length === 0);
+  }
+
+  /**
+   * Determines whether a clearfix spacer should be displayed after the field.
+   * Clearfix is shown when:
+   * - The parent has multiple groups (more than 1)
+   * - No error messages are currently displayed
+   * @returns {boolean} True if clearfix should be displayed, false otherwise
+   */
+  shouldShowClearfix(): boolean {
+    return this.context?.parent?.groups?.length > 1 &&
+      (!this.showErrorMessages || this.errorMessages.length === 0);
   }
 }

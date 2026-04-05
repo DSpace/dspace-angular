@@ -10,6 +10,7 @@ import { FileSizePipe } from '../../../../../../../app/shared/utils/file-size-pi
 import { VarDirective } from '../../../../../../../app/shared/utils/var.directive';
 import { ThemedThumbnailComponent } from '../../../../../../../app/thumbnail/themed-thumbnail.component';
 
+
 @Component({
   selector: 'ds-themed-item-page-full-file-section',
   // styleUrls: ['./full-file-section.component.scss'],

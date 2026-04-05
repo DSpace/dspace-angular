@@ -23,8 +23,7 @@ import express from 'express';
 import * as ejs from 'ejs';
 import * as compression from 'compression';
 import expressStaticGzip from 'express-static-gzip';
-/* eslint-enable import/no-namespace */
-import LRU from 'lru-cache';
+import { LRUCache } from 'lru-cache';
 import { isbot } from 'isbot';
 import { createCertificate } from 'pem';
 import { createServer } from 'https';
@@ -46,6 +45,7 @@ import { buildAppConfig } from './src/config/config.server';
 import {
   APP_CONFIG,
   AppConfig,
+  toClientConfig,
 } from './src/config/app-config.interface';
 import { extendEnvironmentWithAppConfig } from './src/config/config.util';
 import { logStartupMessage } from './startup-message';
@@ -72,10 +72,10 @@ const cookieParser = require('cookie-parser');
 const appConfig: AppConfig = buildAppConfig(join(DIST_FOLDER, 'assets/config.json'));
 
 // cache of SSR pages for known bots, only enabled in production mode
-let botCache: LRU<string, any>;
+let botCache: LRUCache<string, any>;
 
 // cache of SSR pages for anonymous users. Disabled by default, and only available in production mode
-let anonymousCache: LRU<string, any>;
+let anonymousCache: LRUCache<string, any>;
 
 // extend environment with app config for server
 extendEnvironmentWithAppConfig(environment, appConfig);
@@ -145,7 +145,7 @@ export function app() {
   server.get('/robots.txt', (req, res) => {
     res.setHeader('content-type', 'text/plain');
     res.render('assets/robots.txt.ejs', {
-      'origin': req.protocol + '://' + req.headers.host,
+      'origin': environment.ui.baseUrl,
     });
   });
 
@@ -177,10 +177,14 @@ export function app() {
    * When it is present, the rateLimiter will be enabled. When it is undefined, the rateLimiter will be disabled.
    */
   if (hasValue((environment.ui as UIServerConfig).rateLimiter)) {
-    const RateLimit = require('express-rate-limit');
-    const limiter = new RateLimit({
+    const { rateLimit } = require('express-rate-limit')
+    const limiter = rateLimit({
       windowMs: (environment.ui as UIServerConfig).rateLimiter.windowMs,
-      max: (environment.ui as UIServerConfig).rateLimiter.max,
+      limit: (environment.ui as UIServerConfig).rateLimiter.limit,
+      standardHeaders: true,
+      legacyHeaders: false,
+      // don't log ERR_ERL_PERMISSIVE_TRUST_PROXY if we are trusting proxies
+      validate: {trustProxy: !environment.ui.useProxies},
     });
     server.use(limiter);
   }
@@ -241,7 +245,11 @@ function ngApp(req, res, next) {
  */
 function serverSideRender(req, res, next, sendToUser: boolean = true) {
   const { protocol, originalUrl, baseUrl, headers } = req;
-  const commonEngine = new CommonEngine({ enablePerformanceProfiler: environment.ssr.enablePerformanceProfiler });
+  // "allowedHosts" specifies which hosts are allowed to be rendered via SSR.
+  // By default, this is set to the host of the UI's baseUrl.
+  const commonEngine = new CommonEngine({ enablePerformanceProfiler: environment.ssr.enablePerformanceProfiler,
+                                          allowedHosts: [ new URL(environment.ui.baseUrl).hostname ],
+                                        });
   // Render the page via SSR (server side rendering)
   commonEngine
     .render({
@@ -262,7 +270,7 @@ function serverSideRender(req, res, next, sendToUser: boolean = true) {
         },
         {
           provide: APP_CONFIG,
-          useValue: environment,
+          useValue: toClientConfig(environment as AppConfig),
         },
       ],
     })
@@ -348,7 +356,7 @@ function initCache() {
     // Initialize a new "least-recently-used" item cache (where least recently used pages are removed first)
     // See https://www.npmjs.com/package/lru-cache
     // When enabled, each page defaults to expiring after 1 day (defined in default-app-config.ts)
-    botCache = new LRU( {
+    botCache = new LRUCache( {
       max: environment.cache.serverSide.botCache.max,
       ttl: environment.cache.serverSide.botCache.timeToLive,
       allowStale: environment.cache.serverSide.botCache.allowStale,
@@ -360,7 +368,7 @@ function initCache() {
     // may expire pages more frequently.
     // When enabled, each page defaults to expiring after 10 seconds (defined in default-app-config.ts)
     // to minimize anonymous users seeing out-of-date content
-    anonymousCache = new LRU( {
+    anonymousCache = new LRUCache( {
       max: environment.cache.serverSide.anonymousCache.max,
       ttl: environment.cache.serverSide.anonymousCache.timeToLive,
       allowStale: environment.cache.serverSide.anonymousCache.allowStale,
@@ -437,7 +445,7 @@ function cacheCheck(req, res, next) {
  * @param next the next function
  * @returns cached copy (if found) or undefined (if not found)
  */
-function checkCacheForRequest(cacheName: string, cache: LRU<string, any>, req, res, next): any {
+function checkCacheForRequest(cacheName: string, cache: LRUCache<string, any>, req, res, next): any {
   // Get the cache key for this request
   const key = getCacheKey(req);
 

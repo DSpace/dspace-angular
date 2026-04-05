@@ -1,0 +1,11 @@
+::ng-deep {
+  #dspace-a2a {
+    z-index: 998;
+    right: 0px !important;
+    top: 150px !important;
+
+    @media screen and (max-width: 980px) {
+      display: none !important;
+    }
+  }
+}

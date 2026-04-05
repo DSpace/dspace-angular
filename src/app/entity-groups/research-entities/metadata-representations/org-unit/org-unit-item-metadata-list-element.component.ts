@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 
 import { ItemMetadataRepresentationListElementComponent } from '../../../../shared/object-list/metadata-representation-list-element/item/item-metadata-representation-list-element.component';
 import { TruncatableComponent } from '../../../../shared/truncatable/truncatable.component';
@@ -9,7 +9,7 @@ import { TruncatableComponent } from '../../../../shared/truncatable/truncatable
   selector: 'ds-org-unit-item-metadata-list-element',
   templateUrl: './org-unit-item-metadata-list-element.component.html',
   imports: [
-    NgbTooltipModule,
+    NgbTooltip,
     RouterLink,
     TruncatableComponent,
   ],
