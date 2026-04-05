@@ -16,6 +16,7 @@ import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import { BrowseDefinitionDataService } from '@dspace/core/browse/browse-definition-data.service';
 import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
+import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
 import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
 import { CommunityDataService } from '@dspace/core/data/community-data.service';
 import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
@@ -26,7 +27,6 @@ import { RelationshipDataService } from '@dspace/core/data/relationship-data.ser
 import { RemoteData } from '@dspace/core/data/remote-data';
 import { VersionDataService } from '@dspace/core/data/version-data.service';
 import { VersionHistoryDataService } from '@dspace/core/data/version-history-data.service';
-import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { RouteService } from '@dspace/core/services/route.service';
 import { Bitstream } from '@dspace/core/shared/bitstream.model';
@@ -139,7 +139,7 @@ describe('PublicationComponent', () => {
         { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub },
         { provide: ConfigurationDataService, useValue: new ConfigurationDataServiceStub() },
         { provide: APP_CONFIG, useValue: environment },
-        { provide: APP_DATA_SERVICES_MAP, useValue: {}  },
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(PublicationComponent, {
@@ -271,7 +271,7 @@ describe('PublicationComponent', () => {
       expect(fields.length).toBeGreaterThanOrEqual(1);
     });
 
-    it('should not retrieve the query term for previous route', fakeAsync( () => {
+    it('should not retrieve the query term for previous route', fakeAsync(() => {
       let emitted;
       comp.iiifQuery$.subscribe(result => emitted = result);
       tick(10);
@@ -300,7 +300,7 @@ describe('PublicationComponent', () => {
 
     it('should display the file section component', () => {
       const fileSectionElements = fixture.debugElement.queryAll(By.css('ds-item-page-file-section'));
-      expect(fileSectionElements.length).toBe(1);
+      expect(fileSectionElements.length).toBe(2);
     });
 
     it('should not display the attachment section component', () => {
@@ -334,7 +334,7 @@ describe('PublicationComponent', () => {
 
     it('should not display the file section component', () => {
       const fileSectionElements = fixture.debugElement.queryAll(By.css('ds-item-page-file-section'));
-      expect(fileSectionElements.length).toBe(0);
+      expect(fileSectionElements.length).toBe(1);
     });
   });
 

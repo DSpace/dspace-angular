@@ -16,8 +16,8 @@ import {
 import { ErrorResponse } from '@dspace/core/cache/response.models';
 import { ItemDataService } from '@dspace/core/data/item-data.service';
 import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
-import { RequestService } from '@dspace/core/data/request.service';
 import { RequestError } from '@dspace/core/data/request-error.model';
+import { RequestService } from '@dspace/core/data/request.service';
 import { HttpOptions } from '@dspace/core/dspace-rest/dspace-rest.service';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { RouteService } from '@dspace/core/services/route.service';
@@ -55,8 +55,8 @@ import {
   hot,
 } from 'jasmine-marbles';
 import {
-  of,
   throwError as observableThrowError,
+  of,
 } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
@@ -900,7 +900,7 @@ describe('SubmissionService test suite', () => {
         isLoading: false,
         isValid: false,
       };
-      expect((service as  any).isSectionHidden(section)).toBeTruthy();
+      expect((service as any).isSectionHidden(section)).toBeTruthy();
 
       section = {
         header: 'submit.progressbar.describe.keyinformation',
@@ -915,7 +915,7 @@ describe('SubmissionService test suite', () => {
         isLoading: false,
         isValid: false,
       };
-      expect((service as  any).isSectionHidden(section)).toBeFalsy();
+      expect((service as any).isSectionHidden(section)).toBeFalsy();
     });
   });
 
@@ -1003,7 +1003,7 @@ describe('SubmissionService test suite', () => {
         }),
       });
       let itemSubmissionId = itemUuid + ':FULL';
-      spyOn(itemService as any, 'findById').and.returnValue(cold('a', { a: createSuccessfulRemoteDataObject(mockItem) }));
+      (itemService.findById as jasmine.Spy).and.returnValue(cold('a', { a: createSuccessfulRemoteDataObject(mockItem) }));
       spyOn(requestServce as any, 'setStaleByHrefSubstring').and.returnValue(cold('a', { a: true }));
 
       scheduler.schedule(() => service.invalidateCacheAndRedirectToItemPage(itemSubmissionId));
@@ -1041,7 +1041,7 @@ describe('SubmissionService test suite', () => {
         {},
         new Item(),
       )
-      ;
+        ;
       const expected = new ResetSubmissionFormAction(
         collectionId,
         submissionId,
@@ -1079,7 +1079,7 @@ describe('SubmissionService test suite', () => {
       );
 
       service.retrieveSubmission('826').subscribe((r) => {
-        const expectedRD = createFailedRemoteDataObject('Internal Server Error',500) as any;
+        const expectedRD = createFailedRemoteDataObject('Internal Server Error', 500) as any;
         expect(r.payload).toEqual(expectedRD.payload);
         expect(r.statusCode).toEqual(expectedRD.statusCode);
         expect(r.errorMessage).toEqual(expectedRD.errorMessage);
