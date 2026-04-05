@@ -16,8 +16,8 @@ import {
 import { ErrorResponse } from '@dspace/core/cache/response.models';
 import { ItemDataService } from '@dspace/core/data/item-data.service';
 import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
-import { RequestError } from '@dspace/core/data/request-error.model';
 import { RequestService } from '@dspace/core/data/request.service';
+import { RequestError } from '@dspace/core/data/request-error.model';
 import { HttpOptions } from '@dspace/core/dspace-rest/dspace-rest.service';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { RouteService } from '@dspace/core/services/route.service';
@@ -55,8 +55,8 @@ import {
   hot,
 } from 'jasmine-marbles';
 import {
-  throwError as observableThrowError,
   of,
+  throwError as observableThrowError,
 } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
@@ -1041,7 +1041,7 @@ describe('SubmissionService test suite', () => {
         {},
         new Item(),
       )
-        ;
+      ;
       const expected = new ResetSubmissionFormAction(
         collectionId,
         submissionId,
