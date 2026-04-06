@@ -27,6 +27,8 @@ import { DragService } from '../../core/drag.service';
 import { CookieService } from '../../core/services/cookie.service';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import { HostWindowService } from '../../shared/host-window.service';
+import { LiveRegionService } from '../../shared/live-region/live-region.service';
+import { getLiveRegionServiceStub } from '../../shared/live-region/live-region.service.stub';
 import { CookieServiceMock } from '../../shared/mocks/cookie.service.mock';
 import { HttpXsrfTokenExtractorMock } from '../../shared/mocks/http-xsrf-token-extractor.mock';
 import { getMockScrollToService } from '../../shared/mocks/scroll-to-service.mock';
@@ -76,6 +78,7 @@ describe('MyDSpaceNewSubmissionComponent test', () => {
         { provide: CookieService, useValue: new CookieServiceMock() },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(800) },
         { provide: EntityTypeDataService, useValue: getMockEntityTypeService() },
+        { provide: LiveRegionService, useValue: getLiveRegionServiceStub() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
