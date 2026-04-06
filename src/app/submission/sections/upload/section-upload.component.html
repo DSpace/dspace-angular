@@ -33,6 +33,7 @@
     <ds-submission-upload-section-file
       [isPrimary]="primaryBitstreamUUID ? primaryBitstreamUUID === fileEntry.uuid : null"
       [availableAccessConditionOptions]="availableAccessConditionOptions"
+      [totalFiles]="fileList.length"
       [collectionId]="collectionId"
       [collectionPolicyType]="collectionPolicyType"
       [configMetadataForm]="(configMetadataForm$ | async)"
