@@ -23,10 +23,9 @@ export abstract class HardRedirectService {
   abstract getCurrentRoute(): string;
 
   /**
-   * Get the origin of the current URL
+   * Get the base public URL of our application.
+   * This is used as the base URL for redirects, and should be in the format of
    * i.e. <scheme> "://" <hostname> [ ":" <port> ]
-   * e.g. if the URL is https://demo.dspace.org/search?query=test,
-   * the origin would be https://demo.dspace.org
    */
-  abstract getCurrentOrigin(): string;
+  abstract getBaseUrl(): string;
 }
