@@ -210,7 +210,6 @@
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
     "karma-mocha-reporter": "2.2.5",
-    "md5": "^2.3.0",
     "ng-mocks": "^14.15.2",
     "ngx-mask": "^16.0.0",
     "postcss": "^8.5",
