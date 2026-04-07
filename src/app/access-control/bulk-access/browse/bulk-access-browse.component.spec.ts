@@ -6,7 +6,11 @@ import {
 } from '@angular/core/testing';
 import {
   NgbAccordionModule,
-  NgbNavModule,
+  NgbNav,
+  NgbNavContent,
+  NgbNavItem,
+  NgbNavLink,
+  NgbNavOutlet,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
@@ -42,7 +46,11 @@ describe('BulkAccessBrowseComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         NgbAccordionModule,
-        NgbNavModule,
+        NgbNav,
+        NgbNavContent,
+        NgbNavItem,
+        NgbNavLink,
+        NgbNavOutlet,
         TranslateModule.forRoot(),
         BulkAccessBrowseComponent,
       ],
