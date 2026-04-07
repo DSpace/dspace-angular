@@ -135,10 +135,10 @@ describe('AdminEditCmsMetadataComponent', () => {
 
       it('should call method patch of service', () => {
         component.selectedMetadata = environment.cms.metadataList[0];
+        component.site = site;
         component.selectedMetadataValues.set(environment.languages[0].code, 'Test English Text');
         component.selectedMetadataValues.set(environment.languages[1].code, 'Test Second Language Text');
-        const saveButton = fixture.debugElement.query(By.css('#save-metadata-btn'));
-        saveButton.nativeElement.click();
+        component.saveMetadata();
 
         const operations = [];
         if (site.hasMetadata && site.hasMetadata(component.selectedMetadata)) {
