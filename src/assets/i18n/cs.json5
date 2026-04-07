@@ -1566,8 +1566,7 @@
   "browse.metadata.title": "Název",
 
   // "browse.metadata.srsc": "Subject Category",
-  // TODO New key - Add a translation
-  "browse.metadata.srsc": "Subject Category",
+  "browse.metadata.srsc": "Předmětová kategorie",
 
   // "browse.metadata.author.breadcrumbs": "Browse by Author",
   "browse.metadata.author.breadcrumbs": "Procházet podle autora",
@@ -1579,7 +1578,7 @@
   "browse.metadata.subject.breadcrumbs": "Procházet podle předmětu",
 
   // "browse.metadata.srsc.breadcrumbs": "Browse by Subject Category",
-  "browse.metadata.srsc.breadcrumbs": "Procházet podle předmětu",
+  "browse.metadata.srsc.breadcrumbs": "Procházet podle předmětové kategorie",
 
   // "browse.metadata.srsc.tree.description": "Select a subject to add as search filter",
   "browse.metadata.srsc.tree.description": "Vyberte předmět pro přidání jako filtr vyhledávání",
@@ -1690,8 +1689,7 @@
   "browse.taxonomy.button": "Procházet",
 
   // "browse.title": "Browsing by {{ field }}{{ startsWith }} {{ value }}",
-  // TODO Source message changed - Revise the translation
-  "browse.title": "Procházet {{ collection }} podle {{ field }}{{ startsWith }} {{ value }}",
+  "browse.title": "Procházet podle {{ field }}{{ startsWith }} {{ value }}",
 
   // "browse.title.page": "Browsing by {{ field }} {{ value }}",
   "browse.title.page": "Procházet podle {{ field }} {{ value }}",
@@ -10872,98 +10870,74 @@
   "file-download-link.request-copy": "Požádat o kopii ",
 
   // "admin.edit-cms-metadata.success": "Metadata successfully updated"
-  // TODO New key - Add a translation
-  "admin.edit-cms-metadata.success": "Metadata successfully updated",
+  "admin.edit-cms-metadata.success": "Metadata byla úspěšně aktualizována",
 
   // "admin.edit-cms-metadata.back-button": "Back"
-  // TODO New key - Add a translation
-  "admin.edit-cms-metadata.back-button": "Back",
+  "admin.edit-cms-metadata.back-button": "Zpět",
 
   // "admin.edit-cms-metadata.save-button": "Save"
-  // TODO New key - Add a translation
-  "admin.edit-cms-metadata.save-button": "Save",
+  "admin.edit-cms-metadata.save-button": "Uložit",
 
   // "admin.edit-cms-metadata.select-metadata": "Select metadata to edit"
-  // TODO New key - Add a translation
-  "admin.edit-cms-metadata.select-metadata": "Select metadata to edit",
+  "admin.edit-cms-metadata.select-metadata": "Vyberte metadata k úpravě",
 
   // "admin.edit-cms-metadata.edit-button": "Edit"
-  // TODO New key - Add a translation
-  "admin.edit-cms-metadata.edit-button": "Edit",
+  "admin.edit-cms-metadata.edit-button": "Upravit",
 
   // "admin.edit-cms-metadata.breadcrumbs": "Edit CMS Metadata"
-  // TODO New key - Add a translation
-  "admin.edit-cms-metadata.breadcrumbs": "Edit CMS Metadata",
+  "admin.edit-cms-metadata.breadcrumbs": "Upravit CMS metadata",
 
   // "admin.edit-cms-metadata.title": "Edit CMS Metadata",
-  // TODO New key - Add a translation
-  "admin.edit-cms-metadata.title": "Edit CMS Metadata",
+  "admin.edit-cms-metadata.title": "Upravit CMS metadata",
 
   // "admin.edit-cms-metadata.error": "An error occurred while updating the metadata"
-  // TODO New key - Add a translation
-  "admin.edit-cms-metadata.error": "An error occurred while updating the metadata",
+  "admin.edit-cms-metadata.error": "Při aktualizaci metadat došlo k chybě",
 
   // "menu.section.edit-cms-metadata": "Edit CMS Metadata"
-  // TODO New key - Add a translation
-  "menu.section.edit-cms-metadata": "Edit CMS Metadata",
+  "menu.section.edit-cms-metadata": "Upravit CMS metadata",
 
   // "menu.section.cms.edit.metadata.head": "Edit Metadata"
-  // TODO New key - Add a translation
-  "menu.section.cms.edit.metadata.head": "Edit Metadata",
+  "menu.section.cms.edit.metadata.head": "Upravit metadata",
 
   // "admin.edit-user-agreement.breadcrumbs": "Edit User Agreement"
-  // TODO New key - Add a translation
-  "admin.edit-user-agreement.breadcrumbs": "Edit User Agreement",
+  "admin.edit-user-agreement.breadcrumbs": "Upravit uživatelskou smlouvu",
 
   // "admin.edit-user-agreement.confirm.title": "Force acceptance"
-  // TODO New key - Add a translation
-  "admin.edit-user-agreement.confirm.title": "Force acceptance",
+  "admin.edit-user-agreement.confirm.title": "Vynutit přijetí",
 
   // "admin.edit-user-agreement.confirm.info": "Do you want to force all users to accept the new user agreement?"
-  // TODO New key - Add a translation
-  "admin.edit-user-agreement.confirm.info": "Do you want to force all users to accept the new user agreement?",
+  "admin.edit-user-agreement.confirm.info": "Chcete vynutit všem uživatelům přijetí nové uživatelské smlouvy?",
 
   // "admin.edit-user-agreement.confirm.cancel": "Cancel"
-  // TODO New key - Add a translation
-  "admin.edit-user-agreement.confirm.cancel": "Cancel",
+  "admin.edit-user-agreement.confirm.cancel": "Zrušit",
 
   // "admin.edit-user-agreement.confirm.no": "No, update only"
-  // TODO New key - Add a translation
-  "admin.edit-user-agreement.confirm.no": "No, update only",
+  "admin.edit-user-agreement.confirm.no": "Ne, pouze aktualizovat",
 
   // "admin.edit-user-agreement.confirm.yes": "Yes, update and force"
-  // TODO New key - Add a translation
-  "admin.edit-user-agreement.confirm.yes": "Yes, update and force",
+  "admin.edit-user-agreement.confirm.yes": "Ano, aktualizovat a vynutit",
 
   // "menu.section.edit-user-agreement": "Edit User Agreement"
-  // TODO New key - Add a translation
-  "menu.section.edit-user-agreement": "Edit User Agreement",
+  "menu.section.edit-user-agreement": "Upravit uživatelskou smlouvu",
 
   // "admin.edit-user-agreement.save-button": "Save"
-  // TODO New key - Add a translation
-  "admin.edit-user-agreement.save-button": "Save",
+  "admin.edit-user-agreement.save-button": "Uložit",
 
   // "admin.edit-user-agreement.markdown": "<i>End User Agreement</i> text supports <a href=\"https://www.markdownguide.org/basic-syntax/\" target=\"_blank\">Markdown</a> language."
-  // TODO New key - Add a translation
-  "admin.edit-user-agreement.markdown": "<i>End User Agreement</i> text supports <a href=\"https://www.markdownguide.org/basic-syntax/\" target=\"_blank\">Markdown</a> language.",
+  "admin.edit-user-agreement.markdown": "Text <i>Smlouvy s koncovým uživatelem</i> podporuje jazyk <a href=\"https://www.markdownguide.org/basic-syntax/\" target=\"_blank\">Markdown</a>.",
 
   // "admin.edit-user-agreement.header": "Edit User Agreement"
-  // TODO New key - Add a translation
-  "admin.edit-user-agreement.header": "Edit User Agreement",
+  "admin.edit-user-agreement.header": "Upravit uživatelskou smlouvu",
 
   // "admin.edit-user-agreement.success": "User agreement successfully updated"
-  // TODO New key - Add a translation
-  "admin.edit-user-agreement.success": "User agreement successfully updated",
+  "admin.edit-user-agreement.success": "Uživatelská smlouva byla úspěšně aktualizována",
 
   // "admin.edit-user-agreement.error": "An error occurred while updating the user agreement"
-  // TODO New key - Add a translation
-  "admin.edit-user-agreement.error": "An error occurred while updating the user agreement",
+  "admin.edit-user-agreement.error": "Při aktualizaci uživatelské smlouvy došlo k chybě",
 
   // "admin.edit-user-agreement.title": "Edit User Agreement"
-  // TODO New key - Add a translation
-  "admin.edit-user-agreement.title": "Edit User Agreement",
+  "admin.edit-user-agreement.title": "Upravit uživatelskou smlouvu",
 
   // "admin.edit-cms-metadata.markdown": "<i>CMS Metadata</i> text supports <a href=\"https://www.markdownguide.org/basic-syntax/\" target=\"_blank\">Markdown</a> language."
-  // TODO New key - Add a translation
-  "admin.edit-cms-metadata.markdown": "<i>CMS Metadata</i> text supports <a href=\"https://www.markdownguide.org/basic-syntax/\" target=\"_blank\">Markdown</a> language.",
+  "admin.edit-cms-metadata.markdown": "Text <i>CMS metadat</i> podporuje jazyk <a href=\"https://www.markdownguide.org/basic-syntax/\" target=\"_blank\">Markdown</a>.",
 }
