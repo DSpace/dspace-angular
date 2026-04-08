@@ -197,7 +197,7 @@
     "sass-resources-loader": "^2.2.5",
     "ts-node": "^8.10.2",
     "typescript": "~5.4.5",
-    "webpack": "5.101.0",
+    "webpack": "5.105.4",
     "webpack-cli": "^5.1.4"
   }
 }
