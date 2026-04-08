@@ -42,7 +42,8 @@ import {
 } from '@ng-bootstrap/ng-bootstrap';
 import {
   DYNAMIC_FORM_CONTROL_MAP_FN,
-  DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX, DynamicFormArrayComponent,
+  DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX,
+  DynamicFormArrayComponent,
   DynamicFormArrayGroupModel,
   DynamicFormArrayModel,
   DynamicFormComponentService,
@@ -134,8 +135,8 @@ import {
 } from './existing-metadata-list-element/existing-metadata-list-element.component';
 import { ExistingRelationListElementComponent } from './existing-relation-list-element/existing-relation-list-element.component';
 import { DYNAMIC_FORM_CONTROL_TYPE_CUSTOM_SWITCH } from './models/custom-switch/custom-switch.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER } from './models/date-picker/date-picker.model';
 import { DsDynamicLookupRelationModalComponent } from './relation-lookup-modal/dynamic-lookup-relation-modal.component';
-import { DsDynamicFormGroupComponent } from './models/form-group/dynamic-form-group.component';
 
 @Component({
   selector: 'ds-dynamic-form-control-container',
