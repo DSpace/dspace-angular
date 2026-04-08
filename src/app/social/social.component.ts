@@ -22,13 +22,13 @@ import { SocialService } from './social.service';
  */
 export class SocialComponent implements OnInit {
 
+
   /**
    * The script containing the profile ID
    */
   script: HTMLScriptElement;
 
   showOnCurrentRoute$: Observable<boolean>;
-
   buttonList: string[];
   showPlusButton: boolean;
   title: string;

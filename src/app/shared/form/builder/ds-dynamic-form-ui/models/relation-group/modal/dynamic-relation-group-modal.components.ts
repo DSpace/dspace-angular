@@ -14,6 +14,7 @@ import { SubmissionFormsModel } from '@dspace/core/config/models/config-submissi
 import { PLACEHOLDER_PARENT_METADATA } from '@dspace/core/shared/form/ds-dynamic-form-constants';
 import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
 import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
+import { MetadataSecurityConfiguration } from '@dspace/core/submission/models/metadata-security-configuration';
 import { Vocabulary } from '@dspace/core/submission/vocabularies/models/vocabulary.model';
 import { VocabularyEntry } from '@dspace/core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyOptions } from '@dspace/core/submission/vocabularies/models/vocabulary-options.model';
@@ -98,6 +99,16 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
   @Input() itemIndex: number;
 
   /**
+   * Whether the security has been changed
+   */
+  @Input() changedSecurity: boolean;
+
+  /**
+   * Config for metadata security toggle
+   */
+  @Input() metadataSecurityConfiguration: MetadataSecurityConfiguration;
+
+  /**
    * Current value of the relation group
    */
   @Input() value: any;
@@ -141,6 +152,11 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
    * Observable stream of the vocabulary configuration for autocomplete functionality
    */
   public vocabulary$: Observable<Vocabulary>;
+
+  /**
+   * Security level of the parent model
+   */
+  public securityLevelParent: number;
 
   /**
    * Array of subscriptions to be cleaned up on component destruction
@@ -187,7 +203,8 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
       this.model.submissionScope,
       this.model.readOnly,
       null,
-      true);
+      true,
+      this.metadataSecurityConfiguration);
     this.formBuilderService.addFormModel(this.formId, this.formModel);
     if (this.item) {
       this.formModel.forEach((row) => {
@@ -206,6 +223,7 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
             }
           }
 
+          this.initSecurityLevelConfig(model, modelRow);
         });
       });
     }
@@ -320,7 +338,15 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
     const currentValue: string = (model.value instanceof FormFieldMetadataValueObject
       || model.value instanceof VocabularyEntry) ? model.value.value : model.value;
     const currentLang: string = (model.value instanceof FormFieldMetadataValueObject) ? model.value.language : model.language;
-    const valueWithAuthority: any = new FormFieldMetadataValueObject(currentValue, currentLang, authority);
+    let security = null;
+    if (this.model.value instanceof VocabularyEntry) {
+      security = this.model.value.securityLevel;
+    } else {
+      if (this.model.metadataValue) {
+        security = this.model.metadataValue.securityLevel;
+      }
+    }
+    const valueWithAuthority: any = new FormFieldMetadataValueObject(currentValue, currentLang, security, authority);
     model.value = valueWithAuthority;
     this.modifyChip();
     setTimeout(() => {
@@ -369,6 +395,7 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
       modelRow.group.forEach((model: DynamicInputModel) => {
         if (model.name === this.model.mandatoryField) {
           mandatoryFieldModel = model;
+          this.initSecurityLevelConfig(model, modelRow);
           return;
         }
       });
@@ -430,6 +457,7 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
           new FormFieldMetadataValueObject(
             controlValue,
             mainModel?.language,
+            controlValue === PLACEHOLDER_PARENT_METADATA ? null : mainModel.securityLevel,
             controlAuthority,
             null, 0, null,
             (control?.value as any)?.otherInformation || null,
@@ -437,6 +465,56 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
       });
     });
     return item;
+  }
+
+  /**
+   * Initializes the security level configuration for a form control model
+   * within a relation group row.
+   *
+   * This method handles two distinct cases based on the number of available
+   * security levels in `securityConfigLevel`:
+   *
+   * Multiple levels (`securityConfigLevel.length > 1`):
+   * - Enables the security level toggle (`toggleSecurityVisibility = true`)
+   *   on the main field, and sets its `securityLevel` from the current model value.
+   * - Propagates the same security level to all sibling fields in the row,
+   *   but hides their toggles (`toggleSecurityVisibility = false`), since
+   *   only the parent field controls the security level for the whole group.
+   * - Stores the parent security level in `securityLevelParent` for reference.
+   *
+   * Single level (`securityConfigLevel.length === 1`):
+   * - Applies to all fields in the row regardless of which field is the main one.
+   * - Assigns the model's fixed security level to every field in the group
+   *   and hides the toggle on all of them, since there is no choice to be made.
+   *
+   * @param chipModel
+   * @param modelGroup
+   */
+  private initSecurityLevelConfig(chipModel: DynamicInputModel, modelGroup: DynamicFormGroupModel) {
+    if (this.model.name === chipModel.name && this.model.securityConfigLevel.length > 1) {
+      (chipModel as any).securityConfigLevel = this.model.securityConfigLevel;
+      (chipModel as any).toggleSecurityVisibility = true;
+
+      const mainRow = modelGroup.group.find(itemModel => itemModel.name === this.model.name);
+
+      (chipModel as any).securityLevel = (mainRow as any).securityLevel || 0;
+      this.securityLevelParent = (mainRow as any).securityLevel;
+
+      modelGroup.group.forEach((item: any) => {
+        if (item.name !== this.model.name) {
+          item.securityConfigLevel = this.model.securityConfigLevel;
+          item.toggleSecurityVisibility = false;
+          item.securityLevel = this.securityLevelParent;
+        }
+      });
+    }
+    if (this.model.securityConfigLevel.length === 1) {
+      modelGroup.group.forEach((item: any) => {
+        item.securityConfigLevel = this.model.securityConfigLevel;
+        item.toggleSecurityVisibility = false;
+        item.securityLevel = this.model.securityLevel;
+      });
+    }
   }
 
   /**
@@ -452,5 +530,11 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
       getFirstSucceededRemoteDataPayload(),
       distinctUntilChanged(),
     );
+  }
+
+  changeSecurity($event) {
+    if ($event.type === 'changeSecurityLevelGroup') {
+      this.changedSecurity = true;
+    }
   }
 }

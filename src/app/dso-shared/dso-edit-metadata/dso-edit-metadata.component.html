@@ -1,4 +1,4 @@
-@if (form) {
+@if (isFormInitialized$ | async) {
   <div class="item-metadata">
     <div class="button-row top d-flex my-2 space-children-mr ms-gap">
       <button class="me-auto btn btn-success" id="dso-add-btn" [dsBtnDisabled]="form.newValue || (saving$ | async)"
@@ -47,6 +47,7 @@
                                                   [dsoType]="dsoType"></ds-dso-edit-metadata-value-headers>
               <ds-dso-edit-metadata-value [dso]="dso"
                                           [context]="Context.AddMetadata"
+                                          [metadataSecurityConfiguration]="(securitySettings$ | async)"
                                           [mdValue]="form.newValue"
                                           [dsoType]="dsoType"
                                           [saving$]="savingOrLoadingFieldValidation$"
@@ -54,7 +55,9 @@
                                           [mdField]="newMdField"
                                           (confirm)="confirmNewValue($event)"
                                           (remove)="form.newValue = undefined"
-                                          (undo)="form.newValue = undefined">
+                                          (undo)="form.newValue = undefined"
+                                          (updateSecurityLevel)="onUpdateSecurityLevel($event)"
+                                          (hasSecurityLevel)="hasSecurityLevel($event)">
               </ds-dso-edit-metadata-value>
             </div>
           </div>
@@ -76,6 +79,7 @@
                                              [form]="form"
                                              [dsoType]="dsoType"
                                              [saving$]="saving$"
+                                             [metadataSecurityConfiguration]="(securitySettings$ | async)"
                                              [draggingMdField$]="draggingMdField$"
                                              [mdField]="mdField"
                                              (valueSaved)="onValueSaved()">
