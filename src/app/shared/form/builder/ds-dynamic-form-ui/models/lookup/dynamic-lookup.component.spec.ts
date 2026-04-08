@@ -364,7 +364,7 @@ describe('Dynamic Lookup component', () => {
             display: 'testDisplay',
           }));
           spyOn((lookupComp as any).vocabularyService, 'getVocabularyEntryByValue').and.returnValue(entry);
-          (lookupComp.model as any).value = new FormFieldMetadataValueObject('test',  null,null, 'testDisplay');
+          (lookupComp.model as any).value = new FormFieldMetadataValueObject('test', null, null,null, 'testDisplay');
           lookupFixture.detectChanges();
 
           // spyOn(store, 'dispatch');
@@ -407,7 +407,7 @@ describe('Dynamic Lookup component', () => {
             display: 'testDisplay',
           }));
           spyOn((lookupComp as any).vocabularyService, 'getVocabularyEntryByID').and.returnValue(entry);
-          lookupComp.model.value = new FormFieldMetadataValueObject('test',  null, validAuthority, 'testDisplay');
+          lookupComp.model.value = new FormFieldMetadataValueObject('test', null, null,validAuthority, 'testDisplay');
           lookupFixture.detectChanges();
 
           // spyOn(store, 'dispatch');
@@ -533,14 +533,14 @@ describe('Dynamic Lookup component', () => {
           lookupComp = lookupFixture.componentInstance; // FormComponent test instance
           lookupComp.group = LOOKUP_TEST_GROUP;
           lookupComp.model = new DynamicLookupNameModel(LOOKUP_NAME_TEST_MODEL_CONFIG);
-          lookupComp.model.value = new FormFieldMetadataValueObject('Name, Lastname', null, 'test001');
+          lookupComp.model.value = new FormFieldMetadataValueObject('Name, Lastname', null, null, 'test001');
           const entry = of(Object.assign(new VocabularyEntry(), {
             authority: null,
             value: 'Name, Lastname',
             display: 'Name, Lastname',
           }));
           spyOn((lookupComp as any).vocabularyService, 'getVocabularyEntryByValue').and.returnValue(entry);
-          (lookupComp.model as any).value = new FormFieldMetadataValueObject('Name, Lastname', null, null, 'Name, Lastname');
+          (lookupComp.model as any).value = new FormFieldMetadataValueObject('Name, Lastname', null, null, null, 'Name, Lastname');
           lookupFixture.detectChanges();
 
         });
@@ -585,7 +585,7 @@ describe('Dynamic Lookup component', () => {
             display: 'Name, Lastname',
           }));
           spyOn((lookupComp as any).vocabularyService, 'getVocabularyEntryByID').and.returnValue(entry);
-          lookupComp.model.value = new FormFieldMetadataValueObject('Name, Lastname', null, validAuthority, 'Name, Lastname');
+          lookupComp.model.value = new FormFieldMetadataValueObject('Name, Lastname', null, null, validAuthority, 'Name, Lastname');
           lookupFixture.detectChanges();
 
         });

@@ -11,9 +11,24 @@
           (click)="$event.preventDefault();confirmDiscard(content)">
           <i class="fas fa-trash"></i> {{'submission.general.discard.submit' | translate}}
         </button>
+      } @else {
+        <button
+          type="button"
+          id="cancel"
+          [attr.data-test]="'cancel' | dsBrowserOnly"
+          class="btn btn-outline-primary"
+          [dsBtnDisabled]="(processingSaveStatus | async) || (processingDepositStatus | async)"
+          (click)="navigateBack()">
+          <i class="fas fa-arrow-left"></i> {{'submission.general.back.submit' | translate}}
+        </button>
       }
     </div>
-    <div class="text-end d-flex justify-content-end align-items-center flex-sm-row flex-column">
+    <div class="text-end d-flex justify-content-end align-items-center flex-sm-row flex-column gap-1">
+      @if ((hasUnsavedModification | async) !== true && (processingSaveStatus | async) !== true && (processingDepositStatus | async) !== true && (submissionIsInvalid | async)) {
+        <span>
+          <i class="fas fa-warning"></i> {{'submission.general.info.invalid' | translate}}
+        </span>
+      }
       @if ((hasUnsavedModification | async) !== true && (processingSaveStatus | async) !== true && (processingDepositStatus | async) !== true) {
         <span>
           <i class="fas fa-check-circle"></i> {{'submission.general.info.saved' | translate}}
@@ -51,9 +66,9 @@
           class="btn"
           id="saveForLater"
           [attr.data-test]="'save-for-later' | dsBrowserOnly"
-          [dsBtnDisabled]="(processingSaveStatus | async) || (processingDepositStatus | async)"
+          [dsBtnDisabled]="((showDepositAndDiscard | async) !== true && (submissionIsInvalid | async)) || (processingSaveStatus | async) || (processingDepositStatus | async)"
           (click)="saveLater($event)">
-          <span><i class="fas fa-save"></i> {{'submission.general.save-later' | translate}}</span>
+        <span><i class="fas fa-save"></i> {{saveForLaterLabel() | translate}}</span>
         </button>
         @if ((showDepositAndDiscard | async)) {
           <button

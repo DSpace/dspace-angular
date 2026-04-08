@@ -11,6 +11,7 @@ import { AuthConfig } from './auth-config.interfaces';
 import { BrowseByConfig } from './browse-by-config.interface';
 import { BundleConfig } from './bundle-config.interface';
 import { CacheConfig } from './cache-config.interface';
+import { CmsMetadata } from './cms-metadata';
 import { CollectionPageConfig } from './collection-page-config.interface';
 import { CommunityListConfig } from './community-list-config.interface';
 import { CommunityPageConfig } from './community-page-config.interface';
@@ -359,6 +360,7 @@ export class DefaultAppConfig implements AppConfig {
   };
 
   homePage: HomeConfig = {
+    showTopFooter: false,
     recentSubmissions: {
       //The number of item showing in recent submission components
       pageSize: 5,
@@ -375,6 +377,27 @@ export class DefaultAppConfig implements AppConfig {
   item: ItemConfig = {
     edit: {
       undoTimeout: 10000, // 10 seconds
+      // UI configuration of the security levels available for metadata fields across the application, allows to customize color and icon for each value.
+      // `0` = Public, `1` = Registered users, `2` = Administrators only.
+      security: {
+        levels: [
+          {
+            value: 0,
+            icon: 'fa fa-globe',
+            color: 'green',
+          },
+          {
+            value: 1,
+            icon: 'fa fa-key',
+            color: 'orange',
+          },
+          {
+            value: 2,
+            icon: 'fa fa-lock',
+            color: 'red',
+          },
+        ],
+      },
     },
     // Show the item access status label in items lists
     showAccessStatuses: false,
@@ -834,5 +857,13 @@ export class DefaultAppConfig implements AppConfig {
     showPlusButton: true,
     showCounters: true,
     title: 'DSpace demo',
+  };
+
+  cms: CmsMetadata = {
+    metadataList: [
+      'dspace.cms.home-header',
+      'dspace.cms.home-news',
+      'dspace.cms.footer',
+    ],
   };
 }

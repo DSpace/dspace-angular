@@ -1379,17 +1379,33 @@
 
   "collection.form.errors.title.required": "Please enter a collection name",
 
+  "collection.form.errors.submissionDefinition.required": "Please choose a submission definition for this collection",
+
+  "collection.form.errors.entityType.required": "Please choose an entity type for this collection",
+
   "collection.form.license": "License",
 
   "collection.form.provenance": "Provenance",
 
   "collection.form.rights": "Copyright text (HTML)",
 
+  "collection.form.sharedWorkspace": "Shared workspace",
+
   "collection.form.tableofcontents": "News (HTML)",
 
   "collection.form.title": "Name",
 
   "collection.form.entityType": "Entity Type",
+
+  "collection.form.errors.entityType.required": "Please choose an entity type for this collection",
+
+  "collection.form.errors.submissionDefinition.required": "Please choose a submission definition for this collection",
+
+  "collection.form.submissionDefinition": "Submission definition",
+
+  "collection.form.correctionSubmissionDefinition": "Submission definition for correction request",
+
+
 
   "collection.listelement.badge": "Collection",
 
@@ -1664,6 +1680,14 @@
   "community.sub-collection-list.head": "Collections in this community",
 
   "community.sub-community-list.head": "Communities in this Community",
+
+  "confirmation-modal.pending-changes.header": "Unsaved changes",
+
+  "confirmation-modal.pending-changes.info": "There are unsaved changes. Do you want to leave the page?",
+
+  "confirmation-modal.pending-changes.cancel": "Cancel",
+
+  "confirmation-modal.pending-changes.confirm": "Leave",
 
   "context-menu.actions.audit-item.btn": "Audit",
 
@@ -2677,6 +2701,8 @@
 
   "item.edit.metadata.headers.language": "Lang",
 
+  "item.edit.metadata.headers.security": "Security level",
+
   "item.edit.metadata.headers.authority": "Authority",
 
   "item.edit.metadata.headers.value": "Value",
@@ -3025,7 +3051,7 @@
 
   "item.page.date": "Date",
 
-  "item.page.edit": "Edit this item",
+  "item.page.edit": "Administer",
 
   "item.page.files": "Files",
 
@@ -3426,7 +3452,7 @@
 
   "journal.page.description": "Description",
 
-  "journal.page.edit": "Edit this item",
+  "journal.page.edit": "Administer",
 
   "journal.page.editor": "Editor-in-Chief",
 
@@ -3448,7 +3474,7 @@
 
   "journalissue.page.description": "Description",
 
-  "journalissue.page.edit": "Edit this item",
+  "journalissue.page.edit": "Administer",
 
   "journalissue.page.issuedate": "Issue Date",
 
@@ -3470,7 +3496,7 @@
 
   "journalvolume.page.description": "Description",
 
-  "journalvolume.page.edit": "Edit this item",
+  "journalvolume.page.edit": "Administer",
 
   "journalvolume.page.issuedate": "Issue Date",
 
@@ -3766,11 +3792,21 @@
 
   "menu.section.workflow": "Administer Workflow",
 
+  "menu.section.FULL": "Edit",
+
+  "menu.section.OWNER": "Edit",
+
+  "menu.section.DIRECTOR": "Edit",
+
+  "menu.section.INVESTIGATOR": "Edit",
+
   "metadata-export-search.tooltip": "Export search results as CSV",
 
   "metadata-export-search.submit.success": "The export was started successfully",
 
   "metadata-export-search.submit.error": "Starting the export has failed",
+
+  "metadata.security.level.title": "Metatada security level {{level}}",
 
   "mydspace.breadcrumbs": "MyDSpace",
 
@@ -3831,6 +3867,8 @@
   "mydspace.show.workflow": "Workflow tasks",
 
   "mydspace.show.workspace": "Your submissions",
+
+  "mydspace.show.otherWorkspace": "Shared Submissions",
 
   "mydspace.show.supervisedWorkspace": "Supervised items",
 
@@ -4062,7 +4100,7 @@
 
   "orgunit.page.description": "Description",
 
-  "orgunit.page.edit": "Edit this item",
+  "orgunit.page.edit": "Administer",
 
   "orgunit.page.id": "ID",
 
@@ -4090,7 +4128,7 @@
 
   "person.page.birthdate": "Birth Date",
 
-  "person.page.edit": "Edit this item",
+  "person.page.edit": "Administer",
 
   "person.page.email": "Email Address",
 
@@ -4346,7 +4384,7 @@
 
   "project.page.description": "Description",
 
-  "project.page.edit": "Edit this item",
+  "project.page.edit": "Administer",
 
   "project.page.expectedcompletion": "Expected Completion",
 
@@ -4370,7 +4408,7 @@
 
   "publication.page.description": "Description",
 
-  "publication.page.edit": "Edit this item",
+  "publication.page.edit": "Administer",
 
   "publication.page.journal-issn": "Journal ISSN",
 
@@ -5199,6 +5237,8 @@
 
   "submission.edit.title": "Edit Submission",
 
+  "submission.edit.item.breadcrumbs": "Edit item",
+
   "submission.general.cancel": "Cancel",
 
   "submission.general.cannot_submit": "You don't have permission to make a new submission.",
@@ -5217,6 +5257,8 @@
 
   "submission.general.back.submit": "Back",
 
+  "submission.general.info.invalid": "The submission is invalid, check missing fields",
+
   "submission.general.info.saved": "Saved",
 
   "submission.general.info.pending-changes": "Unsaved changes",
@@ -5224,6 +5266,8 @@
   "submission.general.save": "Save",
 
   "submission.general.save-later": "Save for later",
+
+  "submission.general.save-later.edit-item": "Save and return",
 
   "submission.import-external.page.title": "Import metadata from an external source",
 
@@ -5767,6 +5811,8 @@
 
   "submission.sections.submit.progressbar.license": "Deposit license",
 
+  "submission.sections.submit.progressbar.describe.owner": "Owner",
+
   "submission.sections.submit.progressbar.sherpapolicy": "Sherpa policies",
 
   "submission.sections.submit.progressbar.upload": "Upload files",
@@ -6174,6 +6220,8 @@
   "workflowAdmin.search.results.head": "Administer Workflow",
 
   "workflow.search.results.head": "Workflow tasks",
+
+  "otherWorkspace.search.results.head": "Shared workspace",
 
   "supervision.search.results.head": "Workflow and Workspace tasks",
 
@@ -7550,4 +7598,52 @@
   "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfDataset.added.local-entity": "Successfully added local organization to the selection",
 
   "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfDataset.added.new-entity": "Successfully imported and added external organization to the selection",
+
+  "admin.edit-cms-metadata.success": "Metadata successfully updated",
+
+  "admin.edit-cms-metadata.back-button": "Back",
+
+  "admin.edit-cms-metadata.save-button": "Save",
+
+  "admin.edit-cms-metadata.select-metadata": "Select metadata to edit",
+
+  "admin.edit-cms-metadata.edit-button": "Edit",
+
+  "admin.edit-cms-metadata.breadcrumbs": "Edit CMS Metadata",
+
+  "admin.edit-cms-metadata.title": "Edit CMS Metadata",
+
+  "admin.edit-cms-metadata.error": "An error occurred while updating the metadata",
+
+  "menu.section.edit-cms-metadata": "Edit CMS Metadata",
+
+  "menu.section.cms.edit.metadata.head": "Edit Metadata",
+
+  "admin.edit-user-agreement.breadcrumbs": "Edit User Agreement",
+
+  "admin.edit-user-agreement.confirm.title": "Force acceptance",
+
+  "admin.edit-user-agreement.confirm.info": "Do you want to force all users to accept the new user agreement?",
+
+  "admin.edit-user-agreement.confirm.cancel": "Cancel",
+
+  "admin.edit-user-agreement.confirm.no": "No, update only",
+
+  "admin.edit-user-agreement.confirm.yes": "Yes, update and force",
+
+  "menu.section.edit-user-agreement": "Edit User Agreement",
+
+  "admin.edit-user-agreement.save-button": "Save",
+
+  "admin.edit-user-agreement.markdown": "<i>End User Agreement</i> text supports <a href=\"https://www.markdownguide.org/basic-syntax/\" target=\"_blank\">Markdown</a> language.",
+
+  "admin.edit-cms-metadata.markdown": "<i>CMS Metadata</i> text supports <a href=\"https://www.markdownguide.org/basic-syntax/\" target=\"_blank\">Markdown</a> language.",
+
+  "admin.edit-user-agreement.header": "Edit User Agreement",
+
+  "admin.edit-user-agreement.success": "User agreement successfully updated",
+
+  "admin.edit-user-agreement.error": "An error occurred while updating the user agreement",
+
+  "admin.edit-user-agreement.title": "Edit User Agreement",
 }

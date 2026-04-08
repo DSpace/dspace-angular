@@ -36,7 +36,6 @@ import {
   mockSubmissionCollectionId,
   mockSubmissionId,
   mockSubmissionObject,
-  mockUploadResponse1ParsedErrors,
   mockUploadResponse2Errors,
   mockUploadResponse2ParsedErrors,
 } from '../../utils/submission.mock';
@@ -164,16 +163,19 @@ describe('SubmissionUploadFilesComponent Component', () => {
       });
 
       it('should show a success notification and call updateSectionData if successful', () => {
-        const expectedErrors: any = mockUploadResponse1ParsedErrors;
+        const expectedErrors: any = [];
         fixture.detectChanges();
+        const data = {
+          upload: {
+            files: [{ url: 'testUrl' }],
+          } };
+        comp.onCompleteItem(Object.assign({}, uploadRestResponse, { sections: data }));
 
-        comp.onCompleteItem(Object.assign({}, uploadRestResponse, { sections: mockSectionsData }));
-
-        Object.keys(mockSectionsData).forEach((sectionId) => {
+        Object.keys(data).forEach((sectionId) => {
           expect(sectionsServiceStub.updateSectionData).toHaveBeenCalledWith(
             submissionId,
             sectionId,
-            mockSectionsData[sectionId],
+            data[sectionId],
             expectedErrors[sectionId],
             expectedErrors[sectionId],
           );
