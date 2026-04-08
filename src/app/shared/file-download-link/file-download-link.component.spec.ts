@@ -43,6 +43,19 @@ describe('FileDownloadLinkComponent', () => {
   let item: Item;
   let storeMock: any;
 
+  const mockAppConfig = {
+    cache: {
+      msToLive: {
+        default: 15 * 60 * 1000
+      },
+    },
+    item: {
+      bitstream: {
+        openDownloadLinksInNewTab: true,
+      },
+    },
+  };
+
   const itemRequestStub = Object.assign(new ItemRequest(), {
     token: 'item-request-token',
     requestName: 'requester name',
@@ -88,7 +101,7 @@ describe('FileDownloadLinkComponent', () => {
         { provide: ActivatedRoute, useValue: activatedRoute },
         { provide: Store, useValue: storeMock },
         { provide: APP_DATA_SERVICES_MAP, useValue: {} },
-        { provide: APP_CONFIG, useValue: { cache: { msToLive: { default: 15 * 60 * 1000 } } } },
+        { provide: APP_CONFIG, useValue: mockAppConfig },
       ],
     })
       .overrideComponent(FileDownloadLinkComponent, {
@@ -129,8 +142,18 @@ describe('FileDownloadLinkComponent', () => {
           fixture.detectChanges();
           const link = fixture.debugElement.query(By.css('a'));
           expect(link.injector.get(RouterLinkDirectiveStub).routerLink).toContain(new URLCombiner(getBitstreamModuleRoute(), bitstream.uuid, 'download').toString());
+          expect(link.nativeElement.getAttribute('target')).toBe('_blank');
           const lock = fixture.debugElement.query(By.css('.fa-lock'));
           expect(lock).toBeNull();
+        });
+
+        it('should keep an explicit isBlank input over the config default', () => {
+          component.isBlank = false;
+          component.ngOnInit();
+          scheduler.flush();
+          fixture.detectChanges();
+          const link = fixture.debugElement.query(By.css('a'));
+          expect(link.nativeElement.getAttribute('target')).toBe('_self');
         });
       });
 

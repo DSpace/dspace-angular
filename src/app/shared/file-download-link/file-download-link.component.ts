@@ -5,8 +5,10 @@ import {
 } from '@angular/common';
 import {
   Component,
+  Inject,
   Input,
   OnInit,
+  Optional,
 } from '@angular/core';
 import {
   ActivatedRoute,
@@ -40,7 +42,10 @@ import {
   map,
   switchMap,
 } from 'rxjs/operators';
-
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
 import { ThemedAccessStatusBadgeComponent } from '../object-collection/shared/badges/access-status-badge/themed-access-status-badge.component';
 
 @Component({
@@ -78,7 +83,7 @@ export class FileDownloadLinkComponent implements OnInit {
   /**
    * A boolean representing if link is shown in same tab or in a new one.
    */
-  @Input() isBlank = false;
+  @Input() isBlank: boolean;
 
   @Input() enableRequestACopy = true;
 
@@ -108,10 +113,13 @@ export class FileDownloadLinkComponent implements OnInit {
     public dsoNameService: DSONameService,
     private route: ActivatedRoute,
     private translateService: TranslateService,
+    @Optional() @Inject(APP_CONFIG) private appConfig?: AppConfig,
   ) {
   }
 
   ngOnInit() {
+    this.isBlank = this.isBlank ?? this.appConfig?.item?.bitstream?.openDownloadLinksInNewTab ?? true;
+
     if (this.enableRequestACopy) {
       // Obtain item request data from the route snapshot
       this.itemRequest = this.route.snapshot.data.itemRequest;
