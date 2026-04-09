@@ -2703,8 +2703,6 @@
 
   "item.edit.metadata.headers.security": "Security level",
 
-  "item.edit.metadata.headers.authority": "Authority",
-
   "item.edit.metadata.headers.value": "Value",
 
   "item.edit.metadata.metadatafield": "Edit field",
@@ -3394,6 +3392,12 @@
 
   "itemtemplate.edit.metadata.edit.value": "Edit value",
 
+  "itemtemplate.edit.metadata.edit.authority.key": "Edit authority key",
+
+  "itemtemplate.edit.metadata.edit.buttons.enable-free-text-editing": "Enable free-text editing",
+
+  "itemtemplate.edit.metadata.edit.buttons.disable-free-text-editing": "Disable free-text editing",
+
   "itemtemplate.edit.metadata.edit.buttons.confirm": "Confirm",
 
   "itemtemplate.edit.metadata.edit.buttons.drag": "Drag to reorder",
@@ -3415,8 +3419,6 @@
   "itemtemplate.edit.metadata.headers.language": "Lang",
 
   "itemtemplate.edit.metadata.headers.value": "Value",
-
-  "itemtemplate.edit.metadata.headers.authority": "Authority",
 
   "itemtemplate.edit.metadata.metadatafield": "Edit field",
 
@@ -3447,6 +3449,12 @@
   "itemtemplate.edit.metadata.reset-order-button": "Undo reorder",
 
   "itemtemplate.edit.metadata.save-button": "Save",
+
+  "itemtemplate.edit.metadata.authority.label": "Authority: ",
+
+  "itemtemplate.edit.metadata.edit.buttons.open-authority-edition": "Unlock the authority key value for manual editing",
+
+  "itemtemplate.edit.metadata.edit.buttons.close-authority-edition": "Lock the authority key value for manual editing",
 
   "journal.listelement.badge": "Journal",
 

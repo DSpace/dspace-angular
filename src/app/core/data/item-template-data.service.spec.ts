@@ -12,7 +12,6 @@ import { RestResponse } from '../cache/response.models';
 import { CoreState } from '../core-state.model';
 import { NotificationsService } from '../notification-system/notifications.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { Item } from '../shared/item.model';
 import { testCreateDataImplementation } from './base/create-data.spec';
 import { testDeleteDataImplementation } from './base/delete-data.spec';
 import { testPatchDataImplementation } from './base/patch-data.spec';
@@ -22,12 +21,13 @@ import { RequestService } from './request.service';
 import { RequestEntry } from './request-entry.model';
 import { RestRequest } from './rest-request.model';
 import createSpyObj = jasmine.createSpyObj;
+import { TemplateItem } from '../shared/template-item.model';
 
 describe('ItemTemplateDataService', () => {
   let service: ItemTemplateDataService;
   let byCollection: any;
 
-  const item = new Item();
+  const item = new TemplateItem();
   const collectionEndpoint = 'https://rest.api/core/collections/4af28e99-6a9c-4036-a199-e1b587046d39';
   const itemEndpoint = `${collectionEndpoint}/itemtemplate`;
   const scopeID = '4af28e99-6a9c-4036-a199-e1b587046d39';
