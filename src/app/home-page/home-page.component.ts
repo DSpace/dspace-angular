@@ -77,7 +77,7 @@ export class HomePageComponent implements OnInit {
         language: this.locale.getCurrentLanguageCode(),
       }).pipe(
         take(1),
-        map(({site, language}) => site?.firstMetadataValue('dspace.cms.home-header', {language})),
+        map(({ site, language }) => site?.firstMetadataValue('dspace.cms.home-header', { language })),
       );
     }
   }
