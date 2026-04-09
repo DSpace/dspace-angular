@@ -253,6 +253,16 @@ submission:
         # The configured icon will be displayed next to the authority value in submission and on item page or search results.
         - source: orcid
         - path: assets/images/orcid.logo.icon.svg
+  # Settings for import item from an external source
+  importExternal:
+    # Toggle visibility of metadata field names in the external import preview modal.
+    # Possible values:
+    # - 'disable': show only the translated label
+    # - 'tooltip': (default) also show an info icon with the field name as tooltip
+    # - 'labeled': also show the field name in parentheses
+    # - 'full': show both the 'labeled' and 'tooltip' modes
+    viewMode: default
+
 #  Fallback language in which the UI will be rendered if the user's browser language is not an active language
 fallbackLanguage: en
 
