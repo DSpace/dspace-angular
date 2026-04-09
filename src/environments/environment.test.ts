@@ -276,6 +276,8 @@ export const environment: BuildConfig = {
       pageSize: 5,
     },
     showDiscoverFilters: false,
+    editHomeNews: true,
+    editHomeHeader: true,
   },
   item: {
     edit: {
