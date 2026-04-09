@@ -38,9 +38,9 @@
           @if (dso.allMetadata(['journal.title']).length > 0) {
             <span
               class="item-list-journal-volumes">
-              @for (value of allMetadataValues(['journal.title']); track value; let last = $last) {
+              @for (value of allMetadata(['journal.title']); track value; let last = $last) {
                 <span>
-                  <span [innerHTML]="value"></span>@if (!last) {
+                  <span [dsMetadata]="value"></span>@if (!last) {
                   <span>; </span>
                 }
               </span>
@@ -50,9 +50,9 @@
         @if (dso.allMetadata(['publicationvolume.volumeNumber']).length > 0) {
           <span
             class="item-list-journal-volume-identifiers">
-            @for (value of allMetadataValues(['publicationvolume.volumeNumber']); track value; let last = $last) {
+            @for (value of allMetadata(['publicationvolume.volumeNumber']); track value; let last = $last) {
               <span>
-                <span> (</span><span [innerHTML]="value"></span><span>)</span>@if (!last) {
+                <span> (</span><span [dsMetadata]="value"></span><span>)</span>@if (!last) {
                 <span>;</span>
               }
             </span>

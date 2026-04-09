@@ -24,6 +24,7 @@ import { map } from 'rxjs/operators';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import { ErrorComponent } from '../../error/error.component';
 import { ThemedLoadingComponent } from '../../loading/themed-loading.component';
+import { MetadataDirective } from '../../metadata.directive';
 import { PaginationComponent } from '../../pagination/pagination.component';
 import { VarDirective } from '../../utils/var.directive';
 import { DSpaceObjectSelect } from '../object-select.model';
@@ -37,6 +38,7 @@ import { ObjectSelectComponent } from '../object-select/object-select.component'
     BtnDisabledDirective,
     ErrorComponent,
     FormsModule,
+    MetadataDirective,
     NgClass,
     PaginationComponent,
     RouterLink,

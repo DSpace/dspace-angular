@@ -38,13 +38,13 @@
             <ds-truncatable-part [id]="dso.id" [minLines]="1">
               @if (firstMetadataValue('dc.publisher') || firstMetadataValue('dc.date.issued')) {
                 (@if (firstMetadataValue('dc.publisher')) {
-                <span class="item-list-publisher" [innerHTML]="firstMetadataValue('dc.publisher')"></span>
+              <span class="item-list-publisher" [dsMetadata]="firstMetadata('dc.publisher')"></span>
               }
               @if (firstMetadataValue('dc.publisher') && firstMetadataValue('dc.date.issued')) {
                 <span>, </span>
               }
               @if (firstMetadataValue('dc.date.issued')) {
-                <span class="item-list-date" [innerHTML]="firstMetadataValue('dc.date.issued')"></span>
+              <span class="item-list-date" [dsMetadata]="firstMetadata('dc.date.issued')"></span>
                 })
               }
               @if (dso.allMetadataValues(authorMetadata, placeholderFilter).length > 0) {
@@ -76,8 +76,8 @@
           </span>
       @if (firstMetadataValue('dc.description.abstract'); as abstract) {
           <div class="item-list-abstract">
-            <ds-truncatable-part [id]="dso.id" [minLines]="3"><span
-            [innerHTML]="abstract"></span>
+            <ds-truncatable-part [id]="dso.id" [minLines]="3">
+              <span [dsMetadata]="firstMetadata('dc.description.abstract')"></span>
           </ds-truncatable-part>
         </div>
       }
