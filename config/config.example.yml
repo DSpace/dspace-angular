@@ -400,6 +400,10 @@ homePage:
     pageSize: 5
   # Enable or disable the Discover filters on the homepage
   showDiscoverFilters: false
+  # Disable if you don't want users to edit the homeNews section on your home-page.
+  editHomeNews: true
+  # Disable if you don't want users to edit the home header.
+  editHomeHeader: true
 
 # Item Config
 item:
