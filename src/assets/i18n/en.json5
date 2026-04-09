@@ -2319,6 +2319,8 @@
 
   "health-page.section.solrStatisticsCore.title": "Solr: statistics core",
 
+  "health-page.section.bitstreamStreamAnomalies.title": "Bitstream Stream Anomalies",
+
   "health-page.section-info.app.title": "Application Backend",
 
   "health-page.section-info.java.title": "Java",
