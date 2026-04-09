@@ -164,6 +164,7 @@
     "@angular/cli": "^20.3.22",
     "@angular/compiler-cli": "^20.3.17",
     "@cypress/schematic": "^1.5.0",
+    "@eslint/js": "^9.39.4",
     "@fortawesome/fontawesome-free": "^6.7.2",
     "@ngrx/store-devtools": "^20.1.0",
     "@ngtools/webpack": "^20.3.10",
@@ -181,6 +182,7 @@
     "@typescript-eslint/parser": "^8.58.0",
     "@typescript-eslint/rule-tester": "^8.58.0",
     "@typescript-eslint/utils": "^8.47.0",
+    "angular-eslint": "^20.7.0",
     "axe-core": "^4.11.2",
     "commander": "^14.0.3",
     "compression-webpack-plugin": "^9.2.0",
@@ -223,6 +225,7 @@
     "ts-node": "^8.10.2",
     "tsconfig-paths": "^4.2.0",
     "typescript": "~5.9.3",
+    "typescript-eslint": "^8.58.0",
     "webpack": "^5.105.4",
     "webpack-cli": "^6.0.1"
   },
