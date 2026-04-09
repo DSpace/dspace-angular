@@ -23,7 +23,6 @@ import {
   Store,
 } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import Cookies from 'js-cookie';
 import {
   Observable,
   of,
@@ -613,20 +612,23 @@ export class AuthService {
    */
   getExternalServerRedirectUrl(origin: string, redirectRoute: string, location: string): string {
     const correctRedirectUrl = new URLCombiner(origin, redirectRoute).toString();
+    const externalServerUrl = new URL(location, origin);
 
-    let externalServerUrl = location;
-    const myRegexp = /\?redirectUrl=(.*)/g;
-    const match = myRegexp.exec(location);
-    const redirectUrlFromServer = (match && match[1]) ? match[1] : null;
-
-    // Check whether the current page is different from the redirect url received from rest
-    if (isNotNull(redirectUrlFromServer) && redirectUrlFromServer !== correctRedirectUrl) {
-      // change the redirect url with the current page url
-      const newRedirectUrl = `?redirectUrl=${correctRedirectUrl}`;
-      externalServerUrl = location.replace(/\?redirectUrl=(.*)/g, newRedirectUrl);
+    if (externalServerUrl.searchParams.has('redirectUrl')) {
+      externalServerUrl.searchParams.set('redirectUrl', correctRedirectUrl);
+    } else if (externalServerUrl.searchParams.has('redirect_uri')) {
+      const redirectUri = new URL(externalServerUrl.searchParams.get('redirect_uri'), origin);
+      redirectUri.searchParams.set('redirectUrl', correctRedirectUrl);
+      externalServerUrl.searchParams.set('redirect_uri', redirectUri.toString());
+    } else {
+      externalServerUrl.searchParams.set('redirectUrl', correctRedirectUrl);
     }
 
-    return externalServerUrl;
+    if (isNotNull(location.match(/^https?:\/\//))) {
+      return externalServerUrl.toString();
+    }
+
+    return `${externalServerUrl.pathname}${externalServerUrl.search}${externalServerUrl.hash}`;
   }
 
   /**
