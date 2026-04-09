@@ -49,9 +49,10 @@
           </td>
           <td>
             <div class="d-flex flex-column">
-              <button class="btn mb-2 btn-dark" (click)="openDetailModal(message)">{{ 'notify-message-result.detail' | translate }}</button>
+              <button type="button" class="btn mb-2 btn-dark" (click)="openDetailModal(message)">{{ 'notify-message-result.detail' | translate }}</button>
               @if (message.queueStatusLabel !== reprocessStatus && validStatusesForReprocess.includes(message.queueStatusLabel)) {
-                <button
+                <button 
+                  type="button"
                   (click)="reprocessMessage(message)"
                   class="btn btn-warning"
                   >

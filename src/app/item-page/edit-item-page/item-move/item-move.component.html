@@ -37,10 +37,10 @@
 
       <div class="button-row bottom">
         <div class="float-end space-children-mr">
-          <button [routerLink]="[(itemPageRoute$ | async), 'edit']" class="btn btn-outline-secondary">
+          <button type="button" [routerLink]="[(itemPageRoute$ | async), 'edit']" class="btn btn-outline-secondary">
             <i class="fas fa-arrow-left"></i> {{'item.edit.move.cancel' | translate}}
           </button>
-          <button class="btn btn-primary" [dsBtnDisabled]="!canMove" (click)="moveToCollection()">
+          <button type="button" class="btn btn-primary" [dsBtnDisabled]="!canMove" (click)="moveToCollection()">
             @if (!processing) {
               <span>
                 <i class="fas fa-save"></i> {{'item.edit.move.save-button' | translate}}
@@ -52,7 +52,7 @@
               </span>
             }
           </button>
-          <button class="btn btn-danger" [dsBtnDisabled]="!canSubmit" (click)="discard()">
+          <button type="button" class="btn btn-danger" [dsBtnDisabled]="!canSubmit" (click)="discard()">
             <i class="fas fa-times"></i> {{"item.edit.move.discard-button" | translate}}
           </button>
         </div>

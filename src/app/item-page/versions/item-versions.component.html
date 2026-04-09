@@ -68,20 +68,20 @@
                             <div class="float-end btn-group edit-field space-children-mr">
                               @if (isThisBeingEdited(versionDTO.version)) {
                                 <!--DISCARD EDIT-->
-                                <button class="btn btn-sm btn-outline-warning"
+                                <button type="button" class="btn btn-sm btn-outline-warning"
                                   (click)="disableVersionEditing()"
                                   title="{{'item.version.history.table.action.discardSummary' | translate}}">
                                   <i class="fas fa-undo-alt fa-fw"></i>
                                 </button>
                                 <!--SAVE-->
-                                <button class="btn btn-outline-success btn-sm"
+                                <button type="button" class="btn btn-outline-success btn-sm"
                                   (click)="onSummarySubmit()"
                                   title="{{'item.version.history.table.action.saveSummary' | translate}}">
                                   <i class="fas fa-check fa-fw"></i>
                                 </button>
                               } @else {
                                 <!--EDIT-->
-                                <button class="btn btn-outline-primary btn-sm version-row-element-edit"
+                                <button type="button" class="btn btn-outline-primary btn-sm version-row-element-edit"
                                   [dsBtnDisabled]="isAnyBeingEdited()"
                                   (click)="enableVersionEditing(versionDTO.version)"
                                   title="{{'item.version.history.table.action.editSummary' | translate}}">

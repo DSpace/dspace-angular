@@ -27,7 +27,7 @@
           ngDefaultControl>
         </ds-dso-input-suggestions>
         @if (!selectedBundleId && selectedBundleName?.length > 0) {
-          <button class="btn btn-success me-2" (click)="createBundle()">
+          <button  type="button" class="btn btn-success me-2" (click)="createBundle()">
             <i class="fa fa-plus"></i> {{ 'item.bitstreams.upload.bundle.new' | translate }}
           </button>
         }
@@ -40,7 +40,7 @@
             (onCompleteItem)="onCompleteItem($event)"
           (onUploadError)="onUploadError()"></ds-uploader>
         }
-        <button class="btn btn-outline-secondary" (click)="onCancel()">{{'item.bitstreams.upload.cancel' | translate}}</button>
+        <button  type="button" class="btn btn-outline-secondary" (click)="onCancel()">{{'item.bitstreams.upload.cancel' | translate}}</button>
       </div>
     </div>
   }

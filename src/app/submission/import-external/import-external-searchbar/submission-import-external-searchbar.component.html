@@ -9,7 +9,7 @@
     <input type="text" class="form-control" (keyup.enter)="(searchString === '')?null:search()" [(ngModel)]="searchString" placeholder="{{'submission.import-external.search.placeholder' | translate}}" [attr.aria-label]="'submission.import-external.search.placeholder' | translate">
   }
   <div [ngClass]="{'input-group-append': (isXsOrSm$ | async) !== true}" ngbDropdown role="group">
-    <button [attr.aria-label]="'submission.import-external.search.source.hint' |translate"
+    <button type="button" [attr.aria-label]="'submission.import-external.search.source.hint' |translate"
       class="btn btn-outline-secondary w-fx"
       title="{{'submission.import-external.search.source.hint' |translate}}"
       ngbDropdownToggle>
@@ -25,7 +25,7 @@
         (scrolled)="onScroll()"
         [scrollWindow]="false">
         @for (source of sourceList; track source) {
-          <button ngbDropdownItem class="dropdown-item text-truncate" (click)="makeSourceSelection(source)"
+          <button type="button"ngbDropdownItem class="dropdown-item text-truncate" (click)="makeSourceSelection(source)"
             >{{ 'submission.import-external.source.' + source?.name | translate }}
           </button>
         }

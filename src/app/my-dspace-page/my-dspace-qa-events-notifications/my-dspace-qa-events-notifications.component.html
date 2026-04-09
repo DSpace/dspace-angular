@@ -1,3 +1,4 @@
+
 @if ((sources$ | async)?.length > 0) {
   @for (source of sources$ | async; track source) {
     @if (source.totalEvents > 0) {
@@ -17,6 +18,7 @@
             {{ "mydspace.qa-event-notification.check.notification-info" | translate : { num: source.totalEvents } }}
           </div>
           <button
+            type="button"
             [routerLink]="[getQualityAssuranceRoute(), source.id]"
             [queryParams]="{ forward: true }"
             class="btn btn-primary align-self-center"
