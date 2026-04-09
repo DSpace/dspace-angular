@@ -150,3 +150,5 @@ export class HostWindowService {
     );
   }
 }
+export { WidthCategory };
+
