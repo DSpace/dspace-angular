@@ -1353,7 +1353,7 @@
   "audit.data.not-found": "Nebyly nalezeny žádné audity.",
 
   // "audit.data.self": "self",
-  "audit.data.self": "sám",
+  "audit.data.self": "vlastní",
 
   // "audit.detail.metadata.field": "Metadata field:",
   "audit.detail.metadata.field": "Metadatové pole:",
@@ -1377,7 +1377,7 @@
   "audit.detail.metadata.checksum": "Kontrolní součet:",
 
   // "audit.overview.title": "All Audit Logs",
-  "audit.overview.title": "Všechny audit logy",
+  "audit.overview.title": "Všechny auditní záznamy",
 
   // "audit.overview.table.id": "Audit ID",
   "audit.overview.table.id": "ID auditu",
@@ -1407,19 +1407,19 @@
   "audit.overview.table.timestamp": "Čas (UTC)",
 
   // "audit.overview.breadcrumbs": "Audit Logs",
-  "audit.overview.breadcrumbs": "Audit logy",
+  "audit.overview.breadcrumbs": "Auditní záznamy",
 
   // "audit.object.back": "Back",
   "audit.object.back": "Zpět",
 
   // "audit.object.breadcrumbs": "Object Audit Logs",
-  "audit.object.breadcrumbs": "Audit logy objektu",
+  "audit.object.breadcrumbs": "Auditní záznamy objektu",
 
   // "audit.object.overview.title": "Object Audit Logs",
-  "audit.object.overview.title": "Audit logy objektu",
+  "audit.object.overview.title": "Auditní záznamy objektu",
 
   // "audit.object.logs.label": "Logs for object: ",
-  "audit.object.logs.label": "Logy pro objekt: ",
+  "audit.object.logs.label": "Záznamy pro objekt: ",
 
   // "audit.object.overview.disabled.message": "Audit feature is currently disabled",
   "audit.object.overview.disabled.message": "Funkce auditu je momentálně vypnuta",
@@ -2070,10 +2070,10 @@
   "collection.form.errors.title.required": "Zadejte prosím název kolekce",
 
   // "collection.form.errors.submissionDefinition.required": "Please choose a submission definition for this collection",
-  "collection.form.errors.submissionDefinition.required": "Zvolte prosím definici vkladu pro tuto kolekci",
+  "collection.form.errors.submissionDefinition.required": "Zvolte prosím definici příspěvku pro tuto kolekci",
 
   // "collection.form.errors.entityType.required": "Please choose an entity type for this collection",
-  "collection.form.errors.entityType.required": "Zvolte prosím typ entity pro tuto kolekci",
+  "collection.form.errors.entityType.required": "Zvolte prosím typ subjektu pro tuto kolekci",
 
   // "collection.form.license": "License",
   "collection.form.license": "Licence",
@@ -2097,16 +2097,16 @@
   "collection.form.entityType": "Typ subjektu",
 
   // "collection.form.errors.entityType.required": "Please choose an entity type for this collection",
-  "collection.form.errors.entityType.required": "Zvolte prosím typ entity pro tuto kolekci",
+  "collection.form.errors.entityType.required": "Zvolte prosím typ subjektu pro tuto kolekci",
 
   // "collection.form.errors.submissionDefinition.required": "Please choose a submission definition for this collection",
-  "collection.form.errors.submissionDefinition.required": "Zvolte prosím definici vkladu pro tuto kolekci",
+  "collection.form.errors.submissionDefinition.required": "Zvolte prosím definici příspěvku pro tuto kolekci",
 
   // "collection.form.submissionDefinition": "Submission definition",
-  "collection.form.submissionDefinition": "Definice vkladu",
+  "collection.form.submissionDefinition": "Definice příspěvku",
 
   // "collection.form.correctionSubmissionDefinition": "Submission definition for correction request",
-  "collection.form.correctionSubmissionDefinition": "Definice vkladu pro žádost o opravu",
+  "collection.form.correctionSubmissionDefinition": "Definice příspěvku pro opravu",
 
 
 
@@ -3005,10 +3005,10 @@
   "error.top-level-communities": "Chyba při načítání komunit nejvyšší úrovně",
 
   // "error.validation.license.required": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
-  "error.validation.license.required": "Pro dokončení vkladu musíte udělit tuto licenci. Pokud v tuto chvíli nemůžete licenci udělit, můžete svou práci uložit a vrátit se později nebo vklad odstranit.",
+  "error.validation.license.required": "Pro dokončení příspěvku musíte udělit tuto licenci. Pokud v tuto chvíli nemůžete licenci udělit, můžete svou práci uložit a vrátit se později nebo příspěvek odstranit.",
 
   // "error.validation.cclicense.required": "You must grant this cclicense to complete your submission. If you are unable to grant the cclicense at this time, you may save your work and return later or remove the submission.",
-  "error.validation.cclicense.required": "Pro dokončení vkladu musíte udělit tuto licenci CC. Pokud v tuto chvíli nemůžete licenci CC udělit, můžete svou práci uložit a vrátit se později nebo vklad odstranit.",
+  "error.validation.cclicense.required": "Pro dokončení příspěvku musíte udělit tuto licenci CC. Pokud v tuto chvíli nemůžete licenci CC udělit, můžete svou práci uložit a vrátit se později nebo příspěvek odstranit.",
 
   // "error.validation.custom-url.conflict": "The custom url has been already used, please try with a new one.",
   "error.validation.custom-url.conflict": "Vlastní URL již bylo použito, zkuste prosím jiné.",
@@ -4848,7 +4848,7 @@
   "item.preview.organization.legalName": "Právní název",
 
   // "item.preview.dspace.entity.type": "Entity Type:",
-  "item.preview.dspace.entity.type": "Typ entity:",
+  "item.preview.dspace.entity.type": "Typ subjektu:",
 
   // "item.preview.creativework.publisher": "Publisher",
   "item.preview.creativework.publisher": "Vydavatel",
@@ -5328,7 +5328,7 @@
   "layout.advanced-attachment.viewMore": "Zobrazit více",
 
   // "layout.advanced-attachment.label.not-present": "(not present)",
-  "layout.advanced-attachment.label.not-present": "(není k dispozici)",
+  "layout.advanced-attachment.label.not-present": "(chybí)",
 
   // "loading.bitstream": "Loading bitstream...",
   "loading.bitstream": "Načítá se soubor...",
@@ -5457,7 +5457,7 @@
   "menu.section.access_control_people": "Lidé",
 
   // "menu.section.audit": "Audit Logs",
-  "menu.section.audit": "Audit logy",
+  "menu.section.audit": "Auditní záznamy",
 
   // "menu.section.reports": "Reports",
   "menu.section.reports": "Zprávy",
@@ -8651,7 +8651,7 @@
   "submission.sections.general.no-collection": "Nebyla nalezena žádná kolekce",
 
   // "submission.sections.general.no-entity": "No entity types found",
-  "submission.sections.general.no-entity": "Nebyl nalezen žádný typ entity",
+  "submission.sections.general.no-entity": "Nebyl nalezen žádný typ subjektu",
 
   // "submission.sections.general.no-sections": "No options available",
   "submission.sections.general.no-sections": "Nejsou k dispozici žádné volby",
@@ -11422,37 +11422,37 @@
   "submission.sections.describe.relationship-lookup.external-source.import-modal.isPublicationOfDataset.title": "Importovat vzdálenou publikaci",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isPublicationOfDataset.added.local-entity": "Successfully added local publication to the selection",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.isPublicationOfDataset.added.local-entity": "Úspěšně přidána lokální publikace do výběru",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isPublicationOfDataset.added.local-entity": "Lokální publikace byla úspěšně přidána do výběru",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isPublicationOfDataset.added.new-entity": "Successfully imported and added external publication to the selection",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.isPublicationOfDataset.added.new-entity": "Úspěšně importována a přidána externí publikace do výběru",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isPublicationOfDataset.added.new-entity": "Externí publikace byla úspěšně importována a přidána do výběru",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfDataset.title": "Import Remote Author",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfDataset.title": "Importovat vzdáleného autora",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfDataset.added.local-entity": "Successfully added local author to the selection",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfDataset.added.local-entity": "Úspěšně přidán lokální autor do výběru",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfDataset.added.local-entity": "Lokální autor byl úspěšně přidán do výběru",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfDataset.added.new-entity": "Successfully imported and added external author to the selection",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfDataset.added.new-entity": "Úspěšně importován a přidán externí autor do výběru",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfDataset.added.new-entity": "Externí autor byl úspěšně importován a přidán do výběru",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfDataset.title": "Import Remote Project",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfDataset.title": "Importovat vzdálený projekt",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfDataset.added.local-entity": "Successfully added local project to the selection",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfDataset.added.local-entity": "Úspěšně přidán lokální projekt do výběru",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfDataset.added.local-entity": "Lokální projekt byl úspěšně přidán do výběru",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfDataset.added.new-entity": "Successfully imported and added external project to the selection",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfDataset.added.new-entity": "Úspěšně importován a přidán externí projekt do výběru",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfDataset.added.new-entity": "Externí projekt byl úspěšně importován a přidán do výběru",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfDataset.title": "Import Remote Organization",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfDataset.title": "Importovat vzdálenou organizaci",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfDataset.added.local-entity": "Successfully added local organization to the selection",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfDataset.added.local-entity": "Úspěšně přidána lokální organizace do výběru",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfDataset.added.local-entity": "Lokální organizace byla úspěšně přidána do výběru",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfDataset.added.new-entity": "Successfully imported and added external organization to the selection",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfDataset.added.new-entity": "Úspěšně importována a přidána externí organizace do výběru",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfDataset.added.new-entity": "Externí organizace byla úspěšně importována a přidána do výběru",
 
   // "admin.edit-cms-metadata.success": "Metadata successfully updated",
   "admin.edit-cms-metadata.success": "Metadata byla úspěšně aktualizována",
