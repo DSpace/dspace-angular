@@ -36,5 +36,6 @@ export enum FeatureID {
   CanSubscribe = 'canSubscribeDso',
   CoarNotifyEnabled = 'coarNotifyEnabled',
   CanSeeQA = 'canSeeQA',
-  EPersonForgotPassword = 'epersonForgotPassword'
+  EPersonForgotPassword = 'epersonForgotPassword',
+  CanReplaceBitstream = 'canReplaceBitstream',
 }

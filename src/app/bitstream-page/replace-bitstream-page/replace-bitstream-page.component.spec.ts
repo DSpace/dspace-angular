@@ -20,10 +20,14 @@ import { RequestService } from '@dspace/core/data/request.service';
 import { LocaleService } from '@dspace/core/locale/locale.service';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { Bitstream } from '@dspace/core/shared/bitstream.model';
+import { Bundle } from '@dspace/core/shared/bundle.model';
 import { AuthServiceStub } from '@dspace/core/testing/auth-service.stub';
 import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
 import { RouterStub } from '@dspace/core/testing/router.stub';
-import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
@@ -40,11 +44,18 @@ describe('ReplaceBitstreamPageComponent', () => {
   let notificationsService;
   const bitstreamSelfLink = 'bitstreams/123';
   const bundleSelfLink = 'bundles/456';
+  const bundle = Object.assign(new Bundle(), {
+    _links: {
+      self: { href: bundleSelfLink },
+    },
+  });
   const bitstream = Object.assign(new Bitstream(), {
+    id: '123',
     _links: {
       self: { href: bitstreamSelfLink },
-      bundle: { href: bundleSelfLink },
+      bundle: { href: 'bitstreams/123/bundle' },
     },
+    bundle: createSuccessfulRemoteDataObject$(bundle),
   });
   const route = { data: of({ bitstream: createSuccessfulRemoteDataObject(bitstream) }) };
   const requestService = jasmine.createSpyObj('requestService', ['setStaleByHrefSubstring']);
@@ -125,7 +136,7 @@ describe('ReplaceBitstreamPageComponent', () => {
       component.onCompleteItem(bitstream);
     });
 
-    it('should set the bitstream and bundle to state in the cache', () => {
+    it('should set the bitstream and bundle to stale in the cache', () => {
       expect(requestService.setStaleByHrefSubstring).toHaveBeenCalledWith(bitstreamSelfLink);
       expect(requestService.setStaleByHrefSubstring).toHaveBeenCalledWith(bundleSelfLink);
     });

@@ -15,7 +15,8 @@ import {
 import { RouterLink } from '@angular/router';
 import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import { BundleDataService } from '@dspace/core/data/bundle-data.service';
-import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
 import { FieldChangeType } from '@dspace/core/data/object-updates/field-change-type.model';
 import { FieldUpdate } from '@dspace/core/data/object-updates/field-update.model';
 import { FieldUpdates } from '@dspace/core/data/object-updates/field-updates.model';
@@ -32,7 +33,6 @@ import { followLink } from '@dspace/core/shared/follow-link-config.model';
 import { Item } from '@dspace/core/shared/item.model';
 import {
   getAllSucceededRemoteData,
-  getFirstSucceededRemoteDataPayload,
   paginatedListToArray,
 } from '@dspace/core/shared/operators';
 import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
@@ -189,9 +189,10 @@ export class ItemEditBitstreamBundleComponent implements OnInit, OnDestroy {
   updates$: BehaviorSubject<FieldUpdates> = new BehaviorSubject(null);
 
   /**
-   * Whether bitstream replacement is enabled in the backend
+   * Cache of per-bitstream authorization observables to avoid creating new Observable instances on every change
+   * detection cycle
    */
-  showReplaceButton$: Observable<boolean>;
+  private canReplaceBitstreamCache = new Map<string, Observable<boolean>>();
 
   /**
    * Array containing all subscriptions created by this component
@@ -207,7 +208,7 @@ export class ItemEditBitstreamBundleComponent implements OnInit, OnDestroy {
     protected paginationService: PaginationService,
     protected requestService: RequestService,
     protected itemBitstreamsService: ItemBitstreamsService,
-    protected configurationService: ConfigurationDataService,
+    public authorizationService: AuthorizationDataService,
   ) {
   }
 
@@ -217,10 +218,6 @@ export class ItemEditBitstreamBundleComponent implements OnInit, OnDestroy {
     this.itemPageRoute = getItemPageRoute(this.item);
     this.bundleName = this.dsoNameService.getName(this.bundle);
     this.bundleUrl = this.bundle.self;
-    this.showReplaceButton$ = this.configurationService.findByPropertyName('replace-bitstream.enabled').pipe(
-      getFirstSucceededRemoteDataPayload(),
-      map(payload => payload?.values.length > 0 && payload?.values[0] === 'true'),
-    );
 
     this.initializePagination();
     this.initializeBitstreams();
@@ -230,6 +227,19 @@ export class ItemEditBitstreamBundleComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.viewContainerRef.clear();
     this.subscriptions.forEach(sub => sub?.unsubscribe());
+    this.canReplaceBitstreamCache.clear();
+  }
+
+  canReplaceBitstream(bitstreamUrl: string): Observable<boolean> {
+    if (!this.canReplaceBitstreamCache.has(bitstreamUrl)) {
+      this.canReplaceBitstreamCache.set(
+        bitstreamUrl,
+        this.authorizationService.isAuthorized(FeatureID.CanReplaceBitstream, bitstreamUrl).pipe(
+          shareReplay({ bufferSize: 1, refCount: true }),
+        ),
+      );
+    }
+    return this.canReplaceBitstreamCache.get(bitstreamUrl);
   }
 
   protected initializePagination() {

@@ -16,7 +16,8 @@ import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import { FindAllDataImpl } from '@dspace/core/data/base/find-all-data';
 import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
 import { BitstreamFormatDataService } from '@dspace/core/data/bitstream-format-data.service';
-import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
 import { PrimaryBitstreamService } from '@dspace/core/data/primary-bitstream.service';
 import { RemoteData } from '@dspace/core/data/remote-data';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
@@ -461,7 +462,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
               private notificationsService: NotificationsService,
               private bitstreamFormatService: BitstreamFormatDataService,
               private primaryBitstreamService: PrimaryBitstreamService,
-              private configurationService: ConfigurationDataService,
+              private authorizationService: AuthorizationDataService,
   ) {
   }
 
@@ -476,9 +477,9 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     this.itemId = this.route.snapshot.queryParams.itemId;
     this.entityType = this.route.snapshot.queryParams.entityType;
     this.bitstreamRD$ = this.route.data.pipe(map((data: any) => data.bitstream));
-    this.showReplaceButton$ = this.configurationService.findByPropertyName('replace-bitstream.enabled').pipe(
+    this.showReplaceButton$ = this.bitstreamRD$.pipe(
       getFirstSucceededRemoteDataPayload(),
-      map(payload => payload?.values.length > 0 && payload?.values[0] === 'true'),
+      switchMap((bitstream: Bitstream) => this.authorizationService.isAuthorized(FeatureID.CanReplaceBitstream, bitstream.self)),
     );
 
     const bitstream$ = this.bitstreamRD$.pipe(

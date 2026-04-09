@@ -1,19 +1,16 @@
 import {
   Component,
   Input,
-  OnChanges,
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import { RestRequestMethod } from '@dspace/config/rest-request-method';
 import { AuthService } from '@dspace/core/auth/auth.service';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
-import { WorkspaceItem } from '@dspace/core/submission/models/workspaceitem.model';
-import { SectionsType } from '@dspace/core/submission/sections-type';
 import { normalizeSectionData } from '@dspace/core/submission/submission-response-parsing.service';
 import {
   hasValue,
-  isEmpty,
   isNotEmpty,
 } from '@dspace/shared/utils/empty.util';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -22,16 +19,11 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 import { UiSwitchModule } from 'ngx-ui-switch';
-import {
-  Observable,
-  of,
-  Subscription,
-} from 'rxjs';
+import { Subscription } from 'rxjs';
 import {
   distinctUntilChanged,
   filter,
   first,
-  take,
 } from 'rxjs/operators';
 
 import { UploaderComponent } from '../../../../../../shared/upload/uploader/uploader.component';
@@ -53,7 +45,7 @@ import { SectionsService } from '../../../../sections.service';
     UploaderComponent,
   ],
 })
-export class SubmissionSectionUploadFileReplaceComponent implements OnInit, OnChanges, OnDestroy {
+export class SubmissionSectionUploadFileReplaceComponent implements OnInit, OnDestroy {
 
   /**
    * The submission id
@@ -74,6 +66,12 @@ export class SubmissionSectionUploadFileReplaceComponent implements OnInit, OnCh
   @Input() fileIndex: string;
 
   /**
+   * The UUID of the bitstream being replaced.
+   * Used to construct the correct content upload URL.
+   */
+  @Input() bitstreamUuid: string;
+
+  /**
    * The file size
    */
   @Input() fileSizeBytes: number;
@@ -89,6 +87,7 @@ export class SubmissionSectionUploadFileReplaceComponent implements OnInit, OnCh
     disableMultipart: false,
     itemAlias: null,
     autoUpload: false,
+    method: RestRequestMethod.PUT,
   });
 
   /**
@@ -101,12 +100,6 @@ export class SubmissionSectionUploadFileReplaceComponent implements OnInit, OnCh
    * @type {Array}
    */
   private subs: Subscription[] = [];
-
-  /**
-   * A boolean representing if upload functionality is enabled
-   * @type {boolean}
-   */
-  private uploadEnabled: Observable<boolean> = of(true);
 
   /**
    * Whether to keep the file name of the new uploaded file
@@ -128,51 +121,33 @@ export class SubmissionSectionUploadFileReplaceComponent implements OnInit, OnCh
     this.setUploadUrl();
   }
 
-  ngOnChanges() {
-    this.uploadEnabled = this.sectionService.isSectionTypeAvailable(this.submissionId, SectionsType.Upload);
-  }
-
   /**
-   * Parses the submission object retrieved from REST after upload
+   * After the bitstream content PUT succeeds: immediately close the modal and show success,
+   * then asynchronously re-fetch the submission to refresh the ngrx store (and therefore the
+   * file list in the parent component).
    *
-   * @param workspaceitem
-   *    The submission object retrieved from REST
+   * Note: the upload endpoint (PUT bitstreams/{uuid}/content) returns a Bitstream, not a
+   * WorkspaceItem — so we cannot read sections from the upload response itself.
    */
-  protected onCompleteItem(workspaceitem: WorkspaceItem) {
-    // Checks if upload section is enabled so do upload
+  protected onCompleteItem(_: unknown) {
+    this.notificationsService.success(null, this.translate.get('submission.sections.upload.upload-successful'));
+    this.activeModal.close();
+
     this.subs.push(
-      this.uploadEnabled
-        .pipe(first())
-        .subscribe((isUploadEnabled) => {
-          if (isUploadEnabled) {
-
-            const { sections } = workspaceitem;
-            const { errors } = workspaceitem;
-
-            const errorsList = parseSectionErrors(errors);
-            if (sections && isNotEmpty(sections)) {
-              Object.keys(sections)
-                .forEach((sectionId) => {
-                  const sectionData = normalizeSectionData(sections[sectionId]);
-                  const sectionErrors = errorsList[sectionId];
-                  this.sectionService.isSectionType(this.submissionId, sectionId, SectionsType.Upload)
-                    .pipe(take(1))
-                    .subscribe((isUpload) => {
-                      if (isUpload) {
-                        // Look for errors on upload
-                        if ((isEmpty(sectionErrors))) {
-                          this.notificationsService.success(null, this.translate.get('submission.sections.upload.upload-successful'));
-                          this.activeModal.close();
-                        } else {
-                          this.notificationsService.error(null, this.translate.get('submission.sections.upload.upload-failed'));
-                        }
-                      }
-                    });
-                  this.sectionService.updateSectionData(this.submissionId, sectionId, sectionData, sectionErrors, sectionErrors);
-                });
-            }
-          }
-        }),
+      this.submissionService.retrieveSubmission(this.submissionId).pipe(first()).subscribe((rd) => {
+        if (!rd.isSuccess) {
+          return;
+        }
+        const { sections, errors } = rd.payload;
+        const errorsList = parseSectionErrors(errors);
+        if (sections && isNotEmpty(sections)) {
+          Object.keys(sections).forEach((sectionId) => {
+            const sectionData = normalizeSectionData(sections[sectionId]);
+            const sectionErrors = errorsList[sectionId];
+            this.sectionService.updateSectionData(this.submissionId, sectionId, sectionData, sectionErrors, sectionErrors);
+          });
+        }
+      }),
     );
   }
 
@@ -213,24 +188,24 @@ export class SubmissionSectionUploadFileReplaceComponent implements OnInit, OnCh
   }
 
   /**
-   * Set the replace url to match the selected bitstream ID
+   * Set the upload URL to the bitstream content endpoint for this specific bitstream.
+   * Uses PUT to replace the existing file content, matching the behaviour of ReplaceBitstreamPageComponent.
    */
   private setUploadUrl() {
     this.subs.push(
-      this.halService.getEndpoint(this.submissionService.getSubmissionObjectLinkName()).pipe(
+      this.halService.getEndpoint('bitstreams').pipe(
         filter((href: string) => isNotEmpty(href)),
         distinctUntilChanged())
         .subscribe((endpointURL) => {
           this.uploadFilesOptions.authToken = this.authService.buildAuthHeader();
-          this.uploadFilesUrlNoParam = endpointURL;
+          this.uploadFilesUrlNoParam = `${endpointURL}/${this.bitstreamUuid}`;
           this.setUploadUrlParameters();
-          this.uploadFilesOptions.url = endpointURL.concat(`/${this.submissionId}?replaceFile=${this.fileIndex}&replaceName=${this.shouldReplaceName}`);
         }),
     );
   }
 
   protected setUploadUrlParameters(uploader?: UploaderComponent) {
-    this.uploadFilesOptions.url = this.uploadFilesUrlNoParam.concat(`/${this.submissionId}?replaceFile=${this.fileIndex}&replaceName=${this.shouldReplaceName}`);
+    this.uploadFilesOptions.url = `${this.uploadFilesUrlNoParam}/content?replaceName=${this.shouldReplaceName}`;
     if (hasValue(uploader?.uploader?.options)) {
       uploader.uploader.options.url = this.uploadFilesOptions.url;
     }

@@ -1,22 +1,16 @@
-import { inject } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  CanActivateFn,
-  RouterStateSnapshot,
-  UrlTree,
-} from '@angular/router';
-import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
-import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { CanActivateFn } from '@angular/router';
+import { dsoPageSingleFeatureGuard } from '@dspace/core/data/feature-authorization/feature-authorization-guard/dso-page-single-feature.guard';
+import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
+import { of } from 'rxjs';
 
-export const replaceBitstreamPageGuard: CanActivateFn = (
-  route: ActivatedRouteSnapshot,
-  state: RouterStateSnapshot,
-  configurationService: ConfigurationDataService = inject(ConfigurationDataService),
-): Observable<UrlTree | boolean> => {
-  return configurationService.findByPropertyName('replace-bitstream.enabled').pipe(
-    getFirstSucceededRemoteDataPayload(),
-    map(payload => payload?.values.length > 0 && payload?.values[0] === 'true'),
+import { bitstreamPageResolver } from '../bitstream-page.resolver';
+
+/**
+ * Guard for preventing unauthorized access to the replace bitstream page.
+ * Checks whether the user has permission to replace the bitstream (if the feature is enabled).
+ */
+export const replaceBitstreamPageGuard: CanActivateFn =
+  dsoPageSingleFeatureGuard(
+    () => bitstreamPageResolver,
+    () => of(FeatureID.CanReplaceBitstream),
   );
-};

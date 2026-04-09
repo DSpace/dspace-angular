@@ -25,7 +25,10 @@ import {
 import { FileUploadModule } from 'ng2-file-upload';
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import {
+  map,
+  switchMap,
+} from 'rxjs/operators';
 
 import { AuthService } from '../../core/auth/auth.service';
 import { RemoteData } from '../../core/data/remote-data';
@@ -77,6 +80,12 @@ export class ReplaceBitstreamPageComponent implements OnInit {
   private uploadFilesUrlNoParam: string;
 
   /**
+   * The bundle's self link, resolved from the route-resolved bitstream for cache invalidation.
+   * This is the bundle's own URL (e.g. bundles/{uuid}), not the bitstream-to-bundle link.
+   */
+  private bundleSelfLink: string;
+
+  /**
    * The bitstream's remote data observable
    * Tracks changes and updates the view
    */
@@ -99,6 +108,7 @@ export class ReplaceBitstreamPageComponent implements OnInit {
   ngOnInit(): void {
     this.bitstreamRD$ = this.route.data.pipe(map((data) => data.bitstream));
     this.setUploadUrl();
+    this.resolveBundleLink();
   }
 
   back() {
@@ -116,7 +126,7 @@ export class ReplaceBitstreamPageComponent implements OnInit {
    */
   public onCompleteItem(bitstream: Bitstream) {
     this.requestService.setStaleByHrefSubstring(bitstream.self);
-    this.requestService.setStaleByHrefSubstring(bitstream._links.bundle.href);
+    this.requestService.setStaleByHrefSubstring(this.bundleSelfLink);
     this.notificationService.success(this.translateService.instant(this.saveNotificationKey));
     this.router.navigate([getBitstreamModuleRoute(), bitstream.id, 'edit']);
   }
@@ -141,6 +151,21 @@ export class ReplaceBitstreamPageComponent implements OnInit {
       if (isEmpty(this.uploadFilesOptions.authToken)) {
         this.uploadFilesOptions.authToken = this.authService.buildAuthHeader();
       }
+    });
+  }
+
+  /**
+   * Resolve the bundle from the route-resolved bitstream to store its self URL.
+   * The bundle's self URL (bundles/{uuid}) is needed for cache invalidation because it is a
+   * substring of the bundle's bitstreams list endpoint (bundles/{uuid}/bitstreams).
+   */
+  private resolveBundleLink() {
+    this.bitstreamRD$.pipe(
+      getFirstSucceededRemoteDataPayload(),
+      switchMap((bitstream: Bitstream) => bitstream.bundle),
+      getFirstSucceededRemoteDataPayload(),
+    ).subscribe((bundle) => {
+      this.bundleSelfLink = bundle._links.self.href;
     });
   }
 

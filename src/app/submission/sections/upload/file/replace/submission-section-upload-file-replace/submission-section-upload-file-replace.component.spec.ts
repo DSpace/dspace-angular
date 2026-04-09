@@ -13,7 +13,6 @@ import { By } from '@angular/platform-browser';
 import { AuthService } from '@dspace/core/auth/auth.service';
 import { LocaleService } from '@dspace/core/locale/locale.service';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { Bitstream } from '@dspace/core/shared/bitstream.model';
 import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
 import { AuthServiceStub } from '@dspace/core/testing/auth-service.stub';
 import { HALEndpointServiceStub } from '@dspace/core/testing/hal-endpoint-service.stub';
@@ -37,26 +36,25 @@ describe('SubmissionSectionUploadFileReplaceComponent', () => {
   let component: SubmissionSectionUploadFileReplaceComponent;
   let fixture: ComponentFixture<SubmissionSectionUploadFileReplaceComponent>;
   let uploadComponent;
-  const bitstreamReplaceUrl = 'bitstream-replace-endpoint';
-  let halService = new HALEndpointServiceStub(bitstreamReplaceUrl);
+  let activeModal: NgbActiveModal;
+  let notificationsService: NotificationsServiceStub;
+  let sectionsService: SectionsServiceStub;
+  let submissionService: SubmissionServiceStub;
 
+  const bitstreamReplaceUrl = 'bitstream-replace-endpoint';
+  const halService = new HALEndpointServiceStub(bitstreamReplaceUrl);
   const locationObject = jasmine.createSpyObj('location', ['back']);
-  const bitstreamSelfLink = 'bitstreams/123';
-  const bundleSelfLink = 'bundles/456';
-  const bitstream = Object.assign(new Bitstream(), {
-    _links: {
-      self: { href: bitstreamSelfLink },
-      bundle: { href: bundleSelfLink },
-      id: '123',
-    },
-  });
+  const bitstreamUuid = 'test-bitstream-uuid-123';
   const fileIndex = '0';
   const submissionId = '0';
-  let localeService;
-  const languageList = ['en;q=1', 'de;q=0.8'];
+
+  const mockSections = { upload: [{ uuid: bitstreamUuid }] };
+  const mockWorkspaceItem = { sections: mockSections, errors: [] };
+  const mockRemoteData = { isSuccess: true, payload: mockWorkspaceItem };
+
   const mockLocaleService = jasmine.createSpyObj('LocaleService', {
     getCurrentLanguageCode: jasmine.createSpy('getCurrentLanguageCode'),
-    getLanguageCodeList: of(languageList),
+    getLanguageCodeList: of(['en;q=1', 'de;q=0.8']),
   });
 
   beforeEach(async () => {
@@ -82,21 +80,60 @@ describe('SubmissionSectionUploadFileReplaceComponent', () => {
       add: { imports: [TestUploaderComponent] },
     }).compileComponents();
 
-    localeService = TestBed.inject(LocaleService);
-    localeService.getCurrentLanguageCode.and.returnValue(of('en'));
+    mockLocaleService.getCurrentLanguageCode.and.returnValue(of('en'));
     fixture = TestBed.createComponent(SubmissionSectionUploadFileReplaceComponent);
     component = fixture.componentInstance;
     component.fileIndex = fileIndex;
     component.submissionId = submissionId;
-    component.fileName = bitstream.id;
+    component.bitstreamUuid = bitstreamUuid;
+    activeModal = TestBed.inject(NgbActiveModal);
+    notificationsService = TestBed.inject(NotificationsService) as unknown as NotificationsServiceStub;
+    sectionsService = TestBed.inject(SectionsService) as unknown as SectionsServiceStub;
+    submissionService = TestBed.inject(SubmissionService) as unknown as SubmissionServiceStub;
     fixture.detectChanges();
     uploadComponent = fixture.debugElement.query(By.directive(TestUploaderComponent)).context;
   });
 
   describe('on init', () => {
-    it('should have upload url with replaceFile param', () => {
-      expect(uploadComponent.uploadFilesOptions.url)
-        .toBe(bitstreamReplaceUrl.concat(`/${bitstream.id}/${submissionId}?replaceFile=${fileIndex}&replaceName=true`));
+    it('should build the upload URL pointing to the bitstream content endpoint', () => {
+      // URL must be: {halBase}/bitstreams/{bitstreamUuid}/content?replaceName=true
+      const expectedUrl = `${bitstreamReplaceUrl}/bitstreams/${bitstreamUuid}/content?replaceName=true`;
+      expect(uploadComponent.uploadFilesOptions.url).toBe(expectedUrl);
+    });
+  });
+
+  describe('onCompleteItem', () => {
+    beforeEach(() => {
+      submissionService.retrieveSubmission.and.returnValue(of(mockRemoteData));
+      spyOn(activeModal, 'close');
+    });
+
+    it('should close the modal immediately', () => {
+      (component as any).onCompleteItem({});
+      expect(activeModal.close).toHaveBeenCalled();
+    });
+
+    it('should show a success notification', () => {
+      (component as any).onCompleteItem({});
+      expect(notificationsService.success).toHaveBeenCalled();
+    });
+
+    it('should retrieve the submission to refresh the store', () => {
+      (component as any).onCompleteItem({});
+      expect(submissionService.retrieveSubmission).toHaveBeenCalledWith(submissionId);
+    });
+
+    it('should update section data for each section in the retrieved submission', () => {
+      (component as any).onCompleteItem({});
+      expect(sectionsService.updateSectionData).toHaveBeenCalledWith(
+        submissionId, 'upload', jasmine.anything(), undefined, undefined,
+      );
+    });
+
+    it('should not update section data when retrieval fails', () => {
+      submissionService.retrieveSubmission.and.returnValue(of({ isSuccess: false }));
+      (component as any).onCompleteItem({});
+      expect(sectionsService.updateSectionData).not.toHaveBeenCalled();
     });
   });
 
