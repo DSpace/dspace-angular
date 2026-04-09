@@ -37,13 +37,13 @@ const parent = Object.assign(new Collection(), {
   metadata: {
     'dc.title': [
       {
-        value: 'parent title',
+        value: 'community title > collection title',
       },
     ],
   },
 });
 
 describe('PersonSidebarSearchListElementComponent',
-  createSidebarSearchListElementTests(PersonSidebarSearchListElementComponent, object, parent, 'parent title', 'family name, given name', 'job title', [
-  ]),
+  createSidebarSearchListElementTests(PersonSidebarSearchListElementComponent, object, parent, 'community title > collection title', 'family name, given name', 'job title', []),
 );
+
