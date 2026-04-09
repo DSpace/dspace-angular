@@ -42,3 +42,4 @@ yarn-error.log
 junit.xml
 
 /src/mirador-viewer/config.local.js
+.vscode
