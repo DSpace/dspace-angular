@@ -1011,6 +1011,26 @@
 
   "bitstream.edit.form.iiifHeight.hint": "The canvas height should usually match the image height.",
 
+  "bitstream.edit.form.mediaType.label": "Audio or video media type",
+
+  "bitstream.edit.form.mediaType.hint": "Choose how this bitstream should be interpreted.",
+
+  "bitstream.edit.form.mediaType.option.neither": "Neither",
+
+  "bitstream.edit.form.mediaType.option.audio": "Audio",
+
+  "bitstream.edit.form.mediaType.option.video": "Video",
+
+  "bitstream.edit.form.mediaType.option.audio-video": "Audio and video",
+
+  "bitstream.edit.form.audioTranscript.label": "Audio transcript",
+
+  "bitstream.edit.form.audioTranscript.hint": "Provide a transcript for audio content.",
+
+  "bitstream.edit.form.videoDescription.label": "Video description",
+
+  "bitstream.edit.form.videoDescription.hint": "Provide a description for video content.",
+
   "bitstream.edit.notifications.saved.content": "Your changes to this bitstream were saved.",
 
   "bitstream.edit.notifications.saved.title": "Bitstream saved",
@@ -5865,6 +5885,26 @@
 
   "submission.sections.upload.edit.title": "Edit bitstream",
 
+  "submission.sections.upload.file.edit.form.file-type.label": "Audio or video media type",
+
+  "submission.sections.upload.file.edit.form.file-type.hint": "Choose how this bitstream should be interpreted.",
+
+  "submission.sections.upload.file.edit.form.file-type.option.audio-video": "Audio and video",
+
+  "submission.sections.upload.file.edit.form.file-type.option.neither": "Neither",
+
+  "submission.sections.upload.file.edit.form.file-type.option.audio": "Audio",
+
+  "submission.sections.upload.file.edit.form.file-type.option.video": "Video",
+
+  "submission.sections.upload.file.edit.form.audio-transcript.label": "Audio transcript",
+
+  "submission.sections.upload.file.edit.form.audio-transcript.hint": "Provide a transcript for audio content.",
+
+  "submission.sections.upload.file.edit.form.video-description.label": "Video description",
+
+  "submission.sections.upload.file.edit.form.video-description.hint": "Provide a description for video content.",
+
   "submission.sections.upload.form.access-condition-label": "Access condition type",
 
   "submission.sections.upload.form.access-condition-hint": "Select an access condition to apply on the bitstream once the item is deposited",
@@ -7478,6 +7518,18 @@
   "file-download-link.request-copy": "Request a copy of ",
 
   "file-download-button.request-copy": "Request a copy",
+
+  "file-download-link.audio-transcript.label": "Transcript",
+
+  "file-download-link.audio-transcript.title": "Audio transcript",
+
+  "file-download-link.audio-transcript.aria": "Open audio transcript",
+
+  "file-download-link.video-description.label": "Video description",
+
+  "file-download-link.video-description.title": "Video description",
+
+  "file-download-link.video-description.aria": "Open video description",
 
   "item.preview.organization.url": "URL",
 

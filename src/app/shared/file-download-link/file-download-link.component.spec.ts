@@ -22,6 +22,7 @@ import { ItemRequest } from '@dspace/core/shared/item-request.model';
 import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
 import { RouterLinkDirectiveStub } from '@dspace/core/testing/router-link-directive.stub';
 import { URLCombiner } from '@dspace/core/url-combiner/url-combiner';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -38,6 +39,7 @@ describe('FileDownloadLinkComponent', () => {
 
   let scheduler;
   let authorizationService: AuthorizationDataService;
+  let modalService: jasmine.SpyObj<NgbModal>;
 
   let bitstream: Bitstream;
   let item: Item;
@@ -56,6 +58,7 @@ describe('FileDownloadLinkComponent', () => {
     authorizationService = jasmine.createSpyObj('authorizationService', {
       isAuthorized: cold('-a', { a: true }),
     });
+    modalService = jasmine.createSpyObj('modalService', ['open']);
     bitstream = Object.assign(new Bitstream(), {
       uuid: 'bitstreamUuid',
       _links: {
@@ -89,6 +92,7 @@ describe('FileDownloadLinkComponent', () => {
         { provide: Store, useValue: storeMock },
         { provide: APP_DATA_SERVICES_MAP, useValue: {} },
         { provide: APP_CONFIG, useValue: { cache: { msToLive: { default: 15 * 60 * 1000 } } } },
+        { provide: NgbModal, useValue: modalService },
       ],
     })
       .overrideComponent(FileDownloadLinkComponent, {
@@ -231,6 +235,71 @@ describe('FileDownloadLinkComponent', () => {
           expect(lock).toBeTruthy();
         });
       });
+    });
+  });
+
+  describe('text links for accessibility metadata', () => {
+    beforeEach(waitForAsync(() => {
+      scheduler = getTestScheduler();
+      init();
+      initTestbed();
+    }));
+
+    beforeEach(() => {
+      bitstream.firstMetadataValue = jasmine.createSpy('firstMetadataValue').and.callFake((key: string) => {
+        if (key === 'dc.description.audiotranscript') {
+          return 'Audio transcript text';
+        }
+        if (key === 'dc.description.videodescription') {
+          return 'Video description text';
+        }
+        if (key === 'dc.description.audiovideo') {
+          return 'audiovideo';
+        }
+        return undefined;
+      });
+      fixture = TestBed.createComponent(FileDownloadLinkComponent);
+      component = fixture.componentInstance;
+      component.bitstream = bitstream;
+      component.item = item;
+      fixture.detectChanges();
+    });
+
+    it('should show buttons for audio transcript and video description when metadata is present', () => {
+      const buttons = fixture.debugElement.queryAll(By.css('.file-download-link-button'));
+      expect(buttons.length).toBe(2);
+    });
+
+    it('should open a modal with the audio transcript content', () => {
+      scheduler.flush();
+      fixture.detectChanges();
+      const audioButton = fixture.debugElement.queryAll(By.css('.file-download-link-button'))[0];
+      audioButton.triggerEventHandler('click');
+      expect(modalService.open).toHaveBeenCalled();
+      expect(component.modalTitle).toContain('file-download-link.audio-transcript.title');
+      expect(component.modalContent).toBe('Audio transcript text');
+    });
+  });
+
+  describe('text links visibility with no metadata', () => {
+    beforeEach(waitForAsync(() => {
+      scheduler = getTestScheduler();
+      init();
+      initTestbed();
+    }));
+
+    beforeEach(() => {
+      bitstream.firstMetadataValue = jasmine.createSpy('firstMetadataValue').and.returnValue(undefined);
+      fixture = TestBed.createComponent(FileDownloadLinkComponent);
+      component = fixture.componentInstance;
+      component.bitstream = bitstream;
+      component.item = item;
+      fixture.detectChanges();
+    });
+
+    it('should not render text link buttons when no metadata is present', () => {
+      const buttons = fixture.debugElement.queryAll(By.css('.file-download-link-button'));
+      expect(buttons.length).toBe(0);
     });
   });
 });

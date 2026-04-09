@@ -9,6 +9,7 @@ import {
   OR_OPERATOR,
 } from '@ng-dynamic-forms/core';
 
+
 export const BITSTREAM_METADATA_FORM_GROUP_CONFIG: DynamicFormGroupModelConfig = {
   id: 'metadata',
   group: [],

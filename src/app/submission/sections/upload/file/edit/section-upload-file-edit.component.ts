@@ -15,6 +15,7 @@ import { SubmissionObject } from '@dspace/core/submission/models/submission-obje
 import { WorkspaceitemSectionUploadObject } from '@dspace/core/submission/models/workspaceitem-section-upload.model';
 import { WorkspaceitemSectionUploadFileObject } from '@dspace/core/submission/models/workspaceitem-section-upload-file.model';
 import { SubmissionJsonPatchOperationsService } from '@dspace/core/submission/submission-json-patch-operations.service';
+import { VocabularyEntry } from '@dspace/core/submission/vocabularies/models/vocabulary-entry.model';
 import { dateToISOFormat } from '@dspace/shared/utils/date.util';
 import {
   hasNoValue,
@@ -36,7 +37,10 @@ import {
   MATCH_ENABLED,
   OR_OPERATOR,
 } from '@ng-dynamic-forms/core';
-import { TranslateModule } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import {
   filter,
@@ -46,6 +50,7 @@ import {
 import { DynamicCustomSwitchModel } from 'src/app/shared/form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.model';
 
 import { BtnDisabledDirective } from '../../../../../shared/btn-disabled.directive';
+import { DynamicScrollableDropdownModel } from '../../../../../shared/form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 import { FormBuilderService } from '../../../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../../../shared/form/form.component';
 import { FormService } from '../../../../../shared/form/form.service';
@@ -68,6 +73,7 @@ import {
   BITSTREAM_METADATA_FORM_GROUP_CONFIG,
   BITSTREAM_METADATA_FORM_GROUP_LAYOUT,
 } from './section-upload-file-edit.model';
+
 
 /**
  * This component represents the edit form for bitstream
@@ -204,6 +210,7 @@ implements OnInit, OnDestroy {
     private operationsBuilder: JsonPatchOperationsBuilder,
     private operationsService: SubmissionJsonPatchOperationsService,
     private uploadService: SectionUploadService,
+    protected translateService: TranslateService,
   ) {
   }
 
@@ -248,6 +255,8 @@ implements OnInit, OnDestroy {
   onChange(event: DynamicFormControlEvent) {
     if (event.model.id === 'name') {
       this.setOptions(event.model, event.control);
+    } else if (event.model.id === 'dc_description_audiovideo') {
+      this.hideOrShowAudioVideoMetadata(event.model, event.control);
     }
   }
 
@@ -287,11 +296,39 @@ implements OnInit, OnDestroy {
   }
 
   /**
+   * Shows or hides metadata fields related to audio/video accessibility based on the selected media type.
+   *
+   * The selected value can come from:
+   * - `control.value.value` when triggered by a form control change event, or
+   * - `model.value.value` when evaluated from an already initialized model (e.g. on component init).
+   *
+   * @param model - The dynamic form model for the `dc_description_audiovideo` field.
+   * @param control - The reactive form control that emitted the change event (can be `null` during initialization).
+   */
+  hideOrShowAudioVideoMetadata(model: DynamicFormControlModel, control: UntypedFormControl) {
+    const selectedMediaType = control?.value?.value ?? ((model as DynamicScrollableDropdownModel)?.value as unknown as VocabularyEntry)?.value;
+    const shouldShowAudioMetadata = selectedMediaType?.toLowerCase().includes('audio');
+    const shouldShowVideoMetadata = selectedMediaType?.toLowerCase().includes('video');
+    const audioTranscriptModel: any = this.formBuilderService.findById('dc_description_audiotranscript', this.formModel);
+    const videoDescriptionModel: any = this.formBuilderService.findById('dc_description_videodescription', this.formModel);
+    if (audioTranscriptModel) {
+      audioTranscriptModel.hidden = !shouldShowAudioMetadata;
+    }
+    if (videoDescriptionModel) {
+      videoDescriptionModel.hidden = !shouldShowVideoMetadata;
+    }
+  }
+
+  /**
    * Dispatch form model init
    */
   ngOnInit() {
     if (this.fileData && this.formId) {
       this.formModel = this.buildFileEditForm();
+      const mediaTypeModel: any = this.formBuilderService.findById('dc_description_audiovideo', this.formModel);
+      if (mediaTypeModel) {
+        this.hideOrShowAudioVideoMetadata(mediaTypeModel, null);
+      }
       this.cdr.detectChanges();
     }
   }
@@ -412,6 +449,7 @@ implements OnInit, OnDestroy {
       );
 
     }
+
     this.initModelData(formModel);
     return formModel;
   }
@@ -433,6 +471,27 @@ implements OnInit, OnDestroy {
       take(1),
       mergeMap((formData: any) => {
         this.uploadService.updatePrimaryBitstreamOperation(this.pathCombiner.getPath('primary'), this.isPrimary, formData.primary[0], this.fileId);
+
+        const mediaTypeValue = this.retrieveValueFromField(formData.mediaType) ?? formData.mediaType;
+        if (isNotEmpty(mediaTypeValue) && mediaTypeValue !== 'neither') {
+          this.operationsBuilder.add(this.pathCombiner.getPath([...pathFragment, 'metadata/dc.description.audiovideo']), [{ value: mediaTypeValue }], true);
+        } else {
+          this.operationsBuilder.remove(this.pathCombiner.getPath([...pathFragment, 'metadata/dc.description.audiovideo']));
+        }
+
+        const audioTranscriptValue = this.retrieveValueFromField(formData.audioTranscript) ?? formData.audioTranscript;
+        if (isNotEmpty(audioTranscriptValue)) {
+          this.operationsBuilder.add(this.pathCombiner.getPath([...pathFragment, 'metadata/dc.description.audiotranscript']), [{ value: audioTranscriptValue }], true);
+        } else {
+          this.operationsBuilder.remove(this.pathCombiner.getPath([...pathFragment, 'metadata/dc.description.audiotranscript']));
+        }
+
+        const videoDescriptionValue = this.retrieveValueFromField(formData.videoDescription) ?? formData.videoDescription;
+        if (isNotEmpty(videoDescriptionValue)) {
+          this.operationsBuilder.add(this.pathCombiner.getPath([...pathFragment, 'metadata/dc.description.videodescription']), [{ value: videoDescriptionValue }], true);
+        } else {
+          this.operationsBuilder.remove(this.pathCombiner.getPath([...pathFragment, 'metadata/dc.description.videodescription']));
+        }
 
         // collect bitstream metadata
         Object.keys((formData.metadata))
