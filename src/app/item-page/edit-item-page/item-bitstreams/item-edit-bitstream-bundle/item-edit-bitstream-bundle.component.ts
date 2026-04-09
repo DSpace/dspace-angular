@@ -131,6 +131,16 @@ export class ItemEditBitstreamBundleComponent implements OnInit, OnDestroy {
   @Input() isFirstTable = false;
 
   /**
+   * Current field update for this bundle (e.g. marked for removal)
+   */
+  @Input() bundleUpdate: FieldUpdate;
+
+  /**
+   * Object-updates URL for the item's bundle list
+   */
+  @Input() bundleUpdatesUrl: string;
+
+  /**
    * The bootstrap sizes used for the Bundle Name column
    * This column stretches over the first 3 columns and thus is a combination of their sizes processed in ngOnInit
    */
@@ -339,17 +349,56 @@ export class ItemEditBitstreamBundleComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * Mark the whole bundle for removal (REST removes bundle and its bitstreams on save).
+   */
+  removeBundle(): void {
+    if (hasValue(this.bundleUpdatesUrl)) {
+      this.objectUpdatesService.saveRemoveFieldUpdate(this.bundleUpdatesUrl, this.bundle);
+    }
+  }
+
+  /**
+   * Undo marking the bundle for removal.
+   */
+  undoBundleRemove(): void {
+    if (hasValue(this.bundleUpdatesUrl)) {
+      this.objectUpdatesService.removeSingleFieldUpdate(this.bundleUpdatesUrl, this.bundle.uuid);
+    }
+  }
+
+  /**
+   * Whether the bundle can be marked for removal.
+   */
+  canRemoveBundle(): boolean {
+    return this.bundleUpdate?.changeType !== FieldChangeType.REMOVE;
+  }
+
+  /**
+   * Whether bundle removal can be undone.
+   */
+  canUndoBundleRemove(): boolean {
+    return hasValue(this.bundleUpdate) && this.bundleUpdate.changeType >= FieldChangeType.UPDATE;
+  }
+
+  /**
+   * Whether the bundle is marked for removal.
+   */
+  isMarkedForRemoval(): boolean {
+    return this.bundleUpdate?.changeType === FieldChangeType.REMOVE;
+  }
+
+  /**
    * Check if a user should be allowed to remove this field
    */
   canRemove(fieldUpdate: FieldUpdate): boolean {
-    return fieldUpdate.changeType !== FieldChangeType.REMOVE;
+    return !this.isMarkedForRemoval() && fieldUpdate.changeType !== FieldChangeType.REMOVE;
   }
 
   /**
    * Check if a user should be allowed to cancel the update to this field
    */
   canUndo(fieldUpdate: FieldUpdate): boolean {
-    return fieldUpdate.changeType >= FieldChangeType.UPDATE;
+    return !this.isMarkedForRemoval() && fieldUpdate.changeType >= FieldChangeType.UPDATE;
   }
 
   /**
@@ -372,6 +421,10 @@ export class ItemEditBitstreamBundleComponent implements OnInit, OnDestroy {
    * @param bitstream
    */
   getRowClass(update: FieldUpdate, bitstream: BitstreamTableEntry): string {
+    if (this.isMarkedForRemoval()) {
+      return 'table-secondary';
+    }
+
     const selected = this.itemBitstreamsService.getSelectedBitstream();
 
     if (hasValue(selected) && bitstream.id === selected.bitstream.id) {
