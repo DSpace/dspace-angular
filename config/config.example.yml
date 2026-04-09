@@ -394,6 +394,8 @@ homePage:
     pageSize: 5
     # Sort record of recent submission
     sortField: 'dc.date.accessioned'
+    #The entity types to show in the recent submission list. If not set, all entity types will be shown
+    entityType: 'Publication'
   topLevelCommunityList:
     # No. of communities to list per page on the home page
     # This will always round to the nearest number from the list of page sizes. e.g. if you set it to 7 it'll use 10
