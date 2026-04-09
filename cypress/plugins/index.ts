@@ -13,7 +13,7 @@ module.exports = (on, config) => {
     // Define "log" and "table" tasks, used for logging accessibility errors during CI
     // Borrowed from https://github.com/component-driven/cypress-axe#in-cypress-plugins-file
     log(message: string) {
-      console.log(message);
+      console.info(message);
       return null;
     },
     table(message: string) {

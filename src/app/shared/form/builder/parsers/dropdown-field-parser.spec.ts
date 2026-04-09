@@ -41,13 +41,13 @@ describe('DropdownFieldParser test suite', () => {
   });
 
   it('should init parser properly', () => {
-    const parser = new DropdownFieldParser(submissionId, field, initFormValues, parserOptions, translateService);
+    const parser = new DropdownFieldParser(submissionId, field, initFormValues, parserOptions, null, translateService);
 
     expect(parser instanceof DropdownFieldParser).toBe(true);
   });
 
   it('should return a DynamicScrollableDropdownModel object when repeatable option is false', () => {
-    const parser = new DropdownFieldParser(submissionId, field, initFormValues, parserOptions, translateService);
+    const parser = new DropdownFieldParser(submissionId, field, initFormValues, parserOptions, null, translateService);
 
     const fieldModel = parser.parse();
 
@@ -56,7 +56,7 @@ describe('DropdownFieldParser test suite', () => {
 
   it('should throw when authority is not passed', () => {
     field.selectableMetadata[0].controlledVocabulary = null;
-    const parser = new DropdownFieldParser(submissionId, field, initFormValues, parserOptions, translateService);
+    const parser = new DropdownFieldParser(submissionId, field, initFormValues, parserOptions, null, translateService);
 
     expect(() => parser.parse())
       .toThrow();

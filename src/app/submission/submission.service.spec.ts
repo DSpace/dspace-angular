@@ -1,4 +1,7 @@
-import { HttpHeaders } from '@angular/common/http';
+import {
+  HttpHeaders,
+  HttpParams,
+} from '@angular/common/http';
 import {
   fakeAsync,
   flush,
@@ -11,13 +14,20 @@ import {
   Router,
 } from '@angular/router';
 import { ErrorResponse } from '@dspace/core/cache/response.models';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
+import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
 import { RequestService } from '@dspace/core/data/request.service';
 import { RequestError } from '@dspace/core/data/request-error.model';
 import { HttpOptions } from '@dspace/core/dspace-rest/dspace-rest.service';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { RouteService } from '@dspace/core/services/route.service';
+import { Bundle } from '@dspace/core/shared/bundle.model';
 import { Item } from '@dspace/core/shared/item.model';
-import { SectionScope } from '@dspace/core/submission/models/section-visibility.model';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import {
+  SectionScope,
+  SubmissionVisibilityValue,
+} from '@dspace/core/submission/models/section-visibility.model';
 import { SubmissionJsonPatchOperationsService } from '@dspace/core/submission/submission-json-patch-operations.service';
 import { SubmissionRestService } from '@dspace/core/submission/submission-rest.service';
 import { SubmissionScopeType } from '@dspace/core/submission/submission-scope-type';
@@ -28,7 +38,11 @@ import { getMockSearchService } from '@dspace/core/testing/search-service.mock';
 import { SubmissionJsonPatchOperationsServiceStub } from '@dspace/core/testing/submission-json-patch-operations-service.stub';
 import { SubmissionRestServiceStub } from '@dspace/core/testing/submission-rest-service.stub';
 import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
-import { createFailedRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
+import {
+  createFailedRemoteDataObject,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core/utilities/remote-data.utils';
 import { StoreModule } from '@ngrx/store';
 import {
   TranslateLoader,
@@ -86,8 +100,8 @@ describe('SubmissionService test suite', () => {
             scope: SectionScope.Submission,
             sectionType: 'utils',
             visibility: {
-              main: 'HIDDEN',
-              other: 'HIDDEN',
+              submission: SubmissionVisibilityValue.Hidden,
+              workflow: SubmissionVisibilityValue.Hidden,
             },
             collapsed: false,
             enabled: true,
@@ -103,8 +117,8 @@ describe('SubmissionService test suite', () => {
             scope: SectionScope.Submission,
             sectionType: 'collection',
             visibility: {
-              main: 'HIDDEN',
-              other: 'HIDDEN',
+              submission: SubmissionVisibilityValue.Hidden,
+              workflow: SubmissionVisibilityValue.Hidden,
             },
             collapsed: false,
             enabled: true,
@@ -211,8 +225,7 @@ describe('SubmissionService test suite', () => {
             mandatory: true,
             sectionType: 'license',
             visibility: {
-              main: null,
-              other: 'READONLY',
+              workflow: SubmissionVisibilityValue.ReadOnly,
             },
             collapsed: false,
             enabled: true,
@@ -225,6 +238,7 @@ describe('SubmissionService test suite', () => {
         },
         isLoading: false,
         savePending: false,
+        saveDecisionPending: false,
         depositPending: false,
       },
     },
@@ -243,8 +257,8 @@ describe('SubmissionService test suite', () => {
             scope: SectionScope.Submission,
             sectionType: 'utils',
             visibility: {
-              main: 'HIDDEN',
-              other: 'HIDDEN',
+              submission: SubmissionVisibilityValue.Hidden,
+              workflow: SubmissionVisibilityValue.Hidden,
             },
             collapsed: false,
             enabled: true,
@@ -260,8 +274,8 @@ describe('SubmissionService test suite', () => {
             scope: SectionScope.Submission,
             sectionType: 'collection',
             visibility: {
-              main: 'HIDDEN',
-              other: 'HIDDEN',
+              submission: SubmissionVisibilityValue.Hidden,
+              workflow: SubmissionVisibilityValue.Hidden,
             },
             collapsed: false,
             enabled: true,
@@ -368,8 +382,7 @@ describe('SubmissionService test suite', () => {
             mandatory: true,
             sectionType: 'license',
             visibility: {
-              main: null,
-              other: 'READONLY',
+              workflow: SubmissionVisibilityValue.ReadOnly,
             },
             collapsed: false,
             enabled: true,
@@ -382,11 +395,15 @@ describe('SubmissionService test suite', () => {
         },
         isLoading: false,
         savePending: false,
+        saveDecisionPending: false,
         depositPending: false,
       },
     },
   };
   const restService = new SubmissionRestServiceStub();
+  const itemService: ItemDataService = jasmine.createSpyObj('itemService', {
+    findById: createSuccessfulRemoteDataObject$(new Item()),
+  });;
   const router = new RouterMock();
   const selfUrl = 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826';
   const submissionDefinition: any = mockSubmissionDefinition;
@@ -418,6 +435,7 @@ describe('SubmissionService test suite', () => {
         { provide: SearchService, useValue: searchService },
         { provide: RequestService, useValue: requestServce },
         { provide: SubmissionJsonPatchOperationsService, useValue: submissionJsonPatchOperationsService },
+        { provide: ItemDataService, useValue: itemService },
         NotificationsService,
         RouteService,
         SubmissionService,
@@ -442,17 +460,38 @@ describe('SubmissionService test suite', () => {
 
   describe('createSubmission', () => {
     it('should create a new submission', () => {
+      const paramsObj = Object.create({});
+      const params = new HttpParams({ fromObject: paramsObj });
+      const options: HttpOptions = Object.create({});
+      options.params = params;
       service.createSubmission();
 
       expect((service as any).restService.postToEndpoint).toHaveBeenCalled();
-      expect((service as any).restService.postToEndpoint).toHaveBeenCalledWith('workspaceitems', {}, null, null, undefined);
+      expect((service as any).restService.postToEndpoint).toHaveBeenCalledWith('workspaceitems', {}, null, options, undefined);
+    });
+
+    it('should create a new submission with entity type', () => {
+      const entityType = 'Publication';
+      const params = new HttpParams({ fromObject: { entityType: entityType } });
+      const options: HttpOptions = Object.create({});
+      options.params = params;
+
+      service.createSubmission(undefined, 'Publication');
+
+      expect((service as any).restService.postToEndpoint).toHaveBeenCalled();
+      expect((service as any).restService.postToEndpoint).toHaveBeenCalledWith('workspaceitems', {}, null, options, undefined);
     });
 
     it('should create a new submission with collection', () => {
+      const paramsObj = Object.create({});
+      const params = new HttpParams({ fromObject: paramsObj });
+      const options: HttpOptions = Object.create({});
+      options.params = params;
+
       service.createSubmission(collectionId);
 
       expect((service as any).restService.postToEndpoint).toHaveBeenCalled();
-      expect((service as any).restService.postToEndpoint).toHaveBeenCalledWith('workspaceitems', {}, null, null, collectionId);
+      expect((service as any).restService.postToEndpoint).toHaveBeenCalledWith('workspaceitems', {}, null, options, collectionId);
     });
   });
 
@@ -610,80 +649,98 @@ describe('SubmissionService test suite', () => {
               id: 'keyinformation',
               config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/keyinformation',
               mandatory: true,
+              scope: undefined,
               sectionType: 'submission-form',
               data: {},
               errorsToShow: [],
               serverValidationErrors: [],
+              sectionVisibility: undefined,
             },
             {
               header: 'submit.progressbar.describe.indexing',
               id: 'indexing',
               config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/indexing',
               mandatory: false,
+              scope: undefined,
               sectionType: 'submission-form',
               data: {},
               errorsToShow: [],
               serverValidationErrors: [],
+              sectionVisibility: undefined,
             },
             {
               header: 'submit.progressbar.describe.publicationchannel',
               id: 'publicationchannel',
               config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/publicationchannel',
               mandatory: true,
+              scope: undefined,
               sectionType: 'submission-form',
               data: {},
               errorsToShow: [],
               serverValidationErrors: [],
+              sectionVisibility: undefined,
             },
             {
               header: 'submit.progressbar.describe.acknowledgement',
               id: 'acknowledgement',
               config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/acknowledgement',
               mandatory: false,
+              scope: undefined,
               sectionType: 'submission-form',
               data: {},
               errorsToShow: [],
               serverValidationErrors: [],
+              sectionVisibility: undefined,
             },
             {
               header: 'submit.progressbar.describe.identifiers',
               id: 'identifiers',
               config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/identifiers',
               mandatory: false,
+              scope: undefined,
               sectionType: 'submission-form',
               data: {},
               errorsToShow: [],
               serverValidationErrors: [],
+              sectionVisibility: undefined,
             },
             {
               header: 'submit.progressbar.describe.references',
               id: 'references',
               config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/references',
               mandatory: false,
+              scope: undefined,
               sectionType: 'submission-form',
               data: {},
               errorsToShow: [],
               serverValidationErrors: [],
+              sectionVisibility: undefined,
             },
             {
               header: 'submit.progressbar.upload',
               id: 'upload',
               config: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload',
               mandatory: true,
+              scope: undefined,
               sectionType: 'upload',
               data: {},
               errorsToShow: [],
               serverValidationErrors: [],
+              sectionVisibility: undefined,
             },
             {
               header: 'submit.progressbar.license',
               id: 'license',
               config: '',
               mandatory: true,
+              scope: undefined,
               sectionType: 'license',
               data: {},
               errorsToShow: [],
               serverValidationErrors: [],
+              sectionVisibility: {
+                workflow: SubmissionVisibilityValue.ReadOnly,
+              },
             },
           ],
       });
@@ -825,207 +882,41 @@ describe('SubmissionService test suite', () => {
   });
 
   describe('isSectionHidden', () => {
-    describe('when submission scope is workspace', () => {
-      beforeEach(() => {
-        spyOn(service, 'getSubmissionScope').and.returnValue(SubmissionScopeType.WorkspaceItem);
-      });
+    it('should return true/false when section is hidden/visible', () => {
+      spyOn(service, 'getSubmissionScope').and.returnValue(SubmissionScopeType.WorkspaceItem);
+      let section: any = {
+        config: '',
+        header: '',
+        mandatory: true,
+        sectionType: 'collection' as any,
+        visibility: {
+          submission: SubmissionVisibilityValue.Hidden,
+        },
+        collapsed: false,
+        enabled: true,
+        data: {},
+        errorsToShow: [],
+        serverValidationErrors: [],
+        isLoading: false,
+        isValid: false,
+      };
+      expect((service as  any).isSectionHidden(section)).toBeTruthy();
 
-      describe('and section scope is workspace', () => {
-        it('should return true when visibility main is HIDDEN and visibility other is null', () => {
-          let section: any = {
-            scope: SectionScope.Submission,
-            visibility: {
-              main: 'HIDDEN',
-              other: null,
-            },
-          };
-          expect(service.isSectionHidden(section)).toBeTrue();
-        });
-        it('should return true when both visibility main and other are HIDDEN', () => {
-          let section: any = {
-            scope: SectionScope.Submission,
-            visibility: {
-              main: 'HIDDEN',
-              other: 'HIDDEN',
-            },
-          };
-          expect(service.isSectionHidden(section)).toBeTrue();
-        });
-        it('should return false when visibility main is null and visibility other is HIDDEN', () => {
-          let section: any = {
-            scope: SectionScope.Submission,
-            visibility: {
-              main: null,
-              other: 'HIDDEN',
-            },
-          };
-          expect(service.isSectionHidden(section)).toBeFalse();
-        });
-        it('should return false when visibility is null', () => {
-          let section: any = {
-            scope: SectionScope.Submission,
-            visibility: null,
-          };
-          expect(service.isSectionHidden(section)).toBeFalse();
-        });
-      });
-
-      describe('and section scope is workflow', () => {
-        it('should return false when visibility main is HIDDEN and visibility other is null', () => {
-          let section: any = {
-            scope: SectionScope.Workflow,
-            visibility: {
-              main: 'HIDDEN',
-              other: null,
-            },
-          };
-          expect(service.isSectionHidden(section)).toBeFalse();
-        });
-        it('should return true when both visibility main and other are HIDDEN', () => {
-          let section: any = {
-            scope: SectionScope.Workflow,
-            visibility: {
-              main: 'HIDDEN',
-              other: 'HIDDEN',
-            },
-          };
-          expect(service.isSectionHidden(section)).toBeTrue();
-        });
-        it('should return true when visibility main is null and visibility other is HIDDEN', () => {
-          let section: any = {
-            scope: SectionScope.Workflow,
-            visibility: {
-              main: null,
-              other: 'HIDDEN',
-            },
-          };
-          expect(service.isSectionHidden(section)).toBeTrue();
-        });
-        it('should return false when visibility is null', () => {
-          let section: any = {
-            scope: SectionScope.Workflow,
-            visibility: null,
-          };
-          expect(service.isSectionHidden(section)).toBeFalse();
-        });
-      });
-
-      describe('and section scope is null', () => {
-        it('should return false', () => {
-          let section: any = {
-            scope: null,
-            visibility: {
-              main: 'HIDDEN',
-              other: null,
-            },
-          };
-          expect(service.isSectionHidden(section)).toBeFalse();
-        });
-      });
-
+      section = {
+        header: 'submit.progressbar.describe.keyinformation',
+        config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/keyinformation',
+        mandatory: true,
+        sectionType: 'submission-form',
+        collapsed: false,
+        enabled: true,
+        data: {},
+        errorsToShow: [],
+        serverValidationErrors: [],
+        isLoading: false,
+        isValid: false,
+      };
+      expect((service as  any).isSectionHidden(section)).toBeFalsy();
     });
-
-    describe('when submission scope is workflow', () => {
-      beforeEach(() => {
-        spyOn(service, 'getSubmissionScope').and.returnValue(SubmissionScopeType.WorkflowItem);
-      });
-
-      describe('and section scope is workspace', () => {
-        it('should return false when visibility main is HIDDEN and visibility other is null', () => {
-          let section: any = {
-            scope: SectionScope.Submission,
-            visibility: {
-              main: 'HIDDEN',
-              other: null,
-            },
-          };
-          expect(service.isSectionHidden(section)).toBeFalse();
-        });
-        it('should return true when both visibility main and other are HIDDEN', () => {
-          let section: any = {
-            scope: SectionScope.Submission,
-            visibility: {
-              main: 'HIDDEN',
-              other: 'HIDDEN',
-            },
-          };
-          expect(service.isSectionHidden(section)).toBeTrue();
-        });
-        it('should return true when visibility main is null and visibility other is HIDDEN', () => {
-          let section: any = {
-            scope: SectionScope.Submission,
-            visibility: {
-              main: null,
-              other: 'HIDDEN',
-            },
-          };
-          expect(service.isSectionHidden(section)).toBeTrue();
-        });
-        it('should return false when visibility is null', () => {
-          let section: any = {
-            scope: SectionScope.Submission,
-            visibility: null,
-          };
-          expect(service.isSectionHidden(section)).toBeFalse();
-        });
-      });
-
-      describe('and section scope is workflow', () => {
-        it('should return true when visibility main is HIDDEN and visibility other is null', () => {
-          let section: any = {
-            scope: SectionScope.Workflow,
-            visibility: {
-              main: 'HIDDEN',
-              other: null,
-            },
-          };
-          expect(service.isSectionHidden(section)).toBeTrue();
-        });
-        it('should return true when both visibility main and other are HIDDEN', () => {
-          let section: any = {
-            scope: SectionScope.Workflow,
-            visibility: {
-              main: 'HIDDEN',
-              other: 'HIDDEN',
-            },
-          };
-          expect(service.isSectionHidden(section)).toBeTrue();
-        });
-        it('should return false when visibility main is null and visibility other is HIDDEN', () => {
-          let section: any = {
-            scope: SectionScope.Workflow,
-            visibility: {
-              main: null,
-              other: 'HIDDEN',
-            },
-          };
-          expect(service.isSectionHidden(section)).toBeFalse();
-        });
-        it('should return false when visibility is null', () => {
-          let section: any = {
-            scope: SectionScope.Workflow,
-            visibility: null,
-          };
-          expect(service.isSectionHidden(section)).toBeFalse();
-        });
-      });
-
-      describe('and section scope is null', () => {
-        it('should return false', () => {
-          let section: any = {
-            scope: null,
-            visibility: {
-              main: 'HIDDEN',
-              other: null,
-            },
-          };
-          expect(service.isSectionHidden(section)).toBeFalse();
-        });
-      });
-
-    });
-
-
   });
 
   describe('isSubmissionLoading', () => {
@@ -1084,6 +975,51 @@ describe('SubmissionService test suite', () => {
 
       expect((service as any).router.navigate).toHaveBeenCalledWith(['/mydspace']);
     });
+  });
+
+  describe('redirectToEditItem', () => {
+    beforeEach(() => {
+      (itemService.findById as jasmine.Spy).calls.reset();
+    });
+
+    it('should redirect to Item page', fakeAsync(() => {
+      scheduler = getTestScheduler();
+
+      const itemUuid = 'd62fc60f-e9a5-48e6-973a-90819acf23ae';
+      const mockBundle = Object.assign(new Bundle(), {
+        _links: {
+          self: { href: 'bundle-self-href' },
+          bitstreams: { href: 'bundle-bitstreams-href' },
+        },
+      });
+      const mockItem = Object.assign(new Item(), {
+        uuid: itemUuid,
+        _links: {
+          self: { href: 'test-href' },
+          bundles: { href: 'test-bundles-href' },
+        },
+        bundles: cold('a', {
+          a: createSuccessfulRemoteDataObject(buildPaginatedList(new PageInfo(), [mockBundle])),
+        }),
+      });
+      let itemSubmissionId = itemUuid + ':FULL';
+      spyOn(itemService as any, 'findById').and.returnValue(cold('a', { a: createSuccessfulRemoteDataObject(mockItem) }));
+      spyOn(requestServce as any, 'setStaleByHrefSubstring').and.returnValue(cold('a', { a: true }));
+
+      scheduler.schedule(() => service.invalidateCacheAndRedirectToItemPage(itemSubmissionId));
+      scheduler.flush();
+      tick();
+
+      expect((service as any).router.navigateByUrl).toHaveBeenCalledWith('/items/' + itemUuid, { replaceUrl: true });
+
+      itemSubmissionId = itemUuid;
+      scheduler.schedule(() => service.invalidateCacheAndRedirectToItemPage(itemSubmissionId));
+      scheduler.flush();
+      tick();
+
+      expect((service as any).router.navigateByUrl).toHaveBeenCalledWith('/items/' + itemUuid, { replaceUrl: true });
+
+    }));
   });
 
   describe('resetAllSubmissionObjects', () => {

@@ -377,6 +377,27 @@ export class DefaultAppConfig implements AppConfig {
   item: ItemConfig = {
     edit: {
       undoTimeout: 10000, // 10 seconds
+      // UI configuration of the security levels available for metadata fields across the application, allows to customize color and icon for each value.
+      // `0` = Public, `1` = Registered users, `2` = Administrators only.
+      security: {
+        levels: [
+          {
+            value: 0,
+            icon: 'fa fa-globe',
+            color: 'green',
+          },
+          {
+            value: 1,
+            icon: 'fa fa-key',
+            color: 'orange',
+          },
+          {
+            value: 2,
+            icon: 'fa fa-lock',
+            color: 'red',
+          },
+        ],
+      },
     },
     // Show the item access status label in items lists
     showAccessStatuses: false,

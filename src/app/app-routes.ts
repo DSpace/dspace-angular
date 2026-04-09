@@ -28,6 +28,7 @@ import { ACCESS_CONTROL_MODULE_PATH } from './access-control/access-control-rout
 import { NOTIFICATIONS_MODULE_PATH } from './admin/admin-routing-paths';
 import {
   ADMIN_MODULE_PATH,
+  EDIT_ITEM_PATH,
   FORGOT_PASSWORD_PATH,
   HEALTH_PAGE_PATH,
   PROFILE_MODULE_PATH,
@@ -279,6 +280,11 @@ export const APP_ROUTES: Route[] = [
         loadChildren: () => import('./subscriptions-page/subscriptions-page-routes')
           .then((m) => m.ROUTES),
         canActivate: [authenticatedGuard],
+      },
+      {
+        path: EDIT_ITEM_PATH,
+        loadChildren: () => import('./edit-item/edit-item-routes').then((m) => m.ROUTES),
+        canActivate: [endUserAgreementCurrentUserGuard],
       },
       {
         path: 'external-login/:token',
