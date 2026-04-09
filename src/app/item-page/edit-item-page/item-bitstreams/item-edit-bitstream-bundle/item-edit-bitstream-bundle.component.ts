@@ -15,6 +15,7 @@ import {
 import { RouterLink } from '@angular/router';
 import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import { BundleDataService } from '@dspace/core/data/bundle-data.service';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
 import { FieldChangeType } from '@dspace/core/data/object-updates/field-change-type.model';
 import { FieldUpdate } from '@dspace/core/data/object-updates/field-update.model';
 import { FieldUpdates } from '@dspace/core/data/object-updates/field-updates.model';
@@ -31,6 +32,7 @@ import { followLink } from '@dspace/core/shared/follow-link-config.model';
 import { Item } from '@dspace/core/shared/item.model';
 import {
   getAllSucceededRemoteData,
+  getFirstSucceededRemoteDataPayload,
   paginatedListToArray,
 } from '@dspace/core/shared/operators';
 import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
@@ -187,6 +189,11 @@ export class ItemEditBitstreamBundleComponent implements OnInit, OnDestroy {
   updates$: BehaviorSubject<FieldUpdates> = new BehaviorSubject(null);
 
   /**
+   * Whether bitstream replacement is enabled in the backend
+   */
+  showReplaceButton$: Observable<boolean>;
+
+  /**
    * Array containing all subscriptions created by this component
    */
   subscriptions: Subscription[] = [];
@@ -200,6 +207,7 @@ export class ItemEditBitstreamBundleComponent implements OnInit, OnDestroy {
     protected paginationService: PaginationService,
     protected requestService: RequestService,
     protected itemBitstreamsService: ItemBitstreamsService,
+    protected configurationService: ConfigurationDataService,
   ) {
   }
 
@@ -209,6 +217,10 @@ export class ItemEditBitstreamBundleComponent implements OnInit, OnDestroy {
     this.itemPageRoute = getItemPageRoute(this.item);
     this.bundleName = this.dsoNameService.getName(this.bundle);
     this.bundleUrl = this.bundle.self;
+    this.showReplaceButton$ = this.configurationService.findByPropertyName('replace-bitstream.enabled').pipe(
+      getFirstSucceededRemoteDataPayload(),
+      map(payload => payload?.values.length > 0 && payload?.values[0] === 'true'),
+    );
 
     this.initializePagination();
     this.initializeBitstreams();
