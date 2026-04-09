@@ -3,7 +3,6 @@ import {
   Component,
   DOCUMENT,
   EventEmitter,
-  HostListener,
   Inject,
   Input,
   OnInit,
@@ -111,10 +110,6 @@ export class DsDatePickerComponent extends DynamicFormControlComponent implement
     this.maxYear = now.getUTCFullYear() + 100;
   }
 
-  onBlur(event) {
-    this.blur.emit();
-  }
-
   onChange(event) {
     // update year-month-day
     switch (event.field) {
@@ -191,37 +186,6 @@ export class DsDatePickerComponent extends DynamicFormControlComponent implement
 
     this.model.value = value;
     this.change.emit(value);
-  }
-
-  /**
-   * Listen to keydown Tab event.
-   * Get the active element and blur it, in order to focus the next input field.
-   */
-  @HostListener('keydown.tab', ['$event'])
-  onTabKeydown(event: KeyboardEvent) {
-    event.preventDefault();
-    const activeElement: Element = this._document.activeElement;
-    (activeElement as any).blur();
-    const index = this.selectedFieldIndex(activeElement);
-    if (index < 0) {
-      return;
-    }
-    const fieldToFocusOn = index + 1;
-    if (fieldToFocusOn < this.fields.length) {
-      this.focusInput(this.fields[fieldToFocusOn]);
-    }
-  }
-
-  @HostListener('keydown.shift.tab', ['$event'])
-  onShiftTabKeyDown(event: KeyboardEvent) {
-    event.preventDefault();
-    const activeElement: Element = this._document.activeElement;
-    (activeElement as any).blur();
-    const index = this.selectedFieldIndex(activeElement);
-    const fieldToFocusOn = index - 1;
-    if (fieldToFocusOn >= 0) {
-      this.focusInput(this.fields[fieldToFocusOn]);
-    }
   }
 
   private selectedFieldIndex(activeElement: Element): number {
