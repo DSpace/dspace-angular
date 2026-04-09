@@ -984,6 +984,12 @@ describe('SubmissionService test suite', () => {
       } else {
         spyOn(itemService as any, 'findById');
       }
+
+      if ((requestServce.setStaleByHrefSubstring as any).calls) {
+        (requestServce.setStaleByHrefSubstring as jasmine.Spy).calls.reset();
+      } else {
+        spyOn(requestServce as any, 'setStaleByHrefSubstring');
+      }
     });
 
     it('should redirect to Item page', fakeAsync(() => {
@@ -1008,7 +1014,7 @@ describe('SubmissionService test suite', () => {
       });
       let itemSubmissionId = itemUuid + ':FULL';
       (itemService.findById as jasmine.Spy).and.returnValue(cold('a', { a: createSuccessfulRemoteDataObject(mockItem) }));
-      spyOn(requestServce as any, 'setStaleByHrefSubstring').and.returnValue(cold('a', { a: true }));
+      (requestServce.setStaleByHrefSubstring as jasmine.Spy).and.returnValue(cold('a', { a: true }));
 
       scheduler.schedule(() => service.invalidateCacheAndRedirectToItemPage(itemSubmissionId));
       scheduler.flush();
