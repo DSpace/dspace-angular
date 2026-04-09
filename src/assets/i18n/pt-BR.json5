@@ -11449,6 +11449,14 @@
   // "item.preview.organization.alternateName": "Alternative name",
   "item.preview.organization.alternateName": "Nome alternativo",
 
+  "media-viewer.pdf.files": "Arquivos",
+
+  "media-viewer.pdf.browser-not-support": "Seu navegador não é compatível com o visualizador de PDF.",
+
+  "media-viewer.pdf.download": "Baixar o PDF",
+
+  "media-viewer.loading": "Carregando",
+
   // "metadata-link-view.orcid.logo": "ORCID logo",
   // TODO New key - Add a translation
   "metadata-link-view.orcid.logo": "ORCID logo",
@@ -11466,8 +11474,7 @@
   "metadata-link-view.popover.label.Person.person.affiliation.name": "Main affiliation",
 
   // "metadata-link-view.popover.label.Person.person.email": "Email",
-  // TODO New key - Add a translation
-  "metadata-link-view.popover.label.Person.person.email": "Email",
+  "metadata-link-view.popover.label.Person.person.email": "E-mail",
 
   // "metadata-link-view.popover.label.Person.person.identifier.orcid": "ORCID",
   // TODO New key - Add a translation

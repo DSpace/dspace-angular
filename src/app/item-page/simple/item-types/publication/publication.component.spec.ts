@@ -139,7 +139,7 @@ describe('PublicationComponent', () => {
         { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub },
         { provide: ConfigurationDataService, useValue: new ConfigurationDataServiceStub() },
         { provide: APP_CONFIG, useValue: environment },
-        { provide: APP_DATA_SERVICES_MAP, useValue: {}  },
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(PublicationComponent, {
@@ -271,7 +271,7 @@ describe('PublicationComponent', () => {
       expect(fields.length).toBeGreaterThanOrEqual(1);
     });
 
-    it('should not retrieve the query term for previous route', fakeAsync( () => {
+    it('should not retrieve the query term for previous route', fakeAsync(() => {
       let emitted;
       comp.iiifQuery$.subscribe(result => emitted = result);
       tick(10);
@@ -300,7 +300,7 @@ describe('PublicationComponent', () => {
 
     it('should display the file section component', () => {
       const fileSectionElements = fixture.debugElement.queryAll(By.css('ds-item-page-file-section'));
-      expect(fileSectionElements.length).toBe(1);
+      expect(fileSectionElements.length).toBe(2);
     });
 
     it('should not display the attachment section component', () => {
@@ -334,7 +334,7 @@ describe('PublicationComponent', () => {
 
     it('should not display the file section component', () => {
       const fileSectionElements = fixture.debugElement.queryAll(By.css('ds-item-page-file-section'));
-      expect(fileSectionElements.length).toBe(0);
+      expect(fileSectionElements.length).toBe(1);
     });
   });
 

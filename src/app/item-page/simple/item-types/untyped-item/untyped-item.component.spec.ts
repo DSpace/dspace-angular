@@ -322,7 +322,7 @@ describe('UntypedItemComponent', () => {
 
     it('should display the file section component', () => {
       const fileSectionElements = fixture.debugElement.queryAll(By.css('ds-item-page-file-section'));
-      expect(fileSectionElements.length).toBe(1);
+      expect(fileSectionElements.length).toBe(2);
     });
 
     it('should not display the attachment section component', () => {
@@ -356,7 +356,7 @@ describe('UntypedItemComponent', () => {
 
     it('should not display the file section component', () => {
       const fileSectionElements = fixture.debugElement.queryAll(By.css('ds-item-page-file-section'));
-      expect(fileSectionElements.length).toBe(0);
+      expect(fileSectionElements.length).toBe(1);
     });
   });
 

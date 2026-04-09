@@ -1,0 +1,41 @@
+<div class="pdf-viewer-container">
+  
+  <div class="d-flex align-items-center mb-2">
+    <h2 class="simple-view-element-header mb-0 me-2">{{ 'media-viewer.pdf.files' | translate }}</h2>
+    
+    <span class="badge rounded-pill bg-secondary" style="font-size: 0.9rem;">
+      {{ pdfs?.length || 0 }}
+    </span>
+  </div>
+
+  <select id="pdfSelect" class="form-select d-inline-block" [(ngModel)]="currentIndex" [disabled]="pdfs?.length === 1 || isLoading" 
+    (change)="selectedMedia(currentIndex)">
+    @for (item of pdfs; track $index) {
+    <option [value]="$index">
+      {{ dsoNameService.getName(item.bitstream) }}
+    </option>
+    }
+  </select>
+
+  <div class="pdf-viewer border-bottom" style="position: relative; min-height: 200px;">
+    
+    @if (isLoading) {
+      <div class="loading-overlay d-flex justify-content-center align-items-center h-100 w-100">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <span class="ms-2">{{ 'media-viewer.loading' | translate }}...</span> 
+        </div>
+    } 
+    
+    @else {
+      <object #pdfViewer [data]="blobUrl" type="application/pdf" width="100%" height="100%">
+        <p>
+          <span>{{ 'media-viewer.pdf.browser-not-support' | translate }}</span>
+          <a [href]="pdfs[currentIndex].bitstream._links.content.href">{{ 'media-viewer.pdf.download' | translate }}</a>.
+        </p>
+      </object>
+    }
+
+  </div>
+</div>
