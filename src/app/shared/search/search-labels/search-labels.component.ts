@@ -30,6 +30,11 @@ export class SearchLabelsComponent implements OnInit {
    */
   @Input() inPlaceSearch: boolean;
 
+  /**
+   * Should scroll to the pagination component after updating the route instead of the top of the page
+   */
+  @Input() retainScrollPosition = false;
+
   appliedFilters$: BehaviorSubject<AppliedFilter[]>;
 
   constructor(
