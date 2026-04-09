@@ -36,18 +36,25 @@
             (click)="$event.preventDefault();editBitstreamData();">
             <i class="fa fa-edit fa-2x text-normal"></i>
           </button>
-          <button class="btn btn-link-focus"
-            attr.aria-label="{{'submission.sections.upload.delete.confirm.title' | translate}} {{fileName}}"
-                  title="{{ 'submission.sections.upload.delete.confirm.title' | translate }} {{fileName}}"
-            [dsBtnDisabled]="(processingDelete$ | async)"
-            (click)="$event.preventDefault();confirmDelete(content);">
-            @if ((processingDelete$ | async)) {
-              <i class="fas fa-circle-notch fa-spin fa-2x link-danger"></i>
-            }
-            @if ((processingDelete$ | async) !== true) {
-              <i class="fa fa-trash fa-2x link-danger"></i>
-            }
-          </button>
+          <span
+            title="{{ totalFiles === 1
+              ? ('submission.sections.upload.delete.not-allowed' | translate)
+              : ('submission.sections.upload.delete.confirm.title' | translate) + ' ' + fileName }}">
+
+            <button class="btn btn-link-focus"
+              attr.aria-label="{{'submission.sections.upload.delete.confirm.title' | translate}} {{fileName}}"
+              [dsBtnDisabled]="(processingDelete$ | async) || totalFiles === 1"
+              (click)="$event.preventDefault();confirmDelete(content);">
+
+              @if ((processingDelete$ | async)) {
+                <i class="fas fa-circle-notch fa-spin fa-2x link-danger"></i>
+              }
+              @if ((processingDelete$ | async) !== true) {
+                <i class="fa fa-trash fa-2x link-danger"></i>
+              }
+
+            </button>
+          </span>
         </ng-container>
       </div>
       <div class="clearfix"></div>
