@@ -7,11 +7,13 @@ import {
   tap,
 } from 'rxjs/operators';
 
+import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { NotificationsService } from '../notification-system/notifications.service';
 import { Bitstream } from '../shared/bitstream.model';
 import { BitstreamFormat } from '../shared/bitstream-format.model';
+import { BITSTREAM_FORMAT } from '../shared/bitstream-format.resource-type';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NoContent } from '../shared/NoContent.model';
 import { sendRequest } from '../shared/request.operators';
@@ -37,6 +39,7 @@ import { RequestService } from './request.service';
  * A service responsible for fetching/sending data from/to the REST API on the bitstreamformats endpoint
  */
 @Injectable({ providedIn: 'root' })
+@dataService(BITSTREAM_FORMAT)
 export class BitstreamFormatDataService extends IdentifiableDataService<BitstreamFormat> implements FindAllData<BitstreamFormat>, DeleteData<BitstreamFormat> {
 
   protected linkPath = 'bitstreamformats';

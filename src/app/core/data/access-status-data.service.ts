@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { AccessStatusObject } from '@dspace/core/shared/access-status.model';
+import { ACCESS_STATUS } from '@dspace/core/shared/access-status.resource-type';
 import { Observable } from 'rxjs';
 
+import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
@@ -14,6 +16,7 @@ import { RequestService } from './request.service';
  * Data service responsible for retrieving the access status of Items
  */
 @Injectable({ providedIn: 'root' })
+@dataService(ACCESS_STATUS)
 export class AccessStatusDataService extends BaseDataService<AccessStatusObject> {
 
   constructor(

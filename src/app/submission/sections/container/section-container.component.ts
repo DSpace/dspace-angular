@@ -12,6 +12,7 @@ import {
 } from '@angular/core';
 import { JsonPatchOperationPathCombiner } from '@dspace/core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
+import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
 import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import {
@@ -20,12 +21,14 @@ import {
 } from '@ngx-translate/core';
 import {
   BehaviorSubject,
+  from,
   Observable,
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
+import { ThemeService } from '../../../shared/theme-support/theme.service';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsDirective } from '../sections.directive';
 import { rendersSectionType } from '../sections-decorator';
@@ -109,17 +112,14 @@ export class SubmissionSectionContainerComponent implements OnInit {
    */
   @ViewChild('sectionRef') sectionRef: SectionsDirective;
 
-  /**
-   * Initialize instance variables
-   *
-   * @param {Injector} injector
-   * @param {JsonPatchOperationsBuilder} operationsBuilder
-   * @param {TranslateService} translate
-   */
+  sectionContent$: Observable<GenericConstructor<Component>>;
+
   constructor(
-    private injector: Injector,
-    private operationsBuilder: JsonPatchOperationsBuilder,
-    private translate: TranslateService) {
+    protected injector: Injector,
+    protected operationsBuilder: JsonPatchOperationsBuilder,
+    protected themeService: ThemeService,
+    protected translate: TranslateService,
+  ) {
   }
 
   /**
@@ -135,6 +135,7 @@ export class SubmissionSectionContainerComponent implements OnInit {
       ],
       parent: this.injector,
     });
+    this.sectionContent$ = this.getSectionContent();
     this.pathCombiner = new JsonPatchOperationPathCombiner('sections', this.sectionData.id);
     const messageInfoKey = 'submission.sections.' + this.sectionData.header + '.info';
     this.hasInfoMessage = this.translate.get(messageInfoKey).pipe(
@@ -165,7 +166,7 @@ export class SubmissionSectionContainerComponent implements OnInit {
   /**
    * Find the correct component based on the section's type
    */
-  getSectionContent() {
-    return rendersSectionType(this.sectionData.sectionType);
+  getSectionContent(): Observable<GenericConstructor<Component>> {
+    return from(rendersSectionType(this.sectionData.sectionType, this.themeService.getThemeName()));
   }
 }

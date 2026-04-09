@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { dataService } from '@dspace/core/cache/builders/build-decorators';
+import { ADMIN_NOTIFY_MESSAGE } from '@dspace/core/shared/admin-notify-message.resource-type';
 import {
   BehaviorSubject,
   from,
@@ -37,6 +39,7 @@ import { AdminNotifyMessage } from './models/admin-notify-message.model';
  * @extends {IdentifiableDataService<AdminNotifyMessage>}
  */
 @Injectable({ providedIn: 'root' })
+@dataService(ADMIN_NOTIFY_MESSAGE)
 export class AdminNotifyMessagesDataService extends IdentifiableDataService<AdminNotifyMessage> {
 
   protected reprocessEndpoint = 'enqueueretry';

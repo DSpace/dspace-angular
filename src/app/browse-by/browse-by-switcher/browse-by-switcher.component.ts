@@ -39,7 +39,7 @@ export class BrowseBySwitcherComponent extends AbstractComponentLoaderComponent<
     'scope',
   ];
 
-  public getComponent(): GenericConstructor<Component> {
+  public getComponent(): Promise<GenericConstructor<Component>> {
     return getComponentByBrowseByType(this.browseByType.type, this.context, this.themeService.getThemeName());
   }
 

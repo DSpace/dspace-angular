@@ -17,8 +17,9 @@
       class="d-flex flex-row flex-nowrap align-items-center gapx-1 ds-menu-toggler-wrapper"
       [class.disabled]="section.model?.disabled">
       <span class="flex-fill">
-        <ng-container
-        *ngComponentOutlet="(sectionMap$ | async).get(section.id).component; injector: (sectionMap$ | async).get(section.id).injector;"></ng-container>
+        @if (sectionMap().get(section.id); as sectionDTO) {
+          <ng-container *ngComponentOutlet="sectionDTO.component; injector: sectionDTO.injector;"></ng-container>
+        }
       </span>
       <i class="fas fa-caret-down fa-xs toggle-menu-icon" aria-hidden="true"></i>
     </a>
@@ -32,8 +33,9 @@
         <div @slide role="presentation">
           @for (subSection of (subSections$ | async); track subSection) {
             <div class="text-nowrap" role="presentation">
-              <ng-container
-              *ngComponentOutlet="(sectionMap$ | async).get(subSection.id).component; injector: (sectionMap$ | async).get(subSection.id).injector;"></ng-container>
+              @if (sectionMap().get(subSection.id); as subSectionDTO) {
+                <ng-container *ngComponentOutlet="subSectionDTO.component; injector: subSectionDTO.injector;"></ng-container>
+              }
             </div>
           }
         </div>

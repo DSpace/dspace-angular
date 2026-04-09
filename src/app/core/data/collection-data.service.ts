@@ -14,6 +14,7 @@ import {
   take,
 } from 'rxjs/operators';
 
+import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -23,6 +24,7 @@ import { INotification } from '../notification-system/models/notification.model'
 import { NotificationOptions } from '../notification-system/models/notification-options.model';
 import { NotificationsService } from '../notification-system/notifications.service';
 import { Collection } from '../shared/collection.model';
+import { COLLECTION } from '../shared/collection.resource-type';
 import { Community } from '../shared/community.model';
 import { ContentSource } from '../shared/content-source.model';
 import { FollowLinkConfig } from '../shared/follow-link-config.model';
@@ -47,6 +49,7 @@ import { RequestService } from './request.service';
 import { RestRequest } from './rest-request.model';
 
 @Injectable({ providedIn: 'root' })
+@dataService(COLLECTION)
 export class CollectionDataService extends ComColDataService<Collection> {
   protected errorTitle = 'collection.source.update.notifications.error.title';
   protected contentSourceError = 'collection.source.update.notifications.error.content';
