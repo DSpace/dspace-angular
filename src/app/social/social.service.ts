@@ -78,6 +78,9 @@ export class SocialService {
    * Import the AddToAny JavaScript
    */
   initializeAddToAnyScript(): any {
+    if (!this.enabled) {
+      return;
+    }
     // Initializing the addToAny script
     const script = this._document.createElement('script');
     script.type = 'text/javascript';
@@ -111,6 +114,10 @@ export class SocialService {
    * the original scrolling behavior is restored.
    */
   private observeAddToAnyModal(): void {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+
     const body = this._document.body;
     let isLocked = false;
 
