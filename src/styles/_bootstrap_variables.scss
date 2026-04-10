@@ -65,9 +65,9 @@ $pagination-disabled-bg: white;
 
 $icon-font-family: "Font Awesome 6 Free"; /* Define the font-family for icons */
 
-$border-radius: 0.25em;
+$border-radius: 0.25em !default;
 
-$bs-border-radius-lg: 0.3rem;
+$border-radius-lg: 0.3rem !default;
 
 $badge-padding-x: 0.4em;
 $badge-padding-y: 0.25em;
@@ -89,7 +89,6 @@ $ds-header-icon-color: $link-color !default;
 $ds-header-icon-color-hover: $link-hover-color !default;
 
 $ds-navbar-bg: #fff !default;
-$ds-navbar-dropdown-bg: #fff !default;
 $ds-expandable-navbar-bg: #fff !default;
 $ds-navbar-link-color: $link-color !default;
 $ds-navbar-link-color-hover: #{darken($ds-navbar-link-color, 15%)} !default;
