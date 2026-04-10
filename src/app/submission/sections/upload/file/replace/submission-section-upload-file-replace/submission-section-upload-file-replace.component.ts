@@ -45,6 +45,16 @@ import { SectionsService } from '../../../../sections.service';
     UploaderComponent,
   ],
 })
+/**
+ * Modal component used inside the submission/edit-item upload section to replace the content of
+ * an existing Bitstream without changing its metadata or its position in the bundle.
+ *
+ * The component is opened by {@link SectionUploadFileComponent} when the user clicks the
+ * "Replace" button next to a listed file.  It issues a `PUT` request to
+ * `bitstreams/{uuid}/content`, the same endpoint used by {@link ReplaceBitstreamPageComponent}
+ * from the Bitstream admin tab, with an optional `replaceName` query parameter that controls
+ * whether the stored file name is updated to match the newly uploaded file.
+ */
 export class SubmissionSectionUploadFileReplaceComponent implements OnInit, OnDestroy {
 
   /**

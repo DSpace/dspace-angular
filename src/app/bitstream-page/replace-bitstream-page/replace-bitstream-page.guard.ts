@@ -6,8 +6,15 @@ import { of } from 'rxjs';
 import { bitstreamPageResolver } from '../bitstream-page.resolver';
 
 /**
- * Guard for preventing unauthorized access to the replace bitstream page.
- * Checks whether the user has permission to replace the bitstream (if the feature is enabled).
+ * Route guard that protects the replace-bitstream page from unauthorised access.
+ *
+ * Uses {@link dsoPageSingleFeatureGuard} to resolve the Bitstream from the current route via
+ * {@link bitstreamPageResolver} and then checks whether the authenticated user holds the
+ * {@link FeatureID.CanReplaceBitstream} feature authorisation for that Bitstream.
+ * The feature is evaluated by the backend (`CanReplaceBitstreamFeature`) and takes into account
+ * both repository configuration and the user's permissions on the Bitstream's owning Item.
+ *
+ * If the check fails the guard redirects to the configured unauthorised page.
  */
 export const replaceBitstreamPageGuard: CanActivateFn =
   dsoPageSingleFeatureGuard(

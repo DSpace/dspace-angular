@@ -58,6 +58,18 @@ import { FileSizePipe } from '../../shared/utils/file-size-pipe';
     UploaderComponent,
   ],
 })
+/**
+ * Page component that allows a privileged user to replace the content of an existing Bitstream.
+ *
+ * The component is reached via the Bitstream admin "Edit" page and is protected by
+ * {@link replaceBitstreamPageGuard}, which verifies that the current user holds the
+ * {@link FeatureID.CanReplaceBitstream} authorization feature for this Bitstream.
+ *
+ * On save the component issues a `PUT` request to `bitstreams/{uuid}/content`, which is the
+ * standard DSpace REST endpoint for replacing Bitstream file content.  On success the Bitstream
+ * and its parent Bundle are marked stale in the request cache so that any downstream views
+ * immediately reflect the new file, and the user is redirected back to the Bitstream edit page.
+ */
 export class ReplaceBitstreamPageComponent implements OnInit {
   saveNotificationKey = 'bitstream.replace.page.upload.success';
   /**
