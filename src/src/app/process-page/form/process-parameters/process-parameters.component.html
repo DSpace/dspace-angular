@@ -1,0 +1,14 @@
+@if (script?.parameters?.length) {
+  <div class="mb-3" data-testID="parameters-select-container">
+    <label class="form-label">{{'process.new.select-parameters' | translate}}</label>
+    @for (value of parameterValues; track value; let i = $index; let last = $last) {
+      <ds-parameter-select
+        [parameters]="script.parameters"
+        [parameterValue]="value"
+        [removable]="!last"
+        [index]="i"
+        (removeParameter)="removeParameter(i)"
+      (changeParameter)="updateParameter($event, i)"></ds-parameter-select>
+    }
+  </div>
+}

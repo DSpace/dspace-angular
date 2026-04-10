@@ -1,0 +1,94 @@
+@if ((registration$ |async)) {
+  <div class="container">
+    <h3 class="mb-4">{{'register-page.create-profile.header' | translate}}</h3>
+    <div class="card mb-4">
+      <div class="card-header">{{'register-page.create-profile.identification.header' | translate}}</div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-12">
+            <label class="fw-bold form-label me-4"
+            for="email">{{'register-page.create-profile.identification.email' | translate}}</label>
+            <span id="email">{{(registration$ |async).email}}</span></div>
+          </div>
+          <form [class]="'ng-invalid'" [formGroup]="userInfoForm" (ngSubmit)="submitEperson()">
+            <div class="mb-3">
+              <div class="row">
+                <div class="col-12">
+                  <label for="firstName" class="form-label">{{'register-page.create-profile.identification.first-name' | translate}}</label>
+                  <input [className]="(firstName.invalid) && (firstName.dirty || firstName.touched) ? 'form-control is-invalid' :'form-control'"
+                    type="text" id="firstName" formControlName="firstName"/>
+                  @if (firstName.invalid && (firstName.dirty || firstName.touched)) {
+                    <div
+                      class="invalid-feedback show-feedback">
+                      @if (firstName.errors && firstName.errors.required) {
+                        <span>
+                          {{ 'register-page.create-profile.identification.first-name.error' | translate }}
+                        </span>
+                      }
+                    </div>
+                  }
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <label
+                  for="lastName" class="form-label">{{'register-page.create-profile.identification.last-name' | translate}}</label>
+                  <input
+                    [className]="(lastName.invalid) && (lastName.dirty || lastName.touched) ? 'form-control is-invalid' :'form-control'"
+                    id="lastName" formControlName="lastName">
+                  @if (lastName.invalid && (lastName.dirty || lastName.touched)) {
+                    <div
+                      class="invalid-feedback show-feedback">
+                      @if (lastName.errors && lastName.errors.required) {
+                        <span>
+                          {{ 'register-page.create-profile.identification.last-name.error' | translate }}
+                        </span>
+                      }
+                    </div>
+                  }
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <label class="form-label"
+                  for="contactPhone">{{'register-page.create-profile.identification.contact' | translate}}</label>
+                  <input class="form-control" id="contactPhone" formControlName="contactPhone">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <label class="form-label"
+                  for="language">{{'register-page.create-profile.identification.language' |translate}}</label>
+                  <select id="language" formControlName="language" class="form-select">
+                    <option [value]="''"></option>
+                    @for (lang of activeLangs; track lang) {
+                      <option [value]="lang.code">{{lang.label}}</option>
+                    }
+                  </select>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="card mb-4">
+        <div class="card-header">{{'register-page.create-profile.security.header' | translate}}</div>
+        <div class="card-body">
+          <ds-profile-page-security-form
+            [passwordCanBeEmpty]="false"
+            [FORM_PREFIX]="'register-page.create-profile.security.'"
+            (isInvalid)="setInValid($event)"
+            (passwordValue)="setPasswordValue($event)"
+          ></ds-profile-page-security-form>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <button
+            [dsBtnDisabled]="isInValidPassword || userInfoForm.invalid"
+            class="btn btn-default btn-primary"
+          (click)="submitEperson()">{{'register-page.create-profile.submit' | translate}}</button>
+        </div>
+      </div>
+    </div>
+  }

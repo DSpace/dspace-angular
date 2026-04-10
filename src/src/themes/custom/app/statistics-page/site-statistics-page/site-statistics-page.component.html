@@ -1,0 +1,154 @@
+<header class="stats-hero">
+  <div class="stats-badge">{{ 'stats.badge' | translate }}</div>
+  <h1>{{ 'stats.hero.title.prefix' | translate }}<span>{{ 'stats.hero.title.word' | translate }}</span></h1>
+  <div class="hero-subtitle-container">
+    <span class="hero-line"></span>
+    <span class="hero-subtitle">{{ 'stats.hero.subtitle' | translate }}</span>
+    <span class="hero-line right"></span>
+  </div>
+</header>
+
+<div class="stats-wrapper">
+  <main class="stats-card">
+
+    <!-- Summary stat cards -->
+    <div class="stats-summary-row">
+      <div class="stat-summary-card">
+        <div class="stat-icon"><i class="fas fa-eye"></i></div>
+        <div class="stat-info">
+          <h3>{{ visitCount$ | async }}</h3>
+          <p>{{ 'stats.summary.visit-count' | translate }}</p>
+        </div>
+      </div>
+      <div class="stat-summary-card">
+        <div class="stat-icon"><i class="fas fa-database"></i></div>
+        <div class="stat-info">
+          <h3>{{ recordCount$ | async }}</h3>
+          <p>{{ 'stats.summary.records' | translate }}</p>
+        </div>
+      </div>
+    </div>
+
+    <ng-container *ngVar="reports$ | async as reports">
+
+      @if (!reports) {
+        <ds-loading></ds-loading>
+      }
+
+      @if (reports) {
+
+        <!-- Most Viewed Items -->
+        <ng-container *ngVar="visitsReport$ | async as visitsReport">
+          @if (visitsReport && visitsReport.points.length > 0) {
+            <div class="stats-report-section">
+              <div class="stats-section-header">
+                <h2 class="stats-section-title">{{ 'stats.visits.title' | translate }}</h2>
+                <button class="btn-print" (click)="printReport()">
+                  <i class="fas fa-print"></i> {{ 'stats.print' | translate }}
+                </button>
+              </div>
+              <div class="stats-table-container">
+                <table class="stats-table">
+                  <thead>
+                    <tr>
+                      <th class="rank-col">{{ 'stats.table.rank' | translate }}</th>
+                      <th>{{ 'stats.table.title' | translate }}</th>
+                      <th class="views-col">{{ 'stats.table.views' | translate }}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @for (point of visitsReport.points; track point; let i = $index) {
+                      <tr>
+                        <td class="rank-col"><span class="rank-badge">{{ i + 1 }}</span></td>
+                        <td class="title-col">{{ point.label }}</td>
+                        @for (header of getHeaders(visitsReport); track header) {
+                          <td class="views-col">
+                            <div class="views-container">
+                              <span class="view-number">{{ getPointValue(point, header) }}</span>
+                              <div class="view-bar-bg">
+                                <div class="view-bar-fill"
+                                     [style.width.%]="getBarWidth(visitsReport, header, point)">
+                                </div>
+                              </div>
+                            </div>
+                          </td>
+                        }
+                      </tr>
+                    }
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          }
+        </ng-container>
+
+        <!-- Geography: Countries + Cities -->
+        <div class="geo-stats-row">
+
+          <!-- Top Countries -->
+          <div class="geo-stats-section">
+            <h2 class="stats-section-title">
+              <i class="fas fa-globe-asia geo-icon"></i> {{ 'stats.countries.title' | translate }}
+            </h2>
+            <ng-container *ngVar="countriesReport$ | async as countriesReport">
+              @if (countriesReport && countriesReport.points.length > 0) {
+                <div class="geo-list">
+                  @for (point of countriesReport.points; track point; let i = $index) {
+                    <div class="geo-item">
+                      <span class="geo-rank">{{ i + 1 }}</span>
+                      <span class="geo-flag">{{ getFlagEmoji(point.id) }}</span>
+                      <span class="geo-label">{{ point.label }}</span>
+                      <span class="geo-count">{{ getPointValue(point, 'views') }}</span>
+                      <div class="geo-bar-bg">
+                        <div class="geo-bar-fill"
+                             [style.width.%]="getBarWidth(countriesReport, 'views', point)">
+                        </div>
+                      </div>
+                    </div>
+                  }
+                </div>
+              } @else {
+                <p class="stats-no-data">{{ 'stats.countries.no-data' | translate }}</p>
+              }
+            </ng-container>
+          </div>
+
+          <!-- Top Cities -->
+          <div class="geo-stats-section">
+            <h2 class="stats-section-title">
+              <i class="fas fa-city geo-icon"></i> {{ 'stats.cities.title' | translate }}
+            </h2>
+            <ng-container *ngVar="citiesReport$ | async as citiesReport">
+              @if (citiesReport && citiesReport.points.length > 0) {
+                <div class="geo-list">
+                  @for (point of citiesReport.points; track point; let i = $index) {
+                    <div class="geo-item">
+                      <span class="geo-rank">{{ i + 1 }}</span>
+                      <span class="geo-label">{{ point.label }}</span>
+                      <span class="geo-count">{{ getPointValue(point, 'views') }}</span>
+                      <div class="geo-bar-bg">
+                        <div class="geo-bar-fill"
+                             [style.width.%]="getBarWidth(citiesReport, 'views', point)">
+                        </div>
+                      </div>
+                    </div>
+                  }
+                </div>
+              } @else {
+                <p class="stats-no-data">{{ 'stats.cities.no-data' | translate }}</p>
+              }
+            </ng-container>
+          </div>
+
+        </div>
+
+        @if ((hasData$ | async) !== true) {
+          <div class="stats-no-data">{{ 'statistics.page.no-data' | translate }}</div>
+        }
+
+      }
+
+    </ng-container>
+
+  </main>
+</div>

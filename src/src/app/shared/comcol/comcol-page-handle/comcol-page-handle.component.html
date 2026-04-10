@@ -1,0 +1,8 @@
+@if (content) {
+  <p class="d-flex flex-wrap gapx-2 text-break">
+    @if (title) {
+      <span class="mb-0">{{ title | translate }}</span>
+    }
+    <a [href]="getHandle()" role="link" tabindex="0">{{getHandle()}}</a>
+  </p>
+}

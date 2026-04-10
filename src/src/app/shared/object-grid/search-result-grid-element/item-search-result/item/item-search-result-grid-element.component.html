@@ -1,0 +1,60 @@
+<div class="card" [@focusShadow]="(isCollapsed$ | async)?'blur':'focus'">
+  <div class="position-absolute ms-1">
+    <ng-content></ng-content>
+  </div>
+  @if (linkType !== linkTypes.None) {
+    <a [target]="(linkType === linkTypes.ExternalLink) ? '_blank' : '_self'" [attr.rel]="(linkType === linkTypes.ExternalLink) ? 'noopener noreferrer' : null" [routerLink]="[itemPageRoute]"
+      class="card-img-top full-width" tabindex="-1" [attr.title]="'search.results.view-result' | translate">
+      <div>
+        <ds-thumbnail [thumbnail]="dso?.thumbnail | async" [limitWidth]="false">
+        </ds-thumbnail>
+      </div>
+    </a>
+  }
+  @if (linkType === linkTypes.None) {
+    <span class="card-img-top full-width">
+      <div>
+        <ds-thumbnail [thumbnail]="dso?.thumbnail | async" [limitWidth]="false">
+        </ds-thumbnail>
+      </div>
+    </span>
+  }
+  <div class="card-body">
+    @if (showLabel) {
+      <ds-badges [object]="dso" [context]="context" [showAccessStatus]="true"></ds-badges>
+    }
+    <ds-truncatable [id]="dso.id">
+      <ds-truncatable-part [id]="dso.id" [minLines]="3" type="h4">
+        <h4 class="card-title" [innerHTML]="dsoTitle"></h4>
+      </ds-truncatable-part>
+      @if (dso.hasMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*'])) {
+        <ds-truncatable-part [id]="dso.id" [minLines]="1">
+          <p class="item-authors card-text text-muted">
+            @if (dso.hasMetadata('dc.date.issued')) {
+              <span class="item-date">{{firstMetadataValue('dc.date.issued')}}</span>
+            }
+            @for (author of allMetadataValues(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']); track author) {
+              <span>,
+                <span [innerHTML]="author"></span>
+              </span>
+            }
+          </p>
+        </ds-truncatable-part>
+      }
+      @if (dso.hasMetadata('dc.description.abstract')) {
+        <ds-truncatable-part [id]="dso.id" [minLines]="3">
+          <p class="item-abstract card-text">
+            <span [innerHTML]="firstMetadataValue('dc.description.abstract')"></span>
+          </p>
+        </ds-truncatable-part>
+      }
+    </ds-truncatable>
+    @if (linkType !== linkTypes.None) {
+      <div class="text-center">
+        <a [target]="(linkType === linkTypes.ExternalLink) ? '_blank' : '_self'" [attr.rel]="(linkType === linkTypes.ExternalLink) ? 'noopener noreferrer' : null" [routerLink]="[itemPageRoute]"
+        class="lead btn btn-primary viewButton">{{ 'search.results.view-result' | translate}}</a>
+      </div>
+    }
+  </div>
+  <ng-content></ng-content>
+</div>

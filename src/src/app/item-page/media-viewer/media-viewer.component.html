@@ -1,0 +1,42 @@
+<ng-container *ngVar="mediaList$ | async as mediaList">
+  @if (isLoading) {
+    <ds-loading
+      message="{{ 'loading.default' | translate }}"
+      [showMessage]="false"
+    ></ds-loading>
+  }
+  @else {
+    <div class="media-viewer">
+      @if (mediaList.length > 0) {
+        <ng-container *ngVar="mediaOptions.video && ['audio', 'video'].includes(mediaList[0]?.format) as showVideo">
+          <ng-container *ngVar="mediaOptions.image && mediaList[0]?.format === 'image' as showImage">
+            @if (showVideo) {
+              <ds-media-viewer-video [medias]="mediaList" [captions]="captions$ | async"></ds-media-viewer-video>
+            }
+            @if (showImage) {
+              <ds-media-viewer-image [images]="mediaList"></ds-media-viewer-image>
+            }
+            @if (showImage || showVideo) {
+            } @else {
+              @if (mediaOptions.image && mediaOptions.video) {
+                <ds-media-viewer-image
+                  [image]="(thumbnailsRD$ | async)?.payload?.page[0]?._links.content.href || thumbnailPlaceholder"
+                  [preview]="false"
+                ></ds-media-viewer-image>
+              }
+              @if (!(mediaOptions.image && mediaOptions.video)) {
+                <ds-thumbnail
+                  [thumbnail]="(thumbnailsRD$ | async)?.payload?.page[0]">
+                </ds-thumbnail>
+              }
+            }
+          </ng-container>
+        </ng-container>
+      } @else {
+        <ds-thumbnail
+          [thumbnail]="(thumbnailsRD$ | async)?.payload?.page[0]">
+        </ds-thumbnail>
+      }
+    </div>
+  }
+</ng-container>

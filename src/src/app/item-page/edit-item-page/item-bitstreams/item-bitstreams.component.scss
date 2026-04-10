@@ -1,0 +1,55 @@
+.drag-handle {
+  &:hover {
+    cursor: move;
+  }
+}
+
+.bitstream-row-drag-handle:hover {
+  cursor: move;
+}
+
+.cdk-drag-preview {
+  margin-left: 0;
+  box-sizing: border-box;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.cdk-drop-list-dragging {
+  .bitstream-row-drag-handle, .drag-handle {
+    cursor: grabbing;
+  }
+}
+
+:host ::ng-deep .larger-tooltip .tooltip-inner {
+  max-width: 500px;
+}
+
+.table-border {
+  border: 1px solid #dee2e6;
+}
+
+:host ::ng-deep .pagination {
+  padding-top: 0.5rem;
+}
+
+.scrollable-table {
+  overflow-x: auto;
+}
+
+.disabled-overlay {
+  opacity: 0.6;
+}
+
+.loading-overlay {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+}

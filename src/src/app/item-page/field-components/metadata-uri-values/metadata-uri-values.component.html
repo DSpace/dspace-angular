@@ -1,0 +1,9 @@
+<ds-metadata-field-wrapper [label]="label | translate">
+  @for (mdValue of mdValues; track mdValue; let last = $last) {
+    <a class="dont-break-out" [href]="mdValue.value" [target]="hasInternalLink(mdValue.value) ? '_self' : '_blank'" role="link" tabindex="0">
+      {{ linktext || mdValue.value }}@if (!last) {
+      <span [innerHTML]="separator"></span>
+    }
+  </a>
+}
+</ds-metadata-field-wrapper>

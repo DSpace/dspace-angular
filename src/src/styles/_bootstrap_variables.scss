@@ -1,0 +1,120 @@
+// DSpace works with CSS variables for its own components, and has a mapping of all bootstrap Sass
+// variables to CSS equivalents (see src/styles/_bootstrap_variables_mapping.scss). However Bootstrap
+// still uses Sass variables internally. So if you want to override Bootstrap (or other sass
+// variables) you can do so here. Their CSS counterparts will include the changes you make here.
+
+// When this file is going to be compiled, internal Bootstrap variables won't have been declared yet,
+// therefore if you want to use any Bootstrap variable you also need to declare it here.
+
+// If you want to change the 'dspace' or the 'custom' theme you should not edit this file, and you should edit
+// _theme_sass_variable_overrides.scss in the theme folder.
+
+// All SASS variables that are declared must have the '!default' flag, otherwise it won't be possible
+// to override them in custom themes.
+
+
+/*** FONT FAMILIES AND FONT SIZES ***/
+
+$font-size-base: 1rem !default; // Assumes the browser default, typically `16px`
+$h1-font-size: $font-size-base * 2.125 !default;
+$h2-font-size: $font-size-base * 1.75 !default;
+$h3-font-size: $font-size-base * 1.5 !default;
+$h4-font-size: $font-size-base * 1.25 !default;
+$h5-font-size: $font-size-base * 1.125 !default;
+$h6-font-size: $font-size-base !default;
+
+
+/*** BOOTSTRAP OPTIONS ***/
+
+$enable-shadows: true !default;
+
+
+/*** SEMANTIC COLOR SCHEME ***/
+
+// Override semantic colors
+$primary:   #2b4e72 !default;               // Blue gray
+$secondary: #495057 !default;               // As Bootstrap $gray-700
+$success:   #94ba65 !default;               // Lime
+$info:      #006666 !default;               // Blue green
+$warning:   #ec9433 !default;               // Orange
+$danger:    #cf4444 !default;               // Red
+$light:     #f8f9fa !default;               // As Bootstrap $gray-100
+$dark:      darken(#2b4e72, 17%) !default;  // Blue gray (darker)
+
+// Add new semantic colors here (you don't need to add existing semantic colors)
+$global-custom-semantic-colors: (
+);
+
+/*** OTHER BOOTSTRAP VARIABLES ***/
+
+$link-color: $info !default;
+$link-hover-color: darken($link-color, 15%) !default;
+
+
+$navbar-dark-color: rgba(white, .5) !default;
+$navbar-light-color: rgba(black, .5) !default;
+$navbar-dark-toggler-icon-bg: url("data:image/svg+xml;charset=utf8,<svg+viewBox='0+0+30+30'+xmlns='http://www.w3.org/2000/svg'><path+stroke='#{$navbar-dark-color}'+stroke-width='2'+stroke-linecap='round'+stroke-miterlimit='10'+d='M4+7h22M4+15h22M4+23h22'/></svg>") !default;
+$navbar-light-toggler-icon-bg: url("data:image/svg+xml;charset=utf8,<svg+viewBox='0+0+30+30'+xmlns='http://www.w3.org/2000/svg'><path+stroke='#{$navbar-light-color}'+stroke-width='2'+stroke-linecap='round'+stroke-miterlimit='10'+d='M4+7h22M4+15h22M4+23h22'/></svg>") !default;
+
+$min-contrast-ratio: 2 !default;
+
+$link-decoration: none;
+$link-hover-decoration: underline;
+
+$pagination-disabled-bg: white;
+
+$icon-font-family: "Font Awesome 6 Free"; /* Define the font-family for icons */
+
+$border-radius: 0.25em;
+
+$bs-border-radius-lg: 0.3rem;
+
+$badge-padding-x: 0.4em;
+$badge-padding-y: 0.25em;
+
+$primary-bg-subtle: $light !default;
+
+/*** CUSTOM DSPACE VARIABLES ***/
+
+$ds-home-news-link-color: $link-color !default;
+$ds-home-news-link-hover-color: darken($ds-home-news-link-color, 15%) !default;
+$ds-breadcrumb-link-color: #003333 !default;
+$ds-breadcrumb-link-active-color: #040D11 !default;
+
+$ds-header-navbar-border-top-color: #fff !default;
+$ds-header-navbar-border-bottom-color: #ced4da !default;
+
+$ds-header-bg: #fff !default;
+$ds-header-icon-color: $link-color !default;
+$ds-header-icon-color-hover: $link-hover-color !default;
+
+$ds-navbar-bg: #fff !default;
+$ds-navbar-dropdown-bg: #fff !default;
+$ds-expandable-navbar-bg: #fff !default;
+$ds-navbar-link-color: $link-color !default;
+$ds-navbar-link-color-hover: #{darken($ds-navbar-link-color, 15%)} !default;
+
+$ds-slider-color: darken(#94BA65, 17%) !default;
+$ds-slider-handle-color: darken(#2B4E72, 17%) !default;
+
+$ds-admin-sidebar-bg: darken(#2b4e72, 17%) !default;
+$ds-admin-sidebar-active-bg: darken($ds-admin-sidebar-bg, 3%) !default;
+$ds-admin-sidebar-fg: #47495d !default;
+$ds-admin-sidebar-fixed-element-width: 55px !default;
+$ds-admin-sidebar-collapsible-element-width: 250px !default;
+$ds-admin-sidebar-total-width: $ds-admin-sidebar-fixed-element-width + $ds-admin-sidebar-collapsible-element-width; // do not change/override
+
+$ds-primary-bg: #{lighten($primary, 30%)} !default;
+$ds-secondary-bg: #{lighten($secondary, 30%)} !default;
+$ds-success-bg: #{lighten($success, 30%)} !default;
+$ds-info-bg: #{lighten($info, 30%)} !default;
+$ds-warning-bg: #{lighten($warning, 30%)} !default;
+$ds-danger-bg: #{lighten($danger, 30%)} !default;
+
+
+/*** MISC ***/
+
+// Starting this url with a caret (^) allows it to be a relative path based on UI's deployment path
+// See https://github.com/angular/angular-cli/issues/12797#issuecomment-598534241
+$fa-font-path: "^assets/fonts" !default;
+

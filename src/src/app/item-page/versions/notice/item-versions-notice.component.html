@@ -1,0 +1,7 @@
+@if ((showLatestVersionNotice$ | async) === true) {
+  <ds-alert
+    [content]="('item.version.notice' | translate:{ destination: getItemPage(((latestVersion$ | async)?.item | async)?.payload) })"
+    [dismissible]="false"
+    [type]="AlertTypeEnum.Warning">
+  </ds-alert>
+}

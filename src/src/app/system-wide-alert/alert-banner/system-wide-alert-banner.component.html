@@ -1,0 +1,31 @@
+@if ((systemWideAlert$ |async)?.active) {
+  <div>
+    <div class="rounded-0 alert alert-warning w100 m-0 px-1">
+      <div class="container">
+        <span class="fw-bold">
+          @if ((countDownDays|async) > 0 || (countDownHours| async) > 0 || (countDownMinutes|async) > 0 ) {
+            <span>
+              {{ 'system-wide-alert-banner.countdown.prefix' | translate }}
+            </span>
+          }
+          @if ((countDownDays|async) > 0) {
+            <span>
+              {{ 'system-wide-alert-banner.countdown.days' | translate: { days: countDownDays|async } }}
+            </span>
+          }
+          @if ((countDownDays|async) > 0 || (countDownHours| async) > 0 ) {
+            <span>
+              {{ 'system-wide-alert-banner.countdown.hours' | translate: { hours: countDownHours| async } }}
+            </span>
+          }
+          @if ((countDownDays|async) > 0 || (countDownHours| async) > 0 || (countDownMinutes|async) > 0 ) {
+            <span>
+              {{ 'system-wide-alert-banner.countdown.minutes' | translate: { minutes: countDownMinutes|async } }}
+            </span>
+          }
+        </span>
+        <span [innerHTML]="(systemWideAlert$ |async)?.message"></span>
+      </div>
+    </div>
+  </div>
+}

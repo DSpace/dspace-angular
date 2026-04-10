@@ -1,0 +1,25 @@
+@if ((isLoading$ | async) === false) {
+  <div class="container">
+    <div class="row">
+      <div class="col-12 pb-4">
+        <ng-container *ngVar="(parentRD$ | async)?.payload as parent">
+          @if (!parent) {
+            <h1 id="header" class="border-bottom p-2">{{ 'community.create.head' | translate }}</h1>
+          } @else {
+            <h1 id="sub-header"
+            class="border-bottom pb-2">{{ 'community.create.sub-head' | translate:{ parent: dsoNameService.getName(parent) } }}</h1>
+          }
+        </ng-container>
+      </div>
+    </div>
+    <ds-community-form (submitForm)="onSubmit($event)"
+      [isCreation]="true"
+    (back)="navigateToHome()"></ds-community-form>
+  </div>
+}
+
+<div class="container">
+  @if (isLoading$ | async) {
+    <ds-loading></ds-loading>
+  }
+</div>

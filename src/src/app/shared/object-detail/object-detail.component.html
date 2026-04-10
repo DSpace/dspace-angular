@@ -1,0 +1,38 @@
+<ds-pagination
+  [paginationOptions]="config"
+  [collectionSize]="objects?.payload?.totalElements"
+  [sortOptions]="sortConfig"
+  [objects]="objects"
+  [hideGear]="hideGear"
+  [showRSS]="showRSS"
+  [hidePaginationDetail]="hidePaginationDetail"
+  [hidePagerWhenSinglePage]="hidePagerWhenSinglePage"
+  [showPaginator]="showPaginator"
+  (pageChange)="onPageChange($event)"
+  (pageSizeChange)="onPageSizeChange($event)"
+  (sortDirectionChange)="onSortDirectionChange($event)"
+  (sortFieldChange)="onSortFieldChange($event)"
+  (paginationChange)="onPaginationChange($event)"
+  (prev)="goPrev()"
+  (next)="goNext()">
+  @if (objects?.hasSucceeded) {
+    <div class="row mt-2" @fadeIn>
+      @for (object of objects?.payload?.page; track object) {
+        <div class="col"
+          >
+          <ds-listable-object-component-loader [object]="object"
+            [viewMode]="viewMode"
+            [context]="context"
+            [showThumbnails]="showThumbnails"
+          (contentChange)="contentChange.emit($event)"></ds-listable-object-component-loader>
+        </div>
+      }
+    </div>
+  }
+  @if (objects.hasFailed) {
+    <ds-error message="{{'error.objects' | translate}}"></ds-error>
+  }
+  @if (objects.isLoading) {
+    <ds-loading message="{{'loading.objects' | translate}}"></ds-loading>
+  }
+</ds-pagination>

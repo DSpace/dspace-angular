@@ -1,0 +1,63 @@
+@if (subscriptionForm) {
+  <form [formGroup]="subscriptionForm" (ngSubmit)="submit()" data-test="subscription-form">
+    <div class="modal-header">
+      <h4 class="modal-title">{{'subscriptions.modal.title' | translate}}</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.close()">
+      </button>
+    </div>
+    <div class="modal-body">
+      <p class="mb-3"><strong>{{ dsoNameService.getName(dso) }}</strong>
+      @if (!!dso) {
+        <span class="float-end">@if (!!dso) {
+          <ds-type-badge [object]="dso"></ds-type-badge>
+        }</span>
+      }
+    </p>
+    <div>
+      @for (subscriptionType of subscriptionForm?.controls | keyvalue; track subscriptionType) {
+        <fieldset formGroupName="{{subscriptionType.key}}" class="mb-3 row">
+          <legend class="col-md-4 col-form-label float-md-start pt-0">
+            {{ 'subscriptions.modal.new-subscription-form.type.' + subscriptionType.key | translate }}:
+          </legend>
+          <div class="col-md-8">
+            <input type="hidden" formControlName="subscriptionId" [value]="subscriptionType?.value?.controls['subscriptionId'].value" >
+            @for (frequency of frequencyDefaultValues; track frequency) {
+              <div class="form-check" formGroupName="frequencies">
+                <input type="checkbox" [id]="'checkbox-' + frequency" class="form-check-input" [formControlName]="frequency"/>
+                <label class="form-check-label"
+                [for]="'checkbox-' + frequency">{{ 'subscriptions.modal.new-subscription-form.frequency.' + frequency | translate }}</label>
+              </div>
+            }
+          </div>
+          @if (!!submitted && subscriptionType?.value?.controls['frequencies'].errors?.required) {
+            <ds-alert [type]="'alert-danger'">
+              {{ 'context-menu.actions.subscription.frequency.required' | translate }}
+            </ds-alert>
+          }
+        </fieldset>
+      }
+    </div>
+    @if ((showDeleteInfo$ | async)) {
+      <p class="text-muted">{{'subscriptions.modal.delete-info' | translate}}</p>
+    }
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary"
+      (click)="activeModal.close()">
+      {{'subscriptions.modal.close' | translate}}
+    </button>
+    <button type="submit" class="btn btn-success" [dsBtnDisabled]="(processing$ | async) || !isValid">
+      @if ((processing$ | async)) {
+        <span>
+          <i class='fas fa-circle-notch fa-spin'></i> {{'subscriptions.modal.new-subscription-form.processing' | translate}}
+        </span>
+      }
+      @if ((processing$ | async) !== true) {
+        <span>
+          {{'subscriptions.modal.new-subscription-form.submit' | translate}}
+        </span>
+      }
+    </button>
+  </div>
+</form>
+}

@@ -1,0 +1,35 @@
+@for (entry of healthInfoComponent | dsObjNgFor; track entry) {
+  <div data-test="collapse">
+    @if (entry && !isPlainProperty(entry.value)) {
+      <div class="mb-3 border-bottom">
+        <div class="w-100 d-flex gap-3 justify-content-between collapse-toggle" (click)="collapse.toggle()">
+          <button type="button" class="btn btn-link p-0" (click)="$event.preventDefault()" [attr.aria-expanded]="!collapse.collapsed"
+            [attr.aria-controls]="'health-info-component-' + entry.key + '-content'">
+            {{ entry.key | titlecase }}
+          </button>
+          <div class="d-flex my-auto">
+            @if (collapse.collapsed) {
+              <span class="fas fa-chevron-down"></span>
+            }
+            @if (!collapse.collapsed) {
+              <span class="fas fa-chevron-up"></span>
+            }
+          </div>
+        </div>
+        <div #collapse="ngbCollapse" [id]="'health-info-component-' + entry.key + '-content'" [ngbCollapse]="isCollapsed">
+          <div class="card border-0">
+            <div class="card-body">
+              <ds-health-info-component [healthInfoComponent]="entry.value"
+                [healthInfoComponentName]="entry.key"
+                [isNested]="true"
+              data-test="info-component"></ds-health-info-component>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+    @if (entry && isPlainProperty(entry.value)) {
+      <p data-test="property"> <span class="fw-bold">{{ getPropertyLabel(entry.key) | titlecase }}</span> : {{entry.value}}</p>
+    }
+  </div>
+}

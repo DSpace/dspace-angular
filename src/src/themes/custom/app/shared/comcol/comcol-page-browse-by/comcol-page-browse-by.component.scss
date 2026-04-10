@@ -1,0 +1,71 @@
+$navy-deep:   #1A365D;
+$navy-mid:    #2A4365;
+$accent-gold: #D69E2E;
+$bg-light:    #F1F5F9;
+$border-light:#E2E8F0;
+$text-muted:  #64748b;
+$white:       #ffffff;
+
+// ── Browse nav container ──────────────────────────────────────────────
+.comcol-browse {
+  border-bottom: 2px solid $border-light;
+  padding-bottom: 4px;
+}
+
+// ── Desktop tab strip ─────────────────────────────────────────────────
+.browse-tab-list {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 4px;
+  overflow-x: auto;
+}
+
+.browse-tab-item {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 13px;
+  border-radius: 8px 8px 0 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: $navy-mid;
+  background: $bg-light;
+  border: 2px solid $border-light;
+  border-bottom: none;
+  text-decoration: none !important;
+  cursor: pointer;
+  transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+  white-space: nowrap;
+
+  &:hover {
+    background: darken($bg-light, 4%);
+    border-color: $accent-gold;
+    color: $navy-deep;
+    text-decoration: none !important;
+  }
+
+  &.active {
+    background: $navy-deep;
+    color: $white;
+    border-color: $navy-deep;
+    box-shadow: 0 -3px 0 0 $accent-gold inset;
+    pointer-events: none;
+  }
+}
+
+// ── Mobile select ──────────────────────────────────────────────────────
+.browse-select {
+  border: 2px solid $border-light;
+  border-radius: 8px;
+  padding: 9px 12px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: $navy-deep;
+  background: $bg-light;
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+    border-color: $navy-deep;
+    box-shadow: 0 0 0 3px rgba($navy-deep, 0.12);
+  }
+}

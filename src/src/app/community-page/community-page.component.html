@@ -1,0 +1,52 @@
+<div class="container" *ngVar="(communityRD$ | async) as communityRD">
+  @if (communityRD?.hasSucceeded) {
+    <div class="community-page" @fadeInOut>
+      @if (communityRD?.payload; as communityPayload) {
+        <div>
+          <div class="d-flex flex-row border-bottom mb-4 pb-4">
+            <header class="comcol-header me-auto">
+              <!-- Community name -->
+              <ds-comcol-page-header [name]="dsoNameService.getName(communityPayload)"></ds-comcol-page-header>
+              <!-- Community logo -->
+              @if (logoRD$) {
+                <ds-comcol-page-logo [logo]="(logoRD$ | async)?.payload" [alternateText]="'community.logo' | translate">
+                </ds-comcol-page-logo>
+              }
+              <!-- Handle -->
+              <ds-comcol-page-handle [content]="communityPayload.handle" [title]="'community.page.handle'">
+              </ds-comcol-page-handle>
+              <!-- Introductory text -->
+              <ds-comcol-page-content [content]="communityPayload.introductoryText" [hasInnerHtml]="true">
+              </ds-comcol-page-content>
+              <!-- News -->
+              <ds-comcol-page-content [content]="communityPayload.sidebarText" [hasInnerHtml]="true"
+                [title]="'community.page.news'">
+              </ds-comcol-page-content>
+            </header>
+            <ds-dso-edit-menu></ds-dso-edit-menu>
+          </div>
+          <section class="comcol-page-browse-section">
+            <!-- Browse-By Links -->
+            <ds-comcol-page-browse-by [id]="communityPayload.id" [contentType]="communityPayload.type">
+            </ds-comcol-page-browse-by>
+            <router-outlet></router-outlet>
+          </section>
+          @if (communityPayload.copyrightText) {
+            <footer class="border-top my-5 pt-4">
+              <!-- Copyright -->
+              <ds-comcol-page-content [content]="communityPayload.copyrightText" [hasInnerHtml]="true">
+              </ds-comcol-page-content>
+            </footer>
+          }
+        </div>
+      }
+    </div>
+  }
+
+  @if (communityRD?.hasFailed) {
+    <ds-error message="{{'error.community' | translate}}"></ds-error>
+  }
+  @if (communityRD?.isLoading) {
+    <ds-loading message="{{'loading.community' | translate}}"></ds-loading>
+  }
+</div>

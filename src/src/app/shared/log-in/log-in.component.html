@@ -1,0 +1,13 @@
+@if ((loading | async) || (isAuthenticated | async)) {
+  <ds-loading class="m-5"></ds-loading>
+}
+@if ((loading | async) !== true && (isAuthenticated | async) !== true) {
+  <div class="px-4 py-3 mx-auto login-container">
+    @for (authMethod of (authMethods | async); track authMethod; let last = $last) {
+      <ds-log-in-container [authMethod]="authMethod" [isStandalonePage]="isStandalonePage"></ds-log-in-container>
+      @if (!last) {
+        <div class="dropdown-divider my-2"></div>
+      }
+    }
+  </div>
+}

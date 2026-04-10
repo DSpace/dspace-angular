@@ -1,0 +1,14 @@
+<div class="d-flex flex-row">
+  @if (linkType !== linkTypes.None) {
+    <a [target]="(linkType === linkTypes.ExternalLink) ? '_blank' : '_self'" [attr.rel]="(linkType === linkTypes.ExternalLink) ? 'noopener noreferrer' : null" [routerLink]="[]" [queryParams]="queryParams$ | async" class="lead" role="link" tabindex="0">
+      {{object.value}}
+    </a>
+  }
+  @if (linkType === linkTypes.None) {
+    <span class="lead">
+      {{object.value}}
+    </span>
+  }
+  <span class="pe-2">&nbsp;</span>
+  <span class="badge rounded-pill bg-secondary align-self-center ps-2 pe-2">{{object.count}}</span>
+</div>

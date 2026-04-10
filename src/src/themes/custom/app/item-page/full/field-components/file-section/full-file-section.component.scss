@@ -1,0 +1,14 @@
+.format-icon-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  max-width: 120px;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.07);
+
+  i {
+    font-size: 2.4rem;
+  }
+}

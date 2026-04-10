@@ -1,0 +1,12 @@
+<div>
+  <div class="modal-header">{{'dso-selector.'+ action + '.' + objectType.toString().toLowerCase() + '.head' | translate}}
+    <button type="button" class="btn-close" (click)="close()" aria-label="Close">
+    </button>
+  </div>
+  <div class="modal-body">
+    @if (header) {
+      <span class="h5 px-2">{{header | translate}}</span>
+    }
+    <ds-dso-selector [currentDSOId]="dsoRD?.payload.uuid" [types]="selectorTypes" [sort]="defaultSort" (onSelect)="selectObject($event)"></ds-dso-selector>
+  </div>
+</div>

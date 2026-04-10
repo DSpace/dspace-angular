@@ -1,0 +1,7 @@
+@if (itemRD$ | async; as itemRD) {
+  <ds-access-control-form-container
+    titleMessage="item-access-control-title"
+    [itemRD]="itemRD"
+    [showLimitToSpecificBitstreams]="true">
+  </ds-access-control-form-container>
+}

@@ -1,0 +1,39 @@
+<form class="w-100" [formGroup]="formData" (ngSubmit)="submitForm(formData.value)">
+  <div class="row">
+    <span class="col-12 fw-bold mb-1">
+      {{ 'browse.startsWith.jump' | translate }}
+    </span>
+    <div class="col-6 col-md-2">
+      <select id="year-select" class="form-select" (change)="setStartsWithYearEvent($event)" [attr.aria-label]="'browse.startsWith.choose_year.label' |translate">
+        <option [value]="-1" [selected]="!startsWithYear">
+          {{ 'browse.startsWith.choose_year' | translate }}
+        </option>
+        @for (option of startsWithOptions; track option) {
+          <option
+            [value]="option"
+            [selected]="option === startsWithYear ? 'selected': null">
+            {{ option }}
+          </option>
+        }
+      </select>
+    </div>
+    <div class="col-6 col-md-2">
+      <select id="month-select" class="form-select" (change)="setStartsWithMonthEvent($event)" [attr.aria-label]="'browse.startsWith.months.none.label' |translate">
+        @for (option of monthOptions; track option) {
+          <option
+            [value]="option"
+            [selected]="option === startsWithMonth ? 'selected': null">
+            {{ 'browse.startsWith.months.' + option | translate }}
+          </option>
+        }
+      </select>
+    </div>
+    <div class="col-12 col-md-6">
+      <div class="mb-3 input-group pt-1 pt-md-0">
+        <input class="form-control" placeholder="{{'browse.startsWith.type_date' | translate}}" [attr.aria-label]="'browse.startsWith.type_date.label' |translate" type="text" name="startsWith"
+          formControlName="startsWith" [value]="getStartsWith() ? getStartsWith() : ''"/>
+        <button class="btn btn-primary" type="submit" role="button" tabindex="0"><i class="fas fa-book-open"></i> {{ 'browse.startsWith.submit' | translate }}</button>
+      </div>
+    </div>
+  </div>
+</form>

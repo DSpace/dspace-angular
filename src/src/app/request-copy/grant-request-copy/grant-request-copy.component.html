@@ -1,0 +1,43 @@
+<div class="container" *ngVar="(itemRequestRD$ | async) as itemRequestRD">
+  <h3 class="mb-4">{{ 'grant-request-copy.header' | translate }}</h3>
+  @if (itemRequestRD && itemRequestRD.hasSucceeded) {
+    <div>
+      <!-- Show the appropriate intro text depending on whether the email will have an attachment or a web link -->
+      <p>{{ 'grant-request-copy.intro.' + (sendAsAttachment ? 'attachment' : 'link') | translate }}</p>
+
+      @if (!sendAsAttachment && hasValue(previewLink)) {
+        <div>
+          <p>{{ 'grant-request-copy.intro.link.preview' | translate }}
+            <a [attr.routerLink]="previewLinkOptions.routerLink" class="dont-break-out d-block" [target]="'_blank'"
+               [attr.queryParams]="previewLinkOptions.queryParams"
+               [attr.rel]=""
+            >
+              {{ previewLink }}
+            </a>
+          </p>
+        </div>
+      }
+
+      <!-- Only send access periods for display if an access token was present -->
+      <ds-email-request-copy [subject]="subject$ | async"
+                             [message]="message$ | async"
+                             (send)="grant($event)"
+                             (selectedAccessPeriod)="selectAccessPeriod($event)"
+                             [validAccessPeriods$]="validAccessPeriods$"
+      >
+        <p>{{ 'grant-deny-request-copy.email.permissions.info' | translate }}</p>
+        <form class="mb-3">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="permissions" [(ngModel)]="suggestOpenAccess"
+                   name="permissions">
+            <label class="form-check-label"
+                   for="permissions">{{ 'grant-deny-request-copy.email.permissions.label' | translate }}</label>
+          </div>
+        </form>
+      </ds-email-request-copy>
+    </div>
+  }
+  @if (!itemRequestRD || itemRequestRD?.isLoading) {
+    <ds-loading></ds-loading>
+  }
+</div>

@@ -1,0 +1,91 @@
+<header class="info-page-hero">
+  <div class="info-badge">{{ 'contrib.badge' | translate }}</div>
+  <h1 [innerHTML]="'contrib.title.html' | translate"></h1>
+  <div class="hero-subtitle-container">
+    <span class="hero-line"></span>
+    <span class="hero-subtitle">Bhasha Sanchika</span>
+    <span class="hero-line right"></span>
+  </div>
+</header>
+
+<div class="info-page-wrapper">
+  <main class="info-page-card">
+
+    <h2 class="info-section-title first">{{ 'contrib.section.initiative' | translate }}</h2>
+
+    <div class="contrib-commitment-layout">
+      <div class="contrib-feature-card">
+        <div class="contrib-feature-header">
+          <i class="fas fa-users-cog contrib-feature-icon"></i>
+          <h3 class="contrib-feature-title">A Collective<br>Endeavour</h3>
+        </div>
+        <p style="color: #ffffff;">CIIL integrates expertise and resources from various disciplines to develop a repository for Indian Languages</p>
+        <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px;">
+          <span style="font-size: 0.85rem; opacity: 0.7; display: block; margin-bottom: 5px;">Core Pillars:</span>
+          <span class="contrib-tech-badge">Community</span>
+          <span class="contrib-tech-badge">Innovation</span>
+        </div>
+      </div>
+
+      <div class="contrib-intro-text">
+        <p [innerHTML]="'contrib.intro.p1' | translate"></p>
+        <p>{{ 'contrib.intro.p2' | translate }}</p>
+      </div>
+    </div>
+
+    <h2 class="info-section-title">{{ 'contrib.section.leadership' | translate }}</h2>
+    <div class="contrib-leadership-grid">
+      <div class="contrib-leader-card">
+        <div class="contrib-leader-img"><img src="assets/custom/images/Prof.%20Shailendra%20Mohan.jpg" alt="Prof. Shailendra Mohan" class="about-leader-photo"></div>
+        <div class="contrib-leader-name">{{ 'contrib.leader1.name' | translate }}</div>
+        <div class="contrib-leader-role">{{ 'contrib.leader1.role' | translate }}</div>
+      </div>
+      <div class="contrib-leader-card">
+        <div class="contrib-leader-img"><img src="assets/custom/images/Dr.%20Sujoy%20Sarkar.jpeg" alt="Dr. Sujoy Sarkar" class="about-leader-photo"></div>
+        <div class="contrib-leader-name">{{ 'contrib.leader2.name' | translate }}</div>
+        <div class="contrib-leader-role">{{ 'contrib.leader2.role' | translate }}</div>
+      </div>
+    </div>
+
+    <h2 class="info-section-title">{{ 'contrib.section.contributors' | translate }}</h2>
+
+    @for (section of sections; track section.index) {
+      <div class="contrib-accordion-item" [class.open]="openSections.has(section.index)">
+        <div class="contrib-accordion-header" (click)="toggleSection(section.index)">
+          <div class="contrib-accordion-title"><i [class]="section.icon"></i> {{ section.titleKey | translate }}</div>
+          <i class="fas fa-chevron-down contrib-accordion-icon"></i>
+        </div>
+        <div class="contrib-accordion-content">
+          @if (section.contributors) {
+            <div class="contrib-grid">
+              @for (person of section.contributors; track person.nameKey) {
+                <div class="contrib-item">
+                  <span class="c-name">{{ person.nameKey | translate }}</span>
+                  <span class="c-role">{{ person.roleKey | translate }}</span>
+                </div>
+              }
+            </div>
+          }
+          @if (section.subsections) {
+            @for (sub of section.subsections; track sub.titleKey) {
+              <h6 class="text-primary mb-3">{{ sub.titleKey | translate }}</h6>
+              <div class="contrib-grid mb-4">
+                @for (person of sub.contributors; track person.nameKey) {
+                  <div class="contrib-item">
+                    <span class="c-name">{{ person.nameKey | translate }}</span>
+                    <span class="c-role">{{ person.roleKey | translate }}</span>
+                  </div>
+                }
+              </div>
+            }
+          }
+        </div>
+      </div>
+    }
+
+    <div class="contrib-gratitude-box">
+      <p>{{ 'contrib.gratitude' | translate }}</p>
+    </div>
+
+  </main>
+</div>

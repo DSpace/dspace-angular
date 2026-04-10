@@ -1,0 +1,99 @@
+<!-- ===== TRIGGER BUTTON ===== -->
+<button class="cite-trigger-btn" type="button" (click)="openModal()">
+  <i class="fas fa-quote-right"></i>
+  <span>{{ 'citation.widget.trigger' | translate }}</span>
+</button>
+
+<!-- ===== MODAL — rendered here but moved to <body> in ngAfterViewInit ===== -->
+<div #backdropRef
+     class="cite-backdrop"
+     [class.cite-visible]="showModal"
+     role="dialog"
+     aria-modal="true"
+     aria-labelledby="cite-modal-title"
+     (click)="onBackdropClick($event)"
+     (keydown)="onKeyDown($event)"
+     tabindex="-1">
+
+  <div class="cite-modal">
+
+    <!-- Header -->
+    <div class="cite-modal-header">
+      <h5 id="cite-modal-title">
+        <i class="fas fa-quote-right"></i> {{ 'citation.widget.title' | translate }}
+      </h5>
+      <button class="cite-close-btn" type="button" (click)="closeModal()" [attr.aria-label]="'citation.widget.close' | translate">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+
+    <!-- Tabs -->
+    <div class="cite-tabs">
+      <button class="cite-tab" type="button"
+              [ngClass]="{ active: activeTab === 'apa' }"
+              (click)="setTab('apa')">
+        {{ 'citation.widget.tab.plaintext' | translate }}
+      </button>
+      <button class="cite-tab" type="button"
+              [ngClass]="{ active: activeTab === 'bibtex' }"
+              (click)="setTab('bibtex')">
+        {{ 'citation.widget.tab.bibtex' | translate }}
+      </button>
+      <button class="cite-tab" type="button"
+              [ngClass]="{ active: activeTab === 'ris' }"
+              (click)="setTab('ris')">
+        {{ 'citation.widget.tab.ris' | translate }}
+      </button>
+    </div>
+
+    <!-- Body -->
+    <div class="cite-modal-body">
+
+      @if (activeTab === 'apa') {
+        <p class="cite-format-label">{{ 'citation.widget.format.apa' | translate }}</p>
+      }
+      @if (activeTab === 'bibtex') {
+        <p class="cite-format-label">{{ 'citation.widget.format.bibtex' | translate }}</p>
+      }
+      @if (activeTab === 'ris') {
+        <p class="cite-format-label">{{ 'citation.widget.format.ris' | translate }}</p>
+      }
+
+      <!-- Citation & Abstract checkbox -->
+      @if (hasDescription) {
+        <label class="cite-desc-toggle">
+          <input type="checkbox" [(ngModel)]="includeDescription" />
+          <span>{{ 'citation.widget.include.abstract' | translate }}</span>
+        </label>
+      }
+
+      <div class="cite-text-box">
+        <pre class="cite-pre">{{ activeText }}</pre>
+      </div>
+
+      <div class="cite-actions">
+        <button class="cite-copy-btn" type="button" (click)="copyToClipboard()">
+          <i class="fas" [ngClass]="copySuccess ? 'fa-check' : 'fa-copy'"></i>
+          @if (copySuccess) {
+            {{ 'citation.widget.copied' | translate }}
+          } @else {
+            {{ 'citation.widget.copy' | translate }}
+          }
+        </button>
+
+        @if (activeTab === 'bibtex') {
+          <button class="cite-download-btn" type="button" (click)="downloadFile('bibtex')">
+            <i class="fas fa-download"></i> {{ 'citation.widget.download.bib' | translate }}
+          </button>
+        }
+        @if (activeTab === 'ris') {
+          <button class="cite-download-btn" type="button" (click)="downloadFile('ris')">
+            <i class="fas fa-download"></i> {{ 'citation.widget.download.ris' | translate }}
+          </button>
+        }
+      </div>
+
+    </div>
+
+  </div>
+</div>

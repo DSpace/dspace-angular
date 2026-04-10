@@ -1,0 +1,63 @@
+<div *ngVar="getAdvancedInfo(workflowAction$ | async) as advancedInfo">
+  @if (advancedInfo?.descriptionRequired) {
+    <p>
+      {{ 'advanced-workflow-action.rating.description-requiredDescription' | translate }}
+    </p>
+  }
+  @if (!advancedInfo?.descriptionRequired) {
+    <p>
+      {{ 'advanced-workflow-action.rating.description' | translate }}
+    </p>
+  }
+
+  @if (ratingForm) {
+    <form (ngSubmit)="performAction()" [formGroup]="ratingForm">
+      <div class="mb-3">
+        <label class="control-label">
+          <span>{{ 'advanced-workflow-action.rating.form.review.label' | translate }}</span>
+          @if (advancedInfo?.descriptionRequired) {
+            <span>*</span>
+          }
+        </label>
+        <textarea [ngClass]="{ 'is-invalid' : isInvalid('review') }"
+          [required]="advancedInfo?.descriptionRequired" class="form-control" formControlName="review">
+        </textarea>
+        @if (isInvalid('review')) {
+          <small class="invalid-feedback d-block">
+            {{ 'advanced-workflow-action.rating.form.review.error' | translate }}
+          </small>
+        }
+      </div>
+      <div class="mb-3">
+        <label class="control-label mb-1">
+          {{ 'advanced-workflow-action.rating.form.rating.label' | translate }}*
+        </label>
+        <div class="d-block">
+          <ngb-rating [max]="advancedInfo?.maxValue" [ngClass]="{ 'text-danger': isInvalid('rating') }"
+            formControlName="rating">
+          </ngb-rating>
+        </div>
+        @if (isInvalid('rating')) {
+          <small class="invalid-feedback d-block">
+            {{ 'advanced-workflow-action.rating.form.rating.error' | translate }}
+          </small>
+        }
+      </div>
+    </form>
+  }
+
+  @if (item$ | async) {
+    <ds-modify-item-overview
+      [item]="item$ | async">
+    </ds-modify-item-overview>
+  }
+
+  <div class="d-flex flex-wrap justify-content-end">
+    <button (click)="previousPage()" class="btn btn-default">
+      {{'workflow-item.' + getType() + '.button.cancel' | translate}}
+    </button>
+    <button (click)="performAction()" class="btn btn-primary">
+      {{'workflow-item.' + getType() + '.button.confirm' | translate}}
+    </button>
+  </div>
+</div>

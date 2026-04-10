@@ -1,0 +1,16 @@
+<div>
+  <div class="modal-header">{{'dso-selector.select.collection.head' | translate}}
+    <button type="button" class="btn-close" (click)="closeCollectionModal()" aria-label="Close">
+    </button>
+  </div>
+  <div class="modal-body">
+    @if (isLoading()) {
+      <ds-loading></ds-loading>
+    }
+    <ds-collection-dropdown [ngClass]="{'d-none': isLoading()}"
+      (selectionChange)="selectObject($event)"
+      (searchComplete)="searchComplete()"
+      [entityType]="entityType">
+    </ds-collection-dropdown>
+  </div>
+</div>

@@ -1,0 +1,30 @@
+<ds-metadata-field-wrapper [label]="label | translate">
+  <div class="collections">
+    @for (collection of (this.collections$ | async); track collection; let last = $last) {
+      <a [routerLink]="['/collections', collection.id]" role="button" tabindex="0">
+        <span>{{ dsoNameService.getName(collection) }}</span>@if (!last) {
+        <span [innerHTML]="separator"></span>
+      }
+    </a>
+  }
+</div>
+
+@if (isLoading$ | async) {
+  <div>
+    {{'item.page.collections.loading' | translate}}
+  </div>
+}
+
+@if ((isLoading$ | async) !== true && (hasMore$ | async)) {
+  <a
+    (click)="$event.preventDefault(); handleLoadMore()"
+    class="load-more-btn btn btn-sm btn-outline-secondary"
+    role="button"
+    href="javascript:void(0);"
+    role="button"
+    tabindex="0"
+    >
+    {{'item.page.collections.load-more' | translate}}
+  </a>
+}
+</ds-metadata-field-wrapper>

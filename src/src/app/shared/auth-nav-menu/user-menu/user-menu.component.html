@@ -1,0 +1,36 @@
+@if ((loading$ | async)) {
+  <ds-loading></ds-loading>
+}
+@if ((loading$ | async) !== true) {
+  <ul class="user-menu" role="menu"
+    [ngClass]="inExpandableNavbar ? 'user-menu-mobile pb-2 mb-2 border-bottom' : 'user-menu-dropdown'"
+    [attr.aria-label]="'nav.user-profile-menu-and-logout' |translate" id="user-menu-dropdown">
+    <li class="ds-menu-item-wrapper username-email-wrapper" role="presentation">
+      {{dsoNameService.getName(user$ | async)}}<br>
+      <span class="text-muted">{{(user$ | async)?.email}}</span>
+    </li>
+    <li class="ds-menu-item-wrapper" role="presentation" (click)="onMenuItemClick()">
+      <a class="ds-menu-item" role="menuitem"
+        [routerLink]="[profileRoute]"
+      routerLinkActive="active">{{'nav.profile' | translate}}</a>
+    </li>
+    <li class="ds-menu-item-wrapper" role="presentation" (click)="onMenuItemClick()">
+      <a class="ds-menu-item" role="menuitem"
+        [routerLink]="[mydspaceRoute]"
+      routerLinkActive="active">{{'nav.mydspace' | translate}}</a>
+    </li>
+    <li class="ds-menu-item-wrapper" role="presentation" (click)="onMenuItemClick()">
+      <a class="ds-menu-item" role="menuitem"
+        [routerLink]="[subscriptionsRoute]"
+      routerLinkActive="active">{{'nav.subscriptions' | translate}}</a>
+    </li>
+    @if (!inExpandableNavbar) {
+      <li class="dropdown-divider" aria-hidden="true"></li>
+      <li class="ds-menu-item-wrapper" role="presentation">
+        <ds-log-out data-test="log-out-component"></ds-log-out>
+      </li>
+    }
+  </ul>
+}
+
+

@@ -1,0 +1,36 @@
+<h2 class="comcol-browse-label">{{'browse.comcol.head' | translate}}</h2>
+@if ((allOptions$ | async); as allOptions) {
+  <nav class="comcol-browse mb-4" aria-label="Browse Community or Collection">
+    <div class="d-none d-sm-block">
+      <div class="list-group list-group-horizontal" role="tablist">
+        @for (option of allOptions; track option) {
+          <a
+            [attr.aria-current]="(currentOption$ | async)?.id === option.id"
+            class="list-group-item"
+            role="tab"
+            [routerLink]="option.routerLink"
+            [queryParams]="option.params"
+            [class.active]="(currentOption$ | async)?.id === option.id"
+            role="tab"
+            tabindex="0">
+            {{ option.label | translate }}
+          </a>
+        }
+      </div>
+    </div>
+    <div class="d-block d-sm-none">
+      <select name="browse-type"
+        class="form-select"
+        aria-label="Browse Community or Collection"
+        (change)="onSelectChange($event)">
+        @for (option of allOptions; track option) {
+          <option
+            [value]="option.id"
+            [attr.selected]="(currentOption$ | async)?.id === option.id ? 'selected' : null">
+            {{ option.label | translate }}
+          </option>
+        }
+      </select>
+    </div>
+  </nav>
+}

@@ -1,0 +1,53 @@
+<div>
+  <div class="filters py-2">
+    <form #form="ngForm" (ngSubmit)="onSubmit()" class="add-filter row"
+      [action]="currentUrl">
+      <div class="col-6 mb-3 mb-0">
+        <label class="form-label">
+          <span class="fw-bold">
+            {{'search.filters.filter.' + filterConfig.name + '.min.label' | translate}}
+          </span>
+          <input type="text" [(ngModel)]="range[0]" [name]="filterConfig.paramName + '.min'"
+            class="form-control"
+            [attr.aria-label]="minLabel"
+            [placeholder]="minLabel"
+            />
+        </label>
+      </div>
+      <div class="col-6">
+        <label class="form-label">
+          <span class="fw-bold">
+            {{'search.filters.filter.' + filterConfig.name + '.max.label' | translate}}
+          </span>
+          <input type="text" [(ngModel)]="range[1]" [name]="filterConfig.paramName + '.max'"
+            class="form-control"
+            [attr.aria-label]="maxLabel"
+            [placeholder]="maxLabel"
+            />
+        </label>
+      </div>
+      <button class="sr-only" type="submit" role="button" tabindex="0">
+        {{'search.filters.search.submit' | translate}}
+      </button>
+    </form>
+
+    @if (shouldShowSlider()) {
+      <nouislider [connect]="true" [config]="config" [min]="min" [max]="max" [step]="1"
+        [dsDebounce]="250"
+        (change)="onSliderChange($event)"
+        (keydown)="startKeyboardControl()" (keyup)="stopKeyboardControl()"
+        [(ngModel)]="range" ngDefaultControl>
+      </nouislider>
+    }
+    @for (page of (facetValues$ | async); track page) {
+      <div [@facetLoad]="animationState">
+        @for (value of page.page; track trackUpdate($index, value)) {
+          <ds-search-facet-range-option [filterConfig]="filterConfig" [filterValue]="value" [inPlaceSearch]="inPlaceSearch"></ds-search-facet-range-option>
+        }
+      </div>
+    }
+    <button (click)="onSubmit()" class="btn btn-primary" role="button" tabindex="0">
+      {{'search.filters.search.submit' | translate}}
+    </button>
+  </div>
+</div>

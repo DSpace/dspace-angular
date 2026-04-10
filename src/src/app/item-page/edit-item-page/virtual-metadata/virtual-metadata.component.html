@@ -1,0 +1,39 @@
+<div [ngClass]="showThumbnails ? 'hide-modal-thumbnail-column' : ''">
+  <div class="modal-header">{{'virtual-metadata.delete-relationship.modal-head' | translate}}
+    <button type="button" class="btn-close" (click)="close.emit()" aria-label="Close">
+    </button>
+  </div>
+  <div class="modal-body">
+    @for (itemDTO of itemDTOs$ | async; track trackItemDTO($index, itemDTO)) {
+      <div *ngVar="(itemDTO.isSelectedVirtualMetadataItem$ | async) as selected"
+        (click)="setSelectedVirtualMetadataItem(itemDTO.item, !selected)"
+        class="item d-flex flex-row">
+        <div class="m-2">
+          <label>
+            <input class="select" type="checkbox" [checked]="selected">
+          </label>
+        </div>
+        <div class="flex-column">
+          <ds-listable-object-component-loader [object]="itemDTO.item">
+          </ds-listable-object-component-loader>
+          @for (metadata of virtualMetadata.get(itemDTO.item.uuid); track metadata) {
+            <div>
+              <div class="fw-bold">
+                {{metadata.metadataField}}
+              </div>
+              <div>
+                {{metadata.metadataValue.value}}
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    }
+    <div class="d-flex flex-row-reverse m-2">
+      <button class="btn btn-primary save"
+        (click)="save.emit()">
+        <i aria-hidden="true" class="fas fa-save"></i> {{ 'item.edit.metadata.save-button' | translate }}
+      </button>
+    </div>
+  </div>
+</div>

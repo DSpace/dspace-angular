@@ -1,0 +1,47 @@
+<div class="container">
+  @if (bundles) {
+    <div class="row">
+      <div class="col-12 mb-2">
+        <h1>{{'item.bitstreams.upload.title' | translate}}</h1>
+        <ng-container *ngVar="(itemRD$ | async)?.payload as item">
+          @if (item) {
+            <div>
+              <span class="fw-bold">{{'item.bitstreams.upload.item' | translate}}</span>
+              <span>{{ dsoNameService.getName(item) }}</span>
+            </div>
+          }
+        </ng-container>
+      </div>
+      <div class="col-12">
+        <label class="fw-bold form-label">{{'item.bitstreams.upload.bundle' | translate}}</label>
+        <ds-dso-input-suggestions #f id="search-form"
+          [suggestions]="bundles"
+          [placeholder]="'item.bitstreams.upload.bundle.placeholder' | translate"
+          [action]="getCurrentUrl()"
+          [name]="'bundle-select'"
+          [debounceTime]="50"
+          [(ngModel)]="selectedBundleName"
+          (typeSuggestion)="bundleNameChange()"
+          (clickSuggestion)="onClick($event)"
+          (click)="f.open()"
+          ngDefaultControl>
+        </ds-dso-input-suggestions>
+        @if (!selectedBundleId && selectedBundleName?.length > 0) {
+          <button class="btn btn-success me-2" (click)="createBundle()">
+            <i class="fa fa-plus"></i> {{ 'item.bitstreams.upload.bundle.new' | translate }}
+          </button>
+        }
+        @if (selectedBundleId) {
+          <ds-uploader  class="w-100"
+            [dropMsg]="'item.bitstreams.upload.drop-message'"
+            [dropOverDocumentMsg]="'item.bitstreams.upload.drop-message'"
+            [enableDragOverDocument]="true"
+            [uploadFilesOptions]="uploadFilesOptions"
+            (onCompleteItem)="onCompleteItem($event)"
+          (onUploadError)="onUploadError()"></ds-uploader>
+        }
+        <button class="btn btn-outline-secondary" (click)="onCancel()">{{'item.bitstreams.upload.cancel' | translate}}</button>
+      </div>
+    </div>
+  }
+</div>

@@ -1,0 +1,24 @@
+<form class="d-flex justify-content-between"
+      [formGroup]="searchForm"
+      (ngSubmit)="submit(searchForm.value); $event.stopImmediatePropagation();" >
+  <div>
+    <select name="scope" id="scope" formControlName="scope" class="form-select" aria-label="Search scope">
+      <option value="metadata">{{labelPrefix + 'search.scope.metadata' | translate}}</option>
+      <option value="email">{{labelPrefix + 'search.scope.email' | translate}}</option>
+    </select>
+  </div>
+  <div class="flex-grow-1 me-3 ms-3">
+    <div class="mb-3 input-group">
+      <input type="text" name="query" id="query" formControlName="query"
+             class="form-control" aria-label="Search input">
+    <button type="submit" class="search-button btn btn-primary">
+      <i class="fas fa-search"></i> {{ labelPrefix + 'search.button' | translate }}
+    </button>
+    </div>
+  </div>
+  <div>
+    <button type="button" class="search-button btn btn-secondary" (click)="submit(null); reset()">
+      {{ labelPrefix + 'button.see-all' | translate }}
+    </button>
+  </div>
+</form>

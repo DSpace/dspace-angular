@@ -1,0 +1,15 @@
+@if (!item.disabled) {
+  <a
+    class="ds-menu-item" role="menuitem"
+    routerLinkActive="active"
+    href="javascript:void(0);"
+    [title]="item.text | translate"
+    (click)="activate($event)"
+    (keyup.space)="activate($event)"
+    (keyup.enter)="activate($event)"
+    [attr.data-test]="item.text"
+  >{{item.text | translate}}</a>
+}
+@if (item.disabled) {
+  <span [attr.data-test]="item.text" class="nav-item nav-link disabled">{{item.text | translate}}</span>
+}

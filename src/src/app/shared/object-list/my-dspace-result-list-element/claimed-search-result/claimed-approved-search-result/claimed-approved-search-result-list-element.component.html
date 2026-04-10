@@ -1,0 +1,12 @@
+<ng-container *ngVar="(workflowitemRD$ | async)?.payload as workflowitem">
+  <div class="alert alert-success w-100" role="alert">
+    <h4 class="alert-heading mb-0">{{ 'claimed-approved-search-result-list-element.title' | translate }}</h4>
+    @if (workflowitem) {
+      <ds-item-list-preview
+        [item]="(workflowitem?.item | async)?.payload"
+        [object]="object"
+        [badgeContext]="badgeContext"
+      [showSubmitter]="showSubmitter"></ds-item-list-preview>
+    }
+  </div>
+</ng-container>

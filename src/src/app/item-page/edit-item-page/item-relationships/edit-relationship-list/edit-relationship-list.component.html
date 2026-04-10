@@ -1,0 +1,40 @@
+<h2 class="h4">
+  {{relationshipMessageKey$ | async | translate}}
+  <button class="ms-2 btn btn-success" [dsBtnDisabled]="(hasChanges | async)" (click)="openLookup()">
+    <i class="fas fa-plus"></i>
+    <span class="d-none d-sm-inline">&nbsp;{{"item.edit.relationships.edit.buttons.add" | translate}}</span>
+  </button>
+</h2>
+<ng-container *ngVar="updates$ | async as updates">
+  @if (updates && (loading$ | async) !== true) {
+    <ng-container *ngVar="updates | dsObjectValues as updateValues">
+      <ds-pagination
+        [paginationOptions]="paginationConfig"
+        [collectionSize]="(relationshipsRd$ | async)?.payload?.totalElements + (this.nbAddedFields$ | async)"
+        [hideGear]="true"
+        [hidePagerWhenSinglePage]="true">
+        <div class="my-2">
+          @for (updateValue of updateValues; track trackUpdate($index, updateValue)) {
+            <ds-edit-relationship
+              class="relationship-row d-block alert"
+              [fieldUpdate]="updateValue || {}"
+              [url]="url"
+              [editItem]="item"
+                                    [ngClass]="{
+                                        'alert-success': updateValue.changeType === 1,
+                                        'alert-warning': updateValue.changeType === 0,
+                                        'alert-danger': updateValue.changeType === 2
+                                  }">
+            </ds-edit-relationship>
+          }
+        </div>
+      </ds-pagination>
+      @if (updateValues.length === 0) {
+        <div>{{"item.edit.relationships.no-relationships" | translate}}</div>
+      }
+    </ng-container>
+  }
+  @if (loading$ | async) {
+    <ds-loading></ds-loading>
+  }
+</ng-container>

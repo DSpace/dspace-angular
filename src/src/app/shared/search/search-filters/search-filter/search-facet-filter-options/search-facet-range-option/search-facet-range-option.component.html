@@ -1,0 +1,12 @@
+@if (isVisible | async) {
+  <a class="d-flex flex-row"
+    (click)="filterService.minimizeAll()"
+    [routerLink]="[searchLink]"
+    [queryParams]="changeQueryParams" queryParamsHandling="merge"
+    role="button" tabindex="0">
+    <span class="filter-value px-1">{{filterValue.label}}</span>
+    <span class="float-end filter-value-count ms-auto">
+      <span class="badge bg-secondary rounded-pill">{{filterValue.count | dsShortNumber}}</span>
+    </span>
+  </a>
+}

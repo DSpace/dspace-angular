@@ -1,0 +1,14 @@
+@let identifierData = (identifierData$ | async);
+@if (identifierData && identifierData.identifiers) {
+  <div>
+    <span>{{'submission.sections.identifiers.info' | translate}}</span>
+    <ul>
+      @for (identifier of identifierData.identifiers; track identifier) {
+        @if (identifierData.displayTypes.includes(identifier.identifierType) && identifier.value) {
+          <li>{{'submission.sections.identifiers.' + identifier.identifierType + '_label' | translate}}
+          {{identifier.value}}</li>
+        }
+      }
+    </ul>
+  </div>
+}

@@ -1,0 +1,22 @@
+<div class="browse-entry-row">
+  <div class="browse-entry-avatar">{{ object.value?.[0]?.toUpperCase() }}</div>
+  <div class="browse-entry-info">
+    @if (linkType !== linkTypes.None) {
+      <a [target]="(linkType === linkTypes.ExternalLink) ? '_blank' : '_self'"
+         [attr.rel]="(linkType === linkTypes.ExternalLink) ? 'noopener noreferrer' : null"
+         [routerLink]="[]"
+         [queryParams]="queryParams$ | async"
+         class="browse-entry-name"
+         role="link"
+         tabindex="0">
+        {{ object.value }}
+      </a>
+    }
+    @if (linkType === linkTypes.None) {
+      <span class="browse-entry-name">{{ object.value }}</span>
+    }
+  </div>
+  <div class="browse-entry-count">
+    {{ object.count }} <i class="fas fa-file-alt"></i>
+  </div>
+</div>

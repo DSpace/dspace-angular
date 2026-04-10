@@ -1,0 +1,52 @@
+<div class="space-children-mr">
+
+  <button class="btn btn-primary workflow-view mt-1 mb-3" data-test="view-btn"
+    ngbTooltip="{{'submission.workspace.generic.view-help' | translate}}"
+    [attr.aria-label]="'submission.workspace.generic.view-help' | translate"
+    [routerLink]="[getWorkspaceItemViewRoute(object)]">
+    <i class="fa fa-info-circle"></i> {{"submission.workspace.generic.view" | translate}}
+  </button>
+
+  @if ((canEditItem$ | async)) {
+    <a class="btn btn-primary mt-1 mb-3 edit-btn" id="{{'edit_' + object.id}}"
+      ngbTooltip="{{'submission.workflow.generic.edit-help' | translate}}"
+      [attr.aria-label]="'submission.workflow.generic.edit-help' | translate"
+      [routerLink]="['/workspaceitems/' + object.id + '/edit']" role="button">
+      <i class="fa fa-edit"></i> {{'submission.workflow.generic.edit' | translate}}
+    </a>
+  }
+
+  @if ((canEditItem$ | async)) {
+    <button type="button" id="{{'delete_' + object.id}}" class="btn btn-danger mt-1 mb-3"
+      ngbTooltip="{{'submission.workflow.generic.delete-help' | translate}}"
+      [attr.aria-label]="'submission.workflow.generic.delete-help' | translate"
+      (click)="$event.preventDefault();confirmDiscard(content)">
+      @if ((processingDelete$ | async)) {
+        <span><i class='fas fa-circle-notch fa-spin'></i>
+      {{'submission.workflow.tasks.generic.processing' | translate}}</span>
+    }
+    @if ((processingDelete$ | async) !== true) {
+      <span><i class="fa fa-trash"></i> {{'submission.workflow.generic.delete' |
+    translate}}</span>
+  }
+</button>
+}
+</div>
+
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <div class="modal-title text-danger h4">{{'submission.general.discard.confirm.title' | translate}}</div>
+    <button type="button" id="delete_close" class="btn-close" aria-label="Close" (click)="d('cancel')">
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>{{'submission.general.discard.confirm.info' | translate}}</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" id="delete_cancel" class="btn btn-secondary"
+    (click)="c('cancel')">{{'submission.general.discard.confirm.cancel' | translate}}</button>
+    <button type="button" id="delete_confirm" class="btn btn-danger"
+    (click)="c('ok')">{{'submission.general.discard.confirm.submit' | translate}}</button>
+  </div>
+</ng-template>

@@ -1,0 +1,42 @@
+<div>
+  @if ((available$ | async) !== true) {
+    <div
+      class="input-group mb-3">
+      <span class="input-group-text">{{ 'submission.sections.general.collection' | translate }}</span>
+      <span class="input-group-text">{{ selectedCollectionName$ | async }}</span>
+    </div>
+  }
+  @if ((available$ | async)) {
+    <div
+      ngbDropdown
+      #collectionControls="ngbDropdown"
+      class="btn-group input-group"
+      (openChange)="toggled($event)">
+      <span id="collectionControlsMenuLabel" class="input-group-text">
+        {{ 'submission.sections.general.collection' | translate }}
+      </span>
+      <button aria-describedby="collectionControlsMenuLabel"
+        id="collectionControlsMenuButton"
+        class="btn btn-outline-primary"
+        (blur)="onClose()"
+        (click)="onClose()"
+        [dsBtnDisabled]="(processingChange$ | async) || collectionModifiable === false || isReadonly"
+        ngbDropdownToggle>
+        @if ((processingChange$ | async)) {
+          <span><i class='fas fa-circle-notch fa-spin'></i></span>
+        }
+        @if ((processingChange$ | async) !== true) {
+          <span>{{ selectedCollectionName$ | async }}</span>
+        }
+      </button>
+      <div ngbDropdownMenu
+        class="dropdown-menu p-0"
+        id="collectionControlsDropdownMenu"
+        aria-labelledby="collectionControlsMenuButton">
+        <ds-collection-dropdown
+          (selectionChange)="onSelect($event)">
+        </ds-collection-dropdown>
+      </div>
+    </div>
+  }
+</div>

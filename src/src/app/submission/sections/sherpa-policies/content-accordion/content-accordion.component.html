@@ -1,0 +1,119 @@
+<div class="mb-3 border-bottom" data-test="collapse">
+  <div class="w-100 d-flex justify-content-between collapse-toggle" (click)="collapse.toggle()">
+    <div class="d-flex">
+      <button type="button" class="btn btn-link p-0 me-4" (click)="$event.preventDefault()"
+        [attr.aria-expanded]="!collapse.collapsed" aria-controls="collapseExample">
+        {{version.articleVersion | titlecase}} {{ 'submission.sections.sherpa.publisher.policy.version' |
+        translate
+        }}
+      </button>
+      <div>
+        @if (!!version?.embargo && !!version?.embargo.amount) {
+          <span> <i
+          class="fas fa-hourglass-half"></i> {{version.embargo.amount}}
+        {{version.embargo?.units[0]}}</span>
+      } @else {
+        <span><i class="fas fa-hourglass-half"></i> {{
+      'submission.sections.sherpa.publisher.policy.noembargo' | translate }}</span>
+    }
+
+    <span class="m-1 ms-4">
+      <i class="far fa-folder-open"></i>
+      @if (!!version?.locations && version.locations.length > 0) {
+        <span>
+          {{version.locations[0]}} @if (version.locations.length > 1) {
+          <span
+          >+{{version.locations.length-1}}</span>
+        }
+      </span>
+    } @else {
+      <span>{{
+      'submission.sections.sherpa.publisher.policy.nolocation' | translate }}</span>
+    }
+  </span>
+</div>
+</div>
+<div class="d-inline-block">
+  @if (collapse.collapsed) {
+    <span class="fas fa-chevron-down"></span>
+  }
+  @if (!collapse.collapsed) {
+    <span class="fas fa-chevron-up"></span>
+  }
+</div>
+</div>
+<div #collapse="ngbCollapse" [ngbCollapse]="isCollapsed">
+  @if (!!version) {
+    <div class="ms-4">
+      @if (!!version?.embargo && !!version?.embargo.amount) {
+        <div class="row">
+          <div class="col-4">
+            <p class="m-1"><i class="fas fa-hourglass-half"></i> {{
+          'submission.sections.sherpa.publisher.policy.embargo' | translate }}</p>
+        </div>
+        <div class="col-6">
+          @if (!!version.embargo) {
+            <p class="m-1">{{version.embargo.amount}}
+            {{version.embargo.units}}</p>
+          } @else {
+            <p class="m-1">{{ 'submission.sections.sherpa.publisher.policy.noembargo' | translate }}</p>
+          }
+        </div>
+      </div>
+    }
+    @if (!!version?.licenses && version.licenses.length > 0) {
+      <div class="row">
+        <div class="col-4">
+          <p class="m-1"><i class="fas fa-certificate"></i> {{
+        'submission.sections.sherpa.publisher.policy.license' | translate }}</p>
+      </div>
+      <div class="col-6">
+        @for (license of version.licenses; track license) {
+          <p class="m-1">{{license}}</p>
+        }
+      </div>
+    </div>
+  }
+  @if (!!version?.prerequisites && version.prerequisites.length > 0) {
+    <div class="row">
+      <div class="col-4">
+        <p class="m-1"><i class="fas fa-exclamation-circle"></i> {{
+      'submission.sections.sherpa.publisher.policy.prerequisites' | translate }}</p>
+    </div>
+    <div class="col-6">
+      @for (prerequisite of version.prerequisites; track prerequisite) {
+        <p class="m-1">{{prerequisite}}</p>
+      }
+    </div>
+  </div>
+}
+@if (!!version?.locations && version.locations.length > 0) {
+  <div class="row">
+    <div class="col-4">
+      <p class="m-1"><i class="far fa-folder-open"></i> {{
+    'submission.sections.sherpa.publisher.policy.location' | translate }}</p>
+  </div>
+  <div class="col-6">
+    @for (location of version.locations; track location) {
+      <p class="m-1">{{location}}</p>
+    }
+  </div>
+</div>
+}
+@if (!!version?.conditions && version.conditions.length > 0) {
+  <div class="row">
+    <div class="col-4">
+      <p class="m-1"><i class="fas fa-tasks"></i> {{
+    'submission.sections.sherpa.publisher.policy.conditions' | translate }}</p>
+  </div>
+  <div class="col-6">
+    @for (condition of version.conditions; track condition) {
+      <p class="m-1">{{condition}}</p>
+    }
+  </div>
+</div>
+}
+</div>
+}
+</div>
+</div>

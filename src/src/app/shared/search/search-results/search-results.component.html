@@ -1,0 +1,62 @@
+@if ((activeFilters$ | async).length > 0 && (appliedFilters$ | async).length === 0) {
+  <div class="row">
+    <div class="col-12">
+      <div class="filters-badge-skeleton-container">
+        <div class="filter-badge-skeleton">
+          <ngx-skeleton-loader [count]="(activeFilters$ | async).length" />
+        </div>
+      </div>
+    </div>
+  </div>
+}
+
+<div class="d-flex justify-content-between">
+  @if (!disableHeader) {
+    <h1>{{ (configuration ? configuration + '.search.results.head' : 'search.results.head') | translate }}</h1>
+  }
+  @if (showCsvExport) {
+    <ds-search-export-csv [searchConfig]="searchConfig" [total]="searchResults?.payload?.totalElements"></ds-search-export-csv>
+  }
+</div>
+@if (searchResults && searchResults?.hasSucceeded && !searchResults?.isLoading && searchResults?.payload?.page.length > 0) {
+  <div @fadeIn>
+    <ds-viewable-collection
+      [config]="searchConfig.pagination"
+      [sortConfig]="searchConfig.sort"
+      [objects]="searchResults"
+      [hideGear]="true"
+      [showRSS]="true"
+      [selectable]="selectable"
+      [selectionConfig]="selectionConfig"
+      [linkType]="linkType"
+      [context]="context"
+      [hidePaginationDetail]="hidePaginationDetail"
+      [showThumbnails]="showThumbnails"
+      (contentChange)="contentChange.emit($event)"
+      (deselectObject)="deselectObject.emit($event)"
+      (selectObject)="selectObject.emit($event)">
+    </ds-viewable-collection>
+  </div>
+}
+
+@if (isLoading()) {
+  <ds-search-results-skeleton
+    [showThumbnails]="showThumbnails"
+    [numberOfResults]="searchConfig.pagination.pageSize"
+  ></ds-search-results-skeleton>
+}
+
+@if (showError()) {
+  <ds-error
+  message="{{errorMessageLabel() | translate}}"></ds-error>
+}
+@if (searchResults?.payload?.page.length === 0 || searchResults?.statusCode === 400) {
+  <div>
+    {{ 'search.results.no-results' | translate }}
+    <a [routerLink]="['/search']"
+      [queryParams]="{ query: surroundStringWithQuotes(searchConfig?.query) }"
+      queryParamsHandling="merge" role="link" tabindex="0">
+      {{"search.results.no-results-link" | translate}}
+    </a>
+  </div>
+}

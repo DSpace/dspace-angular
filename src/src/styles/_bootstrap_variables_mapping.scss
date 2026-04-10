@@ -1,0 +1,110 @@
+// this file maps all bootstrap variables to css variables.
+
+:root {
+  // Variables
+  //
+  // Variables should follow the `$component-state-property-size` formula for
+  // consistent naming. Ex: $nav-link-disabled-color and $modal-content-box-shadow-xs.
+
+  // Bootstrap 5.x maps many SCSS variables to CSS variables (for example the color system)
+  // Default mappings: https://getbootstrap.com/docs/5.3/customize/css-variables/#default
+  // Any Bootstrap SCSS variables that are used  within DSpace should be exposed as CSS variable in this file.
+  // These are no longer "all" variables, but only the ones that are actually used in DSpace.
+
+  // Alerts
+  //
+  // Define alert colors, border radius, and padding.
+  --bs-alert-padding-y: #{$alert-padding-y};
+  --bs-alert-padding-x: #{$alert-padding-x};
+
+
+  // Cards
+  --bs-card-border-color: #{$card-border-color};
+  --bs-card-border-radius: #{$card-border-radius};
+  --bs-card-border-width: #{$card-border-width};
+
+
+
+  // Buttons
+  //
+  // For each of Bootstrap's buttons, define text, background, and border color.
+  --bs-btn-padding-y: #{$btn-padding-y};
+  --bs-btn-focus-box-shadow: #{$btn-focus-box-shadow};
+  --bs-btn-line-height: #{$btn-line-height};
+  --bs-btn-link-disabled-color: #{$btn-link-disabled-color};
+
+
+  // Dropdowns
+  //
+  // Dropdown menu container and contents.
+  --bs-dropdown-border-color: #{$dropdown-border-color};
+  --bs-dropdown-border-width: #{$dropdown-border-width};
+  --bs-dropdown-link-hover-bg: #{$dropdown-link-hover-bg};
+  --bs-dropdown-link-hover-color: #{$dropdown-link-hover-color};
+
+
+  // Components
+  //
+  // Define common padding and border radius sizes and more.
+  --bs-small-font-size: #{$small-font-size};
+
+  // Tables
+  //
+  // Customizes the `.table` component with basic values, each used across all table variations.
+  --bs-table-accent-bg: #{$table-accent-bg};
+  --bs-table-bg: #{$table-bg};
+  --bs-table-border-color: #{$table-border-color};
+  --bs-table-color: #{$table-color};
+
+
+  --bs-xl: #{map-get($grid-breakpoints, xl)};
+  --bs-md: #{map-get($grid-breakpoints, md)};
+  --bs-lg: #{map-get($grid-breakpoints, lg)};
+  --bs-sm: #{map-get($grid-breakpoints, sm)};
+
+  --bs-spacer: #{$spacer};
+
+  --bs-navbar-dark-active-color: #{$navbar-dark-active-color};
+  --bs-navbar-dark-color: #{$navbar-dark-color};
+
+  --bs-line-height-base: #{$line-height-base};
+
+  --bs-font-size-base: #{$font-size-base};
+  --bs-font-size-lg: #{$font-size-lg};
+
+
+
+  --bs-input-btn-border-width: #{$input-btn-border-width};
+  --bs-input-border-color: #{$input-border-color};
+  --bs-input-padding-y: #{$input-padding-y};
+  --bs-input-padding-x: #{$input-padding-x};
+  --bs-input-btn-focus-box-shadow: #{$input-btn-focus-box-shadow};
+  --bs-input-bg: #{$input-bg};
+  --bs-input-color: #{$input-color};
+
+  --bs-table-border-width: #{$table-border-width};
+
+  --bs-modal-sm: #{$modal-sm};
+
+  --bs-zindex-popover: #{$zindex-popover};
+  --bs-zindex-sticky: #{$zindex-sticky};
+
+  --bs-border-radius-lg: #{$bs-border-radius-lg};
+
+}
+
+// Some Bootstrap CSS variables are tied to classes
+
+.accordion {
+  --bs-accordion-btn-bg: #{$light};
+}
+
+.table {
+  --bs-table-striped-bg: #{$light};
+}
+
+.btn-transparent  {
+  --bs-btn-box-shadow: none;
+  --bs-btn-focus-box-shadow: none;
+  --bs-btn-active-border-color: transparent;
+}

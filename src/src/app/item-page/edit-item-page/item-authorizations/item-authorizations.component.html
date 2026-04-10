@@ -1,0 +1,36 @@
+<div class="container">
+  <ds-alert [type]="AlertType.Info" [content]="'item.edit.authorizations.heading'"></ds-alert>
+  <ds-resource-policies [resourceType]="'item'" [resourceName]="itemName$ | async"
+    [resourceUUID]="(item$ | async)?.id">
+  </ds-resource-policies>
+  @for (bundle of (bundles$ | async); track bundle) {
+    <ds-resource-policies [resourceType]="'bundle'" [resourceUUID]="bundle.id" [resourceName]="bundle.name">
+    </ds-resource-policies>
+    @if ((bundleBitstreamsMap.get(bundle.id)?.bitstreams | async)?.length > 0) {
+      <div class="card auth-bitstream-container">
+        <div class="card-header">
+          <button type="button" class="btn btn-outline-primary" (click)="collapseArea(bundle.id)"
+            [attr.aria-expanded]="false" [attr.aria-controls]="bundle.id">
+            {{ 'collection.edit.item.authorizations.show-bitstreams-button' | translate }} {{ nameService.getName(bundle) }}
+          </button>
+        </div>
+        <div class="card-body" [id]="bundle.id" [ngbCollapse]="bundleBitstreamsMap.get(bundle.id).isCollapsed">
+          @for (bitstream of (bundleBitstreamsMap.get(bundle.id).bitstreams | async); track bitstream) {
+            <ds-resource-policies [resourceType]="'bitstream'" [resourceUUID]="bitstream.id"
+            [resourceName]="bitstream.name"></ds-resource-policies>
+          }
+          @if (!bundleBitstreamsMap.get(bundle.id).allBitstreamsLoaded) {
+            <div class="row justify-content-center">
+              <button type="button" class="btn btn-link" (click)="onBitstreamsLoad(bundle)">{{ 'collection.edit.item.authorizations.load-more-button' | translate }}</button>
+            </div>
+          }
+        </div>
+      </div>
+    }
+  }
+  @if (!allBundlesLoaded) {
+    <div class="row justify-content-center">
+      <button type="button" class="btn btn-link" (click)="onBundleLoad()">{{ 'collection.edit.item.authorizations.load-bundle-button' | translate }}</button>
+    </div>
+  }
+</div>

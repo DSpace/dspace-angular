@@ -1,0 +1,29 @@
+<div class="container-fluid mb-2" *ngVar="(itemTemplateRD$ | async) as itemTemplateRD">
+  <span class="d-inline-block mb-2">{{ 'collection.edit.template.label' | translate}}</span>
+  <div class="button-row space-children-mr">
+    @if (!itemTemplateRD?.payload) {
+      <button class="btn btn-success" (click)="addItemTemplate()">
+        <i class="fas fa-plus" aria-hidden="true"></i>
+        <span class="d-none d-sm-inline">&nbsp;{{"collection.edit.template.add-button" | translate}}</span>
+      </button>
+    }
+    @if (itemTemplateRD?.payload) {
+      <button class="btn btn-danger" (click)="deleteItemTemplate()">
+        <i class="fas fa-trash-alt" aria-hidden="true"></i>
+        <span class="d-none d-sm-inline">&nbsp;{{"collection.edit.template.delete-button" | translate}}</span>
+      </button>
+    }
+    @if (itemTemplateRD?.payload) {
+      <button class="btn btn-primary"
+        [routerLink]="'/collections/' + (dsoRD$ | async)?.payload.uuid + '/itemtemplate'">
+        <i class="fas fa-edit" aria-hidden="true"></i>
+        <span class="d-none d-sm-inline">&nbsp;{{"collection.edit.template.edit-button" | translate}}</span>
+      </button>
+    }
+  </div>
+</div>
+<ds-collection-form [dso]="(dsoRD$ | async)?.payload"
+  [isCreation]="false"
+  (submitForm)="onSubmit($event)"
+  (back)="navigateToHomePage()"
+(finish)="navigateToHomePage()"></ds-collection-form>

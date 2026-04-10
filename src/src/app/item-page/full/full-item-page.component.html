@@ -1,0 +1,59 @@
+<div class="container" *ngVar="(itemRD$ | async) as itemRD">
+  @if (itemRD?.hasSucceeded) {
+    <div class="item-page" @fadeInOut>
+      @if (itemRD?.payload; as item) {
+        <div>
+          <ds-item-alerts [item]="item"></ds-item-alerts>
+          <ds-item-versions-notice [item]="item"></ds-item-versions-notice>
+          @if (!item.isWithdrawn || (isAdmin$|async)) {
+            <div class="full-item-info">
+              <div class="d-flex flex-row">
+                <ds-item-page-title-field class="me-auto" [item]="item"></ds-item-page-title-field>
+                <ds-dso-edit-menu></ds-dso-edit-menu>
+              </div>
+              @if (!fromSubmissionObject) {
+                <div class="simple-view-link my-3">
+                  <a class="btn btn-outline-primary" [routerLink]="[(itemPageRoute$ | async)]">
+                    {{"item.page.link.simple" | translate}}
+                  </a>
+                </div>
+              }
+              <div class="table-responsive">
+                <table class="table  table-striped">
+                  <tbody>
+                    @for (mdEntry of (metadata$ | async) | keyvalue; track mdEntry) {
+                      @for (mdValue of mdEntry.value; track mdValue) {
+                        <tr>
+                          <td>{{mdEntry.key}}</td>
+                          <td>{{mdValue.value}}</td>
+                          <td>{{mdValue.language}}</td>
+                        </tr>
+                      }
+                    }
+                  </tbody>
+                </table>
+              </div>
+              <ds-item-page-full-file-section [item]="item"></ds-item-page-full-file-section>
+              <ds-item-page-collections [item]="item"></ds-item-page-collections>
+              <ds-item-versions class="mt-2" [item]="item"></ds-item-versions>
+              @if (fromSubmissionObject) {
+                <div class="button-row bottom">
+                  <div class="text-end">
+                    <button class="btn btn-outline-secondary me-1" (click)="back()"><i
+                    class="fas fa-arrow-left"></i> {{'item.page.return' | translate}}</button>
+                  </div>
+                </div>
+              }
+            </div>
+          }
+        </div>
+      }
+    </div>
+  }
+  @if (itemRD?.hasFailed) {
+    <ds-error message="{{'error.item' | translate}}"></ds-error>
+  }
+  @if (itemRD?.isLoading) {
+    <ds-loading message="{{'loading.item' | translate}}"></ds-loading>
+  }
+</div>

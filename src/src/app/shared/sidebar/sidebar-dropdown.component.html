@@ -1,0 +1,6 @@
+<div class="setting-option mb-3 p-3">
+  <h4><label class="form-label" for="{{id}}">{{label | translate}}</label></h4>
+  <select id="{{id}}" class="form-select" (change)="changed.emit($event)">
+    <ng-content></ng-content>
+  </select>
+</div>

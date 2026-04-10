@@ -1,0 +1,8 @@
+<div class="labels">
+  @for (appliedFilter of appliedFilters$ | async; track appliedFilter) {
+    <ds-search-label-loader
+      [appliedFilter]="appliedFilter"
+      [inPlaceSearch]="inPlaceSearch">
+    </ds-search-label-loader>
+  }
+</div>

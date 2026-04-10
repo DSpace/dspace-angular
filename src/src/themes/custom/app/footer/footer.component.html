@@ -1,0 +1,75 @@
+<footer class="site-footer">
+  <div class="container">
+    <div class="row">
+
+      <div class="col-lg-2 col-md-6 footer-col">
+        <h6 class="highlight">{{ 'footer.col1.title' | translate }}</h6>
+        <ul>
+          <li><a routerLink="/info/contributors">{{ 'footer.col1.contributors' | translate }}</a></li>
+          <li><a routerLink="/info/help">{{ 'footer.col1.help' | translate }}</a></li>
+          <li><a routerLink="/info/citation">{{ 'footer.col1.citation' | translate }}</a></li>
+        </ul>
+      </div>
+
+      <div class="col-lg-3 col-md-6 footer-col">
+        <h6 class="highlight">{{ 'footer.col2.title' | translate }}</h6>
+        <ul>
+          @if (showCookieSettings) {
+            <li>
+              <button class="btn btn-link p-0 text-white" type="button" (click)="openCookieSettings()">
+                {{ 'footer.col2.cookie-settings' | translate }}
+              </button>
+            </li>
+          }
+          @if (showPrivacyPolicy) {
+            <li><a routerLink="/info/privacy">{{ 'footer.col2.privacy-policy' | translate }}</a></li>
+          }
+          @if (showEndUserAgreement) {
+            <li><a routerLink="/info/end-user-agreement">{{ 'footer.col2.end-user-agreement' | translate }}</a></li>
+          }
+          @if (showSendFeedback$ | async) {
+            <li><a routerLink="/info/feedback">{{ 'footer.col2.send-feedback' | translate }}</a></li>
+          }
+        </ul>
+      </div>
+
+      <div class="col-lg-2 col-md-6 footer-col">
+        <h6 class="highlight">{{ 'footer.col3.title' | translate }}</h6>
+        <ul>
+          <li><a href="https://www.ciil.org/" target="_blank" rel="noopener">{{ 'footer.col3.ciil' | translate }}</a></li>
+          <li><a href="https://www.education.gov.in/en/higher_education" target="_blank" rel="noopener">{{ 'footer.col3.moe' | translate }}</a></li>
+          <li><a href="https://swayam.gov.in/" target="_blank" rel="noopener">{{ 'footer.col3.swayam' | translate }}</a></li>
+
+        </ul>
+      </div>
+
+      <div class="col-lg-3 col-md-6 footer-col">
+        <h6 class="highlight">{{ 'footer.col4.title' | translate }}</h6>
+        <p class="address" [innerHTML]="'footer.col4.address' | translate"></p>
+      </div>
+
+      <div class="col-lg-2 col-md-12 footer-col text-center">
+        <h6 class="highlight">{{ 'footer.col5.title' | translate }}</h6>
+        <div class="social-icons">
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a [href]="syndicationFeedUrl" target="_blank" rel="noopener noreferrer" aria-label="Syndication Feed" title="Syndication Feed"><i class="fas fa-rss"></i></a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="footer-bottom text-center">
+    <div class="mb-2">{{ 'footer.bottom.copyright' | translate:{ year: (dateObj | date:'y') } }}</div>
+    @if (coarLdnEnabled$ | async) {
+      <a routerLink="/info/coar-notify-support"
+         class="d-inline-flex align-items-center gap-2 text-decoration-none"
+         style="color: rgba(255,255,255,0.8); font-size: 0.85rem;">
+        <img src="assets/images/n-coar.svg" [attr.alt]="'footer.link.coar-notify-support' | translate" style="height: 25px;">
+        <span>{{ 'footer.link.coar-notify-support' | translate }}</span>
+      </a>
+    }
+  </div>
+</footer>

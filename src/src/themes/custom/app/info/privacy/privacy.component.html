@@ -1,0 +1,152 @@
+<header class="info-page-hero">
+  <div class="info-badge">{{ 'pp.badge' | translate }}</div>
+  <h1 [innerHTML]="'pp.title.html' | translate"></h1>
+  <div class="hero-subtitle-container">
+    <span class="hero-line"></span>
+    <span class="hero-subtitle">{{ 'pp.subtitle' | translate }}</span>
+    <span class="hero-line right"></span>
+  </div>
+</header>
+
+<div class="info-page-wrapper">
+  <main class="info-page-card">
+
+    <h2 class="pp-section-title first">{{ 'pp.main.title' | translate }}</h2>
+    <p><em>{{ 'pp.last-updated' | translate }}</em></p>
+
+    <h2 class="pp-section-title">{{ 'pp.section.introduction' | translate }}</h2>
+    <p [innerHTML]="'pp.intro.p1' | translate"></p>
+    <p [innerHTML]="'pp.intro.p2' | translate"></p>
+    <ul>
+      <li [innerHTML]="'pp.intro.li1' | translate"></li>
+      <li [innerHTML]="'pp.intro.li2' | translate"></li>
+    </ul>
+    <p [innerHTML]="'pp.intro.p3' | translate"></p>
+    <ul>
+      <li [innerHTML]="'pp.intro.li3' | translate"></li>
+      <li [innerHTML]="'pp.intro.li4' | translate"></li>
+    </ul>
+    <p [innerHTML]="'pp.intro.p4' | translate"></p>
+
+    <h2 class="pp-section-title">{{ 'pp.section.collect' | translate }}</h2>
+    <p [innerHTML]="'pp.collect.p1' | translate"></p>
+    <ul>
+      <li [innerHTML]="'pp.collect.li1' | translate"></li>
+      <li [innerHTML]="'pp.collect.li2' | translate"></li>
+    </ul>
+    <p [innerHTML]="'pp.collect.p2' | translate"></p>
+    <ul>
+      <li [innerHTML]="'pp.collect.li3' | translate"></li>
+      <li [innerHTML]="'pp.collect.li4' | translate"></li>
+    </ul>
+
+    <h2 class="pp-section-title">{{ 'pp.section.provide' | translate }}</h2>
+    <p [innerHTML]="'pp.provide.p1' | translate"></p>
+    <p [innerHTML]="'pp.provide.p2' | translate"></p>
+    <ul>
+      <li [innerHTML]="'pp.provide.li1' | translate"></li>
+      <li [innerHTML]="'pp.provide.li2' | translate"></li>
+      <li [innerHTML]="'pp.provide.li3' | translate"></li>
+    </ul>
+
+    <h2 class="pp-section-title">{{ 'pp.section.auto' | translate }}</h2>
+    <p [innerHTML]="'pp.auto.p1' | translate"></p>
+    <ul>
+      <li [innerHTML]="'pp.auto.li1' | translate"></li>
+      <li [innerHTML]="'pp.auto.li2' | translate"></li>
+    </ul>
+    <p [innerHTML]="'pp.auto.p2' | translate"></p>
+    <ul>
+      <li [innerHTML]="'pp.auto.li3' | translate"></li>
+      <li [innerHTML]="'pp.auto.li4' | translate"></li>
+      <li [innerHTML]="'pp.auto.li5' | translate"></li>
+      <li [innerHTML]="'pp.auto.li6' | translate"></li>
+    </ul>
+    <p [innerHTML]="'pp.auto.p3' | translate"></p>
+    <ul>
+      <li [innerHTML]="'pp.auto.li7' | translate"></li>
+    </ul>
+
+    <h2 class="pp-section-title">{{ 'pp.section.protect' | translate }}</h2>
+    <p [innerHTML]="'pp.protect.p1' | translate"></p>
+
+    <h2 class="pp-section-title">{{ 'pp.section.use' | translate }}</h2>
+    <p [innerHTML]="'pp.use.p1' | translate"></p>
+    <ul>
+      <li [innerHTML]="'pp.use.li1' | translate"></li>
+      <li [innerHTML]="'pp.use.li2' | translate"></li>
+      <li [innerHTML]="'pp.use.li3' | translate"></li>
+      <li [innerHTML]="'pp.use.li4' | translate"></li>
+      <li [innerHTML]="'pp.use.li5' | translate"></li>
+      <li [innerHTML]="'pp.use.li6' | translate"></li>
+      <li [innerHTML]="'pp.use.li7' | translate"></li>
+      <li [innerHTML]="'pp.use.li8' | translate"></li>
+    </ul>
+
+    <h2 class="pp-section-title">{{ 'pp.section.disclosure' | translate }}</h2>
+    <p [innerHTML]="'pp.disclosure.p1' | translate"></p>
+
+    <h2 class="pp-section-title">{{ 'pp.section.sharing' | translate }}</h2>
+    <p [innerHTML]="'pp.sharing.p1' | translate"></p>
+    <p [innerHTML]="'pp.sharing.p2' | translate"></p>
+    <ul>
+      <li [innerHTML]="'pp.sharing.li1' | translate"></li>
+      <li [innerHTML]="'pp.sharing.li2' | translate"></li>
+      <li [innerHTML]="'pp.sharing.li3' | translate"></li>
+      <li [innerHTML]="'pp.sharing.li4' | translate"></li>
+    </ul>
+    <p [innerHTML]="'pp.sharing.p3' | translate"></p>
+    <ul>
+      <li [innerHTML]="'pp.sharing.li5' | translate"></li>
+      <li>{{ 'pp.sharing.li6.before' | translate }}<a [routerLink]="['/info/end-user-agreement']">{{ 'pp.sharing.li6.link' | translate }}</a>{{ 'pp.sharing.li6.after' | translate }}</li>
+      <li [innerHTML]="'pp.sharing.li7' | translate"></li>
+    </ul>
+
+    <h2 class="pp-section-title">{{ 'pp.section.changes' | translate }}</h2>
+    <p [innerHTML]="'pp.changes.p1' | translate"></p>
+
+    <h2 class="pp-section-title">{{ 'pp.section.acceptance' | translate }}</h2>
+    <p [innerHTML]="'pp.acceptance.p1' | translate"></p>
+
+    <h2 class="pp-section-title">{{ 'pp.section.contact' | translate }}</h2>
+    <div class="pp-contact-container">
+
+      <div class="pp-contact-details">
+        <div class="pp-contact-item">
+          <div class="pp-contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+          <div class="pp-contact-text">
+            <h5>{{ 'pp.contact.address.title' | translate }}</h5>
+            <p [innerHTML]="'pp.contact.address.body.html' | translate"></p>
+          </div>
+        </div>
+        <div class="pp-contact-item">
+          <div class="pp-contact-icon"><i class="fas fa-phone-alt"></i></div>
+          <div class="pp-contact-text">
+            <h5>{{ 'pp.contact.person.title' | translate }}</h5>
+            <p><strong>{{ 'pp.contact.person.name' | translate }}</strong></p>
+            <p class="pp-contact-sub">{{ 'pp.contact.person.tel' | translate }}</p>
+          </div>
+        </div>
+        <div class="pp-contact-item">
+          <div class="pp-contact-icon"><i class="fas fa-envelope"></i></div>
+          <div class="pp-contact-text">
+            <h5>{{ 'pp.contact.email.title' | translate }}</h5>
+            <p>lgarchciil&#64;gmail.com</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="pp-contact-map">
+        <iframe
+          src="https://maps.google.com/maps?q=Central%20Institute%20of%20Indian%20Languages%20Mysuru&t=&z=15&ie=UTF8&iwloc=&output=embed"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="CIIL Location Map">
+        </iframe>
+      </div>
+
+    </div>
+
+  </main>
+</div>

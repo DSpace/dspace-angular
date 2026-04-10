@@ -1,0 +1,31 @@
+.logout-wrapper {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8fafc;
+}
+
+.logout-card {
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(26, 54, 93, 0.12);
+  padding: 60px 48px;
+  text-align: center;
+  max-width: 420px;
+  width: 100%;
+}
+
+.logout-logo {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  margin-bottom: 24px;
+}
+
+.logout-heading {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1a365d;
+  margin-bottom: 28px;
+}

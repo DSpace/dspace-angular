@@ -1,0 +1,32 @@
+@if (relationTypes.length > 1) {
+  <ul ngbNav #tabs="ngbNav" [destroyOnHide]="true" [activeId]="activeTab$ | async" (navChange)="onTabChange($event)" class="nav-tabs" role="tablist">
+    @for (relationType of relationTypes; track relationType) {
+      <li [ngbNavItem]="relationType.filter" role="presentation">
+        <a ngbNavLink role="tab">
+          {{'item.page.relationships.' + relationType.label | translate}}
+        </a>
+        <ng-template ngbNavContent>
+          <div class="mt-4">
+            <ds-related-entities-search [item]="item"
+              [relationType]="relationType.filter"
+              [configuration]="relationType.configuration"
+              [searchEnabled]="searchEnabled"
+              [sideBarWidth]="sideBarWidth">
+            </ds-related-entities-search>
+          </div>
+        </ng-template>
+      </li>
+    }
+  </ul>
+  <div [ngbNavOutlet]="tabs"></div>
+}
+@if (relationTypes.length === 1) {
+  <div class="mt-4">
+    <ds-related-entities-search *ngVar="relationTypes[0] as relationType" [item]="item"
+      [relationType]="relationType.filter"
+      [configuration]="relationType.configuration"
+      [searchEnabled]="searchEnabled"
+      [sideBarWidth]="sideBarWidth">
+    </ds-related-entities-search>
+  </div>
+}

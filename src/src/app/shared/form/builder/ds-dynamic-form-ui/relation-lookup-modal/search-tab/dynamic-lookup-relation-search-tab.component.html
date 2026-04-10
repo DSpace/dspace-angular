@@ -1,0 +1,49 @@
+@if (this.relationship.searchConfiguration && context) {
+  <ds-search
+    [configuration]="this.relationship.searchConfiguration"
+    [context]="context"
+    [fixedFilterQuery]="this.relationship.filter"
+    [hiddenQuery]="hiddenQuery"
+    [inPlaceSearch]="true"
+    [linkType]="linkTypes.ExternalLink"
+    [searchFormPlaceholder]="'submission.sections.describe.relationship-lookup.search-tab.search-form.placeholder'"
+    [selectable]="true"
+    [selectionConfig]="{ repeatable: repeatable, listId: listId }"
+    [showScopeSelector]="false"
+    [showViewModes]="false"
+    [query]="query"
+    (resultFound)="onResultFound($event)"
+    (deselectObject)="deselectObject.emit($event)"
+    (selectObject)="selectObject.emit($event)">
+    @if (repeatable) {
+      <div additionalSearchOptions class="position-absolute">
+        <div class="input-group mb-3">
+          <div ngbDropdown class="input-group dropdown-button">
+            @if (selectAllLoading) {
+              <button type="button"
+                class="btn btn-outline-secondary rounded-end">
+                <span class="spinner-border spinner-border-sm" role="status"
+                aria-hidden="true"></span>
+                <span class="sr-only">{{ ('submission.sections.describe.relationship-lookup.search-tab.loading' | translate) }}</span>
+              </button>
+            }
+            <button id="resultdropdown" type="button"
+              ngbDropdownToggle
+              class="btn btn-outline-secondary dropdown-toggle-split"
+              data-bs-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false"
+              [hidden]="selectAllLoading">
+              <span class="sr-only">{{ ('submission.sections.describe.relationship-lookup.toggle-dropdown' | translate) }}</span>
+            </button>
+            <div ngbDropdownMenu aria-labelledby="resultdropdown" *ngVar="(resultsRD$ | async) as resultsRD">
+              <button class="dropdown-item"
+              (click)="selectPage(resultsRD?.page)">{{ ('submission.sections.describe.relationship-lookup.search-tab.select-page' | translate) }}</button>
+              <button class="dropdown-item"
+              (click)="deselectPage(resultsRD?.page)">{{ ('submission.sections.describe.relationship-lookup.search-tab.deselect-page' | translate) }}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+  </ds-search>
+}

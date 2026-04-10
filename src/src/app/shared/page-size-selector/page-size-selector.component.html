@@ -1,0 +1,15 @@
+<div class="page-size-settings">
+  <ds-sidebar-dropdown
+    [id]="'search-sidebar-rpp'"
+    [label]="'search.sidebar.settings.rpp'"
+    (changed)="reloadRPP($event)"
+    >
+    @for (pageSizeOption of (paginationOptions$ | async).pageSizeOptions; track pageSizeOption) {
+      <option
+        [value]="pageSizeOption"
+        [selected]="pageSizeOption === +((paginationOptions$ | async).pageSize) ? 'selected': null">
+        {{pageSizeOption}}
+      </option>
+    }
+  </ds-sidebar-dropdown>
+</div>

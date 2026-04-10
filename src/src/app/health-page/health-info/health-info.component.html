@@ -1,0 +1,24 @@
+@if (healthInfoResponse) {
+  <ngb-accordion #acc="ngbAccordion" [activeIds]="activeId">
+    @for (entry of healthInfoResponse | dsObjNgFor; track entry) {
+      <ngb-panel [id]="entry.key">
+        <ng-template ngbPanelTitle>
+          <div class="w-100 d-flex gap-3 justify-content-between collapse-toggle" (click)="acc.toggle(entry.key)" data-test="info-component">
+            <button type="button" class="btn btn-link p-0" (click)="$event.preventDefault()" [attr.aria-expanded]="acc.isExpanded(entry.key)"
+              [attr.aria-controls]="'health-info-' + entry.key + '-content'">
+              {{ getPanelLabel(entry.key) | titlecase }}
+            </button>
+            <div class="text-end d-flex gap-2">
+              <ds-health-status class="me-2" [status]="entry.value?.status"></ds-health-status>
+            </div>
+          </div>
+        </ng-template>
+        <ng-template ngbPanelContent>
+          <ds-health-info-component [healthInfoComponentName]="entry.key" [healthInfoComponent]="entry.value"
+            [id]="'health-info-' + entry.key + '-content'">
+          </ds-health-info-component>
+        </ng-template>
+      </ngb-panel>
+    }
+  </ngb-accordion>
+}

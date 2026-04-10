@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <div class="d-flex justify-content-between border-bottom">
+        <h1>{{ type + '.edit.head' | translate }}</h1>
+        <div class="my-auto">
+          <a class="btn btn-danger"
+            [routerLink]="((type === 'community') ? '/communities/' : '/collections/') + (dsoRD$ | async)?.payload.uuid + '/delete'"
+            data-test="delete-button">
+            <i class="fas fa-trash" aria-hidden="true"></i> {{type + '.edit.delete' | translate}}</a>
+          </div>
+        </div>
+        <div class="pt-2">
+          <ul class="nav nav-tabs justify-content-start mb-2" role="tablist">
+            @for (page of pages; track page) {
+              <li class="nav-item" role="presentation">
+                <a class="nav-link" role="tab"
+                  [attr.aria-selected]="page === currentPage"
+                  [ngClass]="{'active' : page === currentPage}"
+                  [routerLink]="['./' + page]"
+                  [attr.data-test]="page">
+                  {{ type + '.edit.tabs.' + page + '.head' | translate}}
+                </a>
+              </li>
+            }
+          </ul>
+          <div class="tab-pane active">
+            <div class="mb-4">
+              <router-outlet></router-outlet>
+            </div>
+            <div class="col-12 text-end custom-alignment">
+              @if (!hideReturnButton) {
+                <a [routerLink]="getPageUrl((dsoRD$ | async)?.payload)" class="btn btn-outline-secondary">
+                  <i class="fas fa-arrow-left" aria-hidden="true"></i> {{ type + '.edit.return' | translate }}
+                </a>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

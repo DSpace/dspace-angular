@@ -1,0 +1,24 @@
+:host {
+  .sidebar-sub-level-item-list  {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    ::ng-deep .ds-menu-item {
+      margin-left: var(--ds-admin-sidebar-section-indent);
+    }
+  }
+
+  .toggler-wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .subsection {
+    .sidebar-collapsible-element-inner-wrapper {
+      overflow-y: hidden;
+    }
+  }
+}

@@ -1,0 +1,56 @@
+:host ::ng-deep {
+  --ds-wrapper-grid-spacing: calc(var(--bs-spacer) / 2);
+
+  .info-skeleton, .badge-skeleton, .text-skeleton{
+    ngx-skeleton-loader .skeleton-loader {
+      height: var(--ds-search-skeleton-text-height);
+    }
+  }
+
+  .badge-skeleton, .info-skeleton {
+    ngx-skeleton-loader .skeleton-loader {
+      width: var(--ds-search-skeleton-badge-width);
+    }
+  }
+
+  .info-skeleton {
+    ngx-skeleton-loader .skeleton-loader {
+      width: var(--ds-search-skeleton-info-width);
+    }
+  }
+
+  .thumbnail-skeleton {
+    max-width: var(--ds-thumbnail-max-width);
+    height: 100%;
+
+    ngx-skeleton-loader .skeleton-loader {
+      margin-right: var(--ds-search-skeleton-thumbnail-margin);
+      border-radius: 0;
+      height: 100%;
+    }
+  }
+
+  .card-skeleton {
+    ngx-skeleton-loader .skeleton-loader {
+      height: var(--ds-search-skeleton-card-height);
+    }
+  }
+
+  ngx-skeleton-loader .skeleton-loader {
+    background-color: var(--bs-light);
+    box-shadow: none;
+  }
+
+  .card-columns {
+    margin-left: calc(-1 * var(--ds-wrapper-grid-spacing));
+    margin-right: calc(-1 * var(--ds-wrapper-grid-spacing));
+    column-gap: 0;
+
+    .card-column {
+      padding-left: var(--ds-wrapper-grid-spacing);
+      padding-right: var(--ds-wrapper-grid-spacing);
+    }
+  }
+}
+
+

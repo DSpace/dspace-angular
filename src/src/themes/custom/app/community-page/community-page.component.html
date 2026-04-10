@@ -1,0 +1,84 @@
+<div *ngVar="(communityRD$ | async) as communityRD">
+  @if (communityRD?.hasSucceeded) {
+    <div @fadeInOut>
+      @if (communityRD?.payload; as communityPayload) {
+
+        <!-- HERO -->
+        <header class="community-hero">
+          <div class="container">
+            <div class="community-badge">{{ 'community.badge' | translate }}</div>
+            <h1>{{ dsoNameService.getName(communityPayload) }}</h1>
+            <div class="hero-subtitle-container">
+              <span class="hero-line"></span>
+              <p class="hero-subtitle">{{ 'cl.subtitle' | translate }}</p>
+              <span class="hero-line right"></span>
+            </div>
+          </div>
+        </header>
+
+        <!-- CONTENT CARD -->
+        <div class="community-main-wrapper">
+          <main class="community-content-card">
+
+            <ds-dso-edit-menu></ds-dso-edit-menu>
+
+            <h2 class="page-header-title">{{ dsoNameService.getName(communityPayload) }}</h2>
+
+            <!-- Introductory text with community logo floated right -->
+            <div class="community-intro-text clearfix">
+              @if ((logoRD$ | async)?.payload; as logo) {
+                <img [src]="logo._links.content.href" [alt]="dsoNameService.getName(communityPayload)" class="community-logo-img">
+              }
+              @if (communityPayload.introductoryText) {
+                <div [innerHtml]="communityPayload.introductoryText"></div>
+              }
+            </div>
+
+            <!-- URI / Handle with Community Statistics button -->
+            @if (communityPayload.handle) {
+              <div class="community-handle-section">
+                <div class="community-handle-header">
+                  <h4>{{ 'community.uri-label' | translate }}</h4>
+                  <a [routerLink]="'/statistics' + (communityPageRoute$ | async)" class="community-stats-btn">
+                    <i class="fas fa-chart-bar"></i> {{ 'ip.community.statistics-btn' | translate }}
+                  </a>
+                </div>
+                <ds-comcol-page-handle [content]="communityPayload.handle"></ds-comcol-page-handle>
+              </div>
+            }
+
+            <!-- Sidebar / news text from DSpace -->
+            @if (communityPayload.sidebarText) {
+              <div class="community-sidebar-text" [innerHtml]="communityPayload.sidebarText"></div>
+            }
+
+            <!-- BROWSE SECTION -->
+            <h2 class="page-header-title browse-section-title">{{ 'community.browse-heading' | translate }}</h2>
+            <p class="browse-intro">{{ 'community.browse-intro' | translate }}</p>
+
+            <section class="comcol-page-browse-section">
+              <ds-comcol-page-browse-by [id]="communityPayload.id" [contentType]="communityPayload.type">
+              </ds-comcol-page-browse-by>
+              <router-outlet></router-outlet>
+            </section>
+
+            @if (communityPayload.copyrightText) {
+              <footer class="community-copyright">
+                <div [innerHtml]="communityPayload.copyrightText"></div>
+              </footer>
+            }
+
+          </main>
+        </div>
+
+      }
+    </div>
+  }
+
+  @if (communityRD?.hasFailed) {
+    <ds-error message="{{'error.community' | translate}}"></ds-error>
+  }
+  @if (communityRD?.isLoading) {
+    <ds-loading message="{{'loading.community' | translate}}"></ds-loading>
+  }
+</div>

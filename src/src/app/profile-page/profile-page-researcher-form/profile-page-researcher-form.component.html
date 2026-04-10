@@ -1,0 +1,51 @@
+<div *ngVar="(researcherProfile$ | async) as researcherProfile">
+  @if (researcherProfile) {
+    <div>
+      <p>{{'researcher.profile.associated' | translate}}</p>
+      <p class="align-items-center researcher-profile-switch" >
+        <span class="me-3">{{'researcher.profile.status' | translate}}</span>
+        <ui-switch [checkedLabel]="'researcher.profile.public.visibility' | translate"
+          [uncheckedLabel]="'researcher.profile.private.visibility' | translate"
+          [checked]="researcherProfile.visible"
+        (change)="toggleProfileVisibility(researcherProfile)" ></ui-switch>
+      </p>
+    </div>
+  }
+  @if (!researcherProfile) {
+    <div>
+      <p>{{'researcher.profile.not.associated' | translate}}</p>
+    </div>
+  }
+  @if (!researcherProfile) {
+    @let processingCreate = (processingCreate$ | async);
+    <button class="btn btn-primary me-2"
+      [dsBtnDisabled]="processingCreate"
+      (click)="createProfile()">
+      @if (processingCreate) {
+        <span>
+          <i class='fas fa-circle-notch fa-spin'></i> {{'researcher.profile.action.processing' | translate}}
+        </span>
+      } @else {
+        <span>
+          <i class="fas fa-plus"></i> &nbsp;{{'researcher.profile.create.new' | translate}}
+        </span>
+      }
+    </button>
+  }
+  @if (researcherProfile) {
+    <button class="btn btn-primary me-2" [dsBtnDisabled]="!researcherProfile" (click)="viewProfile(researcherProfile)">
+      <i class="fas fa-info-circle"></i> {{'researcher.profile.view' | translate}}
+    </button>
+    <button class="btn btn-danger" [dsBtnDisabled]="!researcherProfile" (click)="deleteProfile(researcherProfile)">
+      @if ((processingDelete$ | async)) {
+        <span>
+          <i class='fas fa-circle-notch fa-spin'></i> {{'researcher.profile.action.processing' | translate}}
+        </span>
+      } @else {
+        <span>
+          <i class="fas fa-trash-alt"></i> &nbsp;{{'researcher.profile.delete' | translate}}
+        </span>
+      }
+    </button>
+  }
+</div>

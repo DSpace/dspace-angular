@@ -1,0 +1,9 @@
+:host {
+  line-height: 1;
+
+  .labels {
+    display: flex;
+    flex-wrap: wrap;
+    gap: calc(var(--bs-spacer) / 4);
+  }
+}

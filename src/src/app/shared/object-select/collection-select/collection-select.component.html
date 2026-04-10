@@ -1,0 +1,51 @@
+<ng-container *ngVar="(dsoRD$ | async) as collectionsRD">
+  @if (collectionsRD?.payload?.totalElements > 0 || collectionsRD?.payload?.page?.length > 0) {
+    <ds-pagination
+      [paginationOptions]="paginationOptions"
+      [sortOptions]="sortOptions"
+      [collectionSize]="collectionsRD?.payload?.totalElements"
+      [hidePagerWhenSinglePage]="true"
+      [hideGear]="true">
+      <div class="table-responsive mt-2">
+        <table id="collection-select" class="table table-striped table-hover">
+          <thead>
+            <tr>
+              <th><span class="sr-only">{{'collection.select.table.selected' | translate}}</span></th>
+              <th scope="col">{{'collection.select.table.title' | translate}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (selectCollection of selectCollections$ | async; track selectCollection) {
+              <tr>
+                <td><input #selectCollectionBtn [attr.aria-label]="(selectCollectionBtn.checked ? 'collection.select.table.deselect' : 'collection.select.table.select') | translate" [disabled]="(selectCollection.canSelect$ | async) === false" class="collection-checkbox" [ngModel]="selectCollection.selected$ | async" (change)="switch(selectCollection.dso.id)" type="checkbox" name="{{selectCollection.dso.id}}"></td>
+                <td><a [routerLink]="selectCollection.route">{{ dsoNameService.getName(selectCollection.dso) }}</a></td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </ds-pagination>
+  }
+  @if (collectionsRD?.payload?.totalElements === 0 || collectionsRD?.payload?.page?.length === 0) {
+    <div class="alert alert-info w-100" role="alert">
+      {{'collection.select.empty' | translate}}
+    </div>
+  }
+  @if (collectionsRD?.hasFailed) {
+    <ds-error message="{{'error.collections' | translate}}"></ds-error>
+  }
+  @if (!collectionsRD || collectionsRD?.isLoading) {
+    <ds-loading message="{{'loading.collections' | translate}}"></ds-loading>
+  }
+  <div class="space-children-mr float-end" *ngVar="(selectedIds$ | async) as selectedIds">
+    <button class="btn btn-outline-secondary collection-cancel" (click)="onCancel()">
+      <i class="fas fa-times"></i> {{cancelButton | translate}}
+    </button>
+    <button class="btn collection-confirm"
+      [ngClass]="{'btn-danger': dangerConfirm, 'btn-primary': !dangerConfirm}"
+      [dsBtnDisabled]="selectedIds?.length === 0"
+      (click)="confirmSelected()">
+      <i class="fas" [ngClass]="{'fa-trash': dangerConfirm, 'fa-save': !dangerConfirm}"></i> {{confirmButton | translate}}
+    </button>
+  </div>
+</ng-container>

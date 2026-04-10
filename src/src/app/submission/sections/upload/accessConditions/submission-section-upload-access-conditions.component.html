@@ -1,0 +1,14 @@
+@for (accessCondition of accessConditionsList; track accessCondition) {
+  @if (accessCondition.action === 'DEFAULT_BITSTREAM_READ') {
+    <span class="badge bg-primary mt-3 me-2">
+      {{accessCondition.name}} {{accessCondition.startDate}} {{accessCondition.endDate}}
+    </span>
+  }
+  @if (accessCondition.name === 'lease') {
+    <span class="badge bg-primary mt-3 me-2">{{accessCondition.name}} from {{accessCondition.endDate}}</span>
+  }
+  @if (accessCondition.name === 'embargo') {
+    <span class="badge bg-dark mt-3 me-2">{{accessCondition.name}} until {{accessCondition.startDate}}</span>
+  }
+  <br>
+  }

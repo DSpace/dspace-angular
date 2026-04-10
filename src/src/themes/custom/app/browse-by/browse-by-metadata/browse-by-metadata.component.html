@@ -1,0 +1,133 @@
+<header class="browse-hero">
+  <div class="container">
+    <div class="browse-badge">{{ 'browse.common.badge' | translate }}</div>
+    <h1>{{ 'browse.heading.prefix' | translate }}<span>
+      @if (browseId === 'author') {
+        {{ 'browse.author.title' | translate }}
+      } @else if (browseId === 'subject') {
+        {{ 'browse.subject.title' | translate }}
+      } @else if (browseId === 'language') {
+        {{ 'browse.language.title' | translate }}
+      } @else if (browseId === 'media') {
+        {{ 'browse.media.title' | translate }}
+      } @else if (browseId === 'linguistictype') {
+        {{ 'browse.linguistictype.title' | translate }}
+      } @else {
+        {{ getBrowseLabel() }}
+      }
+    </span>{{ 'browse.heading.suffix' | translate }}</h1>
+    <div class="hero-subtitle-container">
+      <span class="hero-line"></span>
+      <p class="hero-subtitle">{{ 'browse.common.subtitle' | translate }}</p>
+      <span class="hero-line right"></span>
+    </div>
+  </div>
+</header>
+
+@if (!ssrRenderingDisabled) {
+  <div class="browse-main-wrapper">
+    <main class="browse-content-card">
+
+      <h2 class="browse-page-header-title">
+        @if (browseId === 'author') {
+          {{ 'browse.author.title' | translate }}
+        } @else if (browseId === 'subject') {
+          {{ 'browse.subject.title' | translate }}
+        } @else if (browseId === 'language') {
+          {{ 'browse.language.title' | translate }}
+        } @else if (browseId === 'media') {
+          {{ 'browse.media.title' | translate }}
+        } @else if (browseId === 'linguistictype') {
+          {{ 'browse.linguistictype.title' | translate }}
+        } @else {
+          {{ getBrowseLabel() }}
+        }
+      </h2>
+
+      @if (browseId === 'media' && !value) {
+
+        @if (!selectedCategory) {
+
+          <!-- 5 category tiles -->
+          <div class="media-category-grid">
+            @for (cat of mediaCategories; track cat.label) {
+              <a class="media-category-tile"
+                 [routerLink]="['/browse/media']"
+                 [queryParams]="{cat: cat.label}">
+                <i class="{{ cat.icon }} media-cat-icon"></i>
+                <span class="media-cat-label">{{ 'browse.media.cat.' + cat.label | translate }}</span>
+                <span class="media-cat-count">
+                  {{ mediaCounts[cat.label] !== undefined ? (mediaCounts[cat.label] | number) : '…' }}
+                  <span class="media-cat-count-label">{{ 'browse.media.items' | translate }}</span>
+                </span>
+              </a>
+            }
+          </div>
+
+        } @else {
+
+          <!-- Extension tiles for selected category -->
+          <div class="media-ext-header">
+            <a class="media-back-btn" [routerLink]="['/browse/media']">
+              <i class="fas fa-arrow-left"></i> {{ 'browse.media.back-btn' | translate }}
+            </a>
+            <h3 class="media-ext-title">{{ 'browse.media.cat.' + selectedCategory | translate }} {{ 'browse.media.files' | translate }}</h3>
+          </div>
+
+          <div class="media-ext-grid">
+            @for (entry of categoryEntries; track entry.value) {
+              <a class="media-ext-tile"
+                 [routerLink]="['/browse/media']"
+                 [queryParams]="{value: entry.value}">
+                <span class="ext-value">{{ entry.value }}</span>
+                <span class="ext-count">
+                  {{ entry.count | number }}
+                  <span class="ext-count-label">{{ 'browse.media.items' | translate }}</span>
+                </span>
+              </a>
+            }
+            @if (categoryEntries.length === 0) {
+              <p class="media-no-entries">No files found in this category.</p>
+            }
+          </div>
+
+        }
+
+      } @else {
+
+        <!-- Standard browse (other browse pages, or media filtered by value) -->
+        @if (browseId === 'media' && value) {
+          <div class="media-value-header">
+            <a class="media-back-btn" [routerLink]="['/browse/media']">
+              <i class="fas fa-arrow-left"></i> Back to Media Types
+            </a>
+            <span class="media-value-badge">{{ value }}</span>
+          </div>
+        }
+
+        @if ((loading$ | async) !== true) {
+          <ds-browse-by
+            title="{{ 'browse.title' | translate:{
+              field: 'browse.metadata.' + browseId | translate,
+              startsWith: (startsWith)? ('browse.startsWith' | translate: { startsWith: '&quot;' + startsWith + '&quot;' }) : '',
+              value: (value)? '&quot;' + value + '&quot;': ''
+            } }}"
+            [displayTitle]="false"
+            [objects$]="(items$ !== undefined)? items$ : browseEntries$"
+            [paginationConfig]="(currentPagination$ | async)"
+            [sortConfig]="(currentSort$ | async)"
+            [type]="startsWithType"
+            [startsWithOptions]="startsWithOptions"
+            (prev)="goPrev()"
+            (next)="goNext()">
+          </ds-browse-by>
+        }
+        @if (loading$ | async) {
+          <ds-loading message="{{ 'loading.browse-by-page' | translate }}"></ds-loading>
+        }
+
+      }
+
+    </main>
+  </div>
+}

@@ -1,0 +1,133 @@
+<header class="info-page-hero">
+  <div class="info-badge">{{ 'eua.badge' | translate }}</div>
+  <h1 [innerHTML]="'eua.title.html' | translate"></h1>
+  <div class="hero-subtitle-container">
+    <span class="hero-line"></span>
+    <span class="hero-subtitle">{{ 'eua.subtitle' | translate }}</span>
+    <span class="hero-line right"></span>
+  </div>
+</header>
+
+<div class="info-page-wrapper">
+  <main class="info-page-card">
+
+    <h2 class="eua-section-title first">{{ 'eua.main.title' | translate }}</h2>
+    <p><strong>{{ 'eua.last-updated' | translate }}</strong></p>
+
+    <h2 class="eua-section-title">{{ 'eua.section.agreement' | translate }}</h2>
+    <p [innerHTML]="'eua.agreement.p1' | translate"></p>
+    <p [innerHTML]="'eua.agreement.p2' | translate"></p>
+    <p [innerHTML]="'eua.agreement.p3' | translate"></p>
+
+    <h2 class="eua-section-title">{{ 'eua.section.ip' | translate }}</h2>
+    <p [innerHTML]="'eua.ip.p1' | translate"></p>
+    <p [innerHTML]="'eua.ip.p2' | translate"></p>
+
+    <h2 class="eua-section-title">{{ 'eua.section.representations' | translate }}</h2>
+    <p [innerHTML]="'eua.representations.p1' | translate"></p>
+    <p [innerHTML]="'eua.representations.p2' | translate"></p>
+
+    <h2 class="eua-section-title">{{ 'eua.section.registration' | translate }}</h2>
+    <p [innerHTML]="'eua.registration.p1' | translate"></p>
+
+    <h2 class="eua-section-title">{{ 'eua.section.prohibited' | translate }}</h2>
+    <p [innerHTML]="'eua.prohibited.p1' | translate"></p>
+    <p [innerHTML]="'eua.prohibited.p2' | translate"></p>
+    <ul>
+      <li [innerHTML]="'eua.prohibited.li1' | translate"></li>
+      <li [innerHTML]="'eua.prohibited.li2' | translate"></li>
+      <li [innerHTML]="'eua.prohibited.li3' | translate"></li>
+      <li [innerHTML]="'eua.prohibited.li4' | translate"></li>
+      <li [innerHTML]="'eua.prohibited.li5' | translate"></li>
+      <li [innerHTML]="'eua.prohibited.li6' | translate"></li>
+      <li [innerHTML]="'eua.prohibited.li7' | translate"></li>
+      <li [innerHTML]="'eua.prohibited.li8' | translate"></li>
+      <li [innerHTML]="'eua.prohibited.li9' | translate"></li>
+      <li [innerHTML]="'eua.prohibited.li10' | translate"></li>
+      <li [innerHTML]="'eua.prohibited.li11' | translate"></li>
+      <li [innerHTML]="'eua.prohibited.li12' | translate"></li>
+      <li [innerHTML]="'eua.prohibited.li13' | translate"></li>
+      <li [innerHTML]="'eua.prohibited.li14' | translate"></li>
+      <li [innerHTML]="'eua.prohibited.li15' | translate"></li>
+      <li [innerHTML]="'eua.prohibited.li16' | translate"></li>
+    </ul>
+
+    <h2 class="eua-section-title">{{ 'eua.section.contributions' | translate }}</h2>
+    <p [innerHTML]="'eua.contributions.p1' | translate"></p>
+    <p [innerHTML]="'eua.contributions.p2' | translate"></p>
+    <ul>
+      <li [innerHTML]="'eua.contributions.li1' | translate"></li>
+      <li [innerHTML]="'eua.contributions.li2' | translate"></li>
+      <li [innerHTML]="'eua.contributions.li3' | translate"></li>
+      <li [innerHTML]="'eua.contributions.li4' | translate"></li>
+      <li [innerHTML]="'eua.contributions.li5' | translate"></li>
+      <li [innerHTML]="'eua.contributions.li6' | translate"></li>
+      <li [innerHTML]="'eua.contributions.li7' | translate"></li>
+      <li [innerHTML]="'eua.contributions.li8' | translate"></li>
+      <li [innerHTML]="'eua.contributions.li9' | translate"></li>
+      <li [innerHTML]="'eua.contributions.li10' | translate"></li>
+      <li [innerHTML]="'eua.contributions.li11' | translate"></li>
+      <li [innerHTML]="'eua.contributions.li12' | translate"></li>
+      <li [innerHTML]="'eua.contributions.li13' | translate"></li>
+    </ul>
+    <p [innerHTML]="'eua.contributions.p3' | translate"></p>
+
+    <h2 class="eua-section-title">{{ 'eua.section.site-management' | translate }}</h2>
+    <p [innerHTML]="'eua.site-management.p1' | translate"></p>
+
+    <h2 class="eua-section-title">{{ 'eua.section.privacy' | translate }}</h2>
+    <p>{{ 'eua.privacy.p1.before' | translate }} <a [routerLink]="['/info/privacy']">{{ 'eua.privacy.p1.link' | translate }}</a>{{ 'eua.privacy.p1.after' | translate }}</p>
+    <p [innerHTML]="'eua.privacy.p2' | translate"></p>
+
+    <h2 class="eua-section-title">{{ 'eua.section.termination' | translate }}</h2>
+    <p class="eua-uppercase" [innerHTML]="'eua.termination.p1' | translate"></p>
+    <p [innerHTML]="'eua.termination.p2' | translate"></p>
+    <p [innerHTML]="'eua.termination.p3' | translate"></p>
+
+    <h2 class="eua-section-title">{{ 'eua.section.modifications' | translate }}</h2>
+    <p [innerHTML]="'eua.modifications.p1' | translate"></p>
+    <p [innerHTML]="'eua.modifications.p2' | translate"></p>
+
+    <h2 class="eua-section-title">{{ 'eua.section.corrections' | translate }}</h2>
+    <p [innerHTML]="'eua.corrections.p1' | translate"></p>
+
+    <h2 class="eua-section-title">{{ 'eua.section.disclaimer' | translate }}</h2>
+    <p class="eua-uppercase" [innerHTML]="'eua.disclaimer.p1' | translate"></p>
+
+    <h2 class="eua-section-title">{{ 'eua.section.liability' | translate }}</h2>
+    <p class="eua-uppercase" [innerHTML]="'eua.liability.p1' | translate"></p>
+
+    <h2 class="eua-section-title">{{ 'eua.section.indemnification' | translate }}</h2>
+    <p [innerHTML]="'eua.indemnification.p1' | translate"></p>
+
+    <h2 class="eua-section-title">{{ 'eua.section.user-data' | translate }}</h2>
+    <p [innerHTML]="'eua.user-data.p1' | translate"></p>
+
+    <h2 class="eua-section-title">{{ 'eua.section.miscellaneous' | translate }}</h2>
+    <p [innerHTML]="'eua.miscellaneous.p1' | translate"></p>
+
+    <h2 class="eua-section-title">{{ 'eua.section.contact' | translate }}</h2>
+    <p [innerHTML]="'eua.contact.p1' | translate"></p>
+
+    <!-- DSpace accept / cancel form — do not remove -->
+    <form class="form-user-agreement-accept mt-5" (ngSubmit)="submit()" novalidate>
+      <input class="ms-1 me-2" type="checkbox" id="user-agreement-accept"
+             [(ngModel)]="accepted" [ngModelOptions]="{standalone: true}">
+      <label class="col-form-label-lg" for="user-agreement-accept">
+        {{ 'info.end-user-agreement.accept' | translate }}
+      </label>
+
+      <div class="d-flex mt-4">
+        <button id="button-cancel" type="button" (click)="cancel()"
+                class="btn btn-outline-secondary me-auto">
+          {{ 'info.end-user-agreement.buttons.cancel' | translate }}
+        </button>
+        <button id="button-save" type="submit"
+                class="btn btn-primary" [dsBtnDisabled]="!accepted">
+          {{ 'info.end-user-agreement.buttons.save' | translate }}
+        </button>
+      </div>
+    </form>
+
+  </main>
+</div>

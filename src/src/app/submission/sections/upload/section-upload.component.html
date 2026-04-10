@@ -1,0 +1,57 @@
+<ds-alert [content]="'submission.sections.upload.info'"
+  [dismissible]="true"
+[type]="AlertTypeEnum.Info"></ds-alert>
+
+@if (fileList.length > 0) {
+  @if (collectionDefaultAccessConditions.length > 0) {
+    <div class="row">
+      <div class="col-sm-12" >
+        <ds-alert [type]="AlertTypeEnum.Warning">
+          @if (collectionPolicyType === 1) {
+            {{ 'submission.sections.upload.header.policy.default.nolist' | translate:{ "collectionName": collectionName } }}
+          }
+          @if (collectionPolicyType === 2) {
+            {{ 'submission.sections.upload.header.policy.default.withlist' | translate:{ "collectionName": collectionName } }}
+          }
+          <span class="clearfix"></span>
+          <ds-submission-section-upload-access-conditions [accessConditions]="collectionDefaultAccessConditions"></ds-submission-section-upload-access-conditions>
+        </ds-alert>
+      </div>
+    </div>
+  }
+  <div class="row">
+    <div class="col-md-2">
+      <span class="text-start fw-bold">{{ 'bitstream.edit.form.primaryBitstream.label' | translate }}</span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <hr/>
+    </div>
+  </div>
+  @for (fileEntry of fileList; track fileEntry; let i = $index) {
+    <ds-submission-upload-section-file
+      [isPrimary]="primaryBitstreamUUID ? primaryBitstreamUUID === fileEntry.uuid : null"
+      [availableAccessConditionOptions]="availableAccessConditionOptions"
+      [collectionId]="collectionId"
+      [collectionPolicyType]="collectionPolicyType"
+      [configMetadataForm]="(configMetadataForm$ | async)"
+      [fileId]="fileEntry.uuid"
+      [fileIndex]="i"
+      [fileName]="fileNames[i]"
+      [sectionId]="sectionData.id"
+    [submissionId]="submissionId"></ds-submission-upload-section-file>
+    <div class="row">
+      <div class="col-md-12">
+        <hr/>
+      </div>
+    </div>
+  }
+} @else {
+  <div class="row">
+    <div class="col-md-12">
+      <div class="text-center h3"><span class="text-muted">{{'submission.sections.upload.no-file-uploaded' | translate}}</span></div>
+    </div>
+  </div>
+}
+

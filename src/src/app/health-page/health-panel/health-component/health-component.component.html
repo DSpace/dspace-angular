@@ -1,0 +1,38 @@
+@if (healthComponent?.components) {
+  @for (entry of healthComponent?.components | dsObjNgFor; track entry) {
+    <div class="mb-3 border-bottom" data-test="collapse">
+      <div class="w-100 d-flex gap-3 justify-content-between collapse-toggle" (click)="collapse.toggle()">
+        <button type="button" class="btn btn-link p-0" (click)="$event.preventDefault()" [attr.aria-expanded]="!collapse.collapsed"
+          [attr.aria-controls]="'health-component-' + entry.key + 'content'">
+          {{ entry.key | titlecase }}
+        </button>
+        <div class="d-flex my-auto">
+          @if (collapse.collapsed) {
+            <span class="fas fa-chevron-down"></span>
+          }
+          @if (!collapse.collapsed) {
+            <span class="fas fa-chevron-up"></span>
+          }
+        </div>
+      </div>
+      <div #collapse="ngbCollapse" [id]="'health-component-' + entry.key + 'content'" [ngbCollapse]="isCollapsed">
+        <div class="card border-0">
+          <div class="card-body">
+            <ds-health-component [healthComponent]="entry.value"
+            [healthComponentName]="entry.key"></ds-health-component>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+}
+@if (healthComponent?.details) {
+  @for (item of healthComponent?.details | dsObjNgFor; track item) {
+    <div data-test="details">
+      <p data-test="property"><span class="fw-bold">{{ getPropertyLabel(item.key) | titlecase }}</span> : {{item.value}}</p>
+    </div>
+  }
+}
+@if (!healthComponent?.details && !healthComponent?.components) {
+  <ds-alert [content]="'health-page.section.no-issues'" [type]="AlertTypeEnum.Info"></ds-alert>
+}

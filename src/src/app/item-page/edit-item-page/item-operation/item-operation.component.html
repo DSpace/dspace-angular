@@ -1,0 +1,21 @@
+<div class="col-12 col-md-3 h-auto float-start d-flex action-label">
+  <span class="justify-content-center align-self-center fw-bold">
+    {{'item.edit.tabs.status.buttons.' + operation.operationKey + '.label' | translate}}
+  </span>
+</div>
+<div class="col-12 col-md-9 float-start action-button">
+  @if (operation.authorized) {
+    <span>
+      <button class="btn btn-outline-primary" [dsBtnDisabled]="operation.disabled" [routerLink]="operation.operationUrl" [attr.aria-label]="'item.edit.tabs.status.buttons.' + operation.operationKey + '.button' | translate">
+        {{'item.edit.tabs.status.buttons.' + operation.operationKey + '.button' | translate}}
+      </button>
+    </span>
+  }
+  @if (!operation.authorized) {
+    <span [ngbTooltip]="'item.edit.tabs.status.buttons.unauthorized' | translate">
+      <button class="btn btn-outline-primary" [dsBtnDisabled]="true" [attr.aria-label]="'item.edit.tabs.status.buttons.' + operation.operationKey + '.button' | translate">
+        {{'item.edit.tabs.status.buttons.' + operation.operationKey + '.button' | translate}}
+      </button>
+    </span>
+  }
+</div>

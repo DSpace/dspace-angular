@@ -1,0 +1,73 @@
+@if (fileData) {
+  <div class="row">
+    <!-- Default switch -->
+    <div class="col-md-2 d-flex justify-content-center align-items-center" >
+      <div class="form-check form-switch">
+        <input
+          type="checkbox"
+          class="form-check-input"
+          id="primaryBitstream{{fileIndex}}"
+          [disabled]="processingSaveStatus$ | async"
+          [checked]="isPrimary"
+          (change)="togglePrimaryBitstream($event)">
+        <label class="form-check-label" for="primaryBitstream{{fileIndex}}">
+          @if (!isPrimary) {
+            <span class="sr-only">{{'submission.sections.upload.primary.make' | translate:{ fileName: fileName } }}</span>
+          }
+          @if (isPrimary) {
+            <span class="sr-only">{{'submission.sections.upload.primary.remove' | translate:{ fileName: fileName } }}</span>
+          }
+        </label>
+      </div>
+    </div>
+    <div class="col-md-10">
+      <div class="float-start w-75">
+        <ds-submission-section-upload-file-view [fileData]="fileData"></ds-submission-section-upload-file-view>
+      </div>
+      <div class="float-end w-15">
+        <ng-container>
+          <ds-file-download-link [cssClasses]="'btn btn-link-focus'" [isBlank]="true"
+            [bitstream]="getBitstream()" [enableRequestACopy]="false" [showAccessStatusBadge]="false">
+            <i class="fa fa-download fa-2x text-normal" aria-hidden="true"></i>
+          </ds-file-download-link>
+          <button class="btn btn-link-focus"
+            [attr.aria-label]="'submission.sections.upload.edit.title' | translate"
+            title="{{ 'submission.sections.upload.edit.title' | translate }}"
+            (click)="$event.preventDefault();editBitstreamData();">
+            <i class="fa fa-edit fa-2x text-normal"></i>
+          </button>
+          <button class="btn btn-link-focus"
+            [attr.aria-label]="'submission.sections.upload.delete.confirm.title' | translate"
+            title="{{ 'submission.sections.upload.delete.confirm.title' | translate }}"
+            [dsBtnDisabled]="(processingDelete$ | async)"
+            (click)="$event.preventDefault();confirmDelete(content);">
+            @if ((processingDelete$ | async)) {
+              <i class="fas fa-circle-notch fa-spin fa-2x link-danger"></i>
+            }
+            @if ((processingDelete$ | async) !== true) {
+              <i class="fa fa-trash fa-2x link-danger"></i>
+            }
+          </button>
+        </ng-container>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+}
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title text-danger">{{ 'submission.sections.upload.delete.confirm.title' | translate }}</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="d('cancel')">
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>{{ 'submission.sections.upload.delete.confirm.info' | translate }}</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary"
+    (click)="c('cancel')">{{ 'submission.sections.upload.delete.confirm.cancel' | translate }}</button>
+    <button type="button" class="btn btn-danger"
+    (click)="c('ok')">{{ 'submission.sections.upload.delete.confirm.submit' | translate }}</button>
+  </div>
+</ng-template>

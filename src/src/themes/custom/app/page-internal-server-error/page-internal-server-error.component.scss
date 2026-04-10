@@ -1,0 +1,150 @@
+/* ===== HERO ===== */
+.notfound-hero {
+  background: linear-gradient(rgba(26, 54, 93, 0.95), rgba(26, 54, 93, 0.95)),
+              url('/assets/custom/images/carbon-fibre.png'),
+              #1a365d;
+  padding: 60px 0 110px;
+  border-bottom: 8px solid #d69e2e;
+  color: white;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.03);
+    pointer-events: none;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; left: -60px;
+    width: 220px; height: 220px;
+    border-radius: 50%;
+    background: rgba(214, 158, 46, 0.05);
+    pointer-events: none;
+  }
+}
+
+.notfound-code {
+  font-size: clamp(5rem, 12vw, 9rem);
+  font-weight: 900;
+  line-height: 1;
+  color: #d69e2e;
+  letter-spacing: -4px;
+  margin-bottom: 8px;
+  text-shadow: 0 4px 20px rgba(214, 158, 46, 0.3);
+}
+
+.notfound-title {
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 20px;
+  letter-spacing: 1px;
+}
+
+.hero-subtitle-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.hero-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #d69e2e);
+  flex-grow: 1;
+  opacity: 0.7;
+
+  &.right { background: linear-gradient(90deg, #d69e2e, transparent); }
+}
+
+.hero-subtitle {
+  color: #d69e2e;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin: 0;
+  white-space: nowrap;
+}
+
+/* ===== BODY CARD ===== */
+.notfound-body {
+  max-width: 700px;
+  margin: -60px auto 80px;
+  padding: 0 20px;
+  position: relative;
+  z-index: 10;
+}
+
+.notfound-card {
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.12);
+  padding: 60px 48px;
+  text-align: center;
+}
+
+.notfound-icon {
+  width: 80px;
+  height: 80px;
+  background: #FFF8E7;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 28px;
+
+  i {
+    font-size: 2rem;
+    color: #d69e2e;
+  }
+}
+
+.notfound-message {
+  color: #64748b;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  margin-bottom: 36px;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.notfound-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #1a365d;
+  color: #ffffff;
+  padding: 14px 36px;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: all 0.25s ease;
+
+  i { font-size: 1rem; }
+
+  &:hover {
+    background: #d69e2e;
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(214, 158, 46, 0.35);
+  }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 576px) {
+  .notfound-card { padding: 40px 24px; }
+  .notfound-hero { padding: 50px 0 90px; }
+}

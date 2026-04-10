@@ -1,0 +1,9 @@
+@if (isImpersonating$ | async) {
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <button class="btn btn-sm btn-dark" ngbTooltip="{{'nav.stop-impersonating' | translate}}" (click)="stopImpersonating()">
+        <i class="fa fa-user-secret"></i>
+      </button>
+    </li>
+  </ul>
+}

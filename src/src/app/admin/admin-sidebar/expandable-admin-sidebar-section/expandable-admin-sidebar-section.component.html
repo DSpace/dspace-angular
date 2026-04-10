@@ -1,0 +1,52 @@
+@if (hasSubSections$ | async) {
+  <div
+    [ngClass]="{'expanded': (isExpanded$ | async)}"
+     [@bgColor]="{
+     value: ((isExpanded$ | async) ? 'endBackground' : 'startBackground'),
+     params: {endColor: (sidebarActiveBg$ | async)}
+     }">
+    <a class="sidebar-section-wrapper"
+      role="menuitem" tabindex="0"
+      aria-haspopup="menu"
+      [attr.aria-controls]="adminMenuSectionId(section)"
+      [attr.aria-expanded]="isExpanded$ | async"
+      [attr.aria-label]="('menu.section.toggle.' + section.id) | translate"
+      [class.disabled]="section.model?.disabled"
+      (click)="toggleSection($event)"
+      (keyup.space)="toggleSection($event)"
+      href="javascript:void(0);"
+      >
+      <div class="sidebar-fixed-element-wrapper" data-test="sidebar-section-icon" aria-hidden="true">
+        <i class="fas fa-{{section.icon ?? 'notdef'}} fa-fw"></i>
+      </div>
+      <div class="sidebar-collapsible-element-outer-wrapper">
+        <div class="sidebar-collapsible-element-inner-wrapper sidebar-item toggler-wrapper">
+          <span [id]="adminMenuSectionTitleAccessibilityHandle(section)" [attr.data-test]="adminMenuSectionTitleAccessibilityHandle(section) | dsBrowserOnly">
+            <ng-container
+            *ngComponentOutlet="(sectionMap$ | async).get(section.id).component; injector: (sectionMap$ | async).get(section.id).injector;"></ng-container>
+          </span>
+          <i class="fas fa-chevron-right fa-xs" aria-hidden="true"
+            [@rotate]="(isExpanded$ | async) ? 'expanded' : 'collapsed'"
+          ></i>
+        </div>
+      </div>
+    </a>
+    @if ((isExpanded$ | async)) {
+      <div class="sidebar-section-wrapper subsection" @slide>
+        <div class="sidebar-fixed-element-wrapper"></div>
+        <div class="sidebar-collapsible-element-outer-wrapper">
+          <div class="sidebar-collapsible-element-inner-wrapper">
+            <div class="sidebar-sub-level-item-list" role="menu" [id]="adminMenuSectionId(section)" [attr.aria-label]="('menu.section.' + section.id) | translate">
+              @for (subSection of (subSections$ | async); track subSection) {
+                <div class="sidebar-item">
+                  <ng-container
+                  *ngComponentOutlet="(sectionMap$ | async).get(subSection.id).component; injector: (sectionMap$ | async).get(subSection.id).injector;"></ng-container>
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+}

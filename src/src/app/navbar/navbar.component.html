@@ -1,0 +1,21 @@
+<nav [ngClass]="{'open': (menuCollapsed | async) !== true}"
+  [@slideMobileNav]="(isMobile$ | async) !== true ? 'default' : ((menuCollapsed | async) ? 'collapsed' : 'expanded')"
+  class="navbar navbar-light navbar-expand-md px-md-0 navbar-container" role="navigation"
+  [attr.aria-label]="'nav.main.description' | translate" id="main-navbar">
+  <!-- TODO remove navbar-container class when https://github.com/twbs/bootstrap/issues/24726 is fixed -->
+  <div class="navbar-inner-container w-100" [class.container]="(isMobile$ | async) !== true">
+    <div class="w-100">
+      <div id="collapsingNav">
+        @if ((isMobile$ | async) && (isAuthenticated$ | async)) {
+          <ds-user-menu [inExpandableNavbar]="true"></ds-user-menu>
+        }
+        <div class="navbar-nav align-items-md-center me-auto shadow-none gapx-3" role="menubar">
+          @for (section of (sections | async); track section) {
+            <ng-container
+            *ngComponentOutlet="(sectionMap$ | async).get(section.id)?.component; injector: (sectionMap$ | async).get(section.id)?.injector;"></ng-container>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

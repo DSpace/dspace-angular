@@ -1,0 +1,14 @@
+<ng-template dsDynamicComponentLoader>
+</ng-template>
+<div #badges class="position-absolute ms-1">
+  <div class="workflow-badge">
+    <span class="badge bg-info">{{ "admin.workflow.item.workflow" | translate }}</span>
+  </div>
+</div>
+<ul #buttons class="list-group list-group-flush">
+  <li class="list-group-item">
+    @if (object) {
+      <ds-workflow-item-admin-workflow-actions-element class="d-flex justify-content-between" [wfi]="dso" [small]="true"></ds-workflow-item-admin-workflow-actions-element>
+    }
+  </li>
+</ul>

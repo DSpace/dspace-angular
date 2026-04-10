@@ -1,0 +1,46 @@
+<div>
+  @if (metadata) {
+    @for (entry of getAllMetadataValue(fileTitleKey); track entry) {
+      @if (entry.value !== '') {
+        <h3>
+          {{entry.value}}
+          <span class="text-muted">({{fileData?.sizeBytes | dsFileSize}})</span>
+        </h3>
+      }
+      @if (entry.value === '') {
+        @if (metadata[fileTitleKey].indexOf(entry) === 0) {
+          <h5>
+            <span class="text-muted">{{'submission.sections.upload.no-entry' | translate}} {{fileTitleKey}}</span>
+          </h5>
+        }
+      }
+      <span class="clearfix"></span>
+    }
+    @for (entry of getAllMetadataValue(fileDescrKey); track entry) {
+      @if (entry.value !== '') {
+        {{entry.value | dsTruncate:['150']}}
+      }
+      @if (entry.value === '') {
+        @if (metadata[fileDescrKey].indexOf(entry) === 0) {
+          <span
+          class="text-muted">{{'submission.sections.upload.no-entry' | translate}} {{fileDescrKey}}</span>
+        }
+      }
+      <span class="clearfix"></span>
+    }
+  }
+
+
+  @if (fileFormat) {
+    <div class="mt-1">
+      {{'admin.registries.bitstream-formats.edit.head' | translate:{format: fileFormat} }}
+    </div>
+  }
+  @if (fileCheckSum) {
+    <div class="mt-1">
+      Checksum {{fileCheckSum.checkSumAlgorithm}}: {{fileCheckSum.value}}
+    </div>
+  }
+  <span class="clearfix"></span>
+  <ds-submission-section-upload-access-conditions [accessConditions]="fileData.accessConditions"></ds-submission-section-upload-access-conditions>
+</div>

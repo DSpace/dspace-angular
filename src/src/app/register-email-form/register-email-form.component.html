@@ -1,0 +1,77 @@
+<div class="container">
+  <h1>{{MESSAGE_PREFIX + '.header'|translate}}</h1>
+  <p>{{MESSAGE_PREFIX + '.info' | translate}}</p>
+
+  @if (validMailDomains.length !== 0 && typeRequest === TYPE_REQUEST_REGISTER) {
+    <p>
+      {{ MESSAGE_PREFIX + '.info.maildomain' | translate}} {{ validMailDomains.join(', ')}}
+    </p>
+  }
+
+  <form [class]="'ng-invalid'" [formGroup]="form">
+
+    <div class="mb-3">
+      <div class="row">
+        <div class="col-12">
+          <label class="fw-bold form-label"
+          for="email">{{MESSAGE_PREFIX + '.email' | translate}}</label>
+          <input [className]="(email.invalid) && (email.dirty || email.touched) ? 'form-control is-invalid' :'form-control'"
+            type="text" id="email" formControlName="email"
+            [attr.aria-label]="MESSAGE_PREFIX + '.aria.label' | translate"
+            [attr.aria-describedby]="(!email.errors) ? '' : (email.errors.required ? 'email-errors-required' : 'email-error-not-valid')"
+            [attr.aria-invalid]="email.invalid"/>
+          @if (email.invalid && (email.dirty || email.touched)) {
+            <div
+              class="invalid-feedback show-feedback">
+              @if (email.errors && email.errors.required) {
+                <span id="email-errors-required">
+                  {{ MESSAGE_PREFIX + '.email.error.required' | translate }}
+                </span>
+              }
+              @if (email.errors && ((email.errors.pattern && this.typeRequest === TYPE_REQUEST_REGISTER) || email.errors.email)) {
+                <span id="email-error-not-valid">
+                  {{ MESSAGE_PREFIX + '.email.error.not-email-form' | translate }}
+                  @if (validMailDomains.length > 0) {
+                    {{ MESSAGE_PREFIX + '.email.error.not-valid-domain' | translate: { domains: validMailDomains.join(', ') } }}
+                  }
+                </span>
+              }
+            </div>
+          }
+        </div>
+        <div class="col-12">
+          {{MESSAGE_PREFIX + '.email.hint' |translate}}
+        </div>
+
+      </div>
+
+    </div>
+
+    @if (registrationVerification && !isRecaptchaCookieAccepted()) {
+      <ds-alert [type]="AlertTypeEnum.Warning">
+        <p class="m-0" [innerHTML]="MESSAGE_PREFIX + '.google-recaptcha.must-accept-cookies' | translate"></p>
+        <p class="m-0"><a href="javascript:void(0);" (click)="this.orejimeService.showSettings()">{{ MESSAGE_PREFIX + '.google-recaptcha.open-cookie-settings' | translate }}</a></p>
+      </ds-alert>
+    }
+
+    @if (isRecaptchaCookieAccepted() && (captchaVersion$ | async) === 'v2') {
+      <div class="my-3">
+        <ds-google-recaptcha [captchaMode]="(captchaMode$ | async)"
+          (executeRecaptcha)="register($event)" (checkboxChecked)="onCheckboxChecked($event)"
+        (showNotification)="showNotification($event)"></ds-google-recaptcha>
+      </div>
+    }
+
+    @if ((!registrationVerification  || ((captchaVersion$ | async) !== 'v2' && (captchaMode$ | async) === 'invisible'))) {
+      <button class="btn btn-primary" [dsBtnDisabled]="form.invalid || registrationVerification && !isRecaptchaCookieAccepted() || disableUntilChecked" (click)="register()">
+        {{ MESSAGE_PREFIX + '.submit' | translate }}
+      </button>
+    } @else {
+      <button class="btn btn-primary" [dsBtnDisabled]="form.invalid" (click)="executeRecaptcha()">
+        {{ MESSAGE_PREFIX + '.submit' | translate }}
+      </button>
+    }
+
+  </form>
+
+</div>

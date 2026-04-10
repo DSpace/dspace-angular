@@ -1,0 +1,27 @@
+<form #form="ngForm" (ngSubmit)="onSubmit(currentObject)"
+  [action]="action"
+  (keydown.arrowdown)="shiftFocusDown($event)"
+  (keydown.arrowup)="shiftFocusUp($event)" (keydown.esc)="close()"
+  (dsClickOutside)="close();">
+  <input #inputField type="text" [(ngModel)]="value" [name]="name"
+    class="form-control suggestion_input mb-2"
+    [ngClass]="{'is-invalid': !valid}"
+    [dsDebounce]="debounceTime" (onDebounce)="find($event)"
+    [placeholder]="placeholder"
+    [ngModelOptions]="{standalone: true}" autocomplete="off"/>
+  <button class="sr-only" type="submit">
+    {{'search.filters.search.submit' | translate}}
+  </button>
+  <div class="autocomplete dropdown-menu" [ngClass]="{'show': (show | async) && isNotEmpty(suggestions)}">
+    <div class="dropdown-list">
+      @for (suggestionOption of suggestions; track suggestionOption) {
+        <div>
+          <button class="d-block dropdown-item"  (click)="onClickSuggestion(suggestionOption)" #suggestion>
+            <ds-listable-object-component-loader [object]="suggestionOption" [viewMode]="viewMode" [linkType]="linkTypes.None"></ds-listable-object-component-loader>
+          </button>
+        </div>
+      }
+    </div>
+  </div>
+</form>
+

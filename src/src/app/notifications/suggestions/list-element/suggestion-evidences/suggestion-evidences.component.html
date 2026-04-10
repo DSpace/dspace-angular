@@ -1,0 +1,24 @@
+<div>
+  @if (evidences) {
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>{{'suggestion.evidence.score' | translate}}</th>
+            <th>{{'suggestion.evidence.type' | translate}}</th>
+            <th>{{'suggestion.evidence.notes' | translate}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (evidence of evidences | dsObjectKeys; track evidence) {
+            <tr>
+              <td>{{evidences[evidence].score}}</td>
+              <td>{{evidence | translate}}</td>
+              <td>{{evidences[evidence].notes}}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

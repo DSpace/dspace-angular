@@ -1,0 +1,12 @@
+<a class="ds-menu-item" role="menuitem"
+   [ngClass]="{ 'disabled': !hasLink || item.disabled }"
+   [attr.aria-disabled]="!hasLink || item.disabled"
+   [attr.data-test]="'link-menu-item.'+item.text"
+   [routerLink]="getRouterLink()"
+   [queryParams]="item.queryParams"
+   (click)="$event.stopPropagation()"
+   (keyup.space)="navigate($event)"
+   (keydown.enter)="navigate($event)"
+   
+   tabindex="0"
+>{{item.text | translate}}</a>

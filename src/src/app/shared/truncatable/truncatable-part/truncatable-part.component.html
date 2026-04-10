@@ -1,0 +1,18 @@
+<div class="clamp-{{background}}-{{lines}} min-{{minLines}} {{type}} {{fixedHeight ? 'fixedHeight' : ''}}">
+  <div #content class="content dont-break-out preserve-line-breaks">
+    <ng-content></ng-content>
+  </div>
+  <button
+    class="btn btn-link p-0 {{isExpanded ? 'collapseButton' : 'expandButton'}}"
+    dsDragClick
+    (actualClick)="toggle()"
+    (keyup.Enter)="toggle()"
+    (keyup.Space)="toggle()"
+    role="button"
+    [attr.aria-expanded]="isExpanded"
+    tabindex="0"
+  >
+    <i class="fas {{isExpanded ? 'fa-angle-up' : 'fa-angle-down'}}"></i>
+    <span class="ms-1">{{ 'item.truncatable-part.show-' + (isExpanded ? 'less' : 'more') | translate }}</span>
+  </button>
+</div>

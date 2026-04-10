@@ -1,0 +1,16 @@
+<div class="row">
+  <div [ngClass]="showThumbnails ? 'col-9 offset-3 offset-md-2' : 'col-md-12'">
+    @if (showLabel) {
+      <ds-badges [object]="dso" [context]="context"></ds-badges>
+    }
+    @if (linkType !== linkTypes.None) {
+      <a [target]="(linkType === linkTypes.ExternalLink) ? '_blank' : '_self'" [attr.rel]="(linkType === linkTypes.ExternalLink) ? 'noopener noreferrer' : null" [routerLink]="['/collections/' + dso.id]" class="lead" [innerHTML]="dsoTitle"></a>
+    }
+    @if (linkType === linkTypes.None) {
+      <span class="lead" [innerHTML]="dsoTitle"></span>
+    }
+    @if (dso.shortDescription) {
+      <div class="text-muted abstract-text" [innerHTML]="firstMetadataValue('dc.description.abstract')"></div>
+    }
+  </div>
+</div>

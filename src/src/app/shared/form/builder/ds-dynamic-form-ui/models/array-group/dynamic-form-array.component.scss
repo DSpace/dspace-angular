@@ -1,0 +1,82 @@
+@import './../../../../../../../styles/variables';
+
+:host {
+    display: block;
+}
+
+.drag-disable {
+    visibility: hidden !important;
+
+    &:hover, &:focus {
+        cursor: default;
+
+        .drag-icon {
+            visibility: hidden !important;
+        }
+    }
+}
+
+.cdk-drag {
+    margin-left: calc(-2.3 * var(--bs-spacer));
+    margin-right: calc(-0.5 * var(--bs-spacer));
+    padding-right: calc(0.5 * var(--bs-spacer));
+    > .col {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+    .cdk-drag-handle {
+        width: calc(2 * var(--bs-spacer));
+    }
+
+    .drag-icon {
+        visibility: hidden;
+        width: calc(2 * var(--bs-spacer));
+        color: var(--bs-gray-600);
+        margin: var(--bs-btn-padding-y) 0;
+        line-height: var(--bs-btn-line-height);
+        text-indent: calc(0.5 * var(--bs-spacer))
+    }
+
+    &:hover, &:focus {
+        cursor: grab;
+
+        .drag-icon {
+            visibility: visible;
+        }
+    }
+
+}
+
+.drag-handle {
+    &:hover {
+        cursor: move;
+    }
+
+    &:focus {
+    }
+}
+
+.cdk-drop-list-dragging {
+    .drag-handle {
+        cursor: grabbing;
+
+        .drag-icon {
+            visibility: hidden;
+        }
+    }
+}
+
+.cdk-drag-preview {
+    margin: 0;
+    padding: 0;
+}
+
+.cdk-drag-placeholder {
+    opacity: 0;
+}
+
+::ng-deep {
+  .sorting-with-keyboard input {
+    background-color: var(--bs-gray-400);
+  }
+}

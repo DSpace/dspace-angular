@@ -1,0 +1,108 @@
+<header class="info-page-hero">
+  <div class="info-badge">{{ 'help.badge' | translate }}</div>
+  <h1 [innerHTML]="'help.title.html' | translate"></h1>
+  <div class="hero-subtitle-container">
+    <span class="hero-line"></span>
+    <span class="hero-subtitle">Bhasha Sanchika</span>
+    <span class="hero-line right"></span>
+  </div>
+</header>
+
+<div class="info-page-wrapper">
+  <main class="info-page-card">
+
+    <h2 class="info-section-title first">{{ 'help.section.access' | translate }}</h2>
+    <p [innerHTML]="'help.intro' | translate"></p>
+
+    <div class="help-item">
+      <h2 class="info-section-title">{{ 'help.section.platform' | translate }}</h2>
+      <p [innerHTML]="'help.platform.text' | translate"></p>
+    </div>
+
+    <div class="help-item">
+      <h2 class="info-section-title">{{ 'help.section.homepage' | translate }}</h2>
+      <p>{{ 'help.homepage.intro' | translate }}</p>
+      <ul>
+        <li [innerHTML]="'help.homepage.item1' | translate"></li>
+        <li [innerHTML]="'help.homepage.item2' | translate"></li>
+        <li [innerHTML]="'help.homepage.item3' | translate"></li>
+        <li [innerHTML]="'help.homepage.item4' | translate"></li>
+        <li [innerHTML]="'help.homepage.item5' | translate"></li>
+        <li [innerHTML]="'help.homepage.item6' | translate"></li>
+        <li [innerHTML]="'help.homepage.item7' | translate"></li>
+      </ul>
+    </div>
+
+    <div class="help-item">
+      <h2 class="info-section-title">{{ 'help.section.register' | translate }}</h2>
+      <ol class="help-step-list">
+        <li [innerHTML]="'help.register.step1' | translate"></li>
+        <li [innerHTML]="'help.register.step2' | translate"></li>
+        <li [innerHTML]="'help.register.step3' | translate"></li>
+        <li [innerHTML]="'help.register.step4' | translate"></li>
+        <li [innerHTML]="'help.register.step5' | translate"></li>
+        <li [innerHTML]="'help.register.step6' | translate"></li>
+        <li [innerHTML]="'help.register.step7' | translate"></li>
+        <li [innerHTML]="'help.register.step8' | translate"></li>
+      </ol>
+    </div>
+
+    <div class="help-item">
+      <h2 class="info-section-title">{{ 'help.section.login' | translate }}</h2>
+      <ol class="help-step-list">
+        <li [innerHTML]="'help.login.step1' | translate"></li>
+        <li [innerHTML]="'help.login.step2' | translate"></li>
+        <li [innerHTML]="'help.login.step3' | translate"></li>
+      </ol>
+    </div>
+
+    <div class="help-item">
+      <h2 class="info-section-title">{{ 'help.section.search' | translate }}</h2>
+      <p>{{ 'help.search.intro' | translate }}</p>
+      <ul>
+        <li [innerHTML]="'help.search.item1' | translate"></li>
+        <li [innerHTML]="'help.search.item2' | translate"></li>
+      </ul>
+    </div>
+
+    <div class="help-item">
+      <h2 class="info-section-title">{{ 'help.section.browse' | translate }}</h2>
+      <ol class="help-step-list">
+        <li [innerHTML]="'help.browse.step1' | translate"></li>
+        <li [innerHTML]="'help.browse.step2' | translate"></li>
+      </ol>
+    </div>
+
+    <div class="help-item">
+      <h2 class="info-section-title">{{ 'help.section.download' | translate }}</h2>
+      <ol class="help-step-list">
+        <li [innerHTML]="'help.download.step1' | translate"></li>
+        <li [innerHTML]="'help.download.step2' | translate"></li>
+        <li [innerHTML]="'help.download.step3' | translate"></li>
+        <li [innerHTML]="'help.download.step4' | translate"></li>
+        <li [innerHTML]="'help.download.step5' | translate"></li>
+      </ol>
+    </div>
+
+    <h2 class="info-section-title">{{ 'help.section.contact' | translate }}</h2>
+    <div class="help-contact-box">
+      <div class="help-contact-left">
+        <div class="help-contact-email">
+          <i class="fas fa-envelope"></i>
+          <div>
+            <h5>{{ 'help.contact.email.title' | translate }}</h5>
+            <p>lgarchciil[at]gmail[dot]com</p>
+          </div>
+        </div>
+        <p style="font-size: 0.9rem; color: #64748b; margin: 0;">
+          {{ 'help.contact.email.note' | translate }}
+        </p>
+      </div>
+      <div class="help-contact-right">
+        <i class="fas fa-question-circle"></i>
+        <p>{{ 'help.contact.further' | translate }}</p>
+      </div>
+    </div>
+
+  </main>
+</div>

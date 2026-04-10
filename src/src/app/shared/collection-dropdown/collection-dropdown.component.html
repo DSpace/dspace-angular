@@ -1,0 +1,54 @@
+@if (searchField) {
+  <div class="mb-3 w-100 pe-2 ps-2 my-2">
+    <input type="search"
+      class="form-control w-100"
+      (click)="$event.stopPropagation();"
+      placeholder="{{ 'submission.sections.general.search-collection' | translate }}"
+      [formControl]="searchField"
+      #searchFieldEl>
+  </div>
+}
+<div class="dropdown-divider m-0"></div>
+<ul class="scrollable-menu p-0 m-0"
+  role="menu"
+  (scroll)="onScroll($event)"
+  infiniteScroll
+  [infiniteScrollDistance]="1.5"
+  [infiniteScrollThrottle]="0"
+  [infiniteScrollUpDistance]="1.5"
+  [fromRoot]="true"
+  [scrollWindow]="false"
+  (scrolled)="onScrollDown()">
+
+  @if (searchListCollection?.length === 0 && (isLoading | async) !== true) {
+    <li class="dropdown-item disabled" role="menuitem">
+      {{'submission.sections.general.no-collection' | translate}}
+    </li>
+  }
+  @if (searchListCollection?.length > 0) {
+    @for (listItem of searchListCollection; track listItem) {
+      <li
+        class="dropdown-item collection-item"
+        role="menuitem"
+        title="{{ listItem.collection.name }}"
+        (click)="onSelect(listItem)">
+        <div class="list-unstyled mb-0">
+          @for (item of listItem.communities; track item) {
+            <div class="list-item text-truncate text-secondary">
+              {{ item.name}} <i class="fa fa-level-down" aria-hidden="true"></i>
+            </div>
+          }
+          <div class="list-item text-truncate text-primary fw-bold">{{ listItem.collection.name}}</div>
+        </div>
+      </li>
+    }
+  }
+  @if ((isLoading | async)) {
+    <li>
+      <button class="dropdown-item disabled">
+        <ds-loading message="{{'loading.default' | translate}}">
+        </ds-loading>
+      </button>
+    </li>
+  }
+</ul>

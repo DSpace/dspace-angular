@@ -1,0 +1,113 @@
+@if ((dataSource.loading$ | async) && !loadingNode) {
+  <ds-loading class="ds-themed-loading"></ds-loading>
+}
+<cdk-tree [dataSource]="dataSource" [treeControl]="treeControl" [trackBy]="trackBy">
+  <!-- This is the tree node template for show more node -->
+  <cdk-tree-node *cdkTreeNodeDef="let node; when: isShowMore" cdkTreeNodePadding
+    class="example-tree-node show-more-node">
+    <div class="btn-group">
+      <span aria-hidden="true" class="btn btn-default invisible" cdkTreeNodeToggle>
+        <span class="fa fa-chevron-right"></span>
+      </span>
+      <div class="align-middle my-auto">
+        @if ((dataSource.loading$ | async) !== true) {
+          <button (click)="getNextPage(node)"
+            class="btn btn-outline-primary btn-sm" role="button" tabindex="0">
+            <i class="fas fa-angle-down"></i> {{ 'communityList.showMore' | translate }}
+          </button>
+        }
+        @if (node===loadingNode && dataSource.loading$ | async) {
+          <ds-loading class="ds-themed-loading"></ds-loading>
+        }
+      </div>
+    </div>
+    <div class="text-muted" cdkTreeNodePadding>
+      <div class="d-flex">
+      </div>
+    </div>
+  </cdk-tree-node>
+  <!-- This is the tree node template for expandable nodes (coms and subcoms with children) -->
+  <cdk-tree-node *cdkTreeNodeDef="let node; when: hasChild" cdkTreeNodePadding
+    class="example-tree-node expandable-node">
+    <div class="btn-group">
+      @if (hasChild(null, node) | async) {
+        <button type="button" class="btn btn-default btn-transparent" cdkTreeNodeToggle
+          [attr.aria-label]="(node.isExpanded ? 'communityList.collapse' : 'communityList.expand') | translate:{ name: dsoNameService.getName(node.payload) }"
+          (click)="toggleExpanded(node)"
+          (keyup.enter)="toggleExpanded(node)"
+          (keyup.space)="toggleExpanded(node)"
+          data-test="expand-button"
+          role="button"
+          tabindex="0">
+          <span class="{{node.isExpanded ? 'fa fa-chevron-down' : 'fa fa-chevron-right'}}"
+          aria-hidden="true"></span>
+          <span class="sr-only">{{ (node.isExpanded ? 'communityList.collapse' : 'communityList.expand') | translate:{ name: dsoNameService.getName(node.payload) } }}</span>
+        </button>
+      }
+      <!--Don't render the button when non-expandable otherwise it's still accessible, instead render this placeholder-->
+      @if ((hasChild(null, node) | async) !== true) {
+        <span aria-hidden="true" class="btn btn-default invisible">
+          <span class="fa fa-chevron-right"></span>
+        </span>
+      }
+      <div class="d-flex flex-row">
+        <span class="d-flex align-middle my-auto">
+          <a [routerLink]="node.route" class="lead" role="link" tabindex="0">{{ dsoNameService.getName(node.payload) }}</a>
+          <span class="pe-2">&nbsp;</span>
+          @if (node.payload.archivedItemsCount >= 0) {
+            <span class="badge rounded-pill bg-secondary align-top archived-items-lead my-auto ps-2 pe-2">{{node.payload.archivedItemsCount}}</span>
+          }
+        </span>
+      </div>
+    </div>
+    <ds-truncatable [id]="node.id">
+      <div class="text-muted" cdkTreeNodePadding>
+        @if (node.payload.shortDescription) {
+          <div class="d-flex">
+            <span aria-hidden="true" class="btn btn-default invisible">
+              <span class="fa fa-chevron-right"></span>
+            </span>
+            <ds-truncatable-part [id]="node.id" [minLines]="3">
+              <span>{{node.payload.shortDescription}}</span>
+            </ds-truncatable-part>
+          </div>
+        }
+      </div>
+    </ds-truncatable>
+    @if (node===loadingNode && dataSource.loading$ | async) {
+      <div class="d-flex"
+        cdkTreeNodePadding>
+        <span aria-hidden="true" class="btn btn-default invisible">
+          <span class="fa fa-chevron-right"></span>
+        </span>
+        <ds-loading class="ds-themed-loading"></ds-loading>
+      </div>
+    }
+  </cdk-tree-node>
+  <!-- This is the tree node template for leaf nodes (collections and (sub)coms without children) -->
+  <cdk-tree-node *cdkTreeNodeDef="let node; when: !(hasChild && isShowMore)" cdkTreeNodePadding
+    class="example-tree-node childless-node">
+    <div class="btn-group">
+      <span aria-hidden="true" class="btn btn-default invisible" cdkTreeNodeToggle>
+        <span class="fa fa-chevron-right"></span>
+      </span>
+      <h6 class="align-middle my-auto">
+        <a [routerLink]="node.route" class="lead" role="link" tabindex="0">{{ dsoNameService.getName(node.payload) }}</a>
+      </h6>
+    </div>
+    <ds-truncatable [id]="node.id">
+      <div class="text-muted" cdkTreeNodePadding>
+        @if (node.payload.shortDescription) {
+          <div class="d-flex">
+            <span aria-hidden="true" class="btn btn-default invisible">
+              <span class="fa fa-chevron-right"></span>
+            </span>
+            <ds-truncatable-part [id]="node.id" [minLines]="3">
+              <span>{{node.payload.shortDescription}}</span>
+            </ds-truncatable-part>
+          </div>
+        }
+      </div>
+    </ds-truncatable>
+  </cdk-tree-node>
+</cdk-tree>

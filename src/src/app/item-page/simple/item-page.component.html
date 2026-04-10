@@ -1,0 +1,26 @@
+<div class="container" *ngVar="(itemRD$ | async) as itemRD">
+  @if (itemRD?.hasSucceeded) {
+    <div class="item-page" @fadeInOut>
+      @if (itemRD?.payload; as item) {
+        <div>
+
+          <ds-item-alerts [item]="item"></ds-item-alerts>
+          <ds-access-by-token-notification></ds-access-by-token-notification>
+          <ds-qa-event-notification [item]="item"></ds-qa-event-notification>
+          <ds-notify-requests-status [itemUuid]="item.uuid"></ds-notify-requests-status>
+          <ds-item-versions-notice [item]="item"></ds-item-versions-notice>
+          @if (!item.isWithdrawn || (isAdmin$|async)) {
+            <ds-listable-object-component-loader [object]="item" [viewMode]="viewMode"></ds-listable-object-component-loader>
+          }
+          <ds-item-versions class="mt-2" [item]="item" [displayActions]="false"></ds-item-versions>
+        </div>
+      }
+    </div>
+  }
+  @if (itemRD?.hasFailed) {
+    <ds-error message="{{'error.item' | translate}}"></ds-error>
+  }
+  @if (itemRD?.isLoading) {
+    <ds-loading message="{{'loading.item' | translate}}"></ds-loading>
+  }
+</div>

@@ -1,0 +1,8 @@
+<a class="ds-menu-item" role="menuitem"
+   routerLinkActive="active"
+   [ngClass]="{'disabled': !hasLink }"
+   [attr.aria-disabled]="!hasLink"
+   [href]="href"
+   [title]="item.text | translate"
+   (click)="$event.stopPropagation()"
+>{{item.text | translate}}</a>

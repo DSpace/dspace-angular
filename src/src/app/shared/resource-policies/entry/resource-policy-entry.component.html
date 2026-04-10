@@ -1,0 +1,43 @@
+<td class="text-center">
+  <div>
+    <input type="checkbox"
+      class="form-check-input"
+      [id]="entry.id"
+      [ngModel]="entry.checked"
+      (ngModelChange)="this.toggleCheckbox.emit($event);">
+    <label class="form-check-label" [for]="entry.id">
+      <span class="sr-only">{{(entry.checked ? 'resource-policies.table.headers.deselect' : 'resource-policies.table.headers.select') | translate}}</span>
+    </label>
+  </div>
+</td>
+<th scope="row">
+  {{entry.id}}
+</th>
+<td>{{entry.policy.name}}</td>
+<td>{{entry.policy.policyType}}</td>
+<td>{{entry.policy.action}}</td>
+<td>
+  {{ epersonName$ | async }}
+</td>
+<td>
+  {{ groupName$ | async }}
+</td>
+<td>{{formatDate(entry.policy.startDate)}}</td>
+<td>{{formatDate(entry.policy.endDate)}}</td>
+<td class="text-center">
+
+  <div class="btn-group edit-field">
+    <button class="btn btn-outline-primary btn-sm"
+      [title]="'resource-policies.table.headers.edit.policy' | translate"
+      (click)="redirectToResourcePolicyEditPage()">
+      <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    </button>
+    @if (groupName$ | async | dsHasValue) {
+      <button class="btn btn-outline-primary btn-sm"
+        [title]="'resource-policies.table.headers.edit.group' | translate"
+        (click)="redirectToGroupEditPage()">
+        <i class="fas fa-users fa-fw" aria-hidden="true"></i>
+      </button>
+    }
+  </div>
+</td>

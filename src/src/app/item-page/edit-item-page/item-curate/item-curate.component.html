@@ -1,0 +1,8 @@
+<div class="container mt-3">
+  <h2>{{'item.edit.curate.title' |translate:{item: (itemName$ |async)} }}</h2>
+  @if (dsoRD$ | async; as dsoRD) {
+    <ds-curation-form
+      [dsoHandle]="dsoRD?.payload.handle"
+    ></ds-curation-form>
+  }
+</div>

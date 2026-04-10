@@ -1,0 +1,190 @@
+<header class="about-hero">
+  <div class="about-badge">{{ 'about.badge' | translate }}</div>
+  <h1 [innerHTML]="'about.title.html' | translate"></h1>
+  <div class="hero-subtitle-container">
+    <span class="hero-line"></span>
+    <span class="hero-subtitle">{{ 'about.subtitle' | translate }}</span>
+    <span class="hero-line right"></span>
+  </div>
+</header>
+
+<div class="about-main-wrapper">
+  <main class="about-content-card">
+
+    <h2 class="about-section-title first">{{ 'about.section.introduction' | translate }}</h2>
+    <div style="margin-bottom: 60px; text-align: justify;">
+      <p [innerHTML]="'about.intro.text' | translate"></p>
+    </div>
+
+    <h2 class="about-section-title">{{ 'about.section.commitment' | translate }}</h2>
+    <div class="about-commitment-layout">
+      <div class="about-commit-text">
+        <p>{{ 'about.commitment.text' | translate }}</p>
+      </div>
+      <div class="about-feature-card">
+        <div class="about-feature-header">
+          <i class="fas fa-server about-feature-icon"></i>
+          <h3 class="about-feature-title" [innerHTML]="'about.feature.title' | translate"></h3>
+        </div>
+        <p>{{ 'about.feature.desc' | translate }}</p>
+        <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px;">
+          <span style="font-size: 0.85rem; opacity: 0.7; display: block;">{{ 'about.feature.powered-by' | translate }}</span>
+          <span class="about-tech-badge">{{ 'about.feature.dspace' | translate }}</span>
+          <span class="about-tech-badge">{{ 'about.feature.opensource' | translate }}</span>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="about-section-title">{{ 'about.section.journey' | translate }}</h2>
+    <div class="about-timeline">
+      <div class="about-timeline-item">
+        <span class="about-timeline-dot"></span>
+        <span class="about-timeline-date">{{ 'about.timeline.2024.year' | translate }}</span>
+        <h4>{{ 'about.timeline.2024.title' | translate }}</h4>
+        <p>{{ 'about.timeline.2024.desc' | translate }}</p>
+      </div>
+      <div class="about-timeline-item">
+        <span class="about-timeline-dot"></span>
+        <span class="about-timeline-date">{{ 'about.timeline.2025.year' | translate }}</span>
+        <h4>{{ 'about.timeline.2025.title' | translate }}</h4>
+        <p>{{ 'about.timeline.2025.desc' | translate }}</p>
+      </div>
+      <div class="about-timeline-item">
+        <span class="about-timeline-dot"></span>
+        <span class="about-timeline-date">{{ 'about.timeline.2026.year' | translate }}</span>
+        <h4>{{ 'about.timeline.2026.title' | translate }}</h4>
+        <p>{{ 'about.timeline.2026.desc' | translate }}</p>
+      </div>
+    </div>
+
+    <h2 class="about-section-title">{{ 'about.section.objectives' | translate }}</h2>
+    <div class="about-objectives-grid">
+      <div class="about-obj-card">
+        <i class="fas fa-scroll"></i>
+        <div class="about-obj-content">
+          <h4>{{ 'about.obj.preservation.title' | translate }}</h4>
+          <p>{{ 'about.obj.preservation.desc' | translate }}</p>
+        </div>
+      </div>
+      <div class="about-obj-card">
+        <i class="fas fa-globe"></i>
+        <div class="about-obj-content">
+          <h4>{{ 'about.obj.digital.title' | translate }}</h4>
+          <p>{{ 'about.obj.digital.desc' | translate }}</p>
+        </div>
+      </div>
+      <div class="about-obj-card">
+        <i class="fas fa-photo-video"></i>
+        <div class="about-obj-content">
+          <h4>{{ 'about.obj.formats.title' | translate }}</h4>
+          <p>{{ 'about.obj.formats.desc' | translate }}</p>
+        </div>
+      </div>
+      <div class="about-obj-card">
+        <i class="fas fa-laptop-code"></i>
+        <div class="about-obj-content">
+          <h4>{{ 'about.obj.langtech.title' | translate }}</h4>
+          <p>{{ 'about.obj.langtech.desc' | translate }}</p>
+        </div>
+      </div>
+    </div>
+
+    <section class="about-heritage-box">
+      <h2 style="margin-bottom: 30px; font-weight: 600;">{{ 'about.heritage.title' | translate }}</h2>
+      <p style="margin: 0 auto 35px; line-height: 1.8;" [innerHTML]="'about.heritage.text' | translate"></p>
+      <div>
+        <span class="about-tag">{{ 'about.heritage.tag.nep' | translate }}</span>
+        <span class="about-tag">{{ 'about.heritage.tag.digital' | translate }}</span>
+        <span class="about-tag">{{ 'about.heritage.tag.atmanirbhar' | translate }}</span>
+        <span class="about-tag">{{ 'about.heritage.tag.ekbharat' | translate }}</span>
+      </div>
+    </section>
+
+    <h2 class="about-section-title">{{ 'about.section.specialised' | translate }}</h2>
+    <div class="about-tabs-container">
+      <div class="about-tabs-nav">
+        <button class="about-tab-btn" [class.active]="activeTab === 'sppel'" (click)="setTab('sppel')">{{ 'about.tab.sppel' | translate }}</button>
+        <button class="about-tab-btn" [class.active]="activeTab === 'bhasha'" (click)="setTab('bhasha')">{{ 'about.tab.bhasha' | translate }}</button>
+        <button class="about-tab-btn" [class.active]="activeTab === 'bharat'" (click)="setTab('bharat')">{{ 'about.tab.bharat' | translate }}</button>
+        <button class="about-tab-btn" [class.active]="activeTab === 'ciil'" (click)="setTab('ciil')">{{ 'about.tab.ciil' | translate }}</button>
+      </div>
+      <div class="about-tabs-content-area">
+        @if (activeTab === 'sppel') {
+          <div class="about-tab-pane active">
+            <h3>{{ 'about.sppel.title' | translate }}</h3>
+            <p>{{ 'about.sppel.text' | translate }}</p>
+          </div>
+        }
+        @if (activeTab === 'bhasha') {
+          <div class="about-tab-pane active">
+            <h3>{{ 'about.bhasha.title' | translate }}</h3>
+            <p>{{ 'about.bhasha.text' | translate }}</p>
+          </div>
+        }
+        @if (activeTab === 'bharat') {
+          <div class="about-tab-pane active">
+            <h3>{{ 'about.bharat.title' | translate }}</h3>
+            <p>{{ 'about.bharat.text' | translate }}</p>
+          </div>
+        }
+        @if (activeTab === 'ciil') {
+          <div class="about-tab-pane active">
+            <h3>{{ 'about.ciil.title' | translate }}</h3>
+            <p>{{ 'about.ciil.text' | translate }}</p>
+          </div>
+        }
+      </div>
+    </div>
+
+    <h2 class="about-section-title">{{ 'about.section.leadership' | translate }}</h2>
+    <div class="about-team-grid">
+      <div class="about-team-member">
+        <div class="about-member-img"><img src="assets/custom/images/Prof.%20Shailendra%20Mohan.jpg" alt="Prof. Shailendra Mohan" class="about-leader-photo"></div>
+        <h4 style="font-size: 1.1rem; margin-bottom: 5px;">{{ 'about.leader1.name' | translate }}</h4>
+        <p style="color: #D69E2E; font-weight: 600; font-size: 0.9rem;">{{ 'about.leader1.role' | translate }}</p>
+      </div>
+      <div class="about-team-member">
+        <div class="about-member-img"><img src="assets/custom/images/Dr.%20Sujoy%20Sarkar.jpeg" alt="Dr. Sujoy Sarkar" class="about-leader-photo"></div>
+        <h4 style="font-size: 1.1rem; margin-bottom: 5px;">{{ 'about.leader2.name' | translate }}</h4>
+        <p style="color: #D69E2E; font-weight: 600; font-size: 0.9rem;">{{ 'about.leader2.role' | translate }}</p>
+      </div>
+    </div>
+
+    <h2 class="about-section-title">{{ 'about.section.contact' | translate }}</h2>
+    <div class="about-contact-container">
+      <div class="about-contact-details-panel">
+        <div class="about-contact-item">
+          <div class="about-contact-icon-box"><i class="fas fa-map-marker-alt"></i></div>
+          <div class="about-contact-text">
+            <h5>{{ 'about.contact.address.title' | translate }}</h5>
+            <p [innerHTML]="'about.contact.address.text' | translate"></p>
+          </div>
+        </div>
+        <div class="about-contact-item">
+          <div class="about-contact-icon-box"><i class="fas fa-phone-alt"></i></div>
+          <div class="about-contact-text">
+            <h5>{{ 'about.contact.person.title' | translate }}</h5>
+            <p><strong>{{ 'about.contact.person.name' | translate }}</strong></p>
+            <p style="font-size: 0.9rem; color: #94a3b8;">{{ 'about.contact.person.tel' | translate }}</p>
+          </div>
+        </div>
+        <div class="about-contact-item">
+          <div class="about-contact-icon-box"><i class="fas fa-envelope"></i></div>
+          <div class="about-contact-text">
+            <h5>{{ 'about.contact.email.title' | translate }}</h5>
+            <p>{{ 'about.contact.email.address' | translate }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="about-contact-map-panel">
+        <iframe
+          src="https://maps.google.com/maps?q=Central%20Institute%20of%20Indian%20Languages%20Mysuru&t=&z=15&ie=UTF8&iwloc=&output=embed"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+    </div>
+
+  </main>
+</div>

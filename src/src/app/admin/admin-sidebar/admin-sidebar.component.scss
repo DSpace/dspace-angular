@@ -1,0 +1,146 @@
+:host {
+
+  /* SIDEBAR SIZE AND POSITION */
+
+  /* Sidebar hierarchy:
+   § nav
+     § .sidebar-full-width-container (any OPTIONAL full width element with no horizontal margin or padding - it can be nested)
+       § .sidebar-section-wrapper
+         § .sidebar-fixed-element-wrapper
+         § .sidebar-collapsible-element-outer-wrapper
+           § .sidebar-collapsible-element-inner-wrapper
+             § .sidebar-item
+   */
+
+  // Sidebar position
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: var(--ds-sidebar-z-index);
+
+  // Sidebar size and content position
+  nav#admin-sidebar {
+
+    max-width: var(--ds-admin-sidebar-fixed-element-width); // Sidebar collapsed width
+
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+
+    div#sidebar-top-level-items-container {
+      flex: 1 1 auto; // Fill available vertical space
+      overflow-x: hidden;
+      overflow-y: auto;
+      @include dark-scrollbar;
+    }
+
+    img#admin-sidebar-logo {
+      height: var(--ds-admin-sidebar-logo-height);
+    }
+
+    ::ng-deep {
+
+      // This class must be applied to any nested wrapper containing a sidebar section
+      .sidebar-full-width-container {
+        width: 100%;
+        padding-left: 0;
+        padding-right: 0;
+        margin-left: 0;
+        margin-right: 0;
+      }
+
+      // This class must be applied to the innermost block element containing a section or subsection link
+      // (it can be applied together with `sidebar-collapsible-element-inner-wrapper`)
+      .sidebar-item {
+        padding-top: var(--ds-admin-sidebar-item-padding);
+        padding-bottom: var(--ds-admin-sidebar-item-padding);
+      }
+
+      // These classes handle the collapsing behavior
+      .sidebar-section-wrapper {
+
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: stretch;
+
+        // These elements have fixed width and determine the width of the collapsed sidebar
+        & > .sidebar-fixed-element-wrapper {
+          min-width: var(--ds-admin-sidebar-fixed-element-width);
+          flex: 1 1 auto; // Fill available space
+
+          // Align the icons
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+        }
+
+        & > .sidebar-collapsible-element-outer-wrapper {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: flex-end; // make inner wrapper slide on the left when collapsing
+          max-width: calc(100% - var(--ds-admin-sidebar-fixed-element-width)); // fill available space
+          padding-left: var(--ds-dark-scrollbar-width); // leave room for scrollbar
+          overflow-x: hidden; // hide inner wrapper when sidebar is collapsed
+
+          // These elements have fixed width and slide on the left when the sidebar is collapsed
+          // Their content should fill all available space
+          & > .sidebar-collapsible-element-inner-wrapper {
+            min-width: calc(var(--ds-admin-sidebar-collapsible-element-width) - var(--ds-dark-scrollbar-width));
+            height: 100%;
+            padding-right: var(--ds-admin-sidebar-item-padding);
+          }
+        }
+      }
+
+    }
+
+    // Set here any style that depends on the sidebar status
+    &.collapsed, &.transitioning, &.expanded { }
+
+  }
+
+  /* SIDEBAR STYLE */
+
+  nav#admin-sidebar {
+
+    background-color: var(--ds-admin-sidebar-bg);
+
+    ::ng-deep {
+
+      color: white;
+
+      // Set here the style of the *-menu-item nested components
+      .ds-menu-item {
+      }
+
+      a {
+        color: var(--ds-admin-sidebar-link-color);
+        text-decoration: none;
+
+        &:hover, &:focus {
+          color: var(--ds-admin-sidebar-link-hover-color);
+        }
+      }
+    }
+
+    div#sidebar-header-container {
+      background-color: var(--ds-admin-sidebar-header-bg);
+      .sidebar-fixed-element-wrapper {
+        background-color: var(--ds-admin-sidebar-header-bg);
+      }
+    }
+
+    div#sidebar-collapse-toggle-container {
+      .sidebar-collapsible-element-inner-wrapper {
+      }
+    }
+  }
+}
+
+::ng-deep {
+  .browser-firefox-windows {
+    --ds-dark-scrollbar-width: 20px;
+  }
+}

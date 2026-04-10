@@ -1,0 +1,30 @@
+<ds-metadata-field-wrapper [label]="label" [ngClass]="placeholderFontClass">
+  @for (objectPage of objects; track objectPage; let i = $index) {
+    <ng-container *ngVar="(objectPage | async) as itemsRD">
+      @for (item of itemsRD?.payload?.page; track item) {
+        <ds-listable-object-component-loader
+          [object]="item" [viewMode]="viewMode">
+        </ds-listable-object-component-loader>
+      }
+      @if ((i + 1) === objects.length && (itemsRD || i > 0) && !(itemsRD?.hasSucceeded && itemsRD?.payload && itemsRD?.payload?.page?.length > 0)) {
+        <ds-loading message="{{'loading.default' | translate}}"></ds-loading>
+      }
+      @if ((i + 1) === objects.length && itemsRD?.payload?.page?.length > 0) {
+        <div class="d-inline-block w-100 mt-2">
+          @if (itemsRD?.payload?.totalPages > objects.length) {
+            <div class="float-start" id="view-more">
+              <button class="btn btn-link btn-link-inline text-capitalize" (click)="increase()">{{'item.page.related-items.view-more' |
+              translate:{ amount: (itemsRD?.payload?.totalElements - (incrementBy * objects.length) < incrementBy) ? itemsRD?.payload?.totalElements - (incrementBy * objects.length) : incrementBy } }} {{label}}</button>
+            </div>
+          }
+          @if (objects.length > 1) {
+            <div class="float-end" id="view-less">
+              <button class="btn btn-link btn-link-inline text-capitalize" (click)="decrease()">{{'item.page.related-items.view-less' |
+              translate:{ amount: itemsRD?.payload?.page?.length } }} {{label}}</button>
+            </div>
+          }
+        </div>
+      }
+    </ng-container>
+  }
+</ds-metadata-field-wrapper>

@@ -1,0 +1,101 @@
+<div class="container">
+  <div class="epeople-registry row">
+    <div class="col-12">
+      <div class="d-flex justify-content-between border-bottom mb-3">
+        <h1 id="header" class="pb-2">{{labelPrefix + 'head' | translate}}</h1>
+
+        <div>
+          <button class="me-auto btn btn-success addEPerson-button"
+            [routerLink]="'create'">
+            <i class="fas fa-plus"></i>
+            <span class="d-none d-sm-inline ms-1">{{labelPrefix + 'button.add' | translate}}</span>
+          </button>
+        </div>
+      </div>
+
+      <h2 id="search" class="border-bottom pb-2">
+        {{labelPrefix + 'search.head' | translate}}
+      </h2>
+      <form [formGroup]="searchForm" (ngSubmit)="search(searchForm.value)" class="d-flex justify-content-between">
+        <div>
+          <select name="scope" id="scope" formControlName="scope" class="form-select" aria-label="Search scope">
+            <option value="metadata">{{labelPrefix + 'search.scope.metadata' | translate}}</option>
+            <option value="email">{{labelPrefix + 'search.scope.email' | translate}}</option>
+          </select>
+        </div>
+        <div class="flex-grow-1 me-3 ms-3">
+          <div class="mb-3 input-group">
+            <input type="text" name="query" id="query" formControlName="query"
+              class="form-control" [attr.aria-label]="labelPrefix + 'search.placeholder' | translate"
+              [placeholder]="(labelPrefix + 'search.placeholder' | translate)">
+            <span class="input-group-append">
+              <button type="submit" class="search-button btn btn-primary">
+                <i class="fas fa-search"></i> {{ labelPrefix + 'search.button' | translate }}
+              </button>
+            </span>
+          </div>
+        </div>
+        <div>
+          <button (click)="clearFormAndResetResult();"
+          class="search-button btn btn-secondary">{{labelPrefix + 'button.see-all' | translate}}</button>
+        </div>
+      </form>
+
+      @if (searching$ | async) {
+        <ds-loading></ds-loading>
+      }
+      @if ((pageInfoState$ | async)?.totalElements > 0 && (searching$ | async) !== true) {
+        <ds-pagination
+          [paginationOptions]="config"
+          [collectionSize]="(pageInfoState$ | async)?.totalElements"
+          [hideGear]="true"
+          [hidePagerWhenSinglePage]="true">
+          <div class="table-responsive">
+            <table id="epeople" class="table table-striped table-hover table-bordered">
+              <thead>
+                <tr>
+                  <th scope="col">{{labelPrefix + 'table.id' | translate}}</th>
+                  <th scope="col">{{labelPrefix + 'table.name' | translate}}</th>
+                  <th scope="col">{{labelPrefix + 'table.email' | translate}}</th>
+                  <th>{{labelPrefix + 'table.edit' | translate}}</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (epersonDto of (ePeopleDto$ | async)?.page; track epersonDto) {
+                  <tr
+                    [ngClass]="{'table-primary' : (activeEPerson$ | async) === epersonDto.eperson}">
+                    <td>{{epersonDto.eperson.id}}</td>
+                    <td>{{ dsoNameService.getName(epersonDto.eperson) }}</td>
+                    <td>{{epersonDto.eperson.email}}</td>
+                    <td>
+                      <div class="btn-group edit-field">
+                        <button [routerLink]="getEditEPeoplePage(epersonDto.eperson.id)"
+                          class="btn btn-outline-primary btn-sm access-control-editEPersonButton"
+                          title="{{labelPrefix + 'table.edit.buttons.edit' | translate: { name: dsoNameService.getName(epersonDto.eperson) } }}">
+                          <i class="fas fa-edit fa-fw"></i>
+                        </button>
+                        @if (epersonDto.ableToDelete) {
+                          <button (click)="deleteEPerson(epersonDto.eperson)"
+                            class="delete-button btn btn-outline-danger btn-sm access-control-deleteEPersonButton"
+                            title="{{labelPrefix + 'table.edit.buttons.remove' | translate: { name: dsoNameService.getName(epersonDto.eperson) } }}">
+                            <i class="fas fa-trash-alt fa-fw"></i>
+                          </button>
+                        }
+                      </div>
+                    </td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        </ds-pagination>
+      }
+
+      @if ((pageInfoState$ | async)?.totalElements === 0) {
+        <div class="alert alert-info w-100 mb-2" role="alert">
+          {{labelPrefix + 'no-items' | translate}}
+        </div>
+      }
+    </div>
+  </div>
+</div>

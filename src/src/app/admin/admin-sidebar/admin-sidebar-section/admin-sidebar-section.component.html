@@ -1,0 +1,23 @@
+<div>
+  <a class="sidebar-section-wrapper"
+     [ngClass]="{ disabled: isDisabled }"
+     role="menuitem"
+     [attr.aria-disabled]="isDisabled"
+     [attr.aria-labelledby]="adminMenuSectionTitleAccessibilityHandle(section)"
+     [routerLink]="itemModel.link"
+     (keyup.space)="navigate($event)"
+     (keyup.enter)="navigate($event)"
+     href="javascript:void(0);"
+  >
+    <div class="sidebar-fixed-element-wrapper" data-test="sidebar-section-icon" aria-hidden="true">
+      <i class="fas fa-{{section.icon}} fa-fw"></i>
+    </div>
+    <div class="sidebar-collapsible-element-outer-wrapper">
+      <div class="sidebar-collapsible-element-inner-wrapper sidebar-item">
+        <span [id]="adminMenuSectionTitleAccessibilityHandle(section)" [attr.data-test]="adminMenuSectionTitleAccessibilityHandle(section) | dsBrowserOnly">
+          {{itemModel.text | translate}}
+        </span>
+      </div>
+    </div>
+  </a>
+</div>

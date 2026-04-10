@@ -1,0 +1,8 @@
+<div class="dso-edit-menu d-flex" role="menubar">
+  @for (section of (sections | async); track section) {
+    <div class="ms-1">
+      <ng-container
+      *ngComponentOutlet="(sectionMap$ | async).get(section.id)?.component; injector: (sectionMap$ | async).get(section.id)?.injector;"></ng-container>
+    </div>
+  }
+</div>

@@ -1,0 +1,8 @@
+<p class="full-text-op">{{'iiifviewer.fullscreen.notice' | translate}}</p>
+@if (!isViewerAvailable) {
+  <p id="viewer-message">{{viewerMessage}}</p>
+}
+@if (isViewerAvailable) {
+  <iframe title="Mirador Viewer" allowtransparency="true" [src]="iframeViewerUrl | async" id="mirador-viewer"></iframe>
+}
+

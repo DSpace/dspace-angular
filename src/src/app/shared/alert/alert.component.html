@@ -1,0 +1,12 @@
+@if (!dismissed) {
+  <div class="alert {{type}} alert-dismissible fade show w-100 p-3" role="alert" [@enterLeave]="animate">
+    @if (content) {
+      <span [innerHTML]="content | translate"></span>
+    }
+    <ng-content></ng-content>
+    @if (dismissible) {
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" (click)="dismiss()">
+      </button>
+    }
+  </div>
+}

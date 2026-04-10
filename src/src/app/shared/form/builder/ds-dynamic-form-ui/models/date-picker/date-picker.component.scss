@@ -1,0 +1,11 @@
+.col-lg-1 {
+  width: auto;
+}
+
+legend {
+  font-size: initial;
+  margin-bottom: 0;
+
+  /* Changed from Bootstrap 5's legend to ensure that the date issues label is on a different line as it's input */
+  float: none;
+}

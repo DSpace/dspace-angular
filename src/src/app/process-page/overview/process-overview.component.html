@@ -1,0 +1,86 @@
+<div class="container">
+  <div class="d-flex">
+    <h1 class="flex-grow-1">{{'process.overview.title' | translate}}</h1>
+  </div>
+  <ng-container *ngTemplateOutlet="buttons"></ng-container>
+
+  <div class="sections">
+    <ds-process-overview-table
+      [processStatus]="ProcessStatus.RUNNING"
+      [useAutoRefreshingSearchBy]="true"
+      [getInfoValueMethod]="processOverviewService.timeStarted"/>
+    <ds-process-overview-table
+      [processStatus]="ProcessStatus.SCHEDULED"
+      [useAutoRefreshingSearchBy]="true"
+      [getInfoValueMethod]="processOverviewService.timeCreated"/>
+    <ds-process-overview-table
+      [processStatus]="ProcessStatus.COMPLETED"
+      [sortField]="ProcessSortField.endTime"
+      [useAutoRefreshingSearchBy]="true"
+      [getInfoValueMethod]="processOverviewService.timeCompleted"/>
+    <ds-process-overview-table
+      [processStatus]="ProcessStatus.FAILED"
+      [sortField]="ProcessSortField.endTime"
+      [useAutoRefreshingSearchBy]="true"
+      [getInfoValueMethod]="processOverviewService.timeCompleted"/>
+  </div>
+
+  <ng-container *ngTemplateOutlet="buttons"></ng-container>
+</div>
+
+<ng-template #buttons>
+  <div class="d-flex justify-content-end mb-2">
+    @if (processBulkDeleteService.hasSelected()) {
+      <button class="btn btn-primary me-2"
+        (click)="processBulkDeleteService.clearAllProcesses()"><i
+      class="fas fa-undo pe-2"></i>{{'process.overview.delete.clear' | translate }}
+    </button>
+  }
+  @if (processBulkDeleteService.hasSelected()) {
+    <button class="btn btn-danger me-2"
+      (click)="openDeleteModal(deleteModal)"><i
+    class="fas fa-trash pe-2"></i>{{'process.overview.delete' | translate: {count: processBulkDeleteService.getAmountOfSelectedProcesses()} }}
+  </button>
+}
+<button class="btn btn-success" routerLink="/processes/new"><i
+class="fas fa-plus pe-2"></i>{{'process.overview.new' | translate}}</button>
+</div>
+</ng-template>
+
+<ng-template #deleteModal>
+
+  <div>
+
+    <div class="modal-header">
+      <div>
+        <h4>{{'process.overview.delete.header' | translate }}</h4>
+      </div>
+      <button type="button" class="btn-close"
+        (click)="closeModal()" aria-label="Close">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      @let isProcessing = (isProcessing$ | async);
+      @if (isProcessing) {
+        <div class="alert alert-info">
+          <span class="spinner-border spinner-border-sm spinner-button" role="status" aria-hidden="true"></span>
+          <span> {{ 'process.overview.delete.processing' | translate: {count: processBulkDeleteService.getAmountOfSelectedProcesses()} }}</span>
+        </div>
+      } @else {
+        <div>{{'process.overview.delete.body' | translate: {count: processBulkDeleteService.getAmountOfSelectedProcesses()} }}</div>
+      }
+      <div class="mt-4">
+        <button class="btn btn-primary me-2" [dsBtnDisabled]="isProcessing"
+        (click)="closeModal()">{{'process.detail.delete.cancel' | translate}}</button>
+        <button id="delete-confirm" class="btn btn-danger"
+          [dsBtnDisabled]="isProcessing"
+          (click)="deleteSelected()">{{ 'process.overview.delete' | translate: {count: processBulkDeleteService.getAmountOfSelectedProcesses()}  }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+</ng-template>

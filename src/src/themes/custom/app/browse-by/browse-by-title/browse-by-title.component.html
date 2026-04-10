@@ -1,0 +1,41 @@
+<header class="browse-hero">
+  <div class="container">
+    <div class="browse-badge">{{ 'browse.common.badge' | translate }}</div>
+    <h1>{{ 'browse.heading.prefix' | translate }}<span>{{ 'browse.title.title' | translate }}</span>{{ 'browse.heading.suffix' | translate }}</h1>
+    <div class="hero-subtitle-container">
+      <span class="hero-line"></span>
+      <p class="hero-subtitle">{{ 'browse.common.subtitle' | translate }}</p>
+      <span class="hero-line right"></span>
+    </div>
+  </div>
+</header>
+
+@if (!ssrRenderingDisabled) {
+  <div class="browse-main-wrapper">
+    <main class="browse-content-card">
+
+      <h2 class="browse-page-header-title">{{ 'browse.title.title' | translate }}</h2>
+
+      @if ((loading$ | async) !== true) {
+        <ds-browse-by
+          title="{{ 'browse.title' | translate:{
+            field: 'browse.metadata.' + browseId | translate,
+            startsWith: (startsWith)? ('browse.startsWith' | translate: { startsWith: '&quot;' + startsWith + '&quot;' }) : '',
+            value: (value)? '&quot;' + value + '&quot;': ''
+          } }}"
+          [displayTitle]="false"
+          [objects$]="(items$ !== undefined)? items$ : browseEntries$"
+          [paginationConfig]="(currentPagination$ | async)"
+          [sortConfig]="(currentSort$ | async)"
+          [type]="startsWithType"
+          [startsWithOptions]="startsWithOptions"
+          (prev)="goPrev()"
+          (next)="goNext()">
+        </ds-browse-by>
+      }
+      @if (loading$ | async) {
+        <ds-loading message="{{ 'loading.browse-by-page' | translate }}"></ds-loading>
+      }
+    </main>
+  </div>
+}

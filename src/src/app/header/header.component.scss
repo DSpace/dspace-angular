@@ -1,0 +1,31 @@
+:host {
+  header {
+    background-color: var(--ds-header-bg);
+  }
+
+  .navbar-brand img {
+    max-height: var(--ds-header-logo-height);
+    max-width: 100%;
+  }
+
+  .navbar-toggler {
+    border: none;
+    color: var(--ds-header-icon-color);
+
+    &:hover, &:focus {
+      color: var(--ds-header-icon-color-hover);
+    }
+
+    .toggler-icon {
+      width: 1.5em;
+      height: 1.5em;
+      line-height: 1.5;
+    }
+  }
+
+  .navbar, div[role="toolbar"] {
+    display: flex;
+    gap: calc(var(--bs-spacer) / 3);
+    align-items: center;
+  }
+}

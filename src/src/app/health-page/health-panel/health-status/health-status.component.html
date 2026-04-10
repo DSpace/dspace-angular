@@ -1,0 +1,18 @@
+
+@switch (status) {
+  @case (HealthStatus.UP) {
+    <i
+      class="fa fa-check-circle text-success ms-2 mt-1"
+    ngbTooltip="{{'health-page.status.ok.info' | translate}}" container="body" ></i>
+  }
+  @case (HealthStatus.UP_WITH_ISSUES) {
+    <i
+      class="fa fa-exclamation-triangle text-warning ms-2 mt-1"
+    ngbTooltip="{{'health-page.status.warning.info' | translate}}" container="body"></i>
+  }
+  @case (HealthStatus.DOWN) {
+    <i
+      class="fa fa-times-circle text-danger ms-2 mt-1"
+    ngbTooltip="{{'health-page.status.error.info' | translate}}" container="body"></i>
+  }
+}

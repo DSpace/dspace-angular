@@ -1,0 +1,39 @@
+<button (click)="skipToMainContent()" class="sr-only" id="skip-to-main-content">
+  {{ 'root.skip-to-content' | translate }}
+</button>
+
+<div class="outer-wrapper" [class.d-none]="shouldShowFullscreenLoader" [ngClass]="browserOsClasses.asObservable() | async" [@slideSidebarPadding]="{
+     value: ((isSidebarVisible$ | async) !== true ? 'hidden' : (slideSidebarOver$ | async) ? 'unpinned' : 'pinned'),
+     params: { collapsedWidth: (collapsedSidebarWidth$ | async), expandedWidth: (expandedSidebarWidth$ | async) }
+    }">
+  <ds-admin-sidebar [expandedSidebarWidth$]="expandedSidebarWidth$" [collapsedSidebarWidth$]="collapsedSidebarWidth$"></ds-admin-sidebar>
+  <div class="inner-wrapper">
+    <ds-system-wide-alert-banner></ds-system-wide-alert-banner>
+    <ds-header-navbar-wrapper></ds-header-navbar-wrapper>
+    <ds-breadcrumbs></ds-breadcrumbs>
+    <main class="my-cs" id="main-content">
+
+      @if (shouldShowRouteLoader) {
+        <div class="container d-flex justify-content-center align-items-center h-100">
+          <ds-loading [showMessage]="false"></ds-loading>
+        </div>
+      }
+      <div [class.d-none]="shouldShowRouteLoader">
+        <router-outlet></router-outlet>
+      </div>
+    </main>
+
+    <ds-footer></ds-footer>
+  </div>
+</div>
+
+<ds-notifications-board [options]="notificationOptions">
+</ds-notifications-board>
+
+@if (shouldShowFullscreenLoader) {
+  <div class="ds-full-screen-loader">
+    <ds-loading [showMessage]="false"></ds-loading>
+  </div>
+}
+
+<ds-live-region></ds-live-region>

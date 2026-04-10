@@ -1,0 +1,9 @@
+@if ((collection$ | async)) {
+  <div class="mt-2 mb-2">
+    <span class="link-muted">{{'collection.listelement.badge' | translate}}:
+      <a [routerLink]="['/collections', (collection$ | async)?.id]">
+        {{ dsoNameService.getName(collection$ | async) }}
+      </a>
+    </span>
+  </div>
+}

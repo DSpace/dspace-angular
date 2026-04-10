@@ -1,0 +1,114 @@
+@if ((versionsDTO$ | async); as versionsDTO) {
+  <div>
+    @if ((versionRD$ | async)?.payload; as itemVersion) {
+      <div>
+        @if (versionsDTO.versionDTOs.length > 0 || displayWhenEmpty) {
+          <div class="mb-2">
+            @if (displayTitle) {
+              <h2 class="h4">{{"item.version.history.head" | translate}}</h2>
+            }
+            <ds-alert [type]="AlertTypeEnum.Info">
+              {{ "item.version.history.selected.alert" | translate : {version: itemVersion.version} }}
+            </ds-alert>
+            @if (versionsDTO.versionDTOs.length > 0) {
+              <ds-pagination
+                (paginationChange)="onPageChange()"
+                [hideGear]="true"
+                [hidePagerWhenSinglePage]="true"
+                [paginationOptions]="options"
+                [collectionSize]="versionsDTO.totalElements"
+                [retainScrollPosition]="true">
+                <table class="table table-striped table-bordered align-middle my-2">
+                  <thead>
+                    <tr>
+                      <th scope="col">{{"item.version.history.table.version" | translate}}</th>
+                      @if ((showSubmitter$ | async)) {
+                        <th scope="col">{{"item.version.history.table.editor" | translate}}</th>
+                      }
+                      <th scope="col">{{"item.version.history.table.date" | translate}}</th>
+                      <th scope="col">{{"item.version.history.table.summary" | translate}}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @for (versionDTO of versionsDTO.versionDTOs; track versionDTO) {
+                      <tr [id]="'version-row-' + versionDTO.version.id">
+                        <td class="version-row-element-version">
+                          <ds-item-versions-row-element-version [hasDraftVersion]="hasDraftVersion$ | async"
+                            [version]="versionDTO.version"
+                            [item]="item" [displayActions]="displayActions"
+                            [itemVersion]="itemVersion"
+                            [versionBeingEditedNumber]="versionBeingEditedNumber"
+                            (versionsHistoryChange)="getAllVersions($event)"
+                          ></ds-item-versions-row-element-version>
+                        </td>
+                        @if ((showSubmitter$ | async)) {
+                          <td class="version-row-element-editor">
+                            {{versionDTO.version.submitterName}}
+                          </td>
+                        }
+                        <td class="version-row-element-date">
+                          {{versionDTO.version.created | date : 'yyyy-MM-dd HH:mm:ss'}}
+                        </td>
+                        <td class="version-row-element-summary">
+                          <div class="float-start">
+                            @if (isThisBeingEdited(versionDTO.version)) {
+                              <input [attr.aria-label]="'item.version.history.table.action.editSummary' | translate"
+                                [(ngModel)]="versionBeingEditedSummary" (keyup.enter)="onSummarySubmit()"
+                                class="form-control" type="text"/>
+                            } @else {
+                              <span>{{versionDTO.version.summary}}</span>
+                            }
+                            <ng-template #editSummary>
+                              <input [attr.aria-label]="'item.version.history.table.action.editSummary' | translate"
+                                [(ngModel)]="versionBeingEditedSummary" (keyup.enter)="onSummarySubmit()"
+                                class="form-control" type="text"/>
+                            </ng-template>
+                          </div>
+                          @if (displayActions && versionDTO.canEditVersion | async) {
+                            <div class="float-end btn-group edit-field space-children-mr">
+                              @if (isThisBeingEdited(versionDTO.version)) {
+                                <!--DISCARD EDIT-->
+                                <button class="btn btn-sm btn-outline-warning"
+                                  (click)="disableVersionEditing()"
+                                  title="{{'item.version.history.table.action.discardSummary' | translate}}">
+                                  <i class="fas fa-undo-alt fa-fw"></i>
+                                </button>
+                                <!--SAVE-->
+                                <button class="btn btn-outline-success btn-sm"
+                                  (click)="onSummarySubmit()"
+                                  title="{{'item.version.history.table.action.saveSummary' | translate}}">
+                                  <i class="fas fa-check fa-fw"></i>
+                                </button>
+                              } @else {
+                                <!--EDIT-->
+                                <button class="btn btn-outline-primary btn-sm version-row-element-edit"
+                                  [dsBtnDisabled]="isAnyBeingEdited()"
+                                  (click)="enableVersionEditing(versionDTO.version)"
+                                  title="{{'item.version.history.table.action.editSummary' | translate}}">
+                                  <i class="fas fa-edit fa-fw"></i>
+                                </button>
+                              }
+                            </div>
+                          }
+                        </td>
+                      </tr>
+                    }
+                  </tbody>
+                </table>
+                <div>*&nbsp;{{"item.version.history.selected" | translate}}</div>
+              </ds-pagination>
+            }
+          </div>
+        }
+      </div>
+    }
+  </div>
+} @else {
+  @if (displayWhenEmpty) {
+    <ds-alert
+      [content]="'item.version.history.empty'"
+      [type]="AlertTypeEnum.Info">
+    </ds-alert>
+  }
+}
+

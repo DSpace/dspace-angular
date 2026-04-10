@@ -1,0 +1,92 @@
+<div class="container-fluid">
+  <div class="d-inline-block float-end space-children-mr">
+    @if ((isReinstatable$ | async) !== true) {
+      <button class=" btn btn-danger"
+        [dsBtnDisabled]="(hasChanges$ | async) !== true"
+        (click)="discard()"><i
+      class="fas fa-times"></i>
+      <span class="d-none d-sm-inline">&nbsp;{{"item.edit.metadata.discard-button" | translate}}</span>
+    </button>
+  }
+  @if (isReinstatable$ | async) {
+    <button class="btn btn-warning"
+      (click)="reinstate()"><i
+    class="fas fa-undo-alt"></i>
+    <span class="d-none d-sm-inline">&nbsp;{{"item.edit.metadata.reinstate-button" | translate}}</span>
+  </button>
+}
+<button class="btn btn-primary"
+  [dsBtnDisabled]="(hasChanges$ | async) !== true || !isValid() || (initialHarvestType === harvestTypeNone && contentSource.harvestType === initialHarvestType)"
+  (click)="onSubmit()"><i
+class="fas fa-save"></i>
+<span class="d-none d-sm-inline">&nbsp;{{"item.edit.metadata.save-button" | translate}}</span>
+</button>
+</div>
+<h2>{{ 'collection.edit.tabs.source.head' | translate }}</h2>
+@if (contentSource) {
+  <div class="form-check mb-4">
+    <input type="checkbox" class="form-check-input" id="externalSourceCheck"
+      [checked]="(contentSource?.harvestType !== harvestTypeNone)" (change)="changeExternalSource()">
+    <label class="form-check-label"
+    for="externalSourceCheck">{{ 'collection.edit.tabs.source.external' | translate }}</label>
+  </div>
+}
+@if (!contentSource) {
+  <ds-loading [message]="'loading.content-source' | translate"></ds-loading>
+}
+@if (contentSource && (contentSource?.harvestType !== harvestTypeNone)) {
+  <h3>{{ 'collection.edit.tabs.source.form.head' | translate }}</h3>
+}
+</div>
+<div class="row">
+  @if (formGroup && contentSource && (contentSource?.harvestType !== harvestTypeNone)) {
+    <ds-form
+      [formId]="'collection-source-form-id'"
+      [formGroup]="formGroup"
+      [formModel]="formModel"
+      [formLayout]="formLayout"
+      [displaySubmit]="false"
+      [displayCancel]="false"
+      (dfChange)="onChange($event)"
+      (submitForm)="onSubmit()"
+    (cancel)="onCancel()"></ds-form>
+  }
+</div>
+@if ((contentSource?.harvestType !== harvestTypeNone)) {
+  <div class="container mt-2">
+    <div class="row">
+      <div class="col-12">
+        <div class="d-inline-block float-end ms-1 space-children-mr">
+          @if ((isReinstatable$ | async) !== true) {
+            <button class=" btn btn-danger"
+              [dsBtnDisabled]="(hasChanges$ | async) !== true"
+              (click)="discard()"><i
+            class="fas fa-times"></i>
+            <span class="d-none d-sm-inline">&nbsp;{{"item.edit.metadata.discard-button" | translate}}</span>
+          </button>
+        }
+        @if (isReinstatable$ | async) {
+          <button class="btn btn-warning"
+            (click)="reinstate()"><i
+          class="fas fa-undo-alt"></i>
+          <span class="d-none d-sm-inline">&nbsp;{{"item.edit.metadata.reinstate-button" | translate}}</span>
+        </button>
+      }
+      <button class="btn btn-primary"
+        [dsBtnDisabled]="(hasChanges$ | async) !== true || !isValid() || (initialHarvestType === harvestTypeNone && contentSource.harvestType === initialHarvestType)"
+        (click)="onSubmit()"><i
+      class="fas fa-save"></i>
+      <span class="d-none d-sm-inline">&nbsp;{{"item.edit.metadata.save-button" | translate}}</span>
+    </button>
+  </div>
+</div>
+</div>
+</div>
+}
+<ds-collection-source-controls
+  [isEnabled]="(hasChanges$ | async) !== true"
+  [shouldShow]="contentSource?.harvestType !== harvestTypeNone"
+  [collection]="(collectionRD$ |async)?.payload"
+  >
+</ds-collection-source-controls>
+

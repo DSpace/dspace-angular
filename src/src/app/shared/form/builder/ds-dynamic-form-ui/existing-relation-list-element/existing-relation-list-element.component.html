@@ -1,0 +1,14 @@
+<div class="d-flex">
+  <div class="flex-grow-1 me-auto">
+    @if ((relatedItem$ | async) === undefined) {
+      <ds-loading [showMessage]="false"></ds-loading>
+    }
+    @if ((relatedItem$ | async)) {
+      <ds-listable-object-component-loader [showLabel]="false" [viewMode]="viewType" [object]="(relatedItem$ | async)"></ds-listable-object-component-loader>
+    }
+  </div>
+  <button type="button" class="btn btn-secondary"
+    (click)="removeSelection()">
+    <i class="fas fa-trash" aria-hidden="true"></i>
+  </button>
+</div>

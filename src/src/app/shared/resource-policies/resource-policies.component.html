@@ -1,0 +1,78 @@
+<div class="table-responsive">
+  <table class="table table-striped table-bordered table-hover">
+    <thead>
+      <tr>
+        <th colspan="10">
+          <div class="d-flex justify-content-between align-items-center m-0">
+            <span>
+              {{ 'resource-policies.table.headers.title.for.' + resourceType | translate }}
+              <span class="text-info"> {{resourceName}} </span>
+              @if (resourceType !== 'item') {
+                ({{resourceUUID}})
+              }
+            </span>
+            <div class="space-children-mr flex-shrink-0">
+              <button class="btn btn-danger p-1"
+                [dsBtnDisabled]="((canDelete() | async) !== true) || (isProcessingDelete() | async)"
+                [title]="'resource-policies.delete.btn.title' | translate"
+                (click)="deleteSelectedResourcePolicies()">
+                @if ((isProcessingDelete() | async)) {
+                  <span>
+                    <i class='fas fa-circle-notch fa-spin' aria-hidden="true"></i> {{'submission.workflow.tasks.generic.processing' | translate}}
+                  </span>
+                }
+                @if ((isProcessingDelete() | async) !== true) {
+                  <span>
+                    <i class='fas fa-trash-alt fa-fw' aria-hidden="true"></i>
+                    {{'resource-policies.delete.btn' | translate}}
+                  </span>
+                }
+              </button>
+              <button class="btn btn-success p-1"
+                [dsBtnDisabled]="(isProcessingDelete() | async)"
+                [title]="'resource-policies.add.for.' + resourceType | translate"
+                (click)="redirectToResourcePolicyCreatePage()">
+                <i class='fas fa-plus' aria-hidden="true"></i>
+                {{'resource-policies.add.button' | translate}}
+              </button>
+            </div>
+          </div>
+        </th>
+      </tr>
+      @if ((getResourcePolicies() | async)?.length > 0) {
+        <tr class="text-center">
+          <th>
+            <div>
+              <input #selectAllBtn type="checkbox"
+                class="form-check-input"
+                [id]="'selectAll_' + resourceUUID"
+                (change)="selectAllCheckbox($event)">
+              <label class="form-check-label" [for]="'selectAll_' + resourceUUID">
+                <span class="sr-only">{{(selectAllBtn.checked ? 'resource-policies.table.headers.deselect-all' : 'resource-policies.table.headers.select-all') | translate}}</span>
+              </label>
+            </div>
+          </th>
+          <th>{{'resource-policies.table.headers.id' | translate}}</th>
+          <th>{{'resource-policies.table.headers.name' | translate}}</th>
+          <th>{{'resource-policies.table.headers.policyType' | translate}}</th>
+          <th>{{'resource-policies.table.headers.action' | translate}}</th>
+          <th>{{'resource-policies.table.headers.eperson' | translate}}</th>
+          <th>{{'resource-policies.table.headers.group' | translate}}</th>
+          <th>{{'resource-policies.table.headers.date.start' | translate}}</th>
+          <th>{{'resource-policies.table.headers.date.end' | translate}}</th>
+          <th>{{'resource-policies.table.headers.edit' | translate}}</th>
+        </tr>
+      }
+    </thead>
+    @if ((getResourcePolicies() | async)?.length > 0) {
+      <tbody>
+        @for (entry of (getResourcePolicies() | async); track entry) {
+          <tr ds-resource-policy-entry
+            [entry]="entry"
+            (toggleCheckbox)="selectCheckbox(entry, $event)"
+          ></tr>
+        }
+      </tbody>
+    }
+  </table>
+</div>

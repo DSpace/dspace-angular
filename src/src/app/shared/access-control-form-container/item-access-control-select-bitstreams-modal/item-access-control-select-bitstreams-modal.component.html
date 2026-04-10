@@ -1,0 +1,34 @@
+<div class="modal-header">
+  <h4 class="modal-title">
+    {{'access-control-select-bitstreams-modal.title' | translate}}
+  </h4>
+  <button type="button" class="btn-close" aria-label="Close"
+    (click)="activeModal.dismiss('Cross click')">
+  </button>
+</div>
+<div class="modal-body">
+  @if (bitstreams$ | async; as bitstreams) {
+    @if (bitstreams.payload.page.length > 0) {
+      <ds-viewable-collection
+        [config]="paginationConfig"
+        [context]="context"
+        [objects]="bitstreams"
+        [selectable]="true"
+        [selectionConfig]="{ repeatable: true, listId: LIST_ID }"
+        [showPaginator]="true">
+      </ds-viewable-collection>
+    }
+    @if (bitstreams && bitstreams.payload.page.length === 0) {
+      <div
+        class="alert alert-info w-100" role="alert">
+        {{'access-control-select-bitstreams-modal.no-items' | translate}}
+      </div>
+    }
+  }
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-dark"
+    (click)="activeModal.close('Close click')">
+    {{'access-control-select-bitstreams-modal.close' | translate}}
+  </button>
+</div>

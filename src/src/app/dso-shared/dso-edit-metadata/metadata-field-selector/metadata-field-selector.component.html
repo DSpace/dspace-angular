@@ -1,0 +1,43 @@
+<div class="w-100 position-relative">
+  <input type="text" #mdFieldInput
+    class="form-control" [ngClass]="{ 'is-invalid': showInvalid }"
+    [attr.aria-label]="(dsoType + '.edit.metadata.metadatafield') | translate"
+    [value]="mdField"
+    [formControl]="input"
+    (focusin)="query$.next(mdField)"
+    (dsClickOutside)="query$.next(null)"
+    (click)="$event.stopPropagation();"
+    (keyup)="this.selectedValueLoading = false"
+    />
+  @if (showInvalid) {
+    <div class="invalid-feedback show-feedback">{{ dsoType + '.edit.metadata.metadatafield.invalid' | translate }}</div>
+  }
+  <div id="scrollable-metadata-field-selector" class="dropdown-menu scrollable-menu" [ngClass]="{'show': (mdFieldOptions$ | async)?.length > 0}">
+    <div  class="dropdown-list">
+      <div
+        infiniteScroll
+        [infiniteScrollDistance]="1"
+        [infiniteScrollThrottle]="0"
+        [infiniteScrollContainer]="'#scrollable-metadata-field-selector'"
+        [fromRoot]="true"
+        (scrolled)="onScrollDown()">
+        @if (mdFieldOptions$ | async) {
+          @for (listEntry of (mdFieldOptions$ | async); track listEntry) {
+            <button
+              class="d-block dropdown-item"
+              dsHoverClass="ds-hover"
+              (click)="select(listEntry)" #listEntryElement>
+              <span [innerHTML]="listEntry"></span>
+            </button>
+          }
+        }
+        @if (loading) {
+          <button
+            class="list-group-item list-group-item-action border-0 list-entry">
+            <ds-loading [showMessage]="false"></ds-loading>
+          </button>
+        }
+      </div>
+    </div>
+  </div>
+</div>

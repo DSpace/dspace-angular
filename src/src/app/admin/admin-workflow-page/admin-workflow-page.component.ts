@@ -1,0 +1,23 @@
+import { Component } from '@angular/core';
+
+import { Context } from '../../core/shared/context.model';
+import { ThemedConfigurationSearchPageComponent } from '../../search-page/themed-configuration-search-page.component';
+
+@Component({
+  selector: 'ds-base-admin-workflow-page',
+  templateUrl: './admin-workflow-page.component.html',
+  styleUrls: ['./admin-workflow-page.component.scss'],
+  imports: [
+    ThemedConfigurationSearchPageComponent,
+  ],
+})
+
+/**
+ * Component that represents a workflow item search page for administrators
+ */
+export class AdminWorkflowPageComponent {
+  /**
+   * The context of this page
+   */
+  context: Context = Context.AdminWorkflowSearch;
+}

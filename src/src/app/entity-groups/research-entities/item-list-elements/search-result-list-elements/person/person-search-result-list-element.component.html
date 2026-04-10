@@ -1,0 +1,59 @@
+<div class="row">
+  @if (showThumbnails) {
+    <div class="col-3 col-md-2">
+      @if (linkType !== linkTypes.None) {
+        <a [target]="(linkType === linkTypes.ExternalLink) ? '_blank' : '_self'"
+          [attr.rel]="(linkType === linkTypes.ExternalLink) ? 'noopener noreferrer' : null"
+          [routerLink]="[itemPageRoute]" class="dont-break-out" tabindex="-1">
+          <ds-thumbnail [thumbnail]="dso?.thumbnail | async"
+            [defaultImage]="'assets/images/person-placeholder.svg'"
+            [alt]="'thumbnail.person.alt'"
+            [placeholder]="'thumbnail.person.placeholder'">
+          </ds-thumbnail>
+        </a>
+      }
+      @if (linkType === linkTypes.None) {
+        <span class="dont-break-out">
+          <ds-thumbnail [thumbnail]="dso?.thumbnail | async"
+            [defaultImage]="'assets/images/person-placeholder.svg'"
+            [alt]="'thumbnail.person.alt'"
+            [placeholder]="'thumbnail.person.placeholder'">
+          </ds-thumbnail>
+        </span>
+      }
+    </div>
+  }
+  <div [ngClass]="showThumbnails ? 'col-9 col-md-10' : 'col-12'">
+    @if (showLabel) {
+      <ds-badges [object]="dso" [context]="context"></ds-badges>
+    }
+    <ds-truncatable [id]="dso.id">
+      @if (linkType !== linkTypes.None) {
+        <a [target]="(linkType === linkTypes.ExternalLink) ? '_blank' : '_self'"
+          [attr.rel]="(linkType === linkTypes.ExternalLink) ? 'noopener noreferrer' : null"
+          [routerLink]="[itemPageRoute]" class="lead"
+        [innerHTML]="dsoTitle || ('person.listelement.no-title' | translate)" role="link" tabindex="0"></a>
+      }
+      @if (linkType === linkTypes.None) {
+        <span
+          class="lead"
+        [innerHTML]="dsoTitle || ('person.listelement.no-title' | translate)"></span>
+      }
+      <span class="text-muted">
+        <ds-truncatable-part [id]="dso.id" [minLines]="1">
+          @if (dso.allMetadata(['person.jobTitle']).length > 0) {
+            <span
+              class="item-list-job-title">
+              @for (value of allMetadataValues(['person.jobTitle']); track value; let last = $last) {
+                <span>
+                  <span [innerHTML]="value"><span [innerHTML]="value"></span></span>
+                </span>
+              }
+            </span>
+          }
+        </ds-truncatable-part>
+      </span>
+    </ds-truncatable>
+  </div>
+</div>
+

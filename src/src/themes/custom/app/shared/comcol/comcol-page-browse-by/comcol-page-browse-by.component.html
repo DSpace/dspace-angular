@@ -1,0 +1,39 @@
+@if ((allOptions$ | async); as allOptions) {
+  <nav class="comcol-browse mb-4" aria-label="Browse Community or Collection">
+
+    <!-- Desktop: pill tabs -->
+    <div class="d-none d-sm-block">
+      <div class="browse-tab-list" role="tablist">
+        @for (option of allOptions; track option) {
+          <a
+            class="browse-tab-item"
+            [class.active]="(currentOption$ | async)?.id === option.id"
+            [attr.aria-current]="(currentOption$ | async)?.id === option.id"
+            role="tab"
+            [routerLink]="option.routerLink"
+            [queryParams]="option.params"
+            tabindex="0">
+            {{ option.label | translate }}
+          </a>
+        }
+      </div>
+    </div>
+
+    <!-- Mobile: select -->
+    <div class="d-block d-sm-none">
+      <select name="browse-type"
+              class="form-select browse-select"
+              aria-label="Browse Community or Collection"
+              (change)="onSelectChange($event)">
+        @for (option of allOptions; track option) {
+          <option
+            [value]="option.id"
+            [attr.selected]="(currentOption$ | async)?.id === option.id ? 'selected' : null">
+            {{ option.label | translate }}
+          </option>
+        }
+      </select>
+    </div>
+
+  </nav>
+}

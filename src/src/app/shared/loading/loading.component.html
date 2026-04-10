@@ -1,0 +1,24 @@
+@if (!spinner) {
+  <div>
+    @if (showMessage && message) {
+      <label class="form-label" aria-live="polite">{{ message }}</label>
+    }
+    <div class="loader" aria-hidden="true">
+      <span class="l-1"></span>
+      <span class="l-2"></span>
+      <span class="l-3"></span>
+      <span class="l-4"></span>
+      <span class="l-5"></span>
+      <span class="l-6"></span>
+      <span class="l-7"></span>
+      <span class="l-8"></span>
+      <span class="l-9"></span>
+      <span class="l-10"></span>
+    </div>
+  </div>
+}
+@if (spinner) {
+  <div class="spinner spinner-border" role="status" aria-live="polite">
+    <span class="sr-only">{{ message }}</span>
+  </div>
+}

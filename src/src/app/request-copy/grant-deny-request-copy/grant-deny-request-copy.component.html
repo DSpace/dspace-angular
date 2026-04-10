@@ -1,0 +1,54 @@
+<div class="container" *ngVar="(itemRequestRD$ | async) as itemRequestRD">
+  <h3 class="mb-4">{{ 'grant-deny-request-copy.header' | translate }}</h3>
+
+  @if (itemRequestRD && itemRequestRD.hasSucceeded) {
+    <div>
+      <!-- Allow previous decisions *if* they were "accept" and have an access token - this allows us to use the form to revoke access -->
+      @if (!itemRequestRD.payload.decisionDate || (itemRequestRD.payload.acceptRequest === true && itemRequestRD.payload.accessToken)) {
+        <div>
+          <p
+            [innerHTML]="'grant-deny-request-copy.intro1' | translate:{ url: (itemUrl$ | async), name: (itemName$ | async) }"></p>
+          <p>{{ 'grant-deny-request-copy.intro2' | translate }}</p>
+          @if (itemRequestRD.payload.decisionDate) {
+            <p>{{ 'grant-deny-request-copy.previous-decision' | translate }}</p>
+          }
+          <div class="btn-group ">
+            <!-- Don't show accept button for previous requests, we only want to allow revoking old requests -->
+            @if (!itemRequestRD.payload.decisionDate) {
+              <a [routerLink]="grantRoute$ | async"
+                 class="btn btn-outline-primary"
+                 title="{{'grant-deny-request-copy.grant' | translate }}">
+                {{ 'grant-deny-request-copy.grant' | translate }}
+              </a>
+
+              <a [routerLink]="denyRoute$ | async"
+                 class="btn btn-outline-danger"
+                 title="{{'grant-deny-request-copy.deny' | translate }}">
+                {{ 'grant-deny-request-copy.deny' | translate }}
+              </a>
+            }
+            @if (itemRequestRD.payload.decisionDate && itemRequestRD.payload.acceptRequest === true && itemRequestRD.payload.accessToken) {
+              <a [routerLink]="denyRoute$ | async"
+                 class="btn btn-outline-danger"
+                 title="{{'grant-deny-request-copy.revoke' | translate }}">
+                {{ 'grant-deny-request-copy.revoke' | translate }}
+              </a>
+            }
+          </div>
+        </div>
+      }
+        <!-- Display the "already handled" message if there is a decision date, and either no access token (attachment was sent in email) or the request was denied -->
+        @if (itemRequestRD.payload.decisionDate && (!itemRequestRD.payload.acceptRequest || !itemRequestRD.payload.accessToken)) {
+          <div class="processed-message">
+            <p>{{ 'grant-deny-request-copy.processed' | translate }}</p>
+            <p class="text-center">
+              <a routerLink="/home" class="btn btn-primary" role="button" tabindex="0">{{ 'grant-deny-request-copy.home-page' | translate }}</a>
+            </p>
+          </div>
+        }
+    </div>
+  }
+  @if (!itemRequestRD || itemRequestRD?.isLoading) {
+    <ds-loading></ds-loading>
+  }
+</div>

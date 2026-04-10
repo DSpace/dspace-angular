@@ -1,0 +1,17 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{'vocabulary-treeview.header' | translate}}</h4>
+  <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+  </button>
+</div>
+<div class="modal-body">
+  <div class="p-3">
+    <ds-vocabulary-treeview [vocabularyOptions]="vocabularyOptions"
+                            [description]="description"
+                            [preloadLevel]="preloadLevel"
+                            [selectedItems]="selectedItems"
+                            [multiSelect]="multiSelect"
+                            [showAdd]="showAdd"
+                            (select)="onSelect($event)">
+    </ds-vocabulary-treeview>
+  </div>
+</div>

@@ -1,0 +1,72 @@
+<div #sdRef="ngbDropdown" ngbDropdown display="dynamic" placement="bottom-right" class="w-100">
+  <div class="position-relative right-addon"
+    role="combobox"
+    [attr.aria-label]="model.label | translate"
+    [attr.aria-owns]="'combobox_' + id + '_listbox'"
+    [attr.aria-expanded]="sdRef.isOpen()"
+    [attr.aria-activedescendant]="(currentValue | async) ? 'combobox_' + id + '_selected' : null">
+    @if (model.readOnly) {
+      <i class="dropdown-toggle position-absolute toggle-icon"
+         aria-hidden="true"></i>
+    } @else {
+      <i ngbDropdownToggle class="position-absolute scrollable-dropdown-toggle"
+      aria-hidden="true"></i>
+    }
+    <input class="form-control"
+      [attr.aria-controls]="'combobox_' + id + '_listbox'"
+      [attr.aria-label]="model.placeholder"
+      [attr.autoComplete]="model.autoComplete"
+      [class.is-invalid]="showErrorMessages"
+      [class.scrollable-dropdown-input]="!model.readOnly"
+      [id]="id"
+      [name]="model.name"
+      [readonly]="true"
+      [disabled]="model.readOnly"
+      [type]="model.inputType"
+      [value]="(currentValue | async)"
+      (blur)="onBlur($event)"
+      (click)="$event.stopPropagation(); openDropdown(sdRef);"
+      (focus)="onFocus($event)"
+      (keydown)="selectOnKeyDown($event, sdRef)">
+  </div>
+
+  <div #dropdownMenu ngbDropdownMenu
+    class="dropdown-menu scrollable-dropdown-menu w-100"
+    [attr.aria-label]="model.placeholder | translate">
+    <div class="scrollable-menu"
+      role="listbox"
+      [id]="'combobox_' + id + '_listbox'"
+      [attr.aria-label]="model.placeholder | translate"
+      infiniteScroll
+      [infiniteScrollDistance]="2"
+      [infiniteScrollThrottle]="50"
+      (scrolled)="onScroll()"
+      [scrollWindow]="false">
+
+      @if (optionsList && optionsList.length === 0) {
+        <button class="dropdown-item disabled" type="button">
+          {{ 'form.no-results' | translate }}
+        </button>
+      }
+      <button class="dropdown-item collection-item text-truncate"
+        (click)="onSelect(undefined); sdRef.close()" (mousedown)="onSelect(undefined); sdRef.close()"
+        title="{{ 'dropdown.clear.tooltip' | translate }}" role="option"
+        type="button">
+        <i>{{ 'dropdown.clear' | translate }}</i>
+      </button>
+      @for (listEntry of optionsList; track listEntry; let i = $index) {
+        <button class="dropdown-item collection-item text-truncate"
+          [class.active]="i === selectedIndex"
+          (keydown.enter)="onSelect(listEntry); sdRef.close()" (mousedown)="onSelect(listEntry); sdRef.close()"
+          title="{{ inputFormatter(listEntry) }}" role="option" type="button"
+          [attr.id]="inputFormatter(listEntry) === (currentValue|async) ? ('combobox_' + id + '_selected') : null">
+          {{inputFormatter(listEntry)}}
+        </button>
+      }
+      @if (loading) {
+        <div class="scrollable-dropdown-loading text-center"><p>{{'form.loading' | translate}}</p></div>
+      }
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,48 @@
+<div class="row">
+  @if (showThumbnails) {
+    <div class="col-3 col-md-2">
+      @if (linkType !== linkTypes.None) {
+        <a [target]="(linkType === linkTypes.ExternalLink) ? '_blank' : '_self'"
+          [attr.rel]="(linkType === linkTypes.ExternalLink) ? 'noopener noreferrer' : null" class="dont-break-out">
+          <ds-thumbnail [thumbnail]="dso?.thumbnail | async"
+            [defaultImage]="'assets/images/person-placeholder.svg'"
+            [alt]="'thumbnail.person.alt'"
+            [placeholder]="'thumbnail.person.placeholder'">
+          </ds-thumbnail>
+        </a>
+      }
+      @if (linkType === linkTypes.None) {
+        <span class="dont-break-out">
+          <ds-thumbnail [thumbnail]="dso?.thumbnail | async"
+            [defaultImage]="'assets/images/person-placeholder.svg'"
+            [alt]="'thumbnail.person.alt'"
+            [placeholder]="'thumbnail.person.placeholder'">
+          </ds-thumbnail>
+        </span>
+      }
+    </div>
+  }
+  <div [ngClass]="showThumbnails ? 'col-9' : 'col-md-12'">
+    <div class="d-flex">
+      <div class="flex-grow-1">
+        <ds-person-input-suggestions [suggestions]="allSuggestions" [(ngModel)]="selectedName"
+          (clickSuggestion)="select($event)"
+        (submitSuggestion)="selectCustom($event)"></ds-person-input-suggestions>
+        <span class="text-muted">
+          @if (dso.allMetadata(['person.jobTitle']).length > 0) {
+            <span
+              class="item-list-job-title">
+              @for (value of allMetadataValues(['person.jobTitle']); track value; let last = $last) {
+                <span>
+                  <span [innerHTML]="value"></span>@if (!last) {
+                  <span>; </span>
+                }
+              </span>
+            }
+          </span>
+        }
+      </span>
+    </div>
+  </div>
+</div>
+</div>

@@ -1,0 +1,56 @@
+<nav class="navbar navbar-expand-lg navbar-dark">
+  <div class="container-fluid">
+
+    <!-- Logo -->
+    <a class="navbar-brand" routerLink="/home">
+      <img src="assets/custom/images/l1.png" alt="Bhasha Sanchika Logo" class="navbar-logo">
+    </a>
+
+    <!-- Mobile toggle -->
+    <button class="navbar-toggler" type="button"
+      (click)="toggleMenu()"
+      [attr.aria-expanded]="menuOpen"
+      aria-controls="sanchikaNav"
+      [attr.aria-label]="'nav.toggle' | translate">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Nav links -->
+    <div class="navbar-collapse" id="sanchikaNav" [class.collapse]="!menuOpen" [class.show]="menuOpen">
+      <ul class="navbar-nav ms-auto">
+
+        <!-- Browse dropdown -->
+        <li class="nav-item dropdown" ngbDropdown>
+          <a class="nav-link dropdown-toggle" ngbDropdownToggle
+             id="browseDropdown" role="button" aria-expanded="false">
+            {{ 'nav.browse' | translate }}
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end" ngbDropdownMenu aria-labelledby="browseDropdown">
+            <li><a class="dropdown-item" routerLink="/browse/author">{{ 'nav.browse.by-author' | translate }}</a></li>
+            <li><a class="dropdown-item" routerLink="/browse/title">{{ 'nav.browse.by-title' | translate }}</a></li>
+            <li><a class="dropdown-item" routerLink="/browse/subject">{{ 'nav.browse.by-subject' | translate }}</a></li>
+            <li><a class="dropdown-item" routerLink="/browse/language">{{ 'nav.browse.by-language' | translate }}</a></li>
+            <li><a class="dropdown-item" routerLink="/browse/media">{{ 'nav.browse.by-media' | translate }}</a></li>
+            <li><a class="dropdown-item" routerLink="/browse/linguistictype">{{ 'nav.browse.by-linguistic-data-type' | translate }}</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item"><a class="nav-link" routerLink="/community-list">{{ 'nav.sections' | translate }}</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="/statistics">{{ 'nav.stats' | translate }}</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="/info/about">{{ 'nav.about' | translate }}</a></li>
+
+        <!-- Auth (Login / User menu) -->
+        <li class="nav-item">
+          <ds-auth-nav-menu></ds-auth-nav-menu>
+        </li>
+
+        <!-- Language switcher -->
+        <li class="nav-item">
+          <ds-lang-switch></ds-lang-switch>
+        </li>
+
+      </ul>
+    </div><!-- /.navbar-collapse -->
+
+  </div>
+</nav>

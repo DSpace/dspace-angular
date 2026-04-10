@@ -1,0 +1,28 @@
+@if ((moreThanOne$ | async) !== true) {
+  <div class="add">
+    <button class="btn btn-lg btn-primary mt-1 ms-2" [attr.aria-label]="'mydspace.new-submission' | translate"
+      [dsBtnDisabled]="(initialized$ | async) !== true" (click)="openDialog(singleEntity)" role="button">
+      <i class="fa fa-plus-circle" aria-hidden="true"></i>
+    </button>
+  </div>
+}
+@if ((moreThanOne$ | async)) {
+  <div class="add w-100" display="dynamic" placement="bottom-right"
+    ngbDropdown
+    >
+    <button class="btn btn-lg btn-primary mt-1 ms-2" id="dropdownSubmission" ngbDropdownToggle
+      type="button"  [dsBtnDisabled]="(initialized$ | async) !== true"
+      [attr.aria-label]="'mydspace.new-submission' | translate"
+      [attr.data-test]="'submission-dropdown' | dsBrowserOnly"
+      title="{{'mydspace.new-submission' | translate}}">
+      <i class="fa fa-plus-circle" aria-hidden="true"></i>
+      <span class="caret" aria-hidden="true"></span>
+    </button>
+    <div ngbDropdownMenu
+      class="dropdown-menu p-0"
+      id="entityControlsDropdownMenu"
+      aria-labelledby="dropdownSubmission">
+      <ds-entity-dropdown [isSubmission]="true" (selectionChange)="openDialog($event)"></ds-entity-dropdown>
+    </div>
+  </div>
+}

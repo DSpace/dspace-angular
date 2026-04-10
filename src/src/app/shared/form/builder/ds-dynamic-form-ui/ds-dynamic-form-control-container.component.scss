@@ -1,0 +1,48 @@
+:host ::ng-deep {
+  // For proper scoping, do not include the .css file suffix here
+  @import "../../form.component";
+}
+
+:host {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+:host ::ng-deep .custom-select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+:host ::ng-deep .btn-group-toggle > .btn input[type="radio"] {
+  position: absolute;
+  clip: rect(0,0,0,0);
+  pointer-events: none;
+}
+
+:host ::ng-deep dynamic-ng-bootstrap-radio-group {
+  display: block;
+  width: 100%;
+  > .btn-group.btn-group-toggle {
+    width: 100%;
+  }
+}
+
+:host ::ng-deep .custom-control-input.is-invalid ~ .custom-control-label {
+  color: var(--bs-form-invalid-color);
+}
+
+.invalid-feedback {
+  margin-top: 0;
+}
+
+.col-form-label {
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-bottom: 0.25rem;
+}
+
+label {
+  margin-bottom: 0.25rem;
+}

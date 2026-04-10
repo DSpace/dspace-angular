@@ -1,0 +1,15 @@
+<ngb-accordion #acc="ngbAccordion" [activeIds]="'settings'">
+  <ngb-panel [id]="'settings'">
+    <ng-template ngbPanelTitle>
+      <div class="w-100 d-flex gap-3 justify-content-between collapse-toggle" ngbPanelToggle (click)="acc.toggle('settings')" data-test="settings">
+        <button type="button" class="btn btn-link p-0" (click)="$event.preventDefault()" [attr.aria-expanded]="acc.isExpanded('settings')"
+                aria-controls="bulk-access-settings-panel-content">
+          {{ 'admin.access-control.bulk-access-settings.header' | translate }}
+        </button>
+      </div>
+    </ng-template>
+    <ng-template ngbPanelContent>
+      <ds-access-control-form-container id="bulk-access-settings-panel-content" #dsAccessControlForm [showSubmit]="false"></ds-access-control-form-container>
+    </ng-template>
+  </ngb-panel>
+</ngb-accordion>

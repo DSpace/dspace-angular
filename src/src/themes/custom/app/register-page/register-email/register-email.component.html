@@ -1,0 +1,15 @@
+<div class="auth-hero">
+  <div class="auth-badge">{{ 'auth.hero.badge' | translate }}</div>
+  <h1 class="auth-hero-title" [innerHTML]="'auth.hero.register.title.html' | translate"></h1>
+  <div class="auth-hero-subtitle-container">
+    <span class="auth-hero-line"></span>
+    <span class="auth-hero-subtitle">{{ 'auth.hero.subtitle' | translate }}</span>
+    <span class="auth-hero-line right"></span>
+  </div>
+</div>
+
+<div class="auth-wrapper">
+  <ds-register-email-form
+    [MESSAGE_PREFIX]="'register-page.registration'" [typeRequest]="typeRequest">
+  </ds-register-email-form>
+</div>

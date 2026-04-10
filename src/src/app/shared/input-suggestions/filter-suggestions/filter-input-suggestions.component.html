@@ -1,0 +1,47 @@
+<form #form="ngForm" (ngSubmit)="onSubmit(value)"
+  [action]="action" (keydown)="onKeydown($event)"
+  (keydown.arrowdown)="shiftFocusDown($event)"
+  (keydown.arrowup)="shiftFocusUp($event)" (keydown.esc)="close()"
+  (dsClickOutside)="close();">
+  <div class="mb-3 mb-0">
+    @if (label) {
+      <label class="form-label" class="mb-0 w-100">
+        <span class="fw-bold">
+          {{label}}
+        </span>
+        <ng-container *ngTemplateOutlet="searchInput"></ng-container>
+      </label>
+    } @else {
+      <input #inputField type="text" [(ngModel)]="value" [name]="name"
+        class="form-control suggestion_input"
+        [ngClass]="{'is-invalid': !valid}"
+        [dsDebounce]="debounceTime" (onDebounce)="find($event)"
+        [placeholder]="placeholder"
+        [ngModelOptions]="{standalone: true}" autocomplete="off"
+        />
+    }
+  </div>
+  <ng-template #searchInput>
+    <input #inputField type="text" [(ngModel)]="value" [name]="name"
+      class="form-control suggestion_input"
+      [ngClass]="{'is-invalid': !valid}"
+      [dsDebounce]="debounceTime" (onDebounce)="find($event)"
+      [placeholder]="placeholder"
+      [ngModelOptions]="{standalone: true}" autocomplete="off"
+      />
+  </ng-template>
+  <button class="sr-only" type="submit">
+    {{'search.filters.search.submit' | translate}}
+  </button>
+  <div class="autocomplete dropdown-menu" [ngClass]="{'show': (show | async) && isNotEmpty(suggestions)}">
+    <div class="dropdown-list">
+      @for (suggestionOption of suggestions; track suggestionOption) {
+        <div>
+          <a href="javascript:void(0);" class="d-block dropdown-item"  (click)="onClickSuggestion(suggestionOption)" #suggestion>
+            <span [innerHTML]="suggestionOption.displayValue"></span>
+          </a>
+        </div>
+      }
+    </div>
+  </div>
+</form>

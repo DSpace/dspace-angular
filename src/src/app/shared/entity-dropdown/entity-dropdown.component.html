@@ -1,0 +1,38 @@
+<ul class="scrollable-menu list-unstyled mb-0"
+  role="menu"
+  (scroll)="onScroll($event)"
+  infiniteScroll
+  [infiniteScrollDistance]="5"
+  [infiniteScrollThrottle]="300"
+  [infiniteScrollUpDistance]="1.5"
+  [fromRoot]="true"
+  [scrollWindow]="false"
+  (scrolled)="onScrollDown()">
+  @if (searchListEntity?.length === 0 && (isLoadingList | async) !== true) {
+    <li>
+      <button class="dropdown-item disabled" role="menuitem">
+        {{'submission.sections.general.no-entity' | translate}}
+      </button>
+    </li>
+  }
+  @for (listItem of searchListEntity; track listItem) {
+    <li class="entity-item text-primary">
+      <button class="dropdown-item"
+        role="menuitem"
+        title="{{ listItem.label }}"
+        (click)="onSelect(listItem)">
+        <ul class="list-unstyled mb-0">
+          <li class="list-item text-truncate text-primary fw-bold">{{ listItem.label.toLowerCase() + '.listelement.badge' | translate }}</li>
+        </ul>
+      </button>
+    </li>
+  }
+  @if ((isLoadingList | async)) {
+    <li>
+      <button class="dropdown-item disabled" role="menuitem">
+        <ds-loading message="{{'loading.default' | translate}}">
+        </ds-loading>
+      </button>
+    </li>
+  }
+</ul>

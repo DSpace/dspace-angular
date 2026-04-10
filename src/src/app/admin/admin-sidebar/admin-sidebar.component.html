@@ -1,0 +1,62 @@
+@if (menuVisible | async) {
+  <nav class="navbar navbar-dark p-0 vh-100"
+    id="admin-sidebar"
+    [attr.aria-label]="'menu.header.nav.description' | translate"
+    [ngClass]="{'expanded': sidebarOpen, 'collapsed': sidebarClosed, 'transitioning': sidebarTransitioning}"
+     [@slideSidebar]="{
+      value: ((sidebarExpanded | async) !== true ? 'collapsed' : 'expanded'),
+      params: { collapsedWidth: (collapsedSidebarWidth$ | async), expandedWidth: (expandedSidebarWidth$ | async) }
+     }" (@slideSidebar.done)="finishSlide($event)" (@slideSidebar.start)="startSlide($event)"
+    (mouseenter)="handleMouseEnter($event)"
+    (mouseleave)="handleMouseLeave($event)">
+    <!-- HEADER -->
+    <div class="sidebar-full-width-container" id="sidebar-header-container" aria-hidden="true">
+      <div class="sidebar-section-wrapper">
+        <div class="sidebar-fixed-element-wrapper">
+          <img id="admin-sidebar-logo" src="assets/images/dspace-logo-mini.svg" [alt]="('menu.header.image.logo') | translate" aria-hidden="true">
+        </div>
+        <div class="sidebar-collapsible-element-outer-wrapper">
+          <div class="sidebar-collapsible-element-inner-wrapper sidebar-item">
+            <h4 class="my-1">{{ 'menu.header.admin' | translate }}</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ITEMS -->
+    <div class="sidebar-full-width-container" id="sidebar-top-level-items-container">
+      <div class="sidebar-full-width-container" id="sidebar-top-level-items" role="menubar"
+        [attr.aria-label]="'menu.header.admin.description' |translate">
+        @for (section of (sections | async); track section) {
+          <ng-container
+          *ngComponentOutlet="(sectionMap$ | async).get(section.id).component; injector: (sectionMap$ | async).get(section.id).injector;"></ng-container>
+        }
+      </div>
+    </div>
+    <!-- TOGGLER -->
+    <div class="sidebar-full-width-container" id="sidebar-collapse-toggle-container">
+      <a class="sidebar-section-wrapper sidebar-full-width-container"
+        id="sidebar-collapse-toggle"
+        [attr.data-test]="'sidebar-collapse-toggle' | dsBrowserOnly"
+        href="javascript:void(0);"
+        (click)="toggle($event)"
+        (keyup.space)="toggle($event)"
+        >
+        <div class="sidebar-fixed-element-wrapper">
+          @if ((menuCollapsed | async)) {
+            <i class="fas fa-fw fa-angle-double-right"
+            [title]="'menu.section.icon.pin' | translate"></i>
+          }
+          @if ((menuCollapsed | async) !== true) {
+            <i class="fas fa-fw fa-angle-double-left"
+            [title]="'menu.section.icon.unpin' | translate"></i>
+          }
+        </div>
+        <div class="sidebar-collapsible-element-outer-wrapper">
+          <div class="sidebar-collapsible-element-inner-wrapper sidebar-item">
+            {{ ((menuCollapsed | async) ? 'menu.section.pin' : 'menu.section.unpin' ) | translate }}
+          </div>
+        </div>
+      </a>
+    </div>
+  </nav>
+}

@@ -1,0 +1,123 @@
+@if (form) {
+  <div class="item-metadata">
+    <div class="button-row top d-flex my-2 space-children-mr ms-gap">
+      <button class="me-auto btn btn-success" id="dso-add-btn" [dsBtnDisabled]="form.newValue || (saving$ | async)"
+              [attr.aria-label]="dsoType + '.edit.metadata.add-button' | translate"
+              [title]="dsoType + '.edit.metadata.add-button' | translate"
+              (click)="add()"><i class="fas fa-plus" aria-hidden="true"></i>
+        <span class="d-none d-sm-inline">&nbsp;{{ dsoType + '.edit.metadata.add-button' | translate }}</span>
+      </button>
+      @if (isReinstatable) {
+        <button class="btn btn-warning ms-1" id="dso-reinstate-btn" [dsBtnDisabled]="(saving$ | async)"
+                [attr.aria-label]="dsoType + '.edit.metadata.reinstate-button' | translate"
+                [title]="dsoType + '.edit.metadata.reinstate-button' | translate"
+                (click)="reinstate()"><i class="fas fa-undo-alt" aria-hidden="true"></i>
+          <span class="d-none d-sm-inline">&nbsp;{{ dsoType + '.edit.metadata.reinstate-button' | translate }}</span>
+        </button>
+      }
+      <button class="btn btn-primary ms-1" id="dso-save-btn" [dsBtnDisabled]="!hasChanges || (saving$ | async)"
+              [attr.aria-label]="dsoType + '.edit.metadata.save-button' | translate"
+              [title]="dsoType + '.edit.metadata.save-button' | translate"
+              (click)="submit()"><i class="fas fa-save" aria-hidden="true"></i>
+        <span class="d-none d-sm-inline">&nbsp;{{ dsoType + '.edit.metadata.save-button' | translate }}</span>
+      </button>
+      @if (!isReinstatable) {
+        <button class="btn btn-danger ms-1" id="dso-discard-btn"
+                [attr.aria-label]="dsoType + '.edit.metadata.discard-button' | translate"
+                [title]="dsoType + '.edit.metadata.discard-button' | translate"
+                [dsBtnDisabled]="!hasChanges || (saving$ | async)"
+                (click)="discard()"><i class="fas fa-times" aria-hidden="true"></i>
+          <span class="d-none d-sm-inline">&nbsp;{{ dsoType + '.edit.metadata.discard-button' | translate }}</span>
+        </button>
+      }
+    </div>
+    <div role="table" [attr.aria-label]="'item.edit.head' | translate">
+      <ds-dso-edit-metadata-headers [dsoType]="dsoType"></ds-dso-edit-metadata-headers>
+      @if (form.newValue) {
+        <div class="d-flex flex-row ds-field-row" role="row">
+          <div class="lbl-cell ds-success" role="rowheader">
+            <ds-metadata-field-selector [dsoType]="dsoType"
+                                        [(mdField)]="newMdField"
+                                        [autofocus]="true">
+            </ds-metadata-field-selector>
+          </div>
+          <div class="flex-grow-1 ds-drop-list" role="cell">
+            <div role="table">
+              <ds-dso-edit-metadata-value-headers role="presentation"
+                                                  [dsoType]="dsoType"></ds-dso-edit-metadata-value-headers>
+              <ds-dso-edit-metadata-value [dso]="dso"
+                                          [context]="Context.AddMetadata"
+                                          [mdValue]="form.newValue"
+                                          [dsoType]="dsoType"
+                                          [saving$]="savingOrLoadingFieldValidation$"
+                                          [isOnlyValue]="true"
+                                          [mdField]="newMdField"
+                                          (confirm)="confirmNewValue($event)"
+                                          (remove)="form.newValue = undefined"
+                                          (undo)="form.newValue = undefined">
+              </ds-dso-edit-metadata-value>
+            </div>
+          </div>
+        </div>
+      }
+      @for (mdField of form.fieldKeys; track mdField) {
+        <div class="d-flex flex-row ds-field-row" role="row">
+          <div class="lbl-cell" role="rowheader">
+            <span class="dont-break-out preserve-line-breaks">{{ mdField }}</span>
+            @if (form.hasOrderChanges(mdField)) {
+              <div class="btn btn-warning reset-order-button mt-2 w-100"
+                   (click)="form.resetOrder(mdField); onValueSaved()">
+                {{ dsoType + '.edit.metadata.reset-order-button' | translate }}
+              </div>
+            }
+          </div>
+          <ds-dso-edit-metadata-field-values class="flex-grow-1" role="cell"
+                                             [dso]="dso"
+                                             [form]="form"
+                                             [dsoType]="dsoType"
+                                             [saving$]="saving$"
+                                             [draggingMdField$]="draggingMdField$"
+                                             [mdField]="mdField"
+                                             (valueSaved)="onValueSaved()">
+          </ds-dso-edit-metadata-field-values>
+        </div>
+      }
+    </div>
+    @if (isEmpty && !form.newValue) {
+      <div>
+        <ds-alert [content]="dsoType + '.edit.metadata.empty'" [type]="AlertTypeEnum.Info"></ds-alert>
+      </div>
+    }
+    <div class="button-row bottom d-inline-block w-100">
+      <div class="mt-2 float-end space-children-mr ms-gap">
+        @if (isReinstatable) {
+          <button class="btn btn-warning" [dsBtnDisabled]="(saving$ | async)"
+                  [attr.aria-label]="dsoType + '.edit.metadata.reinstate-button' | translate"
+                  [title]="dsoType + '.edit.metadata.reinstate-button' | translate"
+                  (click)="reinstate()">
+            <i class="fas fa-undo-alt"
+               aria-hidden="true"></i> {{ dsoType + '.edit.metadata.reinstate-button' | translate }}
+          </button>
+        }
+        <button class="btn btn-primary" [dsBtnDisabled]="!hasChanges || (saving$ | async)"
+                [attr.aria-label]="dsoType + '.edit.metadata.save-button' | translate"
+                [title]="dsoType + '.edit.metadata.save-button' | translate"
+                (click)="submit()">
+          <i class="fas fa-save" aria-hidden="true"></i> {{ dsoType + '.edit.metadata.save-button' | translate }}
+        </button>
+        @if (!isReinstatable) {
+          <button class="btn btn-danger"
+                  [attr.aria-label]="dsoType + '.edit.metadata.discard-button' | translate"
+                  [title]="dsoType + '.edit.metadata.discard-button' | translate"
+                  [dsBtnDisabled]="!hasChanges || (saving$ | async)"
+                  (click)="discard()">
+            <i class="fas fa-times" aria-hidden="true"></i> {{ dsoType + '.edit.metadata.discard-button' | translate }}
+          </button>
+        }
+      </div>
+    </div>
+  </div>
+}
+@if (!form) {
+  <ds-loading></ds-loading>
+}

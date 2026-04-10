@@ -1,0 +1,38 @@
+import { AsyncPipe } from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+} from '@angular/core';
+import { RouterLink, RouterOutlet } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+
+import { CommunityPageComponent as BaseComponent } from '../../../../app/community-page/community-page.component';
+import { fadeInOut } from '../../../../app/shared/animations/fade';
+import { ThemedComcolPageBrowseByComponent } from '../../../../app/shared/comcol/comcol-page-browse-by/themed-comcol-page-browse-by.component';
+import { ThemedComcolPageHandleComponent } from '../../../../app/shared/comcol/comcol-page-handle/themed-comcol-page-handle.component';
+import { DsoEditMenuComponent } from '../../../../app/shared/dso-page/dso-edit-menu/dso-edit-menu.component';
+import { ErrorComponent } from '../../../../app/shared/error/error.component';
+import { ThemedLoadingComponent } from '../../../../app/shared/loading/themed-loading.component';
+import { VarDirective } from '../../../../app/shared/utils/var.directive';
+
+@Component({
+  selector: 'ds-themed-community-page',
+  templateUrl: './community-page.component.html',
+  styleUrls: ['./community-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [fadeInOut],
+  imports: [
+    AsyncPipe,
+    DsoEditMenuComponent,
+    ErrorComponent,
+    RouterLink,
+    RouterOutlet,
+    ThemedComcolPageBrowseByComponent,
+    ThemedComcolPageHandleComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
+    VarDirective,
+  ],
+})
+export class CommunityPageComponent extends BaseComponent {
+}

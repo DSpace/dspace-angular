@@ -1,0 +1,84 @@
+@if ((formCollapsed | async) !== true) {
+  <a
+    class="close position-relative"
+    ngbTooltip="{{'form.group-collapse-help' | translate}}"
+    placement="left">
+    <span class="fas fa-angle-up fa-fw fa-2x"
+      aria-hidden="true"
+    (click)="collapseForm()"></span>
+  </a>
+}
+@if ((formCollapsed | async)) {
+  <a
+    class="close position-relative"
+    ngbTooltip="{{'form.group-expand-help' | translate}}"
+    placement="left">
+    <span class="fas fa-angle-down fa-fw fa-2x"
+      aria-hidden="true"
+    (click)="expandForm()"></span>
+  </a>
+}
+
+<div class="pt-2" [ngClass]="{'border-top': !showErrorMessages, 'border border-danger': showErrorMessages}">
+  @if ((formCollapsed | async) !== true) {
+    <div class="ps-2 row"  @shrinkInOut>
+      <ds-form #formRef="formComponent"
+        class="col-sm-12 col-md-8 col-lg-9 col-xl-10 ps-0"
+        [formId]="formId"
+        [formModel]="formModel"
+        [displaySubmit]="false"
+        [displayCancel]="false"
+        [emitChange]="false"
+        (dfBlur)="onBlur($event)"
+      (dfFocus)="onFocus($event)"></ds-form>
+      @if ((formCollapsed | async) !== true) {
+        <div class="col p-0 m-0 d-flex justify-content-center align-items-center">
+          <button type="button"
+            class="btn btn-link"
+            [dsBtnDisabled]="isMandatoryFieldEmpty()"
+            (click)="save()">
+            <i class="fas fa-save link-primary fa-2x"
+            aria-hidden="true"></i>
+          </button>
+          <button type="button"
+            class="btn btn-link"
+            [dsBtnDisabled]="!editMode"
+            (click)="delete()">
+            <i class="fas fa-trash link-danger fa-2x"
+            aria-hidden="true"></i>
+          </button>
+          <button type="button"
+            class="btn btn-link"
+            [dsBtnDisabled]="isMandatoryFieldEmpty()"
+            (click)="clear()">
+            <i class="fas fa-undo fa-2x"
+            aria-hidden="true"></i>
+          </button>
+        </div>
+      }
+      <div class="clearfix"></div>
+    </div>
+  }
+
+  <div class="d-flex">
+    @if (!chips) {
+      <ds-loading [showMessage]="false"></ds-loading>
+    }
+    @if (chips && !chips.hasItems()) {
+      <div>
+        <input type="text"
+          class="border-0 form-control-plaintext tag-input mt-1 mb-1 ps-2 text-muted"
+          readonly
+          tabindex="-1"
+          value="{{'form.no-value' | translate}}">
+      </div>
+    }
+    @if (chips && chips.hasItems()) {
+      <ds-chips
+        [chips]="chips"
+        [editable]="true"
+        [showIcons]="true"
+      (selected)="onChipSelected($event)"></ds-chips>
+    }
+  </div>
+</div>

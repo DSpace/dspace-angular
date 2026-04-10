@@ -1,0 +1,11 @@
+<span class="mb-5 preserve-line-breaks" [innerHTML]="licenseText$ | async"></span>
+<br> <br>
+@if (formModel) {
+  <ds-form #formRef="formComponent"
+    [formId]="formId"
+    [formModel]="formModel"
+    [formLayout]="formLayout"
+    [displaySubmit]="displaySubmit"
+    [displayCancel]="false"
+  (dfChange)="onChange($event)"></ds-form>
+}

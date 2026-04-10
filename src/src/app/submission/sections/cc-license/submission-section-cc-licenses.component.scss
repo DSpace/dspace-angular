@@ -1,0 +1,13 @@
+.options-select-menu {
+  max-height: 25vh;
+}
+
+.ccLicense-select {
+  width: fit-content;
+}
+
+.scrollable-menu {
+  height: auto;
+  max-height: var(--ds-dropdown-menu-max-height);
+  overflow-x: hidden;
+}

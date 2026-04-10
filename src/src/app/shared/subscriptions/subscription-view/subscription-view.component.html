@@ -1,0 +1,41 @@
+<td class="dso-info">
+  @if (!!dso) {
+    <ds-type-badge [object]="dso"></ds-type-badge>
+    <p><a [routerLink]="getPageRoute(dso)">{{ dsoNameService.getName(dso) }}</a></p>
+  }
+  @if (!dso) {
+    <p class="my-0">{{ 'subscriptions.table.not-available' | translate }}</p>
+    <p class="text-muted my-0">{{ 'subscriptions.table.not-available-message' | translate }}</p>
+  }
+</td>
+<td>
+  @if (!!subscription) {
+    <span class="subscription-type">{{subscription.subscriptionType}}</span>
+  }
+</td>
+<td class="subscription-parameters">
+  @if (!!subscription) {
+    @for (parameterList of subscription.subscriptionParameterList; track parameterList; let i = $index) {
+      <span>
+        {{ 'subscriptions.frequency.' + parameterList.value | translate}}@if (i < subscription.subscriptionParameterList.length-1 ) {
+        <span
+        >,</span>
+      }
+    </span>
+  }
+}
+</td>
+<td class="subscription-actions">
+  <div class="btn-group edit-field">
+    <button (click)="$event.preventDefault();openSubscriptionModal();" [dsBtnDisabled]="!dso"
+      [title]="'subscriptions.table.edit' | translate"
+      class="btn btn-outline-primary btn-sm access-control-editEPersonButton">
+      <i class="fas fa-edit fa-fw"></i>
+    </button>
+    <button (click)="deleteSubscriptionPopup(subscription)"
+      [title]="'subscriptions.table.delete' | translate"
+      class="btn btn-outline-danger btn-sm access-control-deleteEPersonButton">
+      <i class="fas fa-trash-alt fa-fw"></i>
+    </button>
+  </div>
+</td>

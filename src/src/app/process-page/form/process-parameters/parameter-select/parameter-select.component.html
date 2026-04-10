@@ -1,0 +1,26 @@
+<div class="row gap-2 mb-2 mx-0">
+  <select id="process-parameters"
+    class="form-select col"
+    name="parameter-{{index}}"
+    [attr.aria-label]="'process.new.select-parameter' | translate"
+    [(ngModel)]="selectedParameter"
+    #param="ngModel">
+    <option [ngValue]="undefined">{{ 'process.new.add-parameter' | translate }}</option>
+    @for (param of parameters; track param) {
+      <option [ngValue]="param.name">
+        {{param.nameLong || param.name}}
+      </option>
+    }
+  </select>
+  <ds-parameter-value-input [initialValue]="parameterValue.value" [parameter]="selectedScriptParameter" (updateValue)="selectedParameterValue = $event" class="d-block col px-0" [index]="index"></ds-parameter-value-input>
+  @if (removable) {
+    <button [attr.aria-label]="'process.new.delete-parameter' | translate"
+      (click)="removeParameter.emit(parameterValue);" class="btn btn-danger col-1 remove-button">
+      <i class="fas fa-trash"></i>
+    </button>
+  }
+  @if (!removable) {
+    <span class="col-1"></span>
+  }
+</div>
+

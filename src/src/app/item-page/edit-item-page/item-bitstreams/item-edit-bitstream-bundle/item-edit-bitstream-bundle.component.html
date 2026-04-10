@@ -1,0 +1,137 @@
+<ng-template #bundleView>
+
+  @if ((bitstreamsRD$ | async)?.payload; as bitstreamsList) {
+    <ds-pagination
+      [hideGear]="true"
+      [hidePagerWhenSinglePage]="true"
+      [hidePaginationDetail]="true"
+      [paginationOptions]="paginationOptions"
+      [collectionSize]="bitstreamsList.totalElements"
+      [retainScrollPosition]="true"
+      [ngbTooltip]="'item.edit.bitstreams.bundle.tooltip' | translate" placement="bottom"
+      [autoClose]="false" triggers="manual" #dragTooltip="ngbTooltip">
+      @if ((updates$ | async); as updates) {
+        <table class="table" [class.mt-n1]="!isFirstTable"
+          [attr.aria-label]="'item.edit.bitstreams.bundle.table.aria-label' | translate: { bundle: bundleName } ">
+          <thead [class.visually-hidden]="!isFirstTable">
+            <tr class="header-row fw-bold">
+              <th id="name" scope="col" class="{{ columnSizes.columns[0].buildClasses() }}">
+                {{'item.edit.bitstreams.headers.name' | translate}}
+              </th>
+              <th id="description" scope="col" class="{{ columnSizes.columns[1].buildClasses() }}">
+                {{'item.edit.bitstreams.headers.description' | translate}}
+              </th>
+              <th id="format" scope="col" class="{{ columnSizes.columns[2].buildClasses() }}">
+                {{'item.edit.bitstreams.headers.format' | translate}}
+              </th>
+              <th id="actions" scope="col" class="{{ columnSizes.columns[3].buildClasses() }} text-center">
+                {{'item.edit.bitstreams.headers.actions' | translate}}
+              </th>
+            </tr>
+          </thead>
+          <tbody cdkDropList (cdkDropListDropped)="drop($event)">
+            <tr class="bundle-row">
+              <th id="{{ bundleName }}" class="row-element" colspan="3" scope="colgroup">
+                {{'item.edit.bitstreams.bundle.name' | translate:{ name: bundleName } }}
+              </th>
+              <td class="text-center row-element">
+                <div class="btn-group">
+                  <button [routerLink]="[itemPageRoute, 'bitstreams', 'new']"
+                    [queryParams]="{bundle: bundle.id}"
+                    [attr.aria-label]="'item.edit.bitstreams.bundle.edit.buttons.upload' | translate"
+                    class="btn btn-outline-success btn-sm"
+                    title="{{'item.edit.bitstreams.bundle.edit.buttons.upload' | translate}}">
+                    <i class="fas fa-upload fa-fw"></i>
+                  </button>
+                  <div ngbDropdown #paginationControls="ngbDropdown" class="btn-group float-end p-0"
+                       container="body" placement="bottom-right">
+                    <button class="btn btn-outline-secondary btn-sm" id="paginationControls" ngbDropdownToggle
+                      [title]="'pagination.options.description' | translate"
+                      [attr.aria-label]="'pagination.options.description' | translate" aria-haspopup="true"
+                      aria-expanded="false">
+                      <i class="fas fa-cog" aria-hidden="true"></i>
+                    </button>
+                    <ul id="paginationControlsDropdownMenu" aria-labelledby="paginationControls" role="menu"
+                      ngbDropdownMenu>
+                      <li role="menuitem">
+                        <span class="dropdown-header" id="pagination-control_results-per-page"
+                        role="heading">{{ 'pagination.results-per-page' | translate}}</span>
+                        <ul aria-labelledby="pagination-control_results-per-page" class="list-unstyled" role="listbox">
+                          @for (size of paginationOptions.pageSizeOptions; track size) {
+                            <li role="option"
+                              [attr.aria-selected]="size === (pageSize$ | async)">
+                              <button (click)="doPageSizeChange(size)" class="dropdown-item">
+                                <i [ngClass]="{'invisible': size !== (pageSize$ | async) }" class="fas fa-check"
+                                aria-hidden="true"></i> {{size}}
+                              </button>
+                            </li>
+                          }
+                        </ul>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            @for (entry of (tableEntries$ | async); track entry) {
+              @if (updates[entry.id]; as update) {
+                <tr [ngClass]="getRowClass(update, entry)" class="bitstream-row" cdkDrag
+                  (cdkDragStarted)="dragStart()" (cdkDragEnded)="dragEnd()">
+                  <th class="bitstream-name row-element {{ columnSizes.columns[0].buildClasses() }}"
+                    scope="row" id="{{ entry.nameStripped }}" headers="{{ bundleName }} name">
+                    <div class="drag-handle text-muted float-start p-1 me-2 d-inline" tabindex="0" cdkDragHandle
+                      (keydown.enter)="select($event, entry)" (keydown.space)="select($event, entry)" (click)="select($event, entry)">
+                      <i class="fas fa-grip-vertical fa-fw"
+                      [title]="'item.edit.bitstreams.edit.buttons.drag' | translate"></i>
+                    </div>
+                    <span class="dont-break-out">{{ entry.name }}</span>
+                  </th>
+                  <td class="row-element {{ columnSizes.columns[1].buildClasses() }}"
+                    headers="{{ entry.nameStripped }} {{ bundleName }} description">
+                    {{ entry.description }}
+                  </td>
+                  <td class="row-element {{ columnSizes.columns[2].buildClasses() }}"
+                    headers="{{ entry.nameStripped }} {{ bundleName }} format">
+                    {{ (entry.format | async)?.shortDescription }}
+                  </td>
+                  <td class="row-element {{ columnSizes.columns[3].buildClasses() }}"
+                    headers="{{ entry.nameStripped }} {{ bundleName }} actions">
+                    <div class="text-center w-100">
+                      <div class="btn-group relationship-action-buttons">
+                        <a [href]="entry.downloadUrl"
+                          [attr.aria-label]="'item.edit.bitstreams.edit.buttons.download' | translate"
+                          class="btn btn-outline-primary btn-sm"
+                          title="{{'item.edit.bitstreams.edit.buttons.download' | translate}}"
+                          [attr.data-test]="'download-button' | dsBrowserOnly">
+                          <i class="fas fa-download fa-fw"></i>
+                        </a>
+                        <button [routerLink]="['/bitstreams/', entry.id, 'edit']" class="btn btn-outline-primary btn-sm"
+                          [attr.aria-label]="'item.edit.bitstreams.edit.buttons.edit' | translate"
+                          title="{{'item.edit.bitstreams.edit.buttons.edit' | translate}}">
+                          <i class="fas fa-edit fa-fw"></i>
+                        </button>
+                        <button [dsBtnDisabled]="!canRemove(update)" (click)="remove(entry.bitstream)"
+                          [attr.aria-label]=" 'item. edit bitstreams.edit.buttons.remove' | translate"
+                          class="btn btn-outline-danger btn-sm"
+                          title="{{'item.edit.bitstreams.edit.buttons.remove' | translate}}">
+                          <i class="fas fa-trash-alt fa-fw"></i>
+                        </button>
+                        <button [dsBtnDisabled]="!canUndo(update)" (click)="undo(entry.bitstream)"
+                          [attr.aria-label]="'item.edit.bitstreams.edit.buttons.undo' | translate"
+                          class="btn btn-outline-warning btn-sm"
+                          title="{{'item.edit.bitstreams.edit.buttons.undo' | translate}}">
+                          <i class="fas fa-undo-alt fa-fw"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              }
+            }
+          </tbody>
+        </table>
+      }
+    </ds-pagination>
+  }
+
+</ng-template>

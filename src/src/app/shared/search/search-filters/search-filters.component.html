@@ -1,0 +1,24 @@
+@if (inPlaceSearch) {
+  <h3>{{filterLabel+'.filters.head' | translate}}</h3>
+} @else {
+  <h2>{{filterLabel+'.filters.head' | translate}}</h2>
+}
+
+@if ((filters | async)?.hasSucceeded) {
+  <div [class.visually-hidden]="getCurrentFiltersComputed(this.currentConfiguration) < (filters | async)?.payload?.length">
+    @for (filter of (filters | async)?.payload; track filter.name) {
+      <ds-search-filter (isVisibilityComputed)="countFiltersWithComputedVisibility($event)" [scope]="currentScope" [filter]="filter" [inPlaceSearch]="inPlaceSearch" [refreshFilters]="refreshFilters"></ds-search-filter>
+    }
+  </div>
+}
+
+@if(getCurrentFiltersComputed(this.currentConfiguration) < (filters | async)?.payload?.length) {
+  <ngx-skeleton-loader [count]="defaultFilterCount"/>
+}
+
+@if (inPlaceSearch) {
+  <button class="btn btn-primary" [routerLink]="[searchLink]" [queryParams]="clearParams | async" (click)="minimizeFilters()" queryParamsHandling="merge" role="button">
+    <i class="fas fa-undo"></i> {{"search.filters.reset" | translate}}
+  </button>
+}
+

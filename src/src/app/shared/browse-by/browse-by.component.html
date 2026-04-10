@@ -1,0 +1,43 @@
+<ng-container *ngVar="(objects$ | async) as objects">
+  @if (displayTitle) {
+    <h1>{{title | translate}}</h1>
+  }
+  <ds-starts-with-loader [paginationId]="paginationConfig?.id" [startsWithOptions]="startsWithOptions" [type]="type">
+  </ds-starts-with-loader>
+  @if (objects?.hasSucceeded && !objects?.isLoading && objects?.payload?.page.length > 0) {
+    <div @fadeIn>
+      @if (shouldDisplayResetButton$ |async) {
+        <div class="mb-2 reset">
+          <ds-results-back-button [back]="back" [buttonLabel]="buttonLabel"></ds-results-back-button>
+        </div>
+      }
+      <ds-viewable-collection
+        [config]="paginationConfig"
+        [sortConfig]="sortConfig"
+        [showPaginator]="showPaginator"
+        [objects]="objects"
+        (prev)="goPrev()"
+        (next)="goNext()">
+      </ds-viewable-collection>
+    </div>
+  }
+  @if (!objects || objects?.isLoading) {
+    <ds-loading message="{{'loading.browse-by' | translate}}"></ds-loading>
+  }
+  @if (objects?.hasFailed) {
+    <ds-error message="{{'error.browse-by' | translate}}"></ds-error>
+  }
+  @if (!objects?.isLoading && objects?.payload?.page.length === 0) {
+    <div>
+      @if (shouldDisplayResetButton$ |async) {
+        <div class="d-inline-block mb-4 reset">
+          <ds-results-back-button [back]="back" [buttonLabel]="buttonLabel"></ds-results-back-button>
+        </div>
+      }
+      <div class="alert alert-info w-100" role="alert">
+        {{'browse.empty' | translate}}
+      </div>
+    </div>
+  }
+</ng-container>
+

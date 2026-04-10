@@ -1,0 +1,20 @@
+<div>
+    <div class="modal-header">{{'dso-selector.'+ action + '.' + objectType.toString().toLowerCase() + '.head' | translate}}
+        <button type="button" class="btn-close" (click)="selectObject(undefined)" aria-label="Close">
+        </button>
+    </div>
+    <div class="modal-body">
+        <button class="btn btn-outline-primary btn-lg btn-block w-100" (click)="selectObject(undefined)">{{'dso-selector.' + action + '.' + objectType.toString().toLowerCase() + '.button'| translate }}</button>
+        <div class="position-relative py-1 my-3 fw-normal h3">
+            <hr>
+            <div id="create-community-or-separator" class="text-center position-absolute w-100">
+                <span class="px-4 bg-white">{{'dso-selector.' + action + '.' + objectType.toString().toLowerCase() + '.or-divider' | translate}}</span>
+            </div>
+        </div>
+
+        <h2 class="px-2 h5">{{'dso-selector.' + action + '.' + objectType.toString().toLowerCase() + '.input-header' | translate}}</h2>
+        <ds-dso-selector [context]="Context.ScopeSelectorModal" [currentDSOId]="dsoRD?.payload.uuid"
+                         [types]="selectorTypes" [sort]="defaultSort" (onSelect)="selectObject($event)">
+        </ds-dso-selector>
+    </div>
+</div>

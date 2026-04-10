@@ -1,0 +1,106 @@
+<div [class.mb-2]="hasLabel || model.type === 'DATE' || (model.type !== 'GROUP' && asBootstrapFormGroup) || getClass('element', 'container').includes('mb-2')"
+     [class.d-none]="model.hidden"
+  [formGroup]="group"
+  [ngClass]="[getClass('element', 'container'), getClass('grid', 'container')]">
+  @if (!isCheckbox && hasLabel) {
+    <label
+      [id]="'label_' + model.id"
+      [for]="id"
+      class="form-label"
+      [innerHTML]="(model.required && model.label) ? (model.label | translate) + ' *' : (model.label | translate)"
+    [ngClass]="[getClass('element', 'label'), getClass('grid', 'label')]"></label>
+  }
+  <ng-container *ngTemplateOutlet="startTemplate?.templateRef; context: { $implicit: model };"></ng-container>
+  <!--    Should be *ngIf instead of class d-none, but that breaks the #componentViewContainer reference-->
+  <div [ngClass]="{'row': model.hasLanguages || isRelationship,
+                      'd-none': this.metadataService.isVirtual(value) && (model.hasSelectableMetadata || context?.index > 0)}">
+    <div [ngClass]="getClass('grid', 'control')">
+      <div>
+        <ng-container #componentViewContainer></ng-container>
+      </div>
+
+      @if (hasHint && (formBuilderService.hasArrayGroupValue(model) || (!model.repeatable && (isRelationship === false || value?.value === null)) || (model.repeatable === true && context?.index === context?.context?.groups?.length - 1)) && (!showErrorMessages || errorMessages.length === 0)) {
+<small
+             class="text-muted ds-hint" [innerHTML]="model.hint | translate" [ngClass]="getClass('element', 'hint')"></small>
+      }
+      <!-- In case of repeatable fields show empty space for all elements except the first -->
+      @if (context?.parent?.groups?.length > 1 && (!showErrorMessages || errorMessages.length === 0)) {
+        <div class="clearfix w-100 mb-2"></div>
+      }
+
+      @if (!model.hideErrorMessages && showErrorMessages) {
+        <div [id]="id + '_errors'"
+          [ngClass]="[getClass('element', 'errors'), getClass('grid', 'errors')]">
+          @for (message of errorMessages; track message) {
+            <small class="invalid-feedback d-block">{{ message | translate: model.validators }}</small>
+          }
+        </div>
+      }
+
+    </div>
+    @if (model.languageCodes && model.languageCodes.length > 0) {
+      <div class="col-2" >
+        <select
+          #language="ngModel"
+          [disabled]="model.readOnly"
+          [(ngModel)]="model.language"
+          class="form-select"
+          (blur)="onBlur($event)"
+          (change)="onChangeLanguage($event)"
+          [ngModelOptions]="{standalone: true}"
+          required>
+          @for (lang of model.languageCodes; track lang) {
+            <option [value]="lang.code">{{lang.display}}</option>
+          }
+        </select>
+      </div>
+    }
+    @if (isRelationship) {
+      <div class="col-auto text-center">
+        <button class="btn btn-secondary"
+          type="button"
+          ngbTooltip="{{'form.lookup-help' | translate}}"
+          [attr.aria-label]="'form.lookup-help' | translate"
+          placement="top"
+          data-test="lookup-button"
+          (click)="openLookup(); $event.stopPropagation();"><i class="fa fa-search"></i>
+        </button>
+      </div>
+    }
+  </div>
+  <ng-container *ngTemplateOutlet="endTemplate?.templateRef; context: model"></ng-container>
+  @if (this.metadataService.isVirtual(value)) {
+    @if (model.hasSelectableMetadata) {
+      <ds-existing-metadata-list-element
+        [reoRel]="relationshipValue$ | async"
+        [submissionItem]="item$ | async"
+        [listId]="listId"
+        [metadataFields]="model.metadataFields"
+        [submissionId]="model.submissionId"
+        [relationshipOptions]="model.relationship"
+        (remove)="onRemove()"
+        >
+      </ds-existing-metadata-list-element>
+    }
+    @if (!model.hasSelectableMetadata) {
+      <ds-existing-relation-list-element
+        [ngClass]="{'d-block pb-2 pt-2': !context?.index}"
+        [reoRel]="relationshipValue$ | async"
+        [submissionItem]="item$ | async"
+        [listId]="listId"
+        [metadataFields]="model.metadataFields"
+        [submissionId]="model.submissionId"
+        [relationshipOptions]="model.relationship"
+        >
+      </ds-existing-relation-list-element>
+    }
+    @if (hasHint && (model.repeatable === false || context?.index === context?.context?.groups?.length - 1) && (!showErrorMessages || errorMessages.length === 0)) {
+      <small
+      class="text-muted ds-hint" [innerHTML]="model.hint | translate" [ngClass]="getClass('element', 'hint')"></small>
+    }
+    @if (context?.parent?.groups?.length > 1 && (!showErrorMessages || errorMessages.length === 0)) {
+      <div class="clearfix w-100 mb-2"></div>
+    }
+  }
+  <ng-content></ng-content>
+</div>

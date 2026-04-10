@@ -1,0 +1,35 @@
+@if (hasData) {
+  <div
+    class="m-1">
+    <h2 class="m-1">
+      {{ 'statistics.table.title.' + report.reportType | translate }}
+    </h2>
+    <table class="table table-striped" [attr.data-test]="report.reportType">
+      <tbody>
+        <tr>
+          <td></td>
+          @for (header of headers; track header) {
+            <th scope="col"
+              class="{{header}}-header">
+              {{ 'statistics.table.header.' + header | translate  }}
+            </th>
+          }
+        </tr>
+        @for (point of report.points; track point) {
+          <tr
+            class="{{point.id}}-data">
+            <th scope="row" data-test="statistics-label">
+              {{ point.label }}
+            </th>
+            @for (header of headers; track header) {
+              <td
+                class="{{point.id}}-{{header}}-data">
+                {{ point.values[header] }}
+              </td>
+            }
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+}

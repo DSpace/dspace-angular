@@ -1,0 +1,16 @@
+@if (privateBadge) {
+  <div class="private-badge">
+    <span class="badge bg-danger">
+        <span class="sr-only">{{ 'item.badge.status' | translate }}</span>
+      {{ "item.badge.private" | translate }}
+      <span class="sr-only">, </span>
+ </span>
+  </div>
+}
+@if (withdrawnBadge) {
+  <div class="withdrawn-badge">
+    <span class="sr-only">{{ 'item.badge.status' | translate }}</span>
+    <span class="badge bg-warning">{{ "item.badge.withdrawn" | translate }}</span>
+    <span class="sr-only">, </span>
+  </div>
+}

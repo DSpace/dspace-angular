@@ -1,0 +1,45 @@
+<ds-pagination
+  [paginationOptions]="config"
+  [collectionSize]="objects?.payload?.totalElements"
+  [objects]="objects"
+  [sortOptions]="sortConfig"
+  [hideGear]="hideGear"
+  [showRSS]="showRSS"
+  [hidePagerWhenSinglePage]="hidePagerWhenSinglePage"
+  [hidePaginationDetail]="hidePaginationDetail"
+  [showPaginator]="showPaginator"
+  (pageChange)="onPageChange($event)"
+  (pageSizeChange)="onPageSizeChange($event)"
+  (sortDirectionChange)="onSortDirectionChange($event)"
+  (sortFieldChange)="onSortFieldChange($event)"
+  (paginationChange)="onPaginationChange($event)"
+  (prev)="goPrev()"
+  (next)="goNext()">
+  @if (objects?.hasSucceeded) {
+    <ul class="list-unstyled" [ngClass]="{'ms-4': selectable}" data-test="objects">
+      @for (object of objects?.payload?.page; track object; let i = $index; let last = $last) {
+        <li class="mt-4 mb-4 d-flex" [class.border-bottom]="hasBorder && !last" [attr.data-test]="'list-object' | dsBrowserOnly">
+          @if (selectable) {
+            <ds-selectable-list-item-control [index]="i"
+              [object]="object"
+              [selectionConfig]="selectionConfig"
+              (deselectObject)="deselectObject.emit($event)"
+            (selectObject)="selectObject.emit($event)"></ds-selectable-list-item-control>
+          }
+          @if (importable) {
+            <ds-importable-list-item-control [object]="object"
+              [importConfig]="importConfig"
+            (importObject)="importObject.emit($event)"></ds-importable-list-item-control>
+          }
+          <ds-listable-object-component-loader [object]="object"
+            [viewMode]="viewMode"
+            [index]="i"
+            [context]="context"
+            [linkType]="linkType"
+            [listID]="selectionConfig?.listId"
+          (contentChange)="contentChange.emit($event)"></ds-listable-object-component-loader>
+        </li>
+      }
+    </ul>
+  }
+</ds-pagination>

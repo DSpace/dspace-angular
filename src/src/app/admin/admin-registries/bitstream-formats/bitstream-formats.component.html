@@ -1,0 +1,70 @@
+<div class="container">
+  <div class="bitstream-formats row">
+    <div class="col-12">
+
+      <h1 id="header" class="border-bottom pb-2">{{'admin.registries.bitstream-formats.head' | translate}}</h1>
+
+      <p id="description">{{'admin.registries.bitstream-formats.description' | translate}}</p>
+      <p id="create-new" class="mb-2"><a [routerLink]="'add'" class="btn btn-success">{{'admin.registries.bitstream-formats.create.new' | translate}}</a></p>
+
+
+      @if ((bitstreamFormats$ | async)?.payload?.totalElements > 0) {
+        <ds-pagination
+          [paginationOptions]="pageConfig"
+          [collectionSize]="(bitstreamFormats$ | async)?.payload?.totalElements"
+          [hideGear]="false"
+          [hidePagerWhenSinglePage]="true">
+          <div class="table-responsive">
+            <table id="formats" class="table table-striped table-hover">
+              <thead>
+                <tr>
+                  <th scope="col"><span class="sr-only">{{'admin.registries.bitstream-formats.table.selected' | translate}}</span></th>
+                  <th scope="col">{{'admin.registries.bitstream-formats.table.id' | translate}}</th>
+                  <th scope="col">{{'admin.registries.bitstream-formats.table.name' | translate}}</th>
+                  <th scope="col">{{'admin.registries.bitstream-formats.table.mimetype' | translate}}</th>
+                  <th scope="col">{{'admin.registries.bitstream-formats.table.supportLevel.head' | translate}}</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (bitstreamFormat of (bitstreamFormats$ | async)?.payload?.page; track bitstreamFormat) {
+                  <tr>
+                    <td>
+                      <label class="form-label mb-0">
+                        <input type="checkbox"
+                          [attr.aria-label]="'admin.registries.bitstream-formats.select' | translate"
+                          [checked]="(selectedBitstreamFormatIDs$ | async)?.includes(bitstreamFormat.id)"
+                          (change)="selectBitStreamFormat(bitstreamFormat, $event)"
+                          >
+                        <span class="sr-only">{{'admin.registries.bitstream-formats.select' | translate}}&#125;</span>
+                      </label>
+                    </td>
+                    <td><a [routerLink]="['/admin/registries/bitstream-formats', bitstreamFormat.id, 'edit']">{{bitstreamFormat.id}}</a></td>
+                    <td><a [routerLink]="['/admin/registries/bitstream-formats', bitstreamFormat.id, 'edit']">{{bitstreamFormat.shortDescription}}</a></td>
+                    <td><a [routerLink]="['/admin/registries/bitstream-formats', bitstreamFormat.id, 'edit']">{{bitstreamFormat.mimetype}} @if (bitstreamFormat.internal) {
+                      <span>({{'admin.registries.bitstream-formats.table.internal' | translate}})</span>
+                    }</a></td>
+                    <td><a [routerLink]="['/admin/registries/bitstream-formats', bitstreamFormat.id, 'edit']">{{'admin.registries.bitstream-formats.table.supportLevel.'+bitstreamFormat.supportLevel | translate}}</a></td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        </ds-pagination>
+      }
+      @if ((bitstreamFormats$ | async)?.payload?.totalElements === 0) {
+        <div class="alert alert-info" role="alert">
+          {{'admin.registries.bitstream-formats.no-items' | translate}}
+        </div>
+      }
+
+      <div>
+        @if ((bitstreamFormats$ | async)?.payload?.page?.length > 0) {
+          <button class="btn btn-primary deselect" (click)="deselectAll()">{{'admin.registries.bitstream-formats.table.deselect-all' | translate}}</button>
+        }
+        @if ((bitstreamFormats$ | async)?.payload?.page?.length > 0) {
+          <button type="submit" class="btn btn-danger float-end" (click)="deleteFormats()">{{'admin.registries.bitstream-formats.table.delete' | translate}}</button>
+        }
+      </div>
+    </div>
+  </div>
+</div>

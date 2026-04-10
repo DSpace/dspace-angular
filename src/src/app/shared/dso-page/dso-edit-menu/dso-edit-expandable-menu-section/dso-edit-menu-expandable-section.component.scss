@@ -1,0 +1,41 @@
+.btn-dark {
+    background-color: var(--ds-admin-sidebar-bg);
+}
+
+.dso-button-menu {
+    .dropdown-toggle::after {
+      content: '';
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 12px 12px 0 0;
+      border-color: transparent #627a91 transparent transparent;
+      border-bottom-right-radius: var(--bs-btn-border-radius-sm);
+      right: 0;
+      bottom: 0;
+      position: absolute;
+      overflow: hidden;
+    }
+    overflow: hidden;
+}
+
+ul.dropdown-menu {
+    background-color: var(--ds-admin-sidebar-bg);
+    color: white;
+
+    ::ng-deep a {
+        color: white;
+
+        &.disabled {
+            color: var(--bs-btn-link-disabled-color);
+        }
+    }
+
+    .disabled {
+        color: var(--bs-btn-link-disabled-color);
+    }
+}
+
+.dso-edit-menu-dropdown {
+  max-width: calc(min(600px, 75vw));
+}

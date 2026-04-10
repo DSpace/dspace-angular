@@ -1,0 +1,21 @@
+:host ::ng-deep {
+  .ngx-gallery {
+    width: unset !important;
+    height: unset !important;
+  }
+
+  ngx-gallery-image {
+    max-width: 100% !important;
+
+    .ngx-gallery-image {
+      background-position: center;
+      background-color: #f8f9fa;
+    }
+  }
+
+  ngx-gallery-image:after {
+    padding-top: 75%;
+    display: block;
+    content: '';
+  }
+}

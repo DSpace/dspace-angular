@@ -1,0 +1,26 @@
+<!-- ====== HERO ====== -->
+<header class="info-page-hero">
+  <div class="info-badge">{{ 'coar.badge' | translate }}</div>
+  <h1 [innerHTML]="'coar.title.html' | translate"></h1>
+  <div class="hero-subtitle-container">
+    <span class="hero-line"></span>
+    <span class="hero-subtitle">{{ 'coar.subtitle' | translate }}</span>
+    <span class="hero-line right"></span>
+  </div>
+</header>
+
+<div class="info-page-wrapper">
+  <main class="info-page-card">
+    <h2 class="info-section-title first">{{ 'coar-notify-support.title' | translate }}</h2>
+    <p [innerHTML]="'coar-notify-support-title.content' | translate"></p>
+
+    <h2 class="info-section-title">{{ 'coar-notify-support.ldn-inbox.title' | translate }}</h2>
+    <p>{{ 'coar-notify-support.ldn-inbox.content' | translate }}</p>
+
+    <h2 class="info-section-title">{{ 'coar-notify-support.message-moderation.title' | translate }}</h2>
+    <p>
+      {{ 'coar-notify-support.message-moderation.content' | translate }}
+      <a routerLink="/info/feedback">{{ 'coar-notify-support.message-moderation.feedback-form' | translate }}</a>
+    </p>
+  </main>
+</div>

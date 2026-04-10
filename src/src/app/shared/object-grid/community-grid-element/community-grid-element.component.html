@@ -1,0 +1,25 @@
+<div class="card">
+  @if (linkType !== linkTypes.None) {
+    <a [target]="(linkType === linkTypes.ExternalLink) ? '_blank' : '_self'" [attr.rel]="(linkType === linkTypes.ExternalLink) ? 'noopener noreferrer' : null" [routerLink]="['/communities/', object.id]" class="card-img-top" [attr.title]="'search.results.view-result' | translate">
+      <ds-thumbnail [thumbnail]="(object.logo | async)?.payload" [limitWidth]="false">
+      </ds-thumbnail>
+    </a>
+  }
+  @if (linkType === linkTypes.None) {
+    <span class="card-img-top">
+      <ds-thumbnail [thumbnail]="(object.logo | async)?.payload" [limitWidth]="false">
+      </ds-thumbnail>
+    </span>
+  }
+  <div class="card-body">
+    <h4 class="card-title">{{ dsoNameService.getName(object) }}</h4>
+    @if (object.shortDescription) {
+      <p class="card-text">{{object.shortDescription}}</p>
+    }
+    @if (linkType !== linkTypes.None) {
+      <div class="text-center">
+        <a [target]="(linkType === linkTypes.ExternalLink) ? '_blank' : '_self'" [attr.rel]="(linkType === linkTypes.ExternalLink) ? 'noopener noreferrer' : null" [routerLink]="['/communities/', object.id]" class="lead btn btn-primary viewButton">{{ 'search.results.view-result' | translate}}</a>
+      </div>
+    }
+  </div>
+</div>

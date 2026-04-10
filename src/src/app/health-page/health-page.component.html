@@ -1,0 +1,33 @@
+@if ((healthResponseInitialised | async) && (healthInfoResponseInitialised | async)) {
+  <div class="container">
+    <h1>{{'health-page.heading' | translate}}</h1>
+    @if ((healthResponse | async) && (healthInfoResponse | async)) {
+      <div>
+        <ul ngbNav #nav="ngbNav" [activeId]="'status'" class="nav-tabs">
+          <li [ngbNavItem]="'status'" role="presentation">
+            <a data-test="health-page.status-tab" ngbNavLink>{{'health-page.status-tab' | translate}}</a>
+            <ng-template ngbNavContent>
+              <div id="status">
+                <ds-health-panel [healthResponse]="(healthResponse | async)"></ds-health-panel>
+              </div>
+            </ng-template>
+          </li>
+          <li [ngbNavItem]="'info'" role="presentation">
+            <a data-test="health-page.info-tab" ngbNavLink>{{'health-page.info-tab' | translate}}</a>
+            <ng-template ngbNavContent>
+              <div id="info">
+                <ds-health-info [healthInfoResponse]="(healthInfoResponse | async)"></ds-health-info>
+              </div>
+            </ng-template>
+          </li>
+        </ul>
+        <div [ngbNavOutlet]="nav" class="mt-2"></div>
+      </div>
+    }
+    @if ((healthResponse | async) === null || (healthInfoResponse | async) === null) {
+      <ds-alert [type]="AlertType.Error" [content]="'health-page.error.msg'"></ds-alert>
+    }
+  </div>
+}
+
+

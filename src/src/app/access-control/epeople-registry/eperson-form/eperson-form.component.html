@@ -1,0 +1,112 @@
+<div class="container">
+  <div class="group-form row">
+    <div class="col-12">
+
+      @if (activeEPerson$ | async) {
+        <h1 class="border-bottom pb-2">{{messagePrefix + '.edit' | translate}}</h1>
+      } @else {
+        <h1 class="border-bottom pb-2">{{messagePrefix + '.create' | translate}}</h1>
+      }
+
+
+
+      <ds-form [formId]="formId"
+        [formModel]="formModel"
+        [formGroup]="formGroup"
+        [formLayout]="formLayout"
+        [displayCancel]="false"
+        [submitLabel]="submitLabel"
+        (submitForm)="onSubmit()">
+        <div before class="btn-group">
+          <button (click)="onCancel()" type="button" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left"></i> {{messagePrefix + '.return' | translate}}
+          </button>
+        </div>
+        @if (displayResetPassword) {
+          <div between class="btn-group">
+            <button class="btn btn-primary" [dsBtnDisabled]="(canReset$ | async) !== true" type="button" (click)="resetPassword()">
+              <i class="fa fa-key"></i> {{'admin.access-control.epeople.actions.reset' | translate}}
+            </button>
+          </div>
+        }
+        @if (canImpersonate$ | async) {
+          <div between class="btn-group">
+            @if (!isImpersonated) {
+              <button class="btn btn-primary" type="button" (click)="impersonate()">
+                <i class="fa fa-user-secret"></i> {{'admin.access-control.epeople.actions.impersonate' | translate}}
+              </button>
+            }
+            @if (isImpersonated) {
+              <button class="btn btn-primary" type="button" (click)="stopImpersonating()">
+                <i class="fa fa-user-secret"></i> {{'admin.access-control.epeople.actions.stop-impersonating' | translate}}
+              </button>
+            }
+          </div>
+        }
+        @if (canDelete$ | async) {
+          <button after class="btn btn-danger delete-button" type="button" (click)="delete()">
+            <i class="fas fa-trash"></i> {{'admin.access-control.epeople.actions.delete' | translate}}
+          </button>
+        }
+      </ds-form>
+
+      @if (!formGroup) {
+        <ds-loading [showMessage]="false"></ds-loading>
+      }
+
+      @if (activeEPerson$ | async) {
+        <div>
+          <h2>{{messagePrefix + '.groupsEPersonIsMemberOf' | translate}}</h2>
+          @if (groups$ | async | dsHasNoValue) {
+            <ds-loading [showMessage]="false"></ds-loading>
+          }
+          @if ((groups$ | async)?.payload?.totalElements > 0) {
+            <ds-pagination
+              [paginationOptions]="config"
+              [collectionSize]="(groups$ | async)?.payload?.totalElements"
+              [hideGear]="true"
+              [hidePagerWhenSinglePage]="true"
+              (pageChange)="onPageChange($event)">
+              <div class="table-responsive">
+                <table id="groups" class="table table-striped table-hover table-bordered">
+                  <thead>
+                    <tr>
+                      <th scope="col" class="align-middle">{{messagePrefix + '.table.id' | translate}}</th>
+                      <th scope="col" class="align-middle">{{messagePrefix + '.table.name' | translate}}</th>
+                      <th scope="col" class="align-middle">{{messagePrefix + '.table.collectionOrCommunity' | translate}}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @for (group of (groups$ | async)?.payload?.page; track group) {
+                      <tr>
+                        <td class="align-middle">{{group.id}}</td>
+                        <td class="align-middle">
+                          <a (click)="groupsDataService.startEditingNewGroup(group)"
+                            [routerLink]="[groupsDataService.getGroupEditPageRouterLink(group)]">
+                            {{ dsoNameService.getName(group) }}
+                          </a>
+                        </td>
+                        <td class="align-middle">
+                          {{ dsoNameService.getName((group.object | async)?.payload) }}
+                        </td>
+                      </tr>
+                    }
+                  </tbody>
+                </table>
+              </div>
+            </ds-pagination>
+          }
+          @if ((groups$ | async)?.payload?.totalElements === 0) {
+            <div class="alert alert-info w-100 mb-2" role="alert">
+              <div>{{messagePrefix + '.memberOfNoGroups' | translate}}</div>
+              <div>
+                <button [routerLink]="[groupsDataService.getGroupRegistryRouterLink()]"
+                class="btn btn-primary">{{messagePrefix + '.goToGroups' | translate}}</button>
+              </div>
+            </div>
+          }
+        </div>
+      }
+    </div>
+  </div>
+</div>

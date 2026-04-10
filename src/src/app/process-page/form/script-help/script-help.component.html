@@ -1,0 +1,32 @@
+<div class="text-secondary">
+  <h2>{{script?.name}}</h2>
+  <span>{{script?.description}}</span>
+
+  <table class="table-borderless mt-3">
+    @for (param of script?.parameters; track param) {
+      <tr>
+        <td class="align-top text-nowrap">{{param.name}} {{param.nameLong}}
+          <ng-container *ngTemplateOutlet="type; context: param"></ng-container>
+        </td>
+        <td>{{param.description}}</td>
+      </tr>
+    }
+  </table>
+</div>
+
+<ng-template #type let-type="type">
+  @switch (type) {
+    @case (parameterTypes.DATE) {
+      <span><{{'process.new.parameter.type.value' | translate}}></span>
+    }
+    @case (parameterTypes.STRING) {
+      <span><{{'process.new.parameter.type.value' | translate}}></span>
+    }
+    @case (parameterTypes.OUTPUT) {
+      <span><{{'process.new.parameter.type.value' | translate}}></span>
+    }
+    @case (parameterTypes.FILE) {
+      <span><{{'process.new.parameter.type.file' | translate}}></span>
+    }
+  }
+</ng-template>

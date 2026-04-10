@@ -1,0 +1,6 @@
+:host {
+  position: relative;
+  div#header-navbar-wrapper {
+    border-bottom: 1px var(--ds-header-navbar-border-bottom-color) solid;
+  }
+}

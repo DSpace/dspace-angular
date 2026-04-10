@@ -1,0 +1,84 @@
+<div *ngVar="(collectionRD$ | async) as collectionRD">
+  @if (collectionRD?.hasSucceeded) {
+    <div @fadeInOut>
+      @if (collectionRD?.payload; as collection) {
+
+        <!-- HERO -->
+        <header class="collection-hero">
+          <div class="container">
+            <div class="collection-badge">{{ 'collection.badge' | translate }}</div>
+            <h1>{{ dsoNameService.getName(collection).split(' ').slice(0, -1).join(' ') }} <span>{{ dsoNameService.getName(collection).split(' ').slice(-1)[0] }}</span></h1>
+            <div class="hero-subtitle-container">
+              <span class="hero-line"></span>
+              <p class="hero-subtitle">{{ 'cl.subtitle' | translate }}</p>
+              <span class="hero-line right"></span>
+            </div>
+          </div>
+        </header>
+
+        <!-- CONTENT CARD -->
+        <div class="collection-main-wrapper">
+          <main class="collection-content-card">
+
+            <ds-dso-edit-menu></ds-dso-edit-menu>
+
+            <h2 class="page-header-title">{{ dsoNameService.getName(collection) }}</h2>
+
+            <!-- Introductory text with collection logo floated right -->
+            <div class="collection-intro-text clearfix">
+              @if ((logoRD$ | async)?.payload; as logo) {
+                <img [src]="logo._links.content.href" [alt]="dsoNameService.getName(collection)" class="collection-logo-img">
+              }
+              @if (collection.introductoryText) {
+                <div [innerHtml]="collection.introductoryText"></div>
+              }
+            </div>
+
+            <!-- URI / Handle with Collection Statistics button -->
+            @if (collection.handle) {
+              <div class="collection-handle-section">
+                <div class="collection-handle-header">
+                  <h4>{{ 'collection.uri-label' | translate }}</h4>
+                  <a [routerLink]="'/statistics' + (collectionPageRoute$ | async)" class="collection-stats-btn">
+                    <i class="fas fa-chart-bar"></i> {{ 'ip.collection.statistics-btn' | translate }}
+                  </a>
+                </div>
+                <ds-comcol-page-handle [content]="collection.handle"></ds-comcol-page-handle>
+              </div>
+            }
+
+            <!-- Sidebar / news text from DSpace -->
+            @if (collection.sidebarText) {
+              <div class="collection-sidebar-text" [innerHtml]="collection.sidebarText"></div>
+            }
+
+            <!-- BROWSE SECTION -->
+            <h2 class="page-header-title browse-section-title">{{ 'collection.browse-heading' | translate }}</h2>
+            <p class="browse-intro">{{ 'collection.browse-intro' | translate }}</p>
+
+            <section class="comcol-page-browse-section">
+              <ds-comcol-page-browse-by [id]="collection.id" [contentType]="collection.type">
+              </ds-comcol-page-browse-by>
+              <router-outlet></router-outlet>
+            </section>
+
+            @if (collection.copyrightText) {
+              <footer class="collection-copyright">
+                <div [innerHtml]="collection.copyrightText"></div>
+              </footer>
+            }
+
+          </main>
+        </div>
+
+      }
+    </div>
+  }
+
+  @if (collectionRD?.hasFailed) {
+    <ds-error message="{{'error.collection' | translate}}"></ds-error>
+  }
+  @if (collectionRD?.isLoading) {
+    <ds-loading message="{{'loading.collection' | translate}}"></ds-loading>
+  }
+</div>

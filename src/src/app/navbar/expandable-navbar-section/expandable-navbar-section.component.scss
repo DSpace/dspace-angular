@@ -1,0 +1,26 @@
+:host {
+  .ds-menu-item-wrapper {
+    position: relative; // align dropdown menu with respect to this element
+  }
+
+  .dropdown-menu {
+    overflow: hidden;
+    min-width: 100%;
+    top: 100%;
+    @include media-breakpoint-down(xs) {
+      border: 0;
+      background-color: var(--ds-expandable-navbar-bg);
+    }
+    @include media-breakpoint-up(md) {
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+      background-color: var(--ds-navbar-dropdown-bg);
+    }
+  }
+
+  .toggle-menu-icon {
+    &, &:hover {
+      text-decoration: none;
+    }
+  }
+}

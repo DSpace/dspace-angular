@@ -1,0 +1,12 @@
+<button type="button"
+  [className]="'btn btn-success'"
+  ngbTooltip="{{'submission.workflow.tasks.claimed.approve_help' | translate}}"
+  [dsBtnDisabled]="processing$ | async"
+  (click)="submitTask()">
+  @if (processing$ | async) {
+    <span><i class='fas fa-circle-notch fa-spin'></i> {{'submission.workflow.tasks.generic.processing' | translate}}</span>
+  }
+  @if ((processing$ | async) !== true) {
+    <span><i class="fa fa-thumbs-up"></i> {{'submission.workflow.tasks.claimed.approve' | translate}}</span>
+  }
+</button>

@@ -1,0 +1,53 @@
+<div [className]="'float-start w-100 ' + wrapperClass">
+  <div role="list" class="nav nav-pills d-flex flex-column flex-sm-row" cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="onDrop($event)">
+    <ng-template #tipContent>
+      @for (tip of tipText; track tip) {
+        <p class="text-start p-0 m-0">
+          {{tip}}
+        </p>
+      }
+    </ng-template>
+    @for (c of chips.getChips(); track c; let i = $index) {
+      <div role="listitem" class="nav-item me-2 mb-1"
+        #t="ngbTooltip"
+        triggers="manual"
+        [ngbTooltip]="tipContent"
+        (mouseover)="showTooltip(t, i)"
+        (mouseout)="t.close()">
+        <a class="flex-sm-fill text-sm-center nav-link active bg-info"
+          cdkDrag
+          (cdkDragStarted)="onDrag(i)"
+          href="javascript:void(0);"
+          [ngClass]="{'chip-selected disabled': (editable && c.editMode) || dragged === i}"
+          (click)="chipsSelected($event, i);">
+          <span>
+            @if (showIcons && !c.isNestedItem()) {
+              <i dsAuthorityConfidenceState [authorityValue]="c.item" class="far fa-circle" aria-hidden="true">&nbsp;</i>
+            }
+            @if (showIcons && c.hasVisibleIcons()) {
+              @for (icon of c.icons; track icon; let l = $last) {
+                <i
+                  [ngbTooltip]="tipContent"
+                  triggers="manual"
+                  #t="ngbTooltip"
+                  class="{{icon.style}}"
+                  [class.me-1]="!l"
+                  [class.me-2]="l"
+                  dsAuthorityConfidenceState
+                  [authorityValue]="c.item[icon.metadata] || c.item"
+                  [visibleWhenAuthorityEmpty]="icon.visibleWhenAuthorityEmpty"
+                  aria-hidden="true"
+                  (mouseover)="showTooltip(t, i, icon.metadata)"
+                (mouseout)="t.close()"></i>
+              }
+            }
+            <p class="chip-label text-truncate d-table-cell">{{c.display}}</p><i class="fas fa-times ms-2" (click)="removeChips($event, i)" [title]="'chips.remove' | translate"></i>
+          </span>
+        </a>
+      </div>
+    }
+    <div [class.chips-sort-ignore]="(isDragging | async)" class="flex-grow-1">
+      <ng-content ></ng-content>
+    </div>
+  </div>
+</div>

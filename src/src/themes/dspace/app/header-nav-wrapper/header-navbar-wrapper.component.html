@@ -1,0 +1,11 @@
+<div id="header-navbar-wrapper"><!-- [class.open]="!(isNavBarCollapsed$ | async)" -->
+  <ds-header></ds-header>
+  <!-- Collapsible navbar (mobile only) -->
+  @if ((isMobile$ | async)) {
+    <div id="mobile-navbar-wrapper" [@slideMobileNav]="(isNavBarCollapsed$ | async) ? 'collapsed' : 'expanded'">
+      <nav class="px-3" id="collapsible-mobile-navbar" [attr.aria-hidden]="(isNavBarCollapsed$ | async)" [attr.aria-label]="'nav.main.description' | translate">
+        <ds-navbar></ds-navbar>
+      </nav>
+    </div>
+  }
+</div>

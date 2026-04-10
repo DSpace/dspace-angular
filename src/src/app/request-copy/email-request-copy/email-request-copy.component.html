@@ -1,0 +1,58 @@
+<form>
+  <div class="mb-3">
+    <label for="subject" class="form-label">{{ 'grant-deny-request-copy.email.subject' | translate }}</label>
+    <input type="text" class="form-control" id="subject" [ngClass]="{'is-invalid': !subject || subject.length === 0}"
+           [(ngModel)]="subject" name="subject">
+    @if (!subject || subject.length === 0) {
+      <div class="invalid-feedback">
+        {{ 'grant-deny-request-copy.email.subject.empty' | translate }}
+      </div>
+    }
+  </div>
+  <div class="mb-3">
+    <label for="message" class="form-label">{{ 'grant-deny-request-copy.email.message' | translate }}</label>
+    <textarea class="form-control" id="message" rows="8" [(ngModel)]="message" name="message"></textarea>
+  </div>
+  <!-- Display access periods if more than one was bound to input. The parent component (grant-request-copy)
+       sends an empty list if the feature is not enabled or applicable to this request. -->
+  @if (hasValue(validAccessPeriods$ | async) && (validAccessPeriods$ | async).length > 0) {
+    <div class="mb-3">
+      <label for="accessPeriod">{{ 'grant-request-copy.access-period.header' | translate }}</label>
+      <div ngbDropdown class="d-block">
+        <!-- Show current selected access period (defaults to first in array) -->
+        <button
+          class="btn btn-outline-primary playlist"
+          id="accessPeriod"
+          ngbDropdownToggle
+        > {{ 'grant-request-copy.access-period.' + this.accessPeriod | translate }}
+        </button>
+        <!-- Access period dropdown -->
+        <div ngbDropdownMenu aria-labelledby="accessPeriod" class="dropdown-menu">
+          @for (accessPeriod of (validAccessPeriods$ | async); track accessPeriod) {
+            <button
+              ngbDropdownItem
+              class="list-element"
+              (click)="selectAccessPeriod(accessPeriod)"
+            >
+              {{ ('grant-request-copy.access-period.' + accessPeriod | translate) }}
+            </button>
+          }
+        </div>
+      </div>
+    </div>
+  }
+  <ng-content></ng-content>
+  <div class="d-flex flex-row-reverse">
+    <button (click)="submit()"
+            [dsBtnDisabled]="!subject || subject.length === 0"
+            class="btn btn-primary"
+            title="{{'grant-deny-request-copy.email.send' | translate }}">
+      <i class="fas fa-envelope"></i> {{ 'grant-deny-request-copy.email.send' | translate }}
+    </button>
+    <button (click)="return()"
+            class="btn btn-outline-secondary me-1"
+            title="{{'grant-deny-request-copy.email.back' | translate }}">
+      <i class="fas fa-arrow-left"></i> {{ 'grant-deny-request-copy.email.back' | translate }}
+    </button>
+  </div>
+</form>

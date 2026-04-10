@@ -1,0 +1,156 @@
+<ng-container>
+  <h2 class="border-bottom pb-2">{{messagePrefix + '.head' | translate}}</h2>
+
+  <h3>{{messagePrefix + '.headMembers' | translate}}</h3>
+
+  @if ((ePeopleMembersOfGroup | async)?.totalElements > 0) {
+    <ds-pagination
+      [paginationOptions]="config"
+      [collectionSize]="(ePeopleMembersOfGroup | async)?.totalElements"
+      [hideGear]="true"
+      [hidePagerWhenSinglePage]="true">
+      <div class="table-responsive">
+        <table id="ePeopleMembersOfGroup" class="table table-striped table-hover table-bordered">
+          <thead>
+            <tr>
+              <th scope="col" class="align-middle">{{messagePrefix + '.table.id' | translate}}</th>
+              <th scope="col" class="align-middle">{{messagePrefix + '.table.name' | translate}}</th>
+              <th scope="col" class="align-middle">{{messagePrefix + '.table.identity' | translate}}</th>
+              <th class="align-middle">{{messagePrefix + '.table.edit' | translate}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (epersonDTO of (ePeopleMembersOfGroup | async)?.page; track epersonDTO) {
+              <tr>
+                <td class="align-middle">{{epersonDTO.eperson.id}}</td>
+                <td class="align-middle">
+                  <a [routerLink]="getEPersonEditRoute(epersonDTO.eperson.id)">
+                    {{ dsoNameService.getName(epersonDTO.eperson) }}
+                  </a>
+                </td>
+                <td class="align-middle">
+                  {{messagePrefix + '.table.email' | translate}}: {{ epersonDTO.eperson.email ? epersonDTO.eperson.email : '-' }}<br/>
+                  {{messagePrefix + '.table.netid' | translate}}: {{ epersonDTO.eperson.netid ? epersonDTO.eperson.netid : '-' }}
+                </td>
+                <td class="align-middle">
+                  <div class="btn-group edit-field">
+                    @if (epersonDTO.ableToDelete) {
+                      <button (click)="deleteMemberFromGroup(epersonDTO.eperson)"
+                        [dsBtnDisabled]="actionConfig.remove.disabled"
+                        [ngClass]="['btn btn-sm', actionConfig.remove.css]"
+                        title="{{messagePrefix + '.table.edit.buttons.remove' | translate: { name: dsoNameService.getName(epersonDTO.eperson) } }}">
+                        <i [ngClass]="actionConfig.remove.icon"></i>
+                      </button>
+                    }
+                    @if (!epersonDTO.ableToDelete) {
+                      <button
+                        (click)="addMemberToGroup(epersonDTO.eperson)"
+                        [dsBtnDisabled]="actionConfig.add.disabled"
+                        [ngClass]="['btn btn-sm', actionConfig.add.css]"
+                        title="{{messagePrefix + '.table.edit.buttons.add' | translate: { name: dsoNameService.getName(epersonDTO.eperson) } }}">
+                        <i [ngClass]="actionConfig.add.icon"></i>
+                      </button>
+                    }
+                  </div>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </ds-pagination>
+  }
+
+  @if ((ePeopleMembersOfGroup | async) === undefined || (ePeopleMembersOfGroup | async)?.totalElements === 0) {
+    <div class="alert alert-info w-100 mb-2"
+      role="alert">
+      {{messagePrefix + '.no-members-yet' | translate}}
+    </div>
+  }
+
+  <h3 id="search" class="border-bottom pb-2">
+    <span
+      *dsContextHelp="{
+        content: 'admin.access-control.groups.form.tooltip.editGroup.addEpeople',
+        id: 'edit-group-add-epeople',
+        iconPlacement: 'right',
+        tooltipPlacement: ['top', 'right', 'bottom']
+      }"
+      >
+      {{messagePrefix + '.search.head' | translate}}
+    </span>
+  </h3>
+
+  <form [formGroup]="searchForm" (ngSubmit)="search(searchForm.value)" class="d-flex justify-content-between">
+    <div class="flex-grow-1 me-3">
+      <div class="mb-3 input-group me-3">
+        <input type="text" name="query" id="query" formControlName="query"
+          class="form-control" aria-label="Search input">
+        <span class="input-group-append">
+          <button type="submit" class="search-button btn btn-primary">
+            <i class="fas fa-search"></i> {{ messagePrefix + '.search.button' | translate }}</button>
+          </span>
+        </div>
+      </div>
+      <div>
+        <button (click)="clearFormAndResetResult();"
+        class="btn btn-secondary">{{messagePrefix + '.button.see-all' | translate}}</button>
+      </div>
+    </form>
+
+    @if ((ePeopleSearch | async)?.totalElements > 0) {
+      <ds-pagination
+        [paginationOptions]="configSearch"
+        [collectionSize]="(ePeopleSearch | async)?.totalElements"
+        [hideGear]="true"
+        [hidePagerWhenSinglePage]="true">
+        <div class="table-responsive">
+          <table id="epersonsSearch" class="table table-striped table-hover table-bordered">
+            <thead>
+              <tr>
+                <th scope="col" class="align-middle">{{messagePrefix + '.table.id' | translate}}</th>
+                <th scope="col" class="align-middle">{{messagePrefix + '.table.name' | translate}}</th>
+                <th scope="col" class="align-middle">{{messagePrefix + '.table.identity' | translate}}</th>
+                <th class="align-middle">{{messagePrefix + '.table.edit' | translate}}</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (eperson of (ePeopleSearch | async)?.page; track eperson) {
+                <tr>
+                  <td class="align-middle">{{eperson.id}}</td>
+                  <td class="align-middle">
+                    <a [routerLink]="getEPersonEditRoute(eperson.id)">
+                      {{ dsoNameService.getName(eperson) }}
+                    </a>
+                  </td>
+                  <td class="align-middle">
+                    {{messagePrefix + '.table.email' | translate}}: {{ eperson.email ? eperson.email : '-' }}<br/>
+                    {{messagePrefix + '.table.netid' | translate}}: {{ eperson.netid ? eperson.netid : '-' }}
+                  </td>
+                  <td class="align-middle">
+                    <div class="btn-group edit-field">
+                      <button (click)="addMemberToGroup(eperson)"
+                        [dsBtnDisabled]="actionConfig.add.disabled"
+                        [ngClass]="['btn btn-sm', actionConfig.add.css]"
+                        title="{{messagePrefix + '.table.edit.buttons.add' | translate: { name: dsoNameService.getName(eperson) } }}">
+                        <i [ngClass]="actionConfig.add.icon"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </ds-pagination>
+    }
+
+    @if ((ePeopleSearch | async)?.totalElements === 0 && searchDone) {
+      <div
+        class="alert alert-info w-100 mb-2"
+        role="alert">
+        {{messagePrefix + '.no-items' | translate}}
+      </div>
+    }
+
+  </ng-container>

@@ -1,0 +1,24 @@
+<div>
+  <div class="modal-header">{{'dso-selector.'+ action + '.' + objectType.toString().toLowerCase() + '.head' | translate}}
+    <button type="button" class="btn-close" (click)="close()" aria-label="Close">
+    </button>
+  </div>
+  <div class="modal-body">
+    @if ((isAdmin$ | async)) {
+      <div data-test="admin-div">
+        <button class="btn btn-outline-primary btn-lg btn-block w-100" (click)="selectObject(undefined)">{{'dso-selector.create.community.top-level' | translate}}</button>
+        <div class="h3 position-relative py-1 my-3 fw-normal">
+          <hr>
+            <div id="create-community-or-separator" class="text-center position-absolute w-100">
+              <span class="px-4 bg-white">{{'dso-selector.create.community.or-divider' | translate}}</span>
+            </div>
+          </div>
+        </div>
+      }
+      <span class="h5 px-2">{{'dso-selector.create.community.sub-level' | translate}}</span>
+      <ds-authorized-community-selector [currentDSOId]="dsoRD?.payload.uuid"
+        [types]="selectorTypes"
+        (onSelect)="selectObject($event)"></ds-authorized-community-selector>
+    </div>
+  </div>
+

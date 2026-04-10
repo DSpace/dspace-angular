@@ -1,0 +1,269 @@
+<!-- ====== BREADCRUMB HEADER ====== -->
+<header class="item-page-header">
+  <div class="container">
+    <nav aria-label="breadcrumb">
+      <ol class="item-breadcrumb">
+        <li class="item-breadcrumb-item">
+          <a routerLink="/">{{ 'ip.home' | translate }}</a>
+        </li>
+        @for (bc of (breadcrumbs$ | async); track $index; let last = $last) {
+          @if (!last) {
+            <li class="item-breadcrumb-item">
+              <a [routerLink]="bc.url">{{ bc.text | translate }}</a>
+            </li>
+          } @else {
+            <li class="item-breadcrumb-item active">
+              <span>{{ bc.text | translate }}</span>
+            </li>
+          }
+        }
+      </ol>
+    </nav>
+  </div>
+</header>
+
+<!-- ====== MAIN LAYOUT ====== -->
+<div class="item-main-wrapper">
+  <div class="item-content-card">
+
+    <!-- ====== SIDEBAR ====== -->
+    <aside class="item-sidebar">
+      <div class="sidebar-sticky">
+
+        <!-- Contents Widget -->
+        <div class="sidebar-widget">
+          <div class="widget-header">
+            <i class="fas fa-list-columns"></i> {{ 'ip.sidebar.contents' | translate }}
+          </div>
+          <ul class="sidebar-nav">
+            <li><a href="#overview" class="sidebar-link active" (click)="scrollTo($event, 'overview')">
+              <i class="fas fa-file-alt"></i> {{ 'ip.sidebar.overview' | translate }}
+            </a></li>
+            @if (object.allMetadataValues(['dc.contributor.author', 'dc.creator']).length > 0 || object.firstMetadataValue('dc.publisher')) {
+              <li><a href="#who" class="sidebar-link" (click)="scrollTo($event, 'who')">
+                <i class="fas fa-user-circle"></i> {{ 'ip.sidebar.who' | translate }}
+              </a></li>
+            }
+            <li><a href="#what" class="sidebar-link" (click)="scrollTo($event, 'what')">
+              <i class="fas fa-layer-group"></i> {{ 'ip.sidebar.what' | translate }}
+            </a></li>
+            @if (object.firstMetadataValue('dc.date.issued') || object.firstMetadataValue('dc.date.accessioned')) {
+              <li><a href="#when" class="sidebar-link" (click)="scrollTo($event, 'when')">
+                <i class="fas fa-calendar-alt"></i> {{ 'ip.sidebar.when' | translate }}
+              </a></li>
+            }
+          </ul>
+        </div>
+
+        <!-- Analytics Widget -->
+        <div class="sidebar-widget">
+          <div class="widget-header analytics-header">
+            <i class="fas fa-chart-line"></i> {{ 'ip.sidebar.analytics' | translate }}
+          </div>
+          <ul class="sidebar-nav">
+            <li>
+              <a [routerLink]="'/statistics' + itemPageRoute" class="sidebar-link">
+                <i class="fas fa-chart-bar"></i> {{ 'ip.sidebar.item-statistics' | translate }}
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Actions Widget -->
+        <div class="sidebar-widget">
+          <div class="widget-header actions-header">
+            <i class="fas fa-cog"></i> {{ 'ip.sidebar.actions' | translate }}
+          </div>
+          <div class="utility-grid">
+            <a class="utility-btn" href="#" onclick="window.print(); return false;">
+              <i class="fas fa-print"></i>
+              <span>{{ 'ip.sidebar.print' | translate }}</span>
+            </a>
+            <a class="utility-btn" href="#" [class.active]="shareOpen" (click)="$event.preventDefault(); shareOpen = !shareOpen">
+              <i class="fas fa-share-alt"></i>
+              <span>{{ 'ip.sidebar.share' | translate }}</span>
+            </a>
+          </div>
+          @if (shareOpen) {
+            <div class="social-share-panel">
+              <button class="social-btn fb" (click)="openShare('facebook')" title="Share on Facebook">
+                <i class="fab fa-facebook-f"></i>
+              </button>
+              <button class="social-btn li" (click)="openShare('linkedin')" title="Share on LinkedIn">
+                <i class="fab fa-linkedin-in"></i>
+              </button>
+              <button class="social-btn x-btn" (click)="openShare('x')" title="Share on X">
+                <i class="fab fa-x-twitter"></i>
+              </button>
+            </div>
+          }
+          <ds-item-cite [item]="object"></ds-item-cite>
+          <div class="edit-menu-wrap">
+            <ds-dso-edit-menu></ds-dso-edit-menu>
+          </div>
+        </div>
+
+      </div>
+    </aside>
+
+    <!-- ====== ARTICLE ====== -->
+    <article class="item-article">
+
+      <!-- OVERVIEW / HEADER BLOCK -->
+      <div class="item-header-block" id="overview">
+        <div class="meta-title-wrapper">
+          <span class="meta-label"><i class="fas fa-fonts"></i> {{ 'ip.title-label' | translate }}</span>
+          <h2 class="meta-main-title">{{ object.firstMetadataValue('dc.title') }}</h2>
+        </div>
+
+        <div class="meta-content-grid">
+          <!-- Left: key attributes -->
+          <div class="meta-attributes">
+            @if (object.allMetadataValues(['dc.contributor.author', 'dc.creator']).length > 0) {
+              <div class="meta-attr-box">
+                <span class="meta-label"><i class="fas fa-user-circle"></i> {{ 'ip.authors-label' | translate }}</span>
+                <span class="meta-value">
+                  {{ object.allMetadataValues(['dc.contributor.author', 'dc.creator']).join('; ') }}
+                </span>
+              </div>
+            }
+            @if (object.firstMetadataValue('dc.date.issued')) {
+              <div class="meta-attr-box">
+                <span class="meta-label"><i class="fas fa-calendar-check"></i> {{ 'ip.date-publication' | translate }}</span>
+                <span class="meta-value">{{ object.firstMetadataValue('dc.date.issued') }}</span>
+              </div>
+            }
+            @if (object.firstMetadataValue('dc.date.created')) {
+              <div class="meta-attr-box">
+                <span class="meta-label"><i class="fas fa-calendar-plus"></i> {{ 'ip.date-created' | translate }}</span>
+                <span class="meta-value">{{ object.firstMetadataValue('dc.date.created') }}</span>
+              </div>
+            }
+            @if (object.firstMetadataValue('dc.identifier.uri')) {
+              <div class="meta-attr-box">
+                <span class="meta-label"><i class="fas fa-link"></i> {{ 'item.page.uri' | translate }}</span>
+                <span class="meta-value uri-value">
+                  <a [href]="object.firstMetadataValue('dc.identifier.uri')" target="_blank" rel="noopener">
+                    {{ object.firstMetadataValue('dc.identifier.uri') }}
+                  </a>
+                </span>
+              </div>
+            }
+          </div>
+
+          <!-- Right: media viewer (video/audio player + image + thumbnail fallback) -->
+          <div class="thumbnail-col">
+            <div class="thumbnail-container">
+              <ds-media-viewer
+                [item]="object"
+                [mediaOptions]="{ video: true, image: true }">
+              </ds-media-viewer>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PRIMARY FILES -->
+      <div class="primary-files-section">
+        <ds-item-page-file-section [item]="object"></ds-item-page-file-section>
+      </div>
+
+      <!-- WHO SECTION -->
+      @if (object.allMetadataValues(['dc.contributor.author', 'dc.creator']).length > 0 || object.firstMetadataValue('dc.publisher')) {
+        <section id="who" class="detail-section">
+          <h3 class="detail-title">{{ 'ip.section.who' | translate }}</h3>
+          <table class="data-table">
+            @for (author of object.allMetadataValues(['dc.contributor.author', 'dc.creator']); track $index) {
+              <tr>
+                <td class="label-col">{{ 'item.page.author' | translate }}</td>
+                <td class="value-col">{{ author }}</td>
+              </tr>
+            }
+            @if (object.firstMetadataValue('dc.publisher')) {
+              <tr>
+                <td class="label-col">{{ 'item.page.publisher' | translate }}</td>
+                <td class="value-col">{{ object.firstMetadataValue('dc.publisher') }}</td>
+              </tr>
+            }
+          </table>
+        </section>
+      }
+
+      <!-- WHAT SECTION -->
+      <section id="what" class="detail-section">
+        <h3 class="detail-title">{{ 'ip.section.what' | translate }}</h3>
+        <table class="data-table">
+          <tr>
+            <td class="label-col">{{ 'ip.table.title' | translate }}</td>
+            <td class="value-col">{{ object.firstMetadataValue('dc.title') }}</td>
+          </tr>
+          @if (object.firstMetadataValue('dc.type')) {
+            <tr>
+              <td class="label-col">{{ 'ip.table.type' | translate }}</td>
+              <td class="value-col">{{ object.firstMetadataValue('dc.type') }}</td>
+            </tr>
+          }
+          @if (object.firstMetadataValue('dc.format') || object.firstMetadataValue('dc.format.mimetype')) {
+            <tr>
+              <td class="label-col">{{ 'ip.table.format' | translate }}</td>
+              <td class="value-col">{{ object.firstMetadataValue('dc.format') || object.firstMetadataValue('dc.format.mimetype') }}</td>
+            </tr>
+          }
+          @if (object.firstMetadataValue('dc.language.iso')) {
+            <tr>
+              <td class="label-col">{{ 'ip.table.language' | translate }}</td>
+              <td class="value-col">{{ object.firstMetadataValue('dc.language.iso') }}</td>
+            </tr>
+          }
+          @if (object.allMetadataValues(['dc.subject']).length > 0) {
+            <tr>
+              <td class="label-col">{{ 'ip.table.keywords' | translate }}</td>
+              <td class="value-col">{{ object.allMetadataValues(['dc.subject']).join(', ') }}</td>
+            </tr>
+          }
+          @if (object.firstMetadataValue('dc.description.abstract')) {
+            <tr>
+              <td class="label-col">{{ 'item.page.description' | translate }}</td>
+              <td class="value-col">{{ object.firstMetadataValue('dc.description.abstract') }}</td>
+            </tr>
+          }
+          @if (object.firstMetadataValue('dc.description')) {
+            <tr>
+              <td class="label-col">{{ 'ip.table.notes' | translate }}</td>
+              <td class="value-col">{{ object.firstMetadataValue('dc.description') }}</td>
+            </tr>
+          }
+        </table>
+      </section>
+
+      <!-- WHEN SECTION -->
+      @if (object.firstMetadataValue('dc.date.issued') || object.firstMetadataValue('dc.date.accessioned')) {
+        <section id="when" class="detail-section">
+          <h3 class="detail-title">{{ 'ip.section.when' | translate }}</h3>
+          <table class="data-table">
+            @if (object.firstMetadataValue('dc.date.issued')) {
+              <tr>
+                <td class="label-col">{{ 'ip.date-publication' | translate }}</td>
+                <td class="value-col">{{ object.firstMetadataValue('dc.date.issued') }}</td>
+              </tr>
+            }
+            @if (object.firstMetadataValue('dc.date.accessioned')) {
+              <tr>
+                <td class="label-col">{{ 'ip.date-accessioned' | translate }}</td>
+                <td class="value-col">{{ object.firstMetadataValue('dc.date.accessioned') }}</td>
+              </tr>
+            }
+          </table>
+        </section>
+      }
+
+      <!-- FULL ITEM PAGE BUTTON -->
+      <div class="full-item-container">
+        <a class="btn-full-item" [routerLink]="[itemPageRoute + '/full']">
+          <i>i</i> {{ 'item.page.link.full' | translate }}
+        </a>
+      </div>
+
+    </article>
+  </div>
+</div>

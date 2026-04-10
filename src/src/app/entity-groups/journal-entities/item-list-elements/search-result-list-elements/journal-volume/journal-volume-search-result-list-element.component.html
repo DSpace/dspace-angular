@@ -1,0 +1,66 @@
+<div class="row">
+  @if (showThumbnails) {
+    <div class="col-3 col-md-2">
+      @if (linkType !== linkTypes.None) {
+        <a [target]="(linkType === linkTypes.ExternalLink) ? '_blank' : '_self'"
+          [attr.rel]="(linkType === linkTypes.ExternalLink) ? 'noopener noreferrer' : null"
+          [routerLink]="[itemPageRoute]" class="lead item-list-title dont-break-out" tabindex="-1">
+          <ds-thumbnail [thumbnail]="dso?.thumbnail | async" [limitWidth]="true">
+          </ds-thumbnail>
+        </a>
+      }
+      @if (linkType === linkTypes.None) {
+        <span class="lead item-list-title dont-break-out">
+          <ds-thumbnail [thumbnail]="dso?.thumbnail | async" [limitWidth]="true">
+          </ds-thumbnail>
+        </span>
+      }
+    </div>
+  }
+  <div [ngClass]="showThumbnails ? 'col-9' : 'col-md-12'">
+    @if (showLabel) {
+      <ds-badges [object]="dso" [context]="context"></ds-badges>
+    }
+    <ds-truncatable [id]="dso.id">
+      @if (linkType !== linkTypes.None) {
+        <a [target]="(linkType === linkTypes.ExternalLink) ? '_blank' : '_self'"
+          [attr.rel]="(linkType === linkTypes.ExternalLink) ? 'noopener noreferrer' : null"
+          [routerLink]="[itemPageRoute]" class="lead item-list-title dont-break-out"
+        [innerHTML]="dsoTitle" role="link" tabindex="0"></a>
+      }
+      @if (linkType === linkTypes.None) {
+        <span
+          class="lead item-list-title dont-break-out"
+        [innerHTML]="dsoTitle"></span>
+      }
+      <span class="text-muted">
+        <ds-truncatable-part [id]="dso.id" [minLines]="1">
+          @if (dso.allMetadata(['journal.title']).length > 0) {
+            <span
+              class="item-list-journal-volumes">
+              @for (value of allMetadataValues(['journal.title']); track value; let last = $last) {
+                <span>
+                  <span [innerHTML]="value"></span>@if (!last) {
+                  <span>; </span>
+                }
+              </span>
+            }
+          </span>
+        }
+        @if (dso.allMetadata(['publicationvolume.volumeNumber']).length > 0) {
+          <span
+            class="item-list-journal-volume-identifiers">
+            @for (value of allMetadataValues(['publicationvolume.volumeNumber']); track value; let last = $last) {
+              <span>
+                <span> (</span><span [innerHTML]="value"></span><span>)</span>@if (!last) {
+                <span>;</span>
+              }
+            </span>
+          }
+        </span>
+      }
+    </ds-truncatable-part>
+  </span>
+</ds-truncatable>
+</div>
+</div>

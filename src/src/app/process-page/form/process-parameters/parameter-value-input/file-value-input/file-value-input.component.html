@@ -1,0 +1,17 @@
+<label for="file-upload-{{index}}" class="form-label d-flex align-items-center m-0">
+  <span class="btn btn-primary">
+    {{'process.new.parameter.file.upload-button' | translate}}
+  </span>
+  <span class="file-name ms-1">{{fileObject?.name}}</span>
+</label>
+<input requireFile #file="ngModel" type="file" name="file-upload-{{index}}" id="file-upload-{{index}}" class="form-control d-none" [ngModel]="fileObject" (ngModelChange)="setFile($event)"/>
+@if (file.invalid && (file.dirty || file.touched)) {
+  <div
+    class="alert alert-danger validation-error">
+    @if (file.errors.required) {
+      <div>
+        {{'process.new.parameter.file.required' | translate}}
+      </div>
+    }
+  </div>
+}

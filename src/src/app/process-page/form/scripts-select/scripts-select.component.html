@@ -1,0 +1,52 @@
+<div class="d-flex w-100 flex-column gap-3">
+  <div>
+    <div ngbDropdown class="d-flex">
+      <input id="process-script"
+        class="form-select"
+        required
+        [ngModel]="selectedScript"
+        placeholder="{{'process.new.select-script.placeholder' | translate}}"
+        [ngModelOptions]="{standalone: true}"
+        ngbDropdownToggle
+        role="combobox"
+        #script="ngModel">
+      <div ngbDropdownMenu aria-labelledby="process-script" class="w-100 scrollable-menu"
+        role="menu"
+        (scroll)="onScroll($event)"
+        infiniteScroll
+        [infiniteScrollDistance]="5"
+        [infiniteScrollThrottle]="300"
+        [infiniteScrollUpDistance]="1.5"
+        [fromRoot]="true"
+        [scrollWindow]="false">
+        @for (script of scripts; track script) {
+          <button class="dropdown-item"
+            role="menuitem"
+            type="button"
+            title="{{ script.name }}"
+            (click)="onSelect(script);">
+            <span class="text-truncate">{{ script.name }}</span>
+          </button>
+        }
+        @if ((isLoading$ | async)) {
+          <button class="dropdown-item disabled" role="menuitem">
+            <ds-loading message="{{'loading.default' | translate}}">
+            </ds-loading>
+          </button>
+        }
+      </div>
+    </div>
+  </div>
+  <div>
+    @if (script.invalid && (script.dirty || script.touched)) {
+      <div
+        class="alert alert-danger validation-error">
+        @if (script.errors.required) {
+          <div>
+            {{ 'process.new.select-script.required' | translate }}
+          </div>
+        }
+      </div>
+    }
+  </div>
+</div>

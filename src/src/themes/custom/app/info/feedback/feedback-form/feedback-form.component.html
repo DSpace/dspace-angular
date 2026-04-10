@@ -1,0 +1,49 @@
+<form [formGroup]="feedbackForm" (ngSubmit)="createFeedback()" novalidate>
+
+  <div class="fb-field">
+    <label class="fb-label" for="email">{{ 'info.feedback.email-label' | translate }}</label>
+    <input id="email" class="fb-input" name="email" type="text"
+           formControlName="email" autofocus="autofocus"
+           title="{{ 'info.feedback.email_help' | translate }}">
+    <small class="fb-hint">{{ 'info.feedback.email_help' | translate }}</small>
+
+    @if (feedbackForm.controls.email.invalid && (feedbackForm.controls.email.dirty || feedbackForm.controls.email.touched)) {
+      <div class="fb-error-wrap">
+        @if (feedbackForm.controls.email.errors?.required) {
+          <ds-error message="{{'info.feedback.error.email.required' | translate}}"></ds-error>
+        }
+        @if (feedbackForm.controls.email.errors?.pattern) {
+          <ds-error message="{{'info.feedback.error.email.required' | translate}}"></ds-error>
+        }
+      </div>
+    }
+  </div>
+
+  <div class="fb-field">
+    <label class="fb-label" for="comments">{{ 'info.feedback.comments' | translate }}:</label>
+    <textarea id="comments" formControlName="message" class="fb-input fb-textarea"
+              name="message" cols="20" rows="5"></textarea>
+
+    @if (feedbackForm.controls.message.invalid && (feedbackForm.controls.message.dirty || feedbackForm.controls.message.touched)) {
+      <div class="fb-error-wrap">
+        @if (feedbackForm.controls.message.errors?.required) {
+          <ds-error message="{{'info.feedback.error.message.required' | translate}}"></ds-error>
+        }
+      </div>
+    }
+  </div>
+
+  <div class="fb-field">
+    <label class="fb-label" for="page">{{ 'info.feedback.page-label' | translate }}</label>
+    <input id="page" readonly class="fb-input fb-input-readonly" name="page" type="text"
+           formControlName="page" title="{{ 'info.feedback.page_help' | translate }}">
+    <small class="fb-hint">{{ 'info.feedback.page_help' | translate }}</small>
+  </div>
+
+  <div class="fb-submit-row">
+    <button [dsBtnDisabled]="!feedbackForm.valid" class="btn-fb-gold" name="submit" type="submit">
+      {{ 'info.feedback.send' | translate }}
+    </button>
+  </div>
+
+</form>

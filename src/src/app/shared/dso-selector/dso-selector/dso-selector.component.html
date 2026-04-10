@@ -1,0 +1,45 @@
+<div class="mb-3 w-100 pe-2 ps-2">
+  <input type="search"
+    class="form-control"
+    (click)="$event.stopPropagation();"
+    [attr.aria-label]="'dso-selector.placeholder' | translate: { type: typesString }"
+    placeholder="{{'dso-selector.placeholder' | translate: { type: typesString } }}"
+    [formControl]="input" ngbAutofocus (keyup.enter)="selectSingleResult()">
+</div>
+<div class="dropdown-divider"></div>
+<div id="scrollable-menu-dso-selector-{{randomSeed}}" class="scrollable-menu list-group">
+  <div
+    infiniteScroll
+    [infiniteScrollDistance]="1"
+    [infiniteScrollThrottle]="0"
+    [infiniteScrollContainer]="'#scrollable-menu-dso-selector-' + randomSeed"
+    [fromRoot]="true"
+    (scrolled)="onScrollDown()">
+    @if (listEntries$ | async) {
+      @if ((listEntries$ | async).length === 0) {
+        <button class="list-group-item list-group-item-action border-0 disabled"
+          >
+          {{'dso-selector.no-results' | translate: { type: typesString } }}
+        </button>
+      }
+      @for (listEntry of (listEntries$ | async); track listEntry) {
+        <button
+          class="list-group-item list-group-item-action border-0 list-entry"
+          [ngClass]="{'bg-primary': listEntry['id'] === currentDSOId}"
+          title="{{ getName(listEntry) }}"
+          dsHoverClass="ds-hover"
+          (click)="onClick(listEntry)" #listEntryElement>
+          <ds-listable-object-component-loader [object]="listEntry" [viewMode]="viewMode"
+          [linkType]=linkTypes.None [context]="getContext(listEntry['id'])"></ds-listable-object-component-loader>
+        </button>
+      }
+    }
+    @if (loading) {
+      <button
+        title="{{'loading.default' | translate}}"
+        class="list-group-item list-group-item-action border-0 list-entry">
+        <ds-loading [showMessage]="false"></ds-loading>
+      </button>
+    }
+  </div>
+</div>

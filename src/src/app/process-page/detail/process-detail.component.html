@@ -1,0 +1,125 @@
+@if ((processRD$ | async)?.payload; as process) {
+  <div class="container">
+    <div class="row">
+      <div class="col-10">
+        <h1 class="flex-grow-1">
+          {{ 'process.detail.title' | translate:{ id: process?.processId, name: process?.scriptName } }}
+        </h1>
+      </div>
+      @if (isRefreshing$ | async) {
+        <div class="col-2 refresh-counter">
+          {{ 'process.detail.refreshing' | translate }} <i class="fas fa-sync-alt fa-spin"></i>
+        </div>
+      }
+    </div>
+    <ds-process-detail-field id="process-name" [title]="'process.detail.script'">
+      <div>{{ process?.scriptName }}</div>
+    </ds-process-detail-field>
+    @if (process?.parameters && process?.parameters?.length > 0) {
+      <ds-process-detail-field id="process-arguments"
+        [title]="'process.detail.arguments'">
+        @for (argument of process?.parameters; track argument) {
+          <div>{{ argument?.name }} {{ argument?.value }}</div>
+        }
+      </ds-process-detail-field>
+    }
+    <div *ngVar="(filesRD$ | async)?.payload?.page as files">
+      @if (files && files?.length > 0) {
+        <ds-process-detail-field id="process-files"
+          [title]="'process.detail.output-files'">
+          <div class="d-flex flex-column">
+            @for (file of files; track file; let last = $last) {
+              <ds-file-download-link [bitstream]="file" [showAccessStatusBadge]="false">
+                <span>{{getFileName(file)}}</span>
+                <span>({{(file?.sizeBytes) | dsFileSize }})</span>
+              </ds-file-download-link>
+            }
+          </div>
+        </ds-process-detail-field>
+      }
+    </div>
+    @if (process && process.startTime) {
+      <ds-process-detail-field id="process-start-time"
+        [title]="'process.detail.start-time' | translate">
+        <div>{{ process.startTime | date:dateFormat:'UTC' }}</div>
+      </ds-process-detail-field>
+    }
+    @if (process && process.endTime) {
+      <ds-process-detail-field id="process-end-time"
+        [title]="'process.detail.end-time' | translate">
+        <div>{{ process.endTime | date:dateFormat:'UTC' }}</div>
+      </ds-process-detail-field>
+    }
+    @if (process && process.processStatus) {
+      <ds-process-detail-field id="process-status"
+        [title]="'process.detail.status' | translate">
+        <div>{{ process.processStatus }}</div>
+      </ds-process-detail-field>
+    }
+    @if (isProcessFinished(process)) {
+      <ds-process-detail-field id="process-output" [title]="'process.detail.output'">
+        @if (!showOutputLogs && process?._links?.output?.href !== undefined) {
+          <button id="showOutputButton"
+            class="btn btn-primary" (click)="showProcessOutputLogs()">
+            {{ 'process.detail.logs.button' | translate }}
+          </button>
+        }
+        @if (retrievingOutputLogs$ | async) {
+          <ds-loading class="ds-themed-loading"
+          message="{{ 'process.detail.logs.loading' | translate }}"></ds-loading>
+        }
+        @if (showOutputLogs && (outputLogs$ | async)?.length > 0) {
+          <pre class="fw-bold text-secondary bg-light p-3" tabindex="0"
+          >{{ (outputLogs$ | async) }}</pre>
+        }
+        @if (((retrievingOutputLogs$ | async) !== true && showOutputLogs)
+          && (outputLogs$ | async | dsHasNoValue) || (outputLogs$ | async)?.length === 0 || !process._links.output) {
+          <p id="no-output-logs-message">
+            {{ 'process.detail.logs.none' | translate }}
+          </p>
+        }
+      </ds-process-detail-field>
+    }
+    <ds-process-detail-field id="process-actions" [title]="'process.detail.actions'">
+      <button class="btn btn-success me-2" routerLink="/processes/new" [queryParams]="{id: process?.processId}"><i
+      class="fas fa-plus pe-2"></i>{{'process.detail.create' | translate}}</button>
+      @if (isProcessFinished(process)) {
+        <button id="delete" class="btn btn-danger"
+          (click)="openDeleteModal(deleteModal)">
+          <i class="fas fa-trash pe-2"></i>{{ 'process.detail.delete.button' | translate }}
+        </button>
+      }
+    </ds-process-detail-field>
+    <div style="text-align: right;">
+      <a class="btn btn-outline-secondary mt-3" [routerLink]="'/processes'">{{'process.detail.back' | translate}}</a>
+    </div>
+  </div>
+}
+
+<ng-template #deleteModal >
+
+  @if ((processRD$ | async)?.payload; as process) {
+    <div>
+      <div class="modal-header">
+        <div>
+          <h4>{{'process.detail.delete.header' | translate }}</h4>
+        </div>
+        <button type="button" class="btn-close"
+          (click)="closeModal()" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div>{{'process.detail.delete.body' | translate }}</div>
+        <div class="mt-4">
+          <button class="btn btn-primary me-2" (click)="closeModal()">{{'process.detail.delete.cancel' | translate}}</button>
+          <button id="delete-confirm" class="btn btn-danger"
+            (click)="deleteProcess(process)">{{ 'process.detail.delete.confirm' | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  }
+
+</ng-template>
+

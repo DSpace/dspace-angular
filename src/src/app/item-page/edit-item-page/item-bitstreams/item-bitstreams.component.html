@@ -1,0 +1,97 @@
+<div class="item-bitstreams" *ngVar="(bundles$ | async) as bundles">
+  <div class="mt-2" id="reorder-description">
+    <ds-alert [content]="'item.edit.bitstreams.info-alert'" [type]="AlertType.Info"></ds-alert>
+  </div>
+
+  <div class="button-row top d-flex mt-2 space-children-mr">
+    <button class="me-auto btn btn-success"
+      [attr.aria-label]="'item.edit.bitstreams.upload-button' | translate"
+      [routerLink]="[itemPageRoute, 'bitstreams', 'new']"><i
+    class="fas fa-upload"></i>
+    <span class="d-none d-sm-inline">&nbsp;{{"item.edit.bitstreams.upload-button" | translate}}</span>
+  </button>
+  @if (isReinstatable$ | async) {
+    <button class="btn btn-warning"
+      [attr.aria-label]="'item.edit.bitstreams.reinstate-button' | translate"
+      (click)="reinstate()"><i
+    class="fas fa-undo-alt"></i>
+    <span class="d-none d-sm-inline">&nbsp;{{"item.edit.bitstreams.reinstate-button" | translate}}</span>
+  </button>
+}
+<button class="btn btn-primary" [dsBtnDisabled]="(hasChanges$ | async) !== true || submitting"
+  [attr.aria-label]="'item.edit.bitstreams.save-button' | translate"
+  (click)="submit()"><i
+class="fas fa-save"></i>
+<span class="d-none d-sm-inline">&nbsp;{{"item.edit.bitstreams.save-button" | translate}}</span>
+</button>
+@if ((isReinstatable$ | async) !== true) {
+  <button class="btn btn-danger"
+    [attr.aria-label]="'item.edit.bitstreams.discard-button' | translate"
+    [dsBtnDisabled]="(hasChanges$ | async) !== true || submitting"
+    (click)="discard()"><i
+  class="fas fa-times"></i>
+  <span class="d-none d-sm-inline">&nbsp;{{"item.edit.bitstreams.discard-button" | translate}}</span>
+</button>
+}
+</div>
+
+@if (item && bundles?.length > 0) {
+  <div class="mt-4 table-border scrollable-table" [ngClass]="{'disabled-overlay': (isProcessingMoveRequest | async)}">
+    @for (bundle of bundles; track bundle; let isFirst = $first) {
+      <ds-item-edit-bitstream-bundle
+        [bundle]="bundle"
+        [item]="item"
+        [columnSizes]="columnSizes"
+        [isFirstTable]="isFirst"
+        aria-describedby="reorder-description">
+      </ds-item-edit-bitstream-bundle>
+    }
+    @if (showLoadMoreLink$ | async) {
+      <div class="d-flex justify-content-center">
+        <button class="btn btn-link my-3" (click)="loadBundles()"> {{'item.edit.bitstreams.load-more.link' | translate}}</button>
+      </div>
+    }
+  </div>
+}
+@if (bundles?.length === 0) {
+  <div
+    class="alert alert-info w-100 d-inline-block mt-4" role="alert">
+    {{'item.edit.bitstreams.empty' | translate}}
+  </div>
+}
+@if (!bundles) {
+  <ds-loading message="{{'loading.bitstreams' | translate}}"></ds-loading>
+}
+
+<div class="button-row bottom">
+  <div class="mt-4 float-end space-children-mr ms-gap">
+    @if (isReinstatable$ | async) {
+      <button class="btn btn-warning"
+        [attr.aria-label]="'item.edit.bitstreams.reinstate-button' | translate"
+        (click)="reinstate()"><i
+      class="fas fa-undo-alt"></i>
+      <span class="d-none d-sm-inline">&nbsp;{{"item.edit.bitstreams.reinstate-button" | translate}}</span>
+    </button>
+  }
+  <button class="btn btn-primary" [dsBtnDisabled]="(hasChanges$ | async) !== true || submitting"
+    [attr.aria-label]="'item.edit.bitstreams.save-button' | translate"
+    (click)="submit()"><i
+  class="fas fa-save"></i>
+  <span class="d-none d-sm-inline">&nbsp;{{"item.edit.bitstreams.save-button" | translate}}</span>
+</button>
+@if ((isReinstatable$ | async) !== true) {
+  <button class="btn btn-danger"
+    [attr.aria-label]="'item.edit.bitstreams.discard-button' | translate"
+    [dsBtnDisabled]="(hasChanges$ | async) !== true || submitting"
+    (click)="discard()"><i
+  class="fas fa-times"></i>
+  <span class="d-none d-sm-inline">&nbsp;{{"item.edit.bitstreams.discard-button" | translate}}</span>
+</button>
+}
+</div>
+</div>
+</div>
+
+@if (isProcessingMoveRequest | async) {
+  <ds-loading class="loading-overlay"></ds-loading>
+}

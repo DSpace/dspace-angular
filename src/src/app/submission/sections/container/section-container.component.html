@@ -1,0 +1,61 @@
+<div dsSection #sectionRef="sectionRef" [attr.id]="'section_' + sectionData.id"
+  class="mb-2"
+  [ngClass]="{ 'section-focus' : sectionRef.isSectionActive() }" [mandatory]="sectionData.mandatory"
+  [submissionId]="submissionId" [sectionType]="sectionData.sectionType" [sectionId]="sectionData.id">
+  @if ((sectionRef.isEnabled() | async)) {
+    <ngb-accordion #acc="ngbAccordion"
+      (panelChange)="sectionRef.sectionChange($event)" activeIds="{{ sectionData.id }}" [destroyOnHide]="false">
+      <ngb-panel id="{{ sectionData.id }}" [type]="sectionRef.isInfo() ? 'info' : ''">
+        <ng-template ngbPanelTitle class="d-flex">
+          <span [ngClass]="{ 'text-white' : sectionRef.isInfo()}" class="flex-grow-1 section-title" tabindex="0">{{
+            'submission.sections.'+sectionData.header | translate
+          }}</span>
+          <div class="d-inline-block">
+            @if ((sectionRef.isValid() | async) !== true && !(sectionRef.hasErrors()) && !(sectionRef.isInfo())) {
+              <i
+                class="fas fa-exclamation-circle text-warning me-3"
+                title="{{'submission.sections.status.warnings.title' | translate}}" role="img"
+              [attr.aria-label]="'submission.sections.status.warnings.aria' | translate"></i>
+            }
+            @if ((sectionRef.hasErrors()) && !(sectionRef.isInfo())) {
+              <i
+                class="fas fa-exclamation-circle text-danger me-3"
+                title="{{'submission.sections.status.errors.title' | translate}}" role="img"
+              [attr.aria-label]="'submission.sections.status.errors.aria' | translate"></i>
+            }
+            @if ((sectionRef.isValid() | async) && !(sectionRef.hasErrors()) && !(sectionRef.isInfo())) {
+              <i
+                class="fas fa-check-circle text-success me-3"
+                title="{{'submission.sections.status.valid.title' | translate}}" role="img"
+              [attr.aria-label]="'submission.sections.status.valid.aria' | translate"></i>
+            }
+            @if (sectionRef.isInfo()) {
+              <i class="fas fa-info-circle me-3 text-white"
+                title="{{'submission.sections.status.info.title' | translate}}" role="img"
+              [attr.aria-label]="'submission.sections.status.info.aria' | translate"></i>
+            }
+            @if (!sectionRef.isMandatory()) {
+              <a href="javascript:void(0);" class="me-3"
+                (click)="removeSection($event)">
+                <i class="fas fa-trash-o" aria-hidden="true" tabindex="0"></i>
+              </a>
+            }
+          </div>
+        </ng-template>
+        <ng-template ngbPanelContent>
+          @if (sectionRef.hasGenericErrors()) {
+            <div id="sectionGenericError_{{sectionData.id}}">
+              @for (error of sectionRef.getErrors(); track error; let i = $index) {
+                <ds-alert [content]="error" [dismissible]="true"
+                [type]="AlertTypeEnum.Error" (close)="sectionRef.removeError(i)"></ds-alert>
+              }
+            </div>
+          }
+          <div id="sectionContent_{{sectionData.id}}" (click)="sectionRef.setFocus($event)">
+            <ng-container *ngComponentOutlet="getSectionContent(); injector: objectInjector;"></ng-container>
+          </div>
+        </ng-template>
+      </ngb-panel>
+    </ngb-accordion>
+  }
+</div>

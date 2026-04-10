@@ -1,0 +1,30 @@
+<ds-metadata-field-wrapper [label]="label">
+  @for (objectPage of objects; track objectPage; let i = $index) {
+    <ng-container *ngVar="(objectPage | async) as representations">
+      @for (rep of representations; track rep) {
+        <ds-metadata-representation-loader
+          [mdRepresentation]="rep">
+        </ds-metadata-representation-loader>
+      }
+      @if ((i + 1) === objects.length && (i > 0) && (!representations || representations?.length === 0)) {
+        <ds-loading message="{{'loading.default' | translate}}"></ds-loading>
+      }
+      @if ((i + 1) === objects.length && representations?.length > 0) {
+        <div class="d-inline-block w-100 mt-2">
+          @if ((objects.length * incrementBy) < total) {
+            <div class="float-start">
+              <button class="btn btn-link btn-link-inline" (click)="increase()">{{'item.page.related-items.view-more' |
+              translate:{ amount: (total - (objects.length * incrementBy) < incrementBy) ? total - (objects.length * incrementBy) : incrementBy } }}</button>
+            </div>
+          }
+          @if (objects.length > 1) {
+            <div class="float-end">
+              <button class="btn btn-link btn-link-inline" (click)="decrease()">{{'item.page.related-items.view-less' |
+              translate:{ amount: representations?.length } }}</button>
+            </div>
+          }
+        </div>
+      }
+    </ng-container>
+  }
+</ds-metadata-field-wrapper>

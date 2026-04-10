@@ -1,0 +1,141 @@
+@if (description) {
+  <ds-alert [content]="description" [type]="AlertType.Info"></ds-alert>
+}
+<div class="treeview-header row mb-1">
+  <div class="col-12">
+    <div class="input-group">
+      <input #searchInput type="text" class="form-control" [(ngModel)]="searchText" (keyup.enter)="search()"
+        [attr.aria-label]="'vocabulary-treeview.search.form.search-placeholder' | translate"
+        [placeholder]="'vocabulary-treeview.search.form.search-placeholder' | translate">
+      <div class="input-group-append" id="button-addon4">
+        <button class="btn btn-outline-primary" type="button" (click)="search()" [dsBtnDisabled]="!isSearchEnabled()"
+          [attr.aria-label]="'vocabulary-treeview.search.form.search' | translate" role="button" tabindex="0">
+          {{'vocabulary-treeview.search.form.search' | translate}}
+        </button>
+        <button class="btn btn-outline-secondary" type="button" (click)="reset()"
+          [attr.aria-label]="'vocabulary-treeview.search.form.reset' | translate" role="button" tabindex="0">
+          {{'vocabulary-treeview.search.form.reset' | translate}}
+        </button>
+        @if (showAdd && this.vocabularyOptions.closed) {
+          <button class="btn btn-outline-primary" type="button" (click)="add()"
+            [attr.aria-label]="'vocabulary-treeview.search.form.add' | translate" role="button" tabindex="0">
+            {{'vocabulary-treeview.search.form.add' | translate}}
+          </button>
+        }
+        <button class="btn btn-outline-primary" type="button" (click)="add()" [dsBtnDisabled]="this.vocabularyOptions.closed"
+          [attr.aria-label]="'vocabulary-treeview.search.form.add' | translate" role="button" tabindex="0">
+          {{'vocabulary-treeview.search.form.add' | translate}}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="treeview-container">
+  @if (loading | async) {
+    <ds-loading [showMessage]="false"></ds-loading>
+  }
+  <div aria-live="polite">
+    @if ((loading | async) !== true && dataSource.data.length === 0) {
+      <h2 class="h4 text-center text-muted mt-4" >
+        <span>{{'vocabulary-treeview.search.no-result' | translate}}</span>
+      </h2>
+    }
+  </div>
+  <cdk-tree [dataSource]="dataSource" [treeControl]="treeControl">
+    <!-- Leaf node -->
+    <cdk-tree-node *cdkTreeNodeDef="let node" cdkTreeNodePadding class="d-flex">
+      <span aria-hidden="true" type="button" class="btn btn-default px-2 me-1 btn-transparent" cdkTreeNodeToggle>
+        <i class="fas fa-fw fa-angle-right invisible"></i>
+      </span>
+      @if (multiSelect) {
+        <label class="form-label d-flex align-items-center m-0 p-0 form-check"
+          [class.text-success]="node.isSelected"
+          [ngbTooltip]="node.item?.otherInformation?.note"
+          [openDelay]="500"
+          container="body"
+          >
+          <input class="me-2" type="checkbox"
+            [disabled]="!node.item?.selectable"
+            [(ngModel)]="node.isSelected"
+            [checked]="node.isSelected"
+            (change)="onSelect(node.item)"
+            role="checkbox"
+            tabindex="0"
+            >
+          <span>{{node.item.display}}</span>
+        </label>
+      }
+      @if (!multiSelect) {
+        <button class="btn btn-outline-link btn-sm text-start"
+          [class.text-success]="node.isSelected"
+          [dsBtnDisabled]="!node.item?.selectable"
+          [ngbTooltip]="node.item?.otherInformation?.note"
+          [openDelay]="500"
+          container="body"
+          (click)="onSelect(node.item)"
+          role="button"
+          tabindex="0">
+          <span>{{node.item.display}}</span>
+        </button>
+      }
+    </cdk-tree-node>
+
+    <!-- expandable node -->
+    <cdk-tree-node *cdkTreeNodeDef="let node; when: hasChildren" cdkTreeNodePadding class="d-flex">
+      <button type="button" class="btn btn-default px-2 me-1 btn-transparent" cdkTreeNodeToggle
+        [attr.aria-label]="'toggle ' + node.name"
+        (click)="loadChildren(node)"
+        (keydown.enter)="loadChildren(node)"
+        (keydown.space)="loadChildren(node)"
+        role="button"
+        tabindex="0">
+        <i class="fas fa-fw {{treeControl.isExpanded(node) ? 'fa-angle-down' : 'fa-angle-right'}}"></i>
+      </button>
+
+      @if (multiSelect) {
+        <label class="form-label d-flex align-items-center m-0 p-0 form-check"
+          [class.text-success]="node.isSelected"
+          [ngbTooltip]="node.item?.otherInformation?.note"
+          [openDelay]="500"
+          container="body">
+          <input class="me-2" type="checkbox"
+            [disabled]="!node.item?.selectable"
+            [(ngModel)]="node.isSelected"
+            [checked]="node.isSelected"
+            (change)="onSelect(node.item)"
+            role="checkbox"
+            tabindex="0"
+            >
+          <span>{{node.item.display}}</span>
+        </label>
+      }
+      @if (!multiSelect) {
+        <button class="btn btn-outline-link btn-sm text-start"
+          [class.text-success]="node.isSelected"
+          [dsBtnDisabled]="!node.item?.selectable"
+          [ngbTooltip]="node.item?.otherInformation?.note"
+          [openDelay]="500"
+          container="body"
+          (click)="onSelect(node.item)"
+          role="button"
+          tabindex="0">
+          <span>{{node.item.display}}</span>
+        </button>
+      }
+    </cdk-tree-node>
+
+    <cdk-tree-node *cdkTreeNodeDef="let node; when: isLoadMore" cdkTreeNodePadding>
+      <button class="btn btn-outline-secondary btn-sm" (click)="loadMore(node.loadMoreParentItem)"
+        [attr.aria-label]="'vocabulary-treeview.load-more' | translate" role="button" tabindex="0">
+        {{'vocabulary-treeview.load-more' | translate}}...
+      </button>
+    </cdk-tree-node>
+
+    <cdk-tree-node *cdkTreeNodeDef="let node; when: isLoadMoreRoot">
+      <button class="btn btn-outline-secondary btn-sm" (click)="loadMoreRoot(node)"
+        [attr.aria-label]="'vocabulary-treeview.load-more' | translate" role="button" tabindex="0">
+        {{'vocabulary-treeview.load-more' | translate}}...
+      </button>
+    </cdk-tree-node>
+  </cdk-tree>
+</div>

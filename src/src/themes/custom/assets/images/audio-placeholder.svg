@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 210 297" fill="none">
+  <!-- Light background -->
+  <rect width="210" height="297" fill="#F1F5F9"/>
+
+  <!-- Centered circle backdrop -->
+  <circle cx="105" cy="130" r="52" fill="#E8EEF6"/>
+  <circle cx="105" cy="130" r="44" fill="#DDEAFF" opacity="0.6"/>
+
+  <!-- Speaker icon (navy) -->
+  <path d="M93 119v22c0 1.1.9 2 2 2h8.3l10.7 10.7V108.3L103.3 119H95c-1.1 0-2 .9-2 2z" fill="#1A365D"/>
+  <!-- Sound waves (gold) -->
+  <path d="M119 115.5c-1.17-1.17-3.07-1.17-4.24 0-1.17 1.17-1.17 3.08 0 4.25 3.12 3.12 3.12 8.19 0 11.31-1.17 1.17-1.17 3.07 0 4.24.59.59 1.36.88 2.12.88s1.54-.29 2.12-.88c5.46-5.47 5.46-14.35 0-19.8z" fill="#D69E2E"/>
+  <path d="M125 109.5c-1.17-1.17-3.07-1.17-4.24 0-1.17 1.17-1.17 3.08 0 4.25 6.83 6.83 6.83 17.93 0 24.76-1.17 1.17-1.17 3.07 0 4.24.59.59 1.36.88 2.12.88s1.54-.29 2.12-.88c9.17-9.17 9.17-24.08 0-33.25z" fill="#D69E2E" opacity="0.6"/>
+
+  <!-- Waveform bars at bottom (navy + gold) -->
+  <rect x="62" y="205" width="7" height="16" rx="3.5" fill="#CBD5E1"/>
+  <rect x="74" y="198" width="7" height="30" rx="3.5" fill="#94A3B8"/>
+  <rect x="86" y="191" width="7" height="44" rx="3.5" fill="#2A4365"/>
+  <rect x="98" y="195" width="7" height="36" rx="3.5" fill="#1A365D"/>
+  <rect x="110" y="188" width="7" height="50" rx="3.5" fill="#D69E2E"/>
+  <rect x="122" y="193" width="7" height="40" rx="3.5" fill="#1A365D"/>
+  <rect x="134" y="197" width="7" height="32" rx="3.5" fill="#2A4365"/>
+  <rect x="146" y="203" width="7" height="20" rx="3.5" fill="#94A3B8"/>
+
+  <!-- Bottom label -->
+  <rect x="65" y="260" width="80" height="18" rx="9" fill="#1A365D" opacity="0.08"/>
+  <text x="105" y="273" font-family="sans-serif" font-size="9" font-weight="600" fill="#1A365D" text-anchor="middle" letter-spacing="2" opacity="0.7">AUDIO</text>
+</svg>

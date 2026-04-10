@@ -1,0 +1,14 @@
+<ds-metadata-field-wrapper [label]="label | translate">
+  @if (item.hasMetadata(metadata)) {
+    @for (mdValue of allMetadataValues(metadata); track mdValue; let last = $last) {
+      <span>
+        {{mdValue}}@if (!last) {
+        <span [innerHTML]="separator"></span>
+      }
+    </span>
+  }
+}
+@if (!item.hasMetadata(metadata)) {
+  <span class="text-muted">{{(placeholder | translate)}}</span>
+}
+</ds-metadata-field-wrapper>

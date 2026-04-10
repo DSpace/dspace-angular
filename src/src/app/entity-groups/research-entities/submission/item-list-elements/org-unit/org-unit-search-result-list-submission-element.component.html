@@ -1,0 +1,32 @@
+<div class="d-flex">
+  <!--    <div class="person-thumbnail pe-2">-->
+  <!--        <ds-themed-thumbnail [thumbnail]="dso?.thumbnail | async" [defaultImage]="'assets/images/orgunit-placeholder.svg'"></ds-themed-thumbnail>-->
+<!--    </div>-->
+<div class="flex-grow-1">
+  @if (useNameVariants) {
+    <ds-org-unit-input-suggestions [suggestions]="allSuggestions" [(ngModel)]="selectedName" (clickSuggestion)="select($event)"
+    (submitSuggestion)="selectCustom($event)"></ds-org-unit-input-suggestions>
+  }
+
+  @if (!useNameVariants) {
+    <div class="lead" [innerHTML]="dsoTitle"></div>
+  }
+
+  <span class="text-muted">
+    @if (dso.allMetadata('organization.address.addressLocality').length > 0) {
+      <span
+        class="item-list-address-locality">
+        <span [innerHTML]="firstMetadataValue(['organization.address.addressLocality'])"></span>@if (dso.allMetadata('organization.address.addressCountry').length > 0) {
+        <span>, </span>
+      }
+    </span>
+  }
+  @if (dso.allMetadata('organization.address.addressCountry').length > 0) {
+    <span
+      class="item-list-address-country">
+      <span [innerHTML]="firstMetadataValue(['organization.address.addressCountry'])"></span>
+    </span>
+  }
+</span>
+</div>
+</div>

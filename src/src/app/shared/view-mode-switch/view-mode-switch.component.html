@@ -1,0 +1,63 @@
+<div class="btn-group" data-bs-toggle="buttons">
+  @if (isToShow(viewModeEnum.ListElement)) {
+    <button
+      [attr.aria-current]="currentMode === viewModeEnum.ListElement"
+      [attr.aria-label]="'search.view-switch.show-list' | translate"
+      [title]="'search.view-switch.show-list' | translate"
+      routerLink="."
+      [queryParams]="{view: 'list'}"
+      queryParamsHandling="merge"
+      (click)="switchViewTo(viewModeEnum.ListElement)"
+      [class.active]="currentMode === viewModeEnum.ListElement"
+      class="btn btn-secondary"
+      [attr.data-test]="'list-view' | dsBrowserOnly">
+      <i class="fas fa-list"></i>
+    </button>
+  }
+  @if (isToShow(viewModeEnum.GridElement)) {
+    <button
+      [attr.aria-current]="currentMode === viewModeEnum.GridElement"
+      [attr.aria-label]="'search.view-switch.show-grid' | translate"
+      [title]="'search.view-switch.show-grid' | translate"
+      routerLink="."
+      [queryParams]="{view: 'grid'}"
+      queryParamsHandling="merge"
+      (click)="switchViewTo(viewModeEnum.GridElement)"
+      [class.active]="currentMode === viewModeEnum.GridElement"
+      class="btn btn-secondary"
+      [attr.data-test]="'grid-view' | dsBrowserOnly">
+      <i class="fas fa-th-large"></i>
+    </button>
+  }
+  @if (isToShow(viewModeEnum.DetailedListElement)) {
+    <button
+      [attr.aria-current]="currentMode === viewModeEnum.DetailedListElement"
+      [attr.aria-label]="'search.view-switch.show-detail' | translate"
+      [title]="'search.view-switch.show-detail' | translate"
+      routerLink="."
+      [queryParams]="{view: 'detailed'}"
+      queryParamsHandling="merge"
+      (click)="switchViewTo(viewModeEnum.DetailedListElement)"
+      [class.active]="currentMode === viewModeEnum.DetailedListElement"
+      class="btn btn-secondary"
+      [attr.data-test]="'detail-view' | dsBrowserOnly">
+      <i class="far fa-square"></i>
+    </button>
+  }
+  @if (isToShow(viewModeEnum.GeospatialMap)) {
+    <button
+      [attr.aria-current]="currentMode === viewModeEnum.GeospatialMap"
+      [attr.aria-label]="'search.view-switch.show-geospatialMap' | translate"
+      [title]="'search.view-switch.show-geospatialMap' | translate"
+       routerLink="."
+       [queryParams]="{view: 'geospatialMap'}"
+       queryParamsHandling="merge"
+       (click)="switchViewTo(viewModeEnum.GeospatialMap)"
+       routerLinkActive="active"
+       [class.active]="currentMode === viewModeEnum.GeospatialMap"
+       class="btn btn-secondary"
+       [attr.data-test]="'geospatial-view' | dsBrowserOnly">
+       <span class="fas fa-map"></span><span class="sr-only">{{'search.view-switch.show-geospatialMap' | translate}}</span>
+    </button>
+  }
+</div>

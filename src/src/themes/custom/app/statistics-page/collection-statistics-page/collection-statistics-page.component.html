@@ -1,0 +1,97 @@
+<!-- ====== HERO ====== -->
+<header class="stats-hero">
+  <span class="about-badge">{{ 'ip.statistics.badge' | translate }}</span>
+  <h1 class="stats-hero-title">{{ 'ip.collection.statistics.title-prefix' | translate }} <span>{{ 'ip.statistics.title-highlight' | translate }}</span></h1>
+  <div class="hero-subtitle-container">
+    <span class="hero-line"></span>
+    <span class="hero-subtitle">{{ 'ip.statistics.subtitle' | translate }}</span>
+    <span class="hero-line right"></span>
+  </div>
+</header>
+
+<!-- ====== MAIN CONTENT ====== -->
+<div class="stats-main-wrapper">
+  <div class="stats-content-card">
+
+    <!-- Section title: "Statistics for <collection name>" -->
+    <ng-container *ngVar="(scope$ | async) as scope">
+      @if (scope) {
+        <h2 class="stats-section-title">
+          {{ 'statistics.header' | translate: { scope: getName(scope) } }}
+        </h2>
+      }
+    </ng-container>
+
+    <ng-container *ngVar="reports$ | async as reports">
+
+      @if (!reports) {
+        <ds-loading></ds-loading>
+      }
+
+      @if (reports) {
+
+        <!-- Total Visits metric card (reports[0] = TotalVisits) -->
+        @if (reports[0] && reports[0].points.length > 0) {
+          <div class="stats-metric-row">
+            <div class="stats-metric-card">
+              <div class="stats-metric-icon">
+                <i class="fas fa-eye"></i>
+              </div>
+              <div class="stats-metric-content">
+                <span class="stats-metric-number">{{ reports[0].points[0].values['views'] || 0 }}</span>
+                <span class="stats-metric-label">{{ 'ip.statistics.total-visits' | translate }}</span>
+              </div>
+            </div>
+          </div>
+        }
+
+        <!-- Statistics tables (skip index 0 TotalVisits) -->
+        @for (report of reports; track report; let i = $index) {
+          @if (i > 0 && report.points.length > 0) {
+            <div class="stats-table-section">
+
+              <!-- Table heading -->
+              <h3 class="stats-table-heading">
+                {{ 'statistics.table.title.' + report.reportType | translate }}
+              </h3>
+
+              <!-- Table -->
+              <div class="stats-table-wrapper">
+                <table class="stats-table">
+                  <thead>
+                    <tr>
+                      <th class="col-index">#</th>
+                      <th class="col-label">{{ 'statistics.table.header.label' | translate }}</th>
+                      @for (key of getReportKeys(report); track key) {
+                        <th class="col-value">{{ 'statistics.table.header.' + key | translate }}</th>
+                      }
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @for (point of getSortedPoints(report); track point; let j = $index) {
+                      <tr>
+                        <td class="col-index">{{ j + 1 }}</td>
+                        <td class="col-label">{{ point.label }}</td>
+                        @for (key of getReportKeys(report); track key) {
+                          <td class="col-value">{{ point.values[key] }}</td>
+                        }
+                      </tr>
+                    }
+                  </tbody>
+                </table>
+              </div>
+
+            </div>
+          }
+        }
+
+        @if ((hasData$ | async) !== true) {
+          <p class="no-data-msg">{{ 'statistics.page.no-data' | translate }}</p>
+        }
+
+      }
+
+    </ng-container>
+
+  </div>
+</div>

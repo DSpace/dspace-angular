@@ -1,0 +1,54 @@
+<div class="row">
+  @if (showThumbnails) {
+    <div class="col-3 col-md-2">
+      @if (linkType !== linkTypes.None) {
+        <a [target]="(linkType === linkTypes.ExternalLink) ? '_blank' : '_self'"
+          [attr.rel]="(linkType === linkTypes.ExternalLink) ? 'noopener noreferrer' : null"
+          [routerLink]="[itemPageRoute]" class="dont-break-out" tabindex="-1">
+          <ds-thumbnail [thumbnail]="dso?.thumbnail | async"
+            [defaultImage]="'assets/images/orgunit-placeholder.svg'"
+            [alt]="'thumbnail.orgunit.alt'"
+            [placeholder]="'thumbnail.orgunit.placeholder'">
+          </ds-thumbnail>
+        </a>
+      }
+      @if (linkType === linkTypes.None) {
+        <span class="dont-break-out">
+          <ds-thumbnail [thumbnail]="dso?.thumbnail | async"
+            [defaultImage]="'assets/images/orgunit-placeholder.svg'"
+            [alt]="'thumbnail.orgunit.alt'"
+            [placeholder]="'thumbnail.orgunit.placeholder'">
+          </ds-thumbnail>
+        </span>
+      }
+    </div>
+  }
+  <div [ngClass]="showThumbnails ? 'col-9' : 'col-md-12'">
+    @if (showLabel) {
+      <ds-badges [object]="dso" [context]="context"></ds-badges>
+    }
+    <ds-truncatable [id]="dso.id">
+      @if (linkType !== linkTypes.None) {
+        <a [target]="(linkType === linkTypes.ExternalLink) ? '_blank' : '_self'"
+          [attr.rel]="(linkType === linkTypes.ExternalLink) ? 'noopener noreferrer' : null"
+          [routerLink]="[itemPageRoute]" class="lead"
+        [innerHTML]="dsoTitle || ('orgunit.listelement.no-title' | translate)" role="link" tabindex="0"></a>
+      }
+      @if (linkType === linkTypes.None) {
+        <span
+          class="lead"
+        [innerHTML]="dsoTitle || ('orgunit.listelement.no-title' | translate)"></span>
+      }
+      <span class="text-muted">
+        @if (dso.allMetadata(['dc.description']).length > 0) {
+          <span
+            class="item-list-org-unit-description">
+            <ds-truncatable-part [id]="dso.id" [minLines]="3"><span
+            [innerHTML]="firstMetadataValue('dc.description')"></span>
+          </ds-truncatable-part>
+        </span>
+      }
+    </span>
+  </ds-truncatable>
+</div>
+</div>

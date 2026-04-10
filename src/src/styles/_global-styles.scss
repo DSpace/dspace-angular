@@ -1,0 +1,561 @@
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+// Sticky Footer
+.outer-wrapper {
+    display: flex;
+    margin: 0;
+}
+
+.inner-wrapper {
+    flex: 1 1 auto;
+    flex-flow: column nowrap;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    width: 100%;
+    position: relative;
+}
+
+#main-content {
+    z-index: var(--ds-main-z-index);
+    flex: 1 1 100%;
+}
+
+.alert.hide {
+    padding: 0;
+    margin: 0;
+}
+
+.sticky-top {
+    z-index: 0;
+}
+
+.orejime-AppContainer .orejime-Notice-actionItem {
+  &.orejime-Notice-actionItem--save > button {
+    color: var(--button-text-color-cookie);
+    background-color: var(--green1);
+  }
+}
+
+.orejime-ModalPortal {
+  .orejime-Button.orejime-AppToggles-enableAll,
+  .orejime-Modal-saveButton {
+    color: var(--button-text-color-cookie);
+    background-color: var(--green1);
+  }
+
+  .orejime-Modal-closeButton svg {
+    cursor: pointer;
+  }
+
+  a {
+    color: var(--bs-white);
+  }
+}
+
+.media-viewer
+.change-gallery
+.ngx-gallery
+ngx-gallery-preview.ngx-gallery-active {
+    right: 0;
+    left: auto;
+    width: calc(100% - 53px);
+}
+
+.ds-submission-reorder-dragging {
+    .ds-hint,
+    button {
+        display: none;
+    }
+}
+
+ngb-modal-backdrop {
+    // ng-bootsrap animates opacity, causing the fully opaque background to flash briefly before the transition starts
+    // animating background-color between transparent & a RGBA color instead looks smoother
+    &.fade {
+        opacity: 1 !important;
+        background-color: transparent;
+        transition: background-color 0.15s linear;
+
+        &.show {
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+    }
+}
+
+.dont-break-out {
+    /* These are technically the same, but use both */
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+
+    -ms-word-break: break-all;
+    /* This is the dangerous one in WebKit, as it breaks things wherever */
+    word-break: break-all;
+    /* Instead use this non-standard one: */
+    word-break: break-word;
+
+    /* Adds a hyphen where the word breaks, if supported (No Blink) */
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+
+}
+
+.researcher-profile-switch button:focus {
+    outline: none !important;
+}
+
+.researcher-profile-switch .switch.checked {
+    color: #fff;
+}
+
+/* Replicate default spacing look ~ preserveWhitespace=true
+   To be used e.g. on a div containing buttons that should have a bit of spacing in between
+ */
+.space-children-mr > :not(:last-child) {
+    margin-right: var(--ds-gap);
+}
+
+/* Complement .space-children-mr when spaced elements are not on the same level */
+.me-gap {
+    margin-right: var(--ds-gap);
+}
+
+.ms-gap {
+    margin-left: var(--ds-gap);
+}
+
+.custom-accordion .card-header button {
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    width: 100%;
+}
+
+.custom-accordion .card:first-of-type {
+    border-bottom: var(--bs-card-border-width) solid var(--bs-card-border-color) !important;
+    border-bottom-left-radius: var(--bs-card-border-radius) !important;
+    border-bottom-right-radius: var(--bs-card-border-radius) !important;
+}
+
+ds-dynamic-form-control-container.d-none {
+    /* Ensures that form-control containers hidden and disabled by type binding collapse and let other fields in
+       the same row expand accordingly
+     */
+    visibility: collapse;
+}
+
+/* Used for dso administrative functionality */
+.btn-dark {
+    background-color: var(--ds-admin-sidebar-bg);
+}
+
+.preserve-line-breaks {
+    white-space: pre-line;
+}
+
+/* Thumbnail styles */
+.hide-placeholder-text {
+    .thumbnail-placeholder {
+        color: transparent !important;
+    }
+}
+
+/* Used to hide the thumbnail column in modals. */
+.hide-modal-thumbnail-column {
+    .modal-body ds-listable-object-component-loader div.row > div:first-child {
+        display: none;
+    }
+
+    .modal-body ds-listable-object-component-loader div.row > div:nth-child(2) {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}
+
+/* The font sizes used in "no thumbnail" placeholder */
+.thumb-font-0 {
+    .thumbnail-placeholder {
+        @media screen and (max-width: map-get($grid-breakpoints, lg)) {
+            font-size: 0.7rem;
+            padding: 0.2rem;
+        }
+        @media screen and (max-width: map-get($grid-breakpoints, sm)) {
+            font-size: 0.6rem;
+            padding: 0.1rem;
+        }
+        font-size: 0.4rem;
+        padding: 0.1rem;
+    }
+}
+
+.thumb-font-1 {
+    .thumbnail-placeholder {
+        @media screen and (max-width: map-get($grid-breakpoints, sm)) {
+            font-size: 0.9rem;
+            padding: 0.1rem;
+        }
+        @media screen and (max-width: 950px) {
+            font-size: 0.4rem;
+            padding: 0.1rem;
+        }
+        font-size: 0.5rem;
+        padding: 0.125rem;
+    }
+}
+
+.thumb-font-2 {
+  .thumbnail-placeholder {
+    @media screen and (max-width: map-get($grid-breakpoints, sm)) {
+      font-size: 0.4rem;
+      padding: 0.1rem;
+    }
+    @media screen and (min-width: map-get($grid-breakpoints, sm)) and (max-width: map-get($grid-breakpoints, lg)) {
+        font-size: 0.7rem;
+        padding: 0.1rem;
+    }
+    font-size: 1rem;
+    padding: 0.5rem;
+  }
+}
+
+.thumb-font-3 {
+    .thumbnail-placeholder {
+        @media screen and (max-width: map-get($grid-breakpoints, sm)) {
+          font-size: 0.4rem;
+          padding: 0.1rem;
+        }
+        @media screen and (min-width: map-get($grid-breakpoints, sm)) and (max-width: map-get($grid-breakpoints, lg)) {
+            font-size: 0.7rem;
+            padding: 0.1rem;
+        }
+        font-size: 1rem;
+        padding: 0.5rem;
+    }
+}
+
+.btn.btn-link.btn-link-inline {
+    display: inline;
+    padding: 0;
+
+    &:not(:disabled){
+        &:hover, &:focus {
+            box-shadow: none;
+        }
+    }
+
+}
+
+.badge-validation {
+  background-color: #{$warning};
+}
+
+.badge-waiting-controller {
+  background-color: #{$info};
+}
+
+.badge-workspace {
+  background-color: #{$primary};
+}
+
+.badge-archived {
+  background-color: #{$success};
+}
+
+.badge-workflow {
+  background-color: #{$info};
+}
+
+.badge-item-type {
+  background-color: #{$info};
+}
+
+.visually-hidden {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+}
+
+ul.dso-edit-menu-dropdown>li .nav-item.nav-link {
+    // ensure that links in DSO edit menu dropdowns are unstyled (li elements are styled instead to support icons)
+    padding: 0;
+    display: inline;
+}
+
+.table th,
+.table td {
+    vertical-align: middle;
+}
+
+/* Flexbox gap */
+
+.gap-0 { gap: 0; }
+.gap-1 { gap: calc(#{$spacer} * .25); }
+.gap-2 { gap: calc(#{$spacer} * .5); }
+.gap-3 { gap: #{$spacer}; }
+.gap-4 { gap: calc(#{$spacer} * 1.5); }
+.gap-5 { gap: calc(#{$spacer} * 3); }
+
+.gapx-0 { column-gap: 0; }
+.gapx-1 { column-gap: calc(#{$spacer} * .25); }
+.gapx-2 { column-gap: calc(#{$spacer} * .5); }
+.gapx-3 { column-gap: #{$spacer}; }
+.gapx-4 { column-gap: calc(#{$spacer} * 1.5); }
+.gapx-5 { column-gap: calc(#{$spacer} * 3); }
+
+.gapy-0 { row-gap: 0; }
+.gapy-1 { row-gap: calc(#{$spacer} * .25); }
+.gapy-2 { row-gap: calc(#{$spacer} * .5); }
+.gapy-3 { row-gap: #{$spacer}; }
+.gapy-4 { row-gap: calc(#{$spacer} * 1.5); }
+.gapy-5 { row-gap: calc(#{$spacer} * 3); }
+
+
+.pt-0\.5 {
+    padding-top: 0.125rem !important;
+}
+
+.pr-0\.5 {
+    padding-right: 0.125rem !important;
+}
+
+.pb-0\.5 {
+    padding-bottom: 0.125rem !important;
+}
+
+.pl-0\.5 {
+    padding-left: 0.125rem !important;
+}
+
+.px-0\.5 {
+    padding-left: 0.125rem !important;
+    padding-right: 0.125rem !important;
+}
+
+.py-0\.5 {
+    padding-top: 0.125rem !important;
+    padding-bottom: 0.125rem !important;
+}
+
+.btn {
+    &:focus {
+        outline-offset: 2px !important;
+        outline-style: solid !important;
+        outline-width: 2px !important;
+        box-shadow: none !important;
+    }
+    &:disabled {
+        opacity: 0.7;
+    }
+    &.btn-success {
+        background-color: darken($success, 20%);
+        border-color: darken($success, 20%);
+        &:hover {
+            background-color: darken($success, 30%);
+            border-color: darken($success, 30%);
+        }
+        &:focus {
+            outline-color: darken($success, 20%);
+        }
+    }
+    &.btn-outline-success {
+        border-color: darken($success, 20%);
+        color: darken($success, 20%);
+
+        &:hover {
+            background-color: darken($success, 30%);
+            color: $white;
+        }
+        &:focus {
+            outline-color: darken($success, 20%);
+        }
+    }
+    &.btn-warning {
+        background-color: darken($warning, 20%);
+        &:hover {
+            background-color: darken($warning, 30%);
+        }
+        &:disabled {
+            background-color: transparent;
+        }
+        &:focus {
+            outline-color: darken($warning, 22%);
+        }
+    }
+
+    &.btn-outline-warning {
+        border-color: darken($warning, 20%);
+        color: darken($warning, 20%);
+        &:hover {
+            background-color: darken($warning, 30%);
+            color: $white;
+        }
+        &:disabled {
+            background-color: transparent;
+
+            &:hover {
+                color: darken($warning, 20%);
+            }
+        }
+        :focus {
+            outline-color: darken($warning, 22%);
+        }
+        &:not(:disabled):hover {
+            background-color: darken($warning, 22%);
+        }
+    }
+
+    &.btn-secondary {
+        &:focus {
+            outline-color: darken($secondary, 20%);
+        }
+    }
+
+    &.btn-danger:focus, &.btn-outline-danger:focus {
+        outline-color: darken($danger, 20%);
+    }
+
+    &.btn-primary:focus, &.btn-outline-primary:focus {
+        outline-color: darken($primary, 5%);
+    }
+}
+
+dynamic-ng-bootstrap-checkbox .custom-control-input:focus ~ .custom-control-label::before {
+    outline: 2px solid $gray-700 !important;
+    box-shadow: none !important;
+    outline-offset: 2px !important;
+}
+
+dynamic-ng-bootstrap-checkbox .custom-control-label::before {
+    border-color: $gray-700;
+}
+
+.text-warning {
+    color: darken($warning, 10%) !important;
+}
+
+.text-success {
+    color: darken($success, 11%) !important;
+}
+
+ngb-accordion {
+    a.close {
+        opacity: 0.75;
+    }
+    a.close:not(:disabled):not(.disabled):hover {
+        opacity: 0.9;
+    }
+}
+
+.form-control, .page-link {
+    &:disabled::placeholder {
+        color: lighten($gray-700, 10%);
+    }
+    &:focus {
+        box-shadow: none;
+        outline: 2px solid lighten($gray-700, 10%);
+        outline-offset: 2px !important;
+    }
+}
+
+.alert-success {
+    color: darken($success, 22%);
+}
+
+.alert-danger {
+    color: darken($danger, 22%);
+}
+
+// An element that is disabled should not have focus styles to avoid confusion
+// It however is still focusable for screen readers and keyboard navigation
+.disabled {
+    pointer-events: none;
+}
+
+.disabled:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+// Margin utility classes based on DSpace content spacing
+.mt-cs { margin-top: var(--ds-content-spacing); }
+.mb-cs { margin-bottom: var(--ds-content-spacing); }
+.my-cs { margin-top: var(--ds-content-spacing); margin-bottom: var(--ds-content-spacing); }
+.mt-ncs { margin-top: calc(var(--ds-content-spacing) * -1); }
+.mb-ncs { margin-bottom: calc(var(--ds-content-spacing) * -1); }
+.my-ncs { margin-top: calc(var(--ds-content-spacing) * -1); margin-bottom: calc(var(--ds-content-spacing) * -1); }
+
+/* form-check-input Changed from Bootstrap 5's form-check-input to ensure that we keep the default checkboxes */
+.form-check-input {
+  border-color: unset;
+  appearance: auto; /* Reset to browser's default appearance */
+}
+
+/* Custom fas font-family; Makes it so that BootStrap classes don't override it (Typically used for icons) */
+.btn.fas {
+  font-family: $icon-font-family;
+}
+
+/* btn-close Changed from Bootstrap 5's .btn-close to ensure the button close button has the original size */
+.btn-close {
+  transform: scale(0.6);
+}
+
+/* Make sure every element of a single drag-item is on the same line */
+.drag-item-container > * {
+  width: auto;
+}
+
+
+.btn.btn-success {
+  color: #fff;
+}
+
+.btn.btn-success:hover {
+  color: #fff;
+}
+
+.table {
+  --bs-table-accent-bg: #fff;
+}
+
+ngb-tooltip-window {
+  margin-bottom: 0.25rem !important;
+  &> .tooltip-inner > .text-muted {
+    color: #{$gray-600} !important;
+  }
+}
+
+.table thead th {
+  border-bottom: 2px solid #{$gray-300};
+  border-top: 1px solid #{$gray-300};
+}
+
+.custom-alignment {
+  --bs-gutter-x: 1.5rem;
+  --bs-gutter-y: 0;
+  width: 100%;
+  padding-right: calc(var(--bs-gutter-x) * 0.5);
+  padding-left: calc(var(--bs-gutter-x) * 0.5);
+}
+
+
+.link-contrast {
+  // Rules for accessibility to meet minimum contrast and have an identifiable link between other texts
+  color: darken($link-color, 5%);
+  // We use underline to discern link from text as we can't make color lighter on a white bg
+  text-decoration: underline;
+}

@@ -1,0 +1,22 @@
+<ng-container *ngVar="(communitiesRD$ | async) as communitiesRD">
+  @if (communitiesRD?.hasSucceeded ) {
+    <div>
+      <h2>
+        {{'home.top-level-communities.head' | translate}}
+      </h2>
+      <p class="lead">{{'home.top-level-communities.help' | translate}}</p>
+      <ds-viewable-collection
+        [config]="config"
+        [sortConfig]="sortConfig"
+        [showRSS]="rssSortConfig"
+        [objects]="communitiesRD$ | async"
+        [hideGear]="true">
+      </ds-viewable-collection>
+    </div>
+  }
+  @if (communitiesRD?.hasFailed ) {
+    <ds-error message="{{'error.top-level-communities' | translate}}"></ds-error>
+  }
+  @if (communitiesRD?.isLoading ) {
+    <ds-loading message="{{'loading.top-level-communities' | translate}}"></ds-loading>
+  }</ng-container>

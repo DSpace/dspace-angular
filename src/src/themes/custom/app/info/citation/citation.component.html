@@ -1,0 +1,82 @@
+<header class="info-page-hero">
+  <div class="info-badge">{{ 'citation.badge' | translate }}</div>
+  <h1 [innerHTML]="'citation.title.html' | translate"></h1>
+  <div class="hero-subtitle-container">
+    <span class="hero-line"></span>
+    <span class="hero-subtitle">{{ 'citation.subtitle' | translate }}</span>
+    <span class="hero-line right"></span>
+  </div>
+</header>
+
+<div class="info-page-wrapper">
+  <main class="info-page-card">
+
+    <!-- INTRODUCTION -->
+    <section class="detail-section">
+      <h3 class="detail-title first">{{ 'citation.section.intro' | translate }}</h3>
+      <p class="content-text" [innerHTML]="'citation.intro.p1' | translate"></p>
+      <p class="content-text">{{ 'citation.intro.p2' | translate }}</p>
+    </section>
+
+    <!-- GENERAL PRINCIPLES -->
+    <section class="detail-section">
+      <h3 class="detail-title">{{ 'citation.section.principles' | translate }}</h3>
+      <ul class="custom-list">
+        <li [innerHTML]="'citation.principle.acknowledgment' | translate"></li>
+        <li [innerHTML]="'citation.principle.transparency' | translate"></li>
+        <li [innerHTML]="'citation.principle.consistency' | translate"></li>
+        <li [innerHTML]="'citation.principle.access-date' | translate"></li>
+      </ul>
+    </section>
+
+    <!-- CITATION FORMATS -->
+    <section class="detail-section">
+      <h3 class="detail-title">{{ 'citation.section.formats' | translate }}</h3>
+
+      <h4 class="citation-section-subtitle">{{ 'citation.formats.items.subtitle' | translate }}</h4>
+      <div class="citation-box format-box">
+        <span class="box-label">{{ 'citation.label.format' | translate }}</span>
+        <span class="citation-text">{{ 'citation.formats.items.format' | translate }}</span>
+      </div>
+      <div class="citation-box example-box">
+        <span class="box-label">{{ 'citation.label.example' | translate }}</span>
+        <span class="citation-text">{{ 'citation.formats.items.example' | translate }}</span>
+      </div>
+
+      <h4 class="citation-section-subtitle">{{ 'citation.formats.collections.subtitle' | translate }}</h4>
+      <div class="citation-box format-box">
+        <span class="box-label">{{ 'citation.label.format' | translate }}</span>
+        <span class="citation-text">{{ 'citation.formats.collections.format' | translate }}</span>
+      </div>
+      <div class="citation-box example-box">
+        <span class="box-label">{{ 'citation.label.example' | translate }}</span>
+        <span class="citation-text">{{ 'citation.formats.collections.example' | translate }}</span>
+      </div>
+
+      <h4 class="citation-section-subtitle">{{ 'citation.formats.assemblages.subtitle' | translate }}</h4>
+      <div class="citation-box format-box">
+        <span class="box-label">{{ 'citation.label.format' | translate }}</span>
+        <span class="citation-text">{{ 'citation.formats.assemblages.format' | translate }}</span>
+      </div>
+      <div class="citation-box example-box">
+        <span class="box-label">{{ 'citation.label.example' | translate }}</span>
+        <span class="citation-text">{{ 'citation.formats.assemblages.example' | translate }}</span>
+      </div>
+    </section>
+
+    <!-- METADATA CHECKLIST -->
+    <section class="detail-section last-section">
+      <h3 class="detail-title">{{ 'citation.section.checklist' | translate }}</h3>
+      <p class="content-text">{{ 'citation.checklist.intro' | translate }}</p>
+      <ul class="checklist">
+        <li [innerHTML]="'citation.checklist.creators' | translate"></li>
+        <li [innerHTML]="'citation.checklist.title-desc' | translate"></li>
+        <li [innerHTML]="'citation.checklist.date' | translate"></li>
+        <li [innerHTML]="'citation.checklist.repository' | translate"></li>
+        <li [innerHTML]="'citation.checklist.identifier' | translate"></li>
+        <li [innerHTML]="'citation.checklist.access-date' | translate"></li>
+      </ul>
+    </section>
+
+  </main>
+</div>

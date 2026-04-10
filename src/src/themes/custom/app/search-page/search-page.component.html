@@ -1,0 +1,17 @@
+<header class="search-hero">
+  <div class="container">
+    <div class="search-badge">{{ 'search.hero.badge' | translate }}</div>
+    <h1>{{ 'search.hero.title' | translate }} <span>{{ 'search.hero.title.span' | translate }}</span></h1>
+    <div class="hero-subtitle-container">
+      <span class="hero-line"></span>
+      <span class="hero-subtitle">{{ 'search.hero.subtitle' | translate }}</span>
+      <span class="hero-line right"></span>
+    </div>
+  </div>
+</header>
+
+<div class="search-page-wrapper">
+  <div class="search-card">
+    <ds-search [showCsvExport]="true" [trackStatistics]="true"></ds-search>
+  </div>
+</div>

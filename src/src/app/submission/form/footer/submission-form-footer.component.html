@@ -1,0 +1,87 @@
+@if (!!submissionId) {
+  <div class="d-flex flex-row gap-1 justify-content-between">
+    <div class="flex-grow-0">
+      @if ((showDepositAndDiscard | async)) {
+        <button
+          type="button"
+          id="discard"
+          [attr.data-test]="'discard' | dsBrowserOnly"
+          class="btn btn-danger"
+          [dsBtnDisabled]="(processingSaveStatus | async) || (processingDepositStatus | async)"
+          (click)="$event.preventDefault();confirmDiscard(content)">
+          <i class="fas fa-trash"></i> {{'submission.general.discard.submit' | translate}}
+        </button>
+      }
+    </div>
+    <div class="text-end d-flex justify-content-end align-items-center">
+      @if ((hasUnsavedModification | async) !== true && (processingSaveStatus | async) !== true && (processingDepositStatus | async) !== true) {
+        <span>
+          <i class="fas fa-check-circle"></i> {{'submission.general.info.saved' | translate}}
+        </span>
+      }
+      @if ((hasUnsavedModification | async) && (processingSaveStatus | async) !== true && (processingDepositStatus | async) !== true) {
+        <span>
+          <i class="fas fa-exclamation-circle"></i> {{'submission.general.info.pending-changes' | translate}}
+        </span>
+      }
+      @if ((processingSaveStatus | async) || (processingDepositStatus | async)) {
+        <div class="col d-flex justify-content-end align-items-center">
+          <div class="progress w-75">
+            @if ((processingSaveStatus | async)) {
+              <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" [style.width]="'100%'" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Saving...</div>
+            }
+            @if ((processingDepositStatus | async)) {
+              <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" [style.width]="'100%'" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Depositing...</div>
+            }
+          </div>
+        </div>
+      }
+      <div class="ms-2 space-children-mr">
+        <button type="button"
+          class="btn btn-secondary"
+          id="save"
+          [attr.data-test]="'save' | dsBrowserOnly"
+          [dsBtnDisabled]="(processingSaveStatus | async) || (hasUnsavedModification | async) !== true"
+          (click)="save($event)">
+          <span><i class="fas fa-save"></i> {{'submission.general.save' | translate}}</span>
+        </button>
+        <button type="button"
+          [class.btn-primary]="(showDepositAndDiscard | async) !== true"
+          [class.btn-secondary]="(showDepositAndDiscard | async)"
+          class="btn"
+          id="saveForLater"
+          [attr.data-test]="'save-for-later' | dsBrowserOnly"
+          [dsBtnDisabled]="(processingSaveStatus | async) || (processingDepositStatus | async)"
+          (click)="saveLater($event)">
+          <span><i class="fas fa-save"></i> {{'submission.general.save-later' | translate}}</span>
+        </button>
+        @if ((showDepositAndDiscard | async)) {
+          <button
+            type="button"
+            id="deposit"
+            [attr.data-test]="'deposit' | dsBrowserOnly"
+            class="btn btn-success"
+            [dsBtnDisabled]="(processingSaveStatus | async) || (processingDepositStatus | async)"
+            (click)="deposit($event)">
+            <span><i class="fas fa-plus"></i> {{'submission.general.deposit' | translate}}</span>
+          </button>
+        }
+      </div>
+    </div>
+  </div>
+}
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title text-danger">{{'submission.general.discard.confirm.title' | translate}}</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="d('cancel')">
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>{{'submission.general.discard.confirm.info' | translate}}</p>
+  </div>
+  <div class="modal-footer space-children-mr">
+    <button type="button" id="discard_cancel" class="btn btn-secondary" (click)="c('cancel')">{{'submission.general.discard.confirm.cancel' | translate}}</button>
+    <button type="button" id="discard_submit" class="btn btn-danger" (click)="c('ok')">{{'submission.general.discard.confirm.submit' | translate}}</button>
+  </div>
+</ng-template>

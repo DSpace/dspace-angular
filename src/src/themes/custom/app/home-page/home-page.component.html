@@ -1,0 +1,172 @@
+<!-- 1. Hero Search Section -->
+<section class="search-section">
+  <div class="search-container">
+    <div class="search-title">
+      <h1 [innerHTML]="'home.hero.title' | translate"></h1>
+      <div class="hero-subtitle-container">
+        <span class="hero-line"></span>
+        <p class="hero-subtitle">{{ 'home.hero.subtitle' | translate }}</p>
+        <span class="hero-line right"></span>
+      </div>
+    </div>
+    <ds-search-form [inPlaceSearch]="false"
+      [searchPlaceholder]="'home.search-form.placeholder' | translate">
+    </ds-search-form>
+  </div>
+</section>
+
+<!-- 2. Main Content -->
+<main id="main-content">
+
+  <!-- Shared background wrapper -->
+  <section class="diamond-bg-wrapper">
+
+    <!-- Diamond Navigation Section -->
+    <section class="diamond-section">
+      <div class="container">
+        <div class="diamond-reference">
+
+          <div class="diamond small subject">
+            <a routerLink="/browse/subject" class="diamond-link">
+              <i class="fas fa-book icon"></i>
+              <span>{{ 'home.diamond.subject' | translate }}</span>
+            </a>
+          </div>
+
+          <div class="diamond small datatype">
+            <a routerLink="/browse/linguistictype" class="diamond-link">
+              <i class="fas fa-database icon"></i>
+              <span [innerHTML]="'home.diamond.linguistic-data-type' | translate"></span>
+            </a>
+          </div>
+
+          <div class="diamond small media">
+            <a routerLink="/browse/media" class="diamond-link">
+              <i class="fas fa-play-circle icon"></i>
+              <span>{{ 'home.diamond.media' | translate }}</span>
+            </a>
+          </div>
+
+          <div class="diamond small title">
+            <i class="fas fa-file-alt icon"></i>
+          </div>
+
+          <div class="diamond small author">
+            <a routerLink="/browse/author" class="diamond-link">
+              <i class="fas fa-user icon"></i>
+              <span>{{ 'home.diamond.author' | translate }}</span>
+            </a>
+          </div>
+
+          <div class="diamond small language">
+            <a routerLink="/browse/language" class="diamond-link">
+              <i class="fas fa-users icon"></i>
+              <span>{{ 'home.diamond.language' | translate }}</span>
+            </a>
+          </div>
+
+          <div class="diamond small archive">
+            <a routerLink="/browse/title" class="diamond-link">
+              <i class="fas fa-archive icon"></i>
+              <span>{{ 'home.diamond.titles' | translate }}</span>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- About Info Section -->
+    <section class="about-info-section">
+      <div class="about-info-box">
+        <div class="end-cap left"></div>
+
+        <div class="about-navy-panel">
+          <div class="info-icon">
+            <i class="fas fa-university"></i>
+          </div>
+          <span class="info-icon-label">{{ 'home.our-mission.label' | translate }}</span>
+        </div>
+
+        <div class="about-cream-panel">
+          <p [innerHTML]="'home.about.text' | translate"></p>
+        </div>
+
+        <div class="end-cap right"></div>
+      </div>
+    </section>
+
+  </section><!-- /.diamond-bg-wrapper -->
+
+</main>
+
+<!-- 3. Browse by Category / Sections -->
+<section class="browse-section">
+
+  <div class="browse-section-header">
+    <h2 class="browse-section-title">
+      <i class="fas fa-layer-group"></i> {{ 'home.collections.title' | translate }}
+    </h2>
+    <div class="browse-section-line"></div>
+    <p class="browse-section-subtitle">&middot; {{ 'home.collections.subtitle' | translate }} &middot;</p>
+  </div>
+
+  <div class="browse-scroll-wrapper">
+    <button class="arrow left" (click)="scrollBrowse(-300)">&#8249;</button>
+
+    <div class="browse-scroll" #browseScroll>
+      @for (community of (communities$ | async) ?? []; track community.id) {
+        <a [routerLink]="['/communities', community.id, 'search']"
+           class="browse-card"
+           [style.backgroundImage]="community.logoUrl ? 'url(' + community.logoUrl + ')' : null">
+          <span class="browse-card-badge">{{ 'home.collections.card-badge' | translate }}</span>
+          <span>{{ community.name }}</span>
+        </a>
+      }
+    </div>
+
+    <button class="arrow right" (click)="scrollBrowse(300)">&#8250;</button>
+  </div>
+
+  <div class="browse-view-all-wrapper">
+    <a class="browse-view-all" [routerLink]="['/community-list']">
+      <span>{{ 'home.collections.view-all' | translate }}</span> <i class="fas fa-arrow-right"></i>
+    </a>
+  </div>
+
+
+</section>
+
+<!-- 4. Contributor + Stats -->
+<section class="contributor-stats-section">
+  <div class="split-panel">
+
+    <div class="split-half contributor-half">
+      <i class="fas fa-hands-helping split-big-icon"></i>
+      <h3>{{ 'home.contributor.title' | translate }}</h3>
+      <p>{{ 'home.contributor.description' | translate }}</p>
+      <a routerLink="/info/feedback" class="split-cta-btn">{{ 'home.contributor.button' | translate }} &rarr;</a>
+    </div>
+
+    <div class="split-divider"></div>
+
+    <div class="split-half stats-half">
+      <i class="fas fa-chart-bar split-big-icon"></i>
+      <h3>{{ 'home.stats.title' | translate }}</h3>
+      <div class="stats-inline">
+        <div class="stat-item">
+          <span class="stat-number">{{ (visitCount$ | async) | number }}</span>
+          <span class="stat-label">{{ 'stats.summary.visit-count' | translate }}</span>
+        </div>
+        <div class="stat-sep"></div>
+        <div class="stat-item">
+          <span class="stat-number">{{ (recordCount$ | async) | number }}</span>
+          <span class="stat-label">{{ 'home.stats.records' | translate }}</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<ds-suggestions-popup></ds-suggestions-popup>

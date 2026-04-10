@@ -1,0 +1,17 @@
+:host ::ng-deep {
+  .filter-badge-skeleton {
+    ngx-skeleton-loader .skeleton-loader {
+      background-color: var(--bs-light);
+      box-shadow: none;
+      width: var(--ds-search-skeleton-filter-badge-width);
+      height: var(--ds-search-skeleton-badge-height);
+      margin-bottom: 0;
+      margin-right: calc(var(--bs-spacer) / 4);
+    }
+  }
+
+  .filters-badge-skeleton-container {
+    display: flex;
+    max-height: var(--ds-search-skeleton-badge-height);
+  }
+}

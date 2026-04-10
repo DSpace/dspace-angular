@@ -1,0 +1,20 @@
+<!-- Hero Section -->
+<section class="cl-hero-section">
+  <div class="container">
+    <div class="cl-about-badge">{{ 'cl.badge' | translate }}</div>
+    <h1 class="cl-hero-title" [innerHTML]="'cl.title.html' | translate"></h1>
+    <div class="cl-hero-subtitle-container">
+      <span class="cl-hero-line"></span>
+      <p class="cl-hero-subtitle">{{ 'cl.subtitle' | translate }}</p>
+      <span class="cl-hero-line right"></span>
+    </div>
+  </div>
+</section>
+
+<!-- Content Wrapper -->
+<div class="cl-main-wrapper">
+  <main class="cl-content-card">
+    <h2 class="cl-page-title mb-5">{{ 'cl.page-title' | translate }}</h2>
+    <ds-community-list></ds-community-list>
+  </main>
+</div>

@@ -1,0 +1,41 @@
+<p class="mt-2">{{'item.edit.tabs.status.description' | translate}}</p>
+<div class="row">
+  @for (statusKey of statusDataKeys; track statusKey) {
+    <div class="w-100 pt-1">
+      <div class="col-12 col-md-3 float-start status-label fw-bold">
+        {{'item.edit.tabs.status.labels.' + statusKey | translate}}:
+      </div>
+      <div class="col-12 col-md-9 float-start status-data" id="status-{{statusKey}}">
+        {{statusData[statusKey]}}
+      </div>
+    </div>
+  }
+
+  @for (identifier of (identifiers$ | async); track identifier) {
+    <div class="w-100 pt-1">
+      @if ((identifier.identifierType==='doi')) {
+        <div>
+          <div class="col-12 col-md-3 float-start status-label fw-bold">
+            {{identifier.identifierType.toLocaleUpperCase()}}
+          </div>
+          <div class="col-12 col-md-9 float-start status-label fw-bold">{{identifier.value}}
+          ({{"item.edit.identifiers.doi.status."+identifier.identifierStatus|translate}})</div>
+        </div>
+      }
+    </div>
+  }
+
+  <div class="col-12 col-md-3 float-start status-label fw-bold">
+    {{'item.edit.tabs.status.labels.itemPage' | translate}}:
+  </div>
+  <div class="col-12 col-md-9 float-start status-data" id="status-itemPage">
+    <a [routerLink]="itemPageRoute$ | async">{{itemPageRoute$ | async}}</a>
+  </div>
+
+  @for (operation of (operations$ | async); track operation) {
+    <div class="w-100" [ngClass]="{'pt-3': operation}">
+      <ds-item-operation [operation]="operation"></ds-item-operation>
+    </div>
+  }
+
+</div>

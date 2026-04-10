@@ -1,0 +1,43 @@
+@if (hasSubSections$ | async) {
+  <div class="ds-menu-item-wrapper text-md-center"
+    [id]="'expandable-navbar-section-' + section.id"
+    (mouseenter)="onMouseEnter($event)"
+    (mouseleave)="onMouseLeave($event)"
+    data-test="navbar-section-wrapper">
+    <a href="javascript:void(0);" routerLinkActive="active"
+      role="menuitem"
+      (keyup.enter)="toggleSection($event)"
+      (keyup.space)="toggleSection($event)"
+      (click)="toggleSection($event)"
+      (keydown)="keyDown($event)"
+      aria-haspopup="menu"
+      data-test="navbar-section-toggler"
+      [attr.aria-expanded]="(active$ | async).valueOf()"
+      [attr.aria-controls]="expandableNavbarSectionId()"
+      class="d-flex flex-row flex-nowrap align-items-center gapx-1 ds-menu-toggler-wrapper"
+      [class.disabled]="section.model?.disabled">
+      <span class="flex-fill">
+        <ng-container
+        *ngComponentOutlet="(sectionMap$ | async).get(section.id).component; injector: (sectionMap$ | async).get(section.id).injector;"></ng-container>
+      </span>
+      <i class="fas fa-caret-down fa-xs toggle-menu-icon" aria-hidden="true"></i>
+    </a>
+    @if ((active$ | async).valueOf() === true) {
+      <div (click)="deactivateSection($event)"
+        [id]="expandableNavbarSectionId()"
+        [dsHoverOutsideOfParentSelector]="'#expandable-navbar-section-' + section.id"
+        (dsHoverOutside)="deactivateSection($event, false)"
+        role="menu"
+        class="dropdown-menu show nav-dropdown-menu m-0 shadow-none border-top-0 px-3 px-md-0 pt-0 pt-md-1">
+        <div @slide role="presentation">
+          @for (subSection of (subSections$ | async); track subSection) {
+            <div class="text-nowrap" role="presentation">
+              <ng-container
+              *ngComponentOutlet="(sectionMap$ | async).get(subSection.id).component; injector: (sectionMap$ | async).get(subSection.id).injector;"></ng-container>
+            </div>
+          }
+        </div>
+      </div>
+    }
+  </div>
+}

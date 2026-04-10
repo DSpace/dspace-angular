@@ -1,0 +1,55 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 d-inline-block">
+      <label class="form-label">{{type.value + '.edit.logo.label' | translate}}</label>
+    </div>
+    <ng-container *ngVar="(dso?.logo | async)?.payload as logo">
+      @if (logo) {
+        <div class="col-12 d-inline-block alert" id="logo-section">
+          <div class="row">
+            <div class="col-8 d-inline-block">
+              <ds-comcol-page-logo [alternateText]="type.value + '.logo.alt'" [logo]="logo"></ds-comcol-page-logo>
+            </div>
+            <div class="col-4 d-inline-block">
+              @if (logo) {
+                <div class="float-end">
+                  <button
+                    (click)="confirmLogoDeleteWithModal()"
+                    class="btn btn-danger"
+                    type="button">{{ 'community.edit.logo.delete.title' | translate }}
+                  </button>
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+      }
+      @if (!logo) {
+        <div class="col-12 d-inline-block">
+          @if (initializedUploaderOptions | async) {
+            <ds-uploader
+              [ariaLabel]="type.value + '.browse.logo'"
+              [dropMsg]="type.value + '.edit.logo.upload'"
+              [dropOverDocumentMsg]="type.value + '.edit.logo.upload'"
+              [enableDragOverDocument]="true"
+              [uploadFilesOptions]="uploadFilesOptions"
+              (onCompleteItem)="onCompleteItem()"
+            (onUploadError)="onUploadError()"></ds-uploader>
+          }
+        </div>
+      }
+    </ng-container>
+  </div>
+</div>
+@if (formModel) {
+  <ds-form
+    [formId]="'comcol-form-id'"
+    [formModel]="formModel"
+    [displayCancel]="false"
+    (submitForm)="onSubmit()">
+    <button (click)="back.emit()" before class="btn btn-outline-secondary" type="button">
+      <i class="fas fa-arrow-left" aria-hidden="true"></i> {{ type.value + '.edit.return' | translate }}
+    </button>
+  </ds-form>
+}
+

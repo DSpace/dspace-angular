@@ -1,0 +1,23 @@
+<fieldset class="row row-cols-2">
+  <ng-container>
+    <span class="col-12">&nbsp;</span>
+    <span class="col-1">&nbsp;</span>
+    <button id="btnSelectAllFilters" class="btn btn-light mt-1 col-4" (click)="selectAll()">{{"admin.reports.commons.filters.select_all" | translate}}</button>
+    <span class="col-2">&nbsp;</span>
+    <button id="btnDeselectAllFilters" class="btn btn-light mt-1 col-4" (click)="deselectAll()">{{"admin.reports.commons.filters.deselect_all" | translate}}</button>
+    <span class="col-1">&nbsp;</span>
+    <span class="col-12">&nbsp;</span>
+  </ng-container>
+</fieldset>
+@for (group of allFilters(); track group) {
+  <fieldset class="row row-cols-2">
+    <legend>{{group.key | translate}}</legend>
+    <ng-container [formGroup]="filtersForm">
+      @for (filter of group.filters; track filter) {
+        <div class="col-6">
+          <input type="checkbox" id="flt-{{filter.id}}" value="{{filter.id}}" class="form-check-input col-1" formControlName="{{filter.id}}"><label for="flt-{{filter.id}}" class="col-11 align-middle" title="{{filter.tooltipKey | translate}}">{{filter.key | translate}}</label>
+        </div>
+      }
+    </ng-container>
+  </fieldset>
+}

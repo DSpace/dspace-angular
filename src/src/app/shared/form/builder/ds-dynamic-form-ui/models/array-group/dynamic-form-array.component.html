@@ -1,0 +1,56 @@
+<ng-container [formGroup]="group">
+  <div [id]="id"
+    [formArrayName]="model.id"
+    [class.d-none]="model.hidden"
+    [ngClass]="getClass('element', 'control')">
+
+    <!-- Draggable Container -->
+    <div role="listbox" [attr.aria-label]="'dynamic-form-array.sortable-list.label' | translate" #dropList cdkDropList cdkDropListLockAxis="y" (cdkDropListDropped)="moveSelection($event)">
+      <!-- Draggable Items -->
+      @for (groupModel of model.groups; track groupModel; let idx = $index; let length = $count) {
+        <div #sortableElement
+          class="drag-item-container"
+          role="group"
+          [formGroupName]="groupModel.index"
+          [ngClass]="[getClass('element', 'group'), getClass('grid', 'group')]"
+          cdkDrag
+          [cdkDragDisabled]="dragDisabled"
+          [cdkDragPreviewClass]="'ds-submission-reorder-dragging'"
+          [class.grey-background]="model.isInlineGroupArray">
+          <!-- Item content -->
+          <div class="drag-handle" [class.drag-disable]="dragDisabled" tabindex="0" cdkDragHandle
+            (focus)="addInstructionMessageToLiveRegion(sortableElement)"
+            (keydown.space)="toggleKeyboardDragAndDrop($event, sortableElement, idx, length)"
+            (keydown.enter)="toggleKeyboardDragAndDrop($event, sortableElement, idx, length)"
+            (keydown.tab)="stopKeyboardDragAndDrop(sortableElement, idx, length)"
+            (keydown.escape)="cancelKeyboardDragAndDrop(sortableElement, idx, length)"
+            (keydown.arrowUp)="handleArrowPress($event, dropList, length, idx, 'up')"
+            (keydown.arrowDown)="handleArrowPress($event, dropList, length, idx, 'down')">
+            <i class="drag-icon fas fa-grip-vertical fa-fw" [class.drag-disable]="dragDisabled" ></i>
+          </div>
+          <ng-container *ngTemplateOutlet="startTemplate?.templateRef; context: groupModel"></ng-container>
+          @for (_model of groupModel.group; track _model) {
+            <ds-dynamic-form-control-container
+              [bindId]="false"
+              [formGroup]="group"
+              [formModel]="formModel"
+              [context]="groupModel"
+              [group]="getControlOfGroup(groupModel)"
+              [hidden]="_model.hidden"
+              [class.d-none]="_model.hidden"
+              [layout]="formLayout"
+              [model]="_model"
+              [templates]="templates"
+              [ngClass]="[getClass('element', 'host', _model), getClass('grid', 'host', _model)]"
+              (dfBlur)="onBlur($event)"
+              (dfChange)="onChange($event)"
+              (dfFocus)="onFocus($event)"
+            (ngbEvent)="onCustomEvent($event, null, true)"></ds-dynamic-form-control-container>
+          }
+          <ng-container *ngTemplateOutlet="endTemplate?.templateRef; context: groupModel"></ng-container>
+        </div>
+      }
+    </div>
+  </div>
+
+</ng-container>

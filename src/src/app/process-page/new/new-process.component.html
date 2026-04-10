@@ -1,0 +1,5 @@
+@if (fromExisting$ | async | dsHasValue) {
+  <ds-process-form *ngVar="fromExisting$ | async as process" headerKey="process.new.header" [selectedScript]="script$ | async" [parameters]="process.parameters"></ds-process-form>
+} @else {
+  <ds-process-form headerKey="process.new.header"></ds-process-form>
+}

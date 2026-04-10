@@ -1,0 +1,14 @@
+<div class="container">
+  <ds-suggestions-notification></ds-suggestions-notification>
+  <ds-my-dspace-qa-events-notifications></ds-my-dspace-qa-events-notifications>
+  <ds-my-dspace-new-submission *dsShowOnlyForRole="[roleTypeEnum.Submitter]"></ds-my-dspace-new-submission>
+</div>
+
+@if (configuration && context) {
+  <ds-search
+    [configuration]="configuration"
+    [configurationList]="(configurationList$ | async)"
+    [context]="context"
+    [viewModeList]="viewModeList"
+  ></ds-search>
+}

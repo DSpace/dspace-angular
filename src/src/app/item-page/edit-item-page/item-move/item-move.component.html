@@ -1,0 +1,62 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h1>{{'item.edit.move.head' | translate: {id: (itemRD$ | async)?.payload?.handle} }}</h1>
+      <p>{{'item.edit.move.description' | translate}}</p>
+      <div class="row">
+        <div class="col-12">
+          <div class="card mb-3">
+            <div class="card-header">{{'dso-selector.placeholder' | translate: { type: 'dso-selector.placeholder.type.collection' | translate } }}</div>
+            <div class="card-body">
+              <ds-authorized-collection-selector [types]="COLLECTIONS"
+                [currentDSOId]="selectedCollection ? selectedCollection.id : originalCollection.id"
+                (onSelect)="selectDso($event)">
+              </ds-authorized-collection-selector>
+            </div>
+            <div></div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <p>
+            <label class="form-label" for="inheritPoliciesCheckbox">
+              <ng-template #tooltipContent>
+                {{ 'item.edit.move.inheritpolicies.tooltip' | translate }}
+              </ng-template>
+              <input type="checkbox" name="tc" [(ngModel)]="inheritPolicies" id="inheritPoliciesCheckbox" [ngbTooltip]="tooltipContent"
+                >
+              {{'item.edit.move.inheritpolicies.checkbox' |translate}}
+            </label>
+          </p>
+          <p>
+            {{'item.edit.move.inheritpolicies.description' | translate}}
+          </p>
+        </div>
+      </div>
+
+      <div class="button-row bottom">
+        <div class="float-end space-children-mr">
+          <button [routerLink]="[(itemPageRoute$ | async), 'edit']" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left"></i> {{'item.edit.move.cancel' | translate}}
+          </button>
+          <button class="btn btn-primary" [dsBtnDisabled]="!canMove" (click)="moveToCollection()">
+            @if (!processing) {
+              <span>
+                <i class="fas fa-save"></i> {{'item.edit.move.save-button' | translate}}
+              </span>
+            }
+            @if (processing) {
+              <span>
+                <i class="fas fa-circle-notch fa-spin"></i> {{'item.edit.move.processing' | translate}}
+              </span>
+            }
+          </button>
+          <button class="btn btn-danger" [dsBtnDisabled]="!canSubmit" (click)="discard()">
+            <i class="fas fa-times"></i> {{"item.edit.move.discard-button" | translate}}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

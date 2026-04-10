@@ -1,0 +1,103 @@
+<footer>
+  @if (showTopFooter) {
+    <div class="top-footer">
+      <!-- Grid container -->
+      <div class=" container p-4">
+        <!--Grid row-->
+        <div class="row">
+          <!--Grid column-->
+          <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+            <h5 class="text-uppercase">Footer Content</h5>
+            <ul class="list-unstyled mb-0">
+              <li>
+                <a routerLink="./" class="">Lorem ipsum</a>
+              </li>
+              <li>
+                <a routerLink="./" class="">Ut facilisis</a>
+              </li>
+              <li>
+                <a routerLink="./" class="">Aenean sit</a>
+              </li>
+            </ul>
+          </div>
+          <!--Grid column-->
+          <!--Grid column-->
+          <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+            <h5 class="text-uppercase">Footer Content</h5>
+            <ul class="list-unstyled mb-0">
+              <li>
+                <a routerLink="./" class="" role="link" tabindex="0">Suspendisse potenti</a>
+              </li>
+            </ul>
+          </div>
+          <!--Grid column-->
+          <!--Grid column-->
+          <div class="col-lg-4 col-md-12 mb-4 mb-md-0">
+            <h5 class="text-uppercase">Footer Content</h5>
+            <p>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste atque ea quis
+              molestias. Fugiat pariatur maxime quis culpa corporis vitae repudiandae aliquam
+              voluptatem veniam, est atque cumque eum delectus sint!
+            </p>
+          </div>
+          <!--Grid column-->
+        </div>
+        <!--Grid row-->
+      </div>
+    </div>
+  }
+  <!-- Grid container -->
+
+  <!-- Copyright -->
+  <div class="bottom-footer p-1 d-flex flex-column flex-md-row justify-content-center align-items-center text-white">
+    <div class="content-container align-self-center">
+      <p class="m-0">
+        <a class="text-white"
+        href="http://www.dspace.org/" role="link" tabindex="0">{{ 'footer.link.dspace' | translate}}</a>
+        {{ 'footer.copyright' | translate:{year: dateObj | date:'y'} }}
+        <a class="text-white"
+        href="https://www.lyrasis.org/" role="link" tabindex="0">{{ 'footer.link.lyrasis' | translate}}</a>
+      </p>
+      <ul class="footer-info list-unstyled d-flex justify-content-center mb-0">
+        @if (showCookieSettings) {
+        <li>
+          <button class="btn btn-link text-white" type="button" (click)="openCookieSettings()" role="button" tabindex="0">
+            {{ 'footer.link.cookies' | translate}}
+          </button>
+        </li>
+        }
+        <li>
+          <a class="btn text-white"
+             routerLink="info/accessibility" role="link" tabindex="0">{{ 'footer.link.accessibility' | translate }}</a>
+        </li>
+        @if (showPrivacyPolicy) {
+          <li>
+            <a class="btn text-white"
+            routerLink="info/privacy" role="link" tabindex="0">{{ 'footer.link.privacy-policy' | translate}}</a>
+          </li>
+        }
+        @if (showEndUserAgreement) {
+          <li>
+            <a class="btn text-white"
+            routerLink="info/end-user-agreement" role="link" tabindex="0">{{ 'footer.link.end-user-agreement' | translate}}</a>
+          </li>
+        }
+        @if (showSendFeedback$ | async) {
+          <li>
+            <a class="btn text-white"
+            routerLink="info/feedback" role="link" tabindex="0">{{ 'footer.link.feedback' | translate}}</a>
+          </li>
+        }
+      </ul>
+    </div>
+    @if (coarLdnEnabled$ | async) {
+      <div class="notify-enabled text-white align-self-end">
+        <a class="coar-notify-support-route" routerLink="info/coar-notify-support" role="link" tabindex="0">
+          <img class="n-coar" src="assets/images/n-coar.svg" [attr.alt]="'menu.header.image.logo' | translate" />
+          {{ 'footer.link.coar-notify-support' | translate }}
+        </a>
+      </div>
+    }
+  </div>
+  <!-- Copyright -->
+</footer>

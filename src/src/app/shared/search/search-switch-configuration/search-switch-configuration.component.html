@@ -1,0 +1,16 @@
+@if (configurationList?.length > 1) {
+  <div class="search-switch-configuration">
+    <h3 id="configuration-switch">{{ 'search.switch-configuration.title' | translate}}</h3>
+    <select class="form-select"
+      aria-labelledby="configuration-switch"
+      [compareWith]="compare"
+      [(ngModel)]="selectedOption"
+      (change)="onSelect()">
+      @for (option of configurationList; track option) {
+        <option [ngValue]="option">
+          {{option.label | translate}}
+        </option>
+      }
+    </select>
+  </div>
+}

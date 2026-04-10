@@ -1,0 +1,40 @@
+<div>
+  <div class="filters py-2">
+    @for (value of (selectedAppliedFilters$ | async); track value) {
+      <ds-search-facet-selected-option [selectedValue]="value" [filterConfig]="filterConfig" [inPlaceSearch]="inPlaceSearch"></ds-search-facet-selected-option>
+    }
+    @for (page of (facetValues$ | async); track page) {
+      <div [@facetLoad]="animationState">
+        @for (value of page.page; track trackUpdate($index, value)) {
+          <ds-search-facet-option [filterConfig]="filterConfig" [filterValue]="value" [inPlaceSearch]="inPlaceSearch"></ds-search-facet-option>
+        }
+      </div>
+    }
+    <div class="clearfix toggle-more-filters">
+      @if ((isLastPage$ | async) !== true) {
+        <a class="float-start"
+          (click)="showMore()" href="javascript:void(0);" role="button" tabindex="0">
+          {{"search.filters.filter.show-more" | translate}}
+        </a>
+      }
+      @if ((currentPage | async) > 1) {
+        <a class="float-end"
+          (click)="showFirstPageOnly()" href="javascript:void(0);" role="button" tabindex="0">
+          {{"search.filters.filter.show-less" | translate}}
+        </a>
+      }
+    </div>
+  </div>
+  @if ((isAvailableForShowSearchText | async) === false) {
+    <ds-filter-input-suggestions [suggestions]="(filterSearchResults$ | async)"
+      [placeholder]="'search.filters.filter.' + filterConfig.name + '.placeholder' | translate"
+      [label]="'search.filters.filter.' + filterConfig.name + '.label' | translate"
+      [action]="currentUrl"
+      [name]="filterConfig.paramName"
+      [(ngModel)]="filter"
+      (submitSuggestion)="onSubmit($event)"
+      (clickSuggestion)="onClick($event)"
+      (findSuggestions)="findSuggestions($event)"
+    ngDefaultControl></ds-filter-input-suggestions>
+  }
+</div>

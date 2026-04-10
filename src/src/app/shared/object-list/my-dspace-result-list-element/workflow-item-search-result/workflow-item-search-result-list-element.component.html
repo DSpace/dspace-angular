@@ -1,0 +1,16 @@
+@if (derivedSearchResult$ | async) {
+  <ds-listable-object-component-loader
+    [viewMode]="ViewModes.ListElement"
+    [object]="derivedSearchResult$ | async" [linkType]="LinkTypes.None"
+  [context]="badgeContext"></ds-listable-object-component-loader>
+  <div class="row">
+    <div [ngClass]="showThumbnails ? 'offset-3 offset-md-2  col-9 col-md-10 ps-3' : ''">
+      <ds-workflowitem-actions [object]="dso" (processCompleted)="reloadedObject.emit($event.reloadedObject)"></ds-workflowitem-actions>
+    </div>
+  </div>
+}
+
+@if ((derivedSearchResult$ | async) === undefined) {
+  <ds-loading
+  [showMessage]="false"></ds-loading>
+}

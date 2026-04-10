@@ -1,0 +1,95 @@
+<ng-container *ngVar="(user$ | async) as user">
+  @if (user) {
+    <div class="container">
+      <h1>{{'profile.title' | translate}}</h1>
+      @if (isResearcherProfileEnabled$ | async) {
+        <div class="card mb-4">
+          <div class="card-header">{{'profile.card.researcher' | translate}}</div>
+          <div class="card-body">
+            <div class="mb-4">
+              <ds-profile-page-researcher-form [user]="user" ></ds-profile-page-researcher-form>
+            </div>
+            <ds-suggestions-notification></ds-suggestions-notification>
+          </div>
+        </div>
+      }
+      <div class="card mb-4">
+        <div class="card-header">{{'profile.card.identify' | translate}}</div>
+        <div class="card-body">
+          <ds-profile-page-metadata-form [user]="user"></ds-profile-page-metadata-form>
+        </div>
+      </div>
+      @if (canChangePassword$ | async) {
+        <div class="card mb-4 security-section">
+          <div class="card-header">{{'profile.card.security' | translate}}</div>
+          <div class="card-body">
+            <ds-profile-page-security-form
+              [FORM_PREFIX]="'profile.security.form.'"
+              (isInvalid)="setInvalid($event)"
+              (passwordValue)="setPasswordValue($event)"
+              (currentPasswordValue)="setCurrentPasswordValue($event)"
+            ></ds-profile-page-security-form>
+          </div>
+        </div>
+      }
+      <div class="col-12 text-end pe-0">
+        <button class="btn btn-primary" (click)="updateProfile()"><i class="fas fa-edit"></i> {{'profile.form.submit' | translate}}</button>
+      </div>
+
+      <div class="card mb-4">
+        <div class="card-header">{{'profile.card.accessibility.header' | translate}}</div>
+        <div class="card-body">
+          <ds-alert class="mb-4" [type]="'alert-info'">{{'profile.card.accessibility.content' | translate}}</ds-alert>
+          <a [routerLink]="'/info/accessibility'">{{'profile.card.accessibility.link' | translate}}</a>
+        </div>
+      </div>
+
+      @if ((groupsRD$ | async); as groupsRD;) {
+        <ng-container *ngTemplateOutlet="groupsRD?.isLoading ? loader : content"></ng-container>
+        <ng-template #content>
+          @if (groupsRD?.payload) {
+            <ds-pagination
+              [hideGear]="true"
+              [hidePagerWhenSinglePage]="true"
+              [hidePaginationDetail]="true"
+              [paginationOptions]="optionsGroupsPagination"
+              [collectionSize]="groupsRD?.payload?.totalElements">
+              @if (groupsRD?.payload?.page; as groups) {
+                @if (groups?.length > 0) {
+                  <div>
+                    <h2 class="mt-4">{{ 'profile.groups.head' | translate }}</h2>
+                    <ul class="list-group list-group-flush">
+                      @for (group of groups; track group) {
+                        <li class="list-group-item">{{ dsoNameService.getName(group) }}</li>
+                      }
+                    </ul>
+                  </div>
+                }
+              }
+            </ds-pagination>
+          }
+        </ng-template>
+        <ng-template #loader>
+          <ds-loading [showMessage]="false"></ds-loading>
+        </ng-template>
+        @if (groupsRD?.hasFailed) {
+          <ds-error message="{{ 'error.profile-groups' | translate }}"></ds-error>
+        }
+      }
+      <ng-container *ngVar="(specialGroupsRD$ | async)?.payload?.page as specialGroups">
+        @if (specialGroups?.length > 0) {
+          <div data-test="specialGroups">
+            <h2 class="mt-4">{{'profile.special.groups.head' | translate}}</h2>
+            <ul class="list-group list-group-flush">
+              @for (specialGroup of specialGroups; track specialGroup) {
+                <li class="list-group-item">
+                  {{ dsoNameService.getName(specialGroup) }}
+                </li>
+              }
+            </ul>
+          </div>
+        }
+      </ng-container>
+    </div>
+  }
+</ng-container>

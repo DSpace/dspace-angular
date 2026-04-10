@@ -1,0 +1,21 @@
+<div class="d-flex flex-row">
+  @if (linkType !== linkTypes.None) {
+    <a [target]="(linkType === linkTypes.ExternalLink) ? '_blank' : '_self'" [attr.rel]="(linkType === linkTypes.ExternalLink) ? 'noopener noreferrer' : null" [routerLink]="['/collections/' + object.id]" class="lead" role="link" tabindex="0">
+      {{ dsoNameService.getName(object) }}
+    </a>
+  }
+  @if (linkType === linkTypes.None) {
+    <span class="lead">
+      {{ dsoNameService.getName(object) }}
+    </span>
+  }
+  <span class="pe-2">&nbsp;</span>
+  @if (object.archivedItemsCount >= 0) {
+    <span class="badge rounded-pill bg-secondary align-self-center archived-items-lead ps-2 pe-2">{{object.archivedItemsCount}}</span>
+  }
+</div>
+@if (object.shortDescription) {
+  <div class="text-muted abstract-text">
+    {{object.shortDescription}}
+  </div>
+}

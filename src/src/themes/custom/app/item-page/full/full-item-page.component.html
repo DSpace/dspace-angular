@@ -1,0 +1,97 @@
+<!-- ====== HERO ====== -->
+<header class="full-hero">
+  <div class="container">
+    <div class="full-badge">{{ 'fip.badge' | translate }}</div>
+    <h1 [innerHTML]="'fip.title.html' | translate"></h1>
+    <div class="hero-subtitle-container">
+      <span class="hero-line"></span>
+      <span class="hero-subtitle">{{ 'fip.subtitle' | translate }}</span>
+      <span class="hero-line right"></span>
+    </div>
+  </div>
+</header>
+
+<!-- ====== CONTENT ====== -->
+<div class="full-item-wrapper" *ngVar="(itemRD$ | async) as itemRD">
+  @if (itemRD?.hasSucceeded) {
+    <div @fadeInOut>
+      @if (itemRD?.payload; as item) {
+        <ds-item-alerts [item]="item"></ds-item-alerts>
+        <ds-item-versions-notice [item]="item"></ds-item-versions-notice>
+        @if (!item.isWithdrawn || (isAdmin$ | async)) {
+          <div class="full-item-card">
+
+            <!-- TOP BAR -->
+            <div class="full-top-bar">
+              @if (!fromSubmissionObject) {
+                <a class="btn-switch-view" [routerLink]="[(itemPageRoute$ | async)]">
+                  <i class="fas fa-compress-alt"></i> {{ 'fip.simple-view' | translate }}
+                </a>
+              }
+              @if (fromSubmissionObject) {
+                <button class="btn-back-action" (click)="back()">
+                  <i class="fas fa-arrow-left"></i> {{ 'item.page.return' | translate }}
+                </button>
+              }
+              <div class="top-bar-edit">
+                <ds-dso-edit-menu></ds-dso-edit-menu>
+              </div>
+            </div>
+
+            <!-- ALL METADATA -->
+            <div class="full-section">
+              <h3 class="full-section-title">
+                <i class="fas fa-database"></i> {{ 'fip.all-metadata' | translate }}
+              </h3>
+              <div class="table-responsive">
+                <table class="meta-table">
+                  <thead>
+                    <tr>
+                      <th class="th-field">{{ 'fip.field' | translate }}</th>
+                      <th class="th-value">{{ 'fip.value' | translate }}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @for (mdEntry of (metadata$ | async) | keyvalue; track mdEntry) {
+                      @for (mdValue of mdEntry.value; track mdValue) {
+                        <tr>
+                          <td class="td-field">{{ mdEntry.key }}</td>
+                          <td class="td-value">{{ mdValue.value }}</td>
+                        </tr>
+                      }
+                    }
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- FILES -->
+            <div class="full-section">
+              <h3 class="full-section-title">
+                <i class="fas fa-file-alt"></i> {{ 'fip.files' | translate }}
+              </h3>
+              <ds-item-page-full-file-section [item]="item"></ds-item-page-full-file-section>
+            </div>
+
+            <!-- COLLECTIONS -->
+            <div class="full-section">
+              <ds-item-page-collections [item]="item"></ds-item-page-collections>
+            </div>
+
+            <!-- VERSIONS -->
+            <div class="full-section">
+              <ds-item-versions [item]="item"></ds-item-versions>
+            </div>
+
+          </div>
+        }
+      }
+    </div>
+  }
+  @if (itemRD?.hasFailed) {
+    <ds-error message="{{ 'error.item' | translate }}"></ds-error>
+  }
+  @if (itemRD?.isLoading) {
+    <ds-loading message="{{ 'loading.item' | translate }}"></ds-loading>
+  }
+</div>

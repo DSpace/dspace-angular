@@ -1,0 +1,12 @@
+<div class="mt-2 mb-2">
+  <span class="text-muted">
+    {{'submission.workflow.tasks.generic.submitter' | translate}}:
+    <span class="badge bg-info">
+      @if (submitter$ | async; as submitter) {
+        {{ dsoNameService.getName(submitter) }}
+      } @else {
+        {{ 'submitter.empty' | translate }}
+      }
+    </span>
+  </span>
+</div>

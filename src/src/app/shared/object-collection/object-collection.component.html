@@ -1,0 +1,93 @@
+@if ((currentMode$ | async) === viewModeEnum.GeospatialMap) {
+  @defer {
+    <ds-object-geospatial-map [objects]="objects">
+    </ds-object-geospatial-map>
+  }
+}
+
+@if ((currentMode$ | async) === viewModeEnum.ListElement || (currentMode$ | async) === viewModeEnum.GeospatialMap) {
+  <ds-object-list [ngClass]="placeholderFontClass"
+    [config]="config"
+    [sortConfig]="sortConfig"
+    [objects]="objects"
+    [hasBorder]="hasBorder"
+    [hideGear]="hideGear"
+    [linkType]="linkType"
+    [context]="context"
+    [hidePaginationDetail]="hidePaginationDetail"
+    [showRSS]="showRSS"
+    [showPaginator]="showPaginator"
+    [showThumbnails]="showThumbnails"
+    (paginationChange)="onPaginationChange($event)"
+    (pageChange)="onPageChange($event)"
+    (pageSizeChange)="onPageSizeChange($event)"
+    (sortDirectionChange)="onSortDirectionChange($event)"
+    (deselectObject)="deselectObject.emit($event)"
+    (selectObject)="selectObject.emit($event)"
+    (sortFieldChange)="onSortFieldChange($event)"
+    [selectable]="selectable"
+    [selectionConfig]="selectionConfig"
+    [importable]="importable"
+    [importConfig]="importConfig"
+    (importObject)="importObject.emit($event)"
+    (contentChange)="contentChange.emit($event)"
+    (prev)="goPrev()"
+    (next)="goNext()"
+    >
+  </ds-object-list>
+}
+
+@if ((currentMode$ | async) === viewModeEnum.GridElement) {
+  <ds-object-grid [config]="config"
+    [sortConfig]="sortConfig"
+    [objects]="objects"
+    [hideGear]="hideGear"
+    [linkType]="linkType"
+    [context]="context"
+    [hidePaginationDetail]="hidePaginationDetail"
+    [showPaginator]="showPaginator"
+    [showThumbnails]="showThumbnails"
+    (paginationChange)="onPaginationChange($event)"
+    (pageChange)="onPageChange($event)"
+    (pageSizeChange)="onPageSizeChange($event)"
+    (sortDirectionChange)="onSortDirectionChange($event)"
+    (sortFieldChange)="onSortFieldChange($event)"
+    >
+  </ds-object-grid>
+}
+
+@if ((currentMode$ | async) === viewModeEnum.DetailedListElement) {
+  <ds-object-detail [config]="config"
+    [sortConfig]="sortConfig"
+    [objects]="objects"
+    [hideGear]="hideGear"
+    [showRSS]="showRSS"
+    [linkType]="linkType"
+    [context]="context"
+    [hidePaginationDetail]="hidePaginationDetail"
+    [showPaginator]="showPaginator"
+    [showThumbnails]="showThumbnails"
+    (contentChange)="contentChange.emit($event)"
+    >
+  </ds-object-detail>
+}
+
+
+@if ((currentMode$ | async) === viewModeEnum.Table) {
+  <ds-object-table  [config]="config"
+    [sortConfig]="sortConfig"
+    [objects]="objects"
+    [hideGear]="hideGear"
+    [linkType]="linkType"
+    [context]="context"
+    [hidePaginationDetail]="hidePaginationDetail"
+    [showPaginator]="showPaginator"
+    [showThumbnails]="showThumbnails"
+    (paginationChange)="onPaginationChange($event)"
+    (pageChange)="onPageChange($event)"
+    (pageSizeChange)="onPageSizeChange($event)"
+    (sortDirectionChange)="onSortDirectionChange($event)"
+    (sortFieldChange)="onSortFieldChange($event)"
+    >
+  </ds-object-table>
+}

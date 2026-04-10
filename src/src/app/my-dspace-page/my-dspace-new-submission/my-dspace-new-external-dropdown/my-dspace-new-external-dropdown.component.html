@@ -1,0 +1,30 @@
+@if ((moreThanOne$ | async) !== true) {
+  <div class="add">
+    <button class="btn btn-lg btn-outline-primary mt-1 ms-2"
+      [attr.aria-label]="'mydspace.new-submission-external' | translate" [dsBtnDisabled]="(initialized$ | async) !== true"
+      (click)="openPage(singleEntity)" role="button"
+      title="{{'mydspace.new-submission-external' | translate}}">
+      <i class="fa fa-file-import" aria-hidden="true"></i>
+    </button>
+  </div>
+}
+@if ((moreThanOne$ | async)) {
+  <div class="add w-100" display="dynamic" placement="bottom-right"
+    ngbDropdown
+    >
+    <button class="btn btn-lg btn-outline-primary mt-1 ms-2" id="dropdownImport" ngbDropdownToggle
+      type="button" [dsBtnDisabled]="(initialized$ | async) !== true"
+      [attr.aria-label]="'mydspace.new-submission-external' | translate"
+      [attr.data-test]="'import-dropdown' | dsBrowserOnly"
+      title="{{'mydspace.new-submission-external' | translate}}">
+      <i class="fa fa-file-import" aria-hidden="true"></i>
+      <span class="caret" aria-hidden="true"></span>
+    </button>
+    <div ngbDropdownMenu
+      class="dropdown-menu p-0"
+      id="importControlsDropdownMenu"
+      aria-labelledby="dropdownImport">
+      <ds-entity-dropdown [isSubmission]="false" (selectionChange)="openPage($event)"></ds-entity-dropdown>
+    </div>
+  </div>
+}

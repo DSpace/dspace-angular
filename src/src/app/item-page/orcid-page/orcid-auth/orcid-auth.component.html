@@ -1,0 +1,99 @@
+<div class="container mb-5">
+  <h1>{{'person.orcid.registry.auth' | translate}}</h1>
+  @if ((isOrcidLinked$ | async)) {
+    <div data-test="orcidLinked">
+      <div class="row">
+        @if ((hasOrcidAuthorizations$ | async)) {
+          <div class="col-sm-6 mb-3" data-test="hasOrcidAuthorizations">
+            <div class="card h-100">
+              <div class="card-header">{{ 'person.page.orcid.granted-authorizations'| translate }}</div>
+              <div class="card-body">
+                <div class="container p-0">
+                  <ul>
+                    @for (auth of (profileAuthorizationScopes$ | async); track auth) {
+                      <li data-test="orcidAuthorization">
+                        {{getAuthorizationDescription(auth) | translate}}
+                      </li>
+                    }
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        }
+        <div class="col-sm-6 mb-3">
+          <div class="card h-100">
+            <div class="card-header">{{ 'person.page.orcid.missing-authorizations'| translate }}</div>
+            <div class="card-body">
+              <div class="container">
+                @if ((hasMissingOrcidAuthorizations$ | async) !== true) {
+                  <ds-alert [type]="AlertType.Success" data-test="noMissingOrcidAuthorizations">
+                    {{'person.page.orcid.no-missing-authorizations-message' | translate}}
+                  </ds-alert>
+                }
+                @if ((hasMissingOrcidAuthorizations$ | async)) {
+                  <ds-alert [type]="AlertType.Warning" data-test="missingOrcidAuthorizations">
+                    {{'person.page.orcid.missing-authorizations-message' | translate}}
+                    <ul>
+                      @for (auth of (profileAuthorizationScopes$ | async); track auth) {
+                        <li data-test="missingOrcidAuthorization">
+                          {{getAuthorizationDescription(auth) | translate }}
+                        </li>
+                      }
+                    </ul>
+                  </ds-alert>
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      @if ((onlyAdminCanDisconnectProfileFromOrcid$ | async) && (ownerCanDisconnectProfileFromOrcid$ | async) !== true) {
+        <ds-alert
+          [type]="AlertType.Warning" data-test="unlinkOnlyAdmin">
+          {{ 'person.page.orcid.remove-orcid-message' | translate}}
+        </ds-alert>
+      }
+      @if ((ownerCanDisconnectProfileFromOrcid$ | async)) {
+        <div class="row" data-test="unlinkOwner">
+          <div class="col">
+            <button type="submit" class="btn btn-danger float-end" (click)="unlinkOrcid()"
+              [dsBtnDisabled]="(unlinkProcessing | async)">
+              @if ((unlinkProcessing | async) !== true) {
+                <span><i
+                class="fas fa-unlink"></i> {{ 'person.page.orcid.unlink' | translate }}</span>
+              }
+              @if ((unlinkProcessing | async)) {
+                <span><i
+                class='fas fa-circle-notch fa-spin'></i> {{'person.page.orcid.unlink.processing' | translate}}</span>
+              }
+            </button>
+            @if ((hasMissingOrcidAuthorizations$ | async)) {
+              <button type="submit"
+                class="btn btn-primary float-end" (click)="linkOrcid()">
+                <span><i class="fas fa-check"></i> {{ 'person.page.orcid.grant-authorizations' | translate }}</span>
+              </button>
+            }
+          </div>
+        </div>
+      }
+    </div>
+  } @else {
+    <div data-test="orcidNotLinked">
+      <div class="row">
+        <div class="col-2"><img alt="orcid-logo" src="../../../../assets/images/orcid.logo.icon.svg"/></div>
+        <div class="col">
+          <ds-alert [type]="AlertType.Info">{{ getOrcidNotLinkedMessage() }}</ds-alert>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <button class="btn btn-primary float-end" (click)="linkOrcid()">
+            <i class="fas fa-link"></i>
+            {{'person.page.orcid.link' | translate}}
+          </button>
+        </div>
+      </div>
+    </div>
+  }
+</div>

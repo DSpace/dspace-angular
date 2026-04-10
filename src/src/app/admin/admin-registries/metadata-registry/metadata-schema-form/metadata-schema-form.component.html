@@ -1,0 +1,16 @@
+@if (activeMetadataSchema$ | async) {
+  <h2>{{messagePrefix + '.edit' | translate}}</h2>
+} @else {
+  <h2>{{messagePrefix + '.create' | translate}}</h2>
+}
+
+
+
+<ds-form [formId]="formId"
+  [formModel]="formModel"
+  [formGroup]="formGroup"
+  [formLayout]="formLayout"
+  (cancel)="onCancel()"
+  (submitForm)="onSubmit()">
+
+</ds-form>

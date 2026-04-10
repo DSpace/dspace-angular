@@ -1,0 +1,10 @@
+<a class="badge bg-primary me-1 mb-1 text-capitalize"
+   [attr.aria-label]="'search.filters.remove' | translate:{ type: ('search.filters.applied.f.' + appliedFilter.filter) | translate, value: appliedFilter.label }"
+   [routerLink]="searchLink"
+   [queryParams]="(removeParameters$ | async)"
+   (click)="searchFilterService.minimizeAll()">
+  <span class="d-flex">
+    <span class="flex-grow-1 text-start">{{ ('search.filters.applied.f.' + appliedFilter.filter) | translate}}{{'search.filters.applied.operator.' + appliedFilter.operator | translate}}: {{'search.filters.' + appliedFilter.filter + '.' + appliedFilter.label | translate: { default: appliedFilter.label } }}</span>
+    <span class="ps-1" aria-hidden="true">×</span>
+  </span>
+</a>

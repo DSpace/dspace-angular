@@ -1,0 +1,27 @@
+<div>
+  <!-- Because this template is used by default, we will additionally test for representation type and display accordingly -->
+  @if ((mdRepresentation.representationType==='plain_text') && !isLink()) {
+    <span class="dont-break-out">
+      {{mdRepresentation.getValue()}}
+    </span>
+  }
+  @if ((mdRepresentation.representationType==='plain_text') && isLink()) {
+    <a class="dont-break-out"
+      target="_blank" [href]="mdRepresentation.getValue()" role="link" tabindex="0">
+      {{mdRepresentation.getValue()}}
+    </a>
+  }
+  @if ((mdRepresentation.representationType==='authority_controlled')) {
+    <span class="dont-break-out">{{mdRepresentation.getValue()}}</span>
+  }
+  @if ((mdRepresentation.representationType==='browse_link')) {
+    <a
+      class="dont-break-out ds-browse-link"
+      [routerLink]="['/browse/', mdRepresentation.browseDefinition.id]"
+      [queryParams]="getQueryParams()"
+      role="link"
+      tabindex="0">
+      {{mdRepresentation.getValue()}}
+    </a>
+  }
+</div>
