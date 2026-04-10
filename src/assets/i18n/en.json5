@@ -7671,4 +7671,11 @@
 
   "bitstream.replace.page.replace-name-hint": "The new file extension will be retained in order to match the content of the replacement file.",
 
+  "bitstream.replace.isCopyOf": "Is copy of",
+
+  "bitstream.replace.hasCopies": "Has copy",
+
+  "bitstream.replace.isReplacementOf": "Is replacement of",
+
+  "bitstream.replace.isReplacedBy": "Is replaced by",
 }
