@@ -141,5 +141,31 @@ describe('MetadataValuesComponent', () => {
     });
   });
 
+  it('should render search link when searchFilter is present', () => {
+    comp.searchFilter = 'subject';
+    fixture.detectChanges();
+
+    const value = mockMetadata[0].value;
+
+    const link = fixture.debugElement.query(By.css('a.ds-search-link'));
+
+    expect(link).not.toBeNull();
+    expect(link.nativeElement.textContent).toContain(value);
+  });
+
+  it('should render browse link when browseDefinition is provided', () => {
+    comp.browseDefinition = {
+      id: 'subject',
+      metadataKeys: [],
+      order: 0,
+      getRenderType: () => 'metadata',
+    } as any;
+
+    fixture.detectChanges();
+
+    const link = fixture.debugElement.query(By.css('a.ds-browse-link'));
+
+    expect(link).not.toBeNull();
+  });
 
 });
