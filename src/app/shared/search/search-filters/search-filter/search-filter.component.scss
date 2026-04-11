@@ -5,9 +5,7 @@
 
   .search-filter-wrapper {
     line-height: var(--bs-line-height-base);
-    &.closed {
-      overflow: hidden;
-    }
+    overflow: hidden;
     &.notab {
       visibility: hidden;
     }
