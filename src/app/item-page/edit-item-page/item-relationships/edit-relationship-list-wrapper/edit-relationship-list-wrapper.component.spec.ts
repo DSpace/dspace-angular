@@ -5,13 +5,13 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { Item } from '@dspace/core/shared/item.model';
+import { ItemType } from '@dspace/core/shared/item-relationships/item-type.model';
+import { RelationshipType } from '@dspace/core/shared/item-relationships/relationship-type.model';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { cold } from 'jasmine-marbles';
 import { of } from 'rxjs';
 
-import { Item } from '../../../../core/shared/item.model';
-import { ItemType } from '../../../../core/shared/item-relationships/item-type.model';
-import { RelationshipType } from '../../../../core/shared/item-relationships/relationship-type.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { EditItemRelationshipsService } from '../edit-item-relationships.service';
 import { EditRelationshipListComponent } from '../edit-relationship-list/edit-relationship-list.component';
 import { EditRelationshipListWrapperComponent } from './edit-relationship-list-wrapper.component';

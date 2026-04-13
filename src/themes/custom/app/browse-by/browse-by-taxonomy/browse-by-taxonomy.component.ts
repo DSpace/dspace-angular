@@ -11,7 +11,6 @@ import { VocabularyTreeviewComponent } from '../../../../../app/shared/form/voca
   templateUrl: '../../../../../app/browse-by/browse-by-taxonomy/browse-by-taxonomy.component.html',
   // styleUrls: ['./browse-by-taxonomy.component.scss'],
   styleUrls: ['../../../../../app/browse-by/browse-by-taxonomy/browse-by-taxonomy.component.scss'],
-  standalone: true,
   imports: [
     RouterLink,
     TranslatePipe,

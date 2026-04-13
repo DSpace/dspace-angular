@@ -5,17 +5,19 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { LinkService } from '@dspace/core/cache/builders/link.service';
+import { ChildHALResource } from '@dspace/core/shared/child-hal-resource.model';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { HALResource } from '@dspace/core/shared/hal-resource.model';
+import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
+import { mockTruncatableService } from '@dspace/core/testing/mock-trucatable.service';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { LinkService } from '../../../core/cache/builders/link.service';
-import { ChildHALResource } from '../../../core/shared/child-hal-resource.model';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { HALResource } from '../../../core/shared/hal-resource.model';
-import { mockTruncatableService } from '../../mocks/mock-trucatable.service';
-import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
-import { SearchResult } from '../../search/models/search-result.model';
 import { TruncatableService } from '../../truncatable/truncatable.service';
+import { TruncatablePartComponent } from '../../truncatable/truncatable-part/truncatable-part.component';
 import { VarDirective } from '../../utils/var.directive';
 
 export function createSidebarSearchListElementTests(
@@ -33,6 +35,12 @@ export function createSidebarSearchListElementTests(
 
     let linkService;
 
+    const environment = {
+      browseBy: {
+        showThumbnails: true,
+      },
+    };
+
     beforeEach(waitForAsync(() => {
       linkService = jasmine.createSpyObj('linkService', {
         resolveLink: Object.assign(new HALResource(), {
@@ -44,11 +52,12 @@ export function createSidebarSearchListElementTests(
         providers: [
           { provide: TruncatableService, useValue: mockTruncatableService },
           { provide: LinkService, useValue: linkService },
+          { provide: APP_CONFIG, useValue: environment },
           DSONameService,
           ...extraProviders,
         ],
         schemas: [NO_ERRORS_SCHEMA],
-      }).compileComponents();
+      }).overrideComponent(componentClass, { remove: { imports: [TruncatablePartComponent] } }).compileComponents();
     }));
 
     beforeEach(() => {

@@ -9,6 +9,14 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { currentPath } from '@dspace/core/router/utils/route.utils';
+import { AppliedFilter } from '@dspace/core/shared/search/models/applied-filter.model';
+import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import {
@@ -21,25 +29,16 @@ import {
   take,
 } from 'rxjs/operators';
 
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '../../../../config/app-config.interface';
-import { RemoteData } from '../../../core/data/remote-data';
-import { SearchService } from '../../../core/shared/search/search.service';
-import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
-import { SearchFilterService } from '../../../core/shared/search/search-filter.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
-import { currentPath } from '../../utils/route.utils';
-import { AppliedFilter } from '../models/applied-filter.model';
-import { SearchFilterConfig } from '../models/search-filter-config.model';
+import { SearchService } from '../search.service';
+import { SearchConfigurationService } from '../search-configuration.service';
+import { SearchFilterService } from './search-filter.service';
 import { SearchFilterComponent } from './search-filter/search-filter.component';
 
 @Component({
   selector: 'ds-base-search-filters',
   styleUrls: ['./search-filters.component.scss'],
   templateUrl: './search-filters.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     NgxSkeletonLoaderModule,

@@ -14,13 +14,13 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { ConfidenceType } from '@dspace/core/shared/confidence-type';
+import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
+import { createTestComponent } from '@dspace/core/testing/utils.test';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '../../../../environments/environment';
-import { ConfidenceType } from '../../../core/shared/confidence-type';
-import { createTestComponent } from '../../testing/utils.test';
-import { FormFieldMetadataValueObject } from '../builder/models/form-field-metadata-value.model';
 import { AuthorityConfidenceStateDirective } from '../directives/authority-confidence-state.directive';
 import { ChipsComponent } from './chips.component';
 import { Chips } from './models/chips.model';
@@ -153,8 +153,8 @@ describe('ChipsComponent test suite', () => {
   describe('when has items as object', () => {
     beforeEach(() => {
       const item = {
-        mainField: new FormFieldMetadataValueObject('main test', null, 'test001', 'main test', 0, ConfidenceType.CF_ACCEPTED),
-        relatedField: new FormFieldMetadataValueObject('related test', null, 'test002', 'related test', 0, ConfidenceType.CF_ACCEPTED),
+        mainField: new FormFieldMetadataValueObject('main test', null, null, 'test001', 'main test', 0, ConfidenceType.CF_ACCEPTED),
+        relatedField: new FormFieldMetadataValueObject('related test', null, null, 'test002', 'related test', 0, ConfidenceType.CF_ACCEPTED),
         otherRelatedField: new FormFieldMetadataValueObject('other related test'),
       };
 
@@ -190,7 +190,6 @@ describe('ChipsComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
-  standalone: true,
   imports: [
     NgbModule,
   ],

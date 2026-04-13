@@ -3,22 +3,20 @@
     @if (this.canWithdraw) {
       <div class="modal-header">
         {{ 'item.qa.withdrawn.modal.header' | translate }}
-        <button type="button" class="close" (click)="onModalClose()" aria-label="Close">
-          <span aria-hidden="true">×</span>
+        <button type="button" class="btn-close" (click)="onModalClose()" aria-label="Close">
         </button>
       </div>
     } @else {
       @if (!this.canWithdraw) {
         <div class="modal-header">
           {{'item.qa.reinstate.modal.header' | translate}}
-          <button type="button" class="close" (click)="onModalClose()" aria-label="Close">
-            <span aria-hidden="true">×</span>
+          <button type="button" class="btn-close" (click)="onModalClose()" aria-label="Close">
           </button>
         </div>
       }
     }
     <div class="modal-body">
-      <div class="form-group">
+      <div class="mb-3">
         <label for="reason">{{ this.canWithdraw ? ('qa-withdrawn.create.modal.form.summary.label' | translate)
         : ('qa-reinstate.create.modal.form.summary.label' | translate) }}</label>
         <label for="reason">{{ this.canWithdraw ? ('qa-withdrawn.create.modal.form.summary2.label' | translate)

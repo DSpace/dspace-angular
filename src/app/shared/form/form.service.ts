@@ -6,6 +6,10 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import {
+  isEmpty,
+  isNotUndefined,
+} from '@dspace/shared/utils/empty.util';
+import {
   DynamicFormControlEvent,
   DynamicFormControlModel,
   DynamicFormGroupModel,
@@ -24,10 +28,6 @@ import {
 
 import { environment } from '../../../environments/environment';
 import { AppState } from '../../app.reducer';
-import {
-  isEmpty,
-  isNotUndefined,
-} from '../empty.util';
 import { FormBuilderService } from './builder/form-builder.service';
 import {
   FormAddError,
@@ -185,6 +185,7 @@ export class FormService {
       error[errorKey] = true;
       // add the error in the form control
       field.setErrors(error);
+      field.setValidators(() => error);
     }
 
     // if the field in question is a concat group, pass down the error to its fields
@@ -206,6 +207,8 @@ export class FormService {
     if (field.hasError(errorKey)) {
       error[errorKey] = null;
       field.setErrors(error);
+      field.clearValidators();
+      field.updateValueAndValidity();
     }
 
     // if the field in question is a concat group, clear the error from its fields

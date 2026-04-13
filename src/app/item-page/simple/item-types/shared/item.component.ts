@@ -4,6 +4,15 @@ import {
   OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
+import { RouteService } from '@dspace/core/services/route.service';
+import { Item } from '@dspace/core/shared/item.model';
+import { ViewMode } from '@dspace/core/shared/view-mode.model';
+import {
+  getDSpaceQuery,
+  isIiifEnabled,
+  isIiifSearchEnabled,
+} from '@dspace/core/utilities/item-iiif-utils';
 import { Observable } from 'rxjs';
 import {
   map,
@@ -11,20 +20,10 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../../../environments/environment';
-import { RouteService } from '../../../../core/services/route.service';
-import { Item } from '../../../../core/shared/item.model';
-import { ViewMode } from '../../../../core/shared/view-mode.model';
-import { getItemPageRoute } from '../../../item-page-routing-paths';
-import {
-  getDSpaceQuery,
-  isIiifEnabled,
-  isIiifSearchEnabled,
-} from './item-iiif-utils';
 
 @Component({
   selector: 'ds-item',
   template: '',
-  standalone: true,
 })
 /**
  * A generic component for displaying metadata and relations of an item
@@ -80,10 +79,19 @@ export class ItemComponent implements OnInit {
    */
   geospatialItemPageFieldsEnabled = false;
 
+  /**
+   * Flag to check whether to use the default relations or the authority based ones
+   */
+  areAuthorityRelationsEnabled: boolean;
+
+  showDownloadLinkAsAttachment: boolean;
+
   constructor(protected routeService: RouteService,
               protected router: Router) {
     this.mediaViewer = environment.mediaViewer;
     this.geospatialItemPageFieldsEnabled = environment.geospatialMapViewer.enableItemPageFields;
+    this.areAuthorityRelationsEnabled = environment.item.showAuthorityRelations;
+    this.showDownloadLinkAsAttachment = environment.layout.showDownloadLinkAsAttachment;
   }
 
   /**

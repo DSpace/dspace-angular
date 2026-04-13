@@ -1,6 +1,6 @@
+import { isUndefined } from '@dspace/shared/utils/empty.util';
 import { v4 as uuidv4 } from 'uuid';
 
-import { isUndefined } from '../../shared/empty.util';
 import {
   MetadataMap,
   MetadataValue,
@@ -50,11 +50,11 @@ const multiViewModelList = [
   { key: 'foo', ...bar, order: 0 },
 ];
 
-const testMethod = (fn, resultKind, mapOrMaps, keyOrKeys, expected, filter?) => {
+const testMethod = (fn, resultKind, mapOrMaps, keyOrKeys, hitHighlights, expected, filter?, limit?: number) => {
   const keys = keyOrKeys instanceof Array ? keyOrKeys : [keyOrKeys];
   describe('and key' + (keys.length === 1 ? (' ' + keys[0]) : ('s ' + JSON.stringify(keys)))
     + ' with ' + (isUndefined(filter) ? 'no filter' : 'filter ' + JSON.stringify(filter)), () => {
-    const result = fn(mapOrMaps, keys, filter);
+    const result = fn(mapOrMaps, keys, hitHighlights, filter, true, limit);
     let shouldReturn;
     if (resultKind === 'boolean') {
       shouldReturn = expected;
@@ -62,7 +62,8 @@ const testMethod = (fn, resultKind, mapOrMaps, keyOrKeys, expected, filter?) => 
       shouldReturn = 'undefined';
     } else if (expected instanceof Array) {
       shouldReturn = 'an array with ' + expected.length + ' ' + (expected.length > 1 ? 'ordered ' : '')
-        + resultKind + (expected.length !== 1 ? 's' : '');
+        + resultKind + (expected.length !== 1 ? 's' : '')
+        + (isUndefined(limit) ? '' : ' (limited to ' + limit + ')');
     } else {
       shouldReturn = 'a ' + resultKind;
     }
@@ -76,107 +77,107 @@ describe('Metadata', () => {
 
   describe('all method', () => {
 
-    const testAll = (mapOrMaps, keyOrKeys, expected, filter?: MetadataValueFilter) =>
-      testMethod(Metadata.all, 'value', mapOrMaps, keyOrKeys, expected, filter);
+    const testAll = (mapOrMaps, keyOrKeys, hitHighlights, expected, filter?: MetadataValueFilter) =>
+      testMethod(Metadata.all, 'value', mapOrMaps, keyOrKeys, hitHighlights, expected, filter);
 
     describe('with emptyMap', () => {
-      testAll({}, 'foo', []);
-      testAll({}, '*', []);
+      testAll({}, 'foo', undefined, []);
+      testAll({}, '*', undefined, []);
     });
     describe('with singleMap', () => {
-      testAll(singleMap, 'foo', []);
-      testAll(singleMap, '*', [dcTitle0]);
-      testAll(singleMap, '*', [], { value: 'baz' });
-      testAll(singleMap, 'dc.title', [dcTitle0]);
-      testAll(singleMap, 'dc.*', [dcTitle0]);
+      testAll(singleMap, 'foo', undefined, []);
+      testAll(singleMap, '*', undefined, [dcTitle0]);
+      testAll(singleMap, '*', undefined, [], { value: 'baz' });
+      testAll(singleMap, 'dc.title', undefined, [dcTitle0]);
+      testAll(singleMap, 'dc.*', undefined, [dcTitle0]);
     });
     describe('with multiMap', () => {
-      testAll(multiMap, 'foo', [bar]);
-      testAll(multiMap, '*', [dcDescription, dcAbstract, dcTitle1, dcTitle2, bar]);
-      testAll(multiMap, 'dc.title', [dcTitle1, dcTitle2]);
-      testAll(multiMap, 'dc.*', [dcDescription, dcAbstract, dcTitle1, dcTitle2]);
-      testAll(multiMap, ['dc.title', 'dc.*'], [dcTitle1, dcTitle2, dcDescription, dcAbstract]);
+      testAll(multiMap, 'foo', undefined, [bar]);
+      testAll(multiMap, '*', undefined, [dcDescription, dcAbstract, dcTitle1, dcTitle2, bar]);
+      testAll(multiMap, 'dc.title', undefined, [dcTitle1, dcTitle2]);
+      testAll(multiMap, 'dc.*', undefined, [dcDescription, dcAbstract, dcTitle1, dcTitle2]);
+      testAll(multiMap, ['dc.title', 'dc.*'], undefined, [dcTitle1, dcTitle2, dcDescription, dcAbstract]);
     });
     describe('with [ singleMap, multiMap ]', () => {
-      testAll([singleMap, multiMap], 'foo', [bar]);
-      testAll([singleMap, multiMap], '*', [dcTitle0]);
-      testAll([singleMap, multiMap], 'dc.title', [dcTitle0]);
-      testAll([singleMap, multiMap], 'dc.*', [dcTitle0]);
+      testAll(multiMap, 'foo', singleMap, [bar]);
+      testAll(multiMap, '*', singleMap, [dcTitle0]);
+      testAll(multiMap, 'dc.title', singleMap, [dcTitle0]);
+      testAll(multiMap, 'dc.*', singleMap, [dcTitle0]);
     });
     describe('with [ multiMap, singleMap ]', () => {
-      testAll([multiMap, singleMap], 'foo', [bar]);
-      testAll([multiMap, singleMap], '*', [dcDescription, dcAbstract, dcTitle1, dcTitle2, bar]);
-      testAll([multiMap, singleMap], 'dc.title', [dcTitle1, dcTitle2]);
-      testAll([multiMap, singleMap], 'dc.*', [dcDescription, dcAbstract, dcTitle1, dcTitle2]);
-      testAll([multiMap, singleMap], ['dc.title', 'dc.*'], [dcTitle1, dcTitle2, dcDescription, dcAbstract]);
+      testAll(singleMap, 'foo', multiMap, [bar]);
+      testAll(singleMap, '*', multiMap, [dcDescription, dcAbstract, dcTitle1, dcTitle2, bar]);
+      testAll(singleMap, 'dc.title', multiMap, [dcTitle1, dcTitle2]);
+      testAll(singleMap, 'dc.*', multiMap, [dcDescription, dcAbstract, dcTitle1, dcTitle2]);
+      testAll(singleMap, ['dc.title', 'dc.*'], multiMap, [dcTitle1, dcTitle2, dcDescription, dcAbstract]);
     });
     describe('with regexTestMap', () => {
-      testAll(regexTestMap, 'foo.bar.*', []);
+      testAll(regexTestMap, 'foo.bar.*', undefined, []);
     });
   });
 
   describe('allValues method', () => {
 
-    const testAllValues = (mapOrMaps, keyOrKeys, expected) =>
-      testMethod(Metadata.allValues, 'string', mapOrMaps, keyOrKeys, expected);
+    const testAllValues = (mapOrMaps, keyOrKeys, hitHighlights, expected) =>
+      testMethod(Metadata.allValues, 'string', mapOrMaps, keyOrKeys, hitHighlights, expected);
 
     describe('with emptyMap', () => {
-      testAllValues({}, '*', []);
+      testAllValues({}, '*', undefined, []);
     });
     describe('with singleMap', () => {
-      testAllValues([singleMap, multiMap], '*', [dcTitle0.value]);
+      testAllValues(multiMap, '*', singleMap, [dcTitle0.value]);
     });
     describe('with [ multiMap, singleMap ]', () => {
-      testAllValues([multiMap, singleMap], '*', [dcDescription.value, dcAbstract.value, dcTitle1.value, dcTitle2.value, bar.value]);
+      testAllValues(singleMap, '*', multiMap, [dcDescription.value, dcAbstract.value, dcTitle1.value, dcTitle2.value, bar.value]);
     });
   });
 
   describe('first method', () => {
 
-    const testFirst = (mapOrMaps, keyOrKeys, expected) =>
-      testMethod(Metadata.first, 'value', mapOrMaps, keyOrKeys, expected);
+    const testFirst = (mapOrMaps, keyOrKeys, hitHighlights, expected) =>
+      testMethod(Metadata.first, 'value', mapOrMaps, keyOrKeys, hitHighlights, expected);
 
     describe('with emptyMap', () => {
-      testFirst({}, '*', undefined);
+      testFirst({}, '*', undefined, undefined);
     });
     describe('with singleMap', () => {
-      testFirst(singleMap, '*', dcTitle0);
+      testFirst(singleMap, '*', undefined, dcTitle0);
     });
     describe('with [ multiMap, singleMap ]', () => {
-      testFirst([multiMap, singleMap], '*', dcDescription);
+      testFirst(singleMap, '*', multiMap, dcDescription);
     });
   });
 
   describe('firstValue method', () => {
 
-    const testFirstValue = (mapOrMaps, keyOrKeys, expected) =>
-      testMethod(Metadata.firstValue, 'value', mapOrMaps, keyOrKeys, expected);
+    const testFirstValue = (mapOrMaps, keyOrKeys, hitHighlights, expected) =>
+      testMethod(Metadata.firstValue, 'value', mapOrMaps, keyOrKeys, hitHighlights, expected);
 
     describe('with emptyMap', () => {
-      testFirstValue({}, '*', undefined);
+      testFirstValue({}, '*', undefined, undefined);
     });
     describe('with singleMap', () => {
-      testFirstValue(singleMap, '*', dcTitle0.value);
+      testFirstValue(singleMap, '*', undefined, dcTitle0.value);
     });
     describe('with [ multiMap, singleMap ]', () => {
-      testFirstValue([multiMap, singleMap], '*', dcDescription.value);
+      testFirstValue(singleMap, '*', multiMap, dcDescription.value);
     });
   });
 
   describe('has method', () => {
 
-    const testHas = (mapOrMaps, keyOrKeys, expected, filter?: MetadataValueFilter) =>
-      testMethod(Metadata.has, 'boolean', mapOrMaps, keyOrKeys, expected, filter);
+    const testHas = (mapOrMaps, keyOrKeys, hitHighlights, expected, filter?: MetadataValueFilter) =>
+      testMethod(Metadata.has, 'boolean', mapOrMaps, keyOrKeys, hitHighlights, expected, filter);
 
     describe('with emptyMap', () => {
-      testHas({}, '*', false);
+      testHas({}, '*', undefined, false);
     });
     describe('with singleMap', () => {
-      testHas(singleMap, '*', true);
-      testHas(singleMap, '*', false, { value: 'baz' });
+      testHas(singleMap, '*', undefined, true);
+      testHas(singleMap, '*', undefined, false, { value: 'baz' });
     });
     describe('with [ multiMap, singleMap ]', () => {
-      testHas([multiMap, singleMap], '*', true);
+      testHas(singleMap, '*', multiMap, true);
     });
   });
 
@@ -255,4 +256,60 @@ describe('Metadata', () => {
 
   });
 
+  describe('all method with limit', () => {
+    const testAllWithLimit = (mapOrMaps, keyOrKeys, expected, limit) =>
+      testMethod(Metadata.all, 'value', mapOrMaps, keyOrKeys, undefined, expected, undefined, limit);
+
+    describe('with multiMap and limit', () => {
+      testAllWithLimit(multiMap, 'dc.title', [dcTitle1], 1);
+    });
+  });
+
+  describe('hasValue method', () => {
+    const testHasValue = (value, expected) =>
+      testMethod(Metadata.hasValue, 'boolean', value, undefined, undefined, expected);
+
+    describe('with undefined value', () => {
+      testHasValue(undefined, false);
+    });
+    describe('with null value', () => {
+      testHasValue(null, false);
+    });
+    describe('with string value', () => {
+      testHasValue('test', true);
+    });
+    describe('with empty string value', () => {
+      testHasValue('', false);
+    });
+    describe('with undefined value for a MetadataValue object', () => {
+      const value: Partial<MetadataValue> = {
+        value: undefined,
+      };
+      testHasValue(value, false);
+    });
+    describe('with null value for a MetadataValue object', () => {
+      const value: Partial<MetadataValue> = {
+        value: null,
+      };
+      testHasValue(value, false);
+    });
+    describe('with empty string for a MetadataValue object', () => {
+      const value: Partial<MetadataValue> = {
+        value: '',
+      };
+      testHasValue(value, false);
+    });
+    describe('with value for a MetadataValue object', () => {
+      const value: Partial<MetadataValue> = {
+        value: 'test',
+      };
+      testHasValue(value, true);
+    });
+    describe('with a generic object', () => {
+      const value: any = {
+        test: 'test',
+      };
+      testHasValue(value, true);
+    });
+  });
 });

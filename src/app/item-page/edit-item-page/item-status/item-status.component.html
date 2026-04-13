@@ -2,7 +2,7 @@
 <div class="row">
   @for (statusKey of statusDataKeys; track statusKey) {
     <div class="w-100 pt-1">
-      <div class="col-12 col-md-3 float-start status-label font-weight-bold">
+      <div class="col-12 col-md-3 float-start status-label fw-bold">
         {{'item.edit.tabs.status.labels.' + statusKey | translate}}:
       </div>
       <div class="col-12 col-md-9 float-start status-data" id="status-{{statusKey}}">
@@ -15,17 +15,17 @@
     <div class="w-100 pt-1">
       @if ((identifier.identifierType==='doi')) {
         <div>
-          <div class="col-12 col-md-3 float-start status-label font-weight-bold">
+          <div class="col-12 col-md-3 float-start status-label fw-bold">
             {{identifier.identifierType.toLocaleUpperCase()}}
           </div>
-          <div class="col-12 col-md-9 float-start status-label font-weight-bold">{{identifier.value}}
+          <div class="col-12 col-md-9 float-start status-label fw-bold">{{identifier.value}}
           ({{"item.edit.identifiers.doi.status."+identifier.identifierStatus|translate}})</div>
         </div>
       }
     </div>
   }
 
-  <div class="col-12 col-md-3 float-start status-label font-weight-bold">
+  <div class="col-12 col-md-3 float-start status-label fw-bold">
     {{'item.edit.tabs.status.labels.itemPage' | translate}}:
   </div>
   <div class="col-12 col-md-9 float-start status-data" id="status-itemPage">

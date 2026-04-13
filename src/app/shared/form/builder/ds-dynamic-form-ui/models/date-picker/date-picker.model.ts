@@ -1,3 +1,9 @@
+import { MetadataValue } from '@dspace/core/shared/metadata.models';
+import {
+  isEmpty,
+  isNotEmpty,
+  isNotUndefined,
+} from '@dspace/shared/utils/empty.util';
 import {
   DynamicDateControlModel,
   DynamicDatePickerModelConfig,
@@ -11,18 +17,15 @@ import {
   Subject,
 } from 'rxjs';
 
-import { MetadataValue } from '../../../../../../core/shared/metadata.models';
-import {
-  isEmpty,
-  isNotUndefined,
-} from '../../../../../empty.util';
-
 export const DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER = 'DATE';
 
 export interface DynamicDsDateControlModelConfig extends DynamicDatePickerModelConfig {
   legend?: string;
   typeBindRelations?: DynamicFormControlRelation[];
   repeatable: boolean;
+  securityLevel?: number;
+  securityConfigLevel?: number[];
+  toggleSecurityVisibility?: boolean;
 }
 
 /**
@@ -33,6 +36,9 @@ export class DynamicDsDatePickerModel extends DynamicDateControlModel {
   @serializable() typeBindRelations: DynamicFormControlRelation[];
   @serializable() readonly type: string = DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER;
   @serializable() metadataValue: MetadataValue;
+  @serializable() securityLevel?: number;
+  @serializable() securityConfigLevel?: number[];
+  @serializable() toggleSecurityVisibility = true;
   malformedDate: boolean;
   legend: string;
   hasLanguages = false;
@@ -43,6 +49,11 @@ export class DynamicDsDatePickerModel extends DynamicDateControlModel {
     this.malformedDate = false;
     this.legend = config.legend;
     this.metadataValue = (config as any).metadataValue;
+    this.securityLevel = config.securityLevel;
+    this.securityConfigLevel = config.securityConfigLevel;
+    if (isNotUndefined(config.toggleSecurityVisibility)) {
+      this.toggleSecurityVisibility = config.toggleSecurityVisibility;
+    }
     this.typeBindRelations = config.typeBindRelations ? config.typeBindRelations : [];
     this.hiddenUpdates = new BehaviorSubject<boolean>(this.hidden);
     this.repeatable = config.repeatable;
@@ -61,4 +72,11 @@ export class DynamicDsDatePickerModel extends DynamicDateControlModel {
     }
   }
 
+  get hasSecurityLevel(): boolean {
+    return isNotEmpty(this.securityLevel);
+  }
+
+  get hasSecurityToggle(): boolean {
+    return isNotEmpty(this.securityConfigLevel) && this.securityConfigLevel.length > 1 && this.toggleSecurityVisibility;
+  }
 }

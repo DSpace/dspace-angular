@@ -6,12 +6,12 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
+import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
 import { TranslateModule } from '@ngx-translate/core';
 import { MockComponent } from 'ng-mocks';
 
 import { AdminNotificationsPublicationClaimPageComponent } from '../../admin/admin-notifications/admin-notifications-publication-claim-page/admin-notifications-publication-claim-page.component';
 import { SuggestionSourcesComponent } from '../../notifications/suggestions/sources/suggestion-sources.component';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { NotificationsSuggestionTargetsPageComponent } from './notifications-suggestion-targets-page.component';
 
 describe('NotificationsSuggestionTargetsPageComponent', () => {

@@ -22,17 +22,17 @@ services:
       # __P__ => "." (e.g. dspace__P__dir => dspace.dir)
       # __D__ => "-" (e.g. google__D__metadata => google-metadata)
       # dspace.dir, dspace.server.url and dspace.ui.url
-      dspace__P__dir: /dspace
-      dspace__P__server__P__url: http://127.0.0.1:8080/server
-      dspace__P__ui__P__url: http://127.0.0.1:4000
+      dspace__P__dir: ${dspace__P__dir:-/dspace}
+      dspace__P__server__P__url: ${dspace__P__server__P__url:-http://127.0.0.1:8080/server}
+      dspace__P__ui__P__url: ${dspace__P__ui__P__url:-http://127.0.0.1:4000}
       # db.url: Ensure we are using the 'dspacedb' image for our database
-      db__P__url: 'jdbc:postgresql://dspacedb:5432/dspace'
+      db__P__url: ${db__P__url:-jdbc:postgresql://dspacedb:5432/dspace}
       # solr.server: Ensure we are using the 'dspacesolr' image for Solr
-      solr__P__server: http://dspacesolr:8983/solr
+      solr__P__server: ${solr__P__server:-http://dspacesolr:8983/solr}
       # Tell Statistics to commit all views immediately instead of waiting on Solr's autocommit.
       # This allows us to generate statistics in e2e tests so that statistics pages can be tested thoroughly.
-      solr__D__statistics__P__autoCommit: 'false'
-      LOGGING_CONFIG: /dspace/config/log4j2-container.xml
+      solr__D__statistics__P__autoCommit: ${solr__D__statistics__P__autoCommit:-false}
+      LOGGING_CONFIG: ${LOGGING_CONFIG:-/dspace/config/log4j2-container.xml}
     image: "${DOCKER_REGISTRY:-docker.io}/${DOCKER_OWNER:-dspace}/dspace:${DSPACE_VER:-latest-test}"
     depends_on:
     - dspacedb
@@ -41,8 +41,6 @@ services:
     ports:
     - published: 8080
       target: 8080
-    stdin_open: true
-    tty: true
     volumes:
     - assetstore:/dspace/assetstore
     # Ensure that the database is ready BEFORE starting tomcat
@@ -60,21 +58,21 @@ services:
   # NOTE: This is customized to use our loadsql image, so that we are using a database with existing test data
   dspacedb:
     container_name: dspacedb
-    image: "${DOCKER_REGISTRY:-docker.io}/${DOCKER_OWNER:-dspace}/dspace-postgres-pgcrypto:${DSPACE_VER:-latest}-loadsql"
+    image: "${DOCKER_REGISTRY:-docker.io}/${DOCKER_OWNER:-dspace}/dspace-postgres-loadsql:${DSPACE_VER:-latest}"
     environment:
       # This LOADSQL should be kept in sync with the LOADSQL in
       # https://github.com/DSpace/DSpace/blob/main/dspace/src/main/docker-compose/db.entities.yml
       # This SQL is available from https://github.com/DSpace-Labs/AIP-Files/releases/tag/demo-entities-data
       LOADSQL: https://github.com/DSpace-Labs/AIP-Files/releases/download/demo-entities-data/dspace7-entities-data.sql
       PGDATA: /pgdata
+      POSTGRES_DB: dspace
+      POSTGRES_USER: dspace
       POSTGRES_PASSWORD: dspace
     networks:
       - dspacenet
     ports:
     - published: 5432
       target: 5432
-    stdin_open: true
-    tty: true
     volumes:
      # Keep Postgres data directory between reboots
     - pgdata:/pgdata
@@ -87,8 +85,6 @@ services:
     ports:
     - published: 8983
       target: 8983
-    stdin_open: true
-    tty: true
     working_dir: /var/solr/data
     volumes:
     # Keep Solr data directory between reboots
@@ -114,6 +110,8 @@ services:
       cp -r /opt/solr/server/solr/configsets/qaevent/* qaevent
       precreate-core suggestion /opt/solr/server/solr/configsets/suggestion
       cp -r /opt/solr/server/solr/configsets/suggestion/* suggestion
+      precreate-core audit /opt/solr/server/solr/configsets/audit
+      cp -r /opt/solr/server/solr/configsets/audit/* audit
       chown -R solr:solr /var/solr
       runuser -u solr -- solr-foreground
 volumes:

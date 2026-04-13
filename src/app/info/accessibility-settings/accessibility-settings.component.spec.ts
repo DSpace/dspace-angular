@@ -4,18 +4,18 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { OrejimeService } from '@dspace/core/cookies/orejime.service';
+import { OrejimeServiceStub } from '@dspace/core/cookies/orejime.service.stub';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { AuthServiceStub } from '@dspace/core/testing/auth-service.stub';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { ContextHelpDirective } from 'src/app/shared/context-help.directive';
 
 import { AccessibilitySettingsService } from '../../accessibility/accessibility-settings.service';
 import { getAccessibilitySettingsServiceStub } from '../../accessibility/accessibility-settings.service.stub';
-import { AuthService } from '../../core/auth/auth.service';
-import { OrejimeService } from '../../shared/cookies/orejime.service';
-import { OrejimeServiceStub } from '../../shared/cookies/orejime.service.stub';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { AuthServiceStub } from '../../shared/testing/auth-service.stub';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { AccessibilitySettingsComponent } from './accessibility-settings.component';
 
 

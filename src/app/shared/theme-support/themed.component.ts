@@ -11,6 +11,13 @@ import {
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
+import { BASE_THEME_NAME } from '@dspace/config/theme.config';
+import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import {
   BehaviorSubject,
   combineLatest,
@@ -26,18 +33,10 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { GenericConstructor } from '../../core/shared/generic-constructor';
-import {
-  hasNoValue,
-  hasValue,
-  isNotEmpty,
-} from '../empty.util';
-import { BASE_THEME_NAME } from './theme.constants';
 import { ThemeService } from './theme.service';
 
 @Component({
   selector: 'ds-themed',
-  standalone: true,
   styleUrls: ['./themed.component.scss'],
   templateUrl: './themed.component.html',
 })

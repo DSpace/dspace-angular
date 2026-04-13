@@ -1,4 +1,19 @@
 import { Injectable } from '@angular/core';
+import { SubmissionFormsModel } from '@dspace/core/config/models/config-submission-forms.model';
+import { JsonPatchOperationPathCombiner } from '@dspace/core/json-patch/builder/json-patch-operation-path-combiner';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { SubmissionSectionError } from '@dspace/core/submission/models/submission-section-error.model';
+import { SubmissionSectionObject } from '@dspace/core/submission/models/submission-section-object.model';
+import { WorkspaceitemSectionDataType } from '@dspace/core/submission/models/workspaceitem-sections.model';
+import { SectionsType } from '@dspace/core/submission/sections-type';
+import { normalizeSectionData } from '@dspace/core/submission/submission-response-parsing.service';
+import { SubmissionScopeType } from '@dspace/core/submission/submission-scope-type';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+  isNotUndefined,
+} from '@dspace/shared/utils/empty.util';
 import { parseReviver } from '@ng-dynamic-forms/core';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
@@ -21,22 +36,9 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { SubmissionFormsModel } from '../../core/config/models/config-submission-forms.model';
-import { JsonPatchOperationPathCombiner } from '../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { WorkspaceitemSectionDataType } from '../../core/submission/models/workspaceitem-sections.model';
-import { normalizeSectionData } from '../../core/submission/submission-response-parsing.service';
-import { SubmissionScopeType } from '../../core/submission/submission-scope-type';
-import {
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-  isNotUndefined,
-} from '../../shared/empty.util';
 import { FormClearErrorsAction } from '../../shared/form/form.actions';
 import { FormError } from '../../shared/form/form.reducer';
 import { FormService } from '../../shared/form/form.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { SectionScope } from '../objects/section-visibility.model';
 import {
   DisableSectionAction,
   EnableSectionAction,
@@ -47,8 +49,6 @@ import {
   UpdateSectionDataAction,
 } from '../objects/submission-objects.actions';
 import { SubmissionObjectEntry } from '../objects/submission-objects.reducer';
-import { SubmissionSectionError } from '../objects/submission-section-error.model';
-import { SubmissionSectionObject } from '../objects/submission-section-object.model';
 import {
   submissionObjectFromIdSelector,
   submissionSectionDataFromIdSelector,
@@ -59,7 +59,7 @@ import {
 import { SubmissionState } from '../submission.reducers';
 import { SubmissionService } from '../submission.service';
 import parseSectionErrorPaths, { SectionErrorPath } from '../utils/parseSectionErrorPaths';
-import { SectionsType } from './sections-type';
+import { SubmissionVisibility } from '../utils/visibility.util';
 
 /**
  * A service that provides methods used in submission process.
@@ -128,7 +128,6 @@ export class SectionsService {
       // Iterate over the previous error list
       prevErrors.forEach((error: SubmissionSectionError) => {
         const errorPaths: SectionErrorPath[] = parseSectionErrorPaths(error.path);
-
         errorPaths.forEach((path: SectionErrorPath) => {
           if (path.fieldId) {
             if (!dispatchedErrors.includes(path.fieldId)) {
@@ -333,6 +332,27 @@ export class SectionsService {
   }
 
   /**
+   * Check if a given section is an hidden section
+   *
+   * @param submissionId
+   *    The submission id
+   * @param sectionId
+   *    The section id
+   * @param submissionScope
+   *    The submission scope
+   * @return Observable<boolean>
+   *    Emits true whenever a given section should be read only
+   */
+  public isSectionHidden(submissionId: string, sectionId: string, submissionScope: SubmissionScopeType): Observable<boolean> {
+    return this.store.select(submissionSectionFromIdSelector(submissionId, sectionId)).pipe(
+      filter((sectionObj) => hasValue(sectionObj)),
+      map((sectionObj: SubmissionSectionObject) => {
+        return SubmissionVisibility.isHidden(sectionObj.visibility, submissionScope);
+      }),
+      distinctUntilChanged());
+  }
+
+  /**
    * Check if a given section is a read only section
    *
    * @param submissionId
@@ -348,14 +368,33 @@ export class SectionsService {
     return this.store.select(submissionSectionFromIdSelector(submissionId, sectionId)).pipe(
       filter((sectionObj) => hasValue(sectionObj)),
       map((sectionObj: SubmissionSectionObject) => {
-        if (isEmpty(submissionScope) || isEmpty(sectionObj.visibility) || isEmpty(sectionObj.scope)) {
-          return false;
-        }
-        const convertedSubmissionScope: SectionScope = submissionScope.valueOf() === SubmissionScopeType.WorkspaceItem.valueOf() ?
-          SectionScope.Submission : SectionScope.Workflow;
-        const visibility = convertedSubmissionScope.valueOf() === sectionObj.scope.valueOf() ?
-          sectionObj.visibility.main : sectionObj.visibility.other;
-        return visibility ===  'READONLY';
+        return SubmissionVisibility.isReadOnly(sectionObj.visibility, submissionScope);
+      }),
+      distinctUntilChanged());
+  }
+
+  /**
+   * Check if a given section type is a read only section
+   *
+   * @param submissionId
+   *    The submission id
+   * @param sectionType
+   *    The section type
+   * @param submissionScope
+   *    The submission scope
+   * @return Observable<boolean>
+   *    Emits true whenever a given section should be read only
+   */
+  public isSectionReadOnlyByType(submissionId: string, sectionType: SectionsType, submissionScope: SubmissionScopeType): Observable<boolean> {
+    return this.store.select(submissionObjectFromIdSelector(submissionId)).pipe(
+      filter((submissionState: SubmissionObjectEntry) => isNotUndefined(submissionState)),
+      map((submissionState: SubmissionObjectEntry) => {
+        const key = findKey(submissionState.sections, { sectionType: sectionType });
+
+        return submissionState.sections[key];
+      }),
+      map((sectionObj: SubmissionSectionObject) => {
+        return sectionObj ? SubmissionVisibility.isReadOnly(sectionObj.visibility, submissionScope) : true;
       }),
       distinctUntilChanged());
   }

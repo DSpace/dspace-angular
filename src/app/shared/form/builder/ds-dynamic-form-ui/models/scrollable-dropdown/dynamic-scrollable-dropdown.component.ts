@@ -12,16 +12,38 @@ import {
   ViewChild,
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
+import { CacheableObject } from '@dspace/core/cache/cacheable-object.model';
+import { FindAllDataImpl } from '@dspace/core/data/base/find-all-data';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '@dspace/core/data/paginated-list.model';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import {
+  APP_DATA_SERVICES_MAP,
+  LazyDataServicesMap,
+} from '@dspace/core/data-services-map-type';
+import { lazyDataService } from '@dspace/core/lazy-data-service';
+import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
+import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
+import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
+import {
+  hasValue,
+  isEmpty,
+} from '@dspace/shared/utils/empty.util';
 import {
   NgbDropdown,
   NgbDropdownModule,
+  NgbModal,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
+  DynamicFormControlCustomEvent,
   DynamicFormLayoutService,
   DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
 import {
   Observable,
   of,
@@ -33,28 +55,9 @@ import {
   take,
   tap,
 } from 'rxjs/operators';
-import {
-  APP_DATA_SERVICES_MAP,
-  LazyDataServicesMap,
-} from 'src/config/app-config.interface';
+import { FormBuilderService } from 'src/app/shared/form/builder/form-builder.service';
+import { SubmissionService } from 'src/app/submission/submission.service';
 
-import { CacheableObject } from '../../../../../../core/cache/cacheable-object.model';
-import { FindAllDataImpl } from '../../../../../../core/data/base/find-all-data';
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '../../../../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../../../../core/data/remote-data';
-import { lazyDataService } from '../../../../../../core/lazy-data-service';
-import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
-import { PageInfo } from '../../../../../../core/shared/page-info.model';
-import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
-import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
-import {
-  hasValue,
-  isEmpty,
-} from '../../../../../empty.util';
-import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
 import { DynamicScrollableDropdownModel } from './dynamic-scrollable-dropdown.model';
 
@@ -67,12 +70,10 @@ import { DynamicScrollableDropdownModel } from './dynamic-scrollable-dropdown.mo
   templateUrl: './dynamic-scrollable-dropdown.component.html',
   imports: [
     AsyncPipe,
-    BtnDisabledDirective,
-    InfiniteScrollModule,
+    InfiniteScrollDirective,
     NgbDropdownModule,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyComponent implements OnInit {
   @ViewChild('dropdownMenu', { read: ElementRef }) dropdownMenu: ElementRef;
@@ -84,6 +85,7 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
   @Output() blur: EventEmitter<any> = new EventEmitter<any>();
   @Output() change: EventEmitter<any> = new EventEmitter<any>();
   @Output() focus: EventEmitter<any> = new EventEmitter<any>();
+  @Output() customEvent: EventEmitter<DynamicFormControlCustomEvent> = new EventEmitter();
 
   public currentValue: Observable<string>;
   public loading = false;
@@ -113,10 +115,13 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
     protected cdr: ChangeDetectorRef,
     protected layoutService: DynamicFormLayoutService,
     protected validationService: DynamicFormValidationService,
+    protected formBuilderService: FormBuilderService,
+    protected modalService: NgbModal,
+    protected submissionService: SubmissionService,
     protected parentInjector: Injector,
     @Inject(APP_DATA_SERVICES_MAP) private dataServiceMap: LazyDataServicesMap,
   ) {
-    super(vocabularyService, layoutService, validationService);
+    super(vocabularyService, layoutService, validationService, formBuilderService, modalService, submissionService);
   }
 
   /**
@@ -151,7 +156,7 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
     }
   }
 
-  loadOptions(fromInit: boolean) {
+  loadOptions(fromInit: boolean, scrollAfterLoad: boolean = false) {
     this.loading = true;
     this.getDataFromService().pipe(
       getFirstSucceededRemoteDataPayload(),
@@ -169,7 +174,11 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
         list.pageInfo.totalElements,
         list.pageInfo.totalPages,
       );
-      this.selectedIndex = 0;
+
+      if (!fromInit) {
+        this.setSelectedIndexToCurrentValue(scrollAfterLoad);
+      }
+
       this.cdr.detectChanges();
     });
   }
@@ -187,15 +196,49 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
     if (!this.model.readOnly) {
       this.group.markAsUntouched();
       this.inputText = null;
-      this.updatePageInfo(this.model.maxOptions, 1);
-      this.loadOptions(false);
+
+      const pageSize = Math.min(this.pageInfo.totalElements, 200);
+      this.updatePageInfo(pageSize, 1);
+
+      this.loadOptions(false, true);
+      this.setSelectedIndexToCurrentValue(true);
       sdRef.open();
     }
   }
 
+  /**
+   * Set the selectedIndex to match the current value when dropdown opens
+   * @param shouldScroll Whether to scroll to the selected item after setting the index
+   */
+  private setSelectedIndexToCurrentValue(shouldScroll: boolean = false): void {
+    if (this.currentValue) {
+      this.currentValue.pipe(take(1)).subscribe(currentVal => {
+        if (currentVal && this.optionsList.length > 0) {
+          const foundIndex = this.optionsList.findIndex(entry =>
+            this.inputFormatter(entry) === currentVal,
+          );
+          this.selectedIndex = foundIndex >= 0 ? foundIndex + 1 : 0;
+        } else {
+          this.selectedIndex = 0;
+        }
+
+        if (shouldScroll && this.selectedIndex > 0) {
+          // Ensure DOM is updated before scrolling
+          this.cdr.detectChanges();
+          // Use setTimeout to ensure the active class is applied and rendered
+          setTimeout(() => this.scrollToSelected(), 0);
+        }
+      });
+    } else {
+      this.selectedIndex = 0;
+    }
+  }
+
   navigateDropdown(event: KeyboardEvent) {
+    const totalItems = this.optionsList.length + 1;
+
     if (event.key === 'ArrowDown') {
-      this.selectedIndex = Math.min(this.selectedIndex + 1, this.optionsList.length - 1);
+      this.selectedIndex = Math.min(this.selectedIndex + 1, totalItems - 1);
     } else if (event.key === 'ArrowUp') {
       this.selectedIndex = Math.max(this.selectedIndex - 1, 0);
     }
@@ -203,10 +246,10 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
   }
 
   scrollToSelected() {
-    const dropdownItems = this.dropdownMenu.nativeElement.querySelectorAll('.dropdown-item');
+    const dropdownItems = this.dropdownMenu.nativeElement.querySelectorAll('.dropdown-item:not(.disabled)');
     const selectedItem = dropdownItems[this.selectedIndex];
     if (selectedItem) {
-      selectedItem.scrollIntoView({ block: 'nearest' });
+      selectedItem.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
     }
   }
 
@@ -222,7 +265,11 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
       event.preventDefault();
       event.stopPropagation();
       if (sdRef.isOpen()) {
-        this.onSelect(this.optionsList[this.selectedIndex]);
+        if (this.selectedIndex === 0) {
+          this.onSelect(undefined);
+        } else {
+          this.onSelect(this.optionsList[this.selectedIndex - 1]);
+        }
         sdRef.close();
       } else {
         sdRef.open();

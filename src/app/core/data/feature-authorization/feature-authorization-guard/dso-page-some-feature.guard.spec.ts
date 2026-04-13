@@ -4,14 +4,14 @@ import {
   Router,
   UrlTree,
 } from '@angular/router';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import {
   Observable,
   of,
 } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
-import { AuthService } from '../../../auth/auth.service';
-import { DSpaceObject } from '../../../shared/dspace-object.model';
 import { RemoteData } from '../../remote-data';
 import { AuthorizationDataService } from '../authorization-data.service';
 import { FeatureID } from '../feature-id';

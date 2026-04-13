@@ -1,8 +1,8 @@
-import { getMockTranslateService } from 'src/app/shared/mocks/translate.service.mock';
+import { FormFieldModel } from '@dspace/core/shared/form/models/form-field.model';
+import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
+import { getMockTranslateService } from '@dspace/core/testing/translate.service.mock';
 
 import { DsDynamicTextAreaModel } from '../ds-dynamic-form-ui/models/ds-dynamic-textarea.model';
-import { FormFieldModel } from '../models/form-field.model';
-import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { ParserOptions } from './parser-options';
 import { TextareaFieldParser } from './textarea-field-parser';
 
@@ -17,6 +17,7 @@ describe('TextareaFieldParser test suite', () => {
     submissionScope: null,
     collectionUUID: null,
     typeField: 'dc_type',
+    isInnerForm: false,
   };
 
   beforeEach(() => {
@@ -39,13 +40,13 @@ describe('TextareaFieldParser test suite', () => {
   });
 
   it('should init parser properly', () => {
-    const parser = new TextareaFieldParser(submissionId, field, initFormValues, parserOptions, translateService);
+    const parser = new TextareaFieldParser(submissionId, field, initFormValues, parserOptions, null, translateService);
 
     expect(parser instanceof TextareaFieldParser).toBe(true);
   });
 
   it('should return a DsDynamicTextAreaModel object when repeatable option is false', () => {
-    const parser = new TextareaFieldParser(submissionId, field, initFormValues, parserOptions, translateService);
+    const parser = new TextareaFieldParser(submissionId, field, initFormValues, parserOptions, null, translateService);
 
     const fieldModel = parser.parse();
 
@@ -60,7 +61,7 @@ describe('TextareaFieldParser test suite', () => {
     };
     const expectedValue = 'test description';
 
-    const parser = new TextareaFieldParser(submissionId, field, initFormValues, parserOptions, translateService);
+    const parser = new TextareaFieldParser(submissionId, field, initFormValues, parserOptions, null, translateService);
 
     const fieldModel = parser.parse();
 

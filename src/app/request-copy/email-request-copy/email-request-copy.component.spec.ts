@@ -6,12 +6,12 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { RequestCopyEmail } from '@dspace/core/shared/request-copy-email.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { VarDirective } from '../../shared/utils/var.directive';
 import { EmailRequestCopyComponent } from './email-request-copy.component';
-import { RequestCopyEmail } from './request-copy-email.model';
 
 describe('EmailRequestCopyComponent', () => {
   let component: EmailRequestCopyComponent;

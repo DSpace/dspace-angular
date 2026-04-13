@@ -9,6 +9,14 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { SubmissionJsonPatchOperationsService } from '@dspace/core/submission/submission-json-patch-operations.service';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import { SectionsServiceStub } from '@dspace/core/testing/sections-service.stub';
+import { SubmissionJsonPatchOperationsServiceStub } from '@dspace/core/testing/submission-json-patch-operations-service.stub';
+import { SubmissionServiceStub } from '@dspace/core/testing/submission-service.stub';
+import { getMockTranslateService } from '@dspace/core/testing/translate.service.mock';
+import { createTestComponent } from '@dspace/core/testing/utils.test';
 import { Store } from '@ngrx/store';
 import {
   TranslateModule,
@@ -20,26 +28,17 @@ import {
 } from 'jasmine-marbles';
 import { of } from 'rxjs';
 
-import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
+import { UploaderOptions } from '../../../shared/upload/uploader/uploader-options.model';
+import { SectionsService } from '../../sections/sections.service';
+import { SubmissionService } from '../../submission.service';
 import {
   mockSectionsData,
   mockSubmissionCollectionId,
   mockSubmissionId,
   mockSubmissionObject,
-  mockUploadResponse1ParsedErrors,
   mockUploadResponse2Errors,
   mockUploadResponse2ParsedErrors,
-} from '../../../shared/mocks/submission.mock';
-import { getMockTranslateService } from '../../../shared/mocks/translate.service.mock';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
-import { SubmissionJsonPatchOperationsServiceStub } from '../../../shared/testing/submission-json-patch-operations-service.stub';
-import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
-import { createTestComponent } from '../../../shared/testing/utils.test';
-import { UploaderOptions } from '../../../shared/upload/uploader/uploader-options.model';
-import { SectionsService } from '../../sections/sections.service';
-import { SubmissionService } from '../../submission.service';
+} from '../../utils/submission.mock';
 import { SubmissionUploadFilesComponent } from './submission-upload-files.component';
 
 describe('SubmissionUploadFilesComponent Component', () => {
@@ -164,16 +163,19 @@ describe('SubmissionUploadFilesComponent Component', () => {
       });
 
       it('should show a success notification and call updateSectionData if successful', () => {
-        const expectedErrors: any = mockUploadResponse1ParsedErrors;
+        const expectedErrors: any = [];
         fixture.detectChanges();
+        const data = {
+          upload: {
+            files: [{ url: 'testUrl' }],
+          } };
+        comp.onCompleteItem(Object.assign({}, uploadRestResponse, { sections: data }));
 
-        comp.onCompleteItem(Object.assign({}, uploadRestResponse, { sections: mockSectionsData }));
-
-        Object.keys(mockSectionsData).forEach((sectionId) => {
+        Object.keys(data).forEach((sectionId) => {
           expect(sectionsServiceStub.updateSectionData).toHaveBeenCalledWith(
             submissionId,
             sectionId,
-            mockSectionsData[sectionId],
+            data[sectionId],
             expectedErrors[sectionId],
             expectedErrors[sectionId],
           );
@@ -214,7 +216,6 @@ describe('SubmissionUploadFilesComponent Component', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
-  standalone: true,
 })
 class TestComponent {
 

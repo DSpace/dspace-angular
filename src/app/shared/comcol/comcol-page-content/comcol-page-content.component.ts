@@ -18,7 +18,6 @@ import { TranslateModule } from '@ngx-translate/core';
   imports: [
     TranslateModule,
   ],
-  standalone: true,
 })
 export class ComcolPageContentComponent {
 

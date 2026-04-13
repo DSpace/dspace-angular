@@ -5,17 +5,17 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  HealthInfoComponentOne,
+  HealthInfoComponentTwo,
+} from '@dspace/core/testing/health-endpoint.mocks';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 
-import {
-  HealthInfoComponentOne,
-  HealthInfoComponentTwo,
-} from '../../../shared/mocks/health-endpoint.mocks';
-import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 import { ObjNgFor } from '../../../shared/utils/object-ngfor.pipe';
 import { HealthInfoComponentComponent } from './health-info-component.component';
 

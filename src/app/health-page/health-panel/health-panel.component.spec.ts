@@ -6,17 +6,21 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HealthResponseObj } from '@dspace/core/testing/health-endpoint.mocks';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import {
   NgbAccordionModule,
-  NgbNavModule,
+  NgbNav,
+  NgbNavContent,
+  NgbNavItem,
+  NgbNavLink,
+  NgbNavOutlet,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { HealthResponseObj } from '../../shared/mocks/health-endpoint.mocks';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { ObjNgFor } from '../../shared/utils/object-ngfor.pipe';
 import { HealthComponentComponent } from './health-component/health-component.component';
 import { HealthPanelComponent } from './health-panel.component';
@@ -29,7 +33,11 @@ describe('HealthPanelComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        NgbNavModule,
+        NgbNav,
+        NgbNavContent,
+        NgbNavItem,
+        NgbNavLink,
+        NgbNavOutlet,
         NgbAccordionModule,
         CommonModule,
         BrowserAnimationsModule,

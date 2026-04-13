@@ -1,4 +1,4 @@
-const fs = require('fs');
+import fs from 'node:fs';
 
 // These two global variables are used to store information about the REST API used
 // by these e2e tests. They are filled out prior to running any tests in the before()
@@ -13,7 +13,7 @@ module.exports = (on, config) => {
     // Define "log" and "table" tasks, used for logging accessibility errors during CI
     // Borrowed from https://github.com/component-driven/cypress-axe#in-cypress-plugins-file
     log(message: string) {
-      console.log(message);
+      console.info(message);
       return null;
     },
     table(message: string) {

@@ -2,24 +2,27 @@ import {
   Inject,
   InjectionToken,
 } from '@angular/core';
-import {
-  DynamicFormControlLayout,
-  DynamicFormControlRelation,
-  MATCH_VISIBLE,
-  OR_OPERATOR,
-} from '@ng-dynamic-forms/core';
-import { TranslateService } from '@ngx-translate/core';
-import uniqueId from 'lodash/uniqueId';
-
-import { SubmissionScopeType } from '../../../../core/submission/submission-scope-type';
-import { VocabularyOptions } from '../../../../core/submission/vocabularies/models/vocabulary-options.model';
-import { isNgbDateStruct } from '../../../date.util';
+import { FormFieldModel } from '@dspace/core/shared/form/models/form-field.model';
+import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
+import { MetadataValue } from '@dspace/core/shared/metadata.models';
+import { Metadata } from '@dspace/core/shared/metadata.utils';
+import { RelationshipOptions } from '@dspace/core/shared/relationship-options.model';
+import { MetadataSecurityConfiguration } from '@dspace/core/submission/models/metadata-security-configuration';
+import { SubmissionVisibilityType } from '@dspace/core/submission/models/section-visibility.model';
+import { VocabularyOptions } from '@dspace/core/submission/vocabularies/models/vocabulary-options.model';
+import { isNgbDateStruct } from '@dspace/shared/utils/date.util';
 import {
   hasValue,
+  isEmpty,
   isNotEmpty,
   isNotNull,
   isNotUndefined,
-} from '../../../empty.util';
+} from '@dspace/shared/utils/empty.util';
+import { DynamicFormControlLayout } from '@ng-dynamic-forms/core';
+import { TranslateService } from '@ngx-translate/core';
+import uniqueId from 'lodash/uniqueId';
+import { SubmissionVisibility } from 'src/app/submission/utils/visibility.util';
+
 import {
   DsDynamicInputModel,
   DsDynamicInputModelConfig,
@@ -28,11 +31,7 @@ import {
   DynamicRowArrayModel,
   DynamicRowArrayModelConfig,
 } from '../ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
-import { FormFieldModel } from '../models/form-field.model';
-import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
-import { RelationshipOptions } from '../models/relationship-options.model';
-import { SectionVisibility } from './../../../../submission/objects/section-visibility.model';
-import { VisibilityType } from './../../../../submission/sections/visibility-type';
+import { getTypeBindRelations } from '../ds-dynamic-form-ui/type-bind.utils';
 import { setLayout } from './parser.utils';
 import { ParserOptions } from './parser-options';
 import { ParserType } from './parser-type';
@@ -47,6 +46,7 @@ export const PARSER_OPTIONS: InjectionToken<ParserOptions> = new InjectionToken<
  * The regex itself is encapsulated inside a `RegExp` object, that will validate the pattern syntax.
  */
 export const REGEX_FIELD_VALIDATOR = new RegExp('(\\/?)(.+)\\1([gimsuy]*)', 'i');
+export const SECURITY_CONFIG: InjectionToken<MetadataSecurityConfiguration> = new InjectionToken<MetadataSecurityConfiguration>('securityConfig');
 
 export abstract class FieldParser {
 
@@ -62,6 +62,7 @@ export abstract class FieldParser {
     @Inject(CONFIG_DATA) protected configData: FormFieldModel,
     @Inject(INIT_FORM_VALUES) protected initFormValues: any,
     @Inject(PARSER_OPTIONS) protected parserOptions: ParserOptions,
+    @Inject(SECURITY_CONFIG) protected securityConfig: MetadataSecurityConfiguration = null,
     protected translate: TranslateService,
   ) {
   }
@@ -72,6 +73,8 @@ export abstract class FieldParser {
     if (((this.getInitValueCount() > 1 && !this.configData.repeatable) || (this.configData.repeatable))
       && (this.configData.input.type !== ParserType.List.valueOf())
       && (this.configData.input.type !== ParserType.Tag.valueOf())
+      && (this.configData.input.type !== ParserType.RelationGroup.valueOf())
+      && (this.configData.input.type !== ParserType.InlineGroup.valueOf())
     ) {
       let arrayCounter = 0;
       let fieldArrayCounter = 0;
@@ -98,7 +101,7 @@ export abstract class FieldParser {
         metadataFields: this.getAllFieldIds(),
         hasSelectableMetadata: isNotEmpty(this.configData.selectableMetadata),
         isDraggable,
-        typeBindRelations: isNotEmpty(this.configData.typeBind) ? this.getTypeBindRelations(this.configData.typeBind,
+        typeBindRelations: isNotEmpty(this.configData.typeBind) ? getTypeBindRelations(this.configData.typeBind,
           this.parserOptions.typeField) : null,
         groupFactory: () => {
           let model;
@@ -116,9 +119,12 @@ export abstract class FieldParser {
               }
             }
             model = this.modelFactory(fieldValue, false);
+            if (!this.configData.repeatable) {
+              this.markAsNotRepeatable(model);
+            }
           }
           setLayout(model, 'element', 'host', 'col');
-          if (model.hasLanguages || isNotEmpty(model.relationship)) {
+          if (model.hasLanguages || isNotEmpty(model.relationship) || model.hasSecurityToggle) {
             setLayout(model, 'grid', 'control', 'col');
           }
           return [model];
@@ -136,17 +142,19 @@ export abstract class FieldParser {
     } else {
       const model = this.modelFactory(this.getInitFieldValue());
       model.submissionId = this.submissionId;
-      if (model.hasLanguages || isNotEmpty(model.relationship)) {
+      if (model.hasLanguages || isNotEmpty(model.relationship) || model.hasSecurityToggle) {
         setLayout(model, 'grid', 'control', 'col');
       }
       return model;
     }
   }
 
-  public setVocabularyOptions(controlModel) {
+  public setVocabularyOptions(controlModel, scope) {
     if (isNotEmpty(this.configData.selectableMetadata) && isNotEmpty(this.configData.selectableMetadata[0].controlledVocabulary)) {
       controlModel.vocabularyOptions = new VocabularyOptions(
         this.configData.selectableMetadata[0].controlledVocabulary,
+        this.configData.selectableMetadata[0].metadata,
+        scope,
         this.configData.selectableMetadata[0].closed,
       );
     }
@@ -168,6 +176,12 @@ export abstract class FieldParser {
         modelConfig.value = fieldValue;
       } else if (typeof fieldValue === 'object') {
         modelConfig.metadataValue = fieldValue;
+
+        // set security level if exists
+        if (isNotUndefined(fieldValue.securityLevel)) {
+          modelConfig.securityLevel = fieldValue.securityLevel;
+        }
+
         modelConfig.language = fieldValue.language;
         modelConfig.place = fieldValue.place;
         if (forceValueAsObj) {
@@ -187,8 +201,22 @@ export abstract class FieldParser {
         }
       }
     }
+    this.initSecurityValue(modelConfig);
 
     return modelConfig;
+  }
+
+  public initSecurityValue(modelConfig: any, forcedValue?: MetadataValue|string) {
+    // preselect the security level if is not yet selected
+    // or if the current security level is not available in the current configuration
+    if ((isEmpty(modelConfig.securityLevel) && isNotEmpty(modelConfig.securityConfigLevel)) ||
+      (isNotEmpty(modelConfig.securityLevel) && isNotEmpty(modelConfig.securityConfigLevel) && !modelConfig.securityConfigLevel.includes(modelConfig.securityLevel) )) {
+      // take the first element of the securityConfigLevel array when the model config has already a value
+      // otherwise take the most restricted one
+      modelConfig.securityLevel = (Metadata.hasValue(modelConfig.value) || Metadata.hasValue(forcedValue)) ?
+        modelConfig.securityConfigLevel[0] :
+        modelConfig.securityConfigLevel[modelConfig.securityConfigLevel.length - 1];
+    }
   }
 
   protected getInitValueCount(index = 0, fieldId?): number {
@@ -295,8 +323,10 @@ export abstract class FieldParser {
     controlModel.id = (this.fieldId).replace(/\./g, '_');
 
     // Set read only option
-    controlModel.readOnly = this.parserOptions.readOnly || this.isFieldReadOnly(this.configData.visibility, this.configData.scope, this.parserOptions.submissionScope);
+    controlModel.readOnly = this.parserOptions.readOnly
+      || this.isFieldReadOnly(this.configData.visibility, this.parserOptions.submissionScope);
     controlModel.disabled = controlModel.readOnly;
+    controlModel.isModelOfInnerForm = this.parserOptions.isInnerForm;
     if (hasValue(this.configData.selectableRelationship)) {
       controlModel.relationship = Object.assign(new RelationshipOptions(), this.configData.selectableRelationship);
     }
@@ -310,7 +340,8 @@ export abstract class FieldParser {
     if (hint) {
       controlModel.hint = this.configData.hints || '&nbsp;';
     }
-    controlModel.placeholder = this.configData.label;
+
+    controlModel.additional = { ...controlModel.additional, ariaLabel: this.configData.label };
 
     if (this.configData.mandatory && setErrors) {
       this.markAsRequired(controlModel);
@@ -327,9 +358,10 @@ export abstract class FieldParser {
 
     // If typeBind is configured
     if (isNotEmpty(this.configData.typeBind)) {
-      (controlModel as DsDynamicInputModel).typeBindRelations = this.getTypeBindRelations(this.configData.typeBind,
+      (controlModel as DsDynamicInputModel).typeBindRelations = getTypeBindRelations(this.configData.typeBind,
         this.parserOptions.typeField);
     }
+    controlModel.securityConfigLevel = this.mapBetweenMetadataRowAndSecurityMetadataLevels(this.getFieldId());
 
     return controlModel;
   }
@@ -341,51 +373,8 @@ export abstract class FieldParser {
    * @param visibility
    * @param submissionScope
    */
-  private isFieldReadOnly(visibility: SectionVisibility, fieldScope: string, submissionScope: string) {
-    return isNotEmpty(submissionScope)
-      && isNotEmpty(fieldScope)
-      && isNotEmpty(visibility)
-      && ((
-        submissionScope === SubmissionScopeType.WorkspaceItem.valueOf()
-          && visibility.main === VisibilityType.READONLY
-      )
-        ||
-          (visibility.other === VisibilityType.READONLY
-          && submissionScope === SubmissionScopeType.WorkflowItem.valueOf()
-          )
-      );
-  }
-
-  /**
-   * Get the type bind values from the REST data for a specific field
-   * The return value is any[] in the method signature but in reality it's
-   * returning the 'relation' that'll be used for a dynamic matcher when filtering
-   * fields in type bind, made up of a 'match' outcome (make this field visible), an 'operator'
-   * (OR) and a 'when' condition (the bindValues array).
-   * @param configuredTypeBindValues  array of types from the submission definition (CONFIG_DATA)
-   * @param typeField
-   * @private
-   * @return DynamicFormControlRelation[] array with one relation in it, for type bind matching to show a field
-   */
-  private getTypeBindRelations(configuredTypeBindValues: string[], typeField: string): DynamicFormControlRelation[] {
-    const bindValues = [];
-    configuredTypeBindValues.forEach((value) => {
-      bindValues.push({
-        id: typeField,
-        value: value,
-      });
-    });
-    // match: MATCH_VISIBLE means that if true, the field / component will be visible
-    // operator: OR means that all the values in the 'when' condition will be compared with OR, not AND
-    // when: the list of values to match against, in this case the list of strings from <type-bind>...</type-bind>
-    // Example: Field [x] will be VISIBLE if item type = book OR item type = book_part
-    //
-    // The opposing match value will be the dc.type for the workspace item
-    return [{
-      match: MATCH_VISIBLE,
-      operator: OR_OPERATOR,
-      when: bindValues,
-    }];
+  private isFieldReadOnly(visibility: SubmissionVisibilityType, submissionScope) {
+    return isNotEmpty(submissionScope) && SubmissionVisibility.isReadOnly(visibility, submissionScope);
   }
 
   protected hasRegex() {
@@ -426,6 +415,16 @@ export abstract class FieldParser {
       { required: this.configData.mandatoryMessage });
   }
 
+  protected markAsNotRepeatable(controlModel) {
+    controlModel.isModelOfNotRepeatableGroup = true;
+    controlModel.repeatable = false;
+
+    controlModel.errorMessages = Object.assign(
+      {},
+      controlModel.errorMessages,
+      { notRepeatable: 'error.validation.notRepeatable' });
+  }
+
   protected setLabel(controlModel, label = true, labelEmpty = false) {
     if (label) {
       controlModel.label = (labelEmpty) ? '&nbsp;' : this.configData.label;
@@ -444,5 +443,23 @@ export abstract class FieldParser {
       });
     }
   }
-
+  mapBetweenMetadataRowAndSecurityMetadataLevels( metadata: string): any {
+    // look to find security for metadata
+    if (this.securityConfig && metadata) {
+      if (this.securityConfig.metadataCustomSecurity) {
+        const metadataConfig = this.securityConfig.metadataCustomSecurity[metadata];
+        if (metadataConfig) {
+          return metadataConfig;
+        } else {
+          // if not found look at fallback level config
+          if (this.securityConfig.metadataSecurityDefault !== undefined) {
+            return this.securityConfig.metadataSecurityDefault;
+          } else {
+            // else undefined in order to manage differently from null value
+            return undefined;
+          }
+        }
+      }
+    }
+  }
 }
