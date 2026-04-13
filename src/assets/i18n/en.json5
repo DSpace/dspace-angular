@@ -1983,6 +1983,16 @@
 
   "error.item": "Error fetching item",
 
+  "error.custom-url-conflict.title": "Duplicate custom URL detected",
+
+  "error.custom-url-conflict.description": "The custom URL \"{{customUrl}}\" is assigned to more than one item. This causes a conflict and the item cannot be displayed.",
+
+  "error.custom-url-conflict.admin-action": "Please contact your repository administrator. The following affected items need their dspace.customurl metadata fixed so each value is unique:",
+
+  "error.custom-url-conflict.edit-link": "Edit \"{{name}}\" ({{uuid}})",
+
+  "error.custom-url-conflict.no-items-found": "No conflicting items could be retrieved. Please contact your administrator.",
+
   "error.items": "Error fetching items",
 
   "error.objects": "Error fetching objects",

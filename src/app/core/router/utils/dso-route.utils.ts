@@ -29,11 +29,11 @@ export function getCommunityPageRoute(communityId: string) {
  * Depending on the item's entity type, the route will either start with /items or /entities
  * @param item  The item to retrieve the route for
  */
-export function getItemPageRoute(item: Item) {
+export function getItemPageRoute(item: Item, ignoreCustomUrl = false) {
   const type = item.firstMetadataValue('dspace.entity.type');
   let url = item.uuid;
 
-  if (isNotEmpty(item.metadata) && item.hasMetadata('dspace.customurl')) {
+  if (isNotEmpty(item.metadata) && item.hasMetadata('dspace.customurl') && !ignoreCustomUrl) {
     url = item.firstMetadataValue('dspace.customurl');
   }
 
