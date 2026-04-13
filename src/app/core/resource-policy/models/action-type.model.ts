@@ -15,7 +15,7 @@ export enum ActionType {
   /**
    * Action of deleting something
    */
-  DELETE = 'DELETE',
+  DELETE = 'OBSOLETE (DELETE)',
 
   /**
    * Action of adding something to a container
