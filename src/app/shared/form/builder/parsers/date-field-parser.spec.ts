@@ -19,6 +19,7 @@ describe('DateFieldParser test suite', () => {
     submissionScope: null,
     collectionUUID: null,
     typeField: 'dc_type',
+    isInnerForm: false,
   };
 
   beforeEach(() => {
@@ -42,13 +43,13 @@ describe('DateFieldParser test suite', () => {
   });
 
   it('should init parser properly', () => {
-    const parser = new DateFieldParser(submissionId, field, initFormValues, parserOptions, translateService);
+    const parser = new DateFieldParser(submissionId, field, initFormValues, parserOptions, null, translateService);
 
     expect(parser instanceof DateFieldParser).toBe(true);
   });
 
   it('should return a DynamicDsDatePickerModel object when repeatable option is false', () => {
-    const parser = new DateFieldParser(submissionId, field, initFormValues, parserOptions, translateService);
+    const parser = new DateFieldParser(submissionId, field, initFormValues, parserOptions, null, translateService);
 
     const fieldModel = parser.parse();
 
@@ -61,10 +62,17 @@ describe('DateFieldParser test suite', () => {
     };
     const expectedValue = '1983-11-18';
 
-    const parser = new DateFieldParser(submissionId, field, initFormValues, parserOptions, translateService);
+    const parser = new DateFieldParser(submissionId, field, initFormValues, parserOptions, null, translateService);
 
     const fieldModel = parser.parse();
 
     expect(fieldModel.value).toEqual(expectedValue);
+  });
+
+  it('should skip setting the placeholder', () => {
+    const parser = new DateFieldParser(submissionId, field, initFormValues, parserOptions, null, translateService);
+    const fieldModel = parser.parse();
+
+    expect(fieldModel.placeholder).toBeNull();
   });
 });

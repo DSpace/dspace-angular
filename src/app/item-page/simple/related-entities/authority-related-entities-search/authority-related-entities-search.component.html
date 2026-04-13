@@ -1,0 +1,41 @@
+@if (configurations.length > 1) {
+  <ul ngbNav #tabs="ngbNav"
+      [destroyOnHide]="true"
+      [activeId]="activeTab$ | async"
+      (navChange)="onTabChange($event)"
+      class="nav-tabs">
+
+    @for (config of configurations; track config) {
+      <li [ngbNavItem]="config">
+        <a ngbNavLink>
+          {{('item.page.relationships.' + config) | translate}}
+        </a>
+
+        <ng-template ngbNavContent>
+          <div class="mt-4">
+            <ds-configuration-search-page
+              class="w-100"
+              [fixedFilterQuery]="searchFilter"
+              [configuration]="config"
+              [searchEnabled]="searchEnabled"
+              [showScopeSelector]="false">
+            </ds-configuration-search-page>
+          </div>
+        </ng-template>
+      </li>
+    }
+  </ul>
+
+  <div [ngbNavOutlet]="tabs"></div>
+}
+
+
+@if (configurations.length === 1) {
+  <ds-configuration-search-page
+    class="w-100"
+    [fixedFilterQuery]="searchFilter"
+    [configuration]="configurations[0]"
+    [searchEnabled]="searchEnabled"
+    [showScopeSelector]="false">
+  </ds-configuration-search-page>
+}

@@ -1,6 +1,7 @@
 import {
   ChangeDetectorRef,
   Component,
+  HostListener,
   OnDestroy,
   OnInit,
 } from '@angular/core';
@@ -15,31 +16,42 @@ import { RemoteData } from '@dspace/core/data/remote-data';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { Collection } from '@dspace/core/shared/collection.model';
 import { Item } from '@dspace/core/shared/item.model';
-import { getAllSucceededRemoteData } from '@dspace/core/shared/operators';
+import {
+  getAllSucceededRemoteData,
+  getFirstCompletedRemoteData,
+} from '@dspace/core/shared/operators';
+import { MetadataSecurityConfigurationService } from '@dspace/core/submission/metadatasecurityconfig-data.service';
+import { MetadataSecurityConfiguration } from '@dspace/core/submission/models/metadata-security-configuration';
 import { SubmissionError } from '@dspace/core/submission/models/submission-error.model';
 import { SubmissionObject } from '@dspace/core/submission/models/submission-object.model';
 import { WorkspaceitemSectionsObject } from '@dspace/core/submission/models/workspaceitem-sections.model';
 import { SubmissionJsonPatchOperationsService } from '@dspace/core/submission/submission-json-patch-operations.service';
+import { createFailedRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import {
   hasValue,
   isEmpty,
+  isNotEmpty,
   isNotEmptyOperator,
   isNotNull,
 } from '@dspace/shared/utils/empty.util';
 import { TranslateService } from '@ngx-translate/core';
 import {
   BehaviorSubject,
+  combineLatest,
+  of,
   Subscription,
 } from 'rxjs';
 import {
   debounceTime,
   filter,
+  mergeMap,
   switchMap,
 } from 'rxjs/operators';
 
 import { ThemedSubmissionFormComponent } from '../form/themed-submission-form.component';
 import { SubmissionService } from '../submission.service';
 import parseSectionErrors from '../utils/parseSectionErrors';
+import { SubmissionEditCanDeactivateService } from './submission-edit-can-deactivate.service';
 
 /**
  * This component allows to edit an existing workspaceitem/workflowitem.
@@ -65,6 +77,12 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
    * @type {booelan}
    */
   public collectionModifiable: boolean | null = null;
+
+  /**
+   * Checks if the collection is a new submission or is and edit of an archived item
+   * @type {booelan}
+   */
+  public isEditMode: boolean | null = null;
 
   /**
    * The entity type of the submission
@@ -118,6 +136,12 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
    * The item for this submission.
    */
   public item: Item;
+  /**
+   * The metadata security configuration for the entity.
+   */
+  public metadataSecurityConfiguration: MetadataSecurityConfiguration;
+
+  private canDeactivate = false;
 
   /**
    * Initialize instance variables
@@ -130,15 +154,27 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
    * @param {SubmissionService} submissionService
    * @param {TranslateService} translate
    * @param {SubmissionJsonPatchOperationsService} submissionJsonPatchOperationsService
+   * @param metadataSecurityConfigDataService
+   * @param canDeactivateService
    */
-  constructor(private changeDetectorRef: ChangeDetectorRef,
-              private notificationsService: NotificationsService,
-              private route: ActivatedRoute,
-              private router: Router,
-              private itemDataService: ItemDataService,
-              private submissionService: SubmissionService,
-              private translate: TranslateService,
-              private submissionJsonPatchOperationsService: SubmissionJsonPatchOperationsService) {
+  constructor(
+    private changeDetectorRef: ChangeDetectorRef,
+    private notificationsService: NotificationsService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private itemDataService: ItemDataService,
+    private submissionService: SubmissionService,
+    private translate: TranslateService,
+    private submissionJsonPatchOperationsService: SubmissionJsonPatchOperationsService,
+    private metadataSecurityConfigDataService: MetadataSecurityConfigurationService,
+    private canDeactivateService: SubmissionEditCanDeactivateService,
+  ) {
+  }
+
+  // @HostListener allows to also guard against browser refresh, close, etc.
+  @HostListener('window:beforeunload')
+  preventRefresh(): boolean {
+    return this.canDeactivate;
   }
 
   /**
@@ -147,25 +183,54 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
   ngOnInit() {
 
     this.collectionModifiable = this.route.snapshot.data?.collectionModifiable ?? null;
+    this.isEditMode = this.route.snapshot.data?.editMode ?? null;
 
     this.subs.push(
       this.route.paramMap.pipe(
-        switchMap((params: ParamMap) => this.submissionService.retrieveSubmission(params.get('id'))),
-        // NOTE new submission is retrieved on the browser side only, so get null on server side rendering
-        filter((submissionObjectRD: RemoteData<SubmissionObject>) => isNotNull(submissionObjectRD)),
-      ).subscribe((submissionObjectRD: RemoteData<SubmissionObject>) => {
+        switchMap((params: ParamMap) => this.canDeactivateService.canDeactivate(params.get('id'))),
+      ).subscribe((res) => {
+        this.canDeactivate = res;
+      }),
+      this.route.paramMap.pipe(
+        switchMap((params: ParamMap) => this.submissionService.retrieveSubmission(params.get('id'), ['full','allLanguages'], this.isEditMode).pipe(
+          // NOTE new submission is retrieved on the browser side only, so get null on server side rendering
+          filter((submissionObjectRD: RemoteData<SubmissionObject>) => isNotNull(submissionObjectRD)),
+          mergeMap((submissionObjectRD: RemoteData<SubmissionObject>) => combineLatest([
+            of(submissionObjectRD),
+            of(submissionObjectRD).pipe(
+              mergeMap(() => {
+                if (submissionObjectRD.hasSucceeded && isNotEmpty(submissionObjectRD.payload)) {
+                  const metadata = (submissionObjectRD.payload.collection as Collection).metadata['dspace.entity.type'];
+                  if (metadata && metadata[0]) {
+                    this.entityType = metadata[0].value;
+                  }
+                  // get security configuration based on entity type
+                  return this.metadataSecurityConfigDataService.findById(this.entityType).pipe(
+                    getFirstCompletedRemoteData(),
+                  );
+                } else {
+                  return createFailedRemoteDataObject$<MetadataSecurityConfiguration>();
+                }
+              }),
+            ),
+          ]),
+          ))),
+      ).subscribe(([submissionObjectRD, metadataSecurityRD]: [RemoteData<SubmissionObject>, RemoteData<MetadataSecurityConfiguration>]) => {
         if (submissionObjectRD.hasSucceeded) {
           if (isEmpty(submissionObjectRD.payload)) {
             this.notificationsService.info(null, this.translate.get('submission.general.cannot_submit'));
             this.router.navigate(['/mydspace']);
           } else {
+            if (metadataSecurityRD.hasSucceeded) {
+              this.metadataSecurityConfiguration = metadataSecurityRD.payload;
+            }
             const collection = submissionObjectRD.payload.collection as Collection;
             this.entityType = (hasValue(collection) && collection.hasMetadata('dspace.entity.type'))
               ? collection.firstMetadataValue('dspace.entity.type') : null;
             const { errors } = submissionObjectRD.payload;
             this.submissionErrors = parseSectionErrors(errors);
             this.submissionId = submissionObjectRD.payload.id.toString();
-            this.collectionId = (submissionObjectRD.payload.collection as Collection).id;
+            this.collectionId = collection.id;
             this.selfUrl = submissionObjectRD.payload._links.self.href;
             this.sections = submissionObjectRD.payload.sections;
             this.itemLink$.next(submissionObjectRD.payload._links.item.href);
@@ -177,7 +242,6 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
             // redirect to not found page
             this.router.navigate(['/404'], { skipLocationChange: true });
           }
-          // TODO handle generic error
         }
       }),
       this.itemLink$.pipe(

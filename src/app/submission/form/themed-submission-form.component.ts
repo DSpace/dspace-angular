@@ -4,6 +4,7 @@ import {
 } from '@angular/core';
 import { SubmissionDefinitionsModel } from '@dspace/core/config/models/config-submission-definitions.model';
 import { Item } from '@dspace/core/shared/item.model';
+import { MetadataSecurityConfiguration } from '@dspace/core/submission/models/metadata-security-configuration';
 import { SubmissionError } from '@dspace/core/submission/models/submission-error.model';
 import { WorkspaceitemSectionsObject } from '@dspace/core/submission/models/workspaceitem-sections.model';
 
@@ -33,7 +34,9 @@ export class ThemedSubmissionFormComponent extends ThemedComponent<SubmissionFor
 
   @Input() entityType: string;
 
-  protected inAndOutputNames: (keyof SubmissionFormComponent & keyof this)[] = ['collectionId', 'item', 'collectionModifiable', 'sections', 'submissionErrors', 'selfUrl', 'submissionDefinition', 'submissionId', 'entityType'];
+  @Input() metadataSecurityConfiguration: MetadataSecurityConfiguration;
+
+  protected inAndOutputNames: (keyof SubmissionFormComponent & keyof this)[] = ['collectionId', 'item', 'collectionModifiable', 'sections', 'submissionErrors', 'selfUrl', 'submissionDefinition', 'submissionId', 'entityType', 'metadataSecurityConfiguration'];
 
   protected getComponentName(): string {
     return 'SubmissionFormComponent';

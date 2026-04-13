@@ -45,5 +45,9 @@ export function getMockFormBuilderService(): FormBuilderService {
       ],
     },
     ),
+    removeFormModel: {},
+    addFormModel: {},
+    updateValue: {},
+    addFormGroups: {},
   });
 }

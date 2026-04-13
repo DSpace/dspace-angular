@@ -5,6 +5,7 @@ import {
 } from '@angular/core/testing';
 import {
   AbstractControl,
+  FormControl,
   UntypedFormControl,
   UntypedFormGroup,
   Validators,
@@ -20,6 +21,7 @@ import {
 } from '@ngrx/store';
 
 import { AppState } from '../../app.reducer';
+import { DynamicConcatModel } from './builder/ds-dynamic-form-ui/models/ds-dynamic-concat.model';
 import { FormBuilderService } from './builder/form-builder.service';
 import { formReducer } from './form.reducer';
 import { FormService } from './form.service';
@@ -76,6 +78,14 @@ describe('FormService test suite', () => {
         }),
       ],
     }),
+    new DynamicConcatModel({
+      id: 'name_CONCAT_GROUP',
+      separator: ',',
+      group: [
+        new DynamicInputModel({ id: 'name_CONCAT_FIRST_INPUT' }),
+        new DynamicInputModel({ id: 'name_CONCAT_SECOND_INPUT' }),
+      ],
+    } as any),
   ];
 
   let controls;
@@ -130,8 +140,13 @@ describe('FormService test suite', () => {
       city: new UntypedFormControl(undefined),
     });
 
-    formGroup = new UntypedFormGroup({ author, title, date, description, addressLocation });
-    controls = { author, title, date, description , addressLocation };
+    const name: UntypedFormGroup = new UntypedFormGroup({
+      name_CONCAT_FIRST_INPUT: new FormControl(undefined),
+      name_CONCAT_SECOND_INPUT: new FormControl(undefined),
+    });
+
+    formGroup = new UntypedFormGroup({ author, title, date, description, addressLocation, name });
+    controls = { author, title, date, description , addressLocation, name };
     service = new FormService(builderService, store);
   }),
   )
@@ -260,8 +275,8 @@ describe('FormService test suite', () => {
   it('should remove errors from fields of concat group', () => {
     (builderService as any).isConcatGroup.and.returnValue(true);
 
-    let control = controls.addressLocation;
-    let model = formModel.find((mdl: DynamicFormControlModel) => mdl.id === 'addressLocation');
+    let control = controls.name;
+    let model = formModel.find((mdl: DynamicFormControlModel) => mdl.id === 'name_CONCAT_GROUP');
     let errorKeys: string[];
 
     service.addErrorToField(control, model, 'Test error message');
@@ -276,10 +291,7 @@ describe('FormService test suite', () => {
 
     // the group's inputs should no longer have an error
     Object.values(control.controls).forEach((subControl: AbstractControl) => {
-      errorKeys = Object.keys(subControl.errors);
-      expect(errorKeys.length).toBe(1);
-      expect(subControl.hasError(errorKeys[0])).toBe(false);
-      expect(subControl.touched).toBe(false);
+      expect(subControl.errors).toBeNull();
     });
   });
 

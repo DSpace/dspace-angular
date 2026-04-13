@@ -39,7 +39,6 @@ export class AuthServiceStub {
       authStatus.eperson = createSuccessfulRemoteDataObject$(EPersonMock);
       return of(authStatus);
     } else {
-      console.log('error');
       throw (new Error('Message Error test'));
     }
   }

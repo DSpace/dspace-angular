@@ -1,11 +1,15 @@
 import {
+  hasValue,
+  isEmpty,
   isNotEmpty,
   isNotUndefined,
   isUndefined,
 } from '@dspace/shared/utils/empty.util';
 import escape from 'lodash/escape';
 import groupBy from 'lodash/groupBy';
+import isObject from 'lodash/isObject';
 import sortBy from 'lodash/sortBy';
+import { validate as uuidValidate } from 'uuid';
 
 import {
   MetadataMapInterface,
@@ -14,6 +18,11 @@ import {
   MetadatumViewModel,
 } from './metadata.models';
 
+
+
+export const AUTHORITY_GENERATE = 'will be generated::';
+export const AUTHORITY_REFERENCE = 'will be referenced::';
+export const PLACEHOLDER_VALUE = '#PLACEHOLDER_PARENT_METADATA_VALUE#';
 /**
  * Utility class for working with DSpace object metadata.
  *
@@ -39,13 +48,13 @@ export class Metadata {
    * @param escapeHTML Whether the HTML is used inside a `[innerHTML]` attribute
    * @returns {MetadataValue[]} the matching values or an empty array.
    */
-  public static all(metadata: MetadataMapInterface, keyOrKeys: string | string[], hitHighlights?: MetadataMapInterface, filter?: MetadataValueFilter, escapeHTML?: boolean): MetadataValue[] {
+  public static all(metadata: MetadataMapInterface, keyOrKeys: string | string[], hitHighlights?: MetadataMapInterface, filter?: MetadataValueFilter, escapeHTML?: boolean, limit?: number): MetadataValue[] {
     const matches: MetadataValue[] = [];
     if (isNotEmpty(hitHighlights)) {
       for (const mdKey of Metadata.resolveKeys(hitHighlights, keyOrKeys)) {
         if (hitHighlights[mdKey]) {
           for (const candidate of hitHighlights[mdKey]) {
-            if (Metadata.valueMatches(candidate as MetadataValue, filter)) {
+            if (Metadata.valueMatches(candidate as MetadataValue, filter) && (isEmpty(limit) || (hasValue(limit) && matches.length < limit))) {
               matches.push(candidate as MetadataValue);
             }
           }
@@ -58,7 +67,7 @@ export class Metadata {
     for (const mdKey of Metadata.resolveKeys(metadata, keyOrKeys)) {
       if (metadata[mdKey]) {
         for (const candidate of metadata[mdKey]) {
-          if (Metadata.valueMatches(candidate as MetadataValue, filter)) {
+          if (Metadata.valueMatches(candidate as MetadataValue, filter) && (isEmpty(limit) || (hasValue(limit) && matches.length < limit))) {
             if (escapeHTML) {
               matches.push(Object.assign(new MetadataValue(), candidate, {
                 value: escape(candidate.value),
@@ -148,6 +157,40 @@ export class Metadata {
     return isNotUndefined(Metadata.first(metadata, keyOrKeys, hitHighlights, filter));
   }
 
+
+  /**
+   * Returns true if this Metadatum's authority key contains a reference
+   */
+  public static hasAuthorityReference(authority: string): boolean {
+    return hasValue(authority) && (typeof authority === 'string' && (authority.startsWith(AUTHORITY_GENERATE) || authority.startsWith(AUTHORITY_REFERENCE)));
+  }
+
+  /**
+   * Returns true if this Metadatum's authority key is a valid
+   */
+  public static hasValidAuthority(authority: string): boolean {
+    return hasValue(authority) && !Metadata.hasAuthorityReference(authority);
+  }
+
+  /**
+   * Returns true if this Metadatum's authority key is a valid UUID
+   */
+  public static hasValidItemAuthority(authority: string): boolean {
+    return hasValue(authority) && uuidValidate(authority);
+  }
+
+  /**
+   * Returns true if this Metadatum's value is defined
+   */
+  public static hasValue(value: MetadataValue|string): boolean {
+    if (isEmpty(value)) {
+      return false;
+    }
+    if (isObject(value) && value.hasOwnProperty('value')) {
+      return isNotEmpty(value.value);
+    }
+    return true;
+  }
   /**
    * Checks if a value matches a filter.
    *
@@ -169,11 +212,14 @@ export class Metadata {
         fValue = filter.value.toLowerCase();
         mValue = mdValue.value.toLowerCase();
       }
+      let result: boolean;
+
       if (filter.substring) {
-        return mValue.includes(fValue);
+        result = mValue.includes(fValue);
       } else {
-        return mValue === fValue;
+        result = mValue === fValue;
       }
+      return filter.negate ? !result : result;
     }
     return true;
   }

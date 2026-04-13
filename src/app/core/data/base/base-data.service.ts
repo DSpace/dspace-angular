@@ -51,6 +51,12 @@ import { RequestService } from '../request.service';
 import { HALDataService } from './hal-data-service.interface';
 
 export const EMBED_SEPARATOR = '%2F';
+
+/**
+ * The default method to construct an ID endpoint
+*/
+export const constructIdEndpointDefault = (endpoint, resourceID) => `${endpoint}/${resourceID}`;
+
 /**
  * Common functionality for data services.
  * Specific functionality that not all services would need
