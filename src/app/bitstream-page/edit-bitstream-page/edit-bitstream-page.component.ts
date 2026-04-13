@@ -29,7 +29,6 @@ import { Bundle } from '@dspace/core/shared/bundle.model';
 import { Item } from '@dspace/core/shared/item.model';
 import { Metadata } from '@dspace/core/shared/metadata.utils';
 import {
-  getAllCompletedRemoteData,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
   getFirstSucceededRemoteDataPayload,
@@ -79,13 +78,7 @@ import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.comp
 import { FileSizePipe } from '../../shared/utils/file-size-pipe';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { ThemedThumbnailComponent } from '../../thumbnail/themed-thumbnail.component';
-
-const relatedReplaceBitstreamsMdFields = [
-  'dspace.bitstream.isCopyOf',
-  'dspace.bitstream.hasCopies',
-  'dspace.bitstream.isReplacementOf',
-  'dspace.bitstream.isReplacedBy',
-];
+import { EditBitstreamPageAlertsComponent } from '../edit-bitstream-page-alerts/edit-bitstream-page-alerts.component';
 
 @Component({
   selector: 'ds-base-edit-bitstream-page',
@@ -94,6 +87,7 @@ const relatedReplaceBitstreamsMdFields = [
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     AsyncPipe,
+    EditBitstreamPageAlertsComponent,
     ErrorComponent,
     FileSizePipe,
     FormComponent,
@@ -444,11 +438,6 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
   showReplaceButton$: Observable<boolean>;
 
   /**
-   * Related bitstreams in the replacement context
-   */
-  protected relatedReplaceBitstreams: Map<string, Bitstream> = new Map();
-
-  /**
    * Array to track all subscriptions and unsubscribe them onDestroy
    * @type {Array}
    */
@@ -535,23 +524,6 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
         this.primaryBitstreamUUID = hasValue(primaryBitstream) ? primaryBitstream.uuid : null;
         this.itemId = item.uuid;
         this.setIiifStatus(this.bitstream);
-        // Display links to related bitstreams in the replacement context
-        this.relatedReplaceBitstreams.clear();
-        relatedReplaceBitstreamsMdFields.forEach(mdField => {
-          if (this.bitstream.hasMetadata(mdField)) {
-            this.bitstreamService.findById(this.bitstream.firstMetadata(mdField).authority).pipe(
-              getAllCompletedRemoteData(),
-              take(1),
-            ).subscribe(relatedBitstreamRD => {
-              const prefix = this.translate.instant(`bitstream.replace.${mdField.split('.').pop()}`);
-              if (relatedBitstreamRD?.hasSucceeded) {
-                this.relatedReplaceBitstreams.set(prefix, relatedBitstreamRD.payload);
-              } else {
-                this.relatedReplaceBitstreams.set(`${prefix}: ${this.bitstream.firstMetadata(mdField).authority} (deleted)`, null);
-              }
-            });
-          }
-        });
       }),
       format$.pipe(take(1)).subscribe(
         (format) => this.originalFormat = format,

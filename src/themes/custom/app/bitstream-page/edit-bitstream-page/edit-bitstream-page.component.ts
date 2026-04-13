@@ -7,6 +7,7 @@ import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { EditBitstreamPageComponent as BaseComponent } from '../../../../../app/bitstream-page/edit-bitstream-page/edit-bitstream-page.component';
+import { EditBitstreamPageAlertsComponent } from '../../../../../app/bitstream-page/edit-bitstream-page-alerts/edit-bitstream-page-alerts.component';
 import { ErrorComponent } from '../../../../../app/shared/error/error.component';
 import { FormComponent } from '../../../../../app/shared/form/form.component';
 import { ThemedLoadingComponent } from '../../../../../app/shared/loading/themed-loading.component';
@@ -23,6 +24,7 @@ import { ThemedThumbnailComponent } from '../../../../../app/thumbnail/themed-th
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     AsyncPipe,
+    EditBitstreamPageAlertsComponent,
     ErrorComponent,
     FileSizePipe,
     FormComponent,
