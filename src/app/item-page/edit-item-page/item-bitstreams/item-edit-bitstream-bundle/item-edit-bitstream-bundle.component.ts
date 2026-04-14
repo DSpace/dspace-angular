@@ -234,7 +234,7 @@ export class ItemEditBitstreamBundleComponent implements OnInit, OnDestroy {
     if (!this.canReplaceBitstreamCache.has(bitstreamUrl)) {
       this.canReplaceBitstreamCache.set(
         bitstreamUrl,
-        this.authorizationService.isAuthorized(FeatureID.CanReplaceBitstream, bitstreamUrl).pipe(
+        this.authorizationService.isAuthorized(FeatureID.CanReplaceBitstreamAdmin, bitstreamUrl).pipe(
           shareReplay({ bufferSize: 1, refCount: true }),
         ),
       );

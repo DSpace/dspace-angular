@@ -480,7 +480,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     this.bitstreamRD$ = this.route.data.pipe(map((data: any) => data.bitstream));
     this.showReplaceButton$ = this.bitstreamRD$.pipe(
       getFirstSucceededRemoteDataPayload(),
-      switchMap((bitstream: Bitstream) => this.authorizationService.isAuthorized(FeatureID.CanReplaceBitstream, bitstream.self)),
+      switchMap((bitstream: Bitstream) => this.authorizationService.isAuthorized(FeatureID.CanReplaceBitstreamAdmin, bitstream.self)),
     );
 
     const bitstream$ = this.bitstreamRD$.pipe(

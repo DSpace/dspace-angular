@@ -19,5 +19,5 @@ import { bitstreamPageResolver } from '../bitstream-page.resolver';
 export const replaceBitstreamPageGuard: CanActivateFn =
   dsoPageSingleFeatureGuard(
     () => bitstreamPageResolver,
-    () => of(FeatureID.CanReplaceBitstream),
+    () => of(FeatureID.CanReplaceBitstreamAdmin),
   );

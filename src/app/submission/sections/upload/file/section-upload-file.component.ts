@@ -254,7 +254,7 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
         filter(isNotUndefined),
         switchMap((fileData) => this.halService.getEndpoint('bitstreams').pipe(
           map(endpoint => `${endpoint}/${fileData.uuid}`),
-          switchMap(bitstreamUrl => this.authorizationService.isAuthorized(FeatureID.CanReplaceBitstream, bitstreamUrl)),
+          switchMap(bitstreamUrl => this.authorizationService.isAuthorized(FeatureID.CanReplaceBitstreamSubmitter, bitstreamUrl)),
         )),
       ).subscribe((canReplace) => this.showReplaceButton$.next(canReplace)),
     );
