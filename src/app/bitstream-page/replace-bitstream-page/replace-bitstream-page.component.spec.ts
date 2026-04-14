@@ -16,12 +16,15 @@ import {
   Router,
 } from '@angular/router';
 import { AuthService } from '@dspace/core/auth/auth.service';
+import { LinkService } from '@dspace/core/cache/builders/link.service';
 import { RequestService } from '@dspace/core/data/request.service';
 import { LocaleService } from '@dspace/core/locale/locale.service';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { Bitstream } from '@dspace/core/shared/bitstream.model';
 import { Bundle } from '@dspace/core/shared/bundle.model';
+import { Item } from '@dspace/core/shared/item.model';
 import { AuthServiceStub } from '@dspace/core/testing/auth-service.stub';
+import { getMockLinkService } from '@dspace/core/testing/link-service.mock';
 import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
 import { RouterStub } from '@dspace/core/testing/router.stub';
 import {
@@ -42,22 +45,44 @@ describe('ReplaceBitstreamPageComponent', () => {
   let fixture: ComponentFixture<ReplaceBitstreamPageComponent>;
   const locationObject = jasmine.createSpyObj('location', ['back']);
   let notificationsService;
-  const bitstreamSelfLink = 'bitstreams/123';
+  const oldBitstreamSelfLink = 'bitstreams/123';
+  const itemSelfLink = 'items/789';
+  const item = Object.assign(new Item(), {
+    _links: {
+      self: { href: itemSelfLink },
+    },
+  });
   const bundleSelfLink = 'bundles/456';
   const bundle = Object.assign(new Bundle(), {
     _links: {
       self: { href: bundleSelfLink },
     },
+    item: createSuccessfulRemoteDataObject$(item),
   });
-  const bitstream = Object.assign(new Bitstream(), {
+  const oldBitstream = Object.assign(new Bitstream(), {
     id: '123',
     _links: {
-      self: { href: bitstreamSelfLink },
+      self: { href: oldBitstreamSelfLink },
       bundle: { href: 'bitstreams/123/bundle' },
     },
     bundle: createSuccessfulRemoteDataObject$(bundle),
   });
-  const route = { data: of({ bitstream: createSuccessfulRemoteDataObject(bitstream) }) };
+  const newBitstream = Object.assign(new Bitstream(), {
+    id: '124',
+    metadata: {
+      ['dspace.bitstream.isReplacementOf']: [
+        {
+          authority: oldBitstream.id,
+        },
+      ],
+    },
+    _links: {
+      self: { href: oldBitstreamSelfLink },
+      bundle: { href: 'bitstreams/124/bundle' },
+    },
+    bundle: createSuccessfulRemoteDataObject$(bundle),
+  });
+  const route = { data: of({ bitstream: createSuccessfulRemoteDataObject(oldBitstream) }) };
   const requestService = jasmine.createSpyObj('requestService', ['setStaleByHrefSubstring']);
   const router = new RouterStub();
   let localeService;
@@ -82,6 +107,7 @@ describe('ReplaceBitstreamPageComponent', () => {
         { provide: Router, useValue: router },
         { provide: RequestService, useValue: requestService },
         { provide: LocaleService, useValue: mockLocaleService },
+        { provide: LinkService, useValue: getMockLinkService() },
       ],
     }).overrideComponent(ReplaceBitstreamPageComponent, {
       remove: { imports: [UploaderComponent] },
@@ -133,12 +159,13 @@ describe('ReplaceBitstreamPageComponent', () => {
 
   describe('calling onCompleteItem', () => {
     beforeEach(() => {
-      component.onCompleteItem(bitstream);
+      component.onCompleteItem(newBitstream);
     });
 
     it('should set the bitstream and bundle to stale in the cache', () => {
-      expect(requestService.setStaleByHrefSubstring).toHaveBeenCalledWith(bitstreamSelfLink);
+      expect(requestService.setStaleByHrefSubstring).toHaveBeenCalledWith(oldBitstream.id);
       expect(requestService.setStaleByHrefSubstring).toHaveBeenCalledWith(bundleSelfLink);
+      expect(requestService.setStaleByHrefSubstring).toHaveBeenCalledWith(itemSelfLink);
     });
 
     it('should fire a success notification', () => {

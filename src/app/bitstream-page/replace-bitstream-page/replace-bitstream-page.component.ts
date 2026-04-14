@@ -12,8 +12,12 @@ import {
   Router,
 } from '@angular/router';
 import { RestRequestMethod } from '@dspace/config/rest-request-method';
+import { LinkService } from '@dspace/core/cache/builders/link.service';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { getBitstreamModuleRoute } from '@dspace/core/router/core-routing-paths';
+import { Bundle } from '@dspace/core/shared/bundle.model';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
+import { Item } from '@dspace/core/shared/item.model';
 import {
   hasValue,
   isEmpty,
@@ -92,12 +96,6 @@ export class ReplaceBitstreamPageComponent implements OnInit {
   private uploadFilesUrlNoParam: string;
 
   /**
-   * The bundle's self link, resolved from the route-resolved bitstream for cache invalidation.
-   * This is the bundle's own URL (e.g. bundles/{uuid}), not the bitstream-to-bundle link.
-   */
-  private bundleSelfLink: string;
-
-  /**
    * The bitstream's remote data observable
    * Tracks changes and updates the view
    */
@@ -108,19 +106,21 @@ export class ReplaceBitstreamPageComponent implements OnInit {
    */
   protected shouldReplaceName = true;
 
-  constructor(private route: ActivatedRoute,
-              private notificationService: NotificationsService,
-              private location: Location,
-              private translateService: TranslateService,
-              private authService: AuthService,
-              private requestService: RequestService,
-              private router: Router) {
+  constructor(
+    private route: ActivatedRoute,
+    private notificationService: NotificationsService,
+    private location: Location,
+    private translateService: TranslateService,
+    private authService: AuthService,
+    private requestService: RequestService,
+    private router: Router,
+    private linkService: LinkService,
+  ) {
   }
 
   ngOnInit(): void {
     this.bitstreamRD$ = this.route.data.pipe(map((data) => data.bitstream));
     this.setUploadUrl();
-    this.resolveBundleLink();
   }
 
   back() {
@@ -137,10 +137,11 @@ export class ReplaceBitstreamPageComponent implements OnInit {
    * @param bitstream
    */
   public onCompleteItem(bitstream: Bitstream) {
-    this.requestService.setStaleByHrefSubstring(bitstream.self);
-    this.requestService.setStaleByHrefSubstring(this.bundleSelfLink);
+    this.invalidate(bitstream);
     this.notificationService.success(this.translateService.instant(this.saveNotificationKey));
-    this.router.navigate([getBitstreamModuleRoute(), bitstream.id, 'edit']);
+    this.router.navigate([getBitstreamModuleRoute(), bitstream.id, 'edit'], {
+      replaceUrl: true,
+    });
   }
 
   /**
@@ -167,17 +168,25 @@ export class ReplaceBitstreamPageComponent implements OnInit {
   }
 
   /**
-   * Resolve the bundle from the route-resolved bitstream to store its self URL.
-   * The bundle's self URL (bundles/{uuid}) is needed for cache invalidation because it is a
-   * substring of the bundle's bitstreams list endpoint (bundles/{uuid}/bitstreams).
+   * Invalidate the old Bitstream that has been replaced (and thus deleted), as well as our owning Bundle and Item
    */
-  private resolveBundleLink() {
-    this.bitstreamRD$.pipe(
+  private invalidate(newBitstream: Bitstream) {
+    console.log(newBitstream); // todo: remove this
+    // the Bitstream returned after upload is not an instance of Bitstream yet
+    newBitstream = Object.assign(new Bitstream(), newBitstream)
+    this.linkService.resolveLink<Bitstream>(newBitstream, followLink('bundle'));
+    this.requestService.setStaleByHrefSubstring(newBitstream.firstMetadata('dspace.bitstream.isReplacementOf')?.authority);
+
+    newBitstream.bundle.pipe(
       getFirstSucceededRemoteDataPayload(),
-      switchMap((bitstream: Bitstream) => bitstream.bundle),
+      switchMap((bundle: Bundle) => {
+        this.requestService.setStaleByHrefSubstring(bundle.self);
+        this.linkService.resolveLink<Bundle>(bundle, followLink('item'));
+        return bundle.item;
+      }),
       getFirstSucceededRemoteDataPayload(),
-    ).subscribe((bundle) => {
-      this.bundleSelfLink = bundle._links.self.href;
+    ).subscribe((item: Item) => {
+      this.requestService.setStaleByHrefSubstring(item.self);
     });
   }
 
