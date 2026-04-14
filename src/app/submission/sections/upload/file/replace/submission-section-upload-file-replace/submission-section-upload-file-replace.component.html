@@ -6,8 +6,7 @@
           fileSize: fileSizeBytes | dsFileSize
         }
       }}</h4>
-    <button type="button" class="close" (click)="closeModal()" aria-label="Close">
-      <span aria-hidden="true">×</span>
+    <button type="button" class="btn-close" (click)="closeModal()" aria-label="Close">
     </button>
   </div>
   <div class="modal-body">
@@ -38,7 +37,7 @@
       </div>
     }
     <div class="button-row bottom">
-      <div class="mt-4 float-right mb-2">
+      <div class="mt-4 float-end mb-2">
         <button class="save-button btn btn-primary" (click)="saveFile(uploader);"><i
           class="fas fa-save"></i>
           <span class="d-none d-sm-inline">&nbsp;{{ "bitstream.replace.page.button.save" | translate }}</span>
