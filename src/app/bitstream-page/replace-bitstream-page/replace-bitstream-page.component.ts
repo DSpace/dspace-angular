@@ -171,9 +171,8 @@ export class ReplaceBitstreamPageComponent implements OnInit {
    * Invalidate the old Bitstream that has been replaced (and thus deleted), as well as our owning Bundle and Item
    */
   private invalidate(newBitstream: Bitstream) {
-    console.log(newBitstream); // todo: remove this
     // the Bitstream returned after upload is not an instance of Bitstream yet
-    newBitstream = Object.assign(new Bitstream(), newBitstream)
+    newBitstream = Object.assign(new Bitstream(), newBitstream);
     this.linkService.resolveLink<Bitstream>(newBitstream, followLink('bundle'));
     this.requestService.setStaleByHrefSubstring(newBitstream.firstMetadata('dspace.bitstream.isReplacementOf')?.authority);
 
