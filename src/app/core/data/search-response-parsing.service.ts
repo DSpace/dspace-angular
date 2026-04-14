@@ -12,6 +12,9 @@ import {
 } from '../shared/metadata.models';
 import { DspaceRestResponseParsingService } from './dspace-rest-response-parsing.service';
 import { RestRequest } from './rest-request.model';
+import { GenericConstructor } from '../shared/generic-constructor';
+import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
+import { getSearchResultFor } from '../../shared/search/search-result-element-decorator';
 
 @Injectable({ providedIn: 'root' })
 export class SearchResponseParsingService extends DspaceRestResponseParsingService {
@@ -44,8 +47,18 @@ export class SearchResponseParsingService extends DspaceRestResponseParsingServi
       }));
     payload.objects = objects;
     const deserialized: SearchObjects<any> = new DSpaceSerializer(SearchObjects).deserialize(payload);
-    deserialized.page.forEach((result) => {
-      result.indexableObject = new DSpaceSerializer(getClassForType(result.indexableObject.type)).deserialize(result.indexableObject);
+    deserialized.page = deserialized.page.map((result) => {
+      const indexableObject = new DSpaceSerializer(getClassForType(result.indexableObject.type)).deserialize(result.indexableObject);
+
+      // determine the constructor of the search result (ItemSearchResult,
+      // CollectionSearchResult, etc) based on the kind of the indexableObject it
+      // contains. Recreate the result with that constructor
+      const constructor: GenericConstructor<ListableObject> = indexableObject.constructor as GenericConstructor<ListableObject>;
+      const resultConstructor = getSearchResultFor(constructor);
+
+      return Object.assign(new resultConstructor(), result, {
+        indexableObject,
+      });
     });
     deserialized.pageInfo = this.processPageInfo(payload);
     this.addToObjectCache(deserialized, request, data);
