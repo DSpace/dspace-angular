@@ -181,7 +181,10 @@ export class RemoteDataBuildService {
 
     if (hasValue(pageLink)) {
       if (isEmpty(paginatedList.page)) {
-        const pageSelfLinks = paginatedList._links.page.map((link: HALLink) => link.href);
+        let pageSelfLinks: string[] = [];
+        if (isNotEmpty(paginatedList._links.page)) {
+          pageSelfLinks = paginatedList._links.page.map((link: HALLink) => link.href);
+        }
         return this.objectCache.getList(pageSelfLinks).pipe(map((page: any[]) => {
           paginatedList.page = page
             .map((obj: any) => this.plainObjectToInstance<T>(obj))
