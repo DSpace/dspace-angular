@@ -7,7 +7,9 @@ import { By } from '@angular/platform-browser';
 import { MetadataValue } from '@dspace/core/shared/metadata.models';
 import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
+import { of } from 'rxjs';
 
+import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 import { OrcidBadgeAndTooltipComponent } from './orcid-badge-and-tooltip.component';
 
 describe('OrcidBadgeAndTooltipComponent', () => {
@@ -16,6 +18,9 @@ describe('OrcidBadgeAndTooltipComponent', () => {
   let translateService: TranslateService;
 
   beforeEach(async () => {
+    const configurationDataServiceStub = jasmine.createSpyObj('ConfigurationDataService', ['findByPropertyName']);
+    configurationDataServiceStub.findByPropertyName.and.returnValue(of({}));
+
     await TestBed.configureTestingModule({
       imports: [
         OrcidBadgeAndTooltipComponent,
@@ -24,6 +29,7 @@ describe('OrcidBadgeAndTooltipComponent', () => {
       ],
       providers: [
         { provide: TranslateService, useValue: { instant: (key: string) => key } },
+        { provide: ConfigurationDataService, useValue: configurationDataServiceStub },
       ],
     }).compileComponents();
 
