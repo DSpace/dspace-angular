@@ -7,12 +7,12 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { APP_CONFIG } from 'src/config/app-config.interface';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../../../app/core/utilities/remote-data.utils';
 import { BrowseService } from '../../../../../core/browse/browse.service';
 import { BrowseDefinitionDataService } from '../../../../../core/browse/browse-definition-data.service';
 import { ConfigurationDataService } from '../../../../../core/data/configuration-data.service';
 import { ConfigurationProperty } from '../../../../../core/shared/configuration-property.model';
 import { Item } from '../../../../../core/shared/item.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../../app/core/utilities/remote-data.utils';
 import { ItemPageOrcidFieldComponent } from './item-page-orcid-field.component';
 
 describe('ItemPageOrcidFieldComponent', () => {
