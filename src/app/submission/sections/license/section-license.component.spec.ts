@@ -40,10 +40,14 @@ import {
   DynamicFormControlEvent,
   DynamicFormControlEventType,
 } from '@ng-dynamic-forms/core';
+import { provideMockActions } from '@ngrx/effects/testing';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
-import { of } from 'rxjs';
+import {
+  Observable,
+  of,
+} from 'rxjs';
 import { take } from 'rxjs/operators';
 
 import { environment } from '../../../../environments/environment.test';
@@ -54,6 +58,8 @@ import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
 import { getMockFormOperationsService } from '../../../shared/form/testing/form-operations-service.mock';
 import { getMockFormService } from '../../../shared/form/testing/form-service.mock';
+import { LiveRegionService } from '../../../shared/live-region/live-region.service';
+import { getLiveRegionServiceStub } from '../../../shared/live-region/live-region.service.stub';
 import { SubmissionService } from '../../submission.service';
 import { SubmissionObjectService } from '../../submission-object.service';
 import {
@@ -180,6 +186,7 @@ describe('SubmissionSectionLicenseComponent test suite', () => {
         { provide: 'submissionIdProvider', useValue: submissionId },
         ChangeDetectorRef,
         provideMockStore({ initialState }),
+        provideMockActions(() => new Observable<any>()),
         FormBuilderService,
         { provide: DsDynamicTypeBindRelationService, useValue: getMockDsDynamicTypeBindRelationService() },
         { provide: APP_CONFIG, useValue: environment },
@@ -193,6 +200,7 @@ describe('SubmissionSectionLicenseComponent test suite', () => {
         },
         { provide: XSRFService, useValue: {} },
         SubmissionSectionLicenseComponent,
+        { provide: LiveRegionService, useValue: getLiveRegionServiceStub() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents().then();

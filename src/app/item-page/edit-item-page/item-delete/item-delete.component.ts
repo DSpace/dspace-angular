@@ -5,6 +5,8 @@ import {
   Input,
   OnDestroy,
   OnInit,
+  TemplateRef,
+  ViewChild,
 } from '@angular/core';
 import {
   ActivatedRoute,
@@ -23,13 +25,6 @@ import { Item } from '@dspace/core/shared/item.model';
 import { Relationship } from '@dspace/core/shared/item-relationships/relationship.model';
 import { RelationshipType } from '@dspace/core/shared/item-relationships/relationship-type.model';
 import { MetadataValue } from '@dspace/core/shared/metadata.models';
-import { NoContent } from '@dspace/core/shared/NoContent.model';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteData,
-  getRemoteDataPayload,
-} from '@dspace/core/shared/operators';
-import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import {
   hasValue,
   isNotEmpty,
@@ -58,6 +53,19 @@ import {
   take,
 } from 'rxjs/operators';
 
+import { Process } from '../../..//core/processes/process.model';
+import { ViewMode } from '../../..//core/shared/view-mode.model';
+import {
+  DSPACE_OBJECT_DELETION_SCRIPT_NAME,
+  ScriptDataService,
+} from '../../../core/data/processes/script-data.service';
+import { ProcessParameter } from '../../../core/processes/process-parameter.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '../../../core/shared/operators';
+import { getProcessDetailRoute } from '../../../process-page/process-page-routing.paths';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { VarDirective } from '../../../shared/utils/var.directive';
@@ -159,6 +167,8 @@ export class ItemDeleteComponent
    */
   private subs: Subscription[] = [];
 
+  @ViewChild('deleteConfirmationModal', { static: true }) deleteConfirmationModal!: TemplateRef<any>;
+
   public isDeleting$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor(protected route: ActivatedRoute,
@@ -171,6 +181,7 @@ export class ItemDeleteComponent
               protected relationshipService: RelationshipDataService,
               protected entityTypeService: EntityTypeDataService,
               protected linkService: LinkService,
+              protected scriptDataService: ScriptDataService,
   ) {
     super(
       route,
@@ -245,6 +256,21 @@ export class ItemDeleteComponent
   }
 
   /**
+   * Open the delete confirmation modal
+   */
+  openDeleteConfirmationModal() {
+    this.modalRef = this.modalService.open(this.deleteConfirmationModal, { centered: true });
+  }
+
+  /**
+   * User confirmed permanent deletion.
+   */
+  confirmDeletion() {
+    this.modalRef.close();
+    this.performAction();
+  }
+
+  /**
    * Close the modal which lists the virtual metadata of a relation
    */
   closeVirtualMetadataModal() {
@@ -268,7 +294,6 @@ export class ItemDeleteComponent
    * @param relationshipType  the relationship type to get the label for
    */
   getLabel(relationshipType: RelationshipType): Observable<string> {
-
     return this.getRelationships(relationshipType).pipe(
       switchMap((relationships) =>
         this.isLeftItem(relationships[0]).pipe(
@@ -283,7 +308,6 @@ export class ItemDeleteComponent
    * @param relationshipType  the relationship type to filter the item's relationships on
    */
   getRelationships(relationshipType: RelationshipType): Observable<Relationship[]> {
-
     if (!this.relationships$.has(relationshipType)) {
       this.relationships$.set(
         relationshipType,
@@ -311,7 +335,6 @@ export class ItemDeleteComponent
    * @param relationship  the relationship to get the type for
    */
   private getRelationshipType(relationship: Relationship): Observable<RelationshipType> {
-
     this.linkService.resolveLinks(
       relationship,
       followLink('relationshipType'),
@@ -330,9 +353,7 @@ export class ItemDeleteComponent
    * @param relationship  the relationship to get the other item for
    */
   getRelatedItem(relationship: Relationship): Observable<Item> {
-
     if (!this.relatedItems$.has(relationship)) {
-
       this.relatedItems$.set(
         relationship,
         this.isLeftItem(relationship).pipe(
@@ -353,7 +374,6 @@ export class ItemDeleteComponent
   getVirtualMetadata(relationship: Relationship): Observable<VirtualMetadata[]> {
 
     if (!this.virtualMetadata$.has(relationship)) {
-
       this.virtualMetadata$.set(
         relationship,
         this.getRelatedItem(relationship).pipe(
@@ -427,24 +447,26 @@ export class ItemDeleteComponent
           map((selectedDtoTypes: RelationshipTypeDTO[]) => selectedDtoTypes.map((typeDto: RelationshipTypeDTO) => typeDto.relationshipType.id)),
         ),
       ),
-      switchMap((types: string[]) => this.itemDataService.delete(this.item.id, types)),
+      switchMap((types: string[]) => {
+        const parameterValues = [ Object.assign(new ProcessParameter(), { name: '-i', value: this.item.uuid }) ];
+        if (isNotEmpty(types)) {
+          parameterValues.push(Object.assign(new ProcessParameter(), { name: '-c', value: types.join(',') }));
+        }
+        return this.scriptDataService.invoke(DSPACE_OBJECT_DELETION_SCRIPT_NAME, parameterValues, []);
+      }),
       getFirstCompletedRemoteData(),
-    ).subscribe((rd: RemoteData<NoContent>) => {
-      this.notify(rd.hasSucceeded);
+    ).subscribe((rd: RemoteData<Process>) => {
+      this.notify(rd);
     }));
   }
 
-  /**
-   * When the item is successfully delete, navigate to the homepage, otherwise navigate back to the item edit page
-   * @param succeeded
-   */
-  notify(succeeded: boolean) {
-    if (succeeded) {
-      this.notificationsService.success(this.translateService.get('item.edit.' + this.messageKey + '.success'));
-      void this.router.navigate(['']);
+  notify(rd: RemoteData<Process>) {
+    if (rd.hasSucceeded && rd.payload) {
+      this.notificationsService.success(this.translateService.get('item.edit.delete.success'));
+      this.router.navigateByUrl(getProcessDetailRoute(rd.payload.processId));
     } else {
-      this.notificationsService.error(this.translateService.get('item.edit.' + this.messageKey + '.error'));
-      void this.router.navigate([getItemEditRoute(this.item)]);
+      this.notificationsService.error(this.translateService.get('item.edit.delete.error'));
+      this.router.navigate([getItemEditRoute(this.item)]);
     }
   }
 

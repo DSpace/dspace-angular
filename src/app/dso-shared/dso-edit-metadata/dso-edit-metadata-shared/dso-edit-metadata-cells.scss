@@ -12,8 +12,19 @@
   max-width: var(--ds-dso-edit-lang-width);
 }
 
+.ds-authority-cell {
+  min-width: var(--ds-dso-edit-authority-width);
+  max-width: var(--ds-dso-edit-authority-width);
+}
+
+.ds-security-cell {
+  min-width: var(--ds-dso-edit-security-width);
+  max-width: var(--ds-dso-edit-security-width);
+}
+
 .ds-edit-cell {
   min-width: var(--ds-dso-edit-actions-width);
+  max-width: var(--ds-dso-edit-actions-width);
 }
 
 .ds-value-row {

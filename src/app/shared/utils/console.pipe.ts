@@ -8,7 +8,7 @@ import {
 })
 export class ConsolePipe implements PipeTransform {
   transform(value: any): string {
-    console.log(value);
+    console.info(value);
     return '';
   }
 }

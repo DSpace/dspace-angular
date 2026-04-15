@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { THEME_LISTABLE_COMPONENTS } from '../../themes/themes-listable-components';
 import { CollectionAdminSearchResultGridElementComponent } from '../admin/admin-search-page/admin-search-results/admin-search-result-grid-element/collection-search-result/collection-admin-search-result-grid-element.component';
 import { CommunityAdminSearchResultGridElementComponent } from '../admin/admin-search-page/admin-search-results/admin-search-result-grid-element/community-search-result/community-admin-search-result-grid-element.component';
 import { ItemAdminSearchResultGridElementComponent } from '../admin/admin-search-page/admin-search-results/admin-search-result-grid-element/item-search-result/item-admin-search-result-grid-element.component';
@@ -67,9 +68,11 @@ import { ItemPageDateFieldComponent } from '../item-page/simple/field-components
 import { GenericItemPageFieldComponent } from '../item-page/simple/field-components/specific-field/generic/generic-item-page-field.component';
 import { ThemedItemPageTitleFieldComponent } from '../item-page/simple/field-components/specific-field/title/themed-item-page-field.component';
 import { ItemPageUriFieldComponent } from '../item-page/simple/field-components/specific-field/uri/item-page-uri-field.component';
+import { DatasetComponent } from '../item-page/simple/item-types/dataset/dataset.component';
 import { PublicationComponent } from '../item-page/simple/item-types/publication/publication.component';
 import { UntypedItemComponent } from '../item-page/simple/item-types/untyped-item/untyped-item.component';
 import { ThemedMetadataRepresentationListComponent } from '../item-page/simple/metadata-representation-list/themed-metadata-representation-list.component';
+import { AuthorityRelatedEntitiesSearchComponent } from '../item-page/simple/related-entities/authority-related-entities-search/authority-related-entities-search.component';
 import { TabbedRelatedEntitiesSearchComponent } from '../item-page/simple/related-entities/tabbed-related-entities-search/tabbed-related-entities-search.component';
 import { RelatedItemsComponent } from '../item-page/simple/related-items/related-items-component';
 import { ThemedThumbnailComponent } from '../thumbnail/themed-thumbnail.component';
@@ -124,6 +127,7 @@ import { TruncatableComponent } from './truncatable/truncatable.component';
 import { TruncatablePartComponent } from './truncatable/truncatable-part/truncatable-part.component';
 
 const ENTRY_COMPONENTS = [
+  ...THEME_LISTABLE_COMPONENTS,
   BitstreamListItemComponent,
   BrowseEntryListElementComponent,
   BundleListElementComponent,
@@ -206,6 +210,7 @@ const ENTRY_COMPONENTS = [
   PoolSearchResultDetailElementComponent,
   ItemSearchResultListElementSubmissionComponent,
   PublicationComponent,
+  DatasetComponent,
   UntypedItemComponent,
 ];
 
@@ -241,6 +246,7 @@ const ENTRY_COMPONENTS = [
     ItemActionsComponent,
     PersonInputSuggestionsComponent,
     TabbedRelatedEntitiesSearchComponent,
+    AuthorityRelatedEntitiesSearchComponent,
     WorkspaceItemAdminWorkflowActionsComponent,
     WorkflowItemAdminWorkflowActionsComponent,
     FormsModule,

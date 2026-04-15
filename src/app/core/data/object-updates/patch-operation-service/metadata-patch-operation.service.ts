@@ -77,6 +77,7 @@ export class MetadataPatchOperationService implements PatchOperationService {
       const val = {
         value: metadatum.value,
         language: metadatum.language,
+        securityLevel: metadatum.securityLevel,
       };
 
       let operation: MetadataPatchOperation;
