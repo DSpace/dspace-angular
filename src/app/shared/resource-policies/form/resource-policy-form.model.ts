@@ -40,6 +40,10 @@ const policyActionList: DynamicFormOptionConfig<any>[] = [
     value: ActionType.WRITE,
   },
   {
+    label: ActionType.ADD.toString(),
+    value: ActionType.ADD,
+  },
+  {
     label: ActionType.REMOVE.toString(),
     value: ActionType.REMOVE,
   },

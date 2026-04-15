@@ -130,6 +130,11 @@ describe('SubmissionSectionAccessesComponent', () => {
           provideMockStore({}),
         ],
       })
+        .overrideComponent(SubmissionSectionAccessesComponent, {
+          remove: {
+            imports: [FormComponent],
+          },
+        })
         .compileComponents();
     });
 
@@ -229,6 +234,11 @@ describe('SubmissionSectionAccessesComponent', () => {
 
         ],
       })
+        .overrideComponent(SubmissionSectionAccessesComponent, {
+          remove: {
+            imports: [FormComponent],
+          },
+        })
         .compileComponents();
     });
 

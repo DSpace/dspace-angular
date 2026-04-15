@@ -10,7 +10,7 @@ import { NotificationsService } from '@dspace/core/notification-system/notificat
 import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import { ClaimedApprovedTaskSearchResult } from '@dspace/core/shared/object-collection/claimed-approved-task-search-result.model';
 import { WorkflowItemDataService } from '@dspace/core/submission/workflowitem-data.service';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
   TranslateService,
@@ -33,7 +33,7 @@ export const WORKFLOW_TASK_OPTION_APPROVE = 'submit_approve';
   imports: [
     AsyncPipe,
     BtnDisabledDirective,
-    NgbTooltipModule,
+    NgbTooltip,
     TranslateModule,
   ],
 })

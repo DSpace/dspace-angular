@@ -16,7 +16,10 @@ import {
   FindAllDataImpl,
 } from '../../data/base/find-all-data';
 import { IdentifiableDataService } from '../../data/base/identifiable-data.service';
-import { SearchDataImpl } from '../../data/base/search-data';
+import {
+  SearchData,
+  SearchDataImpl,
+} from '../../data/base/search-data';
 import { FindListOptions } from '../../data/find-list-options.model';
 import { PaginatedList } from '../../data/paginated-list.model';
 import { RemoteData } from '../../data/remote-data';
@@ -29,10 +32,10 @@ import { Vocabulary } from './models/vocabulary.model';
  * Data service to retrieve vocabularies from the REST server.
  */
 @Injectable({ providedIn: 'root' })
-export class VocabularyDataService extends IdentifiableDataService<Vocabulary> implements FindAllData<Vocabulary> {
+export class VocabularyDataService extends IdentifiableDataService<Vocabulary> implements FindAllData<Vocabulary>, SearchData<Vocabulary> {
   protected searchByMetadataAndCollectionPath = 'byMetadataAndCollection';
 
-  private findAllData: FindAllData<Vocabulary>;
+  private findAllData: FindAllDataImpl<Vocabulary>;
   private searchData: SearchDataImpl<Vocabulary>;
 
   constructor(
@@ -63,6 +66,50 @@ export class VocabularyDataService extends IdentifiableDataService<Vocabulary> i
    */
   public findAll(options?: FindListOptions, useCachedVersionIfAvailable?: boolean, reRequestOnStale?: boolean, ...linksToFollow: FollowLinkConfig<Vocabulary>[]): Observable<RemoteData<PaginatedList<Vocabulary>>> {
     return this.findAllData.findAll(options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+  }
+
+  /**
+   * Make a new FindListRequest with given search method
+   *
+   * @param searchMethod                The search method for the object
+   * @param options                     The [[FindListOptions]] object
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
+   * @return {Observable<RemoteData<PaginatedList<T>>}
+   *    Return an observable that emits response from the server
+   */
+  public searchBy(searchMethod: string, options?: FindListOptions, useCachedVersionIfAvailable?: boolean, reRequestOnStale?: boolean, ...linksToFollow: FollowLinkConfig<Vocabulary>[]): Observable<RemoteData<PaginatedList<Vocabulary>>> {
+    return this.searchData.searchBy(searchMethod, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+  }
+
+  /**
+   * Create the HREF with given options object
+   *
+   * @param options The [[FindListOptions]] object
+   * @param linkPath The link path for the object
+   * @return {Observable<string>}
+   *    Return an observable that emits created HREF
+   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   */
+  getFindAllHref(options: FindListOptions = {}, linkPath?: string, ...linksToFollow: FollowLinkConfig<Vocabulary>[]): Observable<string> {
+    return this.findAllData.getFindAllHref(options, linkPath, ...linksToFollow);
+  }
+
+  /**
+   * Create the HREF for a specific object's search method with given options object
+   *
+   * @param searchMethod The search method for the object
+   * @param options The [[FindListOptions]] object
+   * @return {Observable<string>}
+   *    Return an observable that emits created HREF
+   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   */
+  public getSearchByHref(searchMethod: string, options?: FindListOptions, ...linksToFollow: FollowLinkConfig<Vocabulary>[]): Observable<string> {
+    return this.searchData.getSearchByHref(searchMethod, options, ...linksToFollow);
   }
 
   /**

@@ -5,6 +5,7 @@ import {
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { MarkdownViewerComponent } from 'src/app/shared/markdown-viewer/markdown-viewer.component';
 
 import { FooterComponent as BaseComponent } from '../../../../app/footer/footer.component';
 
@@ -17,6 +18,7 @@ import { FooterComponent as BaseComponent } from '../../../../app/footer/footer.
   imports: [
     AsyncPipe,
     DatePipe,
+    MarkdownViewerComponent,
     RouterLink,
     TranslateModule,
   ],

@@ -97,6 +97,12 @@ describe('UntypedItemComponent', () => {
       getThumbnailFor(item: Item): Observable<RemoteData<Bitstream>> {
         return createSuccessfulRemoteDataObject$(new Bitstream());
       },
+      findPrimaryBitstreamByItemAndName(item: Item, bundleName: string, useCachedVersionIfAvailable: boolean, reRequestOnStale: boolean): Observable<Bitstream | null> {
+        return of(null);
+      },
+      findAllByItemAndBundleName(item: Item, bundleName: string, options: any, useCachedVersionIfAvailable: boolean, reRequestOnStale: boolean, ...linksToFollow: any[]): Observable<RemoteData<any>> {
+        return createSuccessfulRemoteDataObject$(createPaginatedList([]));
+      },
     };
     TestBed.configureTestingModule({
       imports: [
@@ -133,6 +139,7 @@ describe('UntypedItemComponent', () => {
         { provide: ItemVersionsSharedService, useValue: {} },
         { provide: RouteService, useValue: mockRouteService },
         { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub },
+        { provide: ConfigurationDataService, useValue: new ConfigurationDataServiceStub() },
         { provide: ConfigurationDataService, useValue: configurationDataService },
         { provide: APP_CONFIG, useValue: environment },
       ],
@@ -293,6 +300,64 @@ describe('UntypedItemComponent', () => {
       expect(emitted).toBeUndefined();
     }));
 
+  });
+
+  describe('when showDownloadLinkAsAttachment is false', () => {
+    beforeEach(waitForAsync(() => {
+      TestBed.overrideComponent(UntypedItemComponent, {
+        add: { changeDetection: ChangeDetectionStrategy.Default },
+        remove: {
+          imports: [
+            ThemedFileSectionComponent,
+          ],
+        },
+      });
+      TestBed.compileComponents();
+      fixture = TestBed.createComponent(UntypedItemComponent);
+      comp = fixture.componentInstance;
+      comp.object = getItem(noMetadata);
+      comp.showDownloadLinkAsAttachment = false;
+      fixture.detectChanges();
+    }));
+
+    it('should display the file section component', () => {
+      const fileSectionElements = fixture.debugElement.queryAll(By.css('ds-item-page-file-section'));
+      expect(fileSectionElements.length).toBe(1);
+    });
+
+    it('should not display the attachment section component', () => {
+      const attachmentSectionElements = fixture.debugElement.queryAll(By.css('ds-item-page-attachment-section'));
+      expect(attachmentSectionElements.length).toBe(0);
+    });
+  });
+
+  describe('when showDownloadLinkAsAttachment is true', () => {
+    beforeEach(waitForAsync(() => {
+      TestBed.overrideComponent(UntypedItemComponent, {
+        add: { changeDetection: ChangeDetectionStrategy.Default },
+        remove: {
+          imports: [
+            ThemedFileSectionComponent,
+          ],
+        },
+      });
+      TestBed.compileComponents();
+      fixture = TestBed.createComponent(UntypedItemComponent);
+      comp = fixture.componentInstance;
+      comp.object = getItem(noMetadata);
+      comp.showDownloadLinkAsAttachment = true;
+      fixture.detectChanges();
+    }));
+
+    it('should display the attachment section component', () => {
+      const attachmentSectionElements = fixture.debugElement.queryAll(By.css('ds-item-page-attachment-section'));
+      expect(attachmentSectionElements.length).toBe(1);
+    });
+
+    it('should not display the file section component', () => {
+      const fileSectionElements = fixture.debugElement.queryAll(By.css('ds-item-page-file-section'));
+      expect(fileSectionElements.length).toBe(0);
+    });
   });
 
 });
