@@ -12,7 +12,7 @@ import { BrowseDefinitionDataService } from '../../../../../core/browse/browse-d
 import { ConfigurationDataService } from '../../../../../core/data/configuration-data.service';
 import { ConfigurationProperty } from '../../../../../core/shared/configuration-property.model';
 import { Item } from '../../../../../core/shared/item.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../../app/core/utilities/remote-data.utils';
 import { ItemPageOrcidFieldComponent } from './item-page-orcid-field.component';
 
 describe('ItemPageOrcidFieldComponent', () => {
