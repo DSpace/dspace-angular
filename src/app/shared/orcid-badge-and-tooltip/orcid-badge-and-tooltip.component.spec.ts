@@ -63,11 +63,16 @@ describe('OrcidBadgeAndTooltipComponent', () => {
     expect(badgeIcon).toBeTruthy();
   });
 
-  it('should display the ORCID icon in greyscale if there is no authenticated timestamp', () => {
+  it('should display the filled green ORCID icon if there is an authenticated timestamp', () => {
+    const badgeIcon = fixture.debugElement.query(By.css('img[data-test="orcidIcon"]'));
+    expect(badgeIcon.nativeElement.getAttribute('src')).toEqual('assets/images/orcid.logo.icon.svg');
+  });
+
+  it('should display the green unfilled ORCID icon if there is no authenticated timestamp', () => {
     component.authenticatedTimestamp = null;
     fixture.detectChanges();
     const badgeIcon = fixture.debugElement.query(By.css('img[data-test="orcidIcon"]'));
-    expect(badgeIcon.nativeElement.classList).toContain('not-authenticated');
+    expect(badgeIcon.nativeElement.getAttribute('src')).toEqual('assets/images/orcid.logo.unauth.icon.svg');
   });
 
 });
