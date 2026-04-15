@@ -247,14 +247,14 @@ describe('FileDownloadLinkComponent', () => {
 
     beforeEach(() => {
       bitstream.firstMetadataValue = jasmine.createSpy('firstMetadataValue').and.callFake((key: string) => {
-        if (key === 'dc.description.audiotranscript') {
+        if (key === 'dspace.bitstream.transcript') {
           return 'Audio transcript text';
         }
-        if (key === 'dc.description.videodescription') {
+        if (key === 'dspace.bitstream.textalternative') {
           return 'Video description text';
         }
-        if (key === 'dc.description.audiovideo') {
-          return 'audiovideo';
+        if (key === 'dc.type') {
+          return 'audio+video';
         }
         return undefined;
       });

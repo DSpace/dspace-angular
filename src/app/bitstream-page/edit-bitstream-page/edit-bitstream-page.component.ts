@@ -333,7 +333,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
       },
       {
         label: this.translate.instant('bitstream.edit.form.mediaType.option.audio-video'),
-        value: 'audiovideo',
+        value: 'audio+video',
       },
     ],
     value: 'neither',
@@ -358,7 +358,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
           },
           {
             id: 'mediaType',
-            value: 'audiovideo',
+            value: 'audio+video',
           },
         ],
       },
@@ -384,7 +384,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
           },
           {
             id: 'mediaType',
-            value: 'audiovideo',
+            value: 'audio+video',
           },
         ],
       },
@@ -664,9 +664,9 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
         description: bitstream.firstMetadataValue('dc.description'),
       },
       mediaInfoContainer: {
-        mediaType: bitstream.firstMetadataValue('dc.description.audiovideo') ?? 'neither',
-        audioTranscript: bitstream.firstMetadataValue('dc.description.audiotranscript'),
-        videoDescription: bitstream.firstMetadataValue('dc.description.videodescription'),
+        mediaType: bitstream.firstMetadataValue('dc.type') ?? 'neither',
+        audioTranscript: bitstream.firstMetadataValue('dspace.bitstream.transcript'),
+        videoDescription: bitstream.firstMetadataValue('dspace.bitstream.textalternative'),
       },
       formatContainer: {
         selectedFormat: this.selectedFormat.shortDescription,
@@ -856,19 +856,19 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     }
     const mediaType = rawForm.mediaInfoContainer?.mediaType;
     if (isEmpty(mediaType) || mediaType === 'neither') {
-      delete newMetadata['dc.description.audiovideo'];
+      delete newMetadata['dc.type'];
     } else {
-      Metadata.setFirstValue(newMetadata, 'dc.description.audiovideo', mediaType);
+      Metadata.setFirstValue(newMetadata, 'dc.type', mediaType);
     }
     if (isEmpty(rawForm.mediaInfoContainer?.audioTranscript)) {
-      delete newMetadata['dc.description.audiotranscript'];
+      delete newMetadata['dspace.bitstream.transcript'];
     } else {
-      Metadata.setFirstValue(newMetadata, 'dc.description.audiotranscript', rawForm.mediaInfoContainer.audioTranscript);
+      Metadata.setFirstValue(newMetadata, 'dspace.bitstream.transcript', rawForm.mediaInfoContainer.audioTranscript);
     }
     if (isEmpty(rawForm.mediaInfoContainer?.videoDescription)) {
-      delete newMetadata['dc.description.videodescription'];
+      delete newMetadata['dspace.bitstream.textalternative'];
     } else {
-      Metadata.setFirstValue(newMetadata, 'dc.description.videodescription', rawForm.mediaInfoContainer.videoDescription);
+      Metadata.setFirstValue(newMetadata, 'dspace.bitstream.textalternative', rawForm.mediaInfoContainer.videoDescription);
     }
     if (this.isIIIF) {
       // It's helpful to remove these metadata elements entirely when the form value is empty.

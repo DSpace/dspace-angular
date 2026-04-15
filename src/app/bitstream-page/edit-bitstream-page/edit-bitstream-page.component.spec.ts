@@ -192,19 +192,19 @@ describe('EditBitstreamPageComponent', () => {
               value: 'Bitstream title',
             },
           ],
-          'dc.description.audiovideo': [
+          'dc.type': [
             {
               value: 'audio',
             },
           ],
-          'dc.description.audiotranscript': [
+          'dspace.bitstream.transcript': [
             {
               value: 'Audio transcript content',
             },
           ],
-          'dc.description.videodescription': [
+          'dspace.bitstream.textalternative': [
             {
-              value: 'Video description content',
+              value: 'Text alternative content',
             },
           ],
         },
@@ -283,8 +283,8 @@ describe('EditBitstreamPageComponent', () => {
         expect(rawForm.mediaInfoContainer.audioTranscript).toEqual('Audio transcript content');
       });
 
-      it('should fill in the video description', () => {
-        expect(rawForm.mediaInfoContainer.videoDescription).toEqual('Video description content');
+      it('should fill in the text alternative', () => {
+        expect(rawForm.mediaInfoContainer.videoDescription).toEqual('Text alternative content');
       });
 
       it('should select the correct format', () => {

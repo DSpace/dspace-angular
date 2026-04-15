@@ -255,7 +255,7 @@ implements OnInit, OnDestroy {
   onChange(event: DynamicFormControlEvent) {
     if (event.model.id === 'name') {
       this.setOptions(event.model, event.control);
-    } else if (event.model.id === 'dc_description_audiovideo') {
+    } else if (event.model.id === 'dc_type') {
       this.hideOrShowAudioVideoMetadata(event.model, event.control);
     }
   }
@@ -302,15 +302,15 @@ implements OnInit, OnDestroy {
    * - `control.value.value` when triggered by a form control change event, or
    * - `model.value.value` when evaluated from an already initialized model (e.g. on component init).
    *
-   * @param model - The dynamic form model for the `dc_description_audiovideo` field.
+   * @param model - The dynamic form model for the `dc_type` field.
    * @param control - The reactive form control that emitted the change event (can be `null` during initialization).
    */
   hideOrShowAudioVideoMetadata(model: DynamicFormControlModel, control: UntypedFormControl) {
     const selectedMediaType = control?.value?.value ?? ((model as DynamicScrollableDropdownModel)?.value as unknown as VocabularyEntry)?.value;
     const shouldShowAudioMetadata = selectedMediaType?.toLowerCase().includes('audio');
     const shouldShowVideoMetadata = selectedMediaType?.toLowerCase().includes('video');
-    const audioTranscriptModel: any = this.formBuilderService.findById('dc_description_audiotranscript', this.formModel);
-    const videoDescriptionModel: any = this.formBuilderService.findById('dc_description_videodescription', this.formModel);
+    const audioTranscriptModel: any = this.formBuilderService.findById('dspace_bitstream_transcript', this.formModel);
+    const videoDescriptionModel: any = this.formBuilderService.findById('dspace_bitstream_textalternative', this.formModel);
     if (audioTranscriptModel) {
       audioTranscriptModel.hidden = !shouldShowAudioMetadata;
     }
@@ -325,7 +325,7 @@ implements OnInit, OnDestroy {
   ngOnInit() {
     if (this.fileData && this.formId) {
       this.formModel = this.buildFileEditForm();
-      const mediaTypeModel: any = this.formBuilderService.findById('dc_description_audiovideo', this.formModel);
+      const mediaTypeModel: any = this.formBuilderService.findById('dc_type', this.formModel);
       if (mediaTypeModel) {
         this.hideOrShowAudioVideoMetadata(mediaTypeModel, null);
       }
@@ -474,23 +474,23 @@ implements OnInit, OnDestroy {
 
         const mediaTypeValue = this.retrieveValueFromField(formData.mediaType) ?? formData.mediaType;
         if (isNotEmpty(mediaTypeValue) && mediaTypeValue !== 'neither') {
-          this.operationsBuilder.add(this.pathCombiner.getPath([...pathFragment, 'metadata/dc.description.audiovideo']), [{ value: mediaTypeValue }], true);
+          this.operationsBuilder.add(this.pathCombiner.getPath([...pathFragment, 'metadata/dc.type']), [{ value: mediaTypeValue }], true);
         } else {
-          this.operationsBuilder.remove(this.pathCombiner.getPath([...pathFragment, 'metadata/dc.description.audiovideo']));
+          this.operationsBuilder.remove(this.pathCombiner.getPath([...pathFragment, 'metadata/dc.type']));
         }
 
         const audioTranscriptValue = this.retrieveValueFromField(formData.audioTranscript) ?? formData.audioTranscript;
         if (isNotEmpty(audioTranscriptValue)) {
-          this.operationsBuilder.add(this.pathCombiner.getPath([...pathFragment, 'metadata/dc.description.audiotranscript']), [{ value: audioTranscriptValue }], true);
+          this.operationsBuilder.add(this.pathCombiner.getPath([...pathFragment, 'metadata/dspace.bitstream.transcript']), [{ value: audioTranscriptValue }], true);
         } else {
-          this.operationsBuilder.remove(this.pathCombiner.getPath([...pathFragment, 'metadata/dc.description.audiotranscript']));
+          this.operationsBuilder.remove(this.pathCombiner.getPath([...pathFragment, 'metadata/dspace.bitstream.transcript']));
         }
 
         const videoDescriptionValue = this.retrieveValueFromField(formData.videoDescription) ?? formData.videoDescription;
         if (isNotEmpty(videoDescriptionValue)) {
-          this.operationsBuilder.add(this.pathCombiner.getPath([...pathFragment, 'metadata/dc.description.videodescription']), [{ value: videoDescriptionValue }], true);
+          this.operationsBuilder.add(this.pathCombiner.getPath([...pathFragment, 'metadata/dspace.bitstream.textalternative']), [{ value: videoDescriptionValue }], true);
         } else {
-          this.operationsBuilder.remove(this.pathCombiner.getPath([...pathFragment, 'metadata/dc.description.videodescription']));
+          this.operationsBuilder.remove(this.pathCombiner.getPath([...pathFragment, 'metadata/dspace.bitstream.textalternative']));
         }
 
         // collect bitstream metadata

@@ -188,24 +188,24 @@ export class FileDownloadLinkComponent implements OnInit {
   }
 
   /**
-   * Audio transcript metadata value (`dc.description.audiotranscript`), if present.
+   * Audio transcript metadata value (`dspace.bitstream.transcript`), if present.
    */
   get audioTranscript(): string {
-    return this.bitstream?.firstMetadataValue('dc.description.audiotranscript');
+    return this.bitstream?.firstMetadataValue('dspace.bitstream.transcript');
   }
 
   /**
-   * Video description metadata value (`dc.description.videodescription`), if present.
+   * Video description metadata value (`dspace.bitstream.textalternative`), if present.
    */
   get videoDescription(): string {
-    return this.bitstream?.firstMetadataValue('dc.description.videodescription');
+    return this.bitstream?.firstMetadataValue('dspace.bitstream.textalternative');
   }
 
   /**
-   * Media type metadata value (`dc.description.audiovideo`), if present.
+   * Media type metadata value (`dc.type`), if present.
    */
   get mediaType(): string {
-    return this.bitstream?.firstMetadataValue('dc.description.audiovideo');
+    return this.bitstream?.firstMetadataValue('dc.type');
   }
 
   /**

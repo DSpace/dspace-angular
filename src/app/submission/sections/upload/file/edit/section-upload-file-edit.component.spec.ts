@@ -354,14 +354,14 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
         true,
       );
 
-      path = 'metadata/dc.description.audiotranscript';
+      path = 'metadata/dspace.bitstream.transcript';
       expect(operationsBuilder.add).toHaveBeenCalledWith(
         pathCombiner.getPath([...pathFragment, path]),
         [{ value: 'Audio transcript' }],
         true,
       );
 
-      path = 'metadata/dc.description.videodescription';
+      path = 'metadata/dspace.bitstream.textalternative';
       expect(operationsBuilder.add).toHaveBeenCalledWith(
         pathCombiner.getPath([...pathFragment, path]),
         [{ value: 'Video description' }],
@@ -441,10 +441,10 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
       tick();
 
       expect(operationsBuilder.remove).toHaveBeenCalledWith(
-        pathCombiner.getPath(['files', fileIndex, 'metadata/dc.description.audiotranscript']),
+        pathCombiner.getPath(['files', fileIndex, 'metadata/dspace.bitstream.transcript']),
       );
       expect(operationsBuilder.remove).toHaveBeenCalledWith(
-        pathCombiner.getPath(['files', fileIndex, 'metadata/dc.description.videodescription']),
+        pathCombiner.getPath(['files', fileIndex, 'metadata/dspace.bitstream.textalternative']),
       );
     }));
   });
