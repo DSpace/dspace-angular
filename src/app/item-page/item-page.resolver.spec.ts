@@ -177,6 +177,21 @@ describe('itemPageResolver', () => {
         });
     });
 
+    it('should not navigate to custom URL if coming from edit page', (done) => {
+      spyOn(router, 'navigateByUrl').and.callThrough();
+      Object.defineProperty(router, 'url', { get: () => `/entities/person/${uuid}/edit`, configurable: true });
+
+      const route = { params: { id: uuid } } as any;
+      const state = { url: `/entities/person/${uuid}` } as any;
+
+      resolver(route, state, router, itemService, store, authService, platformId, hardRedirectService)
+        .pipe(first())
+        .subscribe(() => {
+          expect(router.navigateByUrl).not.toHaveBeenCalled();
+          done();
+        });
+    });
+
     it('should not navigate if dspace.customurl matches the current route id', (done) => {
       spyOn(router, 'navigateByUrl').and.callThrough();
 

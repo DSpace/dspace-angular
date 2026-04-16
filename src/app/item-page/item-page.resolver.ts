@@ -77,7 +77,12 @@ export const itemPageResolver: ResolveFn<RemoteData<Item>> = (
           itemRoute = isSubPath ? state.url : router.parseUrl(getItemPageRoute(rd.payload)).toString();
           let newUrl: string;
           if (route.params.id !== customUrl && !isSubPath) {
-            newUrl = itemRoute.replace(route.params.id,rd.payload.firstMetadataValue('dspace.customurl'));
+            // Only redirect to custom URL if navigating directly to item page (not from edit/administer)
+            const referer = router.url;
+            const isComingFromEdit = referer.includes('/edit');
+            if (!isComingFromEdit) {
+              newUrl = itemRoute.replace(route.params.id, rd.payload.firstMetadataValue('dspace.customurl'));
+            }
           } else if (isSubPath && route.params.id === customUrl) {
             // In case of a sub path, we need to ensure we navigate to the edit page of the item ID, not the custom URL
             const itemId = rd.payload.uuid;
