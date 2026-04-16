@@ -107,7 +107,7 @@ export class EditItemPageComponent implements OnInit {
     this.itemRD$ = this.route.data.pipe(
       map((data) => data.dso),
       switchMap((rd: RemoteData<Item>) => {
-        if (rd?.hasSucceeded && rd?.payload) {
+        if (rd?.hasSucceeded && rd?.payload?._links?.self?.href) {
           return this.items.findByHref(rd.payload._links.self.href, true, false);
         }
         return of(rd);
