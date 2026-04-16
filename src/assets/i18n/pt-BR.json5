@@ -11773,7 +11773,7 @@
   // TODO New key - Add a translation
   "admin.edit-user-agreement.title": "Edit User Agreement",
 
-   // "statistics.table.header.TotalVisits": "Object",
+  // "statistics.table.header.TotalVisits": "Object",
   "statistics.table.header.TotalVisits": "Objeto",
 
   // "statistics.table.header.TotalVisitsMonth": "Month",
