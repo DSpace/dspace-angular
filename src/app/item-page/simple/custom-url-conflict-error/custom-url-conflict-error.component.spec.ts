@@ -7,6 +7,7 @@ import {
 import { By } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
+import { AuthService } from '@dspace/core/auth/auth.service';
 import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import { Item } from '@dspace/core/shared/item.model';
 import { SearchObjects } from '@dspace/core/shared/search/models/search-objects.model';
@@ -19,7 +20,10 @@ import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { throwError } from 'rxjs';
+import {
+  of,
+  throwError,
+} from 'rxjs';
 
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { SearchService } from '../../../shared/search/search.service';
@@ -36,6 +40,7 @@ describe('CustomUrlConflictErrorComponent', () => {
   let component: CustomUrlConflictErrorComponent;
   let fixture: ComponentFixture<CustomUrlConflictErrorComponent>;
   let searchServiceSpy: jasmine.SpyObj<SearchService>;
+  let authServiceSpy: jasmine.SpyObj<AuthService>;
 
   const customUrl = 'my-conflicting-url';
 
@@ -71,10 +76,11 @@ describe('CustomUrlConflictErrorComponent', () => {
 
   beforeEach(waitForAsync(() => {
     searchServiceSpy = jasmine.createSpyObj('SearchService', ['search']);
-    // Default: return empty results — overridden per suite below
+    authServiceSpy = jasmine.createSpyObj('AuthService', ['isAuthenticated']);
     searchServiceSpy.search.and.returnValue(
       createSuccessfulRemoteDataObject$(buildSearchObjects([])),
     );
+    authServiceSpy.isAuthenticated.and.returnValue(of(true));
 
     TestBed.configureTestingModule({
       imports: [
@@ -88,6 +94,7 @@ describe('CustomUrlConflictErrorComponent', () => {
         provideRouter([]),
         { provide: SearchService, useValue: searchServiceSpy },
         { provide: DSONameService, useValue: new DSONameServiceMock() },
+        { provide: AuthService, useValue: authServiceSpy },
       ],
     })
       .overrideComponent(CustomUrlConflictErrorComponent, {
@@ -102,20 +109,22 @@ describe('CustomUrlConflictErrorComponent', () => {
       searchServiceSpy.search.and.returnValue(
         createSuccessfulRemoteDataObject$(buildSearchObjects([mockItem1, mockItem2])),
       );
-      createComponent();
     });
 
     it('should create', () => {
+      createComponent();
       expect(component).toBeTruthy();
     });
 
     it('should call SearchService.search with a query containing the custom URL', () => {
+      createComponent();
       expect(searchServiceSpy.search).toHaveBeenCalledOnceWith(
         jasmine.objectContaining({ query: `dspace.customurl:${customUrl}` }),
       );
     });
 
     it('should emit one entry per conflicting item', (done) => {
+      createComponent();
       component.conflictingItems$.subscribe((items) => {
         expect(items.length).toBe(2);
         done();
@@ -123,6 +132,7 @@ describe('CustomUrlConflictErrorComponent', () => {
     });
 
     it('should build the correct metadata edit link for each item', (done) => {
+      createComponent();
       component.conflictingItems$.subscribe((items) => {
         expect(items[0].editLink).toBe(expectedEditLink(mockItem1));
         expect(items[1].editLink).toBe(expectedEditLink(mockItem2));
@@ -131,6 +141,7 @@ describe('CustomUrlConflictErrorComponent', () => {
     });
 
     it('should use DSONameService to resolve item names', (done) => {
+      createComponent();
       component.conflictingItems$.subscribe((items) => {
         expect(items[0].name).toBe(mockItem1.name);
         expect(items[1].name).toBe(mockItem2.name);
@@ -138,10 +149,42 @@ describe('CustomUrlConflictErrorComponent', () => {
       });
     });
 
-    it('should render one edit link per item in the template', () => {
-      fixture.detectChanges();
-      const links = fixture.debugElement.queryAll(By.css('ul li a'));
-      expect(links.length).toBe(2);
+    describe('when user is authenticated', () => {
+      beforeEach(() => {
+        authServiceSpy.isAuthenticated.and.returnValue(of(true));
+        createComponent();
+      });
+
+      it('should render one edit link (<a>) per item', () => {
+        fixture.detectChanges();
+        const links = fixture.debugElement.queryAll(By.css('ul li a'));
+        expect(links.length).toBe(2);
+      });
+
+      it('should not render plain text spans for items', () => {
+        fixture.detectChanges();
+        const spans = fixture.debugElement.queryAll(By.css('ul li span'));
+        expect(spans.length).toBe(0);
+      });
+    });
+
+    describe('when user is not authenticated', () => {
+      beforeEach(() => {
+        authServiceSpy.isAuthenticated.and.returnValue(of(false));
+        createComponent();
+      });
+
+      it('should not render any edit links (<a>)', () => {
+        fixture.detectChanges();
+        const links = fixture.debugElement.queryAll(By.css('ul li a'));
+        expect(links.length).toBe(0);
+      });
+
+      it('should render one plain text span per item', () => {
+        fixture.detectChanges();
+        const spans = fixture.debugElement.queryAll(By.css('ul li span'));
+        expect(spans.length).toBe(2);
+      });
     });
   });
 

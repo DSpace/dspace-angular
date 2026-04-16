@@ -5,6 +5,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { AuthService } from '@dspace/core/auth/auth.service';
 import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import { RemoteData } from '@dspace/core/data/remote-data';
 import { DSpaceObjectType } from '@dspace/core/shared/dspace-object-type.model';
@@ -67,12 +68,17 @@ export class CustomUrlConflictErrorComponent implements OnInit {
    */
   conflictingItems$: Observable<{ uuid: string; name: string; editLink: string }[]>;
 
+  /** Observable emitting whether the current user is authenticated. */
+  isAuthenticated$: Observable<boolean>;
+
   constructor(
     private searchService: SearchService,
     private dsoNameService: DSONameService,
+    private authService: AuthService,
   ) {}
 
   ngOnInit(): void {
+    this.isAuthenticated$ = this.authService.isAuthenticated();
     const searchOptions = new PaginatedSearchOptions({
       dsoTypes: [DSpaceObjectType.ITEM],
       query: `dspace.customurl:${this.customUrl}`,
