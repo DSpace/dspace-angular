@@ -11573,9 +11573,6 @@
   // "item.page.cc.license.disclaimer": "Except where otherwise noted, this item's license is described as",
   "item.page.cc.license.disclaimer": "除非另有說明，本項目的許可證描述為",
 
-  // "browse.search-form.placeholder": "Search the repository",
-  "browse.search-form.placeholder": "搜尋儲存庫",
-
   // "file-download-link.download": "Download ",
   // TODO New key - Add a translation
   "file-download-link.download": "Download ",

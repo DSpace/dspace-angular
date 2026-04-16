@@ -11246,9 +11246,6 @@
   // TODO Source message changed - Revise the translation
   "item.page.cc.license.disclaimer": "Pokud není uvedeno jinak, licence tohoto záznamu je popsána jako",
 
-  // "browse.search-form.placeholder": "Search the repository",
-  "browse.search-form.placeholder": "Hledat v repozitáři",
-
   // "file-download-link.download": "Download ",
   "file-download-link.download": "Stáhnout",
 
