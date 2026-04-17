@@ -1,11 +1,11 @@
 import { join } from 'node:path';
+import zlib from 'node:zlib';
 
 import { buildAppConfig } from '@dspace/config/config.server';
 
 import { commonExports } from './webpack.common';
 
 const CompressionPlugin = require('compression-webpack-plugin');
-const zlib = require('node:zlib');
 
 module.exports = Object.assign({}, commonExports, {
   target: 'web',

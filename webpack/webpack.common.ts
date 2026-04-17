@@ -1,3 +1,5 @@
+import { join } from 'node:path';
+
 import { EnvironmentPlugin } from 'webpack';
 
 import {
@@ -8,26 +10,25 @@ import {
 } from './helpers';
 
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const path = require('node:path');
 const sass = require('sass');
 const JSON5 = require('json5');
 
 export const copyWebpackOptions = {
   patterns: [
     {
-      from: path.join(__dirname, '..', 'node_modules', '@fortawesome', 'fontawesome-free', 'webfonts'),
-      to: path.join('assets', 'fonts'),
+      from: join(__dirname, '..', 'node_modules', '@fortawesome', 'fontawesome-free', 'webfonts'),
+      to: join('assets', 'fonts'),
       force: undefined,
     },
     {
-      from: path.join(__dirname, '..', 'src', 'assets', '**', '*.json5').replace(/\\/g, '/'),
+      from: join(__dirname, '..', 'src', 'assets', '**', '*.json5').replace(/\\/g, '/'),
       to({ absoluteFilename }) {
         // use [\/|\\] to match both POSIX and Windows separators
         const matches = absoluteFilename.match(/.*[\/|\\]assets[\/|\\](.+)\.json5$/);
         if (matches) {
           const fileHash: string = process.env.NODE_ENV === 'production' ? `.${calculateFileHash(absoluteFilename)}` : '';
           // matches[1] is the relative path from src/assets to the JSON5 file, without the extension
-          return path.join('assets', `${matches[1]}${fileHash}.json`);
+          return join('assets', `${matches[1]}${fileHash}.json`);
         }
       },
       transform(content) {
@@ -35,13 +36,13 @@ export const copyWebpackOptions = {
       },
     },
     {
-      from: path.join(__dirname, '..', 'src', 'assets'),
+      from: join(__dirname, '..', 'src', 'assets'),
       to: 'assets',
     },
     {
       // replace(/\\/g, '/') because glob patterns need forward slashes, even on windows:
       // https://github.com/mrmlnc/fast-glob#how-to-write-patterns-on-windows
-      from: path.join(__dirname, '..', 'src', 'themes', '*', 'assets', '**', '*').replace(/\\/g, '/'),
+      from: join(__dirname, '..', 'src', 'themes', '*', 'assets', '**', '*').replace(/\\/g, '/'),
       noErrorOnMissing: true,
       to({ absoluteFilename }) {
         // use [\/|\\] to match both POSIX and Windows separators
@@ -50,12 +51,12 @@ export const copyWebpackOptions = {
           // matches[1] is the theme name
           // matches[2] is the rest of the path relative to the assets folder
           // e.g. themes/custom/assets/images/logo.png will end up in assets/custom/images/logo.png
-          return path.join('assets', matches[1], matches[2]);
+          return join('assets', matches[1], matches[2]);
         }
       },
     },
     {
-      from: path.join(__dirname, '..', 'src', 'robots.txt.ejs'),
+      from: join(__dirname, '..', 'src', 'robots.txt.ejs'),
       to: 'assets/robots.txt.ejs',
     },
   ],
@@ -82,7 +83,7 @@ const SCSS_LOADERS = [
 export const commonExports = {
   plugins: [
     new EnvironmentPlugin({
-      languageHashes: getFileHashes(path.join(__dirname, '..', 'src', 'assets', 'i18n'), /.*\.json5/g),
+      languageHashes: getFileHashes(join(__dirname, '..', 'src', 'assets', 'i18n'), /.*\.json5/g),
     }),
     new CopyWebpackPlugin(copyWebpackOptions),
   ],

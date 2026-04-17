@@ -1,7 +1,15 @@
+import {
+  createWriteStream,
+  existsSync,
+  mkdirSync,
+  readdirSync,
+  readFileSync,
+  writeFileSync,
+} from 'node:fs';
+
 import { projectRoot } from '../webpack/helpers';
 
 const commander = require('commander');
-const fs = require('node:fs');
 const JSON5 = require('json5');
 const _cliProgress = require('cli-progress');
 const _ = require('lodash');
@@ -41,13 +49,13 @@ function parseCliInput() {
   const sourceFile = program.opts().sourceFile;
 
   if (!program.targetFile) {
-    fs.readdirSync(projectRoot(LANGUAGE_FILES_LOCATION)).forEach(file => {
+    readdirSync(projectRoot(LANGUAGE_FILES_LOCATION)).forEach(file => {
       if (!sourceFile.toString().endsWith(file)) {
         const targetFileLocation = projectRoot(LANGUAGE_FILES_LOCATION + '/' + file);
         console.log('Syncing file at: ' + targetFileLocation + ' with source file at: ' + sourceFile);
         if (program.outputDir) {
-          if (!fs.existsSync(program.outputDir)) {
-            fs.mkdirSync(program.outputDir);
+          if (!existsSync(program.outputDir)) {
+            mkdirSync(program.outputDir);
           }
           const outputFileLocation = program.outputDir + '/' + file;
           console.log('Output location: ' + outputFileLocation);
@@ -113,7 +121,7 @@ function syncFileWithSource(pathToTargetFile, pathToOutputFile) {
 
   const outputChunks = compareChunksAndCreateOutput(sourceChunks, targetChunks, progressBar);
 
-  const file = fs.createWriteStream(pathToOutputFile);
+  const file = createWriteStream(pathToOutputFile);
   file.on('error', function (err) {
     console.error('Something went wrong writing to output file at: ' + pathToOutputFile + err);
   });
@@ -275,7 +283,7 @@ function createChunks(lines, progressBar, creatingTarget) {
 function readFileIfExists(pathToFile) {
   if (checkIfFileExists(pathToFile)) {
     try {
-      return fs.readFileSync(pathToFile, 'utf8');
+      return readFileSync(pathToFile, 'utf8');
     } catch (e) {
       if (e instanceof Error) {
         console.error('Error:', e.stack);
@@ -327,7 +335,7 @@ function checkIfPathToFileIsValid(pathToCheck) {
 }
 
 function checkIfFileExists(pathToCheck) {
-  return fs.existsSync(pathToCheck);
+  return existsSync(pathToCheck);
 }
 
 function getPathOfDirectory(pathToCheck) {
@@ -345,5 +353,5 @@ function removeWhiteLines(string) {
 function replaceLineEndingsToCRLF(filePath) {
   const data = readFileIfExists(filePath);
   const result = data.replace(/\n/g,'\r\n');
-  fs.writeFileSync(filePath, result, 'utf8');
+  writeFileSync(filePath, result, 'utf8');
 }
