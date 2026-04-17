@@ -12,8 +12,13 @@ import {
 import { AuthService } from '@dspace/core/auth/auth.service';
 import { ItemDataService } from '@dspace/core/data/item-data.service';
 import { RemoteData } from '@dspace/core/data/remote-data';
+import { NotificationOptions } from '@dspace/core/notification-system/models/notification-options.model';
+import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { ResolvedAction } from '@dspace/core/resolving/resolver.actions';
-import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
+import {
+  CUSTOM_URL_VALID_PATTERN,
+  getItemPageRoute,
+} from '@dspace/core/router/utils/dso-route.utils';
 import { HardRedirectService } from '@dspace/core/services/hard-redirect.service';
 import {
   redirectOn4xx,
@@ -26,6 +31,7 @@ import {
 import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
 import { hasValue } from '@dspace/shared/utils/empty.util';
 import { Store } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -51,6 +57,8 @@ export const itemPageResolver: ResolveFn<RemoteData<Item>> = (
   authService: AuthService = inject(AuthService),
   platformId: any = inject(PLATFORM_ID),
   hardRedirectService: HardRedirectService = inject(HardRedirectService),
+  notificationsService: NotificationsService = inject(NotificationsService),
+  translateService: TranslateService = inject(TranslateService),
 ): Observable<RemoteData<Item>> => {
   const itemRD$ = itemService.findByIdOrCustomUrl(
     route.params.id,
@@ -67,22 +75,35 @@ export const itemPageResolver: ResolveFn<RemoteData<Item>> = (
     store.dispatch(new ResolvedAction(state.url, itemRD.payload));
   });
 
+
   return itemRD$.pipe(
     map((rd: RemoteData<Item>) => {
       if (rd.hasSucceeded && hasValue(rd.payload)) {
-        let itemRoute;
+        let itemRoute: string;
         if (hasValue(rd.payload.metadata) && rd.payload.hasMetadata('dspace.customurl')) {
           const customUrl = rd.payload.firstMetadataValue('dspace.customurl');
-          const isSubPath = !(state.url.endsWith(customUrl) || state.url.endsWith(rd.payload.id) || state.url.endsWith('/full'));
-          itemRoute = isSubPath ? state.url : router.parseUrl(getItemPageRoute(rd.payload)).toString();
+          const isValidCustomUrl = CUSTOM_URL_VALID_PATTERN.test(customUrl);
+          const decodedStateUrl = decodeURIComponent(state.url);
+          const isSubPath = !(decodedStateUrl.endsWith(customUrl) || decodedStateUrl.endsWith(rd.payload.id) || decodedStateUrl.endsWith('/full'));
+          itemRoute = (isSubPath || !isValidCustomUrl) ? state.url : router.parseUrl(getItemPageRoute(rd.payload)).toString();
           let newUrl: string;
-          if (route.params.id !== customUrl && !isSubPath) {
-            newUrl = itemRoute.replace(route.params.id,rd.payload.firstMetadataValue('dspace.customurl'));
-          } else if (isSubPath && route.params.id === customUrl) {
+          if (route.params.id !== customUrl && !isSubPath && isValidCustomUrl) {
+            newUrl = itemRoute.replace(route.params.id, rd.payload.firstMetadataValue('dspace.customurl'));
+          } else if ((isSubPath || !isValidCustomUrl) && route.params.id === customUrl) {
             // In case of a sub path, we need to ensure we navigate to the edit page of the item ID, not the custom URL
             const itemId = rd.payload.uuid;
-            newUrl = itemRoute.replace(rd.payload.firstMetadataValue('dspace.customurl'), itemId);
+            newUrl = decodeURIComponent(itemRoute).replace(customUrl, itemId);
+            if (!isValidCustomUrl && !isSubPath) {
+              // Notify the user that custom url won't be used as it is malformed
+              const notificationOptions = new NotificationOptions(-1, true);
+              notificationsService.warning(
+                translateService.instant('item-page.resolver.invalid-custom-url.title'),
+                translateService.instant('item-page.resolver.invalid-custom-url.message'),
+                notificationOptions,
+              );
+            }
           }
+
 
           if (hasValue(newUrl)) {
             router.navigateByUrl(newUrl);

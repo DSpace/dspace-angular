@@ -16,6 +16,12 @@ import {
   getItemModuleRoute,
 } from '../core-routing-paths';
 
+/**
+ * Regex to validate that a custom URL contains only safe latin-compatible characters.
+ * If the custom URL does not match this pattern, routing falls back to the item UUID.
+ */
+export const CUSTOM_URL_VALID_PATTERN = /^[.a-zA-Z0-9\-_]+$/;
+
 export function getCollectionPageRoute(collectionId: string) {
   return new URLCombiner(getCollectionModuleRoute(), collectionId).toString();
 }
@@ -26,8 +32,10 @@ export function getCommunityPageRoute(communityId: string) {
 
 /**
  * Get the route to an item's page
- * Depending on the item's entity type, the route will either start with /items or /entities
- * @param item  The item to retrieve the route for
+ * Depending on the item's entity type, the route will either start with /items or /entities.
+ *
+ * @param item             The item to retrieve the route for
+ * @param ignoreCustomUrl  When true, always use the UUID even if a valid custom URL exists
  */
 export function getItemPageRoute(item: Item, ignoreCustomUrl = false) {
   const type = item.firstMetadataValue('dspace.entity.type');
