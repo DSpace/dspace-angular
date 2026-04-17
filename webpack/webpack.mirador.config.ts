@@ -1,16 +1,16 @@
+import { existsSync } from 'node:fs';
+import { resolve } from 'node:path';
+
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const path = require('node:path');
-// @ts-ignore
-const fs = require('node:fs');
 
 module.exports = {
   mode: 'production',
   entry: {
-    mirador: fs.existsSync('./src/mirador-viewer/config.local.js') ? './src/mirador-viewer/config.local.js' :
+    mirador: existsSync('./src/mirador-viewer/config.local.js') ? './src/mirador-viewer/config.local.js' :
       './src/mirador-viewer/config.default.js',
   },
   output: {
-    path: path.resolve(__dirname, '..' , 'dist/iiif/mirador'),
+    path: resolve(__dirname, '..' , 'dist/iiif/mirador'),
     filename: '[name].js',
   },
   devServer: {
