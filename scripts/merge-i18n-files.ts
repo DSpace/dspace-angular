@@ -6,10 +6,14 @@ import {
   writeFileSync,
 } from 'node:fs';
 
+import {
+  parse,
+  stringify,
+} from 'json5';
+
 import { projectRoot } from '../webpack/helpers';
 
 const commander = require('commander');
-const JSON5 = require('json5');
 const _cliProgress = require('cli-progress');
 const _ = require('lodash');
 
@@ -95,16 +99,16 @@ function mergeFileWithSource(pathToSourceFile, pathToOutputFile) {
   const outputFile = readFileSync(pathToOutputFile, 'utf8');
   progressBar.update(20);
 
-  const parsedSource = JSON5.parse(sourceFile);
+  const parsedSource = parse(sourceFile);
   progressBar.update(30);
-  const parsedOutput = JSON5.parse(outputFile);
+  const parsedOutput = parse(outputFile);
   progressBar.update(40);
 
   for (const key of Object.keys(parsedSource)) {
     parsedOutput[key] = parsedSource[key];
   }
   progressBar.update(80);
-  writeFileSync(pathToOutputFile,JSON5.stringify(parsedOutput,{ space:'\n  ', quote: '"' }), { encoding:'utf8' });
+  writeFileSync(pathToOutputFile,stringify(parsedOutput,{ space:'\n  ', quote: '"' }), { encoding:'utf8' });
 
   progressBar.update(100);
   progressBar.stop();

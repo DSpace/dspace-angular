@@ -1,5 +1,6 @@
 import { join } from 'node:path';
 
+import { parse } from 'json5';
 import { EnvironmentPlugin } from 'webpack';
 
 import {
@@ -12,7 +13,6 @@ import { GenerateDecoratorRegistriesPlugin } from './plugins/generate-decorator-
 
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const JSON5 = require('json5');
 
 export const copyWebpackOptions = {
   patterns: [
@@ -33,7 +33,7 @@ export const copyWebpackOptions = {
         }
       },
       transform(content) {
-        return JSON.stringify(JSON5.parse(content.toString()));
+        return JSON.stringify(parse(content.toString()));
       },
     },
     {

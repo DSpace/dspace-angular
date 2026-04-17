@@ -7,10 +7,11 @@ import {
   writeFileSync,
 } from 'node:fs';
 
+import { stringify } from 'json5';
+
 import { projectRoot } from '../webpack/helpers';
 
 const commander = require('commander');
-const JSON5 = require('json5');
 const _cliProgress = require('cli-progress');
 const _ = require('lodash');
 
@@ -215,8 +216,8 @@ function createNewChunkComparingSourceAndTarget(correspondingTargetChunk, source
       commentsOfSourceHaveChanged = true;
       newChunk.push(COMMENTS_CHANGED_TODO);
     }
-    const parsedOldKey = JSON5.stringify('{' + oldKeyValueUncommented + '}');
-    const parsedSourceKey = JSON5.stringify('{' + keyValueSource + '}');
+    const parsedOldKey = stringify('{' + oldKeyValueUncommented + '}');
+    const parsedSourceKey = stringify('{' + keyValueSource + '}');
     if (!_.isEqual(parsedOldKey, parsedSourceKey)) {
       messageOfSourceHasChanged = true;
       newChunk.push(MESSAGE_CHANGED_TODO);
