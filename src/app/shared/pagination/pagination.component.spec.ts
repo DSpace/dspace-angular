@@ -317,6 +317,14 @@ describe('Pagination component', () => {
         expect(de.nativeElement.classList.contains('pagination-sm')).toBeTruthy();
       });
     });
+
+    it('should show surrounding pages when navigating to a later page', () => {
+      testComp.collectionSize = 200;
+      testFixture.detectChanges();
+      currentPagination.next(Object.assign(new PaginationComponentOptions(), pagination, { currentPage: 10 }));
+      testFixture.detectChanges();
+      expectPages(testFixture, ['« Previous', '-...', '8', '9', '+10', '11', '12', '-...', '» Next']);
+    });
   });
 
   describe('when showPaginator is true', () => {
