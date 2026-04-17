@@ -320,6 +320,7 @@ describe('Pagination component', () => {
 
     it('should show surrounding pages when navigating to a later page', () => {
       testComp.collectionSize = 200;
+      testComp.paginationOptions.maxSize = 5;
       testFixture.detectChanges();
       currentPagination.next(Object.assign(new PaginationComponentOptions(), pagination, { currentPage: 10 }));
       testFixture.detectChanges();
