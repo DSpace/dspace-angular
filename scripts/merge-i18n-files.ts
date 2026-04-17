@@ -6,6 +6,7 @@ import {
   writeFileSync,
 } from 'node:fs';
 
+import { Command } from 'commander';
 import {
   parse,
   stringify,
@@ -13,11 +14,10 @@ import {
 
 import { projectRoot } from '../webpack/helpers';
 
-const commander = require('commander');
 const _cliProgress = require('cli-progress');
 const _ = require('lodash');
 
-const program = new commander.Command();
+const program = new Command();
 program.version('1.0.0', '-v, --version');
 
 const LANGUAGE_FILES_LOCATION = 'src/assets/i18n';

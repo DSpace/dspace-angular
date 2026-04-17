@@ -7,15 +7,15 @@ import {
   writeFileSync,
 } from 'node:fs';
 
+import { Command } from 'commander';
 import { stringify } from 'json5';
 
 import { projectRoot } from '../webpack/helpers';
 
-const commander = require('commander');
 const _cliProgress = require('cli-progress');
 const _ = require('lodash');
 
-const program = new commander.Command();
+const program = new Command();
 program.version('1.0.0', '-v, --version');
 
 const NEW_MESSAGE_TODO = '// TODO New key - Add a translation';
@@ -49,16 +49,16 @@ function parseCliInput() {
 
   const sourceFile = program.opts().sourceFile;
 
-  if (!program.targetFile) {
+  if (!program.opts().targetFile) {
     readdirSync(projectRoot(LANGUAGE_FILES_LOCATION)).forEach(file => {
       if (!sourceFile.toString().endsWith(file)) {
         const targetFileLocation = projectRoot(LANGUAGE_FILES_LOCATION + '/' + file);
         console.log('Syncing file at: ' + targetFileLocation + ' with source file at: ' + sourceFile);
-        if (program.outputDir) {
-          if (!existsSync(program.outputDir)) {
-            mkdirSync(program.outputDir);
+        if (program.opts().outputDir) {
+          if (!existsSync(program.opts().outputDir)) {
+            mkdirSync(program.opts().outputDir);
           }
-          const outputFileLocation = program.outputDir + '/' + file;
+          const outputFileLocation = program.opts().outputDir + '/' + file;
           console.log('Output location: ' + outputFileLocation);
           syncFileWithSource(targetFileLocation, outputFileLocation);
         } else {
@@ -68,12 +68,12 @@ function parseCliInput() {
       }
     });
   } else {
-    if (program.targetFile && !checkIfPathToFileIsValid(program.targetFile)) {
+    if (program.opts().targetFile && !checkIfPathToFileIsValid(program.opts().targetFile)) {
       console.error('Directory path of target file is not valid.');
       console.log(program.outputHelp());
       process.exit(1);
     }
-    if (program.targetFile && checkIfFileExists(program.targetFile) && !(program.editInPlace || program.outputFile)) {
+    if (program.opts().targetFile && checkIfFileExists(program.opts().targetFile) && !(program.opts().editInPlace || program.opts().outputFile)) {
       console.error('This target file already exists, if you want to overwrite this add option -i, or add an -o output location');
       console.log(program.outputHelp());
       process.exit(1);
@@ -83,13 +83,13 @@ function parseCliInput() {
       console.log(program.outputHelp());
       process.exit(1);
     }
-    if (program.outputFile && !checkIfPathToFileIsValid(program.outputFile)) {
+    if (program.opts().outputFile && !checkIfPathToFileIsValid(program.opts().outputFile)) {
       console.error('Directory path of output file is not valid.');
       console.log(program.outputHelp());
       process.exit(1);
     }
 
-    syncFileWithSource(program.targetFile, getOutputFileLocationIfExistsElseTargetFileLocation(program.targetFile));
+    syncFileWithSource(program.opts().targetFile, getOutputFileLocationIfExistsElseTargetFileLocation(program.opts().targetFile));
   }
 }
 
@@ -322,8 +322,8 @@ function getSubStringBeforeLastString(string, char) {
 
 
 function getOutputFileLocationIfExistsElseTargetFileLocation(targetLocation) {
-  if (program.outputFile) {
-    return program.outputFile;
+  if (program.opts().outputFile) {
+    return program.opts().outputFile;
   }
   return targetLocation;
 }
