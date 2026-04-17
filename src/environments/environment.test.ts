@@ -1,4 +1,5 @@
 // This configuration is only used for unit tests, end-to-end tests use environment.production.ts
+import { AdvancedAttachmentElementType } from '@dspace/config/advanced-attachment-rendering.config';
 import { NotificationAnimationsType } from '@dspace/config/notifications-config.interfaces';
 import { RestRequestMethod } from '@dspace/config/rest-request-method';
 import { BuildConfig } from 'src/config/build-config.interface';
@@ -127,6 +128,7 @@ export const environment: BuildConfig = {
       required: 'required',
       regex: 'pattern',
     },
+    showInlineGroupDuplicateButton: false,
   },
 
   // Notifications
@@ -270,6 +272,7 @@ export const environment: BuildConfig = {
     pageSize: 20,
   },
   homePage: {
+    showTopFooter: false,
     recentSubmissions: {
       pageSize: 5,
       //sort record of recent submission
@@ -283,6 +286,24 @@ export const environment: BuildConfig = {
   item: {
     edit: {
       undoTimeout: 10000, // 10 seconds
+      security: {
+        levels: [
+          {
+            value: 0,
+            icon: 'fa fa-globe',
+            color: 'green',
+          },
+          {
+            value: 1,
+            icon: 'fa fa-key',
+            color: 'orange',
+          },
+          {
+            value: 2,
+            icon: 'fa fa-lock',
+            color: 'red',
+          }],
+      },
     },
     // Show the item access status label in items lists
     showAccessStatuses: false,
@@ -322,6 +343,7 @@ export const environment: BuildConfig = {
       ],
       identifierSubtypes: [],
     },
+    showAuthorityRelations: false,
   },
   community: {
     defaultBrowseTab: 'search',
@@ -549,15 +571,45 @@ export const environment: BuildConfig = {
         },
       },
     ],
+    showDownloadLinkAsAttachment: false,
+    advancedAttachmentRendering: {
+      metadata: [
+        {
+          name: 'dc.title',
+          type: AdvancedAttachmentElementType.Metadata,
+          truncatable: false,
+        },
+        {
+          name: 'dc.type',
+          type: AdvancedAttachmentElementType.Metadata,
+          truncatable: false,
+        },
+        {
+          name: 'dc.description',
+          type: AdvancedAttachmentElementType.Metadata,
+          truncatable: true,
+        },
+        {
+          name: 'size',
+          type: AdvancedAttachmentElementType.Attribute,
+        },
+        {
+          name: 'format',
+          type: AdvancedAttachmentElementType.Attribute,
+        },
+        {
+          name: 'checksum',
+          type: AdvancedAttachmentElementType.Attribute,
+        },
+      ],
+    },
   },
 
   searchResult: {
     authorMetadata: ['dc.contributor.author', 'dc.creator', 'dc.contributor.*'],
     followAuthorityMaxItemLimit: 100,
-
     followAuthorityMetadataValuesLimit: 5,
-
-    followAuthorityMetadata:   [
+    followAuthorityMetadata: [
       {
         type: 'Publication',
         metadata: ['dc.contributor.author'],
@@ -570,6 +622,23 @@ export const environment: BuildConfig = {
         type: 'Patent',
         metadata: ['dc.contributor.author'],
       },
+    ],
+  },
+
+  addToAnyPlugin: {
+    socialNetworksEnabled: true,
+    scriptUrl: 'https://static.addtoany.com/menu/page.js',
+    buttons: ['btn1', 'btn2'],
+    showPlusButton: true,
+    showCounters: true,
+    title: 'DSpace demo',
+  },
+
+  cms: {
+    metadataList: [
+      'dspace.cms.home-header',
+      'dspace.cms.home-news',
+      'dspace.cms.footer',
     ],
   },
 };

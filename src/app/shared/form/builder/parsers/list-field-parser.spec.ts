@@ -18,6 +18,7 @@ describe('ListFieldParser test suite', () => {
     submissionScope: 'testScopeUUID',
     collectionUUID: null,
     typeField: 'dc_type',
+    isInnerForm: false,
   };
 
   beforeEach(() => {
@@ -42,13 +43,13 @@ describe('ListFieldParser test suite', () => {
   });
 
   it('should init parser properly', () => {
-    const parser = new ListFieldParser(submissionId, field, initFormValues, parserOptions, translateService);
+    const parser = new ListFieldParser(submissionId, field, initFormValues, parserOptions, null, translateService);
 
     expect(parser instanceof ListFieldParser).toBe(true);
   });
 
   it('should return a DynamicListCheckboxGroupModel object when repeatable option is true', () => {
-    const parser = new ListFieldParser(submissionId, field, initFormValues, parserOptions, translateService);
+    const parser = new ListFieldParser(submissionId, field, initFormValues, parserOptions, null, translateService);
 
     const fieldModel = parser.parse();
 
@@ -57,20 +58,34 @@ describe('ListFieldParser test suite', () => {
 
   it('should return a DynamicListRadioGroupModel object when repeatable option is false', () => {
     field.repeatable = false;
-    const parser = new ListFieldParser(submissionId, field, initFormValues, parserOptions, translateService);
+    const parser = new ListFieldParser(submissionId, field, initFormValues, parserOptions, null, translateService);
 
     const fieldModel = parser.parse();
 
     expect(fieldModel instanceof DynamicListRadioGroupModel).toBe(true);
   });
 
-  it('should set init value properly', () => {
+  it('should set init value properly when repeatable option is true', () => {
     initFormValues = {
       type: [new FormFieldMetadataValueObject('test type')],
     };
     const expectedValue = [new FormFieldMetadataValueObject('test type')];
 
-    const parser = new ListFieldParser(submissionId, field, initFormValues, parserOptions, translateService);
+    const parser = new ListFieldParser(submissionId, field, initFormValues, parserOptions, null, translateService);
+
+    const fieldModel = parser.parse();
+
+    expect(fieldModel.value).toEqual(expectedValue);
+  });
+
+  it('should set init value properly when repeatable option is false', () => {
+    field.repeatable = false;
+    initFormValues = {
+      type: [new FormFieldMetadataValueObject('test type')],
+    };
+    const expectedValue = new FormFieldMetadataValueObject('test type');
+
+    const parser = new ListFieldParser(submissionId, field, initFormValues, parserOptions, null, translateService);
 
     const fieldModel = parser.parse();
 
