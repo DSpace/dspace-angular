@@ -5,6 +5,7 @@ import { buildAppConfig } from '@dspace/config/config.server';
 
 import { commonExports } from './webpack.common';
 
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const CompressionPlugin = require('compression-webpack-plugin');
 
 module.exports = Object.assign({}, commonExports, {

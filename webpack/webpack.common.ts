@@ -9,6 +9,7 @@ import {
   projectRoot,
 } from './helpers';
 
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const sass = require('sass');
 const JSON5 = require('json5');
