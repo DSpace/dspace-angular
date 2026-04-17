@@ -9,11 +9,12 @@ import {
 
 import { Command } from 'commander';
 import { stringify } from 'json5';
+import isEmpty from 'lodash/isEmpty';
+import isEqual from 'lodash/isEqual';
 
 import { projectRoot } from '../webpack/helpers';
 
 const _cliProgress = require('cli-progress');
-const _ = require('lodash');
 
 const program = new Command();
 program.version('1.0.0', '-v, --version');
@@ -212,13 +213,13 @@ function createNewChunkComparingSourceAndTarget(correspondingTargetChunk, source
   if (oldKeyValueInTargetComments != null) {
     const oldKeyValueUncommented = getSubStringWithRegex(oldKeyValueInTargetComments[0], '".*')[0];
 
-    if (!(_.isEmpty(correspondingTargetChunk) && _.isEmpty(commentSource)) && !removeWhiteLines(correspondingTargetChunk).includes(removeWhiteLines(commentSource.trim()))) {
+    if (!(isEmpty(correspondingTargetChunk) && isEmpty(commentSource)) && !removeWhiteLines(correspondingTargetChunk).includes(removeWhiteLines(commentSource.trim()))) {
       commentsOfSourceHaveChanged = true;
       newChunk.push(COMMENTS_CHANGED_TODO);
     }
     const parsedOldKey = stringify('{' + oldKeyValueUncommented + '}');
     const parsedSourceKey = stringify('{' + keyValueSource + '}');
-    if (!_.isEqual(parsedOldKey, parsedSourceKey)) {
+    if (!isEqual(parsedOldKey, parsedSourceKey)) {
       messageOfSourceHasChanged = true;
       newChunk.push(MESSAGE_CHANGED_TODO);
     }
