@@ -12,7 +12,6 @@ import { GenerateDecoratorRegistriesPlugin } from './plugins/generate-decorator-
 
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const sass = require('sass');
 const JSON5 = require('json5');
 
 export const copyWebpackOptions = {
