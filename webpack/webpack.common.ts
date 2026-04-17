@@ -10,6 +10,7 @@ import {
 } from './helpers';
 import { GenerateDecoratorRegistriesPlugin } from './plugins/generate-decorator-registries.plugin';
 
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const sass = require('sass');
 const JSON5 = require('json5');

@@ -1,6 +1,7 @@
 import { existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
