@@ -252,7 +252,6 @@ describe('itemPageResolver', () => {
       translateService = { instant: (key: string) => key } as any;
 
       spyOn(router, 'navigateByUrl').and.callThrough();
-      spyOn(notificationsService, 'warning').and.callThrough();
 
       const encodedInvalidUrl = encodeURIComponent(invalidCustomUrl);
       const route = { params: { id: invalidCustomUrl } } as any;
