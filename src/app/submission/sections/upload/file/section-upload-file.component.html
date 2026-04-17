@@ -57,7 +57,7 @@
 
 <ng-template #content let-c="close" let-d="dismiss">
   <div class="modal-header">
-    <h4 class="modal-title text-danger">{{ 'submission.sections.upload.delete.confirm.title' | translate }}</h4>
+    <h4 id="modal-title" class="modal-title text-danger">{{ 'submission.sections.upload.delete.confirm.title' | translate }}</h4>
     <button type="button" class="btn-close" aria-label="Close" (click)="d('cancel')">
     </button>
   </div>
