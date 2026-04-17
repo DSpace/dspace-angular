@@ -15,7 +15,6 @@ import {
 import { projectRoot } from '../webpack/helpers';
 
 const _cliProgress = require('cli-progress');
-const _ = require('lodash');
 
 const program = new Command();
 program.version('1.0.0', '-v, --version');
