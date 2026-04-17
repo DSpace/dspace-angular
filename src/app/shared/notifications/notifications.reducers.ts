@@ -1,13 +1,14 @@
-import { NotificationsActions, NotificationsActionTypes, RemoveNotificationAction } from './notifications.actions';
 import { INotification } from './models/notification.model';
+import {
+  NotificationsActions,
+  NotificationsActionTypes,
+  RemoveNotificationAction,
+} from './notifications.actions';
 
 /**
  * The notification state.
  */
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface NotificationsState extends Array<INotification> {
-
-}
+export type NotificationsState = Array<INotification>;
 
 /**
  * The initial state.

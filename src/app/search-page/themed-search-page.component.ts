@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { ThemedComponent } from '../shared/theme-support/themed.component';
 import { SearchPageComponent } from './search-page.component';
 
@@ -6,8 +7,7 @@ import { SearchPageComponent } from './search-page.component';
  * Themed wrapper for SearchPageComponent
  */
 @Component({
-  selector: 'ds-themed-search-page',
-  styleUrls: [],
+  selector: 'ds-search-page',
   templateUrl: '../shared/theme-support/themed.component.html',
 })
 export class ThemedSearchPageComponent extends ThemedComponent<SearchPageComponent> {

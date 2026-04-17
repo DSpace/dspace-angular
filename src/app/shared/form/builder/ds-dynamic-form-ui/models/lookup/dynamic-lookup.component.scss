@@ -25,3 +25,12 @@ div {
 .lookup-item {
   border-bottom: var(--bs-dropdown-border-width) solid var(--bs-dropdown-border-color);
 }
+
+div.col {
+  position: relative;
+}
+
+.row > div {
+  padding-right: 5px;
+  padding-left: 5px;
+}

@@ -1,31 +1,37 @@
-import { SectionVisibility } from './../../../../submission/objects/section-visibility.model';
-import { VisibilityType } from './../../../../submission/sections/visibility-type';
-import { Inject, InjectionToken } from '@angular/core';
-
-import uniqueId from 'lodash/uniqueId';
 import {
-  DynamicFormControlLayout,
-  DynamicFormControlRelation,
-  MATCH_VISIBLE,
-  OR_OPERATOR
-} from '@ng-dynamic-forms/core';
+  Inject,
+  InjectionToken,
+} from '@angular/core';
+import { DynamicFormControlLayout } from '@ng-dynamic-forms/core';
+import { TranslateService } from '@ngx-translate/core';
+import uniqueId from 'lodash/uniqueId';
 
-import { hasValue, isNotEmpty, isNotNull, isNotUndefined } from '../../../empty.util';
-import { FormFieldModel } from '../models/form-field.model';
-import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
+import { SubmissionScopeType } from '../../../../core/submission/submission-scope-type';
+import { VocabularyOptions } from '../../../../core/submission/vocabularies/models/vocabulary-options.model';
+import { isNgbDateStruct } from '../../../date.util';
+import {
+  hasValue,
+  isNotEmpty,
+  isNotNull,
+  isNotUndefined,
+} from '../../../empty.util';
+import {
+  DsDynamicInputModel,
+  DsDynamicInputModelConfig,
+} from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import {
   DynamicRowArrayModel,
-  DynamicRowArrayModelConfig
+  DynamicRowArrayModelConfig,
 } from '../ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
-import { DsDynamicInputModel, DsDynamicInputModelConfig } from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
+import { getTypeBindRelations } from '../ds-dynamic-form-ui/type-bind.utils';
+import { FormFieldModel } from '../models/form-field.model';
+import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
+import { RelationshipOptions } from '../models/relationship-options.model';
+import { SectionVisibility } from './../../../../submission/objects/section-visibility.model';
+import { VisibilityType } from './../../../../submission/sections/visibility-type';
 import { setLayout } from './parser.utils';
 import { ParserOptions } from './parser-options';
-import { RelationshipOptions } from '../models/relationship-options.model';
-import { VocabularyOptions } from '../../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { ParserType } from './parser-type';
-import { isNgbDateStruct } from '../../../date.util';
-import { SubmissionScopeType } from '../../../../core/submission/submission-scope-type';
-import { TranslateService } from '@ngx-translate/core';
 
 export const SUBMISSION_ID: InjectionToken<string> = new InjectionToken<string>('submissionId');
 export const CONFIG_DATA: InjectionToken<FormFieldModel> = new InjectionToken<FormFieldModel>('configData');
@@ -52,16 +58,16 @@ export abstract class FieldParser {
     @Inject(CONFIG_DATA) protected configData: FormFieldModel,
     @Inject(INIT_FORM_VALUES) protected initFormValues: any,
     @Inject(PARSER_OPTIONS) protected parserOptions: ParserOptions,
-    protected translate: TranslateService
+    protected translate: TranslateService,
   ) {
   }
 
   public abstract modelFactory(fieldValue?: FormFieldMetadataValueObject, label?: boolean): any;
 
   public parse() {
-     if (((this.getInitValueCount() > 1 && !this.configData.repeatable) || (this.configData.repeatable))
-      && (this.configData.input.type !== ParserType.List)
-      && (this.configData.input.type !== ParserType.Tag)
+    if (((this.getInitValueCount() > 1 && !this.configData.repeatable) || (this.configData.repeatable))
+      && (this.configData.input.type !== ParserType.List.valueOf())
+      && (this.configData.input.type !== ParserType.Tag.valueOf())
     ) {
       let arrayCounter = 0;
       let fieldArrayCounter = 0;
@@ -73,7 +79,7 @@ export abstract class FieldParser {
       }
 
       let isDraggable = true;
-      if (this.configData.input.type === ParserType.Onebox && this.configData?.selectableMetadata?.length > 1) {
+      if (this.configData.input.type === ParserType.Onebox.valueOf() && this.configData?.selectableMetadata?.length > 1) {
         isDraggable = false;
       }
       const config = {
@@ -88,7 +94,7 @@ export abstract class FieldParser {
         metadataFields: this.getAllFieldIds(),
         hasSelectableMetadata: isNotEmpty(this.configData.selectableMetadata),
         isDraggable,
-        typeBindRelations: isNotEmpty(this.configData.typeBind) ? this.getTypeBindRelations(this.configData.typeBind,
+        typeBindRelations: isNotEmpty(this.configData.typeBind) ? getTypeBindRelations(this.configData.typeBind,
           this.parserOptions.typeField) : null,
         groupFactory: () => {
           let model;
@@ -112,13 +118,13 @@ export abstract class FieldParser {
             setLayout(model, 'grid', 'control', 'col');
           }
           return [model];
-        }
+        },
       } as DynamicRowArrayModelConfig;
 
       const layout: DynamicFormControlLayout = {
         grid: {
-          group: 'form-row'
-        }
+          group: 'row',
+        },
       };
 
       return new DynamicRowArrayModel(config, layout);
@@ -137,7 +143,7 @@ export abstract class FieldParser {
     if (isNotEmpty(this.configData.selectableMetadata) && isNotEmpty(this.configData.selectableMetadata[0].controlledVocabulary)) {
       controlModel.vocabularyOptions = new VocabularyOptions(
         this.configData.selectableMetadata[0].controlledVocabulary,
-        this.configData.selectableMetadata[0].closed
+        this.configData.selectableMetadata[0].closed,
       );
     }
   }
@@ -300,7 +306,8 @@ export abstract class FieldParser {
     if (hint) {
       controlModel.hint = this.configData.hints || '&nbsp;';
     }
-    controlModel.placeholder = this.configData.label;
+
+    controlModel.additional = { ...controlModel.additional, ariaLabel: this.configData.label };
 
     if (this.configData.mandatory && setErrors) {
       this.markAsRequired(controlModel);
@@ -317,7 +324,7 @@ export abstract class FieldParser {
 
     // If typeBind is configured
     if (isNotEmpty(this.configData.typeBind)) {
-      (controlModel as DsDynamicInputModel).typeBindRelations = this.getTypeBindRelations(this.configData.typeBind,
+      (controlModel as DsDynamicInputModel).typeBindRelations = getTypeBindRelations(this.configData.typeBind,
         this.parserOptions.typeField);
     }
 
@@ -336,46 +343,14 @@ export abstract class FieldParser {
       && isNotEmpty(fieldScope)
       && isNotEmpty(visibility)
       && ((
-          submissionScope === SubmissionScopeType.WorkspaceItem
+        submissionScope === SubmissionScopeType.WorkspaceItem.valueOf()
           && visibility.main === VisibilityType.READONLY
-          )
+      )
         ||
           (visibility.other === VisibilityType.READONLY
-          && submissionScope === SubmissionScopeType.WorkflowItem
+          && submissionScope === SubmissionScopeType.WorkflowItem.valueOf()
           )
       );
-  }
-
-  /**
-   * Get the type bind values from the REST data for a specific field
-   * The return value is any[] in the method signature but in reality it's
-   * returning the 'relation' that'll be used for a dynamic matcher when filtering
-   * fields in type bind, made up of a 'match' outcome (make this field visible), an 'operator'
-   * (OR) and a 'when' condition (the bindValues array).
-   * @param configuredTypeBindValues  array of types from the submission definition (CONFIG_DATA)
-   * @param typeField
-   * @private
-   * @return DynamicFormControlRelation[] array with one relation in it, for type bind matching to show a field
-   */
-  private getTypeBindRelations(configuredTypeBindValues: string[], typeField: string): DynamicFormControlRelation[] {
-    const bindValues = [];
-    configuredTypeBindValues.forEach((value) => {
-      bindValues.push({
-        id: typeField,
-        value: value
-      });
-    });
-    // match: MATCH_VISIBLE means that if true, the field / component will be visible
-    // operator: OR means that all the values in the 'when' condition will be compared with OR, not AND
-    // when: the list of values to match against, in this case the list of strings from <type-bind>...</type-bind>
-    // Example: Field [x] will be VISIBLE if item type = book OR item type = book_part
-    //
-    // The opposing match value will be the dc.type for the workspace item
-    return [{
-      match: MATCH_VISIBLE,
-      operator: OR_OPERATOR,
-      when: bindValues
-    }];
   }
 
   protected hasRegex() {

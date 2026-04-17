@@ -1,27 +1,58 @@
-import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { filter, take } from 'rxjs/operators';
+import { AsyncPipe } from '@angular/common';
+import {
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  filter,
+  take,
+} from 'rxjs/operators';
+
+import { MediaViewerConfig } from '../../../config/media-viewer-config.interface';
+import { environment } from '../../../environments/environment';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
-import { BitstreamFormat } from '../../core/shared/bitstream-format.model';
 import { Bitstream } from '../../core/shared/bitstream.model';
+import { BitstreamFormat } from '../../core/shared/bitstream-format.model';
 import { Item } from '../../core/shared/item.model';
+import { ItemRequest } from '../../core/shared/item-request.model';
 import { MediaViewerItem } from '../../core/shared/media-viewer-item.model';
 import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
 import { hasValue } from '../../shared/empty.util';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { followLink } from '../../shared/utils/follow-link-config.model';
-import { MediaViewerConfig } from '../../../config/media-viewer-config.interface';
-import { environment } from '../../../environments/environment';
-import { Subscription } from 'rxjs/internal/Subscription';
+import { VarDirective } from '../../shared/utils/var.directive';
+import { ThemedThumbnailComponent } from '../../thumbnail/themed-thumbnail.component';
+import { ThemedMediaViewerImageComponent } from './media-viewer-image/themed-media-viewer-image.component';
+import { ThemedMediaViewerVideoComponent } from './media-viewer-video/themed-media-viewer-video.component';
 
 /**
  * This component renders the media viewers
  */
 @Component({
-  selector: 'ds-media-viewer',
+  selector: 'ds-base-media-viewer',
   templateUrl: './media-viewer.component.html',
   styleUrls: ['./media-viewer.component.scss'],
+  imports: [
+    AsyncPipe,
+    ThemedLoadingComponent,
+    ThemedMediaViewerImageComponent,
+    ThemedMediaViewerVideoComponent,
+    ThemedThumbnailComponent,
+    TranslateModule,
+    VarDirective,
+  ],
 })
 export class MediaViewerComponent implements OnDestroy, OnInit {
   @Input() item: Item;
@@ -40,9 +71,12 @@ export class MediaViewerComponent implements OnDestroy, OnInit {
 
   subs: Subscription[] = [];
 
+  itemRequest: ItemRequest;
+
   constructor(
     protected bitstreamDataService: BitstreamDataService,
-    protected changeDetectorRef: ChangeDetectorRef
+    protected changeDetectorRef: ChangeDetectorRef,
+    protected route: ActivatedRoute,
   ) {
   }
 
@@ -54,6 +88,7 @@ export class MediaViewerComponent implements OnDestroy, OnInit {
    * This method loads all the Bitstreams and Thumbnails and converts it to {@link MediaViewerItem}s
    */
   ngOnInit(): void {
+    this.itemRequest = this.route.snapshot.data.itemRequest;
     const types: string[] = [
       ...(this.mediaOptions.image ? ['image'] : []),
       ...(this.mediaOptions.video ? ['audio', 'video'] : []),
@@ -76,7 +111,7 @@ export class MediaViewerComponent implements OnDestroy, OnInit {
                 const mediaItem = this.createMediaViewerItem(
                   bitstreamsRD.payload.page[index],
                   format,
-                  thumbnailsRD.payload && thumbnailsRD.payload.page[index]
+                  thumbnailsRD.payload && thumbnailsRD.payload.page[index],
                 );
                 if (types.includes(mediaItem.format)) {
                   this.mediaList$.next([...this.mediaList$.getValue(), mediaItem]);
@@ -90,6 +125,7 @@ export class MediaViewerComponent implements OnDestroy, OnInit {
         }));
       }
     }));
+
   }
 
   /**
@@ -97,7 +133,7 @@ export class MediaViewerComponent implements OnDestroy, OnInit {
    * @param bundleName Bundle name
    */
   loadRemoteData(
-    bundleName: string
+    bundleName: string,
   ): Observable<RemoteData<PaginatedList<Bitstream>>> {
     return this.bitstreamDataService
       .findAllByItemAndBundleName(
@@ -106,15 +142,15 @@ export class MediaViewerComponent implements OnDestroy, OnInit {
         {},
         true,
         true,
-        followLink('format')
+        followLink('format'),
       )
       .pipe(
         filter(
           (bitstreamsRD: RemoteData<PaginatedList<Bitstream>>) =>
             hasValue(bitstreamsRD) &&
-            (hasValue(bitstreamsRD.errorMessage) || hasValue(bitstreamsRD.payload))
+            (hasValue(bitstreamsRD.errorMessage) || hasValue(bitstreamsRD.payload)),
         ),
-        take(1)
+        take(1),
       );
   }
 
@@ -130,6 +166,18 @@ export class MediaViewerComponent implements OnDestroy, OnInit {
     mediaItem.format = format.mimetype.split('/')[0];
     mediaItem.mimetype = format.mimetype;
     mediaItem.thumbnail = thumbnail ? thumbnail._links.content.href : null;
+    mediaItem.accessToken = this.accessToken;
     return mediaItem;
   }
+
+  /**
+   * Get access token, if this is accessed via a Request-a-Copy link
+   */
+  get accessToken() {
+    if (hasValue(this.itemRequest) && this.itemRequest.accessToken && !this.itemRequest.accessExpired) {
+      return this.itemRequest.accessToken;
+    }
+    return null;
+  }
+
 }

@@ -1,60 +1,101 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { UntypedFormGroup } from '@angular/forms';
 
-import { TranslateService } from '@ngx-translate/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
+import {
+  FormsModule,
+  UntypedFormGroup,
+} from '@angular/forms';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { Operation } from 'fast-json-patch';
-import { BehaviorSubject, Observable, of } from 'rxjs';
-import { catchError, filter, map, switchMap, take, takeUntil } from 'rxjs/operators';
+import {
+  BehaviorSubject,
+  Observable,
+} from 'rxjs';
+import {
+  catchError,
+  filter,
+  map,
+  switchMap,
+  take,
+  takeUntil,
+} from 'rxjs/operators';
 
 import { RemoteData } from '../../../core/data/remote-data';
+import { ResearcherProfile } from '../../../core/profile/model/researcher-profile.model';
 import { ResearcherProfileDataService } from '../../../core/profile/researcher-profile-data.service';
 import { Item } from '../../../core/shared/item.model';
-import { getFirstCompletedRemoteData, getRemoteDataPayload } from '../../../core/shared/operators';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { ResearcherProfile } from '../../../core/profile/model/researcher-profile.model';
+import {
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+} from '../../../core/shared/operators';
+import { AlertComponent } from '../../../shared/alert/alert.component';
+import { AlertType } from '../../../shared/alert/alert-type';
 import { hasValue } from '../../../shared/empty.util';
-import { HttpErrorResponse } from '@angular/common/http';
-import { createFailedRemoteDataObject } from '../../../shared/remote-data.utils';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { createFailedRemoteDataObjectFromError$ } from '../../../shared/remote-data.utils';
 
 @Component({
   selector: 'ds-orcid-sync-setting',
   templateUrl: './orcid-sync-settings.component.html',
-  styleUrls: ['./orcid-sync-settings.component.scss']
+  styleUrls: ['./orcid-sync-settings.component.scss'],
+  imports: [
+    AlertComponent,
+    FormsModule,
+    TranslateModule,
+  ],
 })
 export class OrcidSyncSettingsComponent implements OnInit, OnDestroy {
+  protected readonly AlertType = AlertType;
 
   /**
    * The prefix used for i18n keys
    */
   messagePrefix = 'person.page.orcid';
+
   /**
    * The current synchronization mode
    */
   currentSyncMode: string;
+
   /**
    * The current synchronization mode for publications
    */
   currentSyncPublications: string;
+
   /**
    * The current synchronization mode for funding
    */
   currentSyncFunding: string;
+
   /**
    * The synchronization options
    */
   syncModes: { value: string, label: string }[];
+
   /**
    * The synchronization options for publications
    */
   syncPublicationOptions: { value: string, label: string }[];
+
   /**
    * The synchronization options for funding
    */
   syncFundingOptions: { value: string, label: string }[];
+
   /**
    * The profile synchronization options
    */
   syncProfileOptions: { value: string, label: string, checked: boolean }[];
+
   /**
    * An event emitted when settings are updated
    */
@@ -99,12 +140,12 @@ export class OrcidSyncSettingsComponent implements OnInit, OnDestroy {
     this.syncModes = [
       {
         label: this.messagePrefix + '.synchronization-mode.batch',
-        value: 'BATCH'
+        value: 'BATCH',
       },
       {
         label: this.messagePrefix + '.synchronization-mode.manual',
-        value: 'MANUAL'
-      }
+        value: 'MANUAL',
+      },
     ];
 
     this.syncPublicationOptions = ['DISABLED', 'ALL']
@@ -132,11 +173,11 @@ export class OrcidSyncSettingsComponent implements OnInit, OnDestroy {
           this.researcherProfileService.findByRelatedItem(item)
             .pipe(
               getFirstCompletedRemoteData(),
-              catchError((err: HttpErrorResponse) => of(createFailedRemoteDataObject<ResearcherProfile>(err.message, err.status))),
+              catchError(createFailedRemoteDataObjectFromError$<ResearcherProfile>),
               getRemoteDataPayload(),
-            )
+            ),
         ),
-        takeUntil(this.#destroy$)
+        takeUntil(this.#destroy$),
       );
   }
 
@@ -166,8 +207,8 @@ export class OrcidSyncSettingsComponent implements OnInit, OnDestroy {
       .pipe(
         switchMap(researcherProfile => this.researcherProfileService.patch(researcherProfile, operations)),
         getFirstCompletedRemoteData(),
-        catchError((err: HttpErrorResponse) => of(createFailedRemoteDataObject(err.message, err.status))),
-        take(1)
+        catchError(createFailedRemoteDataObjectFromError$<ResearcherProfile>),
+        take(1),
       )
       .subscribe((remoteData: RemoteData<ResearcherProfile>) => {
         if (remoteData.hasFailed) {
@@ -190,17 +231,17 @@ export class OrcidSyncSettingsComponent implements OnInit, OnDestroy {
     item.pipe(
       filter(hasValue),
       map(i => this.getCurrentPreference(i, 'dspace.orcid.sync-mode', ['BATCH', 'MANUAL'], 'MANUAL')),
-      takeUntil(this.#destroy$)
+      takeUntil(this.#destroy$),
     ).subscribe(val => this.currentSyncMode = val);
     item.pipe(
       filter(hasValue),
       map(i => this.getCurrentPreference(i, 'dspace.orcid.sync-publications', ['DISABLED', 'ALL'], 'DISABLED')),
-      takeUntil(this.#destroy$)
+      takeUntil(this.#destroy$),
     ).subscribe(val => this.currentSyncPublications = val);
     item.pipe(
       filter(hasValue),
       map(i => this.getCurrentPreference(i, 'dspace.orcid.sync-fundings', ['DISABLED', 'ALL'], 'DISABLED')),
-      takeUntil(this.#destroy$)
+      takeUntil(this.#destroy$),
     ).subscribe(val => this.currentSyncFunding = val);
   }
 
@@ -220,11 +261,11 @@ export class OrcidSyncSettingsComponent implements OnInit, OnDestroy {
             return {
               label: this.messagePrefix + '.sync-profile.' + value.toLowerCase(),
               value: value,
-              checked: metadata.includes(value)
+              checked: metadata.includes(value),
             };
-          })
+          }),
       ),
-      takeUntil(this.#destroy$)
+      takeUntil(this.#destroy$),
     )
       .subscribe(value => this.syncProfileOptions = value);
   }
@@ -254,8 +295,9 @@ export class OrcidSyncSettingsComponent implements OnInit, OnDestroy {
     operations.push({
       path: path,
       op: 'replace',
-      value: currentValue
+      value: currentValue,
     });
   }
 
 }
+

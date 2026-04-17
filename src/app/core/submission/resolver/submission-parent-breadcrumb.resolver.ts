@@ -1,12 +1,20 @@
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  Resolve,
+  RouterStateSnapshot,
+} from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { getFirstCompletedRemoteData, getRemoteDataPayload } from '../../shared/operators';
-import { IdentifiableDataService } from '../../data/base/identifiable-data.service';
+
 import { BreadcrumbConfig } from '../../../breadcrumbs/breadcrumb/breadcrumb-config.model';
+import { IdentifiableDataService } from '../../data/base/identifiable-data.service';
+import {
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+} from '../../shared/operators';
+import { SubmissionObject } from '../models/submission-object.model';
 import { SubmissionParentBreadcrumbsService } from '../submission-parent-breadcrumb.service';
 import { SUBMISSION_LINKS_TO_FOLLOW } from './submission-links-to-follow';
-import { SubmissionObject } from '../models/submission-object.model';
 
 /**
  * This class represents a resolver that requests a specific item before the route is activated

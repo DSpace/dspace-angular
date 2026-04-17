@@ -1,12 +1,15 @@
-import { DSpaceObject } from './core/shared/dspace-object.model';
-import { Community } from './core/shared/community.model';
-import { Collection } from './core/shared/collection.model';
-import { Item } from './core/shared/item.model';
-import { getCommunityPageRoute } from './community-page/community-page-routing-paths';
 import { getCollectionPageRoute } from './collection-page/collection-page-routing-paths';
-import { getItemModuleRoute, getItemPageRoute } from './item-page/item-page-routing-paths';
-import { hasValue } from './shared/empty.util';
+import { getCommunityPageRoute } from './community-page/community-page-routing-paths';
+import { Collection } from './core/shared/collection.model';
+import { Community } from './core/shared/community.model';
+import { DSpaceObject } from './core/shared/dspace-object.model';
+import { Item } from './core/shared/item.model';
 import { URLCombiner } from './core/url-combiner/url-combiner';
+import {
+  getItemModuleRoute,
+  getItemPageRoute,
+} from './item-page/item-page-routing-paths';
+import { hasValue } from './shared/empty.util';
 
 export const BITSTREAM_MODULE_PATH = 'bitstreams';
 
@@ -27,12 +30,32 @@ export function getBitstreamRequestACopyRoute(item, bitstream): { routerLink: st
   return {
     routerLink: url,
     queryParams: {
-      bitstream: bitstream.uuid
-    }
+      bitstream: bitstream.uuid,
+    },
   };
 }
 
-export const HOME_PAGE_PATH = 'admin';
+/**
+ * Get a bitstream download route with an access token (to provide direct access to a user) added as a query parameter
+ * @param bitstream the bitstream to download
+ * @param accessToken the access token, which should match an access_token in the requestitem table
+ */
+export function getBitstreamDownloadWithAccessTokenRoute(bitstream, accessToken): { routerLink: string, queryParams: any } {
+  const url = new URLCombiner(getBitstreamModuleRoute(), bitstream.uuid, 'download').toString();
+  const options = {
+    routerLink: url,
+    queryParams: {},
+  };
+  // Only add the access token if it is not empty, otherwise keep valid empty query parameters
+  if (hasValue(accessToken)) {
+    options.queryParams = { accessToken: accessToken };
+  }
+  return options;
+}
+
+export const COAR_NOTIFY_SUPPORT = 'coar-notify-support';
+
+export const HOME_PAGE_PATH = 'home';
 
 export function getHomePageRoute() {
   return `/${HOME_PAGE_PATH}`;
@@ -132,3 +155,10 @@ export const SUBSCRIPTIONS_MODULE_PATH = 'subscriptions';
 export function getSubscriptionsModuleRoute() {
   return `/${SUBSCRIPTIONS_MODULE_PATH}`;
 }
+
+export const EDIT_ITEM_PATH = 'edit-items';
+export function getEditItemPageRoute() {
+  return `/${EDIT_ITEM_PATH}`;
+}
+export const CORRECTION_TYPE_PATH = 'corrections';
+

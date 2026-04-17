@@ -1,4 +1,5 @@
 import { Action } from '@ngrx/store';
+
 import { type } from './type';
 
 export const NO_OP_ACTION_TYPE = type('dspace/ngrx/NO_OP_ACTION');

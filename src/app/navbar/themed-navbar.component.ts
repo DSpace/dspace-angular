@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { ThemedComponent } from '../shared/theme-support/themed.component';
 import { NavbarComponent } from './navbar.component';
 
@@ -6,8 +7,7 @@ import { NavbarComponent } from './navbar.component';
  * Themed wrapper for NavbarComponent
  */
 @Component({
-  selector: 'ds-themed-navbar',
-  styleUrls: [],
+  selector: 'ds-navbar',
   templateUrl: '../shared/theme-support/themed.component.html',
 })
 export class ThemedNavbarComponent  extends ThemedComponent<NavbarComponent> {

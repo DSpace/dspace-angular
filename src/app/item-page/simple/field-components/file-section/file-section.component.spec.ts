@@ -1,47 +1,71 @@
-import { FileSectionComponent } from './file-section.component';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { VarDirective } from '../../../../shared/utils/var.directive';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ActivatedRoute } from '@angular/router';
+import { provideMockStore } from '@ngrx/store/testing';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import { of } from 'rxjs';
+import { environment } from 'src/environments/environment';
+
+import {
+  APP_CONFIG,
+  APP_DATA_SERVICES_MAP,
+} from '../../../../../config/app-config.interface';
+import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
+import { LocaleService } from '../../../../core/locale/locale.service';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
-import { of as observableOf } from 'rxjs';
-import { MockBitstreamFormat1 } from '../../../../shared/mocks/item.mock';
-import { FileSizePipe } from '../../../../shared/utils/file-size-pipe';
 import { PageInfo } from '../../../../core/shared/page-info.model';
 import { XSRFService } from '../../../../core/xsrf/xsrf.service';
 import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
-import { createPaginatedList } from '../../../../shared/testing/utils.test';
+import { MockBitstreamFormat1 } from '../../../../shared/mocks/item.mock';
+import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';
+import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
+import { ActivatedRouteStub } from '../../../../shared/testing/active-router.stub';
 import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
-import { APP_CONFIG } from 'src/config/app-config.interface';
-import { environment } from 'src/environments/environment';
+import { createPaginatedList } from '../../../../shared/testing/utils.test';
+import { ThemeService } from '../../../../shared/theme-support/theme.service';
+import { FileSizePipe } from '../../../../shared/utils/file-size-pipe';
+import { VarDirective } from '../../../../shared/utils/var.directive';
+import { FileSectionComponent } from './file-section.component';
 
 describe('FileSectionComponent', () => {
   let comp: FileSectionComponent;
   let fixture: ComponentFixture<FileSectionComponent>;
+  let localeService: any;
+  const languageList = ['en;q=1', 'de;q=0.8'];
+  const mockLocaleService = jasmine.createSpyObj('LocaleService', {
+    getCurrentLanguageCode: jasmine.createSpy('getCurrentLanguageCode'),
+    getLanguageCodeList: of(languageList),
+  });
 
   const bitstreamDataService = jasmine.createSpyObj('bitstreamDataService', {
-    findAllByItemAndBundleName: createSuccessfulRemoteDataObject$(createPaginatedList([]))
+    findAllByItemAndBundleName: createSuccessfulRemoteDataObject$(createPaginatedList([])),
+    findPrimaryBitstreamByItemAndName: of(null),
   });
 
   const mockBitstream: Bitstream = Object.assign(new Bitstream(),
     {
       sizeBytes: 10201,
       content: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/cf9b0c8e-a1eb-4b65-afd0-567366448713/content',
-      format: observableOf(MockBitstreamFormat1),
+      format: of(MockBitstreamFormat1),
       bundleName: 'ORIGINAL',
       _links: {
         self: {
-          href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/cf9b0c8e-a1eb-4b65-afd0-567366448713'
+          href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/cf9b0c8e-a1eb-4b65-afd0-567366448713',
         },
         content: {
-          href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/cf9b0c8e-a1eb-4b65-afd0-567366448713/content'
-        }
+          href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/cf9b0c8e-a1eb-4b65-afd0-567366448713/content',
+        },
       },
       id: 'cf9b0c8e-a1eb-4b65-afd0-567366448713',
       uuid: 'cf9b0c8e-a1eb-4b65-afd0-567366448713',
@@ -50,10 +74,10 @@ describe('FileSectionComponent', () => {
         'dc.title': [
           {
             language: null,
-            value: 'test_word.docx'
-          }
-        ]
-      }
+            value: 'test_word.docx',
+          },
+        ],
+      },
     });
 
   beforeEach(waitForAsync(() => {
@@ -62,26 +86,53 @@ describe('FileSectionComponent', () => {
       imports: [TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
-          useClass: TranslateLoaderMock
-        }
-      }), BrowserAnimationsModule],
-      declarations: [FileSectionComponent, VarDirective, FileSizePipe, MetadataFieldWrapperComponent],
+          useClass: TranslateLoaderMock,
+        },
+      }), BrowserAnimationsModule, FileSectionComponent, VarDirective, FileSizePipe],
       providers: [
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
         { provide: XSRFService, useValue: {} },
         { provide: BitstreamDataService, useValue: bitstreamDataService },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
-        { provide: APP_CONFIG, useValue: environment }
+        { provide: APP_CONFIG, useValue: environment },
+        { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        { provide: LocaleService, useValue: mockLocaleService },
+        provideMockStore(),
       ],
-
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+      schemas: [NO_ERRORS_SCHEMA],
+    })
+      .overrideComponent(FileSectionComponent, {
+        remove: {
+          imports: [
+            MetadataFieldWrapperComponent,
+          ],
+        },
+      })
+      .compileComponents();
   }));
 
   beforeEach(waitForAsync(() => {
+    localeService = TestBed.inject(LocaleService);
+    localeService.getCurrentLanguageCode.and.returnValue(of('en'));
     fixture = TestBed.createComponent(FileSectionComponent);
     comp = fixture.componentInstance;
     fixture.detectChanges();
   }));
+
+  it('should set the id of primary bitstream', () => {
+    comp.primaryBitstreamId = undefined;
+    bitstreamDataService.findPrimaryBitstreamByItemAndName.and.returnValue(of(mockBitstream));
+    comp.ngOnInit();
+    expect(comp.primaryBitstreamId).toBe(mockBitstream.id);
+  });
+
+  it('should not set the id of primary bitstream', () => {
+    comp.primaryBitstreamId = undefined;
+    bitstreamDataService.findPrimaryBitstreamByItemAndName.and.returnValue(of(null));
+    comp.ngOnInit();
+    expect(comp.primaryBitstreamId).toBeUndefined();
+  });
 
   describe('when the bitstreams are loading', () => {
     beforeEach(() => {
@@ -91,7 +142,7 @@ describe('FileSectionComponent', () => {
     });
 
     it('should display a loading component', () => {
-      const loading = fixture.debugElement.query(By.css('ds-themed-loading'));
+      const loading = fixture.debugElement.query(By.css('ds-loading'));
       expect(loading.nativeElement).toBeDefined();
     });
   });
@@ -114,7 +165,7 @@ describe('FileSectionComponent', () => {
     it('one bitstream should be on the page', () => {
       const viewMore = fixture.debugElement.query(By.css('.bitstream-view-more'));
       viewMore.triggerEventHandler('click', null);
-      const fileDownloadLink = fixture.debugElement.queryAll(By.css('ds-themed-file-download-link'));
+      const fileDownloadLink = fixture.debugElement.queryAll(By.css('ds-file-download-link'));
       expect(fileDownloadLink.length).toEqual(1);
     });
 
@@ -127,7 +178,7 @@ describe('FileSectionComponent', () => {
 
       });
       it('should contain another bitstream', () => {
-        const fileDownloadLink = fixture.debugElement.queryAll(By.css('ds-themed-file-download-link'));
+        const fileDownloadLink = fixture.debugElement.queryAll(By.css('ds-file-download-link'));
         expect(fileDownloadLink.length).toEqual(2);
       });
     });
@@ -159,11 +210,11 @@ describe('FileSectionComponent', () => {
         currentPage: 1,
         _links: {
           self: { href: 'https://rest.api/core/bitstreams/' },
-          next: { href: 'https://rest.api/core/bitstreams?page=2' }
-        }
+          next: { href: 'https://rest.api/core/bitstreams?page=2' },
+        },
       });
       const PaginatedList = Object.assign(createPaginatedList([mockBitstream]), {
-        pageInfo: pageInfo
+        pageInfo: pageInfo,
       });
       bitstreamDataService.findAllByItemAndBundleName.and.returnValue(createSuccessfulRemoteDataObject$(PaginatedList));
       const viewLess = fixture.debugElement.query(By.css('.bitstream-collapse'));

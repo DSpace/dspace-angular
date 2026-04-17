@@ -1,9 +1,13 @@
 import isObject from 'lodash/isObject';
 import uniqueId from 'lodash/uniqueId';
-import { hasValue, isNotEmpty } from '../../../empty.util';
-import { FormFieldMetadataValueObject } from '../../builder/models/form-field-metadata-value.model';
+
 import { ConfidenceType } from '../../../../core/shared/confidence-type';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../../empty.util';
 import { PLACEHOLDER_PARENT_METADATA } from '../../builder/ds-dynamic-form-ui/ds-dynamic-form-constants';
+import { FormFieldMetadataValueObject } from '../../builder/models/form-field-metadata-value.model';
 
 export interface ChipsItemIcon {
   metadata: string;
@@ -23,10 +27,10 @@ export class ChipsItem {
   private objToDisplay: string;
 
   constructor(item: any,
-              fieldToDisplay: string = 'display',
-              objToDisplay?: string,
-              icons?: ChipsItemIcon[],
-              editMode?: boolean) {
+    fieldToDisplay: string = 'display',
+    objToDisplay?: string,
+    icons?: ChipsItemIcon[],
+    editMode?: boolean) {
 
     this.id = uniqueId();
     this._item = item;
@@ -53,7 +57,7 @@ export class ChipsItem {
   }
 
   hasIcons(): boolean {
-     return isNotEmpty(this.icons);
+    return isNotEmpty(this.icons);
   }
 
   hasVisibleIcons(): boolean {

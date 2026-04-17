@@ -1,10 +1,10 @@
-
-
+import { NgClass } from '@angular/common';
 import {
   Component,
   Input,
   OnInit,
 } from '@angular/core';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 
 import { MetadataValue } from '../../core/shared/metadata.models';
@@ -15,8 +15,12 @@ import { MetadataValue } from '../../core/shared/metadata.models';
  */
 @Component({
   selector: 'ds-orcid-badge-and-tooltip',
+  imports: [
+    NgbTooltip,
+    NgClass,
+  ],
   templateUrl: './orcid-badge-and-tooltip.component.html',
-  styleUrls: ['./orcid-badge-and-tooltip.component.scss'],
+  styleUrl: './orcid-badge-and-tooltip.component.scss',
 })
 export class OrcidBadgeAndTooltipComponent implements OnInit {
 

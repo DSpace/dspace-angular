@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { ThemedComponent } from '../shared/theme-support/themed.component';
 import { CommunityPageComponent } from './community-page.component';
 
@@ -6,8 +7,7 @@ import { CommunityPageComponent } from './community-page.component';
  * Themed wrapper for CommunityPageComponent
  */
 @Component({
-  selector: 'ds-themed-community-page',
-  styleUrls: [],
+  selector: 'ds-community-page',
   templateUrl: '../shared/theme-support/themed.component.html',
 })
 export class ThemedCommunityPageComponent extends ThemedComponent<CommunityPageComponent> {

@@ -1,12 +1,14 @@
 .nav-breadcrumb {
-  background-color: var(--ds-breadcrumb-bg);
+  background-color: var(--ds-breadcrumb-bg) !important;
 }
 
 .breadcrumb {
   border-radius: 0;
   padding-bottom: calc(var(--ds-content-spacing) / 2);
   padding-top: calc(var(--ds-content-spacing) / 2);
-  background-color: var(--ds-breadcrumb-bg);
+  background-color: var(--ds-breadcrumb-bg) !important;
+  padding-left: calc(var(--bs-spacer) *.75);
+  padding-right: calc(var(--bs-spacer) *.75);
 }
 
 li.breadcrumb-item {

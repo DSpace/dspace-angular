@@ -1,25 +1,36 @@
-import { BreadcrumbsProviderService } from '../breadcrumbs/breadcrumbsProviderService';
 import { Injectable } from '@angular/core';
-import { Observable, switchMap, combineLatest, of as observableOf } from 'rxjs';
-import { Breadcrumb } from '../../breadcrumbs/breadcrumb/breadcrumb.model';
-import { getFirstCompletedRemoteData, getRemoteDataPayload } from '../shared/operators';
-import { Collection } from '../shared/collection.model';
-import { DSONameService } from '../breadcrumbs/dso-name.service';
-import { SubmissionObject } from './models/submission-object.model';
-import { RemoteData } from '../data/remote-data';
-import { DSOBreadcrumbsService } from '../breadcrumbs/dso-breadcrumbs.service';
+import {
+  combineLatest,
+  Observable,
+  of,
+  switchMap,
+} from 'rxjs';
+
 import { getDSORoute } from '../../app-routing-paths';
-import { SubmissionService } from '../../submission/submission.service';
-import { CollectionDataService } from '../data/collection-data.service';
+import { Breadcrumb } from '../../breadcrumbs/breadcrumb/breadcrumb.model';
 import {
   hasValue,
   isEmpty,
 } from '../../shared/empty.util';
+import { SubmissionService } from '../../submission/submission.service';
+import { BreadcrumbsProviderService } from '../breadcrumbs/breadcrumbsProviderService';
+import { DSOBreadcrumbsService } from '../breadcrumbs/dso-breadcrumbs.service';
+import { DSONameService } from '../breadcrumbs/dso-name.service';
+import { CollectionDataService } from '../data/collection-data.service';
+import { RemoteData } from '../data/remote-data';
+import { Collection } from '../shared/collection.model';
+import {
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+} from '../shared/operators';
+import { SubmissionObject } from './models/submission-object.model';
 
 /**
  * Service to calculate the parent {@link DSpaceObject} breadcrumbs for a {@link SubmissionObject}
  */
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class SubmissionParentBreadcrumbsService implements BreadcrumbsProviderService<SubmissionObject> {
 
   constructor(
@@ -39,7 +50,7 @@ export class SubmissionParentBreadcrumbsService implements BreadcrumbsProviderSe
    */
   getBreadcrumbs(submissionObject: SubmissionObject): Observable<Breadcrumb[]> {
     if (isEmpty(submissionObject)) {
-      return observableOf([]);
+      return of([]);
     }
 
     return combineLatest([
@@ -56,7 +67,7 @@ export class SubmissionParentBreadcrumbsService implements BreadcrumbsProviderSe
             getRemoteDataPayload(),
           );
         } else {
-          return observableOf(collection);
+          return of(collection);
         }
       }),
       switchMap((collection: Collection) => this.dsoBreadcrumbsService.getBreadcrumbs(collection, getDSORoute(collection))),

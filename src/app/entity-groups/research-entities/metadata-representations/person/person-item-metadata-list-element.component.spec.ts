@@ -1,13 +1,22 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+  TemplateRef,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { RouterLink } from '@angular/router';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
-import { ItemMetadataRepresentation } from '../../../../core/shared/metadata-representation/item/item-metadata-representation.model';
 import { Item } from '../../../../core/shared/item.model';
-import { PersonItemMetadataListElementComponent } from './person-item-metadata-list-element.component';
 import { MetadataValue } from '../../../../core/shared/metadata.models';
+import { ItemMetadataRepresentation } from '../../../../core/shared/metadata-representation/item/item-metadata-representation.model';
+import { TruncatableComponent } from '../../../../shared/truncatable/truncatable.component';
+import { PersonItemMetadataListElementComponent } from './person-item-metadata-list-element.component';
 
 const jobTitle = 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.';
 const firstName = 'Joe';
@@ -23,13 +32,16 @@ describe('PersonItemMetadataListElementComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports:[
-        NgbModule
+      imports: [
+        NgbTooltip,
+        PersonItemMetadataListElementComponent,
       ],
-      declarations: [PersonItemMetadataListElementComponent],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(PersonItemMetadataListElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      remove: {
+        imports: [TruncatableComponent, RouterLink],
+      },
+      add: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 
@@ -47,9 +59,14 @@ describe('PersonItemMetadataListElementComponent', () => {
 
   it('should show the description on hover over the link in a tooltip', () => {
     const link = fixture.debugElement.query(By.css('a'));
-    link.triggerEventHandler('mouseenter', null);
-    fixture.detectChanges();
-    const tooltip = fixture.debugElement.query(By.css('.item-list-job-title')).nativeElement.textContent;
-    expect(tooltip).toBe(jobTitle);
+    const tooltipDir = link.injector.get(NgbTooltip);
+    const viewRef = (tooltipDir.ngbTooltip as TemplateRef<any>).createEmbeddedView({});
+    viewRef.detectChanges();
+    const textContent = viewRef.rootNodes
+      .map((node: any) => node.textContent)
+      .join('')
+      .trim();
+
+    expect(textContent).toEqual(jobTitle);
   });
 });

@@ -1,11 +1,22 @@
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
-import { Observable, of as observableOf } from 'rxjs';
+import {
+  Observable,
+  of,
+} from 'rxjs';
+
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../../../core/cache/object-cache.service';
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
@@ -17,56 +28,63 @@ import { RemoteData } from '../../../../../core/data/remote-data';
 import { Bitstream } from '../../../../../core/shared/bitstream.model';
 import { HALEndpointService } from '../../../../../core/shared/hal-endpoint.service';
 import { Item } from '../../../../../core/shared/item.model';
+import { MetadataValue } from '../../../../../core/shared/metadata.models';
 import { PageInfo } from '../../../../../core/shared/page-info.model';
 import { UUIDService } from '../../../../../core/shared/uuid.service';
+import { ThemedThumbnailComponent } from '../../../../../thumbnail/themed-thumbnail.component';
 import { NotificationsService } from '../../../../notifications/notifications.service';
+import { ThemedBadgesComponent } from '../../../../object-collection/shared/badges/themed-badges.component';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
+import { ActivatedRouteStub } from '../../../../testing/active-router.stub';
+import { TruncatableComponent } from '../../../../truncatable/truncatable.component';
 import { TruncatableService } from '../../../../truncatable/truncatable.service';
+import { TruncatablePartComponent } from '../../../../truncatable/truncatable-part/truncatable-part.component';
 import { TruncatePipe } from '../../../../utils/truncate.pipe';
 import { ItemSearchResultGridElementComponent } from './item-search-result-grid-element.component';
 
 const mockItemWithMetadata: ItemSearchResult = new ItemSearchResult();
-mockItemWithMetadata.hitHighlights = {};
 const dcTitle = 'This is just another <em>title</em>';
+mockItemWithMetadata.hitHighlights = {
+  'dc.title': [
+    Object.assign(new MetadataValue(), {
+      value: dcTitle,
+    }),
+  ],
+};
 mockItemWithMetadata.indexableObject = Object.assign(new Item(), {
-  hitHighlights: {
-    'dc.title': [{
-      value: dcTitle
-    }],
-  },
   bundles: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
   metadata: {
     'dc.title': [
       {
         language: 'en_US',
-        value: dcTitle
-      }
+        value: 'This is just another title',
+      },
     ],
     'dc.contributor.author': [
       {
         language: 'en_US',
-        value: 'Smith, Donald'
-      }
+        value: 'Smith, Donald',
+      },
     ],
     'dc.date.issued': [
       {
         language: null,
-        value: '2015-06-26'
-      }
+        value: '2015-06-26',
+      },
     ],
     'dc.description.abstract': [
       {
         language: 'en_US',
-        value: 'This is an abstract'
-      }
-    ]
-  }
+        value: 'This is an abstract',
+      },
+    ],
+  },
 });
 const mockPerson: ItemSearchResult = Object.assign(new ItemSearchResult(), {
   hitHighlights: {
     'person.familyName': [{
-      value: '<em>Michel</em>'
+      value: '<em>Michel</em>',
     }],
   },
   indexableObject:
@@ -77,50 +95,50 @@ const mockPerson: ItemSearchResult = Object.assign(new ItemSearchResult(), {
         'dc.title': [
           {
             language: 'en_US',
-            value: 'This is just another title'
-          }
+            value: 'This is just another title',
+          },
         ],
         'dc.contributor.author': [
           {
             language: 'en_US',
-            value: 'Smith, Donald'
-          }
+            value: 'Smith, Donald',
+          },
         ],
         'dc.publisher': [
           {
             language: 'en_US',
-            value: 'a publisher'
-          }
+            value: 'a publisher',
+          },
         ],
         'dc.date.issued': [
           {
             language: 'en_US',
-            value: '2015-06-26'
-          }
+            value: '2015-06-26',
+          },
         ],
         'dc.description.abstract': [
           {
             language: 'en_US',
-            value: 'This is the abstract'
-          }
+            value: 'This is the abstract',
+          },
         ],
         'dspace.entity.type': [
           {
-            value: 'Person'
-          }
+            value: 'Person',
+          },
         ],
         'person.familyName': [
           {
-            value: 'Michel'
-          }
-        ]
-      }
-    })
+            value: 'Michel',
+          },
+        ],
+      },
+    }),
 });
 const mockOrgUnit: ItemSearchResult = Object.assign(new ItemSearchResult(), {
   hitHighlights: {
     'organization.legalName': [{
-      value: '<em>Science</em>'
+      value: '<em>Science</em>',
     }],
   },
   indexableObject:
@@ -131,45 +149,45 @@ const mockOrgUnit: ItemSearchResult = Object.assign(new ItemSearchResult(), {
         'dc.title': [
           {
             language: 'en_US',
-            value: 'This is just another title'
-          }
+            value: 'This is just another title',
+          },
         ],
         'dc.contributor.author': [
           {
             language: 'en_US',
-            value: 'Smith, Donald'
-          }
+            value: 'Smith, Donald',
+          },
         ],
         'dc.publisher': [
           {
             language: 'en_US',
-            value: 'a publisher'
-          }
+            value: 'a publisher',
+          },
         ],
         'dc.date.issued': [
           {
             language: 'en_US',
-            value: '2015-06-26'
-          }
+            value: '2015-06-26',
+          },
         ],
         'dc.description.abstract': [
           {
             language: 'en_US',
-            value: 'This is the abstract'
-          }
+            value: 'This is the abstract',
+          },
         ],
         'organization.legalName': [
           {
-            value: 'Science'
-          }
+            value: 'Science',
+          },
         ],
         'dspace.entity.type': [
           {
-            value: 'OrgUnit'
-          }
-        ]
-      }
-    })
+            value: 'OrgUnit',
+          },
+        ],
+      },
+    }),
 });
 
 const mockItemWithoutMetadata: ItemSearchResult = new ItemSearchResult();
@@ -180,10 +198,10 @@ mockItemWithoutMetadata.indexableObject = Object.assign(new Item(), {
     'dc.title': [
       {
         language: 'en_US',
-        value: 'This is just another title'
-      }
-    ]
-  }
+        value: 'This is just another title',
+      },
+    ],
+  },
 });
 
 describe('ItemGridElementComponent', getEntityGridElementTestComponent(ItemSearchResultGridElementComponent, mockItemWithMetadata, mockItemWithoutMetadata, ['authors', 'date', 'abstract']));
@@ -203,22 +221,23 @@ export function getEntityGridElementTestComponent(component, searchResultWithMet
     let fixture;
 
     const truncatableServiceStub: any = {
-      isCollapsed: (id: number) => observableOf(true),
+      isCollapsed: (id: number) => of(true),
     };
 
     const mockBitstreamDataService = {
       getThumbnailFor(item: Item): Observable<RemoteData<Bitstream>> {
         return createSuccessfulRemoteDataObject$(new Bitstream());
-      }
+      },
     };
 
     beforeEach(waitForAsync(() => {
       TestBed.configureTestingModule({
         imports: [
           NoopAnimationsModule,
-          TranslateModule.forRoot()
+          TranslateModule.forRoot(),
+          TruncatePipe,
+          component,
         ],
-        declarations: [component, TruncatePipe],
         providers: [
           { provide: TruncatableService, useValue: truncatableServiceStub },
           { provide: ObjectCacheService, useValue: {} },
@@ -232,10 +251,16 @@ export function getEntityGridElementTestComponent(component, searchResultWithMet
           { provide: NotificationsService, useValue: {} },
           { provide: DefaultChangeAnalyzer, useValue: {} },
           { provide: BitstreamDataService, useValue: mockBitstreamDataService },
+          { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         ],
-        schemas: [NO_ERRORS_SCHEMA]
+        schemas: [NO_ERRORS_SCHEMA],
       }).overrideComponent(component, {
-        set: { changeDetection: ChangeDetectionStrategy.Default }
+        add: { changeDetection: ChangeDetectionStrategy.Default },
+        remove: {
+          imports: [
+            ThemedThumbnailComponent, ThemedBadgesComponent, TruncatableComponent, TruncatablePartComponent,
+          ],
+        },
       }).compileComponents();
     }));
 

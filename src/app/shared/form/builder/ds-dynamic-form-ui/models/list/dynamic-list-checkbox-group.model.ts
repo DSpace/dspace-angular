@@ -1,11 +1,11 @@
-import { Subject } from 'rxjs';
 import {
   DynamicCheckboxGroupModel,
   DynamicFormControlLayout,
   DynamicFormControlRelation,
   DynamicFormGroupModelConfig,
-  serializable
+  serializable,
 } from '@ng-dynamic-forms/core';
+import { Subject } from 'rxjs';
 
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyOptions } from '../../../../../../core/submission/vocabularies/models/vocabulary-options.model';

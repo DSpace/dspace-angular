@@ -1,4 +1,8 @@
-import { Observable, of as observableOf } from 'rxjs';
+import {
+  Observable,
+  of,
+} from 'rxjs';
+
 import { CacheableObject } from '../../core/cache/cacheable-object.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
@@ -14,7 +18,7 @@ export abstract class BaseDataServiceStub<T extends CacheableObject> {
   }
 
   invalidateByHref(_href: string): Observable<boolean> {
-    return observableOf(true);
+    return of(true);
   }
 
 }

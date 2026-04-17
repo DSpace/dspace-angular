@@ -1,23 +1,44 @@
 import { HttpHeaders } from '@angular/common/http';
-
 import { Observable } from 'rxjs';
-import { distinctUntilChanged, filter, find, map, mergeMap, tap } from 'rxjs/operators';
-import { DeleteRequest, PostRequest, TaskDeleteRequest, TaskPostRequest } from '../data/request.models';
-import { hasValue, isNotEmpty } from '../../shared/empty.util';
-import { HttpOptions } from '../dspace-rest/dspace-rest.service';
-import { ProcessTaskResponse } from './models/process-task-response';
-import { getAllCompletedRemoteData, getFirstCompletedRemoteData } from '../shared/operators';
-import { RemoteData } from '../data/remote-data';
+import {
+  distinctUntilChanged,
+  filter,
+  find,
+  map,
+  mergeMap,
+  tap,
+} from 'rxjs/operators';
+
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../shared/empty.util';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { CacheableObject } from '../cache/cacheable-object.model';
-import { FindListOptions } from '../data/find-list-options.model';
-import { SearchData, SearchDataImpl } from '../data/base/search-data';
-import { RequestService } from '../data/request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { CacheableObject } from '../cache/cacheable-object.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { PaginatedList } from '../data/paginated-list.model';
 import { IdentifiableDataService } from '../data/base/identifiable-data.service';
+import {
+  SearchData,
+  SearchDataImpl,
+} from '../data/base/search-data';
+import { FindListOptions } from '../data/find-list-options.model';
+import { PaginatedList } from '../data/paginated-list.model';
+import { RemoteData } from '../data/remote-data';
+import {
+  DeleteRequest,
+  PostRequest,
+  TaskDeleteRequest,
+  TaskPostRequest,
+} from '../data/request.models';
+import { RequestService } from '../data/request.service';
+import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import {
+  getAllCompletedRemoteData,
+  getFirstCompletedRemoteData,
+} from '../shared/operators';
+import { ProcessTaskResponse } from './models/process-task-response';
 
 /**
  * An abstract class that provides methods to handle task requests.  todo: data in name
@@ -124,8 +145,8 @@ export abstract class TasksService<T extends CacheableObject> extends Identifiab
       find((href: string) => hasValue(href)),
       mergeMap((href) => this.findByHref(href, false, true).pipe(
         getAllCompletedRemoteData(),
-        tap(() => this.requestService.setStaleByHrefSubstring(href)))
-      )
+        tap(() => this.requestService.setStaleByHrefSubstring(href))),
+      ),
     );
   }
 
@@ -146,7 +167,7 @@ export abstract class TasksService<T extends CacheableObject> extends Identifiab
         } else {
           return new ProcessTaskResponse(true, response.statusCode);
         }
-      })
+      }),
     );
   }
 

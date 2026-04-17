@@ -52,6 +52,6 @@ export class JsonPatchOperationPathCombiner extends URLCombiner {
       path += '/' + fragment;
     }
 
-    return {rootElement: this._rootElement, subRootElement: this._subRootElement, path: path};
+    return { rootElement: this._rootElement, subRootElement: this._subRootElement, path: path };
   }
 }

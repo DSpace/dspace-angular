@@ -1,4 +1,9 @@
 import {
+  hasNoValue,
+  hasValue,
+} from '../empty.util';
+import { initialMenusState } from './initial-menus-state';
+import {
   ActivateMenuSectionAction,
   AddMenuSectionAction,
   DeactivateMenuSectionAction,
@@ -8,16 +13,14 @@ import {
   MenuSectionAction,
   RemoveMenuSectionAction,
   ShowMenuSectionAction,
-  ToggleActiveMenuSectionAction
+  ToggleActiveMenuSectionAction,
 } from './menu.actions';
-import { initialMenusState} from './initial-menus-state';
-import { hasValue } from '../empty.util';
-import { MenusState } from './menus-state.model';
-import { MenuState } from './menu-state.model';
-import { MenuSectionIndex } from './menu-section-Index.model';
-import { MenuSections } from './menu-sections.model';
-import { MenuSection } from './menu-section.model';
 import { MenuID } from './menu-id.model';
+import { MenuSection } from './menu-section.model';
+import { MenuSectionIndex } from './menu-section-index.model';
+import { MenuSections } from './menu-sections.model';
+import { MenuState } from './menu-state.model';
+import { MenusState } from './menus-state.model';
 
 /**
  * Reducer that handles MenuActions to update the MenusState
@@ -123,7 +126,7 @@ function reorderSections(state: MenusState, action: MenuSectionAction) {
   });
   const newMenuState = Object.assign({}, menuState, {
     sections: newSectionState,
-    sectionToSubsectionIndex: newSectionIndexState
+    sectionToSubsectionIndex: newSectionIndexState,
   });
   return Object.assign({}, state, { [action.menuID]: newMenuState });
 }
@@ -139,7 +142,7 @@ function removeSection(state: MenusState, action: RemoveMenuSectionAction) {
   const id = action.id;
   const newState = removeFromIndex(state, menuState.sections[action.id], action.menuID);
   const newMenuState = Object.assign({}, newState[action.menuID], {
-    sections: Object.assign({}, newState[action.menuID].sections)
+    sections: Object.assign({}, newState[action.menuID].sections),
   });
   delete newMenuState.sections[id];
   return Object.assign({}, newState, { [action.menuID]: newMenuState });
@@ -148,11 +151,14 @@ function removeSection(state: MenusState, action: RemoveMenuSectionAction) {
 /**
  * Remove a section from the index of a certain menu
  * @param {MenusState} state The initial state
- * @param {MenuSection} action The MenuSection of which the ID should be removed from the index
- * @param {MenuID} action The Menu ID to which the section belonged
+ * @param {MenuSection} section The MenuSection of which the ID should be removed from the index
+ * @param {MenuID} menuID The Menu ID to which the section belonged
  * @returns {MenusState} The new reduced state
  */
 function removeFromIndex(state: MenusState, section: MenuSection, menuID: MenuID) {
+  if (hasNoValue(section)) {
+    return state;
+  }
   const sectionID = section.id;
   const parentID = section.parentID;
   if (hasValue(parentID)) {
@@ -236,10 +242,10 @@ function toggleActiveSection(state: MenusState, action: ToggleActiveMenuSectionA
 function putSectionState(state: MenusState, action: MenuSectionAction, section: MenuSection): MenusState {
   const menuState: MenuState = state[action.menuID];
   const newSections = Object.assign({}, menuState.sections, {
-    [section.id]: section
+    [section.id]: section,
   });
   const newMenuState = Object.assign({}, menuState, {
-    sections: newSections
+    sections: newSections,
   });
   return Object.assign({}, state, { [action.menuID]: newMenuState });
 }

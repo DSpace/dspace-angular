@@ -1,4 +1,5 @@
 import { of } from 'rxjs';
+
 import { LiveRegionService } from './live-region.service';
 
 export function getLiveRegionServiceStub(): LiveRegionService {
@@ -7,11 +8,11 @@ export function getLiveRegionServiceStub(): LiveRegionService {
 
 export class LiveRegionServiceStub {
   getMessages = jasmine.createSpy('getMessages').and.returnValue(
-    ['Message One', 'Message Two']
+    ['Message One', 'Message Two'],
   );
 
   getMessages$ = jasmine.createSpy('getMessages$').and.returnValue(
-    of(['Message One', 'Message Two'])
+    of(['Message One', 'Message Two']),
   );
 
   addMessage = jasmine.createSpy('addMessage').and.returnValue('messageId');

@@ -22,10 +22,6 @@ export class AuthMethod {
         this.location = location;
         break;
       }
-      case 'x509': {
-        this.authMethodType = AuthMethodType.X509;
-        break;
-      }
       case 'password': {
         this.authMethodType = AuthMethodType.Password;
         break;
@@ -37,6 +33,11 @@ export class AuthMethod {
       }
       case 'orcid': {
         this.authMethodType = AuthMethodType.Orcid;
+        this.location = location;
+        break;
+      }
+      case 'saml': {
+        this.authMethodType = AuthMethodType.Saml;
         this.location = location;
         break;
       }

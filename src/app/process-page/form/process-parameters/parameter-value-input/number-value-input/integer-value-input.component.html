@@ -1,0 +1,11 @@
+<input [attr.aria-label]="'process.new.parameter.label' | translate" required #integer="ngModel" type="number" step="1" name="integer-value-{{index}}" class="form-control" id="integer-value-{{index}}" [ngModel]="value" (ngModelChange)="setValue($event)"/>
+@if (integer.invalid && (integer.dirty || integer.touched)) {
+  <div
+    class="alert alert-danger validation-error mb-0">
+    @if (integer.errors.required) {
+      <div>
+        {{'process.new.parameter.integer.required' | translate}}
+      </div>
+    }
+  </div>
+}

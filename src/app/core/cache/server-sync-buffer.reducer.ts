@@ -1,11 +1,14 @@
-import { hasNoValue, hasValue } from '../../shared/empty.util';
+import {
+  hasNoValue,
+  hasValue,
+} from '../../shared/empty.util';
+import { RestRequestMethod } from '../data/rest-request-method';
 import {
   AddToSSBAction,
   EmptySSBAction,
   ServerSyncBufferAction,
-  ServerSyncBufferActionTypes
+  ServerSyncBufferActionTypes,
 } from './server-sync-buffer.actions';
-import { RestRequestMethod } from '../data/rest-request-method';
 
 /**
  * An entry in the ServerSyncBufferState
@@ -86,9 +89,9 @@ function addToServerSyncQueue(state: ServerSyncBufferState, action: AddToSSBActi
  *    the new state, with a new entry added to the buffer
  */
 function emptyServerSyncQueue(state: ServerSyncBufferState, action: EmptySSBAction): ServerSyncBufferState {
-    let newBuffer = [];
-    if (hasValue(action.payload)) {
-      newBuffer = state.buffer.filter((entry) => entry.method !== action.payload);
-    }
-    return Object.assign({}, state, { buffer: newBuffer });
+  let newBuffer = [];
+  if (hasValue(action.payload)) {
+    newBuffer = state.buffer.filter((entry) => entry.method !== action.payload);
+  }
+  return Object.assign({}, state, { buffer: newBuffer });
 }

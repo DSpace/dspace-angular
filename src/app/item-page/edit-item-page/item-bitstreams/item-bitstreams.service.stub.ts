@@ -1,8 +1,9 @@
 import { of } from 'rxjs';
+
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { ResponsiveTableSizes } from '../../../shared/responsive-table-sizes/responsive-table-sizes';
-import { ResponsiveColumnSizes } from '../../../shared/responsive-table-sizes/responsive-column-sizes';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { ResponsiveColumnSizes } from '../../../shared/responsive-table-sizes/responsive-column-sizes';
+import { ResponsiveTableSizes } from '../../../shared/responsive-table-sizes/responsive-table-sizes';
 
 export function getItemBitstreamsServiceStub(): ItemBitstreamsServiceStub {
   return new ItemBitstreamsServiceStub();
@@ -46,8 +47,8 @@ export class ItemBitstreamsServiceStub {
         new ResponsiveColumnSizes(2, 2, 3, 4, 4),
         new ResponsiveColumnSizes(2, 3, 3, 3, 3),
         new ResponsiveColumnSizes(2, 2, 2, 2, 2),
-        new ResponsiveColumnSizes(6, 5, 4, 3, 3)
-      ])
+        new ResponsiveColumnSizes(6, 5, 4, 3, 3),
+      ]),
     );
 
   displayNotifications = jasmine.createSpy('displayNotifications');

@@ -1,6 +1,6 @@
 import { AppConfig } from './app-config.interface';
-import { UniversalConfig } from './universal-config.interface';
+import { SSRConfig } from './ssr-config.interface';
 
 export interface BuildConfig extends AppConfig {
-  universal: UniversalConfig;
+  ssr: SSRConfig;
 }

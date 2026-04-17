@@ -1,9 +1,16 @@
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import {
+  NgbActiveModal,
+  NgbModule,
+} from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { NameVariantModalComponent } from './name-variant-modal.component';
-import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateModule } from '@ngx-translate/core';
-import { By } from '@angular/platform-browser';
 
 describe('NameVariantModalComponent', () => {
   let component: NameVariantModalComponent;
@@ -17,9 +24,8 @@ describe('NameVariantModalComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      declarations: [NameVariantModalComponent],
-      imports: [NgbModule, TranslateModule.forRoot()],
-      providers: [{ provide: NgbActiveModal, useValue: modal }]
+      imports: [NgbModule, TranslateModule.forRoot(), NameVariantModalComponent],
+      providers: [{ provide: NgbActiveModal, useValue: modal }],
     })
       .compileComponents();
   }));
@@ -37,7 +43,7 @@ describe('NameVariantModalComponent', () => {
   });
 
   it('when close button is clicked, dismiss should be called on the modal', () => {
-    debugElement.query(By.css('button.close')).triggerEventHandler('click', {});
+    debugElement.query(By.css('button.btn-close')).triggerEventHandler('click', {});
     expect(modal.dismiss).toHaveBeenCalled();
   });
 

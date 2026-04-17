@@ -1,19 +1,26 @@
-import { autoserialize, deserialize, inheritSerialization } from 'cerialize';
+import {
+  autoserialize,
+  deserialize,
+  inheritSerialization,
+} from 'cerialize';
 import { Observable } from 'rxjs';
-import { link, typedObject } from '../../cache/builders/build-decorators';
 
+import {
+  link,
+  typedObject,
+} from '../../cache/builders/build-decorators';
+import { CacheableObject } from '../../cache/cacheable-object.model';
 import { RemoteData } from '../../data/remote-data';
 import { EPerson } from '../../eperson/models/eperson.model';
 import { EPERSON } from '../../eperson/models/eperson.resource-type';
 import { Group } from '../../eperson/models/group.model';
 import { GROUP } from '../../eperson/models/group.resource-type';
+import { WORKFLOWITEM } from '../../eperson/models/workflowitem.resource-type';
 import { DSpaceObject } from '../../shared/dspace-object.model';
 import { HALLink } from '../../shared/hal-link.model';
 import { TASK_OBJECT } from './task-object.resource-type';
-import { WORKFLOWITEM } from '../../eperson/models/workflowitem.resource-type';
-import { WORKFLOW_ACTION } from './workflow-action-object.resource-type';
 import { WorkflowAction } from './workflow-action-object.model';
-import { CacheableObject } from '../../cache/cacheable-object.model';
+import { WORKFLOW_ACTION } from './workflow-action-object.resource-type';
 
 /**
  * An abstract model class for a TaskObject.
@@ -67,7 +74,7 @@ export class TaskObject extends DSpaceObject implements CacheableObject {
    */
   @link(WORKFLOWITEM)
   /* This was changed from 'WorkflowItem | Observable<RemoteData<WorkflowItem>>' to 'any' to prevent issues in templates with async */
-  workflowitem?: any;
+    workflowitem?: any;
 
   /**
    * The task action type

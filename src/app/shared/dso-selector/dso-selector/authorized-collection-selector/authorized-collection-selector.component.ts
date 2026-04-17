@@ -1,27 +1,61 @@
-import { Component, Input } from '@angular/core';
-import { DSOSelectorComponent } from '../dso-selector.component';
-import { SearchService } from '../../../../core/shared/search/search.service';
-import { CollectionDataService } from '../../../../core/data/collection-data.service';
+import {
+  AsyncPipe,
+  NgClass,
+} from '@angular/common';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { Observable } from 'rxjs';
-import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { map } from 'rxjs/operators';
-import { CollectionSearchResult } from '../../../object-collection/shared/collection-search-result.model';
-import { SearchResult } from '../../../search/models/search-result.model';
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
-import { buildPaginatedList, PaginatedList } from '../../../../core/data/paginated-list.model';
-import { followLink } from '../../../utils/follow-link-config.model';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { hasValue } from '../../../empty.util';
-import { NotificationsService } from '../../../notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
-import { Collection } from '../../../../core/shared/collection.model';
+import { ActionType } from 'src/app/core/resource-policy/models/action-type.model';
+
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { CollectionDataService } from '../../../../core/data/collection-data.service';
 import { FindListOptions } from '../../../../core/data/find-list-options.model';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '../../../../core/data/paginated-list.model';
+import { RemoteData } from '../../../../core/data/remote-data';
+import { Collection } from '../../../../core/shared/collection.model';
+import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
+import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
+import { SearchService } from '../../../../core/shared/search/search.service';
+import { hasValue } from '../../../empty.util';
+import { HoverClassDirective } from '../../../hover-class.directive';
+import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
+import { NotificationsService } from '../../../notifications/notifications.service';
+import { CollectionSearchResult } from '../../../object-collection/shared/collection-search-result.model';
+import { ListableObjectComponentLoaderComponent } from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
+import { SearchResult } from '../../../search/models/search-result.model';
+import { followLink } from '../../../utils/follow-link-config.model';
+import { DSOSelectorComponent } from '../dso-selector.component';
 
 @Component({
   selector: 'ds-authorized-collection-selector',
   styleUrls: ['../dso-selector.component.scss'],
-  templateUrl: '../dso-selector.component.html'
+  templateUrl: '../dso-selector.component.html',
+  imports: [
+    AsyncPipe,
+    FormsModule,
+    HoverClassDirective,
+    InfiniteScrollModule,
+    ListableObjectComponentLoaderComponent,
+    NgClass,
+    ReactiveFormsModule,
+    ThemedLoadingComponent,
+    TranslateModule,
+  ],
 })
 /**
  * Component rendering a list of collections to select from
@@ -31,6 +65,11 @@ export class AuthorizedCollectionSelectorComponent extends DSOSelectorComponent 
    * If present this value is used to filter collection list by entity type
    */
   @Input() entityType: string;
+
+  /**
+   * The action type to determine which authorized collections to fetch, defaults to ADMIN
+   */
+  @Input() action: ActionType = ActionType.ADMIN;
 
   constructor(
     protected searchService: SearchService,
@@ -59,24 +98,33 @@ export class AuthorizedCollectionSelectorComponent extends DSOSelectorComponent 
     let searchListService$: Observable<RemoteData<PaginatedList<Collection>>> = null;
     const findOptions: FindListOptions = {
       currentPage: page,
-      elementsPerPage: this.defaultPagination.pageSize
+      elementsPerPage: this.defaultPagination.pageSize,
     };
 
-    if (this.entityType) {
+    if (this.action === ActionType.WRITE) {
       searchListService$ = this.collectionDataService
-        .getAuthorizedCollectionByEntityType(
-          query,
-          this.entityType,
-          findOptions);
+        .getEditAuthorizedCollection(query, findOptions, useCache, false, followLink('parentCommunity'));
+    } else if (this.action === ActionType.ADD) {
+      if (this.entityType) {
+        searchListService$ = this.collectionDataService
+          .getAuthorizedCollectionByEntityType(
+            query,
+            this.entityType,
+            findOptions);
+      } else {
+        searchListService$ = this.collectionDataService
+          .getSubmitAuthorizedCollection(query, findOptions, useCache, false, followLink('parentCommunity'));
+      }
     } else {
+      // By default, search for admin authorized collections
       searchListService$ = this.collectionDataService
-        .getAuthorizedCollection(query, findOptions, useCache, false, followLink('parentCommunity'));
+        .getAdminAuthorizedCollection(query, findOptions, useCache, false, followLink('parentCommunity'));
     }
     return searchListService$.pipe(
       getFirstCompletedRemoteData(),
       map((rd) => Object.assign(new RemoteData(null, null, null, null), rd, {
         payload: hasValue(rd.payload) ? buildPaginatedList(rd.payload.pageInfo, rd.payload.page.map((col) => Object.assign(new CollectionSearchResult(), { indexableObject: col }))) : null,
-      }))
+      })),
     );
   }
 }

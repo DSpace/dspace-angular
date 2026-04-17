@@ -1,7 +1,7 @@
 import { Config } from './config.interface';
 
 /**
- * Config that determines how the dropdown list of years are created for browse-by-date components
+ * Config that determines how the recentSubmissions list showing at home page
  */
 export interface HomeConfig extends Config {
   recentSubmissions: {
@@ -19,4 +19,8 @@ export interface HomeConfig extends Config {
   topLevelCommunityList: {
     pageSize: number;
   };
+  /*
+  * Enable or disable the Discover filters on the homepage
+  */
+  showDiscoverFilters: boolean;
 }

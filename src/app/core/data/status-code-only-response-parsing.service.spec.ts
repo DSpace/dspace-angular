@@ -16,7 +16,7 @@ describe('StatusCodeOnlyResponseParsingService', () => {
       const result = service.parse(undefined, {
         payload,
         statusCode: 201,
-        statusText: '201'
+        statusText: '201',
       });
 
       expect(JSON.stringify(result).indexOf(payload)).toBe(-1);
@@ -31,7 +31,7 @@ describe('StatusCodeOnlyResponseParsingService', () => {
       it('should return a success RestResponse', () => {
         const result = service.parse(undefined, {
           statusCode,
-          statusText
+          statusText,
         });
 
         expect(result.isSuccessful).toBe(true);
@@ -40,7 +40,7 @@ describe('StatusCodeOnlyResponseParsingService', () => {
       it('should return a RestResponse with the correct status code', () => {
         const result = service.parse(undefined, {
           statusCode,
-          statusText
+          statusText,
         });
 
         expect(result.statusCode).toBe(statusCode);
@@ -49,7 +49,7 @@ describe('StatusCodeOnlyResponseParsingService', () => {
       it('should return a RestResponse with the correct status text', () => {
         const result = service.parse(undefined, {
           statusCode,
-          statusText
+          statusText,
         });
 
         expect(result.statusText).toBe(statusText);
@@ -65,7 +65,7 @@ describe('StatusCodeOnlyResponseParsingService', () => {
       it('should return an error RestResponse', () => {
         const result = service.parse(undefined, {
           statusCode,
-          statusText
+          statusText,
         });
 
         expect(result.isSuccessful).toBe(false);
@@ -74,7 +74,7 @@ describe('StatusCodeOnlyResponseParsingService', () => {
       it('should return a RestResponse with the correct status code', () => {
         const result = service.parse(undefined, {
           statusCode,
-          statusText
+          statusText,
         });
 
         expect(result.statusCode).toBe(statusCode);
@@ -83,7 +83,7 @@ describe('StatusCodeOnlyResponseParsingService', () => {
       it('should return a RestResponse with the correct status text', () => {
         const result = service.parse(undefined, {
           statusCode,
-          statusText
+          statusText,
         });
 
         expect(result.statusText).toBe(statusText);

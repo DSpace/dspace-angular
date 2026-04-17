@@ -1,10 +1,20 @@
-import { createSelector, MemoizedSelector } from '@ngrx/store';
-import { hasValue, isNotEmpty } from '../../shared/empty.util';
+import {
+  createSelector,
+  MemoizedSelector,
+} from '@ngrx/store';
+
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../shared/empty.util';
 import { coreSelector } from '../core.selectors';
-import { URLCombiner } from '../url-combiner/url-combiner';
-import { IndexState, MetaIndexState } from './index.reducer';
-import { IndexName } from './index-name.model';
 import { CoreState } from '../core-state.model';
+import { URLCombiner } from '../url-combiner/url-combiner';
+import {
+  IndexState,
+  MetaIndexState,
+} from './index.reducer';
+import { IndexName } from './index-name.model';
 
 /**
  * Return the given url without `embed` params.
@@ -74,7 +84,7 @@ export const getEmbedSizeParams = (url: string): { name: string, size: number }[
  */
 export const metaIndexSelector: MemoizedSelector<CoreState, MetaIndexState> = createSelector(
   coreSelector,
-  (state: CoreState) => state.index
+  (state: CoreState) => state.index,
 );
 
 /**
@@ -86,7 +96,7 @@ export const metaIndexSelector: MemoizedSelector<CoreState, MetaIndexState> = cr
  */
 export const objectIndexSelector: MemoizedSelector<CoreState, IndexState> = createSelector(
   metaIndexSelector,
-  (state: MetaIndexState) => state[IndexName.OBJECT]
+  (state: MetaIndexState) => state[IndexName.OBJECT],
 );
 
 /**
@@ -97,7 +107,7 @@ export const objectIndexSelector: MemoizedSelector<CoreState, IndexState> = crea
  */
 export const requestIndexSelector: MemoizedSelector<CoreState, IndexState> = createSelector(
   metaIndexSelector,
-  (state: MetaIndexState) => state[IndexName.REQUEST]
+  (state: MetaIndexState) => state[IndexName.REQUEST],
 );
 
 /**
@@ -108,7 +118,7 @@ export const requestIndexSelector: MemoizedSelector<CoreState, IndexState> = cre
  */
 export const alternativeLinkIndexSelector: MemoizedSelector<CoreState, IndexState> = createSelector(
   metaIndexSelector,
-  (state: MetaIndexState) => state[IndexName.ALTERNATIVE_OBJECT_LINK]
+  (state: MetaIndexState) => state[IndexName.ALTERNATIVE_OBJECT_LINK],
 );
 
 /**
@@ -122,7 +132,7 @@ export const alternativeLinkIndexSelector: MemoizedSelector<CoreState, IndexStat
 export const selfLinkFromUuidSelector =
   (uuid: string): MemoizedSelector<CoreState, string> => createSelector(
     objectIndexSelector,
-    (state: IndexState) => hasValue(state) ? state[uuid] : undefined
+    (state: IndexState) => hasValue(state) ? state[uuid] : undefined,
   );
 
 /**
@@ -136,7 +146,7 @@ export const selfLinkFromUuidSelector =
 export const uuidFromHrefSelector =
   (href: string): MemoizedSelector<CoreState, string> => createSelector(
     requestIndexSelector,
-    (state: IndexState) => hasValue(state) ? state[getUrlWithoutEmbedParams(href)] : undefined
+    (state: IndexState) => hasValue(state) ? state[getUrlWithoutEmbedParams(href)] : undefined,
   );
 
 /**
@@ -150,5 +160,5 @@ export const uuidFromHrefSelector =
 export const selfLinkFromAlternativeLinkSelector =
   (altLink: string): MemoizedSelector<CoreState, string> => createSelector(
     alternativeLinkIndexSelector,
-    (state: IndexState) => hasValue(state) ? state[altLink] : undefined
+    (state: IndexState) => hasValue(state) ? state[altLink] : undefined,
   );

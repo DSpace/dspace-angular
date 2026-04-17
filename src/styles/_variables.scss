@@ -1,5 +1,7 @@
-@import '_functions.scss';
+@import './functions.scss';
 @import '../../node_modules/bootstrap/scss/functions.scss';
 
-@import '_bootstrap_variables.scss';
+@import './bootstrap_variables.scss';
 @import '../../node_modules/bootstrap/scss/variables.scss';
+
+$theme-colors: map-merge($theme-colors, $global-custom-semantic-colors);

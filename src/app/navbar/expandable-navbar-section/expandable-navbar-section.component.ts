@@ -1,21 +1,46 @@
-import { Component, HostListener, Inject, Injector, OnInit, AfterViewChecked, OnDestroy } from '@angular/core';
-import { NavbarSectionComponent } from '../navbar-section/navbar-section.component';
-import { MenuService } from '../../shared/menu/menu.service';
-import { slide } from '../../shared/animations/slide';
-import { first } from 'rxjs/operators';
-import { HostWindowService } from '../../shared/host-window.service';
-import { MenuID } from '../../shared/menu/menu-id.model';
+import {
+  AsyncPipe,
+  NgComponentOutlet,
+} from '@angular/common';
+import {
+  AfterViewChecked,
+  Component,
+  HostListener,
+  Inject,
+  Injector,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import { RouterLinkActive } from '@angular/router';
 import { Observable } from 'rxjs';
+import {
+  first,
+  map,
+} from 'rxjs/operators';
+
+import { slide } from '../../shared/animations/slide';
+import { isNotEmpty } from '../../shared/empty.util';
+import { HostWindowService } from '../../shared/host-window.service';
+import { MenuService } from '../../shared/menu/menu.service';
+import { MenuID } from '../../shared/menu/menu-id.model';
 import { MenuSection } from '../../shared/menu/menu-section.model';
+import { HoverOutsideDirective } from '../../shared/utils/hover-outside.directive';
+import { NavbarSectionComponent } from '../navbar-section/navbar-section.component';
 
 /**
  * Represents an expandable section in the navbar
  */
 @Component({
-  selector: 'ds-expandable-navbar-section',
+  selector: 'ds-base-expandable-navbar-section',
   templateUrl: './expandable-navbar-section.component.html',
   styleUrls: ['./expandable-navbar-section.component.scss'],
-  animations: [slide]
+  animations: [slide],
+  imports: [
+    AsyncPipe,
+    HoverOutsideDirective,
+    NgComponentOutlet,
+    RouterLinkActive,
+  ],
 })
 export class ExpandableNavbarSectionComponent extends NavbarSectionComponent implements AfterViewChecked, OnInit, OnDestroy {
 
@@ -56,10 +81,15 @@ export class ExpandableNavbarSectionComponent extends NavbarSectionComponent imp
    */
   private dropdownItems: NodeListOf<HTMLElement>;
 
+  /**
+   * Emits true when the top section has subsections, else emits false
+   */
+  hasSubSections$: Observable<boolean>;
+
   @HostListener('window:resize', ['$event'])
   onResize() {
     this.isMobile$.pipe(
-      first()
+      first(),
     ).subscribe((isMobile) => {
       // When switching between desktop and mobile active sections should be deactivated
       if (isMobile !== this.wasMobile) {
@@ -82,6 +112,9 @@ export class ExpandableNavbarSectionComponent extends NavbarSectionComponent imp
 
   ngOnInit() {
     super.ngOnInit();
+    this.hasSubSections$ = this.subSections$.pipe(
+      map((subSections) => isNotEmpty(subSections)),
+    );
     this.subs.push(this.active$.subscribe((active: boolean) => {
       if (active === true) {
         this.addArrowEventListeners = true;
@@ -141,7 +174,7 @@ export class ExpandableNavbarSectionComponent extends NavbarSectionComponent imp
    */
   onMouseEnter($event: Event): void {
     this.isMobile$.pipe(
-      first()
+      first(),
     ).subscribe((isMobile) => {
       if (!isMobile && !this.active$.value && !this.mouseEntered) {
         this.activateSection($event);
@@ -156,7 +189,7 @@ export class ExpandableNavbarSectionComponent extends NavbarSectionComponent imp
    */
   onMouseLeave($event: Event): void {
     this.isMobile$.pipe(
-      first()
+      first(),
     ).subscribe((isMobile) => {
       if (!isMobile && this.active$.value && this.mouseEntered) {
         this.deactivateSection($event);

@@ -6,18 +6,25 @@ import {
   OnDestroy,
   SimpleChanges,
   TemplateRef,
-  ViewContainerRef
+  ViewContainerRef,
 } from '@angular/core';
+import {
+  combineLatest,
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  filter,
+  first,
+  map,
+} from 'rxjs/operators';
 
-import { combineLatest, Observable, Subscription } from 'rxjs';
-import { filter, first, map } from 'rxjs/operators';
-
-import { hasValue } from '../empty.util';
 import { RoleService } from '../../core/roles/role.service';
 import { RoleType } from '../../core/roles/role-types';
+import { hasValue } from '../empty.util';
 
 @Directive({
-  selector: '[dsShowOnlyForRole],[dsShowExceptForRole]'
+  selector: '[dsShowOnlyForRole],[dsShowExceptForRole]',
 })
 /**
  * Structural Directive for showing or hiding a template based on current user role
@@ -40,7 +47,7 @@ export class RoleDirective implements OnChanges, OnDestroy {
     private roleService: RoleService,
     private viewContainer: ViewContainerRef,
     private changeDetector: ChangeDetectorRef,
-    private templateRef: TemplateRef<any>
+    private templateRef: TemplateRef<any>,
   ) {
   }
 
@@ -108,7 +115,7 @@ export class RoleDirective implements OnChanges, OnDestroy {
 
     return combineLatest(checks).pipe(
       map((permissions: boolean[]) => permissions.includes(true)),
-      first()
+      first(),
     );
   }
 }

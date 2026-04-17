@@ -1,7 +1,11 @@
-import { INotificationOptions, NotificationOptions } from './notification-options.model';
-import { NotificationType } from './notification-type';
-import { isEmpty } from '../../empty.util';
 import { Observable } from 'rxjs';
+
+import { isEmpty } from '../../empty.util';
+import {
+  INotificationOptions,
+  NotificationOptions,
+} from './notification-options.model';
+import { NotificationType } from './notification-type';
 
 export interface INotification {
   id: string;
@@ -21,11 +25,11 @@ export class Notification implements INotification {
   public html: boolean;
 
   constructor(id: string,
-              type: NotificationType,
-              title?: Observable<string> | string,
-              content?: Observable<string> | string,
-              options?: NotificationOptions,
-              html?: boolean) {
+    type: NotificationType,
+    title?: Observable<string> | string,
+    content?: Observable<string> | string,
+    options?: NotificationOptions,
+    html?: boolean) {
 
     this.id = id;
     this.type = type;

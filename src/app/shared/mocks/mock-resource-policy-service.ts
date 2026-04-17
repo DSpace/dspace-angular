@@ -5,6 +5,6 @@ export function getMockResourcePolicyService(): ResourcePolicyDataService {
     searchByResource: jasmine.createSpy('searchByResource'),
     create: jasmine.createSpy('create'),
     delete: jasmine.createSpy('delete'),
-    update: jasmine.createSpy('update')
+    update: jasmine.createSpy('update'),
   });
 }

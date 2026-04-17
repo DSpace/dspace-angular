@@ -1,0 +1,19 @@
+<ng-container *ngVar="(subCollectionsRDObs | async) as subCollectionsRD">
+  @if (subCollectionsRD?.hasSucceeded && subCollectionsRD?.payload.totalElements > 0) {
+    <div @fadeIn>
+      <h3>{{'community.sub-collection-list.head' | translate}}</h3>
+      <ds-viewable-collection
+        [config]="config"
+        [sortConfig]="sortConfig"
+        [objects]="subCollectionsRD"
+        [hideGear]="false">
+      </ds-viewable-collection>
+    </div>
+  }
+  @if (subCollectionsRD?.hasFailed) {
+    <ds-error message="{{'error.sub-collections' | translate}}"></ds-error>
+  }
+  @if (subCollectionsRD?.isLoading) {
+    <ds-loading message="{{'loading.sub-collections' | translate}}"></ds-loading>
+  }
+</ng-container>

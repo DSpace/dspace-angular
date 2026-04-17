@@ -1,17 +1,30 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
-import { RouterTestingModule } from '@angular/router/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { RouterStub } from '../../../../shared/testing/router.stub';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { Router } from '@angular/router';
-import { FormatFormComponent } from './format-form.component';
+import { RouterTestingModule } from '@angular/router/testing';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  DynamicCheckboxModel,
+  DynamicFormArrayModel,
+  DynamicInputModel,
+} from '@ng-dynamic-forms/core';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model';
 import { BitstreamFormatSupportLevel } from '../../../../core/shared/bitstream-format-support-level';
-import { DynamicCheckboxModel, DynamicFormArrayModel, DynamicInputModel } from '@ng-dynamic-forms/core';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { isEmpty } from '../../../../shared/empty.util';
+import { FormComponent } from '../../../../shared/form/form.component';
+import { RouterStub } from '../../../../shared/testing/router.stub';
+import { FormatFormComponent } from './format-form.component';
 
 describe('FormatFormComponent', () => {
   let comp: FormatFormComponent;
@@ -40,13 +53,24 @@ describe('FormatFormComponent', () => {
 
   const initAsync = () => {
     TestBed.configureTestingModule({
-      imports: [CommonModule, RouterTestingModule.withRoutes([]), ReactiveFormsModule, FormsModule, TranslateModule.forRoot(), NgbModule],
-      declarations: [FormatFormComponent],
-      providers: [
-        { provide: Router, useValue: router },
+      imports: [
+        CommonModule,
+        RouterTestingModule.withRoutes([]),
+        ReactiveFormsModule,
+        FormsModule,
+        TranslateModule.forRoot(),
+        NgbModule,
+        FormatFormComponent,
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    }).compileComponents();
+      providers: [{ provide: Router, useValue: router }],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    })
+      .overrideComponent(FormatFormComponent, {
+        remove: {
+          imports: [FormComponent],
+        },
+      })
+      .compileComponents();
   };
 
   const initBeforeEach = () => {

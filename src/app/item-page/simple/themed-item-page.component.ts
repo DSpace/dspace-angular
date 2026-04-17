@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { ThemedComponent } from '../../shared/theme-support/themed.component';
 import { ItemPageComponent } from './item-page.component';
 
@@ -6,8 +7,7 @@ import { ItemPageComponent } from './item-page.component';
  * Themed wrapper for ItemPageComponent
  */
 @Component({
-  selector: 'ds-themed-item-page',
-  styleUrls: [],
+  selector: 'ds-item-page',
   templateUrl: './../../shared/theme-support/themed.component.html',
 })
 

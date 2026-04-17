@@ -1,31 +1,65 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { RegistryService } from '../../../core/registry/registry.service';
-import { ActivatedRoute } from '@angular/router';
+import {
+  AsyncPipe,
+  NgClass,
+} from '@angular/common';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  RouterLink,
+} from '@angular/router';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest,
   Observable,
-  of as observableOf,
-  zip,
+  of,
   Subscription,
+  zip,
 } from 'rxjs';
-import { RemoteData } from '../../../core/data/remote-data';
+import {
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+
 import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { map, switchMap, take } from 'rxjs/operators';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
+import { RemoteData } from '../../../core/data/remote-data';
 import { MetadataField } from '../../../core/metadata/metadata-field.model';
 import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
-import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
-import { toFindListOptions } from '../../../shared/pagination/pagination.utils';
-import { NoContent } from '../../../core/shared/NoContent.model';
 import { PaginationService } from '../../../core/pagination/pagination.service';
+import { RegistryService } from '../../../core/registry/registry.service';
+import { NoContent } from '../../../core/shared/NoContent.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '../../../core/shared/operators';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { PaginationComponent } from '../../../shared/pagination/pagination.component';
+import { toFindListOptions } from '../../../shared/pagination/pagination.utils';
+import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
+import { VarDirective } from '../../../shared/utils/var.directive';
+import { MetadataFieldFormComponent } from './metadata-field-form/metadata-field-form.component';
 
 @Component({
   selector: 'ds-metadata-schema',
   templateUrl: './metadata-schema.component.html',
-  styleUrls: ['./metadata-schema.component.scss']
+  styleUrls: ['./metadata-schema.component.scss'],
+  imports: [
+    AsyncPipe,
+    MetadataFieldFormComponent,
+    NgClass,
+    PaginationComponent,
+    RouterLink,
+    TranslateModule,
+    VarDirective,
+  ],
 })
 /**
  * A component used for managing all existing metadata fields within the current metadata schema.
@@ -48,7 +82,7 @@ export class MetadataSchemaComponent implements OnDestroy, OnInit {
   config: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'rm',
     pageSize: 25,
-    pageSizeOptions: [25, 50, 100, 200]
+    pageSizeOptions: [25, 50, 100, 200],
   });
 
   /**
@@ -91,13 +125,13 @@ export class MetadataSchemaComponent implements OnDestroy, OnInit {
    */
   private updateFields() {
     this.metadataFields$ = this.paginationService.getCurrentPagination(this.config.id, this.config).pipe(
-      switchMap((currentPagination) => combineLatest([this.metadataSchema$, this.needsUpdate$, observableOf(currentPagination)])),
+      switchMap((currentPagination) => combineLatest([this.metadataSchema$, this.needsUpdate$, of(currentPagination)])),
       switchMap(([schema, update, currentPagination]: [MetadataSchema, boolean, PaginationComponentOptions]) => {
         if (update) {
           this.needsUpdate$.next(false);
         }
         return this.registryService.getMetadataFieldsBySchema(schema, toFindListOptions(currentPagination), !update, true);
-      })
+      }),
     );
   }
 
@@ -130,9 +164,11 @@ export class MetadataSchemaComponent implements OnDestroy, OnInit {
    * @param event
    */
   selectMetadataField(field: MetadataField, event) {
-    event.target.checked ?
-      this.registryService.selectMetadataField(field) :
+    if (event.target.checked) {
+      this.registryService.selectMetadataField(field);
+    } else {
       this.registryService.deselectMetadataField(field);
+    }
   }
 
   /**

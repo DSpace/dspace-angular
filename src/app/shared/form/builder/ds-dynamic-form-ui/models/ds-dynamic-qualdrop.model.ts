@@ -2,12 +2,12 @@ import {
   DynamicFormControlLayout,
   DynamicFormGroupModel,
   DynamicFormGroupModelConfig,
-  serializable
+  serializable,
 } from '@ng-dynamic-forms/core';
-import { DsDynamicInputModel } from './ds-dynamic-input.model';
 import { Subject } from 'rxjs';
 
 import { LanguageCode } from '../../models/form-field-language-value.model';
+import { DsDynamicInputModel } from './ds-dynamic-input.model';
 
 export const QUALDROP_GROUP_SUFFIX = '_QUALDROP_GROUP';
 export const QUALDROP_METADATA_SUFFIX = '_QUALDROP_METADATA';

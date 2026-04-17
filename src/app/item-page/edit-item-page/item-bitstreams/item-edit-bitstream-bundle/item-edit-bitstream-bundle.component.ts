@@ -1,49 +1,91 @@
 import {
+  CdkDrag,
+  CdkDragDrop,
+  CdkDropList,
+} from '@angular/cdk/drag-drop';
+import { CommonModule } from '@angular/common';
+import {
   Component,
   Input,
+  OnDestroy,
   OnInit,
   ViewChild,
-  ViewContainerRef, OnDestroy,
+  ViewContainerRef,
 } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import {
+  NgbDropdownModule,
+  NgbTooltip,
+} from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  Observable,
+  shareReplay,
+  Subscription,
+  switchMap,
+} from 'rxjs';
+import {
+  filter,
+  map,
+  take,
+  tap,
+} from 'rxjs/operators';
+import { PaginatedList } from 'src/app/core/data/paginated-list.model';
+import { RemoteData } from 'src/app/core/data/remote-data';
+import { Bitstream } from 'src/app/core/shared/bitstream.model';
+
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { BundleDataService } from '../../../../core/data/bundle-data.service';
+import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
+import { FieldUpdate } from '../../../../core/data/object-updates/field-update.model';
+import { FieldUpdates } from '../../../../core/data/object-updates/field-updates.model';
+import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
+import { RequestService } from '../../../../core/data/request.service';
+import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { Bundle } from '../../../../core/shared/bundle.model';
 import { Item } from '../../../../core/shared/item.model';
-import { ResponsiveColumnSizes } from '../../../../shared/responsive-table-sizes/responsive-column-sizes';
-import { ResponsiveTableSizes } from '../../../../shared/responsive-table-sizes/responsive-table-sizes';
-import { getItemPageRoute } from '../../../item-page-routing-paths';
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { RemoteData } from 'src/app/core/data/remote-data';
-import { PaginatedList } from 'src/app/core/data/paginated-list.model';
-import { Bitstream } from 'src/app/core/shared/bitstream.model';
-import { Observable, BehaviorSubject, switchMap, shareReplay, Subscription } from 'rxjs';
-import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
-import { FieldUpdates } from '../../../../core/data/object-updates/field-updates.model';
-import { PaginatedSearchOptions } from '../../../../shared/search/models/paginated-search-options.model';
-import { BundleDataService } from '../../../../core/data/bundle-data.service';
-import { followLink } from '../../../../shared/utils/follow-link-config.model';
 import {
   getAllSucceededRemoteData,
   paginatedListToArray,
 } from '../../../../core/shared/operators';
-import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
-import { map, take, filter, tap } from 'rxjs/operators';
-import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
-import { FieldUpdate } from '../../../../core/data/object-updates/field-update.model';
-import { PaginationService } from '../../../../core/pagination/pagination.service';
-import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
-import { RequestService } from '../../../../core/data/request.service';
+import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import {
-  ItemBitstreamsService,
+  hasNoValue,
+  hasValue,
+} from '../../../../shared/empty.util';
+import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
+import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
+import { ResponsiveColumnSizes } from '../../../../shared/responsive-table-sizes/responsive-column-sizes';
+import { ResponsiveTableSizes } from '../../../../shared/responsive-table-sizes/responsive-table-sizes';
+import { PaginatedSearchOptions } from '../../../../shared/search/models/paginated-search-options.model';
+import { BrowserOnlyPipe } from '../../../../shared/utils/browser-only.pipe';
+import { followLink } from '../../../../shared/utils/follow-link-config.model';
+import { getItemPageRoute } from '../../../item-page-routing-paths';
+import {
   BitstreamTableEntry,
+  ItemBitstreamsService,
+  MOVE_KEY,
   SelectedBitstreamTableEntry,
-  MOVE_KEY, SelectionAction
+  SelectionAction,
 } from '../item-bitstreams.service';
-import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { hasValue, hasNoValue } from '../../../../shared/empty.util';
 
 @Component({
   selector: 'ds-item-edit-bitstream-bundle',
   styleUrls: ['../item-bitstreams.component.scss', './item-edit-bitstream-bundle.component.scss'],
   templateUrl: './item-edit-bitstream-bundle.component.html',
+  imports: [
+    BrowserOnlyPipe,
+    BtnDisabledDirective,
+    CdkDrag,
+    CdkDropList,
+    CommonModule,
+    NgbDropdownModule,
+    NgbTooltip,
+    PaginationComponent,
+    RouterLink,
+    TranslateModule,
+  ],
 })
 /**
  * Component that displays a single bundle of an item on the item bitstreams edit page
@@ -56,7 +98,7 @@ export class ItemEditBitstreamBundleComponent implements OnInit, OnDestroy {
   /**
    * The view on the bundle information and bitstreams
    */
-  @ViewChild('bundleView', {static: true}) bundleView;
+  @ViewChild('bundleView', { static: true }) bundleView;
 
   /**
    * The view on the pagination component
@@ -189,7 +231,7 @@ export class ItemEditBitstreamBundleComponent implements OnInit, OnDestroy {
         .subscribe((pagination) => {
           this.currentPaginationOptions$.next(pagination);
           this.pageSize$.next(pagination.pageSize);
-        })
+        }),
     );
 
   }
@@ -203,12 +245,12 @@ export class ItemEditBitstreamBundleComponent implements OnInit, OnDestroy {
           switchMap(() => this.bundleService.getBitstreams(
             this.bundle.id,
             paginatedOptions,
-            followLink('format')
-          ))
+            followLink('format'),
+          )),
         );
       }),
       getAllSucceededRemoteData(),
-      shareReplay(1),
+      shareReplay({ bufferSize: 1, refCount: true }),
     );
 
     this.subscriptions.push(
@@ -222,7 +264,7 @@ export class ItemEditBitstreamBundleComponent implements OnInit, OnDestroy {
 
       this.bitstreamsRD$.pipe(
         paginatedListToArray(),
-        switchMap((bitstreams) => this.objectUpdatesService.getFieldUpdatesExclusive(this.bundleUrl, bitstreams))
+        switchMap((bitstreams) => this.objectUpdatesService.getFieldUpdatesExclusive(this.bundleUrl, bitstreams)),
       ).subscribe((updates) => this.updates$.next(updates)),
 
       this.bitstreamsRD$.pipe(
@@ -235,7 +277,7 @@ export class ItemEditBitstreamBundleComponent implements OnInit, OnDestroy {
   protected initializeSelectionActions() {
     this.subscriptions.push(
       this.itemBitstreamsService.getSelectionAction$().subscribe(
-        selectionAction => this.handleSelectionAction(selectionAction))
+        selectionAction => this.handleSelectionAction(selectionAction)),
     );
   }
 
@@ -307,7 +349,7 @@ export class ItemEditBitstreamBundleComponent implements OnInit, OnDestroy {
    * Check if a user should be allowed to cancel the update to this field
    */
   canUndo(fieldUpdate: FieldUpdate): boolean {
-    return fieldUpdate.changeType >= 0;
+    return fieldUpdate.changeType >= FieldChangeType.UPDATE;
   }
 
   /**
@@ -544,4 +586,5 @@ export class ItemEditBitstreamBundleComponent implements OnInit, OnDestroy {
     // uses one-indexing.
     this.paginationComponent.doPageChange(page + 1);
   }
+
 }

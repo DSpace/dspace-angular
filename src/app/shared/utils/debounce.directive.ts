@@ -1,8 +1,18 @@
-import {distinctUntilChanged, debounceTime, takeUntil} from 'rxjs/operators';
-import { Directive, Input, Output, EventEmitter, OnDestroy, OnInit } from '@angular/core';
+import {
+  Directive,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { NgControl } from '@angular/forms';
-
 import { Subject } from 'rxjs';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  takeUntil,
+} from 'rxjs/operators';
 
 @Directive({
   selector: '[ngModel][dsDebounce]',
@@ -11,6 +21,7 @@ import { Subject } from 'rxjs';
  * Directive for setting a debounce time on an input field
  * It will emit the input field's value when no changes were made to this value in a given debounce time
  */
+// todo: this class is unused, consider removing it instead of fixing lint
 export class DebounceDirective implements OnInit, OnDestroy {
 
   /**
@@ -39,14 +50,14 @@ export class DebounceDirective implements OnInit, OnDestroy {
    */
   ngOnInit() {
     this.model.valueChanges.pipe(
-      takeUntil(this.subject),
       debounceTime(this.dsDebounce),
-      distinctUntilChanged())
-      .subscribe((modelValue) => {
-        if (this.model.dirty) {
-          this.onDebounce.emit(modelValue);
-        }
-      });
+      distinctUntilChanged(),
+      takeUntil(this.subject),  // todo: check if this is ok
+    ).subscribe((modelValue) => {
+      if (this.model.dirty) {
+        this.onDebounce.emit(modelValue);
+      }
+    });
   }
 
   /**

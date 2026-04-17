@@ -1,18 +1,51 @@
-import { Component, OnInit } from '@angular/core';
-import { Collection } from '../../../core/shared/collection.model';
-import { ObjectSelectComponent } from '../object-select/object-select.component';
-import { isNotEmpty, hasValueOperator } from '../../empty.util';
-import { Observable } from 'rxjs';
-import { DSpaceObjectSelect } from '../object-select.model';
-import { getAllSucceededRemoteDataPayload } from '../../../core/shared/operators';
-import { map } from 'rxjs/operators';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
+import {
+  AsyncPipe,
+  NgClass,
+} from '@angular/common';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  map,
+  Observable,
+} from 'rxjs';
+
 import { getCollectionPageRoute } from '../../../collection-page/collection-page-routing-paths';
+import { PaginatedList } from '../../../core/data/paginated-list.model';
+import { Collection } from '../../../core/shared/collection.model';
+import { getAllSucceededRemoteDataPayload } from '../../../core/shared/operators';
+import { BtnDisabledDirective } from '../../btn-disabled.directive';
+import {
+  hasValueOperator,
+  isNotEmpty,
+} from '../../empty.util';
+import { ErrorComponent } from '../../error/error.component';
+import { ThemedLoadingComponent } from '../../loading/themed-loading.component';
+import { PaginationComponent } from '../../pagination/pagination.component';
+import { VarDirective } from '../../utils/var.directive';
+import { DSpaceObjectSelect } from '../object-select.model';
+import { ObjectSelectComponent } from '../object-select/object-select.component';
 
 @Component({
   selector: 'ds-collection-select',
   templateUrl: './collection-select.component.html',
   styleUrls: ['./collection-select.component.scss'],
+  imports: [
+    AsyncPipe,
+    BtnDisabledDirective,
+    ErrorComponent,
+    FormsModule,
+    NgClass,
+    PaginationComponent,
+    RouterLink,
+    ThemedLoadingComponent,
+    TranslateModule,
+    VarDirective,
+  ],
 })
 
 /**
@@ -22,7 +55,7 @@ export class CollectionSelectComponent extends ObjectSelectComponent<Collection>
 
   /**
    * Collection of all the data that is used to display the {@link Collection} in the HTML.
-   * By collecting this data here it doesn't need to be recalculated on evey change detection.
+   * By collecting this data here it doesn't need to be recalculated on every change detection.
    */
   selectCollections$: Observable<DSpaceObjectSelect<Collection>[]>;
 

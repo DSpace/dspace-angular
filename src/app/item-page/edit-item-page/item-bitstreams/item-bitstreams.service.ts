@@ -1,29 +1,45 @@
 import { Injectable } from '@angular/core';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { ResponsiveTableSizes } from '../../../shared/responsive-table-sizes/responsive-table-sizes';
-import { ResponsiveColumnSizes } from '../../../shared/responsive-table-sizes/responsive-column-sizes';
-import { RemoteData } from '../../../core/data/remote-data';
-import { hasValue, hasNoValue } from '../../../shared/empty.util';
-import { Bundle } from '../../../core/shared/bundle.model';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable, zip as observableZip, BehaviorSubject } from 'rxjs';
-import { NoContent } from '../../../core/shared/NoContent.model';
-import { take, switchMap, map, tap } from 'rxjs/operators';
-import { FieldUpdates } from '../../../core/data/object-updates/field-updates.model';
-import { FieldUpdate } from '../../../core/data/object-updates/field-update.model';
-import { FieldChangeType } from '../../../core/data/object-updates/field-change-type.model';
-import { Bitstream } from '../../../core/shared/bitstream.model';
-import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
-import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
-import { getFirstSucceededRemoteDataPayload, getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import { MoveOperation } from 'fast-json-patch';
+import {
+  BehaviorSubject,
+  Observable,
+  zip as observableZip,
+} from 'rxjs';
+import {
+  map,
+  switchMap,
+  take,
+  tap,
+} from 'rxjs/operators';
+
 import { getBitstreamDownloadRoute } from '../../../app-routing-paths';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { BitstreamFormat } from '../../../core/shared/bitstream-format.model';
-import { MoveOperation } from 'fast-json-patch';
+import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
 import { BundleDataService } from '../../../core/data/bundle-data.service';
+import { FieldChangeType } from '../../../core/data/object-updates/field-change-type.model';
+import { FieldUpdate } from '../../../core/data/object-updates/field-update.model';
+import { FieldUpdates } from '../../../core/data/object-updates/field-updates.model';
+import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
+import { RemoteData } from '../../../core/data/remote-data';
 import { RequestService } from '../../../core/data/request.service';
+import { Bitstream } from '../../../core/shared/bitstream.model';
+import { BitstreamFormat } from '../../../core/shared/bitstream-format.model';
+import { Bundle } from '../../../core/shared/bundle.model';
+import { NoContent } from '../../../core/shared/NoContent.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '../../../core/shared/operators';
+import {
+  hasNoValue,
+  hasValue,
+} from '../../../shared/empty.util';
 import { LiveRegionService } from '../../../shared/live-region/live-region.service';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
+import { ResponsiveColumnSizes } from '../../../shared/responsive-table-sizes/responsive-column-sizes';
+import { ResponsiveTableSizes } from '../../../shared/responsive-table-sizes/responsive-table-sizes';
 
 export const MOVE_KEY = 'item.edit.bitstreams.notifications.move';
 
@@ -344,7 +360,7 @@ export class ItemBitstreamsService {
     return Object.assign(new PaginationComponentOptions(), {
       id: 'bundles-pagination-options',
       currentPage: 1,
-      pageSize: 9999
+      pageSize: 9999,
     });
   }
 
@@ -356,7 +372,7 @@ export class ItemBitstreamsService {
     return Object.assign(new PaginationComponentOptions(),{
       id: bundleName, // This might behave unexpectedly if the item contains two bundles with the same name
       currentPage: 1,
-      pageSize: 10
+      pageSize: 10,
     });
   }
 
@@ -372,7 +388,7 @@ export class ItemBitstreamsService {
       // Format column
       new ResponsiveColumnSizes(2, 2, 2, 2, 2),
       // Actions column
-      new ResponsiveColumnSizes(6, 5, 4, 3, 3)
+      new ResponsiveColumnSizes(6, 5, 4, 3, 3),
     ]);
   }
 
@@ -439,12 +455,12 @@ export class ItemBitstreamsService {
     // Fetch all removed bitstreams from the object update service
     const removedBitstreams$ = bundlesOnce$.pipe(
       switchMap((bundles: Bundle[]) => observableZip(
-        ...bundles.map((bundle: Bundle) => this.objectUpdatesService.getFieldUpdates(bundle.self, [], true))
+        ...bundles.map((bundle: Bundle) => this.objectUpdatesService.getFieldUpdates(bundle.self, [], true)),
       )),
       map((fieldUpdates: FieldUpdates[]) => ([] as FieldUpdate[]).concat(
-        ...fieldUpdates.map((updates: FieldUpdates) => Object.values(updates).filter((fieldUpdate: FieldUpdate) => fieldUpdate.changeType === FieldChangeType.REMOVE))
+        ...fieldUpdates.map((updates: FieldUpdates) => Object.values(updates).filter((fieldUpdate: FieldUpdate) => fieldUpdate.changeType === FieldChangeType.REMOVE)),
       )),
-      map((fieldUpdates: FieldUpdate[]) => fieldUpdates.map((fieldUpdate: FieldUpdate) => fieldUpdate.field))
+      map((fieldUpdates: FieldUpdate[]) => fieldUpdates.map((fieldUpdate: FieldUpdate) => fieldUpdate.field)),
     );
 
     // Send out delete requests for all deleted bitstreams
@@ -452,7 +468,7 @@ export class ItemBitstreamsService {
       take(1),
       switchMap((removedBitstreams: Bitstream[]) => {
         return this.bitstreamService.removeMultiple(removedBitstreams);
-      })
+      }),
     );
   }
 

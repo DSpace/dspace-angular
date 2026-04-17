@@ -1,8 +1,15 @@
-import { AUTOCOMPLETE_OFF, DynamicFormControlLayout, serializable } from '@ng-dynamic-forms/core';
-import { DsDynamicInputModel, DsDynamicInputModelConfig } from '../ds-dynamic-input.model';
+import {
+  AUTOCOMPLETE_OFF,
+  DynamicFormControlLayout,
+  serializable,
+} from '@ng-dynamic-forms/core';
+
+import { ResourceType } from '../../../../../../core/shared/resource-type';
 import { VocabularyOptions } from '../../../../../../core/submission/vocabularies/models/vocabulary-options.model';
-import { FindAllDataImpl } from '../../../../../../core/data/base/find-all-data';
-import { CacheableObject } from '../../../../../../core/cache/cacheable-object.model';
+import {
+  DsDynamicInputModel,
+  DsDynamicInputModelConfig,
+} from '../ds-dynamic-input.model';
 
 export const DYNAMIC_FORM_CONTROL_TYPE_SCROLLABLE_DROPDOWN = 'SCROLLABLE_DROPDOWN';
 
@@ -12,7 +19,7 @@ export interface DynamicScrollableDropdownModelConfig extends DsDynamicInputMode
   value?: any;
   displayKey?: string;
   formatFunction?: (value: any) => string;
-  findAllFactory?: () =>  FindAllDataImpl<CacheableObject>;
+  resourceType?: ResourceType;
 }
 
 export class DynamicScrollableDropdownModel extends DsDynamicInputModel {
@@ -25,9 +32,9 @@ export class DynamicScrollableDropdownModel extends DsDynamicInputModel {
    */
   formatFunction: (value: any) => string;
   /**
-   * Factory for a service that implements FindAllData
+   * Resource type to match data service
    */
-  findAllFactory: () =>  FindAllDataImpl<CacheableObject>;
+  resourceType: ResourceType;
 
   constructor(config: DynamicScrollableDropdownModelConfig, layout?: DynamicFormControlLayout) {
 
@@ -38,7 +45,7 @@ export class DynamicScrollableDropdownModel extends DsDynamicInputModel {
     this.maxOptions = config.maxOptions || 10;
     this.displayKey = config.displayKey || 'display';
     this.formatFunction = config.formatFunction;
-    this.findAllFactory = config.findAllFactory || (() => null);
+    this.resourceType = config.resourceType;
   }
 
 }

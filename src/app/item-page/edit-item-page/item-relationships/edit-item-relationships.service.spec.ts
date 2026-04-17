@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
 
 import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
@@ -174,7 +174,7 @@ describe('EditItemRelationshipsService', () => {
     });
 
     it('should support performing multiple relationships manipulations in one submit() call', () => {
-      spyOn(objectUpdatesService, 'getFieldUpdates').and.returnValue(observableOf({
+      spyOn(objectUpdatesService, 'getFieldUpdates').and.returnValue(of({
         [`1-${relationshipItem1.uuid}`]: fieldUpdateAddRelationship1,
         [`1-${relationshipItem2.uuid}`]: fieldUpdateRemoveRelationship2,
       } as FieldUpdates));
@@ -269,11 +269,11 @@ describe('EditItemRelationshipsService', () => {
   describe('isProvidedItemTypeLeftType', () => {
     it('should return true if the provided item corresponds to the left type of the relationship', (done) => {
       const relationshipType = Object.assign(new RelationshipType(), {
-        leftType: createSuccessfulRemoteDataObject$({id: 'leftType'}),
-        rightType: createSuccessfulRemoteDataObject$({id: 'rightType'}),
+        leftType: createSuccessfulRemoteDataObject$({ id: 'leftType' }),
+        rightType: createSuccessfulRemoteDataObject$({ id: 'rightType' }),
       });
-      const itemType = Object.assign(new ItemType(), {id: 'leftType'} );
-      const item = Object.assign(new Item(), {uuid: 'item-uuid'});
+      const itemType = Object.assign(new ItemType(), { id: 'leftType' } );
+      const item = Object.assign(new Item(), { uuid: 'item-uuid' });
 
       const result = service.isProvidedItemTypeLeftType(relationshipType, itemType, item);
       result.subscribe((resultValue) => {
@@ -284,11 +284,11 @@ describe('EditItemRelationshipsService', () => {
 
     it('should return false if the provided item corresponds to the right type of the relationship', (done) => {
       const relationshipType = Object.assign(new RelationshipType(), {
-        leftType: createSuccessfulRemoteDataObject$({id: 'leftType'}),
-        rightType: createSuccessfulRemoteDataObject$({id: 'rightType'}),
+        leftType: createSuccessfulRemoteDataObject$({ id: 'leftType' }),
+        rightType: createSuccessfulRemoteDataObject$({ id: 'rightType' }),
       });
-      const itemType = Object.assign(new ItemType(), {id: 'rightType'} );
-      const item = Object.assign(new Item(), {uuid: 'item-uuid'});
+      const itemType = Object.assign(new ItemType(), { id: 'rightType' } );
+      const item = Object.assign(new Item(), { uuid: 'item-uuid' });
 
       const result = service.isProvidedItemTypeLeftType(relationshipType, itemType, item);
       result.subscribe((resultValue) => {
@@ -299,11 +299,11 @@ describe('EditItemRelationshipsService', () => {
 
     it('should return undefined if the provided item corresponds does not match any of the relationship types', (done) => {
       const relationshipType = Object.assign(new RelationshipType(), {
-        leftType: createSuccessfulRemoteDataObject$({id: 'leftType'}),
-        rightType: createSuccessfulRemoteDataObject$({id: 'rightType'}),
+        leftType: createSuccessfulRemoteDataObject$({ id: 'leftType' }),
+        rightType: createSuccessfulRemoteDataObject$({ id: 'rightType' }),
       });
-      const itemType = Object.assign(new ItemType(), {id: 'something-else'} );
-      const item = Object.assign(new Item(), {uuid: 'item-uuid'});
+      const itemType = Object.assign(new ItemType(), { id: 'something-else' } );
+      const item = Object.assign(new Item(), { uuid: 'item-uuid' });
 
       const result = service.isProvidedItemTypeLeftType(relationshipType, itemType, item);
       result.subscribe((resultValue) => {
@@ -316,12 +316,12 @@ describe('EditItemRelationshipsService', () => {
   describe('relationshipMatchesBothSameTypes', () => {
     it('should return true if both left and right type of the relationship type are the same and match the provided itemtype', (done) => {
       const relationshipType = Object.assign(new RelationshipType(), {
-        leftType: createSuccessfulRemoteDataObject$({id:  'sameType'}),
-        rightType: createSuccessfulRemoteDataObject$({id:'sameType'}),
+        leftType: createSuccessfulRemoteDataObject$({ id: 'sameType' }),
+        rightType: createSuccessfulRemoteDataObject$({ id:'sameType' }),
         leftwardType: 'isDepartmentOfDivision',
         rightwardType: 'isDivisionOfDepartment',
       });
-      const itemType = Object.assign(new ItemType(), {id: 'sameType'} );
+      const itemType = Object.assign(new ItemType(), { id: 'sameType' } );
 
       const result = service.shouldDisplayBothRelationshipSides(relationshipType, itemType);
       result.subscribe((resultValue) => {
@@ -346,12 +346,12 @@ describe('EditItemRelationshipsService', () => {
     });
     it('should return false if both left and right type of the relationship type are the same and do not match the provided itemtype', (done) => {
       const relationshipType = Object.assign(new RelationshipType(), {
-        leftType: createSuccessfulRemoteDataObject$({id: 'sameType'}),
-        rightType: createSuccessfulRemoteDataObject$({id: 'sameType'}),
+        leftType: createSuccessfulRemoteDataObject$({ id: 'sameType' }),
+        rightType: createSuccessfulRemoteDataObject$({ id: 'sameType' }),
         leftwardType: 'isDepartmentOfDivision',
         rightwardType: 'isDivisionOfDepartment',
       });
-      const itemType = Object.assign(new ItemType(), {id: 'something-else'} );
+      const itemType = Object.assign(new ItemType(), { id: 'something-else' } );
 
       const result = service.shouldDisplayBothRelationshipSides(relationshipType, itemType);
       result.subscribe((resultValue) => {
@@ -361,12 +361,12 @@ describe('EditItemRelationshipsService', () => {
     });
     it('should return false if both left and right type of the relationship type are different', (done) => {
       const relationshipType = Object.assign(new RelationshipType(), {
-        leftType: createSuccessfulRemoteDataObject$({id: 'leftType'}),
-        rightType: createSuccessfulRemoteDataObject$({id: 'rightType'}),
+        leftType: createSuccessfulRemoteDataObject$({ id: 'leftType' }),
+        rightType: createSuccessfulRemoteDataObject$({ id: 'rightType' }),
         leftwardType: 'isAuthorOfPublication',
         rightwardType: 'isPublicationOfAuthor',
       });
-      const itemType = Object.assign(new ItemType(), {id: 'leftType'} );
+      const itemType = Object.assign(new ItemType(), { id: 'leftType' } );
 
       const result = service.shouldDisplayBothRelationshipSides(relationshipType, itemType);
       result.subscribe((resultValue) => {

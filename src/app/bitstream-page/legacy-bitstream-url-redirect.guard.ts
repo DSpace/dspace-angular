@@ -9,7 +9,10 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { PAGE_NOT_FOUND_PATH } from '../app-routing-paths';
+import {
+  getBitstreamDownloadRoute,
+  PAGE_NOT_FOUND_PATH,
+} from '../app-routing-paths';
 import { BitstreamDataService } from '../core/data/bitstream-data.service';
 import { RemoteData } from '../core/data/remote-data';
 import { HardRedirectService } from '../core/services/hard-redirect.service';
@@ -20,9 +23,10 @@ import { hasNoValue } from '../shared/empty.util';
 /**
  * Redirects to a bitstream based on the handle of the item, and the sequence id or the filename of the
  * bitstream. In production mode the status code will also be set the status code to 301 marking it as a permanent URL
- * redirect for bots.
+ * redirect for bots to the regular bitstream download Page.
  *
- * @returns Observable<UrlTree> Returns a URL to redirect the user to the new URL format
+ * @returns Either a {@link UrlTree} to the 404 page when the url isn't a valid format or false in order to make the
+ * user wait until the {@link HardRedirectService#redirect} was performed
  */
 export const legacyBitstreamURLRedirectGuard: CanActivateFn = (
   route: ActivatedRouteSnapshot,
@@ -30,7 +34,7 @@ export const legacyBitstreamURLRedirectGuard: CanActivateFn = (
   bitstreamDataService: BitstreamDataService = inject(BitstreamDataService),
   serverHardRedirectService: HardRedirectService = inject(HardRedirectService),
   router: Router = inject(Router),
-): Observable<UrlTree | boolean> => {
+): Observable<UrlTree | false> => {
   const prefix = route.params.prefix;
   const suffix = route.params.suffix;
   const filename = route.params.filename;
@@ -46,11 +50,11 @@ export const legacyBitstreamURLRedirectGuard: CanActivateFn = (
     getFirstCompletedRemoteData(),
     map((rd: RemoteData<Bitstream>) => {
       if (rd.hasSucceeded && !rd.hasNoContent) {
-        serverHardRedirectService.redirect(new URL(`/bitstreams/${rd.payload.uuid}/download`, serverHardRedirectService.getCurrentOrigin()).href, 301);
+        serverHardRedirectService.redirect(new URL(getBitstreamDownloadRoute(rd.payload), serverHardRedirectService.getBaseUrl()).href, 301);
         return false;
       } else {
         return router.createUrlTree([PAGE_NOT_FOUND_PATH]);
       }
-    })
+    }),
   );
 };

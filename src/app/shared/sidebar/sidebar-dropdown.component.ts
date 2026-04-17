@@ -1,9 +1,18 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'ds-sidebar-dropdown',
   styleUrls: ['./sidebar-dropdown.component.scss'],
   templateUrl: './sidebar-dropdown.component.html',
+  imports: [
+    TranslateModule,
+  ],
 })
 /**
  * This components renders a sidebar dropdown including the label.

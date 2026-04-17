@@ -1,18 +1,32 @@
 import { Injectable } from '@angular/core';
-import { MemoizedSelector, select, Store } from '@ngrx/store';
+import {
+  MemoizedSelector,
+  select,
+  Store,
+} from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { distinctUntilChanged, map } from 'rxjs/operators';
-import { SelectableListState } from './selectable-list.reducer';
-import { AppState, keySelector } from '../../../app.reducer';
+import {
+  distinctUntilChanged,
+  map,
+} from 'rxjs/operators';
+
+import {
+  AppState,
+  keySelector,
+} from '../../../app.reducer';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../empty.util';
 import { ListableObject } from '../../object-collection/shared/listable-object.model';
 import {
   SelectableListDeselectAction,
   SelectableListDeselectAllAction,
   SelectableListDeselectSingleAction,
   SelectableListSelectAction,
-  SelectableListSelectSingleAction
+  SelectableListSelectSingleAction,
 } from './selectable-list.actions';
-import { hasValue, isNotEmpty } from '../../empty.util';
+import { SelectableListState } from './selectable-list.reducer';
 
 const selectableListsStateSelector = (state: AppState) => state.selectableLists;
 
@@ -20,7 +34,7 @@ const menuByIDSelector = (id: string): MemoizedSelector<AppState, SelectableList
   return keySelector<SelectableListState>(id, selectableListsStateSelector);
 };
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class SelectableListService {
 
   constructor(private store: Store<AppState>) {
@@ -88,7 +102,7 @@ export class SelectableListService {
   isObjectSelected(id: string, object: ListableObject): Observable<boolean> {
     return this.getSelectableList(id).pipe(
       map((state: SelectableListState) => hasValue(state) && isNotEmpty(state.selection) && hasValue(state.selection.find((selected) => selected.equals(object)))),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
   }
 
@@ -99,7 +113,7 @@ export class SelectableListService {
    */
   findSelectedByCondition(id: string, condition: (object: ListableObject) => boolean): Observable<ListableObject> {
     return this.getSelectableList(id).pipe(
-      map((state: SelectableListState) => (hasValue(state) && isNotEmpty(state.selection)) ? state.selection.find((selected) => condition(selected)) : undefined)
+      map((state: SelectableListState) => (hasValue(state) && isNotEmpty(state.selection)) ? state.selection.find((selected) => condition(selected)) : undefined),
     );
   }
 }

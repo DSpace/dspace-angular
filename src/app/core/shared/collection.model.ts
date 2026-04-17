@@ -1,22 +1,30 @@
-import {autoserialize, deserialize, inheritSerialization} from 'cerialize';
+import {
+  autoserialize,
+  deserialize,
+  inheritSerialization,
+} from 'cerialize';
 import { Observable } from 'rxjs';
-import { link, typedObject } from '../cache/builders/build-decorators';
+
+import {
+  link,
+  typedObject,
+} from '../cache/builders/build-decorators';
 import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
-import { Bitstream } from './bitstream.model';
-import { BITSTREAM } from './bitstream.resource-type';
-import { COLLECTION } from './collection.resource-type';
-import { DSpaceObject } from './dspace-object.model';
-import { HALLink } from './hal-link.model';
-import { License } from './license.model';
-import { LICENSE } from './license.resource-type';
 import { ResourcePolicy } from '../resource-policy/models/resource-policy.model';
 import { RESOURCE_POLICY } from '../resource-policy/models/resource-policy.resource-type';
-import { COMMUNITY } from './community.resource-type';
-import { Community } from './community.model';
-import { ChildHALResource } from './child-hal-resource.model';
-import { HandleObject } from './handle-object.model';
 import { excludeFromEquals } from '../utilities/equals.decorators';
+import { Bitstream } from './bitstream.model';
+import { BITSTREAM } from './bitstream.resource-type';
+import { ChildHALResource } from './child-hal-resource.model';
+import { COLLECTION } from './collection.resource-type';
+import { Community } from './community.model';
+import { COMMUNITY } from './community.resource-type';
+import { DSpaceObject } from './dspace-object.model';
+import { HALLink } from './hal-link.model';
+import { HandleObject } from './handle-object.model';
+import { License } from './license.model';
+import { LICENSE } from './license.resource-type';
 
 @typedObject
 @inheritSerialization(DSpaceObject)

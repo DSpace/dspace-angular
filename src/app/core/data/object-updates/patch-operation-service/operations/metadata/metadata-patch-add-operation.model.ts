@@ -1,5 +1,6 @@
-import { MetadataPatchOperation } from './metadata-patch-operation.model';
 import { Operation } from 'fast-json-patch';
+
+import { MetadataPatchOperation } from './metadata-patch-operation.model';
 
 /**
  * Wrapper object for a metadata patch add Operation

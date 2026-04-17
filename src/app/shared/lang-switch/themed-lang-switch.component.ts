@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { ThemedComponent } from '../theme-support/themed.component';
 import { LangSwitchComponent } from './lang-switch.component';
 
@@ -6,8 +7,7 @@ import { LangSwitchComponent } from './lang-switch.component';
  * Themed wrapper for {@link LangSwitchComponent}
  */
 @Component({
-  selector: 'ds-themed-lang-switch',
-  styleUrls: [],
+  selector: 'ds-lang-switch',
   templateUrl: '../theme-support/themed.component.html',
 })
 export class ThemedLangSwitchComponent extends ThemedComponent<LangSwitchComponent> {

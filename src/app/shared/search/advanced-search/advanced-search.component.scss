@@ -1,0 +1,9 @@
+:host ::ng-deep {
+  ds-filter-input-suggestions label span {
+    display: none;
+  }
+}
+
+.advanced-search {
+  border: 1px solid var(--bs-light);
+}

@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
+
 import { ThemedComponent } from '../../shared/theme-support/themed.component';
 import { HomeNewsComponent } from './home-news.component';
 
 @Component({
-  selector: 'ds-themed-home-news',
-  styleUrls: [],
+  selector: 'ds-home-news',
   templateUrl: '../../shared/theme-support/themed.component.html',
 })
 

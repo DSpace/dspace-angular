@@ -1,9 +1,17 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  DebugElement,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { OnClickMenuItemComponent } from './onclick-menu-item.component';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { OnClickMenuItemModel } from './models/onclick.model';
+import { OnClickMenuItemComponent } from './onclick-menu-item.component';
 
 describe('OnClickMenuItemComponent', () => {
   let component: OnClickMenuItemComponent;
@@ -17,12 +25,11 @@ describe('OnClickMenuItemComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [OnClickMenuItemComponent],
+      imports: [TranslateModule.forRoot(), OnClickMenuItemComponent],
       providers: [
         { provide: 'itemModelProvider', useValue: item },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
       .compileComponents();
   }));

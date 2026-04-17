@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { ThemedComponent } from '../shared/theme-support/themed.component';
 import { PageInternalServerErrorComponent } from './page-internal-server-error.component';
 
@@ -6,8 +7,7 @@ import { PageInternalServerErrorComponent } from './page-internal-server-error.c
  * Themed wrapper for PageInternalServerErrorComponent
  */
 @Component({
-  selector: 'ds-themed-page-internal-server-error',
-  styleUrls: [],
+  selector: 'ds-page-internal-server-error',
   templateUrl: '../shared/theme-support/themed.component.html',
 })
 export class ThemedPageInternalServerErrorComponent extends ThemedComponent<PageInternalServerErrorComponent> {

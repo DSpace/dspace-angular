@@ -28,3 +28,7 @@
     box-shadow: unset;
   }
 }
+
+.dropdown-toggle::after {
+  margin-left: 0;
+}

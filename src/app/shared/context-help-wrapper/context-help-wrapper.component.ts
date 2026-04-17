@@ -1,15 +1,39 @@
-import { Component, Input, OnInit, TemplateRef, OnDestroy, ViewChild } from '@angular/core';
-import { PlacementArray } from '@ng-bootstrap/ng-bootstrap/util/positioning';
+import {
+  AsyncPipe,
+  NgClass,
+  NgTemplateOutlet,
+} from '@angular/common';
+import {
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+  TemplateRef,
+  ViewChild,
+} from '@angular/core';
+import {
+  NgbTooltip,
+  Placement,
+} from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable, Subscription, BehaviorSubject, combineLatest } from 'rxjs';
-import { map, distinctUntilChanged, mergeMap } from 'rxjs/operators';
-import { PlacementDir } from './placement-dir.model';
-import { ContextHelpService } from '../context-help.service';
-import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
-import { hasValueOperator } from '../empty.util';
-import { ContextHelp } from '../context-help.model';
+import {
+  BehaviorSubject,
+  combineLatest,
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  map,
+  mergeMap,
+} from 'rxjs/operators';
 
-type ParsedContent = (string | {href: string, text: string})[];
+import { ContextHelp } from '../context-help.model';
+import { ContextHelpService } from '../context-help.service';
+import { hasValueOperator } from '../empty.util';
+import { PlacementDir } from './placement-dir.model';
+
+type ParsedContent = ({href?: string, text: string})[];
 
 /**
  * This component renders an info icon next to the wrapped element which
@@ -19,6 +43,12 @@ type ParsedContent = (string | {href: string, text: string})[];
   selector: 'ds-context-help-wrapper',
   templateUrl: './context-help-wrapper.component.html',
   styleUrls: ['./context-help-wrapper.component.scss'],
+  imports: [
+    AsyncPipe,
+    NgbTooltip,
+    NgClass,
+    NgTemplateOutlet,
+  ],
 })
 export class ContextHelpWrapperComponent implements OnInit, OnDestroy {
   /**
@@ -34,7 +64,7 @@ export class ContextHelpWrapperComponent implements OnInit, OnDestroy {
   /**
    * Indicate where the tooltip should show up, relative to the info icon.
    */
-  @Input() tooltipPlacement?: PlacementArray = [];
+  @Input() tooltipPlacement?: Placement[] = [];
 
   /**
    * Indicate whether the info icon should appear to the left or to
@@ -57,7 +87,7 @@ export class ContextHelpWrapperComponent implements OnInit, OnDestroy {
   @Input() set content(translateKey: string) {
     this.content$.next(translateKey);
   }
-  private content$: BehaviorSubject<string | undefined> = new BehaviorSubject(undefined);
+  private content$: BehaviorSubject<string> = new BehaviorSubject(null);
 
   parsedContent$: Observable<ParsedContent>;
 
@@ -65,16 +95,16 @@ export class ContextHelpWrapperComponent implements OnInit, OnDestroy {
 
   constructor(
     private translateService: TranslateService,
-    private contextHelpService: ContextHelpService
+    private contextHelpService: ContextHelpService,
   ) { }
 
   ngOnInit() {
     this.parsedContent$ = combineLatest([
       this.content$.pipe(distinctUntilChanged(), mergeMap(translateKey => this.translateService.get(translateKey))),
-      this.dontParseLinks$.pipe(distinctUntilChanged())
+      this.dontParseLinks$.pipe(distinctUntilChanged()),
     ]).pipe(
-      map(([text, dontParseLinks]) =>
-        dontParseLinks ? [text] : this.parseLinks(text))
+      map(([text, dontParseLinks]: [string, boolean]) =>
+        dontParseLinks ? [{ text }] : this.parseLinks(text)),
     );
     this.shouldShowIcon$ = this.contextHelpService.shouldShowIcons$();
   }
@@ -101,7 +131,7 @@ export class ContextHelpWrapperComponent implements OnInit, OnDestroy {
 
         this.tooltip.hidden.subscribe(() => {
           this.contextHelpService.hideTooltip(this.id);
-        })
+        }),
       ];
     }
   }
@@ -152,8 +182,8 @@ export class ContextHelpWrapperComponent implements OnInit, OnDestroy {
     return text.match(splitRegexp).map((substring: string) => {
       const match = substring.match(parseRegexp);
       return match === null
-        ? substring
-        : ({href: match[2], text: match[1]});
+        ? { text: substring }
+        : ({ href: match[2], text: match[1] });
     });
   }
 

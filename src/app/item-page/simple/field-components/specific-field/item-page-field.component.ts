@@ -1,20 +1,27 @@
-import { Component, Input } from '@angular/core';
-import { Item } from '../../../../core/shared/item.model';
+import { AsyncPipe } from '@angular/common';
+import {
+  Component,
+  Input,
+} from '@angular/core';
 import intersectionWith from 'lodash/intersectionWith';
+import { Observable } from 'rxjs';
 import {
   filter,
   mergeAll,
   take,
 } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+
 import { BrowseService } from '../../../../core/browse/browse.service';
-import { BrowseDefinition } from '../../../../core/shared/browse-definition.model';
 import { BrowseDefinitionDataService } from '../../../../core/browse/browse-definition-data.service';
+import { BrowseDefinition } from '../../../../core/shared/browse-definition.model';
+import { Item } from '../../../../core/shared/item.model';
 import {
   getFirstCompletedRemoteData,
   getPaginatedListPayload,
   getRemoteDataPayload,
 } from '../../../../core/shared/operators';
+import { MetadataValuesComponent } from '../../../field-components/metadata-values/metadata-values.component';
+import { ImageField } from './image-field';
 
 /**
  * This component can be used to represent metadata on a simple item page.
@@ -23,13 +30,17 @@ import {
  */
 
 @Component({
-    templateUrl: './item-page-field.component.html'
+  templateUrl: './item-page-field.component.html',
+  imports: [
+    AsyncPipe,
+    MetadataValuesComponent,
+  ],
 })
 export class ItemPageFieldComponent {
 
-    constructor(protected browseDefinitionDataService: BrowseDefinitionDataService,
-                protected browseService: BrowseService) {
-    }
+  constructor(protected browseDefinitionDataService: BrowseDefinitionDataService,
+              protected browseService: BrowseService) {
+  }
 
     /**
      * The item to display metadata for
@@ -37,7 +48,7 @@ export class ItemPageFieldComponent {
     @Input() item: Item;
 
     /**
-     * Whether the {@link MarkdownPipe} should be used to render this metadata.
+     * Whether the {@link MarkdownDirective} should be used to render this metadata.
      */
     enableMarkdown = false;
 
@@ -61,6 +72,11 @@ export class ItemPageFieldComponent {
      * Whether any valid HTTP(S) URL should be rendered as a link
      */
     urlRegex?: string;
+
+    /**
+     * Image Configuration
+     */
+    img: ImageField;
 
     /**
      * Return browse definition that matches any field used in this component if it is configured as a browse

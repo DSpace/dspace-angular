@@ -1,14 +1,19 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 
+import {
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-
 import { Subscription } from 'rxjs';
+
 import { hasValue } from '../empty.util';
 
 @Component({
-  selector: 'ds-loading',
+  selector: 'ds-base-loading',
   styleUrls: ['./loading.component.scss'],
-  templateUrl: './loading.component.html'
+  templateUrl: './loading.component.html',
 })
 export class LoadingComponent implements OnDestroy, OnInit {
 

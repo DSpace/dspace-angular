@@ -1,4 +1,10 @@
-import { AddToIndexAction, IndexAction, IndexActionTypes, RemoveFromIndexBySubstringAction, RemoveFromIndexByValueAction } from './index.actions';
+import {
+  AddToIndexAction,
+  IndexAction,
+  IndexActionTypes,
+  RemoveFromIndexBySubstringAction,
+  RemoveFromIndexByValueAction,
+} from './index.actions';
 import { IndexName } from './index-name.model';
 
 /**
@@ -62,10 +68,10 @@ export function indexReducer(state = initialState, action: IndexAction): MetaInd
 function addToIndex(state: MetaIndexState, action: AddToIndexAction): MetaIndexState {
   const subState = state[action.payload.name];
   const newSubState = Object.assign({}, subState, {
-    [action.payload.key]: action.payload.value
+    [action.payload.key]: action.payload.value,
   });
   const obs = Object.assign({}, state, {
-    [action.payload.name]: newSubState
+    [action.payload.name]: newSubState,
   });
   return obs;
 }
@@ -89,7 +95,7 @@ function removeFromIndexByValue(state: MetaIndexState, action: RemoveFromIndexBy
     }
   }
   return Object.assign({}, state, {
-    [action.payload.name]: newSubState
+    [action.payload.name]: newSubState,
   });
 }
 
@@ -112,6 +118,6 @@ function removeFromIndexBySubstring(state: MetaIndexState, action: RemoveFromInd
     }
   }
   return Object.assign({}, state, {
-    [action.payload.name]: newSubState
+    [action.payload.name]: newSubState,
   });
 }

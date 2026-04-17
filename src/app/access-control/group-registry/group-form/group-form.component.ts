@@ -1,22 +1,49 @@
-import { Component, EventEmitter, HostListener, OnDestroy, OnInit, Output, ChangeDetectorRef } from '@angular/core';
-import { UntypedFormGroup, AbstractControl } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { AsyncPipe } from '@angular/common';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  HostListener,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
+import {
+  AbstractControl,
+  UntypedFormGroup,
+} from '@angular/forms';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormControlModel,
   DynamicFormLayout,
   DynamicInputModel,
-  DynamicTextAreaModel
+  DynamicTextAreaModel,
 } from '@ng-dynamic-forms/core';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import { Operation } from 'fast-json-patch';
 import {
   combineLatest as observableCombineLatest,
   Observable,
   Subscription,
 } from 'rxjs';
-import { map, switchMap, take, debounceTime } from 'rxjs/operators';
+import {
+  debounceTime,
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+
+import { environment } from '../../../../environments/environment';
 import { getCollectionEditRolesRoute } from '../../../collection-page/collection-page-routing-paths';
 import { getCommunityEditRolesRoute } from '../../../community-page/community-page-routing-paths';
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { DSpaceObjectDataService } from '../../../core/data/dspace-object-data.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
@@ -28,28 +55,46 @@ import { Group } from '../../../core/eperson/models/group.model';
 import { Collection } from '../../../core/shared/collection.model';
 import { Community } from '../../../core/shared/community.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
+import { NoContent } from '../../../core/shared/NoContent.model';
 import {
   getAllCompletedRemoteData,
-  getRemoteDataPayload,
-  getFirstSucceededRemoteData,
   getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
 } from '../../../core/shared/operators';
+import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
 import { ConfirmationModalComponent } from '../../../shared/confirmation-modal/confirmation-modal.component';
-import { hasValue, isNotEmpty, hasValueOperator } from '../../../shared/empty.util';
+import { ContextHelpDirective } from '../../../shared/context-help.directive';
+import {
+  hasValue,
+  hasValueOperator,
+  isNotEmpty,
+} from '../../../shared/empty.util';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
+import { FormComponent } from '../../../shared/form/form.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
-import { NoContent } from '../../../core/shared/NoContent.model';
-import { Operation } from 'fast-json-patch';
+import {
+  getGroupEditRoute,
+  getGroupsRoute,
+} from '../../access-control-routing-paths';
+import { MembersListComponent } from './members-list/members-list.component';
+import { SubgroupsListComponent } from './subgroup-list/subgroups-list.component';
 import { ValidateGroupExists } from './validators/group-exists.validator';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { environment } from '../../../../environments/environment';
-import { getGroupEditRoute, getGroupsRoute } from '../../access-control-routing-paths';
 
 @Component({
   selector: 'ds-group-form',
-  templateUrl: './group-form.component.html'
+  templateUrl: './group-form.component.html',
+  imports: [
+    AlertComponent,
+    AsyncPipe,
+    ContextHelpDirective,
+    FormComponent,
+    MembersListComponent,
+    SubgroupsListComponent,
+    TranslateModule,
+  ],
 })
 /**
  * A form used for creating and editing groups
@@ -81,13 +126,13 @@ export class GroupFormComponent implements OnInit, OnDestroy {
   formLayout: DynamicFormLayout = {
     groupName: {
       grid: {
-        host: 'row'
-      }
+        host: 'row',
+      },
     },
     groupDescription: {
       grid: {
-        host: 'row'
-      }
+        host: 'row',
+      },
     },
   };
 
@@ -257,7 +302,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
             this.formGroup.enable();
           }
         }
-      })
+      }),
     );
   }
 
@@ -302,7 +347,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
   createNewGroup(values) {
     const groupToCreate = Object.assign(new Group(), values);
     this.groupDataService.create(groupToCreate).pipe(
-      getFirstCompletedRemoteData()
+      getFirstCompletedRemoteData(),
     ).subscribe((rd: RemoteData<Group>) => {
       if (rd.hasSucceeded) {
         this.notificationsService.success(this.translateService.get(this.messagePrefix + '.notification.created.success', { name: groupToCreate.name }));
@@ -331,7 +376,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
     // Relevant message for group name in use
     this.subs.push(this.groupDataService.searchGroups(group.name, {
       currentPage: 1,
-      elementsPerPage: 0
+      elementsPerPage: 0,
     }).pipe(getFirstSucceededRemoteData(), getRemoteDataPayload())
       .subscribe((list: PaginatedList<Group>) => {
         if (list.totalElements > 0) {
@@ -353,7 +398,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
       operations = [...operations, {
         op: 'add',
         path: '/metadata/dc.description',
-        value: this.groupDescription.value
+        value: this.groupDescription.value,
       }];
     }
 
@@ -361,12 +406,12 @@ export class GroupFormComponent implements OnInit, OnDestroy {
       operations = [...operations, {
         op: 'replace',
         path: '/name',
-        value: this.groupName.value
+        value: this.groupName.value,
       }];
     }
 
     this.groupDataService.patch(group, operations).pipe(
-      getFirstCompletedRemoteData()
+      getFirstCompletedRemoteData(),
     ).subscribe((rd: RemoteData<Group>) => {
       if (rd.hasSucceeded) {
         this.notificationsService.success(this.translateService.get(this.messagePrefix + '.notification.edited.success', { name: this.dsoNameService.getName(rd.payload) }));
@@ -419,7 +464,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
   delete() {
     this.activeGroup$.pipe(take(1)).subscribe((group: Group) => {
       const modalRef = this.modalService.open(ConfirmationModalComponent);
-      modalRef.componentInstance.dso = group;
+      modalRef.componentInstance.name = this.dsoNameService.getName(group);
       modalRef.componentInstance.headerLabel = this.messagePrefix + '.delete-group.modal.header';
       modalRef.componentInstance.infoLabel = this.messagePrefix + '.delete-group.modal.info';
       modalRef.componentInstance.cancelLabel = this.messagePrefix + '.delete-group.modal.cancel';

@@ -1,25 +1,39 @@
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-
-import { getTestScheduler } from 'jasmine-marbles';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterTestingModule } from '@angular/router/testing';
 import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import { getTestScheduler } from 'jasmine-marbles';
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { OrcidAuthService } from '../../../core/orcid/orcid-auth.service';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { Item } from '../../../core/shared/item.model';
-import { createPaginatedList } from '../../../shared/testing/utils.test';
-import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
-import { OrcidAuthComponent } from './orcid-auth.component';
-import { NativeWindowService } from '../../../core/services/window.service';
-import { NativeWindowMockFactory } from '../../../shared/mocks/mock-native-window-ref';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { ResearcherProfile } from '../../../core/profile/model/researcher-profile.model';
+import { NativeWindowService } from '../../../core/services/window.service';
+import { Item } from '../../../core/shared/item.model';
+import { NativeWindowMockFactory } from '../../../shared/mocks/mock-native-window-ref';
+import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../../../shared/remote-data.utils';
+import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
+import { createPaginatedList } from '../../../shared/testing/utils.test';
+import { OrcidAuthComponent } from './orcid-auth.component';
 
 describe('OrcidAuthComponent test suite', () => {
   let comp: OrcidAuthComponent;
@@ -33,7 +47,7 @@ describe('OrcidAuthComponent test suite', () => {
     '/authenticate',
     '/read-limited',
     '/activities/update',
-    '/person/update'
+    '/person/update',
   ];
 
   const partialOrcidScopes = [
@@ -45,70 +59,70 @@ describe('OrcidAuthComponent test suite', () => {
     bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
     metadata: {
       'dc.title': [{
-        value: 'test person'
+        value: 'test person',
       }],
       'dspace.entity.type': [{
-        'value': 'Person'
-      }]
-    }
+        'value': 'Person',
+      }],
+    },
   });
 
   const mockItemLinkedToOrcid: Item = Object.assign(new Item(), {
     bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
     metadata: {
       'dc.title': [{
-        value: 'test person'
+        value: 'test person',
       }],
       'dspace.entity.type': [{
-        'value': 'Person'
+        'value': 'Person',
       }],
       'dspace.object.owner': [{
         'value': 'test person',
         'language': null,
         'authority': 'deced3e7-68e2-495d-bf98-7c44fc33b8ff',
         'confidence': 600,
-        'place': 0
+        'place': 0,
       }],
       'dspace.orcid.authenticated': [{
         'value': '2022-06-10T15:15:12.952872',
         'language': null,
         'authority': null,
         'confidence': -1,
-        'place': 0
+        'place': 0,
       }],
       'dspace.orcid.scope': [{
         'value': '/authenticate',
         'language': null,
         'authority': null,
         'confidence': -1,
-        'place': 0
+        'place': 0,
       }, {
         'value': '/read-limited',
         'language': null,
         'authority': null,
         'confidence': -1,
-        'place': 1
+        'place': 1,
       }, {
         'value': '/activities/update',
         'language': null,
         'authority': null,
         'confidence': -1,
-        'place': 2
+        'place': 2,
       }, {
         'value': '/person/update',
         'language': null,
         'authority': null,
         'confidence': -1,
-        'place': 3
+        'place': 3,
       }],
       'person.identifier.orcid': [{
         'value': 'orcid-id',
         'language': null,
         'authority': null,
         'confidence': -1,
-        'place': 0
-      }]
-    }
+        'place': 0,
+      }],
+    },
   });
 
   beforeEach(waitForAsync(() => {
@@ -119,7 +133,7 @@ describe('OrcidAuthComponent test suite', () => {
       isLinkedToOrcid: jasmine.createSpy('isLinkedToOrcid'),
       onlyAdminCanDisconnectProfileFromOrcid: jasmine.createSpy('onlyAdminCanDisconnectProfileFromOrcid'),
       ownerCanDisconnectProfileFromOrcid: jasmine.createSpy('ownerCanDisconnectProfileFromOrcid'),
-      unlinkOrcidByItem: jasmine.createSpy('unlinkOrcidByItem')
+      unlinkOrcidByItem: jasmine.createSpy('unlinkOrcidByItem'),
     });
 
     void TestBed.configureTestingModule({
@@ -128,20 +142,21 @@ describe('OrcidAuthComponent test suite', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
-        RouterTestingModule.withRoutes([])
+        RouterTestingModule.withRoutes([]),
+        OrcidAuthComponent,
+        NoopAnimationsModule,
       ],
-      declarations: [OrcidAuthComponent],
       providers: [
         { provide: NativeWindowService, useFactory: NativeWindowMockFactory },
         { provide: NotificationsService, useClass: NotificationsServiceStub },
-        { provide: OrcidAuthService, useValue: orcidAuthService }
+        { provide: OrcidAuthService, useValue: orcidAuthService },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(OrcidAuthComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

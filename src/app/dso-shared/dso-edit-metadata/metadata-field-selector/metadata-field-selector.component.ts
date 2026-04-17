@@ -1,4 +1,8 @@
 import {
+  AsyncPipe,
+  NgClass,
+} from '@angular/common';
+import {
   AfterViewInit,
   Component,
   ElementRef,
@@ -7,15 +11,18 @@ import {
   OnDestroy,
   OnInit,
   Output,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
-import { debounceTime, map, startWith, switchMap, take, tap } from 'rxjs/operators';
-import { followLink } from '../../../shared/utils/follow-link-config.model';
 import {
-  getAllSucceededRemoteData,
-  getFirstCompletedRemoteData,
-  metadataFieldsToString
-} from '../../../core/shared/operators';
+  FormsModule,
+  ReactiveFormsModule,
+  UntypedFormControl,
+} from '@angular/forms';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
@@ -23,17 +30,46 @@ import {
   of,
   Subscription,
 } from 'rxjs';
+import {
+  debounceTime,
+  map,
+  startWith,
+  switchMap,
+  take,
+  tap,
+} from 'rxjs/operators';
+
+import {
+  SortDirection,
+  SortOptions,
+} from '../../../core/cache/models/sort-options.model';
+import { FindListOptions } from '../../../core/data/find-list-options.model';
 import { RegistryService } from '../../../core/registry/registry.service';
-import { UntypedFormControl } from '@angular/forms';
+import {
+  getAllSucceededRemoteData,
+  getFirstCompletedRemoteData,
+  metadataFieldsToString,
+} from '../../../core/shared/operators';
 import { hasValue } from '../../../shared/empty.util';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
-import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
+import { ClickOutsideDirective } from '../../../shared/utils/click-outside.directive';
+import { followLink } from '../../../shared/utils/follow-link-config.model';
 
 @Component({
   selector: 'ds-metadata-field-selector',
   styleUrls: ['./metadata-field-selector.component.scss'],
   templateUrl: './metadata-field-selector.component.html',
+  imports: [
+    AsyncPipe,
+    ClickOutsideDirective,
+    FormsModule,
+    InfiniteScrollModule,
+    NgClass,
+    ReactiveFormsModule,
+    ThemedLoadingComponent,
+    TranslateModule,
+  ],
 })
 /**
  * Component displaying a searchable input for metadata-fields
@@ -126,7 +162,10 @@ export class MetadataFieldSelectorComponent implements OnInit, OnDestroy, AfterV
   /**
    * Default page option for this feature
    */
-  pageOptions = { elementsPerPage: 20, sort: new SortOptions('fieldName', SortDirection.ASC) };
+  pageOptions: FindListOptions = {
+    elementsPerPage: 20,
+    sort: new SortOptions('fieldName', SortDirection.ASC),
+  };
 
 
   constructor(protected registryService: RegistryService,
@@ -182,7 +221,7 @@ export class MetadataFieldSelectorComponent implements OnInit, OnDestroy, AfterV
    * Upon subscribing to the returned observable, the showInvalid flag is updated accordingly to show the feedback under the input
    */
   validate(): Observable<boolean> {
-    return this.registryService.queryMetadataFields(this.mdField, null, true, false, followLink('schema')).pipe(
+    return this.registryService.queryMetadataFields(this.mdField, Object.assign({}, this.pageOptions, { currentPage: 1 }), true, false, followLink('schema')).pipe(
       getFirstCompletedRemoteData(),
       switchMap((rd) => {
         if (rd.hasSucceeded) {
@@ -236,9 +275,7 @@ export class MetadataFieldSelectorComponent implements OnInit, OnDestroy, AfterV
    * @param useCache Whether or not to use the cache
    */
   search(query: string, page: number, useCache: boolean = true)  {
-    return this.registryService.queryMetadataFields(query,{
-      elementsPerPage: this.pageOptions.elementsPerPage, sort: this.pageOptions.sort,
-      currentPage: page }, useCache, false, followLink('schema'))
+    return this.registryService.queryMetadataFields(query, Object.assign({}, this.pageOptions, { currentPage: page }), useCache, false, followLink('schema'))
       .pipe(
         getAllSucceededRemoteData(),
         metadataFieldsToString(),

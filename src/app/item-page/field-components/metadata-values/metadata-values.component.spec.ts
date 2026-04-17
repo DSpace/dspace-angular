@@ -1,12 +1,23 @@
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
-import { MetadataValuesComponent } from './metadata-values.component';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { MetadataValue } from '../../../core/shared/metadata.models';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+
 import { APP_CONFIG } from '../../../../config/app-config.interface';
 import { environment } from '../../../../environments/environment';
+import { MetadataValue } from '../../../core/shared/metadata.models';
+import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
+import { MetadataValuesComponent } from './metadata-values.component';
 
 let comp: MetadataValuesComponent;
 let fixture: ComponentFixture<MetadataValuesComponent>;
@@ -14,15 +25,15 @@ let fixture: ComponentFixture<MetadataValuesComponent>;
 const mockMetadata = [
   {
     language: 'en_US',
-    value: '1234'
+    value: '1234',
   },
   {
     language: 'en_US',
-    value: 'a publisher'
+    value: 'a publisher',
   },
   {
     language: 'en_US',
-    value: 'desc'
+    value: 'desc',
   }] as MetadataValue[];
 const mockSeperator = '<br/>';
 const mockLabel = 'fake.message';
@@ -33,16 +44,15 @@ describe('MetadataValuesComponent', () => {
       imports: [TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
-          useClass: TranslateLoaderMock
+          useClass: TranslateLoaderMock,
         },
-      })],
+      }), MetadataValuesComponent],
       providers: [
         { provide: APP_CONFIG, useValue: environment },
       ],
-      declarations: [MetadataValuesComponent],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(MetadataValuesComponent, {
-      set: {changeDetection: ChangeDetectionStrategy.Default}
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 
@@ -69,7 +79,7 @@ describe('MetadataValuesComponent', () => {
   });
 
   it('should correctly detect a pattern on string containing "test"', () => {
-    const mdValue = {value: 'This is a test value'} as MetadataValue;
+    const mdValue = { value: 'This is a test value' } as MetadataValue;
     expect(comp.hasLink(mdValue)).toBe(true);
   });
 

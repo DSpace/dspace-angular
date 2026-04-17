@@ -1,6 +1,26 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, SimpleChanges, } from '@angular/core';
-import { ControlValueAccessor, UntypedFormBuilder, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { TranslateService } from '@ngx-translate/core';
+import { NgClass } from '@angular/common';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
+import {
+  ControlValueAccessor,
+  FormsModule,
+  NG_VALUE_ACCESSOR,
+  UntypedFormBuilder,
+} from '@angular/forms';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+
+import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import { isEmpty } from '../../empty.util';
 
 @Component({
@@ -8,11 +28,17 @@ import { isEmpty } from '../../empty.util';
   styleUrls: ['./number-picker.component.scss'],
   templateUrl: './number-picker.component.html',
   providers: [
-    {provide: NG_VALUE_ACCESSOR, useExisting: NumberPickerComponent, multi: true}
+    { provide: NG_VALUE_ACCESSOR, useExisting: NumberPickerComponent, multi: true },
+  ],
+  imports: [
+    BtnDisabledDirective,
+    FormsModule,
+    NgClass,
+    TranslateModule,
   ],
 })
 
-export class NumberPickerComponent implements OnInit, ControlValueAccessor {
+export class NumberPickerComponent implements OnChanges, OnInit, ControlValueAccessor {
   @Input() id: string;
   @Input() step: number;
   @Input() min: number;
@@ -23,6 +49,7 @@ export class NumberPickerComponent implements OnInit, ControlValueAccessor {
   @Input() disabled: boolean;
   @Input() invalid: boolean;
   @Input() value: number;
+  @Input() widthClass: 'four-digits' | 'two-digits' | undefined;
 
   @Output() selected = new EventEmitter<number>();
   @Output() remove = new EventEmitter<number>();
@@ -57,7 +84,7 @@ export class NumberPickerComponent implements OnInit, ControlValueAccessor {
 
     } else if (changes.value && changes.value.currentValue === null) {
       // When the user delete the inserted value
-        this.value = null;
+      this.value = null;
     } else if (changes.invalid) {
       this.invalid = changes.invalid.currentValue;
     }
@@ -141,6 +168,6 @@ export class NumberPickerComponent implements OnInit, ControlValueAccessor {
   }
 
   emitChange() {
-    this.change.emit({field: this.name, value: this.value});
+    this.change.emit({ field: this.name, value: this.value });
   }
 }

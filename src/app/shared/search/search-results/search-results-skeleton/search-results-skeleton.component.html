@@ -4,14 +4,16 @@
   </div>
 </div>
 
-<ng-container *ngIf="(viewMode$ | async) === ViewMode.ListElement; else grid">
-  <ng-container *ngFor="let result of loadingResults; let first = first">
-    <div [class.my-4]="!first" class="row">
-      <div *ngIf="showThumbnails" class="col-3 col-md-2">
-        <div class="thumbnail-skeleton position-relative">
-          <ngx-skeleton-loader/>
+@if((viewMode$ | async) === ViewMode.ListElement) {
+  @for (result of loadingResults; track result; let first = $first) {
+      <div [class.my-4]="!first" class="row">
+      @if(showThumbnails) {
+        <div class="col-3 col-md-2">
+          <div class="thumbnail-skeleton position-relative">
+            <ngx-skeleton-loader/>
+          </div>
         </div>
-      </div>
+      }
       <div [class.col-9]="showThumbnails" [class.col-md-10]="showThumbnails" [class.col-md-12]="!showThumbnails">
         <div class="badge-skeleton">
           <ngx-skeleton-loader/>
@@ -21,18 +23,16 @@
         </div>
       </div>
     </div>
-  </ng-container>
-</ng-container>
-
-<ng-template #grid>
+  }
+} @else if ((viewMode$ | async) === ViewMode.GridElement) {
   <div class="card-columns row">
-    <ng-container *ngFor="let result of loadingResults">
+    @for (result of loadingResults; track result) {
       <div class="card-column col col-sm-6 col-lg-4">
         <div class="card-skeleton">
           <ngx-skeleton-loader/>
         </div>
       </div>
-    </ng-container>
-  </div>
-</ng-template>
+    }
 
+  </div>
+}

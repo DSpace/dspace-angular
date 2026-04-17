@@ -1,31 +1,47 @@
 import { Injectable } from '@angular/core';
-import { take, map, switchMap, concatMap, toArray } from 'rxjs/operators';
-import { FieldUpdates } from '../../../core/data/object-updates/field-updates.model';
-import { FieldUpdate } from '../../../core/data/object-updates/field-update.model';
-import { hasValue } from '../../../shared/empty.util';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateService } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  combineLatest as observableCombineLatest,
+  EMPTY,
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  concatMap,
+  map,
+  switchMap,
+  take,
+  toArray,
+} from 'rxjs/operators';
+
+import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
+import { ItemDataService } from '../../../core/data/item-data.service';
 import { FieldChangeType } from '../../../core/data/object-updates/field-change-type.model';
+import { FieldUpdate } from '../../../core/data/object-updates/field-update.model';
+import { FieldUpdates } from '../../../core/data/object-updates/field-updates.model';
 import {
   DeleteRelationship,
-  RelationshipIdentifiable
+  RelationshipIdentifiable,
 } from '../../../core/data/object-updates/object-updates.reducer';
-import { RemoteData } from '../../../core/data/remote-data';
-import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
-import { EMPTY, Observable, BehaviorSubject, Subscription, combineLatest as observableCombineLatest } from 'rxjs';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { Item } from '../../../core/shared/item.model';
-import { NoContent } from '../../../core/shared/NoContent.model';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { RelationshipDataService } from '../../../core/data/relationship-data.service';
-import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
-import { TranslateService } from '@ngx-translate/core';
+import { RemoteData } from '../../../core/data/remote-data';
+import { Item } from '../../../core/shared/item.model';
 import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
-import { getFirstSucceededRemoteData, getRemoteDataPayload } from '../../../core/shared/operators';
+import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
 import { RelationshipType } from '../../../core/shared/item-relationships/relationship-type.model';
+import { NoContent } from '../../../core/shared/NoContent.model';
+import {
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '../../../core/shared/operators';
+import { hasValue } from '../../../shared/empty.util';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class EditItemRelationshipsService {
   public notificationsPrefix = 'item.edit.relationships.notifications.';
@@ -53,7 +69,7 @@ export class EditItemRelationshipsService {
       map((fieldUpdates: FieldUpdates) =>
         Object.values(fieldUpdates)
           .filter((fieldUpdate: FieldUpdate) => hasValue(fieldUpdate))
-          .filter((fieldUpdate: FieldUpdate) => fieldUpdate.changeType === FieldChangeType.ADD || fieldUpdate.changeType === FieldChangeType.REMOVE)
+          .filter((fieldUpdate: FieldUpdate) => fieldUpdate.changeType === FieldChangeType.ADD || fieldUpdate.changeType === FieldChangeType.REMOVE),
       ),
       take(1),
       // emit each update in the array separately
@@ -84,18 +100,18 @@ export class EditItemRelationshipsService {
                 if (leftItem.href === item.self) {
                   return this.itemService.invalidateByHref(rightItem.href).pipe(
                     // when it's invalidated, emit the original relationshipRD for use in the pipe below
-                    map(() => relationshipRD)
+                    map(() => relationshipRD),
                   );
                 } else {
                   return this.itemService.invalidateByHref(leftItem.href).pipe(
                     // when it's invalidated, emit the original relationshipRD for use in the pipe below
-                    map(() => relationshipRD)
+                    map(() => relationshipRD),
                   );
                 }
               } else {
                 return [relationshipRD];
               }
-            })
+            }),
           );
         } else {
           return EMPTY;
@@ -106,9 +122,9 @@ export class EditItemRelationshipsService {
         // once all relationships are made and all related items have been invalidated, invalidate
         // the current item
         return this.itemService.invalidateByHref(item.self).pipe(
-          map(() => responses)
+          map(() => responses),
         );
-      })
+      }),
     ).subscribe((responses) => {
       if (responses.length > 0) {
         this.initializeOriginalFields(item, url);
@@ -196,7 +212,7 @@ export class EditItemRelationshipsService {
         // should never happen...
         console.warn(`The item ${item.uuid} is not on the right or the left side of relationship type ${relationshipType.uuid}`);
         return undefined;
-      })
+      }),
     );
   }
 

@@ -1,27 +1,62 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, HostListener, Input, Output, ViewEncapsulation, } from '@angular/core';
-
-import { of as observableOf } from 'rxjs';
-import { FileUploader } from 'ng2-file-upload';
-import uniqueId from 'lodash/uniqueId';
-import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
-
-import { UploaderOptions } from './uploader-options.model';
-import { hasValue, isNotEmpty, isUndefined } from '../../empty.util';
-import { UploaderProperties } from './uploader-properties.model';
+import { CommonModule } from '@angular/common';
 import { HttpXsrfTokenExtractor } from '@angular/common/http';
-import { XSRF_COOKIE, XSRF_REQUEST_HEADER, XSRF_RESPONSE_HEADER } from '../../../core/xsrf/xsrf.constants';
-import { CookieService } from '../../../core/services/cookie.service';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  HostListener,
+  Input,
+  OnInit,
+  Output,
+  ViewEncapsulation,
+} from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
+import uniqueId from 'lodash/uniqueId';
+import {
+  FileItem,
+  FileUploader,
+  FileUploadModule,
+} from 'ng2-file-upload';
+import { of } from 'rxjs';
+
 import { DragService } from '../../../core/drag.service';
+import { CookieService } from '../../../core/services/cookie.service';
+import {
+  XSRF_COOKIE,
+  XSRF_REQUEST_HEADER,
+  XSRF_RESPONSE_HEADER,
+} from '../../../core/xsrf/xsrf.constants';
+import { BtnDisabledDirective } from '../../btn-disabled.directive';
+import {
+  hasValue,
+  isNotEmpty,
+  isUndefined,
+} from '../../empty.util';
+import { LiveRegionService } from '../../live-region/live-region.service';
+import { UploaderOptions } from './uploader-options.model';
+import { UploaderProperties } from './uploader-properties.model';
 
 @Component({
   selector: 'ds-uploader',
   templateUrl: 'uploader.component.html',
   styleUrls: ['uploader.component.scss'],
   changeDetection: ChangeDetectionStrategy.Default,
-  encapsulation: ViewEncapsulation.Emulated
+  encapsulation: ViewEncapsulation.Emulated,
+  imports: [
+    BtnDisabledDirective,
+    CommonModule,
+    FileUploadModule,
+    TranslateModule,
+  ],
 })
+export class UploaderComponent implements OnInit, AfterViewInit {
 
-export class UploaderComponent {
+  /**
+   * Header key to impersonate a user
+   */
+  private readonly ON_BEHALF_HEADER = 'X-On-Behalf-Of';
 
   /**
    * The message to show when drag files on the drop zone
@@ -75,8 +110,19 @@ export class UploaderComponent {
 
   public uploader: FileUploader;
   public uploaderId: string;
-  public isOverBaseDropZone = observableOf(false);
-  public isOverDocumentDropZone = observableOf(false);
+  public isOverBaseDropZone = of(false);
+  public isOverDocumentDropZone = of(false);
+
+  /**
+   * Set of progress values that have been announced to screen readers
+   */
+  private announcedProgress: Set<number> = new Set();
+
+  /**
+   * The uuid of the last progress message announced to screen readers
+   * @private
+   */
+  private lastProgressMessageUuid: string;
 
   @HostListener('window:dragover', ['$event'])
   onDragOver(event: any) {
@@ -85,24 +131,24 @@ export class UploaderComponent {
       // Show drop area on the page
       event.preventDefault();
       if ((event.target as any).tagName !== 'HTML') {
-        this.isOverDocumentDropZone = observableOf(true);
+        this.isOverDocumentDropZone = of(true);
       }
     }
   }
 
   constructor(
     private cdr: ChangeDetectorRef,
-    private scrollToService: ScrollToService,
     private dragService: DragService,
     private tokenExtractor: HttpXsrfTokenExtractor,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private liveRegionService: LiveRegionService,
   ) {
   }
 
   /**
    * Method provided by Angular. Invoked after the constructor.
    */
-  ngOnInit() {
+  ngOnInit(): void {
     this.uploaderId = 'ds-drag-and-drop-uploader' + uniqueId();
     this.checkConfig(this.uploadFilesOptions);
     this.uploader = new FileUploader({
@@ -127,7 +173,7 @@ export class UploaderComponent {
     }
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this.uploader.onAfterAddingAll = ((items) => {
       this.onFileSelected.emit(items);
     });
@@ -139,9 +185,15 @@ export class UploaderComponent {
         item.url = this.uploader.options.url;
       }
       // Ensure the current XSRF token is included in every upload request (token may change between items uploaded)
-      this.uploader.options.headers = [{ name: XSRF_REQUEST_HEADER, value: this.tokenExtractor.getToken() }];
+      // Ensure the behalf header is set if impersonating
+      this.uploader.options.headers = [
+        { name: XSRF_REQUEST_HEADER, value: this.tokenExtractor.getToken() },
+      ];
+      if (hasValue(this.uploadFilesOptions.impersonatingID)) {
+        this.uploader.options.headers.push({ name: this.ON_BEHALF_HEADER, value: this.uploadFilesOptions.impersonatingID });
+      }
       this.onBeforeUpload();
-      this.isOverDocumentDropZone = observableOf(false);
+      this.isOverDocumentDropZone = of(false);
     };
     if (hasValue(this.uploadProperties)) {
       this.uploader.onBuildItemForm = (item, form) => {
@@ -177,14 +229,35 @@ export class UploaderComponent {
       this.uploader.cancelAll();
     };
     this.uploader.onProgressAll = () => this.onProgress();
-    this.uploader.onProgressItem = () => this.onProgress();
+    // Live region service setup
+    this.liveRegionService.setMessageTimeOutMs(1500);
+    this.liveRegionService.clear();
+    this.uploader.onProgressItem = (fileItem: FileItem, progress: any) => {
+      this.announceProgress(progress);
+      this.onProgress();
+    };
+  }
+
+  /**
+   * Announce the progress of the upload to screen readers
+   * @param progress
+   */
+  private announceProgress(progress: any) {
+    if (!this.announcedProgress.has(progress)) {
+      this.announcedProgress.add(progress);
+      const message = progress + '%';
+      if (this.lastProgressMessageUuid) {
+        this.liveRegionService.clearMessageByUUID(this.lastProgressMessageUuid);
+      }
+      this.lastProgressMessageUuid = this.liveRegionService.addMessage(message);
+    }
   }
 
   /**
    * Called when files are dragged on the base drop area.
    */
   public fileOverBase(isOver: boolean): void {
-    this.isOverBaseDropZone = observableOf(isOver);
+    this.isOverBaseDropZone = of(isOver);
   }
 
   /**
@@ -192,7 +265,7 @@ export class UploaderComponent {
    */
   public fileOverDocument(isOver: boolean) {
     if (!isOver) {
-      this.isOverDocumentDropZone = observableOf(isOver);
+      this.isOverDocumentDropZone = of(isOver);
     }
   }
 

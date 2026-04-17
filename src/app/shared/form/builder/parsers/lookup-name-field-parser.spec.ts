@@ -1,9 +1,10 @@
+import { getMockTranslateService } from 'src/app/shared/mocks/translate.service.mock';
+
+import { DynamicLookupNameModel } from '../ds-dynamic-form-ui/models/lookup/dynamic-lookup-name.model';
 import { FormFieldModel } from '../models/form-field.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { LookupNameFieldParser } from './lookup-name-field-parser';
-import { DynamicLookupNameModel } from '../ds-dynamic-form-ui/models/lookup/dynamic-lookup-name.model';
 import { ParserOptions } from './parser-options';
-import { getMockTranslateService } from 'src/app/shared/mocks/translate.service.mock';
 
 describe('LookupNameFieldParser test suite', () => {
   let field: FormFieldModel;
@@ -15,13 +16,13 @@ describe('LookupNameFieldParser test suite', () => {
     readOnly: false,
     submissionScope: 'testScopeUUID',
     collectionUUID: null,
-    typeField: 'dc_type'
+    typeField: 'dc_type',
   };
 
   beforeEach(() => {
     field = {
       input: {
-        type: 'lookup-name'
+        type: 'lookup-name',
       },
       label: 'Author',
       mandatory: 'false',
@@ -31,10 +32,10 @@ describe('LookupNameFieldParser test suite', () => {
         {
           metadata: 'author',
           controlledVocabulary: 'RPAuthority',
-          closed: false
-        }
+          closed: false,
+        },
       ],
-      languageCodes: []
+      languageCodes: [],
     } as FormFieldModel;
 
   });

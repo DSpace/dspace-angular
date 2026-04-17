@@ -1,14 +1,30 @@
-import { Component, Inject, Input, OnChanges, PLATFORM_ID, SimpleChanges } from '@angular/core';
-import { Bitstream } from '../core/shared/bitstream.model';
-import { hasNoValue, hasValue } from '../shared/empty.util';
-import { RemoteData } from '../core/data/remote-data';
-import { of as observableOf } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
-import { FeatureID } from '../core/data/feature-authorization/feature-id';
-import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
-import { AuthService } from '../core/auth/auth.service';
-import { FileService } from '../core/shared/file.service';
 import { isPlatformBrowser } from '@angular/common';
+import {
+  Component,
+  Inject,
+  Input,
+  OnChanges,
+  PLATFORM_ID,
+  signal,
+  SimpleChanges,
+  WritableSignal,
+} from '@angular/core';
+import { TranslatePipe } from '@ngx-translate/core';
+import { of } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+
+import { AuthService } from '../core/auth/auth.service';
+import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../core/data/feature-authorization/feature-id';
+import { RemoteData } from '../core/data/remote-data';
+import { Bitstream } from '../core/shared/bitstream.model';
+import { FileService } from '../core/shared/file.service';
+import {
+  hasNoValue,
+  hasValue,
+} from '../shared/empty.util';
+import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
+import { SafeUrlPipe } from '../shared/utils/safe-url-pipe';
 
 /**
  * This component renders a given Bitstream as a thumbnail.
@@ -16,9 +32,14 @@ import { isPlatformBrowser } from '@angular/common';
  * If no Bitstream is provided, an HTML placeholder will be rendered instead.
  */
 @Component({
-  selector: 'ds-thumbnail',
+  selector: 'ds-base-thumbnail',
   styleUrls: ['./thumbnail.component.scss'],
   templateUrl: './thumbnail.component.html',
+  imports: [
+    SafeUrlPipe,
+    ThemedLoadingComponent,
+    TranslatePipe,
+  ],
 })
 export class ThumbnailComponent implements OnChanges {
   /**
@@ -35,7 +56,7 @@ export class ThumbnailComponent implements OnChanges {
   /**
    * The src attribute used in the template to render the image.
    */
-  src: string = undefined;
+  src: WritableSignal<string> = signal(undefined);
 
   retriedWithToken = false;
 
@@ -58,7 +79,7 @@ export class ThumbnailComponent implements OnChanges {
    * Whether the thumbnail is currently loading
    * Start out as true to avoid flashing the alt text while a thumbnail is being loaded.
    */
-  isLoading = true;
+  isLoading: WritableSignal<boolean> = signal(true);
 
   constructor(
     @Inject(PLATFORM_ID) private platformID: any,
@@ -114,7 +135,7 @@ export class ThumbnailComponent implements OnChanges {
    * Otherwise, fall back to the default image or a HTML placeholder
    */
   errorHandler() {
-    const src = this.src;
+    const src = this.src();
     const thumbnail = this.bitstream;
     const thumbnailSrc = thumbnail?._links?.content?.href;
 
@@ -129,16 +150,16 @@ export class ThumbnailComponent implements OnChanges {
           if (isLoggedIn) {
             return this.authorizationService.isAuthorized(FeatureID.CanDownload, thumbnail.self);
           } else {
-            return observableOf(false);
+            return of(false);
           }
         }),
         switchMap((isAuthorized) => {
           if (isAuthorized) {
             return this.fileService.retrieveFileDownloadLink(thumbnailSrc);
           } else {
-            return observableOf(null);
+            return of(null);
           }
-        })
+        }),
       ).subscribe((url: string) => {
         if (hasValue(url)) {
           // If we got a URL, try to load it
@@ -166,9 +187,22 @@ export class ThumbnailComponent implements OnChanges {
    * @param src
    */
   setSrc(src: string): void {
-    this.src = src;
-    if (src === null) {
-      this.isLoading = false;
+    // only update the src if it has changed (the parent component may fire the same one multiple times
+    if (this.src() !== src) {
+      // every time the src changes we need to start the loading animation again, as it's possible
+      // that it is first set to null when the parent component initializes and then set to
+      // the actual value
+      //
+      // isLoading$ will be set to false by the error or success handler afterwards, except in the
+      // case where src is null, then we have to set it manually here (because those handlers won't
+      // trigger)
+      if (src !== null && this.isLoading() === false) {
+        this.isLoading.set(true);
+      }
+      this.src.set(src);
+      if (src === null && this.isLoading() === true) {
+        this.isLoading.set(false);
+      }
     }
   }
 
@@ -176,6 +210,6 @@ export class ThumbnailComponent implements OnChanges {
    * Stop the loading animation once the thumbnail is successfully loaded
    */
   successHandler() {
-    this.isLoading = false;
+    this.isLoading.set(false);
   }
 }

@@ -1,46 +1,51 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { distinctUntilChanged, filter, map, switchMap, take } from 'rxjs/operators';
+import {
+  distinctUntilChanged,
+  filter,
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+import { sendRequest } from 'src/app/core/shared/request.operators';
 
-
-import { NotificationsService } from '../notifications/notifications.service';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { RemoteDataBuildService } from '../../core/cache/builders/remote-data-build.service';
 import { RequestParam } from '../../core/cache/models/request-param.model';
 import { ObjectCacheService } from '../../core/cache/object-cache.service';
+import { DeleteDataImpl } from '../../core/data/base/delete-data';
+import { FindAllData } from '../../core/data/base/find-all-data';
+import { IdentifiableDataService } from '../../core/data/base/identifiable-data.service';
+import { SearchDataImpl } from '../../core/data/base/search-data';
 import { DSOChangeAnalyzer } from '../../core/data/dso-change-analyzer.service';
+import { FindListOptions } from '../../core/data/find-list-options.model';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
-import { CreateRequest, PutRequest } from '../../core/data/request.models';
-import { FindListOptions } from '../../core/data/find-list-options.model';
-import { RestRequest } from '../../core/data/rest-request.model';
-
+import {
+  CreateRequest,
+  PutRequest,
+} from '../../core/data/request.models';
 import { RequestService } from '../../core/data/request.service';
+import { RestRequest } from '../../core/data/rest-request.model';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
-import { Subscription } from './models/subscription.model';
-import { dataService } from '../../core/data/base/data-service.decorator';
-import { SUBSCRIPTION } from './models/subscription.resource-type';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { NoContent } from '../../core/shared/NoContent.model';
-import { isNotEmpty, isNotEmptyOperator } from '../empty.util';
-
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
-import { sendRequest } from 'src/app/core/shared/request.operators';
-import { IdentifiableDataService } from '../../core/data/base/identifiable-data.service';
-import { DeleteDataImpl } from '../../core/data/base/delete-data';
-import { SearchDataImpl } from '../../core/data/base/search-data';
-import { FindAllData } from '../../core/data/base/find-all-data';
+import {
+  isNotEmpty,
+  isNotEmptyOperator,
+} from '../empty.util';
+import { NotificationsService } from '../notifications/notifications.service';
 import { followLink } from '../utils/follow-link-config.model';
+import { Subscription } from './models/subscription.model';
 
 /**
  * Provides methods to retrieve subscription resources from the REST API related CRUD actions.
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-@dataService(SUBSCRIPTION)
 export class SubscriptionsDataService extends IdentifiableDataService<Subscription> {
   protected findByEpersonLinkPath = 'findByEPerson';
 
@@ -75,8 +80,8 @@ export class SubscriptionsDataService extends IdentifiableDataService<Subscripti
     const optionsWithObject = Object.assign(new FindListOptions(), {
       searchParams: [
         new RequestParam('resource', uuid),
-        new RequestParam('eperson_id', eperson)
-      ]
+        new RequestParam('eperson_id', eperson),
+      ],
     });
 
     return this.searchData.searchBy('findByEPersonAndDso', optionsWithObject, false, true);
@@ -156,15 +161,15 @@ export class SubscriptionsDataService extends IdentifiableDataService<Subscripti
   findByEPerson(ePersonId: string, options?: FindListOptions): Observable<RemoteData<PaginatedList<Subscription>>> {
     const optionsWithObject = Object.assign(new FindListOptions(), options, {
       searchParams: [
-        new RequestParam('uuid', ePersonId)
-      ]
+        new RequestParam('uuid', ePersonId),
+      ],
     });
 
     // return this.searchData.searchBy(this.findByEpersonLinkPath, optionsWithObject, true, true, followLink('dSpaceObject'), followLink('ePerson'));
 
     return this.getEndpoint().pipe(
       map(href => `${href}/search/${this.findByEpersonLinkPath}`),
-      switchMap(href => this.findListByHref(href, optionsWithObject, false, true, followLink('resource'), followLink('eperson')))
+      switchMap(href => this.findListByHref(href, optionsWithObject, false, true, followLink('resource'), followLink('eperson'))),
     );
 
 

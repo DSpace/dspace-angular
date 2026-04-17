@@ -1,7 +1,7 @@
 /* eslint-disable no-empty, @typescript-eslint/no-empty-function */
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import { FieldUpdates } from '../../core/data/object-updates/field-updates.model';
@@ -18,7 +18,7 @@ export class ObjectUpdatesServiceStub {
   }
 
   getFieldUpdates(_url: string, _initialFields: Identifiable[], _ignoreStates?: boolean): Observable<FieldUpdates> {
-    return observableOf({});
+    return of({});
   }
 
 }

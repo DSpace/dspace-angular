@@ -3,43 +3,43 @@
  */
 export class AccessesConditionOption {
 
-    /**
+  /**
      * The name for this Access Condition
      */
-    name: string;
+  name: string;
 
-    /**
+  /**
      * The groupName for this Access Condition
      */
-    groupName: string;
+  groupName: string;
 
-    /**
+  /**
      * A boolean representing if this Access Condition has a start date
      */
-    hasStartDate: boolean;
+  hasStartDate: boolean;
 
-    /**
+  /**
      * A boolean representing if this Access Condition has an end date
      */
-    hasEndDate: boolean;
+  hasEndDate: boolean;
 
-    /**
+  /**
      * Maximum value of the start date
      */
-    endDateLimit?: string;
+  endDateLimit?: string;
 
-    /**
+  /**
      * Maximum value of the end date
      */
-    startDateLimit?: string;
+  startDateLimit?: string;
 
-    /**
+  /**
      * Maximum value of the start date
      */
-    maxStartDate?: string;
+  maxStartDate?: string;
 
-    /**
+  /**
      * Maximum value of the end date
      */
-    maxEndDate?: string;
+  maxEndDate?: string;
 }

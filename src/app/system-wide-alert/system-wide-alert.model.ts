@@ -1,4 +1,8 @@
-import { autoserialize, deserialize } from 'cerialize';
+import {
+  autoserialize,
+  deserialize,
+} from 'cerialize';
+
 import { typedObject } from '../core/cache/builders/build-decorators';
 import { CacheableObject } from '../core/cache/cacheable-object.model';
 import { HALLink } from '../core/shared/hal-link.model';

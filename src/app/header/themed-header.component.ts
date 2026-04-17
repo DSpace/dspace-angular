@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { ThemedComponent } from '../shared/theme-support/themed.component';
 import { HeaderComponent } from './header.component';
 
@@ -6,8 +7,7 @@ import { HeaderComponent } from './header.component';
  * Themed wrapper for HeaderComponent
  */
 @Component({
-  selector: 'ds-themed-header',
-  styleUrls: [],
+  selector: 'ds-header',
   templateUrl: '../shared/theme-support/themed.component.html',
 })
 export class ThemedHeaderComponent extends ThemedComponent<HeaderComponent> {

@@ -1,9 +1,16 @@
+import {
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { Store } from '@ngrx/store';
-import { TestBed, waitForAsync } from '@angular/core/testing';
-import { TruncatableService } from './truncatable.service';
-import { TruncatableCollapseAction, TruncatableExpandAction } from './truncatable.actions';
+import { of } from 'rxjs';
+
+import {
+  TruncatableCollapseAction,
+  TruncatableExpandAction,
+} from './truncatable.actions';
 import { TruncatablesState } from './truncatable.reducer';
-import { of as observableOf } from 'rxjs';
+import { TruncatableService } from './truncatable.service';
 
 describe('TruncatableService', () => {
   const id1 = '123';
@@ -13,16 +20,16 @@ describe('TruncatableService', () => {
     /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
     dispatch: {},
     /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
-    select: observableOf(true)
+    select: of(true),
   });
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
 
       providers: [
         {
-          provide: Store, useValue: store
-        }
-      ]
+          provide: Store, useValue: store,
+        },
+      ],
     }).compileComponents();
   }));
 
@@ -36,7 +43,7 @@ describe('TruncatableService', () => {
     });
 
     it('TruncatableCollapseAction should be dispatched to the store', () => {
-      expect(store.dispatch).toHaveBeenCalledWith(new TruncatableCollapseAction(id1));
+      expect(store.dispatch as jasmine.Spy).toHaveBeenCalledWith(new TruncatableCollapseAction(id1));
     });
 
   });
@@ -47,7 +54,7 @@ describe('TruncatableService', () => {
     });
 
     it('TruncatableExpandAction should be dispatched to the store', () => {
-      expect(store.dispatch).toHaveBeenCalledWith(new TruncatableExpandAction(id2));
+      expect(store.dispatch as jasmine.Spy).toHaveBeenCalledWith(new TruncatableExpandAction(id2));
     });
   });
 

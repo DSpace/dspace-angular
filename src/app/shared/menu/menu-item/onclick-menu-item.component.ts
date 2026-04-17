@@ -1,7 +1,12 @@
-import { Component, Inject } from '@angular/core';
-import { rendersMenuItemForType } from '../menu-item.decorator';
+
+import {
+  Component,
+  Inject,
+} from '@angular/core';
+import { RouterLinkActive } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { OnClickMenuItemModel } from './models/onclick.model';
-import { MenuItemType } from '../menu-item-type.model';
 
 /**
  * Component that renders a menu section of type ONCLICK
@@ -9,9 +14,12 @@ import { MenuItemType } from '../menu-item-type.model';
 @Component({
   selector: 'ds-onclick-menu-item',
   styleUrls: ['./menu-item.component.scss', './onclick-menu-item.component.scss'],
-  templateUrl: './onclick-menu-item.component.html'
+  templateUrl: './onclick-menu-item.component.html',
+  imports: [
+    RouterLinkActive,
+    TranslateModule,
+  ],
 })
-@rendersMenuItemForType(MenuItemType.ONCLICK)
 export class OnClickMenuItemComponent {
   item: OnClickMenuItemModel;
 

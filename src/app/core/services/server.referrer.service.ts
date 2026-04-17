@@ -1,7 +1,14 @@
+import {
+  Inject,
+  Injectable,
+} from '@angular/core';
+import {
+  Observable,
+  of,
+} from 'rxjs';
+
+import { REQUEST } from '../../../express.tokens';
 import { ReferrerService } from './referrer.service';
-import { Observable, of as observableOf } from 'rxjs';
-import { Inject, Injectable } from '@angular/core';
-import { REQUEST } from '@nguniversal/express-engine/tokens';
 
 /**
  * A service to determine the referrer
@@ -26,6 +33,6 @@ export class ServerReferrerService extends ReferrerService {
    */
   public getReferrer(): Observable<string> {
     const referrer = this.request.headers.referer || '';
-    return observableOf(referrer);
+    return of(referrer);
   }
 }

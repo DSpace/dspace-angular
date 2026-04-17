@@ -1,16 +1,30 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-
+import {
+  NgbNav,
+  NgbNavContent,
+  NgbNavItem,
+  NgbNavLink,
+  NgbNavOutlet,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { of } from 'rxjs';
-import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
-import { HealthPageComponent } from './health-page.component';
-import { HealthService } from './health.service';
-import { HealthInfoResponseObj, HealthResponseObj } from '../shared/mocks/health-endpoint.mocks';
 import { RawRestResponse } from '../core/dspace-rest/raw-rest-response.model';
+import {
+  HealthInfoResponseObj,
+  HealthResponseObj,
+} from '../shared/mocks/health-endpoint.mocks';
 import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
+import { HealthService } from './health.service';
+import { HealthPageComponent } from './health-page.component';
 
 describe('HealthPageComponent', () => {
   let component: HealthPageComponent;
@@ -24,33 +38,37 @@ describe('HealthPageComponent', () => {
   const healthRestResponse$ = of({
     payload: HealthResponseObj,
     statusCode: 200,
-    statusText: 'OK'
+    statusText: 'OK',
   } as RawRestResponse);
 
   const healthInfoRestResponse$ = of({
     payload: HealthInfoResponseObj,
     statusCode: 200,
-    statusText: 'OK'
+    statusText: 'OK',
   } as RawRestResponse);
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
         CommonModule,
-        NgbNavModule,
+        NgbNav,
+        NgbNavContent,
+        NgbNavItem,
+        NgbNavLink,
+        NgbNavOutlet,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
+            useClass: TranslateLoaderMock,
+          },
+        }),
+        HealthPageComponent,
       ],
-      declarations: [ HealthPageComponent ],
       providers: [
-        { provide: HealthService, useValue: healthService }
-      ]
+        { provide: HealthService, useValue: healthService },
+      ],
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

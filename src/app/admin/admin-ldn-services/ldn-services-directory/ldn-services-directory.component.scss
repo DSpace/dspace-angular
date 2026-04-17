@@ -1,0 +1,29 @@
+.status-indicator {
+  padding: 2.5px 25px 2.5px 25px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.5s;
+}
+
+.status-enabled {
+  background-color: #daf7a6;
+  color: #4f5359;
+  font-size: 85%;
+  font-weight: bold;
+
+}
+
+.status-enabled:hover {
+  background-color: #faa0a0;
+}
+
+.status-disabled {
+  background-color: #faa0a0;
+  color: #4f5359;
+  font-size: 85%;
+  font-weight: bold;
+}
+
+.status-disabled:hover {
+  background-color: #daf7a6;
+}

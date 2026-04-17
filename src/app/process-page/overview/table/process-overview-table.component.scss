@@ -1,0 +1,28 @@
+.toggle-icon {
+  font-size: calc(var(--bs-small-font-size) * 0.6);
+}
+
+.badge-nb-processes {
+  font-size: var(--ds-process-overview-table-nb-processes-badge-size);
+  vertical-align: middle;
+}
+
+.id-header {
+  width: var(--ds-process-overview-table-id-column-width);
+}
+
+.name-header {
+  width: var(--ds-process-overview-table-name-column-width);
+}
+
+.user-header {
+  width: var(--ds-process-overview-table-user-column-width);
+}
+
+.info-header {
+  width: var(--ds-process-overview-table-info-column-width);
+}
+
+.actions-header {
+  width: var(--ds-process-overview-table-actions-column-width);
+}

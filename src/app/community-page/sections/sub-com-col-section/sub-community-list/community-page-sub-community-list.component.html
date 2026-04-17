@@ -1,0 +1,19 @@
+<ng-container *ngVar="(subCommunitiesRDObs | async) as subCommunitiesRD">
+  @if (subCommunitiesRD?.hasSucceeded && subCommunitiesRD?.payload.totalElements > 0) {
+    <div @fadeIn>
+      <h3>{{'community.sub-community-list.head' | translate}}</h3>
+      <ds-viewable-collection
+        [config]="config"
+        [sortConfig]="sortConfig"
+        [objects]="subCommunitiesRD"
+        [hideGear]="false">
+      </ds-viewable-collection>
+    </div>
+  }
+  @if (subCommunitiesRD?.hasFailed) {
+    <ds-error message="{{'error.sub-communities' | translate}}"></ds-error>
+  }
+  @if (subCommunitiesRD?.isLoading) {
+    <ds-loading message="{{'loading.sub-communities' | translate}}"></ds-loading>
+  }
+</ng-container>

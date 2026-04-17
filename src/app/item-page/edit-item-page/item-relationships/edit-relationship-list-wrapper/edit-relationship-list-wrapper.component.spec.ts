@@ -1,22 +1,28 @@
-import { ChangeDetectorRef, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { of as observableOf } from 'rxjs';
-import { EditRelationshipListWrapperComponent } from './edit-relationship-list-wrapper.component';
-import { EditItemRelationshipsService } from '../edit-item-relationships.service';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { cold } from 'jasmine-marbles';
+import { of } from 'rxjs';
+
+import { Item } from '../../../../core/shared/item.model';
+import { ItemType } from '../../../../core/shared/item-relationships/item-type.model';
 import { RelationshipType } from '../../../../core/shared/item-relationships/relationship-type.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
-import { ItemType } from '../../../../core/shared/item-relationships/item-type.model';
-import { Item } from '../../../../core/shared/item.model';
-import { cold } from 'jasmine-marbles';
+import { EditItemRelationshipsService } from '../edit-item-relationships.service';
+import { EditRelationshipListComponent } from '../edit-relationship-list/edit-relationship-list.component';
+import { EditRelationshipListWrapperComponent } from './edit-relationship-list-wrapper.component';
 
 describe('EditRelationshipListWrapperComponent', () => {
   let editItemRelationshipsService: EditItemRelationshipsService;
   let comp: EditRelationshipListWrapperComponent;
   let fixture: ComponentFixture<EditRelationshipListWrapperComponent>;
 
-  const leftType = Object.assign(new ItemType(), {id: 'leftType', label: 'leftTypeString'});
-  const rightType = Object.assign(new ItemType(), {id: 'rightType', label: 'rightTypeString'});
+  const leftType = Object.assign(new ItemType(), { id: 'leftType', label: 'leftTypeString' });
+  const rightType = Object.assign(new ItemType(), { id: 'rightType', label: 'rightTypeString' });
 
   const relationshipType = Object.assign(new RelationshipType(), {
     id: '1',
@@ -31,25 +37,32 @@ describe('EditRelationshipListWrapperComponent', () => {
     uuid: 'relationshiptype-1',
   });
 
-  const item = Object.assign(new Item(), {uuid: 'item-uuid'});
+  const item = Object.assign(new Item(), { uuid: 'item-uuid' });
 
   beforeEach(waitForAsync(() => {
 
     editItemRelationshipsService = jasmine.createSpyObj('editItemRelationshipsService', {
-      isProvidedItemTypeLeftType: observableOf(true),
-      shouldDisplayBothRelationshipSides: observableOf(false),
+      isProvidedItemTypeLeftType: of(true),
+      shouldDisplayBothRelationshipSides: of(false),
     });
 
 
     TestBed.configureTestingModule({
-      // imports: [NoopAnimationsModule, SharedModule, TranslateModule.forRoot()],
-      declarations: [EditRelationshipListWrapperComponent],
+      imports: [
+        EditRelationshipListWrapperComponent,
+      ],
       providers: [
-        {provide: EditItemRelationshipsService, useValue: editItemRelationshipsService},
-        ChangeDetectorRef
-      ], schemas: [
-        CUSTOM_ELEMENTS_SCHEMA
-      ]
+        { provide: EditItemRelationshipsService, useValue: editItemRelationshipsService },
+      ],
+      schemas: [
+        CUSTOM_ELEMENTS_SCHEMA,
+      ],
+    }).overrideComponent(EditRelationshipListWrapperComponent, {
+      remove: {
+        imports: [
+          EditRelationshipListComponent,
+        ],
+      },
     }).compileComponents();
 
   }));
@@ -86,7 +99,7 @@ describe('EditRelationshipListWrapperComponent', () => {
 
   describe('when the current item is right', () => {
     it('should render one relationship list section', () => {
-      (editItemRelationshipsService.isProvidedItemTypeLeftType as jasmine.Spy).and.returnValue(observableOf(false));
+      (editItemRelationshipsService.isProvidedItemTypeLeftType as jasmine.Spy).and.returnValue(of(false));
       comp.ngOnInit();
       fixture.detectChanges();
 
@@ -97,7 +110,7 @@ describe('EditRelationshipListWrapperComponent', () => {
 
   describe('when the current item is both left and right', () => {
     it('should render two relationship list sections', () => {
-      (editItemRelationshipsService.shouldDisplayBothRelationshipSides as jasmine.Spy).and.returnValue(observableOf(true));
+      (editItemRelationshipsService.shouldDisplayBothRelationshipSides as jasmine.Spy).and.returnValue(of(true));
       comp.ngOnInit();
       fixture.detectChanges();
 

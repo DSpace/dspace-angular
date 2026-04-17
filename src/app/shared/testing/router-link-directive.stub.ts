@@ -1,4 +1,7 @@
-import { Directive, Input } from '@angular/core';
+import {
+  Directive,
+  Input,
+} from '@angular/core';
 
 /* eslint-disable @angular-eslint/directive-class-suffix */
 @Directive({
@@ -7,4 +10,5 @@ import { Directive, Input } from '@angular/core';
 })
 export class RouterLinkDirectiveStub {
   @Input() routerLink: any;
+  @Input() queryParams: any;
 }

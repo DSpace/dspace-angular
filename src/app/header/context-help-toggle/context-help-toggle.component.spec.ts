@@ -1,10 +1,15 @@
-import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
-
-import { ContextHelpToggleComponent } from './context-help-toggle.component';
-import { TranslateModule } from '@ngx-translate/core';
-import { ContextHelpService } from '../../shared/context-help.service';
-import { of as observableOf } from 'rxjs';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
+
+import { ContextHelpService } from '../../shared/context-help.service';
+import { ContextHelpToggleComponent } from './context-help-toggle.component';
 
 describe('ContextHelpToggleComponent', () => {
   let component: ContextHelpToggleComponent;
@@ -13,15 +18,14 @@ describe('ContextHelpToggleComponent', () => {
 
   beforeEach(async () => {
     contextHelpService = jasmine.createSpyObj('contextHelpService', [
-      'tooltipCount$', 'toggleIcons'
+      'tooltipCount$', 'toggleIcons',
     ]);
-    contextHelpService.tooltipCount$.and.returnValue(observableOf(0));
+    contextHelpService.tooltipCount$.and.returnValue(of(0));
     await TestBed.configureTestingModule({
-      declarations: [ ContextHelpToggleComponent ],
       providers: [
         { provide: ContextHelpService, useValue: contextHelpService },
       ],
-      imports: [ TranslateModule.forRoot() ]
+      imports: [TranslateModule.forRoot(), ContextHelpToggleComponent],
     })
       .compileComponents();
   });
@@ -47,16 +51,14 @@ describe('ContextHelpToggleComponent', () => {
 
   describe('if there are elements on the page with a tooltip', () => {
     beforeEach(() => {
-      contextHelpService.tooltipCount$.and.returnValue(observableOf(1));
+      contextHelpService.tooltipCount$.and.returnValue(of(1));
       fixture.detectChanges();
     });
 
     it('clicking the button should toggle context help icon visibility', fakeAsync(() => {
-      fixture.whenStable().then(() => {
-        fixture.debugElement.query(By.css('a')).nativeElement.click();
-        tick();
-        expect(contextHelpService.toggleIcons).toHaveBeenCalled();
-      });
+      fixture.debugElement.query(By.css('a')).nativeElement.click();
+      tick();
+      expect(contextHelpService.toggleIcons).toHaveBeenCalled();
     }));
   });
 

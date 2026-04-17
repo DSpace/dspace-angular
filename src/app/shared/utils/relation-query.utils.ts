@@ -1,6 +1,9 @@
-import { followLink, FollowLinkConfig } from './follow-link-config.model';
-import { Relationship } from '../../core/shared/item-relationships/relationship.model';
 import { Item } from '../../core/shared/item.model';
+import { Relationship } from '../../core/shared/item-relationships/relationship.model';
+import {
+  followLink,
+  FollowLinkConfig,
+} from './follow-link-config.model';
 
 /**
  * Get the query for looking up items by relation type

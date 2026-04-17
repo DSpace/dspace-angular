@@ -14,8 +14,7 @@ describe('SearchResultsSkeletonComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NgxSkeletonLoaderModule],
-      declarations: [SearchResultsSkeletonComponent],
+      imports: [SearchResultsSkeletonComponent, NgxSkeletonLoaderModule],
       providers: [
         { provide: SearchService, useValue: new SearchServiceStub() },
       ],

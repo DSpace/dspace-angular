@@ -1,15 +1,25 @@
-// Load the implementations that should be tested
-import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
-
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  ChangeDetectorRef,
+  Component,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { NumberPickerComponent } from './number-picker.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { createTestComponent } from '../../testing/utils.test';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-describe('NumberPickerComponent test suite', () => {
+import { createTestComponent } from '../../testing/utils.test';
+import { NumberPickerComponent } from './number-picker.component';
+
+describe('NumberPickerComponent', () => {
 
   let testComp: TestComponent;
   let numberPickerComp: NumberPickerComponent;
@@ -25,17 +35,14 @@ describe('NumberPickerComponent test suite', () => {
         FormsModule,
         ReactiveFormsModule,
         NgbModule,
-        TranslateModule.forRoot()
-      ],
-      declarations: [
+        TranslateModule.forRoot(),
         NumberPickerComponent,
         TestComponent,
-      ], // declare the test component
+      ],
       providers: [
         ChangeDetectorRef,
         NumberPickerComponent,
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     });
 
   }));
@@ -148,7 +155,13 @@ describe('NumberPickerComponent test suite', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: '<ds-number-picker></ds-number-picker>',
+  imports: [
+    FormsModule,
+    NgbModule,
+    NumberPickerComponent,
+    ReactiveFormsModule,
+  ],
 })
 class TestComponent {
 

@@ -1,22 +1,32 @@
-import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing';
-import { BatchImportPageComponent } from './batch-import-page.component';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { FormsModule } from '@angular/forms';
-import { TranslateModule } from '@ngx-translate/core';
-import { RouterTestingModule } from '@angular/router/testing';
-import { FileValueAccessorDirective } from '../../shared/utils/file-value-accessor.directive';
-import { FileValidator } from '../../shared/utils/require-file.validator';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import {
-  BATCH_IMPORT_SCRIPT_NAME,
-  ScriptDataService
-} from '../../core/data/processes/script-data.service';
-import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateModule } from '@ngx-translate/core';
+
+import {
+  BATCH_IMPORT_SCRIPT_NAME,
+  ScriptDataService,
+} from '../../core/data/processes/script-data.service';
 import { ProcessParameter } from '../../process-page/processes/process-parameter.model';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../../shared/remote-data.utils';
+import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import { FileDropzoneNoUploaderComponent } from '../../shared/upload/file-dropzone-no-uploader/file-dropzone-no-uploader.component';
+import { FileValueAccessorDirective } from '../../shared/utils/file-value-accessor.directive';
+import { FileValidator } from '../../shared/utils/require-file.validator';
+import { BatchImportPageComponent } from './batch-import-page.component';
 
 describe('BatchImportPageComponent', () => {
   let component: BatchImportPageComponent;
@@ -31,14 +41,14 @@ describe('BatchImportPageComponent', () => {
     notificationService = new NotificationsServiceStub();
     scriptService = jasmine.createSpyObj('scriptService',
       {
-        invoke: createSuccessfulRemoteDataObject$({ processId: '46' })
-      }
+        invoke: createSuccessfulRemoteDataObject$({ processId: '46' }),
+      },
     );
     router = jasmine.createSpyObj('router', {
-      navigateByUrl: jasmine.createSpy('navigateByUrl')
+      navigateByUrl: jasmine.createSpy('navigateByUrl'),
     });
     locationStub = jasmine.createSpyObj('location', {
-      back: jasmine.createSpy('back')
+      back: jasmine.createSpy('back'),
     });
   }
 
@@ -48,17 +58,23 @@ describe('BatchImportPageComponent', () => {
       imports: [
         FormsModule,
         TranslateModule.forRoot(),
-        RouterTestingModule.withRoutes([])
+        RouterTestingModule.withRoutes([]),
+        BatchImportPageComponent, FileValueAccessorDirective, FileValidator,
       ],
-      declarations: [BatchImportPageComponent, FileValueAccessorDirective, FileValidator],
       providers: [
         { provide: NotificationsService, useValue: notificationService },
         { provide: ScriptDataService, useValue: scriptService },
         { provide: Router, useValue: router },
         { provide: Location, useValue: locationStub },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+      schemas: [NO_ERRORS_SCHEMA],
+    })
+      .overrideComponent(BatchImportPageComponent, {
+        remove: {
+          imports: [FileDropzoneNoUploaderComponent],
+        },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -108,7 +124,7 @@ describe('BatchImportPageComponent', () => {
       it('metadata-import script is invoked with --zip fileName and the mockFile', () => {
         const parameterValues: ProcessParameter[] = [
           Object.assign(new ProcessParameter(), { name: '--add' }),
-          Object.assign(new ProcessParameter(), { name: '--zip', value: 'filename.zip' })
+          Object.assign(new ProcessParameter(), { name: '--zip', value: 'filename.zip' }),
         ];
         expect(scriptService.invoke).toHaveBeenCalledWith(BATCH_IMPORT_SCRIPT_NAME, parameterValues, [fileMock]);
       });
@@ -181,7 +197,7 @@ describe('BatchImportPageComponent', () => {
       it('metadata-import script is invoked with --url and the file url', () => {
         const parameterValues: ProcessParameter[] = [
           Object.assign(new ProcessParameter(), { name: '--add' }),
-          Object.assign(new ProcessParameter(), { name: '--url', value: 'example.fileURL.com' })
+          Object.assign(new ProcessParameter(), { name: '--url', value: 'example.fileURL.com' }),
         ];
         expect(scriptService.invoke).toHaveBeenCalledWith(BATCH_IMPORT_SCRIPT_NAME, parameterValues, [null]);
       });

@@ -1,14 +1,18 @@
 /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
+import {
+  Observable,
+  of,
+} from 'rxjs';
+
 import { FindListOptions } from '../../core/data/find-list-options.model';
-import { FollowLinkConfig } from '../utils/follow-link-config.model';
-import { MetadataSchema } from '../../core/metadata/metadata-schema.model';
-import { Observable, of as observableOf } from 'rxjs';
-import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list.model';
-import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
-import { createPaginatedList } from './utils.test';
+import { RemoteData } from '../../core/data/remote-data';
 import { MetadataField } from '../../core/metadata/metadata-field.model';
+import { MetadataSchema } from '../../core/metadata/metadata-schema.model';
 import { NoContent } from '../../core/shared/NoContent.model';
+import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
+import { FollowLinkConfig } from '../utils/follow-link-config.model';
+import { createPaginatedList } from './utils.test';
 
 /**
  * Stub class of {@link RegistryService}
@@ -34,7 +38,7 @@ export class RegistryServiceStub {
   }
 
   getActiveMetadataSchema(): Observable<MetadataSchema> {
-    return observableOf(undefined);
+    return of(undefined);
   }
 
   selectMetadataSchema(_schema: MetadataSchema): void {
@@ -47,7 +51,7 @@ export class RegistryServiceStub {
   }
 
   getSelectedMetadataSchemas(): Observable<MetadataSchema[]> {
-    return observableOf([]);
+    return of([]);
   }
 
   editMetadataField(_field: MetadataField): void {
@@ -57,7 +61,7 @@ export class RegistryServiceStub {
   }
 
   getActiveMetadataField(): Observable<MetadataField> {
-    return observableOf(undefined);
+    return of(undefined);
   }
 
   selectMetadataField(_field: MetadataField): void {
@@ -70,11 +74,11 @@ export class RegistryServiceStub {
   }
 
   getSelectedMetadataFields(): Observable<MetadataField[]> {
-    return observableOf([]);
+    return of([]);
   }
 
   createOrUpdateMetadataSchema(schema: MetadataSchema): Observable<MetadataSchema> {
-    return observableOf(schema);
+    return of(schema);
   }
 
   deleteMetadataSchema(_id: number): Observable<RemoteData<NoContent>> {
@@ -82,15 +86,15 @@ export class RegistryServiceStub {
   }
 
   clearMetadataSchemaRequests(): Observable<string> {
-    return observableOf('');
+    return of('');
   }
 
   createMetadataField(field: MetadataField, _schema: MetadataSchema): Observable<MetadataField> {
-    return observableOf(field);
+    return of(field);
   }
 
   updateMetadataField(field: MetadataField): Observable<MetadataField> {
-    return observableOf(field);
+    return of(field);
   }
 
   deleteMetadataField(_id: number): Observable<RemoteData<NoContent>> {

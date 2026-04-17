@@ -1,10 +1,11 @@
 /* eslint-disable max-classes-per-file */
-import { type } from '../../shared/ngrx/type';
 import { Action } from '@ngrx/store';
+
+import { type } from '../../shared/ngrx/type';
 
 export const MetaTagTypes = {
   ADD: type('dspace/meta-tag/ADD'),
-  CLEAR: type('dspace/meta-tag/CLEAR')
+  CLEAR: type('dspace/meta-tag/CLEAR'),
 };
 
 export class AddMetaTagAction implements Action {

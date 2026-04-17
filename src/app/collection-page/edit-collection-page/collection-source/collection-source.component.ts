@@ -1,5 +1,17 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AbstractTrackableComponent } from '../../../shared/trackable/abstract-trackable.component';
+import {
+  AsyncPipe,
+  Location,
+} from '@angular/common';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import { UntypedFormGroup } from '@angular/forms';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import {
   DynamicFormControlModel,
   DynamicFormGroupModel,
@@ -8,29 +20,53 @@ import {
   DynamicInputModel,
   DynamicOptionControlModel,
   DynamicRadioGroupModel,
-  DynamicSelectModel
+  DynamicSelectModel,
 } from '@ng-dynamic-forms/core';
-import { Location } from '@angular/common';
-import { TranslateService } from '@ngx-translate/core';
-import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { UntypedFormGroup } from '@angular/forms';
-import { hasNoValue, hasValue, isNotEmpty } from '../../../shared/empty.util';
-import { ContentSource, ContentSourceHarvestType } from '../../../core/shared/content-source.model';
-import { Observable, Subscription } from 'rxjs';
-import { RemoteData } from '../../../core/data/remote-data';
-import { Collection } from '../../../core/shared/collection.model';
-import { first, map, switchMap, take } from 'rxjs/operators';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import cloneDeep from 'lodash/cloneDeep';
-import { CollectionDataService } from '../../../core/data/collection-data.service';
-import { getFirstSucceededRemoteData, getFirstCompletedRemoteData } from '../../../core/shared/operators';
-import { MetadataConfig } from '../../../core/shared/metadata-config.model';
-import { INotification } from '../../../shared/notifications/models/notification.model';
-import { RequestService } from '../../../core/data/request.service';
+import {
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  first,
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+
 import { environment } from '../../../../environments/environment';
+import { CollectionDataService } from '../../../core/data/collection-data.service';
 import { FieldUpdate } from '../../../core/data/object-updates/field-update.model';
 import { FieldUpdates } from '../../../core/data/object-updates/field-updates.model';
+import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
+import { RemoteData } from '../../../core/data/remote-data';
+import { RequestService } from '../../../core/data/request.service';
+import { Collection } from '../../../core/shared/collection.model';
+import {
+  ContentSource,
+  ContentSourceHarvestType,
+} from '../../../core/shared/content-source.model';
+import { MetadataConfig } from '../../../core/shared/metadata-config.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+} from '../../../core/shared/operators';
+import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '../../../shared/empty.util';
+import { FormComponent } from '../../../shared/form/form.component';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
+import { INotification } from '../../../shared/notifications/models/notification.model';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { AbstractTrackableComponent } from '../../../shared/trackable/abstract-trackable.component';
+import { CollectionSourceControlsComponent } from './collection-source-controls/collection-source-controls.component';
 
 /**
  * Component for managing the content source of the collection
@@ -38,6 +74,14 @@ import { FieldUpdates } from '../../../core/data/object-updates/field-updates.mo
 @Component({
   selector: 'ds-collection-source',
   templateUrl: './collection-source.component.html',
+  imports: [
+    AsyncPipe,
+    BtnDisabledDirective,
+    CollectionSourceControlsComponent,
+    FormComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
+  ],
 })
 export class CollectionSourceComponent extends AbstractTrackableComponent implements OnInit, OnDestroy {
   /**
@@ -84,11 +128,11 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
     name: 'oaiSource',
     required: true,
     validators: {
-      required: null
+      required: null,
     },
     errorMessages: {
-      required: 'You must provide a set id of the target collection.'
-    }
+      required: 'You must provide a set id of the target collection.',
+    },
   });
 
   /**
@@ -96,7 +140,7 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
    */
   oaiSetIdModel = new DynamicInputModel({
     id: 'oaiSetId',
-    name: 'oaiSetId'
+    name: 'oaiSetId',
   });
 
   /**
@@ -104,7 +148,7 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
    */
   metadataConfigIdModel = new DynamicSelectModel({
     id: 'metadataConfigId',
-    name: 'metadataConfigId'
+    name: 'metadataConfigId',
   });
 
   /**
@@ -115,15 +159,15 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
     name: 'harvestType',
     options: [
       {
-        value: ContentSourceHarvestType.Metadata
+        value: ContentSourceHarvestType.Metadata,
       },
       {
-        value: ContentSourceHarvestType.MetadataAndRef
+        value: ContentSourceHarvestType.MetadataAndRef,
       },
       {
-        value: ContentSourceHarvestType.MetadataAndBitstreams
-      }
-    ]
+        value: ContentSourceHarvestType.MetadataAndBitstreams,
+      },
+    ],
   });
 
   /**
@@ -139,22 +183,22 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
     new DynamicFormGroupModel({
       id: 'oaiSourceContainer',
       group: [
-        this.oaiSourceModel
-      ]
+        this.oaiSourceModel,
+      ],
     }),
     new DynamicFormGroupModel({
       id: 'oaiSetContainer',
       group: [
         this.oaiSetIdModel,
-        this.metadataConfigIdModel
-      ]
+        this.metadataConfigIdModel,
+      ],
     }),
     new DynamicFormGroupModel({
       id: 'harvestTypeContainer',
       group: [
-        this.harvestTypeModel
-      ]
-    })
+        this.harvestTypeModel,
+      ],
+    }),
   ];
 
   /**
@@ -163,40 +207,40 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
   formLayout: DynamicFormLayout = {
     oaiSource: {
       grid: {
-        host: 'col-12 d-inline-block'
-      }
+        host: 'col-12 d-inline-block',
+      },
     },
     oaiSetId: {
       grid: {
-        host: 'col col-sm-6 d-inline-block'
-      }
+        host: 'col col-sm-6 d-inline-block',
+      },
     },
     metadataConfigId: {
       grid: {
-        host: 'col col-sm-6 d-inline-block'
-      }
+        host: 'col col-sm-6 d-inline-block',
+      },
     },
     harvestType: {
       grid: {
         host: 'col-12',
-        option: 'btn-outline-secondary'
-      }
+        option: 'btn-outline-secondary',
+      },
     },
     oaiSetContainer: {
       grid: {
-        host: 'row'
-      }
+        host: 'row',
+      },
     },
     oaiSourceContainer: {
       grid: {
-        host: 'row'
-      }
+        host: 'row',
+      },
     },
     harvestTypeContainer: {
       grid: {
-        host: 'row'
-      }
-    }
+        host: 'row',
+      },
+    },
   };
 
   /**
@@ -274,7 +318,7 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
     const initialContentSource = cloneDeep(this.contentSource);
     this.objectUpdatesService.initialize(this.url, [initialContentSource], new Date());
     this.update$ = this.objectUpdatesService.getFieldUpdates(this.url, [initialContentSource]).pipe(
-      map((updates: FieldUpdates) => updates[initialContentSource.uuid])
+      map((updates: FieldUpdates) => updates[initialContentSource.uuid]),
     );
     this.subs.push(this.update$.subscribe((update: FieldUpdate) => {
       if (update) {
@@ -289,15 +333,15 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
         if (hasValue(field)) {
           this.formGroup.patchValue({
             oaiSourceContainer: {
-              oaiSource: field.oaiSource
+              oaiSource: field.oaiSource,
             },
             oaiSetContainer: {
               oaiSetId: field.oaiSetId,
-              metadataConfigId: configId
+              metadataConfigId: configId,
             },
             harvestTypeContainer: {
-              harvestType: field.harvestType
-            }
+              harvestType: field.harvestType,
+            },
           });
           this.contentSource = cloneDeep(field);
         }
@@ -315,8 +359,8 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
     if (this.metadataConfigIdModel.options.length > 0) {
       this.formGroup.patchValue({
         oaiSetContainer: {
-          metadataConfigId: this.metadataConfigIdModel.options[0].value
-        }
+          metadataConfigId: this.metadataConfigIdModel.options[0].value,
+        },
       });
     }
   }
@@ -328,7 +372,7 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
     this.inputModels.forEach(
       (fieldModel: DynamicFormControlModel) => {
         this.updateFieldTranslation(fieldModel);
-      }
+      },
     );
   }
 
@@ -373,7 +417,7 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
       getFirstSucceededRemoteData(),
       map((col) => col.payload.uuid),
       switchMap((uuid) => this.collectionService.getHarvesterEndpoint(uuid)),
-      take(1)
+      take(1),
     ).subscribe((endpoint) => this.requestService.removeByHrefSubstring(endpoint));
     this.requestService.setStaleByHrefSubstring(this.contentSource._links.self.href);
     // Update harvester
@@ -381,7 +425,7 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
       getFirstSucceededRemoteData(),
       map((col) => col.payload.uuid),
       switchMap((uuid) => this.collectionService.updateContentSource(uuid, this.contentSource)),
-      take(1)
+      take(1),
     ).subscribe((result: ContentSource | INotification) => {
       if (hasValue((result as any).harvestType)) {
         this.clearNotifications();
@@ -428,7 +472,7 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
     this.inputModels.forEach(
       (fieldModel: DynamicInputModel) => {
         this.updateContentSourceField(fieldModel, updateHarvestType);
-      }
+      },
     );
     this.saveFieldUpdate();
   }

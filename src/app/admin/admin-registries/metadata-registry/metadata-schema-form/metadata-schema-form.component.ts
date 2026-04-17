@@ -1,21 +1,45 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { UntypedFormGroup } from '@angular/forms';
 import {
   DynamicFormControlModel,
   DynamicFormGroupModel,
   DynamicFormLayout,
-  DynamicInputModel
+  DynamicInputModel,
 } from '@ng-dynamic-forms/core';
-import { UntypedFormGroup } from '@angular/forms';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+
+import { MetadataSchema } from '../../../../core/metadata/metadata-schema.model';
 import { RegistryService } from '../../../../core/registry/registry.service';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
-import { map, switchMap, take } from 'rxjs/operators';
-import { TranslateService } from '@ngx-translate/core';
-import { MetadataSchema } from '../../../../core/metadata/metadata-schema.model';
-import { Subscription, Observable } from 'rxjs';
+import { FormComponent } from '../../../../shared/form/form.component';
 
 @Component({
   selector: 'ds-metadata-schema-form',
-  templateUrl: './metadata-schema-form.component.html'
+  templateUrl: './metadata-schema-form.component.html',
+  imports: [
+    AsyncPipe,
+    FormComponent,
+    TranslateModule,
+  ],
 })
 /**
  * A form used for creating and editing metadata schemas
@@ -53,14 +77,14 @@ export class MetadataSchemaFormComponent implements OnInit, OnDestroy {
   formLayout: DynamicFormLayout = {
     name: {
       grid: {
-        host: 'col col-sm-6 d-inline-block'
-      }
+        host: 'col col-sm-6 d-inline-block',
+      },
     },
     namespace: {
       grid: {
-        host: 'col col-sm-6 d-inline-block'
-      }
-    }
+        host: 'col col-sm-6 d-inline-block',
+      },
+    },
   };
 
   /**
@@ -89,39 +113,39 @@ export class MetadataSchemaFormComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.name = new DynamicInputModel({
-        id: 'name',
-        label: this.translateService.instant(`${this.messagePrefix}.name`),
-        name: 'name',
-        validators: {
-          required: null,
-          pattern: '^[^. ,]*$',
-          maxLength: 32,
-        },
-        required: true,
-        errorMessages: {
-          pattern: 'error.validation.metadata.name.invalid-pattern',
-          maxLength: 'error.validation.metadata.name.max-length',
-        },
-      });
+      id: 'name',
+      label: this.translateService.instant(`${this.messagePrefix}.name`),
+      name: 'name',
+      validators: {
+        required: null,
+        pattern: '^[^. ,]*$',
+        maxLength: 32,
+      },
+      required: true,
+      errorMessages: {
+        pattern: 'error.validation.metadata.name.invalid-pattern',
+        maxLength: 'error.validation.metadata.name.max-length',
+      },
+    });
     this.namespace = new DynamicInputModel({
-        id: 'namespace',
-        label: this.translateService.instant(`${this.messagePrefix}.namespace`),
-        name: 'namespace',
-        validators: {
-          required: null,
-          maxLength: 256,
-        },
-        required: true,
-        errorMessages: {
-          maxLength: 'error.validation.metadata.namespace.max-length',
-        },
-      });
+      id: 'namespace',
+      label: this.translateService.instant(`${this.messagePrefix}.namespace`),
+      name: 'namespace',
+      validators: {
+        required: null,
+        maxLength: 256,
+      },
+      required: true,
+      errorMessages: {
+        maxLength: 'error.validation.metadata.namespace.max-length',
+      },
+    });
     this.formModel = [
       new DynamicFormGroupModel(
         {
           id: 'metadatadataschemagroup',
-          group:[this.namespace, this.name]
-        })
+          group:[this.namespace, this.name],
+        }),
     ];
     this.formGroup = this.formBuilderService.createFormGroup(this.formModel);
     this.activeMetadataSchema$ = this.registryService.getActiveMetadataSchema();

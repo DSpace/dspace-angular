@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
+
+import { FacetConfigResponse } from '../../shared/search/models/facet-config-response.model';
 import { SearchFilterConfig } from '../../shared/search/models/search-filter-config.model';
 import { ParsedResponse } from '../cache/response.models';
-import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
 import { DSpaceSerializer } from '../dspace-rest/dspace.serializer';
+import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
 import { DspaceRestResponseParsingService } from './dspace-rest-response-parsing.service';
-import { FacetConfigResponse } from '../../shared/search/models/facet-config-response.model';
 import { RestRequest } from './rest-request.model';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class FacetConfigResponseParsingService extends DspaceRestResponseParsingService {
   parse(request: RestRequest, data: RawRestResponse): ParsedResponse {
 
@@ -16,19 +17,19 @@ export class FacetConfigResponseParsingService extends DspaceRestResponseParsing
     const filters = serializer.deserializeArray(config);
 
     const _links = {
-      self: data.payload._links.self
+      self: data.payload._links.self,
     };
 
     // fill in the missing links section
     filters.forEach((filterConfig: SearchFilterConfig) => {
       _links[filterConfig.name] = {
-        href: filterConfig._links.self.href
+        href: filterConfig._links.self.href,
       };
     });
 
     const facetConfigResponse = Object.assign(new FacetConfigResponse(), {
       filters,
-      _links
+      _links,
     });
 
     this.addToObjectCache(facetConfigResponse, request, data);

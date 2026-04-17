@@ -1,0 +1,13 @@
+.source-logo {
+  max-height: var(--ds-header-logo-height);
+}
+
+.source-logo-container {
+  width: var(--ds-qa-logo-width);
+  display: flex;
+  justify-content: center;
+}
+
+.sections-gap {
+  gap: 1rem;
+}

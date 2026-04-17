@@ -1,12 +1,20 @@
-import { ChangeDetectionStrategy, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-
-import { TranslateModule } from '@ngx-translate/core';
-import { InputSuggestionsComponent } from './input-suggestions.component';
-import { By } from '@angular/platform-browser';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  ChangeDetectionStrategy,
+  DebugElement,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
+import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateModule } from '@ngx-translate/core';
+
+import { InputSuggestionsComponent } from './input-suggestions.component';
 
 describe('InputSuggestionsComponent', () => {
 
@@ -19,16 +27,15 @@ describe('InputSuggestionsComponent', () => {
   beforeEach(waitForAsync(() => {
     suggestions = [{ displayValue: 'suggestion uno', value: 'suggestion uno' }, {
       displayValue: 'suggestion dos',
-      value: 'suggestion dos'
+      value: 'suggestion dos',
     }, { displayValue: 'suggestion tres', value: 'suggestion tres' }];
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule, FormsModule],
-      declarations: [InputSuggestionsComponent],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule, FormsModule, InputSuggestionsComponent],
       providers: [],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(InputSuggestionsComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

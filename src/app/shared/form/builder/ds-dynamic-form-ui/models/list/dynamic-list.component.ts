@@ -1,23 +1,53 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { UntypedFormGroup, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
+import {
+  AsyncPipe,
+  NgClass,
+} from '@angular/common';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
+import {
+  AbstractControl,
+  ReactiveFormsModule,
+  UntypedFormGroup,
+  ValidationErrors,
+  ValidatorFn,
+} from '@angular/forms';
 import {
   DynamicCheckboxModel,
   DynamicFormControlComponent,
   DynamicFormLayoutService,
-  DynamicFormValidationService
+  DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
+import { TranslateModule } from '@ngx-translate/core';
 import findKey from 'lodash/findKey';
+import {
+  BehaviorSubject,
+  Subscription,
+} from 'rxjs';
+import {
+  map,
+  tap,
+} from 'rxjs/operators';
 
-import { hasValue, isNotEmpty } from '../../../../../empty.util';
-import { DynamicListCheckboxGroupModel } from './dynamic-list-checkbox-group.model';
-import { FormBuilderService } from '../../../form-builder.service';
-import { DynamicListRadioGroupModel } from './dynamic-list-radio-group.model';
-import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
-import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
 import { PaginatedList } from '../../../../../../core/data/paginated-list.model';
-import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
+import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
-import { BehaviorSubject, map, Subscription, tap } from 'rxjs';
+import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
+import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../../../../empty.util';
+import { ThemedLoadingComponent } from '../../../../../loading/themed-loading.component';
+import { FormBuilderService } from '../../../form-builder.service';
+import { DynamicListCheckboxGroupModel } from './dynamic-list-checkbox-group.model';
+import { DynamicListRadioGroupModel } from './dynamic-list-radio-group.model';
 
 export interface ListItem {
   id: string;
@@ -32,7 +62,14 @@ export interface ListItem {
 @Component({
   selector: 'ds-dynamic-list',
   styleUrls: ['./dynamic-list.component.scss'],
-  templateUrl: './dynamic-list.component.html'
+  templateUrl: './dynamic-list.component.html',
+  imports: [
+    AsyncPipe,
+    NgClass,
+    ReactiveFormsModule,
+    ThemedLoadingComponent,
+    TranslateModule,
+  ],
 })
 export class DsDynamicListComponent extends DynamicFormControlComponent implements OnInit, OnDestroy {
 
@@ -53,7 +90,7 @@ export class DsDynamicListComponent extends DynamicFormControlComponent implemen
               private cdr: ChangeDetectorRef,
               private formBuilderService: FormBuilderService,
               protected layoutService: DynamicFormLayoutService,
-              protected validationService: DynamicFormValidationService
+              protected validationService: DynamicFormValidationService,
   ) {
     super(layoutService, validationService);
   }

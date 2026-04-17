@@ -1,46 +1,66 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
-import { createSelector, select, Store } from '@ngrx/store';
-import { Observable, zip as observableZip } from 'rxjs';
+import {
+  createSelector,
+  select,
+  Store,
+} from '@ngrx/store';
+import { Operation } from 'fast-json-patch';
+import {
+  Observable,
+  zip as observableZip,
+} from 'rxjs';
 import { take } from 'rxjs/operators';
+
+import { getGroupEditRoute } from '../../access-control/access-control-routing-paths';
 import {
   GroupRegistryCancelGroupAction,
-  GroupRegistryEditGroupAction
+  GroupRegistryEditGroupAction,
 } from '../../access-control/group-registry/group-registry.actions';
 import { GroupRegistryState } from '../../access-control/group-registry/group-registry.reducers';
 import { AppState } from '../../app.reducer';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { DSONameService } from '../breadcrumbs/dso-name.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
+import {
+  CreateData,
+  CreateDataImpl,
+} from '../data/base/create-data';
+import {
+  DeleteData,
+  DeleteDataImpl,
+} from '../data/base/delete-data';
+import { IdentifiableDataService } from '../data/base/identifiable-data.service';
+import {
+  PatchData,
+  PatchDataImpl,
+} from '../data/base/patch-data';
+import {
+  SearchData,
+  SearchDataImpl,
+} from '../data/base/search-data';
 import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
+import { FindListOptions } from '../data/find-list-options.model';
 import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
-import { CreateRequest, DeleteRequest, PostRequest } from '../data/request.models';
-
+import {
+  CreateRequest,
+  DeleteRequest,
+  PostRequest,
+} from '../data/request.models';
 import { RequestService } from '../data/request.service';
+import { RestRequestMethod } from '../data/rest-request-method';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { Collection } from '../shared/collection.model';
+import { Community } from '../shared/community.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { NoContent } from '../shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../shared/operators';
 import { EPerson } from './models/eperson.model';
 import { Group } from './models/group.model';
-import { GROUP } from './models/group.resource-type';
-import { DSONameService } from '../breadcrumbs/dso-name.service';
-import { Community } from '../shared/community.model';
-import { Collection } from '../shared/collection.model';
-import { NoContent } from '../shared/NoContent.model';
-import { FindListOptions } from '../data/find-list-options.model';
-import { CreateData, CreateDataImpl } from '../data/base/create-data';
-import { IdentifiableDataService } from '../data/base/identifiable-data.service';
-import { SearchData, SearchDataImpl } from '../data/base/search-data';
-import { PatchData, PatchDataImpl } from '../data/base/patch-data';
-import { DeleteData, DeleteDataImpl } from '../data/base/delete-data';
-import { Operation } from 'fast-json-patch';
-import { RestRequestMethod } from '../data/rest-request-method';
-import { dataService } from '../data/base/data-service.decorator';
-import { getGroupEditRoute } from '../../access-control/access-control-routing-paths';
 
 const groupRegistryStateSelector = (state: AppState) => state.groupRegistry;
 const editGroupSelector = createSelector(groupRegistryStateSelector, (groupRegistryState: GroupRegistryState) => groupRegistryState.editGroup);
@@ -48,8 +68,7 @@ const editGroupSelector = createSelector(groupRegistryStateSelector, (groupRegis
 /**
  * Provides methods to retrieve eperson group resources from the REST API & Group related CRUD actions.
  */
-@Injectable()
-@dataService(GROUP)
+@Injectable({ providedIn: 'root' })
 export class GroupDataService extends IdentifiableDataService<Group> implements CreateData<Group>, SearchData<Group>, PatchData<Group>, DeleteData<Group> {
   protected browseEndpoint = '';
   public ePersonsEndpoint = 'epersons';
@@ -312,7 +331,7 @@ export class GroupDataService extends IdentifiableDataService<Group> implements 
         'dc.description': [
           {
             value: `${this.nameService.getName(dso)} ${role} group`,
-          }
+          },
         ],
       },
     });

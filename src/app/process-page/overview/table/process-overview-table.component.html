@@ -1,0 +1,72 @@
+<div class="mb-4">
+  <div class="d-flex" (click)="collapse.toggle()" [attr.aria-expanded]="!collapse.collapsed" role="button">
+    <h2 class="flex-grow-1">
+      {{'process.overview.table.' + processStatus.toLowerCase() + '.title' | translate}}
+      @if ((processesRD$ | async); as processesRD) {
+        <span class="badge rounded-pill bg-primary badge-nb-processes ps-2 pe-2"
+          >
+          {{processesRD?.payload?.totalElements}}
+        </span>
+      }
+      <span class="ms-2 toggle-icon">
+        <i class="fas" [ngClass]="collapse.collapsed ? 'fa-angle-right' : 'fa-angle-down'"></i>
+      </span>
+    </h2>
+  </div>
+
+  <div ngbCollapse #collapse="ngbCollapse" [ngbCollapse]="isCollapsed">
+
+    <ng-container *ngVar="(processesRD$ | async) as processesRD">
+      @if (!processesRD || processesRD.isLoading) {
+        <ds-loading/>
+      }
+
+      @if (processesRD?.payload?.totalElements > 0) {
+        <ds-pagination
+          [paginationOptions]="(paginationOptions$ | async)"
+          [collectionSize]="processesRD?.payload?.totalElements"
+          [retainScrollPosition]="true"
+          [hideGear]="true">
+          <div class="table-responsive mt-1">
+            <table class="table table-striped table-hover">
+              <thead>
+                <tr>
+                  <th scope="col" class="id-header">{{'process.overview.table.id' | translate}}</th>
+                  <th scope="col" class="name-header">{{'process.overview.table.name' | translate}}</th>
+                  <th scope="col" class="user-header">{{'process.overview.table.user' | translate}}</th>
+                  <th scope="col" class="info-header">{{'process.overview.table.' + processStatus.toLowerCase() + '.info' | translate}}</th>
+                  <th scope="col" class="actions-header">{{'process.overview.table.actions' | translate}}</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (tableEntry of processesRD?.payload?.page; track tableEntry) {
+                  <tr
+                    [class]="getRowClass(tableEntry.process)">
+                    <td><a [routerLink]="['/processes/', tableEntry.process.processId]">{{tableEntry.process.processId}}</a></td>
+                    <td><a [routerLink]="['/processes/', tableEntry.process.processId]">{{tableEntry.process.scriptName}}</a></td>
+                    <td>{{tableEntry.user}}</td>
+                    <td>{{tableEntry.info}}</td>
+                    <td>
+                      <button [attr.aria-label]="'process.overview.delete-process' | translate"
+                        (click)="processBulkDeleteService.toggleDelete(tableEntry.process.processId)"
+                        class="btn btn-outline-danger">
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        </ds-pagination>
+      }
+
+      @if (processesRD?.payload?.totalElements === 0) {
+        <div>
+          <p>{{'process.overview.table.empty' | translate}}</p>
+        </div>
+      }
+    </ng-container>
+
+  </div>
+</div>

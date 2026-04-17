@@ -1,4 +1,8 @@
-import { hasNoValue, hasValue, isEmpty } from '../../shared/empty.util';
+import {
+  hasNoValue,
+  hasValue,
+  isEmpty,
+} from '../../shared/empty.util';
 import { GenericConstructor } from '../shared/generic-constructor';
 
 const excludedFromEquals = new Map();
@@ -90,7 +94,7 @@ export function excludeFromEquals(object: any, propertyName: string): any {
   excludedFromEquals.set(object.constructor, [...list, propertyName]);
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
 export function getExcludedFromEqualsFor(constructor: Function): string[] {
   return excludedFromEquals.get(constructor) || [];
 }
@@ -113,7 +117,7 @@ export function fieldsForEquals(...fields: string[]): any {
   };
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
 export function getFieldsForEquals(constructor: Function, field: string): string[] {
   const fieldMap = fieldsForEqualsMap.get(constructor) || new Map();
   return fieldMap.get(field);

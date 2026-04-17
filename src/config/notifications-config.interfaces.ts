@@ -1,5 +1,5 @@
-import { Config } from './config.interface';
 import { NotificationAnimationsType } from '../app/shared/notifications/models/notification-animations-type';
+import { Config } from './config.interface';
 
 export interface INotificationBoardOptions extends Config {
   rtl: boolean;

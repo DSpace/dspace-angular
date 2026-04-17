@@ -10,8 +10,9 @@
     (keyup.Space)="toggle()"
     role="button"
     [attr.aria-expanded]="isExpanded"
+    tabindex="0"
   >
     <i class="fas {{isExpanded ? 'fa-angle-up' : 'fa-angle-down'}}"></i>
-    <span class="ml-1">{{ 'item.truncatable-part.show-' + (isExpanded ? 'less' : 'more') | translate }}</span>
+    <span class="ms-1">{{ 'item.truncatable-part.show-' + (isExpanded ? 'less' : 'more') | translate }}</span>
   </button>
 </div>

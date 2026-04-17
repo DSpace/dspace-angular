@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { ThemedComponent } from '../shared/theme-support/themed.component';
 import { FooterComponent } from './footer.component';
 
@@ -6,8 +7,7 @@ import { FooterComponent } from './footer.component';
  * Themed wrapper for FooterComponent
  */
 @Component({
-  selector: 'ds-themed-footer',
-  styleUrls: [],
+  selector: 'ds-footer',
   templateUrl: '../shared/theme-support/themed.component.html',
 })
 export class ThemedFooterComponent extends ThemedComponent<FooterComponent> {

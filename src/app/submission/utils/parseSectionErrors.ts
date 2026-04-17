@@ -1,5 +1,8 @@
 import { SubmissionObjectError } from '../../core/submission/models/submission-object.model';
-import { default as parseSectionErrorPaths, SectionErrorPath } from './parseSectionErrorPaths';
+import {
+  default as parseSectionErrorPaths,
+  SectionErrorPath,
+} from './parseSectionErrorPaths';
 
 /**
  * the following method accept an array of SubmissionObjectError and return a section errors object
@@ -13,7 +16,7 @@ const parseSectionErrors = (errors: SubmissionObjectError[] = []): any => {
     const paths: SectionErrorPath[] = parseSectionErrorPaths(error.paths);
 
     paths.forEach((path: SectionErrorPath) => {
-      const sectionError = {path: path.originalPath, message: error.message};
+      const sectionError = { path: path.originalPath, message: error.message };
       if (!errorsList[path.sectionId]) {
         errorsList[path.sectionId] = [];
       }

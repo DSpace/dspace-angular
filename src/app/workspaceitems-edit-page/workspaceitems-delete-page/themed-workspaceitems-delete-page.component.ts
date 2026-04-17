@@ -1,15 +1,14 @@
-import { ThemedComponent } from '../../shared/theme-support/themed.component';
 import { Component } from '@angular/core';
+
+import { ThemedComponent } from '../../shared/theme-support/themed.component';
 import { WorkspaceItemsDeletePageComponent } from './workspaceitems-delete-page.component';
 
 /**
- * Themed wrapper for WorkspaceItemsDeletePageComponent
+ * Themed wrapper for {@link WorkspaceItemsDeletePageComponent}
  */
-
 @Component({
-  selector: 'ds-themed-workspace-items-delete',
-  styleUrls: [],
-  templateUrl: './../../shared/theme-support/themed.component.html'
+  selector: 'ds-workspace-items-delete',
+  templateUrl: './../../shared/theme-support/themed.component.html',
 })
 export class ThemedWorkspaceItemsDeletePageComponent extends ThemedComponent<WorkspaceItemsDeletePageComponent> {
   protected getComponentName(): string {
@@ -17,10 +16,10 @@ export class ThemedWorkspaceItemsDeletePageComponent extends ThemedComponent<Wor
   }
 
   protected importThemedComponent(themeName: string): Promise<any> {
-    return import(`../../../themes/${themeName}/app/workflowitems-edit-page/workflow-item-delete/workflow-item-delete.component`);
+    return import(`../../../themes/${themeName}/app/workspaceitems-edit-page/workspaceitems-delete-page/workspaceitems-delete-page.component`);
   }
 
   protected importUnthemedComponent(): Promise<any> {
-    return import(`./workspaceitems-delete-page.component`);
+    return import('./workspaceitems-delete-page.component');
   }
 }

@@ -1,23 +1,37 @@
 import { Injectable } from '@angular/core';
-import { combineLatest as observableCombineLatest, EMPTY, expand, from, Observable, reduce } from 'rxjs';
-import { map, mergeMap, toArray } from 'rxjs/operators';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+} from 'rxjs';
+import {
+  map,
+  mergeMap,
+  switchMap,
+  toArray,
+} from 'rxjs/operators';
+
 import { hasValue } from '../../shared/empty.util';
-import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import {
+  followLink,
+  FollowLinkConfig,
+} from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { RequestParam } from '../cache/models/request-param.model';
+import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { ItemType } from '../shared/item-relationships/item-type.model';
 import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
-import { RELATIONSHIP_TYPE } from '../shared/item-relationships/relationship-type.resource-type';
-import { getFirstCompletedRemoteData, getFirstSucceededRemoteData, getRemoteDataPayload } from '../shared/operators';
-import { PaginatedList } from './paginated-list.model';
-import { RemoteData } from './remote-data';
-import { RequestService } from './request.service';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '../shared/operators';
 import { BaseDataService } from './base/base-data.service';
 import { FindAllDataImpl } from './base/find-all-data';
 import { SearchDataImpl } from './base/search-data';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { dataService } from './base/data-service.decorator';
-import { RequestParam } from '../cache/models/request-param.model';
+import { PaginatedList } from './paginated-list.model';
+import { RemoteData } from './remote-data';
+import { RequestService } from './request.service';
 
 /**
  * Check if one side of a RelationshipType is the ItemType with the given label
@@ -31,8 +45,7 @@ const checkSide = (typeRd: RemoteData<ItemType>, label: string): boolean =>
 /**
  * The service handling all relationship type requests
  */
-@Injectable()
-@dataService(RELATIONSHIP_TYPE)
+@Injectable({ providedIn: 'root' })
 export class RelationshipTypeDataService extends BaseDataService<RelationshipType> {
   private searchData: SearchDataImpl<RelationshipType>;
   private findAllData: FindAllDataImpl<RelationshipType>;
@@ -62,26 +75,11 @@ export class RelationshipTypeDataService extends BaseDataService<RelationshipTyp
    */
   getRelationshipTypeByLabelAndTypes(relationshipTypeLabel: string, firstItemType: string, secondItemType: string): Observable<RelationshipType> {
     // Retrieve all relationship types from the server in a single page
-    const initialPageInfo = { currentPage: 1, elementsPerPage: 20 };
-    return this.findAllData.findAll(initialPageInfo, true, true, followLink('leftType'), followLink('rightType'))
+    return this.findAllData.findAll({ currentPage: 1, elementsPerPage: 9999 }, true, true, followLink('leftType'), followLink('rightType'))
       .pipe(
         getFirstSucceededRemoteData(),
         // Emit each type in the page array separately
-        expand((typeListRD: RemoteData<PaginatedList<RelationshipType>>) => {
-          const currentPage = typeListRD.payload.pageInfo.currentPage;
-          const totalPages = typeListRD.payload.pageInfo.totalPages;
-          if (currentPage < totalPages) {
-            const nextPageInfo = { currentPage: currentPage + 1, elementsPerPage: 20 };
-            return this.findAllData.findAll(nextPageInfo, true, true, followLink('leftType'), followLink('rightType')).pipe(
-              getFirstSucceededRemoteData()
-            );
-          } else {
-            return EMPTY;
-          }
-        }),
-        // Collect all pages into a single array
-        reduce((acc: RelationshipType[], typeListRD: RemoteData<PaginatedList<RelationshipType>>) => acc.concat(typeListRD.payload.page), []),
-        mergeMap((relationshipTypes: RelationshipType[]) => from(relationshipTypes)),
+        switchMap((typeListRD: RemoteData<PaginatedList<RelationshipType>>) => typeListRD.payload.page),
         // Check each type individually, to see if it matches the provided types
         mergeMap((relationshipType: RelationshipType) => {
           if (relationshipType.leftwardType === relationshipTypeLabel) {
@@ -119,7 +117,7 @@ export class RelationshipTypeDataService extends BaseDataService<RelationshipTyp
   private checkType(type: RelationshipType, leftItemType: string, rightItemType: string): Observable<RelationshipType> {
     return observableCombineLatest([
       type.leftType.pipe(getFirstCompletedRemoteData()),
-      type.rightType.pipe(getFirstCompletedRemoteData())
+      type.rightType.pipe(getFirstCompletedRemoteData()),
     ]).pipe(
       map(([leftTypeRD, rightTypeRD]: [RemoteData<ItemType>, RemoteData<ItemType>]) => {
         if (checkSide(leftTypeRD, leftItemType) && checkSide(rightTypeRD, rightItemType)
@@ -128,7 +126,7 @@ export class RelationshipTypeDataService extends BaseDataService<RelationshipTyp
         } else {
           return null;
         }
-      })
+      }),
     );
   }
 

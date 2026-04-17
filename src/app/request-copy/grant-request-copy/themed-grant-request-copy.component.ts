@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { ThemedComponent } from 'src/app/shared/theme-support/themed.component';
+
 import { GrantRequestCopyComponent } from './grant-request-copy.component';
 
 /**
  * Themed wrapper for grant-request-copy.component
  */
 @Component({
-  selector: 'ds-themed-grant-request-copy',
-  styleUrls: [],
+  selector: 'ds-grant-request-copy',
   templateUrl: './../../shared/theme-support/themed.component.html',
 })
 

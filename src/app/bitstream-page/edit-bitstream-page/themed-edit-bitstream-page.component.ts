@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { EditBitstreamPageComponent } from './edit-bitstream-page.component';
+
 import { ThemedComponent } from '../../shared/theme-support/themed.component';
+import { EditBitstreamPageComponent } from './edit-bitstream-page.component';
 
 @Component({
-  selector: 'ds-themed-edit-bitstream-page',
-  styleUrls: [],
+  selector: 'ds-edit-bitstream-page',
   templateUrl: '../../shared/theme-support/themed.component.html',
 })
 export class ThemedEditBitstreamPageComponent extends ThemedComponent<EditBitstreamPageComponent> {

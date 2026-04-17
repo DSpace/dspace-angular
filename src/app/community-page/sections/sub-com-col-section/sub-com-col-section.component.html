@@ -1,0 +1,8 @@
+@if ((community$ | async); as community) {
+  <ds-community-page-sub-community-list
+    [community]="community">
+  </ds-community-page-sub-community-list>
+  <ds-community-page-sub-collection-list
+    [community]="community">
+  </ds-community-page-sub-collection-list>
+}

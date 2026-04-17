@@ -1,12 +1,11 @@
-<ng-container *ngIf="(workflowitem$ | async) && (item$ | async)">
+@if ((workflowitem$ | async) && (item$ | async)) {
   <ds-item-detail-preview [item]="item$?.value"
-                          [object]="object"
-                          [showSubmitter]="showSubmitter"
-                          [badgeContext]="badgeContext"></ds-item-detail-preview>
-
+    [object]="object"
+    [showSubmitter]="showSubmitter"
+  [badgeContext]="badgeContext"></ds-item-detail-preview>
   <ds-pool-task-actions [item]="item$.value"
-                        [object]="dso"
-                        [workflowitem]="workflowitem$.value"
-                        (processCompleted)="reloadedObject.emit($event.reloadedObject)"></ds-pool-task-actions>
-</ng-container>
+    [object]="dso"
+    [workflowitem]="workflowitem$.value"
+  (processCompleted)="reloadedObject.emit($event.reloadedObject)"></ds-pool-task-actions>
+}
 

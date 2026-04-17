@@ -1,28 +1,35 @@
-import { ItemBitstreamsService, SelectedBitstreamTableEntry } from './item-bitstreams.service';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { getMockTranslateService } from '../../../shared/mocks/translate.service.mock';
-import { ObjectUpdatesServiceStub } from '../../../core/data/object-updates/object-updates.service.stub';
-import { BitstreamDataServiceStub } from '../../../shared/testing/bitstream-data-service.stub';
-import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
+import {
+  fakeAsync,
+  tick,
+} from '@angular/core/testing';
 import { TranslateService } from '@ngx-translate/core';
-import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
+import { of } from 'rxjs';
+
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
+import { BundleDataService } from '../../../core/data/bundle-data.service';
+import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
+import { ObjectUpdatesServiceStub } from '../../../core/data/object-updates/object-updates.service.stub';
+import { RequestService } from '../../../core/data/request.service';
 import { Bitstream } from '../../../core/shared/bitstream.model';
 import { BitstreamFormat } from '../../../core/shared/bitstream-format.model';
-import {
-  createSuccessfulRemoteDataObject$,
-  createFailedRemoteDataObject,
-  createSuccessfulRemoteDataObject
-} from '../../../shared/remote-data.utils';
-import { BundleDataService } from '../../../core/data/bundle-data.service';
-import { RequestService } from '../../../core/data/request.service';
-import { LiveRegionService } from '../../../shared/live-region/live-region.service';
 import { Bundle } from '../../../core/shared/bundle.model';
-import { of } from 'rxjs';
+import { LiveRegionService } from '../../../shared/live-region/live-region.service';
 import { getLiveRegionServiceStub } from '../../../shared/live-region/live-region.service.stub';
-import { fakeAsync, tick } from '@angular/core/testing';
+import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
+import { getMockTranslateService } from '../../../shared/mocks/translate.service.mock';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import {
+  createFailedRemoteDataObject,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../shared/remote-data.utils';
+import { BitstreamDataServiceStub } from '../../../shared/testing/bitstream-data-service.stub';
+import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
+import {
+  ItemBitstreamsService,
+  SelectedBitstreamTableEntry,
+} from './item-bitstreams.service';
 import createSpy = jasmine.createSpy;
 import { MoveOperation } from 'fast-json-patch';
 
@@ -68,7 +75,7 @@ describe('ItemBitstreamsService', () => {
       name: 'bitstream name',
     } as any,
     bundle: Object.assign(new Bundle(), {
-      _links: { self: { href: 'self_link' }},
+      _links: { self: { href: 'self_link' } },
     }),
     bundleSize: 10,
     currentPosition: 0,
@@ -198,7 +205,7 @@ describe('ItemBitstreamsService', () => {
         {
           originalPosition: 5,
           currentPosition: 7,
-        }
+        },
       );
 
       spyOn(service, 'displaySuccessNotification');
@@ -213,7 +220,7 @@ describe('ItemBitstreamsService', () => {
         {
           originalPosition: 7,
           currentPosition: 7,
-        }
+        },
       );
 
       spyOn(service, 'displaySuccessNotification');
@@ -279,7 +286,7 @@ describe('ItemBitstreamsService', () => {
         {
           originalPosition: 7,
           currentPosition: 7,
-        }
+        },
       );
 
       spyOn(service, 'announceClear');
@@ -297,7 +304,7 @@ describe('ItemBitstreamsService', () => {
         {
           originalPosition: 5,
           currentPosition: 7,
-        }
+        },
       );
 
       spyOn(service, 'announceClear');
@@ -315,7 +322,7 @@ describe('ItemBitstreamsService', () => {
         {
           originalPosition: 5,
           currentPosition: 7,
-        }
+        },
       );
 
       spyOn(service, 'performBitstreamMoveRequest');
@@ -331,7 +338,7 @@ describe('ItemBitstreamsService', () => {
         {
           originalPosition: 7,
           currentPosition: 7,
-        }
+        },
       );
 
       spyOn(service, 'performBitstreamMoveRequest');
@@ -369,14 +376,14 @@ describe('ItemBitstreamsService', () => {
           {
             originalPosition: 5,
             currentPosition: startPosition,
-          }
+          },
         );
 
         const movedEntry = Object.assign({}, defaultEntry,
           {
             originalPosition: 5,
             currentPosition: endPosition,
-          }
+          },
         );
 
         service.selectBitstreamEntry(entry);
@@ -400,14 +407,14 @@ describe('ItemBitstreamsService', () => {
           {
             originalPosition: 5,
             currentPosition: startPosition,
-          }
+          },
         );
 
         const movedEntry = Object.assign({}, defaultEntry,
           {
             originalPosition: 5,
             currentPosition: endPosition,
-          }
+          },
         );
 
         service.selectBitstreamEntry(entry);
@@ -433,7 +440,7 @@ describe('ItemBitstreamsService', () => {
           {
             originalPosition: 5,
             currentPosition: startPosition,
-          }
+          },
         );
 
         service.selectBitstreamEntry(entry);
@@ -447,7 +454,7 @@ describe('ItemBitstreamsService', () => {
           {
             originalPosition: 5,
             currentPosition: 0,
-          }
+          },
         );
 
         service.selectBitstreamEntry(entry);
@@ -472,14 +479,14 @@ describe('ItemBitstreamsService', () => {
           {
             originalPosition: 5,
             currentPosition: startPosition,
-          }
+          },
         );
 
         const movedEntry = Object.assign({}, defaultEntry,
           {
             originalPosition: 5,
             currentPosition: endPosition,
-          }
+          },
         );
 
         service.selectBitstreamEntry(entry);
@@ -503,14 +510,14 @@ describe('ItemBitstreamsService', () => {
           {
             originalPosition: 5,
             currentPosition: startPosition,
-          }
+          },
         );
 
         const movedEntry = Object.assign({}, defaultEntry,
           {
             originalPosition: 5,
             currentPosition: endPosition,
-          }
+          },
         );
 
         service.selectBitstreamEntry(entry);
@@ -536,7 +543,7 @@ describe('ItemBitstreamsService', () => {
           {
             originalPosition: 5,
             currentPosition: startPosition,
-          }
+          },
         );
 
         service.selectBitstreamEntry(entry);
@@ -550,7 +557,7 @@ describe('ItemBitstreamsService', () => {
           {
             originalPosition: 5,
             currentPosition: 9,
-          }
+          },
         );
 
         service.selectBitstreamEntry(entry);

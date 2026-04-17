@@ -1,25 +1,37 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ChangeDetectorRef, ElementRef, NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  ElementRef,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
-import { CollectionDropdownComponent } from './collection-dropdown.component';
-import { buildPaginatedList } from '../../core/data/paginated-list.model';
-import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
-import { PageInfo } from '../../core/shared/page-info.model';
-import { Collection } from '../../core/shared/collection.model';
 import { CollectionDataService } from '../../core/data/collection-data.service';
-import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
+import { buildPaginatedList } from '../../core/data/paginated-list.model';
+import { Collection } from '../../core/shared/collection.model';
 import { Community } from '../../core/shared/community.model';
+import { PageInfo } from '../../core/shared/page-info.model';
+import { getMockThemeService } from '../mocks/theme-service.mock';
+import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
+import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { MockElementRef } from '../testing/element-ref.mock';
+import { ThemeService } from '../theme-support/theme.service';
+import { CollectionDropdownComponent } from './collection-dropdown.component';
 
 const community: Community = Object.assign(new Community(), {
   id: 'ce64f48e-2c9b-411a-ac36-ee429c0e6a88',
   uuid: 'ce64f48e-2c9b-411a-ac36-ee429c0e6a88',
-  name: 'Community 1'
+  name: 'Community 1',
 });
 
 const collections: Collection[] = [
@@ -30,9 +42,9 @@ const collections: Collection[] = [
       {
         key: 'dc.title',
         language: 'en_US',
-        value: 'Community 1-Collection 1'
+        value: 'Community 1-Collection 1',
       }],
-    parentCommunity: createSuccessfulRemoteDataObject$(community)
+    parentCommunity: createSuccessfulRemoteDataObject$(community),
   }),
   Object.assign(new Collection(), {
     id: '59ee713b-ee53-4220-8c3f-9860dc84fe33',
@@ -41,9 +53,9 @@ const collections: Collection[] = [
       {
         key: 'dc.title',
         language: 'en_US',
-        value: 'Community 1-Collection 2'
+        value: 'Community 1-Collection 2',
       }],
-    parentCommunity: createSuccessfulRemoteDataObject$(community)
+    parentCommunity: createSuccessfulRemoteDataObject$(community),
   }),
   Object.assign(new Collection(), {
     id: 'e9dbf393-7127-415f-8919-55be34a6e9ed',
@@ -52,9 +64,9 @@ const collections: Collection[] = [
       {
         key: 'dc.title',
         language: 'en_US',
-        value: 'Community 1-Collection 3'
+        value: 'Community 1-Collection 3',
       }],
-    parentCommunity: createSuccessfulRemoteDataObject$(community)
+    parentCommunity: createSuccessfulRemoteDataObject$(community),
   }),
   Object.assign(new Collection(), {
     id: '59da2ff0-9bf4-45bf-88be-e35abd33f304',
@@ -63,9 +75,9 @@ const collections: Collection[] = [
       {
         key: 'dc.title',
         language: 'en_US',
-        value: 'Community 1-Collection 4'
+        value: 'Community 1-Collection 4',
       }],
-    parentCommunity: createSuccessfulRemoteDataObject$(community)
+    parentCommunity: createSuccessfulRemoteDataObject$(community),
   }),
   Object.assign(new Collection(), {
     id: 'a5159760-f362-4659-9e81-e3253ad91ede',
@@ -74,24 +86,24 @@ const collections: Collection[] = [
       {
         key: 'dc.title',
         language: 'en_US',
-        value: 'Community 1-Collection 5'
+        value: 'Community 1-Collection 5',
       }],
-    parentCommunity: createSuccessfulRemoteDataObject$(community)
-  })
+    parentCommunity: createSuccessfulRemoteDataObject$(community),
+  }),
 ];
 
 const listElementMock = {
   communities: [
     {
       id: 'ce64f48e-2c9b-411a-ac36-ee429c0e6a88',
-      name: 'Community 1'
-    }
+      name: 'Community 1',
+    },
   ],
   collection: {
     id: 'e9dbf393-7127-415f-8919-55be34a6e9ed',
     uuid: 'e9dbf393-7127-415f-8919-55be34a6e9ed',
-    name: 'Collection 3'
-  }
+    name: 'Collection 3',
+  },
 };
 
 describe('CollectionDropdownComponent', () => {
@@ -100,9 +112,11 @@ describe('CollectionDropdownComponent', () => {
   let fixture: ComponentFixture<CollectionDropdownComponent>;
   let scheduler: TestScheduler;
 
+  let themeService = getMockThemeService();
+
   const collectionDataServiceMock: any = jasmine.createSpyObj('CollectionDataService', {
     getAuthorizedCollection: jasmine.createSpy('getAuthorizedCollection'),
-    getAuthorizedCollectionByEntityType: jasmine.createSpy('getAuthorizedCollectionByEntityType')
+    getAuthorizedCollectionByEntityType: jasmine.createSpy('getAuthorizedCollectionByEntityType'),
   });
 
   const paginatedCollection = buildPaginatedList(new PageInfo(), collections);
@@ -117,17 +131,18 @@ describe('CollectionDropdownComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
+            useClass: TranslateLoaderMock,
+          },
+        }),
+        CollectionDropdownComponent,
       ],
-      declarations: [CollectionDropdownComponent],
       providers: [
         { provide: CollectionDataService, useValue: collectionDataServiceMock },
         { provide: ElementRef, useClass: MockElementRef },
-        ChangeDetectorRef
+        ChangeDetectorRef,
+        { provide: ThemeService, useValue: themeService },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
       .compileComponents();
   }));
@@ -241,7 +256,7 @@ describe('CollectionDropdownComponent', () => {
 
     const expectedTheOnlySelectable = {
       communities: [ { id: 'ce64f48e-2c9b-411a-ac36-ee429c0e6a88', name: 'Community 1', uuid: 'ce64f48e-2c9b-411a-ac36-ee429c0e6a88' } ],
-      collection: { id: 'ce64f48e-2c9b-411a-ac36-ee429c0e6a88', uuid: 'ce64f48e-2c9b-411a-ac36-ee429c0e6a88', name: 'Collection 1' }
+      collection: { id: 'ce64f48e-2c9b-411a-ac36-ee429c0e6a88', uuid: 'ce64f48e-2c9b-411a-ac36-ee429c0e6a88', name: 'Collection 1' },
     };
 
     expect(component.theOnlySelectable.emit).toHaveBeenCalledWith(expectedTheOnlySelectable);

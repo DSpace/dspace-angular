@@ -1,11 +1,11 @@
+import { Component } from '@angular/core';
+
 import { ThemedComponent } from '../../shared/theme-support/themed.component';
 import { CommunityListComponent } from './community-list.component';
-import { Component } from '@angular/core';
 
 
 @Component({
-  selector: 'ds-themed-community-list',
-  styleUrls: [],
+  selector: 'ds-community-list',
   templateUrl: '../../shared/theme-support/themed.component.html',
 })
 export class ThemedCommunityListComponent extends ThemedComponent<CommunityListComponent> {

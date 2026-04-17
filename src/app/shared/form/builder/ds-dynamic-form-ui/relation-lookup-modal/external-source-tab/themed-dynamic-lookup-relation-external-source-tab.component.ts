@@ -1,16 +1,21 @@
-import { ThemedComponent } from '../../../../../theme-support/themed.component';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { RelationshipOptions } from '../../../models/relationship-options.model';
-import { ListableObject } from '../../../../../object-collection/shared/listable-object.model';
-import { Context } from '../../../../../../core/shared/context.model';
-import { Item } from '../../../../../../core/shared/item.model';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
+
 import { Collection } from '../../../../../../core/shared/collection.model';
+import { Context } from '../../../../../../core/shared/context.model';
 import { ExternalSource } from '../../../../../../core/shared/external-source.model';
+import { Item } from '../../../../../../core/shared/item.model';
+import { ListableObject } from '../../../../../object-collection/shared/listable-object.model';
+import { ThemedComponent } from '../../../../../theme-support/themed.component';
+import { RelationshipOptions } from '../../../models/relationship-options.model';
 import { DsDynamicLookupRelationExternalSourceTabComponent } from './dynamic-lookup-relation-external-source-tab.component';
 
 @Component({
-  selector: 'ds-themed-dynamic-lookup-relation-external-source-tab',
-  styleUrls: [],
+  selector: 'ds-dynamic-lookup-relation-external-source-tab',
   templateUrl: '../../../../../theme-support/themed.component.html',
 })
 export class ThemedDynamicLookupRelationExternalSourceTabComponent extends ThemedComponent<DsDynamicLookupRelationExternalSourceTabComponent> {

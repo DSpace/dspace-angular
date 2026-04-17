@@ -1,11 +1,15 @@
-import { ReferrerService } from './referrer.service';
+import {
+  DOCUMENT,
+  Inject,
+  Injectable,
+} from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+
 import { hasNoValue } from '../../shared/empty.util';
 import { URLCombiner } from '../url-combiner/url-combiner';
-import { Inject, Injectable } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
 import { HardRedirectService } from './hard-redirect.service';
+import { ReferrerService } from './referrer.service';
 import { RouteService } from './route.service';
 
 /**
@@ -46,9 +50,9 @@ export class BrowserReferrerService extends ReferrerService {
           const reversedHistory = [...history].reverse();
           // and find the first URL that differs from the current one
           const prevUrl = reversedHistory.find((url: string) => url !== currentURL);
-          return new URLCombiner(this.hardRedirectService.getCurrentOrigin(), prevUrl).toString();
+          return new URLCombiner(this.hardRedirectService.getBaseUrl(), prevUrl).toString();
         }
-      })
+      }),
     );
   }
 }

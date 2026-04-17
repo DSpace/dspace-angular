@@ -1,25 +1,43 @@
-import { ItemEditBitstreamBundleComponent } from './item-edit-bitstream-bundle.component';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { NO_ERRORS_SCHEMA, ViewContainerRef } from '@angular/core';
-import { Item } from '../../../../core/shared/item.model';
-import { Bundle } from '../../../../core/shared/bundle.model';
-import { ResponsiveTableSizes } from '../../../../shared/responsive-table-sizes/responsive-table-sizes';
-import { ResponsiveColumnSizes } from '../../../../shared/responsive-table-sizes/responsive-column-sizes';
-import { BundleDataService } from '../../../../core/data/bundle-data.service';
-import { of as observableOf, of, Subject } from 'rxjs';
-import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
-import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';
-import { RequestService } from '../../../../core/data/request.service';
-import { getMockRequestService } from '../../../../shared/mocks/request.service.mock';
-import { ItemBitstreamsService, BitstreamTableEntry, SelectedBitstreamTableEntry } from '../item-bitstreams.service';
-import { PaginationService } from '../../../../core/pagination/pagination.service';
-import { getItemBitstreamsServiceStub, ItemBitstreamsServiceStub } from '../item-bitstreams.service.stub';
-import { FieldUpdate } from '../../../../core/data/object-updates/field-update.model';
-import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
-import { createPaginatedList } from '../../../../shared/testing/utils.test';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
+import {
+  NO_ERRORS_SCHEMA,
+  ViewContainerRef,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  of,
+  Subject,
+} from 'rxjs';
+
+import { BundleDataService } from '../../../../core/data/bundle-data.service';
+import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
+import { FieldUpdate } from '../../../../core/data/object-updates/field-update.model';
+import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
+import { RequestService } from '../../../../core/data/request.service';
+import { PaginationService } from '../../../../core/pagination/pagination.service';
+import { Bundle } from '../../../../core/shared/bundle.model';
+import { Item } from '../../../../core/shared/item.model';
+import { getMockRequestService } from '../../../../shared/mocks/request.service.mock';
+import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
+import { ResponsiveColumnSizes } from '../../../../shared/responsive-table-sizes/responsive-column-sizes';
+import { ResponsiveTableSizes } from '../../../../shared/responsive-table-sizes/responsive-table-sizes';
+import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';
+import { createPaginatedList } from '../../../../shared/testing/utils.test';
+import {
+  BitstreamTableEntry,
+  ItemBitstreamsService,
+  SelectedBitstreamTableEntry,
+} from '../item-bitstreams.service';
+import {
+  getItemBitstreamsServiceStub,
+  ItemBitstreamsServiceStub,
+} from '../item-bitstreams.service.stub';
+import { ItemEditBitstreamBundleComponent } from './item-edit-bitstream-bundle.component';
 
 describe('ItemEditBitstreamBundleComponent', () => {
   let comp: ItemEditBitstreamBundleComponent;
@@ -30,24 +48,24 @@ describe('ItemEditBitstreamBundleComponent', () => {
     new ResponsiveColumnSizes(2, 2, 3, 4, 4),
     new ResponsiveColumnSizes(2, 3, 3, 3, 3),
     new ResponsiveColumnSizes(2, 2, 2, 2, 2),
-    new ResponsiveColumnSizes(6, 5, 4, 3, 3)
+    new ResponsiveColumnSizes(6, 5, 4, 3, 3),
   ]);
 
   const item = Object.assign(new Item(), {
     id: 'item-1',
-    uuid: 'item-1'
+    uuid: 'item-1',
   });
   const bundle = Object.assign(new Bundle(), {
     id: 'bundle-1',
     uuid: 'bundle-1',
     _links: {
-      self: { href: 'bundle-1-selflink' }
-    }
+      self: { href: 'bundle-1-selflink' },
+    },
   });
 
   const restEndpoint = 'fake-rest-endpoint';
   const bundleService = jasmine.createSpyObj('bundleService', {
-    getBitstreamsEndpoint: observableOf(restEndpoint),
+    getBitstreamsEndpoint: of(restEndpoint),
     getBitstreams: createSuccessfulRemoteDataObject$(createPaginatedList([])),
   });
 
@@ -63,8 +81,7 @@ describe('ItemEditBitstreamBundleComponent', () => {
     itemBitstreamsService = getItemBitstreamsServiceStub();
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [ItemEditBitstreamBundleComponent],
+      imports: [TranslateModule.forRoot(), ItemEditBitstreamBundleComponent],
       providers: [
         { provide: BundleDataService, useValue: bundleService },
         { provide: ObjectUpdatesService, useValue: objectUpdatesService },
@@ -73,8 +90,8 @@ describe('ItemEditBitstreamBundleComponent', () => {
         { provide: ItemBitstreamsService, useValue: itemBitstreamsService },
       ],
       schemas: [
-        NO_ERRORS_SCHEMA
-      ]
+        NO_ERRORS_SCHEMA,
+      ],
     }).compileComponents();
   }));
 
@@ -163,7 +180,7 @@ describe('ItemEditBitstreamBundleComponent', () => {
   describe('getRowClass', () => {
     it('should return \'table-info\' when the bitstream is the selected bitstream', () => {
       itemBitstreamsService.getSelectedBitstream.and.returnValue({
-        bitstream: { id: 'bitstream-id'}
+        bitstream: { id: 'bitstream-id' },
       });
 
       const bitstreamEntry = {

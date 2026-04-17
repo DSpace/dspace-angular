@@ -1,17 +1,49 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Item } from '../../../core/shared/item.model';
-import { ObjectSelectComponent } from '../object-select/object-select.component';
-import { hasValueOperator, isNotEmpty } from '../../empty.util';
+import {
+  AsyncPipe,
+  NgClass,
+} from '@angular/common';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { getAllSucceededRemoteDataPayload } from '../../../core/shared/operators';
 import { map } from 'rxjs/operators';
-import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
+
 import { PaginatedList } from '../../../core/data/paginated-list.model';
+import { Item } from '../../../core/shared/item.model';
+import { getAllSucceededRemoteDataPayload } from '../../../core/shared/operators';
+import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
+import { BtnDisabledDirective } from '../../btn-disabled.directive';
+import {
+  hasValueOperator,
+  isNotEmpty,
+} from '../../empty.util';
+import { ErrorComponent } from '../../error/error.component';
+import { ThemedLoadingComponent } from '../../loading/themed-loading.component';
+import { PaginationComponent } from '../../pagination/pagination.component';
+import { VarDirective } from '../../utils/var.directive';
 import { DSpaceObjectSelect } from '../object-select.model';
+import { ObjectSelectComponent } from '../object-select/object-select.component';
 
 @Component({
   selector: 'ds-item-select',
-  templateUrl: './item-select.component.html'
+  templateUrl: './item-select.component.html',
+  imports: [
+    AsyncPipe,
+    BtnDisabledDirective,
+    ErrorComponent,
+    FormsModule,
+    NgClass,
+    PaginationComponent,
+    RouterLink,
+    ThemedLoadingComponent,
+    TranslateModule,
+    VarDirective,
+  ],
 })
 
 /**
@@ -27,7 +59,7 @@ export class ItemSelectComponent extends ObjectSelectComponent<Item> implements 
 
   /**
    * Collection of all the data that is used to display the {@link Item} in the HTML.
-   * By collecting this data here it doesn't need to be recalculated on evey change detection.
+   * By collecting this data here it doesn't need to be recalculated on every change detection.
    */
   selectItems$: Observable<DSpaceObjectSelect<Item>[]>;
 

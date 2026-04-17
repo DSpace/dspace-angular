@@ -1,11 +1,27 @@
-import { AfterViewChecked, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { TruncatableService } from '../truncatable.service';
+
+import {
+  AfterViewChecked,
+  Component,
+  ElementRef,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { hasValue } from '../../empty.util';
+import { DragClickDirective } from '../../utils/drag-click.directive';
+import { TruncatableService } from '../truncatable.service';
 
 @Component({
   selector: 'ds-truncatable-part',
   templateUrl: './truncatable-part.component.html',
-  styleUrls: ['./truncatable-part.component.scss']
+  styleUrls: ['./truncatable-part.component.scss'],
+  imports: [
+    DragClickDirective,
+    TranslateModule,
+  ],
 })
 
 /**
@@ -49,7 +65,7 @@ export class TruncatablePartComponent implements AfterViewChecked, OnInit, OnDes
   /**
    * The view on the truncatable part
    */
-  @ViewChild('content', {static: true}) content: ElementRef;
+  @ViewChild('content', { static: true }) content: ElementRef;
 
   /**
    * Current amount of lines shown of this part
@@ -111,24 +127,10 @@ export class TruncatablePartComponent implements AfterViewChecked, OnInit, OnDes
   public truncateElement() {
     if (this.showToggle) {
       const entry = this.content.nativeElement;
-      if (entry.scrollHeight > entry.offsetHeight) {
-        if (entry.children.length > 0) {
-          if (entry.children[entry.children.length - 1].offsetHeight > entry.offsetHeight) {
-            entry.classList.add('truncated');
-            entry.classList.remove('removeFaded');
-          } else {
-            entry.classList.remove('truncated');
-            entry.classList.add('removeFaded');
-          }
-        } else {
-          if (entry.innerText.length > 0) {
-            entry.classList.add('truncated');
-            entry.classList.remove('removeFaded');
-          } else {
-            entry.classList.remove('truncated');
-            entry.classList.add('removeFaded');
-          }
-        }
+      const isOverflowing = entry.scrollHeight > entry.clientHeight;
+      if (isOverflowing) {
+        entry.classList.add('truncated');
+        entry.classList.remove('removeFaded');
       } else {
         entry.classList.remove('truncated');
         entry.classList.add('removeFaded');

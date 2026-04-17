@@ -1,4 +1,8 @@
 import {
+  AsyncPipe,
+  NgClass,
+} from '@angular/common';
+import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -11,19 +15,43 @@ import {
   SimpleChanges,
   ViewEncapsulation,
 } from '@angular/core';
+import {
+  NgbDropdownModule,
+  NgbPaginationModule,
+  NgbTooltip,
+} from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  Observable,
+  of,
+  Subscription,
+} from 'rxjs';
+import {
+  map,
+  startWith,
+  switchMap,
+  take,
+} from 'rxjs/operators';
 
-import { Observable, of as observableOf, Subscription, switchMap } from 'rxjs';
-
-import { HostWindowService } from '../host-window.service';
-import { PaginationComponentOptions } from './pagination-component-options.model';
-import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
-import { hasValue, hasValueOperator } from '../empty.util';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { map, take, startWith } from 'rxjs/operators';
-import { RemoteData } from '../../core/data/remote-data';
+import {
+  SortDirection,
+  SortOptions,
+} from '../../core/cache/models/sort-options.model';
 import { PaginatedList } from '../../core/data/paginated-list.model';
-import { ListableObject } from '../object-collection/shared/listable-object.model';
+import { RemoteData } from '../../core/data/remote-data';
+import { PaginationService } from '../../core/pagination/pagination.service';
+import { PaginationRouteParams } from '../../core/pagination/pagination-route-params.interface';
 import { ViewMode } from '../../core/shared/view-mode.model';
+import { BtnDisabledDirective } from '../btn-disabled.directive';
+import {
+  hasValue,
+  hasValueOperator,
+} from '../empty.util';
+import { HostWindowService } from '../host-window.service';
+import { ListableObject } from '../object-collection/shared/listable-object.model';
+import { RSSComponent } from '../rss-feed/rss.component';
+import { EnumKeysPipe } from '../utils/enum-keys-pipe';
+import { PaginationComponentOptions } from './pagination-component-options.model';
 
 interface PaginationDetails {
   range: string;
@@ -39,7 +67,18 @@ interface PaginationDetails {
   styleUrls: ['pagination.component.scss'],
   templateUrl: 'pagination.component.html',
   changeDetection: ChangeDetectionStrategy.Default,
-  encapsulation: ViewEncapsulation.Emulated
+  encapsulation: ViewEncapsulation.Emulated,
+  imports: [
+    AsyncPipe,
+    BtnDisabledDirective,
+    EnumKeysPipe,
+    NgbDropdownModule,
+    NgbPaginationModule,
+    NgbTooltip,
+    NgClass,
+    RSSComponent,
+    TranslateModule,
+  ],
 })
 export class PaginationComponent implements OnChanges, OnDestroy, OnInit {
   /**
@@ -123,6 +162,11 @@ export class PaginationComponent implements OnChanges, OnDestroy, OnInit {
   @Input() public hideGear = false;
 
   /**
+   * Option for hiding the gear
+   */
+  @Input() public hideSortOptions = false;
+
+  /**
    * Option for hiding the pager when there is less than 2 pages
    */
   @Input() public hidePagerWhenSinglePage = true;
@@ -132,6 +176,13 @@ export class PaginationComponent implements OnChanges, OnDestroy, OnInit {
    * After the page update the page will scroll back to the current pagination component.
    */
   @Input() public retainScrollPosition = false;
+
+  /**
+   * Options for showing or hiding the RSS syndication feed. This is useful for e.g. top-level community lists
+   * or other lists where an RSS feed doesn't make sense, but uses the same components as recent items or search result
+   * lists.
+   */
+  @Input() public showRSS: SortOptions | boolean = false;
 
   /**
    * Current page.
@@ -185,6 +236,11 @@ export class PaginationComponent implements OnChanges, OnDestroy, OnInit {
   public showingDetails$: Observable<PaginationDetails>;
 
   /**
+   * Whether the current pagination should show a bottom pages
+   */
+  showBottomPager$: Observable<boolean>;
+
+  /**
    * Array to track all subscriptions and unsubscribe them onDestroy
    * @type {Array}
    */
@@ -213,7 +269,7 @@ export class PaginationComponent implements OnChanges, OnDestroy, OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.collectionSize.currentValue !== changes.collectionSize.previousValue) {
+    if (hasValue(changes.collectionSize)) {
       this.showingDetails$ = this.getShowingDetails(this.collectionSize);
     }
   }
@@ -231,14 +287,13 @@ export class PaginationComponent implements OnChanges, OnDestroy, OnInit {
    * Initializes all default variables
    */
   private initializeConfig() {
-    // Set initial values
     this.id = this.paginationOptions.id || null;
     this.pageSizeOptions = this.paginationOptions.pageSizeOptions;
     this.currentPage$ = this.paginationService.getCurrentPagination(this.id, this.paginationOptions).pipe(
-      map((currentPagination) => currentPagination.currentPage)
+      map((currentPagination) => currentPagination.currentPage),
     );
     this.pageSize$ = this.paginationService.getCurrentPagination(this.id, this.paginationOptions).pipe(
-      map((currentPagination) => currentPagination.pageSize)
+      map((currentPagination) => currentPagination.pageSize),
     );
 
     let sortOptions: SortOptions;
@@ -247,12 +302,13 @@ export class PaginationComponent implements OnChanges, OnDestroy, OnInit {
     } else {
       sortOptions = new SortOptions(this.defaultSortField, this.defaultsortDirection);
     }
-      this.sortDirection$ = this.paginationService.getCurrentSort(this.id, sortOptions).pipe(
-        map((currentSort) => currentSort.direction)
-      );
-      this.sortField$ = this.paginationService.getCurrentSort(this.id, sortOptions).pipe(
-        map((currentSort) => currentSort.field)
-      );
+    this.sortDirection$ = this.paginationService.getCurrentSort(this.id, sortOptions).pipe(
+      map((currentSort) => currentSort.direction),
+    );
+    this.sortField$ = this.paginationService.getCurrentSort(this.id, sortOptions).pipe(
+      map((currentSort) => currentSort.field),
+    );
+    this.showBottomPager$ = this.shouldShowBottomPager;
   }
 
   constructor(
@@ -269,7 +325,7 @@ export class PaginationComponent implements OnChanges, OnDestroy, OnInit {
    *    The page being navigated to.
    */
   public doPageChange(page: number) {
-    this.updateParams({page: page.toString()});
+    this.updateParams({ page: page });
     this.emitPaginationChange();
   }
 
@@ -280,7 +336,7 @@ export class PaginationComponent implements OnChanges, OnDestroy, OnInit {
    *    The page size being navigated to.
    */
   public doPageSizeChange(pageSize: number) {
-    this.updateParams({ pageId: this.id, page: 1, pageSize: pageSize });
+    this.updateParams({ page: 1, pageSize: pageSize });
     this.emitPaginationChange();
   }
 
@@ -291,7 +347,7 @@ export class PaginationComponent implements OnChanges, OnDestroy, OnInit {
    *    The sort direction being navigated to.
    */
   public doSortDirectionChange(sortDirection: SortDirection) {
-    this.updateParams({ pageId: this.id, page: 1, sortDirection: sortDirection });
+    this.updateParams({ page: 1, sortDirection: sortDirection });
     this.emitPaginationChange();
   }
 
@@ -306,7 +362,7 @@ export class PaginationComponent implements OnChanges, OnDestroy, OnInit {
    * Update the current query params and optionally update the route
    * @param params
    */
-  private updateParams(params: {}) {
+  private updateParams(params: PaginationRouteParams) {
     this.paginationService.updateRoute(this.id, params, {}, this.retainScrollPosition);
   }
 
@@ -314,15 +370,14 @@ export class PaginationComponent implements OnChanges, OnDestroy, OnInit {
    * Method to get pagination details of the current viewed page.
    */
   public getShowingDetails(collectionSize: number): Observable<PaginationDetails> {
-    return observableOf(collectionSize).pipe(
+    return of(collectionSize).pipe(
       hasValueOperator(),
       switchMap(() => this.paginationService.getCurrentPagination(this.id, this.paginationOptions)),
       map((currentPaginationOptions) => {
-        let firstItem: number;
         let lastItem: number;
         const pageMax = currentPaginationOptions.pageSize * currentPaginationOptions.currentPage;
 
-        firstItem = currentPaginationOptions.pageSize * (currentPaginationOptions.currentPage - 1) + 1;
+        const firstItem: number = currentPaginationOptions.pageSize * (currentPaginationOptions.currentPage - 1) + 1;
         if (collectionSize > pageMax) {
           lastItem = pageMax;
         } else {
@@ -362,7 +417,7 @@ export class PaginationComponent implements OnChanges, OnDestroy, OnInit {
    */
   get hasMultiplePages(): Observable<boolean> {
     return this.paginationService.getCurrentPagination(this.id, this.paginationOptions).pipe(
-      map((currentPaginationOptions) =>  this.collectionSize > currentPaginationOptions.pageSize)
+      map((currentPaginationOptions) =>  this.collectionSize > currentPaginationOptions.pageSize),
     );
   }
 
@@ -372,14 +427,14 @@ export class PaginationComponent implements OnChanges, OnDestroy, OnInit {
    */
   get shouldShowBottomPager(): Observable<boolean> {
     return this.hasMultiplePages.pipe(
-      map((hasMultiplePages) => hasMultiplePages || !this.hidePagerWhenSinglePage)
+      map((hasMultiplePages) => hasMultiplePages || !this.hidePagerWhenSinglePage),
     );
   }
 
   /**
    * Go to the previous page
    */
-   goPrev() {
+  goPrev() {
     this.prev.emit(true);
     this.updatePagination(-1);
   }
@@ -398,8 +453,23 @@ export class PaginationComponent implements OnChanges, OnDestroy, OnInit {
    */
   updatePagination(value: number) {
     this.paginationService.getCurrentPagination(this.id, this.paginationOptions).pipe(take(1)).subscribe((currentPaginationOptions) => {
-      this.updateParams({page: (currentPaginationOptions.currentPage + value).toString()});
+      this.updateParams({ page: (currentPaginationOptions.currentPage + value) });
     });
+  }
+
+  /**
+   * Get the sort options to use for the RSS feed. Defaults to the sort options used for this pagination component
+   * so it matches the search/browse context, but also allows more flexibility if, for example a top-level community
+   * list is displayed in "title asc" order, but the RSS feed should default to an item list of "date desc" order.
+   * If the SortOptions are null, incomplete or invalid, the pagination sortOptions will be used instead.
+   */
+  get rssSortOptions() {
+    if (this.showRSS !== false && this.showRSS instanceof SortOptions
+      && this.showRSS.direction !== null
+      && this.showRSS.field !== null) {
+      return this.showRSS;
+    }
+    return this.sortOptions;
   }
 
 }

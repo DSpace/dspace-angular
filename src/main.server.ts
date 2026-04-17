@@ -1,20 +1,28 @@
 import 'core-js/es/reflect';
 import 'zone.js';
 import 'reflect-metadata';
-
-import { enableProdMode } from '@angular/core';
 /******************************************************************
  * Load `$localize` - not used for i18n in this project, we use ngx-translate.
  * It's used for localization of dates, numbers, currencies, etc.
  */
 import '@angular/localize/init';
 
-import { environment } from './environments/environment';
+import { setDefaultResultOrder } from 'node:dns';
 
-if (environment.production) {
-  enableProdMode();
-}
+import {
+  bootstrapApplication,
+  BootstrapContext,
+} from '@angular/platform-browser';
 
-export { ServerAppModule } from './modules/app/server-app.module';
-export { ngExpressEngine } from '@nguniversal/express-engine';
-export { renderModuleFactory } from '@angular/platform-server';
+import { AppComponent } from './app/app.component';
+import { serverAppConfig } from './modules/app/server-app.config';
+
+// Apply DNS resolution order fix for Node.js 17+ by preferring IPv4 over IPv6.
+// This fixes "ECONNREFUSED ::1:8080" errors in PM2 cluster mode when
+// the backend only listens on IPv4
+// See https://github.com/DSpace/dspace-angular/issues/4960
+setDefaultResultOrder('ipv4first');
+
+const bootstrap = (context: BootstrapContext) => bootstrapApplication(AppComponent, serverAppConfig, context);
+
+export default bootstrap;

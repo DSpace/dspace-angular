@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { ThemedComponent } from '../shared/theme-support/themed.component';
 import { PageNotFoundComponent } from './pagenotfound.component';
 
@@ -6,8 +7,7 @@ import { PageNotFoundComponent } from './pagenotfound.component';
  * Themed wrapper for PageNotFoundComponent
  */
 @Component({
-  selector: 'ds-themed-pagenotfound',
-  styleUrls: [],
+  selector: 'ds-pagenotfound',
   templateUrl: '../shared/theme-support/themed.component.html',
 })
 export class ThemedPageNotFoundComponent extends ThemedComponent<PageNotFoundComponent> {

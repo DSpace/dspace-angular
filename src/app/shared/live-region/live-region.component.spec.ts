@@ -1,9 +1,14 @@
-import { LiveRegionComponent } from './live-region.component';
-import { ComponentFixture, waitForAsync, TestBed } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { LiveRegionService } from './live-region.service';
-import { of } from 'rxjs';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
+
+import { LiveRegionComponent } from './live-region.component';
+import { LiveRegionService } from './live-region.service';
 
 describe('liveRegionComponent', () => {
   let fixture: ComponentFixture<LiveRegionComponent>;
@@ -19,8 +24,8 @@ describe('liveRegionComponent', () => {
     void TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
+        LiveRegionComponent,
       ],
-      declarations: [LiveRegionComponent],
       providers: [
         { provide: LiveRegionService, useValue: liveRegionService },
       ],

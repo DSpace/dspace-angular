@@ -15,15 +15,19 @@
 // $red:    #CF4444 !default;
 // $dark:   darken($blue, 17%) !default;
 //
-// $theme-colors: (
-//   primary: $blue,
-//   secondary: $gray-700,
-//   success: $green,
-//   info: $cyan,
-//   warning: $yellow,
-//   danger: $red,
-//   light: $gray-100,
-//   dark: $dark
-// ) !default;
+// $primary: $blue !default;
+// $secondary: $gray-700 !default;
+// $success: $green !default;
+// $info: $cyan !default;
+// $warning: $yellow !default;
+// $danger: $red !default;
+// $light: $gray-100 !default;
+// $dark: $dark !default;
 //
-// $link-color: map-get($theme-colors, info) !default;
+// $link-color: $info !default;
+
+// Add new semantic colors here (you don't need to add existing semantic colors)
+@import '../../../styles/_variables.scss';
+$theme-custom-semantic-colors: (
+);
+$theme-colors: map-merge($theme-colors, $theme-custom-semantic-colors);

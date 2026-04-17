@@ -1,14 +1,17 @@
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+import { Observable } from 'rxjs';
+
 import { ThemedComponent } from '../../shared/theme-support/themed.component';
 import { AdminSidebarComponent } from './admin-sidebar.component';
-import { Observable } from 'rxjs';
 
 /**
  * Themed wrapper for AdminSidebarComponent
  */
 @Component({
-  selector: 'ds-themed-admin-sidebar',
-  styleUrls: [],
+  selector: 'ds-admin-sidebar',
   templateUrl: '../../shared/theme-support/themed.component.html',
 })
 export class ThemedAdminSidebarComponent extends ThemedComponent<AdminSidebarComponent> {

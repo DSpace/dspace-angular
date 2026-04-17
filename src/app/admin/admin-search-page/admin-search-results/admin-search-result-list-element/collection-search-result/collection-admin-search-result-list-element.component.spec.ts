@@ -1,20 +1,28 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { CollectionAdminSearchResultListElementComponent } from './collection-admin-search-result-list-element.component';
-import { TranslateModule } from '@ngx-translate/core';
-import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
-import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
-import { ViewMode } from '../../../../../core/shared/view-mode.model';
-import { CollectionSearchResult } from '../../../../../shared/object-collection/shared/collection-search-result.model';
-import { Collection } from '../../../../../core/shared/collection.model';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
-import { getCollectionEditRoute } from '../../../../../collection-page/collection-page-routing-paths';
-import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
-import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../environments/environment';
+import { getCollectionEditRoute } from '../../../../../collection-page/collection-page-routing-paths';
+import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
+import { Collection } from '../../../../../core/shared/collection.model';
+import { ViewMode } from '../../../../../core/shared/view-mode.model';
+import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
+import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
+import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
+import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
+import { CollectionSearchResult } from '../../../../../shared/object-collection/shared/collection-search-result.model';
+import { CollectionSearchResultListElementComponent } from '../../../../../shared/object-list/search-result-list-element/collection-search-result/collection-search-result-list-element.component';
+import { ThemeService } from '../../../../../shared/theme-support/theme.service';
+import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
+import { CollectionAdminSearchResultListElementComponent } from './collection-admin-search-result-list-element.component';
 
 describe('CollectionAdminSearchResultListElementComponent', () => {
   let component: CollectionAdminSearchResultListElementComponent;
@@ -34,15 +42,23 @@ describe('CollectionAdminSearchResultListElementComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
-        RouterTestingModule.withRoutes([])
+        RouterTestingModule.withRoutes([]),
+        CollectionAdminSearchResultListElementComponent,
       ],
-      declarations: [CollectionAdminSearchResultListElementComponent],
-      providers: [{ provide: TruncatableService, useValue: {} },
+      providers: [
+        { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: DSONameService, useClass: DSONameServiceMock },
-        { provide: APP_CONFIG, useValue: environment }],
-      schemas: [NO_ERRORS_SCHEMA]
-    })
-      .compileComponents();
+        { provide: APP_CONFIG, useValue: environment },
+        { provide: ThemeService, useValue: getMockThemeService() },
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).overrideComponent(CollectionAdminSearchResultListElementComponent, {
+      remove: {
+        imports: [
+          CollectionSearchResultListElementComponent,
+        ],
+      },
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -60,7 +76,7 @@ describe('CollectionAdminSearchResultListElementComponent', () => {
   });
 
   it('should render an edit button with the correct link', () => {
-    const a = fixture.debugElement.query(By.css('a'));
+    const a = fixture.debugElement.query(By.css('a[data-test="coll-link"]'));
     const link = a.nativeElement.href;
     expect(link).toContain(getCollectionEditRoute(id));
   });

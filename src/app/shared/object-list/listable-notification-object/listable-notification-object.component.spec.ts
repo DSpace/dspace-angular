@@ -1,9 +1,13 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ListableNotificationObjectComponent } from './listable-notification-object.component';
-import { NotificationType } from '../../notifications/models/notification-type';
-import { ListableNotificationObject } from './listable-notification-object.model';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
+
+import { NotificationType } from '../../notifications/models/notification-type';
+import { ListableNotificationObjectComponent } from './listable-notification-object.component';
+import { ListableNotificationObject } from './listable-notification-object.model';
 
 describe('ListableNotificationObjectComponent', () => {
   let component: ListableNotificationObjectComponent;
@@ -13,8 +17,6 @@ describe('ListableNotificationObjectComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         ListableNotificationObjectComponent,
       ],
     }).compileComponents();

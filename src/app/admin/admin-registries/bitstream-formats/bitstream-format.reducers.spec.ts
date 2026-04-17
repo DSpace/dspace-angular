@@ -1,11 +1,15 @@
 import { Action } from '@ngrx/store';
+
 import { BitstreamFormat } from '../../../core/shared/bitstream-format.model';
-import { bitstreamFormatReducer, BitstreamFormatRegistryState } from './bitstream-format.reducers';
 import {
   BitstreamFormatsRegistryDeselectAction,
   BitstreamFormatsRegistryDeselectAllAction,
-  BitstreamFormatsRegistrySelectAction
+  BitstreamFormatsRegistrySelectAction,
 } from './bitstream-format.actions';
+import {
+  bitstreamFormatReducer,
+  BitstreamFormatRegistryState,
+} from './bitstream-format.reducers';
 
 const bitstreamFormat1: BitstreamFormat = new BitstreamFormat();
 bitstreamFormat1.id = 'test-uuid-1';
@@ -16,15 +20,15 @@ bitstreamFormat2.id = 'test-uuid-2';
 bitstreamFormat2.shortDescription = 'test-short-2';
 
 const initialState: BitstreamFormatRegistryState = {
-  selectedBitstreamFormats: []
+  selectedBitstreamFormats: [],
 };
 
 const bitstream1SelectedState: BitstreamFormatRegistryState = {
-  selectedBitstreamFormats: [bitstreamFormat1]
+  selectedBitstreamFormats: [bitstreamFormat1],
 };
 
 const bitstream1and2SelectedState: BitstreamFormatRegistryState = {
-  selectedBitstreamFormats: [bitstreamFormat1, bitstreamFormat2]
+  selectedBitstreamFormats: [bitstreamFormat1, bitstreamFormat2],
 };
 
 describe('BitstreamFormatReducer', () => {

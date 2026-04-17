@@ -22,6 +22,26 @@
     }
 
     .bottom-footer {
+      .notify-enabled {
+        position: relative;
+        margin-top: 4px;
+
+        .coar-notify-support-route {
+          padding: 0 calc(var(--bs-spacer) / 2);
+          color: inherit;
+        }
+
+        .n-coar {
+          height: var(--ds-footer-n-coar-height);
+          margin-bottom: 8.5px;
+        }
+
+        @media screen and (min-width: map-get($grid-breakpoints, md))  {
+          position: absolute;
+          bottom: 4px;
+          right: 0;
+        }
+      }
       ul {
         li {
           display: inline-flex;
@@ -51,7 +71,12 @@
         }
       }
     }
+
+    .btn {
+      box-shadow: none;
+    }
   }
 }
+
 
 

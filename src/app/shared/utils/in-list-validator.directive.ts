@@ -1,5 +1,14 @@
-import { Directive, Input } from '@angular/core';
-import { UntypedFormControl, NG_VALIDATORS, ValidationErrors, Validator } from '@angular/forms';
+import {
+  Directive,
+  Input,
+} from '@angular/core';
+import {
+  NG_VALIDATORS,
+  UntypedFormControl,
+  ValidationErrors,
+  Validator,
+} from '@angular/forms';
+
 import { inListValidator } from './validator.functions';
 
 /**
@@ -9,8 +18,8 @@ import { inListValidator } from './validator.functions';
   selector: '[ngModel][dsInListValidator]',
   // We add our directive to the list of existing validators
   providers: [
-    { provide: NG_VALIDATORS, useExisting: InListValidator, multi: true }
-  ]
+    { provide: NG_VALIDATORS, useExisting: InListValidator, multi: true },
+  ],
 })
 export class InListValidator implements Validator {
   /**

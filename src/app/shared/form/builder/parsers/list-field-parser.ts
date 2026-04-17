@@ -1,12 +1,12 @@
-import { FieldParser } from './field-parser';
 import { isNotEmpty } from '../../../empty.util';
-import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { DynamicListCheckboxGroupModel } from '../ds-dynamic-form-ui/models/list/dynamic-list-checkbox-group.model';
 import { DynamicListRadioGroupModel } from '../ds-dynamic-form-ui/models/list/dynamic-list-radio-group.model';
+import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
+import { FieldParser } from './field-parser';
 
 export class ListFieldParser extends FieldParser {
 
-  public modelFactory(fieldValue?: FormFieldMetadataValueObject | any, label?: boolean): any {
+  public modelFactory(fieldValue?: FormFieldMetadataValueObject, label?: boolean): any {
     const listModelConfig = this.initModel(null, label);
     listModelConfig.repeatable = this.configData.repeatable;
 

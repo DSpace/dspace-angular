@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
+
 import { ParsedResponse } from '../cache/response.models';
-import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
 import { DSpaceSerializer } from '../dspace-rest/dspace.serializer';
+import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
 import { ContentSource } from '../shared/content-source.model';
 import { MetadataConfig } from '../shared/metadata-config.model';
 import { DspaceRestResponseParsingService } from './dspace-rest-response-parsing.service';
 import { RestRequest } from './rest-request.model';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 /**
  * A ResponseParsingService used to parse RawRestResponse coming from the REST API to a ContentSource object
  */

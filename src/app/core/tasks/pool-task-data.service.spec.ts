@@ -1,17 +1,17 @@
 import { HttpHeaders } from '@angular/common/http';
+import { getTestScheduler } from 'jasmine-marbles';
+import { of } from 'rxjs';
+import { TestScheduler } from 'rxjs/testing';
 
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { PoolTaskDataService } from './pool-task-data.service';
-import { getTestScheduler } from 'jasmine-marbles';
-import { TestScheduler } from 'rxjs/testing';
-import { of as observableOf } from 'rxjs';
 import { RequestParam } from '../cache/models/request-param.model';
-import { HttpOptions } from '../dspace-rest/dspace-rest.service';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { FindListOptions } from '../data/find-list-options.model';
 import { testSearchDataImplementation } from '../data/base/search-data.spec';
+import { FindListOptions } from '../data/find-list-options.model';
+import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { PoolTaskDataService } from './pool-task-data.service';
 
 describe('PoolTaskDataService', () => {
   let scheduler: TestScheduler;
@@ -27,7 +27,7 @@ describe('PoolTaskDataService', () => {
     },
     getObjectBySelfLink: () => {
       /* empty */
-    }
+    },
   } as any;
 
   function initTestService(): PoolTaskDataService {
@@ -56,14 +56,14 @@ describe('PoolTaskDataService', () => {
   describe('findByItem', () => {
 
     it('should call searchTask method', () => {
-      spyOn((service as any), 'searchTask').and.returnValue(observableOf(createSuccessfulRemoteDataObject$({})));
+      spyOn((service as any), 'searchTask').and.returnValue(of(createSuccessfulRemoteDataObject$({})));
 
       scheduler.schedule(() => service.findByItem('a0db0fde-1d12-4d43-bd0d-0f43df8d823c').subscribe());
       scheduler.flush();
 
       const findListOptions = new FindListOptions();
       findListOptions.searchParams = [
-        new RequestParam('uuid', 'a0db0fde-1d12-4d43-bd0d-0f43df8d823c')
+        new RequestParam('uuid', 'a0db0fde-1d12-4d43-bd0d-0f43df8d823c'),
       ];
 
       expect(service.searchTask).toHaveBeenCalledWith('findByItem', findListOptions);
@@ -73,7 +73,7 @@ describe('PoolTaskDataService', () => {
   describe('getPoolTaskEndpointById', () => {
 
     it('should call getEndpointById method', () => {
-      spyOn(service, 'getEndpointById').and.returnValue(observableOf(null));
+      spyOn(service, 'getEndpointById').and.returnValue(of(null));
 
       scheduler.schedule(() => service.getPoolTaskEndpointById('a0db0fde-1d12-4d43-bd0d-0f43df8d823c').subscribe());
       scheduler.flush();

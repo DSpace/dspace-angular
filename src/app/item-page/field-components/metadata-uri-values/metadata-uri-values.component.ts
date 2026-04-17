@@ -1,7 +1,13 @@
-import { Component, Input } from '@angular/core';
 
-import { MetadataValuesComponent } from '../metadata-values/metadata-values.component';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { MetadataValue } from '../../../core/shared/metadata.models';
+import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
+import { MetadataValuesComponent } from '../metadata-values/metadata-values.component';
 
 /**
  * This component renders the configured 'values' into the ds-metadata-field-wrapper component as a link.
@@ -13,7 +19,11 @@ import { MetadataValue } from '../../../core/shared/metadata.models';
 @Component({
   selector: 'ds-metadata-uri-values',
   styleUrls: ['./metadata-uri-values.component.scss'],
-  templateUrl: './metadata-uri-values.component.html'
+  templateUrl: './metadata-uri-values.component.html',
+  imports: [
+    MetadataFieldWrapperComponent,
+    TranslateModule,
+  ],
 })
 export class MetadataUriValuesComponent extends MetadataValuesComponent {
 
@@ -29,7 +39,7 @@ export class MetadataUriValuesComponent extends MetadataValuesComponent {
   @Input() mdValues: MetadataValue[];
 
   /**
-   * The seperator used to split the metadata values (can contain HTML)
+   * The separator used to split the metadata values (can contain HTML)
    */
   @Input() separator: string;
 
@@ -37,10 +47,4 @@ export class MetadataUriValuesComponent extends MetadataValuesComponent {
    * The label for this iteration of metadata values
    */
   @Input() label: string;
-
-  /**
-   * The target attribute for the metadata links.
-   * Defaults to '_blank' to open links in a new window/tab.
-   */
-  @Input() linkTarget = '_blank';
 }

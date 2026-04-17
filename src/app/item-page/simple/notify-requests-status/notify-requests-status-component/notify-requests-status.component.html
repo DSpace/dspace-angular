@@ -1,0 +1,5 @@
+@if ((requestMap$ | async)?.size > 0) {
+  @for (entry of (requestMap$ | async) | keyvalue ; track entry) {
+    <ds-request-status-alert-box [status]="entry.key" [data]="entry.value"></ds-request-status-alert-box>
+  }
+}

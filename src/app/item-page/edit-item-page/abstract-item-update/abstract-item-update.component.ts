@@ -1,25 +1,44 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
-import { combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
-import { Item } from '../../../core/shared/item.model';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
-import { ActivatedRoute, Router, Data } from '@angular/router';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import {
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Data,
+  Router,
+} from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { take, map, switchMap, tap } from 'rxjs/operators';
-import { RemoteData } from '../../../core/data/remote-data';
-import { AbstractTrackableComponent } from '../../../shared/trackable/abstract-trackable.component';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  map,
+  switchMap,
+  take,
+  tap,
+} from 'rxjs/operators';
+
 import { environment } from '../../../../environments/environment';
-import { getItemPageRoute } from '../../item-page-routing-paths';
-import { getAllSucceededRemoteData } from '../../../core/shared/operators';
-import { hasValue } from '../../../shared/empty.util';
-import { getItemPageLinksToFollow } from '../../item.resolver';
+import { ItemDataService } from '../../../core/data/item-data.service';
 import { FieldUpdate } from '../../../core/data/object-updates/field-update.model';
 import { FieldUpdates } from '../../../core/data/object-updates/field-updates.model';
+import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
+import { RemoteData } from '../../../core/data/remote-data';
+import { Item } from '../../../core/shared/item.model';
+import { getAllSucceededRemoteData } from '../../../core/shared/operators';
+import { hasValue } from '../../../shared/empty.util';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { AbstractTrackableComponent } from '../../../shared/trackable/abstract-trackable.component';
+import { getItemPageLinksToFollow } from '../../item.resolver';
+import { getItemPageRoute } from '../../item-page-routing-paths';
 
 @Component({
   selector: 'ds-abstract-item-update',
-  template: ''
+  template: '',
 })
 /**
  * Abstract component for managing object updates of an item
@@ -52,7 +71,7 @@ export class AbstractItemUpdateComponent extends AbstractTrackableComponent impl
     public router: Router,
     public notificationsService: NotificationsService,
     public translateService: TranslateService,
-    public route: ActivatedRoute
+    public route: ActivatedRoute,
   ) {
     super(objectUpdatesService, notificationsService, translateService, router);
   }
@@ -74,7 +93,7 @@ export class AbstractItemUpdateComponent extends AbstractTrackableComponent impl
         switchMap((rd: RemoteData<Item>) => {
           return this.itemService.findByHref(rd.payload._links.self.href, true, true, ...getItemPageLinksToFollow());
         }),
-        getAllSucceededRemoteData()
+        getAllSucceededRemoteData(),
       ).subscribe((rd: RemoteData<Item>) => {
         this.setItem(rd.payload);
       });
@@ -173,7 +192,7 @@ export class AbstractItemUpdateComponent extends AbstractTrackableComponent impl
           this.notificationsService.warning(this.getNotificationTitle('outdated'), this.getNotificationContent('outdated'));
           this.initializeOriginalFields();
         }
-      }
+      },
     );
   }
 }
