@@ -9,6 +9,7 @@ import { AuthService } from '@dspace/core/auth/auth.service';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
 import { normalizeSectionData } from '@dspace/core/submission/submission-response-parsing.service';
+import { SubmissionScopeType } from '@dspace/core/submission/submission-scope-type';
 import {
   hasValue,
   isNotEmpty,
@@ -46,14 +47,17 @@ import { SectionsService } from '../../../../sections.service';
   ],
 })
 /**
- * Modal component used inside the submission/edit-item upload section to replace the content of
- * an existing Bitstream without changing its metadata or its position in the bundle.
+ * Modal component used inside the edit-item upload section to replace the content of an existing
+ * Bitstream without changing its metadata or its position in the bundle.
  *
- * The component is opened by {@link SectionUploadFileComponent} when the user clicks the
- * "Replace" button next to a listed file.  It issues a `PUT` request to
- * `bitstreams/{uuid}/content`, the same endpoint used by {@link ReplaceBitstreamPageComponent}
- * from the Bitstream admin tab, with an optional `replaceName` query parameter that controls
- * whether the stored file name is updated to match the newly uploaded file.
+ * The component is opened by {@link SectionUploadFileComponent} when the user clicks the "Replace"
+ * button next to a listed file.  It issues a `POST` multipart request to the `edititems` endpoint
+ * (e.g. `edititems/{submissionId}?replaceFile={bitstreamUuid}&replaceName={bool}`), which is the
+ * same endpoint used for new file uploads in the edit-item UI.  The `replaceFile` parameter tells
+ * the backend to replace the identified Bitstream rather than creating a new one.
+ *
+ * The replace button is intentionally hidden for fresh workspace/workflow item submissions — it is
+ * only shown when the submission scope is {@link SubmissionScopeType.EditItem}.
  */
 export class SubmissionSectionUploadFileReplaceComponent implements OnInit, OnDestroy {
 
@@ -91,13 +95,13 @@ export class SubmissionSectionUploadFileReplaceComponent implements OnInit, OnDe
    * @type {UploaderOptions}
    */
   protected uploadFilesOptions: UploaderOptions = Object.assign(new UploaderOptions(), {
-    // URL needs to contain something to not produce any errors. This will be replaced once a bundle has been selected.
-    url: 'placeholder', /* TODO Change upload URL */
+    // URL needs to contain something to not produce any errors. This will be replaced once ready.
+    url: 'placeholder',
     authToken: null,
     disableMultipart: false,
     itemAlias: null,
     autoUpload: false,
-    method: RestRequestMethod.PUT,
+    method: RestRequestMethod.POST,
   });
 
   /**
@@ -198,24 +202,32 @@ export class SubmissionSectionUploadFileReplaceComponent implements OnInit, OnDe
   }
 
   /**
-   * Set the upload URL to the bitstream content endpoint for this specific bitstream.
-   * Uses PUT to replace the existing file content, matching the behaviour of ReplaceBitstreamPageComponent.
+   * Set the upload URL to the edititems endpoint for this submission, which mirrors the endpoint
+   * used for new file uploads in the edit-item UI.  A `replaceFile` UUID parameter instructs the
+   * backend to replace the identified existing Bitstream rather than creating a new one.
    */
   private setUploadUrl() {
     this.subs.push(
-      this.halService.getEndpoint('bitstreams').pipe(
+      this.halService.getEndpoint(this.submissionService.getSubmissionObjectLinkName()).pipe(
         filter((href: string) => isNotEmpty(href)),
         distinctUntilChanged())
         .subscribe((endpointURL) => {
           this.uploadFilesOptions.authToken = this.authService.buildAuthHeader();
-          this.uploadFilesUrlNoParam = `${endpointURL}/${this.bitstreamUuid}`;
+          this.uploadFilesUrlNoParam = `${endpointURL}/${this.submissionId}`;
           this.setUploadUrlParameters();
         }),
     );
   }
 
+  /**
+   * Applies the `replaceFile` and `replaceName` query parameters to the upload URL and optionally
+   * syncs the new URL into the underlying file-upload library so that a file already in the queue
+   * picks up the latest value before the upload starts.
+   *
+   * @param uploader - Optional {@link UploaderComponent} whose internal options should also be updated.
+   */
   protected setUploadUrlParameters(uploader?: UploaderComponent) {
-    this.uploadFilesOptions.url = `${this.uploadFilesUrlNoParam}/content?replaceName=${this.shouldReplaceName}`;
+    this.uploadFilesOptions.url = `${this.uploadFilesUrlNoParam}?replaceFile=${this.bitstreamUuid}&replaceName=${this.shouldReplaceName}`;
     if (hasValue(uploader?.uploader?.options)) {
       uploader.uploader.options.url = this.uploadFilesOptions.url;
     }

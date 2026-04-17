@@ -17,6 +17,7 @@ import { Bitstream } from '@dspace/core/shared/bitstream.model';
 import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
 import { WorkspaceitemSectionUploadFileObject } from '@dspace/core/submission/models/workspaceitem-section-upload-file.model';
 import { SubmissionJsonPatchOperationsService } from '@dspace/core/submission/submission-json-patch-operations.service';
+import { SubmissionScopeType } from '@dspace/core/submission/submission-scope-type';
 import {
   hasValue,
   isNotUndefined,
@@ -252,10 +253,16 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
     this.subscriptions.push(
       this.uploadService.getFileData(this.submissionId, this.sectionId, this.fileId).pipe(
         filter(isNotUndefined),
-        switchMap((fileData) => this.halService.getEndpoint('bitstreams').pipe(
-          map(endpoint => `${endpoint}/${fileData.uuid}`),
-          switchMap(bitstreamUrl => this.authorizationService.isAuthorized(FeatureID.CanReplaceBitstreamSubmitter, bitstreamUrl)),
-        )),
+        switchMap((fileData) => {
+          // Replace is only meaningful for archived items being edited, not for fresh submissions.
+          if (this.submissionService.getSubmissionScope() !== SubmissionScopeType.EditItem) {
+            return [false];
+          }
+          return this.halService.getEndpoint('bitstreams').pipe(
+            map(endpoint => `${endpoint}/${fileData.uuid}`),
+            switchMap(bitstreamUrl => this.authorizationService.isAuthorized(FeatureID.CanReplaceBitstreamSubmitter, bitstreamUrl)),
+          );
+        }),
       ).subscribe((canReplace) => this.showReplaceButton$.next(canReplace)),
     );
   }

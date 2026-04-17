@@ -46,7 +46,8 @@ describe('SubmissionSectionUploadFileReplaceComponent', () => {
   const locationObject = jasmine.createSpyObj('location', ['back']);
   const bitstreamUuid = 'test-bitstream-uuid-123';
   const fileIndex = '0';
-  const submissionId = '0';
+  const submissionId = 'test-submission-id';
+  const editItemsLinkName = 'edititems';
 
   const mockSections = { upload: [{ uuid: bitstreamUuid }] };
   const mockWorkspaceItem = { sections: mockSections, errors: [] };
@@ -90,14 +91,15 @@ describe('SubmissionSectionUploadFileReplaceComponent', () => {
     notificationsService = TestBed.inject(NotificationsService) as unknown as NotificationsServiceStub;
     sectionsService = TestBed.inject(SectionsService) as unknown as SectionsServiceStub;
     submissionService = TestBed.inject(SubmissionService) as unknown as SubmissionServiceStub;
+    submissionService.getSubmissionObjectLinkName.and.returnValue(editItemsLinkName);
     fixture.detectChanges();
     uploadComponent = fixture.debugElement.query(By.directive(TestUploaderComponent)).context;
   });
 
   describe('on init', () => {
-    it('should build the upload URL pointing to the bitstream content endpoint', () => {
-      // URL must be: {halBase}/bitstreams/{bitstreamUuid}/content?replaceName=true
-      const expectedUrl = `${bitstreamReplaceUrl}/bitstreams/${bitstreamUuid}/content?replaceName=true`;
+    it('should build the upload URL pointing to the edititems endpoint with replaceFile param', () => {
+      // URL must be: {halBase}/{editItemsLinkName}/{submissionId}?replaceFile={bitstreamUuid}&replaceName=true
+      const expectedUrl = `${bitstreamReplaceUrl}/${editItemsLinkName}/${submissionId}?replaceFile=${bitstreamUuid}&replaceName=true`;
       expect(uploadComponent.uploadFilesOptions.url).toBe(expectedUrl);
     });
   });
