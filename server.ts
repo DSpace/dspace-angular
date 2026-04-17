@@ -52,6 +52,7 @@ import { ServerAppModule } from './src/main.server';
 import { buildAppConfig } from './src/config/config.server';
 import { APP_CONFIG, AppConfig } from './src/config/app-config.interface';
 import { extendEnvironmentWithAppConfig } from './src/config/config.util';
+import { ServerHashedFileMapping } from './src/modules/dynamic-hash/hashed-file-mapping.server';
 import { logStartupMessage } from './startup-message';
 import { TOKENITEM } from './src/app/core/auth/models/auth-token-info.model';
 import { SsrExcludePatterns } from './src/config/universal-config.interface';
@@ -68,7 +69,11 @@ const indexHtml = join(DIST_FOLDER, 'index.html');
 
 const cookieParser = require('cookie-parser');
 
-const appConfig: AppConfig = buildAppConfig(join(DIST_FOLDER, 'assets/config.json'));
+const configJson = join(DIST_FOLDER, 'assets/config.json');
+const hashedFileMapping = new ServerHashedFileMapping(DIST_FOLDER, 'index.html');
+const appConfig: AppConfig = buildAppConfig(configJson, hashedFileMapping);
+appConfig.themes.forEach(themeConfig => hashedFileMapping.addThemeStyle(themeConfig.name, themeConfig.prefetch));
+hashedFileMapping.save();
 
 // cache of SSR pages for known bots, only enabled in production mode
 let botCache: LRU<string, any>;
@@ -319,7 +324,7 @@ function clientSideRender(req, res) {
     html = html.replace(new RegExp(REST_BASE_URL, 'g'), environment.rest.baseUrl);
   }
 
-  res.send(html);
+  res.set('Cache-Control', 'no-cache, no-store').send(html);
 }
 
 
@@ -330,7 +335,11 @@ function clientSideRender(req, res) {
  */
 function addCacheControl(req, res, next) {
   // instruct browser to revalidate
-  res.header('Cache-Control', environment.cache.control || 'max-age=604800');
+  if (environment.cache.noCacheFiles.includes(req.originalUrl)) {
+    res.header('Cache-Control', 'no-cache, no-store');
+  } else {
+    res.header('Cache-Control', environment.cache.control || 'max-age=604800');
+  }
   next();
 }
 
