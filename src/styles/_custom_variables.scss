@@ -28,7 +28,7 @@
   --ds-header-icon-color-hover: #{$ds-header-icon-color-hover};
 
   --ds-navbar-bg: #{$ds-navbar-bg};
-  --ds-navbar-item-padding: 0.25rem 0;
+  --ds-navbar-item-padding: 0.5rem 0.25rem;
   --ds-navbar-link-color: #{$ds-navbar-link-color};
   --ds-navbar-link-bg: var(--ds-navbar-bg);
   --ds-navbar-link-color-hover: #{$ds-navbar-link-color-hover};
@@ -46,7 +46,7 @@
   --ds-expandable-navbar-item-padding: 0.25rem 0.5rem;
   @include media-breakpoint-up(md) {
     --ds-expandable-navbar-padding: 0.5rem 0;
-    --ds-expandable-navbar-item-padding: 0.25rem 0.75rem;
+    --ds-expandable-navbar-item-padding: 0.5rem 0.75rem;
   }
 
   --ds-user-menu-bg: var(--ds-expandable-navbar-bg);
@@ -59,11 +59,12 @@
   --ds-user-menu-dropdown-link-color-hover: var(--ds-navbar-link-color-hover);
   --ds-user-menu-dropdown-link-bg-hover: var(--ds-navbar-link-bg-hover);
   @include media-breakpoint-up(md) {
+    --ds-user-menu-bg: #{$ds-user-menu-bg};
     --ds-user-menu-item-padding: 0.25rem 1rem;
-    --ds-user-menu-dropdown-link-color: var(--ds-expandable-navbar-link-color);
-    --ds-user-menu-dropdown-link-bg: var(--ds-expandable-navbar-link-bg);
-    --ds-user-menu-dropdown-link-color-hover: var(--ds-expandable-navbar-link-color-hover);
-    --ds-user-menu-dropdown-link-bg-hover: var(--ds-expandable-navbar-link-bg-hover);
+    --ds-user-menu-dropdown-link-color: #{$ds-user-menu-link-color};
+    --ds-user-menu-dropdown-link-bg: var(--ds-user-menu-bg);
+    --ds-user-menu-dropdown-link-color-hover: #{$ds-user-menu-link-color-hover};
+    --ds-user-menu-dropdown-link-bg-hover: var(--ds-user-menu-bg);
   }
 
   @include media-breakpoint-up(md) {
