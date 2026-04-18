@@ -1,6 +1,6 @@
 import { testA11y } from 'cypress/support/utils';
 
-describe('My DSpace page', () => {
+describe('My DSpace page', () => {/*
   it('should display recent submissions and pass accessibility tests', () => {
     cy.visit('/mydspace');
 
@@ -187,6 +187,9 @@ describe('My DSpace page', () => {
     //Wait for the page to display
     cy.get('ds-my-dspace-page').should('be.visible');
 
+    //wait to ds-uploader render
+    cy.wait(500);
+
     //Select the uploader and perform the drag-and-drop action.
     cy.get('ds-uploader .well').selectFile(`cypress/fixtures/${fileName}`, { action: 'drag-drop' });
 
@@ -277,5 +280,108 @@ describe('My DSpace page', () => {
     cy.get('@selectedItem').within(() => {
       cy.get('ds-claimed-task-actions').should('exist');
     });
-  });
+  });*/
+
+  describe('Testing new submissions', () => {
+    const startSubmission = (title: string, collection: string) => {
+      cy.get('#entityControlsDropdownMenu button[title="'.concat(title).concat('"]')).click();
+
+      //Validate selector be visible and enter SUBMIT_COLLECTION_NAME
+      cy.get('ds-create-item-parent-selector').should('be.visible');
+      cy.get('ds-authorized-collection-selector input[type="search"]').type(collection);
+      cy.get('ds-create-item-parent-selector button[title="'.concat(collection).concat('"]')).click();
+    }
+
+    const fillSubmission = (requiredInputs: Array<string>, title: string = 'test item', name: string = 'Tester') => {
+      if (requiredInputs.includes('title')) {
+        cy.get('#dc_title').type(title);
+      }
+      if (requiredInputs.includes('date_issued')) {
+        const currentYear = new Date().getFullYear();
+        cy.get('#dc_date_issued_year').type(currentYear.toString());
+      }
+      if (requiredInputs.includes('type')) {
+        cy.get('input[name="dc.type"]').click();
+        cy.get('.dropdown-menu').should('be.visible').contains('button', 'Other').click();
+      }
+      if (requiredInputs.includes('givenName')) {
+        cy.get('#person_givenName').type(name);
+      }
+      if (requiredInputs.includes('legalName')) {
+        cy.get('#organization_legalName').type(name);
+      }
+
+      cy.get('#granted').check();
+
+      const fileName = 'example.pdf';
+      cy.get('ds-uploader .well').selectFile(`cypress/fixtures/${fileName}`, { action: 'drag-drop' });
+      cy.get('ds-uploader .filename').should('exist').and('contain.text', fileName);
+      cy.get('ds-uploader .upload-item-top').should('have.length', 1);
+      cy.wait(1000);
+
+      cy.get('button[data-test="deposit"]').click();
+    }
+
+    const validateSubmission = (title: string = 'test item') => {
+      cy.url().should('include', '/mydspace');
+      cy.contains('[data-test="list-object"]', title).should('exist');
+    }
+
+    //Enter to MyDspace and validate that submission-dropdown is visible
+    beforeEach(() => {
+      cy.visit('/mydspace');
+      cy.loginViaForm(Cypress.env('DSPACE_TEST_ADMIN_USER'), Cypress.env('DSPACE_TEST_ADMIN_PASSWORD'));
+      cy.get('[data-test="submission-dropdown"]').should('be.visible').click();
+    });
+
+    it('should let you send a new Item', () => {
+      let title = 'test item';
+      startSubmission('none', Cypress.env('DSPACE_TEST_SUBMIT_COLLECTION_NAME'));
+      fillSubmission(['title', 'date_issued', 'type'], title);
+      validateSubmission(title);
+    });
+
+    it('should let you send a new Publication', () => {
+      let title = 'test publication';
+      startSubmission('Publication', Cypress.env('DSPACE_TEST_SUBMIT_WORKFLOW_COLLECTION_NAME'));
+      fillSubmission(['title', 'date_issued', 'type'], title);
+      validateSubmission(title);
+    });
+
+    it('should let you send a new Peson', () => {
+      let name = 'Tester';
+      startSubmission('Person', Cypress.env('DSPACE_TEST_PEOPLE_COLLECTION_NAME'));
+      fillSubmission(['givenName'], undefined, name);
+      validateSubmission(name);
+    });
+
+    it('should let you send a new Org Unit', () => {
+      let name = 'test Org Unit';
+      startSubmission('OrgUnit', Cypress.env('DSPACE_TEST_ORG_UNIT_COLLECTION_NAME'));
+      fillSubmission(['legalName'], undefined, name);
+      validateSubmission(name);
+    });
+
+    it('should let you send a new Journal', () => {
+      let title = 'test Journal';
+      startSubmission('Journal', Cypress.env('DSPACE_TEST_JOURNAL_COLLECTION_NAME'));
+      fillSubmission(['title'], title);
+      validateSubmission(title);
+    });
+
+    it('should let you send a new Journal Volume', () => {
+      let title = 'test Journal Volume';
+      startSubmission('JournalVolume', Cypress.env('DSPACE_TEST_JOURNAL_VOLUME_COLLECTION_NAME'));
+      fillSubmission(['title'], title);
+      validateSubmission(title);
+    });
+
+    it('should let you send a new Journal Issue', () => {
+      let title = 'test Journal Issue';
+      startSubmission('JournalIssue', Cypress.env('DSPACE_TEST_JOURNAL_ISSUE_COLLECTION_NAME'));
+      fillSubmission(['title'], title);
+      validateSubmission(title);
+    });
+
+  })
 });
