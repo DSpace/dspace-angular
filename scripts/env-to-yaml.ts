@@ -28,6 +28,7 @@ if (!existsSync(envFullPath)) {
 }
 
 try {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
   const env = require(envFullPath).environment;
 
   const config = dump(env);
