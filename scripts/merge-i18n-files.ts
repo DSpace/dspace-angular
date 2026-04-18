@@ -59,24 +59,24 @@ function parseCliInput() {
   if (destination && source) {
     if (!existsSync(destination) || !lstatSync(destination).isDirectory() ) {
       console.error('Output does not exist or is not a directory.');
-      console.log(program.outputHelp());
+      console.info(program.outputHelp());
       process.exit(1);
     }
     if (!existsSync(source) || !lstatSync(source).isDirectory() ) {
       console.error('Source does not exist or is not a directory.');
-      console.log(program.outputHelp());
+      console.info(program.outputHelp());
       process.exit(1);
     }
 
     readdirSync(projectRoot(source)).forEach(file => {
       if (existsSync(destination + '/' + file) ) {
-        console.log('Merging: ' + destination + '/' + file + ' with ' + source + '/' + file);
+        console.info('Merging: ' + destination + '/' + file + ' with ' + source + '/' + file);
         mergeFileWithSource(source + '/' + file, destination + '/' + file);
       }
     });
   } else {
     console.error('Source or Output parameter is missing.');
-    console.log(program.outputHelp());
+    console.info(program.outputHelp());
     process.exit(1);
   }
 }
