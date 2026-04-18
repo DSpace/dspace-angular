@@ -6,6 +6,10 @@ import {
   writeFileSync,
 } from 'node:fs';
 
+import {
+  Presets,
+  SingleBar,
+} from 'cli-progress';
 import { Command } from 'commander';
 import {
   parse,
@@ -13,8 +17,6 @@ import {
 } from 'json5';
 
 import { projectRoot } from '../webpack/helpers';
-
-const _cliProgress = require('cli-progress');
 
 const program = new Command();
 program.version('1.0.0', '-v, --version');
@@ -90,7 +92,7 @@ function parseCliInput() {
  * @param pathToOutputFile Valid path to merge and write output
  */
 function mergeFileWithSource(pathToSourceFile, pathToOutputFile) {
-  const progressBar = new _cliProgress.SingleBar({}, _cliProgress.Presets.shades_classic);
+  const progressBar = new SingleBar({}, Presets.shades_classic);
   progressBar.start(100, 0);
 
   const sourceFile = readFileSync(pathToSourceFile, 'utf8');
