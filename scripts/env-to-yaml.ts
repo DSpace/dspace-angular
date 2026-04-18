@@ -16,7 +16,7 @@ import { dump } from 'js-yaml';
 
 const args = process.argv.slice(2);
 if (args[0] === undefined) {
-  console.log(`Usage:\n\tyarn env:yaml [relative path to environment.ts file] (optional relative path to write yaml file)\n`);
+  console.info(`Usage:\n\tyarn env:yaml [relative path to environment.ts file] (optional relative path to write yaml file)\n`);
   process.exit(0);
 }
 
@@ -35,7 +35,7 @@ try {
     const ymlFullPath = join(process.cwd(), args[1]);
     writeFileSync(ymlFullPath, config);
   } else {
-    console.log(config);
+    console.info(config);
   }
 } catch (e) {
   console.error(e);

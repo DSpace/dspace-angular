@@ -54,16 +54,16 @@ function parseCliInput() {
     readdirSync(projectRoot(LANGUAGE_FILES_LOCATION)).forEach(file => {
       if (!sourceFile.toString().endsWith(file)) {
         const targetFileLocation = projectRoot(LANGUAGE_FILES_LOCATION + '/' + file);
-        console.log('Syncing file at: ' + targetFileLocation + ' with source file at: ' + sourceFile);
+        console.info('Syncing file at: ' + targetFileLocation + ' with source file at: ' + sourceFile);
         if (program.opts().outputDir) {
           if (!existsSync(program.opts().outputDir)) {
             mkdirSync(program.opts().outputDir);
           }
           const outputFileLocation = program.opts().outputDir + '/' + file;
-          console.log('Output location: ' + outputFileLocation);
+          console.info('Output location: ' + outputFileLocation);
           syncFileWithSource(targetFileLocation, outputFileLocation);
         } else {
-          console.log('Replacing in target location');
+          console.info('Replacing in target location');
           syncFileWithSource(targetFileLocation, targetFileLocation);
         }
       }
@@ -71,22 +71,22 @@ function parseCliInput() {
   } else {
     if (program.opts().targetFile && !checkIfPathToFileIsValid(program.opts().targetFile)) {
       console.error('Directory path of target file is not valid.');
-      console.log(program.outputHelp());
+      console.info(program.outputHelp());
       process.exit(1);
     }
     if (program.opts().targetFile && checkIfFileExists(program.opts().targetFile) && !(program.opts().editInPlace || program.opts().outputFile)) {
       console.error('This target file already exists, if you want to overwrite this add option -i, or add an -o output location');
-      console.log(program.outputHelp());
+      console.info(program.outputHelp());
       process.exit(1);
     }
     if (!checkIfFileExists(sourceFile)) {
       console.error('Path of source file is not valid.');
-      console.log(program.outputHelp());
+      console.info(program.outputHelp());
       process.exit(1);
     }
     if (program.opts().outputFile && !checkIfPathToFileIsValid(program.opts().outputFile)) {
       console.error('Directory path of output file is not valid.');
-      console.log(program.outputHelp());
+      console.info(program.outputHelp());
       process.exit(1);
     }
 
