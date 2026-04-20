@@ -7658,4 +7658,15 @@
   "admin.edit-user-agreement.error": "An error occurred while updating the user agreement",
 
   "admin.edit-user-agreement.title": "Edit User Agreement",
+
+  "statistics.table.header.TotalVisits": "Object",
+
+  "statistics.table.header.TotalVisitsMonth": "Month",
+
+  "statistics.table.header.TotalDownloads": "Downloads",
+
+  "statistics.table.header.TopCities": "Cities",
+
+  "statistics.table.header.topCountries": "Countries",
+
 }
