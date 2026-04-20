@@ -8,6 +8,7 @@ import { HardRedirectService } from '@dspace/core/services/hard-redirect.service
 import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import { MetadataValueFilter } from '@dspace/core/shared/metadata.models';
 import { AuthServiceStub } from '@dspace/core/testing/auth-service.stub';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
 import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { first } from 'rxjs/operators';
 
@@ -35,6 +36,8 @@ describe('itemPageResolver', () => {
     let authService: AuthServiceStub;
     let platformId: any;
     let hardRedirectService: any;
+    let notificationsService: NotificationsServiceStub;
+    let translateService: any;
 
     const uuid = '1234-65487-12354-1235';
     let item: DSpaceObject;
@@ -46,6 +49,8 @@ describe('itemPageResolver', () => {
         hardRedirectService = jasmine.createSpyObj('hardRedirectService', {
           redirect: {},
         });
+        notificationsService = new NotificationsServiceStub();
+        translateService = { instant: (key: string) => key } as any;
         item = Object.assign(new DSpaceObject(), {
           uuid: uuid,
           firstMetadataValue(_keyOrKeys: string | string[], _valueFilter?: MetadataValueFilter): string {
@@ -74,6 +79,8 @@ describe('itemPageResolver', () => {
           authService,
           platformId,
           hardRedirectService,
+          notificationsService,
+          translateService,
         ).pipe(first())
           .subscribe(
             () => {
@@ -83,7 +90,7 @@ describe('itemPageResolver', () => {
           );
       });
 
-      it('should not redirect if we’re already on the correct route', (done) => {
+      it('should not redirect if we\'re already on the correct route', (done) => {
         spyOn(item, 'firstMetadataValue').and.returnValue(entityType);
         spyOn(router, 'navigateByUrl').and.callThrough();
 
@@ -96,6 +103,8 @@ describe('itemPageResolver', () => {
           authService,
           platformId,
           hardRedirectService,
+          notificationsService,
+          translateService,
         ).pipe(first())
           .subscribe(
             () => {
@@ -129,6 +138,8 @@ describe('itemPageResolver', () => {
     let authService: AuthServiceStub;
     let platformId: any;
     let hardRedirectService: any;
+    let notificationsService: NotificationsServiceStub;
+    let translateService: any;
 
     const uuid = '1234-65487-12354-1235';
     let item: DSpaceObject;
@@ -139,6 +150,8 @@ describe('itemPageResolver', () => {
       hardRedirectService = jasmine.createSpyObj('hardRedirectService', {
         redirect: {},
       });
+      notificationsService = new NotificationsServiceStub();
+      translateService = { instant: (key: string) => key } as any;
       item = Object.assign(new DSpaceObject(), {
         uuid: uuid,
         id: uuid,
@@ -168,7 +181,7 @@ describe('itemPageResolver', () => {
       const route = { params: { id: uuid } } as any;
       const state = { url: `/entities/person/${uuid}` } as any;
 
-      resolver(route, state, router, itemService, store, authService, platformId, hardRedirectService)
+      resolver(route, state, router, itemService, store, authService, platformId, hardRedirectService, notificationsService, translateService)
         .pipe(first())
         .subscribe((rd: any) => {
           const expectedUrl = `/entities/person/${customUrl}`;
@@ -183,7 +196,7 @@ describe('itemPageResolver', () => {
       const route = { params: { id: customUrl } } as any;
       const state = { url: `/entities/person/${customUrl}` } as any;
 
-      resolver(route, state, router, itemService, store, authService, platformId, hardRedirectService)
+      resolver(route, state, router, itemService, store, authService, platformId, hardRedirectService, notificationsService, translateService)
         .pipe(first())
         .subscribe((rd: any) => {
           expect(router.navigateByUrl).not.toHaveBeenCalled();
@@ -197,7 +210,7 @@ describe('itemPageResolver', () => {
       const route = { params: { id: customUrl } } as any;
       const state = { url: `/entities/person/${customUrl}/edit` } as any;
 
-      resolver(route, state, router, itemService, store, authService, platformId, hardRedirectService)
+      resolver(route, state, router, itemService, store, authService, platformId, hardRedirectService, notificationsService, translateService)
         .pipe(first())
         .subscribe(() => {
           expect(router.navigateByUrl).toHaveBeenCalledWith(`/entities/person/${uuid}/edit`);
@@ -211,10 +224,44 @@ describe('itemPageResolver', () => {
       const route = { params: { id: customUrl } } as any;
       const state = { url: `/entities/person/${customUrl}/full` } as any;
 
-      resolver(route, state, router, itemService, store, authService, platformId, hardRedirectService)
+      resolver(route, state, router, itemService, store, authService, platformId, hardRedirectService, notificationsService, translateService)
         .pipe(first())
         .subscribe(() => {
           expect(router.navigateByUrl).not.toHaveBeenCalled();;
+          done();
+        });
+    });
+
+    it('should fall back to UUID and show a warning notification when dspace.customurl contains invalid characters', (done) => {
+      const invalidCustomUrl = 'café-测试';
+      const itemWithInvalidUrl = Object.assign(new DSpaceObject(), {
+        uuid: uuid,
+        id: uuid,
+        firstMetadataValue(_keyOrKeys: string | string[], _valueFilter?: MetadataValueFilter): string {
+          return _keyOrKeys === 'dspace.entity.type' ? 'person' : invalidCustomUrl;
+        },
+        hasMetadata(_keyOrKeys: string | string[], _valueFilter?: MetadataValueFilter): boolean {
+          return true;
+        },
+        metadata: { 'dspace.customurl': invalidCustomUrl },
+      });
+      const invalidItemService = {
+        findByIdOrCustomUrl: (_id: string) => createSuccessfulRemoteDataObject$(itemWithInvalidUrl),
+      };
+      notificationsService = new NotificationsServiceStub();
+      translateService = { instant: (key: string) => key } as any;
+
+      spyOn(router, 'navigateByUrl').and.callThrough();
+
+      const encodedInvalidUrl = encodeURIComponent(invalidCustomUrl);
+      const route = { params: { id: invalidCustomUrl } } as any;
+      const state = { url: `/entities/person/${encodedInvalidUrl}` } as any;
+
+      resolver(route, state, router, invalidItemService, store, authService, platformId, hardRedirectService, notificationsService, translateService)
+        .pipe(first())
+        .subscribe(() => {
+          expect(router.navigateByUrl).toHaveBeenCalledWith(`/entities/person/${uuid}`);
+          expect(notificationsService.warning).toHaveBeenCalled();
           done();
         });
     });

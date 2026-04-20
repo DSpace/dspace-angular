@@ -1,0 +1,27 @@
+<ds-alert [type]="AlertTypeEnum.Error">
+  <h1 class="h4">{{ 'error.custom-url-conflict.title' | translate }}</h1>
+  <p>{{ 'error.custom-url-conflict.description' | translate: { customUrl: customUrl } }}</p>
+  <p>{{ 'error.custom-url-conflict.admin-action' | translate }}</p>
+  @let items = (conflictingItems$ | async);
+  @if (items) {
+    @if (items.length > 0) {
+      <ul class="mb-2">
+        @for (item of items; track item.uuid) {
+          <li>
+            @if (isAuthenticated$ | async) {
+              <a class="btn btn-link" [routerLink]="item.editLink">
+                {{ 'error.custom-url-conflict.edit-link' | translate: { name: item.name, uuid: item.uuid } }}
+              </a>
+            } @else {
+              <span>{{ 'error.custom-url-conflict.edit-link' | translate: { name: item.name, uuid: item.uuid } }}</span>
+            }
+          </li>
+        }
+      </ul>
+    } @else {
+      <p class="text-muted small">{{ 'error.custom-url-conflict.no-items-found' | translate }}</p>
+    }
+  } @else {
+    <ds-loading [showMessage]="false"></ds-loading>
+  }
+</ds-alert>

@@ -1983,6 +1983,16 @@
 
   "error.item": "Error fetching item",
 
+  "error.custom-url-conflict.title": "Duplicate custom URL detected",
+
+  "error.custom-url-conflict.description": "The custom URL \"{{customUrl}}\" is assigned to more than one item. This causes a conflict and the item cannot be displayed.",
+
+  "error.custom-url-conflict.admin-action": "Please contact your repository administrator. The following affected items need their dspace.customurl metadata fixed so each value is unique:",
+
+  "error.custom-url-conflict.edit-link": "Edit \"{{name}}\" ({{uuid}})",
+
+  "error.custom-url-conflict.no-items-found": "No conflicting items could be retrieved. Please contact your administrator.",
+
   "error.items": "Error fetching items",
 
   "error.objects": "Error fetching objects",
@@ -3139,6 +3149,10 @@
   "item.page.filesection.original.bundle": "Original bundle",
 
   "item.page.filesection.license.bundle": "License bundle",
+
+  "item-page.resolver.invalid-custom-url.title": "Invalid custom URL",
+
+  "item-page.resolver.invalid-custom-url.message": "The custom URL of this item contains unsupported characters. The item is being displayed using its UUID.",
 
   "item.page.return": "Back",
 
@@ -5766,6 +5780,8 @@
   "submission.sections.general.collection": "Collection",
 
   "submission.sections.general.deposit_error_notice": "There was an issue when submitting the item, please try again later.",
+
+  "submission.sections.general.invalid_state_error": "Cannot save current changes, mandatory fields are missing. Please resolve problems and save again later.",
 
   "submission.sections.general.deposit_success_notice": "Submission deposited successfully.",
 
