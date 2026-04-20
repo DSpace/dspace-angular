@@ -11244,9 +11244,6 @@
   // TODO Source message changed - Revise the translation
   "item.page.cc.license.disclaimer": "إلا إذا ذُكر خلاف ذلك، يتم وصف ترخيص هذه المادة على أنه",
 
-  // "browse.search-form.placeholder": "Search the repository",
-  "browse.search-form.placeholder": "ابحث في المستودع",
-
   // "file-download-link.download": "Download ",
   "file-download-link.download": "تنزيل ",
 

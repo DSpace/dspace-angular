@@ -11321,9 +11321,6 @@
   // TODO Source message changed - Revise the translation
   "item.page.cc.license.disclaimer": "O ile nie zaznaczono inaczej, licencja tego elementu jest opisana jako",
 
-  // "browse.search-form.placeholder": "Search the repository",
-  "browse.search-form.placeholder": "Wyszukaj w repozytorium",
-
   // "file-download-link.download": "Download ",
   "file-download-link.download": "Pobierz ",
 
