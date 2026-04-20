@@ -1,4 +1,7 @@
-import { NgClass } from '@angular/common';
+import {
+  AsyncPipe,
+  NgClass,
+} from '@angular/common';
 import {
   Component,
   Input,
@@ -6,8 +9,15 @@ import {
 } from '@angular/core';
 import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
+import {
+  map,
+  Observable,
+} from 'rxjs';
 
+import { ConfigurationDataService } from '../../core/data/configuration-data.service';
+import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
 import { MetadataValue } from '../../core/shared/metadata.models';
+import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
 
 /**
  * Component to display an ORCID badge with a tooltip.
@@ -16,6 +26,7 @@ import { MetadataValue } from '../../core/shared/metadata.models';
 @Component({
   selector: 'ds-orcid-badge-and-tooltip',
   imports: [
+    AsyncPipe,
     NgbTooltip,
     NgClass,
   ],
@@ -40,11 +51,17 @@ export class OrcidBadgeAndTooltipComponent implements OnInit {
   orcidTooltip: string;
 
   /**
+   * Observable for the full ORCID URL
+   */
+  orcidUrl$: Observable<string>;
+
+  /**
    * Constructor to inject the TranslateService.
    * @param translateService - Service for translation.
    */
   constructor(
     private translateService: TranslateService,
+    private configurationService: ConfigurationDataService,
   ) { }
 
   /**
@@ -55,6 +72,35 @@ export class OrcidBadgeAndTooltipComponent implements OnInit {
     this.orcidTooltip = this.authenticatedTimestamp ?
       this.translateService.instant('person.orcid-tooltip.authenticated', { orcid: this.orcid.value }) :
       this.translateService.instant('person.orcid-tooltip.not-authenticated', { orcid: this.orcid.value });
+    this.orcidUrl$ = this.buildOrcidUrl();
   }
 
+  /**
+   * Build the full ORCID URL from configuration and metadata value
+   */
+  private buildOrcidUrl(): Observable<string> {
+
+
+    const baseUrl$ = this.configurationService
+      .findByPropertyName('orcid.domain-url')
+      .pipe(
+        getFirstSucceededRemoteDataPayload(),
+        map((property: ConfigurationProperty) =>
+          property?.values?.length > 0 ? property.values[0] : null,
+        ),
+      );
+
+
+    return baseUrl$.pipe(
+      map(baseUrl => {
+        if (!baseUrl || !this.orcid?.value) {
+          return '';
+        }
+
+        const cleanBaseUrl = baseUrl.replace(/\/$/, '');
+        const cleanOrcidId = this.orcid.value.replace(/^\//, '');
+        return `${cleanBaseUrl}/${cleanOrcidId}`;
+      }),
+    );
+  }
 }
