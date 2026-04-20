@@ -64,7 +64,7 @@
               [page]="(currentPage$|async)"
               (pageChange)="doPageChange($event)"
               [pageSize]="(pageSize$ |async)"
-              [rotate]="true"
+              [rotate]="paginationOptions.rotate"
               [size]="(isXs)?'sm':paginationOptions.size">
             </ngb-pagination>
           </div>
