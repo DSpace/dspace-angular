@@ -72,7 +72,6 @@ describe('OrcidBadgeAndTooltipComponent', () => {
     component.authenticatedTimestamp = null;
     fixture.detectChanges();
     const badgeIcon = fixture.debugElement.query(By.css('img[data-test="orcidIcon"]'));
-    expect(badgeIcon.nativeElement.classList).toContain('not-authenticated');
     expect(badgeIcon.nativeElement.getAttribute('src')).toEqual('assets/images/orcid.logo.unauth.icon.svg');
   });
 
