@@ -13,6 +13,10 @@ import {
   NavigationEnd,
   Router,
 } from '@angular/router';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
 import { PaginatedList } from '@dspace/core/data/paginated-list.model';
 import { SystemWideAlertDataService } from '@dspace/core/data/system-wide-alert-data.service';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
@@ -35,6 +39,7 @@ import {
   map,
   startWith,
   switchMap,
+  throttleTime,
 } from 'rxjs/operators';
 
 /**
@@ -78,6 +83,7 @@ export class SystemWideAlertBannerComponent implements OnInit, OnDestroy {
 
   constructor(
     @Inject(PLATFORM_ID) protected platformId: any,
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
     protected systemWideAlertDataService: SystemWideAlertDataService,
     protected notificationsService: NotificationsService,
     protected router: Router,
@@ -89,6 +95,7 @@ export class SystemWideAlertBannerComponent implements OnInit, OnDestroy {
       this.router.events.pipe(
         filter(event => event instanceof NavigationEnd),
         startWith(null),
+        throttleTime(this.appConfig.systemWideAlert?.refreshIntervalMs ?? 5 * 60 * 1000),
         switchMap(() =>
           this.systemWideAlertDataService.searchBy('active', null, false, true),
         ),
@@ -112,7 +119,6 @@ export class SystemWideAlertBannerComponent implements OnInit, OnDestroy {
             } else {
               return EMPTY;
             }
-
           }
         }
         // Reset the countDown times to 0 and return EMPTY to prevent unnecessary countdown calculations
@@ -132,7 +138,6 @@ export class SystemWideAlertBannerComponent implements OnInit, OnDestroy {
    */
   private setTimeDifference(countdownTo: string) {
     const date = zonedTimeToUtc(countdownTo, 'UTC');
-
     const timeDifference = date.getTime() - new Date().getTime();
     this.allocateTimeUnits(timeDifference);
   }

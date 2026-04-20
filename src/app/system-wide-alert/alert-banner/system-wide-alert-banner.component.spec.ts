@@ -11,6 +11,7 @@ import {
   NavigationEnd,
   Router,
 } from '@angular/router';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import { SystemWideAlertDataService } from '@dspace/core/data/system-wide-alert-data.service';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { SystemWideAlert } from '@dspace/core/shared/system-wide-alert.model';
@@ -24,6 +25,8 @@ import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { SystemWideAlertBannerComponent } from './system-wide-alert-banner.component';
+
+
 
 describe('SystemWideAlertBannerComponent', () => {
   let comp: SystemWideAlertBannerComponent;
@@ -52,16 +55,13 @@ describe('SystemWideAlertBannerComponent', () => {
       searchBy: createSuccessfulRemoteDataObject$(createPaginatedList([systemWideAlert])),
     });
 
-    const routerStub = {
-      events: of(new NavigationEnd(0, '/test', '/test')),
-    };
-
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), SystemWideAlertBannerComponent],
       providers: [
         { provide: SystemWideAlertDataService, useValue: systemWideAlertDataService },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
-        { provide: Router, useValue: routerStub }, // 👈 AQUÍ
+        { provide: Router, useValue: { events: of(new NavigationEnd(0, '/test', '/test')) } },
+        { provide: APP_CONFIG, useValue: { systemWideAlert: { refreshIntervalMs: 300000 } } },
       ],
     }).compileComponents();
   }));
@@ -76,20 +76,17 @@ describe('SystemWideAlertBannerComponent', () => {
     it('should init the comp', () => {
       expect(comp).toBeTruthy();
     });
-
     it('should set the time countdown parts in their respective behaviour subjects', fakeAsync(() => {
       spyOn(comp.countDownDays, 'next');
       spyOn(comp.countDownHours, 'next');
       spyOn(comp.countDownMinutes, 'next');
-
       comp.ngOnInit();
       tick(2000);
-
       expect(comp.countDownDays.next).toHaveBeenCalled();
       expect(comp.countDownHours.next).toHaveBeenCalled();
       expect(comp.countDownMinutes.next).toHaveBeenCalled();
-
       discardPeriodicTasks();
+
     }));
   });
 
