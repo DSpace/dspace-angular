@@ -13,13 +13,16 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { LinkService } from '@dspace/core/cache/builders/link.service';
 import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
 import { JsonPatchOperationPathCombiner } from '@dspace/core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
 import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
 import { SubmissionJsonPatchOperationsService } from '@dspace/core/submission/submission-json-patch-operations.service';
 import { AuthorizationDataServiceStub } from '@dspace/core/testing/authorization-service.stub';
 import { HALEndpointServiceStub } from '@dspace/core/testing/hal-endpoint-service.stub';
+import { getMockLinkService } from '@dspace/core/testing/link-service.mock';
 import { getMockSectionUploadService } from '@dspace/core/testing/section-upload.service.mock';
 import { SubmissionJsonPatchOperationsServiceStub } from '@dspace/core/testing/submission-json-patch-operations-service.stub';
 import { SubmissionServiceStub } from '@dspace/core/testing/submission-service.stub';
@@ -29,6 +32,8 @@ import {
   NgbModal,
   NgbModule,
 } from '@ng-bootstrap/ng-bootstrap';
+import { Store } from '@ngrx/store';
+import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
@@ -112,12 +117,15 @@ describe('SubmissionSectionUploadFileComponent', () => {
         { provide: SubmissionService, useValue: submissionServiceStub },
         { provide: SectionUploadService, useValue: getMockSectionUploadService() },
         { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: Store, useValue: provideMockStore() },
+        { provide: ItemDataService, useValue: {} },
         ChangeDetectorRef,
         NgbModal,
         SubmissionSectionUploadFileComponent,
         SubmissionSectionUploadFileEditComponent,
         FormBuilderService,
         { provide: AuthorizationDataService, useValue: new AuthorizationDataServiceStub() },
+        { provide: LinkService, useValue: getMockLinkService() },
       ],
     })
       .overrideComponent(SubmissionSectionUploadFileComponent, {

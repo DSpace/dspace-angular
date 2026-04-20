@@ -11,10 +11,18 @@ import {
 import { SubmissionFormsModel } from '@dspace/core/config/models/config-submission-forms.model';
 import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
 import { JsonPatchOperationPathCombiner } from '@dspace/core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
 import { Bitstream } from '@dspace/core/shared/bitstream.model';
+import { followLink } from '@dspace/core/shared/follow-link-config.model';
 import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
+import { Item } from '@dspace/core/shared/item.model';
+import {
+  getAllSucceededRemoteData,
+  getFirstSucceededRemoteDataPayload,
+  getRemoteDataPayload,
+} from '@dspace/core/shared/operators';
 import { WorkspaceitemSectionUploadFileObject } from '@dspace/core/submission/models/workspaceitem-section-upload-file.model';
 import { SubmissionJsonPatchOperationsService } from '@dspace/core/submission/submission-json-patch-operations.service';
 import { SubmissionScopeType } from '@dspace/core/submission/submission-scope-type';
@@ -30,7 +38,9 @@ import { DynamicFormControlModel } from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
+  combineLatest,
   Observable,
+  of,
   Subscription,
 } from 'rxjs';
 import {
@@ -210,6 +220,7 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
    * @param {SectionUploadService} uploadService
    * @param {AuthorizationDataService} authorizationService
    * @param {HALEndpointService} halService
+   * @param {ItemDataService} itemDataService
    */
   constructor(
     private formService: FormService,
@@ -220,6 +231,7 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
     private uploadService: SectionUploadService,
     private authorizationService: AuthorizationDataService,
     private halService: HALEndpointService,
+    private itemDataService: ItemDataService,
   ) {
     this.readMode = true;
   }
@@ -250,20 +262,63 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
     this.processingSaveStatus$ = this.submissionService.getSubmissionSaveProcessingStatus(this.submissionId);
     this.pathCombiner = new JsonPatchOperationPathCombiner('sections', this.sectionId);
     this.loadFormMetadata();
+    this.initReplaceButtonVisibility();
+  }
+
+  /**
+   * Sets up the subscription that drives {@link showReplaceButton$}. The version check
+   * (`isVersionedSubmission`) is kept outside the per-file `switchMap` via `combineLatest`
+   * so that repeated emissions from `getFileData` during form initialisation do not cancel
+   * the in-flight version request before it has had a chance to resolve.
+   */
+  private initReplaceButtonVisibility(): void {
+    const scope = this.submissionService.getSubmissionScope();
+    if (scope === SubmissionScopeType.WorkflowItem) {
+      return;
+    }
     this.subscriptions.push(
-      this.uploadService.getFileData(this.submissionId, this.sectionId, this.fileId).pipe(
-        filter(isNotUndefined),
-        switchMap((fileData) => {
-          // Replace is only meaningful for archived items being edited, not for fresh submissions.
-          if (this.submissionService.getSubmissionScope() !== SubmissionScopeType.EditItem) {
-            return [false];
-          }
-          return this.halService.getEndpoint('bitstreams').pipe(
-            map(endpoint => `${endpoint}/${fileData.uuid}`),
-            switchMap(bitstreamUrl => this.authorizationService.isAuthorized(FeatureID.CanReplaceBitstreamSubmitter, bitstreamUrl)),
-          );
-        }),
+      combineLatest([
+        this.isVersionedSubmission(scope),
+        this.uploadService.getFileData(this.submissionId, this.sectionId, this.fileId).pipe(
+          filter(isNotUndefined),
+          switchMap((fileData) => this.isAuthorizedToReplace(fileData.uuid)),
+        ),
+      ]).pipe(
+        map(([isVersioned, isAuthorized]) => isVersioned && isAuthorized),
       ).subscribe((canReplace) => this.showReplaceButton$.next(canReplace)),
+    );
+  }
+
+  /**
+   * Returns `true` when the current submission is a new-version workspace item (i.e. its item
+   * already belongs to a version history), or unconditionally `true` for EditItem scope where
+   * versioning does not apply.
+   */
+  private isVersionedSubmission(scope: SubmissionScopeType): Observable<boolean> {
+    if (scope !== SubmissionScopeType.WorkspaceItem) {
+      return of(true);
+    }
+    return this.submissionService.retrieveSubmission(this.submissionId).pipe(
+      getAllSucceededRemoteData(),
+      getRemoteDataPayload(),
+      switchMap((submissionObject) =>
+        this.itemDataService.findByHref(submissionObject._links.item.href, true, true, followLink('version')).pipe(
+          getFirstSucceededRemoteDataPayload(),
+          switchMap((item: Item) => item.version),
+          getFirstSucceededRemoteDataPayload(),
+          map((version) => hasValue(version)),
+        ),
+      ),
+    );
+  }
+
+  /**
+   * Returns whether the current user is authorized to replace the given bitstream.
+   */
+  private isAuthorizedToReplace(bitstreamUuid: string): Observable<boolean> {
+    return this.halService.getEndpoint('bitstreams').pipe(
+      map((endpoint) => `${endpoint}/${bitstreamUuid}`),
+      switchMap((bitstreamUrl) => this.authorizationService.isAuthorized(FeatureID.CanReplaceBitstreamSubmitter, bitstreamUrl)),
     );
   }
 
