@@ -4154,6 +4154,10 @@
 
   "person.page.orcid": "ORCID",
 
+  "person.page.orcid.benefits.description": "ORCID is a free, unique, persistent identifier (PID) for individuals to use as they engage in research, scholarship, and innovation activities. It can also help you save time when you use your ORCID to sign into systems like this one.",
+
+  "person.page.orcid.benefits.learn-more": "Don't have an ORCID iD yet? Learn more at orcid.org",
+
   "person.page.staffid": "Staff ID",
 
   "person.page.titleprefix": "Person: ",
