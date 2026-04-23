@@ -325,6 +325,8 @@
 
   "admin.access-control.epeople.form.email": "Email",
 
+  "admin.access-control.epeople.form.phone": "Phone",
+
   "admin.access-control.epeople.form.emailHint": "Must be a valid email address",
 
   "admin.access-control.epeople.form.canLogIn": "Can log in",
