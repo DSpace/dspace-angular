@@ -5937,6 +5937,8 @@
 
   "submission.sections.upload.upload-successful": "Upload successful",
 
+  "submission.sections.upload.delete.not-allowed": "All Items require at least one File. To delete this File, please first add another File to the Item.",
+
   "submission.sections.custom-url.label.previous-urls": "Previous Urls",
 
   "submission.sections.custom-url.alert.info": "Define here a custom URL which will be used to reach the item instead of using an internal randomly generated UUID identifier. ",
