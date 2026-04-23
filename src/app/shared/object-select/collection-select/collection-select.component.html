@@ -38,10 +38,10 @@
     <ds-loading message="{{'loading.collections' | translate}}"></ds-loading>
   }
   <div class="space-children-mr float-end" *ngVar="(selectedIds$ | async) as selectedIds">
-    <button class="btn btn-outline-secondary collection-cancel" (click)="onCancel()">
+    <button type="button" class="btn btn-outline-secondary collection-cancel" (click)="onCancel()">
       <i class="fas fa-times"></i> {{cancelButton | translate}}
     </button>
-    <button class="btn collection-confirm"
+    <button type="button" class="btn collection-confirm"
       [ngClass]="{'btn-danger': dangerConfirm, 'btn-primary': !dangerConfirm}"
       [dsBtnDisabled]="selectedIds?.length === 0"
       (click)="confirmSelected()">

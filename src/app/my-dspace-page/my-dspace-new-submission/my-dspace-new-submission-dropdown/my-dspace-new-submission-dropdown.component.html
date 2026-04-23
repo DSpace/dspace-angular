@@ -1,6 +1,6 @@
 @if ((moreThanOne$ | async) !== true) {
   <div class="add">
-    <button class="btn btn-lg btn-primary mt-1 ms-2" [attr.aria-label]="'mydspace.new-submission' | translate"
+    <button type="button" class="btn btn-lg btn-primary mt-1 ms-2" [attr.aria-label]="'mydspace.new-submission' | translate"
       [dsBtnDisabled]="(initialized$ | async) !== true" (click)="openDialog(singleEntity)" role="button">
       <i class="fa fa-plus-circle" aria-hidden="true"></i>
     </button>

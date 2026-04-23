@@ -36,7 +36,7 @@
                           }
                           <div class="ms-auto">
                             <div class="btn-group">
-                              <button class="btn btn-outline-info btn-sm"
+                              <button type="button" class="btn btn-outline-info btn-sm"
                                 (click)="openVirtualMetadataModal(virtualMetadataModal)">
                                 <i class="fas fa-info fa-fw"></i>
                               </button>
@@ -96,23 +96,23 @@
           <p>{{'item.edit.delete.confirmation-detail' | translate}}</p>
         </div>
         <div class="modal-footer">
-          <button class="btn btn-secondary" (click)="modalRef.close()">
+          <button type="button" class="btn btn-secondary" (click)="modalRef.close()">
             {{'item.edit.delete.cancel' | translate}}
           </button>
-          <button class="btn btn-danger" (click)="confirmDeletion()">
+          <button type="button" class="btn btn-danger" (click)="confirmDeletion()">
             {{'item.edit.delete.confirm' | translate}}
           </button>
         </div>
       </ng-template>
 
       <div class="space-children-mr">
-        <button [dsBtnDisabled]="isDeleting$ | async"
+        <button type="button" [dsBtnDisabled]="isDeleting$ | async"
                 class="btn btn-danger perform-action"
                 (click)="openDeleteConfirmationModal()">
           {{confirmMessage | translate}}
         </button>
 
-        <button [dsBtnDisabled]="isDeleting$ | async"
+        <button type="button" [dsBtnDisabled]="isDeleting$ | async"
                 [routerLink]="[itemPageRoute, 'edit']"
                 class="btn btn-outline-secondary cancel">
           {{cancelMessage | translate}}

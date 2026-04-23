@@ -1,5 +1,6 @@
 <div class="me-2">
-  <button (click)="importObject.emit(object)"
+  <button type="button"
+          (click)="importObject.emit(object)"
           class="btn btn-outline-primary btn-sm float-start"
           title="{{importConfig?.buttonLabel | translate}}">
     <i class="fas fa-cloud-download-alt fa-fw"></i>
