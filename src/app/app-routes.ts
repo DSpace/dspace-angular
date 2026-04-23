@@ -28,6 +28,7 @@ import { ACCESS_CONTROL_MODULE_PATH } from './access-control/access-control-rout
 import { NOTIFICATIONS_MODULE_PATH } from './admin/admin-routing-paths';
 import {
   ADMIN_MODULE_PATH,
+  BULK_IMPORT_PATH,
   EDIT_ITEM_PATH,
   FORGOT_PASSWORD_PATH,
   HEALTH_PAGE_PATH,
@@ -274,6 +275,11 @@ export const APP_ROUTES: Route[] = [
         path: 'auditlogs',
         loadChildren: () => import('./audit-page/audit-page-routes').then((m) => m.ROUTES),
         canActivate: [siteAdministratorGuard, endUserAgreementCurrentUserGuard],
+      },
+      {
+        path: BULK_IMPORT_PATH,
+        loadChildren: () => import('./bulk-import/bulk-import-page-routes').then((m) => m.ROUTES),
+        canActivate: [authenticatedGuard, endUserAgreementCurrentUserGuard],
       },
       {
         path: 'subscriptions',
