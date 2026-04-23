@@ -22,6 +22,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail.component';
 import { fadeInOut } from '../../../animations/fade';
+import { MetadataDirective } from '../../../metadata.directive';
 import { MetadataLinkViewComponent } from '../../../metadata-link-view/metadata-link-view.component';
 import { ThemedBadgesComponent } from '../../../object-collection/shared/badges/themed-badges.component';
 import { ItemCollectionComponent } from '../../../object-collection/shared/mydspace-item-collection/item-collection.component';
@@ -41,6 +42,7 @@ import { TruncatablePartComponent } from '../../../truncatable/truncatable-part/
     AsyncPipe,
     ItemCollectionComponent,
     ItemSubmitterComponent,
+    MetadataDirective,
     MetadataLinkViewComponent,
     NgClass,
     ThemedBadgesComponent,
