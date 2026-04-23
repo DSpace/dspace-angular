@@ -15,7 +15,6 @@ import {
   combineLatest as observableCombineLatest,
   map,
   Observable,
-  of,
 } from 'rxjs';
 
 import { MenuItemType } from '../menu-item-type.model';
@@ -37,14 +36,19 @@ export class AccessControlMenuProvider extends AbstractExpandableMenuProvider {
   }
 
   public getTopSection(): Observable<PartialMenuSection> {
-    return of({
-      model: {
-        type: MenuItemType.TEXT,
-        text: 'menu.section.access_control',
-      },
-      icon: 'key',
-      visible: true,
-    });
+    return observableCombineLatest([
+      this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
+      this.authorizationService.isAuthorized(FeatureID.CanManageGroups),
+    ]).pipe(
+      map(([isSiteAdmin, canManageGroups]) => ({
+        model: {
+          type: MenuItemType.TEXT,
+          text: 'menu.section.access_control',
+        },
+        icon: 'key',
+        visible: isSiteAdmin || canManageGroups,
+      })),
+    );
   }
 
   public getSubSections(): Observable<PartialMenuSection[]> {
