@@ -11,7 +11,6 @@ import {
   Component,
   ComponentFactoryResolver,
   ContentChildren,
-  DoCheck,
   EventEmitter,
   Inject,
   inject,
@@ -158,7 +157,7 @@ import { NameVariantService } from './relation-lookup-modal/name-variant.service
   ],
 })
 export class DsDynamicFormControlContainerComponent extends DynamicFormControlContainerComponent
-  implements OnInit, OnChanges, OnDestroy, AfterViewInit, DoCheck {
+  implements OnInit, OnChanges, OnDestroy, AfterViewInit {
   @ContentChildren(DynamicTemplateDirective) contentTemplateList: QueryList<DynamicTemplateDirective>;
   // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('templates') inputTemplateList: QueryList<DynamicTemplateDirective>;
@@ -205,6 +204,9 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
    * Determines whether to request embedded thumbnail.
    */
   fetchThumbnail: boolean;
+
+  // Propiedad privada para el valor real
+  private _showErrorMessages = false;
 
   get componentType(): Type<DynamicFormControl> | null {
     return this.dynamicFormControlFn(this.model);
@@ -361,10 +363,17 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     }
   }
 
-  ngDoCheck() {
-    if (isNotUndefined(this.showErrorMessagesPreviousStage) && this.showErrorMessagesPreviousStage !== this.showErrorMessages) {
-      this.showErrorMessagesPreviousStage = this.showErrorMessages;
-      this.forceShowErrorDetection();
+  override get showErrorMessages(): boolean {
+    return this._showErrorMessages;
+  }
+
+  override set showErrorMessages(value: boolean) {
+    if (this._showErrorMessages !== value) {
+      this._showErrorMessages = value;
+      if (isNotUndefined(this.showErrorMessagesPreviousStage)) {
+        this.showErrorMessagesPreviousStage = value;
+        this.forceShowErrorDetection();
+      }
     }
   }
 
