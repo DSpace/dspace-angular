@@ -11,8 +11,10 @@ import {
   Injectable,
   PLATFORM_ID,
 } from '@angular/core';
+import { AuthService } from '@dspace/core/auth/auth.service';
 import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
+import { SubscriptionsDataService } from '@dspace/core/data/subscriptions-data.service';
 import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
@@ -29,10 +31,8 @@ import {
   startWith,
   switchMap,
 } from 'rxjs/operators';
-import { AuthService } from '@dspace/core/auth/auth.service';
 
 import { SubscriptionModalComponent } from '../../subscriptions/subscription-modal/subscription-modal.component';
-import { SubscriptionsDataService } from '@dspace/core/data/subscriptions-data.service';
 import { OnClickMenuItemModel } from '../menu-item/models/onclick.model';
 import { MenuItemType } from '../menu-item-type.model';
 import { PartialMenuSection } from '../menu-provider.model';
