@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { ThemedLangSwitchComponent } from 'src/app/shared/lang-switch/themed-lang-switch.component';
 
 import { ContextHelpToggleComponent } from '../../../../app/header/context-help-toggle/context-help-toggle.component';
 import { HeaderComponent as BaseComponent } from '../../../../app/header/header.component';
@@ -27,7 +26,6 @@ import { ImpersonateNavbarComponent } from '../../../../app/shared/impersonate-n
     NgbDropdownModule,
     RouterLink,
     ThemedAuthNavMenuComponent,
-    ThemedLangSwitchComponent,
     ThemedSearchNavbarComponent,
     TranslateModule,
   ],
