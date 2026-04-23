@@ -1,6 +1,6 @@
 import {
+  CUSTOM_ELEMENTS_SCHEMA,
   DebugElement,
-  NO_ERRORS_SCHEMA,
 } from '@angular/core';
 import {
   ComponentFixture,
@@ -8,31 +8,22 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { RouterTestingModule } from '@angular/router/testing';
+import { RouterModule } from '@angular/router';
 import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import { RelationshipDataService } from '@dspace/core/data/relationship-data.service';
-import { MetadataField } from '@dspace/core/metadata/metadata-field.model';
-import { MetadataSchema } from '@dspace/core/metadata/metadata-schema.model';
-import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { Collection } from '@dspace/core/shared/collection.model';
 import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
-import { Item } from '@dspace/core/shared/item.model';
 import {
   MetadataValue,
   VIRTUAL_METADATA_PREFIX,
 } from '@dspace/core/shared/metadata.models';
 import { ItemMetadataRepresentation } from '@dspace/core/shared/metadata-representation/item/item-metadata-representation.model';
 import { DsoEditMetadataFieldServiceStub } from '@dspace/core/testing/dso-edit-metadata-field.service.stub';
-import { createPaginatedList } from '@dspace/core/testing/utils.test';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
-import { RegistryService } from 'src/app/admin/admin-registries/registry/registry.service';
 import { mockSecurityConfig } from 'src/app/submission/utils/submission.mock';
 
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { ThemedTypeBadgeComponent } from '../../../shared/object-collection/shared/badges/type-badge/themed-type-badge.component';
-import { VarDirective } from '../../../shared/utils/var.directive';
 import {
   DsoEditMetadataChangeType,
   DsoEditMetadataValue,
@@ -54,27 +45,9 @@ describe('DsoEditMetadataValueComponent', () => {
   let relationshipService: RelationshipDataService;
   let dsoNameService: DSONameService;
   let dsoEditMetadataFieldService: DsoEditMetadataFieldServiceStub;
-  let registryService: RegistryService;
-  let notificationsService: NotificationsService;
   let editMetadataValue: DsoEditMetadataValue;
   let metadataValue: MetadataValue;
   let dso: DSpaceObject;
-
-  const collection =  Object.assign(new Collection(), {
-    uuid: 'fake-uuid',
-  });
-
-  const item = Object.assign(new Item(), {
-    _links: {
-      self: { href: 'fake-item-url/item' },
-    },
-    id: 'item',
-    uuid: 'item',
-    owningCollection: createSuccessfulRemoteDataObject$(collection),
-  });
-
-  let metadataSchema: MetadataSchema;
-  let metadataFields: MetadataField[];
 
   function initServices(): void {
     relationshipService = jasmine.createSpyObj('relationshipService', {
@@ -86,10 +59,6 @@ describe('DsoEditMetadataValueComponent', () => {
       getName: 'Related Name',
     });
     dsoEditMetadataFieldService = new DsoEditMetadataFieldServiceStub();
-    registryService = jasmine.createSpyObj('registryService', {
-      queryMetadataFields: createSuccessfulRemoteDataObject$(createPaginatedList(metadataFields)),
-    });
-    notificationsService = jasmine.createSpyObj('notificationsService', ['error', 'success']);
   }
 
   beforeEach(waitForAsync(async () => {
@@ -111,29 +80,26 @@ describe('DsoEditMetadataValueComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
-        RouterTestingModule.withRoutes([]),
+        RouterModule.forRoot([]),
         DsoEditMetadataValueComponent,
-        VarDirective,
         BtnDisabledDirective,
       ],
       providers: [
         { provide: RelationshipDataService, useValue: relationshipService },
         { provide: DSONameService, useValue: dsoNameService },
         { provide: DsoEditMetadataFieldService, useValue: dsoEditMetadataFieldService },
-        { provide: RegistryService, useValue: registryService },
-        { provide: NotificationsService, useValue: notificationsService },
       ],
-      schemas: [NO_ERRORS_SCHEMA],
-    })
-      .overrideComponent(DsoEditMetadataValueComponent, {
-        remove: {
-          imports: [
-            ThemedTypeBadgeComponent,
-            DsoEditMetadataValueFieldLoaderComponent,
-          ],
-        },
-      })
-      .compileComponents();
+    }).overrideComponent(DsoEditMetadataValueComponent, {
+      add: {
+        schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      },
+      remove: {
+        imports: [
+          ThemedTypeBadgeComponent,
+          DsoEditMetadataValueFieldLoaderComponent,
+        ],
+      },
+    }).compileComponents();
   }));
 
   beforeEach(() => {
