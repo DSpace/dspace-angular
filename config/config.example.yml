@@ -551,6 +551,10 @@ mediaViewer:
   image: false
   video: false
 
+# Whether to enable the PDF viewer for Bitstreams (i.e. Bitstreams whose MIME type starts with 'application/pdf').
+pdfViewer:
+  enabled: true
+
 # Whether the end user agreement is required before users use the repository.
 # If enabled, the user will be required to accept the agreement before they can use the repository.
 # And whether the privacy statement/COAR notify support page should exist or not.

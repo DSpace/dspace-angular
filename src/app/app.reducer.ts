@@ -52,6 +52,10 @@ import {
   objectSelectionReducer,
 } from './shared/object-select/object-select.reducer';
 import {
+  pdfViewerFullscreenReducer,
+  PdfViewerFullscreenState,
+} from './shared/pdf-viewer-fullscreen/pdf-viewer-fullscreen.reducer';
+import {
   cssVariablesReducer,
   CSSVariablesState,
 } from './shared/sass-helper/css-variable.reducer';
@@ -95,6 +99,7 @@ export interface AppState {
   groupRegistry: GroupRegistryState;
   contextHelp: ContextHelpState;
   bitstreamFormats: BitstreamFormatRegistryState;
+  pdfViewerFullscreen: PdfViewerFullscreenState;
 }
 
 export const appReducers: ActionReducerMap<AppState> = {
@@ -116,6 +121,7 @@ export const appReducers: ActionReducerMap<AppState> = {
   groupRegistry: groupRegistryReducer,
   contextHelp: contextHelpReducer,
   bitstreamFormats: bitstreamFormatReducer,
+  pdfViewerFullscreen: pdfViewerFullscreenReducer,
 };
 
 export const routerStateSelector = (state: AppState) => state.router;

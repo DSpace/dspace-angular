@@ -7,6 +7,7 @@ import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { EditBitstreamPageComponent as BaseComponent } from '../../../../../app/bitstream-page/edit-bitstream-page/edit-bitstream-page.component';
+import { PdfViewerEnableComponent } from '../../../../../app/pdf-viewer/pdf-viewer-enable/pdf-viewer-enable.component';
 import { ErrorComponent } from '../../../../../app/shared/error/error.component';
 import { FormComponent } from '../../../../../app/shared/form/form.component';
 import { ThemedLoadingComponent } from '../../../../../app/shared/loading/themed-loading.component';
@@ -26,6 +27,7 @@ import { ThemedThumbnailComponent } from '../../../../../app/thumbnail/themed-th
     ErrorComponent,
     FileSizePipe,
     FormComponent,
+    PdfViewerEnableComponent,
     RouterLink,
     ThemedLoadingComponent,
     ThemedThumbnailComponent,

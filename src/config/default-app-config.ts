@@ -1,4 +1,5 @@
 import { LayoutConfig } from '@dspace/config/layout-config.interfaces';
+import { PdfViewerConfig } from '@dspace/config/pdf-viewer-config';
 import { SearchResultConfig } from '@dspace/config/search-result-config.interface';
 
 import { AccessibilitySettingsConfig } from './accessibility-settings.config';
@@ -869,5 +870,10 @@ export class DefaultAppConfig implements AppConfig {
       'dspace.cms.home-news',
       'dspace.cms.footer',
     ],
+  };
+
+  // PDF viewer configuration, used by the PdfViewerService
+  pdfViewer: PdfViewerConfig = {
+    enabled: false,
   };
 }

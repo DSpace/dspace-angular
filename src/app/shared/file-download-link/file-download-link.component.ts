@@ -27,6 +27,7 @@ import {
   hasValue,
   isNotEmpty,
 } from '@dspace/shared/utils/empty.util';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
   TranslateService,
@@ -41,6 +42,8 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
+import { getPdfViewerRoute } from '../../pdf-viewer/pdf-viewer-routing-paths';
+import { PdfViewerService } from '../../pdf-viewer/pdf-viewer-service/pdf-viewer-service';
 import { ThemedAccessStatusBadgeComponent } from '../object-collection/shared/badges/access-status-badge/themed-access-status-badge.component';
 
 @Component({
@@ -49,6 +52,7 @@ import { ThemedAccessStatusBadgeComponent } from '../object-collection/shared/ba
   styleUrls: ['./file-download-link.component.scss'],
   imports: [
     AsyncPipe,
+    NgbTooltipModule,
     NgClass,
     NgTemplateOutlet,
     RouterLink,
@@ -103,11 +107,15 @@ export class FileDownloadLinkComponent implements OnInit {
   canDownloadWithToken$: Observable<boolean>;
   canRequestACopy$: Observable<boolean>;
 
+  pdfViewerPath: string;
+  pdfViewerAllowed$: Observable<boolean>;
+
   constructor(
     private authorizationService: AuthorizationDataService,
     public dsoNameService: DSONameService,
     private route: ActivatedRoute,
     private translateService: TranslateService,
+    protected pdfViewerService: PdfViewerService,
   ) {
   }
 
@@ -137,6 +145,9 @@ export class FileDownloadLinkComponent implements OnInit {
       this.bitstreamPath$ = of(this.getBitstreamDownloadPath());
       this.canDownload$ = of(true);
     }
+
+    this.pdfViewerPath = getPdfViewerRoute(this.bitstream.id);
+    this.pdfViewerAllowed$ = this.pdfViewerService.viewerAllowed$(this.bitstream);
   }
 
   /**
