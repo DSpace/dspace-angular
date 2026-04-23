@@ -328,15 +328,28 @@ describe('EPersonFormComponent', () => {
       });
     });
 
+    describe('with uppercased email specified', () => {
+      beforeEach(() => {
+        component.formGroup.controls.firstName.setValue('test');
+        component.formGroup.controls.lastName.setValue('test');
+        component.formGroup.controls.email.setValue('TEST@test.com');
+        fixture.detectChanges();
+      });
+
+      it('passes validation check', () => {
+        expect(component.formGroup.controls.email.valid).toBeTrue();
+        expect(component.formGroup.controls.email.errors).toBeNull();
+      });
+    });
 
     describe('after inserting email wrong should show pattern validation error', () => {
       beforeEach(() => {
-        component.formGroup.controls.email.setValue('test@test');
+        component.formGroup.controls.email.setValue('test');
         fixture.detectChanges();
       });
       it('email should not be valid because the email pattern', () => {
         expect(component.formGroup.controls.email.valid).toBeFalse();
-        expect(component.formGroup.controls.email.errors.pattern).toBeTruthy();
+        expect(component.formGroup.controls.email.errors.email).toBeTruthy();
       });
     });
 
