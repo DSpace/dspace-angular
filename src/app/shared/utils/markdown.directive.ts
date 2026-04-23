@@ -85,6 +85,9 @@ export class MarkdownDirective implements OnInit, OnDestroy {
       html: true,
       linkify: true,
     });
+    md.linkify.set({
+      fuzzyLink: false,
+    });
 
     const html = alreadySanitized ? md.render(value) : this.sanitizer.sanitize(SecurityContext.HTML, md.render(value));
     this.el.innerHTML = html;
