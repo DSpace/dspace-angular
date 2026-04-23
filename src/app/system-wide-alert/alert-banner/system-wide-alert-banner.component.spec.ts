@@ -7,6 +7,11 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import {
+  NavigationEnd,
+  Router,
+} from '@angular/router';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import { SystemWideAlertDataService } from '@dspace/core/data/system-wide-alert-data.service';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { SystemWideAlert } from '@dspace/core/shared/system-wide-alert.model';
@@ -16,9 +21,11 @@ import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote
 import { TranslateModule } from '@ngx-translate/core';
 import { utcToZonedTime } from 'date-fns-tz';
 import { getTestScheduler } from 'jasmine-marbles';
+import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { SystemWideAlertBannerComponent } from './system-wide-alert-banner.component';
+
 
 
 describe('SystemWideAlertBannerComponent', () => {
@@ -53,6 +60,8 @@ describe('SystemWideAlertBannerComponent', () => {
       providers: [
         { provide: SystemWideAlertDataService, useValue: systemWideAlertDataService },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
+        { provide: Router, useValue: { events: of(new NavigationEnd(0, '/test', '/test')) } },
+        { provide: APP_CONFIG, useValue: { systemWideAlert: { refreshIntervalMs: 300000 } } },
       ],
     }).compileComponents();
   }));
