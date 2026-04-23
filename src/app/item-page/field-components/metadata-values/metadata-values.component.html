@@ -4,14 +4,29 @@
     <!--
     Choose a template. Priority: vocabulary, markdown, link, browse link.
     -->
-      <ng-container *ngTemplateOutlet="(isVocabulary ? controlledVocabulary : (renderMarkdown ? markdown : (hasLink(mdValue) ? (hasValue(img) ? linkImg : link) : (hasBrowseDefinition() ? browselink : simple))));
-        context: {value: (isVocabulary ? mdValue : mdValue.value), img}">
-    </ng-container>
+      <ng-container
+        *ngTemplateOutlet="
+          isVocabulary ? controlledVocabulary :
+          renderMarkdown ? markdown :
+          hasLink(mdValue) ? (hasValue(img) ? linkImg : link) :
+          hasSearchFilter() ? searchlink :
+          hasBrowseDefinition() ? browselink : simple;
+          context: { value: (isVocabulary ? mdValue : mdValue.value), img: img }
+        ">
+      </ng-container>
     @if (!last) {
       <span class="separator" [innerHTML]="separator"></span>
     }
   }
 </ds-metadata-field-wrapper>
+
+<ng-template #searchlink let-value="value">
+  <a class="ds-search-link"
+     [routerLink]="['/search']"
+     [queryParams]="getSearchQueryParams(value)">
+    {{ value }}
+  </a>
+</ng-template>
 
 <!-- Render value as markdown -->
 <ng-template #markdown let-value="value">
