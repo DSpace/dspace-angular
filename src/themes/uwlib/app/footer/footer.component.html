@@ -76,14 +76,13 @@
             >{{ "footer.link.uwscholarlypublishing" | translate }}</a
           >
         </li>
+        @if (showCookieSettings) {
         <li>
-          <a
-            class="text-white"
-            href="javascript:void(0);"
-            (click)="showCookieSettings()"
-            >{{ "footer.link.cookies" | translate }}</a
-          >
+          <button class="btn btn-link text-white" type="button" (click)="openCookieSettings()">
+            {{ "footer.link.cookies" | translate }}
+          </button>
         </li>
+        }
         <li *ngIf="showPrivacyPolicy">
           <a class="text-white" routerLink="info/privacy">{{
             "footer.link.privacy-policy" | translate
