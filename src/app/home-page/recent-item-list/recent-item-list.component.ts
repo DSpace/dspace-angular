@@ -32,6 +32,7 @@ import {
 import { Item } from '@dspace/core/shared/item.model';
 import { toDSpaceObjectListRD } from '@dspace/core/shared/operators';
 import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
+import { SearchFilter } from '@dspace/core/shared/search/models/search-filter.model';
 import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import { setPlaceHolderAttributes } from '@dspace/shared/utils/object-list-utils';
 import { TranslateModule } from '@ngx-translate/core';
@@ -106,12 +107,15 @@ export class RecentItemListComponent implements OnInit, OnDestroy {
     if (this.appConfig.item.showAccessStatuses) {
       linksToFollow.push(followLink('accessStatus'));
     }
+    const entityType = this.appConfig.homePage.recentSubmissions.entityType;
+    const filters = entityType && entityType.trim() ? [new SearchFilter('f.entityType', [entityType], 'equals')] : [];
 
     this.itemRD$ = this.searchService.search(
       new PaginatedSearchOptions({
         pagination: this.paginationConfig,
         dsoTypes: [DSpaceObjectType.ITEM],
         sort: this.sortConfig,
+        filters: filters,
       }),
       undefined,
       undefined,
@@ -127,11 +131,23 @@ export class RecentItemListComponent implements OnInit, OnDestroy {
   }
 
   onLoadMore(): void {
-    this.paginationService.updateRouteWithUrl(this.searchConfigurationService.paginationID, ['search'], {
-      sortField: environment.homePage.recentSubmissions.sortField,
-      sortDirection: 'DESC' as SortDirection,
-      page: 1,
-    });
+    const entityType = this.appConfig.homePage.recentSubmissions.entityType;
+
+    const extraParams: Record<string, unknown> = {};
+
+    if (entityType && entityType.trim()) {
+      extraParams['f.entityType'] = `${entityType},equals`;
+    }
+
+    this.paginationService.updateRouteWithUrl(
+      this.searchConfigurationService.paginationID,
+      ['search'],
+      {
+        sortField: environment.homePage.recentSubmissions.sortField,
+        sortDirection: 'DESC' as SortDirection,
+        page: 1,
+      },
+      extraParams);
   }
 
   get placeholderFontClass(): string {
@@ -147,4 +163,3 @@ export class RecentItemListComponent implements OnInit, OnDestroy {
   }
 
 }
-
