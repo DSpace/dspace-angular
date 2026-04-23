@@ -227,4 +227,9 @@ export abstract class InitService {
       find((b: boolean) => b === false),
     );
   }
+
+  protected configureMenuCollapsedState(): void {
+    this.menuService.syncMenuCollapsedState();
+  }
+
 }
