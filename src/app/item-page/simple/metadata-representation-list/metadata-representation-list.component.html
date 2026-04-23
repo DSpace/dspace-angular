@@ -1,10 +1,13 @@
 <ds-metadata-field-wrapper [label]="label">
   @for (objectPage of objects; track objectPage; let i = $index) {
     <ng-container *ngVar="(objectPage | async) as representations">
-      @for (rep of representations; track rep) {
+      @for (rep of representations; track rep; let last = $last) {
         <ds-metadata-representation-loader
           [mdRepresentation]="rep">
         </ds-metadata-representation-loader>
+        @if (!last) {
+          <span class="separator"><br/></span>
+        }
       }
       @if ((i + 1) === objects.length && (i > 0) && (!representations || representations?.length === 0)) {
         <ds-loading message="{{'loading.default' | translate}}"></ds-loading>

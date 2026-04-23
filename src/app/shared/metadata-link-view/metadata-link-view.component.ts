@@ -170,7 +170,7 @@ export class MetadataLinkViewComponent implements OnInit {
         authority: null,
         value: metadataValue.value,
         orcidAuthenticated: null,
-        entityType: 'PRIVATE',
+        entityType: null,
       };
     }
   }

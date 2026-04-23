@@ -166,4 +166,10 @@ describe('MetadataRepresentationListComponent', () => {
     });
   });
 
+  it('should render separators between metadata representation loaders', () => {
+    const separators = fixture.debugElement.queryAll(By.css('span.separator'));
+    const loaders = fixture.debugElement.queryAll(By.css('ds-metadata-representation-loader'));
+    expect(separators.length).toBe(loaders.length - 1);
+  });
+
 });

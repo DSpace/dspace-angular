@@ -194,20 +194,23 @@ describe('MetadataLinkViewComponent', () => {
     });
 
     describe('when item is not found', () => {
-      beforeEach(() => {
+      beforeEach(waitForAsync(() => {
         fixture = TestBed.createComponent(MetadataLinkViewComponent);
         itemService.findById.and.returnValue(createFailedRemoteDataObject$());
         component = fixture.componentInstance;
         component.metadata = testMetadataValueWithAuthority;
         fixture.detectChanges();
-      });
+        fixture.whenStable().then(() => fixture.detectChanges());
+      }));
 
       it('should create', () => {
         expect(component).toBeTruthy();
       });
 
-      it('should render the span element', () => {
-        const text = fixture.debugElement.query(By.css('[data-test="textWithIcon"]'));
+      it('should render the span element', async () => {
+        await fixture.whenStable();
+        fixture.detectChanges();
+        const text = fixture.debugElement.query(By.css('[data-test="textWithoutIcon"]'));
         const link = fixture.debugElement.query(By.css('[data-test="linkToAuthority"]'));
 
         expect(text).toBeTruthy();

@@ -1,9 +1,12 @@
-<div  class="d-inline-block" *ngVar="(metadataView$ | async) as metadataView">
+<ng-container *ngVar="(metadataView$ | async) as metadataView">
   @if (metadataView) {
-    <ng-container [ngTemplateOutlet]="metadataView?.authority ? linkToAuthority : (metadataView?.entityType ? textWithIcon : textWithoutIcon)"
-    [ngTemplateOutletContext]="{metadataView: metadataView}"></ng-container>
+    <div class="d-inline-block">
+      <ng-container [ngTemplateOutlet]="metadataView?.authority ? linkToAuthority : (metadataView?.entityType ? textWithIcon : textWithoutIcon)"
+      [ngTemplateOutletContext]="{metadataView: metadataView}"></ng-container>
+    </div>
   }
-</div>
+</ng-container>
+
 <ng-template class="d-flex" #linkToAuthority let-metadataView="metadataView">
   <span [dsStickyPopover]="popContent"
     [openDelay]="100"
@@ -49,4 +52,3 @@
 <ng-template #popContent>
   <ds-metadata-link-view-popover [item]="relatedItem"></ds-metadata-link-view-popover>
 </ng-template>
-
