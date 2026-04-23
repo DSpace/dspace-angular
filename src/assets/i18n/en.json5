@@ -1523,7 +1523,7 @@
 
   "dso-selector.no-results": "No {{ type }} found",
 
-  "dso-selector.placeholder": "Search for a {{ type }}",
+  "dso-selector.placeholder": "Search for {{ type }}",
 
   "dso-selector.select.collection.head": "Select a collection",
 
@@ -3733,7 +3733,7 @@
 
   "resource-policies.form.eperson-group-list.select.btn": "Select",
 
-  "resource-policies.form.eperson-group-list.tab.eperson": "Search for a ePerson",
+  "resource-policies.form.eperson-group-list.tab.eperson": "Search for an ePerson",
 
   "resource-policies.form.eperson-group-list.tab.group": "Search for a group",
 
