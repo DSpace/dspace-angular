@@ -979,7 +979,17 @@ describe('SubmissionService test suite', () => {
 
   describe('redirectToEditItem', () => {
     beforeEach(() => {
-      (itemService.findById as jasmine.Spy).calls.reset();
+      if ((itemService.findById as any).calls) {
+        (itemService.findById as jasmine.Spy).calls.reset();
+      } else {
+        spyOn(itemService as any, 'findById');
+      }
+
+      if ((requestServce.setStaleByHrefSubstring as any).calls) {
+        (requestServce.setStaleByHrefSubstring as jasmine.Spy).calls.reset();
+      } else {
+        spyOn(requestServce as any, 'setStaleByHrefSubstring');
+      }
     });
 
     it('should redirect to Item page', fakeAsync(() => {
@@ -1003,8 +1013,8 @@ describe('SubmissionService test suite', () => {
         }),
       });
       let itemSubmissionId = itemUuid + ':FULL';
-      spyOn(itemService as any, 'findById').and.returnValue(cold('a', { a: createSuccessfulRemoteDataObject(mockItem) }));
-      spyOn(requestServce as any, 'setStaleByHrefSubstring').and.returnValue(cold('a', { a: true }));
+      (itemService.findById as jasmine.Spy).and.returnValue(cold('a', { a: createSuccessfulRemoteDataObject(mockItem) }));
+      (requestServce.setStaleByHrefSubstring as jasmine.Spy).and.returnValue(cold('a', { a: true }));
 
       scheduler.schedule(() => service.invalidateCacheAndRedirectToItemPage(itemSubmissionId));
       scheduler.flush();

@@ -78,6 +78,9 @@ export class SocialService {
    * Import the AddToAny JavaScript
    */
   initializeAddToAnyScript(): any {
+    if (!this.enabled) {
+      return;
+    }
     // Initializing the addToAny script
     const script = this._document.createElement('script');
     script.type = 'text/javascript';
@@ -96,8 +99,61 @@ export class SocialService {
       } else {
         this._document.head.appendChild(script);
         clearInterval(bodyHeightInterval);
+        this.observeAddToAnyModal();
       }
     }, 200);
+  }
+
+  /**
+   * Observes DOM changes to detect when the AddToAny modal is opened or closed.
+   * Since AddToAny does not reliably expose lifecycle callbacks, a MutationObserver
+   * is used to monitor the presence and visibility of the modal element.
+   *
+   * When the modal is visible, background scrolling is disabled by setting
+   * `overflow: hidden` on the document body. When the modal is no longer visible,
+   * the original scrolling behavior is restored.
+   */
+  private observeAddToAnyModal(): void {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+
+    const body = this._document.body;
+    let isLocked = false;
+
+    const observer = new MutationObserver(() => {
+      const modal = this._document.querySelector('.a2a_full') as HTMLElement;
+      const isVisible = modal && this.isElementVisible(modal);
+
+      if (isVisible && !isLocked) {
+        body.style.overflow = 'hidden';
+        isLocked = true;
+      } else if (!isVisible && isLocked) {
+        body.style.overflow = '';
+        isLocked = false;
+      }
+    });
+
+    observer.observe(body, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+    });
+  }
+
+  /**
+   * Determines whether a given HTML element is currently visible in the DOM.
+   * This is necessary because the AddToAny modal may remain in the DOM while hidden.
+   *
+   * @param element The element to check for visibility
+   * @returns true if the element is visible, false otherwise
+   */
+  private isElementVisible(element: HTMLElement): boolean {
+    return !!(
+      element.offsetWidth ||
+      element.offsetHeight ||
+      element.getClientRects().length
+    );
   }
 
   /**
