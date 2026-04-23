@@ -129,6 +129,9 @@ export class MyDSpaceConfigurationService extends SearchConfigurationService {
           availableConf.push(MyDSpaceConfigurationValueType.SupervisedItems);
           availableConf.push(MyDSpaceConfigurationValueType.Workflow);
         }
+        if (!isSubmitter && !isController && !isAdmin) {
+          availableConf.push(MyDSpaceConfigurationValueType.Workspace);
+        }
         return availableConf;
       }));
   }
