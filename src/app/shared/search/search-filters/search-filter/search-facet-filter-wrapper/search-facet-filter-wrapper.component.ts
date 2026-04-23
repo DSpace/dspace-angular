@@ -54,8 +54,8 @@ export class SearchFacetFilterWrapperComponent extends AbstractComponentLoaderCo
     'scope',
   ];
 
-  public getComponent(): GenericConstructor<Component> {
-    return renderFilterType(this.filterConfig.filterType);
+  public getComponent(): Promise<GenericConstructor<Component>> {
+    return renderFilterType(this.filterConfig.filterType, this.themeService.getThemeName());
   }
 
 }

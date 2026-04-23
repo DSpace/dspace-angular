@@ -5,6 +5,7 @@
  *
  * http://www.dspace.org/license/
  */
+import { EDIT_ITEM } from '@dspace/core/submission/models/edit-item.resource-type';
 import {
   deserializeAs,
   inheritSerialization,
@@ -19,7 +20,6 @@ import {
 import { IDToUUIDSerializer } from '../../cache/id-to-uuid-serializer';
 import { PaginatedList } from '../../data/paginated-list.model';
 import { RemoteData } from '../../data/remote-data';
-import { ResourceType } from '../../shared/resource-type';
 import { EditItemMode } from './edititem-mode.model';
 import { SubmissionObject } from './submission-object.model';
 
@@ -33,7 +33,7 @@ import { SubmissionObject } from './submission-object.model';
 @inheritSerialization(SubmissionObject)
 @inheritLinkAnnotations(SubmissionObject)
 export class EditItem extends SubmissionObject {
-  static type = new ResourceType('edititem');
+  static type = EDIT_ITEM;
 
   /**
    * The universally unique identifier of this WorkspaceItem

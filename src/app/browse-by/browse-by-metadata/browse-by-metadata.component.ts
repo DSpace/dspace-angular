@@ -58,6 +58,7 @@ import { ThemedBrowseByComponent } from 'src/app/shared/browse-by/themed-browse-
 import { environment } from '../../../environments/environment';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { StartsWithType } from '../../shared/starts-with/starts-with-type';
+import { rendersBrowseBy } from '../browse-by-switcher/browse-by-decorator';
 
 export const BBM_PAGINATION_ID = 'bbm';
 
@@ -78,6 +79,7 @@ export const BBM_PAGINATION_ID = 'bbm';
  * or multiple metadata fields.  An example would be 'author' for
  * 'dc.contributor.*'
  */
+@rendersBrowseBy(BrowseByDataType.Metadata)
 export class BrowseByMetadataComponent implements OnInit, OnChanges, OnDestroy {
 
   /**

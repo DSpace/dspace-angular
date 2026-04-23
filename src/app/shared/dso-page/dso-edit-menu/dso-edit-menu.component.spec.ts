@@ -68,7 +68,7 @@ describe('DsoEditMenuComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(DsoEditMenuComponent);
     comp = fixture.componentInstance;
-    comp.sections = of([]);
+    comp.sectionDTOs$ = of([]);
     fixture.detectChanges();
   });
 

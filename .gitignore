@@ -42,3 +42,6 @@ yarn-error.log
 junit.xml
 
 /src/mirador-viewer/config.local.js
+
+## ignore the auto-generated decorator registries
+decorator-registries/

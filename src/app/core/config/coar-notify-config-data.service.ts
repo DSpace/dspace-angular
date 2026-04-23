@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { RestRequestMethod } from '@dspace/config/rest-request-method';
+import { dataService } from '@dspace/core/cache/builders/build-decorators';
+import { SUBMISSION_COAR_NOTIFY_CONFIG } from '@dspace/core/shared/section-coar-notify-service.resource-type';
 import { Operation } from 'fast-json-patch';
 import { Observable } from 'rxjs';
 import {
@@ -41,11 +43,11 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NoContent } from '../shared/NoContent.model';
 import { URLCombiner } from '../url-combiner/url-combiner';
 
-
 /**
  * A service responsible for fetching/sending data from/to the REST API on the CoarNotifyConfig endpoint
  */
 @Injectable({ providedIn: 'root' })
+@dataService(SUBMISSION_COAR_NOTIFY_CONFIG)
 export class CoarNotifyConfigDataService extends IdentifiableDataService<SubmissionCoarNotifyModel> implements FindAllData<SubmissionCoarNotifyModel>, DeleteData<SubmissionCoarNotifyModel>, PatchData<SubmissionCoarNotifyModel>, CreateData<SubmissionCoarNotifyModel> {
   createData: CreateDataImpl<SubmissionCoarNotifyModel>;
   private findAllData: FindAllDataImpl<SubmissionCoarNotifyModel>;
