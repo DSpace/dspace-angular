@@ -4,7 +4,7 @@ export class RouterStub {
   url: string;
   routeReuseStrategy = { shouldReuseRoute: {} };
   //noinspection TypeScriptUnresolvedFunction
-  navigate = jasmine.createSpy('navigate');
+  navigate = jasmine.createSpy('navigate').and.returnValue(Promise.resolve(true));
   parseUrl = jasmine.createSpy('parseUrl');
   events = of({});
   navigateByUrl(url): void {

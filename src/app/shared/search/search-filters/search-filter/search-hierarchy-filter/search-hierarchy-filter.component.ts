@@ -39,6 +39,7 @@ import {
   take,
 } from 'rxjs/operators';
 
+import { PaginationService } from '../../../../../core/pagination/pagination.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { VocabularyTreeviewModalComponent } from '../../../../form/vocabulary-treeview-modal/vocabulary-treeview-modal.component';
 import { FilterInputSuggestionsComponent } from '../../../../input-suggestions/filter-suggestions/filter-input-suggestions.component';
@@ -76,6 +77,7 @@ export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent i
 
   constructor(protected searchService: SearchService,
               protected filterService: SearchFilterService,
+              protected paginationService: PaginationService,
               protected rdbs: RemoteDataBuildService,
               protected router: Router,
               protected modalService: NgbModal,
@@ -86,6 +88,7 @@ export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent i
     super(
       searchService,
       filterService,
+      paginationService,
       rdbs,
       router,
       searchConfigService,
@@ -136,12 +139,8 @@ export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent i
       switchMap((detail: VocabularyEntryDetail) => this.searchConfigService.selectNewAppliedFilterParams(this.filterConfig.name, detail.value, 'equals')),
       take(1),
     ).subscribe((params: Params) => {
-      void this.router.navigate(
-        [this.searchService.getSearchLink()],
-        {
-          queryParams: params,
-        },
-      );
+      this.paginationService.updateRouteWithUrl(this.searchConfigService.paginationID, this.getSearchLinkParts(), {},
+        params, this.retainScrollPosition);
     }));
   }
 

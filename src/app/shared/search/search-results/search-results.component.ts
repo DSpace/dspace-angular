@@ -144,6 +144,11 @@ export class SearchResultsComponent {
   @Input() selectionConfig: SelectionConfig = null;
 
   /**
+   * Should scroll to the pagination component after updating the route instead of the top of the page
+   */
+  @Input() retainScrollPosition = false;
+
+  /**
    * Emit when one of the listed object has changed.
    */
   @Output() contentChange = new EventEmitter<any>();
