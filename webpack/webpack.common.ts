@@ -1,41 +1,51 @@
-import { globalCSSImports, projectRoot, getFileHashes, calculateFileHash } from './helpers';
+import { join } from 'node:path';
+
+import {
+  parse,
+  stringify,
+} from 'json5';
 import { EnvironmentPlugin } from 'webpack';
 
+import {
+  calculateFileHash,
+  getFileHashes,
+  globalCSSImports,
+  projectRoot,
+} from './helpers';
+
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const path = require('path');
-const sass = require('sass');
-const JSON5 = require('json5');
 
 export const copyWebpackOptions = {
   patterns: [
     {
-      from: path.join(__dirname, '..', 'node_modules', '@fortawesome', 'fontawesome-free', 'webfonts'),
-      to: path.join('assets', 'fonts'),
-      force: undefined
+      from: join(__dirname, '..', 'node_modules', '@fortawesome', 'fontawesome-free', 'webfonts'),
+      to: join('assets', 'fonts'),
+      force: undefined,
     },
     {
-      from: path.join(__dirname, '..', 'src', 'assets', '**', '*.json5').replace(/\\/g, '/'),
+      from: join(__dirname, '..', 'src', 'assets', '**', '*.json5').replace(/\\/g, '/'),
       to({ absoluteFilename }) {
         // use [\/|\\] to match both POSIX and Windows separators
         const matches = absoluteFilename.match(/.*[\/|\\]assets[\/|\\](.+)\.json5$/);
         if (matches) {
           const fileHash: string = process.env.NODE_ENV === 'production' ? `.${calculateFileHash(absoluteFilename)}` : '';
           // matches[1] is the relative path from src/assets to the JSON5 file, without the extension
-          return path.join('assets', `${matches[1]}${fileHash}.json`);
+          return join('assets', `${matches[1]}${fileHash}.json`);
         }
       },
       transform(content) {
-        return JSON.stringify(JSON5.parse(content.toString()));
-      }
+        return stringify(parse(content.toString()));
+      },
     },
     {
-      from: path.join(__dirname, '..', 'src', 'assets'),
+      from: join(__dirname, '..', 'src', 'assets'),
       to: 'assets',
     },
     {
       // replace(/\\/g, '/') because glob patterns need forward slashes, even on windows:
       // https://github.com/mrmlnc/fast-glob#how-to-write-patterns-on-windows
-      from: path.join(__dirname, '..', 'src', 'themes', '*', 'assets', '**', '*').replace(/\\/g, '/'),
+      from: join(__dirname, '..', 'src', 'themes', '*', 'assets', '**', '*').replace(/\\/g, '/'),
       noErrorOnMissing: true,
       to({ absoluteFilename }) {
         // use [\/|\\] to match both POSIX and Windows separators
@@ -44,39 +54,39 @@ export const copyWebpackOptions = {
           // matches[1] is the theme name
           // matches[2] is the rest of the path relative to the assets folder
           // e.g. themes/custom/assets/images/logo.png will end up in assets/custom/images/logo.png
-          return path.join('assets', matches[1], matches[2]);
+          return join('assets', matches[1], matches[2]);
         }
       },
     },
     {
-      from: path.join(__dirname, '..', 'src', 'robots.txt.ejs'),
-      to: 'assets/robots.txt.ejs'
-    }
-  ]
+      from: join(__dirname, '..', 'src', 'robots.txt.ejs'),
+      to: 'assets/robots.txt.ejs',
+    },
+  ],
 };
 
 const SCSS_LOADERS = [
   {
     loader: 'postcss-loader',
     options: {
-      sourceMap: true
-    }
+      sourceMap: true,
+    },
   },
   {
     loader: 'sass-loader',
     options: {
       sourceMap: true,
       sassOptions: {
-        includePaths: [projectRoot('./')]
-      }
-    }
+        includePaths: [projectRoot('./')],
+      },
+    },
   },
 ];
 
 export const commonExports = {
   plugins: [
     new EnvironmentPlugin({
-      languageHashes: getFileHashes(path.join(__dirname, '..', 'src', 'assets', 'i18n'), /.*\.json5/g),
+      languageHashes: getFileHashes(join(__dirname, '..', 'src', 'assets', 'i18n'), /.*\.json5/g),
     }),
     new CopyWebpackPlugin(copyWebpackOptions),
   ],
@@ -84,34 +94,34 @@ export const commonExports = {
     rules: [
       {
         test: /\.ts$/,
-        loader: '@ngtools/webpack'
+        loader: '@ngtools/webpack',
       },
       {
         test: /\.scss$/,
         exclude: [
           /node_modules/,
-          /(_exposed)?_variables.scss$|[\/|\\]src[\/|\\]themes[\/|\\].+?[\/|\\]styles[\/|\\].+\.scss$/
+          /(_exposed)?_variables.scss$|[\/|\\]src[\/|\\]themes[\/|\\].+?[\/|\\]styles[\/|\\].+\.scss$/,
         ],
         use: [
           ...SCSS_LOADERS,
           {
             loader: 'sass-resources-loader',
             options: {
-              resources: globalCSSImports()
+              resources: globalCSSImports(),
             },
-          }
-        ]
+          },
+        ],
       },
       {
         test: /(_exposed)?_variables.scss$|[\/|\\]src[\/|\\]themes[\/|\\].+?[\/|\\]styles[\/|\\].+\.scss$/,
         exclude: [/node_modules/],
         use: [
           ...SCSS_LOADERS,
-        ]
+        ],
       },
     ],
   },
   ignoreWarnings: [
     /src\/themes\/[^/]+\/.*theme.module.ts is part of the TypeScript compilation but it's unused/,
-  ]
+  ],
 };
