@@ -7869,20 +7869,23 @@
   // "search.filters.discoverable.false": "Yes",
   "search.filters.discoverable.false": "അതെ",
 
-  // "search.filters.namedresourcetype.Archived": "Archived",
-  "search.filters.namedresourcetype.Archived": "ആർക്കൈവ് ചെയ്തത്",
+  // "search.filters.namedresourcetype.archived": "Archived",
+  "search.filters.namedresourcetype.archived": "ആർക്കൈവ് ചെയ്തത്",
 
-  // "search.filters.namedresourcetype.Validation": "Validation",
-  "search.filters.namedresourcetype.Validation": "സാധൂകരണം",
+  // "search.filters.namedresourcetype.item": "Archived",
+  "search.filters.namedresourcetype.item": "ആർക്കൈവ് ചെയ്തത്",
 
-  // "search.filters.namedresourcetype.Waiting for Controller": "Waiting for reviewer",
-  "search.filters.namedresourcetype.Waiting for Controller": "റിവ്യൂവറിനായി കാത്തിരിക്കുന്നു",
+  // "search.filters.namedresourcetype.validation": "Validation",
+  "search.filters.namedresourcetype.validation": "സാധൂകരണം",
 
-  // "search.filters.namedresourcetype.Workflow": "Workflow",
-  "search.filters.namedresourcetype.Workflow": "വർക്ക്ഫ്ലോ",
+  // "search.filters.namedresourcetype.waiting for controller": "Waiting for reviewer",
+  "search.filters.namedresourcetype.waiting for controller": "റിവ്യൂവറിനായി കാത്തിരിക്കുന്നു",
 
-  // "search.filters.namedresourcetype.Workspace": "Workspace",
-  "search.filters.namedresourcetype.Workspace": "വർക്ക്സ്പേസ്",
+  // "search.filters.namedresourcetype.workflow": "Workflow",
+  "search.filters.namedresourcetype.workflow": "വർക്ക്ഫ്ലോ",
+
+  // "search.filters.namedresourcetype.workspace": "Workspace",
+  "search.filters.namedresourcetype.workspace": "വർക്ക്സ്പേസ്",
 
   // "search.filters.withdrawn.true": "Yes",
   "search.filters.withdrawn.true": "അതെ",
