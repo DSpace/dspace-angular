@@ -27,6 +27,7 @@ import {
   hasValue,
   isNotEmpty,
 } from '@dspace/shared/utils/empty.util';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
   TranslateService,
@@ -103,11 +104,15 @@ export class FileDownloadLinkComponent implements OnInit {
   canDownloadWithToken$: Observable<boolean>;
   canRequestACopy$: Observable<boolean>;
 
+  modalTitle: string;
+  modalContent: string;
+
   constructor(
     private authorizationService: AuthorizationDataService,
     public dsoNameService: DSONameService,
     private route: ActivatedRoute,
     private translateService: TranslateService,
+    private modalService: NgbModal,
   ) {
   }
 
@@ -180,5 +185,57 @@ export class FileDownloadLinkComponent implements OnInit {
   getDownloadLinkTitle(canDownload: boolean,canDownloadWithToken: boolean, bitstreamName: string): string {
     return (canDownload || canDownloadWithToken ? this.translateService.instant('file-download-link.download') :
       this.translateService.instant('file-download-link.request-copy')) + bitstreamName;
+  }
+
+  /**
+   * Audio transcript metadata value (`dc.description.audiotranscript`), if present.
+   */
+  get audioTranscript(): string {
+    return this.bitstream?.firstMetadataValue('dc.description.audiotranscript');
+  }
+
+  /**
+   * Video description metadata value (`dc.description.videodescription`), if present.
+   */
+  get videoDescription(): string {
+    return this.bitstream?.firstMetadataValue('dc.description.videodescription');
+  }
+
+  /**
+   * Media type metadata value (`dc.description.audiovideo`), if present.
+   */
+  get mediaType(): string {
+    return this.bitstream?.firstMetadataValue('dc.description.audiovideo');
+  }
+
+  /**
+   * Indicates whether media type metadata contains "video" (case-insensitive).
+   */
+  get isVideoMediaType(): boolean {
+    return this.mediaType?.toLowerCase().includes('video');
+  }
+
+  /**
+   * Indicates whether media type metadata contains "audio" (case-insensitive).
+   */
+  get isAudioMediaType(): boolean {
+    return this.mediaType?.toLowerCase().includes('audio');
+  }
+
+  /**
+   * Opens a large, scrollable modal showing text metadata.
+   *
+   * @param template Modal template reference.
+   * @param titleKey Translation key for modal title.
+   * @param content Plain text content to render in the modal body.
+   */
+  openTextModal(template, titleKey: string, content: string) {
+    this.modalTitle = this.translateService.instant(titleKey);
+    this.modalContent = content;
+    this.modalService.open(template, {
+      ariaLabelledBy: 'file-download-link-text-modal-title',
+      size: 'lg',
+      scrollable: true,
+    });
   }
 }

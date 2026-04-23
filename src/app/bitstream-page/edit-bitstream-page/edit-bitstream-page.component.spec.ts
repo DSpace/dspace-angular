@@ -192,6 +192,21 @@ describe('EditBitstreamPageComponent', () => {
               value: 'Bitstream title',
             },
           ],
+          'dc.description.audiovideo': [
+            {
+              value: 'audio',
+            },
+          ],
+          'dc.description.audiotranscript': [
+            {
+              value: 'Audio transcript content',
+            },
+          ],
+          'dc.description.videodescription': [
+            {
+              value: 'Video description content',
+            },
+          ],
         },
         format: createSuccessfulRemoteDataObject$(selectedFormat),
         _links: {
@@ -258,6 +273,18 @@ describe('EditBitstreamPageComponent', () => {
 
       it('should fill in the bitstream\'s description', () => {
         expect(rawForm.descriptionContainer.description).toEqual(bitstream.firstMetadataValue('dc.description'));
+      });
+
+      it('should fill in the media type', () => {
+        expect(rawForm.mediaInfoContainer.mediaType).toEqual('audio');
+      });
+
+      it('should fill in the audio transcript', () => {
+        expect(rawForm.mediaInfoContainer.audioTranscript).toEqual('Audio transcript content');
+      });
+
+      it('should fill in the video description', () => {
+        expect(rawForm.mediaInfoContainer.videoDescription).toEqual('Video description content');
       });
 
       it('should select the correct format', () => {
