@@ -29,7 +29,8 @@
               {{ "admin.reports.collections.collections-report" | translate }}
             </ng-template>
             <ng-template ngbPanelContent>
-              <table id="table" class="table table-striped">
+              <div style="overflow-x: auto;">
+<table id="table" class="table table-striped">
                 <thead>
                   <tr class="header">
                     <th rowspan="2">{{ "admin.reports.collections.community" | translate }}</th>
@@ -62,6 +63,7 @@
                   }
                 </tbody>
               </table>
+              </div>
             </ng-template>
           </ngb-panel>
         </ngb-accordion>
