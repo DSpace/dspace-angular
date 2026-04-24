@@ -66,6 +66,7 @@ export class FilteredCollectionsComponent implements OnInit {
       .subscribe(
         response => {
           this.results.deserialize(response.payload);
+          this.accordionComponent.collapse('filters'); // ← agregar esto
           this.accordionComponent.expand('collections');
         },
       );
