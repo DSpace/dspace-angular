@@ -83,6 +83,7 @@ describe('FiltersComponent', () => {
       spyOn(component, 'getFilteredCollections').and.returnValue(of(expected));
       spyOn(component.results, 'deserialize');
       spyOn(component.accordionComponent, 'expand').and.callThrough();
+      spyOn(component.accordionComponent, 'collapse').and.callThrough();
       component.submit();
       fixture.detectChanges();
     });
@@ -93,5 +94,19 @@ describe('FiltersComponent', () => {
         expect(component.accordionComponent.isExpanded('collections')).toBeTrue();
       });
     }));
+
+    it('should collapse the filters panel after submitting', waitForAsync(() => {
+      fixture.whenStable().then(() => {
+        expect(component.accordionComponent.isExpanded('filters')).toBeFalse();
+      });
+    }));
+  });
+
+  it('should allow both accordions to be open at the same time', () => {
+    let accordion: NgbAccordion = component.accordionComponent;
+    accordion.expand('filters');
+    accordion.expand('collections');
+    expect(accordion.isExpanded('filters')).toBeTrue();
+    expect(accordion.isExpanded('collections')).toBeTrue();
   });
 });
