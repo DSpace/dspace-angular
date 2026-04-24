@@ -3432,9 +3432,9 @@
   // TODO New key - Add a translation
   "form.entry.source.zdb": "",
 
-  // "form.entry.source.sherpa": "- Sherpa Romeo",
+  // "form.entry.source.jisc": "- Jisc Open policy finder",
   // TODO New key - Add a translation
-  "form.entry.source.sherpa": "- Sherpa Romeo",
+  "form.entry.source.jisc": "- Jisc Open policy finder",
 
   // "form.remove": "Remove",
   "form.remove": "நீக்கு",
@@ -8335,17 +8335,17 @@
   // "submission.import-external.source.loading": "Loading ...",
   "submission.import-external.source.loading": "ஏற்றப்படுகிறது ...",
 
-  // "submission.import-external.source.sherpaJournal": "SHERPA Journals",
+  // "submission.import-external.source.opfJournal": "Jisc Open policy finder Journals",
   // TODO New key - Add a translation
-  "submission.import-external.source.sherpaJournal": "SHERPA Journals",
+  "submission.import-external.source.opfJournal": "Jisc Open policy finder Journals",
 
-  // "submission.import-external.source.sherpaJournalIssn": "SHERPA Journals by ISSN",
+  // "submission.import-external.source.opfJournalIssn": "Jisc Open policy finder Journals by ISSN",
   // TODO New key - Add a translation
-  "submission.import-external.source.sherpaJournalIssn": "SHERPA Journals by ISSN",
+  "submission.import-external.source.opfJournalIssn": "Jisc Open policy finder Journals by ISSN",
 
-  // "submission.import-external.source.sherpaPublisher": "SHERPA Publishers",
+  // "submission.import-external.source.opfPublisher": "Jisc Open policy finder Publishers",
   // TODO New key - Add a translation
-  "submission.import-external.source.sherpaPublisher": "SHERPA Publishers",
+  "submission.import-external.source.opfPublisher": "Jisc Open policy finder Publishers",
 
   // "submission.import-external.source.openaire": "OpenAIRE Search by Authors",
   // TODO New key - Add a translation
@@ -8543,11 +8543,13 @@
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openaireFunding": "Importing from OpenAIRE",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openaireFunding": "OpenAIRE இலிருந்து இறக்குமதி செய்யப்படுகிறது",
 
-  // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaJournal": "Importing from Sherpa Journal",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaJournal": "Sherpa ஜர்னலிலிருந்து இறக்குமதி செய்யப்படுகிறது",
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.jiscJournal": "Importing from Jisc Open policy finder Journal",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.jiscJournal": "Importing from Jisc Open policy finder Journal",
 
-  // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaPublisher": "Importing from Sherpa Publisher",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaPublisher": "Sherpa பதிப்பாளரிலிருந்து இறக்குமதி செய்யப்படுகிறது",
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.jiscPublisher": "Importing from Jisc Open policy finder Publisher",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.jiscPublisher": "Importing from Jisc Open policy finder Publisher",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.pubmed": "Importing from PubMed",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.head.pubmed": "PubMed இலிருந்து இறக்குமதி செய்யப்படுகிறது",
@@ -8670,11 +8672,13 @@
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalVolume": "Local Journal Volumes ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalVolume": "உள்ளூர் ஜர்னல் தொகுதிகள் ({{ count }})",
 
-  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournal": "Sherpa Journals ({{ count }})",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournal": "Sherpa ஜர்னல்கள் ({{ count }})",
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.jiscJournal": "Jisc Open policy finder Journals ({{ count }})",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.jiscJournal": "Jisc Open policy finder Journals ({{ count }})",
 
-  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaPublisher": "Sherpa Publishers ({{ count }})",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaPublisher": "Sherpa பதிப்பாளர்கள் ({{ count }})",
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.jiscPublisher": "Jisc Open policy finder Publishers ({{ count }})",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.jiscPublisher": "Jisc Open policy finder Publishers ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.orcid": "ORCID ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.orcid": "ORCID ({{ count }})",
@@ -8709,8 +8713,9 @@
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.openaireFunding": "OpenAIRE Search by Funder ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.openaireFunding": "OpenAIRE நிதியளிப்பவரால் தேடல் ({{ count }})",
 
-  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournalIssn": "Sherpa Journals by ISSN ({{ count }})",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournalIssn": "Sherpa ISSN மூலம் ஜர்னல்கள் ({{ count }})",
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.jiscJournalIssn": "Jisc Open policy finder Journals by ISSN ({{ count }})",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.jiscJournalIssn": "Jisc Open policy finder Journals by ISSN ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.openalexPerson": "OpenAlex ({{ count }})",
   // TODO New key - Add a translation
@@ -8892,13 +8897,13 @@
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isChildOrgUnitOf": "Selected Organizational Unit",
   "submission.sections.describe.relationship-lookup.selection-tab.title.isChildOrgUnitOf": "தேர்ந்தெடுக்கப்பட்ட அமைப்புப் பிரிவு",
 
-  // "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaJournal": "Search Results",
+  // "submission.sections.describe.relationship-lookup.selection-tab.title.jiscJournal": "Search Results",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaJournal": "Search Results",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.jiscJournal": "Search Results",
 
-  // "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaPublisher": "Search Results",
+  // "submission.sections.describe.relationship-lookup.selection-tab.title.jiscPublisher": "Search Results",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaPublisher": "Search Results",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.jiscPublisher": "Search Results",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.orcid": "Search Results",
   // TODO New key - Add a translation
@@ -9117,17 +9122,18 @@
   // TODO New key - Add a translation
   "submission.sections.submit.progressbar.describe.owner": "Owner",
 
-  // "submission.sections.submit.progressbar.sherpapolicy": "Sherpa policies",
-  "submission.sections.submit.progressbar.sherpapolicy": "Sherpa கொள்கைகள்",
+  // "submission.sections.submit.progressbar.jiscpolicy": "Jisc Open policy finder policies",
+  // TODO New key - Add a translation
+  "submission.sections.submit.progressbar.jiscpolicy": "Jisc Open policy finder policies",
 
   // "submission.sections.submit.progressbar.upload": "Upload files",
   "submission.sections.submit.progressbar.upload": "கோப்புகளைப் பதிவேற்றவும்",
 
-  // "submission.sections.submit.progressbar.sherpaPolicies": "Publisher open access policy information",
-  "submission.sections.submit.progressbar.sherpaPolicies": "பதிப்பாளர் திறந்த அணுகல் கொள்கை தகவல்",
+  // "submission.sections.submit.progressbar.jiscPolicies": "Publisher open access policy information",
+  "submission.sections.submit.progressbar.jiscPolicies": "பதிப்பாளர் திறந்த அணுகல் கொள்கை தகவல்",
 
-  // "submission.sections.sherpa-policy.title-empty": "No publisher policy information available. If your work has an associated ISSN, please enter it above to see any related publisher open access policies.",
-  "submission.sections.sherpa-policy.title-empty": "பதிப்பாளர் கொள்கை தகவல் கிடைக்கவில்லை. உங்கள் வேலைக்கு தொடர்புடைய ISSN இருந்தால், மேலே அதை உள்ளிடவும்.",
+  // "submission.sections.jisc-policy.title-empty": "No publisher policy information available. If your work has an associated ISSN, please enter it above to see any related publisher open access policies.",
+  "submission.sections.jisc-policy.title-empty": "பதிப்பாளர் கொள்கை தகவல் கிடைக்கவில்லை. உங்கள் வேலைக்கு தொடர்புடைய ISSN இருந்தால், மேலே அதை உள்ளிடவும்.",
 
   // "submission.sections.status.errors.title": "Errors",
   "submission.sections.status.errors.title": "பிழைகள்",
@@ -9346,84 +9352,60 @@
   // "submission.sections.license.notgranted": "You must accept the license",
   "submission.sections.license.notgranted": "உரிமத்தை ஏற்க வேண்டும்",
 
-  // "submission.sections.sherpa.publication.information": "Publication information",
-  "submission.sections.sherpa.publication.information": "பதிப்பிப்பு தகவல்",
+  "submission.sections.jisc.publication.information": "பதிப்பிப்பு தகவல்",
 
-  // "submission.sections.sherpa.publication.information.title": "Title",
-  "submission.sections.sherpa.publication.information.title": "தலைப்பு",
+  "submission.sections.jisc.publication.information.title": "தலைப்பு",
 
-  // "submission.sections.sherpa.publication.information.issns": "ISSNs",
-  "submission.sections.sherpa.publication.information.issns": "ISSNs",
+  "submission.sections.jisc.publication.information.issns": "ISSNs",
 
-  // "submission.sections.sherpa.publication.information.url": "URL",
-  "submission.sections.sherpa.publication.information.url": "URL",
+  "submission.sections.jisc.publication.information.url": "URL",
 
-  // "submission.sections.sherpa.publication.information.publishers": "Publisher",
-  "submission.sections.sherpa.publication.information.publishers": "பதிப்பாளர்",
+  "submission.sections.jisc.publication.information.publishers": "பதிப்பாளர்",
 
-  // "submission.sections.sherpa.publication.information.romeoPub": "Romeo Pub",
-  "submission.sections.sherpa.publication.information.romeoPub": "Romeo Pub",
+  "submission.sections.jisc.publication.information.romeoPub": "Romeo Pub",
 
-  // "submission.sections.sherpa.publication.information.zetoPub": "Zeto Pub",
-  "submission.sections.sherpa.publication.information.zetoPub": "Zeto Pub",
+  "submission.sections.jisc.publication.information.zetoPub": "Zeto Pub",
 
-  // "submission.sections.sherpa.publisher.policy": "Publisher Policy",
-  "submission.sections.sherpa.publisher.policy": "பதிப்பாளர் கொள்கை",
+  "submission.sections.jisc.publisher.policy": "பதிப்பாளர் கொள்கை",
 
-  // "submission.sections.sherpa.publisher.policy.description": "The below information was found via Sherpa Romeo. Based on the policies of your publisher, it provides advice regarding whether an embargo may be necessary and/or which files you are allowed to upload. If you have questions, please contact your site administrator via the feedback form in the footer.",
-  "submission.sections.sherpa.publisher.policy.description": "Sherpa Romeo மூலம் கீழே உள்ள தகவல் கிடைக்கப்பட்டது. உங்கள் பதிப்பாளரின் கொள்கைகளின் அடிப்படையில், இது ஒரு தடையினை தேவைப்படுகிறதா மற்றும்/அல்லது எந்த கோப்புகளை நீங்கள் பதிவேற்ற அனுமதிக்கப்படுகிறீர்கள் என்பதைப் பற்றிய ஆலோசனையை வழங்குகிறது. கேள்விகள் இருந்தால், கீழே உள்ள கருத்து படிவத்தின் மூலம் உங்கள் தள நிர்வாகியை தொடர்பு கொள்ளவும்.",
-
-  // "submission.sections.sherpa.publisher.policy.openaccess": "Open Access pathways permitted by this journal's policy are listed below by article version. Click on a pathway for a more detailed view",
-  "submission.sections.sherpa.publisher.policy.openaccess": "இந்த ஜர்னலின் கொள்கையால் அனுமதிக்கப்பட்ட திறந்த அணுகல் பாதைகள் கீழே கட்டுரை பதிப்பினால் பட்டியலிடப்பட்டுள்ளன. மேலும் விவரக்குறிப்புகளுக்காக ஒரு பாதையை கிளிக் செய்யவும்",
-
-  // "submission.sections.sherpa.publisher.policy.more.information": "For more information, please see the following links:",
+  // "submission.sections.jisc.publisher.policy.description": "The below information was found via Jisc Open policy finder. Based on the policies of your publisher, it provides advice regarding whether an embargo may be necessary and/or which files you are allowed to upload. If you have questions, please contact your site administrator via the feedback form in the footer.",
   // TODO New key - Add a translation
-  "submission.sections.sherpa.publisher.policy.more.information": "For more information, please see the following links:",
+  "submission.sections.jisc.publisher.policy.description": "The below information was found via Jisc Open policy finder. Based on the policies of your publisher, it provides advice regarding whether an embargo may be necessary and/or which files you are allowed to upload. If you have questions, please contact your site administrator via the feedback form in the footer.",
 
-  // "submission.sections.sherpa.publisher.policy.version": "Version",
-  "submission.sections.sherpa.publisher.policy.version": "பதிப்பு",
+  "submission.sections.jisc.publisher.policy.openaccess": "இந்த ஜர்னலின் கொள்கையால் அனுமதிக்கப்பட்ட திறந்த அணுகல் பாதைகள் கீழே கட்டுரை பதிப்பினால் பட்டியலிடப்பட்டுள்ளன. மேலும் விவரக்குறிப்புகளுக்காக ஒரு பாதையை கிளிக் செய்யவும்",
 
-  // "submission.sections.sherpa.publisher.policy.embargo": "Embargo",
-  "submission.sections.sherpa.publisher.policy.embargo": "தடை",
+  "submission.sections.jisc.publisher.policy.more.information": "மேலும் தகவலுக்கு, பின்வரும் இணைப்புகளைப் பார்க்கவும்:",
 
-  // "submission.sections.sherpa.publisher.policy.noembargo": "No Embargo",
-  "submission.sections.sherpa.publisher.policy.noembargo": "தடை இல்லை",
+  "submission.sections.jisc.publisher.policy.version": "பதிப்பு",
 
-  // "submission.sections.sherpa.publisher.policy.nolocation": "None",
-  "submission.sections.sherpa.publisher.policy.nolocation": "எதுவும் இல்லை",
+  "submission.sections.jisc.publisher.policy.embargo": "தடை",
 
-  // "submission.sections.sherpa.publisher.policy.license": "License",
-  "submission.sections.sherpa.publisher.policy.license": "உரிமம்",
+  "submission.sections.jisc.publisher.policy.noembargo": "தடை இல்லை",
 
-  // "submission.sections.sherpa.publisher.policy.prerequisites": "Prerequisites",
-  "submission.sections.sherpa.publisher.policy.prerequisites": "முன்னேற்பாடுகள்",
+  "submission.sections.jisc.publisher.policy.nolocation": "எதுவும் இல்லை",
 
-  // "submission.sections.sherpa.publisher.policy.location": "Location",
-  "submission.sections.sherpa.publisher.policy.location": "இடம்",
+  "submission.sections.jisc.publisher.policy.license": "உரிமம்",
 
-  // "submission.sections.sherpa.publisher.policy.conditions": "Conditions",
-  "submission.sections.sherpa.publisher.policy.conditions": "நிபந்தனைகள்",
+  "submission.sections.jisc.publisher.policy.prerequisites": "முன்னேற்பாடுகள்",
 
-  // "submission.sections.sherpa.publisher.policy.refresh": "Refresh",
-  "submission.sections.sherpa.publisher.policy.refresh": "புதுப்பிக்கவும்",
+  "submission.sections.jisc.publisher.policy.location": "இடம்",
 
-  // "submission.sections.sherpa.record.information": "Record Information",
-  "submission.sections.sherpa.record.information": "பதிவு தகவல்",
+  "submission.sections.jisc.publisher.policy.conditions": "நிபந்தனைகள்",
 
-  // "submission.sections.sherpa.record.information.id": "ID",
-  "submission.sections.sherpa.record.information.id": "ID",
+  "submission.sections.jisc.publisher.policy.refresh": "புதுப்பிக்கவும்",
 
-  // "submission.sections.sherpa.record.information.date.created": "Date Created",
-  "submission.sections.sherpa.record.information.date.created": "உருவாக்கப்பட்ட தேதி",
+  "submission.sections.jisc.record.information": "பதிவு தகவல்",
 
-  // "submission.sections.sherpa.record.information.date.modified": "Last Modified",
-  "submission.sections.sherpa.record.information.date.modified": "கடைசியாக மாற்றப்பட்டது",
+  "submission.sections.jisc.record.information.id": "ID",
 
-  // "submission.sections.sherpa.record.information.uri": "URI",
-  "submission.sections.sherpa.record.information.uri": "URI",
+  "submission.sections.jisc.record.information.date.created": "உருவாக்கப்பட்ட தேதி",
 
-  // "submission.sections.sherpa.error.message": "There was an error retrieving sherpa information",
-  "submission.sections.sherpa.error.message": "Sherpa தகவலை பெறுவதில் பிழை ஏற்பட்டது",
+  "submission.sections.jisc.record.information.date.modified": "கடைசியாக மாற்றப்பட்டது",
+
+  "submission.sections.jisc.record.information.uri": "URI",
+
+  // TODO New key - Add a translation
+  "submission.sections.jisc.error.message": "There was an error retrieving Jisc Open policy finder information",
 
   // "submission.submit.breadcrumbs": "New submission",
   "submission.submit.breadcrumbs": "புதிய சமர்ப்பிப்பு",

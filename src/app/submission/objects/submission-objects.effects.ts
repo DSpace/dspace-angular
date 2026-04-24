@@ -530,11 +530,11 @@ export class SubmissionObjectEffects {
           mappedActions.push(new UpdateSectionDataAction(submissionId, sectionId, sectionData, filteredErrors, sectionErrors));
         }
 
-        // Sherpa Policies section needs to be updated when the rest response section is empty
-        const sherpaPoliciesSectionId = findKey(currentState.sections, (section) => section.sectionType === SectionsType.SherpaPolicies);
-        if (isNotUndefined(sherpaPoliciesSectionId) && isNotEmpty(currentState.sections[sherpaPoliciesSectionId]?.data)
-          && isEmpty(sections[sherpaPoliciesSectionId])) {
-          mappedActions.push(new UpdateSectionDataAction(submissionId, sherpaPoliciesSectionId, null, [], []));
+        // Opf Policies section needs to be updated when the rest response section is empty
+        const opfPoliciesSectionId = findKey(currentState.sections, (section) => section.sectionType === SectionsType.OpfPolicies);
+        if (isNotUndefined(opfPoliciesSectionId) && isNotEmpty(currentState.sections[opfPoliciesSectionId]?.data)
+          && isEmpty(sections[opfPoliciesSectionId])) {
+          mappedActions.push(new UpdateSectionDataAction(submissionId, opfPoliciesSectionId, null, [], []));
         }
 
         // When Duplicate Detection step is enabled, add it only if there are duplicates in the response section data
