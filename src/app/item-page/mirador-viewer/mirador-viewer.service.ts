@@ -8,18 +8,23 @@ import {
   last,
   map,
   mergeMap,
+  startWith,
   switchMap,
 } from 'rxjs/operators';
 
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
 import { BundleDataService } from '../../core/data/bundle-data.service';
+import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { BitstreamFormat } from '../../core/shared/bitstream-format.model';
 import { Bundle } from '../../core/shared/bundle.model';
 import { Item } from '../../core/shared/item.model';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '../../core/shared/operators';
 import {
   followLink,
   FollowLinkConfig,
@@ -38,6 +43,22 @@ export class MiradorViewerService {
    */
   showEmbeddedViewer (): boolean {
     return !isDevMode();
+  }
+
+  /**
+   * Returns observable of boolean whether IIIF is enabled in the repository.
+   * The default value is false.
+   * @param configurationDataService
+   * @returns the configuration value of iiif.enabled
+   */
+  isIiifEnabled (configurationDataService: ConfigurationDataService): Observable<boolean> {
+    return configurationDataService.findByPropertyName('iiif.enabled')
+      .pipe(getFirstSucceededRemoteDataPayload(),
+        map((configurationProperty) =>
+          configurationProperty.values?.[0] === 'true',
+        ),
+        startWith(false),
+      );
   }
 
   /**
