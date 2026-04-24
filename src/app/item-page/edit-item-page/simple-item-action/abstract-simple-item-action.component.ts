@@ -69,7 +69,7 @@ export class AbstractSimpleItemActionComponent implements OnInit {
 
   ngOnInit(): void {
     const previousUrl = this.router.lastSuccessfulNavigation?.previousNavigation?.finalUrl?.toString();
-    this.returnUrl = previousUrl ?? getItemEditRoute(this.item);
+    this.returnUrl = previousUrl ?? null;
 
     this.itemRD$ = this.route.data.pipe(
       map((data) => data.dso),

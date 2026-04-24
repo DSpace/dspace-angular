@@ -89,6 +89,7 @@ describe('AbstractSimpleItemActionComponent', () => {
         },
       },
     });
+    routerStub.navigateByUrl = jasmine.createSpy('navigateByUrl');
 
     mockItemDataService = jasmine.createSpyObj({
       findById: createSuccessfulRemoteDataObject$(mockItem),
