@@ -27,7 +27,6 @@ import {
 import { getItemEditRoute } from '../../item-page-routing-paths';
 import { findSuccessfulAccordingTo } from '../edit-item-operators';
 import { ModifyItemOverviewComponent } from '../modify-item-overview/modify-item-overview.component';
-
 /**
  * Component to render and handle simple item edit actions such as withdrawal and reinstatement.
  * This component is not meant to be used itself but to be extended.
@@ -57,6 +56,8 @@ export class AbstractSimpleItemActionComponent implements OnInit {
    */
   itemPageRoute: string;
 
+  returnUrl: string;
+
   protected predicate: Predicate<RemoteData<Item>>;
 
   constructor(protected route: ActivatedRoute,
@@ -67,22 +68,28 @@ export class AbstractSimpleItemActionComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const previousUrl = this.router.lastSuccessfulNavigation?.previousNavigation?.finalUrl?.toString();
+    this.returnUrl = previousUrl ?? getItemEditRoute(this.item);
+
     this.itemRD$ = this.route.data.pipe(
       map((data) => data.dso),
       getFirstSucceededRemoteData(),
-    )as Observable<RemoteData<Item>>;
+    ) as Observable<RemoteData<Item>>;
 
     this.itemRD$.pipe(first()).subscribe((rd) => {
       this.item = rd.payload;
       this.itemPageRoute = getItemPageRoute(this.item);
-    },
-    );
+      if (!this.returnUrl) {
+        this.returnUrl = getItemEditRoute(this.item);
+      }
+    });
 
     this.confirmMessage = 'item.edit.' + this.messageKey + '.confirm';
     this.cancelMessage = 'item.edit.' + this.messageKey + '.cancel';
     this.headerMessage = 'item.edit.' + this.messageKey + '.header';
     this.descriptionMessage = 'item.edit.' + this.messageKey + '.description';
   }
+
   /**
    * Perform the operation linked to this action
    */
@@ -100,11 +107,11 @@ export class AbstractSimpleItemActionComponent implements OnInit {
         findSuccessfulAccordingTo((itemRd: RemoteData<Item>) => this.predicate(itemRd)),
       ).subscribe(() => {
         this.notificationsService.success(this.translateService.get('item.edit.' + this.messageKey + '.success'));
-        this.router.navigate([getItemEditRoute(this.item)]);
+        this.router.navigateByUrl(this.returnUrl);
       });
     } else {
       this.notificationsService.error(this.translateService.get('item.edit.' + this.messageKey + '.error'));
-      this.router.navigate([getItemEditRoute(this.item)]);
+      this.router.navigateByUrl(this.returnUrl);
     }
   }
 
