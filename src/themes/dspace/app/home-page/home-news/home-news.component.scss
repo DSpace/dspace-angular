@@ -51,7 +51,8 @@
         color: inherit;
       }
 
-      opacity: 0.3;
+      color: rgba(255, 255, 255, 0.7);
+      background-color: rgba(0, 0, 0, 0.1);
       position: absolute;
       right: var(--bs-spacer);
       bottom: 0;
