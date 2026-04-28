@@ -1,15 +1,26 @@
 import {
   Component,
+  Injector,
   OnInit,
+  runInInjectionContext,
 } from '@angular/core';
 import {
   ActivatedRoute,
+  CanActivateFn,
+  Route,
   Router,
 } from '@angular/router';
 import { RemoteData } from '@dspace/core/data/remote-data';
 import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
-import { isNotEmpty } from '@dspace/shared/utils/empty.util';
-import { Observable } from 'rxjs';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+  of,
+} from 'rxjs';
 import { map } from 'rxjs/operators';
 
 /**
@@ -33,7 +44,7 @@ export class EditComColPageComponent<TDomain extends DSpaceObject> implements On
   /**
    * All possible page outlet strings
    */
-  public pages: string[];
+  public pages: { page: string, enabled: Observable<boolean>, hidden: Observable<boolean> }[];
 
   /**
    * The DSO to render the edit page for
@@ -48,6 +59,7 @@ export class EditComColPageComponent<TDomain extends DSpaceObject> implements On
   public constructor(
     protected router: Router,
     protected route: ActivatedRoute,
+    protected injector: Injector,
   ) {
     this.router.events.subscribe(() => this.initPageParamsByRoute());
   }
@@ -55,8 +67,27 @@ export class EditComColPageComponent<TDomain extends DSpaceObject> implements On
   ngOnInit(): void {
     this.initPageParamsByRoute();
     this.pages = this.route.routeConfig.children
-      .map((child: any) => child.path)
-      .filter((path: string) => isNotEmpty(path)); // ignore reroutes
+      .filter((child: Route) => isNotEmpty(child.path))
+      .map((child: Route) => {
+        let enabled = of(true);
+        let hidden = of(false);
+        if (isNotEmpty(child.canActivate)) {
+          enabled = observableCombineLatest(child.canActivate.map((guardFn: CanActivateFn) => {
+            return runInInjectionContext(this.injector, () => {
+              return guardFn(this.route.snapshot, this.router.routerState.snapshot);
+            });
+          }),
+          ).pipe(
+            map((canActivateOutcomes: any[]) => canActivateOutcomes.every((e) => e === true)),
+          );
+          if (hasValue(child.data?.hideWhenDisabled)) {
+            hidden = enabled.pipe(
+              map((allowedByGuard: boolean) => !allowedByGuard && child.data.hideWhenDisabled),
+            );
+          }
+        }
+        return { page: child.path, enabled: enabled, hidden: hidden };
+      }); // ignore reroutes
     this.dsoRD$ = this.route.data.pipe(map((data) => data.dso));
   }
 

@@ -6,27 +6,29 @@
         @if (pages.length > 0) {
           <ul class="nav nav-tabs justify-content-start" role="tablist">
             @for (page of pages; track page) {
-              <li class="nav-item" role="presentation">
-                @if ((page.enabled | async)) {
-                  <a
-                    [attr.aria-selected]="page.page === currentPage"
-                    class="nav-link"
-                    [ngClass]="{'active' : page.page === currentPage}"
-                    [routerLink]="['./' + page.page]"
-                    [attr.data-test]="page.page"
-                    role="tab">
-                    {{'item.edit.tabs.' + page.page + '.head' | translate}}
-                  </a>
-                }
-                <span [ngbTooltip]="'item.edit.tabs.disabled.tooltip' | translate">
-                  @if ((page.enabled | async) !== true) {
-                    <button
-                      class="nav-link disabled">
+              @if ((page.hidden | async) !== true) {
+                <li class="nav-item" role="presentation">
+                  @if ((page.enabled | async)) {
+                    <a
+                      [attr.aria-selected]="page.page === currentPage"
+                      class="nav-link"
+                      [ngClass]="{'active' : page.page === currentPage}"
+                      [routerLink]="['./' + page.page]"
+                      [attr.data-test]="page.page"
+                      role="tab">
                       {{'item.edit.tabs.' + page.page + '.head' | translate}}
-                    </button>
+                    </a>
                   }
-                </span>
-              </li>
+                  <span [ngbTooltip]="'item.edit.tabs.disabled.tooltip' | translate">
+                    @if ((page.enabled | async) !== true) {
+                      <button
+                        class="nav-link disabled">
+                        {{'item.edit.tabs.' + page.page + '.head' | translate}}
+                      </button>
+                    }
+                  </span>
+                </li>
+              }
             }
           </ul>
         }

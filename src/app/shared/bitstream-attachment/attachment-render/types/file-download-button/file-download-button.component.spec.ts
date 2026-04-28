@@ -17,6 +17,7 @@ import { AuthorizationDataService } from 'src/app/core/data/feature-authorizatio
 import { Bitstream } from 'src/app/core/shared/bitstream.model';
 import { Item } from 'src/app/core/shared/item.model';
 
+import { PdfViewerService } from '../../../../../pdf-viewer/pdf-viewer-service/pdf-viewer-service';
 import { FileDownloadButtonComponent } from './file-download-button.component';
 
 describe('FileDownloadButtonComponent', () => {
@@ -24,6 +25,7 @@ describe('FileDownloadButtonComponent', () => {
   let fixture: ComponentFixture<FileDownloadButtonComponent>;
 
   let authorizationService: AuthorizationDataService;
+  let pdfViewerService: PdfViewerService;
 
   let bitstream: Bitstream;
   let item: Item;
@@ -51,6 +53,11 @@ describe('FileDownloadButtonComponent', () => {
         values: [],
       })),
     });
+    pdfViewerService = jasmine.createSpyObj('pdfViewerService', {
+      viewerAllowed$: of(false),
+      isViewerEnabled$: of(false),
+      viewerEnabledAndAllowedForBitstreamFormat$: of(true),
+    });
   }
 
 
@@ -72,6 +79,7 @@ describe('FileDownloadButtonComponent', () => {
       providers: [
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: ConfigurationDataService, useValue: configurationDataService },
+        { provide: PdfViewerService, useValue: pdfViewerService },
       ],
     })
       .compileComponents();

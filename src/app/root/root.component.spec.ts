@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { CSSVariableServiceStub } from '@dspace/core/testing/css-variable-service.stub';
 import { HostWindowServiceStub } from '@dspace/core/testing/host-window-service.stub';
 import { RouterMock } from '@dspace/core/testing/router.mock';
+import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { AccessibilitySettingsService } from '../accessibility/accessibility-settings.service';
@@ -44,6 +45,7 @@ describe('RootComponent', () => {
         { provide: CSSVariableService, useClass: CSSVariableServiceStub },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(800) },
         { provide: AccessibilitySettingsService, useValue: new AccessibilitySettingsServiceStub() },
+        provideMockStore({}),
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })

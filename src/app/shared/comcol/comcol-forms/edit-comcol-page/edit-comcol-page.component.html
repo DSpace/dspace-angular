@@ -13,15 +13,27 @@
         <div class="pt-2">
           <ul class="nav nav-tabs justify-content-start mb-2" role="tablist">
             @for (page of pages; track page) {
-              <li class="nav-item" role="presentation">
-                <a class="nav-link" role="tab"
-                  [attr.aria-selected]="page === currentPage"
-                  [ngClass]="{'active' : page === currentPage}"
-                  [routerLink]="['./' + page]"
-                  [attr.data-test]="page">
-                  {{ type + '.edit.tabs.' + page + '.head' | translate}}
-                </a>
-              </li>
+              @if ((page.hidden | async) !== true) {
+                <li class="nav-item" role="presentation">
+                  @if ((page.enabled | async)) {
+                    <a class="nav-link" role="tab"
+                      [attr.aria-selected]="page.page === currentPage"
+                      [ngClass]="{'active' : page.page === currentPage}"
+                      [routerLink]="['./' + page.page]"
+                      [attr.data-test]="page.page">
+                      {{ type + '.edit.tabs.' + page.page + '.head' | translate}}
+                    </a>
+                  }
+                  <span [ngbTooltip]="'item.edit.tabs.disabled.tooltip' | translate">
+                      @if ((page.enabled | async) !== true) {
+                        <button
+                          class="nav-link disabled">
+                          {{'item.edit.tabs.' + page.page + '.head' | translate}}
+                        </button>
+                      }
+                    </span>
+                </li>
+              }
             }
           </ul>
           <div class="tab-pane active">

@@ -1,0 +1,41 @@
+<ng-container *ngVar="(bitstreamRD$ | async) as bitstreamRD">
+  @if (bitstreamRD?.hasSucceeded) {
+    <ngx-extended-pdf-viewer
+      [src]="bitstreamRD?.payload?._links?.content?.href"
+      theme="dark"
+      [enableDragAndDrop]="false"
+      [sidebarVisible]="shouldShowSidebar() | async"
+      [filenameForDownload]="bitstreamRD?.payload?.name"
+      (pdfLoaded)="pdfLoaded($event)"
+      [page]="page$ | async"
+      (pageChange)="pageChange(bitstreamRD?.payload?.id, $event)"
+      [authorization]="authHeader"
+      [textLayer]="true"
+      [handTool]="false"
+      [customToolbar]="additionalButtons">
+    </ngx-extended-pdf-viewer>
+  }
+  @if (bitstreamRD?.isLoading) {
+    <ds-loading></ds-loading>
+  }
+</ng-container>
+
+
+<ng-template #additionalButtons>
+  <div id="toolbarViewer">
+    <div id="toolbarViewerLeft">
+      <pdf-toggle-sidebar></pdf-toggle-sidebar>
+      <pdf-find-button></pdf-find-button>
+      <pdf-paging-area></pdf-paging-area>
+    </div>
+    <pdf-zoom-toolbar></pdf-zoom-toolbar>
+    <div id="toolbarViewerRight">
+      <ds-pdf-viewer-back-button></ds-pdf-viewer-back-button>
+      <pdf-rotate-page [clockwise]="true" [counterClockwise]="false"></pdf-rotate-page>
+      <pdf-rotate-page [clockwise]="false" [counterClockwise]="true"></pdf-rotate-page>
+      <pdf-print></pdf-print>
+      <pdf-download></pdf-download>
+      <pdf-toggle-secondary-toolbar></pdf-toggle-secondary-toolbar>
+    </div>
+  </div>
+</ng-template>

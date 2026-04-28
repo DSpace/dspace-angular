@@ -1,0 +1,17 @@
+:host {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    ::ng-deep {
+        ngx-extended-pdf-viewer button:focus {
+            border-color: var(--ds-pdfViewer-toolbar-button-focus-border);
+        }
+
+        #toolbarViewer, #toolbarSidebar, select {
+            background-color: var(--ds-pdfViewer-toolbar-bg-color) !important;
+        }
+    }
+}

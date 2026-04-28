@@ -20,7 +20,10 @@ import {
 import { RemoteData } from '@dspace/core/data/remote-data';
 import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
 import { Item } from '@dspace/core/shared/item.model';
-import { isNotEmpty } from '@dspace/shared/utils/empty.util';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -70,7 +73,7 @@ export class EditItemPageComponent implements OnInit {
   /**
    * All possible page outlet strings
    */
-  pages: { page: string, enabled: Observable<boolean> }[];
+  pages: { page: string, enabled: Observable<boolean>, hidden: Observable<boolean> }[];
 
   constructor(private route: ActivatedRoute, private router: Router, private injector: Injector) {
     this.router.events.subscribe(() => this.initPageParamsByRoute());
@@ -82,6 +85,7 @@ export class EditItemPageComponent implements OnInit {
       .filter((child: Route) => isNotEmpty(child.path))
       .map((child: Route) => {
         let enabled = of(true);
+        let hidden = of(false);
         if (isNotEmpty(child.canActivate)) {
           enabled = observableCombineLatest(child.canActivate.map((guardFn: CanActivateFn) => {
             return runInInjectionContext(this.injector, () => {
@@ -91,8 +95,13 @@ export class EditItemPageComponent implements OnInit {
           ).pipe(
             map((canActivateOutcomes: any[]) => canActivateOutcomes.every((e) => e === true)),
           );
+          if (hasValue(child.data?.hideWhenDisabled)) {
+            hidden = enabled.pipe(
+              map((allowedByGuard: boolean) => !allowedByGuard && child.data.hideWhenDisabled),
+            );
+          }
         }
-        return { page: child.path, enabled: enabled };
+        return { page: child.path, enabled: enabled, hidden: hidden };
       }); // ignore reroutes
     this.itemRD$ = this.route.data.pipe(map((data) => data.dso));
   }

@@ -641,4 +641,8 @@ export const environment: BuildConfig = {
       'dspace.cms.footer',
     ],
   },
+
+  pdfViewer: {
+    enabled: true,
+  },
 };
