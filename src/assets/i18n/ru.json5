@@ -11458,9 +11458,6 @@
   // TODO Source message changed - Revise the translation
   "item.page.cc.license.disclaimer": "Если не указано иное, лицензия этого элемента описана как",
 
-  // "browse.search-form.placeholder": "Search the repository",
-  "browse.search-form.placeholder": "Поиск в репозитории",
-
   // "file-download-link.download": "Download ",
   "file-download-link.download": "Скачать ",
 

@@ -27,7 +27,6 @@
   "500.link.home-page": "Návrat na domovskou stránku",
 
   // "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page.",
-  // TODO Source message changed - Revise the translation
   "404.help": "Nemůžeme najít stránku, kterou hledáte. Stránka mohla být přesunuta nebo smazána. Pomocí níže uvedeného tlačítka se můžete vrátit na domovskou stránku.",
 
   // "404.link.home-page": "Take me to the home page",
@@ -1351,104 +1350,79 @@
   "admin.batch-import.page.remove": "Odstranit",
 
   // "audit.data.not-found": "No audits found.",
-  // TODO New key - Add a translation
-  "audit.data.not-found": "No audits found.",
+  "audit.data.not-found": "Nebyly nalezeny žádné audity.",
 
   // "audit.data.self": "self",
-  // TODO New key - Add a translation
-  "audit.data.self": "self",
+  "audit.data.self": "vlastní",
 
   // "audit.detail.metadata.field": "Metadata field:",
-  // TODO New key - Add a translation
-  "audit.detail.metadata.field": "Metadata field:",
+  "audit.detail.metadata.field": "Metadatové pole:",
 
   // "audit.detail.metadata.value": "Value:",
-  // TODO New key - Add a translation
-  "audit.detail.metadata.value": "Value:",
+  "audit.detail.metadata.value": "Hodnota:",
 
   // "audit.detail.metadata.authority": "Authority:",
-  // TODO New key - Add a translation
-  "audit.detail.metadata.authority": "Authority:",
+  "audit.detail.metadata.authority": "Autorita:",
 
   // "audit.detail.metadata.confidence": "Confidence:",
-  // TODO New key - Add a translation
-  "audit.detail.metadata.confidence": "Confidence:",
+  "audit.detail.metadata.confidence": "Spolehlivost:",
 
   // "audit.detail.metadata.place": "Place:",
-  // TODO New key - Add a translation
-  "audit.detail.metadata.place": "Place:",
+  "audit.detail.metadata.place": "Pozice:",
 
   // "audit.detail.metadata.action": "Action:",
-  // TODO New key - Add a translation
-  "audit.detail.metadata.action": "Action:",
+  "audit.detail.metadata.action": "Akce:",
 
   // "audit.detail.metadata.checksum": "Checksum:",
-  // TODO New key - Add a translation
-  "audit.detail.metadata.checksum": "Checksum:",
+  "audit.detail.metadata.checksum": "Kontrolní součet:",
 
   // "audit.overview.title": "All Audit Logs",
-  // TODO New key - Add a translation
-  "audit.overview.title": "All Audit Logs",
+  "audit.overview.title": "Všechny auditní záznamy",
 
   // "audit.overview.table.id": "Audit ID",
-  // TODO New key - Add a translation
-  "audit.overview.table.id": "Audit ID",
+  "audit.overview.table.id": "ID auditu",
 
   // "audit.overview.table.objectUUID": "Object ID",
-  // TODO New key - Add a translation
-  "audit.overview.table.objectUUID": "Object ID",
+  "audit.overview.table.objectUUID": "ID objektu",
 
   // "audit.overview.table.objectType": "Object Type",
-  // TODO New key - Add a translation
-  "audit.overview.table.objectType": "Object Type",
+  "audit.overview.table.objectType": "Typ objektu",
 
   // "audit.overview.table.subjectUUID": "Subject ID",
-  // TODO New key - Add a translation
-  "audit.overview.table.subjectUUID": "Subject ID",
+  "audit.overview.table.subjectUUID": "ID subjektu",
 
   // "audit.overview.table.subjectType": "Subject Type",
-  // TODO New key - Add a translation
-  "audit.overview.table.subjectType": "Subject Type",
+  "audit.overview.table.subjectType": "Typ subjektu",
 
   // "audit.overview.table.entityType": "Audit Type",
-  // TODO New key - Add a translation
-  "audit.overview.table.entityType": "Audit Type",
+  "audit.overview.table.entityType": "Typ auditu",
 
   // "audit.overview.table.eperson": "EPerson",
-  // TODO New key - Add a translation
-  "audit.overview.table.eperson": "EPerson",
+  "audit.overview.table.eperson": "Uživatel",
 
   // "audit.overview.table.other": "Object",
-  // TODO New key - Add a translation
-  "audit.overview.table.other": "Object",
+  "audit.overview.table.other": "Objekt",
 
   // "audit.overview.table.timestamp": "Time (UTC)",
-  // TODO New key - Add a translation
-  "audit.overview.table.timestamp": "Time (UTC)",
+  "audit.overview.table.timestamp": "Čas (UTC)",
 
   // "audit.overview.breadcrumbs": "Audit Logs",
-  // TODO New key - Add a translation
-  "audit.overview.breadcrumbs": "Audit Logs",
+  "audit.overview.breadcrumbs": "Auditní záznamy",
 
   // "audit.object.back": "Back",
-  // TODO New key - Add a translation
-  "audit.object.back": "Back",
+  "audit.object.back": "Zpět",
 
   // "audit.object.breadcrumbs": "Object Audit Logs",
-  // TODO New key - Add a translation
-  "audit.object.breadcrumbs": "Object Audit Logs",
+  "audit.object.breadcrumbs": "Auditní záznamy objektu",
 
   // "audit.object.overview.title": "Object Audit Logs",
-  // TODO New key - Add a translation
-  "audit.object.overview.title": "Object Audit Logs",
+  "audit.object.overview.title": "Auditní záznamy objektu",
 
   // "audit.object.logs.label": "Logs for object: ",
-  // TODO New key - Add a translation
-  "audit.object.logs.label": "Logs for object: ",
+  "audit.object.logs.label": "Záznamy pro objekt: ",
 
   // "audit.object.overview.disabled.message": "Audit feature is currently disabled",
-  // TODO New key - Add a translation
-  "audit.object.overview.disabled.message": "Audit feature is currently disabled",
+  "audit.object.overview.disabled.message": "Funkce auditu je momentálně vypnuta",
 
   // "auth.errors.invalid-user": "Invalid email address or password.",
   "auth.errors.invalid-user": "Neplatná e-mailová adresa nebo heslo.",
@@ -1667,8 +1641,7 @@
   "browse.metadata.title": "Název",
 
   // "browse.metadata.srsc": "Subject Category",
-  // TODO New key - Add a translation
-  "browse.metadata.srsc": "Subject Category",
+  "browse.metadata.srsc": "Předmětová kategorie",
 
   // "browse.metadata.author.breadcrumbs": "Browse by Author",
   "browse.metadata.author.breadcrumbs": "Procházet podle autora",
@@ -1680,7 +1653,7 @@
   "browse.metadata.subject.breadcrumbs": "Procházet podle předmětu",
 
   // "browse.metadata.srsc.breadcrumbs": "Browse by Subject Category",
-  "browse.metadata.srsc.breadcrumbs": "Procházet podle předmětu",
+  "browse.metadata.srsc.breadcrumbs": "Procházet podle předmětové kategorie",
 
   // "browse.metadata.srsc.tree.description": "Select a subject to add as search filter",
   "browse.metadata.srsc.tree.description": "Vyberte předmět pro přidání jako filtr vyhledávání",
@@ -1791,16 +1764,13 @@
   "browse.taxonomy.button": "Procházet",
 
   // "browse.title": "Browsing by {{ field }}{{ startsWith }} {{ value }}",
-  // TODO Source message changed - Revise the translation
-  "browse.title": "Procházet {{ collection }} podle {{ field }}{{ startsWith }} {{ value }}",
+  "browse.title": "Procházet podle {{ field }}{{ startsWith }} {{ value }}",
 
   // "browse.taxonomy.show_next_results": "Show next results",
-  // TODO New key - Add a translation
-  "browse.taxonomy.show_next_results": "Show next results",
+  "browse.taxonomy.show_next_results": "Zobrazit další výsledky",
 
   // "browse.taxonomy.show_previous_results": "Show previous results",
-  // TODO New key - Add a translation
-  "browse.taxonomy.show_previous_results": "Show previous results",
+  "browse.taxonomy.show_previous_results": "Zobrazit předchozí výsledky",
 
   // "browse.title.page": "Browsing by {{ field }} {{ value }}",
   "browse.title.page": "Procházet podle {{ field }} {{ value }}",
@@ -1854,8 +1824,7 @@
   "collection.delete.notification.fail": "Kolekce nemůže být odstraněna",
 
   // "collection.delete.notification.success": "Successfully started a process to delete this collection",
-  // TODO Source message changed - Revise the translation
-  "collection.delete.notification.success": "Kolekce byla úspěšně odstraněna",
+  "collection.delete.notification.success": "Úspěšně spuštěn proces pro odstranění této kolekce",
 
   // "collection.delete.text": "Are you sure you want to delete collection \"{{ dso }}\"",
   "collection.delete.text": "Určitě chcete odstranit kolekci \"{{ dso }}\"",
@@ -2101,12 +2070,10 @@
   "collection.form.errors.title.required": "Zadejte prosím název kolekce",
 
   // "collection.form.errors.submissionDefinition.required": "Please choose a submission definition for this collection",
-  // TODO New key - Add a translation
-  "collection.form.errors.submissionDefinition.required": "Please choose a submission definition for this collection",
+  "collection.form.errors.submissionDefinition.required": "Zvolte prosím definici příspěvku pro tuto kolekci",
 
   // "collection.form.errors.entityType.required": "Please choose an entity type for this collection",
-  // TODO New key - Add a translation
-  "collection.form.errors.entityType.required": "Please choose an entity type for this collection",
+  "collection.form.errors.entityType.required": "Zvolte prosím typ subjektu pro tuto kolekci",
 
   // "collection.form.license": "License",
   "collection.form.license": "Licence",
@@ -2118,8 +2085,7 @@
   "collection.form.rights": "Copyright (HTML)",
 
   // "collection.form.sharedWorkspace": "Shared workspace",
-  // TODO New key - Add a translation
-  "collection.form.sharedWorkspace": "Shared workspace",
+  "collection.form.sharedWorkspace": "Sdílený pracovní prostor",
 
   // "collection.form.tableofcontents": "News (HTML)",
   "collection.form.tableofcontents": "Novinky (HTML)",
@@ -2131,20 +2097,16 @@
   "collection.form.entityType": "Typ subjektu",
 
   // "collection.form.errors.entityType.required": "Please choose an entity type for this collection",
-  // TODO New key - Add a translation
-  "collection.form.errors.entityType.required": "Please choose an entity type for this collection",
+  "collection.form.errors.entityType.required": "Zvolte prosím typ subjektu pro tuto kolekci",
 
   // "collection.form.errors.submissionDefinition.required": "Please choose a submission definition for this collection",
-  // TODO New key - Add a translation
-  "collection.form.errors.submissionDefinition.required": "Please choose a submission definition for this collection",
+  "collection.form.errors.submissionDefinition.required": "Zvolte prosím definici příspěvku pro tuto kolekci",
 
   // "collection.form.submissionDefinition": "Submission definition",
-  // TODO New key - Add a translation
-  "collection.form.submissionDefinition": "Submission definition",
+  "collection.form.submissionDefinition": "Definice příspěvku",
 
   // "collection.form.correctionSubmissionDefinition": "Submission definition for correction request",
-  // TODO New key - Add a translation
-  "collection.form.correctionSubmissionDefinition": "Submission definition for correction request",
+  "collection.form.correctionSubmissionDefinition": "Definice příspěvku pro opravu",
 
 
 
@@ -2326,8 +2288,7 @@
   "community.delete.notification.fail": "Komunita nemůže být odstraněna",
 
   // "community.delete.notification.success": "Successfully started a process to delete this community",
-  // TODO Source message changed - Revise the translation
-  "community.delete.notification.success": "Úspěšně odstraněna komunita",
+  "community.delete.notification.success": "Úspěšně spuštěn proces pro odstranění této komunity",
 
   // "community.delete.text": "Are you sure you want to delete community \"{{ dso }}\"",
   "community.delete.text": "Určitě chcete odstranit komunitu \"{{ dso }}\"",
@@ -2561,23 +2522,18 @@
   "community.sub-community-list.head": "Komunity této komunity",
 
   // "confirmation-modal.pending-changes.header": "Unsaved changes",
-  // TODO New key - Add a translation
-  "confirmation-modal.pending-changes.header": "Unsaved changes",
+  "confirmation-modal.pending-changes.header": "Neuložené změny",
 
   // "confirmation-modal.pending-changes.info": "There are unsaved changes. Do you want to leave the page?",
-  // TODO New key - Add a translation
-  "confirmation-modal.pending-changes.info": "There are unsaved changes. Do you want to leave the page?",
+  "confirmation-modal.pending-changes.info": "Existují neuložené změny. Chcete opustit stránku?",
 
   // "confirmation-modal.pending-changes.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "confirmation-modal.pending-changes.cancel": "Cancel",
+  "confirmation-modal.pending-changes.cancel": "Zrušit",
 
   // "confirmation-modal.pending-changes.confirm": "Leave",
-  // TODO New key - Add a translation
-  "confirmation-modal.pending-changes.confirm": "Leave",
+  "confirmation-modal.pending-changes.confirm": "Opustit",
 
   // "context-menu.actions.audit-item.btn": "Audit",
-  // TODO New key - Add a translation
   "context-menu.actions.audit-item.btn": "Audit",
 
   // "cookies.consent.accept-all": "Accept all",
@@ -3049,23 +3005,19 @@
   "error.top-level-communities": "Chyba při načítání komunit nejvyšší úrovně",
 
   // "error.validation.license.required": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
-  // TODO New key - Add a translation
-  "error.validation.license.required": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
+  "error.validation.license.required": "Pro dokončení příspěvku musíte udělit tuto licenci. Pokud v tuto chvíli nemůžete licenci udělit, můžete svou práci uložit a vrátit se později nebo příspěvek odstranit.",
 
   // "error.validation.cclicense.required": "You must grant this cclicense to complete your submission. If you are unable to grant the cclicense at this time, you may save your work and return later or remove the submission.",
-  "error.validation.cclicense.required": "Pro dokončení vkladu musíte udělit tuto licenci CC. Pokud v tuto chvíli nemůžete licenci CC udělit, můžete svou práci uložit a vrátit se později nebo vklad odstranit.",
+  "error.validation.cclicense.required": "Pro dokončení příspěvku musíte udělit tuto licenci CC. Pokud v tuto chvíli nemůžete licenci CC udělit, můžete svou práci uložit a vrátit se později nebo příspěvek odstranit.",
 
   // "error.validation.custom-url.conflict": "The custom url has been already used, please try with a new one.",
-  // TODO New key - Add a translation
-  "error.validation.custom-url.conflict": "The custom url has been already used, please try with a new one.",
+  "error.validation.custom-url.conflict": "Vlastní URL již bylo použito, zkuste prosím jiné.",
 
   // "error.validation.custom-url.empty": "The custom url is required and cannot be empty.",
-  // TODO New key - Add a translation
-  "error.validation.custom-url.empty": "The custom url is required and cannot be empty.",
+  "error.validation.custom-url.empty": "Vlastní URL je povinné a nemůže být prázdné.",
 
   // "error.validation.custom-url.invalid-characters": "The custom url contains invalid characters. Only alphanumeric characters, dashes and underscores are supported.",
-  // TODO New key - Add a translation
-  "error.validation.custom-url.invalid-characters": "The custom url contains invalid characters. Only alphanumeric characters, dashes and underscores are supported.",
+  "error.validation.custom-url.invalid-characters": "Vlastní URL obsahuje neplatné znaky. Jsou podporovány pouze alfanumerické znaky, pomlčky a podtržítka.",
 
   // "error.validation.pattern": "This input is restricted by the current pattern: {{ pattern }}.",
   "error.validation.pattern": "Toto zadání je omezeno aktuálním vzorcem: {{ pattern }}.",
@@ -3236,8 +3188,7 @@
   "form.clear-help": "Klikněte zde pro odstranění vybrané hodnoty",
 
   // "form.copy": "Duplicate",
-  // TODO New key - Add a translation
-  "form.copy": "Duplicate",
+  "form.copy": "Duplikovat",
 
   // "form.discard": "Discard",
   "form.discard": "Vyřadit",
@@ -3255,16 +3206,13 @@
   "form.first-name": "Křestní jméno",
 
   // "form.group.add": "Add",
-  // TODO New key - Add a translation
-  "form.group.add": "Add",
+  "form.group.add": "Přidat",
 
   // "form.group.close": "Close",
-  // TODO New key - Add a translation
-  "form.group.close": "Close",
+  "form.group.close": "Zavřít",
 
   // "form.group.set": "Set",
-  // TODO New key - Add a translation
-  "form.group.set": "Set",
+  "form.group.set": "Nastavit",
 
   // "form.group-collapse": "Collapse",
   "form.group-collapse": "Sbalit",
@@ -3315,71 +3263,54 @@
   "form.other-information.orcid": "ORCID",
 
   // "form.other-information.person_identifier_orcid": "ORCID",
-  // TODO New key - Add a translation
   "form.other-information.person_identifier_orcid": "ORCID",
 
   // "form.other-information.oairecerif_author_affiliation": "Affiliation",
-  // TODO New key - Add a translation
-  "form.other-information.oairecerif_author_affiliation": "Affiliation",
+  "form.other-information.oairecerif_author_affiliation": "Afiliace",
 
   // "form.other-information.oairecerif_editor_affiliation": "Affiliation",
-  // TODO New key - Add a translation
-  "form.other-information.oairecerif_editor_affiliation": "Affiliation",
+  "form.other-information.oairecerif_editor_affiliation": "Afiliace",
 
   // "form.other-information.person_identifier_orcid": "ORCID iD",
-  // TODO New key - Add a translation
   "form.other-information.person_identifier_orcid": "ORCID iD",
 
   // "form.other-information.institution-affiliation-name": "Affiliation(s)",
-  // TODO New key - Add a translation
-  "form.other-information.institution-affiliation-name": "Affiliation(s)",
+  "form.other-information.institution-affiliation-name": "Afiliace",
 
   // "form.other-information.dc_relation_grantno": "Grant Number",
-  // TODO New key - Add a translation
-  "form.other-information.dc_relation_grantno": "Grant Number",
+  "form.other-information.dc_relation_grantno": "Číslo grantu",
 
   // "form.other-information.not-available": "Not available",
-  // TODO New key - Add a translation
-  "form.other-information.not-available": "Not available",
+  "form.other-information.not-available": "Není k dispozici",
 
   // "form.other-information.ror_orgunit_id": "ROR ID",
-  // TODO New key - Add a translation
   "form.other-information.ror_orgunit_id": "ROR ID",
 
   // "form.other-information.ror_orgunit_type": "ROR type",
-  // TODO New key - Add a translation
-  "form.other-information.ror_orgunit_type": "ROR type",
+  "form.other-information.ror_orgunit_type": "Typ ROR",
 
   // "form.other-information.ror_orgunit_acronym": "ROR acronym",
-  // TODO New key - Add a translation
-  "form.other-information.ror_orgunit_acronym": "ROR acronym",
+  "form.other-information.ror_orgunit_acronym": "Zkratka ROR",
 
   // "form.other-information.ror_orgunit_countryName": "ROR country",
-  // TODO New key - Add a translation
-  "form.other-information.ror_orgunit_countryName": "ROR country",
+  "form.other-information.ror_orgunit_countryName": "Země ROR",
 
   // "form.entry.source.local": "",
-  // TODO New key - Add a translation
   "form.entry.source.local": "",
 
   // "form.entry.source.orcid": "",
-  // TODO New key - Add a translation
   "form.entry.source.orcid": "",
 
   // "form.entry.source.ror": "",
-  // TODO New key - Add a translation
   "form.entry.source.ror": "",
 
   // "form.entry.source.openaire": "",
-  // TODO New key - Add a translation
   "form.entry.source.openaire": "",
 
   // "form.entry.source.zdb": "",
-  // TODO New key - Add a translation
   "form.entry.source.zdb": "",
 
   // "form.entry.source.sherpa": "- Sherpa Romeo",
-  // TODO New key - Add a translation
   "form.entry.source.sherpa": "- Sherpa Romeo",
 
   // "form.remove": "Remove",
@@ -3410,16 +3341,13 @@
   "form.number-picker.increment": "Zvýšit {{field}}",
 
   // "form.number-picker.label.Year": "Year",
-  // TODO New key - Add a translation
-  "form.number-picker.label.Year": "Year",
+  "form.number-picker.label.Year": "Rok",
 
   // "form.number-picker.label.Month": "Month",
-  // TODO New key - Add a translation
-  "form.number-picker.label.Month": "Month",
+  "form.number-picker.label.Month": "Měsíc",
 
   // "form.number-picker.label.Day": "Day",
-  // TODO New key - Add a translation
-  "form.number-picker.label.Day": "Day",
+  "form.number-picker.label.Day": "Den",
 
   // "form.repeatable.sort.tip": "Drop the item in the new position",
   "form.repeatable.sort.tip": "Přetáhněte záznam na novou pozici",
@@ -3602,7 +3530,6 @@
   "info.accessibility-settings.disableNotificationTimeOut.label": "Automaticky zavřít upozornění po vypršení času",
 
   // "info.accessibility-settings.disableNotificationTimeOut.hint": "When this toggle is activated, notifications will close automatically after the time out passes. When deactivated, notifications will remain open until manually closed.",
-  // TODO Source message changed - Revise the translation
   "info.accessibility-settings.disableNotificationTimeOut.hint": "Když je tento přepínač aktivován, upozornění se automaticky zavřou po uplynutí času. Pokud je deaktivován, upozornění zůstanou otevřená, dokud je ručně nezavřete.",
 
   // "info.accessibility-settings.failed-notification": "Failed to save accessibility settings",
@@ -3807,7 +3734,6 @@
   "item.edit.bitstreams.bundle.name": "Svazek: {{ name }}",
 
   // "item.edit.bitstreams.bundle.table.aria-label": "Bitstreams in the {{ bundle }} Bundle",
-  // TODO Source message changed - Revise the translation
   "item.edit.bitstreams.bundle.table.aria-label": "Soubory v balíčku {{ bundle }}",
 
   // "item.edit.bitstreams.bundle.tooltip": "You can move a bitstream to a different page by dropping it on the page number.",
@@ -3925,20 +3851,16 @@
   "item.edit.delete.header": "Smazat záznam: {{ id }}",
 
   // "item.edit.delete.success": "Successfully started a process to delete this item",
-  // TODO Source message changed - Revise the translation
-  "item.edit.delete.success": "Záznam byl odstraněn",
+  "item.edit.delete.success": "Úspěšně spuštěn proces pro odstranění tohoto záznamu",
 
   // "item.edit.delete.confirmation-title": "Confirm deletion",
-  // TODO New key - Add a translation
-  "item.edit.delete.confirmation-title": "Confirm deletion",
+  "item.edit.delete.confirmation-title": "Potvrdit smazání",
 
   // "item.edit.delete.confirmation-message": "Are you sure you want to permanently delete this item?",
-  // TODO New key - Add a translation
-  "item.edit.delete.confirmation-message": "Are you sure you want to permanently delete this item?",
+  "item.edit.delete.confirmation-message": "Opravdu chcete trvale smazat tento záznam?",
 
   // "item.edit.delete.confirmation-detail": "This item may have been cited, has (or had) a persistent identifier (Handle/DOI), and deleting it may break scholarly references and external links.",
-  // TODO New key - Add a translation
-  "item.edit.delete.confirmation-detail": "This item may have been cited, has (or had) a persistent identifier (Handle/DOI), and deleting it may break scholarly references and external links.",
+  "item.edit.delete.confirmation-detail": "Tento záznam mohl být citován, má (nebo měl) trvalý identifikátor (Handle/DOI) a jeho smazání může narušit vědecké reference a externí odkazy.",
 
   // "item.edit.head": "Edit Item",
   "item.edit.head": "Upravit záznam",
@@ -4082,8 +4004,7 @@
   "item.edit.metadata.edit.language": "Upravit jazyk",
 
   // "item.edit.metadata.edit.authority": "Edit authority",
-  // TODO New key - Add a translation
-  "item.edit.metadata.edit.authority": "Edit authority",
+  "item.edit.metadata.edit.authority": "Upravit autoritu",
 
   // "item.edit.metadata.edit.value": "Edit value",
   "item.edit.metadata.edit.value": "Upravit hodnotu",
@@ -4131,12 +4052,10 @@
   "item.edit.metadata.headers.language": "Jazyk",
 
   // "item.edit.metadata.headers.security": "Security level",
-  // TODO New key - Add a translation
-  "item.edit.metadata.headers.security": "Security level",
+  "item.edit.metadata.headers.security": "Úroveň zabezpečení",
 
   // "item.edit.metadata.headers.authority": "Authority",
-  // TODO New key - Add a translation
-  "item.edit.metadata.headers.authority": "Authority",
+  "item.edit.metadata.headers.authority": "Autorita",
 
   // "item.edit.metadata.headers.value": "Value",
   "item.edit.metadata.headers.value": "Hodnota",
@@ -4373,7 +4292,6 @@
   "item.edit.tabs.metadata.head": "Metadata",
 
   // "item.edit.tabs.metadata.title": "Item Edit - Metadata",
-  // TODO Source message changed - Revise the translation
   "item.edit.tabs.metadata.title": "Úprava záznamu - Metadata",
 
   // "item.edit.tabs.relationships.head": "Relationships",
@@ -4452,8 +4370,7 @@
   "item.edit.tabs.status.labels.lastModified": "Poslední úprava",
 
   // "item.edit.tabs.status.title": "Item Edit - Status",
-  // TODO Source message changed - Revise the translation
-  "item.edit.tabs.status.title": "Úprava záznamu - Status",
+  "item.edit.tabs.status.title": "Úprava záznamu - Stav",
 
   // "item.edit.tabs.versionhistory.head": "Version History",
   "item.edit.tabs.versionhistory.head": "Historie verzí",
@@ -4468,8 +4385,7 @@
   "item.edit.tabs.view.head": "Zobrazit záznam",
 
   // "item.edit.tabs.view.title": "Item Edit - View",
-  // TODO Source message changed - Revise the translation
-  "item.edit.tabs.view.title": "Úprava záznamu - zobrazení",
+  "item.edit.tabs.view.title": "Úprava záznamu - Zobrazení",
 
   // "item.edit.withdraw.cancel": "Cancel",
   "item.edit.withdraw.cancel": "Zrušit",
@@ -4559,7 +4475,6 @@
   "item.page.dcterms.spatial": "Geoprostorový bod",
 
   // "item.page.doi": "DOI",
-  // TODO New key - Add a translation
   "item.page.doi": "DOI",
 
   // "item.search.results.head": "Item Search Results",
@@ -4662,8 +4577,7 @@
   "item.page.date": "Datum",
 
   // "item.page.edit": "Administer",
-  // TODO Source message changed - Revise the translation
-  "item.page.edit": "Upravit tento záznam",
+  "item.page.edit": "Spravovat",
 
   // "item.page.files": "Files",
   "item.page.files": "Soubory",
@@ -4723,48 +4637,37 @@
   "item.page.relationships.isOrgUnitOfProject": "Výzkumné projekty",
 
   // "item.page.relationships.RELATION.Person.researchoutputs": "Publications",
-  // TODO New key - Add a translation
-  "item.page.relationships.RELATION.Person.researchoutputs": "Publications",
+  "item.page.relationships.RELATION.Person.researchoutputs": "Publikace",
 
   // "item.page.relationships.RELATION.Person.projects": "Projects",
-  // TODO New key - Add a translation
-  "item.page.relationships.RELATION.Person.projects": "Projects",
+  "item.page.relationships.RELATION.Person.projects": "Projekty",
 
   // "item.page.relationships.RELATION.OrgUnit.rpprojects": "Researchers Projects",
-  // TODO New key - Add a translation
-  "item.page.relationships.RELATION.OrgUnit.rpprojects": "Researchers Projects",
+  "item.page.relationships.RELATION.OrgUnit.rpprojects": "Projekty výzkumníků",
 
   // "item.page.relationships.RELATION.OrgUnit.publications": "Publications",
-  // TODO New key - Add a translation
-  "item.page.relationships.RELATION.OrgUnit.publications": "Publications",
+  "item.page.relationships.RELATION.OrgUnit.publications": "Publikace",
 
   // "item.page.relationships.RELATION.OrgUnit.rppublications": "Researchers Publications",
-  // TODO New key - Add a translation
-  "item.page.relationships.RELATION.OrgUnit.rppublications": "Researchers Publications",
+  "item.page.relationships.RELATION.OrgUnit.rppublications": "Publikace výzkumníků",
 
   // "item.page.relationships.RELATION.OrgUnit.people": "People",
-  // TODO New key - Add a translation
-  "item.page.relationships.RELATION.OrgUnit.people": "People",
+  "item.page.relationships.RELATION.OrgUnit.people": "Lidé",
 
   // "item.page.relationships.RELATION.OrgUnit.projects": "Projects",
-  // TODO New key - Add a translation
-  "item.page.relationships.RELATION.OrgUnit.projects": "Projects",
+  "item.page.relationships.RELATION.OrgUnit.projects": "Projekty",
 
   // "item.page.relationships.RELATION.OrgUnit.organizations": "Organizations",
-  // TODO New key - Add a translation
-  "item.page.relationships.RELATION.OrgUnit.organizations": "Organizations",
+  "item.page.relationships.RELATION.OrgUnit.organizations": "Organizace",
 
   // "item.page.relationships.RELATION.Project.projects": "Projects",
-  // TODO New key - Add a translation
-  "item.page.relationships.RELATION.Project.projects": "Projects",
+  "item.page.relationships.RELATION.Project.projects": "Projekty",
 
   // "item.page.relationships.RELATION.Project.fundings": "Fundings",
-  // TODO New key - Add a translation
-  "item.page.relationships.RELATION.Project.fundings": "Fundings",
+  "item.page.relationships.RELATION.Project.fundings": "Financování",
 
   // "item.page.relationships.RELATION.Project.researchoutputs": "Publications",
-  // TODO New key - Add a translation
-  "item.page.relationships.RELATION.Project.researchoutputs": "Publications",
+  "item.page.relationships.RELATION.Project.researchoutputs": "Publikace",
 
 
   // "item.page.subject": "Keywords",
@@ -4870,8 +4773,7 @@
   "item.preview.dc.rights": "Práva",
 
   // "item.preview.dc.identifier.other": "Other Identifier",
-  // TODO Source message changed - Revise the translation
-  "item.preview.dc.identifier.other": "Další identifikátor:",
+  "item.preview.dc.identifier.other": "Další identifikátor",
 
   // "item.preview.dc.relation.issn": "ISSN",
   "item.preview.dc.relation.issn": "ISSN",
@@ -4946,7 +4848,7 @@
   "item.preview.organization.legalName": "Právní název",
 
   // "item.preview.dspace.entity.type": "Entity Type:",
-  "item.preview.dspace.entity.type": "Typ entity:",
+  "item.preview.dspace.entity.type": "Typ subjektu:",
 
   // "item.preview.creativework.publisher": "Publisher",
   "item.preview.creativework.publisher": "Vydavatel",
@@ -4961,8 +4863,7 @@
   "item.preview.dc.identifier.openalex": "Identifikátor OpenAlex",
 
   // "item.preview.dc.description": "Description",
-  // TODO Source message changed - Revise the translation
-  "item.preview.dc.description": "Popis:",
+  "item.preview.dc.description": "Popis",
 
   // "item.select.confirm": "Confirm selected",
   "item.select.confirm": "Potvrdit vybrané",
@@ -5184,8 +5085,7 @@
   "itemtemplate.edit.metadata.edit.language": "Upravit jazyk",
 
   // "itemtemplate.edit.metadata.edit.authority": "Edit authority",
-  // TODO New key - Add a translation
-  "itemtemplate.edit.metadata.edit.authority": "Edit authority",
+  "itemtemplate.edit.metadata.edit.authority": "Upravit autoritu",
 
   // "itemtemplate.edit.metadata.edit.value": "Edit value",
   "itemtemplate.edit.metadata.edit.value": "Upravit hodnotu",
@@ -5224,8 +5124,7 @@
   "itemtemplate.edit.metadata.headers.value": "Hodnota",
 
   // "itemtemplate.edit.metadata.headers.authority": "Authority",
-  // TODO New key - Add a translation
-  "itemtemplate.edit.metadata.headers.authority": "Authority",
+  "itemtemplate.edit.metadata.headers.authority": "Autorita",
 
   // "itemtemplate.edit.metadata.metadatafield": "Edit field",
   "itemtemplate.edit.metadata.metadatafield": "Upravit pole",
@@ -5279,8 +5178,7 @@
   "journal.page.description": "Popis",
 
   // "journal.page.edit": "Administer",
-  // TODO Source message changed - Revise the translation
-  "journal.page.edit": "Upravit tento záznam",
+  "journal.page.edit": "Spravovat",
 
   // "journal.page.editor": "Editor-in-Chief",
   "journal.page.editor": "Šéfredaktor",
@@ -5313,8 +5211,7 @@
   "journalissue.page.description": "Popis",
 
   // "journalissue.page.edit": "Administer",
-  // TODO Source message changed - Revise the translation
-  "journalissue.page.edit": "Upravit tento záznam",
+  "journalissue.page.edit": "Spravovat",
 
   // "journalissue.page.issuedate": "Issue Date",
   "journalissue.page.issuedate": "Datum vydání",
@@ -5347,8 +5244,7 @@
   "journalvolume.page.description": "Popis",
 
   // "journalvolume.page.edit": "Administer",
-  // TODO Source message changed - Revise the translation
-  "journalvolume.page.edit": "Upravit tento záznam",
+  "journalvolume.page.edit": "Spravovat",
 
   // "journalvolume.page.issuedate": "Issue Date",
   "journalvolume.page.issuedate": "Datum vydání",
@@ -5399,52 +5295,40 @@
   "iiif.page.description": "Popis: ",
 
   // "layout.advanced-attachment.dc.title": "Name",
-  // TODO New key - Add a translation
-  "layout.advanced-attachment.dc.title": "Name",
+  "layout.advanced-attachment.dc.title": "Název",
 
   // "layout.advanced-attachment.size": "Size",
-  // TODO New key - Add a translation
-  "layout.advanced-attachment.size": "Size",
+  "layout.advanced-attachment.size": "Velikost",
 
   // "layout.advanced-attachment.checksum": "Checksum",
-  // TODO New key - Add a translation
-  "layout.advanced-attachment.checksum": "Checksum",
+  "layout.advanced-attachment.checksum": "Kontrolní součet",
 
   // "layout.advanced-attachment.checksum.info.MD5": "The <b>MD5 message-digest algorithm</b> can be used to verify the integrity of the file that you have uploaded. You can calculate its value locally via tools that are generally available in each operative system like <b>md5sum</b>",
-  // TODO New key - Add a translation
-  "layout.advanced-attachment.checksum.info.MD5": "The <b>MD5 message-digest algorithm</b> can be used to verify the integrity of the file that you have uploaded. You can calculate its value locally via tools that are generally available in each operative system like <b>md5sum</b>",
+  "layout.advanced-attachment.checksum.info.MD5": "<b>Algoritmus MD5</b> lze použít k ověření integrity souboru, který jste nahráli. Jeho hodnotu můžete vypočítat lokálně pomocí nástrojů, které jsou běžně dostupné v každém operačním systému, např. <b>md5sum</b>",
 
   // "layout.advanced-attachment.format": "Format",
-  // TODO New key - Add a translation
-  "layout.advanced-attachment.format": "Format",
+  "layout.advanced-attachment.format": "Formát",
 
   // "layout.advanced-attachment.dc.type": "Type",
-  // TODO New key - Add a translation
-  "layout.advanced-attachment.dc.type": "Type",
+  "layout.advanced-attachment.dc.type": "Typ",
 
   // "layout.advanced-attachment.dc.description": "Description",
-  // TODO New key - Add a translation
-  "layout.advanced-attachment.dc.description": "Description",
+  "layout.advanced-attachment.dc.description": "Popis",
 
   // "layout.advanced-attachment.no_thumbnail": "No Thumbnail Available",
-  // TODO New key - Add a translation
-  "layout.advanced-attachment.no_thumbnail": "No Thumbnail Available",
+  "layout.advanced-attachment.no_thumbnail": "Náhled není k dispozici",
 
   // "layout.advanced-attachment.download": "Download",
-  // TODO New key - Add a translation
-  "layout.advanced-attachment.download": "Download",
+  "layout.advanced-attachment.download": "Stáhnout",
 
   // "layout.advanced-attachment.requestACopy": "Request a copy",
-  // TODO New key - Add a translation
-  "layout.advanced-attachment.requestACopy": "Request a copy",
+  "layout.advanced-attachment.requestACopy": "Požádat o kopii",
 
   // "layout.advanced-attachment.viewMore": "View More",
-  // TODO New key - Add a translation
-  "layout.advanced-attachment.viewMore": "View More",
+  "layout.advanced-attachment.viewMore": "Zobrazit více",
 
   // "layout.advanced-attachment.label.not-present": "(not present)",
-  // TODO New key - Add a translation
-  "layout.advanced-attachment.label.not-present": "(not present)",
+  "layout.advanced-attachment.label.not-present": "(chybí)",
 
   // "loading.bitstream": "Loading bitstream...",
   "loading.bitstream": "Načítá se soubor...",
@@ -5573,8 +5457,7 @@
   "menu.section.access_control_people": "Lidé",
 
   // "menu.section.audit": "Audit Logs",
-  // TODO New key - Add a translation
-  "menu.section.audit": "Audit Logs",
+  "menu.section.audit": "Auditní záznamy",
 
   // "menu.section.reports": "Reports",
   "menu.section.reports": "Zprávy",
@@ -5805,20 +5688,16 @@
   "menu.section.workflow": "Spravovat workflow",
 
   // "menu.section.FULL": "Edit",
-  // TODO New key - Add a translation
-  "menu.section.FULL": "Edit",
+  "menu.section.FULL": "Upravit",
 
   // "menu.section.OWNER": "Edit",
-  // TODO New key - Add a translation
-  "menu.section.OWNER": "Edit",
+  "menu.section.OWNER": "Upravit",
 
   // "menu.section.DIRECTOR": "Edit",
-  // TODO New key - Add a translation
-  "menu.section.DIRECTOR": "Edit",
+  "menu.section.DIRECTOR": "Upravit",
 
   // "menu.section.INVESTIGATOR": "Edit",
-  // TODO New key - Add a translation
-  "menu.section.INVESTIGATOR": "Edit",
+  "menu.section.INVESTIGATOR": "Upravit",
 
   // "metadata-export-search.tooltip": "Export search results as CSV",
   "metadata-export-search.tooltip": "Exportovat výsledky vyhledávání jako CSV",
@@ -5830,8 +5709,7 @@
   "metadata-export-search.submit.error": "Spuštění exportu se nezdařilo",
 
   // "metadata.security.level.title": "Metatada security level {{level}}",
-  // TODO New key - Add a translation
-  "metadata.security.level.title": "Metatada security level {{level}}",
+  "metadata.security.level.title": "Úroveň zabezpečení metadat {{level}}",
 
   // "mydspace.breadcrumbs": "MyDSpace",
   "mydspace.breadcrumbs": "Můj DSpace",
@@ -5924,8 +5802,7 @@
   "mydspace.show.workspace": "Vaše záznamy",
 
   // "mydspace.show.otherWorkspace": "Shared Submissions",
-  // TODO New key - Add a translation
-  "mydspace.show.otherWorkspace": "Shared Submissions",
+  "mydspace.show.otherWorkspace": "Sdílené příspěvky",
 
   // "mydspace.show.supervisedWorkspace": "Supervised items",
   "mydspace.show.supervisedWorkspace": "Záznamy pod dohledem",
@@ -6252,8 +6129,7 @@
   "quality-assurance.event.reason": "Důvod",
 
   // "orcid.badge.tooltip": "Connected to ORCID",
-  // TODO New key - Add a translation
-  "orcid.badge.tooltip": "Connected to ORCID",
+  "orcid.badge.tooltip": "Připojeno k ORCID",
 
   // "orgunit.listelement.badge": "Organizational Unit",
   "orgunit.listelement.badge": "Organizační jednotka",
@@ -6274,8 +6150,7 @@
   "orgunit.page.description": "Popis",
 
   // "orgunit.page.edit": "Administer",
-  // TODO Source message changed - Revise the translation
-  "orgunit.page.edit": "Upravit tento záznam",
+  "orgunit.page.edit": "Spravovat",
 
   // "orgunit.page.id": "ID",
   "orgunit.page.id": "ID",
@@ -6317,8 +6192,7 @@
   "person.page.birthdate": "Datum narození",
 
   // "person.page.edit": "Administer",
-  // TODO Source message changed - Revise the translation
-  "person.page.edit": "Upravit tento záznam",
+  "person.page.edit": "Spravovat",
 
   // "person.page.email": "Email Address",
   "person.page.email": "Emailová adresa",
@@ -6585,15 +6459,12 @@
   "process.overview.unknown.user": "Neznámý",
 
   // "process.bulk.delete.error.head": "Error on deleting process",
-  // TODO Source message changed - Revise the translation
   "process.bulk.delete.error.head": "Chyba při mazání procesu",
 
   // "process.bulk.delete.error.body": "The process with ID {{processId}} could not be deleted. The remaining processes will continue being deleted.",
-  // TODO Source message changed - Revise the translation
-  "process.bulk.delete.error.body": "Proces s ID {{processId}} se nepodařilo smazat. Zbývající procesy budou nadále mazány. ",
+  "process.bulk.delete.error.body": "Proces s ID {{processId}} se nepodařilo smazat. Zbývající procesy budou nadále mazány.",
 
   // "process.bulk.delete.success": "{{count}} process(es) have been successfully deleted",
-  // TODO Source message changed - Revise the translation
   "process.bulk.delete.success": "{{count}} procesů bylo úspěšně odstraněno",
 
   // "profile.breadcrumbs": "Update Profile",
@@ -6705,8 +6576,7 @@
   "project.page.description": "Popis",
 
   // "project.page.edit": "Administer",
-  // TODO Source message changed - Revise the translation
-  "project.page.edit": "Upravit tento záznam",
+  "project.page.edit": "Spravovat",
 
   // "project.page.expectedcompletion": "Expected Completion",
   "project.page.expectedcompletion": "Předpokládané dokončení",
@@ -6742,8 +6612,7 @@
   "publication.page.description": "Popis",
 
   // "publication.page.edit": "Administer",
-  // TODO Source message changed - Revise the translation
-  "publication.page.edit": "Upravit tento záznam",
+  "publication.page.edit": "Spravovat",
 
   // "publication.page.journal-issn": "Journal ISSN",
   "publication.page.journal-issn": "ISSN časopisu",
@@ -6764,7 +6633,6 @@
   "publication.page.volume-title": "Název svazku",
 
   // "publication.page.doi": "DOI",
-  // TODO New key - Add a translation
   "publication.page.doi": "DOI",
 
   // "publication.search.results.head": "Publication Search Results",
@@ -7293,52 +7161,40 @@
   "resource-policies.table.headers.title.for.collection": "Politiky kolekce",
 
   // "RELATION.Person.researchoutputs.search.results.head": "Research Output",
-  // TODO New key - Add a translation
-  "RELATION.Person.researchoutputs.search.results.head": "Research Output",
+  "RELATION.Person.researchoutputs.search.results.head": "Výzkumné výstupy",
 
   // "RELATION.Person.projects.search.results.head": "Projects",
-  // TODO New key - Add a translation
-  "RELATION.Person.projects.search.results.head": "Projects",
+  "RELATION.Person.projects.search.results.head": "Projekty",
 
   // "RELATION.Project.researchoutputs.search.results.head": "Publications",
-  // TODO New key - Add a translation
-  "RELATION.Project.researchoutputs.search.results.head": "Publications",
+  "RELATION.Project.researchoutputs.search.results.head": "Publikace",
 
   // "RELATION.Project.fundings.search.results.head": "Fundings",
-  // TODO New key - Add a translation
-  "RELATION.Project.fundings.search.results.head": "Fundings",
+  "RELATION.Project.fundings.search.results.head": "Financování",
 
   // "RELATION.Project.projects.search.results.head": "Projects",
-  // TODO New key - Add a translation
-  "RELATION.Project.projects.search.results.head": "Projects",
+  "RELATION.Project.projects.search.results.head": "Projekty",
 
   // "RELATION.OrgUnit.organizations.search.results.head": "Organizations",
-  // TODO New key - Add a translation
-  "RELATION.OrgUnit.organizations.search.results.head": "Organizations",
+  "RELATION.OrgUnit.organizations.search.results.head": "Organizace",
 
   // "RELATION.OrgUnit.rppublications.search.results.head": "Researchers Publications",
-  // TODO New key - Add a translation
-  "RELATION.OrgUnit.rppublications.search.results.head": "Researchers Publications",
+  "RELATION.OrgUnit.rppublications.search.results.head": "Publikace výzkumníků",
 
   // "RELATION.OrgUnit.publications.search.results.head": "Publications",
-  // TODO New key - Add a translation
-  "RELATION.OrgUnit.publications.search.results.head": "Publications",
+  "RELATION.OrgUnit.publications.search.results.head": "Publikace",
 
   // "RELATION.OrgUnit.rpprojects.search.results.head": "Researchers Projects",
-  // TODO New key - Add a translation
-  "RELATION.OrgUnit.rpprojects.search.results.head": "Researchers Projects",
+  "RELATION.OrgUnit.rpprojects.search.results.head": "Projekty výzkumníků",
 
   // "RELATION.OrgUnit.projects.search.results.head": "Projects",
-  // TODO New key - Add a translation
-  "RELATION.OrgUnit.projects.search.results.head": "Projects",
+  "RELATION.OrgUnit.projects.search.results.head": "Projekty",
 
   // "RELATION.Project.researchoutputs.search.results.head": "Publications",
-  // TODO New key - Add a translation
-  "RELATION.Project.researchoutputs.search.results.head": "Publications",
+  "RELATION.Project.researchoutputs.search.results.head": "Publikace",
 
   // "RELATION.OrgUnit.people.search.results.head": "People",
-  // TODO New key - Add a translation
-  "RELATION.OrgUnit.people.search.results.head": "People",
+  "RELATION.OrgUnit.people.search.results.head": "Lidé",
 
   // "root.skip-to-content": "Skip to main content",
   "root.skip-to-content": "Přejít k hlavnímu obsahu",
@@ -7952,12 +7808,10 @@
   "sorting.person.birthDate.DESC": "Datum narození sestupně",
 
   // "sorting.ownerselection.ASC": "Owner Relevance Ascending",
-  // TODO New key - Add a translation
-  "sorting.ownerselection.ASC": "Owner Relevance Ascending",
+  "sorting.ownerselection.ASC": "Relevance vlastníka vzestupně",
 
   // "sorting.ownerselection.DESC": "Owner Relevance Descending",
-  // TODO New key - Add a translation
-  "sorting.ownerselection.DESC": "Owner Relevance Descending",
+  "sorting.ownerselection.DESC": "Relevance vlastníka sestupně",
 
   // "statistics.title": "Statistics",
   "statistics.title": "Statistiky",
@@ -8002,8 +7856,7 @@
   "submission.edit.title": "Upravit příspěvek",
 
   // "submission.edit.item.breadcrumbs": "Edit item",
-  // TODO New key - Add a translation
-  "submission.edit.item.breadcrumbs": "Edit item",
+  "submission.edit.item.breadcrumbs": "Upravit záznam",
 
   // "submission.general.cancel": "Cancel",
   "submission.general.cancel": "Zrušit",
@@ -8033,8 +7886,7 @@
   "submission.general.back.submit": "Zpět",
 
   // "submission.general.info.invalid": "The submission is invalid, check missing fields",
-  // TODO New key - Add a translation
-  "submission.general.info.invalid": "The submission is invalid, check missing fields",
+  "submission.general.info.invalid": "Příspěvek je neplatný, zkontrolujte chybějící pole",
 
   // "submission.general.info.saved": "Saved",
   "submission.general.info.saved": "Uloženo",
@@ -8049,8 +7901,7 @@
   "submission.general.save-later": "Uložit na později",
 
   // "submission.general.save-later.edit-item": "Save and return",
-  // TODO New key - Add a translation
-  "submission.general.save-later.edit-item": "Save and return",
+  "submission.general.save-later.edit-item": "Uložit a vrátit se",
 
   // "submission.import-external.page.title": "Import metadata from an external source",
   "submission.import-external.page.title": "Importovat metadata z externího zdroje",
@@ -8800,7 +8651,7 @@
   "submission.sections.general.no-collection": "Nebyla nalezena žádná kolekce",
 
   // "submission.sections.general.no-entity": "No entity types found",
-  "submission.sections.general.no-entity": "Nebyl nalezen žádný typ entity",
+  "submission.sections.general.no-entity": "Nebyl nalezen žádný typ subjektu",
 
   // "submission.sections.general.no-sections": "No options available",
   "submission.sections.general.no-sections": "Nejsou k dispozici žádné volby",
@@ -8842,8 +8693,7 @@
   "submission.sections.submit.progressbar.CClicense": "Licence Creative Commons",
 
   // "submission.sections.submit.progressbar.CustomUrlStep": "Custom Url",
-  // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.CustomUrlStep": "Custom Url",
+  "submission.sections.submit.progressbar.CustomUrlStep": "Vlastní URL",
 
   // "submission.sections.submit.progressbar.describe.recycle": "Recycle",
   "submission.sections.submit.progressbar.describe.recycle": "Opětovně použít",
@@ -8867,8 +8717,7 @@
   "submission.sections.submit.progressbar.license": "Vložit licenci",
 
   // "submission.sections.submit.progressbar.describe.owner": "Owner",
-  // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.describe.owner": "Owner",
+  "submission.sections.submit.progressbar.describe.owner": "Vlastník",
 
   // "submission.sections.submit.progressbar.sherpapolicy": "Sherpa policies",
   "submission.sections.submit.progressbar.sherpapolicy": "Politiky Sherpa",
@@ -9015,16 +8864,13 @@
   "submission.sections.upload.upload-successful": "Úspěšně nahráno",
 
   // "submission.sections.custom-url.label.previous-urls": "Previous Urls",
-  // TODO New key - Add a translation
-  "submission.sections.custom-url.label.previous-urls": "Previous Urls",
+  "submission.sections.custom-url.label.previous-urls": "Předchozí URL adresy",
 
   // "submission.sections.custom-url.alert.info": "Define here a custom URL which will be used to reach the item instead of using an internal randomly generated UUID identifier. ",
-  // TODO New key - Add a translation
-  "submission.sections.custom-url.alert.info": "Define here a custom URL which will be used to reach the item instead of using an internal randomly generated UUID identifier. ",
+  "submission.sections.custom-url.alert.info": "Zde definujte vlastní URL adresu, která bude použita pro přístup k záznamu místo interně generovaného náhodného UUID identifikátoru. ",
 
   // "submission.sections.custom-url.url.placeholder": "Custom URL",
-  // TODO New key - Add a translation
-  "submission.sections.custom-url.url.placeholder": "Custom URL",
+  "submission.sections.custom-url.url.placeholder": "Vlastní URL",
 
   // "submission.sections.accesses.form.discoverable-description": "When checked, this item will be discoverable in search/browse. When unchecked, the item will only be available via a direct link and will never appear in search/browse.",
   "submission.sections.accesses.form.discoverable-description": "Když je zaškrtnuto, bude tento záznam zjistitelný ve vyhledávání/prohlížení. Když není zaškrtnuto, záznam bude dostupný pouze prostřednictvím přímého odkazu a nikdy se nezobrazí ve vyhledávání/přehledu.",
@@ -9168,7 +9014,6 @@
   "submission.sections.sherpa.record.information.uri": "URI",
 
   // "submission.sections.sherpa.error.message": "There was an error retrieving sherpa information",
-  // TODO Source message changed - Revise the translation
   "submission.sections.sherpa.error.message": "Při načítání informací ze služby Sherpa došlo k chybě",
 
   // "submission.submit.breadcrumbs": "New submission",
@@ -9241,8 +9086,7 @@
   "submission.workflow.tasks.claimed.reject.submit": "Odmítnout",
 
   // "submission.workflow.tasks.claimed.reject_help": "If you have reviewed the item and found it is <strong>not</strong> suitable for inclusion in the collection, select \"Reject\". You will then be asked to enter a message indicating why the item is unsuitable, and whether the submitter should change something and resubmit.",
-  // TODO Source message changed - Revise the translation
-  "submission.workflow.tasks.claimed.reject_help": "Pokud jste záznam zkontrolovali a zjistili, že <strong>není</strong> vhodný pro zařazení do kolekce, vyberte \"Odmítnout\".  Poté budete vyzváni k zadání zprávy, ve které uvedete, proč je záznam nevhodný, a zda by měl odesílatel něco změnit a znovu předložit.",
+  "submission.workflow.tasks.claimed.reject_help": "Pokud jste záznam zkontrolovali a zjistili, že <strong>není</strong> vhodný pro zařazení do kolekce, vyberte \"Odmítnout\". Poté budete vyzváni k zadání zprávy, ve které uvedete, proč je záznam nevhodný, a zda by měl odesílatel něco změnit a znovu předložit.",
 
   // "submission.workflow.tasks.claimed.return": "Return to pool",
   "submission.workflow.tasks.claimed.return": "Vrátit do fronty",
@@ -9488,8 +9332,7 @@
   "workflow.search.results.head": "Úlohy workflow",
 
   // "otherWorkspace.search.results.head": "Shared workspace",
-  // TODO New key - Add a translation
-  "otherWorkspace.search.results.head": "Shared workspace",
+  "otherWorkspace.search.results.head": "Sdílený pracovní prostor",
 
   // "supervision.search.results.head": "Workflow and Workspace tasks",
   "supervision.search.results.head": "Úlohy Workflow a osobního pracovního prostoru",
@@ -10020,8 +9863,7 @@
   "home.recent-submissions.head": "Nedávné příspěvky",
 
   // "authority-confidence.search-label": "Search",
-  // TODO New key - Add a translation
-  "authority-confidence.search-label": "Search",
+  "authority-confidence.search-label": "Hledat",
 
   // "listable-notification-object.default-message": "This object couldn't be retrieved",
   "listable-notification-object.default-message": "Tento objekt se nepodařilo načíst",
@@ -10632,20 +10474,16 @@
   "error.validation.coarnotify.invalidfilter": "Neplatný filtr, zkuste vybrat jinou službu nebo žádnou.",
 
   // "request-status-alert-box.accepted": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'>{{ serviceName }}</a> has been taken in charge.",
-  // TODO Source message changed - Revise the translation
-  "request-status-alert-box.accepted": "Požadovaná {{ offerType }} pro <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }} </a> byla převzata.",
+  "request-status-alert-box.accepted": "Požadovaná {{ offerType }} pro <a href='{{serviceUrl}}' target='_blank'>{{ serviceName }}</a> byla převzata.",
 
   // "request-status-alert-box.rejected": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'>{{ serviceName }}</a> has been rejected.",
-  // TODO Source message changed - Revise the translation
-  "request-status-alert-box.rejected": "Požadovaná {{ offerType }} pro <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }} </a> byla zamítnuta.",
+  "request-status-alert-box.rejected": "Požadovaná {{ offerType }} pro <a href='{{serviceUrl}}' target='_blank'>{{ serviceName }}</a> byla zamítnuta.",
 
   // "request-status-alert-box.tentative_rejected": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'>{{ serviceName }}</a> has been tentatively rejected. Revisions are required",
-  // TODO Source message changed - Revise the translation
-  "request-status-alert-box.tentative_rejected": "Požadovaná {{ offerType }} pro <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }} </a> byla prozatímně zamítnuta. Jsou vyžadovány revize",
+  "request-status-alert-box.tentative_rejected": "Požadovaná {{ offerType }} pro <a href='{{serviceUrl}}' target='_blank'>{{ serviceName }}</a> byla prozatímně zamítnuta. Jsou vyžadovány revize",
 
   // "request-status-alert-box.requested": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'>{{ serviceName }}</a> is pending.",
-  // TODO Source message changed - Revise the translation
-  "request-status-alert-box.requested": "Požadovaná {{ offerType }} pro <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }} </a> čeká na vyřízení.",
+  "request-status-alert-box.requested": "Požadovaná {{ offerType }} pro <a href='{{serviceUrl}}' target='_blank'>{{ serviceName }}</a> čeká na vyřízení.",
 
   // "ldn-service-button-mark-inbound-deletion": "Mark supported pattern for deletion",
   "ldn-service-button-mark-inbound-deletion": "Označit podporovaný vzor k odstranění",
@@ -11236,25 +11074,19 @@
   "form.date-picker.placeholder.day": "Den",
 
   // "item.page.license.title": "Rights and licensing",
-  // TODO New key - Add a translation
-  "item.page.license.title": "Rights and licensing",
+  "item.page.license.title": "Práva a licence",
 
   // "item.page.cc.license.title": "Creative Commons license",
   "item.page.cc.license.title": "Licence Creative Commons",
 
   // "item.page.cc.license.disclaimer": "Except where otherwise noted, this item's license is described as",
-  // TODO Source message changed - Revise the translation
   "item.page.cc.license.disclaimer": "Pokud není uvedeno jinak, licence tohoto záznamu je popsána jako",
-
-  // "browse.search-form.placeholder": "Search the repository",
-  "browse.search-form.placeholder": "Hledat v repozitáři",
 
   // "file-download-link.download": "Download ",
   "file-download-link.download": "Stáhnout",
 
   // "file-download-button.download": "Download",
-  // TODO New key - Add a translation
-  "file-download-button.download": "Download",
+  "file-download-button.download": "Stáhnout",
 
   // "register-page.registration.aria.label": "Enter your e-mail address",
   "register-page.registration.aria.label": "Zadejte svou e-mailovou adresu",
@@ -11269,7 +11101,6 @@
   "live-region.ordering.instructions": "Stiskněte mezerník pro přeskupení {{ itemName }}.",
 
   // "live-region.ordering.status": "{{ itemName }}, grabbed. Current position in list: {{ index }} of {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
-  // TODO Source message changed - Revise the translation
   "live-region.ordering.status": "{{ itemName }}, uchopeno. Aktuální pozice v seznamu: {{ index }} z {{ length }}. Použijte šipky nahoru a dolů pro změnu pozice, mezerník pro uvolnění, Escape pro zrušení.",
 
   // "live-region.ordering.moved": "{{ itemName }}, moved to position {{ index }} of {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
@@ -11438,344 +11269,259 @@
   "file-download-link.request-copy": "Požádat o kopii ",
 
   // "file-download-button.request-copy": "Request a copy",
-  // TODO New key - Add a translation
-  "file-download-button.request-copy": "Request a copy",
+  "file-download-button.request-copy": "Požádat o kopii",
 
   // "item.preview.organization.url": "URL",
-  // TODO New key - Add a translation
   "item.preview.organization.url": "URL",
 
   // "item.preview.organization.address.addressLocality": "City",
-  // TODO New key - Add a translation
-  "item.preview.organization.address.addressLocality": "City",
+  "item.preview.organization.address.addressLocality": "Město",
 
   // "item.preview.organization.alternateName": "Alternative name",
-  // TODO New key - Add a translation
-  "item.preview.organization.alternateName": "Alternative name",
+  "item.preview.organization.alternateName": "Alternativní název",
 
   // "metadata-link-view.orcid.logo": "ORCID logo",
-  // TODO New key - Add a translation
-  "metadata-link-view.orcid.logo": "ORCID logo",
+  "metadata-link-view.orcid.logo": "Logo ORCID",
 
   // "metadata-link-view.source.logo": "Source logo",
-  // TODO New key - Add a translation
-  "metadata-link-view.source.logo": "Source logo",
+  "metadata-link-view.source.logo": "Logo zdroje",
 
   // "metadata-link-view.popover.label.Person.dc.title": "Fullname",
-  // TODO New key - Add a translation
-  "metadata-link-view.popover.label.Person.dc.title": "Fullname",
+  "metadata-link-view.popover.label.Person.dc.title": "Celé jméno",
 
   // "metadata-link-view.popover.label.Person.person.affiliation.name": "Main affiliation",
-  // TODO New key - Add a translation
-  "metadata-link-view.popover.label.Person.person.affiliation.name": "Main affiliation",
+  "metadata-link-view.popover.label.Person.person.affiliation.name": "Hlavní afiliace",
 
   // "metadata-link-view.popover.label.Person.person.email": "Email",
-  // TODO New key - Add a translation
-  "metadata-link-view.popover.label.Person.person.email": "Email",
+  "metadata-link-view.popover.label.Person.person.email": "E-mail",
 
   // "metadata-link-view.popover.label.Person.person.identifier.orcid": "ORCID",
-  // TODO New key - Add a translation
   "metadata-link-view.popover.label.Person.person.identifier.orcid": "ORCID",
 
   // "metadata-link-view.popover.label.Person.dc.description.abstract": "Abstract",
-  // TODO New key - Add a translation
-  "metadata-link-view.popover.label.Person.dc.description.abstract": "Abstract",
+  "metadata-link-view.popover.label.Person.dc.description.abstract": "Abstrakt",
 
   // "metadata-link-view.popover.label.Person.person.jobTitle": "Job title",
-  // TODO New key - Add a translation
-  "metadata-link-view.popover.label.Person.person.jobTitle": "Job title",
+  "metadata-link-view.popover.label.Person.person.jobTitle": "Pracovní pozice",
 
   // "metadata-link-view.popover.label.other.dc.title": "Title",
-  // TODO New key - Add a translation
-  "metadata-link-view.popover.label.other.dc.title": "Title",
+  "metadata-link-view.popover.label.other.dc.title": "Název",
 
   // "metadata-link-view.popover.label.other.dc.description.abstract": "Description",
-  // TODO New key - Add a translation
-  "metadata-link-view.popover.label.other.dc.description.abstract": "Description",
+  "metadata-link-view.popover.label.other.dc.description.abstract": "Popis",
 
   // "metadata-link-view.popover.label.more-info": "More info",
-  // TODO New key - Add a translation
-  "metadata-link-view.popover.label.more-info": "More info",
+  "metadata-link-view.popover.label.more-info": "Více informací",
 
   // "item.page.extended-file-section": "Bitstreams",
-  // TODO New key - Add a translation
-  "item.page.extended-file-section": "Bitstreams",
+  "item.page.extended-file-section": "Soubory",
 
   // "file.section.name": "Document",
-  // TODO New key - Add a translation
-  "file.section.name": "Document",
+  "file.section.name": "Dokument",
 
   // "file.section.type": "Type",
-  // TODO New key - Add a translation
-  "file.section.type": "Type",
+  "file.section.type": "Typ",
 
   // "file.section.size": "Size",
-  // TODO New key - Add a translation
-  "file.section.size": "Size",
+  "file.section.size": "Velikost",
 
   // "dataset.page.titleprefix": "Dataset",
-  // TODO New key - Add a translation
   "dataset.page.titleprefix": "Dataset",
 
   // "dataset.listelement.badge": "Dataset",
-  // TODO New key - Add a translation
   "dataset.listelement.badge": "Dataset",
 
   // "dataset.page.options": "Options",
-  // TODO New key - Add a translation
-  "dataset.page.options": "Options",
+  "dataset.page.options": "Možnosti",
 
   // "dataset.page.edit": "Edit this Dataset",
-  // TODO New key - Add a translation
-  "dataset.page.edit": "Edit this Dataset",
+  "dataset.page.edit": "Upravit tento dataset",
 
   // "relationships.Dataset.isAuthorOfDataset.Person": "Authors (Persons)",
-  // TODO New key - Add a translation
-  "relationships.Dataset.isAuthorOfDataset.Person": "Authors (Persons)",
+  "relationships.Dataset.isAuthorOfDataset.Person": "Autoři (osoby)",
 
   // "relationships.Dataset.isProjectOfDataset.Project": "Research Projects",
-  // TODO New key - Add a translation
-  "relationships.Dataset.isProjectOfDataset.Project": "Research Projects",
+  "relationships.Dataset.isProjectOfDataset.Project": "Výzkumné projekty",
 
   // "relationships.Dataset.isAuthorOfDataset.OrgUnit": "Organizational Units",
-  // TODO New key - Add a translation
-  "relationships.Dataset.isAuthorOfDataset.OrgUnit": "Organizational Units",
+  "relationships.Dataset.isAuthorOfDataset.OrgUnit": "Organizační jednotky",
 
   // "relationships.Dataset.isOrgUnitOfDataset.OrgUnit": "Authors (Organizational Units)",
-  // TODO New key - Add a translation
-  "relationships.Dataset.isOrgUnitOfDataset.OrgUnit": "Authors (Organizational Units)",
+  "relationships.Dataset.isOrgUnitOfDataset.OrgUnit": "Autoři (organizační jednotky)",
 
   // "relationships.Dataset.isPublicationOfDataset.Publication": "Publications",
-  // TODO New key - Add a translation
-  "relationships.Dataset.isPublicationOfDataset.Publication": "Publications",
+  "relationships.Dataset.isPublicationOfDataset.Publication": "Publikace",
 
   // "relationships.Publication.isDatasetOfPublication.Dataset": "Datasets",
-  // TODO New key - Add a translation
-  "relationships.Publication.isDatasetOfPublication.Dataset": "Datasets",
+  "relationships.Publication.isDatasetOfPublication.Dataset": "Datasety",
 
   // "relationships.Person.isDatasetOfAuthor.Dataset": "Datasets",
-  // TODO New key - Add a translation
-  "relationships.Person.isDatasetOfAuthor.Dataset": "Datasets",
+  "relationships.Person.isDatasetOfAuthor.Dataset": "Datasety",
 
   // "relationships.Project.isDatasetOfProject.Dataset": "Datasets",
-  // TODO New key - Add a translation
-  "relationships.Project.isDatasetOfProject.Dataset": "Datasets",
+  "relationships.Project.isDatasetOfProject.Dataset": "Datasety",
 
   // "relationships.OrgUnit.isDatasetOfAuthor.Dataset": "Authored Datasets",
-  // TODO New key - Add a translation
-  "relationships.OrgUnit.isDatasetOfAuthor.Dataset": "Authored Datasets",
+  "relationships.OrgUnit.isDatasetOfAuthor.Dataset": "Autorské datasety",
 
   // "relationships.OrgUnit.isDatasetOfOrgUnit.Dataset": "Organisation Datasets",
-  // TODO New key - Add a translation
-  "relationships.OrgUnit.isDatasetOfOrgUnit.Dataset": "Organisation Datasets",
+  "relationships.OrgUnit.isDatasetOfOrgUnit.Dataset": "Datasety organizace",
 
   // "submission.sections.describe.relationship-lookup.title.Dataset": "Datasets",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.title.Dataset": "Datasets",
+  "submission.sections.describe.relationship-lookup.title.Dataset": "Datasety",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.Dataset": "Local Datasets",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Dataset": "Local Datasets",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Dataset": "Lokální datasety",
 
   // "dataset.search.results.head": "Dataset Search Results",
-  // TODO New key - Add a translation
-  "dataset.search.results.head": "Dataset Search Results",
+  "dataset.search.results.head": "Výsledky vyhledávání datasetů",
 
   // "submission.sections.describe.relationship-lookup.title.isAuthorOfDataset": "Authors",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.title.isAuthorOfDataset": "Authors",
+  "submission.sections.describe.relationship-lookup.title.isAuthorOfDataset": "Autoři",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isAuthorOfDataset": "Local Authors ({{ count }})",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isAuthorOfDataset": "Local Authors ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isAuthorOfDataset": "Lokální autoři ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.title.isPublicationOfDataset": "Publications",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.title.isPublicationOfDataset": "Publications",
+  "submission.sections.describe.relationship-lookup.title.isPublicationOfDataset": "Publikace",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isPublicationOfDataset": "Local Publications ({{ count }})",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isPublicationOfDataset": "Local Publications ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isPublicationOfDataset": "Lokální publikace ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.cinii": "CiNii ({{ count }})",
-  // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.cinii": "CiNii ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.cinii": "Importing from CiNii",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.cinii": "Importing from CiNii",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.cinii": "Import z CiNii",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.cinii": "Search Results",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.cinii": "Search Results",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.cinii": "Výsledky vyhledávání",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.datacite": "DataCite ({{ count }})",
-  // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.datacite": "DataCite ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.datacite": "Importing from DataCite",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.datacite": "Importing from DataCite",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.datacite": "Import z DataCite",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.datacite": "Search Results",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.datacite": "Search Results",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.datacite": "Výsledky vyhledávání",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.doi": "DOI ({{ count }})",
-  // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.doi": "DOI ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.doi": "Importing from DOI",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.doi": "Importing from DOI",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.doi": "Import z DOI",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.doi": "Search Results",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.doi": "Search Results",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.doi": "Výsledky vyhledávání",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isPublicationOfDataset.title": "Import Remote Publication",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.isPublicationOfDataset.title": "Import Remote Publication",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isPublicationOfDataset.title": "Importovat vzdálenou publikaci",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isPublicationOfDataset.added.local-entity": "Successfully added local publication to the selection",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.isPublicationOfDataset.added.local-entity": "Successfully added local publication to the selection",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isPublicationOfDataset.added.local-entity": "Lokální publikace byla úspěšně přidána do výběru",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isPublicationOfDataset.added.new-entity": "Successfully imported and added external publication to the selection",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.isPublicationOfDataset.added.new-entity": "Successfully imported and added external publication to the selection",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isPublicationOfDataset.added.new-entity": "Externí publikace byla úspěšně importována a přidána do výběru",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfDataset.title": "Import Remote Author",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfDataset.title": "Import Remote Author",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfDataset.title": "Importovat vzdáleného autora",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfDataset.added.local-entity": "Successfully added local author to the selection",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfDataset.added.local-entity": "Successfully added local author to the selection",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfDataset.added.local-entity": "Lokální autor byl úspěšně přidán do výběru",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfDataset.added.new-entity": "Successfully imported and added external author to the selection",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfDataset.added.new-entity": "Successfully imported and added external author to the selection",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfDataset.added.new-entity": "Externí autor byl úspěšně importován a přidán do výběru",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfDataset.title": "Import Remote Project",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfDataset.title": "Import Remote Project",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfDataset.title": "Importovat vzdálený projekt",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfDataset.added.local-entity": "Successfully added local project to the selection",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfDataset.added.local-entity": "Successfully added local project to the selection",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfDataset.added.local-entity": "Lokální projekt byl úspěšně přidán do výběru",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfDataset.added.new-entity": "Successfully imported and added external project to the selection",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfDataset.added.new-entity": "Successfully imported and added external project to the selection",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfDataset.added.new-entity": "Externí projekt byl úspěšně importován a přidán do výběru",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfDataset.title": "Import Remote Organization",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfDataset.title": "Import Remote Organization",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfDataset.title": "Importovat vzdálenou organizaci",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfDataset.added.local-entity": "Successfully added local organization to the selection",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfDataset.added.local-entity": "Successfully added local organization to the selection",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfDataset.added.local-entity": "Lokální organizace byla úspěšně přidána do výběru",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfDataset.added.new-entity": "Successfully imported and added external organization to the selection",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfDataset.added.new-entity": "Successfully imported and added external organization to the selection",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfDataset.added.new-entity": "Externí organizace byla úspěšně importována a přidána do výběru",
 
   // "admin.edit-cms-metadata.success": "Metadata successfully updated",
-  // TODO New key - Add a translation
-  "admin.edit-cms-metadata.success": "Metadata successfully updated",
+  "admin.edit-cms-metadata.success": "Metadata byla úspěšně aktualizována",
 
   // "admin.edit-cms-metadata.back-button": "Back",
-  // TODO New key - Add a translation
-  "admin.edit-cms-metadata.back-button": "Back",
+  "admin.edit-cms-metadata.back-button": "Zpět",
 
   // "admin.edit-cms-metadata.save-button": "Save",
-  // TODO New key - Add a translation
-  "admin.edit-cms-metadata.save-button": "Save",
+  "admin.edit-cms-metadata.save-button": "Uložit",
 
   // "admin.edit-cms-metadata.select-metadata": "Select metadata to edit",
-  // TODO New key - Add a translation
-  "admin.edit-cms-metadata.select-metadata": "Select metadata to edit",
+  "admin.edit-cms-metadata.select-metadata": "Vyberte metadata k úpravě",
 
   // "admin.edit-cms-metadata.edit-button": "Edit",
-  // TODO New key - Add a translation
-  "admin.edit-cms-metadata.edit-button": "Edit",
+  "admin.edit-cms-metadata.edit-button": "Upravit",
 
   // "admin.edit-cms-metadata.breadcrumbs": "Edit CMS Metadata",
-  // TODO New key - Add a translation
-  "admin.edit-cms-metadata.breadcrumbs": "Edit CMS Metadata",
+  "admin.edit-cms-metadata.breadcrumbs": "Upravit CMS metadata",
 
   // "admin.edit-cms-metadata.title": "Edit CMS Metadata",
-  // TODO New key - Add a translation
-  "admin.edit-cms-metadata.title": "Edit CMS Metadata",
+  "admin.edit-cms-metadata.title": "Upravit CMS metadata",
 
   // "admin.edit-cms-metadata.error": "An error occurred while updating the metadata",
-  // TODO New key - Add a translation
-  "admin.edit-cms-metadata.error": "An error occurred while updating the metadata",
+  "admin.edit-cms-metadata.error": "Při aktualizaci metadat došlo k chybě",
 
   // "menu.section.edit-cms-metadata": "Edit CMS Metadata",
-  // TODO New key - Add a translation
-  "menu.section.edit-cms-metadata": "Edit CMS Metadata",
+  "menu.section.edit-cms-metadata": "Upravit CMS metadata",
 
   // "menu.section.cms.edit.metadata.head": "Edit Metadata",
-  // TODO New key - Add a translation
-  "menu.section.cms.edit.metadata.head": "Edit Metadata",
+  "menu.section.cms.edit.metadata.head": "Upravit metadata",
 
   // "admin.edit-user-agreement.breadcrumbs": "Edit User Agreement",
-  // TODO New key - Add a translation
-  "admin.edit-user-agreement.breadcrumbs": "Edit User Agreement",
+  "admin.edit-user-agreement.breadcrumbs": "Upravit uživatelskou smlouvu",
 
   // "admin.edit-user-agreement.confirm.title": "Force acceptance",
-  // TODO New key - Add a translation
-  "admin.edit-user-agreement.confirm.title": "Force acceptance",
+  "admin.edit-user-agreement.confirm.title": "Vynutit přijetí",
 
   // "admin.edit-user-agreement.confirm.info": "Do you want to force all users to accept the new user agreement?",
-  // TODO New key - Add a translation
-  "admin.edit-user-agreement.confirm.info": "Do you want to force all users to accept the new user agreement?",
+  "admin.edit-user-agreement.confirm.info": "Chcete vynutit všem uživatelům přijetí nové uživatelské smlouvy?",
 
   // "admin.edit-user-agreement.confirm.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "admin.edit-user-agreement.confirm.cancel": "Cancel",
+  "admin.edit-user-agreement.confirm.cancel": "Zrušit",
 
   // "admin.edit-user-agreement.confirm.no": "No, update only",
-  // TODO New key - Add a translation
-  "admin.edit-user-agreement.confirm.no": "No, update only",
+  "admin.edit-user-agreement.confirm.no": "Ne, pouze aktualizovat",
 
   // "admin.edit-user-agreement.confirm.yes": "Yes, update and force",
-  // TODO New key - Add a translation
-  "admin.edit-user-agreement.confirm.yes": "Yes, update and force",
+  "admin.edit-user-agreement.confirm.yes": "Ano, aktualizovat a vynutit",
 
   // "menu.section.edit-user-agreement": "Edit User Agreement",
-  // TODO New key - Add a translation
-  "menu.section.edit-user-agreement": "Edit User Agreement",
+  "menu.section.edit-user-agreement": "Upravit uživatelskou smlouvu",
 
   // "admin.edit-user-agreement.save-button": "Save",
-  // TODO New key - Add a translation
-  "admin.edit-user-agreement.save-button": "Save",
+  "admin.edit-user-agreement.save-button": "Uložit",
 
   // "admin.edit-user-agreement.markdown": "<i>End User Agreement</i> text supports <a href=\"https://www.markdownguide.org/basic-syntax/\" target=\"_blank\">Markdown</a> language.",
-  // TODO New key - Add a translation
-  "admin.edit-user-agreement.markdown": "<i>End User Agreement</i> text supports <a href=\"https://www.markdownguide.org/basic-syntax/\" target=\"_blank\">Markdown</a> language.",
+  "admin.edit-user-agreement.markdown": "Text <i>Smlouvy s koncovým uživatelem</i> podporuje jazyk <a href=\"https://www.markdownguide.org/basic-syntax/\" target=\"_blank\">Markdown</a>.",
 
   // "admin.edit-cms-metadata.markdown": "<i>CMS Metadata</i> text supports <a href=\"https://www.markdownguide.org/basic-syntax/\" target=\"_blank\">Markdown</a> language.",
-  // TODO New key - Add a translation
-  "admin.edit-cms-metadata.markdown": "<i>CMS Metadata</i> text supports <a href=\"https://www.markdownguide.org/basic-syntax/\" target=\"_blank\">Markdown</a> language.",
+  "admin.edit-cms-metadata.markdown": "Text <i>CMS metadat</i> podporuje jazyk <a href=\"https://www.markdownguide.org/basic-syntax/\" target=\"_blank\">Markdown</a>.",
 
   // "admin.edit-user-agreement.header": "Edit User Agreement",
-  // TODO New key - Add a translation
-  "admin.edit-user-agreement.header": "Edit User Agreement",
+  "admin.edit-user-agreement.header": "Upravit uživatelskou smlouvu",
 
   // "admin.edit-user-agreement.success": "User agreement successfully updated",
-  // TODO New key - Add a translation
-  "admin.edit-user-agreement.success": "User agreement successfully updated",
+  "admin.edit-user-agreement.success": "Uživatelská smlouva byla úspěšně aktualizována",
 
   // "admin.edit-user-agreement.error": "An error occurred while updating the user agreement",
-  // TODO New key - Add a translation
-  "admin.edit-user-agreement.error": "An error occurred while updating the user agreement",
+  "admin.edit-user-agreement.error": "Při aktualizaci uživatelské smlouvy došlo k chybě",
 
   // "admin.edit-user-agreement.title": "Edit User Agreement",
-  // TODO New key - Add a translation
-  "admin.edit-user-agreement.title": "Edit User Agreement",
+  "admin.edit-user-agreement.title": "Upravit uživatelskou smlouvu",
 
 
 }

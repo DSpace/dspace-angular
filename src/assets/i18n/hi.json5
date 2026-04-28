@@ -11488,9 +11488,6 @@
   // TODO Source message changed - Revise the translation
   "item.page.cc.license.disclaimer": "जहाँ अन्यथा उल्लेख नहीं किया गया है, इस आइटम का लाइसेंस इस प्रकार वर्णित है",
 
-  // "browse.search-form.placeholder": "Search the repository",
-  "browse.search-form.placeholder": "रिपॉजिटरी खोजें",
-
   // "file-download-link.download": "Download ",
   "file-download-link.download": "डाउनलोड ",
 
