@@ -1861,7 +1861,7 @@
 
   "dso-selector.no-results": "No {{ type }} found",
 
-  "dso-selector.placeholder": "Search for a {{ type }}",
+  "dso-selector.placeholder": "Search for {{ type }}",
 
   "dso-selector.placeholder.type.community": "community",
 
@@ -1982,6 +1982,16 @@
   "error.default": "Error",
 
   "error.item": "Error fetching item",
+
+  "error.custom-url-conflict.title": "Duplicate custom URL detected",
+
+  "error.custom-url-conflict.description": "The custom URL \"{{customUrl}}\" is assigned to more than one item. This causes a conflict and the item cannot be displayed.",
+
+  "error.custom-url-conflict.admin-action": "Please contact your repository administrator. The following affected items need their dspace.customurl metadata fixed so each value is unique:",
+
+  "error.custom-url-conflict.edit-link": "Edit \"{{name}}\" ({{uuid}})",
+
+  "error.custom-url-conflict.no-items-found": "No conflicting items could be retrieved. Please contact your administrator.",
 
   "error.items": "Error fetching items",
 
@@ -2643,6 +2653,10 @@
 
   "item.edit.item-mapper.notifications.add.error.content": "Errors occurred for mapping of item to {{amount}} collections.",
 
+  "item.edit.item-mapper.notifications.add.error.forbidden.head": "Permission denied",
+
+  "item.edit.item-mapper.notifications.add.error.forbidden.content": "You do not have permission to map this item to a collection.",
+
   "item.edit.item-mapper.notifications.add.error.head": "Mapping errors",
 
   "item.edit.item-mapper.notifications.add.success.content": "Successfully mapped item to {{amount}} collections.",
@@ -2650,6 +2664,10 @@
   "item.edit.item-mapper.notifications.add.success.head": "Mapping completed",
 
   "item.edit.item-mapper.notifications.remove.error.content": "Errors occurred for the removal of the mapping to {{amount}} collections.",
+
+  "item.edit.item-mapper.notifications.remove.error.forbidden.head": "Permission denied",
+
+  "item.edit.item-mapper.notifications.remove.error.forbidden.content": "You do not have permission to remove this item from a collection.",
 
   "item.edit.item-mapper.notifications.remove.error.head": "Removal of mapping errors",
 
@@ -3077,6 +3095,10 @@
 
   "item.page.orcid.tooltip": "Open ORCID setting page",
 
+  "item.page.orcid-ico": "ORCID icon",
+
+  "item.page.orcid-profile": "ORCID Profile",
+
   "item.page.person.search.title": "Articles by this author",
 
   "item.page.related-items.view-more": "Show {{ amount }} more",
@@ -3127,6 +3149,10 @@
   "item.page.filesection.original.bundle": "Original bundle",
 
   "item.page.filesection.license.bundle": "License bundle",
+
+  "item-page.resolver.invalid-custom-url.title": "Invalid custom URL",
+
+  "item-page.resolver.invalid-custom-url.message": "The custom URL of this item contains unsupported characters. The item is being displayed using its UUID.",
 
   "item.page.return": "Back",
 
@@ -4700,7 +4726,7 @@
 
   "resource-policies.form.eperson-group-list.select.btn": "Select",
 
-  "resource-policies.form.eperson-group-list.tab.eperson": "Search for a ePerson",
+  "resource-policies.form.eperson-group-list.tab.eperson": "Search for an ePerson",
 
   "resource-policies.form.eperson-group-list.tab.group": "Search for a group",
 
@@ -5755,6 +5781,8 @@
 
   "submission.sections.general.deposit_error_notice": "There was an issue when submitting the item, please try again later.",
 
+  "submission.sections.general.invalid_state_error": "Cannot save current changes, mandatory fields are missing. Please resolve problems and save again later.",
+
   "submission.sections.general.deposit_success_notice": "Submission deposited successfully.",
 
   "submission.sections.general.discard_error_notice": "There was an issue when discarding the item, please try again later.",
@@ -6107,7 +6135,7 @@
 
   "subscriptions.tooltip": "Subscribe",
 
-  "subscriptions.unsubscribe": "Unsubscribe",
+  "subscriptions.manage": "Manage Subscription",
 
   "subscriptions.modal.title": "Subscriptions",
 
@@ -7350,8 +7378,6 @@
   "item.page.cc.license.title": "Creative Commons license",
 
   "item.page.cc.license.disclaimer": "Except where otherwise noted, this item's license is described as",
-
-  "browse.search-form.placeholder": "Search the repository",
 
   "file-download-link.download": "Download ",
 

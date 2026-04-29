@@ -11244,9 +11244,6 @@
   // TODO Source message changed - Revise the translation
   "item.page.cc.license.disclaimer": "Eltérő megjegyzés hiányában ennek a tételnek a licence a következőképpen van leírva:", // Lefordítva,
 
-  // "browse.search-form.placeholder": "Search the repository",
-  "browse.search-form.placeholder": "Keresés a repozitóriumban",
-
   // "file-download-link.download": "Download ",
   "file-download-link.download": "Letöltés ",
 

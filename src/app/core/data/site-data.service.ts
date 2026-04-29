@@ -1,13 +1,20 @@
 import { Injectable } from '@angular/core';
 import { FollowLinkConfig } from '@dspace/core/shared/follow-link-config.model';
 import { Operation } from 'fast-json-patch/module/core';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import {
+  Observable,
+  of,
+} from 'rxjs';
+import {
+  map,
+  switchMap,
+} from 'rxjs/operators';
 
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { getFirstSucceededRemoteData } from '../shared/operators';
+import { getFirstCompletedRemoteData } from '../shared/operators';
 import { Site } from '../shared/site.model';
 import { BaseDataService } from './base/base-data.service';
 import {
@@ -48,12 +55,32 @@ export class SiteDataService extends BaseDataService<Site> implements FindAllDat
 
   /**
    * Retrieve the Site Object
+   *
+   * @param options                     Find list options object
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
+   * @return {Observable<RemoteData<PaginatedList<T>>>}
+   *    Return an observable that emits object list
    */
-  find(): Observable<Site> {
-    return this.findAll().pipe(
-      getFirstSucceededRemoteData(),
-      map((remoteData: RemoteData<PaginatedList<Site>>) => remoteData.payload),
-      map((list: PaginatedList<Site>) => list.page[0]),
+  find(options?: FindListOptions, useCachedVersionIfAvailable?: boolean, reRequestOnStale?: boolean, ...linksToFollow: FollowLinkConfig<Site>[]): Observable<Site> {
+    const searchParams: RequestParam[] = [new RequestParam('projection', 'allLanguages')];
+    const findOptions = Object.assign(new FindListOptions(), options, { searchParams });
+    return this.findAll(findOptions, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow).pipe(
+      getFirstCompletedRemoteData(),
+      switchMap((remoteData: RemoteData<PaginatedList<Site>>) => {
+        if (remoteData.hasSucceeded) {
+          return of(remoteData.payload.page[0]);
+        } else {
+          return this.findAll(options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow).pipe(
+            getFirstCompletedRemoteData(),
+            map((rd: RemoteData<PaginatedList<Site>>) => rd.hasSucceeded ? rd.payload.page[0] : null),
+          );
+        }
+      }),
     );
   }
 

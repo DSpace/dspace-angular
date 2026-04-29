@@ -84,9 +84,7 @@ export class AdminEditCmsMetadataComponent implements OnInit {
       }
       this.metadataList.push(md);
     });
-    this.siteService.find().subscribe((site) => {
-      this.site = site;
-    });
+    this.refreshSiteWithAllLanguages();
   }
 
   /**
@@ -106,10 +104,23 @@ export class AdminEditCmsMetadataComponent implements OnInit {
           this.notificationsService.error(this.translateService.get('admin.edit-cms-metadata.error'));
         }
         this.siteService.setStale();
-        this.siteService.find().subscribe((site) => {
-          this.site = site;
-        });
+        this.refreshSiteWithAllLanguages();
       });
+  }
+
+  /**
+   * Reload site metadata including all language variants.
+   */
+  private refreshSiteWithAllLanguages() {
+    this.siteService.find().subscribe((site) => {
+      this.siteService.findByHref(`${site.self}?projection=allLanguages`, false, true).pipe(
+        getFirstCompletedRemoteData(),
+      ).subscribe((response) => {
+        if (response?.hasSucceeded) {
+          this.site = response.payload;
+        }
+      });
+    });
   }
 
   /**
@@ -147,16 +158,38 @@ export class AdminEditCmsMetadataComponent implements OnInit {
    * @returns List of operations to send to backend to edit selected metadata
    */
   private getOperationsToEditText(): Operation[] {
-    const entries = Array.from(this.selectedMetadataValues.entries());
+    const operations: Operation[] = [];
+    const nonEmptyValues = Array.from(this.selectedMetadataValues.entries())
+      .filter(([, text]) => text && text.trim().length > 0);
 
-    // First entry should form a 'replace' operation, then the rest should be an 'add' operation
-    return entries.map(([language, text], index) => ({
-      op: index === 0 ? 'replace' : 'add',
-      path: `/metadata/${this.selectedMetadata}`,
-      value: {
-        value: text ?? '',
-        language: language,
-      },
-    }));
+    if (nonEmptyValues.length === 0) {
+      if (this.site.hasMetadata(this.selectedMetadata)) {
+        operations.push({
+          op: 'remove',
+          path: `/metadata/${this.selectedMetadata}`,
+        });
+      }
+      return operations;
+    }
+
+    if (this.site.hasMetadata(this.selectedMetadata)) {
+      operations.push({
+        op: 'remove',
+        path: `/metadata/${this.selectedMetadata}`,
+      });
+    }
+
+    nonEmptyValues.forEach(([language, text]) => {
+      operations.push({
+        op: 'add',
+        path: `/metadata/${this.selectedMetadata}/-`,
+        value: {
+          value: text,
+          language,
+        },
+      });
+    });
+
+    return operations;
   }
 }

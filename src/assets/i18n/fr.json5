@@ -11323,9 +11323,6 @@
   // TODO Source message changed - Revise the translation
   "item.page.cc.license.disclaimer": "Sauf indication contraire, la licence de cet Item est décrite comme",
 
-  // "browse.search-form.placeholder": "Search the repository",
-  "browse.search-form.placeholder": "Chercher dans le dépôt",
-
   // "file-download-link.download": "Download ",
   "file-download-link.download": "Télécharger ",
 
