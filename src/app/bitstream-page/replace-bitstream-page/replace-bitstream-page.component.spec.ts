@@ -32,8 +32,10 @@ import {
   createSuccessfulRemoteDataObject$,
 } from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
+import { FileItem } from 'ng2-file-upload';
 import { of } from 'rxjs';
 
+import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { UploaderComponent } from '../../shared/upload/uploader/uploader.component';
 import { UploaderOptions } from '../../shared/upload/uploader/uploader-options.model';
 import { UploaderProperties } from '../../shared/upload/uploader/uploader-properties.model';
@@ -98,6 +100,7 @@ describe('ReplaceBitstreamPageComponent', () => {
         ReplaceBitstreamPageComponent,
         TranslateModule.forRoot(),
         FileSizePipe,
+        BtnDisabledDirective,
       ],
       providers: [
         { provide: Location, useValue: locationObject },
@@ -115,6 +118,7 @@ describe('ReplaceBitstreamPageComponent', () => {
     }).compileComponents();
   }),
   );
+  let uploadComponent: UploaderComponent;
 
   beforeEach(() => {
     localeService = TestBed.inject(LocaleService);
@@ -122,6 +126,8 @@ describe('ReplaceBitstreamPageComponent', () => {
     fixture = TestBed.createComponent(ReplaceBitstreamPageComponent);
     component = fixture.componentInstance;
     notificationsService = TestBed.inject(NotificationsService);
+    uploadComponent = fixture.debugElement.query(By.directive(TestUploaderComponent)).context;
+    uploadComponent.uploader.queue = [];
     fixture.detectChanges();
   });
 
@@ -143,11 +149,11 @@ describe('ReplaceBitstreamPageComponent', () => {
   });
 
   describe('clicking save', () => {
-    let uploadComponent: UploaderComponent;
     beforeEach(() => {
       spyOn(component, 'save').and.callThrough();
+      uploadComponent.uploader.queue = [{} as FileItem];
+      fixture.detectChanges();
       const backButton = fixture.debugElement.query(By.css('.save-button'));
-      uploadComponent = fixture.debugElement.query(By.directive(TestUploaderComponent)).context;
       backButton.triggerEventHandler('click', {});
     });
 

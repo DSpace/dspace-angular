@@ -7681,7 +7681,11 @@
 
   "bitstream.replace.page.button.return": "Back",
 
-  "bitstream.replace.page.button.save": "Save",
+  "bitstream.replace.page.disclaimer": "The original file will be deleted. This operation can't be undone.",
+
+  "bitstream.replace.page.button.cancel": "Cancel",
+
+  "bitstream.replace.page.button.save": "Replace file",
 
   "bitstream.replace.page.upload.failed": "Bitstream upload failed",
 

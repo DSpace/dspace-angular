@@ -38,7 +38,9 @@
     <ds-loading
       message="{{'loading.bitstream' | translate}}"></ds-loading>
   }
-
+  <p class="mb-0 text-muted">
+    {{ 'bitstream.replace.page.disclaimer' | translate }}
+  </p>
   <div class="button-row bottom">
     <div class="mt-4 float-end">
       <button class="back-button btn btn-outline-secondary me-2"
@@ -46,8 +48,8 @@
         class="fas fa-arrow-left"></i>
         <span class="d-none d-sm-inline">&nbsp;{{ "bitstream.replace.page.button.return" | translate }}</span>
       </button>
-      <button class="save-button btn btn-primary" (click)="save(uploader);"><i
-        class="fas fa-save"></i>
+      <button class="save-button btn btn-danger" (click)="save(uploader);" [dsBtnDisabled]="!uploader.uploader?.queue?.length"><i
+        class="fas fa-retweet"></i>
         <span class="d-none d-sm-inline">&nbsp;{{ "bitstream.replace.page.button.save" | translate }}</span>
       </button>
     </div>

@@ -1,3 +1,4 @@
+import { NgClass } from '@angular/common';
 import {
   Component,
   Input,
@@ -27,6 +28,7 @@ import {
   first,
 } from 'rxjs/operators';
 
+import { BtnDisabledDirective } from '../../../../../../shared/btn-disabled.directive';
 import { UploaderComponent } from '../../../../../../shared/upload/uploader/uploader.component';
 import { UploaderOptions } from '../../../../../../shared/upload/uploader/uploader-options.model';
 import { FileSizePipe } from '../../../../../../shared/utils/file-size-pipe';
@@ -40,7 +42,9 @@ import { SectionsService } from '../../../../sections.service';
   templateUrl: './submission-section-upload-file-replace.component.html',
   styleUrls: ['./submission-section-upload-file-replace.component.scss'],
   imports: [
+    BtnDisabledDirective,
     FileSizePipe,
+    NgClass,
     TranslatePipe,
     UiSwitchModule,
     UploaderComponent,

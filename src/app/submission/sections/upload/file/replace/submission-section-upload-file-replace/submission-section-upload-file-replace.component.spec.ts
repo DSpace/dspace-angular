@@ -23,6 +23,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
+import { BtnDisabledDirective } from '../../../../../../shared/btn-disabled.directive';
 import { UploaderComponent } from '../../../../../../shared/upload/uploader/uploader.component';
 import { UploaderOptions } from '../../../../../../shared/upload/uploader/uploader-options.model';
 import { UploaderProperties } from '../../../../../../shared/upload/uploader/uploader-properties.model';
@@ -65,6 +66,7 @@ describe('SubmissionSectionUploadFileReplaceComponent', () => {
         TranslateModule.forRoot(),
         VarDirective,
         FileSizePipe,
+        BtnDisabledDirective,
       ],
       providers: [
         { provide: Location, useValue: locationObject },

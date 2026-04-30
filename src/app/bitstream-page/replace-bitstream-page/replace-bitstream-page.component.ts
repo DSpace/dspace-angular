@@ -40,6 +40,7 @@ import { RequestService } from '../../core/data/request.service';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
 import { URLCombiner } from '../../core/url-combiner/url-combiner';
+import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { ErrorComponent } from '../../shared/error/error.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { UploaderComponent } from '../../shared/upload/uploader/uploader.component';
@@ -52,6 +53,7 @@ import { FileSizePipe } from '../../shared/utils/file-size-pipe';
   styleUrls: ['./replace-bitstream-page.component.scss'],
   imports: [
     AsyncPipe,
+    BtnDisabledDirective,
     ErrorComponent,
     FileSizePipe,
     FileUploadModule,
