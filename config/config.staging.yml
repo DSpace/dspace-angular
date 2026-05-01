@@ -22,7 +22,8 @@ ui:
 # 'synced' with the 'dspace.server.url' setting in your backend's local.cfg.
 rest:
   ssl: true
-  host: rworks-staging-ext.lib.washington.edu
+  # host: rworks-staging-ext.lib.washington.edu
+  host: rworks-staging.lib.washington.edu
   port: 443
   # NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
   nameSpace: /server

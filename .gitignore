@@ -42,3 +42,5 @@ yarn-error.log
 junit.xml
 
 /src/mirador-viewer/config.local.js
+config/config.dev.yml
+config/config.staging.yml

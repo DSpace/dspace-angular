@@ -1,3 +1,1 @@
 config.*.yml
-!config.example.yml
-!config.staging.yml
