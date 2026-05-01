@@ -34,7 +34,16 @@ describe('Edit Item > Edit Metadata tab', () => {
     });
 
     // Analyze <ds-edit-item-page> for accessibility issues
-    testA11y('ds-edit-item-page');
+    testA11y('ds-edit-item-page',
+            {
+              rules: {
+                // Disable flakey "aria-required-children" test. While this test passes when run locally,
+                // in GitHub CI it will return random failures roughly 1/3 of the time saying that the
+                // "tablist" doesn't contain required "tab" elements, even though they do exist.
+                'aria-required-children': { enabled: false },
+              },
+            } as Options,
+    );
   });
 });
 
