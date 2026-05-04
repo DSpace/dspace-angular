@@ -14,7 +14,7 @@
     }
     <input class="form-control"
       [attr.aria-controls]="'combobox_' + id + '_listbox'"
-      [attr.aria-label]="model.placeholder"
+      [attr.aria-label]="model.label"
       [attr.autoComplete]="model.autoComplete"
       [class.is-invalid]="showErrorMessages"
       [class.scrollable-dropdown-input]="!model.readOnly"
@@ -32,11 +32,11 @@
 
   <div #dropdownMenu ngbDropdownMenu
     class="dropdown-menu scrollable-dropdown-menu w-100"
-    [attr.aria-label]="model.placeholder | translate">
+    [attr.aria-label]="model.label | translate">
     <div class="scrollable-menu"
       role="listbox"
       [id]="'combobox_' + id + '_listbox'"
-      [attr.aria-label]="model.placeholder | translate"
+      [attr.aria-label]="model.label | translate"
       infiniteScroll
       [infiniteScrollDistance]="2"
       [infiniteScrollThrottle]="50"

@@ -93,6 +93,9 @@ cache:
   # NOTE: When updates are made to compiled *.js files, it will automatically bypass this browser cache, because
   # all compiled *.js files include a unique hash in their name which updates when content is modified.
   control: max-age=604800 # revalidate browser
+  # These static files should not be cached (paths relative to dist/browser, including the leading slash)
+  noCacheFiles:
+    - '/index.html'
   autoSync:
     defaultTime: 0
     maxBufferSize: 100
@@ -405,6 +408,20 @@ homePage:
 item:
   edit:
     undoTimeout: 10000 # 10 seconds
+    # Defines the security levels available for metadata fields.
+    # Each level maps to a numeric value stored on the metadata field in the backend and controls visibility of that field based on the user's role.
+    # Levels are displayed as toggle buttons in the metadata edit UI.
+    security:
+      levels:
+          - value: 0       # Public — visible to everyone
+            icon: fa fa-globe
+            color: green
+          - value: 1       # Registered users — visible to authenticated users only
+            icon: fa fa-key
+            color: orange
+          - value: 2       # Administrators only — restricted to admin users
+            icon: fa fa-lock
+            color: red
   # Show the item access status label in items lists
   showAccessStatuses: false
   bitstream:
@@ -419,7 +436,6 @@ item:
     # Metdadata list to be displayed for entities without a specific configuration
     fallbackMetdataList:
       - dc.description.abstract
-      - dc.description.note
     # Configuration for each entity type
     entityDataConfig:
       - entityType: Person
@@ -503,6 +519,7 @@ themes:
   # - name: BASE_THEME_NAME
   #
   - name: dspace
+    prefetch: true
     headTags:
     - tagName: link
       attributes:

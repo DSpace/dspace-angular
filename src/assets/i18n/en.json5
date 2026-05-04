@@ -1379,17 +1379,33 @@
 
   "collection.form.errors.title.required": "Please enter a collection name",
 
+  "collection.form.errors.submissionDefinition.required": "Please choose a submission definition for this collection",
+
+  "collection.form.errors.entityType.required": "Please choose an entity type for this collection",
+
   "collection.form.license": "License",
 
   "collection.form.provenance": "Provenance",
 
   "collection.form.rights": "Copyright text (HTML)",
 
+  "collection.form.sharedWorkspace": "Shared workspace",
+
   "collection.form.tableofcontents": "News (HTML)",
 
   "collection.form.title": "Name",
 
   "collection.form.entityType": "Entity Type",
+
+  "collection.form.errors.entityType.required": "Please choose an entity type for this collection",
+
+  "collection.form.errors.submissionDefinition.required": "Please choose a submission definition for this collection",
+
+  "collection.form.submissionDefinition": "Submission definition",
+
+  "collection.form.correctionSubmissionDefinition": "Submission definition for correction request",
+
+
 
   "collection.listelement.badge": "Collection",
 
@@ -1665,6 +1681,14 @@
 
   "community.sub-community-list.head": "Communities in this Community",
 
+  "confirmation-modal.pending-changes.header": "Unsaved changes",
+
+  "confirmation-modal.pending-changes.info": "There are unsaved changes. Do you want to leave the page?",
+
+  "confirmation-modal.pending-changes.cancel": "Cancel",
+
+  "confirmation-modal.pending-changes.confirm": "Leave",
+
   "context-menu.actions.audit-item.btn": "Audit",
 
   "cookies.consent.accept-all": "Accept all",
@@ -1837,7 +1861,7 @@
 
   "dso-selector.no-results": "No {{ type }} found",
 
-  "dso-selector.placeholder": "Search for a {{ type }}",
+  "dso-selector.placeholder": "Search for {{ type }}",
 
   "dso-selector.placeholder.type.community": "community",
 
@@ -1958,6 +1982,16 @@
   "error.default": "Error",
 
   "error.item": "Error fetching item",
+
+  "error.custom-url-conflict.title": "Duplicate custom URL detected",
+
+  "error.custom-url-conflict.description": "The custom URL \"{{customUrl}}\" is assigned to more than one item. This causes a conflict and the item cannot be displayed.",
+
+  "error.custom-url-conflict.admin-action": "Please contact your repository administrator. The following affected items need their dspace.customurl metadata fixed so each value is unique:",
+
+  "error.custom-url-conflict.edit-link": "Edit \"{{name}}\" ({{uuid}})",
+
+  "error.custom-url-conflict.no-items-found": "No conflicting items could be retrieved. Please contact your administrator.",
 
   "error.items": "Error fetching items",
 
@@ -2619,6 +2653,10 @@
 
   "item.edit.item-mapper.notifications.add.error.content": "Errors occurred for mapping of item to {{amount}} collections.",
 
+  "item.edit.item-mapper.notifications.add.error.forbidden.head": "Permission denied",
+
+  "item.edit.item-mapper.notifications.add.error.forbidden.content": "You do not have permission to map this item to a collection.",
+
   "item.edit.item-mapper.notifications.add.error.head": "Mapping errors",
 
   "item.edit.item-mapper.notifications.add.success.content": "Successfully mapped item to {{amount}} collections.",
@@ -2626,6 +2664,10 @@
   "item.edit.item-mapper.notifications.add.success.head": "Mapping completed",
 
   "item.edit.item-mapper.notifications.remove.error.content": "Errors occurred for the removal of the mapping to {{amount}} collections.",
+
+  "item.edit.item-mapper.notifications.remove.error.forbidden.head": "Permission denied",
+
+  "item.edit.item-mapper.notifications.remove.error.forbidden.content": "You do not have permission to remove this item from a collection.",
 
   "item.edit.item-mapper.notifications.remove.error.head": "Removal of mapping errors",
 
@@ -2676,6 +2718,8 @@
   "item.edit.metadata.headers.field": "Field",
 
   "item.edit.metadata.headers.language": "Lang",
+
+  "item.edit.metadata.headers.security": "Security level",
 
   "item.edit.metadata.headers.authority": "Authority",
 
@@ -3025,7 +3069,7 @@
 
   "item.page.date": "Date",
 
-  "item.page.edit": "Edit this item",
+  "item.page.edit": "Administer",
 
   "item.page.files": "Files",
 
@@ -3050,6 +3094,10 @@
   "item.page.orcid.title": "ORCID",
 
   "item.page.orcid.tooltip": "Open ORCID setting page",
+
+  "item.page.orcid-ico": "ORCID icon",
+
+  "item.page.orcid-profile": "ORCID Profile",
 
   "item.page.person.search.title": "Articles by this author",
 
@@ -3101,6 +3149,10 @@
   "item.page.filesection.original.bundle": "Original bundle",
 
   "item.page.filesection.license.bundle": "License bundle",
+
+  "item-page.resolver.invalid-custom-url.title": "Invalid custom URL",
+
+  "item-page.resolver.invalid-custom-url.message": "The custom URL of this item contains unsupported characters. The item is being displayed using its UUID.",
 
   "item.page.return": "Back",
 
@@ -3426,7 +3478,7 @@
 
   "journal.page.description": "Description",
 
-  "journal.page.edit": "Edit this item",
+  "journal.page.edit": "Administer",
 
   "journal.page.editor": "Editor-in-Chief",
 
@@ -3448,7 +3500,7 @@
 
   "journalissue.page.description": "Description",
 
-  "journalissue.page.edit": "Edit this item",
+  "journalissue.page.edit": "Administer",
 
   "journalissue.page.issuedate": "Issue Date",
 
@@ -3470,7 +3522,7 @@
 
   "journalvolume.page.description": "Description",
 
-  "journalvolume.page.edit": "Edit this item",
+  "journalvolume.page.edit": "Administer",
 
   "journalvolume.page.issuedate": "Issue Date",
 
@@ -3766,11 +3818,21 @@
 
   "menu.section.workflow": "Administer Workflow",
 
+  "menu.section.FULL": "Edit",
+
+  "menu.section.OWNER": "Edit",
+
+  "menu.section.DIRECTOR": "Edit",
+
+  "menu.section.INVESTIGATOR": "Edit",
+
   "metadata-export-search.tooltip": "Export search results as CSV",
 
   "metadata-export-search.submit.success": "The export was started successfully",
 
   "metadata-export-search.submit.error": "Starting the export has failed",
+
+  "metadata.security.level.title": "Metatada security level {{level}}",
 
   "mydspace.breadcrumbs": "MyDSpace",
 
@@ -3831,6 +3893,8 @@
   "mydspace.show.workflow": "Workflow tasks",
 
   "mydspace.show.workspace": "Your submissions",
+
+  "mydspace.show.otherWorkspace": "Shared Submissions",
 
   "mydspace.show.supervisedWorkspace": "Supervised items",
 
@@ -4062,7 +4126,7 @@
 
   "orgunit.page.description": "Description",
 
-  "orgunit.page.edit": "Edit this item",
+  "orgunit.page.edit": "Administer",
 
   "orgunit.page.id": "ID",
 
@@ -4090,7 +4154,7 @@
 
   "person.page.birthdate": "Birth Date",
 
-  "person.page.edit": "Edit this item",
+  "person.page.edit": "Administer",
 
   "person.page.email": "Email Address",
 
@@ -4346,7 +4410,7 @@
 
   "project.page.description": "Description",
 
-  "project.page.edit": "Edit this item",
+  "project.page.edit": "Administer",
 
   "project.page.expectedcompletion": "Expected Completion",
 
@@ -4370,7 +4434,7 @@
 
   "publication.page.description": "Description",
 
-  "publication.page.edit": "Edit this item",
+  "publication.page.edit": "Administer",
 
   "publication.page.journal-issn": "Journal ISSN",
 
@@ -4662,7 +4726,7 @@
 
   "resource-policies.form.eperson-group-list.select.btn": "Select",
 
-  "resource-policies.form.eperson-group-list.tab.eperson": "Search for a ePerson",
+  "resource-policies.form.eperson-group-list.tab.eperson": "Search for an ePerson",
 
   "resource-policies.form.eperson-group-list.tab.group": "Search for a group",
 
@@ -5199,6 +5263,8 @@
 
   "submission.edit.title": "Edit Submission",
 
+  "submission.edit.item.breadcrumbs": "Edit item",
+
   "submission.general.cancel": "Cancel",
 
   "submission.general.cannot_submit": "You don't have permission to make a new submission.",
@@ -5217,6 +5283,8 @@
 
   "submission.general.back.submit": "Back",
 
+  "submission.general.info.invalid": "The submission is invalid, check missing fields",
+
   "submission.general.info.saved": "Saved",
 
   "submission.general.info.pending-changes": "Unsaved changes",
@@ -5224,6 +5292,8 @@
   "submission.general.save": "Save",
 
   "submission.general.save-later": "Save for later",
+
+  "submission.general.save-later.edit-item": "Save and return",
 
   "submission.import-external.page.title": "Import metadata from an external source",
 
@@ -5711,6 +5781,8 @@
 
   "submission.sections.general.deposit_error_notice": "There was an issue when submitting the item, please try again later.",
 
+  "submission.sections.general.invalid_state_error": "Cannot save current changes, mandatory fields are missing. Please resolve problems and save again later.",
+
   "submission.sections.general.deposit_success_notice": "Submission deposited successfully.",
 
   "submission.sections.general.discard_error_notice": "There was an issue when discarding the item, please try again later.",
@@ -5766,6 +5838,8 @@
   "submission.sections.submit.progressbar.identifiers": "Identifiers",
 
   "submission.sections.submit.progressbar.license": "Deposit license",
+
+  "submission.sections.submit.progressbar.describe.owner": "Owner",
 
   "submission.sections.submit.progressbar.sherpapolicy": "Sherpa policies",
 
@@ -6061,7 +6135,7 @@
 
   "subscriptions.tooltip": "Subscribe",
 
-  "subscriptions.unsubscribe": "Unsubscribe",
+  "subscriptions.manage": "Manage Subscription",
 
   "subscriptions.modal.title": "Subscriptions",
 
@@ -6174,6 +6248,8 @@
   "workflowAdmin.search.results.head": "Administer Workflow",
 
   "workflow.search.results.head": "Workflow tasks",
+
+  "otherWorkspace.search.results.head": "Shared workspace",
 
   "supervision.search.results.head": "Workflow and Workspace tasks",
 
@@ -7302,8 +7378,6 @@
   "item.page.cc.license.title": "Creative Commons license",
 
   "item.page.cc.license.disclaimer": "Except where otherwise noted, this item's license is described as",
-
-  "browse.search-form.placeholder": "Search the repository",
 
   "file-download-link.download": "Download ",
 
