@@ -417,7 +417,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
 
         const updatedGroup = rd.payload;
 
-        this.groupRegistryService.editGroup(updatedGroup);
+        this.groupDataService.editGroup(updatedGroup);
 
         this.formGroup.patchValue({
           groupName: updatedGroup.name,
