@@ -109,6 +109,11 @@ describe('DsoEditMenuSectionComponent', () => {
       expect(button.nativeElement.innerHTML).toContain('fa-' + iconString);
     });
 
+    it('should declare role="menuitem" so the parent menubar satisfies aria-required-children', () => {
+      const button = fixture.debugElement.query(By.css('.btn-dark'));
+      expect(button.nativeElement.getAttribute('role')).toBe('menuitem');
+    });
+
     describe('when the section model in a disabled link or text', () => {
       it('should show just the button', () => {
         const textButton = fixture.debugElement.query(By.css('div a'));

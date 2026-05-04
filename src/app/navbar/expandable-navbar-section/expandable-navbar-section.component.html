@@ -4,7 +4,7 @@
     (mouseenter)="onMouseEnter($event)"
     (mouseleave)="onMouseLeave($event)"
     data-test="navbar-section-wrapper">
-    <a href="javascript:void(0);" routerLinkActive="active"
+    <button type="button"
       role="menuitem"
       (keyup.enter)="toggleSection($event)"
       (keyup.space)="toggleSection($event)"
@@ -21,7 +21,7 @@
         *ngComponentOutlet="(sectionMap$ | async).get(section.id).component; injector: (sectionMap$ | async).get(section.id).injector;"></ng-container>
       </span>
       <i class="fas fa-caret-down fa-xs toggle-menu-icon" aria-hidden="true"></i>
-    </a>
+    </button>
     @if ((active$ | async).valueOf() === true) {
       <div (click)="deactivateSection($event)"
         [id]="expandableNavbarSectionId()"
