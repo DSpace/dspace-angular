@@ -1366,8 +1366,7 @@
   "admin.batch-import.page.remove": "supprimer",
 
   // "audit.data.not-found": "No audits found.",
-  // TODO - Review translation
-  "audit.data.not-found": "Pas d'audits trouvées.",
+  "audit.data.not-found": "Aucun audit trouvé.",
 
   // "audit.data.self": "self",
   // TODO - Review translation
