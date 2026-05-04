@@ -6,6 +6,7 @@ import {
 } from '@angular/core';
 import { AuthService } from '@dspace/core/auth/auth.service';
 import { AuthMethod } from '@dspace/core/auth/models/auth.method';
+import { AuthMethodType } from '@dspace/core/auth/models/auth.method-type';
 import {
   isAuthenticated,
   isAuthenticationLoading,
@@ -117,7 +118,7 @@ export class LogInExternalProviderComponent implements OnInit {
   }
 
   get isOrcid(): boolean {
-    return this.authMethod.authMethodType === 'orcid';
+    return this.authMethod.authMethodType === AuthMethodType.Orcid;
   }
 
 }
