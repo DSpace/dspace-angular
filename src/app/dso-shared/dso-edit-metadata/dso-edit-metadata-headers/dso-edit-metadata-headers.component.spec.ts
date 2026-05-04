@@ -29,7 +29,7 @@ describe('DsoEditMetadataHeadersComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should display four headers', () => {
-    expect(fixture.debugElement.queryAll(By.css('.ds-flex-cell')).length).toEqual(4);
+  it('should display five headers', () => {
+    expect(fixture.debugElement.queryAll(By.css('.ds-flex-cell')).length).toEqual(5);
   });
 });

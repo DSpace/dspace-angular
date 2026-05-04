@@ -18,6 +18,7 @@ import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-
 import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
 import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
 import { CommunityDataService } from '@dspace/core/data/community-data.service';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
 import { DefaultChangeAnalyzer } from '@dspace/core/data/default-change-analyzer.service';
 import { DSOChangeAnalyzer } from '@dspace/core/data/dso-change-analyzer.service';
 import { ItemDataService } from '@dspace/core/data/item-data.service';
@@ -35,6 +36,7 @@ import { MetadataMap } from '@dspace/core/shared/metadata.models';
 import { UUIDService } from '@dspace/core/shared/uuid.service';
 import { WorkspaceitemDataService } from '@dspace/core/submission/workspaceitem-data.service';
 import { BrowseDefinitionDataServiceStub } from '@dspace/core/testing/browse-definition-data-service.stub';
+import { ConfigurationDataServiceStub } from '@dspace/core/testing/configuration-data.service.stub';
 import { mockTruncatableService } from '@dspace/core/testing/mock-trucatable.service';
 import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import { createPaginatedList } from '@dspace/core/testing/utils.test';
@@ -135,6 +137,7 @@ describe('PublicationComponent', () => {
         { provide: SearchService, useValue: {} },
         { provide: RouteService, useValue: mockRouteService },
         { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub },
+        { provide: ConfigurationDataService, useValue: new ConfigurationDataServiceStub() },
         { provide: APP_CONFIG, useValue: environment },
         { provide: APP_DATA_SERVICES_MAP, useValue: {}  },
       ],

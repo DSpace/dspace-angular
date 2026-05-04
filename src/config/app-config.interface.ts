@@ -11,6 +11,7 @@ import { AuthConfig } from './auth-config.interfaces';
 import { BrowseByConfig } from './browse-by-config.interface';
 import { BundleConfig } from './bundle-config.interface';
 import { CacheConfig } from './cache-config.interface';
+import { CmsMetadata } from './cms-metadata';
 import { CollectionPageConfig } from './collection-page-config.interface';
 import { CommunityListConfig } from './community-list-config.interface';
 import { CommunityPageConfig } from './community-page-config.interface';
@@ -75,6 +76,7 @@ interface AppConfig extends Config {
   layout: LayoutConfig;
   searchResult: SearchResultConfig;
   addToAnyPlugin: AddToAnyPluginConfig;
+  cms: CmsMetadata;
 }
 
 /**

@@ -4,6 +4,7 @@ import { RelationshipOptions } from '@dspace/core/shared/relationship-options.mo
 import { VocabularyOptions } from '@dspace/core/submission/vocabularies/models/vocabulary-options.model';
 import {
   hasValue,
+  isNotEmpty,
   isNotUndefined,
 } from '@dspace/shared/utils/empty.util';
 import {
@@ -31,6 +32,9 @@ export interface DsDynamicInputModelConfig extends DynamicInputModelConfig {
   metadataValue?: FormFieldMetadataValueObject;
   isModelOfInnerForm?: boolean;
   hideErrorMessages?: boolean;
+  securityLevel?: number;
+  securityConfigLevel?: number[];
+  toggleSecurityVisibility?: boolean;
   isModelOfNotRepeatableGroup?: boolean;
 }
 
@@ -51,6 +55,9 @@ export class DsDynamicInputModel extends DynamicInputModel {
   @serializable() metadataValue: FormFieldMetadataValueObject;
   @serializable() isModelOfInnerForm: boolean;
   @serializable() hideErrorMessages?: boolean;
+  @serializable() securityLevel?: number;
+  @serializable() securityConfigLevel?: number[];
+  @serializable() toggleSecurityVisibility = true;
   @serializable() isModelOfNotRepeatableGroup = false;
 
 
@@ -68,6 +75,11 @@ export class DsDynamicInputModel extends DynamicInputModel {
     this.hasSelectableMetadata = config.hasSelectableMetadata;
     this.metadataValue = config.metadataValue;
     this.place = config.place;
+    this.securityLevel = config.securityLevel;
+    this.securityConfigLevel = config.securityConfigLevel;
+    if (isNotUndefined(config.toggleSecurityVisibility)) {
+      this.toggleSecurityVisibility = config.toggleSecurityVisibility;
+    }
     if (isNotUndefined(config.isModelOfNotRepeatableGroup)) {
       this.isModelOfNotRepeatableGroup = config.isModelOfNotRepeatableGroup;
     }
@@ -112,6 +124,14 @@ export class DsDynamicInputModel extends DynamicInputModel {
 
   set language(language: string) {
     this._language = language;
+  }
+
+  get hasSecurityLevel(): boolean {
+    return isNotEmpty(this.securityLevel);
+  }
+
+  get hasSecurityToggle(): boolean {
+    return isNotEmpty(this.securityConfigLevel) && this.securityConfigLevel.length > 1 && this.toggleSecurityVisibility;
   }
 
   get languageCodes(): LanguageCode[] {
