@@ -1,3 +1,4 @@
+import { NgClass } from '@angular/common';
 import {
   Component,
   Inject,
@@ -29,6 +30,7 @@ import { take } from 'rxjs/operators';
   templateUrl: './log-in-external-provider.component.html',
   styleUrls: ['./log-in-external-provider.component.scss'],
   imports: [
+    NgClass,
     TranslateModule,
   ],
 })
@@ -57,8 +59,6 @@ export class LogInExternalProviderComponent implements OnInit {
    * @type {Observable<string>}
    */
   public isAuthenticated: Observable<boolean>;
-
-  isOrcid: boolean;
 
   /**
    * @constructor
@@ -90,12 +90,6 @@ export class LogInExternalProviderComponent implements OnInit {
     // set location
     this.location = decodeURIComponent(this.injectedAuthMethodModel.location);
 
-    if (this.authMethod.authMethodType === 'orcid') {
-      this.isOrcid = true;
-    } else {
-      this.isOrcid = false;
-    }
-
   }
 
   /**
@@ -121,4 +115,9 @@ export class LogInExternalProviderComponent implements OnInit {
   getButtonLabel() {
     return `login.form.${this.authMethod.authMethodType}`;
   }
+
+  get isOrcid(): boolean {
+    return this.authMethod.authMethodType === 'orcid';
+  }
+
 }
