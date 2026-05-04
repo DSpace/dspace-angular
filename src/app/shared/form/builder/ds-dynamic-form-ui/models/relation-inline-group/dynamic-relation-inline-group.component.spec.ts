@@ -38,7 +38,10 @@ import {
 import { provideMockActions } from '@ngrx/effects/testing';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
+import {
+  Observable,
+  of,
+} from 'rxjs';
 
 import { environment } from '../../../../../../../environments/environment.test';
 import { SubmissionService } from '../../../../../../submission/submission.service';
@@ -208,6 +211,7 @@ describe('DsDynamicRelationInlineGroupComponent test suite', () => {
   describe('', () => {
     // synchronous beforeEach
     beforeEach(() => {
+      submissionServiceStub.getSubmissionSecurityConfiguration.and.returnValue(of(metadataSecurity));
       html = `<ds-dynamic-relation-inline-group [model]="model"
                             [formId]="formId"
                             [group]="group"
@@ -235,6 +239,7 @@ describe('DsDynamicRelationInlineGroupComponent test suite', () => {
 
       groupFixture = TestBed.createComponent(DsDynamicRelationInlineGroupComponent);
       service = TestBed.inject(FormBuilderService as any);
+      submissionServiceStub.getSubmissionSecurityConfiguration.and.returnValue(of(metadataSecurity));
       groupComp = groupFixture.componentInstance; // FormComponent test instance
       groupCompAsAny = groupComp;
       groupComp.formId = 'testForm';
@@ -304,6 +309,7 @@ describe('DsDynamicRelationInlineGroupComponent test suite', () => {
 
     describe('onChange', () => {
       beforeEach(() => {
+        submissionServiceStub.getSubmissionSecurityConfiguration.and.returnValue(of(metadataSecurity));
         const formConfig = { rows: groupComp.model.formConfiguration } as SubmissionFormsModel;
         const formArrayModel: DynamicRowArrayModel[] = groupComp.initArrayModel(formConfig) as DynamicRowArrayModel[];
         const group = formArrayModel[0].groups[0];
@@ -651,6 +657,7 @@ describe('DsDynamicRelationInlineGroupComponent test suite', () => {
     beforeEach(() => {
 
       groupFixture = TestBed.createComponent(DsDynamicRelationInlineGroupComponent);
+      submissionServiceStub.getSubmissionSecurityConfiguration.and.returnValue(of(metadataSecurity));
       groupComp = groupFixture.componentInstance; // FormComponent test instance
       groupComp.formId = 'testForm';
       groupComp.group = FORM_GROUP_TEST_GROUP;

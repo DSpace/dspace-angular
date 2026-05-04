@@ -37,12 +37,21 @@
             @if (!sectionRef.isMandatory()) {
               <a href="javascript:void(0);" class="me-3"
                 (click)="removeSection($event)">
-                <i class="fas fa-trash-o" aria-hidden="true" tabindex="0"></i>
+                @if ((isRemoving | async) !== true) {
+                  <i class="far fa-trash-alt" aria-hidden="true" tabindex="0"></i>
+                }
+                @if ((isRemoving | async) === true) {
+                  <i class="fas fa-circle-notch fa-spin" aria-hidden="true" tabindex="0"></i>
+                }
               </a>
             }
           </div>
         </ng-template>
         <ng-template ngbPanelContent>
+          @if (hasInfoMessage | async) {
+            <ds-alert [content]="'submission.sections.'+sectionData.header+'.info'"
+            [type]="AlertTypeEnum.Info"></ds-alert>
+          }
           @if (sectionRef.hasGenericErrors()) {
             <div id="sectionGenericError_{{sectionData.id}}">
               @for (error of sectionRef.getErrors(); track error; let i = $index) {

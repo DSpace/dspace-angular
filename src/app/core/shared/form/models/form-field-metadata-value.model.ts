@@ -33,21 +33,26 @@ export class FormFieldMetadataValueObject implements MetadataValueInterface {
   confidence: ConfidenceType;
   place: number;
   label: string;
+  securityLevel: number;
+  source: string;
   otherInformation: OtherInformation;
 
   constructor(value: any = null,
     language: any = null,
+    securityLevel: any = null,
     authority: string = null,
     display: string = null,
     place: number = 0,
     confidence: number = null,
     otherInformation: any = null,
-    metadata: string = null) {
+    source: string = null,
+    metadata: string = null,
+  ) {
     this.value = isNotNull(value) ? ((typeof value === 'string') ? value.trim() : value) : null;
     this.language = language;
     this.authority = authority;
     this.display = display || value;
-
+    this.securityLevel = securityLevel;
     this.confidence = confidence;
     if (Metadata.hasValidAuthority(authority) && (isEmpty(confidence) || confidence === -1)) {
       this.confidence = ConfidenceType.CF_ACCEPTED;
@@ -61,7 +66,7 @@ export class FormFieldMetadataValueObject implements MetadataValueInterface {
     if (isNotEmpty(metadata)) {
       this.metadata = metadata;
     }
-
+    this.source = source;
     this.otherInformation = otherInformation;
   }
 
@@ -99,6 +104,14 @@ export class FormFieldMetadataValueObject implements MetadataValueInterface {
   hasPlaceholder() {
     return this.hasValue() && this.value === PLACEHOLDER_PARENT_METADATA;
   }
+
+  /**
+   * Returns true if this object value contains a placeholder
+   */
+  hasSecurityLevel() {
+    return isNotEmpty(this.securityLevel);
+  }
+
 
   /**
    * Returns true if this Metadatum's authority key starts with 'virtual::'

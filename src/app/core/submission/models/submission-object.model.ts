@@ -1,3 +1,4 @@
+import { PathableObjectError } from '@dspace/core/data/response-state.model';
 import {
   autoserialize,
   deserialize,
@@ -22,10 +23,7 @@ import { SUPERVISION_ORDER } from '../../supervision-order/models/supervision-or
 import { excludeFromEquals } from '../../utilities/equals.decorators';
 import { WorkspaceitemSectionsObject } from './workspaceitem-sections.model';
 
-export interface SubmissionObjectError {
-  message: string;
-  paths: string[];
-}
+export type SubmissionObjectError = PathableObjectError;
 
 /**
  * An abstract model class for a SubmissionObject.

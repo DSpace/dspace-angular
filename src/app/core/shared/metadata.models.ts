@@ -56,6 +56,10 @@ export class MetadataValue implements MetadataValueInterface {
   /** The authority confidence value */
   @autoserialize
   confidence: number;
+
+  /** The security level value */
+  @autoserialize
+  securityLevel: number;
 }
 
 /** Constraints for matching metadata values. */
@@ -104,6 +108,9 @@ export class MetadatumViewModel {
 
   /** The authority confidence value */
   confidence: number;
+
+  /** The security level value */
+  securityLevel: number;
 }
 
 /** Serializer used for MetadataMaps.

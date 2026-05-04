@@ -7,7 +7,7 @@
       [(ngModel)]="selectedOption"
       (change)="onSelect()">
       @for (option of configurationList; track option) {
-        <option [ngValue]="option">
+        <option [attr.data-test]="option.value" [ngValue]="option">
           {{option.label | translate}}
         </option>
       }

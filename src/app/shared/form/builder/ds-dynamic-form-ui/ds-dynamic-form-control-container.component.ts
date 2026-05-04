@@ -1,5 +1,6 @@
 import {
   AsyncPipe,
+  isPlatformBrowser,
   NgClass,
   NgTemplateOutlet,
 } from '@angular/common';
@@ -19,7 +20,9 @@ import {
   OnDestroy,
   OnInit,
   Output,
+  PLATFORM_ID,
   QueryList,
+  Renderer2,
   SimpleChanges,
   Type,
   ViewChild,
@@ -79,10 +82,12 @@ import {
 import {
   DYNAMIC_FORM_CONTROL_MAP_FN,
   DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX,
+  DynamicFormArrayComponent,
   DynamicFormArrayGroupModel,
   DynamicFormArrayModel,
   DynamicFormComponentService,
   DynamicFormControl,
+  DynamicFormControlComponent,
   DynamicFormControlContainerComponent,
   DynamicFormControlEvent,
   DynamicFormControlEventType,
@@ -117,6 +122,7 @@ import {
 } from 'rxjs/operators';
 
 import { AppState } from '../../../../app.reducer';
+import { EditMetadataSecurityComponent } from '../../../../item-page/edit-item-page/edit-metadata-security/edit-metadata-security.component';
 import { SubmissionObjectActionTypes } from '../../../../submission/objects/submission-objects.actions';
 import { SubmissionService } from '../../../../submission/submission.service';
 import { SubmissionObjectService } from '../../../../submission/submission-object.service';
@@ -128,6 +134,8 @@ import { DsDynamicTypeBindRelationService } from './ds-dynamic-type-bind-relatio
 import { ExistingMetadataListElementComponent } from './existing-metadata-list-element/existing-metadata-list-element.component';
 import { ExistingRelationListElementComponent } from './existing-relation-list-element/existing-relation-list-element.component';
 import { DYNAMIC_FORM_CONTROL_TYPE_CUSTOM_SWITCH } from './models/custom-switch/custom-switch.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER } from './models/date-picker/date-picker.model';
+import { DynamicConcatModel } from './models/ds-dynamic-concat.model';
 import { DsDynamicLookupRelationModalComponent } from './relation-lookup-modal/dynamic-lookup-relation-modal.component';
 import { NameVariantService } from './relation-lookup-modal/name-variant.service';
 
@@ -138,6 +146,7 @@ import { NameVariantService } from './relation-lookup-modal/name-variant.service
   changeDetection: ChangeDetectionStrategy.Default,
   imports: [
     AsyncPipe,
+    EditMetadataSecurityComponent,
     ExistingMetadataListElementComponent,
     ExistingRelationListElementComponent,
     FormsModule,
@@ -165,6 +174,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   @Input() hasErrorMessaging = false;
   @Input() layout = null as DynamicFormLayout;
   @Input() model: any;
+  securityLevel: number;
   relationshipValue$: Observable<ReorderableRelationship>;
   isRelationship: boolean;
   modalRef: NgbModalRef;
@@ -223,6 +233,8 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
     @Inject(DYNAMIC_FORM_CONTROL_MAP_FN) protected dynamicFormControlFn: DynamicFormControlMapFn,
     private actions$: Actions,
+    protected renderer: Renderer2,
+    @Inject(PLATFORM_ID) protected platformId: string,
   ) {
     super(ref, componentFactoryResolver, layoutService, validationService, dynamicFormComponentService, relationService);
     this.fetchThumbnail = this.appConfig.browseBy.showThumbnails;
@@ -318,10 +330,23 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
         );
       }
     }
+
+    if (isNotEmpty(this.model?.value?.securityLevel)) {
+      this.securityLevel = this.model.value.securityLevel;
+    } else if (isNotEmpty(this.model?.metadataValue?.securityLevel)) {
+      this.securityLevel = this.model.metadataValue.securityLevel;
+    } else {
+      this.securityLevel = this.model.securityLevel;
+    }
   }
 
   get isCheckbox(): boolean {
     return this.model.type === DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX || this.model.type === DYNAMIC_FORM_CONTROL_TYPE_CUSTOM_SWITCH;
+  }
+
+
+  get isDateField(): boolean {
+    return this.model.type === DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER;
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -345,6 +370,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
 
   ngAfterViewInit() {
     this.showErrorMessagesPreviousStage = this.showErrorMessages;
+    this.handleAriaLabelForLibraryComponents();
   }
 
   protected createFormControlComponent(): void {
@@ -515,6 +541,57 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     this.subs.push(this.item$.subscribe((item) => this.item = item));
     this.subs.push(collection$.subscribe((collection) => this.collection = collection));
 
+  }
+
+  addSecurityLevelToMetadata($event) {
+    this.model.securityLevel = $event;
+    this.securityLevel = $event;
+    if (this.model.parent && (this.model.parent instanceof DynamicConcatModel)) {
+      this.model.parent.securityLevel = $event;
+    }
+    if (this.model.value) {
+      this.model.securityLevel = $event;
+      this.securityLevel = $event;
+      if (this.model.parent && (this.model.parent instanceof DynamicConcatModel)) {
+        this.model.parent.securityLevel = $event;
+      }
+      this.change.emit(
+        {
+          $event: new Event('change'),
+          context: this.context,
+          control: this.control,
+          model: this.model,
+          type: 'changeSecurityLevel',
+        } as DynamicFormControlEvent,
+      );
+      if (this.model.type === 'ONEBOX') {
+        this.customEvent.next({
+          $event: new Event('change'),
+          context: this.context,
+          control: this.control,
+          model: this.model,
+          type: 'changeSecurityLevelGroup',
+        } as DynamicFormControlEvent);
+      }
+    }
+  }
+
+  private handleAriaLabelForLibraryComponents(): void {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+
+    if ((this.componentRef.instance instanceof DynamicFormControlComponent) &&
+      !(this.componentRef.instance instanceof DynamicFormArrayComponent) &&
+      this.componentRef.location.nativeElement) {
+      const inputEl: HTMLElement | null =
+        this.componentRef.location.nativeElement.querySelector('input,textarea,select,[role="textbox"]');
+
+
+      if (inputEl &&  this.model?.additional?.ariaLabel) {
+        this.renderer.setAttribute(inputEl, 'aria-label', this.model.additional.ariaLabel);
+      }
+    }
   }
 
   /**
