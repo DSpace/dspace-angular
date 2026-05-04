@@ -41,6 +41,7 @@ describe('LinkMenuItemComponent', () => {
       imports: [TranslateModule.forRoot(), LinkMenuItemComponent],
       providers: [
         { provide: 'itemModelProvider', useValue: { text: text, link: link, queryParams: queryParams } },
+        { provide: 'useAriaMenuRoles', useValue: false },
         { provide: Router, useValue: new RouterStub() },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         RouterLinkDirectiveStub,

@@ -1,4 +1,3 @@
-import { NgClass } from '@angular/common';
 import {
   Component,
   Injector,
@@ -29,11 +28,9 @@ import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
   styleUrls: ['./admin-sidebar-section.component.scss'],
   imports: [
     BrowserOnlyPipe,
-    NgClass,
     RouterLink,
     TranslateModule,
   ],
-
 })
 @rendersSectionForMenu(MenuID.ADMIN, false)
 export class AdminSidebarSectionComponent extends AbstractMenuSectionComponent implements OnInit, OnChanges {

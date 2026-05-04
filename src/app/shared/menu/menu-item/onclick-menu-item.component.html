@@ -1,15 +1,19 @@
 @if (!item.disabled) {
   <a
-    class="ds-menu-item" role="menuitem"
+    class="ds-menu-item"
     routerLinkActive="active"
     href="javascript:void(0);"
+    [attr.role]="useAriaMenuRoles ? 'menuitem' : null"
     [title]="item.text | translate"
     (click)="activate($event)"
     (keyup.space)="activate($event)"
     (keyup.enter)="activate($event)"
     [attr.data-test]="item.text"
   >{{item.text | translate}}</a>
-}
-@if (item.disabled) {
-  <span [attr.data-test]="item.text" class="nav-item nav-link disabled">{{item.text | translate}}</span>
+} @else {
+  <span [attr.data-test]="item.text"
+        [attr.role]="useAriaMenuRoles ? 'menuitem' : null"
+        aria-disabled="true" class="nav-item nav-link disabled">
+    {{item.text | translate}}
+  </span>
 }
