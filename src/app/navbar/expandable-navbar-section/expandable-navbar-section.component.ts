@@ -1,16 +1,14 @@
+import { AnimationEvent } from '@angular/animations';
 import {
   AsyncPipe,
   NgComponentOutlet,
 } from '@angular/common';
 import {
-  AfterViewChecked,
   Component,
   HostListener,
   Injector,
-  OnDestroy,
   OnInit,
 } from '@angular/core';
-import { RouterLinkActive } from '@angular/router';
 import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import { Observable } from 'rxjs';
 import {
@@ -39,11 +37,10 @@ import { NavbarSectionComponent } from '../navbar-section/navbar-section.compone
     AsyncPipe,
     HoverOutsideDirective,
     NgComponentOutlet,
-    RouterLinkActive,
   ],
 })
 @rendersSectionForMenu(MenuID.PUBLIC, true)
-export class ExpandableNavbarSectionComponent extends NavbarSectionComponent implements AfterViewChecked, OnInit, OnDestroy {
+export class ExpandableNavbarSectionComponent extends NavbarSectionComponent implements OnInit {
 
   /**
    * This section resides in the Public Navbar
@@ -56,11 +53,6 @@ export class ExpandableNavbarSectionComponent extends NavbarSectionComponent imp
   mouseEntered = false;
 
   /**
-   * Whether the section was expanded
-   */
-  focusOnFirstChildSection = false;
-
-  /**
    * True if screen size was small before a resize event
    */
   wasMobile = undefined;
@@ -71,21 +63,16 @@ export class ExpandableNavbarSectionComponent extends NavbarSectionComponent imp
   isMobile$: Observable<boolean>;
 
   /**
-   * Boolean used to add the event listeners to the items in the expandable menu when expanded. This is done for
-   * performance reasons, there is currently an *ngIf on the menu to prevent the {@link HoverOutsideDirective} to tank
-   * performance when not expanded.
-   */
-  addArrowEventListeners = false;
-
-  /**
-   * List of current dropdown items who have event listeners
-   */
-  private dropdownItems: NodeListOf<HTMLElement>;
-
-  /**
    * Emits true when the top section has subsections, else emits false
    */
   hasSubSections$: Observable<boolean>;
+
+  /**
+   * When true, the dropdown has Bootstrap's `.show` class (display:block).
+   * Set as soon as the section activates so the open animation can run;
+   * cleared only after the collapse animation finishes so the close can slide.
+   */
+  dropdownShown = false;
 
   @HostListener('window:resize', ['$event'])
   onResize() {
@@ -120,56 +107,21 @@ export class ExpandableNavbarSectionComponent extends NavbarSectionComponent imp
     this.hasSubSections$ = this.subSections$.pipe(
       map((subSections) => isNotEmpty(subSections)),
     );
-    this.subs.push(this.active$.subscribe((active: boolean) => {
-      if (active === true) {
-        this.addArrowEventListeners = true;
-      } else {
-        this.focusOnFirstChildSection = undefined;
-        this.unsubscribeFromEventListeners();
-      }
-    }));
-  }
-
-  ngAfterViewChecked(): void {
-    if (this.addArrowEventListeners) {
-      this.dropdownItems = document.querySelectorAll(`#${this.expandableNavbarSectionId()} *[role="menuitem"]`);
-      this.dropdownItems.forEach((item: HTMLElement) => {
-        item.addEventListener('keydown', this.navigateDropdown.bind(this));
-      });
-      if (this.focusOnFirstChildSection && this.dropdownItems.length > 0) {
-        this.dropdownItems.item(0).focus();
-      }
-      this.addArrowEventListeners = false;
-    }
-  }
-
-  ngOnDestroy(): void {
-    super.ngOnDestroy();
-    this.unsubscribeFromEventListeners();
+    this.subs.push(
+      this.active$.subscribe((active) => {
+        if (active) {
+          this.dropdownShown = true;
+        }
+      }),
+    );
   }
 
   /**
-   * Activate this section if it's currently inactive, deactivate it when it's currently active.
-   * Also saves whether this toggle was performed by a keyboard event (non-click event) in order to know if thi first
-   * item should be focussed when activating a section.
-   *
-   *  @param {Event} event The user event that triggered this method
+   * Hide the dropdown only after the collapse slide has finished.
    */
-  override toggleSection(event: Event): void {
-    this.focusOnFirstChildSection = event.type !== 'click';
-    super.toggleSection(event);
-  }
-
-  /**
-   * Removes all the current event listeners on the dropdown items (called when the menu is closed & on component
-   * destruction)
-   */
-  unsubscribeFromEventListeners(): void {
-    if (this.dropdownItems) {
-      this.dropdownItems.forEach((item: HTMLElement) => {
-        item.removeEventListener('keydown', this.navigateDropdown.bind(this));
-      });
-      this.dropdownItems = undefined;
+  finishSlide(event: AnimationEvent): void {
+    if (event.toState === 'collapsed') {
+      this.dropdownShown = false;
     }
   }
 
@@ -211,54 +163,24 @@ export class ExpandableNavbarSectionComponent extends NavbarSectionComponent imp
   }
 
   /**
-   * Handles the navigation between the menu items
-   *
-   * @param event
-   */
-  navigateDropdown(event: KeyboardEvent): void {
-    if (event.code === 'Tab') {
-      this.deactivateSection(event, false);
-      return;
-    } else if (event.code === 'Escape') {
-      this.deactivateSection(event, false);
-      (document.querySelector(`a[aria-controls="${this.expandableNavbarSectionId()}"]`) as HTMLElement)?.focus();
-      return;
-    }
-    event.preventDefault();
-    event.stopPropagation();
-
-    const items: NodeListOf<Element> = document.querySelectorAll(`#${this.expandableNavbarSectionId()} *[role="menuitem"]`);
-    if (items.length === 0) {
-      return;
-    }
-    const currentIndex: number = Array.from(items).findIndex((item: Element) => item === event.target);
-
-    if (event.key === 'ArrowDown') {
-      (items[(currentIndex + 1) % items.length] as HTMLElement).focus();
-    } else if (event.key === 'ArrowUp') {
-      (items[(currentIndex - 1 + items.length) % items.length] as HTMLElement).focus();
-    }
-  }
-
-  /**
-   * Handles all the keydown events on the dropdown toggle
-   *
-   * @param event
+   * Prevent the browser from also synthesizing a click on Enter/Space.
+   * Activation is handled by the (keyup.enter)/(keyup.space) bindings so NVDA
+   * does not toggle the section twice: https://www.nvaccess.org/
    */
   keyDown(event: KeyboardEvent): void {
     switch (event.code) {
-      // Works for both Tab & Shift Tab
-      case 'Tab':
-        this.deactivateSection(event, false);
-        break;
-      case 'ArrowDown':
-        this.focusOnFirstChildSection = true;
-        this.activateSection(event);
-        break;
       case 'Space':
       case 'Enter':
         event.preventDefault();
         break;
     }
+  }
+
+  /**
+   * Closes the open dropdown and puts the focus back on the toggle
+   */
+  closeDropdownAndFocusToggle(event: KeyboardEvent): void {
+    (document.querySelector(`button[aria-controls="${this.expandableNavbarSectionId()}"]`) as HTMLElement)?.focus();
+    this.deactivateSection(event, false);
   }
 }

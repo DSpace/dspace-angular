@@ -21,8 +21,9 @@ import { TextMenuItemModel } from './models/text.model';
 })
 @rendersMenuItemForType(MenuItemType.TEXT)
 export class TextMenuItemComponent {
-  item: TextMenuItemModel;
-  constructor(@Inject('itemModelProvider') item: TextMenuItemModel) {
-    this.item = item;
+  constructor(
+    @Inject('itemModelProvider') public item: TextMenuItemModel,
+    @Inject('useAriaMenuRoles') public useAriaMenuRoles: boolean,
+  ) {
   }
 }

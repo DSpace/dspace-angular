@@ -1,11 +1,17 @@
 @if (hasSubSections$ | async) {
-  <div class="dso-button-menu mb-1" ngbDropdown container="body" placement="bottom-right">
+  <div class="dso-button-menu mb-1" ngbDropdown container="body" placement="bottom-right" (openChange)="onOpenChange($event)">
     <div class="d-flex flex-row flex-nowrap"
       [ngbTooltip]="itemModel.text | translate" container="body">
-      <button [attr.aria-label]="itemModel.text | translate" [title]="itemModel.text | translate" class="btn btn-dark btn-sm" ngbDropdownToggle [dsBtnDisabled]="section.model?.disabled" role="menuitem" tabindex="0">
-        <i class="fas fa-{{section.icon}} fa-fw"></i>
+      <button type="button"
+              (keydown)="keyDown($event)"
+              (keyup)="keyUp($event)"
+              [attr.aria-controls]="expandableSectionId()"
+              [attr.aria-label]="itemModel.text | translate"
+              [dsBtnDisabled]="section.model?.disabled"
+              aria-haspopup="menu" class="btn btn-dark btn-sm" ngbDropdownToggle data-test="dso-edit-menu-section-toggler" tabindex="0">
+        <i class="fas fa-{{section.icon}} fa-fw" aria-hidden="true"></i>
       </button>
-      <ul ngbDropdownMenu class="dso-edit-menu-dropdown p-1" role="menu">
+      <ul [id]="expandableSectionId()" ngbDropdownMenu class="dso-edit-menu-dropdown p-1" role="menu" [attr.aria-label]="itemModel.text | translate">
         @for (subSection of (subSections$ | async); track subSection) {
           <li class="nav-item nav-link d-flex flex-row p-2" role="presentation">
             @if (renderIcons$ | async) {
@@ -26,7 +32,3 @@
     </div>
   </div>
 }
-
-
-
-

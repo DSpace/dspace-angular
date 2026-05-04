@@ -1,3 +1,4 @@
+import { AnimationEvent } from '@angular/animations';
 import {
   AsyncPipe,
   NgClass,
@@ -77,6 +78,12 @@ export class ExpandableAdminSidebarSectionComponent extends AdminSidebarSectionC
    */
   hasSubSections$: Observable<boolean>;
 
+  /**
+   * When true, the subsection is display:none.
+   * Cleared as soon as the section expands so the open animation can run;
+   * set only after the collapse animation finishes so the close can slide.
+   */
+  subsectionHidden = true;
 
   constructor(
     protected menuService: MenuService,
@@ -107,6 +114,22 @@ export class ExpandableAdminSidebarSectionComponent extends AdminSidebarSectionC
     this.isExpanded$ = combineLatestObservable([this.active$, this.isSidebarCollapsed$, this.isSidebarPreviewCollapsed$]).pipe(
       map(([active, sidebarCollapsed, sidebarPreviewCollapsed]) => (active && (!sidebarCollapsed || !sidebarPreviewCollapsed))),
     );
+    this.subs.push(
+      this.isExpanded$.subscribe((expanded) => {
+        if (expanded) {
+          this.subsectionHidden = false;
+        }
+      }),
+    );
+  }
+
+  /**
+   * Hide the subsection only after the collapse slide has finished.
+   */
+  finishSlide(event: AnimationEvent): void {
+    if (event.toState === 'collapsed') {
+      this.subsectionHidden = true;
+    }
   }
 
   toggleSection($event: Event) {

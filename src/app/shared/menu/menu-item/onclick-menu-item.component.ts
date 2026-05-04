@@ -1,4 +1,3 @@
-
 import {
   Component,
   Inject,
@@ -24,10 +23,11 @@ import { OnClickMenuItemModel } from './models/onclick.model';
 })
 @rendersMenuItemForType(MenuItemType.ONCLICK)
 export class OnClickMenuItemComponent {
-  item: OnClickMenuItemModel;
 
-  constructor(@Inject('itemModelProvider') item: OnClickMenuItemModel) {
-    this.item = item;
+  constructor(
+    @Inject('itemModelProvider') public item: OnClickMenuItemModel,
+    @Inject('useAriaMenuRoles') public useAriaMenuRoles: boolean,
+  ) {
   }
 
   public activate(event: any) {

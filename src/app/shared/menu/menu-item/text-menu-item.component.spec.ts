@@ -22,6 +22,7 @@ describe('TextMenuItemComponent', () => {
       imports: [TranslateModule.forRoot(), TextMenuItemComponent],
       providers: [
         { provide: 'itemModelProvider', useValue: { text: text } },
+        { provide: 'useAriaMenuRoles', useValue: false },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
@@ -42,5 +43,11 @@ describe('TextMenuItemComponent', () => {
   it('should contain the text element', () => {
     const textContent = debugElement.query(By.css('span')).nativeElement.textContent;
     expect(textContent).toEqual(text);
+  });
+
+  it('should be plain text without a nested widget role so parent menuitems stay valid', () => {
+    const label = debugElement.query(By.css('span')).nativeElement;
+    expect(label.getAttribute('role')).toBeNull();
+    expect(label.getAttribute('tabindex')).toBeNull();
   });
 });

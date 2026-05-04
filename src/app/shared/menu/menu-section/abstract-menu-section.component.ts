@@ -1,5 +1,6 @@
 import {
   Component,
+  Directive,
   Injector,
   Input,
   OnChanges,
@@ -44,10 +45,7 @@ export interface MenuSectionComponentDTO {
 /**
  * A basic implementation of a menu section's component
  */
-@Component({
-  selector: 'ds-menu-section',
-  template: '',
-})
+@Directive()
 export abstract class AbstractMenuSectionComponent implements OnInit, OnChanges, OnDestroy {
 
   /**
@@ -64,6 +62,11 @@ export abstract class AbstractMenuSectionComponent implements OnInit, OnChanges,
    * The section data
    */
   @Input() section: MenuSection;
+
+  /**
+   * Whether to use ARIA menuitem roles on the menu item components
+   */
+  useAriaMenuRoles = false;
 
   /**
    * {@link BehaviorSubject} containing the current state to whether this section is currently active
@@ -216,7 +219,10 @@ export abstract class AbstractMenuSectionComponent implements OnInit, OnChanges,
       itemModel = this.section.model;
     }
     return Injector.create({
-      providers: [{ provide: 'itemModelProvider', useFactory: () => (itemModel), deps: [] }],
+      providers: [
+        { provide: 'itemModelProvider', useFactory: () => (itemModel), deps: [] },
+        { provide: 'useAriaMenuRoles', useValue: this.useAriaMenuRoles },
+      ],
       parent: this.injector,
     });
   }

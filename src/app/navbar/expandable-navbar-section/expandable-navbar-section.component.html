@@ -1,45 +1,46 @@
 @if (hasSubSections$ | async) {
+  @let isActive = (active$ | async).valueOf() === true;
   <div class="ds-menu-item-wrapper text-md-center"
     [id]="'expandable-navbar-section-' + section.id"
     (mouseenter)="onMouseEnter($event)"
     (mouseleave)="onMouseLeave($event)"
     data-test="navbar-section-wrapper">
-    <a href="javascript:void(0);" routerLinkActive="active"
-      role="menuitem"
+    <button type="button"
       (keyup.enter)="toggleSection($event)"
       (keyup.space)="toggleSection($event)"
       (click)="toggleSection($event)"
       (keydown)="keyDown($event)"
-      aria-haspopup="menu"
       data-test="navbar-section-toggler"
-      [attr.aria-expanded]="(active$ | async).valueOf()"
+      [attr.aria-expanded]="isActive"
       [attr.aria-controls]="expandableNavbarSectionId()"
-      class="d-flex flex-row flex-nowrap align-items-center gapx-1 ds-menu-toggler-wrapper"
-      [class.disabled]="section.model?.disabled">
+      class="btn btn-link d-flex flex-row flex-nowrap align-items-center gapx-1 ds-menu-toggler-wrapper border-0 p-0"
+      [class.disabled]="section.model?.disabled"
+      [attr.aria-disabled]="section.model?.disabled || null">
       <span class="flex-fill">
         @if (sectionMap().get(section.id); as sectionDTO) {
           <ng-container *ngComponentOutlet="sectionDTO.component; injector: sectionDTO.injector;"></ng-container>
         }
       </span>
       <i class="fas fa-caret-down fa-xs toggle-menu-icon" aria-hidden="true"></i>
-    </a>
-    @if ((active$ | async).valueOf() === true) {
-      <div (click)="deactivateSection($event)"
-        [id]="expandableNavbarSectionId()"
-        [dsHoverOutsideOfParentSelector]="'#expandable-navbar-section-' + section.id"
-        (dsHoverOutside)="deactivateSection($event, false)"
-        role="menu"
-        class="dropdown-menu show nav-dropdown-menu m-0 shadow-none border-top-0">
-        <div @slide role="presentation">
-          @for (subSection of (subSections$ | async); track subSection) {
-            <div class="text-nowrap" role="presentation">
-              @if (sectionMap().get(subSection.id); as subSectionDTO) {
-                <ng-container *ngComponentOutlet="subSectionDTO.component; injector: subSectionDTO.injector;"></ng-container>
-              }
-            </div>
+    </button>
+    <div (click)="deactivateSection($event)"
+      [id]="expandableNavbarSectionId()"
+      [dsHoverOutsideOfParentSelector]="'#expandable-navbar-section-' + section.id"
+      (dsHoverOutside)="deactivateSection($event, false)"
+      (keydown.escape)="closeDropdownAndFocusToggle($event)"
+      class="dropdown-menu nav-dropdown-menu m-0 shadow-none border-top-0"
+      [class.show]="dropdownShown"
+      [@slide]="isActive ? 'expanded' : 'collapsed'"
+      (@slide.done)="finishSlide($event)"
+      [attr.aria-hidden]="!isActive || null"
+      [attr.inert]="!isActive || null">
+      @for (subSection of (subSections$ | async); track subSection) {
+        <div class="text-nowrap">
+          @if (sectionMap().get(subSection.id); as subSectionDTO) {
+            <ng-container *ngComponentOutlet="subSectionDTO.component; injector: subSectionDTO.injector;"></ng-container>
           }
         </div>
-      </div>
-    }
+      }
+    </div>
   </div>
 }

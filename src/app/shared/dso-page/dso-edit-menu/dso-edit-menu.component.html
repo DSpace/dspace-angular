@@ -1,5 +1,4 @@
 <div class="dso-edit-menu d-flex"
-     [attr.role]="(menuVisibleWithSections$ | async) ? 'menubar' : null"
      [attr.aria-hidden]="(menuVisibleWithSections$ | async) === false ? 'true' : null">
   @for (sectionDTO of (sectionDTOs$ | async); track sectionDTO) {
     <div class="ms-1">
