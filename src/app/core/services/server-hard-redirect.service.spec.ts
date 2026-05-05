@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { environment } from '../../../environments/environment.test';
+import { environment } from '../../../environments/environment';
 import { ServerHardRedirectService } from './server-hard-redirect.service';
 
 describe('ServerHardRedirectService', () => {
@@ -10,6 +10,7 @@ describe('ServerHardRedirectService', () => {
 
   let service: ServerHardRedirectService = new ServerHardRedirectService(environment, mockRequest, mockResponse);
   const origin = 'https://test-host.com:4000';
+  let originalBaseUrl;
 
   beforeEach(() => {
     mockRequest.protocol = 'https';
@@ -17,7 +18,18 @@ describe('ServerHardRedirectService', () => {
       host: 'test-host.com:4000',
     };
 
+    // Store original environment variable to restore after tests
+    originalBaseUrl = environment.ui.baseUrl;
+
+    // Set environment variable to match our mock location origin for testing
+    environment.ui.baseUrl = origin;
+
     TestBed.configureTestingModule({});
+  });
+
+  afterEach(() => {
+    // Restore original environment variable after tests
+    environment.ui.baseUrl = originalBaseUrl;
   });
 
   it('should be created', () => {
@@ -65,7 +77,7 @@ describe('ServerHardRedirectService', () => {
   describe('when requesting the origin', () => {
 
     it('should return the location origin', () => {
-      expect(service.getCurrentOrigin()).toEqual(origin);
+      expect(service.getBaseUrl()).toEqual(origin);
     });
   });
 

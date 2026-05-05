@@ -18,7 +18,6 @@ import {
   ValidationErrors,
   ValidatorFn,
 } from '@angular/forms';
-import { NgbButtonsModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicCheckboxModel,
   DynamicFormControlComponent,
@@ -66,7 +65,6 @@ export interface ListItem {
   templateUrl: './dynamic-list.component.html',
   imports: [
     AsyncPipe,
-    NgbButtonsModule,
     NgClass,
     ReactiveFormsModule,
     ThemedLoadingComponent,

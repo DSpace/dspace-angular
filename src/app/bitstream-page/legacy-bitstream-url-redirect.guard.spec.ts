@@ -1,6 +1,7 @@
 import { cold } from 'jasmine-marbles';
 import { EMPTY } from 'rxjs';
 
+import { environment } from '../../environments/environment';
 import { PAGE_NOT_FOUND_PATH } from '../app-routing-paths';
 import { BitstreamDataService } from '../core/data/bitstream-data.service';
 import { RemoteData } from '../core/data/remote-data';
@@ -150,7 +151,7 @@ describe('legacyBitstreamURLRedirectGuard', () => {
         }));
         resolver(route, state, bitstreamDataService, hardRedirectService, router).subscribe(() => {
           expect(bitstreamDataService.findByItemHandle).toHaveBeenCalled();
-          expect(hardRedirectService.redirect).toHaveBeenCalledWith(new URL(`/bitstreams/${bitstream.uuid}/download`, window.location.origin).href, 301);
+          expect(hardRedirectService.redirect).toHaveBeenCalledWith(new URL(`/bitstreams/${bitstream.uuid}/download`, environment.ui.baseUrl).href, 301);
         });
       });
     });

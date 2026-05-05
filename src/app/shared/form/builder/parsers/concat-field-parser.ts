@@ -92,18 +92,18 @@ export class ConcatFieldParser extends FieldParser {
     concatGroup.disabled = input1ModelConfig.readOnly;
 
     if (isNotEmpty(this.firstPlaceholder)) {
-      input1ModelConfig.placeholder = this.firstPlaceholder;
+      input1ModelConfig.label = this.firstPlaceholder;
     }
 
     if (isNotEmpty(this.secondPlaceholder)) {
-      input2ModelConfig.placeholder = this.secondPlaceholder;
+      input2ModelConfig.label = this.secondPlaceholder;
     }
 
     // Split placeholder if is like 'placeholder1/placeholder2'
     const placeholder = this.configData.label.split('/');
     if (placeholder.length === 2) {
-      input1ModelConfig.placeholder = placeholder[0];
-      input2ModelConfig.placeholder = placeholder[1];
+      input1ModelConfig.label = placeholder[0];
+      input2ModelConfig.label = placeholder[1];
     }
 
     const model1 = new DsDynamicInputModel(input1ModelConfig, clsInput);

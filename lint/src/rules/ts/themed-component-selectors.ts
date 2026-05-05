@@ -58,7 +58,8 @@ Unit tests are exempt from this rule, because they may redefine components using
 } as DSpaceESLintRuleInfo;
 
 export const rule = ESLintUtils.RuleCreator.withoutDocs({
-  ...info,
+  meta: info.meta,
+  defaultOptions: info.defaultOptions,
   create(context: RuleContext<Message, unknown[]>) {
     const filename = getFilename(context);
 

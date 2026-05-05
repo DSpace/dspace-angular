@@ -3,7 +3,7 @@ import {
   Component,
   Input,
 } from '@angular/core';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { HealthStatus } from '../../models/health-component.model';
@@ -16,7 +16,7 @@ import { HealthStatus } from '../../models/health-component.model';
   templateUrl: './health-status.component.html',
   styleUrls: ['./health-status.component.scss'],
   imports: [
-    NgbTooltipModule,
+    NgbTooltip,
     TranslateModule,
   ],
 })

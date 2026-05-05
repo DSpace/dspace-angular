@@ -16,6 +16,7 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import {
+  BehaviorSubject,
   Observable,
   of,
   Subscription,
@@ -154,6 +155,11 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
 
   ccLicenseLink$: Observable<string>;
 
+  /**
+   * Is the section required
+   */
+  public required$ = new BehaviorSubject<boolean>(false);
+
   constructor(
     protected modalService: NgbModal,
     protected sectionService: SectionsService,
@@ -178,6 +184,7 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
     if (hasNoValue(this.ccLicenseLink$)) {
       this.ccLicenseLink$ = this.getCcLicenseLink$();
     }
+    this.required$.next(this.sectionData.mandatory);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -310,7 +317,10 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
    *     the section status
    */
   getSectionStatus(): Observable<boolean> {
-    return of(this.accepted);
+    return this.required$.pipe(
+      map((required) => !required || this.accepted),
+      distinctUntilChanged(),
+    );
   }
 
   /**

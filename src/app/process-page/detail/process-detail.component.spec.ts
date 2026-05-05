@@ -27,6 +27,7 @@ import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { ProcessDataService } from '../../core/data/processes/process-data.service';
+import { LocaleService } from '../../core/locale/locale.service';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { ThemedFileDownloadLinkComponent } from '../../shared/file-download-link/themed-file-download-link.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
@@ -60,6 +61,12 @@ describe('ProcessDetailComponent', () => {
   let router: RouterStub;
   let modalService;
   let notificationsService: NotificationsServiceStub;
+  let localeService: any;
+  const languageList = ['en;q=1', 'de;q=0.8'];
+  const mockLocaleService = jasmine.createSpyObj('LocaleService', {
+    getCurrentLanguageCode: jasmine.createSpy('getCurrentLanguageCode'),
+    getLanguageCodeList: of(languageList),
+  });
 
   let process: Process;
   let fileName: string;
@@ -169,6 +176,7 @@ describe('ProcessDetailComponent', () => {
         { provide: NgbModal, useValue: modalService },
         { provide: NotificationsService, useValue: notificationsService },
         { provide: Router, useValue: router },
+        { provide: LocaleService, useValue: mockLocaleService },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
@@ -186,7 +194,10 @@ describe('ProcessDetailComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ProcessDetailComponent);
     component = fixture.componentInstance;
+    localeService = TestBed.inject(LocaleService);
+    localeService.getCurrentLanguageCode.and.returnValue(of('en'));
   });
+
   afterEach(fakeAsync(() => {
     TestBed.resetTestingModule();
     fixture.destroy();

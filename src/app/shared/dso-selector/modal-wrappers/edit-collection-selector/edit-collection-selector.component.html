@@ -9,7 +9,7 @@
     }
     <ds-authorized-collection-selector [currentDSOId]="dsoRD?.payload.uuid"
       [types]="selectorTypes"
-      searchHref="findAdminAuthorized"
+      [action]="rpActionType"
       (onSelect)="selectObject($event)"></ds-authorized-collection-selector>
   </div>
 </div>

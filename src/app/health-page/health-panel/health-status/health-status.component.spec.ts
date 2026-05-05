@@ -3,7 +3,7 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateLoader,
   TranslateModule,
@@ -20,7 +20,7 @@ describe('HealthStatusComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        NgbTooltipModule,
+        NgbTooltip,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,

@@ -11,7 +11,7 @@ import {
 import { RouterLink } from '@angular/router';
 import {
   NgbModal,
-  NgbTooltipModule,
+  NgbTooltip,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -75,7 +75,7 @@ import { followLink } from '../../shared/utils/follow-link-config.model';
   imports: [
     AsyncPipe,
     BtnDisabledDirective,
-    NgbTooltipModule,
+    NgbTooltip,
     PaginationComponent,
     ReactiveFormsModule,
     RouterLink,

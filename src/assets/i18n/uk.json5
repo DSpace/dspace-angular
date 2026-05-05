@@ -3899,9 +3899,7 @@
   "home.search-form.placeholder": "Search the repository ...",
 
   // "home.title": "Home",
-  // TODO Source message changed - Revise the translation
-  // TODO Change univer name
-  "home.title": "Репозитарій Львівської політехніки :: Головна",
+  "home.title": "Репозитарій :: Головна",
 
   // "home.top-level-communities.head": "Communities in DSpace",
   "home.top-level-communities.head": "Фонди",
@@ -13067,6 +13065,18 @@
   // "file-download-link.request-copy": "Request a copy of ",
   // TODO New key - Add a translation
   "file-download-link.request-copy": "Request a copy of ",
+
+  // "item.preview.organization.url": "URL",
+  // TODO New key - Add a translation
+  "item.preview.organization.url": "URL",
+
+  // "item.preview.organization.address.addressLocality": "City",
+  // TODO New key - Add a translation
+  "item.preview.organization.address.addressLocality": "City",
+
+  // "item.preview.organization.alternateName": "Alternative name",
+  // TODO New key - Add a translation
+  "item.preview.organization.alternateName": "Alternative name",
 
 
 }

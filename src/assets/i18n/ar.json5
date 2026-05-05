@@ -4518,7 +4518,8 @@
   "item.preview.dc.rights": "الحقوق",
 
   // "item.preview.dc.identifier.other": "Other Identifier",
-  "item.preview.dc.identifier.other": "معرف آخر",
+  // TODO Source message changed - Revise the translation
+  "item.preview.dc.identifier.other": "معرف آخر:",
 
   // "item.preview.dc.relation.issn": "ISSN",
   "item.preview.dc.relation.issn": "ISSN",
@@ -4608,7 +4609,8 @@
   "item.preview.dc.identifier.openalex": "معرّف OpenAlex",
 
   // "item.preview.dc.description": "Description",
-  "item.preview.dc.description": "الوصف",
+  // TODO Source message changed - Revise the translation
+  "item.preview.dc.description": "الوصف:",
 
   // "item.select.confirm": "Confirm selected",
   "item.select.confirm": "تأكيد المحدد",
@@ -10868,6 +10870,18 @@
 
   // "file-download-link.request-copy": "Request a copy of ",
   "file-download-link.request-copy": "طلب نسخة من ",
+
+  // "item.preview.organization.url": "URL",
+  // TODO New key - Add a translation
+  "item.preview.organization.url": "URL",
+
+  // "item.preview.organization.address.addressLocality": "City",
+  // TODO New key - Add a translation
+  "item.preview.organization.address.addressLocality": "City",
+
+  // "item.preview.organization.alternateName": "Alternative name",
+  // TODO New key - Add a translation
+  "item.preview.organization.alternateName": "Alternative name",
 
 
 }

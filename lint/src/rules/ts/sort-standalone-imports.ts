@@ -97,7 +97,8 @@ export const info: DSpaceESLintRuleInfo<[UniqueDecoratorsOptions], [UniqueDecora
 };
 
 export const rule = ESLintUtils.RuleCreator.withoutDocs({
-  ...info,
+  meta: info.meta,
+  defaultOptions: info.defaultOptions,
   create(context: TSESLint.RuleContext<Message, unknown[]>, [{ locale, maxItems, indent, trailingComma }]: any) {
     return {
       ['ClassDeclaration > Decorator > CallExpression[callee.name="Component"] > ObjectExpression > Property[key.name="imports"] > ArrayExpression']: (node: TSESTree.ArrayExpression) => {

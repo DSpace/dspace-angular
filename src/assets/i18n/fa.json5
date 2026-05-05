@@ -1,17 +1,17 @@
 {
-  //"401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
+  // "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
   "401.help": "شما مجاز به دسترسی به این صفحه نیستید. از دکمه زیر برای بازگشت به صفحه اصلی می‌توانید استفاده کنید.",
 
-  //"401.link.home-page": "Take me to the home page",
+  // "401.link.home-page": "Take me to the home page",
   "401.link.home-page": "انتقال به صفحه اصلی",
 
-  //"401.unauthorized": "Unauthorized",
+  // "401.unauthorized": "Unauthorized",
   "401.unauthorized": "غیرمجاز",
 
-  //"403.help": "You don't have permission to access this page. You can use the button below to get back to the home page.",
+  // "403.help": "You don't have permission to access this page. You can use the button below to get back to the home page.",
   "403.help": "شما اجازه دسترسی به این صفحه را ندارید. از دکمه زیر برای بازگشت به صفحه اصلی می‌توانید استفاده کنید.",
 
-  //"403.link.home-page": "Take me to the home page",
+  // "403.link.home-page": "Take me to the home page",
   "403.link.home-page": "انتقال به صفحه اصلی",
 
   // "403.forbidden": "Forbidden",
@@ -25,7 +25,6 @@
 
   // "500.link.home-page": "Take me to the home page",
   "500.link.home-page": "انتقال به صفحه اصلی",
-
 
   // "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page. ",
   "404.help": "ما نمی‌توانیم صفحه مورد نظر شما را پیدا کنیم. ممکن است صفحه منتقل یا حذف شده باشد. می‌توانید از دکمه زیر برای بازگشت به صفحه اصلی استفاده کنید. ",
@@ -50,6 +49,10 @@
 
   // "error-page.orcid.generic-error": "An error occurred during login via ORCID. Make sure you have shared your ORCID account email address with DSpace. If the error persists, contact the administrator",
   "error-page.orcid.generic-error": "هنگام ورود از طریق ORCID خطایی روی داد. مطمئن شوید که آدرس ایمیل حساب ORCID خود را با دی اسپیس به اشتراک گذاشته‌اید. اگر خطا ادامه داشت، با مدیر تماس بگیرید.",
+
+  // "listelement.badge.access-status": "Access status:",
+  // TODO New key - Add a translation
+  "listelement.badge.access-status": "Access status:",
 
   // "access-status.embargo.listelement.badge": "Embargo",
   "access-status.embargo.listelement.badge": "مسدود",
@@ -456,6 +459,22 @@
   // "admin.access-control.epeople.table.edit.buttons.remove": "Delete \"{{name}}\"",
   "admin.access-control.epeople.table.edit.buttons.remove": "حذف \"{{name}}\"",
 
+  // "admin.access-control.epeople.table.edit.buttons.remove.modal.header": "Delete Group \"{{ dsoName }}\"",
+  // TODO New key - Add a translation
+  "admin.access-control.epeople.table.edit.buttons.remove.modal.header": "Delete Group \"{{ dsoName }}\"",
+
+  // "admin.access-control.epeople.table.edit.buttons.remove.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\" and all its associated policies?",
+  // TODO New key - Add a translation
+  "admin.access-control.epeople.table.edit.buttons.remove.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\" and all its associated policies?",
+
+  // "admin.access-control.epeople.table.edit.buttons.remove.modal.cancel": "Cancel",
+  // TODO New key - Add a translation
+  "admin.access-control.epeople.table.edit.buttons.remove.modal.cancel": "Cancel",
+
+  // "admin.access-control.epeople.table.edit.buttons.remove.modal.confirm": "Delete",
+  // TODO New key - Add a translation
+  "admin.access-control.epeople.table.edit.buttons.remove.modal.confirm": "Delete",
+
   // "admin.access-control.epeople.no-items": "No EPeople to show.",
   "admin.access-control.epeople.no-items": "افرادی برای نماش وجود (EPeople) ندارد.",
 
@@ -648,7 +667,8 @@
   // "admin.access-control.groups.form.delete-group.modal.header": "Delete Group \"{{ dsoName }}\"",
   "admin.access-control.groups.form.delete-group.modal.header": "حذف گروه \"{{ dsoName }}\"",
 
-  // "admin.access-control.groups.form.delete-group.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\"",
+  // "admin.access-control.groups.form.delete-group.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\" and all its associated policies?",
+  // TODO Source message changed - Revise the translation
   "admin.access-control.groups.form.delete-group.modal.info": "آیا مطمئن هستید میخواهید گروه \"{{ dsoName }}\" را حذف کنید",
 
   // "admin.access-control.groups.form.delete-group.modal.cancel": "Cancel",
@@ -994,7 +1014,6 @@
   // "admin.reports.commons.filters.matches_all": "Matches all specified filters",
   "admin.reports.commons.filters.matches_all": "منطبق با همه فیلترهای مشخص شده",
 
-
   // "admin.reports.commons.filters.property": "Item Property Filters",
   "admin.reports.commons.filters.property": "فیلترهای ویژگی آیتم",
 
@@ -1074,596 +1093,448 @@
   "admin.reports.commons.filters.bundle": "فیلترهای بسته فایلها",
 
   // "admin.reports.commons.filters.bundle.has_unsupported_bundle": "Has bitstream in an unsupported bundle",
-  // TODO New key - Add a translation
-  "admin.reports.commons.filters.bundle.has_unsupported_bundle": "Has bitstream in an unsupported bundle",
+  "admin.reports.commons.filters.bundle.has_unsupported_bundle": "دارای فایل در یک بسته پشتیبانی نشده است",
 
   // "admin.reports.commons.filters.bundle.has_small_thumbnail": "Has unusually small thumbnail",
-  // TODO New key - Add a translation
-  "admin.reports.commons.filters.bundle.has_small_thumbnail": "Has unusually small thumbnail",
+  "admin.reports.commons.filters.bundle.has_small_thumbnail": "دارای تصویر کوچک غیرمعمول",
 
   // "admin.reports.commons.filters.bundle.has_original_without_thumbnail": "Has original bitstream without thumbnail",
-  // TODO New key - Add a translation
-  "admin.reports.commons.filters.bundle.has_original_without_thumbnail": "Has original bitstream without thumbnail",
+  "admin.reports.commons.filters.bundle.has_original_without_thumbnail": "دارای فایل اصلی بدون تصویر کوچک",
 
   // "admin.reports.commons.filters.bundle.has_invalid_thumbnail_name": "Has invalid thumbnail name (assumes one thumbnail for each original)",
-  // TODO New key - Add a translation
-  "admin.reports.commons.filters.bundle.has_invalid_thumbnail_name": "Has invalid thumbnail name (assumes one thumbnail for each original)",
+  "admin.reports.commons.filters.bundle.has_invalid_thumbnail_name": "نام تصویر کوچک نامعتبر است (برای هر اصلی یک تصویر کوچک در نظر گرفته شده است)",
 
   // "admin.reports.commons.filters.bundle.has_non_generated_thumb": "Has non-generated thumbnail",
-  // TODO New key - Add a translation
-  "admin.reports.commons.filters.bundle.has_non_generated_thumb": "Has non-generated thumbnail",
+  "admin.reports.commons.filters.bundle.has_non_generated_thumb": "دارای تصویر کوچک تولید نشده ",
 
   // "admin.reports.commons.filters.bundle.no_license": "Doesn't have a license",
-  // TODO New key - Add a translation
-  "admin.reports.commons.filters.bundle.no_license": "Doesn't have a license",
+  "admin.reports.commons.filters.bundle.no_license": "مجوز ندارد.",
 
   // "admin.reports.commons.filters.bundle.has_license_documentation": "Has documentation in the license bundle",
-  // TODO New key - Add a translation
-  "admin.reports.commons.filters.bundle.has_license_documentation": "Has documentation in the license bundle",
+  "admin.reports.commons.filters.bundle.has_license_documentation": "دارای مستندات در بسته مجوز است",
 
   // "admin.reports.commons.filters.permission": "Permission Filters",
-  // TODO New key - Add a translation
-  "admin.reports.commons.filters.permission": "Permission Filters",
+  "admin.reports.commons.filters.permission": "فیلترهای مجوز",
 
   // "admin.reports.commons.filters.permission.has_restricted_original": "Item has Restricted Original Bitstream",
-  // TODO New key - Add a translation
-  "admin.reports.commons.filters.permission.has_restricted_original": "Item has Restricted Original Bitstream",
+  "admin.reports.commons.filters.permission.has_restricted_original": "آیتم دارای فایل اصلی محدود شده است",
 
   // "admin.reports.commons.filters.permission.has_restricted_original.tooltip": "Item has at least one original bitstream that is not accessible to Anonymous user",
-  // TODO New key - Add a translation
-  "admin.reports.commons.filters.permission.has_restricted_original.tooltip": "Item has at least one original bitstream that is not accessible to Anonymous user",
+  "admin.reports.commons.filters.permission.has_restricted_original.tooltip": "آیتم حداقل یک فایل اصلی دارد که برای کاربر ناشناس قابل دسترسی نیست",
 
   // "admin.reports.commons.filters.permission.has_restricted_thumbnail": "Item has Restricted Thumbnail",
-  // TODO New key - Add a translation
-  "admin.reports.commons.filters.permission.has_restricted_thumbnail": "Item has Restricted Thumbnail",
+  "admin.reports.commons.filters.permission.has_restricted_thumbnail": "تصویر کوچک آیتم محدود شده است",
 
   // "admin.reports.commons.filters.permission.has_restricted_thumbnail.tooltip": "Item has at least one thumbnail that is not accessible to Anonymous user",
-  // TODO New key - Add a translation
-  "admin.reports.commons.filters.permission.has_restricted_thumbnail.tooltip": "Item has at least one thumbnail that is not accessible to Anonymous user",
+  "admin.reports.commons.filters.permission.has_restricted_thumbnail.tooltip": "آیتم حداقل یک تصویر کوچک دارد که برای کاربر ناشناس قابل دسترسی نیست",
 
   // "admin.reports.commons.filters.permission.has_restricted_metadata": "Item has Restricted Metadata",
-  // TODO New key - Add a translation
-  "admin.reports.commons.filters.permission.has_restricted_metadata": "Item has Restricted Metadata",
+  "admin.reports.commons.filters.permission.has_restricted_metadata": "آیتم دارای ابرداده محدود است",
 
   // "admin.reports.commons.filters.permission.has_restricted_metadata.tooltip": "Item has metadata that is not accessible to Anonymous user",
-  // TODO New key - Add a translation
-  "admin.reports.commons.filters.permission.has_restricted_metadata.tooltip": "Item has metadata that is not accessible to Anonymous user",
+  "admin.reports.commons.filters.permission.has_restricted_metadata.tooltip": "آیتم دارای ابرداده‌ای است که برای کاربر ناشناس قابل دسترسی نیست",
 
   // "admin.search.breadcrumbs": "Administrative Search",
-  // TODO New key - Add a translation
-  "admin.search.breadcrumbs": "Administrative Search",
+  "admin.search.breadcrumbs": "جستجوی مدیریتی",
 
   // "admin.search.collection.edit": "Edit",
-  // TODO New key - Add a translation
-  "admin.search.collection.edit": "Edit",
+  "admin.search.collection.edit": "ویرایش",
 
   // "admin.search.community.edit": "Edit",
-  // TODO New key - Add a translation
-  "admin.search.community.edit": "Edit",
+  "admin.search.community.edit": "ویرایش",
 
   // "admin.search.item.delete": "Delete",
-  // TODO New key - Add a translation
-  "admin.search.item.delete": "Delete",
+  "admin.search.item.delete": "حذف",
 
   // "admin.search.item.edit": "Edit",
-  // TODO New key - Add a translation
-  "admin.search.item.edit": "Edit",
+  "admin.search.item.edit": "ویرایش",
 
   // "admin.search.item.make-private": "Make non-discoverable",
-  // TODO New key - Add a translation
-  "admin.search.item.make-private": "Make non-discoverable",
+  "admin.search.item.make-private": "غیرقابل کشف کردن",
 
   // "admin.search.item.make-public": "Make discoverable",
-  // TODO New key - Add a translation
-  "admin.search.item.make-public": "Make discoverable",
+  "admin.search.item.make-public": "قابل کشف کردن",
 
   // "admin.search.item.move": "Move",
-  // TODO New key - Add a translation
-  "admin.search.item.move": "Move",
+  "admin.search.item.move": "حرکت",
 
   // "admin.search.item.reinstate": "Reinstate",
-  // TODO New key - Add a translation
-  "admin.search.item.reinstate": "Reinstate",
+  "admin.search.item.reinstate": "بازگرداندن",
 
   // "admin.search.item.withdraw": "Withdraw",
-  // TODO New key - Add a translation
-  "admin.search.item.withdraw": "Withdraw",
+  "admin.search.item.withdraw": "برداشت",
 
   // "admin.search.title": "Administrative Search",
-  // TODO New key - Add a translation
-  "admin.search.title": "Administrative Search",
+  "admin.search.title": "جستجوی مدیریتی",
 
   // "administrativeView.search.results.head": "Administrative Search",
-  // TODO New key - Add a translation
-  "administrativeView.search.results.head": "Administrative Search",
+  "administrativeView.search.results.head": "جستجوی مدیریتی",
 
   // "admin.workflow.breadcrumbs": "Administer Workflow",
-  // TODO New key - Add a translation
-  "admin.workflow.breadcrumbs": "Administer Workflow",
+  "admin.workflow.breadcrumbs": "مدیریت گردش کار",
 
   // "admin.workflow.title": "Administer Workflow",
-  // TODO New key - Add a translation
-  "admin.workflow.title": "Administer Workflow",
+  "admin.workflow.title": "مدیریت گردش کار",
 
   // "admin.workflow.item.workflow": "Workflow",
-  // TODO New key - Add a translation
-  "admin.workflow.item.workflow": "Workflow",
+  "admin.workflow.item.workflow": "گردش کار",
 
   // "admin.workflow.item.workspace": "Workspace",
-  // TODO New key - Add a translation
-  "admin.workflow.item.workspace": "Workspace",
+  "admin.workflow.item.workspace": "فضای کاری",
 
   // "admin.workflow.item.delete": "Delete",
-  // TODO New key - Add a translation
-  "admin.workflow.item.delete": "Delete",
+  "admin.workflow.item.delete": "حذف",
 
   // "admin.workflow.item.send-back": "Send back",
-  // TODO New key - Add a translation
-  "admin.workflow.item.send-back": "Send back",
+  "admin.workflow.item.send-back": "ارسال مجدد",
 
   // "admin.workflow.item.policies": "Policies",
-  // TODO New key - Add a translation
-  "admin.workflow.item.policies": "Policies",
+  "admin.workflow.item.policies": "سیاستها",
 
   // "admin.workflow.item.supervision": "Supervision",
-  // TODO New key - Add a translation
-  "admin.workflow.item.supervision": "Supervision",
+  "admin.workflow.item.supervision": "نظارت",
 
   // "admin.metadata-import.breadcrumbs": "Import Metadata",
-  // TODO New key - Add a translation
-  "admin.metadata-import.breadcrumbs": "Import Metadata",
+  "admin.metadata-import.breadcrumbs": "وارد کردن ابرداده",
 
   // "admin.batch-import.breadcrumbs": "Import Batch",
-  // TODO New key - Add a translation
-  "admin.batch-import.breadcrumbs": "Import Batch",
+  "admin.batch-import.breadcrumbs": "وارد کردن دسته ای",
 
   // "admin.metadata-import.title": "Import Metadata",
-  // TODO New key - Add a translation
-  "admin.metadata-import.title": "Import Metadata",
+  "admin.metadata-import.title": "وارد کردن ابرداده",
 
   // "admin.batch-import.title": "Import Batch",
-  // TODO New key - Add a translation
-  "admin.batch-import.title": "Import Batch",
+  "admin.batch-import.title": "وارد کردن دسته ای",
 
   // "admin.metadata-import.page.header": "Import Metadata",
-  // TODO New key - Add a translation
-  "admin.metadata-import.page.header": "Import Metadata",
+  "admin.metadata-import.page.header": "وارد کردن ابرداده",
 
   // "admin.batch-import.page.header": "Import Batch",
-  // TODO New key - Add a translation
-  "admin.batch-import.page.header": "Import Batch",
+  "admin.batch-import.page.header": "وارد کردن دسته ای",
 
   // "admin.metadata-import.page.help": "You can drop or browse CSV files that contain batch metadata operations on files here",
-  // TODO New key - Add a translation
-  "admin.metadata-import.page.help": "You can drop or browse CSV files that contain batch metadata operations on files here",
+  "admin.metadata-import.page.help": "می‌توانید فایل‌های CSV که حاوی عملیات متادیتای دسته‌ای روی فایل‌ها هستند را اینجا رها یا مرور کنید",
 
   // "admin.batch-import.page.help": "Select the collection to import into. Then, drop or browse to a Simple Archive Format (SAF) zip file that includes the items to import",
-  // TODO New key - Add a translation
-  "admin.batch-import.page.help": "Select the collection to import into. Then, drop or browse to a Simple Archive Format (SAF) zip file that includes the items to import",
+  "admin.batch-import.page.help": "مجموعه‌ای را که می‌خواهید وارد کنید انتخاب کنید. سپس، فایل زیپ با فرمت آرشیو ساده (SAF) که شامل آیتمهای مورد نظر برای وارد کردن است را رها کنید یا به آن بروید.",
 
   // "admin.batch-import.page.toggle.help": "It is possible to perform import either with file upload or via URL, use above toggle to set the input source",
-  // TODO New key - Add a translation
-  "admin.batch-import.page.toggle.help": "It is possible to perform import either with file upload or via URL, use above toggle to set the input source",
+  "admin.batch-import.page.toggle.help": "انجام واردکردن یا با بارگزاری فایل یا از طریق URL امکان‌پذیر است، برای تنظیم منبع ورودی از دکمه‌ی بالا استفاده کنید.",
 
   // "admin.metadata-import.page.dropMsg": "Drop a metadata CSV to import",
-  // TODO New key - Add a translation
-  "admin.metadata-import.page.dropMsg": "Drop a metadata CSV to import",
+  "admin.metadata-import.page.dropMsg": "برای وارد کردن، یک CSV ابرداده را رها کنید",
 
   // "admin.batch-import.page.dropMsg": "Drop a batch ZIP to import",
-  // TODO New key - Add a translation
-  "admin.batch-import.page.dropMsg": "Drop a batch ZIP to import",
+  "admin.batch-import.page.dropMsg": "برای وارد کردن، یک فایل زیپ دسته‌ای را رها کنید",
 
   // "admin.metadata-import.page.dropMsgReplace": "Drop to replace the metadata CSV to import",
-  // TODO New key - Add a translation
-  "admin.metadata-import.page.dropMsgReplace": "Drop to replace the metadata CSV to import",
+  "admin.metadata-import.page.dropMsgReplace": "برای جای گزینی ابرداده CSV برای وارد کردن، آن را رها کنید",
 
   // "admin.batch-import.page.dropMsgReplace": "Drop to replace the batch ZIP to import",
-  // TODO New key - Add a translation
-  "admin.batch-import.page.dropMsgReplace": "Drop to replace the batch ZIP to import",
+  "admin.batch-import.page.dropMsgReplace": "برای جایگزینی فایل زیپ وارد شده، آن را رها کنید",
 
   // "admin.metadata-import.page.button.return": "Back",
-  // TODO New key - Add a translation
-  "admin.metadata-import.page.button.return": "Back",
+  "admin.metadata-import.page.button.return": "برگشت",
 
   // "admin.metadata-import.page.button.proceed": "Proceed",
-  // TODO New key - Add a translation
-  "admin.metadata-import.page.button.proceed": "Proceed",
+  "admin.metadata-import.page.button.proceed": "ادامه",
 
   // "admin.metadata-import.page.button.select-collection": "Select Collection",
-  // TODO New key - Add a translation
-  "admin.metadata-import.page.button.select-collection": "Select Collection",
+  "admin.metadata-import.page.button.select-collection": "انتخاب مجموعه",
 
   // "admin.metadata-import.page.error.addFile": "Select file first!",
-  // TODO New key - Add a translation
-  "admin.metadata-import.page.error.addFile": "Select file first!",
+  "admin.metadata-import.page.error.addFile": "ابتدا فایل را انتخاب کنید!",
 
   // "admin.metadata-import.page.error.addFileUrl": "Insert file URL first!",
-  // TODO New key - Add a translation
-  "admin.metadata-import.page.error.addFileUrl": "Insert file URL first!",
+  "admin.metadata-import.page.error.addFileUrl": "ابتدا آدرس فایل را وارد کنید!",
 
   // "admin.batch-import.page.error.addFile": "Select ZIP file first!",
-  // TODO New key - Add a translation
-  "admin.batch-import.page.error.addFile": "Select ZIP file first!",
+  "admin.batch-import.page.error.addFile": "ابتدا فایل زیپ را انتخاب کنید!",
 
   // "admin.metadata-import.page.toggle.upload": "Upload",
-  // TODO New key - Add a translation
-  "admin.metadata-import.page.toggle.upload": "Upload",
+  "admin.metadata-import.page.toggle.upload": "بارگزاری",
 
   // "admin.metadata-import.page.toggle.url": "URL",
-  // TODO New key - Add a translation
   "admin.metadata-import.page.toggle.url": "URL",
 
   // "admin.metadata-import.page.urlMsg": "Insert the batch ZIP url to import",
-  // TODO New key - Add a translation
-  "admin.metadata-import.page.urlMsg": "Insert the batch ZIP url to import",
+  "admin.metadata-import.page.urlMsg": "آدرس فایل زیپ دسته‌ای را برای وارد کردن وارد کنید",
 
   // "admin.metadata-import.page.validateOnly": "Validate Only",
-  // TODO New key - Add a translation
-  "admin.metadata-import.page.validateOnly": "Validate Only",
+  "admin.metadata-import.page.validateOnly": "فقط اعتبارسنجی",
 
   // "admin.metadata-import.page.validateOnly.hint": "When selected, the uploaded CSV will be validated. You will receive a report of detected changes, but no changes will be saved.",
-  // TODO New key - Add a translation
-  "admin.metadata-import.page.validateOnly.hint": "When selected, the uploaded CSV will be validated. You will receive a report of detected changes, but no changes will be saved.",
+  "admin.metadata-import.page.validateOnly.hint": "پس از انتخاب، فایل CSV بارگزاری شده اعتبارسنجی می‌شود. گزارشی از تغییرات شناسایی شده دریافت خواهید کرد، اما هیچ تغییری ذخیره نخواهد شد.",
 
   // "advanced-workflow-action.rating.form.rating.label": "Rating",
-  // TODO New key - Add a translation
-  "advanced-workflow-action.rating.form.rating.label": "Rating",
+  "advanced-workflow-action.rating.form.rating.label": "رتبه‌بندی",
 
   // "advanced-workflow-action.rating.form.rating.error": "You must rate the item",
-  // TODO New key - Add a translation
-  "advanced-workflow-action.rating.form.rating.error": "You must rate the item",
+  "advanced-workflow-action.rating.form.rating.error": "شما باید به آیتم امتیاز دهید",
 
   // "advanced-workflow-action.rating.form.review.label": "Review",
-  // TODO New key - Add a translation
-  "advanced-workflow-action.rating.form.review.label": "Review",
+  "advanced-workflow-action.rating.form.review.label": "نقد",
 
   // "advanced-workflow-action.rating.form.review.error": "You must enter a review to submit this rating",
-  // TODO New key - Add a translation
-  "advanced-workflow-action.rating.form.review.error": "You must enter a review to submit this rating",
+  "advanced-workflow-action.rating.form.review.error": "برای ارسال این رتبه‌بندی، باید نقد خود را وارد کنید",
 
   // "advanced-workflow-action.rating.description": "Please select a rating below",
-  // TODO New key - Add a translation
-  "advanced-workflow-action.rating.description": "Please select a rating below",
+  "advanced-workflow-action.rating.description": "لطفا یک رتبه بندی در زیر را انتخاب کنید",
 
   // "advanced-workflow-action.rating.description-requiredDescription": "Please select a rating below and also add a review",
-  // TODO New key - Add a translation
-  "advanced-workflow-action.rating.description-requiredDescription": "Please select a rating below and also add a review",
+  "advanced-workflow-action.rating.description-requiredDescription": "لطفا یک رتبه بندی در زیر را انتخاب کنید و همچنین یک نقد اضافه کنید",
 
   // "advanced-workflow-action.select-reviewer.description-single": "Please select a single reviewer below before submitting",
-  // TODO New key - Add a translation
-  "advanced-workflow-action.select-reviewer.description-single": "Please select a single reviewer below before submitting",
+  "advanced-workflow-action.select-reviewer.description-single": "لطفاً قبل از ارسال، یک داور واحد را در زیر انتخاب کنید",
 
   // "advanced-workflow-action.select-reviewer.description-multiple": "Please select one or more reviewers below before submitting",
-  // TODO New key - Add a translation
-  "advanced-workflow-action.select-reviewer.description-multiple": "Please select one or more reviewers below before submitting",
+  "advanced-workflow-action.select-reviewer.description-multiple": "لطفا قبل از ارسال، یک یا چند داور را از زیر انتخاب کنید",
 
   // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.head": "EPeople",
-  // TODO New key - Add a translation
   "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.head": "EPeople",
 
   // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.head": "Add EPeople",
-  // TODO New key - Add a translation
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.head": "Add EPeople",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.head": "افزودن EPeople",
 
   // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.button.see-all": "Browse All",
-  // TODO New key - Add a translation
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.button.see-all": "Browse All",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.button.see-all": "مرور همه",
 
   // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.headMembers": "Current Members",
-  // TODO New key - Add a translation
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.headMembers": "Current Members",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.headMembers": "اعضا جاری",
 
   // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.button": "Search",
-  // TODO New key - Add a translation
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.button": "Search",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.button": "جستجو",
 
   // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.id": "ID",
-  // TODO New key - Add a translation
   "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.id": "ID",
 
   // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.name": "Name",
-  // TODO New key - Add a translation
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.name": "Name",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.name": "نام",
 
   // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.identity": "Identity",
-  // TODO New key - Add a translation
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.identity": "Identity",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.identity": "هویت",
 
   // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.email": "Email",
-  // TODO New key - Add a translation
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.email": "Email",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.email": "ایمیل",
 
   // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.netid": "NetID",
-  // TODO New key - Add a translation
   "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.netid": "NetID",
 
   // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit": "Remove / Add",
-  // TODO New key - Add a translation
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit": "Remove / Add",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit": "حذف/افزودن",
 
   // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit.buttons.remove": "Remove member with name \"{{name}}\"",
-  // TODO New key - Add a translation
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit.buttons.remove": "Remove member with name \"{{name}}\"",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit.buttons.remove": "حذف عضو با نام \"{{name}}\"",
 
   // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.success.addMember": "Successfully added member: \"{{name}}\"",
-  // TODO New key - Add a translation
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.success.addMember": "Successfully added member: \"{{name}}\"",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.success.addMember": "عضو با موفقیت افزوده شد: \"{{name}}\"",
 
   // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.addMember": "Failed to add member: \"{{name}}\"",
-  // TODO New key - Add a translation
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.addMember": "Failed to add member: \"{{name}}\"",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.addMember": "افزودن عضو ناموفق بود: \"{{name}}\"",
 
   // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.success.deleteMember": "Successfully deleted member: \"{{name}}\"",
-  // TODO New key - Add a translation
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.success.deleteMember": "Successfully deleted member: \"{{name}}\"",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.success.deleteMember": "عضو با موفقیت حذف شد: \"{{name}}\"",
 
   // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.deleteMember": "Failed to delete member: \"{{name}}\"",
-  // TODO New key - Add a translation
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.deleteMember": "Failed to delete member: \"{{name}}\"",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.deleteMember": "حذف عضو ناموفق بود: \"{{name}}\"",
 
   // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit.buttons.add": "Add member with name \"{{name}}\"",
-  // TODO New key - Add a translation
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit.buttons.add": "Add member with name \"{{name}}\"",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit.buttons.add": "افزودن عضو با نام \"{{name}}\"",
 
   // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.noActiveGroup": "No current active group, submit a name first.",
-  // TODO New key - Add a translation
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.noActiveGroup": "No current active group, submit a name first.",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.noActiveGroup": "در حال حاضر گروه فعالی وجود ندارد، ابتدا نام را ارسال کنید.",
 
   // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.no-members-yet": "No members in group yet, search and add.",
-  // TODO New key - Add a translation
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.no-members-yet": "No members in group yet, search and add.",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.no-members-yet": "هنوز عضوی در گروه نیست، جستجو و اضافه کنید.",
 
   // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.no-items": "No EPeople found in that search",
-  // TODO New key - Add a translation
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.no-items": "No EPeople found in that search",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.no-items": "هیچ EPeople در آن جستجو یافت نشد",
 
   // "advanced-workflow-action.select-reviewer.no-reviewer-selected.error": "No reviewer selected.",
-  // TODO New key - Add a translation
-  "advanced-workflow-action.select-reviewer.no-reviewer-selected.error": "No reviewer selected.",
+  "advanced-workflow-action.select-reviewer.no-reviewer-selected.error": "داوری انتخاب نشده است",
 
   // "admin.batch-import.page.validateOnly.hint": "When selected, the uploaded ZIP will be validated. You will receive a report of detected changes, but no changes will be saved.",
-  // TODO New key - Add a translation
-  "admin.batch-import.page.validateOnly.hint": "When selected, the uploaded ZIP will be validated. You will receive a report of detected changes, but no changes will be saved.",
+  "admin.batch-import.page.validateOnly.hint": "پس از انتخاب، فایل زیپ بارگزاری شده اعتبارسنجی می‌شود. گزارشی از تغییرات شناسایی شده دریافت خواهید کرد، اما هیچ تغییری ذخیره نخواهد شد.",
 
   // "admin.batch-import.page.remove": "remove",
-  // TODO New key - Add a translation
-  "admin.batch-import.page.remove": "remove",
+  "admin.batch-import.page.remove": "حذف",
 
   // "auth.errors.invalid-user": "Invalid email address or password.",
-  // TODO New key - Add a translation
-  "auth.errors.invalid-user": "Invalid email address or password.",
+  "auth.errors.invalid-user": "آدرس ایمیل یا رمز عبور نامعتبر",
 
   // "auth.messages.expired": "Your session has expired. Please log in again.",
-  // TODO New key - Add a translation
-  "auth.messages.expired": "Your session has expired. Please log in again.",
+  "auth.messages.expired": "زمان استفاده از حساب کاربری شما به پایان رسیده است. لطفا دوباره وارد شوید.",
 
   // "auth.messages.token-refresh-failed": "Refreshing your session token failed. Please log in again.",
-  // TODO New key - Add a translation
-  "auth.messages.token-refresh-failed": "Refreshing your session token failed. Please log in again.",
+  "auth.messages.token-refresh-failed": "به‌روزرسانی توکن نشست شما ناموفق بود. لطفاً دوباره وارد شوید.",
 
   // "bitstream.download.page": "Now downloading {{bitstream}}...",
-  // TODO New key - Add a translation
-  "bitstream.download.page": "Now downloading {{bitstream}}...",
+  "bitstream.download.page": "درحال دانلود کردن {{bitstream}}...",
 
   // "bitstream.download.page.back": "Back",
-  // TODO New key - Add a translation
-  "bitstream.download.page.back": "Back",
+  "bitstream.download.page.back": "برگشت",
 
   // "bitstream.edit.authorizations.link": "Edit bitstream's Policies",
-  // TODO New key - Add a translation
-  "bitstream.edit.authorizations.link": "Edit bitstream's Policies",
+  "bitstream.edit.authorizations.link": "ویرایش سیاستهای فایل",
 
   // "bitstream.edit.authorizations.title": "Edit bitstream's Policies",
-  // TODO New key - Add a translation
-  "bitstream.edit.authorizations.title": "Edit bitstream's Policies",
+  "bitstream.edit.authorizations.title": "ویرایش سیاستهای فایل",
 
   // "bitstream.edit.return": "Back",
-  // TODO New key - Add a translation
-  "bitstream.edit.return": "Back",
+  "bitstream.edit.return": "برگشت",
 
   // "bitstream.edit.bitstream": "Bitstream: ",
-  // TODO New key - Add a translation
-  "bitstream.edit.bitstream": "Bitstream: ",
+  "bitstream.edit.bitstream": "فایل: ",
 
   // "bitstream.edit.form.description.hint": "Optionally, provide a brief description of the file, for example \"<i>Main article</i>\" or \"<i>Experiment data readings</i>\".",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.description.hint": "Optionally, provide a brief description of the file, for example \"<i>Main article</i>\" or \"<i>Experiment data readings</i>\".",
+  "bitstream.edit.form.description.hint": "در صورت تمایل، توضیح مختصری از فایل ارائه دهید، برای مثال \"<i>مقاله اصلی</i>\" یا \"<i>خواندنیهای داده آزمایش</i>\".",
 
   // "bitstream.edit.form.description.label": "Description",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.description.label": "Description",
+  "bitstream.edit.form.description.label": "توصیف",
 
   // "bitstream.edit.form.embargo.hint": "The first day from which access is allowed. <b>This date cannot be modified on this form.</b> To set an embargo date for a bitstream, go to the <i>Item Status</i> tab, click <i>Authorizations...</i>, create or edit the bitstream's <i>READ</i> policy, and set the <i>Start Date</i> as desired.",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.embargo.hint": "The first day from which access is allowed. <b>This date cannot be modified on this form.</b> To set an embargo date for a bitstream, go to the <i>Item Status</i> tab, click <i>Authorizations...</i>, create or edit the bitstream's <i>READ</i> policy, and set the <i>Start Date</i> as desired.",
+  "bitstream.edit.form.embargo.hint": "اولین روزی که از آن تاریخ دسترسی مجاز است. <b>این تاریخ در این فرم قابل تغییر نیست.</b> برای تنظیم تاریخ ممنوعیت (قفل فایل) برای یک فایل به زبانه <i>وضعیت آیتم</i> بروید، روی <i>مجوزها...</i> کلیک کنید، سیاست <i>خواندن</i> فایل را ایجاد یا ویرایش کنید و <i>تاریخ شروع</i> را به دلخواه تنظیم کنید.",
 
   // "bitstream.edit.form.embargo.label": "Embargo until specific date",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.embargo.label": "Embargo until specific date",
+  "bitstream.edit.form.embargo.label": "ممنوعیت (قفل فایل) تا تاریخ مشخص",
 
   // "bitstream.edit.form.fileName.hint": "Change the filename for the bitstream. Note that this will change the display bitstream URL, but old links will still resolve as long as the sequence ID does not change.",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.fileName.hint": "Change the filename for the bitstream. Note that this will change the display bitstream URL, but old links will still resolve as long as the sequence ID does not change.",
+  "bitstream.edit.form.fileName.hint": "نام فایل را تغییر دهید. توجه داشته باشید که این کار آدرس اینترنتی فایل نمایش داده شده را تغییر می‌دهد، اما لینک‌های قدیمی همچنان تا زمانی که شناسه توالی تغییر نکند، قابل مشاهده خواهند بود.",
 
   // "bitstream.edit.form.fileName.label": "Filename",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.fileName.label": "Filename",
+  "bitstream.edit.form.fileName.label": "نام فایل",
 
   // "bitstream.edit.form.newFormat.label": "Describe new format",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.newFormat.label": "Describe new format",
+  "bitstream.edit.form.newFormat.label": "توصیف قالب جدید",
 
   // "bitstream.edit.form.newFormat.hint": "The application you used to create the file, and the version number (for example, \"<i>ACMESoft SuperApp version 1.5</i>\").",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.newFormat.hint": "The application you used to create the file, and the version number (for example, \"<i>ACMESoft SuperApp version 1.5</i>\").",
+  "bitstream.edit.form.newFormat.hint": "برنامه‌ای که برای ایجاد فایل استفاده کرده‌اید و شماره نسخه (برای مثال، \"<i>ACMESoft SuperApp version 1.5</i>\").",
 
   // "bitstream.edit.form.primaryBitstream.label": "Primary File",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.primaryBitstream.label": "Primary File",
+  "bitstream.edit.form.primaryBitstream.label": "فایل اصلی",
 
   // "bitstream.edit.form.selectedFormat.hint": "If the format is not in the above list, <b>select \"format not in list\" above</b> and describe it under \"Describe new format\".",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.selectedFormat.hint": "If the format is not in the above list, <b>select \"format not in list\" above</b> and describe it under \"Describe new format\".",
+  "bitstream.edit.form.selectedFormat.hint": "اگر قالب مورد نظر در فهرست بالا نیست، <b>گزینه «قالب در فهرست نیست» را در بالا انتخاب کنید</b> و آن را در زیر «توضیح قالب جدید» شرح دهید.",
 
   // "bitstream.edit.form.selectedFormat.label": "Selected Format",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.selectedFormat.label": "Selected Format",
+  "bitstream.edit.form.selectedFormat.label": "قالب انتخاب شده",
 
   // "bitstream.edit.form.selectedFormat.unknown": "Format not in list",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.selectedFormat.unknown": "Format not in list",
+  "bitstream.edit.form.selectedFormat.unknown": "قالب در لیست نیست",
 
   // "bitstream.edit.notifications.error.format.title": "An error occurred saving the bitstream's format",
-  // TODO New key - Add a translation
-  "bitstream.edit.notifications.error.format.title": "An error occurred saving the bitstream's format",
+  "bitstream.edit.notifications.error.format.title": "خطایی در ذخیره قالب فایل رخ داد",
 
   // "bitstream.edit.notifications.error.primaryBitstream.title": "An error occurred saving the primary bitstream",
-  // TODO New key - Add a translation
-  "bitstream.edit.notifications.error.primaryBitstream.title": "An error occurred saving the primary bitstream",
+  "bitstream.edit.notifications.error.primaryBitstream.title": "خطایی در ذخیره فایل اصلی رخ داد",
 
   // "bitstream.edit.form.iiifLabel.label": "IIIF Label",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.iiifLabel.label": "IIIF Label",
+  "bitstream.edit.form.iiifLabel.label": "IIIF برچسب",
 
   // "bitstream.edit.form.iiifLabel.hint": "Canvas label for this image. If not provided default label will be used.",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.iiifLabel.hint": "Canvas label for this image. If not provided default label will be used.",
+  "bitstream.edit.form.iiifLabel.hint": "برچسب بوم نقاشی برای این تصویر. در صورت عدم ارائه، برچسب پیش‌فرض استفاده خواهد شد.",
 
   // "bitstream.edit.form.iiifToc.label": "IIIF Table of Contents",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.iiifToc.label": "IIIF Table of Contents",
+  "bitstream.edit.form.iiifToc.label": "فهرست مندرجات IIIF",
 
   // "bitstream.edit.form.iiifToc.hint": "Adding text here makes this the start of a new table of contents range.",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.iiifToc.hint": "Adding text here makes this the start of a new table of contents range.",
+  "bitstream.edit.form.iiifToc.hint": "افزودن متن در اینجا، این را به شروع یک محدوده جدید از فهرست مندرجات تبدیل می‌کند.",
 
   // "bitstream.edit.form.iiifWidth.label": "IIIF Canvas Width",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.iiifWidth.label": "IIIF Canvas Width",
+  "bitstream.edit.form.iiifWidth.label": "عرض بوم IIIF",
 
   // "bitstream.edit.form.iiifWidth.hint": "The canvas width should usually match the image width.",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.iiifWidth.hint": "The canvas width should usually match the image width.",
+  "bitstream.edit.form.iiifWidth.hint": "عرض بوم معمولاً باید با عرض تصویر مطابقت داشته باشد.",
 
   // "bitstream.edit.form.iiifHeight.label": "IIIF Canvas Height",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.iiifHeight.label": "IIIF Canvas Height",
+  "bitstream.edit.form.iiifHeight.label": "ارتفاع بوم IIIF",
 
   // "bitstream.edit.form.iiifHeight.hint": "The canvas height should usually match the image height.",
-  // TODO New key - Add a translation
-  "bitstream.edit.form.iiifHeight.hint": "The canvas height should usually match the image height.",
+  "bitstream.edit.form.iiifHeight.hint": "ارتفاع بوم معمولاً باید با ارتفاع تصویر مطابقت داشته باشد.",
 
   // "bitstream.edit.notifications.saved.content": "Your changes to this bitstream were saved.",
-  // TODO New key - Add a translation
-  "bitstream.edit.notifications.saved.content": "Your changes to this bitstream were saved.",
+  "bitstream.edit.notifications.saved.content": "تغییرات شما در این فایل ذخیره شد.",
 
   // "bitstream.edit.notifications.saved.title": "Bitstream saved",
-  // TODO New key - Add a translation
-  "bitstream.edit.notifications.saved.title": "Bitstream saved",
+  "bitstream.edit.notifications.saved.title": "فایل ذخیره شد",
 
   // "bitstream.edit.title": "Edit bitstream",
-  // TODO New key - Add a translation
-  "bitstream.edit.title": "Edit bitstream",
+  "bitstream.edit.title": "ویرایش فایل",
 
   // "bitstream-request-a-copy.alert.canDownload1": "You already have access to this file. If you want to download the file, click ",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.alert.canDownload1": "You already have access to this file. If you want to download the file, click ",
+  "bitstream-request-a-copy.alert.canDownload1": "شما از قبل به این فایل دسترسی دارید. اگر می‌خواهید فایل را دانلود کنید، کلیک کنید ",
 
   // "bitstream-request-a-copy.alert.canDownload2": "here",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.alert.canDownload2": "here",
+  "bitstream-request-a-copy.alert.canDownload2": "اینجا",
 
   // "bitstream-request-a-copy.header": "Request a copy of the file",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.header": "Request a copy of the file",
+  "bitstream-request-a-copy.header": "درخواست یک کپی از فایل",
 
   // "bitstream-request-a-copy.intro": "Enter the following information to request a copy for the following item: ",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.intro": "Enter the following information to request a copy for the following item: ",
+  "bitstream-request-a-copy.intro": "برای درخواست کپی برای آیتم زیر، اطلاعات زیر را وارد کنید: ",
 
   // "bitstream-request-a-copy.intro.bitstream.one": "Requesting the following file: ",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.intro.bitstream.one": "Requesting the following file: ",
+  "bitstream-request-a-copy.intro.bitstream.one": "درخواست فایل زیر: ",
 
   // "bitstream-request-a-copy.intro.bitstream.all": "Requesting all files. ",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.intro.bitstream.all": "Requesting all files. ",
+  "bitstream-request-a-copy.intro.bitstream.all": "درخواست همه فایلها. ",
 
   // "bitstream-request-a-copy.name.label": "Name *",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.name.label": "Name *",
+  "bitstream-request-a-copy.name.label": "نام *",
 
   // "bitstream-request-a-copy.name.error": "The name is required",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.name.error": "The name is required",
+  "bitstream-request-a-copy.name.error": "نام موردنیاز است",
 
   // "bitstream-request-a-copy.email.label": "Your email address *",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.email.label": "Your email address *",
+  "bitstream-request-a-copy.email.label": "آدرس ایمیل شما *",
 
   // "bitstream-request-a-copy.email.hint": "This email address is used for sending the file.",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.email.hint": "This email address is used for sending the file.",
+  "bitstream-request-a-copy.email.hint": "این آدرس ایمیل برای ارسال فایل استفاده می‌شود.",
 
   // "bitstream-request-a-copy.email.error": "Please enter a valid email address.",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.email.error": "Please enter a valid email address.",
+  "bitstream-request-a-copy.email.error": "لطفاً یک آدرس ایمیل معتبر وارد کنید.",
 
   // "bitstream-request-a-copy.allfiles.label": "Files",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.allfiles.label": "Files",
+  "bitstream-request-a-copy.allfiles.label": "فایلها",
 
   // "bitstream-request-a-copy.files-all-false.label": "Only the requested file",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.files-all-false.label": "Only the requested file",
+  "bitstream-request-a-copy.files-all-false.label": "فقط فایل درخواست شده",
 
   // "bitstream-request-a-copy.files-all-true.label": "All files (of this item) in restricted access",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.files-all-true.label": "All files (of this item) in restricted access",
+  "bitstream-request-a-copy.files-all-true.label": "تمام فایل‌ها (از این آیتم) در دسترسی محدود",
 
   // "bitstream-request-a-copy.message.label": "Message",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.message.label": "Message",
+  "bitstream-request-a-copy.message.label": "پیام",
 
   // "bitstream-request-a-copy.return": "Back",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.return": "Back",
+  "bitstream-request-a-copy.return": "برگشت",
 
   // "bitstream-request-a-copy.submit": "Request copy",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.submit": "Request copy",
+  "bitstream-request-a-copy.submit": "درخواست کپی",
 
   // "bitstream-request-a-copy.submit.success": "The item request was submitted successfully.",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.submit.success": "The item request was submitted successfully.",
+  "bitstream-request-a-copy.submit.success": "درخواست آیتم با موفقیت ارسال شد.",
 
   // "bitstream-request-a-copy.submit.error": "Something went wrong with submitting the item request.",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.submit.error": "Something went wrong with submitting the item request.",
+  "bitstream-request-a-copy.submit.error": "مشکلی در ارسال درخواست آیتم پیش آمد.",
 
   // "bitstream-request-a-copy.access-by-token.warning": "You are viewing this item with the secure access link provided to you by the author or repository staff. It is important not to share this link to unauthorised users.",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.access-by-token.warning": "You are viewing this item with the secure access link provided to you by the author or repository staff. It is important not to share this link to unauthorised users.",
+  "bitstream-request-a-copy.access-by-token.warning": "شما در حال مشاهده این آیتم با لینک دسترسی امن هستید که توسط نویسنده یا کارکنان مخزن در اختیار شما قرار گرفته است. مهم است که این لینک را با کاربران غیرمجاز به اشتراک نگذارید.",
 
   // "bitstream-request-a-copy.access-by-token.expiry-label": "Access provided by this link will expire on",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.access-by-token.expiry-label": "Access provided by this link will expire on",
+  "bitstream-request-a-copy.access-by-token.expiry-label": "دسترسی ارائه شده توسط این لینک در منقضی خواهد شد",
 
   // "bitstream-request-a-copy.access-by-token.expired": "Access provided by this link is no longer possible. Access expired on",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.access-by-token.expired": "Access provided by this link is no longer possible. Access expired on",
+  "bitstream-request-a-copy.access-by-token.expired": "دسترسی ارائه شده توسط این لینک دیگر امکان‌پذیر نیست. دسترسی منقضی شده است ",
 
   // "bitstream-request-a-copy.access-by-token.not-granted": "Access provided by this link is not possible. Access has either not been granted, or has been revoked.",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.access-by-token.not-granted": "Access provided by this link is not possible. Access has either not been granted, or has been revoked.",
+  "bitstream-request-a-copy.access-by-token.not-granted": "دسترسی از طریق این لینک امکان‌پذیر نیست. دسترسی یا اعطا نشده یا لغو شده است.",
 
   // "bitstream-request-a-copy.access-by-token.re-request": "Follow restricted download links to submit a new request for access.",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.access-by-token.re-request": "Follow restricted download links to submit a new request for access.",
+  "bitstream-request-a-copy.access-by-token.re-request": "برای ارسال درخواست جدید دسترسی، لینک‌های دانلود محدود شده را دنبال کنید.",
 
   // "bitstream-request-a-copy.access-by-token.alt-text": "Access to this item is provided by a secure token",
-  // TODO New key - Add a translation
-  "bitstream-request-a-copy.access-by-token.alt-text": "Access to this item is provided by a secure token",
+  "bitstream-request-a-copy.access-by-token.alt-text": "دسترسی به این آیتم توسط یک توکن امن فراهم شده است",
 
   // "browse.back.all-results": "All browse results",
   "browse.back.all-results": "همه نتایج مرور",
@@ -1898,12 +1769,10 @@
   "collection.edit.breadcrumbs": "ویرایش مجموعه",
 
   // "collection.edit.tabs.mapper.head": "Item Mapper",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.mapper.head": "Item Mapper",
+  "collection.edit.tabs.mapper.head": "نگاشت آیتم",
 
   // "collection.edit.tabs.item-mapper.title": "Collection Edit - Item Mapper",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.item-mapper.title": "ویرایش مجموعه - Item Mapper",
+  "collection.edit.tabs.item-mapper.title": "ویرایش مجموعه- نگاشت آیتم",
 
   // "collection.edit.item-mapper.cancel": "Cancel",
   "collection.edit.item-mapper.cancel": "لغو",
@@ -1912,916 +1781,704 @@
   "collection.edit.item-mapper.collection": "مجموعه: \"<b>{{name}}</b>\"",
 
   // "collection.edit.item-mapper.confirm": "Map selected items",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.confirm": "Map selected items",
+  "collection.edit.item-mapper.confirm": "نگاشت آیتمهای انتخاب شده",
 
   // "collection.edit.item-mapper.description": "This is the item mapper tool that allows collection administrators to map items from other collections into this collection. You can search for items from other collections and map them, or browse the list of currently mapped items.",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.description": "This is the item mapper tool that allows collection administrators to map items from other collections into this collection. You can search for items from other collections and map them, or browse the list of currently mapped items.",
+  "collection.edit.item-mapper.description": "این ابزار نگاشت آیتم است که به مدیران مجموعه اجازه می‌دهد آیتم‌ها را از مجموعه‌های دیگر به این مجموعه نگاشت کنند. می‌توانید آیتم‌ها را از مجموعه‌های دیگر جستجو کرده و آنها را نگاشت کنید، یا فهرست آیتم‌های نگاشت‌شده‌ی فعلی را مرور کنید.",
 
   // "collection.edit.item-mapper.head": "Item Mapper - Map Items from Other Collections",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.head": "Item Mapper - Map Items from Other Collections",
+  "collection.edit.item-mapper.head": "نگاشت آیتم - آیتم‌ها را از مجموعه‌های دیگر نگاشت کنید",
 
   // "collection.edit.item-mapper.no-search": "Please enter a query to search",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.no-search": "Please enter a query to search",
+  "collection.edit.item-mapper.no-search": "لطفا یک پرس و جو برای جستجو وارد کنید",
 
   // "collection.edit.item-mapper.notifications.map.error.content": "Errors occurred for mapping of {{amount}} items.",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.notifications.map.error.content": "Errors occurred for mapping of {{amount}} items.",
+  "collection.edit.item-mapper.notifications.map.error.content": "{آیتمها رخ داد{amount}} خطا برای نگاشت ",
 
   // "collection.edit.item-mapper.notifications.map.error.head": "Mapping errors",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.notifications.map.error.head": "Mapping errors",
+  "collection.edit.item-mapper.notifications.map.error.head": "خطاهای نگاشت",
 
   // "collection.edit.item-mapper.notifications.map.success.content": "Successfully mapped {{amount}} items.",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.notifications.map.success.content": "Successfully mapped {{amount}} items.",
+  "collection.edit.item-mapper.notifications.map.success.content": "بطور موفق نگاشت {{amount}} آیتمها انجام شد",
 
   // "collection.edit.item-mapper.notifications.map.success.head": "Mapping completed",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.notifications.map.success.head": "Mapping completed",
+  "collection.edit.item-mapper.notifications.map.success.head": "نگاشت کامل شد",
 
   // "collection.edit.item-mapper.notifications.unmap.error.content": "Errors occurred for removing the mappings of {{amount}} items.",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.notifications.unmap.error.content": "Errors occurred for removing the mappings of {{amount}} items.",
+  "collection.edit.item-mapper.notifications.unmap.error.content": "خطاهایی در حذف نگاشت‌های {{amount}} آیتمها رخ داده است.",
 
   // "collection.edit.item-mapper.notifications.unmap.error.head": "Remove mapping errors",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.notifications.unmap.error.head": "Remove mapping errors",
+  "collection.edit.item-mapper.notifications.unmap.error.head": "حذف خطاهای نگاشت",
 
   // "collection.edit.item-mapper.notifications.unmap.success.content": "Successfully removed the mappings of {{amount}} items.",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.notifications.unmap.success.content": "Successfully removed the mappings of {{amount}} items.",
+  "collection.edit.item-mapper.notifications.unmap.success.content": "نگاشت‌های {{amount}} آیتم‌ها با موفقیت حذف شدند.",
 
   // "collection.edit.item-mapper.notifications.unmap.success.head": "Remove mapping completed",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.notifications.unmap.success.head": "Remove mapping completed",
+  "collection.edit.item-mapper.notifications.unmap.success.head": "حذف نگاشت کامل شد",
 
   // "collection.edit.item-mapper.remove": "Remove selected item mappings",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.remove": "Remove selected item mappings",
+  "collection.edit.item-mapper.remove": "حذف نگاشتهای آیتم انتخاب شده",
 
   // "collection.edit.item-mapper.search-form.placeholder": "Search items...",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.search-form.placeholder": "Search items...",
+  "collection.edit.item-mapper.search-form.placeholder": "جستجوی آیتمها...",
 
   // "collection.edit.item-mapper.tabs.browse": "Browse mapped items",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.tabs.browse": "Browse mapped items",
+  "collection.edit.item-mapper.tabs.browse": "مرور آیتمهای نگاشت شده",
 
   // "collection.edit.item-mapper.tabs.map": "Map new items",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.tabs.map": "Map new items",
+  "collection.edit.item-mapper.tabs.map": "نگاشت آیتمهای جدید",
 
   // "collection.edit.logo.delete.title": "Delete logo",
-  // TODO New key - Add a translation
-  "collection.edit.logo.delete.title": "Delete logo",
+  "collection.edit.logo.delete.title": "حذف لوگو",
 
   // "collection.edit.logo.delete-undo.title": "Undo delete",
-  // TODO New key - Add a translation
-  "collection.edit.logo.delete-undo.title": "Undo delete",
+  "collection.edit.logo.delete-undo.title": "برگرداندن حذف",
 
   // "collection.edit.logo.label": "Collection logo",
-  // TODO New key - Add a translation
-  "collection.edit.logo.label": "Collection logo",
+  "collection.edit.logo.label": "لوگوی مجموعه",
 
   // "collection.edit.logo.notifications.add.error": "Uploading collection logo failed. Please verify the content before retrying.",
-  // TODO New key - Add a translation
-  "collection.edit.logo.notifications.add.error": "Uploading collection logo failed. Please verify the content before retrying.",
+  "collection.edit.logo.notifications.add.error": "بارگزاری لوگوی مجموعه ناموفق بود. لطفاً قبل از تلاش مجدد، محتوا را تأیید کنید.",
 
   // "collection.edit.logo.notifications.add.success": "Uploading collection logo successful.",
-  // TODO New key - Add a translation
-  "collection.edit.logo.notifications.add.success": "Uploading collection logo successful.",
+  "collection.edit.logo.notifications.add.success": "بارگزاری لوگوی مجموعه موفق بود",
 
   // "collection.edit.logo.notifications.delete.success.title": "Logo deleted",
-  // TODO New key - Add a translation
-  "collection.edit.logo.notifications.delete.success.title": "Logo deleted",
+  "collection.edit.logo.notifications.delete.success.title": "لوگو حذف شد",
 
   // "collection.edit.logo.notifications.delete.success.content": "Successfully deleted the collection's logo",
-  // TODO New key - Add a translation
-  "collection.edit.logo.notifications.delete.success.content": "Successfully deleted the collection's logo",
+  "collection.edit.logo.notifications.delete.success.content": "لوگوی مجموعه با موفقیت حذف شد",
 
   // "collection.edit.logo.notifications.delete.error.title": "Error deleting logo",
-  // TODO New key - Add a translation
-  "collection.edit.logo.notifications.delete.error.title": "Error deleting logo",
+  "collection.edit.logo.notifications.delete.error.title": "خطای در حذف لگو",
 
   // "collection.edit.logo.upload": "Drop a collection logo to upload",
-  // TODO New key - Add a translation
-  "collection.edit.logo.upload": "Drop a collection logo to upload",
+  "collection.edit.logo.upload": "لوگوی مجموعه را برای آپلود رها کنید",
 
   // "collection.edit.notifications.success": "Successfully edited the collection",
-  // TODO New key - Add a translation
-  "collection.edit.notifications.success": "Successfully edited the collection",
+  "collection.edit.notifications.success": "مجموعه با موفقیت ویرایش شد",
 
   // "collection.edit.return": "Back",
-  // TODO New key - Add a translation
-  "collection.edit.return": "Back",
+  "collection.edit.return": "برگشت",
 
   // "collection.edit.tabs.access-control.head": "Access Control",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.access-control.head": "Access Control",
+  "collection.edit.tabs.access-control.head": "کنترل دسترسی",
 
   // "collection.edit.tabs.access-control.title": "Collection Edit - Access Control",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.access-control.title": "Collection Edit - Access Control",
+  "collection.edit.tabs.access-control.title": "ویرایش مجموعه- کنترل دسترسی",
 
   // "collection.edit.tabs.curate.head": "Curate",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.curate.head": "Curate",
+  "collection.edit.tabs.curate.head": "دست چین",
 
   // "collection.edit.tabs.curate.title": "Collection Edit - Curate",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.curate.title": "Collection Edit - Curate",
+  "collection.edit.tabs.curate.title": "ویرایش مجموعه- دست چین",
 
   // "collection.edit.tabs.authorizations.head": "Authorizations",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.authorizations.head": "Authorizations",
+  "collection.edit.tabs.authorizations.head": "مجوزها",
 
   // "collection.edit.tabs.authorizations.title": "Collection Edit - Authorizations",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.authorizations.title": "Collection Edit - Authorizations",
+  "collection.edit.tabs.authorizations.title": "ویرایش مجموعه- مجوزها",
 
   // "collection.edit.item.authorizations.load-bundle-button": "Load more bundles",
-  // TODO New key - Add a translation
-  "collection.edit.item.authorizations.load-bundle-button": "Load more bundles",
+  "collection.edit.item.authorizations.load-bundle-button": "بارگزاری بسته های بیشتر",
 
   // "collection.edit.item.authorizations.load-more-button": "Load more",
-  // TODO New key - Add a translation
-  "collection.edit.item.authorizations.load-more-button": "Load more",
+  "collection.edit.item.authorizations.load-more-button": "بارگزاری بیشتر",
 
   // "collection.edit.item.authorizations.show-bitstreams-button": "Show bitstream policies for bundle",
-  // TODO New key - Add a translation
-  "collection.edit.item.authorizations.show-bitstreams-button": "Show bitstream policies for bundle",
+  "collection.edit.item.authorizations.show-bitstreams-button": "نمایش سیساستهای فایل برای بسته",
 
   // "collection.edit.tabs.metadata.head": "Edit Metadata",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.metadata.head": "Edit Metadata",
+  "collection.edit.tabs.metadata.head": "ویرایش ابرداده",
 
   // "collection.edit.tabs.metadata.title": "Collection Edit - Metadata",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.metadata.title": "Collection Edit - Metadata",
+  "collection.edit.tabs.metadata.title": "ویرایش مجموعه- ابرداده",
 
   // "collection.edit.tabs.roles.head": "Assign Roles",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.roles.head": "Assign Roles",
+  "collection.edit.tabs.roles.head": "اختصاص نقش‌ها",
 
   // "collection.edit.tabs.roles.title": "Collection Edit - Roles",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.roles.title": "Collection Edit - Roles",
+  "collection.edit.tabs.roles.title": "ویرایش مجموعه - نقش‌ها",
 
   // "collection.edit.tabs.source.external": "This collection harvests its content from an external source",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.external": "This collection harvests its content from an external source",
+  "collection.edit.tabs.source.external": "این مجموعه محتوای خود را از یک منبع خارجی جمع آوری می‌کند",
 
   // "collection.edit.tabs.source.form.errors.oaiSource.required": "You must provide a set id of the target collection.",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.form.errors.oaiSource.required": "You must provide a set id of the target collection.",
+  "collection.edit.tabs.source.form.errors.oaiSource.required": "شما باید یک شناسه id مشخص برای مجموعه هدف فراهم کنید.",
 
   // "collection.edit.tabs.source.form.harvestType": "Content being harvested",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.form.harvestType": "Content being harvested",
+  "collection.edit.tabs.source.form.harvestType": "محتوا در حال جمع آوری است",
 
   // "collection.edit.tabs.source.form.head": "Configure an external source",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.form.head": "Configure an external source",
+  "collection.edit.tabs.source.form.head": "پیکربندی یک منبع خارجی",
 
   // "collection.edit.tabs.source.form.metadataConfigId": "Metadata Format",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.form.metadataConfigId": "Metadata Format",
+  "collection.edit.tabs.source.form.metadataConfigId": "قالب ابرداده",
 
   // "collection.edit.tabs.source.form.oaiSetId": "OAI specific set id",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.form.oaiSetId": "OAI specific set id",
+  "collection.edit.tabs.source.form.oaiSetId": "تنظیم شناسه خاص OAI",
 
   // "collection.edit.tabs.source.form.oaiSource": "OAI Provider",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.form.oaiSource": "OAI Provider",
+  "collection.edit.tabs.source.form.oaiSource": "فراهم کننده OAI",
 
   // "collection.edit.tabs.source.form.options.harvestType.METADATA_AND_BITSTREAMS": "Harvest metadata and bitstreams (requires ORE support)",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.form.options.harvestType.METADATA_AND_BITSTREAMS": "Harvest metadata and bitstreams (requires ORE support)",
+  "collection.edit.tabs.source.form.options.harvestType.METADATA_AND_BITSTREAMS": "جمع‌آوری فراداده‌ها و جریان‌های بیتی (نیاز به پشتیبانی ORE)",
 
   // "collection.edit.tabs.source.form.options.harvestType.METADATA_AND_REF": "Harvest metadata and references to bitstreams (requires ORE support)",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.form.options.harvestType.METADATA_AND_REF": "Harvest metadata and references to bitstreams (requires ORE support)",
+  "collection.edit.tabs.source.form.options.harvestType.METADATA_AND_REF": "جمع‌آوری لبرداده‌ها و ارجاعات به فایلها (نیاز به پشتیبانی ORE)",
 
   // "collection.edit.tabs.source.form.options.harvestType.METADATA_ONLY": "Harvest metadata only",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.form.options.harvestType.METADATA_ONLY": "Harvest metadata only",
+  "collection.edit.tabs.source.form.options.harvestType.METADATA_ONLY": "فقط جمع آوری ابرداده",
 
   // "collection.edit.tabs.source.head": "Content Source",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.head": "Content Source",
+  "collection.edit.tabs.source.head": "منبع محتوا",
 
   // "collection.edit.tabs.source.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
+  "collection.edit.tabs.source.notifications.discarded.content": "تغییرات شما لغو شد. برای بازگرداندن تغییرات، روی دکمه «بازگرد» کلیک کنید.",
 
   // "collection.edit.tabs.source.notifications.discarded.title": "Changes discarded",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.notifications.discarded.title": "Changes discarded",
+  "collection.edit.tabs.source.notifications.discarded.title": "تغییرات لغو شدند",
 
   // "collection.edit.tabs.source.notifications.invalid.content": "Your changes were not saved. Please make sure all fields are valid before you save.",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.notifications.invalid.content": "Your changes were not saved. Please make sure all fields are valid before you save.",
+  "collection.edit.tabs.source.notifications.invalid.content": "تغییرات شما ذخیره نشد. لطفاً قبل از ذخیره، مطمئن شوید که همه فیلدها معتبر هستند.",
 
   // "collection.edit.tabs.source.notifications.invalid.title": "Metadata invalid",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.notifications.invalid.title": "Metadata invalid",
+  "collection.edit.tabs.source.notifications.invalid.title": "ابرداده نامعتبر",
 
   // "collection.edit.tabs.source.notifications.saved.content": "Your changes to this collection's content source were saved.",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.notifications.saved.content": "Your changes to this collection's content source were saved.",
+  "collection.edit.tabs.source.notifications.saved.content": "تغییرات شما در منبع محتوای این مجموعه ذخیره شد.",
 
   // "collection.edit.tabs.source.notifications.saved.title": "Content Source saved",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.notifications.saved.title": "Content Source saved",
+  "collection.edit.tabs.source.notifications.saved.title": "منبع محتوا ذخیره شد",
 
   // "collection.edit.tabs.source.title": "Collection Edit - Content Source",
-  // TODO New key - Add a translation
-  "collection.edit.tabs.source.title": "Collection Edit - Content Source",
+  "collection.edit.tabs.source.title": "ویرایش مجموعه- منبع محتوا",
 
   // "collection.edit.template.add-button": "Add",
-  // TODO New key - Add a translation
-  "collection.edit.template.add-button": "Add",
+  "collection.edit.template.add-button": "افزودن",
 
   // "collection.edit.template.breadcrumbs": "Item template",
-  // TODO New key - Add a translation
-  "collection.edit.template.breadcrumbs": "Item template",
+  "collection.edit.template.breadcrumbs": "الگوی آیتم",
 
   // "collection.edit.template.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "collection.edit.template.cancel": "Cancel",
+  "collection.edit.template.cancel": "لغو",
 
   // "collection.edit.template.delete-button": "Delete",
-  // TODO New key - Add a translation
-  "collection.edit.template.delete-button": "Delete",
+  "collection.edit.template.delete-button": "حذف",
 
   // "collection.edit.template.edit-button": "Edit",
-  // TODO New key - Add a translation
-  "collection.edit.template.edit-button": "Edit",
+  "collection.edit.template.edit-button": "ویرایش",
 
   // "collection.edit.template.error": "An error occurred retrieving the template item",
-  // TODO New key - Add a translation
-  "collection.edit.template.error": "An error occurred retrieving the template item",
+  "collection.edit.template.error": "خطایی در بازیابی آیتم الگو رخ داد",
 
   // "collection.edit.template.head": "Edit Template Item for Collection \"{{ collection }}\"",
-  // TODO New key - Add a translation
-  "collection.edit.template.head": "Edit Template Item for Collection \"{{ collection }}\"",
+  "collection.edit.template.head": "ویرایش الگوی آیتم برای مجموعه \"{{ collection }}\"",
 
   // "collection.edit.template.label": "Template item",
-  // TODO New key - Add a translation
-  "collection.edit.template.label": "Template item",
+  "collection.edit.template.label": "آیتم الگو",
 
   // "collection.edit.template.loading": "Loading template item...",
-  // TODO New key - Add a translation
-  "collection.edit.template.loading": "Loading template item...",
+  "collection.edit.template.loading": "بارگزاری آیتم الگو...",
 
   // "collection.edit.template.notifications.delete.error": "Failed to delete the item template",
-  // TODO New key - Add a translation
-  "collection.edit.template.notifications.delete.error": "Failed to delete the item template",
+  "collection.edit.template.notifications.delete.error": "حذف آیتم الگو ناموفق بود",
 
   // "collection.edit.template.notifications.delete.success": "Successfully deleted the item template",
-  // TODO New key - Add a translation
-  "collection.edit.template.notifications.delete.success": "Successfully deleted the item template",
+  "collection.edit.template.notifications.delete.success": "آیتم الگو با موفقیت حذف شد",
 
   // "collection.edit.template.title": "Edit Template Item",
-  // TODO New key - Add a translation
-  "collection.edit.template.title": "Edit Template Item",
+  "collection.edit.template.title": "ویرایش الگوی آیتم",
 
   // "collection.form.abstract": "Short Description",
-  // TODO New key - Add a translation
-  "collection.form.abstract": "Short Description",
+  "collection.form.abstract": "توصیف کوتاه",
 
   // "collection.form.description": "Introductory text (HTML)",
-  // TODO New key - Add a translation
-  "collection.form.description": "Introductory text (HTML)",
+  "collection.form.description": "متن مقدماتی (HTML)",
 
   // "collection.form.errors.title.required": "Please enter a collection name",
-  // TODO New key - Add a translation
-  "collection.form.errors.title.required": "Please enter a collection name",
+  "collection.form.errors.title.required": "لطفا نام مجموعه را وارد کنید",
 
   // "collection.form.license": "License",
-  // TODO New key - Add a translation
-  "collection.form.license": "License",
+  "collection.form.license": "مجوز",
 
   // "collection.form.provenance": "Provenance",
-  // TODO New key - Add a translation
-  "collection.form.provenance": "Provenance",
+  "collection.form.provenance": "منشأ",
 
   // "collection.form.rights": "Copyright text (HTML)",
-  // TODO New key - Add a translation
-  "collection.form.rights": "Copyright text (HTML)",
+  "collection.form.rights": "متن حق کپی (HTML)",
 
   // "collection.form.tableofcontents": "News (HTML)",
-  // TODO New key - Add a translation
-  "collection.form.tableofcontents": "News (HTML)",
+  "collection.form.tableofcontents": "خبر (HTML)",
 
   // "collection.form.title": "Name",
-  // TODO New key - Add a translation
-  "collection.form.title": "Name",
+  "collection.form.title": "نام",
 
   // "collection.form.entityType": "Entity Type",
-  // TODO New key - Add a translation
-  "collection.form.entityType": "Entity Type",
+  "collection.form.entityType": "نوع موجودیت",
 
   // "collection.listelement.badge": "Collection",
-  // TODO New key - Add a translation
-  "collection.listelement.badge": "Collection",
+  "collection.listelement.badge": "مجموعه",
 
   // "collection.logo": "Collection logo",
-  // TODO New key - Add a translation
-  "collection.logo": "Collection logo",
+  "collection.logo": "لوگوی مجموعه",
 
   // "collection.page.browse.search.head": "Search",
-  // TODO New key - Add a translation
-  "collection.page.browse.search.head": "Search",
+  "collection.page.browse.search.head": "جستجو",
 
   // "collection.page.edit": "Edit this collection",
-  // TODO New key - Add a translation
-  "collection.page.edit": "Edit this collection",
+  "collection.page.edit": "ویرایش مجموعه",
 
   // "collection.page.handle": "Permanent URI for this collection",
-  // TODO New key - Add a translation
-  "collection.page.handle": "Permanent URI for this collection",
+  "collection.page.handle": "URI دائمی برای این مجموعه",
 
   // "collection.page.license": "License",
-  // TODO New key - Add a translation
-  "collection.page.license": "License",
+  "collection.page.license": "مجوز",
 
   // "collection.page.news": "News",
-  // TODO New key - Add a translation
-  "collection.page.news": "News",
+  "collection.page.news": "خبر",
 
   // "collection.page.options": "Options",
-  // TODO New key - Add a translation
-  "collection.page.options": "Options",
+  "collection.page.options": "گزینه‌ها",
 
   // "collection.search.breadcrumbs": "Search",
-  // TODO New key - Add a translation
-  "collection.search.breadcrumbs": "Search",
+  "collection.search.breadcrumbs": "جستجو",
 
   // "collection.search.results.head": "Search Results",
-  // TODO New key - Add a translation
-  "collection.search.results.head": "Search Results",
+  "collection.search.results.head": "نتایج جستجو",
 
   // "collection.select.confirm": "Confirm selected",
-  // TODO New key - Add a translation
-  "collection.select.confirm": "Confirm selected",
+  "collection.select.confirm": "تأیید انتخاب شده",
 
   // "collection.select.empty": "No collections to show",
-  // TODO New key - Add a translation
-  "collection.select.empty": "No collections to show",
+  "collection.select.empty": "هیچ مجموعه ای برای نمایش وجود ندارد",
 
   // "collection.select.table.selected": "Selected collections",
-  // TODO New key - Add a translation
-  "collection.select.table.selected": "Selected collections",
+  "collection.select.table.selected": "مجموعه های انتخاب شده",
 
   // "collection.select.table.select": "Select collection",
-  // TODO New key - Add a translation
-  "collection.select.table.select": "Select collection",
+  "collection.select.table.select": "انتخاب مجموعه",
 
   // "collection.select.table.deselect": "Deselect collection",
-  // TODO New key - Add a translation
-  "collection.select.table.deselect": "Deselect collection",
+  "collection.select.table.deselect": "لغو انتخاب مجموعه",
 
   // "collection.select.table.title": "Title",
-  // TODO New key - Add a translation
-  "collection.select.table.title": "Title",
+  "collection.select.table.title": "عنوان",
 
   // "collection.source.controls.head": "Harvest Controls",
-  // TODO New key - Add a translation
-  "collection.source.controls.head": "Harvest Controls",
+  "collection.source.controls.head": "کنترلهای جمع آوری",
 
   // "collection.source.controls.test.submit.error": "Something went wrong with initiating the testing of the settings",
-  // TODO New key - Add a translation
-  "collection.source.controls.test.submit.error": "Something went wrong with initiating the testing of the settings",
+  "collection.source.controls.test.submit.error": "مشکلی در شروع تست تنظیمات پیش آمد",
 
   // "collection.source.controls.test.failed": "The script to test the settings has failed",
-  // TODO New key - Add a translation
-  "collection.source.controls.test.failed": "The script to test the settings has failed",
+  "collection.source.controls.test.failed": "اسکریپت برای تست تنظیمات ناموفق بود",
 
   // "collection.source.controls.test.completed": "The script to test the settings has successfully finished",
-  // TODO New key - Add a translation
-  "collection.source.controls.test.completed": "The script to test the settings has successfully finished",
+  "collection.source.controls.test.completed": "اسکریپت برای تست تنظیمات با موفقیت به پایان رسید",
 
   // "collection.source.controls.test.submit": "Test configuration",
-  // TODO New key - Add a translation
-  "collection.source.controls.test.submit": "Test configuration",
+  "collection.source.controls.test.submit": "پیکربندی تست",
 
   // "collection.source.controls.test.running": "Testing configuration...",
-  // TODO New key - Add a translation
-  "collection.source.controls.test.running": "Testing configuration...",
+  "collection.source.controls.test.running": "پیکربندی آزمایشی...",
 
   // "collection.source.controls.import.submit.success": "The import has been successfully initiated",
-  // TODO New key - Add a translation
-  "collection.source.controls.import.submit.success": "The import has been successfully initiated",
+  "collection.source.controls.import.submit.success": "ورود با موفقیت آغاز شد",
 
   // "collection.source.controls.import.submit.error": "Something went wrong with initiating the import",
-  // TODO New key - Add a translation
-  "collection.source.controls.import.submit.error": "Something went wrong with initiating the import",
+  "collection.source.controls.import.submit.error": "Sمشکلی در شروع وارد کردن پیش آمد",
 
   // "collection.source.controls.import.submit": "Import now",
-  // TODO New key - Add a translation
-  "collection.source.controls.import.submit": "Import now",
+  "collection.source.controls.import.submit": "اکنون وارد کنید",
 
   // "collection.source.controls.import.running": "Importing...",
-  // TODO New key - Add a translation
-  "collection.source.controls.import.running": "Importing...",
+  "collection.source.controls.import.running": "در حال وارد کردن...",
 
   // "collection.source.controls.import.failed": "An error occurred during the import",
-  // TODO New key - Add a translation
-  "collection.source.controls.import.failed": "An error occurred during the import",
+  "collection.source.controls.import.failed": "خطایی در هنگام وارد کردن رخ داد",
 
   // "collection.source.controls.import.completed": "The import completed",
-  // TODO New key - Add a translation
-  "collection.source.controls.import.completed": "The import completed",
+  "collection.source.controls.import.completed": "وارد کردن کامل شد",
 
   // "collection.source.controls.reset.submit.success": "The reset and reimport has been successfully initiated",
-  // TODO New key - Add a translation
-  "collection.source.controls.reset.submit.success": "The reset and reimport has been successfully initiated",
+  "collection.source.controls.reset.submit.success": "تنظیم و وارد کردن مجدد با موفقیت آغاز شد",
 
   // "collection.source.controls.reset.submit.error": "Something went wrong with initiating the reset and reimport",
-  // TODO New key - Add a translation
-  "collection.source.controls.reset.submit.error": "Something went wrong with initiating the reset and reimport",
+  "collection.source.controls.reset.submit.error": "مشکلی در شروع تنظیم مجدد و وارد کردن مجدد پیش آمد",
 
   // "collection.source.controls.reset.failed": "An error occurred during the reset and reimport",
-  // TODO New key - Add a translation
-  "collection.source.controls.reset.failed": "An error occurred during the reset and reimport",
+  "collection.source.controls.reset.failed": "هنگام تنظیم مجدد و وارد کردن مجدد، خطایی روی داد",
 
   // "collection.source.controls.reset.completed": "The reset and reimport completed",
-  // TODO New key - Add a translation
-  "collection.source.controls.reset.completed": "The reset and reimport completed",
+  "collection.source.controls.reset.completed": "تنظیم مجدد و وارد کردن مجدد تکمیل شد",
 
   // "collection.source.controls.reset.submit": "Reset and reimport",
-  // TODO New key - Add a translation
-  "collection.source.controls.reset.submit": "Reset and reimport",
+  "collection.source.controls.reset.submit": "تنظیم و وارد کردن مجدد",
 
   // "collection.source.controls.reset.running": "Resetting and reimporting...",
-  // TODO New key - Add a translation
-  "collection.source.controls.reset.running": "Resetting and reimporting...",
+  "collection.source.controls.reset.running": "تنظیم و وارد کردن مجدد ...",
 
   // "collection.source.controls.harvest.status": "Harvest status:",
-  // TODO New key - Add a translation
-  "collection.source.controls.harvest.status": "Harvest status:",
+  "collection.source.controls.harvest.status": "وضعیت جمع آوری:",
 
   // "collection.source.controls.harvest.start": "Harvest start time:",
-  // TODO New key - Add a translation
-  "collection.source.controls.harvest.start": "Harvest start time:",
+  "collection.source.controls.harvest.start": "زمان شروع جمع آوری:",
 
   // "collection.source.controls.harvest.last": "Last time harvested:",
-  // TODO New key - Add a translation
-  "collection.source.controls.harvest.last": "Last time harvested:",
+  "collection.source.controls.harvest.last": "آخرین زمان جمع آوری:",
 
   // "collection.source.controls.harvest.message": "Harvest info:",
-  // TODO New key - Add a translation
-  "collection.source.controls.harvest.message": "Harvest info:",
+  "collection.source.controls.harvest.message": "اطلاعات جمع آوری:",
 
   // "collection.source.controls.harvest.no-information": "N/A",
-  // TODO New key - Add a translation
   "collection.source.controls.harvest.no-information": "N/A",
 
   // "collection.source.update.notifications.error.content": "The provided settings have been tested and didn't work.",
-  // TODO New key - Add a translation
-  "collection.source.update.notifications.error.content": "The provided settings have been tested and didn't work.",
+  "collection.source.update.notifications.error.content": "تنظیمات ارائه شده تست شده و جواب نداده است.",
 
   // "collection.source.update.notifications.error.title": "Server Error",
-  // TODO New key - Add a translation
-  "collection.source.update.notifications.error.title": "Server Error",
+  "collection.source.update.notifications.error.title": "خطای سرور",
 
   // "communityList.breadcrumbs": "Community List",
-  // TODO New key - Add a translation
-  "communityList.breadcrumbs": "Community List",
+  "communityList.breadcrumbs": "لیست جامعه",
 
   // "communityList.tabTitle": "Community List",
-  // TODO New key - Add a translation
-  "communityList.tabTitle": "Community List",
+  "communityList.tabTitle": "لیست جامعه",
 
   // "communityList.title": "List of Communities",
-  // TODO New key - Add a translation
-  "communityList.title": "List of Communities",
+  "communityList.title": "لیست جامعه ها",
 
   // "communityList.showMore": "Show More",
-  // TODO New key - Add a translation
-  "communityList.showMore": "Show More",
+  "communityList.showMore": "نمایش بیشتر",
 
   // "communityList.expand": "Expand {{ name }}",
-  // TODO New key - Add a translation
-  "communityList.expand": "Expand {{ name }}",
+  "communityList.expand": "گسترش {{ name }}",
 
   // "communityList.collapse": "Collapse {{ name }}",
-  // TODO New key - Add a translation
-  "communityList.collapse": "Collapse {{ name }}",
+  "communityList.collapse": "جمع کردن {{ name }}",
 
   // "community.browse.logo": "Browse for a community logo",
-  // TODO New key - Add a translation
-  "community.browse.logo": "Browse for a community logo",
+  "community.browse.logo": "جستجوی لوگوی جامعه",
 
   // "community.subcoms-cols.breadcrumbs": "Subcommunities and Collections",
-  // TODO New key - Add a translation
-  "community.subcoms-cols.breadcrumbs": "Subcommunities and Collections",
+  "community.subcoms-cols.breadcrumbs": "زیر جامعه ها و مجموعه ها",
 
   // "community.create.breadcrumbs": "Create Community",
-  // TODO New key - Add a translation
-  "community.create.breadcrumbs": "Create Community",
+  "community.create.breadcrumbs": "ایجاد جامعه",
 
   // "community.create.head": "Create a Community",
-  // TODO New key - Add a translation
-  "community.create.head": "Create a Community",
+  "community.create.head": "ایجاد یک جامعه",
 
   // "community.create.notifications.success": "Successfully created the community",
-  // TODO New key - Add a translation
-  "community.create.notifications.success": "Successfully created the community",
+  "community.create.notifications.success": "جامعه با موفقیت ایجاد شد",
 
   // "community.create.sub-head": "Create a Sub-Community for Community {{ parent }}",
-  // TODO New key - Add a translation
-  "community.create.sub-head": "Create a Sub-Community for Community {{ parent }}",
+  "community.create.sub-head": "ایجاد یک زیر جامعه برای جامعه {{ parent }}",
 
   // "community.curate.header": "Curate Community: {{community}}",
-  // TODO New key - Add a translation
-  "community.curate.header": "Curate Community: {{community}}",
+  "community.curate.header": "دست چین جامعه: {{community}}",
 
   // "community.delete.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "community.delete.cancel": "Cancel",
+  "community.delete.cancel": "لغو",
 
   // "community.delete.confirm": "Confirm",
-  // TODO New key - Add a translation
-  "community.delete.confirm": "Confirm",
+  "community.delete.confirm": "تایید",
 
   // "community.delete.processing": "Deleting...",
-  // TODO New key - Add a translation
-  "community.delete.processing": "Deleting...",
+  "community.delete.processing": "حذف ...",
 
   // "community.delete.head": "Delete Community",
-  // TODO New key - Add a translation
-  "community.delete.head": "Delete Community",
+  "community.delete.head": "حذف جامعه",
 
   // "community.delete.notification.fail": "Community could not be deleted",
-  // TODO New key - Add a translation
-  "community.delete.notification.fail": "Community could not be deleted",
+  "community.delete.notification.fail": "جامعه نمیتواند حذف شود",
 
   // "community.delete.notification.success": "Successfully deleted community",
-  // TODO New key - Add a translation
-  "community.delete.notification.success": "Successfully deleted community",
+  "community.delete.notification.success": "جامعه با موفقیت حذف شد",
 
   // "community.delete.text": "Are you sure you want to delete community \"{{ dso }}\"",
-  // TODO New key - Add a translation
-  "community.delete.text": "Are you sure you want to delete community \"{{ dso }}\"",
+  "community.delete.text": "آیا مطمئن هستید میخواهید جامعه را حذف کنید \"{{ dso }}\"",
 
   // "community.edit.delete": "Delete this community",
-  // TODO New key - Add a translation
-  "community.edit.delete": "Delete this community",
+  "community.edit.delete": "حذف این جامعه",
 
   // "community.edit.head": "Edit Community",
-  // TODO New key - Add a translation
-  "community.edit.head": "Edit Community",
+  "community.edit.head": "ویرایش جامعه",
 
   // "community.edit.breadcrumbs": "Edit Community",
-  // TODO New key - Add a translation
-  "community.edit.breadcrumbs": "Edit Community",
+  "community.edit.breadcrumbs": "ویرایش جامعه",
 
   // "community.edit.logo.delete.title": "Delete logo",
-  // TODO New key - Add a translation
-  "community.edit.logo.delete.title": "Delete logo",
+  "community.edit.logo.delete.title": "حذف لوگو",
 
   // "community-collection.edit.logo.delete.title": "Confirm deletion",
-  // TODO New key - Add a translation
-  "community-collection.edit.logo.delete.title": "Confirm deletion",
+  "community-collection.edit.logo.delete.title": "تایید حذف",
 
   // "community.edit.logo.delete-undo.title": "Undo delete",
-  // TODO New key - Add a translation
-  "community.edit.logo.delete-undo.title": "Undo delete",
+  "community.edit.logo.delete-undo.title": "لغو حذف",
 
   // "community-collection.edit.logo.delete-undo.title": "Undo delete",
-  // TODO New key - Add a translation
-  "community-collection.edit.logo.delete-undo.title": "Undo delete",
+  "community-collection.edit.logo.delete-undo.title": "لغو حذف",
 
   // "community.edit.logo.label": "Community logo",
-  // TODO New key - Add a translation
-  "community.edit.logo.label": "Community logo",
+  "community.edit.logo.label": "لوگوی جامعه",
 
   // "community.edit.logo.notifications.add.error": "Uploading community logo failed. Please verify the content before retrying.",
-  // TODO New key - Add a translation
-  "community.edit.logo.notifications.add.error": "Uploading community logo failed. Please verify the content before retrying.",
+  "community.edit.logo.notifications.add.error": "بارگذاری لوگوی جامعه ناموفق بود. لطفاً قبل از تلاش مجدد، محتوا را تأیید کنید.",
 
   // "community.edit.logo.notifications.add.success": "Upload community logo successful.",
-  // TODO New key - Add a translation
-  "community.edit.logo.notifications.add.success": "Upload community logo successful.",
+  "community.edit.logo.notifications.add.success": " بارگذاری لوگوی جامعه موفقیت آمیز بود.",
 
   // "community.edit.logo.notifications.delete.success.title": "Logo deleted",
-  // TODO New key - Add a translation
-  "community.edit.logo.notifications.delete.success.title": "Logo deleted",
+  "community.edit.logo.notifications.delete.success.title": "لوگو حذف شد",
 
   // "community.edit.logo.notifications.delete.success.content": "Successfully deleted the community's logo",
-  // TODO New key - Add a translation
-  "community.edit.logo.notifications.delete.success.content": "Successfully deleted the community's logo",
+  "community.edit.logo.notifications.delete.success.content": "لوگوی جامعه با موفقیت حذف شد",
 
   // "community.edit.logo.notifications.delete.error.title": "Error deleting logo",
-  // TODO New key - Add a translation
-  "community.edit.logo.notifications.delete.error.title": "Error deleting logo",
+  "community.edit.logo.notifications.delete.error.title": "خطای حذف لوگو",
 
   // "community.edit.logo.upload": "Drop a community logo to upload",
-  // TODO New key - Add a translation
-  "community.edit.logo.upload": "Drop a community logo to upload",
+  "community.edit.logo.upload": "برای آپلود، لوگوی جامعه را رها کنید",
 
   // "community.edit.notifications.success": "Successfully edited the community",
-  // TODO New key - Add a translation
-  "community.edit.notifications.success": "Successfully edited the community",
+  "community.edit.notifications.success": "جامعه با موفقیت ویرایش شد",
 
   // "community.edit.notifications.unauthorized": "You do not have privileges to make this change",
-  // TODO New key - Add a translation
-  "community.edit.notifications.unauthorized": "You do not have privileges to make this change",
+  "community.edit.notifications.unauthorized": "شما حق اعمال این تغییر را ندارید",
 
   // "community.edit.notifications.error": "An error occurred while editing the community",
-  // TODO New key - Add a translation
-  "community.edit.notifications.error": "An error occurred while editing the community",
+  "community.edit.notifications.error": "خطایی هنگام ویرایش جامعه رخ داد",
 
   // "community.edit.return": "Back",
-  // TODO New key - Add a translation
-  "community.edit.return": "Back",
+  "community.edit.return": "برگشت",
 
   // "community.edit.tabs.curate.head": "Curate",
-  // TODO New key - Add a translation
-  "community.edit.tabs.curate.head": "Curate",
+  "community.edit.tabs.curate.head": "دست چین",
 
   // "community.edit.tabs.curate.title": "Community Edit - Curate",
-  // TODO New key - Add a translation
-  "community.edit.tabs.curate.title": "Community Edit - Curate",
+  "community.edit.tabs.curate.title": "ویرایش جامعه- دست چین",
 
   // "community.edit.tabs.access-control.head": "Access Control",
-  // TODO New key - Add a translation
-  "community.edit.tabs.access-control.head": "Access Control",
+  "community.edit.tabs.access-control.head": "کنترل دسترسی",
 
   // "community.edit.tabs.access-control.title": "Community Edit - Access Control",
-  // TODO New key - Add a translation
-  "community.edit.tabs.access-control.title": "Community Edit - Access Control",
+  "community.edit.tabs.access-control.title": "ویرایش جامعه- کنترل دسترسی",
 
   // "community.edit.tabs.metadata.head": "Edit Metadata",
-  // TODO New key - Add a translation
-  "community.edit.tabs.metadata.head": "Edit Metadata",
+  "community.edit.tabs.metadata.head": "ویرایش ابرداده",
 
   // "community.edit.tabs.metadata.title": "Community Edit - Metadata",
-  // TODO New key - Add a translation
-  "community.edit.tabs.metadata.title": "Community Edit - Metadata",
+  "community.edit.tabs.metadata.title": "ویرایش جامعه- ابرداده",
 
   // "community.edit.tabs.roles.head": "Assign Roles",
-  // TODO New key - Add a translation
-  "community.edit.tabs.roles.head": "Assign Roles",
+  "community.edit.tabs.roles.head": "اختصاص نقشها",
 
   // "community.edit.tabs.roles.title": "Community Edit - Roles",
-  // TODO New key - Add a translation
-  "community.edit.tabs.roles.title": "Community Edit - Roles",
+  "community.edit.tabs.roles.title": "ویرایش جامعه- نقشها",
 
   // "community.edit.tabs.authorizations.head": "Authorizations",
-  // TODO New key - Add a translation
-  "community.edit.tabs.authorizations.head": "Authorizations",
+  "community.edit.tabs.authorizations.head": "مجوزها",
 
   // "community.edit.tabs.authorizations.title": "Community Edit - Authorizations",
-  // TODO New key - Add a translation
-  "community.edit.tabs.authorizations.title": "Community Edit - Authorizations",
+  "community.edit.tabs.authorizations.title": "ویرایش جامعه- مجوزها",
 
   // "community.listelement.badge": "Community",
-  // TODO New key - Add a translation
-  "community.listelement.badge": "Community",
+  "community.listelement.badge": "جامعه",
 
   // "community.logo": "Community logo",
-  // TODO New key - Add a translation
-  "community.logo": "Community logo",
+  "community.logo": "لوگوی جامعه",
 
   // "comcol-role.edit.no-group": "None",
-  // TODO New key - Add a translation
-  "comcol-role.edit.no-group": "None",
+  "comcol-role.edit.no-group": "هیچکدام",
 
   // "comcol-role.edit.create": "Create",
-  // TODO New key - Add a translation
-  "comcol-role.edit.create": "Create",
+  "comcol-role.edit.create": "ایجاد",
 
   // "comcol-role.edit.create.error.title": "Failed to create a group for the '{{ role }}' role",
-  // TODO New key - Add a translation
-  "comcol-role.edit.create.error.title": "Failed to create a group for the '{{ role }}' role",
+  "comcol-role.edit.create.error.title": "ایجاد گروه برای نقش  '{{ role }}' ناموفق بود",
 
   // "comcol-role.edit.restrict": "Restrict",
-  // TODO New key - Add a translation
-  "comcol-role.edit.restrict": "Restrict",
+  "comcol-role.edit.restrict": "محدود",
 
   // "comcol-role.edit.delete": "Delete",
-  // TODO New key - Add a translation
-  "comcol-role.edit.delete": "Delete",
+  "comcol-role.edit.delete": "حذف",
 
   // "comcol-role.edit.delete.error.title": "Failed to delete the '{{ role }}' role's group",
+  "comcol-role.edit.delete.error.title": "گروه نقش '{{ role }}' حذف نشد.",
+
+  // "comcol-role.edit.delete.modal.header": "Delete Group \"{{ dsoName }}\"",
   // TODO New key - Add a translation
-  "comcol-role.edit.delete.error.title": "Failed to delete the '{{ role }}' role's group",
+  "comcol-role.edit.delete.modal.header": "Delete Group \"{{ dsoName }}\"",
+
+  // "comcol-role.edit.delete.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\" and all its associated policies?",
+  // TODO New key - Add a translation
+  "comcol-role.edit.delete.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\" and all its associated policies?",
+
+  // "comcol-role.edit.delete.modal.cancel": "Cancel",
+  // TODO New key - Add a translation
+  "comcol-role.edit.delete.modal.cancel": "Cancel",
+
+  // "comcol-role.edit.delete.modal.confirm": "Delete",
+  // TODO New key - Add a translation
+  "comcol-role.edit.delete.modal.confirm": "Delete",
 
   // "comcol-role.edit.community-admin.name": "Administrators",
-  // TODO New key - Add a translation
-  "comcol-role.edit.community-admin.name": "Administrators",
+  "comcol-role.edit.community-admin.name": "مدیران",
 
   // "comcol-role.edit.collection-admin.name": "Administrators",
-  // TODO New key - Add a translation
-  "comcol-role.edit.collection-admin.name": "Administrators",
+  "comcol-role.edit.collection-admin.name": "مدیران",
 
   // "comcol-role.edit.community-admin.description": "Community administrators can create sub-communities or collections, and manage or assign management for those sub-communities or collections. In addition, they decide who can submit items to any sub-collections, edit item metadata (after submission), and add (map) existing items from other collections (subject to authorization).",
-  // TODO New key - Add a translation
-  "comcol-role.edit.community-admin.description": "Community administrators can create sub-communities or collections, and manage or assign management for those sub-communities or collections. In addition, they decide who can submit items to any sub-collections, edit item metadata (after submission), and add (map) existing items from other collections (subject to authorization).",
+  "comcol-role.edit.community-admin.description": "مدیران جامعه می‌توانند زیرجامعه ها یا مجموعه‌ها را ایجاد کنند و مدیریت یا اختصاص مدیریت برای آن زیرجامعه ها یا مجموعه‌ها را بر عهده بگیرند. علاوه بر این، آنها تصمیم می‌گیرند که چه کسی می‌تواند آیتمها را به هر زیرمجموعه ارسال کند، ابرداده‌های آیتمها را (پس از ارسال) ویرایش کند و آیتمهای موجود را از مجموعه‌های دیگر (با مجوز) اضافه کند (نگاشت کند).",
 
   // "comcol-role.edit.collection-admin.description": "Collection administrators decide who can submit items to the collection, edit item metadata (after submission), and add (map) existing items from other collections to this collection (subject to authorization for that collection).",
-  // TODO New key - Add a translation
-  "comcol-role.edit.collection-admin.description": "Collection administrators decide who can submit items to the collection, edit item metadata (after submission), and add (map) existing items from other collections to this collection (subject to authorization for that collection).",
+  "comcol-role.edit.collection-admin.description": "مدیران مجموعه تصمیم می‌گیرند چه کسی می‌تواند آیتمها را به مجموعه ارسال کند، ابرداده‌های آیتمها را (پس از ارسال) ویرایش کند، و آیتمهای موجود را از مجموعه‌های دیگر به این مجموعه اضافه (نگاشت) کند (منوط به مجوز آن مجموعه).",
 
   // "comcol-role.edit.submitters.name": "Submitters",
-  // TODO New key - Add a translation
-  "comcol-role.edit.submitters.name": "Submitters",
+  "comcol-role.edit.submitters.name": "ارسال کنندگان",
 
   // "comcol-role.edit.submitters.description": "The E-People and Groups that have permission to submit new items to this collection.",
-  // TODO New key - Add a translation
-  "comcol-role.edit.submitters.description": "The E-People and Groups that have permission to submit new items to this collection.",
+  "comcol-role.edit.submitters.description": "E-Peopleو گروه‌هایی که مجوز ارسال آیتمهای جدید به این مجموعه را دارند.",
 
   // "comcol-role.edit.item_read.name": "Default item read access",
-  // TODO New key - Add a translation
-  "comcol-role.edit.item_read.name": "Default item read access",
+  "comcol-role.edit.item_read.name": "دسترسی پیش فرض خواندن آیتم",
 
   // "comcol-role.edit.item_read.description": "E-People and Groups that can read new items submitted to this collection. Changes to this role are not retroactive. Existing items in the system will still be viewable by those who had read access at the time of their addition.",
-  // TODO New key - Add a translation
-  "comcol-role.edit.item_read.description": "E-People and Groups that can read new items submitted to this collection. Changes to this role are not retroactive. Existing items in the system will still be viewable by those who had read access at the time of their addition.",
+  "comcol-role.edit.item_read.description": "E-People و گروه‌هایی که می‌توانند آیتم جدید ارسال شده به این مجموعه را بخوانند. تغییرات در این نقش عطف به ماسبق نمی‌شوند. آیتم موجود در سیستم همچنان توسط کسانی که در زمان اضافه شدن، دسترسی خواندن داشته‌اند، قابل مشاهده خواهند بود.",
 
   // "comcol-role.edit.item_read.anonymous-group": "Default read for incoming items is currently set to Anonymous.",
-  // TODO New key - Add a translation
-  "comcol-role.edit.item_read.anonymous-group": "Default read for incoming items is currently set to Anonymous.",
+  "comcol-role.edit.item_read.anonymous-group": "خواندن پیش‌فرض برای آیتمهای ورودی در حال حاضر روی ناشناس تنظیم شده است.",
 
   // "comcol-role.edit.bitstream_read.name": "Default bitstream read access",
-  // TODO New key - Add a translation
-  "comcol-role.edit.bitstream_read.name": "Default bitstream read access",
+  "comcol-role.edit.bitstream_read.name": "دسترسی خواندن پیش فرض فایل",
 
   // "comcol-role.edit.bitstream_read.description": "E-People and Groups that can read new bitstreams submitted to this collection. Changes to this role are not retroactive. Existing bitstreams in the system will still be viewable by those who had read access at the time of their addition.",
-  // TODO New key - Add a translation
-  "comcol-role.edit.bitstream_read.description": "E-People and Groups that can read new bitstreams submitted to this collection. Changes to this role are not retroactive. Existing bitstreams in the system will still be viewable by those who had read access at the time of their addition.",
+  "comcol-role.edit.bitstream_read.description": "E-People و گروه‌هایی که می‌توانند فایلهای جدید ارسال شده به این مجموعه را بخوانند. تغییرات در این نقش عطف به ماسبق نمی‌شوند. فایلهای موجود در سیستم همچنان توسط کسانی که در زمان اضافه شدنشان دسترسی خواندن داشته‌اند، قابل مشاهده خواهند بود.",
 
   // "comcol-role.edit.bitstream_read.anonymous-group": "Default read for incoming bitstreams is currently set to Anonymous.",
-  // TODO New key - Add a translation
-  "comcol-role.edit.bitstream_read.anonymous-group": "Default read for incoming bitstreams is currently set to Anonymous.",
+  "comcol-role.edit.bitstream_read.anonymous-group": "خواندن پیش‌فرض برای فایلهای ورودی در حال حاضر روی ناشناس تنظیم شده است.",
 
   // "comcol-role.edit.editor.name": "Editors",
-  // TODO New key - Add a translation
-  "comcol-role.edit.editor.name": "Editors",
+  "comcol-role.edit.editor.name": "ویرایشگرها",
 
   // "comcol-role.edit.editor.description": "Editors are able to edit the metadata of incoming submissions, and then accept or reject them.",
-  // TODO New key - Add a translation
-  "comcol-role.edit.editor.description": "Editors are able to edit the metadata of incoming submissions, and then accept or reject them.",
+  "comcol-role.edit.editor.description": "ویرایشگرها می‌توانند ابرداده‌های ارسالهای دریافتی را ویرایش کنند و سپس آنها را بپذیرند یا رد کنند.",
 
   // "comcol-role.edit.finaleditor.name": "Final editors",
-  // TODO New key - Add a translation
-  "comcol-role.edit.finaleditor.name": "Final editors",
+  "comcol-role.edit.finaleditor.name": "ویرایشگرهای نهایی",
 
   // "comcol-role.edit.finaleditor.description": "Final editors are able to edit the metadata of incoming submissions, but will not be able to reject them.",
-  // TODO New key - Add a translation
-  "comcol-role.edit.finaleditor.description": "Final editors are able to edit the metadata of incoming submissions, but will not be able to reject them.",
+  "comcol-role.edit.finaleditor.description": "ویرایشگرهای نهایی می‌توانند ابرداده‌های ارسالهای دریافتی را ویرایش کنند، اما نمی‌توانند آنها را رد کنند.",
 
   // "comcol-role.edit.reviewer.name": "Reviewers",
-  // TODO New key - Add a translation
-  "comcol-role.edit.reviewer.name": "Reviewers",
+  "comcol-role.edit.reviewer.name": "داوران",
 
   // "comcol-role.edit.reviewer.description": "Reviewers are able to accept or reject incoming submissions. However, they are not able to edit the submission's metadata.",
-  // TODO New key - Add a translation
-  "comcol-role.edit.reviewer.description": "Reviewers are able to accept or reject incoming submissions. However, they are not able to edit the submission's metadata.",
+  "comcol-role.edit.reviewer.description": "داوران می‌توانند ارسالهای دریافتی را بپذیرند یا رد کنند. با این حال، آنها قادر به ویرایش ابرداده‌های ارسالها نیستند.",
 
   // "comcol-role.edit.scorereviewers.name": "Score Reviewers",
-  // TODO New key - Add a translation
-  "comcol-role.edit.scorereviewers.name": "Score Reviewers",
+  "comcol-role.edit.scorereviewers.name": "داوران امتیاز",
 
   // "comcol-role.edit.scorereviewers.description": "Reviewers are able to give a score to incoming submissions, this will define whether the submission will be rejected or not.",
-  // TODO New key - Add a translation
-  "comcol-role.edit.scorereviewers.description": "Reviewers are able to give a score to incoming submissions, this will define whether the submission will be rejected or not.",
+  "comcol-role.edit.scorereviewers.description": "داوران می‌توانند به ارسالهای دریافتی امتیاز بدهند، این امتیاز مشخص می‌کند که آیا ارسال رد خواهد شد یا خیر.",
 
   // "community.form.abstract": "Short Description",
-  // TODO New key - Add a translation
-  "community.form.abstract": "Short Description",
+  "community.form.abstract": "توصیف کوتاه",
 
   // "community.form.description": "Introductory text (HTML)",
-  // TODO New key - Add a translation
-  "community.form.description": "Introductory text (HTML)",
+  "community.form.description": "متن مقدماتی (HTML)",
 
   // "community.form.errors.title.required": "Please enter a community name",
-  // TODO New key - Add a translation
-  "community.form.errors.title.required": "Please enter a community name",
+  "community.form.errors.title.required": "لطفا یک نام جامعه وارد کنید",
 
   // "community.form.rights": "Copyright text (HTML)",
-  // TODO New key - Add a translation
-  "community.form.rights": "Copyright text (HTML)",
+  "community.form.rights": "متن کپی رایت (HTML)",
 
   // "community.form.tableofcontents": "News (HTML)",
-  // TODO New key - Add a translation
-  "community.form.tableofcontents": "News (HTML)",
+  "community.form.tableofcontents": "خبر (HTML)",
 
   // "community.form.title": "Name",
-  // TODO New key - Add a translation
-  "community.form.title": "Name",
+  "community.form.title": "نام",
 
   // "community.page.edit": "Edit this community",
-  // TODO New key - Add a translation
-  "community.page.edit": "Edit this community",
+  "community.page.edit": "ویرایش این جامعه",
 
   // "community.page.handle": "Permanent URI for this community",
-  // TODO New key - Add a translation
-  "community.page.handle": "Permanent URI for this community",
+  "community.page.handle": " URI دائمی برای این جامعه",
 
   // "community.page.license": "License",
-  // TODO New key - Add a translation
-  "community.page.license": "License",
+  "community.page.license": "گواهی",
 
   // "community.page.news": "News",
-  // TODO New key - Add a translation
-  "community.page.news": "News",
+  "community.page.news": "خبر",
 
   // "community.page.options": "Options",
-  // TODO New key - Add a translation
-  "community.page.options": "Options",
+  "community.page.options": "گزینه‌ها",
 
   // "community.all-lists.head": "Subcommunities and Collections",
-  // TODO New key - Add a translation
-  "community.all-lists.head": "Subcommunities and Collections",
+  "community.all-lists.head": "زیر جامعه ها و مجموعه ها",
 
   // "community.search.breadcrumbs": "Search",
-  // TODO New key - Add a translation
-  "community.search.breadcrumbs": "Search",
+  "community.search.breadcrumbs": "جستجو",
 
   // "community.search.results.head": "Search Results",
-  // TODO New key - Add a translation
-  "community.search.results.head": "Search Results",
+  "community.search.results.head": "نتایج جستجو",
 
   // "community.sub-collection-list.head": "Collections in this community",
-  // TODO New key - Add a translation
-  "community.sub-collection-list.head": "Collections in this community",
+  "community.sub-collection-list.head": "مجموعه ها در این جامعه",
 
   // "community.sub-community-list.head": "Communities in this Community",
-  // TODO New key - Add a translation
-  "community.sub-community-list.head": "Communities in this Community",
+  "community.sub-community-list.head": "جامعه ها در این جامعه",
 
   // "cookies.consent.accept-all": "Accept all",
-  // TODO New key - Add a translation
-  "cookies.consent.accept-all": "Accept all",
+  "cookies.consent.accept-all": "پذیرش همه",
 
   // "cookies.consent.accept-selected": "Accept selected",
-  // TODO New key - Add a translation
-  "cookies.consent.accept-selected": "Accept selected",
+  "cookies.consent.accept-selected": "پذیرش انتخاب شده",
 
   // "cookies.consent.app.opt-out.description": "This app is loaded by default (but you can opt out)",
-  // TODO New key - Add a translation
-  "cookies.consent.app.opt-out.description": "This app is loaded by default (but you can opt out)",
+  "cookies.consent.app.opt-out.description": "این برنامه به طور پیش‌فرض بارگذاری می‌شود (اما می‌توانید صرف نظر کنید)",
 
   // "cookies.consent.app.opt-out.title": "(opt-out)",
-  // TODO New key - Add a translation
-  "cookies.consent.app.opt-out.title": "(opt-out)",
+  "cookies.consent.app.opt-out.title": "(انصراف)",
 
   // "cookies.consent.app.purpose": "purpose",
-  // TODO New key - Add a translation
-  "cookies.consent.app.purpose": "purpose",
+  "cookies.consent.app.purpose": "هدف",
 
   // "cookies.consent.app.required.description": "This application is always required",
-  // TODO New key - Add a translation
-  "cookies.consent.app.required.description": "This application is always required",
+  "cookies.consent.app.required.description": "این برنامه همیشه مورد نیاز است",
 
   // "cookies.consent.app.required.title": "(always required)",
-  // TODO New key - Add a translation
-  "cookies.consent.app.required.title": "(always required)",
+  "cookies.consent.app.required.title": "(همیشه موردنیاز)",
 
   // "cookies.consent.update": "There were changes since your last visit, please update your consent.",
-  // TODO New key - Add a translation
-  "cookies.consent.update": "There were changes since your last visit, please update your consent.",
+  "cookies.consent.update": "از آخرین بازدید شما تغییراتی رخ داده است، لطفاً موافقت خود را به‌روز کنید.",
 
   // "cookies.consent.close": "Close",
-  // TODO New key - Add a translation
-  "cookies.consent.close": "Close",
+  "cookies.consent.close": "بستن",
 
   // "cookies.consent.decline": "Decline",
-  // TODO New key - Add a translation
-  "cookies.consent.decline": "Decline",
+  "cookies.consent.decline": "رد",
 
   // "cookies.consent.decline-all": "Decline all",
-  // TODO New key - Add a translation
-  "cookies.consent.decline-all": "Decline all",
+  "cookies.consent.decline-all": "رد همه",
 
   // "cookies.consent.ok": "That's ok",
-  // TODO New key - Add a translation
-  "cookies.consent.ok": "That's ok",
+  "cookies.consent.ok": "اشکالی نداره.",
 
   // "cookies.consent.save": "Save",
-  // TODO New key - Add a translation
-  "cookies.consent.save": "Save",
+  "cookies.consent.save": "ذخیره",
 
   // "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: {purposes}",
-  // TODO New key - Add a translation
-  "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: {purposes}",
+  "cookies.consent.content-notice.description": "ما اطلاعات شخصی شما را برای اهداف زیر جمع‌آوری و پردازش می‌کنیم: {purposes}",
 
   // "cookies.consent.content-notice.learnMore": "Customize",
-  // TODO New key - Add a translation
-  "cookies.consent.content-notice.learnMore": "Customize",
+  "cookies.consent.content-notice.learnMore": "سفارشی سازی",
 
   // "cookies.consent.content-modal.description": "Here you can see and customize the information that we collect about you.",
-  // TODO New key - Add a translation
-  "cookies.consent.content-modal.description": "Here you can see and customize the information that we collect about you.",
+  "cookies.consent.content-modal.description": "در اینجا می‌توانید اطلاعاتی را که ما درباره شما جمع‌آوری می‌کنیم، مشاهده و سفارشی‌سازی کنید.",
 
   // "cookies.consent.content-modal.privacy-policy.name": "privacy policy",
   // TODO New key - Add a translation
@@ -2839,6 +2496,14 @@
   // TODO New key - Add a translation
   "cookies.consent.content-modal.title": "Information that we collect",
 
+  // "cookies.consent.app.title.accessibility": "Accessibility Settings",
+  // TODO New key - Add a translation
+  "cookies.consent.app.title.accessibility": "Accessibility Settings",
+
+  // "cookies.consent.app.description.accessibility": "Required for saving your accessibility settings locally",
+  // TODO New key - Add a translation
+  "cookies.consent.app.description.accessibility": "Required for saving your accessibility settings locally",
+
   // "cookies.consent.app.title.authentication": "Authentication",
   // TODO New key - Add a translation
   "cookies.consent.app.title.authentication": "Authentication",
@@ -2846,6 +2511,14 @@
   // "cookies.consent.app.description.authentication": "Required for signing you in",
   // TODO New key - Add a translation
   "cookies.consent.app.description.authentication": "Required for signing you in",
+
+  // "cookies.consent.app.title.correlation-id": "Correlation ID",
+  // TODO New key - Add a translation
+  "cookies.consent.app.title.correlation-id": "Correlation ID",
+
+  // "cookies.consent.app.description.correlation-id": "Allow us to track your session in backend logs for support/debugging purposes",
+  // TODO New key - Add a translation
+  "cookies.consent.app.description.correlation-id": "Allow us to track your session in backend logs for support/debugging purposes",
 
   // "cookies.consent.app.title.preferences": "Preferences",
   // TODO New key - Add a translation
@@ -2996,8 +2669,7 @@
   "deny-request-copy.success": "Successfully denied item request",
 
   // "dynamic-list.load-more": "Load more",
-  // TODO New key - Add a translation
-  "dynamic-list.load-more": "Load more",
+  "dynamic-list.load-more": "بارگذاری بیشتر",
 
   // "dropdown.clear": "Clear selection",
   // TODO New key - Add a translation
@@ -3108,8 +2780,7 @@
   "dso-selector.set-scope.community.head": "Select a search scope",
 
   // "dso-selector.set-scope.community.button": "Search all of DSpace",
-  // TODO New key - Add a translation
-  "dso-selector.set-scope.community.button": "Search all of DSpace",
+  "dso-selector.set-scope.community.button": "جستجوی همه دی اسپیس",
 
   // "dso-selector.set-scope.community.or-divider": "or",
   // TODO New key - Add a translation
@@ -3447,6 +3118,10 @@
   // TODO New key - Add a translation
   "footer.copyright": "copyright © 2002-{{ year }}",
 
+  // "footer.link.accessibility": "Accessibility settings",
+  // TODO New key - Add a translation
+  "footer.link.accessibility": "Accessibility settings",
+
   // "footer.link.dspace": "DSpace software",
   // TODO New key - Add a translation
   "footer.link.dspace": "DSpace software",
@@ -3692,8 +3367,7 @@
   "form.save-help": "Save changes",
 
   // "form.search": "Search",
-  // TODO New key - Add a translation
-  "form.search": "Search",
+  "form.search": "جستجو",
 
   // "form.search-help": "Click here to look for an existing correspondence",
   // TODO New key - Add a translation
@@ -3938,6 +3612,82 @@
   // "home.top-level-communities.help": "Select a community to browse its collections.",
   "home.top-level-communities.help": "یک جامعه را برای مرور مجموعه های آن انتخاب کنید.",
 
+  // "info.accessibility-settings.breadcrumbs": "Accessibility settings",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.breadcrumbs": "Accessibility settings",
+
+  // "info.accessibility-settings.cookie-warning": "Saving the accessibility settings is currently not possible. Either log in to save the settings in user data, or accept the 'Accessibility Settings' cookie using the 'Cookie Settings' menu at the bottom of the page. Once the cookie has been accepted, you can reload the page to remove this message.",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.cookie-warning": "Saving the accessibility settings is currently not possible. Either log in to save the settings in user data, or accept the 'Accessibility Settings' cookie using the 'Cookie Settings' menu at the bottom of the page. Once the cookie has been accepted, you can reload the page to remove this message.",
+
+  // "info.accessibility-settings.disableNotificationTimeOut.label": "Automatically close notifications after time out",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.disableNotificationTimeOut.label": "Automatically close notifications after time out",
+
+  // "info.accessibility-settings.disableNotificationTimeOut.hint": "When this toggle is activated, notifications will close automatically after the time out passes. When deactivated, notifications will remain open untill manually closed.",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.disableNotificationTimeOut.hint": "When this toggle is activated, notifications will close automatically after the time out passes. When deactivated, notifications will remain open untill manually closed.",
+
+  // "info.accessibility-settings.failed-notification": "Failed to save accessibility settings",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.failed-notification": "Failed to save accessibility settings",
+
+  // "info.accessibility-settings.invalid-form-notification": "Did not save. The form contains invalid values.",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.invalid-form-notification": "Did not save. The form contains invalid values.",
+
+  // "info.accessibility-settings.liveRegionTimeOut.label": "ARIA Live region time out (in seconds)",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.liveRegionTimeOut.label": "ARIA Live region time out (in seconds)",
+
+  // "info.accessibility-settings.liveRegionTimeOut.hint": "The duration after which a message in the ARIA live region disappears. ARIA live regions are not visible on the page, but provide announcements of notifications (or other actions) to screen readers.",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.liveRegionTimeOut.hint": "The duration after which a message in the ARIA live region disappears. ARIA live regions are not visible on the page, but provide announcements of notifications (or other actions) to screen readers.",
+
+  // "info.accessibility-settings.liveRegionTimeOut.invalid": "Live region time out must be greater than 0",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.liveRegionTimeOut.invalid": "Live region time out must be greater than 0",
+
+  // "info.accessibility-settings.notificationTimeOut.label": "Notification time out (in seconds)",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.notificationTimeOut.label": "Notification time out (in seconds)",
+
+  // "info.accessibility-settings.notificationTimeOut.hint": "The duration after which a notification disappears.",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.notificationTimeOut.hint": "The duration after which a notification disappears.",
+
+  // "info.accessibility-settings.notificationTimeOut.invalid": "Notification time out must be greater than 0",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.notificationTimeOut.invalid": "Notification time out must be greater than 0",
+
+  // "info.accessibility-settings.save-notification.cookie": "Successfully saved settings locally.",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.save-notification.cookie": "Successfully saved settings locally.",
+
+  // "info.accessibility-settings.save-notification.metadata": "Successfully saved settings on the user profile.",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.save-notification.metadata": "Successfully saved settings on the user profile.",
+
+  // "info.accessibility-settings.reset-failed": "Failed to reset. Either log in or accept the 'Accessibility Settings' cookie.",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.reset-failed": "Failed to reset. Either log in or accept the 'Accessibility Settings' cookie.",
+
+  // "info.accessibility-settings.reset-notification": "Successfully reset settings.",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.reset-notification": "Successfully reset settings.",
+
+  // "info.accessibility-settings.reset": "Reset accessibility settings",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.reset": "Reset accessibility settings",
+
+  // "info.accessibility-settings.submit": "Save accessibility settings",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.submit": "Save accessibility settings",
+
+  // "info.accessibility-settings.title": "Accessibility settings",
+  // TODO New key - Add a translation
+  "info.accessibility-settings.title": "Accessibility settings",
+
   // "info.end-user-agreement.accept": "I have read and I agree to the End User Agreement",
   // TODO New key - Add a translation
   "info.end-user-agreement.accept": "I have read and I agree to the End User Agreement",
@@ -4070,6 +3820,10 @@
   // TODO New key - Add a translation
   "item.edit.authorizations.title": "Edit item's Policies",
 
+  // "item.badge.status": "Item status:",
+  // TODO New key - Add a translation
+  "item.badge.status": "Item status:",
+
   // "item.badge.private": "Non-discoverable",
   // TODO New key - Add a translation
   "item.badge.private": "Non-discoverable",
@@ -4135,8 +3889,7 @@
   "item.edit.bitstreams.bundle.load.all": "Load all ({{ total }})",
 
   // "item.edit.bitstreams.bundle.load.more": "Load more",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.bundle.load.more": "Load more",
+  "item.edit.bitstreams.bundle.load.more": "بارگذاری بیشتر",
 
   // "item.edit.bitstreams.bundle.name": "BUNDLE: {{ name }}",
   // TODO New key - Add a translation
@@ -4275,8 +4028,7 @@
   "item.edit.bitstreams.upload-button": "Upload",
 
   // "item.edit.bitstreams.load-more.link": "Load more",
-  // TODO New key - Add a translation
-  "item.edit.bitstreams.load-more.link": "Load more",
+  "item.edit.bitstreams.load-more.link": "بارگذاری بیشتر",
 
   // "item.edit.delete.cancel": "Cancel",
   // TODO New key - Add a translation
@@ -5026,17 +4778,33 @@
   // TODO New key - Add a translation
   "item.page.description": "Description",
 
+  // "item.page.org-unit": "Organizational Unit",
+  // TODO New key - Add a translation
+  "item.page.org-unit": "Organizational Unit",
+
   // "item.page.org-units": "Organizational Units",
   // TODO New key - Add a translation
   "item.page.org-units": "Organizational Units",
+
+  // "item.page.project": "Research Project",
+  // TODO New key - Add a translation
+  "item.page.project": "Research Project",
 
   // "item.page.projects": "Research Projects",
   // TODO New key - Add a translation
   "item.page.projects": "Research Projects",
 
+  // "item.page.publication": "Publications",
+  // TODO New key - Add a translation
+  "item.page.publication": "Publications",
+
   // "item.page.publications": "Publications",
   // TODO New key - Add a translation
   "item.page.publications": "Publications",
+
+  // "item.page.article": "Article",
+  // TODO New key - Add a translation
+  "item.page.article": "Article",
 
   // "item.page.articles": "Articles",
   // TODO New key - Add a translation
@@ -5045,6 +4813,10 @@
   // "item.page.journal": "Journal",
   // TODO New key - Add a translation
   "item.page.journal": "Journal",
+
+  // "item.page.journals": "Journals",
+  // TODO New key - Add a translation
+  "item.page.journals": "Journals",
 
   // "item.page.journal-issue": "Journal Issue",
   // TODO New key - Add a translation
@@ -5190,6 +4962,10 @@
   // TODO New key - Add a translation
   "item.page.abstract": "Abstract",
 
+  // "item.page.author": "Author",
+  // TODO New key - Add a translation
+  "item.page.author": "Author",
+
   // "item.page.authors": "Authors",
   // TODO New key - Add a translation
   "item.page.authors": "Authors",
@@ -5207,8 +4983,7 @@
   "item.page.collections.loading": "Loading...",
 
   // "item.page.collections.load-more": "Load more",
-  // TODO New key - Add a translation
-  "item.page.collections.load-more": "Load more",
+  "item.page.collections.load-more": "بارگذاری بیشتر",
 
   // "item.page.date": "Date",
   // TODO New key - Add a translation
@@ -5417,6 +5192,22 @@
   // "item.preview.oaire.citation.endPage": "Citation end page",
   // TODO New key - Add a translation
   "item.preview.oaire.citation.endPage": "Citation end page",
+
+  // "item.preview.dc.relation.hasversion": "Has version",
+  // TODO New key - Add a translation
+  "item.preview.dc.relation.hasversion": "Has version",
+
+  // "item.preview.dc.relation.ispartofseries": "Is part of series",
+  // TODO New key - Add a translation
+  "item.preview.dc.relation.ispartofseries": "Is part of series",
+
+  // "item.preview.dc.rights": "Rights",
+  // TODO New key - Add a translation
+  "item.preview.dc.rights": "Rights",
+
+  // "item.preview.dc.identifier.other": "Other Identifier",
+  // TODO New key - Add a translation
+  "item.preview.dc.identifier.other": "Other Identifier",
 
   // "item.preview.dc.relation.issn": "ISSN",
   // TODO New key - Add a translation
@@ -6099,160 +5890,121 @@
   "iiif.page.issue": "Issue: ",
 
   // "iiif.page.description": "Description: ",
-  // TODO New key - Add a translation
-  "iiif.page.description": "Description: ",
+  "iiif.page.description": "توصیف: ",
 
   // "loading.bitstream": "Loading bitstream...",
-  // TODO New key - Add a translation
-  "loading.bitstream": "Loading bitstream...",
+  "loading.bitstream": "بارگزاری فایل...",
 
   // "loading.bitstreams": "Loading bitstreams...",
-  // TODO New key - Add a translation
-  "loading.bitstreams": "Loading bitstreams...",
+  "loading.bitstreams": "بارگزاری فایلها...",
 
   // "loading.browse-by": "Loading items...",
-  // TODO New key - Add a translation
-  "loading.browse-by": "Loading items...",
+  "loading.browse-by": "بارگزاری آیتمها...",
 
   // "loading.browse-by-page": "Loading page...",
-  // TODO New key - Add a translation
-  "loading.browse-by-page": "Loading page...",
+  "loading.browse-by-page": "بارگزاری صفحه...",
 
   // "loading.collection": "Loading collection...",
-  // TODO New key - Add a translation
-  "loading.collection": "Loading collection...",
+  "loading.collection": "بارگزاری مجموعه...",
 
   // "loading.collections": "Loading collections...",
-  // TODO New key - Add a translation
-  "loading.collections": "Loading collections...",
+  "loading.collections": "بارگزاری مجموعه ها...",
 
   // "loading.content-source": "Loading content source...",
-  // TODO New key - Add a translation
-  "loading.content-source": "Loading content source...",
+  "loading.content-source": "بارگزاری محتوای منبع...",
 
   // "loading.community": "Loading community...",
-  // TODO New key - Add a translation
-  "loading.community": "Loading community...",
+  "loading.community": "بارگزاری جامعه...",
 
   // "loading.default": "Loading...",
-  // TODO New key - Add a translation
-  "loading.default": "Loading...",
+  "loading.default": "بارگزاری...",
 
   // "loading.item": "Loading item...",
-  // TODO New key - Add a translation
-  "loading.item": "Loading item...",
+  "loading.item": "بارگزاری آیتم",
 
   // "loading.items": "Loading items...",
-  // TODO New key - Add a translation
-  "loading.items": "Loading items...",
+  "loading.items": "بارگزاری آیتمها...",
 
   // "loading.mydspace-results": "Loading items...",
-  // TODO New key - Add a translation
-  "loading.mydspace-results": "Loading items...",
+  "loading.mydspace-results": "بارگزاری آیتمها...",
 
   // "loading.objects": "Loading...",
-  // TODO New key - Add a translation
-  "loading.objects": "Loading...",
+  "loading.objects": "بارگزاری ...",
 
   // "loading.recent-submissions": "Loading recent submissions...",
-  // TODO New key - Add a translation
-  "loading.recent-submissions": "Loading recent submissions...",
+  "loading.recent-submissions": "بارگزاری ارسالهای اخیر ...",
 
   // "loading.search-results": "Loading search results...",
-  // TODO New key - Add a translation
-  "loading.search-results": "Loading search results...",
+  "loading.search-results": "بارگزاری نتایج جستجو ...",
 
   // "loading.sub-collections": "Loading sub-collections...",
-  // TODO New key - Add a translation
-  "loading.sub-collections": "Loading sub-collections...",
+  "loading.sub-collections": "بارگزاری زیرمجموعه ...",
 
   // "loading.sub-communities": "Loading sub-communities...",
-  // TODO New key - Add a translation
-  "loading.sub-communities": "Loading sub-communities...",
+  "loading.sub-communities": "بارگزاری زیر جامعه ...",
 
   // "loading.top-level-communities": "Loading top-level communities...",
-  // TODO New key - Add a translation
-  "loading.top-level-communities": "Loading top-level communities...",
+  "loading.top-level-communities": "بارگزاری جامعه های سطح-بالا ...",
 
   // "login.form.email": "Email address",
-  // TODO New key - Add a translation
-  "login.form.email": "Email address",
+  "login.form.email": "آدرس ایمیل",
 
   // "login.form.forgot-password": "Have you forgotten your password?",
-  // TODO New key - Add a translation
-  "login.form.forgot-password": "Have you forgotten your password?",
+  "login.form.forgot-password": "آیا رمز عبور خود را فراموش کرده‌اید؟",
 
   // "login.form.header": "Please log in to DSpace",
-  // TODO New key - Add a translation
-  "login.form.header": "Please log in to DSpace",
+  "login.form.header": "لطفا وارد دی‌اسپیس شوید",
 
   // "login.form.new-user": "New user? Click here to register.",
-  // TODO New key - Add a translation
-  "login.form.new-user": "New user? Click here to register.",
+  "login.form.new-user": "کاربر جدید؟ برای ثبت نام اینجا کلیک کنید.",
 
   // "login.form.oidc": "Log in with OIDC",
-  // TODO New key - Add a translation
-  "login.form.oidc": "Log in with OIDC",
+  "login.form.oidc": "ورود با OIDC",
 
   // "login.form.orcid": "Log in with ORCID",
-  // TODO New key - Add a translation
-  "login.form.orcid": "Log in with ORCID",
+  "login.form.orcid": "ورود با ORCID",
 
   // "login.form.password": "Password",
-  // TODO New key - Add a translation
-  "login.form.password": "Password",
+  "login.form.password": "رمز عبور",
 
   // "login.form.saml": "Log in with SAML",
-  // TODO New key - Add a translation
-  "login.form.saml": "Log in with SAML",
+  "login.form.saml": "ورود با SAML",
 
   // "login.form.shibboleth": "Log in with Shibboleth",
-  // TODO New key - Add a translation
-  "login.form.shibboleth": "Log in with Shibboleth",
+  "login.form.shibboleth": "ورود با Shibboleth",
 
   // "login.form.submit": "Log in",
-  // TODO New key - Add a translation
   "login.form.submit": "ورود",
 
   // "login.title": "Login",
-  // TODO New key - Add a translation
   "login.title": "ورود",
 
   // "login.breadcrumbs": "Login",
-  // TODO New key - Add a translation
   "login.breadcrumbs": "ورود",
 
   // "logout.form.header": "Log out from DSpace",
-  // TODO New key - Add a translation
-  "logout.form.header": "Log out from DSpace",
+  "logout.form.header": "خروج از دی اسپیس",
 
   // "logout.form.submit": "Log out",
-  // TODO New key - Add a translation
-  "logout.form.submit": "Log out",
+  "logout.form.submit": "خروج",
 
   // "logout.title": "Logout",
-  // TODO New key - Add a translation
-  "logout.title": "Logout",
+  "logout.title": "خروج",
 
   // "menu.header.nav.description": "Admin navigation bar",
-  // TODO New key - Add a translation
-  "menu.header.nav.description": "Admin navigation bar",
+  "menu.header.nav.description": "نوار راهبری مدیر",
 
   // "menu.header.admin": "Management",
-  // TODO New key - Add a translation
-  "menu.header.admin": "Management",
+  "menu.header.admin": "مدیریت",
 
   // "menu.header.image.logo": "Repository logo",
-  // TODO New key - Add a translation
-  "menu.header.image.logo": "Repository logo",
+  "menu.header.image.logo": "لوگو مخزن",
 
   // "menu.header.admin.description": "Management menu",
-  // TODO New key - Add a translation
-  "menu.header.admin.description": "Management menu",
+  "menu.header.admin.description": "منوی مدیریت",
 
   // "menu.section.access_control": "Access Control",
-  // TODO New key - Add a translation
-  "menu.section.access_control": "Access Control",
+  "menu.section.access_control": "کنترل دسترسی",
 
   // "menu.section.access_control_authorizations": "Authorizations",
   // TODO New key - Add a translation
@@ -6330,7 +6082,7 @@
 
   // "menu.section.browse_global_communities_and_collections": "Communities & Collections",
   // TODO New key - Add a translation
-  "menu.section.browse_global_communities_and_collections": "جامعه ها و مجموعه ها",
+  "menu.section.browse_global_communities_and_collections": "Communities & Collections",
 
   // "menu.section.browse_global_geospatial_map": "By Geolocation (Map)",
   // TODO New key - Add a translation
@@ -6706,6 +6458,10 @@
   // TODO New key - Add a translation
   "mydspace.show.supervisedWorkspace": "Supervised items",
 
+  // "mydspace.status": "My DSpace status:",
+  // TODO New key - Add a translation
+  "mydspace.status": "My DSpace status:",
+
   // "mydspace.status.mydspaceArchived": "Archived",
   // TODO New key - Add a translation
   "mydspace.status.mydspaceArchived": "Archived",
@@ -6784,7 +6540,7 @@
 
   // "nav.login": "Log In",
   // TODO New key - Add a translation
-  "nav.login": "ورود",
+  "nav.login": "Log In",
 
   // "nav.user-profile-menu-and-logout": "User profile menu and log out",
   // TODO New key - Add a translation
@@ -6832,6 +6588,10 @@
   // "nav.user.description": "User profile bar",
   // TODO New key - Add a translation
   "nav.user.description": "User profile bar",
+
+  // "listelement.badge.dso-type": "Item type:",
+  // TODO New key - Add a translation
+  "listelement.badge.dso-type": "Item type:",
 
   // "none.listelement.badge": "Item",
   // TODO New key - Add a translation
@@ -7178,16 +6938,13 @@
   "pagination.options.description": "Pagination options",
 
   // "pagination.results-per-page": "Results Per Page",
-  // TODO New key - Add a translation
-  "pagination.results-per-page": "Results Per Page",
+  "pagination.results-per-page": "نتایج در هر صفحه",
 
   // "pagination.showing.detail": "{{ range }} of {{ total }}",
-  // TODO New key - Add a translation
-  "pagination.showing.detail": "{{ range }} of {{ total }}",
+  "pagination.showing.detail": "{{ range }} از {{ total }}",
 
   // "pagination.showing.label": "Now showing ",
-  // TODO New key - Add a translation
-  "pagination.showing.label": "Now showing ",
+  "pagination.showing.label": "در حال نمایش",
 
   // "pagination.sort-direction": "Sort Options",
   // TODO New key - Add a translation
@@ -7576,6 +7333,18 @@
   // "profile.breadcrumbs": "Update Profile",
   // TODO New key - Add a translation
   "profile.breadcrumbs": "Update Profile",
+
+  // "profile.card.accessibility.content": "Accessibility settings can be configured on the accessibility settings page.",
+  // TODO New key - Add a translation
+  "profile.card.accessibility.content": "Accessibility settings can be configured on the accessibility settings page.",
+
+  // "profile.card.accessibility.header": "Accessibility",
+  // TODO New key - Add a translation
+  "profile.card.accessibility.header": "Accessibility",
+
+  // "profile.card.accessibility.link": "Go to Accessibility Settings Page",
+  // TODO New key - Add a translation
+  "profile.card.accessibility.link": "Go to Accessibility Settings Page",
 
   // "profile.card.identify": "Identify",
   // TODO New key - Add a translation
@@ -8157,9 +7926,9 @@
   // TODO New key - Add a translation
   "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Organizational Units",
 
-  // "relationships.Person.isPublicationOfContributor.Publication": "Publications",
+  // "relationships.Person.isPublicationOfContributor.Publication": "Publications (contributor to)",
   // TODO New key - Add a translation
-  "relationships.Person.isPublicationOfContributor.Publication": "Publications",
+  "relationships.Person.isPublicationOfContributor.Publication": "Publications (contributor to)",
 
   // "relationships.Project.isPublicationOfProject.Publication": "Publications",
   // TODO New key - Add a translation
@@ -8193,13 +7962,13 @@
   // TODO New key - Add a translation
   "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
 
-  // "relationships.OrgUnit.isPublicationOfContributor.Publication": "Publications",
+  // "relationships.OrgUnit.isPublicationOfContributor.Publication": "Publications (contributor to)",
   // TODO New key - Add a translation
-  "relationships.OrgUnit.isPublicationOfContributor.Publication": "Publications",
+  "relationships.OrgUnit.isPublicationOfContributor.Publication": "Publications (contributor to)",
 
-  // "relationships.OrgUnit.isProjectOfFundingAgency.Project": "Research Projects",
+  // "relationships.OrgUnit.isProjectOfFundingAgency.Project": "Research Projects (funder of)",
   // TODO New key - Add a translation
-  "relationships.OrgUnit.isProjectOfFundingAgency.Project": "Research Projects",
+  "relationships.OrgUnit.isProjectOfFundingAgency.Project": "Research Projects (funder of)",
 
   // "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Journal Volume",
   // TODO New key - Add a translation
@@ -8669,6 +8438,14 @@
   // TODO New key - Add a translation
   "search.filters.filter.creativeDatePublished.label": "Search date published",
 
+  // "search.filters.filter.creativeDatePublished.min.label": "Start",
+  // TODO New key - Add a translation
+  "search.filters.filter.creativeDatePublished.min.label": "Start",
+
+  // "search.filters.filter.creativeDatePublished.max.label": "End",
+  // TODO New key - Add a translation
+  "search.filters.filter.creativeDatePublished.max.label": "End",
+
   // "search.filters.filter.creativeWorkEditor.head": "Editor",
   // TODO New key - Add a translation
   "search.filters.filter.creativeWorkEditor.head": "Editor",
@@ -8888,6 +8665,14 @@
   // "search.filters.filter.organizationFoundingDate.label": "Search date founded",
   // TODO New key - Add a translation
   "search.filters.filter.organizationFoundingDate.label": "Search date founded",
+
+  // "search.filters.filter.organizationFoundingDate.min.label": "Start",
+  // TODO New key - Add a translation
+  "search.filters.filter.organizationFoundingDate.min.label": "Start",
+
+  // "search.filters.filter.organizationFoundingDate.max.label": "End",
+  // TODO New key - Add a translation
+  "search.filters.filter.organizationFoundingDate.max.label": "End",
 
   // "search.filters.filter.scope.head": "Scope",
   // TODO New key - Add a translation
@@ -9901,6 +9686,10 @@
   // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalIssue": "Local Journal Issues ({{ count }})",
 
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfIssue": "Local Journal Volumes ({{ count }})",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfIssue": "Local Journal Volumes ({{ count }})",
+
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfPublication": "Local Journal Volumes ({{ count }})",
   // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfPublication": "Local Journal Volumes ({{ count }})",
@@ -9965,6 +9754,26 @@
   // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournalIssn": "Sherpa Journals by ISSN ({{ count }})",
 
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.openalexPerson": "OpenAlex ({{ count }})",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.openalexPerson": "OpenAlex ({{ count }})",
+
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.openalexInstitution": "OpenAlex Search by Institution ({{ count }})",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.openalexInstitution": "OpenAlex Search by Institution ({{ count }})",
+
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.openalexPublisher": "OpenAlex Search by Publisher ({{ count }})",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.openalexPublisher": "OpenAlex Search by Publisher ({{ count }})",
+
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.openalexFunder": "OpenAlex Search by Funder ({{ count }})",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.openalexFunder": "OpenAlex Search by Funder ({{ count }})",
+
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.dataciteProject": "DataCite Search by Project ({{ count }})",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.dataciteProject": "DataCite Search by Project ({{ count }})",
+
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingAgencyOfPublication": "Search for Funding Agencies",
   // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingAgencyOfPublication": "Search for Funding Agencies",
@@ -10005,6 +9814,10 @@
   // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.title.isFundingAgencyOfProject": "Funder of the Project",
 
+  // "submission.sections.describe.relationship-lookup.title.isPersonOfProject": "Person of the Project",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.title.isPersonOfProject": "Person of the Project",
+
   // "submission.sections.describe.relationship-lookup.selection-tab.search-form.placeholder": "Search...",
   // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.selection-tab.search-form.placeholder": "Search...",
@@ -10024,6 +9837,10 @@
   // "submission.sections.describe.relationship-lookup.title.JournalIssue": "Journal Issues",
   // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.title.JournalIssue": "Journal Issues",
+
+  // "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfIssue": "Journal Volumes",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfIssue": "Journal Volumes",
 
   // "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfPublication": "Journal Volumes",
   // TODO New key - Add a translation
@@ -10108,6 +9925,10 @@
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalOfPublication": "Selected Journals",
   // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalOfPublication": "Selected Journals",
+
+  // "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfIssue": "Selected Journal Volume",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfIssue": "Selected Journal Volume",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfPublication": "Selected Journal Volume",
   // TODO New key - Add a translation
@@ -10228,6 +10049,26 @@
   // "submission.sections.describe.relationship-lookup.selection-tab.title.ror": "Search Results",
   // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.selection-tab.title.ror": "Search Results",
+
+  // "submission.sections.describe.relationship-lookup.selection-tab.title.openalexPerson": "Search Results",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.selection-tab.title.openalexPerson": "Search Results",
+
+  // "submission.sections.describe.relationship-lookup.selection-tab.title.openalexInstitution": "Search Results",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.selection-tab.title.openalexInstitution": "Search Results",
+
+  // "submission.sections.describe.relationship-lookup.selection-tab.title.openalexPublisher": "Search Results",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.selection-tab.title.openalexPublisher": "Search Results",
+
+  // "submission.sections.describe.relationship-lookup.selection-tab.title.openalexFunder": "Search Results",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.selection-tab.title.openalexFunder": "Search Results",
+
+  // "submission.sections.describe.relationship-lookup.selection-tab.title.dataciteProject": "Search Results",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.selection-tab.title.dataciteProject": "Search Results",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title": "Search Results",
   // TODO New key - Add a translation
@@ -10972,6 +10813,10 @@
   // "subscriptions.tooltip": "Subscribe",
   // TODO New key - Add a translation
   "subscriptions.tooltip": "Subscribe",
+
+  // "subscriptions.unsubscribe": "Unsubscribe",
+  // TODO New key - Add a translation
+  "subscriptions.unsubscribe": "Unsubscribe",
 
   // "subscriptions.modal.title": "Subscriptions",
   // TODO New key - Add a translation
@@ -13637,9 +13482,9 @@
   // TODO New key - Add a translation
   "external-login.confirm-email-sent.header": "Confirmation email sent",
 
-  // "external-login.confirm-email-sent.info": " We have sent an emait to the provided address to validate your input. <br> Please follow the instructions in the email to complete the login process.",
+  // "external-login.confirm-email-sent.info": " We have sent an email to the provided address to validate your input. <br> Please follow the instructions in the email to complete the login process.",
   // TODO New key - Add a translation
-  "external-login.confirm-email-sent.info": " We have sent an emait to the provided address to validate your input. <br> Please follow the instructions in the email to complete the login process.",
+  "external-login.confirm-email-sent.info": " We have sent an email to the provided address to validate your input. <br> Please follow the instructions in the email to complete the login process.",
 
   // "external-login.provide-email.header": "Provide email",
   // TODO New key - Add a translation
@@ -13796,6 +13641,26 @@
   // "embargo.listelement.badge": "Embargo until {{ date }}",
   // TODO New key - Add a translation
   "embargo.listelement.badge": "Embargo until {{ date }}",
+
+  // "metadata-export-search.submit.error.limit-exceeded": "Only the first {{limit}} items will be exported",
+  // TODO New key - Add a translation
+  "metadata-export-search.submit.error.limit-exceeded": "Only the first {{limit}} items will be exported",
+
+  // "file-download-link.request-copy": "Request a copy of ",
+  // TODO New key - Add a translation
+  "file-download-link.request-copy": "Request a copy of ",
+
+  // "item.preview.organization.url": "URL",
+  // TODO New key - Add a translation
+  "item.preview.organization.url": "URL",
+
+  // "item.preview.organization.address.addressLocality": "City",
+  // TODO New key - Add a translation
+  "item.preview.organization.address.addressLocality": "City",
+
+  // "item.preview.organization.alternateName": "Alternative name",
+  // TODO New key - Add a translation
+  "item.preview.organization.alternateName": "Alternative name",
 
 
 }
