@@ -472,6 +472,18 @@ ngb-accordion {
     }
 }
 
+.form-select {
+  border: 0.119rem solid $gray-600;
+    &::placeholder {
+        color: $gray-600;
+    }
+    &:focus {
+        box-shadow: none;
+        outline: 1px solid lighten($gray-700, 10%);
+        outline-offset: 1px !important;
+    }
+}
+
 .page-link.disabled, .disabled > .page-link {
     border-color: $gray-600;
 }
