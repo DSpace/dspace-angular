@@ -7,7 +7,7 @@
         class="nav-item"
         (click)="$event.stopPropagation();">
         <div ngbDropdown #loginDrop="ngbDropdown" display="dynamic" placement="bottom-right" class="d-inline-block" @fadeInOut>
-          <button class="dropdownLogin btn btn-link px-0" [attr.aria-label]="'nav.login' |translate"
+          <button type="button" class="dropdownLogin btn btn-link px-0" [attr.aria-label]="'nav.login' |translate"
                   (click)="$event.preventDefault()" [attr.data-test]="'login-menu' | dsBrowserOnly"
                   role="button"
                   tabindex="0"
@@ -31,6 +31,7 @@
       <div class="nav-item">
         <div ngbDropdown #loggedInDrop="ngbDropdown" display="dynamic" placement="bottom-right" class="d-inline-block" @fadeInOut>
           <button
+            type="button"
             role="button"
             tabindex="0"
             [attr.aria-label]="'nav.user-profile-menu-and-logout' | translate"

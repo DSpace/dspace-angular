@@ -13,6 +13,7 @@
 
 @if (shouldShowButton$ | async) {
   <button
+    type="button"
     class="export-button btn btn-dark btn-sm"
     [ngbTooltip]="(shouldShowWarning$ | async) ? tipContentWarning : tipContent"
     (click)="export()"

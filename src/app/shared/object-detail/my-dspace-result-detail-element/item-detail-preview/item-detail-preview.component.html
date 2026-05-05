@@ -15,7 +15,7 @@
                 @if (bitstreams?.length > 0) {
                   <div class="file-section">
                     @for (file of bitstreams; track file; let last = $last) {
-                      <button class="btn btn-link" (click)="downloadBitstreamFile(file?.uuid)">
+                      <button type="button" class="btn btn-link" (click)="downloadBitstreamFile(file?.uuid)">
                         <span>{{ dsoNameService.getName(file) }}</span>
                         <span>({{(file?.sizeBytes) | dsFileSize }})</span>
                         @if (!last) {

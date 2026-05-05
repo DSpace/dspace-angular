@@ -4,7 +4,7 @@
     <div class="col-md-9">
       <div class="h4">
         @if ((selectedSearchConfig$ | async) !== defaultConfiguration) {
-          <button (click)="resetDefaultConfiguration()" class="badge bg-primary me-1 mb-1">
+          <button type="button" (click)="resetDefaultConfiguration()" class="badge bg-primary me-1 mb-1">
             {{ 'admin-notify-logs.' + (selectedSearchConfig$ | async) | translate}}
             <span> ×</span>
           </button>

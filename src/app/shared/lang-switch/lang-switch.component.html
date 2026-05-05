@@ -1,6 +1,6 @@
 @if (moreThanOneLanguage) {
   <div ngbDropdown class="navbar-nav" display="dynamic" placement="bottom-right">
-    <button role="button"
+    <button type="button" role="button"
             [attr.aria-label]="'nav.language' |translate"
             aria-controls="language-menu-list"
             aria-haspopup="menu"
@@ -23,7 +23,7 @@
              [class.active]="lang === translate.getCurrentLang()">
           {{ langLabel(lang) }}
         </div>
-      }
+      } 
     </div>
   </div>
 }

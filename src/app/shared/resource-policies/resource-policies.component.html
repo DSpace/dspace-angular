@@ -12,24 +12,24 @@
               }
             </span>
             <div class="space-children-mr flex-shrink-0">
-              <button class="btn btn-danger p-1"
+              <button type="button" class="btn btn-danger p-1"
                 [dsBtnDisabled]="((canDelete() | async) !== true) || (isProcessingDelete() | async)"
                 [title]="'resource-policies.delete.btn.title' | translate"
                 (click)="deleteSelectedResourcePolicies()">
-                @if ((isProcessingDelete() | async)) {
+                @if (isProcessingDelete() | async) {
                   <span>
                     <i class='fas fa-circle-notch fa-spin' aria-hidden="true"></i> {{'submission.workflow.tasks.generic.processing' | translate}}
                   </span>
                 }
-                @if ((isProcessingDelete() | async) !== true) {
+                 @if ((isProcessingDelete() | async) !== true) {
                   <span>
                     <i class='fas fa-trash-alt fa-fw' aria-hidden="true"></i>
                     {{'resource-policies.delete.btn' | translate}}
                   </span>
                 }
               </button>
-              <button class="btn btn-success p-1"
-                [dsBtnDisabled]="(isProcessingDelete() | async)"
+              <button type="button" class="btn btn-success p-1"
+                [dsBtnDisabled]="isProcessingDelete() | async"
                 [title]="'resource-policies.add.for.' + resourceType | translate"
                 (click)="redirectToResourcePolicyCreatePage()">
                 <i class='fas fa-plus' aria-hidden="true"></i>

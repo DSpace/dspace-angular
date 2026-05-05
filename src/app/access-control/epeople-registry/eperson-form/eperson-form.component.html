@@ -100,7 +100,7 @@
             <div class="alert alert-info w-100 mb-2" role="alert">
               <div>{{messagePrefix + '.memberOfNoGroups' | translate}}</div>
               <div>
-                <button [routerLink]="[groupsDataService.getGroupRegistryRouterLink()]"
+                <button type="button" [routerLink]="[groupsDataService.getGroupRegistryRouterLink()]"
                 class="btn btn-primary">{{messagePrefix + '.goToGroups' | translate}}</button>
               </div>
             </div>

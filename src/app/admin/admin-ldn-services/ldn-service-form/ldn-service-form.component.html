@@ -336,11 +336,11 @@
     <div class="modal-footer">
       @if (!isNewService) {
         <div>
-          <button (click)="closeModal()" class="btn btn-outline-secondary me-2"
+          <button type="button" (click)="closeModal()" class="btn btn-outline-secondary me-2"
             id="delete-confirm-edit">{{ 'service.detail.return' | translate }}
           </button>
           @if (!isNewService) {
-            <button (click)="patchService()"
+            <button type="button"(click)="patchService()"
               class="btn btn-primary">{{ 'service.detail.update' | translate }}
             </button>
           }
@@ -348,10 +348,10 @@
       }
       @if (isNewService) {
         <div>
-          <button (click)="closeModal()" class="btn btn-outline-secondary me-2 "
+          <button type="button"(click)="closeModal()" class="btn btn-outline-secondary me-2 "
             id="delete-confirm-new">{{ 'service.refuse.create' | translate }}
           </button>
-          <button (click)="createService()"
+          <button type="button" (click)="createService()"
             class="btn btn-primary">{{ 'service.confirm.create' | translate }}
           </button>
         </div>

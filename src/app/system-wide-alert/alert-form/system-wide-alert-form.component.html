@@ -100,10 +100,10 @@
     </div>
   }
   <div class="btn-row float-end space-children-mr mt-2">
-    <button (click)="back()" class="btn btn-outline-secondary">
+    <button type="button" (click)="back()" class="btn btn-outline-secondary">
       <i class="fas fa-arrow-left"></i> {{ 'system-wide-alert.form.cancel' | translate }}
     </button>
-    <button class="btn btn-primary" [dsBtnDisabled]="alertForm.invalid" (click)="save()">
+    <button type="button" class="btn btn-primary" [dsBtnDisabled]="alertForm.invalid" (click)="save()">
       <i class="fa fa-save"></i> {{ 'system-wide-alert.form.save' | translate }}
     </button>
   </div>

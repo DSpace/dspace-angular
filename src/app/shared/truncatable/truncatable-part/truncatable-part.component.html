@@ -3,6 +3,7 @@
     <ng-content></ng-content>
   </div>
   <button
+    type="button"
     class="btn btn-link p-0 {{isExpanded ? 'collapseButton' : 'expandButton'}}"
     dsDragClick
     (actualClick)="toggle()"

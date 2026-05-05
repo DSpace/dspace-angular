@@ -10,14 +10,14 @@
   (scrolled)="onScrollDown()">
   @if (searchListEntity?.length === 0 && (isLoadingList | async) !== true) {
     <li>
-      <button class="dropdown-item disabled" role="menuitem">
+      <button type="button" class="dropdown-item disabled" role="menuitem">
         {{'submission.sections.general.no-entity' | translate}}
       </button>
     </li>
   }
   @for (listItem of searchListEntity; track listItem) {
     <li class="entity-item text-primary">
-      <button class="dropdown-item"
+      <button type="button" class="dropdown-item"
         role="menuitem"
         title="{{ listItem.label }}"
         (click)="onSelect(listItem)">
@@ -29,7 +29,7 @@
   }
   @if ((isLoadingList | async)) {
     <li>
-      <button class="dropdown-item disabled" role="menuitem">
+      <button type="button" class="dropdown-item disabled" role="menuitem">
         <ds-loading message="{{'loading.default' | translate}}">
         </ds-loading>
       </button>

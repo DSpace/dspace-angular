@@ -27,7 +27,7 @@
                 <td>{{ entry.id }}</td>
                 <td>{{ dsoNameService.getName(entry) }}</td>
                 <td class="text-center">
-                  <button class="btn btn-sm btn-outline-primary" (click)="emitSelect(entry)">
+                  <button type="button" class="btn btn-sm btn-outline-primary" (click)="emitSelect(entry)">
                     {{'resource-policies.form.eperson-group-list.select.btn' | translate}}
                   </button>
                 </td>

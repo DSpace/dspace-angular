@@ -35,21 +35,21 @@
 
       <div class="flex-shrink-0">
         @if (hasNoGroup$ | async) {
-          <button
+          <button type="button"
             class="btn btn-primary create"
             (click)="create()">
             <i class="fas fa-plus" aria-hidden="true"></i> {{'comcol-role.edit.create' | translate}}
           </button>
         }
         @if (hasAnonymousGroup$ | async) {
-          <button
+          <button type="button"
             class="btn btn-primary restrict"
             (click)="create()">
             {{'comcol-role.edit.restrict' | translate}}
           </button>
         }
         @if (hasCustomGroup$ | async) {
-          <button
+          <button type="button"
             class="btn btn-danger delete"
             (click)="confirmDelete(dsoNameService.getName(group))">
             <i class="fas fa-trash" aria-hidden="true"></i> {{'comcol-role.edit.delete' | translate}}

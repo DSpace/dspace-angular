@@ -11,7 +11,7 @@
   <div class="scrollable-menu list-group container">
     @for (listEntry of (listEntries$ | async)?.payload.page; track listEntry) {
       <div class="row">
-        <button class="list-group-item list-group-item-action border-0 list-entry"
+        <button type="button" class="list-group-item list-group-item-action border-0 list-entry"
           title="{{ dsoNameService.getName(listEntry.indexableObject) }}"
           (click)="selectItem(listEntry.indexableObject)" #listEntryElement>
           <ds-listable-object-component-loader [object]="listEntry" [viewMode]="viewMode"

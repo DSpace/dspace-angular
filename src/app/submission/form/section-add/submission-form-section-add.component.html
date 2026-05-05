@@ -4,7 +4,7 @@
   class="d-inline-block"
   [ngClass]="{'w-100': isXs$}">
   @if (hasSections$ | async) {
-    <button class="btn btn-outline-primary dropdown-toggle"
+    <button type="button" class="btn btn-outline-primary dropdown-toggle"
       id="sectionControls"
       [dsBtnDisabled]="(hasSections$ | async) !== true"
       [ngClass]="{'w-100': (isXs$ | async)}"
@@ -17,12 +17,12 @@
     aria-labelledby="sectionControls"
     [ngClass]="{'w-100': (isXs$ | async)}">
     @if ((hasSections$ | async) !== true) {
-      <button class="dropdown-item disabled">
+      <button type="button"class="dropdown-item disabled">
         {{ 'submission.sections.general.no-sections' | translate }}
       </button>
     }
     @for (listItem of (sectionList$ | async); track listItem) {
-      <button class="dropdown-item" (click)="addSection(listItem.id)">
+      <button type="button" class="dropdown-item" (click)="addSection(listItem.id)">
         {{'submission.sections.'+listItem.header | translate }}
       </button>
     }

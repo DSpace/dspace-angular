@@ -82,13 +82,13 @@
       {{ ('submission.sections.describe.relationship-lookup.close' | translate) }}</button>
     </div>
     @if (isEditRelationship) {
-      <button class="btn btn-danger discard"
+      <button type="button" class="btn btn-danger discard"
         [dsBtnDisabled]="(toAdd.length === 0 && toRemove.length === 0) || isPending"
         (click)="discardEv()">
         <i class="fas fa-times"></i>
         <span class="d-none d-sm-inline">&nbsp;{{"item.edit.metadata.discard-button" | translate}}</span>
       </button>
-      <button class="btn btn-primary submit"
+      <button type="button" class="btn btn-primary submit"
         [dsBtnDisabled]="(toAdd.length === 0 && toRemove.length === 0) || isPending"
         (click)="submitEv()">
         @if (isPending) {

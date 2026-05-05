@@ -53,10 +53,10 @@
   }
 
   <div class="d-flex flex-wrap justify-content-end">
-    <button (click)="previousPage()" class="btn btn-default">
+    <button type="button" (click)="previousPage()" class="btn btn-default">
       {{'workflow-item.' + getType() + '.button.cancel' | translate}}
     </button>
-    <button (click)="performAction()" class="btn btn-primary">
+    <button type="button" (click)="performAction()" class="btn btn-primary">
       {{'workflow-item.' + getType() + '.button.confirm' | translate}}
     </button>
   </div>

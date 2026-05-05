@@ -4,5 +4,5 @@
     <div class="alert alert-danger" role="alert" @fadeOut>{{ error | async }}</div>
   }
 
-  <button role="menuitem" class="btn btn-lg btn-primary w-100" (click)="logOut()" [attr.data-test]="'logout-button' | dsBrowserOnly"><i class="fas fa-sign-out-alt"></i> {{"logout.form.submit" | translate}}</button>
+  <button type="button" role="menuitem" class="btn btn-lg btn-primary w-100" (click)="logOut()" [attr.data-test]="'logout-button' | dsBrowserOnly"><i class="fas fa-sign-out-alt"></i> {{"logout.form.submit" | translate}}</button>
 </div>

@@ -21,6 +21,7 @@
       <div ngbDropdown class="d-block">
         <!-- Show current selected access period (defaults to first in array) -->
         <button
+          type="button"
           class="btn btn-outline-primary playlist"
           id="accessPeriod"
           ngbDropdownToggle
@@ -30,6 +31,7 @@
         <div ngbDropdownMenu aria-labelledby="accessPeriod" class="dropdown-menu">
           @for (accessPeriod of (validAccessPeriods$ | async); track accessPeriod) {
             <button
+              type="button"
               ngbDropdownItem
               class="list-element"
               (click)="selectAccessPeriod(accessPeriod)"
@@ -44,12 +46,14 @@
   <ng-content></ng-content>
   <div class="d-flex flex-row-reverse">
     <button (click)="submit()"
+            type="submit"
             [dsBtnDisabled]="!subject || subject.length === 0"
             class="btn btn-primary"
             title="{{'grant-deny-request-copy.email.send' | translate }}">
       <i class="fas fa-envelope"></i> {{ 'grant-deny-request-copy.email.send' | translate }}
     </button>
-    <button (click)="return()"
+    <button type="button"
+            (click)="return()"
             class="btn btn-outline-secondary me-1"
             title="{{'grant-deny-request-copy.email.back' | translate }}">
       <i class="fas fa-arrow-left"></i> {{ 'grant-deny-request-copy.email.back' | translate }}

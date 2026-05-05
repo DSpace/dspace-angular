@@ -37,12 +37,12 @@
                   </td>
                   <td style="width: 20%" class="text-center">
                     <div class="btn-group edit-field">
-                      <button [ngbTooltip]="getOperationTooltip(entry) | translate" container="body"
+                      <button type="button" [ngbTooltip]="getOperationTooltip(entry) | translate" container="body"
                         class="btn btn-outline-primary my-1 col-md" (click)="send(entry)">
                         <span [ngClass]="getOperationClass(entry)"></span>
                         <span class="sr-only">{{ getOperationTooltip(entry) | translate }}</span>
                       </button>
-                      <button [ngbTooltip]="'person.page.orcid.sync-queue.discard' | translate" container="body"
+                      <button type="button" [ngbTooltip]="'person.page.orcid.sync-queue.discard' | translate" container="body"
                         class="btn btn-outline-danger my-1 col-md" (click)="discardEntry(entry)">
                         <span class="fas fa-unlink"></span>
                         <span class="sr-only">{{ 'person.page.orcid.sync-queue.discard' | translate }}</span>

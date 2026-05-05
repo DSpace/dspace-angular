@@ -4,7 +4,7 @@
       @if (itemRD?.hasSucceeded) {
         <h1 class="border-bottom">{{ 'collection.edit.template.head' | translate:{ collection: dsoNameService.getName(collection) } }}</h1>
         <ds-dso-edit-metadata [updateDataService]="itemTemplateService" [dso]="itemRD?.payload"></ds-dso-edit-metadata>
-        <button [routerLink]="getCollectionEditUrl(collection)" class="btn btn-outline-secondary">{{ 'collection.edit.template.cancel' | translate }}</button>
+        <button type="button" [routerLink]="getCollectionEditUrl(collection)" class="btn btn-outline-secondary">{{ 'collection.edit.template.cancel' | translate }}</button>
       }
       @if (itemRD?.isLoading) {
         <ds-loading [message]="'collection.edit.template.loading' | translate"></ds-loading>

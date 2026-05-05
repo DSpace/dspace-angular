@@ -16,9 +16,9 @@
       }
       <ds-modify-item-overview [item]="item"></ds-modify-item-overview>
       <div class="space-children-mr">
-        <button (click)="performAction()" class="btn btn-outline-secondary perform-action">{{confirmMessage | translate}}
+        <button type="button" (click)="performAction()" class="btn btn-outline-secondary perform-action">{{confirmMessage | translate}}
         </button>
-        <button [routerLink]="[itemPageRoute, 'edit']" class="btn btn-outline-secondary cancel">
+        <button type="button" [routerLink]="[itemPageRoute, 'edit']" class="btn btn-outline-secondary cancel">
           {{cancelMessage| translate}}
         </button>
       </div>

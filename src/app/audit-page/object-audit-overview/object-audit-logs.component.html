@@ -19,7 +19,7 @@
     } @else {
       <div class="h5">{{ 'audit.data.not-found' | translate }}</div>
     }
-    <button class="btn btn-outline-secondary mt-3" (click)="goBack()">
+    <button type="button" class="btn btn-outline-secondary mt-3" (click)="goBack()">
       <i class="fas fa-arrow-left me-1"></i>{{ 'audit.object.back' | translate }}
     </button>
     @if ((auditsRD$ | async)?.statusCode === 404) {

@@ -39,7 +39,7 @@
                         </td>
                         <td>
                           <div class="btn-group edit-field">
-                            <button (click)="redirectToSuggestions(targetElement.id)"
+                            <button type="button" (click)="redirectToSuggestions(targetElement.id)"
                               class="btn btn-outline-primary btn-sm"
                               title="{{('suggestion.button.review.title' | translate: { total: targetElement.total.toString() }) +
                                 targetElement.display}}">

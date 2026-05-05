@@ -1,6 +1,6 @@
 @if ((moreThanOne$ | async) !== true) {
   <div class="add">
-    <button class="btn btn-lg btn-outline-primary mt-1 ms-2"
+    <button type="button" class="btn btn-lg btn-outline-primary mt-1 ms-2"
       [attr.aria-label]="'mydspace.new-submission-external' | translate" [dsBtnDisabled]="(initialized$ | async) !== true"
       (click)="openPage(singleEntity)" role="button"
       title="{{'mydspace.new-submission-external' | translate}}">
