@@ -18,6 +18,7 @@ import {
   switchMap,
   take,
 } from 'rxjs/operators';
+import { FollowLinkConfig } from 'src/app/shared/utils/follow-link-config.model';
 
 import {
   hasValue,
@@ -57,6 +58,7 @@ import {
   PatchData,
   PatchDataImpl,
 } from './base/patch-data';
+import { SearchDataImpl } from './base/search-data';
 import { BundleDataService } from './bundle-data.service';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 import { FindListOptions } from './find-list-options.model';
@@ -83,6 +85,7 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
   private createData: CreateData<Item>;
   private patchData: PatchData<Item>;
   private deleteData: DeleteData<Item>;
+  private searchData: SearchDataImpl<Item>;
 
   protected constructor(
     protected linkPath,
@@ -101,6 +104,7 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
     this.createData = new CreateDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive);
     this.patchData = new PatchDataImpl<Item>(this.linkPath, requestService, rdbService, objectCache, halService, comparator, this.responseMsToLive, this.constructIdEndpoint);
     this.deleteData = new DeleteDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive, this.constructIdEndpoint);
+    this.searchData = new SearchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
   }
 
   /**
@@ -349,6 +353,26 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
   }
 
   /**
+   * Find the list of items for which the current user has editing rights.
+   *
+   * @param query                       limit the returned collection to those with metadata values
+   *                                    matching the query terms
+   * @param options                     The [[FindListOptions]] object
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
+   * @return Observable<RemoteData<PaginatedList<Item>>>
+   *    item list
+   */
+  public findEditAuthorized(query: string, options: FindListOptions, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Item>[]): Observable<RemoteData<PaginatedList<Item>>> {
+    options = { ...options, searchParams: [new RequestParam('query', query)] };
+    return this.searchBy('findEditAuthorized', options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+  }
+
+  /**
    * Invalidate the cache of the item
    * @param itemUUID
    */
@@ -362,6 +386,24 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
    */
   public commitUpdates(method?: RestRequestMethod): void {
     this.patchData.commitUpdates(method);
+  }
+
+  /**
+   * Make a new FindListRequest with given search method
+   *
+   * @param searchMethod                The search method for the object
+   * @param options                     The [[FindListOptions]] object
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
+   * @return {Observable<RemoteData<PaginatedList<T>>}
+   *    Return an observable that emits response from the server
+   */
+  public searchBy(searchMethod: string, options?: FindListOptions, useCachedVersionIfAvailable?: boolean, reRequestOnStale?: boolean, ...linksToFollow: FollowLinkConfig<Item>[]): Observable<RemoteData<PaginatedList<Item>>> {
+    return this.searchData.searchBy(searchMethod, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
   /**

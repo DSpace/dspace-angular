@@ -4792,6 +4792,7 @@
   "item.preview.dc.rights": "Rights",
 
   // "item.preview.dc.identifier.other": "Other Identifier",
+  // TODO Source message changed - Revise the translation
   "item.preview.dc.identifier.other": "Other identifier:",
 
   // "item.preview.dc.relation.issn": "ISSN",
@@ -11739,6 +11740,18 @@
   // "metadata-export-search.submit.error.limit-exceeded": "Only the first {{limit}} items will be exported",
   // TODO New key - Add a translation
   "metadata-export-search.submit.error.limit-exceeded": "Only the first {{limit}} items will be exported",
+
+  // "item.preview.organization.url": "URL",
+  // TODO New key - Add a translation
+  "item.preview.organization.url": "URL",
+
+  // "item.preview.organization.address.addressLocality": "City",
+  // TODO New key - Add a translation
+  "item.preview.organization.address.addressLocality": "City",
+
+  // "item.preview.organization.alternateName": "Alternative name",
+  // TODO New key - Add a translation
+  "item.preview.organization.alternateName": "Alternative name",
 
 
 }

@@ -19,6 +19,7 @@ import {
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { ActionType } from 'src/app/core/resource-policy/models/action-type.model';
 
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { CollectionDataService } from '../../../../core/data/collection-data.service';
@@ -59,10 +60,9 @@ export class AuthorizedCollectionSelectorComponent extends DSOSelectorComponent 
   @Input() entityType: string;
 
   /**
-   * Search endpoint to use for finding authorized collections.
-   * Defaults to 'findSubmitAuthorized', but can be overridden (e.g. to 'findAdminAuthorized')
+   * The action type to determine which authorized collections to fetch, defaults to ADMIN
    */
-  @Input() searchHref = 'findSubmitAuthorized';
+  @Input() action: ActionType = ActionType.ADMIN;
 
   constructor(
     protected searchService: SearchService,
@@ -94,15 +94,24 @@ export class AuthorizedCollectionSelectorComponent extends DSOSelectorComponent 
       elementsPerPage: this.defaultPagination.pageSize,
     };
 
-    if (this.entityType) {
+    if (this.action === ActionType.WRITE) {
       searchListService$ = this.collectionDataService
-        .getAuthorizedCollectionByEntityType(
-          query,
-          this.entityType,
-          findOptions);
+        .getEditAuthorizedCollection(query, findOptions, useCache, false, followLink('parentCommunity'));
+    } else if (this.action === ActionType.ADD) {
+      if (this.entityType) {
+        searchListService$ = this.collectionDataService
+          .getAuthorizedCollectionByEntityType(
+            query,
+            this.entityType,
+            findOptions);
+      } else {
+        searchListService$ = this.collectionDataService
+          .getSubmitAuthorizedCollection(query, findOptions, useCache, false, followLink('parentCommunity'));
+      }
     } else {
+      // By default, search for admin authorized collections
       searchListService$ = this.collectionDataService
-        .getAuthorizedCollection(query, findOptions, useCache, false, this.searchHref, followLink('parentCommunity'));
+        .getAdminAuthorizedCollection(query, findOptions, useCache, false, followLink('parentCommunity'));
     }
     return searchListService$.pipe(
       getFirstCompletedRemoteData(),

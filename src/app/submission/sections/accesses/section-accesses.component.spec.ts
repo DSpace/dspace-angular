@@ -10,10 +10,13 @@ import {
   DynamicFormArrayModel,
   DynamicSelectModel,
 } from '@ng-dynamic-forms/core';
-import { Store } from '@ngrx/store';
+import { provideMockActions } from '@ngrx/effects/testing';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
 import {
   APP_CONFIG,
   APP_DATA_SERVICES_MAP,
@@ -32,7 +35,6 @@ import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
 import { LiveRegionService } from '../../../shared/live-region/live-region.service';
 import { getLiveRegionServiceStub } from '../../../shared/live-region/live-region.service.stub';
-import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
 import { getMockFormOperationsService } from '../../../shared/mocks/form-operations-service.mock';
 import { getMockFormService } from '../../../shared/mocks/form-service.mock';
 import { getSectionAccessesService } from '../../../shared/mocks/section-accesses.service.mock';
@@ -67,7 +69,6 @@ describe('SubmissionSectionAccessesComponent', () => {
   let fixture: ComponentFixture<SubmissionSectionAccessesComponent>;
 
   const sectionsServiceStub = new SectionsServiceStub();
-  const builderService: FormBuilderService = getMockFormBuilderService();
   const submissionAccessesConfigService = getSubmissionAccessesConfigService();
   const sectionAccessesService = getSectionAccessesService();
   const sectionFormOperationsService = getMockFormOperationsService();
@@ -79,8 +80,6 @@ describe('SubmissionSectionAccessesComponent', () => {
 
   let formService: any;
   let formbuilderService: any;
-
-  const storeStub = jasmine.createSpyObj('store', ['dispatch']);
 
   const sectionData = {
     header: 'submit.progressbar.accessCondition',
@@ -116,7 +115,6 @@ describe('SubmissionSectionAccessesComponent', () => {
           { provide: SectionFormOperationsService, useValue: sectionFormOperationsService },
           { provide: JsonPatchOperationsBuilder, useValue: operationsBuilder },
           { provide: FormService, useValue: getMockFormService() },
-          { provide: Store, useValue: storeStub },
           { provide: SubmissionJsonPatchOperationsService, useValue: SubmissionJsonPatchOperationsServiceStub },
           { provide: 'sectionDataProvider', useValue: sectionData },
           { provide: 'submissionIdProvider', useValue: '1508' },
@@ -130,6 +128,7 @@ describe('SubmissionSectionAccessesComponent', () => {
           { provide: LiveRegionService, useValue: getLiveRegionServiceStub },
           FormBuilderService,
           provideMockStore({}),
+          provideMockActions(() => new Observable<any>()),
         ],
       })
         .compileComponents();
@@ -214,7 +213,6 @@ describe('SubmissionSectionAccessesComponent', () => {
           { provide: SectionFormOperationsService, useValue: sectionFormOperationsService },
           { provide: JsonPatchOperationsBuilder, useValue: operationsBuilder },
           { provide: FormService, useValue: formService },
-          { provide: Store, useValue: storeStub },
           { provide: SubmissionJsonPatchOperationsService, useValue: SubmissionJsonPatchOperationsServiceStub },
           { provide: 'sectionDataProvider', useValue: sectionData },
           { provide: 'submissionIdProvider', useValue: '1508' },
@@ -228,6 +226,7 @@ describe('SubmissionSectionAccessesComponent', () => {
           { provide: LiveRegionService, useValue: getLiveRegionServiceStub() },
           FormBuilderService,
           provideMockStore({}),
+          provideMockActions(() => new Observable<any>()),
 
         ],
       })

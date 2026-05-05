@@ -9,6 +9,7 @@ import {
 } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
+import { ActionType } from 'src/app/core/resource-policy/models/action-type.model';
 
 import { environment } from '../../../../../environments/environment';
 import { getCommunityEditRoute } from '../../../../community-page/community-page-routing-paths';
@@ -40,6 +41,8 @@ export class EditCommunitySelectorComponent extends DSOSelectorModalWrapperCompo
   objectType = DSpaceObjectType.COMMUNITY;
   selectorTypes = [DSpaceObjectType.COMMUNITY];
   action = SelectorActionType.EDIT;
+  // for editing communities, admin permissions are required
+  rpActionType = ActionType.ADMIN;
   defaultSort = new SortOptions(environment.comcolSelectionSort.sortField, environment.comcolSelectionSort.sortDirection as SortDirection);
 
   constructor(protected activeModal: NgbActiveModal, protected route: ActivatedRoute, private router: Router) {

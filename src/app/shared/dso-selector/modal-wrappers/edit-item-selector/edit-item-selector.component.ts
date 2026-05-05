@@ -9,12 +9,13 @@ import {
 } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
+import { ActionType } from 'src/app/core/resource-policy/models/action-type.model';
 
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
 import { Item } from '../../../../core/shared/item.model';
 import { getItemEditRoute } from '../../../../item-page/item-page-routing-paths';
-import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
+import { AuthorizedItemSelectorComponent } from '../../dso-selector/authorized-item-selector/authorized-item-selector.component';
 import {
   DSOSelectorModalWrapperComponent,
   SelectorActionType,
@@ -29,12 +30,13 @@ import {
   selector: 'ds-base-edit-item-selector',
   templateUrl: 'edit-item-selector.component.html',
   standalone: true,
-  imports: [NgIf, DSOSelectorComponent, TranslateModule],
+  imports: [NgIf, AuthorizedItemSelectorComponent, TranslateModule],
 })
 export class EditItemSelectorComponent extends DSOSelectorModalWrapperComponent implements OnInit {
   objectType = DSpaceObjectType.ITEM;
   selectorTypes = [DSpaceObjectType.ITEM];
   action = SelectorActionType.EDIT;
+  rpActionType = ActionType.WRITE;
 
   constructor(protected activeModal: NgbActiveModal, protected route: ActivatedRoute, private router: Router) {
     super(activeModal, route);

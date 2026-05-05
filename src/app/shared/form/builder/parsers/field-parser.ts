@@ -306,7 +306,8 @@ export abstract class FieldParser {
     if (hint) {
       controlModel.hint = this.configData.hints || '&nbsp;';
     }
-    controlModel.placeholder = this.configData.label;
+
+    controlModel.additional = { ...controlModel.additional, ariaLabel: this.configData.label };
 
     if (this.configData.mandatory && setErrors) {
       this.markAsRequired(controlModel);

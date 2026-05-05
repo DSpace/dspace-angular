@@ -10471,10 +10471,14 @@
   // TODO New key - Add a translation
   "metadata-export-search.submit.error.limit-exceeded": "Only the first {{limit}} items will be exported",
 
+  // "item.preview.organization.url": "URL",
   "item.preview.organization.url": "URL",
 
+  // "item.preview.organization.address.addressLocality": "City",
   "item.preview.organization.address.addressLocality": "Cidade",
 
+  // "item.preview.organization.alternateName": "Alternative name",
   "item.preview.organization.alternateName": "Nome alternativo",
+
 
 }

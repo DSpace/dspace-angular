@@ -52,10 +52,14 @@ import {
   DynamicNGBootstrapTextAreaComponent,
   DynamicNGBootstrapTimePickerComponent,
 } from '@ng-dynamic-forms/ui-ng-bootstrap';
+import { Actions } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgxMaskModule } from 'ngx-mask';
-import { of as observableOf } from 'rxjs';
+import {
+  of as observableOf,
+  ReplaySubject,
+} from 'rxjs';
 
 import {
   APP_CONFIG,
@@ -67,7 +71,16 @@ import { Item } from '../../../../core/shared/item.model';
 import { WorkspaceItem } from '../../../../core/submission/models/workspaceitem.model';
 import { SubmissionObjectDataService } from '../../../../core/submission/submission-object-data.service';
 import { VocabularyOptions } from '../../../../core/submission/vocabularies/models/vocabulary-options.model';
+import {
+  SaveForLaterSubmissionFormErrorAction,
+  SaveSubmissionFormErrorAction,
+  SaveSubmissionFormSuccessAction,
+  SaveSubmissionSectionFormErrorAction,
+  SaveSubmissionSectionFormSuccessAction,
+} from '../../../../submission/objects/submission-objects.actions';
 import { SubmissionService } from '../../../../submission/submission.service';
+import { LiveRegionService } from '../../../live-region/live-region.service';
+import { getLiveRegionServiceStub } from '../../../live-region/live-region.service.stub';
 import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
 import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 import { FormBuilderService } from '../form-builder.service';
@@ -207,7 +220,10 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
   let testElement: DebugElement;
   const testItem: Item = new Item();
   const testWSI: WorkspaceItem = new WorkspaceItem();
+  const actions$: ReplaySubject<any> = new ReplaySubject<any>(1);
   testWSI.item = observableOf(createSuccessfulRemoteDataObject(testItem));
+  const renderer = jasmine.createSpyObj('Renderer2', ['setAttribute']);
+
   beforeEach(waitForAsync(() => {
 
     TestBed.configureTestingModule({
@@ -240,6 +256,8 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
         { provide: APP_CONFIG, useValue: environment },
         { provide: APP_DATA_SERVICES_MAP, useValue: {} },
         { provide: DYNAMIC_FORM_CONTROL_MAP_FN, useValue: dsDynamicFormControlMapFn },
+        { provide: LiveRegionService, useValue: getLiveRegionServiceStub() },
+        { provide: Actions, useValue: actions$ },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents().then(() => {
@@ -270,6 +288,7 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
     });
 
     fixture.detectChanges();
+    renderer.setAttribute.calls.reset();
     testElement = debugElement.query(By.css(`input[id='${testModel.id}']`));
   }));
 
@@ -380,6 +399,81 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
     expect(testFn(formModel[23])).toEqual(DsDynamicLookupComponent);
     expect(testFn(formModel[24])).toEqual(DsDynamicLookupComponent);
     expect(testFn(formModel[25])).toEqual(DsDynamicFormGroupComponent);
+  });
+
+  describe('store action subscriptions', () => {
+    beforeEach(() => {
+      fixture.detectChanges();
+    });
+
+    it('should call announceErrorMessages on SAVE_SUBMISSION_FORM_SUCCESS', () => {
+      spyOn(component, 'announceErrorMessages');
+      actions$.next(new SaveSubmissionFormSuccessAction('1234', [] as any));
+      expect(component.announceErrorMessages).toHaveBeenCalled();
+    });
+
+    it('should call announceErrorMessages on SAVE_SUBMISSION_SECTION_FORM_SUCCESS', () => {
+      spyOn(component, 'announceErrorMessages');
+      actions$.next(new SaveSubmissionSectionFormSuccessAction('1234', [] as any));
+      expect(component.announceErrorMessages).toHaveBeenCalled();
+    });
+
+    it('should call announceErrorMessages on SAVE_SUBMISSION_FORM_ERROR', () => {
+      spyOn(component, 'announceErrorMessages');
+      actions$.next(new SaveSubmissionFormErrorAction('1234'));
+      expect(component.announceErrorMessages).toHaveBeenCalled();
+    });
+
+    it('should call announceErrorMessages on SAVE_FOR_LATER_SUBMISSION_FORM_ERROR', () => {
+      spyOn(component, 'announceErrorMessages');
+      actions$.next(new SaveForLaterSubmissionFormErrorAction('1234'));
+      expect(component.announceErrorMessages).toHaveBeenCalled();
+    });
+
+    it('should call announceErrorMessages on SAVE_SUBMISSION_SECTION_FORM_ERROR', () => {
+      spyOn(component, 'announceErrorMessages');
+      actions$.next(new SaveSubmissionSectionFormErrorAction('1234'));
+      expect(component.announceErrorMessages).toHaveBeenCalled();
+    });
+  });
+
+  it('should not show a label if is a checkbox or a date field', () => {
+    const checkboxLabel =  fixture.debugElement.query(By.css('#label_' + formModel[0].id));
+    const dsDatePickerLabel =  fixture.debugElement.query(By.css('#label_' + formModel[22].id));
+
+    expect(checkboxLabel).toBeNull();
+    expect(dsDatePickerLabel).toBeNull();
+  });
+
+  it('should not call handleAriaLabelForLibraryComponents if is SSR', () => {
+    (component as any).platformId = 'server';
+    (component as any).componentRef = {
+      instance: new DynamicNGBootstrapInputComponent(null, null),
+      location: { nativeElement: document.createElement('div') },
+    } as any;
+    fixture.detectChanges();
+
+    (component as any).handleAriaLabelForLibraryComponents();
+
+    expect(renderer.setAttribute).not.toHaveBeenCalled();
+  });
+
+  it('should set aria-label when valid input and additional property ariaLabel exist and is on browser', () => {
+    (component as any).platformId = 'browser';
+    const inputEl = document.createElement('input');
+    const hostEl = {
+      querySelector: jasmine.createSpy('querySelector').and.returnValue(inputEl),
+    };
+
+    (component as any).componentRef = {
+      instance: new DynamicNGBootstrapInputComponent(null, null),
+      location: { nativeElement: hostEl },
+    } as any;
+    (component as any).renderer = renderer;
+    component.model = { additional: { ariaLabel: 'Accessible Label' } } as any;
+    fixture.detectChanges();
+    (component as any).handleAriaLabelForLibraryComponents();
+    expect(renderer.setAttribute).toHaveBeenCalledWith(inputEl, 'aria-label', 'Accessible Label');
   });
 
 });

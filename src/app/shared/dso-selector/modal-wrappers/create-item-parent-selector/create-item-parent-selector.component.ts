@@ -11,6 +11,7 @@ import {
 } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
+import { ActionType } from 'src/app/core/resource-policy/models/action-type.model';
 
 import { environment } from '../../../../../environments/environment';
 import {
@@ -42,6 +43,7 @@ export class CreateItemParentSelectorComponent extends DSOSelectorModalWrapperCo
   objectType = DSpaceObjectType.ITEM;
   selectorTypes = [DSpaceObjectType.COLLECTION];
   action = SelectorActionType.CREATE;
+  rpActionType = ActionType.ADD;
   header = 'dso-selector.create.item.sub-level';
   defaultSort = new SortOptions(environment.comcolSelectionSort.sortField, environment.comcolSelectionSort.sortDirection as SortDirection);
 

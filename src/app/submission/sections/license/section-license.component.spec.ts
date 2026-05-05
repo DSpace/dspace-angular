@@ -20,10 +20,14 @@ import {
   DynamicFormControlEvent,
   DynamicFormControlEventType,
 } from '@ng-dynamic-forms/core';
+import { provideMockActions } from '@ngrx/effects/testing';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
 import { DsDynamicTypeBindRelationService } from 'src/app/shared/form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
 import {
   APP_CONFIG,
@@ -44,6 +48,8 @@ import { FormBuilderService } from '../../../shared/form/builder/form-builder.se
 import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
+import { LiveRegionService } from '../../../shared/live-region/live-region.service';
+import { getLiveRegionServiceStub } from '../../../shared/live-region/live-region.service.stub';
 import { getMockFormOperationsService } from '../../../shared/mocks/form-operations-service.mock';
 import { getMockFormService } from '../../../shared/mocks/form-service.mock';
 import {
@@ -181,6 +187,7 @@ describe('SubmissionSectionLicenseComponent test suite', () => {
         { provide: 'submissionIdProvider', useValue: submissionId },
         ChangeDetectorRef,
         provideMockStore({ initialState }),
+        provideMockActions(() => new Observable<any>()),
         FormBuilderService,
         { provide: DsDynamicTypeBindRelationService, useValue: getMockDsDynamicTypeBindRelationService() },
         { provide: APP_CONFIG, useValue: environment },
@@ -194,6 +201,7 @@ describe('SubmissionSectionLicenseComponent test suite', () => {
         },
         { provide: XSRFService, useValue: {} },
         SubmissionSectionLicenseComponent,
+        { provide: LiveRegionService, useValue: getLiveRegionServiceStub() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents().then();

@@ -18,45 +18,47 @@
 import 'zone.js/node';
 import 'reflect-metadata';
 
-import { APP_BASE_HREF } from '@angular/common';
-import { enableProdMode } from '@angular/core';
-import { CommonEngine } from '@angular/ssr';
-/* eslint-enable import/no-namespace */
-import axios from 'axios';
-import { json } from 'body-parser';
-import * as compression from 'compression';
-import * as ejs from 'ejs';
-import * as express from 'express';
-import * as expressStaticGzip from 'express-static-gzip';
-import { readFileSync } from 'fs';
-import { createProxyMiddleware } from 'http-proxy-middleware';
-import { createHttpTerminator } from 'http-terminator';
-import { createServer } from 'https';
-import { isbot } from 'isbot';
-import LRU from 'lru-cache';
 /* eslint-disable import/no-namespace */
 import * as morgan from 'morgan';
-import { join } from 'path';
+import * as express from 'express';
+import * as ejs from 'ejs';
+import * as compression from 'compression';
+import * as expressStaticGzip from 'express-static-gzip';
+/* eslint-enable import/no-namespace */
+import LRU from 'lru-cache';
+import { isbot } from 'isbot';
 import { createCertificate } from 'pem';
+import { createServer } from 'https';
+import { json } from 'body-parser';
+import { createHttpTerminator } from 'http-terminator';
 
-import { TOKENITEM } from './src/app/core/auth/models/auth-token-info.model';
+import { readFileSync } from 'fs';
+import { join } from 'path';
+
+import { enableProdMode } from '@angular/core';
+
+
+import { environment } from './src/environments/environment';
+import { createProxyMiddleware } from 'http-proxy-middleware';
 import { hasValue } from './src/app/shared/empty.util';
+import { UIServerConfig } from './src/config/ui-server-config.interface';
+import bootstrap from './src/main.server';
+import { buildAppConfig } from './src/config/config.server';
 import {
   APP_CONFIG,
   AppConfig,
 } from './src/config/app-config.interface';
-import { buildAppConfig } from './src/config/config.server';
 import { extendEnvironmentWithAppConfig } from './src/config/config.util';
-import { SsrExcludePatterns } from './src/config/ssr-config.interface';
-import { UIServerConfig } from './src/config/ui-server-config.interface';
-import { environment } from './src/environments/environment';
+import { logStartupMessage } from './startup-message';
+import { TOKENITEM } from './src/app/core/auth/models/auth-token-info.model';
+import { CommonEngine } from '@angular/ssr';
+import { APP_BASE_HREF } from '@angular/common';
 import {
   REQUEST,
   RESPONSE,
 } from './src/express.tokens';
-import bootstrap from './src/main.server';
+import { SsrExcludePatterns } from "./src/config/ssr-config.interface";
 import { ServerHashedFileMapping } from './src/modules/dynamic-hash/hashed-file-mapping.server';
-import { logStartupMessage } from './startup-message';
 
 /*
  * Set path for the browser application's dist folder
@@ -149,7 +151,7 @@ export function app() {
   server.get('/robots.txt', (req, res) => {
     res.setHeader('content-type', 'text/plain');
     res.render('assets/robots.txt.ejs', {
-      'origin': req.protocol + '://' + req.headers.host,
+      'origin': environment.ui.baseUrl,
     });
   });
 
@@ -670,9 +672,9 @@ function isExcludedFromSsr(path: string, excludePathPattern: SsrExcludePatterns[
  */
 function healthCheck(req, res) {
   const baseUrl = `${REST_BASE_URL}${environment.actuators.endpointPath}`;
-  axios.get(baseUrl)
+  fetch(baseUrl)
     .then((response) => {
-      res.status(response.status).send(response.data);
+      res.status(response.status).send(response);
     })
     .catch((error) => {
       res.status(error.response.status).send({

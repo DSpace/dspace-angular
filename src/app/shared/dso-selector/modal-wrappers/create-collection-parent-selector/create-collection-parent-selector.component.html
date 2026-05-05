@@ -7,6 +7,7 @@
     <span *ngIf="header" class="h5 px-2">{{header | translate}}</span>
     <ds-authorized-community-selector [currentDSOId]="dsoRD?.payload.uuid"
       [types]="selectorTypes"
+      [action]="rpActionType"
     (onSelect)="selectObject($event)"></ds-authorized-community-selector>
   </div>
 </div>
