@@ -5515,9 +5515,11 @@ eslint-plugin-deprecation@^1.4.1:
 
 "eslint-plugin-dspace-angular-html@link:./lint/dist/src/rules/html":
   version "0.0.0"
+  uid ""
 
 "eslint-plugin-dspace-angular-ts@link:./lint/dist/src/rules/ts":
   version "0.0.0"
+  uid ""
 
 eslint-plugin-import-newlines@^1.4.1:
   version "1.4.1"
@@ -6514,6 +6516,11 @@ hasown@^2.0.0, hasown@^2.0.1, hasown@^2.0.2:
   integrity sha512-0hJU9SCPvmMzIBdZFqNPXWa6dqh7WdH0cII9y+CyS8rG3nL48Bclra9HmKhVVUHyPWNH5Y7xDwAB7bfgSjkUMQ==
   dependencies:
     function-bind "^1.1.2"
+
+he@1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/he/-/he-1.2.0.tgz#84ae65fa7eafb165fddb61566ae14baf05664f0f"
+  integrity sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==
 
 hoist-non-react-statics@^3.3.0, hoist-non-react-statics@^3.3.2:
   version "3.3.2"
@@ -8534,6 +8541,14 @@ node-gyp@^10.0.0:
     semver "^7.3.5"
     tar "^6.2.1"
     which "^4.0.0"
+
+node-html-parser@^7.0.1:
+  version "7.1.0"
+  resolved "https://registry.yarnpkg.com/node-html-parser/-/node-html-parser-7.1.0.tgz#48e83bd705dd8b89415c00bf670aebfe267312d7"
+  integrity sha512-iJo8b2uYGT40Y8BTyy5ufL6IVbN8rbm/1QK2xffXU/1a/v3AAa0d1YAoqBNYqaS4R/HajkWIpIfdE6KcyFh1AQ==
+  dependencies:
+    css-select "^5.1.0"
+    he "1.2.0"
 
 node-releases@^2.0.36:
   version "2.0.37"
