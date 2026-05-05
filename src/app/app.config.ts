@@ -35,6 +35,8 @@ import {
 } from '../config/app-config.interface';
 import { StoreDevModules } from '../config/store/devtools';
 import { environment } from '../environments/environment';
+import { HashedFileMapping } from '../modules/dynamic-hash/hashed-file-mapping';
+import { BrowserHashedFileMapping } from '../modules/dynamic-hash/hashed-file-mapping.browser';
 import { EagerThemesModule } from '../themes/eager-themes.module';
 import { appEffects } from './app.effects';
 import { MENUS } from './app.menus';
@@ -154,6 +156,10 @@ export const commonAppConfig: ApplicationConfig = {
       provide: HTTP_INTERCEPTORS,
       useClass: DspaceRestInterceptor,
       multi: true,
+    },
+    {
+      provide: HashedFileMapping,
+      useClass: BrowserHashedFileMapping,
     },
     // register the dynamic matcher used by form. MUST be provided by the app module
     ...DYNAMIC_MATCHER_PROVIDERS,
