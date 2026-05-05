@@ -13,6 +13,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
 import { JsonPatchOperationPathCombiner } from '@dspace/core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
 import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
@@ -26,6 +27,7 @@ import {
   NgbModal,
   NgbModule,
 } from '@ng-bootstrap/ng-bootstrap';
+import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
@@ -59,6 +61,8 @@ const configMetadataFormMock = {
     }],
   }],
 };
+
+const initialState = {};
 
 describe('SubmissionSectionUploadFileComponent', () => {
 
@@ -101,6 +105,7 @@ describe('SubmissionSectionUploadFileComponent', () => {
         TestComponent,
       ],
       providers: [
+        { provide: BitstreamDataService, useValue: { update: () => of({}), updateFormat: () => of({}) } },
         { provide: FormService, useValue: getMockFormService() },
         { provide: HALEndpointService, useValue: new HALEndpointServiceStub('workspaceitems') },
         { provide: JsonPatchOperationsBuilder, useValue: jsonPatchOpBuilder },
@@ -108,6 +113,7 @@ describe('SubmissionSectionUploadFileComponent', () => {
         { provide: SubmissionService, useClass: SubmissionServiceStub },
         { provide: SectionUploadService, useValue: getMockSectionUploadService() },
         { provide: ThemeService, useValue: getMockThemeService() },
+        provideMockStore({ initialState }),
         ChangeDetectorRef,
         NgbModal,
         SubmissionSectionUploadFileComponent,
