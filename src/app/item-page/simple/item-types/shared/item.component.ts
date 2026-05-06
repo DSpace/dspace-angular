@@ -89,13 +89,6 @@ export class ItemComponent implements OnInit {
    */
   private storedPreviousUrl: string;
 
-  /**
-   * Flag to check whether to use the default relations or the authority based ones
-   */
-  areAuthorityRelationsEnabled: boolean;
-
-  showDownloadLinkAsAttachment: boolean;
-
   constructor(protected routeService: RouteService,
               protected router: Router) {
     this.mediaViewer = environment.mediaViewer;
