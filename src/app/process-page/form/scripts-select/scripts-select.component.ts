@@ -128,7 +128,9 @@ export class ScriptsSelectComponent implements OnInit, OnDestroy {
    * @param event The scroll event
    */
   onScroll(event: any) {
-    if (event.target.scrollTop + event.target.clientHeight >= event.target.scrollHeight) {
+    // offset to fix issues with zooming in or out in the browser
+    const offset = 5;
+    if (event.target.scrollTop + event.target.clientHeight + offset >= event.target.scrollHeight) {
       if (!this.isLoading$.value && !this._isLastPage) {
         this.scriptOptions.currentPage++;
         this.loadScripts();
