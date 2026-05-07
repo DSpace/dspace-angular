@@ -333,37 +333,37 @@
   "admin.registries.schema.notification.deleted.success": "{{amount}} metaadat séma sikeresen törölve.", // "A(z) {{amount}} metaadat sémák törlése sikeres" -> "{{amount}} metaadat séma sikeresen törölve.",
 
   // "admin.registries.schema.notification.edited": "Successfully edited metadata schema \"{{prefix}}\"",
-  "admin.registries.schema.notification.edited": "A(z) \"{{prefix}}\" metaadat séma sikeresen szerkesztve.", // "Metaadat séma szerkesztése sikeres \"{{prefix}}\"" -> "A(z) \"{{prefix}}\" metaadat séma sikeresen szerkesztve.",
+  "admin.registries.schema.notification.edited": "A(z) \"{{prefix}}\" metaadat séma sikeresen szerkesztve.",
 
   // "admin.registries.schema.notification.failure": "Error",
   "admin.registries.schema.notification.failure": "Hiba",
 
   // "admin.registries.schema.notification.field.created": "Successfully created metadata field \"{{field}}\"",
-  "admin.registries.schema.notification.field.created": "A(z) \"{{field}}\" metaadat mező sikeresen létrehozva.", // "Metaadat mező létrehozva\"{{field}}\"" -> "A(z) \"{{field}}\" metaadat mező sikeresen létrehozva.",
+  "admin.registries.schema.notification.field.created": "A(z) \"{{field}}\" metaadat mező sikeresen létrehozva.",
 
   // "admin.registries.schema.notification.field.deleted.failure": "Failed to delete {{amount}} metadata fields",
-  "admin.registries.schema.notification.field.deleted.failure": "{{amount}} metaadat mező törlése sikertelen.", // "A{{amount}} metaadat mezők törlése sikertelen" -> "{{amount}} metaadat mező törlése sikertelen.",
+  "admin.registries.schema.notification.field.deleted.failure": "{{amount}} metaadat mező törlése sikertelen.",
 
   // "admin.registries.schema.notification.field.deleted.success": "Successfully deleted {{amount}} metadata fields",
-  "admin.registries.schema.notification.field.deleted.success": "{{amount}} metaadat mező sikeresen törölve.", // "A{{amount}} metaadat mezők törlése sikeres" -> "{{amount}} metaadat mező sikeresen törölve.",
+  "admin.registries.schema.notification.field.deleted.success": "{{amount}} metaadat mező sikeresen törölve.",
 
   // "admin.registries.schema.notification.field.edited": "Successfully edited metadata field \"{{field}}\"",
-  "admin.registries.schema.notification.field.edited": "A(z) \"{{field}}\" metaadat mező sikeresen szerkesztve.", // "metaadat mező szerkesztése sikeres\"{{field}}\"" -> "A(z) \"{{field}}\" metaadat mező sikeresen szerkesztve.",
+  "admin.registries.schema.notification.field.edited": "A(z) \"{{field}}\" metaadat mező sikeresen szerkesztve.",
 
   // "admin.registries.schema.notification.success": "Success",
-  "admin.registries.schema.notification.success": "Siker", // "Sikeres művelet" -> "Siker",
+  "admin.registries.schema.notification.success": "Siker",
 
   // "admin.registries.schema.return": "Back",
   "admin.registries.schema.return": "Vissza",
 
   // "admin.registries.schema.title": "Metadata Schema Registry",
-  "admin.registries.schema.title": "Metaadat Séma Nyilvántartás", // "leíró adatbázis" -> "Nyilvántartás",
+  "admin.registries.schema.title": "Metaadat Séma Nyilvántartás",
 
   // "admin.access-control.bulk-access.breadcrumbs": "Bulk Access Management",
   "admin.access-control.bulk-access.breadcrumbs": "Tömeges hozzáféréskezelés",
 
   // "administrativeBulkAccess.search.results.head": "Search Results",
-  "administrativeBulkAccess.search.results.head": "Keresési eredmények", // "Keresés eredménye" -> "Keresési eredmények" (többes szám),
+  "administrativeBulkAccess.search.results.head": "Keresési eredmények",
 
   // "admin.access-control.bulk-access": "Bulk Access Management",
   "admin.access-control.bulk-access": "Tömeges hozzáféréskezelés",
@@ -372,7 +372,7 @@
   "admin.access-control.bulk-access.title": "Tömeges hozzáféréskezelés",
 
   // "admin.access-control.bulk-access-browse.header": "Step 1: Select Objects",
-  "admin.access-control.bulk-access-browse.header": "1. lépés: Objektumok kiválasztása", // "Elemek" -> "Objektumok",
+  "admin.access-control.bulk-access-browse.header": "1. lépés: Objektumok kiválasztása",
 
   // "admin.access-control.bulk-access-browse.search.header": "Search",
   "admin.access-control.bulk-access-browse.search.header": "Keresés",
@@ -381,10 +381,10 @@
   "admin.access-control.bulk-access-browse.selected.header": "Jelenlegi kiválasztás ({{number}})",
 
   // "admin.access-control.bulk-access-settings.header": "Step 2: Operation to Perform",
-  "admin.access-control.bulk-access-settings.header": "2. lépés: Végrehajtandó művelet", // "Művelet végrehajtása" -> "Végrehajtandó művelet",
+  "admin.access-control.bulk-access-settings.header": "2. lépés: Végrehajtandó művelet",
 
   // "admin.access-control.epeople.actions.delete": "Delete EPerson",
-  "admin.access-control.epeople.actions.delete": "Felhasználó törlése", // "EPerson" magyar megfelelője lehetne "Felhasználó" vagy "Személy",
+  "admin.access-control.epeople.actions.delete": "Felhasználó törlése",
 
   // "admin.access-control.epeople.actions.impersonate": "Impersonate EPerson",
   "admin.access-control.epeople.actions.impersonate": "Felhasználó megszemélyesítése",
@@ -393,10 +393,10 @@
   "admin.access-control.epeople.actions.reset": "Jelszó visszaállítása",
 
   // "admin.access-control.epeople.actions.stop-impersonating": "Stop impersonating EPerson",
-  "admin.access-control.epeople.actions.stop-impersonating": "Felhasználó megszemélyesítésének leállítása", // "befejezése" -> "leállítása",
+  "admin.access-control.epeople.actions.stop-impersonating": "Felhasználó megszemélyesítésének leállítása",
 
   // "admin.access-control.epeople.breadcrumbs": "EPeople",
-  "admin.access-control.epeople.breadcrumbs": "Felhasználók", // "Felhasználó" -> "Felhasználók",
+  "admin.access-control.epeople.breadcrumbs": "Felhasználók",
 
   // "admin.access-control.epeople.title": "EPeople",
   "admin.access-control.epeople.title": "Felhasználók",
@@ -420,7 +420,7 @@
   "admin.access-control.epeople.search.head": "Keresés",
 
   // "admin.access-control.epeople.button.see-all": "Browse All",
-  "admin.access-control.epeople.button.see-all": "Összes tallózása", // "böngészése" -> "tallózása",
+  "admin.access-control.epeople.button.see-all": "Összes tallózása",
 
   // "admin.access-control.epeople.search.scope.metadata": "Metadata",
   "admin.access-control.epeople.search.scope.metadata": "Metaadat",
@@ -432,7 +432,7 @@
   "admin.access-control.epeople.search.button": "Keresés",
 
   // "admin.access-control.epeople.search.placeholder": "Search people...",
-  "admin.access-control.epeople.search.placeholder": "Személyek keresése...", // "Személy keresése..." -> "Személyek keresése...",
+  "admin.access-control.epeople.search.placeholder": "Személyek keresése...",
 
   // "admin.access-control.epeople.button.add": "Add EPerson",
   "admin.access-control.epeople.button.add": "Felhasználó hozzáadása",
@@ -444,19 +444,19 @@
   "admin.access-control.epeople.table.name": "Név",
 
   // "admin.access-control.epeople.table.email": "Email (exact)",
-  "admin.access-control.epeople.table.email": "E-mail (pontos)", // "E-mail" -> "E-mail (pontos)",
+  "admin.access-control.epeople.table.email": "E-mail (pontos)",
 
   // "admin.access-control.epeople.table.edit": "Edit",
   "admin.access-control.epeople.table.edit": "Szerkesztés",
 
   // "admin.access-control.epeople.table.edit.buttons.edit": "Edit \"{{name}}\"",
-  "admin.access-control.epeople.table.edit.buttons.edit": "\"{{name}}\" szerkesztése", // "Szerkesztés \"{{name}}\"" -> "\"{{name}}\" szerkesztése",
+  "admin.access-control.epeople.table.edit.buttons.edit": "\"{{name}}\" szerkesztése",
 
   // "admin.access-control.epeople.table.edit.buttons.edit-disabled": "You are not authorized to edit this group",
   "admin.access-control.epeople.table.edit.buttons.edit-disabled": "Nincs jogosultsága ennek a csoportnak a szerkesztéséhez.",
 
   // "admin.access-control.epeople.table.edit.buttons.remove": "Delete \"{{name}}\"",
-  "admin.access-control.epeople.table.edit.buttons.remove": "\"{{name}}\" törlése", // "Törlés \"{{name}}\"" -> "\"{{name}}\" törlése",
+  "admin.access-control.epeople.table.edit.buttons.remove": "\"{{name}}\" törlése",
 
   // "admin.access-control.epeople.table.edit.buttons.remove.modal.header": "Delete Group \"{{ dsoName }}\"",
   "admin.access-control.epeople.table.edit.buttons.remove.modal.header": "\"{{ dsoName }}\" csoport törlése",
@@ -471,7 +471,7 @@
   "admin.access-control.epeople.table.edit.buttons.remove.modal.confirm": "Töröl",
 
   // "admin.access-control.epeople.no-items": "No EPeople to show.",
-  "admin.access-control.epeople.no-items": "Nincsenek megjeleníthető felhasználók.", // "Nincs elérhető ESzemély." -> "Nincsenek megjeleníthető felhasználók.",
+  "admin.access-control.epeople.no-items": "Nincsenek megjeleníthető felhasználók.",
 
   // "admin.access-control.epeople.form.create": "Create EPerson",
   "admin.access-control.epeople.form.create": "Felhasználó létrehozása",
@@ -483,10 +483,10 @@
   "admin.access-control.epeople.form.firstName": "Keresztnév",
 
   // "admin.access-control.epeople.form.lastName": "Last name",
-  "admin.access-control.epeople.form.lastName": "Vezetéknév", // "Családnév" -> "Vezetéknév" (gyakoribb),
+  "admin.access-control.epeople.form.lastName": "Vezetéknév",
 
   // "admin.access-control.epeople.form.email": "Email",
-  "admin.access-control.epeople.form.email": "E-mail", // "Email" -> "E-mail",
+  "admin.access-control.epeople.form.email": "E-mail",
 
   // "admin.access-control.epeople.form.emailHint": "Must be a valid email address",
   "admin.access-control.epeople.form.emailHint": "Érvényes e-mail címnek kell lennie.",
@@ -501,10 +501,10 @@
   "admin.access-control.epeople.form.return": "Vissza",
 
   // "admin.access-control.epeople.form.notification.created.success": "Successfully created EPerson \"{{name}}\"",
-  "admin.access-control.epeople.form.notification.created.success": "A(z) \"{{name}}\" felhasználó sikeresen létrehozva.", // "Felhasználó \"{{name}} sikeresen létrehozva\"" -> "A(z) \"{{name}}\" felhasználó sikeresen létrehozva.",
+  "admin.access-control.epeople.form.notification.created.success": "A(z) \"{{name}}\" felhasználó sikeresen létrehozva.",
 
   // "admin.access-control.epeople.form.notification.created.failure": "Failed to create EPerson \"{{name}}\"",
-  "admin.access-control.epeople.form.notification.created.failure": "A(z) \"{{name}}\" felhasználó létrehozása sikertelen.", // "Felhasználó \"{{name}}létrehozása sikertelen\"" -> "A(z) \"{{name}}\" felhasználó létrehozása sikertelen.",
+  "admin.access-control.epeople.form.notification.created.failure": "A(z) \"{{name}}\" felhasználó létrehozása sikertelen.",
 
   // "admin.access-control.epeople.form.notification.created.failure.emailInUse": "Failed to create EPerson \"{{name}}\", email \"{{email}}\" already in use.",
   "admin.access-control.epeople.form.notification.created.failure.emailInUse": "A(z) \"{{name}}\" felhasználó létrehozása sikertelen, a(z) \"{{email}}\" e-mail cím már használatban van.",
@@ -513,16 +513,16 @@
   "admin.access-control.epeople.form.notification.edited.failure.emailInUse": "A(z) \"{{name}}\" felhasználó szerkesztése sikertelen, a(z) \"{{email}}\" e-mail cím már használatban van.",
 
   // "admin.access-control.epeople.form.notification.edited.success": "Successfully edited EPerson \"{{name}}\"",
-  "admin.access-control.epeople.form.notification.edited.success": "A(z) \"{{name}}\" felhasználó sikeresen szerkesztve.", // "Felhasználó \"{{name}}\" szerkesztése sikeres" -> "A(z) \"{{name}}\" felhasználó sikeresen szerkesztve.",
+  "admin.access-control.epeople.form.notification.edited.success": "A(z) \"{{name}}\" felhasználó sikeresen szerkesztve.",
 
   // "admin.access-control.epeople.form.notification.edited.failure": "Failed to edit EPerson \"{{name}}\"",
-  "admin.access-control.epeople.form.notification.edited.failure": "A(z) \"{{name}}\" felhasználó szerkesztése sikertelen.", // "Felhasználó \"{{name}}\" szerkesztése sikertelen" -> "A(z) \"{{name}}\" felhasználó szerkesztése sikertelen.",
+  "admin.access-control.epeople.form.notification.edited.failure": "A(z) \"{{name}}\" felhasználó szerkesztése sikertelen.",
 
   // "admin.access-control.epeople.form.notification.deleted.success": "Successfully deleted EPerson \"{{name}}\"",
-  "admin.access-control.epeople.form.notification.deleted.success": "A(z) \"{{name}}\" felhasználó sikeresen törölve.", // "Sikeresen törölve: EPerson \"{{name}}\"" -> "A(z) \"{{name}}\" felhasználó sikeresen törölve.",
+  "admin.access-control.epeople.form.notification.deleted.success": "A(z) \"{{name}}\" felhasználó sikeresen törölve.",
 
   // "admin.access-control.epeople.form.notification.deleted.failure": "Failed to delete EPerson \"{{name}}\"",
-  "admin.access-control.epeople.form.notification.deleted.failure": "A(z) \"{{name}}\" felhasználó törlése sikertelen.", // "Sikertelen törlés: Felhasználó \"{{name}}\"" -> "A(z) \"{{name}}\" felhasználó törlése sikertelen.",
+  "admin.access-control.epeople.form.notification.deleted.failure": "A(z) \"{{name}}\" felhasználó törlése sikertelen.",
 
   // "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Member of these groups:",
   "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Ezeknek a csoportoknak a tagja:",
@@ -537,7 +537,7 @@
   "admin.access-control.epeople.form.table.collectionOrCommunity": "Gyűjtemény/Közösség",
 
   // "admin.access-control.epeople.form.memberOfNoGroups": "This EPerson is not a member of any groups",
-  "admin.access-control.epeople.form.memberOfNoGroups": "Ez a felhasználó egyetlen csoportnak sem tagja.", // "Ez az ESzemély" -> "Ez a felhasználó",
+  "admin.access-control.epeople.form.memberOfNoGroups": "Ez a felhasználó egyetlen csoportnak sem tagja.",
 
   // "admin.access-control.epeople.form.goToGroups": "Add to groups",
   "admin.access-control.epeople.form.goToGroups": "Hozzáadás csoportokhoz",
@@ -546,7 +546,7 @@
   "admin.access-control.epeople.notification.deleted.failure": "Hiba történt a(z) \"{{id}}\" azonosítójú felhasználó törlésekor. Státuszkód: \"{{statusCode}}\", hibaüzenet: \"{{restResponse.errorMessage}}\"",
 
   // "admin.access-control.epeople.notification.deleted.success": "Successfully deleted EPerson: \"{{name}}\"",
-  "admin.access-control.epeople.notification.deleted.success": "A(z) \"{{name}}\" felhasználó sikeresen törölve.", // "Felhasználó: \"{{name}}\" sikeresen törölve" -> "A(z) \"{{name}}\" felhasználó sikeresen törölve.",
+  "admin.access-control.epeople.notification.deleted.success": "A(z) \"{{name}}\" felhasználó sikeresen törölve.",
 
   // "admin.access-control.groups.title": "Groups",
   "admin.access-control.groups.title": "Csoportok",
@@ -582,7 +582,7 @@
   "admin.access-control.groups.search.button": "Keresés",
 
   // "admin.access-control.groups.search.placeholder": "Search groups...",
-  "admin.access-control.groups.search.placeholder": "Csoportok keresése...", // "Csoport keresése..." -> "Csoportok keresése...",
+  "admin.access-control.groups.search.placeholder": "Csoportok keresése...",
 
   // "admin.access-control.groups.table.id": "ID",
   "admin.access-control.groups.table.id": "Azonosító",
@@ -606,16 +606,16 @@
   "admin.access-control.groups.table.edit.buttons.remove": "\"{{name}}\" törlése",
 
   // "admin.access-control.groups.no-items": "No groups found with this in their name or this as UUID",
-  "admin.access-control.groups.no-items": "Nem található csoport ezzel a névvel vagy UUID azonosítóval.", // "Egyetlen csoport sem tartalmazza nevében vagy azonosítóként (UUID) a megadott keresőkifejezést" -> "Nem található csoport ezzel a névvel vagy UUID azonosítóval.",
+  "admin.access-control.groups.no-items": "Nem található csoport ezzel a névvel vagy UUID azonosítóval.",
 
   // "admin.access-control.groups.notification.deleted.success": "Successfully deleted group \"{{name}}\"",
-  "admin.access-control.groups.notification.deleted.success": "A(z) \"{{name}}\" csoport sikeresen törölve.", // "\"{{name}}\" csoport törlése sikeres" -> "A(z) \"{{name}}\" csoport sikeresen törölve.",
+  "admin.access-control.groups.notification.deleted.success": "A(z) \"{{name}}\" csoport sikeresen törölve.",
 
   // "admin.access-control.groups.notification.deleted.failure.title": "Failed to delete group \"{{name}}\"",
-  "admin.access-control.groups.notification.deleted.failure.title": "A(z) \"{{name}}\" csoport törlése sikertelen.", // "\"{{name}}\" csoport törlése sikertelen" -> "A(z) \"{{name}}\" csoport törlése sikertelen.",
+  "admin.access-control.groups.notification.deleted.failure.title": "A(z) \"{{name}}\" csoport törlése sikertelen.",
 
   // "admin.access-control.groups.notification.deleted.failure.content": "Cause: \"{{cause}}\"",
-  "admin.access-control.groups.notification.deleted.failure.content": "Ok: \"{{cause}}\"", // "Hiba oka:" -> "Ok:",
+  "admin.access-control.groups.notification.deleted.failure.content": "Ok: \"{{cause}}\"",
 
   // "admin.access-control.groups.form.alert.permanent": "This group is permanent, so it can't be edited or deleted. You can still add and remove group members using this page.",
   "admin.access-control.groups.form.alert.permanent": "Ez a csoport állandó, ezért nem szerkeszthető vagy törölhető.\nA csoporttagokat továbbra is hozzáadhatja és eltávolíthatja ezen az oldalon.",
@@ -630,7 +630,7 @@
   "admin.access-control.groups.form.head.edit": "Csoport szerkesztése",
 
   // "admin.access-control.groups.form.groupName": "Group name",
-  "admin.access-control.groups.form.groupName": "Csoportnév", // "Csoport neve" -> "Csoportnév",
+  "admin.access-control.groups.form.groupName": "Csoportnév",
 
   // "admin.access-control.groups.form.groupCommunity": "Community or Collection",
   "admin.access-control.groups.form.groupCommunity": "Közösség vagy Gyűjtemény",
@@ -639,31 +639,31 @@
   "admin.access-control.groups.form.groupDescription": "Leírás",
 
   // "admin.access-control.groups.form.notification.created.success": "Successfully created Group \"{{name}}\"",
-  "admin.access-control.groups.form.notification.created.success": "A(z) \"{{name}}\" csoport sikeresen létrehozva.", // "\"{{name}}\" csoport létrehozása sikerült" -> "A(z) \"{{name}}\" csoport sikeresen létrehozva.",
+  "admin.access-control.groups.form.notification.created.success": "A(z) \"{{name}}\" csoport sikeresen létrehozva.",
 
   // "admin.access-control.groups.form.notification.created.failure": "Failed to create Group \"{{name}}\"",
-  "admin.access-control.groups.form.notification.created.failure": "A(z) \"{{name}}\" csoport létrehozása sikertelen.", // "\"{{name}}\" csoport létrehozása sikertelen" -> "A(z) \"{{name}}\" csoport létrehozása sikertelen.",
+  "admin.access-control.groups.form.notification.created.failure": "A(z) \"{{name}}\" csoport létrehozása sikertelen.",
 
   // "admin.access-control.groups.form.notification.created.failure.groupNameInUse": "Failed to create Group with name: \"{{name}}\", make sure the name is not already in use.",
-  "admin.access-control.groups.form.notification.created.failure.groupNameInUse": "A(z) \"{{name}}\" nevű csoport létrehozása sikertelen, győződjön meg róla, hogy a név még nincs használatban.", // "Csoport létrehozása sikertelen a következő névvel : \"{{name}}\", bizonyosodjon meg róla, hogy a még nincs használatban." -> "A(z) \"{{name}}\" nevű csoport létrehozása sikertelen, győződjön meg róla, hogy a név még nincs használatban.",
+  "admin.access-control.groups.form.notification.created.failure.groupNameInUse": "A(z) \"{{name}}\" nevű csoport létrehozása sikertelen, győződjön meg róla, hogy a név még nincs használatban.",
 
   // "admin.access-control.groups.form.notification.edited.failure": "Failed to edit Group \"{{name}}\"",
-  "admin.access-control.groups.form.notification.edited.failure": "A(z) \"{{name}}\" csoport szerkesztése sikertelen.", // "Csoport szerkesztése sikertelen \"{{name}}\"" -> "A(z) \"{{name}}\" csoport szerkesztése sikertelen.",
+  "admin.access-control.groups.form.notification.edited.failure": "A(z) \"{{name}}\" csoport szerkesztése sikertelen.",
 
   // "admin.access-control.groups.form.notification.edited.failure.groupNameInUse": "Name \"{{name}}\" already in use!",
-  "admin.access-control.groups.form.notification.edited.failure.groupNameInUse": "A(z) \"{{name}}\" név már használatban van!", // "foglalt!" -> "használatban van!",
+  "admin.access-control.groups.form.notification.edited.failure.groupNameInUse": "A(z) \"{{name}}\" név már használatban van!",
 
   // "admin.access-control.groups.form.notification.edited.success": "Successfully edited Group \"{{name}}\"",
-  "admin.access-control.groups.form.notification.edited.success": "A(z) \"{{name}}\" csoport sikeresen szerkesztve.", // "Sikeresen szerkesztett csoport: \"{{name}}\"" -> "A(z) \"{{name}}\" csoport sikeresen szerkesztve.",
+  "admin.access-control.groups.form.notification.edited.success": "A(z) \"{{name}}\" csoport sikeresen szerkesztve.",
 
   // "admin.access-control.groups.form.actions.delete": "Delete Group",
   "admin.access-control.groups.form.actions.delete": "Csoport törlése",
 
   // "admin.access-control.groups.form.delete-group.modal.header": "Delete Group \"{{ dsoName }}\"",
-  "admin.access-control.groups.form.delete-group.modal.header": "\"{{ dsoName }}\" csoport törlése", // "Csoport törlése: \"{{ dsoName }}\"" -> "\"{{ dsoName }}\" csoport törlése",
+  "admin.access-control.groups.form.delete-group.modal.header": "\"{{ dsoName }}\" csoport törlése",
 
   // "admin.access-control.groups.form.delete-group.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\" and all its associated policies?",
-  "admin.access-control.groups.form.delete-group.modal.info": "Biztosan törli a(z) \"{{ dsoName }}\" csoportot?", // "Biztos törli a csoportot: \"{{ dsoName }}\"" -> "Biztosan törli a(z) \"{{ dsoName }}\" csoportot?",
+  "admin.access-control.groups.form.delete-group.modal.info": "Biztosan törli a(z) \"{{ dsoName }}\" csoportot?",
 
   // "admin.access-control.groups.form.delete-group.modal.cancel": "Cancel",
   "admin.access-control.groups.form.delete-group.modal.cancel": "Mégse",
@@ -672,10 +672,10 @@
   "admin.access-control.groups.form.delete-group.modal.confirm": "Törlés",
 
   // "admin.access-control.groups.form.notification.deleted.success": "Successfully deleted group \"{{ name }}\"",
-  "admin.access-control.groups.form.notification.deleted.success": "A(z) \"{{ name }}\" csoport sikeresen törölve.", // "Csoport sikeresen törölve: \"{{ name }}\"" -> "A(z) \"{{ name }}\" csoport sikeresen törölve.",
+  "admin.access-control.groups.form.notification.deleted.success": "A(z) \"{{ name }}\" csoport sikeresen törölve.",
 
   // "admin.access-control.groups.form.notification.deleted.failure.title": "Failed to delete group \"{{ name }}\"",
-  "admin.access-control.groups.form.notification.deleted.failure.title": "A(z) \"{{ name }}\" csoport törlése sikertelen.", // "Csoport törlése sikertelen \"{{ name }}\"" -> "A(z) \"{{ name }}\" csoport törlése sikertelen.",
+  "admin.access-control.groups.form.notification.deleted.failure.title": "A(z) \"{{ name }}\" csoport törlése sikertelen.",
 
   // "admin.access-control.groups.form.notification.deleted.failure.content": "Cause: \"{{ cause }}\"",
   "admin.access-control.groups.form.notification.deleted.failure.content": "Ok: \"{{ cause }}\"",
@@ -702,7 +702,7 @@
   "admin.access-control.groups.form.members-list.table.name": "Név",
 
   // "admin.access-control.groups.form.members-list.table.identity": "Identity",
-  "admin.access-control.groups.form.members-list.table.identity": "Azonosság", // "Identitás" -> "Azonosság",
+  "admin.access-control.groups.form.members-list.table.identity": "Azonosság",
 
   // "admin.access-control.groups.form.members-list.table.email": "Email",
   "admin.access-control.groups.form.members-list.table.email": "E-mail",
@@ -711,25 +711,25 @@
   "admin.access-control.groups.form.members-list.table.netid": "NetID",
 
   // "admin.access-control.groups.form.members-list.table.edit": "Remove / Add",
-  "admin.access-control.groups.form.members-list.table.edit": "Eltávolítás / Hozzáadás", // "Műveletek" -> "Eltávolítás / Hozzáadás" (konkrétabb),
+  "admin.access-control.groups.form.members-list.table.edit": "Eltávolítás / Hozzáadás",
 
   // "admin.access-control.groups.form.members-list.table.edit.buttons.remove": "Remove member with name \"{{name}}\"",
-  "admin.access-control.groups.form.members-list.table.edit.buttons.remove": "A(z) \"{{name}}\" nevű tag eltávolítása.", // "A\"{{name}}\" nevű tag törlése" -> "A(z) \"{{name}}\" nevű tag eltávolítása.",
+  "admin.access-control.groups.form.members-list.table.edit.buttons.remove": "A(z) \"{{name}}\" nevű tag eltávolítása.",
 
   // "admin.access-control.groups.form.members-list.notification.success.addMember": "Successfully added member: \"{{name}}\"",
-  "admin.access-control.groups.form.members-list.notification.success.addMember": "\"{{name}}\" tag sikeresen hozzáadva.", // "Új tag sikeresen felvéve: \"{{name}}\"" -> "\"{{name}}\" tag sikeresen hozzáadva.",
+  "admin.access-control.groups.form.members-list.notification.success.addMember": "\"{{name}}\" tag sikeresen hozzáadva.",
 
   // "admin.access-control.groups.form.members-list.notification.failure.addMember": "Failed to add member: \"{{name}}\"",
   "admin.access-control.groups.form.members-list.notification.failure.addMember": "\"{{name}}\" tag hozzáadása sikertelen.",
 
   // "admin.access-control.groups.form.members-list.notification.success.deleteMember": "Successfully deleted member: \"{{name}}\"",
-  "admin.access-control.groups.form.members-list.notification.success.deleteMember": "\"{{name}}\" tag sikeresen törölve.", // "Tag törlése sikeres: \"{{name}}\"" -> "\"{{name}}\" tag sikeresen törölve.",
+  "admin.access-control.groups.form.members-list.notification.success.deleteMember": "\"{{name}}\" tag sikeresen törölve.",
 
   // "admin.access-control.groups.form.members-list.notification.failure.deleteMember": "Failed to delete member: \"{{name}}\"",
   "admin.access-control.groups.form.members-list.notification.failure.deleteMember": "\"{{name}}\" tag törlése sikertelen.",
 
   // "admin.access-control.groups.form.members-list.table.edit.buttons.add": "Add member with name \"{{name}}\"",
-  "admin.access-control.groups.form.members-list.table.edit.buttons.add": "\"{{name}}\" nevű tag hozzáadása.", // "Tag hozzáadása a következő névvel: \"{{name}}\"" -> "\"{{name}}\" nevű tag hozzáadása.",
+  "admin.access-control.groups.form.members-list.table.edit.buttons.add": "\"{{name}}\" nevű tag hozzáadása.",
 
   // "admin.access-control.groups.form.members-list.notification.failure.noActiveGroup": "No current active group, submit a name first.",
   "admin.access-control.groups.form.members-list.notification.failure.noActiveGroup": "Nincs jelenleg aktív csoport, először adjon meg egy nevet.",
@@ -738,7 +738,7 @@
   "admin.access-control.groups.form.members-list.no-members-yet": "A csoportnak még nincsenek tagjai, keressen és adjon hozzá.",
 
   // "admin.access-control.groups.form.members-list.no-items": "No EPeople found in that search",
-  "admin.access-control.groups.form.members-list.no-items": "A keresés nem hozott eredményt felhasználókra.", // "Ez a keresés nem talált EPeople-t" -> "A keresés nem hozott eredményt felhasználókra.",
+  "admin.access-control.groups.form.members-list.no-items": "A keresés nem hozott eredményt felhasználókra.",
 
   // "admin.access-control.groups.form.subgroups-list.notification.failure": "Something went wrong: \"{{cause}}\"",
   "admin.access-control.groups.form.subgroups-list.notification.failure": "Hiba történt: \"{{cause}}\"",
@@ -756,7 +756,7 @@
   "admin.access-control.groups.form.subgroups-list.headSubgroups": "Jelenlegi alcsoportok",
 
   // "admin.access-control.groups.form.subgroups-list.search.button": "Search",
-  "admin.access-control.groups.form.subgroups-list.search.button": "Keresés", // "keresés" -> "Keresés",
+  "admin.access-control.groups.form.subgroups-list.search.button": "Keresés",
 
   // "admin.access-control.groups.form.subgroups-list.table.id": "ID",
   "admin.access-control.groups.form.subgroups-list.table.id": "Azonosító",
@@ -765,16 +765,16 @@
   "admin.access-control.groups.form.subgroups-list.table.name": "Név",
 
   // "admin.access-control.groups.form.subgroups-list.table.collectionOrCommunity": "Collection/Community",
-  "admin.access-control.groups.form.subgroups-list.table.collectionOrCommunity": "Gyűjtemény/Közösség", // "Gyűjtemény / Közösség" -> "Gyűjtemény/Közösség",
+  "admin.access-control.groups.form.subgroups-list.table.collectionOrCommunity": "Gyűjtemény/Közösség",
 
   // "admin.access-control.groups.form.subgroups-list.table.edit": "Remove / Add",
   "admin.access-control.groups.form.subgroups-list.table.edit": "Eltávolítás / Hozzáadás",
 
   // "admin.access-control.groups.form.subgroups-list.table.edit.buttons.remove": "Remove subgroup with name \"{{name}}\"",
-  "admin.access-control.groups.form.subgroups-list.table.edit.buttons.remove": "A(z) \"{{name}}\" nevű alcsoport eltávolítása.", // "A következő nevű \"{{name}}\" alcsoport törlése" -> "A(z) \"{{name}}\" nevű alcsoport eltávolítása.",
+  "admin.access-control.groups.form.subgroups-list.table.edit.buttons.remove": "A(z) \"{{name}}\" nevű alcsoport eltávolítása.",
 
   // "admin.access-control.groups.form.subgroups-list.table.edit.buttons.add": "Add subgroup with name \"{{name}}\"",
-  "admin.access-control.groups.form.subgroups-list.table.edit.buttons.add": "A(z) \"{{name}}\" nevű alcsoport hozzáadása.", // "A következő nevű \"{{name}}\" alcsoport hozzáadása" -> "A(z) \"{{name}}\" nevű alcsoport hozzáadása.",
+  "admin.access-control.groups.form.subgroups-list.table.edit.buttons.add": "A(z) \"{{name}}\" nevű alcsoport hozzáadása.",
 
   // "admin.access-control.groups.form.subgroups-list.notification.success.addSubgroup": "Successfully added subgroup: \"{{name}}\"",
   "admin.access-control.groups.form.subgroups-list.notification.success.addSubgroup": "\"{{name}}\" alcsoport sikeresen hozzáadva.",
@@ -789,16 +789,16 @@
   "admin.access-control.groups.form.subgroups-list.notification.failure.deleteSubgroup": "\"{{name}}\" alcsoport törlése sikertelen.",
 
   // "admin.access-control.groups.form.subgroups-list.notification.failure.noActiveGroup": "No current active group, submit a name first.",
-  "admin.access-control.groups.form.subgroups-list.notification.failure.noActiveGroup": "Jelenleg nincs aktív csoport, először adjon meg egy nevet.", // "jelenleg nincs aktív csoport, előbb adjon meg egy nevet." -> "Jelenleg nincs aktív csoport, először adjon meg egy nevet.",
+  "admin.access-control.groups.form.subgroups-list.notification.failure.noActiveGroup": "Jelenleg nincs aktív csoport, először adjon meg egy nevet.",
 
   // "admin.access-control.groups.form.subgroups-list.notification.failure.subgroupToAddIsActiveGroup": "This is the current group, can't be added.",
   "admin.access-control.groups.form.subgroups-list.notification.failure.subgroupToAddIsActiveGroup": "Ez a jelenlegi csoport, nem adható hozzá.",
 
   // "admin.access-control.groups.form.subgroups-list.no-items": "No groups found with this in their name or this as UUID",
-  "admin.access-control.groups.form.subgroups-list.no-items": "Nem található csoport ezzel a névvel vagy UUID azonosítóval.", // "Egyetlen csoport neve vagy UUID-je sem tartalmazza ezt" -> "Nem található csoport ezzel a névvel vagy UUID azonosítóval.",
+  "admin.access-control.groups.form.subgroups-list.no-items": "Nem található csoport ezzel a névvel vagy UUID azonosítóval.",
 
   // "admin.access-control.groups.form.subgroups-list.no-subgroups-yet": "No subgroups in group yet.",
-  "admin.access-control.groups.form.subgroups-list.no-subgroups-yet": "Még nincsenek alcsoportok a csoportban.", // "Jelenleg még nincs egyetlen alcsoport sem csoporttagként felvéve." -> "Még nincsenek alcsoportok a csoportban.",
+  "admin.access-control.groups.form.subgroups-list.no-subgroups-yet": "Még nincsenek alcsoportok a csoportban.",
 
   // "admin.access-control.groups.form.return": "Back",
   "admin.access-control.groups.form.return": "Vissza",
@@ -3275,16 +3275,8 @@
   // "form.other-information.last-name": "Last Name",
   "form.other-information.orcid": "ORCID",
 
-  // "form.other-information.orcid": "ORCID",
-  // TODO Source message changed - Revise the translation
-  "form.other-information.orcid": "ORCID",
-
-  // "form.other-information.person_identifier_orcid": "ORCID",
-  // TODO Source message changed - Revise the translation
   "form.other-information.person_identifier_orcid": "ORCID iD",
 
-  // "form.other-information.oairecerif_author_affiliation": "Affiliation",
-  // TODO Source message changed - Revise the translation
   "form.other-information.oairecerif_author_affiliation": "Intézményi hovatartozás",
 
   // "form.other-information.oairecerif_editor_affiliation": "Affiliation",
@@ -4613,7 +4605,7 @@
 
   // "item.page.edit": "Administer",
   // TODO Source message changed - Revise the translation
-  "item.page.edit": "Tétel szerkesztése", // "Elem szerkesztése" -> "Tétel szerkesztése",
+  "item.page.edit": "Tétel szerkesztése"
 
   // "item.page.files": "Files",
   "item.page.files": "Fájlok",
@@ -5177,43 +5169,43 @@
   "itemtemplate.edit.metadata.metadatafield": "Mező szerkesztése",
 
   // "itemtemplate.edit.metadata.metadatafield.error": "An error occurred validating the metadata field",
-  "itemtemplate.edit.metadata.metadatafield.error": "Hiba történt a metaadatmező ellenőrzésekor.", // "An error occurred validating the metadata field" -> "Hiba történt a metaadatmező ellenőrzésekor.",
+  "itemtemplate.edit.metadata.metadatafield.error": "Hiba történt a metaadatmező ellenőrzésekor.",
 
   // "itemtemplate.edit.metadata.metadatafield.invalid": "Please choose a valid metadata field",
-  "itemtemplate.edit.metadata.metadatafield.invalid": "Kérjük, válasszon érvényes metaadatmezőt!", // "Please choose a valid metadata field" -> "Kérjük, válasszon érvényes metaadatmezőt!",
+  "itemtemplate.edit.metadata.metadatafield.invalid": "Kérjük, válasszon érvényes metaadatmezőt!",
 
   // "itemtemplate.edit.metadata.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
-  "itemtemplate.edit.metadata.notifications.discarded.content": "Módosításai elvetve.\nA visszaállításhoz kattintson a 'Visszavonás' gombra.", // "Your changes were discarded. To reinstate your changes click the 'Undo' button" -> "Módosításai elvetve.\nA visszaállításhoz kattintson a 'Visszavonás' gombra.",
+  "itemtemplate.edit.metadata.notifications.discarded.content": "Módosításai elvetve.\nA visszaállításhoz kattintson a 'Visszavonás' gombra.",
 
   // "itemtemplate.edit.metadata.notifications.discarded.title": "Changes discarded",
-  "itemtemplate.edit.metadata.notifications.discarded.title": "Módosítások elvetve", // "Changes discarded" -> "Módosítások elvetve",
+  "itemtemplate.edit.metadata.notifications.discarded.title": "Módosítások elvetve",
 
   // "itemtemplate.edit.metadata.notifications.error.title": "An error occurred",
-  "itemtemplate.edit.metadata.notifications.error.title": "Hiba történt.", // "An error occurred" -> "Hiba történt.",
+  "itemtemplate.edit.metadata.notifications.error.title": "Hiba történt.",
 
   // "itemtemplate.edit.metadata.notifications.invalid.content": "Your changes were not saved. Please make sure all fields are valid before you save.",
-  "itemtemplate.edit.metadata.notifications.invalid.content": "Módosításai nem lettek mentve.\nKérjük, mentés előtt győződjön meg róla, hogy minden mező érvényes.", // "Your changes were not saved. Please make sure all fields are valid before you save." -> "Módosításai nem lettek mentve.\nKérjük, mentés előtt győződjön meg róla, hogy minden mező érvényes.",
+  "itemtemplate.edit.metadata.notifications.invalid.content": "Módosításai nem lettek mentve.\nKérjük, mentés előtt győződjön meg róla, hogy minden mező érvényes.",
 
   // "itemtemplate.edit.metadata.notifications.invalid.title": "Metadata invalid",
-  "itemtemplate.edit.metadata.notifications.invalid.title": "Érvénytelen metaadat", // "Metadata invalid" -> "Érvénytelen metaadat",
+  "itemtemplate.edit.metadata.notifications.invalid.title": "Érvénytelen metaadat",
 
   // "itemtemplate.edit.metadata.notifications.outdated.content": "The item template you're currently working on has been changed by another user. Your current changes are discarded to prevent conflicts",
-  "itemtemplate.edit.metadata.notifications.outdated.content": "A tételsablont, amelyen jelenleg dolgozik, egy másik felhasználó módosította.\nJelenlegi módosításai elvetésre kerültek az ütközések elkerülése érdekében.", // "The item template you're currently working on has been changed by another user. Your current changes are discarded to prevent conflicts" -> "A tételsablont, amelyen jelenleg dolgozik, egy másik felhasználó módosította.\nJelenlegi módosításai elvetésre kerültek az ütközések elkerülése érdekében.",
+  "itemtemplate.edit.metadata.notifications.outdated.content": "A tételsablont, amelyen jelenleg dolgozik, egy másik felhasználó módosította.\nJelenlegi módosításai elvetésre kerültek az ütközések elkerülése érdekében.",
 
   // "itemtemplate.edit.metadata.notifications.outdated.title": "Changes outdated",
-  "itemtemplate.edit.metadata.notifications.outdated.title": "Elavult módosítások", // "Changes outdated" -> "Elavult módosítások",
+  "itemtemplate.edit.metadata.notifications.outdated.title": "Elavult módosítások",
 
   // "itemtemplate.edit.metadata.notifications.saved.content": "Your changes to this item template's metadata were saved.",
-  "itemtemplate.edit.metadata.notifications.saved.content": "A tételsablon metaadatain végzett módosításai mentve lettek.", // "Your changes to this item template's metadata were saved." -> "A tételsablon metaadatain végzett módosításai mentve lettek.",
+  "itemtemplate.edit.metadata.notifications.saved.content": "A tételsablon metaadatain végzett módosításai mentve lettek.",
 
   // "itemtemplate.edit.metadata.notifications.saved.title": "Metadata saved",
-  "itemtemplate.edit.metadata.notifications.saved.title": "Metaadatok mentve", // "Metadata saved" -> "Metaadatok mentve",
+  "itemtemplate.edit.metadata.notifications.saved.title": "Metaadatok mentve",
 
   // "itemtemplate.edit.metadata.reinstate-button": "Undo",
-  "itemtemplate.edit.metadata.reinstate-button": "Visszavonás", // "Undo" -> "Visszavonás",
+  "itemtemplate.edit.metadata.reinstate-button": "Visszavonás",
 
   // "itemtemplate.edit.metadata.reset-order-button": "Undo reorder",
-  "itemtemplate.edit.metadata.reset-order-button": "Sorrend visszaállítása", // "Undo reorder" -> "Sorrend visszaállítása",
+  "itemtemplate.edit.metadata.reset-order-button": "Sorrend visszaállítása",
 
   // "itemtemplate.edit.metadata.save-button": "Save",
   "itemtemplate.edit.metadata.save-button": "Mentés",
