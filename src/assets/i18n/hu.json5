@@ -27,8 +27,7 @@
   "500.link.home-page": "Vissza a kezdőlapra",
 
   // "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page.",
-  // TODO Source message changed - Revise the translation
-  "404.help": "A keresett oldal nem található. Az oldalt elköltöztették, vagy letörölték.<br>Az alsó gombbal visszakerülhet a kezdőlapra ",
+  "404.help": "Nem találjuk a keresett oldalt. Az oldal áthelyezhetőre került vagy törölve lett. Az alábbi gombbal visszatérhet a főoldalra.",
 
   // "404.link.home-page": "Take me to the home page",
   "404.link.home-page": "Vissza a főoldalra",
@@ -1351,104 +1350,79 @@
   "admin.batch-import.page.remove": "eltávolítás", // "remove" -> "eltávolítás",
 
   // "audit.data.not-found": "No audits found.",
-  // TODO New key - Add a translation
-  "audit.data.not-found": "No audits found.",
+  "audit.data.not-found": "Nem találhatók audit naplók.",
 
   // "audit.data.self": "self",
-  // TODO New key - Add a translation
-  "audit.data.self": "self",
+  "audit.data.self": "saját",
 
   // "audit.detail.metadata.field": "Metadata field:",
-  // TODO New key - Add a translation
-  "audit.detail.metadata.field": "Metadata field:",
+  "audit.detail.metadata.field": "Metaadat mező:",
 
   // "audit.detail.metadata.value": "Value:",
-  // TODO New key - Add a translation
-  "audit.detail.metadata.value": "Value:",
+  "audit.detail.metadata.value": "Érték:",
 
   // "audit.detail.metadata.authority": "Authority:",
-  // TODO New key - Add a translation
-  "audit.detail.metadata.authority": "Authority:",
+  "audit.detail.metadata.authority": "Hatóság:",
 
   // "audit.detail.metadata.confidence": "Confidence:",
-  // TODO New key - Add a translation
-  "audit.detail.metadata.confidence": "Confidence:",
+  "audit.detail.metadata.confidence": "Megbízhatóság:",
 
   // "audit.detail.metadata.place": "Place:",
-  // TODO New key - Add a translation
-  "audit.detail.metadata.place": "Place:",
+  "audit.detail.metadata.place": "Hely:",
 
   // "audit.detail.metadata.action": "Action:",
-  // TODO New key - Add a translation
-  "audit.detail.metadata.action": "Action:",
+  "audit.detail.metadata.action": "Művelet:",
 
   // "audit.detail.metadata.checksum": "Checksum:",
-  // TODO New key - Add a translation
-  "audit.detail.metadata.checksum": "Checksum:",
+  "audit.detail.metadata.checksum": "Ellenőrző összeg:",
 
   // "audit.overview.title": "All Audit Logs",
-  // TODO New key - Add a translation
-  "audit.overview.title": "All Audit Logs",
+  "audit.overview.title": "Összes Audit Napló",
 
   // "audit.overview.table.id": "Audit ID",
-  // TODO New key - Add a translation
-  "audit.overview.table.id": "Audit ID",
+  "audit.overview.table.id": "Audit Azonosító",
 
   // "audit.overview.table.objectUUID": "Object ID",
-  // TODO New key - Add a translation
-  "audit.overview.table.objectUUID": "Object ID",
+  "audit.overview.table.objectUUID": "Objektum Azonosító",
 
   // "audit.overview.table.objectType": "Object Type",
-  // TODO New key - Add a translation
-  "audit.overview.table.objectType": "Object Type",
+  "audit.overview.table.objectType": "Objektum Típus",
 
   // "audit.overview.table.subjectUUID": "Subject ID",
-  // TODO New key - Add a translation
-  "audit.overview.table.subjectUUID": "Subject ID",
+  "audit.overview.table.subjectUUID": "Alany Azonosító",
 
   // "audit.overview.table.subjectType": "Subject Type",
-  // TODO New key - Add a translation
-  "audit.overview.table.subjectType": "Subject Type",
+  "audit.overview.table.subjectType": "Alany Típus",
 
   // "audit.overview.table.entityType": "Audit Type",
-  // TODO New key - Add a translation
-  "audit.overview.table.entityType": "Audit Type",
+  "audit.overview.table.entityType": "Audit Típus",
 
   // "audit.overview.table.eperson": "EPerson",
-  // TODO New key - Add a translation
   "audit.overview.table.eperson": "EPerson",
 
   // "audit.overview.table.other": "Object",
-  // TODO New key - Add a translation
-  "audit.overview.table.other": "Object",
+  "audit.overview.table.other": "Objektum",
 
   // "audit.overview.table.timestamp": "Time (UTC)",
-  // TODO New key - Add a translation
-  "audit.overview.table.timestamp": "Time (UTC)",
+  "audit.overview.table.timestamp": "Időpont (UTC)",
 
   // "audit.overview.breadcrumbs": "Audit Logs",
-  // TODO New key - Add a translation
-  "audit.overview.breadcrumbs": "Audit Logs",
+  "audit.overview.breadcrumbs": "Audit Naplók",
 
   // "audit.object.back": "Back",
-  // TODO New key - Add a translation
-  "audit.object.back": "Back",
+  "audit.object.back": "Vissza",
 
   // "audit.object.breadcrumbs": "Object Audit Logs",
-  // TODO New key - Add a translation
-  "audit.object.breadcrumbs": "Object Audit Logs",
+  "audit.object.breadcrumbs": "Objektum Audit Naplók",
 
   // "audit.object.overview.title": "Object Audit Logs",
-  // TODO New key - Add a translation
-  "audit.object.overview.title": "Object Audit Logs",
+  "audit.object.overview.title": "Objektum Audit Naplók",
 
   // "audit.object.logs.label": "Logs for object: ",
-  // TODO New key - Add a translation
-  "audit.object.logs.label": "Logs for object: ",
+  "audit.object.logs.label": "Naplók objektumhoz: ",
 
   // "audit.object.overview.disabled.message": "Audit feature is currently disabled",
-  // TODO New key - Add a translation
-  "audit.object.overview.disabled.message": "Audit feature is currently disabled",
+  "audit.object.overview.disabled.message": "Audit funkció jelenleg ki van kapcsolva",
 
   // "auth.errors.invalid-user": "Invalid email address or password.",
   "auth.errors.invalid-user": "Érvénytelen e-mail cím vagy jelszó.", // vessző nélkül,
@@ -1793,12 +1767,10 @@
   "browse.title": "Böngészés: {{ field }} {{ startsWith }} {{ value }}", // "Böngészés - {{ field }} {{ value }} szerint" -> "Böngészés: {{ field }} {{ startsWith }} {{ value }}" (startsWith beépítve),
 
   // "browse.taxonomy.show_next_results": "Show next results",
-  // TODO New key - Add a translation
-  "browse.taxonomy.show_next_results": "Show next results",
+  "browse.taxonomy.show_next_results": "Következő eredmények megjelenítése",
 
   // "browse.taxonomy.show_previous_results": "Show previous results",
-  // TODO New key - Add a translation
-  "browse.taxonomy.show_previous_results": "Show previous results",
+  "browse.taxonomy.show_previous_results": "Előző eredmények megjelenítése",
 
   // "browse.title.page": "Browsing by {{ field }} {{ value }}",
   "browse.title.page": "Böngészés: {{ field }} {{ value }}",
@@ -1852,8 +1824,7 @@
   "collection.delete.notification.fail": "A gyűjteményt nem sikerült törölni.", // "Gyűjtemény törlése sikertelen" -> "A gyűjteményt nem sikerült törölni.",
 
   // "collection.delete.notification.success": "Successfully started a process to delete this collection",
-  // TODO Source message changed - Revise the translation
-  "collection.delete.notification.success": "A gyűjtemény sikeresen törölve.", // "Gyűjtemény törölve" -> "A gyűjtemény sikeresen törölve.",
+  "collection.delete.notification.success": "Sikeresen elindítva egy folyamat a gyűjtemény törléséhez.",
 
   // "collection.delete.text": "Are you sure you want to delete collection \"{{ dso }}\"",
   "collection.delete.text": "Biztosan törölni szeretné a(z) \"{{ dso }}\" gyűjteményt?",
@@ -2099,12 +2070,10 @@
   "collection.form.errors.title.required": "Kérjük, adja meg a gyűjtemény nevét!",
 
   // "collection.form.errors.submissionDefinition.required": "Please choose a submission definition for this collection",
-  // TODO New key - Add a translation
-  "collection.form.errors.submissionDefinition.required": "Please choose a submission definition for this collection",
+  "collection.form.errors.submissionDefinition.required": "Kérjük, válasszon beküldési definíciót ehhez a gyűjteményhez",
 
   // "collection.form.errors.entityType.required": "Please choose an entity type for this collection",
-  // TODO New key - Add a translation
-  "collection.form.errors.entityType.required": "Please choose an entity type for this collection",
+  "collection.form.errors.entityType.required": "Kérjük, válasszon entitás típust ehhez a gyűjteményhez",
 
   // "collection.form.license": "License",
   "collection.form.license": "Licenc", // "Engedély" -> "Licenc" (gyakoribb),
@@ -2116,8 +2085,7 @@
   "collection.form.rights": "Szerzői jogi szöveg (HTML)",
 
   // "collection.form.sharedWorkspace": "Shared workspace",
-  // TODO New key - Add a translation
-  "collection.form.sharedWorkspace": "Shared workspace",
+  "collection.form.sharedWorkspace": "Megosztott munkaterület",
 
   // "collection.form.tableofcontents": "News (HTML)",
   "collection.form.tableofcontents": "Hírek (HTML)",
@@ -2129,20 +2097,16 @@
   "collection.form.entityType": "Entitástípus",
 
   // "collection.form.errors.entityType.required": "Please choose an entity type for this collection",
-  // TODO New key - Add a translation
-  "collection.form.errors.entityType.required": "Please choose an entity type for this collection",
+  "collection.form.errors.entityType.required": "Kérjük, válasszon entitás típust ehhez a gyűjteményhez",
 
   // "collection.form.errors.submissionDefinition.required": "Please choose a submission definition for this collection",
-  // TODO New key - Add a translation
-  "collection.form.errors.submissionDefinition.required": "Please choose a submission definition for this collection",
+  "collection.form.errors.submissionDefinition.required": "Kérjük, válasszon beküldési definíciót ehhez a gyűjteményhez",
 
   // "collection.form.submissionDefinition": "Submission definition",
-  // TODO New key - Add a translation
-  "collection.form.submissionDefinition": "Submission definition",
+  "collection.form.submissionDefinition": "Beküldési definíció",
 
   // "collection.form.correctionSubmissionDefinition": "Submission definition for correction request",
-  // TODO New key - Add a translation
-  "collection.form.correctionSubmissionDefinition": "Submission definition for correction request",
+  "collection.form.correctionSubmissionDefinition": "Beküldési definíció javítási kéréshez",
 
 
 
