@@ -1687,6 +1687,8 @@
 
   "context-menu.actions.audit-item.btn": "Audit",
 
+  "context-menu.actions.subscription.frequency.required": "Please select a frequency",
+
   "cookies.consent.accept-all": "Accept all",
 
   "cookies.consent.accept-selected": "Accept selected",
@@ -5516,6 +5518,8 @@
 
   "submission.sections.describe.relationship-lookup.search-tab.placeholder": "Search query",
 
+  "submission.sections.describe.relationship-lookup.toggle-dropdown": "Toggle dropdown",
+
   "submission.sections.describe.relationship-lookup.search-tab.search": "Go",
 
   "submission.sections.describe.relationship-lookup.search-tab.search-form.placeholder": "Search...",
@@ -5931,6 +5935,8 @@
   "submission.sections.custom-url.alert.info": "Define here a custom URL which will be used to reach the item instead of using an internal randomly generated UUID identifier. ",
 
   "submission.sections.custom-url.url.placeholder": "Custom URL",
+
+  "submission.sections.custom-url.label.remove": "Remove",
 
   "submission.sections.accesses.form.discoverable-description": "When checked, this item will be discoverable in search/browse. When unchecked, the item will only be available via a direct link and will never appear in search/browse.",
 
@@ -6892,6 +6898,8 @@
 
   "ldn-new-service.form.error.ldnurl": "LDN URL is required",
 
+  "ldn-new-service.form.error.ldnurl.ldnUrlAlreadyAssociated": "This LDN URL is already associated with another service",
+
   "ldn-new-service.form.error.patterns": "At least a pattern is required",
 
   "ldn-new-service.form.error.score": "Please enter a valid score (between 0 and 1). Use the “.” as decimal separator",
@@ -7514,6 +7522,8 @@
 
   "external-login.confirmation.email-label": "User Email",
 
+  "external-login.confirmation.email": "Email",
+
   "external-login.confirmation.email-invalid": "Invalid email format.",
 
   "external-login.confirm.button.label": "Confirm this email",
@@ -7573,6 +7583,8 @@
   "external-login-page.orcid-confirmation.lastname.label": "Last name",
 
   "external-login-page.orcid-confirmation.netid": "Account Identifier",
+
+  "external-login-page.orcid-confirmation.netid.label": "Account Identifier",
 
   "external-login-page.orcid-confirmation.netid.placeholder": "xxxx-xxxx-xxxx-xxxx",
 
