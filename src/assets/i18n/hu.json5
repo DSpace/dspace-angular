@@ -2972,7 +2972,7 @@
   "error.default": "Hiba",
 
   // "error.item": "Error fetching item",
-  "error.custom-url-conflict.title": "Duplikátum egyéni URL észlelve",
+  "error.item": "Hiba a tétel lekérése közben",
 
   // "error.custom-url-conflict.title": "Duplicate custom URL detected",
   "error.custom-url-conflict.title": "Duplikált egyéni URL észlelve",
@@ -2981,8 +2981,7 @@
   "error.custom-url-conflict.description": "Az egyéni URL \"{{customUrl}}\" több tételhez van hozzárendelve. Ez ütközést okoz és a tétel nem jeleníthető meg.",
 
   // "error.custom-url-conflict.admin-action": "Please contact your repository administrator. The following affected items need their dspace.customurl metadata fixed so each value is unique:",
-  // TODO New key - Add a translation
-  "error.custom-url-conflict.admin-action": "Please contact your repository administrator. The following affected items need their dspace.customurl metadata fixed so each value is unique:",
+  "error.custom-url-conflict.admin-action": "Kérjük, forduljon a repozitórium adminisztrátorához. Az alábbi tételek dspace.customurl metaadatait javítani kell, hogy minden érték egyedi legyen:",
 
   // "error.custom-url-conflict.edit-link": "Edit \"{{name}}\" ({{uuid}})",
   "error.custom-url-conflict.edit-link": "\"{{name}}\" szerkesztése ({{uuid}})",
@@ -3272,11 +3271,14 @@
   // "form.other-information.institution": "Institution",
   "form.other-information.institution": "Intézmény",
 
+  // "form.other-information.last-name": "Last Name",
+  "form.other-information.last-name": "Vezetéknév",
+
   // "form.other-information.orcid": "ORCID",
   "form.other-information.orcid": "ORCID",
 
   // "form.other-information.person_identifier_orcid": "ORCID",
-  "form.other-information.person_identifier_orcid": "ORCID iD",
+  "form.other-information.person_identifier_orcid": "ORCID",
 
   // "form.other-information.oairecerif_author_affiliation": "Affiliation",
   "form.other-information.oairecerif_author_affiliation": "Intézményi hovatartozás",
@@ -4687,6 +4689,19 @@
 
   // "item.page.relationships.RELATION.OrgUnit.projects": "Projects",
   "item.page.relationships.RELATION.OrgUnit.projects": "Projektek",
+
+  // "item.page.relationships.RELATION.OrgUnit.organizations": "Organizations",
+  "item.page.relationships.RELATION.OrgUnit.organizations": "Szervezetek",
+
+  // "item.page.relationships.RELATION.Project.projects": "Projects",
+  "item.page.relationships.RELATION.Project.projects": "Projektek",
+
+  // "item.page.relationships.RELATION.Project.fundings": "Fundings",
+  "item.page.relationships.RELATION.Project.fundings": "Támogatások",
+
+  // "item.page.relationships.RELATION.Project.researchoutputs": "Publications",
+  "item.page.relationships.RELATION.Project.researchoutputs": "Publikációk",
+
 
   // "item.page.subject": "Keywords",
   "item.page.subject": "Kulcsszavak",
@@ -9353,7 +9368,7 @@
   "workspace.search.results.head": "Beküldéseim",
 
   // "workflowAdmin.search.results.head": "Administer Workflow",
-  "workflow.search.results.head": "Munkafolyamat-feladatok",
+  "workflowAdmin.search.results.head": "Munkafolyamatok adminisztrációja",
 
   // "workflow.search.results.head": "Workflow tasks",
   "workflow.search.results.head": "Munkafolyamat-feladatok",
@@ -11110,8 +11125,7 @@
   "item.page.cc.license.disclaimer": "Kivéve, ha másként van jelölve, ennek a tételnek a licence a következőképpen van leírva:",
 
   // "file-download-link.download": "Download ",
-  // TODO New key - Add a translation
-  "file-download-link.download": "Download ",
+  "file-download-link.download": "Letöltés ",
 
   // "file-download-button.download": "Download",
   "file-download-button.download": "Letöltés",
@@ -11534,12 +11548,10 @@
   "admin.edit-user-agreement.save-button": "Mentés",
 
   // "admin.edit-user-agreement.markdown": "<i>End User Agreement</i> text supports <a href=\"https://www.markdownguide.org/basic-syntax/\" target=\"_blank\">Markdown</a> language.",
-  // TODO New key - Add a translation
-  "admin.edit-user-agreement.markdown": "<i>End User Agreement</i> text supports <a href=\"https://www.markdownguide.org/basic-syntax/\" target=\"_blank\">Markdown</a> language.",
+  "admin.edit-user-agreement.markdown": "A <i>Végfelhasználói megállapodás</i> szövege támogatja a <a href=\"https://www.markdownguide.org/basic-syntax/\" target=\"_blank\">Markdown</a> nyelv használatát.",
 
   // "admin.edit-cms-metadata.markdown": "<i>CMS Metadata</i> text supports <a href=\"https://www.markdownguide.org/basic-syntax/\" target=\"_blank\">Markdown</a> language.",
-  // TODO New key - Add a translation
-  "admin.edit-cms-metadata.markdown": "<i>CMS Metadata</i> text supports <a href=\"https://www.markdownguide.org/basic-syntax/\" target=\"_blank\">Markdown</a> language.",
+  "admin.edit-cms-metadata.markdown": "A <i>CMS metaadat</i> szövege támogatja a <a href=\"https://www.markdownguide.org/basic-syntax/\" target=\"_blank\">Markdown</a> nyelv használatát.",
 
   // "admin.edit-user-agreement.header": "Edit User Agreement",
   "admin.edit-user-agreement.header": "Felhasználói szerződés szerkesztése",
