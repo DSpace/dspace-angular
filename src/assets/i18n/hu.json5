@@ -10349,15 +10349,15 @@
   "ldn-new-service.form.hint.ipRange": "Kérjük adjon meg érvényes IPv4 címet mindkét tartományhatárhoz (megjegyzés: egyetlen IP-cím esetén mindkét mezőbe ugyanazt az értéket írja).",
 
   // "ldn-new-service.form.error.ldnurl": "LDN URL is required",
-  "ldn-new-service.form.error.ldnurl": "Az LDN URL megadása kötelező."
+  "ldn-new-service.form.error.ldnurl": "Az LDN URL megadása kötelező.",
 
   // "ldn-new-service.form.error.patterns": "At least a pattern is required",
-  "ldn-new-service.form.error.patterns": "Legalább egy minta megadása kötelező."
+  "ldn-new-service.form.error.patterns": "Legalább egy minta megadása kötelező.",
 
   // "ldn-new-service.form.error.score": "Please enter a valid score (between 0 and 1). Use the "." as decimal separator",
-  "ldn-new-service.form.error.score": "Kérjük érvényes pontszámot adjon meg (0 és 1 között). Tizedeselválasztóként „.” karaktert használjon."
+  "ldn-new-service.form.error.score": "Kérjük érvényes pontszámot adjon meg (0 és 1 között). Tizedeselválasztóként „.” karaktert használjon.",
   // "ldn-new-service.form.label.inboundPattern": "Supported Pattern",
-  "ldn-new-service.form.label.inboundPattern": "Támogatott minta (bejövő)"
+  "ldn-new-service.form.label.inboundPattern": "Támogatott minta (bejövő)",
 
   // "ldn-new-service.form.label.addPattern": "+ Add more",
   "ldn-new-service.form.label.addPattern": "+ Továbbiak hozzáadása",
