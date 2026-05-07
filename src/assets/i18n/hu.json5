@@ -21,7 +21,7 @@
   "500.page-internal-server-error": "A szolgáltatás nem elérhető",
 
   // "500.help": "The server is temporarily unable to service your request due to maintenance downtime or capacity problems. Please try again later.",
-  "500.help": "A rendszer jelenleg nem elérhető karbantartás vagy túlterheltség miatt.\nKérjük, próbálkozzon később.",
+  "500.help": "A rendszer jelenleg nem elérhető karbantartás vagy túlterheltség miatt.\nKérjük próbálkozzon később.",
 
   // "500.link.home-page": "Take me to the home page",
   "500.link.home-page": "Vissza a kezdőlapra",
@@ -1269,10 +1269,10 @@
   "advanced-workflow-action.rating.form.review.error": "Az értékelés beküldéséhez véleményt kell írnia.",
 
   // "advanced-workflow-action.rating.description": "Please select a rating below",
-  "advanced-workflow-action.rating.description": "Kérjük, válasszon egy értékelést alább.",
+  "advanced-workflow-action.rating.description": "Kérjük válasszon egy értékelést alább.",
 
   // "advanced-workflow-action.rating.description-requiredDescription": "Please select a rating below and also add a review",
-  "advanced-workflow-action.rating.description-requiredDescription": "Kérjük, válasszon egy értékelést alább, és írjon véleményt is.",
+  "advanced-workflow-action.rating.description-requiredDescription": "Kérjük válasszon egy értékelést alább, és írjon véleményt is.",
 
   // "advanced-workflow-action.select-reviewer.description-single": "Please select a single reviewer below before submitting",
   "advanced-workflow-action.select-reviewer.description-single": "Beküldés előtt kérjük, válasszon ki egyetlen bírálót alább.",
@@ -1428,10 +1428,10 @@
   "auth.errors.invalid-user": "Érvénytelen e-mail cím vagy jelszó.",
 
   // "auth.messages.expired": "Your session has expired. Please log in again.",
-  "auth.messages.expired": "Munkamenete lejárt. Kérjük, jelentkezzen be újra.",
+  "auth.messages.expired": "Munkamenete lejárt. Kérjük jelentkezzen be újra.",
 
   // "auth.messages.token-refresh-failed": "Refreshing your session token failed. Please log in again.",
-  "auth.messages.token-refresh-failed": "A munkamenet token frissítése sikertelen.\nKérjük, jelentkezzen be újra.",
+  "auth.messages.token-refresh-failed": "A munkamenet token frissítése sikertelen.\nKérjük jelentkezzen be újra.",
 
   // "bitstream.download.page": "Now downloading {{bitstream}}...",
   "bitstream.download.page": "{{bitstream}} letöltése folyamatban...",
@@ -1557,7 +1557,7 @@
   "bitstream-request-a-copy.email.hint": "Ezt az e-mail címet használjuk a fájl elküldéséhez.",
 
   // "bitstream-request-a-copy.email.error": "Please enter a valid email address.",
-  "bitstream-request-a-copy.email.error": "Kérjük, adjon meg egy érvényes e-mail címet.",
+  "bitstream-request-a-copy.email.error": "Kérjük adjon meg egy érvényes e-mail címet.",
 
   // "bitstream-request-a-copy.allfiles.label": "Files",
   "bitstream-request-a-copy.allfiles.label": "Fájlok",
@@ -1860,7 +1860,7 @@
   "collection.edit.item-mapper.head": "Tétel-hozzárendelő - Tételek hozzárendelése más gyűjteményekből",
 
   // "collection.edit.item-mapper.no-search": "Please enter a query to search",
-  "collection.edit.item-mapper.no-search": "Kérjük, adjon meg egy keresőkifejezést.",
+  "collection.edit.item-mapper.no-search": "Kérjük adjon meg egy keresőkifejezést.",
 
   // "collection.edit.item-mapper.notifications.map.error.content": "Errors occurred for mapping of {{amount}} items.",
   "collection.edit.item-mapper.notifications.map.error.content": "{{amount}} tétel hozzárendelésekor hiba történt.",
@@ -1908,7 +1908,7 @@
   "collection.edit.logo.label": "Gyűjteménylogó",
 
   // "collection.edit.logo.notifications.add.error": "Uploading collection logo failed. Please verify the content before retrying.",
-  "collection.edit.logo.notifications.add.error": "A gyűjteménylogó feltöltése sikertelen.\nKérjük, ellenőrizze a tartalmat újbóli próbálkozás előtt.",
+  "collection.edit.logo.notifications.add.error": "A gyűjteménylogó feltöltése sikertelen.\nKérjük ellenőrizze a tartalmat újbóli próbálkozás előtt.",
 
   // "collection.edit.logo.notifications.add.success": "Uploading collection logo successful.",
   "collection.edit.logo.notifications.add.success": "A gyűjteménylogó feltöltése sikeres.",
@@ -2010,7 +2010,7 @@
   "collection.edit.tabs.source.notifications.discarded.title": "Módosítások elvetve",
 
   // "collection.edit.tabs.source.notifications.invalid.content": "Your changes were not saved. Please make sure all fields are valid before you save.",
-  "collection.edit.tabs.source.notifications.invalid.content": "Módosításai nem lettek mentve.\nKérjük, mentés előtt ellenőrizze, hogy minden mező érvényes-e.",
+  "collection.edit.tabs.source.notifications.invalid.content": "Módosításai nem lettek mentve.\nKérjük mentés előtt ellenőrizze, hogy minden mező érvényes-e.",
 
   // "collection.edit.tabs.source.notifications.invalid.title": "Metadata invalid",
   "collection.edit.tabs.source.notifications.invalid.title": "Érvénytelen metaadat",
@@ -2067,13 +2067,13 @@
   "collection.form.description": "Bevezető szöveg (HTML)",
 
   // "collection.form.errors.title.required": "Please enter a collection name",
-  "collection.form.errors.title.required": "Kérjük, adja meg a gyűjtemény nevét!",
+  "collection.form.errors.title.required": "Kérjük adja meg a gyűjtemény nevét!",
 
   // "collection.form.errors.submissionDefinition.required": "Please choose a submission definition for this collection",
-  "collection.form.errors.submissionDefinition.required": "Kérjük, válasszon beküldési definíciót ehhez a gyűjteményhez",
+  "collection.form.errors.submissionDefinition.required": "Kérjük válasszon beküldési definíciót ehhez a gyűjteményhez",
 
   // "collection.form.errors.entityType.required": "Please choose an entity type for this collection",
-  "collection.form.errors.entityType.required": "Kérjük, válasszon entitás típust ehhez a gyűjteményhez",
+  "collection.form.errors.entityType.required": "Kérjük válasszon entitás típust ehhez a gyűjteményhez",
 
   // "collection.form.license": "License",
   "collection.form.license": "Licenc",
@@ -2097,10 +2097,10 @@
   "collection.form.entityType": "Entitástípus",
 
   // "collection.form.errors.entityType.required": "Please choose an entity type for this collection",
-  "collection.form.errors.entityType.required": "Kérjük, válasszon entitás típust ehhez a gyűjteményhez",
+  "collection.form.errors.entityType.required": "Kérjük válasszon entitás típust ehhez a gyűjteményhez",
 
   // "collection.form.errors.submissionDefinition.required": "Please choose a submission definition for this collection",
-  "collection.form.errors.submissionDefinition.required": "Kérjük, válasszon beküldési definíciót ehhez a gyűjteményhez",
+  "collection.form.errors.submissionDefinition.required": "Kérjük válasszon beküldési definíciót ehhez a gyűjteményhez",
 
   // "collection.form.submissionDefinition": "Submission definition",
   "collection.form.submissionDefinition": "Beküldési definíció",
@@ -2316,7 +2316,7 @@
   "community.edit.logo.label": "Közösségi logó",
 
   // "community.edit.logo.notifications.add.error": "Uploading community logo failed. Please verify the content before retrying.",
-  "community.edit.logo.notifications.add.error": "A közösségi logó feltöltése sikertelen.\nKérjük, ellenőrizze a tartalmat újbóli próbálkozás előtt.",
+  "community.edit.logo.notifications.add.error": "A közösségi logó feltöltése sikertelen.\nKérjük ellenőrizze a tartalmat újbóli próbálkozás előtt.",
 
   // "community.edit.logo.notifications.add.success": "Upload community logo successful.",
   "community.edit.logo.notifications.add.success": "Közösségi logó sikeresen feltöltve.",
@@ -2478,7 +2478,7 @@
   "community.form.description": "Bevezető szöveg (HTML)",
 
   // "community.form.errors.title.required": "Please enter a community name",
-  "community.form.errors.title.required": "Kérjük, adja meg a közösség nevét!",
+  "community.form.errors.title.required": "Kérjük adja meg a közösség nevét!",
 
   // "community.form.rights": "Copyright text (HTML)",
   "community.form.rights": "Szerzői jogi szöveg (HTML)",
@@ -2856,10 +2856,10 @@
   "supervision-group-selector.button.save": "Mentés",
 
   // "supervision-group-selector.select.type-of-order.error": "Please select a type of order",
-  "supervision-group-selector.select.type-of-order.error": "Kérjük, válasszon rendelési típust.",
+  "supervision-group-selector.select.type-of-order.error": "Kérjük válasszon rendelési típust.",
 
   // "supervision-group-selector.select.group.error": "Please select a group",
-  "supervision-group-selector.select.group.error": "Kérjük, válasszon csoportot.",
+  "supervision-group-selector.select.group.error": "Kérjük válasszon csoportot.",
 
   // "supervision-group-selector.notification.create.success.title": "Successfully created supervision order for group {{ name }}",
   "supervision-group-selector.notification.create.success.title": "Sikeresen létrehozott felügyeleti rendelés a(z) {{ name }} csoporthoz.",
@@ -2979,13 +2979,13 @@
   "error.custom-url-conflict.description": "Az egyéni URL \"{{customUrl}}\" több tételhez van hozzárendelve. Ez ütközést okoz és a tétel nem jeleníthető meg.",
 
   // "error.custom-url-conflict.admin-action": "Please contact your repository administrator. The following affected items need their dspace.customurl metadata fixed so each value is unique:",
-  "error.custom-url-conflict.admin-action": "Kérjük, forduljon a repozitórium adminisztrátorához. Az alábbi tételek dspace.customurl metaadatait javítani kell, hogy minden érték egyedi legyen:",
+  "error.custom-url-conflict.admin-action": "Kérjük forduljon a repozitórium adminisztrátorához. Az alábbi tételek dspace.customurl metaadatait javítani kell, hogy minden érték egyedi legyen:",
 
   // "error.custom-url-conflict.edit-link": "Edit \"{{name}}\" ({{uuid}})",
   "error.custom-url-conflict.edit-link": "\"{{name}}\" szerkesztése ({{uuid}})",
 
   // "error.custom-url-conflict.no-items-found": "No conflicting items could be retrieved. Please contact your administrator.",
-  "error.custom-url-conflict.no-items-found": "Nem sikerült lekérni az ütköző tételeket. Kérjük, lépjen kapcsolatba az adminisztrátorral.",
+  "error.custom-url-conflict.no-items-found": "Nem sikerült lekérni az ütköző tételeket. Kérjük lépjen kapcsolatba az adminisztrátorral.",
 
   // "error.items": "Error fetching items",
   "error.items": "Hiba a tételek lekérésekor.",
@@ -3003,7 +3003,7 @@
   "error.search-results": "Hiba a keresési eredmények lekérésekor.",
 
   // "error.invalid-search-query": "Search query is not valid. Please check <a href=\"https://solr.apache.org/guide/query-syntax-and-parsing.html\" target=\"_blank\">Solr query syntax</a> best practices for further information about this error.",
-  "error.invalid-search-query": "A keresési lekérdezés érvénytelen.\nKérjük, ellenőrizze a <a href=\"https://solr.apache.org/guide/query-syntax-and-parsing.html\" target=\"_blank\">Solr lekérdezési szintaxis</a> legjobb gyakorlatait további információért erről a hibáról.",
+  "error.invalid-search-query": "A keresési lekérdezés érvénytelen.\nKérjük ellenőrizze a <a href=\"https://solr.apache.org/guide/query-syntax-and-parsing.html\" target=\"_blank\">Solr lekérdezési szintaxis</a> legjobb gyakorlatait további információért erről a hibáról.",
 
   // "error.sub-collections": "Error fetching sub-collections",
   "error.sub-collections": "Hiba az algyűjtemények lekérésekor.",
@@ -3051,7 +3051,7 @@
   "error.validation.groupExists": "Ez a csoport már létezik.",
 
   // "error.validation.metadata.name.invalid-pattern": "This field cannot contain dots, commas or spaces. Please use the Element & Qualifier fields instead",
-  "error.validation.metadata.name.invalid-pattern": "Ez a mező nem tartalmazhat pontot, vesszőt vagy szóközt.\nKérjük, használja helyette az Elem és Minősítő mezőket.",
+  "error.validation.metadata.name.invalid-pattern": "Ez a mező nem tartalmazhat pontot, vesszőt vagy szóközt.\nKérjük használja helyette az Elem és Minősítő mezőket.",
 
   // "error.validation.metadata.name.max-length": "This field may not contain more than 32 characters",
   "error.validation.metadata.name.max-length": "Ez a mező legfeljebb 32 karaktert tartalmazhat.",
@@ -3060,7 +3060,7 @@
   "error.validation.metadata.namespace.max-length": "Ez a mező legfeljebb 256 karaktert tartalmazhat.",
 
   // "error.validation.metadata.element.invalid-pattern": "This field cannot contain dots, commas or spaces. Please use the Qualifier field instead",
-  "error.validation.metadata.element.invalid-pattern": "Ez a mező nem tartalmazhat pontot, vesszőt vagy szóközt.\nKérjük, használja helyette a Minősítő mezőt.",
+  "error.validation.metadata.element.invalid-pattern": "Ez a mező nem tartalmazhat pontot, vesszőt vagy szóközt.\nKérjük használja helyette a Minősítő mezőt.",
 
   // "error.validation.metadata.element.max-length": "This field may not contain more than 64 characters",
   "error.validation.metadata.element.max-length": "Ez a mező legfeljebb 64 karaktert tartalmazhat.",
@@ -3120,10 +3120,10 @@
   "forgot-email.form.email": "E-mail cím *",
 
   // "forgot-email.form.email.error.required": "Please fill in an email address",
-  "forgot-email.form.email.error.required": "Kérjük, adjon meg egy e-mail címet!",
+  "forgot-email.form.email.error.required": "Kérjük adjon meg egy e-mail címet!",
 
   // "forgot-email.form.email.error.not-email-form": "Please fill in a valid email address",
-  "forgot-email.form.email.error.not-email-form": "Kérjük, adjon meg egy érvényes e-mail címet!",
+  "forgot-email.form.email.error.not-email-form": "Kérjük adjon meg egy érvényes e-mail címet!",
 
   // "forgot-email.form.email.hint": "An email will be sent to this address with a further instructions.",
   "forgot-email.form.email.hint": "Erre a címre egy e-mailt küldünk további utasításokkal.",
@@ -3168,7 +3168,7 @@
   "forgot-password.form.label.passwordrepeat": "Írja be újra a megerősítéshez",
 
   // "forgot-password.form.error.empty-password": "Please enter a password in the boxes above.",
-  "forgot-password.form.error.empty-password": "Kérjük, írjon be jelszót a fenti mezőkbe!",
+  "forgot-password.form.error.empty-password": "Kérjük írjon be jelszót a fenti mezőkbe!",
 
   // "forgot-password.form.error.matching-passwords": "The passwords do not match.",
   "forgot-password.form.error.matching-passwords": "A jelszavak nem egyeznek.",
@@ -3378,7 +3378,7 @@
   "grant-deny-request-copy.email.message": "Opcionális kiegészítő üzenet",
 
   // "grant-deny-request-copy.email.message.empty": "Please enter a message",
-  "grant-deny-request-copy.email.message.empty": "Kérjük, írjon üzenetet!",
+  "grant-deny-request-copy.email.message.empty": "Kérjük írjon üzenetet!",
 
   // "grant-deny-request-copy.email.permissions.info": "You may use this occasion to reconsider the access restrictions on the document, to avoid having to respond to these requests. If you’d like to ask the repository administrators to remove these restrictions, please check the box below.",
   "grant-deny-request-copy.email.permissions.info": "Használja ki ezt az alkalmat a dokumentum hozzáférési korlátozásainak újragondolására, hogy elkerülje az ilyen kérésekre való válaszadást.\nHa szeretné kérni a repozitórium adminisztrátoraitól e korlátozások eltávolítását, kérjük, jelölje be az alábbi négyzetet.",
@@ -3393,7 +3393,7 @@
   "grant-deny-request-copy.email.subject": "Tárgy",
 
   // "grant-deny-request-copy.email.subject.empty": "Please enter a subject",
-  "grant-deny-request-copy.email.subject.empty": "Kérjük, adja meg a tárgyat!",
+  "grant-deny-request-copy.email.subject.empty": "Kérjük adja meg a tárgyat!",
 
   // "grant-deny-request-copy.grant": "Grant access request",
   "grant-deny-request-copy.grant": "Hozzáférési kérelem engedélyezése",
@@ -3726,7 +3726,7 @@
   "item.bitstreams.upload.notifications.bundle.created.title": "Csomag létrehozva",
 
   // "item.bitstreams.upload.notifications.upload.failed": "Upload failed. Please verify the content before retrying.",
-  "item.bitstreams.upload.notifications.upload.failed": "Feltöltés sikertelen.\nKérjük, ellenőrizze a tartalmat újbóli próbálkozás előtt.",
+  "item.bitstreams.upload.notifications.upload.failed": "Feltöltés sikertelen.\nKérjük ellenőrizze a tartalmat újbóli próbálkozás előtt.",
 
   // "item.bitstreams.upload.title": "Upload bitstream",
   "item.bitstreams.upload.title": "Bitstream feltöltése",
@@ -3972,7 +3972,7 @@
   "item.edit.item-mapper.item": "Tétel: \"<b>{{name}}</b>\"",
 
   // "item.edit.item-mapper.no-search": "Please enter a query to search",
-  "item.edit.item-mapper.no-search": "Kérjük, adjon meg keresőkifejezést.",
+  "item.edit.item-mapper.no-search": "Kérjük adjon meg keresőkifejezést.",
 
   // "item.edit.item-mapper.notifications.add.error.content": "Errors occurred for mapping of item to {{amount}} collections.",
   "item.edit.item-mapper.notifications.add.error.content": "Hiba történt a tétel {{amount}} gyűjteményhez való hozzárendelésekor.",
@@ -4092,7 +4092,7 @@
   "item.edit.metadata.metadatafield.error": "Hiba történt a metaadatmező ellenőrzésekor.",
 
   // "item.edit.metadata.metadatafield.invalid": "Please choose a valid metadata field",
-  "item.edit.metadata.metadatafield.invalid": "Kérjük, válasszon érvényes metaadatmezőt!",
+  "item.edit.metadata.metadatafield.invalid": "Kérjük válasszon érvényes metaadatmezőt!",
 
   // "item.edit.metadata.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
   "item.edit.metadata.notifications.discarded.content": "Módosításai elvetve.\nA visszaállításhoz kattintson a 'Visszavonás' gombra.",
@@ -4104,7 +4104,7 @@
   "item.edit.metadata.notifications.error.title": "Hiba történt.",
 
   // "item.edit.metadata.notifications.invalid.content": "Your changes were not saved. Please make sure all fields are valid before you save.",
-  "item.edit.metadata.notifications.invalid.content": "Módosításai nem lettek mentve. Kérjük, mentés előtt győződjön meg róla, hogy minden mező érvényes.",
+  "item.edit.metadata.notifications.invalid.content": "Módosításai nem lettek mentve. Kérjük mentés előtt győződjön meg róla, hogy minden mező érvényes.",
 
   // "item.edit.metadata.notifications.invalid.title": "Metadata invalid",
   "item.edit.metadata.notifications.invalid.title": "Érvénytelen metaadat",
@@ -5046,7 +5046,7 @@
   "qa-reinstate.create.modal.form.summary.label": "E tétel visszaállítását kéri.",
 
   // "qa-reinstate.create.modal.form.summary2.label": "Please enter the reason for the reinstatment",
-  "qa-reinstate.create.modal.form.summary2.label": "Kérjük, adja meg a visszaállítás okát.",
+  "qa-reinstate.create.modal.form.summary2.label": "Kérjük adja meg a visszaállítás okát.",
 
   // "item.version.create.modal.form.summary.placeholder": "Insert the summary for the new version",
   "item.version.create.modal.form.summary.placeholder": "Írja be az új verzió összefoglalóját.",
@@ -5169,7 +5169,7 @@
   "itemtemplate.edit.metadata.metadatafield.error": "Hiba történt a metaadatmező ellenőrzésekor.",
 
   // "itemtemplate.edit.metadata.metadatafield.invalid": "Please choose a valid metadata field",
-  "itemtemplate.edit.metadata.metadatafield.invalid": "Kérjük, válasszon érvényes metaadatmezőt!",
+  "itemtemplate.edit.metadata.metadatafield.invalid": "Kérjük válasszon érvényes metaadatmezőt!",
 
   // "itemtemplate.edit.metadata.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
   "itemtemplate.edit.metadata.notifications.discarded.content": "Módosításai elvetve.\nA visszaállításhoz kattintson a 'Visszavonás' gombra.",
@@ -5181,7 +5181,7 @@
   "itemtemplate.edit.metadata.notifications.error.title": "Hiba történt.",
 
   // "itemtemplate.edit.metadata.notifications.invalid.content": "Your changes were not saved. Please make sure all fields are valid before you save.",
-  "itemtemplate.edit.metadata.notifications.invalid.content": "Módosításai nem lettek mentve.\nKérjük, mentés előtt győződjön meg róla, hogy minden mező érvényes.",
+  "itemtemplate.edit.metadata.notifications.invalid.content": "Módosításai nem lettek mentve.\nKérjük mentés előtt győződjön meg róla, hogy minden mező érvényes.",
 
   // "itemtemplate.edit.metadata.notifications.invalid.title": "Metadata invalid",
   "itemtemplate.edit.metadata.notifications.invalid.title": "Érvénytelen metaadat",
@@ -5865,7 +5865,7 @@
   "mydspace.title": "MyDSpace",
 
   // "mydspace.upload.upload-failed": "Error creating new workspace. Please verify the content uploaded before retry.",
-  "mydspace.upload.upload-failed": "Hiba az új munkaterület létrehozásakor.\nKérjük, ellenőrizze a feltöltött tartalmat újbóli próbálkozás előtt.",
+  "mydspace.upload.upload-failed": "Hiba az új munkaterület létrehozásakor.\nKérjük ellenőrizze a feltöltött tartalmat újbóli próbálkozás előtt.",
 
   // "mydspace.upload.upload-failed-manyentries": "Unprocessable file. Detected too many entries but allowed only one for file.",
   "mydspace.upload.upload-failed-manyentries": "Feldolgozhatatlan fájl.\nTúl sok bejegyzés észlelve, de fájlonként csak egy engedélyezett.",
@@ -6303,7 +6303,7 @@
   "process.new.parameter.file.upload-button": "Fájl kiválasztása...",
 
   // "process.new.parameter.file.required": "Please select a file",
-  "process.new.parameter.file.required": "Kérjük, válasszon fájlt!",
+  "process.new.parameter.file.required": "Kérjük válasszon fájlt!",
 
   // "process.new.parameter.integer.required": "Parameter value is required",
   "process.new.parameter.integer.required": "Paraméterérték megadása kötelező.",
@@ -6483,7 +6483,7 @@
   "process.overview.delete.clear": "Törlési kijelölés megszüntetése",
 
   // "process.overview.delete.processing": "{{count}} process(es) are being deleted. Please wait for the deletion to fully complete. Note that this can take a while.",
-  "process.overview.delete.processing": "{{count}} folyamat törlése van folyamatban. Kérjük, várja meg, amíg a törlés teljesen befejeződik. Ez eltarthat egy ideig.",
+  "process.overview.delete.processing": "{{count}} folyamat törlése van folyamatban. Kérjük várja meg, amíg a törlés teljesen befejeződik. Ez eltarthat egy ideig.",
 
   // "process.overview.delete.body": "Are you sure you want to delete {{count}} process(es)?",
   "process.overview.delete.body": "Biztosan törölni szeretne {{count}} folyamatot?",
@@ -6588,13 +6588,13 @@
   "profile.security.form.notifications.error.title": "Hiba a jelszavak módosításakor.",
 
   // "profile.security.form.notifications.error.change-failed": "An error occurred while trying to change the password. Please check if the current password is correct.",
-  "profile.security.form.notifications.error.change-failed": "Hiba történt a jelszó módosítása közben.\nKérjük, ellenőrizze, hogy a jelenlegi jelszó helyes-e.",
+  "profile.security.form.notifications.error.change-failed": "Hiba történt a jelszó módosítása közben.\nKérjük ellenőrizze, hogy a jelenlegi jelszó helyes-e.",
 
   // "profile.security.form.notifications.error.not-same": "The provided passwords are not the same.",
   "profile.security.form.notifications.error.not-same": "A megadott jelszavak nem egyeznek.",
 
   // "profile.security.form.notifications.error.general": "Please fill required fields of security form.",
-  "profile.security.form.notifications.error.general": "Kérjük, töltse ki a biztonsági űrlap kötelező mezőit.",
+  "profile.security.form.notifications.error.general": "Kérjük töltse ki a biztonsági űrlap kötelező mezőit.",
 
   // "profile.title": "Update Profile",
   "profile.title": "Profil frissítése",
@@ -6807,13 +6807,13 @@
   "register-page.create-profile.identification.first-name": "Keresztnév *",
 
   // "register-page.create-profile.identification.first-name.error": "Please fill in a First Name",
-  "register-page.create-profile.identification.first-name.error": "Kérjük, adja meg a keresztnevét!",
+  "register-page.create-profile.identification.first-name.error": "Kérjük adja meg a keresztnevét!",
 
   // "register-page.create-profile.identification.last-name": "Last Name *",
   "register-page.create-profile.identification.last-name": "Vezetéknév *",
 
   // "register-page.create-profile.identification.last-name.error": "Please fill in a Last Name",
-  "register-page.create-profile.identification.last-name.error": "Kérjük, adja meg a vezetéknevét!",
+  "register-page.create-profile.identification.last-name.error": "Kérjük adja meg a vezetéknevét!",
 
   // "register-page.create-profile.identification.contact": "Contact Telephone",
   "register-page.create-profile.identification.contact": "Telefonszám",
@@ -6825,7 +6825,7 @@
   "register-page.create-profile.security.header": "Biztonság",
 
   // "register-page.create-profile.security.info": "Please enter a password in the box below, and confirm it by typing it again into the second box.",
-  "register-page.create-profile.security.info": "Kérjük, adjon meg egy jelszót az alábbi mezőben, és erősítse meg azt a második mezőbe történő újbóli beírással.\nA jelszónak legalább hat karakter hosszúnak kell lennie.",
+  "register-page.create-profile.security.info": "Kérjük adjon meg egy jelszót az alábbi mezőben, és erősítse meg azt a második mezőbe történő újbóli beírással.\nA jelszónak legalább hat karakter hosszúnak kell lennie.",
 
   // "register-page.create-profile.security.label.password": "Password *",
   "register-page.create-profile.security.label.password": "Jelszó *",
@@ -6834,7 +6834,7 @@
   "register-page.create-profile.security.label.passwordrepeat": "Jelszó megerősítése *",
 
   // "register-page.create-profile.security.error.empty-password": "Please enter a password in the box below.",
-  "register-page.create-profile.security.error.empty-password": "Kérjük, adjon meg egy jelszót az alábbi mezőben.",
+  "register-page.create-profile.security.error.empty-password": "Kérjük adjon meg egy jelszót az alábbi mezőben.",
 
   // "register-page.create-profile.security.error.matching-passwords": "The passwords do not match.",
   "register-page.create-profile.security.error.matching-passwords": "A jelszavak nem egyeznek.",
@@ -6864,10 +6864,10 @@
   "register-page.registration.email": "E-mail cím *",
 
   // "register-page.registration.email.error.required": "Please fill in an email address",
-  "register-page.registration.email.error.required": "Kérjük, adja meg az e-mail címét!",
+  "register-page.registration.email.error.required": "Kérjük adja meg az e-mail címét!",
 
   // "register-page.registration.email.error.not-email-form": "Please fill in a valid email address.",
-  "register-page.registration.email.error.not-email-form": "Kérjük, érvényes e-mail címet adjon meg.",
+  "register-page.registration.email.error.not-email-form": "Kérjük érvényes e-mail címet adjon meg.",
 
   // "register-page.registration.email.error.not-valid-domain": "Use email with allowed domains: {{ domains }}",
   "register-page.registration.email.error.not-valid-domain": "Használjon e-mail címet az engedélyezett domainekkel: {{ domains }}",
@@ -6909,7 +6909,7 @@
   "register-page.registration.google-recaptcha.notification.message.error": "Hiba történt a reCAPTCHA ellenőrzése során.",
 
   // "register-page.registration.google-recaptcha.notification.message.expired": "Verification expired. Please verify again.",
-  "register-page.registration.google-recaptcha.notification.message.expired": "Az ellenőrzés lejárt. Kérjük, ellenőrizze újra.",
+  "register-page.registration.google-recaptcha.notification.message.expired": "Az ellenőrzés lejárt. Kérjük ellenőrizze újra.",
 
   // "register-page.registration.info.maildomain": "Accounts can be registered for mail addresses of the domains",
   "register-page.registration.info.maildomain": "Fiókok regisztrálhatók a következő domainekhez tartozó e-mail címekkel:",
@@ -8660,7 +8660,7 @@
   "submission.sections.general.add-more": "Továbbiak hozzáadása",
 
   // "submission.sections.general.cannot_deposit": "Deposit cannot be completed due to errors in the form.<br>Please fill out all required fields to complete the deposit.",
-  "submission.sections.general.cannot_deposit": "A beküldés nem fejezhető be az űrlapon lévő hibák miatt.<br>Kérjük, töltse ki az összes kötelező mezőt a beküldés befejezéséhez.",
+  "submission.sections.general.cannot_deposit": "A beküldés nem fejezhető be az űrlapon lévő hibák miatt.<br>Kérjük töltse ki az összes kötelező mezőt a beküldés befejezéséhez.",
 
   // "submission.sections.general.collection": "Collection",
   "submission.sections.general.collection": "Gyűjtemény",
@@ -8669,7 +8669,7 @@
   "submission.sections.general.deposit_error_notice": "Probléma merült fel a tétel beküldésekor, kérjük, próbálja újra később.",
 
   // "submission.sections.general.invalid_state_error": "Cannot save current changes, mandatory fields are missing. Please resolve problems and save again later.",
-  "submission.sections.general.invalid_state_error": "A jelenlegi változtatások nem menthetők, kötelező mezők hiányoznak. Kérjük, oldja meg a problémákat és mentse újra később.",
+  "submission.sections.general.invalid_state_error": "A jelenlegi változtatások nem menthetők, kötelező mezők hiányoznak. Kérjük oldja meg a problémákat és mentse újra később.",
 
   // "submission.sections.general.deposit_success_notice": "Submission deposited successfully.",
   "submission.sections.general.deposit_success_notice": "A beküldés sikeresen letétbe helyezve.",
@@ -8960,7 +8960,7 @@
   "submission.sections.duplicates.none": "Nem észlelhetők duplikátumok.",
 
   // "submission.sections.duplicates.detected": "Potential duplicates were detected. Please review the list below.",
-  "submission.sections.duplicates.detected": "Lehetséges duplikátumok észlelve.\nKérjük, tekintse át az alábbi listát.",
+  "submission.sections.duplicates.detected": "Lehetséges duplikátumok észlelve.\nKérjük tekintse át az alábbi listát.",
 
   // "submission.sections.duplicates.in-workspace": "This item is in workspace",
   "submission.sections.duplicates.in-workspace": "Ez a tétel munkaterületen van.",
@@ -9110,7 +9110,7 @@
   "submission.workflow.tasks.claimed.decline_help": "",
 
   // "submission.workflow.tasks.claimed.reject.reason.info": "Please enter your reason for rejecting the submission into the box below, indicating whether the submitter may fix a problem and resubmit.",
-  "submission.workflow.tasks.claimed.reject.reason.info": "Kérjük, írja be az alábbi mezőbe az elutasítás okát, jelezve, hogy a beküldő javíthatja-e a problémát és újra beküldheti-e.",
+  "submission.workflow.tasks.claimed.reject.reason.info": "Kérjük írja be az alábbi mezőbe az elutasítás okát, jelezve, hogy a beküldő javíthatja-e a problémát és újra beküldheti-e.",
 
   // "submission.workflow.tasks.claimed.reject.reason.placeholder": "Describe the reason of reject",
   "submission.workflow.tasks.claimed.reject.reason.placeholder": "Írja le az elutasítás okát",
@@ -9845,7 +9845,7 @@
   "person.page.orcid.synchronization-mode.label": "Szinkronizációs mód",
 
   // "person.page.orcid.synchronization-mode-message": "Please select how you would like synchronization to ORCID to occur. The options include \"Manual\" (you must send your data to ORCID manually), or \"Batch\" (the system will send your data to ORCID via a scheduled script).",
-  "person.page.orcid.synchronization-mode-message": "Kérjük, válassza ki, hogyan történjen az ORCID-dal való szinkronizálás. A lehetőségek között szerepel a \"Manuális\" (az adatokat manuálisan kell elküldenie az ORCID-nak), vagy a \"Kötegelt\" (a rendszer ütemezett szkript segítségével küldi el az adatait az ORCID-nak).",
+  "person.page.orcid.synchronization-mode-message": "Kérjük válassza ki, hogyan történjen az ORCID-dal való szinkronizálás. A lehetőségek között szerepel a \"Manuális\" (az adatokat manuálisan kell elküldenie az ORCID-nak), vagy a \"Kötegelt\" (a rendszer ütemezett szkript segítségével küldi el az adatait az ORCID-nak).",
 
   // "person.page.orcid.synchronization-mode-funding-message": "Select whether to send your linked Project entities to your ORCID record's list of funding information.",
   "person.page.orcid.synchronization-mode-funding-message": "Válassza ki, hogy elküldje-e a kapcsolt Projekt entitásokat az ORCID rekordjának finanszírozási információinak listájához.",
@@ -10151,7 +10151,7 @@
   "service.overview.create.modal": "Szolgáltatás létrehozása",
 
   // "service.overview.create.body": "Please confirm the creation of this service.",
-  "service.overview.create.body": "Kérjük, erősítse meg ennek a szolgáltatásnak a létrehozását.",
+  "service.overview.create.body": "Kérjük erősítse meg ennek a szolgáltatásnak a létrehozását.",
 
   // "ldn-service-status": "Status",
   "ldn-service-status": "Állapot",
@@ -10187,13 +10187,13 @@
   "ldn-new-service.form.label.ldnUrl": "LDN Bejövő Postafiók URL-címe",
 
   // "ldn-new-service.form.placeholder.name": "Please provide service name",
-  "ldn-new-service.form.placeholder.name": "Kérjük, adja meg a szolgáltatás nevét.",
+  "ldn-new-service.form.placeholder.name": "Kérjük adja meg a szolgáltatás nevét.",
 
   // "ldn-new-service.form.placeholder.description": "Please provide a description regarding your service",
-  "ldn-new-service.form.placeholder.description": "Kérjük, adjon leírást a szolgáltatásáról.",
+  "ldn-new-service.form.placeholder.description": "Kérjük adjon leírást a szolgáltatásáról.",
 
   // "ldn-new-service.form.placeholder.url": "Please input the URL for users to check out more information about the service",
-  "ldn-new-service.form.placeholder.url": "Kérjük, adja meg az URL-t, ahol a felhasználók további információkat találhatnak a szolgáltatásról.",
+  "ldn-new-service.form.placeholder.url": "Kérjük adja meg az URL-t, ahol a felhasználók további információkat találhatnak a szolgáltatásról.",
 
   // "ldn-new-service.form.placeholder.lowerIp": "IPv4 range lower bound",
   "ldn-new-service.form.placeholder.lowerIp": "IPv4 tartomány alsó korlátja",
@@ -10202,10 +10202,10 @@
   "ldn-new-service.form.placeholder.upperIp": "IPv4 tartomány felső korlátja",
 
   // "ldn-new-service.form.placeholder.ldnUrl": "Please specify the URL of the LDN Inbox",
-  "ldn-new-service.form.placeholder.ldnUrl": "Kérjük, adja meg az LDN Bejövő Postafiók URL-címét.",
+  "ldn-new-service.form.placeholder.ldnUrl": "Kérjük adja meg az LDN Bejövő Postafiók URL-címét.",
 
   // "ldn-new-service.form.placeholder.score": "Please enter a value between 0 and 1. Use the "." as decimal separator",
-  "ldn-new-service.form.placeholder.score": "Kérjük, adjon meg egy értéket 0 és 1 között. Tizedeselválasztóként „.” karaktert használjon.",
+  "ldn-new-service.form.placeholder.score": "Kérjük adjon meg egy értéket 0 és 1 között. Tizedeselválasztóként „.” karaktert használjon.",
 
   // "ldn-service.form.label.placeholder.default-select": "Select a pattern",
   "ldn-service.form.label.placeholder.default-select": "Válasszon egy mintát",
@@ -10343,10 +10343,10 @@
   "ldn-new-service.form.error.url": "Az URL megadása kötelező.",
 
   // "ldn-new-service.form.error.ipRange": "Please enter a valid IP range",
-  "ldn-new-service.form.error.ipRange": "Kérjük, érvényes IP-tartományt adjon meg.",
+  "ldn-new-service.form.error.ipRange": "Kérjük érvényes IP-tartományt adjon meg.",
 
   // "ldn-new-service.form.hint.ipRange": "Please enter a valid IpV4 in both range bounds (note: for single IP, please enter the same value in both fields)",
-  "ldn-new-service.form.hint.ipRange": "Kérjük, adjon meg érvényes IPv4 címet mindkét tartományhatárhoz (megjegyzés: egyetlen IP-cím esetén mindkét mezőbe ugyanazt az értéket írja).",
+  "ldn-new-service.form.hint.ipRange": "Kérjük adjon meg érvényes IPv4 címet mindkét tartományhatárhoz (megjegyzés: egyetlen IP-cím esetén mindkét mezőbe ugyanazt az értéket írja).",
 
   // "ldn-new-service.form.error.ldnurl": "LDN URL is required",
   "ldn-new-service.form.error.ldnurl": "Az LDN URL megadása kötelező."
@@ -10355,7 +10355,7 @@
   "ldn-new-service.form.error.patterns": "Legalább egy minta megadása kötelező."
 
   // "ldn-new-service.form.error.score": "Please enter a valid score (between 0 and 1). Use the "." as decimal separator",
-  "ldn-new-service.form.error.score": "Kérjük, érvényes pontszámot adjon meg (0 és 1 között). Tizedeselválasztóként „.” karaktert használjon."
+  "ldn-new-service.form.error.score": "Kérjük érvényes pontszámot adjon meg (0 és 1 között). Tizedeselválasztóként „.” karaktert használjon."
   // "ldn-new-service.form.label.inboundPattern": "Supported Pattern",
   "ldn-new-service.form.label.inboundPattern": "Támogatott minta (bejövő)"
 
@@ -10417,7 +10417,7 @@
   "ldn-service-notification.created.failure.body": "A szolgáltatás nem lett létrehozva.",
 
   // "ldn-service-notification.created.warning.title": "Please select at least one Inbound Pattern",
-  "ldn-service-notification.created.warning.title": "Kérjük, válasszon ki legalább egy bejövő mintát.",
+  "ldn-service-notification.created.warning.title": "Kérjük válasszon ki legalább egy bejövő mintát.",
 
   // "ldn-enable-service.notification.success.title": "Successful status updated",
   "ldn-enable-service.notification.success.title": "Az állapot sikeresen frissítve.",
@@ -10614,7 +10614,7 @@
   "submission.section.section-coar-notify.selection.no-description": "Nincs további információ.",
 
   // "submission.section.section-coar-notify.notification.error": "The selected service is not suitable for the current item. Please check the description for details about which record can be managed by this service.",
-  "submission.section.section-coar-notify.notification.error": "A kiválasztott szolgáltatás nem megfelelő a jelenlegi tételhez.\nKérjük, ellenőrizze a leírást a részletekért, hogy melyik rekordot kezeli ez a szolgáltatás.",
+  "submission.section.section-coar-notify.notification.error": "A kiválasztott szolgáltatás nem megfelelő a jelenlegi tételhez.\nKérjük ellenőrizze a leírást a részletekért, hogy melyik rekordot kezeli ez a szolgáltatás.",
 
   // "submission.section.section-coar-notify.info.no-pattern": "No configurable patterns found.",
   "submission.section.section-coar-notify.info.no-pattern": "Nem található konfigurálható minta.",
@@ -11268,7 +11268,7 @@
   "external-login.confirmation.header": "A bejelentkezési folyamat befejezéséhez szükséges információk",
 
   // "external-login.noEmail.informationText": "The information received from {{authMethod}} are not sufficient to complete the login process. Please provide the missing information below, or login via a different method to associate your {{authMethod}} to an existing account.",
-  "external-login.noEmail.informationText": "A(z) {{authMethod}} szolgáltatótól kapott információk nem elegendőek a bejelentkezési folyamat befejezéséhez.\nKérjük, adja meg alább a hiányzó információkat, vagy jelentkezzen be egy másik módszerrel, hogy összekapcsolja {{authMethod}} fiókját egy meglévő fiókkal.",
+  "external-login.noEmail.informationText": "A(z) {{authMethod}} szolgáltatótól kapott információk nem elegendőek a bejelentkezési folyamat befejezéséhez.\nKérjük adja meg alább a hiányzó információkat, vagy jelentkezzen be egy másik módszerrel, hogy összekapcsolja {{authMethod}} fiókját egy meglévő fiókkal.",
 
   // "external-login.haveEmail.informationText": "It seems that you have not yet an account in this system. If this is the case, please confirm the data received from {{authMethod}} and a new account will be created for you. Otherwise, if you already have an account in the system, please update the email address to match the one already in use in the system or login via a different method to associate your {{authMethod}} to your existing account.",
   "external-login.haveEmail.informationText": "Úgy tűnik, még nincs fiókja ebben a rendszerben.\nEbben az esetben kérjük, erősítse meg a(z) {{authMethod}} szolgáltatótól kapott adatokat, és új fiókot hozunk létre Önnek.\nEllenkező esetben, ha már rendelkezik fiókkal a rendszerben, kérjük, frissítse az e-mail címet, hogy megegyezzen a rendszerben már használt címmel, vagy jelentkezzen be egy másik módszerrel, hogy összekapcsolja {{authMethod}} fiókját meglévő fiókjával.",
@@ -11292,7 +11292,7 @@
   "external-login.confirm-email-sent.header": "Megerősítő e-mail elküldve",
 
   // "external-login.confirm-email-sent.info": " We have sent an email to the provided address to validate your input. <br> Please follow the instructions in the email to complete the login process.",
-  "external-login.confirm-email-sent.info": "E-mailt küldtünk a megadott címre a bemenet érvényesítéséhez.\n<br> Kérjük, kövesse az e-mailben található utasításokat a bejelentkezési folyamat befejezéséhez.",
+  "external-login.confirm-email-sent.info": "E-mailt küldtünk a megadott címre a bemenet érvényesítéséhez.\n<br> Kérjük kövesse az e-mailben található utasításokat a bejelentkezési folyamat befejezéséhez.",
 
   // "external-login.provide-email.header": "Provide email",
   "external-login.provide-email.header": "E-mail cím megadása",
@@ -11304,7 +11304,7 @@
   "external-login-validation.review-account-info.header": "Fiókinformációk áttekintése",
 
   // "external-login-validation.review-account-info.info": "The information received from ORCID differs from the one recorded in your profile. <br /> Please review them and decide if you want to update any of them.After saving you will be redirected to your profile page.",
-  "external-login-validation.review-account-info.info": "Az ORCID-tól kapott információk eltérnek a profiljában rögzítettektől.\n<br /> Kérjük, tekintse át őket, és döntse el, szeretné-e valamelyiket frissíteni. Mentés után átirányítjuk a profiloldalára.",
+  "external-login-validation.review-account-info.info": "Az ORCID-tól kapott információk eltérnek a profiljában rögzítettektől.\n<br /> Kérjük tekintse át őket, és döntse el, szeretné-e valamelyiket frissíteni. Mentés után átirányítjuk a profiloldalára.",
 
   // "external-login-validation.review-account-info.table.header.information": "Information",
   "external-login-validation.review-account-info.table.header.information": "Információ",
@@ -11334,13 +11334,13 @@
   "review-account-info.merge-data.notification.error": "Hiba történt a fiókinformációk frissítése közben.",
 
   // "review-account-info.alert.error.content": "Something went wrong. Please try again later.",
-  "review-account-info.alert.error.content": "Hiba történt.\nKérjük, próbálja újra később.",
+  "review-account-info.alert.error.content": "Hiba történt.\nKérjük próbálja újra később.",
 
   // "external-login-page.provide-email.notifications.error": "Something went wrong.Email address was omitted or the operation is not valid.",
   "external-login-page.provide-email.notifications.error": "Hiba történt. Az e-mail cím hiányzott, vagy a művelet érvénytelen.",
 
   // "external-login.error.notification": "There was an error while processing your request. Please try again later.",
-  "external-login.error.notification": "Hiba történt a kérés feldolgozása közben.\nKérjük, próbálja újra később.",
+  "external-login.error.notification": "Hiba történt a kérés feldolgozása közben.\nKérjük próbálja újra később.",
 
   // "external-login.connect-to-existing-account.label": "Connect to an existing user",
   "external-login.connect-to-existing-account.label": "Csatlakozás meglévő felhasználóhoz",
@@ -11352,7 +11352,7 @@
   "external-login-page.provide-email.create-account.notifications.error.header": "Hiba történt",
 
   // "external-login-page.provide-email.create-account.notifications.error.content": "Please check again your email address and try again.",
-  "external-login-page.provide-email.create-account.notifications.error.content": "Kérjük, ellenőrizze újra e-mail címét, és próbálja újra.",
+  "external-login-page.provide-email.create-account.notifications.error.content": "Kérjük ellenőrizze újra e-mail címét, és próbálja újra.",
 
   // "external-login-page.confirm-email.create-account.notifications.error.no-netId": "Something went wrong with this email account. Try again or use a different method to login.",
   "external-login-page.confirm-email.create-account.notifications.error.no-netId": "Hiba történt ezzel az e-mail fiókkal. Próbálja újra, vagy használjon másik bejelentkezési módot.",
