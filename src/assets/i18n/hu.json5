@@ -2108,8 +2108,6 @@
   // "collection.form.correctionSubmissionDefinition": "Submission definition for correction request",
   "collection.form.correctionSubmissionDefinition": "Beküldési definíció javítási kéréshez",
 
-
-
   // "collection.listelement.badge": "Collection",
   "collection.listelement.badge": "Gyűjtemény",
 
@@ -4701,7 +4699,6 @@
 
   // "item.page.relationships.RELATION.Project.researchoutputs": "Publications",
   "item.page.relationships.RELATION.Project.researchoutputs": "Publikációk",
-
 
   // "item.page.subject": "Keywords",
   "item.page.subject": "Kulcsszavak",
@@ -10213,7 +10210,6 @@
   // "ldn-service.form.label.placeholder.default-select": "Select a pattern",
   "ldn-service.form.label.placeholder.default-select": "Válasszon egy mintát",
 
-
   // "ldn-service.form.pattern.ack-accept.label": "Acknowledge and Accept",
   "ldn-service.form.pattern.ack-accept.label": "Tudomásulvétel és Elfogadás",
 
@@ -10355,15 +10351,11 @@
   // "ldn-new-service.form.error.ldnurl": "LDN URL is required",
   "ldn-new-service.form.error.ldnurl": "Az LDN URL megadása kötelező."
 
-
   // "ldn-new-service.form.error.patterns": "At least a pattern is required",
   "ldn-new-service.form.error.patterns": "Legalább egy minta megadása kötelező."
 
-
   // "ldn-new-service.form.error.score": "Please enter a valid score (between 0 and 1). Use the "." as decimal separator",
   "ldn-new-service.form.error.score": "Kérjük, érvényes pontszámot adjon meg (0 és 1 között). Tizedeselválasztóként „.” karaktert használjon."
-
-
   // "ldn-new-service.form.label.inboundPattern": "Supported Pattern",
   "ldn-new-service.form.label.inboundPattern": "Támogatott minta (bejövő)"
 
@@ -11679,6 +11671,5 @@
 
   // "admin.edit-user-agreement.title": "Edit User Agreement",
   "admin.edit-user-agreement.title": "Felhasználói szerződés szerkesztése",
-
 
 }
