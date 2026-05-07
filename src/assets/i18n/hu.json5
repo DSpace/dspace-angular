@@ -3018,7 +3018,7 @@
   "error.top-level-communities": "Hiba a legfelső szintű közösségek lekérésekor.",
 
   // "error.validation.license.required": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
-  "error.validation.license.required": "A beküldés befejezéséhez el kell fogadnia ezt a licencet.,
+  "error.validation.license.required": "A beküldés befejezéséhez el kell fogadnia ezt a licencet.",
 
   // "error.validation.cclicense.required": "You must grant this cclicense to complete your submission. If you are unable to grant the cclicense at this time, you may save your work and return later or remove the submission.",
   "error.validation.cclicense.required": "A Creative Commons licenc elfogadása kötelező a beküldés befejezéséhez.\nHa jelenleg nem tudja elfogadni a CC licencet, elmentheti munkáját és később visszatérhet, vagy eltávolíthatja a beküldést.",
