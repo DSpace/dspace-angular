@@ -11541,7 +11541,7 @@
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.cinii": "CiNii ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.cinii": "Importing from CiNii",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.cinii": "Importálás CiNii-ből",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.cinii": "Importálás a CiNii rendszeréből",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.cinii": "Search Results",
   "submission.sections.describe.relationship-lookup.selection-tab.title.cinii": "Keresési eredmények",
@@ -11550,7 +11550,7 @@
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.datacite": "DataCite ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.datacite": "Importing from DataCite",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.datacite": "Importálás DataCite-ből",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.datacite": "Importálás a DataCite rendszeréből",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.datacite": "Search Results",
   "submission.sections.describe.relationship-lookup.selection-tab.title.datacite": "Keresési eredmények",
@@ -11559,7 +11559,7 @@
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.doi": "DOI ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.doi": "Importing from DOI",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.doi": "Importálás DOI-ból",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.doi": "Importálás a DOI rendszeréből",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.doi": "Search Results",
   "submission.sections.describe.relationship-lookup.selection-tab.title.doi": "Keresési eredmények",
