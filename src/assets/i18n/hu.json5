@@ -2975,8 +2975,7 @@
   "error.custom-url-conflict.title": "Duplikátum egyéni URL észlelve",
 
   // "error.custom-url-conflict.title": "Duplicate custom URL detected",
-  // TODO Source message changed - Revise the translation
-  "error.custom-url-conflict.title": "Duplikátum egyéni URL észlelve",
+  "error.custom-url-conflict.title": "Duplikált egyéni URL észlelve",
 
   // "error.custom-url-conflict.description": "The custom URL \"{{customUrl}}\" is assigned to more than one item. This causes a conflict and the item cannot be displayed.",
   "error.custom-url-conflict.description": "Az egyéni URL \"{{customUrl}}\" több tételhez van hozzárendelve. Ez ütközést okoz és a tétel nem jeleníthető meg.",
@@ -3273,11 +3272,7 @@
   // "form.other-information.institution": "Institution",
   "form.other-information.institution": "Intézmény",
 
-  // "form.other-information.last-name": "Last Name",
-  "form.other-information.orcid": "ORCID",
-
   // "form.other-information.orcid": "ORCID",
-  // TODO Source message changed - Revise the translation
   "form.other-information.orcid": "ORCID",
 
   // "form.other-information.person_identifier_orcid": "ORCID",
@@ -3287,7 +3282,6 @@
   "form.other-information.oairecerif_author_affiliation": "Intézményi hovatartozás",
 
   // "form.other-information.oairecerif_editor_affiliation": "Affiliation",
-  // TODO Source message changed - Revise the translation
   "form.other-information.oairecerif_editor_affiliation": "Intézményi hovatartozás",
 
   // "form.other-information.person_identifier_orcid": "ORCID iD",
@@ -3549,7 +3543,6 @@
   "info.accessibility-settings.disableNotificationTimeOut.label": "Értesítések automatikus bezárása időtúllépés után",
 
   // "info.accessibility-settings.disableNotificationTimeOut.hint": "When this toggle is activated, notifications will close automatically after the time out passes. When deactivated, notifications will remain open until manually closed.",
-  // TODO Source message changed - Revise the translation
   "info.accessibility-settings.disableNotificationTimeOut.hint": "Ha ez a kapcsoló aktiválva van, az értesítések az időtúllépés után automatikusan bezáródnak.\nDeaktiváláskor az értesítések manuális bezárásig nyitva maradnak.",
 
   // "info.accessibility-settings.failed-notification": "Failed to save accessibility settings",
@@ -4402,7 +4395,6 @@
   "item.edit.tabs.status.labels.lastModified": "Utoljára módosítva",
 
   // "item.edit.tabs.status.title": "Item Edit - Status",
-  // TODO Source message changed - Revise the translation
   "item.edit.tabs.status.title": "Tétel szerkesztése - Állapot",
 
   // "item.edit.tabs.versionhistory.head": "Version History",
@@ -4418,7 +4410,6 @@
   "item.edit.tabs.view.head": "Tétel megtekintése",
 
   // "item.edit.tabs.view.title": "Item Edit - View",
-  // TODO Source message changed - Revise the translation
   "item.edit.tabs.view.title": "Tétel szerkesztése - Megtekintés",
 
   // "item.edit.withdraw.cancel": "Cancel",
@@ -4611,7 +4602,6 @@
   "item.page.date": "Dátum",
 
   // "item.page.edit": "Administer",
-  // TODO Source message changed - Revise the translation
   "item.page.edit": "Tétel szerkesztése",
 
   // "item.page.files": "Files",
@@ -4698,27 +4688,7 @@
   // "item.page.relationships.RELATION.OrgUnit.projects": "Projects",
   "item.page.relationships.RELATION.OrgUnit.projects": "Projektek",
 
-  // "item.page.relationships.RELATION.OrgUnit.organizations": "Organizations",
-  // TODO Source message changed - Revise the translation
-  // TODO Source message changed - Revise the translation
-  // TODO Source message changed - Revise the translation
-  "item.page.subject": "Kulcsszavak",
-
-  // "item.page.relationships.RELATION.Project.projects": "Projects",
-  // TODO Source message changed - Revise the translation
-  "item.page.subject": "Kulcsszavak",
-
-  // "item.page.relationships.RELATION.Project.fundings": "Fundings",
-  // TODO Source message changed - Revise the translation
-  "item.page.subject": "Kulcsszavak",
-
-  // "item.page.relationships.RELATION.Project.researchoutputs": "Publications",
-  // TODO Source message changed - Revise the translation
-  "item.page.subject": "Kulcsszavak",
-
-
   // "item.page.subject": "Keywords",
-  // TODO Source message changed - Revise the translation
   "item.page.subject": "Kulcsszavak",
 
   // "item.page.uri": "URI",
@@ -4827,8 +4797,7 @@
   "item.preview.dc.rights": "Jogok",
 
   // "item.preview.dc.identifier.other": "Other Identifier",
-  // TODO Source message changed - Revise the translation
-  "item.preview.dc.identifier.other": "Egyéb azonosító:",
+  "item.preview.dc.identifier.other": "Egyéb azonosító",
 
   // "item.preview.dc.relation.issn": "ISSN",
   "item.preview.dc.relation.issn": "ISSN",
@@ -4918,8 +4887,7 @@
   "item.preview.dc.identifier.openalex": "OpenAlex azonosító",
 
   // "item.preview.dc.description": "Description",
-  // TODO Source message changed - Revise the translation
-  "item.preview.dc.description": "Leírás:",
+  "item.preview.dc.description": "Leírás",
 
   // "item.select.confirm": "Confirm selected",
   "item.select.confirm": "Kiválasztottak megerősítése",
@@ -5366,8 +5334,7 @@
   "layout.advanced-attachment.format": "Formátum",
 
   // "layout.advanced-attachment.dc.type": "Type",
-  // TODO New key - Add a translation
-  "layout.advanced-attachment.dc.type": "Type",
+  "layout.advanced-attachment.dc.type": "Típus",
 
   // "layout.advanced-attachment.dc.description": "Description",
   "layout.advanced-attachment.dc.description": "Leírás",
@@ -9389,7 +9356,6 @@
   "workflow.search.results.head": "Munkafolyamat-feladatok",
 
   // "workflow.search.results.head": "Workflow tasks",
-  // TODO Source message changed - Revise the translation
   "workflow.search.results.head": "Munkafolyamat-feladatok",
 
   // "otherWorkspace.search.results.head": "Shared workspace",
