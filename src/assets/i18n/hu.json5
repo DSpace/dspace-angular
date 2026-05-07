@@ -2972,15 +2972,17 @@
   "error.default": "Hiba",
 
   // "error.item": "Error fetching item",
-
-  // "error.custom-url-conflict.title": "Duplikátum egyéni URL észlelve",
   "error.custom-url-conflict.title": "Duplikátum egyéni URL észlelve",
 
-  // "error.custom-url-conflict.description": "Az egyéni URL \"{{customUrl}}\" több tételhez van hozzárendelve. Ez ütközést okoz és a tétel nem jeleníthető meg.",
+  // "error.custom-url-conflict.title": "Duplicate custom URL detected",
+  "error.custom-url-conflict.title": "Duplikált egyéni URL észlelve",
+
+  // "error.custom-url-conflict.description": "The custom URL \"{{customUrl}}\" is assigned to more than one item. This causes a conflict and the item cannot be displayed.",
   "error.custom-url-conflict.description": "Az egyéni URL \"{{customUrl}}\" több tételhez van hozzárendelve. Ez ütközést okoz és a tétel nem jeleníthető meg.",
 
-  // "error.custom-url-conflict.admin-action": "Kérjük, lépjen kapcsolatba a repozitórium adminisztrátorával. A következő érintett tételeknél javítani kell a dspace.customurl metaadatot, hogy minden érték egyedi legyen:",
-  "error.custom-url-conflict.admin-action": "Kérjük, lépjen kapcsolatba a repozitórium adminisztrátorával. A következő érintett tételeknél javítani kell a dspace.customurl metaadatot, hogy minden érték egyedi legyen:",
+  // "error.custom-url-conflict.admin-action": "Please contact your repository administrator. The following affected items need their dspace.customurl metadata fixed so each value is unique:",
+  // TODO New key - Add a translation
+  "error.custom-url-conflict.admin-action": "Please contact your repository administrator. The following affected items need their dspace.customurl metadata fixed so each value is unique:",
 
   // "error.custom-url-conflict.edit-link": "Edit \"{{name}}\" ({{uuid}})",
   "error.custom-url-conflict.edit-link": "\"{{name}}\" szerkesztése ({{uuid}})",
@@ -3019,8 +3021,7 @@
   "error.top-level-communities": "Hiba a legfelső szintű közösségek lekérésekor.", // "Hiba a legfelső szintű közösségek megjelenítésekor" -> "Hiba a legfelső szintű közösségek lekérésekor.",
 
   // "error.validation.license.required": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
-  "error.validation.license.required": "A beküldés befejezéséhez el kell fogadnia ezt a licencet.
-Ha jelenleg nem tudja elfogadni ezt a licencet, elmentheti munkáját és később visszatérhet, vagy eltávolíthatja a beküldést.",
+  "error.validation.license.required": "A beküldés befejezéséhez el kell fogadnia ezt a licencet.,
 
   // "error.validation.cclicense.required": "You must grant this cclicense to complete your submission. If you are unable to grant the cclicense at this time, you may save your work and return later or remove the submission.",
   "error.validation.cclicense.required": "A Creative Commons licenc elfogadása kötelező a beküldés befejezéséhez.\nHa jelenleg nem tudja elfogadni a CC licencet, elmentheti munkáját és később visszatérhet, vagy eltávolíthatja a beküldést.",
@@ -3272,17 +3273,22 @@ Ha jelenleg nem tudja elfogadni ezt a licencet, elmentheti munkáját és késő
   "form.other-information.institution": "Intézmény", // "Institution" -> "Intézmény",
 
   // "form.other-information.last-name": "Last Name",
-
-  // "form.other-information.orcid": "ORCID",
   "form.other-information.orcid": "ORCID",
 
-  // "form.other-information.person_identifier_orcid": "ORCID iD",
+  // "form.other-information.orcid": "ORCID",
+  // TODO Source message changed - Revise the translation
+  "form.other-information.orcid": "ORCID",
+
+  // "form.other-information.person_identifier_orcid": "ORCID",
+  // TODO Source message changed - Revise the translation
   "form.other-information.person_identifier_orcid": "ORCID iD",
 
-  // "form.other-information.oairecerif_author_affiliation": "Intézményi hovatartozás",
+  // "form.other-information.oairecerif_author_affiliation": "Affiliation",
+  // TODO Source message changed - Revise the translation
   "form.other-information.oairecerif_author_affiliation": "Intézményi hovatartozás",
 
-  // "form.other-information.oairecerif_editor_affiliation": "Intézményi hovatartozás",
+  // "form.other-information.oairecerif_editor_affiliation": "Affiliation",
+  // TODO Source message changed - Revise the translation
   "form.other-information.oairecerif_editor_affiliation": "Intézményi hovatartozás",
 
   // "form.other-information.person_identifier_orcid": "ORCID iD",
@@ -3543,7 +3549,8 @@ Ha jelenleg nem tudja elfogadni ezt a licencet, elmentheti munkáját és késő
   // "info.accessibility-settings.disableNotificationTimeOut.label": "Automatically close notifications after time out",
   "info.accessibility-settings.disableNotificationTimeOut.label": "Értesítések automatikus bezárása időtúllépés után",
 
-  // "info.accessibility-settings.disableNotificationTimeOut.hint": "When this toggle is activated, notifications will close automatically after time out passes. When deactivated, notifications will remain open until manually closed.",
+  // "info.accessibility-settings.disableNotificationTimeOut.hint": "When this toggle is activated, notifications will close automatically after the time out passes. When deactivated, notifications will remain open until manually closed.",
+  // TODO Source message changed - Revise the translation
   "info.accessibility-settings.disableNotificationTimeOut.hint": "Ha ez a kapcsoló aktiválva van, az értesítések az időtúllépés után automatikusan bezáródnak.\nDeaktiváláskor az értesítések manuális bezárásig nyitva maradnak.",
 
   // "info.accessibility-settings.failed-notification": "Failed to save accessibility settings",
@@ -4317,6 +4324,7 @@ Ha jelenleg nem tudja elfogadni ezt a licencet, elmentheti munkáját és késő
   // "item.edit.tabs.metadata.head": "Metadata",
   "item.edit.tabs.metadata.head": "Metaadatok", // "Metaadat" -> "Metaadatok",
 
+  // "item.edit.tabs.metadata.title": "Item Edit - Metadata",
   "item.edit.tabs.metadata.title": "Tétel szerkesztése - Metaadatok", // "Tárgy szerkesztése -  Metaadat" -> "Tétel szerkesztése - Metaadatok",
 
   // "item.edit.tabs.relationships.head": "Relationships",
@@ -4394,6 +4402,8 @@ Ha jelenleg nem tudja elfogadni ezt a licencet, elmentheti munkáját és késő
   // "item.edit.tabs.status.labels.lastModified": "Last Modified",
   "item.edit.tabs.status.labels.lastModified": "Utoljára módosítva", // "Utoljára módosították" -> "Utoljára módosítva",
 
+  // "item.edit.tabs.status.title": "Item Edit - Status",
+  // TODO Source message changed - Revise the translation
   "item.edit.tabs.status.title": "Tétel szerkesztése - Állapot", // "Tárgy szerkesztése -  Állapot" -> "Tétel szerkesztése - Állapot",
 
   // "item.edit.tabs.versionhistory.head": "Version History",
@@ -4408,6 +4418,8 @@ Ha jelenleg nem tudja elfogadni ezt a licencet, elmentheti munkáját és késő
   // "item.edit.tabs.view.head": "View Item",
   "item.edit.tabs.view.head": "Tétel megtekintése", // "Tárgy megtekintése" -> "Tétel megtekintése",
 
+  // "item.edit.tabs.view.title": "Item Edit - View",
+  // TODO Source message changed - Revise the translation
   "item.edit.tabs.view.title": "Tétel szerkesztése - Megtekintés", // "Tárgy szerkesztése -  Megtekintés" -> "Tétel szerkesztése - Megtekintés",
 
   // "item.edit.withdraw.cancel": "Cancel",
@@ -4599,6 +4611,8 @@ Ha jelenleg nem tudja elfogadni ezt a licencet, elmentheti munkáját és késő
   // "item.page.date": "Date",
   "item.page.date": "Dátum",
 
+  // "item.page.edit": "Administer",
+  // TODO Source message changed - Revise the translation
   "item.page.edit": "Tétel szerkesztése", // "Elem szerkesztése" -> "Tétel szerkesztése",
 
   // "item.page.files": "Files",
@@ -4664,35 +4678,40 @@ Ha jelenleg nem tudja elfogadni ezt a licencet, elmentheti munkáját és késő
   // "item.page.relationships.isOrgUnitOfProject": "Research Projects",
   "item.page.relationships.isOrgUnitOfProject": "Kutatási projektek",
 
+  // "item.page.relationships.RELATION.Person.researchoutputs": "Publications",
   "item.page.relationships.RELATION.Person.researchoutputs": "Publikációk",
 
-  // "item.page.relationships.RELATION.Person.projects": "Projektek",
+  // "item.page.relationships.RELATION.Person.projects": "Projects",
   "item.page.relationships.RELATION.Person.projects": "Projektek",
 
-  // "item.page.relationships.RELATION.OrgUnit.rpprojects": "Kutatói projektek",
+  // "item.page.relationships.RELATION.OrgUnit.rpprojects": "Researchers Projects",
   "item.page.relationships.RELATION.OrgUnit.rpprojects": "Kutatói projektek",
 
-  // "item.page.relationships.RELATION.OrgUnit.publications": "Publikációk",
+  // "item.page.relationships.RELATION.OrgUnit.publications": "Publications",
   "item.page.relationships.RELATION.OrgUnit.publications": "Publikációk",
 
-  // "item.page.relationships.RELATION.OrgUnit.rppublications": "Kutatói publikációk",
+  // "item.page.relationships.RELATION.OrgUnit.rppublications": "Researchers Publications",
   "item.page.relationships.RELATION.OrgUnit.rppublications": "Kutatói publikációk",
 
-  // "item.page.relationships.RELATION.OrgUnit.people": "Emberek",
+  // "item.page.relationships.RELATION.OrgUnit.people": "People",
   "item.page.relationships.RELATION.OrgUnit.people": "Emberek",
 
   // "item.page.relationships.RELATION.OrgUnit.projects": "Projects",
   "item.page.relationships.RELATION.OrgUnit.projects": "Projektek",
 
-  // "item.page.relationships.RELATION.OrgUnit.organizations": "Szervezetek",
+  // "item.page.relationships.RELATION.OrgUnit.organizations": "Organizations",
+  // TODO Source message changed - Revise the translation
+  
 
-  // "item.page.relationships.RELATION.Project.projects": "Projektek",
-
-  // "item.page.relationships.RELATION.Project.fundings": "Támogatások",
-
-  // "item.page.relationships.RELATION.Project.researchoutputs": "Publikációk",
-
-  // "item.page.subject": "Kulcsszavak",
+  // "item.page.relationships.RELATION.Project.projects": "Projects",
+  // TODO Source message changed - Revise the translation
+  
+  // "item.page.relationships.RELATION.Project.fundings": "Fundings",
+  // TODO Source message changed - Revise the translation
+  
+  // "item.page.relationships.RELATION.Project.researchoutputs": "Publications",
+  
+  // "item.page.subject": "Keywords",
   "item.page.subject": "Kulcsszavak",
 
   // "item.page.uri": "URI",
@@ -4713,8 +4732,10 @@ Ha jelenleg nem tudja elfogadni ezt a licencet, elmentheti munkáját és késő
   // "item.page.filesection.license.bundle": "License bundle",
   "item.page.filesection.license.bundle": "LICENC csomag", // "LICENSE csomag" -> "LICENC csomag",
 
+  // "item-page.resolver.invalid-custom-url.title": "Invalid custom URL",
   "item-page.resolver.invalid-custom-url.title": "Érvénytelen egyéni URL",
 
+  // "item-page.resolver.invalid-custom-url.message": "The custom URL of this item contains unsupported characters. The item is being displayed using its UUID.",
   "item-page.resolver.invalid-custom-url.message": "Ennek a tételnek az egyéni URL-je nem támogatott karaktereket tartalmaz. A tétel a UUID-ja segítségével jelenik meg.",
 
   // "item.page.return": "Back",
@@ -4798,7 +4819,8 @@ Ha jelenleg nem tudja elfogadni ezt a licencet, elmentheti munkáját és késő
   // "item.preview.dc.rights": "Rights",
   "item.preview.dc.rights": "Jogok", // "Jogkezelés" -> "Jogok",
 
-  "item.preview.dc.identifier.other": "Egyéb azonosító:",
+  // "item.preview.dc.identifier.other": "Other Identifier",
+  "item.preview.dc.identifier.other": "Egyéb azonosító",
 
   // "item.preview.dc.relation.issn": "ISSN",
   "item.preview.dc.relation.issn": "ISSN",
@@ -4887,7 +4909,8 @@ Ha jelenleg nem tudja elfogadni ezt a licencet, elmentheti munkáját és késő
   // "item.preview.dc.identifier.openalex": "OpenAlex Identifier",
   "item.preview.dc.identifier.openalex": "OpenAlex azonosító",
 
-  "item.preview.dc.description": "Leírás:",
+  // "item.preview.dc.description": "Description",
+  "item.preview.dc.description": "Leírás",
 
   // "item.select.confirm": "Confirm selected",
   "item.select.confirm": "Kiválasztottak megerősítése",
@@ -5333,27 +5356,27 @@ Ha jelenleg nem tudja elfogadni ezt a licencet, elmentheti munkáját és késő
   // "layout.advanced-attachment.format": "Format",
   "layout.advanced-attachment.format": "Formátum",
 
-// "layout.advanced-attachment.dc.description": "Description",
-"layout.advanced-attachment.dc.description": "Leírás",
+  // "layout.advanced-attachment.dc.type": "Type",
+  // TODO New key - Add a translation
+  "layout.advanced-attachment.dc.type": "Type",
 
-// "layout.advanced-attachment.no_thumbnail": "No Thumbnail Available",
-"layout.advanced-attachment.no_thumbnail": "Nincs elérhető bélyegkép",
+  // "layout.advanced-attachment.dc.description": "Description",
+  "layout.advanced-attachment.dc.description": "Leírás",
 
-// "layout.advanced-attachment.download": "Download",
-"layout.advanced-attachment.download": "Letöltés",
+  // "layout.advanced-attachment.no_thumbnail": "No Thumbnail Available",
+  "layout.advanced-attachment.no_thumbnail": "Nincs elérhető bélyegkép",
 
-// "layout.advanced-attachment.requestACopy": "Request a copy",
-"layout.advanced-attachment.requestACopy": "Példány kérése",
+  // "layout.advanced-attachment.download": "Download",
+  "layout.advanced-attachment.download": "Letöltés",
 
-// "layout.advanced-attachment.viewMore": "View More",
-"layout.advanced-attachment.viewMore": "Több megtekintése",
+  // "layout.advanced-attachment.requestACopy": "Request a copy",
+  "layout.advanced-attachment.requestACopy": "Példány kérése",
 
-// "layout.advanced-attachment.label.not-present": "(not present)",
-"layout.advanced-attachment.label.not-present": "(nem jelenik meg)",
-  "layout.advanced-attachment.viewMore": "View More",
+  // "layout.advanced-attachment.viewMore": "View More",
+  "layout.advanced-attachment.viewMore": "Több megtekintése",
 
   // "layout.advanced-attachment.label.not-present": "(not present)",
-  "layout.advanced-attachment.label.not-present": "(nincs jelen)",
+  "layout.advanced-attachment.label.not-present": "(nem jelenik meg)",
 
   // "loading.bitstream": "Loading bitstream...",
   "loading.bitstream": "Bitstream betöltése...",
@@ -5712,9 +5735,16 @@ Ha jelenleg nem tudja elfogadni ezt a licencet, elmentheti munkáját és késő
   // "menu.section.workflow": "Administer Workflow",
   "menu.section.workflow": "Munkafolyamat adminisztráció",
 
+  // "menu.section.FULL": "Edit",
   "menu.section.FULL": "Szerkesztés",
+
+  // "menu.section.OWNER": "Edit",
   "menu.section.OWNER": "Szerkesztés",
+
+  // "menu.section.DIRECTOR": "Edit",
   "menu.section.DIRECTOR": "Szerkesztés",
+
+  // "menu.section.INVESTIGATOR": "Edit",
   "menu.section.INVESTIGATOR": "Szerkesztés",
 
   // "metadata-export-search.tooltip": "Export search results as CSV",
@@ -6167,6 +6197,7 @@ Ha jelenleg nem tudja elfogadni ezt a licencet, elmentheti munkáját és késő
   // "orgunit.page.description": "Description",
   "orgunit.page.description": "Leírás",
 
+  // "orgunit.page.edit": "Administer",
   "orgunit.page.edit": "Tétel szerkesztése", // Eredeti: "Elem szerkesztése" -> Javított: "Tétel szerkesztése",
 
   // "orgunit.page.id": "ID",
@@ -6208,6 +6239,7 @@ Ha jelenleg nem tudja elfogadni ezt a licencet, elmentheti munkáját és késő
   // "person.page.birthdate": "Birth Date",
   "person.page.birthdate": "Születési dátum",
 
+  // "person.page.edit": "Administer",
   "person.page.edit": "Tétel szerkesztése",
 
   // "person.page.email": "Email Address",
@@ -6474,10 +6506,13 @@ Ha jelenleg nem tudja elfogadni ezt a licencet, elmentheti munkáját és késő
   // "process.overview.unknown.user": "Unknown",
   "process.overview.unknown.user": "Ismeretlen", // Lefordítva,
 
+  // "process.bulk.delete.error.head": "Error on deleting process",
   "process.bulk.delete.error.head": "Hiba a folyamat törlésekor", // Lefordítva (figyelembe véve a "deleteing" elírást a forráskulcsban),
 
+  // "process.bulk.delete.error.body": "The process with ID {{processId}} could not be deleted. The remaining processes will continue being deleted.",
   "process.bulk.delete.error.body": "A(z) {{processId}} azonosítójú folyamatot nem sikerült törölni. A fennmaradó folyamatok törlése folytatódik.", // Lefordítva,
 
+  // "process.bulk.delete.success": "{{count}} process(es) have been successfully deleted",
   "process.bulk.delete.success": "{{count}} folyamat sikeresen törölve.", // Lefordítva (figyelembe véve a "succesfully" elírást a forráskulcsban),
 
   // "profile.breadcrumbs": "Update Profile",
@@ -6588,6 +6623,7 @@ Ha jelenleg nem tudja elfogadni ezt a licencet, elmentheti munkáját és késő
   // "project.page.description": "Description",
   "project.page.description": "Leírás",
 
+  // "project.page.edit": "Administer",
   "project.page.edit": "Tétel szerkesztése", // Eredeti: "Elem szerkesztése" -> Javított,
 
   // "project.page.expectedcompletion": "Expected Completion",
@@ -7172,20 +7208,40 @@ Ha jelenleg nem tudja elfogadni ezt a licencet, elmentheti munkáját és késő
   // "resource-policies.table.headers.title.for.collection": "Policies for Collection",
   "resource-policies.table.headers.title.for.collection": "Gyűjteményi szabályzatok", // Eredeti: "Gyűjtemény szabályok" -> Javított,
 
+  // "RELATION.Person.researchoutputs.search.results.head": "Research Output",
   "RELATION.Person.researchoutputs.search.results.head": "Kutatási outputs",
+
+  // "RELATION.Person.projects.search.results.head": "Projects",
   "RELATION.Person.projects.search.results.head": "Projektek",
+
+  // "RELATION.Project.researchoutputs.search.results.head": "Publications",
   "RELATION.Project.researchoutputs.search.results.head": "Publikációk",
 
+  // "RELATION.Project.fundings.search.results.head": "Fundings",
   "RELATION.Project.fundings.search.results.head": "Támogatások",
+
+  // "RELATION.Project.projects.search.results.head": "Projects",
   "RELATION.Project.projects.search.results.head": "Projektek",
+
+  // "RELATION.OrgUnit.organizations.search.results.head": "Organizations",
   "RELATION.OrgUnit.organizations.search.results.head": "Szervezetek",
 
+  // "RELATION.OrgUnit.rppublications.search.results.head": "Researchers Publications",
   "RELATION.OrgUnit.rppublications.search.results.head": "Kutatói publikációk",
+
+  // "RELATION.OrgUnit.publications.search.results.head": "Publications",
   "RELATION.OrgUnit.publications.search.results.head": "Publikációk",
+
+  // "RELATION.OrgUnit.rpprojects.search.results.head": "Researchers Projects",
   "RELATION.OrgUnit.rpprojects.search.results.head": "Kutatói projektek",
 
+  // "RELATION.OrgUnit.projects.search.results.head": "Projects",
   "RELATION.OrgUnit.projects.search.results.head": "Projektek",
+
+  // "RELATION.Project.researchoutputs.search.results.head": "Publications",
   "RELATION.Project.researchoutputs.search.results.head": "Publikációk",
+
+  // "RELATION.OrgUnit.people.search.results.head": "People",
   "RELATION.OrgUnit.people.search.results.head": "Emberek",
 
   // "root.skip-to-content": "Skip to main content",
@@ -7799,7 +7855,10 @@ Ha jelenleg nem tudja elfogadni ezt a licencet, elmentheti munkáját és késő
   // "sorting.person.birthDate.DESC": "Birth Date Descending",
   "sorting.person.birthDate.DESC": "Születési dátum (csökkenő)", // Eredeti: "Születési dátum szerint csökkenő" -> Javított,
 
+  // "sorting.ownerselection.ASC": "Owner Relevance Ascending",
   "sorting.ownerselection.ASC": "Tulajdonos relevancia növekvő",
+
+  // "sorting.ownerselection.DESC": "Owner Relevance Descending",
   "sorting.ownerselection.DESC": "Tulajdonos relevancia csökkenő",
 
   // "statistics.title": "Statistics",
@@ -8855,8 +8914,13 @@ Ha jelenleg nem tudja elfogadni ezt a licencet, elmentheti munkáját és késő
   // "submission.sections.upload.upload-successful": "Upload successful",
   "submission.sections.upload.upload-successful": "Sikeres feltöltés",
 
+  // "submission.sections.custom-url.label.previous-urls": "Previous Urls",
   "submission.sections.custom-url.label.previous-urls": "Korábbi URL-ek",
+
+  // "submission.sections.custom-url.alert.info": "Define here a custom URL which will be used to reach the item instead of using an internal randomly generated UUID identifier. ",
   "submission.sections.custom-url.alert.info": "Itt adjon meg egy egyéni URL-t, amelyet a tétel eléréséhez használhat a belsőleg véletlenszerűen generált UUID azonosító helyett. ",
+
+  // "submission.sections.custom-url.url.placeholder": "Custom URL",
   "submission.sections.custom-url.url.placeholder": "Egyéni URL",
 
   // "submission.sections.accesses.form.discoverable-description": "When checked, this item will be discoverable in search/browse. When unchecked, the item will only be available via a direct link and will never appear in search/browse.",
@@ -9313,17 +9377,18 @@ Ha jelenleg nem tudja elfogadni ezt a licencet, elmentheti munkáját és késő
   "workspace.search.results.head": "Beküldéseim", // Eredeti: "Feltöltéseim" -> Javított,
 
   // "workflowAdmin.search.results.head": "Administer Workflow",
-
-  // "workflow.search.results.head": "Munkafolyamat-feladatok",
   "workflow.search.results.head": "Munkafolyamat-feladatok",
 
-  // "otherWorkspace.search.results.head": "Megosztott munkaterület",
+  // "workflow.search.results.head": "Workflow tasks",
+  "workflow.search.results.head": "Munkafolyamat-feladatok",
+
+  // "otherWorkspace.search.results.head": "Shared workspace",
   "otherWorkspace.search.results.head": "Megosztott munkaterület",
 
-  // "supervision.search.results.head": "Munkafolyamat és munkaterületi feladatok",
+  // "supervision.search.results.head": "Workflow and Workspace tasks",
   "supervision.search.results.head": "Munkafolyamat és munkaterületi feladatok",
 
-  // "workflow-item.edit.breadcrumbs": "Munkafolyamat-elem szerkesztése",
+  // "workflow-item.edit.breadcrumbs": "Edit workflowitem",
   "workflow-item.edit.breadcrumbs": "Munkafolyamat-elem szerkesztése",
 
   // "workflow-item.edit.title": "Edit workflowitem",
@@ -11059,36 +11124,39 @@ Ha jelenleg nem tudja elfogadni ezt a licencet, elmentheti munkáját és késő
   // "form.date-picker.placeholder.day": "Day",
   "form.date-picker.placeholder.day": "Nap",
 
+  // "item.page.license.title": "Rights and licensing",
   "item.page.license.title": "Jogok és licencelés",
+
+  // "item.page.cc.license.title": "Creative Commons license",
   "item.page.cc.license.title": "Creative Commons licenc", // Lefordítva,
 
   // "item.page.cc.license.disclaimer": "Except where otherwise noted, this item's license is described as",
   "item.page.cc.license.disclaimer": "Kivéve, ha másként van jelölve, ennek a tételnek a licence a következőképpen van leírva:",
 
-// "file-download-button.download": "Download",
-"file-download-button.download": "Letöltés",
-"file-download-button.request-copy": "Másolat kérése",
+  // "file-download-link.download": "Download ",
+  // TODO New key - Add a translation
+  "file-download-link.download": "Download ",
 
-// "register-page.registration.aria.label": "Enter your e-mail address",
-"register-page.registration.aria.label": "Adja meg e-mail címét",
+  // "file-download-button.download": "Download",
+  "file-download-button.download": "Letöltés",
 
-// "forgot-email.form.aria.label": "Enter your e-mail address",
-"forgot-email.form.aria.label": "Adja meg e-mail címét",
+  // "register-page.registration.aria.label": "Enter your e-mail address",
+  "register-page.registration.aria.label": "Adja meg e-mail címét",
 
-// "search-facet-option.update.announcement": "The page will be reloaded. Filter {{ filter }} is selected.",
-"search-facet-option.update.announcement": "Az oldal újratöltődik. A(z) {{ filter }} szűrő kiválasztva.",
+  // "forgot-email.form.aria.label": "Enter your e-mail address",
+  "forgot-email.form.aria.label": "Adja meg e-mail címét",
 
-// "live-region.ordering.instructions": "Press spacebar to reorder {{ itemName }}.",
-"live-region.ordering.instructions": "Nyomja meg a szóköz billentyűt a(z) {{ itemName }} átrendezéséhez.",
+  // "search-facet-option.update.announcement": "The page will be reloaded. Filter {{ filter }} is selected.",
+  "search-facet-option.update.announcement": "Az oldal újratöltődik. A(z) {{ filter }} szűrő kiválasztva.",
 
-// "live-region.ordering.status": "{{ itemName }}, grabbed. Current position in list: {{ index }} of {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
-"live-region.ordering.status": "{{ itemName }} megragadva. Jelenlegi pozíció a listában: {{ index }} / {{ length }}.\nHasználja a fel és le nyilakat a pozíció megváltoztatásához, a szóköz billentyűt a lerakáshoz, az Escape billentyűt a megszakításhoz.",
+  // "live-region.ordering.instructions": "Press spacebar to reorder {{ itemName }}.",
+  "live-region.ordering.instructions": "Nyomja meg a szóköz billentyűt a(z) {{ itemName }} átrendezéséhez.",
 
-// "live-region.ordering.moved": "{{ itemName }}, moved to position {{ index }} of {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
-"live-region.ordering.moved": "{{ itemName }} áthelyezve a(z) {{ index }}. pozícióba a(z) {{ length }} közül.\nHasználja a fel és le nyilakat a pozíció megváltoztatásához, a szóköz billentyűt a lerakáshoz, az Escape billentyűt a megszakításhoz.",
+  // "live-region.ordering.status": "{{ itemName }}, grabbed. Current position in list: {{ index }} of {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
+  "live-region.ordering.status": "{{ itemName }} megragadva. Jelenlegi pozíció a listában: {{ index }} / {{ length }}.\nHasználja a fel és le nyilakat a pozíció megváltoztatásához, a szóköz billentyűt a lerakáshoz, az Escape billentyűt a megszakításhoz.",
 
-// "live-region.ordering.dropped": "{{ itemName }}, dropped at position {{ index }} of {{ length }}.",
-"live-region.ordering.dropped": "{{ itemName }} lerakva a(z) {{ index }}. pozícióba a(z) {{ length }} közül.",
+  // "live-region.ordering.moved": "{{ itemName }}, moved to position {{ index }} of {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
+  "live-region.ordering.moved": "{{ itemName }} áthelyezve a(z) {{ index }}. pozícióba a(z) {{ length }} közül.\nHasználja a fel és le nyilakat a pozíció megváltoztatásához, a szóköz billentyűt a lerakáshoz, az Escape billentyűt a megszakításhoz.",
 
   // "live-region.ordering.dropped": "{{ itemName }}, dropped at position {{ index }} of {{ length }}.",
   "live-region.ordering.dropped": "{{ itemName }} lerakva a(z) {{ index }}. pozícióba a(z) {{ length }} közül.",
@@ -11252,6 +11320,7 @@ Ha jelenleg nem tudja elfogadni ezt a licencet, elmentheti munkáját és késő
   // "file-download-link.request-copy": "Request a copy of ",
   "file-download-link.request-copy": "Másolat kérése ",
 
+  // "file-download-button.request-copy": "Request a copy",
   "file-download-button.request-copy": "Másolat kérése",
 
   // "item.preview.organization.url": "URL",
@@ -11263,111 +11332,249 @@ Ha jelenleg nem tudja elfogadni ezt a licencet, elmentheti munkáját és késő
   // "item.preview.organization.alternateName": "Alternative name",
   "item.preview.organization.alternateName": "Alternatív név",
 
+  // "metadata-link-view.orcid.logo": "ORCID logo",
   "metadata-link-view.orcid.logo": "ORCID logó",
+
+  // "metadata-link-view.source.logo": "Source logo",
   "metadata-link-view.source.logo": "Forrás logó",
+
+  // "metadata-link-view.popover.label.Person.dc.title": "Fullname",
   "metadata-link-view.popover.label.Person.dc.title": "Teljes név",
+
+  // "metadata-link-view.popover.label.Person.person.affiliation.name": "Main affiliation",
   "metadata-link-view.popover.label.Person.person.affiliation.name": "Fő affiliáció",
+
+  // "metadata-link-view.popover.label.Person.person.email": "Email",
   "metadata-link-view.popover.label.Person.person.email": "E-mail",
+
+  // "metadata-link-view.popover.label.Person.person.identifier.orcid": "ORCID",
   "metadata-link-view.popover.label.Person.person.identifier.orcid": "ORCID",
+
+  // "metadata-link-view.popover.label.Person.dc.description.abstract": "Abstract",
   "metadata-link-view.popover.label.Person.dc.description.abstract": "Kivonat",
+
+  // "metadata-link-view.popover.label.Person.person.jobTitle": "Job title",
   "metadata-link-view.popover.label.Person.person.jobTitle": "Beosztás",
 
+  // "metadata-link-view.popover.label.other.dc.title": "Title",
   "metadata-link-view.popover.label.other.dc.title": "Cím",
+
+  // "metadata-link-view.popover.label.other.dc.description.abstract": "Description",
   "metadata-link-view.popover.label.other.dc.description.abstract": "Leírás",
+
+  // "metadata-link-view.popover.label.more-info": "More info",
   "metadata-link-view.popover.label.more-info": "További információ",
 
+  // "item.page.extended-file-section": "Bitstreams",
   "item.page.extended-file-section": "Bitstreamek",
+
+  // "file.section.name": "Document",
   "file.section.name": "Dokumentum",
+
+  // "file.section.type": "Type",
   "file.section.type": "Típus",
 
+  // "file.section.size": "Size",
   "file.section.size": "Méret",
+
+  // "dataset.page.titleprefix": "Dataset",
   "dataset.page.titleprefix": "Adatkészlet",
+
+  // "dataset.listelement.badge": "Dataset",
   "dataset.listelement.badge": "Adatkészlet",
 
+  // "dataset.page.options": "Options",
   "dataset.page.options": "Beállítások",
+
+  // "dataset.page.edit": "Edit this Dataset",
   "dataset.page.edit": "Adatkészlet szerkesztése",
+
+  // "relationships.Dataset.isAuthorOfDataset.Person": "Authors (Persons)",
   "relationships.Dataset.isAuthorOfDataset.Person": "Szerzők (Személyek)",
 
+  // "relationships.Dataset.isProjectOfDataset.Project": "Research Projects",
   "relationships.Dataset.isProjectOfDataset.Project": "Kutatási projektek",
+
+  // "relationships.Dataset.isAuthorOfDataset.OrgUnit": "Organizational Units",
   "relationships.Dataset.isAuthorOfDataset.OrgUnit": "Szervezeti egységek",
+
+  // "relationships.Dataset.isOrgUnitOfDataset.OrgUnit": "Authors (Organizational Units)",
   "relationships.Dataset.isOrgUnitOfDataset.OrgUnit": "Szerzők (Szervezeti egységek)",
 
+  // "relationships.Dataset.isPublicationOfDataset.Publication": "Publications",
   "relationships.Dataset.isPublicationOfDataset.Publication": "Publikációk",
+
+  // "relationships.Publication.isDatasetOfPublication.Dataset": "Datasets",
   "relationships.Publication.isDatasetOfPublication.Dataset": "Adatkészletek",
+
+  // "relationships.Person.isDatasetOfAuthor.Dataset": "Datasets",
   "relationships.Person.isDatasetOfAuthor.Dataset": "Adatkészletek",
 
+  // "relationships.Project.isDatasetOfProject.Dataset": "Datasets",
   "relationships.Project.isDatasetOfProject.Dataset": "Adatkészletek",
+
+  // "relationships.OrgUnit.isDatasetOfAuthor.Dataset": "Authored Datasets",
   "relationships.OrgUnit.isDatasetOfAuthor.Dataset": "Szerzett adatkészletek",
+
+  // "relationships.OrgUnit.isDatasetOfOrgUnit.Dataset": "Organisation Datasets",
   "relationships.OrgUnit.isDatasetOfOrgUnit.Dataset": "Szervezeti adatkészletek",
 
+  // "submission.sections.describe.relationship-lookup.title.Dataset": "Datasets",
   "submission.sections.describe.relationship-lookup.title.Dataset": "Adatkészletek",
+
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.Dataset": "Local Datasets",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.Dataset": "Helyi adatkészletek",
+
+  // "dataset.search.results.head": "Dataset Search Results",
   "dataset.search.results.head": "Adatkészlet keresési eredmények",
 
+  // "submission.sections.describe.relationship-lookup.title.isAuthorOfDataset": "Authors",
   "submission.sections.describe.relationship-lookup.title.isAuthorOfDataset": "Szerzők",
+
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isAuthorOfDataset": "Local Authors ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isAuthorOfDataset": "Helyi szerzők ({{ count }})",
+
+  // "submission.sections.describe.relationship-lookup.title.isPublicationOfDataset": "Publications",
   "submission.sections.describe.relationship-lookup.title.isPublicationOfDataset": "Publikációk",
 
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isPublicationOfDataset": "Local Publications ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isPublicationOfDataset": "Helyi publikációk ({{ count }})",
+
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.cinii": "CiNii ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.cinii": "CiNii ({{ count }})",
+
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.cinii": "Importing from CiNii",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.head.cinii": "Importálás CiNii-ből",
 
+  // "submission.sections.describe.relationship-lookup.selection-tab.title.cinii": "Search Results",
   "submission.sections.describe.relationship-lookup.selection-tab.title.cinii": "Keresési eredmények",
+
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.datacite": "DataCite ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.datacite": "DataCite ({{ count }})",
+
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.datacite": "Importing from DataCite",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.head.datacite": "Importálás DataCite-ből",
 
+  // "submission.sections.describe.relationship-lookup.selection-tab.title.datacite": "Search Results",
   "submission.sections.describe.relationship-lookup.selection-tab.title.datacite": "Keresési eredmények",
+
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.doi": "DOI ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.doi": "DOI ({{ count }})",
+
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.doi": "Importing from DOI",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.head.doi": "Importálás DOI-ból",
 
+  // "submission.sections.describe.relationship-lookup.selection-tab.title.doi": "Search Results",
   "submission.sections.describe.relationship-lookup.selection-tab.title.doi": "Keresési eredmények",
+
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.isPublicationOfDataset.title": "Import Remote Publication",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.isPublicationOfDataset.title": "Távoli publikáció importálása",
+
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.isPublicationOfDataset.added.local-entity": "Successfully added local publication to the selection",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.isPublicationOfDataset.added.local-entity": "A helyi publikáció sikeresen hozzáadva a kiválasztáshoz",
 
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.isPublicationOfDataset.added.new-entity": "Successfully imported and added external publication to the selection",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.isPublicationOfDataset.added.new-entity": "A külső publikáció sikeresen importálva és hozzáadva a kiválasztáshoz",
+
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfDataset.title": "Import Remote Author",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfDataset.title": "Távoli szerző importálása",
+
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfDataset.added.local-entity": "Successfully added local author to the selection",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfDataset.added.local-entity": "A helyi szerző sikeresen hozzáadva a kiválasztáshoz",
 
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfDataset.added.new-entity": "Successfully imported and added external author to the selection",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfDataset.added.new-entity": "A külső szerző sikeresen importálva és hozzáadva a kiválasztáshoz",
+
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfDataset.title": "Import Remote Project",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfDataset.title": "Távoli projekt importálása",
+
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfDataset.added.local-entity": "Successfully added local project to the selection",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfDataset.added.local-entity": "A helyi projekt sikeresen hozzáadva a kiválasztáshoz",
 
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfDataset.added.new-entity": "Successfully imported and added external project to the selection",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfDataset.added.new-entity": "A külső projekt sikeresen importálva és hozzáadva a kiválasztáshoz",
+
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfDataset.title": "Import Remote Organization",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfDataset.title": "Távoli szervezet importálása",
+
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfDataset.added.local-entity": "Successfully added local organization to the selection",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfDataset.added.local-entity": "A helyi szervezet sikeresen hozzáadva a kiválasztáshoz",
 
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfDataset.added.new-entity": "Successfully imported and added external organization to the selection",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfDataset.added.new-entity": "A külső szervezet sikeresen importálva és hozzáadva a kiválasztáshoz",
+
+  // "admin.edit-cms-metadata.success": "Metadata successfully updated",
   "admin.edit-cms-metadata.success": "A metaadatok sikeresen frissítve",
+
+  // "admin.edit-cms-metadata.back-button": "Back",
   "admin.edit-cms-metadata.back-button": "Vissza",
 
+  // "admin.edit-cms-metadata.save-button": "Save",
   "admin.edit-cms-metadata.save-button": "Mentés",
+
+  // "admin.edit-cms-metadata.select-metadata": "Select metadata to edit",
   "admin.edit-cms-metadata.select-metadata": "Válassza ki a szerkesztendő metaadatokat",
+
+  // "admin.edit-cms-metadata.edit-button": "Edit",
   "admin.edit-cms-metadata.edit-button": "Szerkesztés",
 
+  // "admin.edit-cms-metadata.breadcrumbs": "Edit CMS Metadata",
   "admin.edit-cms-metadata.breadcrumbs": "CMS metaadatok szerkesztése",
+
+  // "admin.edit-cms-metadata.title": "Edit CMS Metadata",
   "admin.edit-cms-metadata.title": "CMS metaadatok szerkesztése",
+
+  // "admin.edit-cms-metadata.error": "An error occurred while updating the metadata",
   "admin.edit-cms-metadata.error": "Hiba történt a metaadatok frissítése közben",
 
+  // "menu.section.edit-cms-metadata": "Edit CMS Metadata",
   "menu.section.edit-cms-metadata": "CMS metaadatok szerkesztése",
+
+  // "menu.section.cms.edit.metadata.head": "Edit Metadata",
   "menu.section.cms.edit.metadata.head": "Metaadatok szerkesztése",
+
+  // "admin.edit-user-agreement.breadcrumbs": "Edit User Agreement",
   "admin.edit-user-agreement.breadcrumbs": "Felhasználói szerződés szerkesztése",
 
+  // "admin.edit-user-agreement.confirm.title": "Force acceptance",
   "admin.edit-user-agreement.confirm.title": "Elfogadás kényszerítése",
+
+  // "admin.edit-user-agreement.confirm.info": "Do you want to force all users to accept the new user agreement?",
   "admin.edit-user-agreement.confirm.info": "Szeretné minden felhasználót kényszeríteni, hogy fogadja el az új felhasználói szerződést?",
+
+  // "admin.edit-user-agreement.confirm.cancel": "Cancel",
   "admin.edit-user-agreement.confirm.cancel": "Mégse",
 
+  // "admin.edit-user-agreement.confirm.no": "No, update only",
   "admin.edit-user-agreement.confirm.no": "Nem, csak frissítés",
+
+  // "admin.edit-user-agreement.confirm.yes": "Yes, update and force",
   "admin.edit-user-agreement.confirm.yes": "Igen, frissítés és kényszerítés",
+
+  // "menu.section.edit-user-agreement": "Edit User Agreement",
   "menu.section.edit-user-agreement": "Felhasználói szerződés szerkesztése",
 
+  // "admin.edit-user-agreement.save-button": "Save",
   "admin.edit-user-agreement.save-button": "Mentés",
-  "admin.edit-user-agreement.markdown": "Az <i>Végfelhasználói szerződés</i> szövege támogatja a <a href="https://www.markdownguide.org/basic-syntax/" target="_blank">Markdown</a> nyelvet.",
-  "admin.edit-cms-metadata.markdown": "A <i>CMS metaadatok</i> szövege támogatja a <a href="https://www.markdownguide.org/basic-syntax/" target="_blank">Markdown</a> nyelvet.",
 
+  // "admin.edit-user-agreement.markdown": "<i>End User Agreement</i> text supports <a href=\"https://www.markdownguide.org/basic-syntax/\" target=\"_blank\">Markdown</a> language.",
+  // TODO New key - Add a translation
+  "admin.edit-user-agreement.markdown": "<i>End User Agreement</i> text supports <a href=\"https://www.markdownguide.org/basic-syntax/\" target=\"_blank\">Markdown</a> language.",
+
+  // "admin.edit-cms-metadata.markdown": "<i>CMS Metadata</i> text supports <a href=\"https://www.markdownguide.org/basic-syntax/\" target=\"_blank\">Markdown</a> language.",
+  // TODO New key - Add a translation
+  "admin.edit-cms-metadata.markdown": "<i>CMS Metadata</i> text supports <a href=\"https://www.markdownguide.org/basic-syntax/\" target=\"_blank\">Markdown</a> language.",
+
+  // "admin.edit-user-agreement.header": "Edit User Agreement",
   "admin.edit-user-agreement.header": "Felhasználói szerződés szerkesztése",
+
+  // "admin.edit-user-agreement.success": "User agreement successfully updated",
   "admin.edit-user-agreement.success": "A felhasználói szerződés sikeresen frissítve",
+
+  // "admin.edit-user-agreement.error": "An error occurred while updating the user agreement",
   "admin.edit-user-agreement.error": "Hiba történt a felhasználói szerződés frissítése közben",
 
+  // "admin.edit-user-agreement.title": "Edit User Agreement",
   "admin.edit-user-agreement.title": "Felhasználói szerződés szerkesztése",
 
 
