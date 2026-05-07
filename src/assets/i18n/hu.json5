@@ -5364,7 +5364,7 @@
   "layout.advanced-attachment.viewMore": "Több megtekintése",
 
   // "layout.advanced-attachment.label.not-present": "(not present)",
-  "layout.advanced-attachment.label.not-present": "(nem jelenik meg)",
+  "layout.advanced-attachment.label.not-present": "(nem elérhető)",
 
   // "loading.bitstream": "Loading bitstream...",
   "loading.bitstream": "Bitstream betöltése...",
