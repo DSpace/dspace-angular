@@ -15,6 +15,8 @@ import {
 import { By } from '@angular/platform-browser';
 import { JsonPatchOperationPathCombiner } from '@dspace/core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
+import { HardRedirectService } from '@dspace/core/services/hard-redirect.service';
+import { FileService } from '@dspace/core/shared/file.service';
 import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
 import { SubmissionJsonPatchOperationsService } from '@dspace/core/submission/submission-json-patch-operations.service';
 import { HALEndpointServiceStub } from '@dspace/core/testing/hal-endpoint-service.stub';
@@ -29,7 +31,6 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { ThemedFileDownloadLinkComponent } from '../../../../shared/file-download-link/themed-file-download-link.component';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { FormService } from '../../../../shared/form/form.service';
 import { getMockFormService } from '../../../../shared/form/testing/form-service.mock';
@@ -108,6 +109,8 @@ describe('SubmissionSectionUploadFileComponent', () => {
         { provide: SubmissionService, useClass: SubmissionServiceStub },
         { provide: SectionUploadService, useValue: getMockSectionUploadService() },
         { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: FileService, useValue: { retrieveFileDownloadLink: jasmine.createSpy('retrieveFileDownloadLink').and.returnValue(of('https://test-url.com/file')) } },
+        { provide: HardRedirectService, useValue: { redirect: jasmine.createSpy('redirect') } },
         ChangeDetectorRef,
         NgbModal,
         SubmissionSectionUploadFileComponent,
@@ -121,7 +124,6 @@ describe('SubmissionSectionUploadFileComponent', () => {
         },
         remove: { imports: [
           SubmissionSectionUploadFileViewComponent,
-          ThemedFileDownloadLinkComponent,
         ] },
       })
       .compileComponents();
@@ -272,15 +274,13 @@ describe('SubmissionSectionUploadFileComponent', () => {
       expect(compAsAny.editBitstreamData).toHaveBeenCalled();
     });
 
-    it('should return a Bitstream with correct uuid and _links from fileData', () => {
+    it('should call downloadFile and open link in new tab', () => {
+      spyOn(window, 'open');
       comp.fileData = fileData;
 
-      const bitstream = comp.getBitstream();
+      comp.downloadFile();
 
-      expect(bitstream.uuid).toBe(fileData.uuid);
-      expect(bitstream._links.self.href).toBe(fileData.url);
-      expect(bitstream._links.content.href).toBe(fileData.url);
-      expect(bitstream._links.thumbnail.href).toBe('');
+      expect(window.open).toHaveBeenCalledWith('https://test-url.com/file', '_blank');
     });
 
   });

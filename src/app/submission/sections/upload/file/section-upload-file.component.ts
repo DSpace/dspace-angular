@@ -11,7 +11,6 @@ import {
 import { SubmissionFormsModel } from '@dspace/core/config/models/config-submission-forms.model';
 import { JsonPatchOperationPathCombiner } from '@dspace/core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
-import { Bitstream } from '@dspace/core/shared/bitstream.model';
 import { WorkspaceitemSectionUploadFileObject } from '@dspace/core/submission/models/workspaceitem-section-upload-file.model';
 import { SubmissionJsonPatchOperationsService } from '@dspace/core/submission/submission-json-patch-operations.service';
 import {
@@ -29,10 +28,14 @@ import {
   Observable,
   Subscription,
 } from 'rxjs';
-import { filter } from 'rxjs/operators';
+import {
+  filter,
+  take,
+} from 'rxjs/operators';
 
+import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
+import { FileService } from '../../../../core/shared/file.service';
 import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
-import { ThemedFileDownloadLinkComponent } from '../../../../shared/file-download-link/themed-file-download-link.component';
 import { FormService } from '../../../../shared/form/form.service';
 import { SubmissionService } from '../../../submission.service';
 import { SectionUploadService } from '../section-upload.service';
@@ -50,7 +53,6 @@ import { SubmissionSectionUploadFileViewComponent } from './view/section-upload-
     AsyncPipe,
     BtnDisabledDirective,
     SubmissionSectionUploadFileViewComponent,
-    ThemedFileDownloadLinkComponent,
     TranslateModule,
   ],
 })
@@ -203,6 +205,8 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
     private operationsService: SubmissionJsonPatchOperationsService,
     private submissionService: SubmissionService,
     private uploadService: SectionUploadService,
+    private fileService: FileService,
+    private hardRedirectService: HardRedirectService,
   ) {
     this.readMode = true;
   }
@@ -250,21 +254,11 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
   }
 
   /**
-   * Build a Bitstream object by the current file uuid
-   *
-   * @return Bitstream object
+   * Download the file using a short-lived token
    */
-  public getBitstream(): Bitstream {
-    return Object.assign(new Bitstream(), {
-      uuid: this.fileData.uuid,
-      _links: {
-        self: { href: this.fileData.url },
-        content: { href: this.fileData.url },
-        bundle: { href: '' },
-        format: { href: '' },
-        thumbnail: { href: this.fileData.thumbnail || '' },
-        accessStatus: { href: '' },
-      },
+  public downloadFile() {
+    this.fileService.retrieveFileDownloadLink(this.fileData.url).pipe(take(1)).subscribe((link) => {
+      window.open(link, '_blank');
     });
   }
 
