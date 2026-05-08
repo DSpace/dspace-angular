@@ -34,8 +34,8 @@ import { toDSpaceObjectListRD } from '@dspace/core/shared/operators';
 import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
 import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import { setPlaceHolderAttributes } from '@dspace/shared/utils/object-list-utils';
-import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
+import { TranslateModule } from '@ngx-translate/core';
 import { environment } from '../../../environments/environment';
 import {
   fadeIn,
@@ -155,7 +155,7 @@ export class RecentItemListComponent implements OnInit, OnDestroy {
     const extraParams: Record<string, unknown> = {};
 
     if (query) {
-      extraParams['query'] = query;
+      extraParams.query = query;
     }
 
     this.paginationService.updateRouteWithUrl(
