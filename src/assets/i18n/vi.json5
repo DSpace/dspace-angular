@@ -1,4 +1,4 @@
-{
+﻿{
   // "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
   "401.help": "Bạn không có quyền truy cập trang này. Bạn có thể sử dụng nút chức năng phía dưới để quay lại trang chủ.",
 
@@ -8869,8 +8869,8 @@
   // "submission.import-external.title.JournalVolume": "Import a journal volume from an external source",
   "submission.import-external.title.JournalVolume": "Nhập một tập của tạp chí từ nguồn bên ngoài",
 
-  // "submission.import-external.title.OrgUnit": "Import a publisher from an external source",
-  "submission.import-external.title.OrgUnit": "Nhập nhà xuất bản từ nguồn bên ngoài",
+  // "submission.import-external.title.OrgUnit": "Nhập đơn vị tổ chức từ nguồn bên ngoài",
+  "submission.import-external.title.OrgUnit": "Nhập đơn vị tổ chức từ nguồn bên ngoài",
 
   // "submission.import-external.title.Person": "Import a person from an external source",
   "submission.import-external.title.Person": "Nhập một tác giả/ nhà nghiên cứu từ nguồn bên ngoài",

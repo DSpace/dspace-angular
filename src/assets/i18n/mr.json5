@@ -8303,8 +8303,7 @@
   // "submission.import-external.title.JournalVolume": "Import a journal volume from an external source",
   "submission.import-external.title.JournalVolume": "बाह्य स्रोतातून जर्नल खंड आयात करा",
 
-  // "submission.import-external.title.OrgUnit": "Import a publisher from an external source",
-  "submission.import-external.title.OrgUnit": "बाह्य स्रोतातून प्रकाशक आयात करा",
+  "submission.import-external.title.OrgUnit": "बाह्य स्रोतातून संघटनात्मक एकक आयात करा",
 
   // "submission.import-external.title.Person": "Import a person from an external source",
   "submission.import-external.title.Person": "बाह्य स्रोतातून व्यक्ती आयात करा",

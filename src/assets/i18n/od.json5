@@ -8235,8 +8235,7 @@
   // "submission.import-external.title.JournalVolume": "Import a journal volume from an external source",
   "submission.import-external.title.JournalVolume": "ଏକ ବାହ୍ୟ ସ୍ରୋତରୁ ଏକ ଜର୍ଣ୍ଣାଲ ଭଲ୍ୟୁମ୍ ଆମଦାନୀ କରନ୍ତୁ",
 
-  // "submission.import-external.title.OrgUnit": "Import a publisher from an external source",
-  "submission.import-external.title.OrgUnit": "ଏକ ବାହ୍ୟ ସ୍ରୋତରୁ ଏକ ପ୍ରକାଶକ ଆମଦାନୀ କରନ୍ତୁ",
+  "submission.import-external.title.OrgUnit": "ଏକ ବାହ୍ୟ ସ୍ରୋତରୁ ଏକ ସାଂଗଠନିକ ଏକକ ଆମଦାନୀ କରନ୍ତୁ",
 
   // "submission.import-external.title.Person": "Import a person from an external source",
   "submission.import-external.title.Person": "ଏକ ବାହ୍ୟ ସ୍ରୋତରୁ ଏକ ବ୍ୟକ୍ତି ଆମଦାନୀ କରନ୍ତୁ",

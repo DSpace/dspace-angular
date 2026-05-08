@@ -1,4 +1,4 @@
-{
+﻿{
   // "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
   "401.help": "Chan eil cead agad airson na duilleig seo. Cleachd am putan gu h-ìosal airson tilleadh chun na duilleig-dachaigh.",
 
@@ -9167,8 +9167,8 @@
   // "submission.import-external.title.JournalVolume": "Import a journal volume from an external source",
   "submission.import-external.title.JournalVolume": "Steach-ghluais àireamh diornal bho stòr a-muigh",
 
-  // "submission.import-external.title.OrgUnit": "Import a publisher from an external source",
-  "submission.import-external.title.OrgUnit": "Steach-ghluais foillsichear bho stòr a-muigh",
+  // "submission.import-external.title.OrgUnit": "Steach-ghluais aonad eagrachaidh bho stòr a-muigh",
+  "submission.import-external.title.OrgUnit": "Steach-ghluais aonad eagrachaidh bho stòr a-muigh",
 
   // "submission.import-external.title.Person": "Import a person from an external source",
   "submission.import-external.title.Person": "Steach-ghluais neach bho stòr a-muigh",

@@ -1,4 +1,4 @@
-{
+﻿{
   // "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
   "401.help": "Δεν έχετε εξουσιοδότηση πρόσβασης σε αυτήν τη σελίδα. Μπορείτε να χρησιμοποιήσετε το παρακάτω κουμπί για να επιστρέψετε στην αρχική σελίδα.",
 
@@ -8989,8 +8989,8 @@
   // "submission.import-external.title.JournalVolume": "Import a journal volume from an external source",
   "submission.import-external.title.JournalVolume": "Εισαγωγή τόμου περιοδικού από εξωτερική πηγή",
 
-  // "submission.import-external.title.OrgUnit": "Import a publisher from an external source",
-  "submission.import-external.title.OrgUnit": "Εισαγάγετε έναν εκδότη από εξωτερική πηγή",
+  // "submission.import-external.title.OrgUnit": "Εισαγάγετε μια οργανωτική μονάδα από εξωτερική πηγή",
+  "submission.import-external.title.OrgUnit": "Εισαγάγετε μια οργανωτική μονάδα από εξωτερική πηγή",
 
   // "submission.import-external.title.Person": "Import a person from an external source",
   "submission.import-external.title.Person": "Εισαγάγετε ένα άτομο από εξωτερική πηγή",

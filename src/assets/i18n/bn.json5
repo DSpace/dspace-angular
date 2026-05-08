@@ -8229,8 +8229,7 @@
   // "submission.import-external.title.JournalVolume": "Import a journal volume from an external source",
   "submission.import-external.title.JournalVolume": "একটি বহিরাগত উৎস থেকে একটি জার্নাল ভলিউম আমদানি করুন",
 
-  // "submission.import-external.title.OrgUnit": "Import a publisher from an external source",
-  "submission.import-external.title.OrgUnit": "একটি বহিরাগত উৎস থেকে একটি প্রকাশক আমদানি করুন",
+  "submission.import-external.title.OrgUnit": "একটি বহিরাগত উৎস থেকে একটি সাংগঠনিক ইউনিট আমদানি করুন",
 
   // "submission.import-external.title.Person": "Import a person from an external source",
   "submission.import-external.title.Person": "একটি বহিরাগত উৎস থেকে একটি ব্যক্তি আমদানি করুন",

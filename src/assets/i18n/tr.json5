@@ -1,4 +1,4 @@
-{
+﻿{
   // "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
   "401.help": "Bu sayfaya erişim yetkiniz bulunmamaktadır. Ana sayfaya dönmek için aşağıdaki butonu kullanabilirsiniz.",
 
@@ -9374,9 +9374,9 @@
   // TODO New key - Add a translation
   "submission.import-external.title.JournalVolume": "Import a journal volume from an external source",
 
-  // "submission.import-external.title.OrgUnit": "Import a publisher from an external source",
+  // "submission.import-external.title.OrgUnit": "Import an organizational unit from an external source",
   // TODO New key - Add a translation
-  "submission.import-external.title.OrgUnit": "Import a publisher from an external source",
+  "submission.import-external.title.OrgUnit": "Import an organizational unit from an external source",
 
   // "submission.import-external.title.Person": "Import a person from an external source",
   // TODO New key - Add a translation

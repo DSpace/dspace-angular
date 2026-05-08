@@ -8292,11 +8292,7 @@
 
   // "submission.import-external.title.JournalVolume": "Import a journal volume from an external source",
   "submission.import-external.title.JournalVolume": "బాహ్య మూలం నుండి జర్నల్ వాల్యూమ్‌ను దిగుమతి చేయండి",
-
-  // "submission.import-external.title.OrgUnit": "Import a publisher from an external source",
-  "submission.import-external.title.OrgUnit": "బాహ్య మూలం నుండి ప్రచురణకర్తను దిగుమతి చేయండి",
-
-  // "submission.import-external.title.Person": "Import a person from an external source",
+  "submission.import-external.title.OrgUnit": "బాహ్య మూలం నుండి సంస్థాగత యూనిట్‌ను దిగుమతి చేయండి",
   "submission.import-external.title.Person": "బాహ్య మూలం నుండి వ్యక్తిని దిగుమతి చేయండి",
 
   // "submission.import-external.title.Project": "Import a project from an external source",

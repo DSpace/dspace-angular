@@ -1,4 +1,4 @@
-{
+﻿{
   // "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
   "401.help": "Niste ovlašćeni da pristupite ovoj stranici. Možete koristiti dugme ispod da se vratite na početnu stranicu.",
 
@@ -8758,8 +8758,8 @@
   // "submission.import-external.title.JournalVolume": "Import a journal volume from an external source",
   "submission.import-external.title.JournalVolume": "Uvezite volume časopisa iz spoljnog izvora",
 
-  // "submission.import-external.title.OrgUnit": "Import a publisher from an external source",
-  "submission.import-external.title.OrgUnit": "Uvezite izdavača iz spoljnog izvora",
+  // "submission.import-external.title.OrgUnit": "Uvezite organizacionu jedinicu iz spoljnog izvora",
+  "submission.import-external.title.OrgUnit": "Uvezite organizacionu jedinicu iz spoljnog izvora",
 
   // "submission.import-external.title.Person": "Import a person from an external source",
   "submission.import-external.title.Person": "Uvezite osobu iz spoljnog izvora",
