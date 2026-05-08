@@ -2833,7 +2833,8 @@
   // "dso-selector.no-results": "No {{ type }} found",
   "dso-selector.no-results": "لم يتم العثور على {{ type }}",
 
-  // "dso-selector.placeholder": "Search for a {{ type }}",
+  // "dso-selector.placeholder": "Search for {{ type }}",
+  // TODO Source message changed - Revise the translation
   "dso-selector.placeholder": "بحث عن {{ type }}",
 
   // "dso-selector.placeholder.type.community": "community",
@@ -3015,6 +3016,26 @@
 
   // "error.item": "Error fetching item",
   "error.item": "حدث خطأ أثناء جلب المادة",
+
+  // "error.custom-url-conflict.title": "Duplicate custom URL detected",
+  // TODO New key - Add a translation
+  "error.custom-url-conflict.title": "Duplicate custom URL detected",
+
+  // "error.custom-url-conflict.description": "The custom URL \"{{customUrl}}\" is assigned to more than one item. This causes a conflict and the item cannot be displayed.",
+  // TODO New key - Add a translation
+  "error.custom-url-conflict.description": "The custom URL \"{{customUrl}}\" is assigned to more than one item. This causes a conflict and the item cannot be displayed.",
+
+  // "error.custom-url-conflict.admin-action": "Please contact your repository administrator. The following affected items need their dspace.customurl metadata fixed so each value is unique:",
+  // TODO New key - Add a translation
+  "error.custom-url-conflict.admin-action": "Please contact your repository administrator. The following affected items need their dspace.customurl metadata fixed so each value is unique:",
+
+  // "error.custom-url-conflict.edit-link": "Edit \"{{name}}\" ({{uuid}})",
+  // TODO New key - Add a translation
+  "error.custom-url-conflict.edit-link": "Edit \"{{name}}\" ({{uuid}})",
+
+  // "error.custom-url-conflict.no-items-found": "No conflicting items could be retrieved. Please contact your administrator.",
+  // TODO New key - Add a translation
+  "error.custom-url-conflict.no-items-found": "No conflicting items could be retrieved. Please contact your administrator.",
 
   // "error.items": "Error fetching items",
   "error.items": "حدث خطأ أثناء جلب المواد",
@@ -4040,6 +4061,14 @@
   // "item.edit.item-mapper.notifications.add.error.content": "Errors occurred for mapping of item to {{amount}} collections.",
   "item.edit.item-mapper.notifications.add.error.content": "حدثت أخطاء أثناء تخطيط مادة إلى  {{amount}} حاوية.",
 
+  // "item.edit.item-mapper.notifications.add.error.forbidden.head": "Permission denied",
+  // TODO New key - Add a translation
+  "item.edit.item-mapper.notifications.add.error.forbidden.head": "Permission denied",
+
+  // "item.edit.item-mapper.notifications.add.error.forbidden.content": "You do not have permission to map this item to a collection.",
+  // TODO New key - Add a translation
+  "item.edit.item-mapper.notifications.add.error.forbidden.content": "You do not have permission to map this item to a collection.",
+
   // "item.edit.item-mapper.notifications.add.error.head": "Mapping errors",
   "item.edit.item-mapper.notifications.add.error.head": "أخطاء التخطيط",
 
@@ -4051,6 +4080,14 @@
 
   // "item.edit.item-mapper.notifications.remove.error.content": "Errors occurred for the removal of the mapping to {{amount}} collections.",
   "item.edit.item-mapper.notifications.remove.error.content": "حدثت أخطاء أثناء إزالة التخطيط إلى {{amount}} حاوية.",
+
+  // "item.edit.item-mapper.notifications.remove.error.forbidden.head": "Permission denied",
+  // TODO New key - Add a translation
+  "item.edit.item-mapper.notifications.remove.error.forbidden.head": "Permission denied",
+
+  // "item.edit.item-mapper.notifications.remove.error.forbidden.content": "You do not have permission to remove this item from a collection.",
+  // TODO New key - Add a translation
+  "item.edit.item-mapper.notifications.remove.error.forbidden.content": "You do not have permission to remove this item from a collection.",
 
   // "item.edit.item-mapper.notifications.remove.error.head": "Removal of mapping errors",
   "item.edit.item-mapper.notifications.remove.error.head": "أخطاء إزالة التخطيط",
@@ -4699,6 +4736,14 @@
   // "item.page.orcid.tooltip": "Open ORCID setting page",
   "item.page.orcid.tooltip": "فتح صفحة إعداد أوركيد",
 
+  // "item.page.orcid-ico": "ORCID icon",
+  // TODO New key - Add a translation
+  "item.page.orcid-ico": "ORCID icon",
+
+  // "item.page.orcid-profile": "ORCID Profile",
+  // TODO New key - Add a translation
+  "item.page.orcid-profile": "ORCID Profile",
+
   // "item.page.person.search.title": "Articles by this author",
   "item.page.person.search.title": "مقالات بواسطة هذا المؤلف",
 
@@ -4785,6 +4830,14 @@
 
   // "item.page.filesection.license.bundle": "License bundle",
   "item.page.filesection.license.bundle": "حزمة الترخيص",
+
+  // "item-page.resolver.invalid-custom-url.title": "Invalid custom URL",
+  // TODO New key - Add a translation
+  "item-page.resolver.invalid-custom-url.title": "Invalid custom URL",
+
+  // "item-page.resolver.invalid-custom-url.message": "The custom URL of this item contains unsupported characters. The item is being displayed using its UUID.",
+  // TODO New key - Add a translation
+  "item-page.resolver.invalid-custom-url.message": "The custom URL of this item contains unsupported characters. The item is being displayed using its UUID.",
 
   // "item.page.return": "Back",
   "item.page.return": "رجوع",
@@ -7179,7 +7232,8 @@
   // "resource-policies.form.eperson-group-list.select.btn": "Select",
   "resource-policies.form.eperson-group-list.select.btn": "تحديد",
 
-  // "resource-policies.form.eperson-group-list.tab.eperson": "Search for a ePerson",
+  // "resource-policies.form.eperson-group-list.tab.eperson": "Search for an ePerson",
+  // TODO Source message changed - Revise the translation
   "resource-policies.form.eperson-group-list.tab.eperson": "بحث عن شخص إلكتروني",
 
   // "resource-policies.form.eperson-group-list.tab.group": "Search for a group",
@@ -8779,6 +8833,10 @@
   // "submission.sections.general.deposit_error_notice": "There was an issue when submitting the item, please try again later.",
   "submission.sections.general.deposit_error_notice": "حدثت مشكلة أثناء تقديم المادة، يرجى إعادة المحاولة مرة أخرى لاحقاً.",
 
+  // "submission.sections.general.invalid_state_error": "Cannot save current changes, mandatory fields are missing. Please resolve problems and save again later.",
+  // TODO New key - Add a translation
+  "submission.sections.general.invalid_state_error": "Cannot save current changes, mandatory fields are missing. Please resolve problems and save again later.",
+
   // "submission.sections.general.deposit_success_notice": "Submission deposited successfully.",
   "submission.sections.general.deposit_success_notice": "تم إيداع التقديم بنجاح.",
 
@@ -9314,8 +9372,9 @@
   // "subscriptions.tooltip": "Subscribe",
   "subscriptions.tooltip": "اشتراك",
 
-  // "subscriptions.unsubscribe": "Unsubscribe",
-  "subscriptions.unsubscribe": "إلغاء الاشتراك",
+  // "subscriptions.manage": "Manage Subscription",
+  // TODO New key - Add a translation
+  "subscriptions.manage": "Manage Subscription",
 
   // "subscriptions.modal.title": "Subscriptions",
   "subscriptions.modal.title": "الاشتراكات",

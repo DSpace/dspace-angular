@@ -2883,7 +2883,8 @@
   // "dso-selector.no-results": "No {{ type }} found",
   "dso-selector.no-results": "{{ type }} எதுவும் கிடைக்கவில்லை",
 
-  // "dso-selector.placeholder": "Search for a {{ type }}",
+  // "dso-selector.placeholder": "Search for {{ type }}",
+  // TODO Source message changed - Revise the translation
   "dso-selector.placeholder": "{{ type }} ஐத் தேடுங்கள்",
 
   // "dso-selector.placeholder.type.community": "community",
@@ -3065,6 +3066,26 @@
 
   // "error.item": "Error fetching item",
   "error.item": "உருப்படியைப் பெறுவதில் பிழை",
+
+  // "error.custom-url-conflict.title": "Duplicate custom URL detected",
+  // TODO New key - Add a translation
+  "error.custom-url-conflict.title": "Duplicate custom URL detected",
+
+  // "error.custom-url-conflict.description": "The custom URL \"{{customUrl}}\" is assigned to more than one item. This causes a conflict and the item cannot be displayed.",
+  // TODO New key - Add a translation
+  "error.custom-url-conflict.description": "The custom URL \"{{customUrl}}\" is assigned to more than one item. This causes a conflict and the item cannot be displayed.",
+
+  // "error.custom-url-conflict.admin-action": "Please contact your repository administrator. The following affected items need their dspace.customurl metadata fixed so each value is unique:",
+  // TODO New key - Add a translation
+  "error.custom-url-conflict.admin-action": "Please contact your repository administrator. The following affected items need their dspace.customurl metadata fixed so each value is unique:",
+
+  // "error.custom-url-conflict.edit-link": "Edit \"{{name}}\" ({{uuid}})",
+  // TODO New key - Add a translation
+  "error.custom-url-conflict.edit-link": "Edit \"{{name}}\" ({{uuid}})",
+
+  // "error.custom-url-conflict.no-items-found": "No conflicting items could be retrieved. Please contact your administrator.",
+  // TODO New key - Add a translation
+  "error.custom-url-conflict.no-items-found": "No conflicting items could be retrieved. Please contact your administrator.",
 
   // "error.items": "Error fetching items",
   "error.items": "உருப்படிகளைப் பெறுவதில் பிழை",
@@ -4120,6 +4141,14 @@
   // "item.edit.item-mapper.notifications.add.error.content": "Errors occurred for mapping of item to {{amount}} collections.",
   "item.edit.item-mapper.notifications.add.error.content": "உருப்படியை {{amount}} சேகரிப்புகளுக்கு வரைபடம் செய்ய பிழைகள் ஏற்பட்டன.",
 
+  // "item.edit.item-mapper.notifications.add.error.forbidden.head": "Permission denied",
+  // TODO New key - Add a translation
+  "item.edit.item-mapper.notifications.add.error.forbidden.head": "Permission denied",
+
+  // "item.edit.item-mapper.notifications.add.error.forbidden.content": "You do not have permission to map this item to a collection.",
+  // TODO New key - Add a translation
+  "item.edit.item-mapper.notifications.add.error.forbidden.content": "You do not have permission to map this item to a collection.",
+
   // "item.edit.item-mapper.notifications.add.error.head": "Mapping errors",
   "item.edit.item-mapper.notifications.add.error.head": "வரைபடம் பிழைகள்",
 
@@ -4131,6 +4160,14 @@
 
   // "item.edit.item-mapper.notifications.remove.error.content": "Errors occurred for the removal of the mapping to {{amount}} collections.",
   "item.edit.item-mapper.notifications.remove.error.content": "வரைபடத்தை நீக்க {{amount}} சேகரிப்புகளுக்கு பிழைகள் ஏற்பட்டன.",
+
+  // "item.edit.item-mapper.notifications.remove.error.forbidden.head": "Permission denied",
+  // TODO New key - Add a translation
+  "item.edit.item-mapper.notifications.remove.error.forbidden.head": "Permission denied",
+
+  // "item.edit.item-mapper.notifications.remove.error.forbidden.content": "You do not have permission to remove this item from a collection.",
+  // TODO New key - Add a translation
+  "item.edit.item-mapper.notifications.remove.error.forbidden.content": "You do not have permission to remove this item from a collection.",
 
   // "item.edit.item-mapper.notifications.remove.error.head": "Removal of mapping errors",
   "item.edit.item-mapper.notifications.remove.error.head": "வரைபடம் நீக்க பிழைகள்",
@@ -4804,6 +4841,14 @@
   // "item.page.orcid.tooltip": "Open ORCID setting page",
   "item.page.orcid.tooltip": "ORCID அமைப்பு பக்கத்தைத் திறக்கவும்",
 
+  // "item.page.orcid-ico": "ORCID icon",
+  // TODO New key - Add a translation
+  "item.page.orcid-ico": "ORCID icon",
+
+  // "item.page.orcid-profile": "ORCID Profile",
+  // TODO New key - Add a translation
+  "item.page.orcid-profile": "ORCID Profile",
+
   // "item.page.person.search.title": "Articles by this author",
   "item.page.person.search.title": "இந்த ஆசிரியரின் கட்டுரைகள்",
 
@@ -4891,6 +4936,14 @@
   // "item.page.filesection.license.bundle": "License bundle",
   "item.page.filesection.license.bundle": "உரிமம் bundle",
 
+  // "item-page.resolver.invalid-custom-url.title": "Invalid custom URL",
+  // TODO New key - Add a translation
+  "item-page.resolver.invalid-custom-url.title": "Invalid custom URL",
+
+  // "item-page.resolver.invalid-custom-url.message": "The custom URL of this item contains unsupported characters. The item is being displayed using its UUID.",
+  // TODO New key - Add a translation
+  "item-page.resolver.invalid-custom-url.message": "The custom URL of this item contains unsupported characters. The item is being displayed using its UUID.",
+
   // "item.page.return": "Back",
   "item.page.return": "மீண்டும்",
 
@@ -4928,8 +4981,8 @@
   "item.preview.dc.date.issued": "Published date:",
 
   // "item.preview.dc.description": "Description:",
-  // TODO New key - Add a translation
-  "item.preview.dc.description": "Description:",
+  // TODO Source message changed - Revise the translation
+  "item.preview.dc.description": "விளக்கம்:",
 
   // "item.preview.dc.description.abstract": "Abstract:",
   // TODO New key - Add a translation
@@ -7359,7 +7412,8 @@
   // "resource-policies.form.eperson-group-list.select.btn": "Select",
   "resource-policies.form.eperson-group-list.select.btn": "தேர்ந்தெடுக்கவும்",
 
-  // "resource-policies.form.eperson-group-list.tab.eperson": "Search for a ePerson",
+  // "resource-policies.form.eperson-group-list.tab.eperson": "Search for an ePerson",
+  // TODO Source message changed - Revise the translation
   "resource-policies.form.eperson-group-list.tab.eperson": "ePerson ஐத் தேடுங்கள்",
 
   // "resource-policies.form.eperson-group-list.tab.group": "Search for a group",
@@ -9025,6 +9079,10 @@
   // "submission.sections.general.deposit_error_notice": "There was an issue when submitting the item, please try again later.",
   "submission.sections.general.deposit_error_notice": "உருப்படியை சமர்ப்பிக்கும் போது ஒரு சிக்கல் ஏற்பட்டது, தயவுசெய்து பின்னர் முயற்சிக்கவும்.",
 
+  // "submission.sections.general.invalid_state_error": "Cannot save current changes, mandatory fields are missing. Please resolve problems and save again later.",
+  // TODO New key - Add a translation
+  "submission.sections.general.invalid_state_error": "Cannot save current changes, mandatory fields are missing. Please resolve problems and save again later.",
+
   // "submission.sections.general.deposit_success_notice": "Submission deposited successfully.",
   "submission.sections.general.deposit_success_notice": "சமர்ப்பிப்பு வெற்றிகரமாக வைப்பு செய்யப்பட்டது.",
 
@@ -9572,8 +9630,9 @@
   // "subscriptions.tooltip": "Subscribe",
   "subscriptions.tooltip": "சந்தா",
 
-  // "subscriptions.unsubscribe": "Unsubscribe",
-  "subscriptions.unsubscribe": "சந்தாவை ரத்து செய்",
+  // "subscriptions.manage": "Manage Subscription",
+  // TODO New key - Add a translation
+  "subscriptions.manage": "Manage Subscription",
 
   // "subscriptions.modal.title": "Subscriptions",
   "subscriptions.modal.title": "சந்தாக்கள்",

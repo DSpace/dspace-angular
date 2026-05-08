@@ -2872,7 +2872,8 @@
   // "dso-selector.no-results": "No {{ type }} found",
   "dso-selector.no-results": "কোন {{type}} পাওয়া যায় নি",
 
-  // "dso-selector.placeholder": "Search for a {{ type }}",
+  // "dso-selector.placeholder": "Search for {{ type }}",
+  // TODO Source message changed - Revise the translation
   "dso-selector.placeholder": "একটি {{type}} এর জন্য অনুসন্ধান করুন",
 
   // "dso-selector.placeholder.type.community": "community",
@@ -3054,6 +3055,26 @@
 
   // "error.item": "Error fetching item",
   "error.item": "আইটেম নিয়ে আসতে ত্রুটি হচ্ছে",
+
+  // "error.custom-url-conflict.title": "Duplicate custom URL detected",
+  // TODO New key - Add a translation
+  "error.custom-url-conflict.title": "Duplicate custom URL detected",
+
+  // "error.custom-url-conflict.description": "The custom URL \"{{customUrl}}\" is assigned to more than one item. This causes a conflict and the item cannot be displayed.",
+  // TODO New key - Add a translation
+  "error.custom-url-conflict.description": "The custom URL \"{{customUrl}}\" is assigned to more than one item. This causes a conflict and the item cannot be displayed.",
+
+  // "error.custom-url-conflict.admin-action": "Please contact your repository administrator. The following affected items need their dspace.customurl metadata fixed so each value is unique:",
+  // TODO New key - Add a translation
+  "error.custom-url-conflict.admin-action": "Please contact your repository administrator. The following affected items need their dspace.customurl metadata fixed so each value is unique:",
+
+  // "error.custom-url-conflict.edit-link": "Edit \"{{name}}\" ({{uuid}})",
+  // TODO New key - Add a translation
+  "error.custom-url-conflict.edit-link": "Edit \"{{name}}\" ({{uuid}})",
+
+  // "error.custom-url-conflict.no-items-found": "No conflicting items could be retrieved. Please contact your administrator.",
+  // TODO New key - Add a translation
+  "error.custom-url-conflict.no-items-found": "No conflicting items could be retrieved. Please contact your administrator.",
 
   // "error.items": "Error fetching items",
   "error.items": "আইটেমগুলো নিয়ে আসতে ত্রুটি হচ্ছে",
@@ -4093,6 +4114,14 @@
   // "item.edit.item-mapper.notifications.add.error.content": "Errors occurred for mapping of item to {{amount}} collections.",
   "item.edit.item-mapper.notifications.add.error.content": "{{amount}} গুলি সংগ্রহের আইটেমটি সমন্নয়য়ের জন্য ত্রুটি ঘটেছে।",
 
+  // "item.edit.item-mapper.notifications.add.error.forbidden.head": "Permission denied",
+  // TODO New key - Add a translation
+  "item.edit.item-mapper.notifications.add.error.forbidden.head": "Permission denied",
+
+  // "item.edit.item-mapper.notifications.add.error.forbidden.content": "You do not have permission to map this item to a collection.",
+  // TODO New key - Add a translation
+  "item.edit.item-mapper.notifications.add.error.forbidden.content": "You do not have permission to map this item to a collection.",
+
   // "item.edit.item-mapper.notifications.add.error.head": "Mapping errors",
   "item.edit.item-mapper.notifications.add.error.head": "সমন্নয় ত্রুটি",
 
@@ -4104,6 +4133,14 @@
 
   // "item.edit.item-mapper.notifications.remove.error.content": "Errors occurred for the removal of the mapping to {{amount}} collections.",
   "item.edit.item-mapper.notifications.remove.error.content": "{{amount}} গুলি সংগ্রহের আইটেমটি সমন্নয়য়ের জন্য ত্রুটি ঘটেছে।",
+
+  // "item.edit.item-mapper.notifications.remove.error.forbidden.head": "Permission denied",
+  // TODO New key - Add a translation
+  "item.edit.item-mapper.notifications.remove.error.forbidden.head": "Permission denied",
+
+  // "item.edit.item-mapper.notifications.remove.error.forbidden.content": "You do not have permission to remove this item from a collection.",
+  // TODO New key - Add a translation
+  "item.edit.item-mapper.notifications.remove.error.forbidden.content": "You do not have permission to remove this item from a collection.",
 
   // "item.edit.item-mapper.notifications.remove.error.head": "Removal of mapping errors",
   "item.edit.item-mapper.notifications.remove.error.head": "সমন্নয় ত্রুটি অপসারণ",
@@ -4762,6 +4799,14 @@
   // "item.page.orcid.tooltip": "Open ORCID setting page",
   "item.page.orcid.tooltip": "ORCID সেটিং পৃষ্ঠা খুলুন",
 
+  // "item.page.orcid-ico": "ORCID icon",
+  // TODO New key - Add a translation
+  "item.page.orcid-ico": "ORCID icon",
+
+  // "item.page.orcid-profile": "ORCID Profile",
+  // TODO New key - Add a translation
+  "item.page.orcid-profile": "ORCID Profile",
+
   // "item.page.person.search.title": "Articles by this author",
   "item.page.person.search.title": "এই লেখক দ্বারা প্রবন্ধ",
 
@@ -4849,6 +4894,14 @@
   // "item.page.filesection.license.bundle": "License bundle",
   "item.page.filesection.license.bundle": "লাইসেন্স বান্ডিল",
 
+  // "item-page.resolver.invalid-custom-url.title": "Invalid custom URL",
+  // TODO New key - Add a translation
+  "item-page.resolver.invalid-custom-url.title": "Invalid custom URL",
+
+  // "item-page.resolver.invalid-custom-url.message": "The custom URL of this item contains unsupported characters. The item is being displayed using its UUID.",
+  // TODO New key - Add a translation
+  "item-page.resolver.invalid-custom-url.message": "The custom URL of this item contains unsupported characters. The item is being displayed using its UUID.",
+
   // "item.page.return": "Back",
   "item.page.return": "পেছনে",
 
@@ -4886,8 +4939,8 @@
   "item.preview.dc.date.issued": "Published date:",
 
   // "item.preview.dc.description": "Description:",
-  // TODO New key - Add a translation
-  "item.preview.dc.description": "Description:",
+  // TODO Source message changed - Revise the translation
+  "item.preview.dc.description": "বর্ণনা:",
 
   // "item.preview.dc.description.abstract": "Abstract:",
   // TODO New key - Add a translation
@@ -7289,7 +7342,8 @@
   // "resource-policies.form.eperson-group-list.select.btn": "Select",
   "resource-policies.form.eperson-group-list.select.btn": "নির্বাচন করুন",
 
-  // "resource-policies.form.eperson-group-list.tab.eperson": "Search for a ePerson",
+  // "resource-policies.form.eperson-group-list.tab.eperson": "Search for an ePerson",
+  // TODO Source message changed - Revise the translation
   "resource-policies.form.eperson-group-list.tab.eperson": "একটি ই-পারসনের জন্য অনুসন্ধান করুন",
 
   // "resource-policies.form.eperson-group-list.tab.group": "Search for a group",
@@ -8891,6 +8945,10 @@
   // "submission.sections.general.deposit_error_notice": "There was an issue when submitting the item, please try again later.",
   "submission.sections.general.deposit_error_notice": "আইটেমটি জমা দেওয়ার সময় একটি সমস্যা ছিল, দয়া করে পরে আবার চেষ্টা করুন।",
 
+  // "submission.sections.general.invalid_state_error": "Cannot save current changes, mandatory fields are missing. Please resolve problems and save again later.",
+  // TODO New key - Add a translation
+  "submission.sections.general.invalid_state_error": "Cannot save current changes, mandatory fields are missing. Please resolve problems and save again later.",
+
   // "submission.sections.general.deposit_success_notice": "Submission deposited successfully.",
   "submission.sections.general.deposit_success_notice": "নথি সফলভাবে জমা দেয়ে হয়েছে।",
 
@@ -9430,8 +9488,9 @@
   // "subscriptions.tooltip": "Subscribe",
   "subscriptions.tooltip": "সাবস্ক্রাইব",
 
-  // "subscriptions.unsubscribe": "Unsubscribe",
-  "subscriptions.unsubscribe": "আনসাবস্ক্রাইব",
+  // "subscriptions.manage": "Manage Subscription",
+  // TODO New key - Add a translation
+  "subscriptions.manage": "Manage Subscription",
 
   // "subscriptions.modal.title": "Subscriptions",
   "subscriptions.modal.title": "সাবস্ক্রিপশন",

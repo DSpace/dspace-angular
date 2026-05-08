@@ -15,6 +15,8 @@ import {
 import { RouterLink } from '@angular/router';
 import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import { BundleDataService } from '@dspace/core/data/bundle-data.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
 import { FieldChangeType } from '@dspace/core/data/object-updates/field-change-type.model';
 import { FieldUpdate } from '@dspace/core/data/object-updates/field-update.model';
 import { FieldUpdates } from '@dspace/core/data/object-updates/field-updates.model';
@@ -187,6 +189,12 @@ export class ItemEditBitstreamBundleComponent implements OnInit, OnDestroy {
   updates$: BehaviorSubject<FieldUpdates> = new BehaviorSubject(null);
 
   /**
+   * Cache of per-bitstream authorization observables to avoid creating new Observable instances on every change
+   * detection cycle
+   */
+  private canReplaceBitstreamCache = new Map<string, Observable<boolean>>();
+
+  /**
    * Array containing all subscriptions created by this component
    */
   subscriptions: Subscription[] = [];
@@ -200,6 +208,7 @@ export class ItemEditBitstreamBundleComponent implements OnInit, OnDestroy {
     protected paginationService: PaginationService,
     protected requestService: RequestService,
     protected itemBitstreamsService: ItemBitstreamsService,
+    public authorizationService: AuthorizationDataService,
   ) {
   }
 
@@ -218,6 +227,19 @@ export class ItemEditBitstreamBundleComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.viewContainerRef.clear();
     this.subscriptions.forEach(sub => sub?.unsubscribe());
+    this.canReplaceBitstreamCache.clear();
+  }
+
+  canReplaceBitstream(bitstreamUrl: string): Observable<boolean> {
+    if (!this.canReplaceBitstreamCache.has(bitstreamUrl)) {
+      this.canReplaceBitstreamCache.set(
+        bitstreamUrl,
+        this.authorizationService.isAuthorized(FeatureID.CanReplaceBitstreamAdmin, bitstreamUrl).pipe(
+          shareReplay({ bufferSize: 1, refCount: true }),
+        ),
+      );
+    }
+    return this.canReplaceBitstreamCache.get(bitstreamUrl);
   }
 
   protected initializePagination() {

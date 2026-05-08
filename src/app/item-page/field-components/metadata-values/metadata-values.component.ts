@@ -103,8 +103,22 @@ export class MetadataValuesComponent implements OnChanges {
 
   hasValue = hasValue;
 
+  /**
+   * Optional metadata field used to build search links for values.
+   * If defined, values will link to the search page using this field as filter.
+   */
+  @Input() searchFilter?: string;
+
   ngOnChanges(changes: SimpleChanges): void {
     this.renderMarkdown = !!this.appConfig.markdown.enabled && this.enableMarkdown;
+  }
+
+  /**
+   * Determines whether a search filter has been configured for this metadata field.
+   * Used to decide if values should be rendered as search links.
+   */
+  hasSearchFilter(): boolean {
+    return !!this.searchFilter;
   }
 
   /**
@@ -124,6 +138,17 @@ export class MetadataValuesComponent implements OnChanges {
       return pattern.test(value.value);
     }
     return false;
+  }
+
+  /**
+   * Builds query parameters for the search page based on the configured search filter.
+   * The metadata value is used as the search term for the specified field.
+   *
+   * @param value The metadata value to search for.
+   * @returns Query parameters object for Angular router navigation.
+   */
+  getSearchQueryParams(value: string): any {
+    return { [`f.${this.searchFilter}`]: `${value},equals` };
   }
 
   /**
