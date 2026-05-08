@@ -14,7 +14,6 @@ import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
 import { ItemDataService } from '@dspace/core/data/item-data.service';
 import { JsonPatchOperationPathCombiner } from '@dspace/core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
-import { Bitstream } from '@dspace/core/shared/bitstream.model';
 import { followLink } from '@dspace/core/shared/follow-link-config.model';
 import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
 import { Item } from '@dspace/core/shared/item.model';
