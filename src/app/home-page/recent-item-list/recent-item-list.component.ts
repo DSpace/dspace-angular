@@ -34,8 +34,9 @@ import { toDSpaceObjectListRD } from '@dspace/core/shared/operators';
 import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
 import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import { setPlaceHolderAttributes } from '@dspace/shared/utils/object-list-utils';
-import { Observable } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+
 import { environment } from '../../../environments/environment';
 import {
   fadeIn,
