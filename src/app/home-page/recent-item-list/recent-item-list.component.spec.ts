@@ -66,17 +66,14 @@ describe('RecentItemListComponent', () => {
   });
 
   it('should call paginationService.updateRouteWithUrl when onLoadMore is called', () => {
-
-    const entityType = environment.homePage.recentSubmissions.entityType;
-
-    const extraParams: Record<string, unknown> = {};
-
-    if (entityType && entityType.trim()) {
-      extraParams['f.entityType'] = `${entityType},equals`;
-    }
     component.onLoadMore();
 
-    expect(paginationService.updateRouteWithUrl).toHaveBeenCalledWith('search-page-configuration', ['search'], { sortField: environment.homePage.recentSubmissions.sortField, sortDirection: 'DESC', page: 1 }, extraParams);
+    expect(paginationService.updateRouteWithUrl).toHaveBeenCalledWith(
+      'search-page-configuration',
+      ['search'],
+      { sortField: environment.homePage.recentSubmissions.sortField, sortDirection: 'DESC', page: 1 },
+      {},
+    );
   });
 
   it('should clear pagination on destroy', () => {
@@ -85,7 +82,7 @@ describe('RecentItemListComponent', () => {
     expect(paginationService.clearPagination).toHaveBeenCalledWith(component.paginationConfig.id);
   });
 
-  it('should not add filter when entityType is undefined', () => {
+  it('should not add query when entityType is undefined', () => {
     const mockEnvironment = {
       ...environment,
       homePage: {
@@ -108,17 +105,17 @@ describe('RecentItemListComponent', () => {
     expect(searchServiceSpy.search).toHaveBeenCalled();
     const searchCall = searchServiceSpy.search.calls.mostRecent();
     const searchOptions = searchCall.args[0];
-    expect(searchOptions.filters).toEqual([]);
+    expect(searchOptions.query).toBeUndefined();
   });
 
-  it('should not add filter when entityType is empty string', () => {
+  it('should not add query when entityType is empty array', () => {
     const mockEnvironment = {
       ...environment,
       homePage: {
         ...environment.homePage,
         recentSubmissions: {
           ...environment.homePage.recentSubmissions,
-          entityType: '',
+          entityType: [],
         },
       },
     };
@@ -134,17 +131,17 @@ describe('RecentItemListComponent', () => {
     expect(searchServiceSpy.search).toHaveBeenCalled();
     const searchCall = searchServiceSpy.search.calls.mostRecent();
     const searchOptions = searchCall.args[0];
-    expect(searchOptions.filters).toEqual([]);
+    expect(searchOptions.query).toBeUndefined();
   });
 
-  it('should add filter when entityType is valid string', () => {
+  it('should add query when entityType is single item array', () => {
     const mockEnvironment = {
       ...environment,
       homePage: {
         ...environment.homePage,
         recentSubmissions: {
           ...environment.homePage.recentSubmissions,
-          entityType: 'Publication',
+          entityType: ['Publication'],
         },
       },
     };
@@ -160,10 +157,7 @@ describe('RecentItemListComponent', () => {
     expect(searchServiceSpy.search).toHaveBeenCalled();
     const searchCall = searchServiceSpy.search.calls.mostRecent();
     const searchOptions = searchCall.args[0];
-    expect(searchOptions.filters.length).toBe(1);
-    expect(searchOptions.filters[0].key).toBe('f.entityType');
-    expect(searchOptions.filters[0].values).toEqual(['Publication']);
-    expect(searchOptions.filters[0].operator).toBe('equals');
+    expect(searchOptions.query).toBe('search.entitytype:Publication');
   });
 
   it('should not add extra params when entityType is undefined in onLoadMore', () => {
@@ -194,14 +188,14 @@ describe('RecentItemListComponent', () => {
     );
   });
 
-  it('should add extra params when entityType is valid string in onLoadMore', () => {
+  it('should add query param when entityType is single item array in onLoadMore', () => {
     const mockEnvironment = {
       ...environment,
       homePage: {
         ...environment.homePage,
         recentSubmissions: {
           ...environment.homePage.recentSubmissions,
-          entityType: 'Publication',
+          entityType: ['Publication'],
         },
       },
     };
@@ -218,8 +212,114 @@ describe('RecentItemListComponent', () => {
       'search-page-configuration',
       ['search'],
       { sortField: mockEnvironment.homePage.recentSubmissions.sortField, sortDirection: 'DESC', page: 1 },
-      { 'f.entityType': 'Publication,equals' },
+      { query: 'search.entitytype:Publication' },
     );
+  });
+
+  it('should add query with OR clause when entityType is an array', () => {
+    const mockEnvironment = {
+      ...environment,
+      homePage: {
+        ...environment.homePage,
+        recentSubmissions: {
+          ...environment.homePage.recentSubmissions,
+          entityType: ['Publication', 'Project', 'Person'],
+        },
+      },
+    };
+
+    TestBed.resetTestingModule();
+    createTestBed(mockEnvironment).compileComponents();
+
+    const testFixture = TestBed.createComponent(RecentItemListComponent);
+    const testComponent = testFixture.componentInstance;
+
+    testComponent.ngOnInit();
+
+    expect(searchServiceSpy.search).toHaveBeenCalled();
+    const searchCall = searchServiceSpy.search.calls.mostRecent();
+    const searchOptions = searchCall.args[0];
+    expect(searchOptions.query).toBe('search.entitytype:(Publication OR Project OR Person)');
+  });
+
+  it('should add query param with OR clause when entityType is an array in onLoadMore', () => {
+    const mockEnvironment = {
+      ...environment,
+      homePage: {
+        ...environment.homePage,
+        recentSubmissions: {
+          ...environment.homePage.recentSubmissions,
+          entityType: ['Publication', 'Project'],
+        },
+      },
+    };
+
+    TestBed.resetTestingModule();
+    createTestBed(mockEnvironment).compileComponents();
+
+    const testFixture = TestBed.createComponent(RecentItemListComponent);
+    const testComponent = testFixture.componentInstance;
+
+    testComponent.onLoadMore();
+
+    expect(paginationService.updateRouteWithUrl).toHaveBeenCalledWith(
+      'search-page-configuration',
+      ['search'],
+      { sortField: mockEnvironment.homePage.recentSubmissions.sortField, sortDirection: 'DESC', page: 1 },
+      { query: 'search.entitytype:(Publication OR Project)' },
+    );
+  });
+
+  it('should filter out empty strings from entityType array', () => {
+    const mockEnvironment = {
+      ...environment,
+      homePage: {
+        ...environment.homePage,
+        recentSubmissions: {
+          ...environment.homePage.recentSubmissions,
+          entityType: ['Publication', '', 'Person', '   '],
+        },
+      },
+    };
+
+    TestBed.resetTestingModule();
+    createTestBed(mockEnvironment).compileComponents();
+
+    const testFixture = TestBed.createComponent(RecentItemListComponent);
+    const testComponent = testFixture.componentInstance;
+
+    testComponent.ngOnInit();
+
+    expect(searchServiceSpy.search).toHaveBeenCalled();
+    const searchCall = searchServiceSpy.search.calls.mostRecent();
+    const searchOptions = searchCall.args[0];
+    expect(searchOptions.query).toBe('search.entitytype:(Publication OR Person)');
+  });
+
+  it('should not add query when all entityType values are empty', () => {
+    const mockEnvironment = {
+      ...environment,
+      homePage: {
+        ...environment.homePage,
+        recentSubmissions: {
+          ...environment.homePage.recentSubmissions,
+          entityType: ['', '   '],
+        },
+      },
+    };
+
+    TestBed.resetTestingModule();
+    createTestBed(mockEnvironment).compileComponents();
+
+    const testFixture = TestBed.createComponent(RecentItemListComponent);
+    const testComponent = testFixture.componentInstance;
+
+    testComponent.ngOnInit();
+
+    expect(searchServiceSpy.search).toHaveBeenCalled();
+    const searchCall = searchServiceSpy.search.calls.mostRecent();
+    const searchOptions = searchCall.args[0];
+    expect(searchOptions.query).toBeUndefined();
   });
 
 });

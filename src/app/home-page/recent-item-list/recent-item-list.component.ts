@@ -32,12 +32,10 @@ import {
 import { Item } from '@dspace/core/shared/item.model';
 import { toDSpaceObjectListRD } from '@dspace/core/shared/operators';
 import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
-import { SearchFilter } from '@dspace/core/shared/search/models/search-filter.model';
 import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import { setPlaceHolderAttributes } from '@dspace/shared/utils/object-list-utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-
 import { environment } from '../../../environments/environment';
 import {
   fadeIn,
@@ -108,14 +106,14 @@ export class RecentItemListComponent implements OnInit, OnDestroy {
       linksToFollow.push(followLink('accessStatus'));
     }
     const entityType = this.appConfig.homePage.recentSubmissions.entityType;
-    const filters = entityType && entityType.trim() ? [new SearchFilter('f.entityType', [entityType], 'equals')] : [];
+    const query = this.buildEntityTypeQuery(entityType);
 
     this.itemRD$ = this.searchService.search(
       new PaginatedSearchOptions({
         pagination: this.paginationConfig,
         dsoTypes: [DSpaceObjectType.ITEM],
         sort: this.sortConfig,
-        filters: filters,
+        query: query,
       }),
       undefined,
       undefined,
@@ -126,17 +124,38 @@ export class RecentItemListComponent implements OnInit, OnDestroy {
     ) as Observable<RemoteData<PaginatedList<Item>>>;
   }
 
+  /**
+   * Build a query string for filtering by entity types using search.entitytype syntax.
+   * Supports single entity type or multiple entity types (OR clause).
+   * @param entityTypes - Array of entity type strings
+   * @returns Query string or undefined if no valid entity types
+   */
+  private buildEntityTypeQuery(entityTypes: string[] | undefined): string | undefined {
+    if (!entityTypes || entityTypes.length === 0) {
+      return undefined;
+    }
+    const validTypes = entityTypes.filter(type => type && type.trim().length > 0);
+    if (validTypes.length === 0) {
+      return undefined;
+    }
+    if (validTypes.length === 1) {
+      return `search.entitytype:${validTypes[0]}`;
+    }
+    return `search.entitytype:(${validTypes.join(' OR ')})`;
+  }
+
   ngOnDestroy(): void {
     this.paginationService.clearPagination(this.paginationConfig.id);
   }
 
   onLoadMore(): void {
     const entityType = this.appConfig.homePage.recentSubmissions.entityType;
+    const query = this.buildEntityTypeQuery(entityType);
 
     const extraParams: Record<string, unknown> = {};
 
-    if (entityType && entityType.trim()) {
-      extraParams['f.entityType'] = `${entityType},equals`;
+    if (query) {
+      extraParams['query'] = query;
     }
 
     this.paginationService.updateRouteWithUrl(

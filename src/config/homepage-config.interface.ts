@@ -16,9 +16,10 @@ export interface HomeConfig extends Config {
     sortField: string;
 
     /**
-     * The entity types to show in the recent submission list. If not set, all entity types will be shown
+     * The entity types to show in the recent submission list. If not set, all entity types will be shown.
+     * Can be a single entity type (e.g., 'Publication') or an array of entity types (e.g., ['Publication', 'Project'])
      */
-    entityType?: string;
+    entityType?: string[];
   }
 
   topLevelCommunityList: {
