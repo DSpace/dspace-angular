@@ -18,6 +18,8 @@ import { AuthorizationDataService } from '@dspace/core/data/feature-authorizatio
 import { ItemDataService } from '@dspace/core/data/item-data.service';
 import { JsonPatchOperationPathCombiner } from '@dspace/core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
+import { HardRedirectService } from '@dspace/core/services/hard-redirect.service';
+import { FileService } from '@dspace/core/shared/file.service';
 import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
 import { SubmissionJsonPatchOperationsService } from '@dspace/core/submission/submission-json-patch-operations.service';
 import { AuthorizationDataServiceStub } from '@dspace/core/testing/authorization-service.stub';
@@ -37,7 +39,6 @@ import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { ThemedFileDownloadLinkComponent } from '../../../../shared/file-download-link/themed-file-download-link.component';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { FormService } from '../../../../shared/form/form.service';
 import { getMockFormService } from '../../../../shared/form/testing/form-service.mock';
@@ -117,6 +118,8 @@ describe('SubmissionSectionUploadFileComponent', () => {
         { provide: SubmissionService, useValue: submissionServiceStub },
         { provide: SectionUploadService, useValue: getMockSectionUploadService() },
         { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: FileService, useValue: { retrieveFileDownloadLink: jasmine.createSpy('retrieveFileDownloadLink').and.returnValue(of('https://test-url.com/file')) } },
+        { provide: HardRedirectService, useValue: { redirect: jasmine.createSpy('redirect') } },
         { provide: Store, useValue: provideMockStore() },
         { provide: ItemDataService, useValue: {} },
         ChangeDetectorRef,
@@ -132,12 +135,9 @@ describe('SubmissionSectionUploadFileComponent', () => {
         add: {
           schemas: [CUSTOM_ELEMENTS_SCHEMA],
         },
-        remove: {
-          imports: [
-            SubmissionSectionUploadFileViewComponent,
-            ThemedFileDownloadLinkComponent,
-          ],
-        },
+        remove: { imports: [
+          SubmissionSectionUploadFileViewComponent,
+        ] },
       })
       .compileComponents();
   }));
@@ -286,6 +286,15 @@ describe('SubmissionSectionUploadFileComponent', () => {
       fixture.detectChanges();
 
       expect(compAsAny.editBitstreamData).toHaveBeenCalled();
+    });
+
+    it('should call downloadFile and open link in new tab', () => {
+      spyOn(window, 'open');
+      comp.fileData = fileData;
+
+      comp.downloadFile();
+
+      expect(window.open).toHaveBeenCalledWith('https://test-url.com/file', '_blank');
     });
 
   });

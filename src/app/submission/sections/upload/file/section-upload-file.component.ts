@@ -14,7 +14,6 @@ import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
 import { ItemDataService } from '@dspace/core/data/item-data.service';
 import { JsonPatchOperationPathCombiner } from '@dspace/core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
-import { Bitstream } from '@dspace/core/shared/bitstream.model';
 import { followLink } from '@dspace/core/shared/follow-link-config.model';
 import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
 import { Item } from '@dspace/core/shared/item.model';
@@ -47,10 +46,12 @@ import {
   filter,
   map,
   switchMap,
+  take,
 } from 'rxjs/operators';
 
+import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
+import { FileService } from '../../../../core/shared/file.service';
 import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
-import { ThemedFileDownloadLinkComponent } from '../../../../shared/file-download-link/themed-file-download-link.component';
 import { FormService } from '../../../../shared/form/form.service';
 import { SubmissionService } from '../../../submission.service';
 import { SectionUploadService } from '../section-upload.service';
@@ -69,7 +70,6 @@ import { SubmissionSectionUploadFileViewComponent } from './view/section-upload-
     AsyncPipe,
     BtnDisabledDirective,
     SubmissionSectionUploadFileViewComponent,
-    ThemedFileDownloadLinkComponent,
     TranslateModule,
   ],
 })
@@ -229,6 +229,8 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
     private operationsService: SubmissionJsonPatchOperationsService,
     private submissionService: SubmissionService,
     private uploadService: SectionUploadService,
+    private fileService: FileService,
+    private hardRedirectService: HardRedirectService,
     private authorizationService: AuthorizationDataService,
     private halService: HALEndpointService,
     private itemDataService: ItemDataService,
@@ -337,13 +339,11 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
   }
 
   /**
-   * Build a Bitstream object by the current file uuid
-   *
-   * @return Bitstream object
+   * Download the file using a short-lived token
    */
-  public getBitstream(): Bitstream {
-    return Object.assign(new Bitstream(), {
-      uuid: this.fileData.uuid,
+  public downloadFile() {
+    this.fileService.retrieveFileDownloadLink(this.fileData.url).pipe(take(1)).subscribe((link) => {
+      window.open(link, '_blank');
     });
   }
 

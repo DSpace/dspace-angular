@@ -26,10 +26,12 @@
       </div>
       <div class="float-end w-15">
         <ng-container>
-          <ds-file-download-link [cssClasses]="'btn btn-link-focus'" [isBlank]="true"
-                                 [bitstream]="getBitstream()" [enableRequestACopy]="false" [showAccessStatusBadge]="false">
+          <button class="btn btn-link-focus"
+            [attr.aria-label]="'submission.sections.upload.download.title' | translate"
+            title="{{ 'submission.sections.upload.download.title' | translate }}"
+            (click)="$event.preventDefault(); downloadFile()">
             <i class="fa fa-download fa-2x text-normal" aria-hidden="true"></i>
-          </ds-file-download-link>
+          </button>
           <button class="btn btn-link-focus"
                   attr.aria-label="{{'submission.sections.upload.edit.title' | translate}} {{fileName}}"
                   title="{{ 'submission.sections.upload.edit.title' | translate }} {{fileName}}"
