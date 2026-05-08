@@ -14,6 +14,7 @@ import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'ds-search-facet-filter-wrapper',
+  styleUrls: ['./search-facet-filter-wrapper.component.scss'],
   templateUrl: './search-facet-filter-wrapper.component.html'
 })
 
