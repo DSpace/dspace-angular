@@ -1381,7 +1381,7 @@
 
   // "audit.detail.metadata.authority": "Authority:",
   // TODO Review translation
-  "audit.detail.metadata.authority": "Authorité:",
+  "audit.detail.metadata.authority": "Autorité:",
 
   // "audit.detail.metadata.confidence": "Confidence:",
   // TODO - Review translation
