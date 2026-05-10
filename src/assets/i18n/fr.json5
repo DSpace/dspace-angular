@@ -1380,86 +1380,68 @@
   "audit.detail.metadata.value": "Valeur:",
 
   // "audit.detail.metadata.authority": "Authority:",
-  // TODO Review translation
   "audit.detail.metadata.authority": "Autorité:",
 
   // "audit.detail.metadata.confidence": "Confidence:",
-  // TODO - Review translation
   "audit.detail.metadata.confidence": "Confiance:",
 
   // "audit.detail.metadata.place": "Place:",
-  // TODO New key - Add a translation
   "audit.detail.metadata.place": "Place:",
 
   // "audit.detail.metadata.action": "Action:",
   "audit.detail.metadata.action": "Action:",
 
   // "audit.detail.metadata.checksum": "Checksum:",
-  // TODO Review translation
-  "audit.detail.metadata.checksum": "Somme de côntrole:",
+  "audit.detail.metadata.checksum": "Somme de contrôle:",
 
   // "audit.overview.title": "All Audit Logs",
-  // TODO - Review translation
-  "audit.overview.title": "Tous journaux d'audit",
+  "audit.overview.title": "Tous les journaux d'audit",
 
   // "audit.overview.table.id": "Audit ID",
-  // TODO - Review translation
-  "audit.overview.table.id": "ID audit",
+  "audit.overview.table.id": "Identifiant de l'audit",
 
   // "audit.overview.table.objectUUID": "Object ID",
-  // TODO - Review translation
-  "audit.overview.table.objectUUID": "ID objet",
+  "audit.overview.table.objectUUID": "Identifiant de l'objet",
 
   // "audit.overview.table.objectType": "Object Type",
-  // TODO - Review translation
   "audit.overview.table.objectType": "Type d'objet",
 
   // "audit.overview.table.subjectUUID": "Subject ID",
-  // TODO - Review translation
-  "audit.overview.table.subjectUUID": "ID sujet",
+  "audit.overview.table.subjectUUID": "Identifiant du sujet",
 
   // "audit.overview.table.subjectType": "Subject Type",
-  // TODO - Review translation
   "audit.overview.table.subjectType": "Type de sujet",
 
   // "audit.overview.table.entityType": "Audit Type",
-  // TODO - Review translation
   "audit.overview.table.entityType": "Type d'audit",
 
   // "audit.overview.table.eperson": "EPerson",
-  // TODO - Review translation
   "audit.overview.table.eperson": "EPerson",
 
   // "audit.overview.table.other": "Object",
   "audit.overview.table.other": "Objet",
 
   // "audit.overview.table.timestamp": "Time (UTC)",
-  // TODO Review translation
   "audit.overview.table.timestamp": "Heure (UTC)",
 
   // "audit.overview.breadcrumbs": "Audit Logs",
-  // TODO - Review translation
   "audit.overview.breadcrumbs": "Journaux d'audit",
 
   // "audit.object.back": "Back",
-  // TODO - Review translation
   "audit.object.back": "Retour",
 
   // "audit.object.breadcrumbs": "Object Audit Logs",
-  // TODO - Review translation
   "audit.object.breadcrumbs": "Journaux d'audit des objets",
 
   // "audit.object.overview.title": "Object Audit Logs",
-  // TODO - Review translation
   "audit.object.overview.title": "Journaux d'audit des objets",
 
   // "audit.object.logs.label": "Logs for object: ",
-  // TODO - Review translation
   "audit.object.logs.label": "Journaux pour objet: ",
 
   // "audit.object.overview.disabled.message": "Audit feature is currently disabled",
   // TODO - Review translation
-  "audit.object.overview.disabled.message": "Audit actuellement désactivé",
+  "audit.object.overview.disabled.message": "Fonctionnalité d'audit actuellement désactivée",
 
   // "auth.errors.invalid-user": "Invalid email address or password.",
   "auth.errors.invalid-user": "Adresse électronique ou mot de passe non valide.",
@@ -2135,8 +2117,7 @@
   "collection.form.rights": "Texte de copyright (HTML)",
 
   // "collection.form.sharedWorkspace": "Shared workspace",
-  // TODO Review translation
-  "collection.form.sharedWorkspace": "Éspace de travail collaboratif",
+  "collection.form.sharedWorkspace": "Espace de travail collaboratif",
 
   // "collection.form.tableofcontents": "News (HTML)",
   "collection.form.tableofcontents": "Nouvelles (HTML)",
@@ -2153,7 +2134,7 @@
 
   // "collection.form.errors.submissionDefinition.required": "Please choose a submission definition for this collection",
   // TODO - Review translation
-  "collection.form.errors.submissionDefinition.required": "Veuillez choisir un gabarit de soumission pour cette collection submission",
+  "collection.form.errors.submissionDefinition.required": "Veuillez choisir un gabarit de soumission pour cette collection",
 
   // "collection.form.submissionDefinition": "Submission definition",
   // TODO - Review translation
@@ -2161,7 +2142,7 @@
 
   // "collection.form.correctionSubmissionDefinition": "Submission definition for correction request",
   // TODO - Review translation
-  "collection.form.correctionSubmissionDefinition": "Requête à corriger ce gabarit de soumission",
+  "collection.form.correctionSubmissionDefinition": "Demande de modification du gabarit de soumission",
 
   // "collection.listelement.badge": "Collection",
   "collection.listelement.badge": "Collection",
@@ -2586,18 +2567,15 @@
   "confirmation-modal.pending-changes.header": "Modifications non sauvegardées",
 
   // "confirmation-modal.pending-changes.info": "There are unsaved changes. Do you want to leave the page?",
-  // TODO - Review translation
-  "confirmation-modal.pending-changes.info": "Il y a des modifications non sauvegardées. Veuillez-vous quitter la page?",
+  "confirmation-modal.pending-changes.info": "Il y a des modifications non sauvegardées. Voulez-vous quitter la page?",
 
   // "confirmation-modal.pending-changes.cancel": "Cancel",
   "confirmation-modal.pending-changes.cancel": "Annuler",
 
   // "confirmation-modal.pending-changes.confirm": "Leave",
-  // TODO Review translation
   "confirmation-modal.pending-changes.confirm": "Quitter",
 
   // "context-menu.actions.audit-item.btn": "Audit",
-  // TODO - Review translation
   "context-menu.actions.audit-item.btn": "Audit",
 
   // "cookies.consent.accept-all": "Accept all",
@@ -3042,24 +3020,19 @@
   "error.item": "Erreur lors de la récupération de l'Item",
 
   // "error.custom-url-conflict.title": "Duplicate custom URL detected",
-  // TODO - Review translation
-  "error.custom-url-conflict.title": "URL personalisée en double détectée",
+  "error.custom-url-conflict.title": "Doublon de l'URL personalisée détecté",
 
   // "error.custom-url-conflict.description": "The custom URL \"{{customUrl}}\" is assigned to more than one item. This causes a conflict and the item cannot be displayed.",
-  // TODO - Review translation
-  "error.custom-url-conflict.description": "L'URL personalisée \"{{customUrl}}\" est attribuée à plus qu'un item.  Cela cause un conflit et l'item ne peut pas être affiché.",
+  "error.custom-url-conflict.description": "L'URL personalisée \"{{customUrl}}\" est attribuée à plus d'un item.  Cela cause un conflit et l'item ne peut pas être affiché.",
 
   // "error.custom-url-conflict.admin-action": "Please contact your repository administrator. The following affected items need their dspace.customurl metadata fixed so each value is unique:",
-  // TODO - Review translation
-  "error.custom-url-conflict.admin-action": "Contactez votre administrateur-trice.  Il faut modifier le dspace.customurl des items suivants afin que chaque valeur est unique:",
+  "error.custom-url-conflict.admin-action": "Contactez votre administrateur-trice.  Il faut modifier le dspace.customurl des items suivants afin que chaque valeur soit unique:",
 
   // "error.custom-url-conflict.edit-link": "Edit \"{{name}}\" ({{uuid}})",
-  // TODO - Review translation
   "error.custom-url-conflict.edit-link": "Éditer \"{{name}}\" ({{uuid}})",
 
   // "error.custom-url-conflict.no-items-found": "No conflicting items could be retrieved. Please contact your administrator.",
-  // TODO - Review translation
-  "error.custom-url-conflict.no-items-found": "Des items avec conflits pas trouvés.  Contactez votre administrateur-trice.",
+  "error.custom-url-conflict.no-items-found": "Aucun item conflictuel n'a pu être trouvé.  Contactez votre administrateur-trice.",
 
   // "error.items": "Error fetching items",
   "error.items": "Erreur lors de la récupération des Items",
@@ -3092,23 +3065,19 @@
   "error.top-level-communities": "Erreur lors de la récupération des communautés de 1er niveau",
 
   // "error.validation.license.required": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
-  // TODO Review translation
-  "error.validation.license.required": "Vous devez approuver cette afin de finaliser votre sumissions. Si vous n'êtes pas en mesure d'approuver la licence pour le moment, vous pouvez souvegarder votre travail pour y revenir plus tard ou supprimer la soumission.",
+  "error.validation.license.required": "Vous devez approuver la licence afin de finaliser votre soumission. Si vous n'êtes pas en mesure d'approuver la licence pour le moment, vous pouvez sauvegarder votre travail pour y revenir plus tard ou supprimer la soumission.",
 
   // "error.validation.cclicense.required": "You must grant this cclicense to complete your submission. If you are unable to grant the cclicense at this time, you may save your work and return later or remove the submission.",
   "error.validation.cclicense.required": "Vous devez approuver cette Licence Creative Commons afin de finaliser votre sumissions. Si vous n'êtes pas en mesure d'approuver la licence pour le moment, vous pouvez souvegarder votre travail pour y revenir plus tard ou supprimer la soumission.",
 
   // "error.validation.custom-url.conflict": "The custom url has been already used, please try with a new one.",
-  // TODO - Review translation
   "error.validation.custom-url.conflict": "L'URL personalisée est déjà en usage, essayez une autre.",
 
   // "error.validation.custom-url.empty": "The custom url is required and cannot be empty.",
-  // TODO - Review translation
   "error.validation.custom-url.empty": "L'URL personnalisée est obligatoire.",
 
   // "error.validation.custom-url.invalid-characters": "The custom url contains invalid characters. Only alphanumeric characters, dashes and underscores are supported.",
-  // TODO - Review translation
-  "error.validation.custom-url.invalid-characters": "L'URL personnalisée contient des caractères invalids.  Uniquement les caractères alphanumeriques, les tirets, et les tiret en bas sont pris en charge.",
+  "error.validation.custom-url.invalid-characters": "L'URL personnalisée contient des caractères invalides.  Seuls les caractères alphanumériques, les tirets, et les tirets bas sont acceptés.",
 
   // "error.validation.pattern": "This input is restricted by the current pattern: {{ pattern }}.",
   "error.validation.pattern": "Cette entrée est invalide en vertu du modèle actuel : {{ pattern }}.",
@@ -3120,11 +3089,9 @@
   "error.validation.required": "Ce champ est obligatoire",
 
   // "error.validation.NotValidEmail": "This is not a valid email",
-  // TODO Source message changed - Revise the translation
   "error.validation.NotValidEmail": "Cette adresse électronique n'est pas une adresse valide",
 
   // "error.validation.emailTaken": "This email is already taken",
-  // TODO Source message changed - Revise the translation
   "error.validation.emailTaken": "Cette adresse électronique est déjà attribuée",
 
   // "error.validation.groupExists": "This group already exists",
@@ -3289,7 +3256,6 @@
   "form.clear-help": "Cliquer ici pour supprimer la valeur sélectionnée",
 
   // "form.copy": "Duplicate",
-  // TODO - Review translation
   "form.copy": "Dupliquer",
 
   // "form.discard": "Discard",
@@ -3308,7 +3274,6 @@
   "form.first-name": "Prénom",
 
   // "form.group.add": "Add",
-  // TODO Review translation
   "form.group.add": "Ajouter",
 
   // "form.group.close": "Close",
@@ -3376,8 +3341,7 @@
   "form.other-information.oairecerif_editor_affiliation": "Affiliation",
 
   // "form.other-information.person_identifier_orcid": "ORCID iD",
-  // TODO - Review translation
-  "form.other-information.person_identifier_orcid": "ORCID iD",
+  "form.other-information.person_identifier_orcid": "Identifiant ORCID",
 
   // "form.other-information.institution-affiliation-name": "Affiliation(s)",
   "form.other-information.institution-affiliation-name": "Affiliation(s)",
@@ -3387,15 +3351,12 @@
   "form.other-information.dc_relation_grantno": "Numéro de subvention",
 
   // "form.other-information.not-available": "Not available",
-  // TODO - Review translation
   "form.other-information.not-available": "Pas disponible",
 
   // "form.other-information.ror_orgunit_id": "ROR ID",
-  // TODO - Review translation
-  "form.other-information.ror_orgunit_id": "ID ROR",
+  "form.other-information.ror_orgunit_id": "Identifiant ROR",
 
   // "form.other-information.ror_orgunit_type": "ROR type",
-  // TODO - Review translation
   "form.other-information.ror_orgunit_type": "Type ROR",
 
   // "form.other-information.ror_orgunit_acronym": "ROR acronym",
@@ -3403,7 +3364,6 @@
   "form.other-information.ror_orgunit_acronym": "Acronyme ROR",
 
   // "form.other-information.ror_orgunit_countryName": "ROR country",
-  // TODO - Review translation
   "form.other-information.ror_orgunit_countryName": "Pays ROR",
 
   // "form.entry.source.local": "",
@@ -3986,8 +3946,7 @@
   "item.edit.delete.confirmation-message": "Êtes-vous certain-e de vouloir supprimer définitivement cet item?",
 
   // "item.edit.delete.confirmation-detail": "This item may have been cited, has (or had) a persistent identifier (Handle/DOI), and deleting it may break scholarly references and external links.",
-  // TODO - Review translation
-  "item.edit.delete.confirmation-detail": "Si cet item a été citée, ou a (ou a eu) un identifiant persistant (Handle/DOI), sa suppression peut briser des références à des publications savantes et des liens externes.",
+  "item.edit.delete.confirmation-detail": "Si cet item a été cité et a (ou a eu) un identifiant pérenne (Handle/DOI), sa suppression peut briser des références à des publications savantes et des liens externes.",
 
   // "item.edit.head": "Edit Item",
   "item.edit.head": "Éditer l'Item",
@@ -4201,7 +4160,7 @@
 
   // "item.edit.metadata.headers.authority": "Authority",
   // TODO - Review translation
-  "item.edit.metadata.headers.authority": "Authorité",
+  "item.edit.metadata.headers.authority": "Autorité",
 
   // "item.edit.metadata.headers.value": "Value",
   "item.edit.metadata.headers.value": "Valeur",
@@ -4815,15 +4774,13 @@
   "item.page.relationships.RELATION.Person.projects": "Projets",
 
   // "item.page.relationships.RELATION.OrgUnit.rpprojects": "Researchers Projects",
-  // TODO - Review translation
-  "item.page.relationships.RELATION.OrgUnit.rpprojects": "Projets de chercheurs",
+  "item.page.relationships.RELATION.OrgUnit.rpprojects": "Projets de chercheurs-es",
 
   // "item.page.relationships.RELATION.OrgUnit.publications": "Publications",
   "item.page.relationships.RELATION.OrgUnit.publications": "Publications",
 
   // "item.page.relationships.RELATION.OrgUnit.rppublications": "Researchers Publications",
-  // TODO New key - Review translation
-  "item.page.relationships.RELATION.OrgUnit.rppublications": "Publications de chercheurs",
+  "item.page.relationships.RELATION.OrgUnit.rppublications": "Publications de chercheurs-es",
 
   // "item.page.relationships.RELATION.OrgUnit.people": "People",
   // TODO - Review translation
@@ -5310,7 +5267,7 @@
 
   // "itemtemplate.edit.metadata.headers.authority": "Authority",
   // TODO - Review translation
-  "itemtemplate.edit.metadata.headers.authority": "Authorité",
+  "itemtemplate.edit.metadata.headers.authority": "Autorité",
 
   // "itemtemplate.edit.metadata.metadatafield": "Edit field",
   "itemtemplate.edit.metadata.metadatafield": "Modifier le champ",
@@ -5491,11 +5448,10 @@
   "layout.advanced-attachment.size": "Taille",
 
   // "layout.advanced-attachment.checksum": "Checksum",
-  "layout.advanced-attachment.checksum": "Somme de côntrole",
+  "layout.advanced-attachment.checksum": "Somme de contrôle",
 
   // "layout.advanced-attachment.checksum.info.MD5": "The <b>MD5 message-digest algorithm</b> can be used to verify the integrity of the file that you have uploaded. You can calculate its value locally via tools that are generally available in each operative system like <b>md5sum</b>",
-  // TODO - Review translation
-  "layout.advanced-attachment.checksum.info.MD5": "<b>L'algorithme Message-Digest (MD5)</b> peut vérifier l'intégrité du fichier téléchargé. Vous pouvez calculer son valeur localement avec des outils généralement disponibles dans chaque système d'exploitation comme <b>md5sum</b>",
+  "layout.advanced-attachment.checksum.info.MD5": "<b>L'algorithme Message-Digest (MD5)</b> peut vérifier l'intégrité du fichier téléchargé. Vous pouvez calculer sa valeur localement avec des outils généralement disponibles dans chaque système d'exploitation comme <b>md5sum</b>",
 
   // "layout.advanced-attachment.format": "Format",
   "layout.advanced-attachment.format": "Format",
@@ -7375,8 +7331,7 @@
   "resource-policies.table.headers.title.for.collection": "Règles de collection",
 
   // "RELATION.Person.researchoutputs.search.results.head": "Research Output",
-  // TODO - Review translation
-  "RELATION.Person.researchoutputs.search.results.head": "Résultats de recherche",
+  "RELATION.Person.researchoutputs.search.results.head": "Travaux de recherche",
 
   // "RELATION.Person.projects.search.results.head": "Projects",
   "RELATION.Person.projects.search.results.head": "Projets",
@@ -7394,15 +7349,13 @@
   "RELATION.OrgUnit.organizations.search.results.head": "Organisations",
 
   // "RELATION.OrgUnit.rppublications.search.results.head": "Researchers Publications",
-  // TODO - Review translation
-  "RELATION.OrgUnit.rppublications.search.results.head": "Publications de chercheurs",
+  "RELATION.OrgUnit.rppublications.search.results.head": "Publications de chercheurs-es",
 
   // "RELATION.OrgUnit.publications.search.results.head": "Publications",
   "RELATION.OrgUnit.publications.search.results.head": "Publications",
 
   // "RELATION.OrgUnit.rpprojects.search.results.head": "Researchers Projects",
-  // TODO - Review translation
-  "RELATION.OrgUnit.rpprojects.search.results.head": "Projets de chercheurs",
+  "RELATION.OrgUnit.rpprojects.search.results.head": "Projets de chercheurs-es",
 
   // "RELATION.OrgUnit.projects.search.results.head": "Projects",
   "RELATION.OrgUnit.projects.search.results.head": "Projets",
@@ -8109,8 +8062,7 @@
   "submission.general.back.submit": "Retour",
 
   // "submission.general.info.invalid": "The submission is invalid, check missing fields",
-  // TODO - Review translation
-  "submission.general.info.invalid": "La soumission est invalide.  Veuillez vérifier des champs manquants.",
+  "submission.general.info.invalid": "La soumission est invalide.  Veuillez vérifier les champs manquants.",
 
   // "submission.general.info.saved": "Saved",
   "submission.general.info.saved": "Sauvegardées",
@@ -8125,8 +8077,7 @@
   "submission.general.save-later": "Sauvegarder pour plus tard",
 
   // "submission.general.save-later.edit-item": "Save and return",
-  // TODO - Review translation
-  "submission.general.save-later.edit-item": "Sauvegarder et retourner",
+  "submission.general.save-later.edit-item": "Sauvegarder pour plus tard",
 
   // "submission.import-external.page.title": "Import metadata from an external source",
   "submission.import-external.page.title": "Importer les métadonnées depuis une source externe",
@@ -8859,7 +8810,7 @@
 
   // "submission.sections.general.invalid_state_error": "Cannot save current changes, mandatory fields are missing. Please resolve problems and save again later.",
   // TODO - Review translation
-  "submission.sections.general.invalid_state_error": "Les modifications en cours ne peuvent pas être sauvegardées à cause de champs obligatoires manquants.  Veuillez résoudre les problèmes et réessayer plus tard.",
+  "submission.sections.general.invalid_state_error": "Les modifications en cours ne peuvent pas être sauvegardées car certains champs obligatoires n'ont pas été remplis.  Veuillez résoudre les problèmes et réessayez à sauvegarder.",
 
   // "submission.sections.general.deposit_success_notice": "Submission deposited successfully.",
   "submission.sections.general.deposit_success_notice": "Soumission déposée avec succès.",
@@ -9095,15 +9046,12 @@
   "submission.sections.upload.upload-successful": "Téléchargement réussi",
 
   // "submission.sections.custom-url.label.previous-urls": "Previous Urls",
-  // TODO - Review translation
   "submission.sections.custom-url.label.previous-urls": "URLs précédentes",
 
   // "submission.sections.custom-url.alert.info": "Define here a custom URL which will be used to reach the item instead of using an internal randomly generated UUID identifier. ",
-  // TODO - Review translation
-  "submission.sections.custom-url.alert.info": "Fournissez ici une URL personalisée pour accèder à l'item en place d'utiliser un identifiant UUID generé internalement. ",
+  "submission.sections.custom-url.alert.info": "Définissez une URL personalisée qui sera utilisée pour accéder à l'item à la place de l'identifiant UUID généré aléatoirement. ",
 
   // "submission.sections.custom-url.url.placeholder": "Custom URL",
-  // TODO - Review translation
   "submission.sections.custom-url.url.placeholder": "URL personalisée",
 
   // "submission.sections.accesses.form.discoverable-description": "When checked, this item will be discoverable in search/browse. When unchecked, the item will only be available via a direct link and will never appear in search/browse.",
@@ -11321,8 +11269,7 @@
   "form.date-picker.placeholder.day": "Jour",
 
   // "item.page.license.title": "Rights and licensing",
-  // TODO - Review translation
-  "item.page.license.title": "Droits et autorisations",
+  "item.page.license.title": "Droits et licences d'utilisation",
 
   // "item.page.cc.license.title": "Creative Commons license",
   "item.page.cc.license.title": "Licence Creative Commons",
@@ -11530,16 +11477,13 @@
   "item.preview.organization.address.addressLocality": "Ville",
 
   // "item.preview.organization.alternateName": "Alternative name",
-  // TODO - Review translation
   "item.preview.organization.alternateName": "Nom alternatif",
 
   // "metadata-link-view.orcid.logo": "ORCID logo",
-  // TODO - Review translation
   "metadata-link-view.orcid.logo": "Logo ORCID",
 
   // "metadata-link-view.source.logo": "Source logo",
-  // TODO - Review translation
-  "metadata-link-view.source.logo": "Logo de source",
+  "metadata-link-view.source.logo": "Logo de la source",
 
   // "metadata-link-view.popover.label.Person.dc.title": "Fullname",
   // TODO New key - Add a translation
@@ -11622,12 +11566,10 @@
   "relationships.Project.isDatasetOfProject.Dataset": "Jeux de données",
 
   // "relationships.OrgUnit.isDatasetOfAuthor.Dataset": "Authored Datasets",
-  // TODO - Review translation
   "relationships.OrgUnit.isDatasetOfAuthor.Dataset": "Jeux de données rédigées",
 
   // "relationships.OrgUnit.isDatasetOfOrgUnit.Dataset": "Organization Datasets",
-  // TODO - Review translation
-  "relationships.OrgUnit.isDatasetOfOrgUnit.Dataset": "Jeux de données organisationels",
+  "relationships.OrgUnit.isDatasetOfOrgUnit.Dataset": "Jeux de données de l'organisation",
 
   // "submission.sections.describe.relationship-lookup.title.Dataset": "Datasets",
   "submission.sections.describe.relationship-lookup.title.Dataset": "Jeux de données",
@@ -11641,7 +11583,7 @@
   "dataset.search.results.head": "Résultats de recherche de jeux de données",
 
   // "submission.sections.describe.relationship-lookup.title.isAuthorOfDataset": "Authors",
-  "submission.sections.describe.relationship-lookup.title.isAuthorOfDataset": "Auteurs",
+  "submission.sections.describe.relationship-lookup.title.isAuthorOfDataset": "Auteurs-es",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isAuthorOfDataset": "Local Authors ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isAuthorOfDataset": "Auteurs locaux ({{ count }})",
@@ -11697,12 +11639,10 @@
   "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfDataset.title": "Importer l'auteur.e externe",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfDataset.added.local-entity": "Successfully added local author to the selection",
-  // TODO - Review translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfDataset.added.local-entity": "Auteur local ajouté avec succès à la sélection",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfDataset.added.local-entity": "Auteur-e local-e ajouté-e avec succès à la sélection",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfDataset.added.new-entity": "Successfully imported and added external author to the selection",
-  // TODO - Review translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfDataset.added.new-entity": "Auteur externe importé et ajouté avec succès à la sélection",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfDataset.added.new-entity": "Auteur-e externe importé-e et ajouté-e avec succès à la sélection",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfDataset.title": "Import Remote Project",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfDataset.title": "Importer un projet",
@@ -11719,8 +11659,7 @@
   "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfDataset.title": "Importer une Organisation",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfDataset.added.local-entity": "Successfully added local organization to the selection",
-  // TODO - Review translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfDataset.added.local-entity": "Organisation locale ajouté avec succès à la sélection",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfDataset.added.local-entity": "Organisation locale ajoutée avec succès à la sélection",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfDataset.added.new-entity": "Successfully imported and added external organization to the selection",
   // TODO - Review translation
@@ -11738,7 +11677,7 @@
 
   // "admin.edit-cms-metadata.select-metadata": "Select metadata to edit",
   // TODO - Review translation
-  "admin.edit-cms-metadata.select-metadata": "Selectionner les métadonnées à modifier",
+  "admin.edit-cms-metadata.select-metadata": "Sélectionner les métadonnées à modifier",
 
   // "admin.edit-cms-metadata.edit-button": "Edit",
   // TODO - Review translation
@@ -11761,54 +11700,45 @@
   "menu.section.edit-cms-metadata": "Éditer les métadonnées CMS",
 
   // "menu.section.cms.edit.metadata.head": "Edit Metadata",
-  // TODO - Review translation
   "menu.section.cms.edit.metadata.head": "Éditer les métadonnées",
 
   // "admin.edit-user-agreement.breadcrumbs": "Edit User Agreement",
-  // TODO - Review translation
-  "admin.edit-user-agreement.breadcrumbs": "Éditer licence de l'utilisateur",
+  "admin.edit-user-agreement.breadcrumbs": "Éditer licence de l'utilisateur-trice",
 
   // "admin.edit-user-agreement.confirm.title": "Force acceptance",
-  // TODO - Review translation
-  "admin.edit-user-agreement.confirm.title": "Faire accepter la licence",
+  "admin.edit-user-agreement.confirm.title": "Forcer l'acceptation de la licence",
 
   // "admin.edit-user-agreement.confirm.info": "Do you want to force all users to accept the new user agreement?",
-  // TODO - Review translation
-  "admin.edit-user-agreement.confirm.info": "Veuillez-vous faire accepter tous les utilisateurs la nouvelle licence?",
+  "admin.edit-user-agreement.confirm.info": "Voulez-vous forcer les utilisateurs-trices à accepter la nouvelle licence?",
 
   // "admin.edit-user-agreement.confirm.cancel": "Cancel",
   "admin.edit-user-agreement.confirm.cancel": "Annuler",
 
   // "admin.edit-user-agreement.confirm.no": "No, update only",
-  // TODO - Review translation
-  "admin.edit-user-agreement.confirm.no": "Non, mettre à jour",
+  "admin.edit-user-agreement.confirm.no": "Non, mettre à jour seulement",
 
   // "admin.edit-user-agreement.confirm.yes": "Yes, update and force",
-  // TODO - Review translation
-  "admin.edit-user-agreement.confirm.yes": "Yes, update and force",
+  "admin.edit-user-agreement.confirm.yes": "Oui, mettre à jour et forcer l'acceptation",
 
   // "menu.section.edit-user-agreement": "Edit User Agreement",
-  // TODO - Review translation
-  "menu.section.edit-user-agreement": "Éditer licence de l'utilisateur",
+  "menu.section.edit-user-agreement": "Éditer la licence de l'utilisateur-trice",
 
   // "admin.edit-user-agreement.save-button": "Save",
   "admin.edit-user-agreement.save-button": "Sauvegarder",
 
   // "admin.edit-user-agreement.markdown": "<i>End User Agreement</i> text supports <a href=\"https://www.markdownguide.org/basic-syntax/\" target=\"_blank\">Markdown</a> language.",
   // TODO - Review translation
-  "admin.edit-user-agreement.markdown": "<i>Le texte de <i> Licence d'utilisateur </i> soutient <a href=\"https://www.markdownguide.org/basic-syntax/\" target=\"_blank\">Markdown</a>.",
+  "admin.edit-user-agreement.markdown": "<i>Le texte de la<i> Licence d'utilisateur-trice</i> peut être édité en utilisant la syntaxe <a href=\"https://www.markdownguide.org/basic-syntax/\" target=\"_blank\">Markdown</a>.",
 
   // "admin.edit-cms-metadata.markdown": "<i>CMS Metadata</i> text supports <a href=\"https://www.markdownguide.org/basic-syntax/\" target=\"_blank\">Markdown</a> language.",
   // TODO New key - Add a translation
   "admin.edit-cms-metadata.markdown": "<i>CMS Metadata</i> text supports <a href=\"https://www.markdownguide.org/basic-syntax/\" target=\"_blank\">Markdown</a> language.",
 
   // "admin.edit-user-agreement.header": "Edit User Agreement",
-  // TODO - Review translation
-  "admin.edit-user-agreement.header": "Éditer licence de l'utilisateur",
+  "admin.edit-user-agreement.header": "Éditer licence de l'utilisateur-trice",
 
   // "admin.edit-user-agreement.success": "User agreement successfully updated",
-  // TODO - Review translation
-  "admin.edit-user-agreement.success": "Licence de l'utilisateur mise à jour avec succès",
+  "admin.edit-user-agreement.success": "Licence de l'utilisateur-trice mise à jour avec succès",
 
   // "admin.edit-user-agreement.error": "An error occurred while updating the user agreement",
   // TODO - Review translation
