@@ -1,4 +1,4 @@
-{
+﻿{
   // "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
   "401.help": "Non sei autorizzato ad accedere a questa pagina. Puoi usare il pulsante qui sotto per tornare alla home page.",
 
@@ -8760,8 +8760,8 @@
   // "submission.import-external.title.JournalVolume": "Import a journal volume from an external source",
   "submission.import-external.title.JournalVolume": "Importare un volume di periodico da un'origine esterna",
 
-  // "submission.import-external.title.OrgUnit": "Import a publisher from an external source",
-  "submission.import-external.title.OrgUnit": "Importare un editore da una fonte esterna",
+  // "submission.import-external.title.OrgUnit": "Importare un'unità organizzativa da una fonte esterna",
+  "submission.import-external.title.OrgUnit": "Importare un'unità organizzativa da una fonte esterna",
 
   // "submission.import-external.title.Person": "Import a person from an external source",
   "submission.import-external.title.Person": "Importare una persona da una fonte esterna",

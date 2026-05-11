@@ -1,4 +1,4 @@
-{
+﻿{
   // "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
   "401.help": "आप इस पृष्ठ तक पहुँचने के लिए अधिकृत नहीं हैं। आप नीचे दिए गए बटन का उपयोग करके होम पेज पर वापस जा सकते हैं।",
 
@@ -8324,8 +8324,8 @@
   // "submission.import-external.title.JournalVolume": "Import a journal volume from an external source",
   "submission.import-external.title.JournalVolume": "बाहरी स्रोत से एक जर्नल वॉल्यूम आयात करें",
 
-  // "submission.import-external.title.OrgUnit": "Import a publisher from an external source",
-  "submission.import-external.title.OrgUnit": "बाहरी स्रोत से एक प्रकाशक आयात करें",
+  // "submission.import-external.title.OrgUnit": "बाहरी स्रोत से एक संगठनात्मक इकाई आयात करें",
+  "submission.import-external.title.OrgUnit": "बाहरी स्रोत से एक संगठनात्मक इकाई आयात करें",
 
   // "submission.import-external.title.Person": "Import a person from an external source",
   "submission.import-external.title.Person": "बाहरी स्रोत से एक व्यक्ति आयात करें",

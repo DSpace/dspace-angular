@@ -8300,8 +8300,8 @@
   // "submission.import-external.title.JournalVolume": "Import a journal volume from an external source",
   "submission.import-external.title.JournalVolume": "Импорт тома журнала из внешнего источника",
 
-  // "submission.import-external.title.OrgUnit": "Import a publisher from an external source",
-  "submission.import-external.title.OrgUnit": "Импорт издателя из внешнего источника",
+  // "submission.import-external.title.OrgUnit": "Импорт организационного подразделения из внешнего источника",
+  "submission.import-external.title.OrgUnit": "Импорт организационного подразделения из внешнего источника",
 
   // "submission.import-external.title.Person": "Import a person from an external source",
   "submission.import-external.title.Person": "Импорт человека из внешнего источника",

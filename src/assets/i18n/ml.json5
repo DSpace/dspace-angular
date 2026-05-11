@@ -8233,11 +8233,7 @@
 
   // "submission.import-external.title.JournalVolume": "Import a journal volume from an external source",
   "submission.import-external.title.JournalVolume": "ബാഹ്യ സ്രോതസ്സിൽ നിന്ന് ഒരു ജേണൽ വാല്യം ഇറക്കുമതി ചെയ്യുക",
-
-  // "submission.import-external.title.OrgUnit": "Import a publisher from an external source",
-  "submission.import-external.title.OrgUnit": "ബാഹ്യ സ്രോതസ്സിൽ നിന്ന് ഒരു പ്രസാധകൻ ഇറക്കുമതി ചെയ്യുക",
-
-  // "submission.import-external.title.Person": "Import a person from an external source",
+  "submission.import-external.title.OrgUnit": "ബാഹ്യ സ്രോതസ്സിൽ നിന്ന് ഒരു സംഘടനാ യൂണിറ്റ് ഇറക്കുമതി ചെയ്യുക",
   "submission.import-external.title.Person": "ബാഹ്യ സ്രോതസ്സിൽ നിന്ന് ഒരു വ്യക്തി ഇറക്കുമതി ചെയ്യുക",
 
   // "submission.import-external.title.Project": "Import a project from an external source",

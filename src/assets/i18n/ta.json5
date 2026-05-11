@@ -8301,8 +8301,7 @@
   // "submission.import-external.title.JournalVolume": "Import a journal volume from an external source",
   "submission.import-external.title.JournalVolume": "வெளியக மூலத்திலிருந்து ஒரு ஜர்னல் தொகுதியை இறக்குமதி செய்",
 
-  // "submission.import-external.title.OrgUnit": "Import a publisher from an external source",
-  "submission.import-external.title.OrgUnit": "வெளியக மூலத்திலிருந்து ஒரு பதிப்பாளரை இறக்குமதி செய்",
+  "submission.import-external.title.OrgUnit": "வெளியக மூலத்திலிருந்து ஒரு நிறுவன அலகை இறக்குமதி செய்",
 
   // "submission.import-external.title.Person": "Import a person from an external source",
   "submission.import-external.title.Person": "வெளியக மூலத்திலிருந்து ஒரு நபரை இறக்குமதி செய்",

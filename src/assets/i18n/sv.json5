@@ -1,4 +1,4 @@
-{
+﻿{
   // "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
   "401.help": "Du saknar behörighet att se denna sida. Använd knappen nedan för att återvända till startsidan.",
 
@@ -9225,8 +9225,8 @@
   // "submission.import-external.title.JournalVolume": "Import a journal volume from an external source",
   "submission.import-external.title.JournalVolume": "Importera tidskriftsvolym från extern källa",
 
-  // "submission.import-external.title.OrgUnit": "Import a publisher from an external source",
-  "submission.import-external.title.OrgUnit": "Importera förlag från extern källa",
+  // "submission.import-external.title.OrgUnit": "Importera organisationsenhet från extern källa",
+  "submission.import-external.title.OrgUnit": "Importera organisationsenhet från extern källa",
 
   // "submission.import-external.title.Person": "Import a person from an external source",
   "submission.import-external.title.Person": "Importera person från extern källa",

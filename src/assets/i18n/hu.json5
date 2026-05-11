@@ -1,4 +1,4 @@
-{
+﻿{
   // "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
   "401.help": "Nincs jogosultsága az oldal eléréséhez. Az alábbi gombbal vissza tud lépni a főoldalra.",
 
@@ -7954,8 +7954,8 @@
   // "submission.import-external.title.JournalVolume": "Import a journal volume from an external source",
   "submission.import-external.title.JournalVolume": "Folyóiratkötet importálása külső forrásból",
 
-  // "submission.import-external.title.OrgUnit": "Import a publisher from an external source",
-  "submission.import-external.title.OrgUnit": "Kiadó importálása külső forrásból",
+  // "submission.import-external.title.OrgUnit": "Szervezeti egység importálása külső forrásból",
+  "submission.import-external.title.OrgUnit": "Szervezeti egység importálása külső forrásból",
 
   // "submission.import-external.title.Person": "Import a person from an external source",
   "submission.import-external.title.Person": "Személy importálása külső forrásból",

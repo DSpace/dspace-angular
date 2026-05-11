@@ -1,4 +1,4 @@
-{
+﻿{
   // "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
   "401.help": "Сіз бұл бетке өтуге тіркелемегенсіз. Басты бетке оралу үшін төмендегі батырманы пайдалануға болады",
 
@@ -8991,8 +8991,8 @@
   // "submission.import-external.title.JournalVolume": "Import a journal volume from an external source",
   "submission.import-external.title.JournalVolume": "Журнал көлемін сыртқы көзден импорттаңыз",
 
-  // "submission.import-external.title.OrgUnit": "Import a publisher from an external source",
-  "submission.import-external.title.OrgUnit": "Баспаны сыртқы көзден импорттаңыз",
+  // "submission.import-external.title.OrgUnit": "Ұйымдық бөлімді сыртқы көзден импорттаңыз",
+  "submission.import-external.title.OrgUnit": "Ұйымдық бөлімді сыртқы көзден импорттаңыз",
 
   // "submission.import-external.title.Person": "Import a person from an external source",
   "submission.import-external.title.Person": "Тұлғаны сыртқы көзден импорттаңыз",
