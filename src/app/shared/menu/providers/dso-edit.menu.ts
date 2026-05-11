@@ -46,7 +46,7 @@ export class DSpaceObjectEditMenuProvider extends DSpaceObjectPageMenuProvider {
               text: this.getDsoType(dso) + '.page.edit',
               link: new URLCombiner(getDSORoute(dso), 'edit', 'metadata').toString(),
             } as LinkMenuItemModel,
-            icon: 'pencil-alt',
+            icon: 'wrench',
           },
         ] as PartialMenuSection[];
       }),

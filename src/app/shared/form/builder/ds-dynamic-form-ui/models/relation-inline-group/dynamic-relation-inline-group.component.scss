@@ -1,0 +1,7 @@
+.inline-btn-group {
+  margin-top: 2rem;
+}
+
+.inline-group-is-invalid ds-form:has(ds-dynamic-form-array) .grey-background {
+  border: 1px solid var(--bs-danger);
+}

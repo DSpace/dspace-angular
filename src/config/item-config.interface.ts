@@ -1,10 +1,12 @@
 import { MetadataLinkViewPopoverDataConfig } from '@dspace/config/metadata-link-view-popoverdata-config.interface';
+import { MetadataSecurityConfig } from '@dspace/config/metadata-security-config';
 
 import { Config } from './config.interface';
 
 export interface ItemConfig extends Config {
   edit: {
     undoTimeout: number;
+    security: MetadataSecurityConfig
   };
   // This is used to show the access status label of items in results lists
   showAccessStatuses: boolean;
@@ -19,4 +21,6 @@ export interface ItemConfig extends Config {
   }
 
   metadataLinkViewPopoverData: MetadataLinkViewPopoverDataConfig
+
+  showAuthorityRelations: boolean;
 }

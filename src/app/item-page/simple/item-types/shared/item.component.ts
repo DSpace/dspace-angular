@@ -42,10 +42,15 @@ export class ItemComponent implements OnInit {
   @Input() viewMode: ViewMode;
 
   /**
+   * Session storage key for storing the previous URL before entering item page
+   */
+  private readonly ITEM_PREVIOUS_URL_SESSION_KEY = 'item-previous-url';
+
+  /**
    * This regex matches previous routes. The button is shown
    * for matching paths and hidden in other cases.
    */
-  previousRoute = /^(\/search|\/browse|\/collections|\/admin\/search|\/mydspace)/;
+  previousRoute = /^(\/home|\/search|\/browse|\/collections|\/admin\/search|\/mydspace)/;
 
   /**
    * Used to show or hide the back to results button in the view.
@@ -79,32 +84,56 @@ export class ItemComponent implements OnInit {
    */
   geospatialItemPageFieldsEnabled = false;
 
+  /**
+   * Stores the previous URL retrieved either from RouteService or sessionStorage
+   */
+  private storedPreviousUrl: string;
+
+  /**
+   * Flag to check whether to use the default relations or the authority based ones
+   */
+  areAuthorityRelationsEnabled: boolean;
+
+  showDownloadLinkAsAttachment: boolean;
+
   constructor(protected routeService: RouteService,
               protected router: Router) {
     this.mediaViewer = environment.mediaViewer;
     this.geospatialItemPageFieldsEnabled = environment.geospatialMapViewer.enableItemPageFields;
+    this.areAuthorityRelationsEnabled = environment.item.showAuthorityRelations;
+    this.showDownloadLinkAsAttachment = environment.layout.showDownloadLinkAsAttachment;
   }
 
   /**
    * The function used to return to list from the item.
+   * Uses stored previous URL if available, otherwise falls back to browser history.
    */
   back = () => {
-    this.routeService.getPreviousUrl().pipe(
-      take(1),
-    ).subscribe(
-      (url => {
-        this.router.navigateByUrl(url);
-      }),
-    );
+    this.router.navigateByUrl(this.storedPreviousUrl);
   };
 
   ngOnInit(): void {
-
     this.itemPageRoute = getItemPageRoute(this.object);
     // hide/show the back button
     this.showBackButton$ = this.routeService.getPreviousUrl().pipe(
-      map((url: string) => this.previousRoute.test(url)),
       take(1),
+      map(url => {
+        const fromRoute = this.pickAllowedPrevious(url);
+
+        if (fromRoute) {
+          this.routeService.storeUrlInSession(this.ITEM_PREVIOUS_URL_SESSION_KEY, fromRoute);
+          this.storedPreviousUrl = fromRoute;
+          return true;
+        }
+
+        const storedUrl = this.routeService.getUrlFromSession(this.ITEM_PREVIOUS_URL_SESSION_KEY);
+        if (this.pickAllowedPrevious(storedUrl)) {
+          this.storedPreviousUrl = storedUrl;
+          return true;
+        }
+
+        return false;
+      }),
     );
     // check to see if iiif viewer is required.
     this.iiifEnabled = isIiifEnabled(this.object);
@@ -112,5 +141,12 @@ export class ItemComponent implements OnInit {
     if (this.iiifSearchEnabled) {
       this.iiifQuery$ = getDSpaceQuery(this.object, this.routeService);
     }
+  }
+
+  /**
+   * Helper to check if a URL is from an allowed previous route and return it, otherwise null
+   */
+  private pickAllowedPrevious(url?: string | null): string | null {
+    return url && this.previousRoute.test(url) ? url : null;
   }
 }

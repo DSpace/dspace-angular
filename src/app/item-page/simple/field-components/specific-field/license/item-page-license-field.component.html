@@ -1,0 +1,31 @@
+@if (licenses.length > 0 || uris.length > 0) {
+  <div class="item-page-field">
+    @if ((hasCcLicenseName$ | async) && (hasCcLicenseUri$ | async)) {
+      <ds-item-page-cc-license-field [item]="item" [variant]="'full'"></ds-item-page-cc-license-field>
+    } @else {
+      <ds-metadata-field-wrapper [label]="'item.page.license.title' | translate">
+        @if (licenses.length === uris.length) {
+          @for (license of licenses; track license; let last=$last; let i=$index) {
+            <a [href]="uris[i]" target="_blank" class="license-link"><span class="license-text">{{ license }}</span></a>
+            @if (!last) {
+              <span class="separator" [innerHTML]="separator"></span>
+            }
+          }
+        } @else {
+          @for (license of licenses; track license; let last=$last) {
+            <span class="license-text">{{ license }}</span>
+            @if (!last || uris.length > 0) {
+              <span class="separator" [innerHTML]="separator"></span>
+            }
+          }
+          @for (uri of uris; track uri; let last=$last) {
+            <a [href]="uri" target="_blank" class="license-link"><span class="license-text">{{ uri }}</span></a>
+            @if (!last) {
+              <span class="separator" [innerHTML]="separator"></span>
+            }
+          }
+        }
+      </ds-metadata-field-wrapper>
+    }
+  </div>
+}
