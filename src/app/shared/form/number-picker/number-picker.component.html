@@ -7,8 +7,8 @@
             tabindex="0"
             [dsBtnDisabled]="disabled"
             (click)="toggleUp()"
-            title="{{'form.number-picker.increment' | translate: {field: placeholder} }}"
-            [attr.aria-label]="'form.number-picker.increment' | translate: {field: placeholder}">
+            title="{{'form.number-picker.increment' | translate: {field: ('form.number-picker.label.' + placeholder | translate)} }}"
+            [attr.aria-label]="'form.number-picker.increment' | translate: {field: ('form.number-picker.label.' + placeholder | translate)}">
       <span class="chevron"></span>
       <span class="sr-only">{{'form.number-picker.increment' | translate: {field: name} }}</span>
     </button>
@@ -36,8 +36,8 @@
                 tabindex="0"
                 [dsBtnDisabled]="disabled"
                 (click)="toggleDown()"
-                title="{{'form.number-picker.decrement' | translate: {field: placeholder} }}"
-                [attr.aria-label]="'form.number-picker.decrement' | translate: {field: placeholder}">
+                title="{{'form.number-picker.decrement' | translate: {field: ('form.number-picker.label.' + placeholder | translate)} }}"
+                [attr.aria-label]="'form.number-picker.decrement' | translate: {field: ('form.number-picker.label.' + placeholder | translate)}">
             <span class="chevron bottom"></span>
             <span class="sr-only">{{'form.number-picker.decrement' | translate: {field: name} }}</span>
         </button>
