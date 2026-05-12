@@ -3,3 +3,15 @@ rest:
   host: sandbox.dspace.org
   port: 443
   nameSpace: /server
+
+# Fallback language in which the UI will be rendered if the user's browser language is not an active language
+fallbackLanguage: en
+
+# Languages available in the language toggle - only English and Amharic are active
+languages:
+  - code: en
+    label: English
+    active: true
+  - code: am
+    label: አማርኛ
+    active: true

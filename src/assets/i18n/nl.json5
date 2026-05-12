@@ -4203,7 +4203,7 @@
 
   // "home.title": "Home",
   // TODO Source message changed - Revise the translation
-  "home.title": "DSpace Angular :: Home",
+  "home.title": "DSpace Angular",
 
   // "home.top-level-communities.head": "Communities in DSpace",
   "home.top-level-communities.head": "Communities in DSpace",

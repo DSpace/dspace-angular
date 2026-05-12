@@ -1,0 +1,9 @@
+/* Adding background color for navbar */
+.navbar {
+  background-color: var(--navbar-bg-color);
+}
+
+/* Ensuring logo matches navbar background */
+.login-logo {
+  background-color: var(--navbar-bg-color);
+}

@@ -1,0 +1,19 @@
+{
+  // DSpace default: "All of DSpace"
+  "menu.section.browse_global": "DSpace አስስ",
+
+  // DSpace default: "DSpace Angular :: "
+  "repository.title.prefix": "DSpace :: ",
+
+  "admin.dashboard.title": "የአስተዳዳሪ ዳሽቦርድ",
+  "admin.dashboard.user-dashboard": "የተጠቃሚ ዳሽቦርድ",
+  "menu.analitics": "ስታቲስቲክስ",
+  "admin.dashboard.archived-items": "የተቀመጡ ንጥሎች",
+  "admin.dashboard.refresh": "አድስ",
+  "admin.dashboard.admin-dashboard": "የአስተዳዳሪ ዳሽቦርድ",
+  "admin.dashboard.collections": "ስብስቦች",
+  "admin.dashboard.workflow-items": "የስራ ሂደት ንጥሎች",
+  "admin.dashboard.statistics.collections": "የስብስብ ስታቲስቲክስ",
+  "admin.dashboard.collection-name": "የስብስብ ስም",
+  "admin.dashboard.no-data": "ምንም ዳታ አልተገኘም"
+}

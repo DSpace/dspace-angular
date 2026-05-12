@@ -2304,7 +2304,7 @@
 
   "home.title": "Home",
 
-  "home.top-level-communities.head": "Communities in Womezeker",
+  "home.top-level-communities.head": "Communities in NALA",
 
   "home.top-level-communities.help": "Select a community to browse its collections.",
 
@@ -4526,9 +4526,9 @@
 
   "repository.image.logo": "Repository logo",
 
-  "repository.title": "DSpace Repository",
+  "repository.title": "NALA",
 
-  "repository.title.prefix": "DSpace Repository :: ",
+  "repository.title.prefix": "NALA :: ",
 
   "resource-policies.add.button": "Add",
 
