@@ -1,6 +1,6 @@
 import { testA11y } from 'cypress/support/utils';
 
-describe('My DSpace page', () => {/*
+describe('My DSpace page', () => {
   it('should display recent submissions and pass accessibility tests', () => {
     cy.visit('/mydspace');
 
@@ -110,25 +110,253 @@ describe('My DSpace page', () => {/*
     });
   });
 
-  it('should let you import from external sources', () => {
-    cy.visit('/mydspace');
+  describe('Testing new submissions', () => {
+    const startSubmission = (title: string, collection: string) => {
+      cy.get('#entityControlsDropdownMenu button[title="'.concat(title).concat('"]')).click();
 
-    // This page is restricted, so we will be shown the login form. Fill it out & submit.
-    cy.loginViaForm(Cypress.env('DSPACE_TEST_SUBMIT_USER'), Cypress.env('DSPACE_TEST_SUBMIT_USER_PASSWORD'));
+      //Validate selector be visible and enter SUBMIT_COLLECTION_NAME
+      cy.get('ds-create-item-parent-selector').should('be.visible');
+      cy.get('ds-authorized-collection-selector input[type="search"]').type(collection);
+      cy.get('ds-create-item-parent-selector button[title="'.concat(collection).concat('"]')).click();
+    };
 
-    // Open the New Import dropdown
-    cy.get('button[data-test="import-dropdown"]').click();
-    // Click on the "Item" type in that dropdown
-    cy.get('#importControlsDropdownMenu button[title="none"]').click();
+    const fillSubmission = (requiredInputs: Array<string>, title: string = 'test item', name: string = 'Tester') => {
+      if (requiredInputs.includes('title')) {
+        cy.get('#dc_title').type(title);
+      }
+      if (requiredInputs.includes('date_issued')) {
+        const currentYear = new Date().getFullYear();
+        cy.get('#dc_date_issued_year').type(currentYear.toString());
+      }
+      if (requiredInputs.includes('type')) {
+        cy.get('input[name="dc.type"]').click();
+        cy.get('.dropdown-menu').should('be.visible').contains('button', 'Other').click();
+      }
+      if (requiredInputs.includes('givenName')) {
+        cy.get('#person_givenName').type(name);
+      }
+      if (requiredInputs.includes('legalName')) {
+        cy.get('#organization_legalName').type(name);
+      }
 
-    // New URL should include /import-external, as we've moved to the import page
-    cy.url().should('include', '/import-external');
+      cy.get('#granted').check();
 
-    // The external import searchbox should be visible
-    cy.get('ds-submission-import-external-searchbar').should('be.visible');
+      const fileName = 'example.pdf';
+      cy.get('ds-uploader .well').selectFile(`cypress/fixtures/${fileName}`, { action: 'drag-drop' });
+      cy.get('ds-uploader .filename').should('exist').and('contain.text', fileName);
+      cy.get('ds-uploader .upload-item-top').should('have.length', 1);
+      cy.wait(1000);
 
-    // Test for accessibility issues
-    testA11y('ds-submission-import-external');
+      cy.get('button[data-test="deposit"]').click();
+    };
+
+    const validateSubmission = (title: string = 'test item') => {
+      cy.url().should('include', '/mydspace');
+      cy.contains('[data-test="list-object"]', title).should('exist');
+    };
+
+    //Enter to MyDspace and validate that submission-dropdown is visible
+    beforeEach(() => {
+      cy.visit('/mydspace');
+      cy.loginViaForm(Cypress.env('DSPACE_TEST_ADMIN_USER'), Cypress.env('DSPACE_TEST_ADMIN_PASSWORD'));
+      cy.get('[data-test="submission-dropdown"]').should('be.visible').click();
+    });
+
+    it('should let you send a new Item', () => {
+      const title = 'test item';
+      startSubmission('none', Cypress.env('DSPACE_TEST_SUBMIT_COLLECTION_NAME'));
+      fillSubmission(['title', 'date_issued', 'type'], title);
+      validateSubmission(title);
+    });
+
+    it('should let you send a new Publication', () => {
+      const title = 'test publication';
+      startSubmission('Publication', Cypress.env('DSPACE_TEST_SUBMIT_WORKFLOW_COLLECTION_NAME'));
+      fillSubmission(['title', 'date_issued', 'type'], title);
+      validateSubmission(title);
+    });
+
+    it('should let you send a new Peson', () => {
+      const name = 'Tester';
+      startSubmission('Person', Cypress.env('DSPACE_TEST_PEOPLE_COLLECTION_NAME'));
+      fillSubmission(['givenName'], undefined, name);
+      validateSubmission(name);
+    });
+
+    it('should let you send a new Org Unit', () => {
+      const name = 'test Org Unit';
+      startSubmission('OrgUnit', Cypress.env('DSPACE_TEST_ORG_UNIT_COLLECTION_NAME'));
+      fillSubmission(['legalName'], undefined, name);
+      validateSubmission(name);
+    });
+
+    it('should let you send a new Journal', () => {
+      const title = 'test Journal';
+      startSubmission('Journal', Cypress.env('DSPACE_TEST_JOURNAL_COLLECTION_NAME'));
+      fillSubmission(['title'], title);
+      validateSubmission(title);
+    });
+
+    it('should let you send a new Journal Volume', () => {
+      const title = 'test Journal Volume';
+      startSubmission('JournalVolume', Cypress.env('DSPACE_TEST_JOURNAL_VOLUME_COLLECTION_NAME'));
+      fillSubmission(['title'], title);
+      validateSubmission(title);
+    });
+
+    it('should let you send a new Journal Issue', () => {
+      const title = 'test Journal Issue';
+      startSubmission('JournalIssue', Cypress.env('DSPACE_TEST_JOURNAL_ISSUE_COLLECTION_NAME'));
+      fillSubmission(['title'], title);
+      validateSubmission(title);
+    });
+
+  });
+
+  describe('Testing import external button', () => {
+    it('should pass accesibility tests', () => {
+      cy.visit('/mydspace');
+
+      // This page is restricted, so we will be shown the login form. Fill it out & submit.
+      cy.loginViaForm(Cypress.env('DSPACE_TEST_SUBMIT_USER'), Cypress.env('DSPACE_TEST_SUBMIT_USER_PASSWORD'));
+
+      // Open the New Import dropdown
+      cy.get('button[data-test="import-dropdown"]').click();
+      // Click on the "Item" type in that dropdown
+      cy.get('#importControlsDropdownMenu button[title="none"]').click();
+
+      // New URL should include /import-external, as we've moved to the import page
+      cy.url().should('include', '/import-external');
+
+      // The external import searchbox should be visible
+      cy.get('ds-submission-import-external-searchbar').should('be.visible');
+
+      // Test for accessibility issues
+      testA11y('ds-submission-import-external');
+    });
+
+    it('should let you import an item from external source', () => {
+      cy.visit('/mydspace');
+
+      // This page is restricted, so we will be shown the login form. Fill it out & submit.
+      cy.loginViaForm(Cypress.env('DSPACE_TEST_SUBMIT_USER'), Cypress.env('DSPACE_TEST_SUBMIT_USER_PASSWORD'));
+
+      // Open the New Import dropdown
+      cy.get('button[data-test="import-dropdown"]').click();
+
+      // Click on the "Item" type in that dropdown
+      cy.get('#importControlsDropdownMenu button[title="none"]').click();
+
+      // New URL should include /import-external, as we've moved to the import page
+      cy.url().should('include', '/import-external');
+
+      // The external import searchbox should be visible
+      cy.get('ds-submission-import-external-searchbar').should('be.visible');
+
+      // Search a value
+      cy.get('input[data-test="import-external-input"]').type('test');
+      cy.get('button[data-test="import-external-search"]').click();
+
+      // Select first item
+      cy.get('ds-external-source-entry-list-submission-element div').should('exist');
+      cy.get('ds-importable-list-item-control button').first().click();
+
+      // Validate that import modal is visible
+      cy.get('ds-submission-import-external-preview').should('be.visible');
+      cy.get('ds-submission-import-external-preview button.btn-success').scrollIntoView().should('be.visible').click();
+
+      // ds-collection-dropdown should be visible
+      cy.get('ds-collection-dropdown').should('be.visible');
+
+      // Type the name of the collection and click
+      cy.get('ds-collection-dropdown input[type="search"]').type(Cypress.env('DSPACE_TEST_SUBMIT_COLLECTION_NAME'));
+      cy.get('ds-collection-dropdown li[title="'.concat(Cypress.env('DSPACE_TEST_SUBMIT_COLLECTION_NAME')).concat('"]')).click();
+
+      // And the new URL should include /workspaceitems, as we've started a new submission
+      cy.url().should('include', '/workspaceitems');
+    });
+
+    it('should let you import an publication from external source', () => {
+      cy.visit('/mydspace');
+
+      // This page is restricted, so we will be shown the login form. Fill it out & submit.
+      cy.loginViaForm(Cypress.env('DSPACE_TEST_SUBMIT_USER'), Cypress.env('DSPACE_TEST_SUBMIT_USER_PASSWORD'));
+
+      // Open the New Import dropdown
+      cy.get('button[data-test="import-dropdown"]').click();
+
+      // Click on the "Item" type in that dropdown
+      cy.get('#importControlsDropdownMenu button[title="Publication"]').click();
+
+      // New URL should include /import-external, as we've moved to the import page
+      cy.url().should('include', '/import-external');
+
+      // The external import searchbox should be visible
+      cy.get('ds-submission-import-external-searchbar').should('be.visible');
+
+      // Search a value
+      cy.get('input[data-test="import-external-input"]').type('test');
+      cy.get('button[data-test="import-external-search"]').click();
+
+      // Select first item
+      cy.get('ds-external-source-entry-list-submission-element div').should('exist');
+      cy.get('ds-importable-list-item-control button').first().click();
+
+      // Validate that import modal is visible
+      cy.get('ds-submission-import-external-preview').should('be.visible');
+      cy.get('ds-submission-import-external-preview button.btn-success').scrollIntoView().should('be.visible').click();
+
+      // ds-collection-dropdown should be visible
+      cy.get('ds-collection-dropdown').should('be.visible');
+
+      // Type the name of the collection and click
+      cy.get('ds-collection-dropdown input[type="search"]').type(Cypress.env('DSPACE_TEST_SUBMIT_WORKFLOW_COLLECTION_NAME'));
+      cy.get('ds-collection-dropdown li[title="'.concat(Cypress.env('DSPACE_TEST_SUBMIT_WORKFLOW_COLLECTION_NAME')).concat('"]')).click();
+
+      // And the new URL should include /workspaceitems, as we've started a new submission
+      cy.url().should('include', '/workspaceitems');
+    });
+
+    it('should let you import a person from external source', () => {
+      cy.visit('/mydspace');
+
+      // This page is restricted, so we will be shown the login form. Fill it out & submit.
+      cy.loginViaForm(Cypress.env('DSPACE_TEST_ADMIN_USER'), Cypress.env('DSPACE_TEST_ADMIN_PASSWORD'));
+
+      // Open the New Import dropdown
+      cy.get('button[data-test="import-dropdown"]').click();
+
+      // Click on the "Item" type in that dropdown
+      cy.get('#importControlsDropdownMenu button[title="Person"]').click();
+
+      // New URL should include /import-external, as we've moved to the import page
+      cy.url().should('include', '/import-external');
+
+      // The external import searchbox should be visible
+      cy.get('ds-submission-import-external-searchbar').should('be.visible');
+
+      // Search a value
+      cy.get('input[data-test="import-external-input"]').type('John');
+      cy.get('button[data-test="import-external-search"]').click();
+
+      // Select first item
+      cy.get('ds-external-source-entry-list-submission-element div').should('exist');
+      cy.get('ds-importable-list-item-control button').first().click();
+
+      // Validate that import modal should exists
+      cy.get('ds-submission-import-external-preview').should('exist');
+      cy.get('ds-submission-import-external-preview button.btn-success').scrollIntoView().should('be.visible').click();
+
+      // ds-collection-dropdown should be visible
+      cy.get('ds-collection-dropdown').should('be.visible');
+
+      // Type the name of the collection and click
+      cy.get('ds-collection-dropdown input[type="search"]').type(Cypress.env('DSPACE_TEST_PEOPLE_COLLECTION_NAME'));
+      cy.get('ds-collection-dropdown li[title="'.concat(Cypress.env('DSPACE_TEST_PEOPLE_COLLECTION_NAME')).concat('"]')).click();
+
+      // And the new URL should include /workspaceitems, as we've started a new submission
+      cy.url().should('include', '/workspaceitems');
+    });
   });
 
   it('should let you filter to only archived items', () => {
@@ -280,108 +508,424 @@ describe('My DSpace page', () => {/*
     cy.get('@selectedItem').within(() => {
       cy.get('ds-claimed-task-actions').should('exist');
     });
-  });*/
+  });
 
-  describe('Testing new submissions', () => {
-    const startSubmission = (title: string, collection: string) => {
-      cy.get('#entityControlsDropdownMenu button[title="'.concat(title).concat('"]')).click();
+  describe('Testing workflow tasks', () => {
+    const generateNewItemToWorkflow = () => {
+      const fileName = 'example.pdf';
+      const currentYear = new Date().getFullYear();
 
-      //Validate selector be visible and enter SUBMIT_COLLECTION_NAME
-      cy.get('ds-create-item-parent-selector').should('be.visible');
-      cy.get('ds-authorized-collection-selector input[type="search"]').type(collection);
-      cy.get('ds-create-item-parent-selector button[title="'.concat(collection).concat('"]')).click();
-    }
+      cy.visit('/mydspace');
+      cy.loginViaForm(Cypress.env('DSPACE_TEST_SUBMIT_USER'), Cypress.env('DSPACE_TEST_SUBMIT_USER_PASSWORD'));
+      cy.get('ds-my-dspace-page').should('be.visible');
 
-    const fillSubmission = (requiredInputs: Array<string>, title: string = 'test item', name: string = 'Tester') => {
-      if (requiredInputs.includes('title')) {
-        cy.get('#dc_title').type(title);
-      }
-      if (requiredInputs.includes('date_issued')) {
-        const currentYear = new Date().getFullYear();
-        cy.get('#dc_date_issued_year').type(currentYear.toString());
-      }
-      if (requiredInputs.includes('type')) {
-        cy.get('input[name="dc.type"]').click();
-        cy.get('.dropdown-menu').should('be.visible').contains('button', 'Other').click();
-      }
-      if (requiredInputs.includes('givenName')) {
-        cy.get('#person_givenName').type(name);
-      }
-      if (requiredInputs.includes('legalName')) {
-        cy.get('#organization_legalName').type(name);
-      }
+      cy.wait(500);
+      cy.get('ds-uploader .well').selectFile(`cypress/fixtures/${fileName}`, { action: 'drag-drop' });
+      cy.get('ds-collection-dropdown').should('be.visible');
+      cy.get('ds-collection-dropdown input[type="search"]').type(Cypress.env('DSPACE_TEST_SUBMIT_WORKFLOW_COLLECTION_NAME'));
+      cy.get('ds-collection-dropdown li[title="'.concat(Cypress.env('DSPACE_TEST_SUBMIT_WORKFLOW_COLLECTION_NAME')).concat('"]')).click();
+      cy.url().should('include', '/workspaceitems');
 
+      cy.get('#dc_title').type('Workflow test item');
+      cy.get('#dc_date_issued_year').type(currentYear.toString());
+      cy.get('input[name="dc.type"]').click();
+      cy.get('.dropdown-menu').should('be.visible').contains('button', 'Other').click();
       cy.get('#granted').check();
 
-      const fileName = 'example.pdf';
-      cy.get('ds-uploader .well').selectFile(`cypress/fixtures/${fileName}`, { action: 'drag-drop' });
-      cy.get('ds-uploader .filename').should('exist').and('contain.text', fileName);
-      cy.get('ds-uploader .upload-item-top').should('have.length', 1);
-      cy.wait(1000);
-
       cy.get('button[data-test="deposit"]').click();
-    }
 
-    const validateSubmission = (title: string = 'test item') => {
-      cy.url().should('include', '/mydspace');
-      cy.contains('[data-test="list-object"]', title).should('exist');
-    }
+      //We always log out to allow other methods and tasks to log in as the admin user
+      cy.visit('/logout');
+      cy.get('button[data-test="logout-button"]').should('be.visible').click();
+      cy.url().should('include', '/home');
+    };
 
-    //Enter to MyDspace and validate that submission-dropdown is visible
-    beforeEach(() => {
+    const takeLastSubmittedItem = () => {
       cy.visit('/mydspace');
       cy.loginViaForm(Cypress.env('DSPACE_TEST_ADMIN_USER'), Cypress.env('DSPACE_TEST_ADMIN_PASSWORD'));
-      cy.get('[data-test="submission-dropdown"]').should('be.visible').click();
+      cy.get('[data-test="objects"]').should('be.visible');
+
+      cy.intercept({
+        method: 'GET',
+        url: '/server/api/discover/search/objects**',
+      }).as('workflowSearch');
+      cy.get('ds-search-switch-configuration select option[data-test="workflow"]')
+        .should('exist')
+        .invoke('attr', 'value')
+        .then(value => {
+          cy.get('ds-search-switch-configuration select').select(value);
+        });
+      cy.wait('@workflowSearch');
+      cy.url().should('include', 'configuration=workflow');
+
+      //Wait to render the list and at leat one item
+      cy.get('[data-test="list-object"]').should('have.length.greaterThan', 0);
+      cy.get('[data-test="claim-button"]').should('exist');
+
+      cy.get('[data-test="list-object"]')
+        .then(($items) => {
+          const itemWithClaim = [...$items].find(item =>
+            item.querySelector('[data-test="claim-button"]'),
+          );
+          cy.wrap(itemWithClaim).should('exist');
+          cy.wrap(itemWithClaim).within(() => {
+            cy.get('ds-pool-task-actions').should('exist');
+            cy.get('[data-test="claim-button"]').click();
+          });
+        });
+
+      //We reload the page to make the next step work with the last workflow item
+      cy.reload();
+    };
+
+    it('should let you see workflow item metadata', () => {
+      //Prepare the test
+      generateNewItemToWorkflow();
+      takeLastSubmittedItem();
+
+      //Validate that the list is on the view
+      cy.get('[data-test="list-object"]').should('have.length.greaterThan', 0);
+      cy.get('ds-claimed-task-actions').should('exist');
+
+      //Find the first item with ds-claimed-task-actions in it
+      cy.get('[data-test="list-object"]')
+        .then(($items) => {
+          const itemWithClaimed = [...$items].find(item =>
+            item.querySelector('ds-claimed-task-actions'),
+          );
+          cy.wrap(itemWithClaimed).should('exist');
+          cy.wrap(itemWithClaimed).within(() => {
+            cy.get('ds-claimed-task-actions .workflow-view').should('exist');
+            cy.get('ds-claimed-task-actions .workflow-view').click();
+          });
+        });
+
+      //And validate that the url is the correct
+      cy.location('pathname').should('match', /\/workflowitems\/\d+\/view/);
     });
 
-    it('should let you send a new Item', () => {
-      let title = 'test item';
-      startSubmission('none', Cypress.env('DSPACE_TEST_SUBMIT_COLLECTION_NAME'));
-      fillSubmission(['title', 'date_issued', 'type'], title);
-      validateSubmission(title);
+    //This test uses the last item selected in the previous test workflow, so no preparation is necessary.
+    it('should let you return to pool the workflow item', () => {
+      //Log in
+      cy.visit('/mydspace');
+      cy.loginViaForm(Cypress.env('DSPACE_TEST_ADMIN_USER'), Cypress.env('DSPACE_TEST_ADMIN_PASSWORD'));
+      cy.get('[data-test="objects"]').should('be.visible');
+
+      //Go to workflow items
+      cy.intercept({
+        method: 'GET',
+        url: '/server/api/discover/search/objects**',
+      }).as('workflowSearch');
+      cy.get('ds-search-switch-configuration select option[data-test="workflow"]')
+        .should('exist')
+        .invoke('attr', 'value')
+        .then(value => {
+          cy.get('ds-search-switch-configuration select').select(value);
+        });
+      cy.wait('@workflowSearch');
+      cy.url().should('include', 'configuration=workflow');
+
+      //Validate that the list is on the view
+      cy.get('[data-test="list-object"]').should('have.length.greaterThan', 0);
+      cy.get('ds-claimed-task-actions').should('exist');
+
+      //Find the first item with ds-claimed-task-actions in it
+      cy.get('[data-test="list-object"]')
+        .then(($items) => {
+          const itemWithClaimed = [...$items].find(item =>
+            item.querySelector('ds-claimed-task-actions'),
+          );
+          cy.wrap(itemWithClaimed).should('exist');
+          cy.wrap(itemWithClaimed).as('selectedItem');
+          cy.wrap(itemWithClaimed).within(() => {
+            //And back to pool the item
+            cy.get('ds-claimed-task-actions-return-to-pool button').should('exist');
+            cy.get('ds-claimed-task-actions-return-to-pool button').click();
+          });
+        });
+
+      //Finally, when you click the ‘Claim’ button, the actions for the selected item should have ds-pool-task-actions
+      cy.get('@selectedItem').within(() => {
+        cy.get('ds-pool-task-actions').should('exist');
+      });
     });
 
-    it('should let you send a new Publication', () => {
-      let title = 'test publication';
-      startSubmission('Publication', Cypress.env('DSPACE_TEST_SUBMIT_WORKFLOW_COLLECTION_NAME'));
-      fillSubmission(['title', 'date_issued', 'type'], title);
-      validateSubmission(title);
+    it('should let you edit a workflow item metadata', () => {
+      //prepare the test
+      takeLastSubmittedItem();
+
+      //Validate that the list is on the view
+      cy.get('[data-test="list-object"]').should('have.length.greaterThan', 0);
+      cy.get('ds-claimed-task-actions').should('exist');
+
+      //Find the first item with ds-claimed-task-actions in it
+      cy.get('[data-test="list-object"]')
+        .then(($items) => {
+          const itemWithClaimed = [...$items].find(item =>
+            item.querySelector('ds-claimed-task-actions'),
+          );
+          cy.wrap(itemWithClaimed).should('exist');
+          cy.wrap(itemWithClaimed).within(() => {
+            cy.get('ds-claimed-task-actions-edit-metadata a').should('exist');
+            cy.get('ds-claimed-task-actions-edit-metadata a').click();
+          });
+        });
+
+      //Validate that now the url is workflow edit and make a change
+      cy.location('pathname').should('match', /\/workflowitems\/\d+\/edit/);
+      cy.get('#dc_title').clear().type('Workflow test item edited');
+      cy.get('button[data-test="save-for-later"]').scrollIntoView();
+      cy.get('button[data-test="save-for-later"]').click();
+
+      //Finally validate that the we back to workflow list and the item is edited
+      cy.url().should('include', 'configuration=workflow');
+      cy.get('ds-item-list-preview h2').should('contain', 'Workflow test item edited');
     });
 
-    it('should let you send a new Peson', () => {
-      let name = 'Tester';
-      startSubmission('Person', Cypress.env('DSPACE_TEST_PEOPLE_COLLECTION_NAME'));
-      fillSubmission(['givenName'], undefined, name);
-      validateSubmission(name);
+    it('should let you reject an workflow item', () => {
+      //Log in
+      cy.visit('/mydspace');
+      cy.loginViaForm(Cypress.env('DSPACE_TEST_ADMIN_USER'), Cypress.env('DSPACE_TEST_ADMIN_PASSWORD'));
+      cy.get('[data-test="objects"]').should('be.visible');
+
+      //Go to workflow items
+      cy.intercept({
+        method: 'GET',
+        url: '/server/api/discover/search/objects**',
+      }).as('workflowSearch');
+      cy.get('ds-search-switch-configuration select option[data-test="workflow"]')
+        .should('exist')
+        .invoke('attr', 'value')
+        .then(value => {
+          cy.get('ds-search-switch-configuration select').select(value);
+        });
+      cy.wait('@workflowSearch');
+      cy.url().should('include', 'configuration=workflow');
+
+      //Validate that the list is on the view
+      cy.get('[data-test="list-object"]').should('have.length.greaterThan', 0);
+      cy.get('ds-claimed-task-actions').should('exist');
+
+      //Find the first item with ds-claimed-task-actions in it
+      cy.get('[data-test="list-object"]')
+        .then(($items) => {
+          const itemWithClaimed = [...$items].find(item =>
+            item.querySelector('ds-claimed-task-actions'),
+          );
+          cy.wrap(itemWithClaimed).should('exist');
+          cy.wrap(itemWithClaimed).as('selectedItem');
+          cy.wrap(itemWithClaimed).within(() => {
+            //And click on reject button
+            cy.get('ds-claimed-task-actions-reject button').should('exist');
+            cy.get('ds-claimed-task-actions-reject button').click();
+          });
+        });
+
+      //Reject the item
+      cy.get('ngb-modal-window').should('be.visible');
+      cy.get('ngb-modal-window textarea').type('workflow item test reject reason');
+      cy.get('ngb-modal-window button[id=btn-chat]').click();
+
+      //And validate that the item is really rekected
+      cy.get('ds-claimed-declined-search-result-list-element').should('be.visible');
     });
 
-    it('should let you send a new Org Unit', () => {
-      let name = 'test Org Unit';
-      startSubmission('OrgUnit', Cypress.env('DSPACE_TEST_ORG_UNIT_COLLECTION_NAME'));
-      fillSubmission(['legalName'], undefined, name);
-      validateSubmission(name);
+    it('should let you approve an workflow item', () => {
+      //Prepare the test
+      generateNewItemToWorkflow();
+      takeLastSubmittedItem();
+
+
+      //Validate that the list is on the view
+      cy.get('[data-test="list-object"]').should('have.length.greaterThan', 0);
+      cy.get('ds-claimed-task-actions').should('exist');
+
+      //Find the first item with ds-claimed-task-actions in it
+      cy.get('[data-test="list-object"]')
+        .then(($items) => {
+          const itemWithClaimed = [...$items].find(item =>
+            item.querySelector('ds-claimed-task-actions'),
+          );
+          cy.wrap(itemWithClaimed).should('exist');
+          cy.wrap(itemWithClaimed).as('selectedItem');
+          cy.wrap(itemWithClaimed).within(() => {
+            //And click on reject button
+            cy.get('ds-claimed-task-actions-approve button').should('exist');
+            cy.get('ds-claimed-task-actions-approve button').click();
+          });
+        });
+
+      //And validate that the item is really rekected
+      cy.get('ds-claimed-approved-search-result-list-element').should('be.visible');
+    });
+  });
+
+  describe('Testing supervised items', () => {
+    before(()=> {
+      cy.visit('/admin/workflow');
+      cy.loginViaForm(Cypress.env('DSPACE_TEST_ADMIN_USER'), Cypress.env('DSPACE_TEST_ADMIN_PASSWORD'));
+      //We are going to use an submission test item to generate a supervised item
+      cy.get('input[data-test="search-box"]').type('workflow item');
+      cy.get('button[data-test="search-button"]').type('workflow item');
+
+      cy.get('[data-test="list-object"]')
+        .filter(':has(.supervision-group-selector)')
+        .first()
+        .find('.supervision-group-selector')
+        .click();
+
+      cy.get('#supervisionOrder').should('be.visible');
+      //Select order type as editor
+      cy.get('#supervisionOrder').select('EDITOR');
+
+      //And select group as administrador
+      cy.get('ds-group-search-box input#query').type('Administrator');
+      cy.get('ds-group-search-box button[type="submit"]').click();
+      cy.get('#groups button').click();
+
+      //Finally save
+      cy.get('div.modal-footer button.save').click();
+      cy.get('div.notification-title').should('be.visible');
     });
 
-    it('should let you send a new Journal', () => {
-      let title = 'test Journal';
-      startSubmission('Journal', Cypress.env('DSPACE_TEST_JOURNAL_COLLECTION_NAME'));
-      fillSubmission(['title'], title);
-      validateSubmission(title);
+    it('should let you view metadata of supervised item', () => {
+      //Go to my Dspace
+      cy.visit('/mydspace');
+      cy.get('[data-test="objects"]').should('be.visible');
+
+      //Select the supervisedItemSearch value on selector
+      cy.intercept({
+        method: 'GET',
+        url: '/server/api/discover/search/objects**',
+      }).as('SupervisedItemSearch');
+
+      cy.get('ds-search-switch-configuration select option[data-test="supervisedWorkspace"]')
+        .should('exist')
+        .invoke('attr', 'value')
+        .then(value => {
+          cy.get('ds-search-switch-configuration select').select(value);
+        });
+
+      cy.wait('@SupervisedItemSearch');
+      //Validate that url gets updated
+      cy.url().should('include', 'configuration=supervisedWorkspace');
+
+      cy.get('[data-test="list-object"]').should('have.length.greaterThan', 0);
+      cy.get('ds-workspaceitem-actions').should('exist');
+
+      //Find the first item available and hit view option
+      cy.get('[data-test="list-object"]')
+        .then(($items) => {
+          const itemWithClaimed = [...$items].find(item =>
+            item.querySelector('ds-workspaceitem-actions'),
+          );
+          cy.wrap(itemWithClaimed).should('exist');
+          cy.wrap(itemWithClaimed).within(() => {
+            cy.get('ds-workspaceitem-actions .workflow-view').should('exist');
+            cy.get('ds-workspaceitem-actions .workflow-view').click();
+          });
+        });
+
+      //And validate that the url is the correct
+      cy.location('pathname').should('match', /\/workspaceitems\/\d+\/view/);
     });
 
-    it('should let you send a new Journal Volume', () => {
-      let title = 'test Journal Volume';
-      startSubmission('JournalVolume', Cypress.env('DSPACE_TEST_JOURNAL_VOLUME_COLLECTION_NAME'));
-      fillSubmission(['title'], title);
-      validateSubmission(title);
+    it('should let you edit metadata of supervised item', () => {
+      //Visit myDSpace page
+      cy.visit('/mydspace');
+      cy.loginViaForm(Cypress.env('DSPACE_TEST_ADMIN_USER'), Cypress.env('DSPACE_TEST_ADMIN_PASSWORD'));
+      cy.get('[data-test="objects"]').should('be.visible');
+
+      //Select the supervisedItemSearch value on selector
+      cy.intercept({
+        method: 'GET',
+        url: '/server/api/discover/search/objects**',
+      }).as('SupervisedItemSearch');
+
+      cy.get('ds-search-switch-configuration select option[data-test="supervisedWorkspace"]')
+        .should('exist')
+        .invoke('attr', 'value')
+        .then(value => {
+          cy.get('ds-search-switch-configuration select').select(value);
+        });
+
+      cy.wait('@SupervisedItemSearch');
+      //Validate that url gets updated
+      cy.url().should('include', 'configuration=supervisedWorkspace');
+
+      cy.get('[data-test="list-object"]').should('have.length.greaterThan', 0);
+      cy.get('ds-workspaceitem-actions').should('exist');
+
+      //Find the first item available and hit in edit button
+      cy.get('[data-test="list-object"]')
+        .then(($items) => {
+          const itemWithClaimed = [...$items].find(item =>
+            item.querySelector('ds-workspaceitem-actions'),
+          );
+          cy.wrap(itemWithClaimed).should('exist');
+          cy.wrap(itemWithClaimed).within(() => {
+            cy.get('ds-workspaceitem-actions .edit-btn').should('exist');
+            cy.get('ds-workspaceitem-actions .edit-btn').click();
+          });
+        });
+
+      //Change the title of the supervised item
+      cy.location('pathname').should('match', /\/workspaceitems\/\d+\/edit/);
+      cy.get('#dc_title').clear().type('Supervised test item edited');
+      cy.get('button[data-test="save-for-later"]').scrollIntoView();
+      cy.get('button[data-test="save-for-later"]').click();
+
+      //And validate that the change get applied
+      cy.url().should('include', 'configuration=supervisedWorkspace');
+      cy.get('span.item-list-title').should('contain', 'Supervised test item edited');
     });
 
-    it('should let you send a new Journal Issue', () => {
-      let title = 'test Journal Issue';
-      startSubmission('JournalIssue', Cypress.env('DSPACE_TEST_JOURNAL_ISSUE_COLLECTION_NAME'));
-      fillSubmission(['title'], title);
-      validateSubmission(title);
-    });
+    it('should let you delete a supervised item', () => {
+      //Visit myDSpace page
+      cy.visit('/mydspace');
+      cy.loginViaForm(Cypress.env('DSPACE_TEST_ADMIN_USER'), Cypress.env('DSPACE_TEST_ADMIN_PASSWORD'));
+      cy.get('[data-test="objects"]').should('be.visible');
 
-  })
+      //Select the supervisedItemSearch value on selector
+      cy.intercept({
+        method: 'GET',
+        url: '/server/api/discover/search/objects**',
+      }).as('SupervisedItemSearch');
+
+      cy.get('ds-search-switch-configuration select option[data-test="supervisedWorkspace"]')
+        .should('exist')
+        .invoke('attr', 'value')
+        .then(value => {
+          cy.get('ds-search-switch-configuration select').select(value);
+        });
+
+      cy.wait('@SupervisedItemSearch');
+      //Validate that url gets updated
+      cy.url().should('include', 'configuration=supervisedWorkspace');
+
+      cy.get('[data-test="list-object"]').should('have.length.greaterThan', 0);
+      cy.get('ds-workspaceitem-actions').should('exist');
+
+      //Find the first item available and hit in edit button
+      cy.get('[data-test="list-object"]')
+        .then(($items) => {
+          const itemWithClaimed = [...$items].find(item =>
+            item.querySelector('ds-workspaceitem-actions'),
+          );
+          cy.wrap(itemWithClaimed).should('exist');
+          cy.wrap(itemWithClaimed).within(() => {
+            cy.get('ds-workspaceitem-actions .btn-danger').should('exist');
+            cy.get('ds-workspaceitem-actions .btn-danger').click();
+          });
+        });
+
+      //Confirm delete the supervised item
+      cy.get('ngb-modal-window').should('be.visible');
+      cy.get('ngb-modal-window button[id=delete_confirm]').click();
+
+      //And validate that the change get applied
+      cy.url().should('include', 'configuration=supervisedWorkspace');
+      cy.get('ds-notification').should('be.visible');
+    });
+  });
 });
