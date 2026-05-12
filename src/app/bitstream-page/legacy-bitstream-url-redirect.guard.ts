@@ -9,6 +9,7 @@ import {
 import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
 import { RemoteData } from '@dspace/core/data/remote-data';
 import { PAGE_NOT_FOUND_PATH } from '@dspace/core/router/core-routing-paths';
+import { getBitstreamDownloadRoute } from '@dspace/core/router/utils/dso-route.utils';
 import { HardRedirectService } from '@dspace/core/services/hard-redirect.service';
 import { Bitstream } from '@dspace/core/shared/bitstream.model';
 import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
@@ -46,7 +47,7 @@ export const legacyBitstreamURLRedirectGuard: CanActivateFn = (
     getFirstCompletedRemoteData(),
     map((rd: RemoteData<Bitstream>) => {
       if (rd.hasSucceeded && !rd.hasNoContent) {
-        serverHardRedirectService.redirect(new URL(`/bitstreams/${rd.payload.uuid}/download`, serverHardRedirectService.getCurrentOrigin()).href, 301);
+        serverHardRedirectService.redirect(new URL(getBitstreamDownloadRoute(rd.payload), serverHardRedirectService.getBaseUrl()).href, 301);
         return false;
       } else {
         return router.createUrlTree([PAGE_NOT_FOUND_PATH]);

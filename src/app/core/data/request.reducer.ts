@@ -151,6 +151,7 @@ function completeFailedRequest(storeState: RequestState, action: RequestErrorAct
           statusCode: action.payload.statusCode,
           payloadLink: null,
           errorMessage: action.payload.errorMessage,
+          errors: action.payload.errors,
         },
         lastUpdated: action.lastUpdated,
       }),

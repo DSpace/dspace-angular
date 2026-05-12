@@ -51,6 +51,9 @@
       [fields]="['dc.title']"
       [label]="'person.page.name'">
     </ds-generic-item-page-field>
+    <ds-item-page-orcid-field
+      [item]="object">
+    </ds-item-page-orcid-field>
     <div>
       <a class="btn btn-outline-primary" [routerLink]="[itemPageRoute + '/full']" role="button" tabindex="0">
         {{"item.page.link.full" | translate}}
@@ -58,12 +61,19 @@
     </div>
   </div>
   <div class="mt-5 w-100 px-0">
-    <ds-tabbed-related-entities-search  [item]="object"
-                                        [relationTypes]="[{
+    @if (areAuthorityRelationsEnabled) {
+      <ds-authority-related-entities-search
+        [item]="object"
+        [configurations]="['RELATION.Person.researchoutputs', 'RELATION.Person.projects']"
+      ></ds-authority-related-entities-search>
+    } @else {
+      <ds-tabbed-related-entities-search  [item]="object"
+                                          [relationTypes]="[{
                                           label: 'isAuthorOfPublication',
                                           filter: 'isAuthorOfPublication',
                                           configuration: 'default-relationships'
                                         }]">
-    </ds-tabbed-related-entities-search>
+      </ds-tabbed-related-entities-search>
+    }
   </div>
 </div>

@@ -1,4 +1,7 @@
-import { NgTemplateOutlet } from '@angular/common';
+import {
+  AsyncPipe,
+  NgTemplateOutlet,
+} from '@angular/common';
 import {
   Component,
   Inject,
@@ -13,9 +16,20 @@ import {
 } from '@dspace/config/app-config.interface';
 import { BrowseDefinition } from '@dspace/core/shared/browse-definition.model';
 import { MetadataValue } from '@dspace/core/shared/metadata.models';
+import {
+  getFirstCompletedRemoteData,
+  getPaginatedListPayload,
+  getRemoteDataPayload,
+} from '@dspace/core/shared/operators';
 import { VALUE_LIST_BROWSE_DEFINITION } from '@dspace/core/shared/value-list-browse-definition.resource-type';
+import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
 import { hasValue } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+import {
+  map,
+  take,
+} from 'rxjs/operators';
 
 import { environment } from '../../../../environments/environment';
 import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
@@ -31,6 +45,7 @@ import { ImageField } from '../../simple/field-components/specific-field/image-f
   styleUrls: ['./metadata-values.component.scss'],
   templateUrl: './metadata-values.component.html',
   imports: [
+    AsyncPipe,
     MarkdownDirective,
     MetadataFieldWrapperComponent,
     NgTemplateOutlet,
@@ -41,6 +56,7 @@ import { ImageField } from '../../simple/field-components/specific-field/image-f
 export class MetadataValuesComponent implements OnChanges {
 
   constructor(
+    protected vocabularyService: VocabularyService,
     @Inject(APP_CONFIG) private appConfig: AppConfig,
   ) {
   }
@@ -87,8 +103,22 @@ export class MetadataValuesComponent implements OnChanges {
 
   hasValue = hasValue;
 
+  /**
+   * Optional metadata field used to build search links for values.
+   * If defined, values will link to the search page using this field as filter.
+   */
+  @Input() searchFilter?: string;
+
   ngOnChanges(changes: SimpleChanges): void {
     this.renderMarkdown = !!this.appConfig.markdown.enabled && this.enableMarkdown;
+  }
+
+  /**
+   * Determines whether a search filter has been configured for this metadata field.
+   * Used to decide if values should be rendered as search links.
+   */
+  hasSearchFilter(): boolean {
+    return !!this.searchFilter;
   }
 
   /**
@@ -108,6 +138,41 @@ export class MetadataValuesComponent implements OnChanges {
       return pattern.test(value.value);
     }
     return false;
+  }
+
+  /**
+   * Builds query parameters for the search page based on the configured search filter.
+   * The metadata value is used as the search term for the specified field.
+   *
+   * @param value The metadata value to search for.
+   * @returns Query parameters object for Angular router navigation.
+   */
+  getSearchQueryParams(value: string): any {
+    return { [`f.${this.searchFilter}`]: `${value},equals` };
+  }
+
+  /**
+   * Whether the metadata is a controlled vocabulary
+   * @param value A MetadataValue being displayed
+   */
+  isControlledVocabulary(metadataValue: MetadataValue): boolean {
+    const vocabularyId = this.getVocabularyIdFromAuthorityValue(metadataValue);
+    return hasValue(this.getVocabularyName(vocabularyId));
+  }
+
+  /**
+   * Return configured vocabulary name for this metadata value
+   */
+  getVocabularyName(vocabularyId: string): string | null {
+    return this.appConfig.vocabularies.find(vocabulary => vocabulary.vocabulary === vocabularyId)?.vocabulary;
+  }
+
+  /**
+   * Get value from authority for vocabulary lookup
+   */
+  getVocabularyIdFromAuthorityValue(metadataValue: MetadataValue): string {
+    const authority = metadataValue.authority ? metadataValue.authority.split(':') : undefined;
+    return authority?.length > 1 ? authority[0] : null;
   }
 
   /**
@@ -145,5 +210,22 @@ export class MetadataValuesComponent implements OnChanges {
     } else {
       return { target: '_blank', rel: 'noopener noreferrer' };
     }
+  }
+
+  /**
+   * Get vocabulary translated value from metadata value
+   */
+  getVocabularyValue(metadataValue: MetadataValue): Observable<string> {
+    const vocabularyId = this.getVocabularyIdFromAuthorityValue(metadataValue);
+    const vocabularyName = this.getVocabularyName(vocabularyId);
+
+    return this.vocabularyService.getPublicVocabularyEntryByID(vocabularyName, metadataValue.authority.split(':')[1]).pipe(
+      getFirstCompletedRemoteData(),
+      getRemoteDataPayload(),
+      getPaginatedListPayload(),
+      map((res) => res?.length > 0 ? res[0] : null),
+      map((res) => res?.display ?? metadataValue.value),
+      take(1),
+    );
   }
 }

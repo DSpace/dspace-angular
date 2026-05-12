@@ -21,7 +21,6 @@ import {
   distinctUntilChanged,
   map,
   switchMap,
-  tap,
 } from 'rxjs/operators';
 
 import { AlertComponent } from '../../../shared/alert/alert.component';
@@ -80,7 +79,6 @@ export class SuggestionSourcesComponent {
       }),
       takeUntilDestroyed(),
     ).subscribe((results: Partial<PaginatedList<SuggestionSource>>) =>  {
-      console.log(results);
       this.sources$.next(results.page);
       this.totalElements$.next(results.pageInfo?.totalElements ?? 0);
       this.loading$.next(false);
@@ -104,7 +102,6 @@ export class SuggestionSourcesComponent {
 
     return this.suggestionSourceDataService.getSources(options).pipe(
       getFirstCompletedRemoteData(),
-      tap(console.log),
       map((result: RemoteData<PaginatedList<SuggestionSource>>) => {
         return result.hasSucceeded ? result.payload : { page: [], pageInfo: null };
       }),
