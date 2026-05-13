@@ -108,7 +108,13 @@ export abstract class AbstractComponentLoaderComponent<T> implements OnInit, OnC
    * Creates the component and connects the @Input() & @Output() from the ThemedComponent to its child Component.
    */
   public async instantiateComponent(): Promise<void> {
-    const component: GenericConstructor<T> = await this.getComponent();
+    let component: GenericConstructor<T>;
+    try {
+      component = await this.getComponent();
+    } catch (error) {
+      console.error('Failed to retrieve the component', error);
+      return;
+    }
 
     const viewContainerRef: ViewContainerRef = this.componentViewContainerRef;
     viewContainerRef.clear();

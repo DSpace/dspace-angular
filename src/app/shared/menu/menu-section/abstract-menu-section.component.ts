@@ -36,7 +36,7 @@ import { MenuItemModel } from '../menu-item/models/menu-item.model';
 import { MenuItemType } from '../menu-item-type.model';
 import { MenuSection } from '../menu-section.model';
 
-export interface MenuSectionDTO {
+export interface MenuSectionComponentDTO {
   injector: Injector;
   component: GenericConstructor<Component>;
 }
@@ -80,7 +80,7 @@ export abstract class AbstractMenuSectionComponent implements OnInit, OnChanges,
   /**
    * Map of components and injectors for each dynamically rendered menu section
    */
-  sectionMap: WritableSignal<Map<string, MenuSectionDTO>> = signal(new Map<string, MenuSectionDTO>());
+  sectionMap: WritableSignal<Map<string, MenuSectionComponentDTO>> = signal(new Map<string, MenuSectionComponentDTO>());
 
   /**
    * Array to track all subscriptions and unsubscribe them onDestroy
@@ -187,7 +187,7 @@ export abstract class AbstractMenuSectionComponent implements OnInit, OnChanges,
    * Update the sectionMap
    */
   private updateSectionMap(id: string, injector: Injector, component: GenericConstructor<Component>) {
-    this.sectionMap.update((sectionMap: Map<string, MenuSectionDTO>) => new Map(sectionMap.set(id, {
+    this.sectionMap.update((sectionMap: Map<string, MenuSectionComponentDTO>) => new Map(sectionMap.set(id, {
       injector,
       component,
     })));
