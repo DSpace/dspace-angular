@@ -46,7 +46,7 @@ describe('FileDownloadLinkComponent', () => {
   const mockAppConfig = {
     cache: {
       msToLive: {
-        default: 15 * 60 * 1000
+        default: 15 * 60 * 1000,
       },
     },
     item: {
