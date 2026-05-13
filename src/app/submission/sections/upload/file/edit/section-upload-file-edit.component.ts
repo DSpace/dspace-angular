@@ -15,7 +15,6 @@ import { SubmissionObject } from '@dspace/core/submission/models/submission-obje
 import { WorkspaceitemSectionUploadObject } from '@dspace/core/submission/models/workspaceitem-section-upload.model';
 import { WorkspaceitemSectionUploadFileObject } from '@dspace/core/submission/models/workspaceitem-section-upload-file.model';
 import { SubmissionJsonPatchOperationsService } from '@dspace/core/submission/submission-json-patch-operations.service';
-import { VocabularyEntry } from '@dspace/core/submission/vocabularies/models/vocabulary-entry.model';
 import { dateToISOFormat } from '@dspace/shared/utils/date.util';
 import {
   hasNoValue,
@@ -50,7 +49,6 @@ import {
 import { DynamicCustomSwitchModel } from 'src/app/shared/form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.model';
 
 import { BtnDisabledDirective } from '../../../../../shared/btn-disabled.directive';
-import { DynamicScrollableDropdownModel } from '../../../../../shared/form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 import { FormBuilderService } from '../../../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../../../shared/form/form.component';
 import { FormService } from '../../../../../shared/form/form.service';
@@ -255,8 +253,6 @@ implements OnInit, OnDestroy {
   onChange(event: DynamicFormControlEvent) {
     if (event.model.id === 'name') {
       this.setOptions(event.model, event.control);
-    } else if (event.model.id === 'dc_type') {
-      this.hideOrShowAudioVideoMetadata(event.model, event.control);
     }
   }
 
@@ -296,39 +292,11 @@ implements OnInit, OnDestroy {
   }
 
   /**
-   * Shows or hides metadata fields related to audio/video accessibility based on the selected media type.
-   *
-   * The selected value can come from:
-   * - `control.value.value` when triggered by a form control change event, or
-   * - `model.value.value` when evaluated from an already initialized model (e.g. on component init).
-   *
-   * @param model - The dynamic form model for the `dc_type` field.
-   * @param control - The reactive form control that emitted the change event (can be `null` during initialization).
-   */
-  hideOrShowAudioVideoMetadata(model: DynamicFormControlModel, control: UntypedFormControl) {
-    const selectedMediaType = control?.value?.value ?? ((model as DynamicScrollableDropdownModel)?.value as unknown as VocabularyEntry)?.value;
-    const shouldShowAudioMetadata = selectedMediaType?.toLowerCase().includes('audio');
-    const shouldShowVideoMetadata = selectedMediaType?.toLowerCase().includes('video');
-    const audioTranscriptModel: any = this.formBuilderService.findById('dspace_bitstream_transcript', this.formModel);
-    const videoDescriptionModel: any = this.formBuilderService.findById('dspace_bitstream_textalternative', this.formModel);
-    if (audioTranscriptModel) {
-      audioTranscriptModel.hidden = !shouldShowAudioMetadata;
-    }
-    if (videoDescriptionModel) {
-      videoDescriptionModel.hidden = !shouldShowVideoMetadata;
-    }
-  }
-
-  /**
    * Dispatch form model init
    */
   ngOnInit() {
     if (this.fileData && this.formId) {
       this.formModel = this.buildFileEditForm();
-      const mediaTypeModel: any = this.formBuilderService.findById('dc_type', this.formModel);
-      if (mediaTypeModel) {
-        this.hideOrShowAudioVideoMetadata(mediaTypeModel, null);
-      }
       this.cdr.detectChanges();
     }
   }
