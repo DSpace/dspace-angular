@@ -54,7 +54,7 @@ export class BtnDisabledDirective {
      */
   @HostListener('keydown', ['$event'])
     handleKeydown(event: KeyboardEvent) {
-      if (this.isDisabled && (event.key === 'Enter' || event.key === 'Space')) {
+      if (this.isDisabled && (event.key === 'Enter' || event.key === ' ')) {
         event.preventDefault();
         event.stopImmediatePropagation();
       }

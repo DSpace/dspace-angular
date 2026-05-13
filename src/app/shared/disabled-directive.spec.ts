@@ -76,7 +76,7 @@ describe('DisabledDirective', () => {
     button.nativeElement.addEventListener('keydown', () => keydownHandled = true);
 
     const enterEvent = new KeyboardEvent('keydown', { key: 'Enter' });
-    const spaceEvent = new KeyboardEvent('keydown', { key: 'Space' });
+    const spaceEvent = new KeyboardEvent('keydown', { key: ' ' });
 
     button.nativeElement.dispatchEvent(enterEvent);
     button.nativeElement.dispatchEvent(spaceEvent);
@@ -94,7 +94,7 @@ describe('DisabledDirective', () => {
     button.nativeElement.click();
 
     const enterEvent = new KeyboardEvent('keydown', { key: 'Enter' });
-    const spaceEvent = new KeyboardEvent('keydown', { key: 'Space' });
+    const spaceEvent = new KeyboardEvent('keydown', { key: ' ' });
 
     button.nativeElement.dispatchEvent(enterEvent);
     button.nativeElement.dispatchEvent(spaceEvent);
