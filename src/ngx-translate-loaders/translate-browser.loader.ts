@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { TransferState } from '@angular/core';
 import { hasValue } from '@dspace/shared/utils/empty.util';
 import { TranslateLoader } from '@ngx-translate/core';
-import * as JSON5 from 'json5';
+import JSON5 from 'json5';
 import {
   forkJoin,
   Observable,

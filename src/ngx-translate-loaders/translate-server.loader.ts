@@ -2,11 +2,14 @@ import {
   existsSync,
   readFileSync,
 } from 'node:fs';
-import { dirname, resolve } from 'node:path';
+import {
+  dirname,
+  resolve,
+} from 'node:path';
 
 import { TransferState } from '@angular/core';
 import { TranslateLoader } from '@ngx-translate/core';
-import * as JSON5 from 'json5';
+import JSON5 from 'json5';
 import {
   Observable,
   of,
