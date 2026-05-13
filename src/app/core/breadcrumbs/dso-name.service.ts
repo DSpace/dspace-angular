@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { MetadataValue } from '@dspace/core/shared/metadata.models';
 import {
   hasValue,
   isEmpty,
@@ -97,24 +98,29 @@ export class DSONameService {
    *
    * @returns {string} html embedded hit highlight.
    */
-  getHitHighlights(object: any, dso: DSpaceObject, escapeHTML?: boolean): string {
+  getHitHighlights(object: any, dso: DSpaceObject, escapeHTML?: boolean): MetadataValue {
     const types = dso.getRenderTypes();
     const entityType = types
       .filter((type) => typeof type === 'string')
       .find((type: string) => (['Person', 'OrgUnit']).includes(type)) as string;
     if (entityType === 'Person') {
-      const familyName = this.firstMetadataValue(object, dso, 'person.familyName', escapeHTML);
-      const givenName = this.firstMetadataValue(object, dso, 'person.givenName', escapeHTML);
-      if (isEmpty(familyName) && isEmpty(givenName)) {
-        return this.firstMetadataValue(object, dso, 'dc.title', escapeHTML) || dso.name;
-      } else if (isEmpty(familyName) || isEmpty(givenName)) {
+      const familyName = this.firstMetadata(object, dso, 'person.familyName', escapeHTML);
+      const givenName = this.firstMetadata(object, dso, 'person.givenName', escapeHTML);
+      if (isEmpty(familyName?.value) && isEmpty(givenName?.value)) {
+        return this.firstMetadata(object, dso, 'dc.title', escapeHTML) ||
+          (dso.name && Object.assign(new MetadataValue(), { value: dso.name })) ||
+          Object.assign(new MetadataValue(), { value: this.translateService.instant('person.listelement.no-title') });
+      } else if (isEmpty(familyName?.value) || isEmpty(givenName?.value)) {
         return familyName || givenName;
       }
-      return `${familyName}, ${givenName}`;
+      return Object.assign(new MetadataValue(), { value: `${familyName.value}, ${givenName.value}` });
     } else if (entityType === 'OrgUnit') {
-      return this.firstMetadataValue(object, dso, 'organization.legalName', escapeHTML);
+      return this.firstMetadata(object, dso, 'organization.legalName', escapeHTML) ||
+        Object.assign(new MetadataValue(), { value: this.translateService.instant('orgunit.listelement.no-title') });
     }
-    return this.firstMetadataValue(object, dso, 'dc.title', escapeHTML) || dso.name || this.translateService.instant('dso.name.untitled');
+    return this.firstMetadata(object, dso, 'dc.title', escapeHTML) ||
+      (dso.name && Object.assign(new MetadataValue(), { value: dso.name })) ||
+      Object.assign(new MetadataValue(), { value: this.translateService.instant('dso.name.untitled') });
   }
 
   /**
@@ -129,6 +135,20 @@ export class DSONameService {
    */
   firstMetadataValue(object: any, dso: DSpaceObject, keyOrKeys: string | string[], escapeHTML?: boolean): string {
     return Metadata.firstValue(dso.metadata, keyOrKeys, object.hitHighlights, undefined, escapeHTML);
+  }
+
+  /**
+   * Gets the first matching metadata from hitHighlights or dso metadata, preferring hitHighlights.
+   *
+   * @param object
+   * @param dso
+   * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see [[Metadata]].
+   * @param escapeHTML Whether the HTML is used inside a `[innerHTML]` attribute
+   *
+   * @returns {string} the first matching metadata, or `undefined`.
+   */
+  firstMetadata(object: any, dso: DSpaceObject, keyOrKeys: string | string[], escapeHTML?: boolean): MetadataValue {
+    return Metadata.first(dso.metadata, keyOrKeys, object.hitHighlights, undefined, escapeHTML);
   }
 
 }

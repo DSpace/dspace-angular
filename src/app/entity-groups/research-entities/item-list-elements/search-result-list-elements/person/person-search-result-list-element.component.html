@@ -32,12 +32,12 @@
         <a [target]="(linkType === linkTypes.ExternalLink) ? '_blank' : '_self'"
           [attr.rel]="(linkType === linkTypes.ExternalLink) ? 'noopener noreferrer' : null"
           [routerLink]="[itemPageRoute]" class="lead"
-        [innerHTML]="dsoTitle || ('person.listelement.no-title' | translate)" role="link" tabindex="0"></a>
+           [dsMetadata]="dsoTitle" role="link" tabindex="0"></a>
       }
       @if (linkType === linkTypes.None) {
         <span
           class="lead"
-        [innerHTML]="dsoTitle || ('person.listelement.no-title' | translate)"></span>
+          [dsMetadata]="dsoTitle"></span>
       }
       <span class="text-muted">
         <ds-truncatable-part [id]="dso.id" [minLines]="1">

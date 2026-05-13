@@ -84,7 +84,7 @@ export class ItemListPreviewComponent implements OnInit {
    */
   showThumbnails: boolean;
 
-  dsoTitle: string;
+  dsoTitle: MetadataValue;
 
   authorMetadataList: MetadataValue[] = [];
 

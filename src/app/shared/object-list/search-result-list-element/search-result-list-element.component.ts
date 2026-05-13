@@ -17,6 +17,10 @@ import { Observable } from 'rxjs';
 import { MetadataValue } from '../../../core/shared/metadata.models';
 import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 import { TruncatableService } from '../../truncatable/truncatable.service';
+import {
+  allMetadataWithHitHighlights,
+  firstMetadataWithHitHighlights,
+} from '../../utils/highlighted-metadata.util';
 
 @Component({
   selector: 'ds-search-result-list-element',
@@ -27,7 +31,7 @@ export class SearchResultListElementComponent<T extends SearchResult<K>, K exten
    * The DSpaceObject of the search result
    */
   dso: K;
-  dsoTitle: string;
+  dsoTitle: MetadataValue;
 
   /**
    * Limit of additional metadata values to show
@@ -58,16 +62,7 @@ export class SearchResultListElementComponent<T extends SearchResult<K>, K exten
    * @returns {MetadataValue[]} the matching values or an empty array.
    */
   allMetadata(keyOrKeys: string | string[]): MetadataValue[] {
-    const dsoMetadata: MetadataValue[] = Metadata.all(this.dso.metadata, keyOrKeys);
-    const highlights: MetadataValue[] = Metadata.all(this.object.hitHighlights, keyOrKeys);
-    const removedHighlights: string[] = highlights.map(mv => mv.value.replace(/<\/?em>/g, ''));
-    for (let i = 0; i < removedHighlights.length; i++) {
-      const index = dsoMetadata.findIndex(mv => mv.value === removedHighlights[i]);
-      if (index !== -1) {
-        dsoMetadata[index] = highlights[i];
-      }
-    }
-    return dsoMetadata;
+    return allMetadataWithHitHighlights(this.dso.metadata, this.object.hitHighlights, keyOrKeys);
   }
 
   /**
@@ -98,7 +93,7 @@ export class SearchResultListElementComponent<T extends SearchResult<K>, K exten
    * @returns {MetadataValue} the first matching value, or `undefined`.
    */
   firstMetadata(keyOrKeys: string | string[]): MetadataValue {
-    return Metadata.first(this.dso.metadata, keyOrKeys, this.object.hitHighlights);
+    return firstMetadataWithHitHighlights(this.dso.metadata, this.object.hitHighlights, keyOrKeys);
   }
 
   /**
