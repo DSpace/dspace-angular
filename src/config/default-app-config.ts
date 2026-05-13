@@ -413,7 +413,7 @@ export class DefaultAppConfig implements AppConfig {
       // Show the bitstream access status label
       showAccessStatuses: false,
       // Open bitstream download links in a new browser tab by default
-      openDownloadLinksInNewTab: true,
+      openDownloadLinksInNewTab: false,
     },
     // Configuration for the metadata link view popover
     metadataLinkViewPopoverData: {

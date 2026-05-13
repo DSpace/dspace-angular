@@ -432,7 +432,7 @@ item:
     # Show the bitstream access status label on the item page
     showAccessStatuses: false
     # Open bitstream download links in a new browser tab by default
-    openDownloadLinksInNewTab: true
+    openDownloadLinksInNewTab: false
   # Configuration of metadata to be displayed in the item metadata link view popover
   metadataLinkViewPopoverData:
     # Metdadata list to be displayed for entities without a specific configuration
