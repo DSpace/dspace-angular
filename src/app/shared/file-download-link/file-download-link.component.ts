@@ -119,7 +119,7 @@ export class FileDownloadLinkComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.isBlank = this.isBlank ?? this.appConfig?.item?.bitstream?.openDownloadLinksInNewTab ?? true;
+    this.isBlank = this.isBlank ?? this.appConfig?.item?.bitstream?.openDownloadLinksInNewTab;
 
     if (this.enableRequestACopy) {
       // Obtain item request data from the route snapshot
