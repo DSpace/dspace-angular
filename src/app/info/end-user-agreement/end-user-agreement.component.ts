@@ -11,6 +11,8 @@ import { LogOutAction } from '@dspace/core/auth/auth.actions';
 import { AuthService } from '@dspace/core/auth/auth.service';
 import { EndUserAgreementService } from '@dspace/core/end-user-agreement/end-user-agreement.service';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
+import { HardRedirectService } from '@dspace/core/services/hard-redirect.service';
+import { URLCombiner } from '@dspace/core/url-combiner/url-combiner';
 import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import { Store } from '@ngrx/store';
 import {
@@ -55,7 +57,8 @@ export class EndUserAgreementComponent implements OnInit {
               protected authService: AuthService,
               protected store: Store<AppState>,
               protected router: Router,
-              protected route: ActivatedRoute) {
+              protected route: ActivatedRoute,
+              protected hardRedirectService: HardRedirectService) {
   }
 
   /**
@@ -92,7 +95,8 @@ export class EndUserAgreementComponent implements OnInit {
       take(1),
     ).subscribe((redirectUrl) => {
       if (isNotEmpty(redirectUrl)) {
-        this.router.navigateByUrl(decodeURIComponent(redirectUrl));
+        const fullRedirectUrl = new URLCombiner(this.hardRedirectService.getBaseUrl(), decodeURIComponent(redirectUrl));
+        this.hardRedirectService.redirect(fullRedirectUrl.toString());
       }
     });
   }
