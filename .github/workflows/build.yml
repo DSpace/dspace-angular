@@ -40,8 +40,11 @@ jobs:
       # Project name to use when running "docker compose" prior to e2e tests
       COMPOSE_PROJECT_NAME: 'ci'
       # Docker Registry to use for Docker compose scripts below.
-      # We use GitHub's Container Registry to avoid aggressive rate limits at DockerHub.
-      DOCKER_REGISTRY: ghcr.io
+      # On the upstream dspace/dspace-angular repository we use GitHub's Container Registry
+      # (ghcr.io) to avoid aggressive rate limits at DockerHub. Forks cannot authenticate
+      # against ghcr.io/dspace/* with their own GITHUB_TOKEN (and the images there require
+      # auth), so on forks we fall back to docker.io where the same images are public.
+      DOCKER_REGISTRY: ${{ github.repository == 'dspace/dspace-angular' && 'ghcr.io' || 'docker.io' }}
     strategy:
       # Create a matrix of Node versions to test against (in parallel)
       matrix:
