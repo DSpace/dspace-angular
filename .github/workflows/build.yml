@@ -124,10 +124,11 @@ jobs:
           path: 'coverage/dspace-angular/lcov.info'
           retention-days: 14
 
-      # Login to our Docker registry, so that we can access private Docker images using "docker compose" below.
-      # Only attempt the login on the upstream repository: forks cannot authenticate against
-      # ghcr.io/dspace/* with their own GITHUB_TOKEN. The DSpace test images are public on GHCR,
-      # so anonymous pulls in the subsequent "docker compose" steps work fine on forks.
+      # Login to our Docker registry, so that we can access Docker images using "docker compose" below.
+      # This login is required on the upstream repository because DOCKER_REGISTRY is set to ghcr.io
+      # and pulling ghcr.io/dspace/* requires authentication. On forks, DOCKER_REGISTRY falls back to
+      # docker.io (see env block above) where the same images are publicly pullable without a login,
+      # and forks cannot authenticate against ghcr.io/dspace/* with their own GITHUB_TOKEN anyway.
       - name: Login to ${{ env.DOCKER_REGISTRY }}
         uses: docker/login-action@v4
         if: github.repository == 'dspace/dspace-angular'
@@ -321,6 +322,9 @@ jobs:
   codecov:
     # Must run after 'tests' job above
     needs: tests
+    # Only run on the upstream repository: forks do not have the CODECOV_TOKEN secret,
+    # and Codecov refuses to create a commit on a protected branch without a token.
+    if: github.repository == 'dspace/dspace-angular'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
