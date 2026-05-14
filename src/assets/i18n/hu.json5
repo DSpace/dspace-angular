@@ -5499,10 +5499,10 @@
   "menu.section.reports": "Jelentések",
 
   // "menu.section.reports.collections": "Filtered Collections",
-  "menu.section.reports.collections": "Filtered Collections",
+  "menu.section.reports.collections": "Gyűjtemények szűrése",
 
   // "menu.section.reports.queries": "Metadata Query",
-  "menu.section.reports.queries": "Metadata Query",
+  "menu.section.reports.queries": "Metaadat lekérdezés",
 
   // "menu.section.admin_search": "Admin Search",
   "menu.section.admin_search": "Admin keresés",
