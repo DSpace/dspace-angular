@@ -1,4 +1,4 @@
-﻿{
+{
   // "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
   "401.help": "Nincs jogosultsága az oldal eléréséhez. Az alábbi gombbal vissza tud lépni a főoldalra.",
 
@@ -2096,17 +2096,13 @@
   // "collection.form.entityType": "Entity Type",
   "collection.form.entityType": "Entitástípus",
 
-  // "collection.form.errors.entityType.required": "Please choose an entity type for this collection",
-  "collection.form.errors.entityType.required": "Kérjük válasszon entitás típust ehhez a gyűjteményhez",
-
-  // "collection.form.errors.submissionDefinition.required": "Please choose a submission definition for this collection",
-  "collection.form.errors.submissionDefinition.required": "Kérjük válasszon beküldési definíciót ehhez a gyűjteményhez",
-
   // "collection.form.submissionDefinition": "Submission definition",
   "collection.form.submissionDefinition": "Beküldési definíció",
 
   // "collection.form.correctionSubmissionDefinition": "Submission definition for correction request",
   "collection.form.correctionSubmissionDefinition": "Beküldési definíció javítási kéréshez",
+
+
 
   // "collection.listelement.badge": "Collection",
   "collection.listelement.badge": "Gyűjtemény",
@@ -2533,6 +2529,9 @@
 
   // "context-menu.actions.audit-item.btn": "Audit",
   "context-menu.actions.audit-item.btn": "Audit",
+
+  // "context-menu.actions.subscription.frequency.required": "Please select a frequency",
+  "context-menu.actions.subscription.frequency.required": "Kérjük válasszon gyakoriságot",
 
   // "cookies.consent.accept-all": "Accept all",
   "cookies.consent.accept-all": "Összes elfogadása",
@@ -3274,9 +3273,6 @@
 
   // "form.other-information.orcid": "ORCID",
   "form.other-information.orcid": "ORCID",
-
-  // "form.other-information.person_identifier_orcid": "ORCID",
-  "form.other-information.person_identifier_orcid": "ORCID",
 
   // "form.other-information.oairecerif_author_affiliation": "Affiliation",
   "form.other-information.oairecerif_author_affiliation": "Intézményi hovatartozás",
@@ -4700,6 +4696,7 @@
   // "item.page.relationships.RELATION.Project.researchoutputs": "Publications",
   "item.page.relationships.RELATION.Project.researchoutputs": "Publikációk",
 
+
   // "item.page.subject": "Keywords",
   "item.page.subject": "Kulcsszavak",
 
@@ -4808,9 +4805,6 @@
   // "item.preview.dc.rights": "Rights",
   "item.preview.dc.rights": "Jogok",
 
-  // "item.preview.dc.identifier.other": "Other Identifier",
-  "item.preview.dc.identifier.other": "Egyéb azonosító",
-
   // "item.preview.dc.relation.issn": "ISSN",
   "item.preview.dc.relation.issn": "ISSN",
 
@@ -4897,9 +4891,6 @@
 
   // "item.preview.dc.identifier.openalex": "OpenAlex Identifier",
   "item.preview.dc.identifier.openalex": "OpenAlex azonosító",
-
-  // "item.preview.dc.description": "Description",
-  "item.preview.dc.description": "Leírás",
 
   // "item.select.confirm": "Confirm selected",
   "item.select.confirm": "Kiválasztottak megerősítése",
@@ -5298,37 +5289,37 @@
   "journalvolume.search.results.head": "Folyóiratkötet keresési eredményei",
 
   // "iiifsearchable.listelement.badge": "Document Media",
-  "iiifsearchable.listelement.badge": "Document Media",
+  "iiifsearchable.listelement.badge": "Dokumentum média",
 
   // "iiifsearchable.page.titleprefix": "Document: ",
-  "iiifsearchable.page.titleprefix": "Document: ",
+  "iiifsearchable.page.titleprefix": "Dokumentum: ",
 
   // "iiifsearchable.page.doi": "Permanent Link: ",
-  "iiifsearchable.page.doi": "Permanent Link: ",
+  "iiifsearchable.page.doi": "Állandó hivatkozás: ",
 
   // "iiifsearchable.page.issue": "Issue: ",
-  "iiifsearchable.page.issue": "Issue: ",
+  "iiifsearchable.page.issue": "Szám: ",
 
   // "iiifsearchable.page.description": "Description: ",
-  "iiifsearchable.page.description": "Description: ",
+  "iiifsearchable.page.description": "Leírás: ",
 
   // "iiifviewer.fullscreen.notice": "Use full screen for better viewing.",
-  "iiifviewer.fullscreen.notice": "Use full screen for better viewing.",
+  "iiifviewer.fullscreen.notice": "A jobb megtekintés érdekében használjon teljes képernyőt.",
 
   // "iiif.listelement.badge": "Image Media",
-  "iiif.listelement.badge": "Image Media",
+  "iiif.listelement.badge": "Kép média",
 
   // "iiif.page.titleprefix": "Image: ",
-  "iiif.page.titleprefix": "Image: ",
+  "iiif.page.titleprefix": "Kép: ",
 
   // "iiif.page.doi": "Permanent Link: ",
-  "iiif.page.doi": "Permanent Link: ",
+  "iiif.page.doi": "Állandó hivatkozás: ",
 
   // "iiif.page.issue": "Issue: ",
-  "iiif.page.issue": "Issue: ",
+  "iiif.page.issue": "Szám: ",
 
   // "iiif.page.description": "Description: ",
-  "iiif.page.description": "Description: ",
+  "iiif.page.description": "Leírás: ",
 
   // "layout.advanced-attachment.dc.title": "Name",
   "layout.advanced-attachment.dc.title": "Név",
@@ -5466,7 +5457,7 @@
   "logout.title": "Kilépés",
 
   // "menu.header.nav.description": "Admin navigation bar",
-  "menu.header.nav.description": "Admin navigation bar",
+  "menu.header.nav.description": "Admin navigációs sáv",
 
   // "menu.header.admin": "Management",
   "menu.header.admin": "Admin",
@@ -5475,7 +5466,7 @@
   "menu.header.image.logo": "Repozitórium logó",
 
   // "menu.header.admin.description": "Management menu",
-  "menu.header.admin.description": "Management menu",
+  "menu.header.admin.description": "Kezelési menü",
 
   // "menu.section.access_control": "Access Control",
   "menu.section.access_control": "Hozzáférés szabályozás",
@@ -5535,7 +5526,7 @@
   "menu.section.browse_global_by_srsc": "Tárgyszó kategória szerint",
 
   // "menu.section.browse_global_by_nsi": "By Norwegian Science Index",
-  "menu.section.browse_global_by_nsi": "By Norwegian Science Index",
+  "menu.section.browse_global_by_nsi": "Norvég Tudományos Index szerint",
 
   // "menu.section.browse_global_by_title": "By Title",
   "menu.section.browse_global_by_title": "Cím szerint",
@@ -5544,7 +5535,7 @@
   "menu.section.browse_global_communities_and_collections": "Közösségek & Gyűjtemények",
 
   // "menu.section.browse_global_geospatial_map": "By Geolocation (Map)",
-  "menu.section.browse_global_geospatial_map": "By Geolocation (Map)",
+  "menu.section.browse_global_geospatial_map": "Földrajzi hely szerint (térkép)",
 
   // "menu.section.control_panel": "Control Panel",
   "menu.section.control_panel": "Vezérlőpult",
@@ -5565,7 +5556,7 @@
   "menu.section.edit_item": "Tárgy",
 
   // "menu.section.export": "Export",
-  "menu.section.export": "Export",
+  "menu.section.export": "Exportálás",
 
   // "menu.section.export_collection": "Collection",
   "menu.section.export_collection": "Gyűjtemény",
@@ -5586,7 +5577,7 @@
   "menu.section.icon.access_control": "Hozzáférés kontroll menü felület",
 
   // "menu.section.icon.reports": "Reports menu section",
-  "menu.section.icon.reports": "Reports menu section",
+  "menu.section.icon.reports": "Jelentések menüszakasz",
 
   // "menu.section.icon.admin_search": "Admin search menu section",
   "menu.section.icon.admin_search": "Admin keresés menü felület",
@@ -5595,7 +5586,7 @@
   "menu.section.icon.control_panel": "Vezérlőpult menü felület",
 
   // "menu.section.icon.curation_tasks": "Curation Task menu section",
-  "menu.section.icon.curation_tasks": "Curation Task menu section",
+  "menu.section.icon.curation_tasks": "Karbantartási feladat menüszakasz",
 
   // "menu.section.icon.edit": "Edit menu section",
   "menu.section.icon.edit": "Szerkesztés menü felület",
@@ -5607,7 +5598,7 @@
   "menu.section.icon.find": "Keresés menü felület",
 
   // "menu.section.icon.health": "Health check menu section",
-  "menu.section.icon.health": "Health check menu section",
+  "menu.section.icon.health": "Állapotellenőrzés menüszakasz",
 
   // "menu.section.icon.import": "Import menu section",
   "menu.section.icon.import": "Importálás menüpont",
@@ -7226,9 +7217,6 @@
   // "RELATION.OrgUnit.projects.search.results.head": "Projects",
   "RELATION.OrgUnit.projects.search.results.head": "Projektek",
 
-  // "RELATION.Project.researchoutputs.search.results.head": "Publications",
-  "RELATION.Project.researchoutputs.search.results.head": "Publikációk",
-
   // "RELATION.OrgUnit.people.search.results.head": "People",
   "RELATION.OrgUnit.people.search.results.head": "Emberek",
 
@@ -7282,6 +7270,7 @@
 
   // "search.filters.applied.f.original_bundle_descriptions": "File description",
   "search.filters.applied.f.original_bundle_descriptions": "Fájlleírás",
+
   // "search.filters.applied.f.has_geospatial_metadata": "Has geographical location",
   "search.filters.applied.f.has_geospatial_metadata": "Földrajzi helyadatokkal rendelkezik",
 
@@ -7954,7 +7943,7 @@
   // "submission.import-external.title.JournalVolume": "Import a journal volume from an external source",
   "submission.import-external.title.JournalVolume": "Folyóiratkötet importálása külső forrásból",
 
-  // "submission.import-external.title.OrgUnit": "Szervezeti egység importálása külső forrásból",
+  // "submission.import-external.title.OrgUnit": "Import an organizational unit from an external source",
   "submission.import-external.title.OrgUnit": "Szervezeti egység importálása külső forrásból",
 
   // "submission.import-external.title.Person": "Import a person from an external source",
@@ -8286,6 +8275,9 @@
 
   // "submission.sections.describe.relationship-lookup.search-tab.placeholder": "Search query",
   "submission.sections.describe.relationship-lookup.search-tab.placeholder": "Keresőkifejezés",
+
+  // "submission.sections.describe.relationship-lookup.toggle-dropdown": "Toggle dropdown",
+  "submission.sections.describe.relationship-lookup.toggle-dropdown": "Legördülő menü",
 
   // "submission.sections.describe.relationship-lookup.search-tab.search": "Go",
   "submission.sections.describe.relationship-lookup.search-tab.search": "Keresés",
@@ -8910,6 +8902,9 @@
 
   // "submission.sections.custom-url.url.placeholder": "Custom URL",
   "submission.sections.custom-url.url.placeholder": "Egyéni URL",
+
+  // "submission.sections.custom-url.label.remove": "Remove",
+  "submission.sections.custom-url.label.remove": "Eltávolítás",
 
   // "submission.sections.accesses.form.discoverable-description": "When checked, this item will be discoverable in search/browse. When unchecked, the item will only be available via a direct link and will never appear in search/browse.",
   "submission.sections.accesses.form.discoverable-description": "Ha be van jelölve, ez a tétel kereshető/böngészhető lesz.\nHa nincs bejelölve, a tétel csak közvetlen hivatkozással lesz elérhető, és soha nem jelenik meg a keresésben/böngészésben.",
@@ -10204,7 +10199,7 @@
   // "ldn-new-service.form.placeholder.ldnUrl": "Please specify the URL of the LDN Inbox",
   "ldn-new-service.form.placeholder.ldnUrl": "Kérjük adja meg az LDN Bejövő Postafiók URL-címét.",
 
-  // "ldn-new-service.form.placeholder.score": "Please enter a value between 0 and 1. Use the "." as decimal separator",
+  // "ldn-new-service.form.placeholder.score": "Please enter a value between 0 and 1. Use the “.” as decimal separator",
   "ldn-new-service.form.placeholder.score": "Kérjük adjon meg egy értéket 0 és 1 között. Tizedeselválasztóként „.” karaktert használjon.",
 
   // "ldn-service.form.label.placeholder.default-select": "Select a pattern",
@@ -10351,11 +10346,15 @@
   // "ldn-new-service.form.error.ldnurl": "LDN URL is required",
   "ldn-new-service.form.error.ldnurl": "Az LDN URL megadása kötelező.",
 
+  // "ldn-new-service.form.error.ldnurl.ldnUrlAlreadyAssociated": "This LDN URL is already associated with another service",
+  "ldn-new-service.form.error.ldnurl.ldnUrlAlreadyAssociated": "Ez az LDN URL már egy másik szolgáltatáshoz van rendelve.",
+
   // "ldn-new-service.form.error.patterns": "At least a pattern is required",
   "ldn-new-service.form.error.patterns": "Legalább egy minta megadása kötelező.",
 
-  // "ldn-new-service.form.error.score": "Please enter a valid score (between 0 and 1). Use the "." as decimal separator",
+  // "ldn-new-service.form.error.score": "Please enter a valid score (between 0 and 1). Use the “.” as decimal separator",
   "ldn-new-service.form.error.score": "Kérjük érvényes pontszámot adjon meg (0 és 1 között). Tizedeselválasztóként „.” karaktert használjon.",
+
   // "ldn-new-service.form.label.inboundPattern": "Supported Pattern",
   "ldn-new-service.form.label.inboundPattern": "Támogatott minta (bejövő)",
 
@@ -10526,6 +10525,7 @@
 
   // "quality-assurance.topics.description-with-target": "Below you can see all the topics received from the subscriptions to {{source}} in regards to the",
   "quality-assurance.topics.description-with-target": "Alább láthatja az összes témakört, amelyet a(z) {{source}} feliratkozásai alapján kapott, a következővel kapcsolatban:",
+
   // "quality-assurance.events.description": "Below the list of all the suggestions for the selected topic <b>{{topic}}</b>, related to <b>{{source}}</b>.",
   "quality-assurance.events.description": "Alább található a kiválasztott <b>{{topic}}</b> témakörhöz kapcsolódó összes javaslat listája, amely a(z) <b>{{source}}</b> forrásból származik.",
 
@@ -11282,6 +11282,9 @@
   // "external-login.confirmation.email-label": "User Email",
   "external-login.confirmation.email-label": "Felhasználói e-mail",
 
+  // "external-login.confirmation.email": "Email",
+  "external-login.confirmation.email": "E-mail",
+
   // "external-login.confirmation.email-invalid": "Invalid email format.",
   "external-login.confirmation.email-invalid": "Érvénytelen e-mail formátum.",
 
@@ -11371,6 +11374,9 @@
 
   // "external-login-page.orcid-confirmation.netid": "Account Identifier",
   "external-login-page.orcid-confirmation.netid": "Fiókazonosító",
+
+  // "external-login-page.orcid-confirmation.netid.label": "Account Identifier",
+  "external-login-page.orcid-confirmation.netid.label": "Fiókazonosító",
 
   // "external-login-page.orcid-confirmation.netid.placeholder": "xxxx-xxxx-xxxx-xxxx",
   "external-login-page.orcid-confirmation.netid.placeholder": "xxxx-xxxx-xxxx-xxxx",
@@ -11671,5 +11677,62 @@
 
   // "admin.edit-user-agreement.title": "Edit User Agreement",
   "admin.edit-user-agreement.title": "Felhasználói szerződés szerkesztése",
+
+  // "bitstream.replace.page.title": "Replace File",
+  "bitstream.replace.page.title": "Fájl cseréje",
+
+  // "bitstream.replace.page.header": "Replace {{fileName}} ({{fileSize}})",
+  "bitstream.replace.page.header": "{{fileName}} ({{fileSize}}) cseréje",
+
+  // "bitstream.replace.page.content": "Select a file to replace {{fileName}}. Note that this transfer can take a while to process, and may not start immediately.",
+  "bitstream.replace.page.content": "Válasszon egy fájlt a(z) {{fileName}} cseréjéhez. Vegye figyelembe, hogy az átvitel feldolgozása eltarthat egy ideig, és nem feltétlenül indul el azonnal.",
+
+  // "bitstream.replace.page.button.return": "Back",
+  "bitstream.replace.page.button.return": "Vissza",
+
+  // "bitstream.replace.page.disclaimer": "The original file will be deleted. This operation can't be undone.",
+  "bitstream.replace.page.disclaimer": "Az eredeti fájl törlésre kerül. Ez a művelet nem vonható vissza.",
+
+  // "bitstream.replace.page.button.cancel": "Cancel",
+  "bitstream.replace.page.button.cancel": "Mégse",
+
+  // "bitstream.replace.page.button.save": "Replace file",
+  "bitstream.replace.page.button.save": "Fájl cseréje",
+
+  // "bitstream.replace.page.upload.failed": "Bitstream upload failed",
+  "bitstream.replace.page.upload.failed": "A bitstream feltöltése sikertelen.",
+
+  // "bitstream.replace.page.breadcrumbs": "Replace File",
+  "bitstream.replace.page.breadcrumbs": "Fájl cseréje",
+
+  // "item.edit.bitstreams.edit.buttons.replace": "Replace",
+  "item.edit.bitstreams.edit.buttons.replace": "Csere",
+
+  // "bitstream.replace.page.upload.success": "Bitstream successfully replaced",
+  "bitstream.replace.page.upload.success": "A bitstream sikeresen cserélve.",
+
+  // "bitstream.edit.replace.link": "Replace file",
+  "bitstream.edit.replace.link": "Fájl cseréje",
+
+  // "bitstream.replace.page.replace-name": "Use new filename",
+  "bitstream.replace.page.replace-name": "Új fájlnév használata",
+
+  // "bitstream.replace.page.replace-name-hint": "The new file extension will be retained in order to match the content of the replacement file.",
+  "bitstream.replace.page.replace-name-hint": "Az új fájlkiterjesztés megmarad, hogy megfeleljen a csere fájl tartalmának.",
+
+  // "bitstream.related.isCopyOf": "Is copy of",
+  "bitstream.related.isCopyOf": "Másolata ennek:",
+
+  // "bitstream.related.hasCopies": "Has copies",
+  "bitstream.related.hasCopies": "Másolatai:",
+
+  // "bitstream.related.isReplacementOf": "Is replacement of",
+  "bitstream.related.isReplacementOf": "Cseréje ennek:",
+
+  // "bitstream.related.isReplacedBy": "Is replaced by",
+  "bitstream.related.isReplacedBy": "Cserélve erre:",
+
+  // "bitstream.related.deleted": "deleted",
+  "bitstream.related.deleted": "törölve",
 
 }
