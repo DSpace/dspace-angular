@@ -24,7 +24,7 @@
   "500.help": "A rendszer jelenleg nem elérhető karbantartás vagy túlterheltség miatt.\nKérjük próbálkozzon később.",
 
   // "500.link.home-page": "Take me to the home page",
-  "500.link.home-page": "Vissza a kezdőlapra",
+  "500.link.home-page": "Vissza a főoldalra",
 
   // "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page.",
   "404.help": "Nem találjuk a keresett oldalt. Az oldal áthelyezhetőre került vagy törölve lett. Az alábbi gombbal visszatérhet a főoldalra.",
@@ -465,7 +465,7 @@
   "admin.access-control.epeople.table.edit.buttons.remove.modal.info": "Biztos benne, hogy törli a(z) \"{{ dsoName }}\" csoportot és a hozzá rendelt házirendeket?",
 
   // "admin.access-control.epeople.table.edit.buttons.remove.modal.cancel": "Cancel",
-  "admin.access-control.epeople.table.edit.buttons.remove.modal.cancel": "Mégsem",
+  "admin.access-control.epeople.table.edit.buttons.remove.modal.cancel": "Mégse",
 
   // "admin.access-control.epeople.table.edit.buttons.remove.modal.confirm": "Delete",
   "admin.access-control.epeople.table.edit.buttons.remove.modal.confirm": "Töröl",
@@ -1161,10 +1161,10 @@
   "administrativeView.search.results.head": "Adminisztratív keresés",
 
   // "admin.workflow.breadcrumbs": "Administer Workflow",
-  "admin.workflow.breadcrumbs": "Munkafolyamat adminisztráció",
+  "admin.workflow.breadcrumbs": "Munkafolyamatok adminisztrációja",
 
   // "admin.workflow.title": "Administer Workflow",
-  "admin.workflow.title": "Munkafolyamat adminisztráció",
+  "admin.workflow.title": "Munkafolyamatok adminisztrációja",
 
   // "admin.workflow.item.workflow": "Workflow",
   "admin.workflow.item.workflow": "Munkafolyamat",
@@ -1407,16 +1407,16 @@
   "audit.overview.table.timestamp": "Időpont (UTC)",
 
   // "audit.overview.breadcrumbs": "Audit Logs",
-  "audit.overview.breadcrumbs": "Audit Naplók",
+  "audit.overview.breadcrumbs": "Audit naplók",
 
   // "audit.object.back": "Back",
   "audit.object.back": "Vissza",
 
   // "audit.object.breadcrumbs": "Object Audit Logs",
-  "audit.object.breadcrumbs": "Objektum Audit Naplók",
+  "audit.object.breadcrumbs": "Objektum audit naplók",
 
   // "audit.object.overview.title": "Object Audit Logs",
-  "audit.object.overview.title": "Objektum Audit Naplók",
+  "audit.object.overview.title": "Objektum audit naplók",
 
   // "audit.object.logs.label": "Logs for object: ",
   "audit.object.logs.label": "Naplók objektumhoz: ",
@@ -1608,7 +1608,7 @@
   "browse.comcol.by.author": "Szerző szerint",
 
   // "browse.comcol.by.dateissued": "By Issue Date",
-  "browse.comcol.by.dateissued": "Kiadás dátuma szerint",
+  "browse.comcol.by.dateissued": "Megjelenés dátuma szerint",
 
   // "browse.comcol.by.subject": "By Subject",
   "browse.comcol.by.subject": "Tárgyszó szerint",
@@ -2399,10 +2399,10 @@
   "comcol-role.edit.delete.modal.header": "\"{{ dsoName }}\" csoport törlése",
 
   // "comcol-role.edit.delete.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\" and all its associated policies?",
-  "comcol-role.edit.delete.modal.info": "Biztos bene, hogy töröli szeretné a(z) \"{{ dsoName }}\" csoportot és a hozzá rendelt háziredeket?",
+  "comcol-role.edit.delete.modal.info": "Biztos benne, hogy törölni szeretné a(z) \"{{ dsoName }}\" csoportot és a hozzá rendelt házirendeket?",
 
   // "comcol-role.edit.delete.modal.cancel": "Cancel",
-  "comcol-role.edit.delete.modal.cancel": "Mégsem",
+  "comcol-role.edit.delete.modal.cancel": "Mégse",
 
   // "comcol-role.edit.delete.modal.confirm": "Delete",
   "comcol-role.edit.delete.modal.confirm": "Töröl",
@@ -2501,7 +2501,7 @@
   "community.page.options": "Opciók",
 
   // "community.all-lists.head": "Subcommunities and Collections",
-  "community.all-lists.head": "Alközösségek és Gyűjtemények",
+  "community.all-lists.head": "Alközösségek és gyűjtemények",
 
   // "community.search.breadcrumbs": "Search",
   "community.search.breadcrumbs": "Keresés",
@@ -3587,16 +3587,16 @@
   "info.accessibility-settings.title": "Akadálymentességi beállítások",
 
   // "info.end-user-agreement.accept": "I have read and I agree to the End User Agreement",
-  "info.end-user-agreement.accept": "Elolvastam és elfogadom a Végfelhasználói Szerződést.",
+  "info.end-user-agreement.accept": "Elolvastam és elfogadom a végfelhasználói szerződést.",
 
   // "info.end-user-agreement.accept.error": "An error occurred accepting the End User Agreement",
-  "info.end-user-agreement.accept.error": "Hiba történt a Végfelhasználói Szerződés elfogadásakor.",
+  "info.end-user-agreement.accept.error": "Hiba történt a végfelhasználói szerződés elfogadásakor.",
 
   // "info.end-user-agreement.accept.success": "Successfully updated the End User Agreement",
-  "info.end-user-agreement.accept.success": "A Végfelhasználói Szerződés sikeresen frissítve.",
+  "info.end-user-agreement.accept.success": "A végfelhasználói szerződés sikeresen frissítve.",
 
   // "info.end-user-agreement.breadcrumbs": "End User Agreement",
-  "info.end-user-agreement.breadcrumbs": "Végfelhasználói Szerződés",
+  "info.end-user-agreement.breadcrumbs": "Végfelhasználói szerződés",
 
   // "info.end-user-agreement.buttons.cancel": "Cancel",
   "info.end-user-agreement.buttons.cancel": "Mégse",
@@ -3605,22 +3605,22 @@
   "info.end-user-agreement.buttons.save": "Mentés",
 
   // "info.end-user-agreement.head": "End User Agreement",
-  "info.end-user-agreement.head": "Végfelhasználói Szerződés",
+  "info.end-user-agreement.head": "Végfelhasználói szerződés",
 
   // "info.end-user-agreement.title": "End User Agreement",
-  "info.end-user-agreement.title": "Végfelhasználói Szerződés",
+  "info.end-user-agreement.title": "Végfelhasználói szerződés",
 
   // "info.end-user-agreement.hosting-country": "the United States",
   "info.end-user-agreement.hosting-country": "az Amerikai Egyesült Államok",
 
   // "info.privacy.breadcrumbs": "Privacy Statement",
-  "info.privacy.breadcrumbs": "Adatvédelmi Nyilatkozat",
+  "info.privacy.breadcrumbs": "Adatvédelmi nyilatkozat",
 
   // "info.privacy.head": "Privacy Statement",
-  "info.privacy.head": "Adatvédelmi Nyilatkozat",
+  "info.privacy.head": "Adatvédelmi nyilatkozat",
 
   // "info.privacy.title": "Privacy Statement",
-  "info.privacy.title": "Adatvédelmi Nyilatkozat",
+  "info.privacy.title": "Adatvédelmi nyilatkozat",
 
   // "info.feedback.breadcrumbs": "Feedback",
   "info.feedback.breadcrumbs": "Visszajelzés",
@@ -3737,7 +3737,7 @@
   "item.edit.bitstreams.bundle.load.all": "Összes betöltése ({{ total }})",
 
   // "item.edit.bitstreams.bundle.load.more": "Load more",
-  "item.edit.bitstreams.bundle.load.more": "Több betöltése",
+  "item.edit.bitstreams.bundle.load.more": "Továbbiak betöltése",
 
   // "item.edit.bitstreams.bundle.name": "BUNDLE: {{ name }}",
   "item.edit.bitstreams.bundle.name": "CSOMAG: {{ name }}",
@@ -5376,7 +5376,7 @@
   "loading.collections": "Gyűjtemények betöltése...",
 
   // "loading.content-source": "Loading content source...",
-  "loading.content-source": "tartalom forrásának betöltése...",
+  "loading.content-source": "Tartalom forrásának betöltése...",
 
   // "loading.community": "Loading community...",
   "loading.community": "Közösség betöltése...",
@@ -5394,13 +5394,13 @@
   "loading.mydspace-results": "Tárgyak betöltése...",
 
   // "loading.objects": "Loading...",
-  "loading.objects": "betöltés...",
+  "loading.objects": "Betöltés...",
 
   // "loading.recent-submissions": "Loading recent submissions...",
   "loading.recent-submissions": "Legújabb feltöltések betöltése...",
 
   // "loading.search-results": "Loading search results...",
-  "loading.search-results": "keresési eredmények betöltése...",
+  "loading.search-results": "Keresési eredmények betöltése...",
 
   // "loading.sub-collections": "Loading sub-collections...",
   "loading.sub-collections": "Algyűjtemények betöltése...",
@@ -5469,7 +5469,7 @@
   "menu.header.admin.description": "Kezelési menü",
 
   // "menu.section.access_control": "Access Control",
-  "menu.section.access_control": "Hozzáférés szabályozás",
+  "menu.section.access_control": "Hozzáférés-szabályozás",
 
   // "menu.section.access_control_authorizations": "Authorizations",
   "menu.section.access_control_authorizations": "Engedélyezések",
@@ -5499,7 +5499,7 @@
   "menu.section.admin_search": "Admin keresés",
 
   // "menu.section.browse_community": "This Community",
-  "menu.section.browse_community": "ez a közösség",
+  "menu.section.browse_community": "Ez a közösség",
 
   // "menu.section.browse_community_by_author": "By Author",
   "menu.section.browse_community_by_author": "Szerző szerint",
@@ -5712,7 +5712,7 @@
   "menu.section.toggle.statistics_task": "Statisztikai feladat szakasz váltása",
 
   // "menu.section.workflow": "Administer Workflow",
-  "menu.section.workflow": "Munkafolyamat adminisztráció",
+  "menu.section.workflow": "Munkafolyamatok adminisztrációja",
 
   // "menu.section.FULL": "Edit",
   "menu.section.FULL": "Szerkesztés",
@@ -6594,7 +6594,7 @@
   "profile.card.researcher": "Kutatói profil",
 
   // "project.listelement.badge": "Research Project",
-  "project.listelement.badge": "Kutatási Projekt",
+  "project.listelement.badge": "Kutatási projekt",
 
   // "project.page.contributor": "Contributors",
   "project.page.contributor": "Közreműködők",
@@ -9120,7 +9120,7 @@
   "submission.workflow.tasks.claimed.reject.submit": "Elutasítás",
 
   // "submission.workflow.tasks.claimed.reject_help": "If you have reviewed the item and found it is <strong>not</strong> suitable for inclusion in the collection, select \"Reject\". You will then be asked to enter a message indicating why the item is unsuitable, and whether the submitter should change something and resubmit.",
-  "submission.workflow.tasks.claimed.reject_help": "Ha áttekintette a tételt, és úgy találta, hogy <strong>nem</strong> alkalmas a gyűjteménybe való felvételre, válassza az \"Elutasítás\" lehetőséget.  Ezután meg kell adnia egy üzenetet, amelyben jelzi, miért nem megfelelő a tétel, és hogy a beküldőnek módosítania kell-e valamit és újra be kell-e küldenie.",
+  "submission.workflow.tasks.claimed.reject_help": "Ha áttekintette a tételt, és úgy találta, hogy <strong>nem</strong> alkalmas a gyűjteménybe való felvételre, válassza az \"Elutasítás\" lehetőséget. Ezután meg kell adnia egy üzenetet, amelyben jelzi, miért nem megfelelő a tétel, és hogy a beküldőnek módosítania kell-e valamit és újra be kell-e küldenie.",
 
   // "submission.workflow.tasks.claimed.return": "Return to pool",
   "submission.workflow.tasks.claimed.return": "Vissza a feladatlistába",
