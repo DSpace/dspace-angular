@@ -116,8 +116,12 @@ jobs:
           retention-days: 14
 
       # Login to our Docker registry, so that we can access private Docker images using "docker compose" below.
+      # Only attempt the login on the upstream repository: forks cannot authenticate against
+      # ghcr.io/dspace/* with their own GITHUB_TOKEN. The DSpace test images are public on GHCR,
+      # so anonymous pulls in the subsequent "docker compose" steps work fine on forks.
       - name: Login to ${{ env.DOCKER_REGISTRY }}
         uses: docker/login-action@v4
+        if: github.repository == 'dspace/dspace-angular'
         with:
           registry: ${{ env.DOCKER_REGISTRY }}
           username: ${{ github.repository_owner }}
