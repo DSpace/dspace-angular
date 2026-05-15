@@ -1,6 +1,101 @@
 import { DSpaceObjectType } from '../../dspace-object-type.model';
 import { SearchFilter } from './search-filter.model';
-import { SearchOptions } from './search-options.model';
+import {
+  escapeLuceneSpecialChars,
+  SearchOptions,
+} from './search-options.model';
+
+describe('escapeLuceneSpecialChars', () => {
+
+  it('should return plain text unchanged', () => {
+    expect(escapeLuceneSpecialChars('hello world')).toEqual('hello world');
+  });
+
+  it('should escape +', () => {
+    expect(escapeLuceneSpecialChars('a+b')).toEqual('a\\+b');
+  });
+
+  it('should escape -', () => {
+    expect(escapeLuceneSpecialChars('a-b')).toEqual('a\\-b');
+  });
+
+  it('should escape & (and thereby &&)', () => {
+    expect(escapeLuceneSpecialChars('a&&b')).toEqual('a\\&\\&b');
+  });
+
+  it('should escape | (and thereby ||)', () => {
+    expect(escapeLuceneSpecialChars('a||b')).toEqual('a\\|\\|b');
+  });
+
+  it('should escape !', () => {
+    expect(escapeLuceneSpecialChars('!a')).toEqual('\\!a');
+  });
+
+  it('should escape (', () => {
+    expect(escapeLuceneSpecialChars('(a')).toEqual('\\(a');
+  });
+
+  it('should escape )', () => {
+    expect(escapeLuceneSpecialChars('a)')).toEqual('a\\)');
+  });
+
+  it('should escape {', () => {
+    expect(escapeLuceneSpecialChars('{a')).toEqual('\\{a');
+  });
+
+  it('should escape }', () => {
+    expect(escapeLuceneSpecialChars('a}')).toEqual('a\\}');
+  });
+
+  it('should escape [', () => {
+    expect(escapeLuceneSpecialChars('[a')).toEqual('\\[a');
+  });
+
+  it('should escape ]', () => {
+    expect(escapeLuceneSpecialChars('a]')).toEqual('a\\]');
+  });
+
+  it('should escape ^', () => {
+    expect(escapeLuceneSpecialChars('^a')).toEqual('\\^a');
+  });
+
+  it('should escape "', () => {
+    expect(escapeLuceneSpecialChars('"a"')).toEqual('\\"a\\"');
+  });
+
+  it('should escape ~', () => {
+    expect(escapeLuceneSpecialChars('a~')).toEqual('a\\~');
+  });
+
+  it('should escape *', () => {
+    expect(escapeLuceneSpecialChars('a*')).toEqual('a\\*');
+  });
+
+  it('should escape ?', () => {
+    expect(escapeLuceneSpecialChars('a?')).toEqual('a\\?');
+  });
+
+  it('should escape :', () => {
+    expect(escapeLuceneSpecialChars('title:foo')).toEqual('title\\:foo');
+  });
+
+  it('should escape \\', () => {
+    expect(escapeLuceneSpecialChars('a\\b')).toEqual('a\\\\b');
+  });
+
+  it('should escape /', () => {
+    expect(escapeLuceneSpecialChars('a/b')).toEqual('a\\/b');
+  });
+
+  it('should escape multiple special characters in one string', () => {
+    expect(escapeLuceneSpecialChars('(hello+world)')).toEqual('\\(hello\\+world\\)');
+  });
+
+  it('should escape all special characters when they appear together', () => {
+    expect(escapeLuceneSpecialChars('+-&|!(){}[]^"~*?:\\/')).toEqual('\\+\\-\\&\\|\\!\\(\\)\\{\\}\\[\\]\\^\\"\\~\\*\\?\\:\\\\\\/');
+  });
+
+});
 
 describe('SearchOptions', () => {
   let options: SearchOptions;
@@ -38,6 +133,18 @@ describe('SearchOptions', () => {
         'f.example=second%20value&' +
         'f.range=%5B2002%20TO%202021%5D,equals',
       );
+    });
+
+    it('should escape Lucene special characters in the query', () => {
+      const specialOptions = new SearchOptions({ query: 'title:foo (bar)+baz' });
+      const outcome = specialOptions.toRestUrl(baseUrl);
+      expect(outcome).toEqual('www.rest.com?query=title%5C%3Afoo%20%5C(bar%5C)%5C%2Bbaz');
+    });
+
+    it('should not escape the query when expert mode is enabled', () => {
+      const expertOptions = new SearchOptions({ query: 'title:foo', expert: true });
+      const outcome = expertOptions.toRestUrl(baseUrl);
+      expect(outcome).toEqual('www.rest.com?query=title%3Afoo');
     });
 
   });

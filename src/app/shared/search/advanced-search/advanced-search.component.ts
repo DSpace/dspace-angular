@@ -133,6 +133,7 @@ export class AdvancedSearchComponent implements OnInit, OnDestroy {
     if (isNotEmpty(this.currentValue)) {
       this.searchFilterService.minimizeAll();
       this.subs.push(this.searchConfigurationService.selectNewAppliedFilterParams(this.currentFilter, this.currentValue.trim(), this.currentOperator).pipe(take(1)).subscribe((params: Params) => {
+        params.expert = true;
         void this.router.navigate([this.searchService.getSearchLink()], {
           queryParams: params,
         });
