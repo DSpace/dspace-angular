@@ -459,12 +459,13 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
         modalComp.query = this.model.value;
       } else if (typeof this.model.value.value === 'string') {
         modalComp.query = this.model.value.value;
-        // If the existing value is not virtual, store properties on the modal required to perform a replace operation
-        if (hasValue(this.sectionData) && !this.model.value.isVirtual && hasValue(this.arrayIndex)) {
-          modalComp.replaceValuePlace = this.arrayIndex;
-          modalComp.replaceValueMetadataField = this.model.name;
-          modalComp.replaceValueSection = this.sectionData?.id;
-        }
+      }
+
+      // If the existing value is not virtual, store properties on the modal required to perform a replace operation
+      if (hasValue(this.sectionData) && !this.model.value.isVirtual) {
+        modalComp.replaceValuePlace = this.arrayIndex || 0;
+        modalComp.replaceValueMetadataField = this.model.name;
+        modalComp.replaceValueSection = this.sectionData?.id;
       }
     }
 
