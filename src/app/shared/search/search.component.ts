@@ -22,6 +22,7 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '@dspace/config/app-config.interface';
+import { SearchManager } from '@dspace/core/browse/search-manager';
 import { SortOptions } from '@dspace/core/cache/models/sort-options.model';
 import { PaginatedList } from '@dspace/core/data/paginated-list.model';
 import { RemoteData } from '@dspace/core/data/remote-data';
@@ -353,7 +354,8 @@ export class SearchComponent implements OnDestroy, OnInit {
               protected routeService: RouteService,
               protected router: Router,
               @Inject(APP_CONFIG) protected appConfig: AppConfig,
-              @Inject(PLATFORM_ID) public platformId: any,
+              @Inject(PLATFORM_ID) public platformId: string,
+              protected searchManager: SearchManager,
   ) {
     this.isXsOrSm$ = this.windowService.isXsOrSm();
   }
@@ -545,7 +547,7 @@ export class SearchComponent implements OnDestroy, OnInit {
       }
     }
 
-    this.service.search(
+    this.searchManager.search(
       searchOptionsWithHidden,
       undefined,
       this.useCachedVersionIfAvailable,
