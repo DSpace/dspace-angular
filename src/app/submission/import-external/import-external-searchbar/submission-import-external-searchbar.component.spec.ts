@@ -140,17 +140,25 @@ describe('SubmissionImportExternalSearchbarComponent test suite', () => {
       expect(comp.selectedElement).toEqual(selectedElement);
     });
 
+    it('Should use elementsPerPage of 20 on init', () => {
+      comp.initExternalSourceData = { entity: 'Publication', sourceId: '', query: '' };
+      scheduler.schedule(() => fixture.detectChanges());
+      scheduler.flush();
+
+      expect(compAsAny.findListOptions.elementsPerPage).toEqual(20);
+    });
+
     it('Should load additional external sources', () => {
       comp.initExternalSourceData = { entity: 'Publication', query: 'dummy', sourceId: 'ciencia' };
       comp.sourceListLoading = false;
       compAsAny.pageInfo = new PageInfo({
-        elementsPerPage: 3,
+        elementsPerPage: 20,
         totalElements: 6,
         totalPages: 2,
         currentPage: 0,
       });
       compAsAny.findListOptions = Object.assign({}, new FindListOptions(), {
-        elementsPerPage: 3,
+        elementsPerPage: 20,
         currentPage: 0,
         searchParams: [
           new RequestParam('entityType', 'Publication'),
