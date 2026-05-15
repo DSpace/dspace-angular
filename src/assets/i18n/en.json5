@@ -1397,10 +1397,6 @@
 
   "collection.form.entityType": "Entity Type",
 
-  "collection.form.errors.entityType.required": "Please choose an entity type for this collection",
-
-  "collection.form.errors.submissionDefinition.required": "Please choose a submission definition for this collection",
-
   "collection.form.submissionDefinition": "Submission definition",
 
   "collection.form.correctionSubmissionDefinition": "Submission definition for correction request",
@@ -1691,6 +1687,8 @@
 
   "context-menu.actions.audit-item.btn": "Audit",
 
+  "context-menu.actions.subscription.frequency.required": "Please select a frequency",
+
   "cookies.consent.accept-all": "Accept all",
 
   "cookies.consent.accept-selected": "Accept selected",
@@ -1861,7 +1859,7 @@
 
   "dso-selector.no-results": "No {{ type }} found",
 
-  "dso-selector.placeholder": "Search for a {{ type }}",
+  "dso-selector.placeholder": "Search for {{ type }}",
 
   "dso-selector.placeholder.type.community": "community",
 
@@ -1982,6 +1980,16 @@
   "error.default": "Error",
 
   "error.item": "Error fetching item",
+
+  "error.custom-url-conflict.title": "Duplicate custom URL detected",
+
+  "error.custom-url-conflict.description": "The custom URL \"{{customUrl}}\" is assigned to more than one item. This causes a conflict and the item cannot be displayed.",
+
+  "error.custom-url-conflict.admin-action": "Please contact your repository administrator. The following affected items need their dspace.customurl metadata fixed so each value is unique:",
+
+  "error.custom-url-conflict.edit-link": "Edit \"{{name}}\" ({{uuid}})",
+
+  "error.custom-url-conflict.no-items-found": "No conflicting items could be retrieved. Please contact your administrator.",
 
   "error.items": "Error fetching items",
 
@@ -2174,8 +2182,6 @@
   "form.other-information.last-name": "Last Name",
 
   "form.other-information.orcid": "ORCID",
-
-  "form.other-information.person_identifier_orcid": "ORCID",
 
   "form.other-information.oairecerif_author_affiliation": "Affiliation",
 
@@ -2643,6 +2649,10 @@
 
   "item.edit.item-mapper.notifications.add.error.content": "Errors occurred for mapping of item to {{amount}} collections.",
 
+  "item.edit.item-mapper.notifications.add.error.forbidden.head": "Permission denied",
+
+  "item.edit.item-mapper.notifications.add.error.forbidden.content": "You do not have permission to map this item to a collection.",
+
   "item.edit.item-mapper.notifications.add.error.head": "Mapping errors",
 
   "item.edit.item-mapper.notifications.add.success.content": "Successfully mapped item to {{amount}} collections.",
@@ -2650,6 +2660,10 @@
   "item.edit.item-mapper.notifications.add.success.head": "Mapping completed",
 
   "item.edit.item-mapper.notifications.remove.error.content": "Errors occurred for the removal of the mapping to {{amount}} collections.",
+
+  "item.edit.item-mapper.notifications.remove.error.forbidden.head": "Permission denied",
+
+  "item.edit.item-mapper.notifications.remove.error.forbidden.content": "You do not have permission to remove this item from a collection.",
 
   "item.edit.item-mapper.notifications.remove.error.head": "Removal of mapping errors",
 
@@ -3077,6 +3091,10 @@
 
   "item.page.orcid.tooltip": "Open ORCID setting page",
 
+  "item.page.orcid-ico": "ORCID icon",
+
+  "item.page.orcid-profile": "ORCID Profile",
+
   "item.page.person.search.title": "Articles by this author",
 
   "item.page.related-items.view-more": "Show {{ amount }} more",
@@ -3127,6 +3145,10 @@
   "item.page.filesection.original.bundle": "Original bundle",
 
   "item.page.filesection.license.bundle": "License bundle",
+
+  "item-page.resolver.invalid-custom-url.title": "Invalid custom URL",
+
+  "item-page.resolver.invalid-custom-url.message": "The custom URL of this item contains unsupported characters. The item is being displayed using its UUID.",
 
   "item.page.return": "Back",
 
@@ -3181,8 +3203,6 @@
   "item.preview.dc.relation.ispartofseries": "Is part of series",
 
   "item.preview.dc.rights": "Rights",
-
-  "item.preview.dc.identifier.other": "Other Identifier",
 
   "item.preview.dc.relation.issn": "ISSN",
 
@@ -3241,8 +3261,6 @@
   "item.preview.dc.identifier.issn": "ISSN",
 
   "item.preview.dc.identifier.openalex": "OpenAlex Identifier",
-
-  "item.preview.dc.description": "Description",
 
   "item.select.confirm": "Confirm selected",
 
@@ -4700,7 +4718,7 @@
 
   "resource-policies.form.eperson-group-list.select.btn": "Select",
 
-  "resource-policies.form.eperson-group-list.tab.eperson": "Search for a ePerson",
+  "resource-policies.form.eperson-group-list.tab.eperson": "Search for an ePerson",
 
   "resource-policies.form.eperson-group-list.tab.group": "Search for a group",
 
@@ -4794,8 +4812,6 @@
 
   "RELATION.OrgUnit.projects.search.results.head": "Projects",
 
-  "RELATION.Project.researchoutputs.search.results.head": "Publications",
-
   "RELATION.OrgUnit.people.search.results.head": "People",
 
   "root.skip-to-content": "Skip to main content",
@@ -4831,6 +4847,7 @@
   "search.filters.applied.f.original_bundle_filenames": "File name",
 
   "search.filters.applied.f.original_bundle_descriptions": "File description",
+
   "search.filters.applied.f.has_geospatial_metadata": "Has geographical location",
 
   "search.filters.applied.f.itemtype": "Type",
@@ -5279,7 +5296,7 @@
 
   "submission.import-external.title.JournalVolume": "Import a journal volume from an external source",
 
-  "submission.import-external.title.OrgUnit": "Import a publisher from an external source",
+  "submission.import-external.title.OrgUnit": "Import an organizational unit from an external source",
 
   "submission.import-external.title.Person": "Import a person from an external source",
 
@@ -5500,6 +5517,8 @@
   "submission.sections.describe.relationship-lookup.search-tab.loading": "Loading...",
 
   "submission.sections.describe.relationship-lookup.search-tab.placeholder": "Search query",
+
+  "submission.sections.describe.relationship-lookup.toggle-dropdown": "Toggle dropdown",
 
   "submission.sections.describe.relationship-lookup.search-tab.search": "Go",
 
@@ -5755,6 +5774,8 @@
 
   "submission.sections.general.deposit_error_notice": "There was an issue when submitting the item, please try again later.",
 
+  "submission.sections.general.invalid_state_error": "Cannot save current changes, mandatory fields are missing. Please resolve problems and save again later.",
+
   "submission.sections.general.deposit_success_notice": "Submission deposited successfully.",
 
   "submission.sections.general.discard_error_notice": "There was an issue when discarding the item, please try again later.",
@@ -5914,6 +5935,8 @@
   "submission.sections.custom-url.alert.info": "Define here a custom URL which will be used to reach the item instead of using an internal randomly generated UUID identifier. ",
 
   "submission.sections.custom-url.url.placeholder": "Custom URL",
+
+  "submission.sections.custom-url.label.remove": "Remove",
 
   "submission.sections.accesses.form.discoverable-description": "When checked, this item will be discoverable in search/browse. When unchecked, the item will only be available via a direct link and will never appear in search/browse.",
 
@@ -6107,7 +6130,7 @@
 
   "subscriptions.tooltip": "Subscribe",
 
-  "subscriptions.unsubscribe": "Unsubscribe",
+  "subscriptions.manage": "Manage Subscription",
 
   "subscriptions.modal.title": "Subscriptions",
 
@@ -6714,152 +6737,265 @@
   "service.overview.delete.header": "Delete Service",
 
   "ldn-registered-services.title": "Registered Services",
+
   "ldn-registered-services.table.name": "Name",
+
   "ldn-registered-services.table.description": "Description",
+
   "ldn-registered-services.table.status": "Status",
+
   "ldn-registered-services.table.action": "Action",
+
   "ldn-registered-services.new": "NEW",
+
   "ldn-registered-services.new.breadcrumbs": "Registered Services",
 
   "ldn-service.overview.table.enabled": "Enabled",
+
   "ldn-service.overview.table.disabled": "Disabled",
+
   "ldn-service.overview.table.clickToEnable": "Click to enable",
+
   "ldn-service.overview.table.clickToDisable": "Click to disable",
 
   "ldn-edit-registered-service.title": "Edit Service",
+
   "ldn-create-service.title": "Create service",
+
   "service.overview.create.modal": "Create Service",
+
   "service.overview.create.body": "Please confirm the creation of this service.",
+
   "ldn-service-status": "Status",
+
   "service.confirm.create": "Create",
+
   "service.refuse.create": "Cancel",
+
   "ldn-register-new-service.title": "Register a new service",
+
   "ldn-new-service.form.label.submit": "Save",
+
   "ldn-new-service.form.label.name": "Name",
+
   "ldn-new-service.form.label.description": "Description",
+
   "ldn-new-service.form.label.url": "Service URL",
+
   "ldn-new-service.form.label.ip-range": "Service IP range",
+
   "ldn-new-service.form.label.score": "Level of trust",
+
   "ldn-new-service.form.label.ldnUrl": "LDN Inbox URL",
+
   "ldn-new-service.form.placeholder.name": "Please provide service name",
+
   "ldn-new-service.form.placeholder.description": "Please provide a description regarding your service",
+
   "ldn-new-service.form.placeholder.url": "Please input the URL for users to check out more information about the service",
+
   "ldn-new-service.form.placeholder.lowerIp": "IPv4 range lower bound",
+
   "ldn-new-service.form.placeholder.upperIp": "IPv4 range upper bound",
+
   "ldn-new-service.form.placeholder.ldnUrl": "Please specify the URL of the LDN Inbox",
+
   "ldn-new-service.form.placeholder.score": "Please enter a value between 0 and 1. Use the “.” as decimal separator",
+
   "ldn-service.form.label.placeholder.default-select": "Select a pattern",
 
   "ldn-service.form.pattern.ack-accept.label": "Acknowledge and Accept",
+
   "ldn-service.form.pattern.ack-accept.description": "This pattern is used to acknowledge and accept a request (offer). It implies an intention to act on the request.",
+
   "ldn-service.form.pattern.ack-accept.category": "Acknowledgements",
 
   "ldn-service.form.pattern.ack-reject.label": "Acknowledge and Reject",
+
   "ldn-service.form.pattern.ack-reject.description": "This pattern is used to acknowledge and reject a request (offer). It signifies no further action regarding the request.",
+
   "ldn-service.form.pattern.ack-reject.category": "Acknowledgements",
 
   "ldn-service.form.pattern.ack-tentative-accept.label": "Acknowledge and Tentatively Accept",
+
   "ldn-service.form.pattern.ack-tentative-accept.description": "This pattern is used to acknowledge and tentatively accept a request (offer). It implies an intention to act, which may change.",
+
   "ldn-service.form.pattern.ack-tentative-accept.category": "Acknowledgements",
 
   "ldn-service.form.pattern.ack-tentative-reject.label": "Acknowledge and Tentatively Reject",
+
   "ldn-service.form.pattern.ack-tentative-reject.description": "This pattern is used to acknowledge and tentatively reject a request (offer). It signifies no further action, subject to change.",
+
   "ldn-service.form.pattern.ack-tentative-reject.category": "Acknowledgements",
 
   "ldn-service.form.pattern.announce-endorsement.label": "Announce Endorsement",
+
   "ldn-service.form.pattern.announce-endorsement.description": "This pattern is used to announce the existence of an endorsement, referencing the endorsed resource.",
+
   "ldn-service.form.pattern.announce-endorsement.category": "Announcements",
 
   "ldn-service.form.pattern.announce-ingest.label": "Announce Ingest",
+
   "ldn-service.form.pattern.announce-ingest.description": "This pattern is used to announce that a resource has been ingested.",
+
   "ldn-service.form.pattern.announce-ingest.category": "Announcements",
 
   "ldn-service.form.pattern.announce-relationship.label": "Announce Relationship",
+
   "ldn-service.form.pattern.announce-relationship.description": "This pattern is used to announce a relationship between two resources.",
+
   "ldn-service.form.pattern.announce-relationship.category": "Announcements",
 
   "ldn-service.form.pattern.announce-review.label": "Announce Review",
+
   "ldn-service.form.pattern.announce-review.description": "This pattern is used to announce the existence of a review, referencing the reviewed resource.",
+
   "ldn-service.form.pattern.announce-review.category": "Announcements",
 
   "ldn-service.form.pattern.announce-service-result.label": "Announce Service Result",
+
   "ldn-service.form.pattern.announce-service-result.description": "This pattern is used to announce the existence of a 'service result', referencing the relevant resource.",
+
   "ldn-service.form.pattern.announce-service-result.category": "Announcements",
 
   "ldn-service.form.pattern.request-endorsement.label": "Request Endorsement",
+
   "ldn-service.form.pattern.request-endorsement.description": "This pattern is used to request endorsement of a resource owned by the origin system.",
+
   "ldn-service.form.pattern.request-endorsement.category": "Requests",
 
   "ldn-service.form.pattern.request-ingest.label": "Request Ingest",
+
   "ldn-service.form.pattern.request-ingest.description": "This pattern is used to request that the target system ingest a resource.",
+
   "ldn-service.form.pattern.request-ingest.category": "Requests",
 
   "ldn-service.form.pattern.request-review.label": "Request Review",
+
   "ldn-service.form.pattern.request-review.description": "This pattern is used to request a review of a resource owned by the origin system.",
+
   "ldn-service.form.pattern.request-review.category": "Requests",
 
   "ldn-service.form.pattern.undo-offer.label": "Undo Offer",
+
   "ldn-service.form.pattern.undo-offer.description": "This pattern is used to undo (retract) an offer previously made.",
+
   "ldn-service.form.pattern.undo-offer.category": "Undo",
 
   "ldn-new-service.form.label.placeholder.selectedItemFilter": "No Item Filter Selected",
+
   "ldn-new-service.form.label.ItemFilter": "Item Filter",
+
   "ldn-new-service.form.label.automatic": "Automatic",
+
   "ldn-new-service.form.error.name": "Name is required",
+
   "ldn-new-service.form.error.url": "URL is required",
+
   "ldn-new-service.form.error.ipRange": "Please enter a valid IP range",
+
   "ldn-new-service.form.hint.ipRange": "Please enter a valid IpV4 in both range bounds (note: for single IP, please enter the same value in both fields)",
+
   "ldn-new-service.form.error.ldnurl": "LDN URL is required",
+
+  "ldn-new-service.form.error.ldnurl.ldnUrlAlreadyAssociated": "This LDN URL is already associated with another service",
+
   "ldn-new-service.form.error.patterns": "At least a pattern is required",
+
   "ldn-new-service.form.error.score": "Please enter a valid score (between 0 and 1). Use the “.” as decimal separator",
 
   "ldn-new-service.form.label.inboundPattern": "Supported Pattern",
+
   "ldn-new-service.form.label.addPattern": "+ Add more",
+
   "ldn-new-service.form.label.removeItemFilter": "Remove",
+
   "ldn-register-new-service.breadcrumbs": "New Service",
+
   "service.overview.delete.body": "Are you sure you want to delete this service?",
+
   "service.overview.edit.body": "Do you confirm the changes?",
+
   "service.overview.edit.modal": "Edit Service",
+
   "service.detail.update": "Confirm",
+
   "service.detail.return": "Cancel",
+
   "service.overview.reset-form.body": "Are you sure you want to discard the changes and leave?",
+
   "service.overview.reset-form.modal": "Discard Changes",
+
   "service.overview.reset-form.reset-confirm": "Discard",
+
   "admin.registries.services-formats.modify.success.head": "Successful Edit",
+
   "admin.registries.services-formats.modify.success.content": "The service has been edited",
+
   "admin.registries.services-formats.modify.failure.head": "Failed Edit",
+
   "admin.registries.services-formats.modify.failure.content": "The service has not been edited",
+
   "ldn-service-notification.created.success.title": "Successful Create",
+
   "ldn-service-notification.created.success.body": "The service has been created",
+
   "ldn-service-notification.created.failure.title": "Failed Create",
+
   "ldn-service-notification.created.failure.body": "The service has not been created",
+
   "ldn-service-notification.created.warning.title": "Please select at least one Inbound Pattern",
+
   "ldn-enable-service.notification.success.title": "Successful status updated",
+
   "ldn-enable-service.notification.success.content": "The service status has been updated",
+
   "ldn-service-delete.notification.success.title": "Successful Deletion",
+
   "ldn-service-delete.notification.success.content": "The service has been deleted",
+
   "ldn-service-delete.notification.error.title": "Failed Deletion",
+
   "ldn-service-delete.notification.error.content": "The service has not been deleted",
+
   "service.overview.reset-form.reset-return": "Cancel",
+
   "service.overview.delete": "Delete service",
+
   "ldn-edit-service.title": "Edit service",
+
   "ldn-edit-service.form.label.name": "Name",
+
   "ldn-edit-service.form.label.description": "Description",
+
   "ldn-edit-service.form.label.url": "Service URL",
+
   "ldn-edit-service.form.label.ldnUrl": "LDN Inbox URL",
+
   "ldn-edit-service.form.label.inboundPattern": "Inbound Pattern",
+
   "ldn-edit-service.form.label.noInboundPatternSelected": "No Inbound Pattern",
+
   "ldn-edit-service.form.label.selectedItemFilter": "Selected Item Filter",
+
   "ldn-edit-service.form.label.selectItemFilter": "No Item Filter",
+
   "ldn-edit-service.form.label.automatic": "Automatic",
+
   "ldn-edit-service.form.label.addInboundPattern": "+ Add more",
+
   "ldn-edit-service.form.label.submit": "Save",
+
   "ldn-edit-service.breadcrumbs": "Edit Service",
+
   "ldn-service.control-constaint-select-none": "Select none",
 
   "ldn-register-new-service.notification.error.title": "Error",
+
   "ldn-register-new-service.notification.error.content": "An error occurred while creating this process",
+
   "ldn-register-new-service.notification.success.title": "Success",
+
   "ldn-register-new-service.notification.success.content": "The process was successfully created",
 
   "submission.sections.notify.info": "The selected service is compatible with the item according to its current status. {{ service.name }}: {{ service.description }}",
@@ -6881,6 +7017,7 @@
   "menu.section.services_new": "LDN Service",
 
   "quality-assurance.topics.description-with-target": "Below you can see all the topics received from the subscriptions to {{source}} in regards to the",
+
   "quality-assurance.events.description": "Below the list of all the suggestions for the selected topic <b>{{topic}}</b>, related to <b>{{source}}</b>.",
 
   "quality-assurance.events.description-with-topic-and-target": "Below the list of all the suggestions for the selected topic <b>{{topic}}</b>, related to <b>{{source}}</b> and ",
@@ -7351,8 +7488,6 @@
 
   "item.page.cc.license.disclaimer": "Except where otherwise noted, this item's license is described as",
 
-  "browse.search-form.placeholder": "Search the repository",
-
   "file-download-link.download": "Download ",
 
   "file-download-button.download": "Download",
@@ -7386,6 +7521,8 @@
   "external-login.confirmation.email-required": "Email is required.",
 
   "external-login.confirmation.email-label": "User Email",
+
+  "external-login.confirmation.email": "Email",
 
   "external-login.confirmation.email-invalid": "Invalid email format.",
 
@@ -7446,6 +7583,8 @@
   "external-login-page.orcid-confirmation.lastname.label": "Last name",
 
   "external-login-page.orcid-confirmation.netid": "Account Identifier",
+
+  "external-login-page.orcid-confirmation.netid.label": "Account Identifier",
 
   "external-login-page.orcid-confirmation.netid.placeholder": "xxxx-xxxx-xxxx-xxxx",
 
@@ -7646,4 +7785,42 @@
   "admin.edit-user-agreement.error": "An error occurred while updating the user agreement",
 
   "admin.edit-user-agreement.title": "Edit User Agreement",
+
+  "bitstream.replace.page.title": "Replace File",
+
+  "bitstream.replace.page.header": "Replace {{fileName}} ({{fileSize}})",
+
+  "bitstream.replace.page.content": "Select a file to replace {{fileName}}. Note that this transfer can take a while to process, and may not start immediately.",
+
+  "bitstream.replace.page.button.return": "Back",
+
+  "bitstream.replace.page.disclaimer": "The original file will be deleted. This operation can't be undone.",
+
+  "bitstream.replace.page.button.cancel": "Cancel",
+
+  "bitstream.replace.page.button.save": "Replace file",
+
+  "bitstream.replace.page.upload.failed": "Bitstream upload failed",
+
+  "bitstream.replace.page.breadcrumbs": "Replace File",
+
+  "item.edit.bitstreams.edit.buttons.replace": "Replace",
+
+  "bitstream.replace.page.upload.success": "Bitstream successfully replaced",
+
+  "bitstream.edit.replace.link": "Replace file",
+
+  "bitstream.replace.page.replace-name": "Use new filename",
+
+  "bitstream.replace.page.replace-name-hint": "The new file extension will be retained in order to match the content of the replacement file.",
+
+  "bitstream.related.isCopyOf": "Is copy of",
+
+  "bitstream.related.hasCopies": "Has copies",
+
+  "bitstream.related.isReplacementOf": "Is replacement of",
+
+  "bitstream.related.isReplacedBy": "Is replaced by",
+
+  "bitstream.related.deleted": "deleted",
 }

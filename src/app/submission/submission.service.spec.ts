@@ -32,6 +32,7 @@ import { SubmissionJsonPatchOperationsService } from '@dspace/core/submission/su
 import { SubmissionRestService } from '@dspace/core/submission/submission-rest.service';
 import { SubmissionScopeType } from '@dspace/core/submission/submission-scope-type';
 import { MockActivatedRoute } from '@dspace/core/testing/active-router.mock';
+import { ItemDataServiceStub } from '@dspace/core/testing/item-data.service.stub';
 import { getMockRequestService } from '@dspace/core/testing/request.service.mock';
 import { RouterMock } from '@dspace/core/testing/router.mock';
 import { getMockSearchService } from '@dspace/core/testing/search-service.mock';
@@ -41,7 +42,6 @@ import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock'
 import {
   createFailedRemoteDataObject,
   createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
 } from '@dspace/core/utilities/remote-data.utils';
 import { StoreModule } from '@ngrx/store';
 import {
@@ -82,7 +82,7 @@ import {
   mockSubmissionRestResponse,
 } from './utils/submission.mock';
 
-describe('SubmissionService test suite', () => {
+describe('SubmissionService', () => {
   const collectionId = '43fe1f8c-09a6-4fcf-9c78-5d4fed8f2c8f';
   const submissionId = '826';
   const sectionId = 'test';
@@ -401,9 +401,7 @@ describe('SubmissionService test suite', () => {
     },
   };
   const restService = new SubmissionRestServiceStub();
-  const itemService: ItemDataService = jasmine.createSpyObj('itemService', {
-    findById: createSuccessfulRemoteDataObject$(new Item()),
-  });;
+  let itemService: ItemDataServiceStub;
   const router = new RouterMock();
   const selfUrl = 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826';
   const submissionDefinition: any = mockSubmissionDefinition;
@@ -417,6 +415,7 @@ describe('SubmissionService test suite', () => {
   const requestServce = getMockRequestService();
 
   beforeEach(waitForAsync(() => {
+    itemService = new ItemDataServiceStub();
 
     TestBed.configureTestingModule({
       imports: [
@@ -978,10 +977,6 @@ describe('SubmissionService test suite', () => {
   });
 
   describe('redirectToEditItem', () => {
-    beforeEach(() => {
-      (itemService.findById as jasmine.Spy).calls.reset();
-    });
-
     it('should redirect to Item page', fakeAsync(() => {
       scheduler = getTestScheduler();
 
