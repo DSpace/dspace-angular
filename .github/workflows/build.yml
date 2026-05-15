@@ -40,8 +40,11 @@ jobs:
       # Project name to use when running "docker compose" prior to e2e tests
       COMPOSE_PROJECT_NAME: 'ci'
       # Docker Registry to use for Docker compose scripts below.
-      # We use GitHub's Container Registry to avoid aggressive rate limits at DockerHub.
-      DOCKER_REGISTRY: ghcr.io
+      # On the upstream dspace/dspace-angular repository we use GitHub's Container Registry
+      # (ghcr.io) to avoid aggressive rate limits at DockerHub. Forks cannot authenticate
+      # against ghcr.io/dspace/* with their own GITHUB_TOKEN (and the images there require
+      # auth), so on forks we fall back to docker.io where the same images are public.
+      DOCKER_REGISTRY: ${{ github.repository == 'dspace/dspace-angular' && 'ghcr.io' || 'docker.io' }}
     strategy:
       # Create a matrix of Node versions to test against (in parallel)
       matrix:
@@ -121,9 +124,14 @@ jobs:
           path: 'coverage/dspace-angular/lcov.info'
           retention-days: 14
 
-      # Login to our Docker registry, so that we can access private Docker images using "docker compose" below.
+      # Login to our Docker registry, so that we can access Docker images using "docker compose" below.
+      # This login is required on the upstream repository because DOCKER_REGISTRY is set to ghcr.io
+      # and pulling ghcr.io/dspace/* requires authentication. On forks, DOCKER_REGISTRY falls back to
+      # docker.io (see env block above) where the same images are publicly pullable without a login,
+      # and forks cannot authenticate against ghcr.io/dspace/* with their own GITHUB_TOKEN anyway.
       - name: Login to ${{ env.DOCKER_REGISTRY }}
         uses: docker/login-action@v4
+        if: github.repository == 'dspace/dspace-angular'
         with:
           registry: ${{ env.DOCKER_REGISTRY }}
           username: ${{ github.repository_owner }}
@@ -314,6 +322,9 @@ jobs:
   codecov:
     # Must run after 'tests' job above
     needs: tests
+    # Only run on the upstream repository: forks do not have the CODECOV_TOKEN secret,
+    # and Codecov refuses to create a commit on a protected branch without a token.
+    if: github.repository == 'dspace/dspace-angular'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
