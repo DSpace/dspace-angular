@@ -17,7 +17,14 @@ import { MetadataRepresentationListComponent } from './metadata-representation-l
   ],
 })
 export class ThemedMetadataRepresentationListComponent extends ThemedComponent<MetadataRepresentationListComponent> {
-  protected inAndOutputNames: (keyof MetadataRepresentationListComponent & keyof this)[] = ['parentItem', 'itemType', 'metadataFields', 'label', 'incrementBy'];
+  protected inAndOutputNames: (keyof MetadataRepresentationListComponent & keyof this)[] = [
+    'parentItem',
+    'itemType',
+    'metadataFields',
+    'label',
+    'incrementBy',
+    'separator',
+  ];
 
   @Input() parentItem: Item;
 
@@ -28,6 +35,8 @@ export class ThemedMetadataRepresentationListComponent extends ThemedComponent<M
   @Input() label: string;
 
   @Input() incrementBy: number;
+
+  @Input() separator: string;
 
   protected getComponentName(): string {
     return 'MetadataRepresentationListComponent';
