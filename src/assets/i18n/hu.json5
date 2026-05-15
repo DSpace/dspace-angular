@@ -3349,6 +3349,15 @@
   // "form.number-picker.increment": "Increment {{field}}",
   "form.number-picker.increment": "{{field}} növelése",
 
+  // "form.number-picker.label.Year": "Year",
+  "form.number-picker.label.Year": "Év",
+
+  // "form.number-picker.label.Month": "Month",
+  "form.number-picker.label.Month": "Hónap",
+
+  // "form.number-picker.label.Day": "Day",
+  "form.number-picker.label.Day": "Nap",
+
   // "form.repeatable.sort.tip": "Drop the item in the new position",
   "form.repeatable.sort.tip": "Húzza az elemet az új pozícióba.",
 
