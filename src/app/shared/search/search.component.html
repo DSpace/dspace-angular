@@ -56,6 +56,7 @@
         [selectionConfig]="selectionConfig"
         [showCsvExport]="showCsvExport"
         [showThumbnails]="showThumbnails"
+        [retainScrollPosition]="retainScrollPosition"
         (contentChange)="onContentChange($event)"
         (deselectObject)="deselectObject.emit($event)"
       (selectObject)="selectObject.emit($event)"></ds-search-results>
@@ -79,6 +80,7 @@
       [inPlaceSearch]="inPlaceSearch"
       [viewModeList]="viewModeList"
       [showViewModes]="showViewModes"
+      [retainScrollPosition]="retainScrollPosition"
       (changeConfiguration)="changeContext($event.context)"
     (changeViewMode)="changeViewMode()"></ds-search-sidebar>
   }
@@ -96,6 +98,7 @@
       [inPlaceSearch]="inPlaceSearch"
       [viewModeList]="viewModeList"
       [showViewModes]="showViewModes"
+      [retainScrollPosition]="retainScrollPosition"
       (toggleSidebar)="closeSidebar()"
       (changeConfiguration)="changeContext($event.context)"
       (changeViewMode)="changeViewMode()">
@@ -111,11 +114,12 @@
     [currentUrl]="searchLink"
     [showScopeSelector]="showScopeSelector"
     [inPlaceSearch]="inPlaceSearch"
+    [retainScrollPosition]="retainScrollPosition"
     [searchPlaceholder]="searchFormPlaceholder | translate">
   </ds-search-form>
   <div class="row mb-3 mb-md-1">
     <div class="labels col-12">
-      <ds-search-labels [inPlaceSearch]="inPlaceSearch">
+      <ds-search-labels [inPlaceSearch]="inPlaceSearch" [retainScrollPosition]="retainScrollPosition">
       </ds-search-labels>
     </div>
   </div>

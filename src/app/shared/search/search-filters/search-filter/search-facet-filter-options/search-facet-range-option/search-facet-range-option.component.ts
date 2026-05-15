@@ -64,6 +64,11 @@ export class SearchFacetRangeOptionComponent implements OnInit, OnDestroy {
   @Input() inPlaceSearch: boolean;
 
   /**
+   * Should scroll to the pagination component after updating the route instead of the top of the page
+   */
+  @Input() retainScrollPosition = false;
+
+  /**
    * Emits true when this option should be visible and false when it should be invisible
    */
   isVisible: Observable<boolean>;

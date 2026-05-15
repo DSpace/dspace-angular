@@ -43,6 +43,12 @@ export class SearchSettingsComponent {
    */
   @Input() sortOptionsList: SortOptions[];
 
+
+  /**
+   * Should scroll to the pagination component after updating the route instead of the top of the page
+   */
+  @Input() retainScrollPosition = false;
+
   constructor(
     protected paginationService: PaginationService,
     @Inject(SEARCH_CONFIG_SERVICE) public searchConfigurationService: SearchConfigurationService,
@@ -59,6 +65,6 @@ export class SearchSettingsComponent {
       sortField: values[0],
       sortDirection: values[1] as SortDirection,
       page: 1,
-    });
+    }, undefined, this.retainScrollPosition);
   }
 }

@@ -86,6 +86,11 @@ export class SearchFiltersComponent implements OnInit {
   appliedFilters: Map<string, AppliedFilter[]> = new Map();
 
   /**
+   * Should scroll to the pagination component after updating the route instead of the top of the page
+   */
+  @Input() retainScrollPosition = false;
+
+  /**
    * Link to the search page
    */
   searchLink: string;

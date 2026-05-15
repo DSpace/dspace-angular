@@ -132,6 +132,7 @@ describe('SearchRangeFilterComponent', () => {
     comp.filterConfig = mockFilterConfig;
     comp.inPlaceSearch = false;
     comp.refreshFilters = new BehaviorSubject<boolean>(false);
+    comp.retainScrollPosition = true;
     spyOn(searchService, 'getFacetValuesFor').and.returnValue(mockValues);
     fixture.detectChanges();
   });
@@ -147,11 +148,12 @@ describe('SearchRangeFilterComponent', () => {
 
     it('should call navigate on the router with the right searchlink and parameters', () => {
       expect(router.navigate).toHaveBeenCalledWith(searchUrl.split('/'), {
-        queryParams: {
+        queryParams: jasmine.objectContaining({
           [mockFilterConfig.paramName + minSuffix]: [1900],
           [mockFilterConfig.paramName + maxSuffix]: [1950],
-        },
+        }),
         queryParamsHandling: 'merge',
+        fragment: 'prevent-scroll',
       });
     });
   });

@@ -1,6 +1,7 @@
 @if (isVisible | async) {
   <a class="d-flex flex-row"
     [tabIndex]="-1"
+    [preserveFragment]="retainScrollPosition"
     [routerLink]="[searchLink]"
     [queryParams]="addQueryParams$ | async"
     (click)="announceFilter(); filterService.minimizeAll()"
