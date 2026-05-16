@@ -18,6 +18,25 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { GroupDataService } from '@dspace/core/eperson/group-data.service';
+import { Group } from '@dspace/core/eperson/models/group.model';
+import { ActionType } from '@dspace/core/resource-policy/models/action-type.model';
+import { ResourcePolicy } from '@dspace/core/resource-policy/models/resource-policy.model';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import {
+  getAllSucceededRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '@dspace/core/shared/operators';
+import {
+  dateToString,
+  stringToNgbDateStruct,
+} from '@dspace/shared/utils/date.util';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -103,6 +122,20 @@ export class ResourcePolicyEntryComponent implements OnInit {
    */
   formatDate(date: string): string {
     return isNotEmpty(date) ? dateToString(stringToNgbDateStruct(date)) : '';
+  }
+
+  /**
+   * Returns the display label for the action type.
+   * Shows 'DELETE' instead of 'OBSOLETE (DELETE)' for better UX.
+   *
+   * @param action the ActionType value
+   * @return a string with the display label
+   */
+  getActionDisplayLabel(action: ActionType): string {
+    if (action === ActionType.DELETE) {
+      return 'DELETE';
+    }
+    return String(action);
   }
 
   /**
