@@ -1,8 +1,8 @@
 import { Injector } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { OrejimeService } from '@dspace/core/cookies/orejime.service';
-import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
-import { NativeWindowService } from '@dspace/core/services/window.service';
+import { OrejimeService } from '../shared/cookies/orejime.service';
+import { ConfigurationDataService } from '../core/data/configuration-data.service';
+import { NativeWindowService } from '../core/services/window.service';
 import {
   MatomoInitializerService,
   MatomoTracker,
