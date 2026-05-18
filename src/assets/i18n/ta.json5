@@ -10785,8 +10785,8 @@
 
   // "ldn-new-service.form.label.inboundPattern": "Supported Pattern",
   "ldn-new-service.form.label.inboundPattern": "ஆதரிக்கப்படும் முறைமை",
-  // "ldn-new-service.form.label.addPattern": "+ Add more",
-  "ldn-new-service.form.label.addPattern": "+ மேலும் சேர்",
+  // "ldn-new-service.form.label.addPattern": "Add more",
+  "ldn-new-service.form.label.addPattern": "மேலும் சேர்",
   // "ldn-new-service.form.label.removeItemFilter": "Remove",
   "ldn-new-service.form.label.removeItemFilter": "நீக்கு",
   // "ldn-register-new-service.breadcrumbs": "New Service",

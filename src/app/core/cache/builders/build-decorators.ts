@@ -135,7 +135,7 @@ export const link = <T extends HALResource>(
  * @param source
  */
 export const getLinkDefinitions = <T extends HALResource>(source: GenericConstructor<T>): Map<keyof T['_links'], LinkDefinition<T>> => {
-  return linkMap.get(source);
+  return linkMap.get(source) ?? new Map();
 };
 
 /**

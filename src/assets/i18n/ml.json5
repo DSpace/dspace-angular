@@ -10591,8 +10591,8 @@
 
   // "ldn-new-service.form.label.inboundPattern": "Supported Pattern",
   "ldn-new-service.form.label.inboundPattern": "പിന്തുണയ്ക്കുന്ന പാറ്റേൺ",
-  // "ldn-new-service.form.label.addPattern": "+ Add more",
-  "ldn-new-service.form.label.addPattern": "+ കൂടുതൽ ചേർക്കുക",
+  // "ldn-new-service.form.label.addPattern": "Add more",
+  "ldn-new-service.form.label.addPattern": "കൂടുതൽ ചേർക്കുക",
   // "ldn-new-service.form.label.removeItemFilter": "Remove",
   "ldn-new-service.form.label.removeItemFilter": "നീക്കം ചെയ്യുക",
   // "ldn-register-new-service.breadcrumbs": "New Service",

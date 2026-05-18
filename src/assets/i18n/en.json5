@@ -6892,9 +6892,9 @@
 
   "ldn-new-service.form.error.url": "URL is required",
 
-  "ldn-new-service.form.error.ipRange": "Please enter a valid IP range",
+  "ldn-new-service.form.error.ipRange": "Please enter a valid IP range (note: for single IP, please enter the same value in both fields)",
 
-  "ldn-new-service.form.hint.ipRange": "Please enter a valid IpV4 in both range bounds (note: for single IP, please enter the same value in both fields)",
+  "ldn-new-service.form.hint.ipRange": "Please enter a valid IPv4 in both range bounds (note: for single IP, please enter the same value in both fields)",
 
   "ldn-new-service.form.error.ldnurl": "LDN URL is required",
 
@@ -6906,7 +6906,7 @@
 
   "ldn-new-service.form.label.inboundPattern": "Supported Pattern",
 
-  "ldn-new-service.form.label.addPattern": "+ Add more",
+  "ldn-new-service.form.label.addPattern": "Add more",
 
   "ldn-new-service.form.label.removeItemFilter": "Remove",
 

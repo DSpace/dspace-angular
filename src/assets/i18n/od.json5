@@ -10596,8 +10596,8 @@
 
   // "ldn-new-service.form.label.inboundPattern": "Supported Pattern",
   "ldn-new-service.form.label.inboundPattern": "ସମର୍ଥିତ ପ୍ୟାଟର୍ନ୍",
-  // "ldn-new-service.form.label.addPattern": "+ Add more",
-  "ldn-new-service.form.label.addPattern": "+ ଅଧିକ ଯୋଡନ୍ତୁ",
+  // "ldn-new-service.form.label.addPattern": "Add more",
+  "ldn-new-service.form.label.addPattern": "ଅଧିକ ଯୋଡନ୍ତୁ",
   // "ldn-new-service.form.label.removeItemFilter": "Remove",
   "ldn-new-service.form.label.removeItemFilter": "ଅପସାରଣ କରନ୍ତୁ",
   // "ldn-register-new-service.breadcrumbs": "New Service",

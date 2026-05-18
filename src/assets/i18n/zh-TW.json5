@@ -10780,7 +10780,7 @@
 
   // "ldn-new-service.form.label.inboundPattern": "Supported Pattern",
   "ldn-new-service.form.label.inboundPattern": "支援的模式",
-  // "ldn-new-service.form.label.addPattern": "+ Add more",
+  // "ldn-new-service.form.label.addPattern": "Add more",
   "ldn-new-service.form.label.addPattern": "增加更多",
   // "ldn-new-service.form.label.removeItemFilter": "Remove",
   "ldn-new-service.form.label.removeItemFilter": "消除",
