@@ -31,13 +31,15 @@ import { TOKENITEM } from '@dspace/core/auth/models/auth-token-info.model';
 import { hasValue } from '@dspace/shared/utils/empty.util';
 import { json } from 'body-parser';
 import * as compression from 'compression';
-import { renderFile } from 'ejs';
+/* eslint-disable import/no-namespace */
+import * as ejs from 'ejs';
 import express from 'express';
 import expressStaticGzip from 'express-static-gzip';
 import { createProxyMiddleware } from 'http-proxy-middleware';
 import { createHttpTerminator } from 'http-terminator';
 import { isbot } from 'isbot';
 import { LRUCache } from 'lru-cache';
+/* eslint-disable import/no-namespace */
 import * as morgan from 'morgan';
 import { createCertificate } from 'pem';
 
@@ -136,7 +138,7 @@ export function app() {
    */
   server.use(json());
 
-  server.engine('ejs', renderFile);
+  server.engine('ejs', ejs.renderFile);
 
   /*
    * Register the view engines for html and ejs
