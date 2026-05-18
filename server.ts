@@ -667,11 +667,13 @@ function healthCheck(req, res) {
   const baseUrl = `${REST_BASE_URL}${environment.actuators.endpointPath}`;
   fetch(baseUrl)
     .then((response) => {
-      res.status(response.status).send(response);
+      return response.json().then((data) => {
+        res.status(response.status).send(data);
+      });
     })
     .catch((error) => {
-      res.status(error.response.status).send({
-        error: error.message
+      res.status(error?.response?.status || 503).send({
+        error: error.message,
       });
     });
 }
