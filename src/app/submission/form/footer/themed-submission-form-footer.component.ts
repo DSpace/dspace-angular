@@ -8,12 +8,7 @@ import { SubmissionFormFooterComponent } from './submission-form-footer.componen
 
 @Component({
   selector: 'ds-submission-form-footer',
-  styleUrls: [],
   templateUrl: '../../../shared/theme-support/themed.component.html',
-  standalone: true,
-  imports: [
-    SubmissionFormFooterComponent,
-  ],
 })
 export class ThemedSubmissionFormFooterComponent extends ThemedComponent<SubmissionFormFooterComponent> {
   @Input() submissionId: string;

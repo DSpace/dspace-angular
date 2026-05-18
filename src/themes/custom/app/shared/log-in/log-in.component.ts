@@ -11,7 +11,6 @@ import { LogInComponent as BaseComponent } from '../../../../../app/shared/log-i
   templateUrl: '../../../../../app/shared/log-in/log-in.component.html',
   // styleUrls: ['./log-in.component.scss'],
   styleUrls: ['../../../../../app/shared/log-in/log-in.component.scss'],
-  standalone: true,
   imports: [
     AsyncPipe,
     LogInContainerComponent,

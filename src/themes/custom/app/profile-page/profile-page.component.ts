@@ -23,7 +23,6 @@ import { VarDirective } from '../../../../app/shared/utils/var.directive';
   styleUrls: ['../../../../app/profile-page/profile-page.component.scss'],
   // templateUrl: './profile-page.component.html'
   templateUrl: '../../../../app/profile-page/profile-page.component.html',
-  standalone: true,
   imports: [
     AlertComponent,
     AsyncPipe,

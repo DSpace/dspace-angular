@@ -16,7 +16,6 @@ import { MetadataFieldWrapperComponent } from '../../../../metadata-field-wrappe
 @Component({
   selector: 'ds-base-item-detail-preview-field',
   templateUrl: './item-detail-preview-field.component.html',
-  standalone: true,
   imports: [
     MetadataFieldWrapperComponent,
     TranslateModule,

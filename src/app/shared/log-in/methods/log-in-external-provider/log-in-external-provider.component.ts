@@ -28,7 +28,6 @@ import { take } from 'rxjs/operators';
   selector: 'ds-log-in-external-provider',
   templateUrl: './log-in-external-provider.component.html',
   styleUrls: ['./log-in-external-provider.component.scss'],
-  standalone: true,
   imports: [
     TranslateModule,
   ],

@@ -60,7 +60,6 @@ import { ClickOutsideDirective } from '../../../shared/utils/click-outside.direc
   selector: 'ds-metadata-field-selector',
   styleUrls: ['./metadata-field-selector.component.scss'],
   templateUrl: './metadata-field-selector.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     ClickOutsideDirective,

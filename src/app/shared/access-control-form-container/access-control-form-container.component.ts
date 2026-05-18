@@ -43,7 +43,6 @@ import {
   templateUrl: './access-control-form-container.component.html',
   styleUrls: ['./access-control-form-container.component.scss'],
   exportAs: 'dsAccessControlForm',
-  standalone: true,
   imports: [
     AccessControlArrayFormComponent,
     AlertComponent,
@@ -103,11 +102,6 @@ export class AccessControlFormContainerComponent<T extends DSpaceObject> impleme
    * Will be used from a parent component to read the value of the form
    */
   getFormValue() {
-    console.log({
-      bitstream: this.bitstreamAccessCmp.getValue(),
-      item: this.itemAccessCmp.getValue(),
-      state: this.state,
-    });
     return {
       bitstream: this.bitstreamAccessCmp.getValue(),
       item: this.itemAccessCmp.getValue(),
@@ -143,7 +137,6 @@ export class AccessControlFormContainerComponent<T extends DSpaceObject> impleme
       [ this.itemRD.payload.uuid ],
       file,
     ).pipe(take(1)).subscribe((res) => {
-      console.log('success', res);
     });
   }
 
@@ -155,9 +148,17 @@ export class AccessControlFormContainerComponent<T extends DSpaceObject> impleme
    */
   handleStatusChange(type: 'item' | 'bitstream', active: boolean) {
     if (type === 'bitstream') {
-      active ? this.bitstreamAccessCmp.enable() : this.bitstreamAccessCmp.disable();
+      if (active) {
+        this.bitstreamAccessCmp.enable();
+      } else {
+        this.bitstreamAccessCmp.disable();
+      }
     } else if (type === 'item') {
-      active ? this.itemAccessCmp.enable() : this.itemAccessCmp.disable();
+      if (active) {
+        this.itemAccessCmp.enable();
+      } else {
+        this.itemAccessCmp.disable();
+      }
     }
   }
 

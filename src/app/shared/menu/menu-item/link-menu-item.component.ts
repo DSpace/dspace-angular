@@ -20,7 +20,6 @@ import { LinkMenuItemModel } from './models/link.model';
   selector: 'ds-link-menu-item',
   styleUrls: ['./menu-item.component.scss'],
   templateUrl: './link-menu-item.component.html',
-  standalone: true,
   imports: [
     NgClass,
     RouterLink,

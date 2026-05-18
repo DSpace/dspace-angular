@@ -17,7 +17,6 @@ import { BtnDisabledDirective } from '../btn-disabled.directive';
   selector: 'ds-select',
   templateUrl: './ds-select.component.html',
   styleUrls: ['./ds-select.component.scss'],
-  standalone: true,
   imports: [
     BtnDisabledDirective,
     NgbDropdownModule,

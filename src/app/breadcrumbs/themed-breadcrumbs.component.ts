@@ -8,12 +8,7 @@ import { BreadcrumbsComponent } from './breadcrumbs.component';
  */
 @Component({
   selector: 'ds-breadcrumbs',
-  styleUrls: [],
   templateUrl: '../shared/theme-support/themed.component.html',
-  standalone: true,
-  imports: [
-    BreadcrumbsComponent,
-  ],
 })
 export class ThemedBreadcrumbsComponent extends ThemedComponent<BreadcrumbsComponent> {
   protected getComponentName(): string {

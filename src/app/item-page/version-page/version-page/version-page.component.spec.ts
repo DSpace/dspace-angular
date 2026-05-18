@@ -35,7 +35,6 @@ const mockVersion: Version = Object.assign(new Version(), {
 
 @Component({
   template: '',
-  standalone: true,
 })
 class DummyComponent {
 }

@@ -2,7 +2,7 @@ import {
   Inject,
   Injectable,
 } from '@angular/core';
-import { CookieAttributes } from 'js-cookie';
+import Cookies from 'js-cookie';
 
 import { REQUEST } from '../../../express.tokens';
 import {
@@ -19,14 +19,14 @@ export class ServerCookieService extends CookieService implements ICookieService
   public set(
     name: string,
     value: any,
-    options?: CookieAttributes,
+    options?: Cookies.CookieAttributes,
   ): void {
     return;
   }
 
   public remove(
     name: string,
-    options?: CookieAttributes,
+    options?: Cookies.CookieAttributes,
   ): void {
     return;
   }

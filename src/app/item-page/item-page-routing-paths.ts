@@ -6,8 +6,8 @@ import {
 import { Item } from '@dspace/core/shared/item.model';
 import { URLCombiner } from '@dspace/core/url-combiner/url-combiner';
 
-export function getItemEditRoute(item: Item) {
-  return new URLCombiner(getItemPageRoute(item), ITEM_EDIT_PATH).toString();
+export function getItemEditRoute(item: Item, ignoreCustomUrl = false) {
+  return new URLCombiner(getItemPageRoute(item, ignoreCustomUrl), ITEM_EDIT_PATH).toString();
 }
 
 export function getItemEditVersionhistoryRoute(item: Item) {
@@ -26,6 +26,7 @@ export function getItemVersionRoute(versionId: string) {
   return new URLCombiner(getItemModuleRoute(), ITEM_VERSION_PATH, versionId).toString();
 }
 
+export const ITEM_AUDIT_LOGS_PATH = 'auditlogs';
 export const ITEM_EDIT_PATH = 'edit';
 export const ITEM_EDIT_VERSIONHISTORY_PATH = 'versionhistory';
 export const ITEM_VERSION_PATH = 'version';

@@ -145,7 +145,7 @@ describe('App component', () => {
     });
 
     it('should dispatch a HostWindowResizeAction with the width and height of the window as its payload', () => {
-      expect(store.dispatch).toHaveBeenCalledWith(new HostWindowResizeAction(width, height));
+      expect(store.dispatch as jasmine.Spy).toHaveBeenCalledWith(new HostWindowResizeAction(width, height));
     });
 
   });

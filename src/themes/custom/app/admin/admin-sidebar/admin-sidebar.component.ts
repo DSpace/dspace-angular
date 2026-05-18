@@ -16,7 +16,6 @@ import { BrowserOnlyPipe } from '../../../../../app/shared/utils/browser-only.pi
   templateUrl: '../../../../../app/admin/admin-sidebar/admin-sidebar.component.html',
   // styleUrls: ['./admin-sidebar.component.scss']
   styleUrls: ['../../../../../app/admin/admin-sidebar/admin-sidebar.component.scss'],
-  standalone: true,
   imports: [
     AsyncPipe,
     BrowserOnlyPipe,

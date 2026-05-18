@@ -43,7 +43,6 @@ import { RegistryService } from './registry.service';
 
 @Component({
   template: '',
-  standalone: true,
   imports: [],
 })
 class DummyComponent {

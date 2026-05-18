@@ -29,7 +29,6 @@ import { MetadataFieldWrapperComponent } from 'src/app/shared/metadata-field-wra
 @Component({
   selector: 'ds-item-page-cc-license-field',
   templateUrl: './item-page-cc-license-field.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     MetadataFieldWrapperComponent,

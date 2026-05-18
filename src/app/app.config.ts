@@ -1,10 +1,8 @@
-import {
-  APP_BASE_HREF,
-  DOCUMENT,
-} from '@angular/common';
+import { APP_BASE_HREF } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import {
   ApplicationConfig,
+  DOCUMENT,
   importProvidersFrom,
 } from '@angular/core';
 import {
@@ -45,10 +43,11 @@ import {
   USER_PROVIDED_META_REDUCERS,
 } from '@ngrx/store';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
-import { NgxMaskModule } from 'ngx-mask';
+import { provideEnvironmentNgxMask } from 'ngx-mask';
 
 import { environment } from '../environments/environment';
-import { EagerThemesModule } from '../themes/eager-themes.module';
+import { HashedFileMapping } from '../modules/dynamic-hash/hashed-file-mapping';
+import { BrowserHashedFileMapping } from '../modules/dynamic-hash/hashed-file-mapping.browser';
 import { appEffects } from './app.effects';
 import { MENUS } from './app.menus';
 import {
@@ -101,10 +100,8 @@ export const commonAppConfig: ApplicationConfig = {
       StoreModule.forRoot(appReducers, storeModuleConfig),
       StoreRouterConnectingModule.forRoot(),
       StoreDevModules,
-      EagerThemesModule,
       RootModule,
       ListableModule.withEntryComponents(),
-      NgxMaskModule.forRoot(),
     ),
     provideRouter(
       APP_ROUTES,
@@ -158,12 +155,16 @@ export const commonAppConfig: ApplicationConfig = {
       useClass: DspaceRestInterceptor,
       multi: true,
     },
+    {
+      provide: HashedFileMapping,
+      useClass: BrowserHashedFileMapping,
+    },
     // register the dynamic matcher used by form. MUST be provided by the app module
     ...DYNAMIC_MATCHER_PROVIDERS,
 
     // DI-composable menus
     ...MENUS,
-
+    provideEnvironmentNgxMask(),
     provideCore(),
   ],
 };

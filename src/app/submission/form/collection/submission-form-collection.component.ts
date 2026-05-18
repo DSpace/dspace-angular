@@ -52,7 +52,6 @@ import { SubmissionService } from '../../submission.service';
   selector: 'ds-submission-form-collection',
   styleUrls: ['./submission-form-collection.component.scss'],
   templateUrl: './submission-form-collection.component.html',
-  standalone: true,
   imports: [
     BtnDisabledDirective,
     CommonModule,
@@ -80,6 +79,12 @@ export class SubmissionFormCollectionComponent implements OnDestroy, OnChanges, 
    * @type {booelan}
    */
   @Input() collectionModifiable: boolean | null = null;
+
+  /**
+   * The entity type input used to create a new submission
+   * @type {string}
+   */
+  @Input() entityType: string;
 
   /**
    * The submission id

@@ -26,7 +26,6 @@ import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
   selector: 'ds-admin-sidebar-section',
   templateUrl: './admin-sidebar-section.component.html',
   styleUrls: ['./admin-sidebar-section.component.scss'],
-  standalone: true,
   imports: [
     BrowserOnlyPipe,
     NgClass,

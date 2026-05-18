@@ -37,7 +37,6 @@ import { ThemedLogInComponent } from '../shared/log-in/themed-log-in.component';
   selector: 'ds-base-login-page',
   styleUrls: ['./login-page.component.scss'],
   templateUrl: './login-page.component.html',
-  standalone: true,
   imports: [
     ThemedLogInComponent,
     TranslateModule,

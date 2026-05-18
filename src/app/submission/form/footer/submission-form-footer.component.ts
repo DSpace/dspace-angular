@@ -1,4 +1,7 @@
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  Location,
+} from '@angular/common';
 import {
   Component,
   Input,
@@ -27,7 +30,6 @@ import { SubmissionService } from '../../submission.service';
   selector: 'ds-base-submission-form-footer',
   styleUrls: ['./submission-form-footer.component.scss'],
   templateUrl: './submission-form-footer.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     BrowserOnlyPipe,
@@ -80,8 +82,8 @@ export class SubmissionFormFooterComponent implements OnChanges {
    * @param {SubmissionService} submissionService
    */
   constructor(private modalService: NgbModal,
-              private restService: SubmissionRestService,
-              private submissionService: SubmissionService) {
+              private submissionService: SubmissionService,
+              private location: Location) {
   }
 
   /**
@@ -133,4 +135,22 @@ export class SubmissionFormFooterComponent implements OnChanges {
       },
     );
   }
+
+  /**
+   * Compute the proper label for the save for later button
+   */
+  public saveForLaterLabel(): string {
+    if (this.submissionService.getSubmissionScope() === SubmissionScopeType.EditItem) {
+      return 'submission.general.save-later.edit-item';
+    }
+    return 'submission.general.save-later';
+  }
+
+  /**
+   * When back button is pressed go to previous location
+   */
+  navigateBack(): void {
+    this.location.back();
+  }
+
 }

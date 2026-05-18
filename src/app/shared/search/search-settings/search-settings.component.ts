@@ -21,7 +21,6 @@ import { SearchConfigurationService } from '../search-configuration.service';
   selector: 'ds-base-search-settings',
   styleUrls: ['./search-settings.component.scss'],
   templateUrl: './search-settings.component.html',
-  standalone: true,
   imports: [
     FormsModule,
     PageSizeSelectorComponent,

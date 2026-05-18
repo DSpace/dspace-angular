@@ -7,7 +7,6 @@ import { FormsModule } from '@angular/forms';
 import {
   ActivatedRoute,
   Router,
-  RouterLink,
 } from '@angular/router';
 import { AuthService } from '@dspace/core/auth/auth.service';
 import { ItemRequestDataService } from '@dspace/core/data/item-request-data.service';
@@ -43,11 +42,9 @@ import { ThemedEmailRequestCopyComponent } from '../email-request-copy/themed-em
   selector: 'ds-base-grant-request-copy',
   styleUrls: ['./grant-request-copy.component.scss'],
   templateUrl: './grant-request-copy.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     FormsModule,
-    RouterLink,
     ThemedEmailRequestCopyComponent,
     ThemedLoadingComponent,
     TranslatePipe,
@@ -137,7 +134,7 @@ export class GrantRequestCopyComponent implements OnInit {
               accessToken: rd.payload.accessToken,
             },
           };
-          this.previewLink = this.hardRedirectService.getCurrentOrigin()
+          this.previewLink = this.hardRedirectService.getBaseUrl()
             + this.previewLinkOptions.routerLink + '?accessToken=' + rd.payload.accessToken;
         }
       }),

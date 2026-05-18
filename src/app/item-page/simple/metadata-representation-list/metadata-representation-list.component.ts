@@ -28,7 +28,6 @@ import { AbstractIncrementalListComponent } from '../abstract-incremental-list/a
 @Component({
   selector: 'ds-base-metadata-representation-list',
   templateUrl: './metadata-representation-list.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     MetadataFieldWrapperComponent,

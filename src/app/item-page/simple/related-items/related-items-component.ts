@@ -35,7 +35,6 @@ import { AbstractIncrementalListComponent } from '../abstract-incremental-list/a
   selector: 'ds-related-items',
   styleUrls: ['./related-items.component.scss'],
   templateUrl: './related-items.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     ListableObjectComponentLoaderComponent,

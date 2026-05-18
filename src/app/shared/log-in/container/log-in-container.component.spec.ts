@@ -121,7 +121,6 @@ describe('LogInContainerComponent', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
-  standalone: true,
   imports: [FormsModule,
     ReactiveFormsModule,
     RouterTestingModule],

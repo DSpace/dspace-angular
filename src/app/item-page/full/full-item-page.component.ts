@@ -77,7 +77,6 @@ import { ThemedFullFileSectionComponent } from './field-components/file-section/
     TranslateModule,
     VarDirective,
   ],
-  standalone: true,
 })
 export class FullItemPageComponent extends ItemPageComponent implements OnInit, OnDestroy {
 

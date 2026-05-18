@@ -43,7 +43,6 @@ import { BitstreamFormatService } from './bitstream-format.service';
     RouterLink,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class BitstreamFormatsComponent implements OnInit, OnDestroy {
 
@@ -137,9 +136,11 @@ export class BitstreamFormatsComponent implements OnInit, OnDestroy {
    * @param event
    */
   selectBitStreamFormat(bitstreamFormat: BitstreamFormat, event) {
-    event.target.checked ?
-      this.bitstreamFormatService.selectBitstreamFormat(bitstreamFormat) :
+    if (event.target.checked) {
+      this.bitstreamFormatService.selectBitstreamFormat(bitstreamFormat);
+    } else {
       this.bitstreamFormatService.deselectBitstreamFormat(bitstreamFormat);
+    }
   }
 
   /**

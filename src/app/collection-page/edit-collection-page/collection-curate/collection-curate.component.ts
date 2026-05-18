@@ -29,7 +29,6 @@ import { CurationFormComponent } from '../../../curation-form/curation-form.comp
     CurationFormComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class CollectionCurateComponent implements OnInit {
   dsoRD$: Observable<RemoteData<Collection>>;

@@ -2,8 +2,13 @@ import { LanguageCode } from '@dspace/core/shared/form/models/form-field-languag
 import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
 import { RelationshipOptions } from '@dspace/core/shared/relationship-options.model';
 import { VocabularyOptions } from '@dspace/core/submission/vocabularies/models/vocabulary-options.model';
-import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
+  hasValue,
+  isNotEmpty,
+  isNotUndefined,
+} from '@dspace/shared/utils/empty.util';
+import {
+  AUTOCOMPLETE_OFF,
   DynamicFormControlLayout,
   DynamicFormControlRelation,
   DynamicInputModel,
@@ -27,6 +32,10 @@ export interface DsDynamicInputModelConfig extends DynamicInputModelConfig {
   metadataValue?: FormFieldMetadataValueObject;
   isModelOfInnerForm?: boolean;
   hideErrorMessages?: boolean;
+  securityLevel?: number;
+  securityConfigLevel?: number[];
+  toggleSecurityVisibility?: boolean;
+  isModelOfNotRepeatableGroup?: boolean;
 }
 
 export class DsDynamicInputModel extends DynamicInputModel {
@@ -46,10 +55,15 @@ export class DsDynamicInputModel extends DynamicInputModel {
   @serializable() metadataValue: FormFieldMetadataValueObject;
   @serializable() isModelOfInnerForm: boolean;
   @serializable() hideErrorMessages?: boolean;
+  @serializable() securityLevel?: number;
+  @serializable() securityConfigLevel?: number[];
+  @serializable() toggleSecurityVisibility = true;
+  @serializable() isModelOfNotRepeatableGroup = false;
 
 
   constructor(config: DsDynamicInputModelConfig, layout?: DynamicFormControlLayout) {
     super(config, layout);
+    this.autoComplete = AUTOCOMPLETE_OFF;
     this.repeatable = config.repeatable;
     this.metadataFields = config.metadataFields;
     this.hint = config.hint;
@@ -61,6 +75,14 @@ export class DsDynamicInputModel extends DynamicInputModel {
     this.hasSelectableMetadata = config.hasSelectableMetadata;
     this.metadataValue = config.metadataValue;
     this.place = config.place;
+    this.securityLevel = config.securityLevel;
+    this.securityConfigLevel = config.securityConfigLevel;
+    if (isNotUndefined(config.toggleSecurityVisibility)) {
+      this.toggleSecurityVisibility = config.toggleSecurityVisibility;
+    }
+    if (isNotUndefined(config.isModelOfNotRepeatableGroup)) {
+      this.isModelOfNotRepeatableGroup = config.isModelOfNotRepeatableGroup;
+    }
     this.isModelOfInnerForm = (hasValue(config.isModelOfInnerForm) ? config.isModelOfInnerForm : false);
     this.hideErrorMessages = config.hideErrorMessages;
 
@@ -102,6 +124,14 @@ export class DsDynamicInputModel extends DynamicInputModel {
 
   set language(language: string) {
     this._language = language;
+  }
+
+  get hasSecurityLevel(): boolean {
+    return isNotEmpty(this.securityLevel);
+  }
+
+  get hasSecurityToggle(): boolean {
+    return isNotEmpty(this.securityConfigLevel) && this.securityConfigLevel.length > 1 && this.toggleSecurityVisibility;
   }
 
   get languageCodes(): LanguageCode[] {

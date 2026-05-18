@@ -39,7 +39,6 @@ import { VocabularyTreeviewComponent } from '../../shared/form/vocabulary-treevi
     TranslatePipe,
     VocabularyTreeviewComponent,
   ],
-  standalone: true,
 })
 /**
  * Component for browsing items by metadata in a hierarchical controlled vocabulary
@@ -129,7 +128,7 @@ export class BrowseByTaxonomyComponent implements OnInit, OnChanges, OnDestroy {
       this.selectedItems = [];
       this.facetType = browseDefinition.facetType;
       this.vocabularyName = browseDefinition.vocabulary;
-      this.vocabularyOptions = { name: this.vocabularyName, closed: true };
+      this.vocabularyOptions = { name: this.vocabularyName, metadata: null, scope: null, closed: true };
       this.description = this.translate.instant(`browse.metadata.${this.vocabularyName}.tree.description`);
     }));
     this.subs.push(this.scope$.subscribe(() => {

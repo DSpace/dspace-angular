@@ -12,7 +12,6 @@ import { SubmissionFormFooterComponent as BaseComponent } from '../../../../../.
   styleUrls: ['../../../../../../app/submission/form/footer/submission-form-footer.component.scss'],
   // templateUrl: './submission-form-footer.component.html'
   templateUrl: '../../../../../../app/submission/form/footer/submission-form-footer.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     BrowserOnlyPipe,

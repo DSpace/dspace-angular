@@ -21,7 +21,6 @@ import { VarDirective } from '../../../../../../../../../app/shared/utils/var.di
       useClass: SearchConfigurationService,
     },
   ],
-  standalone: true,
   imports: [
     AsyncPipe,
     NgbDropdownModule,

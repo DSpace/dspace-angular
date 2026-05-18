@@ -18,7 +18,6 @@ import { METADATA_REPRESENTATION_COMPONENT_FACTORY } from './metadata-representa
 @Component({
   selector: 'ds-metadata-representation-loader',
   templateUrl: '../abstract-component-loader/abstract-component-loader.component.html',
-  standalone: true,
 })
 /**
  * Component for determining what component to use depending on the item's entity type (dspace.entity.type), its metadata representation and, optionally, its context

@@ -20,7 +20,6 @@ import { AbstractSimpleItemActionComponent } from '../simple-item-action/abstrac
 @Component({
   selector: 'ds-item-withdraw',
   templateUrl: '../simple-item-action/abstract-simple-item-action.component.html',
-  standalone: true,
   imports: [
     ModifyItemOverviewComponent,
     RouterLink,

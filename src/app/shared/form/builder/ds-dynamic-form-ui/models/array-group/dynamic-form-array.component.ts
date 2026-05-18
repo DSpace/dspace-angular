@@ -56,7 +56,6 @@ import { DynamicRowArrayModel } from '../ds-dynamic-row-array-model';
     ReactiveFormsModule,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent {
 
@@ -121,7 +120,7 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent {
    * If the drag feature is disabled for this DynamicRowArrayModel.
    */
   get dragDisabled(): boolean {
-    return this.model.groups.length === 1 || !this.model.isDraggable;
+    return this.model.groups.length === 1 || !this.model.isDraggable || this.model.notRepeatable;
   }
 
   /**

@@ -16,7 +16,6 @@ import { BtnDisabledDirective } from '../../../../../app/shared/btn-disabled.dir
   styleUrls: ['../../../../../app/request-copy/email-request-copy/email-request-copy.component.scss'],
   // templateUrl: './email-request-copy.component.html',
   templateUrl: '../../../../../app/request-copy/email-request-copy/email-request-copy.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     BtnDisabledDirective,

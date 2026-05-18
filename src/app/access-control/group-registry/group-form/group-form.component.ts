@@ -96,7 +96,6 @@ import { ValidateGroupExists } from './validators/group-exists.validator';
     SubgroupsListComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * A form used for creating and editing groups
@@ -417,6 +416,16 @@ export class GroupFormComponent implements OnInit, OnDestroy {
       getFirstCompletedRemoteData(),
     ).subscribe((rd: RemoteData<Group>) => {
       if (rd.hasSucceeded) {
+
+        const updatedGroup = rd.payload;
+
+        this.groupRegistryService.editGroup(updatedGroup);
+
+        this.formGroup.patchValue({
+          groupName: updatedGroup.name,
+          groupDescription: updatedGroup.firstMetadataValue('dc.description'),
+        });
+
         this.notificationsService.success(this.translateService.get(this.messagePrefix + '.notification.edited.success', { name: this.dsoNameService.getName(rd.payload) }));
         this.submitForm.emit(rd.payload);
       } else {

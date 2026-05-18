@@ -16,7 +16,6 @@ import { TruncatableService } from '../../truncatable/truncatable.service';
 @Component({
   selector: 'ds-search-result-grid-element',
   template: ``,
-  standalone: true,
 })
 export class SearchResultGridElementComponent<T extends SearchResult<K>, K extends DSpaceObject> extends AbstractListableElementComponent<T> implements OnInit {
   /**

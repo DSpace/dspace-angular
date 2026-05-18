@@ -8,6 +8,7 @@ import { GenericItemPageFieldComponent } from '../../../../item-page/simple/fiel
 import { ItemPageImgFieldComponent } from '../../../../item-page/simple/field-components/specific-field/img/item-page-img-field.component';
 import { ThemedItemPageTitleFieldComponent } from '../../../../item-page/simple/field-components/specific-field/title/themed-item-page-field.component';
 import { ItemComponent } from '../../../../item-page/simple/item-types/shared/item.component';
+import { AuthorityRelatedEntitiesSearchComponent } from '../../../../item-page/simple/related-entities/authority-related-entities-search/authority-related-entities-search.component';
 import { TabbedRelatedEntitiesSearchComponent } from '../../../../item-page/simple/related-entities/tabbed-related-entities-search/tabbed-related-entities-search.component';
 import { RelatedItemsComponent } from '../../../../item-page/simple/related-items/related-items-component';
 import { DsoEditMenuComponent } from '../../../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
@@ -21,9 +22,9 @@ import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail
   selector: 'ds-org-unit',
   styleUrls: ['./org-unit.component.scss'],
   templateUrl: './org-unit.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
+    AuthorityRelatedEntitiesSearchComponent,
     DsoEditMenuComponent,
     GenericItemPageFieldComponent,
     ItemPageImgFieldComponent,

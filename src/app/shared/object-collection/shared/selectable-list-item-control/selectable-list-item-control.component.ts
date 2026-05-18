@@ -23,7 +23,6 @@ import { VarDirective } from '../../../utils/var.directive';
   selector: 'ds-selectable-list-item-control',
   // styleUrls: ['./selectable-list-item-control.component.scss'],
   templateUrl: './selectable-list-item-control.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     FormsModule,

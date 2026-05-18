@@ -5,7 +5,7 @@ import {
 import {
   ChangeDetectorRef,
   Component,
-  NO_ERRORS_SCHEMA,
+  CUSTOM_ELEMENTS_SCHEMA,
 } from '@angular/core';
 import {
   ComponentFixture,
@@ -13,24 +13,32 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
+import { LinkService } from '@dspace/core/cache/builders/link.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
 import { JsonPatchOperationPathCombiner } from '@dspace/core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
+import { HardRedirectService } from '@dspace/core/services/hard-redirect.service';
+import { FileService } from '@dspace/core/shared/file.service';
 import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
 import { SubmissionJsonPatchOperationsService } from '@dspace/core/submission/submission-json-patch-operations.service';
+import { AuthorizationDataServiceStub } from '@dspace/core/testing/authorization-service.stub';
 import { HALEndpointServiceStub } from '@dspace/core/testing/hal-endpoint-service.stub';
+import { getMockLinkService } from '@dspace/core/testing/link-service.mock';
 import { getMockSectionUploadService } from '@dspace/core/testing/section-upload.service.mock';
 import { SubmissionJsonPatchOperationsServiceStub } from '@dspace/core/testing/submission-json-patch-operations-service.stub';
 import { SubmissionServiceStub } from '@dspace/core/testing/submission-service.stub';
 import { createTestComponent } from '@dspace/core/testing/utils.test';
+import { createFailedRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import {
   NgbModal,
   NgbModule,
 } from '@ng-bootstrap/ng-bootstrap';
+import { Store } from '@ngrx/store';
+import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { ThemedFileDownloadLinkComponent } from '../../../../shared/file-download-link/themed-file-download-link.component';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { FormService } from '../../../../shared/form/form.service';
 import { getMockFormService } from '../../../../shared/form/testing/form-service.mock';
@@ -48,7 +56,6 @@ import { SectionUploadService } from '../section-upload.service';
 import { POLICY_DEFAULT_WITH_LIST } from '../section-upload-constants';
 import { SubmissionSectionUploadFileEditComponent } from './edit/section-upload-file-edit.component';
 import { SubmissionSectionUploadFileComponent } from './section-upload-file.component';
-import { ThemedSubmissionSectionUploadFileComponent } from './themed-section-upload-file.component';
 import { SubmissionSectionUploadFileViewComponent } from './view/section-upload-file-view.component';
 
 const configMetadataFormMock = {
@@ -62,12 +69,13 @@ const configMetadataFormMock = {
   }],
 };
 
-describe('SubmissionSectionUploadFileComponent test suite', () => {
+describe('SubmissionSectionUploadFileComponent', () => {
 
   let comp: SubmissionSectionUploadFileComponent;
   let compAsAny: any;
   let fixture: ComponentFixture<SubmissionSectionUploadFileComponent>;
-  let submissionServiceStub: SubmissionServiceStub;
+  let submissionServiceStub = new SubmissionServiceStub();
+  submissionServiceStub.retrieveSubmission.and.returnValue(createFailedRemoteDataObject$());
   let uploadService: any;
   let formService: any;
   let halService: any;
@@ -107,25 +115,31 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
         { provide: HALEndpointService, useValue: new HALEndpointServiceStub('workspaceitems') },
         { provide: JsonPatchOperationsBuilder, useValue: jsonPatchOpBuilder },
         { provide: SubmissionJsonPatchOperationsService, useValue: submissionJsonPatchOperationsServiceStub },
-        { provide: SubmissionService, useClass: SubmissionServiceStub },
+        { provide: SubmissionService, useValue: submissionServiceStub },
         { provide: SectionUploadService, useValue: getMockSectionUploadService() },
         { provide: ThemeService, useValue: getMockThemeService() },
-        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
+        { provide: FileService, useValue: { retrieveFileDownloadLink: jasmine.createSpy('retrieveFileDownloadLink').and.returnValue(of('https://test-url.com/file')) } },
+        { provide: HardRedirectService, useValue: { redirect: jasmine.createSpy('redirect') } },
+        { provide: Store, useValue: provideMockStore() },
+        { provide: ItemDataService, useValue: {} },
         ChangeDetectorRef,
         NgbModal,
         SubmissionSectionUploadFileComponent,
         SubmissionSectionUploadFileEditComponent,
         FormBuilderService,
+        { provide: AuthorizationDataService, useValue: new AuthorizationDataServiceStub() },
+        { provide: LinkService, useValue: getMockLinkService() },
       ],
-      schemas: [NO_ERRORS_SCHEMA],
     })
       .overrideComponent(SubmissionSectionUploadFileComponent, {
+        add: {
+          schemas: [CUSTOM_ELEMENTS_SCHEMA],
+        },
         remove: { imports: [
           SubmissionSectionUploadFileViewComponent,
-          ThemedFileDownloadLinkComponent,
         ] },
       })
-      .compileComponents().then();
+      .compileComponents();
   }));
 
   describe('', () => {
@@ -182,6 +196,7 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
       comp.fileIndex = fileIndex;
       comp.fileId = fileId;
       comp.fileName = fileName;
+      (uploadService.getFileData as jasmine.Spy).and.returnValue(of(undefined));
     });
 
     afterEach(() => {
@@ -273,22 +288,30 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
       expect(compAsAny.editBitstreamData).toHaveBeenCalled();
     });
 
+    it('should call downloadFile and open link in new tab', () => {
+      spyOn(window, 'open');
+      comp.fileData = fileData;
+
+      comp.downloadFile();
+
+      expect(window.open).toHaveBeenCalledWith('https://test-url.com/file', '_blank');
+    });
+
   });
 });
 
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``,
-  standalone: true,
+  template: '{{ obs | async }}',
   imports: [
     AsyncPipe,
     NgbModule,
-    ThemedSubmissionSectionUploadFileComponent,
   ],
 })
 class TestComponent {
 
+  obs = of();
   availableGroups;
   availableAccessConditionOptions;
   collectionId = mockSubmissionCollectionId;

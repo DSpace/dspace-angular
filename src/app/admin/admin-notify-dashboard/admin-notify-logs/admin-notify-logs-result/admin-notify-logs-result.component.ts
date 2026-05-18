@@ -30,7 +30,6 @@ import { ThemedSearchComponent } from '../../../../shared/search/themed-search.c
       useClass: SearchConfigurationService,
     },
   ],
-  standalone: true,
   imports: [
     AsyncPipe,
     SearchLabelsComponent,

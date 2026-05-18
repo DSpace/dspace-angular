@@ -30,11 +30,7 @@ _______
 ##### use no-prefix selectors in TypeScript templates
         
 ```html
-@Component({
-  template: '<ds-test-themeable></ds-test-themeable>'
-})
-class Test {
-}
+<ds-test-themeable></ds-test-themeable>
 ```
         
     
@@ -43,11 +39,7 @@ class Test {
 Filename: `lint/test/fixture/src/test.spec.ts`
         
 ```html
-@Component({
-  template: '<ds-test-themeable></ds-test-themeable>'
-})
-class Test {
-}
+<ds-test-themeable></ds-test-themeable>
 ```
         
     
@@ -56,11 +48,7 @@ class Test {
 Filename: `lint/test/fixture/src/test.spec.ts`
         
 ```html
-@Component({
-  template: '<ds-base-test-themeable></ds-base-test-themeable>'
-})
-class Test {
-}
+<ds-base-test-themeable></ds-base-test-themeable>
 ```
         
     

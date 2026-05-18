@@ -42,7 +42,6 @@ import { SubmissionService } from '../submission.service';
   selector: 'ds-base-submission-submit',
   styleUrls: ['./submission-submit.component.scss'],
   templateUrl: './submission-submit.component.html',
-  standalone: true,
 })
 export class SubmissionSubmitComponent implements OnDestroy, OnInit {
 

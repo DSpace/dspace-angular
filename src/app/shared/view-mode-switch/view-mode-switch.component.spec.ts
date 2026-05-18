@@ -24,7 +24,6 @@ import { ViewModeSwitchComponent } from './view-mode-switch.component';
 
 @Component({
   template: '',
-  standalone: true,
 })
 class DummyComponent {
 }

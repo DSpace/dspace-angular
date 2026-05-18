@@ -12,7 +12,6 @@ import { BtnDisabledDirective } from '../../../../../app/shared/btn-disabled.dir
   styleUrls: ['../../../../../app/info/end-user-agreement/end-user-agreement.component.scss'],
   // templateUrl: './end-user-agreement.component.html'
   templateUrl: '../../../../../app/info/end-user-agreement/end-user-agreement.component.html',
-  standalone: true,
   imports: [
     BtnDisabledDirective,
     EndUserAgreementContentComponent,

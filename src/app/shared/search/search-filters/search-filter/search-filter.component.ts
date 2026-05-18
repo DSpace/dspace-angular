@@ -50,7 +50,6 @@ import { SearchFacetFilterWrapperComponent } from './search-facet-filter-wrapper
   styleUrls: ['./search-filter.component.scss'],
   templateUrl: './search-filter.component.html',
   animations: [slide],
-  standalone: true,
   imports: [
     AsyncPipe,
     BrowserOnlyPipe,

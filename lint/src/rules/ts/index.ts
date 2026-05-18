@@ -11,8 +11,8 @@ import {
 } from '../../util/structure';
 /* eslint-disable import/no-namespace */
 import * as aliasImports from './alias-imports';
+import * as noDefaultStandaloneValue from './no-default-standalone-value';
 import * as sortStandaloneImports from './sort-standalone-imports';
-import * as themedComponentClasses from './themed-component-classes';
 import * as themedComponentSelectors from './themed-component-selectors';
 import * as themedComponentUsages from './themed-component-usages';
 import * as themedDecorators from './themed-decorators';
@@ -21,8 +21,8 @@ import * as uniqueDecorators from './unique-decorators';
 
 const index = [
   aliasImports,
+  noDefaultStandaloneValue,
   sortStandaloneImports,
-  themedComponentClasses,
   themedComponentSelectors,
   themedComponentUsages,
   themedDecorators,

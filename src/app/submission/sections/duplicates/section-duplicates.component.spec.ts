@@ -100,7 +100,6 @@ const duplicates: Duplicate[] = [{
 const sectionObject = {
   header: 'submission.sections.submit.progressbar.duplicates',
   mandatory: true,
-  opened: true,
   data: { potentialDuplicates: duplicates },
   errorsToShow: [],
   serverValidationErrors: [],
@@ -256,7 +255,6 @@ describe('SubmissionSectionDuplicatesComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
-  standalone: true,
   imports: [
     BrowserModule,
     FormsModule,

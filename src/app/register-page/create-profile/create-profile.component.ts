@@ -57,7 +57,6 @@ import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
     ReactiveFormsModule,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class CreateProfileComponent implements OnInit {
   registration$: Observable<Registration>;

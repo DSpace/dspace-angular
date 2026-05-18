@@ -40,7 +40,6 @@ import { getCollectionEditRoute } from '../collection-page-routing-paths';
     TranslateModule,
     VarDirective,
   ],
-  standalone: true,
 })
 /**
  * Component for editing the item template of a collection

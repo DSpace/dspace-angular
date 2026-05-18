@@ -13,7 +13,6 @@ import { VarDirective } from '../../../../../app/shared/utils/var.directive';
   styleUrls: ['../../../../../app/request-copy/deny-request-copy/deny-request-copy.component.scss'],
   // templateUrl: './deny-request-copy.component.html',
   templateUrl: '../../../../../app/request-copy/deny-request-copy/deny-request-copy.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     ThemedEmailRequestCopyComponent,
