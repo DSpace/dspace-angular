@@ -6,12 +6,14 @@ import {
   Component,
   OnInit,
 } from '@angular/core';
+import { DSOBreadcrumbsService } from '@dspace/core/breadcrumbs/dso-breadcrumbs.service';
 import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import { LinkService } from '@dspace/core/cache/builders/link.service';
 import { RemoteData } from '@dspace/core/data/remote-data';
 import { ChildHALResource } from '@dspace/core/shared/child-hal-resource.model';
 import { Context } from '@dspace/core/shared/context.model';
 import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
+import { DSpaceObjectType } from '@dspace/core/shared/dspace-object-type.model';
 import { followLink } from '@dspace/core/shared/follow-link-config.model';
 import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
 import {
@@ -26,11 +28,15 @@ import {
 import {
   find,
   map,
+  shareReplay,
 } from 'rxjs/operators';
 
 import { TruncatableService } from '../../truncatable/truncatable.service';
 import { TruncatablePartComponent } from '../../truncatable/truncatable-part/truncatable-part.component';
 import { SearchResultListElementComponent } from '../search-result-list-element/search-result-list-element.component';
+
+/** Separator used when joining hierarchical breadcrumb labels into a single parent-title string. */
+export const BREADCRUMB_SEPARATOR = ' / ';
 
 @Component({
   selector: 'ds-sidebar-search-list-element',
@@ -61,6 +67,7 @@ export class SidebarSearchListElementComponent<T extends SearchResult<K>, K exte
   public constructor(protected truncatableService: TruncatableService,
                      protected linkService: LinkService,
                      public dsoNameService: DSONameService,
+                     protected dsoBreadcrumbsService: DSOBreadcrumbsService,
   ) {
     super(truncatableService, dsoNameService, null);
   }
@@ -84,14 +91,42 @@ export class SidebarSearchListElementComponent<T extends SearchResult<K>, K exte
   }
 
   /**
-   * Get the title of the object's parent
-   * Retrieve the parent by using the object's parent link and retrieving its 'dc.title' metadata
+   * Type guard that narrows a {@link DSpaceObject} to {@link ChildHALResource} & {@link DSpaceObject},
+   * which is the signature expected by {@link DSOBreadcrumbsService#getBreadcrumbs}.
+   */
+  private isChildHALResource(dso: DSpaceObject): dso is ChildHALResource & DSpaceObject {
+    return typeof (dso as unknown as ChildHALResource).getParentLinkKey === 'function';
+  }
+
+  /**
+   * Get the title of the object's parent(s)
+   * For communities and collections, show the full hierarchical path excluding the current item
+   * For other objects, show just the immediate parent
    */
   getParentTitle(): Observable<string> {
+    // Fallback handles cases where type is a raw string rather than a ResourceType instance
+    const typeValue = this.dso.type?.value ?? (this.dso as any).type;
+    const dso: DSpaceObject = this.dso;
+    if (dso && this.isChildHALResource(dso) && (typeValue === DSpaceObjectType.COMMUNITY.toLowerCase() || typeValue === DSpaceObjectType.COLLECTION.toLowerCase())) {
+      // For communities and collections, build hierarchical path via breadcrumbs
+      return this.dsoBreadcrumbsService.getBreadcrumbs(dso, '').pipe(
+        map(breadcrumbs => {
+          // Remove the last breadcrumb (current item) and join the rest with ' / '
+          const parentBreadcrumbs = breadcrumbs.slice(0, -1);
+          return parentBreadcrumbs.length > 0
+            ? parentBreadcrumbs.map(crumb => crumb.text).join(BREADCRUMB_SEPARATOR)
+            : undefined;
+        }),
+        shareReplay({ bufferSize: 1, refCount: true }),
+      );
+    }
+
+    // For other DSO types, use the simple parent
     return this.getParent().pipe(
       map((parentRD: RemoteData<DSpaceObject>) => {
-        return hasValue(parentRD) && hasValue(parentRD.payload) ? this.dsoNameService.getName(parentRD.payload, true) : undefined;
+        return hasValue(parentRD) && hasValue(parentRD.payload) ? this.dsoNameService.getName(parentRD.payload) : undefined;
       }),
+      shareReplay({ bufferSize: 1, refCount: true }),
     );
   }
 
@@ -99,8 +134,8 @@ export class SidebarSearchListElementComponent<T extends SearchResult<K>, K exte
    * Get the parent of the object
    */
   getParent(): Observable<RemoteData<DSpaceObject>> {
-    if (typeof (this.dso as any).getParentLinkKey === 'function') {
-      const propertyName = (this.dso as any).getParentLinkKey();
+    if (this.isChildHALResource(this.dso)) {
+      const propertyName = this.dso.getParentLinkKey() as string;
       return this.linkService.resolveLink(this.dso, followLink(propertyName))[propertyName].pipe(
         find((parentRD: RemoteData<ChildHALResource & DSpaceObject>) => parentRD.hasSucceeded || parentRD.statusCode === 204),
       );
