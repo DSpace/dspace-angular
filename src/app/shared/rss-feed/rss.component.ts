@@ -33,13 +33,25 @@ import {
 import {
   BehaviorSubject,
   filter,
+  forkJoin,
   Subscription,
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
+import { Collection } from '../../core/shared/collection.model';
+import { Community } from '../../core/shared/community.model';
 import { SearchConfigurationService } from '../search/search-configuration.service';
 
+/**
+ * Mapping of supported OpenSearch feed formats to their MIME types.
+ */
+const OPENSEARCH_FORMAT_MIME_TYPES: Record<string, string> = {
+  atom: 'application/atom+xml',
+  rss:  'application/rss+xml',
+};
 /**
  * The Rss feed button component.
  */
@@ -60,6 +72,8 @@ export class RSSComponent implements OnInit, OnDestroy, OnChanges {
   route$: BehaviorSubject<string> = new BehaviorSubject<string>('');
   isEnabled$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
   isActivated$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  formats$: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
+
   @Input() sortConfig?: SortOptions;
 
   uuid: string;
@@ -72,12 +86,15 @@ export class RSSComponent implements OnInit, OnDestroy, OnChanges {
               private searchConfigurationService: SearchConfigurationService,
               private router: Router,
               private route: ActivatedRoute,
+              private dsoNameService: DSONameService,
+              private dspaceObjectService: DSpaceObjectDataService,
               protected paginationService: PaginationService,
               protected translateService: TranslateService) {
   }
 
   ngOnDestroy(): void {
     this.linkHeadService.removeTag("rel='alternate'");
+    this.linkHeadService.removeTag("rel='search'");
     this.subs.forEach(sub => {
       sub.unsubscribe();
     });
@@ -94,20 +111,41 @@ export class RSSComponent implements OnInit, OnDestroy, OnChanges {
     // Get initial UUID from URL
     this.uuid = this.groupDataService.getUUIDFromString(this.router.url);
 
-    // Check if RSS is enabled
-    this.subs.push(this.configurationService.findByPropertyName('websvc.opensearch.enable').pipe(
-      getFirstCompletedRemoteData(),
-    ).subscribe((result) => {
-      if (result.hasSucceeded) {
-        const enabled = (result.payload.values[0] === 'true');
-        this.isEnabled$.next(enabled);
-
-        // If enabled, get the OpenSearch URI
-        if (enabled) {
-          this.getOpenSearchUri();
+    // Check if RSS is enabled, and if so fetch the supported formats in one
+    // combined subscription so that both values are always consistent with
+    // each other.
+    this.subs.push(
+      forkJoin([
+        this.configurationService.findByPropertyName('websvc.opensearch.enable').pipe(
+          getFirstCompletedRemoteData(),
+        ),
+        this.configurationService.findByPropertyName('websvc.opensearch.formats').pipe(
+          getFirstCompletedRemoteData(),
+        ),
+      ]).subscribe(([enableResult, formatsResult]) => {
+        if (!enableResult.hasSucceeded || enableResult.payload.values[0] !== 'true') {
+          this.isEnabled$.next(false);
+          return;
         }
-      }
-    }));
+
+        const rawFormats: string[] = formatsResult.hasSucceeded ? formatsResult.payload.values : [];
+
+        const knownFormats = rawFormats.filter(f => f in OPENSEARCH_FORMAT_MIME_TYPES);
+
+        if (knownFormats.length === 0) {
+          console.warn(
+            'RSSComponent: websvc.opensearch.formats contains no recognised formats ' +
+            `(received: [${rawFormats.join(', ')}]). Disabling RSS feed.`,
+          );
+          this.isEnabled$.next(false);
+          return;
+        }
+
+        this.formats$.next(knownFormats);
+        this.isEnabled$.next(true);
+        this.getOpenSearchUri();
+      }),
+    );
 
     // Listen for navigation events to update the UUID
     this.subs.push(this.router.events.pipe(
@@ -145,27 +183,28 @@ export class RSSComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   /**
-   * Update RSS links based on current search configuration and sortConfig input
+   * Update RSS links based on current search configuration and sortConfig input.
    */
   private updateRssLinks(): void {
     if (!this.openSearchUri || !this.isEnabled$.getValue()) {
       return;
     }
 
-    // Remove existing link tags before adding new ones
-    this.linkHeadService.removeTag("rel='alternate'");
+    const formats = this.formats$.getValue();
+    if (formats.length === 0) {
+      return;
+    }
 
-    // Get the current search options and apply our sortConfig if provided
     const searchOptions = this.searchConfigurationService.paginatedSearchOptions.value;
     const modifiedOptions = { ...searchOptions };
     if (hasValue(this.sortConfig)) {
       modifiedOptions.sort = this.sortConfig;
     }
 
-    // Create the RSS feed URL
-    const route = environment.rest.baseUrl + this.formulateRoute(
+    this.addLinks(
       this.uuid,
       this.openSearchUri,
+      formats,
       modifiedOptions.sort,
       modifiedOptions.query,
       modifiedOptions.filters,
@@ -174,26 +213,16 @@ export class RSSComponent implements OnInit, OnDestroy, OnChanges {
       modifiedOptions.fixedFilter,
     );
 
-    // Add the link tags
-    this.addLinks(route);
-
-    // Add the OpenSearch service link
-    this.linkHeadService.addTag({
-      href: environment.rest.baseUrl + '/' + this.openSearchUri + '/service',
-      type: 'application/atom+xml',
-      rel: 'search',
-      title: 'Dspace',
-    });
-
-    // Update the route subject
-    this.route$.next(route);
+    this.route$.next(
+      environment.rest.baseUrl + this.formulateRoute(this.uuid, this.openSearchUri, formats[0], modifiedOptions.sort, modifiedOptions.query, modifiedOptions.filters, modifiedOptions.configuration, modifiedOptions.pagination?.pageSize, modifiedOptions.fixedFilter),
+    );
   }
 
   /**
-   * Create a route given the different params available to opensearch
+   * Create a route given the different params available to opensearch.
    */
-  formulateRoute(uuid: string, opensearch: string, sort?: SortOptions, query?: string, searchFilters?: SearchFilter[], configuration?: string, pageSize?: number, fixedFilter?: string): string {
-    let route = 'format=atom';
+  formulateRoute(uuid: string, opensearch: string, format: string, sort?: SortOptions, query?: string, searchFilters?: SearchFilter[], configuration?: string, pageSize?: number, fixedFilter?: string): string {
+    let route = `format=${format}`;
     if (uuid) {
       route += `&scope=${uuid}`;
     }
@@ -226,21 +255,62 @@ export class RSSComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   /**
-   * Creates <link> tags in the header of the page
+   * Creates the valid link in
    */
-  addLinks(route: string): void {
+  addLinks(uuid: string, opensearch: string, formats: string[], sort?: SortOptions, query?: string, searchFilters?: SearchFilter[], configuration?: string, pageSize?: number, fixedFilter?: string): void {
+    this.linkHeadService.removeTag("rel='alternate'");
+    this.linkHeadService.removeTag("rel='search'");
+
+    // Resolve feed title label and add rel='alternate' tags
+    if (uuid) {
+      this.dspaceObjectService.findById(uuid).pipe(
+        getFirstCompletedRemoteData(),
+      ).subscribe((result) => {
+        let scopeLabel: string;
+        let objectType = '';
+        if (result.hasSucceeded) {
+          scopeLabel = this.dsoNameService.getName(result.payload);
+          if (result.payload instanceof Collection) {
+            objectType = 'Collection';
+          } else if (result.payload instanceof Community) {
+            objectType = 'Community';
+            // If its not a collection or community idk how we got here skip this.
+          } else {
+            return;
+          }
+        } else {
+          scopeLabel = 'Sitewide';
+        }
+        this.linkHeadService.removeTag("rel='alternate'");
+        for (const format of formats) {
+          const href = environment.rest.baseUrl + this.formulateRoute(uuid, opensearch, format, sort, query, searchFilters, configuration, pageSize, fixedFilter);
+          this.linkHeadService.addTag({
+            href,
+            type: OPENSEARCH_FORMAT_MIME_TYPES[format],
+            rel: 'alternate',
+            title: `${objectType} ${scopeLabel} ${format.charAt(0).toUpperCase() + format.slice(1)} Feed`.trim(),
+          });
+        }
+      });
+    } else {
+      const scopeLabel = this.router.url.includes('/search') ? 'Search results' : 'Sitewide';
+      for (const format of formats) {
+        const href = environment.rest.baseUrl + this.formulateRoute(uuid, opensearch, format, sort, query, searchFilters, configuration, pageSize, fixedFilter);
+        this.linkHeadService.addTag({
+          href,
+          type: OPENSEARCH_FORMAT_MIME_TYPES[format],
+          rel: 'alternate',
+          title: `${scopeLabel} ${format.charAt(0).toUpperCase() + format.slice(1)} Feed`,
+        });
+      }
+    }
+
+    // Service discovery link uses the primary (first) format
     this.linkHeadService.addTag({
-      href: route,
-      type: 'application/atom+xml',
-      rel: 'alternate',
-      title: 'Sitewide Atom feed',
-    });
-    route = route.replace('format=atom', 'format=rss');
-    this.linkHeadService.addTag({
-      href: route,
-      type: 'application/rss+xml',
-      rel: 'alternate',
-      title: 'Sitewide RSS feed',
+      href: environment.rest.baseUrl + '/' + opensearch + '/service',
+      type: OPENSEARCH_FORMAT_MIME_TYPES[formats[0]],
+      rel: 'search',
+      title: 'DSpace OpenSearch',
     });
   }
 }

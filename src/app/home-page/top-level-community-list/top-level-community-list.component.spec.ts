@@ -27,6 +27,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '../../../environments/environment.test';
+import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { HostWindowService } from '../../shared/host-window.service';
 import { SelectableListService } from '../../shared/object-list/selectable-list/selectable-list.service';
 import { SearchConfigurationService } from '../../shared/search/search-configuration.service';
@@ -161,6 +162,7 @@ describe('TopLevelCommunityListComponent', () => {
         { provide: LinkHeadService, useValue: linkHeadService },
         { provide: ConfigurationDataService, useValue: configurationDataService },
         { provide: SearchConfigurationService, useValue: new SearchConfigurationServiceStub() },
+        { provide: DSpaceObjectDataService, useValue: {} },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
