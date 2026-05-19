@@ -63,6 +63,15 @@ export class DSONameService {
     },
   };
 
+  private readonly languageFactories = {
+    OrgUnit: (dso: DSpaceObject): string => {
+      return dso.firstMetadata('organization.legalName')?.language;
+    },
+    Default: (dso: DSpaceObject): string => {
+      return dso.firstMetadata('dc.title')?.language;
+    },
+  };
+
   /**
    * Get the name for the given {@link DSpaceObject}
    *
@@ -86,6 +95,35 @@ export class DSONameService {
       return name;
     } else {
       return '';
+    }
+  }
+
+  /**
+   * Retrieves the language identifier associated with a DSpaceObject's primary display name.
+   *
+   * Uses a type-based factory pattern to determine the appropriate language extraction strategy
+   * based on the object's render types. Currently, supports OrgUnit-specific language extraction,
+   * with a fallback to the Default factory for all other entity types.
+   *
+   * @param dso The {@link DSpaceObject} from which to extract the name language. Can be undefined.
+   * @returns The language code/identifier of the primary display name metadata,
+   *          or undefined if the DSpaceObject is null/undefined or lacks language metadata.
+   */
+  getNameLanguage(dso: DSpaceObject | undefined): string {
+    if (dso) {
+      const types = dso.getRenderTypes();
+      const match = types
+        .filter((type) => typeof type === 'string')
+        .find((type: string) => Object.keys(this.languageFactories).includes(type)) as string;
+
+      let language: string;
+      if (hasValue(match)) {
+        language = this.languageFactories[match](dso);
+      }
+      if (isEmpty(language)) {
+        language = this.languageFactories.Default(dso);
+      }
+      return language;
     }
   }
 
