@@ -132,7 +132,7 @@ export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent i
       take(1),
     ).subscribe((params: Params) => {
       void this.router.navigate(
-        [this.searchService.getSearchLink()],
+        [this.getSearchLink()],
         {
           queryParams: params,
         },

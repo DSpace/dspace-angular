@@ -27,6 +27,7 @@
             <ds-advanced-search *ngIf="inPlaceSearch && (this.showAdvancedSearch$ | async) === true"
                                 [configuration]="configuration"
                                 [filtersConfig]="(filters | async)?.payload"
+                                [inPlaceSearch]="inPlaceSearch"
                                 [scope]="currentScope">
             </ds-advanced-search>
             <ds-search-settings *ngIf="inPlaceSearch"
