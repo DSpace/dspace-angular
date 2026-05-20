@@ -138,14 +138,9 @@ export class BrowseByMetadataComponent implements OnInit, OnChanges, OnDestroy {
   subs: Subscription[] = [];
 
   /**
-   * The default browse id to resort to when none is provided
-   */
-  defaultBrowseId = 'author';
-
-  /**
    * The current browse id
    */
-  browseId = this.defaultBrowseId;
+  browseId: string;
 
   /**
    * The type of StartsWith options to render
