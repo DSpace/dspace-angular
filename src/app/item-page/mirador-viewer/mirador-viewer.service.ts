@@ -4,6 +4,7 @@ import {
 } from '@angular/core';
 import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
 import { BundleDataService } from '@dspace/core/data/bundle-data.service';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
 import { PaginatedList } from '@dspace/core/data/paginated-list.model';
 import { RemoteData } from '@dspace/core/data/remote-data';
 import { Bitstream } from '@dspace/core/shared/bitstream.model';
@@ -14,13 +15,17 @@ import {
   FollowLinkConfig,
 } from '@dspace/core/shared/follow-link-config.model';
 import { Item } from '@dspace/core/shared/item.model';
-import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '@dspace/core/shared/operators';
 import { Observable } from 'rxjs';
 import {
   filter,
   last,
   map,
   mergeMap,
+  startWith,
   switchMap,
 } from 'rxjs/operators';
 
@@ -37,6 +42,22 @@ export class MiradorViewerService {
    */
   showEmbeddedViewer (): boolean {
     return !isDevMode();
+  }
+
+  /**
+   * Returns observable of boolean whether IIIF is enabled in the repository.
+   * The default value is false.
+   * @param configurationDataService
+   * @returns the configuration value of iiif.enabled
+   */
+  isIiifEnabled (configurationDataService: ConfigurationDataService): Observable<boolean> {
+    return configurationDataService.findByPropertyName('iiif.enabled')
+      .pipe(getFirstSucceededRemoteDataPayload(),
+        map((configurationProperty) =>
+          configurationProperty.values?.[0] === 'true',
+        ),
+        startWith(false),
+      );
   }
 
   /**
