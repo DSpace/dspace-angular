@@ -5515,11 +5515,9 @@ eslint-plugin-deprecation@^1.4.1:
 
 "eslint-plugin-dspace-angular-html@link:./lint/dist/src/rules/html":
   version "0.0.0"
-  uid ""
 
 "eslint-plugin-dspace-angular-ts@link:./lint/dist/src/rules/ts":
   version "0.0.0"
-  uid ""
 
 eslint-plugin-import-newlines@^1.4.1:
   version "1.4.1"
@@ -9480,9 +9478,9 @@ postcss@8.4.35:
     source-map-js "^1.0.2"
 
 postcss@^8.2.14, postcss@^8.4.23, postcss@^8.4.33, postcss@^8.4.43, postcss@^8.5:
-  version "8.5.10"
-  resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.5.10.tgz#8992d8c30acf3f12169e7c09514a12fed7e48356"
-  integrity sha512-pMMHxBOZKFU6HgAZ4eyGnwXF/EvPGGqUr0MnZ5+99485wwW41kW91A4LOGxSHhgugZmSChL5AlElNdwlNgcnLQ==
+  version "8.5.14"
+  resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.5.14.tgz#a66c2d7808fadf69ebb5b84a03f8bafd76c4919c"
+  integrity sha512-SoSL4+OSEtR99LHFZQiJLkT59C5B1amGO1NzTwj7TT1qCUgUO6hxOvzkOYxD+vMrXBM3XJIKzokoERdqQq/Zmg==
   dependencies:
     nanoid "^3.3.11"
     picocolors "^1.1.1"
