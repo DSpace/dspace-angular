@@ -885,7 +885,7 @@
   "admin.reports.items.offset": "Eltolás",
 
   // "admin.reports.items.wholeRepo": "Whole Repository",
-  "admin.reports.items.wholeRepo": "Teljes Repozitórium",
+  "admin.reports.items.wholeRepo": "Teljes repozitórium",
 
   // "admin.reports.items.anyField": "Any field",
   "admin.reports.items.anyField": "Bármely mező",
@@ -2117,7 +2117,7 @@
   "collection.page.edit": "Gyűjtemény szerkesztése",
 
   // "collection.page.handle": "Permanent URI for this collection",
-  "collection.page.handle": "Állandó gyűjteményhivatkozás",
+  "collection.page.handle": "Állandó gyűjteményhivatkozás:",
 
   // "collection.page.license": "License",
   "collection.page.license": "Licenc",
@@ -2489,7 +2489,7 @@
   "community.page.edit": "Közösség szerkesztése",
 
   // "community.page.handle": "Permanent URI for this community",
-  "community.page.handle": "Állandó közösségi hivatkozás",
+  "community.page.handle": "Állandó közösségi hivatkozás:",
 
   // "community.page.license": "License",
   "community.page.license": "Licenc",
