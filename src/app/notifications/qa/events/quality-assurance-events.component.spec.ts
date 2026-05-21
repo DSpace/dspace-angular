@@ -1,18 +1,18 @@
 import { CommonModule } from '@angular/common';
 import {
-    Component,
-    NO_ERRORS_SCHEMA,
+  Component,
+  NO_ERRORS_SCHEMA,
 } from '@angular/core';
 import {
-    ComponentFixture,
-    inject,
-    TestBed,
-    waitForAsync,
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import {
-    SortDirection,
-    SortOptions,
+  SortDirection,
+  SortOptions,
 } from '@dspace/core/cache/models/sort-options.model';
 import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
 import { FindListOptions } from '@dspace/core/data/find-list-options.model';
@@ -20,39 +20,39 @@ import { ItemDataService } from '@dspace/core/data/item-data.service';
 import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { QualityAssuranceEventDataService } from '@dspace/core/notifications/qa/events/quality-assurance-event-data.service';
-import { QualityAssuranceEventData } from '@dspace/core/notifications/qa/models/quality-assurance-event-data.model';
 import { QualityAssuranceEventObject } from '@dspace/core/notifications/qa/models/quality-assurance-event.model';
-import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { QualityAssuranceEventData } from '@dspace/core/notifications/qa/models/quality-assurance-event-data.model';
 import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
 import { followLink } from '@dspace/core/shared/follow-link-config.model';
 import { PageInfo } from '@dspace/core/shared/page-info.model';
 import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
-import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
 import {
-    getMockQualityAssuranceEventRestService,
-    ItemMockPid10,
-    ItemMockPid8,
-    ItemMockPid9,
-    NotificationsMockDspaceObject,
-    qualityAssuranceEventObjectMissingProjectFound,
-    qualityAssuranceEventObjectMissingProjectNotFound,
+  getMockQualityAssuranceEventRestService,
+  ItemMockPid8,
+  ItemMockPid9,
+  ItemMockPid10,
+  NotificationsMockDspaceObject,
+  qualityAssuranceEventObjectMissingProjectFound,
+  qualityAssuranceEventObjectMissingProjectNotFound,
 } from '@dspace/core/testing/notifications.mock';
+import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
 import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
 import { getMockTranslateService } from '@dspace/core/testing/translate.service.mock';
 import { createTestComponent } from '@dspace/core/testing/utils.test';
 import {
-    createNoContentRemoteDataObject$,
-    createSuccessfulRemoteDataObject,
-    createSuccessfulRemoteDataObject$,
+  createNoContentRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
 } from '@dspace/core/utilities/remote-data.utils';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
-    TranslateModule,
-    TranslateService,
+  TranslateModule,
+  TranslateService,
 } from '@ngx-translate/core';
 import {
-    cold,
-    getTestScheduler,
+  cold,
+  getTestScheduler,
 } from 'jasmine-marbles';
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
