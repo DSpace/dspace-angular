@@ -18,25 +18,6 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
-import { RemoteData } from '@dspace/core/data/remote-data';
-import { GroupDataService } from '@dspace/core/eperson/group-data.service';
-import { Group } from '@dspace/core/eperson/models/group.model';
-import { ActionType } from '@dspace/core/resource-policy/models/action-type.model';
-import { ResourcePolicy } from '@dspace/core/resource-policy/models/resource-policy.model';
-import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
-import {
-  getAllSucceededRemoteData,
-  getFirstSucceededRemoteDataPayload,
-} from '@dspace/core/shared/operators';
-import {
-  dateToString,
-  stringToNgbDateStruct,
-} from '@dspace/shared/utils/date.util';
-import {
-  hasValue,
-  isNotEmpty,
-} from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -61,6 +42,7 @@ import {
   isNotEmpty,
 } from '../../empty.util';
 import { HasValuePipe } from '../../utils/has-value.pipe';
+import { ActionType } from 'src/app/core/resource-policy/models/action-type.model';
 
 export interface ResourcePolicyCheckboxEntry {
   id: string;
