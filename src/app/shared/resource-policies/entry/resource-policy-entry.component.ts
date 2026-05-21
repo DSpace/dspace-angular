@@ -21,6 +21,7 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { ActionType } from 'src/app/core/resource-policy/models/action-type.model';
 
 import { getGroupEditRoute } from '../../../access-control/access-control-routing-paths';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
@@ -42,7 +43,6 @@ import {
   isNotEmpty,
 } from '../../empty.util';
 import { HasValuePipe } from '../../utils/has-value.pipe';
-import { ActionType } from 'src/app/core/resource-policy/models/action-type.model';
 
 export interface ResourcePolicyCheckboxEntry {
   id: string;
