@@ -3176,7 +3176,7 @@
   "forgot-password.form.notification.error.title": "Hiba az új jelszó beküldésekor.",
 
   // "forgot-password.form.notification.success.content": "The password reset was successful. You have been logged in as the created user.",
-  "forgot-password.form.notification.success.content": "A jelszó visszaállítása sikeres volt.\nBejelentkezett a létrehozott felhasználóként.",
+  "forgot-password.form.notification.success.content": "A jelszó visszaállítása sikeres volt.\nAutomatikusan bejelentkeztettük az új felhasználóként.",
 
   // "forgot-password.form.notification.success.title": "Password reset completed",
   "forgot-password.form.notification.success.title": "Jelszó visszaállítása befejeződött",
@@ -6510,7 +6510,7 @@
   "profile.card.accessibility.header": "Akadálymentesség",
 
   // "profile.card.accessibility.link": "Go to Accessibility Settings Page",
-  "profile.card.accessibility.link": "Ugrás az Akadálymentességi Beállítások oldalra",
+  "profile.card.accessibility.link": "Ugrás az akadálymentességi beállítások oldalra",
 
   // "profile.card.identify": "Identify",
   "profile.card.identify": "Azonosítás",
@@ -6522,10 +6522,10 @@
   "profile.form.submit": "Mentés",
 
   // "profile.groups.head": "Authorization groups you belong to",
-  "profile.groups.head": "Csoportok, amelyeknek tagja vagy",
+  "profile.groups.head": "Csoportok, amelyeknek tagja",
 
   // "profile.special.groups.head": "Authorization special groups you belong to",
-  "profile.special.groups.head": "Speciális csoportok, amelyeknek tagja vagy",
+  "profile.special.groups.head": "Speciális csoportok, amelyeknek tagja",
 
   // "profile.metadata.form.error.firstname.required": "First Name is required",
   "profile.metadata.form.error.firstname.required": "A keresztnév megadása kötelező.",
