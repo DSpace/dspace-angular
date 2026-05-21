@@ -1366,104 +1366,82 @@
   "admin.batch-import.page.remove": "supprimer",
 
   // "audit.data.not-found": "No audits found.",
-  // TODO New key - Add a translation
-  "audit.data.not-found": "No audits found.",
+  "audit.data.not-found": "Aucun audit trouvé.",
 
   // "audit.data.self": "self",
-  // TODO New key - Add a translation
+  // TODO - Review translation
   "audit.data.self": "self",
 
   // "audit.detail.metadata.field": "Metadata field:",
-  // TODO New key - Add a translation
-  "audit.detail.metadata.field": "Metadata field:",
+  // TODO Review translation
+  "audit.detail.metadata.field": "Champ de métadonnées:",
 
   // "audit.detail.metadata.value": "Value:",
-  // TODO New key - Add a translation
-  "audit.detail.metadata.value": "Value:",
+  "audit.detail.metadata.value": "Valeur:",
 
   // "audit.detail.metadata.authority": "Authority:",
-  // TODO New key - Add a translation
-  "audit.detail.metadata.authority": "Authority:",
+  "audit.detail.metadata.authority": "Autorité:",
 
   // "audit.detail.metadata.confidence": "Confidence:",
-  // TODO New key - Add a translation
-  "audit.detail.metadata.confidence": "Confidence:",
+  "audit.detail.metadata.confidence": "Confiance:",
 
   // "audit.detail.metadata.place": "Place:",
-  // TODO New key - Add a translation
   "audit.detail.metadata.place": "Place:",
 
   // "audit.detail.metadata.action": "Action:",
-  // TODO New key - Add a translation
   "audit.detail.metadata.action": "Action:",
 
   // "audit.detail.metadata.checksum": "Checksum:",
-  // TODO New key - Add a translation
-  "audit.detail.metadata.checksum": "Checksum:",
+  "audit.detail.metadata.checksum": "Somme de contrôle:",
 
   // "audit.overview.title": "All Audit Logs",
-  // TODO New key - Add a translation
-  "audit.overview.title": "All Audit Logs",
+  "audit.overview.title": "Tous les journaux d'audit",
 
   // "audit.overview.table.id": "Audit ID",
-  // TODO New key - Add a translation
-  "audit.overview.table.id": "Audit ID",
+  "audit.overview.table.id": "Identifiant de l'audit",
 
   // "audit.overview.table.objectUUID": "Object ID",
-  // TODO New key - Add a translation
-  "audit.overview.table.objectUUID": "Object ID",
+  "audit.overview.table.objectUUID": "Identifiant de l'objet",
 
   // "audit.overview.table.objectType": "Object Type",
-  // TODO New key - Add a translation
-  "audit.overview.table.objectType": "Object Type",
+  "audit.overview.table.objectType": "Type d'objet",
 
   // "audit.overview.table.subjectUUID": "Subject ID",
-  // TODO New key - Add a translation
-  "audit.overview.table.subjectUUID": "Subject ID",
+  "audit.overview.table.subjectUUID": "Identifiant du sujet",
 
   // "audit.overview.table.subjectType": "Subject Type",
-  // TODO New key - Add a translation
-  "audit.overview.table.subjectType": "Subject Type",
+  "audit.overview.table.subjectType": "Type de sujet",
 
   // "audit.overview.table.entityType": "Audit Type",
-  // TODO New key - Add a translation
-  "audit.overview.table.entityType": "Audit Type",
+  "audit.overview.table.entityType": "Type d'audit",
 
   // "audit.overview.table.eperson": "EPerson",
-  // TODO New key - Add a translation
   "audit.overview.table.eperson": "EPerson",
 
   // "audit.overview.table.other": "Object",
-  // TODO New key - Add a translation
-  "audit.overview.table.other": "Object",
+  "audit.overview.table.other": "Objet",
 
   // "audit.overview.table.timestamp": "Time (UTC)",
-  // TODO New key - Add a translation
-  "audit.overview.table.timestamp": "Time (UTC)",
+  "audit.overview.table.timestamp": "Heure (UTC)",
 
   // "audit.overview.breadcrumbs": "Audit Logs",
-  // TODO New key - Add a translation
-  "audit.overview.breadcrumbs": "Audit Logs",
+  "audit.overview.breadcrumbs": "Journaux d'audit",
 
   // "audit.object.back": "Back",
-  // TODO New key - Add a translation
-  "audit.object.back": "Back",
+  "audit.object.back": "Retour",
 
   // "audit.object.breadcrumbs": "Object Audit Logs",
-  // TODO New key - Add a translation
-  "audit.object.breadcrumbs": "Object Audit Logs",
+  "audit.object.breadcrumbs": "Journaux d'audit des objets",
 
   // "audit.object.overview.title": "Object Audit Logs",
-  // TODO New key - Add a translation
-  "audit.object.overview.title": "Object Audit Logs",
+  "audit.object.overview.title": "Journaux d'audit des objets",
 
   // "audit.object.logs.label": "Logs for object: ",
-  // TODO New key - Add a translation
-  "audit.object.logs.label": "Logs for object: ",
+  "audit.object.logs.label": "Journaux pour objet: ",
 
   // "audit.object.overview.disabled.message": "Audit feature is currently disabled",
-  // TODO New key - Add a translation
-  "audit.object.overview.disabled.message": "Audit feature is currently disabled",
+  // TODO - Review translation
+  "audit.object.overview.disabled.message": "Fonctionnalité d'audit actuellement désactivée",
 
   // "auth.errors.invalid-user": "Invalid email address or password.",
   "auth.errors.invalid-user": "Adresse électronique ou mot de passe non valide.",
@@ -1815,12 +1793,12 @@
   "browse.title": "Parcourir par {{ field }}{{ startsWith }} {{ value }}",
 
   // "browse.taxonomy.show_next_results": "Show next results",
-  // TODO New key - Add a translation
-  "browse.taxonomy.show_next_results": "Show next results",
+  // TODO - Review translation
+  "browse.taxonomy.show_next_results": "Résultats suivants",
 
   // "browse.taxonomy.show_previous_results": "Show previous results",
-  // TODO New key - Add a translation
-  "browse.taxonomy.show_previous_results": "Show previous results",
+  // TODO - Review translation
+  "browse.taxonomy.show_previous_results": "Résultats précédents",
 
   // "browse.title.page": "Browsing by {{ field }} {{ value }}",
   "browse.title.page": "Parcourir par {{ field }} {{ value }}",
@@ -2122,12 +2100,12 @@
   "collection.form.errors.title.required": "Veuillez saisir un nom de collection",
 
   // "collection.form.errors.submissionDefinition.required": "Please choose a submission definition for this collection",
-  // TODO New key - Add a translation
-  "collection.form.errors.submissionDefinition.required": "Please choose a submission definition for this collection",
+  // TODO - Review translation
+  "collection.form.errors.submissionDefinition.required": "Veuillez choisir un gabarit de soumission pour cette collection",
 
   // "collection.form.errors.entityType.required": "Please choose an entity type for this collection",
-  // TODO New key - Add a translation
-  "collection.form.errors.entityType.required": "Please choose an entity type for this collection",
+  // TODO - Review translation
+  "collection.form.errors.entityType.required": "Veuillez choisir un type d'entité pour cette collection",
 
   // "collection.form.license": "License",
   "collection.form.license": "Licence",
@@ -2139,8 +2117,7 @@
   "collection.form.rights": "Texte de copyright (HTML)",
 
   // "collection.form.sharedWorkspace": "Shared workspace",
-  // TODO New key - Add a translation
-  "collection.form.sharedWorkspace": "Shared workspace",
+  "collection.form.sharedWorkspace": "Espace de travail collaboratif",
 
   // "collection.form.tableofcontents": "News (HTML)",
   "collection.form.tableofcontents": "Nouvelles (HTML)",
@@ -2152,22 +2129,20 @@
   "collection.form.entityType": "Type d'entité",
 
   // "collection.form.errors.entityType.required": "Please choose an entity type for this collection",
-  // TODO New key - Add a translation
-  "collection.form.errors.entityType.required": "Please choose an entity type for this collection",
+  // TODO - Review translation
+  "collection.form.errors.entityType.required": "Veuillez choisir un type d'entité pour cette collection",
 
   // "collection.form.errors.submissionDefinition.required": "Please choose a submission definition for this collection",
-  // TODO New key - Add a translation
-  "collection.form.errors.submissionDefinition.required": "Please choose a submission definition for this collection",
+  // TODO - Review translation
+  "collection.form.errors.submissionDefinition.required": "Veuillez choisir un gabarit de soumission pour cette collection",
 
   // "collection.form.submissionDefinition": "Submission definition",
-  // TODO New key - Add a translation
-  "collection.form.submissionDefinition": "Submission definition",
+  // TODO - Review translation
+  "collection.form.submissionDefinition": "Gabarit de soumission",
 
   // "collection.form.correctionSubmissionDefinition": "Submission definition for correction request",
-  // TODO New key - Add a translation
-  "collection.form.correctionSubmissionDefinition": "Submission definition for correction request",
-
-
+  // TODO - Review translation
+  "collection.form.correctionSubmissionDefinition": "Demande de modification du gabarit de soumission",
 
   // "collection.listelement.badge": "Collection",
   "collection.listelement.badge": "Collection",
@@ -2589,23 +2564,18 @@
   "community.sub-community-list.head": "Sous-communautés au sein de cette communauté",
 
   // "confirmation-modal.pending-changes.header": "Unsaved changes",
-  // TODO New key - Add a translation
-  "confirmation-modal.pending-changes.header": "Unsaved changes",
+  "confirmation-modal.pending-changes.header": "Modifications non sauvegardées",
 
   // "confirmation-modal.pending-changes.info": "There are unsaved changes. Do you want to leave the page?",
-  // TODO New key - Add a translation
-  "confirmation-modal.pending-changes.info": "There are unsaved changes. Do you want to leave the page?",
+  "confirmation-modal.pending-changes.info": "Il y a des modifications non sauvegardées. Voulez-vous quitter la page?",
 
   // "confirmation-modal.pending-changes.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "confirmation-modal.pending-changes.cancel": "Cancel",
+  "confirmation-modal.pending-changes.cancel": "Annuler",
 
   // "confirmation-modal.pending-changes.confirm": "Leave",
-  // TODO New key - Add a translation
-  "confirmation-modal.pending-changes.confirm": "Leave",
+  "confirmation-modal.pending-changes.confirm": "Quitter",
 
   // "context-menu.actions.audit-item.btn": "Audit",
-  // TODO New key - Add a translation
   "context-menu.actions.audit-item.btn": "Audit",
 
   // "cookies.consent.accept-all": "Accept all",
@@ -3050,24 +3020,19 @@
   "error.item": "Erreur lors de la récupération de l'Item",
 
   // "error.custom-url-conflict.title": "Duplicate custom URL detected",
-  // TODO New key - Add a translation
-  "error.custom-url-conflict.title": "Duplicate custom URL detected",
+  "error.custom-url-conflict.title": "Doublon de l'URL personalisée détecté",
 
   // "error.custom-url-conflict.description": "The custom URL \"{{customUrl}}\" is assigned to more than one item. This causes a conflict and the item cannot be displayed.",
-  // TODO New key - Add a translation
-  "error.custom-url-conflict.description": "The custom URL \"{{customUrl}}\" is assigned to more than one item. This causes a conflict and the item cannot be displayed.",
+  "error.custom-url-conflict.description": "L'URL personalisée \"{{customUrl}}\" est attribuée à plus d'un item.  Cela cause un conflit et l'item ne peut pas être affiché.",
 
   // "error.custom-url-conflict.admin-action": "Please contact your repository administrator. The following affected items need their dspace.customurl metadata fixed so each value is unique:",
-  // TODO New key - Add a translation
-  "error.custom-url-conflict.admin-action": "Please contact your repository administrator. The following affected items need their dspace.customurl metadata fixed so each value is unique:",
+  "error.custom-url-conflict.admin-action": "Contactez votre administrateur-trice.  Il faut modifier le dspace.customurl des items suivants afin que chaque valeur soit unique:",
 
   // "error.custom-url-conflict.edit-link": "Edit \"{{name}}\" ({{uuid}})",
-  // TODO New key - Add a translation
-  "error.custom-url-conflict.edit-link": "Edit \"{{name}}\" ({{uuid}})",
+  "error.custom-url-conflict.edit-link": "Éditer \"{{name}}\" ({{uuid}})",
 
   // "error.custom-url-conflict.no-items-found": "No conflicting items could be retrieved. Please contact your administrator.",
-  // TODO New key - Add a translation
-  "error.custom-url-conflict.no-items-found": "No conflicting items could be retrieved. Please contact your administrator.",
+  "error.custom-url-conflict.no-items-found": "Aucun item conflictuel n'a pu être trouvé.  Contactez votre administrateur-trice.",
 
   // "error.items": "Error fetching items",
   "error.items": "Erreur lors de la récupération des Items",
@@ -3100,23 +3065,19 @@
   "error.top-level-communities": "Erreur lors de la récupération des communautés de 1er niveau",
 
   // "error.validation.license.required": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
-  // TODO New key - Add a translation
-  "error.validation.license.required": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
+  "error.validation.license.required": "Vous devez approuver la licence afin de finaliser votre soumission. Si vous n'êtes pas en mesure d'approuver la licence pour le moment, vous pouvez sauvegarder votre travail pour y revenir plus tard ou supprimer la soumission.",
 
   // "error.validation.cclicense.required": "You must grant this cclicense to complete your submission. If you are unable to grant the cclicense at this time, you may save your work and return later or remove the submission.",
   "error.validation.cclicense.required": "Vous devez approuver cette Licence Creative Commons afin de finaliser votre sumissions. Si vous n'êtes pas en mesure d'approuver la licence pour le moment, vous pouvez souvegarder votre travail pour y revenir plus tard ou supprimer la soumission.",
 
   // "error.validation.custom-url.conflict": "The custom url has been already used, please try with a new one.",
-  // TODO New key - Add a translation
-  "error.validation.custom-url.conflict": "The custom url has been already used, please try with a new one.",
+  "error.validation.custom-url.conflict": "L'URL personalisée est déjà en usage, essayez une autre.",
 
   // "error.validation.custom-url.empty": "The custom url is required and cannot be empty.",
-  // TODO New key - Add a translation
-  "error.validation.custom-url.empty": "The custom url is required and cannot be empty.",
+  "error.validation.custom-url.empty": "L'URL personnalisée est obligatoire.",
 
   // "error.validation.custom-url.invalid-characters": "The custom url contains invalid characters. Only alphanumeric characters, dashes and underscores are supported.",
-  // TODO New key - Add a translation
-  "error.validation.custom-url.invalid-characters": "The custom url contains invalid characters. Only alphanumeric characters, dashes and underscores are supported.",
+  "error.validation.custom-url.invalid-characters": "L'URL personnalisée contient des caractères invalides.  Seuls les caractères alphanumériques, les tirets, et les tirets bas sont acceptés.",
 
   // "error.validation.pattern": "This input is restricted by the current pattern: {{ pattern }}.",
   "error.validation.pattern": "Cette entrée est invalide en vertu du modèle actuel : {{ pattern }}.",
@@ -3128,11 +3089,9 @@
   "error.validation.required": "Ce champ est obligatoire",
 
   // "error.validation.NotValidEmail": "This is not a valid email",
-  // TODO Source message changed - Revise the translation
   "error.validation.NotValidEmail": "Cette adresse électronique n'est pas une adresse valide",
 
   // "error.validation.emailTaken": "This email is already taken",
-  // TODO Source message changed - Revise the translation
   "error.validation.emailTaken": "Cette adresse électronique est déjà attribuée",
 
   // "error.validation.groupExists": "This group already exists",
@@ -3297,8 +3256,7 @@
   "form.clear-help": "Cliquer ici pour supprimer la valeur sélectionnée",
 
   // "form.copy": "Duplicate",
-  // TODO New key - Add a translation
-  "form.copy": "Duplicate",
+  "form.copy": "Dupliquer",
 
   // "form.discard": "Discard",
   "form.discard": "Rejeter",
@@ -3316,16 +3274,14 @@
   "form.first-name": "Prénom",
 
   // "form.group.add": "Add",
-  // TODO New key - Add a translation
-  "form.group.add": "Add",
+  "form.group.add": "Ajouter",
 
   // "form.group.close": "Close",
-  // TODO New key - Add a translation
-  "form.group.close": "Close",
+  "form.group.close": "Fermer",
 
   // "form.group.set": "Set",
-  // TODO New key - Add a translation
-  "form.group.set": "Set",
+  // TODO - Review translation
+  "form.group.set": "Fixer",
 
   // "form.group-collapse": "Collapse",
   "form.group-collapse": "Réduire",
@@ -3376,48 +3332,39 @@
   "form.other-information.orcid": "ORCID",
 
   // "form.other-information.person_identifier_orcid": "ORCID",
-  // TODO New key - Add a translation
   "form.other-information.person_identifier_orcid": "ORCID",
 
   // "form.other-information.oairecerif_author_affiliation": "Affiliation",
-  // TODO New key - Add a translation
   "form.other-information.oairecerif_author_affiliation": "Affiliation",
 
   // "form.other-information.oairecerif_editor_affiliation": "Affiliation",
-  // TODO New key - Add a translation
   "form.other-information.oairecerif_editor_affiliation": "Affiliation",
 
   // "form.other-information.person_identifier_orcid": "ORCID iD",
-  // TODO New key - Add a translation
-  "form.other-information.person_identifier_orcid": "ORCID iD",
+  "form.other-information.person_identifier_orcid": "Identifiant ORCID",
 
   // "form.other-information.institution-affiliation-name": "Affiliation(s)",
-  // TODO New key - Add a translation
   "form.other-information.institution-affiliation-name": "Affiliation(s)",
 
   // "form.other-information.dc_relation_grantno": "Grant Number",
-  // TODO New key - Add a translation
-  "form.other-information.dc_relation_grantno": "Grant Number",
+  // TODO - Review translation
+  "form.other-information.dc_relation_grantno": "Numéro de subvention",
 
   // "form.other-information.not-available": "Not available",
-  // TODO New key - Add a translation
-  "form.other-information.not-available": "Not available",
+  "form.other-information.not-available": "Pas disponible",
 
   // "form.other-information.ror_orgunit_id": "ROR ID",
-  // TODO New key - Add a translation
-  "form.other-information.ror_orgunit_id": "ROR ID",
+  "form.other-information.ror_orgunit_id": "Identifiant ROR",
 
   // "form.other-information.ror_orgunit_type": "ROR type",
-  // TODO New key - Add a translation
-  "form.other-information.ror_orgunit_type": "ROR type",
+  "form.other-information.ror_orgunit_type": "Type ROR",
 
   // "form.other-information.ror_orgunit_acronym": "ROR acronym",
-  // TODO New key - Add a translation
-  "form.other-information.ror_orgunit_acronym": "ROR acronym",
+  // TODO - Review translation
+  "form.other-information.ror_orgunit_acronym": "Acronyme ROR",
 
   // "form.other-information.ror_orgunit_countryName": "ROR country",
-  // TODO New key - Add a translation
-  "form.other-information.ror_orgunit_countryName": "ROR country",
+  "form.other-information.ror_orgunit_countryName": "Pays ROR",
 
   // "form.entry.source.local": "",
   // TODO New key - Add a translation
@@ -3471,16 +3418,13 @@
   "form.number-picker.increment": "Incrémenter {{field}}",
 
   // "form.number-picker.label.Year": "Year",
-  // TODO New key - Add a translation
-  "form.number-picker.label.Year": "Year",
+  "form.number-picker.label.Year": "Année",
 
   // "form.number-picker.label.Month": "Month",
-  // TODO New key - Add a translation
-  "form.number-picker.label.Month": "Month",
+  "form.number-picker.label.Month": "Mois",
 
   // "form.number-picker.label.Day": "Day",
-  // TODO New key - Add a translation
-  "form.number-picker.label.Day": "Day",
+  "form.number-picker.label.Day": "Jour",
 
   // "form.repeatable.sort.tip": "Drop the item in the new position",
   "form.repeatable.sort.tip": "Déposer l'objet dans la nouvelle position",
@@ -3797,10 +3741,10 @@
 
   // "item.alerts.private": "This item is non-discoverable",
   // TODO Source message changed - Revise the translation
-  "item.alerts.private": "Cet Item est privé",
+  "item.alerts.private": "Cet item est privé",
 
   // "item.alerts.withdrawn": "This item has been withdrawn",
-  "item.alerts.withdrawn": "Cet Item a été retiré",
+  "item.alerts.withdrawn": "Cet item a été retiré",
 
   // "item.alerts.reinstate-request": "Request reinstate",
   "item.alerts.reinstate-request": "Demander la réintégration",
@@ -3996,16 +3940,14 @@
   "item.edit.delete.success": "L'Item a été supprimé",
 
   // "item.edit.delete.confirmation-title": "Confirm deletion",
-  // TODO New key - Add a translation
-  "item.edit.delete.confirmation-title": "Confirm deletion",
+  "item.edit.delete.confirmation-title": "Confirmer la suppression",
 
   // "item.edit.delete.confirmation-message": "Are you sure you want to permanently delete this item?",
-  // TODO New key - Add a translation
-  "item.edit.delete.confirmation-message": "Are you sure you want to permanently delete this item?",
+  // TODO - Review translation
+  "item.edit.delete.confirmation-message": "Êtes-vous certain-e de vouloir supprimer définitivement cet item?",
 
   // "item.edit.delete.confirmation-detail": "This item may have been cited, has (or had) a persistent identifier (Handle/DOI), and deleting it may break scholarly references and external links.",
-  // TODO New key - Add a translation
-  "item.edit.delete.confirmation-detail": "This item may have been cited, has (or had) a persistent identifier (Handle/DOI), and deleting it may break scholarly references and external links.",
+  "item.edit.delete.confirmation-detail": "Si cet item a été cité et a (ou a eu) un identifiant pérenne (Handle/DOI), sa suppression peut briser des références à des publications savantes et des liens externes.",
 
   // "item.edit.head": "Edit Item",
   "item.edit.head": "Éditer l'Item",
@@ -4110,12 +4052,12 @@
   "item.edit.item-mapper.notifications.add.error.content": "Des erreurs se sont produites dans l'association de l'Item avec {{amount}} collections.",
 
   // "item.edit.item-mapper.notifications.add.error.forbidden.head": "Permission denied",
-  // TODO New key - Add a translation
-  "item.edit.item-mapper.notifications.add.error.forbidden.head": "Permission denied",
+  // TODO - Review translation
+  "item.edit.item-mapper.notifications.add.error.forbidden.head": "Permission refusée",
 
   // "item.edit.item-mapper.notifications.add.error.forbidden.content": "You do not have permission to map this item to a collection.",
-  // TODO New key - Add a translation
-  "item.edit.item-mapper.notifications.add.error.forbidden.content": "You do not have permission to map this item to a collection.",
+  // TODO - Review translation
+  "item.edit.item-mapper.notifications.add.error.forbidden.content": "Vous n'avez pas les autorisations requises pour associer cet item avec une collection.",
 
   // "item.edit.item-mapper.notifications.add.error.head": "Mapping errors",
   "item.edit.item-mapper.notifications.add.error.head": "Erreurs d'association",
@@ -4130,12 +4072,12 @@
   "item.edit.item-mapper.notifications.remove.error.content": "Des erreurs se sont produites à la suppression de l'association de {{amount}} collections.",
 
   // "item.edit.item-mapper.notifications.remove.error.forbidden.head": "Permission denied",
-  // TODO New key - Add a translation
-  "item.edit.item-mapper.notifications.remove.error.forbidden.head": "Permission denied",
+  // TODO - Review translation
+  "item.edit.item-mapper.notifications.remove.error.forbidden.head": "Permission refusée",
 
   // "item.edit.item-mapper.notifications.remove.error.forbidden.content": "You do not have permission to remove this item from a collection.",
-  // TODO New key - Add a translation
-  "item.edit.item-mapper.notifications.remove.error.forbidden.content": "You do not have permission to remove this item from a collection.",
+  // TODO - Review translation
+  "item.edit.item-mapper.notifications.remove.error.forbidden.content": "Vous n'avez pas les autorisations requises pour supprimer cet item d'une collection.",
 
   // "item.edit.item-mapper.notifications.remove.error.head": "Removal of mapping errors",
   "item.edit.item-mapper.notifications.remove.error.head": "Erreurs à la suppression d'association",
@@ -4165,8 +4107,8 @@
   "item.edit.metadata.edit.language": "Modifier la langue",
 
   // "item.edit.metadata.edit.authority": "Edit authority",
-  // TODO New key - Add a translation
-  "item.edit.metadata.edit.authority": "Edit authority",
+  // TODO - Review translation
+  "item.edit.metadata.edit.authority": "Modifier l'autorité",
 
   // "item.edit.metadata.edit.value": "Edit value",
   "item.edit.metadata.edit.value": "Modifier la valeur",
@@ -4214,12 +4156,12 @@
   "item.edit.metadata.headers.language": "Langue",
 
   // "item.edit.metadata.headers.security": "Security level",
-  // TODO New key - Add a translation
-  "item.edit.metadata.headers.security": "Security level",
+  // TODO - Review translation
+  "item.edit.metadata.headers.security": "Niveau de sécurité",
 
   // "item.edit.metadata.headers.authority": "Authority",
-  // TODO New key - Add a translation
-  "item.edit.metadata.headers.authority": "Authority",
+  // TODO - Review translation
+  "item.edit.metadata.headers.authority": "Autorité",
 
   // "item.edit.metadata.headers.value": "Value",
   "item.edit.metadata.headers.value": "Valeur",
@@ -4656,7 +4598,6 @@
   "item.page.dcterms.spatial": "Point géospacial",
 
   // "item.page.doi": "DOI",
-  // TODO New key - Add a translation
   "item.page.doi": "DOI",
 
   // "item.search.results.head": "Item Search Results",
@@ -4799,12 +4740,12 @@
   "item.page.orcid.tooltip": "Ouvrir la page des configurations ORCID",
 
   // "item.page.orcid-ico": "ORCID icon",
-  // TODO New key - Add a translation
-  "item.page.orcid-ico": "ORCID icon",
+  // TODO - Review translation
+  "item.page.orcid-ico": "Icône ORCID",
 
   // "item.page.orcid-profile": "ORCID Profile",
-  // TODO New key - Add a translation
-  "item.page.orcid-profile": "ORCID Profile",
+  // TODO - Review translation
+  "item.page.orcid-profile": "Profil ORCID",
 
   // "item.page.person.search.title": "Articles by this author",
   "item.page.person.search.title": "Articles de cet auteur",
@@ -4828,49 +4769,38 @@
   "item.page.relationships.isOrgUnitOfProject": "Projets de recherche",
 
   // "item.page.relationships.RELATION.Person.researchoutputs": "Publications",
-  // TODO New key - Add a translation
   "item.page.relationships.RELATION.Person.researchoutputs": "Publications",
 
   // "item.page.relationships.RELATION.Person.projects": "Projects",
-  // TODO New key - Add a translation
-  "item.page.relationships.RELATION.Person.projects": "Projects",
+  "item.page.relationships.RELATION.Person.projects": "Projets",
 
   // "item.page.relationships.RELATION.OrgUnit.rpprojects": "Researchers Projects",
-  // TODO New key - Add a translation
-  "item.page.relationships.RELATION.OrgUnit.rpprojects": "Researchers Projects",
+  "item.page.relationships.RELATION.OrgUnit.rpprojects": "Projets de chercheurs-es",
 
   // "item.page.relationships.RELATION.OrgUnit.publications": "Publications",
-  // TODO New key - Add a translation
   "item.page.relationships.RELATION.OrgUnit.publications": "Publications",
 
   // "item.page.relationships.RELATION.OrgUnit.rppublications": "Researchers Publications",
-  // TODO New key - Add a translation
-  "item.page.relationships.RELATION.OrgUnit.rppublications": "Researchers Publications",
+  "item.page.relationships.RELATION.OrgUnit.rppublications": "Publications de chercheurs-es",
 
   // "item.page.relationships.RELATION.OrgUnit.people": "People",
-  // TODO New key - Add a translation
-  "item.page.relationships.RELATION.OrgUnit.people": "People",
+  // TODO - Review translation
+  "item.page.relationships.RELATION.OrgUnit.people": "Personnes",
 
   // "item.page.relationships.RELATION.OrgUnit.projects": "Projects",
-  // TODO New key - Add a translation
-  "item.page.relationships.RELATION.OrgUnit.projects": "Projects",
+  "item.page.relationships.RELATION.OrgUnit.projects": "Projets",
 
   // "item.page.relationships.RELATION.OrgUnit.organizations": "Organizations",
-  // TODO New key - Add a translation
-  "item.page.relationships.RELATION.OrgUnit.organizations": "Organizations",
+  "item.page.relationships.RELATION.OrgUnit.organizations": "Organisations",
 
   // "item.page.relationships.RELATION.Project.projects": "Projects",
-  // TODO New key - Add a translation
-  "item.page.relationships.RELATION.Project.projects": "Projects",
+  "item.page.relationships.RELATION.Project.projects": "Projets",
 
   // "item.page.relationships.RELATION.Project.fundings": "Fundings",
-  // TODO New key - Add a translation
-  "item.page.relationships.RELATION.Project.fundings": "Fundings",
+  "item.page.relationships.RELATION.Project.fundings": "Financements",
 
   // "item.page.relationships.RELATION.Project.researchoutputs": "Publications",
-  // TODO New key - Add a translation
   "item.page.relationships.RELATION.Project.researchoutputs": "Publications",
-
 
   // "item.page.subject": "Keywords",
   "item.page.subject": "Mots-clés",
@@ -4894,12 +4824,12 @@
   "item.page.filesection.license.bundle": "Bundle de license",
 
   // "item-page.resolver.invalid-custom-url.title": "Invalid custom URL",
-  // TODO New key - Add a translation
-  "item-page.resolver.invalid-custom-url.title": "Invalid custom URL",
+  // TODO - Review translation
+  "item-page.resolver.invalid-custom-url.title": "URL personnalisée invalide",
 
   // "item-page.resolver.invalid-custom-url.message": "The custom URL of this item contains unsupported characters. The item is being displayed using its UUID.",
-  // TODO New key - Add a translation
-  "item-page.resolver.invalid-custom-url.message": "The custom URL of this item contains unsupported characters. The item is being displayed using its UUID.",
+  // TODO - Review translation
+  "item-page.resolver.invalid-custom-url.message": "L'URL personnalisée de cet item contient des caractères qui ne sont pas pris en charge. Cet item est affiché avec son UUID.",
 
   // "item.page.return": "Back",
   "item.page.return": "Retour",
@@ -4908,10 +4838,10 @@
   "item.page.version.create": "Créer une nouvelle version",
 
   // "item.page.withdrawn": "Request a withdrawal for this item",
-  "item.page.withdrawn": "Demander le retrait de cet Item",
+  "item.page.withdrawn": "Demander le retrait de cet item",
 
   // "item.page.reinstate": "Request reinstatement",
-  "item.page.reinstate": "Demander la réintégration de cet Item",
+  "item.page.reinstate": "Demander la réintégration de cet item",
 
   // "item.page.version.hasDraft": "A new version cannot be created because there is an in-progress submission in the version history",
   "item.page.version.hasDraft": "Une nouvelle version ne peut être créée car il y a une soumission en cours dans l'historique des versions",
@@ -5297,8 +5227,8 @@
   "itemtemplate.edit.metadata.edit.language": "Modifier la langue",
 
   // "itemtemplate.edit.metadata.edit.authority": "Edit authority",
-  // TODO New key - Add a translation
-  "itemtemplate.edit.metadata.edit.authority": "Edit authority",
+  // TODO - Review translation
+  "itemtemplate.edit.metadata.edit.authority": "Modifier l'autorité",
 
   // "itemtemplate.edit.metadata.edit.value": "Edit value",
   "itemtemplate.edit.metadata.edit.value": "Modifier la valeur",
@@ -5337,8 +5267,8 @@
   "itemtemplate.edit.metadata.headers.value": "Valeur",
 
   // "itemtemplate.edit.metadata.headers.authority": "Authority",
-  // TODO New key - Add a translation
-  "itemtemplate.edit.metadata.headers.authority": "Authority",
+  // TODO - Review translation
+  "itemtemplate.edit.metadata.headers.authority": "Autorité",
 
   // "itemtemplate.edit.metadata.metadatafield": "Edit field",
   "itemtemplate.edit.metadata.metadatafield": "Modifier le champ",
@@ -5512,48 +5442,39 @@
   "iiif.page.description": "Description :",
 
   // "layout.advanced-attachment.dc.title": "Name",
-  // TODO New key - Add a translation
-  "layout.advanced-attachment.dc.title": "Name",
+  // TODO - Review translation
+  "layout.advanced-attachment.dc.title": "Titre",
 
   // "layout.advanced-attachment.size": "Size",
-  // TODO New key - Add a translation
-  "layout.advanced-attachment.size": "Size",
+  "layout.advanced-attachment.size": "Taille",
 
   // "layout.advanced-attachment.checksum": "Checksum",
-  // TODO New key - Add a translation
-  "layout.advanced-attachment.checksum": "Checksum",
+  "layout.advanced-attachment.checksum": "Somme de contrôle",
 
   // "layout.advanced-attachment.checksum.info.MD5": "The <b>MD5 message-digest algorithm</b> can be used to verify the integrity of the file that you have uploaded. You can calculate its value locally via tools that are generally available in each operative system like <b>md5sum</b>",
-  // TODO New key - Add a translation
-  "layout.advanced-attachment.checksum.info.MD5": "The <b>MD5 message-digest algorithm</b> can be used to verify the integrity of the file that you have uploaded. You can calculate its value locally via tools that are generally available in each operative system like <b>md5sum</b>",
+  "layout.advanced-attachment.checksum.info.MD5": "<b>L'algorithme Message-Digest (MD5)</b> peut vérifier l'intégrité du fichier téléchargé. Vous pouvez calculer sa valeur localement avec des outils généralement disponibles dans chaque système d'exploitation comme <b>md5sum</b>",
 
   // "layout.advanced-attachment.format": "Format",
-  // TODO New key - Add a translation
   "layout.advanced-attachment.format": "Format",
 
   // "layout.advanced-attachment.dc.type": "Type",
-  // TODO New key - Add a translation
   "layout.advanced-attachment.dc.type": "Type",
 
   // "layout.advanced-attachment.dc.description": "Description",
-  // TODO New key - Add a translation
   "layout.advanced-attachment.dc.description": "Description",
 
   // "layout.advanced-attachment.no_thumbnail": "No Thumbnail Available",
-  // TODO New key - Add a translation
-  "layout.advanced-attachment.no_thumbnail": "No Thumbnail Available",
+  "layout.advanced-attachment.no_thumbnail": "Pas de vignette d'image disponible",
 
   // "layout.advanced-attachment.download": "Download",
-  // TODO New key - Add a translation
-  "layout.advanced-attachment.download": "Download",
+  "layout.advanced-attachment.download": "Télécharger",
 
   // "layout.advanced-attachment.requestACopy": "Request a copy",
-  // TODO New key - Add a translation
-  "layout.advanced-attachment.requestACopy": "Request a copy",
+  "layout.advanced-attachment.requestACopy": "Demander une copie",
 
   // "layout.advanced-attachment.viewMore": "View More",
-  // TODO New key - Add a translation
-  "layout.advanced-attachment.viewMore": "View More",
+  // TODO New key - Review translation
+  "layout.advanced-attachment.viewMore": "Afficher plus",
 
   // "layout.advanced-attachment.label.not-present": "(not present)",
   // TODO New key - Add a translation
@@ -5686,8 +5607,8 @@
   "menu.section.access_control_people": "Utilisateurs",
 
   // "menu.section.audit": "Audit Logs",
-  // TODO New key - Add a translation
-  "menu.section.audit": "Audit Logs",
+  // TODO - Review translation
+  "menu.section.audit": "Journaux d'audit",
 
   // "menu.section.reports": "Reports",
   "menu.section.reports": "Rapports",
@@ -5918,20 +5839,16 @@
   "menu.section.workflow": "Workflow Administrateur",
 
   // "menu.section.FULL": "Edit",
-  // TODO New key - Add a translation
-  "menu.section.FULL": "Edit",
+  "menu.section.FULL": "Éditer",
 
   // "menu.section.OWNER": "Edit",
-  // TODO New key - Add a translation
-  "menu.section.OWNER": "Edit",
+  "menu.section.OWNER": "Éditer",
 
   // "menu.section.DIRECTOR": "Edit",
-  // TODO New key - Add a translation
-  "menu.section.DIRECTOR": "Edit",
+  "menu.section.DIRECTOR": "Éditer",
 
   // "menu.section.INVESTIGATOR": "Edit",
-  // TODO New key - Add a translation
-  "menu.section.INVESTIGATOR": "Edit",
+  "menu.section.INVESTIGATOR": "Éditer",
 
   // "metadata-export-search.tooltip": "Export search results as CSV",
   "metadata-export-search.tooltip": "Exporter les résultats de recherche en format CSV",
@@ -5942,9 +5859,9 @@
   // "metadata-export-search.submit.error": "Starting the export has failed",
   "metadata-export-search.submit.error": "L'exportation a échoué",
 
-  // "metadata.security.level.title": "Metatada security level {{level}}",
-  // TODO New key - Add a translation
-  "metadata.security.level.title": "Metatada security level {{level}}",
+  // "metadata.security.level.title": "Metadata security level {{level}}",
+  // TODO - Review translation
+  "metadata.security.level.title": "Niveau de sécurité des métadonnées {{level}}",
 
   // "mydspace.breadcrumbs": "MyDSpace",
   "mydspace.breadcrumbs": "Mon compte DSpace",
@@ -6039,8 +5956,8 @@
   "mydspace.show.workspace": "Vos dépôts",
 
   // "mydspace.show.otherWorkspace": "Shared Submissions",
-  // TODO New key - Add a translation
-  "mydspace.show.otherWorkspace": "Shared Submissions",
+  // TODO - Review translation
+  "mydspace.show.otherWorkspace": "Soumissions collaboratives",
 
   // "mydspace.show.supervisedWorkspace": "Supervised items",
   "mydspace.show.supervisedWorkspace": "Items supervisés",
@@ -6369,8 +6286,8 @@
   "quality-assurance.event.reason": "Raison",
 
   // "orcid.badge.tooltip": "Connected to ORCID",
-  // TODO New key - Add a translation
-  "orcid.badge.tooltip": "Connected to ORCID",
+  // TODO - Review translation
+  "orcid.badge.tooltip": "Connecté à ORCID",
 
   // "orgunit.listelement.badge": "Organizational Unit",
   "orgunit.listelement.badge": "Structure organisationnelle",
@@ -6882,7 +6799,6 @@
   "publication.page.volume-title": "Titre du volume",
 
   // "publication.page.doi": "DOI",
-  // TODO New key - Add a translation
   "publication.page.doi": "DOI",
 
   // "publication.search.results.head": "Publication Search Results",
@@ -7416,52 +7332,40 @@
   "resource-policies.table.headers.title.for.collection": "Règles de collection",
 
   // "RELATION.Person.researchoutputs.search.results.head": "Research Output",
-  // TODO New key - Add a translation
-  "RELATION.Person.researchoutputs.search.results.head": "Research Output",
+  "RELATION.Person.researchoutputs.search.results.head": "Travaux de recherche",
 
   // "RELATION.Person.projects.search.results.head": "Projects",
-  // TODO New key - Add a translation
-  "RELATION.Person.projects.search.results.head": "Projects",
+  "RELATION.Person.projects.search.results.head": "Projets",
 
   // "RELATION.Project.researchoutputs.search.results.head": "Publications",
-  // TODO New key - Add a translation
   "RELATION.Project.researchoutputs.search.results.head": "Publications",
 
   // "RELATION.Project.fundings.search.results.head": "Fundings",
-  // TODO New key - Add a translation
-  "RELATION.Project.fundings.search.results.head": "Fundings",
+  "RELATION.Project.fundings.search.results.head": "Financements",
 
   // "RELATION.Project.projects.search.results.head": "Projects",
-  // TODO New key - Add a translation
-  "RELATION.Project.projects.search.results.head": "Projects",
+  "RELATION.Project.projects.search.results.head": "Projets",
 
   // "RELATION.OrgUnit.organizations.search.results.head": "Organizations",
-  // TODO New key - Add a translation
-  "RELATION.OrgUnit.organizations.search.results.head": "Organizations",
+  "RELATION.OrgUnit.organizations.search.results.head": "Organisations",
 
   // "RELATION.OrgUnit.rppublications.search.results.head": "Researchers Publications",
-  // TODO New key - Add a translation
-  "RELATION.OrgUnit.rppublications.search.results.head": "Researchers Publications",
+  "RELATION.OrgUnit.rppublications.search.results.head": "Publications de chercheurs-es",
 
   // "RELATION.OrgUnit.publications.search.results.head": "Publications",
-  // TODO New key - Add a translation
   "RELATION.OrgUnit.publications.search.results.head": "Publications",
 
   // "RELATION.OrgUnit.rpprojects.search.results.head": "Researchers Projects",
-  // TODO New key - Add a translation
-  "RELATION.OrgUnit.rpprojects.search.results.head": "Researchers Projects",
+  "RELATION.OrgUnit.rpprojects.search.results.head": "Projets de chercheurs-es",
 
   // "RELATION.OrgUnit.projects.search.results.head": "Projects",
-  // TODO New key - Add a translation
-  "RELATION.OrgUnit.projects.search.results.head": "Projects",
+  "RELATION.OrgUnit.projects.search.results.head": "Projets",
 
   // "RELATION.Project.researchoutputs.search.results.head": "Publications",
-  // TODO New key - Add a translation
   "RELATION.Project.researchoutputs.search.results.head": "Publications",
 
   // "RELATION.OrgUnit.people.search.results.head": "People",
-  // TODO New key - Add a translation
-  "RELATION.OrgUnit.people.search.results.head": "People",
+  "RELATION.OrgUnit.people.search.results.head": "Personnes",
 
   // "root.skip-to-content": "Skip to main content",
   "root.skip-to-content": "Accéder au contenu principal",
@@ -8127,8 +8031,8 @@
   "submission.edit.title": "Éditer la soumission",
 
   // "submission.edit.item.breadcrumbs": "Edit item",
-  // TODO New key - Add a translation
-  "submission.edit.item.breadcrumbs": "Edit item",
+  // TODO - Review translation
+  "submission.edit.item.breadcrumbs": "Éditer l'item",
 
   // "submission.general.cancel": "Cancel",
   "submission.general.cancel": "Annuler",
@@ -8159,8 +8063,7 @@
   "submission.general.back.submit": "Retour",
 
   // "submission.general.info.invalid": "The submission is invalid, check missing fields",
-  // TODO New key - Add a translation
-  "submission.general.info.invalid": "The submission is invalid, check missing fields",
+  "submission.general.info.invalid": "La soumission est invalide.  Veuillez vérifier les champs manquants.",
 
   // "submission.general.info.saved": "Saved",
   "submission.general.info.saved": "Sauvegardées",
@@ -8175,8 +8078,7 @@
   "submission.general.save-later": "Sauvegarder pour plus tard",
 
   // "submission.general.save-later.edit-item": "Save and return",
-  // TODO New key - Add a translation
-  "submission.general.save-later.edit-item": "Save and return",
+  "submission.general.save-later.edit-item": "Sauvegarder pour plus tard",
 
   // "submission.import-external.page.title": "Import metadata from an external source",
   "submission.import-external.page.title": "Importer les métadonnées depuis une source externe",
@@ -8916,8 +8818,8 @@
   "submission.sections.general.deposit_error_notice": "Une erreur s'est produite lors de la soumission de l'Item, veuillez réessayer plus tard.",
 
   // "submission.sections.general.invalid_state_error": "Cannot save current changes, mandatory fields are missing. Please resolve problems and save again later.",
-  // TODO New key - Add a translation
-  "submission.sections.general.invalid_state_error": "Cannot save current changes, mandatory fields are missing. Please resolve problems and save again later.",
+  // TODO - Review translation
+  "submission.sections.general.invalid_state_error": "Les modifications en cours ne peuvent pas être sauvegardées car certains champs obligatoires n'ont pas été remplis.  Veuillez résoudre les problèmes et réessayez à sauvegarder.",
 
   // "submission.sections.general.deposit_success_notice": "Submission deposited successfully.",
   "submission.sections.general.deposit_success_notice": "Soumission déposée avec succès.",
@@ -8980,8 +8882,8 @@
   "submission.sections.submit.progressbar.CClicense": "Licence Creative Commons",
 
   // "submission.sections.submit.progressbar.CustomUrlStep": "Custom Url",
-  // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.CustomUrlStep": "Custom Url",
+  // TODO - Review translation
+  "submission.sections.submit.progressbar.CustomUrlStep": "URL personalisée",
 
   // "submission.sections.submit.progressbar.describe.recycle": "Recycle",
   "submission.sections.submit.progressbar.describe.recycle": "Recycler",
@@ -9154,16 +9056,13 @@
   "submission.sections.upload.upload-successful": "Téléchargement réussi",
 
   // "submission.sections.custom-url.label.previous-urls": "Previous Urls",
-  // TODO New key - Add a translation
-  "submission.sections.custom-url.label.previous-urls": "Previous Urls",
+  "submission.sections.custom-url.label.previous-urls": "URLs précédentes",
 
   // "submission.sections.custom-url.alert.info": "Define here a custom URL which will be used to reach the item instead of using an internal randomly generated UUID identifier. ",
-  // TODO New key - Add a translation
-  "submission.sections.custom-url.alert.info": "Define here a custom URL which will be used to reach the item instead of using an internal randomly generated UUID identifier. ",
+  "submission.sections.custom-url.alert.info": "Définissez une URL personalisée qui sera utilisée pour accéder à l'item à la place de l'identifiant UUID généré aléatoirement. ",
 
   // "submission.sections.custom-url.url.placeholder": "Custom URL",
-  // TODO New key - Add a translation
-  "submission.sections.custom-url.url.placeholder": "Custom URL",
+  "submission.sections.custom-url.url.placeholder": "URL personalisée",
 
   // "submission.sections.accesses.form.discoverable-description": "When checked, this item will be discoverable in search/browse. When unchecked, the item will only be available via a direct link and will never appear in search/browse.",
   "submission.sections.accesses.form.discoverable-description": "Si cette case est cochée, cet Item pourra être découvert dans la recherche/index parcourir. Si cette case n'est pas cochée, l'Item ne sera disponible que via un lien direct et n'apparaîtra jamais dans la recherche/index parcourir.",
@@ -9458,8 +9357,8 @@
   "subscriptions.tooltip": "S'abonner",
 
   // "subscriptions.manage": "Manage Subscription",
-  // TODO New key - Add a translation
-  "subscriptions.manage": "Manage Subscription",
+  // TODO - Review translation
+  "subscriptions.manage": "Gérer l'abonnement",
 
   // "subscriptions.modal.title": "Subscriptions",
   "subscriptions.modal.title": "Abonnements",
@@ -9631,8 +9530,8 @@
   "workflow.search.results.head": "Tableau de suivi",
 
   // "otherWorkspace.search.results.head": "Shared workspace",
-  // TODO New key - Add a translation
-  "otherWorkspace.search.results.head": "Shared workspace",
+  // TODO - Review translation
+  "otherWorkspace.search.results.head": "Espace de travail collaboratif",
 
   // "supervision.search.results.head": "Workflow and Workspace tasks",
   "supervision.search.results.head": "Tableau de suivi et dépôts en cours",
@@ -10163,8 +10062,7 @@
   "home.recent-submissions.head": "Dépôts récents",
 
   // "authority-confidence.search-label": "Search",
-  // TODO New key - Add a translation
-  "authority-confidence.search-label": "Search",
+  "authority-confidence.search-label": "Chercher",
 
   // "listable-notification-object.default-message": "This object couldn't be retrieved",
   "listable-notification-object.default-message": "Cet objet n'a pas été trouvé.",
@@ -11381,8 +11279,7 @@
   "form.date-picker.placeholder.day": "Jour",
 
   // "item.page.license.title": "Rights and licensing",
-  // TODO New key - Add a translation
-  "item.page.license.title": "Rights and licensing",
+  "item.page.license.title": "Droits et licences d'utilisation",
 
   // "item.page.cc.license.title": "Creative Commons license",
   "item.page.cc.license.title": "Licence Creative Commons",
@@ -11395,8 +11292,7 @@
   "file-download-link.download": "Télécharger ",
 
   // "file-download-button.download": "Download",
-  // TODO New key - Add a translation
-  "file-download-button.download": "Download",
+  "file-download-button.download": "Télécharger",
 
   // "register-page.registration.aria.label": "Enter your e-mail address",
   "register-page.registration.aria.label": "Saisir votre adresse courriel",
@@ -11581,344 +11477,286 @@
   "file-download-link.request-copy": "Demander une copie de ",
 
   // "file-download-button.request-copy": "Request a copy",
-  // TODO New key - Add a translation
-  "file-download-button.request-copy": "Request a copy",
+  // TODO - Review translation
+  "file-download-button.request-copy": "Demander une copie",
 
   // "item.preview.organization.url": "URL",
-  // TODO New key - Add a translation
   "item.preview.organization.url": "URL",
 
   // "item.preview.organization.address.addressLocality": "City",
-  // TODO New key - Add a translation
-  "item.preview.organization.address.addressLocality": "City",
+  "item.preview.organization.address.addressLocality": "Ville",
 
   // "item.preview.organization.alternateName": "Alternative name",
-  // TODO New key - Add a translation
-  "item.preview.organization.alternateName": "Alternative name",
+  "item.preview.organization.alternateName": "Nom alternatif",
 
   // "metadata-link-view.orcid.logo": "ORCID logo",
-  // TODO New key - Add a translation
-  "metadata-link-view.orcid.logo": "ORCID logo",
+  "metadata-link-view.orcid.logo": "Logo ORCID",
 
   // "metadata-link-view.source.logo": "Source logo",
-  // TODO New key - Add a translation
-  "metadata-link-view.source.logo": "Source logo",
+  "metadata-link-view.source.logo": "Logo de la source",
 
   // "metadata-link-view.popover.label.Person.dc.title": "Fullname",
   // TODO New key - Add a translation
   "metadata-link-view.popover.label.Person.dc.title": "Fullname",
 
   // "metadata-link-view.popover.label.Person.person.affiliation.name": "Main affiliation",
-  // TODO New key - Add a translation
-  "metadata-link-view.popover.label.Person.person.affiliation.name": "Main affiliation",
+  // TODO - Review translation
+  "metadata-link-view.popover.label.Person.person.affiliation.name": "Affiliation principale",
 
   // "metadata-link-view.popover.label.Person.person.email": "Email",
-  // TODO New key - Add a translation
-  "metadata-link-view.popover.label.Person.person.email": "Email",
+  "metadata-link-view.popover.label.Person.person.email": "Adresse électronique",
 
   // "metadata-link-view.popover.label.Person.person.identifier.orcid": "ORCID",
-  // TODO New key - Add a translation
   "metadata-link-view.popover.label.Person.person.identifier.orcid": "ORCID",
 
   // "metadata-link-view.popover.label.Person.dc.description.abstract": "Abstract",
-  // TODO New key - Add a translation
-  "metadata-link-view.popover.label.Person.dc.description.abstract": "Abstract",
+  "metadata-link-view.popover.label.Person.dc.description.abstract": "Résumé",
 
   // "metadata-link-view.popover.label.Person.person.jobTitle": "Job title",
-  // TODO New key - Add a translation
-  "metadata-link-view.popover.label.Person.person.jobTitle": "Job title",
+  "metadata-link-view.popover.label.Person.person.jobTitle": "Fonction",
 
   // "metadata-link-view.popover.label.other.dc.title": "Title",
-  // TODO New key - Add a translation
-  "metadata-link-view.popover.label.other.dc.title": "Title",
+  "metadata-link-view.popover.label.other.dc.title": "Titre",
 
   // "metadata-link-view.popover.label.other.dc.description.abstract": "Description",
-  // TODO New key - Add a translation
   "metadata-link-view.popover.label.other.dc.description.abstract": "Description",
 
   // "metadata-link-view.popover.label.more-info": "More info",
-  // TODO New key - Add a translation
-  "metadata-link-view.popover.label.more-info": "More info",
+  // TODO - Review translation
+  "metadata-link-view.popover.label.more-info": "Plus d'information",
 
   // "item.page.extended-file-section": "Bitstreams",
-  // TODO New key - Add a translation
   "item.page.extended-file-section": "Bitstreams",
 
   // "file.section.name": "Document",
-  // TODO New key - Add a translation
   "file.section.name": "Document",
 
   // "file.section.type": "Type",
-  // TODO New key - Add a translation
   "file.section.type": "Type",
 
   // "file.section.size": "Size",
-  // TODO New key - Add a translation
-  "file.section.size": "Size",
+  "file.section.size": "Taille",
 
   // "dataset.page.titleprefix": "Dataset",
-  // TODO New key - Add a translation
-  "dataset.page.titleprefix": "Dataset",
+  "dataset.page.titleprefix": "Jeu de données",
 
   // "dataset.listelement.badge": "Dataset",
-  // TODO New key - Add a translation
-  "dataset.listelement.badge": "Dataset",
+  "dataset.listelement.badge": "Jeu de données",
 
   // "dataset.page.options": "Options",
-  // TODO New key - Add a translation
   "dataset.page.options": "Options",
 
   // "dataset.page.edit": "Edit this Dataset",
-  // TODO New key - Add a translation
-  "dataset.page.edit": "Edit this Dataset",
+  // TODO - Review translation
+  "dataset.page.edit": "Éditer ce jeu de données",
 
   // "relationships.Dataset.isAuthorOfDataset.Person": "Authors (Persons)",
-  // TODO New key - Add a translation
-  "relationships.Dataset.isAuthorOfDataset.Person": "Authors (Persons)",
+  // TODO - Review translation
+  "relationships.Dataset.isAuthorOfDataset.Person": "Auteurs (Personnes)",
 
   // "relationships.Dataset.isProjectOfDataset.Project": "Research Projects",
-  // TODO New key - Add a translation
-  "relationships.Dataset.isProjectOfDataset.Project": "Research Projects",
+  "relationships.Dataset.isProjectOfDataset.Project": "Projets de recherche",
 
   // "relationships.Dataset.isAuthorOfDataset.OrgUnit": "Organizational Units",
-  // TODO New key - Add a translation
-  "relationships.Dataset.isAuthorOfDataset.OrgUnit": "Organizational Units",
+  "relationships.Dataset.isAuthorOfDataset.OrgUnit": "Structures organisationnelles",
 
   // "relationships.Dataset.isOrgUnitOfDataset.OrgUnit": "Authors (Organizational Units)",
-  // TODO New key - Add a translation
-  "relationships.Dataset.isOrgUnitOfDataset.OrgUnit": "Authors (Organizational Units)",
+  "relationships.Dataset.isOrgUnitOfDataset.OrgUnit": "Collectivités-auteurs",
 
   // "relationships.Dataset.isPublicationOfDataset.Publication": "Publications",
-  // TODO New key - Add a translation
   "relationships.Dataset.isPublicationOfDataset.Publication": "Publications",
 
   // "relationships.Publication.isDatasetOfPublication.Dataset": "Datasets",
-  // TODO New key - Add a translation
-  "relationships.Publication.isDatasetOfPublication.Dataset": "Datasets",
+  "relationships.Publication.isDatasetOfPublication.Dataset": "Jeux de données",
 
   // "relationships.Person.isDatasetOfAuthor.Dataset": "Datasets",
-  // TODO New key - Add a translation
-  "relationships.Person.isDatasetOfAuthor.Dataset": "Datasets",
+  "relationships.Person.isDatasetOfAuthor.Dataset": "Jeux de données",
 
   // "relationships.Project.isDatasetOfProject.Dataset": "Datasets",
-  // TODO New key - Add a translation
-  "relationships.Project.isDatasetOfProject.Dataset": "Datasets",
+  "relationships.Project.isDatasetOfProject.Dataset": "Jeux de données",
 
   // "relationships.OrgUnit.isDatasetOfAuthor.Dataset": "Authored Datasets",
-  // TODO New key - Add a translation
-  "relationships.OrgUnit.isDatasetOfAuthor.Dataset": "Authored Datasets",
+  "relationships.OrgUnit.isDatasetOfAuthor.Dataset": "Jeux de données rédigées",
 
-  // "relationships.OrgUnit.isDatasetOfOrgUnit.Dataset": "Organisation Datasets",
-  // TODO New key - Add a translation
-  "relationships.OrgUnit.isDatasetOfOrgUnit.Dataset": "Organisation Datasets",
+  // "relationships.OrgUnit.isDatasetOfOrgUnit.Dataset": "Organization Datasets",
+  "relationships.OrgUnit.isDatasetOfOrgUnit.Dataset": "Jeux de données de l'organisation",
 
   // "submission.sections.describe.relationship-lookup.title.Dataset": "Datasets",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.title.Dataset": "Datasets",
+  "submission.sections.describe.relationship-lookup.title.Dataset": "Jeux de données",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.Dataset": "Local Datasets",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Dataset": "Local Datasets",
+  // TODO - Review translation
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Dataset": "Jeux de données locaux",
 
   // "dataset.search.results.head": "Dataset Search Results",
-  // TODO New key - Add a translation
-  "dataset.search.results.head": "Dataset Search Results",
+  // TODO - Review translation
+  "dataset.search.results.head": "Résultats de recherche de jeux de données",
 
   // "submission.sections.describe.relationship-lookup.title.isAuthorOfDataset": "Authors",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.title.isAuthorOfDataset": "Authors",
+  "submission.sections.describe.relationship-lookup.title.isAuthorOfDataset": "Auteurs-es",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isAuthorOfDataset": "Local Authors ({{ count }})",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isAuthorOfDataset": "Local Authors ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isAuthorOfDataset": "Auteurs locaux ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.title.isPublicationOfDataset": "Publications",
-  // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.title.isPublicationOfDataset": "Publications",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isPublicationOfDataset": "Local Publications ({{ count }})",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isPublicationOfDataset": "Local Publications ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isPublicationOfDataset": "Publications locales ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.cinii": "CiNii ({{ count }})",
-  // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.cinii": "CiNii ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.cinii": "Importing from CiNii",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.cinii": "Importing from CiNii",
+  // TODO - Review translation
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.cinii": "Importation depuis CiNii en cours",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.cinii": "Search Results",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.cinii": "Search Results",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.cinii": "Résultats de recherche",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.datacite": "DataCite ({{ count }})",
-  // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.datacite": "DataCite ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.datacite": "Importing from DataCite",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.datacite": "Importing from DataCite",
+  // TODO - Review translation
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.datacite": "Importation depuis DataCite en cours",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.datacite": "Search Results",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.datacite": "Search Results",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.datacite": "Résultats de recherche",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.doi": "DOI ({{ count }})",
-  // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.doi": "DOI ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.doi": "Importing from DOI",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.doi": "Importing from DOI",
+  // TODO - Review translation
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.doi": "Importation depuis DOI en cours",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.doi": "Search Results",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.doi": "Search Results",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.doi": "Résultats de recherche",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isPublicationOfDataset.title": "Import Remote Publication",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.isPublicationOfDataset.title": "Import Remote Publication",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isPublicationOfDataset.title": "Importer une publication",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isPublicationOfDataset.added.local-entity": "Successfully added local publication to the selection",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.isPublicationOfDataset.added.local-entity": "Successfully added local publication to the selection",
+  // TODO - Review translation
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isPublicationOfDataset.added.local-entity": "Publication locale ajoutée avec succès à la sélection.",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isPublicationOfDataset.added.new-entity": "Successfully imported and added external publication to the selection",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.isPublicationOfDataset.added.new-entity": "Successfully imported and added external publication to the selection",
+  // TODO - Review translation
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isPublicationOfDataset.added.new-entity": "Publication externe importée et ajoutée avec succès à la sélection.",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfDataset.title": "Import Remote Author",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfDataset.title": "Import Remote Author",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfDataset.title": "Importer l'auteur.e externe",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfDataset.added.local-entity": "Successfully added local author to the selection",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfDataset.added.local-entity": "Successfully added local author to the selection",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfDataset.added.local-entity": "Auteur-e local-e ajouté-e avec succès à la sélection",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfDataset.added.new-entity": "Successfully imported and added external author to the selection",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfDataset.added.new-entity": "Successfully imported and added external author to the selection",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfDataset.added.new-entity": "Auteur-e externe importé-e et ajouté-e avec succès à la sélection",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfDataset.title": "Import Remote Project",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfDataset.title": "Import Remote Project",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfDataset.title": "Importer un projet",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfDataset.added.local-entity": "Successfully added local project to the selection",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfDataset.added.local-entity": "Successfully added local project to the selection",
+  // TODO - Review translation
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfDataset.added.local-entity": "Projet local ajouté avec succès à la sélection",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfDataset.added.new-entity": "Successfully imported and added external project to the selection",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfDataset.added.new-entity": "Successfully imported and added external project to the selection",
+  // TODO - Review translation
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfDataset.added.new-entity": "Projet externe importé et ajouté avec succès à la sélection",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfDataset.title": "Import Remote Organization",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfDataset.title": "Import Remote Organization",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfDataset.title": "Importer une Organisation",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfDataset.added.local-entity": "Successfully added local organization to the selection",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfDataset.added.local-entity": "Successfully added local organization to the selection",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfDataset.added.local-entity": "Organisation locale ajoutée avec succès à la sélection",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfDataset.added.new-entity": "Successfully imported and added external organization to the selection",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfDataset.added.new-entity": "Successfully imported and added external organization to the selection",
+  // TODO - Review translation
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfDataset.added.new-entity": "Organisation externe importée et ajoutée avec succès à la sélection",
 
   // "admin.edit-cms-metadata.success": "Metadata successfully updated",
-  // TODO New key - Add a translation
-  "admin.edit-cms-metadata.success": "Metadata successfully updated",
+  // TODO - Review translation
+  "admin.edit-cms-metadata.success": "Metadonnées mises à jour avec succès",
 
   // "admin.edit-cms-metadata.back-button": "Back",
-  // TODO New key - Add a translation
-  "admin.edit-cms-metadata.back-button": "Back",
+  "admin.edit-cms-metadata.back-button": "Retour",
 
   // "admin.edit-cms-metadata.save-button": "Save",
-  // TODO New key - Add a translation
-  "admin.edit-cms-metadata.save-button": "Save",
+  "admin.edit-cms-metadata.save-button": "Sauvegarder",
 
   // "admin.edit-cms-metadata.select-metadata": "Select metadata to edit",
-  // TODO New key - Add a translation
-  "admin.edit-cms-metadata.select-metadata": "Select metadata to edit",
+  // TODO - Review translation
+  "admin.edit-cms-metadata.select-metadata": "Sélectionner les métadonnées à modifier",
 
   // "admin.edit-cms-metadata.edit-button": "Edit",
-  // TODO New key - Add a translation
-  "admin.edit-cms-metadata.edit-button": "Edit",
+  // TODO - Review translation
+  "admin.edit-cms-metadata.edit-button": "Éditer",
 
   // "admin.edit-cms-metadata.breadcrumbs": "Edit CMS Metadata",
-  // TODO New key - Add a translation
-  "admin.edit-cms-metadata.breadcrumbs": "Edit CMS Metadata",
+  // TODO - Review translation
+  "admin.edit-cms-metadata.breadcrumbs": "Éditer les métadonnées CMS",
 
   // "admin.edit-cms-metadata.title": "Edit CMS Metadata",
-  // TODO New key - Add a translation
-  "admin.edit-cms-metadata.title": "Edit CMS Metadata",
+  // TODO - Review translation
+  "admin.edit-cms-metadata.title": "Éditer les métadonnées CMS",
 
   // "admin.edit-cms-metadata.error": "An error occurred while updating the metadata",
-  // TODO New key - Add a translation
-  "admin.edit-cms-metadata.error": "An error occurred while updating the metadata",
+  // TODO - Review translation
+  "admin.edit-cms-metadata.error": "Une erreur s'est produite lors de la mise à jour des métadonnées",
 
   // "menu.section.edit-cms-metadata": "Edit CMS Metadata",
-  // TODO New key - Add a translation
-  "menu.section.edit-cms-metadata": "Edit CMS Metadata",
+  // TODO - Review translation
+  "menu.section.edit-cms-metadata": "Éditer les métadonnées CMS",
 
   // "menu.section.cms.edit.metadata.head": "Edit Metadata",
-  // TODO New key - Add a translation
-  "menu.section.cms.edit.metadata.head": "Edit Metadata",
+  "menu.section.cms.edit.metadata.head": "Éditer les métadonnées",
 
   // "admin.edit-user-agreement.breadcrumbs": "Edit User Agreement",
-  // TODO New key - Add a translation
-  "admin.edit-user-agreement.breadcrumbs": "Edit User Agreement",
+  "admin.edit-user-agreement.breadcrumbs": "Éditer licence de l'utilisateur-trice",
 
   // "admin.edit-user-agreement.confirm.title": "Force acceptance",
-  // TODO New key - Add a translation
-  "admin.edit-user-agreement.confirm.title": "Force acceptance",
+  "admin.edit-user-agreement.confirm.title": "Forcer l'acceptation de la licence",
 
   // "admin.edit-user-agreement.confirm.info": "Do you want to force all users to accept the new user agreement?",
-  // TODO New key - Add a translation
-  "admin.edit-user-agreement.confirm.info": "Do you want to force all users to accept the new user agreement?",
+  "admin.edit-user-agreement.confirm.info": "Voulez-vous forcer les utilisateurs-trices à accepter la nouvelle licence?",
 
   // "admin.edit-user-agreement.confirm.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "admin.edit-user-agreement.confirm.cancel": "Cancel",
+  "admin.edit-user-agreement.confirm.cancel": "Annuler",
 
   // "admin.edit-user-agreement.confirm.no": "No, update only",
-  // TODO New key - Add a translation
-  "admin.edit-user-agreement.confirm.no": "No, update only",
+  "admin.edit-user-agreement.confirm.no": "Non, mettre à jour seulement",
 
   // "admin.edit-user-agreement.confirm.yes": "Yes, update and force",
-  // TODO New key - Add a translation
-  "admin.edit-user-agreement.confirm.yes": "Yes, update and force",
+  "admin.edit-user-agreement.confirm.yes": "Oui, mettre à jour et forcer l'acceptation",
 
   // "menu.section.edit-user-agreement": "Edit User Agreement",
-  // TODO New key - Add a translation
-  "menu.section.edit-user-agreement": "Edit User Agreement",
+  "menu.section.edit-user-agreement": "Éditer la licence de l'utilisateur-trice",
 
   // "admin.edit-user-agreement.save-button": "Save",
-  // TODO New key - Add a translation
-  "admin.edit-user-agreement.save-button": "Save",
+  "admin.edit-user-agreement.save-button": "Sauvegarder",
 
   // "admin.edit-user-agreement.markdown": "<i>End User Agreement</i> text supports <a href=\"https://www.markdownguide.org/basic-syntax/\" target=\"_blank\">Markdown</a> language.",
-  // TODO New key - Add a translation
-  "admin.edit-user-agreement.markdown": "<i>End User Agreement</i> text supports <a href=\"https://www.markdownguide.org/basic-syntax/\" target=\"_blank\">Markdown</a> language.",
+  // TODO - Review translation
+  "admin.edit-user-agreement.markdown": "<i>Le texte de la<i> Licence d'utilisateur-trice</i> peut être édité en utilisant la syntaxe <a href=\"https://www.markdownguide.org/basic-syntax/\" target=\"_blank\">Markdown</a>.",
 
   // "admin.edit-cms-metadata.markdown": "<i>CMS Metadata</i> text supports <a href=\"https://www.markdownguide.org/basic-syntax/\" target=\"_blank\">Markdown</a> language.",
   // TODO New key - Add a translation
   "admin.edit-cms-metadata.markdown": "<i>CMS Metadata</i> text supports <a href=\"https://www.markdownguide.org/basic-syntax/\" target=\"_blank\">Markdown</a> language.",
 
   // "admin.edit-user-agreement.header": "Edit User Agreement",
-  // TODO New key - Add a translation
-  "admin.edit-user-agreement.header": "Edit User Agreement",
+  "admin.edit-user-agreement.header": "Éditer licence de l'utilisateur-trice",
 
   // "admin.edit-user-agreement.success": "User agreement successfully updated",
-  // TODO New key - Add a translation
-  "admin.edit-user-agreement.success": "User agreement successfully updated",
+  "admin.edit-user-agreement.success": "Licence de l'utilisateur-trice mise à jour avec succès",
 
   // "admin.edit-user-agreement.error": "An error occurred while updating the user agreement",
-  // TODO New key - Add a translation
-  "admin.edit-user-agreement.error": "An error occurred while updating the user agreement",
+  // TODO - Review translation
+  "admin.edit-user-agreement.error": "Une erreur s'est produite lors de la mise à jour de la licence de l'utilisateur",
 
   // "admin.edit-user-agreement.title": "Edit User Agreement",
-  // TODO New key - Add a translation
-  "admin.edit-user-agreement.title": "Edit User Agreement",
+  // TODO - Review translation
+  "admin.edit-user-agreement.title": "Éditer licence de l'utilisateur",
 
 
 }
