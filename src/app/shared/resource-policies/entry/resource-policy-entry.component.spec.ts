@@ -220,5 +220,17 @@ describe('ResourcePolicyEntryComponent', () => {
       checkbox.triggerEventHandler('ngModelChange', false);
       expect(comp.toggleCheckbox.emit).toHaveBeenCalledWith(false);
     });
+
+    it('should return "DELETE" for ActionType.DELETE', () => {
+      expect(comp.getActionDisplayLabel(ActionType.DELETE)).toBe('DELETE');
+    });
+
+    it('should return string value for other action types', () => {
+      expect(comp.getActionDisplayLabel(ActionType.READ)).toBe('READ');
+      expect(comp.getActionDisplayLabel(ActionType.WRITE)).toBe('WRITE');
+      expect(comp.getActionDisplayLabel(ActionType.ADD)).toBe('ADD');
+      expect(comp.getActionDisplayLabel(ActionType.REMOVE)).toBe('REMOVE');
+      expect(comp.getActionDisplayLabel(ActionType.ADMIN)).toBe('ADMIN');
+    });
   });
 });

@@ -55,7 +55,10 @@ export class Metadata {
         if (hitHighlights[mdKey]) {
           for (const candidate of hitHighlights[mdKey]) {
             if (Metadata.valueMatches(candidate as MetadataValue, filter) && (isEmpty(limit) || (hasValue(limit) && matches.length < limit))) {
-              matches.push(candidate as MetadataValue);
+              const nonHighlightValues = metadata[mdKey] as MetadataValue[];
+              const nonHighlightValue = nonHighlightValues?.find((value: MetadataValue) => Metadata.valueMatches(value, filter));
+              const language = nonHighlightValue?.language ?? candidate.language ?? null;
+              matches.push(Object.assign(new MetadataValue(), candidate, { language }));
             }
           }
         }
@@ -111,7 +114,13 @@ export class Metadata {
       for (const key of Metadata.resolveKeys(hitHighlights, keyOrKeys)) {
         const values: MetadataValue[] = hitHighlights[key] as MetadataValue[];
         if (values) {
-          return values.find((value: MetadataValue) => Metadata.valueMatches(value, filter));
+          const metadataValue = values.find((value: MetadataValue) => Metadata.valueMatches(value, filter));
+          if (metadataValue) {
+            const nonHighlightValues = metadata[key] as MetadataValue[];
+            const nonHighlightValue = nonHighlightValues?.find((value: MetadataValue) => Metadata.valueMatches(value, filter));
+            const language = nonHighlightValue?.language ?? metadataValue.language ?? null;
+            return Object.assign(new MetadataValue(), metadataValue, { language });
+          }
         }
       }
     }

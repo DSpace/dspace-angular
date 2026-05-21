@@ -18,6 +18,8 @@ import {
 import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
 import { BitstreamFormatDataService } from '@dspace/core/data/bitstream-format-data.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
 import { PrimaryBitstreamService } from '@dspace/core/data/primary-bitstream.service';
 import { RemoteData } from '@dspace/core/data/remote-data';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
@@ -75,6 +77,7 @@ import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.comp
 import { FileSizePipe } from '../../shared/utils/file-size-pipe';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { ThemedThumbnailComponent } from '../../thumbnail/themed-thumbnail.component';
+import { EditBitstreamPageAlertsComponent } from '../edit-bitstream-page-alerts/edit-bitstream-page-alerts.component';
 
 /**
  * All data that is required before the form can be created and filled.
@@ -143,6 +146,7 @@ export const IIIF_LABEL_METADATA = 'iiif.label';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     AsyncPipe,
+    EditBitstreamPageAlertsComponent,
     ErrorComponent,
     FileSizePipe,
     FormComponent,
@@ -448,6 +452,11 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
   isIIIF = false;
 
   /**
+   * Whether bitstream replacement is enabled in the backend
+   */
+  showReplaceButton$: Observable<boolean>;
+
+  /**
    * Array to track all subscriptions and unsubscribe them onDestroy
    * @type {Array}
    */
@@ -474,6 +483,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
               private notificationsService: NotificationsService,
               private bitstreamFormatService: BitstreamFormatDataService,
               private primaryBitstreamService: PrimaryBitstreamService,
+              private authorizationService: AuthorizationDataService,
   ) {
   }
 
@@ -485,6 +495,10 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
    */
   ngOnInit(): void {
     this.bitstreamRD$ = this.route.data.pipe(map((data: any) => data.bitstream));
+    this.showReplaceButton$ = this.bitstreamRD$.pipe(
+      getFirstSucceededRemoteDataPayload(),
+      switchMap((bitstream: Bitstream) => this.authorizationService.isAuthorized(FeatureID.CanReplaceBitstreamAdmin, bitstream.self)),
+    );
 
     const dataObservables = this.getDataObservables();
 
