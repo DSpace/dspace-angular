@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import {
   Component,
   DebugElement,
@@ -20,6 +21,14 @@ import { MarkdownDirective } from './markdown.directive';
   ],
 })
 class TestComponent {}
+
+@Component({
+  template: `<div [dsMarkdown]="'Les informations demandés.es ne sont pas disponibles.'"></div>`,
+  imports: [
+    MarkdownDirective,
+  ],
+})
+class LinkifyTestComponent {}
 
 describe('MarkdownDirective', () => {
   let fixture: ComponentFixture<TestComponent>;
@@ -55,10 +64,9 @@ describe('MarkdownDirective sanitization with markdown disabled', () => {
     }).compileComponents();
     fixture = TestBed.createComponent(TestComponent);
     divEl = fixture.debugElement.query(By.css('div'));
-
   });
 
-  it('should sanitize the script element out of innerHTML (markdown disabled)',() => {
+  it('should sanitize the script element out of innerHTML (markdown disabled)', () => {
     fixture.detectChanges();
     divEl = fixture.debugElement.query(By.css('div'));
     expect(divEl.nativeElement.innerHTML).toEqual('test');
@@ -80,13 +88,37 @@ describe('MarkdownDirective sanitization with markdown enabled', () => {
     }).compileComponents();
     fixture = TestBed.createComponent(TestComponent);
     divEl = fixture.debugElement.query(By.css('div'));
-
   });
 
-  it('should sanitize the script element out of innerHTML (markdown enabled)',() => {
+  it('should sanitize the script element out of innerHTML (markdown enabled)', () => {
     fixture.detectChanges();
     divEl = fixture.debugElement.query(By.css('div'));
     expect(divEl.nativeElement.innerHTML).toEqual('test');
+  });
+
+});
+
+describe('MarkdownDirective linkify with markdown enabled', () => {
+  let fixture: ComponentFixture<LinkifyTestComponent>;
+  let divEl: DebugElement;
+  // Enable markdown
+  environment.markdown.enabled = true;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      providers: [
+        { provide: MathService, useClass: MockMathService },
+      ],
+    }).compileComponents();
+    fixture = TestBed.createComponent(LinkifyTestComponent);
+    divEl = fixture.debugElement.query(By.css('div'));
+  });
+
+  it('should not convert words with dots (e.g. demandés.es) to links (#2789)', async () => {
+    fixture.detectChanges();
+    await fixture.whenStable();
+    divEl = fixture.debugElement.query(By.css('div'));
+    expect(divEl.nativeElement.innerHTML).not.toContain('<a href');
   });
 
 });
