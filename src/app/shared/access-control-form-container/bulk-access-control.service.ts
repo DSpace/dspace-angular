@@ -59,7 +59,6 @@ export class BulkAccessControlService {
    * @param file
    */
   executeScript(uuids: string[], file: File): Observable<boolean> {
-    console.log('execute', { uuids, file });
 
     const params: ProcessParameter[] = [
       { name: '-f', value: file.name },

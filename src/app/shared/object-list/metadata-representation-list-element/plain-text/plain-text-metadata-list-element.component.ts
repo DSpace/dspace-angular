@@ -1,16 +1,18 @@
 
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { MetadataRepresentationType } from '@dspace/core/shared/metadata-representation/metadata-representation.model';
 import { VALUE_LIST_BROWSE_DEFINITION } from '@dspace/core/shared/value-list-browse-definition.resource-type';
 
-import { MetadataRepresentationType } from '../../../../core/shared/metadata-representation/metadata-representation.model';
 import { metadataRepresentationComponent } from '../../../metadata-representation/metadata-representation.decorator';
+import { NormalizeLanguageCodePipe } from '../../../utils/normalize-language-code.pipe';
 import { MetadataRepresentationListElementComponent } from '../metadata-representation-list-element.component';
 
 @Component({
   selector: 'ds-plain-text-metadata-list-element',
   templateUrl: './plain-text-metadata-list-element.component.html',
   imports: [
+    NormalizeLanguageCodePipe,
     RouterLink,
   ],
 })

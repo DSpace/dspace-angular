@@ -1,4 +1,7 @@
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  NgClass,
+} from '@angular/common';
 import {
   Component,
   Inject,
@@ -66,6 +69,7 @@ import { renderAuthMethodFor } from '../log-in.methods-decorator';
     BrowserOnlyPipe,
     BtnDisabledDirective,
     FormsModule,
+    NgClass,
     ReactiveFormsModule,
     RouterLink,
     TranslateModule,
@@ -125,6 +129,11 @@ export class LogInPasswordComponent implements OnInit {
    */
   canShowDivider$: Observable<boolean>;
 
+  /**
+   * Has password visibility.
+   * @type {boolean}
+   */
+  public showPassword = false;
 
   constructor(
     @Inject('authMethodProvider') public injectedAuthMethodModel: AuthMethod,
@@ -143,7 +152,6 @@ export class LogInPasswordComponent implements OnInit {
    * @method ngOnInit
    */
   public ngOnInit() {
-
     // set formGroup
     this.form = this.formBuilder.group({
       email: ['', Validators.required],
@@ -189,6 +197,11 @@ export class LogInPasswordComponent implements OnInit {
   getForgotRoute() {
     return getForgotPasswordRoute();
   }
+
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
+  }
+
 
   /**
    * Reset error or message.

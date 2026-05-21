@@ -19,6 +19,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
 import { BitstreamFormatDataService } from '@dspace/core/data/bitstream-format-data.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
 import { PrimaryBitstreamService } from '@dspace/core/data/primary-bitstream.service';
 import {
   INotification,
@@ -31,6 +32,7 @@ import { BitstreamFormat } from '@dspace/core/shared/bitstream-format.model';
 import { BitstreamFormatSupportLevel } from '@dspace/core/shared/bitstream-format-support-level';
 import { Item } from '@dspace/core/shared/item.model';
 import { MetadataValueFilter } from '@dspace/core/shared/metadata.models';
+import { AuthorizationDataServiceStub } from '@dspace/core/testing/authorization-service.stub';
 import { createPaginatedList } from '@dspace/core/testing/utils.test';
 import {
   createSuccessfulRemoteDataObject,
@@ -126,6 +128,7 @@ describe('EditBitstreamPageComponent', () => {
 
     bitstreamFormatService = jasmine.createSpyObj('bitstreamFormatService', {
       findAll: createSuccessfulRemoteDataObject$(createPaginatedList(allFormats)),
+      findByHref: createSuccessfulRemoteDataObject$(selectedFormat),
     });
 
     notificationsService = jasmine.createSpyObj('notificationsService',
@@ -161,6 +164,7 @@ describe('EditBitstreamPageComponent', () => {
   });
 
   describe('EditBitstreamPageComponent no IIIF fields', () => {
+    const dsoNameServiceReturnValue = 'ORIGINAL';
 
     beforeEach(waitForAsync(() => {
       bundle = {
@@ -176,7 +180,6 @@ describe('EditBitstreamPageComponent', () => {
           },
         })),
       };
-      const bundleName = 'ORIGINAL';
 
       bitstream = Object.assign(new Bitstream(), {
         uuid: bitstreamID,
@@ -196,6 +199,7 @@ describe('EditBitstreamPageComponent', () => {
         format: createSuccessfulRemoteDataObject$(selectedFormat),
         _links: {
           self: 'bitstream-selflink',
+          format: 'format-link',
         },
         bundle: createSuccessfulRemoteDataObject$(bundle),
       });
@@ -209,9 +213,10 @@ describe('EditBitstreamPageComponent', () => {
       });
       bitstreamFormatService = jasmine.createSpyObj('bitstreamFormatService', {
         findAll: createSuccessfulRemoteDataObject$(createPaginatedList(allFormats)),
+        findByHref: createSuccessfulRemoteDataObject$(selectedFormat),
       });
       dsoNameService = jasmine.createSpyObj('dsoNameService', {
-        getName: bundleName,
+        getName: dsoNameServiceReturnValue,
       });
 
       TestBed.configureTestingModule({
@@ -231,6 +236,7 @@ describe('EditBitstreamPageComponent', () => {
           { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
           { provide: PrimaryBitstreamService, useValue: primaryBitstreamService },
           ChangeDetectorRef,
+          { provide: AuthorizationDataService, useClass: AuthorizationDataServiceStub },
         ],
         schemas: [NO_ERRORS_SCHEMA],
       }).compileComponents();
@@ -253,7 +259,7 @@ describe('EditBitstreamPageComponent', () => {
       });
 
       it('should fill in the bitstream\'s title', () => {
-        expect(rawForm.fileNamePrimaryContainer.fileName).toEqual(bitstream.name);
+        expect(rawForm.fileNamePrimaryContainer.fileName).toEqual(dsoNameServiceReturnValue);
       });
 
       it('should fill in the bitstream\'s description', () => {
@@ -432,7 +438,7 @@ describe('EditBitstreamPageComponent', () => {
     });
     describe('when navigateToItemEditBitstreams is called', () => {
       it('should redirect to the item edit page on the bitstreams tab with the itemId from the component', () => {
-        comp.itemId = 'some-uuid1';
+        comp.item.uuid = 'some-uuid1';
         comp.navigateToItemEditBitstreams();
         expect(router.navigate).toHaveBeenCalledWith([getEntityEditRoute(null, 'some-uuid1'), 'bitstreams']);
       });
@@ -481,6 +487,7 @@ describe('EditBitstreamPageComponent', () => {
         format: createSuccessfulRemoteDataObject$(allFormats[1]),
         _links: {
           self: 'bitstream-selflink',
+          format: 'format-link',
         },
         bundle: createSuccessfulRemoteDataObject$({
           _links: {
@@ -526,6 +533,7 @@ describe('EditBitstreamPageComponent', () => {
           { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
           { provide: PrimaryBitstreamService, useValue: primaryBitstreamService },
           ChangeDetectorRef,
+          { provide: AuthorizationDataService, useClass: AuthorizationDataServiceStub },
         ],
         schemas: [NO_ERRORS_SCHEMA],
       }).compileComponents();
@@ -605,7 +613,7 @@ describe('EditBitstreamPageComponent', () => {
         format: createSuccessfulRemoteDataObject$(allFormats[2]),
         _links: {
           self: 'bitstream-selflink',
-        },
+          format: 'format-link' },
         bundle: createSuccessfulRemoteDataObject$({
           _links: {
             primaryBitstream: {
@@ -649,6 +657,7 @@ describe('EditBitstreamPageComponent', () => {
           { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
           { provide: PrimaryBitstreamService, useValue: primaryBitstreamService },
           ChangeDetectorRef,
+          { provide: AuthorizationDataService, useClass: AuthorizationDataServiceStub },
         ],
         schemas: [NO_ERRORS_SCHEMA],
       }).compileComponents();
