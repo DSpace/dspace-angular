@@ -1,4 +1,4 @@
-{
+﻿{
   // "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
   "401.help": "Bejelentkezés szükséges az oldal eléréséhez. Az alábbi gombbal vissza tud lépni a főoldalra.",
 
@@ -9381,7 +9381,7 @@
   "workspace.search.results.head": "Beküldéseim",
 
   // "workflowAdmin.search.results.head": "Administer Workflow",
-  "workflowAdmin.search.results.head": "Munkafolyamatok adminisztrációja",
+  "workflowAdmin.search.results.head": "Munkafolyamat-adminisztráció",
 
   // "workflow.search.results.head": "Workflow tasks",
   "workflow.search.results.head": "Munkafolyamat-feladatok",
