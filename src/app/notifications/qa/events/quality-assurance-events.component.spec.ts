@@ -1,18 +1,18 @@
 import { CommonModule } from '@angular/common';
 import {
-  Component,
-  NO_ERRORS_SCHEMA,
+    Component,
+    NO_ERRORS_SCHEMA,
 } from '@angular/core';
 import {
-  ComponentFixture,
-  inject,
-  TestBed,
-  waitForAsync,
+    ComponentFixture,
+    inject,
+    TestBed,
+    waitForAsync,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import {
-  SortDirection,
-  SortOptions,
+    SortDirection,
+    SortOptions,
 } from '@dspace/core/cache/models/sort-options.model';
 import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
 import { FindListOptions } from '@dspace/core/data/find-list-options.model';
@@ -20,39 +20,39 @@ import { ItemDataService } from '@dspace/core/data/item-data.service';
 import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { QualityAssuranceEventDataService } from '@dspace/core/notifications/qa/events/quality-assurance-event-data.service';
-import { QualityAssuranceEventObject } from '@dspace/core/notifications/qa/models/quality-assurance-event.model';
 import { QualityAssuranceEventData } from '@dspace/core/notifications/qa/models/quality-assurance-event-data.model';
-import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import { QualityAssuranceEventObject } from '@dspace/core/notifications/qa/models/quality-assurance-event.model';
 import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
 import { followLink } from '@dspace/core/shared/follow-link-config.model';
 import { PageInfo } from '@dspace/core/shared/page-info.model';
 import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
-import {
-  getMockQualityAssuranceEventRestService,
-  ItemMockPid8,
-  ItemMockPid9,
-  ItemMockPid10,
-  NotificationsMockDspaceObject,
-  qualityAssuranceEventObjectMissingProjectFound,
-  qualityAssuranceEventObjectMissingProjectNotFound,
-} from '@dspace/core/testing/notifications.mock';
 import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';
+import {
+    getMockQualityAssuranceEventRestService,
+    ItemMockPid10,
+    ItemMockPid8,
+    ItemMockPid9,
+    NotificationsMockDspaceObject,
+    qualityAssuranceEventObjectMissingProjectFound,
+    qualityAssuranceEventObjectMissingProjectNotFound,
+} from '@dspace/core/testing/notifications.mock';
 import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
 import { getMockTranslateService } from '@dspace/core/testing/translate.service.mock';
 import { createTestComponent } from '@dspace/core/testing/utils.test';
 import {
-  createNoContentRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
+    createNoContentRemoteDataObject$,
+    createSuccessfulRemoteDataObject,
+    createSuccessfulRemoteDataObject$,
 } from '@dspace/core/utilities/remote-data.utils';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
-  TranslateModule,
-  TranslateService,
+    TranslateModule,
+    TranslateService,
 } from '@ngx-translate/core';
 import {
-  cold,
-  getTestScheduler,
+    cold,
+    getTestScheduler,
 } from 'jasmine-marbles';
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
@@ -197,26 +197,27 @@ describe('QualityAssuranceEventsComponent test suite', () => {
 
       it('should call executeAction if a project is present', () => {
         const action = 'ACCEPTED';
-        comp.modalChoice(action, getQualityAssuranceEventData1(), modalStub);
+        comp.modalChoice(action, getQualityAssuranceEventData1(), modalStub, 'acceptModal');
         expect(comp.executeAction).toHaveBeenCalledWith(action, getQualityAssuranceEventData1());
       });
 
       it('should call openModal if a project is not present', () => {
         const action = 'ACCEPTED';
-        comp.modalChoice(action, getQualityAssuranceEventData2(), modalStub);
-        expect(comp.openModal).toHaveBeenCalledWith(action, getQualityAssuranceEventData2(), modalStub);
+        comp.modalChoice(action, getQualityAssuranceEventData2(), modalStub, 'acceptModal');
+        expect(comp.openModal).toHaveBeenCalledWith(action, getQualityAssuranceEventData2(), modalStub, 'acceptModal');
       });
     });
 
     describe('openModal', () => {
       it('should call modalService.open', () => {
         const action = 'ACCEPTED';
+        const labelledBy = 'acceptModal';
         comp.selectedReason = null;
         spyOn(compAsAny.modalService, 'open').and.returnValue({ result: new Promise((res, rej) => 'do' ) });
         spyOn(comp, 'executeAction');
 
-        comp.openModal(action, getQualityAssuranceEventData1(), modalStub);
-        expect(compAsAny.modalService.open).toHaveBeenCalled();
+        comp.openModal(action, getQualityAssuranceEventData1(), modalStub, labelledBy);
+        expect(compAsAny.modalService.open).toHaveBeenCalledWith(modalStub, { ariaLabelledBy: labelledBy });
       });
     });
 

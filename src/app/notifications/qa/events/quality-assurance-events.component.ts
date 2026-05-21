@@ -1,16 +1,16 @@
 import { AsyncPipe } from '@angular/common';
 import {
-  Component,
-  OnDestroy,
-  OnInit,
+    Component,
+    OnDestroy,
+    OnInit,
 } from '@angular/core';
 import {
-  ActivatedRoute,
-  RouterLink,
+    ActivatedRoute,
+    RouterLink,
 } from '@angular/router';
 import {
-  SortDirection,
-  SortOptions,
+    SortDirection,
+    SortOptions,
 } from '@dspace/core/cache/models/sort-options.model';
 import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
@@ -20,13 +20,13 @@ import { PaginatedList } from '@dspace/core/data/paginated-list.model';
 import { RemoteData } from '@dspace/core/data/remote-data';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { QualityAssuranceEventDataService } from '@dspace/core/notifications/qa/events/quality-assurance-event-data.service';
-import {
-  QualityAssuranceEventObject,
-  SourceQualityAssuranceEventMessageObject,
-} from '@dspace/core/notifications/qa/models/quality-assurance-event.model';
 import { QualityAssuranceEventData } from '@dspace/core/notifications/qa/models/quality-assurance-event-data.model';
-import { PaginationService } from '@dspace/core/pagination/pagination.service';
+import {
+    QualityAssuranceEventObject,
+    SourceQualityAssuranceEventMessageObject,
+} from '@dspace/core/notifications/qa/models/quality-assurance-event.model';
 import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
 import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
 import { followLink } from '@dspace/core/shared/follow-link-config.model';
 import { Item } from '@dspace/core/shared/item.model';
@@ -34,35 +34,35 @@ import { Metadata } from '@dspace/core/shared/metadata.utils';
 import { NoContent } from '@dspace/core/shared/NoContent.model';
 import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
 import {
-  getFirstCompletedRemoteData,
-  getRemoteDataPayload,
+    getFirstCompletedRemoteData,
+    getRemoteDataPayload,
 } from '@dspace/core/shared/operators';
 import { hasValue } from '@dspace/shared/utils/empty.util';
 import {
-  NgbModal,
-  NgbTooltip,
+    NgbModal,
+    NgbTooltip,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
-  TranslateModule,
-  TranslateService,
+    TranslateModule,
+    TranslateService,
 } from '@ngx-translate/core';
 import {
-  BehaviorSubject,
-  combineLatest,
-  from,
-  Observable,
-  of,
-  Subscription,
+    BehaviorSubject,
+    combineLatest,
+    from,
+    Observable,
+    of,
+    Subscription,
 } from 'rxjs';
 import {
-  distinctUntilChanged,
-  last,
-  map,
-  mergeMap,
-  scan,
-  switchMap,
-  take,
-  tap,
+    distinctUntilChanged,
+    last,
+    map,
+    mergeMap,
+    scan,
+    switchMap,
+    take,
+    tap,
 } from 'rxjs/operators';
 
 import { environment } from '../../../../environments/environment';
@@ -278,11 +278,11 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
    * @param {any} content
    *    Reference to the modal
    */
-  public modalChoice(action: string, eventData: QualityAssuranceEventData, content: any): void {
+  public modalChoice(action: string, eventData: QualityAssuranceEventData, content: any, labelledBy: string): void {
     if (eventData.hasProject) {
       this.executeAction(action, eventData);
     } else {
-      this.openModal(action, eventData, content);
+      this.openModal(action, eventData, content, labelledBy);
     }
   }
 
@@ -296,8 +296,8 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
    * @param {any} content
    *    Reference to the modal
    */
-  public openModal(action: string, eventData: QualityAssuranceEventData, content: any): void {
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
+  public openModal(action: string, eventData: QualityAssuranceEventData, content: any, labelledBy: string): void {
+    this.modalService.open(content, { ariaLabelledBy: labelledBy }).result.then(
       (result) => {
         if (result === 'do') {
           eventData.reason = this.selectedReason;

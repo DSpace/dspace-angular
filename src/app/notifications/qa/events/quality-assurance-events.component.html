@@ -218,7 +218,7 @@
                                   ngbTooltip="{{'quality-assurance.event.action.import' | translate}}"
                                   container="body"
                                   [dsBtnDisabled]="eventElement.isRunning"
-                                  (click)="modalChoice('ACCEPTED', eventElement, acceptModal)"
+                                  (click)="modalChoice('ACCEPTED', eventElement, acceptModal, 'acceptModal')"
                                   [attr.aria-label]="'quality-assurance.event.action.import' | translate"
                                   >
                                   <i class="fas fa-check"></i>
@@ -240,7 +240,7 @@
                                 ngbTooltip="{{'quality-assurance.event.action.ignore' | translate}}"
                                 container="body"
                                 [dsBtnDisabled]="eventElement.isRunning"
-                                (click)="openModal('DISCARDED', eventElement, ignoreModal)"
+                                (click)="openModal('DISCARDED', eventElement, ignoreModal, 'ignoreModal')"
                                 [attr.aria-label]="'quality-assurance.event.action.ignore' | translate"
                                 >
                                 <i class="fas fa-ban"></i>
@@ -250,7 +250,7 @@
                                   ngbTooltip="{{'quality-assurance.event.action.reject' | translate}}"
                                   container="body"
                                   [dsBtnDisabled]="eventElement.isRunning"
-                                  (click)="openModal('REJECTED', eventElement, rejectModal)"
+                                  (click)="openModal('REJECTED', eventElement, rejectModal, 'rejectModal')"
                                   [attr.aria-label]="'quality-assurance.event.action.reject' | translate"
                                   >
                                   <i class="fas fa-trash-alt"></i>
@@ -262,7 +262,7 @@
                                   container="body"
                                   [dsBtnDisabled]="eventElement.isRunning"
                                   [attr.aria-label]="'quality-assurance.event.action.undo' | translate"
-                                  (click)="openModal('UNDO', eventElement, undoModal)">
+                                  (click)="openModal('UNDO', eventElement, undoModal, 'undoModal')">
                                   <i class="fas fa-trash-alt"></i>
                                 </button>
                               }
@@ -275,7 +275,7 @@
                                 container="body"
                                 [dsBtnDisabled]="eventElement.isRunning"
                                 [attr.aria-label]="'quality-assurance.event.action.undo' | translate"
-                                (click)="openModal('UNDO', eventElement, undoModal)">
+                                (click)="openModal('UNDO', eventElement, undoModal, 'undoModal')">
                                 <i class="fas fa-trash-alt"></i>
                               </button>
                             </div>
