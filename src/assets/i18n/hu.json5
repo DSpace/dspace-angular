@@ -27,7 +27,7 @@
   "500.link.home-page": "Vissza a főoldalra",
 
   // "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page.",
-  "404.help": "Nem találjuk a keresett oldalt. Az oldal áthelyezhetőre került vagy törölve lett. Az alábbi gombbal visszatérhet a főoldalra.",
+  "404.help": "Nem találjuk a keresett oldalt. Az oldal áthelyezésre kerülhetett vagy törölve lett. Az alábbi gombbal visszatérhet a főoldalra.",
 
   // "404.link.home-page": "Take me to the home page",
   "404.link.home-page": "Vissza a főoldalra",
@@ -357,7 +357,7 @@
   "admin.registries.schema.return": "Vissza",
 
   // "admin.registries.schema.title": "Metadata Schema Registry",
-  "admin.registries.schema.title": "Metaadat Séma Nyilvántartás",
+  "admin.registries.schema.title": "Metaadat séma nyilvántartás",
 
   // "admin.access-control.bulk-access.breadcrumbs": "Bulk Access Management",
   "admin.access-control.bulk-access.breadcrumbs": "Tömeges hozzáféréskezelés",
@@ -462,13 +462,13 @@
   "admin.access-control.epeople.table.edit.buttons.remove.modal.header": "\"{{ dsoName }}\" csoport törlése",
 
   // "admin.access-control.epeople.table.edit.buttons.remove.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\" and all its associated policies?",
-  "admin.access-control.epeople.table.edit.buttons.remove.modal.info": "Biztos benne, hogy törli a(z) \"{{ dsoName }}\" csoportot és a hozzá rendelt házirendeket?",
+  "admin.access-control.epeople.table.edit.buttons.remove.modal.info": "Biztosan törölni szeretné a(z) \"{{ dsoName }}\" csoportot és a hozzá rendelt házirendeket?",
 
   // "admin.access-control.epeople.table.edit.buttons.remove.modal.cancel": "Cancel",
   "admin.access-control.epeople.table.edit.buttons.remove.modal.cancel": "Mégse",
 
   // "admin.access-control.epeople.table.edit.buttons.remove.modal.confirm": "Delete",
-  "admin.access-control.epeople.table.edit.buttons.remove.modal.confirm": "Töröl",
+  "admin.access-control.epeople.table.edit.buttons.remove.modal.confirm": "Törlés",
 
   // "admin.access-control.epeople.no-items": "No EPeople to show.",
   "admin.access-control.epeople.no-items": "Nincsenek megjeleníthető felhasználók.",
@@ -2117,7 +2117,7 @@
   "collection.page.edit": "Gyűjtemény szerkesztése",
 
   // "collection.page.handle": "Permanent URI for this collection",
-  "collection.page.handle": "Állandó URI ehhez a gyűjteményhez",
+  "collection.page.handle": "Állandó gyűjteményhivatkozás",
 
   // "collection.page.license": "License",
   "collection.page.license": "Licenc",
@@ -2399,13 +2399,13 @@
   "comcol-role.edit.delete.modal.header": "\"{{ dsoName }}\" csoport törlése",
 
   // "comcol-role.edit.delete.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\" and all its associated policies?",
-  "comcol-role.edit.delete.modal.info": "Biztos benne, hogy törölni szeretné a(z) \"{{ dsoName }}\" csoportot és a hozzá rendelt házirendeket?",
+  "comcol-role.edit.delete.modal.info": "Biztosan törölni szeretné a(z) \"{{ dsoName }}\" csoportot és a hozzá rendelt házirendeket?",
 
   // "comcol-role.edit.delete.modal.cancel": "Cancel",
   "comcol-role.edit.delete.modal.cancel": "Mégse",
 
   // "comcol-role.edit.delete.modal.confirm": "Delete",
-  "comcol-role.edit.delete.modal.confirm": "Töröl",
+  "comcol-role.edit.delete.modal.confirm": "Törlés",
 
   // "comcol-role.edit.community-admin.name": "Administrators",
   "comcol-role.edit.community-admin.name": "Adminisztrátorok",
@@ -2426,7 +2426,7 @@
   "comcol-role.edit.submitters.description": "Azok a felhasználók és csoportok, akiknek engedélyük van új tételek beküldésére ebbe a gyűjteménybe.",
 
   // "comcol-role.edit.item_read.name": "Default item read access",
-  "comcol-role.edit.item_read.name": "Alapértelmezett téteolvasási hozzáférés",
+  "comcol-role.edit.item_read.name": "Alapértelmezett tételolvasási hozzáférés",
 
   // "comcol-role.edit.item_read.description": "E-People and Groups that can read new items submitted to this collection. Changes to this role are not retroactive. Existing items in the system will still be viewable by those who had read access at the time of their addition.",
   "comcol-role.edit.item_read.description": "Azok a felhasználók és csoportok, akik olvashatják az ebbe a gyűjteménybe beküldött új tételeket.\nEnnek a szerepkörnek a módosításai nem visszamenőlegesek. A rendszerben lévő meglévő tételek továbbra is megtekinthetők lesznek azok számára, akik a hozzáadásukkor olvasási hozzáféréssel rendelkeztek.",
@@ -2489,7 +2489,7 @@
   "community.page.edit": "Közösség szerkesztése",
 
   // "community.page.handle": "Permanent URI for this community",
-  "community.page.handle": "Állandó URI ehhez a közösséghez",
+  "community.page.handle": "Állandó közösségi hivatkozás",
 
   // "community.page.license": "License",
   "community.page.license": "Licenc",
@@ -2831,10 +2831,10 @@
   "dso-selector.results-could-not-be-retrieved": "Hiba történt, kérjük, frissítse újra ↻",
 
   // "supervision-group-selector.header": "Supervision Group Selector",
-  "supervision-group-selector.header": "Felügyeleti Csoport Kiválasztó",
+  "supervision-group-selector.header": "Felügyeleti csoport kiválasztása",
 
   // "supervision-group-selector.select.type-of-order.label": "Select a type of Order",
-  "supervision-group-selector.select.type-of-order.label": "Válasszon rendelési típust",
+  "supervision-group-selector.select.type-of-order.label": "Válasszon hozzárendelési típust",
 
   // "supervision-group-selector.select.type-of-order.option.none": "NONE",
   "supervision-group-selector.select.type-of-order.option.none": "NINCS",
@@ -2855,25 +2855,25 @@
   "supervision-group-selector.button.save": "Mentés",
 
   // "supervision-group-selector.select.type-of-order.error": "Please select a type of order",
-  "supervision-group-selector.select.type-of-order.error": "Kérjük válasszon rendelési típust.",
+  "supervision-group-selector.select.type-of-order.error": "Kérjük válasszon hozzárendelési típust.",
 
   // "supervision-group-selector.select.group.error": "Please select a group",
   "supervision-group-selector.select.group.error": "Kérjük válasszon csoportot.",
 
   // "supervision-group-selector.notification.create.success.title": "Successfully created supervision order for group {{ name }}",
-  "supervision-group-selector.notification.create.success.title": "Sikeresen létrehozott felügyeleti rendelés a(z) {{ name }} csoporthoz.",
+  "supervision-group-selector.notification.create.success.title": "Sikeresen létrehozott felügyeleti hozzárendelés a(z) {{ name }} csoporthoz.",
 
   // "supervision-group-selector.notification.create.failure.title": "Error",
   "supervision-group-selector.notification.create.failure.title": "Hiba",
 
   // "supervision-group-selector.notification.create.already-existing": "A supervision order already exists on this item for selected group",
-  "supervision-group-selector.notification.create.already-existing": "Ehhez a tételhez már létezik felügyeleti rendelés a kiválasztott csoporthoz.",
+  "supervision-group-selector.notification.create.already-existing": "Ehhez a tételhez már létezik felügyeleti hozzárendelés a kiválasztott csoporthoz.",
 
   // "confirmation-modal.export-metadata.header": "Export metadata for {{ dsoName }}",
-  "confirmation-modal.export-metadata.header": "Metaadatok exportálása ehhez: {{ dsoName }}",
+  "confirmation-modal.export-metadata.header": "{{ dsoName }} metaadatainak exportálása",
 
   // "confirmation-modal.export-metadata.info": "Are you sure you want to export metadata for {{ dsoName }}",
-  "confirmation-modal.export-metadata.info": "Biztosan exportálni szeretné a metaadatokat ehhez: {{ dsoName }}?",
+  "confirmation-modal.export-metadata.info": "Biztosan exportálni szeretné a(z) {{ dsoName }} metaadatait?",
 
   // "confirmation-modal.export-metadata.cancel": "Cancel",
   "confirmation-modal.export-metadata.cancel": "Mégse",
@@ -2882,10 +2882,10 @@
   "confirmation-modal.export-metadata.confirm": "Exportálás",
 
   // "confirmation-modal.export-batch.header": "Export batch (ZIP) for {{ dsoName }}",
-  "confirmation-modal.export-batch.header": "Csoportos export (ZIP) ehhez: {{ dsoName }}",
+  "confirmation-modal.export-batch.header": "{{ dsoName }} csoportos exportálása (ZIP)",
 
   // "confirmation-modal.export-batch.info": "Are you sure you want to export batch (ZIP) for {{ dsoName }}",
-  "confirmation-modal.export-batch.info": "Biztosan exportálni szeretné a csoportos (ZIP) fájlt ehhez: {{ dsoName }}?",
+  "confirmation-modal.export-batch.info": "Biztosan el szeretné indítani a(z) {{ dsoName }} csoportos (ZIP) exportálását?",
 
   // "confirmation-modal.export-batch.cancel": "Cancel",
   "confirmation-modal.export-batch.cancel": "Mégse",
@@ -3524,10 +3524,10 @@
   "home.title": "Főoldal",
 
   // "home.top-level-communities.head": "Communities in DSpace",
-  "home.top-level-communities.head": "Közösségek a DSpace-ben",
+  "home.top-level-communities.head": "Közösségek",
 
   // "home.top-level-communities.help": "Select a community to browse its collections.",
-  "home.top-level-communities.help": "Válasszon egy közösséget a gyűjteményeinek böngészéséhez.",
+  "home.top-level-communities.help": "Válasszon egy közösséget a benne lévő gyűjtemények böngészéséhez.",
 
   // "info.accessibility-settings.breadcrumbs": "Accessibility settings",
   "info.accessibility-settings.breadcrumbs": "Akadálymentességi beállítások",
@@ -3731,7 +3731,7 @@
   "item.edit.bitstreams.bundle.edit.buttons.upload": "Feltöltés",
 
   // "item.edit.bitstreams.bundle.displaying": "Currently displaying {{ amount }} bitstreams of {{ total }}.",
-  "item.edit.bitstreams.bundle.displaying": "Jelenleg {{ amount }} bitstream látható a(z) {{ total }}-ból/ből.",
+  "item.edit.bitstreams.bundle.displaying": "Jelenleg {{ amount }} / {{ total }} bitstream látható.",
 
   // "item.edit.bitstreams.bundle.load.all": "Load all ({{ total }})",
   "item.edit.bitstreams.bundle.load.all": "Összes betöltése ({{ total }})",
@@ -4529,10 +4529,10 @@
   "mydspace.qa-event-notification-info.check.button": "Megtekintés",
 
   // "workflow-item.search.result.delete-supervision.modal.header": "Delete Supervision Order",
-  "workflow-item.search.result.delete-supervision.modal.header": "Felügyeleti Rendelés Törlése",
+  "workflow-item.search.result.delete-supervision.modal.header": "Felügyeleti hozzárendelés törlése",
 
   // "workflow-item.search.result.delete-supervision.modal.info": "Are you sure you want to delete Supervision Order",
-  "workflow-item.search.result.delete-supervision.modal.info": "Biztosan törölni szeretné a Felügyeleti Rendelést?",
+  "workflow-item.search.result.delete-supervision.modal.info": "Biztosan törölni szeretné a felügyeleti hozzárendelést?",
 
   // "workflow-item.search.result.delete-supervision.modal.cancel": "Cancel",
   "workflow-item.search.result.delete-supervision.modal.cancel": "Mégse",
@@ -4541,10 +4541,10 @@
   "workflow-item.search.result.delete-supervision.modal.confirm": "Törlés",
 
   // "workflow-item.search.result.notification.deleted.success": "Successfully deleted supervision order \"{{name}}\"",
-  "workflow-item.search.result.notification.deleted.success": "A(z) \"{{name}}\" felügyeleti rendelés sikeresen törölve.",
+  "workflow-item.search.result.notification.deleted.success": "A(z) \"{{name}}\" felügyeleti hozzárendelés sikeresen törölve.",
 
   // "workflow-item.search.result.notification.deleted.failure": "Failed to delete supervision order \"{{name}}\"",
-  "workflow-item.search.result.notification.deleted.failure": "A(z) \"{{name}}\" felügyeleti rendelés törlése sikertelen.",
+  "workflow-item.search.result.notification.deleted.failure": "A(z) \"{{name}}\" felügyeleti hozzárendelés törlése sikertelen.",
 
   // "workflow-item.search.result.list.element.supervised-by": "Supervised by:",
   "workflow-item.search.result.list.element.supervised-by": "Felügyeli:",
@@ -4685,7 +4685,7 @@
   "item.page.relationships.RELATION.OrgUnit.rppublications": "Kutatói publikációk",
 
   // "item.page.relationships.RELATION.OrgUnit.people": "People",
-  "item.page.relationships.RELATION.OrgUnit.people": "Emberek",
+  "item.page.relationships.RELATION.OrgUnit.people": "Személyek",
 
   // "item.page.relationships.RELATION.OrgUnit.projects": "Projects",
   "item.page.relationships.RELATION.OrgUnit.projects": "Projektek",
@@ -5781,7 +5781,7 @@
   "mydspace.messages.subject-placeholder": "Tárgy...",
 
   // "mydspace.messages.submitter-help": "Select this option to send a message to controller.",
-  "mydspace.messages.submitter-help": "Válassza ezt az opciót üzenet küldéséhez a vezérlőnek.",
+  "mydspace.messages.submitter-help": "Válassza ezt az opciót üzenet küldéséhez a bírálónak.",
 
   // "mydspace.messages.title": "Messages",
   "mydspace.messages.title": "Üzenetek",
@@ -5799,7 +5799,7 @@
   "mydspace.new-submission-external-short": "Metaadat importálása",
 
   // "mydspace.results.head": "Your submissions",
-  "mydspace.results.head": "Beküldései",
+  "mydspace.results.head": "Beküldéseim",
 
   // "mydspace.results.no-abstract": "No Abstract",
   "mydspace.results.no-abstract": "Nincs absztrakt",
@@ -5832,7 +5832,7 @@
   "mydspace.show.workflow": "Munkafolyamat-feladatok",
 
   // "mydspace.show.workspace": "Your submissions",
-  "mydspace.show.workspace": "Beküldései",
+  "mydspace.show.workspace": "Beküldéseim",
 
   // "mydspace.show.otherWorkspace": "Shared Submissions",
   "mydspace.show.otherWorkspace": "Megosztott beküldések",
@@ -5979,10 +5979,10 @@
   "quality-assurance.table.actions": "Műveletek",
 
   // "quality-assurance.source-list.button.detail": "Show topics for {{param}}",
-  "quality-assurance.source-list.button.detail": "Témák megjelenítése ehhez: {{param}}",
+  "quality-assurance.source-list.button.detail": "{{param}} forrás részletei",
 
   // "quality-assurance.topics-list.button.detail": "Show suggestions for {{param}}",
-  "quality-assurance.topics-list.button.detail": "Javaslatok megjelenítése ehhez: {{param}}",
+  "quality-assurance.topics-list.button.detail": "{{param}} témakör részletei",
 
   // "quality-assurance.noTopics": "No topics found.",
   "quality-assurance.noTopics": "Nem található témakör.",
@@ -7224,7 +7224,7 @@
   "RELATION.OrgUnit.projects.search.results.head": "Projektek",
 
   // "RELATION.OrgUnit.people.search.results.head": "People",
-  "RELATION.OrgUnit.people.search.results.head": "Emberek",
+  "RELATION.OrgUnit.people.search.results.head": "Személyek",
 
   // "root.skip-to-content": "Skip to main content",
   "root.skip-to-content": "Ugrás a fő tartalomra",
@@ -7848,7 +7848,7 @@
   "statistics.title": "Statisztikák",
 
   // "statistics.header": "Statistics for {{ scope }}",
-  "statistics.header": "Statisztikák ehhez: {{ scope }}",
+  "statistics.header": "{{ scope }} statisztikái",
 
   // "statistics.breadcrumbs": "Statistics",
   "statistics.breadcrumbs": "Statisztikák",
@@ -9690,7 +9690,7 @@
   "person.page.orcid.sync-publications.disabled": "Letiltva",
 
   // "person.page.orcid.sync-queue.discard": "Discard the change and do not synchronize with the ORCID registry",
-  "person.page.orcid.sync-queue.discard": "Változtatás elvetése és ne szinkronizáljon az ORCID nyilvántartással.",
+  "person.page.orcid.sync-queue.discard": "Változtatás elvetése szinkronizálás nélkül az ORCID nyilvántartással.",
 
   // "person.page.orcid.sync-queue.discard.error": "The discarding of the ORCID queue record failed",
   "person.page.orcid.sync-queue.discard.error": "Az ORCID várólistarekord elvetése sikertelen.",
