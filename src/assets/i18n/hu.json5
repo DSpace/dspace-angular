@@ -5430,7 +5430,7 @@
   "login.form.new-user": "Új felhasználó? Regisztráljon.",
 
   // "login.form.oidc": "Log in with OIDC",
-  "login.form.oidc": "Bejelentkezés ORCID azonosítóval",
+  "login.form.oidc": "Bejelentkezés OIDC révén",
 
   // "login.form.orcid": "Log in with ORCID",
   "login.form.orcid": "Bejelentkezés ORCID azonosítóval",
@@ -5442,7 +5442,7 @@
   "login.form.saml": "Bejelentkezés SAML révén",
 
   // "login.form.shibboleth": "Log in with Shibboleth",
-  "login.form.shibboleth": "Bejelentkezés Shiboleth révén",
+  "login.form.shibboleth": "Bejelentkezés Shibboleth révén",
 
   // "login.form.submit": "Log in",
   "login.form.submit": "Bejelentkezés",
@@ -7701,7 +7701,7 @@
   "search.form.search_dspace": "Teljes repozitórium",
 
   // "search.form.scope.all": "All of DSpace",
-  "search.form.scope.all": "Egész DSpace",
+  "search.form.scope.all": "Teljes DSpace",
 
   // "search.results.head": "Search Results",
   "search.results.head": "Keresési eredmények",
