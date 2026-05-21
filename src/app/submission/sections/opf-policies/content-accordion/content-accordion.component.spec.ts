@@ -4,7 +4,7 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { SherpaDataResponse } from '@dspace/core/testing/section-sherpa-policies.service.mock';
+import { OpfDataResponse } from '@dspace/core/testing/section-opf-policies.service.mock';
 import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import {
@@ -40,7 +40,7 @@ describe('ContentAccordionComponent', () => {
     component = fixture.componentInstance;
     de = fixture.debugElement;
     component.isCollapsed = false;
-    component.version = SherpaDataResponse.sherpaResponse.journals[0].policies[0].permittedVersions[0];
+    component.version = OpfDataResponse.opfResponse.journals[0].policies[0].permittedVersions[0];
     fixture.detectChanges();
   });
 
@@ -49,13 +49,13 @@ describe('ContentAccordionComponent', () => {
   });
 
   it('should show 2 rows', () => {
-    component.version = SherpaDataResponse.sherpaResponse.journals[0].policies[0].permittedVersions[0];
+    component.version = OpfDataResponse.opfResponse.journals[0].policies[0].permittedVersions[0];
     fixture.detectChanges();
     expect(de.queryAll(By.css('.row')).length).toEqual(2);
   });
 
   it('should show 5 rows', () => {
-    component.version = SherpaDataResponse.sherpaResponse.journals[0].policies[0].permittedVersions[2];
+    component.version = OpfDataResponse.opfResponse.journals[0].policies[0].permittedVersions[2];
     fixture.detectChanges();
     expect(de.queryAll(By.css('.row')).length).toEqual(5);
   });

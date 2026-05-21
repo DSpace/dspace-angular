@@ -3,12 +3,14 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { VALUE_LIST_BROWSE_DEFINITION } from '@dspace/core/shared/value-list-browse-definition.resource-type';
 
+import { NormalizeLanguageCodePipe } from '../../../utils/normalize-language-code.pipe';
 import { MetadataRepresentationListElementComponent } from '../metadata-representation-list-element.component';
 
 @Component({
   selector: 'ds-browse-link-metadata-list-element',
   templateUrl: './browse-link-metadata-list-element.component.html',
   imports: [
+    NormalizeLanguageCodePipe,
     RouterLink,
   ],
 })
