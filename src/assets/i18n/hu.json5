@@ -1,12 +1,12 @@
 {
   // "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
-  "401.help": "Nincs jogosultsága az oldal eléréséhez. Az alábbi gombbal vissza tud lépni a főoldalra.",
+  "401.help": "Bejelentkezés szükséges az oldal eléréséhez. Az alábbi gombbal vissza tud lépni a főoldalra.",
 
   // "401.link.home-page": "Take me to the home page",
   "401.link.home-page": "Vissza a főoldalra",
 
   // "401.unauthorized": "Unauthorized",
-  "401.unauthorized": "Nincs jogosultsága",
+  "401.unauthorized": "Azonosítás szükséges",
 
   // "403.help": "You don't have permission to access this page. You can use the button below to get back to the home page.",
   "403.help": "Nincs jogosultsága az oldal eléréséhez. Az alábbi gombbal vissza tud lépni a főoldalra.",
@@ -15,7 +15,7 @@
   "403.link.home-page": "Vissza a főoldalra",
 
   // "403.forbidden": "Forbidden",
-  "403.forbidden": "Elérhetetlen",
+  "403.forbidden": "Hozzáférés megtagadva",
 
   // "500.page-internal-server-error": "Service unavailable",
   "500.page-internal-server-error": "A szolgáltatás nem elérhető",
@@ -36,10 +36,10 @@
   "404.page-not-found": "Az oldal nem található",
 
   // "error-page.description.401": "Unauthorized",
-  "error-page.description.401": "Jogosulatlan",
+  "error-page.description.401": "Azonosítás szükséges",
 
   // "error-page.description.403": "Forbidden",
-  "error-page.description.403": "Tiltott",
+  "error-page.description.403": "Hozzáférés megtagadva",
 
   // "error-page.description.500": "Service unavailable",
   "error-page.description.500": "A szolgáltatás nem elérhető",
@@ -8229,7 +8229,7 @@
   "submission.sections.describe.relationship-lookup.external-source.import-modal.head.arxiv": "Importálás arXiv-ről",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.ror": "Import from ROR",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.ror": "Importálás ROR-ból",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.ror": "Importálás a ROR rendszeréből",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.import": "Import",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.import": "Importálás",
