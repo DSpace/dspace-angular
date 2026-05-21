@@ -17,6 +17,7 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Group } from '../../../core/eperson/models/group.model';
+import { ActionType } from '../../../core/resource-policy/models/action-type.model';
 import { getGroupEditRoute } from '../../../access-control/access-control-routing-paths';
 import { GroupDataService } from '../../../core/eperson/group-data.service';
 
@@ -74,6 +75,20 @@ export class ResourcePolicyEntryComponent implements OnInit {
    */
   formatDate(date: string): string {
     return isNotEmpty(date) ? dateToString(stringToNgbDateStruct(date)) : '';
+  }
+
+  /**
+   * Returns the display label for the action type.
+   * Shows 'DELETE' instead of 'OBSOLETE (DELETE)' for better UX.
+   *
+   * @param action the ActionType value
+   * @return a string with the display label
+   */
+  getActionDisplayLabel(action: ActionType): string {
+    if (action === ActionType.DELETE) {
+      return 'DELETE';
+    }
+    return String(action);
   }
 
   /**
