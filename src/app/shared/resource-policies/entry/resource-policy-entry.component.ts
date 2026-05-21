@@ -21,6 +21,7 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+
 import { getGroupEditRoute } from '../../../access-control/access-control-routing-paths';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { RemoteData } from '../../../core/data/remote-data';
