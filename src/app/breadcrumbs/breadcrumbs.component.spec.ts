@@ -14,6 +14,7 @@ import {
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
+import { HostWindowService } from '../shared/host-window.service';
 import { VarDirective } from '../shared/utils/var.directive';
 import { BreadcrumbsComponent } from './breadcrumbs.component';
 import { BreadcrumbsService } from './breadcrumbs.service';
@@ -46,6 +47,10 @@ describe('BreadcrumbsComponent', () => {
       showBreadcrumbs$: of(true),
     } as BreadcrumbsService;
 
+    const hostWindowServiceMock = {
+      isUpTo: (width: number) => true,
+    };
+
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule.withRoutes([]),
@@ -60,8 +65,11 @@ describe('BreadcrumbsComponent', () => {
       ],
       providers: [
         { provide: BreadcrumbsService, useValue: breadcrumbsServiceMock },
+        { provide: HostWindowService, useValue: hostWindowServiceMock },
       ],
-    }).compileComponents();
+    });
+
+    TestBed.compileComponents();
 
     fixture = TestBed.createComponent(BreadcrumbsComponent);
     component = fixture.componentInstance;

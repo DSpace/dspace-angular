@@ -38,3 +38,18 @@ li.breadcrumb-item.active {
   display: block;
   content: quote("•") !important;
 }
+
+.breadcrumb-action {
+  font-size: 17px;
+  padding-right: 5px;
+  padding-bottom: 5px;
+}
+
+.breadcrumb-separator {
+  padding-right: 5px;
+  padding-left: 5px;
+}
+
+.dropdown-toggle::after {
+  display: none !important;
+}

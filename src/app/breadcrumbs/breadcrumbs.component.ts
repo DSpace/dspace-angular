@@ -2,13 +2,20 @@ import {
   AsyncPipe,
   NgTemplateOutlet,
 } from '@angular/common';
-import { Component } from '@angular/core';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Breadcrumb } from '@dspace/core/breadcrumbs/models/breadcrumb.model';
 import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
+import {
+  HostWindowService,
+  WidthCategory,
+} from '../shared/host-window.service';
 import { VarDirective } from '../shared/utils/var.directive';
 import { BreadcrumbsService } from './breadcrumbs.service';
 
@@ -28,7 +35,14 @@ import { BreadcrumbsService } from './breadcrumbs.service';
     VarDirective,
   ],
 })
-export class BreadcrumbsComponent {
+export class BreadcrumbsComponent implements OnInit {
+
+  public isMobile$: Observable<boolean>;
+
+  /**
+   * Observable of max mobile width
+  */
+  maxMobileWidth = WidthCategory.SM;
 
   /**
    * Observable of the list of breadcrumbs for this page
@@ -42,9 +56,14 @@ export class BreadcrumbsComponent {
 
   constructor(
     private breadcrumbsService: BreadcrumbsService,
+    public windowService: HostWindowService,
   ) {
     this.breadcrumbs$ = breadcrumbsService.breadcrumbs$;
     this.showBreadcrumbs$ = breadcrumbsService.showBreadcrumbs$;
+  }
+
+  ngOnInit(): void {
+    this.isMobile$ = this.windowService.isUpTo(this.maxMobileWidth);
   }
 
 }

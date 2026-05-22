@@ -29,6 +29,7 @@ import { MySimpleItemActionComponent } from '../item-page/edit-item-page/simple-
     QueryParamsDirectiveStub,
     RouterLinkDirectiveStub,
     BrowserOnlyMockPipe,
+    NgComponentOutletDirectiveStub,
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA,
