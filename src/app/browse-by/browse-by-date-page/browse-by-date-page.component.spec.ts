@@ -74,8 +74,8 @@ describe('BrowseByDatePageComponent', () => {
     findById: () => createSuccessfulRemoteDataObject$(mockCommunity)
   };
 
-  const activatedRouteStub = Object.assign(new ActivatedRouteStub(), {
-    params: observableOf({}),
+  const activatedRouteStub = Object.assign(new ActivatedRouteStub({ id: 'dateissued' }), {
+    params: observableOf({ id: 'dateissued' }),
     queryParams: observableOf({}),
     data: observableOf({ metadata: 'dateissued', metadataField: 'dc.date.issued' })
   });
@@ -110,9 +110,8 @@ describe('BrowseByDatePageComponent', () => {
     fixture = TestBed.createComponent(BrowseByDatePageComponent);
     const browseService = fixture.debugElement.injector.get(BrowseService);
     spyOn(browseService, 'getFirstItemFor')
-      // ok to expect the default browse as first param since we just need the mock items obtained via sort direction.
-      .withArgs('author', undefined, SortDirection.ASC).and.returnValue(createSuccessfulRemoteDataObject$(firstItem))
-      .withArgs('author', undefined, SortDirection.DESC).and.returnValue(createSuccessfulRemoteDataObject$(lastItem));
+      .withArgs('dateissued', undefined, SortDirection.ASC).and.returnValue(createSuccessfulRemoteDataObject$(firstItem))
+      .withArgs('dateissued', undefined, SortDirection.DESC).and.returnValue(createSuccessfulRemoteDataObject$(lastItem));
     comp = fixture.componentInstance;
     route = (comp as any).route;
     fixture.detectChanges();
