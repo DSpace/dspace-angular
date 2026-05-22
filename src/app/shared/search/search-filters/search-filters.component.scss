@@ -3,7 +3,11 @@
 
 :host {
   display: block;
-  max-height: 80vh;
+  overscroll-behavior: contain;
+}
+
+.filters-scrollable {
+  max-height: 60vh;
   overflow-y: auto;
   overscroll-behavior: contain;
 }
