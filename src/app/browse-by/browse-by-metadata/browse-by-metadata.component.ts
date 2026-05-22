@@ -137,16 +137,10 @@ export class BrowseByMetadataComponent implements OnInit, OnChanges, OnDestroy {
    * List of subscriptions
    */
   subs: Subscription[] = [];
-
-  /**
-   * The default browse id to resort to when none is provided
-   */
-  defaultBrowseId = 'author';
-
   /**
    * The current browse id
    */
-  browseId = this.defaultBrowseId;
+  browseId: string;
 
   /**
    * The type of StartsWith options to render
@@ -232,7 +226,7 @@ export class BrowseByMetadataComponent implements OnInit, OnChanges, OnDestroy {
         this.currentPagination$,
         this.currentSort$,
       ]).subscribe(([params, scope, currentPage, currentSort]: [Params, string, PaginationComponentOptions, SortOptions]) => {
-        this.browseId = params.id || this.defaultBrowseId;
+        this.browseId = params.id;
         this.authority = params.authority;
 
         if (typeof params.value === 'string') {
