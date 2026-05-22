@@ -71,6 +71,11 @@ export class Process implements CacheableObject {
   endTime: string;
 
   /**
+   * The heartbeat for this process
+   */
+  @autoserialize
+  heartbeat: string;
+  /**
    * The name of the script run by this process
    */
   @autoserialize
