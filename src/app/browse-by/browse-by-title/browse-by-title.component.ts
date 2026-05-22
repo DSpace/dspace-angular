@@ -73,7 +73,7 @@ export class BrowseByTitleComponent extends BrowseByMetadataComponent implements
         this.currentSort$,
       ]).subscribe(([params, scope, currentPage, currentSort]: [Params, string, PaginationComponentOptions, SortOptions]) => {
         this.startsWith = +params.startsWith || params.startsWith;
-        this.browseId = params.id || this.defaultBrowseId;
+        this.browseId = params.id;
         this.updatePageWithItems(browseParamsToOptions(params, scope, currentPage, currentSort, this.browseId, this.fetchThumbnails), undefined, undefined);
       }));
     this.updateStartsWithTextOptions();
