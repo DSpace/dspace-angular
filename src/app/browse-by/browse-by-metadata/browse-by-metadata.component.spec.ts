@@ -123,8 +123,8 @@ describe('BrowseByMetadataComponent', () => {
     findById: () => createSuccessfulRemoteDataObject$(mockCommunity),
   };
 
-  const activatedRouteStub = Object.assign(new ActivatedRouteStub(), {
-    params: observableOf({}),
+  const activatedRouteStub = Object.assign(new ActivatedRouteStub({ id: 'author' }), {
+    params: observableOf({ id: 'author' }),
   });
 
   paginationService = new PaginationServiceStub();
