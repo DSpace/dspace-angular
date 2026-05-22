@@ -9,7 +9,11 @@
       </div>
       <div class="w-100 d-flex justify-content-between">
         <div class="pl-4 align-self-center">
-          {{'item.qa-event-notification.check.notification-info' | translate : {num: source.totalEvents } }}
+          @if (source.totalEvents === 1) {
+            {{'item.qa-event-notification.check.notification-info.singular' | translate : {num: source.totalEvents } }}
+          } @else {
+            {{'item.qa-event-notification.check.notification-info.plural' | translate : {num: source.totalEvents } }}
+          }
         </div>
         <button [routerLink]="[ getQualityAssuranceRoute(), (source.id | dsSplit: ':')[0], 'target', item.id]"
                 [queryParams]="{ forward: true }"
