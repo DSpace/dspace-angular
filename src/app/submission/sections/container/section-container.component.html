@@ -7,7 +7,7 @@
       (panelChange)="sectionRef.sectionChange($event)" activeIds="{{ sectionData.id }}" [destroyOnHide]="false">
       <ngb-panel id="{{ sectionData.id }}" [type]="sectionRef.isInfo() ? 'info' : ''">
         <ng-template ngbPanelTitle class="d-flex">
-          <span [ngClass]="{ 'text-white' : sectionRef.isInfo()}" class="flex-grow-1 section-title" tabindex="0">{{
+          <span [ngClass]="{'text-info' : sectionRef.isInfo()}" class="flex-grow-1 section-title" tabindex="0">{{
             'submission.sections.'+sectionData.header | translate
           }}</span>
           <div class="d-inline-block">
@@ -30,7 +30,7 @@
               [attr.aria-label]="'submission.sections.status.valid.aria' | translate"></i>
             }
             @if (sectionRef.isInfo()) {
-              <i class="fas fa-info-circle me-3 text-white"
+              <i class="fas fa-info-circle me-3 text-info"
                 title="{{'submission.sections.status.info.title' | translate}}" role="img"
               [attr.aria-label]="'submission.sections.status.info.aria' | translate"></i>
             }
