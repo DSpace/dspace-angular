@@ -8,12 +8,14 @@ import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
 import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
 import { Item } from '@dspace/core/shared/item.model';
+import { MetadataValue } from '@dspace/core/shared/metadata.models';
 import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
 import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { ThemedThumbnailComponent } from '../../../../../thumbnail/themed-thumbnail.component';
 import { focusShadow } from '../../../../animations/focus';
+import { MetadataDirective } from '../../../../metadata.directive';
 import { ThemedBadgesComponent } from '../../../../object-collection/shared/badges/themed-badges.component';
 import { listableObjectComponent } from '../../../../object-collection/shared/listable-object/listable-object.decorator';
 import { TruncatableComponent } from '../../../../truncatable/truncatable.component';
@@ -30,6 +32,7 @@ import { SearchResultGridElementComponent } from '../../search-result-grid-eleme
   animations: [focusShadow],
   imports: [
     AsyncPipe,
+    MetadataDirective,
     RouterLink,
     ThemedBadgesComponent,
     ThemedThumbnailComponent,
@@ -47,7 +50,7 @@ export class ItemSearchResultGridElementComponent extends SearchResultGridElemen
    */
   itemPageRoute: string;
 
-  dsoTitle: string;
+  dsoTitle: MetadataValue;
 
   constructor(
     public dsoNameService: DSONameService,

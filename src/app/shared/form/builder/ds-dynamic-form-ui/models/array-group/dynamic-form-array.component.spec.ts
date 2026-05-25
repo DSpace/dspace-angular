@@ -167,4 +167,35 @@ describe('DsDynamicFormArrayComponent', () => {
     const arrayDiv = fixture.debugElement.query(By.css(`#${component.model.id}`));
     expect(arrayDiv.nativeElement.getAttribute('aria-labelledby')).toBe('label_' + component.model.id);
   });
+
+  describe('moveFormControlToPosition', () => {
+    it('should move form control from one position to another', () => {
+      const formArray = component.control as any;
+      const initialControls = formArray.controls.map((ctrl: any) => ctrl);
+      const movedControl = initialControls[1];
+
+      (component as any).moveFormControlToPosition(1, 3);
+
+      expect(formArray.at(3)).toBe(movedControl);
+      expect(formArray.length).toBe(5);
+    });
+
+    it('should preserve form control values after move', () => {
+      const formArray = component.control as any;
+
+      formArray.at(0).patchValue({ testFormRowArrayGroupInput: 'Author 1' });
+      formArray.at(1).patchValue({ testFormRowArrayGroupInput: 'Author 2' });
+      formArray.at(2).patchValue({ testFormRowArrayGroupInput: 'Author 3' });
+      formArray.at(3).patchValue({ testFormRowArrayGroupInput: 'Author 4' });
+      formArray.at(4).patchValue({ testFormRowArrayGroupInput: 'Author 5' });
+
+      (component as any).moveFormControlToPosition(1, 3);
+
+      expect(formArray.at(0).value.testFormRowArrayGroupInput).toBe('Author 1');
+      expect(formArray.at(1).value.testFormRowArrayGroupInput).toBe('Author 3');
+      expect(formArray.at(2).value.testFormRowArrayGroupInput).toBe('Author 4');
+      expect(formArray.at(3).value.testFormRowArrayGroupInput).toBe('Author 2');
+      expect(formArray.at(4).value.testFormRowArrayGroupInput).toBe('Author 5');
+    });
+  });
 });

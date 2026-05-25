@@ -1,14 +1,14 @@
 <div class="container">
-  <h2>{{ 'info.accessibility-settings.title' | translate }}</h2>
+  <h1>{{ 'info.accessibility-settings.title' | translate }}</h1>
 
   <form>
     <div class="mb-3 row">
-      <label [for]="'disableNotificationTimeOutInput'" class="col-sm-4 col-form-label">
+      <span aria-hidden="true" class="col-sm-4 col-form-label">
         {{ 'info.accessibility-settings.disableNotificationTimeOut.label' | translate }}
-      </label>
+      </span>
 
       <div class="col-sm-4">
-        <ui-switch [id]="'disableNotificationTimeOutInput'"
+        <ui-switch [ariaLabel]="'info.accessibility-settings.disableNotificationTimeOut.label' | translate"
                    [(ngModel)]="formValues.notificationTimeOutEnabled"
                    [ngModelOptions]="{ standalone: true }"
         ></ui-switch>
@@ -33,8 +33,7 @@
           [ngClass]="{'is-invalid': !settingsService.isValid('notificationTimeOut', formValues)}"
           [min]="1"
           [readOnly]="!formValues.notificationTimeOutEnabled"
-          [(ngModel)]="formValues.notificationTimeOut" [ngModelOptions]="{ standalone: true }"
-          [attr.aria-describedby]="'notificationTimeOutHint'">
+          [(ngModel)]="formValues.notificationTimeOut" [ngModelOptions]="{ standalone: true }">
         <div class="invalid-feedback" [ngClass]="{ 'd-block': !settingsService.isValid('notificationTimeOut', formValues) }">
           {{ 'info.accessibility-settings.notificationTimeOut.invalid' | translate }}
         </div>
@@ -59,8 +58,7 @@
         <input [type]="'number'" [id]="'liveRegionTimeOutInput'" class="form-control"
           [ngClass]="{'is-invalid': !settingsService.isValid('liveRegionTimeOut', formValues)}"
           [min]="1"
-          [(ngModel)]="formValues.liveRegionTimeOut" [ngModelOptions]="{ standalone: true }"
-          [attr.aria-describedby]="'liveRegionTimeOutHint'">
+          [(ngModel)]="formValues.liveRegionTimeOut" [ngModelOptions]="{ standalone: true }">
         <div class="invalid-feedback" [ngClass]="{ 'd-block': !settingsService.isValid('liveRegionTimeOut', formValues) }">
           {{ 'info.accessibility-settings.liveRegionTimeOut.invalid' | translate }}
         </div>
