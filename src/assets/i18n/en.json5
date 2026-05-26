@@ -7852,6 +7852,16 @@
 
   "admin.edit-user-agreement.title": "Edit User Agreement",
 
+  "statistics.table.header.TotalVisits": "Object",
+
+  "statistics.table.header.TotalVisitsMonth": "Month",
+
+  "statistics.table.header.TotalDownloads": "Downloads",
+
+  "statistics.table.header.TopCities": "Cities",
+
+  "statistics.table.header.topCountries": "Countries",
+
   "bitstream.replace.page.title": "Replace File",
 
   "bitstream.replace.page.header": "Replace {{fileName}} ({{fileSize}})",
@@ -7889,4 +7899,5 @@
   "bitstream.related.isReplacedBy": "Is replaced by",
 
   "bitstream.related.deleted": "deleted",
+
 }

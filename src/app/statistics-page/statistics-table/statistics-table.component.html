@@ -7,7 +7,7 @@
     <table class="table table-striped" [attr.data-test]="report.reportType">
       <tbody>
         <tr>
-          <td></td>
+          <th scope="col">{{ objectHeaderLabel }}</th>
           @for (header of headers; track header) {
             <th scope="col"
               class="{{header}}-header">
@@ -18,9 +18,9 @@
         @for (point of report.points; track point) {
           <tr
             class="{{point.id}}-data">
-            <th scope="row" data-test="statistics-label">
+            <td data-test="statistics-label">
               {{ point.label }}
-            </th>
+            </td>
             @for (header of headers; track header) {
               <td
                 class="{{point.id}}-{{header}}-data">
