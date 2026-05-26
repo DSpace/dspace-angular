@@ -5664,6 +5664,9 @@
   "login.form.oidc": "OIDC ସହିତ ଲଗ୍ ଇନ୍ କରନ୍ତୁ",
 
   // "login.form.orcid": "Log in with ORCID",
+  "login.form.orcid": "ORCID ସହିତ ସାଇନ୍ ଇନ୍ କରନ୍ତୁ",
+
+  // "login.form.orcid": "Log in with ORCID",
   "login.form.orcid": "ORCID ସହିତ ଲଗ୍ ଇନ୍ କରନ୍ତୁ",
 
   // "login.form.password": "Password",

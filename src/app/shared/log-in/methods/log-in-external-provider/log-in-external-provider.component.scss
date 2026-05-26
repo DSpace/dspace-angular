@@ -1,0 +1,28 @@
+.btn-primary {
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  background-color: white;
+  color: black;
+  border: 1px #DFDFDF solid;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-primary:hover {
+  background-color: darken(white, 5%);
+}
+
+.btn-primary:active {
+  color: black;
+}
+
+.fa-orcid {
+  color: #A7CF36;
+  font-size: 32px;
+  margin-right: 10px;
+}
+
+span {
+  font-size: 18px;
+}

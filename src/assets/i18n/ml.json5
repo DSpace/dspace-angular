@@ -5663,7 +5663,7 @@
   "login.form.oidc": "OIDC ഉപയോഗിച്ച് ലോഗിൻ ചെയ്യുക",
 
   // "login.form.orcid": "Log in with ORCID",
-  "login.form.orcid": "ORCID ഉപയോഗിച്ച് ലോഗിൻ ചെയ്യുക",
+  "login.form.orcid": "ORCID ഉപയോഗിച്ച് സൈൻ ഇൻ ചെയ്യുക",
 
   // "login.form.password": "Password",
   "login.form.password": "പാസ്വേഡ്",
@@ -11941,6 +11941,5 @@
   // "admin.edit-user-agreement.title": "Edit User Agreement",
   // TODO New key - Add a translation
   "admin.edit-user-agreement.title": "Edit User Agreement",
-
 
 }
