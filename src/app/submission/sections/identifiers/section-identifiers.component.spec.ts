@@ -107,7 +107,6 @@ const identifierData: WorkspaceitemSectionIdentifiersObject = {
 const sectionObject: SectionDataObject = {
   config: 'https://dspace.org/api/config/submissionforms/identifiers',
   mandatory: true,
-  opened: true,
   data: identifierData,
   errorsToShow: [],
   serverValidationErrors: [],

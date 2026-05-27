@@ -41,4 +41,11 @@ export class ItemMetadataRepresentation extends Item implements MetadataRepresen
     return this.virtualMetadata.value;
   }
 
+  /**
+   * Get the language of the value to display
+   */
+  getLanguage(): string {
+    return this.virtualMetadata.language || null;
+  }
+
 }

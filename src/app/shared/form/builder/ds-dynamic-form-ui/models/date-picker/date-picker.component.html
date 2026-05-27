@@ -2,12 +2,12 @@
   <fieldset class="d-flex justify-content-start flex-wrap gap-2">
     @if (!model.repeatable) {
       <legend [id]="'legend_' + model.id" [ngClass]="[getClass('element', 'label'), getClass('grid', 'label')]">
-        {{ model.placeholder }}
+        {{model.label}}
         @if (model.required) {
           <span>*</span>
         }
-      </legend>
-    }
+    </legend>
+  }
   <ds-number-picker
     tabindex="0"
     [id]="model.id + '_year'"
@@ -19,7 +19,7 @@
     [(ngModel)]="initialYear"
     [value]="year"
     [invalid]="showErrorMessages"
-    [placeholder]="'form.date-picker.placeholder.year' | translate"
+    [placeholder]="'form.date-picker.placeholder.year'"
     [widthClass]="'four-digits'"
     (blur)="onBlur($event)"
     (change)="onChange($event)"
@@ -35,7 +35,7 @@
     [size]="2"
     [(ngModel)]="initialMonth"
     [value]="month"
-    [placeholder]="'form.date-picker.placeholder.month' | translate"
+    [placeholder]="'form.date-picker.placeholder.month'"
     [disabled]="!year || model.disabled"
     [widthClass]="'two-digits'"
     (blur)="onBlur($event)"
@@ -52,7 +52,7 @@
     [size]="2"
     [(ngModel)]="initialDay"
     [value]="day"
-    [placeholder]="'form.date-picker.placeholder.day' | translate"
+    [placeholder]="'form.date-picker.placeholder.day'"
     [disabled]="!month || model.disabled"
     [widthClass]="'two-digits'"
     (blur)="onBlur($event)"
