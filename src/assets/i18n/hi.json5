@@ -26,7 +26,8 @@
   // "500.link.home-page": "Take me to the home page",
   "500.link.home-page": "मुझे होम पेज पर ले चलें",
 
-  // "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page. ",
+  // "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page.",
+  // TODO Source message changed - Revise the translation
   "404.help": "हम उस पृष्ठ को नहीं ढूंढ सकते जिसे आप ढूंढ रहे हैं। पृष्ठ को स्थानांतरित या हटा दिया गया हो सकता है। आप नीचे दिए गए बटन का उपयोग करके होम पेज पर वापस जा सकते हैं।",
 
   // "404.link.home-page": "Take me to the home page",
@@ -1726,6 +1727,14 @@
   // "browse.title": "Browsing by {{ field }}{{ startsWith }} {{ value }}",
   "browse.title": "{{ field }}{{ startsWith }} {{ value }} द्वारा ब्राउज़ कर रहे हैं",
 
+  // "browse.taxonomy.show_next_results": "Show next results",
+  // TODO New key - Add a translation
+  "browse.taxonomy.show_next_results": "Show next results",
+
+  // "browse.taxonomy.show_previous_results": "Show previous results",
+  // TODO New key - Add a translation
+  "browse.taxonomy.show_previous_results": "Show previous results",
+
   // "browse.title.page": "Browsing by {{ field }} {{ value }}",
   "browse.title.page": "{{ field }} {{ value }} द्वारा ब्राउज़ कर रहे हैं",
 
@@ -2727,7 +2736,8 @@
   // "dso-selector.no-results": "No {{ type }} found",
   "dso-selector.no-results": "कोई {{ type }} नहीं मिला",
 
-  // "dso-selector.placeholder": "Search for a {{ type }}",
+  // "dso-selector.placeholder": "Search for {{ type }}",
+  // TODO Source message changed - Revise the translation
   "dso-selector.placeholder": "{{ type }} के लिए खोजें",
 
   // "dso-selector.placeholder.type.community": "community",
@@ -3210,6 +3220,18 @@
   // "form.number-picker.increment": "Increment {{field}}",
   "form.number-picker.increment": "{{field}} बढ़ाएं",
 
+  // "form.number-picker.label.Year": "Year",
+  // TODO New key - Add a translation
+  "form.number-picker.label.Year": "Year",
+
+  // "form.number-picker.label.Month": "Month",
+  // TODO New key - Add a translation
+  "form.number-picker.label.Month": "Month",
+
+  // "form.number-picker.label.Day": "Day",
+  // TODO New key - Add a translation
+  "form.number-picker.label.Day": "Day",
+
   // "form.repeatable.sort.tip": "Drop the item in the new position",
   "form.repeatable.sort.tip": "आइटम को नई स्थिति में छोड़ें",
 
@@ -3394,9 +3416,9 @@
   // TODO New key - Add a translation
   "info.accessibility-settings.disableNotificationTimeOut.label": "Automatically close notifications after time out",
 
-  // "info.accessibility-settings.disableNotificationTimeOut.hint": "When this toggle is activated, notifications will close automatically after the time out passes. When deactivated, notifications will remain open untill manually closed.",
+  // "info.accessibility-settings.disableNotificationTimeOut.hint": "When this toggle is activated, notifications will close automatically after the time out passes. When deactivated, notifications will remain open until manually closed.",
   // TODO New key - Add a translation
-  "info.accessibility-settings.disableNotificationTimeOut.hint": "When this toggle is activated, notifications will close automatically after the time out passes. When deactivated, notifications will remain open untill manually closed.",
+  "info.accessibility-settings.disableNotificationTimeOut.hint": "When this toggle is activated, notifications will close automatically after the time out passes. When deactivated, notifications will remain open until manually closed.",
 
   // "info.accessibility-settings.failed-notification": "Failed to save accessibility settings",
   // TODO New key - Add a translation
@@ -3618,7 +3640,8 @@
   // TODO New key - Add a translation
   "item.edit.bitstreams.bundle.name": "BUNDLE: {{ name }}",
 
-  // "item.edit.bitstreams.bundle.table.aria-label": "Bitstreams in the  {{ bundle }} Bundle",
+  // "item.edit.bitstreams.bundle.table.aria-label": "Bitstreams in the {{ bundle }} Bundle",
+  // TODO Source message changed - Revise the translation
   "item.edit.bitstreams.bundle.table.aria-label": "{{ bundle }} बंडल में बिटस्ट्रीम",
 
   // "item.edit.bitstreams.bundle.tooltip": "You can move a bitstream to a different page by dropping it on the page number.",
@@ -3844,6 +3867,14 @@
   // "item.edit.item-mapper.notifications.add.error.content": "Errors occurred for mapping of item to {{amount}} collections.",
   "item.edit.item-mapper.notifications.add.error.content": "{{amount}} संग्रहों में आइटम को मैप करने में त्रुटियां हुईं।",
 
+  // "item.edit.item-mapper.notifications.add.error.forbidden.head": "Permission denied",
+  // TODO New key - Add a translation
+  "item.edit.item-mapper.notifications.add.error.forbidden.head": "Permission denied",
+
+  // "item.edit.item-mapper.notifications.add.error.forbidden.content": "You do not have permission to map this item to a collection.",
+  // TODO New key - Add a translation
+  "item.edit.item-mapper.notifications.add.error.forbidden.content": "You do not have permission to map this item to a collection.",
+
   // "item.edit.item-mapper.notifications.add.error.head": "Mapping errors",
   "item.edit.item-mapper.notifications.add.error.head": "मैपिंग त्रुटियां",
 
@@ -3855,6 +3886,14 @@
 
   // "item.edit.item-mapper.notifications.remove.error.content": "Errors occurred for the removal of the mapping to {{amount}} collections.",
   "item.edit.item-mapper.notifications.remove.error.content": "{{amount}} संग्रहों के लिए मैपिंग हटाने में त्रुटियां हुईं।",
+
+  // "item.edit.item-mapper.notifications.remove.error.forbidden.head": "Permission denied",
+  // TODO New key - Add a translation
+  "item.edit.item-mapper.notifications.remove.error.forbidden.head": "Permission denied",
+
+  // "item.edit.item-mapper.notifications.remove.error.forbidden.content": "You do not have permission to remove this item from a collection.",
+  // TODO New key - Add a translation
+  "item.edit.item-mapper.notifications.remove.error.forbidden.content": "You do not have permission to remove this item from a collection.",
 
   // "item.edit.item-mapper.notifications.remove.error.head": "Removal of mapping errors",
   "item.edit.item-mapper.notifications.remove.error.head": "मैपिंग हटाने की त्रुटियां",
@@ -4169,7 +4208,8 @@
   // "item.edit.tabs.metadata.head": "Metadata",
   "item.edit.tabs.metadata.head": "मेटाडेटा",
 
-  // "item.edit.tabs.metadata.title": "Item Edit -  Metadata",
+  // "item.edit.tabs.metadata.title": "Item Edit - Metadata",
+  // TODO Source message changed - Revise the translation
   "item.edit.tabs.metadata.title": "आइटम संपादन - मेटाडेटा",
 
   // "item.edit.tabs.relationships.head": "Relationships",
@@ -4247,7 +4287,8 @@
   // "item.edit.tabs.status.labels.lastModified": "Last Modified",
   "item.edit.tabs.status.labels.lastModified": "अंतिम संशोधित",
 
-  // "item.edit.tabs.status.title": "Item Edit -  Status",
+  // "item.edit.tabs.status.title": "Item Edit - Status",
+  // TODO Source message changed - Revise the translation
   "item.edit.tabs.status.title": "आइटम संपादन - स्थिति",
 
   // "item.edit.tabs.versionhistory.head": "Version History",
@@ -4262,7 +4303,8 @@
   // "item.edit.tabs.view.head": "View Item",
   "item.edit.tabs.view.head": "आइटम देखें",
 
-  // "item.edit.tabs.view.title": "Item Edit -  View",
+  // "item.edit.tabs.view.title": "Item Edit - View",
+  // TODO Source message changed - Revise the translation
   "item.edit.tabs.view.title": "आइटम संपादन - देखें",
 
   // "item.edit.withdraw.cancel": "Cancel",
@@ -4380,14 +4422,24 @@
   // "item.truncatable-part.show-less": "Collapse",
   "item.truncatable-part.show-less": "संक्षेप करें",
 
-  // "item.qa-event-notification.check.notification-info": "There are {{num}} pending suggestions related to your account",
-  "item.qa-event-notification.check.notification-info": "आपके खाते से संबंधित {{num}} लंबित सुझाव हैं",
+  // "item.qa-event-notification.check.notification-info.singular": "There is {{num}} pending suggestion related to your account",
+  // TODO New key - Add a translation
+  "item.qa-event-notification.check.notification-info.singular": "There is {{num}} pending suggestion related to your account",
+
+  // "item.qa-event-notification.check.notification-info.plural": "There are {{num}} pending suggestions related to your account",
+  // TODO New key - Add a translation
+  "item.qa-event-notification.check.notification-info.plural": "There are {{num}} pending suggestions related to your account",
 
   // "item.qa-event-notification-info.check.button": "View",
   "item.qa-event-notification-info.check.button": "देखें",
 
-  // "mydspace.qa-event-notification.check.notification-info": "There are {{num}} pending suggestions related to your account",
-  "mydspace.qa-event-notification.check.notification-info": "आपके खाते से संबंधित {{num}} लंबित सुझाव हैं",
+  // "mydspace.qa-event-notification.check.notification-info.singular": "There is {{num}} pending suggestion related to your account",
+  // TODO New key - Add a translation
+  "mydspace.qa-event-notification.check.notification-info.singular": "There is {{num}} pending suggestion related to your account",
+
+  // "mydspace.qa-event-notification.check.notification-info.plural": "There are {{num}} pending suggestions related to your account",
+  // TODO New key - Add a translation
+  "mydspace.qa-event-notification.check.notification-info.plural": "There are {{num}} pending suggestions related to your account",
 
   // "mydspace.qa-event-notification-info.check.button": "View",
   "mydspace.qa-event-notification-info.check.button": "देखें",
@@ -4511,6 +4563,14 @@
 
   // "item.page.orcid.tooltip": "Open ORCID setting page",
   "item.page.orcid.tooltip": "ORCID सेटिंग पृष्ठ खोलें",
+
+  // "item.page.orcid-ico": "ORCID icon",
+  // TODO New key - Add a translation
+  "item.page.orcid-ico": "ORCID icon",
+
+  // "item.page.orcid-profile": "ORCID Profile",
+  // TODO New key - Add a translation
+  "item.page.orcid-profile": "ORCID Profile",
 
   // "item.page.person.search.title": "Articles by this author",
   "item.page.person.search.title": "इस लेखक द्वारा लेख",
@@ -6309,13 +6369,16 @@
   // "process.overview.unknown.user": "Unknown",
   "process.overview.unknown.user": "अज्ञात",
 
-  // "process.bulk.delete.error.head": "Error on deleteing process",
+  // "process.bulk.delete.error.head": "Error on deleting process",
+  // TODO Source message changed - Revise the translation
   "process.bulk.delete.error.head": "प्रक्रिया हटाने में त्रुटि",
 
-  // "process.bulk.delete.error.body": "The process with ID {{processId}} could not be deleted. The remaining processes will continue being deleted. ",
+  // "process.bulk.delete.error.body": "The process with ID {{processId}} could not be deleted. The remaining processes will continue being deleted.",
+  // TODO Source message changed - Revise the translation
   "process.bulk.delete.error.body": "आईडी {{processId}} वाली प्रक्रिया को हटाया नहीं जा सका। शेष प्रक्रियाएँ हटाई जाती रहेंगी।",
 
-  // "process.bulk.delete.success": "{{count}} process(es) have been succesfully deleted",
+  // "process.bulk.delete.success": "{{count}} process(es) have been successfully deleted",
+  // TODO Source message changed - Revise the translation
   "process.bulk.delete.success": "{{count}} प्रक्रिया(एँ) सफलतापूर्वक हटा दी गई हैं",
 
   // "profile.breadcrumbs": "Update Profile",
@@ -6931,7 +6994,8 @@
   // "resource-policies.form.eperson-group-list.select.btn": "Select",
   "resource-policies.form.eperson-group-list.select.btn": "चुनें",
 
-  // "resource-policies.form.eperson-group-list.tab.eperson": "Search for a ePerson",
+  // "resource-policies.form.eperson-group-list.tab.eperson": "Search for an ePerson",
+  // TODO Source message changed - Revise the translation
   "resource-policies.form.eperson-group-list.tab.eperson": "ePerson खोजें",
 
   // "resource-policies.form.eperson-group-list.tab.group": "Search for a group",
@@ -8850,7 +8914,8 @@
   // "submission.sections.sherpa.record.information.uri": "URI",
   "submission.sections.sherpa.record.information.uri": "URI",
 
-  // "submission.sections.sherpa.error.message": "There was an error retrieving sherpa informations",
+  // "submission.sections.sherpa.error.message": "There was an error retrieving sherpa information",
+  // TODO Source message changed - Revise the translation
   "submission.sections.sherpa.error.message": "शेरपा जानकारी प्राप्त करने में त्रुटि हुई",
 
   // "submission.submit.breadcrumbs": "New submission",
@@ -8922,7 +8987,8 @@
   // "submission.workflow.tasks.claimed.reject.submit": "Reject",
   "submission.workflow.tasks.claimed.reject.submit": "अस्वीकृत करें",
 
-  // "submission.workflow.tasks.claimed.reject_help": "If you have reviewed the item and found it is <strong>not</strong> suitable for inclusion in the collection, select \"Reject\".  You will then be asked to enter a message indicating why the item is unsuitable, and whether the submitter should change something and resubmit.",
+  // "submission.workflow.tasks.claimed.reject_help": "If you have reviewed the item and found it is <strong>not</strong> suitable for inclusion in the collection, select \"Reject\". You will then be asked to enter a message indicating why the item is unsuitable, and whether the submitter should change something and resubmit.",
+  // TODO Source message changed - Revise the translation
   "submission.workflow.tasks.claimed.reject_help": "यदि आपने आइटम की समीक्षा की है और पाया है कि यह संग्रह में शामिल करने के लिए उपयुक्त <strong>नहीं</strong> है, तो \"अस्वीकृत करें\" चुनें। आपको यह बताने के लिए एक संदेश दर्ज करने के लिए कहा जाएगा कि आइटम क्यों अनुपयुक्त है, और क्या सबमिटर को कुछ बदलना चाहिए और पुनः सबमिट करना चाहिए।",
 
   // "submission.workflow.tasks.claimed.return": "Return to pool",
@@ -10314,16 +10380,20 @@
   // "error.validation.coarnotify.invalidfilter": "Invalid filter, try to select another service or none.",
   "error.validation.coarnotify.invalidfilter": "अमान्य फ़िल्टर, कृपया दूसरी सेवा या कोई नहीं चुनें।",
 
-  // "request-status-alert-box.accepted": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> has been taken in charge.",
+  // "request-status-alert-box.accepted": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'>{{ serviceName }}</a> has been taken in charge.",
+  // TODO Source message changed - Revise the translation
   "request-status-alert-box.accepted": "अनुरोधित {{ offerType }} के लिए <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> को चार्ज में लिया गया है।",
 
-  // "request-status-alert-box.rejected": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> has been rejected.",
+  // "request-status-alert-box.rejected": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'>{{ serviceName }}</a> has been rejected.",
+  // TODO Source message changed - Revise the translation
   "request-status-alert-box.rejected": "अनुरोधित {{ offerType }} के लिए <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> को अस्वीकार कर दिया गया है।",
 
-  // "request-status-alert-box.tentative_rejected": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> has been tentatively rejected. Revisions are required",
+  // "request-status-alert-box.tentative_rejected": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'>{{ serviceName }}</a> has been tentatively rejected. Revisions are required",
+  // TODO Source message changed - Revise the translation
   "request-status-alert-box.tentative_rejected": "अनुरोधित {{ offerType }} के लिए <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> को अस्थायी रूप से अस्वीकार कर दिया गया है। संशोधन आवश्यक हैं",
 
-  // "request-status-alert-box.requested": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> is pending.",
+  // "request-status-alert-box.requested": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'>{{ serviceName }}</a> is pending.",
+  // TODO Source message changed - Revise the translation
   "request-status-alert-box.requested": "अनुरोधित {{ offerType }} के लिए <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> लंबित है।",
 
   // "ldn-service-button-mark-inbound-deletion": "Mark supported pattern for deletion",
@@ -10927,7 +10997,8 @@
   // "item.page.cc.license.title": "Creative Commons license",
   "item.page.cc.license.title": "क्रिएटिव कॉमन्स लाइसेंस",
 
-  // "item.page.cc.license.disclaimer": "Except where otherwised noted, this item's license is described as",
+  // "item.page.cc.license.disclaimer": "Except where otherwise noted, this item's license is described as",
+  // TODO Source message changed - Revise the translation
   "item.page.cc.license.disclaimer": "जहाँ अन्यथा उल्लेख नहीं किया गया है, इस आइटम का लाइसेंस इस प्रकार वर्णित है",
 
   // "browse.search-form.placeholder": "Search the repository",
@@ -10948,9 +11019,9 @@
   // "live-region.ordering.instructions": "Press spacebar to reorder {{ itemName }}.",
   "live-region.ordering.instructions": "{{ itemName }} को पुनः क्रमबद्ध करने के लिए स्पेसबार दबाएं।",
 
-  // "live-region.ordering.status": "{{ itemName }}, grabbed. Current position in list: {{ index }} of  {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
+  // "live-region.ordering.status": "{{ itemName }}, grabbed. Current position in list: {{ index }} of {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
   // TODO New key - Add a translation
-  "live-region.ordering.status": "{{ itemName }}, grabbed. Current position in list: {{ index }} of  {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
+  "live-region.ordering.status": "{{ itemName }}, grabbed. Current position in list: {{ index }} of {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
 
   // "live-region.ordering.moved": "{{ itemName }}, moved to position {{ index }} of {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
   "live-region.ordering.moved": "{{ itemName }}, स्थिति {{ index }} का {{ length }} पर स्थानांतरित। स्थिति बदलने के लिए ऊपर और नीचे तीर कुंजियों को दबाएं, छोड़ने के लिए स्पेसबार, रद्द करने के लिए एस्केप।",

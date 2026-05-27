@@ -26,7 +26,8 @@
   // "500.link.home-page": "Take me to the home page",
   "500.link.home-page": "আমাকে হোম পেজে নিয়ে যাও",
 
-  // "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page. ",
+  // "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page.",
+  // TODO Source message changed - Revise the translation
   "404.help": "আপনি যে পৃষ্ঠাটি খুঁজছেন তা আমরা খুঁজে পাচ্ছি না। পৃষ্ঠাটি সরানো বা মুছে ফেলা হতে পারে। আপনি হোম পেজে ফিরে যেতে নীচের বোতামটি ব্যবহার করতে পারেন।",
 
   // "404.link.home-page": "Take me to the home page",
@@ -1721,6 +1722,14 @@
   // "browse.title": "Browsing by {{ field }}{{ startsWith }} {{ value }}",
   "browse.title": "ব্রাউজিং {{collection}} এর {{field}} {{value}}",
 
+  // "browse.taxonomy.show_next_results": "Show next results",
+  // TODO New key - Add a translation
+  "browse.taxonomy.show_next_results": "Show next results",
+
+  // "browse.taxonomy.show_previous_results": "Show previous results",
+  // TODO New key - Add a translation
+  "browse.taxonomy.show_previous_results": "Show previous results",
+
   // "browse.title.page": "Browsing by {{ field }} {{ value }}",
   "browse.title.page": " {{ field }} {{ value }}",
 
@@ -2714,7 +2723,8 @@
   // "dso-selector.no-results": "No {{ type }} found",
   "dso-selector.no-results": "কোন {{type}} পাওয়া যায় নি",
 
-  // "dso-selector.placeholder": "Search for a {{ type }}",
+  // "dso-selector.placeholder": "Search for {{ type }}",
+  // TODO Source message changed - Revise the translation
   "dso-selector.placeholder": "একটি {{type}} এর জন্য অনুসন্ধান করুন",
 
   // "dso-selector.placeholder.type.community": "community",
@@ -3196,6 +3206,18 @@
   // "form.number-picker.increment": "Increment {{field}}",
   "form.number-picker.increment": "বৃদ্ধি {{field}}",
 
+  // "form.number-picker.label.Year": "Year",
+  // TODO New key - Add a translation
+  "form.number-picker.label.Year": "Year",
+
+  // "form.number-picker.label.Month": "Month",
+  // TODO New key - Add a translation
+  "form.number-picker.label.Month": "Month",
+
+  // "form.number-picker.label.Day": "Day",
+  // TODO New key - Add a translation
+  "form.number-picker.label.Day": "Day",
+
   // "form.repeatable.sort.tip": "Drop the item in the new position",
   "form.repeatable.sort.tip": "নতুন অবস্থানে আইটেম ড্রপ",
 
@@ -3380,7 +3402,8 @@
   // "info.accessibility-settings.disableNotificationTimeOut.label": "Automatically close notifications after time out",
   "info.accessibility-settings.disableNotificationTimeOut.label": "সময় শেষ হওয়ার পরে স্বয়ংক্রিয়ভাবে বিজ্ঞপ্তিগুলি বন্ধ করুন",
 
-  // "info.accessibility-settings.disableNotificationTimeOut.hint": "When this toggle is activated, notifications will close automatically after the time out passes. When deactivated, notifications will remain open untill manually closed.",
+  // "info.accessibility-settings.disableNotificationTimeOut.hint": "When this toggle is activated, notifications will close automatically after the time out passes. When deactivated, notifications will remain open until manually closed.",
+  // TODO Source message changed - Revise the translation
   "info.accessibility-settings.disableNotificationTimeOut.hint": "যখন এই টগলটি সক্রিয় করা হয়, সময় শেষ হয়ে যাওয়ার পরে বিজ্ঞপ্তিগুলি স্বয়ংক্রিয়ভাবে বন্ধ হয়ে যাবে৷ নিষ্ক্রিয় করা হলে, ম্যানুয়ালি বন্ধ না হওয়া পর্যন্ত বিজ্ঞপ্তিগুলি খোলা থাকবে৷",
 
   // "info.accessibility-settings.failed-notification": "Failed to save accessibility settings",
@@ -3588,7 +3611,8 @@
   // TODO New key - Add a translation
   "item.edit.bitstreams.bundle.name": "BUNDLE: {{ name }}",
 
-  // "item.edit.bitstreams.bundle.table.aria-label": "Bitstreams in the  {{ bundle }} Bundle",
+  // "item.edit.bitstreams.bundle.table.aria-label": "Bitstreams in the {{ bundle }} Bundle",
+  // TODO Source message changed - Revise the translation
   "item.edit.bitstreams.bundle.table.aria-label": "{{ bundle }} বান্ডেলে বিটস্ট্রিম",
 
   // "item.edit.bitstreams.bundle.tooltip": "You can move a bitstream to a different page by dropping it on the page number.",
@@ -3814,6 +3838,14 @@
   // "item.edit.item-mapper.notifications.add.error.content": "Errors occurred for mapping of item to {{amount}} collections.",
   "item.edit.item-mapper.notifications.add.error.content": "{{amount}} গুলি সংগ্রহের আইটেমটি সমন্নয়য়ের জন্য ত্রুটি ঘটেছে।",
 
+  // "item.edit.item-mapper.notifications.add.error.forbidden.head": "Permission denied",
+  // TODO New key - Add a translation
+  "item.edit.item-mapper.notifications.add.error.forbidden.head": "Permission denied",
+
+  // "item.edit.item-mapper.notifications.add.error.forbidden.content": "You do not have permission to map this item to a collection.",
+  // TODO New key - Add a translation
+  "item.edit.item-mapper.notifications.add.error.forbidden.content": "You do not have permission to map this item to a collection.",
+
   // "item.edit.item-mapper.notifications.add.error.head": "Mapping errors",
   "item.edit.item-mapper.notifications.add.error.head": "সমন্নয় ত্রুটি",
 
@@ -3825,6 +3857,14 @@
 
   // "item.edit.item-mapper.notifications.remove.error.content": "Errors occurred for the removal of the mapping to {{amount}} collections.",
   "item.edit.item-mapper.notifications.remove.error.content": "{{amount}} গুলি সংগ্রহের আইটেমটি সমন্নয়য়ের জন্য ত্রুটি ঘটেছে।",
+
+  // "item.edit.item-mapper.notifications.remove.error.forbidden.head": "Permission denied",
+  // TODO New key - Add a translation
+  "item.edit.item-mapper.notifications.remove.error.forbidden.head": "Permission denied",
+
+  // "item.edit.item-mapper.notifications.remove.error.forbidden.content": "You do not have permission to remove this item from a collection.",
+  // TODO New key - Add a translation
+  "item.edit.item-mapper.notifications.remove.error.forbidden.content": "You do not have permission to remove this item from a collection.",
 
   // "item.edit.item-mapper.notifications.remove.error.head": "Removal of mapping errors",
   "item.edit.item-mapper.notifications.remove.error.head": "সমন্নয় ত্রুটি অপসারণ",
@@ -4139,7 +4179,8 @@
   // "item.edit.tabs.metadata.head": "Metadata",
   "item.edit.tabs.metadata.head": "মেটাডেটা",
 
-  // "item.edit.tabs.metadata.title": "Item Edit -  Metadata",
+  // "item.edit.tabs.metadata.title": "Item Edit - Metadata",
+  // TODO Source message changed - Revise the translation
   "item.edit.tabs.metadata.title": "আইটেম সম্পাদনা - মেটাডাটা",
 
   // "item.edit.tabs.relationships.head": "Relationships",
@@ -4217,7 +4258,8 @@
   // "item.edit.tabs.status.labels.lastModified": "Last Modified",
   "item.edit.tabs.status.labels.lastModified": "সর্বশেষ পরিবর্তিত",
 
-  // "item.edit.tabs.status.title": "Item Edit -  Status",
+  // "item.edit.tabs.status.title": "Item Edit - Status",
+  // TODO Source message changed - Revise the translation
   "item.edit.tabs.status.title": "আইটেম সম্পাদনা - স্থিতি",
 
   // "item.edit.tabs.versionhistory.head": "Version History",
@@ -4232,7 +4274,8 @@
   // "item.edit.tabs.view.head": "View Item",
   "item.edit.tabs.view.head": "দেখুন আইটেম",
 
-  // "item.edit.tabs.view.title": "Item Edit -  View",
+  // "item.edit.tabs.view.title": "Item Edit - View",
+  // TODO Source message changed - Revise the translation
   "item.edit.tabs.view.title": "আইটেম সম্পাদনা - দেখুন",
 
   // "item.edit.withdraw.cancel": "Cancel",
@@ -4336,14 +4379,24 @@
   // "item.truncatable-part.show-less": "Collapse",
   "item.truncatable-part.show-less": "পতন",
 
-  // "item.qa-event-notification.check.notification-info": "There are {{num}} pending suggestions related to your account",
-  "item.qa-event-notification.check.notification-info": "আপনার অ্যাকাউন্ট সম্পর্কিত {{num}} মুলতুবি প্রস্তাবনা রয়েছে",
+  // "item.qa-event-notification.check.notification-info.singular": "There is {{num}} pending suggestion related to your account",
+  // TODO New key - Add a translation
+  "item.qa-event-notification.check.notification-info.singular": "There is {{num}} pending suggestion related to your account",
+
+  // "item.qa-event-notification.check.notification-info.plural": "There are {{num}} pending suggestions related to your account",
+  // TODO New key - Add a translation
+  "item.qa-event-notification.check.notification-info.plural": "There are {{num}} pending suggestions related to your account",
 
   // "item.qa-event-notification-info.check.button": "View",
   "item.qa-event-notification-info.check.button": "দেখুন",
 
-  // "mydspace.qa-event-notification.check.notification-info": "There are {{num}} pending suggestions related to your account",
-  "mydspace.qa-event-notification.check.notification-info": "আপনার অ্যাকাউন্ট সম্পর্কিত {{num}} মুলতুবি প্রস্তাবনা রয়েছে",
+  // "mydspace.qa-event-notification.check.notification-info.singular": "There is {{num}} pending suggestion related to your account",
+  // TODO New key - Add a translation
+  "mydspace.qa-event-notification.check.notification-info.singular": "There is {{num}} pending suggestion related to your account",
+
+  // "mydspace.qa-event-notification.check.notification-info.plural": "There are {{num}} pending suggestions related to your account",
+  // TODO New key - Add a translation
+  "mydspace.qa-event-notification.check.notification-info.plural": "There are {{num}} pending suggestions related to your account",
 
   // "mydspace.qa-event-notification-info.check.button": "View",
   "mydspace.qa-event-notification-info.check.button": "দেখুন",
@@ -4467,6 +4520,14 @@
   // "item.page.orcid.tooltip": "Open ORCID setting page",
   "item.page.orcid.tooltip": "ORCID সেটিং পৃষ্ঠা খুলুন",
 
+  // "item.page.orcid-ico": "ORCID icon",
+  // TODO New key - Add a translation
+  "item.page.orcid-ico": "ORCID icon",
+
+  // "item.page.orcid-profile": "ORCID Profile",
+  // TODO New key - Add a translation
+  "item.page.orcid-profile": "ORCID Profile",
+
   // "item.page.person.search.title": "Articles by this author",
   "item.page.person.search.title": "এই লেখক দ্বারা প্রবন্ধ",
 
@@ -4546,8 +4607,8 @@
   "item.preview.dc.date.issued": "Published date:",
 
   // "item.preview.dc.description": "Description:",
-  // TODO New key - Add a translation
-  "item.preview.dc.description": "Description:",
+  // TODO Source message changed - Revise the translation
+  "item.preview.dc.description": "বর্ণনা:",
 
   // "item.preview.dc.description.abstract": "Abstract:",
   // TODO New key - Add a translation
@@ -6264,13 +6325,16 @@
   // "process.overview.unknown.user": "Unknown",
   "process.overview.unknown.user": "অজানা",
 
-  // "process.bulk.delete.error.head": "Error on deleteing process",
+  // "process.bulk.delete.error.head": "Error on deleting process",
+  // TODO Source message changed - Revise the translation
   "process.bulk.delete.error.head": "মোছার প্রক্রিয়াতে ত্রুটি",
 
-  // "process.bulk.delete.error.body": "The process with ID {{processId}} could not be deleted. The remaining processes will continue being deleted. ",
+  // "process.bulk.delete.error.body": "The process with ID {{processId}} could not be deleted. The remaining processes will continue being deleted.",
+  // TODO Source message changed - Revise the translation
   "process.bulk.delete.error.body": "আইডি {{processId}} সহ প্রক্রিয়াটি মুছে ফেলা যায়নি৷ অবশিষ্ট প্রক্রিয়া মুছে ফেলা অব্যাহত থাকবে। ",
 
-  // "process.bulk.delete.success": "{{count}} process(es) have been succesfully deleted",
+  // "process.bulk.delete.success": "{{count}} process(es) have been successfully deleted",
+  // TODO Source message changed - Revise the translation
   "process.bulk.delete.success": "{{count}} প্রক্রিয়া(গুলি) সফলভাবে মুছে ফেলা হয়েছে",
 
   // "profile.breadcrumbs": "Update Profile",
@@ -6857,7 +6921,8 @@
   // "resource-policies.form.eperson-group-list.select.btn": "Select",
   "resource-policies.form.eperson-group-list.select.btn": "নির্বাচন করুন",
 
-  // "resource-policies.form.eperson-group-list.tab.eperson": "Search for a ePerson",
+  // "resource-policies.form.eperson-group-list.tab.eperson": "Search for an ePerson",
+  // TODO Source message changed - Revise the translation
   "resource-policies.form.eperson-group-list.tab.eperson": "একটি ই-পারসনের জন্য অনুসন্ধান করুন",
 
   // "resource-policies.form.eperson-group-list.tab.group": "Search for a group",
@@ -8763,7 +8828,8 @@
   // "submission.sections.sherpa.record.information.uri": "URI",
   "submission.sections.sherpa.record.information.uri": "ইউআরআই",
 
-  // "submission.sections.sherpa.error.message": "There was an error retrieving sherpa informations",
+  // "submission.sections.sherpa.error.message": "There was an error retrieving sherpa information",
+  // TODO Source message changed - Revise the translation
   "submission.sections.sherpa.error.message": "শেরপা তথ্য পুনরুদ্ধার করার সময় একটি ত্রুটি হয়েছে",
 
   // "submission.submit.breadcrumbs": "New submission",
@@ -8835,7 +8901,8 @@
   // "submission.workflow.tasks.claimed.reject.submit": "Reject",
   "submission.workflow.tasks.claimed.reject.submit": "প্রত্যাখ্যান",
 
-  // "submission.workflow.tasks.claimed.reject_help": "If you have reviewed the item and found it is <strong>not</strong> suitable for inclusion in the collection, select \"Reject\".  You will then be asked to enter a message indicating why the item is unsuitable, and whether the submitter should change something and resubmit.",
+  // "submission.workflow.tasks.claimed.reject_help": "If you have reviewed the item and found it is <strong>not</strong> suitable for inclusion in the collection, select \"Reject\". You will then be asked to enter a message indicating why the item is unsuitable, and whether the submitter should change something and resubmit.",
+  // TODO Source message changed - Revise the translation
   "submission.workflow.tasks.claimed.reject_help": "যদি আপনি আইটেমটি পর্যালোচনা করেছেন এবং এটি খুঁজে পেয়েছেন এটি <strong> না </strong> সংগ্রহের অন্তর্ভুক্তির জন্য উপযুক্ত \"প্রত্যাখ্যান\"। তারপর আপনাকে একটি বার্তা প্রবেশ করতে বলা হবে যে আইটেমটি অনুপযুক্ত কেন এবং জমা দেওয়ার কিছু পরিবর্তন এবং পুনরায় জমা দিতে হবে কিনা।",
 
   // "submission.workflow.tasks.claimed.return": "Return to pool",
@@ -10227,16 +10294,20 @@
   // "error.validation.coarnotify.invalidfilter": "Invalid filter, try to select another service or none.",
   "error.validation.coarnotify.invalidfilter": "অবৈধ ফিল্টার, অন্য পরিষেবা নির্বাচন করার চেষ্টা করুন বা কোনটি নয়৷",
 
-  // "request-status-alert-box.accepted": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> has been taken in charge.",
+  // "request-status-alert-box.accepted": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'>{{ serviceName }}</a> has been taken in charge.",
+  // TODO Source message changed - Revise the translation
   "request-status-alert-box.accepted": "<a href='⟬PH1⟭' target='_blank'> {{ serviceName }} </a> এর জন্য অনুরোধ করা {{ offerType }} দায়িত্ব নেওয়া হয়েছে৷",
 
-  // "request-status-alert-box.rejected": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> has been rejected.",
+  // "request-status-alert-box.rejected": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'>{{ serviceName }}</a> has been rejected.",
+  // TODO Source message changed - Revise the translation
   "request-status-alert-box.rejected": "<a href='⟬PH1⟭' target='_blank'> {{ serviceName }} </a>-এর জন্য অনুরোধ করা {{ offerType }} প্রত্যাখ্যান করা হয়েছে৷",
 
-  // "request-status-alert-box.tentative_rejected": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> has been tentatively rejected. Revisions are required",
+  // "request-status-alert-box.tentative_rejected": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'>{{ serviceName }}</a> has been tentatively rejected. Revisions are required",
+  // TODO Source message changed - Revise the translation
   "request-status-alert-box.tentative_rejected": "<a href='⟬PH1⟭' target='_blank'> {{ serviceName }} </a>-এর জন্য অনুরোধ করা {{ offerType }} অস্থায়ীভাবে প্রত্যাখ্যান করা হয়েছে৷ রিভিশন প্রয়োজন",
 
-  // "request-status-alert-box.requested": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> is pending.",
+  // "request-status-alert-box.requested": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'>{{ serviceName }}</a> is pending.",
+  // TODO Source message changed - Revise the translation
   "request-status-alert-box.requested": "<a href='⟬PH1⟭' target='_blank'> {{ serviceName }} </a>-এর জন্য অনুরোধ করা {{ offerType }} মুলতুবি আছে।",
 
   // "ldn-service-button-mark-inbound-deletion": "Mark supported pattern for deletion",
@@ -10840,7 +10911,8 @@
   // "item.page.cc.license.title": "Creative Commons license",
   "item.page.cc.license.title": "Creative Commons লাইসেন্স",
 
-  // "item.page.cc.license.disclaimer": "Except where otherwised noted, this item's license is described as",
+  // "item.page.cc.license.disclaimer": "Except where otherwise noted, this item's license is described as",
+  // TODO Source message changed - Revise the translation
   "item.page.cc.license.disclaimer": "অন্যথায় উল্লেখ করা ব্যতীত, এই আইটেমটির লাইসেন্স হিসাবে বর্ণনা করা হয়েছে",
 
   // "browse.search-form.placeholder": "Search the repository",
@@ -10861,9 +10933,9 @@
   // "live-region.ordering.instructions": "Press spacebar to reorder {{ itemName }}.",
   "live-region.ordering.instructions": "{{ itemName }} পুনরায় সাজাতে স্পেসবার টিপুন।",
 
-  // "live-region.ordering.status": "{{ itemName }}, grabbed. Current position in list: {{ index }} of  {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
+  // "live-region.ordering.status": "{{ itemName }}, grabbed. Current position in list: {{ index }} of {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
   // TODO New key - Add a translation
-  "live-region.ordering.status": "{{ itemName }}, grabbed. Current position in list: {{ index }} of  {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
+  "live-region.ordering.status": "{{ itemName }}, grabbed. Current position in list: {{ index }} of {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
 
   // "live-region.ordering.moved": "{{ itemName }}, moved to position {{ index }} of {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
   "live-region.ordering.moved": "{{ itemName }}, {{ length }} এর {{ index }} অবস্থানে সরানো হয়েছে৷ অবস্থান পরিবর্তন করতে উপরের এবং নীচের তীর কী টিপুন, ড্রপ করতে স্পেসবার, বাতিল করতে Escape টিপুন।",

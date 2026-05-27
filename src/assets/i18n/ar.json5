@@ -26,7 +26,8 @@
   // "500.link.home-page": "Take me to the home page",
   "500.link.home-page": "اذهب إلى الصفحة الرئيسية",
 
-  // "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page. ",
+  // "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page.",
+  // TODO Source message changed - Revise the translation
   "404.help": "تعذر العثور على الصفحة التي تبحث عنها. ربما تمت إزالتها أو حذفها. يمكنك استخدام الزر أدناه للعودة إلى الصفحة الرئيسية.  ",
 
   // "404.link.home-page": "Take me to the home page",
@@ -1691,6 +1692,14 @@
   // "browse.title": "Browsing by {{ field }}{{ startsWith }} {{ value }}",
   "browse.title": "استعراض حسب {{ field }}{{ startsWith }} {{ value }}",
 
+  // "browse.taxonomy.show_next_results": "Show next results",
+  // TODO New key - Add a translation
+  "browse.taxonomy.show_next_results": "Show next results",
+
+  // "browse.taxonomy.show_previous_results": "Show previous results",
+  // TODO New key - Add a translation
+  "browse.taxonomy.show_previous_results": "Show previous results",
+
   // "browse.title.page": "Browsing by {{ field }} {{ value }}",
   "browse.title.page": "استعراض حسب {{ field }} {{ value }}",
 
@@ -2672,7 +2681,8 @@
   // "dso-selector.no-results": "No {{ type }} found",
   "dso-selector.no-results": "لم يتم العثور على {{ type }}",
 
-  // "dso-selector.placeholder": "Search for a {{ type }}",
+  // "dso-selector.placeholder": "Search for {{ type }}",
+  // TODO Source message changed - Revise the translation
   "dso-selector.placeholder": "بحث عن {{ type }}",
 
   // "dso-selector.placeholder.type.community": "community",
@@ -3149,6 +3159,18 @@
   // "form.number-picker.increment": "Increment {{field}}",
   "form.number-picker.increment": "زيادة {{field}}",
 
+  // "form.number-picker.label.Year": "Year",
+  // TODO New key - Add a translation
+  "form.number-picker.label.Year": "Year",
+
+  // "form.number-picker.label.Month": "Month",
+  // TODO New key - Add a translation
+  "form.number-picker.label.Month": "Month",
+
+  // "form.number-picker.label.Day": "Day",
+  // TODO New key - Add a translation
+  "form.number-picker.label.Day": "Day",
+
   // "form.repeatable.sort.tip": "Drop the item in the new position",
   "form.repeatable.sort.tip": "قم بإسقاط المادة في الموضع الجديد",
 
@@ -3329,7 +3351,8 @@
   // "info.accessibility-settings.disableNotificationTimeOut.label": "Automatically close notifications after time out",
   "info.accessibility-settings.disableNotificationTimeOut.label": "إغلاق الإشعارات تلقائيًا بعد انتهاء المهلة",
 
-  // "info.accessibility-settings.disableNotificationTimeOut.hint": "When this toggle is activated, notifications will close automatically after the time out passes. When deactivated, notifications will remain open untill manually closed.",
+  // "info.accessibility-settings.disableNotificationTimeOut.hint": "When this toggle is activated, notifications will close automatically after the time out passes. When deactivated, notifications will remain open until manually closed.",
+  // TODO Source message changed - Revise the translation
   "info.accessibility-settings.disableNotificationTimeOut.hint": "عند تفعيل هذا التبديل، ستُغلق الإشعارات تلقائيًا بعد انتهاء المهلة. عند تعطيله، ستظل الإشعارات مفتوحة حتى يتم إغلاقها يدويًا.",
 
   // "info.accessibility-settings.failed-notification": "Failed to save accessibility settings",
@@ -3533,7 +3556,8 @@
   // "item.edit.bitstreams.bundle.name": "BUNDLE: {{ name }}",
   "item.edit.bitstreams.bundle.name": "الحزمة: {{ name }}",
 
-  // "item.edit.bitstreams.bundle.table.aria-label": "Bitstreams in the  {{ bundle }} Bundle",
+  // "item.edit.bitstreams.bundle.table.aria-label": "Bitstreams in the {{ bundle }} Bundle",
+  // TODO Source message changed - Revise the translation
   "item.edit.bitstreams.bundle.table.aria-label": "تدفقات البت في الحزمة {{ bundle }}",
 
   // "item.edit.bitstreams.bundle.tooltip": "You can move a bitstream to a different page by dropping it on the page number.",
@@ -3755,6 +3779,14 @@
   // "item.edit.item-mapper.notifications.add.error.content": "Errors occurred for mapping of item to {{amount}} collections.",
   "item.edit.item-mapper.notifications.add.error.content": "حدثت أخطاء أثناء تخطيط مادة إلى  {{amount}} حاوية.",
 
+  // "item.edit.item-mapper.notifications.add.error.forbidden.head": "Permission denied",
+  // TODO New key - Add a translation
+  "item.edit.item-mapper.notifications.add.error.forbidden.head": "Permission denied",
+
+  // "item.edit.item-mapper.notifications.add.error.forbidden.content": "You do not have permission to map this item to a collection.",
+  // TODO New key - Add a translation
+  "item.edit.item-mapper.notifications.add.error.forbidden.content": "You do not have permission to map this item to a collection.",
+
   // "item.edit.item-mapper.notifications.add.error.head": "Mapping errors",
   "item.edit.item-mapper.notifications.add.error.head": "أخطاء التخطيط",
 
@@ -3766,6 +3798,14 @@
 
   // "item.edit.item-mapper.notifications.remove.error.content": "Errors occurred for the removal of the mapping to {{amount}} collections.",
   "item.edit.item-mapper.notifications.remove.error.content": "حدثت أخطاء أثناء إزالة التخطيط إلى {{amount}} حاوية.",
+
+  // "item.edit.item-mapper.notifications.remove.error.forbidden.head": "Permission denied",
+  // TODO New key - Add a translation
+  "item.edit.item-mapper.notifications.remove.error.forbidden.head": "Permission denied",
+
+  // "item.edit.item-mapper.notifications.remove.error.forbidden.content": "You do not have permission to remove this item from a collection.",
+  // TODO New key - Add a translation
+  "item.edit.item-mapper.notifications.remove.error.forbidden.content": "You do not have permission to remove this item from a collection.",
 
   // "item.edit.item-mapper.notifications.remove.error.head": "Removal of mapping errors",
   "item.edit.item-mapper.notifications.remove.error.head": "أخطاء إزالة التخطيط",
@@ -4073,7 +4113,8 @@
   // "item.edit.tabs.metadata.head": "Metadata",
   "item.edit.tabs.metadata.head": "الميتاداتا",
 
-  // "item.edit.tabs.metadata.title": "Item Edit -  Metadata",
+  // "item.edit.tabs.metadata.title": "Item Edit - Metadata",
+  // TODO Source message changed - Revise the translation
   "item.edit.tabs.metadata.title": "تحرير المادة -  الميتاداتا",
 
   // "item.edit.tabs.relationships.head": "Relationships",
@@ -4151,7 +4192,8 @@
   // "item.edit.tabs.status.labels.lastModified": "Last Modified",
   "item.edit.tabs.status.labels.lastModified": "آخر تعديل",
 
-  // "item.edit.tabs.status.title": "Item Edit -  Status",
+  // "item.edit.tabs.status.title": "Item Edit - Status",
+  // TODO Source message changed - Revise the translation
   "item.edit.tabs.status.title": "تحرير المادة -  الحالة",
 
   // "item.edit.tabs.versionhistory.head": "Version History",
@@ -4166,7 +4208,8 @@
   // "item.edit.tabs.view.head": "View Item",
   "item.edit.tabs.view.head": "عرض المادة",
 
-  // "item.edit.tabs.view.title": "Item Edit -  View",
+  // "item.edit.tabs.view.title": "Item Edit - View",
+  // TODO Source message changed - Revise the translation
   "item.edit.tabs.view.title": "تحرير المادة -  عرض",
 
   // "item.edit.withdraw.cancel": "Cancel",
@@ -4268,14 +4311,24 @@
   // "item.truncatable-part.show-less": "Collapse",
   "item.truncatable-part.show-less": "طي",
 
-  // "item.qa-event-notification.check.notification-info": "There are {{num}} pending suggestions related to your account",
-  "item.qa-event-notification.check.notification-info": "هناك {{num}} اقتراحات قيد الانتظار مرتبطة بحسابك",
+  // "item.qa-event-notification.check.notification-info.singular": "There is {{num}} pending suggestion related to your account",
+  // TODO New key - Add a translation
+  "item.qa-event-notification.check.notification-info.singular": "There is {{num}} pending suggestion related to your account",
+
+  // "item.qa-event-notification.check.notification-info.plural": "There are {{num}} pending suggestions related to your account",
+  // TODO New key - Add a translation
+  "item.qa-event-notification.check.notification-info.plural": "There are {{num}} pending suggestions related to your account",
 
   // "item.qa-event-notification-info.check.button": "View",
   "item.qa-event-notification-info.check.button": "عرض",
 
-  // "mydspace.qa-event-notification.check.notification-info": "There are {{num}} pending suggestions related to your account",
-  "mydspace.qa-event-notification.check.notification-info": "هناك {{num}} اقتراحات قيد الانتظار مرتبطة بحسابك",
+  // "mydspace.qa-event-notification.check.notification-info.singular": "There is {{num}} pending suggestion related to your account",
+  // TODO New key - Add a translation
+  "mydspace.qa-event-notification.check.notification-info.singular": "There is {{num}} pending suggestion related to your account",
+
+  // "mydspace.qa-event-notification.check.notification-info.plural": "There are {{num}} pending suggestions related to your account",
+  // TODO New key - Add a translation
+  "mydspace.qa-event-notification.check.notification-info.plural": "There are {{num}} pending suggestions related to your account",
 
   // "mydspace.qa-event-notification-info.check.button": "View",
   "mydspace.qa-event-notification-info.check.button": "عرض",
@@ -4393,6 +4446,14 @@
 
   // "item.page.orcid.tooltip": "Open ORCID setting page",
   "item.page.orcid.tooltip": "فتح صفحة إعداد أوركيد",
+
+  // "item.page.orcid-ico": "ORCID icon",
+  // TODO New key - Add a translation
+  "item.page.orcid-ico": "ORCID icon",
+
+  // "item.page.orcid-profile": "ORCID Profile",
+  // TODO New key - Add a translation
+  "item.page.orcid-profile": "ORCID Profile",
 
   // "item.page.person.search.title": "Articles by this author",
   "item.page.person.search.title": "مقالات بواسطة هذا المؤلف",
@@ -6139,13 +6200,16 @@
   // "process.overview.unknown.user": "Unknown",
   "process.overview.unknown.user": "غير معروف",
 
-  // "process.bulk.delete.error.head": "Error on deleteing process",
+  // "process.bulk.delete.error.head": "Error on deleting process",
+  // TODO Source message changed - Revise the translation
   "process.bulk.delete.error.head": "خطأ في عملية الحذف",
 
-  // "process.bulk.delete.error.body": "The process with ID {{processId}} could not be deleted. The remaining processes will continue being deleted. ",
+  // "process.bulk.delete.error.body": "The process with ID {{processId}} could not be deleted. The remaining processes will continue being deleted.",
+  // TODO Source message changed - Revise the translation
   "process.bulk.delete.error.body": "لا يمكن حذف العملية ذات المعرف {{processId}}. وسيستمر حذف العمليات المتبقية. ",
 
-  // "process.bulk.delete.success": "{{count}} process(es) have been succesfully deleted",
+  // "process.bulk.delete.success": "{{count}} process(es) have been successfully deleted",
+  // TODO Source message changed - Revise the translation
   "process.bulk.delete.success": "تم حذف {{count}} عملية بنجاح",
 
   // "profile.breadcrumbs": "Update Profile",
@@ -6727,7 +6791,8 @@
   // "resource-policies.form.eperson-group-list.select.btn": "Select",
   "resource-policies.form.eperson-group-list.select.btn": "تحديد",
 
-  // "resource-policies.form.eperson-group-list.tab.eperson": "Search for a ePerson",
+  // "resource-policies.form.eperson-group-list.tab.eperson": "Search for an ePerson",
+  // TODO Source message changed - Revise the translation
   "resource-policies.form.eperson-group-list.tab.eperson": "بحث عن شخص إلكتروني",
 
   // "resource-policies.form.eperson-group-list.tab.group": "Search for a group",
@@ -8625,7 +8690,8 @@
   // "submission.sections.sherpa.record.information.uri": "URI",
   "submission.sections.sherpa.record.information.uri": "URI",
 
-  // "submission.sections.sherpa.error.message": "There was an error retrieving sherpa informations",
+  // "submission.sections.sherpa.error.message": "There was an error retrieving sherpa information",
+  // TODO Source message changed - Revise the translation
   "submission.sections.sherpa.error.message": "حدث خطأ أثناء استرداد معلومات شيربا",
 
   // "submission.submit.breadcrumbs": "New submission",
@@ -8697,7 +8763,8 @@
   // "submission.workflow.tasks.claimed.reject.submit": "Reject",
   "submission.workflow.tasks.claimed.reject.submit": "رفض",
 
-  // "submission.workflow.tasks.claimed.reject_help": "If you have reviewed the item and found it is <strong>not</strong> suitable for inclusion in the collection, select \"Reject\".  You will then be asked to enter a message indicating why the item is unsuitable, and whether the submitter should change something and resubmit.",
+  // "submission.workflow.tasks.claimed.reject_help": "If you have reviewed the item and found it is <strong>not</strong> suitable for inclusion in the collection, select \"Reject\". You will then be asked to enter a message indicating why the item is unsuitable, and whether the submitter should change something and resubmit.",
+  // TODO Source message changed - Revise the translation
   "submission.workflow.tasks.claimed.reject_help": "إذا قمت بمراجعة المادة ووجدتها <strong>غير</strong> ملائمة للإدراج في الحاوية، اختر \"رفض\". سيُطلب منك إدخال رسالة لتوضيح سبب عدم ملاءمة المادة، وما إذا كان يجب على المقدم إجراء بعض التغييرات وإعادة التقديم.",
 
   // "submission.workflow.tasks.claimed.return": "Return to pool",
@@ -10079,16 +10146,20 @@
   // "error.validation.coarnotify.invalidfilter": "Invalid filter, try to select another service or none.",
   "error.validation.coarnotify.invalidfilter": "مرشح غير صالح، حاول اختيار خدمة أخرى أو عدم اختيار أي خدمة.",
 
-  // "request-status-alert-box.accepted": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> has been taken in charge.",
+  // "request-status-alert-box.accepted": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'>{{ serviceName }}</a> has been taken in charge.",
+  // TODO Source message changed - Revise the translation
   "request-status-alert-box.accepted": "تم استلام {{ offerType }} المطلوبة لـ <a href='{{serviceUrl}}' target='_blank'>{{ serviceName }}</a> ومعالجتها.",
 
-  // "request-status-alert-box.rejected": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> has been rejected.",
+  // "request-status-alert-box.rejected": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'>{{ serviceName }}</a> has been rejected.",
+  // TODO Source message changed - Revise the translation
   "request-status-alert-box.rejected": "تم رفض {{ offerType }} المطلوبة لـ <a href='{{serviceUrl}}' target='_blank'>{{ serviceName }}</a>.",
 
-  // "request-status-alert-box.tentative_rejected": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> has been tentatively rejected. Revisions are required",
+  // "request-status-alert-box.tentative_rejected": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'>{{ serviceName }}</a> has been tentatively rejected. Revisions are required",
+  // TODO Source message changed - Revise the translation
   "request-status-alert-box.tentative_rejected": "تم رفض {{ offerType }} المطلوبة لـ <a href='{{serviceUrl}}' target='_blank'>{{ serviceName }}</a> بشكل مبدئي. التعديلات مطلوبة",
 
-  // "request-status-alert-box.requested": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> is pending.",
+  // "request-status-alert-box.requested": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'>{{ serviceName }}</a> is pending.",
+  // TODO Source message changed - Revise the translation
   "request-status-alert-box.requested": "{{ offerType }} المطلوبة لـ <a href='{{serviceUrl}}' target='_blank'>{{ serviceName }}</a> قيد الانتظار.",
 
   // "ldn-service-button-mark-inbound-deletion": "Mark supported pattern for deletion",
@@ -10682,7 +10753,8 @@
   // "item.page.cc.license.title": "Creative Commons license",
   "item.page.cc.license.title": "ترخيص المشاع الإبداعي",
 
-  // "item.page.cc.license.disclaimer": "Except where otherwised noted, this item's license is described as",
+  // "item.page.cc.license.disclaimer": "Except where otherwise noted, this item's license is described as",
+  // TODO Source message changed - Revise the translation
   "item.page.cc.license.disclaimer": "إلا إذا ذُكر خلاف ذلك، يتم وصف ترخيص هذه المادة على أنه",
 
   // "browse.search-form.placeholder": "Search the repository",
@@ -10703,7 +10775,8 @@
   // "live-region.ordering.instructions": "Press spacebar to reorder {{ itemName }}.",
   "live-region.ordering.instructions": "اضغط على مفتاح المسافة لإعادة ترتيب {{ itemName }}.",
 
-  // "live-region.ordering.status": "{{ itemName }}, grabbed. Current position in list: {{ index }} of  {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
+  // "live-region.ordering.status": "{{ itemName }}, grabbed. Current position in list: {{ index }} of {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
+  // TODO Source message changed - Revise the translation
   "live-region.ordering.status": "{{ itemName }}، تم سحبه. الموضع الحالي في القائمة: {{ index }} من {{ length }}. استخدم مفاتيح الأسهم للأعلى والأسفل لتغيير الموضع، المسافة للإفلات، وEsc للإلغاء.",
 
   // "live-region.ordering.moved": "{{ itemName }}, moved to position {{ index }} of {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
