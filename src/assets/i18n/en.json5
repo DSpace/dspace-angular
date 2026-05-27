@@ -7887,4 +7887,28 @@
   "bitstream.related.isReplacedBy": "Is replaced by",
 
   "bitstream.related.deleted": "deleted",
+
+  "cc-license.commercial.label": "Allow modifications of your work?",
+  "cc-license.commercial.hint": "Choose whether others may use your work for commercial purposes.",
+
+  "cc-license.commercial.option.yes.label": "Yes",
+  "cc-license.commercial.option.yes.hint": "Visitors may copy, distribute, display and perform your Submission for any purpose, including commercial purposes.",
+
+  "cc-license.commercial.option.no.label": "No",
+  "cc-license.commercial.option.no.hint": "Visitors may copy, distribute, display and perform your Submission, but only for non-commercial purposes.",
+
+  "cc-license.derivatives.label": "Allow modifications of your work?",
+  "cc-license.derivatives.hint": "Choose whether others may create derivative works based on your Submission.",
+
+  "cc-license.derivatives.option.yes.label": "Yes",
+  "cc-license.derivatives.option.yes.hint": "Visitors may copy, distribute, display, perform and modify your Submission in any way.",
+
+  "cc-license.derivatives.option.sharealike.label": "ShareAlike",
+  "cc-license.derivatives.option.sharealike.hint": "Visitors are permitted to copy, display, perform and modify your Submission, as long as they distribute the modified version on similar use terms.",
+
+  "cc-license.derivatives.option.no.label": "No",
+  "cc-license.derivatives.option.no.hint": "Visitors are only permitted to copy and distribute unaltered versions of your Submission.",
+
+  "cc-license.jurisdiction.label": "Jurisdiction",
+  "cc-license.jurisdiction.hint": "Select the legal jurisdiction for your Creative Commons license, or leave as the default international license.",
 }
