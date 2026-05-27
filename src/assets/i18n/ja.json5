@@ -1775,6 +1775,14 @@
   // TODO New key - Add a translation
   "browse.taxonomy.button": "Browse",
 
+  // "browse.taxonomy.show_next_results": "Show next results",
+  // TODO New key - Add a translation
+  "browse.taxonomy.show_next_results": "Show next results",
+
+  // "browse.taxonomy.show_previous_results": "Show previous results",
+  // TODO New key - Add a translation
+  "browse.taxonomy.show_previous_results": "Show previous results",
+
   // "browse.title": "Browsing {{ collection }} by {{ field }}{{ startsWith }} {{ value }}",
   // TODO New key - Add a translation
   "browse.title": "Browsing {{ collection }} by {{ field }}{{ startsWith }} {{ value }}",
@@ -3039,9 +3047,9 @@
   // TODO New key - Add a translation
   "dso-selector.no-results": "No {{ type }} found",
 
-  // "dso-selector.placeholder": "Search for a {{ type }}",
+  // "dso-selector.placeholder": "Search for {{ type }}",
   // TODO New key - Add a translation
-  "dso-selector.placeholder": "Search for a {{ type }}",
+  "dso-selector.placeholder": "Search for {{ type }}",
 
   // "dso-selector.select.collection.head": "Select a collection",
   // TODO New key - Add a translation
@@ -7459,9 +7467,9 @@
   // TODO New key - Add a translation
   "resource-policies.form.eperson-group-list.select.btn": "Select",
 
-  // "resource-policies.form.eperson-group-list.tab.eperson": "Search for a ePerson",
+  // "resource-policies.form.eperson-group-list.tab.eperson": "Search for an ePerson",
   // TODO New key - Add a translation
-  "resource-policies.form.eperson-group-list.tab.eperson": "Search for a ePerson",
+  "resource-policies.form.eperson-group-list.tab.eperson": "Search for an ePerson",
 
   // "resource-policies.form.eperson-group-list.tab.group": "Search for a group",
   // TODO New key - Add a translation
