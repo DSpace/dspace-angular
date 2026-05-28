@@ -69,7 +69,6 @@ import { getProcessDetailRoute } from '../../../process-page/process-page-routin
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { VarDirective } from '../../../shared/utils/var.directive';
-import { getItemEditRoute } from '../../item-page-routing-paths';
 import { ModifyItemOverviewComponent } from '../modify-item-overview/modify-item-overview.component';
 import { AbstractSimpleItemActionComponent } from '../simple-item-action/abstract-simple-item-action.component';
 import { VirtualMetadata } from '../virtual-metadata/virtual-metadata.component';
