@@ -466,7 +466,7 @@ export class ItemDeleteComponent
       this.router.navigateByUrl(getProcessDetailRoute(rd.payload.processId));
     } else {
       this.notificationsService.error(this.translateService.get('item.edit.delete.error'));
-      this.router.navigate([getItemEditRoute(this.item)]);
+      this.router.navigateByUrl(this.returnUrl);
     }
   }
 
