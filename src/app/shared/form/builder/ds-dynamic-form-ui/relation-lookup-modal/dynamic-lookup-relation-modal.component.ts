@@ -33,7 +33,11 @@ import {
 } from '@dspace/shared/utils/empty.util';
 import {
   NgbActiveModal,
-  NgbNavModule,
+  NgbNav,
+  NgbNavContent,
+  NgbNavItem,
+  NgbNavLink,
+  NgbNavOutlet,
 } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
@@ -82,7 +86,11 @@ import { DsDynamicLookupRelationSelectionTabComponent } from './selection-tab/dy
     AsyncPipe,
     BtnDisabledDirective,
     DsDynamicLookupRelationSelectionTabComponent,
-    NgbNavModule,
+    NgbNav,
+    NgbNavContent,
+    NgbNavItem,
+    NgbNavLink,
+    NgbNavOutlet,
     ThemedDynamicLookupRelationExternalSourceTabComponent,
     ThemedDynamicLookupRelationSearchTabComponent,
     ThemedLoadingComponent,

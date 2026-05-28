@@ -1,8 +1,6 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import {
-  fakeAsync,
   TestBed,
-  tick,
   waitForAsync,
 } from '@angular/core/testing';
 import { Store } from '@ngrx/store';
@@ -311,12 +309,12 @@ describe('EPersonDataService', () => {
         return of(`${restEndpointURL}/${linkPath}`);
       });
     });
-    it('should remove the eperson hrefs in the request service', fakeAsync(() => {
-      service.clearEPersonRequests();
-      tick();
-
-      expect(requestService.removeByHrefSubstring).toHaveBeenCalledWith(epersonsEndpoint);
-    }));
+    it('should remove the eperson hrefs in the request service', (done) => {
+      service.clearEPersonRequests().subscribe(() => {
+        expect(requestService.setStaleByHrefSubstring).toHaveBeenCalledWith(epersonsEndpoint);
+        done();
+      });
+    });
   });
 
   describe('deleteEPerson', () => {

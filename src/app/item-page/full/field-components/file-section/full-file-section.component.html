@@ -14,7 +14,7 @@
             <ds-thumbnail [thumbnail]="(file.thumbnail | async)?.payload"></ds-thumbnail>
           </div>
           <div class="col-7">
-            <dl class="row">
+            <dl class="row dont-break-out">
               <dt class="col-md-4">
                 {{ "item.page.filesection.name" | translate }}
               </dt>
@@ -33,17 +33,16 @@
               <dt class="col-md-4">
                 {{ "item.page.filesection.description" | translate }}
               </dt>
-              <dd class="col-md-8">
-                {{ file.firstMetadataValue("dc.description") }}
+              <dd class="col-md-8" [dsMetadata]="file.firstMetadata('dc.description')">
               </dd>
               }
             </dl>
           </div>
           <div class="col-2">
             <ds-file-download-link [showIcon]="true" [bitstream]="file" [item]="item" cssClasses="btn btn-outline-primary btn-download">
-              <span class="d-none d-md-inline">
-                {{ "item.page.filesection.download" | translate }}
-              </span>
+                <span class="d-none d-md-inline">
+                  {{ "item.page.filesection.download" | translate }}
+                </span>
             </ds-file-download-link>
           </div>
         </div>
@@ -86,16 +85,15 @@
               <dt class="col-md-4">
                 {{ "item.page.filesection.description" | translate }}
               </dt>
-              <dd class="col-md-8">
-                {{ file.firstMetadataValue("dc.description") }}
+              <dd class="col-md-8" [dsMetadata]="file.firstMetadata('dc.description')">
               </dd>
             </dl>
           </div>
           <div class="col-2">
             <ds-file-download-link [showIcon]="true" [bitstream]="file" [item]="item" cssClasses="btn btn-outline-primary btn-download">
-              <span class="d-none d-md-inline">
-                {{ "item.page.filesection.download" | translate }}
-              </span>
+                <span class="d-none d-md-inline">
+                  {{ "item.page.filesection.download" | translate }}
+                </span>
             </ds-file-download-link>
           </div>
         </div>

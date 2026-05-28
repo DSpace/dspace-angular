@@ -1,11 +1,17 @@
+import { LayoutConfig } from '@dspace/config/layout-config.interfaces';
+import { SearchResultConfig } from '@dspace/config/search-result-config.interface';
+
 import { AccessibilitySettingsConfig } from './accessibility-settings.config';
 import { ActuatorsConfig } from './actuators.config';
+import { AddToAnyPluginConfig } from './add-to-any-plugin-config';
 import { AdminNotifyMetricsRow } from './admin-notify-metrics.config';
+import { AdvancedAttachmentElementType } from './advanced-attachment-rendering.config';
 import { AppConfig } from './app-config.interface';
 import { AuthConfig } from './auth-config.interfaces';
 import { BrowseByConfig } from './browse-by-config.interface';
 import { BundleConfig } from './bundle-config.interface';
 import { CacheConfig } from './cache-config.interface';
+import { CmsMetadata } from './cms-metadata';
 import { CollectionPageConfig } from './collection-page-config.interface';
 import { CommunityListConfig } from './community-list-config.interface';
 import { CommunityPageConfig } from './community-page-config.interface';
@@ -14,6 +20,7 @@ import { FilterVocabularyConfig } from './filter-vocabulary-config';
 import { FormConfig } from './form-config.interfaces';
 import { GeospatialMapConfig } from './geospatial-map-config';
 import { HomeConfig } from './homepage-config.interface';
+import { IdentifierSubtypesIconPositionEnum } from './identifier-subtypes-config.interface';
 import { InfoConfig } from './info-config.interface';
 import { ItemConfig } from './item-config.interface';
 import { LangConfig } from './lang-config.interface';
@@ -48,6 +55,9 @@ export class DefaultAppConfig implements AppConfig {
     port: 4000,
     // NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
     nameSpace: '/',
+    // Specify the public URL that this user interface responds to. This corresponds to the "dspace.ui.url" property in your backend's local.cfg.
+    // SSR is only enabled when the client's "Host" HTTP header matches this baseUrl. The baseUrl is also used for redirects and SEO links (in robots.txt).
+    baseUrl: 'http://localhost:4000',
 
     // The rateLimiter settings limit each IP to a 'limit' of 500 requests per 'windowMs' (1 minute).
     rateLimiter: {
@@ -82,6 +92,10 @@ export class DefaultAppConfig implements AppConfig {
     },
     // Cache-Control HTTP Header
     control: 'max-age=604800', // revalidate browser
+    // These static files should not be cached (paths relative to dist/browser, including the leading slash)
+    noCacheFiles: [
+      '/index.html',  // see https://web.dev/articles/http-cache#unversioned-urls
+    ],
     autoSync: {
       defaultTime: 0,
       maxBufferSize: 100,
@@ -138,6 +152,8 @@ export class DefaultAppConfig implements AppConfig {
       required: 'required',
       regex: 'pattern',
     },
+    // Enable the possibility to duplicate the inline form group, values included.
+    showInlineGroupDuplicateButton: false,
   };
 
   // Notifications
@@ -252,7 +268,35 @@ export class DefaultAppConfig implements AppConfig {
           },
 
         ],
+        sourceIcons: [
+          {
+            source: 'orcid',
+            path: 'assets/images/orcid.logo.icon.svg',
+          },
+          {
+            source: 'openaire',
+            path: 'assets/images/openaire.logo.icon.svg',
+          },
+          {
+            source: 'ror',
+            path: 'assets/images/ror.logo.icon.svg',
+          },
+          {
+            source: 'sherpa',
+            path: 'assets/images/sherpa.logo.icon.svg',
+          },
+          {
+            source: 'zdb',
+            path: 'assets/images/zdb.logo.icon.svg',
+          },
+          {
+            source: 'local',
+            path: 'assets/images/local.logo.icon.svg',
+          },
+        ],
       },
+      // Icons that should remain visible even when no authority value is present for the metadata field
+      iconsVisibleWithNoAuthority: ['fas fa-user'],
     },
   };
 
@@ -296,6 +340,7 @@ export class DefaultAppConfig implements AppConfig {
     { code: 'tr', label: 'Türkçe', active: true },
     { code: 'uk', label: 'Yкраї́нська', active: true },
     { code: 'vi', label: 'Tiếng Việt', active: true },
+    { code: 'zh-TW', label: '繁体中文', active: true },
   ];
 
   // Browse-By Pages
@@ -319,6 +364,7 @@ export class DefaultAppConfig implements AppConfig {
   };
 
   homePage: HomeConfig = {
+    showTopFooter: false,
     recentSubmissions: {
       //The number of item showing in recent submission components
       pageSize: 5,
@@ -335,6 +381,27 @@ export class DefaultAppConfig implements AppConfig {
   item: ItemConfig = {
     edit: {
       undoTimeout: 10000, // 10 seconds
+      // UI configuration of the security levels available for metadata fields across the application, allows to customize color and icon for each value.
+      // `0` = Public, `1` = Registered users, `2` = Administrators only.
+      security: {
+        levels: [
+          {
+            value: 0,
+            icon: 'fa fa-globe',
+            color: 'green',
+          },
+          {
+            value: 1,
+            icon: 'fa fa-key',
+            color: 'orange',
+          },
+          {
+            value: 2,
+            icon: 'fa fa-lock',
+            color: 'red',
+          },
+        ],
+      },
     },
     // Show the item access status label in items lists
     showAccessStatuses: false,
@@ -346,6 +413,30 @@ export class DefaultAppConfig implements AppConfig {
       // Show the bitstream access status label
       showAccessStatuses: false,
     },
+    // Configuration for the metadata link view popover
+    metadataLinkViewPopoverData: {
+      fallbackMetdataList: ['dc.description.abstract'],
+
+      entityDataConfig: [
+        {
+          entityType: 'Person',
+          metadataList: ['person.affiliation.name', 'person.email', 'person.jobTitle', 'dc.description.abstract'],
+          titleMetadataList: ['person.givenName', 'person.familyName' ],
+        },
+      ],
+
+      identifierSubtypes: [
+        {
+          name: 'ror',
+          icon: 'assets/images/ror.logo.icon.svg',
+          iconPosition: IdentifierSubtypesIconPositionEnum.LEFT,
+          link: 'https://ror.org',
+        },
+      ],
+    },
+    // If true, the search result in item page will display relations based on authority.
+    // If false,the search result in item page will display default DSpace relations.
+    showAuthorityRelations: false,
   };
 
   // Community Page Config
@@ -645,5 +736,138 @@ export class DefaultAppConfig implements AppConfig {
   // Accessibility settings configuration, used by the AccessibilitySettingsService
   accessibility: AccessibilitySettingsConfig = {
     cookieExpirationDuration: 7,
+  };
+
+  // Layout configuration for authority-controlled metadata display
+  // Defines visual styling (icons and CSS classes) for different entity types when they appear
+  // as authority-controlled values in metadata fields (e.g., authors, organizations, projects).
+  // Each entity type can have custom Font Awesome icons and Bootstrap CSS classes applied.
+  // These styles are used in components like MetadataLinkViewComponent to display entity type indicators
+  // alongside metadata values, providing visual cues about the type of referenced entity.
+  layout: LayoutConfig = {
+    authorityRef: [
+      {
+        entityType: 'DEFAULT',
+        entityStyle: {
+          default: {
+            icon: 'fa fa-info',
+            style: 'text-info',
+          },
+        },
+      },
+      {
+        entityType: 'PERSON',
+        entityStyle: {
+          default: {
+            icon: 'fa fa-user',
+            style: 'text-info',
+          },
+        },
+      },
+      {
+        entityType: 'ORGUNIT',
+        entityStyle: {
+          default: {
+            icon: 'fa fa-university',
+            style: 'text-info',
+          },
+        },
+      },
+      {
+        entityType: 'PROJECT',
+        entityStyle: {
+          default: {
+            icon: 'fas fa-project-diagram',
+            style: 'text-info',
+          },
+        },
+      },
+    ],
+    showDownloadLinkAsAttachment: false,
+    advancedAttachmentRendering: {
+      metadata: [
+        {
+          name: 'dc.title',
+          type: AdvancedAttachmentElementType.Metadata,
+          truncatable: false,
+        },
+        {
+          name: 'dc.type',
+          type: AdvancedAttachmentElementType.Metadata,
+          truncatable: false,
+        },
+        {
+          name: 'dc.description',
+          type: AdvancedAttachmentElementType.Metadata,
+          truncatable: true,
+        },
+        {
+          name: 'size',
+          type: AdvancedAttachmentElementType.Attribute,
+        },
+        {
+          name: 'format',
+          type: AdvancedAttachmentElementType.Attribute,
+        },
+        {
+          name: 'checksum',
+          type: AdvancedAttachmentElementType.Attribute,
+        },
+      ],
+    },
+  };
+
+  // Search result configuration for authority metadata processing
+  // Controls how search results handle and display authority-controlled metadata values.
+  // When search results are retrieved, the system can automatically fetch referenced entities
+  // (e.g., Person, OrgUnit items) for metadata fields with authority values to enable
+  // rich displays with entity information, icons, and popovers.
+  searchResult: SearchResultConfig = {
+    // Defines which metadata fields should be treated as author/contributor fields
+    // for special handling in search result displays
+    authorMetadata: ['dc.contributor.author', 'dc.creator', 'dc.contributor.*'],
+    // The maximum number of item to process when following authority metadata values.
+    followAuthorityMaxItemLimit: 100,
+    // The maximum number of metadata values to process for each metadata key
+    // when following authority metadata values.
+    followAuthorityMetadataValuesLimit: 5,
+    // When the search results are retrieved, for each item type the metadata with a valid authority value are inspected.
+    // Referenced items will be fetched with a find all by id strategy to avoid individual rest requests
+    // to efficiently display the search results.
+    followAuthorityMetadata: [
+      {
+        type: 'Publication',
+        metadata: ['dc.contributor.author'],
+      },
+      {
+        type: 'Product',
+        metadata: ['dc.contributor.author'],
+      },
+      {
+        type: 'Patent',
+        metadata: ['dc.contributor.author'],
+      },
+    ],
+  };
+
+  /**
+   * Default configuration of AddToAny plugin for social media integration
+   * Check more details at {@link AddToAnyPluginConfig}
+   */
+  addToAnyPlugin: AddToAnyPluginConfig = {
+    socialNetworksEnabled: false,
+    scriptUrl: 'https://static.addtoany.com/menu/page.js',
+    buttons: ['facebook', 'x', 'linkedin', 'email', 'copy_link'],
+    showPlusButton: true,
+    showCounters: true,
+    title: 'DSpace demo',
+  };
+
+  cms: CmsMetadata = {
+    metadataList: [
+      'dspace.cms.home-header',
+      'dspace.cms.home-news',
+      'dspace.cms.footer',
+    ],
   };
 }

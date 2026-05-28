@@ -46,6 +46,7 @@ import {
   switchMap,
   take,
 } from 'rxjs/operators';
+import { validate as uuidValidate } from 'uuid';
 
 import { fadeInOut } from '../../shared/animations/fade';
 import { ErrorComponent } from '../../shared/error/error.component';
@@ -56,6 +57,7 @@ import { ThemedItemAlertsComponent } from '../alerts/themed-item-alerts.componen
 import { ItemVersionsComponent } from '../versions/item-versions.component';
 import { ItemVersionsNoticeComponent } from '../versions/notice/item-versions-notice.component';
 import { AccessByTokenNotificationComponent } from './access-by-token-notification/access-by-token-notification.component';
+import { CustomUrlConflictErrorComponent } from './custom-url-conflict-error/custom-url-conflict-error.component';
 import { NotifyRequestsStatusComponent } from './notify-requests-status/notify-requests-status-component/notify-requests-status.component';
 import { QaEventNotificationComponent } from './qa-event-notification/qa-event-notification.component';
 
@@ -73,6 +75,8 @@ import { QaEventNotificationComponent } from './qa-event-notification/qa-event-n
   imports: [
     AccessByTokenNotificationComponent,
     AsyncPipe,
+    CustomUrlConflictErrorComponent,
+    CustomUrlConflictErrorComponent,
     ErrorComponent,
     ItemVersionsComponent,
     ItemVersionsNoticeComponent,
@@ -120,6 +124,12 @@ export class ItemPageComponent implements OnInit, OnDestroy {
   itemUrl: string;
 
   /**
+   * When set, indicates that the page failed due to a custom URL conflict (HTTP 500 + non-UUID param).
+   * Contains the conflicting custom URL value so the error component can build search/edit links.
+   */
+  customUrlConflict$: Observable<string | null>;
+
+  /**
    * Contains a list of SignpostingLink related to the item
    */
   signpostingLinks: SignpostingLink[] = [];
@@ -162,6 +172,16 @@ export class ItemPageComponent implements OnInit, OnDestroy {
 
     this.isAdmin$ = this.authorizationService.isAuthorized(FeatureID.AdministratorOf);
 
+    // Detect custom URL conflict: 500 error on a non-UUID route param
+    this.customUrlConflict$ = this.itemRD$.pipe(
+      map((itemRD: RemoteData<Item>) => {
+        const routeId = this.route.snapshot.params.id;
+        if (itemRD?.hasFailed && itemRD.statusCode === 500 && hasValue(routeId) && !uuidValidate(routeId)) {
+          return routeId as string;
+        }
+        return null;
+      }),
+    );
   }
 
   /**
@@ -170,42 +190,40 @@ export class ItemPageComponent implements OnInit, OnDestroy {
    * @private
    */
   private initPageLinks(): void {
-    this.route.params.subscribe(params => {
-      combineLatest([this.signpostingDataService.getLinks(params.id).pipe(take(1)), this.getCoarLdnLocalInboxUrls()])
-        .subscribe(([signpostingLinks, coarRestApiUrls]) => {
-          let links = '';
-          this.signpostingLinks = signpostingLinks;
+    combineLatest([this.route.data.pipe(take(1)), this.getCoarLdnLocalInboxUrls()])
+      .subscribe(([data, coarRestApiUrls]) => {
+        let links = '';
+        this.signpostingLinks = data.links ?? [];
 
-          signpostingLinks.forEach((link: SignpostingLink) => {
-            links = links + (isNotEmpty(links) ? ', ' : '') + `<${link.href}> ; rel="${link.rel}"` + (isNotEmpty(link.type) ? ` ; type="${link.type}" ` : ' ')
-              + (isNotEmpty(link.profile) ? ` ; profile="${link.profile}" ` : '');
-            let tag: LinkDefinition = {
-              href: link.href,
-              rel: link.rel,
-            };
-            if (isNotEmpty(link.type)) {
-              tag = Object.assign(tag, {
-                type: link.type,
-              });
-            }
-            if (isNotEmpty(link.profile)) {
-              tag = Object.assign(tag, {
-                profile: link.profile,
-              });
-            }
-            this.linkHeadService.addTag(tag);
-          });
-
-          if (coarRestApiUrls.length > 0) {
-            const inboxLinks = this.initPageInboxLinks(coarRestApiUrls);
-            links = links + (isNotEmpty(links) ? ', ' : '') + inboxLinks;
+        this.signpostingLinks.forEach((link: SignpostingLink) => {
+          links = links + (isNotEmpty(links) ? ', ' : '') + `<${link.href}> ; rel="${link.rel}"` + (isNotEmpty(link.type) ? ` ; type="${link.type}" ` : ' ')
+            + (isNotEmpty(link.profile) ? ` ; profile="${link.profile}" ` : '');
+          let tag: LinkDefinition = {
+            href: link.href,
+            rel: link.rel,
+          };
+          if (isNotEmpty(link.type)) {
+            tag = Object.assign(tag, {
+              type: link.type,
+            });
           }
-
-          if (isPlatformServer(this.platformId)) {
-            this.responseService.setHeader('Link', links);
+          if (isNotEmpty(link.profile)) {
+            tag = Object.assign(tag, {
+              profile: link.profile,
+            });
           }
+          this.linkHeadService.addTag(tag);
         });
-    });
+
+        if (coarRestApiUrls.length > 0) {
+          const inboxLinks = this.initPageInboxLinks(coarRestApiUrls);
+          links = links + (isNotEmpty(links) ? ', ' : '') + inboxLinks;
+        }
+
+        if (isPlatformServer(this.platformId)) {
+          this.responseService.setHeader('Link', links);
+        }
+      });
   }
 
   /**

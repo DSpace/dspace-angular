@@ -6,6 +6,7 @@ import {
 
 import { RemoteData } from '../data/remote-data';
 import { RequestEntryState } from '../data/request-entry-state.model';
+import { PathableObjectError } from '../data/response-state.model';
 
 /**
  * A fixed timestamp to use in tests
@@ -45,7 +46,7 @@ export function createSuccessfulRemoteDataObject$<T>(object: T, timeCompleted?: 
  * @param statusCode    the status code
  * @param timeCompleted the moment when the remoteData was completed
  */
-export function createFailedRemoteDataObject<T>(errorMessage?: string, statusCode?: number, timeCompleted = 1577836800000): RemoteData<T> {
+export function createFailedRemoteDataObject<T>(errorMessage?: string, statusCode?: number, timeCompleted = 1577836800000, errors: PathableObjectError[] = []): RemoteData<T> {
   return new RemoteData(
     timeCompleted,
     15 * 60 * 1000,
@@ -54,6 +55,7 @@ export function createFailedRemoteDataObject<T>(errorMessage?: string, statusCod
     errorMessage,
     undefined,
     statusCode,
+    errors,
   );
 }
 

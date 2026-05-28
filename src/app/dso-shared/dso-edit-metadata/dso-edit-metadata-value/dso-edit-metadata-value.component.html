@@ -18,7 +18,7 @@
                                                class="w-100">
       </ds-dso-edit-metadata-value-field-loader>
     }
-    @if (!isVirtual && !mdValue.editing && mdValue.newValue.authority && mdValue.newValue.confidence !== ConfidenceTypeEnum.CF_UNSET && mdValue.newValue.confidence !== ConfidenceTypeEnum.CF_NOVALUE) {
+    @if (!isVirtual && !mdValue.editing && mdValue.newValue.authority && mdValue.newValue.confidence !== ConfidenceType.CF_UNSET && mdValue.newValue.confidence !== ConfidenceType.CF_NOVALUE) {
       <div>
         <span class="badge bg-light border">
           <i dsAuthorityConfidenceState
@@ -47,6 +47,28 @@
     } @else {
       <div class="dont-break-out preserve-line-breaks">{{ mdValue.newValue.language }}</div>
     }
+  </div>
+  <div class="ds-flex-cell ds-authority-cell" role="cell">
+    @if (!mdValue.editing) {
+      <div class="dont-break-out preserve-line-breaks">{{ mdValue.newValue.authority }}</div>
+    }
+    @if(mdValue.editing) {
+      <textarea class="form-control" rows="5" [(ngModel)]="mdValue.newValue.authority"
+                [attr.aria-label]="(dsoType + '.edit.metadata.edit.authority') | translate"
+                [dsDebounce]="300" (onDebounce)="confirm.emit(false)"></textarea>
+    }
+  </div>
+  <div class="flex-grow-1 ds-flex-cell ds-security-cell d-flex justify-content-center" role="cell">
+    <div class="btn-group edit-field">
+      @if (canShowMetadataSecurity$ | async) {
+        <ds-edit-metadata-security [securityLevel]="mdValue.newValue.securityLevel"
+                                   [isNewMdField]="isNewMdField"
+                                   [securityConfigLevel]="mdSecurityConfigLevel$ | async"
+                                   (changeSecurityLevel)="changeSelectedSecurity($event)"
+                                   (hasSecurityLevel)="hasSecurityMetadata($event)">
+        </ds-edit-metadata-security>
+      }
+    </div>
   </div>
   <div class="text-center ds-flex-cell ds-edit-cell" role="cell">
     <div class="btn-group">

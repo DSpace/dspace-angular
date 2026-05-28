@@ -6,6 +6,7 @@ import {
 } from 'cerialize';
 import { v4 as uuidv4 } from 'uuid';
 
+
 export const VIRTUAL_METADATA_PREFIX = 'virtual::';
 
 /** A single metadata value and its properties. */
@@ -56,6 +57,9 @@ export class MetadataValue implements MetadataValueInterface {
   @autoserialize
   confidence: number;
 
+  /** The security level value */
+  @autoserialize
+  securityLevel: number;
 }
 
 /** Constraints for matching metadata values. */
@@ -74,6 +78,10 @@ export interface MetadataValueFilter {
 
   /** Whether the value constraint should match as a substring. */
   substring?: boolean;
+  /**
+   * Whether to negate the filter
+   */
+  negate?: boolean;
 }
 
 export class MetadatumViewModel {
@@ -100,6 +108,9 @@ export class MetadatumViewModel {
 
   /** The authority confidence value */
   confidence: number;
+
+  /** The security level value */
+  securityLevel: number;
 }
 
 /** Serializer used for MetadataMaps.

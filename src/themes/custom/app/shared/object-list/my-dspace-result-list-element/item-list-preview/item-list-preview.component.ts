@@ -6,6 +6,8 @@ import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { fadeInOut } from '../../../../../../../app/shared/animations/fade';
+import { MetadataDirective } from '../../../../../../../app/shared/metadata.directive';
+import { MetadataLinkViewComponent } from '../../../../../../../app/shared/metadata-link-view/metadata-link-view.component';
 import { ThemedBadgesComponent } from '../../../../../../../app/shared/object-collection/shared/badges/themed-badges.component';
 import { ItemCollectionComponent } from '../../../../../../../app/shared/object-collection/shared/mydspace-item-collection/item-collection.component';
 import { ItemSubmitterComponent } from '../../../../../../../app/shared/object-collection/shared/mydspace-item-submitter/item-submitter.component';
@@ -25,6 +27,8 @@ import { ThemedThumbnailComponent } from '../../../../../../../app/thumbnail/the
     AsyncPipe,
     ItemCollectionComponent,
     ItemSubmitterComponent,
+    MetadataDirective,
+    MetadataLinkViewComponent,
     NgClass,
     ThemedBadgesComponent,
     ThemedThumbnailComponent,

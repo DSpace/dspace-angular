@@ -1,0 +1,96 @@
+/**
+ * The contents of this file are subject to the license and copyright
+ * detailed in the LICENSE and NOTICE files at the root of the source
+ * tree and available online at
+ *
+ * http://www.dspace.org/license/
+ */
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { RequestParam } from '../cache/models/request-param.model';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { DeleteDataImpl } from '../data/base/delete-data';
+import { IdentifiableDataService } from '../data/base/identifiable-data.service';
+import { SearchDataImpl } from '../data/base/search-data';
+import { FindListOptions } from '../data/find-list-options.model';
+import { PaginatedList } from '../data/paginated-list.model';
+import { RemoteData } from '../data/remote-data';
+import { RequestService } from '../data/request.service';
+import { NotificationsService } from '../notification-system/notifications.service';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import {
+  getAllSucceededRemoteDataPayload,
+  getPaginatedListPayload,
+} from '../shared/operators';
+import { EditItem } from './models/edititem.model';
+import { EditItemMode } from './models/edititem-mode.model';
+
+/**
+ * A service that provides methods to make REST requests with edititems endpoint.
+ */
+@Injectable({ providedIn: 'root' })
+export class EditItemDataService extends IdentifiableDataService<EditItem> {
+  protected linkPath = 'edititems';
+  protected searchById = 'findModesById';
+  private searchData: SearchDataImpl<EditItemMode>;
+  private deleteData: DeleteDataImpl<EditItem>;
+
+  constructor(
+    protected requestService: RequestService,
+    protected rdbService: RemoteDataBuildService,
+    protected objectCache: ObjectCacheService,
+    protected halService: HALEndpointService,
+    protected notificationsService: NotificationsService,
+  ) {
+    super('edititems', requestService, rdbService, objectCache, halService);
+
+    this.searchData = new SearchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
+    this.deleteData = new DeleteDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive, this.constructIdEndpoint);
+  }
+
+  /**
+   * Search for editModes from the editItem id
+   *
+   * @param id                          string id of edit item
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @return Paginated list of edit item modes
+   */
+  searchEditModesById(id: string, useCachedVersionIfAvailable = true, reRequestOnStale = true): Observable<RemoteData<PaginatedList<EditItemMode>>> {
+    const options = new FindListOptions();
+    options.searchParams = [
+      new RequestParam('uuid', id, false),
+    ];
+    return this.searchData.searchBy(this.searchById, options, useCachedVersionIfAvailable, reRequestOnStale);
+  }
+
+  /**
+   * Check if editMode with id is part of the edit item with id
+   *
+   * @param id string id of edit item
+   * @param editModeId string id of edit item
+   * @return boolean
+   */
+  checkEditModeByIdAndType(id: string, editModeId: string) {
+    return this.searchEditModesById(id).pipe(
+      getAllSucceededRemoteDataPayload(),
+      getPaginatedListPayload(),
+      map((editModes: EditItemMode[]) => {
+        return !!editModes.find(editMode => editMode.uuid === editModeId);
+      }));
+  }
+
+  /**
+   * Invalidate the cache of the editMode
+   * @param id
+   */
+  invalidateItemCache(id: string) {
+    this.requestService.setStaleByHrefSubstring('findModesById?uuid=' + id);
+  }
+
+}

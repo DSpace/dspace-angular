@@ -109,4 +109,86 @@ describe('ScriptsSelectComponent', () => {
     const validationError = fixture.debugElement.query(By.css('.validation-error'));
     expect(validationError).toBeFalsy();
   }));
+
+  it('should load more scripts when scrolled to the bottom', fakeAsync(() => {
+    spyOn(component, 'loadScripts');
+    const event = {
+      target: {
+        scrollTop: 100,
+        clientHeight: 200,
+        scrollHeight: 300,
+      },
+    };
+
+    component.onScroll(event);
+    tick();
+
+    expect(component.loadScripts).toHaveBeenCalled();
+  }));
+
+  it('should load more scripts when scrolled almost to the bottom', fakeAsync(() => {
+    spyOn(component, 'loadScripts');
+    const event = {
+      target: {
+        scrollTop: 99,
+        clientHeight: 200,
+        scrollHeight: 300,
+      },
+    };
+
+    component.onScroll(event);
+    tick();
+
+    expect(component.loadScripts).toHaveBeenCalled();
+  }));
+
+  it('should not load more scripts if already loading', fakeAsync(() => {
+    spyOn(component, 'loadScripts');
+    component.isLoading$.next(true);
+    const event = {
+      target: {
+        scrollTop: 100,
+        clientHeight: 200,
+        scrollHeight: 300,
+      },
+    };
+
+    component.onScroll(event);
+    tick();
+
+    expect(component.loadScripts).not.toHaveBeenCalled();
+  }));
+
+  it('should not load more scripts if it is the last page', fakeAsync(() => {
+    spyOn(component, 'loadScripts');
+    (component as any)._isLastPage = true;
+    const event = {
+      target: {
+        scrollTop: 100,
+        clientHeight: 200,
+        scrollHeight: 300,
+      },
+    };
+
+    component.onScroll(event);
+    tick();
+
+    expect(component.loadScripts).not.toHaveBeenCalled();
+  }));
+
+  it('should not load more scripts if not scrolled to the bottom', fakeAsync(() => {
+    spyOn(component, 'loadScripts');
+    const event = {
+      target: {
+        scrollTop: 50,
+        clientHeight: 200,
+        scrollHeight: 300,
+      },
+    };
+
+    component.onScroll(event);
+    tick();
+
+    expect(component.loadScripts).not.toHaveBeenCalled();
+  }));
 });

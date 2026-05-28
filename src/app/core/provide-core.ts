@@ -4,6 +4,7 @@ import {
   makeEnvironmentProviders,
 } from '@angular/core';
 import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { SubmissionCustomUrl } from '@dspace/core/submission/models/submission-custom-url.model';
 
 import { Audit } from './audit/model/audit.model';
 import { AuthStatus } from './auth/models/auth-status.model';
@@ -230,4 +231,5 @@ export const models =
     StatisticsEndpoint,
     CorrectionType,
     SupervisionOrder,
+    SubmissionCustomUrl,
   ];

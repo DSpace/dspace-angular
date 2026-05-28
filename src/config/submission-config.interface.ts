@@ -13,11 +13,18 @@ interface TypeBindConfig extends Config {
   field: string;
 }
 
+export interface AuthorithyIcon {
+  source: string,
+  path: string
+}
+
 interface IconsConfig extends Config {
   metadata: MetadataIconConfig[];
   authority: {
     confidence: ConfidenceIconConfig[];
+    sourceIcons?: AuthorithyIcon[]
   };
+  iconsVisibleWithNoAuthority?: string[]
 }
 
 export interface MetadataIconConfig extends Config {

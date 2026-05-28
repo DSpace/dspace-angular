@@ -13,8 +13,10 @@ export abstract class HardRedirectService {
    *    the page to redirect to
    * @param statusCode
    *    optional HTTP status code to use for redirect (default = 302, which is a temporary redirect)
+   * @param shouldSetCorsHeader
+   *    optional to prevent CORS error on redirect
    */
-  abstract redirect(url: string, statusCode?: number);
+  abstract redirect(url: string, statusCode?: number, shouldSetCorsHeader?: boolean);
 
   /**
    * Get the current route, with query params included
@@ -23,10 +25,9 @@ export abstract class HardRedirectService {
   abstract getCurrentRoute(): string;
 
   /**
-   * Get the origin of the current URL
+   * Get the base public URL of our application.
+   * This is used as the base URL for redirects, and should be in the format of
    * i.e. <scheme> "://" <hostname> [ ":" <port> ]
-   * e.g. if the URL is https://demo.dspace.org/search?query=test,
-   * the origin would be https://demo.dspace.org
    */
-  abstract getCurrentOrigin(): string;
+  abstract getBaseUrl(): string;
 }

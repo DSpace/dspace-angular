@@ -126,6 +126,20 @@ export class DSpaceObject extends ListableObject implements CacheableObject {
     return Metadata.all(this.metadata, keyOrKeys, undefined, valueFilter, escapeHTML);
   }
 
+
+  /**
+   * Gets all matching metadata in this DSpaceObject, up to a limit.
+   *
+   * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see [[Metadata]].
+   * @param {number} limit The maximum number of results to return.
+   * @param {MetadataValueFilter} valueFilter The value filter to use. If unspecified, no filtering will be done.
+   * @returns {MetadataValue[]} the matching values or an empty array.
+   */
+  limitedMetadata(keyOrKeys: string | string[], limit: number, valueFilter?: MetadataValueFilter): MetadataValue[] {
+    return Metadata.all(this.metadata, keyOrKeys, null, valueFilter, false, limit);
+  }
+
+
   /**
    * Like [[allMetadata]], but only returns string values.
    *

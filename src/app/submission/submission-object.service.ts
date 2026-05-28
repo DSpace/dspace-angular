@@ -11,6 +11,7 @@ import { RemoteData } from '@dspace/core/data/remote-data';
 import { RequestEntryState } from '@dspace/core/data/request-entry-state.model';
 import { FollowLinkConfig } from '@dspace/core/shared/follow-link-config.model';
 import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
+import { EditItemDataService } from '@dspace/core/submission/edititem-data.service';
 import { SubmissionObject } from '@dspace/core/submission/models/submission-object.model';
 import { SubmissionScopeType } from '@dspace/core/submission/submission-scope-type';
 import { WorkflowItemDataService } from '@dspace/core/submission/workflowitem-data.service';
@@ -36,6 +37,7 @@ export class SubmissionObjectService {
   constructor(
     private workspaceitemDataService: WorkspaceitemDataService,
     private workflowItemDataService: WorkflowItemDataService,
+    private editItemDataService: EditItemDataService,
     private submissionService: SubmissionService,
     private halService: HALEndpointService,
   ) {
@@ -46,7 +48,18 @@ export class SubmissionObjectService {
    * @param id The identifier for the object
    */
   getHrefByID(id): Observable<string> {
-    const dataService: IdentifiableDataService<SubmissionObject> = this.submissionService.getSubmissionScope() === SubmissionScopeType.WorkspaceItem ? this.workspaceitemDataService : this.workflowItemDataService;
+    let dataService: IdentifiableDataService<SubmissionObject> = this.submissionService.getSubmissionScope() === SubmissionScopeType.WorkspaceItem ? this.workspaceitemDataService : this.workflowItemDataService;
+    switch (this.submissionService.getSubmissionScope()) {
+      case SubmissionScopeType.WorkspaceItem:
+        dataService = this.workspaceitemDataService;
+        break;
+      case SubmissionScopeType.WorkflowItem:
+        dataService = this.workflowItemDataService;
+        break;
+      case SubmissionScopeType.EditItem:
+        dataService = this.editItemDataService;
+        break;
+    }
 
     return this.halService.getEndpoint(dataService.getLinkPath()).pipe(
       map((endpoint: string) => dataService.getIDHref(endpoint, encodeURIComponent(id))));
@@ -69,6 +82,8 @@ export class SubmissionObjectService {
         return this.workspaceitemDataService.findById(id, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
       case SubmissionScopeType.WorkflowItem:
         return this.workflowItemDataService.findById(id, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+      case SubmissionScopeType.EditItem:
+        return this.editItemDataService.findById(id, useCachedVersionIfAvailable, reRequestOnStale,...linksToFollow);
       default: {
         const now = new Date().getTime();
         return of(new RemoteData(

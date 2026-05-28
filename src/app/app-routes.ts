@@ -28,6 +28,7 @@ import { ACCESS_CONTROL_MODULE_PATH } from './access-control/access-control-rout
 import { NOTIFICATIONS_MODULE_PATH } from './admin/admin-routing-paths';
 import {
   ADMIN_MODULE_PATH,
+  EDIT_ITEM_PATH,
   FORGOT_PASSWORD_PATH,
   HEALTH_PAGE_PATH,
   PROFILE_MODULE_PATH,
@@ -48,7 +49,7 @@ import { provideSubmissionState } from './submission/provide-submission-state';
 import { SUGGESTION_MODULE_PATH } from './suggestions-page/suggestions-page-routing-paths';
 
 export const APP_ROUTES: Route[] = [
-  { path: INTERNAL_SERVER_ERROR, component: ThemedPageInternalServerErrorComponent },
+  { path: INTERNAL_SERVER_ERROR, component: ThemedPageInternalServerErrorComponent, data: { title: '500.page-internal-server-error' } },
   { path: ERROR_PAGE, component: ThemedPageErrorComponent },
   {
     path: '',
@@ -251,6 +252,7 @@ export const APP_ROUTES: Route[] = [
       {
         path: FORBIDDEN_PATH,
         component: ThemedForbiddenComponent,
+        data: { title: '403.forbidden' },
       },
       {
         path: 'statistics',
@@ -280,6 +282,11 @@ export const APP_ROUTES: Route[] = [
         canActivate: [authenticatedGuard],
       },
       {
+        path: EDIT_ITEM_PATH,
+        loadChildren: () => import('./edit-item/edit-item-routes').then((m) => m.ROUTES),
+        canActivate: [endUserAgreementCurrentUserGuard],
+      },
+      {
         path: 'external-login/:token',
         loadChildren: () => import('./external-login-page/external-login-routes').then((m) => m.ROUTES),
         canActivate: [notAuthenticatedGuard],
@@ -295,7 +302,7 @@ export const APP_ROUTES: Route[] = [
           .then((m) => m.ROUTES),
         canActivate: [notAuthenticatedGuard],
       },
-      { path: '**', pathMatch: 'full', component: ThemedPageNotFoundComponent },
+      { path: '**', pathMatch: 'full', component: ThemedPageNotFoundComponent, data: { title: '404.page-not-found' } },
     ],
   },
 ];

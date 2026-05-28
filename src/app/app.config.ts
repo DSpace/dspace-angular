@@ -46,7 +46,8 @@ import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { provideEnvironmentNgxMask } from 'ngx-mask';
 
 import { environment } from '../environments/environment';
-import { EagerThemesModule } from '../themes/eager-themes.module';
+import { HashedFileMapping } from '../modules/dynamic-hash/hashed-file-mapping';
+import { BrowserHashedFileMapping } from '../modules/dynamic-hash/hashed-file-mapping.browser';
 import { appEffects } from './app.effects';
 import { MENUS } from './app.menus';
 import {
@@ -99,7 +100,6 @@ export const commonAppConfig: ApplicationConfig = {
       StoreModule.forRoot(appReducers, storeModuleConfig),
       StoreRouterConnectingModule.forRoot(),
       StoreDevModules,
-      EagerThemesModule,
       RootModule,
       ListableModule.withEntryComponents(),
     ),
@@ -154,6 +154,10 @@ export const commonAppConfig: ApplicationConfig = {
       provide: HTTP_INTERCEPTORS,
       useClass: DspaceRestInterceptor,
       multi: true,
+    },
+    {
+      provide: HashedFileMapping,
+      useClass: BrowserHashedFileMapping,
     },
     // register the dynamic matcher used by form. MUST be provided by the app module
     ...DYNAMIC_MATCHER_PROVIDERS,
