@@ -204,18 +204,17 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
   protected formMetadata: string[] = [];
 
   /**
-<<<<<<< feature/5381
-   * Total number of files currently attached to the item.
-   * Used to prevent deletion when only one bitstream remains.
-   * @type {number}
-   */
-  @Input() totalFiles: number;
-=======
-   * Whether to display the replace file button
-   * @protected
-   */
-  protected showReplaceButton$ = new BehaviorSubject(false);
->>>>>>> main
+     * Total number of files currently attached to the item.
+     * Used to prevent deletion when only one bitstream remains.
+     * @type {number}
+     */
+    @Input() totalFiles: number;
+
+    /**
+     * Whether to display the replace file button
+     * @protected
+     */
+    protected showReplaceButton$ = new BehaviorSubject(false);
 
   /**
    * Initialize instance variables
