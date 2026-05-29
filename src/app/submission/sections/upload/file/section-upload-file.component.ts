@@ -32,6 +32,7 @@ import {
 import {
   NgbModal,
   NgbModalOptions,
+  NgbTooltipModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import { DynamicFormControlModel } from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
@@ -69,6 +70,7 @@ import { SubmissionSectionUploadFileViewComponent } from './view/section-upload-
   imports: [
     AsyncPipe,
     BtnDisabledDirective,
+    NgbTooltipModule,
     SubmissionSectionUploadFileViewComponent,
     TranslateModule,
   ],
