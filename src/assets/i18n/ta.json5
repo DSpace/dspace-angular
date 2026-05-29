@@ -1572,6 +1572,46 @@
   // "bitstream.edit.form.iiifHeight.hint": "The canvas height should usually match the image height.",
   "bitstream.edit.form.iiifHeight.hint": "கேன்வாஸ் உயரம் பொதுவாக படத்தின் உயரத்துடன் பொருந்த வேண்டும்.",
 
+  // "bitstream.edit.form.mediaType.label": "Audio or video media type",
+  // TODO New key - Add a translation
+  "bitstream.edit.form.mediaType.label": "Audio or video media type",
+
+  // "bitstream.edit.form.mediaType.hint": "Choose how this bitstream should be interpreted.",
+  // TODO New key - Add a translation
+  "bitstream.edit.form.mediaType.hint": "Choose how this bitstream should be interpreted.",
+
+  // "bitstream.edit.form.mediaType.option.neither": "Neither",
+  // TODO New key - Add a translation
+  "bitstream.edit.form.mediaType.option.neither": "Neither",
+
+  // "bitstream.edit.form.mediaType.option.audio": "Audio",
+  // TODO New key - Add a translation
+  "bitstream.edit.form.mediaType.option.audio": "Audio",
+
+  // "bitstream.edit.form.mediaType.option.video": "Video",
+  // TODO New key - Add a translation
+  "bitstream.edit.form.mediaType.option.video": "Video",
+
+  // "bitstream.edit.form.mediaType.option.audio-video": "Audio and video",
+  // TODO New key - Add a translation
+  "bitstream.edit.form.mediaType.option.audio-video": "Audio and video",
+
+  // "bitstream.edit.form.audioTranscript.label": "Audio transcript",
+  // TODO New key - Add a translation
+  "bitstream.edit.form.audioTranscript.label": "Audio transcript",
+
+  // "bitstream.edit.form.audioTranscript.hint": "Provide a transcript for audio content.",
+  // TODO New key - Add a translation
+  "bitstream.edit.form.audioTranscript.hint": "Provide a transcript for audio content.",
+
+  // "bitstream.edit.form.videoDescription.label": "Video description",
+  // TODO New key - Add a translation
+  "bitstream.edit.form.videoDescription.label": "Video description",
+
+  // "bitstream.edit.form.videoDescription.hint": "Provide a description for video content.",
+  // TODO New key - Add a translation
+  "bitstream.edit.form.videoDescription.hint": "Provide a description for video content.",
+
   // "bitstream.edit.notifications.saved.content": "Your changes to this bitstream were saved.",
   "bitstream.edit.notifications.saved.content": "இந்த bitstream க்கான உங்கள் மாற்றங்கள் சேமிக்கப்பட்டன.",
 
@@ -2161,14 +2201,6 @@
   // "collection.form.entityType": "Entity Type",
   "collection.form.entityType": "அடையாள வகை",
 
-  // "collection.form.errors.entityType.required": "Please choose an entity type for this collection",
-  // TODO New key - Add a translation
-  "collection.form.errors.entityType.required": "Please choose an entity type for this collection",
-
-  // "collection.form.errors.submissionDefinition.required": "Please choose a submission definition for this collection",
-  // TODO New key - Add a translation
-  "collection.form.errors.submissionDefinition.required": "Please choose a submission definition for this collection",
-
   // "collection.form.submissionDefinition": "Submission definition",
   // TODO New key - Add a translation
   "collection.form.submissionDefinition": "Submission definition",
@@ -2619,6 +2651,10 @@
   // TODO New key - Add a translation
   "context-menu.actions.audit-item.btn": "Audit",
 
+  // "context-menu.actions.subscription.frequency.required": "Please select a frequency",
+  // TODO New key - Add a translation
+  "context-menu.actions.subscription.frequency.required": "Please select a frequency",
+
   // "cookies.consent.accept-all": "Accept all",
   "cookies.consent.accept-all": "அனைத்தையும் ஏற்கவும்",
 
@@ -2883,7 +2919,8 @@
   // "dso-selector.no-results": "No {{ type }} found",
   "dso-selector.no-results": "{{ type }} எதுவும் கிடைக்கவில்லை",
 
-  // "dso-selector.placeholder": "Search for a {{ type }}",
+  // "dso-selector.placeholder": "Search for {{ type }}",
+  // TODO Source message changed - Revise the translation
   "dso-selector.placeholder": "{{ type }} ஐத் தேடுங்கள்",
 
   // "dso-selector.placeholder.type.community": "community",
@@ -3065,6 +3102,26 @@
 
   // "error.item": "Error fetching item",
   "error.item": "உருப்படியைப் பெறுவதில் பிழை",
+
+  // "error.custom-url-conflict.title": "Duplicate custom URL detected",
+  // TODO New key - Add a translation
+  "error.custom-url-conflict.title": "Duplicate custom URL detected",
+
+  // "error.custom-url-conflict.description": "The custom URL \"{{customUrl}}\" is assigned to more than one item. This causes a conflict and the item cannot be displayed.",
+  // TODO New key - Add a translation
+  "error.custom-url-conflict.description": "The custom URL \"{{customUrl}}\" is assigned to more than one item. This causes a conflict and the item cannot be displayed.",
+
+  // "error.custom-url-conflict.admin-action": "Please contact your repository administrator. The following affected items need their dspace.customurl metadata fixed so each value is unique:",
+  // TODO New key - Add a translation
+  "error.custom-url-conflict.admin-action": "Please contact your repository administrator. The following affected items need their dspace.customurl metadata fixed so each value is unique:",
+
+  // "error.custom-url-conflict.edit-link": "Edit \"{{name}}\" ({{uuid}})",
+  // TODO New key - Add a translation
+  "error.custom-url-conflict.edit-link": "Edit \"{{name}}\" ({{uuid}})",
+
+  // "error.custom-url-conflict.no-items-found": "No conflicting items could be retrieved. Please contact your administrator.",
+  // TODO New key - Add a translation
+  "error.custom-url-conflict.no-items-found": "No conflicting items could be retrieved. Please contact your administrator.",
 
   // "error.items": "Error fetching items",
   "error.items": "உருப்படிகளைப் பெறுவதில் பிழை",
@@ -3368,10 +3425,6 @@
   // "form.other-information.orcid": "ORCID",
   "form.other-information.orcid": "ORCID",
 
-  // "form.other-information.person_identifier_orcid": "ORCID",
-  // TODO New key - Add a translation
-  "form.other-information.person_identifier_orcid": "ORCID",
-
   // "form.other-information.oairecerif_author_affiliation": "Affiliation",
   // TODO New key - Add a translation
   "form.other-information.oairecerif_author_affiliation": "Affiliation",
@@ -3432,9 +3485,9 @@
   // TODO New key - Add a translation
   "form.entry.source.zdb": "",
 
-  // "form.entry.source.sherpa": "- Sherpa Romeo",
+  // "form.entry.source.jisc": "- Jisc Open policy finder",
   // TODO New key - Add a translation
-  "form.entry.source.sherpa": "- Sherpa Romeo",
+  "form.entry.source.jisc": "- Jisc Open policy finder",
 
   // "form.remove": "Remove",
   "form.remove": "நீக்கு",
@@ -4120,6 +4173,14 @@
   // "item.edit.item-mapper.notifications.add.error.content": "Errors occurred for mapping of item to {{amount}} collections.",
   "item.edit.item-mapper.notifications.add.error.content": "உருப்படியை {{amount}} சேகரிப்புகளுக்கு வரைபடம் செய்ய பிழைகள் ஏற்பட்டன.",
 
+  // "item.edit.item-mapper.notifications.add.error.forbidden.head": "Permission denied",
+  // TODO New key - Add a translation
+  "item.edit.item-mapper.notifications.add.error.forbidden.head": "Permission denied",
+
+  // "item.edit.item-mapper.notifications.add.error.forbidden.content": "You do not have permission to map this item to a collection.",
+  // TODO New key - Add a translation
+  "item.edit.item-mapper.notifications.add.error.forbidden.content": "You do not have permission to map this item to a collection.",
+
   // "item.edit.item-mapper.notifications.add.error.head": "Mapping errors",
   "item.edit.item-mapper.notifications.add.error.head": "வரைபடம் பிழைகள்",
 
@@ -4131,6 +4192,14 @@
 
   // "item.edit.item-mapper.notifications.remove.error.content": "Errors occurred for the removal of the mapping to {{amount}} collections.",
   "item.edit.item-mapper.notifications.remove.error.content": "வரைபடத்தை நீக்க {{amount}} சேகரிப்புகளுக்கு பிழைகள் ஏற்பட்டன.",
+
+  // "item.edit.item-mapper.notifications.remove.error.forbidden.head": "Permission denied",
+  // TODO New key - Add a translation
+  "item.edit.item-mapper.notifications.remove.error.forbidden.head": "Permission denied",
+
+  // "item.edit.item-mapper.notifications.remove.error.forbidden.content": "You do not have permission to remove this item from a collection.",
+  // TODO New key - Add a translation
+  "item.edit.item-mapper.notifications.remove.error.forbidden.content": "You do not have permission to remove this item from a collection.",
 
   // "item.edit.item-mapper.notifications.remove.error.head": "Removal of mapping errors",
   "item.edit.item-mapper.notifications.remove.error.head": "வரைபடம் நீக்க பிழைகள்",
@@ -4672,14 +4741,24 @@
   // "item.truncatable-part.show-less": "Collapse",
   "item.truncatable-part.show-less": "சுருக்கு",
 
-  // "item.qa-event-notification.check.notification-info": "There are {{num}} pending suggestions related to your account",
-  "item.qa-event-notification.check.notification-info": "உங்கள் கணக்குடன் தொடர்புடைய {{num}} நிலுவையில் உள்ள பரிந்துரைகள் உள்ளன",
+  // "item.qa-event-notification.check.notification-info.singular": "There is {{num}} pending suggestion related to your account",
+  // TODO New key - Add a translation
+  "item.qa-event-notification.check.notification-info.singular": "There is {{num}} pending suggestion related to your account",
+
+  // "item.qa-event-notification.check.notification-info.plural": "There are {{num}} pending suggestions related to your account",
+  // TODO New key - Add a translation
+  "item.qa-event-notification.check.notification-info.plural": "There are {{num}} pending suggestions related to your account",
 
   // "item.qa-event-notification-info.check.button": "View",
   "item.qa-event-notification-info.check.button": "காண்க",
 
-  // "mydspace.qa-event-notification.check.notification-info": "There are {{num}} pending suggestions related to your account",
-  "mydspace.qa-event-notification.check.notification-info": "உங்கள் கணக்குடன் தொடர்புடைய {{num}} நிலுவையில் உள்ள பரிந்துரைகள் உள்ளன",
+  // "mydspace.qa-event-notification.check.notification-info.singular": "There is {{num}} pending suggestion related to your account",
+  // TODO New key - Add a translation
+  "mydspace.qa-event-notification.check.notification-info.singular": "There is {{num}} pending suggestion related to your account",
+
+  // "mydspace.qa-event-notification.check.notification-info.plural": "There are {{num}} pending suggestions related to your account",
+  // TODO New key - Add a translation
+  "mydspace.qa-event-notification.check.notification-info.plural": "There are {{num}} pending suggestions related to your account",
 
   // "mydspace.qa-event-notification-info.check.button": "View",
   "mydspace.qa-event-notification-info.check.button": "காண்க",
@@ -4804,6 +4883,14 @@
   // "item.page.orcid.tooltip": "Open ORCID setting page",
   "item.page.orcid.tooltip": "ORCID அமைப்பு பக்கத்தைத் திறக்கவும்",
 
+  // "item.page.orcid-ico": "ORCID icon",
+  // TODO New key - Add a translation
+  "item.page.orcid-ico": "ORCID icon",
+
+  // "item.page.orcid-profile": "ORCID Profile",
+  // TODO New key - Add a translation
+  "item.page.orcid-profile": "ORCID Profile",
+
   // "item.page.person.search.title": "Articles by this author",
   "item.page.person.search.title": "இந்த ஆசிரியரின் கட்டுரைகள்",
 
@@ -4891,6 +4978,14 @@
   // "item.page.filesection.license.bundle": "License bundle",
   "item.page.filesection.license.bundle": "உரிமம் bundle",
 
+  // "item-page.resolver.invalid-custom-url.title": "Invalid custom URL",
+  // TODO New key - Add a translation
+  "item-page.resolver.invalid-custom-url.title": "Invalid custom URL",
+
+  // "item-page.resolver.invalid-custom-url.message": "The custom URL of this item contains unsupported characters. The item is being displayed using its UUID.",
+  // TODO New key - Add a translation
+  "item-page.resolver.invalid-custom-url.message": "The custom URL of this item contains unsupported characters. The item is being displayed using its UUID.",
+
   // "item.page.return": "Back",
   "item.page.return": "மீண்டும்",
 
@@ -4928,8 +5023,8 @@
   "item.preview.dc.date.issued": "Published date:",
 
   // "item.preview.dc.description": "Description:",
-  // TODO New key - Add a translation
-  "item.preview.dc.description": "Description:",
+  // TODO Source message changed - Revise the translation
+  "item.preview.dc.description": "விளக்கம்:",
 
   // "item.preview.dc.description.abstract": "Abstract:",
   // TODO New key - Add a translation
@@ -4981,9 +5076,6 @@
 
   // "item.preview.dc.rights": "Rights",
   "item.preview.dc.rights": "உரிமைகள்",
-
-  // "item.preview.dc.identifier.other": "Other Identifier",
-  "item.preview.dc.identifier.other": "மற்ற அடையாளம்:",
 
   // "item.preview.dc.relation.issn": "ISSN",
   "item.preview.dc.relation.issn": "ISSN",
@@ -5083,9 +5175,6 @@
 
   // "item.preview.dc.identifier.openalex": "OpenAlex Identifier",
   "item.preview.dc.identifier.openalex": "OpenAlex அடையாளம்",
-
-  // "item.preview.dc.description": "Description",
-  "item.preview.dc.description": "விளக்கம்:",
 
   // "item.select.confirm": "Confirm selected",
   "item.select.confirm": "தேர்ந்தெடுத்ததை உறுதிப்படுத்தவும்",
@@ -7359,7 +7448,8 @@
   // "resource-policies.form.eperson-group-list.select.btn": "Select",
   "resource-policies.form.eperson-group-list.select.btn": "தேர்ந்தெடுக்கவும்",
 
-  // "resource-policies.form.eperson-group-list.tab.eperson": "Search for a ePerson",
+  // "resource-policies.form.eperson-group-list.tab.eperson": "Search for an ePerson",
+  // TODO Source message changed - Revise the translation
   "resource-policies.form.eperson-group-list.tab.eperson": "ePerson ஐத் தேடுங்கள்",
 
   // "resource-policies.form.eperson-group-list.tab.group": "Search for a group",
@@ -7510,10 +7600,6 @@
   // TODO New key - Add a translation
   "RELATION.OrgUnit.projects.search.results.head": "Projects",
 
-  // "RELATION.Project.researchoutputs.search.results.head": "Publications",
-  // TODO New key - Add a translation
-  "RELATION.Project.researchoutputs.search.results.head": "Publications",
-
   // "RELATION.OrgUnit.people.search.results.head": "People",
   // TODO New key - Add a translation
   "RELATION.OrgUnit.people.search.results.head": "People",
@@ -7568,6 +7654,7 @@
 
   // "search.filters.applied.f.original_bundle_descriptions": "File description",
   "search.filters.applied.f.original_bundle_descriptions": "கோப்பு விளக்கம்",
+
   // "search.filters.applied.f.has_geospatial_metadata": "Has geographical location",
   "search.filters.applied.f.has_geospatial_metadata": "புவியியல் இடம் உள்ளது",
 
@@ -8247,8 +8334,8 @@
   // "submission.import-external.title.JournalVolume": "Import a journal volume from an external source",
   "submission.import-external.title.JournalVolume": "வெளியக மூலத்திலிருந்து ஒரு ஜர்னல் தொகுதியை இறக்குமதி செய்",
 
-  // "submission.import-external.title.OrgUnit": "Import a publisher from an external source",
-  "submission.import-external.title.OrgUnit": "வெளியக மூலத்திலிருந்து ஒரு பதிப்பாளரை இறக்குமதி செய்",
+  // "submission.import-external.title.OrgUnit": "Import an organizational unit from an external source",
+  "submission.import-external.title.OrgUnit": "வெளியக மூலத்திலிருந்து ஒரு நிறுவன அலகை இறக்குமதி செய்",
 
   // "submission.import-external.title.Person": "Import a person from an external source",
   "submission.import-external.title.Person": "வெளியக மூலத்திலிருந்து ஒரு நபரை இறக்குமதி செய்",
@@ -8335,17 +8422,17 @@
   // "submission.import-external.source.loading": "Loading ...",
   "submission.import-external.source.loading": "ஏற்றப்படுகிறது ...",
 
-  // "submission.import-external.source.sherpaJournal": "SHERPA Journals",
+  // "submission.import-external.source.opfJournal": "Jisc Open policy finder Journals",
   // TODO New key - Add a translation
-  "submission.import-external.source.sherpaJournal": "SHERPA Journals",
+  "submission.import-external.source.opfJournal": "Jisc Open policy finder Journals",
 
-  // "submission.import-external.source.sherpaJournalIssn": "SHERPA Journals by ISSN",
+  // "submission.import-external.source.opfJournalIssn": "Jisc Open policy finder Journals by ISSN",
   // TODO New key - Add a translation
-  "submission.import-external.source.sherpaJournalIssn": "SHERPA Journals by ISSN",
+  "submission.import-external.source.opfJournalIssn": "Jisc Open policy finder Journals by ISSN",
 
-  // "submission.import-external.source.sherpaPublisher": "SHERPA Publishers",
+  // "submission.import-external.source.opfPublisher": "Jisc Open policy finder Publishers",
   // TODO New key - Add a translation
-  "submission.import-external.source.sherpaPublisher": "SHERPA Publishers",
+  "submission.import-external.source.opfPublisher": "Jisc Open policy finder Publishers",
 
   // "submission.import-external.source.openaire": "OpenAIRE Search by Authors",
   // TODO New key - Add a translation
@@ -8510,6 +8597,10 @@
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.added.new-entity": "Successfully imported and added external author to the selection",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.added.new-entity": "வெளியக ஆசிரியரை வெற்றிகரமாக இறக்குமதி செய்து தேர்வுக்கு சேர்த்தது",
 
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.isJournalOfVolume.added.new-entity": "Successfully imported and added external journal to the selection",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isJournalOfVolume.added.new-entity": "Successfully imported and added external journal to the selection",
+
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.authority": "Authority",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.authority": "அதிகாரம்",
 
@@ -8543,11 +8634,13 @@
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openaireFunding": "Importing from OpenAIRE",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openaireFunding": "OpenAIRE இலிருந்து இறக்குமதி செய்யப்படுகிறது",
 
-  // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaJournal": "Importing from Sherpa Journal",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaJournal": "Sherpa ஜர்னலிலிருந்து இறக்குமதி செய்யப்படுகிறது",
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.jiscJournal": "Importing from Jisc Open policy finder Journal",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.jiscJournal": "Importing from Jisc Open policy finder Journal",
 
-  // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaPublisher": "Importing from Sherpa Publisher",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaPublisher": "Sherpa பதிப்பாளரிலிருந்து இறக்குமதி செய்யப்படுகிறது",
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.jiscPublisher": "Importing from Jisc Open policy finder Publisher",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.jiscPublisher": "Importing from Jisc Open policy finder Publisher",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.pubmed": "Importing from PubMed",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.head.pubmed": "PubMed இலிருந்து இறக்குமதி செய்யப்படுகிறது",
@@ -8613,6 +8706,10 @@
   // "submission.sections.describe.relationship-lookup.search-tab.placeholder": "Search query",
   "submission.sections.describe.relationship-lookup.search-tab.placeholder": "தேடல் வினா",
 
+  // "submission.sections.describe.relationship-lookup.toggle-dropdown": "Toggle dropdown",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.toggle-dropdown": "Toggle dropdown",
+
   // "submission.sections.describe.relationship-lookup.search-tab.search": "Go",
   "submission.sections.describe.relationship-lookup.search-tab.search": "செல்",
 
@@ -8670,11 +8767,13 @@
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalVolume": "Local Journal Volumes ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalVolume": "உள்ளூர் ஜர்னல் தொகுதிகள் ({{ count }})",
 
-  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournal": "Sherpa Journals ({{ count }})",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournal": "Sherpa ஜர்னல்கள் ({{ count }})",
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.jiscJournal": "Jisc Open policy finder Journals ({{ count }})",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.jiscJournal": "Jisc Open policy finder Journals ({{ count }})",
 
-  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaPublisher": "Sherpa Publishers ({{ count }})",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaPublisher": "Sherpa பதிப்பாளர்கள் ({{ count }})",
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.jiscPublisher": "Jisc Open policy finder Publishers ({{ count }})",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.jiscPublisher": "Jisc Open policy finder Publishers ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.orcid": "ORCID ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.orcid": "ORCID ({{ count }})",
@@ -8709,8 +8808,9 @@
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.openaireFunding": "OpenAIRE Search by Funder ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.openaireFunding": "OpenAIRE நிதியளிப்பவரால் தேடல் ({{ count }})",
 
-  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournalIssn": "Sherpa Journals by ISSN ({{ count }})",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournalIssn": "Sherpa ISSN மூலம் ஜர்னல்கள் ({{ count }})",
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.jiscJournalIssn": "Jisc Open policy finder Journals by ISSN ({{ count }})",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.jiscJournalIssn": "Jisc Open policy finder Journals by ISSN ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.openalexPerson": "OpenAlex ({{ count }})",
   // TODO New key - Add a translation
@@ -8752,6 +8852,14 @@
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isOrgUnitOfProject": "OrgUnit of the Project",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isOrgUnitOfProject": "திட்டத்தின் அமைப்புப் பிரிவு",
+
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalOfVolume": "Journal of the Volume",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalOfVolume": "Journal of the Volume",
+
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.opfJournal": "Jisc Open policy finder of Journal",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.opfJournal": "Jisc Open policy finder of Journal",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isProjectOfPublication": "Project",
   "submission.sections.describe.relationship-lookup.selection-tab.title.isProjectOfPublication": "திட்டம்",
@@ -8832,6 +8940,10 @@
   // "submission.sections.describe.relationship-lookup.title.isOrgUnitOfProject": "OrgUnit",
   "submission.sections.describe.relationship-lookup.title.isOrgUnitOfProject": "அமைப்புப் பிரிவு",
 
+  // "submission.sections.describe.relationship-lookup.title.isJournalOfVolume": "Journal",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.title.isJournalOfVolume": "Journal",
+
   // "submission.sections.describe.relationship-lookup.search-tab.toggle-dropdown": "Toggle dropdown",
   "submission.sections.describe.relationship-lookup.search-tab.toggle-dropdown": "கீழே விழுந்து",
 
@@ -8892,13 +9004,13 @@
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isChildOrgUnitOf": "Selected Organizational Unit",
   "submission.sections.describe.relationship-lookup.selection-tab.title.isChildOrgUnitOf": "தேர்ந்தெடுக்கப்பட்ட அமைப்புப் பிரிவு",
 
-  // "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaJournal": "Search Results",
+  // "submission.sections.describe.relationship-lookup.selection-tab.title.jiscJournal": "Search Results",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaJournal": "Search Results",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.jiscJournal": "Search Results",
 
-  // "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaPublisher": "Search Results",
+  // "submission.sections.describe.relationship-lookup.selection-tab.title.jiscPublisher": "Search Results",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaPublisher": "Search Results",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.jiscPublisher": "Search Results",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.orcid": "Search Results",
   // TODO New key - Add a translation
@@ -8976,6 +9088,10 @@
   // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.selection-tab.title.dataciteProject": "Search Results",
 
+  // "submission.sections.describe.relationship-lookup.selection-tab.title.opfJournal": "Search Results",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.selection-tab.title.opfJournal": "Search Results",
+
   // "submission.sections.describe.relationship-lookup.selection-tab.title": "Search Results",
   "submission.sections.describe.relationship-lookup.selection-tab.title": "தேடல் முடிவுகள்",
 
@@ -9024,6 +9140,10 @@
 
   // "submission.sections.general.deposit_error_notice": "There was an issue when submitting the item, please try again later.",
   "submission.sections.general.deposit_error_notice": "உருப்படியை சமர்ப்பிக்கும் போது ஒரு சிக்கல் ஏற்பட்டது, தயவுசெய்து பின்னர் முயற்சிக்கவும்.",
+
+  // "submission.sections.general.invalid_state_error": "Cannot save current changes, mandatory fields are missing. Please resolve problems and save again later.",
+  // TODO New key - Add a translation
+  "submission.sections.general.invalid_state_error": "Cannot save current changes, mandatory fields are missing. Please resolve problems and save again later.",
 
   // "submission.sections.general.deposit_success_notice": "Submission deposited successfully.",
   "submission.sections.general.deposit_success_notice": "சமர்ப்பிப்பு வெற்றிகரமாக வைப்பு செய்யப்பட்டது.",
@@ -9117,17 +9237,18 @@
   // TODO New key - Add a translation
   "submission.sections.submit.progressbar.describe.owner": "Owner",
 
-  // "submission.sections.submit.progressbar.sherpapolicy": "Sherpa policies",
-  "submission.sections.submit.progressbar.sherpapolicy": "Sherpa கொள்கைகள்",
+  // "submission.sections.submit.progressbar.opfpolicy": "Jisc Open Policy Finder policies",
+  // TODO New key - Add a translation
+  "submission.sections.submit.progressbar.opfpolicy": "Jisc Open Policy Finder policies",
 
   // "submission.sections.submit.progressbar.upload": "Upload files",
   "submission.sections.submit.progressbar.upload": "கோப்புகளைப் பதிவேற்றவும்",
 
-  // "submission.sections.submit.progressbar.sherpaPolicies": "Publisher open access policy information",
-  "submission.sections.submit.progressbar.sherpaPolicies": "பதிப்பாளர் திறந்த அணுகல் கொள்கை தகவல்",
+  // "submission.sections.submit.progressbar.jiscPolicies": "Publisher open access policy information",
+  "submission.sections.submit.progressbar.jiscPolicies": "பதிப்பாளர் திறந்த அணுகல் கொள்கை தகவல்",
 
-  // "submission.sections.sherpa-policy.title-empty": "No publisher policy information available. If your work has an associated ISSN, please enter it above to see any related publisher open access policies.",
-  "submission.sections.sherpa-policy.title-empty": "பதிப்பாளர் கொள்கை தகவல் கிடைக்கவில்லை. உங்கள் வேலைக்கு தொடர்புடைய ISSN இருந்தால், மேலே அதை உள்ளிடவும்.",
+  // "submission.sections.jisc-policy.title-empty": "No publisher policy information available. If your work has an associated ISSN, please enter it above to see any related publisher open access policies.",
+  "submission.sections.jisc-policy.title-empty": "பதிப்பாளர் கொள்கை தகவல் கிடைக்கவில்லை. உங்கள் வேலைக்கு தொடர்புடைய ISSN இருந்தால், மேலே அதை உள்ளிடவும்.",
 
   // "submission.sections.status.errors.title": "Errors",
   "submission.sections.status.errors.title": "பிழைகள்",
@@ -9194,6 +9315,46 @@
 
   // "submission.sections.upload.edit.title": "Edit bitstream",
   "submission.sections.upload.edit.title": "பிட்ட்ஸ்ட்ரீம் திருத்து",
+
+  // "submission.sections.upload.file.edit.form.file-type.label": "Audio or video media type",
+  // TODO New key - Add a translation
+  "submission.sections.upload.file.edit.form.file-type.label": "Audio or video media type",
+
+  // "submission.sections.upload.file.edit.form.file-type.hint": "Choose how this bitstream should be interpreted.",
+  // TODO New key - Add a translation
+  "submission.sections.upload.file.edit.form.file-type.hint": "Choose how this bitstream should be interpreted.",
+
+  // "submission.sections.upload.file.edit.form.file-type.option.audio-video": "Audio and video",
+  // TODO New key - Add a translation
+  "submission.sections.upload.file.edit.form.file-type.option.audio-video": "Audio and video",
+
+  // "submission.sections.upload.file.edit.form.file-type.option.neither": "Neither",
+  // TODO New key - Add a translation
+  "submission.sections.upload.file.edit.form.file-type.option.neither": "Neither",
+
+  // "submission.sections.upload.file.edit.form.file-type.option.audio": "Audio",
+  // TODO New key - Add a translation
+  "submission.sections.upload.file.edit.form.file-type.option.audio": "Audio",
+
+  // "submission.sections.upload.file.edit.form.file-type.option.video": "Video",
+  // TODO New key - Add a translation
+  "submission.sections.upload.file.edit.form.file-type.option.video": "Video",
+
+  // "submission.sections.upload.file.edit.form.audio-transcript.label": "Audio transcript",
+  // TODO New key - Add a translation
+  "submission.sections.upload.file.edit.form.audio-transcript.label": "Audio transcript",
+
+  // "submission.sections.upload.file.edit.form.audio-transcript.hint": "Provide a transcript for audio content.",
+  // TODO New key - Add a translation
+  "submission.sections.upload.file.edit.form.audio-transcript.hint": "Provide a transcript for audio content.",
+
+  // "submission.sections.upload.file.edit.form.video-description.label": "Video description",
+  // TODO New key - Add a translation
+  "submission.sections.upload.file.edit.form.video-description.label": "Video description",
+
+  // "submission.sections.upload.file.edit.form.video-description.hint": "Provide a description for video content.",
+  // TODO New key - Add a translation
+  "submission.sections.upload.file.edit.form.video-description.hint": "Provide a description for video content.",
 
   // "submission.sections.upload.form.access-condition-label": "Access condition type",
   "submission.sections.upload.form.access-condition-label": "அணுகல் நிபந்தனை வகை",
@@ -9280,6 +9441,10 @@
   // TODO New key - Add a translation
   "submission.sections.custom-url.url.placeholder": "Custom URL",
 
+  // "submission.sections.custom-url.label.remove": "Remove",
+  // TODO New key - Add a translation
+  "submission.sections.custom-url.label.remove": "Remove",
+
   // "submission.sections.accesses.form.discoverable-description": "When checked, this item will be discoverable in search/browse. When unchecked, the item will only be available via a direct link and will never appear in search/browse.",
   "submission.sections.accesses.form.discoverable-description": "சரிபார்க்கப்பட்டால், இந்த உருப்படி தேடல்/உலாவலில் கண்டறியப்படும். சரிபார்க்கப்படாதால், உருப்படி நேரடி இணைப்பின் மூலம் மட்டுமே கிடைக்கும் மற்றும் தேடல்/உலாவலில் எப்போதும் தோன்றாது.",
 
@@ -9346,84 +9511,86 @@
   // "submission.sections.license.notgranted": "You must accept the license",
   "submission.sections.license.notgranted": "உரிமத்தை ஏற்க வேண்டும்",
 
-  // "submission.sections.sherpa.publication.information": "Publication information",
-  "submission.sections.sherpa.publication.information": "பதிப்பிப்பு தகவல்",
+  // "submission.sections.jisc.publication.information": "Publication information",
+  "submission.sections.jisc.publication.information": "பதிப்பிப்பு தகவல்",
 
-  // "submission.sections.sherpa.publication.information.title": "Title",
-  "submission.sections.sherpa.publication.information.title": "தலைப்பு",
+  // "submission.sections.jisc.publication.information.title": "Title",
+  "submission.sections.jisc.publication.information.title": "தலைப்பு",
 
-  // "submission.sections.sherpa.publication.information.issns": "ISSNs",
-  "submission.sections.sherpa.publication.information.issns": "ISSNs",
+  // "submission.sections.jisc.publication.information.issns": "ISSNs",
+  "submission.sections.jisc.publication.information.issns": "ISSNs",
 
-  // "submission.sections.sherpa.publication.information.url": "URL",
-  "submission.sections.sherpa.publication.information.url": "URL",
+  // "submission.sections.jisc.publication.information.url": "URL",
+  "submission.sections.jisc.publication.information.url": "URL",
 
-  // "submission.sections.sherpa.publication.information.publishers": "Publisher",
-  "submission.sections.sherpa.publication.information.publishers": "பதிப்பாளர்",
+  // "submission.sections.jisc.publication.information.publishers": "Publisher",
+  "submission.sections.jisc.publication.information.publishers": "பதிப்பாளர்",
 
-  // "submission.sections.sherpa.publication.information.romeoPub": "Romeo Pub",
-  "submission.sections.sherpa.publication.information.romeoPub": "Romeo Pub",
+  // "submission.sections.jisc.publication.information.romeoPub": "Romeo Pub",
+  "submission.sections.jisc.publication.information.romeoPub": "Romeo Pub",
 
-  // "submission.sections.sherpa.publication.information.zetoPub": "Zeto Pub",
-  "submission.sections.sherpa.publication.information.zetoPub": "Zeto Pub",
+  // "submission.sections.jisc.publication.information.zetoPub": "Zeto Pub",
+  "submission.sections.jisc.publication.information.zetoPub": "Zeto Pub",
 
-  // "submission.sections.sherpa.publisher.policy": "Publisher Policy",
-  "submission.sections.sherpa.publisher.policy": "பதிப்பாளர் கொள்கை",
+  // "submission.sections.jisc.publisher.policy": "Publisher Policy",
+  "submission.sections.jisc.publisher.policy": "பதிப்பாளர் கொள்கை",
 
-  // "submission.sections.sherpa.publisher.policy.description": "The below information was found via Sherpa Romeo. Based on the policies of your publisher, it provides advice regarding whether an embargo may be necessary and/or which files you are allowed to upload. If you have questions, please contact your site administrator via the feedback form in the footer.",
-  "submission.sections.sherpa.publisher.policy.description": "Sherpa Romeo மூலம் கீழே உள்ள தகவல் கிடைக்கப்பட்டது. உங்கள் பதிப்பாளரின் கொள்கைகளின் அடிப்படையில், இது ஒரு தடையினை தேவைப்படுகிறதா மற்றும்/அல்லது எந்த கோப்புகளை நீங்கள் பதிவேற்ற அனுமதிக்கப்படுகிறீர்கள் என்பதைப் பற்றிய ஆலோசனையை வழங்குகிறது. கேள்விகள் இருந்தால், கீழே உள்ள கருத்து படிவத்தின் மூலம் உங்கள் தள நிர்வாகியை தொடர்பு கொள்ளவும்.",
-
-  // "submission.sections.sherpa.publisher.policy.openaccess": "Open Access pathways permitted by this journal's policy are listed below by article version. Click on a pathway for a more detailed view",
-  "submission.sections.sherpa.publisher.policy.openaccess": "இந்த ஜர்னலின் கொள்கையால் அனுமதிக்கப்பட்ட திறந்த அணுகல் பாதைகள் கீழே கட்டுரை பதிப்பினால் பட்டியலிடப்பட்டுள்ளன. மேலும் விவரக்குறிப்புகளுக்காக ஒரு பாதையை கிளிக் செய்யவும்",
-
-  // "submission.sections.sherpa.publisher.policy.more.information": "For more information, please see the following links:",
+  // "submission.sections.jisc.publisher.policy.description": "The below information was found via Jisc Open policy finder. Based on the policies of your publisher, it provides advice regarding whether an embargo may be necessary and/or which files you are allowed to upload. If you have questions, please contact your site administrator via the feedback form in the footer.",
   // TODO New key - Add a translation
-  "submission.sections.sherpa.publisher.policy.more.information": "For more information, please see the following links:",
+  "submission.sections.jisc.publisher.policy.description": "The below information was found via Jisc Open policy finder. Based on the policies of your publisher, it provides advice regarding whether an embargo may be necessary and/or which files you are allowed to upload. If you have questions, please contact your site administrator via the feedback form in the footer.",
 
-  // "submission.sections.sherpa.publisher.policy.version": "Version",
-  "submission.sections.sherpa.publisher.policy.version": "பதிப்பு",
+  // "submission.sections.jisc.publisher.policy.openaccess": "Open Access pathways permitted by this journal's policy are listed below by article version. Click on a pathway for a more detailed view",
+  "submission.sections.jisc.publisher.policy.openaccess": "இந்த ஜர்னலின் கொள்கையால் அனுமதிக்கப்பட்ட திறந்த அணுகல் பாதைகள் கீழே கட்டுரை பதிப்பினால் பட்டியலிடப்பட்டுள்ளன. மேலும் விவரக்குறிப்புகளுக்காக ஒரு பாதையை கிளிக் செய்யவும்",
 
-  // "submission.sections.sherpa.publisher.policy.embargo": "Embargo",
-  "submission.sections.sherpa.publisher.policy.embargo": "தடை",
+  // "submission.sections.jisc.publisher.policy.more.information": "For more information, please see the following links:",
+  // TODO New key - Add a translation
+  "submission.sections.jisc.publisher.policy.more.information": "For more information, please see the following links:",
 
-  // "submission.sections.sherpa.publisher.policy.noembargo": "No Embargo",
-  "submission.sections.sherpa.publisher.policy.noembargo": "தடை இல்லை",
+  // "submission.sections.jisc.publisher.policy.version": "Version",
+  "submission.sections.jisc.publisher.policy.version": "பதிப்பு",
 
-  // "submission.sections.sherpa.publisher.policy.nolocation": "None",
-  "submission.sections.sherpa.publisher.policy.nolocation": "எதுவும் இல்லை",
+  // "submission.sections.jisc.publisher.policy.embargo": "Embargo",
+  "submission.sections.jisc.publisher.policy.embargo": "தடை",
 
-  // "submission.sections.sherpa.publisher.policy.license": "License",
-  "submission.sections.sherpa.publisher.policy.license": "உரிமம்",
+  // "submission.sections.jisc.publisher.policy.noembargo": "No Embargo",
+  "submission.sections.jisc.publisher.policy.noembargo": "தடை இல்லை",
 
-  // "submission.sections.sherpa.publisher.policy.prerequisites": "Prerequisites",
-  "submission.sections.sherpa.publisher.policy.prerequisites": "முன்னேற்பாடுகள்",
+  // "submission.sections.jisc.publisher.policy.nolocation": "None",
+  "submission.sections.jisc.publisher.policy.nolocation": "எதுவும் இல்லை",
 
-  // "submission.sections.sherpa.publisher.policy.location": "Location",
-  "submission.sections.sherpa.publisher.policy.location": "இடம்",
+  // "submission.sections.jisc.publisher.policy.license": "License",
+  "submission.sections.jisc.publisher.policy.license": "உரிமம்",
 
-  // "submission.sections.sherpa.publisher.policy.conditions": "Conditions",
-  "submission.sections.sherpa.publisher.policy.conditions": "நிபந்தனைகள்",
+  // "submission.sections.jisc.publisher.policy.prerequisites": "Prerequisites",
+  "submission.sections.jisc.publisher.policy.prerequisites": "முன்னேற்பாடுகள்",
 
-  // "submission.sections.sherpa.publisher.policy.refresh": "Refresh",
-  "submission.sections.sherpa.publisher.policy.refresh": "புதுப்பிக்கவும்",
+  // "submission.sections.jisc.publisher.policy.location": "Location",
+  "submission.sections.jisc.publisher.policy.location": "இடம்",
 
-  // "submission.sections.sherpa.record.information": "Record Information",
-  "submission.sections.sherpa.record.information": "பதிவு தகவல்",
+  // "submission.sections.jisc.publisher.policy.conditions": "Conditions",
+  "submission.sections.jisc.publisher.policy.conditions": "நிபந்தனைகள்",
 
-  // "submission.sections.sherpa.record.information.id": "ID",
-  "submission.sections.sherpa.record.information.id": "ID",
+  // "submission.sections.jisc.publisher.policy.refresh": "Refresh",
+  "submission.sections.jisc.publisher.policy.refresh": "புதுப்பிக்கவும்",
 
-  // "submission.sections.sherpa.record.information.date.created": "Date Created",
-  "submission.sections.sherpa.record.information.date.created": "உருவாக்கப்பட்ட தேதி",
+  // "submission.sections.jisc.record.information": "Record Information",
+  "submission.sections.jisc.record.information": "பதிவு தகவல்",
 
-  // "submission.sections.sherpa.record.information.date.modified": "Last Modified",
-  "submission.sections.sherpa.record.information.date.modified": "கடைசியாக மாற்றப்பட்டது",
+  // "submission.sections.jisc.record.information.id": "ID",
+  "submission.sections.jisc.record.information.id": "ID",
 
-  // "submission.sections.sherpa.record.information.uri": "URI",
-  "submission.sections.sherpa.record.information.uri": "URI",
+  // "submission.sections.jisc.record.information.date.created": "Date Created",
+  "submission.sections.jisc.record.information.date.created": "உருவாக்கப்பட்ட தேதி",
 
-  // "submission.sections.sherpa.error.message": "There was an error retrieving sherpa information",
-  "submission.sections.sherpa.error.message": "Sherpa தகவலை பெறுவதில் பிழை ஏற்பட்டது",
+  // "submission.sections.jisc.record.information.date.modified": "Last Modified",
+  "submission.sections.jisc.record.information.date.modified": "கடைசியாக மாற்றப்பட்டது",
+
+  // "submission.sections.jisc.record.information.uri": "URI",
+  "submission.sections.jisc.record.information.uri": "URI",
+
+  // "submission.sections.jisc.error.message": "There was an error retrieving Jisc Open policy finder information",
+  // TODO New key - Add a translation
+  "submission.sections.jisc.error.message": "There was an error retrieving Jisc Open policy finder information",
 
   // "submission.submit.breadcrumbs": "New submission",
   "submission.submit.breadcrumbs": "புதிய சமர்ப்பிப்பு",
@@ -9572,8 +9739,9 @@
   // "subscriptions.tooltip": "Subscribe",
   "subscriptions.tooltip": "சந்தா",
 
-  // "subscriptions.unsubscribe": "Unsubscribe",
-  "subscriptions.unsubscribe": "சந்தாவை ரத்து செய்",
+  // "subscriptions.manage": "Manage Subscription",
+  // TODO New key - Add a translation
+  "subscriptions.manage": "Manage Subscription",
 
   // "subscriptions.modal.title": "Subscriptions",
   "subscriptions.modal.title": "சந்தாக்கள்",
@@ -10543,281 +10711,396 @@
 
   // "ldn-registered-services.title": "Registered Services",
   "ldn-registered-services.title": "பதிவுசெய்யப்பட்ட சேவைகள்",
+
   // "ldn-registered-services.table.name": "Name",
   "ldn-registered-services.table.name": "பெயர்",
+
   // "ldn-registered-services.table.description": "Description",
   "ldn-registered-services.table.description": "விளக்கம்",
+
   // "ldn-registered-services.table.status": "Status",
   "ldn-registered-services.table.status": "நிலை",
+
   // "ldn-registered-services.table.action": "Action",
   "ldn-registered-services.table.action": "செயல்",
+
   // "ldn-registered-services.new": "NEW",
   "ldn-registered-services.new": "புதியது",
+
   // "ldn-registered-services.new.breadcrumbs": "Registered Services",
   "ldn-registered-services.new.breadcrumbs": "பதிவுசெய்யப்பட்ட சேவைகள்",
 
   // "ldn-service.overview.table.enabled": "Enabled",
   "ldn-service.overview.table.enabled": "இயக்கப்பட்டது",
+
   // "ldn-service.overview.table.disabled": "Disabled",
   "ldn-service.overview.table.disabled": "முடக்கப்பட்டது",
+
   // "ldn-service.overview.table.clickToEnable": "Click to enable",
   "ldn-service.overview.table.clickToEnable": "இயக்க கிளிக் செய்யவும்",
+
   // "ldn-service.overview.table.clickToDisable": "Click to disable",
   "ldn-service.overview.table.clickToDisable": "முடக்க கிளிக் செய்யவும்",
 
   // "ldn-edit-registered-service.title": "Edit Service",
   "ldn-edit-registered-service.title": "சேவையைத் திருத்து",
+
   // "ldn-create-service.title": "Create service",
   "ldn-create-service.title": "சேவையை உருவாக்கு",
+
   // "service.overview.create.modal": "Create Service",
   "service.overview.create.modal": "சேவையை உருவாக்கு",
+
   // "service.overview.create.body": "Please confirm the creation of this service.",
   "service.overview.create.body": "இந்த சேவையை உருவாக்குவதை உறுதிப்படுத்தவும்.",
+
   // "ldn-service-status": "Status",
   "ldn-service-status": "நிலை",
+
   // "service.confirm.create": "Create",
   "service.confirm.create": "உருவாக்கு",
+
   // "service.refuse.create": "Cancel",
   "service.refuse.create": "ரத்து செய்",
+
   // "ldn-register-new-service.title": "Register a new service",
   "ldn-register-new-service.title": "புதிய சேவையை பதிவு செய்",
+
   // "ldn-new-service.form.label.submit": "Save",
   "ldn-new-service.form.label.submit": "சேமி",
+
   // "ldn-new-service.form.label.name": "Name",
   "ldn-new-service.form.label.name": "பெயர்",
+
   // "ldn-new-service.form.label.description": "Description",
   "ldn-new-service.form.label.description": "விளக்கம்",
+
   // "ldn-new-service.form.label.url": "Service URL",
   "ldn-new-service.form.label.url": "சேவை URL",
+
   // "ldn-new-service.form.label.ip-range": "Service IP range",
   "ldn-new-service.form.label.ip-range": "சேவை IP வரம்பு",
+
   // "ldn-new-service.form.label.score": "Level of trust",
   "ldn-new-service.form.label.score": "நம்பகத்தன்மை நிலை",
+
   // "ldn-new-service.form.label.ldnUrl": "LDN Inbox URL",
   "ldn-new-service.form.label.ldnUrl": "LDN இன்பாக்ஸ் URL",
+
   // "ldn-new-service.form.placeholder.name": "Please provide service name",
   "ldn-new-service.form.placeholder.name": "சேவை பெயரை வழங்கவும்",
+
   // "ldn-new-service.form.placeholder.description": "Please provide a description regarding your service",
   "ldn-new-service.form.placeholder.description": "உங்கள் சேவையைப் பற்றிய விளக்கத்தை வழங்கவும்",
+
   // "ldn-new-service.form.placeholder.url": "Please input the URL for users to check out more information about the service",
   "ldn-new-service.form.placeholder.url": "சேவை பற்றிய மேலும் தகவலைப் பார்க்க URL ஐ உள்ளிடவும்",
+
   // "ldn-new-service.form.placeholder.lowerIp": "IPv4 range lower bound",
   "ldn-new-service.form.placeholder.lowerIp": "IPv4 வரம்பு குறைந்த எல்லை",
+
   // "ldn-new-service.form.placeholder.upperIp": "IPv4 range upper bound",
   "ldn-new-service.form.placeholder.upperIp": "IPv4 வரம்பு அதிக எல்லை",
+
   // "ldn-new-service.form.placeholder.ldnUrl": "Please specify the URL of the LDN Inbox",
   "ldn-new-service.form.placeholder.ldnUrl": "LDN இன்பாக்ஸ் URL ஐ குறிப்பிடவும்",
+
   // "ldn-new-service.form.placeholder.score": "Please enter a value between 0 and 1. Use the “.” as decimal separator",
   "ldn-new-service.form.placeholder.score": "0 மற்றும் 1 இடையே ஒரு மதிப்பை உள்ளிடவும். தசம பிரிப்பாக “.” ஐ பயன்படுத்தவும்",
+
   // "ldn-service.form.label.placeholder.default-select": "Select a pattern",
   "ldn-service.form.label.placeholder.default-select": "ஒரு முறைமை தேர்ந்தெடுக்கவும்",
 
   // "ldn-service.form.pattern.ack-accept.label": "Acknowledge and Accept",
   "ldn-service.form.pattern.ack-accept.label": "அறியத்தெரிந்து ஏற்கவும்",
+
   // "ldn-service.form.pattern.ack-accept.description": "This pattern is used to acknowledge and accept a request (offer). It implies an intention to act on the request.",
   "ldn-service.form.pattern.ack-accept.description": "ஒரு கோரிக்கையை (வழங்கல்) அறியத்தெரிந்து ஏற்க இந்த முறைமை பயன்படுத்தப்படுகிறது. இது கோரிக்கையை செயல்படுத்தும் நோக்கத்தை குறிக்கிறது.",
+
   // "ldn-service.form.pattern.ack-accept.category": "Acknowledgements",
   "ldn-service.form.pattern.ack-accept.category": "அறியத்தெரிந்தல்கள்",
 
   // "ldn-service.form.pattern.ack-reject.label": "Acknowledge and Reject",
   "ldn-service.form.pattern.ack-reject.label": "அறியத்தெரிந்து நிராகரி",
+
   // "ldn-service.form.pattern.ack-reject.description": "This pattern is used to acknowledge and reject a request (offer). It signifies no further action regarding the request.",
   "ldn-service.form.pattern.ack-reject.description": "ஒரு கோரிக்கையை (வழங்கல்) அறியத்தெரிந்து நிராகரிக்க இந்த முறைமை பயன்படுத்தப்படுகிறது. இது கோரிக்கைக்கு மேலும் நடவடிக்கை எடுக்கப்படாது என்பதை குறிக்கிறது.",
+
   // "ldn-service.form.pattern.ack-reject.category": "Acknowledgements",
   "ldn-service.form.pattern.ack-reject.category": "அறியத்தெரிந்தல்கள்",
 
   // "ldn-service.form.pattern.ack-tentative-accept.label": "Acknowledge and Tentatively Accept",
   "ldn-service.form.pattern.ack-tentative-accept.label": "அறியத்தெரிந்து தற்காலிகமாக ஏற்கவும்",
+
   // "ldn-service.form.pattern.ack-tentative-accept.description": "This pattern is used to acknowledge and tentatively accept a request (offer). It implies an intention to act, which may change.",
   "ldn-service.form.pattern.ack-tentative-accept.description": "ஒரு கோரிக்கையை (வழங்கல்) அறியத்தெரிந்து தற்காலிகமாக ஏற்க இந்த முறைமை பயன்படுத்தப்படுகிறது. இது செயல்படுத்தும் நோக்கத்தை குறிக்கிறது, இது மாற்றப்படலாம்.",
+
   // "ldn-service.form.pattern.ack-tentative-accept.category": "Acknowledgements",
   "ldn-service.form.pattern.ack-tentative-accept.category": "அறியத்தெரிந்தல்கள்",
 
   // "ldn-service.form.pattern.ack-tentative-reject.label": "Acknowledge and Tentatively Reject",
   "ldn-service.form.pattern.ack-tentative-reject.label": "அறியத்தெரிந்து தற்காலிகமாக நிராகரி",
+
   // "ldn-service.form.pattern.ack-tentative-reject.description": "This pattern is used to acknowledge and tentatively reject a request (offer). It signifies no further action, subject to change.",
   "ldn-service.form.pattern.ack-tentative-reject.description": "ஒரு கோரிக்கையை (வழங்கல்) அறியத்தெரிந்து தற்காலிகமாக நிராகரிக்க இந்த முறைமை பயன்படுத்தப்படுகிறது. இது மேலும் நடவடிக்கை எடுக்கப்படாது என்பதை குறிக்கிறது, இது மாற்றப்படலாம்.",
+
   // "ldn-service.form.pattern.ack-tentative-reject.category": "Acknowledgements",
   "ldn-service.form.pattern.ack-tentative-reject.category": "அறியத்தெரிந்தல்கள்",
 
   // "ldn-service.form.pattern.announce-endorsement.label": "Announce Endorsement",
   "ldn-service.form.pattern.announce-endorsement.label": "ஆதரவை அறிவி",
+
   // "ldn-service.form.pattern.announce-endorsement.description": "This pattern is used to announce the existence of an endorsement, referencing the endorsed resource.",
   "ldn-service.form.pattern.announce-endorsement.description": "ஒரு ஆதரவு இருப்பதை அறிவிக்க இந்த முறைமை பயன்படுத்தப்படுகிறது, ஆதரிக்கப்பட்ட வளத்தை குறிப்பிடுகிறது.",
+
   // "ldn-service.form.pattern.announce-endorsement.category": "Announcements",
   "ldn-service.form.pattern.announce-endorsement.category": "அறிவிப்புகள்",
 
   // "ldn-service.form.pattern.announce-ingest.label": "Announce Ingest",
   "ldn-service.form.pattern.announce-ingest.label": "உட்கொள்ளப்பட்டதை அறிவி",
+
   // "ldn-service.form.pattern.announce-ingest.description": "This pattern is used to announce that a resource has been ingested.",
   "ldn-service.form.pattern.announce-ingest.description": "ஒரு வளம் உட்கொள்ளப்பட்டதை அறிவிக்க இந்த முறைமை பயன்படுத்தப்படுகிறது.",
+
   // "ldn-service.form.pattern.announce-ingest.category": "Announcements",
   "ldn-service.form.pattern.announce-ingest.category": "அறிவிப்புகள்",
 
   // "ldn-service.form.pattern.announce-relationship.label": "Announce Relationship",
   "ldn-service.form.pattern.announce-relationship.label": "உறவை அறிவி",
+
   // "ldn-service.form.pattern.announce-relationship.description": "This pattern is used to announce a relationship between two resources.",
   "ldn-service.form.pattern.announce-relationship.description": "இரண்டு வளங்களுக்கு இடையேயான உறவை அறிவிக்க இந்த முறைமை பயன்படுத்தப்படுகிறது.",
+
   // "ldn-service.form.pattern.announce-relationship.category": "Announcements",
   "ldn-service.form.pattern.announce-relationship.category": "அறிவிப்புகள்",
 
   // "ldn-service.form.pattern.announce-review.label": "Announce Review",
   "ldn-service.form.pattern.announce-review.label": "மதிப்பீட்டை அறிவி",
+
   // "ldn-service.form.pattern.announce-review.description": "This pattern is used to announce the existence of a review, referencing the reviewed resource.",
   "ldn-service.form.pattern.announce-review.description": "ஒரு மதிப்பீடு இருப்பதை அறிவிக்க இந்த முறைமை பயன்படுத்தப்படுகிறது, மதிப்பீடு செய்யப்பட்ட வளத்தை குறிப்பிடுகிறது.",
+
   // "ldn-service.form.pattern.announce-review.category": "Announcements",
   "ldn-service.form.pattern.announce-review.category": "அறிவிப்புகள்",
 
   // "ldn-service.form.pattern.announce-service-result.label": "Announce Service Result",
   "ldn-service.form.pattern.announce-service-result.label": "சேவை முடிவை அறிவி",
+
   // "ldn-service.form.pattern.announce-service-result.description": "This pattern is used to announce the existence of a 'service result', referencing the relevant resource.",
   "ldn-service.form.pattern.announce-service-result.description": "ஒரு 'சேவை முடிவு' இருப்பதை அறிவிக்க இந்த முறைமை பயன்படுத்தப்படுகிறது, தொடர்புடைய வளத்தை குறிப்பிடுகிறது.",
+
   // "ldn-service.form.pattern.announce-service-result.category": "Announcements",
   "ldn-service.form.pattern.announce-service-result.category": "அறிவிப்புகள்",
 
   // "ldn-service.form.pattern.request-endorsement.label": "Request Endorsement",
   "ldn-service.form.pattern.request-endorsement.label": "ஆதரவை கோரி",
+
   // "ldn-service.form.pattern.request-endorsement.description": "This pattern is used to request endorsement of a resource owned by the origin system.",
   "ldn-service.form.pattern.request-endorsement.description": "மூல அமைப்பின் உரிமத்தில் உள்ள ஒரு வளத்திற்கு ஆதரவை கோர இந்த முறைமை பயன்படுத்தப்படுகிறது.",
+
   // "ldn-service.form.pattern.request-endorsement.category": "Requests",
   "ldn-service.form.pattern.request-endorsement.category": "கோரிக்கைகள்",
 
   // "ldn-service.form.pattern.request-ingest.label": "Request Ingest",
   "ldn-service.form.pattern.request-ingest.label": "உட்கொள்ள கோரி",
+
   // "ldn-service.form.pattern.request-ingest.description": "This pattern is used to request that the target system ingest a resource.",
   "ldn-service.form.pattern.request-ingest.description": "இலக்கு அமைப்பு ஒரு வளத்தை உட்கொள்ள கோர இந்த முறைமை பயன்படுத்தப்படுகிறது.",
+
   // "ldn-service.form.pattern.request-ingest.category": "Requests",
   "ldn-service.form.pattern.request-ingest.category": "கோரிக்கைகள்",
 
   // "ldn-service.form.pattern.request-review.label": "Request Review",
   "ldn-service.form.pattern.request-review.label": "மதிப்பீட்டை கோரி",
+
   // "ldn-service.form.pattern.request-review.description": "This pattern is used to request a review of a resource owned by the origin system.",
   "ldn-service.form.pattern.request-review.description": "மூல அமைப்பின் உரிமத்தில் உள்ள ஒரு வளத்தை மதிப்பீடு செய்ய கோர இந்த முறைமை பயன்படுத்தப்படுகிறது.",
+
   // "ldn-service.form.pattern.request-review.category": "Requests",
   "ldn-service.form.pattern.request-review.category": "கோரிக்கைகள்",
 
   // "ldn-service.form.pattern.undo-offer.label": "Undo Offer",
   "ldn-service.form.pattern.undo-offer.label": "வழங்கலை ரத்து செய்",
+
   // "ldn-service.form.pattern.undo-offer.description": "This pattern is used to undo (retract) an offer previously made.",
   "ldn-service.form.pattern.undo-offer.description": "முன்னதாக வழங்கப்பட்ட ஒரு சந்தையை ரத்து (திரும்பப் பெற) செய்ய இந்த முறைமை பயன்படுத்தப்படுகிறது.",
+
   // "ldn-service.form.pattern.undo-offer.category": "Undo",
   "ldn-service.form.pattern.undo-offer.category": "ரத்து",
 
   // "ldn-new-service.form.label.placeholder.selectedItemFilter": "No Item Filter Selected",
   "ldn-new-service.form.label.placeholder.selectedItemFilter": "உருப்படி வடிகட்டல் தேர்ந்தெடுக்கப்படவில்லை",
+
   // "ldn-new-service.form.label.ItemFilter": "Item Filter",
   "ldn-new-service.form.label.ItemFilter": "உருப்படி வடிகட்டல்",
+
   // "ldn-new-service.form.label.automatic": "Automatic",
   "ldn-new-service.form.label.automatic": "தானியங்கு",
+
   // "ldn-new-service.form.error.name": "Name is required",
   "ldn-new-service.form.error.name": "பெயர் தேவை",
+
   // "ldn-new-service.form.error.url": "URL is required",
   "ldn-new-service.form.error.url": "URL தேவை",
+
   // "ldn-new-service.form.error.ipRange": "Please enter a valid IP range",
   "ldn-new-service.form.error.ipRange": "தயவுசெய்து சரியான IP வரம்பை உள்ளிடவும்",
+
   // "ldn-new-service.form.hint.ipRange": "Please enter a valid IpV4 in both range bounds (note: for single IP, please enter the same value in both fields)",
   // TODO New key - Add a translation
   "ldn-new-service.form.hint.ipRange": "Please enter a valid IpV4 in both range bounds (note: for single IP, please enter the same value in both fields)",
+
   // "ldn-new-service.form.error.ldnurl": "LDN URL is required",
   "ldn-new-service.form.error.ldnurl": "LDN URL தேவை",
+
+  // "ldn-new-service.form.error.ldnurl.ldnUrlAlreadyAssociated": "This LDN URL is already associated with another service",
+  // TODO New key - Add a translation
+  "ldn-new-service.form.error.ldnurl.ldnUrlAlreadyAssociated": "This LDN URL is already associated with another service",
+
   // "ldn-new-service.form.error.patterns": "At least a pattern is required",
   "ldn-new-service.form.error.patterns": "குறைந்தது ஒரு முறைமை தேவை",
+
   // "ldn-new-service.form.error.score": "Please enter a valid score (between 0 and 1). Use the “.” as decimal separator",
   "ldn-new-service.form.error.score": "தயவுசெய்து சரியான மதிப்பை உள்ளிடவும் (0 மற்றும் 1 இடையே). தசம பிரிப்பாக “.” ஐ பயன்படுத்தவும்",
 
   // "ldn-new-service.form.label.inboundPattern": "Supported Pattern",
   "ldn-new-service.form.label.inboundPattern": "ஆதரிக்கப்படும் முறைமை",
+
   // "ldn-new-service.form.label.addPattern": "+ Add more",
   "ldn-new-service.form.label.addPattern": "+ மேலும் சேர்",
+
   // "ldn-new-service.form.label.removeItemFilter": "Remove",
   "ldn-new-service.form.label.removeItemFilter": "நீக்கு",
+
   // "ldn-register-new-service.breadcrumbs": "New Service",
   "ldn-register-new-service.breadcrumbs": "புதிய சேவை",
+
   // "service.overview.delete.body": "Are you sure you want to delete this service?",
   "service.overview.delete.body": "இந்த சேவையை நீக்க விரும்புகிறீர்களா?",
+
   // "service.overview.edit.body": "Do you confirm the changes?",
   "service.overview.edit.body": "இந்த மாற்றங்களை உறுதிப்படுத்துகிறீர்களா?",
+
   // "service.overview.edit.modal": "Edit Service",
   "service.overview.edit.modal": "சேவையைத் திருத்து",
+
   // "service.detail.update": "Confirm",
   "service.detail.update": "உறுதிப்படுத்து",
+
   // "service.detail.return": "Cancel",
   "service.detail.return": "ரத்து செய்",
+
   // "service.overview.reset-form.body": "Are you sure you want to discard the changes and leave?",
   "service.overview.reset-form.body": "மாற்றங்களை நிராகரித்து வெளியேற விரும்புகிறீர்களா?",
+
   // "service.overview.reset-form.modal": "Discard Changes",
   "service.overview.reset-form.modal": "மாற்றங்களை நிராகரி",
+
   // "service.overview.reset-form.reset-confirm": "Discard",
   "service.overview.reset-form.reset-confirm": "நிராகரி",
+
   // "admin.registries.services-formats.modify.success.head": "Successful Edit",
   "admin.registries.services-formats.modify.success.head": "வெற்றிகரமான திருத்து",
+
   // "admin.registries.services-formats.modify.success.content": "The service has been edited",
   "admin.registries.services-formats.modify.success.content": "சேவை வெற்றிகரமாக திருத்தப்பட்டது",
+
   // "admin.registries.services-formats.modify.failure.head": "Failed Edit",
   "admin.registries.services-formats.modify.failure.head": "திருத்தம் தோல்வியடைந்தது",
+
   // "admin.registries.services-formats.modify.failure.content": "The service has not been edited",
   "admin.registries.services-formats.modify.failure.content": "சேவை திருத்தப்படவில்லை",
+
   // "ldn-service-notification.created.success.title": "Successful Create",
   "ldn-service-notification.created.success.title": "வெற்றிகரமான உருவாக்கம்",
+
   // "ldn-service-notification.created.success.body": "The service has been created",
   "ldn-service-notification.created.success.body": "சேவை வெற்றிகரமாக உருவாக்கப்பட்டது",
+
   // "ldn-service-notification.created.failure.title": "Failed Create",
   "ldn-service-notification.created.failure.title": "உருவாக்கம் தோல்வியடைந்தது",
+
   // "ldn-service-notification.created.failure.body": "The service has not been created",
   "ldn-service-notification.created.failure.body": "சேவை உருவாக்கப்படவில்லை",
+
   // "ldn-service-notification.created.warning.title": "Please select at least one Inbound Pattern",
   "ldn-service-notification.created.warning.title": "குறைந்தது ஒரு ஆதரிக்கப்படும் முறைமை தேர்ந்தெடுக்கவும்",
+
   // "ldn-enable-service.notification.success.title": "Successful status updated",
   "ldn-enable-service.notification.success.title": "நிலை வெற்றிகரமாக புதுப்பிக்கப்பட்டது",
+
   // "ldn-enable-service.notification.success.content": "The service status has been updated",
   "ldn-enable-service.notification.success.content": "சேவையின் நிலை புதுப்பிக்கப்பட்டது",
+
   // "ldn-service-delete.notification.success.title": "Successful Deletion",
   "ldn-service-delete.notification.success.title": "வெற்றிகரமான நீக்கம்",
+
   // "ldn-service-delete.notification.success.content": "The service has been deleted",
   "ldn-service-delete.notification.success.content": "சேவை வெற்றிகரமாக நீக்கப்பட்டது",
+
   // "ldn-service-delete.notification.error.title": "Failed Deletion",
   "ldn-service-delete.notification.error.title": "நீக்கம் தோல்வியடைந்தது",
+
   // "ldn-service-delete.notification.error.content": "The service has not been deleted",
   "ldn-service-delete.notification.error.content": "சேவை நீக்கப்படவில்லை",
+
   // "service.overview.reset-form.reset-return": "Cancel",
   "service.overview.reset-form.reset-return": "ரத்து செய்",
+
   // "service.overview.delete": "Delete service",
   "service.overview.delete": "சேவையை நீக்கு",
+
   // "ldn-edit-service.title": "Edit service",
   "ldn-edit-service.title": "சேவையைத் திருத்து",
+
   // "ldn-edit-service.form.label.name": "Name",
   "ldn-edit-service.form.label.name": "பெயர்",
+
   // "ldn-edit-service.form.label.description": "Description",
   "ldn-edit-service.form.label.description": "விளக்கம்",
+
   // "ldn-edit-service.form.label.url": "Service URL",
   "ldn-edit-service.form.label.url": "சேவை URL",
+
   // "ldn-edit-service.form.label.ldnUrl": "LDN Inbox URL",
   "ldn-edit-service.form.label.ldnUrl": "LDN இன்பாக்ஸ் URL",
+
   // "ldn-edit-service.form.label.inboundPattern": "Inbound Pattern",
   "ldn-edit-service.form.label.inboundPattern": "உள்வரும் முறைமை",
+
   // "ldn-edit-service.form.label.noInboundPatternSelected": "No Inbound Pattern",
   "ldn-edit-service.form.label.noInboundPatternSelected": "உள்வரும் முறைமை இல்லை",
+
   // "ldn-edit-service.form.label.selectedItemFilter": "Selected Item Filter",
   "ldn-edit-service.form.label.selectedItemFilter": "தேர்ந்தெடுக்கப்பட்ட உருப்படி வடிகட்டி",
+
   // "ldn-edit-service.form.label.selectItemFilter": "No Item Filter",
   "ldn-edit-service.form.label.selectItemFilter": "உருப்படி வடிகட்டி இல்லை",
+
   // "ldn-edit-service.form.label.automatic": "Automatic",
   "ldn-edit-service.form.label.automatic": "தானியங்கு",
+
   // "ldn-edit-service.form.label.addInboundPattern": "+ Add more",
   "ldn-edit-service.form.label.addInboundPattern": "+ மேலும் சேர்",
+
   // "ldn-edit-service.form.label.submit": "Save",
   "ldn-edit-service.form.label.submit": "சேமி",
+
   // "ldn-edit-service.breadcrumbs": "Edit Service",
   "ldn-edit-service.breadcrumbs": "சேவையைத் திருத்து",
+
   // "ldn-service.control-constaint-select-none": "Select none",
   "ldn-service.control-constaint-select-none": "எதையும் தேர்ந்தெடுக்க வேண்டாம்",
 
   // "ldn-register-new-service.notification.error.title": "Error",
   "ldn-register-new-service.notification.error.title": "பிழை",
+
   // "ldn-register-new-service.notification.error.content": "An error occurred while creating this process",
   "ldn-register-new-service.notification.error.content": "இந்த செயல்முறையை உருவாக்கும் போது பிழை ஏற்பட்டது",
+
   // "ldn-register-new-service.notification.success.title": "Success",
   "ldn-register-new-service.notification.success.title": "வெற்றி",
+
   // "ldn-register-new-service.notification.success.content": "The process was successfully created",
   "ldn-register-new-service.notification.success.content": "செயல்முறை வெற்றிகரமாக உருவாக்கப்பட்டது",
 
@@ -10851,6 +11134,7 @@
 
   // "quality-assurance.topics.description-with-target": "Below you can see all the topics received from the subscriptions to {{source}} in regards to the",
   "quality-assurance.topics.description-with-target": "கீழே {{source}} சந்தாவிலிருந்து பெறப்பட்ட அனைத்து தலைப்புகளையும் காணலாம், இது தொடர்புடையது",
+
   // "quality-assurance.events.description": "Below the list of all the suggestions for the selected topic <b>{{topic}}</b>, related to <b>{{source}}</b>.",
   "quality-assurance.events.description": "தேர்ந்தெடுக்கப்பட்ட தலைப்புக்கான அனைத்து பரிந்துரைகளின் பட்டியல் கீழே உள்ளது <b>{{topic}}</b>, இது <b>{{source}}</b> உடன் தொடர்புடையது.",
 
@@ -11639,6 +11923,10 @@
   // "external-login.confirmation.email-label": "User Email",
   "external-login.confirmation.email-label": "பயனர் மின்னஞ்சல்",
 
+  // "external-login.confirmation.email": "Email",
+  // TODO New key - Add a translation
+  "external-login.confirmation.email": "Email",
+
   // "external-login.confirmation.email-invalid": "Invalid email format.",
   "external-login.confirmation.email-invalid": "தவறான மின்னஞ்சல் வடிவம்.",
 
@@ -11729,6 +12017,10 @@
   // "external-login-page.orcid-confirmation.netid": "Account Identifier",
   "external-login-page.orcid-confirmation.netid": "கணக்கு அடையாளம்",
 
+  // "external-login-page.orcid-confirmation.netid.label": "Account Identifier",
+  // TODO New key - Add a translation
+  "external-login-page.orcid-confirmation.netid.label": "Account Identifier",
+
   // "external-login-page.orcid-confirmation.netid.placeholder": "xxxx-xxxx-xxxx-xxxx",
   "external-login-page.orcid-confirmation.netid.placeholder": "xxxx-xxxx-xxxx-xxxx",
 
@@ -11778,6 +12070,30 @@
   // "file-download-button.request-copy": "Request a copy",
   // TODO New key - Add a translation
   "file-download-button.request-copy": "Request a copy",
+
+  // "file-download-link.audio-transcript.label": "Transcript",
+  // TODO New key - Add a translation
+  "file-download-link.audio-transcript.label": "Transcript",
+
+  // "file-download-link.audio-transcript.title": "Audio transcript",
+  // TODO New key - Add a translation
+  "file-download-link.audio-transcript.title": "Audio transcript",
+
+  // "file-download-link.audio-transcript.aria": "Open audio transcript",
+  // TODO New key - Add a translation
+  "file-download-link.audio-transcript.aria": "Open audio transcript",
+
+  // "file-download-link.video-description.label": "Video description",
+  // TODO New key - Add a translation
+  "file-download-link.video-description.label": "Video description",
+
+  // "file-download-link.video-description.title": "Video description",
+  // TODO New key - Add a translation
+  "file-download-link.video-description.title": "Video description",
+
+  // "file-download-link.video-description.aria": "Open video description",
+  // TODO New key - Add a translation
+  "file-download-link.video-description.aria": "Open video description",
 
   // "item.preview.organization.url": "URL",
   // TODO New key - Add a translation
@@ -12114,6 +12430,82 @@
   // "admin.edit-user-agreement.title": "Edit User Agreement",
   // TODO New key - Add a translation
   "admin.edit-user-agreement.title": "Edit User Agreement",
+
+  // "bitstream.replace.page.title": "Replace File",
+  // TODO New key - Add a translation
+  "bitstream.replace.page.title": "Replace File",
+
+  // "bitstream.replace.page.header": "Replace {{fileName}} ({{fileSize}})",
+  // TODO New key - Add a translation
+  "bitstream.replace.page.header": "Replace {{fileName}} ({{fileSize}})",
+
+  // "bitstream.replace.page.content": "Select a file to replace {{fileName}}. Note that this transfer can take a while to process, and may not start immediately.",
+  // TODO New key - Add a translation
+  "bitstream.replace.page.content": "Select a file to replace {{fileName}}. Note that this transfer can take a while to process, and may not start immediately.",
+
+  // "bitstream.replace.page.button.return": "Back",
+  // TODO New key - Add a translation
+  "bitstream.replace.page.button.return": "Back",
+
+  // "bitstream.replace.page.disclaimer": "The original file will be deleted. This operation can't be undone.",
+  // TODO New key - Add a translation
+  "bitstream.replace.page.disclaimer": "The original file will be deleted. This operation can't be undone.",
+
+  // "bitstream.replace.page.button.cancel": "Cancel",
+  // TODO New key - Add a translation
+  "bitstream.replace.page.button.cancel": "Cancel",
+
+  // "bitstream.replace.page.button.save": "Replace file",
+  // TODO New key - Add a translation
+  "bitstream.replace.page.button.save": "Replace file",
+
+  // "bitstream.replace.page.upload.failed": "Bitstream upload failed",
+  // TODO New key - Add a translation
+  "bitstream.replace.page.upload.failed": "Bitstream upload failed",
+
+  // "bitstream.replace.page.breadcrumbs": "Replace File",
+  // TODO New key - Add a translation
+  "bitstream.replace.page.breadcrumbs": "Replace File",
+
+  // "item.edit.bitstreams.edit.buttons.replace": "Replace",
+  // TODO New key - Add a translation
+  "item.edit.bitstreams.edit.buttons.replace": "Replace",
+
+  // "bitstream.replace.page.upload.success": "Bitstream successfully replaced",
+  // TODO New key - Add a translation
+  "bitstream.replace.page.upload.success": "Bitstream successfully replaced",
+
+  // "bitstream.edit.replace.link": "Replace file",
+  // TODO New key - Add a translation
+  "bitstream.edit.replace.link": "Replace file",
+
+  // "bitstream.replace.page.replace-name": "Use new filename",
+  // TODO New key - Add a translation
+  "bitstream.replace.page.replace-name": "Use new filename",
+
+  // "bitstream.replace.page.replace-name-hint": "The new file extension will be retained in order to match the content of the replacement file.",
+  // TODO New key - Add a translation
+  "bitstream.replace.page.replace-name-hint": "The new file extension will be retained in order to match the content of the replacement file.",
+
+  // "bitstream.related.isCopyOf": "Is copy of",
+  // TODO New key - Add a translation
+  "bitstream.related.isCopyOf": "Is copy of",
+
+  // "bitstream.related.hasCopies": "Has copies",
+  // TODO New key - Add a translation
+  "bitstream.related.hasCopies": "Has copies",
+
+  // "bitstream.related.isReplacementOf": "Is replacement of",
+  // TODO New key - Add a translation
+  "bitstream.related.isReplacementOf": "Is replacement of",
+
+  // "bitstream.related.isReplacedBy": "Is replaced by",
+  // TODO New key - Add a translation
+  "bitstream.related.isReplacedBy": "Is replaced by",
+
+  // "bitstream.related.deleted": "deleted",
+  // TODO New key - Add a translation
+  "bitstream.related.deleted": "deleted",
 
 
 }

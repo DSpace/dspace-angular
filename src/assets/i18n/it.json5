@@ -1699,6 +1699,46 @@
   // "bitstream.edit.form.iiifHeight.hint": "The canvas height should usually match the image height.",
   "bitstream.edit.form.iiifHeight.hint": "L'altezza dell'area di lavoro deve in genere corrispondere all'altezza dell'immagine.",
 
+  // "bitstream.edit.form.mediaType.label": "Audio or video media type",
+  // TODO New key - Add a translation
+  "bitstream.edit.form.mediaType.label": "Audio or video media type",
+
+  // "bitstream.edit.form.mediaType.hint": "Choose how this bitstream should be interpreted.",
+  // TODO New key - Add a translation
+  "bitstream.edit.form.mediaType.hint": "Choose how this bitstream should be interpreted.",
+
+  // "bitstream.edit.form.mediaType.option.neither": "Neither",
+  // TODO New key - Add a translation
+  "bitstream.edit.form.mediaType.option.neither": "Neither",
+
+  // "bitstream.edit.form.mediaType.option.audio": "Audio",
+  // TODO New key - Add a translation
+  "bitstream.edit.form.mediaType.option.audio": "Audio",
+
+  // "bitstream.edit.form.mediaType.option.video": "Video",
+  // TODO New key - Add a translation
+  "bitstream.edit.form.mediaType.option.video": "Video",
+
+  // "bitstream.edit.form.mediaType.option.audio-video": "Audio and video",
+  // TODO New key - Add a translation
+  "bitstream.edit.form.mediaType.option.audio-video": "Audio and video",
+
+  // "bitstream.edit.form.audioTranscript.label": "Audio transcript",
+  // TODO New key - Add a translation
+  "bitstream.edit.form.audioTranscript.label": "Audio transcript",
+
+  // "bitstream.edit.form.audioTranscript.hint": "Provide a transcript for audio content.",
+  // TODO New key - Add a translation
+  "bitstream.edit.form.audioTranscript.hint": "Provide a transcript for audio content.",
+
+  // "bitstream.edit.form.videoDescription.label": "Video description",
+  // TODO New key - Add a translation
+  "bitstream.edit.form.videoDescription.label": "Video description",
+
+  // "bitstream.edit.form.videoDescription.hint": "Provide a description for video content.",
+  // TODO New key - Add a translation
+  "bitstream.edit.form.videoDescription.hint": "Provide a description for video content.",
+
   // "bitstream.edit.notifications.saved.content": "Your changes to this bitstream were saved.",
   "bitstream.edit.notifications.saved.content": "Le modifiche apportate a questo bitstream sono state salvate.",
 
@@ -2310,14 +2350,6 @@
   // "collection.form.entityType": "Entity Type",
   "collection.form.entityType": "Tipo di entità",
 
-  // "collection.form.errors.entityType.required": "Please choose an entity type for this collection",
-  // TODO New key - Add a translation
-  "collection.form.errors.entityType.required": "Please choose an entity type for this collection",
-
-  // "collection.form.errors.submissionDefinition.required": "Please choose a submission definition for this collection",
-  // TODO New key - Add a translation
-  "collection.form.errors.submissionDefinition.required": "Please choose a submission definition for this collection",
-
   // "collection.form.submissionDefinition": "Submission definition",
   // TODO New key - Add a translation
   "collection.form.submissionDefinition": "Submission definition",
@@ -2792,6 +2824,10 @@
   // TODO New key - Add a translation
   "context-menu.actions.audit-item.btn": "Audit",
 
+  // "context-menu.actions.subscription.frequency.required": "Please select a frequency",
+  // TODO New key - Add a translation
+  "context-menu.actions.subscription.frequency.required": "Please select a frequency",
+
   // "cookies.consent.accept-all": "Accept all",
   "cookies.consent.accept-all": "Accetta tutto",
 
@@ -3058,7 +3094,8 @@
   // "dso-selector.no-results": "No {{ type }} found",
   "dso-selector.no-results": "Nessun {{ type }} trovato",
 
-  // "dso-selector.placeholder": "Search for a {{ type }}",
+  // "dso-selector.placeholder": "Search for {{ type }}",
+  // TODO Source message changed - Revise the translation
   "dso-selector.placeholder": "Cerca un {{ type }}",
 
   // "dso-selector.placeholder.type.community": "community",
@@ -3250,6 +3287,26 @@
 
   // "error.item": "Error fetching item",
   "error.item": "Errore durante il recupero dell'item",
+
+  // "error.custom-url-conflict.title": "Duplicate custom URL detected",
+  // TODO New key - Add a translation
+  "error.custom-url-conflict.title": "Duplicate custom URL detected",
+
+  // "error.custom-url-conflict.description": "The custom URL \"{{customUrl}}\" is assigned to more than one item. This causes a conflict and the item cannot be displayed.",
+  // TODO New key - Add a translation
+  "error.custom-url-conflict.description": "The custom URL \"{{customUrl}}\" is assigned to more than one item. This causes a conflict and the item cannot be displayed.",
+
+  // "error.custom-url-conflict.admin-action": "Please contact your repository administrator. The following affected items need their dspace.customurl metadata fixed so each value is unique:",
+  // TODO New key - Add a translation
+  "error.custom-url-conflict.admin-action": "Please contact your repository administrator. The following affected items need their dspace.customurl metadata fixed so each value is unique:",
+
+  // "error.custom-url-conflict.edit-link": "Edit \"{{name}}\" ({{uuid}})",
+  // TODO New key - Add a translation
+  "error.custom-url-conflict.edit-link": "Edit \"{{name}}\" ({{uuid}})",
+
+  // "error.custom-url-conflict.no-items-found": "No conflicting items could be retrieved. Please contact your administrator.",
+  // TODO New key - Add a translation
+  "error.custom-url-conflict.no-items-found": "No conflicting items could be retrieved. Please contact your administrator.",
 
   // "error.items": "Error fetching items",
   "error.items": "Errore durante il recupero degli item",
@@ -3576,10 +3633,6 @@
   // TODO New key - Add a translation
   "form.other-information.orcid": "ORCID",
 
-  // "form.other-information.person_identifier_orcid": "ORCID",
-  // TODO New key - Add a translation
-  "form.other-information.person_identifier_orcid": "ORCID",
-
   // "form.other-information.oairecerif_author_affiliation": "Affiliation",
   // TODO New key - Add a translation
   "form.other-information.oairecerif_author_affiliation": "Affiliation",
@@ -3640,9 +3693,9 @@
   // TODO New key - Add a translation
   "form.entry.source.zdb": "",
 
-  // "form.entry.source.sherpa": "- Sherpa Romeo",
+  // "form.entry.source.jisc": "- Jisc Open policy finder",
   // TODO New key - Add a translation
-  "form.entry.source.sherpa": "- Sherpa Romeo",
+  "form.entry.source.jisc": "- Jisc Open policy finder",
 
   // "form.remove": "Remove",
   "form.remove": "Rimuovi",
@@ -4354,6 +4407,14 @@
   // "item.edit.item-mapper.notifications.add.error.content": "Errors occurred for mapping of item to {{amount}} collections.",
   "item.edit.item-mapper.notifications.add.error.content": "Si sono verificati degli errori nella mappatura dell'item in {{amount}} collections.",
 
+  // "item.edit.item-mapper.notifications.add.error.forbidden.head": "Permission denied",
+  // TODO New key - Add a translation
+  "item.edit.item-mapper.notifications.add.error.forbidden.head": "Permission denied",
+
+  // "item.edit.item-mapper.notifications.add.error.forbidden.content": "You do not have permission to map this item to a collection.",
+  // TODO New key - Add a translation
+  "item.edit.item-mapper.notifications.add.error.forbidden.content": "You do not have permission to map this item to a collection.",
+
   // "item.edit.item-mapper.notifications.add.error.head": "Mapping errors",
   "item.edit.item-mapper.notifications.add.error.head": "Errori di mappatura",
 
@@ -4365,6 +4426,14 @@
 
   // "item.edit.item-mapper.notifications.remove.error.content": "Errors occurred for the removal of the mapping to {{amount}} collections.",
   "item.edit.item-mapper.notifications.remove.error.content": "Si sono verificati degli errori nella rimozione del mapping da {{amount}} collections.",
+
+  // "item.edit.item-mapper.notifications.remove.error.forbidden.head": "Permission denied",
+  // TODO New key - Add a translation
+  "item.edit.item-mapper.notifications.remove.error.forbidden.head": "Permission denied",
+
+  // "item.edit.item-mapper.notifications.remove.error.forbidden.content": "You do not have permission to remove this item from a collection.",
+  // TODO New key - Add a translation
+  "item.edit.item-mapper.notifications.remove.error.forbidden.content": "You do not have permission to remove this item from a collection.",
 
   // "item.edit.item-mapper.notifications.remove.error.head": "Removal of mapping errors",
   "item.edit.item-mapper.notifications.remove.error.head": "Gli errori di mappatura sono stati rimossi",
@@ -4904,17 +4973,25 @@
   // "item.truncatable-part.show-less": "Collapse",
   "item.truncatable-part.show-less": "Riduci",
 
-  // "item.qa-event-notification.check.notification-info": "There are {{num}} pending suggestions related to your account",
+  // "item.qa-event-notification.check.notification-info.singular": "There is {{num}} pending suggestion related to your account",
   // TODO New key - Add a translation
-  "item.qa-event-notification.check.notification-info": "There are {{num}} pending suggestions related to your account",
+  "item.qa-event-notification.check.notification-info.singular": "There is {{num}} pending suggestion related to your account",
+
+  // "item.qa-event-notification.check.notification-info.plural": "There are {{num}} pending suggestions related to your account",
+  // TODO New key - Add a translation
+  "item.qa-event-notification.check.notification-info.plural": "There are {{num}} pending suggestions related to your account",
 
   // "item.qa-event-notification-info.check.button": "View",
   // TODO New key - Add a translation
   "item.qa-event-notification-info.check.button": "View",
 
-  // "mydspace.qa-event-notification.check.notification-info": "There are {{num}} pending suggestions related to your account",
+  // "mydspace.qa-event-notification.check.notification-info.singular": "There is {{num}} pending suggestion related to your account",
   // TODO New key - Add a translation
-  "mydspace.qa-event-notification.check.notification-info": "There are {{num}} pending suggestions related to your account",
+  "mydspace.qa-event-notification.check.notification-info.singular": "There is {{num}} pending suggestion related to your account",
+
+  // "mydspace.qa-event-notification.check.notification-info.plural": "There are {{num}} pending suggestions related to your account",
+  // TODO New key - Add a translation
+  "mydspace.qa-event-notification.check.notification-info.plural": "There are {{num}} pending suggestions related to your account",
 
   // "mydspace.qa-event-notification-info.check.button": "View",
   // TODO New key - Add a translation
@@ -5046,10 +5123,10 @@
   // "item.page.orcid.tooltip": "Open ORCID setting page",
   "item.page.orcid.tooltip": "Apri la pagina delle impostazioni ORCID",
 
-  //"item.page.orcid-ico": "ORCID icon",
+  // "item.page.orcid-ico": "ORCID icon",
   "item.page.orcid-ico": "Icona ORCID",
 
-  //"item.page.orcid-profile": "ORCID Profile",
+  // "item.page.orcid-profile": "ORCID Profile",
   "item.page.orcid-profile": "Profilo ORCID",
 
   // "item.page.person.search.title": "Articles by this author",
@@ -5139,6 +5216,14 @@
 
   // "item.page.filesection.license.bundle": "License bundle",
   "item.page.filesection.license.bundle": "License bundle",
+
+  // "item-page.resolver.invalid-custom-url.title": "Invalid custom URL",
+  // TODO New key - Add a translation
+  "item-page.resolver.invalid-custom-url.title": "Invalid custom URL",
+
+  // "item-page.resolver.invalid-custom-url.message": "The custom URL of this item contains unsupported characters. The item is being displayed using its UUID.",
+  // TODO New key - Add a translation
+  "item-page.resolver.invalid-custom-url.message": "The custom URL of this item contains unsupported characters. The item is being displayed using its UUID.",
 
   // "item.page.return": "Back",
   "item.page.return": "Indietro",
@@ -5231,10 +5316,6 @@
   // "item.preview.dc.rights": "Rights",
   // TODO New key - Add a translation
   "item.preview.dc.rights": "Rights",
-
-  // "item.preview.dc.identifier.other": "Other Identifier",
-  // TODO Source message changed - Revise the translation
-  "item.preview.dc.identifier.other": "Altri identificativi:",
 
   // "item.preview.dc.relation.issn": "ISSN",
   "item.preview.dc.relation.issn": "ISSN",
@@ -5338,10 +5419,6 @@
   // "item.preview.dc.identifier.openalex": "OpenAlex Identifier",
   // TODO New key - Add a translation
   "item.preview.dc.identifier.openalex": "OpenAlex Identifier",
-
-  // "item.preview.dc.description": "Description",
-  // TODO New key - Add a translation
-  "item.preview.dc.description": "Description",
 
   // "item.select.confirm": "Confirm selected",
   "item.select.confirm": "Conferma la selezione",
@@ -7756,7 +7833,8 @@
   // "resource-policies.form.eperson-group-list.select.btn": "Select",
   "resource-policies.form.eperson-group-list.select.btn": "Seleziona",
 
-  // "resource-policies.form.eperson-group-list.tab.eperson": "Search for a ePerson",
+  // "resource-policies.form.eperson-group-list.tab.eperson": "Search for an ePerson",
+  // TODO Source message changed - Revise the translation
   "resource-policies.form.eperson-group-list.tab.eperson": "Cerca un ePerson",
 
   // "resource-policies.form.eperson-group-list.tab.group": "Search for a group",
@@ -7912,10 +7990,6 @@
   // TODO New key - Add a translation
   "RELATION.OrgUnit.projects.search.results.head": "Projects",
 
-  // "RELATION.Project.researchoutputs.search.results.head": "Publications",
-  // TODO New key - Add a translation
-  "RELATION.Project.researchoutputs.search.results.head": "Publications",
-
   // "RELATION.OrgUnit.people.search.results.head": "People",
   // TODO New key - Add a translation
   "RELATION.OrgUnit.people.search.results.head": "People",
@@ -7975,6 +8049,7 @@
   // "search.filters.applied.f.original_bundle_descriptions": "File description",
   // TODO New key - Add a translation
   "search.filters.applied.f.original_bundle_descriptions": "File description",
+
   // "search.filters.applied.f.has_geospatial_metadata": "Has geographical location",
   // TODO New key - Add a translation
   "search.filters.applied.f.has_geospatial_metadata": "Has geographical location",
@@ -8714,8 +8789,9 @@
   // "submission.import-external.title.JournalVolume": "Import a journal volume from an external source",
   "submission.import-external.title.JournalVolume": "Importare un volume di periodico da un'origine esterna",
 
-  // "submission.import-external.title.OrgUnit": "Import a publisher from an external source",
-  "submission.import-external.title.OrgUnit": "Importare un editore da una fonte esterna",
+  // "submission.import-external.title.OrgUnit": "Import an organizational unit from an external source",
+  // TODO Source message changed - Revise the translation
+  "submission.import-external.title.OrgUnit": "Importare un'unità organizzativa da una fonte esterna",
 
   // "submission.import-external.title.Person": "Import a person from an external source",
   "submission.import-external.title.Person": "Importare una persona da una fonte esterna",
@@ -8791,14 +8867,17 @@
   // "submission.import-external.source.loading": "Loading ...",
   "submission.import-external.source.loading": "Caricamento ...",
 
-  // "submission.import-external.source.sherpaJournal": "SHERPA Journals",
-  "submission.import-external.source.sherpaJournal": "SHERPA Journals",
+  // "submission.import-external.source.opfJournal": "Jisc Open policy finder Journals",
+  // TODO New key - Add a translation
+  "submission.import-external.source.opfJournal": "Jisc Open policy finder Journals",
 
-  // "submission.import-external.source.sherpaJournalIssn": "SHERPA Journals by ISSN",
-  "submission.import-external.source.sherpaJournalIssn": "SHERPA Journals by ISSN",
+  // "submission.import-external.source.opfJournalIssn": "Jisc Open policy finder Journals by ISSN",
+  // TODO New key - Add a translation
+  "submission.import-external.source.opfJournalIssn": "Jisc Open policy finder Journals by ISSN",
 
-  // "submission.import-external.source.sherpaPublisher": "SHERPA Publishers",
-  "submission.import-external.source.sherpaPublisher": "SHERPA Publishers",
+  // "submission.import-external.source.opfPublisher": "Jisc Open policy finder Publishers",
+  // TODO New key - Add a translation
+  "submission.import-external.source.opfPublisher": "Jisc Open policy finder Publishers",
 
   // "submission.import-external.source.openaire": "OpenAIRE Search by Authors",
   // TODO New key - Add a translation
@@ -8959,6 +9038,10 @@
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.added.new-entity": "Successfully imported and added external author to the selection",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.added.new-entity": "Importato e aggiunto con successo autore esterno alla selezione",
 
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.isJournalOfVolume.added.new-entity": "Successfully imported and added external journal to the selection",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isJournalOfVolume.added.new-entity": "Successfully imported and added external journal to the selection",
+
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.authority": "Authority",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.authority": "Autorità",
 
@@ -8995,11 +9078,13 @@
   // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openaireFunding": "Importing from OpenAIRE",
 
-  // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaJournal": "Importing from Sherpa Journal",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaJournal": "Importazione da Sherpa Journal",
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.jiscJournal": "Importing from Jisc Open policy finder Journal",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.jiscJournal": "Importing from Jisc Open policy finder Journal",
 
-  // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaPublisher": "Importing from Sherpa Publisher",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaPublisher": "Importazione da Sherpa Publisher",
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.jiscPublisher": "Importing from Jisc Open policy finder Publisher",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.jiscPublisher": "Importing from Jisc Open policy finder Publisher",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.pubmed": "Importing from PubMed",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.head.pubmed": "Importazione da PubMed",
@@ -9068,6 +9153,10 @@
   // "submission.sections.describe.relationship-lookup.search-tab.placeholder": "Search query",
   "submission.sections.describe.relationship-lookup.search-tab.placeholder": "Query di ricerca",
 
+  // "submission.sections.describe.relationship-lookup.toggle-dropdown": "Toggle dropdown",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.toggle-dropdown": "Toggle dropdown",
+
   // "submission.sections.describe.relationship-lookup.search-tab.search": "Go",
   "submission.sections.describe.relationship-lookup.search-tab.search": "Vai",
 
@@ -9126,11 +9215,13 @@
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalVolume": "Local Journal Volumes ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalVolume": "Local Journal Volumes ({{ count }})",
 
-  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournal": "Sherpa Journals ({{ count }})",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournal": "Sherpa Journals ({{ count }})",
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.jiscJournal": "Jisc Open policy finder Journals ({{ count }})",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.jiscJournal": "Jisc Open policy finder Journals ({{ count }})",
 
-  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaPublisher": "Sherpa Publishers ({{ count }})",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaPublisher": "Sherpa Publishers ({{ count }})",
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.jiscPublisher": "Jisc Open policy finder Publishers ({{ count }})",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.jiscPublisher": "Jisc Open policy finder Publishers ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.orcid": "ORCID ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.orcid": "ORCID ({{ count }})",
@@ -9172,9 +9263,9 @@
   // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.openaireFunding": "OpenAIRE Search by Funder ({{ count }})",
 
-  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournalIssn": "Sherpa Journals by ISSN ({{ count }})",
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.jiscJournalIssn": "Jisc Open policy finder Journals by ISSN ({{ count }})",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournalIssn": "Sherpa Journals by ISSN ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.jiscJournalIssn": "Jisc Open policy finder Journals by ISSN ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.openalexPerson": "OpenAlex ({{ count }})",
   // TODO New key - Add a translation
@@ -9217,6 +9308,14 @@
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isOrgUnitOfProject": "OrgUnit of the Project",
   // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isOrgUnitOfProject": "OrgUnit of the Project",
+
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalOfVolume": "Journal of the Volume",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalOfVolume": "Journal of the Volume",
+
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.opfJournal": "Jisc Open policy finder of Journal",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.opfJournal": "Jisc Open policy finder of Journal",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isProjectOfPublication": "Project",
   "submission.sections.describe.relationship-lookup.selection-tab.title.isProjectOfPublication": "Progetti",
@@ -9300,6 +9399,10 @@
   // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.title.isOrgUnitOfProject": "OrgUnit",
 
+  // "submission.sections.describe.relationship-lookup.title.isJournalOfVolume": "Journal",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.title.isJournalOfVolume": "Journal",
+
   // "submission.sections.describe.relationship-lookup.search-tab.toggle-dropdown": "Toggle dropdown",
   "submission.sections.describe.relationship-lookup.search-tab.toggle-dropdown": "Attiva dropdown",
 
@@ -9361,11 +9464,11 @@
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isChildOrgUnitOf": "Selected Organizational Unit",
   "submission.sections.describe.relationship-lookup.selection-tab.title.isChildOrgUnitOf": "Unità organizzativa selezionata",
 
-  // "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaJournal": "Search Results",
-  "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaJournal": "Risultati della ricerca",
+  // "submission.sections.describe.relationship-lookup.selection-tab.title.jiscJournal": "Search Results",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.jiscJournal": "Risultati della ricerca",
 
-  // "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaPublisher": "Search Results",
-  "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaPublisher": "Risultati della ricerca",
+  // "submission.sections.describe.relationship-lookup.selection-tab.title.jiscPublisher": "Search Results",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.jiscPublisher": "Risultati della ricerca",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.orcid": "Search Results",
   "submission.sections.describe.relationship-lookup.selection-tab.title.orcid": "Risultati della ricerca",
@@ -9433,6 +9536,10 @@
   // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.selection-tab.title.dataciteProject": "Search Results",
 
+  // "submission.sections.describe.relationship-lookup.selection-tab.title.opfJournal": "Search Results",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.selection-tab.title.opfJournal": "Search Results",
+
   // "submission.sections.describe.relationship-lookup.selection-tab.title": "Search Results",
   "submission.sections.describe.relationship-lookup.selection-tab.title": "Risultati della ricerca",
 
@@ -9478,6 +9585,10 @@
 
   // "submission.sections.general.deposit_error_notice": "There was an issue when submitting the item, please try again later.",
   "submission.sections.general.deposit_error_notice": "Si è verificato un problema durante l'immissione dell'item, riprova più tardi.",
+
+  // "submission.sections.general.invalid_state_error": "Cannot save current changes, mandatory fields are missing. Please resolve problems and save again later.",
+  // TODO New key - Add a translation
+  "submission.sections.general.invalid_state_error": "Cannot save current changes, mandatory fields are missing. Please resolve problems and save again later.",
 
   // "submission.sections.general.deposit_success_notice": "Submission deposited successfully.",
   "submission.sections.general.deposit_success_notice": "Immissione depositata con successo.",
@@ -9571,17 +9682,18 @@
   // TODO New key - Add a translation
   "submission.sections.submit.progressbar.describe.owner": "Owner",
 
-  // "submission.sections.submit.progressbar.sherpapolicy": "Sherpa policies",
-  "submission.sections.submit.progressbar.sherpapolicy": "Policy di Sherpa",
+  // "submission.sections.submit.progressbar.opfpolicy": "Jisc Open Policy Finder policies",
+  // TODO New key - Add a translation
+  "submission.sections.submit.progressbar.opfpolicy": "Jisc Open Policy Finder policies",
 
   // "submission.sections.submit.progressbar.upload": "Upload files",
   "submission.sections.submit.progressbar.upload": "Carica file",
 
-  // "submission.sections.submit.progressbar.sherpaPolicies": "Publisher open access policy information",
-  "submission.sections.submit.progressbar.sherpaPolicies": "Informazioni sulla policy di open access dell'editore",
+  // "submission.sections.submit.progressbar.jiscPolicies": "Publisher open access policy information",
+  "submission.sections.submit.progressbar.jiscPolicies": "Informazioni sulla policy di open access dell'editore",
 
-  // "submission.sections.sherpa-policy.title-empty": "No publisher policy information available. If your work has an associated ISSN, please enter it above to see any related publisher open access policies.",
-  "submission.sections.sherpa-policy.title-empty": "Non sono disponibili informazioni sulle policy dell'editore. Se il lavoro ha un ISSN associato, si prega di inserirlo qui sopra per vedere le policy di open access dell'editore.",
+  // "submission.sections.jisc-policy.title-empty": "No publisher policy information available. If your work has an associated ISSN, please enter it above to see any related publisher open access policies.",
+  "submission.sections.jisc-policy.title-empty": "Non sono disponibili informazioni sulle policy dell'editore. Se il lavoro ha un ISSN associato, si prega di inserirlo qui sopra per vedere le policy di open access dell'editore.",
 
   // "submission.sections.status.errors.title": "Errors",
   "submission.sections.status.errors.title": "Errori",
@@ -9650,6 +9762,46 @@
 
   // "submission.sections.upload.edit.title": "Edit bitstream",
   "submission.sections.upload.edit.title": "Modifica bitstream",
+
+  // "submission.sections.upload.file.edit.form.file-type.label": "Audio or video media type",
+  // TODO New key - Add a translation
+  "submission.sections.upload.file.edit.form.file-type.label": "Audio or video media type",
+
+  // "submission.sections.upload.file.edit.form.file-type.hint": "Choose how this bitstream should be interpreted.",
+  // TODO New key - Add a translation
+  "submission.sections.upload.file.edit.form.file-type.hint": "Choose how this bitstream should be interpreted.",
+
+  // "submission.sections.upload.file.edit.form.file-type.option.audio-video": "Audio and video",
+  // TODO New key - Add a translation
+  "submission.sections.upload.file.edit.form.file-type.option.audio-video": "Audio and video",
+
+  // "submission.sections.upload.file.edit.form.file-type.option.neither": "Neither",
+  // TODO New key - Add a translation
+  "submission.sections.upload.file.edit.form.file-type.option.neither": "Neither",
+
+  // "submission.sections.upload.file.edit.form.file-type.option.audio": "Audio",
+  // TODO New key - Add a translation
+  "submission.sections.upload.file.edit.form.file-type.option.audio": "Audio",
+
+  // "submission.sections.upload.file.edit.form.file-type.option.video": "Video",
+  // TODO New key - Add a translation
+  "submission.sections.upload.file.edit.form.file-type.option.video": "Video",
+
+  // "submission.sections.upload.file.edit.form.audio-transcript.label": "Audio transcript",
+  // TODO New key - Add a translation
+  "submission.sections.upload.file.edit.form.audio-transcript.label": "Audio transcript",
+
+  // "submission.sections.upload.file.edit.form.audio-transcript.hint": "Provide a transcript for audio content.",
+  // TODO New key - Add a translation
+  "submission.sections.upload.file.edit.form.audio-transcript.hint": "Provide a transcript for audio content.",
+
+  // "submission.sections.upload.file.edit.form.video-description.label": "Video description",
+  // TODO New key - Add a translation
+  "submission.sections.upload.file.edit.form.video-description.label": "Video description",
+
+  // "submission.sections.upload.file.edit.form.video-description.hint": "Provide a description for video content.",
+  // TODO New key - Add a translation
+  "submission.sections.upload.file.edit.form.video-description.hint": "Provide a description for video content.",
 
   // "submission.sections.upload.form.access-condition-label": "Access condition type",
   "submission.sections.upload.form.access-condition-label": "Tipo di condizione di accesso",
@@ -9729,6 +9881,10 @@
   // TODO New key - Add a translation
   "submission.sections.custom-url.url.placeholder": "Custom URL",
 
+  // "submission.sections.custom-url.label.remove": "Remove",
+  // TODO New key - Add a translation
+  "submission.sections.custom-url.label.remove": "Remove",
+
   // "submission.sections.accesses.form.discoverable-description": "When checked, this item will be discoverable in search/browse. When unchecked, the item will only be available via a direct link and will never appear in search/browse.",
   "submission.sections.accesses.form.discoverable-description": "Una volta selezionato, questo item sarà individuabile nella ricerca/navigazione. Se deselezionato, l'item sarà disponibile solo tramite un collegamento diretto e non apparirà mai nella ricerca / navigazione.",
 
@@ -9799,84 +9955,84 @@
   // "submission.sections.license.notgranted": "You must accept the license",
   "submission.sections.license.notgranted": "È necessario accettare la licenza",
 
-  // "submission.sections.sherpa.publication.information": "Publication information",
-  "submission.sections.sherpa.publication.information": "Informazioni sulla pubblicazione",
+  // "submission.sections.jisc.publication.information": "Publication information",
+  "submission.sections.jisc.publication.information": "Informazioni sulla pubblicazione",
 
-  // "submission.sections.sherpa.publication.information.title": "Title",
-  "submission.sections.sherpa.publication.information.title": "Titolo",
+  // "submission.sections.jisc.publication.information.title": "Title",
+  "submission.sections.jisc.publication.information.title": "Titolo",
 
-  // "submission.sections.sherpa.publication.information.issns": "ISSNs",
-  "submission.sections.sherpa.publication.information.issns": "ISSN",
+  // "submission.sections.jisc.publication.information.issns": "ISSNs",
+  "submission.sections.jisc.publication.information.issns": "ISSN",
 
-  // "submission.sections.sherpa.publication.information.url": "URL",
-  "submission.sections.sherpa.publication.information.url": "URL",
+  // "submission.sections.jisc.publication.information.url": "URL",
+  "submission.sections.jisc.publication.information.url": "URL",
 
-  // "submission.sections.sherpa.publication.information.publishers": "Publisher",
-  "submission.sections.sherpa.publication.information.publishers": "Editore",
+  // "submission.sections.jisc.publication.information.publishers": "Publisher",
+  "submission.sections.jisc.publication.information.publishers": "Editore",
 
-  // "submission.sections.sherpa.publication.information.romeoPub": "Romeo Pub",
-  "submission.sections.sherpa.publication.information.romeoPub": "Romeo Pub",
+  // "submission.sections.jisc.publication.information.romeoPub": "Romeo Pub",
+  "submission.sections.jisc.publication.information.romeoPub": "Romeo Pub",
 
-  // "submission.sections.sherpa.publication.information.zetoPub": "Zeto Pub",
-  "submission.sections.sherpa.publication.information.zetoPub": "Zeto Pub",
+  // "submission.sections.jisc.publication.information.zetoPub": "Zeto Pub",
+  "submission.sections.jisc.publication.information.zetoPub": "Zeto Pub",
 
-  // "submission.sections.sherpa.publisher.policy": "Publisher Policy",
-  "submission.sections.sherpa.publisher.policy": "Policy dell'editore",
+  // "submission.sections.jisc.publisher.policy": "Publisher Policy",
+  "submission.sections.jisc.publisher.policy": "Policy dell'editore",
 
-  // "submission.sections.sherpa.publisher.policy.description": "The below information was found via Sherpa Romeo. Based on the policies of your publisher, it provides advice regarding whether an embargo may be necessary and/or which files you are allowed to upload. If you have questions, please contact your site administrator via the feedback form in the footer.",
-  "submission.sections.sherpa.publisher.policy.description": "Le informazioni riportate di seguito sono state reperite tramite Sherpa Romeo. In base alle policy del vostro editore, fornisce consigli sull'eventuale necessità di un embargo e/o su quali file è possibile caricare. In caso di domande, contattare l'amministratore del sito tramite il modulo di feedback nel piè di pagina.",
+  // "submission.sections.jisc.publisher.policy.description": "The below information was found via Jisc Open policy finder. Based on the policies of your publisher, it provides advice regarding whether an embargo may be necessary and/or which files you are allowed to upload. If you have questions, please contact your site administrator via the feedback form in the footer.",
+  "submission.sections.jisc.publisher.policy.description": "Le informazioni riportate di seguito sono state reperite tramite Jisc Open policy finder. In base alle policy del vostro editore, fornisce consigli sull'eventuale necessità di un embargo e/o su quali file è possibile caricare. In caso di domande, contattare l'amministratore del sito tramite il modulo di feedback nel piè di pagina.",
 
-  // "submission.sections.sherpa.publisher.policy.openaccess": "Open Access pathways permitted by this journal's policy are listed below by article version. Click on a pathway for a more detailed view",
-  "submission.sections.sherpa.publisher.policy.openaccess": "I percorsi open access consentiti dalle policy di questa rivista sono elencati di seguito per versione dell'articolo. Clicca su un percorso per vederlo nel dettaglio",
+  // "submission.sections.jisc.publisher.policy.openaccess": "Open Access pathways permitted by this journal's policy are listed below by article version. Click on a pathway for a more detailed view",
+  "submission.sections.jisc.publisher.policy.openaccess": "I percorsi open access consentiti dalle policy di questa rivista sono elencati di seguito per versione dell'articolo. Clicca su un percorso per vederlo nel dettaglio",
 
-  // "submission.sections.sherpa.publisher.policy.more.information": "For more information, please see the following links:",
-  "submission.sections.sherpa.publisher.policy.more.information": "Per maggiori informazioni si prega di consultare il seguente link:",
+  // "submission.sections.jisc.publisher.policy.more.information": "For more information, please see the following links:",
+  "submission.sections.jisc.publisher.policy.more.information": "Per maggiori informazioni si prega di consultare il seguente link:",
 
-  // "submission.sections.sherpa.publisher.policy.version": "Version",
-  "submission.sections.sherpa.publisher.policy.version": "Versione",
+  // "submission.sections.jisc.publisher.policy.version": "Version",
+  "submission.sections.jisc.publisher.policy.version": "Versione",
 
-  // "submission.sections.sherpa.publisher.policy.embargo": "Embargo",
-  "submission.sections.sherpa.publisher.policy.embargo": "Embargo",
+  // "submission.sections.jisc.publisher.policy.embargo": "Embargo",
+  "submission.sections.jisc.publisher.policy.embargo": "Embargo",
 
-  // "submission.sections.sherpa.publisher.policy.noembargo": "No Embargo",
-  "submission.sections.sherpa.publisher.policy.noembargo": "Nessun embargo",
+  // "submission.sections.jisc.publisher.policy.noembargo": "No Embargo",
+  "submission.sections.jisc.publisher.policy.noembargo": "Nessun embargo",
 
-  // "submission.sections.sherpa.publisher.policy.nolocation": "None",
-  "submission.sections.sherpa.publisher.policy.nolocation": "Nessuno",
+  // "submission.sections.jisc.publisher.policy.nolocation": "None",
+  "submission.sections.jisc.publisher.policy.nolocation": "Nessuno",
 
-  // "submission.sections.sherpa.publisher.policy.license": "License",
-  "submission.sections.sherpa.publisher.policy.license": "Licenza",
+  // "submission.sections.jisc.publisher.policy.license": "License",
+  "submission.sections.jisc.publisher.policy.license": "Licenza",
 
-  // "submission.sections.sherpa.publisher.policy.prerequisites": "Prerequisites",
-  "submission.sections.sherpa.publisher.policy.prerequisites": "Prerequisiti",
+  // "submission.sections.jisc.publisher.policy.prerequisites": "Prerequisites",
+  "submission.sections.jisc.publisher.policy.prerequisites": "Prerequisiti",
 
-  // "submission.sections.sherpa.publisher.policy.location": "Location",
-  "submission.sections.sherpa.publisher.policy.location": "Località",
+  // "submission.sections.jisc.publisher.policy.location": "Location",
+  "submission.sections.jisc.publisher.policy.location": "Località",
 
-  // "submission.sections.sherpa.publisher.policy.conditions": "Conditions",
-  "submission.sections.sherpa.publisher.policy.conditions": "Condizioni",
+  // "submission.sections.jisc.publisher.policy.conditions": "Conditions",
+  "submission.sections.jisc.publisher.policy.conditions": "Condizioni",
 
-  // "submission.sections.sherpa.publisher.policy.refresh": "Refresh",
-  "submission.sections.sherpa.publisher.policy.refresh": "Ricarica",
+  // "submission.sections.jisc.publisher.policy.refresh": "Refresh",
+  "submission.sections.jisc.publisher.policy.refresh": "Ricarica",
 
-  // "submission.sections.sherpa.record.information": "Record Information",
-  "submission.sections.sherpa.record.information": "Informazioni sulla registrazione",
+  // "submission.sections.jisc.record.information": "Record Information",
+  "submission.sections.jisc.record.information": "Informazioni sulla registrazione",
 
-  // "submission.sections.sherpa.record.information.id": "ID",
-  "submission.sections.sherpa.record.information.id": "ID",
+  // "submission.sections.jisc.record.information.id": "ID",
+  "submission.sections.jisc.record.information.id": "ID",
 
-  // "submission.sections.sherpa.record.information.date.created": "Date Created",
-  "submission.sections.sherpa.record.information.date.created": "Data di creazione",
+  // "submission.sections.jisc.record.information.date.created": "Date Created",
+  "submission.sections.jisc.record.information.date.created": "Data di creazione",
 
-  // "submission.sections.sherpa.record.information.date.modified": "Last Modified",
-  "submission.sections.sherpa.record.information.date.modified": "Ultima modifica",
+  // "submission.sections.jisc.record.information.date.modified": "Last Modified",
+  "submission.sections.jisc.record.information.date.modified": "Ultima modifica",
 
-  // "submission.sections.sherpa.record.information.uri": "URI",
-  "submission.sections.sherpa.record.information.uri": "URI",
+  // "submission.sections.jisc.record.information.uri": "URI",
+  "submission.sections.jisc.record.information.uri": "URI",
 
-  // "submission.sections.sherpa.error.message": "There was an error retrieving sherpa information",
-  // TODO Source message changed - Revise the translation
-  "submission.sections.sherpa.error.message": "Si è verificato un errore nel recuperare le informazioni da Sherpa",
+  // "submission.sections.jisc.error.message": "There was an error retrieving Jisc Open policy finder information",
+  // TODO New key - Add a translation
+  "submission.sections.jisc.error.message": "There was an error retrieving Jisc Open policy finder information",
 
   // "submission.submit.breadcrumbs": "New submission",
   "submission.submit.breadcrumbs": "Nuova immissione",
@@ -10026,9 +10182,9 @@
   // "subscriptions.tooltip": "Subscribe",
   "subscriptions.tooltip": "Sottoscrivi",
 
-  // "subscriptions.unsubscribe": "Unsubscribe",
+  // "subscriptions.manage": "Manage Subscription",
   // TODO New key - Add a translation
-  "subscriptions.unsubscribe": "Unsubscribe",
+  "subscriptions.manage": "Manage Subscription",
 
   // "subscriptions.modal.title": "Subscriptions",
   "subscriptions.modal.title": "Sottoscrizioni",
@@ -10996,21 +11152,27 @@
   // "ldn-registered-services.title": "Registered Services",
   // TODO New key - Add a translation
   "ldn-registered-services.title": "Registered Services",
+
   // "ldn-registered-services.table.name": "Name",
   // TODO New key - Add a translation
   "ldn-registered-services.table.name": "Name",
+
   // "ldn-registered-services.table.description": "Description",
   // TODO New key - Add a translation
   "ldn-registered-services.table.description": "Description",
+
   // "ldn-registered-services.table.status": "Status",
   // TODO New key - Add a translation
   "ldn-registered-services.table.status": "Status",
+
   // "ldn-registered-services.table.action": "Action",
   // TODO New key - Add a translation
   "ldn-registered-services.table.action": "Action",
+
   // "ldn-registered-services.new": "NEW",
   // TODO New key - Add a translation
   "ldn-registered-services.new": "NEW",
+
   // "ldn-registered-services.new.breadcrumbs": "Registered Services",
   // TODO New key - Add a translation
   "ldn-registered-services.new.breadcrumbs": "Registered Services",
@@ -11018,12 +11180,15 @@
   // "ldn-service.overview.table.enabled": "Enabled",
   // TODO New key - Add a translation
   "ldn-service.overview.table.enabled": "Enabled",
+
   // "ldn-service.overview.table.disabled": "Disabled",
   // TODO New key - Add a translation
   "ldn-service.overview.table.disabled": "Disabled",
+
   // "ldn-service.overview.table.clickToEnable": "Click to enable",
   // TODO New key - Add a translation
   "ldn-service.overview.table.clickToEnable": "Click to enable",
+
   // "ldn-service.overview.table.clickToDisable": "Click to disable",
   // TODO New key - Add a translation
   "ldn-service.overview.table.clickToDisable": "Click to disable",
@@ -11031,69 +11196,91 @@
   // "ldn-edit-registered-service.title": "Edit Service",
   // TODO New key - Add a translation
   "ldn-edit-registered-service.title": "Edit Service",
+
   // "ldn-create-service.title": "Create service",
   // TODO New key - Add a translation
   "ldn-create-service.title": "Create service",
+
   // "service.overview.create.modal": "Create Service",
   // TODO New key - Add a translation
   "service.overview.create.modal": "Create Service",
+
   // "service.overview.create.body": "Please confirm the creation of this service.",
   // TODO New key - Add a translation
   "service.overview.create.body": "Please confirm the creation of this service.",
+
   // "ldn-service-status": "Status",
   // TODO New key - Add a translation
   "ldn-service-status": "Status",
+
   // "service.confirm.create": "Create",
   // TODO New key - Add a translation
   "service.confirm.create": "Create",
+
   // "service.refuse.create": "Cancel",
   // TODO New key - Add a translation
   "service.refuse.create": "Cancel",
+
   // "ldn-register-new-service.title": "Register a new service",
   // TODO New key - Add a translation
   "ldn-register-new-service.title": "Register a new service",
+
   // "ldn-new-service.form.label.submit": "Save",
   // TODO New key - Add a translation
   "ldn-new-service.form.label.submit": "Save",
+
   // "ldn-new-service.form.label.name": "Name",
   // TODO New key - Add a translation
   "ldn-new-service.form.label.name": "Name",
+
   // "ldn-new-service.form.label.description": "Description",
   // TODO New key - Add a translation
   "ldn-new-service.form.label.description": "Description",
+
   // "ldn-new-service.form.label.url": "Service URL",
   // TODO New key - Add a translation
   "ldn-new-service.form.label.url": "Service URL",
+
   // "ldn-new-service.form.label.ip-range": "Service IP range",
   // TODO New key - Add a translation
   "ldn-new-service.form.label.ip-range": "Service IP range",
+
   // "ldn-new-service.form.label.score": "Level of trust",
   // TODO New key - Add a translation
   "ldn-new-service.form.label.score": "Level of trust",
+
   // "ldn-new-service.form.label.ldnUrl": "LDN Inbox URL",
   // TODO New key - Add a translation
   "ldn-new-service.form.label.ldnUrl": "LDN Inbox URL",
+
   // "ldn-new-service.form.placeholder.name": "Please provide service name",
   // TODO New key - Add a translation
   "ldn-new-service.form.placeholder.name": "Please provide service name",
+
   // "ldn-new-service.form.placeholder.description": "Please provide a description regarding your service",
   // TODO New key - Add a translation
   "ldn-new-service.form.placeholder.description": "Please provide a description regarding your service",
+
   // "ldn-new-service.form.placeholder.url": "Please input the URL for users to check out more information about the service",
   // TODO New key - Add a translation
   "ldn-new-service.form.placeholder.url": "Please input the URL for users to check out more information about the service",
+
   // "ldn-new-service.form.placeholder.lowerIp": "IPv4 range lower bound",
   // TODO New key - Add a translation
   "ldn-new-service.form.placeholder.lowerIp": "IPv4 range lower bound",
+
   // "ldn-new-service.form.placeholder.upperIp": "IPv4 range upper bound",
   // TODO New key - Add a translation
   "ldn-new-service.form.placeholder.upperIp": "IPv4 range upper bound",
+
   // "ldn-new-service.form.placeholder.ldnUrl": "Please specify the URL of the LDN Inbox",
   // TODO New key - Add a translation
   "ldn-new-service.form.placeholder.ldnUrl": "Please specify the URL of the LDN Inbox",
+
   // "ldn-new-service.form.placeholder.score": "Please enter a value between 0 and 1. Use the “.” as decimal separator",
   // TODO New key - Add a translation
   "ldn-new-service.form.placeholder.score": "Please enter a value between 0 and 1. Use the “.” as decimal separator",
+
   // "ldn-service.form.label.placeholder.default-select": "Select a pattern",
   // TODO New key - Add a translation
   "ldn-service.form.label.placeholder.default-select": "Select a pattern",
@@ -11101,9 +11288,11 @@
   // "ldn-service.form.pattern.ack-accept.label": "Acknowledge and Accept",
   // TODO New key - Add a translation
   "ldn-service.form.pattern.ack-accept.label": "Acknowledge and Accept",
+
   // "ldn-service.form.pattern.ack-accept.description": "This pattern is used to acknowledge and accept a request (offer). It implies an intention to act on the request.",
   // TODO New key - Add a translation
   "ldn-service.form.pattern.ack-accept.description": "This pattern is used to acknowledge and accept a request (offer). It implies an intention to act on the request.",
+
   // "ldn-service.form.pattern.ack-accept.category": "Acknowledgements",
   // TODO New key - Add a translation
   "ldn-service.form.pattern.ack-accept.category": "Acknowledgements",
@@ -11111,9 +11300,11 @@
   // "ldn-service.form.pattern.ack-reject.label": "Acknowledge and Reject",
   // TODO New key - Add a translation
   "ldn-service.form.pattern.ack-reject.label": "Acknowledge and Reject",
+
   // "ldn-service.form.pattern.ack-reject.description": "This pattern is used to acknowledge and reject a request (offer). It signifies no further action regarding the request.",
   // TODO New key - Add a translation
   "ldn-service.form.pattern.ack-reject.description": "This pattern is used to acknowledge and reject a request (offer). It signifies no further action regarding the request.",
+
   // "ldn-service.form.pattern.ack-reject.category": "Acknowledgements",
   // TODO New key - Add a translation
   "ldn-service.form.pattern.ack-reject.category": "Acknowledgements",
@@ -11121,9 +11312,11 @@
   // "ldn-service.form.pattern.ack-tentative-accept.label": "Acknowledge and Tentatively Accept",
   // TODO New key - Add a translation
   "ldn-service.form.pattern.ack-tentative-accept.label": "Acknowledge and Tentatively Accept",
+
   // "ldn-service.form.pattern.ack-tentative-accept.description": "This pattern is used to acknowledge and tentatively accept a request (offer). It implies an intention to act, which may change.",
   // TODO New key - Add a translation
   "ldn-service.form.pattern.ack-tentative-accept.description": "This pattern is used to acknowledge and tentatively accept a request (offer). It implies an intention to act, which may change.",
+
   // "ldn-service.form.pattern.ack-tentative-accept.category": "Acknowledgements",
   // TODO New key - Add a translation
   "ldn-service.form.pattern.ack-tentative-accept.category": "Acknowledgements",
@@ -11131,9 +11324,11 @@
   // "ldn-service.form.pattern.ack-tentative-reject.label": "Acknowledge and Tentatively Reject",
   // TODO New key - Add a translation
   "ldn-service.form.pattern.ack-tentative-reject.label": "Acknowledge and Tentatively Reject",
+
   // "ldn-service.form.pattern.ack-tentative-reject.description": "This pattern is used to acknowledge and tentatively reject a request (offer). It signifies no further action, subject to change.",
   // TODO New key - Add a translation
   "ldn-service.form.pattern.ack-tentative-reject.description": "This pattern is used to acknowledge and tentatively reject a request (offer). It signifies no further action, subject to change.",
+
   // "ldn-service.form.pattern.ack-tentative-reject.category": "Acknowledgements",
   // TODO New key - Add a translation
   "ldn-service.form.pattern.ack-tentative-reject.category": "Acknowledgements",
@@ -11141,9 +11336,11 @@
   // "ldn-service.form.pattern.announce-endorsement.label": "Announce Endorsement",
   // TODO New key - Add a translation
   "ldn-service.form.pattern.announce-endorsement.label": "Announce Endorsement",
+
   // "ldn-service.form.pattern.announce-endorsement.description": "This pattern is used to announce the existence of an endorsement, referencing the endorsed resource.",
   // TODO New key - Add a translation
   "ldn-service.form.pattern.announce-endorsement.description": "This pattern is used to announce the existence of an endorsement, referencing the endorsed resource.",
+
   // "ldn-service.form.pattern.announce-endorsement.category": "Announcements",
   // TODO New key - Add a translation
   "ldn-service.form.pattern.announce-endorsement.category": "Announcements",
@@ -11151,9 +11348,11 @@
   // "ldn-service.form.pattern.announce-ingest.label": "Announce Ingest",
   // TODO New key - Add a translation
   "ldn-service.form.pattern.announce-ingest.label": "Announce Ingest",
+
   // "ldn-service.form.pattern.announce-ingest.description": "This pattern is used to announce that a resource has been ingested.",
   // TODO New key - Add a translation
   "ldn-service.form.pattern.announce-ingest.description": "This pattern is used to announce that a resource has been ingested.",
+
   // "ldn-service.form.pattern.announce-ingest.category": "Announcements",
   // TODO New key - Add a translation
   "ldn-service.form.pattern.announce-ingest.category": "Announcements",
@@ -11161,9 +11360,11 @@
   // "ldn-service.form.pattern.announce-relationship.label": "Announce Relationship",
   // TODO New key - Add a translation
   "ldn-service.form.pattern.announce-relationship.label": "Announce Relationship",
+
   // "ldn-service.form.pattern.announce-relationship.description": "This pattern is used to announce a relationship between two resources.",
   // TODO New key - Add a translation
   "ldn-service.form.pattern.announce-relationship.description": "This pattern is used to announce a relationship between two resources.",
+
   // "ldn-service.form.pattern.announce-relationship.category": "Announcements",
   // TODO New key - Add a translation
   "ldn-service.form.pattern.announce-relationship.category": "Announcements",
@@ -11171,9 +11372,11 @@
   // "ldn-service.form.pattern.announce-review.label": "Announce Review",
   // TODO New key - Add a translation
   "ldn-service.form.pattern.announce-review.label": "Announce Review",
+
   // "ldn-service.form.pattern.announce-review.description": "This pattern is used to announce the existence of a review, referencing the reviewed resource.",
   // TODO New key - Add a translation
   "ldn-service.form.pattern.announce-review.description": "This pattern is used to announce the existence of a review, referencing the reviewed resource.",
+
   // "ldn-service.form.pattern.announce-review.category": "Announcements",
   // TODO New key - Add a translation
   "ldn-service.form.pattern.announce-review.category": "Announcements",
@@ -11181,9 +11384,11 @@
   // "ldn-service.form.pattern.announce-service-result.label": "Announce Service Result",
   // TODO New key - Add a translation
   "ldn-service.form.pattern.announce-service-result.label": "Announce Service Result",
+
   // "ldn-service.form.pattern.announce-service-result.description": "This pattern is used to announce the existence of a 'service result', referencing the relevant resource.",
   // TODO New key - Add a translation
   "ldn-service.form.pattern.announce-service-result.description": "This pattern is used to announce the existence of a 'service result', referencing the relevant resource.",
+
   // "ldn-service.form.pattern.announce-service-result.category": "Announcements",
   // TODO New key - Add a translation
   "ldn-service.form.pattern.announce-service-result.category": "Announcements",
@@ -11191,9 +11396,11 @@
   // "ldn-service.form.pattern.request-endorsement.label": "Request Endorsement",
   // TODO New key - Add a translation
   "ldn-service.form.pattern.request-endorsement.label": "Request Endorsement",
+
   // "ldn-service.form.pattern.request-endorsement.description": "This pattern is used to request endorsement of a resource owned by the origin system.",
   // TODO New key - Add a translation
   "ldn-service.form.pattern.request-endorsement.description": "This pattern is used to request endorsement of a resource owned by the origin system.",
+
   // "ldn-service.form.pattern.request-endorsement.category": "Requests",
   // TODO New key - Add a translation
   "ldn-service.form.pattern.request-endorsement.category": "Requests",
@@ -11201,9 +11408,11 @@
   // "ldn-service.form.pattern.request-ingest.label": "Request Ingest",
   // TODO New key - Add a translation
   "ldn-service.form.pattern.request-ingest.label": "Request Ingest",
+
   // "ldn-service.form.pattern.request-ingest.description": "This pattern is used to request that the target system ingest a resource.",
   // TODO New key - Add a translation
   "ldn-service.form.pattern.request-ingest.description": "This pattern is used to request that the target system ingest a resource.",
+
   // "ldn-service.form.pattern.request-ingest.category": "Requests",
   // TODO New key - Add a translation
   "ldn-service.form.pattern.request-ingest.category": "Requests",
@@ -11211,9 +11420,11 @@
   // "ldn-service.form.pattern.request-review.label": "Request Review",
   // TODO New key - Add a translation
   "ldn-service.form.pattern.request-review.label": "Request Review",
+
   // "ldn-service.form.pattern.request-review.description": "This pattern is used to request a review of a resource owned by the origin system.",
   // TODO New key - Add a translation
   "ldn-service.form.pattern.request-review.description": "This pattern is used to request a review of a resource owned by the origin system.",
+
   // "ldn-service.form.pattern.request-review.category": "Requests",
   // TODO New key - Add a translation
   "ldn-service.form.pattern.request-review.category": "Requests",
@@ -11221,9 +11432,11 @@
   // "ldn-service.form.pattern.undo-offer.label": "Undo Offer",
   // TODO New key - Add a translation
   "ldn-service.form.pattern.undo-offer.label": "Undo Offer",
+
   // "ldn-service.form.pattern.undo-offer.description": "This pattern is used to undo (retract) an offer previously made.",
   // TODO New key - Add a translation
   "ldn-service.form.pattern.undo-offer.description": "This pattern is used to undo (retract) an offer previously made.",
+
   // "ldn-service.form.pattern.undo-offer.category": "Undo",
   // TODO New key - Add a translation
   "ldn-service.form.pattern.undo-offer.category": "Undo",
@@ -11231,30 +11444,43 @@
   // "ldn-new-service.form.label.placeholder.selectedItemFilter": "No Item Filter Selected",
   // TODO New key - Add a translation
   "ldn-new-service.form.label.placeholder.selectedItemFilter": "No Item Filter Selected",
+
   // "ldn-new-service.form.label.ItemFilter": "Item Filter",
   // TODO New key - Add a translation
   "ldn-new-service.form.label.ItemFilter": "Item Filter",
+
   // "ldn-new-service.form.label.automatic": "Automatic",
   // TODO New key - Add a translation
   "ldn-new-service.form.label.automatic": "Automatic",
+
   // "ldn-new-service.form.error.name": "Name is required",
   // TODO New key - Add a translation
   "ldn-new-service.form.error.name": "Name is required",
+
   // "ldn-new-service.form.error.url": "URL is required",
   // TODO New key - Add a translation
   "ldn-new-service.form.error.url": "URL is required",
+
   // "ldn-new-service.form.error.ipRange": "Please enter a valid IP range",
   // TODO New key - Add a translation
   "ldn-new-service.form.error.ipRange": "Please enter a valid IP range",
+
   // "ldn-new-service.form.hint.ipRange": "Please enter a valid IpV4 in both range bounds (note: for single IP, please enter the same value in both fields)",
   // TODO New key - Add a translation
   "ldn-new-service.form.hint.ipRange": "Please enter a valid IpV4 in both range bounds (note: for single IP, please enter the same value in both fields)",
+
   // "ldn-new-service.form.error.ldnurl": "LDN URL is required",
   // TODO New key - Add a translation
   "ldn-new-service.form.error.ldnurl": "LDN URL is required",
+
+  // "ldn-new-service.form.error.ldnurl.ldnUrlAlreadyAssociated": "This LDN URL is already associated with another service",
+  // TODO New key - Add a translation
+  "ldn-new-service.form.error.ldnurl.ldnUrlAlreadyAssociated": "This LDN URL is already associated with another service",
+
   // "ldn-new-service.form.error.patterns": "At least a pattern is required",
   // TODO New key - Add a translation
   "ldn-new-service.form.error.patterns": "At least a pattern is required",
+
   // "ldn-new-service.form.error.score": "Please enter a valid score (between 0 and 1). Use the “.” as decimal separator",
   // TODO New key - Add a translation
   "ldn-new-service.form.error.score": "Please enter a valid score (between 0 and 1). Use the “.” as decimal separator",
@@ -11262,129 +11488,171 @@
   // "ldn-new-service.form.label.inboundPattern": "Supported Pattern",
   // TODO New key - Add a translation
   "ldn-new-service.form.label.inboundPattern": "Supported Pattern",
+
   // "ldn-new-service.form.label.addPattern": "+ Add more",
   // TODO New key - Add a translation
   "ldn-new-service.form.label.addPattern": "+ Add more",
+
   // "ldn-new-service.form.label.removeItemFilter": "Remove",
   // TODO New key - Add a translation
   "ldn-new-service.form.label.removeItemFilter": "Remove",
+
   // "ldn-register-new-service.breadcrumbs": "New Service",
   // TODO New key - Add a translation
   "ldn-register-new-service.breadcrumbs": "New Service",
+
   // "service.overview.delete.body": "Are you sure you want to delete this service?",
   // TODO New key - Add a translation
   "service.overview.delete.body": "Are you sure you want to delete this service?",
+
   // "service.overview.edit.body": "Do you confirm the changes?",
   // TODO New key - Add a translation
   "service.overview.edit.body": "Do you confirm the changes?",
+
   // "service.overview.edit.modal": "Edit Service",
   // TODO New key - Add a translation
   "service.overview.edit.modal": "Edit Service",
+
   // "service.detail.update": "Confirm",
   // TODO New key - Add a translation
   "service.detail.update": "Confirm",
+
   // "service.detail.return": "Cancel",
   // TODO New key - Add a translation
   "service.detail.return": "Cancel",
+
   // "service.overview.reset-form.body": "Are you sure you want to discard the changes and leave?",
   // TODO New key - Add a translation
   "service.overview.reset-form.body": "Are you sure you want to discard the changes and leave?",
+
   // "service.overview.reset-form.modal": "Discard Changes",
   // TODO New key - Add a translation
   "service.overview.reset-form.modal": "Discard Changes",
+
   // "service.overview.reset-form.reset-confirm": "Discard",
   // TODO New key - Add a translation
   "service.overview.reset-form.reset-confirm": "Discard",
+
   // "admin.registries.services-formats.modify.success.head": "Successful Edit",
   // TODO New key - Add a translation
   "admin.registries.services-formats.modify.success.head": "Successful Edit",
+
   // "admin.registries.services-formats.modify.success.content": "The service has been edited",
   // TODO New key - Add a translation
   "admin.registries.services-formats.modify.success.content": "The service has been edited",
+
   // "admin.registries.services-formats.modify.failure.head": "Failed Edit",
   // TODO New key - Add a translation
   "admin.registries.services-formats.modify.failure.head": "Failed Edit",
+
   // "admin.registries.services-formats.modify.failure.content": "The service has not been edited",
   // TODO New key - Add a translation
   "admin.registries.services-formats.modify.failure.content": "The service has not been edited",
+
   // "ldn-service-notification.created.success.title": "Successful Create",
   // TODO New key - Add a translation
   "ldn-service-notification.created.success.title": "Successful Create",
+
   // "ldn-service-notification.created.success.body": "The service has been created",
   // TODO New key - Add a translation
   "ldn-service-notification.created.success.body": "The service has been created",
+
   // "ldn-service-notification.created.failure.title": "Failed Create",
   // TODO New key - Add a translation
   "ldn-service-notification.created.failure.title": "Failed Create",
+
   // "ldn-service-notification.created.failure.body": "The service has not been created",
   // TODO New key - Add a translation
   "ldn-service-notification.created.failure.body": "The service has not been created",
+
   // "ldn-service-notification.created.warning.title": "Please select at least one Inbound Pattern",
   // TODO New key - Add a translation
   "ldn-service-notification.created.warning.title": "Please select at least one Inbound Pattern",
+
   // "ldn-enable-service.notification.success.title": "Successful status updated",
   // TODO New key - Add a translation
   "ldn-enable-service.notification.success.title": "Successful status updated",
+
   // "ldn-enable-service.notification.success.content": "The service status has been updated",
   // TODO New key - Add a translation
   "ldn-enable-service.notification.success.content": "The service status has been updated",
+
   // "ldn-service-delete.notification.success.title": "Successful Deletion",
   // TODO New key - Add a translation
   "ldn-service-delete.notification.success.title": "Successful Deletion",
+
   // "ldn-service-delete.notification.success.content": "The service has been deleted",
   // TODO New key - Add a translation
   "ldn-service-delete.notification.success.content": "The service has been deleted",
+
   // "ldn-service-delete.notification.error.title": "Failed Deletion",
   // TODO New key - Add a translation
   "ldn-service-delete.notification.error.title": "Failed Deletion",
+
   // "ldn-service-delete.notification.error.content": "The service has not been deleted",
   // TODO New key - Add a translation
   "ldn-service-delete.notification.error.content": "The service has not been deleted",
+
   // "service.overview.reset-form.reset-return": "Cancel",
   // TODO New key - Add a translation
   "service.overview.reset-form.reset-return": "Cancel",
+
   // "service.overview.delete": "Delete service",
   // TODO New key - Add a translation
   "service.overview.delete": "Delete service",
+
   // "ldn-edit-service.title": "Edit service",
   // TODO New key - Add a translation
   "ldn-edit-service.title": "Edit service",
+
   // "ldn-edit-service.form.label.name": "Name",
   // TODO New key - Add a translation
   "ldn-edit-service.form.label.name": "Name",
+
   // "ldn-edit-service.form.label.description": "Description",
   // TODO New key - Add a translation
   "ldn-edit-service.form.label.description": "Description",
+
   // "ldn-edit-service.form.label.url": "Service URL",
   // TODO New key - Add a translation
   "ldn-edit-service.form.label.url": "Service URL",
+
   // "ldn-edit-service.form.label.ldnUrl": "LDN Inbox URL",
   // TODO New key - Add a translation
   "ldn-edit-service.form.label.ldnUrl": "LDN Inbox URL",
+
   // "ldn-edit-service.form.label.inboundPattern": "Inbound Pattern",
   // TODO New key - Add a translation
   "ldn-edit-service.form.label.inboundPattern": "Inbound Pattern",
+
   // "ldn-edit-service.form.label.noInboundPatternSelected": "No Inbound Pattern",
   // TODO New key - Add a translation
   "ldn-edit-service.form.label.noInboundPatternSelected": "No Inbound Pattern",
+
   // "ldn-edit-service.form.label.selectedItemFilter": "Selected Item Filter",
   // TODO New key - Add a translation
   "ldn-edit-service.form.label.selectedItemFilter": "Selected Item Filter",
+
   // "ldn-edit-service.form.label.selectItemFilter": "No Item Filter",
   // TODO New key - Add a translation
   "ldn-edit-service.form.label.selectItemFilter": "No Item Filter",
+
   // "ldn-edit-service.form.label.automatic": "Automatic",
   // TODO New key - Add a translation
   "ldn-edit-service.form.label.automatic": "Automatic",
+
   // "ldn-edit-service.form.label.addInboundPattern": "+ Add more",
   // TODO New key - Add a translation
   "ldn-edit-service.form.label.addInboundPattern": "+ Add more",
+
   // "ldn-edit-service.form.label.submit": "Save",
   // TODO New key - Add a translation
   "ldn-edit-service.form.label.submit": "Save",
+
   // "ldn-edit-service.breadcrumbs": "Edit Service",
   // TODO New key - Add a translation
   "ldn-edit-service.breadcrumbs": "Edit Service",
+
   // "ldn-service.control-constaint-select-none": "Select none",
   // TODO New key - Add a translation
   "ldn-service.control-constaint-select-none": "Select none",
@@ -11392,12 +11660,15 @@
   // "ldn-register-new-service.notification.error.title": "Error",
   // TODO New key - Add a translation
   "ldn-register-new-service.notification.error.title": "Error",
+
   // "ldn-register-new-service.notification.error.content": "An error occurred while creating this process",
   // TODO New key - Add a translation
   "ldn-register-new-service.notification.error.content": "An error occurred while creating this process",
+
   // "ldn-register-new-service.notification.success.title": "Success",
   // TODO New key - Add a translation
   "ldn-register-new-service.notification.success.title": "Success",
+
   // "ldn-register-new-service.notification.success.content": "The process was successfully created",
   // TODO New key - Add a translation
   "ldn-register-new-service.notification.success.content": "The process was successfully created",
@@ -11441,6 +11712,7 @@
   // "quality-assurance.topics.description-with-target": "Below you can see all the topics received from the subscriptions to {{source}} in regards to the",
   // TODO New key - Add a translation
   "quality-assurance.topics.description-with-target": "Below you can see all the topics received from the subscriptions to {{source}} in regards to the",
+
   // "quality-assurance.events.description": "Below the list of all the suggestions for the selected topic <b>{{topic}}</b>, related to <b>{{source}}</b>.",
   // TODO New key - Add a translation
   "quality-assurance.events.description": "Below the list of all the suggestions for the selected topic <b>{{topic}}</b>, related to <b>{{source}}</b>.",
@@ -12449,6 +12721,10 @@
   // TODO New key - Add a translation
   "external-login.confirmation.email-label": "User Email",
 
+  // "external-login.confirmation.email": "Email",
+  // TODO New key - Add a translation
+  "external-login.confirmation.email": "Email",
+
   // "external-login.confirmation.email-invalid": "Invalid email format.",
   // TODO New key - Add a translation
   "external-login.confirmation.email-invalid": "Invalid email format.",
@@ -12569,6 +12845,10 @@
   // TODO New key - Add a translation
   "external-login-page.orcid-confirmation.netid": "Account Identifier",
 
+  // "external-login-page.orcid-confirmation.netid.label": "Account Identifier",
+  // TODO New key - Add a translation
+  "external-login-page.orcid-confirmation.netid.label": "Account Identifier",
+
   // "external-login-page.orcid-confirmation.netid.placeholder": "xxxx-xxxx-xxxx-xxxx",
   // TODO New key - Add a translation
   "external-login-page.orcid-confirmation.netid.placeholder": "xxxx-xxxx-xxxx-xxxx",
@@ -12632,6 +12912,30 @@
   // "file-download-button.request-copy": "Request a copy",
   // TODO New key - Add a translation
   "file-download-button.request-copy": "Request a copy",
+
+  // "file-download-link.audio-transcript.label": "Transcript",
+  // TODO New key - Add a translation
+  "file-download-link.audio-transcript.label": "Transcript",
+
+  // "file-download-link.audio-transcript.title": "Audio transcript",
+  // TODO New key - Add a translation
+  "file-download-link.audio-transcript.title": "Audio transcript",
+
+  // "file-download-link.audio-transcript.aria": "Open audio transcript",
+  // TODO New key - Add a translation
+  "file-download-link.audio-transcript.aria": "Open audio transcript",
+
+  // "file-download-link.video-description.label": "Video description",
+  // TODO New key - Add a translation
+  "file-download-link.video-description.label": "Video description",
+
+  // "file-download-link.video-description.title": "Video description",
+  // TODO New key - Add a translation
+  "file-download-link.video-description.title": "Video description",
+
+  // "file-download-link.video-description.aria": "Open video description",
+  // TODO New key - Add a translation
+  "file-download-link.video-description.aria": "Open video description",
 
   // "item.preview.organization.url": "URL",
   // TODO New key - Add a translation
@@ -12968,6 +13272,82 @@
   // "admin.edit-user-agreement.title": "Edit User Agreement",
   // TODO New key - Add a translation
   "admin.edit-user-agreement.title": "Edit User Agreement",
+
+  // "bitstream.replace.page.title": "Replace File",
+  // TODO New key - Add a translation
+  "bitstream.replace.page.title": "Replace File",
+
+  // "bitstream.replace.page.header": "Replace {{fileName}} ({{fileSize}})",
+  // TODO New key - Add a translation
+  "bitstream.replace.page.header": "Replace {{fileName}} ({{fileSize}})",
+
+  // "bitstream.replace.page.content": "Select a file to replace {{fileName}}. Note that this transfer can take a while to process, and may not start immediately.",
+  // TODO New key - Add a translation
+  "bitstream.replace.page.content": "Select a file to replace {{fileName}}. Note that this transfer can take a while to process, and may not start immediately.",
+
+  // "bitstream.replace.page.button.return": "Back",
+  // TODO New key - Add a translation
+  "bitstream.replace.page.button.return": "Back",
+
+  // "bitstream.replace.page.disclaimer": "The original file will be deleted. This operation can't be undone.",
+  // TODO New key - Add a translation
+  "bitstream.replace.page.disclaimer": "The original file will be deleted. This operation can't be undone.",
+
+  // "bitstream.replace.page.button.cancel": "Cancel",
+  // TODO New key - Add a translation
+  "bitstream.replace.page.button.cancel": "Cancel",
+
+  // "bitstream.replace.page.button.save": "Replace file",
+  // TODO New key - Add a translation
+  "bitstream.replace.page.button.save": "Replace file",
+
+  // "bitstream.replace.page.upload.failed": "Bitstream upload failed",
+  // TODO New key - Add a translation
+  "bitstream.replace.page.upload.failed": "Bitstream upload failed",
+
+  // "bitstream.replace.page.breadcrumbs": "Replace File",
+  // TODO New key - Add a translation
+  "bitstream.replace.page.breadcrumbs": "Replace File",
+
+  // "item.edit.bitstreams.edit.buttons.replace": "Replace",
+  // TODO New key - Add a translation
+  "item.edit.bitstreams.edit.buttons.replace": "Replace",
+
+  // "bitstream.replace.page.upload.success": "Bitstream successfully replaced",
+  // TODO New key - Add a translation
+  "bitstream.replace.page.upload.success": "Bitstream successfully replaced",
+
+  // "bitstream.edit.replace.link": "Replace file",
+  // TODO New key - Add a translation
+  "bitstream.edit.replace.link": "Replace file",
+
+  // "bitstream.replace.page.replace-name": "Use new filename",
+  // TODO New key - Add a translation
+  "bitstream.replace.page.replace-name": "Use new filename",
+
+  // "bitstream.replace.page.replace-name-hint": "The new file extension will be retained in order to match the content of the replacement file.",
+  // TODO New key - Add a translation
+  "bitstream.replace.page.replace-name-hint": "The new file extension will be retained in order to match the content of the replacement file.",
+
+  // "bitstream.related.isCopyOf": "Is copy of",
+  // TODO New key - Add a translation
+  "bitstream.related.isCopyOf": "Is copy of",
+
+  // "bitstream.related.hasCopies": "Has copies",
+  // TODO New key - Add a translation
+  "bitstream.related.hasCopies": "Has copies",
+
+  // "bitstream.related.isReplacementOf": "Is replacement of",
+  // TODO New key - Add a translation
+  "bitstream.related.isReplacementOf": "Is replacement of",
+
+  // "bitstream.related.isReplacedBy": "Is replaced by",
+  // TODO New key - Add a translation
+  "bitstream.related.isReplacedBy": "Is replaced by",
+
+  // "bitstream.related.deleted": "deleted",
+  // TODO New key - Add a translation
+  "bitstream.related.deleted": "deleted",
 
 
 }
