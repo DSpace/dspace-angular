@@ -11,6 +11,7 @@
     "preserve": "npm run base-href",
     "serve": "ts-node -r tsconfig-paths/register --project ./tsconfig.ts-node.json scripts/serve.ts",
     "serve:ssr": "node dist/server/main",
+    "serve:ssr:debug": "SSR_DEBUG=true npm run build:ssr && node dist/server/main",
     "analyze": "webpack-bundle-analyzer dist/browser/stats.json",
     "build": "ng build --configuration development",
     "build:stats": "ng build --stats-json",
