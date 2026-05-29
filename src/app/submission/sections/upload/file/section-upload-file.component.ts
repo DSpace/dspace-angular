@@ -216,7 +216,7 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
      */
     protected showReplaceButton$ = new BehaviorSubject(false);
 
-  /**
+    /**
    * Initialize instance variables
    *
    * @param {FormService} formService
@@ -229,7 +229,7 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
    * @param {HALEndpointService} halService
    * @param {ItemDataService} itemDataService
    */
-  constructor(
+    constructor(
     private formService: FormService,
     private modalService: NgbModal,
     private operationsBuilder: JsonPatchOperationsBuilder,
@@ -241,202 +241,202 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
     private authorizationService: AuthorizationDataService,
     private halService: HALEndpointService,
     private itemDataService: ItemDataService,
-  ) {
-    this.readMode = true;
-  }
+    ) {
+      this.readMode = true;
+    }
 
-  /**
+    /**
    * Retrieve bitstream's metadata
    */
-  ngOnChanges(changes: SimpleChanges): void {
-    if (this.availableAccessConditionOptions) {
+    ngOnChanges(changes: SimpleChanges): void {
+      if (this.availableAccessConditionOptions) {
       // Retrieve file state
-      this.subscriptions.push(
-        this.uploadService
-          .getFileData(this.submissionId, this.sectionId, this.fileId)
-          .pipe(filter((bitstream) => isNotUndefined(bitstream)))
-          .subscribe((bitstream) => {
-            this.fileData = bitstream;
-          },
-          ),
-      );
+        this.subscriptions.push(
+          this.uploadService
+            .getFileData(this.submissionId, this.sectionId, this.fileId)
+            .pipe(filter((bitstream) => isNotUndefined(bitstream)))
+            .subscribe((bitstream) => {
+              this.fileData = bitstream;
+            },
+            ),
+        );
+      }
     }
-  }
 
-  /**
+    /**
    * Initialize instance variables
    */
-  ngOnInit() {
-    this.formId = this.formService.getUniqueId(this.fileId);
-    this.processingSaveStatus$ = this.submissionService.getSubmissionSaveProcessingStatus(this.submissionId);
-    this.pathCombiner = new JsonPatchOperationPathCombiner('sections', this.sectionId);
-    this.loadFormMetadata();
-    this.initReplaceButtonVisibility();
-  }
+    ngOnInit() {
+      this.formId = this.formService.getUniqueId(this.fileId);
+      this.processingSaveStatus$ = this.submissionService.getSubmissionSaveProcessingStatus(this.submissionId);
+      this.pathCombiner = new JsonPatchOperationPathCombiner('sections', this.sectionId);
+      this.loadFormMetadata();
+      this.initReplaceButtonVisibility();
+    }
 
-  /**
+    /**
    * Sets up the subscription that drives {@link showReplaceButton$}. The version check
    * (`isVersionedSubmission`) is kept outside the per-file `switchMap` via `combineLatest`
    * so that repeated emissions from `getFileData` during form initialisation do not cancel
    * the in-flight version request before it has had a chance to resolve.
    */
-  private initReplaceButtonVisibility(): void {
-    const scope = this.submissionService.getSubmissionScope();
-    if (scope === SubmissionScopeType.WorkflowItem) {
-      return;
+    private initReplaceButtonVisibility(): void {
+      const scope = this.submissionService.getSubmissionScope();
+      if (scope === SubmissionScopeType.WorkflowItem) {
+        return;
+      }
+      this.subscriptions.push(
+        combineLatest([
+          this.isVersionedSubmission(scope),
+          this.uploadService.getFileData(this.submissionId, this.sectionId, this.fileId).pipe(
+            filter(isNotUndefined),
+            switchMap((fileData) => this.isAuthorizedToReplace(fileData.uuid)),
+          ),
+        ]).pipe(
+          map(([isVersioned, isAuthorized]) => isVersioned && isAuthorized),
+        ).subscribe((canReplace) => this.showReplaceButton$.next(canReplace)),
+      );
     }
-    this.subscriptions.push(
-      combineLatest([
-        this.isVersionedSubmission(scope),
-        this.uploadService.getFileData(this.submissionId, this.sectionId, this.fileId).pipe(
-          filter(isNotUndefined),
-          switchMap((fileData) => this.isAuthorizedToReplace(fileData.uuid)),
-        ),
-      ]).pipe(
-        map(([isVersioned, isAuthorized]) => isVersioned && isAuthorized),
-      ).subscribe((canReplace) => this.showReplaceButton$.next(canReplace)),
-    );
-  }
 
-  /**
+    /**
    * Returns `true` when the current submission is a new-version workspace item (i.e. its item
    * already belongs to a version history), or unconditionally `true` for EditItem scope where
    * versioning does not apply.
    */
-  private isVersionedSubmission(scope: SubmissionScopeType): Observable<boolean> {
-    if (scope !== SubmissionScopeType.WorkspaceItem) {
-      return of(true);
-    }
-    return this.submissionService.retrieveSubmission(this.submissionId).pipe(
-      getAllSucceededRemoteData(),
-      getRemoteDataPayload(),
-      switchMap((submissionObject) =>
-        this.itemDataService.findByHref(submissionObject._links.item.href, true, true, followLink('version')).pipe(
-          getFirstSucceededRemoteDataPayload(),
-          switchMap((item: Item) => item.version),
-          getFirstSucceededRemoteDataPayload(),
-          map((version) => hasValue(version)),
+    private isVersionedSubmission(scope: SubmissionScopeType): Observable<boolean> {
+      if (scope !== SubmissionScopeType.WorkspaceItem) {
+        return of(true);
+      }
+      return this.submissionService.retrieveSubmission(this.submissionId).pipe(
+        getAllSucceededRemoteData(),
+        getRemoteDataPayload(),
+        switchMap((submissionObject) =>
+          this.itemDataService.findByHref(submissionObject._links.item.href, true, true, followLink('version')).pipe(
+            getFirstSucceededRemoteDataPayload(),
+            switchMap((item: Item) => item.version),
+            getFirstSucceededRemoteDataPayload(),
+            map((version) => hasValue(version)),
+          ),
         ),
-      ),
-    );
-  }
+      );
+    }
 
-  /**
+    /**
    * Returns whether the current user is authorized to replace the given bitstream.
    */
-  private isAuthorizedToReplace(bitstreamUuid: string): Observable<boolean> {
-    return this.halService.getEndpoint('bitstreams').pipe(
-      map((endpoint) => `${endpoint}/${bitstreamUuid}`),
-      switchMap((bitstreamUrl) => this.authorizationService.isAuthorized(FeatureID.CanReplaceBitstreamSubmitter, bitstreamUrl)),
-    );
-  }
-
-  /**
-   * Show confirmation dialog for delete
-   */
-  public confirmDelete(content) {
-    this.modalService.open(content).result.then(
-      (result) => {
-        if (result === 'ok') {
-          this.processingDelete$.next(true);
-          this.deleteFile();
-        }
-      },
-    );
-  }
-
-  /**
-   * Download the file using a short-lived token
-   */
-  public downloadFile() {
-    this.fileService.retrieveFileDownloadLink(this.fileData.url).pipe(take(1)).subscribe((link) => {
-      window.open(link, '_blank');
-    });
-  }
-
-  editBitstreamData() {
-
-    const options: NgbModalOptions = {
-      size: 'xl',
-      backdrop: 'static',
-    };
-
-    const activeModal = this.modalService.open(SubmissionSectionUploadFileEditComponent, options);
-
-    activeModal.componentInstance.availableAccessConditionOptions = this.availableAccessConditionOptions;
-    activeModal.componentInstance.collectionId = this.collectionId;
-    activeModal.componentInstance.collectionPolicyType = this.collectionPolicyType;
-    activeModal.componentInstance.configMetadataForm = this.configMetadataForm;
-    activeModal.componentInstance.fileData = this.fileData;
-    activeModal.componentInstance.fileId = this.fileId;
-    activeModal.componentInstance.fileIndex = this.fileIndex;
-    activeModal.componentInstance.formId = this.formId;
-    activeModal.componentInstance.sectionId = this.sectionId;
-    activeModal.componentInstance.formMetadata = this.formMetadata;
-    activeModal.componentInstance.pathCombiner = this.pathCombiner;
-    activeModal.componentInstance.submissionId = this.submissionId;
-    activeModal.componentInstance.isPrimary = this.isPrimary;
-  }
-
-  togglePrimaryBitstream(event) {
-    this.uploadService.updatePrimaryBitstreamOperation(this.pathCombiner.getPath('primary'), this.isPrimary, event.target.checked, this.fileId);
-    this.submissionService.dispatchSaveSection(this.submissionId, this.sectionId);
-  }
-
-  ngOnDestroy(): void {
-    this.unsubscribeAll();
-  }
-
-  unsubscribeAll() {
-    this.subscriptions.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
-  }
-
-  protected loadFormMetadata() {
-    this.configMetadataForm.rows.forEach((row) => {
-      row.fields.forEach((field) => {
-        field.selectableMetadata.forEach((metadatum) => {
-          this.formMetadata.push(metadatum.metadata);
-        });
-      });
-    },
-    );
-  }
-
-  protected replaceBitstream(): void {
-    const options: NgbModalOptions = {
-      size: 'xl',
-      backdrop: 'static',
-    };
-    const modal = this.modalService.open(SubmissionSectionUploadFileReplaceComponent, options);
-    const instance: SubmissionSectionUploadFileReplaceComponent = modal.componentInstance;
-    instance.bitstreamUuid = this.fileData.uuid;
-    instance.fileIndex = this.fileIndex;
-    instance.fileName = this.fileName;
-    instance.fileSizeBytes = this.fileData.sizeBytes;
-    instance.submissionId = this.submissionId;
-  }
-
-  /**
-   * Delete bitstream from submission
-   */
-  protected deleteFile() {
-    this.operationsBuilder.remove(this.pathCombiner.getPath(['files', this.fileIndex]));
-    if (this.isPrimary) {
-      this.operationsBuilder.remove(this.pathCombiner.getPath('primary'));
+    private isAuthorizedToReplace(bitstreamUuid: string): Observable<boolean> {
+      return this.halService.getEndpoint('bitstreams').pipe(
+        map((endpoint) => `${endpoint}/${bitstreamUuid}`),
+        switchMap((bitstreamUrl) => this.authorizationService.isAuthorized(FeatureID.CanReplaceBitstreamSubmitter, bitstreamUrl)),
+      );
     }
 
-    this.subscriptions.push(this.operationsService.jsonPatchByResourceID(
-      this.submissionService.getSubmissionObjectLinkName(),
-      this.submissionId,
-      this.pathCombiner.rootElement,
-      this.pathCombiner.subRootElement)
-      .subscribe(() => {
-        if (this.isPrimary) {
-          this.uploadService.updateFilePrimaryBitstream(this.submissionId, this.sectionId, null);
-        }
-        this.uploadService.removeUploadedFile(this.submissionId, this.sectionId, this.fileId);
-        this.processingDelete$.next(false);
-      }));
-  }
+    /**
+   * Show confirmation dialog for delete
+   */
+    public confirmDelete(content) {
+      this.modalService.open(content).result.then(
+        (result) => {
+          if (result === 'ok') {
+            this.processingDelete$.next(true);
+            this.deleteFile();
+          }
+        },
+      );
+    }
+
+    /**
+   * Download the file using a short-lived token
+   */
+    public downloadFile() {
+      this.fileService.retrieveFileDownloadLink(this.fileData.url).pipe(take(1)).subscribe((link) => {
+        window.open(link, '_blank');
+      });
+    }
+
+    editBitstreamData() {
+
+      const options: NgbModalOptions = {
+        size: 'xl',
+        backdrop: 'static',
+      };
+
+      const activeModal = this.modalService.open(SubmissionSectionUploadFileEditComponent, options);
+
+      activeModal.componentInstance.availableAccessConditionOptions = this.availableAccessConditionOptions;
+      activeModal.componentInstance.collectionId = this.collectionId;
+      activeModal.componentInstance.collectionPolicyType = this.collectionPolicyType;
+      activeModal.componentInstance.configMetadataForm = this.configMetadataForm;
+      activeModal.componentInstance.fileData = this.fileData;
+      activeModal.componentInstance.fileId = this.fileId;
+      activeModal.componentInstance.fileIndex = this.fileIndex;
+      activeModal.componentInstance.formId = this.formId;
+      activeModal.componentInstance.sectionId = this.sectionId;
+      activeModal.componentInstance.formMetadata = this.formMetadata;
+      activeModal.componentInstance.pathCombiner = this.pathCombiner;
+      activeModal.componentInstance.submissionId = this.submissionId;
+      activeModal.componentInstance.isPrimary = this.isPrimary;
+    }
+
+    togglePrimaryBitstream(event) {
+      this.uploadService.updatePrimaryBitstreamOperation(this.pathCombiner.getPath('primary'), this.isPrimary, event.target.checked, this.fileId);
+      this.submissionService.dispatchSaveSection(this.submissionId, this.sectionId);
+    }
+
+    ngOnDestroy(): void {
+      this.unsubscribeAll();
+    }
+
+    unsubscribeAll() {
+      this.subscriptions.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
+    }
+
+    protected loadFormMetadata() {
+      this.configMetadataForm.rows.forEach((row) => {
+        row.fields.forEach((field) => {
+          field.selectableMetadata.forEach((metadatum) => {
+            this.formMetadata.push(metadatum.metadata);
+          });
+        });
+      },
+      );
+    }
+
+    protected replaceBitstream(): void {
+      const options: NgbModalOptions = {
+        size: 'xl',
+        backdrop: 'static',
+      };
+      const modal = this.modalService.open(SubmissionSectionUploadFileReplaceComponent, options);
+      const instance: SubmissionSectionUploadFileReplaceComponent = modal.componentInstance;
+      instance.bitstreamUuid = this.fileData.uuid;
+      instance.fileIndex = this.fileIndex;
+      instance.fileName = this.fileName;
+      instance.fileSizeBytes = this.fileData.sizeBytes;
+      instance.submissionId = this.submissionId;
+    }
+
+    /**
+   * Delete bitstream from submission
+   */
+    protected deleteFile() {
+      this.operationsBuilder.remove(this.pathCombiner.getPath(['files', this.fileIndex]));
+      if (this.isPrimary) {
+        this.operationsBuilder.remove(this.pathCombiner.getPath('primary'));
+      }
+
+      this.subscriptions.push(this.operationsService.jsonPatchByResourceID(
+        this.submissionService.getSubmissionObjectLinkName(),
+        this.submissionId,
+        this.pathCombiner.rootElement,
+        this.pathCombiner.subRootElement)
+        .subscribe(() => {
+          if (this.isPrimary) {
+            this.uploadService.updateFilePrimaryBitstream(this.submissionId, this.sectionId, null);
+          }
+          this.uploadService.removeUploadedFile(this.submissionId, this.sectionId, this.fileId);
+          this.processingDelete$.next(false);
+        }));
+    }
 
 }
