@@ -73,6 +73,7 @@ import { TruncatableService } from '../../../../shared/truncatable/truncatable.s
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
 import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail.component';
 import { GenericItemPageFieldComponent } from '../../field-components/specific-field/generic/generic-item-page-field.component';
+import { ItemPageOrcidFieldComponent } from '../../field-components/specific-field/orcid/item-page-orcid-field.component';
 import { ThemedItemPageTitleFieldComponent } from '../../field-components/specific-field/title/themed-item-page-field.component';
 import { ThemedMetadataRepresentationListComponent } from '../../metadata-representation-list/themed-metadata-representation-list.component';
 import { TabbedRelatedEntitiesSearchComponent } from '../../related-entities/tabbed-related-entities-search/tabbed-related-entities-search.component';
@@ -102,6 +103,12 @@ export function getIIIFEnabled(enabled: boolean): MetadataValue {
 export const mockRouteService = {
   getPreviousUrl(): Observable<string> {
     return of('');
+  },
+  storeUrlInSession(key: string, url: string): void {
+    // no-op
+  },
+  getUrlFromSession(key: string): string | null {
+    return null;
   },
   getQueryParameterValue(): Observable<string> {
     return of('');
@@ -202,6 +209,7 @@ export function getItemPageFieldsTest(mockItem: Item, component) {
               RelatedItemsComponent,
               TabbedRelatedEntitiesSearchComponent,
               ThemedMetadataRepresentationListComponent,
+              ItemPageOrcidFieldComponent,
             ],
           },
           add: { changeDetection: ChangeDetectionStrategy.Default },
@@ -483,6 +491,7 @@ describe('ItemComponent', () => {
 
     const searchUrl = '/search?query=test&spc.page=2';
     const browseUrl = '/browse/title?scope=0cc&bbm.page=3';
+    const homeUrl = '/home';
     const recentSubmissionsUrl = '/collections/be7b8430-77a5-4016-91c9-90863e50583a?cp.page=3';
 
     beforeEach(waitForAsync(() => {
@@ -562,6 +571,32 @@ describe('ItemComponent', () => {
       comp.ngOnInit();
       comp.showBackButton$.subscribe((val) => {
         expect(val).toBeTrue();
+      });
+    });
+
+    it('should show back button for home', () => {
+      spyOn(mockRouteService, 'getPreviousUrl').and.returnValue(of(homeUrl));
+      comp.ngOnInit();
+      comp.showBackButton$.subscribe((val) => {
+        expect(val).toBeTrue();
+      });
+    });
+
+    it('should prioritize home previous url over session fallback', () => {
+      const staleSessionUrl = searchUrl;
+      const getPreviousUrlSpy = spyOn(mockRouteService, 'getPreviousUrl').and.returnValue(of(homeUrl));
+      const getUrlFromSessionSpy = spyOn(mockRouteService, 'getUrlFromSession').and.returnValue(staleSessionUrl);
+      const storeUrlInSessionSpy = spyOn(mockRouteService, 'storeUrlInSession');
+
+      comp.ngOnInit();
+      comp.showBackButton$.subscribe((val) => {
+        expect(val).toBeTrue();
+        expect(getPreviousUrlSpy).toHaveBeenCalled();
+        expect(getUrlFromSessionSpy).not.toHaveBeenCalled();
+        expect(storeUrlInSessionSpy).toHaveBeenCalledWith('item-previous-url', homeUrl);
+
+        comp.back();
+        expect(router.navigateByUrl).toHaveBeenCalledWith(homeUrl);
       });
     });
   });

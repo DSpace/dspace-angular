@@ -32,21 +32,21 @@
         <a [target]="(linkType === linkTypes.ExternalLink) ? '_blank' : '_self'"
           [attr.rel]="(linkType === linkTypes.ExternalLink) ? 'noopener noreferrer' : null"
           [routerLink]="[itemPageRoute]" class="lead"
-        [innerHTML]="dsoTitle || ('person.listelement.no-title' | translate)" role="link" tabindex="0"></a>
+           [dsMetadata]="dsoTitle" role="link" tabindex="0"></a>
       }
       @if (linkType === linkTypes.None) {
         <span
           class="lead"
-        [innerHTML]="dsoTitle || ('person.listelement.no-title' | translate)"></span>
+          [dsMetadata]="dsoTitle"></span>
       }
       <span class="text-muted">
         <ds-truncatable-part [id]="dso.id" [minLines]="1">
           @if (dso.allMetadata(['person.jobTitle']).length > 0) {
             <span
               class="item-list-job-title">
-              @for (value of allMetadataValues(['person.jobTitle']); track value; let last = $last) {
+              @for (value of allMetadata(['person.jobTitle']); track value; let last = $last) {
                 <span>
-                  <span [innerHTML]="value"><span [innerHTML]="value"></span></span>
+                  <span [dsMetadata]="value"><span [dsMetadata]="value"></span></span>
                 </span>
               }
             </span>
