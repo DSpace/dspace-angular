@@ -143,14 +143,14 @@ export class DsDynamicLookupRelationSelectionTabComponent implements OnInit {
           );
         }),
       );
-    this.currentPagination$ = this.paginationService.getCurrentPagination(this.searchConfigService.paginationID, this.initialPagination);
+    this.currentPagination$ = this.paginationService.getCurrentPagination(this.searchConfigService.searchInstanceId, this.initialPagination);
   }
 
   /**
    * Method to reset the route when the tab is opened to make sure no strange pagination issues appears
    */
   resetRoute() {
-    this.paginationService.updateRoute(this.searchConfigService.paginationID, {
+    this.paginationService.updateRoute(this.searchConfigService.searchInstanceId, {
       page: 1,
       pageSize: 5,
     });

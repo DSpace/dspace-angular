@@ -128,7 +128,7 @@ export class RecentItemListComponent implements OnInit, OnDestroy {
   }
 
   onLoadMore(): void {
-    this.paginationService.updateRouteWithUrl(this.searchConfigurationService.paginationID, ['search'], {
+    this.paginationService.updateRouteWithUrl(this.searchConfigurationService.searchInstanceId, ['search'], {
       sortField: environment.homePage.recentSubmissions.sortField,
       sortDirection: 'DESC' as SortDirection,
       page: 1,

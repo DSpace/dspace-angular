@@ -56,7 +56,7 @@ export class SearchSettingsComponent {
    */
   reloadOrder(event: Event) {
     const values = (event.target as HTMLInputElement).value.split(',');
-    this.paginationService.updateRoute(this.searchConfigurationService.paginationID, {
+    this.paginationService.updateRoute(this.searchConfigurationService.searchInstanceId, {
       sortField: values[0],
       sortDirection: values[1] as SortDirection,
       page: 1,

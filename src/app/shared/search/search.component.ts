@@ -153,9 +153,9 @@ export class SearchComponent implements OnDestroy, OnInit {
   @Input() linkType: CollectionElementLinkType;
 
   /**
-   * The pagination id used in the search
+   * The search instance id used in the search
    */
-  @Input() paginationId = 'spc';
+  @Input() searchInstanceId = 'spc';
 
   /**
    * Whether or not the search bar should be visible
@@ -374,17 +374,17 @@ export class SearchComponent implements OnDestroy, OnInit {
     }
 
     if (this.useUniquePageId) {
-      // Create an unique pagination id related to the instance of the SearchComponent
-      this.paginationId = uniqueId(this.paginationId);
+      // Create a unique search instance id related to this SearchComponent.
+      this.searchInstanceId = uniqueId(this.searchInstanceId);
     }
 
-    this.searchConfigService.setPaginationId(this.paginationId);
+    this.searchConfigService.setSearchInstanceId(this.searchInstanceId);
 
     if (hasValue(this.configuration)) {
-      this.routeService.setParameter('configuration', this.configuration);
+      this.routeService.setParameter(this.searchConfigService.getCurrentSearchInstanceParam('configuration'), this.configuration);
     }
     if (hasValue(this.fixedFilterQuery)) {
-      this.routeService.setParameter('fixedFilterQuery', this.fixedFilterQuery);
+      this.routeService.setParameter(this.searchConfigService.getCurrentSearchInstanceParam('fixedFilterQuery'), this.fixedFilterQuery);
     }
 
     this.currentScope$ = this.routeService.getQueryParameterValue('scope').pipe(
@@ -406,7 +406,7 @@ export class SearchComponent implements OnDestroy, OnInit {
     const sortOption$: Observable<SortOptions> = searchSortOptions$.pipe(
       switchMap((searchSortOptions: SortOptions[]) => {
         const defaultSort: SortOptions = searchSortOptions[0];
-        return this.searchConfigService.getCurrentSort(this.paginationId, defaultSort);
+        return this.searchConfigService.getCurrentSort(this.searchInstanceId, defaultSort);
       }),
       distinctUntilChanged(),
     );
@@ -414,8 +414,8 @@ export class SearchComponent implements OnDestroy, OnInit {
 
     this.subs.push(combineLatest([configuration$, searchSortOptions$, searchOptions$, sortOption$, this.currentScope$]).pipe(
       filter(([configuration, searchSortOptions, searchOptions, sortOption, scope]: [string, SortOptions[], PaginatedSearchOptions, SortOptions, string]) => {
-        // filter for search options related to instanced paginated id
-        return searchOptions.pagination.id === this.paginationId;
+        // filter for search options related to this search instance id
+        return searchOptions.pagination.id === this.searchInstanceId;
       }),
       debounceTime(100),
     ).subscribe(([configuration, searchSortOptions, searchOptions, sortOption, scope]: [string, SortOptions[], PaginatedSearchOptions, SortOptions, string]) => {

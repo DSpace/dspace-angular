@@ -135,8 +135,15 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
     this.max = yearFromString(this.filterConfig.maxValue) || this.max;
     this.minLabel = this.translateService.instant('search.filters.filter.' + this.filterConfig.name + '.min.placeholder');
     this.maxLabel = this.translateService.instant('search.filters.filter.' + this.filterConfig.name + '.max.placeholder');
-    const iniMin = this.route.getQueryParameterValue(this.filterConfig.paramName + RANGE_FILTER_MIN_SUFFIX).pipe(startWith(undefined));
-    const iniMax = this.route.getQueryParameterValue(this.filterConfig.paramName + RANGE_FILTER_MAX_SUFFIX).pipe(startWith(undefined));
+    const filterParamName = this.searchConfigService.getCurrentSearchInstanceFilterParam(this.filterConfig.paramName);
+    const iniMin = observableCombineLatest([
+      this.route.getQueryParameterValue(filterParamName + RANGE_FILTER_MIN_SUFFIX).pipe(startWith(undefined)),
+      this.route.getQueryParameterValue(this.filterConfig.paramName + RANGE_FILTER_MIN_SUFFIX).pipe(startWith(undefined)),
+    ]).pipe(map(([instanceMin, legacyMin]: [string, string]) => hasValue(instanceMin) ? instanceMin : legacyMin));
+    const iniMax = observableCombineLatest([
+      this.route.getQueryParameterValue(filterParamName + RANGE_FILTER_MAX_SUFFIX).pipe(startWith(undefined)),
+      this.route.getQueryParameterValue(this.filterConfig.paramName + RANGE_FILTER_MAX_SUFFIX).pipe(startWith(undefined)),
+    ]).pipe(map(([instanceMax, legacyMax]: [string, string]) => hasValue(instanceMax) ? instanceMax : legacyMax));
     this.subs.push(observableCombineLatest([iniMin, iniMax]).pipe(
       map(([min, max]: [string, string]) => {
         const minimum = hasValue(min) ? Number(min) : this.min;
@@ -177,8 +184,11 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
     void this.router.navigate(this.getSearchLinkParts(), {
       queryParams:
         {
-          [this.filterConfig.paramName + RANGE_FILTER_MIN_SUFFIX]: newMin,
-          [this.filterConfig.paramName + RANGE_FILTER_MAX_SUFFIX]: newMax,
+          [this.searchConfigService.getCurrentSearchInstanceFilterParam(this.filterConfig.paramName) + RANGE_FILTER_MIN_SUFFIX]: newMin,
+          [this.searchConfigService.getCurrentSearchInstanceFilterParam(this.filterConfig.paramName) + RANGE_FILTER_MAX_SUFFIX]: newMax,
+          [this.filterConfig.paramName + RANGE_FILTER_MIN_SUFFIX]: null,
+          [this.filterConfig.paramName + RANGE_FILTER_MAX_SUFFIX]: null,
+          [this.searchConfigService.getCurrentPageParam()]: 1,
         },
       queryParamsHandling: 'merge',
     });

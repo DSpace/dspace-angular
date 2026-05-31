@@ -206,7 +206,7 @@ export class DsDynamicLookupRelationExternalSourceTabComponent implements OnInit
         return this.externalSourceService.getExternalSourceEntries(this.externalSource.id, searchOptions).pipe(startWith(undefined));
       }),
     );
-    this.currentPagination$ = this.paginationService.getCurrentPagination(this.searchConfigService.paginationID, this.initialPagination);
+    this.currentPagination$ = this.paginationService.getCurrentPagination(this.searchConfigService.searchInstanceId, this.initialPagination);
     this.importConfig = {
       buttonLabel: 'submission.sections.describe.relationship-lookup.external-source.import-button-title.' + this.label,
     };
@@ -257,7 +257,7 @@ export class DsDynamicLookupRelationExternalSourceTabComponent implements OnInit
    * Method to reset the route when the tab is opened to make sure no strange pagination issues appears
    */
   resetRoute() {
-    this.paginationService.updateRoute(this.searchConfigService.paginationID, {
+    this.paginationService.updateRoute(this.searchConfigService.searchInstanceId, {
       page: 1,
       pageSize: 5,
     });

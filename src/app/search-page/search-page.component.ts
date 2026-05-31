@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 
+import { SearchService } from '../core/shared/search/search.service';
 import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../my-dspace-page/my-dspace-configuration.service';
 import { ThemedSearchComponent } from '../shared/search/themed-search.component';
@@ -12,6 +13,11 @@ import { ThemedSearchComponent } from '../shared/search/themed-search.component'
       provide: SEARCH_CONFIG_SERVICE,
       useClass: SearchConfigurationService,
     },
+    {
+      provide: SearchConfigurationService,
+      useExisting: SEARCH_CONFIG_SERVICE,
+    },
+    SearchService,
   ],
   standalone: true,
   imports: [

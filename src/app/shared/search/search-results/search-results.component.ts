@@ -5,7 +5,10 @@ import {
   Input,
   Output,
 } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import {
+  Params,
+  RouterLink,
+} from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import {
@@ -187,5 +190,16 @@ export class SearchResultsComponent {
     }
 
     return result;
+  }
+
+  getExactMatchQueryParams(): Params {
+    if (hasNoValue(this.searchConfig?.pagination?.id)) {
+      return {
+        query: this.surroundStringWithQuotes(this.searchConfig?.query),
+      };
+    }
+    return {
+      [`${this.searchConfig?.pagination?.id}.query`]: this.surroundStringWithQuotes(this.searchConfig?.query),
+    };
   }
 }

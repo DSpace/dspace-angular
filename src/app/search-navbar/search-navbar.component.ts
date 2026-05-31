@@ -11,7 +11,9 @@ import {
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { PaginationService } from '../core/pagination/pagination.service';
 import { SearchService } from '../core/shared/search/search.service';
+import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
 import { expandSearchInput } from '../shared/animations/slide';
 import { BrowserOnlyPipe } from '../shared/utils/browser-only.pipe';
 import { ClickOutsideDirective } from '../shared/utils/click-outside.directive';
@@ -44,7 +46,11 @@ export class SearchNavbarComponent {
   // Search input field
   @ViewChild('searchInput') searchField: ElementRef;
 
-  constructor(private formBuilder: UntypedFormBuilder, private router: Router, private searchService: SearchService) {
+  constructor(private formBuilder: UntypedFormBuilder,
+              private router: Router,
+              private searchService: SearchService,
+              private searchConfigurationService: SearchConfigurationService,
+              private paginationService: PaginationService) {
     this.searchForm = this.formBuilder.group(({
       query: '',
     }));
@@ -81,7 +87,10 @@ export class SearchNavbarComponent {
    */
   onSubmit(data: any) {
     this.collapse();
-    const queryParams = Object.assign({}, data);
+    const queryParams = {
+      [this.searchConfigurationService.getCurrentSearchInstanceParam('query')]: data.query,
+      [this.paginationService.getPageParam(this.searchConfigurationService.searchInstanceId)]: 1,
+    };
     const linkToNavigateTo = [this.searchService.getSearchLink().replace('/', '')];
     this.searchForm.reset();
 
