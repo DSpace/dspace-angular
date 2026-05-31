@@ -200,10 +200,11 @@ export function configureSearchComponentTestingModule(compType, additionalDeclar
     getCurrentScope: of('test-id'),
     getCurrentSort: of(sortOptionsList[0]),
     updateFixedFilter: jasmine.createSpy('updateFixedFilter'),
-    setPaginationId: jasmine.createSpy('setPaginationId'),
+    setSearchInstanceId: jasmine.createSpy('setSearchInstanceId'),
   });
+  searchConfigurationServiceStub.getCurrentSearchInstanceParam = (param: string) => `${paginationId}.${param}`;
 
-  searchConfigurationServiceStub.setPaginationId.and.callFake((pageId) => {
+  searchConfigurationServiceStub.setSearchInstanceId.and.callFake((pageId) => {
     paginatedSearchOptions$.next(Object.assign(paginatedSearchOptions$.value, {
       pagination: Object.assign(new PaginationComponentOptions(), {
         id: pageId,
@@ -251,13 +252,6 @@ export function configureSearchComponentTestingModule(compType, additionalDeclar
     ],
     schemas: [NO_ERRORS_SCHEMA],
   }).overrideComponent(compType, {
-    add: {
-      changeDetection: ChangeDetectionStrategy.Default,
-      providers: [{
-        provide: SearchConfigurationService,
-        useValue: searchConfigurationServiceStub,
-      }],
-    },
     remove: {
       imports: [
         PageWithSidebarComponent,
@@ -268,7 +262,14 @@ export function configureSearchComponentTestingModule(compType, additionalDeclar
         SearchLabelsComponent,
       ],
     },
-
+  }).overrideComponent(compType, {
+    set: {
+      changeDetection: ChangeDetectionStrategy.Default,
+      providers: [{
+        provide: SearchConfigurationService,
+        useValue: searchConfigurationServiceStub,
+      }],
+    },
   }).compileComponents();
 }
 
@@ -281,7 +282,7 @@ describe('SearchComponent', () => {
     fixture = TestBed.createComponent(SearchComponent);
     comp = fixture.componentInstance; // SearchComponent test instance
     comp.inPlaceSearch = false;
-    comp.paginationId = paginationId;
+    comp.searchInstanceId = paginationId;
     comp.hiddenQuery = hiddenQuery;
 
     spyOn((comp as any), 'getSearchOptions').and.returnValue(paginatedSearchOptions$.asObservable());
