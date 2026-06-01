@@ -24,6 +24,7 @@ import { RemoteDataBuildService } from '../../../../../core/cache/builders/remot
 import { WorkspaceItem } from '../../../../../core/submission/models/workspaceitem.model';
 import { Collection } from '../../../../../core/shared/collection.model';
 import { By } from '@angular/platform-browser';
+import { SubmissionService } from '../../../../../submission/submission.service';
 
 describe('DsDynamicLookupRelationModalComponent', () => {
   let component: DsDynamicLookupRelationModalComponent;
@@ -48,6 +49,7 @@ describe('DsDynamicLookupRelationModalComponent', () => {
   let lookupRelationService;
   let rdbService;
   let submissionId;
+  let submissionService;
 
   const externalSources = [
     Object.assign(new ExternalSource(), {
@@ -102,6 +104,9 @@ describe('DsDynamicLookupRelationModalComponent', () => {
       aggregate: createSuccessfulRemoteDataObject$(externalSources)
     });
     submissionId = '1234';
+    submissionService = jasmine.createSpyObj('submissionService', {
+      getSubmissionSaveProcessingStatus: observableOf(false),
+    });
   }
 
   beforeEach(waitForAsync(() => {
@@ -133,6 +138,7 @@ describe('DsDynamicLookupRelationModalComponent', () => {
           }
         },
         { provide: NgZone, useValue: new NgZone({}) },
+        { provide: SubmissionService, useValue: submissionService },
         NgbActiveModal
       ],
       schemas: [NO_ERRORS_SCHEMA]

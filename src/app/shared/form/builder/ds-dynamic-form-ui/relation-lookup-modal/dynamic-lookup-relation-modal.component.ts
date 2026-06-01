@@ -29,6 +29,7 @@ import { RemoteDataBuildService } from '../../../../../core/cache/builders/remot
 import { getAllSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
 import { followLink } from '../../../../utils/follow-link-config.model';
 import { RelationshipType } from '../../../../../core/shared/item-relationships/relationship-type.model';
+import { SubmissionService } from '../../../../../submission/submission.service';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-modal',
@@ -169,6 +170,16 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
    */
   isPending = false;
 
+  /**
+   * Show a loading indicator if the form is currently submitting to avoid race conditions between requests
+   */
+  isSubmitting = false;
+
+  /**
+   * Open subscriptions
+   */
+  subs = [];
+
   constructor(
     public modal: NgbActiveModal,
     private selectableListService: SelectableListService,
@@ -181,6 +192,7 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
     private zone: NgZone,
     private store: Store<AppState>,
     private router: Router,
+    protected submissionService: SubmissionService,
   ) {
 
   }
@@ -216,6 +228,14 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
         })
       ).pipe(
         getAllSucceededRemoteDataPayload()
+      );
+    }
+
+    if (hasValue(this.submissionId)) {
+      this.subs.push(
+        this.submissionService.getSubmissionSaveProcessingStatus(this.submissionId).subscribe((isSubmitting) => {
+          this.isSubmitting = isSubmitting;
+        }),
       );
     }
 
@@ -331,6 +351,7 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
   ngOnDestroy() {
     this.router.navigate([], {});
     Object.values(this.subMap).forEach((subscription) => subscription.unsubscribe());
+    this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
   }
 
   /* eslint-disable no-empty,@typescript-eslint/no-empty-function */

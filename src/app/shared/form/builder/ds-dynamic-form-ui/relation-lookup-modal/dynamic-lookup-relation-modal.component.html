@@ -6,8 +6,8 @@
     </button>
 </div>
 <div class="modal-body">
-    <ds-themed-loading *ngIf="!item || !collection"></ds-themed-loading>
-    <ng-container *ngIf="item && collection">
+    <ds-themed-loading *ngIf="!item || !collection || isSubmitting"></ds-themed-loading>
+    <ng-container *ngIf="item && collection && !isSubmitting">
         <ul ngbNav #nav="ngbNav" class="nav-tabs">
             <li ngbNavItem>
                 <a ngbNavLink>{{'submission.sections.describe.relationship-lookup.search-tab.tab-title.' + relationshipOptions.relationshipType | translate  : { count: (totalInternal$ | async)} }}</a>
@@ -71,18 +71,18 @@
   <small>{{ ('submission.sections.describe.relationship-lookup.selected' | translate: {size: (selection$ | async)?.length || 0}) }}</small>
   <div class="d-flex float-right space-children-mr">
     <div class="close-button">
-        <button type="button" [disabled]="isPending" class="btn btn-outline-secondary" (click)="close()">
+        <button type="button" [disabled]="isPending || isSubmitting" class="btn btn-outline-secondary" (click)="close()">
             {{ ('submission.sections.describe.relationship-lookup.close' | translate) }}</button>
     </div>
     <ng-container *ngIf="isEditRelationship">
       <button class="btn btn-danger discard"
-              [disabled]="(toAdd.length == 0 && toRemove.length == 0) || isPending"
+              [disabled]="(toAdd.length == 0 && toRemove.length == 0) || isPending || isSubmitting"
               (click)="discardEv()">
               <i class="fas fa-times"></i>
         <span class="d-none d-sm-inline">&nbsp;{{"item.edit.metadata.discard-button" | translate}}</span>
       </button>
       <button class="btn btn-primary submit"
-            [disabled]="(toAdd.length == 0 && toRemove.length == 0) || isPending"
+            [disabled]="(toAdd.length == 0 && toRemove.length == 0) || isPending || isSubmitting"
               (click)="submitEv()">
               <span *ngIf="isPending" class="spinner-border spinner-border-sm" role="status"
                               aria-hidden="true"></span>
