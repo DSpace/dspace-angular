@@ -47,6 +47,7 @@ import {
   RemoveRelationshipAction,
   ReplaceRelationshipAction,
 } from './relationship.actions';
+import { SubmissionService } from '../../../../../submission/submission.service';
 
 describe('DsDynamicLookupRelationModalComponent', () => {
   let component: DsDynamicLookupRelationModalComponent;
@@ -71,6 +72,7 @@ describe('DsDynamicLookupRelationModalComponent', () => {
   let lookupRelationService;
   let rdbService;
   let submissionId;
+  let submissionService;
 
   const externalSources = [
     Object.assign(new ExternalSource(), {
@@ -125,6 +127,9 @@ describe('DsDynamicLookupRelationModalComponent', () => {
       aggregate: createSuccessfulRemoteDataObject$(externalSources),
     });
     submissionId = '1234';
+    submissionService = jasmine.createSpyObj('submissionService', {
+      getSubmissionSaveProcessingStatus: observableOf(false),
+    });
   }
 
   beforeEach(waitForAsync(() => {
@@ -156,6 +161,7 @@ describe('DsDynamicLookupRelationModalComponent', () => {
         },
         { provide: XSRFService, useValue: {} },
         { provide: NgZone, useValue: new NgZone({}) },
+        { provide: SubmissionService, useValue: submissionService },
         { provide: APP_DATA_SERVICES_MAP, useValue: {} },
         { provide: APP_CONFIG, useValue: { cache: { msToLive: { default: 15 * 60 * 1000 } } } },
         NgbActiveModal,

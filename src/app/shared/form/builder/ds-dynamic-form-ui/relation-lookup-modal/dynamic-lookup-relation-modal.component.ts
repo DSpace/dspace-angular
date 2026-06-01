@@ -72,6 +72,7 @@ import {
 } from './relationship.actions';
 import { ThemedDynamicLookupRelationSearchTabComponent } from './search-tab/themed-dynamic-lookup-relation-search-tab.component';
 import { DsDynamicLookupRelationSelectionTabComponent } from './selection-tab/dynamic-lookup-relation-selection-tab.component';
+import { SubmissionService } from '../../../../../submission/submission.service';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-modal',
@@ -231,6 +232,16 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
    */
   isPending = false;
 
+  /**
+   * Show a loading indicator if the form is currently submitting to avoid race conditions between requests
+   */
+  isSubmitting = false;
+
+  /**
+   * Open subscriptions
+   */
+  subs = [];
+
   constructor(
     public modal: NgbActiveModal,
     private selectableListService: SelectableListService,
@@ -242,6 +253,7 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
     private zone: NgZone,
     private store: Store<AppState>,
     private router: Router,
+    protected submissionService: SubmissionService,
   ) {
 
   }
@@ -292,6 +304,14 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
         .pipe(getFirstSucceededRemoteDataPayload(), map((r: PaginatedList<ExternalSource>) => {
           return r.page;
         }));
+    }
+
+    if (hasValue(this.submissionId)) {
+      this.subs.push(
+        this.submissionService.getSubmissionSaveProcessingStatus(this.submissionId).subscribe((isSubmitting) => {
+          this.isSubmitting = isSubmitting;
+        }),
+      );
     }
 
     this.setTotals();
@@ -407,6 +427,7 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
   ngOnDestroy() {
     this.router.navigate([], {});
     Object.values(this.subMap).forEach((subscription) => subscription.unsubscribe());
+    this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
   }
 
   /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
