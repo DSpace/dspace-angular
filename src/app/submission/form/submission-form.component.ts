@@ -13,12 +13,14 @@ import { SubmissionSectionModel } from '@dspace/core/config/models/config-submis
 import { Collection } from '@dspace/core/shared/collection.model';
 import { HALEndpointService } from '@dspace/core/shared/hal-endpoint.service';
 import { Item } from '@dspace/core/shared/item.model';
-import { SectionVisibility } from '@dspace/core/submission/models/section-visibility.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
+import { MetadataSecurityConfigurationService } from '@dspace/core/submission/metadatasecurityconfig-data.service';
+import { MetadataSecurityConfiguration } from '@dspace/core/submission/models/metadata-security-configuration';
+import { SubmissionVisibilityType } from '@dspace/core/submission/models/section-visibility.model';
 import { SubmissionError } from '@dspace/core/submission/models/submission-error.model';
 import { SubmissionObject } from '@dspace/core/submission/models/submission-object.model';
 import { WorkspaceitemSectionsObject } from '@dspace/core/submission/models/workspaceitem-sections.model';
 import { SectionsType } from '@dspace/core/submission/sections-type';
-import { VisibilityType } from '@dspace/core/submission/visibility-type';
 import {
   hasValue,
   isNotEmpty,
@@ -27,6 +29,7 @@ import {
 import { TranslatePipe } from '@ngx-translate/core';
 import isEqual from 'lodash/isEqual';
 import {
+  combineLatest,
   Observable,
   of,
   Subscription,
@@ -45,6 +48,7 @@ import { ThemedSubmissionSectionContainerComponent } from '../sections/container
 import { SectionDataObject } from '../sections/models/section-data.model';
 import { SectionsService } from '../sections/sections.service';
 import { SubmissionService } from '../submission.service';
+import { SubmissionVisibility } from '../utils/visibility.util';
 import { SubmissionFormCollectionComponent } from './collection/submission-form-collection.component';
 import { ThemedSubmissionFormFooterComponent } from './footer/themed-submission-form-footer.component';
 import { SubmissionFormSectionAddComponent } from './section-add/submission-form-section-add.component';
@@ -114,7 +118,11 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
    * @type {string}
    */
   @Input() submissionId: string;
-
+  /**
+   * The metadata security config based on the entity type
+   * @type {MetadataSecurityConfiguration}
+   */
+  @Input() metadataSecurityConfiguration: MetadataSecurityConfiguration;
   /**
    * The entity type input used to create a new submission
    * @type {string}
@@ -170,13 +178,15 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
    * @param {HALEndpointService} halService
    * @param {SubmissionService} submissionService
    * @param {SectionsService} sectionsService
+   * @param metadataSecurityConfigDataService
    */
   constructor(
     private authService: AuthService,
     private changeDetectorRef: ChangeDetectorRef,
     private halService: HALEndpointService,
     private submissionService: SubmissionService,
-    private sectionsService: SectionsService) {
+    private sectionsService: SectionsService,
+    private metadataSecurityConfigDataService: MetadataSecurityConfigurationService) {
     this.isActive = true;
   }
 
@@ -200,7 +210,15 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
             return of([]);
           }
         }));
-      this.uploadEnabled$ = this.sectionsService.isSectionTypeAvailable(this.submissionId, SectionsType.Upload);
+      const isAvailable$ = this.sectionsService.isSectionTypeAvailable(this.submissionId, SectionsType.Upload);
+      const isReadOnly$ = this.sectionsService.isSectionReadOnlyByType(
+        this.submissionId,
+        SectionsType.Upload,
+        this.submissionService.getSubmissionScope(),
+      );
+      this.uploadEnabled$ = combineLatest([isAvailable$, isReadOnly$]).pipe(
+        map(([isAvailable, isReadOnly]: [boolean, boolean]) => isAvailable && !isReadOnly),
+      );
 
       // check if is submission loading
       this.isLoading$ = this.submissionService.getSubmissionObject(this.submissionId).pipe(
@@ -226,7 +244,8 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
               this.submissionDefinition,
               this.sections,
               this.item,
-              this.submissionErrors);
+              this.submissionErrors,
+              this.metadataSecurityConfiguration);
             this.changeDetectorRef.detectChanges();
           }),
       );
@@ -239,13 +258,13 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
   /**
    *  Returns the visibility object of the collection section
    */
-  private getCollectionVisibility(): SectionVisibility {
+  private getCollectionVisibility(): SubmissionVisibilityType {
     const submissionSectionModel: SubmissionSectionModel =
       this.submissionDefinition.sections.page.find(
         (section) => isEqual(section.sectionType, SectionsType.Collection),
       );
 
-    return isNotUndefined(submissionSectionModel.visibility) ? submissionSectionModel.visibility : null;
+    return (hasValue(submissionSectionModel) && isNotUndefined(submissionSectionModel.visibility)) ? submissionSectionModel.visibility : null;
   }
 
   /**
@@ -253,11 +272,7 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
    */
   get isSectionHidden(): boolean {
     const visibility = this.getCollectionVisibility();
-    return (
-      hasValue(visibility) &&
-      isEqual(visibility.main, VisibilityType.HIDDEN) &&
-      isEqual(visibility.other, VisibilityType.HIDDEN)
-    );
+    return SubmissionVisibility.isHidden(visibility, this.submissionService.getSubmissionScope());
   }
 
   /**
@@ -265,11 +280,7 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
    */
   get isSectionReadonly(): boolean {
     const visibility = this.getCollectionVisibility();
-    return (
-      hasValue(visibility) &&
-      isEqual(visibility.main, VisibilityType.READONLY) &&
-      isEqual(visibility.other, VisibilityType.READONLY)
-    );
+    return SubmissionVisibility.isReadOnly(visibility, this.submissionService.getSubmissionScope());
   }
 
   /**
@@ -293,20 +304,31 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
    *    new submission object
    */
   onCollectionChange(submissionObject: SubmissionObject) {
-    if (this.definitionId !== (submissionObject.submissionDefinition as SubmissionDefinitionsModel).name) {
-      this.sections = submissionObject.sections;
-      this.submissionDefinition = (submissionObject.submissionDefinition as SubmissionDefinitionsModel);
-      this.definitionId = this.submissionDefinition.name;
-      this.submissionService.resetSubmissionObject(
-        (submissionObject.collection as Collection).id,
-        this.submissionId,
-        submissionObject._links.self.href,
-        this.submissionDefinition,
-        this.sections,
-        this.item);
-    } else {
-      this.changeDetectorRef.detectChanges();
+    const metadata = (submissionObject.collection as Collection).metadata ? (submissionObject.collection as Collection).metadata['dspace.entity.type'] : null;
+    if (metadata && metadata[0]) {
+      this.entityType = metadata[0].value;
     }
+    this.metadataSecurityConfigDataService.findById(this.entityType).pipe(
+      getFirstCompletedRemoteData(),
+    ).subscribe(res => {
+      this.metadataSecurityConfiguration   = res.payload;
+      if (this.definitionId !== (submissionObject.submissionDefinition as SubmissionDefinitionsModel).name) {
+        this.sections = submissionObject.sections;
+        this.submissionDefinition = (submissionObject.submissionDefinition as SubmissionDefinitionsModel);
+        this.definitionId = this.submissionDefinition.name;
+        this.submissionService.resetSubmissionObject(
+          (submissionObject.collection as Collection).id,
+          this.submissionId,
+          submissionObject._links.self.href,
+          this.submissionDefinition,
+          this.sections,
+          this.item,
+          this.metadataSecurityConfiguration,
+        );
+      } else {
+        this.changeDetectorRef.detectChanges();
+      }
+    });
   }
 
   protected getSectionsList(): Observable<any> {

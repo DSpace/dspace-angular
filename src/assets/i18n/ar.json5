@@ -26,7 +26,8 @@
   // "500.link.home-page": "Take me to the home page",
   "500.link.home-page": "اذهب إلى الصفحة الرئيسية",
 
-  // "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page. ",
+  // "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page.",
+  // TODO Source message changed - Revise the translation
   "404.help": "تعذر العثور على الصفحة التي تبحث عنها. ربما تمت إزالتها أو حذفها. يمكنك استخدام الزر أدناه للعودة إلى الصفحة الرئيسية.  ",
 
   // "404.link.home-page": "Take me to the home page",
@@ -1349,6 +1350,106 @@
   // "admin.batch-import.page.remove": "remove",
   "admin.batch-import.page.remove": "إزالة",
 
+  // "audit.data.not-found": "No audits found.",
+  // TODO New key - Add a translation
+  "audit.data.not-found": "No audits found.",
+
+  // "audit.data.self": "self",
+  // TODO New key - Add a translation
+  "audit.data.self": "self",
+
+  // "audit.detail.metadata.field": "Metadata field:",
+  // TODO New key - Add a translation
+  "audit.detail.metadata.field": "Metadata field:",
+
+  // "audit.detail.metadata.value": "Value:",
+  // TODO New key - Add a translation
+  "audit.detail.metadata.value": "Value:",
+
+  // "audit.detail.metadata.authority": "Authority:",
+  // TODO New key - Add a translation
+  "audit.detail.metadata.authority": "Authority:",
+
+  // "audit.detail.metadata.confidence": "Confidence:",
+  // TODO New key - Add a translation
+  "audit.detail.metadata.confidence": "Confidence:",
+
+  // "audit.detail.metadata.place": "Place:",
+  // TODO New key - Add a translation
+  "audit.detail.metadata.place": "Place:",
+
+  // "audit.detail.metadata.action": "Action:",
+  // TODO New key - Add a translation
+  "audit.detail.metadata.action": "Action:",
+
+  // "audit.detail.metadata.checksum": "Checksum:",
+  // TODO New key - Add a translation
+  "audit.detail.metadata.checksum": "Checksum:",
+
+  // "audit.overview.title": "All Audit Logs",
+  // TODO New key - Add a translation
+  "audit.overview.title": "All Audit Logs",
+
+  // "audit.overview.table.id": "Audit ID",
+  // TODO New key - Add a translation
+  "audit.overview.table.id": "Audit ID",
+
+  // "audit.overview.table.objectUUID": "Object ID",
+  // TODO New key - Add a translation
+  "audit.overview.table.objectUUID": "Object ID",
+
+  // "audit.overview.table.objectType": "Object Type",
+  // TODO New key - Add a translation
+  "audit.overview.table.objectType": "Object Type",
+
+  // "audit.overview.table.subjectUUID": "Subject ID",
+  // TODO New key - Add a translation
+  "audit.overview.table.subjectUUID": "Subject ID",
+
+  // "audit.overview.table.subjectType": "Subject Type",
+  // TODO New key - Add a translation
+  "audit.overview.table.subjectType": "Subject Type",
+
+  // "audit.overview.table.entityType": "Audit Type",
+  // TODO New key - Add a translation
+  "audit.overview.table.entityType": "Audit Type",
+
+  // "audit.overview.table.eperson": "EPerson",
+  // TODO New key - Add a translation
+  "audit.overview.table.eperson": "EPerson",
+
+  // "audit.overview.table.other": "Object",
+  // TODO New key - Add a translation
+  "audit.overview.table.other": "Object",
+
+  // "audit.overview.table.timestamp": "Time (UTC)",
+  // TODO New key - Add a translation
+  "audit.overview.table.timestamp": "Time (UTC)",
+
+  // "audit.overview.breadcrumbs": "Audit Logs",
+  // TODO New key - Add a translation
+  "audit.overview.breadcrumbs": "Audit Logs",
+
+  // "audit.object.back": "Back",
+  // TODO New key - Add a translation
+  "audit.object.back": "Back",
+
+  // "audit.object.breadcrumbs": "Object Audit Logs",
+  // TODO New key - Add a translation
+  "audit.object.breadcrumbs": "Object Audit Logs",
+
+  // "audit.object.overview.title": "Object Audit Logs",
+  // TODO New key - Add a translation
+  "audit.object.overview.title": "Object Audit Logs",
+
+  // "audit.object.logs.label": "Logs for object: ",
+  // TODO New key - Add a translation
+  "audit.object.logs.label": "Logs for object: ",
+
+  // "audit.object.overview.disabled.message": "Audit feature is currently disabled",
+  // TODO New key - Add a translation
+  "audit.object.overview.disabled.message": "Audit feature is currently disabled",
+
   // "auth.errors.invalid-user": "Invalid email address or password.",
   "auth.errors.invalid-user": "عنوان البريد الإلكتروني أو كلمة المرور غير صالحة.",
 
@@ -1441,6 +1542,46 @@
 
   // "bitstream.edit.form.iiifHeight.hint": "The canvas height should usually match the image height.",
   "bitstream.edit.form.iiifHeight.hint": "يجب أن يتطابق ارتفاع Canvas عادةً مع ارتفاع الصورة.",
+
+  // "bitstream.edit.form.mediaType.label": "Audio or video media type",
+  // TODO New key - Add a translation
+  "bitstream.edit.form.mediaType.label": "Audio or video media type",
+
+  // "bitstream.edit.form.mediaType.hint": "Choose how this bitstream should be interpreted.",
+  // TODO New key - Add a translation
+  "bitstream.edit.form.mediaType.hint": "Choose how this bitstream should be interpreted.",
+
+  // "bitstream.edit.form.mediaType.option.neither": "Neither",
+  // TODO New key - Add a translation
+  "bitstream.edit.form.mediaType.option.neither": "Neither",
+
+  // "bitstream.edit.form.mediaType.option.audio": "Audio",
+  // TODO New key - Add a translation
+  "bitstream.edit.form.mediaType.option.audio": "Audio",
+
+  // "bitstream.edit.form.mediaType.option.video": "Video",
+  // TODO New key - Add a translation
+  "bitstream.edit.form.mediaType.option.video": "Video",
+
+  // "bitstream.edit.form.mediaType.option.audio-video": "Audio and video",
+  // TODO New key - Add a translation
+  "bitstream.edit.form.mediaType.option.audio-video": "Audio and video",
+
+  // "bitstream.edit.form.audioTranscript.label": "Audio transcript",
+  // TODO New key - Add a translation
+  "bitstream.edit.form.audioTranscript.label": "Audio transcript",
+
+  // "bitstream.edit.form.audioTranscript.hint": "Provide a transcript for audio content.",
+  // TODO New key - Add a translation
+  "bitstream.edit.form.audioTranscript.hint": "Provide a transcript for audio content.",
+
+  // "bitstream.edit.form.videoDescription.label": "Video description",
+  // TODO New key - Add a translation
+  "bitstream.edit.form.videoDescription.label": "Video description",
+
+  // "bitstream.edit.form.videoDescription.hint": "Provide a description for video content.",
+  // TODO New key - Add a translation
+  "bitstream.edit.form.videoDescription.hint": "Provide a description for video content.",
 
   // "bitstream.edit.notifications.saved.content": "Your changes to this bitstream were saved.",
   "bitstream.edit.notifications.saved.content": "تم حفظ التغييرات التي أجريتها على تدفق البت هذا.",
@@ -1691,6 +1832,14 @@
   // "browse.title": "Browsing by {{ field }}{{ startsWith }} {{ value }}",
   "browse.title": "استعراض حسب {{ field }}{{ startsWith }} {{ value }}",
 
+  // "browse.taxonomy.show_next_results": "Show next results",
+  // TODO New key - Add a translation
+  "browse.taxonomy.show_next_results": "Show next results",
+
+  // "browse.taxonomy.show_previous_results": "Show previous results",
+  // TODO New key - Add a translation
+  "browse.taxonomy.show_previous_results": "Show previous results",
+
   // "browse.title.page": "Browsing by {{ field }} {{ value }}",
   "browse.title.page": "استعراض حسب {{ field }} {{ value }}",
 
@@ -1742,7 +1891,8 @@
   // "collection.delete.notification.fail": "Collection could not be deleted",
   "collection.delete.notification.fail": "تعذر حف الحاوية",
 
-  // "collection.delete.notification.success": "Successfully deleted collection",
+  // "collection.delete.notification.success": "Successfully started a process to delete this collection",
+  // TODO Source message changed - Revise the translation
   "collection.delete.notification.success": "تم حذف الحاوية بنجاح",
 
   // "collection.delete.text": "Are you sure you want to delete collection \"{{ dso }}\"",
@@ -1988,6 +2138,14 @@
   // "collection.form.errors.title.required": "Please enter a collection name",
   "collection.form.errors.title.required": "يرجى إدخال اسم الحاوية",
 
+  // "collection.form.errors.submissionDefinition.required": "Please choose a submission definition for this collection",
+  // TODO New key - Add a translation
+  "collection.form.errors.submissionDefinition.required": "Please choose a submission definition for this collection",
+
+  // "collection.form.errors.entityType.required": "Please choose an entity type for this collection",
+  // TODO New key - Add a translation
+  "collection.form.errors.entityType.required": "Please choose an entity type for this collection",
+
   // "collection.form.license": "License",
   "collection.form.license": "الترخيص",
 
@@ -1997,6 +2155,10 @@
   // "collection.form.rights": "Copyright text (HTML)",
   "collection.form.rights": "نص حقوق النشر (HTML)",
 
+  // "collection.form.sharedWorkspace": "Shared workspace",
+  // TODO New key - Add a translation
+  "collection.form.sharedWorkspace": "Shared workspace",
+
   // "collection.form.tableofcontents": "News (HTML)",
   "collection.form.tableofcontents": "الأخبار (HTML)",
 
@@ -2005,6 +2167,16 @@
 
   // "collection.form.entityType": "Entity Type",
   "collection.form.entityType": "نوع الكينونة",
+
+  // "collection.form.submissionDefinition": "Submission definition",
+  // TODO New key - Add a translation
+  "collection.form.submissionDefinition": "Submission definition",
+
+  // "collection.form.correctionSubmissionDefinition": "Submission definition for correction request",
+  // TODO New key - Add a translation
+  "collection.form.correctionSubmissionDefinition": "Submission definition for correction request",
+
+
 
   // "collection.listelement.badge": "Collection",
   "collection.listelement.badge": "الحاوية",
@@ -2183,7 +2355,8 @@
   // "community.delete.notification.fail": "Community could not be deleted",
   "community.delete.notification.fail": "تعذر حذف المجتمع",
 
-  // "community.delete.notification.success": "Successfully deleted community",
+  // "community.delete.notification.success": "Successfully started a process to delete this community",
+  // TODO Source message changed - Revise the translation
   "community.delete.notification.success": "تم حذف المجتمع بنجاح",
 
   // "community.delete.text": "Are you sure you want to delete community \"{{ dso }}\"",
@@ -2416,6 +2589,30 @@
 
   // "community.sub-community-list.head": "Communities in this Community",
   "community.sub-community-list.head": "مجتمعات هذا المجتمع",
+
+  // "confirmation-modal.pending-changes.header": "Unsaved changes",
+  // TODO New key - Add a translation
+  "confirmation-modal.pending-changes.header": "Unsaved changes",
+
+  // "confirmation-modal.pending-changes.info": "There are unsaved changes. Do you want to leave the page?",
+  // TODO New key - Add a translation
+  "confirmation-modal.pending-changes.info": "There are unsaved changes. Do you want to leave the page?",
+
+  // "confirmation-modal.pending-changes.cancel": "Cancel",
+  // TODO New key - Add a translation
+  "confirmation-modal.pending-changes.cancel": "Cancel",
+
+  // "confirmation-modal.pending-changes.confirm": "Leave",
+  // TODO New key - Add a translation
+  "confirmation-modal.pending-changes.confirm": "Leave",
+
+  // "context-menu.actions.audit-item.btn": "Audit",
+  // TODO New key - Add a translation
+  "context-menu.actions.audit-item.btn": "Audit",
+
+  // "context-menu.actions.subscription.frequency.required": "Please select a frequency",
+  // TODO New key - Add a translation
+  "context-menu.actions.subscription.frequency.required": "Please select a frequency",
 
   // "cookies.consent.accept-all": "Accept all",
   "cookies.consent.accept-all": "قبول الكل",
@@ -2672,7 +2869,8 @@
   // "dso-selector.no-results": "No {{ type }} found",
   "dso-selector.no-results": "لم يتم العثور على {{ type }}",
 
-  // "dso-selector.placeholder": "Search for a {{ type }}",
+  // "dso-selector.placeholder": "Search for {{ type }}",
+  // TODO Source message changed - Revise the translation
   "dso-selector.placeholder": "بحث عن {{ type }}",
 
   // "dso-selector.placeholder.type.community": "community",
@@ -2855,6 +3053,26 @@
   // "error.item": "Error fetching item",
   "error.item": "حدث خطأ أثناء جلب المادة",
 
+  // "error.custom-url-conflict.title": "Duplicate custom URL detected",
+  // TODO New key - Add a translation
+  "error.custom-url-conflict.title": "Duplicate custom URL detected",
+
+  // "error.custom-url-conflict.description": "The custom URL \"{{customUrl}}\" is assigned to more than one item. This causes a conflict and the item cannot be displayed.",
+  // TODO New key - Add a translation
+  "error.custom-url-conflict.description": "The custom URL \"{{customUrl}}\" is assigned to more than one item. This causes a conflict and the item cannot be displayed.",
+
+  // "error.custom-url-conflict.admin-action": "Please contact your repository administrator. The following affected items need their dspace.customurl metadata fixed so each value is unique:",
+  // TODO New key - Add a translation
+  "error.custom-url-conflict.admin-action": "Please contact your repository administrator. The following affected items need their dspace.customurl metadata fixed so each value is unique:",
+
+  // "error.custom-url-conflict.edit-link": "Edit \"{{name}}\" ({{uuid}})",
+  // TODO New key - Add a translation
+  "error.custom-url-conflict.edit-link": "Edit \"{{name}}\" ({{uuid}})",
+
+  // "error.custom-url-conflict.no-items-found": "No conflicting items could be retrieved. Please contact your administrator.",
+  // TODO New key - Add a translation
+  "error.custom-url-conflict.no-items-found": "No conflicting items could be retrieved. Please contact your administrator.",
+
   // "error.items": "Error fetching items",
   "error.items": "حدث خطأ أثناء جلب المواد",
 
@@ -2885,11 +3103,24 @@
   // "error.top-level-communities": "Error fetching top-level communities",
   "error.top-level-communities": "حدث خطأ أثناء جلب مجتمعات المستوى الأعلى",
 
-  // "error.validation.license.notgranted": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
-  "error.validation.license.notgranted": "يجب عليك منح هذا الترخيص لإكمال عملية التقديم الخاصة بك. إذا لم تتمكن من منح هذا الترخيص في هذا الوقت، يمكنك حفظ عملك والعودة لاحقاً أو إزالة التقديم.",
+  // "error.validation.license.required": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
+  // TODO New key - Add a translation
+  "error.validation.license.required": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
 
   // "error.validation.cclicense.required": "You must grant this cclicense to complete your submission. If you are unable to grant the cclicense at this time, you may save your work and return later or remove the submission.",
   "error.validation.cclicense.required": "يجب عليك منح رخصة المشاع الإبداعي هذه لإكمال تقديمك. إذا لم تتمكن من منح الرخصة في هذا الوقت، يمكنك حفظ عملك والعودة لاحقًا أو إزالة التقديم.",
+
+  // "error.validation.custom-url.conflict": "The custom url has been already used, please try with a new one.",
+  // TODO New key - Add a translation
+  "error.validation.custom-url.conflict": "The custom url has been already used, please try with a new one.",
+
+  // "error.validation.custom-url.empty": "The custom url is required and cannot be empty.",
+  // TODO New key - Add a translation
+  "error.validation.custom-url.empty": "The custom url is required and cannot be empty.",
+
+  // "error.validation.custom-url.invalid-characters": "The custom url contains invalid characters. Only alphanumeric characters, dashes and underscores are supported.",
+  // TODO New key - Add a translation
+  "error.validation.custom-url.invalid-characters": "The custom url contains invalid characters. Only alphanumeric characters, dashes and underscores are supported.",
 
   // "error.validation.pattern": "This input is restricted by the current pattern: {{ pattern }}.",
   "error.validation.pattern": "هذا الإدخال مقيد بالنمط الحالي: {{ pattern }}.",
@@ -3059,6 +3290,10 @@
   // "form.clear-help": "Click here to remove the selected value",
   "form.clear-help": "انقر هنا لإزالة القيمة المحددة",
 
+  // "form.copy": "Duplicate",
+  // TODO New key - Add a translation
+  "form.copy": "Duplicate",
+
   // "form.discard": "Discard",
   "form.discard": "تجاهل",
 
@@ -3073,6 +3308,18 @@
 
   // "form.first-name": "First name",
   "form.first-name": "الاسم الأول",
+
+  // "form.group.add": "Add",
+  // TODO New key - Add a translation
+  "form.group.add": "Add",
+
+  // "form.group.close": "Close",
+  // TODO New key - Add a translation
+  "form.group.close": "Close",
+
+  // "form.group.set": "Set",
+  // TODO New key - Add a translation
+  "form.group.set": "Set",
 
   // "form.group-collapse": "Collapse",
   "form.group-collapse": "طي",
@@ -3122,6 +3369,70 @@
   // "form.other-information.orcid": "ORCID",
   "form.other-information.orcid": "أوركيد",
 
+  // "form.other-information.oairecerif_author_affiliation": "Affiliation",
+  // TODO New key - Add a translation
+  "form.other-information.oairecerif_author_affiliation": "Affiliation",
+
+  // "form.other-information.oairecerif_editor_affiliation": "Affiliation",
+  // TODO New key - Add a translation
+  "form.other-information.oairecerif_editor_affiliation": "Affiliation",
+
+  // "form.other-information.person_identifier_orcid": "ORCID iD",
+  // TODO New key - Add a translation
+  "form.other-information.person_identifier_orcid": "ORCID iD",
+
+  // "form.other-information.institution-affiliation-name": "Affiliation(s)",
+  // TODO New key - Add a translation
+  "form.other-information.institution-affiliation-name": "Affiliation(s)",
+
+  // "form.other-information.dc_relation_grantno": "Grant Number",
+  // TODO New key - Add a translation
+  "form.other-information.dc_relation_grantno": "Grant Number",
+
+  // "form.other-information.not-available": "Not available",
+  // TODO New key - Add a translation
+  "form.other-information.not-available": "Not available",
+
+  // "form.other-information.ror_orgunit_id": "ROR ID",
+  // TODO New key - Add a translation
+  "form.other-information.ror_orgunit_id": "ROR ID",
+
+  // "form.other-information.ror_orgunit_type": "ROR type",
+  // TODO New key - Add a translation
+  "form.other-information.ror_orgunit_type": "ROR type",
+
+  // "form.other-information.ror_orgunit_acronym": "ROR acronym",
+  // TODO New key - Add a translation
+  "form.other-information.ror_orgunit_acronym": "ROR acronym",
+
+  // "form.other-information.ror_orgunit_countryName": "ROR country",
+  // TODO New key - Add a translation
+  "form.other-information.ror_orgunit_countryName": "ROR country",
+
+  // "form.entry.source.local": "",
+  // TODO New key - Add a translation
+  "form.entry.source.local": "",
+
+  // "form.entry.source.orcid": "",
+  // TODO New key - Add a translation
+  "form.entry.source.orcid": "",
+
+  // "form.entry.source.ror": "",
+  // TODO New key - Add a translation
+  "form.entry.source.ror": "",
+
+  // "form.entry.source.openaire": "",
+  // TODO New key - Add a translation
+  "form.entry.source.openaire": "",
+
+  // "form.entry.source.zdb": "",
+  // TODO New key - Add a translation
+  "form.entry.source.zdb": "",
+
+  // "form.entry.source.jisc": "- Jisc Open policy finder",
+  // TODO New key - Add a translation
+  "form.entry.source.jisc": "- Jisc Open policy finder",
+
   // "form.remove": "Remove",
   "form.remove": "إزالة",
 
@@ -3148,6 +3459,18 @@
 
   // "form.number-picker.increment": "Increment {{field}}",
   "form.number-picker.increment": "زيادة {{field}}",
+
+  // "form.number-picker.label.Year": "Year",
+  // TODO New key - Add a translation
+  "form.number-picker.label.Year": "Year",
+
+  // "form.number-picker.label.Month": "Month",
+  // TODO New key - Add a translation
+  "form.number-picker.label.Month": "Month",
+
+  // "form.number-picker.label.Day": "Day",
+  // TODO New key - Add a translation
+  "form.number-picker.label.Day": "Day",
 
   // "form.repeatable.sort.tip": "Drop the item in the new position",
   "form.repeatable.sort.tip": "قم بإسقاط المادة في الموضع الجديد",
@@ -3329,7 +3652,8 @@
   // "info.accessibility-settings.disableNotificationTimeOut.label": "Automatically close notifications after time out",
   "info.accessibility-settings.disableNotificationTimeOut.label": "إغلاق الإشعارات تلقائيًا بعد انتهاء المهلة",
 
-  // "info.accessibility-settings.disableNotificationTimeOut.hint": "When this toggle is activated, notifications will close automatically after the time out passes. When deactivated, notifications will remain open untill manually closed.",
+  // "info.accessibility-settings.disableNotificationTimeOut.hint": "When this toggle is activated, notifications will close automatically after the time out passes. When deactivated, notifications will remain open until manually closed.",
+  // TODO Source message changed - Revise the translation
   "info.accessibility-settings.disableNotificationTimeOut.hint": "عند تفعيل هذا التبديل، ستُغلق الإشعارات تلقائيًا بعد انتهاء المهلة. عند تعطيله، ستظل الإشعارات مفتوحة حتى يتم إغلاقها يدويًا.",
 
   // "info.accessibility-settings.failed-notification": "Failed to save accessibility settings",
@@ -3533,7 +3857,8 @@
   // "item.edit.bitstreams.bundle.name": "BUNDLE: {{ name }}",
   "item.edit.bitstreams.bundle.name": "الحزمة: {{ name }}",
 
-  // "item.edit.bitstreams.bundle.table.aria-label": "Bitstreams in the  {{ bundle }} Bundle",
+  // "item.edit.bitstreams.bundle.table.aria-label": "Bitstreams in the {{ bundle }} Bundle",
+  // TODO Source message changed - Revise the translation
   "item.edit.bitstreams.bundle.table.aria-label": "تدفقات البت في الحزمة {{ bundle }}",
 
   // "item.edit.bitstreams.bundle.tooltip": "You can move a bitstream to a different page by dropping it on the page number.",
@@ -3650,8 +3975,21 @@
   // "item.edit.delete.header": "Delete item: {{ id }}",
   "item.edit.delete.header": "حذف المادة: {{ id }}",
 
-  // "item.edit.delete.success": "The item has been deleted",
+  // "item.edit.delete.success": "Successfully started a process to delete this item",
+  // TODO Source message changed - Revise the translation
   "item.edit.delete.success": "تم حذف هذه المادة",
+
+  // "item.edit.delete.confirmation-title": "Confirm deletion",
+  // TODO New key - Add a translation
+  "item.edit.delete.confirmation-title": "Confirm deletion",
+
+  // "item.edit.delete.confirmation-message": "Are you sure you want to permanently delete this item?",
+  // TODO New key - Add a translation
+  "item.edit.delete.confirmation-message": "Are you sure you want to permanently delete this item?",
+
+  // "item.edit.delete.confirmation-detail": "This item may have been cited, has (or had) a persistent identifier (Handle/DOI), and deleting it may break scholarly references and external links.",
+  // TODO New key - Add a translation
+  "item.edit.delete.confirmation-detail": "This item may have been cited, has (or had) a persistent identifier (Handle/DOI), and deleting it may break scholarly references and external links.",
 
   // "item.edit.head": "Edit Item",
   "item.edit.head": "تحرير المادة",
@@ -3755,6 +4093,14 @@
   // "item.edit.item-mapper.notifications.add.error.content": "Errors occurred for mapping of item to {{amount}} collections.",
   "item.edit.item-mapper.notifications.add.error.content": "حدثت أخطاء أثناء تخطيط مادة إلى  {{amount}} حاوية.",
 
+  // "item.edit.item-mapper.notifications.add.error.forbidden.head": "Permission denied",
+  // TODO New key - Add a translation
+  "item.edit.item-mapper.notifications.add.error.forbidden.head": "Permission denied",
+
+  // "item.edit.item-mapper.notifications.add.error.forbidden.content": "You do not have permission to map this item to a collection.",
+  // TODO New key - Add a translation
+  "item.edit.item-mapper.notifications.add.error.forbidden.content": "You do not have permission to map this item to a collection.",
+
   // "item.edit.item-mapper.notifications.add.error.head": "Mapping errors",
   "item.edit.item-mapper.notifications.add.error.head": "أخطاء التخطيط",
 
@@ -3766,6 +4112,14 @@
 
   // "item.edit.item-mapper.notifications.remove.error.content": "Errors occurred for the removal of the mapping to {{amount}} collections.",
   "item.edit.item-mapper.notifications.remove.error.content": "حدثت أخطاء أثناء إزالة التخطيط إلى {{amount}} حاوية.",
+
+  // "item.edit.item-mapper.notifications.remove.error.forbidden.head": "Permission denied",
+  // TODO New key - Add a translation
+  "item.edit.item-mapper.notifications.remove.error.forbidden.head": "Permission denied",
+
+  // "item.edit.item-mapper.notifications.remove.error.forbidden.content": "You do not have permission to remove this item from a collection.",
+  // TODO New key - Add a translation
+  "item.edit.item-mapper.notifications.remove.error.forbidden.content": "You do not have permission to remove this item from a collection.",
 
   // "item.edit.item-mapper.notifications.remove.error.head": "Removal of mapping errors",
   "item.edit.item-mapper.notifications.remove.error.head": "أخطاء إزالة التخطيط",
@@ -3793,6 +4147,10 @@
 
   // "item.edit.metadata.edit.language": "Edit language",
   "item.edit.metadata.edit.language": "تحرير اللغة",
+
+  // "item.edit.metadata.edit.authority": "Edit authority",
+  // TODO New key - Add a translation
+  "item.edit.metadata.edit.authority": "Edit authority",
 
   // "item.edit.metadata.edit.value": "Edit value",
   "item.edit.metadata.edit.value": "تحرير القيمة",
@@ -3838,6 +4196,14 @@
 
   // "item.edit.metadata.headers.language": "Lang",
   "item.edit.metadata.headers.language": "اللغة",
+
+  // "item.edit.metadata.headers.security": "Security level",
+  // TODO New key - Add a translation
+  "item.edit.metadata.headers.security": "Security level",
+
+  // "item.edit.metadata.headers.authority": "Authority",
+  // TODO New key - Add a translation
+  "item.edit.metadata.headers.authority": "Authority",
 
   // "item.edit.metadata.headers.value": "Value",
   "item.edit.metadata.headers.value": "القيمة",
@@ -4073,7 +4439,8 @@
   // "item.edit.tabs.metadata.head": "Metadata",
   "item.edit.tabs.metadata.head": "الميتاداتا",
 
-  // "item.edit.tabs.metadata.title": "Item Edit -  Metadata",
+  // "item.edit.tabs.metadata.title": "Item Edit - Metadata",
+  // TODO Source message changed - Revise the translation
   "item.edit.tabs.metadata.title": "تحرير المادة -  الميتاداتا",
 
   // "item.edit.tabs.relationships.head": "Relationships",
@@ -4151,7 +4518,8 @@
   // "item.edit.tabs.status.labels.lastModified": "Last Modified",
   "item.edit.tabs.status.labels.lastModified": "آخر تعديل",
 
-  // "item.edit.tabs.status.title": "Item Edit -  Status",
+  // "item.edit.tabs.status.title": "Item Edit - Status",
+  // TODO Source message changed - Revise the translation
   "item.edit.tabs.status.title": "تحرير المادة -  الحالة",
 
   // "item.edit.tabs.versionhistory.head": "Version History",
@@ -4166,7 +4534,8 @@
   // "item.edit.tabs.view.head": "View Item",
   "item.edit.tabs.view.head": "عرض المادة",
 
-  // "item.edit.tabs.view.title": "Item Edit -  View",
+  // "item.edit.tabs.view.title": "Item Edit - View",
+  // TODO Source message changed - Revise the translation
   "item.edit.tabs.view.title": "تحرير المادة -  عرض",
 
   // "item.edit.withdraw.cancel": "Cancel",
@@ -4256,6 +4625,10 @@
   // "item.page.dcterms.spatial": "Geospatial point",
   "item.page.dcterms.spatial": "نقطة جغرافية",
 
+  // "item.page.doi": "DOI",
+  // TODO New key - Add a translation
+  "item.page.doi": "DOI",
+
   // "item.search.results.head": "Item Search Results",
   "item.search.results.head": "نتائج بحث المواد",
 
@@ -4268,14 +4641,24 @@
   // "item.truncatable-part.show-less": "Collapse",
   "item.truncatable-part.show-less": "طي",
 
-  // "item.qa-event-notification.check.notification-info": "There are {{num}} pending suggestions related to your account",
-  "item.qa-event-notification.check.notification-info": "هناك {{num}} اقتراحات قيد الانتظار مرتبطة بحسابك",
+  // "item.qa-event-notification.check.notification-info.singular": "There is {{num}} pending suggestion related to your account",
+  // TODO New key - Add a translation
+  "item.qa-event-notification.check.notification-info.singular": "There is {{num}} pending suggestion related to your account",
+
+  // "item.qa-event-notification.check.notification-info.plural": "There are {{num}} pending suggestions related to your account",
+  // TODO New key - Add a translation
+  "item.qa-event-notification.check.notification-info.plural": "There are {{num}} pending suggestions related to your account",
 
   // "item.qa-event-notification-info.check.button": "View",
   "item.qa-event-notification-info.check.button": "عرض",
 
-  // "mydspace.qa-event-notification.check.notification-info": "There are {{num}} pending suggestions related to your account",
-  "mydspace.qa-event-notification.check.notification-info": "هناك {{num}} اقتراحات قيد الانتظار مرتبطة بحسابك",
+  // "mydspace.qa-event-notification.check.notification-info.singular": "There is {{num}} pending suggestion related to your account",
+  // TODO New key - Add a translation
+  "mydspace.qa-event-notification.check.notification-info.singular": "There is {{num}} pending suggestion related to your account",
+
+  // "mydspace.qa-event-notification.check.notification-info.plural": "There are {{num}} pending suggestions related to your account",
+  // TODO New key - Add a translation
+  "mydspace.qa-event-notification.check.notification-info.plural": "There are {{num}} pending suggestions related to your account",
 
   // "mydspace.qa-event-notification-info.check.button": "View",
   "mydspace.qa-event-notification-info.check.button": "عرض",
@@ -4355,7 +4738,8 @@
   // "item.page.date": "Date",
   "item.page.date": "التاريخ",
 
-  // "item.page.edit": "Edit this item",
+  // "item.page.edit": "Administer",
+  // TODO Source message changed - Revise the translation
   "item.page.edit": "تحرير هذه المادة",
 
   // "item.page.files": "Files",
@@ -4394,6 +4778,14 @@
   // "item.page.orcid.tooltip": "Open ORCID setting page",
   "item.page.orcid.tooltip": "فتح صفحة إعداد أوركيد",
 
+  // "item.page.orcid-ico": "ORCID icon",
+  // TODO New key - Add a translation
+  "item.page.orcid-ico": "ORCID icon",
+
+  // "item.page.orcid-profile": "ORCID Profile",
+  // TODO New key - Add a translation
+  "item.page.orcid-profile": "ORCID Profile",
+
   // "item.page.person.search.title": "Articles by this author",
   "item.page.person.search.title": "مقالات بواسطة هذا المؤلف",
 
@@ -4415,6 +4807,51 @@
   // "item.page.relationships.isOrgUnitOfProject": "Research Projects",
   "item.page.relationships.isOrgUnitOfProject": "مشاريع البحث",
 
+  // "item.page.relationships.RELATION.Person.researchoutputs": "Publications",
+  // TODO New key - Add a translation
+  "item.page.relationships.RELATION.Person.researchoutputs": "Publications",
+
+  // "item.page.relationships.RELATION.Person.projects": "Projects",
+  // TODO New key - Add a translation
+  "item.page.relationships.RELATION.Person.projects": "Projects",
+
+  // "item.page.relationships.RELATION.OrgUnit.rpprojects": "Researchers Projects",
+  // TODO New key - Add a translation
+  "item.page.relationships.RELATION.OrgUnit.rpprojects": "Researchers Projects",
+
+  // "item.page.relationships.RELATION.OrgUnit.publications": "Publications",
+  // TODO New key - Add a translation
+  "item.page.relationships.RELATION.OrgUnit.publications": "Publications",
+
+  // "item.page.relationships.RELATION.OrgUnit.rppublications": "Researchers Publications",
+  // TODO New key - Add a translation
+  "item.page.relationships.RELATION.OrgUnit.rppublications": "Researchers Publications",
+
+  // "item.page.relationships.RELATION.OrgUnit.people": "People",
+  // TODO New key - Add a translation
+  "item.page.relationships.RELATION.OrgUnit.people": "People",
+
+  // "item.page.relationships.RELATION.OrgUnit.projects": "Projects",
+  // TODO New key - Add a translation
+  "item.page.relationships.RELATION.OrgUnit.projects": "Projects",
+
+  // "item.page.relationships.RELATION.OrgUnit.organizations": "Organizations",
+  // TODO New key - Add a translation
+  "item.page.relationships.RELATION.OrgUnit.organizations": "Organizations",
+
+  // "item.page.relationships.RELATION.Project.projects": "Projects",
+  // TODO New key - Add a translation
+  "item.page.relationships.RELATION.Project.projects": "Projects",
+
+  // "item.page.relationships.RELATION.Project.fundings": "Fundings",
+  // TODO New key - Add a translation
+  "item.page.relationships.RELATION.Project.fundings": "Fundings",
+
+  // "item.page.relationships.RELATION.Project.researchoutputs": "Publications",
+  // TODO New key - Add a translation
+  "item.page.relationships.RELATION.Project.researchoutputs": "Publications",
+
+
   // "item.page.subject": "Keywords",
   "item.page.subject": "كلمات رئيسية",
 
@@ -4435,6 +4872,14 @@
 
   // "item.page.filesection.license.bundle": "License bundle",
   "item.page.filesection.license.bundle": "حزمة الترخيص",
+
+  // "item-page.resolver.invalid-custom-url.title": "Invalid custom URL",
+  // TODO New key - Add a translation
+  "item-page.resolver.invalid-custom-url.title": "Invalid custom URL",
+
+  // "item-page.resolver.invalid-custom-url.message": "The custom URL of this item contains unsupported characters. The item is being displayed using its UUID.",
+  // TODO New key - Add a translation
+  "item-page.resolver.invalid-custom-url.message": "The custom URL of this item contains unsupported characters. The item is being displayed using its UUID.",
 
   // "item.page.return": "Back",
   "item.page.return": "رجوع",
@@ -4516,9 +4961,6 @@
 
   // "item.preview.dc.rights": "Rights",
   "item.preview.dc.rights": "الحقوق",
-
-  // "item.preview.dc.identifier.other": "Other Identifier",
-  "item.preview.dc.identifier.other": "معرف آخر",
 
   // "item.preview.dc.relation.issn": "ISSN",
   "item.preview.dc.relation.issn": "ISSN",
@@ -4606,9 +5048,6 @@
 
   // "item.preview.dc.identifier.openalex": "OpenAlex Identifier",
   "item.preview.dc.identifier.openalex": "معرّف OpenAlex",
-
-  // "item.preview.dc.description": "Description",
-  "item.preview.dc.description": "الوصف",
 
   // "item.select.confirm": "Confirm selected",
   "item.select.confirm": "تأكيد المحدد",
@@ -4829,6 +5268,10 @@
   // "itemtemplate.edit.metadata.edit.language": "Edit language",
   "itemtemplate.edit.metadata.edit.language": "تحرير اللغة",
 
+  // "itemtemplate.edit.metadata.edit.authority": "Edit authority",
+  // TODO New key - Add a translation
+  "itemtemplate.edit.metadata.edit.authority": "Edit authority",
+
   // "itemtemplate.edit.metadata.edit.value": "Edit value",
   "itemtemplate.edit.metadata.edit.value": "تحرير القيمة",
 
@@ -4864,6 +5307,10 @@
 
   // "itemtemplate.edit.metadata.headers.value": "Value",
   "itemtemplate.edit.metadata.headers.value": "القيمة",
+
+  // "itemtemplate.edit.metadata.headers.authority": "Authority",
+  // TODO New key - Add a translation
+  "itemtemplate.edit.metadata.headers.authority": "Authority",
 
   // "itemtemplate.edit.metadata.metadatafield": "Edit field",
   "itemtemplate.edit.metadata.metadatafield": "تحرير الحقل",
@@ -4916,7 +5363,8 @@
   // "journal.page.description": "Description",
   "journal.page.description": "الوصف",
 
-  // "journal.page.edit": "Edit this item",
+  // "journal.page.edit": "Administer",
+  // TODO Source message changed - Revise the translation
   "journal.page.edit": "تحرير هذه المادة",
 
   // "journal.page.editor": "Editor-in-Chief",
@@ -4949,7 +5397,8 @@
   // "journalissue.page.description": "Description",
   "journalissue.page.description": "الوصف",
 
-  // "journalissue.page.edit": "Edit this item",
+  // "journalissue.page.edit": "Administer",
+  // TODO Source message changed - Revise the translation
   "journalissue.page.edit": "تحرير هذه المادة",
 
   // "journalissue.page.issuedate": "Issue Date",
@@ -4982,7 +5431,8 @@
   // "journalvolume.page.description": "Description",
   "journalvolume.page.description": "الوصف",
 
-  // "journalvolume.page.edit": "Edit this item",
+  // "journalvolume.page.edit": "Administer",
+  // TODO Source message changed - Revise the translation
   "journalvolume.page.edit": "تحرير هذه المادة",
 
   // "journalvolume.page.issuedate": "Issue Date",
@@ -5032,6 +5482,54 @@
 
   // "iiif.page.description": "Description: ",
   "iiif.page.description": "الوصف: ",
+
+  // "layout.advanced-attachment.dc.title": "Name",
+  // TODO New key - Add a translation
+  "layout.advanced-attachment.dc.title": "Name",
+
+  // "layout.advanced-attachment.size": "Size",
+  // TODO New key - Add a translation
+  "layout.advanced-attachment.size": "Size",
+
+  // "layout.advanced-attachment.checksum": "Checksum",
+  // TODO New key - Add a translation
+  "layout.advanced-attachment.checksum": "Checksum",
+
+  // "layout.advanced-attachment.checksum.info.MD5": "The <b>MD5 message-digest algorithm</b> can be used to verify the integrity of the file that you have uploaded. You can calculate its value locally via tools that are generally available in each operative system like <b>md5sum</b>",
+  // TODO New key - Add a translation
+  "layout.advanced-attachment.checksum.info.MD5": "The <b>MD5 message-digest algorithm</b> can be used to verify the integrity of the file that you have uploaded. You can calculate its value locally via tools that are generally available in each operative system like <b>md5sum</b>",
+
+  // "layout.advanced-attachment.format": "Format",
+  // TODO New key - Add a translation
+  "layout.advanced-attachment.format": "Format",
+
+  // "layout.advanced-attachment.dc.type": "Type",
+  // TODO New key - Add a translation
+  "layout.advanced-attachment.dc.type": "Type",
+
+  // "layout.advanced-attachment.dc.description": "Description",
+  // TODO New key - Add a translation
+  "layout.advanced-attachment.dc.description": "Description",
+
+  // "layout.advanced-attachment.no_thumbnail": "No Thumbnail Available",
+  // TODO New key - Add a translation
+  "layout.advanced-attachment.no_thumbnail": "No Thumbnail Available",
+
+  // "layout.advanced-attachment.download": "Download",
+  // TODO New key - Add a translation
+  "layout.advanced-attachment.download": "Download",
+
+  // "layout.advanced-attachment.requestACopy": "Request a copy",
+  // TODO New key - Add a translation
+  "layout.advanced-attachment.requestACopy": "Request a copy",
+
+  // "layout.advanced-attachment.viewMore": "View More",
+  // TODO New key - Add a translation
+  "layout.advanced-attachment.viewMore": "View More",
+
+  // "layout.advanced-attachment.label.not-present": "(not present)",
+  // TODO New key - Add a translation
+  "layout.advanced-attachment.label.not-present": "(not present)",
 
   // "loading.bitstream": "Loading bitstream...",
   "loading.bitstream": "جاري تحميل تدفق البت...",
@@ -5158,6 +5656,10 @@
 
   // "menu.section.access_control_people": "People",
   "menu.section.access_control_people": "أشخاص",
+
+  // "menu.section.audit": "Audit Logs",
+  // TODO New key - Add a translation
+  "menu.section.audit": "Audit Logs",
 
   // "menu.section.reports": "Reports",
   "menu.section.reports": "تقارير",
@@ -5387,6 +5889,22 @@
   // "menu.section.workflow": "Administer Workflow",
   "menu.section.workflow": "أدر سير العمل",
 
+  // "menu.section.FULL": "Edit",
+  // TODO New key - Add a translation
+  "menu.section.FULL": "Edit",
+
+  // "menu.section.OWNER": "Edit",
+  // TODO New key - Add a translation
+  "menu.section.OWNER": "Edit",
+
+  // "menu.section.DIRECTOR": "Edit",
+  // TODO New key - Add a translation
+  "menu.section.DIRECTOR": "Edit",
+
+  // "menu.section.INVESTIGATOR": "Edit",
+  // TODO New key - Add a translation
+  "menu.section.INVESTIGATOR": "Edit",
+
   // "metadata-export-search.tooltip": "Export search results as CSV",
   "metadata-export-search.tooltip": "تصدير نتائج البحث كملف CSV",
 
@@ -5395,6 +5913,10 @@
 
   // "metadata-export-search.submit.error": "Starting the export has failed",
   "metadata-export-search.submit.error": "فشل بدء التصدير",
+
+  // "metadata.security.level.title": "Metatada security level {{level}}",
+  // TODO New key - Add a translation
+  "metadata.security.level.title": "Metatada security level {{level}}",
 
   // "mydspace.breadcrumbs": "MyDSpace",
   "mydspace.breadcrumbs": "ماي دي سبيس",
@@ -5485,6 +6007,10 @@
 
   // "mydspace.show.workspace": "Your submissions",
   "mydspace.show.workspace": "تقديماتك",
+
+  // "mydspace.show.otherWorkspace": "Shared Submissions",
+  // TODO New key - Add a translation
+  "mydspace.show.otherWorkspace": "Shared Submissions",
 
   // "mydspace.show.supervisedWorkspace": "Supervised items",
   "mydspace.show.supervisedWorkspace": "مواد تحت الإشراف",
@@ -5810,6 +6336,10 @@
   // "quality-assurance.event.reason": "Reason",
   "quality-assurance.event.reason": "السبب",
 
+  // "orcid.badge.tooltip": "Connected to ORCID",
+  // TODO New key - Add a translation
+  "orcid.badge.tooltip": "Connected to ORCID",
+
   // "orgunit.listelement.badge": "Organizational Unit",
   "orgunit.listelement.badge": "وحدة مؤسسية",
 
@@ -5828,7 +6358,8 @@
   // "orgunit.page.description": "Description",
   "orgunit.page.description": "الوصف",
 
-  // "orgunit.page.edit": "Edit this item",
+  // "orgunit.page.edit": "Administer",
+  // TODO Source message changed - Revise the translation
   "orgunit.page.edit": "تحرير هذه المادة",
 
   // "orgunit.page.id": "ID",
@@ -5870,7 +6401,8 @@
   // "person.page.birthdate": "Birth Date",
   "person.page.birthdate": "تاريخ الميلاد الميلادي",
 
-  // "person.page.edit": "Edit this item",
+  // "person.page.edit": "Administer",
+  // TODO Source message changed - Revise the translation
   "person.page.edit": "تحرير هذه المادة",
 
   // "person.page.email": "Email Address",
@@ -6137,13 +6669,16 @@
   // "process.overview.unknown.user": "Unknown",
   "process.overview.unknown.user": "غير معروف",
 
-  // "process.bulk.delete.error.head": "Error on deleteing process",
+  // "process.bulk.delete.error.head": "Error on deleting process",
+  // TODO Source message changed - Revise the translation
   "process.bulk.delete.error.head": "خطأ في عملية الحذف",
 
-  // "process.bulk.delete.error.body": "The process with ID {{processId}} could not be deleted. The remaining processes will continue being deleted. ",
+  // "process.bulk.delete.error.body": "The process with ID {{processId}} could not be deleted. The remaining processes will continue being deleted.",
+  // TODO Source message changed - Revise the translation
   "process.bulk.delete.error.body": "لا يمكن حذف العملية ذات المعرف {{processId}}. وسيستمر حذف العمليات المتبقية. ",
 
-  // "process.bulk.delete.success": "{{count}} process(es) have been succesfully deleted",
+  // "process.bulk.delete.success": "{{count}} process(es) have been successfully deleted",
+  // TODO Source message changed - Revise the translation
   "process.bulk.delete.success": "تم حذف {{count}} عملية بنجاح",
 
   // "profile.breadcrumbs": "Update Profile",
@@ -6254,7 +6789,8 @@
   // "project.page.description": "Description",
   "project.page.description": "الوصف",
 
-  // "project.page.edit": "Edit this item",
+  // "project.page.edit": "Administer",
+  // TODO Source message changed - Revise the translation
   "project.page.edit": "تحرير هذه المادة",
 
   // "project.page.expectedcompletion": "Expected Completion",
@@ -6290,7 +6826,8 @@
   // "publication.page.description": "Description",
   "publication.page.description": "الوصف",
 
-  // "publication.page.edit": "Edit this item",
+  // "publication.page.edit": "Administer",
+  // TODO Source message changed - Revise the translation
   "publication.page.edit": "تحرير هذه المادة",
 
   // "publication.page.journal-issn": "Journal ISSN",
@@ -6310,6 +6847,10 @@
 
   // "publication.page.volume-title": "Volume Title",
   "publication.page.volume-title": "عنوان المجلد",
+
+  // "publication.page.doi": "DOI",
+  // TODO New key - Add a translation
+  "publication.page.doi": "DOI",
 
   // "publication.search.results.head": "Publication Search Results",
   "publication.search.results.head": "نتائج بحث المنشور",
@@ -6725,7 +7266,8 @@
   // "resource-policies.form.eperson-group-list.select.btn": "Select",
   "resource-policies.form.eperson-group-list.select.btn": "تحديد",
 
-  // "resource-policies.form.eperson-group-list.tab.eperson": "Search for a ePerson",
+  // "resource-policies.form.eperson-group-list.tab.eperson": "Search for an ePerson",
+  // TODO Source message changed - Revise the translation
   "resource-policies.form.eperson-group-list.tab.eperson": "بحث عن شخص إلكتروني",
 
   // "resource-policies.form.eperson-group-list.tab.group": "Search for a group",
@@ -6836,6 +7378,50 @@
   // "resource-policies.table.headers.title.for.collection": "Policies for Collection",
   "resource-policies.table.headers.title.for.collection": "سياسات الحاوية",
 
+  // "RELATION.Person.researchoutputs.search.results.head": "Research Output",
+  // TODO New key - Add a translation
+  "RELATION.Person.researchoutputs.search.results.head": "Research Output",
+
+  // "RELATION.Person.projects.search.results.head": "Projects",
+  // TODO New key - Add a translation
+  "RELATION.Person.projects.search.results.head": "Projects",
+
+  // "RELATION.Project.researchoutputs.search.results.head": "Publications",
+  // TODO New key - Add a translation
+  "RELATION.Project.researchoutputs.search.results.head": "Publications",
+
+  // "RELATION.Project.fundings.search.results.head": "Fundings",
+  // TODO New key - Add a translation
+  "RELATION.Project.fundings.search.results.head": "Fundings",
+
+  // "RELATION.Project.projects.search.results.head": "Projects",
+  // TODO New key - Add a translation
+  "RELATION.Project.projects.search.results.head": "Projects",
+
+  // "RELATION.OrgUnit.organizations.search.results.head": "Organizations",
+  // TODO New key - Add a translation
+  "RELATION.OrgUnit.organizations.search.results.head": "Organizations",
+
+  // "RELATION.OrgUnit.rppublications.search.results.head": "Researchers Publications",
+  // TODO New key - Add a translation
+  "RELATION.OrgUnit.rppublications.search.results.head": "Researchers Publications",
+
+  // "RELATION.OrgUnit.publications.search.results.head": "Publications",
+  // TODO New key - Add a translation
+  "RELATION.OrgUnit.publications.search.results.head": "Publications",
+
+  // "RELATION.OrgUnit.rpprojects.search.results.head": "Researchers Projects",
+  // TODO New key - Add a translation
+  "RELATION.OrgUnit.rpprojects.search.results.head": "Researchers Projects",
+
+  // "RELATION.OrgUnit.projects.search.results.head": "Projects",
+  // TODO New key - Add a translation
+  "RELATION.OrgUnit.projects.search.results.head": "Projects",
+
+  // "RELATION.OrgUnit.people.search.results.head": "People",
+  // TODO New key - Add a translation
+  "RELATION.OrgUnit.people.search.results.head": "People",
+
   // "root.skip-to-content": "Skip to main content",
   "root.skip-to-content": "انتقل إلى المحتوى الرئيسي",
 
@@ -6886,6 +7472,7 @@
 
   // "search.filters.applied.f.original_bundle_descriptions": "File description",
   "search.filters.applied.f.original_bundle_descriptions": "وصف الملف",
+
   // "search.filters.applied.f.has_geospatial_metadata": "Has geographical location",
   "search.filters.applied.f.has_geospatial_metadata": "يحتوي على موقع جغرافي",
 
@@ -7447,6 +8034,14 @@
   // "sorting.person.birthDate.DESC": "Birth Date Descending",
   "sorting.person.birthDate.DESC": "تاريخ الميلاد تنازلياً",
 
+  // "sorting.ownerselection.ASC": "Owner Relevance Ascending",
+  // TODO New key - Add a translation
+  "sorting.ownerselection.ASC": "Owner Relevance Ascending",
+
+  // "sorting.ownerselection.DESC": "Owner Relevance Descending",
+  // TODO New key - Add a translation
+  "sorting.ownerselection.DESC": "Owner Relevance Descending",
+
   // "statistics.title": "Statistics",
   "statistics.title": "الاحصائيات",
 
@@ -7489,6 +8084,10 @@
   // "submission.edit.title": "Edit Submission",
   "submission.edit.title": "تحرير التقديم",
 
+  // "submission.edit.item.breadcrumbs": "Edit item",
+  // TODO New key - Add a translation
+  "submission.edit.item.breadcrumbs": "Edit item",
+
   // "submission.general.cancel": "Cancel",
   "submission.general.cancel": "إلغاء",
 
@@ -7516,6 +8115,10 @@
   // "submission.general.back.submit": "Back",
   "submission.general.back.submit": "رجوع",
 
+  // "submission.general.info.invalid": "The submission is invalid, check missing fields",
+  // TODO New key - Add a translation
+  "submission.general.info.invalid": "The submission is invalid, check missing fields",
+
   // "submission.general.info.saved": "Saved",
   "submission.general.info.saved": "محفوظ",
 
@@ -7527,6 +8130,10 @@
 
   // "submission.general.save-later": "Save for later",
   "submission.general.save-later": "حفظ لوقت لاحق",
+
+  // "submission.general.save-later.edit-item": "Save and return",
+  // TODO New key - Add a translation
+  "submission.general.save-later.edit-item": "Save and return",
 
   // "submission.import-external.page.title": "Import metadata from an external source",
   "submission.import-external.page.title": "استيراد ميتاداتا من مصدر خارجي",
@@ -7543,8 +8150,9 @@
   // "submission.import-external.title.JournalVolume": "Import a journal volume from an external source",
   "submission.import-external.title.JournalVolume": "استيراد مجلد دورية من مصدر خارجي",
 
-  // "submission.import-external.title.OrgUnit": "Import a publisher from an external source",
-  "submission.import-external.title.OrgUnit": "استيراد ناشر من مصدر خارجي",
+  // "submission.import-external.title.OrgUnit": "Import an organizational unit from an external source",
+  // TODO Source message changed - Revise the translation
+  "submission.import-external.title.OrgUnit": "استيراد وحدة تنظيمية من مصدر خارجي",
 
   // "submission.import-external.title.Person": "Import a person from an external source",
   "submission.import-external.title.Person": "استيراد شخص من مصدر خارجي",
@@ -7618,14 +8226,17 @@
   // "submission.import-external.source.loading": "Loading ...",
   "submission.import-external.source.loading": "جاري التحميل ...",
 
-  // "submission.import-external.source.sherpaJournal": "SHERPA Journals",
-  "submission.import-external.source.sherpaJournal": "دوريات شيربا",
+  // "submission.import-external.source.opfJournal": "Jisc Open policy finder Journals",
+  // TODO New key - Add a translation
+  "submission.import-external.source.opfJournal": "Jisc Open policy finder Journals",
 
-  // "submission.import-external.source.sherpaJournalIssn": "SHERPA Journals by ISSN",
-  "submission.import-external.source.sherpaJournalIssn": "دوريات شيربا بواسطة الردمد",
+  // "submission.import-external.source.opfJournalIssn": "Jisc Open policy finder Journals by ISSN",
+  // TODO New key - Add a translation
+  "submission.import-external.source.opfJournalIssn": "Jisc Open policy finder Journals by ISSN",
 
-  // "submission.import-external.source.sherpaPublisher": "SHERPA Publishers",
-  "submission.import-external.source.sherpaPublisher": "ناشري شيربا",
+  // "submission.import-external.source.opfPublisher": "Jisc Open policy finder Publishers",
+  // TODO New key - Add a translation
+  "submission.import-external.source.opfPublisher": "Jisc Open policy finder Publishers",
 
   // "submission.import-external.source.openaire": "OpenAIRE Search by Authors",
   "submission.import-external.source.openaire": "OpenAIRE بحث حسب المؤلفين",
@@ -7774,6 +8385,10 @@
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.added.new-entity": "Successfully imported and added external author to the selection",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.added.new-entity": "تم استيراد وإضافة المؤلف الخارجي بنجاح إلى التحديد",
 
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.isJournalOfVolume.added.new-entity": "Successfully imported and added external journal to the selection",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isJournalOfVolume.added.new-entity": "Successfully imported and added external journal to the selection",
+
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.authority": "Authority",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.authority": "الاستناد",
 
@@ -7807,11 +8422,13 @@
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openaireFunding": "Importing from OpenAIRE",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openaireFunding": "الاستيراد من OpenAIRE",
 
-  // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaJournal": "Importing from Sherpa Journal",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaJournal": "استيراد من دورية شيربا",
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.jiscJournal": "Importing from Jisc Open policy finder Journal",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.jiscJournal": "Importing from Jisc Open policy finder Journal",
 
-  // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaPublisher": "Importing from Sherpa Publisher",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaPublisher": "استيراد من ناشر شيربا",
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.jiscPublisher": "Importing from Jisc Open policy finder Publisher",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.jiscPublisher": "Importing from Jisc Open policy finder Publisher",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.pubmed": "Importing from PubMed",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.head.pubmed": "استيراد من PubMed",
@@ -7876,6 +8493,10 @@
   // "submission.sections.describe.relationship-lookup.search-tab.placeholder": "Search query",
   "submission.sections.describe.relationship-lookup.search-tab.placeholder": "استعلام البحث",
 
+  // "submission.sections.describe.relationship-lookup.toggle-dropdown": "Toggle dropdown",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.toggle-dropdown": "Toggle dropdown",
+
   // "submission.sections.describe.relationship-lookup.search-tab.search": "Go",
   "submission.sections.describe.relationship-lookup.search-tab.search": "اذهب",
 
@@ -7933,11 +8554,13 @@
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalVolume": "Local Journal Volumes ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalVolume": "مجلدات الدوريات المحلية ({{ count }})",
 
-  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournal": "Sherpa Journals ({{ count }})",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournal": "دوريات شيربا ({{ count }})",
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.jiscJournal": "Jisc Open policy finder Journals ({{ count }})",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.jiscJournal": "Jisc Open policy finder Journals ({{ count }})",
 
-  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaPublisher": "Sherpa Publishers ({{ count }})",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaPublisher": "ناشري شيربا ({{ count }})",
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.jiscPublisher": "Jisc Open policy finder Publishers ({{ count }})",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.jiscPublisher": "Jisc Open policy finder Publishers ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.orcid": "ORCID ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.orcid": "أوركيد ({{ count }})",
@@ -7972,8 +8595,9 @@
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.openaireFunding": "OpenAIRE Search by Funder ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.openaireFunding": "OpenAIRE بحث حسب جهة التمويل ({{ count }})",
 
-  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournalIssn": "Sherpa Journals by ISSN ({{ count }})",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournalIssn": "دوريات شيربا حسب ISSN ({{ count }})",
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.jiscJournalIssn": "Jisc Open policy finder Journals by ISSN ({{ count }})",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.jiscJournalIssn": "Jisc Open policy finder Journals by ISSN ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.openalexPerson": "OpenAlex ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.openalexPerson": "OpenAlex ({{ count }})",
@@ -8010,6 +8634,14 @@
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isOrgUnitOfProject": "OrgUnit of the Project",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isOrgUnitOfProject": "الوحدة المؤسسية للمشروع",
+
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalOfVolume": "Journal of the Volume",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalOfVolume": "Journal of the Volume",
+
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.opfJournal": "Jisc Open policy finder of Journal",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.opfJournal": "Jisc Open policy finder of Journal",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isProjectOfPublication": "Project",
   "submission.sections.describe.relationship-lookup.selection-tab.title.isProjectOfPublication": "المشروع",
@@ -8089,6 +8721,10 @@
   // "submission.sections.describe.relationship-lookup.title.isOrgUnitOfProject": "OrgUnit",
   "submission.sections.describe.relationship-lookup.title.isOrgUnitOfProject": "وحدة مؤسسية",
 
+  // "submission.sections.describe.relationship-lookup.title.isJournalOfVolume": "Journal",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.title.isJournalOfVolume": "Journal",
+
   // "submission.sections.describe.relationship-lookup.search-tab.toggle-dropdown": "Toggle dropdown",
   "submission.sections.describe.relationship-lookup.search-tab.toggle-dropdown": "قائمة التبديل المنسدلة",
 
@@ -8149,11 +8785,11 @@
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isChildOrgUnitOf": "Selected Organizational Unit",
   "submission.sections.describe.relationship-lookup.selection-tab.title.isChildOrgUnitOf": "الوحدة المؤسسية المحددة",
 
-  // "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaJournal": "Search Results",
-  "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaJournal": "نتائج البحث",
+  // "submission.sections.describe.relationship-lookup.selection-tab.title.jiscJournal": "Search Results",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.jiscJournal": "نتائج البحث",
 
-  // "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaPublisher": "Search Results",
-  "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaPublisher": "نتائج البحث",
+  // "submission.sections.describe.relationship-lookup.selection-tab.title.jiscPublisher": "Search Results",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.jiscPublisher": "نتائج البحث",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.orcid": "Search Results",
   "submission.sections.describe.relationship-lookup.selection-tab.title.orcid": "نتائج البحث",
@@ -8212,6 +8848,10 @@
   // "submission.sections.describe.relationship-lookup.selection-tab.title.dataciteProject": "Search Results",
   "submission.sections.describe.relationship-lookup.selection-tab.title.dataciteProject": "نتائج البحث",
 
+  // "submission.sections.describe.relationship-lookup.selection-tab.title.opfJournal": "Search Results",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.selection-tab.title.opfJournal": "Search Results",
+
   // "submission.sections.describe.relationship-lookup.selection-tab.title": "Search Results",
   "submission.sections.describe.relationship-lookup.selection-tab.title": "نتائج البحث",
 
@@ -8256,6 +8896,10 @@
 
   // "submission.sections.general.deposit_error_notice": "There was an issue when submitting the item, please try again later.",
   "submission.sections.general.deposit_error_notice": "حدثت مشكلة أثناء تقديم المادة، يرجى إعادة المحاولة مرة أخرى لاحقاً.",
+
+  // "submission.sections.general.invalid_state_error": "Cannot save current changes, mandatory fields are missing. Please resolve problems and save again later.",
+  // TODO New key - Add a translation
+  "submission.sections.general.invalid_state_error": "Cannot save current changes, mandatory fields are missing. Please resolve problems and save again later.",
 
   // "submission.sections.general.deposit_success_notice": "Submission deposited successfully.",
   "submission.sections.general.deposit_success_notice": "تم إيداع التقديم بنجاح.",
@@ -8317,6 +8961,10 @@
   // "submission.sections.submit.progressbar.CClicense": "Creative commons license",
   "submission.sections.submit.progressbar.CClicense": "الإبداعية العامة",
 
+  // "submission.sections.submit.progressbar.CustomUrlStep": "Custom Url",
+  // TODO New key - Add a translation
+  "submission.sections.submit.progressbar.CustomUrlStep": "Custom Url",
+
   // "submission.sections.submit.progressbar.describe.recycle": "Recycle",
   "submission.sections.submit.progressbar.describe.recycle": "إعادة تدوير",
 
@@ -8338,17 +8986,22 @@
   // "submission.sections.submit.progressbar.license": "Deposit license",
   "submission.sections.submit.progressbar.license": "رخصة الإيداع",
 
-  // "submission.sections.submit.progressbar.sherpapolicy": "Sherpa policies",
-  "submission.sections.submit.progressbar.sherpapolicy": "سياسات شيربا",
+  // "submission.sections.submit.progressbar.describe.owner": "Owner",
+  // TODO New key - Add a translation
+  "submission.sections.submit.progressbar.describe.owner": "Owner",
+
+  // "submission.sections.submit.progressbar.opfpolicy": "Jisc Open Policy Finder policies",
+  // TODO New key - Add a translation
+  "submission.sections.submit.progressbar.opfpolicy": "Jisc Open Policy Finder policies",
 
   // "submission.sections.submit.progressbar.upload": "Upload files",
   "submission.sections.submit.progressbar.upload": "تحميل الملفات",
 
-  // "submission.sections.submit.progressbar.sherpaPolicies": "Publisher open access policy information",
-  "submission.sections.submit.progressbar.sherpaPolicies": "معلومات سياسة الوصول الحر للناشر",
+  // "submission.sections.submit.progressbar.jiscPolicies": "Publisher open access policy information",
+  "submission.sections.submit.progressbar.jiscPolicies": "معلومات سياسة الوصول الحر للناشر",
 
-  // "submission.sections.sherpa-policy.title-empty": "No publisher policy information available. If your work has an associated ISSN, please enter it above to see any related publisher open access policies.",
-  "submission.sections.sherpa-policy.title-empty": "لا تتوفر معلومات حول سياسة الناشر. إذا كان لعملك رقم ISSN مرتبط، يرجى إدخاله أعلاه للاطلاع على أي سياسة وصول حر للناشرين ذوي الصلة.",
+  // "submission.sections.jisc-policy.title-empty": "No publisher policy information available. If your work has an associated ISSN, please enter it above to see any related publisher open access policies.",
+  "submission.sections.jisc-policy.title-empty": "لا تتوفر معلومات حول سياسة الناشر. إذا كان لعملك رقم ISSN مرتبط، يرجى إدخاله أعلاه للاطلاع على أي سياسة وصول حر للناشرين ذوي الصلة.",
 
   // "submission.sections.status.errors.title": "Errors",
   "submission.sections.status.errors.title": "أخطاء",
@@ -8416,6 +9069,46 @@
   // "submission.sections.upload.edit.title": "Edit bitstream",
   "submission.sections.upload.edit.title": "تحرير دفق البت",
 
+  // "submission.sections.upload.file.edit.form.file-type.label": "Audio or video media type",
+  // TODO New key - Add a translation
+  "submission.sections.upload.file.edit.form.file-type.label": "Audio or video media type",
+
+  // "submission.sections.upload.file.edit.form.file-type.hint": "Choose how this bitstream should be interpreted.",
+  // TODO New key - Add a translation
+  "submission.sections.upload.file.edit.form.file-type.hint": "Choose how this bitstream should be interpreted.",
+
+  // "submission.sections.upload.file.edit.form.file-type.option.audio-video": "Audio and video",
+  // TODO New key - Add a translation
+  "submission.sections.upload.file.edit.form.file-type.option.audio-video": "Audio and video",
+
+  // "submission.sections.upload.file.edit.form.file-type.option.neither": "Neither",
+  // TODO New key - Add a translation
+  "submission.sections.upload.file.edit.form.file-type.option.neither": "Neither",
+
+  // "submission.sections.upload.file.edit.form.file-type.option.audio": "Audio",
+  // TODO New key - Add a translation
+  "submission.sections.upload.file.edit.form.file-type.option.audio": "Audio",
+
+  // "submission.sections.upload.file.edit.form.file-type.option.video": "Video",
+  // TODO New key - Add a translation
+  "submission.sections.upload.file.edit.form.file-type.option.video": "Video",
+
+  // "submission.sections.upload.file.edit.form.audio-transcript.label": "Audio transcript",
+  // TODO New key - Add a translation
+  "submission.sections.upload.file.edit.form.audio-transcript.label": "Audio transcript",
+
+  // "submission.sections.upload.file.edit.form.audio-transcript.hint": "Provide a transcript for audio content.",
+  // TODO New key - Add a translation
+  "submission.sections.upload.file.edit.form.audio-transcript.hint": "Provide a transcript for audio content.",
+
+  // "submission.sections.upload.file.edit.form.video-description.label": "Video description",
+  // TODO New key - Add a translation
+  "submission.sections.upload.file.edit.form.video-description.label": "Video description",
+
+  // "submission.sections.upload.file.edit.form.video-description.hint": "Provide a description for video content.",
+  // TODO New key - Add a translation
+  "submission.sections.upload.file.edit.form.video-description.hint": "Provide a description for video content.",
+
   // "submission.sections.upload.form.access-condition-label": "Access condition type",
   "submission.sections.upload.form.access-condition-label": "نوع شرط الوصول",
 
@@ -8481,6 +9174,22 @@
 
   // "submission.sections.upload.upload-successful": "Upload successful",
   "submission.sections.upload.upload-successful": "نجح التحميل",
+
+  // "submission.sections.custom-url.label.previous-urls": "Previous Urls",
+  // TODO New key - Add a translation
+  "submission.sections.custom-url.label.previous-urls": "Previous Urls",
+
+  // "submission.sections.custom-url.alert.info": "Define here a custom URL which will be used to reach the item instead of using an internal randomly generated UUID identifier. ",
+  // TODO New key - Add a translation
+  "submission.sections.custom-url.alert.info": "Define here a custom URL which will be used to reach the item instead of using an internal randomly generated UUID identifier. ",
+
+  // "submission.sections.custom-url.url.placeholder": "Custom URL",
+  // TODO New key - Add a translation
+  "submission.sections.custom-url.url.placeholder": "Custom URL",
+
+  // "submission.sections.custom-url.label.remove": "Remove",
+  // TODO New key - Add a translation
+  "submission.sections.custom-url.label.remove": "Remove",
 
   // "submission.sections.accesses.form.discoverable-description": "When checked, this item will be discoverable in search/browse. When unchecked, the item will only be available via a direct link and will never appear in search/browse.",
   "submission.sections.accesses.form.discoverable-description": "عند التحديد، ستكون هذه المادة قابلة للاكتشاف في البحث/الاستعراض. عند إلغاء التحديد، ستكون المادة متاحة فقط عبر رابط مباشر ولن تظهر أبدًا في البحث/الاستعراض.",
@@ -8548,83 +9257,84 @@
   // "submission.sections.license.notgranted": "You must accept the license",
   "submission.sections.license.notgranted": "يجب عليك قبول الترخيص",
 
-  // "submission.sections.sherpa.publication.information": "Publication information",
-  "submission.sections.sherpa.publication.information": "معلومات الناشر",
+  // "submission.sections.jisc.publication.information": "Publication information",
+  "submission.sections.jisc.publication.information": "معلومات الناشر",
 
-  // "submission.sections.sherpa.publication.information.title": "Title",
-  "submission.sections.sherpa.publication.information.title": "العنوان",
+  // "submission.sections.jisc.publication.information.title": "Title",
+  "submission.sections.jisc.publication.information.title": "العنوان",
 
-  // "submission.sections.sherpa.publication.information.issns": "ISSNs",
-  "submission.sections.sherpa.publication.information.issns": "أرقام ردمد",
+  // "submission.sections.jisc.publication.information.issns": "ISSNs",
+  "submission.sections.jisc.publication.information.issns": "أرقام ردمد",
 
-  // "submission.sections.sherpa.publication.information.url": "URL",
-  "submission.sections.sherpa.publication.information.url": "عنوان URL",
+  // "submission.sections.jisc.publication.information.url": "URL",
+  "submission.sections.jisc.publication.information.url": "عنوان URL",
 
-  // "submission.sections.sherpa.publication.information.publishers": "Publisher",
-  "submission.sections.sherpa.publication.information.publishers": "الناشر",
+  // "submission.sections.jisc.publication.information.publishers": "Publisher",
+  "submission.sections.jisc.publication.information.publishers": "الناشر",
 
-  // "submission.sections.sherpa.publication.information.romeoPub": "Romeo Pub",
-  "submission.sections.sherpa.publication.information.romeoPub": "Romeo Pub",
+  // "submission.sections.jisc.publication.information.romeoPub": "Romeo Pub",
+  "submission.sections.jisc.publication.information.romeoPub": "Romeo Pub",
 
-  // "submission.sections.sherpa.publication.information.zetoPub": "Zeto Pub",
-  "submission.sections.sherpa.publication.information.zetoPub": "Zeto Pub",
+  // "submission.sections.jisc.publication.information.zetoPub": "Zeto Pub",
+  "submission.sections.jisc.publication.information.zetoPub": "Zeto Pub",
 
-  // "submission.sections.sherpa.publisher.policy": "Publisher Policy",
-  "submission.sections.sherpa.publisher.policy": "سياسة الناشر",
+  // "submission.sections.jisc.publisher.policy": "Publisher Policy",
+  "submission.sections.jisc.publisher.policy": "سياسة الناشر",
 
-  // "submission.sections.sherpa.publisher.policy.description": "The below information was found via Sherpa Romeo. Based on the policies of your publisher, it provides advice regarding whether an embargo may be necessary and/or which files you are allowed to upload. If you have questions, please contact your site administrator via the feedback form in the footer.",
-  "submission.sections.sherpa.publisher.policy.description": "تم العثور على المعلومات أدناه عبر شيربا روميو. وبناءً على سياسات الناشر الخاص بك، فإنه يقدم النصائح بشأن ما إذا كان الحظر ضروريًا أو الملفات المسموح لك بتحميلها. إذا كانت لديك أسئلة، يرجى الاتصال بمسؤول موقعك عبر نموذج التعليقات الموجود في التذييل.",
+  // "submission.sections.jisc.publisher.policy.description": "The below information was found via Jisc Open policy finder. Based on the policies of your publisher, it provides advice regarding whether an embargo may be necessary and/or which files you are allowed to upload. If you have questions, please contact your site administrator via the feedback form in the footer.",
+  "submission.sections.jisc.publisher.policy.description": "تم العثور على المعلومات أدناه عبر شيربا روميو. وبناءً على سياسات الناشر الخاص بك، فإنه يقدم النصائح بشأن ما إذا كان الحظر ضروريًا أو الملفات المسموح لك بتحميلها. إذا كانت لديك أسئلة، يرجى الاتصال بمسؤول موقعك عبر نموذج التعليقات الموجود في التذييل.",
 
-  // "submission.sections.sherpa.publisher.policy.openaccess": "Open Access pathways permitted by this journal's policy are listed below by article version. Click on a pathway for a more detailed view",
-  "submission.sections.sherpa.publisher.policy.openaccess": "مسارات الوصول الحر التي تسمح بها سياسة هذه الدورية مدرجة أدناه حسب إصدار المقال. انقر على المسار للحصول على عرض أكثر تفصيلاً",
+  // "submission.sections.jisc.publisher.policy.openaccess": "Open Access pathways permitted by this journal's policy are listed below by article version. Click on a pathway for a more detailed view",
+  "submission.sections.jisc.publisher.policy.openaccess": "مسارات الوصول الحر التي تسمح بها سياسة هذه الدورية مدرجة أدناه حسب إصدار المقال. انقر على المسار للحصول على عرض أكثر تفصيلاً",
 
-  // "submission.sections.sherpa.publisher.policy.more.information": "For more information, please see the following links:",
-  "submission.sections.sherpa.publisher.policy.more.information": "للمزيد من المعلومات، يرجى الاطلاع على الروابط التالية:",
+  // "submission.sections.jisc.publisher.policy.more.information": "For more information, please see the following links:",
+  "submission.sections.jisc.publisher.policy.more.information": "للمزيد من المعلومات، يرجى الاطلاع على الروابط التالية:",
 
-  // "submission.sections.sherpa.publisher.policy.version": "Version",
-  "submission.sections.sherpa.publisher.policy.version": "الإصدارة",
+  // "submission.sections.jisc.publisher.policy.version": "Version",
+  "submission.sections.jisc.publisher.policy.version": "الإصدارة",
 
-  // "submission.sections.sherpa.publisher.policy.embargo": "Embargo",
-  "submission.sections.sherpa.publisher.policy.embargo": "حظر",
+  // "submission.sections.jisc.publisher.policy.embargo": "Embargo",
+  "submission.sections.jisc.publisher.policy.embargo": "حظر",
 
-  // "submission.sections.sherpa.publisher.policy.noembargo": "No Embargo",
-  "submission.sections.sherpa.publisher.policy.noembargo": "بلا حظر",
+  // "submission.sections.jisc.publisher.policy.noembargo": "No Embargo",
+  "submission.sections.jisc.publisher.policy.noembargo": "بلا حظر",
 
-  // "submission.sections.sherpa.publisher.policy.nolocation": "None",
-  "submission.sections.sherpa.publisher.policy.nolocation": "لا شيء",
+  // "submission.sections.jisc.publisher.policy.nolocation": "None",
+  "submission.sections.jisc.publisher.policy.nolocation": "لا شيء",
 
-  // "submission.sections.sherpa.publisher.policy.license": "License",
-  "submission.sections.sherpa.publisher.policy.license": "الترخيص",
+  // "submission.sections.jisc.publisher.policy.license": "License",
+  "submission.sections.jisc.publisher.policy.license": "الترخيص",
 
-  // "submission.sections.sherpa.publisher.policy.prerequisites": "Prerequisites",
-  "submission.sections.sherpa.publisher.policy.prerequisites": "المتطلبات الأساسية",
+  // "submission.sections.jisc.publisher.policy.prerequisites": "Prerequisites",
+  "submission.sections.jisc.publisher.policy.prerequisites": "المتطلبات الأساسية",
 
-  // "submission.sections.sherpa.publisher.policy.location": "Location",
-  "submission.sections.sherpa.publisher.policy.location": "الموقع",
+  // "submission.sections.jisc.publisher.policy.location": "Location",
+  "submission.sections.jisc.publisher.policy.location": "الموقع",
 
-  // "submission.sections.sherpa.publisher.policy.conditions": "Conditions",
-  "submission.sections.sherpa.publisher.policy.conditions": "الشروط",
+  // "submission.sections.jisc.publisher.policy.conditions": "Conditions",
+  "submission.sections.jisc.publisher.policy.conditions": "الشروط",
 
-  // "submission.sections.sherpa.publisher.policy.refresh": "Refresh",
-  "submission.sections.sherpa.publisher.policy.refresh": "تحديث",
+  // "submission.sections.jisc.publisher.policy.refresh": "Refresh",
+  "submission.sections.jisc.publisher.policy.refresh": "تحديث",
 
-  // "submission.sections.sherpa.record.information": "Record Information",
-  "submission.sections.sherpa.record.information": "معلومات التسجيلة",
+  // "submission.sections.jisc.record.information": "Record Information",
+  "submission.sections.jisc.record.information": "معلومات التسجيلة",
 
-  // "submission.sections.sherpa.record.information.id": "ID",
-  "submission.sections.sherpa.record.information.id": "المعرّف",
+  // "submission.sections.jisc.record.information.id": "ID",
+  "submission.sections.jisc.record.information.id": "المعرّف",
 
-  // "submission.sections.sherpa.record.information.date.created": "Date Created",
-  "submission.sections.sherpa.record.information.date.created": "تاريخ الإنشاء",
+  // "submission.sections.jisc.record.information.date.created": "Date Created",
+  "submission.sections.jisc.record.information.date.created": "تاريخ الإنشاء",
 
-  // "submission.sections.sherpa.record.information.date.modified": "Last Modified",
-  "submission.sections.sherpa.record.information.date.modified": "آخر تعديل",
+  // "submission.sections.jisc.record.information.date.modified": "Last Modified",
+  "submission.sections.jisc.record.information.date.modified": "آخر تعديل",
 
-  // "submission.sections.sherpa.record.information.uri": "URI",
-  "submission.sections.sherpa.record.information.uri": "URI",
+  // "submission.sections.jisc.record.information.uri": "URI",
+  "submission.sections.jisc.record.information.uri": "URI",
 
-  // "submission.sections.sherpa.error.message": "There was an error retrieving sherpa informations",
-  "submission.sections.sherpa.error.message": "حدث خطأ أثناء استرداد معلومات شيربا",
+  // "submission.sections.jisc.error.message": "There was an error retrieving Jisc Open policy finder information",
+  // TODO Source message changed - Revise the translation
+  "submission.sections.jisc.error.message": "There was an error retrieving Jisc Open policy finder information",
 
   // "submission.submit.breadcrumbs": "New submission",
   "submission.submit.breadcrumbs": "تقديم جديد",
@@ -8695,7 +9405,8 @@
   // "submission.workflow.tasks.claimed.reject.submit": "Reject",
   "submission.workflow.tasks.claimed.reject.submit": "رفض",
 
-  // "submission.workflow.tasks.claimed.reject_help": "If you have reviewed the item and found it is <strong>not</strong> suitable for inclusion in the collection, select \"Reject\".  You will then be asked to enter a message indicating why the item is unsuitable, and whether the submitter should change something and resubmit.",
+  // "submission.workflow.tasks.claimed.reject_help": "If you have reviewed the item and found it is <strong>not</strong> suitable for inclusion in the collection, select \"Reject\". You will then be asked to enter a message indicating why the item is unsuitable, and whether the submitter should change something and resubmit.",
+  // TODO Source message changed - Revise the translation
   "submission.workflow.tasks.claimed.reject_help": "إذا قمت بمراجعة المادة ووجدتها <strong>غير</strong> ملائمة للإدراج في الحاوية، اختر \"رفض\". سيُطلب منك إدخال رسالة لتوضيح سبب عدم ملاءمة المادة، وما إذا كان يجب على المقدم إجراء بعض التغييرات وإعادة التقديم.",
 
   // "submission.workflow.tasks.claimed.return": "Return to pool",
@@ -8770,8 +9481,9 @@
   // "subscriptions.tooltip": "Subscribe",
   "subscriptions.tooltip": "اشتراك",
 
-  // "subscriptions.unsubscribe": "Unsubscribe",
-  "subscriptions.unsubscribe": "إلغاء الاشتراك",
+  // "subscriptions.manage": "Manage Subscription",
+  // TODO New key - Add a translation
+  "subscriptions.manage": "Manage Subscription",
 
   // "subscriptions.modal.title": "Subscriptions",
   "subscriptions.modal.title": "الاشتراكات",
@@ -8940,6 +9652,10 @@
 
   // "workflow.search.results.head": "Workflow tasks",
   "workflow.search.results.head": "مهام سير العمل",
+
+  // "otherWorkspace.search.results.head": "Shared workspace",
+  // TODO New key - Add a translation
+  "otherWorkspace.search.results.head": "Shared workspace",
 
   // "supervision.search.results.head": "Workflow and Workspace tasks",
   "supervision.search.results.head": "مهام سير العمل ومساحة العمل",
@@ -9469,6 +10185,10 @@
   // "home.recent-submissions.head": "Recent Submissions",
   "home.recent-submissions.head": "أحدث التقديمات",
 
+  // "authority-confidence.search-label": "Search",
+  // TODO New key - Add a translation
+  "authority-confidence.search-label": "Search",
+
   // "listable-notification-object.default-message": "This object couldn't be retrieved",
   "listable-notification-object.default-message": "تعذر استرداد هذا الكائن",
 
@@ -9675,280 +10395,395 @@
 
   // "ldn-registered-services.title": "Registered Services",
   "ldn-registered-services.title": "الخدمات المسجّلة",
+
   // "ldn-registered-services.table.name": "Name",
   "ldn-registered-services.table.name": "الاسم",
+
   // "ldn-registered-services.table.description": "Description",
   "ldn-registered-services.table.description": "الوصف",
+
   // "ldn-registered-services.table.status": "Status",
   "ldn-registered-services.table.status": "الحالة",
+
   // "ldn-registered-services.table.action": "Action",
   "ldn-registered-services.table.action": "إجراء",
+
   // "ldn-registered-services.new": "NEW",
   "ldn-registered-services.new": "جديد",
+
   // "ldn-registered-services.new.breadcrumbs": "Registered Services",
   "ldn-registered-services.new.breadcrumbs": "الخدمات المسجّلة",
 
   // "ldn-service.overview.table.enabled": "Enabled",
   "ldn-service.overview.table.enabled": "مفعل",
+
   // "ldn-service.overview.table.disabled": "Disabled",
   "ldn-service.overview.table.disabled": "معطّل",
+
   // "ldn-service.overview.table.clickToEnable": "Click to enable",
   "ldn-service.overview.table.clickToEnable": "انقر للتفعيل",
+
   // "ldn-service.overview.table.clickToDisable": "Click to disable",
   "ldn-service.overview.table.clickToDisable": "انقر للتعطيل",
 
   // "ldn-edit-registered-service.title": "Edit Service",
   "ldn-edit-registered-service.title": "تحرير الخدمة",
+
   // "ldn-create-service.title": "Create service",
   "ldn-create-service.title": "إنشاء خدمة",
+
   // "service.overview.create.modal": "Create Service",
   "service.overview.create.modal": "إنشاء خدمة",
+
   // "service.overview.create.body": "Please confirm the creation of this service.",
   "service.overview.create.body": "يرجى تأكيد إنشاء هذه الخدمة.",
+
   // "ldn-service-status": "Status",
   "ldn-service-status": "الحالة",
+
   // "service.confirm.create": "Create",
   "service.confirm.create": "إنشاء",
+
   // "service.refuse.create": "Cancel",
   "service.refuse.create": "إلغاء",
+
   // "ldn-register-new-service.title": "Register a new service",
   "ldn-register-new-service.title": "تسجيل خدمة جديدة",
+
   // "ldn-new-service.form.label.submit": "Save",
   "ldn-new-service.form.label.submit": "حفظ",
+
   // "ldn-new-service.form.label.name": "Name",
   "ldn-new-service.form.label.name": "الاسم",
+
   // "ldn-new-service.form.label.description": "Description",
   "ldn-new-service.form.label.description": "الوصف",
+
   // "ldn-new-service.form.label.url": "Service URL",
   "ldn-new-service.form.label.url": "رابط الخدمة",
+
   // "ldn-new-service.form.label.ip-range": "Service IP range",
   "ldn-new-service.form.label.ip-range": "نطاق عناوين IP للخدمة",
+
   // "ldn-new-service.form.label.score": "Level of trust",
   "ldn-new-service.form.label.score": "مستوى الثقة",
+
   // "ldn-new-service.form.label.ldnUrl": "LDN Inbox URL",
   "ldn-new-service.form.label.ldnUrl": "عنوان URL لصندوق وارد LDN",
+
   // "ldn-new-service.form.placeholder.name": "Please provide service name",
   "ldn-new-service.form.placeholder.name": "يرجى إدخال اسم الخدمة",
+
   // "ldn-new-service.form.placeholder.description": "Please provide a description regarding your service",
   "ldn-new-service.form.placeholder.description": "يرجى تقديم وصف لخدمتك",
+
   // "ldn-new-service.form.placeholder.url": "Please input the URL for users to check out more information about the service",
   "ldn-new-service.form.placeholder.url": "يرجى إدخال رابط يتيح للمستخدمين معرفة المزيد عن الخدمة",
+
   // "ldn-new-service.form.placeholder.lowerIp": "IPv4 range lower bound",
   "ldn-new-service.form.placeholder.lowerIp": "الحد الأدنى لنطاق IPv4",
+
   // "ldn-new-service.form.placeholder.upperIp": "IPv4 range upper bound",
   "ldn-new-service.form.placeholder.upperIp": "الحد الأقصى لنطاق IPv4",
+
   // "ldn-new-service.form.placeholder.ldnUrl": "Please specify the URL of the LDN Inbox",
   "ldn-new-service.form.placeholder.ldnUrl": "يرجى تحديد عنوان URL لصندوق وارد LDN",
+
   // "ldn-new-service.form.placeholder.score": "Please enter a value between 0 and 1. Use the “.” as decimal separator",
   "ldn-new-service.form.placeholder.score": "يرجى إدخال قيمة بين 0 و1. استخدم '.' كفاصل عشري",
+
   // "ldn-service.form.label.placeholder.default-select": "Select a pattern",
   "ldn-service.form.label.placeholder.default-select": "اختر نمطاً",
 
   // "ldn-service.form.pattern.ack-accept.label": "Acknowledge and Accept",
   "ldn-service.form.pattern.ack-accept.label": "إقرار وقبول",
+
   // "ldn-service.form.pattern.ack-accept.description": "This pattern is used to acknowledge and accept a request (offer). It implies an intention to act on the request.",
   "ldn-service.form.pattern.ack-accept.description": "يُستخدم هذا النمط للإقرار وقبول طلب (عرض). يفيد بنية اتخاذ إجراء على الطلب.",
+
   // "ldn-service.form.pattern.ack-accept.category": "Acknowledgements",
   "ldn-service.form.pattern.ack-accept.category": "إقرارات",
 
   // "ldn-service.form.pattern.ack-reject.label": "Acknowledge and Reject",
   "ldn-service.form.pattern.ack-reject.label": "إقرار ورفض",
+
   // "ldn-service.form.pattern.ack-reject.description": "This pattern is used to acknowledge and reject a request (offer). It signifies no further action regarding the request.",
   "ldn-service.form.pattern.ack-reject.description": "يُستخدم هذا النمط للإقرار ورفض طلب (عرض). يفيد بعدم اتخاذ أي إجراء إضافي بخصوص الطلب.",
+
   // "ldn-service.form.pattern.ack-reject.category": "Acknowledgements",
   "ldn-service.form.pattern.ack-reject.category": "إقرارات",
 
   // "ldn-service.form.pattern.ack-tentative-accept.label": "Acknowledge and Tentatively Accept",
   "ldn-service.form.pattern.ack-tentative-accept.label": "إقرار وقبول مبدئي",
+
   // "ldn-service.form.pattern.ack-tentative-accept.description": "This pattern is used to acknowledge and tentatively accept a request (offer). It implies an intention to act, which may change.",
   "ldn-service.form.pattern.ack-tentative-accept.description": "يُستخدم هذا النمط للإقرار والقبول المبدئي لطلب (عرض). يفيد بنية اتخاذ إجراء، وقد تتغير.",
+
   // "ldn-service.form.pattern.ack-tentative-accept.category": "Acknowledgements",
   "ldn-service.form.pattern.ack-tentative-accept.category": "إقرارات",
 
   // "ldn-service.form.pattern.ack-tentative-reject.label": "Acknowledge and Tentatively Reject",
   "ldn-service.form.pattern.ack-tentative-reject.label": "إقرار ورفض مبدئي",
+
   // "ldn-service.form.pattern.ack-tentative-reject.description": "This pattern is used to acknowledge and tentatively reject a request (offer). It signifies no further action, subject to change.",
   "ldn-service.form.pattern.ack-tentative-reject.description": "يُستخدم هذا النمط للإقرار والرفض المبدئي لطلب (عرض). يفيد بعدم اتخاذ إجراء إضافي، وقابل للتغيير.",
+
   // "ldn-service.form.pattern.ack-tentative-reject.category": "Acknowledgements",
   "ldn-service.form.pattern.ack-tentative-reject.category": "إقرارات",
 
   // "ldn-service.form.pattern.announce-endorsement.label": "Announce Endorsement",
   "ldn-service.form.pattern.announce-endorsement.label": "الإعلان عن تأييد",
+
   // "ldn-service.form.pattern.announce-endorsement.description": "This pattern is used to announce the existence of an endorsement, referencing the endorsed resource.",
   "ldn-service.form.pattern.announce-endorsement.description": "يُستخدم هذا النمط للإعلان عن وجود تأييد، مع الإشارة إلى المورد المُؤيَّد.",
+
   // "ldn-service.form.pattern.announce-endorsement.category": "Announcements",
   "ldn-service.form.pattern.announce-endorsement.category": "إعلانات",
 
   // "ldn-service.form.pattern.announce-ingest.label": "Announce Ingest",
   "ldn-service.form.pattern.announce-ingest.label": "الإعلان عن إدخال",
+
   // "ldn-service.form.pattern.announce-ingest.description": "This pattern is used to announce that a resource has been ingested.",
   "ldn-service.form.pattern.announce-ingest.description": "يُستخدم هذا النمط للإعلان عن أنه قد تم إدخال مورد.",
+
   // "ldn-service.form.pattern.announce-ingest.category": "Announcements",
   "ldn-service.form.pattern.announce-ingest.category": "إعلانات",
 
   // "ldn-service.form.pattern.announce-relationship.label": "Announce Relationship",
   "ldn-service.form.pattern.announce-relationship.label": "الإعلان عن علاقة",
+
   // "ldn-service.form.pattern.announce-relationship.description": "This pattern is used to announce a relationship between two resources.",
   "ldn-service.form.pattern.announce-relationship.description": "يُستخدم هذا النمط للإعلان عن علاقة بين موردين.",
+
   // "ldn-service.form.pattern.announce-relationship.category": "Announcements",
   "ldn-service.form.pattern.announce-relationship.category": "إعلانات",
 
   // "ldn-service.form.pattern.announce-review.label": "Announce Review",
   "ldn-service.form.pattern.announce-review.label": "الإعلان عن مراجعة",
+
   // "ldn-service.form.pattern.announce-review.description": "This pattern is used to announce the existence of a review, referencing the reviewed resource.",
   "ldn-service.form.pattern.announce-review.description": "يُستخدم هذا النمط للإعلان عن وجود مراجعة، مع الإشارة إلى المورد المُراجع.",
+
   // "ldn-service.form.pattern.announce-review.category": "Announcements",
   "ldn-service.form.pattern.announce-review.category": "إعلانات",
 
   // "ldn-service.form.pattern.announce-service-result.label": "Announce Service Result",
   "ldn-service.form.pattern.announce-service-result.label": "الإعلان عن نتيجة خدمة",
+
   // "ldn-service.form.pattern.announce-service-result.description": "This pattern is used to announce the existence of a 'service result', referencing the relevant resource.",
   "ldn-service.form.pattern.announce-service-result.description": "يُستخدم هذا النمط للإعلان عن وجود 'نتيجة خدمة'، مع الإشارة إلى المورد ذي الصلة.",
+
   // "ldn-service.form.pattern.announce-service-result.category": "Announcements",
   "ldn-service.form.pattern.announce-service-result.category": "إعلانات",
 
   // "ldn-service.form.pattern.request-endorsement.label": "Request Endorsement",
   "ldn-service.form.pattern.request-endorsement.label": "طلب تأييد",
+
   // "ldn-service.form.pattern.request-endorsement.description": "This pattern is used to request endorsement of a resource owned by the origin system.",
   "ldn-service.form.pattern.request-endorsement.description": "يُستخدم هذا النمط لطلب تأييد مورد يملكه نظام المصدر.",
+
   // "ldn-service.form.pattern.request-endorsement.category": "Requests",
   "ldn-service.form.pattern.request-endorsement.category": "طلبات",
 
   // "ldn-service.form.pattern.request-ingest.label": "Request Ingest",
   "ldn-service.form.pattern.request-ingest.label": "طلب إدخال",
+
   // "ldn-service.form.pattern.request-ingest.description": "This pattern is used to request that the target system ingest a resource.",
   "ldn-service.form.pattern.request-ingest.description": "يُستخدم هذا النمط لطلب أن يقوم النظام الهدف بإدخال مورد.",
+
   // "ldn-service.form.pattern.request-ingest.category": "Requests",
   "ldn-service.form.pattern.request-ingest.category": "طلبات",
 
   // "ldn-service.form.pattern.request-review.label": "Request Review",
   "ldn-service.form.pattern.request-review.label": "طلب مراجعة",
+
   // "ldn-service.form.pattern.request-review.description": "This pattern is used to request a review of a resource owned by the origin system.",
   "ldn-service.form.pattern.request-review.description": "يُستخدم هذا النمط لطلب مراجعة مورد يملكه نظام المصدر.",
+
   // "ldn-service.form.pattern.request-review.category": "Requests",
   "ldn-service.form.pattern.request-review.category": "طلبات",
 
   // "ldn-service.form.pattern.undo-offer.label": "Undo Offer",
   "ldn-service.form.pattern.undo-offer.label": "تراجع عن العرض",
+
   // "ldn-service.form.pattern.undo-offer.description": "This pattern is used to undo (retract) an offer previously made.",
   "ldn-service.form.pattern.undo-offer.description": "يُستخدم هذا النمط للتراجع (سحب) عن عرض تم تقديمه سابقاً.",
+
   // "ldn-service.form.pattern.undo-offer.category": "Undo",
   "ldn-service.form.pattern.undo-offer.category": "تراجع",
 
   // "ldn-new-service.form.label.placeholder.selectedItemFilter": "No Item Filter Selected",
   "ldn-new-service.form.label.placeholder.selectedItemFilter": "لا يوجد مُرشّح عناصر محدد",
+
   // "ldn-new-service.form.label.ItemFilter": "Item Filter",
   "ldn-new-service.form.label.ItemFilter": "مرشّح العناصر",
+
   // "ldn-new-service.form.label.automatic": "Automatic",
   "ldn-new-service.form.label.automatic": "تلقائي",
+
   // "ldn-new-service.form.error.name": "Name is required",
   "ldn-new-service.form.error.name": "الاسم مطلوب",
+
   // "ldn-new-service.form.error.url": "URL is required",
   "ldn-new-service.form.error.url": "عنوان URL مطلوب",
+
   // "ldn-new-service.form.error.ipRange": "Please enter a valid IP range",
   "ldn-new-service.form.error.ipRange": "يرجى إدخال نطاق IP صالح",
+
   // "ldn-new-service.form.hint.ipRange": "Please enter a valid IpV4 in both range bounds (note: for single IP, please enter the same value in both fields)",
   "ldn-new-service.form.hint.ipRange": "يرجى إدخال IPv4 صالح في حدّي النطاق (ملاحظة: لعنوان IP واحد، أدخل نفس القيمة في الحقلين)",
+
   // "ldn-new-service.form.error.ldnurl": "LDN URL is required",
   "ldn-new-service.form.error.ldnurl": "عنوان URL الخاص بـ LDN مطلوب",
+
+  // "ldn-new-service.form.error.ldnurl.ldnUrlAlreadyAssociated": "This LDN URL is already associated with another service",
+  // TODO New key - Add a translation
+  "ldn-new-service.form.error.ldnurl.ldnUrlAlreadyAssociated": "This LDN URL is already associated with another service",
+
   // "ldn-new-service.form.error.patterns": "At least a pattern is required",
   "ldn-new-service.form.error.patterns": "مطلوب نمط واحد على الأقل",
+
   // "ldn-new-service.form.error.score": "Please enter a valid score (between 0 and 1). Use the “.” as decimal separator",
   "ldn-new-service.form.error.score": "يرجى إدخال قيمة صحيحة (بين 0 و1). استخدم '.' كفاصل عشري",
 
   // "ldn-new-service.form.label.inboundPattern": "Supported Pattern",
   "ldn-new-service.form.label.inboundPattern": "النمط المدعوم",
+
   // "ldn-new-service.form.label.addPattern": "+ Add more",
   "ldn-new-service.form.label.addPattern": "+ إضافة المزيد",
+
   // "ldn-new-service.form.label.removeItemFilter": "Remove",
   "ldn-new-service.form.label.removeItemFilter": "إزالة",
+
   // "ldn-register-new-service.breadcrumbs": "New Service",
   "ldn-register-new-service.breadcrumbs": "خدمة جديدة",
+
   // "service.overview.delete.body": "Are you sure you want to delete this service?",
   "service.overview.delete.body": "هل أنت متأكد أنك تريد حذف هذه الخدمة؟",
+
   // "service.overview.edit.body": "Do you confirm the changes?",
   "service.overview.edit.body": "هل تؤكد إجراء التغييرات؟",
+
   // "service.overview.edit.modal": "Edit Service",
   "service.overview.edit.modal": "تحرير الخدمة",
+
   // "service.detail.update": "Confirm",
   "service.detail.update": "تأكيد",
+
   // "service.detail.return": "Cancel",
   "service.detail.return": "إلغاء",
+
   // "service.overview.reset-form.body": "Are you sure you want to discard the changes and leave?",
   "service.overview.reset-form.body": "هل أنت متأكد أنك تريد تجاهل التغييرات والمغادرة؟",
+
   // "service.overview.reset-form.modal": "Discard Changes",
   "service.overview.reset-form.modal": "تجاهل التغييرات",
+
   // "service.overview.reset-form.reset-confirm": "Discard",
   "service.overview.reset-form.reset-confirm": "تجاهل",
+
   // "admin.registries.services-formats.modify.success.head": "Successful Edit",
   "admin.registries.services-formats.modify.success.head": "تم التحرير بنجاح",
+
   // "admin.registries.services-formats.modify.success.content": "The service has been edited",
   "admin.registries.services-formats.modify.success.content": "تم تحرير الخدمة",
+
   // "admin.registries.services-formats.modify.failure.head": "Failed Edit",
   "admin.registries.services-formats.modify.failure.head": "فشل التحرير",
+
   // "admin.registries.services-formats.modify.failure.content": "The service has not been edited",
   "admin.registries.services-formats.modify.failure.content": "لم يتم تحرير الخدمة",
+
   // "ldn-service-notification.created.success.title": "Successful Create",
   "ldn-service-notification.created.success.title": "تم الإنشاء بنجاح",
+
   // "ldn-service-notification.created.success.body": "The service has been created",
   "ldn-service-notification.created.success.body": "تم إنشاء الخدمة",
+
   // "ldn-service-notification.created.failure.title": "Failed Create",
   "ldn-service-notification.created.failure.title": "فشل الإنشاء",
+
   // "ldn-service-notification.created.failure.body": "The service has not been created",
   "ldn-service-notification.created.failure.body": "لم يتم إنشاء الخدمة",
+
   // "ldn-service-notification.created.warning.title": "Please select at least one Inbound Pattern",
   "ldn-service-notification.created.warning.title": "يرجى اختيار نمط وارد واحد على الأقل",
+
   // "ldn-enable-service.notification.success.title": "Successful status updated",
   "ldn-enable-service.notification.success.title": "تم تحديث الحالة بنجاح",
+
   // "ldn-enable-service.notification.success.content": "The service status has been updated",
   "ldn-enable-service.notification.success.content": "تم تحديث حالة الخدمة",
+
   // "ldn-service-delete.notification.success.title": "Successful Deletion",
   "ldn-service-delete.notification.success.title": "تم الحذف بنجاح",
+
   // "ldn-service-delete.notification.success.content": "The service has been deleted",
   "ldn-service-delete.notification.success.content": "تم حذف الخدمة",
+
   // "ldn-service-delete.notification.error.title": "Failed Deletion",
   "ldn-service-delete.notification.error.title": "فشل الحذف",
+
   // "ldn-service-delete.notification.error.content": "The service has not been deleted",
   "ldn-service-delete.notification.error.content": "لم يتم حذف الخدمة",
+
   // "service.overview.reset-form.reset-return": "Cancel",
   "service.overview.reset-form.reset-return": "إلغاء",
+
   // "service.overview.delete": "Delete service",
   "service.overview.delete": "حذف الخدمة",
+
   // "ldn-edit-service.title": "Edit service",
   "ldn-edit-service.title": "تحرير الخدمة",
+
   // "ldn-edit-service.form.label.name": "Name",
   "ldn-edit-service.form.label.name": "الاسم",
+
   // "ldn-edit-service.form.label.description": "Description",
   "ldn-edit-service.form.label.description": "الوصف",
+
   // "ldn-edit-service.form.label.url": "Service URL",
   "ldn-edit-service.form.label.url": "رابط الخدمة",
+
   // "ldn-edit-service.form.label.ldnUrl": "LDN Inbox URL",
   "ldn-edit-service.form.label.ldnUrl": "عنوان URL لصندوق وارد LDN",
+
   // "ldn-edit-service.form.label.inboundPattern": "Inbound Pattern",
   "ldn-edit-service.form.label.inboundPattern": "النمط الوارد",
+
   // "ldn-edit-service.form.label.noInboundPatternSelected": "No Inbound Pattern",
   "ldn-edit-service.form.label.noInboundPatternSelected": "لا يوجد نمط وارد",
+
   // "ldn-edit-service.form.label.selectedItemFilter": "Selected Item Filter",
   "ldn-edit-service.form.label.selectedItemFilter": "مرشّح العناصر المحدد",
+
   // "ldn-edit-service.form.label.selectItemFilter": "No Item Filter",
   "ldn-edit-service.form.label.selectItemFilter": "لا يوجد مرشّح عناصر",
+
   // "ldn-edit-service.form.label.automatic": "Automatic",
   "ldn-edit-service.form.label.automatic": "تلقائي",
+
   // "ldn-edit-service.form.label.addInboundPattern": "+ Add more",
   "ldn-edit-service.form.label.addInboundPattern": "+ إضافة المزيد",
+
   // "ldn-edit-service.form.label.submit": "Save",
   "ldn-edit-service.form.label.submit": "حفظ",
+
   // "ldn-edit-service.breadcrumbs": "Edit Service",
   "ldn-edit-service.breadcrumbs": "تحرير الخدمة",
+
   // "ldn-service.control-constaint-select-none": "Select none",
   "ldn-service.control-constaint-select-none": "عدم التحديد",
 
   // "ldn-register-new-service.notification.error.title": "Error",
   "ldn-register-new-service.notification.error.title": "خطأ",
+
   // "ldn-register-new-service.notification.error.content": "An error occurred while creating this process",
   "ldn-register-new-service.notification.error.content": "حدث خطأ أثناء إنشاء هذه العملية",
+
   // "ldn-register-new-service.notification.success.title": "Success",
   "ldn-register-new-service.notification.success.title": "نجاح",
+
   // "ldn-register-new-service.notification.success.content": "The process was successfully created",
   "ldn-register-new-service.notification.success.content": "تم إنشاء العملية بنجاح",
 
@@ -9981,6 +10816,7 @@
 
   // "quality-assurance.topics.description-with-target": "Below you can see all the topics received from the subscriptions to {{source}} in regards to the",
   "quality-assurance.topics.description-with-target": "أدناه يمكنك رؤية جميع المواضيع الواردة من الاشتراكات في {{source}} والمتعلقة بـ",
+
   // "quality-assurance.events.description": "Below the list of all the suggestions for the selected topic <b>{{topic}}</b>, related to <b>{{source}}</b>.",
   "quality-assurance.events.description": "توجد أدناه القائمة التي تحتوي على كافة الاقتراحات للموضوع المحدد.",
 
@@ -10077,16 +10913,20 @@
   // "error.validation.coarnotify.invalidfilter": "Invalid filter, try to select another service or none.",
   "error.validation.coarnotify.invalidfilter": "مرشح غير صالح، حاول اختيار خدمة أخرى أو عدم اختيار أي خدمة.",
 
-  // "request-status-alert-box.accepted": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> has been taken in charge.",
+  // "request-status-alert-box.accepted": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'>{{ serviceName }}</a> has been taken in charge.",
+  // TODO Source message changed - Revise the translation
   "request-status-alert-box.accepted": "تم استلام {{ offerType }} المطلوبة لـ <a href='{{serviceUrl}}' target='_blank'>{{ serviceName }}</a> ومعالجتها.",
 
-  // "request-status-alert-box.rejected": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> has been rejected.",
+  // "request-status-alert-box.rejected": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'>{{ serviceName }}</a> has been rejected.",
+  // TODO Source message changed - Revise the translation
   "request-status-alert-box.rejected": "تم رفض {{ offerType }} المطلوبة لـ <a href='{{serviceUrl}}' target='_blank'>{{ serviceName }}</a>.",
 
-  // "request-status-alert-box.tentative_rejected": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> has been tentatively rejected. Revisions are required",
+  // "request-status-alert-box.tentative_rejected": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'>{{ serviceName }}</a> has been tentatively rejected. Revisions are required",
+  // TODO Source message changed - Revise the translation
   "request-status-alert-box.tentative_rejected": "تم رفض {{ offerType }} المطلوبة لـ <a href='{{serviceUrl}}' target='_blank'>{{ serviceName }}</a> بشكل مبدئي. التعديلات مطلوبة",
 
-  // "request-status-alert-box.requested": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> is pending.",
+  // "request-status-alert-box.requested": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'>{{ serviceName }}</a> is pending.",
+  // TODO Source message changed - Revise the translation
   "request-status-alert-box.requested": "{{ offerType }} المطلوبة لـ <a href='{{serviceUrl}}' target='_blank'>{{ serviceName }}</a> قيد الانتظار.",
 
   // "ldn-service-button-mark-inbound-deletion": "Mark supported pattern for deletion",
@@ -10677,17 +11517,23 @@
   // "form.date-picker.placeholder.day": "Day",
   "form.date-picker.placeholder.day": "اليوم",
 
+  // "item.page.license.title": "Rights and licensing",
+  // TODO New key - Add a translation
+  "item.page.license.title": "Rights and licensing",
+
   // "item.page.cc.license.title": "Creative Commons license",
   "item.page.cc.license.title": "ترخيص المشاع الإبداعي",
 
-  // "item.page.cc.license.disclaimer": "Except where otherwised noted, this item's license is described as",
+  // "item.page.cc.license.disclaimer": "Except where otherwise noted, this item's license is described as",
+  // TODO Source message changed - Revise the translation
   "item.page.cc.license.disclaimer": "إلا إذا ذُكر خلاف ذلك، يتم وصف ترخيص هذه المادة على أنه",
-
-  // "browse.search-form.placeholder": "Search the repository",
-  "browse.search-form.placeholder": "ابحث في المستودع",
 
   // "file-download-link.download": "Download ",
   "file-download-link.download": "تنزيل ",
+
+  // "file-download-button.download": "Download",
+  // TODO New key - Add a translation
+  "file-download-button.download": "Download",
 
   // "register-page.registration.aria.label": "Enter your e-mail address",
   "register-page.registration.aria.label": "أدخل عنوان بريدك الإلكتروني",
@@ -10701,7 +11547,8 @@
   // "live-region.ordering.instructions": "Press spacebar to reorder {{ itemName }}.",
   "live-region.ordering.instructions": "اضغط على مفتاح المسافة لإعادة ترتيب {{ itemName }}.",
 
-  // "live-region.ordering.status": "{{ itemName }}, grabbed. Current position in list: {{ index }} of  {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
+  // "live-region.ordering.status": "{{ itemName }}, grabbed. Current position in list: {{ index }} of {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
+  // TODO Source message changed - Revise the translation
   "live-region.ordering.status": "{{ itemName }}، تم سحبه. الموضع الحالي في القائمة: {{ index }} من {{ length }}. استخدم مفاتيح الأسهم للأعلى والأسفل لتغيير الموضع، المسافة للإفلات، وEsc للإلغاء.",
 
   // "live-region.ordering.moved": "{{ itemName }}, moved to position {{ index }} of {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
@@ -10733,6 +11580,10 @@
 
   // "external-login.confirmation.email-label": "User Email",
   "external-login.confirmation.email-label": "البريد الإلكتروني للمستخدم",
+
+  // "external-login.confirmation.email": "Email",
+  // TODO New key - Add a translation
+  "external-login.confirmation.email": "Email",
 
   // "external-login.confirmation.email-invalid": "Invalid email format.",
   "external-login.confirmation.email-invalid": "تنسيق البريد الإلكتروني غير صالح.",
@@ -10824,6 +11675,10 @@
   // "external-login-page.orcid-confirmation.netid": "Account Identifier",
   "external-login-page.orcid-confirmation.netid": "معرّف الحساب",
 
+  // "external-login-page.orcid-confirmation.netid.label": "Account Identifier",
+  // TODO New key - Add a translation
+  "external-login-page.orcid-confirmation.netid.label": "Account Identifier",
+
   // "external-login-page.orcid-confirmation.netid.placeholder": "xxxx-xxxx-xxxx-xxxx",
   "external-login-page.orcid-confirmation.netid.placeholder": "xxxx-xxxx-xxxx-xxxx",
 
@@ -10868,6 +11723,446 @@
 
   // "file-download-link.request-copy": "Request a copy of ",
   "file-download-link.request-copy": "طلب نسخة من ",
+
+  // "file-download-button.request-copy": "Request a copy",
+  // TODO New key - Add a translation
+  "file-download-button.request-copy": "Request a copy",
+
+  // "file-download-link.audio-transcript.label": "Transcript",
+  // TODO New key - Add a translation
+  "file-download-link.audio-transcript.label": "Transcript",
+
+  // "file-download-link.audio-transcript.title": "Audio transcript",
+  // TODO New key - Add a translation
+  "file-download-link.audio-transcript.title": "Audio transcript",
+
+  // "file-download-link.audio-transcript.aria": "Open audio transcript",
+  // TODO New key - Add a translation
+  "file-download-link.audio-transcript.aria": "Open audio transcript",
+
+  // "file-download-link.video-description.label": "Video description",
+  // TODO New key - Add a translation
+  "file-download-link.video-description.label": "Video description",
+
+  // "file-download-link.video-description.title": "Video description",
+  // TODO New key - Add a translation
+  "file-download-link.video-description.title": "Video description",
+
+  // "file-download-link.video-description.aria": "Open video description",
+  // TODO New key - Add a translation
+  "file-download-link.video-description.aria": "Open video description",
+
+  // "item.preview.organization.url": "URL",
+  // TODO New key - Add a translation
+  "item.preview.organization.url": "URL",
+
+  // "item.preview.organization.address.addressLocality": "City",
+  // TODO New key - Add a translation
+  "item.preview.organization.address.addressLocality": "City",
+
+  // "item.preview.organization.alternateName": "Alternative name",
+  // TODO New key - Add a translation
+  "item.preview.organization.alternateName": "Alternative name",
+
+  // "metadata-link-view.orcid.logo": "ORCID logo",
+  // TODO New key - Add a translation
+  "metadata-link-view.orcid.logo": "ORCID logo",
+
+  // "metadata-link-view.source.logo": "Source logo",
+  // TODO New key - Add a translation
+  "metadata-link-view.source.logo": "Source logo",
+
+  // "metadata-link-view.popover.label.Person.dc.title": "Fullname",
+  // TODO New key - Add a translation
+  "metadata-link-view.popover.label.Person.dc.title": "Fullname",
+
+  // "metadata-link-view.popover.label.Person.person.affiliation.name": "Main affiliation",
+  // TODO New key - Add a translation
+  "metadata-link-view.popover.label.Person.person.affiliation.name": "Main affiliation",
+
+  // "metadata-link-view.popover.label.Person.person.email": "Email",
+  // TODO New key - Add a translation
+  "metadata-link-view.popover.label.Person.person.email": "Email",
+
+  // "metadata-link-view.popover.label.Person.person.identifier.orcid": "ORCID",
+  // TODO New key - Add a translation
+  "metadata-link-view.popover.label.Person.person.identifier.orcid": "ORCID",
+
+  // "metadata-link-view.popover.label.Person.dc.description.abstract": "Abstract",
+  // TODO New key - Add a translation
+  "metadata-link-view.popover.label.Person.dc.description.abstract": "Abstract",
+
+  // "metadata-link-view.popover.label.Person.person.jobTitle": "Job title",
+  // TODO New key - Add a translation
+  "metadata-link-view.popover.label.Person.person.jobTitle": "Job title",
+
+  // "metadata-link-view.popover.label.other.dc.title": "Title",
+  // TODO New key - Add a translation
+  "metadata-link-view.popover.label.other.dc.title": "Title",
+
+  // "metadata-link-view.popover.label.other.dc.description.abstract": "Description",
+  // TODO New key - Add a translation
+  "metadata-link-view.popover.label.other.dc.description.abstract": "Description",
+
+  // "metadata-link-view.popover.label.more-info": "More info",
+  // TODO New key - Add a translation
+  "metadata-link-view.popover.label.more-info": "More info",
+
+  // "item.page.extended-file-section": "Bitstreams",
+  // TODO New key - Add a translation
+  "item.page.extended-file-section": "Bitstreams",
+
+  // "file.section.name": "Document",
+  // TODO New key - Add a translation
+  "file.section.name": "Document",
+
+  // "file.section.type": "Type",
+  // TODO New key - Add a translation
+  "file.section.type": "Type",
+
+  // "file.section.size": "Size",
+  // TODO New key - Add a translation
+  "file.section.size": "Size",
+
+  // "dataset.page.titleprefix": "Dataset",
+  // TODO New key - Add a translation
+  "dataset.page.titleprefix": "Dataset",
+
+  // "dataset.listelement.badge": "Dataset",
+  // TODO New key - Add a translation
+  "dataset.listelement.badge": "Dataset",
+
+  // "dataset.page.options": "Options",
+  // TODO New key - Add a translation
+  "dataset.page.options": "Options",
+
+  // "dataset.page.edit": "Edit this Dataset",
+  // TODO New key - Add a translation
+  "dataset.page.edit": "Edit this Dataset",
+
+  // "relationships.Dataset.isAuthorOfDataset.Person": "Authors (Persons)",
+  // TODO New key - Add a translation
+  "relationships.Dataset.isAuthorOfDataset.Person": "Authors (Persons)",
+
+  // "relationships.Dataset.isProjectOfDataset.Project": "Research Projects",
+  // TODO New key - Add a translation
+  "relationships.Dataset.isProjectOfDataset.Project": "Research Projects",
+
+  // "relationships.Dataset.isAuthorOfDataset.OrgUnit": "Organizational Units",
+  // TODO New key - Add a translation
+  "relationships.Dataset.isAuthorOfDataset.OrgUnit": "Organizational Units",
+
+  // "relationships.Dataset.isOrgUnitOfDataset.OrgUnit": "Authors (Organizational Units)",
+  // TODO New key - Add a translation
+  "relationships.Dataset.isOrgUnitOfDataset.OrgUnit": "Authors (Organizational Units)",
+
+  // "relationships.Dataset.isPublicationOfDataset.Publication": "Publications",
+  // TODO New key - Add a translation
+  "relationships.Dataset.isPublicationOfDataset.Publication": "Publications",
+
+  // "relationships.Publication.isDatasetOfPublication.Dataset": "Datasets",
+  // TODO New key - Add a translation
+  "relationships.Publication.isDatasetOfPublication.Dataset": "Datasets",
+
+  // "relationships.Person.isDatasetOfAuthor.Dataset": "Datasets",
+  // TODO New key - Add a translation
+  "relationships.Person.isDatasetOfAuthor.Dataset": "Datasets",
+
+  // "relationships.Project.isDatasetOfProject.Dataset": "Datasets",
+  // TODO New key - Add a translation
+  "relationships.Project.isDatasetOfProject.Dataset": "Datasets",
+
+  // "relationships.OrgUnit.isDatasetOfAuthor.Dataset": "Authored Datasets",
+  // TODO New key - Add a translation
+  "relationships.OrgUnit.isDatasetOfAuthor.Dataset": "Authored Datasets",
+
+  // "relationships.OrgUnit.isDatasetOfOrgUnit.Dataset": "Organisation Datasets",
+  // TODO New key - Add a translation
+  "relationships.OrgUnit.isDatasetOfOrgUnit.Dataset": "Organisation Datasets",
+
+  // "submission.sections.describe.relationship-lookup.title.Dataset": "Datasets",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.title.Dataset": "Datasets",
+
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.Dataset": "Local Datasets",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Dataset": "Local Datasets",
+
+  // "dataset.search.results.head": "Dataset Search Results",
+  // TODO New key - Add a translation
+  "dataset.search.results.head": "Dataset Search Results",
+
+  // "submission.sections.describe.relationship-lookup.title.isAuthorOfDataset": "Authors",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.title.isAuthorOfDataset": "Authors",
+
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isAuthorOfDataset": "Local Authors ({{ count }})",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isAuthorOfDataset": "Local Authors ({{ count }})",
+
+  // "submission.sections.describe.relationship-lookup.title.isPublicationOfDataset": "Publications",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.title.isPublicationOfDataset": "Publications",
+
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isPublicationOfDataset": "Local Publications ({{ count }})",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isPublicationOfDataset": "Local Publications ({{ count }})",
+
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.cinii": "CiNii ({{ count }})",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.cinii": "CiNii ({{ count }})",
+
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.cinii": "Importing from CiNii",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.cinii": "Importing from CiNii",
+
+  // "submission.sections.describe.relationship-lookup.selection-tab.title.cinii": "Search Results",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.selection-tab.title.cinii": "Search Results",
+
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.datacite": "DataCite ({{ count }})",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.datacite": "DataCite ({{ count }})",
+
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.datacite": "Importing from DataCite",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.datacite": "Importing from DataCite",
+
+  // "submission.sections.describe.relationship-lookup.selection-tab.title.datacite": "Search Results",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.selection-tab.title.datacite": "Search Results",
+
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.doi": "DOI ({{ count }})",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.doi": "DOI ({{ count }})",
+
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.doi": "Importing from DOI",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.doi": "Importing from DOI",
+
+  // "submission.sections.describe.relationship-lookup.selection-tab.title.doi": "Search Results",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.selection-tab.title.doi": "Search Results",
+
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.isPublicationOfDataset.title": "Import Remote Publication",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isPublicationOfDataset.title": "Import Remote Publication",
+
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.isPublicationOfDataset.added.local-entity": "Successfully added local publication to the selection",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isPublicationOfDataset.added.local-entity": "Successfully added local publication to the selection",
+
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.isPublicationOfDataset.added.new-entity": "Successfully imported and added external publication to the selection",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isPublicationOfDataset.added.new-entity": "Successfully imported and added external publication to the selection",
+
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfDataset.title": "Import Remote Author",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfDataset.title": "Import Remote Author",
+
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfDataset.added.local-entity": "Successfully added local author to the selection",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfDataset.added.local-entity": "Successfully added local author to the selection",
+
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfDataset.added.new-entity": "Successfully imported and added external author to the selection",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfDataset.added.new-entity": "Successfully imported and added external author to the selection",
+
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfDataset.title": "Import Remote Project",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfDataset.title": "Import Remote Project",
+
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfDataset.added.local-entity": "Successfully added local project to the selection",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfDataset.added.local-entity": "Successfully added local project to the selection",
+
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfDataset.added.new-entity": "Successfully imported and added external project to the selection",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfDataset.added.new-entity": "Successfully imported and added external project to the selection",
+
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfDataset.title": "Import Remote Organization",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfDataset.title": "Import Remote Organization",
+
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfDataset.added.local-entity": "Successfully added local organization to the selection",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfDataset.added.local-entity": "Successfully added local organization to the selection",
+
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfDataset.added.new-entity": "Successfully imported and added external organization to the selection",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfDataset.added.new-entity": "Successfully imported and added external organization to the selection",
+
+  // "admin.edit-cms-metadata.success": "Metadata successfully updated",
+  // TODO New key - Add a translation
+  "admin.edit-cms-metadata.success": "Metadata successfully updated",
+
+  // "admin.edit-cms-metadata.back-button": "Back",
+  // TODO New key - Add a translation
+  "admin.edit-cms-metadata.back-button": "Back",
+
+  // "admin.edit-cms-metadata.save-button": "Save",
+  // TODO New key - Add a translation
+  "admin.edit-cms-metadata.save-button": "Save",
+
+  // "admin.edit-cms-metadata.select-metadata": "Select metadata to edit",
+  // TODO New key - Add a translation
+  "admin.edit-cms-metadata.select-metadata": "Select metadata to edit",
+
+  // "admin.edit-cms-metadata.edit-button": "Edit",
+  // TODO New key - Add a translation
+  "admin.edit-cms-metadata.edit-button": "Edit",
+
+  // "admin.edit-cms-metadata.breadcrumbs": "Edit CMS Metadata",
+  // TODO New key - Add a translation
+  "admin.edit-cms-metadata.breadcrumbs": "Edit CMS Metadata",
+
+  // "admin.edit-cms-metadata.title": "Edit CMS Metadata",
+  // TODO New key - Add a translation
+  "admin.edit-cms-metadata.title": "Edit CMS Metadata",
+
+  // "admin.edit-cms-metadata.error": "An error occurred while updating the metadata",
+  // TODO New key - Add a translation
+  "admin.edit-cms-metadata.error": "An error occurred while updating the metadata",
+
+  // "menu.section.edit-cms-metadata": "Edit CMS Metadata",
+  // TODO New key - Add a translation
+  "menu.section.edit-cms-metadata": "Edit CMS Metadata",
+
+  // "menu.section.cms.edit.metadata.head": "Edit Metadata",
+  // TODO New key - Add a translation
+  "menu.section.cms.edit.metadata.head": "Edit Metadata",
+
+  // "admin.edit-user-agreement.breadcrumbs": "Edit User Agreement",
+  // TODO New key - Add a translation
+  "admin.edit-user-agreement.breadcrumbs": "Edit User Agreement",
+
+  // "admin.edit-user-agreement.confirm.title": "Force acceptance",
+  // TODO New key - Add a translation
+  "admin.edit-user-agreement.confirm.title": "Force acceptance",
+
+  // "admin.edit-user-agreement.confirm.info": "Do you want to force all users to accept the new user agreement?",
+  // TODO New key - Add a translation
+  "admin.edit-user-agreement.confirm.info": "Do you want to force all users to accept the new user agreement?",
+
+  // "admin.edit-user-agreement.confirm.cancel": "Cancel",
+  // TODO New key - Add a translation
+  "admin.edit-user-agreement.confirm.cancel": "Cancel",
+
+  // "admin.edit-user-agreement.confirm.no": "No, update only",
+  // TODO New key - Add a translation
+  "admin.edit-user-agreement.confirm.no": "No, update only",
+
+  // "admin.edit-user-agreement.confirm.yes": "Yes, update and force",
+  // TODO New key - Add a translation
+  "admin.edit-user-agreement.confirm.yes": "Yes, update and force",
+
+  // "menu.section.edit-user-agreement": "Edit User Agreement",
+  // TODO New key - Add a translation
+  "menu.section.edit-user-agreement": "Edit User Agreement",
+
+  // "admin.edit-user-agreement.save-button": "Save",
+  // TODO New key - Add a translation
+  "admin.edit-user-agreement.save-button": "Save",
+
+  // "admin.edit-user-agreement.markdown": "<i>End User Agreement</i> text supports <a href=\"https://www.markdownguide.org/basic-syntax/\" target=\"_blank\">Markdown</a> language.",
+  // TODO New key - Add a translation
+  "admin.edit-user-agreement.markdown": "<i>End User Agreement</i> text supports <a href=\"https://www.markdownguide.org/basic-syntax/\" target=\"_blank\">Markdown</a> language.",
+
+  // "admin.edit-cms-metadata.markdown": "<i>CMS Metadata</i> text supports <a href=\"https://www.markdownguide.org/basic-syntax/\" target=\"_blank\">Markdown</a> language.",
+  // TODO New key - Add a translation
+  "admin.edit-cms-metadata.markdown": "<i>CMS Metadata</i> text supports <a href=\"https://www.markdownguide.org/basic-syntax/\" target=\"_blank\">Markdown</a> language.",
+
+  // "admin.edit-user-agreement.header": "Edit User Agreement",
+  // TODO New key - Add a translation
+  "admin.edit-user-agreement.header": "Edit User Agreement",
+
+  // "admin.edit-user-agreement.success": "User agreement successfully updated",
+  // TODO New key - Add a translation
+  "admin.edit-user-agreement.success": "User agreement successfully updated",
+
+  // "admin.edit-user-agreement.error": "An error occurred while updating the user agreement",
+  // TODO New key - Add a translation
+  "admin.edit-user-agreement.error": "An error occurred while updating the user agreement",
+
+  // "admin.edit-user-agreement.title": "Edit User Agreement",
+  // TODO New key - Add a translation
+  "admin.edit-user-agreement.title": "Edit User Agreement",
+
+  // "bitstream.replace.page.title": "Replace File",
+  // TODO New key - Add a translation
+  "bitstream.replace.page.title": "Replace File",
+
+  // "bitstream.replace.page.header": "Replace {{fileName}} ({{fileSize}})",
+  // TODO New key - Add a translation
+  "bitstream.replace.page.header": "Replace {{fileName}} ({{fileSize}})",
+
+  // "bitstream.replace.page.content": "Select a file to replace {{fileName}}. Note that this transfer can take a while to process, and may not start immediately.",
+  // TODO New key - Add a translation
+  "bitstream.replace.page.content": "Select a file to replace {{fileName}}. Note that this transfer can take a while to process, and may not start immediately.",
+
+  // "bitstream.replace.page.button.return": "Back",
+  // TODO New key - Add a translation
+  "bitstream.replace.page.button.return": "Back",
+
+  // "bitstream.replace.page.disclaimer": "The original file will be deleted. This operation can't be undone.",
+  // TODO New key - Add a translation
+  "bitstream.replace.page.disclaimer": "The original file will be deleted. This operation can't be undone.",
+
+  // "bitstream.replace.page.button.cancel": "Cancel",
+  // TODO New key - Add a translation
+  "bitstream.replace.page.button.cancel": "Cancel",
+
+  // "bitstream.replace.page.button.save": "Replace file",
+  // TODO New key - Add a translation
+  "bitstream.replace.page.button.save": "Replace file",
+
+  // "bitstream.replace.page.upload.failed": "Bitstream upload failed",
+  // TODO New key - Add a translation
+  "bitstream.replace.page.upload.failed": "Bitstream upload failed",
+
+  // "bitstream.replace.page.breadcrumbs": "Replace File",
+  // TODO New key - Add a translation
+  "bitstream.replace.page.breadcrumbs": "Replace File",
+
+  // "item.edit.bitstreams.edit.buttons.replace": "Replace",
+  // TODO New key - Add a translation
+  "item.edit.bitstreams.edit.buttons.replace": "Replace",
+
+  // "bitstream.replace.page.upload.success": "Bitstream successfully replaced",
+  // TODO New key - Add a translation
+  "bitstream.replace.page.upload.success": "Bitstream successfully replaced",
+
+  // "bitstream.edit.replace.link": "Replace file",
+  // TODO New key - Add a translation
+  "bitstream.edit.replace.link": "Replace file",
+
+  // "bitstream.replace.page.replace-name": "Use new filename",
+  // TODO New key - Add a translation
+  "bitstream.replace.page.replace-name": "Use new filename",
+
+  // "bitstream.replace.page.replace-name-hint": "The new file extension will be retained in order to match the content of the replacement file.",
+  // TODO New key - Add a translation
+  "bitstream.replace.page.replace-name-hint": "The new file extension will be retained in order to match the content of the replacement file.",
+
+  // "bitstream.related.isCopyOf": "Is copy of",
+  // TODO New key - Add a translation
+  "bitstream.related.isCopyOf": "Is copy of",
+
+  // "bitstream.related.hasCopies": "Has copies",
+  // TODO New key - Add a translation
+  "bitstream.related.hasCopies": "Has copies",
+
+  // "bitstream.related.isReplacementOf": "Is replacement of",
+  // TODO New key - Add a translation
+  "bitstream.related.isReplacementOf": "Is replacement of",
+
+  // "bitstream.related.isReplacedBy": "Is replaced by",
+  // TODO New key - Add a translation
+  "bitstream.related.isReplacedBy": "Is replaced by",
+
+  // "bitstream.related.deleted": "deleted",
+  // TODO New key - Add a translation
+  "bitstream.related.deleted": "deleted",
 
 
 }

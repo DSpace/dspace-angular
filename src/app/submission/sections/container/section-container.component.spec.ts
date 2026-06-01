@@ -10,6 +10,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
 import { SectionsType } from '@dspace/core/submission/sections-type';
 import { SectionsServiceStub } from '@dspace/core/testing/sections-service.stub';
 import { SubmissionServiceStub } from '@dspace/core/testing/submission-service.stub';
@@ -17,6 +18,7 @@ import { createTestComponent } from '@dspace/core/testing/utils.test';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
+import { AlertComponent } from 'src/app/shared/alert/alert.component';
 
 import { SubmissionService } from '../../submission.service';
 import {
@@ -64,6 +66,11 @@ describe('SubmissionSectionContainerComponent test suite', () => {
 
   const submissionId = mockSubmissionId;
   const collectionId = mockSubmissionCollectionId;
+  const jsonPatchOpBuilder: any = jasmine.createSpyObj('jsonPatchOpBuilder', {
+    add: jasmine.createSpy('add'),
+    replace: jasmine.createSpy('replace'),
+    remove: jasmine.createSpy('remove'),
+  });
 
   function init() {
     sectionsServiceStub.isSectionValid.and.returnValue(of(true));
@@ -84,12 +91,13 @@ describe('SubmissionSectionContainerComponent test suite', () => {
         TestComponent,
       ],
       providers: [
+        { provide: JsonPatchOperationsBuilder, useValue: jsonPatchOpBuilder },
         { provide: SectionsService, useValue: sectionsServiceStub },
         { provide: SubmissionService, useValue: submissionServiceStub },
         SubmissionSectionContainerComponent,
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    }).compileComponents();
+    }).overrideComponent(SubmissionSectionContainerComponent, { remove: { imports: [AlertComponent] } }).compileComponents();
 
   }));
 

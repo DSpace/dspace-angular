@@ -1,3 +1,4 @@
+import { AdvancedAttachmentRenderingConfig } from './advanced-attachment-rendering.config';
 import { Config } from './config.interface';
 
 /**
@@ -66,4 +67,10 @@ export interface LayoutConfig extends Config {
    * Each entry defines how entities of a specific type should be visually represented with icons and styles.
    */
   authorityRef: AuthorityRefConfig[];
+  showDownloadLinkAsAttachment: boolean;
+  /**
+   * Configuration for advanced attachment rendering features.
+   * Controls pagination and metadata display for bitstream attachments.
+   */
+  advancedAttachmentRendering: AdvancedAttachmentRenderingConfig;
 }

@@ -26,7 +26,8 @@
   // "500.link.home-page": "Take me to the home page",
   "500.link.home-page": "मुझे होम पेज पर ले चलें",
 
-  // "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page. ",
+  // "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page.",
+  // TODO Source message changed - Revise the translation
   "404.help": "हम उस पृष्ठ को नहीं ढूंढ सकते जिसे आप ढूंढ रहे हैं। पृष्ठ को स्थानांतरित या हटा दिया गया हो सकता है। आप नीचे दिए गए बटन का उपयोग करके होम पेज पर वापस जा सकते हैं।",
 
   // "404.link.home-page": "Take me to the home page",
@@ -1380,6 +1381,106 @@
   // "admin.batch-import.page.remove": "remove",
   "admin.batch-import.page.remove": "हटाएं",
 
+  // "audit.data.not-found": "No audits found.",
+  // TODO New key - Add a translation
+  "audit.data.not-found": "No audits found.",
+
+  // "audit.data.self": "self",
+  // TODO New key - Add a translation
+  "audit.data.self": "self",
+
+  // "audit.detail.metadata.field": "Metadata field:",
+  // TODO New key - Add a translation
+  "audit.detail.metadata.field": "Metadata field:",
+
+  // "audit.detail.metadata.value": "Value:",
+  // TODO New key - Add a translation
+  "audit.detail.metadata.value": "Value:",
+
+  // "audit.detail.metadata.authority": "Authority:",
+  // TODO New key - Add a translation
+  "audit.detail.metadata.authority": "Authority:",
+
+  // "audit.detail.metadata.confidence": "Confidence:",
+  // TODO New key - Add a translation
+  "audit.detail.metadata.confidence": "Confidence:",
+
+  // "audit.detail.metadata.place": "Place:",
+  // TODO New key - Add a translation
+  "audit.detail.metadata.place": "Place:",
+
+  // "audit.detail.metadata.action": "Action:",
+  // TODO New key - Add a translation
+  "audit.detail.metadata.action": "Action:",
+
+  // "audit.detail.metadata.checksum": "Checksum:",
+  // TODO New key - Add a translation
+  "audit.detail.metadata.checksum": "Checksum:",
+
+  // "audit.overview.title": "All Audit Logs",
+  // TODO New key - Add a translation
+  "audit.overview.title": "All Audit Logs",
+
+  // "audit.overview.table.id": "Audit ID",
+  // TODO New key - Add a translation
+  "audit.overview.table.id": "Audit ID",
+
+  // "audit.overview.table.objectUUID": "Object ID",
+  // TODO New key - Add a translation
+  "audit.overview.table.objectUUID": "Object ID",
+
+  // "audit.overview.table.objectType": "Object Type",
+  // TODO New key - Add a translation
+  "audit.overview.table.objectType": "Object Type",
+
+  // "audit.overview.table.subjectUUID": "Subject ID",
+  // TODO New key - Add a translation
+  "audit.overview.table.subjectUUID": "Subject ID",
+
+  // "audit.overview.table.subjectType": "Subject Type",
+  // TODO New key - Add a translation
+  "audit.overview.table.subjectType": "Subject Type",
+
+  // "audit.overview.table.entityType": "Audit Type",
+  // TODO New key - Add a translation
+  "audit.overview.table.entityType": "Audit Type",
+
+  // "audit.overview.table.eperson": "EPerson",
+  // TODO New key - Add a translation
+  "audit.overview.table.eperson": "EPerson",
+
+  // "audit.overview.table.other": "Object",
+  // TODO New key - Add a translation
+  "audit.overview.table.other": "Object",
+
+  // "audit.overview.table.timestamp": "Time (UTC)",
+  // TODO New key - Add a translation
+  "audit.overview.table.timestamp": "Time (UTC)",
+
+  // "audit.overview.breadcrumbs": "Audit Logs",
+  // TODO New key - Add a translation
+  "audit.overview.breadcrumbs": "Audit Logs",
+
+  // "audit.object.back": "Back",
+  // TODO New key - Add a translation
+  "audit.object.back": "Back",
+
+  // "audit.object.breadcrumbs": "Object Audit Logs",
+  // TODO New key - Add a translation
+  "audit.object.breadcrumbs": "Object Audit Logs",
+
+  // "audit.object.overview.title": "Object Audit Logs",
+  // TODO New key - Add a translation
+  "audit.object.overview.title": "Object Audit Logs",
+
+  // "audit.object.logs.label": "Logs for object: ",
+  // TODO New key - Add a translation
+  "audit.object.logs.label": "Logs for object: ",
+
+  // "audit.object.overview.disabled.message": "Audit feature is currently disabled",
+  // TODO New key - Add a translation
+  "audit.object.overview.disabled.message": "Audit feature is currently disabled",
+
   // "auth.errors.invalid-user": "Invalid email address or password.",
   "auth.errors.invalid-user": "अमान्य ईमेल पता या पासवर्ड।",
 
@@ -1473,6 +1574,46 @@
 
   // "bitstream.edit.form.iiifHeight.hint": "The canvas height should usually match the image height.",
   "bitstream.edit.form.iiifHeight.hint": "कैनवास की ऊंचाई आमतौर पर छवि की ऊंचाई से मेल खानी चाहिए।",
+
+  // "bitstream.edit.form.mediaType.label": "Audio or video media type",
+  // TODO New key - Add a translation
+  "bitstream.edit.form.mediaType.label": "Audio or video media type",
+
+  // "bitstream.edit.form.mediaType.hint": "Choose how this bitstream should be interpreted.",
+  // TODO New key - Add a translation
+  "bitstream.edit.form.mediaType.hint": "Choose how this bitstream should be interpreted.",
+
+  // "bitstream.edit.form.mediaType.option.neither": "Neither",
+  // TODO New key - Add a translation
+  "bitstream.edit.form.mediaType.option.neither": "Neither",
+
+  // "bitstream.edit.form.mediaType.option.audio": "Audio",
+  // TODO New key - Add a translation
+  "bitstream.edit.form.mediaType.option.audio": "Audio",
+
+  // "bitstream.edit.form.mediaType.option.video": "Video",
+  // TODO New key - Add a translation
+  "bitstream.edit.form.mediaType.option.video": "Video",
+
+  // "bitstream.edit.form.mediaType.option.audio-video": "Audio and video",
+  // TODO New key - Add a translation
+  "bitstream.edit.form.mediaType.option.audio-video": "Audio and video",
+
+  // "bitstream.edit.form.audioTranscript.label": "Audio transcript",
+  // TODO New key - Add a translation
+  "bitstream.edit.form.audioTranscript.label": "Audio transcript",
+
+  // "bitstream.edit.form.audioTranscript.hint": "Provide a transcript for audio content.",
+  // TODO New key - Add a translation
+  "bitstream.edit.form.audioTranscript.hint": "Provide a transcript for audio content.",
+
+  // "bitstream.edit.form.videoDescription.label": "Video description",
+  // TODO New key - Add a translation
+  "bitstream.edit.form.videoDescription.label": "Video description",
+
+  // "bitstream.edit.form.videoDescription.hint": "Provide a description for video content.",
+  // TODO New key - Add a translation
+  "bitstream.edit.form.videoDescription.hint": "Provide a description for video content.",
 
   // "bitstream.edit.notifications.saved.content": "Your changes to this bitstream were saved.",
   "bitstream.edit.notifications.saved.content": "आपके बिटस्ट्रीम में किए गए परिवर्तन सहेजे गए।",
@@ -1726,6 +1867,14 @@
   // "browse.title": "Browsing by {{ field }}{{ startsWith }} {{ value }}",
   "browse.title": "{{ field }}{{ startsWith }} {{ value }} द्वारा ब्राउज़ कर रहे हैं",
 
+  // "browse.taxonomy.show_next_results": "Show next results",
+  // TODO New key - Add a translation
+  "browse.taxonomy.show_next_results": "Show next results",
+
+  // "browse.taxonomy.show_previous_results": "Show previous results",
+  // TODO New key - Add a translation
+  "browse.taxonomy.show_previous_results": "Show previous results",
+
   // "browse.title.page": "Browsing by {{ field }} {{ value }}",
   "browse.title.page": "{{ field }} {{ value }} द्वारा ब्राउज़ कर रहे हैं",
 
@@ -1778,7 +1927,8 @@
   // "collection.delete.notification.fail": "Collection could not be deleted",
   "collection.delete.notification.fail": "संग्रह को हटाया नहीं जा सका",
 
-  // "collection.delete.notification.success": "Successfully deleted collection",
+  // "collection.delete.notification.success": "Successfully started a process to delete this collection",
+  // TODO Source message changed - Revise the translation
   "collection.delete.notification.success": "संग्रह सफलतापूर्वक हटाया गया",
 
   // "collection.delete.text": "Are you sure you want to delete collection \"{{ dso }}\"",
@@ -2025,6 +2175,14 @@
   // "collection.form.errors.title.required": "Please enter a collection name",
   "collection.form.errors.title.required": "कृपया संग्रह का नाम दर्ज करें",
 
+  // "collection.form.errors.submissionDefinition.required": "Please choose a submission definition for this collection",
+  // TODO New key - Add a translation
+  "collection.form.errors.submissionDefinition.required": "Please choose a submission definition for this collection",
+
+  // "collection.form.errors.entityType.required": "Please choose an entity type for this collection",
+  // TODO New key - Add a translation
+  "collection.form.errors.entityType.required": "Please choose an entity type for this collection",
+
   // "collection.form.license": "License",
   "collection.form.license": "लाइसेंस",
 
@@ -2034,6 +2192,10 @@
   // "collection.form.rights": "Copyright text (HTML)",
   "collection.form.rights": "कॉपीराइट पाठ (HTML)",
 
+  // "collection.form.sharedWorkspace": "Shared workspace",
+  // TODO New key - Add a translation
+  "collection.form.sharedWorkspace": "Shared workspace",
+
   // "collection.form.tableofcontents": "News (HTML)",
   "collection.form.tableofcontents": "समाचार (HTML)",
 
@@ -2042,6 +2204,16 @@
 
   // "collection.form.entityType": "Entity Type",
   "collection.form.entityType": "इकाई प्रकार",
+
+  // "collection.form.submissionDefinition": "Submission definition",
+  // TODO New key - Add a translation
+  "collection.form.submissionDefinition": "Submission definition",
+
+  // "collection.form.correctionSubmissionDefinition": "Submission definition for correction request",
+  // TODO New key - Add a translation
+  "collection.form.correctionSubmissionDefinition": "Submission definition for correction request",
+
+
 
   // "collection.listelement.badge": "Collection",
   "collection.listelement.badge": "संग्रह",
@@ -2225,7 +2397,8 @@
   // "community.delete.notification.fail": "Community could not be deleted",
   "community.delete.notification.fail": "समुदाय को हटाया नहीं जा सका",
 
-  // "community.delete.notification.success": "Successfully deleted community",
+  // "community.delete.notification.success": "Successfully started a process to delete this community",
+  // TODO Source message changed - Revise the translation
   "community.delete.notification.success": "समुदाय सफलतापूर्वक हटाया गया",
 
   // "community.delete.text": "Are you sure you want to delete community \"{{ dso }}\"",
@@ -2462,6 +2635,30 @@
 
   // "community.sub-community-list.head": "Communities in this Community",
   "community.sub-community-list.head": "इस समुदाय में समुदाय",
+
+  // "confirmation-modal.pending-changes.header": "Unsaved changes",
+  // TODO New key - Add a translation
+  "confirmation-modal.pending-changes.header": "Unsaved changes",
+
+  // "confirmation-modal.pending-changes.info": "There are unsaved changes. Do you want to leave the page?",
+  // TODO New key - Add a translation
+  "confirmation-modal.pending-changes.info": "There are unsaved changes. Do you want to leave the page?",
+
+  // "confirmation-modal.pending-changes.cancel": "Cancel",
+  // TODO New key - Add a translation
+  "confirmation-modal.pending-changes.cancel": "Cancel",
+
+  // "confirmation-modal.pending-changes.confirm": "Leave",
+  // TODO New key - Add a translation
+  "confirmation-modal.pending-changes.confirm": "Leave",
+
+  // "context-menu.actions.audit-item.btn": "Audit",
+  // TODO New key - Add a translation
+  "context-menu.actions.audit-item.btn": "Audit",
+
+  // "context-menu.actions.subscription.frequency.required": "Please select a frequency",
+  // TODO New key - Add a translation
+  "context-menu.actions.subscription.frequency.required": "Please select a frequency",
 
   // "cookies.consent.accept-all": "Accept all",
   "cookies.consent.accept-all": "सभी स्वीकार करें",
@@ -2727,7 +2924,8 @@
   // "dso-selector.no-results": "No {{ type }} found",
   "dso-selector.no-results": "कोई {{ type }} नहीं मिला",
 
-  // "dso-selector.placeholder": "Search for a {{ type }}",
+  // "dso-selector.placeholder": "Search for {{ type }}",
+  // TODO Source message changed - Revise the translation
   "dso-selector.placeholder": "{{ type }} के लिए खोजें",
 
   // "dso-selector.placeholder.type.community": "community",
@@ -2910,6 +3108,26 @@
   // "error.item": "Error fetching item",
   "error.item": "आइटम प्राप्त करने में त्रुटि",
 
+  // "error.custom-url-conflict.title": "Duplicate custom URL detected",
+  // TODO New key - Add a translation
+  "error.custom-url-conflict.title": "Duplicate custom URL detected",
+
+  // "error.custom-url-conflict.description": "The custom URL \"{{customUrl}}\" is assigned to more than one item. This causes a conflict and the item cannot be displayed.",
+  // TODO New key - Add a translation
+  "error.custom-url-conflict.description": "The custom URL \"{{customUrl}}\" is assigned to more than one item. This causes a conflict and the item cannot be displayed.",
+
+  // "error.custom-url-conflict.admin-action": "Please contact your repository administrator. The following affected items need their dspace.customurl metadata fixed so each value is unique:",
+  // TODO New key - Add a translation
+  "error.custom-url-conflict.admin-action": "Please contact your repository administrator. The following affected items need their dspace.customurl metadata fixed so each value is unique:",
+
+  // "error.custom-url-conflict.edit-link": "Edit \"{{name}}\" ({{uuid}})",
+  // TODO New key - Add a translation
+  "error.custom-url-conflict.edit-link": "Edit \"{{name}}\" ({{uuid}})",
+
+  // "error.custom-url-conflict.no-items-found": "No conflicting items could be retrieved. Please contact your administrator.",
+  // TODO New key - Add a translation
+  "error.custom-url-conflict.no-items-found": "No conflicting items could be retrieved. Please contact your administrator.",
+
   // "error.items": "Error fetching items",
   "error.items": "आइटम प्राप्त करने में त्रुटि",
 
@@ -2942,11 +3160,24 @@
   // "error.top-level-communities": "Error fetching top-level communities",
   "error.top-level-communities": "शीर्ष-स्तरीय समुदाय प्राप्त करने में त्रुटि",
 
-  // "error.validation.license.notgranted": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
-  "error.validation.license.notgranted": "अपनी सबमिशन को पूरा करने के लिए आपको इस लाइसेंस को प्रदान करना होगा। यदि आप इस समय लाइसेंस प्रदान करने में असमर्थ हैं, तो आप अपना कार्य सहेज सकते हैं और बाद में वापस आ सकते हैं या सबमिशन को हटा सकते हैं।",
+  // "error.validation.license.required": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
+  // TODO New key - Add a translation
+  "error.validation.license.required": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
 
   // "error.validation.cclicense.required": "You must grant this cclicense to complete your submission. If you are unable to grant the cclicense at this time, you may save your work and return later or remove the submission.",
   "error.validation.cclicense.required": "अपनी सबमिशन को पूरा करने के लिए आपको इस cclicense को प्रदान करना होगा। यदि आप इस समय cclicense प्रदान करने में असमर्थ हैं, तो आप अपना कार्य सहेज सकते हैं और बाद में वापस आ सकते हैं या सबमिशन को हटा सकते हैं।",
+
+  // "error.validation.custom-url.conflict": "The custom url has been already used, please try with a new one.",
+  // TODO New key - Add a translation
+  "error.validation.custom-url.conflict": "The custom url has been already used, please try with a new one.",
+
+  // "error.validation.custom-url.empty": "The custom url is required and cannot be empty.",
+  // TODO New key - Add a translation
+  "error.validation.custom-url.empty": "The custom url is required and cannot be empty.",
+
+  // "error.validation.custom-url.invalid-characters": "The custom url contains invalid characters. Only alphanumeric characters, dashes and underscores are supported.",
+  // TODO New key - Add a translation
+  "error.validation.custom-url.invalid-characters": "The custom url contains invalid characters. Only alphanumeric characters, dashes and underscores are supported.",
 
   // "error.validation.pattern": "This input is restricted by the current pattern: {{ pattern }}.",
   // TODO New key - Add a translation
@@ -3120,6 +3351,10 @@
   // "form.clear-help": "Click here to remove the selected value",
   "form.clear-help": "चयनित मान को हटाने के लिए यहां क्लिक करें",
 
+  // "form.copy": "Duplicate",
+  // TODO New key - Add a translation
+  "form.copy": "Duplicate",
+
   // "form.discard": "Discard",
   "form.discard": "त्यागें",
 
@@ -3134,6 +3369,18 @@
 
   // "form.first-name": "First name",
   "form.first-name": "प्रथम नाम",
+
+  // "form.group.add": "Add",
+  // TODO New key - Add a translation
+  "form.group.add": "Add",
+
+  // "form.group.close": "Close",
+  // TODO New key - Add a translation
+  "form.group.close": "Close",
+
+  // "form.group.set": "Set",
+  // TODO New key - Add a translation
+  "form.group.set": "Set",
 
   // "form.group-collapse": "Collapse",
   "form.group-collapse": "संक्षेप करें",
@@ -3183,6 +3430,70 @@
   // "form.other-information.orcid": "ORCID",
   "form.other-information.orcid": "ORCID",
 
+  // "form.other-information.oairecerif_author_affiliation": "Affiliation",
+  // TODO New key - Add a translation
+  "form.other-information.oairecerif_author_affiliation": "Affiliation",
+
+  // "form.other-information.oairecerif_editor_affiliation": "Affiliation",
+  // TODO New key - Add a translation
+  "form.other-information.oairecerif_editor_affiliation": "Affiliation",
+
+  // "form.other-information.person_identifier_orcid": "ORCID iD",
+  // TODO New key - Add a translation
+  "form.other-information.person_identifier_orcid": "ORCID iD",
+
+  // "form.other-information.institution-affiliation-name": "Affiliation(s)",
+  // TODO New key - Add a translation
+  "form.other-information.institution-affiliation-name": "Affiliation(s)",
+
+  // "form.other-information.dc_relation_grantno": "Grant Number",
+  // TODO New key - Add a translation
+  "form.other-information.dc_relation_grantno": "Grant Number",
+
+  // "form.other-information.not-available": "Not available",
+  // TODO New key - Add a translation
+  "form.other-information.not-available": "Not available",
+
+  // "form.other-information.ror_orgunit_id": "ROR ID",
+  // TODO New key - Add a translation
+  "form.other-information.ror_orgunit_id": "ROR ID",
+
+  // "form.other-information.ror_orgunit_type": "ROR type",
+  // TODO New key - Add a translation
+  "form.other-information.ror_orgunit_type": "ROR type",
+
+  // "form.other-information.ror_orgunit_acronym": "ROR acronym",
+  // TODO New key - Add a translation
+  "form.other-information.ror_orgunit_acronym": "ROR acronym",
+
+  // "form.other-information.ror_orgunit_countryName": "ROR country",
+  // TODO New key - Add a translation
+  "form.other-information.ror_orgunit_countryName": "ROR country",
+
+  // "form.entry.source.local": "",
+  // TODO New key - Add a translation
+  "form.entry.source.local": "",
+
+  // "form.entry.source.orcid": "",
+  // TODO New key - Add a translation
+  "form.entry.source.orcid": "",
+
+  // "form.entry.source.ror": "",
+  // TODO New key - Add a translation
+  "form.entry.source.ror": "",
+
+  // "form.entry.source.openaire": "",
+  // TODO New key - Add a translation
+  "form.entry.source.openaire": "",
+
+  // "form.entry.source.zdb": "",
+  // TODO New key - Add a translation
+  "form.entry.source.zdb": "",
+
+  // "form.entry.source.jisc": "- Jisc Open policy finder",
+  // TODO New key - Add a translation
+  "form.entry.source.jisc": "- Jisc Open policy finder",
+
   // "form.remove": "Remove",
   "form.remove": "हटाएं",
 
@@ -3209,6 +3520,18 @@
 
   // "form.number-picker.increment": "Increment {{field}}",
   "form.number-picker.increment": "{{field}} बढ़ाएं",
+
+  // "form.number-picker.label.Year": "Year",
+  // TODO New key - Add a translation
+  "form.number-picker.label.Year": "Year",
+
+  // "form.number-picker.label.Month": "Month",
+  // TODO New key - Add a translation
+  "form.number-picker.label.Month": "Month",
+
+  // "form.number-picker.label.Day": "Day",
+  // TODO New key - Add a translation
+  "form.number-picker.label.Day": "Day",
 
   // "form.repeatable.sort.tip": "Drop the item in the new position",
   "form.repeatable.sort.tip": "आइटम को नई स्थिति में छोड़ें",
@@ -3394,9 +3717,9 @@
   // TODO New key - Add a translation
   "info.accessibility-settings.disableNotificationTimeOut.label": "Automatically close notifications after time out",
 
-  // "info.accessibility-settings.disableNotificationTimeOut.hint": "When this toggle is activated, notifications will close automatically after the time out passes. When deactivated, notifications will remain open untill manually closed.",
+  // "info.accessibility-settings.disableNotificationTimeOut.hint": "When this toggle is activated, notifications will close automatically after the time out passes. When deactivated, notifications will remain open until manually closed.",
   // TODO New key - Add a translation
-  "info.accessibility-settings.disableNotificationTimeOut.hint": "When this toggle is activated, notifications will close automatically after the time out passes. When deactivated, notifications will remain open untill manually closed.",
+  "info.accessibility-settings.disableNotificationTimeOut.hint": "When this toggle is activated, notifications will close automatically after the time out passes. When deactivated, notifications will remain open until manually closed.",
 
   // "info.accessibility-settings.failed-notification": "Failed to save accessibility settings",
   // TODO New key - Add a translation
@@ -3618,7 +3941,8 @@
   // TODO New key - Add a translation
   "item.edit.bitstreams.bundle.name": "BUNDLE: {{ name }}",
 
-  // "item.edit.bitstreams.bundle.table.aria-label": "Bitstreams in the  {{ bundle }} Bundle",
+  // "item.edit.bitstreams.bundle.table.aria-label": "Bitstreams in the {{ bundle }} Bundle",
+  // TODO Source message changed - Revise the translation
   "item.edit.bitstreams.bundle.table.aria-label": "{{ bundle }} बंडल में बिटस्ट्रीम",
 
   // "item.edit.bitstreams.bundle.tooltip": "You can move a bitstream to a different page by dropping it on the page number.",
@@ -3738,8 +4062,21 @@
   // TODO New key - Add a translation
   "item.edit.delete.header": "Delete item: {{ id }}",
 
-  // "item.edit.delete.success": "The item has been deleted",
+  // "item.edit.delete.success": "Successfully started a process to delete this item",
+  // TODO Source message changed - Revise the translation
   "item.edit.delete.success": "आइटम हटा दिया गया है",
+
+  // "item.edit.delete.confirmation-title": "Confirm deletion",
+  // TODO New key - Add a translation
+  "item.edit.delete.confirmation-title": "Confirm deletion",
+
+  // "item.edit.delete.confirmation-message": "Are you sure you want to permanently delete this item?",
+  // TODO New key - Add a translation
+  "item.edit.delete.confirmation-message": "Are you sure you want to permanently delete this item?",
+
+  // "item.edit.delete.confirmation-detail": "This item may have been cited, has (or had) a persistent identifier (Handle/DOI), and deleting it may break scholarly references and external links.",
+  // TODO New key - Add a translation
+  "item.edit.delete.confirmation-detail": "This item may have been cited, has (or had) a persistent identifier (Handle/DOI), and deleting it may break scholarly references and external links.",
 
   // "item.edit.head": "Edit Item",
   "item.edit.head": "आइटम संपादित करें",
@@ -3844,6 +4181,14 @@
   // "item.edit.item-mapper.notifications.add.error.content": "Errors occurred for mapping of item to {{amount}} collections.",
   "item.edit.item-mapper.notifications.add.error.content": "{{amount}} संग्रहों में आइटम को मैप करने में त्रुटियां हुईं।",
 
+  // "item.edit.item-mapper.notifications.add.error.forbidden.head": "Permission denied",
+  // TODO New key - Add a translation
+  "item.edit.item-mapper.notifications.add.error.forbidden.head": "Permission denied",
+
+  // "item.edit.item-mapper.notifications.add.error.forbidden.content": "You do not have permission to map this item to a collection.",
+  // TODO New key - Add a translation
+  "item.edit.item-mapper.notifications.add.error.forbidden.content": "You do not have permission to map this item to a collection.",
+
   // "item.edit.item-mapper.notifications.add.error.head": "Mapping errors",
   "item.edit.item-mapper.notifications.add.error.head": "मैपिंग त्रुटियां",
 
@@ -3855,6 +4200,14 @@
 
   // "item.edit.item-mapper.notifications.remove.error.content": "Errors occurred for the removal of the mapping to {{amount}} collections.",
   "item.edit.item-mapper.notifications.remove.error.content": "{{amount}} संग्रहों के लिए मैपिंग हटाने में त्रुटियां हुईं।",
+
+  // "item.edit.item-mapper.notifications.remove.error.forbidden.head": "Permission denied",
+  // TODO New key - Add a translation
+  "item.edit.item-mapper.notifications.remove.error.forbidden.head": "Permission denied",
+
+  // "item.edit.item-mapper.notifications.remove.error.forbidden.content": "You do not have permission to remove this item from a collection.",
+  // TODO New key - Add a translation
+  "item.edit.item-mapper.notifications.remove.error.forbidden.content": "You do not have permission to remove this item from a collection.",
 
   // "item.edit.item-mapper.notifications.remove.error.head": "Removal of mapping errors",
   "item.edit.item-mapper.notifications.remove.error.head": "मैपिंग हटाने की त्रुटियां",
@@ -3882,6 +4235,10 @@
 
   // "item.edit.metadata.edit.language": "Edit language",
   "item.edit.metadata.edit.language": "भाषा संपादित करें",
+
+  // "item.edit.metadata.edit.authority": "Edit authority",
+  // TODO New key - Add a translation
+  "item.edit.metadata.edit.authority": "Edit authority",
 
   // "item.edit.metadata.edit.value": "Edit value",
   "item.edit.metadata.edit.value": "मान संपादित करें",
@@ -3927,6 +4284,14 @@
 
   // "item.edit.metadata.headers.language": "Lang",
   "item.edit.metadata.headers.language": "भाषा",
+
+  // "item.edit.metadata.headers.security": "Security level",
+  // TODO New key - Add a translation
+  "item.edit.metadata.headers.security": "Security level",
+
+  // "item.edit.metadata.headers.authority": "Authority",
+  // TODO New key - Add a translation
+  "item.edit.metadata.headers.authority": "Authority",
 
   // "item.edit.metadata.headers.value": "Value",
   "item.edit.metadata.headers.value": "मान",
@@ -4169,7 +4534,8 @@
   // "item.edit.tabs.metadata.head": "Metadata",
   "item.edit.tabs.metadata.head": "मेटाडेटा",
 
-  // "item.edit.tabs.metadata.title": "Item Edit -  Metadata",
+  // "item.edit.tabs.metadata.title": "Item Edit - Metadata",
+  // TODO Source message changed - Revise the translation
   "item.edit.tabs.metadata.title": "आइटम संपादन - मेटाडेटा",
 
   // "item.edit.tabs.relationships.head": "Relationships",
@@ -4247,7 +4613,8 @@
   // "item.edit.tabs.status.labels.lastModified": "Last Modified",
   "item.edit.tabs.status.labels.lastModified": "अंतिम संशोधित",
 
-  // "item.edit.tabs.status.title": "Item Edit -  Status",
+  // "item.edit.tabs.status.title": "Item Edit - Status",
+  // TODO Source message changed - Revise the translation
   "item.edit.tabs.status.title": "आइटम संपादन - स्थिति",
 
   // "item.edit.tabs.versionhistory.head": "Version History",
@@ -4262,7 +4629,8 @@
   // "item.edit.tabs.view.head": "View Item",
   "item.edit.tabs.view.head": "आइटम देखें",
 
-  // "item.edit.tabs.view.title": "Item Edit -  View",
+  // "item.edit.tabs.view.title": "Item Edit - View",
+  // TODO Source message changed - Revise the translation
   "item.edit.tabs.view.title": "आइटम संपादन - देखें",
 
   // "item.edit.withdraw.cancel": "Cancel",
@@ -4368,6 +4736,10 @@
   // "item.page.dcterms.spatial": "Geospatial point",
   "item.page.dcterms.spatial": "भौगोलिक बिंदु",
 
+  // "item.page.doi": "DOI",
+  // TODO New key - Add a translation
+  "item.page.doi": "DOI",
+
   // "item.search.results.head": "Item Search Results",
   "item.search.results.head": "आइटम खोज परिणाम",
 
@@ -4380,14 +4752,24 @@
   // "item.truncatable-part.show-less": "Collapse",
   "item.truncatable-part.show-less": "संक्षेप करें",
 
-  // "item.qa-event-notification.check.notification-info": "There are {{num}} pending suggestions related to your account",
-  "item.qa-event-notification.check.notification-info": "आपके खाते से संबंधित {{num}} लंबित सुझाव हैं",
+  // "item.qa-event-notification.check.notification-info.singular": "There is {{num}} pending suggestion related to your account",
+  // TODO New key - Add a translation
+  "item.qa-event-notification.check.notification-info.singular": "There is {{num}} pending suggestion related to your account",
+
+  // "item.qa-event-notification.check.notification-info.plural": "There are {{num}} pending suggestions related to your account",
+  // TODO New key - Add a translation
+  "item.qa-event-notification.check.notification-info.plural": "There are {{num}} pending suggestions related to your account",
 
   // "item.qa-event-notification-info.check.button": "View",
   "item.qa-event-notification-info.check.button": "देखें",
 
-  // "mydspace.qa-event-notification.check.notification-info": "There are {{num}} pending suggestions related to your account",
-  "mydspace.qa-event-notification.check.notification-info": "आपके खाते से संबंधित {{num}} लंबित सुझाव हैं",
+  // "mydspace.qa-event-notification.check.notification-info.singular": "There is {{num}} pending suggestion related to your account",
+  // TODO New key - Add a translation
+  "mydspace.qa-event-notification.check.notification-info.singular": "There is {{num}} pending suggestion related to your account",
+
+  // "mydspace.qa-event-notification.check.notification-info.plural": "There are {{num}} pending suggestions related to your account",
+  // TODO New key - Add a translation
+  "mydspace.qa-event-notification.check.notification-info.plural": "There are {{num}} pending suggestions related to your account",
 
   // "mydspace.qa-event-notification-info.check.button": "View",
   "mydspace.qa-event-notification-info.check.button": "देखें",
@@ -4469,7 +4851,8 @@
   // "item.page.date": "Date",
   "item.page.date": "तारीख",
 
-  // "item.page.edit": "Edit this item",
+  // "item.page.edit": "Administer",
+  // TODO Source message changed - Revise the translation
   "item.page.edit": "इस आइटम को संपादित करें",
 
   // "item.page.files": "Files",
@@ -4512,6 +4895,14 @@
   // "item.page.orcid.tooltip": "Open ORCID setting page",
   "item.page.orcid.tooltip": "ORCID सेटिंग पृष्ठ खोलें",
 
+  // "item.page.orcid-ico": "ORCID icon",
+  // TODO New key - Add a translation
+  "item.page.orcid-ico": "ORCID icon",
+
+  // "item.page.orcid-profile": "ORCID Profile",
+  // TODO New key - Add a translation
+  "item.page.orcid-profile": "ORCID Profile",
+
   // "item.page.person.search.title": "Articles by this author",
   "item.page.person.search.title": "इस लेखक द्वारा लेख",
 
@@ -4533,6 +4924,51 @@
   // "item.page.relationships.isOrgUnitOfProject": "Research Projects",
   "item.page.relationships.isOrgUnitOfProject": "अनुसंधान परियोजनाएं",
 
+  // "item.page.relationships.RELATION.Person.researchoutputs": "Publications",
+  // TODO New key - Add a translation
+  "item.page.relationships.RELATION.Person.researchoutputs": "Publications",
+
+  // "item.page.relationships.RELATION.Person.projects": "Projects",
+  // TODO New key - Add a translation
+  "item.page.relationships.RELATION.Person.projects": "Projects",
+
+  // "item.page.relationships.RELATION.OrgUnit.rpprojects": "Researchers Projects",
+  // TODO New key - Add a translation
+  "item.page.relationships.RELATION.OrgUnit.rpprojects": "Researchers Projects",
+
+  // "item.page.relationships.RELATION.OrgUnit.publications": "Publications",
+  // TODO New key - Add a translation
+  "item.page.relationships.RELATION.OrgUnit.publications": "Publications",
+
+  // "item.page.relationships.RELATION.OrgUnit.rppublications": "Researchers Publications",
+  // TODO New key - Add a translation
+  "item.page.relationships.RELATION.OrgUnit.rppublications": "Researchers Publications",
+
+  // "item.page.relationships.RELATION.OrgUnit.people": "People",
+  // TODO New key - Add a translation
+  "item.page.relationships.RELATION.OrgUnit.people": "People",
+
+  // "item.page.relationships.RELATION.OrgUnit.projects": "Projects",
+  // TODO New key - Add a translation
+  "item.page.relationships.RELATION.OrgUnit.projects": "Projects",
+
+  // "item.page.relationships.RELATION.OrgUnit.organizations": "Organizations",
+  // TODO New key - Add a translation
+  "item.page.relationships.RELATION.OrgUnit.organizations": "Organizations",
+
+  // "item.page.relationships.RELATION.Project.projects": "Projects",
+  // TODO New key - Add a translation
+  "item.page.relationships.RELATION.Project.projects": "Projects",
+
+  // "item.page.relationships.RELATION.Project.fundings": "Fundings",
+  // TODO New key - Add a translation
+  "item.page.relationships.RELATION.Project.fundings": "Fundings",
+
+  // "item.page.relationships.RELATION.Project.researchoutputs": "Publications",
+  // TODO New key - Add a translation
+  "item.page.relationships.RELATION.Project.researchoutputs": "Publications",
+
+
   // "item.page.subject": "Keywords",
   "item.page.subject": "कीवर्ड",
 
@@ -4553,6 +4989,14 @@
 
   // "item.page.filesection.license.bundle": "License bundle",
   "item.page.filesection.license.bundle": "लाइसेंस बंडल",
+
+  // "item-page.resolver.invalid-custom-url.title": "Invalid custom URL",
+  // TODO New key - Add a translation
+  "item-page.resolver.invalid-custom-url.title": "Invalid custom URL",
+
+  // "item-page.resolver.invalid-custom-url.message": "The custom URL of this item contains unsupported characters. The item is being displayed using its UUID.",
+  // TODO New key - Add a translation
+  "item-page.resolver.invalid-custom-url.message": "The custom URL of this item contains unsupported characters. The item is being displayed using its UUID.",
 
   // "item.page.return": "Back",
   "item.page.return": "वापस",
@@ -4644,9 +5088,6 @@
 
   // "item.preview.dc.rights": "Rights",
   "item.preview.dc.rights": "अधिकार",
-
-  // "item.preview.dc.identifier.other": "Other Identifier",
-  "item.preview.dc.identifier.other": "अन्य पहचानकर्ता:",
 
   // "item.preview.dc.relation.issn": "ISSN",
   "item.preview.dc.relation.issn": "ISSN",
@@ -4746,10 +5187,6 @@
 
   // "item.preview.dc.identifier.openalex": "OpenAlex Identifier",
   "item.preview.dc.identifier.openalex": "OpenAlex पहचानकर्ता",
-
-  // "item.preview.dc.description": "Description",
-  // TODO Source message changed - Revise the translation
-  "item.preview.dc.description": "विवरण:",
 
   // "item.select.confirm": "Confirm selected",
   "item.select.confirm": "चयन की पुष्टि करें",
@@ -4970,6 +5407,10 @@
   // "itemtemplate.edit.metadata.edit.language": "Edit language",
   "itemtemplate.edit.metadata.edit.language": "भाषा संपादित करें",
 
+  // "itemtemplate.edit.metadata.edit.authority": "Edit authority",
+  // TODO New key - Add a translation
+  "itemtemplate.edit.metadata.edit.authority": "Edit authority",
+
   // "itemtemplate.edit.metadata.edit.value": "Edit value",
   "itemtemplate.edit.metadata.edit.value": "मान संपादित करें",
 
@@ -5005,6 +5446,10 @@
 
   // "itemtemplate.edit.metadata.headers.value": "Value",
   "itemtemplate.edit.metadata.headers.value": "मान",
+
+  // "itemtemplate.edit.metadata.headers.authority": "Authority",
+  // TODO New key - Add a translation
+  "itemtemplate.edit.metadata.headers.authority": "Authority",
 
   // "itemtemplate.edit.metadata.metadatafield": "Edit field",
   "itemtemplate.edit.metadata.metadatafield": "फ़ील्ड संपादित करें",
@@ -5057,7 +5502,8 @@
   // "journal.page.description": "Description",
   "journal.page.description": "विवरण",
 
-  // "journal.page.edit": "Edit this item",
+  // "journal.page.edit": "Administer",
+  // TODO Source message changed - Revise the translation
   "journal.page.edit": "इस आइटम को संपादित करें",
 
   // "journal.page.editor": "Editor-in-Chief",
@@ -5091,7 +5537,8 @@
   // "journalissue.page.description": "Description",
   "journalissue.page.description": "विवरण",
 
-  // "journalissue.page.edit": "Edit this item",
+  // "journalissue.page.edit": "Administer",
+  // TODO Source message changed - Revise the translation
   "journalissue.page.edit": "इस आइटम को संपादित करें",
 
   // "journalissue.page.issuedate": "Issue Date",
@@ -5125,7 +5572,8 @@
   // "journalvolume.page.description": "Description",
   "journalvolume.page.description": "विवरण",
 
-  // "journalvolume.page.edit": "Edit this item",
+  // "journalvolume.page.edit": "Administer",
+  // TODO Source message changed - Revise the translation
   "journalvolume.page.edit": "इस आइटम को संपादित करें",
 
   // "journalvolume.page.issuedate": "Issue Date",
@@ -5184,6 +5632,54 @@
   // "iiif.page.description": "Description: ",
   // TODO New key - Add a translation
   "iiif.page.description": "Description: ",
+
+  // "layout.advanced-attachment.dc.title": "Name",
+  // TODO New key - Add a translation
+  "layout.advanced-attachment.dc.title": "Name",
+
+  // "layout.advanced-attachment.size": "Size",
+  // TODO New key - Add a translation
+  "layout.advanced-attachment.size": "Size",
+
+  // "layout.advanced-attachment.checksum": "Checksum",
+  // TODO New key - Add a translation
+  "layout.advanced-attachment.checksum": "Checksum",
+
+  // "layout.advanced-attachment.checksum.info.MD5": "The <b>MD5 message-digest algorithm</b> can be used to verify the integrity of the file that you have uploaded. You can calculate its value locally via tools that are generally available in each operative system like <b>md5sum</b>",
+  // TODO New key - Add a translation
+  "layout.advanced-attachment.checksum.info.MD5": "The <b>MD5 message-digest algorithm</b> can be used to verify the integrity of the file that you have uploaded. You can calculate its value locally via tools that are generally available in each operative system like <b>md5sum</b>",
+
+  // "layout.advanced-attachment.format": "Format",
+  // TODO New key - Add a translation
+  "layout.advanced-attachment.format": "Format",
+
+  // "layout.advanced-attachment.dc.type": "Type",
+  // TODO New key - Add a translation
+  "layout.advanced-attachment.dc.type": "Type",
+
+  // "layout.advanced-attachment.dc.description": "Description",
+  // TODO New key - Add a translation
+  "layout.advanced-attachment.dc.description": "Description",
+
+  // "layout.advanced-attachment.no_thumbnail": "No Thumbnail Available",
+  // TODO New key - Add a translation
+  "layout.advanced-attachment.no_thumbnail": "No Thumbnail Available",
+
+  // "layout.advanced-attachment.download": "Download",
+  // TODO New key - Add a translation
+  "layout.advanced-attachment.download": "Download",
+
+  // "layout.advanced-attachment.requestACopy": "Request a copy",
+  // TODO New key - Add a translation
+  "layout.advanced-attachment.requestACopy": "Request a copy",
+
+  // "layout.advanced-attachment.viewMore": "View More",
+  // TODO New key - Add a translation
+  "layout.advanced-attachment.viewMore": "View More",
+
+  // "layout.advanced-attachment.label.not-present": "(not present)",
+  // TODO New key - Add a translation
+  "layout.advanced-attachment.label.not-present": "(not present)",
 
   // "loading.bitstream": "Loading bitstream...",
   "loading.bitstream": "बिटस्ट्रीम लोड हो रहा है...",
@@ -5310,6 +5806,10 @@
 
   // "menu.section.access_control_people": "People",
   "menu.section.access_control_people": "लोग",
+
+  // "menu.section.audit": "Audit Logs",
+  // TODO New key - Add a translation
+  "menu.section.audit": "Audit Logs",
 
   // "menu.section.reports": "Reports",
   "menu.section.reports": "रिपोर्ट्स",
@@ -5539,6 +6039,22 @@
   // "menu.section.workflow": "Administer Workflow",
   "menu.section.workflow": "वर्कफ़्लो प्रशासित करें",
 
+  // "menu.section.FULL": "Edit",
+  // TODO New key - Add a translation
+  "menu.section.FULL": "Edit",
+
+  // "menu.section.OWNER": "Edit",
+  // TODO New key - Add a translation
+  "menu.section.OWNER": "Edit",
+
+  // "menu.section.DIRECTOR": "Edit",
+  // TODO New key - Add a translation
+  "menu.section.DIRECTOR": "Edit",
+
+  // "menu.section.INVESTIGATOR": "Edit",
+  // TODO New key - Add a translation
+  "menu.section.INVESTIGATOR": "Edit",
+
   // "metadata-export-search.tooltip": "Export search results as CSV",
   "metadata-export-search.tooltip": "खोज परिणामों को CSV के रूप में निर्यात करें",
 
@@ -5547,6 +6063,10 @@
 
   // "metadata-export-search.submit.error": "Starting the export has failed",
   "metadata-export-search.submit.error": "निर्यात शुरू करने में विफलता हुई",
+
+  // "metadata.security.level.title": "Metatada security level {{level}}",
+  // TODO New key - Add a translation
+  "metadata.security.level.title": "Metatada security level {{level}}",
 
   // "mydspace.breadcrumbs": "MyDSpace",
   "mydspace.breadcrumbs": "MyDSpace",
@@ -5637,6 +6157,10 @@
 
   // "mydspace.show.workspace": "Your submissions",
   "mydspace.show.workspace": "आपकी सबमिशन",
+
+  // "mydspace.show.otherWorkspace": "Shared Submissions",
+  // TODO New key - Add a translation
+  "mydspace.show.otherWorkspace": "Shared Submissions",
 
   // "mydspace.show.supervisedWorkspace": "Supervised items",
   "mydspace.show.supervisedWorkspace": "पर्यवेक्षित आइटम",
@@ -5978,6 +6502,10 @@
   // "quality-assurance.event.reason": "Reason",
   "quality-assurance.event.reason": "कारण",
 
+  // "orcid.badge.tooltip": "Connected to ORCID",
+  // TODO New key - Add a translation
+  "orcid.badge.tooltip": "Connected to ORCID",
+
   // "orgunit.listelement.badge": "Organizational Unit",
   "orgunit.listelement.badge": "संगठनात्मक इकाई",
 
@@ -5996,7 +6524,8 @@
   // "orgunit.page.description": "Description",
   "orgunit.page.description": "विवरण",
 
-  // "orgunit.page.edit": "Edit this item",
+  // "orgunit.page.edit": "Administer",
+  // TODO Source message changed - Revise the translation
   "orgunit.page.edit": "इस आइटम को संपादित करें",
 
   // "orgunit.page.id": "ID",
@@ -6039,7 +6568,8 @@
   // "person.page.birthdate": "Birth Date",
   "person.page.birthdate": "जन्म तिथि",
 
-  // "person.page.edit": "Edit this item",
+  // "person.page.edit": "Administer",
+  // TODO Source message changed - Revise the translation
   "person.page.edit": "इस आइटम को संपादित करें",
 
   // "person.page.email": "Email Address",
@@ -6309,13 +6839,16 @@
   // "process.overview.unknown.user": "Unknown",
   "process.overview.unknown.user": "अज्ञात",
 
-  // "process.bulk.delete.error.head": "Error on deleteing process",
+  // "process.bulk.delete.error.head": "Error on deleting process",
+  // TODO Source message changed - Revise the translation
   "process.bulk.delete.error.head": "प्रक्रिया हटाने में त्रुटि",
 
-  // "process.bulk.delete.error.body": "The process with ID {{processId}} could not be deleted. The remaining processes will continue being deleted. ",
+  // "process.bulk.delete.error.body": "The process with ID {{processId}} could not be deleted. The remaining processes will continue being deleted.",
+  // TODO Source message changed - Revise the translation
   "process.bulk.delete.error.body": "आईडी {{processId}} वाली प्रक्रिया को हटाया नहीं जा सका। शेष प्रक्रियाएँ हटाई जाती रहेंगी।",
 
-  // "process.bulk.delete.success": "{{count}} process(es) have been succesfully deleted",
+  // "process.bulk.delete.success": "{{count}} process(es) have been successfully deleted",
+  // TODO Source message changed - Revise the translation
   "process.bulk.delete.success": "{{count}} प्रक्रिया(एँ) सफलतापूर्वक हटा दी गई हैं",
 
   // "profile.breadcrumbs": "Update Profile",
@@ -6429,7 +6962,8 @@
   // "project.page.description": "Description",
   "project.page.description": "विवरण",
 
-  // "project.page.edit": "Edit this item",
+  // "project.page.edit": "Administer",
+  // TODO Source message changed - Revise the translation
   "project.page.edit": "इस आइटम को संपादित करें",
 
   // "project.page.expectedcompletion": "Expected Completion",
@@ -6466,7 +7000,8 @@
   // "publication.page.description": "Description",
   "publication.page.description": "विवरण",
 
-  // "publication.page.edit": "Edit this item",
+  // "publication.page.edit": "Administer",
+  // TODO Source message changed - Revise the translation
   "publication.page.edit": "इस आइटम को संपादित करें",
 
   // "publication.page.journal-issn": "Journal ISSN",
@@ -6487,6 +7022,10 @@
 
   // "publication.page.volume-title": "Volume Title",
   "publication.page.volume-title": "वॉल्यूम शीर्षक",
+
+  // "publication.page.doi": "DOI",
+  // TODO New key - Add a translation
+  "publication.page.doi": "DOI",
 
   // "publication.search.results.head": "Publication Search Results",
   "publication.search.results.head": "प्रकाशन खोज परिणाम",
@@ -6931,7 +7470,8 @@
   // "resource-policies.form.eperson-group-list.select.btn": "Select",
   "resource-policies.form.eperson-group-list.select.btn": "चुनें",
 
-  // "resource-policies.form.eperson-group-list.tab.eperson": "Search for a ePerson",
+  // "resource-policies.form.eperson-group-list.tab.eperson": "Search for an ePerson",
+  // TODO Source message changed - Revise the translation
   "resource-policies.form.eperson-group-list.tab.eperson": "ePerson खोजें",
 
   // "resource-policies.form.eperson-group-list.tab.group": "Search for a group",
@@ -7042,6 +7582,50 @@
   // "resource-policies.table.headers.title.for.collection": "Policies for Collection",
   "resource-policies.table.headers.title.for.collection": "संग्रह के लिए नीतियाँ",
 
+  // "RELATION.Person.researchoutputs.search.results.head": "Research Output",
+  // TODO New key - Add a translation
+  "RELATION.Person.researchoutputs.search.results.head": "Research Output",
+
+  // "RELATION.Person.projects.search.results.head": "Projects",
+  // TODO New key - Add a translation
+  "RELATION.Person.projects.search.results.head": "Projects",
+
+  // "RELATION.Project.researchoutputs.search.results.head": "Publications",
+  // TODO New key - Add a translation
+  "RELATION.Project.researchoutputs.search.results.head": "Publications",
+
+  // "RELATION.Project.fundings.search.results.head": "Fundings",
+  // TODO New key - Add a translation
+  "RELATION.Project.fundings.search.results.head": "Fundings",
+
+  // "RELATION.Project.projects.search.results.head": "Projects",
+  // TODO New key - Add a translation
+  "RELATION.Project.projects.search.results.head": "Projects",
+
+  // "RELATION.OrgUnit.organizations.search.results.head": "Organizations",
+  // TODO New key - Add a translation
+  "RELATION.OrgUnit.organizations.search.results.head": "Organizations",
+
+  // "RELATION.OrgUnit.rppublications.search.results.head": "Researchers Publications",
+  // TODO New key - Add a translation
+  "RELATION.OrgUnit.rppublications.search.results.head": "Researchers Publications",
+
+  // "RELATION.OrgUnit.publications.search.results.head": "Publications",
+  // TODO New key - Add a translation
+  "RELATION.OrgUnit.publications.search.results.head": "Publications",
+
+  // "RELATION.OrgUnit.rpprojects.search.results.head": "Researchers Projects",
+  // TODO New key - Add a translation
+  "RELATION.OrgUnit.rpprojects.search.results.head": "Researchers Projects",
+
+  // "RELATION.OrgUnit.projects.search.results.head": "Projects",
+  // TODO New key - Add a translation
+  "RELATION.OrgUnit.projects.search.results.head": "Projects",
+
+  // "RELATION.OrgUnit.people.search.results.head": "People",
+  // TODO New key - Add a translation
+  "RELATION.OrgUnit.people.search.results.head": "People",
+
   // "root.skip-to-content": "Skip to main content",
   "root.skip-to-content": "मुख्य सामग्री पर जाएं",
 
@@ -7092,6 +7676,7 @@
 
   // "search.filters.applied.f.original_bundle_descriptions": "File description",
   "search.filters.applied.f.original_bundle_descriptions": "फाइल विवरण",
+
   // "search.filters.applied.f.has_geospatial_metadata": "Has geographical location",
   "search.filters.applied.f.has_geospatial_metadata": "भौगोलिक स्थान है",
 
@@ -7655,6 +8240,14 @@
   // "sorting.person.birthDate.DESC": "Birth Date Descending",
   "sorting.person.birthDate.DESC": "जन्म तिथि अवरोही",
 
+  // "sorting.ownerselection.ASC": "Owner Relevance Ascending",
+  // TODO New key - Add a translation
+  "sorting.ownerselection.ASC": "Owner Relevance Ascending",
+
+  // "sorting.ownerselection.DESC": "Owner Relevance Descending",
+  // TODO New key - Add a translation
+  "sorting.ownerselection.DESC": "Owner Relevance Descending",
+
   // "statistics.title": "Statistics",
   "statistics.title": "सांख्यिकी",
 
@@ -7697,6 +8290,10 @@
   // "submission.edit.title": "Edit Submission",
   "submission.edit.title": "प्रस्तुति संपादित करें",
 
+  // "submission.edit.item.breadcrumbs": "Edit item",
+  // TODO New key - Add a translation
+  "submission.edit.item.breadcrumbs": "Edit item",
+
   // "submission.general.cancel": "Cancel",
   "submission.general.cancel": "रद्द करें",
 
@@ -7724,6 +8321,10 @@
   // "submission.general.back.submit": "Back",
   "submission.general.back.submit": "वापस",
 
+  // "submission.general.info.invalid": "The submission is invalid, check missing fields",
+  // TODO New key - Add a translation
+  "submission.general.info.invalid": "The submission is invalid, check missing fields",
+
   // "submission.general.info.saved": "Saved",
   "submission.general.info.saved": "सहेजा गया",
 
@@ -7735,6 +8336,10 @@
 
   // "submission.general.save-later": "Save for later",
   "submission.general.save-later": "बाद के लिए सहेजें",
+
+  // "submission.general.save-later.edit-item": "Save and return",
+  // TODO New key - Add a translation
+  "submission.general.save-later.edit-item": "Save and return",
 
   // "submission.import-external.page.title": "Import metadata from an external source",
   "submission.import-external.page.title": "बाहरी स्रोत से मेटाडेटा आयात करें",
@@ -7751,8 +8356,9 @@
   // "submission.import-external.title.JournalVolume": "Import a journal volume from an external source",
   "submission.import-external.title.JournalVolume": "बाहरी स्रोत से एक जर्नल वॉल्यूम आयात करें",
 
-  // "submission.import-external.title.OrgUnit": "Import a publisher from an external source",
-  "submission.import-external.title.OrgUnit": "बाहरी स्रोत से एक प्रकाशक आयात करें",
+  // "submission.import-external.title.OrgUnit": "Import an organizational unit from an external source",
+  // TODO Source message changed - Revise the translation
+  "submission.import-external.title.OrgUnit": "बाहरी स्रोत से एक संगठनात्मक इकाई आयात करें",
 
   // "submission.import-external.title.Person": "Import a person from an external source",
   "submission.import-external.title.Person": "बाहरी स्रोत से एक व्यक्ति आयात करें",
@@ -7826,14 +8432,17 @@
   // "submission.import-external.source.loading": "Loading ...",
   "submission.import-external.source.loading": "लोड हो रहा है ...",
 
-  // "submission.import-external.source.sherpaJournal": "SHERPA Journals",
-  "submission.import-external.source.sherpaJournal": "SHERPA Journals",
+  // "submission.import-external.source.opfJournal": "Jisc Open policy finder Journals",
+  // TODO New key - Add a translation
+  "submission.import-external.source.opfJournal": "Jisc Open policy finder Journals",
 
-  // "submission.import-external.source.sherpaJournalIssn": "SHERPA Journals by ISSN",
-  "submission.import-external.source.sherpaJournalIssn": "ISSN द्वारा SHERPA Journals",
+  // "submission.import-external.source.opfJournalIssn": "Jisc Open policy finder Journals by ISSN",
+  // TODO New key - Add a translation
+  "submission.import-external.source.opfJournalIssn": "Jisc Open policy finder Journals by ISSN",
 
-  // "submission.import-external.source.sherpaPublisher": "SHERPA Publishers",
-  "submission.import-external.source.sherpaPublisher": "SHERPA Publishers",
+  // "submission.import-external.source.opfPublisher": "Jisc Open policy finder Publishers",
+  // TODO New key - Add a translation
+  "submission.import-external.source.opfPublisher": "Jisc Open policy finder Publishers",
 
   // "submission.import-external.source.openaire": "OpenAIRE Search by Authors",
   "submission.import-external.source.openaire": "लेखकों द्वारा OpenAIRE खोज",
@@ -7982,6 +8591,10 @@
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.added.new-entity": "Successfully imported and added external author to the selection",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.added.new-entity": "सफलतापूर्वक बाहरी लेखक आयात किया और चयन में जोड़ा गया",
 
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.isJournalOfVolume.added.new-entity": "Successfully imported and added external journal to the selection",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isJournalOfVolume.added.new-entity": "Successfully imported and added external journal to the selection",
+
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.authority": "Authority",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.authority": "प्राधिकरण",
 
@@ -8015,11 +8628,13 @@
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openaireFunding": "Importing from OpenAIRE",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openaireFunding": "OpenAIRE से आयात कर रहे हैं",
 
-  // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaJournal": "Importing from Sherpa Journal",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaJournal": "Sherpa जर्नल से आयात कर रहे हैं",
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.jiscJournal": "Importing from Jisc Open policy finder Journal",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.jiscJournal": "Importing from Jisc Open policy finder Journal",
 
-  // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaPublisher": "Importing from Sherpa Publisher",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaPublisher": "Sherpa प्रकाशक से आयात कर रहे हैं",
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.jiscPublisher": "Importing from Jisc Open policy finder Publisher",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.jiscPublisher": "Importing from Jisc Open policy finder Publisher",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.pubmed": "Importing from PubMed",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.head.pubmed": "PubMed से आयात कर रहे हैं",
@@ -8085,6 +8700,10 @@
   // "submission.sections.describe.relationship-lookup.search-tab.placeholder": "Search query",
   "submission.sections.describe.relationship-lookup.search-tab.placeholder": "खोज क्वेरी",
 
+  // "submission.sections.describe.relationship-lookup.toggle-dropdown": "Toggle dropdown",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.toggle-dropdown": "Toggle dropdown",
+
   // "submission.sections.describe.relationship-lookup.search-tab.search": "Go",
   "submission.sections.describe.relationship-lookup.search-tab.search": "जाओ",
 
@@ -8142,11 +8761,13 @@
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalVolume": "Local Journal Volumes ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalVolume": "स्थानीय जर्नल वॉल्यूम ({{ count }})",
 
-  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournal": "Sherpa Journals ({{ count }})",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournal": "शेरपा जर्नल्स ({{ count }})",
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.jiscJournal": "Jisc Open policy finder Journals ({{ count }})",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.jiscJournal": "Jisc Open policy finder Journals ({{ count }})",
 
-  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaPublisher": "Sherpa Publishers ({{ count }})",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaPublisher": "शेरपा पब्लिशर्स ({{ count }})",
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.jiscPublisher": "Jisc Open policy finder Publishers ({{ count }})",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.jiscPublisher": "Jisc Open policy finder Publishers ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.orcid": "ORCID ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.orcid": "ORCID ({{ count }})",
@@ -8181,8 +8802,9 @@
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.openaireFunding": "OpenAIRE Search by Funder ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.openaireFunding": "OpenAIRE फंडर द्वारा खोजें ({{ count }})",
 
-  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournalIssn": "Sherpa Journals by ISSN ({{ count }})",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournalIssn": "ISSN द्वारा शेरपा जर्नल्स ({{ count }})",
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.jiscJournalIssn": "Jisc Open policy finder Journals by ISSN ({{ count }})",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.jiscJournalIssn": "Jisc Open policy finder Journals by ISSN ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.openalexPerson": "OpenAlex ({{ count }})",
   // TODO New key - Add a translation
@@ -8224,6 +8846,14 @@
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isOrgUnitOfProject": "OrgUnit of the Project",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isOrgUnitOfProject": "प्रोजेक्ट का संगठनात्मक इकाई",
+
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalOfVolume": "Journal of the Volume",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalOfVolume": "Journal of the Volume",
+
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.opfJournal": "Jisc Open policy finder of Journal",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.opfJournal": "Jisc Open policy finder of Journal",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isProjectOfPublication": "Project",
   "submission.sections.describe.relationship-lookup.selection-tab.title.isProjectOfPublication": "प्रोजेक्ट",
@@ -8304,6 +8934,10 @@
   // "submission.sections.describe.relationship-lookup.title.isOrgUnitOfProject": "OrgUnit",
   "submission.sections.describe.relationship-lookup.title.isOrgUnitOfProject": "संगठनात्मक इकाई",
 
+  // "submission.sections.describe.relationship-lookup.title.isJournalOfVolume": "Journal",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.title.isJournalOfVolume": "Journal",
+
   // "submission.sections.describe.relationship-lookup.search-tab.toggle-dropdown": "Toggle dropdown",
   "submission.sections.describe.relationship-lookup.search-tab.toggle-dropdown": "ड्रॉपडाउन टॉगल करें",
 
@@ -8364,11 +8998,11 @@
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isChildOrgUnitOf": "Selected Organizational Unit",
   "submission.sections.describe.relationship-lookup.selection-tab.title.isChildOrgUnitOf": "चयनित संगठनात्मक इकाई",
 
-  // "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaJournal": "Search Results",
-  "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaJournal": "खोज परिणाम",
+  // "submission.sections.describe.relationship-lookup.selection-tab.title.jiscJournal": "Search Results",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.jiscJournal": "खोज परिणाम",
 
-  // "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaPublisher": "Search Results",
-  "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaPublisher": "खोज परिणाम",
+  // "submission.sections.describe.relationship-lookup.selection-tab.title.jiscPublisher": "Search Results",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.jiscPublisher": "खोज परिणाम",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.orcid": "Search Results",
   "submission.sections.describe.relationship-lookup.selection-tab.title.orcid": "खोज परिणाम",
@@ -8432,6 +9066,10 @@
   // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.selection-tab.title.dataciteProject": "Search Results",
 
+  // "submission.sections.describe.relationship-lookup.selection-tab.title.opfJournal": "Search Results",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.selection-tab.title.opfJournal": "Search Results",
+
   // "submission.sections.describe.relationship-lookup.selection-tab.title": "Search Results",
   "submission.sections.describe.relationship-lookup.selection-tab.title": "खोज परिणाम",
 
@@ -8477,6 +9115,10 @@
 
   // "submission.sections.general.deposit_error_notice": "There was an issue when submitting the item, please try again later.",
   "submission.sections.general.deposit_error_notice": "आइटम जमा करते समय एक समस्या हुई, कृपया बाद में पुनः प्रयास करें।",
+
+  // "submission.sections.general.invalid_state_error": "Cannot save current changes, mandatory fields are missing. Please resolve problems and save again later.",
+  // TODO New key - Add a translation
+  "submission.sections.general.invalid_state_error": "Cannot save current changes, mandatory fields are missing. Please resolve problems and save again later.",
 
   // "submission.sections.general.deposit_success_notice": "Submission deposited successfully.",
   "submission.sections.general.deposit_success_notice": "प्रस्तुति सफलतापूर्वक जमा की गई।",
@@ -8541,6 +9183,10 @@
   // "submission.sections.submit.progressbar.CClicense": "Creative commons license",
   "submission.sections.submit.progressbar.CClicense": "क्रिएटिव कॉमन्स लाइसेंस",
 
+  // "submission.sections.submit.progressbar.CustomUrlStep": "Custom Url",
+  // TODO New key - Add a translation
+  "submission.sections.submit.progressbar.CustomUrlStep": "Custom Url",
+
   // "submission.sections.submit.progressbar.describe.recycle": "Recycle",
   "submission.sections.submit.progressbar.describe.recycle": "रीसायकल",
 
@@ -8562,17 +9208,22 @@
   // "submission.sections.submit.progressbar.license": "Deposit license",
   "submission.sections.submit.progressbar.license": "जमा लाइसेंस",
 
-  // "submission.sections.submit.progressbar.sherpapolicy": "Sherpa policies",
-  "submission.sections.submit.progressbar.sherpapolicy": "शेरपा नीतियाँ",
+  // "submission.sections.submit.progressbar.describe.owner": "Owner",
+  // TODO New key - Add a translation
+  "submission.sections.submit.progressbar.describe.owner": "Owner",
+
+  // "submission.sections.submit.progressbar.opfpolicy": "Jisc Open Policy Finder policies",
+  // TODO New key - Add a translation
+  "submission.sections.submit.progressbar.opfpolicy": "Jisc Open Policy Finder policies",
 
   // "submission.sections.submit.progressbar.upload": "Upload files",
   "submission.sections.submit.progressbar.upload": "फाइलें अपलोड करें",
 
-  // "submission.sections.submit.progressbar.sherpaPolicies": "Publisher open access policy information",
-  "submission.sections.submit.progressbar.sherpaPolicies": "प्रकाशक ओपन एक्सेस नीति जानकारी",
+  // "submission.sections.submit.progressbar.jiscPolicies": "Publisher open access policy information",
+  "submission.sections.submit.progressbar.jiscPolicies": "प्रकाशक ओपन एक्सेस नीति जानकारी",
 
-  // "submission.sections.sherpa-policy.title-empty": "No publisher policy information available. If your work has an associated ISSN, please enter it above to see any related publisher open access policies.",
-  "submission.sections.sherpa-policy.title-empty": "कोई प्रकाशक नीति जानकारी उपलब्ध नहीं है। यदि आपके कार्य से संबंधित कोई ISSN है, तो कृपया इसे ऊपर दर्ज करें ताकि संबंधित प्रकाशक ओपन एक्सेस नीतियों को देखा जा सके।",
+  // "submission.sections.jisc-policy.title-empty": "No publisher policy information available. If your work has an associated ISSN, please enter it above to see any related publisher open access policies.",
+  "submission.sections.jisc-policy.title-empty": "कोई प्रकाशक नीति जानकारी उपलब्ध नहीं है। यदि आपके कार्य से संबंधित कोई ISSN है, तो कृपया इसे ऊपर दर्ज करें ताकि संबंधित प्रकाशक ओपन एक्सेस नीतियों को देखा जा सके।",
 
   // "submission.sections.status.errors.title": "Errors",
   "submission.sections.status.errors.title": "त्रुटियाँ",
@@ -8639,6 +9290,46 @@
 
   // "submission.sections.upload.edit.title": "Edit bitstream",
   "submission.sections.upload.edit.title": "बिटस्ट्रीम संपादित करें",
+
+  // "submission.sections.upload.file.edit.form.file-type.label": "Audio or video media type",
+  // TODO New key - Add a translation
+  "submission.sections.upload.file.edit.form.file-type.label": "Audio or video media type",
+
+  // "submission.sections.upload.file.edit.form.file-type.hint": "Choose how this bitstream should be interpreted.",
+  // TODO New key - Add a translation
+  "submission.sections.upload.file.edit.form.file-type.hint": "Choose how this bitstream should be interpreted.",
+
+  // "submission.sections.upload.file.edit.form.file-type.option.audio-video": "Audio and video",
+  // TODO New key - Add a translation
+  "submission.sections.upload.file.edit.form.file-type.option.audio-video": "Audio and video",
+
+  // "submission.sections.upload.file.edit.form.file-type.option.neither": "Neither",
+  // TODO New key - Add a translation
+  "submission.sections.upload.file.edit.form.file-type.option.neither": "Neither",
+
+  // "submission.sections.upload.file.edit.form.file-type.option.audio": "Audio",
+  // TODO New key - Add a translation
+  "submission.sections.upload.file.edit.form.file-type.option.audio": "Audio",
+
+  // "submission.sections.upload.file.edit.form.file-type.option.video": "Video",
+  // TODO New key - Add a translation
+  "submission.sections.upload.file.edit.form.file-type.option.video": "Video",
+
+  // "submission.sections.upload.file.edit.form.audio-transcript.label": "Audio transcript",
+  // TODO New key - Add a translation
+  "submission.sections.upload.file.edit.form.audio-transcript.label": "Audio transcript",
+
+  // "submission.sections.upload.file.edit.form.audio-transcript.hint": "Provide a transcript for audio content.",
+  // TODO New key - Add a translation
+  "submission.sections.upload.file.edit.form.audio-transcript.hint": "Provide a transcript for audio content.",
+
+  // "submission.sections.upload.file.edit.form.video-description.label": "Video description",
+  // TODO New key - Add a translation
+  "submission.sections.upload.file.edit.form.video-description.label": "Video description",
+
+  // "submission.sections.upload.file.edit.form.video-description.hint": "Provide a description for video content.",
+  // TODO New key - Add a translation
+  "submission.sections.upload.file.edit.form.video-description.hint": "Provide a description for video content.",
 
   // "submission.sections.upload.form.access-condition-label": "Access condition type",
   "submission.sections.upload.form.access-condition-label": "एक्सेस कंडीशन प्रकार",
@@ -8708,6 +9399,22 @@
   // "submission.sections.upload.upload-successful": "Upload successful",
   "submission.sections.upload.upload-successful": "अपलोड सफल",
 
+  // "submission.sections.custom-url.label.previous-urls": "Previous Urls",
+  // TODO New key - Add a translation
+  "submission.sections.custom-url.label.previous-urls": "Previous Urls",
+
+  // "submission.sections.custom-url.alert.info": "Define here a custom URL which will be used to reach the item instead of using an internal randomly generated UUID identifier. ",
+  // TODO New key - Add a translation
+  "submission.sections.custom-url.alert.info": "Define here a custom URL which will be used to reach the item instead of using an internal randomly generated UUID identifier. ",
+
+  // "submission.sections.custom-url.url.placeholder": "Custom URL",
+  // TODO New key - Add a translation
+  "submission.sections.custom-url.url.placeholder": "Custom URL",
+
+  // "submission.sections.custom-url.label.remove": "Remove",
+  // TODO New key - Add a translation
+  "submission.sections.custom-url.label.remove": "Remove",
+
   // "submission.sections.accesses.form.discoverable-description": "When checked, this item will be discoverable in search/browse. When unchecked, the item will only be available via a direct link and will never appear in search/browse.",
   "submission.sections.accesses.form.discoverable-description": "जब चेक किया जाता है, तो यह आइटम खोज/ब्राउज़ में खोजने योग्य होगा। जब अनचेक किया जाता है, तो आइटम केवल एक सीधे लिंक के माध्यम से उपलब्ध होगा और कभी भी खोज/ब्राउज़ में दिखाई नहीं देगा।",
 
@@ -8774,84 +9481,84 @@
   // "submission.sections.license.notgranted": "You must accept the license",
   "submission.sections.license.notgranted": "आपको लाइसेंस स्वीकार करना होगा",
 
-  // "submission.sections.sherpa.publication.information": "Publication information",
-  "submission.sections.sherpa.publication.information": "प्रकाशन जानकारी",
+  // "submission.sections.jisc.publication.information": "Publication information",
+  "submission.sections.jisc.publication.information": "प्रकाशन जानकारी",
 
-  // "submission.sections.sherpa.publication.information.title": "Title",
-  "submission.sections.sherpa.publication.information.title": "शीर्षक",
+  // "submission.sections.jisc.publication.information.title": "Title",
+  "submission.sections.jisc.publication.information.title": "शीर्षक",
 
-  // "submission.sections.sherpa.publication.information.issns": "ISSNs",
-  "submission.sections.sherpa.publication.information.issns": "ISSNs",
+  // "submission.sections.jisc.publication.information.issns": "ISSNs",
+  "submission.sections.jisc.publication.information.issns": "ISSNs",
 
-  // "submission.sections.sherpa.publication.information.url": "URL",
-  "submission.sections.sherpa.publication.information.url": "URL",
+  // "submission.sections.jisc.publication.information.url": "URL",
+  "submission.sections.jisc.publication.information.url": "URL",
 
-  // "submission.sections.sherpa.publication.information.publishers": "Publisher",
-  "submission.sections.sherpa.publication.information.publishers": "प्रकाशक",
+  // "submission.sections.jisc.publication.information.publishers": "Publisher",
+  "submission.sections.jisc.publication.information.publishers": "प्रकाशक",
 
-  // "submission.sections.sherpa.publication.information.romeoPub": "Romeo Pub",
-  "submission.sections.sherpa.publication.information.romeoPub": "रोमियो पब",
+  // "submission.sections.jisc.publication.information.romeoPub": "Romeo Pub",
+  "submission.sections.jisc.publication.information.romeoPub": "रोमियो पब",
 
-  // "submission.sections.sherpa.publication.information.zetoPub": "Zeto Pub",
-  "submission.sections.sherpa.publication.information.zetoPub": "ज़ेटो पब",
+  // "submission.sections.jisc.publication.information.zetoPub": "Zeto Pub",
+  "submission.sections.jisc.publication.information.zetoPub": "ज़ेटो पब",
 
-  // "submission.sections.sherpa.publisher.policy": "Publisher Policy",
-  "submission.sections.sherpa.publisher.policy": "प्रकाशक नीति",
+  // "submission.sections.jisc.publisher.policy": "Publisher Policy",
+  "submission.sections.jisc.publisher.policy": "प्रकाशक नीति",
 
-  // "submission.sections.sherpa.publisher.policy.description": "The below information was found via Sherpa Romeo. Based on the policies of your publisher, it provides advice regarding whether an embargo may be necessary and/or which files you are allowed to upload. If you have questions, please contact your site administrator via the feedback form in the footer.",
-  "submission.sections.sherpa.publisher.policy.description": "नीचे दी गई जानकारी शेरपा रोमियो के माध्यम से पाई गई थी। आपके प्रकाशक की नीतियों के आधार पर, यह सलाह प्रदान करती है कि क्या एक प्रतिबंध आवश्यक हो सकता है और/या आप किन फाइलों को अपलोड कर सकते हैं। यदि आपके पास प्रश्न हैं, तो कृपया फूटर में फीडबैक फॉर्म के माध्यम से अपने साइट व्यवस्थापक से संपर्क करें।",
+  // "submission.sections.jisc.publisher.policy.description": "The below information was found via Jisc Open policy finder. Based on the policies of your publisher, it provides advice regarding whether an embargo may be necessary and/or which files you are allowed to upload. If you have questions, please contact your site administrator via the feedback form in the footer.",
+  "submission.sections.jisc.publisher.policy.description": "नीचे दी गई जानकारी शेरपा रोमियो के माध्यम से पाई गई थी। आपके प्रकाशक की नीतियों के आधार पर, यह सलाह प्रदान करती है कि क्या एक प्रतिबंध आवश्यक हो सकता है और/या आप किन फाइलों को अपलोड कर सकते हैं। यदि आपके पास प्रश्न हैं, तो कृपया फूटर में फीडबैक फॉर्म के माध्यम से अपने साइट व्यवस्थापक से संपर्क करें।",
 
-  // "submission.sections.sherpa.publisher.policy.openaccess": "Open Access pathways permitted by this journal's policy are listed below by article version. Click on a pathway for a more detailed view",
-  "submission.sections.sherpa.publisher.policy.openaccess": "इस जर्नल की नीति द्वारा अनुमत ओपन एक्सेस मार्ग नीचे लेख संस्करण द्वारा सूचीबद्ध हैं। अधिक विस्तृत दृश्य के लिए एक मार्ग पर क्लिक करें",
+  // "submission.sections.jisc.publisher.policy.openaccess": "Open Access pathways permitted by this journal's policy are listed below by article version. Click on a pathway for a more detailed view",
+  "submission.sections.jisc.publisher.policy.openaccess": "इस जर्नल की नीति द्वारा अनुमत ओपन एक्सेस मार्ग नीचे लेख संस्करण द्वारा सूचीबद्ध हैं। अधिक विस्तृत दृश्य के लिए एक मार्ग पर क्लिक करें",
 
-  // "submission.sections.sherpa.publisher.policy.more.information": "For more information, please see the following links:",
+  // "submission.sections.jisc.publisher.policy.more.information": "For more information, please see the following links:",
+  "submission.sections.jisc.publisher.policy.more.information": "For more information, please see the following links:",
+
+  // "submission.sections.jisc.publisher.policy.version": "Version",
+  "submission.sections.jisc.publisher.policy.version": "संस्करण",
+
+  // "submission.sections.jisc.publisher.policy.embargo": "Embargo",
+  "submission.sections.jisc.publisher.policy.embargo": "प्रतिबंध",
+
+  // "submission.sections.jisc.publisher.policy.noembargo": "No Embargo",
+  "submission.sections.jisc.publisher.policy.noembargo": "कोई प्रतिबंध नहीं",
+
+  // "submission.sections.jisc.publisher.policy.nolocation": "None",
+  "submission.sections.jisc.publisher.policy.nolocation": "कोई नहीं",
+
+  // "submission.sections.jisc.publisher.policy.license": "License",
+  "submission.sections.jisc.publisher.policy.license": "लाइसेंस",
+
+  // "submission.sections.jisc.publisher.policy.prerequisites": "Prerequisites",
+  "submission.sections.jisc.publisher.policy.prerequisites": "पूर्वापेक्षाएँ",
+
+  // "submission.sections.jisc.publisher.policy.location": "Location",
+  "submission.sections.jisc.publisher.policy.location": "स्थान",
+
+  // "submission.sections.jisc.publisher.policy.conditions": "Conditions",
+  "submission.sections.jisc.publisher.policy.conditions": "शर्तें",
+
+  // "submission.sections.jisc.publisher.policy.refresh": "Refresh",
+  "submission.sections.jisc.publisher.policy.refresh": "ताज़ा करें",
+
+  // "submission.sections.jisc.record.information": "Record Information",
+  "submission.sections.jisc.record.information": "रिकॉर्ड जानकारी",
+
+  // "submission.sections.jisc.record.information.id": "ID",
+  "submission.sections.jisc.record.information.id": "ID",
+
+  // "submission.sections.jisc.record.information.date.created": "Date Created",
+  "submission.sections.jisc.record.information.date.created": "निर्माण की तारीख",
+
+  // "submission.sections.jisc.record.information.date.modified": "Last Modified",
+  "submission.sections.jisc.record.information.date.modified": "अंतिम संशोधित",
+
+  // "submission.sections.jisc.record.information.uri": "URI",
+  "submission.sections.jisc.record.information.uri": "URI",
+
+  // "submission.sections.jisc.error.message": "There was an error retrieving Jisc Open policy finder information",
   // TODO New key - Add a translation
-  "submission.sections.sherpa.publisher.policy.more.information": "For more information, please see the following links:",
-
-  // "submission.sections.sherpa.publisher.policy.version": "Version",
-  "submission.sections.sherpa.publisher.policy.version": "संस्करण",
-
-  // "submission.sections.sherpa.publisher.policy.embargo": "Embargo",
-  "submission.sections.sherpa.publisher.policy.embargo": "प्रतिबंध",
-
-  // "submission.sections.sherpa.publisher.policy.noembargo": "No Embargo",
-  "submission.sections.sherpa.publisher.policy.noembargo": "कोई प्रतिबंध नहीं",
-
-  // "submission.sections.sherpa.publisher.policy.nolocation": "None",
-  "submission.sections.sherpa.publisher.policy.nolocation": "कोई नहीं",
-
-  // "submission.sections.sherpa.publisher.policy.license": "License",
-  "submission.sections.sherpa.publisher.policy.license": "लाइसेंस",
-
-  // "submission.sections.sherpa.publisher.policy.prerequisites": "Prerequisites",
-  "submission.sections.sherpa.publisher.policy.prerequisites": "पूर्वापेक्षाएँ",
-
-  // "submission.sections.sherpa.publisher.policy.location": "Location",
-  "submission.sections.sherpa.publisher.policy.location": "स्थान",
-
-  // "submission.sections.sherpa.publisher.policy.conditions": "Conditions",
-  "submission.sections.sherpa.publisher.policy.conditions": "शर्तें",
-
-  // "submission.sections.sherpa.publisher.policy.refresh": "Refresh",
-  "submission.sections.sherpa.publisher.policy.refresh": "ताज़ा करें",
-
-  // "submission.sections.sherpa.record.information": "Record Information",
-  "submission.sections.sherpa.record.information": "रिकॉर्ड जानकारी",
-
-  // "submission.sections.sherpa.record.information.id": "ID",
-  "submission.sections.sherpa.record.information.id": "ID",
-
-  // "submission.sections.sherpa.record.information.date.created": "Date Created",
-  "submission.sections.sherpa.record.information.date.created": "निर्माण की तारीख",
-
-  // "submission.sections.sherpa.record.information.date.modified": "Last Modified",
-  "submission.sections.sherpa.record.information.date.modified": "अंतिम संशोधित",
-
-  // "submission.sections.sherpa.record.information.uri": "URI",
-  "submission.sections.sherpa.record.information.uri": "URI",
-
-  // "submission.sections.sherpa.error.message": "There was an error retrieving sherpa informations",
-  "submission.sections.sherpa.error.message": "शेरपा जानकारी प्राप्त करने में त्रुटि हुई",
+  "submission.sections.jisc.error.message": "There was an error retrieving Jisc Open policy finder information",
 
   // "submission.submit.breadcrumbs": "New submission",
   "submission.submit.breadcrumbs": "नई प्रस्तुति",
@@ -8922,7 +9629,8 @@
   // "submission.workflow.tasks.claimed.reject.submit": "Reject",
   "submission.workflow.tasks.claimed.reject.submit": "अस्वीकृत करें",
 
-  // "submission.workflow.tasks.claimed.reject_help": "If you have reviewed the item and found it is <strong>not</strong> suitable for inclusion in the collection, select \"Reject\".  You will then be asked to enter a message indicating why the item is unsuitable, and whether the submitter should change something and resubmit.",
+  // "submission.workflow.tasks.claimed.reject_help": "If you have reviewed the item and found it is <strong>not</strong> suitable for inclusion in the collection, select \"Reject\". You will then be asked to enter a message indicating why the item is unsuitable, and whether the submitter should change something and resubmit.",
+  // TODO Source message changed - Revise the translation
   "submission.workflow.tasks.claimed.reject_help": "यदि आपने आइटम की समीक्षा की है और पाया है कि यह संग्रह में शामिल करने के लिए उपयुक्त <strong>नहीं</strong> है, तो \"अस्वीकृत करें\" चुनें। आपको यह बताने के लिए एक संदेश दर्ज करने के लिए कहा जाएगा कि आइटम क्यों अनुपयुक्त है, और क्या सबमिटर को कुछ बदलना चाहिए और पुनः सबमिट करना चाहिए।",
 
   // "submission.workflow.tasks.claimed.return": "Return to pool",
@@ -8997,8 +9705,9 @@
   // "subscriptions.tooltip": "Subscribe",
   "subscriptions.tooltip": "सदस्यता लें",
 
-  // "subscriptions.unsubscribe": "Unsubscribe",
-  "subscriptions.unsubscribe": "सदस्यता समाप्त करें",
+  // "subscriptions.manage": "Manage Subscription",
+  // TODO New key - Add a translation
+  "subscriptions.manage": "Manage Subscription",
 
   // "subscriptions.modal.title": "Subscriptions",
   "subscriptions.modal.title": "सदस्यताएँ",
@@ -9167,6 +9876,10 @@
 
   // "workflow.search.results.head": "Workflow tasks",
   "workflow.search.results.head": "कार्यप्रवाह कार्य",
+
+  // "otherWorkspace.search.results.head": "Shared workspace",
+  // TODO New key - Add a translation
+  "otherWorkspace.search.results.head": "Shared workspace",
 
   // "supervision.search.results.head": "Workflow and Workspace tasks",
   "supervision.search.results.head": "कार्यप्रवाह और कार्यक्षेत्र कार्य",
@@ -9698,6 +10411,10 @@
   // "home.recent-submissions.head": "Recent Submissions",
   "home.recent-submissions.head": "हाल की प्रस्तुतियाँ",
 
+  // "authority-confidence.search-label": "Search",
+  // TODO New key - Add a translation
+  "authority-confidence.search-label": "Search",
+
   // "listable-notification-object.default-message": "This object couldn't be retrieved",
   "listable-notification-object.default-message": "इस ऑब्जेक्ट को पुनः प्राप्त नहीं किया जा सका",
 
@@ -9907,281 +10624,396 @@
 
   // "ldn-registered-services.title": "Registered Services",
   "ldn-registered-services.title": "पंजीकृत सेवाएँ",
+
   // "ldn-registered-services.table.name": "Name",
   "ldn-registered-services.table.name": "नाम",
+
   // "ldn-registered-services.table.description": "Description",
   "ldn-registered-services.table.description": "विवरण",
+
   // "ldn-registered-services.table.status": "Status",
   "ldn-registered-services.table.status": "स्थिति",
+
   // "ldn-registered-services.table.action": "Action",
   "ldn-registered-services.table.action": "क्रिया",
+
   // "ldn-registered-services.new": "NEW",
   "ldn-registered-services.new": "नया",
+
   // "ldn-registered-services.new.breadcrumbs": "Registered Services",
   "ldn-registered-services.new.breadcrumbs": "पंजीकृत सेवाएँ",
 
   // "ldn-service.overview.table.enabled": "Enabled",
   "ldn-service.overview.table.enabled": "सक्षम",
+
   // "ldn-service.overview.table.disabled": "Disabled",
   "ldn-service.overview.table.disabled": "अक्षम",
+
   // "ldn-service.overview.table.clickToEnable": "Click to enable",
   "ldn-service.overview.table.clickToEnable": "सक्षम करने के लिए क्लिक करें",
+
   // "ldn-service.overview.table.clickToDisable": "Click to disable",
   "ldn-service.overview.table.clickToDisable": "अक्षम करने के लिए क्लिक करें",
 
   // "ldn-edit-registered-service.title": "Edit Service",
   "ldn-edit-registered-service.title": "सेवा संपादित करें",
+
   // "ldn-create-service.title": "Create service",
   "ldn-create-service.title": "सेवा बनाएं",
+
   // "service.overview.create.modal": "Create Service",
   "service.overview.create.modal": "सेवा बनाएं",
+
   // "service.overview.create.body": "Please confirm the creation of this service.",
   "service.overview.create.body": "कृपया इस सेवा के निर्माण की पुष्टि करें।",
+
   // "ldn-service-status": "Status",
   "ldn-service-status": "स्थिति",
+
   // "service.confirm.create": "Create",
   "service.confirm.create": "बनाएं",
+
   // "service.refuse.create": "Cancel",
   "service.refuse.create": "रद्द करें",
+
   // "ldn-register-new-service.title": "Register a new service",
   "ldn-register-new-service.title": "नई सेवा पंजीकृत करें",
+
   // "ldn-new-service.form.label.submit": "Save",
   "ldn-new-service.form.label.submit": "सहेजें",
+
   // "ldn-new-service.form.label.name": "Name",
   "ldn-new-service.form.label.name": "नाम",
+
   // "ldn-new-service.form.label.description": "Description",
   "ldn-new-service.form.label.description": "विवरण",
+
   // "ldn-new-service.form.label.url": "Service URL",
   "ldn-new-service.form.label.url": "सेवा यूआरएल",
+
   // "ldn-new-service.form.label.ip-range": "Service IP range",
   "ldn-new-service.form.label.ip-range": "सेवा आईपी रेंज",
+
   // "ldn-new-service.form.label.score": "Level of trust",
   "ldn-new-service.form.label.score": "विश्वास का स्तर",
+
   // "ldn-new-service.form.label.ldnUrl": "LDN Inbox URL",
   "ldn-new-service.form.label.ldnUrl": "LDN इनबॉक्स यूआरएल",
+
   // "ldn-new-service.form.placeholder.name": "Please provide service name",
   "ldn-new-service.form.placeholder.name": "कृपया सेवा का नाम प्रदान करें",
+
   // "ldn-new-service.form.placeholder.description": "Please provide a description regarding your service",
   "ldn-new-service.form.placeholder.description": "कृपया अपनी सेवा के बारे में विवरण प्रदान करें",
+
   // "ldn-new-service.form.placeholder.url": "Please input the URL for users to check out more information about the service",
   "ldn-new-service.form.placeholder.url": "कृपया सेवा के बारे में अधिक जानकारी के लिए उपयोगकर्ताओं को यूआरएल दर्ज करें",
+
   // "ldn-new-service.form.placeholder.lowerIp": "IPv4 range lower bound",
   "ldn-new-service.form.placeholder.lowerIp": "IPv4 रेंज निचली सीमा",
+
   // "ldn-new-service.form.placeholder.upperIp": "IPv4 range upper bound",
   "ldn-new-service.form.placeholder.upperIp": "IPv4 रेंज ऊपरी सीमा",
+
   // "ldn-new-service.form.placeholder.ldnUrl": "Please specify the URL of the LDN Inbox",
   "ldn-new-service.form.placeholder.ldnUrl": "कृपया LDN इनबॉक्स का यूआरएल निर्दिष्ट करें",
+
   // "ldn-new-service.form.placeholder.score": "Please enter a value between 0 and 1. Use the “.” as decimal separator",
   "ldn-new-service.form.placeholder.score": "कृपया 0 और 1 के बीच एक मान दर्ज करें। दशमलव विभाजक के रूप में “.” का उपयोग करें",
+
   // "ldn-service.form.label.placeholder.default-select": "Select a pattern",
   "ldn-service.form.label.placeholder.default-select": "एक पैटर्न चुनें",
 
   // "ldn-service.form.pattern.ack-accept.label": "Acknowledge and Accept",
   "ldn-service.form.pattern.ack-accept.label": "स्वीकार करें और स्वीकार करें",
+
   // "ldn-service.form.pattern.ack-accept.description": "This pattern is used to acknowledge and accept a request (offer). It implies an intention to act on the request.",
   "ldn-service.form.pattern.ack-accept.description": "यह पैटर्न अनुरोध (प्रस्ताव) को स्वीकार करने और स्वीकार करने के लिए उपयोग किया जाता है। यह अनुरोध पर कार्य करने के इरादे को दर्शाता है।",
+
   // "ldn-service.form.pattern.ack-accept.category": "Acknowledgements",
   "ldn-service.form.pattern.ack-accept.category": "स्वीकृतियाँ",
 
   // "ldn-service.form.pattern.ack-reject.label": "Acknowledge and Reject",
   "ldn-service.form.pattern.ack-reject.label": "स्वीकार करें और अस्वीकार करें",
+
   // "ldn-service.form.pattern.ack-reject.description": "This pattern is used to acknowledge and reject a request (offer). It signifies no further action regarding the request.",
   "ldn-service.form.pattern.ack-reject.description": "यह पैटर्न अनुरोध (प्रस्ताव) को स्वीकार करने और अस्वीकार करने के लिए उपयोग किया जाता है। यह अनुरोध के संबंध में कोई और कार्रवाई नहीं दर्शाता है।",
+
   // "ldn-service.form.pattern.ack-reject.category": "Acknowledgements",
   "ldn-service.form.pattern.ack-reject.category": "स्वीकृतियाँ",
 
   // "ldn-service.form.pattern.ack-tentative-accept.label": "Acknowledge and Tentatively Accept",
   "ldn-service.form.pattern.ack-tentative-accept.label": "स्वीकार करें और अस्थायी रूप से स्वीकार करें",
+
   // "ldn-service.form.pattern.ack-tentative-accept.description": "This pattern is used to acknowledge and tentatively accept a request (offer). It implies an intention to act, which may change.",
   "ldn-service.form.pattern.ack-tentative-accept.description": "यह पैटर्न अनुरोध (प्रस्ताव) को स्वीकार करने और अस्थायी रूप से स्वीकार करने के लिए उपयोग किया जाता है। यह कार्य करने के इरादे को दर्शाता है, जो बदल सकता है।",
+
   // "ldn-service.form.pattern.ack-tentative-accept.category": "Acknowledgements",
   "ldn-service.form.pattern.ack-tentative-accept.category": "स्वीकृतियाँ",
 
   // "ldn-service.form.pattern.ack-tentative-reject.label": "Acknowledge and Tentatively Reject",
   "ldn-service.form.pattern.ack-tentative-reject.label": "स्वीकार करें और अस्थायी रूप से अस्वीकार करें",
+
   // "ldn-service.form.pattern.ack-tentative-reject.description": "This pattern is used to acknowledge and tentatively reject a request (offer). It signifies no further action, subject to change.",
   "ldn-service.form.pattern.ack-tentative-reject.description": "यह पैटर्न अनुरोध (प्रस्ताव) को स्वीकार करने और अस्थायी रूप से अस्वीकार करने के लिए उपयोग किया जाता है। यह कोई और कार्रवाई नहीं दर्शाता है, जो बदल सकता है।",
+
   // "ldn-service.form.pattern.ack-tentative-reject.category": "Acknowledgements",
   "ldn-service.form.pattern.ack-tentative-reject.category": "स्वीकृतियाँ",
 
   // "ldn-service.form.pattern.announce-endorsement.label": "Announce Endorsement",
   "ldn-service.form.pattern.announce-endorsement.label": "समर्थन की घोषणा करें",
+
   // "ldn-service.form.pattern.announce-endorsement.description": "This pattern is used to announce the existence of an endorsement, referencing the endorsed resource.",
   "ldn-service.form.pattern.announce-endorsement.description": "यह पैटर्न समर्थन की उपस्थिति की घोषणा करने के लिए उपयोग किया जाता है, समर्थित संसाधन का संदर्भ देते हुए।",
+
   // "ldn-service.form.pattern.announce-endorsement.category": "Announcements",
   "ldn-service.form.pattern.announce-endorsement.category": "घोषणाएँ",
 
   // "ldn-service.form.pattern.announce-ingest.label": "Announce Ingest",
   "ldn-service.form.pattern.announce-ingest.label": "अवशोषण की घोषणा करें",
+
   // "ldn-service.form.pattern.announce-ingest.description": "This pattern is used to announce that a resource has been ingested.",
   "ldn-service.form.pattern.announce-ingest.description": "यह पैटर्न यह घोषणा करने के लिए उपयोग किया जाता है कि एक संसाधन को अवशोषित किया गया है।",
+
   // "ldn-service.form.pattern.announce-ingest.category": "Announcements",
   "ldn-service.form.pattern.announce-ingest.category": "घोषणाएँ",
 
   // "ldn-service.form.pattern.announce-relationship.label": "Announce Relationship",
   "ldn-service.form.pattern.announce-relationship.label": "संबंध की घोषणा करें",
+
   // "ldn-service.form.pattern.announce-relationship.description": "This pattern is used to announce a relationship between two resources.",
   "ldn-service.form.pattern.announce-relationship.description": "यह पैटर्न दो संसाधनों के बीच संबंध की घोषणा करने के लिए उपयोग किया जाता है।",
+
   // "ldn-service.form.pattern.announce-relationship.category": "Announcements",
   "ldn-service.form.pattern.announce-relationship.category": "घोषणाएँ",
 
   // "ldn-service.form.pattern.announce-review.label": "Announce Review",
   "ldn-service.form.pattern.announce-review.label": "समीक्षा की घोषणा करें",
+
   // "ldn-service.form.pattern.announce-review.description": "This pattern is used to announce the existence of a review, referencing the reviewed resource.",
   "ldn-service.form.pattern.announce-review.description": "यह पैटर्न समीक्षा की उपस्थिति की घोषणा करने के लिए उपयोग किया जाता है, समीक्षा किए गए संसाधन का संदर्भ देते हुए।",
+
   // "ldn-service.form.pattern.announce-review.category": "Announcements",
   "ldn-service.form.pattern.announce-review.category": "घोषणाएँ",
 
   // "ldn-service.form.pattern.announce-service-result.label": "Announce Service Result",
   "ldn-service.form.pattern.announce-service-result.label": "सेवा परिणाम की घोषणा करें",
+
   // "ldn-service.form.pattern.announce-service-result.description": "This pattern is used to announce the existence of a 'service result', referencing the relevant resource.",
   "ldn-service.form.pattern.announce-service-result.description": "यह पैटर्न 'सेवा परिणाम' की उपस्थिति की घोषणा करने के लिए उपयोग किया जाता है, संबंधित संसाधन का संदर्भ देते हुए।",
+
   // "ldn-service.form.pattern.announce-service-result.category": "Announcements",
   "ldn-service.form.pattern.announce-service-result.category": "घोषणाएँ",
 
   // "ldn-service.form.pattern.request-endorsement.label": "Request Endorsement",
   "ldn-service.form.pattern.request-endorsement.label": "समर्थन का अनुरोध करें",
+
   // "ldn-service.form.pattern.request-endorsement.description": "This pattern is used to request endorsement of a resource owned by the origin system.",
   "ldn-service.form.pattern.request-endorsement.description": "यह पैटर्न मूल प्रणाली द्वारा स्वामित्व वाले संसाधन के समर्थन का अनुरोध करने के लिए उपयोग किया जाता है।",
+
   // "ldn-service.form.pattern.request-endorsement.category": "Requests",
   "ldn-service.form.pattern.request-endorsement.category": "अनुरोध",
 
   // "ldn-service.form.pattern.request-ingest.label": "Request Ingest",
   "ldn-service.form.pattern.request-ingest.label": "अवशोषण का अनुरोध करें",
+
   // "ldn-service.form.pattern.request-ingest.description": "This pattern is used to request that the target system ingest a resource.",
   "ldn-service.form.pattern.request-ingest.description": "यह पैटर्न लक्ष्य प्रणाली से एक संसाधन को अवशोषित करने का अनुरोध करने के लिए उपयोग किया जाता है।",
+
   // "ldn-service.form.pattern.request-ingest.category": "Requests",
   "ldn-service.form.pattern.request-ingest.category": "अनुरोध",
 
   // "ldn-service.form.pattern.request-review.label": "Request Review",
   "ldn-service.form.pattern.request-review.label": "समीक्षा का अनुरोध करें",
+
   // "ldn-service.form.pattern.request-review.description": "This pattern is used to request a review of a resource owned by the origin system.",
   "ldn-service.form.pattern.request-review.description": "यह पैटर्न मूल प्रणाली द्वारा स्वामित्व वाले संसाधन की समीक्षा का अनुरोध करने के लिए उपयोग किया जाता है।",
+
   // "ldn-service.form.pattern.request-review.category": "Requests",
   "ldn-service.form.pattern.request-review.category": "अनुरोध",
 
   // "ldn-service.form.pattern.undo-offer.label": "Undo Offer",
   "ldn-service.form.pattern.undo-offer.label": "प्रस्ताव पूर्ववत करें",
+
   // "ldn-service.form.pattern.undo-offer.description": "This pattern is used to undo (retract) an offer previously made.",
   "ldn-service.form.pattern.undo-offer.description": "यह पैटर्न पहले किए गए प्रस्ताव को पूर्ववत (वापस लेने) करने के लिए उपयोग किया जाता है।",
+
   // "ldn-service.form.pattern.undo-offer.category": "Undo",
   "ldn-service.form.pattern.undo-offer.category": "पूर्ववत करें",
 
   // "ldn-new-service.form.label.placeholder.selectedItemFilter": "No Item Filter Selected",
   "ldn-new-service.form.label.placeholder.selectedItemFilter": "कोई आइटम फ़िल्टर चयनित नहीं",
+
   // "ldn-new-service.form.label.ItemFilter": "Item Filter",
   "ldn-new-service.form.label.ItemFilter": "आइटम फ़िल्टर",
+
   // "ldn-new-service.form.label.automatic": "Automatic",
   "ldn-new-service.form.label.automatic": "स्वचालित",
+
   // "ldn-new-service.form.error.name": "Name is required",
   "ldn-new-service.form.error.name": "नाम आवश्यक है",
+
   // "ldn-new-service.form.error.url": "URL is required",
   "ldn-new-service.form.error.url": "यूआरएल आवश्यक है",
+
   // "ldn-new-service.form.error.ipRange": "Please enter a valid IP range",
   "ldn-new-service.form.error.ipRange": "कृपया एक मान्य आईपी रेंज दर्ज करें",
+
   // "ldn-new-service.form.hint.ipRange": "Please enter a valid IpV4 in both range bounds (note: for single IP, please enter the same value in both fields)",
   // TODO New key - Add a translation
   "ldn-new-service.form.hint.ipRange": "Please enter a valid IpV4 in both range bounds (note: for single IP, please enter the same value in both fields)",
+
   // "ldn-new-service.form.error.ldnurl": "LDN URL is required",
   "ldn-new-service.form.error.ldnurl": "LDN यूआरएल आवश्यक है",
+
+  // "ldn-new-service.form.error.ldnurl.ldnUrlAlreadyAssociated": "This LDN URL is already associated with another service",
+  // TODO New key - Add a translation
+  "ldn-new-service.form.error.ldnurl.ldnUrlAlreadyAssociated": "This LDN URL is already associated with another service",
+
   // "ldn-new-service.form.error.patterns": "At least a pattern is required",
   "ldn-new-service.form.error.patterns": "कम से कम एक पैटर्न आवश्यक है",
+
   // "ldn-new-service.form.error.score": "Please enter a valid score (between 0 and 1). Use the “.” as decimal separator",
   "ldn-new-service.form.error.score": "कृपया एक मान्य स्कोर दर्ज करें (0 और 1 के बीच)। दशमलव विभाजक के रूप में “.” का उपयोग करें",
 
   // "ldn-new-service.form.label.inboundPattern": "Supported Pattern",
   "ldn-new-service.form.label.inboundPattern": "समर्थित पैटर्न",
+
   // "ldn-new-service.form.label.addPattern": "+ Add more",
   "ldn-new-service.form.label.addPattern": "+ और जोड़ें",
+
   // "ldn-new-service.form.label.removeItemFilter": "Remove",
   "ldn-new-service.form.label.removeItemFilter": "हटाएं",
+
   // "ldn-register-new-service.breadcrumbs": "New Service",
   "ldn-register-new-service.breadcrumbs": "नई सेवा",
+
   // "service.overview.delete.body": "Are you sure you want to delete this service?",
   "service.overview.delete.body": "क्या आप वाकई इस सेवा को हटाना चाहते हैं?",
+
   // "service.overview.edit.body": "Do you confirm the changes?",
   "service.overview.edit.body": "क्या आप परिवर्तनों की पुष्टि करते हैं?",
+
   // "service.overview.edit.modal": "Edit Service",
   "service.overview.edit.modal": "सेवा संपादित करें",
+
   // "service.detail.update": "Confirm",
   "service.detail.update": "पुष्टि करें",
+
   // "service.detail.return": "Cancel",
   "service.detail.return": "रद्द करें",
+
   // "service.overview.reset-form.body": "Are you sure you want to discard the changes and leave?",
   "service.overview.reset-form.body": "क्या आप वाकई परिवर्तनों को त्यागना और छोड़ना चाहते हैं?",
+
   // "service.overview.reset-form.modal": "Discard Changes",
   "service.overview.reset-form.modal": "परिवर्तन त्यागें",
+
   // "service.overview.reset-form.reset-confirm": "Discard",
   "service.overview.reset-form.reset-confirm": "त्यागें",
+
   // "admin.registries.services-formats.modify.success.head": "Successful Edit",
   "admin.registries.services-formats.modify.success.head": "सफल संपादन",
+
   // "admin.registries.services-formats.modify.success.content": "The service has been edited",
   "admin.registries.services-formats.modify.success.content": "सेवा संपादित की गई है",
+
   // "admin.registries.services-formats.modify.failure.head": "Failed Edit",
   "admin.registries.services-formats.modify.failure.head": "संपादन विफल",
+
   // "admin.registries.services-formats.modify.failure.content": "The service has not been edited",
   "admin.registries.services-formats.modify.failure.content": "सेवा संपादित नहीं की गई है",
+
   // "ldn-service-notification.created.success.title": "Successful Create",
   "ldn-service-notification.created.success.title": "सफल निर्माण",
+
   // "ldn-service-notification.created.success.body": "The service has been created",
   "ldn-service-notification.created.success.body": "सेवा बनाई गई है",
+
   // "ldn-service-notification.created.failure.title": "Failed Create",
   "ldn-service-notification.created.failure.title": "निर्माण विफल",
+
   // "ldn-service-notification.created.failure.body": "The service has not been created",
   "ldn-service-notification.created.failure.body": "सेवा नहीं बनाई गई है",
+
   // "ldn-service-notification.created.warning.title": "Please select at least one Inbound Pattern",
   "ldn-service-notification.created.warning.title": "कृपया कम से कम एक इनबाउंड पैटर्न चुनें",
+
   // "ldn-enable-service.notification.success.title": "Successful status updated",
   "ldn-enable-service.notification.success.title": "सफल स्थिति अपडेट",
+
   // "ldn-enable-service.notification.success.content": "The service status has been updated",
   "ldn-enable-service.notification.success.content": "सेवा की स्थिति अपडेट की गई है",
+
   // "ldn-service-delete.notification.success.title": "Successful Deletion",
   "ldn-service-delete.notification.success.title": "सफल विलोपन",
+
   // "ldn-service-delete.notification.success.content": "The service has been deleted",
   "ldn-service-delete.notification.success.content": "सेवा हटा दी गई है",
+
   // "ldn-service-delete.notification.error.title": "Failed Deletion",
   "ldn-service-delete.notification.error.title": "विलोपन विफल",
+
   // "ldn-service-delete.notification.error.content": "The service has not been deleted",
   "ldn-service-delete.notification.error.content": "सेवा नहीं हटाई गई है",
+
   // "service.overview.reset-form.reset-return": "Cancel",
   "service.overview.reset-form.reset-return": "रद्द करें",
+
   // "service.overview.delete": "Delete service",
   "service.overview.delete": "सेवा हटाएं",
+
   // "ldn-edit-service.title": "Edit service",
   "ldn-edit-service.title": "सेवा संपादित करें",
+
   // "ldn-edit-service.form.label.name": "Name",
   "ldn-edit-service.form.label.name": "नाम",
+
   // "ldn-edit-service.form.label.description": "Description",
   "ldn-edit-service.form.label.description": "विवरण",
+
   // "ldn-edit-service.form.label.url": "Service URL",
   "ldn-edit-service.form.label.url": "सेवा यूआरएल",
+
   // "ldn-edit-service.form.label.ldnUrl": "LDN Inbox URL",
   "ldn-edit-service.form.label.ldnUrl": "LDN इनबॉक्स यूआरएल",
+
   // "ldn-edit-service.form.label.inboundPattern": "Inbound Pattern",
   "ldn-edit-service.form.label.inboundPattern": "इनबाउंड पैटर्न",
+
   // "ldn-edit-service.form.label.noInboundPatternSelected": "No Inbound Pattern",
   "ldn-edit-service.form.label.noInboundPatternSelected": "कोई इनबाउंड पैटर्न नहीं",
+
   // "ldn-edit-service.form.label.selectedItemFilter": "Selected Item Filter",
   "ldn-edit-service.form.label.selectedItemFilter": "चयनित आइटम फ़िल्टर",
+
   // "ldn-edit-service.form.label.selectItemFilter": "No Item Filter",
   "ldn-edit-service.form.label.selectItemFilter": "कोई आइटम फ़िल्टर नहीं",
+
   // "ldn-edit-service.form.label.automatic": "Automatic",
   "ldn-edit-service.form.label.automatic": "स्वचालित",
+
   // "ldn-edit-service.form.label.addInboundPattern": "+ Add more",
   "ldn-edit-service.form.label.addInboundPattern": "+ और जोड़ें",
+
   // "ldn-edit-service.form.label.submit": "Save",
   "ldn-edit-service.form.label.submit": "सहेजें",
+
   // "ldn-edit-service.breadcrumbs": "Edit Service",
   "ldn-edit-service.breadcrumbs": "सेवा संपादित करें",
+
   // "ldn-service.control-constaint-select-none": "Select none",
   "ldn-service.control-constaint-select-none": "कोई नहीं चुनें",
 
   // "ldn-register-new-service.notification.error.title": "Error",
   "ldn-register-new-service.notification.error.title": "त्रुटि",
+
   // "ldn-register-new-service.notification.error.content": "An error occurred while creating this process",
   "ldn-register-new-service.notification.error.content": "इस प्रक्रिया को बनाते समय एक त्रुटि हुई",
+
   // "ldn-register-new-service.notification.success.title": "Success",
   "ldn-register-new-service.notification.success.title": "सफलता",
+
   // "ldn-register-new-service.notification.success.content": "The process was successfully created",
   "ldn-register-new-service.notification.success.content": "प्रक्रिया सफलतापूर्वक बनाई गई",
 
@@ -10215,6 +11047,7 @@
 
   // "quality-assurance.topics.description-with-target": "Below you can see all the topics received from the subscriptions to {{source}} in regards to the",
   "quality-assurance.topics.description-with-target": "नीचे आप {{source}} से प्राप्त सभी विषयों को देख सकते हैं जो संबंधित हैं",
+
   // "quality-assurance.events.description": "Below the list of all the suggestions for the selected topic <b>{{topic}}</b>, related to <b>{{source}}</b>.",
   "quality-assurance.events.description": "नीचे चयनित विषय <b>{{topic}}</b> के लिए सभी सुझावों की सूची है, जो <b>{{source}}</b> से संबंधित हैं।",
 
@@ -10314,16 +11147,20 @@
   // "error.validation.coarnotify.invalidfilter": "Invalid filter, try to select another service or none.",
   "error.validation.coarnotify.invalidfilter": "अमान्य फ़िल्टर, कृपया दूसरी सेवा या कोई नहीं चुनें।",
 
-  // "request-status-alert-box.accepted": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> has been taken in charge.",
+  // "request-status-alert-box.accepted": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'>{{ serviceName }}</a> has been taken in charge.",
+  // TODO Source message changed - Revise the translation
   "request-status-alert-box.accepted": "अनुरोधित {{ offerType }} के लिए <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> को चार्ज में लिया गया है।",
 
-  // "request-status-alert-box.rejected": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> has been rejected.",
+  // "request-status-alert-box.rejected": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'>{{ serviceName }}</a> has been rejected.",
+  // TODO Source message changed - Revise the translation
   "request-status-alert-box.rejected": "अनुरोधित {{ offerType }} के लिए <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> को अस्वीकार कर दिया गया है।",
 
-  // "request-status-alert-box.tentative_rejected": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> has been tentatively rejected. Revisions are required",
+  // "request-status-alert-box.tentative_rejected": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'>{{ serviceName }}</a> has been tentatively rejected. Revisions are required",
+  // TODO Source message changed - Revise the translation
   "request-status-alert-box.tentative_rejected": "अनुरोधित {{ offerType }} के लिए <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> को अस्थायी रूप से अस्वीकार कर दिया गया है। संशोधन आवश्यक हैं",
 
-  // "request-status-alert-box.requested": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> is pending.",
+  // "request-status-alert-box.requested": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'>{{ serviceName }}</a> is pending.",
+  // TODO Source message changed - Revise the translation
   "request-status-alert-box.requested": "अनुरोधित {{ offerType }} के लिए <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> लंबित है।",
 
   // "ldn-service-button-mark-inbound-deletion": "Mark supported pattern for deletion",
@@ -10924,17 +11761,23 @@
   // "form.date-picker.placeholder.day": "Day",
   "form.date-picker.placeholder.day": "दिन",
 
+  // "item.page.license.title": "Rights and licensing",
+  // TODO New key - Add a translation
+  "item.page.license.title": "Rights and licensing",
+
   // "item.page.cc.license.title": "Creative Commons license",
   "item.page.cc.license.title": "क्रिएटिव कॉमन्स लाइसेंस",
 
-  // "item.page.cc.license.disclaimer": "Except where otherwised noted, this item's license is described as",
+  // "item.page.cc.license.disclaimer": "Except where otherwise noted, this item's license is described as",
+  // TODO Source message changed - Revise the translation
   "item.page.cc.license.disclaimer": "जहाँ अन्यथा उल्लेख नहीं किया गया है, इस आइटम का लाइसेंस इस प्रकार वर्णित है",
-
-  // "browse.search-form.placeholder": "Search the repository",
-  "browse.search-form.placeholder": "रिपॉजिटरी खोजें",
 
   // "file-download-link.download": "Download ",
   "file-download-link.download": "डाउनलोड ",
+
+  // "file-download-button.download": "Download",
+  // TODO New key - Add a translation
+  "file-download-button.download": "Download",
 
   // "register-page.registration.aria.label": "Enter your e-mail address",
   "register-page.registration.aria.label": "अपना ई-मेल पता दर्ज करें",
@@ -10948,9 +11791,9 @@
   // "live-region.ordering.instructions": "Press spacebar to reorder {{ itemName }}.",
   "live-region.ordering.instructions": "{{ itemName }} को पुनः क्रमबद्ध करने के लिए स्पेसबार दबाएं।",
 
-  // "live-region.ordering.status": "{{ itemName }}, grabbed. Current position in list: {{ index }} of  {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
+  // "live-region.ordering.status": "{{ itemName }}, grabbed. Current position in list: {{ index }} of {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
   // TODO New key - Add a translation
-  "live-region.ordering.status": "{{ itemName }}, grabbed. Current position in list: {{ index }} of  {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
+  "live-region.ordering.status": "{{ itemName }}, grabbed. Current position in list: {{ index }} of {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
 
   // "live-region.ordering.moved": "{{ itemName }}, moved to position {{ index }} of {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
   "live-region.ordering.moved": "{{ itemName }}, स्थिति {{ index }} का {{ length }} पर स्थानांतरित। स्थिति बदलने के लिए ऊपर और नीचे तीर कुंजियों को दबाएं, छोड़ने के लिए स्पेसबार, रद्द करने के लिए एस्केप।",
@@ -10981,6 +11824,10 @@
 
   // "external-login.confirmation.email-label": "User Email",
   "external-login.confirmation.email-label": "उपयोगकर्ता ईमेल",
+
+  // "external-login.confirmation.email": "Email",
+  // TODO New key - Add a translation
+  "external-login.confirmation.email": "Email",
 
   // "external-login.confirmation.email-invalid": "Invalid email format.",
   "external-login.confirmation.email-invalid": "अमान्य ईमेल प्रारूप।",
@@ -11072,6 +11919,10 @@
   // "external-login-page.orcid-confirmation.netid": "Account Identifier",
   "external-login-page.orcid-confirmation.netid": "खाता पहचानकर्ता",
 
+  // "external-login-page.orcid-confirmation.netid.label": "Account Identifier",
+  // TODO New key - Add a translation
+  "external-login-page.orcid-confirmation.netid.label": "Account Identifier",
+
   // "external-login-page.orcid-confirmation.netid.placeholder": "xxxx-xxxx-xxxx-xxxx",
   "external-login-page.orcid-confirmation.netid.placeholder": "xxxx-xxxx-xxxx-xxxx",
 
@@ -11117,6 +11968,446 @@
   // "file-download-link.request-copy": "Request a copy of ",
   // TODO New key - Add a translation
   "file-download-link.request-copy": "Request a copy of ",
+
+  // "file-download-button.request-copy": "Request a copy",
+  // TODO New key - Add a translation
+  "file-download-button.request-copy": "Request a copy",
+
+  // "file-download-link.audio-transcript.label": "Transcript",
+  // TODO New key - Add a translation
+  "file-download-link.audio-transcript.label": "Transcript",
+
+  // "file-download-link.audio-transcript.title": "Audio transcript",
+  // TODO New key - Add a translation
+  "file-download-link.audio-transcript.title": "Audio transcript",
+
+  // "file-download-link.audio-transcript.aria": "Open audio transcript",
+  // TODO New key - Add a translation
+  "file-download-link.audio-transcript.aria": "Open audio transcript",
+
+  // "file-download-link.video-description.label": "Video description",
+  // TODO New key - Add a translation
+  "file-download-link.video-description.label": "Video description",
+
+  // "file-download-link.video-description.title": "Video description",
+  // TODO New key - Add a translation
+  "file-download-link.video-description.title": "Video description",
+
+  // "file-download-link.video-description.aria": "Open video description",
+  // TODO New key - Add a translation
+  "file-download-link.video-description.aria": "Open video description",
+
+  // "item.preview.organization.url": "URL",
+  // TODO New key - Add a translation
+  "item.preview.organization.url": "URL",
+
+  // "item.preview.organization.address.addressLocality": "City",
+  // TODO New key - Add a translation
+  "item.preview.organization.address.addressLocality": "City",
+
+  // "item.preview.organization.alternateName": "Alternative name",
+  // TODO New key - Add a translation
+  "item.preview.organization.alternateName": "Alternative name",
+
+  // "metadata-link-view.orcid.logo": "ORCID logo",
+  // TODO New key - Add a translation
+  "metadata-link-view.orcid.logo": "ORCID logo",
+
+  // "metadata-link-view.source.logo": "Source logo",
+  // TODO New key - Add a translation
+  "metadata-link-view.source.logo": "Source logo",
+
+  // "metadata-link-view.popover.label.Person.dc.title": "Fullname",
+  // TODO New key - Add a translation
+  "metadata-link-view.popover.label.Person.dc.title": "Fullname",
+
+  // "metadata-link-view.popover.label.Person.person.affiliation.name": "Main affiliation",
+  // TODO New key - Add a translation
+  "metadata-link-view.popover.label.Person.person.affiliation.name": "Main affiliation",
+
+  // "metadata-link-view.popover.label.Person.person.email": "Email",
+  // TODO New key - Add a translation
+  "metadata-link-view.popover.label.Person.person.email": "Email",
+
+  // "metadata-link-view.popover.label.Person.person.identifier.orcid": "ORCID",
+  // TODO New key - Add a translation
+  "metadata-link-view.popover.label.Person.person.identifier.orcid": "ORCID",
+
+  // "metadata-link-view.popover.label.Person.dc.description.abstract": "Abstract",
+  // TODO New key - Add a translation
+  "metadata-link-view.popover.label.Person.dc.description.abstract": "Abstract",
+
+  // "metadata-link-view.popover.label.Person.person.jobTitle": "Job title",
+  // TODO New key - Add a translation
+  "metadata-link-view.popover.label.Person.person.jobTitle": "Job title",
+
+  // "metadata-link-view.popover.label.other.dc.title": "Title",
+  // TODO New key - Add a translation
+  "metadata-link-view.popover.label.other.dc.title": "Title",
+
+  // "metadata-link-view.popover.label.other.dc.description.abstract": "Description",
+  // TODO New key - Add a translation
+  "metadata-link-view.popover.label.other.dc.description.abstract": "Description",
+
+  // "metadata-link-view.popover.label.more-info": "More info",
+  // TODO New key - Add a translation
+  "metadata-link-view.popover.label.more-info": "More info",
+
+  // "item.page.extended-file-section": "Bitstreams",
+  // TODO New key - Add a translation
+  "item.page.extended-file-section": "Bitstreams",
+
+  // "file.section.name": "Document",
+  // TODO New key - Add a translation
+  "file.section.name": "Document",
+
+  // "file.section.type": "Type",
+  // TODO New key - Add a translation
+  "file.section.type": "Type",
+
+  // "file.section.size": "Size",
+  // TODO New key - Add a translation
+  "file.section.size": "Size",
+
+  // "dataset.page.titleprefix": "Dataset",
+  // TODO New key - Add a translation
+  "dataset.page.titleprefix": "Dataset",
+
+  // "dataset.listelement.badge": "Dataset",
+  // TODO New key - Add a translation
+  "dataset.listelement.badge": "Dataset",
+
+  // "dataset.page.options": "Options",
+  // TODO New key - Add a translation
+  "dataset.page.options": "Options",
+
+  // "dataset.page.edit": "Edit this Dataset",
+  // TODO New key - Add a translation
+  "dataset.page.edit": "Edit this Dataset",
+
+  // "relationships.Dataset.isAuthorOfDataset.Person": "Authors (Persons)",
+  // TODO New key - Add a translation
+  "relationships.Dataset.isAuthorOfDataset.Person": "Authors (Persons)",
+
+  // "relationships.Dataset.isProjectOfDataset.Project": "Research Projects",
+  // TODO New key - Add a translation
+  "relationships.Dataset.isProjectOfDataset.Project": "Research Projects",
+
+  // "relationships.Dataset.isAuthorOfDataset.OrgUnit": "Organizational Units",
+  // TODO New key - Add a translation
+  "relationships.Dataset.isAuthorOfDataset.OrgUnit": "Organizational Units",
+
+  // "relationships.Dataset.isOrgUnitOfDataset.OrgUnit": "Authors (Organizational Units)",
+  // TODO New key - Add a translation
+  "relationships.Dataset.isOrgUnitOfDataset.OrgUnit": "Authors (Organizational Units)",
+
+  // "relationships.Dataset.isPublicationOfDataset.Publication": "Publications",
+  // TODO New key - Add a translation
+  "relationships.Dataset.isPublicationOfDataset.Publication": "Publications",
+
+  // "relationships.Publication.isDatasetOfPublication.Dataset": "Datasets",
+  // TODO New key - Add a translation
+  "relationships.Publication.isDatasetOfPublication.Dataset": "Datasets",
+
+  // "relationships.Person.isDatasetOfAuthor.Dataset": "Datasets",
+  // TODO New key - Add a translation
+  "relationships.Person.isDatasetOfAuthor.Dataset": "Datasets",
+
+  // "relationships.Project.isDatasetOfProject.Dataset": "Datasets",
+  // TODO New key - Add a translation
+  "relationships.Project.isDatasetOfProject.Dataset": "Datasets",
+
+  // "relationships.OrgUnit.isDatasetOfAuthor.Dataset": "Authored Datasets",
+  // TODO New key - Add a translation
+  "relationships.OrgUnit.isDatasetOfAuthor.Dataset": "Authored Datasets",
+
+  // "relationships.OrgUnit.isDatasetOfOrgUnit.Dataset": "Organisation Datasets",
+  // TODO New key - Add a translation
+  "relationships.OrgUnit.isDatasetOfOrgUnit.Dataset": "Organisation Datasets",
+
+  // "submission.sections.describe.relationship-lookup.title.Dataset": "Datasets",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.title.Dataset": "Datasets",
+
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.Dataset": "Local Datasets",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Dataset": "Local Datasets",
+
+  // "dataset.search.results.head": "Dataset Search Results",
+  // TODO New key - Add a translation
+  "dataset.search.results.head": "Dataset Search Results",
+
+  // "submission.sections.describe.relationship-lookup.title.isAuthorOfDataset": "Authors",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.title.isAuthorOfDataset": "Authors",
+
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isAuthorOfDataset": "Local Authors ({{ count }})",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isAuthorOfDataset": "Local Authors ({{ count }})",
+
+  // "submission.sections.describe.relationship-lookup.title.isPublicationOfDataset": "Publications",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.title.isPublicationOfDataset": "Publications",
+
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isPublicationOfDataset": "Local Publications ({{ count }})",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isPublicationOfDataset": "Local Publications ({{ count }})",
+
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.cinii": "CiNii ({{ count }})",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.cinii": "CiNii ({{ count }})",
+
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.cinii": "Importing from CiNii",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.cinii": "Importing from CiNii",
+
+  // "submission.sections.describe.relationship-lookup.selection-tab.title.cinii": "Search Results",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.selection-tab.title.cinii": "Search Results",
+
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.datacite": "DataCite ({{ count }})",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.datacite": "DataCite ({{ count }})",
+
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.datacite": "Importing from DataCite",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.datacite": "Importing from DataCite",
+
+  // "submission.sections.describe.relationship-lookup.selection-tab.title.datacite": "Search Results",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.selection-tab.title.datacite": "Search Results",
+
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.doi": "DOI ({{ count }})",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.doi": "DOI ({{ count }})",
+
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.doi": "Importing from DOI",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.doi": "Importing from DOI",
+
+  // "submission.sections.describe.relationship-lookup.selection-tab.title.doi": "Search Results",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.selection-tab.title.doi": "Search Results",
+
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.isPublicationOfDataset.title": "Import Remote Publication",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isPublicationOfDataset.title": "Import Remote Publication",
+
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.isPublicationOfDataset.added.local-entity": "Successfully added local publication to the selection",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isPublicationOfDataset.added.local-entity": "Successfully added local publication to the selection",
+
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.isPublicationOfDataset.added.new-entity": "Successfully imported and added external publication to the selection",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isPublicationOfDataset.added.new-entity": "Successfully imported and added external publication to the selection",
+
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfDataset.title": "Import Remote Author",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfDataset.title": "Import Remote Author",
+
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfDataset.added.local-entity": "Successfully added local author to the selection",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfDataset.added.local-entity": "Successfully added local author to the selection",
+
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfDataset.added.new-entity": "Successfully imported and added external author to the selection",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfDataset.added.new-entity": "Successfully imported and added external author to the selection",
+
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfDataset.title": "Import Remote Project",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfDataset.title": "Import Remote Project",
+
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfDataset.added.local-entity": "Successfully added local project to the selection",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfDataset.added.local-entity": "Successfully added local project to the selection",
+
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfDataset.added.new-entity": "Successfully imported and added external project to the selection",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfDataset.added.new-entity": "Successfully imported and added external project to the selection",
+
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfDataset.title": "Import Remote Organization",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfDataset.title": "Import Remote Organization",
+
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfDataset.added.local-entity": "Successfully added local organization to the selection",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfDataset.added.local-entity": "Successfully added local organization to the selection",
+
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfDataset.added.new-entity": "Successfully imported and added external organization to the selection",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfDataset.added.new-entity": "Successfully imported and added external organization to the selection",
+
+  // "admin.edit-cms-metadata.success": "Metadata successfully updated",
+  // TODO New key - Add a translation
+  "admin.edit-cms-metadata.success": "Metadata successfully updated",
+
+  // "admin.edit-cms-metadata.back-button": "Back",
+  // TODO New key - Add a translation
+  "admin.edit-cms-metadata.back-button": "Back",
+
+  // "admin.edit-cms-metadata.save-button": "Save",
+  // TODO New key - Add a translation
+  "admin.edit-cms-metadata.save-button": "Save",
+
+  // "admin.edit-cms-metadata.select-metadata": "Select metadata to edit",
+  // TODO New key - Add a translation
+  "admin.edit-cms-metadata.select-metadata": "Select metadata to edit",
+
+  // "admin.edit-cms-metadata.edit-button": "Edit",
+  // TODO New key - Add a translation
+  "admin.edit-cms-metadata.edit-button": "Edit",
+
+  // "admin.edit-cms-metadata.breadcrumbs": "Edit CMS Metadata",
+  // TODO New key - Add a translation
+  "admin.edit-cms-metadata.breadcrumbs": "Edit CMS Metadata",
+
+  // "admin.edit-cms-metadata.title": "Edit CMS Metadata",
+  // TODO New key - Add a translation
+  "admin.edit-cms-metadata.title": "Edit CMS Metadata",
+
+  // "admin.edit-cms-metadata.error": "An error occurred while updating the metadata",
+  // TODO New key - Add a translation
+  "admin.edit-cms-metadata.error": "An error occurred while updating the metadata",
+
+  // "menu.section.edit-cms-metadata": "Edit CMS Metadata",
+  // TODO New key - Add a translation
+  "menu.section.edit-cms-metadata": "Edit CMS Metadata",
+
+  // "menu.section.cms.edit.metadata.head": "Edit Metadata",
+  // TODO New key - Add a translation
+  "menu.section.cms.edit.metadata.head": "Edit Metadata",
+
+  // "admin.edit-user-agreement.breadcrumbs": "Edit User Agreement",
+  // TODO New key - Add a translation
+  "admin.edit-user-agreement.breadcrumbs": "Edit User Agreement",
+
+  // "admin.edit-user-agreement.confirm.title": "Force acceptance",
+  // TODO New key - Add a translation
+  "admin.edit-user-agreement.confirm.title": "Force acceptance",
+
+  // "admin.edit-user-agreement.confirm.info": "Do you want to force all users to accept the new user agreement?",
+  // TODO New key - Add a translation
+  "admin.edit-user-agreement.confirm.info": "Do you want to force all users to accept the new user agreement?",
+
+  // "admin.edit-user-agreement.confirm.cancel": "Cancel",
+  // TODO New key - Add a translation
+  "admin.edit-user-agreement.confirm.cancel": "Cancel",
+
+  // "admin.edit-user-agreement.confirm.no": "No, update only",
+  // TODO New key - Add a translation
+  "admin.edit-user-agreement.confirm.no": "No, update only",
+
+  // "admin.edit-user-agreement.confirm.yes": "Yes, update and force",
+  // TODO New key - Add a translation
+  "admin.edit-user-agreement.confirm.yes": "Yes, update and force",
+
+  // "menu.section.edit-user-agreement": "Edit User Agreement",
+  // TODO New key - Add a translation
+  "menu.section.edit-user-agreement": "Edit User Agreement",
+
+  // "admin.edit-user-agreement.save-button": "Save",
+  // TODO New key - Add a translation
+  "admin.edit-user-agreement.save-button": "Save",
+
+  // "admin.edit-user-agreement.markdown": "<i>End User Agreement</i> text supports <a href=\"https://www.markdownguide.org/basic-syntax/\" target=\"_blank\">Markdown</a> language.",
+  // TODO New key - Add a translation
+  "admin.edit-user-agreement.markdown": "<i>End User Agreement</i> text supports <a href=\"https://www.markdownguide.org/basic-syntax/\" target=\"_blank\">Markdown</a> language.",
+
+  // "admin.edit-cms-metadata.markdown": "<i>CMS Metadata</i> text supports <a href=\"https://www.markdownguide.org/basic-syntax/\" target=\"_blank\">Markdown</a> language.",
+  // TODO New key - Add a translation
+  "admin.edit-cms-metadata.markdown": "<i>CMS Metadata</i> text supports <a href=\"https://www.markdownguide.org/basic-syntax/\" target=\"_blank\">Markdown</a> language.",
+
+  // "admin.edit-user-agreement.header": "Edit User Agreement",
+  // TODO New key - Add a translation
+  "admin.edit-user-agreement.header": "Edit User Agreement",
+
+  // "admin.edit-user-agreement.success": "User agreement successfully updated",
+  // TODO New key - Add a translation
+  "admin.edit-user-agreement.success": "User agreement successfully updated",
+
+  // "admin.edit-user-agreement.error": "An error occurred while updating the user agreement",
+  // TODO New key - Add a translation
+  "admin.edit-user-agreement.error": "An error occurred while updating the user agreement",
+
+  // "admin.edit-user-agreement.title": "Edit User Agreement",
+  // TODO New key - Add a translation
+  "admin.edit-user-agreement.title": "Edit User Agreement",
+
+  // "bitstream.replace.page.title": "Replace File",
+  // TODO New key - Add a translation
+  "bitstream.replace.page.title": "Replace File",
+
+  // "bitstream.replace.page.header": "Replace {{fileName}} ({{fileSize}})",
+  // TODO New key - Add a translation
+  "bitstream.replace.page.header": "Replace {{fileName}} ({{fileSize}})",
+
+  // "bitstream.replace.page.content": "Select a file to replace {{fileName}}. Note that this transfer can take a while to process, and may not start immediately.",
+  // TODO New key - Add a translation
+  "bitstream.replace.page.content": "Select a file to replace {{fileName}}. Note that this transfer can take a while to process, and may not start immediately.",
+
+  // "bitstream.replace.page.button.return": "Back",
+  // TODO New key - Add a translation
+  "bitstream.replace.page.button.return": "Back",
+
+  // "bitstream.replace.page.disclaimer": "The original file will be deleted. This operation can't be undone.",
+  // TODO New key - Add a translation
+  "bitstream.replace.page.disclaimer": "The original file will be deleted. This operation can't be undone.",
+
+  // "bitstream.replace.page.button.cancel": "Cancel",
+  // TODO New key - Add a translation
+  "bitstream.replace.page.button.cancel": "Cancel",
+
+  // "bitstream.replace.page.button.save": "Replace file",
+  // TODO New key - Add a translation
+  "bitstream.replace.page.button.save": "Replace file",
+
+  // "bitstream.replace.page.upload.failed": "Bitstream upload failed",
+  // TODO New key - Add a translation
+  "bitstream.replace.page.upload.failed": "Bitstream upload failed",
+
+  // "bitstream.replace.page.breadcrumbs": "Replace File",
+  // TODO New key - Add a translation
+  "bitstream.replace.page.breadcrumbs": "Replace File",
+
+  // "item.edit.bitstreams.edit.buttons.replace": "Replace",
+  // TODO New key - Add a translation
+  "item.edit.bitstreams.edit.buttons.replace": "Replace",
+
+  // "bitstream.replace.page.upload.success": "Bitstream successfully replaced",
+  // TODO New key - Add a translation
+  "bitstream.replace.page.upload.success": "Bitstream successfully replaced",
+
+  // "bitstream.edit.replace.link": "Replace file",
+  // TODO New key - Add a translation
+  "bitstream.edit.replace.link": "Replace file",
+
+  // "bitstream.replace.page.replace-name": "Use new filename",
+  // TODO New key - Add a translation
+  "bitstream.replace.page.replace-name": "Use new filename",
+
+  // "bitstream.replace.page.replace-name-hint": "The new file extension will be retained in order to match the content of the replacement file.",
+  // TODO New key - Add a translation
+  "bitstream.replace.page.replace-name-hint": "The new file extension will be retained in order to match the content of the replacement file.",
+
+  // "bitstream.related.isCopyOf": "Is copy of",
+  // TODO New key - Add a translation
+  "bitstream.related.isCopyOf": "Is copy of",
+
+  // "bitstream.related.hasCopies": "Has copies",
+  // TODO New key - Add a translation
+  "bitstream.related.hasCopies": "Has copies",
+
+  // "bitstream.related.isReplacementOf": "Is replacement of",
+  // TODO New key - Add a translation
+  "bitstream.related.isReplacementOf": "Is replacement of",
+
+  // "bitstream.related.isReplacedBy": "Is replaced by",
+  // TODO New key - Add a translation
+  "bitstream.related.isReplacedBy": "Is replaced by",
+
+  // "bitstream.related.deleted": "deleted",
+  // TODO New key - Add a translation
+  "bitstream.related.deleted": "deleted",
 
 
 }

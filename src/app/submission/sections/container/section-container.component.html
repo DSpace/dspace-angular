@@ -7,7 +7,7 @@
       (panelChange)="sectionRef.sectionChange($event)" activeIds="{{ sectionData.id }}" [destroyOnHide]="false">
       <ngb-panel id="{{ sectionData.id }}" [type]="sectionRef.isInfo() ? 'info' : ''">
         <ng-template ngbPanelTitle class="d-flex">
-          <span [ngClass]="{ 'text-white' : sectionRef.isInfo()}" class="flex-grow-1 section-title" tabindex="0">{{
+          <span [ngClass]="{'text-info' : sectionRef.isInfo()}" class="flex-grow-1 section-title" tabindex="0">{{
             'submission.sections.'+sectionData.header | translate
           }}</span>
           <div class="d-inline-block">
@@ -30,19 +30,28 @@
               [attr.aria-label]="'submission.sections.status.valid.aria' | translate"></i>
             }
             @if (sectionRef.isInfo()) {
-              <i class="fas fa-info-circle me-3 text-white"
+              <i class="fas fa-info-circle me-3 text-info"
                 title="{{'submission.sections.status.info.title' | translate}}" role="img"
               [attr.aria-label]="'submission.sections.status.info.aria' | translate"></i>
             }
             @if (!sectionRef.isMandatory()) {
               <a href="javascript:void(0);" class="me-3"
                 (click)="removeSection($event)">
-                <i class="fas fa-trash-o" aria-hidden="true" tabindex="0"></i>
+                @if ((isRemoving | async) !== true) {
+                  <i class="far fa-trash-alt" aria-hidden="true" tabindex="0"></i>
+                }
+                @if ((isRemoving | async) === true) {
+                  <i class="fas fa-circle-notch fa-spin" aria-hidden="true" tabindex="0"></i>
+                }
               </a>
             }
           </div>
         </ng-template>
         <ng-template ngbPanelContent>
+          @if (hasInfoMessage | async) {
+            <ds-alert [content]="'submission.sections.'+sectionData.header+'.info'"
+            [type]="AlertTypeEnum.Info"></ds-alert>
+          }
           @if (sectionRef.hasGenericErrors()) {
             <div id="sectionGenericError_{{sectionData.id}}">
               @for (error of sectionRef.getErrors(); track error; let i = $index) {

@@ -41,6 +41,9 @@ export const ROUTES: Route[] = [
   },
   {
     path: ':id',
+    data: {
+      showSocialButtons: true,
+    },
     resolve: {
       dso: itemPageResolver,
       itemRequest: accessTokenResolver,

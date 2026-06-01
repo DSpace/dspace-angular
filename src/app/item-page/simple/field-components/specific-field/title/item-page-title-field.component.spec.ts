@@ -48,4 +48,8 @@ describe('ItemPageTitleFieldComponent', () => {
   it('should display display the correct metadata value', () => {
     expect(fixture.nativeElement.innerHTML).toContain(mockValue);
   });
+
+  it('should set the correct language on the title metadata', () => {
+    expect(comp.nameMetadata.language).toBe('en_US');
+  });
 });
