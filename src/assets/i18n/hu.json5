@@ -9133,6 +9133,10 @@
   // "submission.sections.jisc.publisher.policy.refresh": "Refresh",
   "submission.sections.jisc.publisher.policy.refresh": "Frissítés",
 
+  // "submission.sections.jisc.publisher.policy.additional-oa-fee": "Additional OA fee",
+  // TODO Source message changed - Revise the translation
+  "submission.sections.jisc.publisher.policy.additional-oa-fee": "További nyílt hozzáférési díjak",
+
   // "submission.sections.jisc.record.information": "Record Information",
   "submission.sections.jisc.record.information": "Rekordinformáció",
 

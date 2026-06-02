@@ -9317,6 +9317,10 @@
   // "submission.sections.jisc.publisher.policy.refresh": "Refresh",
   "submission.sections.jisc.publisher.policy.refresh": "تحديث",
 
+  // "submission.sections.jisc.publisher.policy.additional-oa-fee": "Additional OA fee",
+  // TODO Source message changed - Revise the translation
+  "submission.sections.jisc.publisher.policy.additional-oa-fee": "رسوم إضافية للوصول المفتوح",
+
   // "submission.sections.jisc.record.information": "Record Information",
   "submission.sections.jisc.record.information": "معلومات التسجيلة",
 

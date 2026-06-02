@@ -9150,6 +9150,10 @@
   // "submission.sections.jisc.publisher.policy.refresh": "Refresh",
   "submission.sections.jisc.publisher.policy.refresh": "Aktualisieren",
 
+  // "submission.sections.jisc.publisher.policy.additional-oa-fee": "Additional OA fee",
+  // TODO Source message changed - Revise the translation
+  "submission.sections.jisc.publisher.policy.additional-oa-fee": "Zusätzliche OA-Gebühr",
+
   // "submission.sections.jisc.record.information": "Record Information",
   "submission.sections.jisc.record.information": "Datensatz-Informationen",
 
