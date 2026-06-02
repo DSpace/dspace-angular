@@ -29,7 +29,6 @@ import {
 import { SearchService } from '../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { SearchFilterService } from '../../../core/shared/search/search-filter.service';
-import { FilterConfig } from '../../../core/shared/search/search-filters/search-config.model';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import {
   hasValue,
@@ -74,9 +73,9 @@ export class AdvancedSearchComponent implements OnInit, OnDestroy {
    */
   @Input() scope: string;
 
-  advancedFilters$: Observable<FilterConfig[]>;
+  advancedFilters$: Observable<SearchFilterConfig[]>;
 
-  advancedFilterMap: Map<string, FilterConfig> = new Map();
+  advancedFilterMap: Map<string, SearchFilterConfig> = new Map();
 
   currentFilter: string;
 
@@ -105,13 +104,13 @@ export class AdvancedSearchComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.advancedFilters$ = this.searchConfigurationService.getConfigurationAdvancedSearchFilters(this.configuration, this.scope);
-    this.subs.push(this.advancedFilters$.subscribe((filters: FilterConfig[]) => {
-      const filterMap: Map<string, FilterConfig> = new Map();
+    this.subs.push(this.advancedFilters$.subscribe((filters: SearchFilterConfig[]) => {
+      const filterMap: Map<string, SearchFilterConfig> = new Map();
       if (filters.length > 0) {
         this.currentFilter = filters[0].filter;
         this.currentOperator = filters[0].operators[0].operator;
         for (const filter of filters) {
-          if (filter.type !== FilterType.range) {
+          if (filter.filterType !== FilterType.range) {
             filterMap.set(filter.filter, filter);
           }
         }

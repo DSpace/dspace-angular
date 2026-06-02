@@ -15,7 +15,6 @@ import {
 } from '../../../core/cache/models/sort-options.model';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { Item } from '../../../core/shared/item.model';
-import { SearchService } from '../../../core/shared/search/search.service';
 import { hasValue } from '../../empty.util';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { ItemSearchResult } from '../../object-collection/shared/item-search-result.model';
@@ -25,6 +24,7 @@ import {
   createSuccessfulRemoteDataObject$,
 } from '../../remote-data.utils';
 import { PaginatedSearchOptions } from '../../search/models/paginated-search-options.model';
+import { SearchResultsDataService } from '../../search/services/search-results.data.service';
 import { createPaginatedList } from '../../testing/utils.test';
 import { DSOSelectorComponent } from './dso-selector.component';
 
@@ -49,8 +49,8 @@ describe('DSOSelectorComponent', () => {
     createSearchResult('6'),
   ];
 
-  const searchService = {
-    search: (options: PaginatedSearchOptions, responseMsToLive?: number, useCachedVersionIfAvailable = true) => {
+  const searchResultsService = {
+    searchObjects: (options: PaginatedSearchOptions, useCachedVersionIfAvailable = true) => {
       if (hasValue(options.query) && options.query.startsWith('search.resourceid')) {
         return createSuccessfulRemoteDataObject$(createPaginatedList([searchResult]));
       } else if (options.pagination.currentPage === 1) {
@@ -84,7 +84,7 @@ describe('DSOSelectorComponent', () => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), DSOSelectorComponent],
       providers: [
-        { provide: SearchService, useValue: searchService },
+        { provide: SearchResultsDataService, useValue: searchResultsService },
         { provide: NotificationsService, useValue: notificationsService },
       ],
       schemas: [NO_ERRORS_SCHEMA],
@@ -141,14 +141,14 @@ describe('DSOSelectorComponent', () => {
 
   describe('search', () => {
     beforeEach(() => {
-      spyOn(searchService, 'search').and.callThrough();
+      spyOn(searchResultsService, 'searchObjects').and.callThrough();
     });
 
     it('should specify how to sort if no query is given', () => {
       component.sort = new SortOptions('dc.title', SortDirection.ASC);
       component.search(undefined, 0);
 
-      expect(searchService.search).toHaveBeenCalledWith(
+      expect(searchResultsService.searchObjects).toHaveBeenCalledWith(
         jasmine.objectContaining({
           query: undefined,
           sort: jasmine.objectContaining({
@@ -156,7 +156,6 @@ describe('DSOSelectorComponent', () => {
             direction: SortDirection.ASC,
           }),
         }),
-        null,
         true,
       );
     });
@@ -165,12 +164,11 @@ describe('DSOSelectorComponent', () => {
       component.sort = new SortOptions('dc.title', SortDirection.ASC);
       component.search('testQuery', 0);
 
-      expect(searchService.search).toHaveBeenCalledWith(
+      expect(searchResultsService.searchObjects).toHaveBeenCalledWith(
         jasmine.objectContaining({
           query: 'testQuery',
           sort: null,
         }),
-        null,
         true,
       );
     });
@@ -178,7 +176,7 @@ describe('DSOSelectorComponent', () => {
 
   describe('when search returns an error', () => {
     beforeEach(() => {
-      spyOn(searchService, 'search').and.returnValue(createFailedRemoteDataObject$());
+      spyOn(searchResultsService, 'searchObjects').and.returnValue(createFailedRemoteDataObject$());
       component.ngOnInit();
     });
 

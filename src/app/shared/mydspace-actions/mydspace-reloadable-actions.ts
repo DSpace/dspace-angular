@@ -22,11 +22,11 @@ import { RequestService } from '../../core/data/request.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { ResourceType } from '../../core/shared/resource-type';
-import { SearchService } from '../../core/shared/search/search.service';
 import { ProcessTaskResponse } from '../../core/tasks/models/process-task-response';
 import { NotificationOptions } from '../notifications/models/notification-options.model';
 import { NotificationsService } from '../notifications/notifications.service';
 import { getSearchResultFor } from '../search/search-result-element-decorator';
+import { SearchResultsDataService } from '../search/services/search-results.data.service';
 import { MyDSpaceActionsComponent } from './mydspace-actions';
 
 /**
@@ -46,10 +46,10 @@ export abstract class MyDSpaceReloadableActionsComponent<T extends DSpaceObject,
     protected router: Router,
     protected notificationsService: NotificationsService,
     protected translate: TranslateService,
-    protected searchService: SearchService,
+    protected searchResultsService: SearchResultsDataService,
     protected requestService: RequestService,
   ) {
-    super(objectType, injector, router, notificationsService, translate, searchService, requestService);
+    super(objectType, injector, router, notificationsService, translate, searchResultsService, requestService);
   }
 
   /**

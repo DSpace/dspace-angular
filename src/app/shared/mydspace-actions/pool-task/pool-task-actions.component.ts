@@ -24,7 +24,6 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { RequestService } from '../../../core/data/request.service';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { Item } from '../../../core/shared/item.model';
-import { SearchService } from '../../../core/shared/search/search.service';
 import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
 import { ClaimedTaskDataService } from '../../../core/tasks/claimed-task-data.service';
 import { PoolTask } from '../../../core/tasks/models/pool-task-object.model';
@@ -33,6 +32,7 @@ import { PoolTaskDataService } from '../../../core/tasks/pool-task-data.service'
 import { getWorkflowItemViewRoute } from '../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import { NotificationsService } from '../../notifications/notifications.service';
+import { SearchResultsDataService } from '../../search/services/search-results.data.service';
 import { MyDSpaceReloadableActionsComponent } from '../mydspace-reloadable-actions';
 
 /**
@@ -83,7 +83,7 @@ export class PoolTaskActionsComponent extends MyDSpaceReloadableActionsComponent
    * @param {NotificationsService} notificationsService
    * @param {ClaimedTaskDataService} claimedTaskService
    * @param {TranslateService} translate
-   * @param {SearchService} searchService
+   * @param {SearchResultsDataService} searchResultsService
    * @param {RequestService} requestService
    */
   constructor(protected injector: Injector,
@@ -91,9 +91,9 @@ export class PoolTaskActionsComponent extends MyDSpaceReloadableActionsComponent
     protected notificationsService: NotificationsService,
     protected claimedTaskService: ClaimedTaskDataService,
     protected translate: TranslateService,
-    protected searchService: SearchService,
+    protected searchResultsService: SearchResultsDataService,
     protected requestService: RequestService) {
-    super(PoolTask.type, injector, router, notificationsService, translate, searchService, requestService);
+    super(PoolTask.type, injector, router, notificationsService, translate, searchResultsService, requestService);
   }
 
   /**

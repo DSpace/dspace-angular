@@ -21,18 +21,17 @@ import { of } from 'rxjs';
 
 import { RequestService } from '../../../core/data/request.service';
 import { Item } from '../../../core/shared/item.model';
-import { SearchService } from '../../../core/shared/search/search.service';
 import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
 import { ClaimedTaskDataService } from '../../../core/tasks/claimed-task-data.service';
 import { PoolTask } from '../../../core/tasks/models/pool-task-object.model';
 import { ProcessTaskResponse } from '../../../core/tasks/models/process-task-response';
 import { PoolTaskDataService } from '../../../core/tasks/pool-task-data.service';
 import { getMockRequestService } from '../../mocks/request.service.mock';
-import { getMockSearchService } from '../../mocks/search-service.mock';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { PoolTaskSearchResult } from '../../object-collection/shared/pool-task-search-result.model';
 import { createSuccessfulRemoteDataObject } from '../../remote-data.utils';
+import { SearchResultsDataService } from '../../search/services/search-results.data.service';
 import { ActivatedRouteStub } from '../../testing/active-router.stub';
 import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
 import { RouterStub } from '../../testing/router.stub';
@@ -48,7 +47,10 @@ let mockObject: PoolTask;
 let notificationsServiceStub: NotificationsServiceStub;
 let router: RouterStub;
 
-const searchService = getMockSearchService();
+const searchResultsService = jasmine.createSpyObj('searchResultsService', {
+  searchObjects: '',
+  invalidateSearchObjects: of(true),
+});
 
 const requestService = getMockRequestService();
 
@@ -106,7 +108,7 @@ describe('PoolTaskActionsComponent', () => {
         { provide: Router, useValue: new RouterStub() },
         { provide: PoolTaskDataService, useValue: mockDataService },
         { provide: ClaimedTaskDataService, useValue: mockClaimedTaskDataService },
-        { provide: SearchService, useValue: searchService },
+        { provide: SearchResultsDataService, useValue: searchResultsService },
         { provide: RequestService, useValue: requestService },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],

@@ -13,13 +13,13 @@ import { RemoteData } from '../../../../core/data/remote-data';
 import { RequestService } from '../../../../core/data/request.service';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { Item } from '../../../../core/shared/item.model';
-import { SearchService } from '../../../../core/shared/search/search.service';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { ClaimedTaskDataService } from '../../../../core/tasks/claimed-task-data.service';
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
 import { CLAIMED_TASK } from '../../../../core/tasks/models/claimed-task-object.resource-type';
 import { isEmpty } from '../../../empty.util';
 import { NotificationsService } from '../../../notifications/notifications.service';
+import { SearchResultsDataService } from '../../../search/services/search-results.data.service';
 import { MyDSpaceReloadableActionsComponent } from '../../mydspace-reloadable-actions';
 
 /**
@@ -64,9 +64,9 @@ export abstract class ClaimedTaskActionsAbstractComponent extends MyDSpaceReload
                         protected router: Router,
                         protected notificationsService: NotificationsService,
                         protected translate: TranslateService,
-                        protected searchService: SearchService,
+                        protected searchResultsService: SearchResultsDataService,
                         protected requestService: RequestService) {
-    super(CLAIMED_TASK, injector, router, notificationsService, translate, searchService, requestService);
+    super(CLAIMED_TASK, injector, router, notificationsService, translate, searchResultsService, requestService);
   }
 
   /**

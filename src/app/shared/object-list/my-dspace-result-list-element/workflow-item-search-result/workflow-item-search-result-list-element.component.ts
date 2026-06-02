@@ -88,8 +88,7 @@ export class WorkflowItemSearchResultListElementComponent extends SearchResultLi
   }
 
   private deriveSearchResult() {
-    this.linkService.resolveLink(this.object.indexableObject, followLink('item'));
-    this.object.indexableObject.item.pipe(
+    this.linkService.resolveLinkWithoutAttaching(this.object.indexableObject, followLink('item')).pipe(
       getFirstSucceededRemoteDataPayload(),
     ).subscribe((item: Item) => {
       const result = new ItemSearchResult();

@@ -7,20 +7,20 @@ import { TestScheduler } from 'rxjs/testing';
 
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { Item } from '../../core/shared/item.model';
-import { SearchService } from '../../core/shared/search/search.service';
 import { ItemSearchResult } from '../../shared/object-collection/shared/item-search-result.model';
 import {
   createNoContentRemoteDataObject,
   createSuccessfulRemoteDataObject,
 } from '../../shared/remote-data.utils';
 import { SearchObjects } from '../../shared/search/models/search-objects.model';
+import { SearchResultsDataService } from '../../shared/search/services/search-results.data.service';
 import { ProfileClaimService } from './profile-claim.service';
 
 describe('ProfileClaimService', () => {
   let scheduler: TestScheduler;
   let service: ProfileClaimService;
   let serviceAsAny: any;
-  let searchService: jasmine.SpyObj<SearchService>;
+  let searchResultsService: jasmine.SpyObj<SearchResultsDataService>;
 
   const eperson: EPerson = Object.assign(new EPerson(), {
     id: 'id',
@@ -120,11 +120,11 @@ describe('ProfileClaimService', () => {
   beforeEach(() => {
     scheduler = getTestScheduler();
 
-    searchService = jasmine.createSpyObj('SearchService', {
-      search: jasmine.createSpy('search'),
+    searchResultsService = jasmine.createSpyObj('searchResultsService', {
+      searchObjects: jasmine.createSpy('searchObjects'),
     });
 
-    service = new ProfileClaimService(searchService);
+    service = new ProfileClaimService(searchResultsService);
     serviceAsAny = service;
   });
 
@@ -177,7 +177,7 @@ describe('ProfileClaimService', () => {
 
     describe('when has search results', () => {
       beforeEach(() => {
-        searchService.search.and.returnValue(of(searchResultRD));
+        searchResultsService.searchObjects.and.returnValue(of(searchResultRD));
       });
 
       it('should return the proper search object', () => {
@@ -192,7 +192,7 @@ describe('ProfileClaimService', () => {
 
     describe('when has not suggestions', () => {
       beforeEach(() => {
-        searchService.search.and.returnValue(of(emptySearchResultRD));
+        searchResultsService.searchObjects.and.returnValue(of(emptySearchResultRD));
       });
 
       it('should return null', () => {

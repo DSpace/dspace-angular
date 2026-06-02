@@ -32,7 +32,7 @@ describe('Search Utils', () => {
         value: 'Value without search href',
       });
       searchFilterConfig = Object.assign(new SearchFilterConfig(), {
-        name: 'facetName',
+        filter: 'facetName',
       });
     });
 

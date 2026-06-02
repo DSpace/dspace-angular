@@ -17,9 +17,9 @@ import {
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { RequestService } from '../../../core/data/request.service';
 import { Item } from '../../../core/shared/item.model';
-import { SearchService } from '../../../core/shared/search/search.service';
 import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 import { NotificationsService } from '../../notifications/notifications.service';
+import { SearchResultsDataService } from '../../search/services/search-results.data.service';
 import { MyDSpaceActionsComponent } from '../mydspace-actions';
 
 /**
@@ -56,16 +56,16 @@ export class ItemActionsComponent extends MyDSpaceActionsComponent<Item, ItemDat
    * @param {Router} router
    * @param {NotificationsService} notificationsService
    * @param {TranslateService} translate
-   * @param {SearchService} searchService
+   * @param {SearchResultsDataService} searchResultsService
    * @param {RequestService} requestService
    */
   constructor(protected injector: Injector,
               protected router: Router,
               protected notificationsService: NotificationsService,
               protected translate: TranslateService,
-              protected searchService: SearchService,
+              protected searchResultsService: SearchResultsDataService,
               protected requestService: RequestService) {
-    super(Item.type, injector, router, notificationsService, translate, searchService, requestService);
+    super(Item.type, injector, router, notificationsService, translate, searchResultsService, requestService);
   }
 
   ngOnInit(): void {

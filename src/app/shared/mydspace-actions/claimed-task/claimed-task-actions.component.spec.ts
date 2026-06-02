@@ -22,19 +22,18 @@ import { of } from 'rxjs';
 import { RequestService } from '../../../core/data/request.service';
 import { WorkflowActionDataService } from '../../../core/data/workflow-action-data.service';
 import { Item } from '../../../core/shared/item.model';
-import { SearchService } from '../../../core/shared/search/search.service';
 import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
 import { ClaimedTaskDataService } from '../../../core/tasks/claimed-task-data.service';
 import { ClaimedTask } from '../../../core/tasks/models/claimed-task-object.model';
 import { WorkflowAction } from '../../../core/tasks/models/workflow-action-object.model';
 import { getMockRequestService } from '../../mocks/request.service.mock';
-import { getMockSearchService } from '../../mocks/search-service.mock';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { NotificationsService } from '../../notifications/notifications.service';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '../../remote-data.utils';
+import { SearchResultsDataService } from '../../search/services/search-results.data.service';
 import { ActivatedRouteStub } from '../../testing/active-router.stub';
 import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
 import { RouterStub } from '../../testing/router.stub';
@@ -49,7 +48,7 @@ let notificationsServiceStub: NotificationsServiceStub;
 let router: RouterStub;
 
 let mockDataService;
-let searchService;
+let searchResultsService;
 let requestServce;
 let workflowActionService: WorkflowActionDataService;
 
@@ -65,7 +64,10 @@ function init() {
     rejectTask: jasmine.createSpy('rejectTask'),
     returnToPoolTask: jasmine.createSpy('returnToPoolTask'),
   });
-  searchService = getMockSearchService();
+  searchResultsService = jasmine.createSpyObj('searchResultsService', {
+    searchObjects: '',
+    invalidateSearchObjects: of(true),
+  });
   requestServce = getMockRequestService();
 
   item = Object.assign(new Item(), {
@@ -127,7 +129,7 @@ describe('ClaimedTaskActionsComponent', () => {
         { provide: Router, useValue: new RouterStub() },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         { provide: ClaimedTaskDataService, useValue: mockDataService },
-        { provide: SearchService, useValue: searchService },
+        { provide: SearchResultsDataService, useValue: searchResultsService },
         { provide: RequestService, useValue: requestServce },
         { provide: WorkflowActionDataService, useValue: workflowActionService },
       ],

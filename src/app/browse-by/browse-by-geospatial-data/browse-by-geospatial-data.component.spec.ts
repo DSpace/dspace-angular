@@ -32,7 +32,7 @@ const activatedRouteStub = {
 
 // Mock search filter config
 const mockFilterConfig = Object.assign(new SearchFilterConfig(), {
-  name: 'point',
+  filter: 'point',
   type: FilterType.text,
   hasFacets: true,
   isOpenByDefault: false,

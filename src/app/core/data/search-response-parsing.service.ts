@@ -1,20 +1,23 @@
 import { Injectable } from '@angular/core';
 
-import { hasValue } from '../../shared/empty.util';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../shared/empty.util';
+import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
 import { SearchObjects } from '../../shared/search/models/search-objects.model';
+import { getSearchResultFor } from '../../shared/search/search-result-element-decorator';
 import { getClassForType } from '../cache/builders/build-decorators';
 import { ParsedResponse } from '../cache/response.models';
 import { DSpaceSerializer } from '../dspace-rest/dspace.serializer';
 import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
+import { GenericConstructor } from '../shared/generic-constructor';
 import {
   MetadataMap,
   MetadataValue,
 } from '../shared/metadata.models';
 import { DspaceRestResponseParsingService } from './dspace-rest-response-parsing.service';
 import { RestRequest } from './rest-request.model';
-import { GenericConstructor } from '../shared/generic-constructor';
-import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
-import { getSearchResultFor } from '../../shared/search/search-result-element-decorator';
 
 @Injectable({ providedIn: 'root' })
 export class SearchResponseParsingService extends DspaceRestResponseParsingService {
@@ -26,7 +29,8 @@ export class SearchResponseParsingService extends DspaceRestResponseParsingServi
       },
     };
     const payload: any = data.payload || emptyPayload;
-    const hitHighlights: MetadataMap[] = payload._embedded.objects
+    const embeddedObjects = isNotEmpty(payload?._embedded?.objects) ? payload._embedded.objects : [];
+    const hitHighlights: MetadataMap[] = embeddedObjects
       .map((object) => object.hitHighlights)
       .map((hhObject) => {
         const mdMap: MetadataMap = {};
@@ -39,7 +43,7 @@ export class SearchResponseParsingService extends DspaceRestResponseParsingServi
         return mdMap;
       });
 
-    const objects = payload._embedded.objects
+    const objects = embeddedObjects
       .filter((object) => hasValue(object._embedded))
       .map((object, index) => Object.assign({}, object, {
         indexableObject: object._embedded.indexableObject,

@@ -14,7 +14,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { Community } from '../../../core/shared/community.model';
 import { SearchService } from '../../../core/shared/search/search.service';
-import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
+import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import { ErrorComponent } from '../../error/error.component';
 import { getMockThemeService } from '../../mocks/theme-service.mock';
 import { ObjectCollectionComponent } from '../../object-collection/object-collection.component';
@@ -41,7 +41,7 @@ describe('SearchResultsComponent', () => {
         { provide: ThemeService, useValue: getMockThemeService() },
         { provide: SearchService, useValue: new SearchServiceStub() },
         {
-          provide: SearchConfigurationService,
+          provide: SEARCH_CONFIG_SERVICE,
           useValue: new SearchConfigurationServiceStub(),
         },
       ],

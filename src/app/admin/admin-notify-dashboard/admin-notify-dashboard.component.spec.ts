@@ -10,8 +10,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { APP_CONFIG } from '../../../config/app-config.interface';
 import { environment } from '../../../environments/environment.test';
 import { buildPaginatedList } from '../../core/data/paginated-list.model';
-import { SearchService } from '../../core/shared/search/search.service';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { SearchResultsDataService } from '../../shared/search/services/search-results.data.service';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { AdminNotifyDashboardComponent } from './admin-notify-dashboard.component';
 import { AdminNotifyMetricsComponent } from './admin-notify-metrics/admin-notify-metrics.component';
@@ -128,7 +128,7 @@ describe('AdminNotifyDashboardComponent', () => {
       imports: [TranslateModule.forRoot(), NgbNavModule, AdminNotifyDashboardComponent],
       providers: [
         { provide: APP_CONFIG, useValue: environment },
-        { provide: SearchService, useValue: { search: () => createSuccessfulRemoteDataObject$(results) } },
+        { provide: SearchResultsDataService, useValue: { searchObjects: () => createSuccessfulRemoteDataObject$(results) } },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],
       schemas: [NO_ERRORS_SCHEMA],

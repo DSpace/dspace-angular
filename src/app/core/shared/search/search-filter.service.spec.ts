@@ -32,7 +32,7 @@ describe('SearchFilterService', () => {
   let service: SearchFilterService;
   const filterName1 = 'test name';
   const mockFilterConfig: SearchFilterConfig = Object.assign(new SearchFilterConfig(), {
-    name: filterName1,
+    filter: filterName1,
     filterType: FilterType.text,
     hasFacets: false,
     isOpenByDefault: false,

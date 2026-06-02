@@ -13,7 +13,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { APP_CONFIG } from '../../../../config/app-config.interface';
 import { environment } from '../../../../environments/environment.test';
-import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
+import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import { SearchConfigurationServiceStub } from '../../testing/search-configuration-service.stub';
 import { AdvancedSearchComponent } from '../advanced-search/advanced-search.component';
 import { ThemedSearchFiltersComponent } from '../search-filters/themed-search-filters.component';
@@ -36,7 +36,7 @@ describe('SearchSidebarComponent', () => {
         SearchSidebarComponent,
       ],
       providers: [
-        { provide: SearchConfigurationService, useValue: searchConfigurationService },
+        { provide: SEARCH_CONFIG_SERVICE, useValue: searchConfigurationService },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).overrideProvider(APP_CONFIG, {

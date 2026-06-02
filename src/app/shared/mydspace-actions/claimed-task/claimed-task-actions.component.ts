@@ -20,13 +20,13 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { RequestService } from '../../../core/data/request.service';
 import { WorkflowActionDataService } from '../../../core/data/workflow-action-data.service';
 import { Item } from '../../../core/shared/item.model';
-import { SearchService } from '../../../core/shared/search/search.service';
 import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
 import { ClaimedTaskDataService } from '../../../core/tasks/claimed-task-data.service';
 import { ClaimedTask } from '../../../core/tasks/models/claimed-task-object.model';
 import { WorkflowAction } from '../../../core/tasks/models/workflow-action-object.model';
 import { getWorkflowItemViewRoute } from '../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
 import { NotificationsService } from '../../notifications/notifications.service';
+import { SearchResultsDataService } from '../../search/services/search-results.data.service';
 import { VarDirective } from '../../utils/var.directive';
 import { MyDSpaceActionsComponent } from '../mydspace-actions';
 import { ClaimedTaskActionsLoaderComponent } from './switcher/claimed-task-actions-loader.component';
@@ -77,7 +77,7 @@ export class ClaimedTaskActionsComponent extends MyDSpaceActionsComponent<Claime
    * @param {Router} router
    * @param {NotificationsService} notificationsService
    * @param {TranslateService} translate
-   * @param {SearchService} searchService
+   * @param {SearchResultsDataService} searchResultsService
    * @param {RequestService} requestService
    * @param workflowActionService
    */
@@ -85,11 +85,11 @@ export class ClaimedTaskActionsComponent extends MyDSpaceActionsComponent<Claime
     protected router: Router,
     protected notificationsService: NotificationsService,
     protected translate: TranslateService,
-    protected searchService: SearchService,
+    protected searchResultsService: SearchResultsDataService,
     protected requestService: RequestService,
     protected workflowActionService: WorkflowActionDataService,
   ) {
-    super(ClaimedTask.type, injector, router, notificationsService, translate, searchService, requestService);
+    super(ClaimedTask.type, injector, router, notificationsService, translate, searchResultsService, requestService);
   }
 
   /**

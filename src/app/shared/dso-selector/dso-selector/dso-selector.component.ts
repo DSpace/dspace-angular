@@ -52,7 +52,6 @@ import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
 } from '../../../core/shared/operators';
-import { SearchService } from '../../../core/shared/search/search.service';
 import { ViewMode } from '../../../core/shared/view-mode.model';
 import {
   hasNoValue,
@@ -71,6 +70,7 @@ import { ListableNotificationObject } from '../../object-list/listable-notificat
 import { LISTABLE_NOTIFICATION_OBJECT } from '../../object-list/listable-notification-object/listable-notification-object.resource-type';
 import { PaginatedSearchOptions } from '../../search/models/paginated-search-options.model';
 import { SearchResult } from '../../search/models/search-result.model';
+import { SearchResultsDataService } from '../../search/services/search-results.data.service';
 
 @Component({
   selector: 'ds-dso-selector',
@@ -192,7 +192,7 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
   randomSeed: string = Math.random().toString(36).substring(2, 6);
 
   constructor(
-    protected searchService: SearchService,
+    protected searchResultsService: SearchResultsDataService,
     protected notifcationsService: NotificationsService,
     protected translate: TranslateService,
     protected dsoNameService: DSONameService,
@@ -284,7 +284,7 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
   search(query: string, page: number, useCache: boolean = true): Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>> {
     // default sort is only used when there is not query
     const efectiveSort = query ? null : this.sort;
-    return this.searchService.search(
+    return this.searchResultsService.searchObjects(
       new PaginatedSearchOptions({
         query: query,
         dsoTypes: this.types,
@@ -293,7 +293,6 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
         }),
         sort: efectiveSort,
       }),
-      null,
       useCache,
     ).pipe(
       getFirstCompletedRemoteData(),

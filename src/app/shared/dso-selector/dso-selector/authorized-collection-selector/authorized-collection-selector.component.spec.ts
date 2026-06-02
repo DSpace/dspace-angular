@@ -10,11 +10,11 @@ import { TranslateModule } from '@ngx-translate/core';
 import { CollectionDataService } from '../../../../core/data/collection-data.service';
 import { Collection } from '../../../../core/shared/collection.model';
 import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
-import { SearchService } from '../../../../core/shared/search/search.service';
 import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { ListableObjectComponentLoaderComponent } from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
+import { SearchResultsDataService } from '../../../search/services/search-results.data.service';
 import { createPaginatedList } from '../../../testing/utils.test';
 import { VarDirective } from '../../../utils/var.directive';
 import { AuthorizedCollectionSelectorComponent } from './authorized-collection-selector.component';
@@ -40,7 +40,7 @@ describe('AuthorizedCollectionSelectorComponent', () => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), AuthorizedCollectionSelectorComponent, VarDirective],
       providers: [
-        { provide: SearchService, useValue: {} },
+        { provide: SearchResultsDataService, useValue: {} },
         { provide: CollectionDataService, useValue: collectionService },
         { provide: NotificationsService, useValue: notificationsService },
       ],

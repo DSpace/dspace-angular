@@ -3,105 +3,43 @@ import { Injectable } from '@angular/core';
 import { Angulartics2 } from 'angulartics2';
 import {
   BehaviorSubject,
-  combineLatest as observableCombineLatest,
   Observable,
 } from 'rxjs';
 import {
   distinctUntilChanged,
   map,
-  skipWhile,
-  switchMap,
   take,
 } from 'rxjs/operators';
 
 import {
   hasValue,
-  hasValueOperator,
   isNotEmpty,
 } from '../../../shared/empty.util';
-import { ListableObject } from '../../../shared/object-collection/shared/listable-object.model';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { AppliedFilter } from '../../../shared/search/models/applied-filter.model';
 import { FacetValue } from '../../../shared/search/models/facet-value.model';
 import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
 import { SearchFilterConfig } from '../../../shared/search/models/search-filter-config.model';
 import { SearchObjects } from '../../../shared/search/models/search-objects.model';
-import { SearchResult } from '../../../shared/search/models/search-result.model';
-import { getSearchResultFor } from '../../../shared/search/search-result-element-decorator';
 import { SearchFacetDataService } from '../../../shared/search/services/search-facet.data.service';
-import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { RequestParam } from '../../cache/models/request-param.model';
-import { BaseDataService } from '../../data/base/base-data.service';
 import { DSpaceObjectDataService } from '../../data/dspace-object-data.service';
 import { PaginatedList } from '../../data/paginated-list.model';
-import { ResponseParsingService } from '../../data/parsing.service';
 import { RemoteData } from '../../data/remote-data';
-import { GetRequest } from '../../data/request.models';
 import { RequestService } from '../../data/request.service';
-import { RestRequest } from '../../data/rest-request.model';
-import { SearchResponseParsingService } from '../../data/search-response-parsing.service';
 import { PaginationService } from '../../pagination/pagination.service';
 import { RouteService } from '../../services/route.service';
-import { URLCombiner } from '../../url-combiner/url-combiner';
 import { DSpaceObject } from '../dspace-object.model';
-import { GenericConstructor } from '../generic-constructor';
 import { HALEndpointService } from '../hal-endpoint.service';
-import {
-  getFirstCompletedRemoteData,
-  getRemoteDataPayload,
-} from '../operators';
 import { ViewMode } from '../view-mode.model';
 import { SearchConfigurationService } from './search-configuration.service';
-
-/**
- * A limited data service implementation for the 'discover' endpoint
- * - Overrides {@link BaseDataService.addEmbedParams} in order to make it public
- *
- * Doesn't use any of the service's dependencies, they are initialized as undefined
- * Therefore, request/response handling methods won't work even though they're defined
- */
-class SearchDataService extends BaseDataService<any> {
-  constructor() {
-    super('discover', undefined, undefined, undefined, undefined);
-  }
-
-  /**
-   * Adds the embed options to the link for the request
-   * @param href            The href the params are to be added to
-   * @param args            params for the query string
-   * @param linksToFollow   links we want to embed in query string if shouldEmbed is true
-   */
-  public addEmbedParams(href: string, args: string[], ...linksToFollow: FollowLinkConfig<any>[]) {
-    return super.addEmbedParams(href, args, ...linksToFollow);
-  }
-}
 
 /**
  * Service that performs all general actions that have to do with the search page
  */
 @Injectable({ providedIn: 'root' })
 export class SearchService {
-
-  /**
-   * Endpoint link path for retrieving general search results
-   */
-  private searchLinkPath = 'discover/search/objects';
-
-  /**
-   * The ResponseParsingService constructor name
-   */
-  private parser: GenericConstructor<ResponseParsingService> = SearchResponseParsingService;
-
-  /**
-   * The RestRequest constructor name
-   */
-  private request: GenericConstructor<RestRequest> = GetRequest;
-
-  /**
-   * Instance of SearchDataService to forward data service methods to
-   */
-  private searchDataService: SearchDataService;
 
   public appliedFilters$: BehaviorSubject<AppliedFilter[]> = new BehaviorSubject([]);
 
@@ -116,7 +54,6 @@ export class SearchService {
     private angulartics2: Angulartics2,
     private searchFacetService: SearchFacetDataService,
   ) {
-    this.searchDataService = new SearchDataService();
   }
 
   /**
@@ -128,154 +65,6 @@ export class SearchService {
     return this.appliedFilters$.pipe(
       map((appliedFilters: AppliedFilter[]) => appliedFilters.filter((appliedFilter: AppliedFilter) => appliedFilter.filter === filterName)),
       distinctUntilChanged((previous: AppliedFilter[], next: AppliedFilter[]) => JSON.stringify(previous) === JSON.stringify(next)),
-    );
-  }
-
-  /**
-   * Method to set service options
-   * @param {GenericConstructor<ResponseParsingService>} parser The ResponseParsingService constructor name
-   * @param {boolean} request The RestRequest constructor name
-   */
-  setServiceOptions(parser: GenericConstructor<ResponseParsingService>, request: GenericConstructor<RestRequest>) {
-    if (parser) {
-      this.parser = parser;
-    }
-    if (request) {
-      this.request = request;
-    }
-  }
-
-  getEndpoint(searchOptions?: PaginatedSearchOptions): Observable<string> {
-    return this.halService.getEndpoint(this.searchLinkPath).pipe(
-      map((url: string) => {
-        if (hasValue(searchOptions)) {
-          return (searchOptions as PaginatedSearchOptions).toRestUrl(url);
-        } else {
-          return url;
-        }
-      }),
-    );
-  }
-
-  /**
-   * Method to retrieve a paginated list of search results from the server
-   * @param {PaginatedSearchOptions} searchOptions The configuration necessary to perform this search
-   * @param responseMsToLive The amount of milliseconds for the response to live in cache
-   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
-   * no valid cached version. Defaults to true
-   * @param reRequestOnStale Whether or not the request should automatically be re-requested after
-   * the response becomes stale
-   * @param linksToFollow List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
-   * @returns {Observable<RemoteData<SearchObjects<T>>>} Emits a paginated list with all search results found
-   */
-  search<T extends DSpaceObject>(searchOptions?: PaginatedSearchOptions, responseMsToLive?: number, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<T>[]): Observable<RemoteData<SearchObjects<T>>> {
-    const href$ = this.getEndpoint(searchOptions);
-
-    let startTime: number;
-    href$.pipe(
-      take(1),
-      map((href: string) => {
-        const args = this.searchDataService.addEmbedParams(href, [], ...linksToFollow);
-        if (isNotEmpty(args)) {
-          return new URLCombiner(href, `?${args.join('&')}`).toString();
-        } else {
-          return href;
-        }
-      }),
-    ).subscribe((url: string) => {
-      const request = new this.request(this.requestService.generateRequestId(), url);
-
-      const getResponseParserFn: () => GenericConstructor<ResponseParsingService> = () => {
-        return this.parser;
-      };
-
-      Object.assign(request, {
-        responseMsToLive: hasValue(responseMsToLive) ? responseMsToLive : request.responseMsToLive,
-        getResponseParser: getResponseParserFn,
-        searchOptions: searchOptions,
-      });
-
-      startTime = new Date().getTime();
-      this.requestService.send(request, useCachedVersionIfAvailable);
-    });
-
-    const sqr$ = href$.pipe(
-      switchMap((href: string) => this.rdb.buildFromHref<SearchObjects<T>>(href)),
-    );
-
-    return this.directlyAttachIndexableObjects(sqr$, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow).pipe(
-      // This skip ensures that if a stale object is present in the cache when you do a
-      // call it isn't immediately returned, but we wait until the remote data for the new request
-      // is created. If useCachedVersionIfAvailable is false it also ensures you don't get a
-      // cached completed object
-      skipWhile((rd: RemoteData<SearchObjects<T>>) => rd.isStale || (!useCachedVersionIfAvailable && rd.lastUpdated < startTime)),
-    );
-  }
-
-  /**
-   * Method to directly attach the indexableObjects to search results, instead of using RemoteData.
-   * For compatibility with the way the search was written originally
-   *
-   * @param sqr$                        A {@link SearchObjects} {@link RemoteData} Observable without its
-   *                                    indexableObjects attached
-   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
-   *                                    no valid cached version. Defaults to true
-   * @param reRequestOnStale            Whether or not the request should automatically be re-
-   *                                    requested after the response becomes stale
-   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
-   *                                    {@link HALLink}s should be automatically resolved
-   * @protected
-   */
-  protected directlyAttachIndexableObjects<T extends DSpaceObject>(sqr$: Observable<RemoteData<SearchObjects<T>>>, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<T>[]): Observable<RemoteData<SearchObjects<T>>> {
-    return sqr$.pipe(
-      switchMap((resultsRd: RemoteData<SearchObjects<T>>) => {
-        if (hasValue(resultsRd.payload) && isNotEmpty(resultsRd.payload.page)) {
-          // retrieve the indexableObjects for all search results on the page
-          const searchResult$Array: Observable<SearchResult<T>>[] = resultsRd.payload.page.map((result: SearchResult<T>) =>
-            this.dspaceObjectService.findByHref(result._links.indexableObject.href, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow as any).pipe(
-              getFirstCompletedRemoteData(),
-              getRemoteDataPayload(),
-              hasValueOperator(),
-              map((indexableObject: DSpaceObject) => {
-                // determine the constructor of the search result (ItemSearchResult,
-                // CollectionSearchResult, etc) based on the kind of the indeaxbleObject it
-                // contains. Recreate the result with that constructor
-                const constructor: GenericConstructor<ListableObject> = indexableObject.constructor as GenericConstructor<ListableObject>;
-                const resultConstructor = getSearchResultFor(constructor);
-
-                // Attach the payload directly to the indexableObject property on the result
-                return Object.assign(new resultConstructor(), result, {
-                  indexableObject,
-                }) as SearchResult<T>;
-              }),
-            ),
-          );
-
-          // Swap the original page in the remoteData with the new one, now that the results have the
-          // correct types, and all indexableObjects are directly attached.
-          return observableCombineLatest(searchResult$Array).pipe(
-            map((page: SearchResult<T>[]) => {
-
-              const payload = Object.assign(new SearchObjects(), resultsRd.payload, {
-                page,
-              }) as SearchObjects<T>;
-
-              return new RemoteData(
-                resultsRd.timeCompleted,
-                resultsRd.msToLive,
-                resultsRd.lastUpdated,
-                resultsRd.state,
-                resultsRd.errorMessage,
-                payload,
-                resultsRd.statusCode,
-              );
-            }),
-          );
-        }
-        // If we don't have a payload, or the page is empty, simply pass on the unmodified
-        // RemoteData object
-        return [resultsRd];
-      }),
     );
   }
 

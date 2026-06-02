@@ -8,11 +8,11 @@ import { RelationshipOptions } from '../../shared/form/builder/models/relationsh
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { SearchResult } from '../../shared/search/models/search-result.model';
+import { SearchResultsDataService } from '../../shared/search/services/search-results.data.service';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { ExternalSource } from '../shared/external-source.model';
 import { Item } from '../shared/item.model';
 import { PageInfo } from '../shared/page-info.model';
-import { SearchService } from '../shared/search/search.service';
 import { ExternalSourceDataService } from './external-source-data.service';
 import { LookupRelationService } from './lookup-relation.service';
 import { buildPaginatedList } from './paginated-list.model';
@@ -21,7 +21,7 @@ import { RequestService } from './request.service';
 describe('LookupRelationService', () => {
   let service: LookupRelationService;
   let externalSourceService: ExternalSourceDataService;
-  let searchService: SearchService;
+  let searchResultsService: SearchResultsDataService;
   let requestService: RequestService;
 
   const totalExternal = 8;
@@ -54,12 +54,12 @@ describe('LookupRelationService', () => {
         currentPage: 1,
       }), [{}])),
     });
-    searchService = jasmine.createSpyObj('searchService', {
-      search: createSuccessfulRemoteDataObject$(createPaginatedList(localResults)),
-      getEndpoint: of(searchServiceEndpoint),
+    searchResultsService = jasmine.createSpyObj('searchResultsService', {
+      searchObjects: createSuccessfulRemoteDataObject$(createPaginatedList(localResults)),
+      invalidateSearchObjects: of(searchServiceEndpoint),
     });
     requestService = jasmine.createSpyObj('requestService', ['removeByHrefSubstring']);
-    service = new LookupRelationService(externalSourceService, searchService, requestService);
+    service = new LookupRelationService(externalSourceService, searchResultsService, requestService);
   }
 
   beforeEach(() => {
@@ -135,8 +135,8 @@ describe('LookupRelationService', () => {
       service.removeLocalResultsCache();
     });
 
-    it('should call requestService\'s removeByHrefSubstring with the search endpoint', () => {
-      expect(requestService.removeByHrefSubstring).toHaveBeenCalledWith(searchServiceEndpoint);
+    it('should call invalidateSearchObjects', () => {
+      expect(searchResultsService.invalidateSearchObjects).toHaveBeenCalled();
     });
   });
 });

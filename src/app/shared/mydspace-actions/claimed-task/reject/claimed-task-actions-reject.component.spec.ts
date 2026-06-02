@@ -26,16 +26,15 @@ import {
 import { of } from 'rxjs';
 
 import { RequestService } from '../../../../core/data/request.service';
-import { SearchService } from '../../../../core/shared/search/search.service';
 import { ClaimedTaskDataService } from '../../../../core/tasks/claimed-task-data.service';
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
 import { ProcessTaskResponse } from '../../../../core/tasks/models/process-task-response';
 import { PoolTaskDataService } from '../../../../core/tasks/pool-task-data.service';
 import { getMockRequestService } from '../../../mocks/request.service.mock';
-import { getMockSearchService } from '../../../mocks/search-service.mock';
 import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { ClaimedDeclinedTaskSearchResult } from '../../../object-collection/shared/claimed-declined-task-search-result.model';
+import { SearchResultsDataService } from '../../../search/services/search-results.data.service';
 import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
 import { RouterStub } from '../../../testing/router.stub';
 import { ClaimedTaskActionsRejectComponent } from './claimed-task-actions-reject.component';
@@ -45,7 +44,10 @@ let fixture: ComponentFixture<ClaimedTaskActionsRejectComponent>;
 let formBuilder: UntypedFormBuilder;
 let modalService: NgbModal;
 
-const searchService = getMockSearchService();
+const searchResultsService = jasmine.createSpyObj('searchResultsService', {
+  searchObjects: '',
+  invalidateSearchObjects: of(true),
+});
 
 const requestService = getMockRequestService();
 
@@ -77,7 +79,7 @@ describe('ClaimedTaskActionsRejectComponent', () => {
         Injector,
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: Router, useValue: new RouterStub() },
-        { provide: SearchService, useValue: searchService },
+        { provide: SearchResultsDataService, useValue: searchResultsService },
         { provide: RequestService, useValue: requestService },
         { provide: PoolTaskDataService, useValue: mockPoolTaskDataService },
         UntypedFormBuilder,

@@ -13,9 +13,9 @@ import {
 } from '@ngx-translate/core';
 
 import { RequestService } from '../../../../core/data/request.service';
-import { SearchService } from '../../../../core/shared/search/search.service';
 import { ADVANCED_WORKFLOW_ACTION_RATING } from '../../../../workflowitems-edit-page/advanced-workflow-action/advanced-workflow-action-rating/advanced-workflow-action-rating.component';
 import { NotificationsService } from '../../../notifications/notifications.service';
+import { SearchResultsDataService } from '../../../search/services/search-results.data.service';
 import { AdvancedClaimedTaskActionsAbstractComponent } from '../abstract/advanced-claimed-task-actions-abstract.component';
 
 /**
@@ -40,11 +40,11 @@ export class AdvancedClaimedTaskActionRatingComponent extends AdvancedClaimedTas
     protected router: Router,
     protected notificationsService: NotificationsService,
     protected translate: TranslateService,
-    protected searchService: SearchService,
+    protected searchResultsService: SearchResultsDataService,
     protected requestService: RequestService,
     protected route: ActivatedRoute,
   ) {
-    super(injector, router, notificationsService, translate, searchService, requestService, route);
+    super(injector, router, notificationsService, translate, searchResultsService, requestService, route);
   }
 
 }

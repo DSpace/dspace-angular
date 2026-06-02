@@ -28,7 +28,10 @@ import { mockTruncatableService } from '../../../mocks/mock-trucatable.service';
 import { WorkflowitemActionsComponent } from '../../../mydspace-actions/workflowitem/workflowitem-actions.component';
 import { ListableObjectComponentLoaderComponent } from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { WorkflowItemSearchResult } from '../../../object-collection/shared/workflow-item-search-result.model';
-import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../remote-data.utils';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { WorkflowItemSearchResultListElementComponent } from './workflow-item-search-result-list-element.component';
 
@@ -108,12 +111,13 @@ describe('WorkflowItemSearchResultListElementComponent', () => {
 
   beforeEach(() => {
     component.object = mockResultObject;
+    linkService.resolveLinkWithoutAttaching.and.returnValue(createSuccessfulRemoteDataObject$(item));
     fixture.detectChanges();
   });
 
   it('should init derivedSearchResult$ properly', (done) => {
     component.derivedSearchResult$.pipe(take(1)).subscribe((i) => {
-      expect(linkService.resolveLink).toHaveBeenCalled();
+      expect(linkService.resolveLinkWithoutAttaching).toHaveBeenCalled();
       expect(i.indexableObject).toBe(item);
       expect(i.hitHighlights).toBe(mockResultObject.hitHighlights);
       done();

@@ -18,6 +18,7 @@ import {
   filter,
   map,
   startWith,
+  switchMap,
   take,
 } from 'rxjs/operators';
 
@@ -33,6 +34,7 @@ import {
 } from '../../../shared/empty.util';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { DiscoveryConfiguration } from '../../../shared/search/models/discovery-configuration.model';
 import { FacetConfigResponse } from '../../../shared/search/models/facet-config-response.model';
 import { FilterType } from '../../../shared/search/models/filter-type.model';
 import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
@@ -40,6 +42,8 @@ import { SearchFilter } from '../../../shared/search/models/search-filter.model'
 import { SearchFilterConfig } from '../../../shared/search/models/search-filter-config.model';
 import { SearchOptions } from '../../../shared/search/models/search-options.model';
 import { addOperatorToFilterValue } from '../../../shared/search/search.utils';
+import { DiscoveryConfigurationDataService } from '../../../shared/search/services/discovery-configuration.data.service';
+import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { LinkService } from '../../cache/builders/link.service';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import {
@@ -47,6 +51,7 @@ import {
   SortOptions,
 } from '../../cache/models/sort-options.model';
 import { FacetConfigResponseParsingService } from '../../data/facet-config-response-parsing.service';
+import { PaginatedList } from '../../data/paginated-list.model';
 import { ResponseParsingService } from '../../data/parsing.service';
 import { RemoteData } from '../../data/remote-data';
 import { GetRequest } from '../../data/request.models';
@@ -63,7 +68,6 @@ import {
 } from '../operators';
 import { ViewMode } from '../view-mode.model';
 import {
-  FilterConfig,
   SearchConfig,
   SortConfig,
 } from './search-filters/search-config.model';
@@ -136,6 +140,7 @@ export class SearchConfigurationService implements OnDestroy {
               protected requestService: RequestService,
               protected rdb: RemoteDataBuildService,
               @Inject(APP_CONFIG) protected appConfig: AppConfig,
+              protected configurationDataService: DiscoveryConfigurationDataService,
   ) {
     this.initDefaults();
   }
@@ -259,17 +264,6 @@ export class SearchConfigurationService implements OnDestroy {
   }
 
   /**
-   * Creates an observable of SearchConfig every time the configuration stream emits.
-   * @param configuration The search configuration
-   * @param scope The search scope if exists
-   */
-  getConfigurationSearchConfig(configuration: string, scope?: string): Observable<SearchConfig> {
-    return this.getSearchConfigurationFor(scope, configuration).pipe(
-      getAllSucceededRemoteDataPayload(),
-    );
-  }
-
-  /**
    * Return the SortOptions list available for the given SearchConfig
    * @param searchConfig The SearchConfig object
    */
@@ -286,12 +280,15 @@ export class SearchConfigurationService implements OnDestroy {
    * @param configuration The search configuration
    * @param scope The scope if exists
    */
-  public getConfigurationAdvancedSearchFilters(configuration: string, scope?: string): Observable<FilterConfig[]> {
-    return this.getConfigurationSearchConfig(configuration, scope).pipe(
-      map((searchConfiguration: SearchConfig) => {
-        return searchConfiguration.filters
-          .filter((filterConfig: FilterConfig) => this.appConfig.search.advancedFilters.filter.includes(filterConfig.filter))
-          .filter((filterConfig: FilterConfig) => filterConfig.type !== FilterType.range);
+  public getConfigurationAdvancedSearchFilters(configuration: string, scope?: string): Observable<SearchFilterConfig[]> {
+    return this.configurationDataService.findByIdOrScope(configuration, scope, undefined, undefined, followLink('searchfilters')).pipe(
+      getAllSucceededRemoteDataPayload(),
+      switchMap((searchConfiguration: DiscoveryConfiguration) => searchConfiguration.searchfilters),
+      getAllSucceededRemoteDataPayload(),
+      map((searchFilters: PaginatedList<SearchFilterConfig>) => {
+        return searchFilters.page
+          .filter((filterConfig: SearchFilterConfig) => this.appConfig.search.advancedFilters.filter.includes(filterConfig.filter))
+          .filter((filterConfig: SearchFilterConfig) => filterConfig.filterType !== FilterType.range);
       }),
     );
   }
@@ -481,26 +478,6 @@ export class SearchConfigurationService implements OnDestroy {
         return { fixedFilter };
       }),
     );
-  }
-
-
-  /**
-   * Request the search configuration for a given scope or the whole repository
-   * @param {string} scope UUID of the object for which config the filter config is requested, when no scope is provided the configuration for the whole repository is loaded
-   * @param {string} configurationName the name of the configuration
-   * @returns {Observable<RemoteData<SearchConfig[]>>} The found configuration
-   */
-  getSearchConfigurationFor(scope?: string, configurationName?: string): Observable<RemoteData<SearchConfig>> {
-    const href$ = this.halService.getEndpoint(this.configurationLinkPath).pipe(
-      map((url: string) => this.getConfigUrl(url, scope, configurationName)),
-    );
-
-    href$.pipe(take(1)).subscribe((url: string) => {
-      const request = new GetRequest(this.requestService.generateRequestId(), url);
-      this.requestService.send(request, true);
-    });
-
-    return this.rdb.buildFromHref(href$);
   }
 
   private getConfigUrl(url: string, scope?: string, configurationName?: string) {

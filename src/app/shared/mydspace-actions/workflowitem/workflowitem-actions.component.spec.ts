@@ -21,14 +21,13 @@ import { of } from 'rxjs';
 
 import { RequestService } from '../../../core/data/request.service';
 import { Item } from '../../../core/shared/item.model';
-import { SearchService } from '../../../core/shared/search/search.service';
 import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
 import { WorkflowItemDataService } from '../../../core/submission/workflowitem-data.service';
 import { getMockRequestService } from '../../mocks/request.service.mock';
-import { getMockSearchService } from '../../mocks/search-service.mock';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { createSuccessfulRemoteDataObject } from '../../remote-data.utils';
+import { SearchResultsDataService } from '../../search/services/search-results.data.service';
 import { ActivatedRouteStub } from '../../testing/active-router.stub';
 import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
 import { RouterStub } from '../../testing/router.stub';
@@ -41,7 +40,10 @@ let mockObject: WorkflowItem;
 
 const mockDataService = {};
 
-const searchService = getMockSearchService();
+const searchResultsService = jasmine.createSpyObj('searchResultsService', {
+  searchObjects: '',
+  invalidateSearchObjects: of(true),
+});
 
 const requestServce = getMockRequestService();
 
@@ -94,7 +96,7 @@ describe('WorkflowitemActionsComponent', () => {
         { provide: Router, useValue: new RouterStub() },
         { provide: WorkflowItemDataService, useValue: mockDataService },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
-        { provide: SearchService, useValue: searchService },
+        { provide: SearchResultsDataService, useValue: searchResultsService },
         { provide: RequestService, useValue: requestServce },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],

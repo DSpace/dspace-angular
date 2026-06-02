@@ -11,10 +11,7 @@ import {
   BehaviorSubject,
   Subscription,
 } from 'rxjs';
-import {
-  take,
-  tap,
-} from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 
 import { IdentifiableDataService } from '../../core/data/base/identifiable-data.service';
 import { RemoteData } from '../../core/data/remote-data';
@@ -22,9 +19,9 @@ import { RequestService } from '../../core/data/request.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { getFirstSucceededRemoteData } from '../../core/shared/operators';
 import { ResourceType } from '../../core/shared/resource-type';
-import { SearchService } from '../../core/shared/search/search.service';
 import { NotificationOptions } from '../notifications/models/notification-options.model';
 import { NotificationsService } from '../notifications/notifications.service';
+import { SearchResultsDataService } from '../search/services/search-results.data.service';
 import { MyDSpaceActionsServiceFactory } from './mydspace-actions-service.factory';
 
 export interface MyDSpaceActionsResult {
@@ -73,7 +70,7 @@ export abstract class MyDSpaceActionsComponent<T extends DSpaceObject, TService 
    * @param {Router} router
    * @param {NotificationsService} notificationsService
    * @param {TranslateService} translate
-   * @param {SearchService} searchService
+   * @param {SearchResultsDataService} searchResultsService
    * @param {RequestService} requestService
    */
   constructor(
@@ -82,7 +79,7 @@ export abstract class MyDSpaceActionsComponent<T extends DSpaceObject, TService 
     protected router: Router,
     protected notificationsService: NotificationsService,
     protected translate: TranslateService,
-    protected searchService: SearchService,
+    protected searchResultsService: SearchResultsDataService,
     protected requestService: RequestService,
   ) {
     const factory = new MyDSpaceActionsServiceFactory<T, TService>();
@@ -113,9 +110,8 @@ export abstract class MyDSpaceActionsComponent<T extends DSpaceObject, TService 
 
   invalidateCacheForCurrentSearchUrl(shouldNavigate = false): void {
     const url = decodeURIComponent(this.router.url);
-    this.searchService.getEndpoint().pipe(
+    this.searchResultsService.invalidateSearchObjects().pipe(
       take(1),
-      tap((cachedHref: string) => this.requestService.removeByHrefSubstring(cachedHref)),
     ).subscribe(() => {
       if (shouldNavigate) {
         this.router.navigateByUrl(url);

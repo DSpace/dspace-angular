@@ -42,7 +42,9 @@ import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '../../../remote-data.utils';
+import { SearchResultsDataService } from '../../../search/services/search-results.data.service';
 import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
+import { createPaginatedList } from '../../../testing/utils.test';
 import { ExportBatchSelectorComponent } from './export-batch-selector.component';
 
 // No way to add entryComponents yet to testbed; alternative implemented; source: https://stackoverflow.com/questions/41689468/how-to-shallow-test-a-component-with-an-entrycomponents
@@ -115,6 +117,13 @@ describe('ExportBatchSelectorComponent', () => {
         { provide: ScriptDataService, useValue: scriptService },
         { provide: AuthorizationDataService, useValue: authorizationDataService },
         { provide: SearchService, useValue:  new SearchServiceStub() },
+        {
+          provide: SearchResultsDataService,
+          useValue: jasmine.createSpyObj('searchResultsService', {
+            searchObjects: createSuccessfulRemoteDataObject$(createPaginatedList([])),
+            invalidateSearchObjects: of(true),
+          }),
+        },
         {
           provide: ActivatedRoute,
           useValue: {

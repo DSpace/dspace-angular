@@ -13,10 +13,10 @@ import { TranslateService } from '@ngx-translate/core';
 
 import { RequestService } from '../../../../core/data/request.service';
 import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
-import { SearchService } from '../../../../core/shared/search/search.service';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { getAdvancedWorkflowRoute } from '../../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
 import { NotificationsService } from '../../../notifications/notifications.service';
+import { SearchResultsDataService } from '../../../search/services/search-results.data.service';
 import { ClaimedTaskActionsAbstractComponent } from './claimed-task-actions-abstract.component';
 
 /**
@@ -47,11 +47,11 @@ export abstract class AdvancedClaimedTaskActionsAbstractComponent extends Claime
     protected router: Router,
     protected notificationsService: NotificationsService,
     protected translate: TranslateService,
-    protected searchService: SearchService,
+    protected searchResultsService: SearchResultsDataService,
     protected requestService: RequestService,
     protected route: ActivatedRoute,
   ) {
-    super(injector, router, notificationsService, translate, searchService, requestService);
+    super(injector, router, notificationsService, translate, searchResultsService, requestService);
   }
 
   ngOnInit(): void {

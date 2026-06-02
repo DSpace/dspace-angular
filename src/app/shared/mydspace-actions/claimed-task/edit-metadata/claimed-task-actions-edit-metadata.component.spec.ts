@@ -17,25 +17,30 @@ import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
+import { of } from 'rxjs';
 import { ActivatedRouteStub } from 'src/app/shared/testing/active-router.stub';
 
 import { RequestService } from '../../../../core/data/request.service';
-import { SearchService } from '../../../../core/shared/search/search.service';
 import { ClaimedTaskDataService } from '../../../../core/tasks/claimed-task-data.service';
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
 import { PoolTaskDataService } from '../../../../core/tasks/pool-task-data.service';
 import { getMockRequestService } from '../../../mocks/request.service.mock';
-import { getMockSearchService } from '../../../mocks/search-service.mock';
 import { NotificationsService } from '../../../notifications/notifications.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
+import { SearchResultsDataService } from '../../../search/services/search-results.data.service';
 import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
 import { RouterStub } from '../../../testing/router.stub';
 import { TranslateLoaderMock } from '../../../testing/translate-loader.mock';
+import { createPaginatedList } from '../../../testing/utils.test';
 import { ClaimedTaskActionsEditMetadataComponent } from './claimed-task-actions-edit-metadata.component';
 
 let component: ClaimedTaskActionsEditMetadataComponent;
 let fixture: ComponentFixture<ClaimedTaskActionsEditMetadataComponent>;
 
-const searchService = getMockSearchService();
+const searchResultsService = jasmine.createSpyObj('searchResultsService', {
+  searchObjects: createSuccessfulRemoteDataObject$(createPaginatedList([])),
+  invalidateSearchObjects: of(true),
+});
 
 const requestService = getMockRequestService();
 
@@ -60,7 +65,7 @@ describe('ClaimedTaskActionsEditMetadataComponent', () => {
         { provide: Injector, useValue: {} },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: Router, useValue: new RouterStub() },
-        { provide: SearchService, useValue: searchService },
+        { provide: SearchResultsDataService, useValue: searchResultsService },
         { provide: RequestService, useValue: requestService },
         { provide: PoolTaskDataService, useValue: mockPoolTaskDataService },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },

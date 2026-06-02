@@ -33,6 +33,7 @@ import { SearchServiceStub } from '../../../../testing/search-service.stub';
 import { FacetValue } from '../../../models/facet-value.model';
 import { FilterType } from '../../../models/filter-type.model';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
+import { SearchFacetDataService } from '../../../services/search-facet.data.service';
 import { SearchFacetRangeOptionComponent } from '../search-facet-filter-options/search-facet-range-option/search-facet-range-option.component';
 import { SearchRangeFilterComponent } from './search-range-filter.component';
 
@@ -46,7 +47,7 @@ describe('SearchRangeFilterComponent', () => {
   const value2 = '1992 - 2000';
   const value3 = '1990 - 1992';
   const mockFilterConfig: SearchFilterConfig = Object.assign(new SearchFilterConfig(), {
-    name: filterName1,
+    filter: filterName1,
     filterType: FilterType.range,
     hasFacets: false,
     isOpenByDefault: false,
@@ -99,16 +100,21 @@ describe('SearchRangeFilterComponent', () => {
   let filterService: SearchFilterServiceStub;
   let router: RouterStub;
   let searchService: SearchServiceStub;
+  let facetService: SearchFacetDataService;
 
   beforeEach(waitForAsync(() => {
     filterService = new SearchFilterServiceStub();
     router = new RouterStub();
     searchService =  new SearchServiceStub(searchLink);
+    facetService = jasmine.createSpyObj('facetService',{
+      searchFacet: createSuccessfulRemoteDataObject$(null),
+    });
 
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule, SearchRangeFilterComponent],
       providers: [
         { provide: SearchService, useValue: searchService },
+        { provide: SearchFacetDataService, useValue: facetService },
         { provide: SearchFilterService, useValue: filterService },
         { provide: Router, useValue: router },
         { provide: RouteService, useValue: routeServiceStub },

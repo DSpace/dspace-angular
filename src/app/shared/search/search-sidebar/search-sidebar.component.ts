@@ -22,7 +22,6 @@ import { SortOptions } from '../../../core/cache/models/sort-options.model';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
-import { FilterConfig } from '../../../core/shared/search/search-filters/search-config.model';
 import { ViewMode } from '../../../core/shared/view-mode.model';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import { ViewModeSwitchComponent } from '../../view-mode-switch/view-mode-switch.component';
@@ -152,7 +151,7 @@ export class SearchSidebarComponent implements OnInit {
 
   ngOnInit(): void {
     this.showAdvancedSearch$ = this.searchConfigurationService.getConfigurationAdvancedSearchFilters(this.configuration, this.currentScope).pipe(
-      map((advancedFilters: FilterConfig[]) => this.appConfig.search.advancedFilters.enabled && advancedFilters.length > 0),
+      map((advancedFilters: SearchFilterConfig[]) => this.appConfig.search.advancedFilters.enabled && advancedFilters.length > 0),
     );
   }
 

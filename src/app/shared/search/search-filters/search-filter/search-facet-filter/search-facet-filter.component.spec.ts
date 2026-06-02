@@ -18,7 +18,6 @@ import {
 } from 'rxjs';
 
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
-import { PageInfo } from '../../../../../core/shared/page-info.model';
 import { SearchService } from '../../../../../core/shared/search/search.service';
 import { SearchFilterService } from '../../../../../core/shared/search/search-filter.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
@@ -27,10 +26,11 @@ import { RouterStub } from '../../../../testing/router.stub';
 import { SearchConfigurationServiceStub } from '../../../../testing/search-configuration-service.stub';
 import { SearchFilterServiceStub } from '../../../../testing/search-filter-service.stub';
 import { SearchServiceStub } from '../../../../testing/search-service.stub';
+import { createPaginatedList } from '../../../../testing/utils.test';
 import { AppliedFilter } from '../../../models/applied-filter.model';
-import { FacetValues } from '../../../models/facet-values.model';
 import { FilterType } from '../../../models/filter-type.model';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
+import { SearchFacetDataService } from '../../../services/search-facet.data.service';
 import { SearchFacetFilterComponent } from './search-facet-filter.component';
 
 describe('SearchFacetFilterComponent', () => {
@@ -42,7 +42,7 @@ describe('SearchFacetFilterComponent', () => {
   const value3 = 'another value3';
   const value4 = '52d629dc-7d2f-47b9-aa2d-258b92e45ae1';
   const mockFilterConfig: SearchFilterConfig = Object.assign(new SearchFilterConfig(), {
-    name: filterName1,
+    filter: filterName1,
     filterType: FilterType.text,
     hasFacets: false,
     isOpenByDefault: false,
@@ -72,26 +72,20 @@ describe('SearchFacetFilterComponent', () => {
     label: value4,
     value: value4,
   });
-  const values: Partial<FacetValues> = {
-    appliedFilters: [
-      appliedFilter1,
-      appliedFilter2,
-      appliedFilter3,
-    ],
-    pageInfo: Object.assign(new PageInfo(), {
-      currentPage: 0,
-    }),
-  };
 
   const searchLink = '/search';
   const selectedValues = [value1, value2];
   let filterService: SearchFilterServiceStub;
+  let facetService: SearchFacetDataService;
   let searchService: SearchServiceStub;
   let router: RouterStub;
   let searchConfigService: SearchConfigurationServiceStub;
 
   beforeEach(waitForAsync(() => {
     searchService = new SearchServiceStub(searchLink);
+    facetService = jasmine.createSpyObj('facetService',{
+      searchFacet: createSuccessfulRemoteDataObject$(null),
+    });
     filterService = new SearchFilterServiceStub();
     router = new RouterStub();
     searchConfigService = new SearchConfigurationServiceStub();
@@ -100,6 +94,7 @@ describe('SearchFacetFilterComponent', () => {
       imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule, SearchFacetFilterComponent],
       providers: [
         { provide: SearchService, useValue: searchService },
+        { provide: SearchFacetDataService, useValue: facetService },
         { provide: SearchFilterService, useValue: filterService },
         { provide: Router, useValue: router },
         { provide: RemoteDataBuildService, useValue: { aggregate: () => of({}) } },
@@ -117,7 +112,7 @@ describe('SearchFacetFilterComponent', () => {
     comp.filterConfig = mockFilterConfig;
     comp.inPlaceSearch = false;
     comp.refreshFilters = new BehaviorSubject<boolean>(false);
-    spyOn(searchService, 'getFacetValuesFor').and.returnValue(createSuccessfulRemoteDataObject$(values));
+    spyOn(searchService, 'getFacetValuesFor').and.returnValue(createSuccessfulRemoteDataObject$(createPaginatedList([])));
     fixture.detectChanges();
   });
 

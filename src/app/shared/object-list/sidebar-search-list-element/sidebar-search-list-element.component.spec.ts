@@ -11,7 +11,6 @@ import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { LinkService } from '../../../core/cache/builders/link.service';
 import { ChildHALResource } from '../../../core/shared/child-hal-resource.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { HALResource } from '../../../core/shared/hal-resource.model';
 import { mockTruncatableService } from '../../mocks/mock-trucatable.service';
 import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import { SearchResult } from '../../search/models/search-result.model';
@@ -35,9 +34,7 @@ export function createSidebarSearchListElementTests(
 
     beforeEach(waitForAsync(() => {
       linkService = jasmine.createSpyObj('linkService', {
-        resolveLink: Object.assign(new HALResource(), {
-          [object.indexableObject.getParentLinkKey()]: createSuccessfulRemoteDataObject$(parent),
-        }),
+        resolveLinkWithoutAttaching: createSuccessfulRemoteDataObject$(parent),
       });
       TestBed.configureTestingModule({
         imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), VarDirective],

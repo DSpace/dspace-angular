@@ -21,10 +21,10 @@ import { getFirstSucceededRemoteDataPayload } from 'src/app/core/shared/operator
 import { followLink } from 'src/app/shared/utils/follow-link-config.model';
 import { environment } from 'src/environments/environment';
 
+import { RemoteData } from '../../../../../core/data/remote-data';
 import { Item } from '../../../../../core/shared/item.model';
 import { hasValue } from '../../../../empty.util';
 import { AccessStatusObject } from './access-status.model';
-import { RemoteData } from '../../../../../core/data/remote-data';
 
 @Component({
   selector: 'ds-base-access-status-badge',

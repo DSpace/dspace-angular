@@ -34,7 +34,6 @@ import { RequestService } from '../core/data/request.service';
 import { HttpOptions } from '../core/dspace-rest/dspace-rest.service';
 import { RouteService } from '../core/services/route.service';
 import { Item } from '../core/shared/item.model';
-import { SearchService } from '../core/shared/search/search.service';
 import { SubmissionObject } from '../core/submission/models/submission-object.model';
 import { WorkspaceitemSectionsObject } from '../core/submission/models/workspaceitem-sections.model';
 import { SubmissionJsonPatchOperationsService } from '../core/submission/submission-json-patch-operations.service';
@@ -50,6 +49,7 @@ import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
 } from '../shared/remote-data.utils';
+import { SearchResultsDataService } from '../shared/search/services/search-results.data.service';
 import { SectionScope } from './objects/section-visibility.model';
 import { SubmissionError } from './objects/submission-error.model';
 import {
@@ -117,7 +117,7 @@ export class SubmissionService {
    * @param {RouteService} routeService
    * @param {Store<SubmissionState>} store
    * @param {TranslateService} translate
-   * @param {SearchService} searchService
+   * @param {SearchResultsDataService} searchResultsService
    * @param {RequestService} requestService
    * @param {SubmissionJsonPatchOperationsService} jsonPatchOperationService
    */
@@ -127,7 +127,7 @@ export class SubmissionService {
               protected routeService: RouteService,
               protected store: Store<SubmissionState>,
               protected translate: TranslateService,
-              protected searchService: SearchService,
+              protected searchResultsService: SearchResultsDataService,
               protected requestService: RequestService,
               protected jsonPatchOperationService: SubmissionJsonPatchOperationsService) {
   }
@@ -551,10 +551,8 @@ export class SubmissionService {
   redirectToMyDSpace() {
     // This assures that the cache is empty before redirecting to mydspace.
     // See https://github.com/DSpace/dspace-angular/pull/468
-    this.searchService.getEndpoint().pipe(
+    this.searchResultsService.invalidateSearchObjects().pipe(
       take(1),
-      tap((url) => this.requestService.removeByHrefSubstring(url)),
-      // Now, do redirect.
       concatMap(
         () => this.routeService.getPreviousUrl().pipe(
           take(1),

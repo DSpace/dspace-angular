@@ -25,7 +25,6 @@ import {
 import { Context } from '../../../core/shared/context.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { Item } from '../../../core/shared/item.model';
-import { SearchService } from '../../../core/shared/search/search.service';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import {
@@ -40,6 +39,7 @@ import { PaginationComponentOptions } from '../../../shared/pagination/paginatio
 import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
 import { SearchResult } from '../../../shared/search/models/search-result.model';
 import { ThemedSearchResultsComponent } from '../../../shared/search/search-results/themed-search-results.component';
+import { SearchResultsDataService } from '../../../shared/search/services/search-results.data.service';
 
 /**
  * The possible types of import for the external entry
@@ -200,11 +200,11 @@ export class ProjectEntryImportModalComponent implements OnInit, OnDestroy {
   /**
    * Initialize the component variables.
    * @param {NgbActiveModal} modal
-   * @param {SearchService} searchService
+   * @param {SearchResultsDataService} searchResultsService
    * @param {SelectableListService} selectService
    */
   constructor(public modal: NgbActiveModal,
-              public searchService: SearchService,
+              public searchResultsService: SearchResultsDataService,
               private selectService: SelectableListService) { }
 
   /**
@@ -221,7 +221,7 @@ export class ProjectEntryImportModalComponent implements OnInit, OnDestroy {
         pagination: this.pagination,
       },
     ));
-    this.localEntitiesRD$ = this.searchService.search(this.searchOptions);
+    this.localEntitiesRD$ = this.searchResultsService.searchObjects(this.searchOptions);
     this.subs.push(
       this.localEntitiesRD$.subscribe(
         () => this.isLoading$ = of(false),
@@ -251,7 +251,7 @@ export class ProjectEntryImportModalComponent implements OnInit, OnDestroy {
           pagination: this.pagination,
         },
       ));
-      this.localEntitiesRD$ = this.searchService.search(this.searchOptions);
+      this.localEntitiesRD$ = this.searchResultsService.searchObjects(this.searchOptions);
       this.subs.push(
         this.localEntitiesRD$.subscribe(
           () => this.isLoading$ = of(false),

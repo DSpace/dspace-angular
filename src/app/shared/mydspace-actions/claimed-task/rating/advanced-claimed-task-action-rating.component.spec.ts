@@ -13,17 +13,16 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { RequestService } from '../../../../core/data/request.service';
-import { SearchService } from '../../../../core/shared/search/search.service';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { ClaimedTaskDataService } from '../../../../core/tasks/claimed-task-data.service';
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
 import { ADVANCED_WORKFLOW_ACTION_RATING } from '../../../../workflowitems-edit-page/advanced-workflow-action/advanced-workflow-action-rating/advanced-workflow-action-rating.component';
 import { NotificationsService } from '../../../notifications/notifications.service';
+import { SearchResultsDataService } from '../../../search/services/search-results.data.service';
 import { ActivatedRouteStub } from '../../../testing/active-router.stub';
 import { ClaimedTaskDataServiceStub } from '../../../testing/claimed-task-data-service.stub';
 import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
 import { RouterStub } from '../../../testing/router.stub';
-import { SearchServiceStub } from '../../../testing/search-service.stub';
 import { AdvancedClaimedTaskActionRatingComponent } from './advanced-claimed-task-action-rating.component';
 
 const taskId = 'claimed-task-1';
@@ -43,14 +42,17 @@ describe('AdvancedClaimedTaskActionRatingComponent', () => {
   let notificationService: NotificationsServiceStub;
   let route: ActivatedRouteStub;
   let router: RouterStub;
-  let searchService: SearchServiceStub;
+  let searchResultsService: SearchResultsDataService;
 
   beforeEach(async () => {
     claimedTaskDataService = new ClaimedTaskDataServiceStub();
     notificationService = new NotificationsServiceStub();
     route = new ActivatedRouteStub();
     router = new RouterStub();
-    searchService = new SearchServiceStub();
+    searchResultsService = jasmine.createSpyObj('searchResultsService', {
+      searchObjects: '',
+      invalidateSearchObjects: of(true),
+    });
 
     await TestBed.configureTestingModule({
       imports: [
@@ -63,7 +65,7 @@ describe('AdvancedClaimedTaskActionRatingComponent', () => {
         { provide: NotificationsService, useValue: notificationService },
         { provide: RequestService, useValue: {} },
         { provide: Router, useValue: router },
-        { provide: SearchService, useValue: searchService },
+        { provide: SearchResultsDataService, useValue: searchResultsService },
         Location,
       ],
       schemas: [NO_ERRORS_SCHEMA],

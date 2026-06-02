@@ -17,7 +17,6 @@ import { of } from 'rxjs';
 import { buildPaginatedList } from '../../../core/data/paginated-list.model';
 import { Item } from '../../../core/shared/item.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
-import { SearchService } from '../../../core/shared/search/search.service';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import {
@@ -25,12 +24,12 @@ import {
   NotificationsMockDspaceObject,
   qualityAssuranceEventObjectMissingProjectFound,
 } from '../../../shared/mocks/notifications.mock';
-import { getMockSearchService } from '../../../shared/mocks/search-service.mock';
 import { SelectableListService } from '../../../shared/object-list/selectable-list/selectable-list.service';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
 import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
 import { ThemedSearchResultsComponent } from '../../../shared/search/search-results/themed-search-results.component';
+import { SearchResultsDataService } from '../../../shared/search/services/search-results.data.service';
 import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
 import { createTestComponent } from '../../../shared/testing/utils.test';
 import {
@@ -83,7 +82,9 @@ describe('ProjectEntryImportModalComponent test suite', () => {
 
   const modalStub = jasmine.createSpyObj('modal', ['close', 'dismiss']);
   const uuid = '123e4567-e89b-12d3-a456-426614174003';
-  const searchServiceStub: any = getMockSearchService();
+  const searchResultsServiceStub: any = jasmine.createSpyObj('searchResultsService', {
+    searchObjects: '',
+  });
 
 
   beforeEach(waitForAsync (() => {
@@ -96,7 +97,7 @@ describe('ProjectEntryImportModalComponent test suite', () => {
       ],
       providers: [
         { provide: NgbActiveModal, useValue: modalStub },
-        { provide: SearchService, useValue: searchServiceStub },
+        { provide: SearchResultsDataService, useValue: searchResultsServiceStub },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         { provide: SelectableListService, useValue: jasmine.createSpyObj('selectableListService', ['deselect', 'select', 'deselectAll']) },
         ProjectEntryImportModalComponent,
@@ -122,7 +123,7 @@ describe('ProjectEntryImportModalComponent test suite', () => {
 
     // synchronous beforeEach
     beforeEach(() => {
-      searchServiceStub.search.and.returnValue(of(paginatedListRD));
+      searchResultsServiceStub.searchObjects.and.returnValue(of(paginatedListRD));
       const html = `
         <ds-project-entry-import-modal [externalSourceEntry]="eventData"></ds-project-entry-import-modal>`;
       testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
@@ -154,13 +155,13 @@ describe('ProjectEntryImportModalComponent test suite', () => {
     });
 
     describe('search', () => {
-      it('should call SearchService.search', () => {
+      it('should call searchResultsService.searchObjects', () => {
 
-        (searchServiceStub as any).search.and.returnValue(of(paginatedListRD));
+        (searchResultsServiceStub as any).searchObjects.and.returnValue(of(paginatedListRD));
         comp.pagination = pagination;
 
         comp.search(searchString);
-        expect(comp.searchService.search).toHaveBeenCalledWith(searchOptions);
+        expect(comp.searchResultsService.searchObjects).toHaveBeenCalledWith(searchOptions);
       });
     });
 

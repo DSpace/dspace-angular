@@ -13,11 +13,14 @@ import { Context } from '../core/shared/context.model';
 import { getMockRemoteDataBuildService } from '../shared/mocks/remote-data-build.service.mock';
 import { RoleServiceMock } from '../shared/mocks/role-service.mock';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
+import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
+import { DiscoveryConfiguration } from '../shared/search/models/discovery-configuration.model';
 import { PaginatedSearchOptions } from '../shared/search/models/paginated-search-options.model';
 import { SearchFilter } from '../shared/search/models/search-filter.model';
 import { ActivatedRouteStub } from '../shared/testing/active-router.stub';
 import { HALEndpointServiceStub } from '../shared/testing/hal-endpoint-service.stub';
 import { PaginationServiceStub } from '../shared/testing/pagination-service.stub';
+import { createPaginatedList } from '../shared/testing/utils.test';
 import { MyDSpaceConfigurationService } from './my-dspace-configuration.service';
 import { MyDSpaceConfigurationValueType } from './my-dspace-configuration-value-type';
 
@@ -58,8 +61,14 @@ describe('MyDSpaceConfigurationService', () => {
   const requestService: any = {};
   const rdb: any = getMockRemoteDataBuildService();
 
+  const configurationDataService = jasmine.createSpyObj('configurationDataService', {
+    findByIdOrScope: createSuccessfulRemoteDataObject$(Object.assign(new DiscoveryConfiguration(), {
+      searchfilters: createSuccessfulRemoteDataObject$(createPaginatedList([])),
+    })),
+  });
+
   beforeEach(() => {
-    service = new MyDSpaceConfigurationService(roleService, spy, paginationService as any, activatedRoute, linkService, halService, requestService, rdb, environment);
+    service = new MyDSpaceConfigurationService(roleService, spy, paginationService as any, activatedRoute, linkService, halService, requestService, rdb, environment, configurationDataService);
   });
 
   describe('when the scope is called', () => {

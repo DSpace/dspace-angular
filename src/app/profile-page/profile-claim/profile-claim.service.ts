@@ -9,7 +9,6 @@ import { RemoteData } from '../../core/data/remote-data';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
-import { SearchService } from '../../core/shared/search/search.service';
 import {
   isEmpty,
   isNotEmpty,
@@ -17,6 +16,7 @@ import {
 import { createNoContentRemoteDataObject } from '../../shared/remote-data.utils';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { SearchObjects } from '../../shared/search/models/search-objects.model';
+import { SearchResultsDataService } from '../../shared/search/services/search-results.data.service';
 
 /**
  * Service that handle profiles claim.
@@ -24,7 +24,7 @@ import { SearchObjects } from '../../shared/search/models/search-objects.model';
 @Injectable({ providedIn: 'root' })
 export class ProfileClaimService {
 
-  constructor(private searchService: SearchService) {
+  constructor(private searchResultsService: SearchResultsDataService) {
   }
 
   /**
@@ -63,10 +63,10 @@ export class ProfileClaimService {
     if (isEmpty(query)) {
       return of(createNoContentRemoteDataObject() as RemoteData<SearchObjects<DSpaceObject>>);
     }
-    return this.searchService.search(new PaginatedSearchOptions({
+    return this.searchResultsService.searchObjects(new PaginatedSearchOptions({
       configuration: 'eperson_claims',
       query: query,
-    }), null, false, true);
+    }), false, true);
   }
 
   /**

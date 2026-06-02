@@ -10,8 +10,12 @@ import { Injectable } from '@angular/core';
 import {
   Observable,
   of,
+  switchMap,
 } from 'rxjs';
-import { take } from 'rxjs/operators';
+import {
+  take,
+  tap,
+} from 'rxjs/operators';
 
 import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
@@ -26,11 +30,13 @@ import { SearchResponseParsingService } from '../../../core/data/search-response
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { GenericConstructor } from '../../../core/shared/generic-constructor';
 import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
+import { SearchService } from '../../../core/shared/search/search.service';
 import {
   hasValue,
   isNotEmpty,
   isNotEmptyOperator,
 } from '../../empty.util';
+import { AppliedFilter } from '../models/applied-filter.model';
 import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
 import { SearchObjects } from '../models/search-objects.model';
 import { SearchResult } from '../models/search-result.model';
@@ -82,6 +88,7 @@ export class SearchResultsDataService extends BaseDataService<SearchResult<DSpac
     protected rdbService: RemoteDataBuildService,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
+    protected searchService: SearchService,
   ) {
     super('searchresults', requestService, rdbService, objectCache, halService);
 
@@ -89,7 +96,25 @@ export class SearchResultsDataService extends BaseDataService<SearchResult<DSpac
   }
 
   searchObjects(options?: FindListOptions | PaginatedSearchOptions, useCachedVersionIfAvailable?: boolean, reRequestOnStale?: boolean, ...linksToFollow): Observable<RemoteData<SearchObjects<DSpaceObject>>> {
-    return this.searchData.searchBy('objects', parseFindListOptions(options), useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow) as Observable<RemoteData<SearchObjects<DSpaceObject>>>;
+    return this.searchData.searchBy('objects', parseFindListOptions(options), useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow).pipe(
+      tap((rd: RemoteData<SearchObjects<DSpaceObject>>) => {
+        if (rd.hasSucceeded) {
+          const appliedFilters: AppliedFilter[] = (rd.payload.appliedFilters ?? [])
+            .filter((appliedFilter: AppliedFilter) => hasValue(appliedFilter))
+            // TODO this should ideally be fixed in the backend
+            .map((appliedFilter: AppliedFilter) => Object.assign({}, appliedFilter, {
+              operator: hasValue(appliedFilter.value.match(/\[\s*(\*|\d+)\s*TO\s*(\*|\d+)\s*]/)) ? 'range' : appliedFilter.operator,
+            }));
+          this.searchService.appliedFilters$.next(appliedFilters);
+        }
+      }),
+    ) as Observable<RemoteData<SearchObjects<DSpaceObject>>>;
+  }
+
+  invalidateSearchObjects(): Observable<boolean> {
+    return this.searchData.getSearchByHref('objects').pipe(
+      switchMap((href) => this.requestService.setStaleByHrefSubstring(href)),
+    );
   }
 
 }

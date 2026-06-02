@@ -13,11 +13,11 @@ import {
   Router,
 } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
 import { ThemeService } from 'src/app/shared/theme-support/theme.service';
 
 import { RequestService } from '../../../../core/data/request.service';
 import { Item } from '../../../../core/shared/item.model';
-import { SearchService } from '../../../../core/shared/search/search.service';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { ClaimedTaskDataService } from '../../../../core/tasks/claimed-task-data.service';
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
@@ -25,15 +25,18 @@ import { PoolTaskDataService } from '../../../../core/tasks/pool-task-data.servi
 import { ActivatedRouteStub } from '../../../../shared/testing/active-router.stub';
 import { DynamicComponentLoaderDirective } from '../../../abstract-component-loader/dynamic-component-loader.directive';
 import { getMockRequestService } from '../../../mocks/request.service.mock';
-import { getMockSearchService } from '../../../mocks/search-service.mock';
 import { getMockThemeService } from '../../../mocks/theme-service.mock';
 import { NotificationsService } from '../../../notifications/notifications.service';
+import { SearchResultsDataService } from '../../../search/services/search-results.data.service';
 import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
 import { RouterStub } from '../../../testing/router.stub';
 import { ClaimedTaskActionsEditMetadataComponent } from '../edit-metadata/claimed-task-actions-edit-metadata.component';
 import { ClaimedTaskActionsLoaderComponent } from './claimed-task-actions-loader.component';
 
-const searchService = getMockSearchService();
+const searchResultsService = jasmine.createSpyObj('searchResultsService', {
+  searchObjects: '',
+  invalidateSearchObjects: of(true),
+});
 
 const requestService = getMockRequestService();
 
@@ -91,7 +94,7 @@ describe('ClaimedTaskActionsLoaderComponent', () => {
         { provide: Injector, useValue: {} },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: Router, useValue: new RouterStub() },
-        { provide: SearchService, useValue: searchService },
+        { provide: SearchResultsDataService, useValue: searchResultsService },
         { provide: RequestService, useValue: requestService },
         { provide: PoolTaskDataService, useValue: {} },
         { provide: ThemeService, useValue: themeService },

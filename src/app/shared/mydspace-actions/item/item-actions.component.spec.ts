@@ -21,11 +21,10 @@ import { of } from 'rxjs';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { RequestService } from '../../../core/data/request.service';
 import { Item } from '../../../core/shared/item.model';
-import { SearchService } from '../../../core/shared/search/search.service';
 import { getMockRequestService } from '../../mocks/request.service.mock';
-import { getMockSearchService } from '../../mocks/search-service.mock';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { NotificationsService } from '../../notifications/notifications.service';
+import { SearchResultsDataService } from '../../search/services/search-results.data.service';
 import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
 import { RouterStub } from '../../testing/router.stub';
 import { ItemActionsComponent } from './item-actions.component';
@@ -67,7 +66,10 @@ mockObject = Object.assign(new Item(), {
   },
 });
 
-const searchService = getMockSearchService();
+const searchResultsService = jasmine.createSpyObj('searchResultsService', {
+  searchObjects: '',
+  invalidateSearchObjects: of(true),
+});
 
 const requestServce = getMockRequestService();
 
@@ -88,7 +90,7 @@ describe('ItemActionsComponent', () => {
         { provide: Router, useValue: new RouterStub() },
         { provide: ItemDataService, useValue: mockDataService },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
-        { provide: SearchService, useValue: searchService },
+        { provide: SearchResultsDataService, useValue: searchResultsService },
         { provide: RequestService, useValue: requestServce },
       ],
       schemas: [NO_ERRORS_SCHEMA],

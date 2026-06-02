@@ -12,11 +12,13 @@ import { getMockRequestService } from '../../../shared/mocks/request.service.moc
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { AppliedFilter } from '../../../shared/search/models/applied-filter.model';
+import { DiscoveryConfiguration } from '../../../shared/search/models/discovery-configuration.model';
 import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
 import { SearchFilter } from '../../../shared/search/models/search-filter.model';
 import { SearchObjects } from '../../../shared/search/models/search-objects.model';
 import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
+import { createPaginatedList } from '../../../shared/testing/utils.test';
 import {
   SortDirection,
   SortOptions,
@@ -82,6 +84,13 @@ describe('SearchConfigurationService', () => {
       }));
     },
   };
+
+  const configurationDataService = jasmine.createSpyObj('configurationDataService', {
+    findByIdOrScope: createSuccessfulRemoteDataObject$(Object.assign(new DiscoveryConfiguration(), {
+      searchfilters: createSuccessfulRemoteDataObject$(createPaginatedList([])),
+    })),
+  });
+
   beforeEach(() => {
     paginationService = new PaginationServiceStub(Object.assign(new PaginationComponentOptions(), {
       id: defaults.pagination.id,
@@ -89,7 +98,7 @@ describe('SearchConfigurationService', () => {
       pageSize: 20,
     }));
 
-    service = new SearchConfigurationService(routeService, paginationService as any, activatedRoute as any, linkService, halService, requestService, rdb, environment);
+    service = new SearchConfigurationService(routeService, paginationService as any, activatedRoute as any, linkService, halService, requestService, rdb, environment, configurationDataService);
   });
 
   describe('when the scope is called', () => {
@@ -210,50 +219,6 @@ describe('SearchConfigurationService', () => {
     });
   });
 
-  describe('when getSearchConfigurationFor is called with a scope', () => {
-    const endPoint = 'http://endpoint.com/test/config';
-    const scope = 'test';
-    const requestUrl = endPoint + '?scope=' + scope;
-    beforeEach(() => {
-      spyOn((service as any).halService, 'getEndpoint').and.returnValue(of(endPoint));
-      service.getSearchConfigurationFor(scope).subscribe((t) => {
-      }); // subscribe to make sure all methods are called
-    });
-
-    it('should call getEndpoint on the halService', () => {
-      expect((service as any).halService.getEndpoint).toHaveBeenCalled();
-    });
-
-    it('should send out the request on the request service', () => {
-      expect((service as any).requestService.send).toHaveBeenCalled();
-    });
-
-    it('should call send containing a request with the correct request url', () => {
-      expect((service as any).requestService.send).toHaveBeenCalledWith(jasmine.objectContaining({ href: requestUrl }), true);
-    });
-  });
-
-  describe('when getSearchConfigurationFor is called without a scope', () => {
-    const endPoint = 'http://endpoint.com/test/config';
-    beforeEach(() => {
-      spyOn((service as any).halService, 'getEndpoint').and.returnValue(of(endPoint));
-      spyOn((service as any).rdb, 'buildFromHref').and.callThrough();
-      service.getSearchConfigurationFor(null).subscribe((t) => {
-      }); // subscribe to make sure all methods are called
-    });
-
-    it('should call getEndpoint on the halService', () => {
-      expect((service as any).halService.getEndpoint).toHaveBeenCalled();
-    });
-
-    it('should send out the request on the request service', () => {
-      expect((service as any).requestService.send).toHaveBeenCalled();
-    });
-
-    it('should call send containing a request with the correct request url', () => {
-      expect((service as any).requestService.send).toHaveBeenCalledWith(jasmine.objectContaining({ href: endPoint }), true);
-    });
-  });
   describe('when getConfig is called without a scope', () => {
     const endPoint = 'http://endpoint.com/test/config';
     beforeEach(() => {

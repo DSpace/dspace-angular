@@ -7,15 +7,17 @@ import {
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
 
 import { Collection } from '../../../../core/shared/collection.model';
 import { Item } from '../../../../core/shared/item.model';
-import { SearchService } from '../../../../core/shared/search/search.service';
 import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
-import { SearchServiceStub } from '../../../../shared/testing/search-service.stub';
 import { ThemeService } from '../../../../shared/theme-support/theme.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
+import { SearchResultsDataService } from '../../../search/services/search-results.data.service';
+import { createPaginatedList } from '../../../testing/utils.test';
 import { ImportBatchSelectorComponent } from './import-batch-selector.component';
 
 describe('ImportBatchSelectorComponent', () => {
@@ -41,12 +43,17 @@ describe('ImportBatchSelectorComponent', () => {
     },
   });
   const modalStub = jasmine.createSpyObj('modalStub', ['close']);
+  const searchResultsService = jasmine.createSpyObj('searchResultsService', {
+    searchObjects: createSuccessfulRemoteDataObject$(createPaginatedList([])),
+    invalidateSearchObjects: of(true),
+  });
+
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), ImportBatchSelectorComponent],
       providers: [
         { provide: NgbActiveModal, useValue: modalStub },
-        { provide: SearchService, useValue: new SearchServiceStub() },
+        { provide: SearchResultsDataService, useValue: searchResultsService },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: ThemeService, useValue: getMockThemeService() },
       ],

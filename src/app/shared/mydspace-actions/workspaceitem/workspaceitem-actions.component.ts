@@ -25,6 +25,7 @@ import {
 import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
 
 import { AuthService } from '../../../core/auth/auth.service';
+import { LinkService } from '../../../core/cache/builders/link.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { RemoteData } from '../../../core/data/remote-data';
 import { RequestService } from '../../../core/data/request.service';
@@ -34,11 +35,12 @@ import {
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
 } from '../../../core/shared/operators';
-import { SearchService } from '../../../core/shared/search/search.service';
 import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
 import { WorkspaceitemDataService } from '../../../core/submission/workspaceitem-data.service';
 import { getWorkspaceItemViewRoute } from '../../../workspaceitems-edit-page/workspaceitems-edit-page-routing-paths';
 import { NotificationsService } from '../../notifications/notifications.service';
+import { SearchResultsDataService } from '../../search/services/search-results.data.service';
+import { followLink } from '../../utils/follow-link-config.model';
 import { MyDSpaceActionsComponent } from '../mydspace-actions';
 
 /**
@@ -85,7 +87,7 @@ export class WorkspaceitemActionsComponent extends MyDSpaceActionsComponent<Work
    * @param {NgbModal} modalService
    * @param {NotificationsService} notificationsService
    * @param {TranslateService} translate
-   * @param {SearchService} searchService
+   * @param {SearchResultsDataService} searchResultsService
    * @param {RequestService} requestService
    */
   constructor(protected injector: Injector,
@@ -93,12 +95,13 @@ export class WorkspaceitemActionsComponent extends MyDSpaceActionsComponent<Work
     protected modalService: NgbModal,
     protected notificationsService: NotificationsService,
     protected translate: TranslateService,
-    protected searchService: SearchService,
+    protected searchResultsService: SearchResultsDataService,
     protected requestService: RequestService,
     private authService: AuthService,
     public authorizationService: AuthorizationDataService,
+    protected linkService: LinkService,
   ) {
-    super(WorkspaceItem.type, injector, router, notificationsService, translate, searchService, requestService);
+    super(WorkspaceItem.type, injector, router, notificationsService, translate, searchResultsService, requestService);
 
   }
 
@@ -127,7 +130,7 @@ export class WorkspaceitemActionsComponent extends MyDSpaceActionsComponent<Work
 
     this.canEditItem$ = activeEPerson$.pipe(
       switchMap((eperson) => {
-        return this.object?.item.pipe(
+        return this.linkService.resolveLinkWithoutAttaching(this.object, followLink('item')).pipe(
           getFirstCompletedRemoteData(),
           getRemoteDataPayload(),
           switchMap((item: Item) => {

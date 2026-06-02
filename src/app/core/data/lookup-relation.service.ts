@@ -17,6 +17,7 @@ import { RelationshipOptions } from '../../shared/form/builder/models/relationsh
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { SearchResult } from '../../shared/search/models/search-result.model';
+import { SearchResultsDataService } from '../../shared/search/services/search-results.data.service';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { ExternalSource } from '../shared/external-source.model';
 import { ExternalSourceEntry } from '../shared/external-source-entry.model';
@@ -25,7 +26,6 @@ import {
   getAllSucceededRemoteData,
   getRemoteDataPayload,
 } from '../shared/operators';
-import { SearchService } from '../shared/search/search.service';
 import { ExternalSourceDataService } from './external-source-data.service';
 import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
@@ -50,7 +50,7 @@ export class LookupRelationService {
   });
 
   constructor(protected externalSourceService: ExternalSourceDataService,
-              protected searchService: SearchService,
+              protected searchResultsService: SearchResultsDataService,
               protected requestService: RequestService) {
   }
 
@@ -67,7 +67,7 @@ export class LookupRelationService {
     if (setSearchConfig) {
       this.searchConfig = newConfig;
     }
-    return this.searchService.search(newConfig).pipe(
+    return this.searchResultsService.searchObjects(newConfig).pipe(
       /* Make sure to only listen to the first x results, until loading is finished */
       /* TODO: in Rxjs 6.4.0 and up, we can replace this with takeWhile(predicate, true) - see https://stackoverflow.com/a/44644237 */
       multicast(
@@ -114,6 +114,6 @@ export class LookupRelationService {
    * Remove cached requests from local results
    */
   removeLocalResultsCache() {
-    this.searchService.getEndpoint().subscribe((href) => this.requestService.removeByHrefSubstring(href));
+    this.searchResultsService.invalidateSearchObjects().pipe(take(1)).subscribe();
   }
 }

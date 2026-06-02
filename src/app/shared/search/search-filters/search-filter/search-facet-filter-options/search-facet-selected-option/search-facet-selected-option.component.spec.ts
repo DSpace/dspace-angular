@@ -36,7 +36,7 @@ describe('SearchFacetSelectedOptionComponent', () => {
   const value2 = 'test2';
   const operator = 'authority';
   const mockFilterConfig = Object.assign(new SearchFilterConfig(), {
-    name: filterName1,
+    filter: filterName1,
     filterType: FilterType.range,
     hasFacets: false,
     isOpenByDefault: false,

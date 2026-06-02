@@ -47,7 +47,6 @@ import {
   getRemoteDataPayload,
   toDSpaceObjectListRD,
 } from '../../core/shared/operators';
-import { SearchService } from '../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 import {
@@ -58,6 +57,7 @@ import { isNotEmpty } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { ItemSelectComponent } from '../../shared/object-select/item-select/item-select.component';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
+import { SearchResultsDataService } from '../../shared/search/services/search-results.data.service';
 import { ThemedSearchFormComponent } from '../../shared/search-form/themed-search-form.component';
 import { BrowserOnlyPipe } from '../../shared/utils/browser-only.pipe';
 import { followLink } from '../../shared/utils/follow-link-config.model';
@@ -144,7 +144,7 @@ export class CollectionItemMapperComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private router: Router,
               @Inject(SEARCH_CONFIG_SERVICE) private searchConfigService: SearchConfigurationService,
-              private searchService: SearchService,
+              private searchResultsService: SearchResultsDataService,
               private notificationsService: NotificationsService,
               private itemDataService: ItemDataService,
               private translateService: TranslateService,
@@ -193,12 +193,12 @@ export class CollectionItemMapperComponent implements OnInit {
     );
     this.mappedItemsRD$ = collectionAndOptions$.pipe(
       switchMap(([collectionRD, options, shouldUpdate]) => {
-        return this.searchService.search(Object.assign(new PaginatedSearchOptions(options), {
+        return this.searchResultsService.searchObjects(Object.assign(new PaginatedSearchOptions(options), {
           query: this.buildQuery(collectionRD.payload.id, options.query),
           scope: undefined,
           dsoTypes: [DSpaceObjectType.ITEM],
           sort: this.defaultSortOptions,
-        }), 10000, undefined, undefined, followLink('owningCollection')).pipe(
+        }), undefined, undefined, followLink('owningCollection')).pipe(
           toDSpaceObjectListRD(),
           startWith(undefined),
         );

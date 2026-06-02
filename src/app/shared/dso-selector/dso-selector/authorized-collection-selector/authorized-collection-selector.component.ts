@@ -29,7 +29,6 @@ import { RemoteData } from '../../../../core/data/remote-data';
 import { Collection } from '../../../../core/shared/collection.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
-import { SearchService } from '../../../../core/shared/search/search.service';
 import { hasValue } from '../../../empty.util';
 import { HoverClassDirective } from '../../../hover-class.directive';
 import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
@@ -37,6 +36,7 @@ import { NotificationsService } from '../../../notifications/notifications.servi
 import { CollectionSearchResult } from '../../../object-collection/shared/collection-search-result.model';
 import { ListableObjectComponentLoaderComponent } from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { SearchResult } from '../../../search/models/search-result.model';
+import { SearchResultsDataService } from '../../../search/services/search-results.data.service';
 import { followLink } from '../../../utils/follow-link-config.model';
 import { DSOSelectorComponent } from '../dso-selector.component';
 
@@ -67,13 +67,13 @@ export class AuthorizedCollectionSelectorComponent extends DSOSelectorComponent 
   @Input() entityType: string;
 
   constructor(
-    protected searchService: SearchService,
+    protected searchResultsService: SearchResultsDataService,
     protected collectionDataService: CollectionDataService,
     protected notifcationsService: NotificationsService,
     protected translate: TranslateService,
     protected dsoNameService: DSONameService,
   ) {
-    super(searchService, notifcationsService, translate, dsoNameService);
+    super(searchResultsService, notifcationsService, translate, dsoNameService);
   }
 
   /**

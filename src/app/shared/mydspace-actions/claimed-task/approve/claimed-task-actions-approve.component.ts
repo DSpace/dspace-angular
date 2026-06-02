@@ -17,11 +17,11 @@ import {
 import { RemoteData } from '../../../../core/data/remote-data';
 import { RequestService } from '../../../../core/data/request.service';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
-import { SearchService } from '../../../../core/shared/search/search.service';
 import { WorkflowItemDataService } from '../../../../core/submission/workflowitem-data.service';
 import { BtnDisabledDirective } from '../../../btn-disabled.directive';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { ClaimedApprovedTaskSearchResult } from '../../../object-collection/shared/claimed-approved-task-search-result.model';
+import { SearchResultsDataService } from '../../../search/services/search-results.data.service';
 import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
 
 export const WORKFLOW_TASK_OPTION_APPROVE = 'submit_approve';
@@ -48,11 +48,11 @@ export class ClaimedTaskActionsApproveComponent extends ClaimedTaskActionsAbstra
     protected router: Router,
     protected notificationsService: NotificationsService,
     protected translate: TranslateService,
-    protected searchService: SearchService,
+    protected searchResultsService: SearchResultsDataService,
     protected requestService: RequestService,
     protected workflowItemDataService: WorkflowItemDataService,
   ) {
-    super(injector, router, notificationsService, translate, searchService, requestService);
+    super(injector, router, notificationsService, translate, searchResultsService, requestService);
   }
 
   reloadObjectExecution(): Observable<RemoteData<DSpaceObject> | DSpaceObject> {

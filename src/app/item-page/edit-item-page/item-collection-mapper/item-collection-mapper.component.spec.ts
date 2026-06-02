@@ -45,12 +45,12 @@ import {
   createSuccessfulRemoteDataObject$,
 } from '../../../shared/remote-data.utils';
 import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
+import { SearchResultsDataService } from '../../../shared/search/services/search-results.data.service';
 import { SearchFormComponent } from '../../../shared/search-form/search-form.component';
 import { HostWindowServiceStub } from '../../../shared/testing/host-window-service.stub';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { ObjectSelectServiceStub } from '../../../shared/testing/object-select-service.stub';
 import { RouterStub } from '../../../shared/testing/router.stub';
-import { SearchServiceStub } from '../../../shared/testing/search-service.stub';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { EnumKeysPipe } from '../../../shared/utils/enum-keys-pipe';
 import { VarDirective } from '../../../shared/utils/var.directive';
@@ -105,11 +105,9 @@ describe('ItemCollectionMapperComponent', () => {
   const collectionDataServiceStub = {
     findListByHref: () => of(mockCollectionsRD),
   };
-  const searchServiceStub = Object.assign(new SearchServiceStub(), {
-    search: () => of(mockCollectionsRD),
-    /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
-    clearDiscoveryRequests: () => {},
-    /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
+  const searchResultsService = jasmine.createSpyObj('searchResultsService', {
+    searchObjects: of(mockCollectionsRD),
+    invalidateSearchObjects: of(true),
   });
   const activatedRouteStub = {
     parent: {
@@ -138,7 +136,7 @@ describe('ItemCollectionMapperComponent', () => {
         { provide: SearchConfigurationService, useValue: searchConfigServiceStub },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: ItemDataService, useValue: itemDataServiceStub },
-        { provide: SearchService, useValue: searchServiceStub },
+        { provide: SearchResultsDataService, useValue: searchResultsService },
         { provide: ObjectSelectService, useValue: new ObjectSelectServiceStub() },
         { provide: TranslateService, useValue: translateServiceStub },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
