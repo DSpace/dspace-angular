@@ -10514,6 +10514,10 @@
   // TODO New key - Add a translation
   "submission.sections.jisc.publisher.policy.refresh": "Refresh",
 
+  // "submission.sections.jisc.publisher.policy.additional-oa-fee": "Additional OA fee",
+  // TODO New key - Add a translation
+  "submission.sections.jisc.publisher.policy.additional-oa-fee": "Additional OA fee",
+
   // "submission.sections.jisc.record.information": "Record Information",
   // TODO New key - Add a translation
   "submission.sections.jisc.record.information": "Record Information",
