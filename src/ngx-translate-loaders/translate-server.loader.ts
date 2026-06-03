@@ -20,6 +20,7 @@ import {
   NGX_TRANSLATE_STATE,
   NgxTranslateState,
 } from './ngx-translate-state';
+import { resolveThemeLoadOrder } from './theme-i18n.util';
 
 /**
  * A TranslateLoader for ngx-translate to parse json5 files server-side, and store them in the
@@ -67,14 +68,14 @@ export class TranslateServerLoader implements TranslateLoader {
    * @protected
    */
   protected readThemeOverrides(lang: string): Record<string, string> {
-    const configured = (environment.themes || []) as Array<{ name?: string; extends?: string }>;
+    const configured = environment.themes ?? [];
     if (configured.length === 0) {
       return {};
     }
 
     // Build the ordered list of themes to load, expanding each configured theme's inheritance
     // chain (ancestor first, descendant last) so that child theme overrides win over parents.
-    const orderedThemes = this.resolveThemeLoadOrder(configured);
+    const orderedThemes = resolveThemeLoadOrder(configured);
 
     // `this.prefix` looks like `dist/server/assets/i18n/`. Theme assets live next to `i18n/`
     // at `dist/server/assets/<theme>/i18n/<lang>.json5`.
@@ -95,51 +96,6 @@ export class TranslateServerLoader implements TranslateLoader {
       }
     }
     return overrides;
-  }
-
-  /**
-   * Resolve the load order for the given configured themes, expanding `extends` chains.
-   *
-   * For each configured theme we walk up its `extends` chain, then emit themes from the root
-   * ancestor down to the descendant. Duplicates are removed (a theme already loaded as an
-   * ancestor of an earlier configured theme is not loaded again).
-   *
-   * Example given `themes: [kjk (extends qulto)]`:
-   *   load order = [qulto, kjk]   →   qulto keys, then kjk keys override
-   */
-  protected resolveThemeLoadOrder(configured: Array<{ name?: string; extends?: string }>): string[] {
-    const byName = new Map<string, { name?: string; extends?: string }>();
-    configured.forEach((t) => {
-      if (t?.name) {
-        byName.set(t.name, t);
-      }
-    });
-
-    const result: string[] = [];
-    const seen = new Set<string>();
-
-    for (const theme of configured) {
-      if (!theme?.name) {
-        continue;
-      }
-      // Build chain from theme up to root ancestor (handle cycles).
-      const chain: string[] = [];
-      const visited = new Set<string>();
-      let cursor: string | undefined = theme.name;
-      while (cursor && !visited.has(cursor)) {
-        visited.add(cursor);
-        chain.push(cursor);
-        cursor = byName.get(cursor)?.extends;
-      }
-      // Reverse so we apply ancestor → descendant order.
-      for (const name of chain.reverse()) {
-        if (!seen.has(name)) {
-          seen.add(name);
-          result.push(name);
-        }
-      }
-    }
-    return result;
   }
 
   /**

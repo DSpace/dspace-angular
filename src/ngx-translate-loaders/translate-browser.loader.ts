@@ -18,6 +18,7 @@ import {
   NGX_TRANSLATE_STATE,
   NgxTranslateState,
 } from './ngx-translate-state';
+import { resolveThemeLoadOrder } from './theme-i18n.util';
 
 /**
  * A TranslateLoader for ngx-translate to retrieve i18n messages from the TransferState, or download
@@ -55,50 +56,12 @@ export class TranslateBrowserLoader implements TranslateLoader {
     // Fetch base translations + every configured theme's override file (in inheritance order)
     // and merge them. Theme keys override base keys; child theme keys override parent theme keys.
     const base$ = this.fetchBase(lang);
-    const orderedThemes = this.resolveThemeLoadOrder(environment.themes as any || []);
+    const orderedThemes = resolveThemeLoadOrder(environment.themes ?? []);
     const themeStreams = orderedThemes.map((name: string) => this.fetchThemeOverride(name, lang));
 
     return forkJoin([base$, ...themeStreams]).pipe(
       map((parts) => parts.reduce((acc, part) => Object.assign(acc, part), {})),
     );
-  }
-
-  /**
-   * Resolve the load order for the configured themes, expanding `extends` chains so that
-   * ancestor themes are loaded before their descendants (descendant wins on conflicts).
-   * See {@link TranslateServerLoader.resolveThemeLoadOrder} for details.
-   */
-  protected resolveThemeLoadOrder(configured: Array<{ name?: string; extends?: string }>): string[] {
-    const byName = new Map<string, { name?: string; extends?: string }>();
-    configured.forEach((t) => {
-      if (t?.name) {
-        byName.set(t.name, t);
-      }
-    });
-
-    const result: string[] = [];
-    const seen = new Set<string>();
-
-    for (const theme of configured) {
-      if (!theme?.name) {
-        continue;
-      }
-      const chain: string[] = [];
-      const visited = new Set<string>();
-      let cursor: string | undefined = theme.name;
-      while (cursor && !visited.has(cursor)) {
-        visited.add(cursor);
-        chain.push(cursor);
-        cursor = byName.get(cursor)?.extends;
-      }
-      for (const name of chain.reverse()) {
-        if (!seen.has(name)) {
-          seen.add(name);
-          result.push(name);
-        }
-      }
-    }
-    return result;
   }
 
   /**
