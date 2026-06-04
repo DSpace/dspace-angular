@@ -8,6 +8,7 @@ import {
 } from 'node:path';
 
 import { TransferState } from '@angular/core';
+import { AppConfig } from '@dspace/config/app-config.interface';
 import { getDefaultThemeConfig } from '@dspace/config/config.util';
 import { TranslateLoader } from '@ngx-translate/core';
 import JSON5 from 'json5';
@@ -78,7 +79,7 @@ export class TranslateServerLoader implements TranslateLoader {
     }
 
     // Resolve only the active theme's chain (root ancestor → active theme).
-    const activeName = getDefaultThemeConfig(environment).name;
+    const activeName = getDefaultThemeConfig(environment as unknown as AppConfig).name;
     const orderedThemes = resolveActiveThemeChain(configured, activeName);
 
     // `this.prefix` looks like `dist/server/assets/i18n/`. Theme assets live next to `i18n/`
