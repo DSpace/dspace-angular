@@ -7913,8 +7913,9 @@
   "bitstream.related.isReplacedBy": "Is replaced by",
 
   "bitstream.related.deleted": "deleted",
-  "process.overview.table.heartbeat": "Heartbeat",
   
-  "process.detail.heartbeat": "Heartbeat"
+  "process.overview.table.heartbeat": "Heartbeat (UTC)",
+
+  "process.detail.heartbeat": "Heartbeat",
 
 }
