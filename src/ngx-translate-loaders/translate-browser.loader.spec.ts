@@ -115,4 +115,60 @@ describe('TranslateBrowserLoader', () => {
       done();
     });
   });
+
+  it('does NOT apply sibling theme overrides when the active theme is first in the list', (done) => {
+    // Regression: when parent-theme is active, a sibling theme that also extends parent-theme
+    // must NOT override parent-theme's translations.
+    environment.themes = [
+      { name: 'parent-theme' },
+      { name: 'sibling-theme', extends: 'parent-theme' },
+    ];
+    transferState.get.and.returnValue({});
+    http.get.and.callFake((url: string) => {
+      if (isBaseRequest(url)) {
+        return of(JSON.stringify({ key: 'base' }));
+      }
+      if (url === 'assets/parent-theme/i18n/en.json5') {
+        return of('{ key: "parent" }');
+      }
+      if (url === 'assets/sibling-theme/i18n/en.json5') {
+        // sibling has its own value for the same key — must NOT win when parent-theme is active
+        return of('{ key: "sibling" }');
+      }
+      return throwError(() => new Error('404'));
+    });
+
+    loader.getTranslation('en').subscribe((messages) => {
+      expect(messages.key).toBe('parent');
+      done();
+    });
+  });
+
+  it('applies the full ancestor chain when a child theme is active', (done) => {
+    // When child-theme (extends parent-theme) is active, parent-theme keys provide the base
+    // and child-theme keys override only what they define.
+    environment.themes = [
+      { name: 'child-theme', extends: 'parent-theme' },
+      { name: 'parent-theme' },
+    ];
+    transferState.get.and.returnValue({});
+    http.get.and.callFake((url: string) => {
+      if (isBaseRequest(url)) {
+        return of(JSON.stringify({ 'key.a': 'base-a', 'key.b': 'base-b' }));
+      }
+      if (url === 'assets/parent-theme/i18n/en.json5') {
+        return of('{ "key.a": "parent-a" }');
+      }
+      if (url === 'assets/child-theme/i18n/en.json5') {
+        return of('{ "key.b": "child-b" }');
+      }
+      return throwError(() => new Error('404'));
+    });
+
+    loader.getTranslation('en').subscribe((messages) => {
+      expect(messages['key.a']).toBe('parent-a');  // inherited from parent-theme
+      expect(messages['key.b']).toBe('child-b');   // overridden by child-theme
+      done();
+    });
+  });
 });

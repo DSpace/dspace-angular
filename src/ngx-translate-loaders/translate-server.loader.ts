@@ -8,6 +8,7 @@ import {
 } from 'node:path';
 
 import { TransferState } from '@angular/core';
+import { getDefaultThemeConfig } from '@dspace/config/config.util';
 import { TranslateLoader } from '@ngx-translate/core';
 import JSON5 from 'json5';
 import {
@@ -20,14 +21,16 @@ import {
   NGX_TRANSLATE_STATE,
   NgxTranslateState,
 } from './ngx-translate-state';
-import { resolveThemeLoadOrder } from './theme-i18n.util';
+import { resolveActiveThemeChain } from './theme-i18n.util';
 
 /**
  * A TranslateLoader for ngx-translate to parse json5 files server-side, and store them in the
  * TransferState.
  *
  * Also overlays per-theme translation overrides from `<themeAssetsRoot>/<theme>/i18n/<lang>.json5`
- * for every configured theme, merging them on top of the base translations (theme keys win).
+ * for the active theme and its ancestors (in root → active order), merging them on top of the
+ * base translations so the active theme's keys win. Only the active theme's inheritance chain is
+ * loaded — sibling themes are excluded to prevent cross-theme key pollution.
  * The resulting merged map is stored in the TransferState so the browser does not need to
  * re-fetch the theme overrides after the initial SSR response.
  */
@@ -61,7 +64,8 @@ export class TranslateServerLoader implements TranslateLoader {
   }
 
   /**
-   * Read and merge i18n override files from every configured theme's assets folder.
+   * Read and merge i18n override files for the active theme's inheritance chain.
+   * Only the active theme (and its ancestors) are loaded; sibling themes are excluded.
    * Returns an empty object if no overrides are present.
    *
    * @param lang the language code
@@ -73,9 +77,9 @@ export class TranslateServerLoader implements TranslateLoader {
       return {};
     }
 
-    // Build the ordered list of themes to load, expanding each configured theme's inheritance
-    // chain (ancestor first, descendant last) so that child theme overrides win over parents.
-    const orderedThemes = resolveThemeLoadOrder(configured);
+    // Resolve only the active theme's chain (root ancestor → active theme).
+    const activeName = getDefaultThemeConfig(environment).name;
+    const orderedThemes = resolveActiveThemeChain(configured, activeName);
 
     // `this.prefix` looks like `dist/server/assets/i18n/`. Theme assets live next to `i18n/`
     // at `dist/server/assets/<theme>/i18n/<lang>.json5`.

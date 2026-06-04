@@ -1,54 +1,44 @@
 import { ThemeConfig } from '@dspace/config/theme.config';
 
 /**
- * Resolve the load order for the given configured themes, expanding their `extends` chains.
+ * Resolve the i18n load order for a single **active** theme, walking up its
+ * `extends` chain so ancestors are loaded before descendants (ancestor keys
+ * are overridden by descendant keys).
  *
- * For each configured theme we walk up its `extends` chain and then emit the themes from the root
- * ancestor down to the descendant. Duplicates are removed (a theme already emitted as an ancestor
- * of an earlier configured theme is not emitted again), and `extends` cycles are handled gracefully
- * (each theme is visited at most once while building a single chain).
+ * Only the active theme's inheritance chain is returned.  Sibling themes that
+ * are configured but not active are intentionally excluded — loading all
+ * configured themes caused cross-theme key pollution (a sibling theme's
+ * translations silently overriding the active theme's keys).
  *
- * Applying i18n override files in the resulting order makes descendant theme keys win over their
- * ancestors, and later-configured themes win over earlier ones.
+ * This mirrors the official `merge-i18n` CLI approach, which merges exactly
+ * one theme at a time: `npm run merge-i18n -- -s src/themes/<active>/assets/i18n`.
  *
- * Example given `themes: [child-theme (extends base-theme)]`:
- *   load order = [base-theme, child-theme]   →   base-theme keys first, then child-theme keys override
+ * `extends` cycles are handled gracefully (each theme name appears at most once).
+ *
+ * Examples (config `[base-theme, child-theme (extends base-theme), sibling-theme (extends base-theme)]`):
+ *   active = 'base-theme'    (no extends)                  → ['base-theme']
+ *   active = 'child-theme'   (extends: 'base-theme')       → ['base-theme', 'child-theme']
+ *   active = 'sibling-theme' (extends: 'base-theme')       → ['base-theme', 'sibling-theme']
  *
  * @param configured the configured themes (typically `environment.themes`)
- * @returns the ordered, de-duplicated list of theme names to load (ancestor → descendant)
+ * @param activeName the name of the active/default theme
+ * @returns ordered list of theme names to load (root ancestor → active theme)
  */
-export function resolveThemeLoadOrder(configured: ThemeConfig[]): string[] {
+export function resolveActiveThemeChain(configured: ThemeConfig[], activeName: string): string[] {
   const byName = new Map<string, ThemeConfig>();
-  configured.forEach((theme) => {
-    if (theme?.name) {
-      byName.set(theme.name, theme);
+  configured.forEach((t) => {
+    if (t?.name) {
+      byName.set(t.name, t);
     }
   });
 
-  const result: string[] = [];
-  const seen = new Set<string>();
-
-  for (const theme of configured) {
-    if (!theme?.name) {
-      continue;
-    }
-    // Build the chain from this theme up to its root ancestor (guarding against `extends` cycles).
-    const chain: string[] = [];
-    const visited = new Set<string>();
-    let cursor: string | undefined = theme.name;
-    while (cursor && !visited.has(cursor)) {
-      visited.add(cursor);
-      chain.push(cursor);
-      cursor = byName.get(cursor)?.extends;
-    }
-    // Reverse so we emit ancestor → descendant order.
-    for (const name of chain.reverse()) {
-      if (!seen.has(name)) {
-        seen.add(name);
-        result.push(name);
-      }
-    }
+  const chain: string[] = [];
+  const visited = new Set<string>();
+  let cursor: string | undefined = activeName;
+  while (cursor && !visited.has(cursor)) {
+    visited.add(cursor);
+    chain.push(cursor);
+    cursor = byName.get(cursor)?.extends;
   }
-
-  return result;
+  return chain.reverse(); // ancestor → descendant
 }
