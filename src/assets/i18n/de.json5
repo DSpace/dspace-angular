@@ -4554,22 +4554,22 @@
 
   // "item.qa-event-notification.check.notification-info.singular": "There is {{num}} pending suggestion related to your account",
   // TODO New key - Add a translation
-  "item.qa-event-notification.check.notification-info.singular": "There is {{num}} pending suggestion related to your account",
+  "item.qa-event-notification.check.notification-info.singular": "Es gibt einen ausstehenden Vorschlag in Bezug auf Ihr Benutzerkonto.",
 
   // "item.qa-event-notification.check.notification-info.plural": "There are {{num}} pending suggestions related to your account",
   // TODO New key - Add a translation
-  "item.qa-event-notification.check.notification-info.plural": "There are {{num}} pending suggestions related to your account",
+  "item.qa-event-notification.check.notification-info.plural": "Es gibt {{num}} ausstehende Vorschläge in Bezug auf Ihr Benutzerkonto.",
 
   // "item.qa-event-notification-info.check.button": "View",
   "item.qa-event-notification-info.check.button": "Anzeigen",
 
   // "mydspace.qa-event-notification.check.notification-info.singular": "There is {{num}} pending suggestion related to your account",
   // TODO New key - Add a translation
-  "mydspace.qa-event-notification.check.notification-info.singular": "There is {{num}} pending suggestion related to your account",
+  "mydspace.qa-event-notification.check.notification-info.singular": "Es gibt einen ausstehenden Vorschlag in Bezug auf Ihr Benutzerkonto.",
 
   // "mydspace.qa-event-notification.check.notification-info.plural": "There are {{num}} pending suggestions related to your account",
   // TODO New key - Add a translation
-  "mydspace.qa-event-notification.check.notification-info.plural": "There are {{num}} pending suggestions related to your account",
+  "mydspace.qa-event-notification.check.notification-info.plural": "Es gibt {{num}} ausstehende Vorschläge in Bezug auf Ihr Benutzerkonto.",
 
   // "mydspace.qa-event-notification-info.check.button": "View",
   "mydspace.qa-event-notification-info.check.button": "Anzeigen",
@@ -4818,7 +4818,7 @@
 
   // "item.preview.dc.identifier.other": "Other identifier:",
   // TODO New key - Add a translation
-  "item.preview.dc.identifier.other": "Other identifier:",
+  "item.preview.dc.identifier.other": "Sonstiger Identifikator:",
 
   // "item.preview.dc.language.iso": "Language:",
   "item.preview.dc.language.iso": "Sprache:",
@@ -8080,7 +8080,7 @@
   "submission.import-external.source.opfJournalIssn": "Jisc Open policy finder Zeitschriften nach ISSN",
 
   // "submission.import-external.source.opfPublisher": "Jisc Open policy finder Publishers",
-  "submission.import-external.source.opfPublisher": "Jisc Open policy finder Verläge",
+  "submission.import-external.source.opfPublisher": "Jisc Open policy finder Verlage",
 
   // "submission.import-external.source.openaire": "OpenAIRE Search by Authors",
   "submission.import-external.source.openaire": "OpenAIRE-Suche nach Autor:innen",
@@ -8400,7 +8400,7 @@
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.jiscJournal": "Jisc Open policy finder Zeitschriften ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.jiscPublisher": "Jisc Open policy finder Publishers ({{ count }})",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.jiscPublisher": "Jisc Open policy finder Verläge ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.jiscPublisher": "Jisc Open policy finder Verlage ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.orcid": "ORCID ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.orcid": "ORCID ({{ count }})",
@@ -8480,7 +8480,7 @@
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.opfJournal": "Jisc Open policy finder of Journal",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.opfJournal": "Jisc Open policy finder of Journal",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.opfJournal": "Jisc Open policy finder der Zeitschrift",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isProjectOfPublication": "Project",
   "submission.sections.describe.relationship-lookup.selection-tab.title.isProjectOfPublication": "Projekt",
@@ -8828,7 +8828,7 @@
 
   // "submission.sections.submit.progressbar.opfpolicy": "Jisc Open Policy Finder policies",
   // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.opfpolicy": "Jisc Open Policy Finder policies",
+  "submission.sections.submit.progressbar.opfpolicy": "Jisc Open policy finder Richtlinien",
 
   // "submission.sections.submit.progressbar.upload": "Upload files",
   "submission.sections.submit.progressbar.upload": "Hochgeladene Dateien",
@@ -9166,7 +9166,7 @@
   "submission.sections.jisc.record.information.uri": "URI",
 
   // "submission.sections.jisc.error.message": "There was an error retrieving Jisc Open policy finder information",
-  "submission.sections.jisc.error.message": "Beim empfange der Jisc Open policy finder Informationen ist ein Fehler aufgetreten.",
+  "submission.sections.jisc.error.message": "Beim Abruf der Informationen aus dem Jisc Open policy finder ist ein Fehler aufgetreten.",
 
   // "submission.submit.breadcrumbs": "New submission",
   "submission.submit.breadcrumbs": "Neue Einreichung",
