@@ -74,11 +74,15 @@ import { SectionsService } from '../sections.service';
 import { SubmissionSectionLicenseComponent } from './section-license.component';
 
 function getMockDsDynamicTypeBindRelationService(): DsDynamicTypeBindRelationService {
-  return jasmine.createSpyObj('DsDynamicTypeBindRelationService', {
+  const service = jasmine.createSpyObj('DsDynamicTypeBindRelationService', {
     getRelatedFormModel: jasmine.createSpy('getRelatedFormModel'),
     matchesCondition: jasmine.createSpy('matchesCondition'),
     subscribeRelations: jasmine.createSpy('subscribeRelations'),
   });
+
+  service.activatedSubscriptionsByMetdataKey = new Set();
+
+  return service;
 }
 
 const collectionId = mockSubmissionCollectionId;
