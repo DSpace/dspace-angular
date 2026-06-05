@@ -8561,14 +8561,11 @@
   // "submission.sections.submit.progressbar.license": "Deposit license",
   "submission.sections.submit.progressbar.license": "Llicència de dipòsit",
 
-  // "submission.sections.submit.progressbar.opfpolicy": "Jisc Open Policy Finder policies",
-  "submission.sections.submit.progressbar.opfpolicy": "Polítiques Sherpa",
+  // "submission.sections.submit.progressbar.opfpolicy": "Publisher open access policy information",
+  "submission.sections.submit.progressbar.opfpolicy": "Informació sobre polítiques editorials d'accés obert",
 
   // "submission.sections.submit.progressbar.upload": "Upload files",
   "submission.sections.submit.progressbar.upload": "Pujar fitxers",
-
-  // "submission.sections.submit.progressbar.jiscPolicies": "Publisher open access policy information",
-  "submission.sections.submit.progressbar.jiscPolicies": "Informació sobre polítiques editorials d'accés obert",
 
   // "submission.sections.jisc-policy.title-empty": "No publisher policy information available. If your work has an associated ISSN, please enter it above to see any related publisher open access policies.",
   "submission.sections.jisc-policy.title-empty": "No es troba disponible la informació sobre política editorial. Si teniu un ISSN associat, introduïu-lo a dalt per veure informació sobre polítiques editorials d'accés obert.",

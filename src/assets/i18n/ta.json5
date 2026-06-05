@@ -8668,14 +8668,11 @@
   // "submission.sections.submit.progressbar.license": "Deposit license",
   "submission.sections.submit.progressbar.license": "வைப்பு உரிமம்",
 
-  // "submission.sections.submit.progressbar.opfpolicy": "Jisc Open Policy Finder policies",
-  "submission.sections.submit.progressbar.opfpolicy": "Sherpa கொள்கைகள்",
+  // "submission.sections.submit.progressbar.opfpolicy": "Publisher open access policy information",
+  "submission.sections.submit.progressbar.opfpolicy": "பதிப்பாளர் திறந்த அணுகல் கொள்கை தகவல்",
 
   // "submission.sections.submit.progressbar.upload": "Upload files",
   "submission.sections.submit.progressbar.upload": "கோப்புகளைப் பதிவேற்றவும்",
-
-  // "submission.sections.submit.progressbar.jiscPolicies": "Publisher open access policy information",
-  "submission.sections.submit.progressbar.jiscPolicies": "பதிப்பாளர் திறந்த அணுகல் கொள்கை தகவல்",
 
   // "submission.sections.jisc-policy.title-empty": "No publisher policy information available. If your work has an associated ISSN, please enter it above to see any related publisher open access policies.",
   "submission.sections.jisc-policy.title-empty": "பதிப்பாளர் கொள்கை தகவல் கிடைக்கவில்லை. உங்கள் வேலைக்கு தொடர்புடைய ISSN இருந்தால், மேலே அதை உள்ளிடவும்.",

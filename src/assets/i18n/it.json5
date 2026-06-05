@@ -9097,14 +9097,11 @@
   // "submission.sections.submit.progressbar.license": "Deposit license",
   "submission.sections.submit.progressbar.license": "Licenza di deposito",
 
-  // "submission.sections.submit.progressbar.opfpolicy": "Jisc Open Policy Finder policies",
-  "submission.sections.submit.progressbar.opfpolicy": "Policy di Sherpa",
+  // "submission.sections.submit.progressbar.opfpolicy": "Publisher open access policy information",
+  "submission.sections.submit.progressbar.opfpolicy": "Informazioni sulla policy di open access dell'editore",
 
   // "submission.sections.submit.progressbar.upload": "Upload files",
   "submission.sections.submit.progressbar.upload": "Carica file",
-
-  // "submission.sections.submit.progressbar.jiscPolicies": "Publisher open access policy information",
-  "submission.sections.submit.progressbar.jiscPolicies": "Informazioni sulla policy di open access dell'editore",
 
   // "submission.sections.jisc-policy.title-empty": "No publisher policy information available. If your work has an associated ISSN, please enter it above to see any related publisher open access policies.",
   "submission.sections.jisc-policy.title-empty": "Non sono disponibili informazioni sulle policy dell'editore. Se il lavoro ha un ISSN associato, si prega di inserirlo qui sopra per vedere le policy di open access dell'editore.",

@@ -8609,14 +8609,11 @@
   // "submission.sections.submit.progressbar.license": "Deposit license",
   "submission.sections.submit.progressbar.license": "Лицензия на депозит",
 
-  // "submission.sections.submit.progressbar.opfpolicy": "Jisc Open Policy Finder policies",
-  "submission.sections.submit.progressbar.opfpolicy": "Политики Sherpa",
+  // "submission.sections.submit.progressbar.opfpolicy": "Publisher open access policy information",
+  "submission.sections.submit.progressbar.opfpolicy": "Информация о политиках открытого доступа издателя",
 
   // "submission.sections.submit.progressbar.upload": "Upload files",
   "submission.sections.submit.progressbar.upload": "Загрузить файлы",
-
-  // "submission.sections.submit.progressbar.jiscPolicies": "Publisher open access policy information",
-  "submission.sections.submit.progressbar.jiscPolicies": "Информация о политиках открытого доступа издателя",
 
   // "submission.sections.jisc-policy.title-empty": "No publisher policy information available. If your work has an associated ISSN, please enter it above to see any related publisher open access policies.",
   "submission.sections.jisc-policy.title-empty": "Информация о политике издателя недоступна. Если у вашей работы есть связанный ISSN, введите его выше, чтобы увидеть соответствующую информацию о политике открытого доступа издателя.",

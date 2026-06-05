@@ -9336,14 +9336,11 @@
   // "submission.sections.submit.progressbar.license": "Deposit license",
   "submission.sections.submit.progressbar.license": "Άδεια κατάθεσης",
 
-  // "submission.sections.submit.progressbar.opfpolicy": "Jisc Open Policy Finder policies",
-  "submission.sections.submit.progressbar.opfpolicy": "Πολιτικές Σέρπα",
+  // "submission.sections.submit.progressbar.opfpolicy": "Publisher open access policy information",
+  "submission.sections.submit.progressbar.opfpolicy": "Πληροφορίες πολιτικής ανοιχτής πρόσβασης εκδότη",
 
   // "submission.sections.submit.progressbar.upload": "Upload files",
   "submission.sections.submit.progressbar.upload": "Μεταφόρτωση αρχείων",
-
-  // "submission.sections.submit.progressbar.jiscPolicies": "Publisher open access policy information",
-  "submission.sections.submit.progressbar.jiscPolicies": "Πληροφορίες πολιτικής ανοιχτής πρόσβασης εκδότη",
 
   // "submission.sections.jisc-policy.title-empty": "No publisher policy information available. If your work has an associated ISSN, please enter it above to see any related publisher open access policies.",
   "submission.sections.jisc-policy.title-empty": "Δεν υπάρχουν διαθέσιμες πληροφορίες πολιτικής εκδότη. Εάν η εργασία σας έχει συσχετισμένο ISSN, καταχωρίστε το παραπάνω για να δείτε τυχόν σχετικές πολιτικές ανοιχτής πρόσβασης εκδότη.",

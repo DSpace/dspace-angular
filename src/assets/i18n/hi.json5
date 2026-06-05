@@ -8626,14 +8626,11 @@
   // "submission.sections.submit.progressbar.license": "Deposit license",
   "submission.sections.submit.progressbar.license": "जमा लाइसेंस",
 
-  // "submission.sections.submit.progressbar.opfpolicy": "Jisc Open Policy Finder policies",
-  "submission.sections.submit.progressbar.opfpolicy": "शेरपा नीतियाँ",
+  // "submission.sections.submit.progressbar.opfpolicy": "Publisher open access policy information",
+  "submission.sections.submit.progressbar.opfpolicy": "प्रकाशक ओपन एक्सेस नीति जानकारी",
 
   // "submission.sections.submit.progressbar.upload": "Upload files",
   "submission.sections.submit.progressbar.upload": "फाइलें अपलोड करें",
-
-  // "submission.sections.submit.progressbar.jiscPolicies": "Publisher open access policy information",
-  "submission.sections.submit.progressbar.jiscPolicies": "प्रकाशक ओपन एक्सेस नीति जानकारी",
 
   // "submission.sections.jisc-policy.title-empty": "No publisher policy information available. If your work has an associated ISSN, please enter it above to see any related publisher open access policies.",
   "submission.sections.jisc-policy.title-empty": "कोई प्रकाशक नीति जानकारी उपलब्ध नहीं है। यदि आपके कार्य से संबंधित कोई ISSN है, तो कृपया इसे ऊपर दर्ज करें ताकि संबंधित प्रकाशक ओपन एक्सेस नीतियों को देखा जा सके।",
