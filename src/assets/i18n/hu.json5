@@ -8080,14 +8080,11 @@
   // "submission.sections.submit.progressbar.license": "Deposit license",
   "submission.sections.submit.progressbar.license": "Beküldési engedély",
 
-  // "submission.sections.submit.progressbar.opfpolicy": "Jisc Open Policy Finder policies",
-  "submission.sections.submit.progressbar.opfpolicy": "Sherpa irányelvek",
+  // "submission.sections.submit.progressbar.opfpolicy": "Publisher open access policy information",
+  "submission.sections.submit.progressbar.opfpolicy": "Kiadói nyílt hozzáférési szabályzat",
 
   // "submission.sections.submit.progressbar.upload": "Upload files",
   "submission.sections.submit.progressbar.upload": "Fájlok feltöltése",
-
-  // "submission.sections.submit.progressbar.jiscPolicies": "Publisher open access policy information",
-  "submission.sections.submit.progressbar.jiscPolicies": "A kiadó nyílt hozzáférésről szóló információja",
 
   // "submission.sections.jisc-policy.title-empty": "No publisher policy information available. If your work has an associated ISSN, please enter it above to see any related publisher open access policies.",
   "submission.sections.jisc-policy.title-empty": "Nem áll rendelkezésre kiadó nyílt hozzáférésről szóló információja. Ha a művéhez tartozik ISSN, kérjük, adja meg fentebb, hogy láthassa a kapcsolódó kiadók nyílt hozzáférésről szóló irányelveit.",
