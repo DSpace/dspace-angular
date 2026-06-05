@@ -8990,15 +8990,11 @@
   // TODO New key - Add a translation
   "submission.sections.submit.progressbar.describe.owner": "Owner",
 
-  // "submission.sections.submit.progressbar.opfpolicy": "Jisc Open Policy Finder policies",
-  // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.opfpolicy": "Jisc Open Policy Finder policies",
+  // "submission.sections.submit.progressbar.opfpolicy": "Publisher open access policy information",
+  "submission.sections.submit.progressbar.opfpolicy": "معلومات سياسة الوصول الحر للناشر",
 
   // "submission.sections.submit.progressbar.upload": "Upload files",
   "submission.sections.submit.progressbar.upload": "تحميل الملفات",
-
-  // "submission.sections.submit.progressbar.jiscPolicies": "Publisher open access policy information",
-  "submission.sections.submit.progressbar.jiscPolicies": "معلومات سياسة الوصول الحر للناشر",
 
   // "submission.sections.jisc-policy.title-empty": "No publisher policy information available. If your work has an associated ISSN, please enter it above to see any related publisher open access policies.",
   "submission.sections.jisc-policy.title-empty": "لا تتوفر معلومات حول سياسة الناشر. إذا كان لعملك رقم ISSN مرتبط، يرجى إدخاله أعلاه للاطلاع على أي سياسة وصول حر للناشرين ذوي الصلة.",
