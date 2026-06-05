@@ -80,7 +80,7 @@ function getMockDsDynamicTypeBindRelationService(): DsDynamicTypeBindRelationSer
     subscribeRelations: jasmine.createSpy('subscribeRelations'),
   });
 
-  service.activatedSubscriptionsByMetdataKey = new Set();
+  service.activatedSubscriptionsByMetadataKey = new Set();
 
   return service;
 }

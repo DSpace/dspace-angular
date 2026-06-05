@@ -127,7 +127,7 @@ describe('DSDynamicTypeBindRelationService test suite', () => {
       const relation = dynamicFormRelationService.findRelationByMatcher((testModel as any).typeBindRelations, HIDDEN_MATCHER);
       const matcher = HIDDEN_MATCHER;
       if (relation !== undefined) {
-        const hasMatch = service.matchesCondition(relation, matcher,[{ 'dc.type': 'boundType' }]);
+        const hasMatch = service.matchesCondition(relation, matcher, [{ 'dc.type': 'boundType' }]);
         matcher.onChange(hasMatch, testModel, dcTypeControl, injector);
         expect(hasMatch).toBeFalsy();
       }
