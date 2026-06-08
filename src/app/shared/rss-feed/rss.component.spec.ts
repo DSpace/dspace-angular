@@ -264,15 +264,6 @@ describe('RssComponent', () => {
       setupComponent(['html', 'atom', 'rss'], mockCollection);
     });
 
-    it('should include "Collection" in the rel="alternate" link titles', () => {
-      const alternateTags = (linkHeadService.addTag as jasmine.Spy).calls.all()
-        .map(c => c.args[0])
-        .filter(tag => tag.rel === 'alternate');
-      for (const tag of alternateTags) {
-        expect(tag.title).toContain('Collection');
-      }
-    });
-
     it('should include the collection name in the rel="alternate" link titles', () => {
       const alternateTags = (linkHeadService.addTag as jasmine.Spy).calls.all()
         .map(c => c.args[0])
@@ -282,27 +273,9 @@ describe('RssComponent', () => {
       }
     });
 
-    it('should not include "Community" in the rel="alternate" link titles', () => {
-      const alternateTags = (linkHeadService.addTag as jasmine.Spy).calls.all()
-        .map(c => c.args[0])
-        .filter(tag => tag.rel === 'alternate');
-      for (const tag of alternateTags) {
-        expect(tag.title).not.toContain('Community');
-      }
-    });
-
     describe('when scoped to a community', () => {
       beforeEach(() => {
         setupComponent(['html', 'atom', 'rss'], mockCommunity);
-      });
-
-      it('should include "Community" in the rel="alternate" link titles', () => {
-        const alternateTags = (linkHeadService.addTag as jasmine.Spy).calls.all()
-          .map(c => c.args[0])
-          .filter(tag => tag.rel === 'alternate');
-        for (const tag of alternateTags) {
-          expect(tag.title).toContain('Community');
-        }
       });
 
       it('should include the community name in the rel="alternate" link titles', () => {
@@ -311,15 +284,6 @@ describe('RssComponent', () => {
           .filter(tag => tag.rel === 'alternate');
         for (const tag of alternateTags) {
           expect(tag.title).toContain(mockCommunity.name);
-        }
-      });
-
-      it('should not include "Collection" in the rel="alternate" link titles', () => {
-        const alternateTags = (linkHeadService.addTag as jasmine.Spy).calls.all()
-          .map(c => c.args[0])
-          .filter(tag => tag.rel === 'alternate');
-        for (const tag of alternateTags) {
-          expect(tag.title).not.toContain('Collection');
         }
       });
     });

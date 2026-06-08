@@ -267,17 +267,8 @@ export class RSSComponent implements OnInit, OnDestroy, OnChanges {
         getFirstCompletedRemoteData(),
       ).subscribe((result) => {
         let scopeLabel: string;
-        let objectType = '';
         if (result.hasSucceeded) {
           scopeLabel = this.dsoNameService.getName(result.payload);
-          if (result.payload instanceof Collection) {
-            objectType = 'Collection';
-          } else if (result.payload instanceof Community) {
-            objectType = 'Community';
-            // If its not a collection or community idk how we got here skip this.
-          } else {
-            return;
-          }
         } else {
           scopeLabel = 'Sitewide';
         }
@@ -288,7 +279,7 @@ export class RSSComponent implements OnInit, OnDestroy, OnChanges {
             href,
             type: OPENSEARCH_FORMAT_MIME_TYPES[format],
             rel: 'alternate',
-            title: `${objectType} ${scopeLabel} ${format.charAt(0).toUpperCase() + format.slice(1)} Feed`.trim(),
+            title: `${scopeLabel} ${format.charAt(0).toUpperCase() + format.slice(1)} Feed`.trim(),
           });
         }
       });
@@ -307,7 +298,7 @@ export class RSSComponent implements OnInit, OnDestroy, OnChanges {
 
     // Service discovery link uses the primary (first) format
     this.linkHeadService.addTag({
-      href: environment.rest.baseUrl + '/' + opensearch + '/service',
+      href: environment.rest.baseUrl + '/' + opensearch.split('/search')[0] || '' + '/service',
       type: OPENSEARCH_FORMAT_MIME_TYPES[formats[0]],
       rel: 'search',
       title: 'DSpace OpenSearch',
