@@ -41,8 +41,6 @@ import { map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
-import { Collection } from '../../core/shared/collection.model';
-import { Community } from '../../core/shared/community.model';
 import { SearchConfigurationService } from '../search/search-configuration.service';
 
 /**
