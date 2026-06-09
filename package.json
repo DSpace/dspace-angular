@@ -55,7 +55,7 @@
   },
   "private": true,
   "resolutions": {
-    "webpack": "5.106.2"
+    "webpack": "5.107.2"
   },
   "dependencies": {
     "@angular/animations": "^17.3.11",
@@ -201,7 +201,7 @@
     "sass-resources-loader": "^2.2.5",
     "ts-node": "^8.10.2",
     "typescript": "~5.4.5",
-    "webpack": "5.106.2",
+    "webpack": "5.107.2",
     "webpack-cli": "^5.1.4"
   }
 }
