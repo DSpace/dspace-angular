@@ -36,6 +36,7 @@ import {
   Subscription,
 } from 'rxjs';
 
+import { SubmissionService } from '../../../../../submission/submission.service';
 import { BtnDisabledDirective } from '../../../../btn-disabled.directive';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
 import { SearchConfigurationService } from '../../../../search/search-configuration.service';
@@ -47,7 +48,6 @@ import {
   RemoveRelationshipAction,
   ReplaceRelationshipAction,
 } from './relationship.actions';
-import { SubmissionService } from '../../../../../submission/submission.service';
 
 describe('DsDynamicLookupRelationModalComponent', () => {
   let component: DsDynamicLookupRelationModalComponent;

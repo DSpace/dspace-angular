@@ -56,6 +56,7 @@ import {
 
 import { AppState } from '../../../../../app.reducer';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
+import { SubmissionService } from '../../../../../submission/submission.service';
 import { BtnDisabledDirective } from '../../../../btn-disabled.directive';
 import { ThemedLoadingComponent } from '../../../../loading/themed-loading.component';
 import { SelectableListState } from '../../../../object-list/selectable-list/selectable-list.reducer';
@@ -72,7 +73,6 @@ import {
 } from './relationship.actions';
 import { ThemedDynamicLookupRelationSearchTabComponent } from './search-tab/themed-dynamic-lookup-relation-search-tab.component';
 import { DsDynamicLookupRelationSelectionTabComponent } from './selection-tab/dynamic-lookup-relation-selection-tab.component';
-import { SubmissionService } from '../../../../../submission/submission.service';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-modal',
