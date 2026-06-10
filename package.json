@@ -121,7 +121,7 @@
     "http-terminator": "^3.2.0",
     "isbot": "^5.1.40",
     "js-cookie": "3.0.8",
-    "js-yaml": "^4.1.1",
+    "js-yaml": "^4.2.0",
     "json5": "^2.2.3",
     "jsonschema": "1.5.0",
     "jwt-decode": "^3.1.2",
