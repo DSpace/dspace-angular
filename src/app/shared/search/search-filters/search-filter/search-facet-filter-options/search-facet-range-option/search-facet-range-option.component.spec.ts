@@ -153,11 +153,12 @@ describe('SearchFacetRangeOptionComponent', () => {
   });
 
   describe('when isVisible emits false', () => {
-    it('the facet option should not be visible', () => {
+    it('the facet option should still be visible (active filter can be deselected)', () => {
       comp.isVisible = of(false);
       fixture.detectChanges();
       const linkEl = fixture.debugElement.query(By.css('a'));
-      expect(linkEl).toBeNull();
+      expect(linkEl).not.toBeNull();
+      expect(linkEl.nativeElement.classList).toContain('selected');
     });
   });
 });
