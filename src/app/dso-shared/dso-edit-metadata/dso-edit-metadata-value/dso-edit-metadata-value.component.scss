@@ -7,6 +7,11 @@
   cursor: grab;
 }
 
+.drag-icon {
+  height: #{$font-size-base};
+  width: #{$font-size-base};
+}
+
 ::ng-deep .edit-field>ngb-tooltip-window .tooltip-inner {
   min-width: var(--ds-dso-edit-virtual-tooltip-min-width);
 }
