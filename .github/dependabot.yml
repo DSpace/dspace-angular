@@ -436,6 +436,9 @@ updates:
         - "minor"
         - "patch"
     ignore:
+      # 8.x cannot update sass to v1.100.0 or later as those versions do not support Node v18
+      - dependency-name: "sass"
+        versions: [">=1.100.0"]
       # Restrict zone.js updates to patch level to avoid dependency conflicts with @angular/core
       - dependency-name: "zone.js"
         update-types: ["version-update:semver-major", "version-update:semver-minor"]
