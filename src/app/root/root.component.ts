@@ -134,14 +134,6 @@ export class RootComponent implements OnInit {
     }
   }
 
-  skipToMainContent() {
-    const mainContent = document.getElementById('main-content');
-    if (mainContent) {
-      mainContent.tabIndex = -1;
-      mainContent.focus();
-    }
-  }
-
   getBrowserName(): string {
     const userAgent = this._window.nativeWindow.navigator?.userAgent;
     if (/Firefox/.test(userAgent)) {
