@@ -1,14 +1,16 @@
+import { LANG_COOKIE } from '@dspace/core/locale/locale.service';
+import { NativeWindowRef } from '@dspace/core/services/window.service';
+
+import {
+  CAPTCHA_COOKIE,
+  CAPTCHA_NAME,
+} from '../../core/google-recaptcha/google-recaptcha.service';
+import { PINNED_MENU_COOKIE } from '../../shared/menu/menu.service';
 import {
   IMPERSONATING_COOKIE,
   REDIRECT_COOKIE,
 } from '../auth/auth.service';
 import { TOKENITEM } from '../auth/models/auth-token-info.model';
-import {
-  CAPTCHA_COOKIE,
-  CAPTCHA_NAME,
-} from '../google-recaptcha/google-recaptcha.service';
-import { LANG_COOKIE } from '../locale/locale.service';
-import { NativeWindowRef } from '../services/window.service';
 import { ACCESSIBILITY_COOKIE } from './accessibility-cookie';
 
 /**
@@ -229,6 +231,12 @@ export function getOrejimeConfiguration(_window: NativeWindowRef): any {
         required: false,
         cookies: [ACCESSIBILITY_COOKIE],
         onlyOnce: false,
+      },
+      {
+        name: 'menu-state',
+        purposes: ['functional'],
+        required: false,
+        cookies: [PINNED_MENU_COOKIE],
       },
     ],
   };
