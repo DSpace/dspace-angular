@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
+import { RestRequestMethod } from '@dspace/config/rest-request-method';
 import { hasValue } from '@dspace/shared/utils/empty.util';
+import { Operation } from 'fast-json-patch';
 import { Observable } from 'rxjs';
 import {
   find,
@@ -15,9 +17,14 @@ import {
 } from '../data/base/delete-data';
 import { IdentifiableDataService } from '../data/base/identifiable-data.service';
 import {
+  PatchData,
+  PatchDataImpl,
+} from '../data/base/patch-data';
+import {
   SearchData,
   SearchDataImpl,
 } from '../data/base/search-data';
+import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
 import { FindListOptions } from '../data/find-list-options.model';
 import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
@@ -31,15 +38,26 @@ import { getFirstCompletedRemoteData } from '../shared/operators';
 import { WorkflowItem } from './models/workflowitem.model';
 
 /**
+ * Constructs an endpoint taking into account that the WorkflowItem's "uuid" has a prefix by removing that prefix from the ID
+ * @param endpoint    Endpoint to append ID to
+ * @param resourceID  WorkflowItem's "uuid" including the prefix to remove
+ */
+const constructWorkflowItemIdEndpoint = (endpoint, resourceID) => {
+  const regex = new RegExp(`^${WorkflowItem.type.value}-`);
+  return `${endpoint}/${resourceID.replace(regex, '')}`;
+};
+
+/**
  * A service that provides methods to make REST requests with workflow items endpoint.
  */
 @Injectable({ providedIn: 'root' })
-export class WorkflowItemDataService extends IdentifiableDataService<WorkflowItem> implements SearchData<WorkflowItem>, DeleteData<WorkflowItem> {
+export class WorkflowItemDataService extends IdentifiableDataService<WorkflowItem> implements SearchData<WorkflowItem>, DeleteData<WorkflowItem>, PatchData<WorkflowItem> {
   protected searchByItemLinkPath = 'item';
   protected responseMsToLive = 10 * 1000;
 
   private searchData: SearchDataImpl<WorkflowItem>;
   private deleteData: DeleteDataImpl<WorkflowItem>;
+  private patchData: PatchDataImpl<WorkflowItem>;
 
   constructor(
     protected requestService: RequestService,
@@ -47,11 +65,13 @@ export class WorkflowItemDataService extends IdentifiableDataService<WorkflowIte
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
+    protected comparator: DefaultChangeAnalyzer<WorkflowItem>,
   ) {
     super('workflowitems', requestService, rdbService, objectCache, halService);
 
     this.searchData = new SearchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
     this.deleteData = new DeleteDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive, this.constructIdEndpoint);
+    this.patchData = new PatchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.comparator, this.responseMsToLive, constructWorkflowItemIdEndpoint);
   }
 
   /**
@@ -147,5 +167,21 @@ export class WorkflowItemDataService extends IdentifiableDataService<WorkflowIte
    */
   public deleteByHref(href: string, copyVirtualMetadata?: string[]): Observable<RemoteData<NoContent>> {
     return this.deleteData.deleteByHref(href, copyVirtualMetadata);
+  }
+
+  commitUpdates(method?: RestRequestMethod): void {
+    this.patchData.commitUpdates(method);
+  }
+
+  createPatchFromCache(object: WorkflowItem): Observable<Operation[]> {
+    return this.patchData.createPatchFromCache(object);
+  }
+
+  patch(object: WorkflowItem, operations: Operation[]): Observable<RemoteData<WorkflowItem>> {
+    return this.patchData.patch(object, operations);
+  }
+
+  update(object: WorkflowItem): Observable<RemoteData<WorkflowItem>> {
+    return this.patchData.update(object);
   }
 }

@@ -36,6 +36,7 @@ import {
   Subscription,
 } from 'rxjs';
 
+import { SubmissionService } from '../../../../../submission/submission.service';
 import { BtnDisabledDirective } from '../../../../btn-disabled.directive';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
 import { SearchConfigurationService } from '../../../../search/search-configuration.service';
@@ -45,6 +46,7 @@ import { NameVariantService } from './name-variant.service';
 import {
   AddRelationshipAction,
   RemoveRelationshipAction,
+  ReplaceRelationshipAction,
 } from './relationship.actions';
 
 describe('DsDynamicLookupRelationModalComponent', () => {
@@ -54,9 +56,11 @@ describe('DsDynamicLookupRelationModalComponent', () => {
   let item;
   let item1;
   let item2;
+  let item3;
   let testWSI;
   let searchResult1;
   let searchResult2;
+  let searchResult3;
   let listID;
   let selection$;
   let selectableListService;
@@ -68,6 +72,7 @@ describe('DsDynamicLookupRelationModalComponent', () => {
   let lookupRelationService;
   let rdbService;
   let submissionId;
+  let submissionService;
 
   const externalSources = [
     Object.assign(new ExternalSource(), {
@@ -90,11 +95,13 @@ describe('DsDynamicLookupRelationModalComponent', () => {
     item = Object.assign(new Item(), { uuid: '7680ca97-e2bd-4398-bfa7-139a8673dc42', metadata: {} });
     item1 = Object.assign(new Item(), { uuid: 'e1c51c69-896d-42dc-8221-1d5f2ad5516e' });
     item2 = Object.assign(new Item(), { uuid: 'c8279647-1acc-41ae-b036-951d5f65649b' });
+    item3 = Object.assign(new Item(), { uuid: '6264b66f-ae25-4221-b72a-8696536c5ebb' });
     testWSI = new WorkspaceItem();
     testWSI.item = createSuccessfulRemoteDataObject$(item);
     testWSI.collection = createSuccessfulRemoteDataObject$(collection);
     searchResult1 = Object.assign(new ItemSearchResult(), { indexableObject: item1 });
     searchResult2 = Object.assign(new ItemSearchResult(), { indexableObject: item2 });
+    searchResult3 = Object.assign(new ItemSearchResult(), { indexableObject: item3 });
     listID = '6b0c8221-fcb4-47a8-b483-ca32363fffb3';
     selection$ = of([searchResult1, searchResult2]);
     selectableListService = { getSelectableList: () => selection$ };
@@ -120,6 +127,9 @@ describe('DsDynamicLookupRelationModalComponent', () => {
       aggregate: createSuccessfulRemoteDataObject$(externalSources),
     });
     submissionId = '1234';
+    submissionService = jasmine.createSpyObj('submissionService', {
+      getSubmissionSaveProcessingStatus: observableOf(false),
+    });
   }
 
   beforeEach(waitForAsync(() => {
@@ -151,6 +161,7 @@ describe('DsDynamicLookupRelationModalComponent', () => {
         },
         { provide: XSRFService, useValue: {} },
         { provide: NgZone, useValue: new NgZone({}) },
+        { provide: SubmissionService, useValue: submissionService },
         { provide: APP_DATA_SERVICES_MAP, useValue: {} },
         { provide: APP_CONFIG, useValue: { cache: { msToLive: { default: 15 * 60 * 1000 } } } },
         NgbActiveModal,
@@ -197,13 +208,39 @@ describe('DsDynamicLookupRelationModalComponent', () => {
       spyOn((component as any).store, 'dispatch');
     });
 
-    it('should dispatch an AddRelationshipAction for each selected object', () => {
-      component.select(searchResult1, searchResult2);
-      const action = new AddRelationshipAction(component.item, searchResult1.indexableObject, relationship.relationshipType, submissionId, nameVariant);
-      const action2 = new AddRelationshipAction(component.item, searchResult2.indexableObject, relationship.relationshipType, submissionId, nameVariant);
+    describe('when replace properties are present', () => {
+      beforeEach(() => {
+        component.replaceValuePlace = 3;
+        component.replaceValueMetadataField = 'dc.subject';
+        component.replaceValueSection = 'traditionalpageone';
+      });
 
-      expect((component as any).store.dispatch).toHaveBeenCalledWith(action);
-      expect((component as any).store.dispatch).toHaveBeenCalledWith(action2);
+      it('should dispatch a ReplaceRelationshipAction for the first selected object and a AddRelationshipAction for every other selected object', () => {
+        component.select(searchResult1, searchResult2, searchResult3);
+        const action1 = new ReplaceRelationshipAction(component.item, searchResult1.indexableObject, true, 3, 'dc.subject', 'traditionalpageone', relationship.relationshipType, submissionId, nameVariant);
+        const action2 = new AddRelationshipAction(component.item, searchResult2.indexableObject, relationship.relationshipType, submissionId, nameVariant);
+        const action3 = new AddRelationshipAction(component.item, searchResult3.indexableObject, relationship.relationshipType, submissionId, nameVariant);
+
+        expect((component as any).store.dispatch).toHaveBeenCalledWith(action1);
+        expect((component as any).store.dispatch).toHaveBeenCalledWith(action2);
+        expect((component as any).store.dispatch).toHaveBeenCalledWith(action3);
+        expect(component.replaceValuePlace).toBeUndefined();
+        expect(component.replaceValueMetadataField).toBeUndefined();
+        expect(component.replaceValueSection).toBeUndefined();
+      });
+    });
+
+    describe('when replace properties are missing', () => {
+      it('should dispatch an AddRelationshipAction for each selected object', () => {
+        component.select(searchResult1, searchResult2, searchResult3);
+        const action1 = new AddRelationshipAction(component.item, searchResult1.indexableObject, relationship.relationshipType, submissionId, nameVariant);
+        const action2 = new AddRelationshipAction(component.item, searchResult2.indexableObject, relationship.relationshipType, submissionId, nameVariant);
+        const action3 = new AddRelationshipAction(component.item, searchResult3.indexableObject, relationship.relationshipType, submissionId, nameVariant);
+
+        expect((component as any).store.dispatch).toHaveBeenCalledWith(action1);
+        expect((component as any).store.dispatch).toHaveBeenCalledWith(action2);
+        expect((component as any).store.dispatch).toHaveBeenCalledWith(action3);
+      });
     });
   });
 
