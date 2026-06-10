@@ -17,9 +17,10 @@ import {
   RouterLink,
   RouterOutlet,
 } from '@angular/router';
+import { ItemDataService } from '@dspace/core/data/item-data.service';
 import { RemoteData } from '@dspace/core/data/remote-data';
-import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
 import { Item } from '@dspace/core/shared/item.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
 import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
@@ -28,7 +29,10 @@ import {
   Observable,
   of,
 } from 'rxjs';
-import { map } from 'rxjs/operators';
+import {
+  map,
+  switchMap,
+} from 'rxjs/operators';
 
 import {
   fadeIn,
@@ -72,7 +76,12 @@ export class EditItemPageComponent implements OnInit {
    */
   pages: { page: string, enabled: Observable<boolean> }[];
 
-  constructor(private route: ActivatedRoute, private router: Router, private injector: Injector) {
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private injector: Injector,
+    private items: ItemDataService,
+  ) {
     this.router.events.subscribe(() => this.initPageParamsByRoute());
   }
 
@@ -93,8 +102,18 @@ export class EditItemPageComponent implements OnInit {
           );
         }
         return { page: child.path, enabled: enabled };
-      }); // ignore reroutes
-    this.itemRD$ = this.route.data.pipe(map((data) => data.dso));
+      });
+
+    this.itemRD$ = this.route.data.pipe(
+      map((data) => data.dso),
+      switchMap((rd: RemoteData<Item>) => {
+        if (rd?.hasSucceeded && rd?.payload?._links?.self?.href) {
+          return this.items.findByHref(rd.payload._links.self.href, true, false);
+        }
+        return of(rd);
+      }),
+      getFirstCompletedRemoteData(),
+    );
   }
 
   /**
@@ -102,7 +121,24 @@ export class EditItemPageComponent implements OnInit {
    * @param item The item for which the url is requested
    */
   getItemPage(item: Item): string {
-    return getItemPageRoute(item);
+    if (!item) {return null;}
+    // Extract UUID from current edit URL instead of using item metadata
+    // This avoids the resolver redirecting back to the (possibly deleted) custom URL
+    const currentUrl = this.router.url;
+    const uuidMatch = currentUrl.match(/\/([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})\//);
+    if (uuidMatch) {
+      const uuid = uuidMatch[1];
+      const type = item.firstMetadataValue('dspace.entity.type');
+      if (type) {
+        return `/entities/${encodeURIComponent(type.toLowerCase())}/${uuid}`;
+      }
+      return `/items/${uuid}`;
+    }
+    // Fallback
+    const type = item.firstMetadataValue('dspace.entity.type');
+    return type
+      ? `/entities/${encodeURIComponent(type.toLowerCase())}/${item.uuid}`
+      : `/items/${item.uuid}`;
   }
 
   /**
