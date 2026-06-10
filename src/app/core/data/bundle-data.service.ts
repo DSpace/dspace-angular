@@ -1,9 +1,16 @@
 import { Injectable } from '@angular/core';
 import { RestRequestMethod } from '@dspace/config/rest-request-method';
 import { hasValue } from '@dspace/shared/utils/empty.util';
-import { Operation } from 'fast-json-patch';
-import { Observable } from 'rxjs';
 import {
+  Operation,
+  RemoveOperation,
+} from 'fast-json-patch';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+} from 'rxjs';
+import {
+  find,
   map,
   switchMap,
   take,
@@ -16,6 +23,7 @@ import { Bundle } from '../shared/bundle.model';
 import { FollowLinkConfig } from '../shared/follow-link-config.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
+import { NoContent } from '../shared/NoContent.model';
 import { PaginatedSearchOptions } from '../shared/search/models/paginated-search-options.model';
 import { IdentifiableDataService } from './base/identifiable-data.service';
 import {
@@ -26,7 +34,10 @@ import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 import { FindListOptions } from './find-list-options.model';
 import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
-import { GetRequest } from './request.models';
+import {
+  GetRequest,
+  PatchRequest,
+} from './request.models';
 import { RequestService } from './request.service';
 import { RequestEntryState } from './request-entry-state.model';
 
@@ -181,5 +192,35 @@ export class BundleDataService extends IdentifiableDataService<Bundle> implement
    */
   public createPatchFromCache(object: Bundle): Observable<Operation[]> {
     return this.patchData.createPatchFromCache(object);
+  }
+
+  /**
+   * Delete multiple {@link Bundle}s at once by sending a PATCH request to the backend
+   * This will also delete all bitstreams contained in the bundles.
+   *
+   * @param bundles The bundles that should be removed
+   */
+  removeMultiple(bundles: Bundle[]): Observable<RemoteData<NoContent>> {
+    const operations: RemoveOperation[] = bundles.map((bundle: Bundle) => {
+      return {
+        op: 'remove',
+        path: `/bundles/${bundle.id}`,
+      };
+    });
+    const requestId: string = this.requestService.generateRequestId();
+
+    const hrefObs: Observable<string> = this.getBrowseEndpoint();
+
+    hrefObs.pipe(
+      find((href: string) => hasValue(href)),
+    ).subscribe((href: string) => {
+      const request = new PatchRequest(requestId, href, operations);
+      if (hasValue(this.responseMsToLive)) {
+        request.responseMsToLive = this.responseMsToLive;
+      }
+      this.requestService.send(request);
+    });
+
+    return this.rdbService.buildFromRequestUUIDAndAwait(requestId, () => observableCombineLatest(bundles.map((bundle: Bundle) => this.invalidateByHref(bundle._links.self.href))));
   }
 }
