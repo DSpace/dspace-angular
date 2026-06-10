@@ -21,7 +21,6 @@
     [invalid]="showErrorMessages"
     [placeholder]="'form.date-picker.placeholder.year'"
     [widthClass]="'four-digits'"
-    (blur)="onBlur($event)"
     (change)="onChange($event)"
     (focus)="onFocus($event)"
   ></ds-number-picker>
@@ -38,7 +37,6 @@
     [placeholder]="'form.date-picker.placeholder.month'"
     [disabled]="!year || model.disabled"
     [widthClass]="'two-digits'"
-    (blur)="onBlur($event)"
     (change)="onChange($event)"
     (focus)="onFocus($event)"
   ></ds-number-picker>
@@ -55,7 +53,6 @@
     [placeholder]="'form.date-picker.placeholder.day'"
     [disabled]="!month || model.disabled"
     [widthClass]="'two-digits'"
-    (blur)="onBlur($event)"
     (change)="onChange($event)"
     (focus)="onFocus($event)"
   ></ds-number-picker>
