@@ -30,7 +30,7 @@ try {
 
   const baseHref = `${appConfig.ui.nameSpace}${appConfig.ui.nameSpace.endsWith('/') ? '' : '/'}`;
 
-  console.log(`Setting baseHref to ${baseHref} in angular.json`);
+  console.info(`Setting baseHref to ${baseHref} in angular.json`);
 
   angularJson.projects['dspace-angular'].architect.build.options.baseHref = baseHref;
 
