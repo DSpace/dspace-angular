@@ -36,10 +36,8 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import {
-  ADVANCED_WORKFLOW_TASK_OPTION_SELECT_REVIEWER,
-  AdvancedWorkflowActionSelectReviewerComponent,
-} from './advanced-workflow-action-select-reviewer.component';
+import { ClaimedTaskType } from '../../../shared/mydspace-actions/claimed-task/claimed-task-type';
+import { AdvancedWorkflowActionSelectReviewerComponent } from './advanced-workflow-action-select-reviewer.component';
 
 const claimedTaskId = '2';
 const workflowId = '1';
@@ -143,7 +141,7 @@ describe('AdvancedWorkflowActionSelectReviewerComponent', () => {
       component.performAction();
 
       expect(claimedTaskDataService.submitTask).toHaveBeenCalledWith(claimedTaskId, {
-        [ADVANCED_WORKFLOW_TASK_OPTION_SELECT_REVIEWER]: true,
+        [ClaimedTaskType.ADVANCED_WORKFLOW_TASK_OPTION_SELECT_REVIEWER]: true,
         eperson: [EPersonMock.id, EPersonMock2.id],
       });
       expect(notificationService.success).toHaveBeenCalled();
@@ -166,7 +164,7 @@ describe('AdvancedWorkflowActionSelectReviewerComponent', () => {
       component.performAction();
 
       expect(claimedTaskDataService.submitTask).toHaveBeenCalledWith(claimedTaskId, {
-        [ADVANCED_WORKFLOW_TASK_OPTION_SELECT_REVIEWER]: true,
+        [ClaimedTaskType.ADVANCED_WORKFLOW_TASK_OPTION_SELECT_REVIEWER]: true,
         eperson: [EPersonMock.id, EPersonMock2.id],
       });
       expect(notificationService.error).toHaveBeenCalled();

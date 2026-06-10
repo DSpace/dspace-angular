@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
+import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -10,12 +11,14 @@ import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { getFirstCompletedRemoteData } from '../shared/operators';
 import { PoolTask } from './models/pool-task-object.model';
+import { POOL_TASK } from './models/pool-task-object.resource-type';
 import { TasksService } from './tasks.service';
 
 /**
  * The service handling all REST requests for PoolTask
  */
 @Injectable({ providedIn: 'root' })
+@dataService(POOL_TASK)
 export class PoolTaskDataService extends TasksService<PoolTask> {
   /**
    * Initialize instance variables

@@ -12,12 +12,14 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
+import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { followLink } from '../shared/follow-link-config.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { getFirstSucceededRemoteDataPayload } from '../shared/operators';
 import { Version } from '../shared/version.model';
+import { VERSION } from '../shared/version.resource-type';
 import { VersionHistory } from '../shared/version-history.model';
 import { IdentifiableDataService } from './base/identifiable-data.service';
 import {
@@ -32,6 +34,7 @@ import { RequestService } from './request.service';
  * Service responsible for handling requests related to the Version object
  */
 @Injectable({ providedIn: 'root' })
+@dataService(VERSION)
 export class VersionDataService extends IdentifiableDataService<Version> implements PatchData<Version> {
   private patchData: PatchData<Version>;
 

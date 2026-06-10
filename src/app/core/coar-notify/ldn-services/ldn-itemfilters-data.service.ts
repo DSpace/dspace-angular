@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { dataService } from '@dspace/core/cache/builders/build-decorators';
+import { LDN_SERVICE_CONSTRAINT_FILTERS } from '@dspace/core/coar-notify/ldn-services/models/ldn-service.resource-type';
 import { Observable } from 'rxjs';
 
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
@@ -21,6 +23,7 @@ import { Itemfilter } from './models/ldn-service-itemfilters';
  * A service responsible for fetching/sending data from/to the REST API on the itemfilters endpoint
  */
 @Injectable({ providedIn: 'root' })
+@dataService(LDN_SERVICE_CONSTRAINT_FILTERS)
 export class LdnItemfiltersService extends IdentifiableDataService<Itemfilter> implements FindAllData<Itemfilter> {
   private findAllData: FindAllDataImpl<Itemfilter>;
 

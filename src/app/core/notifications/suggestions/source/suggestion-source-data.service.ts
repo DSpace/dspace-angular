@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { dataService } from '@dspace/core/cache/builders/build-decorators';
 import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
 import { CoreState } from '@dspace/core/core-state.model';
@@ -20,11 +21,13 @@ import { Observable } from 'rxjs';
 
 import { NotificationsService } from '../../../notification-system/notifications.service';
 import { SuggestionSource } from '../models/suggestion-source.model';
+import { SUGGESTION_SOURCE } from '../models/suggestion-source-object.resource-type';
 
 /**
  * Service that retrieves Suggestion Source data
  */
 @Injectable({ providedIn: 'root' })
+@dataService(SUGGESTION_SOURCE)
 export class SuggestionSourceDataService extends IdentifiableDataService<SuggestionSource> {
 
   protected linkPath = 'suggestionsources';
