@@ -73,7 +73,7 @@ export class SearchFacetOptionComponent implements OnInit {
    */
   searchLink: string;
 
-  paginationId: string;
+  searchInstanceId: string;
 
   constructor(protected searchService: SearchService,
               protected filterService: SearchFilterService,
@@ -89,7 +89,7 @@ export class SearchFacetOptionComponent implements OnInit {
    * Initializes all observable instance variables and starts listening to them
    */
   ngOnInit(): void {
-    this.paginationId = this.searchConfigService.paginationID;
+    this.searchInstanceId = this.searchConfigService.searchInstanceId;
     this.searchLink = this.getSearchLink();
     this.isVisible = this.isChecked().pipe(map((checked: boolean) => !checked));
     this.addQueryParams$ = this.updateAddParams();
@@ -99,7 +99,7 @@ export class SearchFacetOptionComponent implements OnInit {
    * Checks if a value for this filter is currently active
    */
   isChecked(): Observable<boolean> {
-    return this.filterService.isFilterActiveWithValue(this.filterConfig.paramName, this.getFacetValue());
+    return this.filterService.isFilterActiveWithValue(this.filterConfig.paramName, this.getFacetValue(), this.searchInstanceId);
   }
 
   /**

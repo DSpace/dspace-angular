@@ -90,6 +90,7 @@ describe('SearchConfigurationService', () => {
     }));
 
     service = new SearchConfigurationService(routeService, paginationService as any, activatedRoute as any, linkService, halService, requestService, rdb, environment);
+    service.searchInstanceId = defaults.pagination.id;
   });
 
   describe('when the scope is called', () => {
@@ -181,7 +182,7 @@ describe('SearchConfigurationService', () => {
 
     describe('when subscribeToSearchOptions is called', () => {
       beforeEach(() => {
-        (service as any).subscribeToSearchOptions(defaults);
+        (service as any).subscribeToSearchOptions(defaults.pagination.id, defaults);
       });
       it('should call all getters it needs, but not call any others', () => {
         expect(service.getCurrentPagination).not.toHaveBeenCalled();
@@ -198,14 +199,14 @@ describe('SearchConfigurationService', () => {
       beforeEach(() => {
         (service as any).subscribeToPaginatedSearchOptions(defaults.pagination.id, defaults);
       });
-      it('should call all getters it needs', () => {
+      it('should call the pagination-specific getters it needs', () => {
         expect(service.getCurrentPagination).toHaveBeenCalled();
         expect(service.getCurrentSort).toHaveBeenCalled();
-        expect(service.getCurrentScope).toHaveBeenCalled();
-        expect(service.getCurrentConfiguration).toHaveBeenCalled();
-        expect(service.getCurrentQuery).toHaveBeenCalled();
-        expect(service.getCurrentDSOType).toHaveBeenCalled();
-        expect(service.getCurrentFilters).toHaveBeenCalled();
+        expect(service.getCurrentScope).not.toHaveBeenCalled();
+        expect(service.getCurrentConfiguration).not.toHaveBeenCalled();
+        expect(service.getCurrentQuery).not.toHaveBeenCalled();
+        expect(service.getCurrentDSOType).not.toHaveBeenCalled();
+        expect(service.getCurrentFilters).not.toHaveBeenCalled();
       });
     });
   });
@@ -314,13 +315,13 @@ describe('SearchConfigurationService', () => {
     it('should return all params except the applied filter', () => {
       service.unselectAppliedFilterParams(appliedFilter.filter, appliedFilter.value, appliedFilter.operator);
 
-      expect(routeService.getParamsExceptValue).toHaveBeenCalledWith('f.author', '1282121b-5394-4689-ab93-78d537764052,authority');
+      expect(routeService.getParamsExceptValue).toHaveBeenCalledWith(`${defaults.pagination.id}.f.author`, '1282121b-5394-4689-ab93-78d537764052,authority');
     });
 
     it('should be able to remove AppliedFilter without operator', () => {
       service.unselectAppliedFilterParams('dateIssued.max', '2000');
 
-      expect(routeService.getParamsExceptValue).toHaveBeenCalledWith('f.dateIssued.max', '2000');
+      expect(routeService.getParamsExceptValue).toHaveBeenCalledWith(`${defaults.pagination.id}.f.dateIssued.max`, '2000');
     });
 
     it('should reset the page to 1', (done: DoneFn) => {
@@ -346,13 +347,13 @@ describe('SearchConfigurationService', () => {
     it('should return all params with the applied filter', () => {
       service.selectNewAppliedFilterParams(appliedFilter.filter, appliedFilter.value, appliedFilter.operator);
 
-      expect(routeService.getParamsWithAdditionalValue).toHaveBeenCalledWith('f.author', '1282121b-5394-4689-ab93-78d537764052,authority');
+      expect(routeService.getParamsWithAdditionalValue).toHaveBeenCalledWith(`${defaults.pagination.id}.f.author`, '1282121b-5394-4689-ab93-78d537764052,authority');
     });
 
     it('should be able to add AppliedFilter without operator', () => {
       service.selectNewAppliedFilterParams('dateIssued.max', '2000');
 
-      expect(routeService.getParamsWithAdditionalValue).toHaveBeenCalledWith('f.dateIssued.max', '2000');
+      expect(routeService.getParamsWithAdditionalValue).toHaveBeenCalledWith(`${defaults.pagination.id}.f.dateIssued.max`, '2000');
     });
 
     it('should reset the page to 1', (done: DoneFn) => {
