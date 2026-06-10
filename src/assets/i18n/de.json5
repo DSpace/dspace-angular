@@ -8826,15 +8826,11 @@
   // "submission.sections.submit.progressbar.describe.owner": "Owner",
   "submission.sections.submit.progressbar.describe.owner": "Besitzer",
 
-  // "submission.sections.submit.progressbar.opfpolicy": "Jisc Open Policy Finder policies",
-  // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.opfpolicy": "Jisc Open policy finder Richtlinien",
+  // "submission.sections.submit.progressbar.opfpolicy": "Publisher open access policy information",
+  "submission.sections.submit.progressbar.opfpolicy": "Informationen zur Open-Access-Richtlinie des Verlags",
 
   // "submission.sections.submit.progressbar.upload": "Upload files",
   "submission.sections.submit.progressbar.upload": "Hochgeladene Dateien",
-
-  // "submission.sections.submit.progressbar.jiscPolicies": "Publisher open access policy information",
-  "submission.sections.submit.progressbar.jiscPolicies": "Informationen zur Open-Access-Richtlinie des Verlags",
 
   // "submission.sections.jisc-policy.title-empty": "No publisher policy information available. If your work has an associated ISSN, please enter it above to see any related publisher open access policies.",
   "submission.sections.jisc-policy.title-empty": "Keine Informationen zur Verlagsrichtlinie verfügbar. Wenn Ihr Werk eine zugehörige ISSN hat, geben Sie diese bitte oben ein, um die entsprechenden Open-Access-Richtlinien des Verlags anzuzeigen.",
