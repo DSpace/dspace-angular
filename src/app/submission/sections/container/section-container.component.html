@@ -29,7 +29,8 @@
             [title]="(sectionRef.isOpen() ? 'submission.sections.toggle.close' : 'submission.sections.toggle.open') | translate">
             <span *ngIf="sectionRef.isOpen()" [ngClass]="{ 'text-white' : sectionRef.isInfo()}"
               class="fas fa-chevron-up fa-fw"></span>
-            <span *ngIf="!sectionRef.isOpen()" class="fas fa-chevron-down fa-fw"></span>
+            <span *ngIf="!sectionRef.isOpen()" [ngClass]="{ 'text-white' : sectionRef.isInfo()}"
+              class="fas fa-chevron-down fa-fw"></span>
           </a>
           <a href="javascript:void(0);" class="close mr-3" *ngIf="!sectionRef.isMandatory()"
             (click)="removeSection($event)">

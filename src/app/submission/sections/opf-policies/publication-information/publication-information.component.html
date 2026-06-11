@@ -1,7 +1,7 @@
 <div class="ml-4">
     <div class="row" *ngIf="!!journal?.titles && journal.titles.length > 0">
         <div class="col-4">
-            <p class="m-1">{{'submission.sections.sherpa.publication.information.title' | translate}}</p>
+            <p class="m-1">{{'submission.sections.jisc.publication.information.title' | translate}}</p>
         </div>
         <div class="col-4">
             <p class="m-1" *ngFor="let title of journal.titles">{{title}}
@@ -10,7 +10,7 @@
     </div>
     <div class="row" *ngIf="!!journal?.issns && journal.issns.length > 0">
         <div class="col-4">
-            <p class="m-1">{{'submission.sections.sherpa.publication.information.issns' | translate}}</p>
+            <p class="m-1">{{'submission.sections.jisc.publication.information.issns' | translate}}</p>
         </div>
         <div class="col-4">
             <p class="m-1" *ngFor="let issn of journal.issns">{{issn}}
@@ -19,7 +19,7 @@
     </div>
     <div class="row" *ngIf="!!journal?.url">
         <div class="col-4">
-            <p class="m-1">{{'submission.sections.sherpa.publication.information.url' | translate}}</p>
+            <p class="m-1">{{'submission.sections.jisc.publication.information.url' | translate}}</p>
         </div>
         <div class="col-4">
             <p class="m-1">
@@ -31,7 +31,7 @@
     </div>
     <div class="row" *ngIf="!!journal?.publishers && journal.publishers.length > 0">
         <div class="col-4">
-            <p class="m-1">{{'submission.sections.sherpa.publication.information.publishers' | translate}}</p>
+            <p class="m-1">{{'submission.sections.jisc.publication.information.publishers' | translate}}</p>
         </div>
         <div class="col-4" *ngFor="let publisher of journal.publishers">
             <p class="m-1">
@@ -43,7 +43,7 @@
     </div>
     <div class="row" *ngIf="!!journal?.romeoPub">
         <div class="col-4">
-            <p class="m-1">{{'submission.sections.sherpa.publication.information.romeoPub' | translate}}</p>
+            <p class="m-1">{{'submission.sections.jisc.publication.information.romeoPub' | translate}}</p>
         </div>
         <div class="col-4">
             <p class="m-1">
@@ -53,7 +53,7 @@
     </div>
     <div class="row" *ngIf="!!journal?.zetoPub">
         <div class="col-4">
-            <p class="m-1">{{'submission.sections.sherpa.publication.information.zetoPub' | translate}}</p>
+            <p class="m-1">{{'submission.sections.jisc.publication.information.zetoPub' | translate}}</p>
         </div>
         <div class="col-4">
             <p class="m-1">
