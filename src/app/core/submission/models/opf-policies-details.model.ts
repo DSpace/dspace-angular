@@ -1,25 +1,25 @@
 /**
  * An interface to represent an access condition.
  */
-export class SherpaPoliciesDetailsObject {
+export class JiscOpfPoliciesDetailsObject {
 
   /**
-   * The sherpa policies error
+   * The Jisc Open Policy Finder policies error
    */
   error: boolean;
 
   /**
-   * The sherpa policies journal details
+   * The Jisc Open Policy Finder policies journal details
    */
   journals: Journal[];
 
   /**
-   * The sherpa policies message
+   * The Jisc Open Policy Finder policies message
    */
   message: string;
 
   /**
-   * The sherpa policies metadata
+   * The Jisc Open Policy Finder policies metadata
    */
   metadata: Metadata;
 

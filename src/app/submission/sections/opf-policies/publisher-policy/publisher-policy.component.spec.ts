@@ -4,7 +4,7 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { SherpaDataResponse } from '@dspace/core/testing/section-sherpa-policies.service.mock';
+import { OpfDataResponse } from '@dspace/core/testing/section-opf-policies.service.mock';
 import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import {
   TranslateLoader,
@@ -43,7 +43,7 @@ describe('PublisherPolicyComponent', () => {
     fixture = TestBed.createComponent(PublisherPolicyComponent);
     component = fixture.componentInstance;
     de = fixture.debugElement;
-    component.policy = SherpaDataResponse.sherpaResponse.journals[0].policies[0];
+    component.policy = OpfDataResponse.opfResponse.journals[0].policies[0];
     fixture.detectChanges();
   });
 
