@@ -7951,4 +7951,10 @@
 
   "cc-license.sampling.option.ncsamplingplus.label": "NonCommercial Sampling Plus",
   "cc-license.sampling.option.ncsamplingplus.hint": "Visitors may sample, remix or transform parts of your work, and copy and distribute the entire work, but only for non-commercial purposes.",
+
+  "community.add.sub-community": "Add Community",
+
+  "community.add.sub-collection": "Add Collection",
+
+  "collection.submit.item": "Submit item",
 }
