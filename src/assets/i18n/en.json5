@@ -7887,4 +7887,10 @@
   "bitstream.related.isReplacedBy": "Is replaced by",
 
   "bitstream.related.deleted": "deleted",
+
+  "community.add.sub-community": "Add Community",
+
+  "community.add.sub-collection": "Add Collection",
+
+  "collection.submit.item": "Submit item",
 }
