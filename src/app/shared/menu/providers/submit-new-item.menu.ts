@@ -47,7 +47,7 @@ export class SubmitNewItemMenu extends DSpaceObjectPageMenuProvider {
                 collection: dso.uuid,
               },
             } as LinkMenuItemModel,
-            icon: 'down-to-bracket',
+            icon: 'plus',
           },
         ] as PartialMenuSection[];
       }),
