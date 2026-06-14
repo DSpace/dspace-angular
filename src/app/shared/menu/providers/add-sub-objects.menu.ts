@@ -24,7 +24,7 @@ import { DSpaceObjectPageMenuProvider } from './helper-providers/dso.menu';
  * Menu provider to create the "Edit" option in the DSO edit menu
  */
 @Injectable()
-export class AddSubCollectionMenu extends DSpaceObjectPageMenuProvider {
+export class AddSubObjectsMenu extends DSpaceObjectPageMenuProvider {
   constructor(
     protected authorizationDataService: AuthorizationDataService,
   ) {
@@ -35,10 +35,22 @@ export class AddSubCollectionMenu extends DSpaceObjectPageMenuProvider {
     return combineLatest([
       this.authorizationDataService.isAuthorized(FeatureID.CanEditMetadata, dso.self),
     ]).pipe(
-      map(([canEditCommunity]) => {
+      map(([canEditObject]) => {
         return [
           {
-            visible: canEditCommunity,
+            visible: canEditObject,
+            model: {
+              type: MenuItemType.LINK,
+              text: 'community.add.sub-community',
+              link: '/communities/create',
+              queryParams: {
+                parent: dso.uuid,
+              },
+            } as LinkMenuItemModel,
+            icon: 'plus',
+          },
+          {
+            visible: canEditObject,
             model: {
               type: MenuItemType.LINK,
               text: 'community.add.sub-collection',
