@@ -81,7 +81,7 @@
     "@4science_ng-dynamic-forms/ui-ng-bootstrap": "^19.1.0",
     "@angular/animations": "^20.3.24",
     "@angular/cdk": "^20.2.14",
-    "@angular/common": "^20.3.24",
+    "@angular/common": "^20.3.25",
     "@angular/compiler": "^20.3.24",
     "@angular/core": "^20.3.24",
     "@angular/forms": "^20.3.24",
