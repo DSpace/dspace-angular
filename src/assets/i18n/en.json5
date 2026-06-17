@@ -5628,6 +5628,8 @@
 
   "submission.sections.upload.no-entry": "No",
 
+  "submission.sections.upload.checksum": "Checksum {{ algorithm }}: {{value }}",
+
   "submission.sections.upload.no-file-uploaded": "No file uploaded yet.",
 
   "submission.sections.upload.save-metadata": "Save metadata",

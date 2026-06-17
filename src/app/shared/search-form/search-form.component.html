@@ -11,7 +11,10 @@
       <input type="text" [(ngModel)]="query" name="query" class="form-control"
         [attr.aria-label]="searchPlaceholder" [attr.data-test]="'search-box' | dsBrowserOnly"
         [placeholder]="searchPlaceholder" tabindex="0">
-      <button type="submit" class="search-button btn btn-{{brandColor}}" [attr.data-test]="'search-button' | dsBrowserOnly" role="button" tabindex="0"><i class="fas fa-search"></i> {{ ('search.form.search' | translate) }}</button>
+      <button [attr.aria-label]="'search.form.search' | translate" type="submit" class="search-button btn btn-{{brandColor}}" [attr.data-test]="'search-button' | dsBrowserOnly" role="button" tabindex="0">
+        <i aria-hidden="true" class="fas fa-search"></i>
+        <span class="d-none d-sm-inline ms-1">{{ ('search.form.search' | translate) }}</span>
+      </button>
     </div>
   </div>
 </form>
