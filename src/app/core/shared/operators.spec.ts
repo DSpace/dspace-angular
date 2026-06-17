@@ -190,7 +190,7 @@ describe('Core Module - RxJS Operators', () => {
       testScheduler = new TestScheduler((actual, expected) => {
         expect(actual).toEqual(expected);
       });
-      router = jasmine.createSpyObj('router', ['navigateByUrl']);
+      router = jasmine.createSpyObj('router', ['navigateByUrl', 'getCurrentNavigation']);
       authService = jasmine.createSpyObj('authService', {
         isAuthenticated: of(true),
         setRedirectUrl: {},
