@@ -580,7 +580,7 @@ export class AuthService {
   /**
    * Set redirect url
    */
-   setRedirectUrl(redirectUrl: string, navigateUrl?: string) {
+  setRedirectUrl(redirectUrl: string, navigateUrl?: string) {
     // Add 1 hour to the current date
     const expireDate = Date.now() + (1000 * 60 * 60);
 
