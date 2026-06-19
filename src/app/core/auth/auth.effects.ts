@@ -4,6 +4,7 @@ import {
   NgZone,
   Type,
 } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   APP_CONFIG,
   AppConfig,
@@ -340,6 +341,7 @@ export class AuthEffects {
               private zone: NgZone,
               private authorizationsService: AuthorizationDataService,
               private authService: AuthService,
-              private store: Store<CoreState>) {
+              private store: Store<CoreState>,
+              private router: Router) {
   }
 }
