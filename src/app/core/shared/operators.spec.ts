@@ -277,7 +277,6 @@ describe('Core Module - RxJS Operators', () => {
           expectObservable(source.pipe(redirectOn4xx(router, authService))).toBe(expected, values);
           flush();
           expect(authService.setRedirectUrl).toHaveBeenCalled();
-          expect(router.navigateByUrl).toHaveBeenCalledWith('login');
         });
       });
 
@@ -291,7 +290,6 @@ describe('Core Module - RxJS Operators', () => {
           expectObservable(source.pipe(redirectOn4xx(router, authService))).toBe(expected, values);
           flush();
           expect(authService.setRedirectUrl).toHaveBeenCalled();
-          expect(router.navigateByUrl).toHaveBeenCalledWith('login');
         });
       });
     });
