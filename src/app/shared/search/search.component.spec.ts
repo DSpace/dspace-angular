@@ -12,7 +12,10 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ActivatedRoute } from '@angular/router';
+import {
+  ActivatedRoute,
+  convertToParamMap,
+} from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import { SearchManager } from '@dspace/core/browse/search-manager';
@@ -188,6 +191,9 @@ const routeServiceStub = {
   getQueryParamsWithPrefix: () => {
     return of(null);
   },
+  getQueryParamMap: () => {
+    return of(convertToParamMap({}));
+  },
   setParameter: (key: any, value: any) => {
     return;
   },
@@ -207,6 +213,7 @@ export function configureSearchComponentTestingModule(compType, additionalDeclar
     setSearchInstanceId: jasmine.createSpy('setSearchInstanceId'),
   });
   searchConfigurationServiceStub.getCurrentSearchInstanceParam = (param: string) => `${paginationId}.${param}`;
+  searchConfigurationServiceStub.isLegacySearchParam = (param: string) => ['configuration', 'scope', 'query', 'dsoType', 'view'].includes(param) || param.startsWith('f.');
 
   searchConfigurationServiceStub.setSearchInstanceId.and.callFake((pageId) => {
     paginatedSearchOptions$.next(Object.assign(paginatedSearchOptions$.value, {
@@ -347,6 +354,63 @@ describe('SearchComponent', () => {
     tick(100);
     expect(comp.resultFound.emit).toHaveBeenCalledWith(expectedResults);
   }));
+
+  describe('migrateLegacySearchParams', () => {
+    let navigateSpy: jasmine.Spy;
+
+    beforeEach(() => {
+      comp.platformId = 'browser';
+      comp.searchInstanceId = paginationId;
+      navigateSpy = spyOn((comp as any).router, 'navigate');
+    });
+
+    it('should replace legacy (unprefixed) search params with their prefixed equivalent', () => {
+      spyOn((comp as any).routeService, 'getQueryParamMap').and.returnValue(of(convertToParamMap({
+        query: 'cats',
+        'f.author': 'Smith',
+      })));
+
+      (comp as any).migrateLegacySearchParams();
+
+      expect(navigateSpy).toHaveBeenCalledWith([], {
+        queryParams: {
+          query: null,
+          [`${paginationId}.query`]: 'cats',
+          'f.author': null,
+          [`${paginationId}.f.author`]: 'Smith',
+        },
+        queryParamsHandling: 'merge',
+        replaceUrl: true,
+      });
+    });
+
+    it('should not navigate when there are no legacy search params', () => {
+      spyOn((comp as any).routeService, 'getQueryParamMap').and.returnValue(of(convertToParamMap({
+        [`${paginationId}.query`]: 'cats',
+      })));
+
+      (comp as any).migrateLegacySearchParams();
+
+      expect(navigateSpy).not.toHaveBeenCalled();
+    });
+
+    it('should drop the legacy param without overriding an existing prefixed param', () => {
+      spyOn((comp as any).routeService, 'getQueryParamMap').and.returnValue(of(convertToParamMap({
+        query: 'legacy',
+        [`${paginationId}.query`]: 'prefixed',
+      })));
+
+      (comp as any).migrateLegacySearchParams();
+
+      expect(navigateSpy).toHaveBeenCalledWith([], {
+        queryParams: {
+          query: null,
+        },
+        queryParamsHandling: 'merge',
+        replaceUrl: true,
+      });
+    });
+  });
 
   describe('when the open sidebar button is clicked in mobile view', () => {
 
