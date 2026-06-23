@@ -300,6 +300,29 @@ describe('SearchConfigurationService', () => {
     });
   });
 
+  describe('isLegacySearchParam', () => {
+    it('should return true for unprefixed scoped search params', () => {
+      ['configuration', 'scope', 'query', 'dsoType', 'view'].forEach((param: string) => {
+        expect(service.isLegacySearchParam(param)).toBeTrue();
+      });
+    });
+
+    it('should return true for unprefixed filter params', () => {
+      expect(service.isLegacySearchParam('f.author')).toBeTrue();
+      expect(service.isLegacySearchParam('f.dateIssued.max')).toBeTrue();
+    });
+
+    it('should return false for params that are already prefixed with a search instance id', () => {
+      expect(service.isLegacySearchParam(`${defaults.pagination.id}.query`)).toBeFalse();
+      expect(service.isLegacySearchParam(`${defaults.pagination.id}.f.author`)).toBeFalse();
+    });
+
+    it('should return false for unrelated params', () => {
+      expect(service.isLegacySearchParam('page')).toBeFalse();
+      expect(service.isLegacySearchParam('spc.page')).toBeFalse();
+    });
+  });
+
   describe('unselectAppliedFilterParams', () => {
     let appliedFilter: AppliedFilter;
 

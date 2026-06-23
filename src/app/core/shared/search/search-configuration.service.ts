@@ -90,6 +90,13 @@ export class SearchConfigurationService implements OnDestroy {
   public searchInstanceId = 'spc';
 
   /**
+   * The names of the query parameters that are scoped to a search instance, but that still accept a
+   * legacy (unprefixed) value for backwards compatibility. Filter parameters (prefixed with `f.`) are
+   * handled separately, see {@link isLegacySearchParam}.
+   */
+  protected readonly legacyScopedQueryParams: string[] = ['configuration', 'scope', 'query', 'dsoType', 'view'];
+
+  /**
    * Emits the current search options
    */
   public searchOptions: BehaviorSubject<SearchOptions>;
@@ -346,6 +353,18 @@ export class SearchConfigurationService implements OnDestroy {
 
   getSearchInstanceFilterParamPrefix(searchInstanceId = this.searchInstanceId): string {
     return this.getSearchInstanceParam(searchInstanceId, 'f.');
+  }
+
+  /**
+   * Whether the given query parameter is a legacy (unprefixed) search parameter that has a
+   * search-instance-prefixed equivalent (e.g. `query`, `scope` or a `f.xxx` filter). These
+   * parameters are still read for backwards compatibility, but should be migrated to their
+   * prefixed form so they don't get mixed with newly added prefixed parameters.
+   *
+   * @param paramName The query parameter name
+   */
+  isLegacySearchParam(paramName: string): boolean {
+    return this.legacyScopedQueryParams.includes(paramName) || paramName.startsWith('f.');
   }
 
   getCurrentPageParam(): string {

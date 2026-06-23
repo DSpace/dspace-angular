@@ -1,5 +1,6 @@
 import {
   AsyncPipe,
+  isPlatformBrowser,
   isPlatformServer,
   NgTemplateOutlet,
 } from '@angular/common';
@@ -16,6 +17,7 @@ import {
 } from '@angular/core';
 import {
   NavigationStart,
+  Params,
   Router,
 } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -32,6 +34,7 @@ import {
   filter,
   map,
   switchMap,
+  take,
 } from 'rxjs/operators';
 
 import {
@@ -379,6 +382,10 @@ export class SearchComponent implements OnDestroy, OnInit {
 
     this.searchConfigService.setSearchInstanceId(this.searchInstanceId);
 
+    if (isPlatformBrowser(this.platformId)) {
+      this.migrateLegacySearchParams();
+    }
+
     if (hasValue(this.configuration)) {
       this.routeService.setParameter(this.searchConfigService.getCurrentSearchInstanceParam('configuration'), this.configuration);
     }
@@ -583,6 +590,45 @@ export class SearchComponent implements OnDestroy, OnInit {
         }),
       );
     }
+  }
+
+  /**
+   * Detect legacy (unprefixed) search parameters in the current URL and replace them with their
+   * search-instance-prefixed equivalents (e.g. `query` becomes `spc.query`, `f.author` becomes
+   * `spc.f.author`). This keeps backwards compatibility with old search URLs while making sure that
+   * subsequent search interactions (entering a new query, adding a filter, ...) operate on the
+   * prefixed parameters only, instead of mixing or dropping the legacy ones.
+   * @private
+   */
+  private migrateLegacySearchParams(): void {
+    this.subs.push(this.routeService.getQueryParamMap().pipe(take(1)).subscribe((queryParamMap) => {
+      const prefix = `${this.searchInstanceId}.`;
+      const updatedParams: Params = {};
+      let hasLegacyParams = false;
+
+      queryParamMap.keys
+        .filter((key: string) => this.searchConfigService.isLegacySearchParam(key))
+        .forEach((key: string) => {
+          hasLegacyParams = true;
+          // Remove the legacy parameter from the URL
+          updatedParams[key] = null;
+          // Only move its value(s) to the prefixed parameter when no prefixed value is set yet,
+          // so an existing prefixed parameter always takes precedence over the legacy one.
+          const prefixedKey = `${prefix}${key}`;
+          if (!queryParamMap.has(prefixedKey)) {
+            const values: string[] = queryParamMap.getAll(key);
+            updatedParams[prefixedKey] = values.length > 1 ? values : values[0];
+          }
+        });
+
+      if (hasLegacyParams) {
+        void this.router.navigate([], {
+          queryParams: updatedParams,
+          queryParamsHandling: 'merge',
+          replaceUrl: true,
+        });
+      }
+    }));
   }
 
   /**
