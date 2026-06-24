@@ -9,6 +9,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import {
   filter,
+  find,
   map,
   switchMap,
   take,
@@ -26,6 +27,7 @@ import { Collection } from '../shared/collection.model';
 import { Community } from '../shared/community.model';
 import { ContentSource } from '../shared/content-source.model';
 import { FollowLinkConfig } from '../shared/follow-link-config.model';
+import { GenericConstructor } from '../shared/generic-constructor';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
 import {
@@ -38,13 +40,16 @@ import { CommunityDataService } from './community-data.service';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 import { FindListOptions } from './find-list-options.model';
 import { PaginatedList } from './paginated-list.model';
+import { ResponseParsingService } from './parsing.service';
 import { RemoteData } from './remote-data';
 import {
   ContentSourceRequest,
+  PutRequest,
   UpdateContentSourceRequest,
 } from './request.models';
 import { RequestService } from './request.service';
 import { RestRequest } from './rest-request.model';
+import { StatusCodeOnlyResponseParsingService } from './status-code-only-response-parsing.service';
 
 @Injectable({ providedIn: 'root' })
 export class CollectionDataService extends ComColDataService<Collection> {
@@ -367,4 +372,49 @@ export class CollectionDataService extends ComColDataService<Collection> {
       take(1),
     );
   }
+
+  /**
+   * Get the endpoint to move the collection
+   * @param collectionId
+   */
+  public getMoveCollectionEndpoint(collectionId: string): Observable<string> {
+    return this.halService.getEndpoint(this.linkPath).pipe(
+      map((endpoint: string) => this.getIDHref(endpoint, collectionId)),
+      map((endpoint: string) => `${endpoint}/owningCommunity`),
+    );
+  }
+
+  /**
+   * Move the collection to a different owning community
+   * @param collectionId
+   * @param community
+   */
+  public moveToCommunity(collectionId: string, community: Community): Observable<RemoteData<any>> {
+    const options: HttpOptions = Object.create({});
+    let headers = new HttpHeaders();
+    headers = headers.append('Content-Type', 'text/uri-list');
+    options.headers = headers;
+
+    const requestId = this.requestService.generateRequestId();
+    const hrefObs = this.getMoveCollectionEndpoint(collectionId);
+
+    hrefObs.pipe(
+      find((href: string) => hasValue(href)),
+      map((href: string) => {
+        const request = new PutRequest(requestId, href, community._links.self.href, options);
+        Object.assign(request, {
+          // TODO: for now, the move Item endpoint returns a malformed collection -- only look at the status code
+          getResponseParser(): GenericConstructor<ResponseParsingService> {
+            return StatusCodeOnlyResponseParsingService;
+          },
+        });
+        return request;
+      }),
+    ).subscribe((request) => {
+      this.requestService.send(request);
+    });
+
+    return this.rdbService.buildFromRequestUUID(requestId);
+  }
+
 }
