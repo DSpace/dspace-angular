@@ -4,15 +4,8 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { APP_CONFIG } from '@dspace/config/app-config.interface';
-import {
-  SortDirection,
-  SortOptions,
-} from '@dspace/core/cache/models/sort-options.model';
 import { PaginationService } from '@dspace/core/pagination/pagination.service';
-import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
-import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
 import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
-import { SearchServiceStub } from '@dspace/core/testing/search-service.stub';
 import { createPaginatedList } from '@dspace/core/testing/utils.test';
 import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import { of } from 'rxjs';
@@ -25,38 +18,36 @@ import { RecentItemListComponent } from './recent-item-list.component';
 describe('RecentItemListComponent', () => {
   let component: RecentItemListComponent;
   let fixture: ComponentFixture<RecentItemListComponent>;
-  const emptyList = createSuccessfulRemoteDataObject(createPaginatedList([]));
   let paginationService;
-  const searchServiceStub = Object.assign(new SearchServiceStub(), {
-    search: () => of(emptyList),
-    /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
-    clearDiscoveryRequests: () => {},
-    /* eslint-enable no-empty,@typescript-eslint/no-empty-function */
-  });
-  paginationService = new PaginationServiceStub();
-  const mockSearchOptions = of(new PaginatedSearchOptions({
-    pagination: Object.assign(new PaginationComponentOptions(), {
-      id: 'search-page-configuration',
-      pageSize: 10,
-      currentPage: 1,
-    }),
-    sort: new SortOptions('dc.date.accessioned', SortDirection.DESC),
-  }));
-  const searchConfigServiceStub = {
-    paginatedSearchOptions: mockSearchOptions,
-  };
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
+  let searchServiceSpy;
+
+  const emptyList = createSuccessfulRemoteDataObject(createPaginatedList([]));
+
+  function createTestBed(mockEnvironment?: any) {
+    searchServiceSpy = jasmine.createSpyObj('SearchService', ['search', 'clearDiscoveryRequests']);
+    searchServiceSpy.search.and.returnValue(of(emptyList));
+    searchServiceSpy.clearDiscoveryRequests.and.returnValue();
+
+    paginationService = new PaginationServiceStub();
+
+    const searchConfigServiceStub = {
+      paginationID: 'search-page-configuration',
+    };
+
+    return TestBed.configureTestingModule({
       imports: [RecentItemListComponent],
       providers: [
-        { provide: SearchService, useValue: searchServiceStub },
+        { provide: SearchService, useValue: searchServiceSpy },
         { provide: PaginationService, useValue: paginationService },
         { provide: SearchConfigurationService, useValue: searchConfigServiceStub },
-        { provide: APP_CONFIG, useValue: environment },
+        { provide: APP_CONFIG, useValue: mockEnvironment || environment },
         { provide: PLATFORM_ID, useValue: 'browser' },
       ],
-    })
-      .compileComponents();
+    });
+  }
+
+  beforeEach(async () => {
+    await createTestBed().compileComponents();
   });
 
   beforeEach(() => {
@@ -69,10 +60,266 @@ describe('RecentItemListComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should call the navigate method on the Router with view mode list parameter as a parameter when setViewMode is called', () => {
-    component.onLoadMore();
-    expect(paginationService.updateRouteWithUrl).toHaveBeenCalledWith(undefined, ['search'], Object({ sortField: 'dc.date.accessioned', sortDirection: 'DESC', page: 1 }));
+  it('should load items on init', () => {
+    component.ngOnInit();
+    expect(component.itemRD$).toBeDefined();
   });
+
+  it('should call paginationService.updateRouteWithUrl when onLoadMore is called', () => {
+    component.onLoadMore();
+
+    expect(paginationService.updateRouteWithUrl).toHaveBeenCalledWith(
+      'search-page-configuration',
+      ['search'],
+      { sortField: environment.homePage.recentSubmissions.sortField, sortDirection: 'DESC', page: 1 },
+      {},
+    );
+  });
+
+  it('should clear pagination on destroy', () => {
+    component.ngOnDestroy();
+
+    expect(paginationService.clearPagination).toHaveBeenCalledWith(component.paginationConfig.id);
+  });
+
+  it('should not add query when entityType is undefined', () => {
+    const mockEnvironment = {
+      ...environment,
+      homePage: {
+        ...environment.homePage,
+        recentSubmissions: {
+          ...environment.homePage.recentSubmissions,
+          entityType: undefined,
+        },
+      },
+    };
+
+    TestBed.resetTestingModule();
+    createTestBed(mockEnvironment).compileComponents();
+
+    const testFixture = TestBed.createComponent(RecentItemListComponent);
+    const testComponent = testFixture.componentInstance;
+
+    testComponent.ngOnInit();
+
+    expect(searchServiceSpy.search).toHaveBeenCalled();
+    const searchCall = searchServiceSpy.search.calls.mostRecent();
+    const searchOptions = searchCall.args[0];
+    expect(searchOptions.query).toBeUndefined();
+  });
+
+  it('should not add query when entityType is empty array', () => {
+    const mockEnvironment = {
+      ...environment,
+      homePage: {
+        ...environment.homePage,
+        recentSubmissions: {
+          ...environment.homePage.recentSubmissions,
+          entityType: [],
+        },
+      },
+    };
+
+    TestBed.resetTestingModule();
+    createTestBed(mockEnvironment).compileComponents();
+
+    const testFixture = TestBed.createComponent(RecentItemListComponent);
+    const testComponent = testFixture.componentInstance;
+
+    testComponent.ngOnInit();
+
+    expect(searchServiceSpy.search).toHaveBeenCalled();
+    const searchCall = searchServiceSpy.search.calls.mostRecent();
+    const searchOptions = searchCall.args[0];
+    expect(searchOptions.query).toBeUndefined();
+  });
+
+  it('should add query when entityType is single item array', () => {
+    const mockEnvironment = {
+      ...environment,
+      homePage: {
+        ...environment.homePage,
+        recentSubmissions: {
+          ...environment.homePage.recentSubmissions,
+          entityType: ['Publication'],
+        },
+      },
+    };
+
+    TestBed.resetTestingModule();
+    createTestBed(mockEnvironment).compileComponents();
+
+    const testFixture = TestBed.createComponent(RecentItemListComponent);
+    const testComponent = testFixture.componentInstance;
+
+    testComponent.ngOnInit();
+
+    expect(searchServiceSpy.search).toHaveBeenCalled();
+    const searchCall = searchServiceSpy.search.calls.mostRecent();
+    const searchOptions = searchCall.args[0];
+    expect(searchOptions.query).toBe('search.entitytype:Publication');
+  });
+
+  it('should not add extra params when entityType is undefined in onLoadMore', () => {
+    const mockEnvironment = {
+      ...environment,
+      homePage: {
+        ...environment.homePage,
+        recentSubmissions: {
+          ...environment.homePage.recentSubmissions,
+          entityType: undefined,
+        },
+      },
+    };
+
+    TestBed.resetTestingModule();
+    createTestBed(mockEnvironment).compileComponents();
+
+    const testFixture = TestBed.createComponent(RecentItemListComponent);
+    const testComponent = testFixture.componentInstance;
+
+    testComponent.onLoadMore();
+
+    expect(paginationService.updateRouteWithUrl).toHaveBeenCalledWith(
+      'search-page-configuration',
+      ['search'],
+      { sortField: mockEnvironment.homePage.recentSubmissions.sortField, sortDirection: 'DESC', page: 1 },
+      {},
+    );
+  });
+
+  it('should add query param when entityType is single item array in onLoadMore', () => {
+    const mockEnvironment = {
+      ...environment,
+      homePage: {
+        ...environment.homePage,
+        recentSubmissions: {
+          ...environment.homePage.recentSubmissions,
+          entityType: ['Publication'],
+        },
+      },
+    };
+
+    TestBed.resetTestingModule();
+    createTestBed(mockEnvironment).compileComponents();
+
+    const testFixture = TestBed.createComponent(RecentItemListComponent);
+    const testComponent = testFixture.componentInstance;
+
+    testComponent.onLoadMore();
+
+    expect(paginationService.updateRouteWithUrl).toHaveBeenCalledWith(
+      'search-page-configuration',
+      ['search'],
+      { sortField: mockEnvironment.homePage.recentSubmissions.sortField, sortDirection: 'DESC', page: 1 },
+      { query: 'search.entitytype:Publication' },
+    );
+  });
+
+  it('should add query with OR clause when entityType is an array', () => {
+    const mockEnvironment = {
+      ...environment,
+      homePage: {
+        ...environment.homePage,
+        recentSubmissions: {
+          ...environment.homePage.recentSubmissions,
+          entityType: ['Publication', 'Project', 'Person'],
+        },
+      },
+    };
+
+    TestBed.resetTestingModule();
+    createTestBed(mockEnvironment).compileComponents();
+
+    const testFixture = TestBed.createComponent(RecentItemListComponent);
+    const testComponent = testFixture.componentInstance;
+
+    testComponent.ngOnInit();
+
+    expect(searchServiceSpy.search).toHaveBeenCalled();
+    const searchCall = searchServiceSpy.search.calls.mostRecent();
+    const searchOptions = searchCall.args[0];
+    expect(searchOptions.query).toBe('search.entitytype:(Publication OR Project OR Person)');
+  });
+
+  it('should add query param with OR clause when entityType is an array in onLoadMore', () => {
+    const mockEnvironment = {
+      ...environment,
+      homePage: {
+        ...environment.homePage,
+        recentSubmissions: {
+          ...environment.homePage.recentSubmissions,
+          entityType: ['Publication', 'Project'],
+        },
+      },
+    };
+
+    TestBed.resetTestingModule();
+    createTestBed(mockEnvironment).compileComponents();
+
+    const testFixture = TestBed.createComponent(RecentItemListComponent);
+    const testComponent = testFixture.componentInstance;
+
+    testComponent.onLoadMore();
+
+    expect(paginationService.updateRouteWithUrl).toHaveBeenCalledWith(
+      'search-page-configuration',
+      ['search'],
+      { sortField: mockEnvironment.homePage.recentSubmissions.sortField, sortDirection: 'DESC', page: 1 },
+      { query: 'search.entitytype:(Publication OR Project)' },
+    );
+  });
+
+  it('should filter out empty strings from entityType array', () => {
+    const mockEnvironment = {
+      ...environment,
+      homePage: {
+        ...environment.homePage,
+        recentSubmissions: {
+          ...environment.homePage.recentSubmissions,
+          entityType: ['Publication', '', 'Person', '   '],
+        },
+      },
+    };
+
+    TestBed.resetTestingModule();
+    createTestBed(mockEnvironment).compileComponents();
+
+    const testFixture = TestBed.createComponent(RecentItemListComponent);
+    const testComponent = testFixture.componentInstance;
+
+    testComponent.ngOnInit();
+
+    expect(searchServiceSpy.search).toHaveBeenCalled();
+    const searchCall = searchServiceSpy.search.calls.mostRecent();
+    const searchOptions = searchCall.args[0];
+    expect(searchOptions.query).toBe('search.entitytype:(Publication OR Person)');
+  });
+
+  it('should not add query when all entityType values are empty', () => {
+    const mockEnvironment = {
+      ...environment,
+      homePage: {
+        ...environment.homePage,
+        recentSubmissions: {
+          ...environment.homePage.recentSubmissions,
+          entityType: ['', '   '],
+        },
+      },
+    };
+
+    TestBed.resetTestingModule();
+    createTestBed(mockEnvironment).compileComponents();
+
+    const testFixture = TestBed.createComponent(RecentItemListComponent);
+    const testComponent = testFixture.componentInstance;
+
+    testComponent.ngOnInit();
+
+    expect(searchServiceSpy.search).toHaveBeenCalled();
+    const searchCall = searchServiceSpy.search.calls.mostRecent();
+    const searchOptions = searchCall.args[0];
+    expect(searchOptions.query).toBeUndefined();
+  });
+
 });
-
-
