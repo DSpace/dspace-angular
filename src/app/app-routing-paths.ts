@@ -1,3 +1,5 @@
+import { Collection } from './core/shared/collection.model';
+
 export const COAR_NOTIFY_SUPPORT = 'coar-notify-support';
 
 export const ADMIN_MODULE_PATH = 'admin';
@@ -57,3 +59,8 @@ export function getEditItemPageRoute() {
 }
 export const CORRECTION_TYPE_PATH = 'corrections';
 
+export const BULK_IMPORT_PATH = 'bulk-import';
+
+export function getBulkImportRoute(collection: Collection): string {
+  return `/${BULK_IMPORT_PATH}/${collection.id}`;
+}
