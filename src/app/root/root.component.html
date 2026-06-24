@@ -1,6 +1,6 @@
-<button (click)="skipToMainContent()" class="sr-only" id="skip-to-main-content">
+<a href="#main-content" class="sr-only" id="skip-to-main-content">
   {{ 'root.skip-to-content' | translate }}
-</button>
+</a>
 
 <div class="outer-wrapper" [class.d-none]="shouldShowFullscreenLoader" [ngClass]="browserOsClasses.asObservable() | async" [@slideSidebarPadding]="{
      value: ((isSidebarVisible$ | async) !== true ? 'hidden' : (slideSidebarOver$ | async) ? 'unpinned' : 'pinned'),
@@ -11,7 +11,7 @@
     <ds-system-wide-alert-banner></ds-system-wide-alert-banner>
     <ds-header-navbar-wrapper></ds-header-navbar-wrapper>
     <ds-breadcrumbs></ds-breadcrumbs>
-    <main class="my-cs" id="main-content">
+    <main class="my-cs" id="main-content" tabindex="-1">
 
       @if (shouldShowRouteLoader) {
         <div class="container d-flex justify-content-center align-items-center h-100">
