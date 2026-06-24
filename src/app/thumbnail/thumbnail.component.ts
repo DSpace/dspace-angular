@@ -4,6 +4,7 @@ import {
   Inject,
   Input,
   OnChanges,
+  OnInit,
   PLATFORM_ID,
   signal,
   SimpleChanges,
@@ -41,11 +42,16 @@ import { SafeUrlPipe } from '../shared/utils/safe-url-pipe';
     TranslatePipe,
   ],
 })
-export class ThumbnailComponent implements OnChanges {
+export class ThumbnailComponent implements OnInit, OnChanges {
   /**
    * The thumbnail Bitstream
    */
   @Input() thumbnail: Bitstream | RemoteData<Bitstream>;
+
+  /**
+   * Variable that listens to the thumbnail value
+   */
+  listenThumbnail: RemoteData<Bitstream>;
 
   /**
    * The default image, used if the thumbnail isn't set or can't be downloaded.
@@ -64,6 +70,11 @@ export class ThumbnailComponent implements OnChanges {
    * i18n key of thumbnail alt text
    */
   @Input() alt? = 'thumbnail.default.alt';
+
+  /**
+   * Custom thumbnail description for alt text
+   */
+  customDescription: string;
 
   /**
    * i18n key of HTML placeholder text
@@ -87,6 +98,22 @@ export class ThumbnailComponent implements OnChanges {
     protected authorizationService: AuthorizationDataService,
     protected fileService: FileService,
   ) {
+  }
+
+  /**
+   * Getting the description from the thumbnail file
+   * when rendering the screen.
+   */
+  ngOnInit(): void{
+    if (this.thumbnail){
+      if ('payload' in this.thumbnail) {
+        this.listenThumbnail = this.thumbnail;
+        const bitstream = this.listenThumbnail.payload;
+        if (bitstream && bitstream.hasMetadata('dc.description')) {
+          this.customDescription = bitstream.firstMetadataValue('dc.description');
+        }
+      }
+    }
   }
 
   /**
