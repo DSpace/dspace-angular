@@ -261,3 +261,14 @@ export const getRedirectUrl = createSelector(getAuthState, _getRedirectUrl);
  * @return {boolean}
  */
 export const isIdle = createSelector(getAuthState, _isIdle);
+
+// MFA Selectors
+const _isMfaRequired = (state: AuthState) => state.mfaRequired;
+const _isMfaVerifying = (state: AuthState) => state.mfaVerifying;
+const _getMfaError = (state: AuthState) => state.mfaError;
+const _getMfaPendingToken = (state: AuthState) => state.mfaPendingToken;
+
+export const isMfaRequired = createSelector(getAuthState, _isMfaRequired);
+export const isMfaVerifying = createSelector(getAuthState, _isMfaVerifying);
+export const getMfaError = createSelector(getAuthState, _getMfaError);
+export const getMfaPendingToken = createSelector(getAuthState, _getMfaPendingToken);

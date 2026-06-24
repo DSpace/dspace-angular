@@ -74,6 +74,7 @@ import {
 } from './auth.actions';
 // import services
 import { AuthService } from './auth.service';
+import { MfaRequiredAction } from './mfa.actions';
 import { AuthMethod } from './models/auth.method';
 import { AuthStatus } from './models/auth-status.model';
 import { AuthTokenInfo } from './models/auth-token-info.model';
@@ -117,7 +118,21 @@ export class AuthEffects {
 
   public authenticateSuccess$: Observable<Action> = createEffect(() => this.actions$.pipe(
     ofType(AuthActionTypes.AUTHENTICATE_SUCCESS),
-    map((action: AuthenticationSuccessAction) => new AuthenticatedAction(action.payload)),
+    map((action: AuthenticationSuccessAction) => {
+      // Check if the token has mfa_verified=false, meaning MFA verification is needed
+      const token = action.payload;
+      if (token && token.accessToken) {
+        try {
+          const payload = JSON.parse(atob(token.accessToken.split('.')[1]));
+          if (payload.mfa_verified === false) {
+            return new MfaRequiredAction(token);
+          }
+        } catch (e) {
+          // If token parsing fails, proceed with normal flow
+        }
+      }
+      return new AuthenticatedAction(action.payload);
+    }),
   ));
 
   public authenticated$: Observable<Action> = createEffect(() => this.actions$.pipe(
