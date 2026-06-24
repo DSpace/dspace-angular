@@ -14,6 +14,7 @@ import {
 } from '@angular/router';
 import {
   AdvancedAttachmentElementType,
+  AdvancedAttachmentVisibility,
   AttachmentMetadataConfig,
 } from '@dspace/config/advanced-attachment-rendering.config';
 import {
@@ -21,6 +22,8 @@ import {
   AppConfig,
 } from '@dspace/config/app-config.interface';
 import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
 import { RemoteData } from '@dspace/core/data/remote-data';
 import {
   Bitstream,
@@ -68,6 +71,12 @@ export class BitstreamAttachmentComponent implements OnInit {
    * Environment variables configuring the fields to be viewed
    */
   metadataConfig: AttachmentMetadataConfig[];
+
+  /**
+   * The configured attachment elements that the current user is allowed to see.
+   * Elements with visibility "admin" are only emitted for site administrators.
+   */
+  visibleMetadataConfig$: Observable<AttachmentMetadataConfig[]>;
 
   /**
    * All item providers to show buttons of
@@ -120,6 +129,7 @@ export class BitstreamAttachmentComponent implements OnInit {
     protected readonly translateService: TranslateService,
     protected readonly router: Router,
     protected readonly route: ActivatedRoute,
+    protected readonly authorizationService: AuthorizationDataService,
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
   ) {
     this.metadataConfig = this.appConfig.layout.advancedAttachmentRendering.metadata;
@@ -131,6 +141,11 @@ export class BitstreamAttachmentComponent implements OnInit {
     ).subscribe((thumbnail: RemoteData<Bitstream>) => {
       this.thumbnail$.next(thumbnail);
     });
+    this.visibleMetadataConfig$ = this.authorizationService.isAuthorized(FeatureID.AdministratorOf).pipe(
+      map((isAdmin: boolean) => this.metadataConfig.filter(
+        (config: AttachmentMetadataConfig) => config.visibility !== AdvancedAttachmentVisibility.Admin || isAdmin,
+      )),
+    );
     this.allAttachmentProviders = this.attachment?.allMetadataValues('bitstream.viewer.provider');
     this.bitstreamFormat$ = this.getFormat(this.attachment);
     this.bitstreamSize = this.getSize(this.attachment);
