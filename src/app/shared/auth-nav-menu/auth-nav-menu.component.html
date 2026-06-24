@@ -9,9 +9,8 @@
         <div ngbDropdown #loginDrop="ngbDropdown" display="dynamic" placement="bottom-right" class="d-inline-block" @fadeInOut>
           <button class="dropdownLogin btn btn-link px-0" [attr.aria-label]="'nav.login' |translate"
                   (click)="$event.preventDefault()" [attr.data-test]="'login-menu' | dsBrowserOnly"
-                  role="button"
-                  tabindex="0"
-                  aria-haspopup="menu"
+                  type="button"
+                  aria-haspopup="dialog"
                   aria-controls="loginDropdownMenu"
                   [attr.aria-expanded]="loginDrop.isOpen()"
                   ngbDropdownToggle>

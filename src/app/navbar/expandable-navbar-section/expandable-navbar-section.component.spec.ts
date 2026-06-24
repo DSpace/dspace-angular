@@ -57,6 +57,15 @@ describe('ExpandableNavbarSectionComponent', () => {
       fixture.detectChanges();
     });
 
+    describe('toggler element', () => {
+      it('should be a real <button> rather than an anchor with href="javascript:void(0)"', () => {
+        const toggler = fixture.debugElement.query(By.css('[data-test="navbar-section-toggler"]')).nativeElement;
+        expect(toggler.tagName).toBe('BUTTON');
+        expect(toggler.getAttribute('type')).toBe('button');
+        expect(toggler.getAttribute('role')).toBe('menuitem');
+      });
+    });
+
     describe('when the mouse enters the section header (while inactive)', () => {
       beforeEach(() => {
         spyOn(component, 'onMouseEnter').and.callThrough();
