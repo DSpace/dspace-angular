@@ -14,7 +14,7 @@
                 [attr.aria-labelledby]="'label_' + model.id"
                 [attr.tabindex]="item.index"
                 [checked]="item.value"
-                [id]="item.id"
+                [id]="id + item.id"
                 [formControlName]="item.id"
                 [name]="model.name"
                 [value]="item.value"
@@ -24,7 +24,7 @@
               <label class="form-check-label"
                 [class.disabled]="model.disabled"
                 [ngClass]="model.layout.element?.control"
-                [for]="item.id">
+                [for]="id + item.id">
                 <span [ngClass]="model.layout.element?.label" [innerHTML]="item.label"></span>
               </label>
             </div>
@@ -46,8 +46,8 @@
             <div  class="form-check">
               <input type="radio" class="form-check-input"
                 [checked]="item.value"
-                [id]="item.id"
-                [name]="model.id"
+                [id]="id + item.id"
+                [name]="id"
                 [required]="model.required"
                 [value]="item.index"
                 (change)="onChange($event)"
@@ -56,7 +56,7 @@
               <label class="form-check-label"
                 [class.disabled]="model.disabled"
                 [ngClass]="model.layout.element?.control"
-                [for]="item.id">
+                [for]="id + item.id">
                 <span [ngClass]="model.layout.element?.label" [innerHTML]="item.label"></span>
               </label>
             </div>
