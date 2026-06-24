@@ -34,7 +34,7 @@ export class ThemedSearchComponent extends ThemedComponent<SearchComponent> {
     'useCachedVersionIfAvailable',
     'inPlaceSearch',
     'linkType',
-    'paginationId',
+    'searchInstanceId',
     'searchEnabled',
     'sideBarWidth',
     'searchFormPlaceholder',
@@ -72,7 +72,7 @@ export class ThemedSearchComponent extends ThemedComponent<SearchComponent> {
 
   @Input() linkType: CollectionElementLinkType;
 
-  @Input() paginationId: string;
+  @Input() searchInstanceId: string;
 
   @Input() searchEnabled: boolean;
 
