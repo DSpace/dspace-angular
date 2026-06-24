@@ -171,6 +171,8 @@ export class ObjectTableComponent {
 
   data: any = {};
 
+  protected readonly ViewMode = ViewMode;
+
   constructor() {
     this._objects$ = new BehaviorSubject(undefined);
   }
