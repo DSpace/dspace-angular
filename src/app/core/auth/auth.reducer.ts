@@ -72,10 +72,10 @@ export interface AuthState {
   idle: boolean;
 
   // MFA state
-  mfaRequired: boolean;
+  mfaRequired?: boolean;
   mfaPendingToken?: AuthTokenInfo;
   mfaError?: string;
-  mfaVerifying: boolean;
+  mfaVerifying?: boolean;
 
 }
 
@@ -164,13 +164,6 @@ export function authReducer(state: any = initialState, action: AuthActions | Mfa
       });
 
     case AuthActionTypes.AUTHENTICATE_SUCCESS:
-      return Object.assign({}, state, {
-        mfaRequired: false,
-        mfaPendingToken: undefined,
-        mfaError: undefined,
-        mfaVerifying: false,
-      });
-
     case AuthActionTypes.LOG_OUT:
       return state;
 

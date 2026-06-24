@@ -15,13 +15,14 @@ import {
   isMfaVerifying,
 } from '@dspace/core/auth/selectors';
 import { CoreState } from '@dspace/core/core-state.model';
-import { BtnDisabledDirective } from '@dspace/shared/btn-disabled.directive';
 import {
   select,
   Store,
 } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
+
+import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 
 /**
  * Component shown during the login flow when MFA verification is required.

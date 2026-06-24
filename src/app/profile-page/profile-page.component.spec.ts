@@ -47,6 +47,7 @@ import { PaginationComponent } from '../shared/pagination/pagination.component';
 import { VarDirective } from '../shared/utils/var.directive';
 import { ProfilePageComponent } from './profile-page.component';
 import { ThemedProfilePageMetadataFormComponent } from './profile-page-metadata-form/themed-profile-page-metadata-form.component';
+import { ProfilePageMfaFormComponent } from './profile-page-mfa-form/profile-page-mfa-form.component';
 import { ProfilePageResearcherFormComponent } from './profile-page-researcher-form/profile-page-researcher-form.component';
 import { ProfilePageSecurityFormComponent } from './profile-page-security-form/profile-page-security-form.component';
 
@@ -138,6 +139,7 @@ describe('ProfilePageComponent', () => {
           imports: [
             ThemedProfilePageMetadataFormComponent,
             ProfilePageSecurityFormComponent,
+            ProfilePageMfaFormComponent,
             ProfilePageResearcherFormComponent,
             SuggestionsNotificationComponent,
             NgTemplateOutlet,

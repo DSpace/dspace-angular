@@ -3,10 +3,7 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-import {
-  MfaResetAction,
-  MfaVerifyAction,
-} from '@dspace/core/auth/mfa.actions';
+import { MfaActionTypes } from '@dspace/core/auth/mfa.actions';
 import {
   getMfaError,
   isMfaVerifying,
@@ -78,7 +75,7 @@ describe('LogInMfaComponent', () => {
     spyOn(store, 'dispatch');
     component.form.get('code').setValue('123456');
     component.submit();
-    expect(store.dispatch).toHaveBeenCalledWith(new MfaVerifyAction({ code: '123456' }));
+    expect(store.dispatch).toHaveBeenCalledWith(jasmine.objectContaining({ type: MfaActionTypes.MFA_VERIFY, payload: { code: '123456' } }));
   });
 
   it('should dispatch MfaVerifyAction with recoveryCode when in recovery mode', () => {
@@ -86,13 +83,13 @@ describe('LogInMfaComponent', () => {
     component.toggleRecovery();
     component.form.get('code').setValue('abc12345');
     component.submit();
-    expect(store.dispatch).toHaveBeenCalledWith(new MfaVerifyAction({ recoveryCode: 'abc12345' }));
+    expect(store.dispatch).toHaveBeenCalledWith(jasmine.objectContaining({ type: MfaActionTypes.MFA_VERIFY, payload: { recoveryCode: 'abc12345' } }));
   });
 
   it('should dispatch MfaResetAction on cancel', () => {
     spyOn(store, 'dispatch');
     component.cancel();
-    expect(store.dispatch).toHaveBeenCalledWith(new MfaResetAction());
+    expect(store.dispatch).toHaveBeenCalledWith(jasmine.objectContaining({ type: MfaActionTypes.MFA_RESET }));
   });
 
   it('should toggle between TOTP and recovery input', () => {

@@ -3680,6 +3680,18 @@
 
   "login.title": "Login",
 
+  "login.mfa.title": "Two-Factor Authentication",
+  "login.mfa.description": "Enter the 6-digit code from your authenticator app.",
+  "login.mfa.recovery.description": "Enter one of your recovery codes.",
+  "login.mfa.code.label": "Verification code",
+  "login.mfa.code.placeholder": "000000",
+  "login.mfa.recovery.label": "Recovery code",
+  "login.mfa.recovery.placeholder": "Enter recovery code",
+  "login.mfa.verify.button": "Verify",
+  "login.mfa.cancel.button": "Cancel",
+  "login.mfa.use.recovery": "Use a recovery code instead",
+  "login.mfa.use.totp": "Use authenticator app instead",
+
   "login.breadcrumbs": "Login",
 
   "logout.form.header": "Log out from DSpace",
@@ -4391,6 +4403,30 @@
   "profile.card.identify": "Identify",
 
   "profile.card.security": "Security",
+
+  "profile.card.mfa": "Two-Factor Authentication",
+  "profile.mfa.disabled.description": "Two-factor authentication adds an extra layer of security to your account. When enabled, you'll need to enter a code from your authenticator app after entering your password.",
+  "profile.mfa.setup.button": "Set up two-factor authentication",
+  "profile.mfa.setup.instructions": "Scan the QR code below with your authenticator app (Google Authenticator, Authy, etc.), then enter the 6-digit code to confirm setup.",
+  "profile.mfa.setup.manual": "If you can't scan the QR code, copy this URI into your authenticator app manually:",
+  "profile.mfa.setup.code.label": "Enter the code from your app",
+  "profile.mfa.setup.confirm": "Verify and enable",
+  "profile.mfa.cancel": "Cancel",
+  "profile.mfa.enabled.badge": "Enabled",
+  "profile.mfa.enabled.description": "Two-factor authentication is active on your account.",
+  "profile.mfa.remaining.codes": "You have {{ count }} recovery codes remaining.",
+  "profile.mfa.disable.title": "Disable two-factor authentication",
+  "profile.mfa.disable.button": "Disable MFA",
+  "profile.mfa.regenerate.title": "Regenerate recovery codes",
+  "profile.mfa.regenerate.button": "Regenerate codes",
+  "profile.mfa.recovery.title": "Recovery codes",
+  "profile.mfa.recovery.warning": "Save these codes in a secure place. Each code can only be used once. If you lose access to your authenticator app, you can use one of these codes to log in.",
+  "profile.mfa.recovery.dismiss": "I've saved my codes",
+  "profile.mfa.error.status": "Failed to load MFA status.",
+  "profile.mfa.error.setup": "Failed to initialize MFA setup.",
+  "profile.mfa.error.verify": "Invalid code. Please try again.",
+  "profile.mfa.error.disable": "Invalid code. Cannot disable MFA.",
+  "profile.mfa.error.regenerate": "Invalid code. Cannot regenerate recovery codes.",
 
   "profile.form.submit": "Save",
 

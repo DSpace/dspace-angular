@@ -1,4 +1,7 @@
-import { HttpResponse } from '@angular/common/http';
+import {
+  HttpErrorResponse,
+  HttpResponse,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
   Actions,
@@ -79,7 +82,8 @@ export class MfaEffects {
           return new MfaVerifySuccessAction(null);
         }),
         catchError((error: unknown) => {
-          const message = error?.error?.error || 'mfa.verify.error';
+          const err = error as HttpErrorResponse;
+          const message = err?.error?.error || 'mfa.verify.error';
           return of(new MfaVerifyErrorAction(message));
         }),
       ),
