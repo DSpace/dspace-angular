@@ -1,4 +1,4 @@
-﻿{
+{
   // "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
   "401.help": "No està autoritzat a accedir a aquesta pàgina. Podeu utilitzar el botó de sota per tornar a la pàgina inicial.",
 
@@ -1549,6 +1549,46 @@
   // "bitstream.edit.form.iiifHeight.hint": "The canvas height should usually match the image height.",
   "bitstream.edit.form.iiifHeight.hint": "L'alçada del marc normalment hauria de coincidir amb l'alçada de la imatge",
 
+  // "bitstream.edit.form.mediaType.label": "Audio or video media type",
+  // TODO New key - Add a translation
+  "bitstream.edit.form.mediaType.label": "Audio or video media type",
+
+  // "bitstream.edit.form.mediaType.hint": "Choose how this bitstream should be interpreted.",
+  // TODO New key - Add a translation
+  "bitstream.edit.form.mediaType.hint": "Choose how this bitstream should be interpreted.",
+
+  // "bitstream.edit.form.mediaType.option.neither": "Neither",
+  // TODO New key - Add a translation
+  "bitstream.edit.form.mediaType.option.neither": "Neither",
+
+  // "bitstream.edit.form.mediaType.option.audio": "Audio",
+  // TODO New key - Add a translation
+  "bitstream.edit.form.mediaType.option.audio": "Audio",
+
+  // "bitstream.edit.form.mediaType.option.video": "Video",
+  // TODO New key - Add a translation
+  "bitstream.edit.form.mediaType.option.video": "Video",
+
+  // "bitstream.edit.form.mediaType.option.audio-video": "Audio and video",
+  // TODO New key - Add a translation
+  "bitstream.edit.form.mediaType.option.audio-video": "Audio and video",
+
+  // "bitstream.edit.form.audioTranscript.label": "Audio transcript",
+  // TODO New key - Add a translation
+  "bitstream.edit.form.audioTranscript.label": "Audio transcript",
+
+  // "bitstream.edit.form.audioTranscript.hint": "Provide a transcript for audio content.",
+  // TODO New key - Add a translation
+  "bitstream.edit.form.audioTranscript.hint": "Provide a transcript for audio content.",
+
+  // "bitstream.edit.form.videoDescription.label": "Video description",
+  // TODO New key - Add a translation
+  "bitstream.edit.form.videoDescription.label": "Video description",
+
+  // "bitstream.edit.form.videoDescription.hint": "Provide a description for video content.",
+  // TODO New key - Add a translation
+  "bitstream.edit.form.videoDescription.hint": "Provide a description for video content.",
+
   // "bitstream.edit.notifications.saved.content": "Your changes to this bitstream were saved.",
   "bitstream.edit.notifications.saved.content": "S'han desat els canvis en aquest fitxer.",
 
@@ -2145,14 +2185,6 @@
   // "collection.form.entityType": "Entity Type",
   "collection.form.entityType": "Tipus d'Entitat",
 
-  // "collection.form.errors.entityType.required": "Please choose an entity type for this collection",
-  // TODO New key - Add a translation
-  "collection.form.errors.entityType.required": "Please choose an entity type for this collection",
-
-  // "collection.form.errors.submissionDefinition.required": "Please choose a submission definition for this collection",
-  // TODO New key - Add a translation
-  "collection.form.errors.submissionDefinition.required": "Please choose a submission definition for this collection",
-
   // "collection.form.submissionDefinition": "Submission definition",
   // TODO New key - Add a translation
   "collection.form.submissionDefinition": "Submission definition",
@@ -2602,6 +2634,10 @@
   // "context-menu.actions.audit-item.btn": "Audit",
   // TODO New key - Add a translation
   "context-menu.actions.audit-item.btn": "Audit",
+
+  // "context-menu.actions.subscription.frequency.required": "Please select a frequency",
+  // TODO New key - Add a translation
+  "context-menu.actions.subscription.frequency.required": "Please select a frequency",
 
   // "cookies.consent.accept-all": "Accept all",
   "cookies.consent.accept-all": "Acceptar tot",
@@ -3372,10 +3408,6 @@
 
   // "form.other-information.orcid": "ORCID",
   "form.other-information.orcid": "ORCID",
-
-  // "form.other-information.person_identifier_orcid": "ORCID",
-  // TODO New key - Add a translation
-  "form.other-information.person_identifier_orcid": "ORCID",
 
   // "form.other-information.oairecerif_author_affiliation": "Affiliation",
   // TODO New key - Add a translation
@@ -4690,14 +4722,24 @@
   // "item.truncatable-part.show-less": "Collapse",
   "item.truncatable-part.show-less": "Contraure",
 
-  // "item.qa-event-notification.check.notification-info": "There are {{num}} pending suggestions related to your account",
-  "item.qa-event-notification.check.notification-info": "Hi ha {{num}} suggeriments pendents relacionats amb el vostre compte",
+  // "item.qa-event-notification.check.notification-info.singular": "There is {{num}} pending suggestion related to your account",
+  // TODO New key - Add a translation
+  "item.qa-event-notification.check.notification-info.singular": "There is {{num}} pending suggestion related to your account",
+
+  // "item.qa-event-notification.check.notification-info.plural": "There are {{num}} pending suggestions related to your account",
+  // TODO New key - Add a translation
+  "item.qa-event-notification.check.notification-info.plural": "There are {{num}} pending suggestions related to your account",
 
   // "item.qa-event-notification-info.check.button": "View",
   "item.qa-event-notification-info.check.button": "Veure",
 
-  // "mydspace.qa-event-notification.check.notification-info": "There are {{num}} pending suggestions related to your account",
-  "mydspace.qa-event-notification.check.notification-info": "Hi ha {{num}} suggeriments pendents relacionats amb el vostre compte",
+  // "mydspace.qa-event-notification.check.notification-info.singular": "There is {{num}} pending suggestion related to your account",
+  // TODO New key - Add a translation
+  "mydspace.qa-event-notification.check.notification-info.singular": "There is {{num}} pending suggestion related to your account",
+
+  // "mydspace.qa-event-notification.check.notification-info.plural": "There are {{num}} pending suggestions related to your account",
+  // TODO New key - Add a translation
+  "mydspace.qa-event-notification.check.notification-info.plural": "There are {{num}} pending suggestions related to your account",
 
   // "mydspace.qa-event-notification-info.check.button": "View",
   "mydspace.qa-event-notification-info.check.button": "Veure",
@@ -5011,10 +5053,6 @@
   // TODO New key - Add a translation
   "item.preview.dc.rights": "Rights",
 
-  // "item.preview.dc.identifier.other": "Other Identifier",
-  // TODO Source message changed - Revise the translation
-  "item.preview.dc.identifier.other": "Un altre identificador:",
-
   // "item.preview.dc.relation.issn": "ISSN",
   "item.preview.dc.relation.issn": "ISSN",
 
@@ -5107,10 +5145,6 @@
   // "item.preview.dc.identifier.openalex": "OpenAlex Identifier",
   // TODO New key - Add a translation
   "item.preview.dc.identifier.openalex": "OpenAlex Identifier",
-
-  // "item.preview.dc.description": "Description",
-  // TODO New key - Add a translation
-  "item.preview.dc.description": "Description",
 
   // "item.select.confirm": "Confirm selected",
   "item.select.confirm": "Confirmar seleccionat",
@@ -7503,10 +7537,6 @@
   // TODO New key - Add a translation
   "RELATION.OrgUnit.projects.search.results.head": "Projects",
 
-  // "RELATION.Project.researchoutputs.search.results.head": "Publications",
-  // TODO New key - Add a translation
-  "RELATION.Project.researchoutputs.search.results.head": "Publications",
-
   // "RELATION.OrgUnit.people.search.results.head": "People",
   // TODO New key - Add a translation
   "RELATION.OrgUnit.people.search.results.head": "People",
@@ -7561,6 +7591,7 @@
 
   // "search.filters.applied.f.original_bundle_descriptions": "File description",
   "search.filters.applied.f.original_bundle_descriptions": "Descripció del fitxer",
+
   // "search.filters.applied.f.has_geospatial_metadata": "Has geographical location",
   // TODO New key - Add a translation
   "search.filters.applied.f.has_geospatial_metadata": "Has geographical location",
@@ -8252,7 +8283,8 @@
   // "submission.import-external.title.JournalVolume": "Import a journal volume from an external source",
   "submission.import-external.title.JournalVolume": "Importar un volum de revista des d'una font externa",
 
-  // "submission.import-external.title.OrgUnit": "Importar una unitat organitzativa des d'una font externa",
+  // "submission.import-external.title.OrgUnit": "Import an organizational unit from an external source",
+  // TODO Source message changed - Revise the translation
   "submission.import-external.title.OrgUnit": "Importar una unitat organitzativa des d'una font externa",
 
   // "submission.import-external.title.Person": "Import a person from an external source",
@@ -8495,6 +8527,10 @@
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.added.new-entity": "Successfully imported and added external author to the selection",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.added.new-entity": "Autor extern importat i afegit amb èxit a la selecció",
 
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.isJournalOfVolume.added.new-entity": "Successfully imported and added external journal to the selection",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isJournalOfVolume.added.new-entity": "Successfully imported and added external journal to the selection",
+
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.authority": "Authority",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.authority": "Autoritat",
 
@@ -8598,6 +8634,10 @@
 
   // "submission.sections.describe.relationship-lookup.search-tab.placeholder": "Search query",
   "submission.sections.describe.relationship-lookup.search-tab.placeholder": "Consulta de cerca",
+
+  // "submission.sections.describe.relationship-lookup.toggle-dropdown": "Toggle dropdown",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.toggle-dropdown": "Toggle dropdown",
 
   // "submission.sections.describe.relationship-lookup.search-tab.search": "Go",
   "submission.sections.describe.relationship-lookup.search-tab.search": "Anar",
@@ -8743,6 +8783,14 @@
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isOrgUnitOfProject": "OrgUnit of the Project",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isOrgUnitOfProject": "Unitat organitzativa del Projecte",
 
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalOfVolume": "Journal of the Volume",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalOfVolume": "Journal of the Volume",
+
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.opfJournal": "Jisc Open policy finder of Journal",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.opfJournal": "Jisc Open policy finder of Journal",
+
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isProjectOfPublication": "Project",
   "submission.sections.describe.relationship-lookup.selection-tab.title.isProjectOfPublication": "Projecte",
 
@@ -8822,6 +8870,10 @@
 
   // "submission.sections.describe.relationship-lookup.title.isOrgUnitOfProject": "OrgUnit",
   "submission.sections.describe.relationship-lookup.title.isOrgUnitOfProject": "OrgUnit",
+
+  // "submission.sections.describe.relationship-lookup.title.isJournalOfVolume": "Journal",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.title.isJournalOfVolume": "Journal",
 
   // "submission.sections.describe.relationship-lookup.search-tab.toggle-dropdown": "Toggle dropdown",
   "submission.sections.describe.relationship-lookup.search-tab.toggle-dropdown": "Alternar menú desplegable",
@@ -8951,6 +9003,10 @@
   // "submission.sections.describe.relationship-lookup.selection-tab.title.dataciteProject": "Search Results",
   // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.selection-tab.title.dataciteProject": "Search Results",
+
+  // "submission.sections.describe.relationship-lookup.selection-tab.title.opfJournal": "Search Results",
+  // TODO New key - Add a translation
+  "submission.sections.describe.relationship-lookup.selection-tab.title.opfJournal": "Search Results",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title": "Search Results",
   "submission.sections.describe.relationship-lookup.selection-tab.title": "Resultats de la cerca",
@@ -9090,15 +9146,11 @@
   // TODO New key - Add a translation
   "submission.sections.submit.progressbar.describe.owner": "Owner",
 
-  // "submission.sections.submit.progressbar.jiscpolicy": "Jisc Open policy finder policies",
-  // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.jiscpolicy": "Jisc Open policy finder policies",
+  // "submission.sections.submit.progressbar.opfpolicy": "Publisher open access policy information",
+  "submission.sections.submit.progressbar.opfpolicy": "Informació sobre polítiques editorials d'accés obert",
 
   // "submission.sections.submit.progressbar.upload": "Upload files",
   "submission.sections.submit.progressbar.upload": "Pujar fitxers",
-
-  // "submission.sections.submit.progressbar.jiscPolicies": "Publisher open access policy information",
-  "submission.sections.submit.progressbar.jiscPolicies": "Informació sobre polítiques editorials d'accés obert",
 
   // "submission.sections.jisc-policy.title-empty": "No publisher policy information available. If your work has an associated ISSN, please enter it above to see any related publisher open access policies.",
   "submission.sections.jisc-policy.title-empty": "No es troba disponible la informació sobre política editorial. Si teniu un ISSN associat, introduïu-lo a dalt per veure informació sobre polítiques editorials d'accés obert.",
@@ -9168,6 +9220,46 @@
 
   // "submission.sections.upload.edit.title": "Edit bitstream",
   "submission.sections.upload.edit.title": "Editar fitxer",
+
+  // "submission.sections.upload.file.edit.form.file-type.label": "Audio or video media type",
+  // TODO New key - Add a translation
+  "submission.sections.upload.file.edit.form.file-type.label": "Audio or video media type",
+
+  // "submission.sections.upload.file.edit.form.file-type.hint": "Choose how this bitstream should be interpreted.",
+  // TODO New key - Add a translation
+  "submission.sections.upload.file.edit.form.file-type.hint": "Choose how this bitstream should be interpreted.",
+
+  // "submission.sections.upload.file.edit.form.file-type.option.audio-video": "Audio and video",
+  // TODO New key - Add a translation
+  "submission.sections.upload.file.edit.form.file-type.option.audio-video": "Audio and video",
+
+  // "submission.sections.upload.file.edit.form.file-type.option.neither": "Neither",
+  // TODO New key - Add a translation
+  "submission.sections.upload.file.edit.form.file-type.option.neither": "Neither",
+
+  // "submission.sections.upload.file.edit.form.file-type.option.audio": "Audio",
+  // TODO New key - Add a translation
+  "submission.sections.upload.file.edit.form.file-type.option.audio": "Audio",
+
+  // "submission.sections.upload.file.edit.form.file-type.option.video": "Video",
+  // TODO New key - Add a translation
+  "submission.sections.upload.file.edit.form.file-type.option.video": "Video",
+
+  // "submission.sections.upload.file.edit.form.audio-transcript.label": "Audio transcript",
+  // TODO New key - Add a translation
+  "submission.sections.upload.file.edit.form.audio-transcript.label": "Audio transcript",
+
+  // "submission.sections.upload.file.edit.form.audio-transcript.hint": "Provide a transcript for audio content.",
+  // TODO New key - Add a translation
+  "submission.sections.upload.file.edit.form.audio-transcript.hint": "Provide a transcript for audio content.",
+
+  // "submission.sections.upload.file.edit.form.video-description.label": "Video description",
+  // TODO New key - Add a translation
+  "submission.sections.upload.file.edit.form.video-description.label": "Video description",
+
+  // "submission.sections.upload.file.edit.form.video-description.hint": "Provide a description for video content.",
+  // TODO New key - Add a translation
+  "submission.sections.upload.file.edit.form.video-description.hint": "Provide a description for video content.",
 
   // "submission.sections.upload.form.access-condition-label": "Access condition type",
   "submission.sections.upload.form.access-condition-label": "Tipus de condició d'accés",
@@ -9246,6 +9338,10 @@
   // "submission.sections.custom-url.url.placeholder": "Custom URL",
   // TODO New key - Add a translation
   "submission.sections.custom-url.url.placeholder": "Custom URL",
+
+  // "submission.sections.custom-url.label.remove": "Remove",
+  // TODO New key - Add a translation
+  "submission.sections.custom-url.label.remove": "Remove",
 
   // "submission.sections.accesses.form.discoverable-description": "When checked, this item will be discoverable in search/browse. When unchecked, the item will only be available via a direct link and will never appear in search/browse.",
   "submission.sections.accesses.form.discoverable-description": "Si el marca, l'ítem serà detectable al cercador/navegador. Si el desmarca, l'ítem només estarà disponible mitjançant l'enllaç directe, i no apareixerà al cercar/navegar.",
@@ -10453,280 +10549,395 @@
 
   // "ldn-registered-services.title": "Registered Services",
   "ldn-registered-services.title": "Serveis Registrats",
+
   // "ldn-registered-services.table.name": "Name",
   "ldn-registered-services.table.name": "Nom",
+
   // "ldn-registered-services.table.description": "Description",
   "ldn-registered-services.table.description": "Descripció",
+
   // "ldn-registered-services.table.status": "Status",
   "ldn-registered-services.table.status": "Estat",
+
   // "ldn-registered-services.table.action": "Action",
   "ldn-registered-services.table.action": "Acció",
+
   // "ldn-registered-services.new": "NEW",
   "ldn-registered-services.new": "NOU",
+
   // "ldn-registered-services.new.breadcrumbs": "Registered Services",
   "ldn-registered-services.new.breadcrumbs": "Serveis Registrats",
 
   // "ldn-service.overview.table.enabled": "Enabled",
   "ldn-service.overview.table.enabled": "Habilitat",
+
   // "ldn-service.overview.table.disabled": "Disabled",
   "ldn-service.overview.table.disabled": "Deshabilitat",
+
   // "ldn-service.overview.table.clickToEnable": "Click to enable",
   "ldn-service.overview.table.clickToEnable": "Feu clic per habilitar",
+
   // "ldn-service.overview.table.clickToDisable": "Click to disable",
   "ldn-service.overview.table.clickToDisable": "Feu clic per deshabilitar",
 
   // "ldn-edit-registered-service.title": "Edit Service",
   "ldn-edit-registered-service.title": "Editar Servei",
+
   // "ldn-create-service.title": "Create service",
   "ldn-create-service.title": "Crear servei",
+
   // "service.overview.create.modal": "Create Service",
   "service.overview.create.modal": "Crear Servei",
+
   // "service.overview.create.body": "Please confirm the creation of this service.",
   "service.overview.create.body": "Si us plau, confirmeu la creació d'aquest servei.",
+
   // "ldn-service-status": "Status",
   "ldn-service-status": "Estat",
+
   // "service.confirm.create": "Create",
   "service.confirm.create": "Crear",
+
   // "service.refuse.create": "Cancel",
   "service.refuse.create": "Cancel·lar",
+
   // "ldn-register-new-service.title": "Register a new service",
   "ldn-register-new-service.title": "Registrar un nou servei",
+
   // "ldn-new-service.form.label.submit": "Save",
   "ldn-new-service.form.label.submit": "Guardar",
+
   // "ldn-new-service.form.label.name": "Name",
   "ldn-new-service.form.label.name": "Nom",
+
   // "ldn-new-service.form.label.description": "Description",
   "ldn-new-service.form.label.description": "Descripció",
+
   // "ldn-new-service.form.label.url": "Service URL",
   "ldn-new-service.form.label.url": "URL del Servei",
+
   // "ldn-new-service.form.label.ip-range": "Service IP range",
   "ldn-new-service.form.label.ip-range": "Rang d'IP del Servei",
+
   // "ldn-new-service.form.label.score": "Level of trust",
   "ldn-new-service.form.label.score": "Nivell de confiança",
+
   // "ldn-new-service.form.label.ldnUrl": "LDN Inbox URL",
   "ldn-new-service.form.label.ldnUrl": "URL de la LDN Inbox",
+
   // "ldn-new-service.form.placeholder.name": "Please provide service name",
   "ldn-new-service.form.placeholder.name": "Si us plau, proporcioneu el nom del servei",
+
   // "ldn-new-service.form.placeholder.description": "Please provide a description regarding your service",
   "ldn-new-service.form.placeholder.description": "Si us plau, proporcioneu una descripció del vostre servei",
+
   // "ldn-new-service.form.placeholder.url": "Please input the URL for users to check out more information about the service",
   "ldn-new-service.form.placeholder.url": "Si us plau, introduïu l'URL perquè els usuaris puguin obtenir més informació sobre el servei",
+
   // "ldn-new-service.form.placeholder.lowerIp": "IPv4 range lower bound",
   "ldn-new-service.form.placeholder.lowerIp": "Límit inferior del rang IPv4",
+
   // "ldn-new-service.form.placeholder.upperIp": "IPv4 range upper bound",
   "ldn-new-service.form.placeholder.upperIp": "Límit superior del rang IPv4",
+
   // "ldn-new-service.form.placeholder.ldnUrl": "Please specify the URL of the LDN Inbox",
   "ldn-new-service.form.placeholder.ldnUrl": "Si us plau, especifiqueu l'URL de la LDN Inbox",
+
   // "ldn-new-service.form.placeholder.score": "Please enter a value between 0 and 1. Use the “.” as decimal separator",
   "ldn-new-service.form.placeholder.score": "Si us plau, introduïu un valor entre 0 i 1. Utilitzeu el “.” com a separador decimal",
+
   // "ldn-service.form.label.placeholder.default-select": "Select a pattern",
   "ldn-service.form.label.placeholder.default-select": "Seleccioneu un patró",
 
   // "ldn-service.form.pattern.ack-accept.label": "Acknowledge and Accept",
   "ldn-service.form.pattern.ack-accept.label": "Reconèixer i Acceptar",
+
   // "ldn-service.form.pattern.ack-accept.description": "This pattern is used to acknowledge and accept a request (offer). It implies an intention to act on the request.",
   "ldn-service.form.pattern.ack-accept.description": "Aquest patró s'utilitza per reconèixer i acceptar una sol·licitud (oferta). Implica una intenció d'actuar sobre la sol·licitud.",
+
   // "ldn-service.form.pattern.ack-accept.category": "Acknowledgements",
   "ldn-service.form.pattern.ack-accept.category": "Reconeixements",
 
   // "ldn-service.form.pattern.ack-reject.label": "Acknowledge and Reject",
   "ldn-service.form.pattern.ack-reject.label": "Reconèixer i Rebutjar",
+
   // "ldn-service.form.pattern.ack-reject.description": "This pattern is used to acknowledge and reject a request (offer). It signifies no further action regarding the request.",
   "ldn-service.form.pattern.ack-reject.description": "Aquest patró s'utilitza per reconèixer i rebutjar una sol·licitud (oferta). Significa que no hi haurà més accions respecte a la sol·licitud.",
+
   // "ldn-service.form.pattern.ack-reject.category": "Acknowledgements",
   "ldn-service.form.pattern.ack-reject.category": "Reconeixements",
 
   // "ldn-service.form.pattern.ack-tentative-accept.label": "Acknowledge and Tentatively Accept",
   "ldn-service.form.pattern.ack-tentative-accept.label": "Reconèixer i Acceptar Tentativament",
+
   // "ldn-service.form.pattern.ack-tentative-accept.description": "This pattern is used to acknowledge and tentatively accept a request (offer). It implies an intention to act, which may change.",
   "ldn-service.form.pattern.ack-tentative-accept.description": "Aquest patró s'utilitza per reconèixer i acceptar tentativament una sol·licitud (oferta). Implica una intenció d'actuar, que pot canviar.",
+
   // "ldn-service.form.pattern.ack-tentative-accept.category": "Acknowledgements",
   "ldn-service.form.pattern.ack-tentative-accept.category": "Reconeixements",
 
   // "ldn-service.form.pattern.ack-tentative-reject.label": "Acknowledge and Tentatively Reject",
   "ldn-service.form.pattern.ack-tentative-reject.label": "Reconèixer i Rebutjar Tentativament",
+
   // "ldn-service.form.pattern.ack-tentative-reject.description": "This pattern is used to acknowledge and tentatively reject a request (offer). It signifies no further action, subject to change.",
   "ldn-service.form.pattern.ack-tentative-reject.description": "Aquest patró s'utilitza per reconèixer i rebutjar tentativament una sol·licitud (oferta). Significa que no hi haurà més accions, subjecte a canvis.",
+
   // "ldn-service.form.pattern.ack-tentative-reject.category": "Acknowledgements",
   "ldn-service.form.pattern.ack-tentative-reject.category": "Reconeixements",
 
   // "ldn-service.form.pattern.announce-endorsement.label": "Announce Endorsement",
   "ldn-service.form.pattern.announce-endorsement.label": "Anunciar Suport",
+
   // "ldn-service.form.pattern.announce-endorsement.description": "This pattern is used to announce the existence of an endorsement, referencing the endorsed resource.",
   "ldn-service.form.pattern.announce-endorsement.description": "Aquest patró s'utilitza per anunciar l'existència d'un suport, referenciant el recurs recolzat.",
+
   // "ldn-service.form.pattern.announce-endorsement.category": "Announcements",
   "ldn-service.form.pattern.announce-endorsement.category": "Anuncis",
 
   // "ldn-service.form.pattern.announce-ingest.label": "Announce Ingest",
   "ldn-service.form.pattern.announce-ingest.label": "Anunciar Ingestió",
+
   // "ldn-service.form.pattern.announce-ingest.description": "This pattern is used to announce that a resource has been ingested.",
   "ldn-service.form.pattern.announce-ingest.description": "Aquest patró s'utilitza per anunciar que un recurs ha estat ingerit.",
+
   // "ldn-service.form.pattern.announce-ingest.category": "Announcements",
   "ldn-service.form.pattern.announce-ingest.category": "Anuncis",
 
   // "ldn-service.form.pattern.announce-relationship.label": "Announce Relationship",
   "ldn-service.form.pattern.announce-relationship.label": "Anunciar Relació",
+
   // "ldn-service.form.pattern.announce-relationship.description": "This pattern is used to announce a relationship between two resources.",
   "ldn-service.form.pattern.announce-relationship.description": "Aquest patró s'utilitza per anunciar una relació entre dos recursos.",
+
   // "ldn-service.form.pattern.announce-relationship.category": "Announcements",
   "ldn-service.form.pattern.announce-relationship.category": "Anuncis",
 
   // "ldn-service.form.pattern.announce-review.label": "Announce Review",
   "ldn-service.form.pattern.announce-review.label": "Anunciar Revisió",
+
   // "ldn-service.form.pattern.announce-review.description": "This pattern is used to announce the existence of a review, referencing the reviewed resource.",
   "ldn-service.form.pattern.announce-review.description": "Aquest patró s'utilitza per anunciar l'existència d'una revisió, referenciant el recurs revisat.",
+
   // "ldn-service.form.pattern.announce-review.category": "Announcements",
   "ldn-service.form.pattern.announce-review.category": "Anuncis",
 
   // "ldn-service.form.pattern.announce-service-result.label": "Announce Service Result",
   "ldn-service.form.pattern.announce-service-result.label": "Anunciar Resultat del Servei",
+
   // "ldn-service.form.pattern.announce-service-result.description": "This pattern is used to announce the existence of a 'service result', referencing the relevant resource.",
   "ldn-service.form.pattern.announce-service-result.description": "Aquest patró s'utilitza per anunciar l'existència d'un 'resultat del servei', referenciant el recurs rellevant.",
+
   // "ldn-service.form.pattern.announce-service-result.category": "Announcements",
   "ldn-service.form.pattern.announce-service-result.category": "Anuncis",
 
   // "ldn-service.form.pattern.request-endorsement.label": "Request Endorsement",
   "ldn-service.form.pattern.request-endorsement.label": "Sol·licitar Suport",
+
   // "ldn-service.form.pattern.request-endorsement.description": "This pattern is used to request endorsement of a resource owned by the origin system.",
   "ldn-service.form.pattern.request-endorsement.description": "Aquest patró s'utilitza per sol·licitar el suport d'un recurs propietat del sistema d'origen.",
+
   // "ldn-service.form.pattern.request-endorsement.category": "Requests",
   "ldn-service.form.pattern.request-endorsement.category": "Sol·licituds",
 
   // "ldn-service.form.pattern.request-ingest.label": "Request Ingest",
   "ldn-service.form.pattern.request-ingest.label": "Sol·licitar Ingestió",
+
   // "ldn-service.form.pattern.request-ingest.description": "This pattern is used to request that the target system ingest a resource.",
   "ldn-service.form.pattern.request-ingest.description": "Aquest patró s'utilitza per sol·licitar que el sistema objectiu ingereixi un recurs.",
+
   // "ldn-service.form.pattern.request-ingest.category": "Requests",
   "ldn-service.form.pattern.request-ingest.category": "Sol·licituds",
 
   // "ldn-service.form.pattern.request-review.label": "Request Review",
   "ldn-service.form.pattern.request-review.label": "Sol·licitar Revisió",
+
   // "ldn-service.form.pattern.request-review.description": "This pattern is used to request a review of a resource owned by the origin system.",
   "ldn-service.form.pattern.request-review.description": "Aquest patró s'utilitza per sol·licitar una revisió d'un recurs propietat del sistema d'origen.",
+
   // "ldn-service.form.pattern.request-review.category": "Requests",
   "ldn-service.form.pattern.request-review.category": "Sol·licituds",
 
   // "ldn-service.form.pattern.undo-offer.label": "Undo Offer",
   "ldn-service.form.pattern.undo-offer.label": "Desfer Oferta",
+
   // "ldn-service.form.pattern.undo-offer.description": "This pattern is used to undo (retract) an offer previously made.",
   "ldn-service.form.pattern.undo-offer.description": "Aquest patró s'utilitza per desfer (retirar) una oferta feta prèviament.",
+
   // "ldn-service.form.pattern.undo-offer.category": "Undo",
   "ldn-service.form.pattern.undo-offer.category": "Desfer",
 
   // "ldn-new-service.form.label.placeholder.selectedItemFilter": "No Item Filter Selected",
   "ldn-new-service.form.label.placeholder.selectedItemFilter": "No s'ha seleccionat cap filtre d'ítem",
+
   // "ldn-new-service.form.label.ItemFilter": "Item Filter",
   "ldn-new-service.form.label.ItemFilter": "Filtre d'ítem",
+
   // "ldn-new-service.form.label.automatic": "Automatic",
   "ldn-new-service.form.label.automatic": "Automàtic",
+
   // "ldn-new-service.form.error.name": "Name is required",
   "ldn-new-service.form.error.name": "Es requereix un nom",
+
   // "ldn-new-service.form.error.url": "URL is required",
   "ldn-new-service.form.error.url": "Es requereix una URL",
+
   // "ldn-new-service.form.error.ipRange": "Please enter a valid IP range",
   "ldn-new-service.form.error.ipRange": "Si us plau, introduïu un rang d'IP vàlid",
+
   // "ldn-new-service.form.hint.ipRange": "Please enter a valid IpV4 in both range bounds (note: for single IP, please enter the same value in both fields)",
   "ldn-new-service.form.hint.ipRange": "Si us plau, introduïu un IpV4 vàlid en ambdós límits del rang (nota: per a una IP única, introduïu el mateix valor en ambdós camps)",
+
   // "ldn-new-service.form.error.ldnurl": "LDN URL is required",
   "ldn-new-service.form.error.ldnurl": "Es requereix una URL de LDN",
+
+  // "ldn-new-service.form.error.ldnurl.ldnUrlAlreadyAssociated": "This LDN URL is already associated with another service",
+  // TODO New key - Add a translation
+  "ldn-new-service.form.error.ldnurl.ldnUrlAlreadyAssociated": "This LDN URL is already associated with another service",
+
   // "ldn-new-service.form.error.patterns": "At least a pattern is required",
   "ldn-new-service.form.error.patterns": "Es requereix almenys un patró",
+
   // "ldn-new-service.form.error.score": "Please enter a valid score (between 0 and 1). Use the “.” as decimal separator",
   "ldn-new-service.form.error.score": "Si us plau, introduïu una puntuació vàlida (entre 0 i 1). Utilitzeu el “.” com a separador decimal",
 
   // "ldn-new-service.form.label.inboundPattern": "Supported Pattern",
   "ldn-new-service.form.label.inboundPattern": "Patró Suportat",
+
   // "ldn-new-service.form.label.addPattern": "+ Add more",
   "ldn-new-service.form.label.addPattern": "+ Afegir més",
+
   // "ldn-new-service.form.label.removeItemFilter": "Remove",
   "ldn-new-service.form.label.removeItemFilter": "Eliminar",
+
   // "ldn-register-new-service.breadcrumbs": "New Service",
   "ldn-register-new-service.breadcrumbs": "Nou Servei",
+
   // "service.overview.delete.body": "Are you sure you want to delete this service?",
   "service.overview.delete.body": "Esteu segur que voleu eliminar aquest servei?",
+
   // "service.overview.edit.body": "Do you confirm the changes?",
   "service.overview.edit.body": "Confirmeu els canvis?",
+
   // "service.overview.edit.modal": "Edit Service",
   "service.overview.edit.modal": "Editar Servei",
+
   // "service.detail.update": "Confirm",
   "service.detail.update": "Confirmar",
+
   // "service.detail.return": "Cancel",
   "service.detail.return": "Cancel·lar",
+
   // "service.overview.reset-form.body": "Are you sure you want to discard the changes and leave?",
   "service.overview.reset-form.body": "Esteu segur que voleu descartar els canvis i sortir?",
+
   // "service.overview.reset-form.modal": "Discard Changes",
   "service.overview.reset-form.modal": "Descartar Canvis",
+
   // "service.overview.reset-form.reset-confirm": "Discard",
   "service.overview.reset-form.reset-confirm": "Descartar",
+
   // "admin.registries.services-formats.modify.success.head": "Successful Edit",
   "admin.registries.services-formats.modify.success.head": "Edició Exitosa",
+
   // "admin.registries.services-formats.modify.success.content": "The service has been edited",
   "admin.registries.services-formats.modify.success.content": "El servei ha estat editat",
+
   // "admin.registries.services-formats.modify.failure.head": "Failed Edit",
   "admin.registries.services-formats.modify.failure.head": "Edició Fallida",
+
   // "admin.registries.services-formats.modify.failure.content": "The service has not been edited",
   "admin.registries.services-formats.modify.failure.content": "El servei no ha estat editat",
+
   // "ldn-service-notification.created.success.title": "Successful Create",
   "ldn-service-notification.created.success.title": "Creació Exitosa",
+
   // "ldn-service-notification.created.success.body": "The service has been created",
   "ldn-service-notification.created.success.body": "El servei ha estat creat",
+
   // "ldn-service-notification.created.failure.title": "Failed Create",
   "ldn-service-notification.created.failure.title": "Creació Fallida",
+
   // "ldn-service-notification.created.failure.body": "The service has not been created",
   "ldn-service-notification.created.failure.body": "El servei no ha estat creat",
+
   // "ldn-service-notification.created.warning.title": "Please select at least one Inbound Pattern",
   "ldn-service-notification.created.warning.title": "Si us plau, seleccioneu almenys un patró d'entrada",
+
   // "ldn-enable-service.notification.success.title": "Successful status updated",
   "ldn-enable-service.notification.success.title": "Estat actualitzat amb èxit",
+
   // "ldn-enable-service.notification.success.content": "The service status has been updated",
   "ldn-enable-service.notification.success.content": "L'estat del servei ha estat actualitzat",
+
   // "ldn-service-delete.notification.success.title": "Successful Deletion",
   "ldn-service-delete.notification.success.title": "Eliminació Exitosa",
+
   // "ldn-service-delete.notification.success.content": "The service has been deleted",
   "ldn-service-delete.notification.success.content": "El servei ha estat eliminat",
+
   // "ldn-service-delete.notification.error.title": "Failed Deletion",
   "ldn-service-delete.notification.error.title": "Eliminació Fallida",
+
   // "ldn-service-delete.notification.error.content": "The service has not been deleted",
   "ldn-service-delete.notification.error.content": "El servei no ha estat eliminat",
+
   // "service.overview.reset-form.reset-return": "Cancel",
   "service.overview.reset-form.reset-return": "Cancel·lar",
+
   // "service.overview.delete": "Delete service",
   "service.overview.delete": "Eliminar servei",
+
   // "ldn-edit-service.title": "Edit service",
   "ldn-edit-service.title": "Editar servei",
+
   // "ldn-edit-service.form.label.name": "Name",
   "ldn-edit-service.form.label.name": "Nom",
+
   // "ldn-edit-service.form.label.description": "Description",
   "ldn-edit-service.form.label.description": "Descripció",
+
   // "ldn-edit-service.form.label.url": "Service URL",
   "ldn-edit-service.form.label.url": "URL del Servei",
+
   // "ldn-edit-service.form.label.ldnUrl": "LDN Inbox URL",
   "ldn-edit-service.form.label.ldnUrl": "URL de la LDN Inbox",
+
   // "ldn-edit-service.form.label.inboundPattern": "Inbound Pattern",
   "ldn-edit-service.form.label.inboundPattern": "Patró d'Entrada",
+
   // "ldn-edit-service.form.label.noInboundPatternSelected": "No Inbound Pattern",
   "ldn-edit-service.form.label.noInboundPatternSelected": "Sense Patró d'Entrada",
+
   // "ldn-edit-service.form.label.selectedItemFilter": "Selected Item Filter",
   "ldn-edit-service.form.label.selectedItemFilter": "Filtre d'Ítem Seleccionat",
+
   // "ldn-edit-service.form.label.selectItemFilter": "No Item Filter",
   "ldn-edit-service.form.label.selectItemFilter": "Sense Filtre d'Ítem",
+
   // "ldn-edit-service.form.label.automatic": "Automatic",
   "ldn-edit-service.form.label.automatic": "Automàtic",
+
   // "ldn-edit-service.form.label.addInboundPattern": "+ Add more",
   "ldn-edit-service.form.label.addInboundPattern": "+ Afegir més",
+
   // "ldn-edit-service.form.label.submit": "Save",
   "ldn-edit-service.form.label.submit": "Guardar",
+
   // "ldn-edit-service.breadcrumbs": "Edit Service",
   "ldn-edit-service.breadcrumbs": "Editar Servei",
+
   // "ldn-service.control-constaint-select-none": "Select none",
   "ldn-service.control-constaint-select-none": "No seleccionar cap",
 
   // "ldn-register-new-service.notification.error.title": "Error",
   "ldn-register-new-service.notification.error.title": "Error",
+
   // "ldn-register-new-service.notification.error.content": "An error occurred while creating this process",
   "ldn-register-new-service.notification.error.content": "S'ha produït un error en crear aquest procés",
+
   // "ldn-register-new-service.notification.success.title": "Success",
   "ldn-register-new-service.notification.success.title": "Èxit",
+
   // "ldn-register-new-service.notification.success.content": "The process was successfully created",
   "ldn-register-new-service.notification.success.content": "El procés s'ha creat correctament",
 
@@ -10760,6 +10971,7 @@
 
   // "quality-assurance.topics.description-with-target": "Below you can see all the topics received from the subscriptions to {{source}} in regards to the",
   "quality-assurance.topics.description-with-target": "A continuació podeu veure tots els temes rebuts de les subscripcions a {{source}} en relació amb el",
+
   // "quality-assurance.events.description": "Below the list of all the suggestions for the selected topic <b>{{topic}}</b>, related to <b>{{source}}</b>.",
   "quality-assurance.events.description": "A continuació la llista de totes les suggerències per al tema seleccionat <b>{{topic}}</b>, relacionades amb <b>{{source}}</b>.",
 
@@ -11543,6 +11755,10 @@
   // TODO New key - Add a translation
   "external-login.confirmation.email-label": "User Email",
 
+  // "external-login.confirmation.email": "Email",
+  // TODO New key - Add a translation
+  "external-login.confirmation.email": "Email",
+
   // "external-login.confirmation.email-invalid": "Invalid email format.",
   // TODO New key - Add a translation
   "external-login.confirmation.email-invalid": "Invalid email format.",
@@ -11663,6 +11879,10 @@
   // TODO New key - Add a translation
   "external-login-page.orcid-confirmation.netid": "Account Identifier",
 
+  // "external-login-page.orcid-confirmation.netid.label": "Account Identifier",
+  // TODO New key - Add a translation
+  "external-login-page.orcid-confirmation.netid.label": "Account Identifier",
+
   // "external-login-page.orcid-confirmation.netid.placeholder": "xxxx-xxxx-xxxx-xxxx",
   // TODO New key - Add a translation
   "external-login-page.orcid-confirmation.netid.placeholder": "xxxx-xxxx-xxxx-xxxx",
@@ -11726,6 +11946,30 @@
   // "file-download-button.request-copy": "Request a copy",
   // TODO New key - Add a translation
   "file-download-button.request-copy": "Request a copy",
+
+  // "file-download-link.audio-transcript.label": "Transcript",
+  // TODO New key - Add a translation
+  "file-download-link.audio-transcript.label": "Transcript",
+
+  // "file-download-link.audio-transcript.title": "Audio transcript",
+  // TODO New key - Add a translation
+  "file-download-link.audio-transcript.title": "Audio transcript",
+
+  // "file-download-link.audio-transcript.aria": "Open audio transcript",
+  // TODO New key - Add a translation
+  "file-download-link.audio-transcript.aria": "Open audio transcript",
+
+  // "file-download-link.video-description.label": "Video description",
+  // TODO New key - Add a translation
+  "file-download-link.video-description.label": "Video description",
+
+  // "file-download-link.video-description.title": "Video description",
+  // TODO New key - Add a translation
+  "file-download-link.video-description.title": "Video description",
+
+  // "file-download-link.video-description.aria": "Open video description",
+  // TODO New key - Add a translation
+  "file-download-link.video-description.aria": "Open video description",
 
   // "item.preview.organization.url": "URL",
   // TODO New key - Add a translation
@@ -12062,6 +12306,82 @@
   // "admin.edit-user-agreement.title": "Edit User Agreement",
   // TODO New key - Add a translation
   "admin.edit-user-agreement.title": "Edit User Agreement",
+
+  // "bitstream.replace.page.title": "Replace File",
+  // TODO New key - Add a translation
+  "bitstream.replace.page.title": "Replace File",
+
+  // "bitstream.replace.page.header": "Replace {{fileName}} ({{fileSize}})",
+  // TODO New key - Add a translation
+  "bitstream.replace.page.header": "Replace {{fileName}} ({{fileSize}})",
+
+  // "bitstream.replace.page.content": "Select a file to replace {{fileName}}. Note that this transfer can take a while to process, and may not start immediately.",
+  // TODO New key - Add a translation
+  "bitstream.replace.page.content": "Select a file to replace {{fileName}}. Note that this transfer can take a while to process, and may not start immediately.",
+
+  // "bitstream.replace.page.button.return": "Back",
+  // TODO New key - Add a translation
+  "bitstream.replace.page.button.return": "Back",
+
+  // "bitstream.replace.page.disclaimer": "The original file will be deleted. This operation can't be undone.",
+  // TODO New key - Add a translation
+  "bitstream.replace.page.disclaimer": "The original file will be deleted. This operation can't be undone.",
+
+  // "bitstream.replace.page.button.cancel": "Cancel",
+  // TODO New key - Add a translation
+  "bitstream.replace.page.button.cancel": "Cancel",
+
+  // "bitstream.replace.page.button.save": "Replace file",
+  // TODO New key - Add a translation
+  "bitstream.replace.page.button.save": "Replace file",
+
+  // "bitstream.replace.page.upload.failed": "Bitstream upload failed",
+  // TODO New key - Add a translation
+  "bitstream.replace.page.upload.failed": "Bitstream upload failed",
+
+  // "bitstream.replace.page.breadcrumbs": "Replace File",
+  // TODO New key - Add a translation
+  "bitstream.replace.page.breadcrumbs": "Replace File",
+
+  // "item.edit.bitstreams.edit.buttons.replace": "Replace",
+  // TODO New key - Add a translation
+  "item.edit.bitstreams.edit.buttons.replace": "Replace",
+
+  // "bitstream.replace.page.upload.success": "Bitstream successfully replaced",
+  // TODO New key - Add a translation
+  "bitstream.replace.page.upload.success": "Bitstream successfully replaced",
+
+  // "bitstream.edit.replace.link": "Replace file",
+  // TODO New key - Add a translation
+  "bitstream.edit.replace.link": "Replace file",
+
+  // "bitstream.replace.page.replace-name": "Use new filename",
+  // TODO New key - Add a translation
+  "bitstream.replace.page.replace-name": "Use new filename",
+
+  // "bitstream.replace.page.replace-name-hint": "The new file extension will be retained in order to match the content of the replacement file.",
+  // TODO New key - Add a translation
+  "bitstream.replace.page.replace-name-hint": "The new file extension will be retained in order to match the content of the replacement file.",
+
+  // "bitstream.related.isCopyOf": "Is copy of",
+  // TODO New key - Add a translation
+  "bitstream.related.isCopyOf": "Is copy of",
+
+  // "bitstream.related.hasCopies": "Has copies",
+  // TODO New key - Add a translation
+  "bitstream.related.hasCopies": "Has copies",
+
+  // "bitstream.related.isReplacementOf": "Is replacement of",
+  // TODO New key - Add a translation
+  "bitstream.related.isReplacementOf": "Is replacement of",
+
+  // "bitstream.related.isReplacedBy": "Is replaced by",
+  // TODO New key - Add a translation
+  "bitstream.related.isReplacedBy": "Is replaced by",
+
+  // "bitstream.related.deleted": "deleted",
+  // TODO New key - Add a translation
+  "bitstream.related.deleted": "deleted",
 
 
 }
