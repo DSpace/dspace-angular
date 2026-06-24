@@ -81,6 +81,7 @@ export interface PermittedVersions {
   locations: string[];
   licenses: string[];
   embargo: Embargo;
+  additionalOpenAccessFee: boolean;
 }
 
 export interface Embargo {
