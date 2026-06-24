@@ -14,7 +14,9 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { MenuService } from '../../../shared/menu/menu.service';
 import { MenuID } from '../../../shared/menu/menu-id.model';
+import { ExternalLinkMenuItemModel } from '../../../shared/menu/menu-item/models/external-link.model';
 import { LinkMenuItemModel } from '../../../shared/menu/menu-item/models/link.model';
+import { MenuItemType } from '../../../shared/menu/menu-item-type.model';
 import { MenuSection } from '../../../shared/menu/menu-section.model';
 import { AbstractMenuSectionComponent } from '../../../shared/menu/menu-section/abstract-menu-section.component';
 import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
@@ -47,6 +49,11 @@ export class AdminSidebarSectionComponent extends AbstractMenuSectionComponent i
    */
   isDisabled: boolean;
 
+  /**
+   * Whether this section links to an external URL
+   */
+  isExternalLink: boolean;
+
   constructor(
     @Inject('sectionDataProvider') protected section: MenuSection,
     protected menuService: MenuService,
@@ -54,19 +61,31 @@ export class AdminSidebarSectionComponent extends AbstractMenuSectionComponent i
     protected router: Router,
   ) {
     super(menuService, injector);
-    this.itemModel = section.model as LinkMenuItemModel;
+    this.isExternalLink = section.model.type === MenuItemType.EXTERNAL;
+    if (this.isExternalLink) {
+      this.itemModel = section.model as ExternalLinkMenuItemModel;
+    } else {
+      this.itemModel = section.model as LinkMenuItemModel;
+    }
   }
 
   ngOnInit(): void {
-    // todo: should support all menu entries?
-    this.isDisabled = this.itemModel?.disabled || isEmpty(this.itemModel?.link);
+    if (this.isExternalLink) {
+      this.isDisabled = this.itemModel?.disabled || isEmpty((this.itemModel as ExternalLinkMenuItemModel)?.href);
+    } else {
+      this.isDisabled = this.itemModel?.disabled || isEmpty(this.itemModel?.link);
+    }
     super.ngOnInit();
   }
 
   navigate(event: any): void {
     event.preventDefault();
     if (!this.isDisabled) {
-      this.router.navigate(this.itemModel.link);
+      if (this.isExternalLink) {
+        window.open((this.itemModel as ExternalLinkMenuItemModel).href, '_blank');
+      } else {
+        this.router.navigate(this.itemModel.link);
+      }
     }
   }
 
