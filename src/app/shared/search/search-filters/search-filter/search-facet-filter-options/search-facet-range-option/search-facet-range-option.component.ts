@@ -83,6 +83,16 @@ export class SearchFacetRangeOptionComponent implements OnInit, OnDestroy {
    */
   searchLink: string;
 
+  /**
+   * UI parameters when this filter is removed (deselect)
+   */
+  removeQueryParams: Params;
+
+  /**
+   * Observable que indica si esta opción de filtro está actualmente activa
+   */
+  isChecked$: Observable<boolean>;
+
   constructor(protected searchService: SearchService,
               protected filterService: SearchFilterService,
               protected searchConfigService: SearchConfigurationService,
@@ -95,6 +105,7 @@ export class SearchFacetRangeOptionComponent implements OnInit, OnDestroy {
    * Initializes all observable instance variables and starts listening to them
    */
   ngOnInit(): void {
+    this.isChecked$ = this.isChecked();
     this.searchLink = this.getSearchLink();
     this.isVisible = this.isChecked().pipe(map((checked: boolean) => !checked));
     this.sub = this.searchConfigService.searchOptions.subscribe(() => {
@@ -130,6 +141,11 @@ export class SearchFacetRangeOptionComponent implements OnInit, OnDestroy {
     this.changeQueryParams = {
       [this.filterConfig.paramName + RANGE_FILTER_MIN_SUFFIX]: [min],
       [this.filterConfig.paramName + RANGE_FILTER_MAX_SUFFIX]: max === new Date().getUTCFullYear() ? null : [max],
+      [page]: 1,
+    };
+    this.removeQueryParams = {
+      [this.filterConfig.paramName + RANGE_FILTER_MIN_SUFFIX]: null,
+      [this.filterConfig.paramName + RANGE_FILTER_MAX_SUFFIX]: null,
       [page]: 1,
     };
   }
