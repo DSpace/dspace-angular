@@ -34,6 +34,10 @@
                   [hasInnerHtml]="true"
                   [title]="'collection.page.news'">
                 </ds-comcol-page-content>
+                @if (showSubmitButton$ | async) {
+                  <!-- TODO: Adapt button label to collection entity type? --->
+                  <a routerLink="/submit" [queryParams]="{ 'collection': collection.uuid }" class="btn btn-secondary" [innerText]="'collection.page.submit-button' | translate"></a>
+                }
               </header>
               <ds-dso-edit-menu></ds-dso-edit-menu>
             </div>
