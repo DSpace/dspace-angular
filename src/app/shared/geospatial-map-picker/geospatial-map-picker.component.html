@@ -58,10 +58,10 @@
   <button type="button" class="btn btn-outline-secondary" (click)="cancel()">
     {{ 'geospatial-map-picker.cancel' | translate }}
   </button>
-  <button type="button" class="btn btn-outline-danger" [disabled]="!hasPoint" (click)="confirmClear()">
+  <button type="button" class="btn btn-outline-danger" [dsBtnDisabled]="!hasPoint" (click)="confirmClear()">
     {{ 'geospatial-map-picker.remove-point' | translate }}
   </button>
-  <button type="button" class="btn btn-primary" [disabled]="!hasPoint || isOutOfRange" (click)="confirm()">
+  <button type="button" class="btn btn-primary" [dsBtnDisabled]="!hasPoint || isOutOfRange" (click)="confirm()">
     {{ 'geospatial-map-picker.use-point' | translate }}
   </button>
 </div>

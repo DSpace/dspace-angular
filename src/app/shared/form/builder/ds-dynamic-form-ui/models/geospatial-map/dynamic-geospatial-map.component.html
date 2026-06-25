@@ -13,7 +13,7 @@
          placeholder="POINT(longitude latitude)" />
   <button type="button"
           class="btn btn-outline-secondary flex-shrink-0"
-          [disabled]="model.readOnly"
+          [dsBtnDisabled]="model.readOnly"
           [title]="'form.geospatial-map-picker.open' | translate"
           [attr.aria-label]="'form.geospatial-map-picker.open' | translate"
           (click)="openMapPicker()">

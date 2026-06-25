@@ -21,6 +21,7 @@ import {
 } from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
 import { GeospatialMapPickerComponent } from '../../../../../geospatial-map-picker/geospatial-map-picker.component';
 import { DynamicGeospatialMapModel } from './dynamic-geospatial-map.model';
 
@@ -33,6 +34,7 @@ import { DynamicGeospatialMapModel } from './dynamic-geospatial-map.model';
   styleUrls: ['./dynamic-geospatial-map.component.scss'],
   templateUrl: './dynamic-geospatial-map.component.html',
   imports: [
+    BtnDisabledDirective,
     FormsModule,
     TranslateModule,
   ],

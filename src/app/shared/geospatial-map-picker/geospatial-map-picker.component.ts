@@ -18,6 +18,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { geojsonToWKT } from '@terraformer/wkt';
 
 import { environment } from '../../../environments/environment';
+import { BtnDisabledDirective } from '../btn-disabled.directive';
 import { parseGeoJsonFromMetadataValue } from '../utils/geospatial.functions';
 
 @Component({
@@ -25,6 +26,7 @@ import { parseGeoJsonFromMetadataValue } from '../utils/geospatial.functions';
   styleUrls: ['./geospatial-map-picker.component.scss'],
   templateUrl: './geospatial-map-picker.component.html',
   imports: [
+    BtnDisabledDirective,
     FormsModule,
     TranslateModule,
   ],
