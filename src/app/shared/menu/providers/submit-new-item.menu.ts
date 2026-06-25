@@ -24,7 +24,7 @@ import { DSpaceObjectPageMenuProvider } from './helper-providers/dso.menu';
  * Menu provider to create the "Edit" option in the DSO edit menu
  */
 @Injectable()
-export class SubmitNewItemMenu extends DSpaceObjectPageMenuProvider {
+export class SubmitNewItemMenuProvider extends DSpaceObjectPageMenuProvider {
   constructor(
     protected authorizationDataService: AuthorizationDataService,
   ) {
