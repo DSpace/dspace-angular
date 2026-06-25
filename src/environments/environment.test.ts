@@ -354,6 +354,7 @@ export const environment: BuildConfig = {
     edit: {
       undoTimeout: 10000, // 10 seconds
     },
+    showSubmitButton: false,
   },
   themes: [
     {
