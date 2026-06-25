@@ -9,6 +9,7 @@ import { buildMenuStructure } from './shared/menu/menu.structure';
 import { MenuID } from './shared/menu/menu-id.model';
 import { MenuRoute } from './shared/menu/menu-route.model';
 import { AccessControlMenuProvider } from './shared/menu/providers/access-control.menu';
+import { AddSubObjectsMenuProvider } from './shared/menu/providers/add-sub-objects.menu';
 import { AdminSearchMenuProvider } from './shared/menu/providers/admin-search.menu';
 import { AuditLogsMenuProvider } from './shared/menu/providers/audit-item.menu';
 import { AuditOverviewMenuProvider } from './shared/menu/providers/audit-overview.menu';
@@ -35,11 +36,10 @@ import { NotificationsMenuProvider } from './shared/menu/providers/notifications
 import { ProcessesMenuProvider } from './shared/menu/providers/processes.menu';
 import { RegistriesMenuProvider } from './shared/menu/providers/registries.menu';
 import { StatisticsMenuProvider } from './shared/menu/providers/statistics.menu';
-import { SubmitNewItemMenu } from './shared/menu/providers/submit-new-item.menu';
+import { SubmitNewItemMenuProvider } from './shared/menu/providers/submit-new-item.menu';
 import { SystemWideAlertMenuProvider } from './shared/menu/providers/system-wide-alert.menu';
 import { WithdrawnReinstateItemMenuProvider } from './shared/menu/providers/withdrawn-reinstate-item.menu';
 import { WorkflowMenuProvider } from './shared/menu/providers/workflow.menu';
-import {AddSubObjectsMenu} from "./shared/menu/providers/add-sub-objects.menu";
 
 /**
  * Represents and builds the menu structure for the three available menus (public navbar, admin sidebar and the dso edit
@@ -97,10 +97,10 @@ export const MENUS = buildMenuStructure({
         MenuRoute.COLLECTION_PAGE,
         MenuRoute.ITEM_PAGE,
       ),
-      AddSubObjectsMenu.onRoute(
+      AddSubObjectsMenuProvider.onRoute(
         MenuRoute.COMMUNITY_PAGE,
       ),
-      SubmitNewItemMenu.onRoute(
+      SubmitNewItemMenuProvider.onRoute(
         MenuRoute.COLLECTION_PAGE,
       ),
       WithdrawnReinstateItemMenuProvider.onRoute(
