@@ -6,9 +6,9 @@ import { of } from 'rxjs';
 
 import { MenuItemType } from '../menu-item-type.model';
 import { PartialMenuSection } from '../menu-provider.model';
-import { DSpaceObjectEditMenuProvider } from './dso-edit.menu';
+import { AddSubObjectsMenuProvider } from './add-sub-objects.menu';
 
-describe('DSpaceObjectEditMenuProvider', () => {
+describe('AddSubObjectsMenuProvider', () => {
 
   const expectedSections: PartialMenuSection[] = [
     {
@@ -37,7 +37,7 @@ describe('DSpaceObjectEditMenuProvider', () => {
     },
   ];
 
-  let provider: DSpaceObjectEditMenuProvider;
+  let provider: AddSubObjectsMenuProvider;
 
   const dso: Community = Object.assign(new Community(), {
     type: COMMUNITY.value,
@@ -56,11 +56,11 @@ describe('DSpaceObjectEditMenuProvider', () => {
 
     TestBed.configureTestingModule({
       providers: [
-        DSpaceObjectEditMenuProvider,
+        AddSubObjectsMenuProvider,
         { provide: AuthorizationDataService, useValue: authorizationService },
       ],
     });
-    provider = TestBed.inject(DSpaceObjectEditMenuProvider);
+    provider = TestBed.inject(AddSubObjectsMenuProvider);
   });
 
   it('should be created', () => {
