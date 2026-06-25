@@ -478,6 +478,8 @@ collection:
     showSidebar: true
   edit:
     undoTimeout: 10000 # 10 seconds
+  # Whether to show a submit button on item pages instead of having an entry in the dso-edit menu.
+  showSubmitButton: false
 
 # Theme Config
 themes:
