@@ -82,6 +82,7 @@ import {
 import { DsoEditMetadataFieldService } from '../dso-edit-metadata-value-field/dso-edit-metadata-field.service';
 import { EditMetadataValueFieldType } from '../dso-edit-metadata-value-field/dso-edit-metadata-field-type.enum';
 import { DsoEditMetadataValueFieldLoaderComponent } from '../dso-edit-metadata-value-field/dso-edit-metadata-value-field-loader/dso-edit-metadata-value-field-loader.component';
+import { debounceTimeWorkaround as debounceTime } from '../../../core/shared/operators';
 
 @Component({
   selector: 'ds-dso-edit-metadata-value',
@@ -116,6 +117,7 @@ export class DsoEditMetadataValueComponent implements OnInit, OnChanges, OnDestr
    * Also used to determine metadata-representations in case of virtual metadata
    */
   @Input() dso: DSpaceObject;
+
   /**
    * Editable metadata value to show
    */
@@ -149,6 +151,14 @@ export class DsoEditMetadataValueComponent implements OnInit, OnChanges, OnDestr
   }
 
   protected readonly _mdField$ = new BehaviorSubject<string | null>(null);
+
+  /**
+   * Minimum valid metadata field pattern: schema.element or schema.element.qualifier.
+   * Used to skip vocabulary and field-type lookups for incomplete inputs, preventing
+   * unnecessary backend requests that would result in 422 errors.
+   */
+  private static readonly VALID_METADATA_FIELD_PATTERN =
+    /^[a-zA-Z][a-zA-Z0-9_-]*\.[a-zA-Z][a-zA-Z0-9_-]*(\.[a-zA-Z][a-zA-Z0-9_-]*)?$/;
 
   /**
    * Flag whether this is a new metadata field or exists already
@@ -228,6 +238,7 @@ export class DsoEditMetadataValueComponent implements OnInit, OnChanges, OnDestr
    * The name of the item represented by this virtual metadata value (otherwise null)
    */
   mdRepresentationName$: Observable<string | null>;
+
   readonly mdSecurityConfigLevel$: BehaviorSubject<number[]> = new BehaviorSubject<number[]>([]);
 
   canShowMetadataSecurity$: Observable<boolean>;
@@ -239,7 +250,6 @@ export class DsoEditMetadataValueComponent implements OnInit, OnChanges, OnDestr
    */
   public editingAuthority = false;
 
-
   /**
    * Whether or not the free-text editing is enabled when scrollable dropdown or hierarchical vocabulary is used
    */
@@ -249,7 +259,7 @@ export class DsoEditMetadataValueComponent implements OnInit, OnChanges, OnDestr
    * Field group used by authority field
    * @type {UntypedFormGroup}
    */
-  group = new UntypedFormGroup({ authorityField : new UntypedFormControl() });
+  group = new UntypedFormGroup({ authorityField: new UntypedFormControl() });
 
   /**
    * The type of edit field that should be displayed
@@ -273,19 +283,60 @@ export class DsoEditMetadataValueComponent implements OnInit, OnChanges, OnDestr
   ngOnInit(): void {
     this.initVirtualProperties();
 
+    /**
+     * Reactively determine the field type as the user types, with debouncing to avoid
+     * unnecessary backend requests on every keystroke.
+     *
+     * The pipeline:
+     * 1. debounceTime: waits 300ms after the last keystroke before proceeding.
+     * 2. distinctUntilChanged: skips if the value hasn't changed.
+     * 3. VALID_METADATA_FIELD_PATTERN: early exit for inputs that don't match the
+     *    minimum schema.element format, avoiding requests with partial inputs.
+     * 4. validateMetadataField: confirms the field exists on the server via byFieldName
+     *    before calling byMetadataAndCollection, preventing 422 errors from incomplete inputs.
+     * 5. findDsoFieldVocabulary: only called once the field is confirmed valid.
+     */
+    this.fieldType$ = this._mdField$.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      switchMap((field: string) => {
+        if (!field || !DsoEditMetadataValueComponent.VALID_METADATA_FIELD_PATTERN.test(field)) {
+          return of(EditMetadataValueFieldType.PLAIN_TEXT);
+        }
+        return this.validateMetadataField().pipe(
+          switchMap((isValid: boolean) => {
+            if (!isValid) {
+              return of(EditMetadataValueFieldType.PLAIN_TEXT);
+            }
+            return this.dsoEditMetadataFieldService.findDsoFieldVocabulary(this.dso, field).pipe(
+              map((vocabulary: Vocabulary) => {
+                if (hasValue(vocabulary)) {
+                  return EditMetadataValueFieldType.AUTHORITY;
+                }
+                if (field === 'dspace.entity.type') {
+                  return EditMetadataValueFieldType.ENTITY_TYPE;
+                }
+                return EditMetadataValueFieldType.PLAIN_TEXT;
+              }),
+            );
+          }),
+        );
+      }),
+    );
+
     this.sub = combineLatest([
       this._mdField$,
       this._metadataSecurityConfiguration$.pipe(filter(config => !!config)),
     ]).subscribe(([mdField, metadataSecurityConfig]) => this.initSecurityLevel(mdField, metadataSecurityConfig));
 
     this.canShowMetadataSecurity$ =
-        combineLatest([
-          this._mdField$.pipe(distinctUntilChanged()),
-          this.mdSecurityConfigLevel$,
-        ]).pipe(
-          map(([mdField, securityConfigLevel]) => hasValue(mdField) && this.hasSecurityChoice(securityConfigLevel)),
-          shareReplay({ refCount: false, bufferSize: 1 }),
-        );
+      combineLatest([
+        this._mdField$.pipe(distinctUntilChanged()),
+        this.mdSecurityConfigLevel$,
+      ]).pipe(
+        map(([mdField, securityConfigLevel]) => hasValue(mdField) && this.hasSecurityChoice(securityConfigLevel)),
+        shareReplay({ refCount: false, bufferSize: 1 }),
+      );
   }
 
   /**
@@ -338,37 +389,15 @@ export class DsoEditMetadataValueComponent implements OnInit, OnChanges, OnDestr
     return securityConfigLevel?.length > 1;
   }
 
-
-  /**
-   * Retrieves the {@link EditMetadataValueFieldType} to be displayed for the current field while in edit mode.
-   */
-  getFieldType(): Observable<EditMetadataValueFieldType> {
-    return this.dsoEditMetadataFieldService.findDsoFieldVocabulary(this.dso, this.mdField).pipe(
-      map((vocabulary: Vocabulary) => {
-        if (hasValue(vocabulary)) {
-          return EditMetadataValueFieldType.AUTHORITY;
-        }
-        if (this.mdField === 'dspace.entity.type') {
-          return EditMetadataValueFieldType.ENTITY_TYPE;
-        }
-        return EditMetadataValueFieldType.PLAIN_TEXT;
-      }),
-    );
-  }
-
   /**
    * Change callback for the component. Check if the mdField has changed to retrieve whether it is metadata
-   * that uses a controlled vocabulary and update the related properties
+   * that uses a controlled vocabulary and update the related properties.
    *
    * @param {SimpleChanges} changes
    */
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.mdField) {
-      this.fieldType$ = this.getFieldType();
-    }
-
     if (isNotEmpty(changes.mdField) && !changes.mdField.firstChange) {
-      if (isNotEmpty(changes.mdField.currentValue) ) {
+      if (isNotEmpty(changes.mdField.currentValue)) {
         if (isNotEmpty(changes.mdField.previousValue) &&
           changes.mdField.previousValue !== changes.mdField.currentValue) {
           // Clear authority value in case it has been assigned with the previous metadataField used
@@ -376,8 +405,8 @@ export class DsoEditMetadataValueComponent implements OnInit, OnChanges, OnDestr
           this.mdValue.newValue.confidence = ConfidenceType.CF_UNSET;
         }
 
-        // Only ask if the current mdField have a period character to reduce request
-        if (changes.mdField.currentValue.includes('.')) {
+        // Only validate if the field matches the minimum valid format to reduce unnecessary requests
+        if (DsoEditMetadataValueComponent.VALID_METADATA_FIELD_PATTERN.test(changes.mdField.currentValue)) {
           this.validateMetadataField().subscribe((isValid: boolean) => {
             if (isValid) {
               this.cdr.detectChanges();
@@ -408,7 +437,6 @@ export class DsoEditMetadataValueComponent implements OnInit, OnChanges, OnDestr
       }),
     );
   }
-
 
   ngOnDestroy(): void {
     if (hasValue(this.sub)) {

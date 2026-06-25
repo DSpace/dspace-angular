@@ -4,7 +4,9 @@ import {
 } from '@angular/core';
 import {
   ComponentFixture,
+  fakeAsync,
   TestBed,
+  tick,
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
@@ -41,6 +43,9 @@ import { DsoEditMetadataFieldService } from '../dso-edit-metadata-value-field/ds
 import { DsoEditMetadataValueFieldLoaderComponent } from '../dso-edit-metadata-value-field/dso-edit-metadata-value-field-loader/dso-edit-metadata-value-field-loader.component';
 import { DsoEditMetadataValueComponent } from './dso-edit-metadata-value.component';
 
+import { EditMetadataValueFieldType } from '../dso-edit-metadata-value-field/dso-edit-metadata-field-type.enum';
+import { Vocabulary } from '@dspace/core/submission/vocabularies/models/vocabulary.model';
+
 const EDIT_BTN = 'edit';
 const CONFIRM_BTN = 'confirm';
 const REMOVE_BTN = 'remove';
@@ -60,7 +65,7 @@ describe('DsoEditMetadataValueComponent', () => {
   let metadataValue: MetadataValue;
   let dso: DSpaceObject;
 
-  const collection =  Object.assign(new Collection(), {
+  const collection = Object.assign(new Collection(), {
     uuid: 'fake-uuid',
   });
 
@@ -239,6 +244,147 @@ describe('DsoEditMetadataValueComponent', () => {
     assertButton(REMOVE_BTN, true, true);
     assertButton(UNDO_BTN, true, true);
     assertButton(DRAG_BTN, true, false);
+  });
+
+  describe('fieldType$', () => {
+
+    let metadataSchema: MetadataSchema;
+    let metadataFieldDcTitle: MetadataField;
+
+    beforeEach(() => {
+      metadataSchema = Object.assign(new MetadataSchema(), {
+        prefix: 'dc',
+      });
+
+      metadataFieldDcTitle = Object.assign(new MetadataField(), {
+        element: 'title',
+        qualifier: null,
+        schema: createSuccessfulRemoteDataObject$(metadataSchema),
+      });
+    });
+
+    describe('when the metadata field is incomplete or invalid', () => {
+      const invalidFields = ['dc', 'dc.', 'dc.c', 'dc.re'];
+
+      invalidFields.forEach((field) => {
+        it(`should not call findDsoFieldVocabulary for incomplete field "${field}"`, fakeAsync(() => {
+          spyOn(dsoEditMetadataFieldService, 'findDsoFieldVocabulary').and.callThrough();
+          component.mdField = field;
+          tick(300);
+          expect(dsoEditMetadataFieldService.findDsoFieldVocabulary).not.toHaveBeenCalled();
+        }));
+      });
+    });
+
+    describe('when the metadata field does not exist on the server', () => {
+      beforeEach(() => {
+        (registryService.queryMetadataFields as jasmine.Spy).and.returnValue(
+          createSuccessfulRemoteDataObject$(createPaginatedList([])),
+        );
+      });
+
+      it('should not call findDsoFieldVocabulary if field does not exist', fakeAsync(() => {
+        spyOn(dsoEditMetadataFieldService, 'findDsoFieldVocabulary').and.callThrough();
+        component.mdField = 'dc.nonexistent';
+        tick(300);
+        expect(dsoEditMetadataFieldService.findDsoFieldVocabulary).not.toHaveBeenCalled();
+      }));
+
+      it('should emit PLAIN_TEXT if field does not exist on server', fakeAsync(() => {
+        let result: EditMetadataValueFieldType;
+        component.fieldType$.subscribe((fieldType) => result = fieldType);
+        component.mdField = 'dc.nonexistent';
+        tick(300);
+        expect(result).toBe(EditMetadataValueFieldType.PLAIN_TEXT);
+      }));
+    });
+
+    describe('when the metadata field is valid and exists on the server', () => {
+      beforeEach(() => {
+        (registryService.queryMetadataFields as jasmine.Spy).and.returnValue(
+          createSuccessfulRemoteDataObject$(createPaginatedList([metadataFieldDcTitle])),
+        );
+      });
+
+      it('should emit a field type when field is valid and exists', fakeAsync(() => {
+        let result: EditMetadataValueFieldType;
+        const freshFixture = TestBed.createComponent(DsoEditMetadataValueComponent);
+        const freshComponent = freshFixture.componentInstance;
+        freshComponent.mdValue = editMetadataValue;
+        freshComponent.dso = dso;
+        freshComponent.metadataSecurityConfiguration = mockSecurityConfig;
+        freshComponent.saving$ = of(false);
+        spyOn(freshComponent, 'validateMetadataField').and.returnValue(of(true));
+        freshFixture.detectChanges();
+        freshComponent.fieldType$.subscribe((fieldType) => result = fieldType);
+        freshComponent.mdField = 'dc.title';
+        tick(300);
+        expect([
+          EditMetadataValueFieldType.PLAIN_TEXT,
+          EditMetadataValueFieldType.AUTHORITY,
+          EditMetadataValueFieldType.ENTITY_TYPE,
+        ]).toContain(result);
+      }));
+
+      it('should emit PLAIN_TEXT when no vocabulary is associated', fakeAsync(() => {
+        let result: EditMetadataValueFieldType;
+        const freshFixture = TestBed.createComponent(DsoEditMetadataValueComponent);
+        const freshComponent = freshFixture.componentInstance;
+        freshComponent.mdValue = editMetadataValue;
+        freshComponent.dso = dso;
+        freshComponent.metadataSecurityConfiguration = mockSecurityConfig;
+        freshComponent.saving$ = of(false);
+        spyOn(freshComponent, 'validateMetadataField').and.returnValue(of(true));
+        freshFixture.detectChanges();
+        freshComponent.fieldType$.subscribe((fieldType) => result = fieldType);
+        freshComponent.mdField = 'dc.title';
+        tick(300);
+        expect(result).toBe(EditMetadataValueFieldType.PLAIN_TEXT);
+      }));
+
+      it('should emit AUTHORITY when a vocabulary is associated', fakeAsync(() => {
+        let result: EditMetadataValueFieldType;
+        spyOn(dsoEditMetadataFieldService, 'findDsoFieldVocabulary').and.returnValue(of(new Vocabulary()));
+        const freshFixture = TestBed.createComponent(DsoEditMetadataValueComponent);
+        const freshComponent = freshFixture.componentInstance;
+        freshComponent.mdValue = editMetadataValue;
+        freshComponent.dso = dso;
+        freshComponent.metadataSecurityConfiguration = mockSecurityConfig;
+        freshComponent.saving$ = of(false);
+        spyOn(freshComponent, 'validateMetadataField').and.returnValue(of(true));
+        freshFixture.detectChanges();
+        freshComponent.fieldType$.subscribe((fieldType) => result = fieldType);
+        freshComponent.mdField = 'dc.title';
+        tick(300);
+        expect(result).toBe(EditMetadataValueFieldType.AUTHORITY);
+      }));
+
+      it('should emit ENTITY_TYPE for dspace.entity.type field', fakeAsync(() => {
+        let result: EditMetadataValueFieldType;
+        const dspaceSchema = Object.assign(new MetadataSchema(), { prefix: 'dspace' });
+        const entityTypeField = Object.assign(new MetadataField(), {
+          element: 'entity',
+          qualifier: 'type',
+          schema: createSuccessfulRemoteDataObject$(dspaceSchema),
+        });
+        (registryService.queryMetadataFields as jasmine.Spy).and.returnValue(
+          createSuccessfulRemoteDataObject$(createPaginatedList([entityTypeField])),
+        );
+        const freshFixture = TestBed.createComponent(DsoEditMetadataValueComponent);
+        const freshComponent = freshFixture.componentInstance;
+        freshComponent.mdValue = editMetadataValue;
+        freshComponent.dso = dso;
+        freshComponent.metadataSecurityConfiguration = mockSecurityConfig;
+        freshComponent.saving$ = of(false);
+        spyOn(freshComponent, 'validateMetadataField').and.returnValue(of(true));
+        freshFixture.detectChanges();
+        freshComponent.fieldType$.subscribe((fieldType) => result = fieldType);
+        freshComponent.mdField = 'dspace.entity.type';
+        tick(300);
+        expect(result).toBe(EditMetadataValueFieldType.ENTITY_TYPE);
+      }));
+    });
+
   });
 
   function assertButton(name: string, exists: boolean, disabled: boolean = false): void {
