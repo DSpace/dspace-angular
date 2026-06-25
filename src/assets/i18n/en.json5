@@ -5166,6 +5166,26 @@
 
   "search.results.geospatial-map.empty": "No results on this page with geospatial locations",
 
+  "geospatial-map-picker.title": "Select a location",
+
+  "geospatial-map-picker.title-for-field": "Select a location for {{ field }}",
+
+  "geospatial-map-picker.instructions": "Click on the map to place a point, drag the marker to adjust it, or enter coordinates manually.",
+
+  "geospatial-map-picker.latitude": "Latitude",
+
+  "geospatial-map-picker.longitude": "Longitude",
+
+  "geospatial-map-picker.out-of-range": "Latitude must be between -90 and 90, longitude between -180 and 180.",
+
+  "geospatial-map-picker.cancel": "Cancel",
+
+  "geospatial-map-picker.remove-point": "Remove point",
+
+  "geospatial-map-picker.use-point": "Use this point",
+
+  "geospatial-map-picker.close": "Close",
+
   "search.results.view-result": "View",
 
   "search.results.response.500": "An error occurred during query execution, please try again later",
@@ -7533,6 +7553,8 @@
   "form.date-picker.placeholder.month": "Month",
 
   "form.date-picker.placeholder.day": "Day",
+
+  "form.geospatial-map-picker.open": "Open map to pick or verify the location",
 
   "item.page.license.title": "Rights and licensing",
 
