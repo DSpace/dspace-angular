@@ -1,9 +1,14 @@
 import { TestBed } from '@angular/core/testing';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
 import { Collection } from '@dspace/core/shared/collection.model';
 import { COLLECTION } from '@dspace/core/shared/collection.resource-type';
-import { of } from 'rxjs';
+import {
+  Observable,
+  of,
+} from 'rxjs';
 
+import { environment } from '../../../../environments/environment';
 import { MenuItemType } from '../menu-item-type.model';
 import { PartialMenuSection } from '../menu-provider.model';
 import { SubmitNewItemMenuProvider } from './submit-new-item.menu';
@@ -34,7 +39,7 @@ describe('SubmitNewItemMenuProvider', () => {
   });
 
 
-  let authorizationService;
+  let authorizationService: { isAuthorized: Observable<boolean> ; };
 
   beforeEach(() => {
 
@@ -46,6 +51,7 @@ describe('SubmitNewItemMenuProvider', () => {
       providers: [
         SubmitNewItemMenuProvider,
         { provide: AuthorizationDataService, useValue: authorizationService },
+        { provide: APP_CONFIG, useValue: environment },
       ],
     });
     provider = TestBed.inject(SubmitNewItemMenuProvider);
@@ -62,6 +68,12 @@ describe('SubmitNewItemMenuProvider', () => {
         done();
       });
     });
-  });
 
+    it('should set visibility depending on authorization and collection.showSubmitButton', done => {
+      provider.getSectionsForContext(dso).subscribe((sections) => {
+        expect(sections[0].visible).toEqual(authorizationService.isAuthorized && !environment.collection.showSubmitButton);
+        done();
+      });
+    });
+  });
 });

@@ -5,7 +5,14 @@
  *
  * http://www.dspace.org/license/
  */
-import { Injectable } from '@angular/core';
+import {
+  Inject,
+  Injectable,
+} from '@angular/core';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
 import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
 import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
@@ -27,6 +34,7 @@ import { DSpaceObjectPageMenuProvider } from './helper-providers/dso.menu';
 export class SubmitNewItemMenuProvider extends DSpaceObjectPageMenuProvider {
   constructor(
     protected authorizationDataService: AuthorizationDataService,
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
   ) {
     super();
   }
@@ -38,7 +46,7 @@ export class SubmitNewItemMenuProvider extends DSpaceObjectPageMenuProvider {
       map(([canSubmitItem]) => {
         return [
           {
-            visible: canSubmitItem,
+            visible: canSubmitItem && !this.appConfig.collection.showSubmitButton,
             model: {
               type: MenuItemType.LINK,
               text: 'collection.submit.item',
