@@ -5,7 +5,7 @@ const COLLECTION_PAGE = '/collections/'.concat(Cypress.expose('DSPACE_TEST_COLLE
 describe('Collection Page', () => {
 
   it('should pass accessibility tests', () => {
-    cy.visit('/collections/'.concat(Cypress.expose('DSPACE_TEST_COLLECTION')));
+    cy.visit(COLLECTION_PAGE);
 
     // <ds-collection-page> tag must be loaded
     cy.get('ds-collection-page').should('be.visible');
@@ -21,7 +21,9 @@ describe('Collection Page -> Collection-edit menu', () => {
     cy.visit(COLLECTION_PAGE);
 
     // These page elements are restricted, so we will be shown the login form. Fill it out & submit.
-    cy.loginViaForm(Cypress.expose('DSPACE_TEST_ADMIN_USER'), Cypress.expose('DSPACE_TEST_ADMIN_PASSWORD'));
+    cy.env(['DSPACE_TEST_ADMIN_USER', 'DSPACE_TEST_ADMIN_PASSWORD']).then(({ DSPACE_TEST_ADMIN_USER, DSPACE_TEST_ADMIN_PASSWORD }) => {
+      cy.loginViaForm(DSPACE_TEST_ADMIN_USER, DSPACE_TEST_ADMIN_PASSWORD);
+    });
   });
 
   it('Edit menu should exist for admins.', () => {
