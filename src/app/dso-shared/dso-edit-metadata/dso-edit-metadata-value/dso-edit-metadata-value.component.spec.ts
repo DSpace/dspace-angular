@@ -40,8 +40,8 @@ import {
   DsoEditMetadataChangeType,
   DsoEditMetadataValue,
 } from '../dso-edit-metadata-form';
-import { EditMetadataValueFieldType } from '../dso-edit-metadata-value-field/dso-edit-metadata-field-type.enum';
 import { DsoEditMetadataFieldService } from '../dso-edit-metadata-value-field/dso-edit-metadata-field.service';
+import { EditMetadataValueFieldType } from '../dso-edit-metadata-value-field/dso-edit-metadata-field-type.enum';
 import { DsoEditMetadataValueFieldLoaderComponent } from '../dso-edit-metadata-value-field/dso-edit-metadata-value-field-loader/dso-edit-metadata-value-field-loader.component';
 import { DsoEditMetadataValueComponent } from './dso-edit-metadata-value.component';
 
