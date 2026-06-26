@@ -38,6 +38,7 @@ import {
   MetadataRepresentationType,
 } from '@dspace/core/shared/metadata-representation/metadata-representation.model';
 import {
+  debounceTimeWorkaround as debounceTime,
   getFirstCompletedRemoteData,
   metadataFieldsToString,
 } from '@dspace/core/shared/operators';
@@ -82,7 +83,6 @@ import {
 import { DsoEditMetadataFieldService } from '../dso-edit-metadata-value-field/dso-edit-metadata-field.service';
 import { EditMetadataValueFieldType } from '../dso-edit-metadata-value-field/dso-edit-metadata-field-type.enum';
 import { DsoEditMetadataValueFieldLoaderComponent } from '../dso-edit-metadata-value-field/dso-edit-metadata-value-field-loader/dso-edit-metadata-value-field-loader.component';
-import { debounceTimeWorkaround as debounceTime } from '../../../core/shared/operators';
 
 @Component({
   selector: 'ds-dso-edit-metadata-value',
@@ -109,6 +109,15 @@ import { debounceTimeWorkaround as debounceTime } from '../../../core/shared/ope
  * Component displaying a single editable row for a metadata value
  */
 export class DsoEditMetadataValueComponent implements OnInit, OnChanges, OnDestroy {
+
+
+  /**
+   * Minimum valid metadata field pattern: schema.element or schema.element.qualifier.
+   * Used to skip vocabulary and field-type lookups for incomplete inputs, preventing
+   * unnecessary backend requests that would result in 422 errors.
+   */
+  private static readonly VALID_METADATA_FIELD_PATTERN =
+    /^[a-zA-Z][a-zA-Z0-9_-]*\.[a-zA-Z][a-zA-Z0-9_-]*(\.[a-zA-Z][a-zA-Z0-9_-]*)?$/;
 
   @Input() context: Context;
 
@@ -151,14 +160,6 @@ export class DsoEditMetadataValueComponent implements OnInit, OnChanges, OnDestr
   }
 
   protected readonly _mdField$ = new BehaviorSubject<string | null>(null);
-
-  /**
-   * Minimum valid metadata field pattern: schema.element or schema.element.qualifier.
-   * Used to skip vocabulary and field-type lookups for incomplete inputs, preventing
-   * unnecessary backend requests that would result in 422 errors.
-   */
-  private static readonly VALID_METADATA_FIELD_PATTERN =
-    /^[a-zA-Z][a-zA-Z0-9_-]*\.[a-zA-Z][a-zA-Z0-9_-]*(\.[a-zA-Z][a-zA-Z0-9_-]*)?$/;
 
   /**
    * Flag whether this is a new metadata field or exists already

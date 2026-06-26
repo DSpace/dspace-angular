@@ -24,6 +24,7 @@ import {
   VIRTUAL_METADATA_PREFIX,
 } from '@dspace/core/shared/metadata.models';
 import { ItemMetadataRepresentation } from '@dspace/core/shared/metadata-representation/item/item-metadata-representation.model';
+import { Vocabulary } from '@dspace/core/submission/vocabularies/models/vocabulary.model';
 import { DsoEditMetadataFieldServiceStub } from '@dspace/core/testing/dso-edit-metadata-field.service.stub';
 import { createPaginatedList } from '@dspace/core/testing/utils.test';
 import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
@@ -39,12 +40,10 @@ import {
   DsoEditMetadataChangeType,
   DsoEditMetadataValue,
 } from '../dso-edit-metadata-form';
+import { EditMetadataValueFieldType } from '../dso-edit-metadata-value-field/dso-edit-metadata-field-type.enum';
 import { DsoEditMetadataFieldService } from '../dso-edit-metadata-value-field/dso-edit-metadata-field.service';
 import { DsoEditMetadataValueFieldLoaderComponent } from '../dso-edit-metadata-value-field/dso-edit-metadata-value-field-loader/dso-edit-metadata-value-field-loader.component';
 import { DsoEditMetadataValueComponent } from './dso-edit-metadata-value.component';
-
-import { EditMetadataValueFieldType } from '../dso-edit-metadata-value-field/dso-edit-metadata-field-type.enum';
-import { Vocabulary } from '@dspace/core/submission/vocabularies/models/vocabulary.model';
 
 const EDIT_BTN = 'edit';
 const CONFIRM_BTN = 'confirm';
@@ -248,18 +247,18 @@ describe('DsoEditMetadataValueComponent', () => {
 
   describe('fieldType$', () => {
 
-    let metadataSchema: MetadataSchema;
+    let dcMetadataSchema: MetadataSchema;
     let metadataFieldDcTitle: MetadataField;
 
     beforeEach(() => {
-      metadataSchema = Object.assign(new MetadataSchema(), {
+      dcMetadataSchema = Object.assign(new MetadataSchema(), {
         prefix: 'dc',
       });
 
       metadataFieldDcTitle = Object.assign(new MetadataField(), {
         element: 'title',
         qualifier: null,
-        schema: createSuccessfulRemoteDataObject$(metadataSchema),
+        schema: createSuccessfulRemoteDataObject$(dcMetadataSchema),
       });
     });
 
