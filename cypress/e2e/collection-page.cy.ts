@@ -1,6 +1,7 @@
 import { testA11y } from 'cypress/support/utils';
 
-const COLLECTION_PAGE = '/collections/'.concat(Cypress.expose('DSPACE_TEST_COLLECTION'));
+const COLLECTION_PAGE = '/collections/'.concat(Cypress.env('DSPACE_TEST_COLLECTION'));
+const LOGIN_PAGE = '/login';
 
 describe('Collection Page', () => {
 
@@ -17,13 +18,16 @@ describe('Collection Page', () => {
 
 describe('Collection Page -> Collection-edit menu', () => {
   beforeEach(() => {
-    // All tests start with visiting the Collection Page
-    cy.visit(COLLECTION_PAGE);
+    // All tests start with visiting the Login Page
+    cy.visit(LOGIN_PAGE);
 
     // These page elements are restricted, so we will be shown the login form. Fill it out & submit.
     cy.env(['DSPACE_TEST_ADMIN_USER', 'DSPACE_TEST_ADMIN_PASSWORD']).then(({ DSPACE_TEST_ADMIN_USER, DSPACE_TEST_ADMIN_PASSWORD }) => {
       cy.loginViaForm(DSPACE_TEST_ADMIN_USER, DSPACE_TEST_ADMIN_PASSWORD);
     });
+
+    // Now we can visit the collection page:
+    cy.visit(COLLECTION_PAGE);
   });
 
   it('Edit menu should exist for admins.', () => {
