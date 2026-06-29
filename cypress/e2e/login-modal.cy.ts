@@ -9,7 +9,7 @@ const page = {
     // Once logged in, click the User menu in header
     cy.get('[data-test="user-menu"]').click();
   },
-  submitLoginAndPasswordByPressingButton(email, password) {
+  submitLoginAndPasswordByPressingButton(email: string, password: string) {
     // Enter email
     cy.get('[data-test="email"]').type(email);
     // Enter password
@@ -17,7 +17,7 @@ const page = {
     // Click login button
     cy.get('[data-test="login-button"]').click();
   },
-  submitLoginAndPasswordByPressingEnter(email, password) {
+  submitLoginAndPasswordByPressingEnter(email: string, password: string) {
     // In opened Login modal, fill out email & password, then click Enter
     cy.get('[data-test="email"]').type(email);
     cy.get('[data-test="password"]').type(password);
@@ -36,7 +36,7 @@ const page = {
 
 describe('Login Modal', () => {
   it('should login when clicking button & stay on same page', () => {
-    const ENTITYPAGE = '/entities/publication/'.concat(Cypress.env('DSPACE_TEST_ENTITY_PUBLICATION'));
+    const ENTITYPAGE = '/entities/publication/'.concat(Cypress.expose('DSPACE_TEST_ENTITY_PUBLICATION'));
     cy.visit(ENTITYPAGE);
 
     // Login menu should exist
@@ -46,7 +46,9 @@ describe('Login Modal', () => {
     page.openLoginMenu();
     cy.get('.form-login').should('be.visible');
 
-    page.submitLoginAndPasswordByPressingButton(Cypress.env('DSPACE_TEST_ADMIN_USER'), Cypress.env('DSPACE_TEST_ADMIN_PASSWORD'));
+    cy.env(['DSPACE_TEST_ADMIN_USER', 'DSPACE_TEST_ADMIN_PASSWORD']).then(({ DSPACE_TEST_ADMIN_USER, DSPACE_TEST_ADMIN_PASSWORD }) => {
+      page.submitLoginAndPasswordByPressingButton(DSPACE_TEST_ADMIN_USER, DSPACE_TEST_ADMIN_PASSWORD);
+    });
     cy.get('ds-log-in').should('not.exist');
 
     // Verify we are still on the same page
@@ -66,7 +68,9 @@ describe('Login Modal', () => {
     cy.get('.form-login').should('be.visible');
 
     // Login, and the <ds-log-in> tag should no longer exist
-    page.submitLoginAndPasswordByPressingEnter(Cypress.env('DSPACE_TEST_ADMIN_USER'), Cypress.env('DSPACE_TEST_ADMIN_PASSWORD'));
+    cy.env(['DSPACE_TEST_ADMIN_USER', 'DSPACE_TEST_ADMIN_PASSWORD']).then(({ DSPACE_TEST_ADMIN_USER, DSPACE_TEST_ADMIN_PASSWORD }) => {
+      page.submitLoginAndPasswordByPressingEnter(DSPACE_TEST_ADMIN_USER, DSPACE_TEST_ADMIN_PASSWORD);
+    });
     cy.get('ds-log-in').should('not.exist');
 
     // Verify we are still on homepage
@@ -80,7 +84,9 @@ describe('Login Modal', () => {
 
   it('should support logout', () => {
     // First authenticate & access homepage
-    cy.login(Cypress.env('DSPACE_TEST_ADMIN_USER'), Cypress.env('DSPACE_TEST_ADMIN_PASSWORD'));
+    cy.env(['DSPACE_TEST_ADMIN_USER', 'DSPACE_TEST_ADMIN_PASSWORD']).then(({ DSPACE_TEST_ADMIN_USER, DSPACE_TEST_ADMIN_PASSWORD }) => {
+      cy.loginViaForm(DSPACE_TEST_ADMIN_USER, DSPACE_TEST_ADMIN_PASSWORD);
+    });
     cy.visit('/');
 
     // Verify ds-log-in tag doesn't exist, but ds-log-out tag does exist
@@ -139,7 +145,9 @@ describe('Login Modal', () => {
     testA11y('ds-log-in');
 
     // Now login
-    page.submitLoginAndPasswordByPressingButton(Cypress.env('DSPACE_TEST_ADMIN_USER'), Cypress.env('DSPACE_TEST_ADMIN_PASSWORD'));
+    cy.env(['DSPACE_TEST_ADMIN_USER', 'DSPACE_TEST_ADMIN_PASSWORD']).then(({ DSPACE_TEST_ADMIN_USER, DSPACE_TEST_ADMIN_PASSWORD }) => {
+      page.submitLoginAndPasswordByPressingButton(DSPACE_TEST_ADMIN_USER, DSPACE_TEST_ADMIN_PASSWORD);
+    });
     cy.get('ds-log-in').should('not.exist');
 
     // Open user menu, verify user menu accessibility

@@ -7,7 +7,9 @@ beforeEach(() => {
   cy.intercept('GET', '/server/actuator/health').as('status');
   cy.intercept('GET', '/server/actuator/info').as('info');
   cy.visit('/health');
-  cy.loginViaForm(Cypress.env('DSPACE_TEST_ADMIN_USER'), Cypress.env('DSPACE_TEST_ADMIN_PASSWORD'));
+  cy.env(['DSPACE_TEST_ADMIN_USER', 'DSPACE_TEST_ADMIN_PASSWORD']).then(({ DSPACE_TEST_ADMIN_USER, DSPACE_TEST_ADMIN_PASSWORD }) => {
+    cy.loginViaForm(DSPACE_TEST_ADMIN_USER, DSPACE_TEST_ADMIN_PASSWORD);
+  });
 });
 
 describe('Health Page > Status Tab', () => {
