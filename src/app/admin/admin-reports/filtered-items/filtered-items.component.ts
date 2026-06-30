@@ -151,7 +151,7 @@ export class FilteredItemsComponent implements OnInit {
     ).subscribe(
       (communitiesRest: Community[]) => {
         communitiesRest.forEach(community => {
-          this.collectionService.findByParent(community.uuid, { elementsPerPage: 10000, currentPage: 1 }).pipe(
+          this.collectionService.findByParent(community.uuid, { elementsPerPage: 1000, currentPage: 1 }).pipe(
             getFirstSucceededRemoteListPayload(),
           ).subscribe(
             (collectionsRest: Collection[]) => {
