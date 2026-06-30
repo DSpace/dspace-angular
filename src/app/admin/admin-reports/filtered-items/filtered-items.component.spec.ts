@@ -189,6 +189,24 @@ describe('FilteredItemsComponent', () => {
       expect(component.queryForm.get('collections').value).toEqual(['collection-a1', 'collection-b1']);
     });
 
+    it('should deselect specific collections when Whole Repository is selected', () => {
+      component.queryForm.get('collections').setValue(['collection-a1', 'collection-b1']);
+      component.toggleCollection('');
+      expect(component.queryForm.get('collections').value).toEqual(['']);
+    });
+
+    it('should deselect Whole Repository when a specific collection is selected', () => {
+      component.queryForm.get('collections').setValue(['']);
+      component.toggleCollection('collection-a1');
+      expect(component.queryForm.get('collections').value).toEqual(['collection-a1']);
+    });
+
+    it('should deselect Whole Repository when toggled twice', () => {
+      component.queryForm.get('collections').setValue(['']);
+      component.toggleCollection('');
+      expect(component.queryForm.get('collections').value).toEqual([]);
+    });
+
   });
 
   describe('isCollectionSelected', () => {

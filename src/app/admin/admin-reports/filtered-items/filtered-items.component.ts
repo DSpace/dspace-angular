@@ -182,13 +182,22 @@ export class FilteredItemsComponent implements OnInit {
 
   toggleCollection(collectionId: string): void {
     const control = this.queryForm.get('collections');
-    const current: string[] = control.value || [];
-    const index = current.indexOf(collectionId);
-    if (index > -1) {
-      control.setValue([...current.slice(0, index), ...current.slice(index + 1)]);
+    let current: string[] = control.value || [];
+
+    if (collectionId === '') {
+      // Selecting "Whole Repository" clears any specific collection selection
+      current = current.includes('') ? [] : [''];
     } else {
-      control.setValue([...current, collectionId]);
+      // Selecting a specific collection clears "Whole Repository" if selected
+      current = current.filter(id => id !== '');
+      const index = current.indexOf(collectionId);
+      if (index > -1) {
+        current = [...current.slice(0, index), ...current.slice(index + 1)];
+      } else {
+        current = [...current, collectionId];
+      }
     }
+    control.setValue(current);
   }
 
   isCollectionSelected(collectionId: string): boolean {
