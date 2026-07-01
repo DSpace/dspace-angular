@@ -82,7 +82,8 @@ describe('SearchFacetRangeOptionComponent', () => {
         {
           provide: SearchConfigurationService, useValue: {
             searchOptions: of({}),
-            paginationId: 'page-id',
+            searchInstanceId: 'page-id',
+            getCurrentSearchInstanceFilterParam: (param: string) => `page-id.${param}`,
           },
         },
         {
@@ -136,8 +137,10 @@ describe('SearchFacetRangeOptionComponent', () => {
       };
       (comp as any).updateChangeParams();
       expect(comp.changeQueryParams).toEqual({
-        [mockFilterConfig.paramName + RANGE_FILTER_MIN_SUFFIX]: [50],
-        [mockFilterConfig.paramName + RANGE_FILTER_MAX_SUFFIX]: [60],
+        [`page-id.${mockFilterConfig.paramName}${RANGE_FILTER_MIN_SUFFIX}`]: [50],
+        [`page-id.${mockFilterConfig.paramName}${RANGE_FILTER_MAX_SUFFIX}`]: [60],
+        [mockFilterConfig.paramName + RANGE_FILTER_MIN_SUFFIX]: null,
+        [mockFilterConfig.paramName + RANGE_FILTER_MAX_SUFFIX]: null,
         ['page-id.page']: 1,
       });
     });
