@@ -3,7 +3,10 @@ import {
   ChangeDetectionStrategy,
   Component,
 } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import {
+  RouterLink,
+  RouterOutlet,
+} from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { CollectionPageComponent as BaseComponent } from '../../../../app/collection-page/collection-page.component';
@@ -38,6 +41,7 @@ import { VarDirective } from '../../../../app/shared/utils/var.directive';
     ComcolPageLogoComponent,
     DsoEditMenuComponent,
     ErrorComponent,
+    RouterLink,
     RouterOutlet,
     ThemedComcolPageBrowseByComponent,
     ThemedComcolPageContentComponent,
