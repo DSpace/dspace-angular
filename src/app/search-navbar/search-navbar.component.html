@@ -1,16 +1,24 @@
 <div (dsClickOutside)="collapse()">
   <div class="d-inline-block position-relative">
-    <form [formGroup]="searchForm" (ngSubmit)="onSubmit(searchForm.value)" class="d-flex">
-      <input #searchInput [@toggleAnimation]="isExpanded" [attr.aria-label]="('nav.search' | translate)" name="query"
-             formControlName="query" type="text" placeholder="{{searchExpanded ? ('nav.search' | translate) : ''}}"
-             autocomplete="off"
-             class="d-inline-block bg-transparent position-absolute form-control dropdown-menu-end p1"
-             [class.display]="searchExpanded ? 'inline-block' : 'none'"
-             [tabIndex]="searchExpanded ? 0 : -1"
-             [attr.data-test]="'header-search-box' | dsBrowserOnly">
-      <button class="submit-icon btn btn-link btn-link-inline" [attr.aria-label]="'nav.search.button' | translate" type="button" (click)="searchExpanded ? onSubmit(searchForm.value) : expand()" [attr.data-test]="'header-search-icon' | dsBrowserOnly" tabindex="0" role="button">
+    @if (!searchExpanded) {
+      <button type="button" class="search-toggle btn btn-link btn-link-inline"
+              [attr.aria-label]="'nav.search.button' | translate"
+              (click)="expand()"
+              [attr.data-test]="'header-search-icon' | dsBrowserOnly">
         <em class="fas fa-search fa-lg fa-fw"></em>
       </button>
-    </form>
+    } @else {
+      <form [formGroup]="searchForm" (ngSubmit)="onSubmit(searchForm.value)" autocomplete="on" class="d-flex">
+        <input #searchInput [@toggleAnimation]="isExpanded" [attr.aria-label]="('nav.search' | translate)" name="query"
+               formControlName="query" type="text" placeholder="{{'nav.search' | translate}}"
+               class="d-inline-block bg-transparent position-absolute form-control dropdown-menu-end p1"
+               [attr.data-test]="'header-search-box' | dsBrowserOnly">
+        <button type="submit" class="submit-icon btn btn-link btn-link-inline"
+                [attr.aria-label]="'nav.search.button' | translate"
+                [attr.data-test]="'header-search-icon' | dsBrowserOnly">
+          <em class="fas fa-search fa-lg fa-fw"></em>
+        </button>
+      </form>
+    }
   </div>
 </div>
