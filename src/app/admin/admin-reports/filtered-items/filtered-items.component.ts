@@ -1,4 +1,7 @@
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  NgClass,
+} from '@angular/common';
 import {
   Component,
   OnInit,
@@ -54,6 +57,14 @@ import { PresetQuery } from './preset-query.model';
 import { QueryPredicate } from './query-predicate.model';
 
 /**
+ * Groups collections under their parent community for optgroup rendering
+ */
+interface CollectionGroup {
+  communityName: string;
+  collections: OptionVO[];
+}
+
+/**
  * Component representing the Filtered Items content report.
  */
 @Component({
@@ -66,6 +77,7 @@ import { QueryPredicate } from './query-predicate.model';
     FilteredItemsExportCsvComponent,
     FiltersComponent,
     NgbAccordionModule,
+    NgClass,
     ReactiveFormsModule,
     ThemedLoadingComponent,
     TranslateModule,
@@ -74,6 +86,7 @@ import { QueryPredicate } from './query-predicate.model';
 export class FilteredItemsComponent implements OnInit {
 
   collections: OptionVO[];
+  collectionGroups: CollectionGroup[] = [];
   /**
    * A Boolean representing if loading the list of collections is pending
    */
@@ -104,7 +117,7 @@ export class FilteredItemsComponent implements OnInit {
     private scriptDataService: ScriptDataService,
     private authorizationDataService: AuthorizationDataService,
     private formBuilder: FormBuilder,
-    private restService: DspaceRestService) {}
+    private restService: DspaceRestService) { }
 
   ngOnInit(): void {
     this.loadCollections();
@@ -132,6 +145,7 @@ export class FilteredItemsComponent implements OnInit {
   loadCollections(): void {
     this.loadingCollections$.next(true);
     this.collections = [];
+    this.collectionGroups = [];
     const wholeRepo$ = this.translateService.stream('admin.reports.items.wholeRepo');
     this.collections.push(OptionVO.collectionLoc('', wholeRepo$));
 
@@ -140,24 +154,55 @@ export class FilteredItemsComponent implements OnInit {
     ).subscribe(
       (communitiesRest: Community[]) => {
         communitiesRest.forEach(community => {
-          const commVO = OptionVO.collection(community.uuid, community.name, true);
-          this.collections.push(commVO);
-
-          this.collectionService.findByParent(community.uuid, { elementsPerPage: 10000, currentPage: 1 }).pipe(
+          this.collectionService.findByParent(community.uuid, { elementsPerPage: 1000, currentPage: 1 }).pipe(
             getFirstSucceededRemoteListPayload(),
           ).subscribe(
             (collectionsRest: Collection[]) => {
-              collectionsRest.filter(collection => collection.firstMetadataValue('dspace.entity.type') === 'Publication')
-                .forEach(collection => {
-                  const collVO = OptionVO.collection(collection.uuid, '–' + collection.name);
+              const groupCollections: OptionVO[] = collectionsRest
+                .filter(collection => collection.firstMetadataValue('dspace.entity.type') === 'Publication')
+                .map(collection => {
+                  const collVO = OptionVO.collection(collection.uuid, collection.name);
                   this.collections.push(collVO);
+                  return collVO;
                 });
+
+              if (groupCollections.length > 0) {
+                this.collectionGroups.push({
+                  communityName: community.name,
+                  collections: groupCollections,
+                });
+              }
               this.loadingCollections$.next(false);
             },
           );
         });
       },
     );
+  }
+
+  toggleCollection(collectionId: string): void {
+    const control = this.queryForm.get('collections');
+    let current: string[] = control.value || [];
+
+    if (collectionId === '') {
+      // Selecting "Whole Repository" clears any specific collection selection
+      current = current.includes('') ? [] : [''];
+    } else {
+      // Selecting a specific collection clears "Whole Repository" if selected
+      current = current.filter(id => id !== '');
+      const index = current.indexOf(collectionId);
+      if (index > -1) {
+        current = [...current.slice(0, index), ...current.slice(index + 1)];
+      } else {
+        current = [...current, collectionId];
+      }
+    }
+    control.setValue(current);
+  }
+
+  isCollectionSelected(collectionId: string): boolean {
+    const current: string[] = this.queryForm.get('collections').value || [];
+    return current.includes(collectionId);
   }
 
   loadPresetQueries(): void {

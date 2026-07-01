@@ -12,18 +12,33 @@
             </ng-template>
             <ng-template ngbPanelContent>
               @if (loadingCollections$ | async) {
-                <ds-loading></ds-loading>
+              <ds-loading></ds-loading>
               }
               @if ((loadingCollections$ | async) !== true) {
-                <select id="collSel" name="collSel" class="form-select" multiple="multiple" size="10" formControlName="collections">
-                  @for (item of collections; track item) {
-                    <option [value]="item.id" [disabled]="item.disabled">{{item.name$ | async}}</option>
+              <button type="button" class="list-group-item list-group-item-action border-0 fw-bold mb-2"
+                [ngClass]="{'bg-primary text-white': isCollectionSelected('')}" (click)="toggleCollection('')">
+                {{'admin.reports.items.wholeRepo' | translate}}
+              </button>
+              <div class="collection-tree-selector border rounded p-2"
+                style="max-height: 300px; overflow-y: auto; overflow-x: hidden;">
+                @for (group of collectionGroups; track group.communityName) {
+                <div class="mb-2">
+                  <div class="text-muted small">{{group.communityName}}</div>
+                  @for (item of group.collections; track item) {
+                  <button type="button" class="list-group-item list-group-item-action border-0 fw-bold ms-3"
+                    [ngClass]="{'bg-primary text-white': isCollectionSelected(item.id)}"
+                    (click)="toggleCollection(item.id)">
+                    {{item.name$ | async}}
+                  </button>
                   }
-                </select>
+                </div>
+                }
+              </div>
               }
               <div class="row">
                 <span class="col-3"></span>
-                <button class="btn btn-primary mt-1 col-6" (click)="submit()">{{'admin.reports.items.run' | translate}}</button>
+                <button class="btn btn-primary mt-1 col-6" (click)="submit()">{{'admin.reports.items.run' |
+                  translate}}</button>
               </div>
             </ng-template>
           </ngb-panel>
@@ -38,46 +53,48 @@
                 </label>
                 <select id="predefselect" formControlName="presetQuery" class="form-select" (change)="setPresetQuery()">
                   @for (item of presetQueries; track item.id) {
-                    <option [value]="item.id" [selected]="item.isDefault">{{item.label | translate}}</option>
+                  <option [value]="item.id" [selected]="item.isDefault">{{item.label | translate}}</option>
                   }
                 </select>
               </fieldset>
               <div class="row">&nbsp;</div>
               <div id="queries">
                 @for (pred of queryPredicatesArray().controls; track pred; let i = $index) {
-                  <div class="metadata">
-                    <div [formGroup]="pred" class="mb-3">
-                      <div class="row">
-                        <div class="col-4">
-                          <select class="query-tool" formControlName="field" class="form-select">
-                            @for (item of metadataFieldsWithAny; track item) {
-                              <option [value]="item.id">{{item.name$ | async}}</option>
-                            }
-                          </select>
-                        </div>
-                        <div class="col-auto">
-                          <select class="query-tool" formControlName="operator" class="form-select">
-                            @for (item of predicates; track item) {
-                              <option [value]="item.id">{{item.name$ | async | translate}}</option>
-                            }
-                          </select>
-                        </div>
-                        <div class="col">
-                          <input class="form-control" formControlName="value"/>
-                        </div>
-                        <div class="col-auto">
-                          <button class="btn btn-light" (click)="addQueryPredicate()">+</button>
-                          &nbsp;
-                          <button class="btn btn-light" [dsBtnDisabled]="deleteQueryPredicateDisabled()" (click)="deleteQueryPredicate(i)">–</button>
-                        </div>
+                <div class="metadata">
+                  <div [formGroup]="pred" class="mb-3">
+                    <div class="row">
+                      <div class="col-4">
+                        <select class="query-tool" formControlName="field" class="form-select">
+                          @for (item of metadataFieldsWithAny; track item) {
+                          <option [value]="item.id">{{item.name$ | async}}</option>
+                          }
+                        </select>
+                      </div>
+                      <div class="col-auto">
+                        <select class="query-tool" formControlName="operator" class="form-select">
+                          @for (item of predicates; track item) {
+                          <option [value]="item.id">{{item.name$ | async | translate}}</option>
+                          }
+                        </select>
+                      </div>
+                      <div class="col">
+                        <input class="form-control" formControlName="value" />
+                      </div>
+                      <div class="col-auto">
+                        <button class="btn btn-light" (click)="addQueryPredicate()">+</button>
+                        &nbsp;
+                        <button class="btn btn-light" [dsBtnDisabled]="deleteQueryPredicateDisabled()"
+                          (click)="deleteQueryPredicate(i)">–</button>
                       </div>
                     </div>
                   </div>
+                </div>
                 }
               </div>
               <div class="row">
                 <span class="col-3"></span>
-                <button class="btn btn-primary mt-1 col-6" (click)="submit()">{{'admin.reports.items.run' | translate}}</button>
+                <button class="btn btn-primary mt-1 col-6" (click)="submit()">{{'admin.reports.items.run' |
+                  translate}}</button>
               </div>
             </ng-template>
           </ngb-panel>
@@ -91,20 +108,22 @@
                 <div class="col-6">
                   <select id="limit" name="limit" formControlName="pageLimit" class="form-select col-6">
                     @for (item of pageLimits; track item) {
-                      <option value="{{item.id}}" [selected]="item.isDefault">{{item.name$ | async}}</option>
+                    <option value="{{item.id}}" [selected]="item.isDefault">{{item.name$ | async}}</option>
                     }
                   </select>
                 </div>
               </div>
               <div class="row align-items-center mb-3">
-                <label for="offset" class="col-sm-2 col-form-label">{{'admin.reports.items.offset' | translate}}:</label>
+                <label for="offset" class="col-sm-2 col-form-label">{{'admin.reports.items.offset' |
+                  translate}}:</label>
                 <div class="col-6">
                   <input id="offset" name="offset" value="0" class="form-control col-6">
                 </div>
               </div>
               <div class="row">
                 <span class="col-3"></span>
-                <button class="btn btn-primary col-6" (click)="submit()">{{'admin.reports.items.run' | translate}}</button>
+                <button class="btn btn-primary col-6" (click)="submit()">{{'admin.reports.items.run' |
+                  translate}}</button>
               </div>
             </ng-template>
           </ngb-panel>
@@ -115,12 +134,14 @@
             <ng-template ngbPanelContent>
               <div class="row">
                 <span class="col-3"></span>
-                <button class="btn btn-primary mt-1 col-6" (click)="submit()">{{'admin.reports.items.run' | translate}}</button>
+                <button class="btn btn-primary mt-1 col-6" (click)="submit()">{{'admin.reports.items.run' |
+                  translate}}</button>
               </div>
               <ds-filters [filtersForm]="filtersFormGroup()"></ds-filters>
               <div class="row">
                 <span class="col-3"></span>
-                <button class="btn btn-primary mt-1 col-6" (click)="submit()">{{'admin.reports.items.run' | translate}}</button>
+                <button class="btn btn-primary mt-1 col-6" (click)="submit()">{{'admin.reports.items.run' |
+                  translate}}</button>
               </div>
             </ng-template>
           </ngb-panel>
@@ -130,19 +151,21 @@
             </ng-template>
             <ng-template ngbPanelContent>
               <div id="show-fields">
-                <select class="query-tool" name="show_fields" multiple="multiple" size="8" class="form-select" formControlName="additionalFields">
+                <select class="query-tool" name="show_fields" multiple="multiple" size="8" class="form-select"
+                  formControlName="additionalFields">
                   @for (item of metadataFields; track item) {
-                    <option [value]="item.id">{{item.name$ | async}}</option>
+                  <option [value]="item.id">{{item.name$ | async}}</option>
                   }
                 </select>
               </div>
               <div class="row">
                 @if (csvExportEnabled$ | async) {
-                  <span class="col-3"></span>
-                  <div class="warning">{{ 'metadata-export-filtered-items.columns.warning' | translate }}</div>
+                <span class="col-3"></span>
+                <div class="warning">{{ 'metadata-export-filtered-items.columns.warning' | translate }}</div>
                 }
                 <span class="col-3"></span>
-                <button class="btn btn-primary mt-1 col-6" (click)="submit()">{{'admin.reports.items.run' | translate}}</button>
+                <button class="btn btn-primary mt-1 col-6" (click)="submit()">{{'admin.reports.items.run' |
+                  translate}}</button>
               </div>
             </ng-template>
           </ngb-panel>
@@ -160,41 +183,49 @@
                     <th>{{ "admin.reports.items.handle" | translate }}</th>
                     <th>{{ "admin.reports.items.title" | translate }}</th>
                     @for (field of queryForm.value['additionalFields']; track field) {
-                      <th>{{ field }}</th>
+                    <th>{{ field }}</th>
                     }
                   </tr>
                 </thead>
                 <tbody>
                   @for (item of results$ | async; track item) {
-                    <tr>
-                      <td class="num">{{ item.index }}</td>
-                      <td>{{ item.uuid }}</td>
-                      <td>@if (item.owningCollection) {
-                        <a href="/handle/{{ item.owningCollection.handle }}" rel="noopener noreferrer" target="_blank">{{ item.owningCollection.name }}</a>
-                      }</td>
-                      <td>@if (item.handle) {
-                        <a href="/handle/{{ item.handle }}" rel="noopener noreferrer" target="_blank">{{ item.handle }}</a>
-                      }</td>
-                      <td>{{ item.name }}</td>
-                      @for (field of queryForm.value['additionalFields']; track field) {
-                        <td class="num">
-                          @for (mdvalue of item.metadata[field]; track mdvalue) {
-                            <span>
-                              {{ mdvalue.value || "" }}
-                            </span>
-                          }
-                        </td>
+                  <tr>
+                    <td class="num">{{ item.index }}</td>
+                    <td>{{ item.uuid }}</td>
+                    <td>@if (item.owningCollection) {
+                      <a href="/handle/{{ item.owningCollection.handle }}" rel="noopener noreferrer" target="_blank">{{
+                        item.owningCollection.name }}</a>
                       }
-                    </tr>
+                    </td>
+                    <td>@if (item.handle) {
+                      <a href="/handle/{{ item.handle }}" rel="noopener noreferrer" target="_blank">{{ item.handle
+                        }}</a>
+                      }
+                    </td>
+                    <td>{{ item.name }}</td>
+                    @for (field of queryForm.value['additionalFields']; track field) {
+                    <td class="num">
+                      @for (mdvalue of item.metadata[field]; track mdvalue) {
+                      <span>
+                        {{ mdvalue.value || "" }}
+                      </span>
+                      }
+                    </td>
+                    }
+                  </tr>
                   }
                 </tbody>
               </table>
               <div>
-                {{'admin.reports.commons.page' | translate}} {{ currentPage + 1 }} {{'admin.reports.commons.of' | translate}} {{ pageCount() }}
+                {{'admin.reports.commons.page' | translate}} {{ currentPage + 1 }} {{'admin.reports.commons.of' |
+                translate}} {{ pageCount() }}
               </div>
               <div>
-                <button id="prev" class="btn btn-light" (click)="prevPage()" [dsBtnDisabled]="!canNavigatePrevious()">{{'admin.reports.commons.previous-page' | translate}}</button>
-                <button id="next" class="btn btn-light" (click)="nextPage()" [dsBtnDisabled]="!canNavigateNext()">{{'admin.reports.commons.next-page' | translate}}</button>
+                <button id="prev" class="btn btn-light" (click)="prevPage()"
+                  [dsBtnDisabled]="!canNavigatePrevious()">{{'admin.reports.commons.previous-page' |
+                  translate}}</button>
+                <button id="next" class="btn btn-light" (click)="nextPage()"
+                  [dsBtnDisabled]="!canNavigateNext()">{{'admin.reports.commons.next-page' | translate}}</button>
                 <div style="float: right; margin-right: 60px;">
                   <ds-filtered-items-export-csv [reportParams]="queryForm"></ds-filtered-items-export-csv>
                 </div>
