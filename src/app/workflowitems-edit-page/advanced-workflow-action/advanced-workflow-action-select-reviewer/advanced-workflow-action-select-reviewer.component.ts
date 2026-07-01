@@ -31,11 +31,11 @@ import { Subscription } from 'rxjs';
 
 import { EPersonListActionConfig } from '../../../access-control/group-registry/group-form/members-list/members-list.component';
 import { ModifyItemOverviewComponent } from '../../../item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
+import { ClaimedTaskType } from '../../../shared/mydspace-actions/claimed-task/claimed-task-type';
+import { rendersAdvancedWorkflowTaskOption } from '../../../shared/mydspace-actions/claimed-task/switcher/claimed-task-actions-decorator';
 import { AdvancedWorkflowActionComponent } from '../advanced-workflow-action/advanced-workflow-action.component';
+import { AdvancedWorkflowActionType } from '../advanced-workflow-action-type';
 import { ReviewersListComponent } from './reviewers-list/reviewers-list.component';
-
-export const ADVANCED_WORKFLOW_TASK_OPTION_SELECT_REVIEWER = 'submit_select_reviewer';
-export const ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER = 'selectrevieweraction';
 
 /**
  * The page on which Review Managers can assign Reviewers to review an item.
@@ -52,6 +52,7 @@ export const ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER = 'selectrevieweraction';
     TranslateModule,
   ],
 })
+@rendersAdvancedWorkflowTaskOption(AdvancedWorkflowActionType.ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER)
 export class AdvancedWorkflowActionSelectReviewerComponent extends AdvancedWorkflowActionComponent implements OnInit, OnDestroy {
 
   multipleReviewers = true;
@@ -128,7 +129,7 @@ export class AdvancedWorkflowActionSelectReviewerComponent extends AdvancedWorkf
   }
 
   getType(): string {
-    return ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER;
+    return AdvancedWorkflowActionType.ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER;
   }
 
   /**
@@ -147,7 +148,7 @@ export class AdvancedWorkflowActionSelectReviewerComponent extends AdvancedWorkf
    */
   createBody(): any {
     return {
-      [ADVANCED_WORKFLOW_TASK_OPTION_SELECT_REVIEWER]: true,
+      [ClaimedTaskType.ADVANCED_WORKFLOW_TASK_OPTION_SELECT_REVIEWER]: true,
       eperson: this.selectedReviewers.map((ePerson: EPerson) => ePerson.id),
     };
   }
