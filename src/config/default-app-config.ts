@@ -375,6 +375,8 @@ export class DefaultAppConfig implements AppConfig {
       pageSize: 5,
     },
     showDiscoverFilters: false,
+    editHomeNews: true,
+    editHomeHeader: true,
   };
 
   // Item Config
