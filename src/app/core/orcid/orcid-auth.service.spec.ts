@@ -298,7 +298,7 @@ describe('OrcidAuthService', () => {
 
     it('should build the url properly', () => {
       const result = service.getOrcidAuthorizeUrl(mockItemUnlinkedToOrcid);
-      const redirectUri: string = new URLCombiner(nativeWindowService.nativeWindow.origin, encodeURIComponent(routerStub.url.split('?')[0])).toString();
+      const redirectUri: string = new URLCombiner(nativeWindowService.nativeWindow.origin, routerStub.url.split('?')[0]).toString();
       const url = 'orcid.authorize-url?client_id=orcid.application-client-id&redirect_uri=' + redirectUri + '&response_type=code&scope=/authenticate /read-limited';
 
       const expected = cold('(a|)', {
