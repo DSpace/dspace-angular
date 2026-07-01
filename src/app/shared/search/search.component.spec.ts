@@ -23,6 +23,7 @@ import {
 import { CommunityDataService } from '@dspace/core/data/community-data.service';
 import { RemoteData } from '@dspace/core/data/remote-data';
 import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
 import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
 import {
   getCollectionPageRoute,
@@ -31,6 +32,7 @@ import {
 import { RouteService } from '@dspace/core/services/route.service';
 import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import { Item } from '@dspace/core/shared/item.model';
+import { PageInfo } from '@dspace/core/shared/page-info.model';
 import { FilterType } from '@dspace/core/shared/search/models/filter-type.model';
 import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
 import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
@@ -39,6 +41,7 @@ import {
   SearchConfig,
   SortConfig,
 } from '@dspace/core/shared/search/search-filters/search-config.model';
+import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
 import { SidebarServiceStub } from '@dspace/core/testing/sidebar-service.stub';
 import {
   createSuccessfulRemoteDataObject,
@@ -253,6 +256,7 @@ export function configureSearchComponentTestingModule(compType, additionalDeclar
       { provide: APP_DATA_SERVICES_MAP, useValue: {} },
       { provide: APP_CONFIG, useValue: environment },
       { provide: PLATFORM_ID, useValue: 'browser' },
+      { provide: PaginationService, useClass: PaginationServiceStub },
     ],
     schemas: [NO_ERRORS_SCHEMA],
   }).overrideComponent(compType, {
@@ -451,5 +455,72 @@ describe('SearchComponent', () => {
         expect(searchManagerStub.search).toHaveBeenCalled();
       }));
     });
+  });
+
+  describe('Fallback pagination logic', () => {
+    let paginationServiceStub: PaginationServiceStub;
+
+    beforeEach(() => {
+      paginationServiceStub = TestBed.inject(PaginationService) as any;
+    });
+
+    afterEach(() => {
+      searchManagerStub.search.and.returnValue(mockResultsRD$);
+      paginationServiceStub.updateRoute.calls.reset();
+    });
+
+    it('should navigate to last available page when requested page exceeds total pages', fakeAsync(() => {
+      // Mock search to return empty results with totalPages = 3
+      const emptySearchResults: SearchObjects<DSpaceObject> = Object.assign(new SearchObjects(), {
+        page: [],
+        pageInfo: Object.assign(new PageInfo(), { totalPages: 3, totalElements: 25, elementsPerPage: 10, currentPage: 5 }),
+      });
+      const emptyResultsRD = createSuccessfulRemoteDataObject(emptySearchResults);
+      searchManagerStub.search.and.returnValue(of(emptyResultsRD));
+
+      fixture.detectChanges();
+      tick(100);
+
+      // Reset updateRoute spy to only track calls after the page change
+      paginationServiceStub.updateRoute.calls.reset();
+
+      // Emit new search options with currentPage = 5 (exceeding totalPages = 3)
+      const paginationOptions = Object.assign(new PaginationComponentOptions(), {
+        id: paginationId,
+        currentPage: 5,
+        pageSize: 10,
+      });
+      paginatedSearchOptions$.next(new PaginatedSearchOptions({ pagination: paginationOptions }));
+      tick(100);
+
+      expect(paginationServiceStub.updateRoute).toHaveBeenCalledWith(paginationId, { page: 3 });
+    }));
+
+    it('should NOT navigate when requested page is within total pages', fakeAsync(() => {
+      // Mock search to return results on page 2
+      const searchResultsPage2: SearchObjects<DSpaceObject> = Object.assign(new SearchObjects(), {
+        page: [mockDso],
+        pageInfo: Object.assign(new PageInfo(), { totalPages: 3, totalElements: 25, elementsPerPage: 10, currentPage: 2 }),
+      });
+      const resultsRD = createSuccessfulRemoteDataObject(searchResultsPage2);
+      searchManagerStub.search.and.returnValue(of(resultsRD));
+
+      fixture.detectChanges();
+      tick(100);
+
+      // Reset updateRoute spy
+      paginationServiceStub.updateRoute.calls.reset();
+
+      // Emit new search options with currentPage = 2 (within totalPages = 3)
+      const paginationOptions = Object.assign(new PaginationComponentOptions(), {
+        id: paginationId,
+        currentPage: 2,
+        pageSize: 10,
+      });
+      paginatedSearchOptions$.next(new PaginatedSearchOptions({ pagination: paginationOptions }));
+      tick(100);
+
+      expect(paginationServiceStub.updateRoute).not.toHaveBeenCalled();
+    }));
   });
 });
