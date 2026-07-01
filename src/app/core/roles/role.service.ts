@@ -1,13 +1,17 @@
 import { Injectable } from '@angular/core';
 import {
+  combineLatest,
   Observable,
-  of,
 } from 'rxjs';
-import { distinctUntilChanged } from 'rxjs/operators';
+import {
+  distinctUntilChanged,
+  map,
+} from 'rxjs/operators';
 
 import { CollectionDataService } from '../data/collection-data.service';
+import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../data/feature-authorization/feature-id';
 import { RoleType } from './role-types';
-
 /**
  * A service that provides methods to identify user role.
  */
@@ -19,32 +23,39 @@ export class RoleService {
    *
    * @param {CollectionDataService} collectionService
    */
-  constructor(private collectionService: CollectionDataService) {
+  constructor(
+    private collectionService: CollectionDataService,
+    private authorizationService: AuthorizationDataService,
+  ) {
   }
 
   /**
    * Check if current user is a submitter
    */
   isSubmitter(): Observable<boolean> {
-    return this.collectionService.hasAuthorizedCollection().pipe(
-      distinctUntilChanged(),
-    );
+    return this.collectionService.hasAuthorizedCollection().pipe(distinctUntilChanged());
   }
 
   /**
    * Check if current user is a controller
    */
   isController(): Observable<boolean> {
-    // TODO find a way to check if user is a controller
-    return of(true);
+    return combineLatest([
+      this.authorizationService.isAuthorized(FeatureID.IsCollectionAdmin),
+      this.authorizationService.isAuthorized(FeatureID.IsCommunityAdmin),
+    ]).pipe(
+      map(([isCollectionAdmin, isCommunityAdmin]) => isCollectionAdmin || isCommunityAdmin),
+      distinctUntilChanged(),
+    );
   }
 
   /**
    * Check if current user is an admin
    */
   isAdmin(): Observable<boolean> {
-    // TODO find a way to check if user is an admin
-    return of(false);
+    return this.authorizationService.isAuthorized(FeatureID.AdministratorOf).pipe(
+      distinctUntilChanged(),
+    );
   }
 
   /**
