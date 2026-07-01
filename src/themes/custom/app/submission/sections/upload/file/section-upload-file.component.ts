@@ -1,5 +1,6 @@
 import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { SubmissionSectionUploadFileComponent as BaseComponent } from 'src/app/submission/sections/upload/file/section-upload-file.component';
 
@@ -16,6 +17,7 @@ import { SubmissionSectionUploadFileViewComponent } from '../../../../../../../a
   imports: [
     AsyncPipe,
     BtnDisabledDirective,
+    NgbTooltipModule,
     SubmissionSectionUploadFileViewComponent,
     ThemedFileDownloadLinkComponent,
     TranslateModule,
