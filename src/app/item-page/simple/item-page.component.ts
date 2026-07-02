@@ -61,6 +61,8 @@ import { CustomUrlConflictErrorComponent } from './custom-url-conflict-error/cus
 import { NotifyRequestsStatusComponent } from './notify-requests-status/notify-requests-status-component/notify-requests-status.component';
 import { QaEventNotificationComponent } from './qa-event-notification/qa-event-notification.component';
 
+import { AuthService } from '../../core/auth/auth.service';
+
 /**
  * This component renders a simple item page.
  * The route parameter 'id' is used to request the item it represents.
@@ -121,6 +123,11 @@ export class ItemPageComponent implements OnInit, OnDestroy {
    */
   isAdmin$: Observable<boolean>;
 
+  /**
+   * Whether the current user is logged in
+   */
+  isLoggedIn$: Observable<boolean>;
+
   itemUrl: string;
 
   /**
@@ -152,6 +159,7 @@ export class ItemPageComponent implements OnInit, OnDestroy {
     protected signpostingDataService: SignpostingDataService,
     protected linkHeadService: LinkHeadService,
     protected notifyInfoService: NotifyInfoService,
+    protected auth: AuthService,
     @Inject(PLATFORM_ID) protected platformId: string,
   ) {
     this.initPageLinks();
@@ -182,6 +190,8 @@ export class ItemPageComponent implements OnInit, OnDestroy {
         return null;
       }),
     );
+
+    this.isLoggedIn$ = this.auth.isAuthenticated();
   }
 
   /**
