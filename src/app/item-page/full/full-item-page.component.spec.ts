@@ -13,6 +13,7 @@ import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { AuthService } from '@dspace/core/auth/auth.service';
 import { NotifyInfoService } from '@dspace/core/coar-notify/notify-info/notify-info.service';
 import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
 import { ItemDataService } from '@dspace/core/data/item-data.service';
@@ -132,6 +133,11 @@ describe('FullItemPageComponent', () => {
       getInboxRelationLink: of('http://test.org'),
     });
 
+    const authService = jasmine.createSpyObj('authService', {
+      isAuthenticated: of(true),
+      setRedirectUrl: {},
+    });
+
     headTagService = new HeadTagServiceMock();
 
     TestBed.configureTestingModule({
@@ -153,6 +159,7 @@ describe('FullItemPageComponent', () => {
         { provide: PLATFORM_ID, useValue: 'server' },
         { provide: ThemeService, useValue: getMockThemeService() },
         { provide: HardRedirectService, useValue: {} },
+        { provide: AuthService, useValue: authService },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
