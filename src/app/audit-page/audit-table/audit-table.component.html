@@ -24,7 +24,8 @@
         </tr>
         </thead>
         <tbody>
-          @for (audit of audits?.page; track audit) {
+          @for (row of auditRows; track row.audit) {
+            @let audit = row.audit;
             <tr>
               <td>
                 @if (audit.hasDetails) {
@@ -51,7 +52,7 @@
               @if (isOverviewPage) {
                 <td>
                   @if (audit.objectUUID) {
-                    <ng-container *ngVar="(getObjectRoute$(audit.objectUUID) | async) as objectRoute">
+                    <ng-container *ngVar="(row.objectRoute$ | async) as objectRoute">
                       @if (objectRoute !== ('/' + auditPath)) {
                         <a [routerLink]="[objectRoute]">{{audit.objectUUID}}</a>
                       } @else {
@@ -63,7 +64,7 @@
                 <td>{{ audit.objectType }}</td>
                 <td>
                   @if (audit.subjectUUID) {
-                    <ng-container *ngVar="(getObjectRoute$(audit.subjectUUID) | async) as subjectRoute">
+                    <ng-container *ngVar="(row.subjectRoute$ | async) as subjectRoute">
                       @if (subjectRoute !== ('/' + auditPath)) {
                         <a [routerLink]="[subjectRoute]">{{audit.subjectUUID}}</a>
                       } @else {

@@ -39,7 +39,10 @@ import {
   getItemBitstreamsServiceStub,
   ItemBitstreamsServiceStub,
 } from '../item-bitstreams.service.stub';
-import { ItemEditBitstreamBundleComponent } from './item-edit-bitstream-bundle.component';
+import {
+  BitstreamTableEntryWithReplace,
+  ItemEditBitstreamBundleComponent,
+} from './item-edit-bitstream-bundle.component';
 
 describe('ItemEditBitstreamBundleComponent', () => {
   let comp: ItemEditBitstreamBundleComponent;
@@ -324,7 +327,7 @@ describe('ItemEditBitstreamBundleComponent', () => {
       const event = new KeyboardEvent('keydown');
       spyOnProperty(event, 'repeat', 'get').and.returnValue(false);
 
-      const entry = { } as BitstreamTableEntry;
+      const entry = { } as BitstreamTableEntryWithReplace;
       comp.tableEntries$.next([entry]);
 
       comp.select(event, entry);
@@ -335,7 +338,7 @@ describe('ItemEditBitstreamBundleComponent', () => {
       const event = new KeyboardEvent('keydown');
       spyOnProperty(event, 'repeat', 'get').and.returnValue(false);
 
-      const entry = { } as BitstreamTableEntry;
+      const entry = { } as BitstreamTableEntryWithReplace;
       comp.tableEntries$.next([entry]);
 
       itemBitstreamsService.getSelectedBitstream.and.returnValue({ bitstream: entry });
@@ -349,7 +352,7 @@ describe('ItemEditBitstreamBundleComponent', () => {
       const event = new KeyboardEvent('keydown');
       spyOnProperty(event, 'repeat', 'get').and.returnValue(true);
 
-      const entry = { } as BitstreamTableEntry;
+      const entry = { } as BitstreamTableEntryWithReplace;
       comp.tableEntries$.next([entry]);
 
       itemBitstreamsService.getSelectedBitstream.and.returnValue({ bitstream: entry });

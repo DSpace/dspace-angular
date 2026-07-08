@@ -40,6 +40,7 @@ import {
 import {
   filter,
   map,
+  shareReplay,
   take,
   tap,
 } from 'rxjs/operators';
@@ -106,6 +107,19 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
   protected subs: Subscription[] = [];
 
   private filteredServicesByPattern = {};
+
+  /**
+   * Memoized per-pattern list of available LDN services, so repeated template lookups for the
+   * same pattern resolve to the exact same Observable instance instead of re-fetching every time.
+   */
+  private filterServicesCache = new Map<string, Observable<LdnService[]>>();
+
+  /**
+   * Memoized per-(pattern, index) stream of shown section errors, so repeated template lookups
+   * resolve to the exact same (continuously updating) Observable instance instead of taking a
+   * fresh one-off snapshot every change detection cycle.
+   */
+  private shownSectionErrorsCache = new Map<string, Observable<SubmissionSectionError[]>>();
 
   constructor(protected ldnServicesService: LdnServicesService,
               // protected formOperationsService: SectionFormOperationsService,
@@ -266,31 +280,35 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
    * Retrieve services with corresponding patterns to the dropdowns.
    */
   filterServices(pattern: string): Observable<LdnService[]> {
-    return this.ldnServicesService.findByInboundPattern(pattern).pipe(
-      getFirstCompletedRemoteData(),
-      tap((rd) => {
-        if (rd.hasFailed) {
-          throw new Error(`Failed to retrieve services for pattern ${pattern}`);
-        }
-      }),
-      filter((rd) => rd.hasSucceeded),
-      getRemoteDataPayload(),
-      getPaginatedListPayload(),
-      tap(res => {
-        if (!this.filteredServicesByPattern[pattern]){
-          this.filteredServicesByPattern[pattern] = [];
-        }
-        if (this.filteredServicesByPattern[pattern].length === 0) {
-          this.filteredServicesByPattern[pattern].push(...res);
-        }
-      }),
-      map((res: LdnService[]) => res.filter((service) => {
-        if (!this.hasSectionData){
-          this.hasSectionData = this.hasInboundPattern(service, pattern);
-        }
-        return this.hasInboundPattern(service, pattern);
-      })),
-    );
+    if (!this.filterServicesCache.has(pattern)) {
+      this.filterServicesCache.set(pattern, this.ldnServicesService.findByInboundPattern(pattern).pipe(
+        getFirstCompletedRemoteData(),
+        tap((rd) => {
+          if (rd.hasFailed) {
+            throw new Error(`Failed to retrieve services for pattern ${pattern}`);
+          }
+        }),
+        filter((rd) => rd.hasSucceeded),
+        getRemoteDataPayload(),
+        getPaginatedListPayload(),
+        tap(res => {
+          if (!this.filteredServicesByPattern[pattern]){
+            this.filteredServicesByPattern[pattern] = [];
+          }
+          if (this.filteredServicesByPattern[pattern].length === 0) {
+            this.filteredServicesByPattern[pattern].push(...res);
+          }
+        }),
+        map((res: LdnService[]) => res.filter((service) => {
+          if (!this.hasSectionData){
+            this.hasSectionData = this.hasInboundPattern(service, pattern);
+          }
+          return this.hasInboundPattern(service, pattern);
+        })),
+        shareReplay({ bufferSize: 1, refCount: true }),
+      ));
+    }
+    return this.filterServicesCache.get(pattern);
   }
 
   /**
@@ -330,17 +348,17 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
    * @returns An observable of the errors for the current section that match the given pattern and index.
    */
   public getShownSectionErrors$(pattern: string, index: number): Observable<SubmissionSectionError[]> {
-    return this.sectionService.getShownSectionErrors(this.submissionId, this.sectionData.id, this.sectionData.sectionType)
-      .pipe(
-        take(1),
-        filter((validationErrors) => isNotEmpty(validationErrors)),
-        map((validationErrors: SubmissionSectionError[]) => {
-          return validationErrors.filter((error) => {
-            const path = `${pattern}/${index}`;
-            return error.path.includes(path);
-          });
-        }),
-      );
+    const key = `${pattern}/${index}`;
+    if (!this.shownSectionErrorsCache.has(key)) {
+      this.shownSectionErrorsCache.set(key, this.sectionService.getShownSectionErrors(this.submissionId, this.sectionData.id, this.sectionData.sectionType)
+        .pipe(
+          map((validationErrors: SubmissionSectionError[]) => {
+            return validationErrors.filter((error) => error.path.includes(key));
+          }),
+          shareReplay({ bufferSize: 1, refCount: true }),
+        ));
+    }
+    return this.shownSectionErrorsCache.get(key);
   }
 
   /**
