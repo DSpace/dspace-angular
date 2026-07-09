@@ -10,7 +10,7 @@ Overview
 
 DSpace open source software is a turnkey repository application used by more than
 2,000 organizations and institutions worldwide to provide durable access to digital resources.
-For more information, visit https://www.dspace.org/
+For more information, visit https://dspace.org/
 
 DSpace consists of both a Java-based backend and an Angular-based frontend.
 
@@ -24,13 +24,15 @@ Downloads
 * Backend (REST API): https://github.com/DSpace/DSpace/releases
 * Frontend (User Interface): https://github.com/DSpace/dspace-angular/releases
 
+On our wiki, you may also find a [list of all past releases, including their current levels of support](https://wiki.lyrasis.org/spaces/DSPACE/pages/69010426/Releases).
+
 
 ## Documentation / Installation
 
 Documentation for each release may be viewed online or downloaded via our [Documentation Wiki](https://wiki.lyrasis.org/display/DSDOC/).
 
 The latest DSpace Installation instructions are available at:
-https://wiki.lyrasis.org/display/DSDOC9x/Installing+DSpace
+https://wiki.lyrasis.org/display/DSDOC10x/Installing+DSpace
 
 Quick start
 -----------
@@ -349,7 +351,7 @@ See our [DSpace Code Testing Guide](https://wiki.lyrasis.org/display/DSPACE/Code
 Documentation
 --------------
 
-Official DSpace documentation is available in the DSpace wiki at https://wiki.lyrasis.org/display/DSDOC9x/
+Official DSpace documentation is available in the DSpace wiki at https://wiki.lyrasis.org/display/DSDOC10x/
 
 Some UI specific configuration documentation is also found in the [`./docs`](docs) folder of this codebase.
 
@@ -382,7 +384,11 @@ To get the most out of TypeScript, you'll need a TypeScript-aware editor. We've 
 Contributing
 -------------
 
-See [Contributing documentation](CONTRIBUTING.md)
+See our [Contributing guidelines](CONTRIBUTING.md) for general tips on contributing back to DSpace.
+
+For developers, we also provide guidelines for:
+* [Code Style](CODE_STYLE.md) - our code formatting rules
+* [Code Conventions](CODE_CONVENTIONS.md) - our established coding best practices
 
 File Structure
 --------------
@@ -564,7 +570,7 @@ DSpace uses GitHub to track issues:
 License
 -------
 DSpace source code is freely available under a standard [BSD 3-Clause license](https://opensource.org/licenses/BSD-3-Clause).
-The full license is available in the [LICENSE](LICENSE) file or online at https://www.dspace.org/license/
+The full license is available in the [LICENSE](LICENSE) file or online at https://dspace.org/license/
 
 DSpace uses third-party libraries which may be distributed under different licenses. Those licenses are listed
 in the [LICENSES_THIRD_PARTY](LICENSES_THIRD_PARTY) file.
