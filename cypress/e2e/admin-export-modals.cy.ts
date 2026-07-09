@@ -4,7 +4,9 @@ describe('Admin Export Modals', () => {
   beforeEach(() => {
     // Must login as an Admin for sidebar to appear
     cy.visit('/login');
-    cy.loginViaForm(Cypress.env('DSPACE_TEST_ADMIN_USER'), Cypress.env('DSPACE_TEST_ADMIN_PASSWORD'));
+    cy.env(['DSPACE_TEST_ADMIN_USER', 'DSPACE_TEST_ADMIN_PASSWORD']).then(({ DSPACE_TEST_ADMIN_USER, DSPACE_TEST_ADMIN_PASSWORD }) => {
+      cy.loginViaForm(DSPACE_TEST_ADMIN_USER, DSPACE_TEST_ADMIN_PASSWORD);
+    });
   });
 
   it('Export metadata modal should pass accessibility tests', () => {
