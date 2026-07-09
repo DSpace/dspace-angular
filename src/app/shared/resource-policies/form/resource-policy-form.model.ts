@@ -52,7 +52,7 @@ const policyActionList: DynamicFormOptionConfig<any>[] = [
     value: ActionType.ADMIN,
   },
   {
-    label: ActionType.DELETE.toString(),
+    label: 'DELETE',
     value: ActionType.DELETE,
   },
   {

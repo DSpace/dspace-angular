@@ -1011,6 +1011,26 @@
 
   "bitstream.edit.form.iiifHeight.hint": "The canvas height should usually match the image height.",
 
+  "bitstream.edit.form.mediaType.label": "Audio or video media type",
+
+  "bitstream.edit.form.mediaType.hint": "Choose how this bitstream should be interpreted.",
+
+  "bitstream.edit.form.mediaType.option.neither": "Neither",
+
+  "bitstream.edit.form.mediaType.option.audio": "Audio",
+
+  "bitstream.edit.form.mediaType.option.video": "Video",
+
+  "bitstream.edit.form.mediaType.option.audio-video": "Audio and video",
+
+  "bitstream.edit.form.audioTranscript.label": "Audio transcript",
+
+  "bitstream.edit.form.audioTranscript.hint": "Provide a transcript for audio content.",
+
+  "bitstream.edit.form.videoDescription.label": "Video description",
+
+  "bitstream.edit.form.videoDescription.hint": "Provide a description for video content.",
+
   "bitstream.edit.notifications.saved.content": "Your changes to this bitstream were saved.",
 
   "bitstream.edit.notifications.saved.title": "Bitstream saved",
@@ -2237,7 +2257,7 @@
 
   "form.entry.source.zdb": "",
 
-  "form.entry.source.sherpa": "- Sherpa Romeo",
+  "form.entry.source.jisc": "- Jisc Open policy finder",
 
   "form.remove": "Remove",
 
@@ -3031,11 +3051,15 @@
 
   "item.truncatable-part.show-less": "Collapse",
 
-  "item.qa-event-notification.check.notification-info": "There are {{num}} pending suggestions related to your account",
+  "item.qa-event-notification.check.notification-info.singular": "There is {{num}} pending suggestion related to your account",
+
+  "item.qa-event-notification.check.notification-info.plural": "There are {{num}} pending suggestions related to your account",
 
   "item.qa-event-notification-info.check.button": "View",
 
-  "mydspace.qa-event-notification.check.notification-info": "There are {{num}} pending suggestions related to your account",
+  "mydspace.qa-event-notification.check.notification-info.singular": "There is {{num}} pending suggestion related to your account",
+
+  "mydspace.qa-event-notification.check.notification-info.plural": "There are {{num}} pending suggestions related to your account",
 
   "mydspace.qa-event-notification-info.check.button": "View",
 
@@ -5370,11 +5394,11 @@
 
   "submission.import-external.source.loading": "Loading ...",
 
-  "submission.import-external.source.sherpaJournal": "SHERPA Journals",
+  "submission.import-external.source.opfJournal": "Jisc Open policy finder Journals",
 
-  "submission.import-external.source.sherpaJournalIssn": "SHERPA Journals by ISSN",
+  "submission.import-external.source.opfJournalIssn": "Jisc Open policy finder Journals by ISSN",
 
-  "submission.import-external.source.sherpaPublisher": "SHERPA Publishers",
+  "submission.import-external.source.opfPublisher": "Jisc Open policy finder Publishers",
 
   "submission.import-external.source.openaire": "OpenAIRE Search by Authors",
 
@@ -5474,6 +5498,8 @@
 
   "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.added.new-entity": "Successfully imported and added external author to the selection",
 
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isJournalOfVolume.added.new-entity": "Successfully imported and added external journal to the selection",
+
   "submission.sections.describe.relationship-lookup.external-source.import-modal.authority": "Authority",
 
   "submission.sections.describe.relationship-lookup.external-source.import-modal.authority.new": "Import as a new local authority entry",
@@ -5496,9 +5522,9 @@
 
   "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openaireFunding": "Importing from OpenAIRE",
 
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaJournal": "Importing from Sherpa Journal",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.jiscJournal": "Importing from Jisc Open policy finder Journal",
 
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaPublisher": "Importing from Sherpa Publisher",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.jiscPublisher": "Importing from Jisc Open policy finder Publisher",
 
   "submission.sections.describe.relationship-lookup.external-source.import-modal.head.pubmed": "Importing from PubMed",
 
@@ -5582,9 +5608,9 @@
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalVolume": "Local Journal Volumes ({{ count }})",
 
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournal": "Sherpa Journals ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.jiscJournal": "Jisc Open policy finder Journals ({{ count }})",
 
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaPublisher": "Sherpa Publishers ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.jiscPublisher": "Jisc Open policy finder Publishers ({{ count }})",
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.orcid": "ORCID ({{ count }})",
 
@@ -5608,7 +5634,7 @@
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.openaireFunding": "OpenAIRE Search by Funder ({{ count }})",
 
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournalIssn": "Sherpa Journals by ISSN ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.jiscJournalIssn": "Jisc Open policy finder Journals by ISSN ({{ count }})",
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.openalexPerson": "OpenAlex ({{ count }})",
 
@@ -5633,6 +5659,10 @@
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isPublicationOfAuthor": "Publication of the Author",
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isOrgUnitOfProject": "OrgUnit of the Project",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalOfVolume": "Journal of the Volume",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.opfJournal": "Jisc Open policy finder of Journal",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.isProjectOfPublication": "Project",
 
@@ -5686,6 +5716,8 @@
 
   "submission.sections.describe.relationship-lookup.title.isOrgUnitOfProject": "OrgUnit",
 
+  "submission.sections.describe.relationship-lookup.title.isJournalOfVolume": "Journal",
+
   "submission.sections.describe.relationship-lookup.search-tab.toggle-dropdown": "Toggle dropdown",
 
   "submission.sections.describe.relationship-lookup.selection-tab.settings": "Settings",
@@ -5726,9 +5758,9 @@
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.isChildOrgUnitOf": "Selected Organizational Unit",
 
-  "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaJournal": "Search Results",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.jiscJournal": "Search Results",
 
-  "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaPublisher": "Search Results",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.jiscPublisher": "Search Results",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.orcid": "Search Results",
 
@@ -5767,6 +5799,8 @@
   "submission.sections.describe.relationship-lookup.selection-tab.title.openalexFunder": "Search Results",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.dataciteProject": "Search Results",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.opfJournal": "Search Results",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title": "Search Results",
 
@@ -5858,13 +5892,11 @@
 
   "submission.sections.submit.progressbar.describe.owner": "Owner",
 
-  "submission.sections.submit.progressbar.sherpapolicy": "Sherpa policies",
+  "submission.sections.submit.progressbar.opfpolicy": "Publisher open access policy information",
 
   "submission.sections.submit.progressbar.upload": "Upload files",
 
-  "submission.sections.submit.progressbar.sherpaPolicies": "Publisher open access policy information",
-
-  "submission.sections.sherpa-policy.title-empty": "No publisher policy information available. If your work has an associated ISSN, please enter it above to see any related publisher open access policies.",
+  "submission.sections.jisc-policy.title-empty": "No publisher policy information available. If your work has an associated ISSN, please enter it above to see any related publisher open access policies.",
 
   "submission.sections.status.errors.title": "Errors",
 
@@ -5909,6 +5941,26 @@
   "submission.sections.upload.drop-message": "Drop files to attach them to the item",
 
   "submission.sections.upload.edit.title": "Edit bitstream",
+
+  "submission.sections.upload.file.edit.form.file-type.label": "Audio or video media type",
+
+  "submission.sections.upload.file.edit.form.file-type.hint": "Choose how this bitstream should be interpreted.",
+
+  "submission.sections.upload.file.edit.form.file-type.option.audio-video": "Audio and video",
+
+  "submission.sections.upload.file.edit.form.file-type.option.neither": "Neither",
+
+  "submission.sections.upload.file.edit.form.file-type.option.audio": "Audio",
+
+  "submission.sections.upload.file.edit.form.file-type.option.video": "Video",
+
+  "submission.sections.upload.file.edit.form.audio-transcript.label": "Audio transcript",
+
+  "submission.sections.upload.file.edit.form.audio-transcript.hint": "Provide a transcript for audio content.",
+
+  "submission.sections.upload.file.edit.form.video-description.label": "Video description",
+
+  "submission.sections.upload.file.edit.form.video-description.hint": "Provide a description for video content.",
 
   "submission.sections.upload.form.access-condition-label": "Access condition type",
 
@@ -6006,57 +6058,57 @@
 
   "submission.sections.license.notgranted": "You must accept the license",
 
-  "submission.sections.sherpa.publication.information": "Publication information",
+  "submission.sections.jisc.publication.information": "Publication information",
 
-  "submission.sections.sherpa.publication.information.title": "Title",
+  "submission.sections.jisc.publication.information.title": "Title",
 
-  "submission.sections.sherpa.publication.information.issns": "ISSNs",
+  "submission.sections.jisc.publication.information.issns": "ISSNs",
 
-  "submission.sections.sherpa.publication.information.url": "URL",
+  "submission.sections.jisc.publication.information.url": "URL",
 
-  "submission.sections.sherpa.publication.information.publishers": "Publisher",
+  "submission.sections.jisc.publication.information.publishers": "Publisher",
 
-  "submission.sections.sherpa.publication.information.romeoPub": "Romeo Pub",
+  "submission.sections.jisc.publication.information.romeoPub": "Romeo Pub",
 
-  "submission.sections.sherpa.publication.information.zetoPub": "Zeto Pub",
+  "submission.sections.jisc.publication.information.zetoPub": "Zeto Pub",
 
-  "submission.sections.sherpa.publisher.policy": "Publisher Policy",
+  "submission.sections.jisc.publisher.policy": "Publisher Policy",
 
-  "submission.sections.sherpa.publisher.policy.description": "The below information was found via Sherpa Romeo. Based on the policies of your publisher, it provides advice regarding whether an embargo may be necessary and/or which files you are allowed to upload. If you have questions, please contact your site administrator via the feedback form in the footer.",
+  "submission.sections.jisc.publisher.policy.description": "The below information was found via Jisc Open policy finder. Based on the policies of your publisher, it provides advice regarding whether an embargo may be necessary and/or which files you are allowed to upload. If you have questions, please contact your site administrator via the feedback form in the footer.",
 
-  "submission.sections.sherpa.publisher.policy.openaccess": "Open Access pathways permitted by this journal's policy are listed below by article version. Click on a pathway for a more detailed view",
+  "submission.sections.jisc.publisher.policy.openaccess": "Open Access pathways permitted by this journal's policy are listed below by article version. Click on a pathway for a more detailed view",
 
-  "submission.sections.sherpa.publisher.policy.more.information": "For more information, please see the following links:",
+  "submission.sections.jisc.publisher.policy.more.information": "For more information, please see the following links:",
 
-  "submission.sections.sherpa.publisher.policy.version": "Version",
+  "submission.sections.jisc.publisher.policy.version": "Version",
 
-  "submission.sections.sherpa.publisher.policy.embargo": "Embargo",
+  "submission.sections.jisc.publisher.policy.embargo": "Embargo",
 
-  "submission.sections.sherpa.publisher.policy.noembargo": "No Embargo",
+  "submission.sections.jisc.publisher.policy.noembargo": "No Embargo",
 
-  "submission.sections.sherpa.publisher.policy.nolocation": "None",
+  "submission.sections.jisc.publisher.policy.nolocation": "None",
 
-  "submission.sections.sherpa.publisher.policy.license": "License",
+  "submission.sections.jisc.publisher.policy.license": "License",
 
-  "submission.sections.sherpa.publisher.policy.prerequisites": "Prerequisites",
+  "submission.sections.jisc.publisher.policy.prerequisites": "Prerequisites",
 
-  "submission.sections.sherpa.publisher.policy.location": "Location",
+  "submission.sections.jisc.publisher.policy.location": "Location",
 
-  "submission.sections.sherpa.publisher.policy.conditions": "Conditions",
+  "submission.sections.jisc.publisher.policy.conditions": "Conditions",
 
-  "submission.sections.sherpa.publisher.policy.refresh": "Refresh",
+  "submission.sections.jisc.publisher.policy.refresh": "Refresh",
 
-  "submission.sections.sherpa.record.information": "Record Information",
+  "submission.sections.jisc.record.information": "Record Information",
 
-  "submission.sections.sherpa.record.information.id": "ID",
+  "submission.sections.jisc.record.information.id": "ID",
 
-  "submission.sections.sherpa.record.information.date.created": "Date Created",
+  "submission.sections.jisc.record.information.date.created": "Date Created",
 
-  "submission.sections.sherpa.record.information.date.modified": "Last Modified",
+  "submission.sections.jisc.record.information.date.modified": "Last Modified",
 
-  "submission.sections.sherpa.record.information.uri": "URI",
+  "submission.sections.jisc.record.information.uri": "URI",
 
-  "submission.sections.sherpa.error.message": "There was an error retrieving sherpa information",
+  "submission.sections.jisc.error.message": "There was an error retrieving Jisc Open policy finder information",
 
   "submission.submit.breadcrumbs": "New submission",
 
@@ -7641,6 +7693,18 @@
   "file-download-link.request-copy": "Request a copy of ",
 
   "file-download-button.request-copy": "Request a copy",
+
+  "file-download-link.audio-transcript.label": "Transcript",
+
+  "file-download-link.audio-transcript.title": "Audio transcript",
+
+  "file-download-link.audio-transcript.aria": "Open audio transcript",
+
+  "file-download-link.video-description.label": "Video description",
+
+  "file-download-link.video-description.title": "Video description",
+
+  "file-download-link.video-description.aria": "Open video description",
 
   "item.preview.organization.url": "URL",
 

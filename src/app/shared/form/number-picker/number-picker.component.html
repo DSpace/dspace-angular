@@ -1,5 +1,5 @@
 <div class="d-flex flex-column align-items-center">
-  <label class="ml-n3" [for]="id">{{'form.number-picker.label.' + placeholder | translate }}</label>
+  <label class="ml-n3" [for]="id">{{placeholder | translate}}</label>
   <div class="d-flex flex-column align-items-stretch justify-content-around position-relative">
     <button id="increment-{{id}}"
             class="btn btn-link-focus btn-date ml-2"
@@ -7,8 +7,8 @@
             tabindex="0"
             [dsBtnDisabled]="disabled"
             (click)="toggleUp()"
-            title="{{'form.number-picker.increment' | translate: {field: placeholder} }}"
-            [attr.aria-label]="'form.number-picker.increment' | translate: {field: placeholder}">
+            title="{{'form.number-picker.increment' | translate: {field: (placeholder | translate)} }}"
+            [attr.aria-label]="'form.number-picker.increment' | translate: {field: (placeholder | translate)}">
       <span class="chevron"></span>
       <span class="sr-only">{{'form.number-picker.increment' | translate: {field: name} }}</span>
     </button>
@@ -26,7 +26,7 @@
         [readonly]="disabled"
         [disabled]="disabled"
         [ngClass]="{'is-invalid': invalid}"
-        title="{{'form.number-picker.label.' + placeholder | translate}}"
+        title="{{placeholder | translate}}"
         [attr.aria-labelledby]="id + ' increment-' + id + ' decrement-' + id"
     >
 
@@ -36,8 +36,8 @@
                 tabindex="0"
                 [dsBtnDisabled]="disabled"
                 (click)="toggleDown()"
-                title="{{'form.number-picker.decrement' | translate: {field: placeholder} }}"
-                [attr.aria-label]="'form.number-picker.decrement' | translate: {field: placeholder}">
+                title="{{'form.number-picker.decrement' | translate: {field: (placeholder | translate)} }}"
+                [attr.aria-label]="'form.number-picker.decrement' | translate: {field: (placeholder | translate)}">
             <span class="chevron bottom"></span>
             <span class="sr-only">{{'form.number-picker.decrement' | translate: {field: name} }}</span>
         </button>
