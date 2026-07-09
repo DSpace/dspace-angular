@@ -85,7 +85,7 @@ describe('Login Modal', () => {
   it('should support logout', () => {
     // First authenticate & access homepage
     cy.env(['DSPACE_TEST_ADMIN_USER', 'DSPACE_TEST_ADMIN_PASSWORD']).then(({ DSPACE_TEST_ADMIN_USER, DSPACE_TEST_ADMIN_PASSWORD }) => {
-      cy.loginViaForm(DSPACE_TEST_ADMIN_USER, DSPACE_TEST_ADMIN_PASSWORD);
+      cy.login(DSPACE_TEST_ADMIN_USER, DSPACE_TEST_ADMIN_PASSWORD);
     });
     cy.visit('/');
 
