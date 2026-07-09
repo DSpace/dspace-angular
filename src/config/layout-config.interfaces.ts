@@ -53,11 +53,38 @@ export interface AuthorityRefConfig extends Config {
   };
 }
 
+export interface UrnConfig extends Config {
+  name: string;
+  baseUrl: string;
+  shouldKeepWhiteSpaces?: boolean;
+}
+
+export interface DynamicLayoutTypeConfig {
+  orientation: string;
+}
+
+export interface DynamicLayoutMetadataBoxConfig extends Config {
+  defaultMetadataLabelColStyle: string;
+  defaultMetadataValueColStyle: string;
+}
+
+export interface DynamicLayoutCollectionsBoxConfig extends Config {
+  defaultCollectionsLabelColStyle: string;
+  defaultCollectionsValueColStyle: string;
+  isInline: boolean;
+  defaultCollectionsRowStyle?: string;
+}
+
+export interface DynamicItemPageConfig extends Config {
+  [entity: string]: DynamicLayoutTypeConfig;
+  default: DynamicLayoutTypeConfig;
+}
+
 /**
  * Top-level layout configuration for UI visual customization.
  *
- * Provides configuration for customizing the visual appearance and layout of entities
- * Currently supports authority reference styling for displaying icons and styles for different entity types (persons, organizations, projects, etc.).
+ * Provides configuration for customizing the visual appearance and layout of entities,
+ * including authority reference styling, attachment rendering, and dynamic item page layouts.
  * @see AuthorityRefConfig
  * @see AppConfig
  */
@@ -67,10 +94,39 @@ export interface LayoutConfig extends Config {
    * Each entry defines how entities of a specific type should be visually represented with icons and styles.
    */
   authorityRef: AuthorityRefConfig[];
+
+  /**
+   * If true the download link in item page will be rendered as an advanced attachment.
+   */
   showDownloadLinkAsAttachment: boolean;
+
   /**
    * Configuration for advanced attachment rendering features.
    * Controls pagination and metadata display for bitstream attachments.
    */
   advancedAttachmentRendering: AdvancedAttachmentRenderingConfig;
+
+  /**
+   * Array of URN (Uniform Resource Name) configurations mapping identifiers to their base URLs.
+   * Used for resolving identifiers like DOI, Handle, Scopus, etc. to their external URLs.
+   */
+  urn: UrnConfig[];
+
+  /**
+   * Item page layout configuration for different entity types.
+   * Defines the orientation (horizontal/vertical) of item page layouts based on entity type.
+   */
+  itemPage: DynamicItemPageConfig;
+
+  /**
+   * Metadata box rendering configuration.
+   * Defines default CSS column styles for metadata labels and values.
+   */
+  metadataBox: DynamicLayoutMetadataBoxConfig;
+
+  /**
+   * Collections box rendering configuration.
+   * Defines default CSS column styles for collection labels and values, and inline display settings.
+   */
+  collectionsBox: DynamicLayoutCollectionsBoxConfig;
 }
