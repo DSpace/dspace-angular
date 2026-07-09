@@ -5,8 +5,8 @@ describe('My DSpace page', () => {
     cy.visit('/mydspace');
 
     // This page is restricted, so we will be shown the login form. Fill it out & submit.
-    cy.env(['DSPACE_TEST_SUBMIT_USER', 'DSPACE_TEST_SUBMIT_PASSWORD']).then(({ DSPACE_TEST_SUBMIT_USER, DSPACE_TEST_SUBMIT_PASSWORD }) => {
-      cy.loginViaForm(DSPACE_TEST_SUBMIT_USER, DSPACE_TEST_SUBMIT_PASSWORD);
+    cy.env(['DSPACE_TEST_SUBMIT_USER', 'DSPACE_TEST_SUBMIT_USER_PASSWORD']).then(({ DSPACE_TEST_SUBMIT_USER, DSPACE_TEST_SUBMIT_USER_PASSWORD }) => {
+      cy.loginViaForm(DSPACE_TEST_SUBMIT_USER, DSPACE_TEST_SUBMIT_USER_PASSWORD);
     });
 
     cy.get('ds-my-dspace-page').should('be.visible');
@@ -26,8 +26,8 @@ describe('My DSpace page', () => {
     cy.visit('/mydspace');
 
     // This page is restricted, so we will be shown the login form. Fill it out & submit.
-    cy.env(['DSPACE_TEST_SUBMIT_USER', 'DSPACE_TEST_SUBMIT_PASSWORD']).then(({ DSPACE_TEST_SUBMIT_USER, DSPACE_TEST_SUBMIT_PASSWORD }) => {
-      cy.loginViaForm(DSPACE_TEST_SUBMIT_USER, DSPACE_TEST_SUBMIT_PASSWORD);
+    cy.env(['DSPACE_TEST_SUBMIT_USER', 'DSPACE_TEST_SUBMIT_USER_PASSWORD']).then(({ DSPACE_TEST_SUBMIT_USER, DSPACE_TEST_SUBMIT_USER_PASSWORD }) => {
+      cy.loginViaForm(DSPACE_TEST_SUBMIT_USER, DSPACE_TEST_SUBMIT_USER_PASSWORD);
     });
 
     cy.get('ds-my-dspace-page').should('be.visible');
@@ -46,8 +46,8 @@ describe('My DSpace page', () => {
     cy.visit('/mydspace');
 
     // This page is restricted, so we will be shown the login form. Fill it out & submit.
-    cy.env(['DSPACE_TEST_SUBMIT_USER', 'DSPACE_TEST_SUBMIT_PASSWORD']).then(({ DSPACE_TEST_SUBMIT_USER, DSPACE_TEST_SUBMIT_PASSWORD }) => {
-      cy.loginViaForm(DSPACE_TEST_SUBMIT_USER, DSPACE_TEST_SUBMIT_PASSWORD);
+    cy.env(['DSPACE_TEST_SUBMIT_USER', 'DSPACE_TEST_SUBMIT_USER_PASSWORD']).then(({ DSPACE_TEST_SUBMIT_USER, DSPACE_TEST_SUBMIT_USER_PASSWORD }) => {
+      cy.loginViaForm(DSPACE_TEST_SUBMIT_USER, DSPACE_TEST_SUBMIT_USER_PASSWORD);
     });
 
     // Open the New Submission dropdown
@@ -120,8 +120,8 @@ describe('My DSpace page', () => {
     cy.visit('/mydspace');
 
     // This page is restricted, so we will be shown the login form. Fill it out & submit.
-    cy.env(['DSPACE_TEST_SUBMIT_USER', 'DSPACE_TEST_SUBMIT_PASSWORD']).then(({ DSPACE_TEST_SUBMIT_USER, DSPACE_TEST_SUBMIT_PASSWORD }) => {
-      cy.loginViaForm(DSPACE_TEST_SUBMIT_USER, DSPACE_TEST_SUBMIT_PASSWORD);
+    cy.env(['DSPACE_TEST_SUBMIT_USER', 'DSPACE_TEST_SUBMIT_USER_PASSWORD']).then(({ DSPACE_TEST_SUBMIT_USER, DSPACE_TEST_SUBMIT_USER_PASSWORD }) => {
+      cy.loginViaForm(DSPACE_TEST_SUBMIT_USER, DSPACE_TEST_SUBMIT_USER_PASSWORD);
     });
 
     // Open the New Import dropdown
@@ -192,8 +192,8 @@ describe('My DSpace page', () => {
     cy.visit('/mydspace');
 
     //This page is restricted, so we will be shown the login form. Fill it in and submit it
-    cy.env(['DSPACE_TEST_SUBMIT_USER', 'DSPACE_TEST_SUBMIT_PASSWORD']).then(({ DSPACE_TEST_SUBMIT_USER, DSPACE_TEST_SUBMIT_PASSWORD }) => {
-      cy.loginViaForm(DSPACE_TEST_SUBMIT_USER, DSPACE_TEST_SUBMIT_PASSWORD);
+    cy.env(['DSPACE_TEST_SUBMIT_USER', 'DSPACE_TEST_SUBMIT_USER_PASSWORD']).then(({ DSPACE_TEST_SUBMIT_USER, DSPACE_TEST_SUBMIT_USER_PASSWORD }) => {
+      cy.loginViaForm(DSPACE_TEST_SUBMIT_USER, DSPACE_TEST_SUBMIT_USER_PASSWORD);
     });
 
     //Wait for the page to display
