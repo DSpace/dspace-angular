@@ -1213,6 +1213,8 @@
 
   "bulk-import.error": "An error occurred while creating the import process",
 
+  "bulk-import.error.no-file": "Please select a file to import.",
+
   "bulk-import.file": "Source file",
 
   "bulk-import.header": "Bulk import",

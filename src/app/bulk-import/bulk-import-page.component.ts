@@ -22,11 +22,7 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import {
-  BehaviorSubject,
-  Observable,
-  Subscription,
-} from 'rxjs';
+import { Subscription } from 'rxjs';
 import {
   map,
   take,
@@ -42,6 +38,15 @@ import { redirectOn4xx } from '../core/shared/authorized.operators';
 import { Collection } from '../core/shared/collection.model';
 import { getFirstCompletedRemoteData } from '../core/shared/operators';
 import { FileValidator } from '../shared/utils/require-file.validator';
+
+/**
+ * Form values for bulk import page
+ */
+interface BulkImportFormValues {
+  name: string;
+  file?: File;
+  abortOnError: boolean;
+}
 
 /**
  * Page to perform an items bulk imports into the given collection.
@@ -64,12 +69,6 @@ export class BulkImportPageComponent implements OnInit, OnDestroy {
   form: FormGroup;
 
   subs: Subscription[] = [];
-
-  /**
-   * A boolean representing if a create delete operation is pending
-   * @type {BehaviorSubject<boolean>}
-   */
-  processingImport$: BehaviorSubject<boolean>  = new BehaviorSubject<boolean>(false);
 
   private selectedFile: File;
 
@@ -113,8 +112,12 @@ export class BulkImportPageComponent implements OnInit, OnDestroy {
    * @param form
    */
   submit() {
+    if (!this.selectedFile) {
+      this.notificationsService.error(this.translationService.get('bulk-import.error.no-file'));
+      return;
+    }
 
-    const values: any = this.form.value;
+    const values: BulkImportFormValues = this.form.value;
 
     const stringParameters: ProcessParameter[] = [
       { name: '-c', value: this.collectionId },
@@ -141,14 +144,6 @@ export class BulkImportPageComponent implements OnInit, OnDestroy {
     this.router.navigateByUrl(getCollectionPageRoute(this.collectionId));
   }
 
-  /**
-   * Return a boolean representing if t import operation is pending.
-   *
-   * @return {Observable<boolean>}
-   */
-  isProcessingImport(): Observable<boolean> {
-    return this.processingImport$.asObservable();
-  }
 
   private navigateToProcesses() {
     this.requestService.setStaleByHrefSubstring('/processes');
