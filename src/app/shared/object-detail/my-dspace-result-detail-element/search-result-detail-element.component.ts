@@ -7,7 +7,7 @@ import { Metadata } from '@dspace/core/shared/metadata.utils';
 import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
 import { hasValue } from '@dspace/shared/utils/empty.util';
 
-import { MetadataValue } from '../../../core/shared/metadata.models';
+import MetadataValue from '../../../core/shared/metadata.models';
 import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 import {
   allMetadataWithHitHighlights,

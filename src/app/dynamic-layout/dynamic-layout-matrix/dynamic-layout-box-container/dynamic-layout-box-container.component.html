@@ -1,0 +1,22 @@
+@if (componentLoader) {
+  @if (box.container && !componentLoader.hasOwnContainer) {
+    <ngb-accordion #accordionRef [activeIds]="activeIds">
+      <ngb-panel id="{{box.shortname}}">
+        <ng-template ngbPanelTitle>
+          <span class="float-start" [innerHTML]="getBoxHeader()" tabindex="0"></span>
+        </ng-template>
+        <ng-template ngbPanelContent>
+          <ng-container *ngComponentOutlet="getComponentRef(); injector: objectInjector;"></ng-container>
+        </ng-template>
+      </ngb-panel>
+    </ngb-accordion>
+  }
+  @if (!box.container || componentLoader.hasOwnContainer) {
+    <div class="mx-n3">
+      <ng-container *ngComponentOutlet="getComponentRef(); injector: objectInjector;"></ng-container>
+    </div>
+  }
+}
+@if (!componentLoader) {
+  <ds-loading></ds-loading>
+}

@@ -1,0 +1,11 @@
+@if ((itemRD$ | async)?.isLoading) {
+  <ds-loading message="{{'loading.item' | translate}}"></ds-loading>
+}
+@if (((itemRD$ | async)?.hasSucceeded && !(itemRD$ | async)?.hasNoContent)) {
+  <div class="container">
+    <ds-item-alerts [item]="(itemRD$ | async)?.payload"></ds-item-alerts>
+  </div>
+  @if (!((itemRD$ | async)?.payload?.isWithdrawn) || (isAdmin$|async)) {
+    <ds-dynamic-layout [item]="(itemRD$ | async)?.payload"></ds-dynamic-layout>
+  }
+}

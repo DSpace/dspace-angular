@@ -16,7 +16,7 @@ import { BrowseDefinitionDataService } from '../../../../../core/browse/browse-d
 import { ConfigurationDataService } from '../../../../../core/data/configuration-data.service';
 import { ConfigurationProperty } from '../../../../../core/shared/configuration-property.model';
 import { Item } from '../../../../../core/shared/item.model';
-import { MetadataValue } from '../../../../../core/shared/metadata.models';
+import MetadataValue from '../../../../../core/shared/metadata.models';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
 import { ImageField } from '../image-field';
 import { ItemPageFieldComponent } from '../item-page-field.component';

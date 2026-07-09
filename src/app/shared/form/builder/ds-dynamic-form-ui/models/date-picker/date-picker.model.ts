@@ -1,4 +1,4 @@
-import { MetadataValue } from '@dspace/core/shared/metadata.models';
+import MetadataValue from '@dspace/core/shared/metadata.models';
 import {
   isEmpty,
   isNotEmpty,

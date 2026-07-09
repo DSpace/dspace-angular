@@ -16,6 +16,8 @@ import { GROUP } from './eperson/models/group.resource-type';
 import { WORKFLOWITEM } from './eperson/models/workflowitem.resource-type';
 import { WORKSPACEITEM } from './eperson/models/workspaceitem.resource-type';
 import { FEEDBACK } from './feedback/models/feedback.resource-type';
+import { SECTION } from './layout/models/section.resource-type';
+import { TAB } from './layout/models/tab.resource-type';
 import { METADATA_FIELD } from './metadata/metadata-field.resource-type';
 import { METADATA_SCHEMA } from './metadata/metadata-schema.resource-type';
 import { QUALITY_ASSURANCE_EVENT_OBJECT } from './notifications/qa/models/quality-assurance-event-object.resource-type';
@@ -142,4 +144,6 @@ export const LAZY_DATA_SERVICES: LazyDataServicesMap = new Map([
   [AUDIT.value, () => import('./data/audit-data.service').then(m => m.AuditDataService)],
   [EditItem.type.value, () => import('./submission/edititem-data.service').then(m => m.EditItemDataService)],
   [METADATA_SECURITY_TYPE.value, () => import('./submission/metadatasecurityconfig-data.service').then(m => m.MetadataSecurityConfigurationService)],
+  [SECTION.value, () => import('./layout/section-data.service').then(m => m.SectionDataService)],
+  [TAB.value, () => import('./layout/tab-data.service').then(m => m.TabDataService)],
 ]);

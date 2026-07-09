@@ -1,0 +1,146 @@
+import { ChangeDetectionStrategy } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { DYNAMIC_FIELD_RENDERING_MAP } from '@dspace/config/app-config.interface';
+import { LayoutField } from '@dspace/core/layout/models/box.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+
+import { DsDatePipe } from '../../../../../../../pipes/ds-date.pipe';
+import { MetadataRenderComponent } from '../../../row/metadata-container/metadata-render/metadata-render.component';
+import { FieldRenderingType } from '../../field-rendering-type';
+import { layoutBoxesMap } from '../../metadata-box-rendering-map';
+import { TextComponent } from '../../text/text.component';
+import { TableComponent } from './table.component';
+
+describe('TableComponent', () => {
+  let component: TableComponent;
+  let fixture: ComponentFixture<TableComponent>;
+  const testItem = Object.assign(new Item(), {
+    uuid: 'itemUUID',
+    id: 'itemUUID',
+    metadata: {
+      'dc.contributor.author': [
+        {
+          value: 'Donohue, Tim',
+        },
+        {
+          value: 'Surname, Name',
+        },
+      ],
+      'oairecerif.author.affiliation': [
+        {
+          value: 'Duraspace',
+        },
+        {
+          value: '4Science',
+        },
+      ],
+    },
+    _links: {
+      self: { href: 'item-selflink' },
+    },
+  });
+
+  const mockField = Object.assign({
+    id: 1,
+    metadata: 'dc.contributor.author',
+    fieldType: 'METADATAGROUP',
+    label: 'Author(s)',
+    rendering: FieldRenderingType.TABLE,
+    style: 'container row',
+    styleLabel: 'fw-bold col-4',
+    styleValue: 'col',
+    metadataGroup: {
+      leading: 'dc.contributor.author',
+      elements: [
+        {
+          metadata: 'dc.contributor.author',
+          label: 'Author(s)',
+          rendering: 'TEXT',
+          fieldType: 'METADATA',
+          style: null,
+          styleLabel: 'fw-bold col-0',
+          styleValue: 'col',
+        },
+        {
+          metadata: 'oairecerif.author.affiliation',
+          label: 'Affiliation(s)',
+          rendering: 'TEXT',
+          fieldType: 'METADATA',
+          style: null,
+          styleLabel: 'fw-bold col-0',
+          styleValue: 'col',
+        },
+      ],
+    },
+  }) as LayoutField;
+
+
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      imports: [TranslateModule.forRoot({
+        loader: {
+          provide: TranslateLoader,
+          useClass: TranslateLoaderMock,
+        },
+      }), DsDatePipe,
+      MetadataRenderComponent,
+      TableComponent,
+      TextComponent],
+      providers: [
+        { provide: 'fieldProvider', useValue: mockField },
+        { provide: 'itemProvider', useValue: testItem },
+        { provide: 'renderingSubTypeProvider', useValue: '' },
+        { provide: 'tabNameProvider', useValue: '' },
+        { provide: DYNAMIC_FIELD_RENDERING_MAP, useValue: layoutBoxesMap },
+      ],
+    }).overrideComponent(TableComponent, {
+      set: { changeDetection: ChangeDetectionStrategy.OnPush },
+    }).compileComponents();
+  }));
+  beforeEach(() => {
+    fixture = TestBed.createComponent(TableComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', (done) => {
+    expect(component).toBeTruthy();
+    done();
+
+  });
+
+  it('check metadata rendering', (done) => {
+    const rowsFound = fixture.debugElement.queryAll(By.css('tr'));
+    expect(rowsFound.length).toBe(3);
+
+    let rowFound = fixture.debugElement.query(By.css('tr:nth-child(1)'));
+    let td = rowFound.query(By.css('td:nth-child(1)'));
+    expect(td.nativeElement.textContent).toContain(mockField.metadataGroup.elements[0].label);
+    td = rowFound.query(By.css('td:nth-child(2)'));
+    expect(td.nativeElement.textContent).toContain(mockField.metadataGroup.elements[1].label);
+
+    rowFound = fixture.debugElement.query(By.css('tr:nth-child(2)'));
+    td = rowFound.query(By.css('td:nth-child(1)'));
+    expect(td.nativeElement.textContent).toContain(testItem.metadata[mockField.metadataGroup.elements[0].metadata][0].value);
+    td = rowFound.query(By.css('td:nth-child(2)'));
+    expect(td.nativeElement.textContent).toContain(testItem.metadata[mockField.metadataGroup.elements[1].metadata][0].value);
+
+    rowFound = fixture.debugElement.query(By.css('tr:nth-child(3)'));
+    td = rowFound.query(By.css('td:nth-child(1)'));
+    expect(td.nativeElement.textContent).toContain(testItem.metadata[mockField.metadataGroup.elements[0].metadata][1].value);
+    td = rowFound.query(By.css('td:nth-child(2)'));
+    expect(td.nativeElement.textContent).toContain(testItem.metadata[mockField.metadataGroup.elements[1].metadata][1].value);
+    done();
+
+  });
+});

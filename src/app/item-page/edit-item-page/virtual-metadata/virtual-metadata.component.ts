@@ -18,7 +18,7 @@ import {
 } from '@dspace/config/app-config.interface';
 import { ObjectUpdatesService } from '@dspace/core/data/object-updates/object-updates.service';
 import { Item } from '@dspace/core/shared/item.model';
-import { MetadataValue } from '@dspace/core/shared/metadata.models';
+import MetadataValue from '@dspace/core/shared/metadata.models';
 import { hasValue } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 import {

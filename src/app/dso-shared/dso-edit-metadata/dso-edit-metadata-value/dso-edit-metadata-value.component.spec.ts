@@ -17,10 +17,7 @@ import { NotificationsService } from '@dspace/core/notification-system/notificat
 import { Collection } from '@dspace/core/shared/collection.model';
 import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import { Item } from '@dspace/core/shared/item.model';
-import {
-  MetadataValue,
-  VIRTUAL_METADATA_PREFIX,
-} from '@dspace/core/shared/metadata.models';
+import MetadataValue, { VIRTUAL_METADATA_PREFIX } from '@dspace/core/shared/metadata.models';
 import { ItemMetadataRepresentation } from '@dspace/core/shared/metadata-representation/item/item-metadata-representation.model';
 import { DsoEditMetadataFieldServiceStub } from '@dspace/core/testing/dso-edit-metadata-field.service.stub';
 import { createPaginatedList } from '@dspace/core/testing/utils.test';

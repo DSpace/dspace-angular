@@ -25,7 +25,7 @@ import { DSpaceObject } from '../shared/dspace-object.model';
 import { FollowLinkConfig } from '../shared/follow-link-config.model';
 import { Item } from '../shared/item.model';
 import { ITEM } from '../shared/item.resource-type';
-import { MetadataValue } from '../shared/metadata.models';
+import MetadataValue from '../shared/metadata.models';
 import { Metadata } from '../shared/metadata.utils';
 import { getFirstCompletedRemoteData } from '../shared/operators';
 import { PaginatedSearchOptions } from '../shared/search/models/paginated-search-options.model';

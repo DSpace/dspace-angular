@@ -1,0 +1,10 @@
+<div id="dynamic-layout-leading" class="d-flex flex-column mt-5 mb-3">
+  <div class="container text-end mb-3">
+    @if (showContextMenu) {
+      <!-- TODO: replace context menu with DSpace menu -->
+    }
+  </div>
+  @if (tab) {
+    <ds-dynamic-layout-matrix [tab]="tab" [item]="item"></ds-dynamic-layout-matrix>
+  }
+</div>

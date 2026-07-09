@@ -6,7 +6,7 @@ import {
   Renderer2,
 } from '@angular/core';
 
-import { MetadataValue } from '../core/shared/metadata.models';
+import MetadataValue from '../core/shared/metadata.models';
 import { normalizeLanguageCode } from './utils/normalize-language-code-utils';
 
 /**

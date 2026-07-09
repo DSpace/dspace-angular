@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
 import { hasValue } from '@dspace/shared/utils/empty.util';
 
-import {
-  MetadataValue,
-  VIRTUAL_METADATA_PREFIX,
-} from '../shared/metadata.models';
+import MetadataValue, { VIRTUAL_METADATA_PREFIX } from '../shared/metadata.models';
 
 /**
  * Service for working with DSpace object metadata.

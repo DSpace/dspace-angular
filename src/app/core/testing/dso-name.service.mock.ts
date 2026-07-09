@@ -1,5 +1,5 @@
 import { DSpaceObject } from '../shared/dspace-object.model';
-import { MetadataValue } from '../shared/metadata.models';
+import MetadataValue from '../shared/metadata.models';
 
 export const UNDEFINED_NAME = 'Undefined';
 

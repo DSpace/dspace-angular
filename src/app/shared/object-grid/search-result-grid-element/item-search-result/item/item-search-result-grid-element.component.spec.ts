@@ -34,7 +34,7 @@ import {
   of,
 } from 'rxjs';
 
-import { MetadataValue } from '../../../../../core/shared/metadata.models';
+import MetadataValue from '../../../../../core/shared/metadata.models';
 import { ThemedThumbnailComponent } from '../../../../../thumbnail/themed-thumbnail.component';
 import { ThemedBadgesComponent } from '../../../../object-collection/shared/badges/themed-badges.component';
 import { TruncatableComponent } from '../../../../truncatable/truncatable.component';

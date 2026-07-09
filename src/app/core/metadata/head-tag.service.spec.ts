@@ -27,7 +27,7 @@ import { HardRedirectService } from '../services/hard-redirect.service';
 import { Bitstream } from '../shared/bitstream.model';
 import { Bundle } from '../shared/bundle.model';
 import { Item } from '../shared/item.model';
-import { MetadataValue } from '../shared/metadata.models';
+import MetadataValue from '../shared/metadata.models';
 import {
   ItemMock,
   MockBitstream1,

@@ -4,7 +4,7 @@ import {
   TestBed,
 } from '@angular/core/testing';
 
-import { MetadataValue } from '../core/shared/metadata.models';
+import MetadataValue from '../core/shared/metadata.models';
 import { MetadataDirective } from './metadata.directive';
 
 @Component({

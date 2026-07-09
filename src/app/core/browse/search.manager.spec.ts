@@ -8,7 +8,7 @@ import { FindListOptions } from '../data/find-list-options.model';
 import { FollowLinkConfig } from '../shared/follow-link-config.model';
 import { Item } from '../shared/item.model';
 import { ITEM } from '../shared/item.resource-type';
-import { MetadataValue } from '../shared/metadata.models';
+import MetadataValue from '../shared/metadata.models';
 import { AUTHORITY_REFERENCE } from '../shared/metadata.utils';
 import { createPaginatedList } from '../testing/utils.test';
 import {

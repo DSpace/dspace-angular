@@ -11,7 +11,7 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 import { Item } from 'src/app/core/shared/item.model';
-import { MetadataValue } from 'src/app/core/shared/metadata.models';
+import MetadataValue from 'src/app/core/shared/metadata.models';
 
 import { MetadataLinkViewOrcidComponent } from './metadata-link-view-orcid.component';
 

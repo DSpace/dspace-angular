@@ -12,7 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
-import { MetadataValue } from '@dspace/core/shared/metadata.models';
+import MetadataValue from '@dspace/core/shared/metadata.models';
 import { PageInfo } from '@dspace/core/shared/page-info.model';
 import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
 import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';

@@ -13,7 +13,7 @@ import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import { ItemDataService } from '@dspace/core/data/item-data.service';
 import { Context } from '@dspace/core/shared/context.model';
 import { Item } from '@dspace/core/shared/item.model';
-import { MetadataValue } from '@dspace/core/shared/metadata.models';
+import MetadataValue from '@dspace/core/shared/metadata.models';
 import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
 import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';

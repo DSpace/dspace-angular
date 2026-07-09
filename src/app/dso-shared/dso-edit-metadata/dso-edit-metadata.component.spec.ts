@@ -19,7 +19,7 @@ import { NotificationsService } from '@dspace/core/notification-system/notificat
 import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import { Item } from '@dspace/core/shared/item.model';
 import { ITEM } from '@dspace/core/shared/item.resource-type';
-import { MetadataValue } from '@dspace/core/shared/metadata.models';
+import MetadataValue from '@dspace/core/shared/metadata.models';
 import { MetadataSecurityConfigurationService } from '@dspace/core/submission/metadatasecurityconfig-data.service';
 import { MetadataSecurityConfiguration } from '@dspace/core/submission/models/metadata-security-configuration';
 import { TestDataService } from '@dspace/core/testing/test-data-service.mock';

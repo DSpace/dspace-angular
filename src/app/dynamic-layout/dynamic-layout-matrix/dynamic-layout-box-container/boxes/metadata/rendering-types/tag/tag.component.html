@@ -1,0 +1,9 @@
+<div [class]="'d-flex flex-column mt-1 ' + valueStyle">
+  @if (chips && chips.hasItems()) {
+    <ds-chips
+      [clickable]="false"
+      [chips]="chips"
+      [showIcons]="false"
+    [editable]="false"></ds-chips>
+  }
+</div>

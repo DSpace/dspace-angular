@@ -11,7 +11,7 @@ import { DSpaceObject } from '../shared/dspace-object.model';
 import { FollowLinkConfig } from '../shared/follow-link-config.model';
 import { Item } from '../shared/item.model';
 import { Relationship } from '../shared/item-relationships/relationship.model';
-import { MetadataValue } from '../shared/metadata.models';
+import MetadataValue from '../shared/metadata.models';
 import { MetadataRepresentation } from '../shared/metadata-representation/metadata-representation.model';
 import { NoContent } from '../shared/NoContent.model';
 import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';

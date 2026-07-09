@@ -7,7 +7,7 @@ import { Metadata } from '@dspace/core/shared/metadata.utils';
 import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { MetadataValue } from '../../../../../core/shared/metadata.models';
+import MetadataValue from '../../../../../core/shared/metadata.models';
 import { MetadataDirective } from '../../../../metadata.directive';
 import { MetadataFieldWrapperComponent } from '../../../../metadata-field-wrapper/metadata-field-wrapper.component';
 import { allMetadataWithHitHighlights } from '../../../../utils/highlighted-metadata.util';

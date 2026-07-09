@@ -44,7 +44,7 @@ import { Item } from '../shared/item.model';
 import { Relationship } from '../shared/item-relationships/relationship.model';
 import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
 import { ReorderableRelationship } from '../shared/item-relationships/reorderable-relationship';
-import { MetadataValue } from '../shared/metadata.models';
+import MetadataValue from '../shared/metadata.models';
 import { ItemMetadataRepresentation } from '../shared/metadata-representation/item/item-metadata-representation.model';
 import { MetadataRepresentation } from '../shared/metadata-representation/metadata-representation.model';
 import { MetadatumRepresentation } from '../shared/metadata-representation/metadatum/metadatum-representation.model';

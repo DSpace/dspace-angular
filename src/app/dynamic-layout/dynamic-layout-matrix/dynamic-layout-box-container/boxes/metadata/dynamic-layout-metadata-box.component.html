@@ -1,0 +1,11 @@
+<div class="{{box.style}}">
+  <!-- PRINT ROWS -->
+  @for (row of metadataBoxConfiguration?.rows; track row) {
+    <div ds-row
+      [row]="row"
+      [item]="item"
+      [box]="box"
+      class="row">
+    </div>
+  }
+</div>

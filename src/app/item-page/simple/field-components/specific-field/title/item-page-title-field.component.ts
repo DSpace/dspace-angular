@@ -5,7 +5,7 @@ import {
 } from '@angular/core';
 import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import { Item } from '@dspace/core/shared/item.model';
-import { MetadataValue } from '@dspace/core/shared/metadata.models';
+import MetadataValue from '@dspace/core/shared/metadata.models';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { MetadataDirective } from '../../../../../shared/metadata.directive';

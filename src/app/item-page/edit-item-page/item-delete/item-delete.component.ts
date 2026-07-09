@@ -24,7 +24,7 @@ import { followLink } from '@dspace/core/shared/follow-link-config.model';
 import { Item } from '@dspace/core/shared/item.model';
 import { Relationship } from '@dspace/core/shared/item-relationships/relationship.model';
 import { RelationshipType } from '@dspace/core/shared/item-relationships/relationship-type.model';
-import { MetadataValue } from '@dspace/core/shared/metadata.models';
+import MetadataValue from '@dspace/core/shared/metadata.models';
 import {
   hasValue,
   isNotEmpty,

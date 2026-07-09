@@ -8,7 +8,7 @@ import { BrowseDefinitionDataService } from '@dspace/core/browse/browse-definiti
 import { RelationshipDataService } from '@dspace/core/data/relationship-data.service';
 import { MetadataService } from '@dspace/core/metadata/metadata.service';
 import { Item } from '@dspace/core/shared/item.model';
-import { MetadataValue } from '@dspace/core/shared/metadata.models';
+import MetadataValue from '@dspace/core/shared/metadata.models';
 import { MetadataRepresentation } from '@dspace/core/shared/metadata-representation/metadata-representation.model';
 import { MetadatumRepresentation } from '@dspace/core/shared/metadata-representation/metadatum/metadatum-representation.model';
 import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';

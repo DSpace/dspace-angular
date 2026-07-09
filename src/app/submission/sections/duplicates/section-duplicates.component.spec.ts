@@ -27,7 +27,7 @@ import { Collection } from '@dspace/core/shared/collection.model';
 import { Duplicate } from '@dspace/core/shared/duplicate-data/duplicate.model';
 import { DUPLICATE } from '@dspace/core/shared/duplicate-data/duplicate.resource-type';
 import { License } from '@dspace/core/shared/license.model';
-import { MetadataValue } from '@dspace/core/shared/metadata.models';
+import MetadataValue from '@dspace/core/shared/metadata.models';
 import { SectionsType } from '@dspace/core/submission/sections-type';
 import { SubmissionScopeType } from '@dspace/core/submission/submission-scope-type';
 import { NotificationsServiceStub } from '@dspace/core/testing/notifications-service.stub';

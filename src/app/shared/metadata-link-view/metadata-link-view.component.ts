@@ -30,7 +30,7 @@ import {
 import { ItemDataService } from '../../core/data/item-data.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { Item } from '../../core/shared/item.model';
-import { MetadataValue } from '../../core/shared/metadata.models';
+import MetadataValue from '../../core/shared/metadata.models';
 import { Metadata } from '../../core/shared/metadata.utils';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { EntityIconDirective } from '../entity-icon/entity-icon.directive';

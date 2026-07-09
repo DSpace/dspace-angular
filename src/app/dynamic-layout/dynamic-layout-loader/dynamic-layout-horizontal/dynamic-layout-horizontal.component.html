@@ -1,0 +1,15 @@
+<div id="dynamic-layout-loader" class="horizontal-layout">
+  <ds-dynamic-layout-navbar [showNav]="(tabs.length - leadingTabs.length) >= 0" [tabs]="tabs" [item]="item" (selectedTabChange)="selectedTabChanged($event)"></ds-dynamic-layout-navbar>
+  <div class="pt-4">
+    <div class="d-flex flex-column">
+      @if (showContextMenu) {
+        <div class="container text-end mb-3">
+          <!-- TODO: replace context menu with DSpace menu -->
+        </div>
+      }
+      @if (selectedTab$.value) {
+        <ds-dynamic-layout-matrix [tab]="(selectedTab$ | async)" [item]="item"></ds-dynamic-layout-matrix>
+      }
+    </div>
+  </div>
+</div>

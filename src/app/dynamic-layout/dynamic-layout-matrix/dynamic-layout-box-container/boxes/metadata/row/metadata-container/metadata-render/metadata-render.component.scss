@@ -1,0 +1,6 @@
+:host {
+  word-break: break-word;
+  &.auto-phrase {
+    word-break: auto-phrase;
+  }
+}

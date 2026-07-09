@@ -16,7 +16,7 @@ import { ConfigurationDataService } from '../data/configuration-data.service';
 import { EPersonDataService } from '../eperson/eperson-data.service';
 import { EPerson } from '../eperson/models/eperson.model';
 import { ConfigurationProperty } from '../shared/configuration-property.model';
-import { MetadataValue } from '../shared/metadata.models';
+import MetadataValue from '../shared/metadata.models';
 import { getMockTranslateService } from '../testing/translate.service.mock';
 import {
   createFailedRemoteDataObject$,
