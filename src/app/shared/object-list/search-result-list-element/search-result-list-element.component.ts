@@ -57,6 +57,8 @@ export class SearchResultListElementComponent<T extends SearchResult<K>, K exten
     if (hasValue(this.object)) {
       this.dso = this.object.indexableObject;
       this.dsoTitle = this.dsoNameService.getHitHighlights(this.object, this.dso, true);
+    }
+    if (hasValue(this.dso)) {
       this.isCollapsed$ = this.truncatableService.isCollapsed(this.dso.id);
     }
   }
