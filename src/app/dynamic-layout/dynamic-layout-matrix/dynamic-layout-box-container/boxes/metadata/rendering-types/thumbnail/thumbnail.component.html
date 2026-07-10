@@ -1,6 +1,8 @@
 @if ((initialized | async)) {
-  <ds-thumbnail data-test="thumbnail"
-    [thumbnail]="thumbnail$ | async"
-    [defaultImage]="default$ | async">
-  </ds-thumbnail>
+  <div class="thumbnail-container">
+    <ds-thumbnail data-test="thumbnail"
+                  [thumbnail]="thumbnail$ | async"
+                  [defaultImage]="default$ | async">
+    </ds-thumbnail>
+  </div>
 }

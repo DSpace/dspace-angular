@@ -7,6 +7,7 @@ import { DynamicLayoutTab } from '@dspace/core/layout/models/tab.model';
 import { Item } from '@dspace/core/shared/item.model';
 import { BehaviorSubject } from 'rxjs';
 
+import { DsoEditMenuComponent } from '../../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import { DynamicLayoutMatrixComponent } from '../../dynamic-layout-matrix/dynamic-layout-matrix.component';
 import { DynamicLayoutNavbarComponent } from './dynamic-layout-navbar/dynamic-layout-navbar.component';
 
@@ -16,6 +17,7 @@ import { DynamicLayoutNavbarComponent } from './dynamic-layout-navbar/dynamic-la
   styleUrls: ['./dynamic-layout-horizontal.component.scss'],
   imports: [
     AsyncPipe,
+    DsoEditMenuComponent,
     DynamicLayoutMatrixComponent,
     DynamicLayoutNavbarComponent,
   ],

@@ -10,6 +10,7 @@ import {
   Observable,
 } from 'rxjs';
 
+import { DsoEditMenuComponent } from '../../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import { HostWindowService } from '../../../shared/host-window.service';
 import { DynamicLayoutMatrixComponent } from '../../dynamic-layout-matrix/dynamic-layout-matrix.component';
 import { DynamicLayoutNavbarComponent } from '../dynamic-layout-horizontal/dynamic-layout-navbar/dynamic-layout-navbar.component';
@@ -21,6 +22,7 @@ import { DynamicLayoutSidebarComponent } from './dynamic-layout-sidebar/dynamic-
   styleUrls: ['./dynamic-layout-vertical.component.scss'],
   imports: [
     AsyncPipe,
+    DsoEditMenuComponent,
     DynamicLayoutMatrixComponent,
     DynamicLayoutNavbarComponent,
     DynamicLayoutSidebarComponent,

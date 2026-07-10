@@ -3,8 +3,8 @@
   <div class="pt-4">
     <div class="d-flex flex-column">
       @if (showContextMenu) {
-        <div class="container text-end mb-3">
-          <!-- TODO: replace context menu with DSpace menu -->
+        <div class="container  d-flex justify-content-end mb-3">
+          <ds-dso-edit-menu></ds-dso-edit-menu>
         </div>
       }
       @if (selectedTab$.value) {
