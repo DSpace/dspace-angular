@@ -80,6 +80,11 @@ export interface DynamicItemPageConfig extends Config {
   default: DynamicLayoutTypeConfig;
 }
 
+export interface DynamicRefStyleMetadata extends Config {
+  [metadata: string]: string;
+  default: string;
+}
+
 /**
  * Top-level layout configuration for UI visual customization.
  *
@@ -129,4 +134,9 @@ export interface LayoutConfig extends Config {
    * Defines default CSS column styles for collection labels and values, and inline display settings.
    */
   collectionsBox: DynamicLayoutCollectionsBoxConfig;
+
+  /**
+   * Metadata that holds information about the style
+   */
+  dynamicRefStyleMetadata: DynamicRefStyleMetadata,
 }

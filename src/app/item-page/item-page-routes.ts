@@ -10,6 +10,7 @@ import { MenuRoute } from '../shared/menu/menu-route.model';
 import { viewTrackerResolver } from '../statistics/angulartics/dspace/view-tracker.resolver';
 import { BitstreamRequestACopyPageComponent } from './bitstreams/request-a-copy/bitstream-request-a-copy-page.component';
 import { UploadBitstreamComponent } from './bitstreams/upload/upload-bitstream.component';
+import { dynamicItemPageTabResolver } from './dynamic-item-page-tab.resolver';
 import { ThemedFullItemPageComponent } from './full/themed-full-item-page.component';
 import { itemPageResolver } from './item-page.resolver';
 import {
@@ -60,6 +61,7 @@ export const ROUTES: Route[] = [
           menuRoute: MenuRoute.ITEM_PAGE,
         },
         resolve: {
+          tabs: dynamicItemPageTabResolver,
           tracking: viewTrackerResolver,
         },
       },
@@ -105,6 +107,13 @@ export const ROUTES: Route[] = [
         component: ThemedFullItemPageComponent,
         resolve: {
           menu: accessTokenResolver,
+        },
+      },
+      {
+        path: ':tab',
+        component: ThemedItemPageComponent,
+        resolve: {
+          tabs: dynamicItemPageTabResolver,
         },
       },
     ],

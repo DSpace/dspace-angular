@@ -654,6 +654,9 @@ export const environment: BuildConfig = {
       defaultCollectionsValueColStyle: 'col-9',
       isInline: true,
     },
+    dynamicRefStyleMetadata: {
+      default: 'dspace.entity.style',
+    },
   },
 
   searchResult: {

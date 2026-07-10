@@ -11,7 +11,7 @@
       <a [routerLink]="bitstreamLink?.routerLink"
         [queryParams]="bitstreamLink?.queryParams"
         [target]="isBlank ? '_blank' : '_self'"
-        [dsBtnDisabled]="(canRequestItemCopy$ | async) !== true"
+        [dsBtnDisabled]="(canRequestACopy$ | async) !== true"
         class="btn btn-outline-primary"
         data-test="requestACopy">
         {{ 'dynamic-layout.advanced-attachment.requestACopy' | translate }}

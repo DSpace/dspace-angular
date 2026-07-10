@@ -18,6 +18,7 @@ import {
 import {
   APP_CONFIG,
   AppConfig,
+  DYNAMIC_FIELD_RENDERING_MAP,
 } from '@dspace/config/app-config.interface';
 import { CheckAuthenticationTokenAction } from '@dspace/core/auth/auth.actions';
 import { isAuthenticationBlocking } from '@dspace/core/auth/selectors';
@@ -42,6 +43,7 @@ import {
 import { environment } from '../environments/environment';
 import { AppState } from './app.reducer';
 import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
+import { layoutBoxesMap } from './dynamic-layout/dynamic-layout-matrix/dynamic-layout-box-container/boxes/metadata/rendering-types/metadata-box-rendering-map';
 import { dsDynamicFormControlMapFn } from './shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-map-fn';
 import { MenuService } from './shared/menu/menu.service';
 import { MenuProviderService } from './shared/menu/menu-provider.service';
@@ -116,6 +118,10 @@ export abstract class InitService {
       {
         provide: DYNAMIC_FORM_CONTROL_MAP_FN,
         useValue: dsDynamicFormControlMapFn,
+      },
+      {
+        provide: DYNAMIC_FIELD_RENDERING_MAP,
+        useValue: layoutBoxesMap,
       },
     ];
   }

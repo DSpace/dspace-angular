@@ -89,7 +89,7 @@ const APP_CONFIG = new InjectionToken<AppConfig>('APP_CONFIG');
 
 const APP_CONFIG_STATE = makeStateKey<AppConfig>('APP_CONFIG_STATE');
 
-export const DYNAMIC_FIELD_RENDERING_MAP: InjectionToken<Map<FieldRenderingType, MetadataBoxFieldRenderOptions>> = new InjectionToken<Map<FieldRenderingType, MetadataBoxFieldRenderOptions>>('CRIS_FIELD_RENDERING_MAP');
+export const DYNAMIC_FIELD_RENDERING_MAP: InjectionToken<Map<FieldRenderingType, MetadataBoxFieldRenderOptions>> = new InjectionToken<Map<FieldRenderingType, MetadataBoxFieldRenderOptions>>('DYNAMIC_FIELD_RENDERING_MAP');
 
 type DeepPartial<T> = T extends object ? { [k in keyof T]?: DeepPartial<T[k]>} : T;
 

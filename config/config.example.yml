@@ -800,6 +800,10 @@ layout:
     # defaultCollectionsRowStyle: ''
     # Whether to display collections inline (true) or in a block layout (false)
     isInline: true
+  # Key/Value map to define metadata holding the style information for each entity type
+  dynamicRefStyleMetadata:
+    default: 'dspace.entity.style'
+    Publication: 'example.entity.style'
 
 # Configuration for customization of search results
 searchResults:

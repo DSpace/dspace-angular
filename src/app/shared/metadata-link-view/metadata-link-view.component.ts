@@ -9,9 +9,13 @@ import {
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
+import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import { followLink } from '@dspace/core/shared/follow-link-config.model';
 import { PLACEHOLDER_PARENT_METADATA } from '@dspace/core/shared/form/ds-dynamic-form-constants';
-import { isNotEmpty } from '@dspace/shared/utils/empty.util';
+import {
+  isEmpty,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
 import {
   NgbPopoverModule,
   NgbTooltipModule,
@@ -27,6 +31,7 @@ import {
   take,
 } from 'rxjs/operators';
 
+import { environment } from '../../../environments/environment';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { Item } from '../../core/shared/item.model';
@@ -83,9 +88,23 @@ export class MetadataLinkViewComponent implements OnInit {
   @Input() metadata: MetadataValue;
 
   /**
+   * Metadata name that we need to show in the template
+   */
+  @Input() metadataName: string|string[];
+
+  /**
+   * Item of the metadata value
+   */
+  @Input() item: DSpaceObject;
+
+  /**
    * Where to place the popover
    */
   @Input() popoverPlacement: string;
+  /**
+   * The metadata name from where to take the value of the cris style
+   */
+  dynamicRefMetadata = environment.layout.dynamicRefStyleMetadata;
 
   /**
    * Processed metadata to create MetadataOrcid with the information needed to show
@@ -166,11 +185,13 @@ export class MetadataLinkViewComponent implements OnInit {
     if (itemRD.hasSucceeded && itemRD.payload) {
       this.relatedItem = itemRD.payload;
       this.relatedDsoRoute = this.getItemPageRoute(this.relatedItem);
+      const entityStyleValue = this.getCrisRefMetadata(itemRD.payload?.entityType);
       return {
         authority: metadataValue.authority,
         value: metadataValue.value,
         orcidAuthenticated: this.getOrcid(itemRD.payload),
         entityType: (itemRD.payload as Item)?.entityType,
+        entityStyle: itemRD.payload?.firstMetadataValue(entityStyleValue),
       };
     } else {
       return {
@@ -178,6 +199,7 @@ export class MetadataLinkViewComponent implements OnInit {
         value: metadataValue.value,
         orcidAuthenticated: null,
         entityType: 'PRIVATE',
+        entityStyle: this.metadataName,
       };
     }
   }
@@ -205,6 +227,20 @@ export class MetadataLinkViewComponent implements OnInit {
     } else {
       return value;
     }
+  }
+
+  private getCrisRefMetadata(entity: string): string {
+    if (isEmpty(this.dynamicRefMetadata)) {
+      return 'dspace.entity.style';
+    }
+    let metadata;
+    if (isNotEmpty(entity)) {
+      const asLowercase = entity.toLowerCase();
+      metadata = this.dynamicRefMetadata[Object.keys(this.dynamicRefMetadata)
+        .find(k => k.toLowerCase() === asLowercase)
+      ];
+    }
+    return metadata ?? this.dynamicRefMetadata?.default;
   }
 
   getItemPageRoute(item: Item): string {

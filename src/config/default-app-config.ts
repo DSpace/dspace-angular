@@ -861,6 +861,9 @@ export class DefaultAppConfig implements AppConfig {
       defaultCollectionsValueColStyle: 'col-9',
       isInline: true,
     },
+    dynamicRefStyleMetadata: {
+      default: 'dspace.entity.style',
+    },
   };
 
   // Search result configuration for authority metadata processing
