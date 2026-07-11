@@ -1,6 +1,6 @@
 import { testA11y } from 'cypress/support/utils';
 
-const COLLECTION_PAGE = '/collections/'.concat(Cypress.env('DSPACE_TEST_COLLECTION'));
+const COLLECTION_PAGE = '/collections/'.concat(Cypress.expose('DSPACE_TEST_COLLECTION'));
 const LOGIN_PAGE = '/login';
 
 describe('Collection Page', () => {
