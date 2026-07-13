@@ -541,7 +541,7 @@ export class SectionsService {
    * @param sectionType
    */
   public getIsInformational(sectionType: SectionsType): boolean {
-    if (sectionType === SectionsType.SherpaPolicies) {
+    if (sectionType === SectionsType.OpfPolicies) {
       return true;
     } else {
       return false;

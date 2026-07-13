@@ -9,7 +9,7 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { SherpaDataResponse } from '../../../../shared/mocks/section-sherpa-policies.service.mock';
+import { OpfDataResponse } from '../../../../shared/mocks/section-opf-policies.service.mock';
 import { TranslateLoaderMock } from '../../../../shared/testing/translate-loader.mock';
 import { MetadataInformationComponent } from './metadata-information.component';
 
@@ -37,7 +37,7 @@ describe('MetadataInformationComponent', () => {
     fixture = TestBed.createComponent(MetadataInformationComponent);
     component = fixture.componentInstance;
     de = fixture.debugElement;
-    component.metadata = SherpaDataResponse.sherpaResponse.metadata;
+    component.metadata = OpfDataResponse.opfResponse.metadata;
     fixture.detectChanges();
   });
 

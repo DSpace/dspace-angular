@@ -9,7 +9,7 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { SherpaDataResponse } from '../../../../shared/mocks/section-sherpa-policies.service.mock';
+import { OpfDataResponse } from '../../../../shared/mocks/section-opf-policies.service.mock';
 import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
 import { ContentAccordionComponent } from '../content-accordion/content-accordion.component';
 import { PublisherPolicyComponent } from './publisher-policy.component';
@@ -43,7 +43,7 @@ describe('PublisherPolicyComponent', () => {
     fixture = TestBed.createComponent(PublisherPolicyComponent);
     component = fixture.componentInstance;
     de = fixture.debugElement;
-    component.policy = SherpaDataResponse.sherpaResponse.journals[0].policies[0];
+    component.policy = OpfDataResponse.opfResponse.journals[0].policies[0];
     fixture.detectChanges();
   });
 

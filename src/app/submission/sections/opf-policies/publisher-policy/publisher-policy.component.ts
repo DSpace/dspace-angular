@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { Policy } from '../../../../core/submission/models/sherpa-policies-details.model';
+import { Policy } from '../../../../core/submission/models/opf-policies-details.model';
 import { AlertType } from '../../../../shared/alert/alert-type';
 import { ContentAccordionComponent } from '../content-accordion/content-accordion.component';
 
