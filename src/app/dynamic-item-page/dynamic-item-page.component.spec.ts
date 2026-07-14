@@ -103,7 +103,7 @@ describe('DynamicItemPageComponent', () => {
       fixture.detectChanges();
     });
 
-    it('should display the cris layout component', () => {
+    it('should display the dynamic layout component', () => {
       const layout = fixture.debugElement.query(By.css('ds-dynamic-layout'));
       expect(layout.nativeElement).toBeDefined();
     });
@@ -117,7 +117,7 @@ describe('DynamicItemPageComponent', () => {
       fixture.detectChanges();
     });
 
-    it('should not display the cris layout component', () => {
+    it('should not display the dynamic layout component', () => {
       const layout = fixture.debugElement.query(By.css('ds-dynamic-layout'));
       expect(layout).toBeNull();
     });

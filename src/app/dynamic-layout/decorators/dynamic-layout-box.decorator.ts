@@ -8,19 +8,19 @@ import { DynamicLayoutMetadataBoxComponent } from '../dynamic-layout-matrix/dyna
 import { DynamicLayoutRelationBoxComponent } from '../dynamic-layout-matrix/dynamic-layout-box-container/boxes/relation/dynamic-layout-relation-box.component';
 import { LayoutBox } from '../enums/layout-box.enum';
 
-export interface CrisLayoutBoxRenderOptions {
+export interface DynamicLayoutBoxRenderOptions {
   componentRef: GenericConstructor<Component>;
   hasOwnContainer: boolean;
 }
 
-const layoutBoxesMap = new Map<LayoutBox, CrisLayoutBoxRenderOptions>([
-  [ LayoutBox.COLLECTIONS, { componentRef: DynamicLayoutCollectionBoxComponent, hasOwnContainer: false } as CrisLayoutBoxRenderOptions ],
-  [ LayoutBox.IIIFVIEWER, { componentRef: DynamicLayoutIiifViewerBoxComponent, hasOwnContainer: false } as CrisLayoutBoxRenderOptions ],
-  [ LayoutBox.METADATA, { componentRef: DynamicLayoutMetadataBoxComponent, hasOwnContainer: false } as CrisLayoutBoxRenderOptions ],
-  [ LayoutBox.RELATION, { componentRef: DynamicLayoutRelationBoxComponent, hasOwnContainer: false } as CrisLayoutBoxRenderOptions ],
-  [ LayoutBox.VERSIONING, { componentRef: ItemVersionsComponent, hasOwnContainer: false } as CrisLayoutBoxRenderOptions ],
+const layoutBoxesMap = new Map<LayoutBox, DynamicLayoutBoxRenderOptions>([
+  [ LayoutBox.COLLECTIONS, { componentRef: DynamicLayoutCollectionBoxComponent, hasOwnContainer: false } as DynamicLayoutBoxRenderOptions ],
+  [ LayoutBox.IIIFVIEWER, { componentRef: DynamicLayoutIiifViewerBoxComponent, hasOwnContainer: false } as DynamicLayoutBoxRenderOptions ],
+  [ LayoutBox.METADATA, { componentRef: DynamicLayoutMetadataBoxComponent, hasOwnContainer: false } as DynamicLayoutBoxRenderOptions ],
+  [ LayoutBox.RELATION, { componentRef: DynamicLayoutRelationBoxComponent, hasOwnContainer: false } as DynamicLayoutBoxRenderOptions ],
+  [ LayoutBox.VERSIONING, { componentRef: ItemVersionsComponent, hasOwnContainer: false } as DynamicLayoutBoxRenderOptions ],
 ]);
 
-export function getCrisLayoutBox(boxType: LayoutBox): CrisLayoutBoxRenderOptions {
+export function getDynamicLayoutBox(boxType: LayoutBox): DynamicLayoutBoxRenderOptions {
   return layoutBoxesMap.get(boxType);
 }

@@ -30,7 +30,7 @@ import { RowComponent } from './row/row.component';
   ],
 })
 /**
- * For overwrite this component create a new one that extends CrisLayoutBoxObj and
+ * For overwrite this component create a new one that extends DynamicLayoutBoxObj and
  * add the DynamicLayoutBoxModelComponent decorator indicating the type of box to overwrite
  */
 export class DynamicLayoutMetadataBoxComponent extends DynamicLayoutBoxModelComponent implements OnInit, OnDestroy {

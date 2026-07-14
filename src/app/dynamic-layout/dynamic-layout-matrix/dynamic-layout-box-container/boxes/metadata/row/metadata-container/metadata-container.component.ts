@@ -118,7 +118,7 @@ export class MetadataContainerComponent implements OnInit {
       this.getTranslationIfExists(`${this.fieldI18nPrefix}.${this.item.entityType}.${this.field.metadata}`) ?? // old syntax - do not use
       this.getTranslationIfExists(`${this.fieldI18nPrefix}.[${this.field.metadata}]`) ??
       this.getTranslationIfExists(`${this.fieldI18nPrefix}.${this.field.label}`) ?? // old syntax - do not use
-      this.field.label; // the untranslated value from the CRIS layout
+      this.field.label; // the untranslated value from the dynamic layout
     }
   }
 

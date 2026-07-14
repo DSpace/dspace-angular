@@ -21,11 +21,11 @@ import { of } from 'rxjs';
 import MetadataValue from '../../../../../../../core/shared/metadata.models';
 import { MetadataLinkViewComponent } from '../../../../../../../shared/metadata-link-view/metadata-link-view.component';
 import { FieldRenderingType } from '../field-rendering-type';
-import { CrisrefComponent } from './crisref.component';
+import { DynamicrefComponent } from './dynamicref.component';
 
-describe('CrisrefComponent', () => {
-  let component: CrisrefComponent;
-  let fixture: ComponentFixture<CrisrefComponent>;
+describe('DynamicrefComponent', () => {
+  let component: DynamicrefComponent;
+  let fixture: ComponentFixture<DynamicrefComponent>;
 
   const itemService = jasmine.createSpyObj('ItemDataService', {
     findByIdWithProjections: jasmine.createSpy('findByIdWithProjections'),
@@ -81,7 +81,7 @@ describe('CrisrefComponent', () => {
   const mockField: LayoutField = {
     'metadata': 'dc.title',
     'label': 'Title',
-    'rendering': FieldRenderingType.CRISREF,
+    'rendering': FieldRenderingType.DYNAMICREF,
     'fieldType': 'METADATA',
     'style': null,
     'styleLabel': 'test-style-label',
@@ -97,7 +97,7 @@ describe('CrisrefComponent', () => {
           provide: TranslateLoader,
           useClass: TranslateLoaderMock,
         },
-      }), BrowserAnimationsModule, CrisrefComponent, MetadataLinkViewComponent],
+      }), BrowserAnimationsModule, DynamicrefComponent, MetadataLinkViewComponent],
       providers: [
         { provide: 'fieldProvider', useValue: mockField },
         { provide: 'itemProvider', useValue: testItem },
@@ -107,11 +107,11 @@ describe('CrisrefComponent', () => {
         { provide: ItemDataService, useValue: itemService },
       ],
     })
-      .overrideComponent(CrisrefComponent, { remove: { imports: [MetadataLinkViewComponent] } }).compileComponents();
+      .overrideComponent(DynamicrefComponent, { remove: { imports: [MetadataLinkViewComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CrisrefComponent);
+    fixture = TestBed.createComponent(DynamicrefComponent);
     component = fixture.componentInstance;
     itemService.findByIdWithProjections.and.returnValue(createSuccessfulRemoteDataObject$(testPerson));
     fixture.detectChanges();

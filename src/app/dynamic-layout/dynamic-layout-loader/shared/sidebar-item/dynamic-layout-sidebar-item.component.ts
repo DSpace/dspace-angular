@@ -19,7 +19,7 @@ import { slide } from '../../../../shared/animations/slide';
 /**
  * This component defines the default layout for all tabs of DSpace Items.
  * This component can be overwritten for a specific Item type using
- * CrisLayoutTabModelComponent decorator
+ * DynamicLayoutTabModelComponent decorator
  */
 @Component({
   selector: 'ds-dynamic-layout-sidebar-item',

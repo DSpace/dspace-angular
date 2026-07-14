@@ -14,7 +14,7 @@ import { DynamicLayoutPageModelComponent } from './dynamic-layout-page-component
 @Component({
   template: '',
 })
-export abstract class CrisLayoutTabModelComponent extends DynamicLayoutPageModelComponent {
+export abstract class DynamicLayoutTabModelComponent extends DynamicLayoutPageModelComponent {
   /**
    * DynamicLayoutTab
    */

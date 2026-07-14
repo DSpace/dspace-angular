@@ -707,7 +707,7 @@ accessibility:
   cookieExpirationDuration: 7
 
 # Configuration for layout customization of metadata rendering in Item page
-# Currently only the authority reference config is available, more will follow with the integration of the so called CRIS layout.
+# Currently only the authority reference config is available, more will follow with the integration of the so called Dynamic layout.
 layout:
   # Configuration of icons and styles to be used for each authority controlled link
   authorityRef:

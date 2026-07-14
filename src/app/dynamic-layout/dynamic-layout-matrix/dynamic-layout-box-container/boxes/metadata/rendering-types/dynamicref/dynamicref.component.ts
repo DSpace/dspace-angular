@@ -4,17 +4,17 @@ import { MetadataLinkViewComponent } from '../../../../../../../shared/metadata-
 import { RenderingTypeValueModelComponent } from '../rendering-type-value.model';
 
 /**
- * This component renders the crisref metadata fields
+ * This component renders the dynamicref metadata fields
  */
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
-  selector: 'span[ds-crisref]',
-  templateUrl: './crisref.component.html',
-  styleUrls: ['./crisref.component.scss'],
+  selector: 'span[ds-dynamicref]',
+  templateUrl: './dynamicref.component.html',
+  styleUrls: ['./dynamicref.component.scss'],
   imports: [
     MetadataLinkViewComponent,
   ],
 })
-export class CrisrefComponent extends RenderingTypeValueModelComponent {
+export class DynamicrefComponent extends RenderingTypeValueModelComponent {
 
 }

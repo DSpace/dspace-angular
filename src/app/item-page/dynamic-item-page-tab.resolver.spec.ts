@@ -24,7 +24,7 @@ import { HardRedirectService } from '../core/services/hard-redirect.service';
 import { Item } from '../core/shared/item.model';
 import { dynamicItemPageTabResolver } from './dynamic-item-page-tab.resolver';
 
-describe('CrisItemPageTabResolver', () => {
+describe('DynamicItemPageTabResolver', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule.withRoutes([{

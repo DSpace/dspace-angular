@@ -106,5 +106,5 @@ export interface TopSectionColumn {
  * Represents the type of template to use for the section
  */
 export enum TopSectionTemplateType {
-  DEFAULT = 'default', // CRIS default template
+  DEFAULT = 'default', // default template
 }

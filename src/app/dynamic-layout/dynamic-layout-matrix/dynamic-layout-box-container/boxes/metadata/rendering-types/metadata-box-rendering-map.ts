@@ -2,8 +2,8 @@ import { AdvancedAttachmentComponent } from './advanced-attachment/advanced-atta
 import { AttachmentComponent } from './attachment/attachment.component';
 import { CcLicenseLargeComponent } from './cc-license-large/cc-license-large.component';
 import { CcLicenseSmallComponent } from './cc-license-small/cc-license-small.component';
-import { CrisrefComponent } from './crisref/crisref.component';
 import { DateComponent } from './date/date.component';
+import { DynamicrefComponent } from './dynamicref/dynamicref.component';
 import { FieldRenderingType } from './field-rendering-type';
 import { HeadingComponent } from './heading/heading.component';
 import { HtmlComponent } from './html/html.component';
@@ -34,7 +34,7 @@ export const layoutBoxesMap = new Map<FieldRenderingType, MetadataBoxFieldRender
     componentRef: IdentifierComponent,
     structured: false,
   } as MetadataBoxFieldRenderOptions],
-  [FieldRenderingType.CRISREF, { componentRef: CrisrefComponent, structured: false } as MetadataBoxFieldRenderOptions],
+  [FieldRenderingType.DYNAMICREF, { componentRef: DynamicrefComponent, structured: false } as MetadataBoxFieldRenderOptions],
   [FieldRenderingType.THUMBNAIL, {
     componentRef: ThumbnailRenderingComponent,
     structured: true,

@@ -231,7 +231,7 @@ describe('TabDataService', () => {
                             {
                               metadata: 'person.affiliation.name',
                               label: 'Main Affiliation',
-                              rendering: 'crisref',
+                              rendering: 'dynamicref',
                               fieldType: 'METADATA',
                               styleLabel: 'fw-bold col-3',
                               styleValue: null,
@@ -241,7 +241,7 @@ describe('TabDataService', () => {
                             {
                               metadata: 'crisrp.workgroup',
                               label: null,
-                              rendering: 'crisref',
+                              rendering: 'dynamicref',
                               fieldType: 'METADATA',
                               styleLabel: 'fw-bold col-3',
                               styleValue: null,
@@ -261,7 +261,7 @@ describe('TabDataService', () => {
                             {
                               metadata: 'person.email',
                               label: 'Email',
-                              rendering: 'crisref.email',
+                              rendering: 'dynamicref.email',
                               fieldType: 'METADATA',
                               styleLabel: 'fw-bold col-3',
                               styleValue: null,
@@ -470,7 +470,7 @@ describe('TabDataService', () => {
                             {
                               metadata: 'person.affiliation.name',
                               label: 'Main Affiliation',
-                              rendering: 'crisref',
+                              rendering: 'dynamicref',
                               fieldType: 'METADATA',
                               styleLabel: 'fw-bold col-3',
                               styleValue: null,
@@ -480,7 +480,7 @@ describe('TabDataService', () => {
                             {
                               metadata: 'crisrp.workgroup',
                               label: null,
-                              rendering: 'crisref',
+                              rendering: 'dynamicref',
                               fieldType: 'METADATA',
                               styleLabel: 'fw-bold col-3',
                               styleValue: null,
@@ -500,7 +500,7 @@ describe('TabDataService', () => {
                             {
                               metadata: 'person.email',
                               label: 'Email',
-                              rendering: 'crisref.email',
+                              rendering: 'dynamicref.email',
                               fieldType: 'METADATA',
                               styleLabel: 'fw-bold col-3',
                               styleValue: null,

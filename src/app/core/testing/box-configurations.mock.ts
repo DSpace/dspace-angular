@@ -146,7 +146,7 @@ export const metadataBoxConfigurationMock: MetadataBoxConfiguration = {
                   {
                     'metadata': 'oairecerif.person.affiliation',
                     'label': 'Organisation',
-                    'rendering': 'crisref',
+                    'rendering': 'dynamicref',
                     'fieldType': 'METADATA',
                     'style': 'row',
                     'styleLabel': 'col',
@@ -206,7 +206,7 @@ export const metadataBoxConfigurationMock: MetadataBoxConfiguration = {
                   {
                     'metadata': 'crisrp.education',
                     'label': 'Organisation',
-                    'rendering': 'crisref',
+                    'rendering': 'dynamicref',
                     'fieldType': 'METADATA',
                     'style': 'row',
                     'styleLabel': 'col',

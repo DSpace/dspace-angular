@@ -102,7 +102,7 @@ export class MetadataLinkViewComponent implements OnInit {
    */
   @Input() popoverPlacement: string;
   /**
-   * The metadata name from where to take the value of the cris style
+   * The metadata name from where to take the value of the dynamic style
    */
   dynamicRefMetadata = environment.layout.dynamicRefStyleMetadata;
 
@@ -185,7 +185,7 @@ export class MetadataLinkViewComponent implements OnInit {
     if (itemRD.hasSucceeded && itemRD.payload) {
       this.relatedItem = itemRD.payload;
       this.relatedDsoRoute = this.getItemPageRoute(this.relatedItem);
-      const entityStyleValue = this.getCrisRefMetadata(itemRD.payload?.entityType);
+      const entityStyleValue = this.getDynamicRefMetadata(itemRD.payload?.entityType);
       return {
         authority: metadataValue.authority,
         value: metadataValue.value,
@@ -229,7 +229,7 @@ export class MetadataLinkViewComponent implements OnInit {
     }
   }
 
-  private getCrisRefMetadata(entity: string): string {
+  private getDynamicRefMetadata(entity: string): string {
     if (isEmpty(this.dynamicRefMetadata)) {
       return 'dspace.entity.style';
     }

@@ -18,8 +18,8 @@ import {
 
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import {
-  CrisLayoutBoxRenderOptions,
-  getCrisLayoutBox,
+  DynamicLayoutBoxRenderOptions,
+  getDynamicLayoutBox,
 } from '../../decorators/dynamic-layout-box.decorator';
 import { LayoutBox } from '../../enums/layout-box.enum';
 
@@ -49,9 +49,9 @@ export class DynamicLayoutBoxContainerComponent implements OnInit {
   @Input() tabName: string;
 
   /**
-   * CrisLayoutBoxRenderOptions reference of the box that will be created
+   * DynamicLayoutBoxRenderOptions reference of the box that will be created
    */
-  componentLoader: CrisLayoutBoxRenderOptions;
+  componentLoader: DynamicLayoutBoxRenderOptions;
 
   /**
    * The prefix used for box header's i18n key
@@ -108,8 +108,8 @@ export class DynamicLayoutBoxContainerComponent implements OnInit {
   /**
    * Active tab utilized by accordion
    */
-  getComponent(): CrisLayoutBoxRenderOptions {
-    return getCrisLayoutBox(this.box.boxType as LayoutBox);
+  getComponent(): DynamicLayoutBoxRenderOptions {
+    return getDynamicLayoutBox(this.box.boxType as LayoutBox);
   }
   /**
    * Get component reference to be inserted in the ngComponentOutlet
