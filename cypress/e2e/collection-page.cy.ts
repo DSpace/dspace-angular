@@ -1,7 +1,6 @@
 import { testA11y } from 'cypress/support/utils';
 
 const COLLECTION_PAGE = '/collections/'.concat(Cypress.expose('DSPACE_TEST_COLLECTION'));
-const LOGIN_PAGE = '/login';
 
 describe('Collection Page', () => {
 
@@ -18,20 +17,28 @@ describe('Collection Page', () => {
 
 describe('Collection Page -> Collection-edit menu', () => {
   beforeEach(() => {
-    // All tests start with visiting the Login Page
-    cy.visit(LOGIN_PAGE);
+    cy.visit(COLLECTION_PAGE);
+    // Open login menu in header & verify <ds-log-in> tag is visible
+    cy.get('[data-test="login-menu"]').click();
+    cy.get('.form-login').should('be.visible');
 
-    // These page elements are restricted, so we will be shown the login form. Fill it out & submit.
+    // Login, and the <ds-log-in> tag should no longer exist
     cy.env(['DSPACE_TEST_ADMIN_USER', 'DSPACE_TEST_ADMIN_PASSWORD']).then(({ DSPACE_TEST_ADMIN_USER, DSPACE_TEST_ADMIN_PASSWORD }) => {
       cy.loginViaForm(DSPACE_TEST_ADMIN_USER, DSPACE_TEST_ADMIN_PASSWORD);
     });
-
-    // Now we can visit the collection page:
-    cy.visit(COLLECTION_PAGE);
+    cy.get('ds-log-in').should('not.exist');
   });
 
   it('Edit menu should exist for admins.', () => {
     // <dso-edit-menu> tag must be loaded
     cy.get('ds-dso-edit-menu').should('be.visible');
+  });
+
+  it('Options menu should include submit item on collection pages.', () => {
+    // Open the Options menu and verify the Submit item entry is available
+    cy.get('ds-dso-edit-menu button[aria-label="Options"]').click();
+    cy.get('[data-test="link-menu-item.collection.submit.item"]')
+      .should('be.visible')
+      .and('contain', 'Submit item');
   });
 });
