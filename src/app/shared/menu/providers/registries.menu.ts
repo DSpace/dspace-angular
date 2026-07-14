@@ -38,6 +38,7 @@ export class RegistriesMenuProvider extends AbstractExpandableMenuProvider {
   public getTopSection(): Observable<PartialMenuSection> {
     return of(
       {
+        accessibilityHandle: 'registries',
         model: {
           type: MenuItemType.TEXT,
           text: 'menu.section.registries',

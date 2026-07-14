@@ -41,6 +41,7 @@ export class ImportMenuProvider extends AbstractExpandableMenuProvider {
   public getTopSection(): Observable<PartialMenuSection> {
     return of(
       {
+        accessibilityHandle: 'import',
         model: {
           type: MenuItemType.TEXT,
           text: 'menu.section.import',

@@ -71,12 +71,19 @@ export class AdminSidebarSectionComponent extends AbstractMenuSectionComponent i
   }
 
   adminMenuSectionId(section: MenuSection) {
-    const accessibilityHandle = section.accessibilityHandle ?? section.id;
-    return `admin-menu-section-${accessibilityHandle}`;
+    return `admin-menu-section-${this.getAccessibilityHandle(section)}`;
   }
 
   adminMenuSectionTitleAccessibilityHandle(section: MenuSection) {
-    const accessibilityHandle = section.accessibilityHandle ?? section.id;
-    return `admin-menu-section-${accessibilityHandle}-title`;
+    return `admin-menu-section-${this.getAccessibilityHandle(section)}-title`;
+  }
+
+  /**
+   * Returns the identifier to use when building translation keys and DOM ids for a menu section.
+   * Falls back to the (often auto-generated, non-translatable) section id when no explicit
+   * accessibilityHandle was provided by the section's menu provider.
+   */
+  getAccessibilityHandle(section: MenuSection): string {
+    return section.accessibilityHandle ?? section.id;
   }
 }

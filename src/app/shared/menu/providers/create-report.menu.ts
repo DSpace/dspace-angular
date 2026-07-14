@@ -81,6 +81,7 @@ export class CreateReportMenuProvider extends AbstractExpandableMenuProvider {
     ]).pipe(
       map(([reportEnabled, isSiteAdmin]: [boolean, boolean]) => {
         return {
+          accessibilityHandle: 'reports',
           visible: isSiteAdmin && reportEnabled,
           model: {
             type: MenuItemType.TEXT,

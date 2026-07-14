@@ -65,6 +65,7 @@ export class CoarNotifyMenuProvider extends AbstractExpandableMenuProvider {
     ]).pipe(
       map(([isCoarNotifyEnabled, isSiteAdmin]: [boolean, boolean]) => {
         return {
+          accessibilityHandle: 'coar_notify',
           visible: isSiteAdmin && isCoarNotifyEnabled,
           model: {
             type: MenuItemType.TEXT,

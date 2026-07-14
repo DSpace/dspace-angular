@@ -19,6 +19,7 @@ import { CoarNotifyMenuProvider } from './coar-notify.menu';
 
 describe('CoarNotifyMenuProvider', () => {
   const expectedTopSection: PartialMenuSection = {
+    accessibilityHandle: 'coar_notify',
     visible: true,
     model: {
       type: MenuItemType.TEXT,

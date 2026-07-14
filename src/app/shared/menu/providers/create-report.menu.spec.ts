@@ -24,6 +24,7 @@ import { CreateReportMenuProvider } from './create-report.menu';
 
 describe('CreateReportMenuProvider', () => {
   const expectedTopSection: PartialMenuSection = {
+    accessibilityHandle: 'reports',
     visible: true,
     model: {
       type: MenuItemType.TEXT,

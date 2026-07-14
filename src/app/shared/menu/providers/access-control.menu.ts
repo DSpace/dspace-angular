@@ -38,6 +38,7 @@ export class AccessControlMenuProvider extends AbstractExpandableMenuProvider {
 
   public getTopSection(): Observable<PartialMenuSection> {
     return of({
+      accessibilityHandle: 'access_control',
       model: {
         type: MenuItemType.TEXT,
         text: 'menu.section.access_control',

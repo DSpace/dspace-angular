@@ -19,6 +19,7 @@ import { ImportMenuProvider } from './import.menu';
 
 describe('ImportMenuProvider', () => {
   const expectedTopSection: PartialMenuSection = {
+    accessibilityHandle: 'import',
     visible: true,
     model: {
       type: MenuItemType.TEXT,

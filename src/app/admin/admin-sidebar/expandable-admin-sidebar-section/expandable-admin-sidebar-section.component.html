@@ -10,7 +10,7 @@
       aria-haspopup="menu"
       [attr.aria-controls]="adminMenuSectionId(section)"
       [attr.aria-expanded]="isExpanded$ | async"
-      [attr.aria-label]="('menu.section.toggle.' + section.id) | translate"
+      [attr.aria-label]="('menu.section.toggle.' + getAccessibilityHandle(section)) | translate"
       [class.disabled]="section.model?.disabled"
       (click)="toggleSection($event)"
       (keyup.space)="toggleSection($event)"
@@ -36,7 +36,7 @@
         <div class="sidebar-fixed-element-wrapper"></div>
         <div class="sidebar-collapsible-element-outer-wrapper">
           <div class="sidebar-collapsible-element-inner-wrapper">
-            <div class="sidebar-sub-level-item-list" role="menu" [id]="adminMenuSectionId(section)" [attr.aria-label]="('menu.section.' + section.id) | translate">
+            <div class="sidebar-sub-level-item-list" role="menu" [id]="adminMenuSectionId(section)" [attr.aria-label]="('menu.section.' + getAccessibilityHandle(section)) | translate">
               @for (subSection of (subSections$ | async); track subSection) {
                 <div class="sidebar-item">
                   <ng-container

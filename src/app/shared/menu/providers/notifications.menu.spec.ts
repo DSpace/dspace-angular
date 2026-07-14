@@ -21,6 +21,7 @@ import { NotificationsMenuProvider } from './notifications.menu';
 
 describe('NotificationsMenuProvider', () => {
   const expectedTopSection: PartialMenuSection = {
+    accessibilityHandle: 'notifications',
     visible: true,
     model: {
       type: MenuItemType.TEXT,

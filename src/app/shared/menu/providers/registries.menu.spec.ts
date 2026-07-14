@@ -20,6 +20,7 @@ import { RegistriesMenuProvider } from './registries.menu';
 describe('RegistriesMenuProvider', () => {
 
   const expectedTopSection: PartialMenuSection = {
+    accessibilityHandle: 'registries',
     visible: true,
     model: {
       type: MenuItemType.TEXT,

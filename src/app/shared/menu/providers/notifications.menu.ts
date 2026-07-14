@@ -67,6 +67,7 @@ export class NotificationsMenuProvider extends AbstractExpandableMenuProvider {
     ]).pipe(
       map(([canSeeQa, isSiteAdmin]: [boolean, boolean]) => {
         return {
+          accessibilityHandle: 'notifications',
           visible: canSeeQa || isSiteAdmin,
           model: {
             type: MenuItemType.TEXT,

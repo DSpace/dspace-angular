@@ -20,6 +20,7 @@ import { AccessControlMenuProvider } from './access-control.menu';
 
 describe('AccessControlMenuProvider', () => {
   const expectedTopSection: PartialMenuSection = {
+    accessibilityHandle: 'access_control',
     visible: true,
     model: {
       type: MenuItemType.TEXT,

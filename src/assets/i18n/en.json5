@@ -3812,6 +3812,8 @@
 
   "menu.section.toggle.access_control": "Toggle Access Control section",
 
+  "menu.section.toggle.coar_notify": "Toggle COAR Notify section",
+
   "menu.section.toggle.reports": "Toggle Reports section",
 
   "menu.section.toggle.control_panel": "Toggle Control Panel section",
@@ -3827,6 +3829,8 @@
   "menu.section.toggle.import": "Toggle Import section",
 
   "menu.section.toggle.new": "Toggle New section",
+
+  "menu.section.toggle.notifications": "Toggle Notifications section",
 
   "menu.section.toggle.registries": "Toggle Registries section",
 
