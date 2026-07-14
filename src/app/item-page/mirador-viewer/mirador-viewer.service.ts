@@ -21,6 +21,7 @@ import {
 } from '@dspace/core/shared/operators';
 import { Observable } from 'rxjs';
 import {
+  concatMap,
   filter,
   last,
   map,
@@ -77,7 +78,7 @@ export class MiradorViewerService {
         return bundlesRD.payload;
       }),
       map((paginatedList: PaginatedList<Bundle>) => paginatedList.page),
-      switchMap((bundles: Bundle[]) => bundles),
+      mergeMap((bundles: Bundle[]) => bundles),
       filter((b: Bundle) => this.isIiifBundle(b.name)),
       mergeMap((bundle: Bundle) => {
         return bitstreamDataService.findAllByItemAndBundleName(item, bundle.name, {
@@ -90,7 +91,7 @@ export class MiradorViewerService {
           }),
           map((paginatedList: PaginatedList<Bitstream>) => paginatedList.page),
           switchMap((bitstreams: Bitstream[]) => bitstreams),
-          switchMap((bitstream: Bitstream) => bitstream.format.pipe(
+          concatMap((bitstream: Bitstream) => bitstream.format.pipe(
             getFirstCompletedRemoteData(),
             map((formatRD: RemoteData<BitstreamFormat>) => {
               return formatRD.payload;
