@@ -25,9 +25,9 @@ import { SearchServiceStub } from '@dspace/core/testing/search-service.stub';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
+import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspace-configuration.service';
 import { ShortNumberPipe } from '../../../../../utils/short-number.pipe';
 import { SearchService } from '../../../../search.service';
-import { SearchConfigurationService } from '../../../../search-configuration.service';
 import { SearchFilterService } from '../../../search-filter.service';
 import {
   RANGE_FILTER_MAX_SUFFIX,
@@ -80,7 +80,7 @@ describe('SearchFacetRangeOptionComponent', () => {
         { provide: Router, useValue: new RouterStub() },
         { provide: PaginationService, useValue: paginationService },
         {
-          provide: SearchConfigurationService, useValue: {
+          provide: SEARCH_CONFIG_SERVICE, useValue: {
             searchOptions: of({}),
             searchInstanceId: 'page-id',
             getCurrentSearchInstanceFilterParam: (param: string) => `page-id.${param}`,

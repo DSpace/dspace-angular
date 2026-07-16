@@ -1,6 +1,7 @@
 import { AsyncPipe } from '@angular/common';
 import {
   Component,
+  Inject,
   Input,
   OnInit,
 } from '@angular/core';
@@ -20,6 +21,7 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspace-configuration.service';
 import { LiveRegionService } from '../../../../../live-region/live-region.service';
 import { ShortNumberPipe } from '../../../../../utils/short-number.pipe';
 import { SearchService } from '../../../../search.service';
@@ -77,7 +79,7 @@ export class SearchFacetOptionComponent implements OnInit {
 
   constructor(protected searchService: SearchService,
               protected filterService: SearchFilterService,
-              protected searchConfigService: SearchConfigurationService,
+              @Inject(SEARCH_CONFIG_SERVICE) protected searchConfigService: SearchConfigurationService,
               protected router: Router,
               protected paginationService: PaginationService,
               protected liveRegionService: LiveRegionService,

@@ -1,6 +1,7 @@
 import { AsyncPipe } from '@angular/common';
 import {
   Component,
+  Inject,
   Input,
   OnDestroy,
   OnInit,
@@ -21,6 +22,7 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspace-configuration.service';
 import { ShortNumberPipe } from '../../../../../utils/short-number.pipe';
 import { SearchService } from '../../../../search.service';
 import { SearchConfigurationService } from '../../../../search-configuration.service';
@@ -85,7 +87,7 @@ export class SearchFacetRangeOptionComponent implements OnInit, OnDestroy {
 
   constructor(protected searchService: SearchService,
               protected filterService: SearchFilterService,
-              protected searchConfigService: SearchConfigurationService,
+              @Inject(SEARCH_CONFIG_SERVICE) protected searchConfigService: SearchConfigurationService,
               protected router: Router,
               protected paginationService: PaginationService,
   ) {
