@@ -42,11 +42,8 @@ jobs:
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v4
         with:
-          languages: javascript
-
-      # Autobuild attempts to build any compiled languages
-      - name: Autobuild
-        uses: github/codeql-action/autobuild@v4
+          # Codescan Javascript/Typescript code and GitHub actions/workflows
+          languages: javascript, actions
 
       # Perform GitHub Code Scanning.
       - name: Perform CodeQL Analysis
