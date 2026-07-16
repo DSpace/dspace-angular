@@ -8,13 +8,12 @@
 import { Injectable } from '@angular/core';
 import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
-import { Collection } from '@dspace/core/shared/collection.model';
 import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import {
   map,
   Observable,
 } from 'rxjs';
-import { getBulkImportRoute } from 'src/app/app-routing-paths';
+import { getBulkImportRoute } from 'src/app/collection-page/collection-page-routing-paths';
 
 import { LinkMenuItemModel } from '../menu-item/models/link.model';
 import { MenuItemType } from '../menu-item-type.model';
@@ -39,9 +38,10 @@ export class BulkImportMenuProvider extends DSpaceObjectPageMenuProvider {
           model: {
             type: MenuItemType.LINK,
             text: 'context-menu.actions.bulk-import.btn',
-            link: getBulkImportRoute(dso as Collection),
+            link: getBulkImportRoute(dso.id),
           } as LinkMenuItemModel,
           visible: isAuthorized,
+          icon: 'file-excel',
         }] as PartialMenuSection[];
       }),
     );

@@ -18,8 +18,9 @@ describe('BulkImportMenuProvider', () => {
       model: {
         type: MenuItemType.LINK,
         text: 'context-menu.actions.bulk-import.btn',
-        link: '/bulk-import/test-uuid',
+        link: '/collections/test-id/bulk-import',
       },
+      icon: 'file-excel',
     },
   ];
 
@@ -27,7 +28,7 @@ describe('BulkImportMenuProvider', () => {
 
   const dso: Collection = Object.assign(new Collection(), {
     type: COLLECTION.value,
-    id: 'test-uuid',
+    id: 'test-id',
     _links: { self: { href: 'self-link' } },
   });
 

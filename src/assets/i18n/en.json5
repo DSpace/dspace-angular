@@ -1207,7 +1207,7 @@
 
   "bulk-import.back": "Back",
 
-  "bulk-import.breadcrumbs": "Bulk import",
+  "bulk-import.breadcrumbs": "Bulk Import from Excel",
 
   "bulk-import.collection-name": "Collection",
 
@@ -1217,7 +1217,7 @@
 
   "bulk-import.file": "Source file",
 
-  "bulk-import.header": "Bulk import",
+  "bulk-import.header": "Bulk Import from Excel",
 
   "bulk-import.processing": "Processing...",
 
@@ -1225,7 +1225,7 @@
 
   "bulk-import.submit": "Start import",
 
-  "bulk-import.title": "Bulk import",
+  "bulk-import.title": "Bulk Import from Excel",
 
   "search.browse.item-back": "Back to Results",
 
@@ -1731,7 +1731,7 @@
 
   "context-menu.actions.audit-item.btn": "Audit",
 
-  "context-menu.actions.bulk-import.btn": "Import into collection",
+  "context-menu.actions.bulk-import.btn": "Import from Excel",
 
   "context-menu.actions.subscription.frequency.required": "Please select a frequency",
 

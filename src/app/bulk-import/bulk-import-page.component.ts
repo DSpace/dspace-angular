@@ -1,4 +1,3 @@
-import { AsyncPipe } from '@angular/common';
 import {
   Component,
   OnDestroy,
@@ -55,7 +54,6 @@ interface BulkImportFormValues {
   selector: 'ds-bulk-import-page',
   templateUrl: './bulk-import-page.component.html',
   imports: [
-    AsyncPipe,
     BtnDisabledDirective,
     FileValidator,
     ReactiveFormsModule,

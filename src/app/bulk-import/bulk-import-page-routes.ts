@@ -10,7 +10,7 @@ import { bulkImportPageResolver } from './bulk-import-page.resolver';
  */
 export const ROUTES: Route[] = [
   {
-    path: ':id',
+    path: '',
     component: BulkImportPageComponent,
     resolve: {
       collection: bulkImportPageResolver,
