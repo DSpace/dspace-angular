@@ -5,7 +5,7 @@ import {
 
 import { TruncatableComponent } from '../../../../../../../shared/truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../../../../../../../shared/truncatable/truncatable-part/truncatable-part.component';
-import { RenderingTypeValueModelComponent } from '../rendering-type-value.model';
+import { HtmlComponent } from '../html/html.component';
 
 /**
  * This component renders the text metadata fields with a show more button
@@ -20,7 +20,7 @@ import { RenderingTypeValueModelComponent } from '../rendering-type-value.model'
     TruncatablePartComponent,
   ],
 })
-export class LonghtmlComponent extends RenderingTypeValueModelComponent implements OnInit {
+export class LonghtmlComponent extends HtmlComponent implements OnInit {
 
   /**
    * Id for truncatable component
@@ -31,13 +31,5 @@ export class LonghtmlComponent extends RenderingTypeValueModelComponent implemen
     this.truncatableId = `${this.item.id}_${this.field.metadata}_html`;
   }
 
-  /**
-   * If the metadata value does not contain HTML tags then replace newline character with <br>
-   * @param text
-   */
-  processHtml(text: string): string {
-    const htmlTagRegex = /<.*?>/;
-    return htmlTagRegex.test(text) ? text.replace(/\n/, '<br>') : text;
-  }
 
 }

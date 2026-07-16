@@ -19,7 +19,9 @@ export class HtmlComponent extends RenderingTypeValueModelComponent {
    */
   processHtml(text: string): string {
     const htmlTagRegex = /<.*?>/;
-    return htmlTagRegex.test(text) ? text.replace(/\n/, '<br>') : text;
+    return htmlTagRegex.test(text)
+      ? text.replace(/\n/g, '<br>')
+      : text;
   }
 
 }
