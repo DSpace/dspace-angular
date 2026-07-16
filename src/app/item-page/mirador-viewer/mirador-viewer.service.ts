@@ -78,7 +78,7 @@ export class MiradorViewerService {
         return bundlesRD.payload;
       }),
       map((paginatedList: PaginatedList<Bundle>) => paginatedList.page),
-      mergeMap((bundles: Bundle[]) => bundles),
+      switchMap((bundles: Bundle[]) => bundles),
       filter((b: Bundle) => this.isIiifBundle(b.name)),
       mergeMap((bundle: Bundle) => {
         return bitstreamDataService.findAllByItemAndBundleName(item, bundle.name, {
