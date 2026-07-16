@@ -19,8 +19,8 @@ import { of } from 'rxjs';
 
 import { PaginationService } from '../../../../../../core/pagination/pagination.service';
 import { SearchService } from '../../../../../../core/shared/search/search.service';
-import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { SearchFilterService } from '../../../../../../core/shared/search/search-filter.service';
+import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspace-configuration.service';
 import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
 import { PaginationServiceStub } from '../../../../../testing/pagination-service.stub';
 import { RouterStub } from '../../../../../testing/router.stub';
@@ -80,7 +80,7 @@ describe('SearchFacetRangeOptionComponent', () => {
         { provide: Router, useValue: new RouterStub() },
         { provide: PaginationService, useValue: paginationService },
         {
-          provide: SearchConfigurationService, useValue: {
+          provide: SEARCH_CONFIG_SERVICE, useValue: {
             searchOptions: of({}),
             searchInstanceId: 'page-id',
             getCurrentSearchInstanceFilterParam: (param: string) => `page-id.${param}`,
