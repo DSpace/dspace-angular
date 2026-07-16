@@ -28,11 +28,11 @@ import { SearchServiceStub } from '@dspace/core/testing/search-service.stub';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
+import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspace-configuration.service';
 import { LiveRegionService } from '../../../../../live-region/live-region.service';
 import { getLiveRegionServiceStub } from '../../../../../live-region/live-region.service.stub';
 import { ShortNumberPipe } from '../../../../../utils/short-number.pipe';
 import { SearchService } from '../../../../search.service';
-import { SearchConfigurationService } from '../../../../search-configuration.service';
 import { SearchFilterService } from '../../../search-filter.service';
 import { SearchFacetOptionComponent } from './search-facet-option.component';
 
@@ -83,7 +83,7 @@ describe('SearchFacetOptionComponent', () => {
         { provide: SearchService, useValue: searchService },
         { provide: Router, useValue: router },
         { provide: PaginationService, useValue: paginationService },
-        { provide: SearchConfigurationService, useValue: searchConfigurationService },
+        { provide: SEARCH_CONFIG_SERVICE, useValue: searchConfigurationService },
         { provide: SearchFilterService, useValue: searchFilterService },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         { provide: LiveRegionService, useValue: getLiveRegionServiceStub() },
