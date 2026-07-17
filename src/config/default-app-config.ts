@@ -746,6 +746,7 @@ export class DefaultAppConfig implements AppConfig {
   // These styles are used in components like MetadataLinkViewComponent to display entity type indicators
   // alongside metadata values, providing visual cues about the type of referenced entity.
   layout: LayoutConfig = {
+    enableExplorePages: true,
     authorityRef: [
       {
         entityType: 'DEFAULT',

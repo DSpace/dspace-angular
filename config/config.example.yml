@@ -711,6 +711,9 @@ accessibility:
 # Configuration for layout customization of metadata rendering in Item page
 # Currently only the authority reference config is available, more will follow with the integration of the so called CRIS layout.
 layout:
+  # Enable or disable the explore pages feature (/explore/:id routes and their navbar menu entries).
+  # When false, explore routes redirect to 404 and the explore menu is hidden.
+  enableExplorePages: true
   # Configuration of icons and styles to be used for each authority controlled link
   authorityRef:
     - entityType: DEFAULT

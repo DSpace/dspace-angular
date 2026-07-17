@@ -535,6 +535,7 @@ export const environment: BuildConfig = {
 
   // Configuration for layout customization of metadata rendering in Item page
   layout: {
+    enableExplorePages: true,
     authorityRef: [
       {
         entityType: 'DEFAULT',

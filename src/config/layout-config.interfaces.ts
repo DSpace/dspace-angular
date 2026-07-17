@@ -63,6 +63,12 @@ export interface AuthorityRefConfig extends Config {
  */
 export interface LayoutConfig extends Config {
   /**
+   * Whether explore pages (e.g., /explore/:id) and the explore menu in the navbar are enabled.
+   * When false, explore routes will redirect to 404 and menu entries will be hidden.
+   */
+  enableExplorePages: boolean;
+
+  /**
    * Array of authority reference configurations for different entity types.
    * Each entry defines how entities of a specific type should be visually represented with icons and styles.
    */
