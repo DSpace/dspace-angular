@@ -13,7 +13,10 @@ For additional guidelines, see the wiki documentation for [User Interface Design
    1. [Templates in Base Theme should only use default Bootstrap styling](#templates-in-base-theme-should-only-use-default-Bootstrap-styling)
    2. [Required Bootstrap Components must use `ng-bootstrap` library](#required-bootstrap-components-must-use-ng-bootstrap-library)
    3. [Document methods and classes using TypeDoc](#document-methods-and-classes-using-typedoc)
+   4. [Align with DSpace's User Interface Design Guidelines](#align-with-dspaces-user-interface-design-guidelines)
 3. [Accessibility Guidelines](#accessibility-guidelines)
+   1. [Align with WCAG (Web Content Accessibility Guidelines) AA criteria](#align-with-wcag-web-content-accessibility-guidelines-aa-criteria)
+   2. [Align with DSpace's User Interface Accessibility Guidelines](#align-with-dspaces-user-interface-accessibility-guidelines)
 
 
 ## Enforcement of Guidelines
@@ -37,9 +40,18 @@ When Bootstrap Components (accordion, dropdown, etc …) are required you MUST u
 
 Write [TypeDoc](https://typedoc.org/) comments for all new (or modified) public methods and classes, as well as for large or complex private methods.
 
+### Align with DSpace's User Interface Design Guidelines
+
+In order to ensure consistent layout and behavior on all pages, please refer to the [User Interface Design Guidelines](https://wiki.lyrasis.org/spaces/DSDOC10x/pages/408945765/User+Interface+Design+Principles+Accessibility#UserInterfaceDesignPrinciples%26Accessibility-UserInterfaceDesignGuidelines). This documentation provides more details regarding User Interface layout/design and the elements (or components) used by the DSpace User Interface. 
 
 ## Accessibility Guidelines
+
+### Align with WCAG (Web Content Accessibility Guidelines) AA criteria
 
 The DSpace User Interface strives to align with [WCAG](https://www.w3.org/WAI/standards-guidelines/wcag/) AA criteria. Some AAA criteria may also be supported.  For more information see [Accessibility documentation](https://wiki.lyrasis.org/spaces/DSDOC10x/pages/408944958/Accessibility).
 
 The use of the Bootstrap framework can help in achieving some WCAG goals such as ‘Visual Presentation’ (AAA), 'Parsing' (A), ‘Orientation’ (AA), ‘Reflow’ (AA) and ‘Text Spacing’ (AA). See the Bootstrap chapter ["Accessibility"](https://getbootstrap.com/docs/4.0/getting-started/accessibility/) for an explanation of WCAG and where to find additional information.
+
+### Align with DSpace's User Interface Accessibility Guidelines
+
+Refer to the [User Interface Accessibility Guidelines](https://wiki.lyrasis.org/spaces/DSDOC10x/pages/408945765/User+Interface+Design+Principles+Accessibility#UserInterfaceDesignPrinciples%26Accessibility-UserInterfaceAccessibilityGuidelines) for more detailed recommendations regarding HTML structure, ARIA labelling and more. 
