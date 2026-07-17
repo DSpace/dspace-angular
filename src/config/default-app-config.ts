@@ -375,6 +375,7 @@ export class DefaultAppConfig implements AppConfig {
       pageSize: 5,
     },
     showDiscoverFilters: false,
+    enableDynamicLayout: true,
   };
 
   // Item Config

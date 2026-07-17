@@ -67,6 +67,9 @@ export interface LayoutConfig extends Config {
    * Each entry defines how entities of a specific type should be visually represented with icons and styles.
    */
   authorityRef: AuthorityRefConfig[];
+  /**
+   * Whether to show download links as attachments.
+   */
   showDownloadLinkAsAttachment: boolean;
   /**
    * Configuration for advanced attachment rendering features.

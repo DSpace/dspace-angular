@@ -282,6 +282,7 @@ export const environment: BuildConfig = {
       pageSize: 5,
     },
     showDiscoverFilters: false,
+    enableDynamicLayout: true,
   },
   item: {
     edit: {

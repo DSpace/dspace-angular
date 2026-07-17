@@ -1,0 +1,27 @@
+<div class="m-2">
+  @if ((searchResults$ | async); as searchResults) {
+    @if (searchResults?.hasSucceeded) {
+      <ul class="list-unstyled">
+        @for (object of searchResults?.payload?.page; track object; let i = $index; let last = $last) {
+          <li class="mt-4 mb-4 d-flex" [class.border-bottom]="last !== true">
+            <ds-listable-object-component-loader [context]="context"
+              [index]="i"
+              [listID]="paginatedSearchOptions.configuration"
+              [object]="object"
+              [showLabel]="showLabel"
+              [showThumbnails]="showThumbnails"
+              [viewMode]="paginatedSearchOptions.view"></ds-listable-object-component-loader>
+          </li>
+        }
+      </ul>
+    }
+    @if (searchResults?.hasFailed) {
+      <div>
+        {{ 'remote.error' | translate }}
+      </div>
+    }
+  }
+  @if ((searchResults$ | async) === null || (searchResults$ | async) === undefined) {
+    <ds-loading></ds-loading>
+  }
+</div>
