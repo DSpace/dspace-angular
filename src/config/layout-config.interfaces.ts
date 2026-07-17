@@ -76,4 +76,15 @@ export interface LayoutConfig extends Config {
    * Controls pagination and metadata display for bitstream attachments.
    */
   advancedAttachmentRendering: AdvancedAttachmentRenderingConfig;
+  /**
+   * Configuration for the navbar layout customization.
+   */
+  navbar: NavbarConfig;
+}
+
+/**
+ * Interface describing the structure of the navbar layout.
+ */
+export interface NavbarConfig extends Config {
+  showCommunityCollection: boolean;
 }

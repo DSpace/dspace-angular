@@ -604,6 +604,9 @@ export const environment: BuildConfig = {
         },
       ],
     },
+    navbar: {
+      showCommunityCollection: true,
+    },
   },
 
   searchResult: {

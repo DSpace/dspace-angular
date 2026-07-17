@@ -403,6 +403,8 @@ homePage:
     pageSize: 5
   # Enable or disable the Discover filters on the homepage
   showDiscoverFilters: false
+  # Enable or disable the dynamic layout configuration on the homepage
+  enableDynamicLayout: true
 
 # Item Config
 item:
@@ -756,6 +758,11 @@ layout:
         type: attribute
       - name: checksum
         type: attribute
+  # Navbar layout configuration
+  navbar:
+    # If true, show the "Community and Collections" link in the navbar; otherwise, show it in the admin sidebar
+    showCommunityCollection: true
+
 
 # Configuration for customization of search results
 searchResults:
