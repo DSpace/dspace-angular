@@ -11,6 +11,11 @@ import { DsoEditMenuComponent } from '../../../shared/dso-page/dso-edit-menu/dso
 import { DynamicLayoutMatrixComponent } from '../../dynamic-layout-matrix/dynamic-layout-matrix.component';
 import { DynamicLayoutNavbarComponent } from './dynamic-layout-navbar/dynamic-layout-navbar.component';
 
+/**
+ * Horizontal layout page component for the dynamic item page.
+ * Renders tabs as a horizontal top navbar, with the selected tab's content
+ * displayed below via {@link DynamicLayoutMatrixComponent}.
+ */
 @Component({
   selector: 'ds-dynamic-layout-horizontal',
   templateUrl: './dynamic-layout-horizontal.component.html',

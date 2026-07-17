@@ -31,7 +31,12 @@ import { DynamicLayoutLeadingComponent } from './dynamic-layout-leading/dynamic-
 import { DynamicLayoutLoaderComponent } from './dynamic-layout-loader/dynamic-layout-loader.component';
 
 /**
- * Component for determining what component to use depending on the item's entity type (dspace.entity.type)
+ * Top-level orchestrator component for the dynamic item page layout system.
+ *
+ * Resolves layout tabs (from route data or an input observable) and splits them into
+ * leading tabs (rendered above the main content via {@link DynamicLayoutLeadingComponent})
+ * and loader tabs (rendered via {@link DynamicLayoutLoaderComponent} which picks the
+ * appropriate orientation — horizontal or vertical — based on configuration).
  */
 @Component({
   selector: 'ds-dynamic-layout',

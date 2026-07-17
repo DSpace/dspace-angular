@@ -18,7 +18,11 @@ import { fadeInOut } from '../shared/animations/fade';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 
 /**
- * This component is the entry point for the page that renders items.
+ * Entry point component for the dynamic item page.
+ *
+ * Resolves the item from route data and passes it to {@link DynamicLayoutComponent},
+ * which handles tab resolution and layout rendering. Also checks admin authorization
+ * for displaying admin-specific UI elements.
  */
 @Component({
   selector: 'ds-dynamic-item-page',

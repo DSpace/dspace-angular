@@ -28,11 +28,17 @@ import { Item } from '../core/shared/item.model';
 import { getFirstCompletedRemoteData } from '../core/shared/operators';
 
 /**
- * Method for resolving the tabs of item based on the parameters in the current route
- * @param {ActivatedRouteSnapshot} route The current ActivatedRouteSnapshot
- * @param {RouterStateSnapshot} state The current RouterStateSnapshot
- * @returns Observable<<RemoteData<Item>> Emits the found item based on the parameters in the current route,
- * or an error if something went wrong
+ * Route resolver that fetches layout tabs for an item based on the ':id' route parameter.
+ *
+ * Resolves the item, then fetches its available tabs from the TabDataService (excluding minor-only tabs).
+ * Performs tab validation and redirects:
+ * - If the URL contains an invalid tab shortname, redirects to 404.
+ * - If the URL contains the main tab's shortname explicitly, redirects to the root item page
+ *   (canonical URL without tab suffix).
+ *
+ * @param route The current ActivatedRouteSnapshot containing the item ID
+ * @param state The current RouterStateSnapshot used for URL analysis
+ * @returns Observable emitting the RemoteData of paginated DynamicLayoutTab list
  */
 export const dynamicItemPageTabResolver: ResolveFn<RemoteData<PaginatedList<DynamicLayoutTab>>> = (
   route: ActivatedRouteSnapshot,

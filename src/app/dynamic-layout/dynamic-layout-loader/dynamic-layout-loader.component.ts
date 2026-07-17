@@ -20,6 +20,13 @@ import { getDynamicLayoutPage } from '../decorators/dynamic-layout-page.decorato
 import { DynamicLayoutLoaderDirective } from '../directives/dynamic-layout-loader.directive';
 import { LayoutPage } from '../enums/layout-page.enum';
 
+/**
+ * Loader component that dynamically instantiates the correct layout page component
+ * (horizontal or vertical) based on the entity type's configuration in the app config.
+ *
+ * Uses the {@link DynamicLayoutLoaderDirective} as a ViewChild anchor to place the
+ * dynamically created component, passing the item, tabs, and context menu settings.
+ */
 @Component({
   selector: 'ds-dynamic-layout-loader',
   templateUrl: './dynamic-layout-loader.component.html',
@@ -46,7 +53,7 @@ export class DynamicLayoutLoaderComponent implements OnInit, OnDestroy {
   @Input() showContextMenu: boolean;
 
   /**
-   * Configuration layout form the environment
+   * Layout type configuration (orientation) resolved from the app config for the item's entity type.
    */
   layoutConfiguration: DynamicLayoutTypeConfig;
 

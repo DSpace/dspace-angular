@@ -16,6 +16,11 @@ import { DynamicLayoutMatrixComponent } from '../../dynamic-layout-matrix/dynami
 import { DynamicLayoutNavbarComponent } from '../dynamic-layout-horizontal/dynamic-layout-navbar/dynamic-layout-navbar.component';
 import { DynamicLayoutSidebarComponent } from './dynamic-layout-sidebar/dynamic-layout-sidebar.component';
 
+/**
+ * Vertical layout page component for the dynamic item page.
+ * Renders tabs as a vertical sidebar on larger screens (falling back to a horizontal
+ * navbar on small screens), with the selected tab's content displayed alongside.
+ */
 @Component({
   selector: 'ds-dynamic-layout-vertical',
   templateUrl: './dynamic-layout-vertical.component.html',

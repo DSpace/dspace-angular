@@ -3,6 +3,11 @@ import { hasValue } from '@dspace/shared/utils/empty.util';
 
 import { environment } from '../../../environments/environment';
 
+/**
+ * Service that maps URN (Uniform Resource Name) identifiers (e.g., DOI, HANDLE, SCOPUS)
+ * to their resolver base URLs, as defined in the environment configuration.
+ * Also provides utility methods to detect whether a metadata value is a link.
+ */
 @Injectable({
   providedIn: 'root',
 })

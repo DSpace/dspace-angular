@@ -14,7 +14,11 @@ import { DynamicLayoutBox } from './box.model';
 import { TAB } from './tab.resource-type';
 
 /**
- * Describes a type of DynamicLayoutTab
+ * Model representing a layout tab in the dynamic item page system.
+ *
+ * A tab defines a named section of an item's detail page. Tabs contain rows and cells
+ * forming a grid layout, and may be marked as "leading" (rendered above the main content).
+ * Tabs are fetched from the REST API via the `/tabs` endpoint.
  */
 @typedObject
 export class DynamicLayoutTab extends CacheableObject {
@@ -85,13 +89,23 @@ export class DynamicLayoutTab extends CacheableObject {
 }
 
 
+/**
+ * A row within a tab's layout grid. Contains cells arranged horizontally.
+ */
 export interface DynamicLayoutRow {
+  /** CSS classes applied to the row element (e.g., Bootstrap grid row classes). */
   style: string;
+  /** Array of cells within this row. */
   cells: DynamicLayoutCell[];
 }
 
+/**
+ * A cell within a layout row. Contains one or more boxes.
+ */
 export interface DynamicLayoutCell {
+  /** CSS classes applied to the cell element (e.g., Bootstrap column classes). */
   style: string;
+  /** Array of boxes rendered within this cell. */
   boxes: DynamicLayoutBox[];
 }
 

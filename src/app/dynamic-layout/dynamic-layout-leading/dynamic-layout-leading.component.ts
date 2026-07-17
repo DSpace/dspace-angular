@@ -9,6 +9,10 @@ import { Item } from '../../core/shared/item.model';
 import { DsoEditMenuComponent } from '../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import { DynamicLayoutMatrixComponent } from '../dynamic-layout-matrix/dynamic-layout-matrix.component';
 
+/**
+ * Component that renders leading tabs (summary/overview panels displayed above the main tabbed content).
+ * Delegates box rendering to {@link DynamicLayoutMatrixComponent} and optionally shows the edit menu.
+ */
 @Component({
   selector: 'ds-dynamic-layout-leading',
   templateUrl: './dynamic-layout-leading.component.html',

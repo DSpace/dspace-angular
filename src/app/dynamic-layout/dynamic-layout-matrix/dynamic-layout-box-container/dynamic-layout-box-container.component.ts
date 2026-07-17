@@ -23,6 +23,12 @@ import {
 } from '../../decorators/dynamic-layout-box.decorator';
 import { LayoutBox } from '../../enums/layout-box.enum';
 
+/**
+ * Container component that wraps a single {@link DynamicLayoutBox} in an accordion panel.
+ * Dynamically resolves the correct box component (metadata, relation, collections, IIIF, versioning)
+ * using the {@link getDynamicLayoutBox} decorator map, and injects box/item providers
+ * so the child component can access its data.
+ */
 @Component({
   selector: 'ds-dynamic-layout-box-container',
   templateUrl: './dynamic-layout-box-container.component.html',

@@ -8,6 +8,11 @@ import { DynamicLayoutTab } from '../../core/layout/models/tab.model';
 import { Item } from '../../core/shared/item.model';
 import { DynamicLayoutBoxContainerComponent } from './dynamic-layout-box-container/dynamic-layout-box-container.component';
 
+/**
+ * Component responsible for rendering the rows and cells of a tab's layout matrix.
+ * Each cell contains one or more boxes rendered via {@link DynamicLayoutBoxContainerComponent}.
+ * Applies Bootstrap grid classes based on configured styles.
+ */
 @Component({
   selector: 'ds-dynamic-layout-matrix',
   templateUrl: './dynamic-layout-matrix.component.html',

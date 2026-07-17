@@ -25,7 +25,10 @@ import {
 } from './models/tab.model';
 
 /**
- * A service responsible for fetching data from the REST API on the tabs endpoint
+ * A service responsible for fetching layout tabs from the REST API's `/tabs` endpoint.
+ *
+ * Provides methods to find tabs by item UUID or entity type, with support for
+ * filtering out tabs that contain only minor (secondary) boxes.
  */
 @Injectable({ providedIn: 'root' })
 export class TabDataService extends IdentifiableDataService<DynamicLayoutTab> {
@@ -68,16 +71,20 @@ export class TabDataService extends IdentifiableDataService<DynamicLayoutTab> {
   }
 
   /**
-   * @param tabs
-   * @returns Tabs which contains non minor element
+   * Filters out tabs where every box is marked as minor.
+   *
+   * @param tabs the full list of tabs to filter
+   * @returns tabs that contain at least one non-minor box
    */
   filterTabWithOnlyMinor(tabs: DynamicLayoutTab[]): DynamicLayoutTab[] {
     return tabs.filter(tab => !this.hasTabOnlyMinor(tab));
   }
 
   /**
-   * @param tab  Contains a tab data which has rows, cells and boxes
-   * @returns Boolean based on cells has minor or not
+   * Checks whether all boxes within a tab are minor.
+   *
+   * @param tab the tab to inspect
+   * @returns true if every box in every cell in every row is minor
    */
   hasTabOnlyMinor(tab: DynamicLayoutTab): boolean {
     if (hasNoValue(tab?.rows)) {
