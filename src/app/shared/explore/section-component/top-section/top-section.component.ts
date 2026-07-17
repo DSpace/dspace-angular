@@ -30,15 +30,19 @@ import { ThemedBrowseMostElementsComponent } from '../../../browse-most-elements
 })
 export class TopSectionComponent implements OnInit {
 
+  /** Unique identifier for this section instance. */
   @Input()
   sectionId: string;
 
+  /** Configuration object defining discovery query, sort, and display options. */
   @Input()
   topSection: TopSection;
 
+  /** The context in which items are rendered (defaults to BrowseMostElements). */
   @Input()
   context: Context = Context.BrowseMostElements;
 
+  /** Paginated search options built from the topSection configuration, passed to the browse component. */
   paginatedSearchOptions: PaginatedSearchOptions;
 
   ngOnInit() {

@@ -7,6 +7,9 @@ import { BrowseSection } from '@dspace/core/layout/models/section.model';
 import { ThemedComponent } from '../../../theme-support/themed.component';
 import { BrowseSectionComponent } from './browse-section.component';
 
+/**
+ * Themed wrapper for {@link BrowseSectionComponent}.
+ */
 @Component({
   selector: 'ds-browse-section',
   styleUrls: [],

@@ -62,6 +62,14 @@ import { ThemedHomeNewsComponent } from './home-news/themed-home-news.component'
 import { RecentItemListComponent } from './recent-item-list/recent-item-list.component';
 import { ThemedTopLevelCommunityListComponent } from './top-level-community-list/themed-top-level-community-list.component';
 
+/**
+ * The home page component.
+ *
+ * Supports both a static layout and a dynamic layout driven by section configurations
+ * fetched from the REST API. When dynamic layout is enabled (via `enableDynamicLayout` config),
+ * it renders section components similar to the explore page (top, browse, search, facet, text-row, counters).
+ * Also handles COAR Notify inbox link headers and site metadata rendering.
+ */
 @Component({
   selector: 'ds-base-home-page',
   styleUrls: ['./home-page.component.scss'],
@@ -92,16 +100,23 @@ export class HomePageComponent implements OnInit, OnDestroy {
   recentSubmissionspageSize: number;
   showDiscoverFilters: boolean;
   homeHeaderMetadataValue$: Observable<string>;
+
+  /** Whether the dynamic section-based home page layout is enabled via app config. */
   isDynamicHomePageEnabled: boolean;
+
+  /** The section identifier used when fetching the home page layout ('site'). */
   sectionId = 'site';
 
   /**
-   * Two-dimensional array (rows and columns) of section components
+   * Observable emitting a 2D array (rows × columns) of section components
+   * to render when dynamic home page layout is enabled.
    */
   sectionComponents: Observable<SectionComponent[][]>;
 
+  /** Whether the site has a home header metadata value in the current language. */
   hasHomeHeaderMetadata: boolean;
 
+  /** Default text-row section configuration for the home header CMS metadata. */
   homeHeaderSection: TextRowSection = {
     content: 'cris.cms.home-header',
     contentType: 'text-metadata',
@@ -173,6 +188,13 @@ export class HomePageComponent implements OnInit, OnDestroy {
     );
   }
 
+  /**
+   * Returns Bootstrap column classes for a section component.
+   * If the section's style already contains a 'col' class, uses it as-is;
+   * otherwise defaults to 'col-12' prepended to any existing style.
+   *
+   * @param sectionComponent the section component to compute classes for
+   */
   componentClass(sectionComponent: SectionComponent) {
     const defaultCol = 'col-12';
     return (isNotEmpty(sectionComponent.style) && sectionComponent.style.includes('col')) ?

@@ -34,6 +34,12 @@ import {
 import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
 
 
+/**
+ * Abstract base class for browse elements components.
+ *
+ * Handles searching via the {@link SearchManager} and rendering paginated search results.
+ * Subclasses must specify whether to follow thumbnail links by setting {@link followThumbnailLink}.
+ */
 @Component({
   template: '',
 })
@@ -77,10 +83,13 @@ export abstract class AbstractBrowseElementsComponent implements OnInit, OnChang
 
   public collectionElementLinkTypeEnum = CollectionElementLinkType;
 
+  /** BehaviorSubject emitting the current search options, triggers re-search on change. */
   paginatedSearchOptions$: BehaviorSubject<PaginatedSearchOptions>;
 
+  /** Observable of the raw paginated search results from the SearchManager. */
   searchResults$: Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>>;
 
+  /** Observable emitting the flat array of DSpaceObjects extracted from search results. */
   searchResultArray$: Observable<DSpaceObject[]>;
 
   ngOnChanges() {
@@ -116,6 +125,11 @@ export abstract class AbstractBrowseElementsComponent implements OnInit, OnChang
     );
   }
 
+  /**
+   * Returns the route path for an item's detail page.
+   *
+   * @param item the DSpaceObject (item) to generate a route for
+   */
   getItemPageRoute(item: DSpaceObject | Item) {
     return getItemPageRoute(item as Item);
   }

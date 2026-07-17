@@ -31,6 +31,11 @@ import { map } from 'rxjs/operators';
 import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
 
 
+/**
+ * Component that displays entity counts (e.g., number of publications, researchers)
+ * fetched from discovery search configurations. Each counter shows the total number
+ * of elements for a configured discovery query, rendered with an icon and optional link.
+ */
 @Component({
   selector: 'ds-base-counters-section',
   styleUrls: ['./counters-section.component.scss'],
@@ -46,14 +51,21 @@ import { ThemedLoadingComponent } from '../../../loading/themed-loading.componen
 })
 export class CountersSectionComponent implements OnInit {
 
+  /** Unique identifier for this section instance. */
   @Input()
     sectionId: string;
 
+  /** Configuration object defining the counters to display. */
   @Input()
     countersSection: CountersSection;
 
+  /** Resolved array of counter data populated after fetching from discovery. */
   counterData: CounterData[] = [];
+
+  /** Observable emitting the array of resolved counter data. */
   counterData$: Observable<CounterData[]>;
+
+  /** Subject indicating whether counter data is still being loaded. */
   isLoading$ = new BehaviorSubject(true);
 
   pagination: PaginationComponentOptions;
@@ -101,21 +113,39 @@ export class CountersSectionComponent implements OnInit {
 
 
 
+/**
+ * Configuration for a counters section defining which discovery queries to count.
+ */
 export interface CountersSection extends SectionComponent {
   componentType: 'counters';
+  /** List of counter settings, each defining a discovery query and display metadata. */
   counterSettingsList: CountersSettings[];
 }
 
+/**
+ * Settings for an individual counter within a {@link CountersSection}.
+ */
 export interface CountersSettings {
+  /** Discovery configuration name used to query the total count. */
   discoveryConfigurationName: string;
+  /** Display label for the entity type (e.g., 'publications', 'researchers'). */
   entityName: string;
+  /** CSS icon class to display alongside the counter (e.g., 'fas fa-book'). */
   icon: string;
+  /** URL to navigate to when the counter is clicked. */
   link: string;
 }
 
+/**
+ * Resolved counter data ready for rendering in the template.
+ */
 export interface CounterData {
+  /** Display label for the counter. */
   label: string;
+  /** The total count as a string. */
   count: string;
+  /** CSS icon class for display. */
   icon: string;
+  /** URL to navigate to when the counter is clicked. */
   link: string;
 }

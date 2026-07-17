@@ -12,8 +12,9 @@ import { hasNoValue } from '../utils/empty.util';
 
 
 /**
- * This class resolves a BreadcrumbConfig object with an i18n key string for a route
- * It adds the metadata field of the current explore page
+ * Resolves a BreadcrumbConfig object with an i18n key string for an explore route.
+ * Extends the base breadcrumb key with the explore page's ID route parameter
+ * (e.g., 'explore' becomes 'explore.publications') to provide page-specific breadcrumb labels.
  */
 export const exploreI18nBreadcrumbResolver: ResolveFn<BreadcrumbConfig<string>> = (
   route: ActivatedRouteSnapshot,

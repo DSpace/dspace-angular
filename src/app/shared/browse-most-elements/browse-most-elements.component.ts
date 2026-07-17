@@ -18,6 +18,11 @@ import {
 import { Context } from '../../core/shared/context.model';
 import { ThemedDefaultBrowseElementsComponent } from './default-browse-elements/themed-default-browse-elements.component';
 
+/**
+ * Container component that delegates rendering of browse elements to the appropriate
+ * template component based on the {@link TopSection} configuration.
+ * Currently supports the default template via {@link DefaultBrowseElementsComponent}.
+ */
 @Component({
   selector: 'ds-base-browse-most-elements',
   styleUrls: ['./browse-most-elements.component.scss'],
@@ -66,8 +71,10 @@ export class BrowseMostElementsComponent implements OnInit, OnChanges {
    */
   @Input() topSection: TopSection;
 
+  /** BehaviorSubject re-emitting paginatedSearchOptions to trigger child component updates. */
   paginatedSearchOptions$ = new BehaviorSubject<PaginatedSearchOptions>(null);
 
+  /** The resolved template type determining which child component renders the results. */
   sectionTemplateType: TopSectionTemplateType;
 
   ngOnInit(): void {

@@ -25,18 +25,25 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 
+/**
+ * Component that displays a table of top items from a discovery search,
+ * with configurable columns showing different metadata fields per item.
+ */
 @Component({
   selector: 'ds-base-multi-column-top-section',
   templateUrl: './multi-column-top-section.component.html',
 })
 export class MultiColumnTopSectionComponent implements OnInit {
 
+  /** Unique identifier for this section instance. */
   @Input()
     sectionId: string;
 
+  /** Configuration object defining discovery query, sort, and column layout. */
   @Input()
     topSection: MultiColumnTopSection;
 
+  /** Observable emitting the array of top DSpaceObjects fetched from the search. */
   topObjects: Observable<DSpaceObject[]>;
 
   constructor(private searchService: SearchManager) {
@@ -73,10 +80,19 @@ export class MultiColumnTopSectionComponent implements OnInit {
     return getItemPageRoute((item as Item));
   }
 
+  /**
+   * Returns the configured column definitions for the table.
+   */
   getColumns(): TopSectionColumn[] {
     return this.topSection.columnList;
   }
 
+  /**
+   * Returns the first metadata value for a given column's metadata field on the object.
+   *
+   * @param topObject the DSpace object (item) to extract metadata from
+   * @param column the column definition specifying which metadata field to read
+   */
   getColumnValue(topObject: DSpaceObject, column: TopSectionColumn): string {
     return Metadata.firstValue(topObject.metadata, column.metadataField);
   }

@@ -1,3 +1,8 @@
+/**
+ * Route definitions for the explore module.
+ * Maps ':id' paths to the {@link ExplorePageComponent}, resolving breadcrumbs
+ * via {@link exploreI18nBreadcrumbResolver} and guarding access with the end-user agreement.
+ */
 import { Route } from '@angular/router';
 
 import { endUserAgreementCurrentUserGuard } from '../core/end-user-agreement/end-user-agreement-current-user.guard';

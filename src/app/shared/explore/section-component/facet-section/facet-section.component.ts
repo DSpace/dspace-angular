@@ -32,15 +32,21 @@ import { SearchConfigurationService } from '../../../search/search-configuration
 })
 export class FacetSectionComponent implements OnInit {
 
+  /** Unique identifier for this section instance. */
   @Input()
     sectionId: string;
 
+  /** Configuration object defining the facet display settings. */
   @Input()
     facetSection: FacetSection;
 
+  /** The discovery configuration name used to fetch facets. */
   discoveryConfiguration: string;
 
+  /** Array of loaded search filter configs that have at least one facet value. */
   facets: SearchFilterConfig[] = [];
+
+  /** Subject emitting the current facets array as new facets are loaded. */
   facets$ = new BehaviorSubject(this.facets);
 
   constructor(

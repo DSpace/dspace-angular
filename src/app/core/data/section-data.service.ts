@@ -47,7 +47,8 @@ export class SectionDataService extends IdentifiableDataService<Section> {
   }
 
   /**
-   * Find all the configured sections.
+   * Finds all sections configured to be visible in the top navigation bar.
+   * Uses the 'visibleTopBarSections' search endpoint on the backend.
    */
   findVisibleSections(): Observable<RemoteData<PaginatedList<Section>>> {
     return this.searchData.searchBy('visibleTopBarSections');

@@ -9,6 +9,9 @@ import {
   CountersSectionComponent,
 } from './counters-section.component';
 
+/**
+ * Themed wrapper for {@link CountersSectionComponent}.
+ */
 @Component({
   selector: 'ds-counters-section',
   styleUrls: [],

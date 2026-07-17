@@ -39,19 +39,24 @@ import { ThemedSearchFormComponent } from '../../../search-form/themed-search-fo
 })
 export class SearchSectionComponent implements OnInit {
 
+  /** Unique identifier for this section instance. */
   @Input()
     sectionId: string;
 
+  /** Configuration object defining the search section behaviour. */
   @Input()
     searchSection: SearchSection;
 
-  // The search form
+  /** Reactive form containing the array of query statements. */
   searchForm: FormGroup;
 
+  /** Observable emitting the available filter field names (including 'all'). */
   filters: Observable<string[]>;
 
+  /** Constant representing the "all fields" filter option. */
   allFilter = 'all';
 
+  /** Available boolean operations for combining query statements. */
   operations = ['AND', 'OR', 'NOT'];
 
   constructor(private formBuilder: FormBuilder,
@@ -115,7 +120,8 @@ export class SearchSectionComponent implements OnInit {
   }
 
   /**
-   * Initialize the form group.
+   * Creates a new FormGroup representing a single query statement
+   * with default filter, empty query, and first boolean operation.
    */
   createFormGroup(): FormGroup {
     return this.formBuilder.group({
@@ -125,6 +131,9 @@ export class SearchSectionComponent implements OnInit {
     });
   }
 
+  /**
+   * Appends a new empty query statement to the form array.
+   */
   addQueryStatement(): void {
     this.queryArray.push(this.createFormGroup());
   }
@@ -151,10 +160,13 @@ export class SearchSectionComponent implements OnInit {
 }
 
 /**
- * Interface related to the form model.
+ * Interface representing a single query statement in the advanced search form.
  */
 interface QueryStatement {
+  /** The metadata field to search in, or 'all' for all fields. */
   filter: string;
+  /** The search query text entered by the user. */
   query: string;
+  /** Boolean operation (AND, OR, NOT) to combine with the next statement. */
   operation: string;
 }

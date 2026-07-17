@@ -103,8 +103,6 @@ export class PaginatedList<T> extends CacheableObject {
     prev?: HALLink;
     next?: HALLink;
     last?: HALLink;
-    missing?: HALLink;
-    more?: HALLink;
   };
 
   get elementsPerPage(): number {

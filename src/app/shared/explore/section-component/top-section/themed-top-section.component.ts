@@ -8,6 +8,9 @@ import { Context } from '@dspace/core/shared/context.model';
 import { ThemedComponent } from '../../../theme-support/themed.component';
 import { TopSectionComponent } from './top-section.component';
 
+/**
+ * Themed wrapper for {@link TopSectionComponent}.
+ */
 @Component({
   selector: 'ds-top-section',
   styleUrls: [],

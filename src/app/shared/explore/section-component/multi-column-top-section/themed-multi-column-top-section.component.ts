@@ -7,6 +7,9 @@ import { MultiColumnTopSection } from '../../../../core/layout/models/section.mo
 import { ThemedComponent } from '../../../theme-support/themed.component';
 import { MultiColumnTopSectionComponent } from './multi-column-top-section.component';
 
+/**
+ * Themed wrapper for {@link MultiColumnTopSectionComponent}.
+ */
 @Component({
   selector: 'ds-multi-column-top-section',
   styleUrls: [],

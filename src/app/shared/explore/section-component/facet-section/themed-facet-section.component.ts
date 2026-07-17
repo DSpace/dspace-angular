@@ -7,6 +7,9 @@ import { FacetSection } from '@dspace/core/layout/models/section.model';
 import { ThemedComponent } from '../../../theme-support/themed.component';
 import { FacetSectionComponent } from './facet-section.component';
 
+/**
+ * Themed wrapper for {@link FacetSectionComponent}.
+ */
 @Component({
   selector: 'ds-facet-section',
   styleUrls: [],

@@ -8,6 +8,9 @@ import { Site } from '@dspace/core/shared/site.model';
 import { ThemedComponent } from '../../../theme-support/themed.component';
 import { TextSectionComponent } from './text-section.component';
 
+/**
+ * Themed wrapper for {@link TextSectionComponent}.
+ */
 @Component({
   selector: 'ds-text-section',
   styleUrls: [],

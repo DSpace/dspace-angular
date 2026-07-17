@@ -7,6 +7,9 @@ import { SearchSection } from '@dspace/core/layout/models/section.model';
 import { ThemedComponent } from '../../../theme-support/themed.component';
 import { SearchSectionComponent } from './search-section.component';
 
+/**
+ * Themed wrapper for {@link SearchSectionComponent}.
+ */
 @Component({
   selector: 'ds-search-section',
   styleUrls: [],
