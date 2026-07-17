@@ -13,7 +13,27 @@ on:
       - 'dspace-**'
     tags:
       - 'dspace-**'
+    # Don't run if PR is only updating static documentation or IDE/editor rules
+    paths-ignore:
+      - '.editorconfig'
+      - '.gitignore'
+      - '.vscode/*'
+      - 'docs/*'
+      - 'LICENSE'
+      - 'LICENSES_THIRD_PARTY'
+      - 'NOTICE'
+      - '**/*.md'
   pull_request:
+    # Don't run if PR is only updating static documentation or IDE/editor rules
+    paths-ignore:
+      - '.editorconfig'
+      - '.gitignore'
+      - '.vscode/*'
+      - 'docs/*'
+      - 'LICENSE'
+      - 'LICENSES_THIRD_PARTY'
+      - 'NOTICE'
+      - '**/*.md'
 
 permissions:
   contents: read  # to fetch code (actions/checkout)
