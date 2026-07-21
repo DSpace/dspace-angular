@@ -297,7 +297,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
       .forEach((key) => {
         diffObj[key].forEach((value) => {
           // the findIndex extra check excludes values already present in the form but in different positions
-          if (value.hasOwnProperty('value') && findIndex(this.formData[key], { value: value.value }) < 0) {
+          if (!value.hasOwnProperty('value') || findIndex(this.formData[key], { value: value.value }) < 0) {
             diffResult.push(value);
           }
         });
