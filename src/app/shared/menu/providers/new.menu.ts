@@ -14,7 +14,6 @@ import {
   combineLatest,
   map,
   Observable,
-  of,
 } from 'rxjs';
 
 import { ThemedCreateCollectionParentSelectorComponent } from '../../dso-selector/modal-wrappers/create-collection-parent-selector/themed-create-collection-parent-selector.component';
@@ -39,16 +38,22 @@ export class NewMenuProvider extends AbstractExpandableMenuProvider {
   }
 
   public getTopSection(): Observable<PartialMenuSection> {
-    return of(
-      {
+    return combineLatest([
+      this.authorizationService.isAuthorized(FeatureID.IsCollectionAdmin),
+      this.authorizationService.isAuthorized(FeatureID.IsCommunityAdmin),
+      this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
+      this.authorizationService.isAuthorized(FeatureID.CanSubmit),
+      this.authorizationService.isAuthorized(FeatureID.CoarNotifyEnabled),
+    ]).pipe(
+      map(([isCollectionAdmin, isCommunityAdmin, isSiteAdmin, canSubmit, isCoarNotifyEnabled]) => ({
         accessibilityHandle: 'new',
         model: {
           type: MenuItemType.TEXT,
           text: 'menu.section.new',
         } as TextMenuItemModel,
         icon: 'plus',
-        visible: true,
-      },
+        visible: isCollectionAdmin || isCommunityAdmin || isSiteAdmin || canSubmit || isCoarNotifyEnabled,
+      })),
     );
   }
 

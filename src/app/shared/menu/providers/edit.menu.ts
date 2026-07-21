@@ -14,7 +14,6 @@ import {
   combineLatest,
   map,
   Observable,
-  of,
 } from 'rxjs';
 
 import { ThemedEditCollectionSelectorComponent } from '../../dso-selector/modal-wrappers/edit-collection-selector/themed-edit-collection-selector.component';
@@ -37,16 +36,20 @@ export class EditMenuProvider extends AbstractExpandableMenuProvider {
   }
 
   public getTopSection(): Observable<PartialMenuSection> {
-    return of(
-      {
+    return combineLatest([
+      this.authorizationService.isAuthorized(FeatureID.IsCollectionAdmin),
+      this.authorizationService.isAuthorized(FeatureID.IsCommunityAdmin),
+      this.authorizationService.isAuthorized(FeatureID.CanEditItem),
+    ]).pipe(
+      map(([isCollectionAdmin, isCommunityAdmin, canEditItem]) => ({
         accessibilityHandle: 'edit',
         model: {
           type: MenuItemType.TEXT,
           text: 'menu.section.edit',
         },
         icon: 'pencil',
-        visible: true,
-      },
+        visible: isCollectionAdmin || isCommunityAdmin || canEditItem,
+      })),
     );
   }
 
