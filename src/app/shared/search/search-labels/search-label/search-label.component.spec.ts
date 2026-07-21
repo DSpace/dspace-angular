@@ -23,10 +23,10 @@ import { SearchFilterServiceStub } from '@dspace/core/testing/search-filter-serv
 import { SearchServiceStub } from '@dspace/core/testing/search-service.stub';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-configuration.service';
 import { ObjectKeysPipe } from '../../../utils/object-keys-pipe';
 import { SearchService } from '../../search.service';
 import { addOperatorToFilterValue } from '../../search.utils';
-import { SearchConfigurationService } from '../../search-configuration.service';
 import { SearchFilterService } from '../../search-filters/search-filter.service';
 import { SearchLabelComponent } from './search-label.component';
 
@@ -81,7 +81,7 @@ describe('SearchLabelComponent', () => {
       ],
       providers: [
         { provide: PaginationService, useValue: paginationService },
-        { provide: SearchConfigurationService, useValue: searchConfigurationService },
+        { provide: SEARCH_CONFIG_SERVICE, useValue: searchConfigurationService },
         { provide: SearchFilterService, useValue: searchFilterService },
         { provide: SearchService, useValue: new SearchServiceStub(searchLink) },
         { provide: ActivatedRoute, useValue: route },
