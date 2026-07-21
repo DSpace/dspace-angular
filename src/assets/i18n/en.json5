@@ -1203,6 +1203,30 @@
 
   "browse.title.page": "Browsing by {{ field }} {{ value }}",
 
+  "bulk-import.abort-on-error": "Abort on first error",
+
+  "bulk-import.back": "Back",
+
+  "bulk-import.breadcrumbs": "Bulk Import from Excel",
+
+  "bulk-import.collection-name": "Collection",
+
+  "bulk-import.error": "An error occurred while creating the import process",
+
+  "bulk-import.error.no-file": "Please select a file to import.",
+
+  "bulk-import.file": "Source file",
+
+  "bulk-import.header": "Bulk Import from Excel",
+
+  "bulk-import.processing": "Processing...",
+
+  "bulk-import.success": "The import process was successfully created",
+
+  "bulk-import.submit": "Start import",
+
+  "bulk-import.title": "Bulk Import from Excel",
+
   "search.browse.item-back": "Back to Results",
 
   "chips.remove": "Remove chip",
@@ -1706,6 +1730,8 @@
   "confirmation-modal.pending-changes.confirm": "Leave",
 
   "context-menu.actions.audit-item.btn": "Audit",
+
+  "context-menu.actions.bulk-import.btn": "Import from Excel",
 
   "context-menu.actions.subscription.frequency.required": "Please select a frequency",
 
