@@ -18,6 +18,7 @@ import { SubscribeMenuProvider } from './shared/menu/providers/comcol-subscribe.
 import { CommunityListMenuProvider } from './shared/menu/providers/community-list.menu';
 import { CreateReportMenuProvider } from './shared/menu/providers/create-report.menu';
 import { CurationMenuProvider } from './shared/menu/providers/curation.menu';
+import { DocumentationMenuProvider } from './shared/menu/providers/documentation.menu';
 import { DSpaceObjectEditMenuProvider } from './shared/menu/providers/dso-edit.menu';
 import { DsoOptionMenuProvider } from './shared/menu/providers/dso-option.menu';
 import { EditMenuProvider } from './shared/menu/providers/edit.menu';
@@ -78,8 +79,7 @@ export const MENUS = buildMenuStructure({
     SystemWideAlertMenuProvider,
     CoarNotifyMenuProvider,
     AuditOverviewMenuProvider,
-    EditCMSMetadataMenuProvider,
-    EditUserAgreementMenuProvider,
+    DocumentationMenuProvider,
   ],
   [MenuID.DSO_EDIT]: [
     DsoOptionMenuProvider.withSubs([
@@ -115,3 +115,4 @@ export const MENUS = buildMenuStructure({
     ]),
   ],
 });
+
