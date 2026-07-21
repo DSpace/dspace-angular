@@ -15,9 +15,9 @@ import {
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { authReducer } from '@dspace/core/auth/auth.reducer';
-import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
+import { CookieService } from '@dspace/core/cookies/cookie.service';
 import { Item } from '@dspace/core/shared/item.model';
+import { CookieServiceMock } from '@dspace/core/testing/cookie.service.mock';
 import { createSuccessfulRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import {
   Store,
@@ -37,6 +37,8 @@ import {
   AppState,
   storeModuleConfig,
 } from '../../app.reducer';
+import { authReducer } from '../../core/auth/auth.reducer';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { getMockThemeService } from '../theme-support/test/theme-service.mock';
 import { ThemeService } from '../theme-support/theme.service';
 import { MenuComponent } from './menu.component';
@@ -148,6 +150,7 @@ describe('MenuComponent', () => {
         Injector,
         { provide: ThemeService, useValue: getMockThemeService() },
         MenuService,
+        { provide: CookieService, useValue: CookieServiceMock },
         provideMockStore({ initialState }),
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: ActivatedRoute, useValue: routeStub },
