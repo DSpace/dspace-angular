@@ -1011,10 +1011,10 @@
   "admin.reports.commons.filters.property.is_item": "Je záznam – vždy pravda",
 
   // "admin.reports.commons.filters.property.is_withdrawn": "Withdrawn Items",
-  "admin.reports.commons.filters.property.is_withdrawn": "Stiahnuté záznamy",
+  "admin.reports.commons.filters.property.is_withdrawn": "Vyradené záznamy",
 
   // "admin.reports.commons.filters.property.is_not_withdrawn": "Available Items - Not Withdrawn",
-  "admin.reports.commons.filters.property.is_not_withdrawn": "Dostupné záznamy – nestiahnuté",
+  "admin.reports.commons.filters.property.is_not_withdrawn": "Dostupné záznamy – nevyradené",
 
   // "admin.reports.commons.filters.property.is_discoverable": "Discoverable Items - Not Private",
   "admin.reports.commons.filters.property.is_discoverable": "Vyhľadateľné záznamy – nie sú súkromné",
@@ -1152,7 +1152,7 @@
   "admin.search.item.reinstate": "Obnoviť",
 
   // "admin.search.item.withdraw": "Withdraw",
-  "admin.search.item.withdraw": "Stiahnuť",
+  "admin.search.item.withdraw": "Vyradiť",
 
   // "admin.search.title": "Administrative Search",
   "admin.search.title": "Administrátorské vyhľadávanie",
@@ -3701,7 +3701,7 @@
   "item.alerts.private": "Tento záznam je nevyhľadateľný",
 
   // "item.alerts.withdrawn": "This item has been withdrawn",
-  "item.alerts.withdrawn": "Tento záznam bol stiahnutý",
+  "item.alerts.withdrawn": "Tento záznam bol vyradený",
 
   // "item.alerts.reinstate-request": "Request reinstate",
   "item.alerts.reinstate-request": "Požiadať o obnovenie",
@@ -3722,7 +3722,7 @@
   "item.badge.private": "Nevyhľadateľný",
 
   // "item.badge.withdrawn": "Withdrawn",
-  "item.badge.withdrawn": "Stiahnutý",
+  "item.badge.withdrawn": "Vyradený",
 
   // "item.bitstreams.upload.bundle": "Bundle",
   "item.bitstreams.upload.bundle": "Zväzok",
@@ -4397,13 +4397,13 @@
   "item.edit.tabs.status.buttons.unauthorized": "Nie ste oprávnení vykonať túto akciu",
 
   // "item.edit.tabs.status.buttons.withdraw.button": "Withdraw this item",
-  "item.edit.tabs.status.buttons.withdraw.button": "Stiahnuť tento záznam",
+  "item.edit.tabs.status.buttons.withdraw.button": "Vyradiť tento záznam",
 
   // "item.edit.tabs.status.buttons.withdraw.label": "Withdraw item from the repository",
-  "item.edit.tabs.status.buttons.withdraw.label": "Stiahnuť záznam z repozitára",
+  "item.edit.tabs.status.buttons.withdraw.label": "Vyradiť záznam z repozitára",
 
   // "item.edit.tabs.status.description": "Welcome to the item management page. From here you can withdraw, reinstate, move or delete the item. You may also update or add new metadata / bitstreams on the other tabs.",
-  "item.edit.tabs.status.description": "Vitajte na stránke správy záznamu. Odtiaľto môžete záznam stiahnuť, obnoviť, presunúť alebo odstrániť. Na ostatných kartách môžete tiež aktualizovať alebo pridávať nové metadáta / súbory.",
+  "item.edit.tabs.status.description": "Vitajte na stránke správy záznamu. Odtiaľto môžete záznam vyradiť, obnoviť, presunúť alebo odstrániť. Na ostatných kartách môžete tiež aktualizovať alebo pridávať nové metadáta / súbory.",
 
   // "item.edit.tabs.status.head": "Status",
   "item.edit.tabs.status.head": "Stav",
@@ -4442,19 +4442,19 @@
   "item.edit.withdraw.cancel": "Zrušiť",
 
   // "item.edit.withdraw.confirm": "Withdraw",
-  "item.edit.withdraw.confirm": "Stiahnuť",
+  "item.edit.withdraw.confirm": "Vyradiť",
 
   // "item.edit.withdraw.description": "Are you sure this item should be withdrawn from the archive?",
-  "item.edit.withdraw.description": "Naozaj má byť tento záznam stiahnutý z archívu?",
+  "item.edit.withdraw.description": "Naozaj má byť tento záznam vyradený z archívu?",
 
   // "item.edit.withdraw.error": "An error occurred while withdrawing the item",
-  "item.edit.withdraw.error": "Pri sťahovaní záznamu došlo k chybe",
+  "item.edit.withdraw.error": "Pri vyraďovaní záznamu došlo k chybe",
 
   // "item.edit.withdraw.header": "Withdraw item: {{ id }}",
-  "item.edit.withdraw.header": "Stiahnuť záznam: {{ id }}",
+  "item.edit.withdraw.header": "Vyradiť záznam: {{ id }}",
 
   // "item.edit.withdraw.success": "The item was withdrawn successfully",
-  "item.edit.withdraw.success": "Záznam bol úspešne stiahnutý",
+  "item.edit.withdraw.success": "Záznam bol úspešne vyradený",
 
   // "item.orcid.return": "Back",
   "item.orcid.return": "Späť",
@@ -4767,7 +4767,7 @@
   "item.page.version.create": "Vytvoriť novú verziu",
 
   // "item.page.withdrawn": "Request a withdrawal for this item",
-  "item.page.withdrawn": "Požiadať o stiahnutie tohto záznamu",
+  "item.page.withdrawn": "Požiadať o vyradenie tohto záznamu",
 
   // "item.page.reinstate": "Request reinstatement",
   "item.page.reinstate": "Požiadať o obnovenie",
@@ -5019,7 +5019,7 @@
   "item.version.create.modal.header": "Nová verzia",
 
   // "item.qa.withdrawn.modal.header": "Request withdrawal",
-  "item.qa.withdrawn.modal.header": "Žiadosť o stiahnutie",
+  "item.qa.withdrawn.modal.header": "Žiadosť o vyradenie",
 
   // "item.qa.reinstate.modal.header": "Request reinstate",
   "item.qa.reinstate.modal.header": "Žiadosť o obnovenie",
@@ -5043,7 +5043,7 @@
   "item.qa.withdrawn-reinstate.modal.button.confirm.tooltip": "Odoslať žiadosť",
 
   // "qa-withdrown.create.modal.button.confirm": "Withdraw",
-  "qa-withdrown.create.modal.button.confirm": "Stiahnuť",
+  "qa-withdrown.create.modal.button.confirm": "Vyradiť",
 
   // "qa-reinstate.create.modal.button.confirm": "Reinstate",
   "qa-reinstate.create.modal.button.confirm": "Obnoviť",
@@ -5064,10 +5064,10 @@
   "item.version.create.modal.form.summary.label": "Súhrn",
 
   // "qa-withdrawn.create.modal.form.summary.label": "You are requesting to withdraw this item",
-  "qa-withdrawn.create.modal.form.summary.label": "Žiadate o stiahnutie tohto záznamu",
+  "qa-withdrawn.create.modal.form.summary.label": "Žiadate o vyradenie tohto záznamu",
 
   // "qa-withdrawn.create.modal.form.summary2.label": "Please enter the reason for the withdrawal",
-  "qa-withdrawn.create.modal.form.summary2.label": "Uveďte prosím dôvod stiahnutia",
+  "qa-withdrawn.create.modal.form.summary2.label": "Uveďte prosím dôvod vyradenia",
 
   // "qa-reinstate.create.modal.form.summary.label": "You are requesting to reinstate this item",
   "qa-reinstate.create.modal.form.summary.label": "Žiadate o obnovenie tohto záznamu",
@@ -5079,7 +5079,7 @@
   "item.version.create.modal.form.summary.placeholder": "Vložte súhrn novej verzie",
 
   // "qa-withdrown.modal.form.summary.placeholder": "Enter the reason for the withdrawal",
-  "qa-withdrown.modal.form.summary.placeholder": "Zadajte dôvod stiahnutia",
+  "qa-withdrown.modal.form.summary.placeholder": "Zadajte dôvod vyradenia",
 
   // "qa-reinstate.modal.form.summary.placeholder": "Enter the reason for the reinstatement",
   "qa-reinstate.modal.form.summary.placeholder": "Zadajte dôvod obnovenia",
@@ -5088,13 +5088,13 @@
   "item.version.create.modal.submitted.header": "Vytvára sa nová verzia...",
 
   // "item.qa.withdrawn.modal.submitted.header": "Sending withdrawn request...",
-  "item.qa.withdrawn.modal.submitted.header": "Odosiela sa žiadosť o stiahnutie...",
+  "item.qa.withdrawn.modal.submitted.header": "Odosiela sa žiadosť o vyradenie...",
 
   // "correction-type.manage-relation.action.notification.reinstate": "Reinstate request sent.",
   "correction-type.manage-relation.action.notification.reinstate": "Žiadosť o obnovenie odoslaná.",
 
   // "correction-type.manage-relation.action.notification.withdrawn": "Withdraw request sent.",
-  "correction-type.manage-relation.action.notification.withdrawn": "Žiadosť o stiahnutie odoslaná.",
+  "correction-type.manage-relation.action.notification.withdrawn": "Žiadosť o vyradenie odoslaná.",
 
   // "item.version.create.modal.submitted.text": "The new version is being created. This may take some time if the item has a lot of relationships.",
   "item.version.create.modal.submitted.text": "Vytvára sa nová verzia. Môže to chvíľu trvať, ak má záznam veľa vzťahov.",
@@ -7335,7 +7335,7 @@
   "search.filters.applied.f.supervisedBy": "Pod dohľadom",
 
   // "search.filters.applied.f.withdrawn": "Withdrawn",
-  "search.filters.applied.f.withdrawn": "Stiahnuté",
+  "search.filters.applied.f.withdrawn": "Vyradené",
 
   // "search.filters.applied.operator.equals": "",
   "search.filters.applied.operator.equals": "",
@@ -7461,7 +7461,7 @@
   "search.filters.filter.discoverable.head": "Nevyhľadateľné",
 
   // "search.filters.filter.withdrawn.head": "Withdrawn",
-  "search.filters.filter.withdrawn.head": "Stiahnuté",
+  "search.filters.filter.withdrawn.head": "Vyradené",
 
   // "search.filters.filter.entityType.head": "Item Type",
   "search.filters.filter.entityType.head": "Typ záznamu",
@@ -10770,7 +10770,7 @@
   "is-archived_condition.label": "Je archivovaný",
 
   // "is-withdrawn_condition.label": "Is withdrawn",
-  "is-withdrawn_condition.label": "Je stiahnutý",
+  "is-withdrawn_condition.label": "Je vyradený",
 
   // "item-is-public_condition.label": "Item is public",
   "item-is-public_condition.label": "Záznam je verejný",
