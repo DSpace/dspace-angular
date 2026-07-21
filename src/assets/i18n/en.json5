@@ -5158,6 +5158,8 @@
 
   "search.results.head": "Search Results",
 
+  "search.results.did-you-mean": "Did you mean?",
+
   "search.results.no-results": "Your search returned no results. Having trouble finding what you're looking for? Try putting",
 
   "search.results.no-results-link": "quotes around it",
