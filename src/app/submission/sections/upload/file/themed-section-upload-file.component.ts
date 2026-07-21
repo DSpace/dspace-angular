@@ -77,6 +77,13 @@ export class ThemedSubmissionSectionUploadFileComponent
    */
   @Input() submissionId: string;
 
+  /**
+   * Total number of files currently attached to the item.
+   * Used to prevent deletion when only one bitstream remains.
+   * @type {number}
+   */
+  @Input() totalFiles: number;
+
   protected inAndOutputNames: (keyof SubmissionSectionUploadFileComponent & keyof this)[] = [
     'availableAccessConditionOptions',
     'isPrimary',
@@ -88,6 +95,7 @@ export class ThemedSubmissionSectionUploadFileComponent
     'fileName',
     'sectionId',
     'submissionId',
+    'totalFiles',
   ];
 
   protected getComponentName(): string {
