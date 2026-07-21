@@ -5,7 +5,10 @@ import {
   Input,
   Output,
 } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import {
+  Params,
+  RouterLink,
+} from '@angular/router';
 import { SortOptions } from '@dspace/core/cache/models/sort-options.model';
 import { PaginatedList } from '@dspace/core/data/paginated-list.model';
 import { RemoteData } from '@dspace/core/data/remote-data';
@@ -186,5 +189,16 @@ export class SearchResultsComponent {
     }
 
     return result;
+  }
+
+  getExactMatchQueryParams(): Params {
+    if (hasNoValue(this.searchConfig?.pagination?.id)) {
+      return {
+        query: this.surroundStringWithQuotes(this.searchConfig?.query),
+      };
+    }
+    return {
+      [`${this.searchConfig?.pagination?.id}.query`]: this.surroundStringWithQuotes(this.searchConfig?.query),
+    };
   }
 }
