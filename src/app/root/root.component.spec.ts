@@ -72,4 +72,20 @@ describe('RootComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  describe('skip-to-main-content link', () => {
+    it('should be rendered as an anchor pointing to #main-content', () => {
+      const skipLink = fixture.nativeElement.querySelector('#skip-to-main-content');
+      expect(skipLink).not.toBeNull();
+      expect(skipLink.tagName).toBe('A');
+      expect(skipLink.getAttribute('href')).toBe('#main-content');
+    });
+
+    it('should target a <main> element with tabindex="-1" so the anchor can move focus', () => {
+      const mainContent = fixture.nativeElement.querySelector('#main-content');
+      expect(mainContent).not.toBeNull();
+      expect(mainContent.tagName).toBe('MAIN');
+      expect(mainContent.getAttribute('tabindex')).toBe('-1');
+    });
+  });
 });
