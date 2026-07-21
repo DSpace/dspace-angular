@@ -59,9 +59,9 @@ export class ThemedConfigurationSearchPageComponent extends ThemedComponent<Conf
   @Input() linkType: CollectionElementLinkType;
 
   /**
-   * The pagination id used in the search
+   * The search instance id used in the search
    */
-  @Input() paginationId: string;
+  @Input() searchInstanceId: string;
 
   /**
    * Whether or not the search bar should be visible
@@ -151,7 +151,7 @@ export class ThemedConfigurationSearchPageComponent extends ThemedComponent<Conf
     'useCachedVersionIfAvailable',
     'inPlaceSearch',
     'linkType',
-    'paginationId',
+    'searchInstanceId',
     'searchEnabled',
     'sideBarWidth',
     'searchFormPlaceholder',
