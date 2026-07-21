@@ -1,12 +1,24 @@
+import {
+  createWriteStream,
+  existsSync,
+  mkdirSync,
+  readdirSync,
+  readFileSync,
+  writeFileSync,
+} from 'node:fs';
+
+import {
+  Presets,
+  SingleBar,
+} from 'cli-progress';
+import { Command } from 'commander';
+import { stringify } from 'json5';
+import isEmpty from 'lodash/isEmpty';
+import isEqual from 'lodash/isEqual';
+
 import { projectRoot } from '../webpack/helpers';
 
-const commander = require('commander');
-const fs = require('fs');
-const JSON5 = require('json5');
-const _cliProgress = require('cli-progress');
-const _ = require('lodash');
-
-const program = new commander.Command();
+const program = new Command();
 program.version('1.0.0', '-v, --version');
 
 const NEW_MESSAGE_TODO = '// TODO New key - Add a translation';
@@ -40,47 +52,47 @@ function parseCliInput() {
 
   const sourceFile = program.opts().sourceFile;
 
-    if (!program.targetFile) {
-    fs.readdirSync(projectRoot(LANGUAGE_FILES_LOCATION)).forEach(file => {
+  if (!program.opts().targetFile) {
+    readdirSync(projectRoot(LANGUAGE_FILES_LOCATION)).forEach(file => {
       if (!sourceFile.toString().endsWith(file)) {
-        const targetFileLocation = projectRoot(LANGUAGE_FILES_LOCATION + "/" + file);
-        console.log('Syncing file at: ' + targetFileLocation + ' with source file at: ' + sourceFile);
-        if (program.outputDir) {
-          if (!fs.existsSync(program.outputDir)) {
-            fs.mkdirSync(program.outputDir);
+        const targetFileLocation = projectRoot(LANGUAGE_FILES_LOCATION + '/' + file);
+        console.info('Syncing file at: ' + targetFileLocation + ' with source file at: ' + sourceFile);
+        if (program.opts().outputDir) {
+          if (!existsSync(program.opts().outputDir)) {
+            mkdirSync(program.opts().outputDir);
           }
-          const outputFileLocation = program.outputDir + "/" + file;
-          console.log('Output location: ' + outputFileLocation);
+          const outputFileLocation = program.opts().outputDir + '/' + file;
+          console.info('Output location: ' + outputFileLocation);
           syncFileWithSource(targetFileLocation, outputFileLocation);
         } else {
-          console.log('Replacing in target location');
+          console.info('Replacing in target location');
           syncFileWithSource(targetFileLocation, targetFileLocation);
         }
       }
     });
   } else {
-    if (program.targetFile && !checkIfPathToFileIsValid(program.targetFile)) {
+    if (program.opts().targetFile && !checkIfPathToFileIsValid(program.opts().targetFile)) {
       console.error('Directory path of target file is not valid.');
-      console.log(program.outputHelp());
+      console.info(program.outputHelp());
       process.exit(1);
     }
-    if (program.targetFile && checkIfFileExists(program.targetFile) && !(program.editInPlace || program.outputFile)) {
+    if (program.opts().targetFile && checkIfFileExists(program.opts().targetFile) && !(program.opts().editInPlace || program.opts().outputFile)) {
       console.error('This target file already exists, if you want to overwrite this add option -i, or add an -o output location');
-      console.log(program.outputHelp());
+      console.info(program.outputHelp());
       process.exit(1);
     }
     if (!checkIfFileExists(sourceFile)) {
       console.error('Path of source file is not valid.');
-      console.log(program.outputHelp());
+      console.info(program.outputHelp());
       process.exit(1);
     }
-    if (program.outputFile && !checkIfPathToFileIsValid(program.outputFile)) {
+    if (program.opts().outputFile && !checkIfPathToFileIsValid(program.opts().outputFile)) {
       console.error('Directory path of output file is not valid.');
-      console.log(program.outputHelp());
+      console.info(program.outputHelp());
       process.exit(1);
     }
 
-    syncFileWithSource(program.targetFile, getOutputFileLocationIfExistsElseTargetFileLocation(program.targetFile));
+    syncFileWithSource(program.opts().targetFile, getOutputFileLocationIfExistsElseTargetFileLocation(program.opts().targetFile));
   }
 }
 
@@ -93,18 +105,18 @@ function parseCliInput() {
  * @param pathToOutputFile    Valid path to output file to write output chunks to
  */
 function syncFileWithSource(pathToTargetFile, pathToOutputFile) {
-  const progressBar = new _cliProgress.SingleBar({}, _cliProgress.Presets.shades_classic);
+  const progressBar = new SingleBar({}, Presets.shades_classic);
   progressBar.start(100, 0);
 
   const sourceLines = [];
   const targetLines = [];
   const existingTargetFile = readFileIfExists(pathToTargetFile);
-  existingTargetFile.toString().split("\n").forEach((function (line) {
+  existingTargetFile.toString().split('\n').forEach((function (line) {
     targetLines.push(line.trim());
   }));
   progressBar.update(10);
   const sourceFile = readFileIfExists(program.opts().sourceFile);
-  sourceFile.toString().split("\n").forEach((function (line) {
+  sourceFile.toString().split('\n').forEach((function (line) {
     sourceLines.push(line.trim());
   }));
   progressBar.update(20);
@@ -113,24 +125,24 @@ function syncFileWithSource(pathToTargetFile, pathToOutputFile) {
 
   const outputChunks = compareChunksAndCreateOutput(sourceChunks, targetChunks, progressBar);
 
-  const file = fs.createWriteStream(pathToOutputFile);
+  const file = createWriteStream(pathToOutputFile);
   file.on('error', function (err) {
-    console.error('Something went wrong writing to output file at: ' + pathToOutputFile + err)
+    console.error('Something went wrong writing to output file at: ' + pathToOutputFile + err);
   });
   file.on('open', function() {
-    file.write("{\n");
+    file.write('{\n');
     outputChunks.forEach(function (chunk) {
       progressBar.increment();
-      chunk.split("\n").forEach(function (line) {
-        file.write((line === '' ? '' : `  ${line}`) + "\n");
+      chunk.split('\n').forEach(function (line) {
+        file.write((line === '' ? '' : `  ${line}`) + '\n');
       });
     });
-    file.write("\n}");
+    file.write('\n}');
     file.end();
   });
   file.on('finish', function() {
     const osName = process.platform;
-    if (osName.startsWith("win")) {
+    if (osName.startsWith('win')) {
       replaceLineEndingsToCRLF(pathToOutputFile);
     }
   });
@@ -153,10 +165,10 @@ function compareChunksAndCreateOutput(sourceChunks, targetChunks, progressBar) {
   sourceChunks.map((sourceChunk) => {
     progressBar.increment();
     if (sourceChunk.trim().length !== 0) {
-      let newChunk = [];
-      const sourceList = sourceChunk.split("\n");
+      const newChunk = [];
+      const sourceList = sourceChunk.split('\n');
       const keyValueSource = sourceList[sourceList.length - 1];
-      const keySource = getSubStringBeforeLastString(keyValueSource, ":");
+      const keySource = getSubStringBeforeLastString(keyValueSource, ':');
       const commentSource = getSubStringBeforeLastString(sourceChunk, keyValueSource);
 
       const correspondingTargetChunk = targetChunks.find((targetChunk) => {
@@ -165,7 +177,7 @@ function compareChunksAndCreateOutput(sourceChunks, targetChunks, progressBar) {
 
       // Create new chunk with: the source comments, the commented source key-value, the todos and either the old target key-value pair or if it's a new pair, the source key-value pair
       newChunk.push(removeWhiteLines(commentSource));
-      newChunk.push("// " + keyValueSource);
+      newChunk.push('// ' + keyValueSource);
       if (correspondingTargetChunk === undefined) {
         newChunk.push(NEW_MESSAGE_TODO);
         newChunk.push(keyValueSource);
@@ -173,7 +185,7 @@ function compareChunksAndCreateOutput(sourceChunks, targetChunks, progressBar) {
         createNewChunkComparingSourceAndTarget(correspondingTargetChunk, sourceChunk, commentSource, keyValueSource, newChunk);
       }
 
-      outputChunks.push(newChunk.filter(Boolean).join("\n"));
+      outputChunks.push(newChunk.filter(Boolean).join('\n'));
     } else {
       outputChunks.push(sourceChunk);
     }
@@ -193,23 +205,23 @@ function createNewChunkComparingSourceAndTarget(correspondingTargetChunk, source
   let commentsOfSourceHaveChanged = false;
   let messageOfSourceHasChanged = false;
 
-  const targetList = correspondingTargetChunk.split("\n");
-  const oldKeyValueInTargetComments = getSubStringWithRegex(correspondingTargetChunk, "\\s*\\/\\/\\s*\".*");
+  const targetList = correspondingTargetChunk.split('\n');
+  const oldKeyValueInTargetComments = getSubStringWithRegex(correspondingTargetChunk, '\\s*\\/\\/\\s*".*');
   let keyValueTarget = targetList[targetList.length - 1];
-  if (!keyValueTarget.endsWith(",")) {
-    keyValueTarget = keyValueTarget + ",";
+  if (!keyValueTarget.endsWith(',')) {
+    keyValueTarget = keyValueTarget + ',';
   }
 
   if (oldKeyValueInTargetComments != null) {
-    const oldKeyValueUncommented = getSubStringWithRegex(oldKeyValueInTargetComments[0], "\".*")[0];
+    const oldKeyValueUncommented = getSubStringWithRegex(oldKeyValueInTargetComments[0], '".*')[0];
 
-    if (!(_.isEmpty(correspondingTargetChunk) && _.isEmpty(commentSource)) && !removeWhiteLines(correspondingTargetChunk).includes(removeWhiteLines(commentSource.trim()))) {
+    if (!(isEmpty(correspondingTargetChunk) && isEmpty(commentSource)) && !removeWhiteLines(correspondingTargetChunk).includes(removeWhiteLines(commentSource.trim()))) {
       commentsOfSourceHaveChanged = true;
       newChunk.push(COMMENTS_CHANGED_TODO);
     }
-    const parsedOldKey = JSON5.stringify("{" + oldKeyValueUncommented + "}");
-    const parsedSourceKey = JSON5.stringify("{" + keyValueSource + "}");
-    if (!_.isEqual(parsedOldKey, parsedSourceKey)) {
+    const parsedOldKey = stringify('{' + oldKeyValueUncommented + '}');
+    const parsedSourceKey = stringify('{' + keyValueSource + '}');
+    if (!isEqual(parsedOldKey, parsedSourceKey)) {
       messageOfSourceHasChanged = true;
       newChunk.push(MESSAGE_CHANGED_TODO);
     }
@@ -221,7 +233,7 @@ function createNewChunkComparingSourceAndTarget(correspondingTargetChunk, source
 // Adds old todos found in target comments if they've not been added already
 function addOldTodosIfNeeded(targetList, newChunk, commentsOfSourceHaveChanged, messageOfSourceHasChanged) {
   targetList.map((targetLine) => {
-    const foundTODO = getSubStringWithRegex(targetLine, "\\s*//\\s*TODO.*");
+    const foundTODO = getSubStringWithRegex(targetLine, '\\s*//\\s*TODO.*');
     if (foundTODO != null) {
       const todo = foundTODO[0];
       if (!((todo.includes(COMMENTS_CHANGED_TODO) && commentsOfSourceHaveChanged)
@@ -264,7 +276,7 @@ function createChunks(lines, progressBar, creatingTarget) {
       nextChunk.push(line);
       const newMessageLineIfExists = nextChunk.find((lineInChunk) => lineInChunk.trim().startsWith(NEW_MESSAGE_TODO));
       if (newMessageLineIfExists === undefined || !creatingTarget) {
-        chunks.push(nextChunk.join("\n"));
+        chunks.push(nextChunk.join('\n'));
       }
       nextChunk = [];
     }
@@ -275,7 +287,7 @@ function createChunks(lines, progressBar, creatingTarget) {
 function readFileIfExists(pathToFile) {
   if (checkIfFileExists(pathToFile)) {
     try {
-      return fs.readFileSync(pathToFile, 'utf8');
+      return readFileSync(pathToFile, 'utf8');
     } catch (e) {
       if (e instanceof Error) {
         console.error('Error:', e.stack);
@@ -286,19 +298,19 @@ function readFileIfExists(pathToFile) {
 }
 
 function isOneLineCommentLine(line) {
-  return (line.startsWith("//"));
+  return (line.startsWith('//'));
 }
 
 function isStartOfMultiLineComment(line) {
-  return (line.startsWith("/*"));
+  return (line.startsWith('/*'));
 }
 
 function isEndOfMultiLineComment(line) {
-  return (line.endsWith("*/"));
+  return (line.endsWith('*/'));
 }
 
 function isKeyValuePair(line) {
-  return (line.startsWith("\""));
+  return (line.startsWith('"'));
 }
 
 
@@ -313,29 +325,29 @@ function getSubStringBeforeLastString(string, char) {
 
 
 function getOutputFileLocationIfExistsElseTargetFileLocation(targetLocation) {
-  if (program.outputFile) {
-    return program.outputFile;
+  if (program.opts().outputFile) {
+    return program.opts().outputFile;
   }
   return targetLocation;
 }
 
 function checkIfPathToFileIsValid(pathToCheck) {
-  if (!pathToCheck.includes("/")) {
+  if (!pathToCheck.includes('/')) {
     return true;
   }
   return checkIfFileExists(getPathOfDirectory(pathToCheck));
 }
 
 function checkIfFileExists(pathToCheck) {
-  return fs.existsSync(pathToCheck);
+  return existsSync(pathToCheck);
 }
 
 function getPathOfDirectory(pathToCheck) {
-  return getSubStringBeforeLastString(pathToCheck, "/");
+  return getSubStringBeforeLastString(pathToCheck, '/');
 }
 
 function removeWhiteLines(string) {
-  return string.replace(/^(?=\n)$|^\s*|\s*$|\n\n+/gm, "")
+  return string.replace(/^(?=\n)$|^\s*|\s*$|\n\n+/gm, '');
 }
 
 /**
@@ -344,6 +356,6 @@ function removeWhiteLines(string) {
  */
 function replaceLineEndingsToCRLF(filePath) {
   const data = readFileIfExists(filePath);
-  const result = data.replace(/\n/g,"\r\n");
-  fs.writeFileSync(filePath, result, 'utf8');
+  const result = data.replace(/\n/g,'\r\n');
+  writeFileSync(filePath, result, 'utf8');
 }
