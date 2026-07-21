@@ -145,7 +145,7 @@ describe('SubmissionSectionContainerComponent test suite', () => {
     });
 
     it('should inject section properly', () => {
-      spyOn(comp.sectionRef, 'isEnabled').and.returnValue(of(true));
+      comp.sectionRef.enabled = of(true);
       spyOn(comp.sectionRef, 'hasGenericErrors').and.returnValue(false);
 
       comp.ngOnInit();
@@ -174,7 +174,7 @@ describe('SubmissionSectionContainerComponent test suite', () => {
       let sectionErrorsDiv = fixture.debugElement.query(By.css('[id^=\'sectionGenericError_\']'));
       expect(sectionErrorsDiv).toBeNull();
 
-      spyOn(comp.sectionRef, 'isEnabled').and.returnValue(of(true));
+      comp.sectionRef.enabled = of(true);
       spyOn(comp.sectionRef, 'hasGenericErrors').and.returnValue(true);
 
       comp.ngOnInit();
@@ -186,8 +186,8 @@ describe('SubmissionSectionContainerComponent test suite', () => {
 
     it('should display warning icon', () => {
 
-      spyOn(comp.sectionRef, 'isEnabled').and.returnValue(of(true));
-      spyOn(comp.sectionRef, 'isValid').and.returnValue(of(false));
+      comp.sectionRef.enabled = of(true);
+      comp.sectionRef.valid = of(false);
       spyOn(comp.sectionRef, 'hasErrors').and.returnValue(false);
 
       comp.ngOnInit();
@@ -203,8 +203,8 @@ describe('SubmissionSectionContainerComponent test suite', () => {
 
     it('should display error icon', () => {
 
-      spyOn(comp.sectionRef, 'isEnabled').and.returnValue(of(true));
-      spyOn(comp.sectionRef, 'isValid').and.returnValue(of(false));
+      comp.sectionRef.enabled = of(true);
+      comp.sectionRef.valid = of(false);
       spyOn(comp.sectionRef, 'hasErrors').and.returnValue(true);
 
       comp.ngOnInit();
@@ -220,8 +220,8 @@ describe('SubmissionSectionContainerComponent test suite', () => {
 
     it('should display success icon', () => {
 
-      spyOn(comp.sectionRef, 'isEnabled').and.returnValue(of(true));
-      spyOn(comp.sectionRef, 'isValid').and.returnValue(of(true));
+      comp.sectionRef.enabled = of(true);
+      comp.sectionRef.valid = of(true);
       spyOn(comp.sectionRef, 'hasErrors').and.returnValue(false);
 
       comp.ngOnInit();

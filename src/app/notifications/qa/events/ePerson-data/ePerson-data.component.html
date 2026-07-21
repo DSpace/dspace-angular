@@ -1,5 +1,5 @@
 @if (ePersonId) {
-  @if (getEPersonData$() | async; as ePersonData) {
+  @if (ePersonData$ | async; as ePersonData) {
     @for (property of properties; track property) {
       @if (ePersonData[property]) {
         <span>
