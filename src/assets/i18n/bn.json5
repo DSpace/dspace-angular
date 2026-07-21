@@ -9432,6 +9432,10 @@
   // "submission.sections.jisc.publisher.policy.refresh": "Refresh",
   "submission.sections.jisc.publisher.policy.refresh": "রিফ্রেশ",
 
+  // "submission.sections.jisc.publisher.policy.additional-oa-fee": "Additional OA fee",
+  // TODO Source message changed - Revise the translation
+  "submission.sections.jisc.publisher.policy.additional-oa-fee": "অতিরিক্ত উন্মুক্ত প্রবেশাধিকার ফি",
+
   // "submission.sections.jisc.record.information": "Record Information",
   "submission.sections.jisc.record.information": " তথ্য রেকর্ড করুন",
 
