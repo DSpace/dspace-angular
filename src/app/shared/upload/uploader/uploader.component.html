@@ -20,7 +20,7 @@
       [ngClass]="{'ds-base-drop-zone-file-over': (isOverBaseDropZone | async)}"
       [uploader]="uploader"
       (fileOver)="fileOverBase($event)"
-      class="well ds-base-drop-zone mt-1 mb-3 text-muted">
+      class="well ds-base-drop-zone mb-3 text-muted">
       @if (uploader?.queue?.length === 0) {
         <div class="text-center m-0 p-2 d-flex justify-content-center align-items-center">
           <span class="d-flex align-items-center">
