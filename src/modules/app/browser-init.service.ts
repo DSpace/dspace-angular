@@ -10,10 +10,7 @@ import {
   Injectable,
   TransferState,
 } from '@angular/core';
-import {
-  NavigationStart,
-  Router,
-} from '@angular/router';
+import { Router } from '@angular/router';
 import {
   APP_CONFIG,
   APP_CONFIG_STATE,
@@ -226,21 +223,18 @@ export class BrowserInitService extends InitService {
   }
 
   /**
-   * Listen to all router events. Every time a new navigation starts, invalidate the cache
-   * for the root endpoint. That way we retrieve it once per routing operation to ensure the
-   * backend is not down. But if the guard is called multiple times during the same routing
-   * operation, the cached version is used.
+   * Invalidate the cache for the root endpoint once, at startup, so the first request for it
+   * is guaranteed to hit the backend rather than serve a value cached before the app booted.
+   *
+   * This used to also run on every `NavigationStart`, but the root endpoint map does not change
+   * between navigations, so that repeated invalidation was unnecessary. Worse, it could mark the
+   * root request stale while {@link HALEndpointService} was still resolving it for an in-flight
+   * data request; the stale value is filtered out of the endpoint map and the retry for it can
+   * lose the race with the next invalidation, so `getEndpoint()` never resolves and the route
+   * that depends on it never finishes loading.
    */
   protected listenForRouteChanges(): void {
-    // we'll always be too late for the first NavigationStart event with the router subscribe below,
-    // so this statement is for the very first route operation.
     this.rootDataService.invalidateRootCache();
-
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationStart),
-    ).subscribe(() => {
-      this.rootDataService.invalidateRootCache();
-    });
   }
 
 }
