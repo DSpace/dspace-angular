@@ -84,6 +84,7 @@ export interface ProcessOverviewTableEntry {
   templateUrl: './process-overview-table.component.html',
   imports: [
     AsyncPipe,
+    DatePipe,
     NgbCollapseModule,
     NgClass,
     PaginationComponent,
@@ -91,7 +92,6 @@ export interface ProcessOverviewTableEntry {
     ThemedLoadingComponent,
     TranslateModule,
     VarDirective,
-    DatePipe,
   ],
 })
 export class ProcessOverviewTableComponent implements OnInit, OnDestroy {
