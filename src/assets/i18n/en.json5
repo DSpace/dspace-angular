@@ -1023,6 +1023,12 @@
 
   "bitstream.edit.form.mediaType.option.audio-video": "Audio and video",
 
+  "bitstream.edit.form.mediaType.option.logo": "Logo",
+
+  "bitstream.edit.form.mediaType.option.main-article": "Main Article",
+
+  "bitstream.edit.form.mediaType.option.personal-picture": "Personal Picture",
+
   "bitstream.edit.form.audioTranscript.label": "Audio transcript",
 
   "bitstream.edit.form.audioTranscript.hint": "Provide a transcript for audio content.",
