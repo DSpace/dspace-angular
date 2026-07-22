@@ -11,7 +11,7 @@ import { By } from '@angular/platform-browser';
 import { RouterLink } from '@angular/router';
 import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import { Item } from '@dspace/core/shared/item.model';
-import { MetadataValue } from '@dspace/core/shared/metadata.models';
+import MetadataValue from '@dspace/core/shared/metadata.models';
 import { ItemMetadataRepresentation } from '@dspace/core/shared/metadata-representation/item/item-metadata-representation.model';
 import { DSONameServiceMock } from '@dspace/core/testing/dso-name.service.mock';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';

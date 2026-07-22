@@ -11,7 +11,7 @@ import {
 import { By } from '@angular/platform-browser';
 import { RouterLink } from '@angular/router';
 import { Item } from '@dspace/core/shared/item.model';
-import { MetadataValue } from '@dspace/core/shared/metadata.models';
+import MetadataValue from '@dspace/core/shared/metadata.models';
 import { ItemMetadataRepresentation } from '@dspace/core/shared/metadata-representation/item/item-metadata-representation.model';
 import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 

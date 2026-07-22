@@ -1,7 +1,7 @@
 import { hasValue } from '@dspace/shared/utils/empty.util';
 
 import { BrowseDefinition } from '../../browse-definition.model';
-import { MetadataValue } from '../../metadata.models';
+import MetadataValue from '../../metadata.models';
 import {
   MetadataRepresentation,
   MetadataRepresentationType,

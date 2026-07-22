@@ -1,5 +1,6 @@
 // This configuration is only used for unit tests, end-to-end tests use environment.production.ts
 import { AdvancedAttachmentElementType } from '@dspace/config/advanced-attachment-rendering.config';
+import { IdentifierSubtypesIconPositionEnum } from '@dspace/config/identifier-subtypes-config.interface';
 import { NotificationAnimationsType } from '@dspace/config/notifications-config.interfaces';
 import { RestRequestMethod } from '@dspace/config/rest-request-method';
 import { BuildConfig } from 'src/config/build-config.interface';
@@ -341,7 +342,14 @@ export const environment: BuildConfig = {
           metadataList: ['dc.identifier.doi', 'dc.identifier.uri', 'dc.description.abstract'],
         },
       ],
-      identifierSubtypes: [],
+      identifierSubtypes: [
+        {
+          name: 'ror',
+          icon: 'assets/images/ror.logo.icon.svg',
+          iconPosition: IdentifierSubtypesIconPositionEnum.LEFT,
+          link: 'https://ror.org',
+        },
+      ],
     },
     showAuthorityRelations: false,
   },
@@ -602,6 +610,52 @@ export const environment: BuildConfig = {
           type: AdvancedAttachmentElementType.Attribute,
         },
       ],
+      pagination: {
+        enabled: true,
+        elementsPerPage: 2,
+      },
+    },
+    urn: [
+      {
+        name: 'doi',
+        baseUrl: 'https://doi.org/',
+      },
+      {
+        name: 'keepMyWhiteSpaces',
+        baseUrl: 'https://keepmywhitespaces.com/',
+        shouldKeepWhiteSpaces: true,
+      },
+      {
+        name: 'hdl',
+        baseUrl: 'https://hdl.handle.net/',
+      },
+      {
+        name: 'mailto',
+        baseUrl: 'mailto:',
+      },
+    ],
+    itemPage: {
+      Person: {
+        orientation: 'horizontal',
+      },
+      OrgUnit: {
+        orientation: 'horizontal',
+      },
+      default: {
+        orientation: 'vertical',
+      },
+    },
+    metadataBox: {
+      defaultMetadataLabelColStyle: 'col-3',
+      defaultMetadataValueColStyle: 'col-9',
+    },
+    collectionsBox: {
+      defaultCollectionsLabelColStyle: 'col-3 fw-bold',
+      defaultCollectionsValueColStyle: 'col-9',
+      isInline: true,
+    },
+    dynamicRefStyleMetadata: {
+      default: 'dspace.entity.style',
     },
   },
 

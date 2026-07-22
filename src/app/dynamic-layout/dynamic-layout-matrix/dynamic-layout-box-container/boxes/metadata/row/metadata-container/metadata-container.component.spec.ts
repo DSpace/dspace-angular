@@ -1,0 +1,354 @@
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { DYNAMIC_FIELD_RENDERING_MAP } from '@dspace/config/app-config.interface';
+import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
+import { LayoutField } from '@dspace/core/layout/models/box.model';
+import { Bitstream } from '@dspace/core/shared/bitstream.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { boxMetadata } from '@dspace/core/testing/box.mock';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import { createPaginatedList } from '@dspace/core/testing/utils.test';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+
+import MetadataValue from '../../../../../../../core/shared/metadata.models';
+import { FieldRenderingType } from '../../rendering-types/field-rendering-type';
+import { layoutBoxesMap } from '../../rendering-types/metadata-box-rendering-map';
+import { TextComponent } from '../../rendering-types/text/text.component';
+import { MetadataContainerComponent } from './metadata-container.component';
+import { MetadataRenderComponent } from './metadata-render/metadata-render.component';
+
+describe('MetadataContainerComponent', () => {
+  let component: MetadataContainerComponent;
+  let fixture: ComponentFixture<MetadataContainerComponent>;
+
+  const metadataValue = Object.assign(new MetadataValue(), {
+    'value': 'test item title',
+    'language': null,
+    'authority': null,
+    'confidence': -1,
+    'place': 0,
+  });
+
+  const testItem = Object.assign(new Item(),
+    {
+      type: 'item',
+      metadata: {
+        'dc.title': [metadataValue],
+        'dc.contributor.author': [
+          {
+            value: 'Donohue, Tim',
+          },
+          {
+            value: 'Surname, Name',
+          },
+        ],
+        'oairecerif.author.affiliation': [
+          {
+            value: 'Duraspace',
+          },
+          {
+            value: '4Science',
+          },
+        ],
+      },
+      uuid: 'test-item-uuid',
+    },
+  );
+
+  const fieldMock = {
+    metadata: 'dc.title',
+    label: 'Preferred name',
+    rendering: null,
+    fieldType: 'METADATA',
+    style: null,
+    styleLabel: 'test-style-label',
+    styleValue: 'test-style-value',
+    labelAsHeading: false,
+    valuesInline: true,
+  };
+
+  const fieldMockWithoutLabel = {
+    metadata: 'dc.title',
+    label: null,
+    rendering: null,
+    fieldType: 'METADATA',
+    style: null,
+    styleLabel: 'test-style-label',
+    styleValue: 'test-style-value',
+    labelAsHeading: false,
+    valuesInline: true,
+  };
+
+  const fieldMockWithoutMetadata = {
+    metadata: 'dc.identifier',
+    label: 'Preferred name',
+    rendering: null,
+    fieldType: 'METADATA',
+    style: null,
+    styleLabel: 'test-style-label',
+    styleValue: 'test-style-value',
+    labelAsHeading: false,
+    valuesInline: true,
+  };
+
+  const fieldStructuredMock = Object.assign({
+    id: 1,
+    metadata: 'dc.contributor.author',
+    fieldType: 'METADATAGROUP',
+    label: 'Author(s)',
+    rendering: FieldRenderingType.TABLE,
+    style: 'container row',
+    styleLabel: 'test-group-style-label',
+    styleValue: 'test-group-style-value',
+    metadataGroup: {
+      leading: 'dc.contributor.author',
+      elements: [
+        {
+          metadata: 'dc.contributor.author',
+          label: 'Author(s)',
+          rendering: 'TEXT',
+          fieldType: 'METADATA',
+          style: null,
+          styleLabel: 'test-style-label',
+          styleValue: 'test-style-value',
+        },
+        {
+          metadata: 'oairecerif.author.affiliation',
+          label: 'Affiliation(s)',
+          rendering: 'TEXT',
+          fieldType: 'METADATA',
+          style: null,
+          styleLabel: 'fw-bold col-0',
+          styleValue: 'col',
+        },
+      ],
+    },
+  }) as LayoutField;
+
+  const bitstreamField = Object.assign({
+    id: 1,
+    label: 'Field Label',
+    metadata: 'dc.identifier.doi',
+    rendering: FieldRenderingType.ATTACHMENT,
+    fieldType: 'BITSTREAM',
+    style: null,
+    styleLabel: 'test-style-label',
+    styleValue: 'test-style-value',
+    bitstream: {
+      bundle: 'ORIGINAL',
+      metadataField: 'dc.type',
+      metadataValue: 'thumbnail',
+    },
+  });
+
+  const bitstream1 = Object.assign(new Bitstream(), {
+    id: 'bitstream1',
+    uuid: 'bitstream1',
+  });
+
+  const mockBitstreamDataService = jasmine.createSpyObj('BitstreamDataService', {
+    findShowableBitstreamsByItem: jasmine.createSpy('findShowableBitstreamsByItem'),
+  });
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
+        }),
+        MetadataContainerComponent,
+        TextComponent,
+      ],
+      providers: [
+        { provide: BitstreamDataService, useValue: mockBitstreamDataService },
+        { provide: DYNAMIC_FIELD_RENDERING_MAP, useValue: layoutBoxesMap },
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    })
+      .overrideComponent(MetadataContainerComponent, { remove: { imports: [MetadataRenderComponent] } }).compileComponents();
+  });
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(MetadataContainerComponent);
+    component = fixture.componentInstance;
+    component.item = testItem;
+    component.box = boxMetadata;
+
+    mockBitstreamDataService.findShowableBitstreamsByItem.and.returnValue(
+      createSuccessfulRemoteDataObject$(createPaginatedList([])),
+    );
+  });
+
+  describe('When field rendering type is not structured', () => {
+
+    beforeEach(() => {
+      component.field = fieldMock;
+      fixture.detectChanges();
+    });
+    it('should create', () => {
+      expect(component).toBeTruthy();
+    });
+
+    it('should render metadata properly', (done) => {
+      const spanValueFound = fixture.debugElement.queryAll(By.css('.test-style-label'));
+      expect(spanValueFound.length).toBe(1);
+
+      const valueFound = fixture.debugElement.queryAll(By.css('ds-metadata-render'));
+      expect(valueFound.length).toBe(1);
+      done();
+    });
+  });
+
+  describe('When field rendering type is structured', () => {
+
+    beforeEach(() => {
+      component.field = fieldStructuredMock;
+      fixture.detectChanges();
+    });
+
+    it('should create', () => {
+      expect(component).toBeTruthy();
+    });
+
+    it('should render metadata properly', (done) => {
+      const spanValueFound = fixture.debugElement.queryAll(By.css('.test-group-style-label'));
+      expect(spanValueFound.length).toBe(1);
+
+      const valueFound = fixture.debugElement.queryAll(By.css('ds-metadata-render'));
+      expect(valueFound.length).toBe(1);
+      done();
+    });
+  });
+
+  describe('When field has no label', () => {
+
+    beforeEach(() => {
+      component.field = fieldMockWithoutLabel;
+      fixture.detectChanges();
+    });
+    it('should create', () => {
+      expect(component).toBeTruthy();
+    });
+
+    it('should render metadata properly', (done) => {
+      const spanValueFound = fixture.debugElement.queryAll(By.css('.test-style-label'));
+      expect(spanValueFound.length).toBe(0);
+
+      const valueFound = fixture.debugElement.queryAll(By.css('ds-metadata-render'));
+      expect(valueFound.length).toBe(1);
+      done();
+    });
+  });
+
+  describe('When item has not the field metadata', () => {
+
+    beforeEach(() => {
+      component.field = fieldMockWithoutMetadata;
+      fixture.detectChanges();
+    });
+    it('should create', () => {
+      expect(component).toBeTruthy();
+    });
+
+    it('should render metadata properly', (done) => {
+      const spanValueFound = fixture.debugElement.queryAll(By.css('.test-style-label'));
+      expect(spanValueFound.length).toBe(0);
+
+      const valueFound = fixture.debugElement.queryAll(By.css('ds-metadata-render'));
+      expect(valueFound.length).toBe(0);
+      done();
+    });
+  });
+
+  describe('When field type is bitstream', () => {
+    beforeEach(() => {
+      component.field = bitstreamField;
+    });
+
+    describe('and item has no bitstream', () => {
+
+      beforeEach(() => {
+        fixture.detectChanges();
+      });
+      it('should create', () => {
+        expect(component).toBeTruthy();
+      });
+
+      it('should not render metadata ', (done) => {
+        const spanValueFound = fixture.debugElement.queryAll(By.css('.test-style-label'));
+        expect(spanValueFound.length).toBe(0);
+
+        const valueFound = fixture.debugElement.queryAll(By.css('ds-metadata-render'));
+        expect(valueFound.length).toBe(0);
+        done();
+      });
+    });
+
+    describe('and item has bitstream', () => {
+
+      beforeEach(() => {
+        mockBitstreamDataService.findShowableBitstreamsByItem.and.returnValue(createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1])));
+        fixture.detectChanges();
+      });
+
+      it('should create', () => {
+        expect(component).toBeTruthy();
+      });
+
+      it('should render metadata ', (done) => {
+        const spanValueFound = fixture.debugElement.queryAll(By.css('.test-style-label'));
+        expect(spanValueFound.length).toBe(1);
+
+        const valueFound = fixture.debugElement.queryAll(By.css('ds-metadata-render'));
+        expect(valueFound.length).toBe(1);
+        done();
+      });
+    });
+
+    describe('and bitstream has metadata', () => {
+      beforeEach(() => {
+        component.field.bitstream.metadataField = 'metadataFieldTest';
+        component.field.bitstream.metadataValue = 'metadataValueTest';
+        fixture.detectChanges();
+      });
+
+      it('should use the metadata in filters', () => {
+        expect(mockBitstreamDataService.findShowableBitstreamsByItem).toHaveBeenCalledWith(
+          testItem.uuid,
+          bitstreamField.bitstream.bundle,
+          [ { metadataName: 'metadataFieldTest', metadataValue: 'metadataValueTest' } ],
+          {},
+          false,
+        );
+      });
+    });
+
+    describe('and bitstream doesnt have metadataValue', () => {
+      beforeEach(() => {
+        component.field.bitstream.metadataValue = undefined;
+        fixture.detectChanges();
+      });
+
+      it('should use empty array in filters', () => {
+        expect(mockBitstreamDataService.findShowableBitstreamsByItem).toHaveBeenCalledWith(
+          testItem.uuid,
+          bitstreamField.bitstream.bundle,
+          [], // <--- empty array of filters,
+          {},
+          false,
+        );
+      });
+    });
+  });
+});

@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { Item } from '@dspace/core/shared/item.model';
 import { ReorderableRelationship } from '@dspace/core/shared/item-relationships/reorderable-relationship';
-import { MetadataValue } from '@dspace/core/shared/metadata.models';
+import MetadataValue from '@dspace/core/shared/metadata.models';
 import { ItemMetadataRepresentation } from '@dspace/core/shared/metadata-representation/item/item-metadata-representation.model';
 import { MetadataRepresentation } from '@dspace/core/shared/metadata-representation/metadata-representation.model';
 import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';

@@ -13,7 +13,7 @@ import { Context } from '@dspace/core/shared/context.model';
 import { ExternalSourceEntry } from '@dspace/core/shared/external-source-entry.model';
 import { Item } from '@dspace/core/shared/item.model';
 import { ItemType } from '@dspace/core/shared/item-relationships/item-type.model';
-import { MetadataValue } from '@dspace/core/shared/metadata.models';
+import MetadataValue from '@dspace/core/shared/metadata.models';
 import { Metadata } from '@dspace/core/shared/metadata.utils';
 import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
 import { ListableObject } from '@dspace/core/shared/object-collection/listable-object.model';

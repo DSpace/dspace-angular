@@ -14,6 +14,7 @@ import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/pagina
 import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
 import { ViewMode } from '@dspace/core/shared/view-mode.model';
 
+import { AlertType } from '../../alert/alert-type';
 import { CollectionElementLinkType } from '../../object-collection/collection-element-link.type';
 import { ThemedComponent } from '../../theme-support/themed.component';
 import {
@@ -34,6 +35,10 @@ export class ThemedSearchResultsComponent extends ThemedComponent<SearchResultsC
 
   @Input() linkType: CollectionElementLinkType;
 
+  @Input() searchResultNotice: string;
+
+  @Input() searchResultNoticeType: AlertType;
+
   @Input() searchResults: RemoteData<PaginatedList<SearchResult<DSpaceObject>>>;
 
   @Input() searchConfig: PaginatedSearchOptions;
@@ -41,6 +46,8 @@ export class ThemedSearchResultsComponent extends ThemedComponent<SearchResultsC
   @Input() showCsvExport: boolean;
 
   @Input() showThumbnails: boolean;
+
+  @Input() showSearchResultNotice: boolean;
 
   @Input() sortConfig: SortOptions;
 

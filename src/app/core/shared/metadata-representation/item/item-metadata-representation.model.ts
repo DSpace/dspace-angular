@@ -1,5 +1,5 @@
 import { Item } from '../../item.model';
-import { MetadataValue } from '../../metadata.models';
+import MetadataValue from '../../metadata.models';
 import {
   MetadataRepresentation,
   MetadataRepresentationType,

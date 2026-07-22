@@ -1,0 +1,48 @@
+<div class="sidebar-section h-100" [ngClass]="{ 'active' : !!tab && !!activeTab && (tab.isActive || tab.id === activeTab.id), 'expanded': expanded, 'vertical': layout === 'vertical', 'horizontal': layout === 'horizontal' }">
+  @if (!tab.children || tab.children.length === 0 ) {
+    <div class="icon-wrapper">
+      <a class="nav-item shortcut-icon"
+        href="javascript:void(0);"
+        [innerHTML]="getTabHeader(tab)"
+        [ngClass]="{ 'px-4 justify-content-between' : layout === 'vertical' }"
+        [routerLink]="itemBaseUrl + tab.shortname"
+        [title]="getTabHeader(tab)"
+        (click)="$event.stopPropagation();$event.preventDefault();selectTab(tab)">
+      </a>
+    </div>
+  }
+  @if (!!tab.children && tab.children.length > 0 ) {
+    <div class="sidebar-collapsible h-100">
+      <a class="nav-item shortcut-icon" href="javascript:;" [ngClass]="{ 'px-4 justify-content-between' : layout === 'vertical' }"
+        (click)="$event.preventDefault();toggleSection($event)">
+        <span id="sidebarName-{{tab.id}}" class="section-header-text" [innerHTML]="getTabHeader(tab)">
+        </span>
+        @if (layout === 'vertical') {
+          <i class="fas fa-chevron-right fa-pull-right" [@rotate]="expanded ? 'expanded' : 'collapsed'"
+          [title]="getTabHeader(tab)"></i>
+        }
+        @if (layout === 'horizontal') {
+          <i class="fas fa-chevron-right fa-pull-right" [@rotateNavbar]="expanded ? 'expanded' : 'collapsed'"
+          [title]="getTabHeader(tab)"></i>
+        }
+      </a>
+      @if (expanded) {
+        <ul class="sidebar-sub-level-items list-unstyled" @slide>
+          @for (subTab of tab.children; track subTab) {
+            <li [ngClass]="{'active' : !!subTab && !!activeTab && subTab.id === activeTab.id}">
+              <a class="nav-item shortcut-icon"
+                href="javascript:void(0);"
+                [ngClass]="{ 'px-4 justify-content-between' : layout === 'vertical' }"
+                [routerLink]="itemBaseUrl + subTab.shortname"
+                (click)="$event.stopPropagation();$event.preventDefault();selectTab(subTab)">
+                <span id="sidebarName-{{subTab.id}}"
+                  class="ps-3 section-header-text"
+                [innerHTML]="getTabHeader(subTab)"></span>
+              </a>
+            </li>
+          }
+        </ul>
+      }
+    </div>
+  }
+</div>

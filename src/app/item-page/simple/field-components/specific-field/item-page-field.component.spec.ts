@@ -14,10 +14,7 @@ import { BrowseService } from '@dspace/core/browse/browse.service';
 import { BrowseDefinitionDataService } from '@dspace/core/browse/browse-definition-data.service';
 import { Item } from '@dspace/core/shared/item.model';
 import { MathService } from '@dspace/core/shared/math.service';
-import {
-  MetadataMap,
-  MetadataValue,
-} from '@dspace/core/shared/metadata.models';
+import MetadataValue, { MetadataMap } from '@dspace/core/shared/metadata.models';
 import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
 import { BrowseDefinitionDataServiceStub } from '@dspace/core/testing/browse-definition-data-service.stub';
 import { BrowseServiceStub } from '@dspace/core/testing/browse-service.stub';

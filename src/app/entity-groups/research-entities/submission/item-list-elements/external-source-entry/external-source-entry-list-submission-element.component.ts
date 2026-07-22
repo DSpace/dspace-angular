@@ -5,7 +5,7 @@ import {
 } from '@angular/core';
 import { Context } from '@dspace/core/shared/context.model';
 import { ExternalSourceEntry } from '@dspace/core/shared/external-source-entry.model';
-import { MetadataValue } from '@dspace/core/shared/metadata.models';
+import MetadataValue from '@dspace/core/shared/metadata.models';
 import { Metadata } from '@dspace/core/shared/metadata.utils';
 import { ViewMode } from '@dspace/core/shared/view-mode.model';
 

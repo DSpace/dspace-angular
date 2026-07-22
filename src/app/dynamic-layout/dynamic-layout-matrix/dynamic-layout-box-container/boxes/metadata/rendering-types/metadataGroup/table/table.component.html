@@ -1,0 +1,27 @@
+@if ((initialized | async)) {
+  <div [class]="'table-container d-flex flex-column ' + valueStyle">
+    <div class="table-responsive">
+      <table class='table table-borderless'>
+        <tr>
+          @for (field of metadataGroup; track field) {
+            <td class="table-light {{field.styleLabel}}">
+              <span [innerHTML]="getLabel(field)"></span>
+            </td>
+          }
+        </tr>
+        @for (index of componentsToBeRenderedMap.keys(); track index) {
+          <tr>
+            @for (mdg of componentsToBeRenderedMap.get(index); track mdg) {
+              <td>
+                <ds-metadata-render class="w-100 auto-phrase"
+                  [item]="item"
+                  [field]="mdg.field"
+                [metadataValue]="mdg.value"></ds-metadata-render>
+              </td>
+            }
+          </tr>
+        }
+      </table>
+    </div>
+  </div>
+}

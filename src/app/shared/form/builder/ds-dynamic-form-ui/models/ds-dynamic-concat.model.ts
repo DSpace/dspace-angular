@@ -1,5 +1,5 @@
 import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
-import { MetadataValue } from '@dspace/core/shared/metadata.models';
+import MetadataValue from '@dspace/core/shared/metadata.models';
 import { RelationshipOptions } from '@dspace/core/shared/relationship-options.model';
 import {
   hasNoValue,

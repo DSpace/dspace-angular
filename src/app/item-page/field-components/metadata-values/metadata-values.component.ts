@@ -15,7 +15,7 @@ import {
   AppConfig,
 } from '@dspace/config/app-config.interface';
 import { BrowseDefinition } from '@dspace/core/shared/browse-definition.model';
-import { MetadataValue } from '@dspace/core/shared/metadata.models';
+import MetadataValue from '@dspace/core/shared/metadata.models';
 import {
   getFirstCompletedRemoteData,
   getPaginatedListPayload,

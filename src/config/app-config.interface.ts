@@ -3,6 +3,8 @@ import {
   makeStateKey,
 } from '@angular/core';
 
+import { FieldRenderingType } from '../app/dynamic-layout/dynamic-layout-matrix/dynamic-layout-box-container/boxes/metadata/rendering-types/field-rendering-type';
+import { MetadataBoxFieldRenderOptions } from '../app/dynamic-layout/dynamic-layout-matrix/dynamic-layout-box-container/boxes/metadata/rendering-types/rendering-type.model';
 import { AccessibilitySettingsConfig } from './accessibility-settings.config';
 import { ActuatorsConfig } from './actuators.config';
 import { AddToAnyPluginConfig } from './add-to-any-plugin-config';
@@ -86,6 +88,8 @@ interface AppConfig extends Config {
 const APP_CONFIG = new InjectionToken<AppConfig>('APP_CONFIG');
 
 const APP_CONFIG_STATE = makeStateKey<AppConfig>('APP_CONFIG_STATE');
+
+export const DYNAMIC_FIELD_RENDERING_MAP: InjectionToken<Map<FieldRenderingType, MetadataBoxFieldRenderOptions>> = new InjectionToken<Map<FieldRenderingType, MetadataBoxFieldRenderOptions>>('DYNAMIC_FIELD_RENDERING_MAP');
 
 type DeepPartial<T> = T extends object ? { [k in keyof T]?: DeepPartial<T[k]>} : T;
 

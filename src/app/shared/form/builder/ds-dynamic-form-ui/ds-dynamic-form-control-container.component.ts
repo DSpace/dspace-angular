@@ -50,10 +50,7 @@ import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/fo
 import { Item } from '@dspace/core/shared/item.model';
 import { Relationship } from '@dspace/core/shared/item-relationships/relationship.model';
 import { ReorderableRelationship } from '@dspace/core/shared/item-relationships/reorderable-relationship';
-import {
-  MetadataValue,
-  VIRTUAL_METADATA_PREFIX,
-} from '@dspace/core/shared/metadata.models';
+import MetadataValue, { VIRTUAL_METADATA_PREFIX } from '@dspace/core/shared/metadata.models';
 import { ItemSearchResult } from '@dspace/core/shared/object-collection/item-search-result.model';
 import {
   getAllSucceededRemoteData,

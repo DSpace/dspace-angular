@@ -11,7 +11,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { ItemDataService } from '../../core/data/item-data.service';
 import { Item } from '../../core/shared/item.model';
-import { MetadataValue } from '../../core/shared/metadata.models';
+import MetadataValue from '../../core/shared/metadata.models';
 import { EntityIconDirective } from '../entity-icon/entity-icon.directive';
 import { VarDirective } from '../utils/var.directive';
 import { MetadataLinkViewComponent } from './metadata-link-view.component';

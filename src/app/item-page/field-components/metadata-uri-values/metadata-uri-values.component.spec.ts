@@ -10,7 +10,7 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { APP_CONFIG } from '@dspace/config/app-config.interface';
-import { MetadataValue } from '@dspace/core/shared/metadata.models';
+import MetadataValue from '@dspace/core/shared/metadata.models';
 import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
 import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import { isNotEmpty } from '@dspace/shared/utils/empty.util';

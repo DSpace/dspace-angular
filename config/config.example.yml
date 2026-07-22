@@ -707,7 +707,7 @@ accessibility:
   cookieExpirationDuration: 7
 
 # Configuration for layout customization of metadata rendering in Item page
-# Currently only the authority reference config is available, more will follow with the integration of the so called CRIS layout.
+# Currently only the authority reference config is available, more will follow with the integration of the so called Dynamic layout.
 layout:
   # Configuration of icons and styles to be used for each authority controlled link
   authorityRef:
@@ -756,6 +756,54 @@ layout:
         type: attribute
       - name: checksum
         type: attribute
+
+  # Configuration for URN (Uniform Resource Name) identifier resolution
+  # Maps identifier types (e.g., DOI, Handle, Scopus) to their base URLs for creating resolvable links
+  urn:
+    - name: doi
+      baseUrl: 'https://doi.org/'
+    - name: hdl
+      baseUrl: 'https://hdl.handle.net/'
+    - name: scopus
+      baseUrl: 'https://www.scopus.com/authid/detail.uri?authorId='
+    - name: researcherid
+      baseUrl: 'http://www.researcherid.com/rid/'
+    - name: mailto
+      baseUrl: 'mailto:'
+
+  # Item page layout configuration for different entity types
+  # Defines the visual layout orientation (horizontal/vertical) for various entity types in the item page detail view
+  itemPage:
+    OrgUnit:
+      orientation: vertical
+    Project:
+      orientation: vertical
+    default:
+      orientation: horizontal
+
+  # Metadata box rendering configuration
+  # Defines default CSS column styles for metadata labels and values in item page detail view
+  metadataBox:
+    # CSS classes for metadata label column (default: 'col-3' = 25% width)
+    defaultMetadataLabelColStyle: col-3
+    # CSS classes for metadata value column (default: 'col-9' = 75% width)
+    defaultMetadataValueColStyle: col-9
+
+  # Collections box rendering configuration
+  # Defines default CSS column styles for collections and inline display settings
+  collectionsBox:
+    # CSS classes for collection label column (default: 'col-3 fw-bold' = 25% width, bold text)
+    defaultCollectionsLabelColStyle: col-3 fw-bold
+    # CSS classes for collection value column (default: 'col-9' = 75% width)
+    defaultCollectionsValueColStyle: col-9
+    # CSS classes for collection row styling
+    # defaultCollectionsRowStyle: ''
+    # Whether to display collections inline (true) or in a block layout (false)
+    isInline: true
+  # Key/Value map to define metadata holding the style information for each entity type
+  dynamicRefStyleMetadata:
+    default: 'dspace.entity.style'
+    Publication: 'example.entity.style'
 
 # Configuration for customization of search results
 searchResults:

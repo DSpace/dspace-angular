@@ -365,6 +365,18 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
         label: this.translate.instant('bitstream.edit.form.mediaType.option.audio-video'),
         value: 'audio+video',
       },
+      {
+        label: this.translate.instant('bitstream.edit.form.mediaType.option.logo'),
+        value: 'logo',
+      },
+      {
+        label: this.translate.instant('bitstream.edit.form.mediaType.option.main-article'),
+        value: 'main article',
+      },
+      {
+        label: this.translate.instant('bitstream.edit.form.mediaType.option.personal-picture'),
+        value: 'personal picture',
+      },
     ],
     value: 'neither',
   });

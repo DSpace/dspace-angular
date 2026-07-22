@@ -1,4 +1,4 @@
-import { MetadataValue } from '../../metadata.models';
+import MetadataValue from '../../metadata.models';
 import { MetadataRepresentationType } from '../metadata-representation.model';
 import { MetadatumRepresentation } from './metadatum-representation.model';
 

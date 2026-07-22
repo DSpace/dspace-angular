@@ -30,7 +30,7 @@ export class MetadataMap implements MetadataMapInterface {
 }
 
 /** A single metadata value and its properties. */
-export class MetadataValue implements MetadataValueInterface {
+class MetadataValue implements MetadataValueInterface {
   /** The uuid. */
   uuid: string = uuidv4();
 
@@ -61,6 +61,8 @@ export class MetadataValue implements MetadataValueInterface {
   @autoserialize
   securityLevel: number;
 }
+
+export default MetadataValue;
 
 /** Constraints for matching metadata values. */
 export interface MetadataValueFilter {

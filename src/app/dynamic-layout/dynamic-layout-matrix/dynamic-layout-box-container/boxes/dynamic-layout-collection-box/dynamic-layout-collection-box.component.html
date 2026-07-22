@@ -1,0 +1,44 @@
+@if ((owningCollection$ | async) || (mappedCollections$ | async).length > 0) {
+  <div class="container" [class]="rowStyle"
+    >
+    @if (owningCollection$ | async) {
+      <div class="row" data-test="owningCollection">
+        <div class="{{labelStyle}}">{{ 'dynamic-layout.rendering.collections.owning-collection.label' | translate }}</div>
+        <div class="{{valueStyle}}">
+          <a href="javascript:void(0);"
+          [routerLink]="['/collections', (owningCollection$ | async).id]">{{ (owningCollection$ | async).firstMetadataValue('dc.title') }}</a>
+        </div>
+      </div>
+    }
+    @if ((mappedCollections$ | async)?.length > 0) {
+      <div class="row" data-test="mappedCollections">
+        <div [class]="labelStyle">{{ 'dynamic-layout.rendering.collections.mapped-collection.label' | translate }}</div>
+        <div [class]="valueStyle" [ngClass]="{'d-inline-flex' : isInline}">
+          @for (mappedCollection of (mappedCollections$ | async); track mappedCollection; let last = $last) {
+            <div>
+              <a href="javascript:void(0);"
+              [routerLink]="['/collections', mappedCollection.id]">{{ mappedCollection.firstMetadataValue('dc.title') }}</a>
+              @if (isInline && !last) {
+                <span class="mx-1">&bull;</span>
+              }
+            </div>
+          }
+          @if (isLoading$ | async) {
+            <div>
+              {{'dynamic-layout.rendering.collections.loading' | translate}}
+            </div>
+          }
+          @if ((isLoading$ | async) !== true && (hasMore$ | async) === true) {
+            <a
+              (click)="$event.preventDefault(); handleLoadMore()"
+              class="d-block" [class.ms-3]="isInline"
+              role="button" href="javascript:void(0);">
+              <i class="me-2"
+              [ngClass]="isInline ? 'fa fa-chevron-right' : 'fa fa-chevron-down'"></i>{{'dynamic-layout.rendering.collections.load-more' | translate}}
+            </a>
+          }
+        </div>
+      </div>
+    }
+  </div>
+}

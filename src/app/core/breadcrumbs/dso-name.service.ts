@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MetadataValue } from '@dspace/core/shared/metadata.models';
+import MetadataValue from '@dspace/core/shared/metadata.models';
 import {
   hasValue,
   isEmpty,

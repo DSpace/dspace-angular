@@ -49,6 +49,7 @@ export class ChipsComponent implements OnChanges {
   @Input() wrapperClass: string;
   @Input() editable = true;
   @Input() showIcons = false;
+  @Input() clickable = true;
 
   @Output() selected: EventEmitter<number> = new EventEmitter<number>();
   @Output() remove: EventEmitter<number> = new EventEmitter<number>();

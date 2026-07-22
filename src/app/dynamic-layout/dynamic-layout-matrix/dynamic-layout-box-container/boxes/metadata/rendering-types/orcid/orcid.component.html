@@ -1,0 +1,23 @@
+<div [class]="field.styleValue" [attr.lang]="metadataValue.language">
+  <span class="d-flex align-items-center txt-value">
+
+    @if ((orcidUrl$ | async)) {
+      <a href="{{(orcidUrl$ | async)}}/{{metadataValue.value}}" target="_blank">
+        {{ metadataValue.value }}
+      </a>
+    } @else {
+      {{ metadataValue.value }}
+    }
+
+
+    @if (hasOrcidBadge()) {
+      <img
+        placement="top"
+        ngbTooltip="{{ 'orcid.badge.tooltip' | translate }}"
+        class="orcid-icon"
+        alt="orcid-logo"
+        src="assets/images/orcid.logo.icon.svg"/>
+    }
+
+  </span>
+</div>

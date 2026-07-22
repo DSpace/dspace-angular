@@ -20,7 +20,7 @@ import { RequestService } from '@dspace/core/data/request.service';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { Collection } from '@dspace/core/shared/collection.model';
 import { ItemType } from '@dspace/core/shared/item-relationships/item-type.model';
-import { MetadataValue } from '@dspace/core/shared/metadata.models';
+import MetadataValue from '@dspace/core/shared/metadata.models';
 import { getFirstSucceededRemoteListPayload } from '@dspace/core/shared/operators';
 import {
   hasNoValue,

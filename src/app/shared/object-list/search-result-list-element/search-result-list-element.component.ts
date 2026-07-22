@@ -14,7 +14,7 @@ import { SearchResult } from '@dspace/core/shared/search/models/search-result.mo
 import { hasValue } from '@dspace/shared/utils/empty.util';
 import { Observable } from 'rxjs';
 
-import { MetadataValue } from '../../../core/shared/metadata.models';
+import MetadataValue from '../../../core/shared/metadata.models';
 import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 import { TruncatableService } from '../../truncatable/truncatable.service';
 import {
