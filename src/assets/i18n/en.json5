@@ -2093,6 +2093,36 @@
 
   "error.validation.metadata.qualifier.max-length": "This field may not contain more than 64 characters",
 
+  "explore.browse-section.title": "Browse",
+
+  "explore.facet-section.title": "Discover",
+
+  "explore.index.all": "All",
+
+  "explore.index.author": "Author",
+
+  "explore.index.birthDate": "Birthday",
+
+  "explore.index.dateIssued": "Date issued",
+
+  "explore.index.dc.title": "Title",
+
+  "explore.index.familyName": "Family name",
+
+  "explore.index.givenName": "Given name",
+
+  "explore.index.jobTitle": "Job title",
+
+  "explore.index.title": "Title",
+
+  "explore.index.type": "Type",
+
+  "explore.search-section.search-button": "Search",
+
+  "explore.search-section.reset-button": "Reset",
+
+  "explore.title": "Explore section",
+
   "feed.description": "Syndication feed",
 
   "file-download-link.restricted": "Restricted bitstream",
@@ -3731,6 +3761,16 @@
   "menu.section.browse_global_by_dateissued": "By Issue Date",
 
   "menu.section.browse_global_by_subject": "By Subject",
+
+  "menu.section.explore_infrastructure": "Infrastructure",
+
+  "menu.section.explore_publications": "Research Outputs",
+
+  "menu.section.explore_researchoutputs": "Research Outputs",
+
+  "menu.section.explore_researcherprofiles": "People",
+
+  "menu.section.explore_orgunits": "Organizations",
 
   "menu.section.browse_global_by_srsc": "By Subject Category",
 

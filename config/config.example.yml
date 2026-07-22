@@ -403,6 +403,8 @@ homePage:
     pageSize: 5
   # Enable or disable the Discover filters on the homepage
   showDiscoverFilters: false
+  # Enable or disable the dynamic layout configuration on the homepage
+  enableDynamicLayout: true
 
 # Item Config
 item:
@@ -709,6 +711,9 @@ accessibility:
 # Configuration for layout customization of metadata rendering in Item page
 # Currently only the authority reference config is available, more will follow with the integration of the so called CRIS layout.
 layout:
+  # Enable or disable the explore pages feature (/explore/:id routes and their navbar menu entries).
+  # When false, explore routes redirect to 404 and the explore menu is hidden.
+  enableExplorePages: true
   # Configuration of icons and styles to be used for each authority controlled link
   authorityRef:
     - entityType: DEFAULT
@@ -756,6 +761,11 @@ layout:
         type: attribute
       - name: checksum
         type: attribute
+  # Navbar layout configuration
+  navbar:
+    # If true, show the "Community and Collections" link in the navbar; otherwise, show it in the admin sidebar
+    showCommunityCollection: true
+
 
 # Configuration for customization of search results
 searchResults:

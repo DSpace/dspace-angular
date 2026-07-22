@@ -1,0 +1,43 @@
+<div class="container">
+  @for (sectionComponents of ( sectionComponentRows | async ); track sectionComponents) {
+    <div class="row">
+      @for (sectionComponent of sectionComponents; track sectionComponent) {
+        <div
+          [ngClass]="sectionComponent.style" [class.col]="!hasColClass(sectionComponent.style)" class="pb-4">
+          @switch (sectionComponent.componentType) {
+            @case ('top') {
+              <ds-top-section
+                [sectionId]="sectionId"
+                [topSection]="$any(sectionComponent)"></ds-top-section>
+            }
+            @case ('browse') {
+              <ds-browse-section
+                [sectionId]="sectionId"
+                [browseSection]="$any(sectionComponent)"></ds-browse-section>
+            }
+            @case ('search') {
+              <ds-search-section
+                [sectionId]="sectionId"
+                [searchSection]="$any(sectionComponent)"></ds-search-section>
+            }
+            @case ('facet') {
+              <ds-facet-section
+                [sectionId]="sectionId"
+                [facetSection]="$any(sectionComponent)"></ds-facet-section>
+            }
+            @case ('text-row') {
+              <ds-text-section
+                [sectionId]="sectionId"
+                [textRowSection]="$any(sectionComponent)"></ds-text-section>
+            }
+            @case ('counters') {
+              <ds-counters-section
+                [sectionId]="sectionId"
+                [countersSection]="$any(sectionComponent)"></ds-counters-section>
+            }
+          }
+        </div>
+      }
+    </div>
+  }
+</div>

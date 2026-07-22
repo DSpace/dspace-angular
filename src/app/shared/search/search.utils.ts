@@ -24,6 +24,31 @@ export function getFacetValueForType(facetValue: FacetValue, searchFilterConfig:
 }
 
 /**
+ * Get a facet's value by matching the label with its parameter in the search href, this will include the operator of the facet value
+ * If the {@link FacetValue} doesn't contain a search link, its raw label will be returned as a fallback
+ * @param facetValue
+ * @param searchFilterConfig
+ */
+export function getFacetValueForTypeAndLabel(facetValue: FacetValue, searchFilterConfig: SearchFilterConfig): string {
+  return _createValue(searchFilterConfig.paramName, facetValue._links, facetValue.label, facetValue.authorityKey);
+}
+
+function _createValue(paramName: string, facetValueLinks, value, authorityKey) {
+  const regex = new RegExp(`[?|&]${escapeRegExp(encodeURIComponent(paramName))}=(${escapeRegExp(encodeURIComponent(value))}[^&]*)`, 'g');
+  if (isNotEmpty(facetValueLinks)) {
+    const values = regex.exec(facetValueLinks.search.href);
+    if (isNotEmpty(values)) {
+      return decodeURIComponent(values[1]);
+    }
+  }
+  if (authorityKey) {
+    return addOperatorToFilterValue(authorityKey, 'authority');
+  }
+
+  return addOperatorToFilterValue(value, 'equals');
+}
+
+/**
  * Escape a string to be used in a JS regular expression
  *
  * @param input the string to escape

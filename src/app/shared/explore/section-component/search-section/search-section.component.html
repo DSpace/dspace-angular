@@ -1,0 +1,60 @@
+<div>
+  @if (searchSection.displayTitle) {
+    <h2>{{ 'explore.search-section.' + sectionId + '.title' | translate }}</h2>
+  }
+  @if (searchSection.searchType !== 'basic' || !searchSection.searchType) {
+    <form [formGroup]="searchForm" (ngSubmit)="onSubmit(searchForm.value)">
+      @for (queryStatement of queryArray.controls; track queryStatement; let i = $index; let isLast = $last) {
+        <div formArrayName="queryArray">
+          <div [formGroupName]="i" class="row mb-3 mb-md-0" data-test="form-row">
+            <div class="col-md-4 pb-3">
+              <select name="filter" id="filter" formControlName="filter" class="form-control me-2">
+                @for (filter of (filters | async); track filter) {
+                  <option [value]="filter">{{'explore.index.' + filter | translate}}</option>
+                }
+              </select>
+            </div>
+            <div class="col-md-5 col-xl-6 pb-3">
+              <input type="text" name="query" id="query" formControlName="query" class="form-control me-2"/>
+            </div>
+            <div class="col-md-3 col-xl-2 pb-3">
+              @if (!isLast) {
+                <select name="operation" id="operation" formControlName="operation" class="form-control">
+                  @for (operation of operations; track operation) {
+                    <option [value]="operation">{{operation}}</option>
+                  }
+                </select>
+              }
+              @if (isLast) {
+                <button id="addButton" type="button" class="btn btn-info w-100" (click)="addQueryStatement()">+</button>
+              }
+            </div>
+          </div>
+        </div>
+      }
+      <div class="d-flex justify-content-end" style="gap: 20px;">
+        <button type="button" id="resetButton" class="btn btn-outline-primary float-end" (click)="onReset()">
+          <i class="fas fa-redo me-1"></i>
+          {{'explore.search-section.reset-button' | translate}}
+        </button>
+        <button type="submit" id="searchButton" class="btn btn-primary float-end">
+          <i class="fas fa-search me-1"></i>
+          {{'explore.search-section.search-button' | translate}}
+        </button>
+      </div>
+    </form>
+  }
+
+  @if (searchSection.searchType === 'basic') {
+    <div class="col-md-12 d-flex justify-content-center">
+      <div class="col-md-8">
+        @if (searchSection.searchType === 'basic') {
+          <ds-search-form
+            [inPlaceSearch]="false"
+            [configuration]="searchSection.discoveryConfigurationName"
+            [searchPlaceholder]="'search.search-form.placeholder' | translate"> ></ds-search-form>
+        }
+      </div>
+    </div>
+  }
+</div>
