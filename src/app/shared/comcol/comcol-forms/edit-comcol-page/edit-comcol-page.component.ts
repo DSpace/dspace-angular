@@ -70,7 +70,11 @@ export class EditComColPageComponent<TDomain extends DSpaceObject> implements On
    */
   initPageParamsByRoute() {
     this.currentPage = this.route.snapshot.firstChild.routeConfig.path;
-    this.hideReturnButton = this.route.routeConfig.children
-      .find((child: any) => child.path === this.currentPage).data.hideReturnButton;
+
+    let current: ActivatedRoute = this.route;
+    while (current.firstChild) {
+      current = current.firstChild;
+    }
+    this.hideReturnButton = current.snapshot.data.hideReturnButton ?? false;
   }
 }

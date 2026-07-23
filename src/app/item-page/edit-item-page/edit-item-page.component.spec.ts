@@ -30,6 +30,7 @@ describe('ItemPageComponent', () => {
   const inaccesiblePages = ['inaccessible', 'inaccessibleDoubleGuard'];
   const mockRoute = {
     snapshot: {
+      data: {},
       firstChild: {
         routeConfig: {
           path: accesiblePages[0]

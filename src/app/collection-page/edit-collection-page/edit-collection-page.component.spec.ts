@@ -28,6 +28,7 @@ describe('EditCollectionPageComponent', () => {
       ]
     },
     snapshot: {
+      data: {},
       firstChild: {
         routeConfig: {
           path: 'mockUrl'

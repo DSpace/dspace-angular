@@ -38,6 +38,11 @@ export class EditItemPageComponent implements OnInit {
    */
   pages: { page: string, enabled: Observable<boolean> }[];
 
+  /**
+   * Hide the default return button?
+   */
+  public hideReturnButton: boolean;
+
   constructor(private route: ActivatedRoute, private router: Router, private injector: Injector) {
     this.router.events.subscribe(() => this.initPageParamsByRoute());
   }
@@ -75,5 +80,11 @@ export class EditItemPageComponent implements OnInit {
    */
   initPageParamsByRoute() {
     this.currentPage = this.route.snapshot.firstChild.routeConfig.path;
+
+    let current: ActivatedRoute = this.route;
+    while (current.firstChild) {
+      current = current.firstChild;
+    }
+    this.hideReturnButton = current.snapshot.data.hideReturnButton ?? false;
   }
 }

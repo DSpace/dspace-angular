@@ -101,12 +101,6 @@ import { ItemAccessControlComponent } from './item-access-control/item-access-co
                 component: ItemBitstreamsComponent,
                 data: { title: 'item.edit.tabs.view.title', showBreadcrumbs: true }
               }, */
-              /* TODO - uncomment & fix when curate page exists
-              {
-                path: 'curate',
-                component: ItemBitstreamsComponent,
-                data: { title: 'item.edit.tabs.curate.title', showBreadcrumbs: true }
-              }, */
               {
                 path: 'versionhistory',
                 component: ItemVersionHistoryComponent,
@@ -121,7 +115,11 @@ import { ItemAccessControlComponent } from './item-access-control/item-access-co
               {
                 path: 'mapper',
                 component: ItemCollectionMapperComponent,
-                data: { title: 'item.edit.tabs.item-mapper.title', showBreadcrumbs: true },
+                data: {
+                  hideReturnButton: true,
+                  title: 'item.edit.tabs.item-mapper.title',
+                  showBreadcrumbs: true,
+                },
                 canActivate: [ItemPageCollectionMapperGuard]
               }
             ]
