@@ -24,3 +24,8 @@ export const COLLECTION_CREATE_PATH = 'create';
 export const COLLECTION_EDIT_PATH = 'edit';
 export const COLLECTION_EDIT_ROLES_PATH = 'roles';
 export const ITEMTEMPLATE_PATH = 'itemtemplate';
+export const BULK_IMPORT_PATH = 'bulk-import';
+
+export function getBulkImportRoute(id: string): string {
+  return new URLCombiner(getCollectionPageRoute(id), BULK_IMPORT_PATH).toString();
+}

@@ -35,7 +35,7 @@
               [formGroup]="group"
               [formModel]="formModel"
               [context]="groupModel"
-              [group]="getControlOfGroup(groupModel)"
+              [group]="control.get([groupModel.index])"
               [hidden]="_model.hidden"
               [class.d-none]="_model.hidden"
               [layout]="formLayout"

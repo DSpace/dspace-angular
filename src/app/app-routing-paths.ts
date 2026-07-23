@@ -1,3 +1,4 @@
+
 export const COAR_NOTIFY_SUPPORT = 'coar-notify-support';
 
 export const ADMIN_MODULE_PATH = 'admin';
@@ -56,4 +57,3 @@ export function getEditItemPageRoute() {
   return `/${EDIT_ITEM_PATH}`;
 }
 export const CORRECTION_TYPE_PATH = 'corrections';
-

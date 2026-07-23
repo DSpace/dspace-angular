@@ -1,4 +1,5 @@
 import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
+import { dateValueToString } from '@dspace/shared/utils/date.util';
 import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 
 import { DS_DATE_PICKER_SEPARATOR } from '../ds-dynamic-form-ui/models/date-picker/date-picker.component';
@@ -21,7 +22,7 @@ export class DateFieldParser extends FieldParser {
     if (isNotEmpty(inputDateModelConfig.value)) {
       // todo: model value could be object or Date according to its type annotation
       // eslint-disable-next-line @typescript-eslint/no-base-to-string
-      const value = inputDateModelConfig.value.toString();
+      const value = dateValueToString(inputDateModelConfig.value);
       if (value.length >= 4) {
         const valuesArray = value.split(DS_DATE_PICKER_SEPARATOR);
         if (valuesArray.length < 4) {
