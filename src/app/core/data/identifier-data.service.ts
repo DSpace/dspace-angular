@@ -4,6 +4,7 @@ import {
   HttpParams,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { IDENTIFIERS } from '@dspace/core/shared/identifiers-data/identifier-data.resource-type';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import {
@@ -11,6 +12,7 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
+import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { CoreState } from '../core-state.model';
@@ -36,6 +38,7 @@ import { RestRequest } from './rest-request.model';
  * button appears for admins in the item status page
  */
 @Injectable({ providedIn: 'root' })
+@dataService(IDENTIFIERS)
 export class IdentifierDataService extends BaseDataService<IdentifierData> {
 
   constructor(

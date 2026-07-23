@@ -3,6 +3,7 @@ import {
   inheritSerialization,
 } from 'cerialize';
 
+import { ClaimedTaskType } from '../../../shared/mydspace-actions/claimed-task/claimed-task-type';
 import { typedObject } from '../../cache/builders/build-decorators';
 import { DSpaceObject } from '../../shared/dspace-object.model';
 import { AdvancedWorkflowInfo } from './advanced-workflow-info.model';
@@ -26,7 +27,7 @@ export class WorkflowAction extends DSpaceObject {
    * The options available for this workflow action
    */
   @autoserialize
-  options: string[];
+  options: ClaimedTaskType[];
 
   /**
    * Whether this action has advanced options

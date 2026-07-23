@@ -2,6 +2,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
+import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -12,6 +13,7 @@ import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { getFirstSucceededRemoteData } from '../shared/operators';
 import { ClaimedTask } from './models/claimed-task-object.model';
+import { CLAIMED_TASK } from './models/claimed-task-object.resource-type';
 import { ProcessTaskResponse } from './models/process-task-response';
 import { TasksService } from './tasks.service';
 
@@ -19,6 +21,7 @@ import { TasksService } from './tasks.service';
  * The service handling all REST requests for ClaimedTask
  */
 @Injectable({ providedIn: 'root' })
+@dataService(CLAIMED_TASK)
 export class ClaimedTaskDataService extends TasksService<ClaimedTask> {
 
   /**
