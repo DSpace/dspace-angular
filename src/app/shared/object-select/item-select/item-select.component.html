@@ -57,13 +57,15 @@
   @if (!itemsRD || itemsRD?.isLoading) {
     <ds-loading message="{{'loading.items' | translate}}"></ds-loading>
   }
-  <div *ngVar="(selectedIds$ | async) as selectedIds">
-    <button class="btn btn-outline-secondary item-cancel float-start" (click)="onCancel()">{{cancelButton | translate}}</button>
-    <button class="btn item-confirm float-end"
+  <div class="space-children-mr float-end" *ngVar="(selectedIds$ | async) as selectedIds">
+    <button class="btn btn-outline-secondary item-cancel" (click)="onCancel()">
+      <i class="fas fa-times"></i> {{cancelButton | translate}}
+    </button>
+    <button class="btn item-confirm"
       [ngClass]="{'btn-danger': dangerConfirm, 'btn-primary': !dangerConfirm}"
       [dsBtnDisabled]="selectedIds?.length === 0"
       (click)="confirmSelected()">
-      {{confirmButton | translate}}
+      <i class="fas" [ngClass]="{'fa-trash': dangerConfirm, 'fa-save': !dangerConfirm}"></i> {{confirmButton | translate}}
     </button>
   </div>
 </ng-container>

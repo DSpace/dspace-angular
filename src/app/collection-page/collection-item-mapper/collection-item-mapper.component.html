@@ -51,10 +51,14 @@
                   (confirm)="mapItems($event)"
                 (cancel)="onCancel()"></ds-item-select>
               </div>
-            }
-            @if (!performedSearch) {
+            } @else {
               <div class="alert alert-info w-100" role="alert">
                 {{'collection.edit.item-mapper.no-search' | translate}}
+              </div>
+              <div class="d-flex justify-content-end">
+                <button class="btn btn-outline-secondary collection-cancel" (click)="onCancel()">
+                  <i class="fas fa-times"></i> {{ 'collection.edit.item-mapper.cancel' | translate }}
+                </button>
               </div>
             }
           </ng-template>

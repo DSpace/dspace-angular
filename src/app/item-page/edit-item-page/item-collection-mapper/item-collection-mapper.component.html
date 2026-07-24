@@ -1,4 +1,4 @@
-<div class="container mt-2">
+<div class="container">
   <div class="row">
     <div class="col-12">
       <h2>{{'item.edit.item-mapper.head' | translate}}</h2>
@@ -49,10 +49,14 @@
                   (confirm)="mapCollections($event)"
                 (cancel)="onCancel()"></ds-collection-select>
               </div>
-            }
-            @if (!performedSearch) {
+            } @else {
               <div class="alert alert-info w-100" role="alert">
                 {{'item.edit.item-mapper.no-search' | translate}}
+              </div>
+              <div class="d-flex justify-content-end">
+                <button class="btn btn-outline-secondary collection-cancel" (click)="onCancel()">
+                  <i class="fas fa-times"></i> {{ 'item.edit.item-mapper.cancel' | translate }}
+                </button>
               </div>
             }
           </ng-template>

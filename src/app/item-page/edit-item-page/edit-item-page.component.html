@@ -4,7 +4,7 @@
       <h1 class="border-bottom">{{'item.edit.head' | translate}}</h1>
       <div class="pt-2">
         @if (pages.length > 0) {
-          <ul class="nav nav-tabs justify-content-start" role="tablist">
+          <ul class="nav nav-tabs justify-content-start mb-2" role="tablist">
             @for (page of pages; track page) {
               <li class="nav-item" role="presentation">
                 @if ((page.enabled | async)) {
@@ -36,7 +36,9 @@
           </div>
           <div class="button-row bottom">
             <div class="text-end">
-              <a [routerLink]="getItemPage((itemRD$ | async)?.payload)" role="button" class="btn btn-outline-secondary"><i class="fas fa-arrow-left"></i> {{'item.edit.return' | translate}}</a>
+              @if (!hideReturnButton) {
+                <a [routerLink]="getItemPage((itemRD$ | async)?.payload)" role="button" class="btn btn-outline-secondary"><i class="fas fa-arrow-left"></i> {{'item.edit.return' | translate}}</a>
+              }
             </div>
           </div>
         </div>
