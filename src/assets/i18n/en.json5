@@ -2217,6 +2217,10 @@
 
   "form.no-value": "No value entered",
 
+  "form.other-information.dc_publisher": "Publisher",
+
+  "form.other-information.dc_relation_issn": "ISSN",
+
   "form.other-information.email": "Email",
 
   "form.other-information.first-name": "First Name",
