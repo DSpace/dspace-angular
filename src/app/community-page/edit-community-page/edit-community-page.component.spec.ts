@@ -32,6 +32,7 @@ describe('EditCommunityPageComponent', () => {
       ],
     },
     snapshot: {
+      data: {},
       firstChild: {
         routeConfig: {
           path: 'mockUrl',

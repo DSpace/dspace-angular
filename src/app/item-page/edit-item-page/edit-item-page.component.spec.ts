@@ -52,6 +52,7 @@ describe('EditItemPageComponent', () => {
   const inaccessiblePages = ['inaccessible', 'inaccessibleDoubleGuard'];
   const mockRoute = {
     snapshot: {
+      data: {},
       firstChild: {
         routeConfig: {
           path: accessiblePages[0],
