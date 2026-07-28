@@ -22,7 +22,7 @@ describe('Create Group', () => {
 
     // Fill the GroupName details
     cy.get('#groupName').type(groupName);
-    //cy.get('#groupDescription').type('Some description');
+    cy.get('#groupDescription').type('Some cypress description').blur();
 
     cy.get('ds-group-form ds-form button[type="submit"]').should('not.have.class', 'disabled').click();
 

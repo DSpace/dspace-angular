@@ -21,8 +21,8 @@ describe('Create Eperson', () => {
 
     // Fill the EPerson details
     cy.get('#firstName').type('Smith');
-    cy.get('#lastName').type('Samanta');
-    cy.get('#email').type(email);
+    cy.get('#lastName').type('Cypress');
+    cy.get('#email').type(email).blur();
 
     cy.get('ds-eperson-form ds-form button[type="submit"]').should('not.have.class', 'disabled').click();
 
