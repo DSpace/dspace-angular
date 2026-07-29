@@ -1,0 +1,213 @@
+<div class="painel-estatisticas">
+
+  <!-- Banner / hero -->
+  <header class="hero">
+    <p class="hero-ante">DASHBOARD RDAPP</p>
+    <h1 class="hero-titulo">Painel de Estatísticas</h1>
+    <p class="hero-sub">Indicadores consolidados sobre a produção científica e técnica do acervo.</p>
+    <div class="alternador" role="tablist" aria-label="Seletor de visão">
+      <button type="button" role="tab" [attr.aria-selected]="aba === 'acervo'"
+              [class.ativo]="aba === 'acervo'" (click)="trocarAba('acervo')">Indicadores do Acervo</button>
+      <button type="button" role="tab" [attr.aria-selected]="aba === 'visualizacoes'"
+              [class.ativo]="aba === 'visualizacoes'" (click)="trocarAba('visualizacoes')">Total de Visualizações</button>
+    </div>
+  </header>
+
+  @if (loading) {
+    <div class="estado">Carregando indicadores...</div>
+  }
+  @if (erro) {
+    <div class="estado erro">{{ erro }}</div>
+  }
+
+  @if (!loading && !erro) {
+    <div class="layout container">
+
+      <!-- Barra lateral de filtros -->
+      <ds-filtros-sidebar
+        [grupos]="grupos"
+        [selecionados]="selecionados"
+        (alternarFiltro)="toggleFiltro($event.nome, $event.valor)"
+        (limpar)="limparFiltros()"></ds-filtros-sidebar>
+
+      <!-- Conteudo principal -->
+      <main class="painel-conteudo">
+
+        @if (recarregando) {
+          <p class="recarregando">Atualizando…</p>
+        }
+
+        <!-- ABA: Indicadores do Acervo -->
+        <div [style.display]="aba === 'acervo' ? 'block' : 'none'">
+
+          <section class="pcards">
+            <div class="pcard">
+              <span class="card-icone icone-azul" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M7 3h7l5 5v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M14 3v5h5"/>
+                </svg>
+              </span>
+              <div class="card-texto">
+                <span class="card-rotulo">Total de Avaliações</span>
+                <span class="card-valor">{{ totalAvaliacoes | number }}</span>
+              </div>
+            </div>
+            <div class="pcard">
+              <span class="card-icone icone-ambar" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M3 21h18M4 10h16M5 10l7-6 7 6M6 10v11M18 10v11M10 10v11M14 10v11"/>
+                </svg>
+              </span>
+              <div class="card-texto">
+                <span class="card-rotulo">Total de Instituições parceiras</span>
+                <span class="card-valor">{{ totalInstituicoes | number }}</span>
+              </div>
+            </div>
+          </section>
+
+          <div class="grade">
+            <section class="bloco span-2">
+              <p class="bloco-ante">DETALHAMENTO</p>
+              <h2>Política Pública ou Objeto Avaliado</h2>
+              @if (politicaPublica.length) {
+                <div class="tabela-box">
+                  <div class="tabela-wrap">
+                    <table class="tabela">
+                      <thead><tr><th>Nome da Política</th><th class="num">Nº de Avaliações</th></tr></thead>
+                      <tbody>
+                        @for (p of politicaPublica; track p.label) {
+                          <tr><td>{{ p.label }}</td><td class="num">{{ p.count | number }}</td></tr>
+                        }
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              } @else {
+                <p class="vazio">Sem dados de política pública para este recorte.</p>
+              }
+            </section>
+
+            <section class="bloco span-2">
+              <p class="bloco-ante">MATRIZ CRUZADA</p>
+              <h2>Tipo de Documento vs. Tipo de Avaliação</h2>
+              @if (matrizData.length) {
+                <ds-grafico-echarts class="grafico grafico-matriz" [opcao]="opcaoMatrizVM" (pronto)="ligarCruzMatriz($event)"></ds-grafico-echarts>
+                <div class="legenda-grafico">
+                  <span class="lg-titulo">Tipo de Avaliação</span>
+                  <div class="lg-grid">
+                    @for (l of legendaMatriz; track l.num) {
+                      <span class="lg-item">
+                        <span class="lg-dot lg-dot-neutro" aria-hidden="true"></span>{{ l.num }} - {{ l.nome }}
+                      </span>
+                    }
+                  </div>
+                </div>
+              } @else {
+                <p class="vazio">Sem cruzamentos para este recorte.</p>
+              }
+            </section>
+
+            <section class="bloco span-1">
+              <p class="bloco-ante">SUSTENTABILIDADE</p>
+              <h2>Objetivos de Desenvolvimento Sustentável (ODS)</h2>
+              @if (totalAvaliacoes) {
+                <ds-grafico-echarts class="grafico" [opcao]="opcaoOdsVM"></ds-grafico-echarts>
+                <div class="legenda-grafico">
+                  <span class="lg-titulo">Legenda dos Objetivos</span>
+                  <div class="lg-grid">
+                    @for (l of legendaOds; track l.label) {
+                      <span class="lg-item">
+                        <span class="lg-dot" [style.background]="l.cor" aria-hidden="true"></span>{{ l.label }}
+                      </span>
+                    }
+                  </div>
+                </div>
+              } @else {
+                <p class="vazio">Sem dados de ODS.</p>
+              }
+            </section>
+
+            <section class="bloco span-1">
+              <p class="bloco-ante">EVOLUÇÃO</p>
+              <h2>Ano de Publicação</h2>
+              @if (anos.length) {
+                <ds-grafico-echarts class="grafico" [opcao]="opcaoAnoVM"></ds-grafico-echarts>
+              } @else {
+                <p class="vazio">Sem dados de ano.</p>
+              }
+            </section>
+
+            <section class="bloco span-1">
+              <p class="bloco-ante">COMPOSIÇÃO</p>
+              <h2>Instituição</h2>
+              @if (instituicao.length) {
+                <ds-grafico-echarts class="grafico grafico-alto" [opcao]="opcaoInstVM"></ds-grafico-echarts>
+              } @else {
+                <p class="vazio">Sem dados de instituição.</p>
+              }
+            </section>
+
+            <section class="bloco span-1">
+              <p class="bloco-ante">DISTRIBUIÇÃO</p>
+              <h2>Tipo de Documento</h2>
+              @if (tipoDocumento.length) {
+                <ds-grafico-echarts class="grafico" [opcao]="opcaoTipoVM"></ds-grafico-echarts>
+              } @else {
+                <p class="vazio">Sem dados de tipo de documento.</p>
+              }
+            </section>
+
+            <section class="bloco span-1">
+              <p class="bloco-ante">GEOGRAFIA</p>
+              <h2>Abrangência Territorial</h2>
+              @if (abrangencia.length) {
+                <ds-grafico-echarts class="grafico" [opcao]="opcaoAbrVM"></ds-grafico-echarts>
+              } @else {
+                <p class="vazio">Sem dados de abrangência.</p>
+              }
+            </section>
+
+            <section class="bloco span-1">
+              <p class="bloco-ante">DISTRIBUIÇÃO</p>
+              <h2>Área Temática</h2>
+              @if (areaTematica.length) {
+                <ds-grafico-echarts class="grafico" [opcao]="opcaoAreaVM"></ds-grafico-echarts>
+              } @else {
+                <p class="vazio">Sem dados de área temática para este recorte.</p>
+              }
+            </section>
+
+            <section class="bloco span-2">
+              <p class="bloco-ante">SEMÂNTICA</p>
+              <h2>Nuvem de Palavras-Chave</h2>
+              <ds-nuvem-palavras [palavras]="palavrasChave"></ds-nuvem-palavras>
+            </section>
+          </div>
+        </div>
+
+        <!-- ABA: Total de Visualizacoes -->
+        @if (aba === 'visualizacoes') {
+          <div>
+            <section class="bloco aviso">
+              <p class="bloco-ante">ENGAJAMENTO</p>
+              <h2>Total de Visualizações</h2>
+              <p>
+                As métricas de visualizações e downloads vêm do módulo de estatísticas de uso do
+                DSpace (Solr). A versão integrada desta aba, com cards e gráficos por acessos,
+                está em desenvolvimento.
+              </p>
+              <p>
+                Enquanto isso, os dados de uso podem ser consultados na página de
+                estatísticas nativa do repositório:
+              </p>
+              <a class="btn-estatisticas-nativas" routerLink="/statistics">
+                Ver estatísticas de uso do repositório →
+              </a>
+            </section>
+          </div>
+        }
+
+      </main>
+    </div>
+  }
+</div>

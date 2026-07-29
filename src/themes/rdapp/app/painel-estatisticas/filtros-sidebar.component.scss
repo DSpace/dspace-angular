@@ -1,0 +1,78 @@
+:host { display: block; }
+
+.filtros {
+  background: #fff; border: 1px solid #edf0f7; border-radius: var(--rdapp-border-radius-1rem, 1rem);
+  box-shadow: 0 4px 20px rgba(15, 41, 110, 0.07); overflow: hidden; padding: 0;
+  align-self: start;
+
+  .filtros-topo {
+    display: flex; align-items: center; gap: 0.6rem;
+    padding: 1.25rem 1.75rem 1.125rem; border-bottom: 1px solid #f0f2f7; color: #1a2f6e;
+    .funil { width: 15px; height: 15px; flex: none; }
+    h2 { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #1a2f6e; margin: 0; }
+  }
+
+  // Sem scroll interno: a lista cresce conforme os grupos abrem e, se passar
+  // da altura da tela, a propria pagina rola. O botao Redefinir fica no fim.
+  .filtros-scroll { }
+
+  .grupo {
+    border-bottom: 1px solid #f0f2f7;
+    &:last-child { border-bottom: none; }
+  }
+
+  .grupo-cab {
+    width: 100%; display: flex; align-items: center; gap: 1rem;
+    padding: 0.6rem 1.75rem; background: transparent; border: 0; cursor: pointer;
+    text-align: left; transition: background-color 0.2s ease;
+    .grupo-titulo { flex: 1; font-size: 0.78rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #4b5563; transition: color 0.18s ease; }
+    .caret { width: 13px; height: 13px; flex: none; color: #9ca3af; transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.18s ease; }
+    .caret.aberto { transform: rotate(180deg); color: #00a88f; }
+    &:hover { background-color: rgba(40, 64, 139, 0.03); }
+    &:hover .grupo-titulo { color: #1a2f6e; }
+    &:hover .caret { color: #28408b; }
+    &[aria-expanded="true"] .grupo-titulo { color: #1a2f6e; }
+  }
+
+  .grupo-corpo { padding: 0.15rem 1.75rem 0.65rem; }
+
+  .busca-label { display: block; font-size: 0.72rem; font-weight: 700; color: #1a2f6e; margin: 0.15rem 0 0.4rem; }
+
+  .mini-busca {
+    width: 100%; font-size: 0.78rem;
+    border: 1.5px solid #e5e7eb; border-radius: var(--rdapp-border-radius-2rem, 2rem);
+    background: #f9fafb; padding: 0.4rem 0.875rem; box-shadow: none;
+    transition: border-color 0.18s, box-shadow 0.18s, background-color 0.18s;
+    &:focus { border-color: #00a88f; outline: none; box-shadow: 0 0 0 2px rgba(0, 168, 143, 0.15); background: #fff; }
+  }
+
+  .opcoes {
+    list-style: none; margin: 0.5rem 0 0; padding: 0;
+    li { margin: 0; }
+    label {
+      display: flex; align-items: flex-start; gap: 0.55rem; padding: 0.28rem 0;
+      font-size: 0.82rem; font-weight: 600; color: #4b5563; cursor: pointer; margin: 0;
+      transition: color 0.15s ease;
+      &:hover { color: #1a2f6e; }
+      input[type="checkbox"] { accent-color: #00a88f; width: 14px; height: 14px; margin-top: 0.15rem; flex: none; cursor: pointer; }
+      .op-rotulo { flex: 1; line-height: 1.3; }
+      .op-count {
+        flex: none; background: #495057; color: #fff; font-size: 0.68rem; font-weight: 700;
+        min-width: 1.5rem; text-align: center; padding: 0.1rem 0.4rem; border-radius: 2rem;
+        font-variant-numeric: tabular-nums;
+      }
+    }
+    .op-vazio { color: #98a2b3; font-style: italic; font-size: 0.8rem; padding: 0.2rem 0; }
+  }
+
+  .btn-redefinir {
+    display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+    width: calc(100% - 3.5rem); margin: 0.75rem 1.75rem 1rem;
+    background: #28408b; color: #fff; border: 0; cursor: pointer;
+    font-size: 0.82rem; font-weight: 700; padding: 0.6rem 1rem;
+    border-radius: var(--rdapp-border-radius-2rem, 2rem);
+    transition: background-color 0.18s ease;
+    .ico-reset { width: 15px; height: 15px; flex: none; }
+    &:hover { background: #223a7d; }
+  }
+}

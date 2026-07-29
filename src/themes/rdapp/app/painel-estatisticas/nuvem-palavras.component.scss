@@ -1,0 +1,45 @@
+:host { display: block; }
+
+// Nuvem orbital de palavras-chave.
+.nuvem {
+  position: relative;
+  height: 440px;
+
+  .termo {
+    position: absolute;
+    white-space: nowrap;
+    line-height: 1;
+    letter-spacing: 0.01em;
+    cursor: default;
+    animation: nuvem-entra 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  }
+
+  .dica {
+    position: absolute;
+    pointer-events: none;
+    z-index: 400;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(15, 41, 110, 0.15);
+    padding: 0.4rem 0.65rem;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    transform: translateY(-100%);
+
+    .dica-nome { font-weight: 700; color: #1a2f6e; margin-right: 0.45rem; }
+    .dica-val { color: #6b7280; }
+  }
+
+  .nuvem-vazia {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    color: #6c757d; font-style: italic;
+  }
+}
+
+// Entrada dos termos da nuvem (cascata do centro para fora).
+// O translate e mantido nos dois estados para nao quebrar a centralizacao.
+@keyframes nuvem-entra {
+  from { opacity: 0; transform: translate(-50%, -50%) scale(0); }
+  to   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}

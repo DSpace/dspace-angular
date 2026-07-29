@@ -1,0 +1,125 @@
+:host { display: block; }
+
+$navy: #102a54;
+$azul: #1f4ea3;
+$verde: #1aa179;
+$muted: #6c757d;
+$borda: #e3e8ef;
+
+.painel-estatisticas {
+
+  // ---- Hero ----------------------------------------------------------
+  .hero {
+    background: linear-gradient(120deg, #0c2350 0%, #14366f 60%, #1b2f5a 100%);
+    color: #fff; text-align: center; padding: 3rem 1rem 2.25rem;
+
+    .hero-ante { color: #36c9a0; letter-spacing: 0.25em; font-size: 0.75rem; font-weight: 700; margin: 0 0 0.5rem; }
+    .hero-titulo { font-weight: 800; font-size: 2.6rem; margin: 0; }
+    .hero-sub { color: rgba(255,255,255,0.82); margin: 0.5rem 0 1.5rem; }
+
+    .alternador {
+      display: inline-flex; background: rgba(255,255,255,0.12); border-radius: 999px; padding: 0.3rem; gap: 0.25rem;
+      button {
+        border: 0; background: transparent; color: rgba(255,255,255,0.85);
+        font-weight: 700; font-size: 0.8rem; letter-spacing: 0.04em; text-transform: uppercase;
+        padding: 0.6rem 1.4rem; border-radius: 999px; cursor: pointer; transition: background .2s, color .2s;
+        &.ativo { background: #fff; color: $navy; }
+        &:focus-visible { outline: 2px solid #36c9a0; outline-offset: 2px; }
+      }
+    }
+  }
+
+  .estado { text-align: center; padding: 2rem; color: $muted; &.erro { color: #b02a37; } }
+
+  // ---- Layout (sidebar + conteudo) -----------------------------------
+  .layout {
+    display: grid;
+    grid-template-columns: 280px minmax(0, 1fr);
+    gap: 1.5rem;
+    padding: 2rem 1rem 4rem;
+    align-items: start;
+  }
+  @media (max-width: 992px) {
+    .layout { grid-template-columns: 1fr; }
+  }
+
+  // ---- Filtros: estilos movidos para filtros-sidebar.component.scss --
+
+  .painel-conteudo { min-width: 0; }
+  .recarregando { color: $azul; font-size: 0.8rem; font-weight: 600; margin: 0 0 0.75rem; }
+
+  // ---- Cards ---------------------------------------------------------
+  .pcards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; margin: 0 0 1.5rem; }
+  .pcard {
+    min-width: 0; background: #fff; border: 1px solid $borda; border-radius: 16px; padding: 1.25rem 1.5rem;
+    display: flex; align-items: center; gap: 1rem; box-shadow: 0 6px 20px rgba(16,42,84,0.05);
+    .card-icone {
+      width: 48px; height: 48px; border-radius: 12px; display: grid; place-items: center; flex: none;
+      svg { width: 22px; height: 22px; display: block; }
+      &.icone-azul { background: #e8edfb; color: $azul; }
+      &.icone-ambar { background: #fdf2dd; color: #c98a00; }
+    }
+    .card-texto { display: flex; flex-direction: column; gap: 0.25rem; min-width: 0; }
+    .card-rotulo { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: $muted; }
+    .card-valor { font-size: 2.1rem; font-weight: 800; color: $navy; line-height: 1; }
+  }
+
+  // ---- Grade ---------------------------------------------------------
+  // Coluna unica: todos os graficos empilhados em largura total, como o prototipo.
+  .grade {
+    display: grid; grid-template-columns: 1fr; gap: 1.25rem;
+    .span-1, .span-2 { grid-column: 1 / -1; }
+  }
+
+  .bloco {
+    min-width: 0; background: #fff; border: 1px solid $borda; border-radius: 16px;
+    padding: 1.25rem 1.5rem; box-shadow: 0 6px 20px rgba(16,42,84,0.04);
+    .bloco-ante { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: $muted; margin: 0; }
+    h2 { font-size: 1.15rem; font-weight: 700; color: $navy; margin: 0.15rem 0 1rem; }
+    .vazio { color: #8a93a2; font-style: italic; margin: 0; }
+  }
+  .bloco.aviso p { color: #495667; line-height: 1.6; }
+
+  // ---- Legenda de grafico (heatmap e ODS) ---------------------------
+  .legenda-grafico {
+    margin-top: 1rem; padding-top: 0.85rem; border-top: 1px solid #eef1f6;
+    .lg-titulo { display: block; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: $muted; margin-bottom: 0.6rem; }
+    .lg-grid { columns: 240px; column-gap: 1.5rem; }
+    .lg-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; line-height: 1.3; color: #495667; break-inside: avoid; margin-bottom: 0.4rem; }
+    .lg-dot { width: 11px; height: 11px; border-radius: 50%; flex: none; }
+    .lg-dot-neutro { background: #64748b; }
+  }
+
+  // ---- Tabela --------------------------------------------------------
+  .tabela-box {
+    position: relative;
+  }
+  .tabela-box::after {
+    // esmaecido no rodape: dica visual de que ha mais conteudo para rolar
+    content: '';
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 28px;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), #fff);
+    pointer-events: none;
+    border-radius: 0 0 8px 8px;
+  }
+  .tabela-wrap {
+    max-height: 300px;
+    overflow-y: auto;
+  }
+  .tabela {
+    width: 100%; table-layout: fixed; border-collapse: collapse;
+    th, td { text-align: left; padding: 0.4rem 0.7rem; border-bottom: 1px solid #eef1f6; overflow-wrap: anywhere; font-size: 0.88rem; }
+    thead th {
+      position: sticky; top: 0; background: #fff; z-index: 1;
+      font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em; color: $muted;
+    }
+    .num { text-align: right; font-variant-numeric: tabular-nums; }
+  }
+
+  // ---- Graficos ------------------------------------------------------
+  .grafico { width: 100%; height: 340px; }
+  .grafico-alto { height: 460px; }
+  .grafico-matriz { height: 560px; }
+}

@@ -1,0 +1,47 @@
+<aside class="filtros" aria-label="Filtros">
+  <div class="filtros-topo">
+    <svg class="funil" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h18l-7 8v7l-4 2v-9z" fill="currentColor"/></svg>
+    <h2>Filtros</h2>
+  </div>
+
+  <div class="filtros-scroll">
+    @for (g of grupos; track g.nome) {
+      <div class="grupo" [class.recolhido]="!abertos[g.nome]">
+        <button type="button" class="grupo-cab" (click)="toggleGrupo(g.nome)" [attr.aria-expanded]="abertos[g.nome]">
+          <span class="grupo-titulo">{{ g.titulo }}</span>
+          <svg class="caret" [class.aberto]="abertos[g.nome]" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        @if (abertos[g.nome]) {
+          <div class="grupo-corpo">
+            <label class="busca-label">Buscar por {{ g.titulo.toLowerCase() }}</label>
+            <input class="mini-busca" type="text" [placeholder]="g.titulo"
+                   [(ngModel)]="buscaOpcao[g.nome]" [attr.aria-label]="'Filtrar ' + g.titulo">
+            <ul class="opcoes">
+              @for (o of opcoesVisiveis(g); track o.valor) {
+                <li>
+                  <label>
+                    <input type="checkbox" [checked]="estaSelecionado(g.nome, o.valor)"
+                           (change)="alternarFiltro.emit({ nome: g.nome, valor: o.valor })">
+                    <span class="op-rotulo">{{ o.rotulo }}</span>
+                    <span class="op-count">{{ o.count }}</span>
+                  </label>
+                </li>
+              } @empty {
+                <li class="op-vazio">Nenhuma opção.</li>
+              }
+            </ul>
+          </div>
+        }
+      </div>
+    }
+  </div>
+
+  @if (totalFiltros() > 0) {
+    <button type="button" class="btn-redefinir" (click)="limpar.emit()">
+      <svg class="ico-reset" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.4-5.7M4 4v3.6H7.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Redefinir filtros
+    </button>
+  }
+</aside>

@@ -5,6 +5,9 @@
  *
  * http://www.dspace.org/license/
  */
+import { AboutRdappMenuProvider } from '../themes/rdapp/app/shared/menu/providers/about-rdapp.menu';
+import { EstatisticasMenuProvider } from '../themes/rdapp/app/shared/menu/providers/estatisticas.menu';
+import { FaqMenuProvider } from '../themes/rdapp/app/shared/menu/providers/faq.menu';
 import { buildMenuStructure } from './shared/menu/menu.structure';
 import { MenuID } from './shared/menu/menu-id.model';
 import { MenuRoute } from './shared/menu/menu-route.model';
@@ -14,8 +17,6 @@ import { AuditLogsMenuProvider } from './shared/menu/providers/audit-item.menu';
 import { AuditOverviewMenuProvider } from './shared/menu/providers/audit-overview.menu';
 import { CoarNotifyMenuProvider } from './shared/menu/providers/coar-notify.menu';
 import { SubscribeMenuProvider } from './shared/menu/providers/comcol-subscribe.menu';
-import { AboutRdappMenuProvider } from '../themes/rdapp/app/shared/menu/providers/about-rdapp.menu';
-import { FaqMenuProvider } from '../themes/rdapp/app/shared/menu/providers/faq.menu';
 import { CommunityListMenuProvider } from './shared/menu/providers/community-list.menu';
 import { CreateReportMenuProvider } from './shared/menu/providers/create-report.menu';
 import { CurationMenuProvider } from './shared/menu/providers/curation.menu';
@@ -35,7 +36,6 @@ import { NewMenuProvider } from './shared/menu/providers/new.menu';
 import { NotificationsMenuProvider } from './shared/menu/providers/notifications.menu';
 import { ProcessesMenuProvider } from './shared/menu/providers/processes.menu';
 import { RegistriesMenuProvider } from './shared/menu/providers/registries.menu';
-import { StatisticsMenuProvider } from './shared/menu/providers/statistics.menu';
 import { SystemWideAlertMenuProvider } from './shared/menu/providers/system-wide-alert.menu';
 import { WithdrawnReinstateItemMenuProvider } from './shared/menu/providers/withdrawn-reinstate-item.menu';
 import { WorkflowMenuProvider } from './shared/menu/providers/workflow.menu';
@@ -59,7 +59,7 @@ import { WorkflowMenuProvider } from './shared/menu/providers/workflow.menu';
 export const MENUS = buildMenuStructure({
   [MenuID.PUBLIC]: [
     CommunityListMenuProvider,
-    StatisticsMenuProvider,
+    EstatisticasMenuProvider,
     FaqMenuProvider,
     AboutRdappMenuProvider,
   ],

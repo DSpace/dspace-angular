@@ -92,6 +92,12 @@ export const APP_ROUTES: Route[] = [
         data: { showBreadcrumbs: false },
       },
       {
+        path: 'estatisticas',
+        loadChildren: () => import('../themes/rdapp/app/painel-estatisticas/painel-estatisticas-routes')
+          .then((m) => m.ROUTES),
+        data: { showBreadcrumbs: false },
+      },
+      {
         path: 'community-list',
         loadChildren: () => import('./community-list-page/community-list-page-routes')
           .then((m) => m.ROUTES),
