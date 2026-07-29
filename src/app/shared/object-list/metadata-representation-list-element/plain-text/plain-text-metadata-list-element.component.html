@@ -1,18 +1,19 @@
 <div>
   <!-- Because this template is used by default, we will additionally test for representation type and display accordingly -->
   @if ((mdRepresentation.representationType==='plain_text') && !isLink()) {
-    <span class="dont-break-out">
+    <span class="dont-break-out" [attr.lang]="mdRepresentation.getLanguage() | dsNormalizeLanguageCode">
       {{mdRepresentation.getValue()}}
     </span>
   }
   @if ((mdRepresentation.representationType==='plain_text') && isLink()) {
     <a class="dont-break-out"
+      [attr.lang]="mdRepresentation.getLanguage() | dsNormalizeLanguageCode"
       target="_blank" [href]="mdRepresentation.getValue()" role="link" tabindex="0">
       {{mdRepresentation.getValue()}}
     </a>
   }
   @if ((mdRepresentation.representationType==='authority_controlled')) {
-    <span class="dont-break-out">{{mdRepresentation.getValue()}}</span>
+    <span class="dont-break-out" [attr.lang]="mdRepresentation.getLanguage() | dsNormalizeLanguageCode">{{mdRepresentation.getValue()}}</span>
   }
   @if ((mdRepresentation.representationType==='browse_link')) {
     <a
@@ -20,6 +21,7 @@
       [routerLink]="['/browse/', mdRepresentation.browseDefinition.id]"
       [queryParams]="getQueryParams()"
       role="link"
+      [attr.lang]="mdRepresentation.getLanguage() | dsNormalizeLanguageCode"
       tabindex="0">
       {{mdRepresentation.getValue()}}
     </a>

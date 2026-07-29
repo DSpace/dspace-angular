@@ -213,6 +213,12 @@ describe('DatasetComponent', () => {
       getPreviousUrl(): Observable<string> {
         return of('/search?query=test%20query&fakeParam=true');
       },
+      storeUrlInSession(_key: string, _url: string): void {
+        // no-op
+      },
+      getUrlFromSession(_key: string): string | null {
+        return null;
+      },
     };
     beforeEach(waitForAsync(() => {
       const iiifEnabledMap: MetadataMap = {
@@ -242,6 +248,12 @@ describe('DatasetComponent', () => {
     const localMockRouteService = {
       getPreviousUrl(): Observable<string> {
         return of('/item');
+      },
+      storeUrlInSession(_key: string, _url: string): void {
+        // no-op
+      },
+      getUrlFromSession(_key: string): string | null {
+        return null;
       },
     };
     beforeEach(waitForAsync(() => {

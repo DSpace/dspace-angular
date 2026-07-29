@@ -14,6 +14,7 @@ import { ThemedResultsBackButtonComponent } from 'src/app/shared/results-back-bu
 import { ThemedThumbnailComponent } from 'src/app/thumbnail/themed-thumbnail.component';
 
 import { PersonComponent as BaseComponent } from '../../../../../../../app/entity-groups/research-entities/item-pages/person/person.component';
+import { ItemPageOrcidFieldComponent } from '../../../../../../../app/item-page/simple/field-components/specific-field/orcid/item-page-orcid-field.component';
 import { AuthorityRelatedEntitiesSearchComponent } from '../../../../../../../app/item-page/simple/related-entities/authority-related-entities-search/authority-related-entities-search.component';
 import { listableObjectComponent } from '../../../../../../../app/shared/object-collection/shared/listable-object/listable-object.decorator';
 
@@ -29,6 +30,7 @@ import { listableObjectComponent } from '../../../../../../../app/shared/object-
     AuthorityRelatedEntitiesSearchComponent,
     DsoEditMenuComponent,
     GenericItemPageFieldComponent,
+    ItemPageOrcidFieldComponent,
     MetadataFieldWrapperComponent,
     RelatedItemsComponent,
     RouterLink,

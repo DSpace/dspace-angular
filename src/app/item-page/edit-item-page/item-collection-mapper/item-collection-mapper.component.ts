@@ -287,14 +287,28 @@ export class ItemCollectionMapperComponent implements OnInit {
         this.shouldUpdate$.next(true);
       }
       if (unsuccessful.length > 0) {
-        const unsuccessMessages = observableCombineLatest([
-          this.translateService.get(`${messagePrefix}.error.head`),
-          this.translateService.get(`${messagePrefix}.error.content`, { amount: unsuccessful.length }),
-        ]);
+        const forbidden = unsuccessful.filter((response: RemoteData<NoContent>) => response.statusCode === 403);
+        const otherErrors = unsuccessful.filter((response: RemoteData<NoContent>) => response.statusCode !== 403);
 
-        unsuccessMessages.subscribe(([head, content]) => {
-          this.notificationsService.error(head, content);
-        });
+        if (forbidden.length > 0) {
+          const forbiddenMessages = observableCombineLatest([
+            this.translateService.get(`${messagePrefix}.error.forbidden.head`),
+            this.translateService.get(`${messagePrefix}.error.forbidden.content`),
+          ]);
+          forbiddenMessages.subscribe(([head, content]) => {
+            this.notificationsService.error(head, content);
+          });
+        }
+
+        if (otherErrors.length > 0) {
+          const unsuccessMessages = observableCombineLatest([
+            this.translateService.get(`${messagePrefix}.error.head`),
+            this.translateService.get(`${messagePrefix}.error.content`, { amount: otherErrors.length }),
+          ]);
+          unsuccessMessages.subscribe(([head, content]) => {
+            this.notificationsService.error(head, content);
+          });
+        }
       }
       this.switchToFirstTab();
     });

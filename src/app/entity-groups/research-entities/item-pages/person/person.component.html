@@ -51,6 +51,9 @@
       [fields]="['dc.title']"
       [label]="'person.page.name'">
     </ds-generic-item-page-field>
+    <ds-item-page-orcid-field
+      [item]="object">
+    </ds-item-page-orcid-field>
     <div>
       <a class="btn btn-outline-primary" [routerLink]="[itemPageRoute + '/full']" role="button" tabindex="0">
         {{"item.page.link.full" | translate}}

@@ -110,7 +110,7 @@ export class BrowseByDateComponent extends BrowseByMetadataComponent implements 
         })).subscribe(({ params, scope, currentPage, currentSort }) => {
         const metadataKeys = params.browseDefinition ? params.browseDefinition.metadataKeys : this.defaultMetadataKeys;
         this.startsWith = +params.startsWith || params.startsWith;
-        this.browseId = params.id || this.defaultBrowseId;
+        this.browseId = params.id;
         const searchOptions = browseParamsToOptions(params, scope, currentPage, currentSort, this.browseId, this.fetchThumbnails);
         this.updatePageWithItems(searchOptions, this.value, undefined);
         this.updateStartsWithOptions(this.browseId, metadataKeys, params.scope);

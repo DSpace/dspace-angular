@@ -317,6 +317,31 @@ describe('Pagination component', () => {
         expect(de.nativeElement.classList.contains('pagination-sm')).toBeTruthy();
       });
     });
+
+    it('should show surrounding pages when navigating to a later page', () => {
+      testComp.collectionSize = 200;
+      testComp.paginationOptions.maxSize = 5;
+      testFixture.detectChanges();
+
+      currentPagination.next(Object.assign(new PaginationComponentOptions(), pagination, { currentPage: 10 }));
+      testFixture.detectChanges();
+
+      const paginationDe = testFixture.debugElement.query(By.css('.pagination'));
+      const activePage = paginationDe.nativeElement.querySelector('li.active');
+      expect(activePage).toBeTruthy();
+      expect(activePage.textContent.trim()).toContain('10');
+
+      const allPages = paginationDe.nativeElement.querySelectorAll('li');
+      const pageNumbers = Array.from(allPages).map((li: any) =>
+        li.textContent.trim().replace(/\s+/g, ''),
+      ).filter(t => /^\d+$/.test(t));
+
+      expect(pageNumbers).toContain('8');
+      expect(pageNumbers).toContain('9');
+      expect(pageNumbers).toContain('10');
+      expect(pageNumbers).toContain('11');
+      expect(pageNumbers).toContain('12');
+    });
   });
 
   describe('when showPaginator is true', () => {

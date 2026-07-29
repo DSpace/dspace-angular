@@ -1,8 +1,11 @@
-<div class="dso-edit-menu d-flex" role="menubar">
+<div class="dso-edit-menu d-flex"
+     [attr.role]="(menuVisibleWithSections$ | async) ? 'menubar' : null"
+     [attr.aria-hidden]="(menuVisibleWithSections$ | async) === false ? 'true' : null">
   @for (section of (sections | async); track section) {
     <div class="ms-1">
       <ng-container
-      *ngComponentOutlet="(sectionMap$ | async).get(section.id)?.component; injector: (sectionMap$ | async).get(section.id)?.injector;"></ng-container>
+        *ngComponentOutlet="(sectionMap$ | async).get(section.id)?.component; injector: (sectionMap$ | async).get(section.id)?.injector;">
+      </ng-container>
     </div>
   }
 </div>

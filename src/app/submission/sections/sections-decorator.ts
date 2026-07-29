@@ -7,8 +7,8 @@ import { SubmissionSectionDuplicatesComponent } from './duplicates/section-dupli
 import { SubmissionSectionFormComponent } from './form/section-form.component';
 import { SubmissionSectionIdentifiersComponent } from './identifiers/section-identifiers.component';
 import { SubmissionSectionLicenseComponent } from './license/section-license.component';
+import { SubmissionSectionJiscOpfPoliciesComponent } from './opf-policies/section-opf-policies.component';
 import { SubmissionSectionCoarNotifyComponent } from './section-coar-notify/section-coar-notify.component';
-import { SubmissionSectionSherpaPoliciesComponent } from './sherpa-policies/section-sherpa-policies.component';
 import { SubmissionSectionUploadComponent } from './upload/section-upload.component';
 
 const submissionSectionsMap = new Map();
@@ -16,7 +16,7 @@ const submissionSectionsMap = new Map();
 submissionSectionsMap.set(SectionsType.AccessesCondition, SubmissionSectionAccessesComponent);
 submissionSectionsMap.set(SectionsType.License, SubmissionSectionLicenseComponent);
 submissionSectionsMap.set(SectionsType.CcLicense, SubmissionSectionCcLicensesComponent);
-submissionSectionsMap.set(SectionsType.SherpaPolicies, SubmissionSectionSherpaPoliciesComponent);
+submissionSectionsMap.set(SectionsType.OpfPolicies, SubmissionSectionJiscOpfPoliciesComponent);
 submissionSectionsMap.set(SectionsType.Upload, SubmissionSectionUploadComponent);
 submissionSectionsMap.set(SectionsType.SubmissionForm, SubmissionSectionFormComponent);
 submissionSectionsMap.set(SectionsType.Identifiers, SubmissionSectionIdentifiersComponent);

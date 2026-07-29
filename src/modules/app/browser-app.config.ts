@@ -56,10 +56,13 @@ import {
   Angulartics2RouterlessModule,
 } from 'angulartics2';
 import {
+  MATOMO_SCRIPT_FACTORY,
   provideMatomo,
   withRouteData,
   withRouter,
 } from 'ngx-matomo-client';
+import { customMatomoScriptFactory } from 'src/app/statistics/matomo.factory';
+import { MatomoService } from 'src/app/statistics/matomo.service';
 
 import { commonAppConfig } from '../../app/app.config';
 import { storeModuleConfig } from '../../app/app.reducer';
@@ -169,5 +172,10 @@ export const browserAppConfig: ApplicationConfig = mergeApplicationConfig({
       withRouter(),
       withRouteData(),
     ),
+    {
+      provide: MATOMO_SCRIPT_FACTORY,
+      useFactory: customMatomoScriptFactory,
+      deps: [MatomoService],
+    },
   ],
 }, commonAppConfig);

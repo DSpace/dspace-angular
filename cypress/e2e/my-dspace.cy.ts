@@ -5,7 +5,9 @@ describe('My DSpace page', () => {
     cy.visit('/mydspace');
 
     // This page is restricted, so we will be shown the login form. Fill it out & submit.
-    cy.loginViaForm(Cypress.env('DSPACE_TEST_SUBMIT_USER'), Cypress.env('DSPACE_TEST_SUBMIT_USER_PASSWORD'));
+    cy.env(['DSPACE_TEST_SUBMIT_USER', 'DSPACE_TEST_SUBMIT_USER_PASSWORD']).then(({ DSPACE_TEST_SUBMIT_USER, DSPACE_TEST_SUBMIT_USER_PASSWORD }) => {
+      cy.loginViaForm(DSPACE_TEST_SUBMIT_USER, DSPACE_TEST_SUBMIT_USER_PASSWORD);
+    });
 
     cy.get('ds-my-dspace-page').should('be.visible');
 
@@ -24,7 +26,9 @@ describe('My DSpace page', () => {
     cy.visit('/mydspace');
 
     // This page is restricted, so we will be shown the login form. Fill it out & submit.
-    cy.loginViaForm(Cypress.env('DSPACE_TEST_SUBMIT_USER'), Cypress.env('DSPACE_TEST_SUBMIT_USER_PASSWORD'));
+    cy.env(['DSPACE_TEST_SUBMIT_USER', 'DSPACE_TEST_SUBMIT_USER_PASSWORD']).then(({ DSPACE_TEST_SUBMIT_USER, DSPACE_TEST_SUBMIT_USER_PASSWORD }) => {
+      cy.loginViaForm(DSPACE_TEST_SUBMIT_USER, DSPACE_TEST_SUBMIT_USER_PASSWORD);
+    });
 
     cy.get('ds-my-dspace-page').should('be.visible');
 
@@ -42,7 +46,9 @@ describe('My DSpace page', () => {
     cy.visit('/mydspace');
 
     // This page is restricted, so we will be shown the login form. Fill it out & submit.
-    cy.loginViaForm(Cypress.env('DSPACE_TEST_SUBMIT_USER'), Cypress.env('DSPACE_TEST_SUBMIT_USER_PASSWORD'));
+    cy.env(['DSPACE_TEST_SUBMIT_USER', 'DSPACE_TEST_SUBMIT_USER_PASSWORD']).then(({ DSPACE_TEST_SUBMIT_USER, DSPACE_TEST_SUBMIT_USER_PASSWORD }) => {
+      cy.loginViaForm(DSPACE_TEST_SUBMIT_USER, DSPACE_TEST_SUBMIT_USER_PASSWORD);
+    });
 
     // Open the New Submission dropdown
     cy.get('button[data-test="submission-dropdown"]').click();
@@ -53,10 +59,10 @@ describe('My DSpace page', () => {
     cy.get('ds-create-item-parent-selector').should('be.visible');
 
     // Type in a known Collection name in the search box
-    cy.get('ds-authorized-collection-selector input[type="search"]').type(Cypress.env('DSPACE_TEST_SUBMIT_COLLECTION_NAME'));
+    cy.get('ds-authorized-collection-selector input[type="search"]').type(Cypress.expose('DSPACE_TEST_SUBMIT_COLLECTION_NAME'));
 
     // Click on the button matching that known Collection name
-    cy.get('ds-authorized-collection-selector button[title="'.concat(Cypress.env('DSPACE_TEST_SUBMIT_COLLECTION_NAME')).concat('"]')).click();
+    cy.get('ds-authorized-collection-selector button[title="'.concat(Cypress.expose('DSPACE_TEST_SUBMIT_COLLECTION_NAME')).concat('"]')).click();
 
     // New URL should include /workspaceitems, as we've started a new submission
     cy.url().should('include', '/workspaceitems');
@@ -65,7 +71,7 @@ describe('My DSpace page', () => {
     cy.get('ds-submission-edit').should('be.visible');
 
     // A Collection menu button should exist & its value should be the selected collection
-    cy.get('#collectionControlsMenuButton span').should('have.text', Cypress.env('DSPACE_TEST_SUBMIT_COLLECTION_NAME'));
+    cy.get('#collectionControlsMenuButton span').should('have.text', Cypress.expose('DSPACE_TEST_SUBMIT_COLLECTION_NAME'));
 
     // Now that we've created a submission, we'll test that we can go back and Edit it.
     // Get our Submission URL, to parse out the ID of this new submission
@@ -369,7 +375,9 @@ describe('My DSpace page', () => {
     }).as('facetNamedResourceType');
 
     //This page is restricted, so we will be shown the login form. Fill it in and submit it
-    cy.loginViaForm(Cypress.env('DSPACE_TEST_ADMIN_USER'), Cypress.env('DSPACE_TEST_ADMIN_PASSWORD'));
+    cy.env(['DSPACE_TEST_ADMIN_USER', 'DSPACE_TEST_ADMIN_PASSWORD']).then(({ DSPACE_TEST_ADMIN_USER, DSPACE_TEST_ADMIN_PASSWORD }) => {
+      cy.loginViaForm(DSPACE_TEST_ADMIN_USER, DSPACE_TEST_ADMIN_PASSWORD);
+    });
 
     //Wait for the page to display
     cy.wait('@facetNamedResourceType');
@@ -410,7 +418,9 @@ describe('My DSpace page', () => {
     cy.visit('/mydspace');
 
     //This page is restricted, so we will be shown the login form. Fill it in and submit it
-    cy.loginViaForm(Cypress.env('DSPACE_TEST_SUBMIT_USER'), Cypress.env('DSPACE_TEST_SUBMIT_USER_PASSWORD'));
+    cy.env(['DSPACE_TEST_SUBMIT_USER', 'DSPACE_TEST_SUBMIT_USER_PASSWORD']).then(({ DSPACE_TEST_SUBMIT_USER, DSPACE_TEST_SUBMIT_USER_PASSWORD }) => {
+      cy.loginViaForm(DSPACE_TEST_SUBMIT_USER, DSPACE_TEST_SUBMIT_USER_PASSWORD);
+    });
 
     //Wait for the page to display
     cy.get('ds-my-dspace-page').should('be.visible');
@@ -431,10 +441,10 @@ describe('My DSpace page', () => {
     cy.get('ds-collection-dropdown').should('be.visible');
 
     // Type in a known Collection name in the search box
-    cy.get('ds-collection-dropdown input[type="search"]').type(Cypress.env('DSPACE_TEST_SUBMIT_WORKFLOW_COLLECTION_NAME'));
+    cy.get('ds-collection-dropdown input[type="search"]').type(Cypress.expose('DSPACE_TEST_SUBMIT_WORKFLOW_COLLECTION_NAME'));
 
     // Click on the button matching that known Collection name
-    cy.get('ds-collection-dropdown li[title="'.concat(Cypress.env('DSPACE_TEST_SUBMIT_WORKFLOW_COLLECTION_NAME')).concat('"]')).click();
+    cy.get('ds-collection-dropdown li[title="'.concat(Cypress.expose('DSPACE_TEST_SUBMIT_WORKFLOW_COLLECTION_NAME')).concat('"]')).click();
 
     // New URL should include /workspaceitems, as we've started a new submission
     cy.url().should('include', '/workspaceitems');
@@ -458,7 +468,9 @@ describe('My DSpace page', () => {
     cy.visit('/mydspace');
 
     //This page is restricted, so we will be shown the login form. Fill it in and submit it
-    cy.loginViaForm(Cypress.env('DSPACE_TEST_ADMIN_USER'), Cypress.env('DSPACE_TEST_ADMIN_PASSWORD'));
+    cy.env(['DSPACE_TEST_ADMIN_USER', 'DSPACE_TEST_ADMIN_PASSWORD']).then(({ DSPACE_TEST_ADMIN_USER, DSPACE_TEST_ADMIN_PASSWORD }) => {
+      cy.loginViaForm(DSPACE_TEST_ADMIN_USER, DSPACE_TEST_ADMIN_PASSWORD);
+    });
 
     //Wait for the page to display
     cy.get('ds-my-dspace-page').should('be.visible');

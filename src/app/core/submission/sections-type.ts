@@ -6,7 +6,7 @@ export enum SectionsType {
   CcLicense = 'cclicense',
   CustomUrl = 'custom-url',
   AccessesCondition = 'accessCondition',
-  SherpaPolicies = 'sherpaPolicy',
+  OpfPolicies = 'opfPolicy',
   Identifiers = 'identifiers',
   Collection = 'collection',
   CoarNotify = 'coarnotify',
