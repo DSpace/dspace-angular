@@ -2,7 +2,7 @@
   @if (!!journal?.titles && journal.titles.length > 0) {
     <div class="row">
       <div class="col-4">
-        <p class="m-1">{{'submission.sections.sherpa.publication.information.title' | translate}}</p>
+        <p class="m-1">{{'submission.sections.jisc.publication.information.title' | translate}}</p>
       </div>
       <div class="col-4">
         @for (title of journal.titles; track title) {
@@ -15,7 +15,7 @@
   @if (!!journal?.issns && journal.issns.length > 0) {
     <div class="row">
       <div class="col-4">
-        <p class="m-1">{{'submission.sections.sherpa.publication.information.issns' | translate}}</p>
+        <p class="m-1">{{'submission.sections.jisc.publication.information.issns' | translate}}</p>
       </div>
       <div class="col-4">
         @for (issn of journal.issns; track issn) {
@@ -28,7 +28,7 @@
   @if (!!journal?.url) {
     <div class="row">
       <div class="col-4">
-        <p class="m-1">{{'submission.sections.sherpa.publication.information.url' | translate}}</p>
+        <p class="m-1">{{'submission.sections.jisc.publication.information.url' | translate}}</p>
       </div>
       <div class="col-4">
         <p class="m-1">
@@ -42,7 +42,7 @@
   @if (!!journal?.publishers && journal.publishers.length > 0) {
     <div class="row">
       <div class="col-4">
-        <p class="m-1">{{'submission.sections.sherpa.publication.information.publishers' | translate}}</p>
+        <p class="m-1">{{'submission.sections.jisc.publication.information.publishers' | translate}}</p>
       </div>
       @for (publisher of journal.publishers; track publisher) {
         <div class="col-4">
@@ -58,7 +58,7 @@
   @if (!!journal?.romeoPub) {
     <div class="row">
       <div class="col-4">
-        <p class="m-1">{{'submission.sections.sherpa.publication.information.romeoPub' | translate}}</p>
+        <p class="m-1">{{'submission.sections.jisc.publication.information.romeoPub' | translate}}</p>
       </div>
       <div class="col-4">
         <p class="m-1">
@@ -70,7 +70,7 @@
   @if (!!journal?.zetoPub) {
     <div class="row">
       <div class="col-4">
-        <p class="m-1">{{'submission.sections.sherpa.publication.information.zetoPub' | translate}}</p>
+        <p class="m-1">{{'submission.sections.jisc.publication.information.zetoPub' | translate}}</p>
       </div>
       <div class="col-4">
         <p class="m-1">

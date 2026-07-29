@@ -8,7 +8,7 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
-import { SherpaDataResponse } from '@dspace/core/testing/section-sherpa-policies.service.mock';
+import { OpfDataResponse } from '@dspace/core/testing/section-opf-policies.service.mock';
 import { SectionsServiceStub } from '@dspace/core/testing/sections-service.stub';
 import { SubmissionServiceStub } from '@dspace/core/testing/submission-service.stub';
 import { TranslateModule } from '@ngx-translate/core';
@@ -20,11 +20,11 @@ import { SectionsService } from '../sections.service';
 import { MetadataInformationComponent } from './metadata-information/metadata-information.component';
 import { PublicationInformationComponent } from './publication-information/publication-information.component';
 import { PublisherPolicyComponent } from './publisher-policy/publisher-policy.component';
-import { SubmissionSectionSherpaPoliciesComponent } from './section-sherpa-policies.component';
+import { SubmissionSectionJiscOpfPoliciesComponent } from './section-opf-policies.component';
 
-describe('SubmissionSectionSherpaPoliciesComponent', () => {
-  let component: SubmissionSectionSherpaPoliciesComponent;
-  let fixture: ComponentFixture<SubmissionSectionSherpaPoliciesComponent>;
+describe('SubmissionSectionJiscOpfPoliciesComponent', () => {
+  let component: SubmissionSectionJiscOpfPoliciesComponent;
+  let fixture: ComponentFixture<SubmissionSectionJiscOpfPoliciesComponent>;
   let de: DebugElement;
 
   const sectionsServiceStub = new SectionsServiceStub();
@@ -36,26 +36,26 @@ describe('SubmissionSectionSherpaPoliciesComponent', () => {
   });
 
   const sectionData = {
-    header: 'submit.progressbar.sherpaPolicies',
-    config: 'http://localhost:8080/server/api/config/submissionaccessoptions/SherpaPoliciesDefaultConfiguration',
+    header: 'submit.progressbar.opfPolicies',
+    config: 'http://localhost:8080/server/api/config/submissionaccessoptions/OpfPoliciesDefaultConfiguration',
     mandatory: true,
-    sectionType: 'sherpaPolicies',
+    sectionType: 'opfPolicies',
     collapsed: false,
     enabled: true,
-    data: SherpaDataResponse,
+    data: OpfDataResponse,
     errorsToShow: [],
     serverValidationErrors: [],
     isLoading: false,
     isValid: true,
   };
 
-  describe('SubmissionSectionSherpaPoliciesComponent', () => {
+  describe('SubmissionSectionJiscOpfPoliciesComponent', () => {
 
     beforeEach(async () => {
       await TestBed.configureTestingModule({
         imports: [
           TranslateModule.forRoot(),
-          SubmissionSectionSherpaPoliciesComponent,
+          SubmissionSectionJiscOpfPoliciesComponent,
         ],
         providers: [
           { provide: SectionsService, useValue: sectionsServiceStub },
@@ -64,7 +64,7 @@ describe('SubmissionSectionSherpaPoliciesComponent', () => {
           { provide: 'sectionDataProvider', useValue: sectionData },
           { provide: 'submissionIdProvider', useValue: '1508' },
         ],
-      }).overrideComponent(SubmissionSectionSherpaPoliciesComponent, {
+      }).overrideComponent(SubmissionSectionJiscOpfPoliciesComponent, {
         add: {
           schemas: [CUSTOM_ELEMENTS_SCHEMA],
         },
@@ -80,10 +80,10 @@ describe('SubmissionSectionSherpaPoliciesComponent', () => {
     });
 
     beforeEach(() => {
-      fixture = TestBed.createComponent(SubmissionSectionSherpaPoliciesComponent);
+      fixture = TestBed.createComponent(SubmissionSectionJiscOpfPoliciesComponent);
       component = fixture.componentInstance;
       de = fixture.debugElement;
-      sectionsServiceStub.getSectionData.and.returnValue(of(SherpaDataResponse));
+      sectionsServiceStub.getSectionData.and.returnValue(of(OpfDataResponse));
       fixture.detectChanges();
     });
 

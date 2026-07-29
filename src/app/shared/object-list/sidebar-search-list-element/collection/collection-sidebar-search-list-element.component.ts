@@ -15,6 +15,7 @@ import { listableObjectComponent } from 'src/app/shared/object-collection/shared
 import { TruncatableService } from 'src/app/shared/truncatable/truncatable.service';
 import { TruncatablePartComponent } from 'src/app/shared/truncatable/truncatable-part/truncatable-part.component';
 
+import { MetadataDirective } from '../../../metadata.directive';
 import { SidebarSearchListElementComponent } from '../sidebar-search-list-element.component';
 
 @listableObjectComponent(CollectionSearchResult, ViewMode.ListElement, Context.SideBarSearchModal)
@@ -26,6 +27,7 @@ import { SidebarSearchListElementComponent } from '../sidebar-search-list-elemen
   templateUrl: '../sidebar-search-list-element.component.html',
   imports: [
     AsyncPipe,
+    MetadataDirective,
     NgClass,
     TranslateModule,
     TruncatablePartComponent,

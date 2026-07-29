@@ -137,6 +137,11 @@ export class UploaderComponent implements OnInit, AfterViewInit {
       }
     }
     if (this.enableDragOverDocument && this.dragService.isAllowedDragOverPage()) {
+      // Only show drop area when dragging files or event is manually triggered
+      const hasFiles = event.dataTransfer?.types ? Array.from(event.dataTransfer.types).includes('Files') : true;
+      if (!hasFiles) {
+        return;
+      }
       // Show drop area on the page
       event.preventDefault();
       if ((event.target as any).tagName !== 'HTML') {

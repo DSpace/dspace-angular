@@ -26,3 +26,7 @@
 .actions-header {
   width: var(--ds-process-overview-table-actions-column-width);
 }
+
+tr.table-danger > * {
+  --bs-table-bg-type: var(--bs-table-bg);
+}

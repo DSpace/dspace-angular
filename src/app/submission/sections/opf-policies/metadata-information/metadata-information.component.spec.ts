@@ -4,20 +4,19 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { SherpaDataResponse } from '@dspace/core/testing/section-sherpa-policies.service.mock';
+import { OpfDataResponse } from '@dspace/core/testing/section-opf-policies.service.mock';
 import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { PublicationInformationComponent } from './publication-information.component';
+import { MetadataInformationComponent } from './metadata-information.component';
 
-describe('PublicationInformationComponent', () => {
-  let component: PublicationInformationComponent;
-  let fixture: ComponentFixture<PublicationInformationComponent>;
+describe('MetadataInformationComponent', () => {
+  let component: MetadataInformationComponent;
+  let fixture: ComponentFixture<MetadataInformationComponent>;
   let de: DebugElement;
-
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -28,17 +27,17 @@ describe('PublicationInformationComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
-        PublicationInformationComponent,
+        MetadataInformationComponent,
       ],
     })
       .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PublicationInformationComponent);
+    fixture = TestBed.createComponent(MetadataInformationComponent);
     component = fixture.componentInstance;
     de = fixture.debugElement;
-    component.journal = SherpaDataResponse.sherpaResponse.journals[0];
+    component.metadata = OpfDataResponse.opfResponse.metadata;
     fixture.detectChanges();
   });
 
@@ -46,8 +45,8 @@ describe('PublicationInformationComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should show 6 rows', () => {
-    expect(de.queryAll(By.css('.row')).length).toEqual(6);
+  it('should show 4 rows', () => {
+    expect(de.queryAll(By.css('.row')).length).toEqual(4);
   });
 
 });

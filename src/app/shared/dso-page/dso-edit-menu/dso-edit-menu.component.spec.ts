@@ -45,12 +45,25 @@ describe('DsoEditMenuComponent', () => {
     index: 1,
   };
 
+  const subSection = {
+    id: 'edit-dso-sub',
+    active: false,
+    visible: true,
+    model: {
+      text: 'sub-section-text',
+      type: null,
+      disabled: false,
+    } as TextMenuItemModel,
+    icon: 'pencil',
+    index: 0,
+  };
 
   beforeEach(waitForAsync(() => {
     authorizationService = jasmine.createSpyObj('authorizationService', {
       isAuthorized: of(true),
     });
     spyOn(menuService, 'getMenuTopSections').and.returnValue(of([section]));
+    spyOn(menuService, 'getSubSectionsByParentID').and.returnValue(of([subSection]));
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), RouterTestingModule, DsoEditMenuComponent],
       providers: [
@@ -65,17 +78,42 @@ describe('DsoEditMenuComponent', () => {
     }).compileComponents();
   }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(DsoEditMenuComponent);
-    comp = fixture.componentInstance;
-    comp.sections = of([]);
-    fixture.detectChanges();
-  });
-
   describe('onInit', () => {
     it('should create', () => {
+      fixture = TestBed.createComponent(DsoEditMenuComponent);
+      comp = fixture.componentInstance;
+      fixture.detectChanges();
       expect(comp).toBeTruthy();
+    });
+
+    it('should have role menubar when subsections exist', () => {
+      (menuService.getSubSectionsByParentID as jasmine.Spy).and.returnValue(of([subSection]));
+      fixture = TestBed.createComponent(DsoEditMenuComponent);
+      comp = fixture.componentInstance;
+      fixture.detectChanges();
+
+      const menu = fixture.nativeElement.querySelector('.dso-edit-menu');
+      expect(menu.getAttribute('role')).toBe('menubar');
+    });
+
+    it('should NOT have role menubar when no subsections exist', () => {
+      (menuService.getSubSectionsByParentID as jasmine.Spy).and.returnValue(of([]));
+      fixture = TestBed.createComponent(DsoEditMenuComponent);
+      comp = fixture.componentInstance;
+      fixture.detectChanges();
+
+      const menu = fixture.nativeElement.querySelector('.dso-edit-menu');
+      expect(menu.getAttribute('role')).toBeNull();
+    });
+
+    it('should have aria-hidden when no subsections exist', () => {
+      (menuService.getSubSectionsByParentID as jasmine.Spy).and.returnValue(of([]));
+      fixture = TestBed.createComponent(DsoEditMenuComponent);
+      comp = fixture.componentInstance;
+      fixture.detectChanges();
+
+      const menu = fixture.nativeElement.querySelector('.dso-edit-menu');
+      expect(menu.getAttribute('aria-hidden')).toBe('true');
     });
   });
 });
-
