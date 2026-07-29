@@ -28,6 +28,7 @@ export default tseslint.config(
       ...tseslint.configs.recommended,
       ...tseslint.configs.recommendedTypeChecked,
       ...angular.configs.tsRecommended,
+      rxjs.configs.recommended,
     ],
     processor: angular.processInlineTemplates,
     languageOptions: {
@@ -48,7 +49,6 @@ export default tseslint.config(
       'unused-imports': unusedImports,
       'lodash': lodash,
       'jsdoc': jsdoc,
-      '@smarttools/rxjs': rxjs,
       'dspace-angular-ts': dspaceTs,
     },
     rules: {
@@ -82,7 +82,6 @@ export default tseslint.config(
         'error',
         {
           'allow': [
-            'log',
             'warn',
             'dir',
             'timeLog',
