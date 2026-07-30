@@ -37,7 +37,9 @@
           <div class="button-row bottom">
             <div class="text-end">
               @if (!hideReturnButton) {
-                <a [routerLink]="getItemPage((itemRD$ | async)?.payload)" role="button" class="btn btn-outline-secondary"><i class="fas fa-arrow-left"></i> {{'item.edit.return' | translate}}</a>
+                <a [routerLink]="getItemPage((itemRD$ | async)?.payload)" role="button" class="btn btn-outline-secondary">
+                  <i aria-hidden="true" class="fas fa-arrow-left"></i> {{ 'item.edit.return' | translate }}
+                </a>
               }
             </div>
           </div>

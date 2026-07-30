@@ -59,13 +59,13 @@
   }
   <div class="space-children-mr float-end" *ngVar="(selectedIds$ | async) as selectedIds">
     <button class="btn btn-outline-secondary item-cancel" (click)="onCancel()">
-      <i class="fas fa-times"></i> {{cancelButton | translate}}
+      <i aria-hidden="true" class="fas fa-times"></i> {{ cancelButton | translate }}
     </button>
     <button class="btn item-confirm"
       [ngClass]="{'btn-danger': dangerConfirm, 'btn-primary': !dangerConfirm}"
       [dsBtnDisabled]="selectedIds?.length === 0"
       (click)="confirmSelected()">
-      <i class="fas" [ngClass]="{'fa-trash': dangerConfirm, 'fa-save': !dangerConfirm}"></i> {{confirmButton | translate}}
+      <i aria-hidden="true" class="fas" [ngClass]="{'fa-trash': dangerConfirm, 'fa-save': !dangerConfirm}"></i> {{ confirmButton | translate }}
     </button>
   </div>
 </ng-container>
