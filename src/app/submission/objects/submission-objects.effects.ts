@@ -101,7 +101,8 @@ export class SubmissionObjectEffects {
 
         // Duplicates will ignore mandatory and display only when "always display" is set or there is data to show
         if (sectionDefinition.sectionType === SectionsType.Duplicates) {
-          enabled = (alwaysDisplayDuplicates() || isNotEmpty((action.payload.sections[sectionId] as WorkspaceitemSectionDuplicatesObject).potentialDuplicates));
+          const duplicatesSection = action.payload.sections?.[sectionId] as WorkspaceitemSectionDuplicatesObject | undefined;
+          enabled = (alwaysDisplayDuplicates() || isNotEmpty(duplicatesSection?.potentialDuplicates));
         }
 
         let sectionData;
