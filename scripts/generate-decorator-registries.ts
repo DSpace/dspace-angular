@@ -46,7 +46,7 @@ const REGISTRY_OUTPUT_DIR = resolve(__dirname, '../src/decorator-registries');
 const generateEnumValues = () => {
   const enumValues = {};
 
-  const fileNames = sync(`${COMPONENTS_DIR}/**/*.ts`, { ignore: `${COMPONENTS_DIR}/**/*.spec.ts` });
+  const fileNames = sync(`${COMPONENTS_DIR}/**/*.ts`, { ignore: `${COMPONENTS_DIR}/**/*.spec.ts`, posix: true });
 
   fileNames.forEach((filePath: string) => {
     const fileName = basename(filePath);
@@ -142,7 +142,7 @@ const generateImportStatements = (
   });
 
   if (imports.size > 0) {
-    result += `${ Array.from(imports.keys()).sort().map((path: string) => `import { ${Array.from(imports.get(path)).join(', ')} } from '${path}';`).join('\n')}\n\n`;
+    result += `${ Array.from(imports.keys()).sort().map((path: string) => `import { ${Array.from(imports.get(path)).join(', ')} } from '${path.replace(/\\/g, '/')}';`).join('\n')}\n\n`;
   }
   return result;
 };
@@ -270,27 +270,27 @@ const parseDecoratorArguments = (
     // e.g. @decorator('range')
     if (isStringLiteral(arg)) {
       args.push(arg.text);
-    // e.g. @decorator(ItemSearchResult)
+      // e.g. @decorator(ItemSearchResult)
     } else if (isIdentifier(arg)) {
       // Store this under classRef so we can extract a property from it later (if so configured).
       args.push({ classRef: arg.text });
       if (allImports.has(arg.text)) {
         argImports.set(arg.text, parseImportPath(allImports, arg, filePath));
       }
-    // e.g. @decorator(Enum.property)
+      // e.g. @decorator(Enum.property)
     } else if (isPropertyAccessExpression(arg)) {
       const propertyName = arg.name.text;
       const objectName = (arg.expression as Identifier).text;
       const enumValue = ENUM_VALUES[objectName]?.[propertyName];
       args.push(enumValue || `${objectName}.${propertyName}`);
-    // e.g. @decorator(PaginatedList<AdminNotifySearchResult>)
+      // e.g. @decorator(PaginatedList<AdminNotifySearchResult>)
     } else if (isExpressionWithTypeArguments(arg)) {
       args.push(arg.typeArguments[0].getText(sourceFile));
     } else if (arg.kind === SyntaxKind.TrueKeyword) {
       args.push(true);
     } else if (arg.kind === SyntaxKind.FalseKeyword) {
       args.push(false);
-    // e.g. @decorator(123)
+      // e.g. @decorator(123)
     } else if (isNumericLiteral(arg)) {
       args.push(Number(arg.text));
     }
@@ -314,7 +314,7 @@ const generateComponentMetadataObject = (
 
   return {
     name: componentName,
-    filePath: `../${relative(COMPONENTS_DIR, filePath).replace(/\.ts$/, '')}`,
+    filePath: `../${relative(COMPONENTS_DIR, filePath).replace(/\\/g, '/').replace(/\.ts$/, '')}`,
     args,
     imports: argImports,
   };
@@ -366,7 +366,7 @@ const generateDecoratorMap = (
   });
 
   // Get all TypeScript files recursively, excluding spec files.
-  const fileNames = sync(`${COMPONENTS_DIR}/**/*.ts`, { ignore: `${COMPONENTS_DIR}/**/*.spec.ts` });
+  const fileNames = sync(`${COMPONENTS_DIR.replace(/\\/g, '/')}/**/*.ts`, { ignore: `${COMPONENTS_DIR.replace(/\\/g, '/')}/**/*.spec.ts` });
 
   fileNames.forEach((filePath: string) => {
     const fileName = basename(filePath);
