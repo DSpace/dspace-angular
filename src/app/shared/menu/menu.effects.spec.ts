@@ -13,6 +13,8 @@ import { Observable } from 'rxjs';
 import { StoreAction } from '../../store.actions';
 import { ReinitMenuAction } from './menu.actions';
 import { MenuEffects } from './menu.effects';
+import { MenuService } from './menu.service';
+import { MenuServiceStub } from './menu-service.stub';
 
 describe('MenuEffects', () => {
   let menuEffects: MenuEffects;
@@ -22,6 +24,7 @@ describe('MenuEffects', () => {
       providers: [
         MenuEffects,
         provideMockActions(() => actions),
+        { provide: MenuService, useValue: new MenuServiceStub() },
       ],
     });
   }));

@@ -85,6 +85,8 @@ export class ServerInitService extends InitService {
       await lastValueFrom(this.authenticationReady$());
       this.menuProviderService.initPersistentMenus(true);
 
+      this.configureMenuCollapsedState();
+
       return true;
     };
   }
@@ -120,4 +122,5 @@ export class ServerInitService extends InitService {
       toClientConfig(environment as AppConfig) as AppConfig,
     );
   }
+
 }

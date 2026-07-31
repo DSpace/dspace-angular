@@ -1,4 +1,3 @@
-
 import { NavbarEffects } from './navbar/navbar.effects';
 import { RelationshipEffects } from './shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/relationship.effects';
 import { MenuEffects } from './shared/menu/menu.effects';
