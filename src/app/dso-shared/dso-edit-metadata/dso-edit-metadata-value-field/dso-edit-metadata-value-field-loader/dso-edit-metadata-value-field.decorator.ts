@@ -9,12 +9,14 @@ import {
 import { DsoEditMetadataAuthorityFieldComponent } from '../dso-edit-metadata-authority-field/dso-edit-metadata-authority-field.component';
 import { DsoEditMetadataEntityFieldComponent } from '../dso-edit-metadata-entity-field/dso-edit-metadata-entity-field.component';
 import { EditMetadataValueFieldType } from '../dso-edit-metadata-field-type.enum';
+import { DsoEditMetadataGeospatialFieldComponent } from '../dso-edit-metadata-geospatial-field/dso-edit-metadata-geospatial-field.component';
 import { DsoEditMetadataTextFieldComponent } from '../dso-edit-metadata-text-field/dso-edit-metadata-text-field.component';
 
 export type MetadataValueFieldComponent =
   typeof DsoEditMetadataTextFieldComponent |
   typeof DsoEditMetadataEntityFieldComponent |
-  typeof DsoEditMetadataAuthorityFieldComponent;
+  typeof DsoEditMetadataAuthorityFieldComponent |
+  typeof DsoEditMetadataGeospatialFieldComponent;
 
 export const map = new Map<EditMetadataValueFieldType, Map<Context, Map<string, MetadataValueFieldComponent>>>([
   [EditMetadataValueFieldType.PLAIN_TEXT, new Map([
@@ -25,6 +27,9 @@ export const map = new Map<EditMetadataValueFieldType, Map<Context, Map<string, 
   ])],
   [EditMetadataValueFieldType.AUTHORITY, new Map([
     [DEFAULT_CONTEXT, new Map([[DEFAULT_THEME, DsoEditMetadataAuthorityFieldComponent]])],
+  ])],
+  [EditMetadataValueFieldType.GEOSPATIAL, new Map([
+    [DEFAULT_CONTEXT, new Map([[DEFAULT_THEME, DsoEditMetadataGeospatialFieldComponent]])],
   ])],
 ]);
 
