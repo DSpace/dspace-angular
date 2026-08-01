@@ -152,7 +152,7 @@ jobs:
       # docker.io (see env block above) where the same images are publicly pullable without a login,
       # and forks cannot authenticate against ghcr.io/dspace/* with their own GITHUB_TOKEN anyway.
       - name: Login to ${{ env.DOCKER_REGISTRY }}
-        uses: docker/login-action@v4
+        uses: docker/login-action@v4.5.1
         if: github.repository == 'dspace/dspace-angular'
         with:
           registry: ${{ env.DOCKER_REGISTRY }}
