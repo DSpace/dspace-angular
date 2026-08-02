@@ -4,7 +4,29 @@
 name: Build
 
 # Run this Build for all pushes / PRs to current branch
-on: [push, pull_request]
+on:
+  push:
+    # Don't run if PR is only updating static documentation or IDE/editor rules
+    paths-ignore:
+      - '.editorconfig'
+      - '.gitignore'
+      - '.vscode/*'
+      - 'docs/*'
+      - 'LICENSE'
+      - 'LICENSES_THIRD_PARTY'
+      - 'NOTICE'
+      - '**/*.md'
+  pull_request:
+    # Don't run if PR is only updating static documentation or IDE/editor rules
+    paths-ignore:
+      - '.editorconfig'
+      - '.gitignore'
+      - '.vscode/*'
+      - 'docs/*'
+      - 'LICENSE'
+      - 'LICENSES_THIRD_PARTY'
+      - 'NOTICE'
+      - '**/*.md'
 
 permissions:
   contents: read  # to fetch code (actions/checkout)
@@ -55,7 +77,7 @@ jobs:
     steps:
       # https://github.com/actions/checkout
       - name: Checkout codebase
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       # https://github.com/actions/setup-node
       - name: Install Node.js ${{ matrix.node-version }}
@@ -84,7 +106,7 @@ jobs:
         id: npm-cache-dir
         run: echo "dir=$(npm config get cache)" >> $GITHUB_OUTPUT
       - name: Cache NPM dependencies
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           # Cache entire NPM cache directory (see previous step)
           path: ${{ steps.npm-cache-dir.outputs.dir }}
@@ -149,7 +171,7 @@ jobs:
       # https://github.com/cypress-io/github-action
       # (NOTE: to run these e2e tests locally, just use 'ng e2e')
       - name: Run e2e tests (integration tests)
-        uses: cypress-io/github-action@v7.1.9
+        uses: cypress-io/github-action@v7.4.0
         with:
           # Run tests in Chrome, headless mode (default)
           browser: chrome
@@ -328,7 +350,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       # Download artifacts from previous 'tests' job
       - name: Download coverage artifacts

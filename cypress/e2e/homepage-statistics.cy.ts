@@ -12,8 +12,8 @@ describe('Site Statistics Page', () => {
 
   it('should pass accessibility tests', () => {
     // generate 2 view events on an Item's page
-    cy.generateViewEvent(Cypress.env('DSPACE_TEST_ENTITY_PUBLICATION'), 'item');
-    cy.generateViewEvent(Cypress.env('DSPACE_TEST_ENTITY_PUBLICATION'), 'item');
+    cy.generateViewEvent(Cypress.expose('DSPACE_TEST_ENTITY_PUBLICATION'), 'item');
+    cy.generateViewEvent(Cypress.expose('DSPACE_TEST_ENTITY_PUBLICATION'), 'item');
 
     cy.visit('/statistics');
 
