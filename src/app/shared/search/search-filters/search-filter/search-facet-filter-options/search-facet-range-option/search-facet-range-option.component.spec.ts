@@ -83,6 +83,7 @@ describe('SearchFacetRangeOptionComponent', () => {
           provide: SEARCH_CONFIG_SERVICE, useValue: {
             searchOptions: of({}),
             searchInstanceId: 'page-id',
+            useLegacySearchParamFallback: true,
             getCurrentSearchInstanceFilterParam: (param: string) => `page-id.${param}`,
           },
         },

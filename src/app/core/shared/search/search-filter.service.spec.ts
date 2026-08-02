@@ -255,6 +255,41 @@ describe('SearchFilterService', () => {
     });
   });
 
+  describe('when legacy fallback is disabled for a search instance', () => {
+    const searchInstanceId = 'spc1';
+
+    it('should check only the prefixed filter value', (done: DoneFn) => {
+      const hasQueryParamWithValue = spyOn(routeServiceStub, 'hasQueryParamWithValue').and.returnValue(of(true));
+
+      service.isFilterActiveWithValue('f.author', value1, searchInstanceId, false).subscribe((active: boolean) => {
+        expect(active).toBeTrue();
+        expect(hasQueryParamWithValue).toHaveBeenCalledOnceWith(`${searchInstanceId}.f.author`, value1);
+        done();
+      });
+    });
+
+    it('should read only the prefixed query', (done: DoneFn) => {
+      const getQueryParameterValue = spyOn(routeServiceStub, 'getQueryParameterValue').and.returnValue(of('instance query'));
+
+      service.getCurrentQuery(searchInstanceId, false).subscribe((query: string) => {
+        expect(query).toBe('instance query');
+        expect(getQueryParameterValue).toHaveBeenCalledOnceWith(`${searchInstanceId}.query`);
+        done();
+      });
+    });
+
+    it('should read only the prefixed filters', (done: DoneFn) => {
+      const instanceFilters = { [`${searchInstanceId}.f.author`]: [value1] };
+      const getQueryParamsWithPrefix = spyOn(routeServiceStub, 'getQueryParamsWithPrefix').and.returnValue(of(instanceFilters));
+
+      service.getCurrentFilters(searchInstanceId, false).subscribe((filters) => {
+        expect(filters).toEqual(instanceFilters);
+        expect(getQueryParamsWithPrefix).toHaveBeenCalledOnceWith(`${searchInstanceId}.f.`);
+        done();
+      });
+    });
+  });
+
 
   describe('when findSuggestions is called with query \'test\'', () => {
     const query = 'test';

@@ -2,6 +2,7 @@ import { AsyncPipe } from '@angular/common';
 import {
   Component,
   EventEmitter,
+  Inject,
   Input,
   OnChanges,
   Output,
@@ -27,6 +28,7 @@ import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators'
 import { SearchService } from '../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { SearchFilterService } from '../../core/shared/search/search-filter.service';
+import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 import {
   hasValue,
   isNotEmpty,
@@ -106,7 +108,7 @@ export class SearchFormComponent implements OnChanges {
     protected searchService: SearchService,
     protected searchFilterService: SearchFilterService,
     protected paginationService: PaginationService,
-    protected searchConfig: SearchConfigurationService,
+    @Inject(SEARCH_CONFIG_SERVICE) protected searchConfig: SearchConfigurationService,
     protected modalService: NgbModal,
     protected dsoService: DSpaceObjectDataService,
     public dsoNameService: DSONameService,

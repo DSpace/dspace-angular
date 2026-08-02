@@ -17,8 +17,8 @@ import { PaginationService } from '../../core/pagination/pagination.service';
 import { Community } from '../../core/shared/community.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { SearchService } from '../../core/shared/search/search.service';
-import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { SearchFilterService } from '../../core/shared/search/search-filter.service';
+import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { PaginationServiceStub } from '../testing/pagination-service.stub';
 import { RouterStub } from '../testing/router.stub';
@@ -53,7 +53,7 @@ describe('SearchFormComponent', () => {
         { provide: SearchService, useValue: searchService },
         { provide: SearchFilterService, useValue: searchFilterService },
         { provide: PaginationService, useValue: paginationService },
-        { provide: SearchConfigurationService, useValue: searchConfigService },
+        { provide: SEARCH_CONFIG_SERVICE, useValue: searchConfigService },
         { provide: DSpaceObjectDataService, useValue: dspaceObjectService },
       ],
     }).compileComponents();

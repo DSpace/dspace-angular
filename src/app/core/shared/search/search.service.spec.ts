@@ -139,6 +139,33 @@ describe('SearchService', () => {
         });
       });
     });
+
+    it('should ignore a legacy view mode when fallback is disabled', () => {
+      searchConfigService.useLegacySearchParamFallback = false;
+      spyOn(routeService, 'getQueryParamMap').and.returnValue(of(new Map([
+        ['view', ViewMode.GridElement],
+      ])));
+
+      testScheduler.run(({ expectObservable }) => {
+        expectObservable(service.getViewMode()).toBe('(a|)', {
+          a: ViewMode.ListElement,
+        });
+      });
+    });
+
+    it('should use the prefixed view mode when fallback is disabled', () => {
+      searchConfigService.useLegacySearchParamFallback = false;
+      spyOn(routeService, 'getQueryParamMap').and.returnValue(of(new Map([
+        [`${searchConfigService.searchInstanceId}.view`, ViewMode.GridElement],
+        ['view', ViewMode.ListElement],
+      ])));
+
+      testScheduler.run(({ expectObservable }) => {
+        expectObservable(service.getViewMode()).toBe('(a|)', {
+          a: ViewMode.GridElement,
+        });
+      });
+    });
   });
 
   describe('search', () => {

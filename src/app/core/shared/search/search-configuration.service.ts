@@ -90,6 +90,13 @@ export class SearchConfigurationService implements OnDestroy {
   public searchInstanceId = 'spc';
 
   /**
+   * Whether unprefixed search parameters should be used when this search instance has no
+   * corresponding prefixed parameter. Unique search instances disable this fallback so they
+   * cannot consume parameters that belong to another search on the same page.
+   */
+  public useLegacySearchParamFallback = true;
+
+  /**
    * The names of the query parameters that are scoped to a search instance, but that still accept a
    * legacy (unprefixed) value for backwards compatibility. Filter parameters (prefixed with `f.`) are
    * handled separately, see {@link isLegacySearchParam}.
@@ -131,6 +138,12 @@ export class SearchConfigurationService implements OnDestroy {
   protected _defaults: Observable<RemoteData<PaginatedSearchOptions>>;
 
   /**
+   * The original unmodified defaults, used to clear any legacy-derived state when an instance
+   * switches to strict prefixed parameters.
+   */
+  protected initialSearchOptions: PaginatedSearchOptions;
+
+  /**
    * A map of subscriptions to unsubscribe from on destroy
    */
   protected subs: Map<string, Subscription[]> = new Map<string, Subscription[]>(null);
@@ -166,13 +179,28 @@ export class SearchConfigurationService implements OnDestroy {
    * @returns {Observable<string>} Emits the current configuration string
    */
   getCurrentConfiguration(defaultConfiguration: string, searchInstanceId = this.searchInstanceId) {
+    const instanceQueryConfiguration$ = this.routeService
+      .getQueryParameterValue(this.getSearchInstanceParam(searchInstanceId, 'configuration'));
+    const instanceRouteConfiguration$ = this.routeService
+      .getRouteParameterValue(this.getSearchInstanceParam(searchInstanceId, 'configuration'));
+    const instanceConfiguration$ = observableCombineLatest([
+      instanceQueryConfiguration$,
+      instanceRouteConfiguration$,
+    ]);
+    if (!this.useLegacySearchParamFallback) {
+      return instanceConfiguration$.pipe(
+        map(([instanceQueryConfig, instanceRouteConfig]) => instanceQueryConfig || instanceRouteConfig || defaultConfiguration),
+      );
+    }
     return observableCombineLatest([
-      this.routeService.getQueryParameterValue(this.getSearchInstanceParam(searchInstanceId, 'configuration')).pipe(startWith(undefined)),
-      this.routeService.getRouteParameterValue(this.getSearchInstanceParam(searchInstanceId, 'configuration')).pipe(startWith(undefined)),
+      observableCombineLatest([
+        instanceQueryConfiguration$.pipe(startWith(undefined)),
+        instanceRouteConfiguration$.pipe(startWith(undefined)),
+      ]),
       this.routeService.getQueryParameterValue('configuration').pipe(startWith(undefined)),
       this.routeService.getRouteParameterValue('configuration').pipe(startWith(undefined)),
     ]).pipe(
-      map(([instanceQueryConfig, instanceRouteConfig, queryConfig, routeConfig]) => {
+      map(([[instanceQueryConfig, instanceRouteConfig], queryConfig, routeConfig]) => {
         return instanceQueryConfig || instanceRouteConfig || queryConfig || routeConfig || defaultConfiguration;
       }),
     );
@@ -249,8 +277,13 @@ export class SearchConfigurationService implements OnDestroy {
    * @returns {Observable<string>} Emits the current fixed filter as a string
    */
   getCurrentFixedFilter(searchInstanceId = this.searchInstanceId): Observable<string> {
+    const instanceFixedFilter$ = this.routeService
+      .getRouteParameterValue(this.getSearchInstanceParam(searchInstanceId, 'fixedFilterQuery'));
+    if (!this.useLegacySearchParamFallback) {
+      return instanceFixedFilter$;
+    }
     return observableCombineLatest([
-      this.routeService.getRouteParameterValue(this.getSearchInstanceParam(searchInstanceId, 'fixedFilterQuery')).pipe(startWith(undefined)),
+      instanceFixedFilter$.pipe(startWith(undefined)),
       this.routeService.getRouteParameterValue('fixedFilterQuery').pipe(startWith(undefined)),
     ]).pipe(
       map(([instanceFixedFilter, fixedFilter]) => instanceFixedFilter || fixedFilter),
@@ -261,8 +294,13 @@ export class SearchConfigurationService implements OnDestroy {
    * @returns {Observable<Params>} Emits the current active filters with their values as they are displayed in the frontend URL
    */
   getCurrentFrontendFilters(searchInstanceId = this.searchInstanceId): Observable<Params> {
+    const instanceFilters$ = this.routeService
+      .getQueryParamsWithPrefix(this.getSearchInstanceFilterParamPrefix(searchInstanceId));
+    if (!this.useLegacySearchParamFallback) {
+      return instanceFilters$;
+    }
     return observableCombineLatest([
-      this.routeService.getQueryParamsWithPrefix(this.getSearchInstanceFilterParamPrefix(searchInstanceId)).pipe(startWith({})),
+      instanceFilters$.pipe(startWith({})),
       this.routeService.getQueryParamsWithPrefix('f.').pipe(startWith({})),
     ]).pipe(map(([instanceFilters, legacyFilters]) => {
       return isNotEmpty(instanceFilters) ? instanceFilters : legacyFilters;
@@ -319,8 +357,9 @@ export class SearchConfigurationService implements OnDestroy {
   setSearchInstanceId(searchInstanceId): void {
     if (isNotEmpty(searchInstanceId)) {
       const currentValue: PaginatedSearchOptions = this.paginatedSearchOptions.getValue();
-      const updatedValue: PaginatedSearchOptions = Object.assign(new PaginatedSearchOptions({}), currentValue, {
-        pagination: Object.assign({}, currentValue.pagination, {
+      const defaults = this.useLegacySearchParamFallback ? currentValue : this.initialSearchOptions;
+      const updatedValue: PaginatedSearchOptions = Object.assign(new PaginatedSearchOptions({}), defaults, {
+        pagination: Object.assign({}, defaults.pagination, {
           id: searchInstanceId,
         }),
       });
@@ -329,6 +368,9 @@ export class SearchConfigurationService implements OnDestroy {
 
       // change to the new search instance id
       this.searchInstanceId = searchInstanceId;
+      if (!this.useLegacySearchParamFallback) {
+        this.searchOptions.next(Object.assign(new SearchOptions({}), updatedValue));
+      }
       this.paginatedSearchOptions.next(updatedValue);
       this.setSearchSubscription(this.searchInstanceId, this.paginatedSearchOptions.value);
     }
@@ -372,8 +414,13 @@ export class SearchConfigurationService implements OnDestroy {
   }
 
   private getCurrentSearchInstanceQueryParam(searchInstanceId: string, parameterName: string): Observable<string> {
+    const instanceValue$ = this.routeService
+      .getQueryParameterValue(this.getSearchInstanceParam(searchInstanceId, parameterName));
+    if (!this.useLegacySearchParamFallback) {
+      return instanceValue$;
+    }
     return observableCombineLatest([
-      this.routeService.getQueryParameterValue(this.getSearchInstanceParam(searchInstanceId, parameterName)).pipe(startWith(undefined)),
+      instanceValue$.pipe(startWith(undefined)),
       this.routeService.getQueryParameterValue(parameterName).pipe(startWith(undefined)),
     ]).pipe(
       map(([instanceValue, legacyValue]) => hasValue(instanceValue) ? instanceValue : legacyValue),
@@ -411,6 +458,7 @@ export class SearchConfigurationService implements OnDestroy {
       .pipe(getFirstSucceededRemoteData())
       .subscribe((defRD: RemoteData<PaginatedSearchOptions>) => {
         const defs = defRD.payload;
+        this.initialSearchOptions = defs;
         this.paginatedSearchOptions = new BehaviorSubject<PaginatedSearchOptions>(defs);
         this.searchOptions = new BehaviorSubject<SearchOptions>(defs);
         this.setSearchSubscription(this.searchInstanceId, defs);

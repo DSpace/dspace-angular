@@ -19,6 +19,8 @@ export class SearchConfigurationServiceStub {
 
   public searchInstanceId = 'test-id';
 
+  public useLegacySearchParamFallback = true;
+
   public searchOptions: BehaviorSubject<SearchOptions> = new BehaviorSubject(new SearchOptions({}));
   public paginatedSearchOptions: BehaviorSubject<PaginatedSearchOptions> = new BehaviorSubject(new PaginatedSearchOptions({}));
 

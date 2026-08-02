@@ -108,7 +108,12 @@ export class SearchFacetRangeOptionComponent implements OnInit, OnDestroy {
    * Checks if a value for this filter is currently active
    */
   private isChecked(): Observable<boolean> {
-    return this.filterService.isFilterActiveWithValue(this.filterConfig.paramName, this.filterValue.value, this.searchConfigService.searchInstanceId);
+    return this.filterService.isFilterActiveWithValue(
+      this.filterConfig.paramName,
+      this.filterValue.value,
+      this.searchConfigService.searchInstanceId,
+      this.searchConfigService.useLegacySearchParamFallback,
+    );
   }
 
   /**

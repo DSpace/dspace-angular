@@ -101,7 +101,12 @@ export class SearchFacetOptionComponent implements OnInit {
    * Checks if a value for this filter is currently active
    */
   isChecked(): Observable<boolean> {
-    return this.filterService.isFilterActiveWithValue(this.filterConfig.paramName, this.getFacetValue(), this.searchInstanceId);
+    return this.filterService.isFilterActiveWithValue(
+      this.filterConfig.paramName,
+      this.getFacetValue(),
+      this.searchInstanceId,
+      this.searchConfigService.useLegacySearchParamFallback,
+    );
   }
 
   /**

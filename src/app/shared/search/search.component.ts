@@ -9,6 +9,7 @@ import {
   Component,
   EventEmitter,
   Inject,
+  inject,
   Input,
   OnDestroy,
   OnInit,
@@ -21,7 +22,6 @@ import {
   Router,
 } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import uniqueId from 'lodash/uniqueId';
 import {
   BehaviorSubject,
   combineLatest,
@@ -55,6 +55,7 @@ import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { SearchService } from '../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { SearchConfig } from '../../core/shared/search/search-filters/search-config.model';
+import { SearchInstanceIdService } from '../../core/shared/search/search-instance-id.service';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
 import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
@@ -109,6 +110,10 @@ import { SearchConfigurationOption } from './search-switch-configuration/search-
  * This component renders a sidebar, a search input bar and the search results.
  */
 export class SearchComponent implements OnDestroy, OnInit {
+
+  private readonly searchInstanceIdService = inject(SearchInstanceIdService);
+
+  private uniqueSearchInstanceBaseId: string;
 
   /**
    * The list of available configuration options
@@ -376,13 +381,15 @@ export class SearchComponent implements OnDestroy, OnInit {
     }
 
     if (this.useUniquePageId) {
-      // Create a unique search instance id related to this SearchComponent.
-      this.searchInstanceId = uniqueId(this.searchInstanceId);
+      // Allocate an id that can be reused if routing recreates this search component.
+      this.uniqueSearchInstanceBaseId = this.searchInstanceId;
+      this.searchInstanceId = this.searchInstanceIdService.acquire(this.uniqueSearchInstanceBaseId);
     }
 
+    this.searchConfigService.useLegacySearchParamFallback = !this.useUniquePageId;
     this.searchConfigService.setSearchInstanceId(this.searchInstanceId);
 
-    if (isPlatformBrowser(this.platformId)) {
+    if (isPlatformBrowser(this.platformId) && this.searchConfigService.useLegacySearchParamFallback) {
       this.migrateLegacySearchParams();
     }
 
@@ -393,9 +400,7 @@ export class SearchComponent implements OnDestroy, OnInit {
       this.routeService.setParameter(this.searchConfigService.getCurrentSearchInstanceParam('fixedFilterQuery'), this.fixedFilterQuery);
     }
 
-    this.currentScope$ = this.routeService.getQueryParameterValue('scope').pipe(
-      map((routeValue: string) => hasValue(routeValue) ? routeValue : this.scope ?? ''),
-    );
+    this.currentScope$ = this.searchConfigService.getCurrentScope(this.scope ?? '');
 
     this.isSidebarCollapsed$ = this.isSidebarCollapsed();
     this.searchLink = this.getSearchLink();
@@ -499,6 +504,9 @@ export class SearchComponent implements OnDestroy, OnInit {
    */
   ngOnDestroy(): void {
     this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
+    if (hasValue(this.uniqueSearchInstanceBaseId)) {
+      this.searchInstanceIdService.release(this.uniqueSearchInstanceBaseId, this.searchInstanceId);
+    }
   }
 
   /**
