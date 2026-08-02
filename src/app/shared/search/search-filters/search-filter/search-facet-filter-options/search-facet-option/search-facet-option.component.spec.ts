@@ -102,6 +102,20 @@ describe('SearchFacetOptionComponent', () => {
     fixture.detectChanges();
   });
 
+  it('should pass strict fallback behavior to the filter service', () => {
+    searchConfigurationService.useLegacySearchParamFallback = false;
+    const isFilterActiveWithValue = spyOn(searchFilterService, 'isFilterActiveWithValue').and.returnValue(of(false));
+
+    comp.isChecked().subscribe();
+
+    expect(isFilterActiveWithValue).toHaveBeenCalledWith(
+      mockFilterConfig.paramName,
+      comp.getFacetValue(),
+      comp.searchInstanceId,
+      false,
+    );
+  });
+
   describe('when isVisible emits true', () => {
     it('the facet option should be visible', () => {
       comp.isVisible = of(true);

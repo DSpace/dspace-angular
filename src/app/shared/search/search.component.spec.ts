@@ -311,7 +311,7 @@ describe('SearchComponent', () => {
 
     const expectedSearchOptions = Object.assign(paginatedSearchOptions$.value, {
       configuration: 'default',
-      scope: '',
+      scope: 'test-id',
       sort: sortOptionsList[0],
     });
     expect(comp.currentConfiguration$).toBeObservable(cold('b', {
@@ -354,6 +354,41 @@ describe('SearchComponent', () => {
     tick(100);
     expect(comp.resultFound.emit).toHaveBeenCalledWith(expectedResults);
   }));
+
+  describe('unique search instances', () => {
+    beforeEach(() => {
+      comp.useUniquePageId = true;
+    });
+
+    it('should disable legacy fallback and skip legacy parameter migration', fakeAsync(() => {
+      const migrateLegacySearchParams = spyOn(comp as any, 'migrateLegacySearchParams');
+
+      fixture.detectChanges();
+      tick(100);
+
+      expect(comp.searchInstanceId).toBe(`${paginationId}1`);
+      expect(searchConfigurationServiceStub.useLegacySearchParamFallback).toBeFalse();
+      expect(migrateLegacySearchParams).not.toHaveBeenCalled();
+    }));
+
+    it('should reuse its id after routing recreates the component', fakeAsync(() => {
+      fixture.detectChanges();
+      tick(100);
+      const initialInstanceId = comp.searchInstanceId;
+      fixture.destroy();
+
+      fixture = TestBed.createComponent(SearchComponent);
+      comp = fixture.componentInstance;
+      comp.inPlaceSearch = false;
+      comp.searchInstanceId = paginationId;
+      comp.useUniquePageId = true;
+      spyOn((comp as any), 'getSearchOptions').and.returnValue(paginatedSearchOptions$.asObservable());
+      fixture.detectChanges();
+      tick(100);
+
+      expect(comp.searchInstanceId).toBe(initialInstanceId);
+    }));
+  });
 
   describe('migrateLegacySearchParams', () => {
     let navigateSpy: jasmine.Spy;

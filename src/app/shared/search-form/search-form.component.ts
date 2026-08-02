@@ -2,6 +2,7 @@ import { AsyncPipe } from '@angular/common';
 import {
   Component,
   EventEmitter,
+  Inject,
   Input,
   OnChanges,
   Output,
@@ -29,6 +30,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 import { take } from 'rxjs/operators';
 
+import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 import { SearchService } from '../search/search.service';
 import { SearchConfigurationService } from '../search/search-configuration.service';
 import { SearchFilterService } from '../search/search-filters/search-filter.service';
@@ -106,7 +108,7 @@ export class SearchFormComponent implements OnChanges {
     protected searchService: SearchService,
     protected searchFilterService: SearchFilterService,
     protected paginationService: PaginationService,
-    protected searchConfig: SearchConfigurationService,
+    @Inject(SEARCH_CONFIG_SERVICE) protected searchConfig: SearchConfigurationService,
     protected modalService: NgbModal,
     protected dsoService: DSpaceObjectDataService,
     public dsoNameService: DSONameService,

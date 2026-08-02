@@ -21,8 +21,8 @@ import { SearchServiceStub } from '@dspace/core/testing/search-service.stub';
 import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 import { SearchService } from '../search/search.service';
-import { SearchConfigurationService } from '../search/search-configuration.service';
 import { SearchFilterService } from '../search/search-filters/search-filter.service';
 import { SearchFormComponent } from './search-form.component';
 
@@ -53,7 +53,7 @@ describe('SearchFormComponent', () => {
         { provide: SearchService, useValue: searchService },
         { provide: SearchFilterService, useValue: searchFilterService },
         { provide: PaginationService, useValue: paginationService },
-        { provide: SearchConfigurationService, useValue: searchConfigService },
+        { provide: SEARCH_CONFIG_SERVICE, useValue: searchConfigService },
         { provide: DSpaceObjectDataService, useValue: dspaceObjectService },
       ],
     }).compileComponents();

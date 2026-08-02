@@ -135,14 +135,20 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
     this.minLabel = this.translateService.instant('search.filters.filter.' + this.filterConfig.name + '.min.placeholder');
     this.maxLabel = this.translateService.instant('search.filters.filter.' + this.filterConfig.name + '.max.placeholder');
     const filterParamName = this.searchConfigService.getCurrentSearchInstanceFilterParam(this.filterConfig.paramName);
-    const iniMin = observableCombineLatest([
-      this.route.getQueryParameterValue(filterParamName + RANGE_FILTER_MIN_SUFFIX).pipe(startWith(undefined)),
-      this.route.getQueryParameterValue(this.filterConfig.paramName + RANGE_FILTER_MIN_SUFFIX).pipe(startWith(undefined)),
-    ]).pipe(map(([instanceMin, legacyMin]: [string, string]) => hasValue(instanceMin) ? instanceMin : legacyMin));
-    const iniMax = observableCombineLatest([
-      this.route.getQueryParameterValue(filterParamName + RANGE_FILTER_MAX_SUFFIX).pipe(startWith(undefined)),
-      this.route.getQueryParameterValue(this.filterConfig.paramName + RANGE_FILTER_MAX_SUFFIX).pipe(startWith(undefined)),
-    ]).pipe(map(([instanceMax, legacyMax]: [string, string]) => hasValue(instanceMax) ? instanceMax : legacyMax));
+    const instanceMin$ = this.route.getQueryParameterValue(filterParamName + RANGE_FILTER_MIN_SUFFIX).pipe(startWith(undefined));
+    const instanceMax$ = this.route.getQueryParameterValue(filterParamName + RANGE_FILTER_MAX_SUFFIX).pipe(startWith(undefined));
+    const iniMin = this.searchConfigService.useLegacySearchParamFallback
+      ? observableCombineLatest([
+        instanceMin$,
+        this.route.getQueryParameterValue(this.filterConfig.paramName + RANGE_FILTER_MIN_SUFFIX).pipe(startWith(undefined)),
+      ]).pipe(map(([instanceMin, legacyMin]: [string, string]) => hasValue(instanceMin) ? instanceMin : legacyMin))
+      : instanceMin$;
+    const iniMax = this.searchConfigService.useLegacySearchParamFallback
+      ? observableCombineLatest([
+        instanceMax$,
+        this.route.getQueryParameterValue(this.filterConfig.paramName + RANGE_FILTER_MAX_SUFFIX).pipe(startWith(undefined)),
+      ]).pipe(map(([instanceMax, legacyMax]: [string, string]) => hasValue(instanceMax) ? instanceMax : legacyMax))
+      : instanceMax$;
     this.subs.push(observableCombineLatest([iniMin, iniMax]).pipe(
       map(([min, max]: [string, string]) => {
         const minimum = hasValue(min) ? Number(min) : this.min;
