@@ -343,7 +343,10 @@ export class SearchService {
   getViewMode(): Observable<ViewMode> {
     return this.routeService.getQueryParamMap().pipe(map((params) => {
       const viewParam = this.searchConfigurationService.getCurrentSearchInstanceParam('view');
-      const view = hasValue(params.get(viewParam)) ? params.get(viewParam) : params.get('view');
+      const instanceView = params.get(viewParam);
+      const view = hasValue(instanceView) || !this.searchConfigurationService.useLegacySearchParamFallback
+        ? instanceView
+        : params.get('view');
       if (isNotEmpty(view) && hasValue(view)) {
         return view;
       } else {

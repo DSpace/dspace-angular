@@ -12,6 +12,7 @@ import { AppliedFilter } from '@dspace/core/shared/search/models/applied-filter.
 import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
 import { SearchFilter } from '@dspace/core/shared/search/models/search-filter.model';
 import { SearchObjects } from '@dspace/core/shared/search/models/search-objects.model';
+import { SearchOptions } from '@dspace/core/shared/search/models/search-options.model';
 import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
 import { PaginationServiceStub } from '@dspace/core/testing/pagination-service.stub';
 import { getMockRequestService } from '@dspace/core/testing/request.service.mock';
@@ -93,6 +94,9 @@ describe('SearchConfigurationService', () => {
   } as AppConfig;
 
   beforeEach(() => {
+    routeService.getQueryParameterValue.and.returnValue(of(value1));
+    routeService.getQueryParamsWithPrefix.and.returnValue(of(prefixFilter));
+    routeService.getRouteParameterValue.and.returnValue(of(''));
     paginationService = new PaginationServiceStub(Object.assign(new PaginationComponentOptions(), {
       id: defaults.pagination.id,
       currentPage: 1,
@@ -330,6 +334,81 @@ describe('SearchConfigurationService', () => {
     it('should return false for unrelated params', () => {
       expect(service.isLegacySearchParam('page')).toBeFalse();
       expect(service.isLegacySearchParam('spc.page')).toBeFalse();
+    });
+  });
+
+  describe('with legacy search parameter fallback disabled', () => {
+    beforeEach(() => {
+      service.useLegacySearchParamFallback = false;
+      routeService.getQueryParameterValue.calls.reset();
+      routeService.getQueryParamsWithPrefix.calls.reset();
+      routeService.getRouteParameterValue.calls.reset();
+    });
+
+    it('should read only the prefixed query parameter', (done: DoneFn) => {
+      routeService.getQueryParameterValue.and.callFake((param: string) =>
+        of(param === `${defaults.pagination.id}.query` ? 'instance query' : 'legacy query'));
+
+      service.getCurrentQuery('').subscribe((query: string) => {
+        expect(query).toBe('instance query');
+        expect(routeService.getQueryParameterValue).not.toHaveBeenCalledWith('query');
+        done();
+      });
+    });
+
+    it('should read only prefixed configuration parameters', (done: DoneFn) => {
+      routeService.getQueryParameterValue.and.callFake((param: string) =>
+        of(param === `${defaults.pagination.id}.configuration` ? 'instance configuration' : 'legacy configuration'));
+      routeService.getRouteParameterValue.and.returnValue(of(undefined));
+
+      service.getCurrentConfiguration('default').subscribe((configuration: string) => {
+        expect(configuration).toBe('instance configuration');
+        expect(routeService.getQueryParameterValue).not.toHaveBeenCalledWith('configuration');
+        expect(routeService.getRouteParameterValue).not.toHaveBeenCalledWith('configuration');
+        done();
+      });
+    });
+
+    it('should read only prefixed frontend filters', (done: DoneFn) => {
+      const instanceFilters = {
+        [`${defaults.pagination.id}.f.author`]: ['instance author'],
+      };
+      routeService.getQueryParamsWithPrefix.and.callFake((prefix: string) =>
+        of(prefix === `${defaults.pagination.id}.f.` ? instanceFilters : prefixFilter));
+
+      service.getCurrentFrontendFilters().subscribe((filters: Params) => {
+        expect(filters).toEqual(instanceFilters);
+        expect(routeService.getQueryParamsWithPrefix).not.toHaveBeenCalledWith('f.');
+        done();
+      });
+    });
+
+    it('should read only the prefixed fixed filter route parameter', (done: DoneFn) => {
+      routeService.getRouteParameterValue.and.callFake((param: string) =>
+        of(param === `${defaults.pagination.id}.fixedFilterQuery` ? 'instance fixed filter' : 'legacy fixed filter'));
+
+      service.getCurrentFixedFilter().subscribe((fixedFilter: string) => {
+        expect(fixedFilter).toBe('instance fixed filter');
+        expect(routeService.getRouteParameterValue).not.toHaveBeenCalledWith('fixedFilterQuery');
+        done();
+      });
+    });
+
+    it('should discard state previously derived from legacy parameters when changing instance id', () => {
+      service.searchOptions.next(Object.assign(new SearchOptions({}), service.searchOptions.value, { query: 'legacy query' }));
+      service.paginatedSearchOptions.next(Object.assign(
+        new PaginatedSearchOptions({}),
+        service.paginatedSearchOptions.value,
+        { query: 'legacy query' },
+      ));
+      routeService.getQueryParameterValue.and.returnValue(of(undefined));
+      routeService.getQueryParamsWithPrefix.and.returnValue(of({}));
+      routeService.getRouteParameterValue.and.returnValue(of(undefined));
+
+      service.setSearchInstanceId('strict-id');
+
+      expect(service.searchOptions.value.query).toBe('');
+      expect(service.paginatedSearchOptions.value.query).toBe('');
     });
   });
 
