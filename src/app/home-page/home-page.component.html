@@ -1,35 +1,103 @@
-@if (homeHeaderMetadataValue$ | async; as homeHeaderMetadataValue) {
-  <div class="container home-header">
-    <ds-markdown-viewer [value]="homeHeaderMetadataValue"></ds-markdown-viewer>
-  </div>
-}
-
-<ds-home-coar></ds-home-coar>
-<ds-home-news></ds-home-news>
-
-@if (showDiscoverFilters) {
-  <ds-configuration-search-page
-    [sideBarWidth]="3"
-    [showViewModes]="false"
-    [searchEnabled]="false"
-    [inPlaceSearch]="false"
-    [showScopeSelector]="false">
-    <ng-container searchContentTop *ngTemplateOutlet="homeContent"></ng-container>
-  </ds-configuration-search-page>
-}
-@if (!showDiscoverFilters) {
-  <div class="container">
-    <ng-container *ngTemplateOutlet="homeContent"></ng-container>
-  </div>
-}
-<ds-suggestions-popup></ds-suggestions-popup>
-
-<ng-template #homeContent>
-  <ds-search-form [inPlaceSearch]="false"
-    [searchPlaceholder]="'home.search-form.placeholder' | translate">
-  </ds-search-form>
-  <ds-top-level-community-list></ds-top-level-community-list>
-  @if (recentSubmissionspageSize>0) {
-    <ds-recent-item-list></ds-recent-item-list>
+@if (!isDynamicHomePageEnabled) {
+  @if (homeHeaderMetadataValue$ | async; as homeHeaderMetadataValue) {
+    <div class="container home-header">
+      <ds-markdown-viewer [value]="homeHeaderMetadataValue"></ds-markdown-viewer>
+    </div>
   }
-</ng-template>
+
+  <ds-home-coar></ds-home-coar>
+  <ds-home-news></ds-home-news>
+
+  @if (showDiscoverFilters) {
+    <ds-configuration-search-page
+      [sideBarWidth]="3"
+      [showViewModes]="false"
+      [searchEnabled]="false"
+      [inPlaceSearch]="false"
+      [showScopeSelector]="false">
+      <ng-container searchContentTop *ngTemplateOutlet="homeContent"></ng-container>
+    </ds-configuration-search-page>
+  }
+  @if (!showDiscoverFilters) {
+    <div class="container">
+      <ng-container *ngTemplateOutlet="homeContent"></ng-container>
+    </div>
+  }
+  <ds-suggestions-popup></ds-suggestions-popup>
+
+  <ng-template #homeContent>
+    <ds-search-form [inPlaceSearch]="false"
+                    [searchPlaceholder]="'home.search-form.placeholder' | translate">
+    </ds-search-form>
+    <ds-top-level-community-list></ds-top-level-community-list>
+    @if (recentSubmissionspageSize>0) {
+      <ds-recent-item-list></ds-recent-item-list>
+    }
+  </ng-template>
+} @else {
+  @if ((site$.value && hasHomeHeaderMetadata)) {
+    <div id="home-header-wrapper">
+      <ds-text-section [sectionId]="'site'"
+                       [textRowSection]="homeHeaderSection"
+                       [site]="site$.value"></ds-text-section>
+    </div>
+  } @else {
+    <ds-home-coar></ds-home-coar>
+    <ds-home-news></ds-home-news>
+  }
+
+
+  @if (site$.value) {
+    @for (sectionComponentRow of ( sectionComponents | async ); track sectionComponentRow) {
+      <div>
+        <div class="container">
+          <div class="row">
+            @for (sectionComponent of sectionComponentRow; track sectionComponent) {
+              <div [class]="componentClass(sectionComponent)"
+              >
+                @switch (sectionComponent.componentType) {
+                  @case ('top') {
+                    <ds-top-section
+                      [sectionId]="sectionId"
+                      [topSection]="$any(sectionComponent)"></ds-top-section>
+                  }
+                  @case ('browse') {
+                    <ds-browse-section
+                      [sectionId]="sectionId"
+                      [browseSection]="$any(sectionComponent)"></ds-browse-section>
+                  }
+                  @case ('search') {
+                    <ds-search-section
+                      [sectionId]="sectionId"
+                      [searchSection]="$any(sectionComponent)"></ds-search-section>
+                  }
+                  @case ('facet') {
+                    <ds-facet-section
+                      [sectionId]="sectionId"
+                      [facetSection]="$any(sectionComponent)"></ds-facet-section>
+                  }
+                  @case ('counters') {
+                    <ds-counters-section
+                      [sectionId]="sectionId"
+                      [countersSection]="$any(sectionComponent)"></ds-counters-section>
+                  }
+                  @case ('text-row') {
+                    <ds-text-section
+                      [sectionId]="sectionId"
+                      [textRowSection]="$any(sectionComponent)"
+                      [site]="$any(sectionComponent).contentType === 'text-metadata' ? site$.value : null"></ds-text-section>
+                  }
+                }
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+    }
+  }
+
+  <ds-suggestions-popup></ds-suggestions-popup>
+
+}
+
+

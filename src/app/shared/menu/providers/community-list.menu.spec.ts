@@ -7,6 +7,7 @@
  */
 
 import { TestBed } from '@angular/core/testing';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
 
 import { MenuItemType } from '../menu-item-type.model';
 import { PartialMenuSection } from '../menu-provider.model';
@@ -31,6 +32,7 @@ describe('CommunityListMenuProvider', () => {
     TestBed.configureTestingModule({
       providers: [
         CommunityListMenuProvider,
+        { provide: APP_CONFIG, useValue: { layout: { navbar: { showCommunityCollection: true } } } },
       ],
     });
     provider = TestBed.inject(CommunityListMenuProvider);

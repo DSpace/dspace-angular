@@ -1,3 +1,4 @@
+import { FacetValue } from '@dspace/core/shared/search/models/facet-value.model';
 import {
   autoserialize,
   autoserializeAs,
@@ -56,6 +57,13 @@ export class SearchFilterConfig implements CacheableObject {
       isOpenByDefault: boolean;
 
     /**
+     * Defines the list of available operators
+     */
+    @autoserialize
+     operators: OperatorConfig[];
+
+
+    /**
      * Minimum value possible for this facet in the repository
      */
     @autoserialize
@@ -66,6 +74,12 @@ export class SearchFilterConfig implements CacheableObject {
      */
     @autoserialize
       minValue: string;
+
+    /**
+     * The embedded facet values.
+     */
+    @autoserialize
+    _embedded: { values: FacetValue[] };
 
     /**
      * The {@link HALLink}s for this SearchFilterConfig
@@ -82,4 +96,18 @@ export class SearchFilterConfig implements CacheableObject {
     get paramName(): string {
       return 'f.' + this.name;
     }
+}
+
+/**
+ * Interface to model sort option's configuration.
+ */
+export interface SortOption {
+  name: string;
+}
+
+/**
+ * Interface to model operator's configuration.
+ */
+export interface OperatorConfig {
+  operator: string;
 }

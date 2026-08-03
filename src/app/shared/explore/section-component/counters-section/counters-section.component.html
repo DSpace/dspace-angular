@@ -1,0 +1,46 @@
+<div>
+  <div class="card p-3">
+    <div class="d-flex flex-wrap flex-row justify-content-around gap-4">
+      @if (isLoading$ | async) {
+        <div>
+          <ds-loading message="{{'loading.default' | translate}}"></ds-loading>
+        </div>
+      }
+      @for (counter of (counterData$ | async); track counter) {
+        @if (counter.link) {
+          @if (internalLinkService.isLinkInternal(counter.link)) {
+            <a class="text-decoration-none" [routerLink]="internalLinkService.getRelativePath(counter.link)">
+              <ng-container *ngTemplateOutlet="countersSectionContent"></ng-container>
+            </a>
+          }
+          @if (!internalLinkService.isLinkInternal(counter.link)) {
+            <a class="text-decoration-none" [href]="counter.link" [target]="'_blank'">
+              <ng-container *ngTemplateOutlet="countersSectionContent"></ng-container>
+            </a>
+          }
+        } @else {
+          <div class="d-flex flex-wrap flex-column justify-content-between align-items-center gapy-1 counters-section">
+            <i class="d-block mb-2" [ngClass]="counter.icon"></i>
+            <div class="counters-label text-center">
+              {{ 'explore.counters-section.' + counter.label | translate }}
+            </div>
+            <div class="text-center fw-bold">
+              <b>{{ counter.count }}</b>
+            </div>
+          </div>
+        }
+        <ng-template #countersSectionContent>
+          <div class="d-flex flex-wrap flex-column justify-content-between align-items-center gapy-1 counters-section">
+            <i class="d-block mb-2" [ngClass]="counter.icon"></i>
+            <div class="counters-label text-center">
+              {{ 'explore.counters-section.' + counter.label | translate }}
+            </div>
+            <div class="text-center fw-bold">
+              <b>{{ counter.count }}</b>
+            </div>
+          </div>
+        </ng-template>
+      }
+    </div>
+  </div>
+</div>

@@ -13,6 +13,12 @@ import { RecentItemListComponent } from '../../../../app/home-page/recent-item-l
 import { ThemedTopLevelCommunityListComponent } from '../../../../app/home-page/top-level-community-list/themed-top-level-community-list.component';
 import { SuggestionsPopupComponent } from '../../../../app/notifications/suggestions/popup/suggestions-popup.component';
 import { ThemedConfigurationSearchPageComponent } from '../../../../app/search-page/themed-configuration-search-page.component';
+import { ThemedBrowseSectionComponent } from '../../../../app/shared/explore/section-component/browse-section/themed-browse-section.component';
+import { ThemedCountersSectionComponent } from '../../../../app/shared/explore/section-component/counters-section/themed-counters-section.component';
+import { ThemedFacetSectionComponent } from '../../../../app/shared/explore/section-component/facet-section/themed-facet-section.component';
+import { ThemedSearchSectionComponent } from '../../../../app/shared/explore/section-component/search-section/themed-search-section.component';
+import { ThemedTextSectionComponent } from '../../../../app/shared/explore/section-component/text-section/themed-text-section.component';
+import { ThemedTopSectionComponent } from '../../../../app/shared/explore/section-component/top-section/themed-top-section.component';
 import { ThemedSearchFormComponent } from '../../../../app/shared/search-form/themed-search-form.component';
 
 @Component({
@@ -28,10 +34,16 @@ import { ThemedSearchFormComponent } from '../../../../app/shared/search-form/th
     NgTemplateOutlet,
     RecentItemListComponent,
     SuggestionsPopupComponent,
+    ThemedBrowseSectionComponent,
     ThemedConfigurationSearchPageComponent,
+    ThemedCountersSectionComponent,
+    ThemedFacetSectionComponent,
     ThemedHomeNewsComponent,
     ThemedSearchFormComponent,
+    ThemedSearchSectionComponent,
+    ThemedTextSectionComponent,
     ThemedTopLevelCommunityListComponent,
+    ThemedTopSectionComponent,
     TranslateModule,
   ],
 })
