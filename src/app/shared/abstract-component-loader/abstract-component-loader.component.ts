@@ -23,10 +23,12 @@ import { DynamicComponentLoaderDirective } from './dynamic-component-loader.dire
  * <ul>
  *   <li>Create a new LoaderComponent component extending this component</li>
  *   <li>Point the templateUrl to this component's templateUrl</li>
- *   <li>Add all the @Input()/@Output() names that the dynamically generated components should inherit from the loader to the inputNames/outputNames lists</li>
- *   <li>Create a decorator file containing the new decorator function, a map containing all the collected {@link Component}s and a function to retrieve the {@link Component}</li>
- *   <li>Call the function to retrieve the correct {@link Component} in getComponent()</li>
- *   <li>Add all the @Input()s you had to used in getComponent() in the inputNamesDependentForComponent array</li>
+ *   <li>Add all the `@Input()`/`@Output()` names that the dynamically generated components should inherit from the loader to the `inputNames`/`outputNames` lists</li>
+ *   <li>Create a decorator file containing the new decorator function and the function to retrieve the {@link Component}</li>
+ *   <li>Declare the new decorator you want to use in `src/app/decorators.ts` as well, and make sure to define the decorator parameters (and their fallback values)</li>
+ *   <li>Rebuild the decorator registries (using `npm run generate:decorator:registries`) and use the generated map in the decorator file you created earlier</li>
+ *   <li>In the new LoaderComponent, call the decorator function to retrieve the correct {@link Component} in `getComponent()`</li>
+ *   <li>Add all the `@Input()`s used in `getComponent()` to the `inputNamesDependentForComponent` array</li>
  * </ul>
  */
 @Component({
