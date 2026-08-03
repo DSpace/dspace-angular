@@ -2069,6 +2069,12 @@
 
   "explore.browse-section.title": "Browse",
 
+  "explore.counters-section.rprofiles": "People",
+
+  "explore.counters-section.publications": "Research outputs",
+
+  "explore.counters-section.project_funding": "Projects",
+
   "explore.facet-section.title": "Discover",
 
   "explore.index.all": "All",
@@ -2078,6 +2084,10 @@
   "explore.index.birthDate": "Birthday",
 
   "explore.index.dateIssued": "Date issued",
+
+  "explore.index.dateissued": "Date issued",
+
+  "explore.index.dc.date.accessioned": "Recent Additions",
 
   "explore.index.dc.title": "Title",
 
@@ -2091,9 +2101,41 @@
 
   "explore.index.type": "Type",
 
+  "explore.index.rodept": "Department",
+
+  "explore.index.subject": "Subject",
+
+  "explore.index.rsoTitle": "Title",
+
+  "explore.index.pjtitle": "Title",
+
+  "explore.index.rpdept": "Department",
+
+  "explore.index.rpname": "Name",
+
+  "explore.search-section.fundings_and_projects.title": "Search Projects",
+
+  "explore.search-section.orgunits.title": "Search Organizations",
+
+  "explore.search-section.publications.title": "Search Research Outputs",
+
+  "explore.search-section.researchoutputs.title": "Search Research Outputs",
+
+  "explore.search-section.researcherprofiles.title": "Search People",
+
   "explore.search-section.search-button": "Search",
 
   "explore.search-section.reset-button": "Reset",
+
+  "explore.fundings_and_projects.breadcrumbs": "Projects",
+
+  "explore.orgunits.breadcrumbs": "Organizations",
+
+  "explore.publications.breadcrumbs": "Research Outputs",
+
+  "explore.researchoutputs.breadcrumbs": "Research Outputs",
+
+  "explore.researcherprofiles.breadcrumbs": "People",
 
   "explore.title": "Explore section",
 
@@ -3753,6 +3795,8 @@
   "menu.section.browse_global_by_title": "By Title",
 
   "menu.section.browse_global_communities_and_collections": "Communities & Collections",
+
+  "menu.section.explore_fundings_and_projects": "Fundings & Projects",
 
   "menu.section.browse_global_geospatial_map": "By Geolocation (Map)",
 
