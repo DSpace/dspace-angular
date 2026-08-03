@@ -1,0 +1,99 @@
+/**
+ * The contents of this file are subject to the license and copyright
+ * detailed in the LICENSE and NOTICE files at the root of the source
+ * tree and available online at
+ *
+ * http://www.dspace.org/license/
+ */
+import {
+  AsyncPipe,
+  NgComponentOutlet,
+} from '@angular/common';
+import {
+  Component,
+  Inject,
+  Injector,
+  OnInit,
+} from '@angular/core';
+import { Router } from '@angular/router';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils/empty.util';
+import {
+  NgbDropdownModule,
+  NgbTooltip,
+} from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { MenuID } from 'src/app/shared/menu/menu-id.model';
+import { MenuSection } from 'src/app/shared/menu/menu-section.model';
+import { AbstractMenuSectionComponent } from 'src/app/shared/menu/menu-section/abstract-menu-section.component';
+
+import { BtnDisabledDirective } from '../../../btn-disabled.directive';
+import { MenuService } from '../../../menu/menu.service';
+
+/**
+ * Represents an expandable section in the dso public menus
+ */
+@Component({
+  selector: 'ds-dso-public-menu-expandable-section',
+  templateUrl: './dso-public-menu-expandable-section.component.html',
+  styleUrls: ['./dso-public-menu-expandable-section.component.scss'],
+  imports: [
+    AsyncPipe,
+    BtnDisabledDirective,
+    NgbDropdownModule,
+    NgbTooltip,
+    NgComponentOutlet,
+    TranslateModule,
+  ],
+})
+export class DsoPublicMenuExpandableSectionComponent extends AbstractMenuSectionComponent implements OnInit {
+
+  /**
+   * This section resides in the DSO public menu
+   */
+  menuID: MenuID = MenuID.DSO_PUBLIC;
+
+  /**
+   * The MenuItemModel of the top section
+   */
+  itemModel;
+
+  /**
+   * Emits whether one of the subsections contains an icon
+   */
+  renderIcons$: Observable<boolean>;
+
+  /**
+   * Emits true when the top section has subsections, else emits false
+   */
+  hasSubSections$: Observable<boolean>;
+
+  constructor(
+    @Inject('sectionDataProvider') protected section: MenuSection,
+    protected menuService: MenuService,
+    protected injector: Injector,
+    protected router: Router,
+  ) {
+    super(menuService, injector);
+    this.itemModel = section.model;
+  }
+
+  ngOnInit(): void {
+    this.menuService.activateSection(this.menuID, this.section.id);
+    super.ngOnInit();
+
+    this.renderIcons$ = this.subSections$.pipe(
+      map((sections: MenuSection[]) => {
+        return sections.some(section => hasValue(section.icon));
+      }),
+    );
+
+    this.hasSubSections$ = this.subSections$.pipe(
+      map((subSections) => isNotEmpty(subSections)),
+    );
+  }
+}

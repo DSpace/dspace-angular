@@ -6,6 +6,8 @@ import { ThemedExpandableNavbarSectionComponent } from '../../navbar/expandable-
 import { NavbarSectionComponent } from '../../navbar/navbar-section/navbar-section.component';
 import { DsoEditMenuExpandableSectionComponent } from '../dso-page/dso-edit-menu/dso-edit-expandable-menu-section/dso-edit-menu-expandable-section.component';
 import { DsoEditMenuSectionComponent } from '../dso-page/dso-edit-menu/dso-edit-menu-section/dso-edit-menu-section.component';
+import { DsoPublicMenuExpandableSectionComponent } from '../dso-page/dso-public-menu/dso-public-expandable-menu-section/dso-public-menu-expandable-section.component';
+import { DsoPublicMenuSectionComponent } from '../dso-page/dso-public-menu/dso-public-menu-section/dso-public-menu-section.component';
 import { DEFAULT_THEME } from '../object-collection/shared/listable-object/listable-object.decorator';
 import { MenuID } from './menu-id.model';
 
@@ -26,6 +28,11 @@ menuComponentMap.get(MenuID.DSO_EDIT).set(false, new Map());
 menuComponentMap.get(MenuID.DSO_EDIT).get(false).set(DEFAULT_THEME, DsoEditMenuSectionComponent);
 menuComponentMap.get(MenuID.DSO_EDIT).set(true, new Map());
 menuComponentMap.get(MenuID.DSO_EDIT).get(true).set(DEFAULT_THEME, DsoEditMenuExpandableSectionComponent);
+menuComponentMap.set(MenuID.DSO_PUBLIC, new Map());
+menuComponentMap.get(MenuID.DSO_PUBLIC).set(false, new Map());
+menuComponentMap.get(MenuID.DSO_PUBLIC).get(false).set(DEFAULT_THEME, DsoPublicMenuSectionComponent);
+menuComponentMap.get(MenuID.DSO_PUBLIC).set(true, new Map());
+menuComponentMap.get(MenuID.DSO_PUBLIC).get(true).set(DEFAULT_THEME, DsoPublicMenuExpandableSectionComponent);
 
 /**
  * Decorator function to render a MenuSection for a menu
