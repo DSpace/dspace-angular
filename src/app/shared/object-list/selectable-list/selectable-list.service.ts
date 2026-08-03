@@ -23,6 +23,7 @@ import {
   SelectableListDeselectAction,
   SelectableListDeselectAllAction,
   SelectableListDeselectSingleAction,
+  SelectableListRemoveSelectionAction,
   SelectableListSelectAction,
   SelectableListSelectSingleAction,
 } from './selectable-list.actions';
@@ -47,6 +48,14 @@ export class SelectableListService {
    */
   getSelectableList(id: string): Observable<SelectableListState> {
     return this.store.pipe(select(menuByIDSelector(id)));
+  }
+
+  /**
+   * Remove a selection list from state
+   * @param {string} id The id of the list to remove
+   */
+  removeSelection(id: string) {
+    this.store.dispatch(new SelectableListRemoveSelectionAction(id));
   }
 
   /**

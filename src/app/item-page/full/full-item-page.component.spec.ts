@@ -41,6 +41,7 @@ import {
 } from 'rxjs';
 
 import { DsoEditMenuComponent } from '../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
+import { DsoPublicMenuComponent } from '../../shared/dso-page/dso-public-menu/dso-public-menu.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { getMockThemeService } from '../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';
@@ -164,6 +165,7 @@ describe('FullItemPageComponent', () => {
             ThemedLoadingComponent,
             ThemedItemPageTitleFieldComponent,
             DsoEditMenuComponent,
+            DsoPublicMenuComponent,
             ThemedItemAlertsComponent,
             CollectionsComponent,
             ThemedFullFileSectionComponent,

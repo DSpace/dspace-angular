@@ -26,6 +26,7 @@ import { EditCMSMetadataMenuProvider } from './shared/menu/providers/edit-cms-me
 import { EditItemMenuProvider } from './shared/menu/providers/edit-item-details.menu';
 import { EditUserAgreementMenuProvider } from './shared/menu/providers/edit-user-agreement.menu';
 import { ExportMenuProvider } from './shared/menu/providers/export.menu';
+import { ExportItemMenuProvider } from './shared/menu/providers/export-item.menu';
 import { HealthMenuProvider } from './shared/menu/providers/health.menu';
 import { ImportMenuProvider } from './shared/menu/providers/import.menu';
 import { ClaimMenuProvider } from './shared/menu/providers/item-claim.menu';
@@ -120,5 +121,8 @@ export const MENUS = buildMenuStructure({
     ]),
   ],
   [MenuID.DSO_PUBLIC]: [
+    ExportItemMenuProvider.onRoute(
+      MenuRoute.ITEM_PAGE,
+    ),
   ],
 });

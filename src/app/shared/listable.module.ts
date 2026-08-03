@@ -78,6 +78,7 @@ import { RelatedItemsComponent } from '../item-page/simple/related-items/related
 import { ThemedThumbnailComponent } from '../thumbnail/themed-thumbnail.component';
 import { ThumbnailComponent } from '../thumbnail/thumbnail.component';
 import { DsoEditMenuComponent } from './dso-page/dso-edit-menu/dso-edit-menu.component';
+import { DsoPublicMenuComponent } from './dso-page/dso-public-menu/dso-public-menu.component';
 import { ThemedLoadingComponent } from './loading/themed-loading.component';
 import { MetadataFieldWrapperComponent } from './metadata-field-wrapper/metadata-field-wrapper.component';
 import { ClaimedTaskActionsComponent } from './mydspace-actions/claimed-task/claimed-task-actions.component';
@@ -243,6 +244,7 @@ const ENTRY_COMPONENTS = [
     ThemedItemPageTitleFieldComponent,
     ThemedResultsBackButtonComponent,
     DsoEditMenuComponent,
+    DsoPublicMenuComponent,
     ItemActionsComponent,
     PersonInputSuggestionsComponent,
     TabbedRelatedEntitiesSearchComponent,

@@ -1,0 +1,20 @@
+<ds-alert [type]="'alert-info'">
+  @if (item) {
+    <span [innerHTML]="'item-export.alert.single' | translate: {title: getItemName()} ">
+    </span>
+  }
+  @if (!item && entityType) {
+    <span [innerHTML]="'item-export.alert.multiple-with-type' | translate: {type: entityType}">
+    </span>
+  }
+  @if (!item && !entityType) {
+    <span [innerHTML]="'item-export.alert.multiple' | translate">
+    </span>
+  }
+</ds-alert>
+@if (bulkExportLimit && bulkExportLimit !== '0' && bulkExportLimit !== '-1') {
+  <ds-alert
+    [type]="'alert-warning'"
+    [content]="'item-export.alert.export.limit' | translate:{limit: bulkExportLimit}">
+  </ds-alert>
+}
