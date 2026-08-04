@@ -153,7 +153,6 @@ describe('SearchRangeFilterComponent', () => {
           [mockFilterConfig.paramName + maxSuffix]: [1950],
         }),
         queryParamsHandling: 'merge',
-        fragment: 'prevent-scroll',
       });
     });
   });

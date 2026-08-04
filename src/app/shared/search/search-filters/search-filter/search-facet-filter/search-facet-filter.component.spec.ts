@@ -223,7 +223,6 @@ describe('SearchFacetFilterComponent', () => {
       expect(router.navigate).toHaveBeenCalledWith(searchUrl.split('/'), {
         queryParams: jasmine.objectContaining({ [mockFilterConfig.paramName]: [...selectedValues.map((value) => `${value},equals`), `${testValue},equals`] }),
         queryParamsHandling: 'merge',
-        fragment: 'prevent-scroll',
       });
     });
 
