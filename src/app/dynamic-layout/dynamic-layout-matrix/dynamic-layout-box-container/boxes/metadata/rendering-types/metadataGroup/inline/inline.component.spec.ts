@@ -19,7 +19,9 @@ import {
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { DsDatePipe } from '../../../../../../../pipes/ds-date.pipe';
+import { ToDatePipe } from '../../../../../../../../shared/access-control-form-container/access-control-array-form/to-date.pipe';
+import { getMockThemeService } from '../../../../../../../../shared/theme-support/test/theme-service.mock';
+import { ThemeService } from '../../../../../../../../shared/theme-support/theme.service';
 import { MetadataRenderComponent } from '../../../row/metadata-container/metadata-render/metadata-render.component';
 import { layoutBoxesMap } from '../../metadata-box-rendering-map';
 import { TextComponent } from '../../text/text.component';
@@ -90,7 +92,7 @@ describe('InlineComponent', () => {
           provide: TranslateLoader,
           useClass: TranslateLoaderMock,
         },
-      }), BrowserAnimationsModule, DsDatePipe,
+      }), BrowserAnimationsModule, ToDatePipe,
       MetadataRenderComponent,
       InlineComponent,
       TextComponent],
@@ -100,6 +102,7 @@ describe('InlineComponent', () => {
         { provide: 'renderingSubTypeProvider', useValue: '' },
         { provide: 'tabNameProvider', useValue: '' },
         { provide: DYNAMIC_FIELD_RENDERING_MAP, useValue: layoutBoxesMap },
+        { provide: ThemeService, useValue: getMockThemeService() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(InlineComponent, {

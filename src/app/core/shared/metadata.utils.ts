@@ -11,8 +11,9 @@ import isObject from 'lodash/isObject';
 import sortBy from 'lodash/sortBy';
 import { validate as uuidValidate } from 'uuid';
 
-import MetadataValue, {
+import  {
   MetadataMapInterface,
+  MetadataValue,
   MetadataValueFilter,
   MetadatumViewModel,
 } from './metadata.models';

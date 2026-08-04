@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { RenderingTypeValueModelComponent } from '../rendering-type-value.model';
+import { RenderingTypeValueDirective } from '../rendering-type-value.directive';
 
 /**
  * This component renders the text metadata fields
@@ -11,7 +11,7 @@ import { RenderingTypeValueModelComponent } from '../rendering-type-value.model'
   templateUrl: './html.component.html',
   styleUrls: ['./html.component.scss'],
 })
-export class HtmlComponent extends RenderingTypeValueModelComponent {
+export class HtmlComponent extends RenderingTypeValueDirective {
 
   /**
    * If the metadata value does not contain HTML tags then replace newline character with <br>

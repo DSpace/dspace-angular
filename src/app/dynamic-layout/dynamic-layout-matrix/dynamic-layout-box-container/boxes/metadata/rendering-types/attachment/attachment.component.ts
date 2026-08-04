@@ -7,6 +7,10 @@ import {
   Inject,
   OnInit,
 } from '@angular/core';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
 import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
 import { FindListOptions } from '@dspace/core/data/find-list-options.model';
 import { PaginatedList } from '@dspace/core/data/paginated-list.model';
@@ -23,12 +27,11 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { environment } from '../../../../../../../../environments/environment';
 import { ThemedFileDownloadLinkComponent } from '../../../../../../../shared/file-download-link/themed-file-download-link.component';
 import { TruncatableComponent } from '../../../../../../../shared/truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../../../../../../../shared/truncatable/truncatable-part/truncatable-part.component';
 import { FileSizePipe } from '../../../../../../../shared/utils/file-size-pipe';
-import { BitstreamAttachmentRenderingModelComponent } from './bitstream-attachment-rendering.model';
+import { BitstreamAttachmentRenderingDirective } from './bitstream-attachment-rendering.directive';
 
 @Component({
   selector: 'ds-attachment',
@@ -47,7 +50,7 @@ import { BitstreamAttachmentRenderingModelComponent } from './bitstream-attachme
 /**
  * The component for displaying a thumbnail rendered metadata box
  */
-export class AttachmentComponent extends BitstreamAttachmentRenderingModelComponent implements OnInit {
+export class AttachmentComponent extends BitstreamAttachmentRenderingDirective implements OnInit {
 
   /**
    * List of bitstreams to show
@@ -62,8 +65,11 @@ export class AttachmentComponent extends BitstreamAttachmentRenderingModelCompon
   /**
    * Environment variables configuring pagination
    */
-  envPagination = environment.layout.advancedAttachmentRendering.pagination;
+  envPagination = this.appConfig.layout.advancedAttachmentRendering.pagination;
 
+  /**
+   * Pagination configuration object
+   */
   /**
    * Pagination configuration object
    */
@@ -76,6 +82,7 @@ export class AttachmentComponent extends BitstreamAttachmentRenderingModelCompon
     @Inject('tabNameProvider') public tabNameProvider: string,
     protected bitstreamDataService: BitstreamDataService,
     protected translateService: TranslateService,
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
   ) {
     super(fieldProvider, itemProvider, renderingSubTypeProvider, tabNameProvider, bitstreamDataService, translateService);
   }

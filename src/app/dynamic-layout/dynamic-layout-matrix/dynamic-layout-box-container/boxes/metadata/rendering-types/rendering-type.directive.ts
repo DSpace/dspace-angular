@@ -1,28 +1,31 @@
 import {
-  Component,
+  Directive,
   Input,
 } from '@angular/core';
 import { LayoutField } from '@dspace/core/layout/models/box.model';
 import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
 import { Item } from '@dspace/core/shared/item.model';
-import MetadataValue from '@dspace/core/shared/metadata.models';
+import { MetadataValue } from '@dspace/core/shared/metadata.models';
 import { hasValue } from '@dspace/shared/utils/empty.util';
 import { TranslateService } from '@ngx-translate/core';
 
 
 export interface MetadataBoxFieldRenderOptions {
-  componentRef: GenericConstructor<Component>;
-  structured: boolean;
+  componentRef: GenericConstructor<RenderingTypeDirective>;
 }
 
 /**
  * This class defines the basic model to extends for create a new
  * field render component
  */
-@Component({
-  template: '',
-})
-export abstract class RenderingTypeModelComponent {
+@Directive()
+export abstract class RenderingTypeDirective {
+
+  /**
+   * Whether this rendering type handles all metadata values in a single structured render,
+   * or renders each metadata value individually.
+   */
+  static structured = false;
 
   /**
    * Current DSpace item

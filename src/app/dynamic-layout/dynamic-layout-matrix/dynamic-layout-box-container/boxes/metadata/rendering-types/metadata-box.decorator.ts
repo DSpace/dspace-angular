@@ -4,7 +4,7 @@ import {
 } from '@dspace/shared/utils/empty.util';
 
 import { FieldRenderingType } from './field-rendering-type';
-import { MetadataBoxFieldRenderOptions } from './rendering-type.model';
+import { MetadataBoxFieldRenderOptions } from './rendering-type.directive';
 
 /**
  * Return the rendering type of the field to render

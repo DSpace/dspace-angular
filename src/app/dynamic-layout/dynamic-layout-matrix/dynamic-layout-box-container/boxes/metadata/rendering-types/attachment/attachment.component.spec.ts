@@ -10,6 +10,7 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
 import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
 import { RemoteData } from '@dspace/core/data/remote-data';
@@ -30,6 +31,7 @@ import {
   of,
 } from 'rxjs';
 
+import { environment } from '../../../../../../../../environments/environment';
 import { ThemedFileDownloadLinkComponent } from '../../../../../../../shared/file-download-link/themed-file-download-link.component';
 import { TruncatableComponent } from '../../../../../../../shared/truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../../../../../../../shared/truncatable/truncatable-part/truncatable-part.component';
@@ -182,6 +184,7 @@ describe('AttachmentComponent', () => {
         { provide: BitstreamDataService, useValue: mockBitstreamDataService },
         { provide: AuthorizationDataService, useValue: mockAuthorizedService },
         { provide: LocaleService, useValue: mockLocaleService },
+        { provide: APP_CONFIG, useValue: environment },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     };
@@ -408,7 +411,7 @@ describe('AttachmentComponent', () => {
     });
 
     it('should show view more button', () => {
-      expect(fixture.debugElement.query(By.css('a[data-test="view-more"]'))).toBeTruthy();
+      expect(fixture.debugElement.query(By.css('button[data-test="view-more"]'))).toBeTruthy();
     });
 
     it('should show 2 elements', () => {
@@ -416,7 +419,7 @@ describe('AttachmentComponent', () => {
     });
 
     it('and view more button is clicked it should show 4 elements', () => {
-      const btn = fixture.debugElement.query(By.css('a[data-test="view-more"]'));
+      const btn = fixture.debugElement.query(By.css('button[data-test="view-more"]'));
       (component.getBitstreamsByItem as any).and.returnValue(of(createPaginatedList([bitstream1, bitstream1])));
       fixture.detectChanges();
       btn.nativeElement.click();

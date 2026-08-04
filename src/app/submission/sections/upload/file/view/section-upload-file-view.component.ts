@@ -4,7 +4,10 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import MetadataValue, { MetadataMap } from '@dspace/core/shared/metadata.models';
+import {
+  MetadataMap,
+  MetadataValue,
+} from '@dspace/core/shared/metadata.models';
 import { Metadata } from '@dspace/core/shared/metadata.utils';
 import { WorkspaceitemSectionUploadFileObject } from '@dspace/core/submission/models/workspaceitem-section-upload-file.model';
 import { isNotEmpty } from '@dspace/shared/utils/empty.util';

@@ -1,4 +1,7 @@
-import MetadataValue, { MetadataMapInterface } from '@dspace/core/shared/metadata.models';
+import {
+  MetadataMapInterface,
+  MetadataValue,
+} from '@dspace/core/shared/metadata.models';
 import { Metadata } from '@dspace/core/shared/metadata.utils';
 
 /**

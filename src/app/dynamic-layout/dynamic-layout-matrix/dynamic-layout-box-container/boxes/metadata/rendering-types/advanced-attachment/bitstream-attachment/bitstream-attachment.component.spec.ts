@@ -4,6 +4,7 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
 import { Bitstream } from '@dspace/core/shared/bitstream.model';
 import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
@@ -13,10 +14,11 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
+import { environment } from '../../../../../../../../../environments/environment';
 import { TruncatableComponent } from '../../../../../../../../shared/truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../../../../../../../../shared/truncatable/truncatable-part/truncatable-part.component';
 import { ThemedThumbnailComponent } from '../../../../../../../../thumbnail/themed-thumbnail.component';
-import { BitstreamRenderingModelComponent } from '../../bitstream-rendering-model';
+import { BitstreamRenderingDirective } from '../../bitstream-rendering.directive';
 import { AttachmentRenderComponent } from './attachment-render/attachment-render.component';
 import { BitstreamAttachmentComponent } from './bitstream-attachment.component';
 
@@ -37,7 +39,7 @@ describe('BitstreamAttachmentComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         BitstreamAttachmentComponent,
-        BitstreamRenderingModelComponent,
+        BitstreamRenderingDirective,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
@@ -52,6 +54,7 @@ describe('BitstreamAttachmentComponent', () => {
         { provide: 'renderingSubTypeProvider', useValue: '' },
         { provide: 'tabNameProvider', useValue: '' },
         { provide: BitstreamDataService, useValue: {} },
+        { provide: APP_CONFIG, useValue: environment },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })

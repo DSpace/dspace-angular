@@ -1,21 +1,21 @@
 import {
-  Component,
+  Directive,
   Inject,
 } from '@angular/core';
+import { LayoutField } from '@dspace/core/layout/models/box.model';
+import { Item } from '@dspace/core/shared/item.model';
 import { TranslateService } from '@ngx-translate/core';
 
-import { LayoutField } from '../../../../../../core/layout/models/box.model';
-import { Item } from '../../../../../../core/shared/item.model';
-import { RenderingTypeModelComponent } from './rendering-type.model';
+import { RenderingTypeDirective } from './rendering-type.directive';
 
 /**
  * This class defines the basic model to extends for create a new
  * field render component
  */
-@Component({
-  template: '',
-})
-export abstract class RenderingTypeStructuredModelComponent extends RenderingTypeModelComponent {
+@Directive()
+export abstract class RenderingTypeStructuredDirective extends RenderingTypeDirective {
+
+  static override structured = true;
 
   constructor(
     @Inject('fieldProvider') public fieldProvider: LayoutField,

@@ -6,12 +6,12 @@ import {
 } from '@angular/core';
 import { LayoutField } from '@dspace/core/layout/models/box.model';
 import { Item } from '@dspace/core/shared/item.model';
+import { MetadataValue } from '@dspace/core/shared/metadata.models';
 import { isEmpty } from '@dspace/shared/utils/empty.util';
 import { TranslateService } from '@ngx-translate/core';
 
-import MetadataValue from '../../../../../../../core/shared/metadata.models';
 import { MetadataLinkValue } from '../../../../../../models/dynamic-layout-metadata-link-value.model';
-import { RenderingTypeValueModelComponent } from '../rendering-type-value.model';
+import { RenderingTypeValueDirective } from '../rendering-type-value.directive';
 
 /**
  * This component renders the links metadata fields.
@@ -26,7 +26,7 @@ import { RenderingTypeValueModelComponent } from '../rendering-type-value.model'
     NgClass,
   ],
 })
-export class LinkAuthorityComponent extends RenderingTypeValueModelComponent implements OnInit {
+export class LinkAuthorityComponent extends RenderingTypeValueDirective implements OnInit {
 
   /**
    * The link to render

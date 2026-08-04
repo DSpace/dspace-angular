@@ -1,12 +1,8 @@
 import {
   Component,
-  ComponentRef,
   inject,
   Injector,
   Input,
-  OnInit,
-  ViewChild,
-  ViewContainerRef,
 } from '@angular/core';
 import { DYNAMIC_FIELD_RENDERING_MAP } from '@dspace/config/app-config.interface';
 import {
@@ -16,26 +12,30 @@ import {
 import { PLACEHOLDER_PARENT_METADATA } from '@dspace/core/shared/form/ds-dynamic-form-constants';
 import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
 import { Item } from '@dspace/core/shared/item.model';
-import MetadataValue from '@dspace/core/shared/metadata.models';
+import { MetadataValue } from '@dspace/core/shared/metadata.models';
 import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 
-import { DynamicLayoutLoaderDirective } from '../../../../../../../directives/dynamic-layout-loader.directive';
+import { AbstractComponentLoaderComponent } from '../../../../../../../../shared/abstract-component-loader/abstract-component-loader.component';
+import { DynamicComponentLoaderDirective } from '../../../../../../../../shared/abstract-component-loader/dynamic-component-loader.directive';
+import { ThemeService } from '../../../../../../../../shared/theme-support/theme.service';
 import { FieldRenderingType } from '../../../rendering-types/field-rendering-type';
 import {
   computeRenderingFn,
   getMetadataBoxFieldRenderOptionsFn,
 } from '../../../rendering-types/metadata-box.decorator';
-import { MetadataBoxFieldRenderOptions } from '../../../rendering-types/rendering-type.model';
+import {
+  MetadataBoxFieldRenderOptions,
+  RenderingTypeDirective,
+} from '../../../rendering-types/rendering-type.directive';
 
 @Component({
   selector: 'ds-metadata-render',
-  templateUrl: './metadata-render.component.html',
-  styleUrls: ['./metadata-render.component.scss'],
+  templateUrl: '../../../../../../../../shared/abstract-component-loader/abstract-component-loader.component.html',
   imports: [
-    DynamicLayoutLoaderDirective,
+    DynamicComponentLoaderDirective,
   ],
 })
-export class MetadataRenderComponent implements OnInit {
+export class MetadataRenderComponent extends AbstractComponentLoaderComponent<RenderingTypeDirective> {
 
   /**
    * Current DSpace Item
@@ -61,46 +61,29 @@ export class MetadataRenderComponent implements OnInit {
    */
   renderingSubType: string;
 
-  /**
-   * Directive hook used to place the dynamic render component
-   */
-  @ViewChild('metadataValue', {
-    static: true,
-    read: ViewContainerRef,
-  }) metadataValueViewRef: ViewContainerRef;
-
   protected readonly layoutBoxesMap: Map<FieldRenderingType, MetadataBoxFieldRenderOptions> = inject(DYNAMIC_FIELD_RENDERING_MAP);
-  protected readonly injector: Injector = inject(Injector);
+  private readonly parentInjector: Injector = inject(Injector);
 
-  ngOnInit(): void {
-    this.metadataValueViewRef.clear();
-    this.renderingSubType = computeRenderingFn(this.field.rendering, true);
-    this.generateComponentRef();
+  constructor(
+    protected themeService: ThemeService,
+  ) {
+    super(themeService);
   }
 
   /**
-   * Generate Component for metadata rendering
+   * Fetch the component depending on the field's rendering type
    */
-  computeComponent(): GenericConstructor<Component> {
+  public getComponent(): GenericConstructor<RenderingTypeDirective> {
+    this.renderingSubType = computeRenderingFn(this.field.rendering, true);
     const rendering = computeRenderingFn(this.field?.rendering);
     const metadataFieldRenderOptions = getMetadataBoxFieldRenderOptionsFn(this.layoutBoxesMap, rendering);
-    return  metadataFieldRenderOptions?.componentRef;
-  }
-
-  /**
-   * Generate ComponentRef for metadata rendering
-   */
-  generateComponentRef(): ComponentRef<any> {
-    const component: GenericConstructor<Component> = this.computeComponent();
-    return this.metadataValueViewRef.createComponent(component, {
-      injector: this.getComponentInjector(),
-    });
+    return metadataFieldRenderOptions?.componentRef;
   }
 
   /**
    * Generate Component Injector object
    */
-  getComponentInjector() {
+  public override getComponentInjector() {
     const providers = [
       { provide: 'fieldProvider', useValue: this.field, deps: [] },
       { provide: 'itemProvider', useValue: this.item, deps: [] },
@@ -113,7 +96,7 @@ export class MetadataRenderComponent implements OnInit {
 
     return Injector.create({
       providers: providers,
-      parent: this.injector,
+      parent: this.parentInjector,
     });
   }
 

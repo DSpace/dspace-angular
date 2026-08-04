@@ -10,6 +10,7 @@ import {
 } from '@dspace/config/identifier-subtypes-config.interface';
 import { LayoutField } from '@dspace/core/layout/models/box.model';
 import { Item } from '@dspace/core/shared/item.model';
+import { MetadataValue } from '@dspace/core/shared/metadata.models';
 import {
   hasNoValue,
   hasValue,
@@ -19,10 +20,9 @@ import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import { environment } from 'src/environments/environment';
 
-import MetadataValue from '../../../../../../../core/shared/metadata.models';
 import { MetadataLinkValue } from '../../../../../../models/dynamic-layout-metadata-link-value.model';
 import { ResolverStrategyService } from '../../../../../../services/resolver-strategy.service';
-import { RenderingTypeValueModelComponent } from '../rendering-type-value.model';
+import { RenderingTypeValueDirective } from '../rendering-type-value.directive';
 
 /**
  * This component renders the identifier metadata fields.
@@ -35,7 +35,7 @@ import { RenderingTypeValueModelComponent } from '../rendering-type-value.model'
     NgbTooltipModule,
   ],
 })
-export class IdentifierComponent extends RenderingTypeValueModelComponent implements OnInit {
+export class IdentifierComponent extends RenderingTypeValueDirective implements OnInit {
 
   /**
    * The identifier to render

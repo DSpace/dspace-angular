@@ -4,6 +4,10 @@ import {
   Inject,
   OnInit,
 } from '@angular/core';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
 import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
 import { FindListOptions } from '@dspace/core/data/find-list-options.model';
 import {
@@ -23,7 +27,6 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { environment } from '../../../../../../../../environments/environment';
 import { AttachmentComponent } from '../attachment/attachment.component';
 import { BitstreamAttachmentComponent } from './bitstream-attachment/bitstream-attachment.component';
 
@@ -45,12 +48,12 @@ export class AdvancedAttachmentComponent extends AttachmentComponent implements 
   /**
    * Environment variables configuring the fields to be viewed
    */
-  envMetadata = environment.layout.advancedAttachmentRendering.metadata;
+  envMetadata = this.appConfig.layout.advancedAttachmentRendering.metadata;
 
   /**
    * Environment variables configuring pagination
    */
-  envPagination = environment.layout.advancedAttachmentRendering.pagination;
+  envPagination = this.appConfig.layout.advancedAttachmentRendering.pagination;
 
   constructor(
     @Inject('fieldProvider') public fieldProvider: LayoutField,
@@ -59,8 +62,9 @@ export class AdvancedAttachmentComponent extends AttachmentComponent implements 
     @Inject('tabNameProvider') public tabNameProvider: string,
     protected bitstreamDataService: BitstreamDataService,
     protected translateService: TranslateService,
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
   ) {
-    super(fieldProvider, itemProvider, renderingSubTypeProvider, tabNameProvider, bitstreamDataService, translateService);
+    super(fieldProvider, itemProvider, renderingSubTypeProvider, tabNameProvider, bitstreamDataService, translateService, appConfig);
   }
 
   getBitstreamsByItem(options?: FindListOptions): Observable<PaginatedList<Bitstream>> {

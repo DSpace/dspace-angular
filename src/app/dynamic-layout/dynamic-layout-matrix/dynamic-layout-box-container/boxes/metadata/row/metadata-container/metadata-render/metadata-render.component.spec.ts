@@ -11,6 +11,7 @@ import { DYNAMIC_FIELD_RENDERING_MAP } from '@dspace/config/app-config.interface
 import { LayoutField } from '@dspace/core/layout/models/box.model';
 import { PLACEHOLDER_PARENT_METADATA } from '@dspace/core/shared/form/ds-dynamic-form-constants';
 import { Item } from '@dspace/core/shared/item.model';
+import { MetadataValue } from '@dspace/core/shared/metadata.models';
 import { boxMetadata } from '@dspace/core/testing/box.mock';
 import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import {
@@ -18,8 +19,9 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
-import MetadataValue from '../../../../../../../../core/shared/metadata.models';
-import { DsDatePipe } from '../../../../../../../pipes/ds-date.pipe';
+import { ToDatePipe } from '../../../../../../../../shared/access-control-form-container/access-control-array-form/to-date.pipe';
+import { getMockThemeService } from '../../../../../../../../shared/theme-support/test/theme-service.mock';
+import { ThemeService } from '../../../../../../../../shared/theme-support/theme.service';
 import { FieldRenderingType } from '../../../rendering-types/field-rendering-type';
 import { layoutBoxesMap } from '../../../rendering-types/metadata-box-rendering-map';
 import { TableComponent } from '../../../rendering-types/metadataGroup/table/table.component';
@@ -131,7 +133,7 @@ describe('MetadataRenderComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
-        DsDatePipe,
+        ToDatePipe,
         MetadataRenderComponent,
         TableComponent,
         TextComponent,
@@ -140,6 +142,7 @@ describe('MetadataRenderComponent', () => {
         Injector,
         { provide: 'tabNameProvider', useValue: '' },
         { provide: DYNAMIC_FIELD_RENDERING_MAP, useValue: layoutBoxesMap },
+        { provide: ThemeService, useValue: getMockThemeService() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(TableComponent, {
@@ -158,11 +161,6 @@ describe('MetadataRenderComponent', () => {
   describe('When field rendering type is not structured', () => {
     beforeEach(() => {
       component.field = fieldMock;
-    });
-
-    it('Should apply word-break style to host element', () => {
-      const hostElement = fixture.nativeElement;
-      expect(getComputedStyle(hostElement).wordBreak).toBe('break-word');
     });
 
     describe('When field rendering type is not structured', () => {

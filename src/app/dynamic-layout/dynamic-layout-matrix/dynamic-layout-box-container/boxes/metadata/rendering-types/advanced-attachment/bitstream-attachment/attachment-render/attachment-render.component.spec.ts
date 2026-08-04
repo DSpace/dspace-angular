@@ -16,6 +16,8 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
+import { getMockThemeService } from '../../../../../../../../../shared/theme-support/test/theme-service.mock';
+import { ThemeService } from '../../../../../../../../../shared/theme-support/theme.service';
 import { AttachmentRenderComponent } from './attachment-render.component';
 
 describe('AttachmentRenderComponent', () => {
@@ -45,6 +47,7 @@ describe('AttachmentRenderComponent', () => {
         { provide: AuthorizationDataService, useClass: AuthorizationDataServiceStub },
         { provide: ConfigurationDataService, useValue: configurationDataService },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        { provide: ThemeService, useValue: getMockThemeService() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })

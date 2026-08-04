@@ -12,7 +12,10 @@ import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
 import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
 import { Item } from '@dspace/core/shared/item.model';
-import MetadataValue, { MetadataMap } from '@dspace/core/shared/metadata.models';
+import {
+  MetadataMap,
+  MetadataValue,
+} from '@dspace/core/shared/metadata.models';
 import { ConfigurationDataServiceStub } from '@dspace/core/testing/configuration-data.service.stub';
 import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import { createPaginatedList } from '@dspace/core/testing/utils.test';

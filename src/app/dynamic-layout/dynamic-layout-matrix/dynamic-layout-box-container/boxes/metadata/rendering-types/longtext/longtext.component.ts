@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { TruncatableComponent } from '../../../../../../../shared/truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../../../../../../../shared/truncatable/truncatable-part/truncatable-part.component';
 import { EscapeHtmlPipe } from '../../../../../../../shared/utils/escape-html.pipe';
-import { RenderingTypeValueModelComponent } from '../rendering-type-value.model';
+import { RenderingTypeValueDirective } from '../rendering-type-value.directive';
 
 /**
  * This component renders the longtext metadata fields
@@ -19,7 +19,7 @@ import { RenderingTypeValueModelComponent } from '../rendering-type-value.model'
     TruncatablePartComponent,
   ],
 })
-export class LongtextComponent extends RenderingTypeValueModelComponent {
+export class LongtextComponent extends RenderingTypeValueDirective {
 
   /**
    * Id for truncable component

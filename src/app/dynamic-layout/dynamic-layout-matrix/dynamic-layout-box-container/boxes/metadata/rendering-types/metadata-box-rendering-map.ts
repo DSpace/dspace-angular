@@ -15,64 +15,31 @@ import { LongtextComponent } from './longtext/longtext.component';
 import { InlineComponent } from './metadataGroup/inline/inline.component';
 import { TableComponent } from './metadataGroup/table/table.component';
 import { OrcidComponent } from './orcid/orcid.component';
-import { MetadataBoxFieldRenderOptions } from './rendering-type.model';
+import { MetadataBoxFieldRenderOptions } from './rendering-type.directive';
 import { TagComponent } from './tag/tag.component';
 import { TextComponent } from './text/text.component';
 import { ThumbnailRenderingComponent } from './thumbnail/thumbnail.component';
 import { ValuepairComponent } from './valuepair/valuepair.component';
 
 export const layoutBoxesMap = new Map<FieldRenderingType, MetadataBoxFieldRenderOptions>([
-  [FieldRenderingType.TEXT, { componentRef: TextComponent, structured: false } as MetadataBoxFieldRenderOptions],
-  [FieldRenderingType.HEADING, { componentRef: HeadingComponent, structured: false } as MetadataBoxFieldRenderOptions],
-  [FieldRenderingType.LONGTEXT, {
-    componentRef: LongtextComponent,
-    structured: false,
-  } as MetadataBoxFieldRenderOptions],
-  [FieldRenderingType.DATE, { componentRef: DateComponent, structured: false } as MetadataBoxFieldRenderOptions],
-  [FieldRenderingType.LINK, { componentRef: LinkComponent, structured: false } as MetadataBoxFieldRenderOptions],
-  [FieldRenderingType.IDENTIFIER, {
-    componentRef: IdentifierComponent,
-    structured: false,
-  } as MetadataBoxFieldRenderOptions],
-  [FieldRenderingType.DYNAMICREF, { componentRef: DynamicrefComponent, structured: false } as MetadataBoxFieldRenderOptions],
-  [FieldRenderingType.THUMBNAIL, {
-    componentRef: ThumbnailRenderingComponent,
-    structured: true,
-  } as MetadataBoxFieldRenderOptions],
-  [FieldRenderingType.ATTACHMENT, {
-    componentRef: AttachmentComponent,
-    structured: true,
-  } as MetadataBoxFieldRenderOptions],
-  [FieldRenderingType.TABLE, { componentRef: TableComponent, structured: true } as MetadataBoxFieldRenderOptions],
-  [FieldRenderingType.INLINE, { componentRef: InlineComponent, structured: true } as MetadataBoxFieldRenderOptions],
-  [FieldRenderingType.ORCID, { componentRef: OrcidComponent, structured: false } as MetadataBoxFieldRenderOptions],
-  [FieldRenderingType.TAG, { componentRef: TagComponent, structured: true } as MetadataBoxFieldRenderOptions],
-  [FieldRenderingType.VALUEPAIR, {
-    componentRef: ValuepairComponent,
-    structured: false,
-  } as MetadataBoxFieldRenderOptions],
-  [FieldRenderingType.ADVANCEDATTACHMENT, {
-    componentRef: AdvancedAttachmentComponent,
-    structured: true,
-  } as MetadataBoxFieldRenderOptions],
-  [FieldRenderingType.AUTHORITYLINK, {
-    componentRef: LinkAuthorityComponent,
-    structured: false,
-  } as MetadataBoxFieldRenderOptions],
-  [FieldRenderingType.HTML, {
-    componentRef: HtmlComponent,
-    structured: false,
-  } as MetadataBoxFieldRenderOptions],
-  [FieldRenderingType.LONGHTML, {
-    componentRef: LonghtmlComponent,
-    structured: false,
-  } as MetadataBoxFieldRenderOptions],
-  [FieldRenderingType.CCLICENSEFULL, {
-    componentRef: CcLicenseLargeComponent,
-    structured: false,
-  } as MetadataBoxFieldRenderOptions],
-  [FieldRenderingType.CCLICENSE, {
-    componentRef: CcLicenseSmallComponent,
-    structured: false,
-  } as MetadataBoxFieldRenderOptions],
+  [FieldRenderingType.TEXT, { componentRef: TextComponent }],
+  [FieldRenderingType.HEADING, { componentRef: HeadingComponent }],
+  [FieldRenderingType.LONGTEXT, { componentRef: LongtextComponent }],
+  [FieldRenderingType.DATE, { componentRef: DateComponent }],
+  [FieldRenderingType.LINK, { componentRef: LinkComponent }],
+  [FieldRenderingType.IDENTIFIER, { componentRef: IdentifierComponent }],
+  [FieldRenderingType.DYNAMICREF, { componentRef: DynamicrefComponent }],
+  [FieldRenderingType.THUMBNAIL, { componentRef: ThumbnailRenderingComponent }],
+  [FieldRenderingType.ATTACHMENT, { componentRef: AttachmentComponent }],
+  [FieldRenderingType.TABLE, { componentRef: TableComponent }],
+  [FieldRenderingType.INLINE, { componentRef: InlineComponent }],
+  [FieldRenderingType.ORCID, { componentRef: OrcidComponent }],
+  [FieldRenderingType.TAG, { componentRef: TagComponent }],
+  [FieldRenderingType.VALUEPAIR, { componentRef: ValuepairComponent }],
+  [FieldRenderingType.ADVANCEDATTACHMENT, { componentRef: AdvancedAttachmentComponent }],
+  [FieldRenderingType.AUTHORITYLINK, { componentRef: LinkAuthorityComponent }],
+  [FieldRenderingType.HTML, { componentRef: HtmlComponent }],
+  [FieldRenderingType.LONGHTML, { componentRef: LonghtmlComponent }],
+  [FieldRenderingType.CCLICENSEFULL, { componentRef: CcLicenseLargeComponent }],
+  [FieldRenderingType.CCLICENSE, { componentRef: CcLicenseSmallComponent }],
 ]);

@@ -1,7 +1,12 @@
-import { Injectable } from '@angular/core';
+import {
+  Inject,
+  Injectable,
+} from '@angular/core';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
 import { hasValue } from '@dspace/shared/utils/empty.util';
-
-import { environment } from '../../../environments/environment';
 
 /**
  * Service that maps URN (Uniform Resource Name) identifiers (e.g., DOI, HANDLE, SCOPUS)
@@ -18,12 +23,12 @@ export class ResolverStrategyService {
    */
   private urn2baseurl: Map<string, string>;
 
-  constructor() {
+  constructor(@Inject(APP_CONFIG) protected appConfig: AppConfig) {
     /**
      * Set the list of managed URN
      */
     this.urn2baseurl = new Map();
-    const urnList = environment.layout.urn;
+    const urnList = this.appConfig.layout.urn;
     if (hasValue(urnList)) {
       for (const urn of urnList) {
         this.urn2baseurl.set(urn.name, urn.baseUrl);

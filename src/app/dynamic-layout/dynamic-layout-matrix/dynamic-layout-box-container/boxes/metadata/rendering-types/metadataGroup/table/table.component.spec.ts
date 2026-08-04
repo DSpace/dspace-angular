@@ -14,7 +14,9 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { DsDatePipe } from '../../../../../../../pipes/ds-date.pipe';
+import { ToDatePipe } from '../../../../../../../../shared/access-control-form-container/access-control-array-form/to-date.pipe';
+import { getMockThemeService } from '../../../../../../../../shared/theme-support/test/theme-service.mock';
+import { ThemeService } from '../../../../../../../../shared/theme-support/theme.service';
 import { MetadataRenderComponent } from '../../../row/metadata-container/metadata-render/metadata-render.component';
 import { FieldRenderingType } from '../../field-rendering-type';
 import { layoutBoxesMap } from '../../metadata-box-rendering-map';
@@ -92,7 +94,7 @@ describe('TableComponent', () => {
           provide: TranslateLoader,
           useClass: TranslateLoaderMock,
         },
-      }), DsDatePipe,
+      }), ToDatePipe,
       MetadataRenderComponent,
       TableComponent,
       TextComponent],
@@ -102,6 +104,7 @@ describe('TableComponent', () => {
         { provide: 'renderingSubTypeProvider', useValue: '' },
         { provide: 'tabNameProvider', useValue: '' },
         { provide: DYNAMIC_FIELD_RENDERING_MAP, useValue: layoutBoxesMap },
+        { provide: ThemeService, useValue: getMockThemeService() },
       ],
     }).overrideComponent(TableComponent, {
       set: { changeDetection: ChangeDetectionStrategy.OnPush },

@@ -1,11 +1,7 @@
 import {
   Component,
-  ComponentRef,
   Inject,
   Input,
-  OnDestroy,
-  OnInit,
-  ViewChild,
 } from '@angular/core';
 import {
   APP_CONFIG,
@@ -16,26 +12,27 @@ import { DynamicLayoutTypeConfig } from '@dspace/config/layout-config.interfaces
 import { DynamicLayoutTab } from '../../core/layout/models/tab.model';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { Item } from '../../core/shared/item.model';
+import { AbstractComponentLoaderComponent } from '../../shared/abstract-component-loader/abstract-component-loader.component';
+import { DynamicComponentLoaderDirective } from '../../shared/abstract-component-loader/dynamic-component-loader.directive';
+import { ThemeService } from '../../shared/theme-support/theme.service';
 import { getDynamicLayoutPage } from '../decorators/dynamic-layout-page.decorator';
-import { DynamicLayoutLoaderDirective } from '../directives/dynamic-layout-loader.directive';
 import { LayoutPage } from '../enums/layout-page.enum';
 
 /**
  * Loader component that dynamically instantiates the correct layout page component
  * (horizontal or vertical) based on the entity type's configuration in the app config.
  *
- * Uses the {@link DynamicLayoutLoaderDirective} as a ViewChild anchor to place the
- * dynamically created component, passing the item, tabs, and context menu settings.
+ * Extends {@link AbstractComponentLoaderComponent} to leverage automatic input/output
+ * wiring and re-instantiation when dependent inputs change.
  */
 @Component({
   selector: 'ds-dynamic-layout-loader',
-  templateUrl: './dynamic-layout-loader.component.html',
-  styleUrls: ['./dynamic-layout-loader.component.scss'],
+  templateUrl: '../../shared/abstract-component-loader/abstract-component-loader.component.html',
   imports: [
-    DynamicLayoutLoaderDirective,
+    DynamicComponentLoaderDirective,
   ],
 })
-export class DynamicLayoutLoaderComponent implements OnInit, OnDestroy {
+export class DynamicLayoutLoaderComponent extends AbstractComponentLoaderComponent<Component> {
 
   /**
    * DSpace Item to render
@@ -53,77 +50,56 @@ export class DynamicLayoutLoaderComponent implements OnInit, OnDestroy {
   @Input() showContextMenu: boolean;
 
   /**
-   * Layout type configuration (orientation) resolved from the app config for the item's entity type.
+   * Leading tabs passed through to the dynamic child component
    */
-  layoutConfiguration: DynamicLayoutTypeConfig;
-
-
   @Input() leadingTabs: DynamicLayoutTab[];
 
   /**
-   * Directive hook used to place the dynamic child component
+   * Input names that should be passed down to the dynamically created component.
    */
-  @ViewChild(DynamicLayoutLoaderDirective, { static: true }) dynamicLayoutLoader: DynamicLayoutLoaderDirective;
+  protected inputNames: (keyof this & string)[] = [
+    'item', 'tabs', 'showContextMenu', 'leadingTabs',
+  ];
 
   /**
-   * componentRef reference of the component that will be created
+   * When `item` changes, the component must be re-evaluated because
+   * the layout orientation depends on the item's entity type.
    */
-  componentRef: ComponentRef<Component>;
+  protected inputNamesDependentForComponent: (keyof this & string)[] = [
+    'item',
+  ];
 
   constructor(
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
+    protected themeService: ThemeService,
   ) {
-  }
-
-  ngOnInit(): void {
-    this.getConfiguration();
-    this.initComponent();
+    super(themeService);
   }
 
   /**
-   * Get tabs for the specific item and the configuration for the item
+   * Resolve the layout configuration for the current item's entity type.
+   * Falls back to the 'default' configuration if no entity-specific config is found.
+   *
+   * @returns The layout type configuration for the item
    */
-  getConfiguration(): void {
-    const itemType = this.item ?.firstMetadataValue('dspace.entity.type');
+  getConfiguration(): DynamicLayoutTypeConfig {
+    const itemType = this.item?.firstMetadataValue('dspace.entity.type');
     const def = 'default';
 
-    if (!!this.appConfig.layout.itemPage && !!this.appConfig.layout.itemPage[itemType]) {
-      this.layoutConfiguration = this.appConfig.layout.itemPage[itemType];
-    } else {
-      this.layoutConfiguration = this.appConfig.layout.itemPage[def];
+    if (this.appConfig.layout?.itemPage?.[itemType]) {
+      return this.appConfig.layout.itemPage[itemType];
     }
+    return this.appConfig.layout.itemPage[def];
   }
 
   /**
-   * Initialize the component depending on the layout configuration
+   * Fetch the component depending on the item's entity type layout configuration.
+   * Called by the abstract base class when instantiating or re-instantiating the component.
+   *
+   * @returns The constructor of the layout page component (horizontal or vertical)
    */
-  initComponent(): void {
-    const component: GenericConstructor<Component> = this.getComponent();
-    const viewContainerRef = this.dynamicLayoutLoader.viewContainerRef;
-    viewContainerRef.clear();
-
-    this.componentRef = viewContainerRef.createComponent(component);
-    (this.componentRef.instance as any).item = this.item;
-    (this.componentRef.instance as any).tabs = this.tabs;
-    (this.componentRef.instance as any).showContextMenu = this.showContextMenu;
-    (this.componentRef.instance as any).leadingTabs = this.leadingTabs;
-    this.componentRef.changeDetectorRef.detectChanges();
-  }
-
-  /**
-   * Fetch the component depending on the item
-   * @returns {GenericConstructor<Component>}
-   */
-  private getComponent(): GenericConstructor<Component> {
-    return getDynamicLayoutPage(this.layoutConfiguration.orientation as LayoutPage);
-  }
-
-  /**
-   * Destroy componentRef when this component is destroyed
-   */
-  ngOnDestroy(): void {
-    if (this.componentRef) {
-      this.componentRef.destroy();
-    }
+  public getComponent(): GenericConstructor<Component> {
+    const configuration = this.getConfiguration();
+    return getDynamicLayoutPage(configuration.orientation as LayoutPage);
   }
 }

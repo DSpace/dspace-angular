@@ -1,20 +1,18 @@
 import {
-  Component,
+  Directive,
   EventEmitter,
   Input,
   Output,
 } from '@angular/core';
 
 import { DynamicLayoutTab } from '../../core/layout/models/tab.model';
-import { DynamicLayoutPageModelComponent } from './dynamic-layout-page-component.model';
+import { DynamicLayoutPageDirective } from './dynamic-layout-page.directive';
 
 /**
  * This class is a model to be extended for creating custom layouts for tabs
  */
-@Component({
-  template: '',
-})
-export abstract class DynamicLayoutTabModelComponent extends DynamicLayoutPageModelComponent {
+@Directive()
+export abstract class DynamicLayoutTabModelDirective extends DynamicLayoutPageDirective {
   /**
    * DynamicLayoutTab
    */

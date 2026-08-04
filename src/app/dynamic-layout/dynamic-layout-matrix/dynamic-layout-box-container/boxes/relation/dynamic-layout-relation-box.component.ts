@@ -25,7 +25,7 @@ import {
 } from 'rxjs/operators';
 
 import { ThemedConfigurationSearchPageComponent } from '../../../../../search-page/themed-configuration-search-page.component';
-import { DynamicLayoutBoxModelComponent } from '../../../../models/dynamic-layout-box-component.model';
+import { DynamicLayoutBoxDirective } from '../../../../models/dynamic-layout-box-component.directive';
 
 @Component({
   selector: 'ds-dynamic-layout-search-box',
@@ -36,7 +36,7 @@ import { DynamicLayoutBoxModelComponent } from '../../../../models/dynamic-layou
     ThemedConfigurationSearchPageComponent,
   ],
 })
-export class DynamicLayoutRelationBoxComponent extends DynamicLayoutBoxModelComponent implements OnInit {
+export class DynamicLayoutRelationBoxComponent extends DynamicLayoutBoxDirective implements OnInit {
 
   /**
    * Filter used for set scope in discovery invocation

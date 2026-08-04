@@ -345,36 +345,36 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
   /**
    * The Dynamic Select Model for the media type
    */
-  mediaTypeModel = new DynamicSelectModel({
-    id: 'mediaType',
-    name: 'mediaType',
+  fileTypeModel = new DynamicSelectModel({
+    id: 'fileType',
+    name: 'fileType',
     options: [
       {
-        label: this.translate.instant('bitstream.edit.form.mediaType.option.neither'),
+        label: this.translate.instant('bitstream.edit.form.fileType.option.neither'),
         value: 'neither',
       },
       {
-        label: this.translate.instant('bitstream.edit.form.mediaType.option.audio'),
+        label: this.translate.instant('bitstream.edit.form.fileType.option.audio'),
         value: 'audio',
       },
       {
-        label: this.translate.instant('bitstream.edit.form.mediaType.option.video'),
+        label: this.translate.instant('bitstream.edit.form.fileType.option.video'),
         value: 'video',
       },
       {
-        label: this.translate.instant('bitstream.edit.form.mediaType.option.audio-video'),
+        label: this.translate.instant('bitstream.edit.form.fileType.option.audio-video'),
         value: 'audio+video',
       },
       {
-        label: this.translate.instant('bitstream.edit.form.mediaType.option.logo'),
+        label: this.translate.instant('bitstream.edit.form.fileType.option.logo'),
         value: 'logo',
       },
       {
-        label: this.translate.instant('bitstream.edit.form.mediaType.option.main-article'),
+        label: this.translate.instant('bitstream.edit.form.fileType.option.main-article'),
         value: 'main article',
       },
       {
-        label: this.translate.instant('bitstream.edit.form.mediaType.option.personal-picture'),
+        label: this.translate.instant('bitstream.edit.form.fileType.option.personal-picture'),
         value: 'personal picture',
       },
     ],
@@ -395,11 +395,11 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
         operator: OR_OPERATOR,
         when: [
           {
-            id: 'mediaType',
+            id: 'fileType',
             value: 'audio',
           },
           {
-            id: 'mediaType',
+            id: 'fileType',
             value: 'audio+video',
           },
         ],
@@ -421,11 +421,11 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
         operator: OR_OPERATOR,
         when: [
           {
-            id: 'mediaType',
+            id: 'fileType',
             value: 'video',
           },
           {
-            id: 'mediaType',
+            id: 'fileType',
             value: 'audio+video',
           },
         ],
@@ -437,7 +437,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
   /**
    * All input models in a simple array for easier iterations
    */
-  inputModels = [this.primaryBitstreamModel, this.fileNameModel, this.descriptionModel, this.mediaTypeModel,
+  inputModels = [this.primaryBitstreamModel, this.fileNameModel, this.descriptionModel, this.fileTypeModel,
     this.audioTranscriptModel, this.videoDescriptionModel, this.selectedFormatModel, this.newFormatModel];
 
   /**
@@ -465,7 +465,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     new DynamicFormGroupModel({
       id: 'mediaInfoContainer',
       group: [
-        this.mediaTypeModel,
+        this.fileTypeModel,
         this.audioTranscriptModel,
         this.videoDescriptionModel,
       ],
@@ -525,7 +525,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
         host: this.newFormatBaseLayout + ' invisible',
       },
     },
-    mediaType: {
+    fileType: {
       grid: {
         host: 'col-12 d-inline-block',
       },
@@ -751,7 +751,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
         description: bitstream.firstMetadataValue('dc.description'),
       },
       mediaInfoContainer: {
-        mediaType: bitstream.firstMetadataValue('dc.type') ?? 'neither',
+        fileType: bitstream.firstMetadataValue('dc.type') ?? 'neither',
         audioTranscript: bitstream.firstMetadataValue('dspace.bitstream.transcript'),
         videoDescription: bitstream.firstMetadataValue('dspace.bitstream.textalternative'),
       },
@@ -933,11 +933,11 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     } else {
       Metadata.setFirstValue(newMetadata, 'dc.description', rawForm.descriptionContainer.description);
     }
-    const mediaType = rawForm.mediaInfoContainer?.mediaType;
-    if (isEmpty(mediaType) || mediaType === 'neither') {
+    const fileType = rawForm.mediaInfoContainer?.fileType;
+    if (isEmpty(fileType) || fileType === 'neither') {
       delete newMetadata['dc.type'];
     } else {
-      Metadata.setFirstValue(newMetadata, 'dc.type', mediaType);
+      Metadata.setFirstValue(newMetadata, 'dc.type', fileType);
     }
     if (isEmpty(rawForm.mediaInfoContainer?.audioTranscript)) {
       delete newMetadata['dspace.bitstream.transcript'];

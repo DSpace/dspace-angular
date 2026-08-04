@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 import { ComcolPageHeaderComponent } from '../../../../../../../shared/comcol/comcol-page-header/comcol-page-header.component';
-import { RenderingTypeValueModelComponent } from '../rendering-type-value.model';
+import { RenderingTypeValueDirective } from '../rendering-type-value.directive';
 
 /**
  * This component renders the heading metadata fields
@@ -14,6 +14,6 @@ import { RenderingTypeValueModelComponent } from '../rendering-type-value.model'
     ComcolPageHeaderComponent,
   ],
 })
-export class HeadingComponent extends RenderingTypeValueModelComponent {
+export class HeadingComponent extends RenderingTypeValueDirective {
 
 }

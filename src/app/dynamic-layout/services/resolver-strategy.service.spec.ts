@@ -1,5 +1,7 @@
 import { TestBed } from '@angular/core/testing';
+import { AppConfig } from '@dspace/config/app-config.interface';
 
+import { environment } from '../../../environments/environment';
 import { ResolverStrategyService } from './resolver-strategy.service';
 
 describe('ResolverStrategyService', () => {
@@ -13,7 +15,7 @@ describe('ResolverStrategyService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = new ResolverStrategyService();
+    service = new ResolverStrategyService(environment as AppConfig);
   });
 
   it('should be created', () => {

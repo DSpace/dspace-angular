@@ -14,7 +14,6 @@ import { RemoteData } from '../core/data/remote-data';
 import { Item } from '../core/shared/item.model';
 import { DynamicLayoutComponent } from '../dynamic-layout/dynamic-layout.component';
 import { ThemedItemAlertsComponent } from '../item-page/alerts/themed-item-alerts.component';
-import { fadeInOut } from '../shared/animations/fade';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 
 /**
@@ -28,7 +27,6 @@ import { ThemedLoadingComponent } from '../shared/loading/themed-loading.compone
   selector: 'ds-dynamic-item-page',
   templateUrl: './dynamic-item-page.component.html',
   styleUrls: ['./dynamic-item-page.component.scss'],
-  animations: [fadeInOut],
   imports: [
     AsyncPipe,
     DynamicLayoutComponent,

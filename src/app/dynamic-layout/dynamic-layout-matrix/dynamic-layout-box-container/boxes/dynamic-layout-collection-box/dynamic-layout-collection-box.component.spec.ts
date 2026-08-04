@@ -4,6 +4,7 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import { CollectionDataService } from '@dspace/core/data/collection-data.service';
 import {
   buildPaginatedList,
@@ -17,6 +18,9 @@ import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
+import { environment } from '../../../../../../environments/environment';
+import { getMockThemeService } from '../../../../../shared/theme-support/test/theme-service.mock';
+import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 import { DynamicLayoutCollectionBoxComponent } from './dynamic-layout-collection-box.component';
 
 describe('DynamicLayoutCollectionBoxComponent', () => {
@@ -75,6 +79,8 @@ describe('DynamicLayoutCollectionBoxComponent', () => {
         { provide: 'itemProvider', useValue: testItem },
         { provide: CollectionDataService, useValue: collectionDataService },
         { provide: ActivatedRoute, useValue: {} },
+        { provide: APP_CONFIG, useValue: environment },
+        { provide: ThemeService, useValue: getMockThemeService() },
       ],
     }).compileComponents();
   });

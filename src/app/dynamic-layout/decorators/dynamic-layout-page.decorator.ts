@@ -16,9 +16,6 @@ const layoutPageMap = new Map<LayoutPage, GenericConstructor<DynamicLayoutHorizo
   [ LayoutPage.VERTICAL, DynamicLayoutVerticalComponent ],
 ]);
 
-layoutPageMap.set(LayoutPage.HORIZONTAL, DynamicLayoutHorizontalComponent);
-layoutPageMap.set(LayoutPage.VERTICAL, DynamicLayoutVerticalComponent);
-
 /**
  * Resolves the page layout component for the given orientation.
  * Falls back to {@link DEFAULT_LAYOUT_PAGE} if orientation is null or not registered.

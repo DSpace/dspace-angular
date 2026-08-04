@@ -19,7 +19,10 @@ import { Bitstream } from '@dspace/core/shared/bitstream.model';
 import { Collection } from '@dspace/core/shared/collection.model';
 import { Community } from '@dspace/core/shared/community.model';
 import { followLink } from '@dspace/core/shared/follow-link-config.model';
-import MetadataValue, { MetadataMap } from '@dspace/core/shared/metadata.models';
+import {
+  MetadataMap,
+  MetadataValue,
+} from '@dspace/core/shared/metadata.models';
 import { NoContent } from '@dspace/core/shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
 import { ResourceType } from '@dspace/core/shared/resource-type';

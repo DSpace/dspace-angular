@@ -21,7 +21,7 @@ import {
 } from '@dspace/core/layout/models/box.model';
 import { Bitstream } from '@dspace/core/shared/bitstream.model';
 import { Item } from '@dspace/core/shared/item.model';
-import MetadataValue from '@dspace/core/shared/metadata.models';
+import { MetadataValue } from '@dspace/core/shared/metadata.models';
 import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
 import {
   hasValue,
@@ -40,7 +40,7 @@ import {
   computeRenderingFn,
   getMetadataBoxFieldRenderOptionsFn,
 } from '../../rendering-types/metadata-box.decorator';
-import { MetadataBoxFieldRenderOptions } from '../../rendering-types/rendering-type.model';
+import { MetadataBoxFieldRenderOptions } from '../../rendering-types/rendering-type.directive';
 import { MetadataRenderComponent } from './metadata-render/metadata-render.component';
 
 @Component({
@@ -163,7 +163,7 @@ export class MetadataContainerComponent implements OnInit {
 
   initRenderOptions(renderingType: string | FieldRenderingType): void {
     this.metadataFieldRenderOptions = getMetadataBoxFieldRenderOptionsFn(this.layoutBoxesMap, renderingType);
-    this.isStructured = this.metadataFieldRenderOptions.structured;
+    this.isStructured = (this.metadataFieldRenderOptions.componentRef as any).structured ?? false;
     this.cd.detectChanges();
   }
 

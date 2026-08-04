@@ -4,7 +4,10 @@ import { MetadataPatchAddOperation } from '@dspace/core/data/object-updates/patc
 import { MetadataPatchMoveOperation } from '@dspace/core/data/object-updates/patch-operation-service/operations/metadata/metadata-patch-move-operation.model';
 import { MetadataPatchRemoveOperation } from '@dspace/core/data/object-updates/patch-operation-service/operations/metadata/metadata-patch-remove-operation.model';
 import { MetadataPatchReplaceOperation } from '@dspace/core/data/object-updates/patch-operation-service/operations/metadata/metadata-patch-replace-operation.model';
-import MetadataValue, { MetadataMap } from '@dspace/core/shared/metadata.models';
+import {
+  MetadataMap,
+  MetadataValue,
+} from '@dspace/core/shared/metadata.models';
 import {
   hasNoValue,
   hasValue,

@@ -5,12 +5,12 @@ import {
 } from '@angular/core';
 import { LayoutField } from '@dspace/core/layout/models/box.model';
 import { Item } from '@dspace/core/shared/item.model';
+import { MetadataValue } from '@dspace/core/shared/metadata.models';
 import { hasValue } from '@dspace/shared/utils/empty.util';
 import { TranslateService } from '@ngx-translate/core';
 
-import MetadataValue from '../../../../../../../core/shared/metadata.models';
 import { MetadataLinkValue } from '../../../../../../models/dynamic-layout-metadata-link-value.model';
-import { RenderingTypeValueModelComponent } from '../rendering-type-value.model';
+import { RenderingTypeValueDirective } from '../rendering-type-value.directive';
 
 /**
  * Defines the list of subtypes for this rendering
@@ -30,7 +30,7 @@ enum TYPES {
   templateUrl: './link.component.html',
   styleUrls: ['./link.component.scss'],
 })
-export class LinkComponent extends RenderingTypeValueModelComponent implements OnInit {
+export class LinkComponent extends RenderingTypeValueDirective implements OnInit {
 
   /**
    * The link to render

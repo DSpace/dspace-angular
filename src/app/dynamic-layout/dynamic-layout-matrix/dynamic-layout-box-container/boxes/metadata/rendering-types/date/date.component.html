@@ -1,5 +1,5 @@
 <div [class]="field.styleValue" [attr.lang]="metadataValue.language">
     <span class="text-value">
-      {{ metadataValue.value | dsDate }}
+      {{ metadataValue.value | toDate:'locale' }}
     </span>
 </div>

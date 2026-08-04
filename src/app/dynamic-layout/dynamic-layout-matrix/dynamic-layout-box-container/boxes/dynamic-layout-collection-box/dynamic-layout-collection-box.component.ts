@@ -8,6 +8,10 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
 import { CollectionDataService } from '@dspace/core/data/collection-data.service';
 import { FindListOptions } from '@dspace/core/data/find-list-options.model';
 import { PaginatedList } from '@dspace/core/data/paginated-list.model';
@@ -37,7 +41,7 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../../../../environments/environment';
-import { DynamicLayoutBoxModelComponent } from '../../../../models/dynamic-layout-box-component.model';
+import { DynamicLayoutBoxDirective } from '../../../../models/dynamic-layout-box-component.directive';
 
 @Component({
   selector: 'ds-dynamic-layout-collection-box',
@@ -50,9 +54,9 @@ import { DynamicLayoutBoxModelComponent } from '../../../../models/dynamic-layou
     TranslateModule,
   ],
 })
-export class DynamicLayoutCollectionBoxComponent extends DynamicLayoutBoxModelComponent implements OnInit {
+export class DynamicLayoutCollectionBoxComponent extends DynamicLayoutBoxDirective implements OnInit {
 
-  isInline = environment.layout.collectionsBox.isInline;
+  isInline = this.appConfig.layout.collectionsBox.isInline;
 
   /**
    * Amount of mapped collections that should be fetched at once.
@@ -89,6 +93,7 @@ export class DynamicLayoutCollectionBoxComponent extends DynamicLayoutBoxModelCo
     @Inject('boxProvider') public boxProvider: DynamicLayoutBox,
     @Inject('itemProvider') public itemProvider: Item,
     private cds: CollectionDataService,
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
   ) {
     super(translateService, boxProvider, itemProvider);
   }

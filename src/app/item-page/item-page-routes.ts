@@ -115,6 +115,9 @@ export const ROUTES: Route[] = [
         resolve: {
           tabs: dynamicItemPageTabResolver,
         },
+        data: {
+          menuRoute: MenuRoute.ITEM_PAGE,
+        },
       },
     ],
   },

@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutField } from '@dspace/core/layout/models/box.model';
 import { LocaleService } from '@dspace/core/locale/locale.service';
 import { Item } from '@dspace/core/shared/item.model';
+import { MetadataValue } from '@dspace/core/shared/metadata.models';
 import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import {
   TranslateLoader,
@@ -15,8 +16,7 @@ import {
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import MetadataValue from '../../../../../../../core/shared/metadata.models';
-import { DsDatePipe } from '../../../../../../pipes/ds-date.pipe';
+import { ToDatePipe } from '../../../../../../../shared/access-control-form-container/access-control-array-form/to-date.pipe';
 import { FieldRenderingType } from '../field-rendering-type';
 import { DateComponent } from './date.component';
 
@@ -66,7 +66,7 @@ describe('DateComponent', () => {
           provide: TranslateLoader,
           useClass: TranslateLoaderMock,
         },
-      }), BrowserAnimationsModule, DateComponent, DsDatePipe],
+      }), BrowserAnimationsModule, DateComponent, ToDatePipe],
       providers: [
         { provide: 'fieldProvider', useValue: mockField },
         { provide: 'itemProvider', useValue: testItem },

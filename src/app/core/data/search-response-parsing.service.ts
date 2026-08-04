@@ -4,7 +4,10 @@ import { hasValue } from '@dspace/shared/utils/empty.util';
 import { ParsedResponse } from '../cache/response.models';
 import { DSpaceSerializer } from '../dspace-rest/dspace.serializer';
 import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
-import MetadataValue, { MetadataMap } from '../shared/metadata.models';
+import {
+  MetadataMap,
+  MetadataValue,
+} from '../shared/metadata.models';
 import { SearchObjects } from '../shared/search/models/search-objects.model';
 import { DspaceRestResponseParsingService } from './dspace-rest-response-parsing.service';
 import { RestRequest } from './rest-request.model';

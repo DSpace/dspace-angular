@@ -14,7 +14,7 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { DynamicLayoutLoaderDirective } from '../../../../directives/dynamic-layout-loader.directive';
+import { DynamicComponentLoaderDirective } from '../../../../../shared/abstract-component-loader/dynamic-component-loader.directive';
 import { DynamicLayoutMetadataBoxComponent } from './dynamic-layout-metadata-box.component';
 import { TextComponent } from './rendering-types/text/text.component';
 import { RowComponent } from './row/row.component';
@@ -47,8 +47,9 @@ describe('DynamicLayoutMetadataBoxComponent', () => {
           useClass: TranslateLoaderMock,
         },
       }),
-      BrowserAnimationsModule, DynamicLayoutMetadataBoxComponent,
-      DynamicLayoutLoaderDirective,
+      BrowserAnimationsModule,
+      DynamicLayoutMetadataBoxComponent,
+      DynamicComponentLoaderDirective,
       RowComponent,
       TextComponent],
       providers: [

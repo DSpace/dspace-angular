@@ -10,6 +10,7 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
 import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
 import { RemoteData } from '@dspace/core/data/remote-data';
@@ -29,6 +30,7 @@ import {
   of,
 } from 'rxjs';
 
+import { environment } from '../../../../../../../../environments/environment';
 import { ThemedFileDownloadLinkComponent } from '../../../../../../../shared/file-download-link/themed-file-download-link.component';
 import { TruncatableComponent } from '../../../../../../../shared/truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../../../../../../../shared/truncatable/truncatable-part/truncatable-part.component';
@@ -172,6 +174,7 @@ describe('AdvancedAttachmentComponent', () => {
         { provide: 'tabNameProvider', useValue: '' },
         { provide: BitstreamDataService, useValue: mockBitstreamDataService },
         { provide: AuthorizationDataService, useValue: mockAuthorizedService },
+        { provide: APP_CONFIG, useValue: environment },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     };

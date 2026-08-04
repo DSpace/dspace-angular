@@ -1,5 +1,5 @@
 import {
-  Component,
+  Directive,
   Input,
 } from '@angular/core';
 
@@ -8,10 +8,8 @@ import { Item } from '../../core/shared/item.model';
 /**
  * This class is a model to be extended for creating custom layouts for pages
  */
-@Component({
-  template: '',
-})
-export abstract class DynamicLayoutPageModelComponent {
+@Directive()
+export abstract class DynamicLayoutPageDirective {
   /**
    * DSpace Item to render
    */

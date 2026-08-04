@@ -3,7 +3,6 @@ import {
   ChangeDetectorRef,
   Component,
   Inject,
-  OnDestroy,
   OnInit,
 } from '@angular/core';
 import {
@@ -11,11 +10,9 @@ import {
   MetadataBoxConfiguration,
 } from '@dspace/core/layout/models/box.model';
 import { Item } from '@dspace/core/shared/item.model';
-import { hasValue } from '@dspace/shared/utils/empty.util';
 import { TranslateService } from '@ngx-translate/core';
-import { Subscription } from 'rxjs';
 
-import { DynamicLayoutBoxModelComponent } from '../../../../models/dynamic-layout-box-component.model';
+import { DynamicLayoutBoxDirective } from '../../../../models/dynamic-layout-box-component.directive';
 import { RowComponent } from './row/row.component';
 
 /**
@@ -33,17 +30,13 @@ import { RowComponent } from './row/row.component';
  * For overwrite this component create a new one that extends DynamicLayoutBoxObj and
  * add the DynamicLayoutBoxModelComponent decorator indicating the type of box to overwrite
  */
-export class DynamicLayoutMetadataBoxComponent extends DynamicLayoutBoxModelComponent implements OnInit, OnDestroy {
+export class DynamicLayoutMetadataBoxComponent extends DynamicLayoutBoxDirective implements OnInit {
 
   /**
    * Contains the fields configuration for current box
    */
   metadataBoxConfiguration: MetadataBoxConfiguration;
 
-  /**
-   * List of subscriptions
-   */
-  subs: Subscription[] = [];
 
   constructor(
     public cdr: ChangeDetectorRef,
@@ -68,10 +61,4 @@ export class DynamicLayoutMetadataBoxComponent extends DynamicLayoutBoxModelComp
     this.cdr.detectChanges();
   }
 
-  /**
-   * Unsubscribes all subscriptions
-   */
-  ngOnDestroy(): void {
-    this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
-  }
 }

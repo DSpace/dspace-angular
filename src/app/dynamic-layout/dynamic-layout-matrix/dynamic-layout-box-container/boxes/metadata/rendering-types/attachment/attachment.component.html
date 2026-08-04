@@ -20,7 +20,7 @@
   @if (canViewMore) {
     <div class="my-2">
       <i class="fas fa-chevron-down"></i>&nbsp;
-      <a href="javascript:void(0);" data-test="view-more" (click)="viewMore()">{{'dynamic-layout.attachment.viewMore' | translate}}</a>
+      <button class="btn btn-link" data-test="view-more" (click)="viewMore()">{{'dynamic-layout.attachment.viewMore' | translate}}</button>
     </div>
   }
 </div>

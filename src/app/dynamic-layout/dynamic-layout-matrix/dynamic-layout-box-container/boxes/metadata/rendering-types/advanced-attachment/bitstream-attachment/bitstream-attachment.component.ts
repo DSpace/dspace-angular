@@ -12,6 +12,20 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { AdvancedAttachmentElementType } from '@dspace/config/advanced-attachment-rendering.config';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
+import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
+import { RemoteData } from '@dspace/core/data/remote-data';
+import { LayoutField } from '@dspace/core/layout/models/box.model';
+import {
+  Bitstream,
+  ChecksumInfo,
+} from '@dspace/core/shared/bitstream.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
 import {
   TranslateModule,
   TranslateService,
@@ -21,22 +35,11 @@ import {
   Observable,
 } from 'rxjs';
 
-import { AdvancedAttachmentElementType } from '../../../../../../../../../config/advanced-attachment-rendering.config';
-import { environment } from '../../../../../../../../../environments/environment';
-import { BitstreamDataService } from '../../../../../../../../core/data/bitstream-data.service';
-import { RemoteData } from '../../../../../../../../core/data/remote-data';
-import { LayoutField } from '../../../../../../../../core/layout/models/box.model';
-import {
-  Bitstream,
-  ChecksumInfo,
-} from '../../../../../../../../core/shared/bitstream.model';
-import { Item } from '../../../../../../../../core/shared/item.model';
-import { getFirstCompletedRemoteData } from '../../../../../../../../core/shared/operators';
 import { TruncatableComponent } from '../../../../../../../../shared/truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../../../../../../../../shared/truncatable/truncatable-part/truncatable-part.component';
 import { FileSizePipe } from '../../../../../../../../shared/utils/file-size-pipe';
 import { ThemedThumbnailComponent } from '../../../../../../../../thumbnail/themed-thumbnail.component';
-import { BitstreamRenderingModelComponent } from '../../bitstream-rendering-model';
+import { BitstreamRenderingDirective } from '../../bitstream-rendering.directive';
 import { AttachmentRenderComponent } from './attachment-render/attachment-render.component';
 import { AttachmentRenderingType } from './attachment-type.decorator';
 
@@ -55,12 +58,12 @@ import { AttachmentRenderingType } from './attachment-type.decorator';
     TruncatablePartComponent,
   ],
 })
-export class BitstreamAttachmentComponent extends BitstreamRenderingModelComponent implements OnInit {
+export class BitstreamAttachmentComponent extends BitstreamRenderingDirective implements OnInit {
 
   /**
    * Environment variables configuring the fields to be viewed
    */
-  envMetadata = environment.layout.advancedAttachmentRendering.metadata;
+  envMetadata = this.appConfig.layout.advancedAttachmentRendering.metadata;
 
   /**
    * Configuration type enum
@@ -112,6 +115,7 @@ export class BitstreamAttachmentComponent extends BitstreamRenderingModelCompone
     protected readonly translateService: TranslateService,
     protected readonly router: Router,
     protected readonly route: ActivatedRoute,
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
   ) {
     super(fieldProvider, itemProvider, renderingSubTypeProvider, tabNameProvider, bitstreamDataService, translateService);
   }

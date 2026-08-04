@@ -5,8 +5,7 @@
       <div class="row" data-test="owningCollection">
         <div class="{{labelStyle}}">{{ 'dynamic-layout.rendering.collections.owning-collection.label' | translate }}</div>
         <div class="{{valueStyle}}">
-          <a href="javascript:void(0);"
-          [routerLink]="['/collections', (owningCollection$ | async).id]">{{ (owningCollection$ | async).firstMetadataValue('dc.title') }}</a>
+          <a [routerLink]="['/collections', (owningCollection$ | async).id]">{{ (owningCollection$ | async).firstMetadataValue('dc.title') }}</a>
         </div>
       </div>
     }
@@ -16,8 +15,7 @@
         <div [class]="valueStyle" [ngClass]="{'d-inline-flex' : isInline}">
           @for (mappedCollection of (mappedCollections$ | async); track mappedCollection; let last = $last) {
             <div>
-              <a href="javascript:void(0);"
-              [routerLink]="['/collections', mappedCollection.id]">{{ mappedCollection.firstMetadataValue('dc.title') }}</a>
+              <a [routerLink]="['/collections', mappedCollection.id]">{{ mappedCollection.firstMetadataValue('dc.title') }}</a>
               @if (isInline && !last) {
                 <span class="mx-1">&bull;</span>
               }
@@ -29,13 +27,13 @@
             </div>
           }
           @if ((isLoading$ | async) !== true && (hasMore$ | async) === true) {
-            <a
-              (click)="$event.preventDefault(); handleLoadMore()"
-              class="d-block" [class.ms-3]="isInline"
-              role="button" href="javascript:void(0);">
+            <button
+              (click)="handleLoadMore()"
+              class="btn btn-link" [class.ms-3]="isInline"
+            >
               <i class="me-2"
               [ngClass]="isInline ? 'fa fa-chevron-right' : 'fa fa-chevron-down'"></i>{{'dynamic-layout.rendering.collections.load-more' | translate}}
-            </a>
+            </button>
           }
         </div>
       </div>

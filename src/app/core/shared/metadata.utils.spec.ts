@@ -1,8 +1,9 @@
 import { isUndefined } from '@dspace/shared/utils/empty.util';
 import { v4 as uuidv4 } from 'uuid';
 
-import MetadataValue, {
+import {
   MetadataMap,
+  MetadataValue,
   MetadataValueFilter,
   MetadatumViewModel,
 } from './metadata.models';

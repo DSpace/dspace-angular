@@ -1,7 +1,9 @@
 import {
-  Component,
+  Directive,
   Inject,
 } from '@angular/core';
+import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
+import { FindListOptions } from '@dspace/core/data/find-list-options.model';
 import {
   buildPaginatedList,
   PaginatedList,
@@ -16,19 +18,15 @@ import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { BitstreamDataService } from '../../../../../../../core/data/bitstream-data.service';
-import { FindListOptions } from '../../../../../../../core/data/find-list-options.model';
-import { BitstreamRenderingModelComponent } from '../bitstream-rendering-model';
+import { BitstreamRenderingDirective } from '../bitstream-rendering.directive';
 
 /**
  * This class defines the basic model to extends for create a new
  * bitstream-attachment field render component.
  * This will render all bitstreams that aren't marked hidden.
  */
-@Component({
-  template: '',
-})
-export abstract class BitstreamAttachmentRenderingModelComponent extends BitstreamRenderingModelComponent {
+@Directive()
+export abstract class BitstreamAttachmentRenderingDirective extends BitstreamRenderingDirective {
   constructor(
     @Inject('fieldProvider') fieldProvider: LayoutField,
     @Inject('itemProvider') itemProvider: Item,

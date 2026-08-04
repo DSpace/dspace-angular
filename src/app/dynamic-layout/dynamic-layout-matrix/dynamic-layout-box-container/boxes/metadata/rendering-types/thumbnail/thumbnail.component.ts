@@ -1,9 +1,11 @@
 import { AsyncPipe } from '@angular/common';
 import {
   Component,
+  DestroyRef,
   Inject,
   OnInit,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
 import { PaginatedList } from '@dspace/core/data/paginated-list.model';
 import { LayoutField } from '@dspace/core/layout/models/box.model';
@@ -17,7 +19,7 @@ import {
 import { TranslateService } from '@ngx-translate/core';
 import {
   BehaviorSubject,
-  combineLatest,
+  forkJoin,
   Observable,
   of,
 } from 'rxjs';
@@ -28,7 +30,7 @@ import {
 
 import { getDefaultImageUrlByEntityType } from '../../../../../../../shared/image.utils';
 import { ThemedThumbnailComponent } from '../../../../../../../thumbnail/themed-thumbnail.component';
-import { BitstreamRenderingModelComponent } from '../bitstream-rendering-model';
+import { BitstreamRenderingDirective } from '../bitstream-rendering.directive';
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector, dspace-angular-ts/themed-component-selectors
@@ -43,7 +45,7 @@ import { BitstreamRenderingModelComponent } from '../bitstream-rendering-model';
 /**
  * The component for displaying a thumbnail rendered metadata box
  */
-export class ThumbnailRenderingComponent extends BitstreamRenderingModelComponent implements OnInit {
+export class ThumbnailRenderingComponent extends BitstreamRenderingDirective implements OnInit {
 
   /**
    * The bitstream to be rendered
@@ -72,6 +74,7 @@ export class ThumbnailRenderingComponent extends BitstreamRenderingModelComponen
     @Inject('tabNameProvider') public tabNameProvider: string,
     protected bitstreamDataService: BitstreamDataService,
     protected translateService: TranslateService,
+    protected destroyRef: DestroyRef,
   ) {
     super(fieldProvider, itemProvider, renderingSubTypeProvider, tabNameProvider, bitstreamDataService, translateService);
   }
@@ -83,7 +86,7 @@ export class ThumbnailRenderingComponent extends BitstreamRenderingModelComponen
     const eType = this.item.firstMetadataValue('dspace.entity.type');
     this.default$ = getDefaultImageUrlByEntityType(eType);
 
-    combineLatest([
+    forkJoin([
       this.default$,
       this.getBitstreamsByItem(),
     ]).pipe(
@@ -108,6 +111,7 @@ export class ThumbnailRenderingComponent extends BitstreamRenderingModelComponen
           return of(null);
         }
       }),
+      takeUntilDestroyed(this.destroyRef),
     ).subscribe((thumbnail: Bitstream) => {
       if (isNotEmpty(thumbnail)) {
         this.thumbnail$.next(thumbnail);

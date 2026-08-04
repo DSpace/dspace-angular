@@ -4,6 +4,16 @@ import {
   Inject,
   OnInit,
 } from '@angular/core';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { LayoutField } from '@dspace/core/layout/models/box.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { MetadataValue } from '@dspace/core/shared/metadata.models';
+import {
+  getFirstCompletedRemoteData,
+  getPaginatedListPayload,
+  getRemoteDataPayload,
+} from '@dspace/core/shared/operators';
+import { VocabularyService } from '@dspace/core/submission/vocabularies/vocabulary.service';
 import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 import {
@@ -11,17 +21,7 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { AuthService } from '../../../../../../../core/auth/auth.service';
-import { LayoutField } from '../../../../../../../core/layout/models/box.model';
-import { Item } from '../../../../../../../core/shared/item.model';
-import MetadataValue from '../../../../../../../core/shared/metadata.models';
-import {
-  getFirstCompletedRemoteData,
-  getPaginatedListPayload,
-  getRemoteDataPayload,
-} from '../../../../../../../core/shared/operators';
-import { VocabularyService } from '../../../../../../../core/submission/vocabularies/vocabulary.service';
-import { RenderingTypeValueModelComponent } from '../rendering-type-value.model';
+import { RenderingTypeValueDirective } from '../rendering-type-value.directive';
 
 /**
  * This component renders the valuepair (value + display) metadata fields.
@@ -35,7 +35,7 @@ import { RenderingTypeValueModelComponent } from '../rendering-type-value.model'
     AsyncPipe,
   ],
 })
-export class ValuepairComponent extends RenderingTypeValueModelComponent implements OnInit {
+export class ValuepairComponent extends RenderingTypeValueDirective implements OnInit {
 
   /**
    * list of values

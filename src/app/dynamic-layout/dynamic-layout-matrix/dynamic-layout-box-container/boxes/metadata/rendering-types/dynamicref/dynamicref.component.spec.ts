@@ -18,7 +18,7 @@ import {
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import MetadataValue from '../../../../../../../core/shared/metadata.models';
+import { MetadataValue } from '../../../../../../../core/shared/metadata.models';
 import { MetadataLinkViewComponent } from '../../../../../../../shared/metadata-link-view/metadata-link-view.component';
 import { FieldRenderingType } from '../field-rendering-type';
 import { DynamicrefComponent } from './dynamicref.component';

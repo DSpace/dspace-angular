@@ -93,6 +93,12 @@ export class TabDataService extends IdentifiableDataService<DynamicLayoutTab> {
     return tab.rows.every(row => this.hasRowOnlyMinor(row));
   }
 
+  /**
+   * Checks whether all cells within a row contain only minor boxes.
+   *
+   * @param row the row to inspect
+   * @returns true if every cell in the row has only minor boxes
+   */
   hasRowOnlyMinor(row: DynamicLayoutRow): boolean {
     if (hasNoValue(row?.cells)) {
       return false;
@@ -100,6 +106,12 @@ export class TabDataService extends IdentifiableDataService<DynamicLayoutTab> {
     return row.cells.every(cell => this.hasCellOnlyMinor(cell));
   }
 
+  /**
+   * Checks whether all boxes within a cell are minor.
+   *
+   * @param cell the cell to inspect
+   * @returns true if every box in the cell is marked as minor
+   */
   hasCellOnlyMinor(cell: DynamicLayoutCell): boolean {
     if (hasNoValue(cell?.boxes)) {
       return false;
@@ -107,6 +119,12 @@ export class TabDataService extends IdentifiableDataService<DynamicLayoutTab> {
     return cell.boxes.every(box => this.isMinor(box));
   }
 
+  /**
+   * Determines whether a given box is minor (secondary/auxiliary content).
+   *
+   * @param box the box to check
+   * @returns true if the box is flagged as minor
+   */
   isMinor(box: DynamicLayoutBox): boolean {
     return box.minor === true;
   }

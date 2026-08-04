@@ -1,6 +1,7 @@
 import {
   Component,
   ComponentRef,
+  DestroyableInjector,
   OnChanges,
   OnDestroy,
   OnInit,
@@ -116,7 +117,7 @@ export abstract class AbstractComponentLoaderComponent<T> implements OnInit, OnC
     this.compRef = viewContainerRef.createComponent(
       component, {
         index: 0,
-        injector: undefined,
+        injector: this.getComponentInjector(),
       },
     );
 
@@ -137,6 +138,13 @@ export abstract class AbstractComponentLoaderComponent<T> implements OnInit, OnC
    * Fetch the component depending on the item's entity type, metadata representation type and context
    */
   public abstract getComponent(): GenericConstructor<T>;
+
+  /**
+   * Returns the component injector, override for custom component injection
+   */
+  public getComponentInjector(): DestroyableInjector | undefined {
+    return undefined;
+  };
 
   /**
    * Connect the inputs and outputs of this component to the dynamic component,

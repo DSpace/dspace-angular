@@ -1011,23 +1011,23 @@
 
   "bitstream.edit.form.iiifHeight.hint": "The canvas height should usually match the image height.",
 
-  "bitstream.edit.form.mediaType.label": "Audio or video media type",
+  "bitstream.edit.form.fileType.label": "File type",
 
-  "bitstream.edit.form.mediaType.hint": "Choose how this bitstream should be interpreted.",
+  "bitstream.edit.form.fileType.hint": "Choose how this bitstream should be interpreted.",
 
-  "bitstream.edit.form.mediaType.option.neither": "Neither",
+  "bitstream.edit.form.fileType.option.neither": "Neither",
 
-  "bitstream.edit.form.mediaType.option.audio": "Audio",
+  "bitstream.edit.form.fileType.option.audio": "Audio",
 
-  "bitstream.edit.form.mediaType.option.video": "Video",
+  "bitstream.edit.form.fileType.option.video": "Video",
 
-  "bitstream.edit.form.mediaType.option.audio-video": "Audio and video",
+  "bitstream.edit.form.fileType.option.audio-video": "Audio and video",
 
-  "bitstream.edit.form.mediaType.option.logo": "Logo",
+  "bitstream.edit.form.fileType.option.logo": "Logo",
 
-  "bitstream.edit.form.mediaType.option.main-article": "Main Article",
+  "bitstream.edit.form.fileType.option.main-article": "Main Article",
 
-  "bitstream.edit.form.mediaType.option.personal-picture": "Personal Picture",
+  "bitstream.edit.form.fileType.option.personal-picture": "Personal Picture",
 
   "bitstream.edit.form.audioTranscript.label": "Audio transcript",
 
@@ -4176,6 +4176,8 @@
 
   "quality-assurance.event.reason": "Reason",
 
+  "orcid.badge.alt": "ORCID logo",
+
   "orcid.badge.tooltip": "Connected to ORCID",
 
   "orgunit.listelement.badge": "Organizational Unit",
@@ -5966,7 +5968,7 @@
 
   "submission.sections.upload.edit.title": "Edit bitstream",
 
-  "submission.sections.upload.file.edit.form.file-type.label": "Audio or video media type",
+  "submission.sections.upload.file.edit.form.file-type.label": "File type",
 
   "submission.sections.upload.file.edit.form.file-type.hint": "Choose how this bitstream should be interpreted.",
 

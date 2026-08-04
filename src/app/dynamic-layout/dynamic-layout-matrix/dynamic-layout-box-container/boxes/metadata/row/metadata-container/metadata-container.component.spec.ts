@@ -18,7 +18,7 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
-import MetadataValue from '../../../../../../../core/shared/metadata.models';
+import { MetadataValue } from '../../../../../../../core/shared/metadata.models';
 import { FieldRenderingType } from '../../rendering-types/field-rendering-type';
 import { layoutBoxesMap } from '../../rendering-types/metadata-box-rendering-map';
 import { TextComponent } from '../../rendering-types/text/text.component';

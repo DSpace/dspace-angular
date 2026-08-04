@@ -182,6 +182,9 @@ export class ThemedConfigurationSearchPageComponent extends ThemedComponent<Conf
     'query',
     'scope',
     'hideScopeInUrl',
+    'renderOnServerSide',
+    'showSearchResultNotice',
+    'searchResultNotice',
   ];
 
   protected getComponentName(): string {

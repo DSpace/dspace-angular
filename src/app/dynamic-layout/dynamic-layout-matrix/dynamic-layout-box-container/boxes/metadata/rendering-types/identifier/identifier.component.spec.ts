@@ -15,7 +15,7 @@ import {
 } from '@ngx-translate/core';
 
 import { environment } from '../../../../../../../../environments/environment';
-import MetadataValue from '../../../../../../../core/shared/metadata.models';
+import { MetadataValue } from '../../../../../../../core/shared/metadata.models';
 import { ResolverStrategyService } from '../../../../../../services/resolver-strategy.service';
 import { FieldRenderingType } from '../field-rendering-type';
 import { IdentifierComponent } from './identifier.component';

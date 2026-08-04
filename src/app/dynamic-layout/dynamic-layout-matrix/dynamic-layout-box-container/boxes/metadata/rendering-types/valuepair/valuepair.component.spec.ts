@@ -18,8 +18,8 @@ import {
   of,
 } from 'rxjs';
 
-import MetadataValue from '../../../../../../../core/shared/metadata.models';
-import { DsDatePipe } from '../../../../../../pipes/ds-date.pipe';
+import { MetadataValue } from '../../../../../../../core/shared/metadata.models';
+import { ToDatePipe } from '../../../../../../../shared/access-control-form-container/access-control-array-form/to-date.pipe';
 import { ValuepairComponent } from './valuepair.component';
 
 const METADATA_KEY_1 = 'person.knowsLanguage';
@@ -111,7 +111,7 @@ describe('ValuepairComponent', () => {
               useClass: TranslateLoaderMock,
             },
           }),
-          ValuepairComponent, DsDatePipe,
+          ValuepairComponent, ToDatePipe,
         ],
         providers: [
           { provide: VocabularyService, useValue: vocabularyServiceSpy },
@@ -159,7 +159,7 @@ describe('ValuepairComponent', () => {
               useClass: TranslateLoaderMock,
             },
           }),
-          ValuepairComponent, DsDatePipe,
+          ValuepairComponent, ToDatePipe,
         ],
         providers: [
           { provide: VocabularyService, useValue: vocabularyServiceSpy },
@@ -221,7 +221,7 @@ describe('ValuepairComponent', () => {
             },
           }),
           ValuepairComponent,
-          DsDatePipe,
+          ToDatePipe,
         ],
         providers: [
           { provide: VocabularyService, useValue: vocabularyServiceSpy },

@@ -1,5 +1,5 @@
 import { Bitstream } from '../../core/shared/bitstream.model';
-import MetadataValue from '../shared/metadata.models';
+import { MetadataValue } from '../shared/metadata.models';
 
 export const attachmentWithUnspecified = Object.assign(new Bitstream(), {
   id: 'bitstream1',

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 import { MetadataLinkViewComponent } from '../../../../../../../shared/metadata-link-view/metadata-link-view.component';
-import { RenderingTypeValueModelComponent } from '../rendering-type-value.model';
+import { RenderingTypeValueDirective } from '../rendering-type-value.directive';
 
 /**
  * This component renders the dynamicref metadata fields
@@ -15,6 +15,6 @@ import { RenderingTypeValueModelComponent } from '../rendering-type-value.model'
     MetadataLinkViewComponent,
   ],
 })
-export class DynamicrefComponent extends RenderingTypeValueModelComponent {
+export class DynamicrefComponent extends RenderingTypeValueDirective {
 
 }

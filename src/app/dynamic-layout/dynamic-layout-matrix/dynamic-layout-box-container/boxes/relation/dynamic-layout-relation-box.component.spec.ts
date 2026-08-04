@@ -22,7 +22,7 @@ import {
 import { cold } from 'jasmine-marbles';
 import { of } from 'rxjs';
 
-import MetadataValue from '../../../../../core/shared/metadata.models';
+import { MetadataValue } from '../../../../../core/shared/metadata.models';
 import { ThemedConfigurationSearchPageComponent } from '../../../../../search-page/themed-configuration-search-page.component';
 import { DynamicLayoutRelationBoxComponent } from './dynamic-layout-relation-box.component';
 

@@ -62,11 +62,7 @@ export const dynamicItemPageTabResolver: ResolveFn<RemoteData<PaginatedList<Dyna
           getFirstCompletedRemoteData(),
           map((tabsRD: RemoteData<PaginatedList<DynamicLayoutTab>>) => {
             if (tabsRD.hasSucceeded && tabsRD?.payload?.page?.length > 0) {
-              // By splitting the url with uuid we can understand if the item is primary item page or a tab
-              const urlWithoutQuery = state.url.split('?')[0];
-              const urlSplit = urlWithoutQuery.split(route.params.id);
-              const tabArguments = urlSplit[1]?.split('/');
-              const givenTab = tabArguments?.[1];
+              const givenTab = route.params.tab;
               const itemPageRoute = getItemPageRoute(itemRD.payload);
 
               const isValidTab = !givenTab || tabsRD.payload.page.some((tab) => {

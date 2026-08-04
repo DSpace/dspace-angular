@@ -1,5 +1,5 @@
 import {
-  Component,
+  Directive,
   EventEmitter,
   Inject,
   Input,
@@ -14,15 +14,19 @@ import { TranslateService } from '@ngx-translate/core';
 
 import { DynamicLayoutBox } from '../../core/layout/models/box.model';
 import { Item } from '../../core/shared/item.model';
-import { DynamicLayoutPageModelComponent } from './dynamic-layout-page-component.model';
+import { DynamicLayoutPageDirective } from './dynamic-layout-page.directive';
 
 /**
  * This class is a model to be extended for creating custom layouts for boxes
  */
-@Component({
-  template: '',
-})
-export abstract class DynamicLayoutBoxModelComponent extends DynamicLayoutPageModelComponent implements OnInit {
+@Directive()
+export abstract class DynamicLayoutBoxDirective extends DynamicLayoutPageDirective implements OnInit {
+
+  /**
+   * Whether this box component provides its own container (e.g. accordion).
+   * If true, the parent won't wrap it in an accordion panel.
+   */
+  static hasOwnContainer = false;
 
   /**
    * DynamicLayoutBox.

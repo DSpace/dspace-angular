@@ -1,90 +1,88 @@
 import {
   Component,
-  ComponentRef,
   inject,
   Injector,
   Input,
-  OnInit,
-  ViewChild,
-  ViewContainerRef,
 } from '@angular/core';
+import { Bitstream } from '@dspace/core/shared/bitstream.model';
+import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
+import { Item } from '@dspace/core/shared/item.model';
 
-import { Bitstream } from '../../../../../../../../../core/shared/bitstream.model';
-import { GenericConstructor } from '../../../../../../../../../core/shared/generic-constructor';
-import { Item } from '../../../../../../../../../core/shared/item.model';
-import { DynamicLayoutLoaderDirective } from '../../../../../../../../directives/dynamic-layout-loader.directive';
+import { AbstractComponentLoaderComponent } from '../../../../../../../../../shared/abstract-component-loader/abstract-component-loader.component';
+import { DynamicComponentLoaderDirective } from '../../../../../../../../../shared/abstract-component-loader/dynamic-component-loader.directive';
+import { ThemeService } from '../../../../../../../../../shared/theme-support/theme.service';
 import {
   AttachmentRenderingType,
   getAttachmentTypeRendering,
 } from '../attachment-type.decorator';
 
+/**
+ * Component that dynamically loads the correct attachment rendering component
+ * based on the bitstream's rendering type.
+ *
+ * Extends {@link AbstractComponentLoaderComponent} to leverage automatic input wiring
+ * and re-instantiation when the rendering type or bitstream changes.
+ */
 @Component({
   selector: 'ds-attachment-render',
-  templateUrl: './attachment-render.component.html',
-  styleUrls: ['./attachment-render.component.scss'],
+  templateUrl: '../../../../../../../../../shared/abstract-component-loader/abstract-component-loader.component.html',
   imports: [
-    DynamicLayoutLoaderDirective,
+    DynamicComponentLoaderDirective,
   ],
 })
-export class AttachmentRenderComponent implements OnInit {
+export class AttachmentRenderComponent extends AbstractComponentLoaderComponent<Component> {
 
   /**
    * Current DSpace Item
    */
   @Input() item: Item;
+
   /**
-   * The bitstream
+   * The bitstream to render
    */
   @Input() bitstream: Bitstream;
+
   /**
-   * The bitstream
+   * The rendering type for the attachment
    */
   @Input() renderingType: AttachmentRenderingType | string;
+
   /**
    * The tab name
    */
   @Input() tabName: string;
 
   /**
-   * Directive hook used to place the dynamic render component
+   * Input names that should be passed down to the dynamically created component.
    */
-  @ViewChild('attachmentValue', {
-    static: true,
-    read: ViewContainerRef,
-  }) attachmentValueViewRef: ViewContainerRef;
+  protected inputNames: (keyof this & string)[] = [
+    'item', 'bitstream',
+  ];
+
+  /**
+   * When renderingType or bitstream changes, the component must be re-evaluated.
+   */
+  protected inputNamesDependentForComponent: (keyof this & string)[] = [
+    'renderingType', 'bitstream',
+  ];
 
   private injector: Injector = inject(Injector);
 
-  ngOnInit(): void {
-    this.attachmentValueViewRef.clear();
-    this.generateComponentRef();
+  constructor(
+    protected themeService: ThemeService,
+  ) {
+    super(themeService);
   }
 
   /**
-   * Generate ComponentFactory for attachment rendering
+   * Fetch the component depending on the attachment rendering type.
+   * Called by the abstract base class when instantiating or re-instantiating the component.
+   *
+   * @returns The constructor of the matching attachment render component
    */
-  computeComponentFactory(): GenericConstructor<Component> {
-    const rendering = this.computeRendering();
-    const attachmentTypeRenderOptions = getAttachmentTypeRendering(rendering);
-    return attachmentTypeRenderOptions?.componentRef || null;
-  }
-
-  /**
-   * Generate ComponentRef for attachment rendering
-   */
-  generateComponentRef(): ComponentRef<any> {
-    let attachmentComponentRef: ComponentRef<Component>;
-    const component: GenericConstructor<Component> = this.computeComponentFactory();
-    if (component) {
-      attachmentComponentRef = this.attachmentValueViewRef.createComponent(component, {
-        index: 0,
-        injector: this.getComponentInjector(),
-      });
-      (attachmentComponentRef.instance as any).item = this.item;
-      (attachmentComponentRef.instance as any).bitstream = this.bitstream;
-      (attachmentComponentRef.instance as any).tabName = this.tabName;
-    }
-    return attachmentComponentRef;
+  public getComponent(): GenericConstructor<Component> {
+    const rendering = this.renderingType || AttachmentRenderingType.DOWNLOAD;
+    return getAttachmentTypeRendering(rendering);
   }
 
   /**
@@ -96,20 +94,9 @@ export class AttachmentRenderComponent implements OnInit {
       { provide: 'bitstreamProvider', useValue: this.bitstream, deps: [] },
       { provide: 'tabNameProvider', useValue: this.tabName, deps: [] },
     ];
-
     return Injector.create({
       providers: providers,
       parent: this.injector,
     });
   }
-
-  /**
-   * Return the rendering type of the field to render
-   *
-   * @return the rendering type
-   */
-  computeRendering(): string | AttachmentRenderingType {
-    return this.renderingType || AttachmentRenderingType.DOWNLOAD;
-  }
-
 }

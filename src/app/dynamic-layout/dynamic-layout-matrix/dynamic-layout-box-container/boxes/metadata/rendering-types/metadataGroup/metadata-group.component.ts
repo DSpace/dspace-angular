@@ -6,12 +6,12 @@ import {
 } from '@angular/core';
 import { LayoutField } from '@dspace/core/layout/models/box.model';
 import { Item } from '@dspace/core/shared/item.model';
+import { MetadataValue } from '@dspace/core/shared/metadata.models';
 import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 
-import MetadataValue from '../../../../../../../core/shared/metadata.models';
-import { RenderingTypeStructuredModelComponent } from '../rendering-type-structured.model';
+import { RenderingTypeStructuredDirective } from '../rendering-type-structured.directive';
 
 
 export interface NestedMetadataGroupEntry {
@@ -22,7 +22,7 @@ export interface NestedMetadataGroupEntry {
 @Component({
   template: '',
 })
-export abstract class MetadataGroupComponent extends RenderingTypeStructuredModelComponent implements OnInit, OnDestroy {
+export abstract class MetadataGroupComponent extends RenderingTypeStructuredDirective implements OnInit, OnDestroy {
 
   /**
    * This property is used to hold nested Layout Field inside a metadata group field

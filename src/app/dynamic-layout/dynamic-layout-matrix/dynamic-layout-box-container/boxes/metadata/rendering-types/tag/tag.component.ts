@@ -10,7 +10,7 @@ import { LayoutField } from '../../../../../../../core/layout/models/box.model';
 import { Item } from '../../../../../../../core/shared/item.model';
 import { ChipsComponent } from '../../../../../../../shared/form/chips/chips.component';
 import { Chips } from '../../../../../../../shared/form/chips/models/chips.model';
-import { RenderingTypeStructuredModelComponent } from '../rendering-type-structured.model';
+import { RenderingTypeStructuredDirective } from '../rendering-type-structured.directive';
 
 /**
  * This component renders the tag metadata fields
@@ -24,7 +24,7 @@ import { RenderingTypeStructuredModelComponent } from '../rendering-type-structu
     ChipsComponent,
   ],
 })
-export class TagComponent extends RenderingTypeStructuredModelComponent implements OnInit {
+export class TagComponent extends RenderingTypeStructuredDirective implements OnInit {
 
   /**
   * This is the chips component which will be rendered in the template

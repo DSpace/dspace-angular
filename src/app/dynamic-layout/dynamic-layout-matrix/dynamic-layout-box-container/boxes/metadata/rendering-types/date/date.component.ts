@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
-import { DsDatePipe } from '../../../../../../pipes/ds-date.pipe';
-import { RenderingTypeValueModelComponent } from '../rendering-type-value.model';
+import { ToDatePipe } from '../../../../../../../shared/access-control-form-container/access-control-array-form/to-date.pipe';
+import { RenderingTypeValueDirective } from '../rendering-type-value.directive';
 
 /**
  * This component renders the date metadata fields
@@ -12,9 +12,9 @@ import { RenderingTypeValueModelComponent } from '../rendering-type-value.model'
   templateUrl: './date.component.html',
   styleUrls: ['./date.component.scss'],
   imports: [
-    DsDatePipe,
+    ToDatePipe,
   ],
 })
-export class DateComponent extends RenderingTypeValueModelComponent {
+export class DateComponent extends RenderingTypeValueDirective {
 
 }

@@ -62,9 +62,3 @@ nav.navbar {
     }
 }
 
-/* TODO remove when https://github.com/twbs/bootstrap/issues/24726 is fixed */
-.navbar-expand-md.navbar-container {
-    @media screen and (max-width: map-get($grid-breakpoints, md)) {
-        padding: 0;
-    }
-}

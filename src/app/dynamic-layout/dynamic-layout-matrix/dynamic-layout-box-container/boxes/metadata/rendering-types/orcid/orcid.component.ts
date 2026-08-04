@@ -4,6 +4,12 @@ import {
   Inject,
   OnInit,
 } from '@angular/core';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
+import { LayoutField } from '@dspace/core/layout/models/box.model';
+import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { MetadataValue } from '@dspace/core/shared/metadata.models';
+import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -12,13 +18,7 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { ConfigurationDataService } from '../../../../../../../core/data/configuration-data.service';
-import { LayoutField } from '../../../../../../../core/layout/models/box.model';
-import { ConfigurationProperty } from '../../../../../../../core/shared/configuration-property.model';
-import { Item } from '../../../../../../../core/shared/item.model';
-import MetadataValue from '../../../../../../../core/shared/metadata.models';
-import { getFirstSucceededRemoteDataPayload } from '../../../../../../../core/shared/operators';
-import { RenderingTypeValueModelComponent } from '../rendering-type-value.model';
+import { RenderingTypeValueDirective } from '../rendering-type-value.directive';
 
 /**
  * This component renders the text metadata fields
@@ -34,7 +34,7 @@ import { RenderingTypeValueModelComponent } from '../rendering-type-value.model'
     TranslateModule,
   ],
 })
-export class OrcidComponent extends RenderingTypeValueModelComponent implements OnInit {
+export class OrcidComponent extends RenderingTypeValueDirective implements OnInit {
 
   orcidUrl$: Observable<string>;
 

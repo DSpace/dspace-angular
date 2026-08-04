@@ -4,7 +4,7 @@ import {
 } from '@angular/core';
 
 import { FieldRenderingType } from '../app/dynamic-layout/dynamic-layout-matrix/dynamic-layout-box-container/boxes/metadata/rendering-types/field-rendering-type';
-import { MetadataBoxFieldRenderOptions } from '../app/dynamic-layout/dynamic-layout-matrix/dynamic-layout-box-container/boxes/metadata/rendering-types/rendering-type.model';
+import { MetadataBoxFieldRenderOptions } from '../app/dynamic-layout/dynamic-layout-matrix/dynamic-layout-box-container/boxes/metadata/rendering-types/rendering-type.directive';
 import { AccessibilitySettingsConfig } from './accessibility-settings.config';
 import { ActuatorsConfig } from './actuators.config';
 import { AddToAnyPluginConfig } from './add-to-any-plugin-config';

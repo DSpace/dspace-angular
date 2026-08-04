@@ -4,6 +4,13 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { BrowseService } from '@dspace/core/browse/browse.service';
+import { BrowseDefinitionDataService } from '@dspace/core/browse/browse-definition-data.service';
+import { ConfigurationDataService } from '@dspace/core/data/configuration-data.service';
+import { ConfigurationProperty } from '@dspace/core/shared/configuration-property.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { MetadataValue } from '@dspace/core/shared/metadata.models';
+import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
 import { TranslatePipe } from '@ngx-translate/core';
 import {
   combineLatest,
@@ -11,13 +18,6 @@ import {
   Observable,
 } from 'rxjs';
 
-import { BrowseService } from '../../../../../core/browse/browse.service';
-import { BrowseDefinitionDataService } from '../../../../../core/browse/browse-definition-data.service';
-import { ConfigurationDataService } from '../../../../../core/data/configuration-data.service';
-import { ConfigurationProperty } from '../../../../../core/shared/configuration-property.model';
-import { Item } from '../../../../../core/shared/item.model';
-import MetadataValue from '../../../../../core/shared/metadata.models';
-import { getFirstSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
 import { ImageField } from '../image-field';
 import { ItemPageFieldComponent } from '../item-page-field.component';
 

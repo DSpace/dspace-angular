@@ -6,7 +6,6 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { DynamicLayoutTab } from '@dspace/core/layout/models/tab.model';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -19,7 +18,7 @@ import { slide } from '../../../../shared/animations/slide';
 /**
  * This component defines the default layout for all tabs of DSpace Items.
  * This component can be overwritten for a specific Item type using
- * DynamicLayoutTabModelComponent decorator
+ * DynamicLayoutTabModelDirective decorator
  */
 @Component({
   selector: 'ds-dynamic-layout-sidebar-item',
@@ -28,7 +27,6 @@ import { slide } from '../../../../shared/animations/slide';
   animations: [rotate, slide, rotateNavbar],
   imports: [
     NgClass,
-    RouterLink,
   ],
 })
 export class DynamicLayoutSidebarItemComponent implements OnInit {

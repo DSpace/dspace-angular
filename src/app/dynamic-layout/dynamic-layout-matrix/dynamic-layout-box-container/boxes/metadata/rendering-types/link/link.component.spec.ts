@@ -14,7 +14,7 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 
-import MetadataValue from '../../../../../../../core/shared/metadata.models';
+import { MetadataValue } from '../../../../../../../core/shared/metadata.models';
 import { LinkComponent } from './link.component';
 
 describe('LinkComponent', () => {

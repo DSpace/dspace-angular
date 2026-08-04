@@ -6,3 +6,9 @@
 td {
   word-break: auto-phrase;
 }
+
+:host {
+  .auto-phrase {
+    word-break: auto-phrase;
+  }
+}

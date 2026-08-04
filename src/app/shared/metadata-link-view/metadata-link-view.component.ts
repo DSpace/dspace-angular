@@ -4,10 +4,15 @@ import {
 } from '@angular/common';
 import {
   Component,
+  Inject,
   Input,
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
 import { getItemPageRoute } from '@dspace/core/router/utils/dso-route.utils';
 import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import { followLink } from '@dspace/core/shared/follow-link-config.model';
@@ -31,11 +36,10 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { environment } from '../../../environments/environment';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { Item } from '../../core/shared/item.model';
-import MetadataValue from '../../core/shared/metadata.models';
+import { MetadataValue } from '../../core/shared/metadata.models';
 import { Metadata } from '../../core/shared/metadata.utils';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { EntityIconDirective } from '../entity-icon/entity-icon.directive';
@@ -104,7 +108,7 @@ export class MetadataLinkViewComponent implements OnInit {
   /**
    * The metadata name from where to take the value of the dynamic style
    */
-  dynamicRefMetadata = environment.layout.dynamicRefStyleMetadata;
+  dynamicRefMetadata = this.appConfig.layout.dynamicRefStyleMetadata;
 
   /**
    * Processed metadata to create MetadataOrcid with the information needed to show
@@ -134,7 +138,10 @@ export class MetadataLinkViewComponent implements OnInit {
   /**
    * Map all entities with the icons specified in the environment configuration file
    */
-  constructor(private itemService: ItemDataService) { }
+  constructor(
+    private itemService: ItemDataService,
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
+  ) { }
 
   /**
    * On init process metadata to get the information and form MetadataOrcid model

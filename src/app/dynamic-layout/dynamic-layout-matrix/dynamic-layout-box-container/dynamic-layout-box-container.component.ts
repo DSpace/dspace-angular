@@ -16,12 +16,14 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 
+import { ItemVersionsComponent } from '../../../item-page/versions/item-versions.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import {
   DynamicLayoutBoxRenderOptions,
   getDynamicLayoutBox,
 } from '../../decorators/dynamic-layout-box.decorator';
 import { LayoutBox } from '../../enums/layout-box.enum';
+import { DynamicLayoutBoxDirective } from '../../models/dynamic-layout-box-component.directive';
 
 /**
  * Container component that wraps a single {@link DynamicLayoutBox} in an accordion panel.
@@ -32,7 +34,6 @@ import { LayoutBox } from '../../enums/layout-box.enum';
 @Component({
   selector: 'ds-dynamic-layout-box-container',
   templateUrl: './dynamic-layout-box-container.component.html',
-  styleUrls: ['./dynamic-layout-box-container.component.scss'],
   imports: [
     NgbAccordionModule,
     NgComponentOutlet,
@@ -58,6 +59,11 @@ export class DynamicLayoutBoxContainerComponent implements OnInit {
    * DynamicLayoutBoxRenderOptions reference of the box that will be created
    */
   componentLoader: DynamicLayoutBoxRenderOptions;
+
+  /**
+   * Whether the resolved component provides its own container (e.g. accordion).
+   */
+  hasOwnContainer = false;
 
   /**
    * The prefix used for box header's i18n key
@@ -102,6 +108,7 @@ export class DynamicLayoutBoxContainerComponent implements OnInit {
     });
 
     this.componentLoader = this.getComponent();
+    this.hasOwnContainer = (this.componentLoader?.componentRef as any)?.hasOwnContainer ?? false;
 
     this.boxHeaderI18nKey = this.boxI18nPrefix + this.box.entityType + '.' + this.box.shortname;
     this.boxHeaderGenericI18nKey = this.boxI18nPrefix + this.box.shortname;
@@ -120,7 +127,7 @@ export class DynamicLayoutBoxContainerComponent implements OnInit {
   /**
    * Get component reference to be inserted in the ngComponentOutlet
    */
-  getComponentRef(): GenericConstructor<Component> {
+  getComponentRef(): GenericConstructor<DynamicLayoutBoxDirective | ItemVersionsComponent> {
     return this.componentLoader?.componentRef;
   }
 

@@ -1,56 +1,81 @@
-/*import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LayoutField } from '@dspace/core/layout/models/box.model';
+import { Item } from '@dspace/core/shared/item.model';
+import { MetadataValue } from '@dspace/core/shared/metadata.models';
+import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-
+import { FieldRenderingType } from '../field-rendering-type';
 import { TagComponent } from './tag.component';
-import { Item } from '../../../../../../../core/shared/item.model';
-import { tagMedataComponent } from '../../../../../../../shared/testing/tag-metadata-components.mock';
-import { TranslateLoaderMock } from '../../../../../../../shared/mocks/translate-loader.mock';
-import { DsDatePipe } from '../../../../../../pipes/ds-date.pipe';
-import { SharedModule } from '../../../../../../../shared/shared.module';
-import { UploaderService } from '../../../../../../../shared/uploader/uploader.service';
-
-class TestItem {
-  allMetadataValues(key: string): string[] {
-    return ['HKU', 'ASDF'];
-  }
-}
 
 describe('TagComponent', () => {
   let component: TagComponent;
   let fixture: ComponentFixture<TagComponent>;
 
-  beforeEach(async(() => {
+  const metadataValues = [
+    Object.assign(new MetadataValue(), { value: 'HKU', language: null, authority: null, confidence: -1, place: 0 }),
+    Object.assign(new MetadataValue(), { value: 'ASDF', language: null, authority: null, confidence: -1, place: 1 }),
+  ];
+
+  const testItem = Object.assign(new Item(), {
+    type: 'item',
+    metadata: {
+      'dc.subject': metadataValues,
+    },
+    uuid: 'test-item-uuid',
+  });
+
+  const mockField: LayoutField = {
+    metadata: 'dc.subject',
+    label: 'Subject',
+    rendering: FieldRenderingType.TAG,
+    fieldType: 'METADATA',
+    style: 'test-style',
+    styleLabel: 'test-style-label',
+    styleValue: 'test-style-value',
+    labelAsHeading: false,
+    valuesInline: true,
+  };
+
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot({
-        loader: {
-          provide: TranslateLoader,
-          useClass: TranslateLoaderMock
-        }
-      }), BrowserAnimationsModule, SharedModule],
-      declarations: [ TagComponent, DsDatePipe ],
-      providers : [
-       { provide: UploaderService, useValue: {} },
-      ]
+      imports: [
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
+        }),
+        BrowserAnimationsModule,
+        TagComponent,
+      ],
+      providers: [
+        { provide: 'fieldProvider', useValue: mockField },
+        { provide: 'itemProvider', useValue: testItem },
+        { provide: 'renderingSubTypeProvider', useValue: '' },
+        { provide: 'tabNameProvider', useValue: '' },
+      ],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(TagComponent);
     component = fixture.componentInstance;
-    component.item = new TestItem() as Item;
-    component.field = tagMedataComponent.rows[0].fields[0];
     fixture.detectChanges();
   });
 
-
-  it('should have the right label', (done) => {
-    const spanLabelFound = fixture.debugElement.query(By.css('div.' + tagMedataComponent.rows[0].fields[0].style + ' > span'));
-    expect(spanLabelFound.nativeElement.textContent.trim()).toBe(tagMedataComponent.rows[0].fields[0].label);
-    done();
+  it('should create', () => {
+    expect(component).toBeTruthy();
   });
 
   it('should have chips', () => {
@@ -58,25 +83,20 @@ describe('TagComponent', () => {
     expect(chips).toBeTruthy();
   });
 
-
-  it('should have the right chip values if it has no indexToBeRendered', (done) => {
+  it('should have the right chip values if it has no indexToBeRendered', () => {
     const chipLabelsFound = fixture.debugElement.queryAll(By.css('p.chip-label'));
-    expect(chipLabelsFound[0].nativeElement.textContent).toContain((new TestItem()).allMetadataValues('')[0]);
-    expect(chipLabelsFound[1].nativeElement.textContent).toContain((new TestItem()).allMetadataValues('')[1]);
-    done();
+    expect(chipLabelsFound.length).toBe(2);
+    expect(chipLabelsFound[0].nativeElement.textContent).toContain('HKU');
+    expect(chipLabelsFound[1].nativeElement.textContent).toContain('ASDF');
   });
 
-
-  it('should render single chip item if it has indexToBeRendered', (done) => {
-
+  it('should render single chip item if it has indexToBeRendered', () => {
     component.indexToBeRendered = 1;
     component.ngOnInit();
     fixture.detectChanges();
 
     const chipLabelsFound = fixture.debugElement.queryAll(By.css('p.chip-label'));
     expect(chipLabelsFound.length).toBe(1);
-    expect(chipLabelsFound[0].nativeElement.textContent).toContain((new TestItem()).allMetadataValues('')[1]);
-    done();
+    expect(chipLabelsFound[0].nativeElement.textContent).toContain('ASDF');
   });
-
-});*/
+});

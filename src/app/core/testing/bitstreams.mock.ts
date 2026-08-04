@@ -1,5 +1,5 @@
 import { Bitstream } from '../../core/shared/bitstream.model';
-import MetadataValue from '../shared/metadata.models';
+import { MetadataValue } from '../shared/metadata.models';
 import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
 
 export const mockThumbnail = Object.assign(new Bitstream(), {

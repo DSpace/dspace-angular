@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 import { EscapeHtmlPipe } from '../../../../../../../shared/utils/escape-html.pipe';
-import { RenderingTypeValueModelComponent } from '../rendering-type-value.model';
+import { RenderingTypeValueDirective } from '../rendering-type-value.directive';
 
 /**
  * This component renders the text metadata fields
@@ -15,6 +15,6 @@ import { RenderingTypeValueModelComponent } from '../rendering-type-value.model'
     EscapeHtmlPipe,
   ],
 })
-export class TextComponent extends RenderingTypeValueModelComponent {
+export class TextComponent extends RenderingTypeValueDirective {
 
 }

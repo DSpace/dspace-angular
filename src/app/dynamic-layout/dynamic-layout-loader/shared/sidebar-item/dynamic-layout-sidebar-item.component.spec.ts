@@ -13,7 +13,7 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { DynamicLayoutLoaderDirective } from '../../../directives/dynamic-layout-loader.directive';
+import { DynamicComponentLoaderDirective } from '../../../../shared/abstract-component-loader/dynamic-component-loader.directive';
 import { DynamicLayoutSidebarItemComponent } from './dynamic-layout-sidebar-item.component';
 
 describe('DynamicLayoutSidebarItemComponent', () => {
@@ -29,7 +29,7 @@ describe('DynamicLayoutSidebarItemComponent', () => {
         },
       }),
       NoopAnimationsModule, DynamicLayoutSidebarItemComponent,
-      DynamicLayoutLoaderDirective],
+      DynamicComponentLoaderDirective],
       providers: [
         { provide: BitstreamDataService, useValue: {} },
       ],

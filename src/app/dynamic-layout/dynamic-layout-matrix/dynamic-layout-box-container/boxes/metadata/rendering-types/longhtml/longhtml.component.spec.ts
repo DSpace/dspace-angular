@@ -7,16 +7,16 @@ import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutField } from '@dspace/core/layout/models/box.model';
 import { Item } from '@dspace/core/shared/item.model';
+import { MetadataValue } from '@dspace/core/shared/metadata.models';
 import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 
-import MetadataValue from '../../../../../../../core/shared/metadata.models';
+import { ToDatePipe } from '../../../../../../../shared/access-control-form-container/access-control-array-form/to-date.pipe';
 import { TruncatableComponent } from '../../../../../../../shared/truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../../../../../../../shared/truncatable/truncatable-part/truncatable-part.component';
-import { DsDatePipe } from '../../../../../../pipes/ds-date.pipe';
 import { LonghtmlComponent } from './longhtml.component';
 
 describe('LonghtmlComponent', () => {
@@ -65,7 +65,7 @@ describe('LonghtmlComponent', () => {
         }),
         BrowserAnimationsModule,
         LonghtmlComponent,
-        DsDatePipe,
+        ToDatePipe,
       ],
       providers: [
         { provide: 'fieldProvider', useValue: mockField },

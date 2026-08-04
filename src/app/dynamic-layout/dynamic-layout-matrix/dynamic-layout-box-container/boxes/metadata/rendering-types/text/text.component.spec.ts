@@ -13,8 +13,8 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
-import MetadataValue from '../../../../../../../core/shared/metadata.models';
-import { DsDatePipe } from '../../../../../../pipes/ds-date.pipe';
+import { MetadataValue } from '../../../../../../../core/shared/metadata.models';
+import { ToDatePipe } from '../../../../../../../shared/access-control-form-container/access-control-array-form/to-date.pipe';
 import { TextComponent } from './text.component';
 
 describe('TextComponent', () => {
@@ -59,7 +59,7 @@ describe('TextComponent', () => {
           provide: TranslateLoader,
           useClass: TranslateLoaderMock,
         },
-      }), BrowserAnimationsModule, TextComponent, DsDatePipe],
+      }), BrowserAnimationsModule, TextComponent, ToDatePipe],
       providers: [
         { provide: 'fieldProvider', useValue: mockField },
         { provide: 'itemProvider', useValue: testItem },

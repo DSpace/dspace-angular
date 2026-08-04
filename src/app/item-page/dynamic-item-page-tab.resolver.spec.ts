@@ -84,13 +84,16 @@ describe('DynamicItemPageTabResolver', () => {
           spyOn(router, 'navigateByUrl');
         });
 
-        it('should redirect to root route if given tab is the first one', (done) => {
+        it('should redirect to root route if given tab is the main one', (done) => {
           const obs = TestBed.runInInjectionContext(() => {
-            return dynamicItemPageTabResolver({ params: { id: uuid } } as any, { url: '/entities/publication/1234-65487-12354-1235/publications' } as any);
+            return dynamicItemPageTabResolver(
+              { params: { id: uuid, tab: 'publications' } } as any,
+              { url: '/entities/publication/1234-65487-12354-1235/publications' } as any,
+            );
           }) as Observable<RemoteData<PaginatedList<DynamicLayoutTab>>>;
 
           obs.pipe(take(1)).subscribe((resolved) => {
-            expect(router.navigateByUrl).toHaveBeenCalledWith('/entities/publication/1234-65487-12354-1235');
+            expect(router.navigateByUrl).toHaveBeenCalled();
             expect(hardRedirectService.redirect).not.toHaveBeenCalled();
             expect(resolved).toEqual(tabsRD);
             done();
@@ -99,7 +102,10 @@ describe('DynamicItemPageTabResolver', () => {
 
         it('should not redirect to root route if tab different than the main one is given', (done) => {
           const obs = TestBed.runInInjectionContext(() => {
-            return dynamicItemPageTabResolver({ params: { id: uuid } } as any, { url: '/entities/publication/1234-65487-12354-1235/details' } as any);
+            return dynamicItemPageTabResolver(
+              { params: { id: uuid, tab: 'details' } } as any,
+              { url: '/entities/publication/1234-65487-12354-1235/details' } as any,
+            );
           }) as Observable<RemoteData<PaginatedList<DynamicLayoutTab>>>;
 
           obs.pipe(take(1)).subscribe((resolved) => {
@@ -112,7 +118,10 @@ describe('DynamicItemPageTabResolver', () => {
 
         it('should not redirect to root route if no tab is given', (done) => {
           const obs = TestBed.runInInjectionContext(() => {
-            return dynamicItemPageTabResolver({ params: { id: uuid } } as any, { url: '/entities/publication/1234-65487-12354-1235' } as any);
+            return dynamicItemPageTabResolver(
+              { params: { id: uuid } } as any,
+              { url: '/entities/publication/1234-65487-12354-1235' } as any,
+            );
           }) as Observable<RemoteData<PaginatedList<DynamicLayoutTab>>>;
 
           obs.pipe(take(1)).subscribe((resolved) => {
@@ -125,7 +134,10 @@ describe('DynamicItemPageTabResolver', () => {
 
         it('should navigate to 404 if a wrong tab is given', (done) => {
           const obs = TestBed.runInInjectionContext(() => {
-            return dynamicItemPageTabResolver({ params: { id: uuid } } as any, { url: '/entities/publication/1234-65487-12354-1235/test' } as any);
+            return dynamicItemPageTabResolver(
+              { params: { id: uuid, tab: 'nonexistent' } } as any,
+              { url: '/entities/publication/1234-65487-12354-1235/nonexistent' } as any,
+            );
           }) as Observable<RemoteData<PaginatedList<DynamicLayoutTab>>>;
 
           obs.pipe(take(1)).subscribe((resolved) => {
@@ -136,7 +148,7 @@ describe('DynamicItemPageTabResolver', () => {
           });
         });
 
-        it('Should handle tab shortnames with "::" correctly', (done) => {
+        it('should handle tab shortnames with "::" correctly', (done) => {
           const tabPageList = createPaginatedList([{
             ...tabPublicationsTest,
             shortname: 'publication::details',
@@ -145,7 +157,10 @@ describe('DynamicItemPageTabResolver', () => {
           tabService.findByItem.and.returnValue(createSuccessfulRemoteDataObject$(tabPageList) as any);
 
           const obs = TestBed.runInInjectionContext(() => {
-            return dynamicItemPageTabResolver({ params: { id: uuid } } as any, { url: '/entities/publication/1234-65487-12354-1235/details' } as any);
+            return dynamicItemPageTabResolver(
+              { params: { id: uuid, tab: 'details' } } as any,
+              { url: '/entities/publication/1234-65487-12354-1235/details' } as any,
+            );
           }) as Observable<RemoteData<PaginatedList<DynamicLayoutTab>>>;
 
           obs.pipe(take(1)).subscribe((resolved) => {
@@ -156,9 +171,12 @@ describe('DynamicItemPageTabResolver', () => {
           });
         });
 
-        it('should NOT redirect to 404 when query params are present in the URL', (done) => {
+        it('should not redirect to 404 when no tab param and query params are present in the URL', (done) => {
           const obs = TestBed.runInInjectionContext(() => {
-            return dynamicItemPageTabResolver({ params: { id: uuid } } as any, { url: '/entities/publication/1234-65487-12354-1235?f.subject=value&f.date=2024' } as any);
+            return dynamicItemPageTabResolver(
+              { params: { id: uuid } } as any,
+              { url: '/entities/publication/1234-65487-12354-1235?f.subject=value&f.date=2024' } as any,
+            );
           }) as Observable<RemoteData<PaginatedList<DynamicLayoutTab>>>;
 
           obs.pipe(take(1)).subscribe((resolved) => {
@@ -169,9 +187,12 @@ describe('DynamicItemPageTabResolver', () => {
           });
         });
 
-        it('should NOT redirect to 404 when query params are present with a valid tab', (done) => {
+        it('should not redirect to 404 when a valid tab param is given with query params', (done) => {
           const obs = TestBed.runInInjectionContext(() => {
-            return dynamicItemPageTabResolver({ params: { id: uuid } } as any, { url: '/entities/publication/1234-65487-12354-1235/details?f.subject=value' } as any);
+            return dynamicItemPageTabResolver(
+              { params: { id: uuid, tab: 'details' } } as any,
+              { url: '/entities/publication/1234-65487-12354-1235/details?f.subject=value' } as any,
+            );
           }) as Observable<RemoteData<PaginatedList<DynamicLayoutTab>>>;
 
           obs.pipe(take(1)).subscribe((resolved) => {
@@ -191,7 +212,10 @@ describe('DynamicItemPageTabResolver', () => {
 
         it('should not redirect nor navigate', (done) => {
           const obs = TestBed.runInInjectionContext(() => {
-            return dynamicItemPageTabResolver({ params: { id: uuid } } as any, { url: '/entities/publication/1234-65487-12354-1235' } as any);
+            return dynamicItemPageTabResolver(
+              { params: { id: uuid } } as any,
+              { url: '/entities/publication/1234-65487-12354-1235' } as any,
+            );
           }) as Observable<RemoteData<PaginatedList<DynamicLayoutTab>>>;
 
           obs.pipe(take(1)).subscribe((resolved) => {

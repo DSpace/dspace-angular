@@ -13,7 +13,7 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
-import MetadataValue from '../../../../../../../core/shared/metadata.models';
+import { MetadataValue } from '../../../../../../../core/shared/metadata.models';
 import { TruncatableComponent } from '../../../../../../../shared/truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../../../../../../../shared/truncatable/truncatable-part/truncatable-part.component';
 import { LongtextComponent } from './longtext.component';

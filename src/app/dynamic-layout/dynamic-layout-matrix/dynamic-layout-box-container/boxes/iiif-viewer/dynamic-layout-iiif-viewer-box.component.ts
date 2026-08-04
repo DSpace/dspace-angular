@@ -13,7 +13,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
 import { MiradorViewerComponent } from '../../../../../item-page/mirador-viewer/mirador-viewer.component';
-import { DynamicLayoutBoxModelComponent } from '../../../../models/dynamic-layout-box-component.model';
+import { DynamicLayoutBoxDirective } from '../../../../models/dynamic-layout-box-component.directive';
 
 @Component({
   selector: 'ds-dynamic-layout-iiif-viewer-box',
@@ -24,7 +24,7 @@ import { DynamicLayoutBoxModelComponent } from '../../../../models/dynamic-layou
     MiradorViewerComponent,
   ],
 })
-export class DynamicLayoutIiifViewerBoxComponent extends DynamicLayoutBoxModelComponent implements OnInit {
+export class DynamicLayoutIiifViewerBoxComponent extends DynamicLayoutBoxDirective implements OnInit {
 
   isSearchable: boolean;
   query$: Observable<string>;

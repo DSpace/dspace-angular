@@ -6,10 +6,8 @@ import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
 import { Observable } from 'rxjs';
 
 
-
 /**
- * Set up Google Analytics on the client side.
- * See: {@link addTrackingIdToPage}.
+ * Service to get configuration for thumbnail rendering type
  */
 @Injectable({ providedIn: 'root' })
 export class ThumbnailService {

@@ -1,5 +1,5 @@
 import {
-  Component,
+  Directive,
   Inject,
 } from '@angular/core';
 import {
@@ -32,16 +32,14 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { RenderingTypeStructuredModelComponent } from './rendering-type-structured.model';
+import { RenderingTypeStructuredDirective } from './rendering-type-structured.directive';
 
 /**
  * This class defines the basic model to extends for create a new
  * bitstream field render component
  */
-@Component({
-  template: '',
-})
-export abstract class BitstreamRenderingModelComponent extends RenderingTypeStructuredModelComponent {
+@Directive()
+export abstract class BitstreamRenderingDirective extends RenderingTypeStructuredDirective {
 
   private TITLE_METADATA = 'dc.title';
   private SOURCE_METADATA = 'dc.source';
