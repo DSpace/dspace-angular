@@ -162,7 +162,6 @@ describe('SearchHierarchyFilterComponent', () => {
               ],
             }),
             queryParamsHandling: 'merge',
-            fragment: 'prevent-scroll',
           });
         }));
       });
