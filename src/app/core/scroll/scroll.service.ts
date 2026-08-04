@@ -66,7 +66,7 @@ export class ScrollService {
       window.scrollTo({
         left: x,
         top: y,
-        // behavior: 'instant',
+        behavior: 'instant',
       });
     });
   }
