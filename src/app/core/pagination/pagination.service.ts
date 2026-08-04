@@ -170,19 +170,24 @@ export class PaginationService {
           parametersWithIdName, extraParams, this.clearParams);
         if (retainScrollPosition) {
           // By navigating to a non-existing ID, like "prevent-scroll", the browser won't perform any scroll operations
-          const fragment: string = this.scrollService.activeFragment ?? 'prevent-scroll';
+          const fragment = this.scrollService.activeFragment;
+          const scrollPosition = this.scrollService.getScrollPosition();
           this.scrollService.setFragment(fragment);
           this.router.navigate(url, {
             queryParams: queryParams,
             queryParamsHandling: 'merge',
-            fragment: fragment,
+            ...(fragment ? { fragment } : {}),
             ...navigationExtras,
           }).then((success: boolean) => {
-            setTimeout(() => {
-              if (success) {
-                this.scrollService.scrollToActiveFragment();
-              }
-            });
+            if (!success) {
+              return;
+            }
+
+            if (fragment) {
+              this.scrollService.scrollToActiveFragment();
+            } else {
+              this.scrollService.restoreScrollPosition(scrollPosition);
+            }
           });
         } else {
           this.scrollService.setFragment(null);
