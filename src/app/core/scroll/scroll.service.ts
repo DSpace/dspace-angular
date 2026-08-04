@@ -38,4 +38,36 @@ export class ScrollService {
       });
     }
   }
+
+  /**
+   * Returns the current window scroll position as [x, y]
+   */
+  getScrollPosition(): [number, number] {
+    return [
+      this.document.defaultView?.scrollX ?? 0,
+      this.document.defaultView?.scrollY ?? 0,
+    ];
+  }
+
+  /**
+   * Restores the window scroll position instantly (no smooth scroll).
+   *
+   * @param position The [x, y] scroll coordinates to restore
+   */
+  restoreScrollPosition([x, y]: [number, number]): void {
+    const window = this.document.defaultView;
+
+    if (!window) {
+      return;
+    }
+
+    // this timeout runs after the scroll-to-top.
+    setTimeout(() => {
+      window.scrollTo({
+        left: x,
+        top: y,
+        // behavior: 'instant',
+      });
+    });
+  }
 }

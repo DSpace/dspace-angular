@@ -139,6 +139,25 @@ describe('PaginationService', () => {
 
       expect(router.navigate).toHaveBeenCalledWith([], { queryParams: navigateParams, queryParamsHandling: 'preserve', replaceUrl: true, preserveFragment: true });
     });
+    it('should restore the scroll position when retainScrollPosition is true', async () => {
+      spyOn(scrollService, 'getScrollPosition').and.returnValue([10, 250]);
+      spyOn(scrollService, 'restoreScrollPosition');
+
+      service.updateRoute('test', { page: 2 }, undefined, true);
+
+      const navigateParams = {};
+      navigateParams[`test.page`] = `2`;
+      navigateParams[`test.rpp`] = `10`;
+      navigateParams[`test.sf`] = `score`;
+      navigateParams[`test.sd`] = `ASC`;
+
+      expect(router.navigate).toHaveBeenCalledWith([], {
+        queryParams: navigateParams,
+        queryParamsHandling: 'merge',
+      });
+      await Promise.resolve();
+      expect(scrollService.restoreScrollPosition).toHaveBeenCalledWith([10, 250]);
+    });
   });
   describe('updateRouteWithUrl', () => {
     it('should update the route with the provided page params and url', () => {
