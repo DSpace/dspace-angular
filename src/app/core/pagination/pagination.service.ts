@@ -109,7 +109,7 @@ export class PaginationService {
   /**
    * Reset the current page for the provided pagination ID to 1.
    * @param paginationId - The pagination id for which to reset the page
-   * @param retainScrollPosition - Scroll to the pagination component after updating the route instead of the top of the page
+   * @param retainScrollPosition - Keep the current scroll position after updating the route instead of jumping to the top
    */
   resetPage(paginationId: string, retainScrollPosition?: boolean): void {
     this.updateRoute(paginationId, { page: 1 }, undefined, retainScrollPosition);
@@ -121,7 +121,7 @@ export class PaginationService {
    * @param paginationId - The pagination ID for which to update the route with info
    * @param params - The page related params to update in the route
    * @param extraParams - Addition params unrelated to the pagination that need to be added to the route
-   * @param retainScrollPosition - Scroll to the pagination component after updating the route instead of the top of the page
+   * @param retainScrollPosition - Keep the current scroll position after updating the route instead of jumping to the top
    * @param navigationExtras - Extra parameters to pass on to `router.navigate`. Can be used to override values set by this service.
    */
   updateRoute(
@@ -146,7 +146,7 @@ export class PaginationService {
    * @param url - The url to navigate to
    * @param params - The page related params to update in the route
    * @param extraParams - Addition params unrelated to the pagination that need to be added to the route
-   * @param retainScrollPosition - Scroll to the active fragment after updating the route instead of the top of the page
+   * @param retainScrollPosition - Keep the current scroll position (or scroll to the active fragment) after updating the route
    * @param navigationExtras - Extra parameters to pass on to `router.navigate`. Can be used to override values set by this service.
    */
   updateRouteWithUrl(
@@ -169,7 +169,7 @@ export class PaginationService {
         const queryParams = Object.assign({}, currentParametersWithIdName,
           parametersWithIdName, extraParams, this.clearParams);
         if (retainScrollPosition) {
-          // By navigating to a non-existing ID, like "prevent-scroll", the browser won't perform any scroll operations
+          // Capture and restore the scroll position instead.
           const fragment = this.scrollService.activeFragment;
           const scrollPosition = this.scrollService.getScrollPosition();
           this.scrollService.setFragment(fragment);
