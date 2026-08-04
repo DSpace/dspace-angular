@@ -4,11 +4,9 @@ import {
   Observable,
   of,
 } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
-import {
-  switchMap,
-} from 'rxjs/operators';
-
+import { AuthService } from '../../core/auth/auth.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -26,7 +24,6 @@ import {
 } from '../shared/operators';
 import { CorrectionType } from './models/correctiontype.model';
 
-import { AuthService } from '../../core/auth/auth.service';
 
 /**
  * A service that provides methods to make REST requests with correctiontypes endpoint.
@@ -72,12 +69,12 @@ export class CorrectionTypeDataService extends IdentifiableDataService<Correctio
     return this.authService.isAuthenticated().pipe(
       switchMap(auth => {
         if (!auth) {
-           return of ([]);
-	}
+          return of ([]);
+        }
         const options = new FindListOptions();
         options.searchParams = [new RequestParam('uuid', itemUuid)];
         return this.searchData.searchBy(this.searchFindByItem, options, useCachedVersionIfAvailable);
-      })
+      }),
     );
   }
 

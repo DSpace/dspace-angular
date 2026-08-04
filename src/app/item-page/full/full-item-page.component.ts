@@ -37,6 +37,7 @@ import {
   map,
 } from 'rxjs/operators';
 
+import { AuthService } from '../../core/auth/auth.service';
 import { fadeInOut } from '../../shared/animations/fade';
 import { DsoEditMenuComponent } from '../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import { ErrorComponent } from '../../shared/error/error.component';
@@ -49,8 +50,6 @@ import { ItemPageComponent } from '../simple/item-page.component';
 import { ItemVersionsComponent } from '../versions/item-versions.component';
 import { ItemVersionsNoticeComponent } from '../versions/notice/item-versions-notice.component';
 import { ThemedFullFileSectionComponent } from './field-components/file-section/themed-full-file-section.component';
-
-import { AuthService } from '../../core/auth/auth.service';
 
 /**
  * This component renders a full item page.
