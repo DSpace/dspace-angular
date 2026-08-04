@@ -15,6 +15,7 @@ import { LongtextComponent } from './longtext/longtext.component';
 import { InlineComponent } from './metadataGroup/inline/inline.component';
 import { TableComponent } from './metadataGroup/table/table.component';
 import { OrcidComponent } from './orcid/orcid.component';
+import { OsmapComponent } from './osmap/osmap.component';
 import { MetadataBoxFieldRenderOptions } from './rendering-type.directive';
 import { TagComponent } from './tag/tag.component';
 import { TextComponent } from './text/text.component';
@@ -42,4 +43,5 @@ export const layoutBoxesMap = new Map<FieldRenderingType, MetadataBoxFieldRender
   [FieldRenderingType.LONGHTML, { componentRef: LonghtmlComponent }],
   [FieldRenderingType.CCLICENSEFULL, { componentRef: CcLicenseLargeComponent }],
   [FieldRenderingType.CCLICENSE, { componentRef: CcLicenseSmallComponent }],
+  [FieldRenderingType.OSMAP, { componentRef: OsmapComponent }],
 ]);

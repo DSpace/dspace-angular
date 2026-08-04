@@ -49,7 +49,8 @@ export class ThemedSearchResultsComponent extends ThemedComponent<SearchResultsC
     'deselectObject',
     'selectObject',
     'searchResultNotice',
-    'searchResultNoticeType',
+    'searchResultNotice',
+    'showSearchResultNotice',
   ];
 
   @Input() linkType: CollectionElementLinkType;
