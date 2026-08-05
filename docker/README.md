@@ -24,14 +24,14 @@ This Dockerfile is used to build a *development* mode DSpace Angular UI image, p
 when local source code is modified.
 
 ```
-docker build -t dspace/dspace-angular:latest .
+docker build -t dspace/dspace-angular:dspace-10_x .
 ```
 
 This image is built *automatically* after each commit is made to the `main` branch.
 
 Admins to our DockerHub repo can manually publish with the following command.
 ```
-docker push dspace/dspace-angular:latest
+docker push dspace/dspace-angular:dspace-10_x
 ```
 
 ### Dockerfile.dist
@@ -39,8 +39,8 @@ docker push dspace/dspace-angular:latest
 The `Dockerfile.dist` is used to build a *production* mode DSpace Angular UI image, published as 'dspace/dspace-angular' with a `*-dist` tag. Because it uses production mode, this image supports Server Side Rendering (SSR).
 
 ```bash
-# build the latest image
-docker build -f Dockerfile.dist -t dspace/dspace-angular:latest-dist .
+# build the 10.x image
+docker build -f Dockerfile.dist -t dspace/dspace-angular:dspace-10_x-dist .
 ```
 
 A default/demo version of this image is built *automatically*.
