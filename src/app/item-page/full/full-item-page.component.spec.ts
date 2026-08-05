@@ -57,6 +57,9 @@ import { ItemVersionsNoticeComponent } from '../versions/notice/item-versions-no
 import { ThemedFullFileSectionComponent } from './field-components/file-section/themed-full-file-section.component';
 import { FullItemPageComponent } from './full-item-page.component';
 
+import { Store } from '@ngrx/store';
+import { provideMockStore } from '@ngrx/store/testing';
+
 const mockItem: Item = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
   metadata: {
@@ -88,6 +91,7 @@ describe('FullItemPageComponent', () => {
   let linkHeadService: jasmine.SpyObj<LinkHeadService>;
   let notifyInfoService: jasmine.SpyObj<NotifyInfoService>;
   let headTagService: HeadTagServiceMock;
+  let authService: AuthService;
 
   const mocklink = {
     href: 'http://test.org',
@@ -156,6 +160,7 @@ describe('FullItemPageComponent', () => {
         { provide: ThemeService, useValue: getMockThemeService() },
         { provide: HardRedirectService, useValue: {} },
         { provide: AuthRequestService, useValue: new AuthRequestServiceStub() },
+        { provide: Store, useValue: provideMockStore() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
