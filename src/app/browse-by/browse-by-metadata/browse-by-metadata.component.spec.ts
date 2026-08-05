@@ -117,6 +117,7 @@ describe('BrowseByMetadataComponent', () => {
   const mockBrowseService = {
     getBrowseEntriesFor: (options: BrowseEntrySearchOptions) => toRemoteData(mockEntries),
     getBrowseItemsFor: (value: string, options: BrowseEntrySearchOptions) => toRemoteData(mockItems),
+    getConfiguredSortDirection: () => of(SortDirection.ASC),
   };
 
   const mockDsoService = {
