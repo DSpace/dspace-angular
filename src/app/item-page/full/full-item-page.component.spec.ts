@@ -13,6 +13,7 @@ import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { AuthRequestService } from '@dspace/core/auth/auth-request.service';
 import { NotifyInfoService } from '@dspace/core/coar-notify/notify-info/notify-info.service';
 import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
 import { ItemDataService } from '@dspace/core/data/item-data.service';
@@ -24,6 +25,7 @@ import { LinkHeadService } from '@dspace/core/services/link-head.service';
 import { ServerResponseService } from '@dspace/core/services/server-response.service';
 import { Item } from '@dspace/core/shared/item.model';
 import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { AuthRequestServiceStub } from '@dspace/core/testing/auth-request-service.stub';
 import { HeadTagServiceMock } from '@dspace/core/testing/head-tag-service.mock';
 import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import { createPaginatedList } from '@dspace/core/testing/utils.test';
@@ -153,6 +155,7 @@ describe('FullItemPageComponent', () => {
         { provide: PLATFORM_ID, useValue: 'server' },
         { provide: ThemeService, useValue: getMockThemeService() },
         { provide: HardRedirectService, useValue: {} },
+	{ provide: AuthRequestService, useValue: new AuthRequestServiceStub() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
