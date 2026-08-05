@@ -31,7 +31,11 @@ import { PageInfo } from '@dspace/core/shared/page-info.model';
 import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import { isEmpty } from '@dspace/shared/utils/empty.util';
 import { setPlaceHolderAttributes } from '@dspace/shared/utils/object-list-utils';
-import { Observable } from 'rxjs';
+import {
+  BehaviorSubject,
+  combineLatest as observableCombineLatest,
+  Observable,
+} from 'rxjs';
 import {
   distinctUntilChanged,
   map,
@@ -147,6 +151,13 @@ export class ObjectCollectionComponent implements OnInit {
   @Input() showThumbnails;
 
   /**
+   * The view mode to render. When not provided, this component falls back to the legacy `view` URL parameter.
+   */
+  @Input() set viewMode(viewMode: ViewMode) {
+    this.viewMode$.next(viewMode);
+  }
+
+  /**
    * the page info of the list
    */
   pageInfo: Observable<PageInfo>;
@@ -195,6 +206,8 @@ export class ObjectCollectionComponent implements OnInit {
    */
   currentMode$: Observable<ViewMode>;
 
+  private viewMode$: BehaviorSubject<ViewMode> = new BehaviorSubject<ViewMode>(undefined);
+
   /**
    * The available view modes
    */
@@ -227,10 +240,9 @@ export class ObjectCollectionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.currentMode$ = this.route
-      .queryParams
+    this.currentMode$ = observableCombineLatest([this.route.queryParams, this.viewMode$])
       .pipe(
-        map((params) => isEmpty(params?.view) ? ViewMode.ListElement : params.view),
+        map(([params, viewMode]) => viewMode || (isEmpty(params?.view) ? ViewMode.ListElement : params.view)),
         distinctUntilChanged(),
       );
     if (isPlatformBrowser(this.platformId)) {

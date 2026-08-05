@@ -1,6 +1,7 @@
 import { AsyncPipe } from '@angular/common';
 import {
   Component,
+  Inject,
   Input,
   OnDestroy,
   OnInit,
@@ -21,6 +22,7 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspace-configuration.service';
 import { ShortNumberPipe } from '../../../../../utils/short-number.pipe';
 import { SearchService } from '../../../../search.service';
 import { SearchConfigurationService } from '../../../../search-configuration.service';
@@ -85,7 +87,7 @@ export class SearchFacetRangeOptionComponent implements OnInit, OnDestroy {
 
   constructor(protected searchService: SearchService,
               protected filterService: SearchFilterService,
-              protected searchConfigService: SearchConfigurationService,
+              @Inject(SEARCH_CONFIG_SERVICE) protected searchConfigService: SearchConfigurationService,
               protected router: Router,
               protected paginationService: PaginationService,
   ) {
@@ -106,7 +108,7 @@ export class SearchFacetRangeOptionComponent implements OnInit, OnDestroy {
    * Checks if a value for this filter is currently active
    */
   private isChecked(): Observable<boolean> {
-    return this.filterService.isFilterActiveWithValue(this.filterConfig.paramName, this.filterValue.value);
+    return this.filterService.isFilterActiveWithValue(this.filterConfig.paramName, this.filterValue.value, this.searchConfigService.searchInstanceId);
   }
 
   /**
@@ -126,10 +128,13 @@ export class SearchFacetRangeOptionComponent implements OnInit, OnDestroy {
     const parts = this.filterValue.value.split(rangeDelimiter);
     const min = parts.length > 1 ? Number(parts[0].trim()) : this.filterValue.value;
     const max = parts.length > 1 ? Number(parts[1].trim()) : this.filterValue.value;
-    const page = this.paginationService.getPageParam(this.searchConfigService.paginationID);
+    const page = this.paginationService.getPageParam(this.searchConfigService.searchInstanceId);
+    const filterParamName = this.searchConfigService.getCurrentSearchInstanceFilterParam(this.filterConfig.paramName);
     this.changeQueryParams = {
-      [this.filterConfig.paramName + RANGE_FILTER_MIN_SUFFIX]: [min],
-      [this.filterConfig.paramName + RANGE_FILTER_MAX_SUFFIX]: max === new Date().getUTCFullYear() ? null : [max],
+      [filterParamName + RANGE_FILTER_MIN_SUFFIX]: [min],
+      [filterParamName + RANGE_FILTER_MAX_SUFFIX]: max === new Date().getUTCFullYear() ? null : [max],
+      [this.filterConfig.paramName + RANGE_FILTER_MIN_SUFFIX]: null,
+      [this.filterConfig.paramName + RANGE_FILTER_MAX_SUFFIX]: null,
       [page]: 1,
     };
   }

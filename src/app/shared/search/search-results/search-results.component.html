@@ -30,11 +30,13 @@
       [selectionConfig]="selectionConfig"
       [linkType]="linkType"
       [context]="context"
+      [viewMode]="searchConfig?.view"
       [hidePaginationDetail]="hidePaginationDetail"
       [showThumbnails]="showThumbnails"
       (contentChange)="contentChange.emit($event)"
       (deselectObject)="deselectObject.emit($event)"
       (selectObject)="selectObject.emit($event)">
+
     </ds-viewable-collection>
   </div>
 }
@@ -54,7 +56,7 @@
   <div>
     {{ 'search.results.no-results' | translate }}
     <a [routerLink]="['/search']"
-      [queryParams]="{ query: surroundStringWithQuotes(searchConfig?.query) }"
+      [queryParams]="getExactMatchQueryParams()"
       queryParamsHandling="merge" role="link" tabindex="0">
       {{"search.results.no-results-link" | translate}}
     </a>
