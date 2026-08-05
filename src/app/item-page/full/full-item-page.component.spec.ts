@@ -155,7 +155,7 @@ describe('FullItemPageComponent', () => {
         { provide: PLATFORM_ID, useValue: 'server' },
         { provide: ThemeService, useValue: getMockThemeService() },
         { provide: HardRedirectService, useValue: {} },
-	{ provide: AuthRequestService, useValue: new AuthRequestServiceStub() },
+        { provide: AuthRequestService, useValue: new AuthRequestServiceStub() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
