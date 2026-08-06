@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { dataService } from '@dspace/core/cache/builders/build-decorators';
+import { TAB } from '@dspace/core/layout/models/tab.resource-type';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import {
   hasNoValue,
@@ -31,6 +33,7 @@ import {
  * filtering out tabs that contain only minor (secondary) boxes.
  */
 @Injectable({ providedIn: 'root' })
+@dataService(TAB)
 export class TabDataService extends IdentifiableDataService<DynamicLayoutTab> {
   protected searchFindByItem = 'findByItem';
   protected searchFindByEntityType = 'findByEntityType';

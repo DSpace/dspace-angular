@@ -22,11 +22,14 @@ import { environment } from 'src/environments/environment';
 
 import { MetadataLinkValue } from '../../../../../../models/dynamic-layout-metadata-link-value.model';
 import { ResolverStrategyService } from '../../../../../../services/resolver-strategy.service';
+import { FieldRenderingType } from '../field-rendering-type';
+import { MetadataBoxFieldRendering } from '../metadata-box.decorator';
 import { RenderingTypeValueDirective } from '../rendering-type-value.directive';
 
 /**
  * This component renders the identifier metadata fields.
  */
+@MetadataBoxFieldRendering(FieldRenderingType.IDENTIFIER)
 @Component({
   selector: 'ds-identifier',
   templateUrl: './identifier.component.html',

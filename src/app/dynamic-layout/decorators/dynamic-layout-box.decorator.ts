@@ -1,10 +1,8 @@
+import { Component } from '@angular/core';
+import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 
-import { GenericConstructor } from '../../core/shared/generic-constructor';
-import { ItemVersionsComponent } from '../../item-page/versions/item-versions.component';
-import { DynamicLayoutCollectionBoxComponent } from '../dynamic-layout-matrix/dynamic-layout-box-container/boxes/dynamic-layout-collection-box/dynamic-layout-collection-box.component';
-import { DynamicLayoutIiifViewerBoxComponent } from '../dynamic-layout-matrix/dynamic-layout-box-container/boxes/iiif-viewer/dynamic-layout-iiif-viewer-box.component';
-import { DynamicLayoutMetadataBoxComponent } from '../dynamic-layout-matrix/dynamic-layout-box-container/boxes/metadata/dynamic-layout-metadata-box.component';
-import { DynamicLayoutRelationBoxComponent } from '../dynamic-layout-matrix/dynamic-layout-box-container/boxes/relation/dynamic-layout-relation-box.component';
+import { RENDER_DYNAMIC_LAYOUT_BOX_FOR_MAP } from '../../../decorator-registries/render-dynamic-layout-box-for-registry';
 import { LayoutBox } from '../enums/layout-box.enum';
 import { DynamicLayoutBoxDirective } from '../models/dynamic-layout-box-component.directive';
 
@@ -13,26 +11,30 @@ import { DynamicLayoutBoxDirective } from '../models/dynamic-layout-box-componen
  */
 export interface DynamicLayoutBoxRenderOptions {
   /** The component class to instantiate for this box type. */
-  componentRef: GenericConstructor<DynamicLayoutBoxDirective | ItemVersionsComponent>;
+  componentRef: GenericConstructor<DynamicLayoutBoxDirective | Component>;
 }
 
 /**
- * Static registry mapping {@link LayoutBox} types to their rendering component.
+ * Decorator to register a component as the renderer for a given layout box type.
+ *
+ * @param boxType The {@link LayoutBox} type this component renders
  */
-const layoutBoxesMap = new Map<LayoutBox, DynamicLayoutBoxRenderOptions>([
-  [LayoutBox.COLLECTIONS, { componentRef: DynamicLayoutCollectionBoxComponent }],
-  [LayoutBox.IIIFVIEWER, { componentRef: DynamicLayoutIiifViewerBoxComponent }],
-  [LayoutBox.METADATA, { componentRef: DynamicLayoutMetadataBoxComponent }],
-  [LayoutBox.RELATION, { componentRef: DynamicLayoutRelationBoxComponent }],
-  [LayoutBox.VERSIONING, { componentRef: ItemVersionsComponent }],
-]);
+export function RenderDynamicLayoutBoxFor(boxType: LayoutBox | string) {
+  return function decorator(component: any): void {
+  };
+}
 
 /**
- * Resolves the rendering options for a given box type.
+ * Resolves the rendering component for a given box type using the auto-generated registry.
  *
  * @param boxType the layout box type to look up
- * @returns the render options for the box type, or undefined if not registered
+ * @returns a Promise resolving to the render options, or undefined if not registered
  */
-export function getDynamicLayoutBox(boxType: LayoutBox): DynamicLayoutBoxRenderOptions {
-  return layoutBoxesMap.get(boxType);
+export async function getDynamicLayoutBox(boxType: LayoutBox | string): Promise<DynamicLayoutBoxRenderOptions> {
+  const lazyImport = RENDER_DYNAMIC_LAYOUT_BOX_FOR_MAP.get(boxType);
+  if (hasValue(lazyImport)) {
+    const componentRef = await lazyImport() as GenericConstructor<Component>;
+    return { componentRef } as DynamicLayoutBoxRenderOptions;
+  }
+  return undefined;
 }

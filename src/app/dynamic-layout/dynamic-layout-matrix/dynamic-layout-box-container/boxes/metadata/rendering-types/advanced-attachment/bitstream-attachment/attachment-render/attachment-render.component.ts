@@ -80,7 +80,7 @@ export class AttachmentRenderComponent extends AbstractComponentLoaderComponent<
    *
    * @returns The constructor of the matching attachment render component
    */
-  public getComponent(): GenericConstructor<Component> {
+  public async getComponent(): Promise<GenericConstructor<Component>> {
     const rendering = this.renderingType || AttachmentRenderingType.DOWNLOAD;
     return getAttachmentTypeRendering(rendering);
   }

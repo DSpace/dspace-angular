@@ -7,6 +7,18 @@ import { FieldRenderingType } from './field-rendering-type';
 import { MetadataBoxFieldRenderOptions } from './rendering-type.directive';
 
 /**
+ * Decorator to register a component as a metadata box field rendering component
+ * for a given rendering type.
+ *
+ * @param renderingType The rendering type this component handles
+ * @param structured Whether this rendering type handles all metadata values in a single structured render
+ */
+export function MetadataBoxFieldRendering(renderingType: FieldRenderingType | string, structured = false) {
+  return function decorator(component: any): void {};
+}
+
+
+/**
  * Return the rendering type of the field to render
  *
  * @return the rendering type
@@ -22,7 +34,7 @@ export const computeRenderingFn = (rendering: string, isSubtype = false): string
 };
 
 /**
- * Return the rendering option related to the given rendering type
+ * Return the rendering option related to the given rendering type (synchronous, map-based).
  * @param layoutBoxesMap
  * @param fieldRenderingType
  */
@@ -34,3 +46,6 @@ export const getMetadataBoxFieldRenderOptionsFn = (layoutBoxesMap: Map<FieldRend
   }
   return renderOptions;
 };
+
+
+

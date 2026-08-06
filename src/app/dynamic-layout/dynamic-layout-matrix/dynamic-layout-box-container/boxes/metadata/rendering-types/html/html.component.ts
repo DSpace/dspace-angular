@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
 
+import { FieldRenderingType } from '../field-rendering-type';
+import { MetadataBoxFieldRendering } from '../metadata-box.decorator';
 import { RenderingTypeValueDirective } from '../rendering-type-value.directive';
 
 /**
  * This component renders the text metadata fields
  */
+@MetadataBoxFieldRendering(FieldRenderingType.HTML)
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'span[ds-html]',

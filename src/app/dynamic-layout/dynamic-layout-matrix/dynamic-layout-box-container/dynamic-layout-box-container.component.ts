@@ -16,7 +16,6 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 
-import { ItemVersionsComponent } from '../../../item-page/versions/item-versions.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import {
   DynamicLayoutBoxRenderOptions,
@@ -107,8 +106,7 @@ export class DynamicLayoutBoxContainerComponent implements OnInit {
       parent: this.injector,
     });
 
-    this.componentLoader = this.getComponent();
-    this.hasOwnContainer = (this.componentLoader?.componentRef as any)?.hasOwnContainer ?? false;
+    this.initComponent();
 
     this.boxHeaderI18nKey = this.boxI18nPrefix + this.box.entityType + '.' + this.box.shortname;
     this.boxHeaderGenericI18nKey = this.boxI18nPrefix + this.box.shortname;
@@ -119,15 +117,17 @@ export class DynamicLayoutBoxContainerComponent implements OnInit {
   }
 
   /**
-   * Active tab utilized by accordion
+   * Resolve the box component asynchronously from the registry
    */
-  getComponent(): DynamicLayoutBoxRenderOptions {
-    return getDynamicLayoutBox(this.box.boxType as LayoutBox);
+  async initComponent(): Promise<void> {
+    this.componentLoader = await getDynamicLayoutBox(this.box.boxType as LayoutBox);
+    this.hasOwnContainer = (this.componentLoader?.componentRef as any)?.hasOwnContainer ?? false;
   }
+
   /**
    * Get component reference to be inserted in the ngComponentOutlet
    */
-  getComponentRef(): GenericConstructor<DynamicLayoutBoxDirective | ItemVersionsComponent> {
+  getComponentRef(): GenericConstructor<DynamicLayoutBoxDirective | Component> {
     return this.componentLoader?.componentRef;
   }
 

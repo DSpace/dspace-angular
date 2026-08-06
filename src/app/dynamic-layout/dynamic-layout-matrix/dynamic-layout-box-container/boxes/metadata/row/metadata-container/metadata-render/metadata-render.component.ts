@@ -73,7 +73,7 @@ export class MetadataRenderComponent extends AbstractComponentLoaderComponent<Re
   /**
    * Fetch the component depending on the field's rendering type
    */
-  public getComponent(): GenericConstructor<RenderingTypeDirective> {
+  public async getComponent(): Promise<GenericConstructor<RenderingTypeDirective>> {
     this.renderingSubType = computeRenderingFn(this.field.rendering, true);
     const rendering = computeRenderingFn(this.field?.rendering);
     const metadataFieldRenderOptions = getMetadataBoxFieldRenderOptionsFn(this.layoutBoxesMap, rendering);

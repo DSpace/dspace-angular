@@ -1,4 +1,7 @@
-import { DebugElement } from '@angular/core';
+import {
+  Component,
+  DebugElement,
+} from '@angular/core';
 import {
   ComponentFixture,
   TestBed,
@@ -13,8 +16,10 @@ import {
 } from '@ngx-translate/core';
 
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { DynamicLayoutMetadataBoxComponent } from './boxes/metadata/dynamic-layout-metadata-box.component';
 import { DynamicLayoutBoxContainerComponent } from './dynamic-layout-box-container.component';
+
+@Component({ selector: 'ds-mock-box', template: '' })
+class MockBoxComponent {}
 
 describe('DynamicLayoutBoxContainerComponent', () => {
   let component: DynamicLayoutBoxContainerComponent;
@@ -63,25 +68,26 @@ describe('DynamicLayoutBoxContainerComponent', () => {
 
     component.box = boxMetadata;
     component.item = mockItem;
-    fixture.detectChanges();
   });
 
   it('should create', () => {
+    fixture.detectChanges();
     expect(component).toBeTruthy();
   });
 
 
   describe('when inserting box', () => {
-    beforeEach(() => {
-      spyOn((component as any), 'getComponent').and.returnValue(DynamicLayoutMetadataBoxComponent);
-      component.box = boxMetadata;
-      component.item = mockItem;
-      component.ngOnInit();
+    beforeEach(async () => {
+      spyOn((component as any), 'initComponent').and.callFake(async () => {
+        component.componentLoader = { componentRef: MockBoxComponent } as any;
+      });
+      fixture.detectChanges();
+      await fixture.whenStable();
       fixture.detectChanges();
     });
 
     it('should call get component', () => {
-      expect((component as any).getComponent).toHaveBeenCalled();
+      expect((component as any).initComponent).toHaveBeenCalled();
     });
 
     it('should have object injector', () => {

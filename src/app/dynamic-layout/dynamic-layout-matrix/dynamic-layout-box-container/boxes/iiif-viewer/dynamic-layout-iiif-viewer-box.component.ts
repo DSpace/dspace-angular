@@ -13,8 +13,11 @@ import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
 import { MiradorViewerComponent } from '../../../../../item-page/mirador-viewer/mirador-viewer.component';
+import { RenderDynamicLayoutBoxFor } from '../../../../decorators/dynamic-layout-box.decorator';
+import { LayoutBox } from '../../../../enums/layout-box.enum';
 import { DynamicLayoutBoxDirective } from '../../../../models/dynamic-layout-box-component.directive';
 
+@RenderDynamicLayoutBoxFor(LayoutBox.IIIFVIEWER)
 @Component({
   selector: 'ds-dynamic-layout-iiif-viewer-box',
   templateUrl: './dynamic-layout-iiif-viewer-box.component.html',

@@ -41,8 +41,11 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../../../../environments/environment';
+import { RenderDynamicLayoutBoxFor } from '../../../../decorators/dynamic-layout-box.decorator';
+import { LayoutBox } from '../../../../enums/layout-box.enum';
 import { DynamicLayoutBoxDirective } from '../../../../models/dynamic-layout-box-component.directive';
 
+@RenderDynamicLayoutBoxFor(LayoutBox.COLLECTIONS)
 @Component({
   selector: 'ds-dynamic-layout-collection-box',
   templateUrl: './dynamic-layout-collection-box.component.html',

@@ -21,11 +21,14 @@ import {
   take,
 } from 'rxjs/operators';
 
+import { FieldRenderingType } from '../field-rendering-type';
+import { MetadataBoxFieldRendering } from '../metadata-box.decorator';
 import { RenderingTypeValueDirective } from '../rendering-type-value.directive';
 
 /**
  * This component renders the valuepair (value + display) metadata fields.
  */
+@MetadataBoxFieldRendering(FieldRenderingType.VALUEPAIR)
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'span[ds-valuepair]',

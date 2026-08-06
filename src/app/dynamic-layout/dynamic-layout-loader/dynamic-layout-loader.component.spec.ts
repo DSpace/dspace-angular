@@ -108,7 +108,9 @@ describe('DynamicLayoutLoaderComponent', () => {
       expect(component).toBeTruthy();
     });
 
-    it('should show horizontal component', () => {
+    it('should show horizontal component', async () => {
+      await fixture.whenStable();
+      fixture.detectChanges();
       expect(fixture.debugElement.query(By.css('.horizontal-layout'))).toBeTruthy();
     });
   });
@@ -131,7 +133,9 @@ describe('DynamicLayoutLoaderComponent', () => {
       expect(component).toBeTruthy();
     });
 
-    it('should show vertical component', () => {
+    it('should show vertical component', async () => {
+      await fixture.whenStable();
+      fixture.detectChanges();
       expect(fixture.debugElement.query(By.css('.vertical-layout'))).toBeTruthy();
     });
   });

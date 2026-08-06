@@ -25,8 +25,11 @@ import {
 } from 'rxjs/operators';
 
 import { ThemedConfigurationSearchPageComponent } from '../../../../../search-page/themed-configuration-search-page.component';
+import { RenderDynamicLayoutBoxFor } from '../../../../decorators/dynamic-layout-box.decorator';
+import { LayoutBox } from '../../../../enums/layout-box.enum';
 import { DynamicLayoutBoxDirective } from '../../../../models/dynamic-layout-box-component.directive';
 
+@RenderDynamicLayoutBoxFor(LayoutBox.RELATION)
 @Component({
   selector: 'ds-dynamic-layout-search-box',
   templateUrl: './dynamic-layout-relation-box.component.html',

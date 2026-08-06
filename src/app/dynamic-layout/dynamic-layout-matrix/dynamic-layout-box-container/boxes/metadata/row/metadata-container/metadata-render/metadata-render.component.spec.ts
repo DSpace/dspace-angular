@@ -175,9 +175,10 @@ describe('MetadataRenderComponent', () => {
     });
 
     describe('and metadata value has placeholder', () => {
-      beforeEach(() => {
+      beforeEach(async () => {
         component.metadataValue = metadataValueWithPlaceholder;
         fixture.detectChanges();
+        await fixture.whenStable();
       });
 
       it('should normalize metadata value', () => {
