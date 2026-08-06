@@ -19,6 +19,7 @@ import {
   DynamicFormControlModel,
   DynamicFormControlRelation,
   DynamicFormRelationService,
+  MATCH_VISIBLE,
   OR_OPERATOR,
 } from '@ng-dynamic-forms/core';
 import { Subscription } from 'rxjs';
@@ -205,6 +206,10 @@ export class DsDynamicTypeBindRelationService {
               if (relation !== undefined) {
                 const hasMatch = this.matchesCondition(relation, matcher);
                 matcher.onChange(hasMatch, model, control, this.injector);
+                // When field becomes hidden, reset its FormControl to clear stale values
+                if (relation.match === MATCH_VISIBLE && !hasMatch && hasValue(control)) {
+                  control.reset();
+                }
               }
             });
           }
