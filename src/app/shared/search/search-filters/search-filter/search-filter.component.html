@@ -1,5 +1,6 @@
 @if (active$ | async) {
   <div class="facet-filter d-block mb-3 p-3"
+	  [class.filter-active]="(appliedFilters$ | async)?.length > 0"
     [id]="regionId" [attr.aria-labelledby]="toggleId" [ngClass]="{ 'focus': focusBox }" role="region">
     <button (click)="toggle()" (focusin)="focusBox = true" (focusout)="focusBox = false"
       class="filter-name d-flex" [attr.aria-controls]="regionId" [id]="toggleId"
