@@ -31,7 +31,7 @@
         </button>
       }
     </div>
-    <div role="table" [attr.aria-label]="'item.edit.head' | translate">
+    <div class="overflow-auto" role="table" [attr.aria-label]="'item.edit.head' | translate">
       <ds-dso-edit-metadata-headers [dsoType]="dsoType"></ds-dso-edit-metadata-headers>
       @if (form.newValue) {
         <div class="d-flex flex-row ds-field-row" role="row">
