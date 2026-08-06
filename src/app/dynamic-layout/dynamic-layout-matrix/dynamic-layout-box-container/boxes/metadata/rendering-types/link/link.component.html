@@ -1,0 +1,9 @@
+<div [class]="field.styleValue" [attr.lang]="metadataValue.language">
+  @if (isLink) {
+    <span class="link-value">
+      <a href="{{link.href}}" target="_blank">{{ link.text }}</a>
+    </span>
+  } @else {
+    <span class="plain-text-value">{{ link.text }}</span>
+  }
+</div>

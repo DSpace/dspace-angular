@@ -1,0 +1,24 @@
+<div class="dynamic-layout">
+  @if (!!tabs$) {
+    <ng-container *ngVar="(leadingTabs$ | async) as leadingTabs">
+      @if ((hasLeadingTab$ | async) && !!leadingTabs && leadingTabs.length > 0) {
+        <ds-dynamic-layout-leading
+          [item]="item"
+          [showContextMenu]="showContextMenu"
+          [tab]="leadingTabs[0]"></ds-dynamic-layout-leading>
+      }
+    </ng-container>
+  }
+
+  @if (!!tabs$) {
+    <ng-container *ngVar="(loaderTabs$ | async) as loaderTabs">
+      @if (!!loaderTabs && loaderTabs.length > 0) {
+        <ds-dynamic-layout-loader
+          [leadingTabs]="(leadingTabs$ | async)"
+          [item]="item"
+          [showContextMenu]="(hasLeadingTab$ | async) !== true && showContextMenu"
+          [tabs]="loaderTabs"></ds-dynamic-layout-loader>
+      }
+    </ng-container>
+  }
+</div>

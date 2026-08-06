@@ -1,0 +1,44 @@
+<div class="sidebar-section h-100" [ngClass]="{ 'active' : !!tab && !!activeTab && (tab.isActive || tab.id === activeTab.id), 'expanded': expanded, 'vertical': layout === 'vertical', 'horizontal': layout === 'horizontal' }">
+  @if (!tab.children || tab.children.length === 0 ) {
+    <div class="icon-wrapper">
+      <button class="btn btn-link nav-item shortcut-icon w-100"
+        [innerHTML]="getTabHeader(tab)"
+        [ngClass]="{ 'px-4 justify-content-between' : layout === 'vertical' }"
+        [title]="getTabHeader(tab)"
+        (click)="selectTab(tab)">
+      </button>
+    </div>
+  }
+  @if (!!tab.children && tab.children.length > 0 ) {
+    <div class="sidebar-collapsible h-100">
+      <button class="btn btn-link nav-item shortcut-icon w-100" [ngClass]="{ 'px-4 justify-content-between' : layout === 'vertical' }"
+        (click)="toggleSection($event)">
+        <span id="sidebarName-{{tab.id}}" class="section-header-text" [innerHTML]="getTabHeader(tab)">
+        </span>
+        @if (layout === 'vertical') {
+          <i class="fas fa-chevron-right fa-pull-right" [@rotate]="expanded ? 'expanded' : 'collapsed'"
+          [title]="getTabHeader(tab)"></i>
+        }
+        @if (layout === 'horizontal') {
+          <i class="fas fa-chevron-right fa-pull-right" [@rotateNavbar]="expanded ? 'expanded' : 'collapsed'"
+          [title]="getTabHeader(tab)"></i>
+        }
+      </button>
+      @if (expanded) {
+        <ul class="sidebar-sub-level-items list-unstyled" @slide>
+          @for (subTab of tab.children; track subTab) {
+            <li [ngClass]="{'active' : !!subTab && !!activeTab && subTab.id === activeTab.id}">
+              <button class="btn btn-link nav-item shortcut-icon w-100"
+                [ngClass]="{ 'px-4 justify-content-between' : layout === 'vertical' }"
+                (click)="selectTab(subTab)">
+                <span id="sidebarName-{{subTab.id}}"
+                      class="ps-3 section-header-text"
+                      [innerHTML]="getTabHeader(subTab)"></span>
+              </button>
+            </li>
+          }
+        </ul>
+      }
+    </div>
+  }
+</div>

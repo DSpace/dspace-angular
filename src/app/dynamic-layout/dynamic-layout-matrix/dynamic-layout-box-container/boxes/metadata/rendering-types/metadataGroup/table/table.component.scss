@@ -1,0 +1,14 @@
+.table-container {
+  margin-left: -0.75rem !important;
+  margin-right: -0.75rem !important;
+}
+
+td {
+  word-break: auto-phrase;
+}
+
+:host {
+  .auto-phrase {
+    word-break: auto-phrase;
+  }
+}
