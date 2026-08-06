@@ -9,6 +9,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { AuthRequestService } from '@dspace/core/auth/auth-request.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   ActivatedRoute,
@@ -27,6 +28,7 @@ import {
 import { ServerResponseService } from '@dspace/core/services/server-response.service';
 import { Item } from '@dspace/core/shared/item.model';
 import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { AuthRequestServiceStub } from '@dspace/core/testing/auth-request-service.stub';
 import { RouterMock } from '@dspace/core/testing/router.mock';
 import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import { createPaginatedList } from '@dspace/core/testing/utils.test';
@@ -36,6 +38,8 @@ import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '@dspace/core/utilities/remote-data.utils';
+import { Store } from '@ngrx/store';
+import { provideMockStore } from '@ngrx/store/testing';
 import {
   TranslateLoader,
   TranslateModule,
@@ -143,6 +147,8 @@ describe('ItemPageComponent', () => {
         { provide: NotifyInfoService, useValue: notifyInfoService },
         { provide: PLATFORM_ID, useValue: 'server' },
         { provide: HardRedirectService, useValue: hardRedirectService },
+        { provide: AuthRequestService, useValue: new AuthRequestServiceStub() },
+        { provide: Store, useValue: provideMockStore() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ItemPageComponent, {
