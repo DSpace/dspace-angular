@@ -6,6 +6,7 @@ import {
 import { provideRouter } from '@angular/router';
 import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
+import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
 import { LocaleService } from '@dspace/core/locale/locale.service';
 import { Bitstream } from '@dspace/core/shared/bitstream.model';
 import { Item } from '@dspace/core/shared/item.model';
@@ -42,8 +43,13 @@ describe('BitstreamAttachmentComponent', () => {
     getCurrentLanguageCode: of('en'),
     getLanguageCodeList: of(languageList),
   });
+  let authorizationService: jasmine.SpyObj<AuthorizationDataService>;
 
   beforeEach(async () => {
+    authorizationService = jasmine.createSpyObj('AuthorizationDataService', {
+      isAuthorized: of(true),
+    });
+
     await TestBed.configureTestingModule({
       imports: [
         BitstreamAttachmentComponent,
@@ -60,6 +66,7 @@ describe('BitstreamAttachmentComponent', () => {
         { provide: BitstreamDataService, useValue: {} },
         { provide: APP_CONFIG, useValue: environment },
         { provide: LocaleService, useValue: mockLocaleService },
+        { provide: AuthorizationDataService, useValue: authorizationService },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
@@ -111,5 +118,26 @@ describe('BitstreamAttachmentComponent', () => {
     fixture.detectChanges();
     const badge = fixture.nativeElement.querySelector('.badge.bg-primary');
     expect(badge).toBeNull();
+  });
+
+  it('should display admin-only elements (checksum) for administrators', () => {
+    authorizationService.isAuthorized.and.returnValue(of(true));
+    component.ngOnInit();
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('[data-test="checksum"]')).toBeTruthy();
+  });
+
+  it('should hide admin-only elements (checksum) from non-administrators', () => {
+    authorizationService.isAuthorized.and.returnValue(of(false));
+    component.ngOnInit();
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('[data-test="checksum"]')).toBeNull();
+  });
+
+  it('should always display public elements (format) regardless of admin status', () => {
+    authorizationService.isAuthorized.and.returnValue(of(false));
+    component.ngOnInit();
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('[data-test="format"]')).toBeTruthy();
   });
 });

@@ -738,6 +738,10 @@ layout:
   showDownloadLinkAsAttachment: false
   # Configuration for advanced attachment rendering in item pages. This controls how files are displayed when showDownloadLinkAsAttachment is enabled.
   # Defines which metadata/attributes to display for bitstream attachments.
+  # Each element may set an optional "visibility" controlling who can see it:
+  #   public (default when omitted) - visible to everyone, including anonymous users
+  #   admin                         - visible only to site administrators
+  # To hide an element from everyone, remove it from the metadata list entirely.
   advancedAttachmentRendering:
     # Metadata and attributes to display for each attachment
     metadata:
@@ -756,6 +760,7 @@ layout:
         type: attribute
       - name: checksum
         type: attribute
+        visibility: admin
 
 # Configuration for customization of search results
 searchResults:
