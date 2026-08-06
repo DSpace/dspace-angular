@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h1>{{'collection.edit.move.title' | translate: {id: (collectionRD$ | async)?.payload?.handle} }}</h1>
+      <p>{{'collection.edit.move.description' | translate}}</p>
+      <div class="row">
+        <div class="col-12">
+          <div class="card mb-3">
+            <div class="card-header">{{'dso-selector.placeholder' | translate: { type: 'dso-selector.placeholder.type.community' | translate } }}</div>
+            <div class="card-body">
+              <ds-authorized-community-selector [types]="COMMUNITIES"
+                [currentDSOId]="selectedCommunity ? selectedCommunity.id : originalCommunity?.id"
+                (onSelect)="selectDso($event)">
+              </ds-authorized-community-selector>
+            </div>
+            <div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="button-row bottom">
+        <div class="float-end space-children-mr">
+          <button class="btn btn-primary" [dsBtnDisabled]="!canMove" (click)="moveToCommunity()">
+            @if (!processing) {
+              <span>
+                <i class="fas fa-save"></i> {{'collection.edit.move.save-button' | translate}}
+              </span>
+            }
+            @if (processing) {
+              <span>
+                <i class="fas fa-circle-notch fa-spin"></i> {{'collection.edit.move.processing' | translate}}
+              </span>
+            }
+          </button>
+          <button class="btn btn-danger" [dsBtnDisabled]="!canSubmit" (click)="discard()">
+            <i class="fas fa-times"></i> {{"collection.edit.move.discard-button" | translate}}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
