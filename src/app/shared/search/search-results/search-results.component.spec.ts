@@ -133,6 +133,31 @@ describe('SearchResultsComponent', () => {
     expect(routerLinkQuery[0].queryParams.query).toBe('"foobar"', 'query params should be "foobar"');
   });
 
+  it('should display link based on spellcheck', () => {
+    (comp as any).searchResults = { payload: { page: { length: 0 } } };
+    (comp as any).spellCheckSuggestions = ['test'];
+    (comp as any).searchConfig = { query: 'testi' };
+    fixture.detectChanges();
+
+    const linkDes = fixture.debugElement.queryAll(By.directive(QueryParamsDirectiveStub));
+
+    // get attached link directive instances
+    // using each DebugElement's injector
+    const routerLinkQuery = linkDes.map((de) => de.injector.get(QueryParamsDirectiveStub)).filter(
+      (val) => val.queryParams.query === 'test');
+
+    expect(routerLinkQuery.length).toBe(1, 'should have 1 router link with query params "test"');
+  });
+
+  it('should not display spellcheck link when there are no suggestions', () => {
+    (comp as any).searchResults = { payload: { page: { length: 0 } } };
+    (comp as any).spellCheckSuggestions = [];
+    (comp as any).searchConfig = { query: 'testi' };
+    fixture.detectChanges();
+
+    expect(fixture.debugElement.query(By.css('.spellcheck-suggestion'))).toBeNull();
+  });
+
   it('should add quotes around the given string', () => {
     expect(comp.surroundStringWithQuotes('teststring')).toEqual('"teststring"');
   });

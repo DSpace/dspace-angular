@@ -121,6 +121,11 @@ export class SearchResultsComponent {
   @Input() configuration: string;
 
   /**
+   * Spellcheck suggestions from the search backend
+   */
+  @Input() spellCheckSuggestions: string[];
+
+  /**
    * Whether or not to hide the header of the results
    * Defaults to a visible header
    */
