@@ -1,6 +1,8 @@
 import {
   DebugElement,
+  ElementRef,
   NO_ERRORS_SCHEMA,
+  QueryList,
 } from '@angular/core';
 import {
   ComponentFixture,
@@ -108,6 +110,66 @@ describe('DSOSelectorComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  describe('getDsoId', () => {
+    it('should return the id of the indexable object', () => {
+      expect(component.getDsoId(searchResult)).toEqual(searchResult.indexableObject.id);
+    });
+  });
+
+  describe('isCurrentDso', () => {
+    it('should return true when the list entry represents the current DSO', () => {
+      component.currentDSOId = searchResult.indexableObject.id;
+
+      expect(component.isCurrentDso(searchResult)).toBeTrue();
+    });
+
+    it('should return false when the list entry does not represent the current DSO', () => {
+      component.currentDSOId = 'another-id';
+
+      expect(component.isCurrentDso(searchResult)).toBeFalse();
+    });
+  });
+
+  describe('keyboard navigation', () => {
+    let firstElement: HTMLButtonElement;
+    let secondElement: HTMLButtonElement;
+
+    beforeEach(() => {
+      firstElement = document.createElement('button');
+      secondElement = document.createElement('button');
+
+      const listElements = new QueryList<ElementRef>();
+      listElements.reset([
+        new ElementRef(firstElement),
+        new ElementRef(secondElement),
+      ]);
+
+      component.listElements = listElements;
+    });
+
+    it('should move focus to the next list entry when pressing ArrowDown', () => {
+      const event = new KeyboardEvent('keydown', { key: 'ArrowDown' });
+      spyOn(event, 'preventDefault');
+      spyOn(secondElement, 'focus');
+
+      component.onListEntryKeydown(event, 0);
+
+      expect(event.preventDefault).toHaveBeenCalled();
+      expect(secondElement.focus).toHaveBeenCalled();
+    });
+
+    it('should move focus to the previous list entry when pressing ArrowUp', () => {
+      const event = new KeyboardEvent('keydown', { key: 'ArrowUp' });
+      spyOn(event, 'preventDefault');
+      spyOn(firstElement, 'focus');
+
+      component.onListEntryKeydown(event, 1);
+
+      expect(event.preventDefault).toHaveBeenCalled();
+      expect(firstElement.focus).toHaveBeenCalled();
+    });
   });
 
   describe('populating listEntries', () => {
