@@ -14,6 +14,7 @@ import {
   RetrieveAuthMethodsSuccessAction,
   SetAuthCookieStatus,
   SetRedirectUrlAction,
+  SetRedirectUrlAndNavigateAction,
 } from './auth.actions';
 import { AuthMethod } from './models/auth.method';
 import { AuthMethodType } from './models/auth.method-type';
@@ -243,6 +244,11 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
     case AuthActionTypes.SET_REDIRECT_URL:
       return Object.assign({}, state, {
         redirectUrl: (action as SetRedirectUrlAction).payload,
+      });
+
+    case AuthActionTypes.SET_REDIRECT_URL_AND_NAVIGATE:
+      return Object.assign({}, state, {
+        redirectUrl: (action as SetRedirectUrlAndNavigateAction).payload.redirectUrl,
       });
 
     case AuthActionTypes.REDIRECT_AFTER_LOGIN_SUCCESS:
