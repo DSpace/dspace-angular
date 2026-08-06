@@ -14,6 +14,7 @@ import {
   AppConfig,
 } from '@dspace/config/app-config.interface';
 import { SearchManager } from '@dspace/core/browse/search-manager';
+import { PaginationService } from '@dspace/core/pagination/pagination.service';
 import { RouteService } from '@dspace/core/services/route.service';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -69,7 +70,8 @@ export class ConfigurationSearchPageComponent extends SearchComponent {
               @Inject(APP_CONFIG) protected appConfig: AppConfig,
               @Inject(PLATFORM_ID) public platformId: string,
               protected searchManager: SearchManager,
+              protected paginationService: PaginationService,
   ) {
-    super(service, sidebarService, windowService, searchConfigService, routeService, router, appConfig, platformId, searchManager);
+    super(service, sidebarService, windowService, searchConfigService, routeService, router, appConfig, platformId, searchManager, paginationService);
   }
 }
