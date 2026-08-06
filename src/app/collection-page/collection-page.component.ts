@@ -2,13 +2,19 @@ import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  Inject,
   OnInit,
 } from '@angular/core';
 import {
   ActivatedRoute,
   Router,
+  RouterLink,
   RouterOutlet,
 } from '@angular/router';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
 import { AuthService } from '@dspace/core/auth/auth.service';
 import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import { SortOptions } from '@dspace/core/cache/models/sort-options.model';
@@ -63,6 +69,7 @@ import { VarDirective } from '../shared/utils/var.directive';
     ComcolPageLogoComponent,
     DsoEditMenuComponent,
     ErrorComponent,
+    RouterLink,
     RouterOutlet,
     ThemedComcolPageBrowseByComponent,
     ThemedComcolPageContentComponent,
@@ -88,12 +95,18 @@ export class CollectionPageComponent implements OnInit {
    */
   collectionPageRoute$: Observable<string>;
 
+  /**
+   * Whether to show a submit button for users on the collection page.
+   */
+  showSubmitButton$: Observable<boolean>;
+
   constructor(
     protected route: ActivatedRoute,
     protected router: Router,
     protected authService: AuthService,
     protected authorizationDataService: AuthorizationDataService,
     public dsoNameService: DSONameService,
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
   ) {
   }
 
@@ -113,6 +126,10 @@ export class CollectionPageComponent implements OnInit {
     this.collectionPageRoute$ = this.collectionRD$.pipe(
       getAllSucceededRemoteDataPayload(),
       map((collection) => getCollectionPageRoute(collection.id)),
+    );
+
+    this.showSubmitButton$ = this.authorizationDataService.isAuthorized(FeatureID.CanSubmit).pipe(
+      map(authorized => authorized && this.appConfig.collection.showSubmitButton),
     );
   }
 
