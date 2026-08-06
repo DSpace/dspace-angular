@@ -1,5 +1,6 @@
 import {
   AsyncPipe,
+  DatePipe,
   isPlatformBrowser,
   NgClass,
 } from '@angular/common';
@@ -83,6 +84,7 @@ export interface ProcessOverviewTableEntry {
   templateUrl: './process-overview-table.component.html',
   imports: [
     AsyncPipe,
+    DatePipe,
     NgbCollapseModule,
     NgClass,
     PaginationComponent,
@@ -93,6 +95,16 @@ export interface ProcessOverviewTableEntry {
   ],
 })
 export class ProcessOverviewTableComponent implements OnInit, OnDestroy {
+
+  /**
+   * Expose the ProcessStatus enum to the template
+   */
+  readonly ProcessStatus = ProcessStatus;
+
+  /**
+   * Date format used to display the heartbeat timestamp
+   */
+  readonly dateFormat = 'yyyy-MM-dd HH:mm:ss';
 
   /**
    * The status of the processes this sections should show
