@@ -1,5 +1,6 @@
 <div>
-  <div class="modal-header">{{ headerLabel | translate:{ dsoName: name } }}
+  <div class="modal-header">
+    <h4 id="modal-title" class="modal-title h4 mb-0">{{ headerLabel | translate:{ dsoName: name } }}</h4>
     <button type="button" class="btn-close" (click)="close()" aria-label="Close">
     </button>
   </div>
