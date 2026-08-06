@@ -13,6 +13,7 @@ import { LinkAuthorityComponent } from './link-authority/link-authority.componen
 import { LonghtmlComponent } from './longhtml/longhtml.component';
 import { LongtextComponent } from './longtext/longtext.component';
 import { InlineComponent } from './metadataGroup/inline/inline.component';
+import { OpenstreetmapComponent } from './metadataGroup/openstreetmap/openstreetmap.component';
 import { TableComponent } from './metadataGroup/table/table.component';
 import { OrcidComponent } from './orcid/orcid.component';
 import { MetadataBoxFieldRenderOptions } from './rendering-type.directive';
@@ -42,4 +43,5 @@ export const layoutBoxesMap = new Map<FieldRenderingType, MetadataBoxFieldRender
   [FieldRenderingType.LONGHTML, { componentRef: LonghtmlComponent }],
   [FieldRenderingType.CCLICENSEFULL, { componentRef: CcLicenseLargeComponent }],
   [FieldRenderingType.CCLICENSE, { componentRef: CcLicenseSmallComponent }],
+  [FieldRenderingType.OPENSTREETMAP, { componentRef: OpenstreetmapComponent }],
 ]);
