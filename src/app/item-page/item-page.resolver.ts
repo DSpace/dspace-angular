@@ -75,7 +75,6 @@ export const itemPageResolver: ResolveFn<RemoteData<Item>> = (
     store.dispatch(new ResolvedAction(state.url, itemRD.payload));
   });
 
-
   return itemRD$.pipe(
     map((rd: RemoteData<Item>) => {
       if (rd.hasSucceeded && hasValue(rd.payload)) {
@@ -83,32 +82,46 @@ export const itemPageResolver: ResolveFn<RemoteData<Item>> = (
         if (hasValue(rd.payload.metadata) && rd.payload.hasMetadata('dspace.customurl')) {
           const customUrl = rd.payload.firstMetadataValue('dspace.customurl');
           const isValidCustomUrl = CUSTOM_URL_VALID_PATTERN.test(customUrl);
+
+          // FIX #5479: detect navigation from edit/administer to avoid redirecting to deleted custom URL
+          const isComingFromEdit = state.url.includes('/edit') || state.url.includes('/administer');
+
           const decodedStateUrl = decodeURIComponent(state.url);
           const isSubPath = !(decodedStateUrl.endsWith(customUrl) || decodedStateUrl.endsWith(rd.payload.id) || decodedStateUrl.endsWith('/full'));
           itemRoute = (isSubPath || !isValidCustomUrl) ? state.url : router.parseUrl(getItemPageRoute(rd.payload)).toString();
+
           let newUrl: string;
-          if (route.params.id !== customUrl && !isSubPath && isValidCustomUrl) {
-            newUrl = itemRoute.replace(route.params.id, rd.payload.firstMetadataValue('dspace.customurl'));
-          } else if ((isSubPath || !isValidCustomUrl) && route.params.id === customUrl) {
-            // In case of a sub path, we need to ensure we navigate to the edit page of the item ID, not the custom URL
+
+          if (route.params.id !== customUrl && !isSubPath) {
+            // Only redirect to custom URL if NOT navigating from edit/administer page
+            if (!isComingFromEdit) {
+              if (isValidCustomUrl) {
+                newUrl = itemRoute.replace(route.params.id, customUrl);
+              } else {
+                // Notify the user that custom url won't be used as it is malformed
+                const notificationOptions = new NotificationOptions(-1, true);
+                notificationsService.warning(
+                  translateService.instant('item-page.resolver.invalid-custom-url.title'),
+                  translateService.instant('item-page.resolver.invalid-custom-url.message'),
+                  notificationOptions,
+                );
+                // Fall back to UUID route
+                const type = rd.payload.firstMetadataValue('dspace.entity.type');
+                newUrl = hasValue(type)
+                  ? `/entities/${encodeURIComponent(type.toLowerCase())}/${rd.payload.uuid}`
+                  : `/items/${rd.payload.uuid}`;
+              }
+            }
+          } else if (isSubPath && route.params.id === customUrl) {
+            // In case of a sub path, ensure we navigate to the edit page of the item ID, not the custom URL
             const itemId = rd.payload.uuid;
             newUrl = decodeURIComponent(itemRoute).replace(customUrl, itemId);
-            if (!isValidCustomUrl && !isSubPath) {
-              // Notify the user that custom url won't be used as it is malformed
-              const notificationOptions = new NotificationOptions(-1, true);
-              notificationsService.warning(
-                translateService.instant('item-page.resolver.invalid-custom-url.title'),
-                translateService.instant('item-page.resolver.invalid-custom-url.message'),
-                notificationOptions,
-              );
-            }
           }
-
 
           if (hasValue(newUrl)) {
             router.navigateByUrl(newUrl);
           }
-        } else  {
+        } else {
           const thisRoute = state.url;
 
           // Angular uses a custom function for encodeURIComponent, (e.g. it doesn't encode commas
