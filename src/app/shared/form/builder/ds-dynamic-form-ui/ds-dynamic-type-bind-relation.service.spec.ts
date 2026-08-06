@@ -1,4 +1,7 @@
-import { Injector } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Injector,
+} from '@angular/core';
 import {
   inject,
   TestBed,
@@ -78,13 +81,13 @@ describe('DSDynamicTypeBindRelationService test suite', () => {
   describe('Test getRelatedFormModel method', () => {
     it('Should get 0 related form models for simple type bind mock data', () => {
       const testModel = MockRelationModel;
-      const relatedModels = service.getRelatedFormModel(testModel);
+      const relatedModels = service.getRelatedFormModel(testModel, undefined);
       expect(relatedModels).toHaveSize(0);
     });
     it('Should get 1 related form models for mock relation model data', () => {
       const testModel = mockInputWithTypeBindModel;
       testModel.typeBindRelations = getTypeBindRelations(['boundType'], 'dc.type');
-      const relatedModels = service.getRelatedFormModel(testModel);
+      const relatedModels = service.getRelatedFormModel(testModel, undefined);
       expect(relatedModels).toHaveSize(1);
     });
   });
@@ -95,7 +98,8 @@ describe('DSDynamicTypeBindRelationService test suite', () => {
       testModel.typeBindRelations = getTypeBindRelations(['boundType'], 'dc.type');
       const dcTypeControl = new UntypedFormControl();
       dcTypeControl.setValue('boundType');
-      let subscriptions = service.subscribeRelations(testModel, dcTypeControl);
+      const compRef = jasmine.createSpyObj<ChangeDetectorRef>('ChangeDetectorRef', ['markForCheck']);
+      let subscriptions = service.subscribeRelations(testModel, dcTypeControl, dcTypeControl.parent as any, compRef);
       expect(subscriptions).toHaveSize(1);
     });
 
@@ -108,7 +112,7 @@ describe('DSDynamicTypeBindRelationService test suite', () => {
       const relation = dynamicFormRelationService.findRelationByMatcher((testModel as any).typeBindRelations, HIDDEN_MATCHER);
       const matcher = HIDDEN_MATCHER;
       if (relation !== undefined) {
-        const hasMatch = service.matchesCondition(relation, matcher);
+        const hasMatch = service.matchesCondition(relation, matcher,[{ 'dc.type': 'boundType' }]);
         matcher.onChange(hasMatch, testModel, dcTypeControl, injector);
         expect(hasMatch).toBeTruthy();
       }
@@ -123,7 +127,7 @@ describe('DSDynamicTypeBindRelationService test suite', () => {
       const relation = dynamicFormRelationService.findRelationByMatcher((testModel as any).typeBindRelations, HIDDEN_MATCHER);
       const matcher = HIDDEN_MATCHER;
       if (relation !== undefined) {
-        const hasMatch = service.matchesCondition(relation, matcher);
+        const hasMatch = service.matchesCondition(relation, matcher, [{ 'dc.type': 'boundType' }]);
         matcher.onChange(hasMatch, testModel, dcTypeControl, injector);
         expect(hasMatch).toBeFalsy();
       }
