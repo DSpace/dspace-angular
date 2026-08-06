@@ -105,12 +105,6 @@ export const ROUTES: Route[] = [
             component: ItemBitstreamsComponent,
             data: { title: 'item.edit.tabs.view.title', showBreadcrumbs: true }
           }, */
-          /* TODO - uncomment & fix when curate page exists
-          {
-            path: 'curate',
-            component: ItemBitstreamsComponent,
-            data: { title: 'item.edit.tabs.curate.title', showBreadcrumbs: true }
-          }, */
           {
             path: 'versionhistory',
             component: ItemVersionHistoryComponent,
@@ -126,7 +120,11 @@ export const ROUTES: Route[] = [
           {
             path: 'mapper',
             component: ItemCollectionMapperComponent,
-            data: { title: 'item.edit.tabs.item-mapper.title', showBreadcrumbs: true },
+            data: {
+              hideReturnButton: true,
+              showBreadcrumbs: true,
+              title: 'item.edit.tabs.item-mapper.title',
+            },
             canActivate: [itemPageCollectionMapperGuard],
           },
         ],
