@@ -25,6 +25,9 @@ ENV NODE_OPTIONS="--max_old_space_size=4096"
 # On startup, run in DEVELOPMENT mode (this defaults to live reloading enabled, etc).
 ENV NODE_ENV=development
 
+# Populate .eslintcache
+RUN npm run lint || true
+
 EXPOSE 4000
 
 # On startup, run this command to start application in dev mode
