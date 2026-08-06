@@ -17,20 +17,20 @@ import {
 import { ObjectCacheService } from '@dspace/core/cache/object-cache.service';
 import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
 import { BundleDataService } from '@dspace/core/data/bundle-data.service';
+import { FindListOptions } from '@dspace/core/data/find-list-options.model';
 import { ItemDataService } from '@dspace/core/data/item-data.service';
+import { FieldUpdates } from '@dspace/core/data/object-updates/field-updates.model';
 import { ObjectUpdatesService } from '@dspace/core/data/object-updates/object-updates.service';
 import { PaginatedList } from '@dspace/core/data/paginated-list.model';
 import { RemoteData } from '@dspace/core/data/remote-data';
 import { RequestService } from '@dspace/core/data/request.service';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
 import { Bundle } from '@dspace/core/shared/bundle.model';
 import { NoContent } from '@dspace/core/shared/NoContent.model';
 import {
-  getFirstSucceededRemoteData,
+  getAllSucceededRemoteData,
   getRemoteDataPayload,
 } from '@dspace/core/shared/operators';
-import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
 import {
   hasValue,
   isNotEmpty,
@@ -41,14 +41,16 @@ import {
 } from '@ngx-translate/core';
 import { Operation } from 'fast-json-patch';
 import {
-  BehaviorSubject,
   combineLatest,
   Observable,
+  of,
   Subscription,
 } from 'rxjs';
 import {
+  distinctUntilKeyChanged,
   filter,
   map,
+  shareReplay,
   switchMap,
   take,
 } from 'rxjs/operators';
@@ -90,18 +92,30 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
   protected readonly AlertType = AlertType;
 
   /**
-   * All bundles for the current item
+   * The URL used as the key for bundle updates in ObjectUpdatesService
    */
-  private bundlesSubject = new BehaviorSubject<Bundle[]>([]);
+  bundleUpdatesUrl: string;
 
   /**
-   * The page options to use for fetching the bundles
+   * Emits the current bundle list; stays subscribed so cache invalidation (after delete/create) refetches the list.
+   * Uses {@link BundleDataService#findAllByItem} instead of {@link ItemDataService#getBundles} for correct cache integration.
+   * Defaults to empty until {@link postItemInit} runs.
    */
-  bundlesOptions: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-    id: 'bundles-pagination-options',
+  bundles$: Observable<Bundle[]> = of([]);
+
+  /**
+   * The current field updates for all bundles (e.g. marked for removal)
+   */
+  bundleFieldUpdates$: Observable<FieldUpdates>;
+
+  /**
+   * Find-list options for loading all bundles for the item (single request; list refreshes via reactive stream).
+   */
+  readonly bundleListFindOptions: FindListOptions = {
+    scopeID: 'bundles-pagination-options',
     currentPage: 1,
-    pageSize: 10,
-  });
+    elementsPerPage: 9999,
+  };
 
   /**
    * The bootstrap sizes used for the columns within this table
@@ -115,25 +129,12 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
   submitting = false;
 
   /**
-   * A subscription that checks when the item is deleted in cache and reloads the item by sending a new request
-   * This is used to update the item in cache after bitstreams are deleted
+   * Subscriptions owned by this component (bundle object-updates wiring)
    */
-  itemUpdateSubscription: Subscription;
+  subs: Subscription[] = [];
 
   /**
-   * The flag indicating to show the load more link
-   */
-  showLoadMoreLink$: BehaviorSubject<boolean> = new BehaviorSubject(true);
-
-  /**
-   * The list of bundles for the current item as an observable
-   */
-  get bundles$(): Observable<Bundle[]> {
-    return this.bundlesSubject.asObservable();
-  }
-
-  /**
-   * An observable which emits a boolean which represents whether the service is currently handling a 'move' request
+   * Emits whether the bitstreams service is processing a move request (for UI overlay).
    */
   isProcessingMoveRequest: Observable<boolean>;
 
@@ -155,13 +156,30 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
     super(itemService, objectUpdatesService, router, notificationsService, translateService, route);
 
     this.columnSizes = this.itemBitstreamsService.getColumnSizes();
+    this.isProcessingMoveRequest = this.itemBitstreamsService.getPerformingMoveRequest$();
   }
 
   /**
    * Actions to perform after the item has been initialized
    */
   postItemInit(): void {
-    this.loadBundles(1);
+    this.bundleUpdatesUrl = `${this.item.self}/bundles`;
+
+    this.bundles$ = this.bundleService.findAllByItem(this.item, this.bundleListFindOptions).pipe(
+      getAllSucceededRemoteData(),
+      distinctUntilKeyChanged('timeCompleted'),
+      getRemoteDataPayload(),
+      map((bundlePage: PaginatedList<Bundle>) => bundlePage.page),
+      shareReplay({ bufferSize: 1, refCount: true }),
+    );
+
+    this.subs.push(this.bundles$.subscribe((bundles: Bundle[]) => {
+      this.objectUpdatesService.initialize(this.bundleUpdatesUrl, bundles, new Date());
+    }));
+
+    this.bundleFieldUpdates$ = this.bundles$.pipe(
+      switchMap((bundles: Bundle[]) => this.objectUpdatesService.getFieldUpdatesExclusive(this.bundleUpdatesUrl, bundles)),
+    );
   }
 
   /**
@@ -227,54 +245,68 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
   }
 
   /**
-   * Load bundles for the current item
-   * @param currentPage The current page to load
-   */
-  loadBundles(currentPage?: number) {
-    this.bundlesOptions = Object.assign(new PaginationComponentOptions(), this.bundlesOptions, {
-      currentPage: currentPage || this.bundlesOptions.currentPage + 1,
-    });
-    this.itemService.getBundles(this.item.id, new PaginatedSearchOptions({ pagination: this.bundlesOptions })).pipe(
-      getFirstSucceededRemoteData(),
-      getRemoteDataPayload(),
-    ).subscribe((bundles: PaginatedList<Bundle>) => {
-      this.updateBundles(bundles);
-    });
-  }
-
-  /**
-   * Update the subject containing the bundles with the provided bundles.
-   * Also updates the showLoadMoreLink observable so it does not show up when it is no longer necessary.
-   */
-  updateBundles(newBundlesPL: PaginatedList<Bundle>) {
-    const currentBundles = this.bundlesSubject.getValue();
-
-    // Only add bundles to the bundle subject if they are not present yet
-    const bundlesToAdd = newBundlesPL.page
-      .filter(bundleToAdd => !currentBundles.some(currentBundle => currentBundle.id === bundleToAdd.id));
-
-    const updatedBundles = [...currentBundles, ...bundlesToAdd];
-
-    this.showLoadMoreLink$.next(updatedBundles.length < newBundlesPL.totalElements);
-    this.bundlesSubject.next(updatedBundles);
-  }
-
-
-  /**
    * Submit the current changes
-   * Bitstreams marked as deleted send out a delete request to the rest API
-   * Display notifications and reset the current item/updates
+   * Bundles marked as deleted send a PATCH to the REST API (which also deletes their bitstreams).
+   * Bitstreams marked as deleted in non-removed bundles send delete requests.
+   * Display notifications and reset the current item/updates.
    */
   submit() {
     this.submitting = true;
 
-    const removedResponses$ = this.itemBitstreamsService.removeMarkedBitstreams(this.bundles$.pipe(take(1)));
+    this.subs.push(
+      this.itemBitstreamsService.removeMarkedBundlesAndBitstreams(
+        this.bundleUpdatesUrl,
+        this.bundles$,
+        this.bundleFieldUpdates$,
+      ).subscribe(({ responses, deletingBundles, deletingBitstreams }) => {
+        this.displayRemovalNotifications(responses, deletingBundles, deletingBitstreams);
+        this.submitting = false;
+      }),
+    );
+  }
 
-    // Perform the setup actions from above in order and display notifications
-    removedResponses$.subscribe((responses: RemoteData<NoContent>) => {
-      this.itemBitstreamsService.displayNotifications('item.edit.bitstreams.notifications.remove', [responses]);
-      this.submitting = false;
+  /**
+   * Display notifications for removal operations
+   * Shows different messages based on whether bundles, bitstreams, or both were deleted
+   * @param responses         The responses from the delete operations
+   * @param deletingBundles   Whether bundles were deleted
+   * @param deletingBitstreams Whether bitstreams were deleted
+   */
+  displayRemovalNotifications(responses: RemoteData<NoContent>[], deletingBundles: boolean, deletingBitstreams: boolean) {
+    if (responses.length === 0) {
+      return;
+    }
+
+    const failedResponses = responses.filter((response: RemoteData<NoContent>) => hasValue(response) && response.hasFailed);
+    const successfulResponses = responses.filter((response: RemoteData<NoContent>) => hasValue(response) && response.hasSucceeded);
+
+    let keySuffix: string;
+    if (deletingBundles && deletingBitstreams) {
+      keySuffix = 'both';
+    } else if (deletingBundles) {
+      keySuffix = 'bundles';
+    } else {
+      keySuffix = 'bitstreams';
+    }
+
+    failedResponses.forEach((response: RemoteData<NoContent>) => {
+      this.notificationsService.error(
+        this.translateService.instant(`item.edit.bitstreams.notifications.remove.${keySuffix}.failed.title`),
+        response.errorMessage,
+      );
     });
+
+    if (successfulResponses.length > 0) {
+      this.notificationsService.success(
+        this.translateService.instant(`item.edit.bitstreams.notifications.remove.${keySuffix}.saved.title`),
+        this.translateService.instant(`item.edit.bitstreams.notifications.remove.${keySuffix}.saved.content`),
+      );
+      // Mark the item's bundles collection stale so findAllByItem emits an updated list (bundle self-links alone may not refresh the list endpoint).
+      const bundlesHref = this.item?._links?.bundles?.href;
+      if (hasValue(bundlesHref)) {
+        this.requestService.removeByHrefSubstring(bundlesHref);
+      }
+    }
   }
 
   /**
@@ -334,12 +366,23 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
   discard() {
     const undoNotification = this.notificationsService.info(this.getNotificationTitle('discarded'), this.getNotificationContent('discarded'), { timeOut: this.discardTimeOut });
     this.objectUpdatesService.discardAllFieldUpdates(this.url, undoNotification);
+    if (hasValue(this.bundleUpdatesUrl)) {
+      this.objectUpdatesService.discardFieldUpdates(this.bundleUpdatesUrl, undoNotification);
+    }
+    this.bundles$.pipe(take(1)).subscribe((bundles: Bundle[]) => {
+      bundles.forEach((bundle: Bundle) => {
+        this.objectUpdatesService.discardFieldUpdates(bundle.self, undoNotification);
+      });
+    });
   }
 
   /**
    * Request the object updates service to undo discarding all changes to this item
    */
   reinstate() {
+    if (hasValue(this.bundleUpdatesUrl)) {
+      this.objectUpdatesService.reinstateFieldUpdates(this.bundleUpdatesUrl);
+    }
     this.bundles$.pipe(take(1)).subscribe((bundles: Bundle[]) => {
       bundles.forEach((bundle: Bundle) => {
         this.objectUpdatesService.reinstateFieldUpdates(bundle.self);
@@ -352,7 +395,13 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
    */
   isReinstatable(): Observable<boolean> {
     return this.bundles$.pipe(
-      switchMap((bundles: Bundle[]) => combineLatest(bundles.map((bundle: Bundle) => this.objectUpdatesService.isReinstatable(bundle.self)))),
+      switchMap((bundles: Bundle[]) => {
+        const parts = bundles.map((bundle: Bundle) => this.objectUpdatesService.isReinstatable(bundle.self));
+        if (hasValue(this.bundleUpdatesUrl)) {
+          parts.unshift(this.objectUpdatesService.isReinstatable(this.bundleUpdatesUrl));
+        }
+        return parts.length ? combineLatest(parts) : of([false]);
+      }),
       map((reinstatable: boolean[]) => reinstatable.includes(true)),
     );
   }
@@ -362,7 +411,13 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
    */
   hasChanges(): Observable<boolean> {
     return this.bundles$.pipe(
-      switchMap((bundles: Bundle[]) => combineLatest(bundles.map((bundle: Bundle) => this.objectUpdatesService.hasUpdates(bundle.self)))),
+      switchMap((bundles: Bundle[]) => {
+        const parts = bundles.map((bundle: Bundle) => this.objectUpdatesService.hasUpdates(bundle.self));
+        if (hasValue(this.bundleUpdatesUrl)) {
+          parts.unshift(this.objectUpdatesService.hasUpdates(this.bundleUpdatesUrl));
+        }
+        return parts.length ? combineLatest(parts) : of([false]);
+      }),
       map((hasChanges: boolean[]) => hasChanges.includes(true)),
     );
   }
@@ -370,8 +425,9 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
   /**
    * Unsubscribe from open subscriptions whenever the component gets destroyed
    */
-  ngOnDestroy(): void {
-    if (this.itemUpdateSubscription) {
+  override ngOnDestroy(): void {
+    this.subs.forEach((sub: Subscription) => sub.unsubscribe());
+    if (hasValue(this.itemUpdateSubscription)) {
       this.itemUpdateSubscription.unsubscribe();
     }
   }

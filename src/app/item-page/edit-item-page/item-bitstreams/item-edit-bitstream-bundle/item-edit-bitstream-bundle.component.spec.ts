@@ -78,6 +78,8 @@ describe('ItemEditBitstreamBundleComponent', () => {
     objectUpdatesService = jasmine.createSpyObj('objectUpdatesService', {
       initialize: undefined,
       getFieldUpdatesExclusive: of(null),
+      saveRemoveFieldUpdate: undefined,
+      removeSingleFieldUpdate: undefined,
     });
 
     itemBitstreamsService = getItemBitstreamsServiceStub();
@@ -104,6 +106,7 @@ describe('ItemEditBitstreamBundleComponent', () => {
     comp.item = item;
     comp.bundle = bundle;
     comp.columnSizes = columnSizes;
+    comp.bundleUpdatesUrl = 'https://rest/api/core/items/item/bundles';
     viewContainerRef = (comp as any).viewContainerRef;
     spyOn(viewContainerRef, 'createEmbeddedView');
     fixture.detectChanges();
@@ -111,6 +114,24 @@ describe('ItemEditBitstreamBundleComponent', () => {
 
   it('should create an embedded view of the component', () => {
     expect(viewContainerRef.createEmbeddedView).toHaveBeenCalled();
+  });
+
+  describe('bundle removal', () => {
+    it('removeBundle should register removal with object updates', () => {
+      comp.removeBundle();
+      expect(objectUpdatesService.saveRemoveFieldUpdate).toHaveBeenCalledWith(comp.bundleUpdatesUrl, bundle);
+    });
+
+    it('undoBundleRemove should clear removal', () => {
+      comp.undoBundleRemove();
+      expect(objectUpdatesService.removeSingleFieldUpdate).toHaveBeenCalledWith(comp.bundleUpdatesUrl, bundle.uuid);
+    });
+
+    it('isMarkedForRemoval should reflect bundleUpdate', () => {
+      expect(comp.isMarkedForRemoval()).toBeFalse();
+      comp.bundleUpdate = { field: bundle, changeType: FieldChangeType.REMOVE };
+      expect(comp.isMarkedForRemoval()).toBeTrue();
+    });
   });
 
   describe('on selected entry change', () => {

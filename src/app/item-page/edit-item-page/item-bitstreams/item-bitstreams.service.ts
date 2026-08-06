@@ -27,7 +27,9 @@ import { TranslateService } from '@ngx-translate/core';
 import { MoveOperation } from 'fast-json-patch';
 import {
   BehaviorSubject,
+  forkJoin,
   Observable,
+  of,
   zip as observableZip,
 } from 'rxjs';
 import {
@@ -468,6 +470,71 @@ export class ItemBitstreamsService {
       take(1),
       switchMap((removedBitstreams: Bitstream[]) => {
         return this.bitstreamService.removeMultiple(removedBitstreams);
+      }),
+    );
+  }
+
+  /**
+   * Removes bundles marked for deletion (and their bitstreams) and bitstreams marked for deletion in remaining bundles.
+   * Used by the item bitstreams edit page submit flow.
+   */
+  removeMarkedBundlesAndBitstreams(
+    bundleUpdatesUrl: string,
+    bundles$: Observable<Bundle[]>,
+    bundleFieldUpdates$: Observable<FieldUpdates>,
+  ): Observable<{ responses: RemoteData<NoContent>[]; deletingBundles: boolean; deletingBitstreams: boolean }> {
+    const bundlesOnce$ = bundles$.pipe(take(1));
+    const bundleUpdatesOnce$ = bundleFieldUpdates$.pipe(take(1));
+
+    return forkJoin([bundlesOnce$, bundleUpdatesOnce$]).pipe(
+      switchMap(([bundles, bundleUpdates]: [Bundle[], FieldUpdates]) => {
+        const removedBundles: Bundle[] = [];
+        const nonRemovedBundles: Bundle[] = [];
+
+        bundles.forEach((bundle: Bundle) => {
+          const update = bundleUpdates[bundle.uuid];
+          if (update?.changeType === FieldChangeType.REMOVE) {
+            removedBundles.push(bundle);
+          } else {
+            nonRemovedBundles.push(bundle);
+          }
+        });
+
+        const removedBitstreams$ = nonRemovedBundles.length > 0 ?
+          forkJoin(nonRemovedBundles.map((bundle: Bundle) => this.objectUpdatesService.getFieldUpdates(bundle.self, [], true).pipe(take(1)))).pipe(
+            map((fieldUpdates: FieldUpdates[]) => ([] as FieldUpdate[]).concat(
+              ...fieldUpdates.map((updates: FieldUpdates) => Object.values(updates).filter((fieldUpdate: FieldUpdate) => fieldUpdate.changeType === FieldChangeType.REMOVE)),
+            )),
+            map((fieldUpdates: FieldUpdate[]) => fieldUpdates.map((fieldUpdate: FieldUpdate) => fieldUpdate.field as Bitstream)),
+          ) : of([]);
+
+        return removedBitstreams$.pipe(
+          switchMap((removedBitstreams: Bitstream[]) => {
+            const deletingBundles = removedBundles.length > 0;
+            const deletingBitstreams = removedBitstreams.length > 0;
+            const responses$: Observable<RemoteData<NoContent>>[] = [];
+
+            if (deletingBundles) {
+              responses$.push(this.bundleService.removeMultiple(removedBundles).pipe(
+                getFirstCompletedRemoteData(),
+              ));
+            }
+
+            if (deletingBitstreams) {
+              responses$.push(this.bitstreamService.removeMultiple(removedBitstreams).pipe(
+                getFirstCompletedRemoteData(),
+              ));
+            }
+
+            if (responses$.length === 0) {
+              return of({ responses: [], deletingBundles: false, deletingBitstreams: false });
+            }
+
+            return forkJoin(responses$).pipe(
+              map((responses: RemoteData<NoContent>[]) => ({ responses, deletingBundles, deletingBitstreams })),
+            );
+          }),
+        );
       }),
     );
   }

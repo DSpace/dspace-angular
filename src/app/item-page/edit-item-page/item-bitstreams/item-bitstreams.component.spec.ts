@@ -28,14 +28,17 @@ import { NotificationsService } from '@dspace/core/notification-system/notificat
 import { Bitstream } from '@dspace/core/shared/bitstream.model';
 import { Bundle } from '@dspace/core/shared/bundle.model';
 import { Item } from '@dspace/core/shared/item.model';
+import { NoContent } from '@dspace/core/shared/NoContent.model';
 import { BitstreamDataServiceStub } from '@dspace/core/testing/bitstream-data-service.stub';
 import { getMockRequestService } from '@dspace/core/testing/request.service.mock';
 import { RouterStub } from '@dspace/core/testing/router.stub';
 import { createPaginatedList } from '@dspace/core/testing/utils.test';
 import {
+  createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '@dspace/core/utilities/remote-data.utils';
+import { hasValue } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
@@ -128,6 +131,17 @@ describe('ItemBitstreamsComponent', () => {
         getMoveOperations: of(moveOperations),
       },
     );
+    (objectUpdatesService.getFieldUpdatesExclusive as jasmine.Spy).and.callFake((bundleListUrl: string) => {
+      if (hasValue(bundleListUrl) && bundleListUrl.endsWith('/bundles')) {
+        return of({
+          [bundle.uuid]: { field: bundle, changeType: undefined },
+        });
+      }
+      return of({
+        [bitstream1.uuid]: fieldUpdate1,
+        [bitstream2.uuid]: fieldUpdate2,
+      });
+    });
     router = Object.assign(new RouterStub(), {
       url: url,
     });
@@ -152,6 +166,7 @@ describe('ItemBitstreamsComponent', () => {
       id: 'item',
       _links: {
         self: { href: 'item-selflink' },
+        bundles: { href: 'https://rest/api/core/items/item/bundles' },
       },
       bundles: createSuccessfulRemoteDataObject$(createPaginatedList([bundle])),
       lastModified: date,
@@ -160,7 +175,6 @@ describe('ItemBitstreamsComponent', () => {
       getBitstreams: () => createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1, bitstream2])),
       findByHref: () => createSuccessfulRemoteDataObject$(item),
       findById: () => createSuccessfulRemoteDataObject$(item),
-      getBundles: () => createSuccessfulRemoteDataObject$(createPaginatedList([bundle])),
     });
     route = Object.assign({
       parent: {
@@ -171,6 +185,8 @@ describe('ItemBitstreamsComponent', () => {
     });
     bundleService = jasmine.createSpyObj('bundleService', {
       patch: createSuccessfulRemoteDataObject$({}),
+      removeMultiple: createSuccessfulRemoteDataObject$({} as NoContent),
+      findAllByItem: createSuccessfulRemoteDataObject$(createPaginatedList([bundle])),
     });
 
     itemBitstreamsService = getItemBitstreamsServiceStub();
@@ -222,22 +238,69 @@ describe('ItemBitstreamsComponent', () => {
       comp.submit();
     });
 
-    it('should call removeMarkedBitstreams on the itemBitstreamsService', () => {
-      expect(itemBitstreamsService.removeMarkedBitstreams).toHaveBeenCalled();
+    it('should call removeMarkedBundlesAndBitstreams on the itemBitstreamsService', () => {
+      expect(itemBitstreamsService.removeMarkedBundlesAndBitstreams).toHaveBeenCalled();
     });
   });
 
   describe('discard', () => {
-    it('should discard ALL field updates', () => {
+    it('should discard item, bundle-list, and per-bundle field updates', () => {
       comp.discard();
       expect(objectUpdatesService.discardAllFieldUpdates).toHaveBeenCalled();
+      expect(objectUpdatesService.discardFieldUpdates).toHaveBeenCalled();
     });
   });
 
   describe('reinstate', () => {
-    it('should reinstate field updates on the bundle', () => {
+    it('should reinstate bundle-list and per-bundle field updates', () => {
       comp.reinstate();
+      expect(objectUpdatesService.reinstateFieldUpdates).toHaveBeenCalledWith(`${item.self}/bundles`);
       expect(objectUpdatesService.reinstateFieldUpdates).toHaveBeenCalledWith(bundle.self);
+    });
+  });
+
+  describe('displayRemovalNotifications', () => {
+    beforeEach(() => {
+      notificationsService.error = jasmine.createSpy('error');
+      notificationsService.success = jasmine.createSpy('success');
+    });
+
+    it('should not show any notification when responses array is empty', () => {
+      comp.displayRemovalNotifications([], false, false);
+      expect(notificationsService.success).not.toHaveBeenCalled();
+      expect(notificationsService.error).not.toHaveBeenCalled();
+    });
+
+    it('should show bitstreams notification when only deleting bitstreams', () => {
+      const successResponse = createSuccessfulRemoteDataObject({} as NoContent);
+      comp.displayRemovalNotifications([successResponse], false, true);
+      expect(notificationsService.success).toHaveBeenCalled();
+      const successCall = (notificationsService.success as jasmine.Spy).calls.mostRecent();
+      expect(successCall.args[0]).toContain('bitstreams');
+    });
+
+    it('should show bundles notification when only deleting bundles', () => {
+      const successResponse = createSuccessfulRemoteDataObject({} as NoContent);
+      comp.displayRemovalNotifications([successResponse], true, false);
+      expect(notificationsService.success).toHaveBeenCalled();
+      const successCall = (notificationsService.success as jasmine.Spy).calls.mostRecent();
+      expect(successCall.args[0]).toContain('bundles');
+    });
+
+    it('should show both notification when deleting both bundles and bitstreams', () => {
+      const successResponse = createSuccessfulRemoteDataObject({} as NoContent);
+      comp.displayRemovalNotifications([successResponse], true, true);
+      expect(notificationsService.success).toHaveBeenCalled();
+      const successCall = (notificationsService.success as jasmine.Spy).calls.mostRecent();
+      expect(successCall.args[0]).toContain('both');
+    });
+
+    it('should show error notification for failed responses', (done) => {
+      createFailedRemoteDataObject$('Test error').subscribe((failedResponse) => {
+        comp.displayRemovalNotifications([failedResponse], true, false);
+        expect(notificationsService.error).toHaveBeenCalled();
+        done();
+      });
     });
   });
 

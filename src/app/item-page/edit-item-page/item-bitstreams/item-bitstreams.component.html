@@ -37,20 +37,19 @@ class="fas fa-save"></i>
 
 @if (item && bundles?.length > 0) {
   <div class="mt-4 table-border scrollable-table" [ngClass]="{'disabled-overlay': (isProcessingMoveRequest | async)}">
-    @for (bundle of bundles; track bundle; let isFirst = $first) {
-      <ds-item-edit-bitstream-bundle
-        [bundle]="bundle"
-        [item]="item"
-        [columnSizes]="columnSizes"
-        [isFirstTable]="isFirst"
-        aria-describedby="reorder-description">
-      </ds-item-edit-bitstream-bundle>
-    }
-    @if (showLoadMoreLink$ | async) {
-      <div class="d-flex justify-content-center">
-        <button class="btn btn-link my-3" (click)="loadBundles()"> {{'item.edit.bitstreams.load-more.link' | translate}}</button>
-      </div>
-    }
+    <ng-container *ngVar="(bundleFieldUpdates$ | async) as bundleUpdates">
+      @for (bundle of bundles; track bundle; let isFirst = $first) {
+        <ds-item-edit-bitstream-bundle
+          [bundle]="bundle"
+          [item]="item"
+          [columnSizes]="columnSizes"
+          [isFirstTable]="isFirst"
+          [bundleUpdate]="bundleUpdates?.[bundle.uuid]"
+          [bundleUpdatesUrl]="bundleUpdatesUrl"
+          aria-describedby="reorder-description">
+        </ds-item-edit-bitstream-bundle>
+      }
+    </ng-container>
   </div>
 }
 @if (bundles?.length === 0) {
@@ -88,7 +87,6 @@ class="fas fa-save"></i>
   <span class="d-none d-sm-inline">&nbsp;{{"item.edit.bitstreams.discard-button" | translate}}</span>
 </button>
 }
-</div>
 </div>
 </div>
 
