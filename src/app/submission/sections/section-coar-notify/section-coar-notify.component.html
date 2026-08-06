@@ -1,8 +1,9 @@
 <div class="container-fluid">
   @if (patterns?.length > 0 ) {
     @for (ldnPattern of patterns; track ldnPattern; let i = $index) {
+      @let filteredServices$ = filterServices(ldnPattern.pattern);
       <div class="col">
-        @if ((filterServices(ldnPattern.pattern ) | async)?.length > 0) {
+        @if ((filteredServices$ | async)?.length > 0) {
           <div>
             <label class="row col-form-label">
               {{'submission.section.section-coar-notify.control.' + ldnPattern.pattern + '.label' | translate }}
@@ -13,6 +14,7 @@
                   @for (
                     service of ldnServiceByPattern[ldnPattern.pattern].services; track
                     service; let serviceIndex = $index) {
+                    @let shownErrors$ = getShownSectionErrors$(ldnPattern.pattern, serviceIndex);
                     <div
                       >
                       <div class="row">
@@ -25,7 +27,7 @@
                               [attr.aria-label]="ldnPattern.pattern+'.dropdownanchor'"
                               type="text"
                               [readonly]="true"
-                              [ngClass]="{'border-danger': (getShownSectionErrors$(ldnPattern.pattern, serviceIndex) | async)?.length > 0}"
+                              [ngClass]="{'border-danger': (shownErrors$ | async)?.length > 0}"
                               class="form-control w-100 scrollable-dropdown-input"
                               [value]="ldnServiceByPattern[ldnPattern.pattern].services[serviceIndex]?.name"
                               (click)="myDropdown.open()"
@@ -45,14 +47,14 @@
                               [infiniteScrollThrottle]="50"
                               [scrollWindow]="false"
                               >
-                              @if ((filterServices(ldnPattern.pattern) | async)?.length === 0) {
+                              @if ((filteredServices$ | async)?.length === 0) {
                                 <button
                                   class="dropdown-item collection-item text-truncate w-100"
                                   >
                                   {{'submission.section.section-coar-notify.dropdown.no-data' | translate}}
                                 </button>
                               }
-                              @if ((filterServices(ldnPattern.pattern ) | async)?.length > 0) {
+                              @if ((filteredServices$ | async)?.length > 0) {
                                 <button
                                   class="dropdown-item collection-item text-truncate w-100"
                                   (click)="onChange(ldnPattern.pattern, serviceIndex, null)"
@@ -60,7 +62,7 @@
                                   {{'submission.section.section-coar-notify.dropdown.select-none' | translate}}
                                 </button>
                               }
-                              @for (serviceOption of filterServices(ldnPattern.pattern ) | async; track serviceOption) {
+                              @for (serviceOption of filteredServices$ | async; track serviceOption) {
                                 <button
                                   [ngClass]="{'bg-light': ldnServiceByPattern[ldnPattern.pattern ].services[serviceIndex]?.id === serviceOption.id}"
                                   class="dropdown-item collection-item text-truncate w-100"
@@ -97,8 +99,8 @@
                           {{'submission.section.section-coar-notify.small.notification' | translate : {pattern : ldnPattern.pattern} }}
                         </small>
                       }
-                      @if ((getShownSectionErrors$(ldnPattern.pattern , serviceIndex) | async)?.length > 0) {
-                        @for (error of (getShownSectionErrors$(ldnPattern.pattern , serviceIndex) | async); track error) {
+                      @if ((shownErrors$ | async)?.length > 0) {
+                        @for (error of (shownErrors$ | async); track error) {
                           <small class="row text-danger">
                             {{ error.message | translate}}
                           </small>
@@ -127,7 +129,7 @@
                           </div>
                         </div>
                       }
-                      @if ((getShownSectionErrors$(ldnPattern.pattern, serviceIndex) | async)?.length > 0) {
+                      @if ((shownErrors$ | async)?.length > 0) {
                         <div class="row">
                           <div
                             class="alert alert-danger w-100 d-flex align-items-center flex-row"

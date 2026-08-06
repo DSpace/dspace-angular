@@ -313,7 +313,7 @@ describe('ResourcePolicyFormComponent test suite', () => {
     it('should init form model properly', () => {
       epersonService.findByHref.and.returnValue(of(undefined));
       groupService.findByHref.and.returnValue(of(undefined));
-      spyOn(compAsAny, 'isFormValid').and.returnValue(of(false));
+      compAsAny.formService.isValid.and.returnValue(of(false));
       spyOn(compAsAny, 'initModelsValue').and.callThrough();
       spyOn(compAsAny, 'buildResourcePolicyForm').and.callThrough();
       fixture.detectChanges();
@@ -377,7 +377,7 @@ describe('ResourcePolicyFormComponent test suite', () => {
     });
 
     it('should init form model properly', () => {
-      spyOn(compAsAny, 'isFormValid').and.returnValue(of(false));
+      compAsAny.formService.isValid.and.returnValue(of(false));
       spyOn(compAsAny, 'initModelsValue').and.callThrough();
       spyOn(compAsAny, 'buildResourcePolicyForm').and.callThrough();
       fixture.detectChanges();
@@ -395,6 +395,7 @@ describe('ResourcePolicyFormComponent test suite', () => {
 
     it('should init resourcePolicyGrant properly', (done) => {
       compAsAny.isActive = true;
+      compAsAny.formService.isValid.and.returnValue(of(false));
       comp.ngOnInit();
       comp.resourcePolicyTargetName$.pipe(
         isNotEmptyOperator(),

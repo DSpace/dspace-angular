@@ -37,7 +37,7 @@
   </ul>
 </ng-template>
 
-@if ((isHierarchicalVocabulary() | async) !== true) {
+@if ((isHierarchicalVocabulary$ | async) !== true) {
   <div class="form-row position-relative align-items-center">
 
     <div class="position-relative right-addon">
@@ -88,7 +88,7 @@
   </div>
 }
 
-@if ((isHierarchicalVocabulary() | async)) {
+@if ((isHierarchicalVocabulary$ | async)) {
   <div class="position-relative right-addon">
     <i class="dropdown-toggle position-absolute tree-toggle" (click)="openTree($event)"
        aria-hidden="true"></i>
