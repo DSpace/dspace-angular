@@ -33,6 +33,8 @@ import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '@dspace/core/utilities/remote-data.utils';
+import { Store } from '@ngrx/store';
+import { provideMockStore } from '@ngrx/store/testing';
 import {
   TranslateLoader,
   TranslateModule,
@@ -56,9 +58,6 @@ import { ItemVersionsComponent } from '../versions/item-versions.component';
 import { ItemVersionsNoticeComponent } from '../versions/notice/item-versions-notice.component';
 import { ThemedFullFileSectionComponent } from './field-components/file-section/themed-full-file-section.component';
 import { FullItemPageComponent } from './full-item-page.component';
-
-import { Store } from '@ngrx/store';
-import { provideMockStore } from '@ngrx/store/testing';
 
 const mockItem: Item = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
@@ -91,7 +90,6 @@ describe('FullItemPageComponent', () => {
   let linkHeadService: jasmine.SpyObj<LinkHeadService>;
   let notifyInfoService: jasmine.SpyObj<NotifyInfoService>;
   let headTagService: HeadTagServiceMock;
-  let authService: AuthService;
 
   const mocklink = {
     href: 'http://test.org',
