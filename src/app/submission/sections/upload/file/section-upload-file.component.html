@@ -46,6 +46,25 @@
               <i class="fa fa-retweet fa-2x text-normal"></i>
             </button>
           }
+<<<<<<< feature/5381
+          <span
+            [ngbTooltip]="totalFiles === 1
+              ? ('submission.sections.upload.delete.not-allowed' | translate)
+              : ('submission.sections.upload.delete.confirm.title' | translate) + ' ' + fileName"
+            tabindex="0">
+            <button class="btn btn-link-focus"
+              attr.aria-label="{{'submission.sections.upload.delete.confirm.title' | translate}} {{fileName}}"
+              [dsBtnDisabled]="(processingDelete$ | async) || totalFiles === 1"
+              (click)="$event.preventDefault();confirmDelete(content);">
+              @if ((processingDelete$ | async)) {
+                <i class="fas fa-circle-notch fa-spin fa-2x link-danger"></i>
+              }
+              @if ((processingDelete$ | async) !== true) {
+                <i class="fa fa-trash fa-2x link-danger"></i>
+              }
+            </button>
+          </span>
+=======
           <button class="btn btn-link-focus"
                   attr.aria-label="{{'submission.sections.upload.delete.confirm.title' | translate}} {{fileName}}"
                   title="{{ 'submission.sections.upload.delete.confirm.title' | translate }} {{fileName}}"
@@ -58,6 +77,7 @@
               <i class="fa fa-trash fa-2x link-danger"></i>
             }
           </button>
+>>>>>>> main
         </ng-container>
       </div>
       <div class="clearfix"></div>
