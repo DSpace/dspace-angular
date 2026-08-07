@@ -14,11 +14,16 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { AuthService } from '@dspace/core/auth/auth.service';
+import { AuthRequestService } from '@dspace/core/auth/auth-request.service';
 import { NotifyInfoService } from '@dspace/core/coar-notify/notify-info/notify-info.service';
+import { CookieService } from '@dspace/core/cookies/cookie.service';
 import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
 import { ItemDataService } from '@dspace/core/data/item-data.service';
 import { SignpostingDataService } from '@dspace/core/data/signposting-data.service';
 import { SignpostingLink } from '@dspace/core/data/signposting-links.model';
+import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
 import { HardRedirectService } from '@dspace/core/services/hard-redirect.service';
 import {
   LinkDefinition,
@@ -27,6 +32,8 @@ import {
 import { ServerResponseService } from '@dspace/core/services/server-response.service';
 import { Item } from '@dspace/core/shared/item.model';
 import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
+import { AuthRequestServiceStub } from '@dspace/core/testing/auth-request-service.stub';
+import { CookieServiceMock } from '@dspace/core/testing/cookie.service.mock';
 import { RouterMock } from '@dspace/core/testing/router.mock';
 import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import { createPaginatedList } from '@dspace/core/testing/utils.test';
@@ -36,6 +43,8 @@ import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '@dspace/core/utilities/remote-data.utils';
+import { Store } from '@ngrx/store';
+import { provideMockStore } from '@ngrx/store/testing';
 import {
   TranslateLoader,
   TranslateModule,
@@ -125,6 +134,11 @@ describe('ItemPageComponent', () => {
       getCurrentRoute: {},
     });
 
+    const authService = jasmine.createSpyObj('authService', {
+      isAuthenticated: of(true),
+      setRedirectUrl: {},
+    });
+
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot({
         loader: {
@@ -143,6 +157,12 @@ describe('ItemPageComponent', () => {
         { provide: NotifyInfoService, useValue: notifyInfoService },
         { provide: PLATFORM_ID, useValue: 'server' },
         { provide: HardRedirectService, useValue: hardRedirectService },
+        { provide: AuthRequestService, useValue: new AuthRequestServiceStub() },
+        { provide: Store, useValue: provideMockStore() },
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
+        { provide: APP_CONFIG, useValue: { cache: { msToLive: { default: 15 * 60 * 1000 } } } },
+        { provide: CookieService, useValue: new CookieServiceMock() },
+        { provide: AuthService, useValue: authService },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ItemPageComponent, {

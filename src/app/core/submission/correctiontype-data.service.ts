@@ -2,8 +2,11 @@ import { Injectable } from '@angular/core';
 import {
   map,
   Observable,
+  of,
 } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
+import { AuthService } from '../../core/auth/auth.service';
 import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
@@ -23,6 +26,7 @@ import {
 import { CorrectionType } from './models/correctiontype.model';
 import { CORRECTION_TYPE } from './models/correctiontype.resource-type';
 
+
 /**
  * A service that provides methods to make REST requests with correctiontypes endpoint.
  */
@@ -40,6 +44,7 @@ export class CorrectionTypeDataService extends IdentifiableDataService<Correctio
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
+    protected authService: AuthService,
   ) {
     super('correctiontypes', requestService, rdbService, objectCache, halService);
 
@@ -63,10 +68,17 @@ export class CorrectionTypeDataService extends IdentifiableDataService<Correctio
    * @param useCachedVersionIfAvailable use the cached version if available
    * @returns the list of correction types for the item
    */
-  findByItem(itemUuid: string, useCachedVersionIfAvailable): Observable<RemoteData<PaginatedList<CorrectionType>>> {
-    const options = new FindListOptions();
-    options.searchParams = [new RequestParam('uuid', itemUuid)];
-    return this.searchData.searchBy(this.searchFindByItem, options, useCachedVersionIfAvailable);
+  findByItem(itemUuid: string, useCachedVersionIfAvailable): Observable<any[] | RemoteData<PaginatedList<CorrectionType>>> {
+    return this.authService.isAuthenticated().pipe(
+      switchMap(auth => {
+        if (!auth) {
+          return of ([]);
+        }
+        const options = new FindListOptions();
+        options.searchParams = [new RequestParam('uuid', itemUuid)];
+        return this.searchData.searchBy(this.searchFindByItem, options, useCachedVersionIfAvailable);
+      }),
+    );
   }
 
   /**

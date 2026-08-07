@@ -3,8 +3,10 @@
     <div class="item-page" @fadeInOut>
       @if (itemRD?.payload; as item) {
         <div>
-          <ds-item-alerts [item]="item"></ds-item-alerts>
-          <ds-item-versions-notice [item]="item"></ds-item-versions-notice>
+          @if ((isLoggedIn$|async)) {
+            <ds-item-alerts [item]="item"></ds-item-alerts>
+            <ds-item-versions-notice [item]="item"></ds-item-versions-notice>
+	  }
           @if (!item.isWithdrawn || (isAdmin$|async)) {
             <div class="full-item-info">
               <div class="d-flex flex-row">
@@ -35,7 +37,9 @@
               </div>
               <ds-item-page-full-file-section [item]="item"></ds-item-page-full-file-section>
               <ds-item-page-collections [item]="item"></ds-item-page-collections>
-              <ds-item-versions class="mt-2" [item]="item"></ds-item-versions>
+	      @if ((isLoggedIn$|async)) {
+                <ds-item-versions class="mt-2" [item]="item"></ds-item-versions>
+              }
               @if (fromSubmissionObject) {
                 <div class="button-row bottom">
                   <div class="text-end">
