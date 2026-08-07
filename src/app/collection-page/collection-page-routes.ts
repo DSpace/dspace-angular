@@ -3,6 +3,7 @@ import { authenticatedGuard } from '@dspace/core/auth/authenticated.guard';
 import { collectionBreadcrumbResolver } from '@dspace/core/breadcrumbs/collection-breadcrumb.resolver';
 import { communityBreadcrumbResolver } from '@dspace/core/breadcrumbs/community-breadcrumb.resolver';
 import { i18nBreadcrumbResolver } from '@dspace/core/breadcrumbs/i18n-breadcrumb.resolver';
+import { endUserAgreementCurrentUserGuard } from '@dspace/core/end-user-agreement/end-user-agreement-current-user.guard';
 
 import { ObjectAuditLogsComponent } from '../audit-page/object-audit-overview/object-audit-logs.component';
 import { browseByGuard } from '../browse-by/browse-by-guard';
@@ -14,6 +15,7 @@ import { viewTrackerResolver } from '../statistics/angulartics/dspace/view-track
 import { collectionPageResolver } from './collection-page.resolver';
 import { collectionPageAdministratorGuard } from './collection-page-administrator.guard';
 import {
+  BULK_IMPORT_PATH,
   COLLECTION_CREATE_PATH,
   COLLECTION_EDIT_PATH,
   ITEMTEMPLATE_PATH,
@@ -86,6 +88,11 @@ export const ROUTES: Route[] = [
           breadcrumb: i18nBreadcrumbResolver,
         },
         data: { title: 'collection.edit.template.title', breadcrumbKey: 'collection.edit.template' },
+      },
+      {
+        path: BULK_IMPORT_PATH,
+        loadChildren: () => import('../bulk-import/bulk-import-page-routes').then((m) => m.ROUTES),
+        canActivate: [authenticatedGuard, endUserAgreementCurrentUserGuard],
       },
       {
         path: '',

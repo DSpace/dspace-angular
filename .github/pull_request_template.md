@@ -21,11 +21,12 @@ However, reviewers may request that you complete any actions in this list if you
 
 - [ ] My PR is **created against the `main` branch** of code (unless it is a backport or is fixing an issue specific to an older branch).
 - [ ] My PR is **small in size** (e.g. less than 1,000 lines of code, not including comments & specs/tests), or I have provided reasons as to why that's not possible.
+- [ ] My PR **follows all coding best practices** based on the [Code Conventions Guide](../CODE_CONVENTIONS.md)
 - [ ] My PR **passes [ESLint](https://eslint.org/)** validation using `npm run lint`
 - [ ] My PR **doesn't introduce circular dependencies** (verified via `npm run check-circ-deps`)
 - [ ] My PR **includes [TypeDoc](https://typedoc.org/) comments** for _all new (or modified) public methods and classes_. It also includes TypeDoc for large or complex private methods.
 - [ ] My PR **passes all specs/tests and includes new/updated specs or tests** based on the [Code Testing Guide](https://wiki.lyrasis.org/display/DSPACE/Code+Testing+Guide).
-- [ ] My PR **aligns with [Accessibility guidelines](https://wiki.lyrasis.org/display/DSDOC9x/Accessibility)** if it makes changes to the user interface.
+- [ ] My PR **aligns with [Accessibility guidelines](https://wiki.lyrasis.org/spaces/DSDOC10x/pages/408944958/Accessibility)** if it makes changes to the user interface.
 - [ ] My PR **uses i18n (internationalization) keys** instead of hardcoded English text, to allow for translations.
 - [ ] My PR **includes details on how to test it**. I've provided clear instructions to reviewers on how to successfully test this fix or feature.
 - [ ] If my PR includes new libraries/dependencies (in `package.json`), I've made sure their licenses align with the [DSpace BSD License](https://github.com/DSpace/DSpace/blob/main/LICENSE) based on the [Licensing of Contributions](https://wiki.lyrasis.org/display/DSPACE/Code+Contribution+Guidelines#CodeContributionGuidelines-LicensingofContributions) documentation.

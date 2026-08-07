@@ -5,7 +5,7 @@
       <div class="file-section">
 
         @for (file of bitstreams; track file) {
-          <ds-bitstream-attachment [item]="item" [attachment]="file"></ds-bitstream-attachment>
+          <ds-bitstream-attachment [item]="item" [attachment]="file" [primaryBitstreamId]="primaryBitstreamId"></ds-bitstream-attachment>
         }
         @if (isLoading) {
           <ds-loading message="{{'loading.default' | translate}}" [showMessage]="false"></ds-loading>

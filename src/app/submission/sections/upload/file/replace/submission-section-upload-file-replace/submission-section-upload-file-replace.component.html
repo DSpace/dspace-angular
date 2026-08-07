@@ -1,0 +1,50 @@
+<div>
+  <div class="modal-header">
+    <h4 class="modal-title text-danger">{{
+        'bitstream.replace.page.header' | translate: {
+          fileName: fileName,
+          fileSize: fileSizeBytes | dsFileSize
+        }
+      }}</h4>
+    <button type="button" class="btn-close" (click)="closeModal()" aria-label="Close"></button>
+  </div>
+  <div class="modal-body">
+    <p>
+      {{
+        'bitstream.replace.page.content' | translate: {
+          fileName: fileName
+        }
+      }}
+    </p>
+    <ds-uploader #uploader class="w-100"
+                 [dropMsg]="'item.bitstreams.upload.drop-message'"
+                 [dropOverDocumentMsg]="'item.bitstreams.upload.drop-message'"
+                 [enableDragOverDocument]="true"
+                 [uploadFilesOptions]="uploadFilesOptions"
+                 [dragoverContainer]="'ngb-modal-window'"
+                 (onFileSelected)="onFileSelected(uploader)"
+                 (onCompleteItem)="onCompleteItem($event)"
+                 (onUploadError)="onUploadError()"></ds-uploader>
+    <div class="mb-2 d-flex">
+      <ui-switch size="small"
+                 [(ngModel)]="shouldReplaceName"></ui-switch>
+      <span class="font-weight-bold ms-2">{{ 'bitstream.replace.page.replace-name' | translate }}</span>
+    </div>
+    <div class="mb-2">
+      <span [ngClass]="{ 'invisible': shouldReplaceName }"
+            class="text-muted"> {{ 'bitstream.replace.page.replace-name-hint' | translate }}</span>
+    </div>
+    <p class="mb-0 text-muted">
+      {{ 'bitstream.replace.page.disclaimer' | translate }}
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button class="save-button btn btn-secondary" (click)="closeModal()">
+      <span class="d-none d-sm-inline">&nbsp;{{ "bitstream.replace.page.button.cancel" | translate }}</span>
+    </button>
+    <button class="save-button btn btn-danger" (click)="saveFile(uploader);" [dsBtnDisabled]="!uploader.uploader?.queue?.length"><i
+      class="fas fa-retweet"></i>
+      <span class="d-none d-sm-inline">&nbsp;{{ "bitstream.replace.page.button.save" | translate }}</span>
+    </button>
+  </div>
+</div>

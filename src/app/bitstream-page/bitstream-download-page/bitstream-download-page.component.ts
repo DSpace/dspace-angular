@@ -107,26 +107,27 @@ export class BitstreamDownloadPageComponent implements OnInit {
         const isAuthorized$ = this.authorizationService.isAuthorized(FeatureID.CanDownload, isNotEmpty(bitstream) ? bitstream.self : undefined);
         const isLoggedIn$ = this.auth.isAuthenticated();
         const isMatomoEnabled$ = this.matomoService.isMatomoEnabled$();
-        return observableCombineLatest([isAuthorized$, isLoggedIn$, isMatomoEnabled$, accessToken$, of(bitstream)]);
+        const isMatomoScriptLoaded$ = this.matomoService.isMatomoScriptLoaded$();
+        return observableCombineLatest([isAuthorized$, isLoggedIn$, isMatomoEnabled$, isMatomoScriptLoaded$, accessToken$, of(bitstream)]);
       }),
-      filter(([isAuthorized, isLoggedIn, isMatomoEnabled, accessToken, bitstream]: [boolean, boolean, boolean, string, Bitstream]) => (hasValue(isAuthorized) && hasValue(isLoggedIn)) || hasValue(accessToken)),
+      filter(([isAuthorized, isLoggedIn, isMatomoEnabled, isMatomoScriptLoaded, accessToken, bitstream]: [boolean, boolean, boolean, boolean, string, Bitstream]) => (hasValue(isAuthorized) && hasValue(isLoggedIn)) || hasValue(accessToken)),
       take(1),
-      switchMap(([isAuthorized, isLoggedIn, isMatomoEnabled, accessToken, bitstream]: [boolean, boolean, boolean, string, Bitstream]) => {
+      switchMap(([isAuthorized, isLoggedIn, isMatomoEnabled, isMatomoScriptLoaded, accessToken, bitstream]: [boolean, boolean, boolean, boolean, string, Bitstream]) => {
         if (isAuthorized && isLoggedIn) {
           return this.fileService.retrieveFileDownloadLink(bitstream._links.content.href).pipe(
             filter((fileLink) => hasValue(fileLink)),
             take(1),
             map((fileLink) => {
-              return [isAuthorized, isLoggedIn, isMatomoEnabled, bitstream, fileLink];
+              return [isAuthorized, isLoggedIn, isMatomoEnabled, isMatomoScriptLoaded, bitstream, fileLink];
             }));
         } else if (hasValue(accessToken)) {
-          return [[isAuthorized, !isLoggedIn, isMatomoEnabled, bitstream, '', accessToken]];
+          return [[isAuthorized, !isLoggedIn, isMatomoEnabled, isMatomoScriptLoaded, bitstream, '', accessToken]];
         } else {
-          return [[isAuthorized, isLoggedIn, isMatomoEnabled, bitstream, bitstream._links.content.href]];
+          return [[isAuthorized, isLoggedIn, isMatomoEnabled, isMatomoScriptLoaded, bitstream, bitstream._links.content.href]];
         }
       }),
-      switchMap(([isAuthorized, isLoggedIn, isMatomoEnabled, bitstream, fileLink, accessToken]: [boolean, boolean, boolean, Bitstream, string, string]) => {
-        if (isMatomoEnabled) {
+      switchMap(([isAuthorized, isLoggedIn, isMatomoEnabled, isMatomoScriptLoaded, bitstream, fileLink, accessToken]: [boolean, boolean, boolean, boolean, Bitstream, string, string]) => {
+        if (isMatomoEnabled && isMatomoScriptLoaded) {
           return this.matomoService.appendVisitorId(fileLink).pipe(
             map((fileLinkWithVisitorId) => [isAuthorized, isLoggedIn, bitstream, fileLinkWithVisitorId, accessToken]),
           );

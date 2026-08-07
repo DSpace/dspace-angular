@@ -2,7 +2,10 @@ import { Collection } from '@dspace/core/shared/collection.model';
 import { Community } from '@dspace/core/shared/community.model';
 import { CollectionSearchResult } from '@dspace/core/shared/object-collection/collection-search-result.model';
 
-import { createSidebarSearchListElementTests } from '../sidebar-search-list-element.component.spec';
+import {
+  createHierarchicalParentTitleTests,
+  createSidebarSearchListElementTests,
+} from '../sidebar-search-list-element.component.spec';
 import { CollectionSidebarSearchListElementComponent } from './collection-sidebar-search-list-element.component';
 
 const object = Object.assign(new CollectionSearchResult(), {
@@ -34,5 +37,9 @@ const parent = Object.assign(new Community(), {
 });
 
 describe('CollectionSidebarSearchListElementComponent',
-  createSidebarSearchListElementTests(CollectionSidebarSearchListElementComponent, object, parent, 'parent title', 'title', 'description'),
+  createSidebarSearchListElementTests(CollectionSidebarSearchListElementComponent, object, parent, 'parent title', 'title', 'description', [], true),
+);
+
+describe('CollectionSidebarSearchListElementComponent - hierarchical path',
+  createHierarchicalParentTitleTests(CollectionSidebarSearchListElementComponent, object, 'title'),
 );

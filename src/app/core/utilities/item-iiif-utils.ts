@@ -13,12 +13,12 @@ import { RouteService } from '../services/route.service';
 import { Item } from '../shared/item.model';
 
 export const isIiifEnabled = (item: Item) => {
-  return !!item.firstMetadataValue('dspace.iiif.enabled');
+  return String(item.firstMetadataValue('dspace.iiif.enabled')?.valueOf?.() || '').trim().toLowerCase() === 'true';
 
 };
 
 export const isIiifSearchEnabled = (item: Item) => {
-  return !!item.firstMetadataValue('iiif.search.enabled');
+  return String(item.firstMetadataValue('iiif.search.enabled')?.valueOf?.() || '').trim().toLowerCase() === 'true';
 
 };
 

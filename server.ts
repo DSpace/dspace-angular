@@ -27,7 +27,6 @@ import { LRUCache } from 'lru-cache';
 import { isbot } from 'isbot';
 import { createCertificate } from 'pem';
 import { createServer } from 'https';
-import { json } from 'body-parser';
 import { createHttpTerminator } from 'http-terminator';
 
 import { readFileSync } from 'fs';
@@ -134,7 +133,7 @@ export function app() {
    * Add JSON parser for request bodies
    * See [body-parser](https://github.com/expressjs/body-parser)
    */
-  server.use(json());
+  server.use(express.json());
 
   server.engine('ejs', ejs.renderFile);
 
@@ -682,10 +681,12 @@ function healthCheck(req, res) {
   const baseUrl = `${REST_BASE_URL}${environment.actuators.endpointPath}`;
   fetch(baseUrl)
     .then((response) => {
-      res.status(response.status).send(response);
+      return response.json().then((data) => {
+        res.status(response.status).send(data);
+      });
     })
     .catch((error) => {
-      res.status(error.response.status).send({
+      res.status(error?.response?.status || 503).send({
         error: error.message,
       });
     });

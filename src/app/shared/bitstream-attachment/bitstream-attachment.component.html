@@ -8,10 +8,13 @@
     <div class="order-lg-3 ml-auto">
       <div class="d-flex flex-column align-items-end gap-3">
         <div class="text-nowrap">
-          <div class="text-nowrap">
-            <ds-file-download-button [bitstream]="attachment" [item]="item"></ds-file-download-button>
-          </div>
+          <ds-file-download-button [bitstream]="attachment" [item]="item"></ds-file-download-button>
         </div>
+        @if (primaryBitstreamId === attachment.id) {
+          <span class="badge bg-primary">
+            {{ 'item.page.bitstreams.primary' | translate }}
+          </span>
+        }
       </div>
     </div>
 

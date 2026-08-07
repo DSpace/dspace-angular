@@ -6,14 +6,17 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterTestingModule } from '@angular/router/testing';
+import { RouterModule } from '@angular/router';
 import { CSSVariableServiceStub } from '@dspace/core/testing/css-variable-service.stub';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { MenuService } from '../../../shared/menu/menu.service';
 import { MenuItemType } from '../../../shared/menu/menu-item-type.model';
+import { MenuSection } from '../../../shared/menu/menu-section.model';
 import { MenuServiceStub } from '../../../shared/menu/menu-service.stub';
 import { CSSVariableService } from '../../../shared/sass-helper/css-variable.service';
+import { getMockThemeService } from '../../../shared/theme-support/test/theme-service.mock';
+import { ThemeService } from '../../../shared/theme-support/theme.service';
 import { AdminSidebarSectionComponent } from './admin-sidebar-section.component';
 
 describe('AdminSidebarSectionComponent', () => {
@@ -28,7 +31,7 @@ describe('AdminSidebarSectionComponent', () => {
       TestBed.configureTestingModule({
         imports: [
           NoopAnimationsModule,
-          RouterTestingModule,
+          RouterModule.forRoot([]),
           TranslateModule.forRoot(),
           AdminSidebarSectionComponent,
           TestComponent,
@@ -40,6 +43,7 @@ describe('AdminSidebarSectionComponent', () => {
           },
           { provide: MenuService, useValue: menuService },
           { provide: CSSVariableService, useClass: CSSVariableServiceStub },
+          { provide: ThemeService, useValue: getMockThemeService() },
         ],
       }).compileComponents();
     }));
@@ -47,7 +51,14 @@ describe('AdminSidebarSectionComponent', () => {
     beforeEach(() => {
       fixture = TestBed.createComponent(AdminSidebarSectionComponent);
       component = fixture.componentInstance;
-      spyOn(component as any, 'getMenuItemComponent').and.returnValue(TestComponent);
+      component.section = {
+        model: {
+          link: 'google.com',
+        },
+        icon: iconString,
+      } as MenuSection;
+      component.itemModel = component.section.model;
+      spyOn(component, 'getMenuItemComponent').and.returnValue(Promise.resolve(TestComponent));
       fixture.detectChanges();
     });
 
@@ -82,7 +93,7 @@ describe('AdminSidebarSectionComponent', () => {
       TestBed.configureTestingModule({
         imports: [
           NoopAnimationsModule,
-          RouterTestingModule,
+          RouterModule.forRoot([]),
           TranslateModule.forRoot(),
           AdminSidebarSectionComponent,
           TestComponent,
@@ -94,6 +105,7 @@ describe('AdminSidebarSectionComponent', () => {
           },
           { provide: MenuService, useValue: menuService },
           { provide: CSSVariableService, useClass: CSSVariableServiceStub },
+          { provide: ThemeService, useValue: getMockThemeService() },
         ],
       }).compileComponents();
     }));
@@ -101,7 +113,15 @@ describe('AdminSidebarSectionComponent', () => {
     beforeEach(() => {
       fixture = TestBed.createComponent(AdminSidebarSectionComponent);
       component = fixture.componentInstance;
-      spyOn(component as any, 'getMenuItemComponent').and.returnValue(TestComponent);
+      component.section = {
+        model: {
+          link: 'google.com',
+          disabled: true,
+        },
+        icon: iconString,
+      } as MenuSection;
+      component.itemModel = component.section.model;
+      spyOn(component, 'getMenuItemComponent').and.returnValue(Promise.resolve(TestComponent));
       fixture.detectChanges();
     });
 
@@ -138,7 +158,7 @@ describe('AdminSidebarSectionComponent', () => {
       TestBed.configureTestingModule({
         imports: [
           NoopAnimationsModule,
-          RouterTestingModule,
+          RouterModule.forRoot([]),
           TranslateModule.forRoot(),
           AdminSidebarSectionComponent,
           TestComponent,
@@ -196,7 +216,7 @@ describe('AdminSidebarSectionComponent', () => {
   selector: 'ds-test-cmp',
   template: ``,
   imports: [
-    RouterTestingModule,
+    RouterModule,
   ],
 })
 class TestComponent {}

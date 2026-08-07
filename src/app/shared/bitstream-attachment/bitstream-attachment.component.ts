@@ -90,6 +90,11 @@ export class BitstreamAttachmentComponent implements OnInit {
   @Input() item: Item;
 
   /**
+   * The ID of the primary bitstream, used to display the Primary badge
+   */
+  @Input() primaryBitstreamId: string;
+
+  /**
    * Format of the bitstream
    */
   bitstreamFormat$: Observable<string>;

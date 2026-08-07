@@ -37,4 +37,9 @@ export interface MetadataRepresentation {
    */
   getValue(): string;
 
+  /**
+   * Fetches the language of the metadata
+   */
+  getLanguage(): string;
+
 }

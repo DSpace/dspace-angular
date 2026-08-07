@@ -1,4 +1,4 @@
-<div  class="d-inline-block" *ngVar="(metadataView$ | async) as metadataView">
+<div  class="d-inline-block" *ngVar="(metadataView$ | async) as metadataView" [attr.lang]="normalizedLanguageCode">
   @if (metadataView) {
     <ng-container [ngTemplateOutlet]="metadataView?.authority ? linkToAuthority : (metadataView?.entityType ? textWithIcon : textWithoutIcon)"
     [ngTemplateOutletContext]="{metadataView: metadataView}"></ng-container>

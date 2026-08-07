@@ -98,4 +98,18 @@ describe('BitstreamAttachmentComponent', () => {
     expect(component.checksumInfo.value).toBe('abc123');
     expect(component.allAttachmentProviders).toEqual(['provider1']);
   });
+
+  it('should display the primary badge when primaryBitstreamId matches attachment id', () => {
+    component.primaryBitstreamId = attachmentMock.id;
+    fixture.detectChanges();
+    const badge = fixture.nativeElement.querySelector('.badge.bg-primary');
+    expect(badge).toBeTruthy();
+  });
+
+  it('should not display the primary badge when primaryBitstreamId does not match', () => {
+    component.primaryBitstreamId = 'other-id';
+    fixture.detectChanges();
+    const badge = fixture.nativeElement.querySelector('.badge.bg-primary');
+    expect(badge).toBeNull();
+  });
 });
