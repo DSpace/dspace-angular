@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 import {
   Router,
+  RouterLink,
   RouterOutlet,
 } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -59,6 +60,7 @@ import { SystemWideAlertBannerComponent } from '../system-wide-alert/alert-banne
     LiveRegionComponent,
     NgClass,
     NotificationsBoardComponent,
+    RouterLink,
     RouterOutlet,
     SystemWideAlertBannerComponent,
     ThemedAdminSidebarComponent,
@@ -132,14 +134,6 @@ export class RootComponent implements OnInit {
 
     if (this.router.url === getPageInternalServerErrorRoute()) {
       this.shouldShowRouteLoader = false;
-    }
-  }
-
-  skipToMainContent() {
-    const mainContent = document.getElementById('main-content');
-    if (mainContent) {
-      mainContent.tabIndex = -1;
-      mainContent.focus();
     }
   }
 
