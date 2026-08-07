@@ -7,7 +7,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   Inject,
-  InjectionToken,
   OnDestroy,
   OnInit,
   PLATFORM_ID,
