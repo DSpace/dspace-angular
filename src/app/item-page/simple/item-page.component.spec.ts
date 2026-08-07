@@ -14,12 +14,14 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import { AuthRequestService } from '@dspace/core/auth/auth-request.service';
 import { NotifyInfoService } from '@dspace/core/coar-notify/notify-info/notify-info.service';
 import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
 import { ItemDataService } from '@dspace/core/data/item-data.service';
 import { SignpostingDataService } from '@dspace/core/data/signposting-data.service';
 import { SignpostingLink } from '@dspace/core/data/signposting-links.model';
+import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
 import { HardRedirectService } from '@dspace/core/services/hard-redirect.service';
 import {
   LinkDefinition,
@@ -149,6 +151,8 @@ describe('ItemPageComponent', () => {
         { provide: HardRedirectService, useValue: hardRedirectService },
         { provide: AuthRequestService, useValue: new AuthRequestServiceStub() },
         { provide: Store, useValue: provideMockStore() },
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
+        { provide: APP_CONFIG, useValue: { cache: { msToLive: { default: 15 * 60 * 1000 } } } },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ItemPageComponent, {

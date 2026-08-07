@@ -13,12 +13,14 @@ import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { APP_CONFIG } from '@dspace/config/app-config.interface';
 import { AuthRequestService } from '@dspace/core/auth/auth-request.service';
 import { NotifyInfoService } from '@dspace/core/coar-notify/notify-info/notify-info.service';
 import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
 import { ItemDataService } from '@dspace/core/data/item-data.service';
 import { RemoteData } from '@dspace/core/data/remote-data';
 import { SignpostingDataService } from '@dspace/core/data/signposting-data.service';
+import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
 import { HeadTagService } from '@dspace/core/metadata/head-tag.service';
 import { HardRedirectService } from '@dspace/core/services/hard-redirect.service';
 import { LinkHeadService } from '@dspace/core/services/link-head.service';
@@ -159,6 +161,8 @@ describe('FullItemPageComponent', () => {
         { provide: HardRedirectService, useValue: {} },
         { provide: AuthRequestService, useValue: new AuthRequestServiceStub() },
         { provide: Store, useValue: provideMockStore() },
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
+        { provide: APP_CONFIG, useValue: { cache: { msToLive: { default: 15 * 60 * 1000 } } } },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
