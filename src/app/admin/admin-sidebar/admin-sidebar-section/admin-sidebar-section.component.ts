@@ -67,20 +67,16 @@ export class AdminSidebarSectionComponent extends AbstractMenuSectionComponent i
       injector,
       themeService,
     );
+  }
+
+  ngOnInit(): void {
     this.isExternalLink = this.section.model.type === MenuItemType.EXTERNAL;
     if (this.isExternalLink) {
       this.itemModel = this.section.model as ExternalLinkMenuItemModel;
     } else {
       this.itemModel = this.section.model as LinkMenuItemModel;
     }
-  }
-
-  ngOnInit(): void {
-    if (this.isExternalLink) {
-      this.isDisabled = this.itemModel?.disabled || isEmpty((this.itemModel as ExternalLinkMenuItemModel)?.href);
-    } else {
-      this.isDisabled = this.itemModel?.disabled || isEmpty(this.itemModel?.link);
-    }
+    this.isDisabled = this.itemModel?.disabled || isEmpty(this.isExternalLink ? (this.itemModel as ExternalLinkMenuItemModel)?.href : this.itemModel?.link);
     super.ngOnInit();
   }
 
