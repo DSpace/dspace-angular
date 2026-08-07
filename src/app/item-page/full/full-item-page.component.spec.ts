@@ -14,8 +14,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { APP_CONFIG } from '@dspace/config/app-config.interface';
+import { AuthService } from '@dspace/core/auth/auth.service';
 import { AuthRequestService } from '@dspace/core/auth/auth-request.service';
 import { NotifyInfoService } from '@dspace/core/coar-notify/notify-info/notify-info.service';
+import { CookieService } from '@dspace/core/cookies/cookie.service';
 import { AuthorizationDataService } from '@dspace/core/data/feature-authorization/authorization-data.service';
 import { ItemDataService } from '@dspace/core/data/item-data.service';
 import { RemoteData } from '@dspace/core/data/remote-data';
@@ -28,6 +30,7 @@ import { ServerResponseService } from '@dspace/core/services/server-response.ser
 import { Item } from '@dspace/core/shared/item.model';
 import { ActivatedRouteStub } from '@dspace/core/testing/active-router.stub';
 import { AuthRequestServiceStub } from '@dspace/core/testing/auth-request-service.stub';
+import { CookieServiceMock } from '@dspace/core/testing/cookie.service.mock';
 import { HeadTagServiceMock } from '@dspace/core/testing/head-tag-service.mock';
 import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import { createPaginatedList } from '@dspace/core/testing/utils.test';
@@ -138,6 +141,11 @@ describe('FullItemPageComponent', () => {
       getInboxRelationLink: of('http://test.org'),
     });
 
+    const authService = jasmine.createSpyObj('authService', {
+      isAuthenticated: of(true),
+      setRedirectUrl: {},
+    });
+
     headTagService = new HeadTagServiceMock();
 
     TestBed.configureTestingModule({
@@ -163,6 +171,8 @@ describe('FullItemPageComponent', () => {
         { provide: Store, useValue: provideMockStore() },
         { provide: APP_DATA_SERVICES_MAP, useValue: {} },
         { provide: APP_CONFIG, useValue: { cache: { msToLive: { default: 15 * 60 * 1000 } } } },
+        { provide: CookieService, useValue: new CookieServiceMock() },
+        { provide: AuthService, useValue: authService },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
