@@ -191,7 +191,7 @@ describe('AdminSidebarSectionComponent', () => {
         },
         icon: iconString,
       } as MenuSection;
-      spyOn(component as any, 'getMenuItemComponent').and.returnValue(TestComponent);
+      spyOn(component as any, 'getMenuItemComponent').and.returnValue(Promise.resolve(TestComponent));
       fixture.detectChanges();
     });
 
