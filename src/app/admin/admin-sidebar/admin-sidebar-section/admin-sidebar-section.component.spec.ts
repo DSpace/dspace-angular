@@ -176,6 +176,7 @@ describe('AdminSidebarSectionComponent', () => {
           },
           { provide: MenuService, useValue: menuService },
           { provide: CSSVariableService, useClass: CSSVariableServiceStub },
+          { provide: ThemeService, useValue: getMockThemeService() },
         ],
       }).compileComponents();
     }));
@@ -183,6 +184,13 @@ describe('AdminSidebarSectionComponent', () => {
     beforeEach(() => {
       fixture = TestBed.createComponent(AdminSidebarSectionComponent);
       component = fixture.componentInstance;
+      component.section = {
+        model: {
+          type: MenuItemType.EXTERNAL,
+          href: 'https://test.com',
+        },
+        icon: iconString,
+      } as MenuSection;
       spyOn(component as any, 'getMenuItemComponent').and.returnValue(TestComponent);
       fixture.detectChanges();
     });
