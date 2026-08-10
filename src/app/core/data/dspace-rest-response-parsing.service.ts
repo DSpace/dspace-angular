@@ -71,6 +71,45 @@ const splitUrlInParts = (url: string): string[] => {
     .reduce((combined, current) => [...combined, ...current]);
 };
 
+/**
+ * Return true if two lists of url parts don't hold the same parts, ignoring their order
+ */
+const urlPartsDiffer = (expected: string[], actual: string[]): boolean => {
+  return expected.some((part: string) => !actual.includes(part))
+    || actual.some((part: string) => !expected.includes(part));
+};
+
+/**
+ * Percent decode each url part, so `uri=http%3A%2F%2Fx` and `uri=http://x` compare equal. Parts are
+ * decoded one by one, after the url was split, so a decoded `&` can't merge two params.
+ */
+const decodeUrlParts = (parts: string[]): string[] => {
+  return parts.map((part: string) => {
+    try {
+      return decodeURIComponent(part);
+    } catch (e) {
+      return part;
+    }
+  });
+};
+
+/**
+ * Return true if the self link differs from the requested url in a way that isn't just a different
+ * way of writing the same request. Takes the requested url already split, since the caller has it.
+ *
+ * Both sides are brought to the same form first: `embed`/`embed.size` params are stripped, because
+ * the frontend treats them as not part of a resource's identity and indexes without them, and both
+ * are percent decoded. Anything still differing is a real difference between what was asked for and
+ * what came back, including a page size the API reduced - callers are expected to stay within
+ * `MAX_PAGE_SIZE` rather than have that reported difference filtered out here.
+ */
+const isUnexpectedSelfLink = (requestedUrlParts: string[], selfLink: string): boolean => {
+  return urlPartsDiffer(
+    decodeUrlParts(requestedUrlParts),
+    decodeUrlParts(splitUrlInParts(getUrlWithoutEmbedParams(selfLink))),
+  );
+};
+
 @Injectable({ providedIn: 'root' })
 export class DspaceRestResponseParsingService implements ResponseParsingService {
   protected serializerConstructor: GenericConstructor<Serializer<any>> = DSpaceSerializer;
@@ -175,10 +214,14 @@ export class DspaceRestResponseParsingService implements ResponseParsingService 
         });
 
       } else {
+        const selfLink = response.payload._links.self.href;
         const expected = splitUrlInParts(urlWithoutEmbedParams);
-        const actual = splitUrlInParts(response.payload._links.self.href);
-        if (expected[0] === actual[0] && (expected.some((e) => !actual.includes(e)) || actual.some((e) => !expected.includes(e)))) {
-          console.warn(`The response for '${urlWithoutEmbedParams}' has the self link '${response.payload._links.self.href}'. These don't match. This could mean there's an issue with the REST endpoint`);
+        const actual = splitUrlInParts(selfLink);
+        if (expected[0] === actual[0] && urlPartsDiffer(expected, actual)) {
+          // the self link is normalized either way, only the warning is filtered
+          if (isUnexpectedSelfLink(expected, selfLink)) {
+            console.warn(`The response for '${urlWithoutEmbedParams}' has the self link '${selfLink}'. These don't match. This could mean there's an issue with the REST endpoint`);
+          }
           response.payload._links = Object.assign({}, response.payload._links, {
             self: {
               href: urlWithoutEmbedParams,
