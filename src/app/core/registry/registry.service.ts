@@ -37,7 +37,10 @@ import {
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RequestParam } from '../cache/models/request-param.model';
-import { FindListOptions } from '../data/find-list-options.model';
+import {
+  FindListOptions,
+  MAX_PAGE_SIZE,
+} from '../data/find-list-options.model';
 import { MetadataFieldDataService } from '../data/metadata-field-data.service';
 import { MetadataSchemaDataService } from '../data/metadata-schema-data.service';
 import { PaginatedList } from '../data/paginated-list.model';
@@ -94,7 +97,7 @@ export class RegistryService {
   public getMetadataSchemaByPrefix(prefix: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<MetadataSchema>[]): Observable<RemoteData<MetadataSchema>> {
     // Temporary options to get ALL metadataschemas until there's a rest api endpoint for fetching a specific schema
     const options: FindListOptions = Object.assign(new FindListOptions(), {
-      elementsPerPage: 10000,
+      elementsPerPage: MAX_PAGE_SIZE,
     });
     return this.getMetadataSchemas(options).pipe(
       getFirstSucceededRemoteDataPayload(),
