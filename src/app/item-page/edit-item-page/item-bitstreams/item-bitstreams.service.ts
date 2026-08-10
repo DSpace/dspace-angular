@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import { BitstreamDataService } from '@dspace/core/data/bitstream-data.service';
 import { BundleDataService } from '@dspace/core/data/bundle-data.service';
+import { MAX_PAGE_SIZE } from '@dspace/core/data/find-list-options.model';
 import { FieldChangeType } from '@dspace/core/data/object-updates/field-change-type.model';
 import { FieldUpdate } from '@dspace/core/data/object-updates/field-update.model';
 import { FieldUpdates } from '@dspace/core/data/object-updates/field-updates.model';
@@ -360,7 +361,7 @@ export class ItemBitstreamsService {
     return Object.assign(new PaginationComponentOptions(), {
       id: 'bundles-pagination-options',
       currentPage: 1,
-      pageSize: 9999,
+      pageSize: MAX_PAGE_SIZE,
     });
   }
 
