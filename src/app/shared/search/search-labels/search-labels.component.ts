@@ -2,12 +2,15 @@ import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Input,
+  OnChanges,
   OnInit,
+  SimpleChanges,
 } from '@angular/core';
 import { AppliedFilter } from '@dspace/core/shared/search/models/applied-filter.model';
 import {
   BehaviorSubject,
-  of,
+  combineLatest,
+  Observable,
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -27,40 +30,46 @@ import { SearchLabelLoaderComponent } from './search-label-loader/search-label-l
 /**
  * Component that represents the labels containing the currently active filters
  */
-export class SearchLabelsComponent implements OnInit {
+export class SearchLabelsComponent implements OnInit, OnChanges {
 
   /**
    * True when the search component should show results on the current page
    */
   @Input() inPlaceSearch: boolean;
 
+  /**
+   * The fixed filter query to exclude from the visible filters
+   */
   @Input() fixedFilterQuery: string;
 
-  appliedFilters$: BehaviorSubject<AppliedFilter[]>;
+  fixedFilterQuery$: BehaviorSubject<string> = new BehaviorSubject<string>(null);
+
+  visibleFilters$: Observable<AppliedFilter[]>;
 
   constructor(
     protected searchService: SearchService,
   ) {
   }
 
-  ngOnInit(): void {
-    this.appliedFilters$ = this.searchService.appliedFilters$;
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.fixedFilterQuery) {
+      this.fixedFilterQuery$.next(this.fixedFilterQuery);
+    }
   }
 
-  get visibleFilters$() {
-    if (!this.appliedFilters$) {
-      return of([]);
-    }
-    return this.appliedFilters$.pipe(
-      map((filters: AppliedFilter[]) => {
-        if (!filters || !this.fixedFilterQuery) {
+  ngOnInit(): void {
+    this.visibleFilters$ = combineLatest([
+      this.searchService.appliedFilters$,
+      this.fixedFilterQuery$,
+    ]).pipe(
+      map(([filters, fixedFilterQuery]: [AppliedFilter[], string]) => {
+        if (!filters || !fixedFilterQuery) {
           return filters;
         }
         return filters.filter((appliedFilter: AppliedFilter) =>
-          !this.fixedFilterQuery.includes(appliedFilter.filter),
+          !fixedFilterQuery.includes(appliedFilter.filter),
         );
       }),
     );
   }
 }
-
