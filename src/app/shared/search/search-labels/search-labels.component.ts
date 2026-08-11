@@ -5,7 +5,10 @@ import {
   OnInit,
 } from '@angular/core';
 import { AppliedFilter } from '@dspace/core/shared/search/models/applied-filter.model';
-import { BehaviorSubject, of } from 'rxjs';
+import {
+  BehaviorSubject,
+  of,
+} from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { SearchService } from '../search.service';
