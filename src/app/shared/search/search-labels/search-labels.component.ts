@@ -6,6 +6,7 @@ import {
 } from '@angular/core';
 import { AppliedFilter } from '@dspace/core/shared/search/models/applied-filter.model';
 import { BehaviorSubject } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { SearchService } from '../search.service';
 import { SearchLabelLoaderComponent } from './search-label-loader/search-label-loader.component';
@@ -30,6 +31,8 @@ export class SearchLabelsComponent implements OnInit {
    */
   @Input() inPlaceSearch: boolean;
 
+  @Input() fixedFilterQuery: string;
+
   appliedFilters$: BehaviorSubject<AppliedFilter[]>;
 
   constructor(
@@ -41,4 +44,16 @@ export class SearchLabelsComponent implements OnInit {
     this.appliedFilters$ = this.searchService.appliedFilters$;
   }
 
+  get visibleFilters$() {
+    return this.appliedFilters$.pipe(
+      map((filters: AppliedFilter[]) => {
+        if (!filters || !this.fixedFilterQuery) {
+          return filters;
+        }
+        return filters.filter((appliedFilter: AppliedFilter) =>
+          !this.fixedFilterQuery.includes(appliedFilter.filter),
+        );
+      }),
+    );
+  }
 }
