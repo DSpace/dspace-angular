@@ -27,6 +27,7 @@ describe('DspaceRestResponseParsingService', () => {
   let service: TestService;
 
   const MISMATCH = jasmine.stringMatching(/These don't match/);
+  const REDUCED_PAGE = jasmine.stringMatching(/asked for a page of 9999 elements, but the REST API served 1000/);
   const NO_SELF_LINK = jasmine.stringMatching(/doesn't have a self link/);
 
   const requestFor = (href: string): RestRequest =>
@@ -108,18 +109,35 @@ describe('DspaceRestResponseParsingService', () => {
 
     describe('differences that point at a problem with the endpoint', () => {
 
-      it('should warn when the REST API reduced the requested page size', () => {
-        // callers are expected to stay within MAX_PAGE_SIZE
+      it('should say so when the REST API reduced the requested page size', () => {
         const request = requestFor('https://rest.api/core/items/eba1c085/bundles?size=9999');
         service.callEnsureSelfLink(request, responseWithSelfLink(
           'https://rest.api/core/items/eba1c085/bundles?size=1000',
           { number: 0, size: 1000, totalPages: 1, totalElements: 2 }));
 
         expect(console.warn).toHaveBeenCalledTimes(1);
+        expect(console.warn).toHaveBeenCalledWith(REDUCED_PAGE);
+      });
+
+      it('should report a reduced page size alongside other params without confusing the two', () => {
+        const request = requestFor('https://rest.api/core/items/eba1c085/bundles?page=0&size=9999&sort=name,ASC');
+        service.callEnsureSelfLink(request, responseWithSelfLink(
+          'https://rest.api/core/items/eba1c085/bundles?page=0&size=1000&sort=name,ASC'));
+
+        expect(console.warn).toHaveBeenCalledTimes(1);
+        expect(console.warn).toHaveBeenCalledWith(REDUCED_PAGE);
+      });
+
+      it('should fall back to the generic warning when more than the page size differs', () => {
+        const request = requestFor('https://rest.api/core/items/eba1c085/bundles?page=0&size=9999');
+        service.callEnsureSelfLink(request, responseWithSelfLink(
+          'https://rest.api/core/items/eba1c085/bundles?page=3&size=1000'));
+
+        expect(console.warn).toHaveBeenCalledTimes(1);
         expect(console.warn).toHaveBeenCalledWith(MISMATCH);
       });
 
-      it('should warn when the returned page size is larger than the requested one', () => {
+      it('should use the generic warning when the returned page size is larger than requested', () => {
         const request = requestFor('https://rest.api/core/items/eba1c085/bundles?size=5');
         service.callEnsureSelfLink(request, responseWithSelfLink(
           'https://rest.api/core/items/eba1c085/bundles?size=50',
