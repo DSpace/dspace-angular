@@ -61,6 +61,11 @@ export function isRestPaginatedList(halObj: any): boolean {
 }
 
 /**
+ * The url param holding the page size
+ */
+const PAGE_SIZE_PARAM = 'size=';
+
+/**
  * Split a url into parts
  *
  * @param url the url to split
@@ -80,8 +85,8 @@ const urlPartsDiffer = (expected: string[], actual: string[]): boolean => {
 };
 
 /**
- * Percent decode each url part, so `uri=http%3A%2F%2Fx` and `uri=http://x` compare equal. Parts are
- * decoded one by one, after the url was split, so a decoded `&` can't merge two params.
+ * Percent decode each url part, so `uri=http%3A%2F%2Fx` and `uri=http://x` compare equal. Decoding
+ * after the split keeps a decoded `&` from merging two params.
  */
 const decodeUrlParts = (parts: string[]): string[] => {
   return parts.map((part: string) => {
@@ -94,20 +99,39 @@ const decodeUrlParts = (parts: string[]): string[] => {
 };
 
 /**
- * Return true if the self link differs from the requested url in a way that isn't just a different
- * way of writing the same request. Takes the requested url already split, since the caller has it.
- *
- * Both sides are brought to the same form first: `embed`/`embed.size` params are stripped, because
- * the frontend treats them as not part of a resource's identity and indexes without them, and both
- * are percent decoded. Anything still differing is a real difference between what was asked for and
- * what came back, including a page size the API reduced - callers are expected to stay within
- * `MAX_PAGE_SIZE` rather than have that reported difference filtered out here.
+ * The page size a url asks for, or undefined when it doesn't ask for a usable one
  */
-const isUnexpectedSelfLink = (requestedUrlParts: string[], selfLink: string): boolean => {
-  return urlPartsDiffer(
-    decodeUrlParts(requestedUrlParts),
-    decodeUrlParts(splitUrlInParts(getUrlWithoutEmbedParams(selfLink))),
-  );
+const getPageSize = (parts: string[]): number | undefined => {
+  return parts.filter((part: string) => part.startsWith(PAGE_SIZE_PARAM))
+    .map((part: string) => Number(part.substring(PAGE_SIZE_PARAM.length)))
+    .find((size: number) => Number.isInteger(size) && size > 0);
+};
+
+/**
+ * Return the parts without the one holding the page size
+ */
+const withoutPageSize = (parts: string[]): string[] => {
+  return parts.filter((part: string) => !part.startsWith(PAGE_SIZE_PARAM));
+};
+
+/**
+ * Return the warning to log for a self link, or undefined when it describes the same request as the
+ * url it was requested with. A reduced page size gets its own message, since the generic one blames
+ * the endpoint for something the caller did.
+ */
+const selfLinkWarning = (requestedUrl: string, requestedUrlParts: string[], selfLink: string): string | undefined => {
+  const expected = decodeUrlParts(requestedUrlParts);
+  const actual = decodeUrlParts(splitUrlInParts(getUrlWithoutEmbedParams(selfLink)));
+  if (!urlPartsDiffer(expected, actual)) {
+    return undefined;
+  }
+  const requestedSize = getPageSize(expected);
+  const servedSize = getPageSize(actual);
+  if (hasValue(requestedSize) && hasValue(servedSize) && servedSize < requestedSize
+    && !urlPartsDiffer(withoutPageSize(expected), withoutPageSize(actual))) {
+    return `The request for '${requestedUrl}' asked for a page of ${requestedSize} elements, but the REST API served ${servedSize}. Ask for at most MAX_PAGE_SIZE elements`;
+  }
+  return `The response for '${requestedUrl}' has the self link '${selfLink}'. These don't match. This could mean there's an issue with the REST endpoint`;
 };
 
 @Injectable({ providedIn: 'root' })
@@ -218,9 +242,10 @@ export class DspaceRestResponseParsingService implements ResponseParsingService 
         const expected = splitUrlInParts(urlWithoutEmbedParams);
         const actual = splitUrlInParts(selfLink);
         if (expected[0] === actual[0] && urlPartsDiffer(expected, actual)) {
-          // the self link is normalized either way, only the warning is filtered
-          if (isUnexpectedSelfLink(expected, selfLink)) {
-            console.warn(`The response for '${urlWithoutEmbedParams}' has the self link '${selfLink}'. These don't match. This could mean there's an issue with the REST endpoint`);
+          // the self link is normalized either way, only the warning is conditional
+          const warning = selfLinkWarning(urlWithoutEmbedParams, expected, selfLink);
+          if (hasValue(warning)) {
+            console.warn(warning);
           }
           response.payload._links = Object.assign({}, response.payload._links, {
             self: {
