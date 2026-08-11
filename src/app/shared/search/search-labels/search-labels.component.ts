@@ -5,7 +5,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { AppliedFilter } from '@dspace/core/shared/search/models/applied-filter.model';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { SearchService } from '../search.service';
@@ -45,6 +45,9 @@ export class SearchLabelsComponent implements OnInit {
   }
 
   get visibleFilters$() {
+    if (!this.appliedFilters$) {
+      return of([]);
+    }
     return this.appliedFilters$.pipe(
       map((filters: AppliedFilter[]) => {
         if (!filters || !this.fixedFilterQuery) {
@@ -57,3 +60,4 @@ export class SearchLabelsComponent implements OnInit {
     );
   }
 }
+
