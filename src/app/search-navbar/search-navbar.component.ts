@@ -42,6 +42,8 @@ export class SearchNavbarComponent {
 
   // Search input field
   @ViewChild('searchInput') searchField: ElementRef;
+  // Whether the collapse animation is still running, keeps the dropdown visible until it finishes
+  collapsing = false;
 
   constructor(private formBuilder: UntypedFormBuilder, private router: Router, private searchService: SearchService) {
     this.searchForm = this.formBuilder.group(({
@@ -62,9 +64,20 @@ export class SearchNavbarComponent {
    * Collapses & blurs search bar by angular animation, see expandSearchInput
    */
   collapse() {
+    if (!this.searchExpanded) {
+      return;
+    }
     this.searchField.nativeElement.blur();
     this.searchExpanded = false;
     this.isExpanded = 'collapsed';
+    this.collapsing = true;
+  }
+
+  /**
+   * Called when the expand/collapse animation finishes
+   */
+  onAnimationDone(): void {
+    this.collapsing = false;
   }
 
   /**

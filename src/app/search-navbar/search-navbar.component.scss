@@ -22,10 +22,27 @@ input[type="text"] {
 }
 
 @media screen and (max-width: map-get($grid-breakpoints, md)) {
-  .query:focus {
-    max-width: 250px !important;
-    width: 40vw !important;
+  .d-inline-block.position-relative {
+    position: static !important;
   }
 
+  form.search-expanded {
+    input[type="text"] {
+      position: absolute !important;
+      top: calc(65% + var(--ds-header-navbar-border-bottom-height, 0px));
+      right: calc(var(--bs-gutter-x, 1.5rem) / 2);
+      left: auto;
+      width: 220px !important;
+      max-width: 220px;
+      margin-top: 0;
+      padding: 0.375rem 0.75rem;
+      border: 1px solid var(--ds-header-icon-color);
+      border-radius: 4px;
+      background-color: #fff !important;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      opacity: 1;
+      z-index: 1001;
+    }
+  }
 }
 
