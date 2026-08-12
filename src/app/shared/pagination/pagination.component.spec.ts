@@ -66,14 +66,14 @@ function expectPages(fixture: ComponentFixture<any>, pagesDef: string[]): void {
       expect(pages[i].classList.contains('disabled')).toBeTruthy();
       expect(normalizeText(pages[i].textContent)).toEqual(normalizeText(pageDef));
       if (normalizeText(pages[i].textContent) !== '...') {
-        expect(pages[i].querySelector('a').getAttribute('tabindex')).toEqual('-1');
+        expect((pages[i].querySelector('a') || pages[i].querySelector('button')).getAttribute('tabindex')).toEqual('-1');
       }
     } else {
       expect(pages[i].classList.contains('active')).toBeFalsy();
       expect(pages[i].classList.contains('disabled')).toBeFalsy();
       expect(normalizeText(pages[i].textContent)).toEqual(normalizeText(pageDef));
       if (normalizeText(pages[i].textContent) !== '...') {
-        expect(pages[i].querySelector('a').hasAttribute('tabindex')).toBeFalsy();
+        expect((pages[i].querySelector('a') || pages[i].querySelector('button')).hasAttribute('tabindex')).toBeFalsy();
       }
     }
   }
@@ -291,10 +291,14 @@ describe('Pagination component', () => {
 
     it('should call the updateRoute method on the paginationService with the correct params', fakeAsync(() => {
       testComp.collectionSize = 60;
+      testFixture.detectChanges();
 
       changePage(testFixture, 3);
       tick();
       expect(paginationService.updateRoute).toHaveBeenCalledWith('test', Object.assign({ page: 3 }), {},  false);
+
+      currentPagination.next(Object.assign(new PaginationComponentOptions(), pagination, { currentPage: 3 }));
+      testFixture.detectChanges();
 
       changePage(testFixture, 0);
       tick();
@@ -481,6 +485,58 @@ describe('Pagination component', () => {
       const input = fixture.debugElement.query(By.css('[data-test="page-input-button"]'));
       expect(input).toBeDefined();
       expect(input.nativeElement.disabled).toBeFalse();
+    });
+
+    describe('selectPage', () => {
+      // collectionSize (200) / pageSize (10) => 20 pages
+      let paginationServiceStub: any;
+
+      beforeEach(() => {
+        paginationServiceStub = TestBed.inject(PaginationService);
+        spyOn(paginationServiceStub, 'updateRoute').and.callThrough();
+        spyOn(component.pageChange, 'emit');
+        spyOn(component.paginationChange, 'emit');
+      });
+
+      it('should navigate to the requested page when it is within range', () => {
+        component.selectPage('7');
+        expect(paginationServiceStub.updateRoute).toHaveBeenCalledWith('test', { page: 7 }, {}, false);
+        expect(component.pageChange.emit).toHaveBeenCalledWith(7);
+      });
+
+      it('should clamp a page number that is too high to the last page', () => {
+        component.selectPage('999');
+        expect(paginationServiceStub.updateRoute).toHaveBeenCalledWith('test', { page: 20 }, {}, false);
+        expect(component.pageChange.emit).toHaveBeenCalledWith(20);
+      });
+
+      it('should clamp a page number below 1 to the first page', () => {
+        component.selectPage('0');
+        expect(paginationServiceStub.updateRoute).toHaveBeenCalledWith('test', { page: 1 }, {}, false);
+        expect(component.pageChange.emit).toHaveBeenCalledWith(1);
+      });
+
+      it('should ignore non-numeric input', () => {
+        component.selectPage('abc');
+        expect(paginationServiceStub.updateRoute).not.toHaveBeenCalled();
+        expect(component.pageChange.emit).not.toHaveBeenCalled();
+      });
+
+      it('should emit a paginationChange event so the results are reloaded', () => {
+        component.selectPage('3');
+        expect(component.paginationChange.emit).toHaveBeenCalled();
+      });
+
+      it('should not emit a paginationChange event for invalid input', () => {
+        component.selectPage('abc');
+        expect(component.paginationChange.emit).not.toHaveBeenCalled();
+      });
+
+      it('should close the popover when one is provided', () => {
+        const popover = jasmine.createSpyObj('NgbPopover', ['close']);
+        component.selectPage('3', popover);
+        expect(popover.close).toHaveBeenCalled();
+      });
     });
   });
 

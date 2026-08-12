@@ -64,7 +64,7 @@
               [page]="(currentPage$|async)"
               (pageChange)="doPageChange($event)"
               [pageSize]="(pageSize$ |async)"
-              [rotate]="paginationOptions.enablePaginationInput || paginationOptions.rotate"
+              [rotate]="paginationOptions.rotate"
               [size]="isXs ? 'sm' : paginationOptions.size">
               @if (paginationOptions.enablePaginationInput) {
                 <ng-template ngbPaginationPages let-page let-pages="pages">
@@ -76,6 +76,7 @@
                                 [dsBtnDisabled]="!paginationOptions.enablePaginationInput"
                                 [ngbPopover]="paginationInputPopover"
                                 [autoClose]="'outside'"
+                                #pop="ngbPopover"
                         >
                           ...
                         </button>
@@ -89,12 +90,11 @@
                               class="form-control border-info page-input"
                               id="paginationInput"
                               [placeholder]="'pagination.page' | translate"
-                              (keyup.enter)="selectPage(input.value)"
-                              (blur)="selectPage(input.value)"
+                              (keyup.enter)="selectPage(input.value, pop)"
                               (input)="formatInput($any($event).target)"
                               aria-label="Page input"
                             />
-                            <button class="btn btn-outline-info search-button" type="button" (click)="selectPage(input.value)" tabindex="0" [attr.aria-label]="'paginator.go-to-page' | translate">
+                            <button class="btn btn-outline-info search-button" type="button" (click)="selectPage(input.value, pop)" tabindex="0" [attr.aria-label]="'paginator.go-to-page' | translate">
                               {{'pagination.go-to-page' | translate}}
                             </button>
                           </span>

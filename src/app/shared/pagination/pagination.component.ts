@@ -1,7 +1,6 @@
 import {
   AsyncPipe,
   NgClass,
-  NgStyle,
 } from '@angular/common';
 import {
   ChangeDetectionStrategy,
@@ -34,6 +33,7 @@ import {
 import {
   NgbDropdownModule,
   NgbPaginationModule,
+  NgbPopover,
   NgbTooltip,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
@@ -75,9 +75,9 @@ interface PaginationDetails {
     EnumKeysPipe,
     NgbDropdownModule,
     NgbPaginationModule,
+    NgbPopover,
     NgbTooltip,
     NgClass,
-    NgStyle,
     RSSComponent,
     TranslateModule,
   ],
@@ -463,12 +463,32 @@ export class PaginationComponent implements OnChanges, OnDestroy, OnInit {
 
   /**
    * Select any given page.
+   *
+   * The requested page is clamped to the valid range: values below 1 navigate to the first page,
+   * values above the last page navigate to the last page. This mirrors the behaviour of the
+   * regular page buttons and prevents navigating to an out-of-range page (which would render an
+   * empty result set).
+   *
    * @param page
+   *    The requested page (as entered in the pagination input).
+   * @param popover
+   *    Optional reference to the pagination input popover, which is closed once a page is selected.
    */
-  selectPage(page: string) {
-    const pageNumber = parseInt(page, 10);
-    this.pageChange.emit(pageNumber);
-    this.updatePagination(pageNumber, true);
+  selectPage(page: string | number, popover?: NgbPopover) {
+    const pageNumber = parseInt(`${page}`, 10);
+    if (isNaN(pageNumber)) {
+      return;
+    }
+    this.paginationService.getCurrentPagination(this.id, this.paginationOptions).pipe(take(1)).subscribe((currentPaginationOptions) => {
+      const totalPages = Math.max(1, Math.ceil(this.collectionSize / currentPaginationOptions.pageSize));
+      const boundedPage = Math.min(Math.max(pageNumber, 1), totalPages);
+      this.pageChange.emit(boundedPage);
+      this.updateParams({ page: boundedPage });
+      this.emitPaginationChange();
+    });
+    if (hasValue(popover)) {
+      popover.close();
+    }
   }
 
   /**
