@@ -188,6 +188,31 @@ describe('SubscriptionModalComponent', () => {
       expect(component.subscriptionForm.controls).toBeTruthy();
     });
 
+    it('should delete an existing subscription when all frequencies are unchecked', () => {
+      subscriptionServiceStub.deleteSubscription = jasmine.createSpy('deleteSubscription').and.returnValue(createSuccessfulRemoteDataObject$({}));
+
+      component.subscriptionForm = new UntypedFormGroup({});
+      for (let t of testTypes) {
+        const formGroup = new UntypedFormGroup({
+          subscriptionId: new UntypedFormControl(testSubscriptionId),
+          frequencies: new UntypedFormGroup({
+            f: new UntypedFormControl(false),
+            g: new UntypedFormControl(false),
+          }),
+        });
+        component.subscriptionForm.addControl(t, formGroup);
+        component.subscriptionForm.get('test1').markAsDirty();
+        component.subscriptionForm.get('test1').markAsTouched();
+      }
+
+      fixture.detectChanges();
+      component.submit();
+
+      expect(subscriptionServiceStub.deleteSubscription).toHaveBeenCalled();
+      expect(subscriptionServiceStub.createSubscription).not.toHaveBeenCalled();
+      expect(subscriptionServiceStub.updateSubscription).not.toHaveBeenCalled();
+    });
+
   });
 
   describe('when no subscription is given', () => {
