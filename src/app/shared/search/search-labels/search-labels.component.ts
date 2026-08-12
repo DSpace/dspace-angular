@@ -47,7 +47,7 @@ export class SearchLabelsComponent implements OnInit, OnChanges {
    * updated whenever the fixedFilterQuery input changes
    */
   fixedFilterQuery$: BehaviorSubject<string> = new BehaviorSubject<string>(null);
-  
+
   /**
    * Observable of applied filters with fixed filter queries excluded,
    * so they are not displayed as badges in the search UI
