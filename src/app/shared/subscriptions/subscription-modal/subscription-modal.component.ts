@@ -220,7 +220,6 @@ export class SubscriptionModalComponent implements OnInit {
     ).subscribe({
       next: (res: PaginatedList<Subscription>) => {
         if (res.pageInfo.totalElements > 0) {
-          //this.showDeleteInfo$.next(true);
           for (const subscription of res.page) {
             const type = subscription.subscriptionType;
             const subscriptionGroup: UntypedFormGroup = this.subscriptionForm.get(type) as UntypedFormGroup;
