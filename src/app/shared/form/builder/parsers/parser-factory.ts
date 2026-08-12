@@ -9,6 +9,7 @@ import {
   FieldParser,
   INIT_FORM_VALUES,
   PARSER_OPTIONS,
+  SECURITY_CONFIG,
   SUBMISSION_ID,
 } from './field-parser';
 import { ListFieldParser } from './list-field-parser';
@@ -27,6 +28,7 @@ const fieldParserDeps = [
   CONFIG_DATA,
   INIT_FORM_VALUES,
   PARSER_OPTIONS,
+  SECURITY_CONFIG,
   TranslateService,
 ];
 
@@ -50,7 +52,8 @@ export class ParserFactory {
           deps: [...fieldParserDeps],
         };
       }
-      case ParserType.RelationGroup: {
+      case ParserType.RelationGroup:
+      case ParserType.InlineGroup: {
         return {
           provide: FieldParser,
           useClass: RelationGroupFieldParser,

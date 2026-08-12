@@ -23,7 +23,6 @@ import { AbstractListableElementComponent } from '../../object-collection/shared
   selector: 'ds-browse-entry-list-element',
   styleUrls: ['./browse-entry-list-element.component.scss'],
   templateUrl: './browse-entry-list-element.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     RouterLink,

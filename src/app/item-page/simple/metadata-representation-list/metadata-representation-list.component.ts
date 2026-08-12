@@ -28,7 +28,6 @@ import { AbstractIncrementalListComponent } from '../abstract-incremental-list/a
 @Component({
   selector: 'ds-base-metadata-representation-list',
   templateUrl: './metadata-representation-list.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     MetadataFieldWrapperComponent,
@@ -71,6 +70,11 @@ export class MetadataRepresentationListComponent extends AbstractIncrementalList
    * The default can optionally be overridden by providing the limit as input to the component
    */
   @Input() incrementBy = 10;
+
+  /**
+   * The separator used to split the metadata values (can contain HTML)
+   */
+  @Input() separator = '<br>';
 
   /**
    * The total amount of metadata values available

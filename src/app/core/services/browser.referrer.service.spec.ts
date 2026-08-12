@@ -16,7 +16,7 @@ describe(`BrowserReferrerService`, () => {
     service = new BrowserReferrerService(
       { referrer: documentReferrer },
       routeService,
-      { getCurrentOrigin: () => origin } as any,
+      { getBaseUrl: () => origin } as any,
     );
   });
 

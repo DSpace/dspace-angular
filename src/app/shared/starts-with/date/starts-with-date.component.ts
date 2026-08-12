@@ -11,6 +11,8 @@ import { hasValue } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { StartsWithAbstractComponent } from '../starts-with-abstract.component';
+import { renderStartsWithFor } from '../starts-with-decorator';
+import { StartsWithType } from '../starts-with-type';
 
 /**
  * A switchable component rendering StartsWith options for the type "Date".
@@ -20,13 +22,13 @@ import { StartsWithAbstractComponent } from '../starts-with-abstract.component';
   selector: 'ds-starts-with-date',
   styleUrls: ['./starts-with-date.component.scss'],
   templateUrl: './starts-with-date.component.html',
-  standalone: true,
   imports: [
     FormsModule,
     ReactiveFormsModule,
     TranslateModule,
   ],
 })
+@renderStartsWithFor(StartsWithType.date)
 export class StartsWithDateComponent extends StartsWithAbstractComponent implements OnInit {
 
   /**

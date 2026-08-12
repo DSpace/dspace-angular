@@ -31,11 +31,13 @@ import { hasValue } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
+  from,
   Observable,
 } from 'rxjs';
 import {
   map,
   mergeMap,
+  switchMap,
   take,
   tap,
 } from 'rxjs/operators';
@@ -55,7 +57,6 @@ import { WorkspaceItemAdminWorkflowActionsComponent } from '../../actions/worksp
   selector: 'ds-workflow-item-search-result-admin-workflow-grid-element',
   styleUrls: ['./workspace-item-search-result-admin-workflow-grid-element.component.scss'],
   templateUrl: './workspace-item-search-result-admin-workflow-grid-element.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     DynamicComponentLoaderDirective,
@@ -122,9 +123,16 @@ export class WorkspaceItemSearchResultAdminWorkflowGridElementComponent extends 
     super.ngOnInit();
     this.dso = this.linkService.resolveLink(this.dso, followLink('item'));
     this.item$ = (this.dso.item as Observable<RemoteData<Item>>).pipe(getAllSucceededRemoteData(), getRemoteDataPayload());
-    this.item$.pipe(take(1)).subscribe((item: Item) => {
-      const component: GenericConstructor<Component> = this.getComponent(item);
-
+    this.item$.pipe(
+      take(1),
+      switchMap((item: Item) => {
+        return from(this.getComponent(item)).pipe(
+          map((component: GenericConstructor<Component>) => {
+            return { item, component };
+          }),
+        );
+      }),
+    ).subscribe(({ item, component }: { item: Item, component: GenericConstructor<Component> }) => {
       const viewContainerRef = this.dynamicComponentLoaderDirective.viewContainerRef;
       viewContainerRef.clear();
 
@@ -164,7 +172,7 @@ export class WorkspaceItemSearchResultAdminWorkflowGridElementComponent extends 
    * Fetch the component depending on the item's entity type, view mode and context
    * @returns {GenericConstructor<Component>}
    */
-  private getComponent(item: Item): GenericConstructor<Component> {
+  private getComponent(item: Item): Promise<GenericConstructor<Component>> {
     return getListableObjectComponent(item.getRenderTypes(), ViewMode.GridElement, undefined, this.themeService.getThemeName());
   }
 

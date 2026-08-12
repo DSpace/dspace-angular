@@ -39,7 +39,7 @@ import {
 } from '@ng-dynamic-forms/core';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { NgxMaskModule } from 'ngx-mask';
+import { provideEnvironmentNgxMask } from 'ngx-mask';
 import { of } from 'rxjs';
 
 import { environment } from '../../../../../../environments/environment.test';
@@ -136,9 +136,9 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
         FormComponent,
         SubmissionSectionUploadFileEditComponent,
         TestComponent,
-        NgxMaskModule.forRoot(),
       ],
       providers: [
+        provideEnvironmentNgxMask(),
         { provide: FormService, useValue: getMockFormService() },
         { provide: SubmissionService, useClass: SubmissionServiceStub },
         { provide: SubmissionJsonPatchOperationsService, useValue: submissionJsonPatchOperationsServiceStub },
@@ -230,7 +230,11 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
 
       comp.formModel = compAsAny.buildFileEditForm();
 
-      const models = [DynamicCustomSwitchModel, DynamicFormGroupModel, DynamicFormArrayModel];
+      const models = [
+        DynamicCustomSwitchModel,
+        DynamicFormGroupModel,
+        DynamicFormArrayModel,
+      ];
 
       expect(comp.formModel).toBeDefined();
       expect(comp.formModel.length).toBe(models.length);
@@ -305,7 +309,11 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
       compAsAny.isPrimary = null;
       formService.validateAllFormFields.and.callFake(() => null);
       formService.isValid.and.returnValue(of(true));
-      formService.getFormData.and.returnValue(of(mockFileFormData));
+      formService.getFormData.and.returnValue(of({
+        ...mockFileFormData,
+        audioTranscript: 'Audio transcript',
+        videoDescription: 'Video description',
+      }));
 
       const response = [
         Object.assign(mockSubmissionObject, {
@@ -343,6 +351,20 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
       expect(operationsBuilder.add).toHaveBeenCalledWith(
         pathCombiner.getPath([...pathFragment, path]),
         mockFileFormData.metadata['dc.description'],
+        true,
+      );
+
+      path = 'metadata/dspace.bitstream.transcript';
+      expect(operationsBuilder.add).toHaveBeenCalledWith(
+        pathCombiner.getPath([...pathFragment, path]),
+        [{ value: 'Audio transcript' }],
+        true,
+      );
+
+      path = 'metadata/dspace.bitstream.textalternative';
+      expect(operationsBuilder.add).toHaveBeenCalledWith(
+        pathCombiner.getPath([...pathFragment, path]),
+        [{ value: 'Video description' }],
         true,
       );
 
@@ -391,6 +413,40 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
 
     }));
 
+    it('should remove audio transcript and video description when empty', fakeAsync(() => {
+      compAsAny.formRef = { formGroup: null };
+      compAsAny.fileData = fileData;
+      compAsAny.pathCombiner = pathCombiner;
+      formService.validateAllFormFields.and.callFake(() => null);
+      formService.isValid.and.returnValue(of(true));
+      formService.getFormData.and.returnValue(of({
+        ...mockFileFormData,
+        audioTranscript: '',
+        videoDescription: null,
+      }));
+
+      const response = [
+        Object.assign(mockSubmissionObject, {
+          sections: {
+            upload: {
+              primary: true,
+              files: mockUploadFiles,
+            },
+          },
+        }),
+      ];
+      operationsService.jsonPatchByResourceID.and.returnValue(of(response));
+
+      comp.saveBitstreamData();
+      tick();
+
+      expect(operationsBuilder.remove).toHaveBeenCalledWith(
+        pathCombiner.getPath(['files', fileIndex, 'metadata/dspace.bitstream.transcript']),
+      );
+      expect(operationsBuilder.remove).toHaveBeenCalledWith(
+        pathCombiner.getPath(['files', fileIndex, 'metadata/dspace.bitstream.textalternative']),
+      );
+    }));
   });
 });
 
@@ -398,12 +454,9 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
-  standalone: true,
   imports: [
-    FormComponent,
     FormsModule,
     ReactiveFormsModule,
-    SubmissionSectionUploadFileEditComponent,
   ],
 })
 class TestComponent {

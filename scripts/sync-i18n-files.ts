@@ -38,11 +38,13 @@ function parseCliInput() {
     .usage('([-d <output-dir>] [-s <source-file>]) || (-t <target-file> (-i | -o <output>) [-s <source-file>])')
     .parse(process.argv);
 
-  if (!program.targetFile) {
+  const sourceFile = program.opts().sourceFile;
+
+    if (!program.targetFile) {
     fs.readdirSync(projectRoot(LANGUAGE_FILES_LOCATION)).forEach(file => {
-      if (!program.sourceFile.toString().endsWith(file)) {
+      if (!sourceFile.toString().endsWith(file)) {
         const targetFileLocation = projectRoot(LANGUAGE_FILES_LOCATION + "/" + file);
-        console.log('Syncing file at: ' + targetFileLocation + ' with source file at: ' + program.sourceFile);
+        console.log('Syncing file at: ' + targetFileLocation + ' with source file at: ' + sourceFile);
         if (program.outputDir) {
           if (!fs.existsSync(program.outputDir)) {
             fs.mkdirSync(program.outputDir);
@@ -67,7 +69,7 @@ function parseCliInput() {
       console.log(program.outputHelp());
       process.exit(1);
     }
-    if (!checkIfFileExists(program.sourceFile)) {
+    if (!checkIfFileExists(sourceFile)) {
       console.error('Path of source file is not valid.');
       console.log(program.outputHelp());
       process.exit(1);
@@ -101,7 +103,7 @@ function syncFileWithSource(pathToTargetFile, pathToOutputFile) {
     targetLines.push(line.trim());
   }));
   progressBar.update(10);
-  const sourceFile = readFileIfExists(program.sourceFile);
+  const sourceFile = readFileIfExists(program.opts().sourceFile);
   sourceFile.toString().split("\n").forEach((function (line) {
     sourceLines.push(line.trim());
   }));

@@ -29,7 +29,6 @@ import { ProcessOverviewTableComponent } from './table/process-overview-table.co
 @Component({
   selector: 'ds-process-overview',
   templateUrl: './process-overview.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     BtnDisabledDirective,

@@ -19,9 +19,9 @@ parseCliInput();
  * This script uses the i18n files found in a source directory to override settings in files with the same
  * name in a destination directory. Only the i18n labels to be overridden need be in the source files.
  *
- * Execution (using custom theme):
+ * Example execution (using custom theme):
  * ```
- *   yarn merge-i18n -s src/themes/custom/assets/i18n
+ *   npm run merge-i18n -- -s src/themes/custom/assets/i18n
  * ```
  *
  * Input parameters:
@@ -42,21 +42,25 @@ function parseCliInput() {
     .usage('(-s <source-dir> [-d <output-dir>])')
     .parse(process.argv);
 
-  if (program.outputDir && program.sourceDir) {
-    if (!fs.existsSync(program.outputDir) && !fs.lstatSync(program.outputDir).isDirectory() ) {
+  const source = program.opts().sourceDir;
+  const destination = program.opts().outputDir;
+
+  if (destination && source) {
+    if (!fs.existsSync(destination) || !fs.lstatSync(destination).isDirectory() ) {
       console.error('Output does not exist or is not a directory.');
       console.log(program.outputHelp());
       process.exit(1);
     }
-    if (!fs.existsSync(program.sourceDir) && !fs.lstatSync(program.sourceDir).isDirectory() ) {
+    if (!fs.existsSync(source) || !fs.lstatSync(source).isDirectory() ) {
       console.error('Source does not exist or is not a directory.');
       console.log(program.outputHelp());
       process.exit(1);
     }
-    fs.readdirSync(projectRoot(program.sourceDir)).forEach(file => {
-      if (fs.existsSync(program.outputDir + '/' + file) ) {
-        console.log('Merging: ' + program.outputDir + '/' + file + ' with ' + program.sourceDir + '/' + file);
-        mergeFileWithSource(program.sourceDir + '/' + file, program.outputDir + '/' + file);
+
+    fs.readdirSync(projectRoot(source)).forEach(file => {
+      if (fs.existsSync(destination + '/' + file) ) {
+        console.log('Merging: ' + destination + '/' + file + ' with ' + source + '/' + file);
+        mergeFileWithSource(source + '/' + file, destination + '/' + file);
       }
     });
   } else {

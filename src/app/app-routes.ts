@@ -28,6 +28,7 @@ import { ACCESS_CONTROL_MODULE_PATH } from './access-control/access-control-rout
 import { NOTIFICATIONS_MODULE_PATH } from './admin/admin-routing-paths';
 import {
   ADMIN_MODULE_PATH,
+  EDIT_ITEM_PATH,
   FORGOT_PASSWORD_PATH,
   HEALTH_PAGE_PATH,
   PROFILE_MODULE_PATH,
@@ -35,6 +36,7 @@ import {
   REQUEST_COPY_MODULE_PATH,
   WORKFLOW_ITEM_MODULE_PATH,
 } from './app-routing-paths';
+import { notAuthenticatedGuard } from './core/auth/not-authenticated.guard';
 import { ThemedForbiddenComponent } from './forbidden/themed-forbidden.component';
 import { homePageResolver } from './home-page/home-page.resolver';
 import { provideSuggestionNotificationsState } from './notifications/provide-suggestion-notifications-state';
@@ -47,7 +49,7 @@ import { provideSubmissionState } from './submission/provide-submission-state';
 import { SUGGESTION_MODULE_PATH } from './suggestions-page/suggestions-page-routing-paths';
 
 export const APP_ROUTES: Route[] = [
-  { path: INTERNAL_SERVER_ERROR, component: ThemedPageInternalServerErrorComponent },
+  { path: INTERNAL_SERVER_ERROR, component: ThemedPageInternalServerErrorComponent, data: { title: '500.page-internal-server-error' } },
   { path: ERROR_PAGE, component: ThemedPageErrorComponent },
   {
     path: '',
@@ -99,13 +101,13 @@ export const APP_ROUTES: Route[] = [
         path: REGISTER_PATH,
         loadChildren: () => import('./register-page/register-page-routes')
           .then((m) => m.ROUTES),
-        canActivate: [siteRegisterGuard],
+        canActivate: [notAuthenticatedGuard, siteRegisterGuard],
       },
       {
         path: FORGOT_PASSWORD_PATH,
         loadChildren: () => import('./forgot-password/forgot-password-routes')
           .then((m) => m.ROUTES),
-        canActivate: [endUserAgreementCurrentUserGuard, forgotPasswordCheckGuard],
+        canActivate: [notAuthenticatedGuard, endUserAgreementCurrentUserGuard, forgotPasswordCheckGuard],
       },
       {
         path: COMMUNITY_MODULE_PATH,
@@ -182,11 +184,13 @@ export const APP_ROUTES: Route[] = [
         path: 'login',
         loadChildren: () => import('./login-page/login-page-routes')
           .then((m) => m.ROUTES),
+        canActivate: [notAuthenticatedGuard],
       },
       {
         path: 'logout',
         loadChildren: () => import('./logout-page/logout-page-routes')
           .then((m) => m.ROUTES),
+        canActivate: [authenticatedGuard],
       },
       {
         path: 'submit',
@@ -248,6 +252,7 @@ export const APP_ROUTES: Route[] = [
       {
         path: FORBIDDEN_PATH,
         component: ThemedForbiddenComponent,
+        data: { title: '403.forbidden' },
       },
       {
         path: 'statistics',
@@ -266,14 +271,25 @@ export const APP_ROUTES: Route[] = [
         canActivate: [groupAdministratorGuard, endUserAgreementCurrentUserGuard],
       },
       {
+        path: 'auditlogs',
+        loadChildren: () => import('./audit-page/audit-page-routes').then((m) => m.ROUTES),
+        canActivate: [siteAdministratorGuard, endUserAgreementCurrentUserGuard],
+      },
+      {
         path: 'subscriptions',
         loadChildren: () => import('./subscriptions-page/subscriptions-page-routes')
           .then((m) => m.ROUTES),
         canActivate: [authenticatedGuard],
       },
       {
+        path: EDIT_ITEM_PATH,
+        loadChildren: () => import('./edit-item/edit-item-routes').then((m) => m.ROUTES),
+        canActivate: [endUserAgreementCurrentUserGuard],
+      },
+      {
         path: 'external-login/:token',
         loadChildren: () => import('./external-login-page/external-login-routes').then((m) => m.ROUTES),
+        canActivate: [notAuthenticatedGuard],
       },
       {
         path: 'review-account/:token',
@@ -284,8 +300,9 @@ export const APP_ROUTES: Route[] = [
         path: 'email-confirmation',
         loadChildren: () => import('./external-login-email-confirmation-page/external-login-email-confirmation-page-routes')
           .then((m) => m.ROUTES),
+        canActivate: [notAuthenticatedGuard],
       },
-      { path: '**', pathMatch: 'full', component: ThemedPageNotFoundComponent },
+      { path: '**', pathMatch: 'full', component: ThemedPageNotFoundComponent, data: { title: '404.page-not-found' } },
     ],
   },
 ];

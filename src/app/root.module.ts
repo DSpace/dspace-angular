@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+import { EAGER_THEME_COMPONENTS } from '../themes/eager-themes-components';
 import { AdminSidebarComponent } from './admin/admin-sidebar/admin-sidebar.component';
 import { AdminSidebarSectionComponent } from './admin/admin-sidebar/admin-sidebar-section/admin-sidebar-section.component';
 import { ExpandableAdminSidebarSectionComponent } from './admin/admin-sidebar/expandable-admin-sidebar-section/expandable-admin-sidebar-section.component';
@@ -38,6 +39,7 @@ const PROVIDERS = [
 ];
 
 const DECLARATIONS = [
+  ...EAGER_THEME_COMPONENTS,
   RootComponent,
   ThemedRootComponent,
   HeaderComponent,

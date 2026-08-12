@@ -32,7 +32,6 @@ const MARKDOWN_IT = new InjectionToken<LazyMarkdownIt>(
 
 @Directive({
   selector: '[dsMarkdown]',
-  standalone: true,
 })
 export class MarkdownDirective implements OnInit, OnDestroy {
 
@@ -85,6 +84,9 @@ export class MarkdownDirective implements OnInit, OnDestroy {
     const md = new MarkdownIt({
       html: true,
       linkify: true,
+    });
+    md.linkify.set({
+      fuzzyLink: false,
     });
 
     const html = alreadySanitized ? md.render(value) : this.sanitizer.sanitize(SecurityContext.HTML, md.render(value));

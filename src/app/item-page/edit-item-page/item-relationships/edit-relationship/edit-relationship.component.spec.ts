@@ -241,13 +241,11 @@ describe('EditRelationshipComponent', () => {
 @Component({
   selector: 'ds-virtual-metadata',
   template: ``,
-  standalone: true,
 })
 class MockVirtualMetadataComponent {}
 
 @Component({
   selector: 'ds-listable-object-component-loader',
   template: ``,
-  standalone: true,
 })
 export class MockListableObjectComponentLoaderComponent {}

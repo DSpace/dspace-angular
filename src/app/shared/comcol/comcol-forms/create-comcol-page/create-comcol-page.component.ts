@@ -40,7 +40,6 @@ import {
 @Component({
   selector: 'ds-create-comcol',
   template: '',
-  standalone: true,
 })
 export class CreateComColPageComponent<TDomain extends Collection | Community> implements OnInit {
   /**

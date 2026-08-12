@@ -72,6 +72,5 @@ describe('ItemVersionHistoryComponent', () => {
 @Component({
   selector: 'ds-item-versions',
   template: '',
-  standalone: true,
 })
 class MockItemVersionsComponent {}

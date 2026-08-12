@@ -69,8 +69,16 @@ export class AuthenticatedAction implements Action {
   public type: string = AuthActionTypes.AUTHENTICATED;
   payload: AuthTokenInfo;
 
-  constructor(token: AuthTokenInfo) {
+  /**
+   * Whether we should consider the given authentication info final.
+   * If the backend restarted we may have a token that hasn't expired yet, but it will be invalid anyway.
+   * In this case we'll have to check twice.
+   */
+  checkAgain: boolean;
+
+  constructor(token: AuthTokenInfo, checkAgain = false) {
     this.payload = token;
+    this.checkAgain = checkAgain;
   }
 }
 

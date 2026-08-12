@@ -3,6 +3,7 @@ import {
   Component,
   OnInit,
 } from '@angular/core';
+import { FilterType } from '@dspace/core/shared/search/models/filter-type.model';
 import { TranslateModule } from '@ngx-translate/core';
 
 import {
@@ -11,13 +12,13 @@ import {
 } from '../search-facet-filter/search-facet-filter.component';
 import { SearchFacetOptionComponent } from '../search-facet-filter-options/search-facet-option/search-facet-option.component';
 import { SearchFacetSelectedOptionComponent } from '../search-facet-filter-options/search-facet-selected-option/search-facet-selected-option.component';
+import { renderFacetFor } from '../search-filter-type-decorator';
 
 @Component({
   selector: 'ds-search-boolean-filter',
   styleUrls: ['./search-boolean-filter.component.scss'],
   templateUrl: './search-boolean-filter.component.html',
   animations: [facetLoad],
-  standalone: true,
   imports: [
     AsyncPipe,
     SearchFacetOptionComponent,
@@ -29,5 +30,6 @@ import { SearchFacetSelectedOptionComponent } from '../search-facet-filter-optio
 /**
  * Component that represents a boolean facet for a specific filter configuration
  */
+@renderFacetFor(FilterType.boolean)
 export class SearchBooleanFilterComponent extends SearchFacetFilterComponent implements OnInit {
 }

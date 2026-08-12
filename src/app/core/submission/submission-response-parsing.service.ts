@@ -22,6 +22,7 @@ import { ResponseParsingService } from '../data/parsing.service';
 import { RestRequest } from '../data/rest-request.model';
 import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
 import { FormFieldMetadataValueObject } from '../shared/form/models/form-field-metadata-value.model';
+import { EditItem } from './models/edititem.model';
 import { SubmissionObject } from './models/submission-object.model';
 import { WorkflowItem } from './models/workflowitem.model';
 import { WorkspaceItem } from './models/workspaceitem.model';
@@ -56,11 +57,13 @@ export function normalizeSectionData(obj: any, objIndex?: number) {
       result = new FormFieldMetadataValueObject(
         obj.value,
         obj.language,
+        obj.securityLevel,
         obj.authority,
         (obj.display || obj.value),
         obj.place || objIndex,
         obj.confidence,
         obj.otherInformation,
+        obj.source,
       );
     } else if (Array.isArray(obj)) {
       result = [];
@@ -144,7 +147,8 @@ export class SubmissionResponseParsingService extends BaseResponseParsingService
       // item = Object.assign({}, item);
       // In case data is an Instance of WorkspaceItem normalize field value of all the section of type form
       if (item instanceof WorkspaceItem
-        || item instanceof WorkflowItem) {
+        || item instanceof WorkflowItem
+        || item instanceof EditItem) {
         if (item.sections) {
           const precessedSection = Object.create({});
           // Iterate over all workspaceitem's sections

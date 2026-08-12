@@ -73,7 +73,6 @@ export interface ExternalSourceData {
     NgbDropdownModule,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class SubmissionImportExternalSearchbarComponent implements OnInit, OnDestroy {
   /**
@@ -143,7 +142,7 @@ export class SubmissionImportExternalSearchbarComponent implements OnInit, OnDes
     this.searchString = '';
     this.sourceList = [];
     this.findListOptions = Object.assign({}, new FindListOptions(), {
-      elementsPerPage: 5,
+      elementsPerPage: 20,
       currentPage: 1,
       searchParams: [
         new RequestParam('entityType', this.initExternalSourceData.entity),
@@ -188,7 +187,7 @@ export class SubmissionImportExternalSearchbarComponent implements OnInit, OnDes
     if (!this.sourceListLoading && ((this.pageInfo.currentPage + 1) <= this.pageInfo.totalPages)) {
       this.sourceListLoading = true;
       this.findListOptions = Object.assign({}, new FindListOptions(), {
-        elementsPerPage: 5,
+        elementsPerPage: 20,
         currentPage: this.findListOptions.currentPage + 1,
         searchParams: [
           new RequestParam('entityType', this.initExternalSourceData.entity),

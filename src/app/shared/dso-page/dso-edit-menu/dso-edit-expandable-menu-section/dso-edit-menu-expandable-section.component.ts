@@ -4,7 +4,6 @@ import {
 } from '@angular/common';
 import {
   Component,
-  Inject,
   Injector,
   OnInit,
 } from '@angular/core';
@@ -15,7 +14,7 @@ import {
 } from '@dspace/shared/utils/empty.util';
 import {
   NgbDropdownModule,
-  NgbTooltipModule,
+  NgbTooltip,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
@@ -26,6 +25,8 @@ import { AbstractMenuSectionComponent } from 'src/app/shared/menu/menu-section/a
 
 import { BtnDisabledDirective } from '../../../btn-disabled.directive';
 import { MenuService } from '../../../menu/menu.service';
+import { rendersSectionForMenu } from '../../../menu/menu-section.decorator';
+import { ThemeService } from '../../../theme-support/theme.service';
 
 /**
  * Represents an expandable section in the dso edit menus
@@ -34,28 +35,22 @@ import { MenuService } from '../../../menu/menu.service';
   selector: 'ds-dso-edit-menu-expandable-section',
   templateUrl: './dso-edit-menu-expandable-section.component.html',
   styleUrls: ['./dso-edit-menu-expandable-section.component.scss'],
-  standalone: true,
   imports: [
     AsyncPipe,
     BtnDisabledDirective,
     NgbDropdownModule,
-    NgbTooltipModule,
+    NgbTooltip,
     NgComponentOutlet,
     TranslateModule,
   ],
 })
+@rendersSectionForMenu(MenuID.DSO_EDIT, true)
 export class DsoEditMenuExpandableSectionComponent extends AbstractMenuSectionComponent implements OnInit {
 
   /**
    * This section resides in the DSO edit menu
    */
   menuID: MenuID = MenuID.DSO_EDIT;
-
-
-  /**
-   * The MenuItemModel of the top section
-   */
-  itemModel;
 
   /**
    * Emits whether one of the subsections contains an icon
@@ -68,13 +63,16 @@ export class DsoEditMenuExpandableSectionComponent extends AbstractMenuSectionCo
   hasSubSections$: Observable<boolean>;
 
   constructor(
-    @Inject('sectionDataProvider') protected section: MenuSection,
     protected menuService: MenuService,
     protected injector: Injector,
+    protected themeService: ThemeService,
     protected router: Router,
   ) {
-    super(menuService, injector);
-    this.itemModel = section.model;
+    super(
+      menuService,
+      injector,
+      themeService,
+    );
   }
 
   ngOnInit(): void {

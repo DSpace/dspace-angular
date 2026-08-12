@@ -1,0 +1,157 @@
+@if (audits.totalElements === 0) {
+  <div>{{ 'audit.data.not-found' | translate }}</div>
+} @else {
+  <ds-pagination
+    [paginationOptions]="pageConfig"
+    [collectionSize]="audits?.totalElements"
+    [hideGear]="true"
+    [hidePagerWhenSinglePage]="true">
+    <div class="table-responsive">
+      <table class="table table-striped table-hover">
+        <thead>
+        <tr>
+          <th>{{ 'audit.overview.table.entityType' | translate }}</th>
+          <th>{{ 'audit.overview.table.eperson' | translate }}</th>
+          <th>{{ 'audit.overview.table.timestamp' | translate }}</th>
+          @if (isOverviewPage) {
+            <th>{{ 'audit.overview.table.subjectUUID' | translate }}</th>
+            <th>{{ 'audit.overview.table.subjectType' | translate }}</th>
+            <th>{{ 'audit.overview.table.objectUUID' | translate }}</th>
+            <th>{{ 'audit.overview.table.objectType' | translate }}</th>
+          } @else {
+            <th>{{ 'audit.overview.table.other' | translate }}</th>
+          }
+        </tr>
+        </thead>
+        <tbody>
+          @for (audit of audits?.page; track audit) {
+            <tr>
+              <td>
+                @if (audit.hasDetails) {
+                  <div role="button" class="d-flex align-items-center" (click)="toggleCollapse(audit)">
+                    <div class="btn btn-link p-1 mr-1">
+                      @if (audit.isCollapsed) {
+                        <i class="fas fa-caret-right"></i>
+                      } @else {
+                        <i class="fas fa-caret-down"></i>
+                      }
+                    </div>
+                    <div>
+                      {{ audit.eventType }}
+                    </div>
+                  </div>
+                } @else {
+                  <div class="ml-4">
+                    {{ audit.eventType }}
+                  </div>
+                }
+              </td>
+              <td>{{ audit.epersonName }}</td>
+              <td>{{ audit.timeStamp | date:dateFormat:'UTC' }}</td>
+              @if (isOverviewPage) {
+                <td>
+                  @if (audit.objectUUID) {
+                    <ng-container *ngVar="(getObjectRoute$(audit.objectUUID) | async) as objectRoute">
+                      @if (objectRoute !== ('/' + auditPath)) {
+                        <a [routerLink]="[objectRoute]">{{audit.objectUUID}}</a>
+                      } @else {
+                        <span>{{audit.objectUUID}}</span>
+                      }
+                    </ng-container>
+                  }
+                </td>
+                <td>{{ audit.objectType }}</td>
+                <td>
+                  @if (audit.subjectUUID) {
+                    <ng-container *ngVar="(getObjectRoute$(audit.subjectUUID) | async) as subjectRoute">
+                      @if (subjectRoute !== ('/' + auditPath)) {
+                        <a [routerLink]="[subjectRoute]">{{audit.subjectUUID}}</a>
+                      } @else {
+                        <span>{{audit.subjectUUID}}</span>
+                      }
+                    </ng-container>
+                  }
+                </td>
+                <td>{{ audit.subjectType }}</td>
+              } @else {
+                <td>
+                  <span>
+                    @if (audit.otherAuditObject; as dso) {
+                      {{ getDsoName(dso) }} <em>({{ dso.type }})</em>
+                    } @else {
+                      {{ 'audit.data.self' | translate}}
+                    }
+                  </span>
+                </td>
+              }
+            </tr>
+            @if (audit.hasDetails) {
+              <tr [(ngbCollapse)]="audit.isCollapsed" [id]="audit.id" [ngClass]="{'border-top-0': !audit.isCollapsed}" class="w-100 nested-row">
+                @if (isOverviewPage) {
+                  <td colspan="7" class="border-top-0">
+                    <ng-container *ngTemplateOutlet="auditInto; context: { audit }"></ng-container>
+                  </td>
+                } @else {
+                  <td colspan="4" class="border-top-0">
+                    <ng-container *ngTemplateOutlet="auditInto; context: { audit }"></ng-container>
+                  </td>
+                }
+              </tr>
+            }
+          }
+        </tbody>
+      </table>
+    </div>
+  </ds-pagination>
+}
+
+<ng-template #auditInto let-audit=audit>
+  <div class="w-100">
+    <div class="d-flex flex-column mw-100 w-100">
+      @if (audit.metadataField) {
+        <div class="d-flex mb-1">
+          <small class="font-weight-bold me-2" >{{"audit.detail.metadata.field" | translate}}</small>
+          <small>{{ audit.metadataField | dsStringReplace: "_":"." }}</small>
+        </div>
+      }
+      @if (audit.value) {
+        <div class="d-flex mb-1">
+          <small class="font-weight-bold me-2">{{"audit.detail.metadata.value" | translate}}</small>
+          <small class="content dont-break-out preserve-line-breaks">
+            {{ audit.value }}
+          </small>
+        </div>
+      }
+      @if (audit.authority) {
+        <div class="d-flex mb-1">
+          <small class="font-weight-bold me-2">{{"audit.detail.metadata.authority" | translate}}</small>
+          <small>{{ audit.authority }}</small>
+        </div>
+      }
+      @if (audit.confidence !== null) {
+        <div class="d-flex mb-1">
+          <small class="font-weight-bold me-2">{{"audit.detail.metadata.confidence" | translate}}</small>
+          <small>{{ audit.confidence }}</small>
+        </div>
+      }
+      @if (audit.place !== null) {
+        <div class="d-flex mb-1">
+          <small class="font-weight-bold me-2">{{"audit.detail.metadata.place" | translate}}</small>
+          <small>{{ audit.place }}</small>
+        </div>
+      }
+      @if (audit.action) {
+        <div class="d-flex mb-1">
+          <small class="font-weight-bold me-2">{{"audit.detail.metadata.action" | translate}}</small>
+          <small>{{ audit.action }}</small>
+        </div>
+      }
+      @if (audit.checksum) {
+        <div class="d-flex">
+          <small class="font-weight-bold me-2">{{"audit.detail.metadata.checksum" | translate}}</small>
+          <small>{{ audit.checksum }}</small>
+        </div>
+      }
+    </div>
+  </div>
+</ng-template>

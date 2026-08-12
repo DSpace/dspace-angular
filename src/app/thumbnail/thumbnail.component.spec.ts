@@ -31,7 +31,6 @@ import { ThumbnailComponent } from './thumbnail.component';
 @Pipe({
   // eslint-disable-next-line @angular-eslint/pipe-prefix
   name: 'translate',
-  standalone: true,
 })
 class MockTranslatePipe implements PipeTransform {
   transform(key: string): string {

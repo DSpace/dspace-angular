@@ -1,0 +1,31 @@
+.switch-container {
+  height: 35px;
+  width: fit-content;
+  background-color: rgb(204, 204, 204);
+  border-radius: 100px;
+  display: flex;
+
+  //display: flex;
+  //flex-wrap: wrap;
+  //flex: 50%;
+}
+
+.switch-opt {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  background-color: rgb(204, 204, 204);
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  border-radius: 100%;
+  position: relative;
+  top: 1px;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
+.btn-link:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}

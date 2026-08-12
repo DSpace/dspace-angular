@@ -37,11 +37,9 @@
   @if (!model.repeatable) {
     <div
       class="row"
-      ngbRadioGroup
       [attr.tabindex]="model.tabIndex"
       [id]="id"
-      [ngClass]="model.layout.element?.control"
-      (change)="onChange($event)">
+      [ngClass]="model.layout.element?.control">
       @for (columnItems of items; track columnItems) {
         <div class="col-sm">
           @for (item of columnItems; track item) {
@@ -52,6 +50,7 @@
                 [name]="model.id"
                 [required]="model.required"
                 [value]="item.index"
+                (change)="onChange($event)"
                 (blur)="onBlur($event)"
                 (focus)="onFocus($event)"/>
               <label class="form-check-label"

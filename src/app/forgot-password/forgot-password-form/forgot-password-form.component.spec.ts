@@ -112,7 +112,7 @@ describe('ForgotPasswordFormComponent', () => {
       comp.submit();
 
       expect(ePersonDataService.patchPasswordWithToken).toHaveBeenCalledWith('test-uuid', 'test-token', 'password');
-      expect(store.dispatch).toHaveBeenCalledWith(new AuthenticateAction('test@email.org', 'password'));
+      expect(store.dispatch as jasmine.Spy).toHaveBeenCalledWith(new AuthenticateAction('test@email.org', 'password'));
       expect(router.navigate).toHaveBeenCalledWith(['/home']);
       expect(notificationsService.success).toHaveBeenCalled();
     });

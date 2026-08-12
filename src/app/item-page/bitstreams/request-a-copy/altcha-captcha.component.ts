@@ -17,7 +17,6 @@ import { TranslateModule } from '@ngx-translate/core';
     TranslateModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  standalone: true,
 })
 
 /**

@@ -6,7 +6,6 @@ import { ThemedFeedbackFormComponent } from './feedback-form/themed-feedback-for
   selector: 'ds-base-feedback',
   templateUrl: './feedback.component.html',
   styleUrls: ['./feedback.component.scss'],
-  standalone: true,
   imports: [
     ThemedFeedbackFormComponent,
   ],

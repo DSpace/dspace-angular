@@ -48,7 +48,6 @@ import { WorkspaceItemAdminWorkflowActionsComponent } from '../../actions/worksp
   selector: 'ds-workflow-item-search-result-admin-workflow-list-element',
   styleUrls: ['./workspace-item-search-result-admin-workflow-list-element.component.scss'],
   templateUrl: './workspace-item-search-result-admin-workflow-list-element.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     ListableObjectComponentLoaderComponent,

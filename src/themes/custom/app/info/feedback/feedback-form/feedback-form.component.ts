@@ -15,7 +15,6 @@ import { ErrorComponent } from '../../../../../../app/shared/error/error.compone
   templateUrl: '../../../../../../app/info/feedback/feedback-form/feedback-form.component.html',
   // styleUrls: ['./feedback-form.component.scss'],
   styleUrls: ['../../../../../../app/info/feedback/feedback-form/feedback-form.component.scss'],
-  standalone: true,
   imports: [
     BtnDisabledDirective,
     ErrorComponent,

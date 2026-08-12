@@ -1,6 +1,7 @@
 import { Inject } from '@angular/core';
 import { FormFieldModel } from '@dspace/core/shared/form/models/form-field.model';
 import { FormFieldMetadataValueObject } from '@dspace/core/shared/form/models/form-field-metadata-value.model';
+import { MetadataSecurityConfiguration } from '@dspace/core/submission/models/metadata-security-configuration';
 import {
   hasNoValue,
   hasValue,
@@ -24,6 +25,7 @@ import {
   FieldParser,
   INIT_FORM_VALUES,
   PARSER_OPTIONS,
+  SECURITY_CONFIG,
   SUBMISSION_ID,
 } from './field-parser';
 import { ParserOptions } from './parser-options';
@@ -35,11 +37,12 @@ export class ConcatFieldParser extends FieldParser {
     @Inject(CONFIG_DATA) configData: FormFieldModel,
     @Inject(INIT_FORM_VALUES) initFormValues,
     @Inject(PARSER_OPTIONS) parserOptions: ParserOptions,
-      translate: TranslateService,
+    @Inject(SECURITY_CONFIG) securityConfig: MetadataSecurityConfiguration,
+    protected translate: TranslateService,
     protected separator: string,
     protected firstPlaceholder: string = null,
     protected secondPlaceholder: string = null) {
-    super(submissionId, configData, initFormValues, parserOptions, translate);
+    super(submissionId, configData, initFormValues, parserOptions, securityConfig, translate);
 
     this.separator = separator;
     this.firstPlaceholder = firstPlaceholder;
@@ -92,22 +95,25 @@ export class ConcatFieldParser extends FieldParser {
     concatGroup.disabled = input1ModelConfig.readOnly;
 
     if (isNotEmpty(this.firstPlaceholder)) {
-      input1ModelConfig.placeholder = this.firstPlaceholder;
+      input1ModelConfig.label = this.firstPlaceholder;
     }
 
     if (isNotEmpty(this.secondPlaceholder)) {
-      input2ModelConfig.placeholder = this.secondPlaceholder;
+      input2ModelConfig.label = this.secondPlaceholder;
     }
 
     // Split placeholder if is like 'placeholder1/placeholder2'
     const placeholder = this.configData.label.split('/');
     if (placeholder.length === 2) {
-      input1ModelConfig.placeholder = placeholder[0];
-      input2ModelConfig.placeholder = placeholder[1];
+      input1ModelConfig.label = placeholder[0];
+      input2ModelConfig.label = placeholder[1];
     }
 
     const model1 = new DsDynamicInputModel(input1ModelConfig, clsInput);
     const model2 = new DsDynamicInputModel(input2ModelConfig, clsInput);
+    // attach the security config for children
+    (model1 as any).securityConfigLevel = (concatGroup as any).securityConfigLevel;
+    (model2 as any).securityConfigLevel = (concatGroup as any).securityConfigLevel;
     concatGroup.group.push(model1);
     concatGroup.group.push(model2);
 
@@ -116,6 +122,7 @@ export class ConcatFieldParser extends FieldParser {
         control: 'row',
       },
     };
+    this.initSecurityValue(concatGroup, fieldValue as any);
     const concatModel = new DynamicConcatModel(concatGroup, clsGroup);
     concatModel.name = this.getFieldId();
 

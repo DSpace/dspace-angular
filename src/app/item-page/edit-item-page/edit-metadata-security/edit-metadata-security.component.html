@@ -1,0 +1,22 @@
+@if (securityConfigLevel?.length > 1) {
+  <div class="switch-container">
+    @for (secLevel of securityLevelsMap; track secLevel.value) {
+      <div>
+        <div class="switch-opt"
+             [ngStyle]="{'background-color': securityLevel === $any(secLevel).value ? 'white' : 'rgb(204,204,204)' }">
+          <button class="btn btn-link text-primary" data-test="switch-btn"
+                  [title]="'metadata.security.level.title' | translate: { level: $any(secLevel).value }"
+                  [dsBtnDisabled]="readOnly"
+                  (click)="changeSelectedSecurityLevel($any(secLevel).value)">
+            <i [class]="$any(secLevel).icon"
+               aria-hidden="true"
+               [ngStyle]="{'color': securityLevel === $any(secLevel).value ? $any(secLevel).color : '' }"></i>
+          </button>
+        </div>
+      </div>
+    }
+
+  </div>
+}
+
+

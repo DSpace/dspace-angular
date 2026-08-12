@@ -21,7 +21,6 @@ import { ContextHelpService } from '../../shared/context-help.service';
   selector: 'ds-context-help-toggle',
   templateUrl: './context-help-toggle.component.html',
   styleUrls: ['./context-help-toggle.component.scss'],
-  standalone: true,
   imports: [
     AsyncPipe,
     TranslateModule,

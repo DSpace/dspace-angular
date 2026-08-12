@@ -1,7 +1,8 @@
+
 import { SectionsType } from '../sections-type';
 import {
   SectionScope,
-  SectionVisibility,
+  SubmissionVisibilityType,
 } from './section-visibility.model';
 import { SubmissionSectionError } from './submission-section-error.model';
 import { WorkspaceitemSectionDataType } from './workspaceitem-sections.model';
@@ -38,7 +39,7 @@ export interface SubmissionSectionObject {
   /**
    * The section visibility
    */
-  visibility: SectionVisibility;
+  visibility: SubmissionVisibilityType;
 
   /**
    * A boolean representing if this section is collapsed
@@ -74,6 +75,11 @@ export interface SubmissionSectionObject {
    * A boolean representing if this section is loading
    */
   isLoading: boolean;
+
+  /**
+   * A boolean representing if this section removal is pending
+   */
+  removePending: boolean;
 
   /**
    * A boolean representing if this section is valid

@@ -18,6 +18,7 @@ import { Observable } from 'rxjs';
 import { SearchService } from '../../search.service';
 import { SearchConfigurationService } from '../../search-configuration.service';
 import { SearchFilterService } from '../../search-filters/search-filter.service';
+import { renderSearchLabelFor } from '../search-label-loader/search-label-loader.decorator';
 
 /**
  * Component that represents the label containing the currently active filters
@@ -26,13 +27,13 @@ import { SearchFilterService } from '../../search-filters/search-filter.service'
   selector: 'ds-search-label',
   templateUrl: './search-label.component.html',
   styleUrls: ['./search-label.component.scss'],
-  standalone: true,
   imports: [
     AsyncPipe,
     RouterLink,
     TranslateModule,
   ],
 })
+@renderSearchLabelFor()
 export class SearchLabelComponent implements OnInit {
   @Input() inPlaceSearch: boolean;
   @Input() appliedFilter: AppliedFilter;

@@ -1,4 +1,3 @@
-// Load the implementations that should be tested
 import {
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
@@ -10,6 +9,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
 import { SectionsType } from '@dspace/core/submission/sections-type';
 import { SectionsServiceStub } from '@dspace/core/testing/sections-service.stub';
 import { SubmissionServiceStub } from '@dspace/core/testing/submission-service.stub';
@@ -17,7 +17,10 @@ import { createTestComponent } from '@dspace/core/testing/utils.test';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
+import { AlertComponent } from 'src/app/shared/alert/alert.component';
 
+import { getMockThemeService } from '../../../shared/theme-support/test/theme-service.mock';
+import { ThemeService } from '../../../shared/theme-support/theme.service';
 import { SubmissionService } from '../../submission.service';
 import {
   mockSubmissionCollectionId,
@@ -53,10 +56,9 @@ const sectionObject: SectionDataObject = {
   sectionType:	SectionsType.SubmissionForm,
 };
 
-describe('SubmissionSectionContainerComponent test suite', () => {
+describe('SubmissionSectionContainerComponent', () => {
 
   let comp: SubmissionSectionContainerComponent;
-  let compAsAny: any;
   let fixture: ComponentFixture<SubmissionSectionContainerComponent>;
 
   const submissionServiceStub: SubmissionServiceStub = new SubmissionServiceStub();
@@ -64,6 +66,11 @@ describe('SubmissionSectionContainerComponent test suite', () => {
 
   const submissionId = mockSubmissionId;
   const collectionId = mockSubmissionCollectionId;
+  const jsonPatchOpBuilder: any = jasmine.createSpyObj('jsonPatchOpBuilder', {
+    add: jasmine.createSpy('add'),
+    replace: jasmine.createSpy('replace'),
+    remove: jasmine.createSpy('remove'),
+  });
 
   function init() {
     sectionsServiceStub.isSectionValid.and.returnValue(of(true));
@@ -84,17 +91,26 @@ describe('SubmissionSectionContainerComponent test suite', () => {
         TestComponent,
       ],
       providers: [
+        { provide: JsonPatchOperationsBuilder, useValue: jsonPatchOpBuilder },
         { provide: SectionsService, useValue: sectionsServiceStub },
         { provide: SubmissionService, useValue: submissionServiceStub },
+        { provide: ThemeService, useValue: getMockThemeService() },
         SubmissionSectionContainerComponent,
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    }).overrideComponent(SubmissionSectionContainerComponent, {
+      add: {
+        schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      },
+      remove: {
+        imports: [
+          AlertComponent,
+        ],
+      } ,
     }).compileComponents();
 
   }));
 
   describe('', () => {
-    let testComp: TestComponent;
     let testFixture: ComponentFixture<TestComponent>;
     let html;
 
@@ -107,8 +123,6 @@ describe('SubmissionSectionContainerComponent test suite', () => {
                                          [sectionData]="object"></ds-submission-section-container>`;
 
       testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
-      testComp = testFixture.componentInstance;
-
     });
 
     it('should create SubmissionSectionContainerComponent', inject([SubmissionSectionContainerComponent], (app: SubmissionSectionContainerComponent) => {
@@ -121,7 +135,6 @@ describe('SubmissionSectionContainerComponent test suite', () => {
       init();
       fixture = TestBed.createComponent(SubmissionSectionContainerComponent);
       comp = fixture.componentInstance;
-      compAsAny = comp;
       comp.submissionId = submissionId;
       comp.collectionId = collectionId;
       comp.sectionData = sectionObject;
@@ -133,7 +146,6 @@ describe('SubmissionSectionContainerComponent test suite', () => {
     afterEach(() => {
       fixture.destroy();
       comp = null;
-      compAsAny = null;
     });
 
     it('should inject section properly', () => {
@@ -235,7 +247,6 @@ describe('SubmissionSectionContainerComponent test suite', () => {
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: '',
   template: ``,
-  standalone: true,
   imports: [
     NgbModule,
   ],

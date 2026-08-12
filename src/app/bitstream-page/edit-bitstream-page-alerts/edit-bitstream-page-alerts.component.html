@@ -1,0 +1,24 @@
+@let relatedBitstreams = relatedBitstreams$ | async;
+@if (relatedBitstreams.length > 0) {
+  <div class="alert alert-info w-100 mb-2" role="alert">
+    <ul class="list-unstyled mb-0">
+    @for (section of relatedBitstreams; let i = $index; track section[0]) {
+      <li>
+        <span>{{ 'bitstream.related.' + section[0] | translate }}</span>:
+        @for (bitstreamEntry of section[1]; track bitstreamEntry.uuid; let last = $last) {
+          @if (bitstreamEntry.error === undefined) {
+            <a [routerLink]="['/bitstreams/', bitstreamEntry.uuid, 'edit']"
+               [target]="'_blank'">
+              {{ bitstreamEntry.text }}</a>
+          } @else {
+            <span>{{ bitstreamEntry.text }} (<code>{{ bitstreamEntry.uuid }}</code>, {{ 'bitstream.related.deleted' | translate }})</span>
+          }
+          @if (!last) {
+            <span>,</span>
+          }
+        }
+      </li>
+    }
+    </ul>
+  </div>
+}

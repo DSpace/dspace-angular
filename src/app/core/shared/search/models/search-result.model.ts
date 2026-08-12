@@ -51,6 +51,12 @@ export class SearchResult<T extends DSpaceObject> extends ListableObject impleme
   indexableObject: T;
 
   /**
+   * The embedded indexable object.
+   */
+  @deserialize
+  _embedded: {indexableObject: T};
+
+  /**
    * Method that returns as which type of object this object should be rendered
    */
   getRenderTypes(): (string | GenericConstructor<ListableObject>)[] {

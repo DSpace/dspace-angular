@@ -22,7 +22,6 @@ import { VarDirective } from '../../../../../../../app/shared/utils/var.directiv
     TranslateModule,
     VarDirective,
   ],
-  standalone: true,
 })
 export class CommunityPageSubCollectionListComponent extends BaseComponent {
 }

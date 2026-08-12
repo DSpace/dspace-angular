@@ -6,7 +6,6 @@ import { PrivacyContentComponent } from './privacy-content/privacy-content.compo
   selector: 'ds-base-privacy',
   templateUrl: './privacy.component.html',
   styleUrls: ['./privacy.component.scss'],
-  standalone: true,
   imports: [
     PrivacyContentComponent,
   ],

@@ -5,6 +5,7 @@ import {
 } from '@angular/core';
 import { AuthService } from '@dspace/core/auth/auth.service';
 import { AuthMethod } from '@dspace/core/auth/models/auth.method';
+import { AuthMethodType } from '@dspace/core/auth/models/auth.method-type';
 import {
   isAuthenticated,
   isAuthenticationLoading,
@@ -24,15 +25,20 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 
+import { renderAuthMethodFor } from '../log-in.methods-decorator';
+
 @Component({
   selector: 'ds-log-in-external-provider',
   templateUrl: './log-in-external-provider.component.html',
   styleUrls: ['./log-in-external-provider.component.scss'],
-  standalone: true,
   imports: [
     TranslateModule,
   ],
 })
+@renderAuthMethodFor(AuthMethodType.Shibboleth)
+@renderAuthMethodFor(AuthMethodType.Oidc)
+@renderAuthMethodFor(AuthMethodType.Orcid)
+@renderAuthMethodFor(AuthMethodType.Saml)
 export class LogInExternalProviderComponent implements OnInit {
 
   /**

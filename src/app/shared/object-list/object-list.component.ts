@@ -34,7 +34,6 @@ import { SelectableListService } from './selectable-list/selectable-list.service
   styleUrls: ['./object-list.component.scss'],
   templateUrl: './object-list.component.html',
   animations: [fadeIn],
-  standalone: true,
   imports: [
     BrowserOnlyPipe,
     ImportableListItemControlComponent,

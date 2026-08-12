@@ -8,15 +8,17 @@ import {
 } from '@angular/router';
 import { RequestService } from '@dspace/core/data/request.service';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
 
-import { ADVANCED_WORKFLOW_ACTION_RATING } from '../../../../workflowitems-edit-page/advanced-workflow-action/advanced-workflow-action-rating/advanced-workflow-action-rating.component';
+import { AdvancedWorkflowActionType } from '../../../../workflowitems-edit-page/advanced-workflow-action/advanced-workflow-action-type';
 import { SearchService } from '../../../search/search.service';
 import { AdvancedClaimedTaskActionsAbstractComponent } from '../abstract/advanced-claimed-task-actions-abstract.component';
+import { ClaimedTaskType } from '../claimed-task-type';
+import { rendersWorkflowTaskOption } from '../switcher/claimed-task-actions-decorator';
 
 /**
  * Advanced Workflow button that redirect to the {@link AdvancedWorkflowActionRatingComponent}
@@ -25,15 +27,15 @@ import { AdvancedClaimedTaskActionsAbstractComponent } from '../abstract/advance
   selector: 'ds-advanced-claimed-task-action-rating-reviewer',
   templateUrl: './advanced-claimed-task-action-rating.component.html',
   styleUrls: ['./advanced-claimed-task-action-rating.component.scss'],
-  standalone: true,
   imports: [
-    NgbTooltipModule,
+    NgbTooltip,
     TranslateModule,
   ],
 })
+@rendersWorkflowTaskOption(ClaimedTaskType.ADVANCED_WORKFLOW_TASK_OPTION_RATING)
 export class AdvancedClaimedTaskActionRatingComponent extends AdvancedClaimedTaskActionsAbstractComponent {
 
-  workflowType = ADVANCED_WORKFLOW_ACTION_RATING;
+  workflowType = AdvancedWorkflowActionType.ADVANCED_WORKFLOW_ACTION_RATING;
 
   constructor(
     protected injector: Injector,

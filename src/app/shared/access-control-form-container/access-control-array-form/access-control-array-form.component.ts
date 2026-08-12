@@ -22,7 +22,6 @@ import { ToDatePipe } from './to-date.pipe';
   templateUrl: './access-control-array-form.component.html',
   styleUrls: ['./access-control-array-form.component.scss'],
   exportAs: 'accessControlArrayForm',
-  standalone: true,
   imports: [
     BtnDisabledDirective,
     FormsModule,

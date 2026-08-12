@@ -116,6 +116,7 @@ describe('BitstreamDownloadPageComponent', () => {
     matomoService = jasmine.createSpyObj('MatomoService', {
       appendVisitorId: of(''),
       isMatomoEnabled$: of(true),
+      isMatomoScriptLoaded$: of(true),
     });
     matomoService.appendVisitorId.and.callFake((link) => of(link));
   }

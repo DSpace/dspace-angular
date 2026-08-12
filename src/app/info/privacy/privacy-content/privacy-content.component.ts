@@ -6,7 +6,6 @@ import { TranslateModule } from '@ngx-translate/core';
   selector: 'ds-privacy-content',
   templateUrl: './privacy-content.component.html',
   styleUrls: ['./privacy-content.component.scss'],
-  standalone: true,
   imports: [
     RouterLink,
     TranslateModule,

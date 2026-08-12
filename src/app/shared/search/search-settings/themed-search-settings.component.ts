@@ -12,12 +12,7 @@ import { SearchSettingsComponent } from './search-settings.component';
  */
 @Component({
   selector: 'ds-search-settings',
-  styleUrls: [],
   templateUrl: '../../theme-support/themed.component.html',
-  standalone: true,
-  imports: [
-    SearchSettingsComponent,
-  ],
 })
 export class ThemedSearchSettingsComponent extends ThemedComponent<SearchSettingsComponent> {
   @Input() currentSortOption: SortOptions;

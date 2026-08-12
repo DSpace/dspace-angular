@@ -26,7 +26,6 @@ import { BrowserOnlyPipe } from '../../../../../app/shared/utils/browser-only.pi
   // styleUrls: ['./auth-nav-menu.component.scss'],
   styleUrls: ['../../../../../app/shared/auth-nav-menu/auth-nav-menu.component.scss'],
   animations: [fadeInOut, fadeOut],
-  standalone: true,
   imports: [
     AsyncPipe,
     BrowserOnlyPipe,

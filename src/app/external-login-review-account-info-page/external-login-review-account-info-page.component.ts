@@ -26,7 +26,6 @@ import { ReviewAccountInfoComponent } from './review-account-info/review-account
     AsyncPipe,
     ReviewAccountInfoComponent,
   ],
-  standalone: true,
 })
 /**
  * This component is a wrapper for review-account-info component responsible to provide RegistrationData.

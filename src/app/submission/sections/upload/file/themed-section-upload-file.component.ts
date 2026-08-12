@@ -9,12 +9,7 @@ import { SubmissionSectionUploadFileComponent } from './section-upload-file.comp
 
 @Component({
   selector: 'ds-submission-upload-section-file',
-  styleUrls: [],
   templateUrl: '../../../../shared/theme-support/themed.component.html',
-  standalone: true,
-  imports: [
-    SubmissionSectionUploadFileComponent,
-  ],
 })
 export class ThemedSubmissionSectionUploadFileComponent
   extends ThemedComponent<SubmissionSectionUploadFileComponent> {

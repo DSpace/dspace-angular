@@ -3,6 +3,7 @@ import {
   NgClass,
 } from '@angular/common';
 import { Component } from '@angular/core';
+import { DSOBreadcrumbsService } from '@dspace/core/breadcrumbs/dso-breadcrumbs.service';
 import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import { LinkService } from '@dspace/core/cache/builders/link.service';
 import { Context } from '@dspace/core/shared/context.model';
@@ -15,6 +16,7 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 
+import { MetadataDirective } from '../../../../../shared/metadata.directive';
 import { listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
 import { SidebarSearchListElementComponent } from '../../../../../shared/object-list/sidebar-search-list-element/sidebar-search-list-element.component';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
@@ -27,9 +29,9 @@ import { TruncatablePartComponent } from '../../../../../shared/truncatable/trun
 @Component({
   selector: 'ds-person-sidebar-search-list-element',
   templateUrl: '../../../../../shared/object-list/sidebar-search-list-element/sidebar-search-list-element.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
+    MetadataDirective,
     NgClass,
     TranslateModule,
     TruncatablePartComponent,
@@ -44,8 +46,9 @@ export class PersonSidebarSearchListElementComponent extends SidebarSearchListEl
               protected linkService: LinkService,
               protected translateService: TranslateService,
               public dsoNameService: DSONameService,
+              protected dsoBreadcrumbsService: DSOBreadcrumbsService,
   ) {
-    super(truncatableService, linkService, dsoNameService);
+    super(truncatableService, linkService, dsoNameService, dsoBreadcrumbsService);
   }
 
   /**

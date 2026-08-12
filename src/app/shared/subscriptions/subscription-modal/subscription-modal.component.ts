@@ -59,7 +59,6 @@ import { ThemedTypeBadgeComponent } from '../../object-collection/shared/badges/
   selector: 'ds-subscription-modal',
   templateUrl: './subscription-modal.component.html',
   styleUrls: ['./subscription-modal.component.scss'],
-  standalone: true,
   imports: [
     AlertComponent,
     AsyncPipe,
@@ -131,6 +130,8 @@ export class SubscriptionModalComponent implements OnInit {
    */
   @Output() updateSubscription: EventEmitter<Subscription> = new EventEmitter<Subscription>();
 
+  @Output() updated = new EventEmitter<void>();
+
   constructor(
     private formBuilder: UntypedFormBuilder,
     private modalService: NgbModal,
@@ -150,7 +151,10 @@ export class SubscriptionModalComponent implements OnInit {
     this.authService.getAuthenticatedUserFromStore().pipe(
       take(1),
       map((ePerson) => ePerson.uuid),
-      shareReplay({ refCount: false }),  // todo: check if this is ok
+      shareReplay({
+        bufferSize: 1,
+        refCount: false,
+      }),
     ).subscribe((ePersonId: string) => {
       this.ePersonId = ePersonId;
       if (isNotEmpty(this.subscription)) {
@@ -301,7 +305,8 @@ export class SubscriptionModalComponent implements OnInit {
     }
 
     combineLatest([...toBeProcessed]).subscribe((res) => {
-      this.activeModal.close();
+      this.updated.emit();
+      this.activeModal.close('updated');
     });
 
   }

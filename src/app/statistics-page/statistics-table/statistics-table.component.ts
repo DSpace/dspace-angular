@@ -15,7 +15,6 @@ import { TranslateModule } from '@ngx-translate/core';
   selector: 'ds-statistics-table',
   templateUrl: './statistics-table.component.html',
   styleUrls: ['./statistics-table.component.scss'],
-  standalone: true,
   imports: [
     TranslateModule,
   ],

@@ -7,7 +7,6 @@ import { TranslateModule } from '@ngx-translate/core';
 @Component({
   selector: 'ds-process-detail-field',
   templateUrl: './process-detail-field.component.html',
-  standalone: true,
   imports: [
     TranslateModule,
   ],

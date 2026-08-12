@@ -13,7 +13,6 @@ import { TranslateModule } from '@ngx-translate/core';
   selector: 'ds-base-my-dspace-status-badge',
   styleUrls: ['./my-dspace-status-badge.component.scss'],
   templateUrl: './my-dspace-status-badge.component.html',
-  standalone: true,
   imports: [
     TranslateModule,
   ],

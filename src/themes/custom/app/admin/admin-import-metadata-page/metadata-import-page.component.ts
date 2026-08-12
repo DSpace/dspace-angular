@@ -9,7 +9,6 @@ import { FileDropzoneNoUploaderComponent } from '../../../../../app/shared/uploa
   selector: 'ds-themed-metadata-import-page',
   // templateUrl: './metadata-import-page.component.html',
   templateUrl: '../../../../../app/admin/admin-import-metadata-page/metadata-import-page.component.html',
-  standalone: true,
   imports: [
     FileDropzoneNoUploaderComponent,
     FormsModule,

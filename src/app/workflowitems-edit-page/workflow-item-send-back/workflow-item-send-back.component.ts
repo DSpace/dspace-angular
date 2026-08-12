@@ -24,7 +24,6 @@ import { WorkflowItemActionPageDirective } from '../workflow-item-action-page.co
 @Component({
   selector: 'ds-base-workflow-item-send-back',
   templateUrl: '../workflow-item-action-page.component.html',
-  standalone: true,
   imports: [
     CommonModule,
     ModifyItemOverviewComponent,

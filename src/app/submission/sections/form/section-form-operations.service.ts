@@ -64,20 +64,25 @@ export class SectionFormOperationsService {
    *    the [[FormFieldPreviousValueObject]] for the specified operation
    * @param hasStoredValue
    *    representing if field value related to the specified operation has stored value
+   * @param languageMap
    */
   public dispatchOperationsFromEvent(pathCombiner: JsonPatchOperationPathCombiner,
     event: DynamicFormControlEvent,
     previousValue: FormFieldPreviousValueObject,
-    hasStoredValue: boolean): void {
+    hasStoredValue: boolean,
+    languageMap: Map<string, string[]> = null): void {
     switch (event.type) {
       case 'remove':
         this.dispatchOperationsFromRemoveEvent(pathCombiner, event, previousValue);
         break;
       case 'change':
-        this.dispatchOperationsFromChangeEvent(pathCombiner, event, previousValue, hasStoredValue);
+        this.dispatchOperationsFromChangeEvent(pathCombiner, event, previousValue, hasStoredValue, languageMap);
         break;
       case 'move':
         this.dispatchOperationsFromMoveEvent(pathCombiner, event, previousValue);
+        break;
+      case 'changeSecurityLevel':
+        this.changeSecurityLevel(pathCombiner, event, previousValue);
         break;
       default:
         break;
@@ -257,15 +262,31 @@ export class SectionFormOperationsService {
         }
       } else {
         // Language without Authority (input, textArea)
-        fieldValue = new FormFieldMetadataValueObject(value, language);
+        if ((event.model as any).hasSecurityLevel) {
+          const securityLevel = (event.model as any).securityLevel;
+          fieldValue = new FormFieldMetadataValueObject(value, language, securityLevel);
+        } else {
+          fieldValue = new FormFieldMetadataValueObject(value, language);
+        }
+
       }
     } else if (isNgbDateStruct(value)) {
-      fieldValue = new FormFieldMetadataValueObject(dateToString(value));
+      if ((event.model as any).hasSecurityLevel) {
+        const securityLevel = (event.model as any).metadataValue.securityLevel;
+        fieldValue = new FormFieldMetadataValueObject(value, undefined, securityLevel);
+      } else {
+        fieldValue = new FormFieldMetadataValueObject(dateToString(value));
+      }
     } else if (value instanceof FormFieldLanguageValueObject || value instanceof VocabularyEntry
       || value instanceof VocabularyEntryDetail || isObject(value)) {
       fieldValue = value;
     } else {
-      fieldValue = new FormFieldMetadataValueObject(value);
+      if ((event.model as any).hasSecurityLevel) {
+        const securityLevel = (event.model as any).securityLevel;
+        fieldValue = new FormFieldMetadataValueObject(value, undefined, securityLevel);
+      } else {
+        fieldValue = new FormFieldMetadataValueObject(value);
+      }
     }
 
     return fieldValue;
@@ -315,7 +336,7 @@ export class SectionFormOperationsService {
     } else if (event.context && event.context instanceof DynamicFormArrayGroupModel) {
       // Model is a DynamicRowArrayModel
       this.handleArrayGroupPatch(pathCombiner, event, (event as any).context.context, previousValue);
-    } else if ((isNotEmpty(value) && typeof value === 'string') || (isNotEmpty(value) && value instanceof FormFieldMetadataValueObject && value.hasValue())) {
+    } else if ((isNotEmpty(value) && typeof value === 'string') || (isNotEmpty(value) && (value instanceof FormFieldMetadataValueObject || value instanceof VocabularyEntry) && value.hasValue())) {
       this.operationsBuilder.remove(pathCombiner.getPath(path));
     }
   }
@@ -367,12 +388,13 @@ export class SectionFormOperationsService {
    *    the [[FormFieldPreviousValueObject]] for the specified operation
    * @param hasStoredValue
    *    representing if field value related to the specified operation has stored value
+   * @param languageMap
    */
   protected dispatchOperationsFromChangeEvent(pathCombiner: JsonPatchOperationPathCombiner,
     event: DynamicFormControlEvent,
     previousValue: FormFieldPreviousValueObject,
-    hasStoredValue: boolean): void {
-
+    hasStoredValue: boolean,
+    languageMap?: Map<string, string[]>): void {
     if (event.context && event.context instanceof DynamicFormArrayGroupModel) {
       // Model is a DynamicRowArrayModel
       this.handleArrayGroupPatch(pathCombiner, event, (event as any).context.context, previousValue);
@@ -382,11 +404,16 @@ export class SectionFormOperationsService {
     const path = this.getFieldPathFromEvent(event);
     const segmentedPath = this.getFieldPathSegmentedFromChangeEvent(event);
     const value = this.getFieldValueFromChangeEvent(event);
+    if ((event.model as any).securityLevel !== null && (event.model as any).securityLevel !== undefined) {
+      if (typeof value !== 'string') {
+        value.securityLevel = (event.model as any).securityLevel;
+      }
+    }
     // Detect which operation must be dispatched
     if (this.formBuilder.isQualdropGroup(event.model.parent as DynamicFormControlModel)
       || this.formBuilder.isQualdropGroup(event.model as DynamicFormControlModel)) {
       // It's a qualdrup model
-      this.dispatchOperationsFromMap(this.getQualdropValueMap(event), pathCombiner, event, previousValue);
+      this.dispatchOperationsFromMap(this.getQualdropValueMap(event), pathCombiner, event, previousValue, languageMap);
     } else if (this.formBuilder.isRelationGroup(event.model)) {
       // It's a relation model
       this.dispatchOperationsFromMap(this.getValueMap(value), pathCombiner, event, previousValue);
@@ -455,11 +482,13 @@ export class SectionFormOperationsService {
    *    the [[DynamicFormControlEvent]] for the specified operation
    * @param previousValue
    *    the [[FormFieldPreviousValueObject]] for the specified operation
+   * @param languageMap
    */
   protected dispatchOperationsFromMap(valueMap: Map<string, any>,
     pathCombiner: JsonPatchOperationPathCombiner,
     event: DynamicFormControlEvent,
-    previousValue: FormFieldPreviousValueObject): void {
+    previousValue: FormFieldPreviousValueObject,
+    languageMap: Map<string, string[]> = null): void {
     const currentValueMap = valueMap;
     if (event.type === 'remove') {
       const path = this.getQualdropItemPathFromEvent(event);
@@ -470,7 +499,8 @@ export class SectionFormOperationsService {
           const currentValue = currentValueMap.get(index);
           if (currentValue) {
             if (!isEqual(entry, currentValue)) {
-              this.operationsBuilder.add(pathCombiner.getPath(index), currentValue, true);
+              const metadataFromPath = pathCombiner.getPath(index).path.split('/').slice(-1)[0];
+              this.operationsBuilder.add(pathCombiner.getPath(index), currentValue, true, false, languageMap?.get(metadataFromPath));
             }
             currentValueMap.delete(index);
           } else if (!currentValue) {
@@ -483,7 +513,8 @@ export class SectionFormOperationsService {
           // The last item of the group has been deleted so make a remove op
           this.operationsBuilder.remove(pathCombiner.getPath(index));
         } else {
-          this.operationsBuilder.add(pathCombiner.getPath(index), entry, true);
+          const metadataFromPath = pathCombiner.getPath(index).path.split('/').slice(-1)[0];
+          this.operationsBuilder.add(pathCombiner.getPath(index), entry, true, null, languageMap?.get(metadataFromPath));
         }
       });
     }
@@ -536,6 +567,65 @@ export class SectionFormOperationsService {
     } else if (previousValue.isPathEqual(this.formBuilder.getPath(event.model))) {
       this.operationsBuilder.remove(pathCombiner.getPath(segmentedPath));
     }
+  }
 
+  /**
+   * Handles a security level change event by dispatching the appropriate
+   * JSON Patch `replace` operation for the affected metadata field.
+   *
+   * The method branches into three distinct paths depending on the structure
+   * of the form model that triggered the event:
+   *
+   * **1. Array group model (`DynamicFormArrayGroupModel`):**
+   * - When `event.context` is an instance of `DynamicFormArrayGroupModel`,
+   *   the field belongs to a repeatable row array (e.g. an inline relation group).
+   * - Delegates to {@link handleArrayGroupPatch} to handle the patch and returns early.
+   *
+   * **2. Qualdrop group model:**
+   * - When the field's parent (or the field itself) is identified as a qualdrop group
+   *   via {@link FormBuilderService.isQualdropGroup}, the value is structured as a
+   *   key-value qualifier pair (e.g. `dc.identifier.uri` with a qualifier dropdown).
+   * - Delegates to {@link dispatchOperationsFromMap} using the qualdrop value map
+   *   built by {@link getQualdropValueMap}.
+   *
+   * **3. Standard field:**
+   * - For all other fields, resolves the field path and current value from the event.
+   * - If the model carries a `securityLevel`, dispatches a JSON Patch `replace`
+   *   operation on the resolved path, embedding the security level in the payload.
+   * - Clears the `previousValue` after the operation is dispatched.
+   *
+   * @param pathCombiner
+   * @param event
+   * @param previousValue
+   */
+  protected changeSecurityLevel(pathCombiner: JsonPatchOperationPathCombiner,
+    event: DynamicFormControlEvent,
+    previousValue: FormFieldPreviousValueObject): void {
+    if (event.context && event.context instanceof DynamicFormArrayGroupModel) {
+      // Model is a DynamicRowArrayModel
+      this.handleArrayGroupPatch(pathCombiner, event, (event as any).context.context, previousValue);
+      return;
+    }
+    // Detect which operation must be dispatched
+    if (this.formBuilder.isQualdropGroup(event.model.parent as DynamicFormControlModel)
+      || this.formBuilder.isQualdropGroup(event.model as DynamicFormControlModel)) {
+      // It's a qualdrup model
+      this.dispatchOperationsFromMap(this.getQualdropValueMap(event), pathCombiner, event, previousValue);
+    } else {
+      const path = this.getFieldPathFromEvent(event);
+      const value = this.getFieldValueFromChangeEvent(event);
+      if ((event.model as any).securityLevel != null && (event.model as any).securityLevel !== undefined) {
+        if (value && typeof value === 'string') {
+          this.operationsBuilder.replace(
+            pathCombiner.getPath(path),
+            value, false, (event.model as any).securityLevel);
+        } else {
+          this.operationsBuilder.replace(
+            pathCombiner.getPath(path),
+            value, false, (event.model as any).securityLevel);
+        }
+        previousValue.delete();
+      }
+    }
   }
 }

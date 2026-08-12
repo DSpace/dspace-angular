@@ -41,7 +41,6 @@ import { PaginationComponent } from '../pagination/pagination.component';
     ThemedLoadingComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 
 /**
@@ -171,6 +170,8 @@ export class ObjectTableComponent {
   @Output() next = new EventEmitter<boolean>();
 
   data: any = {};
+
+  protected readonly ViewMode = ViewMode;
 
   constructor() {
     this._objects$ = new BehaviorSubject(undefined);

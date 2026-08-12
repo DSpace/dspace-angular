@@ -19,6 +19,7 @@ import {
   DepositSubmissionErrorAction,
   DepositSubmissionSuccessAction,
   DisableSectionAction,
+  DisableSectionSuccessAction,
   DiscardSubmissionAction,
   DiscardSubmissionSuccessAction,
   EditFileDataAction,
@@ -41,6 +42,7 @@ import {
   SectionStatusChangeAction,
   SubmissionObjectAction,
   UpdateSectionDataAction,
+  UpdateSectionErrorsAction,
 } from './submission-objects.actions';
 import {
   submissionObjectReducer,
@@ -53,6 +55,20 @@ describe('submissionReducer test suite', () => {
   const submissionId = mockSubmissionId;
   const submissionDefinition = mockSubmissionDefinitionResponse;
   const selfUrl = mockSubmissionSelfUrl;
+  const metadataSecurityConfiguration = {
+    'uuid': null,
+    'metadataSecurityDefault': [
+      0,
+      1,
+    ],
+    'metadataCustomSecurity': {},
+    'type': 'securitysetting',
+    '_links': {
+      'self': {
+        'href': 'http://localhost:8080/server/api/core/securitysettings',
+      },
+    },
+  };
 
   let initState: any;
 
@@ -69,12 +85,15 @@ describe('submissionReducer test suite', () => {
         activeSection: null,
         sections: Object.create(null),
         isLoading: true,
+        isDiscarding: false,
         savePending: false,
+        saveDecisionPending: false,
         depositPending: false,
+        metadataSecurityConfiguration: metadataSecurityConfiguration as any,
       },
     };
 
-    const action = new InitSubmissionFormAction(collectionId, submissionId, selfUrl, submissionDefinition, {}, new Item(), null);
+    const action = new InitSubmissionFormAction(collectionId, submissionId, selfUrl, submissionDefinition, {}, new Item(), null, metadataSecurityConfiguration as any);
     const newState = submissionObjectReducer({}, action);
 
     expect(newState).toEqual(expectedState);
@@ -102,14 +121,14 @@ describe('submissionReducer test suite', () => {
         activeSection: null,
         sections: Object.create(null),
         isLoading: true,
+        isDiscarding: false,
         savePending: false,
         depositPending: false,
       },
     };
 
-    const action = new ResetSubmissionFormAction(collectionId, submissionId, selfUrl, {}, submissionDefinition, new Item());
+    const action = new ResetSubmissionFormAction(collectionId, submissionId, selfUrl, {}, submissionDefinition, new Item(), metadataSecurityConfiguration);
     const newState = submissionObjectReducer(initState, action);
-
     expect(newState).toEqual(expectedState);
   });
 
@@ -161,7 +180,7 @@ describe('submissionReducer test suite', () => {
 
     expect(newState[826].savePending).toBeFalsy();
 
-    action = new SaveSubmissionFormErrorAction(submissionId);
+    action = new SaveSubmissionFormErrorAction(submissionId, undefined, undefined);
     newState = submissionObjectReducer(state, action);
 
     expect(newState[826].savePending).toBeFalsy();
@@ -171,7 +190,7 @@ describe('submissionReducer test suite', () => {
 
     expect(newState[826].savePending).toBeFalsy();
 
-    action = new SaveSubmissionSectionFormErrorAction(submissionId);
+    action = new SaveSubmissionSectionFormErrorAction(submissionId, undefined, undefined);
     newState = submissionObjectReducer(state, action);
 
     expect(newState[826].savePending).toBeFalsy();
@@ -222,8 +241,7 @@ describe('submissionReducer test suite', () => {
   it('should reset state once the discard action is completed successfully', () => {
     const action: any = new DiscardSubmissionSuccessAction(submissionId);
     const newState = submissionObjectReducer(initState, action);
-
-    expect(newState).toEqual({});
+    expect(newState).toEqual(Object.assign({}, initState, { 826: Object.assign({}, initState[826], { isDiscarding: true }) }));
   });
 
   it('should return same state once the discard action is completed unsuccessfully', () => {
@@ -248,6 +266,7 @@ describe('submissionReducer test suite', () => {
       serverValidationErrors: [],
       isLoading: false,
       isValid: true,
+      removePending: false,
     } as any;
 
     let action: any = new InitSubmissionFormAction(collectionId, submissionId, selfUrl, submissionDefinition, {}, new Item(), null);
@@ -288,6 +307,13 @@ describe('submissionReducer test suite', () => {
     action = new DisableSectionAction(submissionId, 'traditionalpagetwo');
     newState = submissionObjectReducer(newState, action);
 
+    expect(newState[826].sections.traditionalpagetwo.removePending).toBeTruthy();
+    expect(newState[826].sections.traditionalpagetwo.enabled).toBeTruthy();
+
+    action = new DisableSectionSuccessAction(submissionId, 'traditionalpagetwo');
+    newState = submissionObjectReducer(newState, action);
+
+    expect(newState[826].sections.traditionalpagetwo.removePending).toBeFalsy();
     expect(newState[826].sections.traditionalpagetwo.enabled).toBeFalsy();
   });
 
@@ -367,6 +393,21 @@ describe('submissionReducer test suite', () => {
     const newState = submissionObjectReducer(initState, action);
 
     expect(newState[826].sections.traditionalpageone.errorsToShow).toEqual(errors);
+  });
+
+  it('should add submission section errors properly', () => {
+    const errors = [
+      {
+        path: '/sections/traditionalpageone/dc.title/0',
+        message: 'error.validation.traditionalpageone.required',
+      },
+    ];
+
+    const action = new UpdateSectionErrorsAction(submissionId, 'traditionalpageone', errors, errors);
+    const newState = submissionObjectReducer(initState, action);
+
+    expect(newState[826].sections.traditionalpageone.errorsToShow).toEqual(errors);
+    expect(newState[826].savePending).toBeFalsy();
   });
 
   it('should remove all submission section errors properly', () => {

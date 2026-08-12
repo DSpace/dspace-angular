@@ -35,7 +35,6 @@ import { SafeUrlPipe } from '../shared/utils/safe-url-pipe';
   selector: 'ds-base-thumbnail',
   styleUrls: ['./thumbnail.component.scss'],
   templateUrl: './thumbnail.component.html',
-  standalone: true,
   imports: [
     SafeUrlPipe,
     ThemedLoadingComponent,

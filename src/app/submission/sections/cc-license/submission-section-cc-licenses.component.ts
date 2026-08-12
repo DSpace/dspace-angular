@@ -39,6 +39,7 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import {
+  BehaviorSubject,
   Observable,
   of,
   Subscription,
@@ -57,6 +58,7 @@ import { VarDirective } from '../../../shared/utils/var.directive';
 import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
+import { renderSectionFor } from '../sections-decorator';
 
 /**
  * This component represents the submission section to select the Creative Commons license.
@@ -75,8 +77,8 @@ import { SectionsService } from '../sections.service';
     TranslateModule,
     VarDirective,
   ],
-  standalone: true,
 })
+@renderSectionFor(SectionsType.CcLicense)
 export class SubmissionSectionCcLicensesComponent extends SectionModelComponent implements OnChanges, OnInit {
 
   /**
@@ -155,6 +157,11 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
 
   ccLicenseLink$: Observable<string>;
 
+  /**
+   * Is the section required
+   */
+  public required$ = new BehaviorSubject<boolean>(false);
+
   constructor(
     protected modalService: NgbModal,
     protected sectionService: SectionsService,
@@ -179,6 +186,7 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
     if (hasNoValue(this.ccLicenseLink$)) {
       this.ccLicenseLink$ = this.getCcLicenseLink$();
     }
+    this.required$.next(this.sectionData.mandatory);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -311,7 +319,10 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
    *     the section status
    */
   getSectionStatus(): Observable<boolean> {
-    return of(this.accepted);
+    return this.required$.pipe(
+      map((required) => !required || this.accepted),
+      distinctUntilChanged(),
+    );
   }
 
   /**

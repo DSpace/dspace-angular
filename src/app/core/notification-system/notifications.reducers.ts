@@ -8,10 +8,7 @@ import {
 /**
  * The notification state.
  */
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface NotificationsState extends Array<INotification> {
-
-}
+export type NotificationsState = Array<INotification>;
 
 /**
  * The initial state.

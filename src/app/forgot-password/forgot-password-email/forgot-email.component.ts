@@ -10,7 +10,6 @@ import { TYPE_REQUEST_FORGOT } from '../../register-email-form/register-email-fo
   imports: [
     ThemedRegisterEmailFormComponent,
   ],
-  standalone: true,
 })
 /**
  * Component responsible the forgot password email step

@@ -5,6 +5,7 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { AdvancedWorkflowActionType } from '../advanced-workflow-action-type';
 import { AdvancedWorkflowActionsLoaderComponent } from '../advanced-workflow-actions-loader/advanced-workflow-actions-loader.component';
 
 /**
@@ -19,11 +20,10 @@ import { AdvancedWorkflowActionsLoaderComponent } from '../advanced-workflow-act
     AdvancedWorkflowActionsLoaderComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class AdvancedWorkflowActionPageComponent implements OnInit {
 
-  public type: string;
+  public type: AdvancedWorkflowActionType;
 
   constructor(
     protected route: ActivatedRoute,

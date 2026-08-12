@@ -19,7 +19,7 @@ describe('DSpaceObjectEditMenuProvider', () => {
         text: 'collection.page.edit',
         link: new URLCombiner('/collections/test-uuid', 'edit', 'metadata').toString(),
       },
-      icon: 'pencil-alt',
+      icon: 'wrench',
     },
   ];
 

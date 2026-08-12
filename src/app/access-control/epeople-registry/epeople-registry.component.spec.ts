@@ -165,7 +165,7 @@ describe('EPeopleRegistryComponent', () => {
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: FormBuilderService, useValue: builderService },
         { provide: Router, useValue: new RouterMock() },
-        { provide: RequestService, useValue: jasmine.createSpyObj('requestService', ['removeByHrefSubstring']) },
+        { provide: RequestService, useValue: jasmine.createSpyObj('requestService', ['setStaleByHrefSubstring']) },
         { provide: PaginationService, useValue: paginationService },
       ],
       schemas: [NO_ERRORS_SCHEMA],

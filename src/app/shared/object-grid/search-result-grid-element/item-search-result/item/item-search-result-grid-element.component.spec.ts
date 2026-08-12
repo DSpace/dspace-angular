@@ -34,6 +34,7 @@ import {
   of,
 } from 'rxjs';
 
+import { MetadataValue } from '../../../../../core/shared/metadata.models';
 import { ThemedThumbnailComponent } from '../../../../../thumbnail/themed-thumbnail.component';
 import { ThemedBadgesComponent } from '../../../../object-collection/shared/badges/themed-badges.component';
 import { TruncatableComponent } from '../../../../truncatable/truncatable.component';
@@ -43,20 +44,21 @@ import { TruncatePipe } from '../../../../utils/truncate.pipe';
 import { ItemSearchResultGridElementComponent } from './item-search-result-grid-element.component';
 
 const mockItemWithMetadata: ItemSearchResult = new ItemSearchResult();
-mockItemWithMetadata.hitHighlights = {};
 const dcTitle = 'This is just another <em>title</em>';
-mockItemWithMetadata.indexableObject = Object.assign(new Item(), {
-  hitHighlights: {
-    'dc.title': [{
+mockItemWithMetadata.hitHighlights = {
+  'dc.title': [
+    Object.assign(new MetadataValue(), {
       value: dcTitle,
-    }],
-  },
+    }),
+  ],
+};
+mockItemWithMetadata.indexableObject = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
   metadata: {
     'dc.title': [
       {
         language: 'en_US',
-        value: dcTitle,
+        value: 'This is just another title',
       },
     ],
     'dc.contributor.author': [

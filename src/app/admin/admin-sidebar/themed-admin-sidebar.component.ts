@@ -12,12 +12,7 @@ import { AdminSidebarComponent } from './admin-sidebar.component';
  */
 @Component({
   selector: 'ds-admin-sidebar',
-  styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
-  standalone: true,
-  imports: [
-    AdminSidebarComponent,
-  ],
 })
 export class ThemedAdminSidebarComponent extends ThemedComponent<AdminSidebarComponent> {
 

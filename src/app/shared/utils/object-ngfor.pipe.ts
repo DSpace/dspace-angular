@@ -13,7 +13,6 @@ import {
  */
 @Pipe({
   name: 'dsObjNgFor',
-  standalone: true,
 })
 export class ObjNgFor implements PipeTransform {
   transform(value: any, args: any[] = null): any {

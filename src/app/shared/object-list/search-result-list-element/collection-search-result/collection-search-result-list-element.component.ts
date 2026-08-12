@@ -8,6 +8,7 @@ import { Collection } from '@dspace/core/shared/collection.model';
 import { CollectionSearchResult } from '@dspace/core/shared/object-collection/collection-search-result.model';
 import { ViewMode } from '@dspace/core/shared/view-mode.model';
 
+import { MetadataDirective } from '../../../metadata.directive';
 import { ThemedBadgesComponent } from '../../../object-collection/shared/badges/themed-badges.component';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { SearchResultListElementComponent } from '../search-result-list-element.component';
@@ -16,8 +17,8 @@ import { SearchResultListElementComponent } from '../search-result-list-element.
   selector: 'ds-collection-search-result-list-element',
   styleUrls: ['../search-result-list-element.component.scss', 'collection-search-result-list-element.component.scss'],
   templateUrl: 'collection-search-result-list-element.component.html',
-  standalone: true,
   imports: [
+    MetadataDirective,
     NgClass,
     RouterLink,
     ThemedBadgesComponent,

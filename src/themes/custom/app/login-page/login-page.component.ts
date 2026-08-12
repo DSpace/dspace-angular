@@ -10,7 +10,6 @@ import { LoginPageComponent as BaseComponent } from '../../../../app/login-page/
   styleUrls: ['../../../../app/login-page/login-page.component.scss'],
   // templateUrl: './login-page.component.html'
   templateUrl: '../../../../app/login-page/login-page.component.html',
-  standalone: true,
   imports: [
     ThemedLogInComponent,
     TranslateModule,

@@ -20,6 +20,6 @@ const index = [
 ] as unknown as RuleExports[];
 
 export = {
-  parser: require('@angular-eslint/template-parser'),
+  parser: import('@angular-eslint/template-parser'),
   ...bundle('dspace-angular-html', 'HTML', index),
 };

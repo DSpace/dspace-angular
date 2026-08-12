@@ -3,4 +3,5 @@ export interface ParserOptions {
   submissionScope: string;
   collectionUUID: string;
   typeField: string;
+  isInnerForm: boolean;
 }

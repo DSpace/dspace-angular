@@ -13,6 +13,11 @@ export interface NamedThemeConfig extends Config {
    * A list of HTML tags that should be added to the HEAD section of the document, whenever this theme is active.
    */
   headTags?: HeadTagConfig[];
+
+  /**
+   * Whether this theme's CSS should be prefetched in CSR mode
+   */
+  prefetch?: boolean;
 }
 
 /**

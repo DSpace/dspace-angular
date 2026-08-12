@@ -40,7 +40,6 @@ import { ModifyItemOverviewComponent } from '../modify-item-overview/modify-item
     RouterLink,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class AbstractSimpleItemActionComponent implements OnInit {
 

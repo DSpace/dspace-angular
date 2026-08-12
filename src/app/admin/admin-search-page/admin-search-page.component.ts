@@ -7,7 +7,6 @@ import { ThemedConfigurationSearchPageComponent } from '../../search-page/themed
   selector: 'ds-base-admin-search-page',
   templateUrl: './admin-search-page.component.html',
   styleUrls: ['./admin-search-page.component.scss'],
-  standalone: true,
   imports: [
     ThemedConfigurationSearchPageComponent,
   ],

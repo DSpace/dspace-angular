@@ -81,7 +81,6 @@ export abstract class Reorderable {
     ListableObjectComponentLoaderComponent,
     ThemedLoadingComponent,
   ],
-  standalone: true,
 })
 export class ExistingRelationListElementComponent implements OnInit, OnChanges, OnDestroy {
   @Input() listId: string;

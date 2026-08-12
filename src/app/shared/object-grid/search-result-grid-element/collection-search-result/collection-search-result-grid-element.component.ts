@@ -27,7 +27,6 @@ import { SearchResultGridElementComponent } from '../search-result-grid-element.
   selector: 'ds-collection-search-result-grid-element',
   styleUrls: ['../search-result-grid-element.component.scss', 'collection-search-result-grid-element.component.scss'],
   templateUrl: 'collection-search-result-grid-element.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     RouterLink,

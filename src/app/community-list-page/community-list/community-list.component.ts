@@ -37,7 +37,6 @@ import { FlatNode } from '../flat-node.model';
   selector: 'ds-base-community-list',
   templateUrl: './community-list.component.html',
   styleUrls: ['./community-list.component.scss'],
-  standalone: true,
   imports: [
     AsyncPipe,
     CdkTreeModule,

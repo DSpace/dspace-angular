@@ -26,7 +26,7 @@ import {
 import { Vocabulary } from '@dspace/core/submission/vocabularies/models/vocabulary.model';
 import { VocabularyOptions } from '@dspace/core/submission/vocabularies/models/vocabulary-options.model';
 import { isNotEmpty } from '@dspace/shared/utils/empty.util';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
   TranslateService,
@@ -58,6 +58,8 @@ import { AuthorityConfidenceStateDirective } from '../../../../shared/form/direc
 import { DebounceDirective } from '../../../../shared/utils/debounce.directive';
 import { AbstractDsoEditMetadataValueFieldComponent } from '../abstract-dso-edit-metadata-value-field.component';
 import { DsoEditMetadataFieldService } from '../dso-edit-metadata-field.service';
+import { EditMetadataValueFieldType } from '../dso-edit-metadata-field-type.enum';
+import { editMetadataValueFieldComponent } from '../dso-edit-metadata-value-field-loader/dso-edit-metadata-value-field.decorator';
 
 /**
  * The component used to gather input for authority controlled metadata fields
@@ -66,7 +68,6 @@ import { DsoEditMetadataFieldService } from '../dso-edit-metadata-field.service'
   selector: 'ds-dso-edit-metadata-authority-field',
   templateUrl: './dso-edit-metadata-authority-field.component.html',
   styleUrls: ['./dso-edit-metadata-authority-field.component.scss'],
-  standalone: true,
   imports: [
     AsyncPipe,
     AuthorityConfidenceStateDirective,
@@ -74,11 +75,12 @@ import { DsoEditMetadataFieldService } from '../dso-edit-metadata-field.service'
     DsDynamicOneboxComponent,
     DsDynamicScrollableDropdownComponent,
     FormsModule,
-    NgbTooltipModule,
+    NgbTooltip,
     NgClass,
     TranslateModule,
   ],
 })
+@editMetadataValueFieldComponent(EditMetadataValueFieldType.AUTHORITY)
 export class DsoEditMetadataAuthorityFieldComponent extends AbstractDsoEditMetadataValueFieldComponent implements OnInit, OnChanges {
 
   /**

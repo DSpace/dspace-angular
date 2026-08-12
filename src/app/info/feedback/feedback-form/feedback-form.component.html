@@ -6,7 +6,7 @@
       <div class="row mt-3">
         <div class="control-group col-sm-12">
             <label class="control-label form-label" for="email">{{ 'info.feedback.email-label' | translate }}&nbsp;</label>
-          <input id="email" class="form-control" name="email" type="text" value="" formControlName="email" autofocus="autofocus" title="{{ 'info.feedback.email_help' | translate }}">
+          <input autocomplete="email" id="email" class="form-control" name="email" type="text" value="" formControlName="email" autofocus="autofocus">
           <small class="text-muted">{{ 'info.feedback.email_help' | translate }}</small>
         </div>
       </div>
@@ -27,7 +27,7 @@
       <div class="row mt-3">
         <div class="control-group col-sm-12">
             <label class="control-label form-label" for="comments">{{ 'info.feedback.comments' | translate }}:&nbsp;</label>
-          <textarea id="comments" formControlName="message" class="form-control" name="message" cols="20" rows="5"> </textarea>
+          <textarea autocomplete="off" id="comments" formControlName="message" class="form-control" name="message" cols="20" rows="5"> </textarea>
         </div>
       </div>
 
@@ -44,7 +44,7 @@
       <div class="row mt-3">
         <div class="control-group col-sm-12">
             <label class="control-label form-labe" for="page">{{ 'info.feedback.page-label' | translate }}&nbsp;</label>
-          <input id="page" readonly class="form-control" name="page" type="text" value="" formControlName="page" autofocus="autofocus" title="{{ 'info.feedback.page_help' | translate }}">
+          <input autocomplete="off" id="page" readonly class="form-control" name="page" type="text" value="" formControlName="page" autofocus="autofocus">
           <small class="text-muted">{{ 'info.feedback.page_help' | translate }}</small>
         </div>
       </div>

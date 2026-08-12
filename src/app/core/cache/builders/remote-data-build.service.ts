@@ -339,6 +339,7 @@ export class RemoteDataBuildService {
           response.errorMessage,
           payload,
           response.statusCode,
+          response.errors,
         );
       }),
     );

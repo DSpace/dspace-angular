@@ -45,7 +45,7 @@ describe('VocabularyTreeviewComponent test suite', () => {
   const emptyNodeMap = new Map<string, TreeviewFlatNode>();
   const storedNodeMap = new Map<string, TreeviewFlatNode>().set('test', new TreeviewFlatNode(item2));
   const nodeMap = new Map<string, TreeviewFlatNode>().set('test', new TreeviewFlatNode(item));
-  const vocabularyOptions = new VocabularyOptions('vocabularyTest', false);
+  const vocabularyOptions = new VocabularyOptions('vocabularyTest', null, null, false);
   const modalStub = jasmine.createSpyObj('modalStub', ['close']);
   const vocabularyTreeviewServiceStub = jasmine.createSpyObj('VocabularyTreeviewService', {
     initialize: jasmine.createSpy('initialize'),
@@ -286,14 +286,13 @@ describe('VocabularyTreeviewComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
-  standalone: true,
   imports: [
     CdkTreeModule,
   ],
 })
 class TestComponent {
 
-  vocabularyOptions: VocabularyOptions = new VocabularyOptions('vocabularyTest', false);
+  vocabularyOptions: VocabularyOptions = new VocabularyOptions('vocabularyTest', null, null, false);
   preloadLevel = 2;
 
 }

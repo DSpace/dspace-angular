@@ -8,6 +8,7 @@ import { AuthorizationDataService } from '@dspace/core/data/feature-authorizatio
 import { FeatureID } from '@dspace/core/data/feature-authorization/feature-id';
 import { ItemDataService } from '@dspace/core/data/item-data.service';
 import { APP_DATA_SERVICES_MAP } from '@dspace/core/data-services-map-type';
+import { HardRedirectService } from '@dspace/core/services/hard-redirect.service';
 import { Item } from '@dspace/core/shared/item.model';
 import { getMockTranslateService } from '@dspace/core/testing/translate.service.mock';
 import { createSuccessfulRemoteDataObject$ } from '@dspace/core/utilities/remote-data.utils';
@@ -61,7 +62,7 @@ describe('itemPageMoveGuard', () => {
     item = new Item();
     item.uuid = uuid;
     item._links = { self: { href: itemSelfLink }  } as any;
-    itemService = jasmine.createSpyObj('itemService', { findById: createSuccessfulRemoteDataObject$(item) });
+    itemService = jasmine.createSpyObj('itemService', { findByIdOrCustomUrl: createSuccessfulRemoteDataObject$(item) });
 
     TestBed.configureTestingModule({
       providers: [
@@ -72,6 +73,7 @@ describe('itemPageMoveGuard', () => {
         { provide: APP_DATA_SERVICES_MAP, useValue: {} },
         { provide: TranslateService, useValue: getMockTranslateService() },
         { provide: ItemDataService, useValue: itemService },
+        { provide: HardRedirectService, useValue: {} },
       ],
     });
   });

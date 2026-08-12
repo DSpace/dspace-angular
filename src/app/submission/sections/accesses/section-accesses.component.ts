@@ -1,4 +1,3 @@
-
 import {
   Component,
   Inject,
@@ -11,6 +10,7 @@ import { JsonPatchOperationPathCombiner } from '@dspace/core/json-patch/builder/
 import { JsonPatchOperationsBuilder } from '@dspace/core/json-patch/builder/json-patch-operations-builder';
 import { getFirstSucceededRemoteData } from '@dspace/core/shared/operators';
 import { WorkspaceitemSectionAccessesObject } from '@dspace/core/submission/models/workspaceitem-section-accesses.model';
+import { SectionsType } from '@dspace/core/submission/sections-type';
 import { SubmissionJsonPatchOperationsService } from '@dspace/core/submission/submission-json-patch-operations.service';
 import { dateToISOFormat } from '@dspace/shared/utils/date.util';
 import {
@@ -22,8 +22,10 @@ import {
   DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX,
   DYNAMIC_FORM_CONTROL_TYPE_DATEPICKER,
   DynamicCheckboxModel,
+  DynamicDateControlValue,
   DynamicDatePickerModel,
   DynamicFormArrayModel,
+  DynamicFormControlCondition,
   DynamicFormControlEvent,
   DynamicFormControlModel,
   DynamicFormGroupModel,
@@ -31,8 +33,6 @@ import {
   MATCH_ENABLED,
   OR_OPERATOR,
 } from '@ng-dynamic-forms/core';
-import { DynamicDateControlValue } from '@ng-dynamic-forms/core/lib/model/dynamic-date-control.model';
-import { DynamicFormControlCondition } from '@ng-dynamic-forms/core/lib/model/misc/dynamic-form-control-relation.model';
 import { TranslateService } from '@ngx-translate/core';
 import {
   combineLatest,
@@ -54,6 +54,7 @@ import { SectionFormOperationsService } from '../form/section-form-operations.se
 import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
+import { renderSectionFor } from '../sections-decorator';
 import {
   ACCESS_CONDITION_GROUP_CONFIG,
   ACCESS_CONDITION_GROUP_LAYOUT,
@@ -80,8 +81,8 @@ import { SectionAccessesService } from './section-accesses.service';
   imports: [
     FormComponent,
   ],
-  standalone: true,
 })
+@renderSectionFor(SectionsType.AccessesCondition)
 export class SubmissionSectionAccessesComponent extends SectionModelComponent {
 
   /**

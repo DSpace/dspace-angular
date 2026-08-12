@@ -9,8 +9,10 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
-import { PlacementArray } from '@ng-bootstrap/ng-bootstrap/util/positioning';
+import {
+  NgbTooltip,
+  Placement,
+} from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -36,16 +38,15 @@ import { PlacementDir } from './placement-dir.model';
     >
     </ds-context-help-wrapper>
   `,
-  standalone: true,
   imports: [
     ContextHelpWrapperComponent,
-    NgbTooltipModule,
+    NgbTooltip,
   ],
 })
 class TemplateComponent {
   @Input() content: string;
   @Input() id: string;
-  @Input() tooltipPlacement?: PlacementArray;
+  @Input() tooltipPlacement?: Placement[];
   @Input() iconPlacement?: PlacementDir;
   @Input() dontParseLinks?: boolean;
 }
@@ -89,7 +90,7 @@ describe('ContextHelpWrapperComponent', () => {
     ]);
 
     TestBed.configureTestingModule({
-      imports: [NgbTooltipModule, TemplateComponent, ContextHelpWrapperComponent],
+      imports: [NgbTooltip, TemplateComponent, ContextHelpWrapperComponent],
       providers: [
         { provide: TranslateService, useValue: translateService },
         { provide: ContextHelpService, useValue: contextHelpService },

@@ -25,7 +25,6 @@ import { ExternalLoginService } from '../../services/external-login.service';
     ReactiveFormsModule,
     TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * This component provides a proper field to submit the email that will be updated for its registration token

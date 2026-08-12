@@ -13,7 +13,6 @@ import { getSearchLabelByOperator } from './search-label-loader.decorator';
 
 @Component({
   selector: 'ds-search-label-loader',
-  standalone: true,
   templateUrl: '../../../abstract-component-loader/abstract-component-loader.component.html',
   imports: [
     DynamicComponentLoaderDirective,
@@ -34,7 +33,7 @@ export class SearchLabelLoaderComponent extends AbstractComponentLoaderComponent
     'appliedFilter',
   ];
 
-  public getComponent(): GenericConstructor<Component> {
+  public getComponent(): Promise<GenericConstructor<Component>> {
     return getSearchLabelByOperator(this.appliedFilter.operator, this.themeService.getThemeName());
   }
 

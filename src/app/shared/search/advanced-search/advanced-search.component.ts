@@ -15,6 +15,7 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '@dspace/config/app-config.interface';
+import { currentPath } from '@dspace/core/router/utils/route.utils';
 import { FilterType } from '@dspace/core/shared/search/models/filter-type.model';
 import { SearchFilterConfig } from '@dspace/core/shared/search/models/search-filter-config.model';
 import { FilterConfig } from '@dspace/core/shared/search/search-filters/search-config.model';
@@ -44,7 +45,6 @@ import { SearchFilterService } from '../search-filters/search-filter.service';
   selector: 'ds-advanced-search',
   templateUrl: './advanced-search.component.html',
   styleUrls: ['./advanced-search.component.scss'],
-  standalone: true,
   imports: [
     AsyncPipe,
     BtnDisabledDirective,
@@ -64,6 +64,11 @@ export class AdvancedSearchComponent implements OnInit, OnDestroy {
    * The facet configurations, used to determine if suggestions should be retrieved for the selected search filter
    */
   @Input() filtersConfig: SearchFilterConfig[];
+
+  /**
+   * True when the search component should show results on the current page
+   */
+  @Input() inPlaceSearch: boolean;
 
   /**
    * The current search scope
@@ -130,11 +135,21 @@ export class AdvancedSearchComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * @returns {string} The base path to the search page, or the current page when inPlaceSearch is true
+   */
+  getSearchLink(): string {
+    if (this.inPlaceSearch) {
+      return currentPath(this.router);
+    }
+    return this.searchService.getSearchLink();
+  }
+
   applyFilter(): void {
     if (isNotEmpty(this.currentValue)) {
       this.searchFilterService.minimizeAll();
       this.subs.push(this.searchConfigurationService.selectNewAppliedFilterParams(this.currentFilter, this.currentValue.trim(), this.currentOperator).pipe(take(1)).subscribe((params: Params) => {
-        void this.router.navigate([this.searchService.getSearchLink()], {
+        void this.router.navigate([this.getSearchLink()], {
           queryParams: params,
         });
         this.currentValue = '';

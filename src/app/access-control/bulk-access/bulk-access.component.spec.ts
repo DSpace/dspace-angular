@@ -69,7 +69,6 @@ describe('BulkAccessComponent', () => {
     selector: 'ds-bulk-access-settings',
     template: '',
     exportAs: 'dsBulkSettings',
-    standalone: true,
   })
   class MockBulkAccessSettingsComponent {
     isFormValid = jasmine.createSpy('isFormValid').and.returnValue(false);

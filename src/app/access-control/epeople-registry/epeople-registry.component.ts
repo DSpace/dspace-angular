@@ -75,7 +75,6 @@ import { EpeopleRegistryService } from './epeople-registry.service';
     ThemedLoadingComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * A component used for managing all existing epeople within the repository.

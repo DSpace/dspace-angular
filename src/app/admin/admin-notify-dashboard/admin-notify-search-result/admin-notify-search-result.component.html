@@ -15,7 +15,7 @@
         <tr>
           <td class="text-nowrap">
             @if (message.queueLastStartTime) {
-              <div>{{ message.queueLastStartTime | date:"YYYY/MM/d hh:mm:ss" }}</div>
+              <div>{{ message.queueLastStartTime | date:"yyyy/MM/d hh:mm:ss" }}</div>
             }
             @if (!message.queueLastStartTime) {
               <div>n/a</div>

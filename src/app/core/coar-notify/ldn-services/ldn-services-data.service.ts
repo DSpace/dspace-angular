@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { RestRequestMethod } from '@dspace/config/rest-request-method';
+import { dataService } from '@dspace/core/cache/builders/build-decorators';
+import { LDN_SERVICE } from '@dspace/core/coar-notify/ldn-services/models/ldn-service.resource-type';
 import { Operation } from 'fast-json-patch';
 import { Observable } from 'rxjs';
 import {
@@ -55,6 +57,7 @@ import { LdnService } from './models/ldn-services.model';
  * @implements {CreateData<LdnService>}
  */
 @Injectable({ providedIn: 'root' })
+@dataService(LDN_SERVICE)
 export class LdnServicesService extends IdentifiableDataService<LdnService> implements FindAllData<LdnService>, DeleteData<LdnService>, PatchData<LdnService>, CreateData<LdnService> {
   createData: CreateDataImpl<LdnService>;
   private findAllData: FindAllDataImpl<LdnService>;

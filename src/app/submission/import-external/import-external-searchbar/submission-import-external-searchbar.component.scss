@@ -13,8 +13,9 @@
 
 .scrollable-menu {
   height: auto;
-  max-height: calc(var(--ds-dropdown-menu-max-height) / 2);
+  max-height: calc(var(--ds-dropdown-menu-max-height) * 2);
   overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .scrollable-dropdown-loading {

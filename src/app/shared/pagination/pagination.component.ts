@@ -34,8 +34,7 @@ import {
 import {
   NgbDropdownModule,
   NgbPaginationModule,
-  NgbPopoverModule,
-  NgbTooltipModule,
+  NgbTooltip,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -70,15 +69,13 @@ interface PaginationDetails {
   templateUrl: 'pagination.component.html',
   changeDetection: ChangeDetectionStrategy.Default,
   encapsulation: ViewEncapsulation.Emulated,
-  standalone: true,
   imports: [
     AsyncPipe,
     BtnDisabledDirective,
     EnumKeysPipe,
     NgbDropdownModule,
     NgbPaginationModule,
-    NgbPopoverModule,
-    NgbTooltipModule,
+    NgbTooltip,
     NgClass,
     NgStyle,
     RSSComponent,

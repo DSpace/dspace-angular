@@ -45,7 +45,6 @@ import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
     BtnDisabledDirective,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class OrcidAuthComponent implements OnInit, OnChanges {
 

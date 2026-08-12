@@ -46,7 +46,6 @@ import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
     NgbDropdownModule,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class MyDSpaceNewSubmissionDropdownComponent implements OnInit, OnDestroy {
 

@@ -9,7 +9,7 @@ import { RequestService } from '@dspace/core/data/request.service';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
 import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import { PoolTaskDataService } from '@dspace/core/tasks/pool-task-data.service';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
   TranslateService,
@@ -20,24 +20,24 @@ import { take } from 'rxjs/operators';
 import { BtnDisabledDirective } from '../../../btn-disabled.directive';
 import { SearchService } from '../../../search/search.service';
 import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
-
-export const WORKFLOW_TASK_OPTION_RETURN_TO_POOL = 'return_to_pool';
+import { ClaimedTaskType } from '../claimed-task-type';
+import { rendersWorkflowTaskOption } from '../switcher/claimed-task-actions-decorator';
 
 @Component({
   selector: 'ds-claimed-task-actions-return-to-pool',
   styleUrls: ['./claimed-task-actions-return-to-pool.component.scss'],
   templateUrl: './claimed-task-actions-return-to-pool.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     BtnDisabledDirective,
-    NgbTooltipModule,
+    NgbTooltip,
     TranslateModule,
   ],
 })
 /**
  * Component for displaying and processing the return to pool action on a workflow task item
  */
+@rendersWorkflowTaskOption(ClaimedTaskType.WORKFLOW_TASK_OPTION_RETURN_TO_POOL)
 export class ClaimedTaskActionsReturnToPoolComponent extends ClaimedTaskActionsAbstractComponent {
 
   constructor(protected injector: Injector,

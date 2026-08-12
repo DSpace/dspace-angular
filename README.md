@@ -10,7 +10,7 @@ Overview
 
 DSpace open source software is a turnkey repository application used by more than
 2,000 organizations and institutions worldwide to provide durable access to digital resources.
-For more information, visit https://www.dspace.org/
+For more information, visit https://dspace.org/
 
 DSpace consists of both a Java-based backend and an Angular-based frontend.
 
@@ -24,18 +24,20 @@ Downloads
 * Backend (REST API): https://github.com/DSpace/DSpace/releases
 * Frontend (User Interface): https://github.com/DSpace/dspace-angular/releases
 
+On our wiki, you may also find a [list of all past releases, including their current levels of support](https://wiki.lyrasis.org/spaces/DSPACE/pages/69010426/Releases).
+
 
 ## Documentation / Installation
 
 Documentation for each release may be viewed online or downloaded via our [Documentation Wiki](https://wiki.lyrasis.org/display/DSDOC/).
 
 The latest DSpace Installation instructions are available at:
-https://wiki.lyrasis.org/display/DSDOC9x/Installing+DSpace
+https://wiki.lyrasis.org/display/DSDOC10x/Installing+DSpace
 
 Quick start
 -----------
 
-**Ensure you're running [Node](https://nodejs.org) `v18.x` or `v20.x`, [npm](https://www.npmjs.com/) >= `v10.x`**
+**Ensure you're running [Node](https://nodejs.org) `v20.x`, `v22.x` or `v24.x`, [npm](https://www.npmjs.com/) >= `v10.x`**
 
 ```bash
 # clone the repo
@@ -90,7 +92,7 @@ Requirements
 ------------
 
 -	[Node.js](https://nodejs.org)
--	Ensure you're running node `v18.x` or `v20.x`
+-	Ensure you're running node `v20.x`, `v22.x` or `v24.x`
 
 If you have [`nvm`](https://github.com/creationix/nvm#install-script) or [`nvm-windows`](https://github.com/coreybutler/nvm-windows) installed, which is highly recommended, you can run `nvm install --lts && nvm use` to install and start using the latest Node LTS.
 
@@ -285,7 +287,7 @@ If you run into odd test errors, see the Angular guide to debugging tests: https
 
 E2E tests (aka integration tests) use [Cypress.io](https://www.cypress.io/). Configuration for cypress can be found in the `cypress.json` file in the root directory.
 
-The test files can be found in the `./cypress/integration/` folder.
+The test files can be found in the `./cypress/e2e/` folder.
 
 Before you can run e2e tests, two things are REQUIRED:
 1. You MUST be running the DSpace backend (i.e. REST API) locally. The e2e tests will *NOT* succeed if run against our demo/sandbox REST API (https://demo.dspace.org/server/ or https://sandbox.dspace.org/server/), as those sites may have content added/removed at any time.
@@ -313,7 +315,7 @@ The `ng e2e` command will start Cypress and allow you to select the browser you 
 
 #### Writing E2E Tests
 
-All E2E tests must be created under the `./cypress/integration/` folder, and must end in `.spec.ts`. Subfolders are allowed.
+All E2E tests must be created under the `./cypress/e2e/` folder, and must end in `.spec.ts`. Subfolders are allowed.
 
 * The easiest way to start creating new tests is by running `ng e2e`. This builds the app and brings up Cypress.
 * From here, if you are editing an existing test file, you can either open it in your IDE or run it first to see what it already does.
@@ -349,7 +351,7 @@ See our [DSpace Code Testing Guide](https://wiki.lyrasis.org/display/DSPACE/Code
 Documentation
 --------------
 
-Official DSpace documentation is available in the DSpace wiki at https://wiki.lyrasis.org/display/DSDOC9x/
+Official DSpace documentation is available in the DSpace wiki at https://wiki.lyrasis.org/display/DSDOC10x/
 
 Some UI specific configuration documentation is also found in the [`./docs`](docs) folder of this codebase.
 
@@ -382,7 +384,11 @@ To get the most out of TypeScript, you'll need a TypeScript-aware editor. We've 
 Contributing
 -------------
 
-See [Contributing documentation](CONTRIBUTING.md)
+See our [Contributing guidelines](CONTRIBUTING.md) for general tips on contributing back to DSpace.
+
+For developers, we also provide guidelines for:
+* [Code Style](CODE_STYLE.md) - our code formatting rules
+* [Code Conventions](CODE_CONVENTIONS.md) - our established coding best practices
 
 File Structure
 --------------
@@ -392,9 +398,9 @@ dspace-angular
 ├── config                                              *
 │   └── config.yml                                      * Default app config
 ├── cypress                                             * Folder for Cypress (https://cypress.io/) / e2e tests
-│   ├── downloads                                       *
-│   ├── fixtures                                        * Folder for e2e/integration test files
-│   ├── integration                                     * Folder for any fixtures needed by e2e tests
+│   ├── downloads                                       * (Optional) Folder for files downloaded during e2e tests
+│   ├── e2e                                             * Folder for e2e/integration test files
+│   ├── fixtures                                        * Folder for reusable static test data (JSON, images, etc.)
 │   ├── plugins                                         * Folder for Cypress plugins (if any)
 │   ├── support                                         * Folder for global e2e test actions/commands (run for all tests)
 │   └── tsconfig.json                                   * TypeScript configuration file for e2e tests
@@ -454,7 +460,6 @@ dspace-angular
 ├── karma.conf.js                                       * Karma configuration file for Unit Test
 ├── LICENSE                                             *
 ├── LICENSES_THIRD_PARTY                                *
-├── nodemon.json                                        * Nodemon (https://nodemon.io/) configuration
 ├── package.json                                        * This file describes the npm package for this project, its dependencies, scripts, etc.
 ├── package-lock.json                                   * npm lockfile (https://docs.npmjs.com/cli/v10/configuring-npm/package-lock-json)
 ├── postcss.config.js                                   * PostCSS (http://postcss.org/) configuration
@@ -565,7 +570,7 @@ DSpace uses GitHub to track issues:
 License
 -------
 DSpace source code is freely available under a standard [BSD 3-Clause license](https://opensource.org/licenses/BSD-3-Clause).
-The full license is available in the [LICENSE](LICENSE) file or online at https://www.dspace.org/license/
+The full license is available in the [LICENSE](LICENSE) file or online at https://dspace.org/license/
 
 DSpace uses third-party libraries which may be distributed under different licenses. Those licenses are listed
 in the [LICENSES_THIRD_PARTY](LICENSES_THIRD_PARTY) file.

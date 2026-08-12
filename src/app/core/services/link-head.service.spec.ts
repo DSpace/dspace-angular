@@ -1,5 +1,5 @@
-import { DOCUMENT } from '@angular/common';
 import {
+  DOCUMENT,
   Renderer2,
   RendererFactory2,
 } from '@angular/core';

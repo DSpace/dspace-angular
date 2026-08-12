@@ -77,7 +77,6 @@ import { ProfilePageSecurityFormComponent } from './profile-page-security-form/p
     TranslateModule,
     VarDirective,
   ],
-  standalone: true,
 })
 /**
  * Component for a user to edit their profile information

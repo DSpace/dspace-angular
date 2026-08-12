@@ -16,13 +16,17 @@ import {
   DynamicFormValidationService,
   DynamicInputModel,
 } from '@ng-dynamic-forms/core';
+import { provideMockActions } from '@ngrx/effects/testing';
 import { provideMockStore } from '@ngrx/store/testing';
 import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import { NgxMaskModule } from 'ngx-mask';
-import { of } from 'rxjs';
+import { provideEnvironmentNgxMask } from 'ngx-mask';
+import {
+  Observable,
+  of,
+} from 'rxjs';
 import { LiveRegionService } from 'src/app/shared/live-region/live-region.service';
 
 import { environment } from '../../../../../../../environments/environment.test';
@@ -39,7 +43,7 @@ describe('DsDynamicFormArrayComponent', () => {
     instant: () => 'translated-text',
     onLangChange: new EventEmitter(),
     onTranslationChange: new EventEmitter(),
-    onDefaultLangChange: new EventEmitter(),
+    onFallbackLangChange: new EventEmitter(),
   };
 
   let component: DsDynamicFormArrayComponent;
@@ -50,10 +54,10 @@ describe('DsDynamicFormArrayComponent', () => {
       imports: [
         ReactiveFormsModule,
         DsDynamicFormArrayComponent,
-        NgxMaskModule.forRoot(),
         TranslateModule.forRoot(),
       ],
       providers: [
+        provideEnvironmentNgxMask(),
         DynamicFormLayoutService,
         DynamicFormValidationService,
         provideMockStore(),
@@ -61,6 +65,7 @@ describe('DsDynamicFormArrayComponent', () => {
         { provide: TranslateService, useValue: translateServiceStub },
         { provide: HttpClient, useValue: {} },
         { provide: SubmissionService, useValue: {} },
+        provideMockActions(() => new Observable<any>()),
         { provide: APP_CONFIG, useValue: environment },
         { provide: DYNAMIC_FORM_CONTROL_MAP_FN, useValue: dsDynamicFormControlMapFn },
         { provide: LiveRegionService, useValue: getLiveRegionServiceStub() },
@@ -156,5 +161,38 @@ describe('DsDynamicFormArrayComponent', () => {
     fixture.detectChanges();
     expect(component.elementBeingSorted).toBeNull();
     expect(component.elementBeingSortedStartingIndex).toBeNull();
+  });
+
+  describe('moveFormControlToPosition', () => {
+    it('should move form control from one position to another', () => {
+      const formArray = component.control as any;
+      const initialControls = formArray.controls.map((ctrl: any) => ctrl);
+      const movedControl = initialControls[1];
+
+      // Move control from index 1 to index 3
+      (component as any).moveFormControlToPosition(1, 3);
+
+      expect(formArray.at(3)).toBe(movedControl);
+      expect(formArray.length).toBe(5);
+    });
+
+    it('should preserve form control values after move', () => {
+      const formArray = component.control as any;
+
+      // Set actual values to the form controls
+      formArray.at(0).patchValue({ testFormRowArrayGroupInput: 'Author 1' });
+      formArray.at(1).patchValue({ testFormRowArrayGroupInput: 'Author 2' });
+      formArray.at(2).patchValue({ testFormRowArrayGroupInput: 'Author 3' });
+      formArray.at(3).patchValue({ testFormRowArrayGroupInput: 'Author 4' });
+      formArray.at(4).patchValue({ testFormRowArrayGroupInput: 'Author 5' });
+
+      (component as any).moveFormControlToPosition(1, 3);
+
+      expect(formArray.at(0).value.testFormRowArrayGroupInput).toBe('Author 1');
+      expect(formArray.at(1).value.testFormRowArrayGroupInput).toBe('Author 3');
+      expect(formArray.at(2).value.testFormRowArrayGroupInput).toBe('Author 4');
+      expect(formArray.at(3).value.testFormRowArrayGroupInput).toBe('Author 2');
+      expect(formArray.at(4).value.testFormRowArrayGroupInput).toBe('Author 5');
+    });
   });
 });

@@ -13,6 +13,7 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '@dspace/config/app-config.interface';
+import { SearchManager } from '@dspace/core/browse/search-manager';
 import { RouteService } from '@dspace/core/services/route.service';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -45,7 +46,6 @@ import { ViewModeSwitchComponent } from '../shared/view-mode-switch/view-mode-sw
       useClass: SearchConfigurationService,
     },
   ],
-  standalone: true,
   imports: [
     AsyncPipe,
     NgTemplateOutlet,
@@ -67,8 +67,9 @@ export class ConfigurationSearchPageComponent extends SearchComponent {
               protected routeService: RouteService,
               protected router: Router,
               @Inject(APP_CONFIG) protected appConfig: AppConfig,
-              @Inject(PLATFORM_ID) public platformId: any,
+              @Inject(PLATFORM_ID) public platformId: string,
+              protected searchManager: SearchManager,
   ) {
-    super(service, sidebarService, windowService, searchConfigService, routeService, router, appConfig, platformId);
+    super(service, sidebarService, windowService, searchConfigService, routeService, router, appConfig, platformId, searchManager);
   }
 }

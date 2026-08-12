@@ -22,7 +22,6 @@ import { getItemEditRoute } from '../../../item-page/item-page-routing-paths';
   selector: 'ds-item-admin-search-result-actions-element',
   styleUrls: ['./item-admin-search-result-actions.component.scss'],
   templateUrl: './item-admin-search-result-actions.component.html',
-  standalone: true,
   imports: [
     NgClass,
     RouterLink,

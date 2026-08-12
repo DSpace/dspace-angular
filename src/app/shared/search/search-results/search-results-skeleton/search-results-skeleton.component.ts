@@ -13,7 +13,6 @@ import { SearchService } from '../../search.service';
 
 @Component({
   selector: 'ds-search-results-skeleton',
-  standalone: true,
   imports: [
     AsyncPipe,
     NgxSkeletonLoaderModule,

@@ -13,7 +13,6 @@ import { CurationFormComponent } from '../../curation-form/curation-form.compone
     CurationFormComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 export class AdminCurationTasksComponent {
 

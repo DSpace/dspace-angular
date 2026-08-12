@@ -153,8 +153,8 @@ describe('ChipsComponent test suite', () => {
   describe('when has items as object', () => {
     beforeEach(() => {
       const item = {
-        mainField: new FormFieldMetadataValueObject('main test', null, 'test001', 'main test', 0, ConfidenceType.CF_ACCEPTED),
-        relatedField: new FormFieldMetadataValueObject('related test', null, 'test002', 'related test', 0, ConfidenceType.CF_ACCEPTED),
+        mainField: new FormFieldMetadataValueObject('main test', null, null, 'test001', 'main test', 0, ConfidenceType.CF_ACCEPTED),
+        relatedField: new FormFieldMetadataValueObject('related test', null, null, 'test002', 'related test', 0, ConfidenceType.CF_ACCEPTED),
         otherRelatedField: new FormFieldMetadataValueObject('other related test'),
       };
 
@@ -190,7 +190,6 @@ describe('ChipsComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
-  standalone: true,
   imports: [
     NgbModule,
   ],

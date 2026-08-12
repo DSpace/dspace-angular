@@ -6,6 +6,8 @@ import {
 import { RouterLinkActive } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { rendersMenuItemForType } from '../menu-item.decorator';
+import { MenuItemType } from '../menu-item-type.model';
 import { OnClickMenuItemModel } from './models/onclick.model';
 
 /**
@@ -15,12 +17,12 @@ import { OnClickMenuItemModel } from './models/onclick.model';
   selector: 'ds-onclick-menu-item',
   styleUrls: ['./menu-item.component.scss', './onclick-menu-item.component.scss'],
   templateUrl: './onclick-menu-item.component.html',
-  standalone: true,
   imports: [
     RouterLinkActive,
     TranslateModule,
   ],
 })
+@rendersMenuItemForType(MenuItemType.ONCLICK)
 export class OnClickMenuItemComponent {
   item: OnClickMenuItemModel;
 

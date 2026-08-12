@@ -13,7 +13,6 @@ import { BrowserOnlyPipe } from '../../../../../app/shared/utils/browser-only.pi
   styleUrls: ['../../../../../app/forgot-password/forgot-password-form/forgot-password-form.component.scss'],
   // templateUrl: './forgot-password-form.component.html'
   templateUrl: '../../../../../app/forgot-password/forgot-password-form/forgot-password-form.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     BrowserOnlyPipe,

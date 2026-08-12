@@ -17,7 +17,6 @@ import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.c
   selector: 'ds-item-versions-summary-modal',
   templateUrl: './item-versions-summary-modal.component.html',
   styleUrls: ['./item-versions-summary-modal.component.scss'],
-  standalone: true,
   imports: [
     AsyncPipe,
     FormsModule,

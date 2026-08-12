@@ -10,7 +10,7 @@ import { NotificationsService } from '@dspace/core/notification-system/notificat
 import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import { ClaimedApprovedTaskSearchResult } from '@dspace/core/shared/object-collection/claimed-approved-task-search-result.model';
 import { WorkflowItemDataService } from '@dspace/core/submission/workflowitem-data.service';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
   TranslateService,
@@ -23,24 +23,24 @@ import {
 import { BtnDisabledDirective } from '../../../btn-disabled.directive';
 import { SearchService } from '../../../search/search.service';
 import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
-
-export const WORKFLOW_TASK_OPTION_APPROVE = 'submit_approve';
+import { ClaimedTaskType } from '../claimed-task-type';
+import { rendersWorkflowTaskOption } from '../switcher/claimed-task-actions-decorator';
 
 @Component({
   selector: 'ds-claimed-task-actions-approve',
   styleUrls: ['./claimed-task-actions-approve.component.scss'],
   templateUrl: './claimed-task-actions-approve.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     BtnDisabledDirective,
-    NgbTooltipModule,
+    NgbTooltip,
     TranslateModule,
   ],
 })
 /**
  * Component for displaying and processing the approve action on a workflow task item
  */
+@rendersWorkflowTaskOption(ClaimedTaskType.WORKFLOW_TASK_OPTION_APPROVE)
 export class ClaimedTaskActionsApproveComponent extends ClaimedTaskActionsAbstractComponent {
 
   constructor(
@@ -59,7 +59,7 @@ export class ClaimedTaskActionsApproveComponent extends ClaimedTaskActionsAbstra
     return of(this.object);
   }
 
-  convertReloadedObject(dso: DSpaceObject): DSpaceObject {
+  async convertReloadedObject(dso: DSpaceObject): Promise<DSpaceObject> {
     const reloadedObject = Object.assign(new ClaimedApprovedTaskSearchResult(), dso, {
       indexableObject: dso,
     });

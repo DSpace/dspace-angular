@@ -13,7 +13,6 @@ import { BtnDisabledDirective } from '../../../../../app/shared/btn-disabled.dir
   styleUrls: ['../../../../../app/register-page/create-profile/create-profile.component.scss'],
   // templateUrl: './create-profile.component.html'
   templateUrl: '../../../../../app/register-page/create-profile/create-profile.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     BtnDisabledDirective,

@@ -32,7 +32,6 @@ import { RequestStatusAlertBoxComponent } from '../request-status-alert-box/requ
   templateUrl: './notify-requests-status.component.html',
   styleUrls: ['./notify-requests-status.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
   imports: [
     AsyncPipe,
     KeyValuePipe,

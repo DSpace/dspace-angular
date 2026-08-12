@@ -20,7 +20,6 @@ import { BrowseBySwitcherComponent } from './browse-by-switcher.component';
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: '',
-  standalone: true,
   template: '<span id="BrowseByTestComponent"></span>',
 })
 class BrowseByTestComponent {
@@ -79,7 +78,7 @@ describe('BrowseBySwitcherComponent', () => {
   beforeEach(waitForAsync(() => {
     fixture = TestBed.createComponent(BrowseBySwitcherComponent);
     comp = fixture.componentInstance;
-    spyOn(comp, 'getComponent').and.returnValue(BrowseByTestComponent);
+    spyOn(comp, 'getComponent').and.returnValue(Promise.resolve(BrowseByTestComponent));
     spyOn(comp, 'connectInputsAndOutputs').and.callThrough();
   }));
 

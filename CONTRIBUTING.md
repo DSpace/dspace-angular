@@ -12,18 +12,10 @@ DSpace is a community built and supported project. We do not have a centralized 
 We accept [GitHub Pull Requests (PRs)](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork) at any time from anyone.
 Contributors to each release are recognized in our [Release Notes](https://wiki.lyrasis.org/display/DSDOC9x/Release+Notes).
 
-Code Contribution Checklist
-- [ ] PRs _should_ be smaller in size (ideally less than 1,000 lines of code, not including comments & tests)
-- [ ] PRs **must** pass [ESLint](https://eslint.org/) validation using `yarn lint`
-- [ ] PRs **must** not introduce circular dependencies (verified via `yarn check-circ-deps`)
-- [ ] PRs **must** include [TypeDoc](https://typedoc.org/) comments for _all new (or modified) public methods and classes_. Large or complex private methods should also have TypeDoc.
-- [ ] PRs **must** pass all automated pecs/tests and includes new/updated specs or tests based on the [Code Testing Guide](https://wiki.lyrasis.org/display/DSPACE/Code+Testing+Guide).
-- [ ] User interface changes **must** align with [Accessibility guidelines](https://wiki.lyrasis.org/display/DSDOC9x/Accessibility)
-- [ ] PRs **must** use i18n (internationalization) keys instead of hardcoded English text, to allow for translations.
-- [ ] Details on how to test the PR **must** be provided. Reviewers must be aware of any steps they need to take to successfully test your fix or feature.
-- [ ] If a PR includes new libraries/dependencies (in `package.json`), then their software licenses **must** align with the [DSpace BSD License](https://github.com/DSpace/dspace-angular/blob/main/LICENSE) based on the [Licensing of Contributions](https://wiki.lyrasis.org/display/DSPACE/Code+Contribution+Guidelines#CodeContributionGuidelines-LicensingofContributions) documentation.
-- [ ] Basic technical documentation _should_ be provided for any new features or configuration, either in the PR itself or in the DSpace Wiki documentation.
-- [ ] If a PR fixes an issue ticket, please [link them together](https://docs.github.com/en/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue).
+We provide a [Code Contribution Checklist in our Pull Request Template](https://github.com/DSpace/dspace-angular/blob/main/.github/pull_request_template.md#checklist) which includes guidance
+on things we will look for in your PR.
+
+We also provide a [Code Style Guide](CODE_STYLE.md) (detailing how to format your code) and a [Code Conventions Guide](CODE_CONVENTIONS.md) (detailing established coding best practices).
 
 Additional details on the code contribution process can be found in our [Code Contribution Guidelines](https://wiki.lyrasis.org/display/DSPACE/Code+Contribution+Guidelines)
 
@@ -37,7 +29,7 @@ Once you have an account setup, contact @tdonohue (via [Slack](https://wiki.lyra
 ## Help others on mailing lists or Slack
 
 DSpace has our own [Slack](https://wiki.lyrasis.org/display/DSPACE/Slack) community and [Mailing Lists](https://wiki.lyrasis.org/display/DSPACE/Mailing+Lists) where discussions take place and questions are answered.
-Anyone is welcome to join and help others. We just ask you to follow our [Code of Conduct](https://www.lyrasis.org/about/Pages/Code-of-Conduct.aspx) (adopted via Lyrasis).
+Anyone is welcome to join and help others. We just ask you to follow our [Code of Conduct](https://lyrasis.org/code-of-conduct/) (adopted via Lyrasis).
 
 ## Join a working or interest group
 

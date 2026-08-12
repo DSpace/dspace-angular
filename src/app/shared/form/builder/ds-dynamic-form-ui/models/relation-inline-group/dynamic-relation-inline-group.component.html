@@ -1,0 +1,16 @@
+<div class="pt-2 border-top" [ngClass]="{ 'inline-group-is-invalid': showErrorMessages}" [hidden]="model.hidden">
+  @if (formModel) {
+    <ds-form #formRef="formComponent" @shrinkInOut
+             [formId]="formId"
+             [formModel]="formModel"
+             [displayCancel]="false"
+             [displaySubmit]="false"
+             [arrayButtonsStyle]="'inline-btn-group'"
+             [isInlineGroupForm]="true"
+             (dfBlur)="onBlur($event)"
+             (dfChange)="onChange($event)"
+             (dfFocus)="onFocus($event)"
+             (ngbEvent)="onCustomEvent($event)"
+             (removeArrayItem)="remove($event)"></ds-form>
+  }
+</div>

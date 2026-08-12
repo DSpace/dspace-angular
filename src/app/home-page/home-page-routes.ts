@@ -11,6 +11,7 @@ export const ROUTES: Route[] = [
     pathMatch: 'full',
     data: {
       title: 'home.title',
+      showSocialButtons: true,
       menu: {
         public: [{
           id: 'statistics_site',

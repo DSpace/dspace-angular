@@ -10,7 +10,6 @@ import { SubmissionUploadFilesComponent as BaseComponent } from '../../../../../
   imports: [
     UploaderComponent,
   ],
-  standalone: true,
 })
 export class SubmissionUploadFilesComponent extends BaseComponent {
 }

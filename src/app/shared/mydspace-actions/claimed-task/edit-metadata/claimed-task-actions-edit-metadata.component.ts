@@ -9,7 +9,7 @@ import {
 } from '@angular/router';
 import { RequestService } from '@dspace/core/data/request.service';
 import { NotificationsService } from '@dspace/core/notification-system/notifications.service';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
   TranslateService,
@@ -17,17 +17,16 @@ import {
 
 import { SearchService } from '../../../search/search.service';
 import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
-
-export const WORKFLOW_TASK_OPTION_EDIT_METADATA = 'submit_edit_metadata';
+import { ClaimedTaskType } from '../claimed-task-type';
+import { rendersWorkflowTaskOption } from '../switcher/claimed-task-actions-decorator';
 
 @Component({
   selector: 'ds-claimed-task-actions-edit-metadata',
   styleUrls: ['./claimed-task-actions-edit-metadata.component.scss'],
   templateUrl: './claimed-task-actions-edit-metadata.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
-    NgbTooltipModule,
+    NgbTooltip,
     RouterLink,
     TranslateModule,
   ],
@@ -35,6 +34,7 @@ export const WORKFLOW_TASK_OPTION_EDIT_METADATA = 'submit_edit_metadata';
 /**
  * Component for displaying the edit metadata action on a workflow task item
  */
+@rendersWorkflowTaskOption(ClaimedTaskType.WORKFLOW_TASK_OPTION_EDIT_METADATA)
 export class ClaimedTaskActionsEditMetadataComponent extends ClaimedTaskActionsAbstractComponent {
 
   constructor(protected injector: Injector,

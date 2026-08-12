@@ -34,7 +34,6 @@ import { ObjectSelectComponent } from '../object-select/object-select.component'
   selector: 'ds-collection-select',
   templateUrl: './collection-select.component.html',
   styleUrls: ['./collection-select.component.scss'],
-  standalone: true,
   imports: [
     AsyncPipe,
     BtnDisabledDirective,

@@ -41,7 +41,6 @@ import { BrowserOnlyPipe } from '../../shared/utils/browser-only.pipe';
     ProfilePageSecurityFormComponent,
     TranslateModule,
   ],
-  standalone: true,
 })
 /**
  * Component for a user to enter a new password for a forgot token.

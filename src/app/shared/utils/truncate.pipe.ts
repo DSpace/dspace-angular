@@ -10,7 +10,6 @@ import { hasValue } from '@dspace/shared/utils/empty.util';
  */
 @Pipe({
   name: 'dsTruncate',
-  standalone: true,
 })
 export class TruncatePipe implements PipeTransform {
 

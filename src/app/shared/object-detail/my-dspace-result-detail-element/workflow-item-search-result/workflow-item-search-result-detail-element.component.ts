@@ -27,7 +27,6 @@ import { SearchResultDetailElementComponent } from '../search-result-detail-elem
   selector: 'ds-workflow-item-search-result-detail-element',
   styleUrls: ['../search-result-detail-element.component.scss'],
   templateUrl: './workflow-item-search-result-detail-element.component.html',
-  standalone: true,
   imports: [
     ItemDetailPreviewComponent,
     WorkflowitemActionsComponent,

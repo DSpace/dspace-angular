@@ -19,7 +19,6 @@ import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail
   selector: 'ds-journal-volume',
   styleUrls: ['./journal-volume.component.scss'],
   templateUrl: './journal-volume.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     DsoEditMenuComponent,

@@ -25,15 +25,11 @@ import { NotificationsServiceStub } from '@dspace/core/testing/notifications-ser
 import { getMockRequestService } from '@dspace/core/testing/request.service.mock';
 import { RouterStub } from '@dspace/core/testing/router.stub';
 import { getMockSearchService } from '@dspace/core/testing/search-service.mock';
-import { TranslateLoaderMock } from '@dspace/core/testing/translate-loader.mock';
 import {
   createFailedRemoteDataObject,
   createSuccessfulRemoteDataObject,
 } from '@dspace/core/utilities/remote-data.utils';
-import {
-  TranslateLoader,
-  TranslateModule,
-} from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { SearchService } from '../search/search.service';
@@ -46,8 +42,7 @@ let component: PoolTaskActionsComponent;
 let fixture: ComponentFixture<PoolTaskActionsComponent>;
 
 let mockObject: PoolTask;
-let notificationsServiceStub: NotificationsServiceStub;
-let router: RouterStub;
+let notificationsServiceStub: NotificationsService;
 
 const searchService = getMockSearchService();
 
@@ -93,12 +88,7 @@ describe('MyDSpaceReloadableActionsComponent', () => {
     mockClaimedTaskDataService = new ClaimedTaskDataService(null, null, null, null);
     TestBed.configureTestingModule({
       imports: [
-        TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock,
-          },
-        }),
+        TranslateModule.forRoot(),
         PoolTaskActionsComponent,
       ],
       providers: [
@@ -123,8 +113,7 @@ describe('MyDSpaceReloadableActionsComponent', () => {
     component.item = item;
     component.object = mockObject;
     component.workflowitem = workflowitem;
-    notificationsServiceStub = TestBed.get(NotificationsService);
-    router = TestBed.get(Router);
+    notificationsServiceStub = TestBed.inject(NotificationsService);
     fixture.detectChanges();
   });
 

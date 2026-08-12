@@ -13,10 +13,6 @@ import { SubmissionUploadFilesComponent } from './submission-upload-files.compon
 @Component({
   selector: 'ds-submission-upload-files',
   templateUrl: '../../../shared/theme-support/themed.component.html',
-  standalone: true,
-  imports: [
-    SubmissionUploadFilesComponent,
-  ],
 })
 export class ThemedSubmissionUploadFilesComponent extends ThemedComponent<SubmissionUploadFilesComponent> {
 

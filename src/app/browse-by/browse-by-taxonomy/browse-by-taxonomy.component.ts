@@ -29,6 +29,7 @@ import {
 import { map } from 'rxjs/operators';
 
 import { VocabularyTreeviewComponent } from '../../shared/form/vocabulary-treeview/vocabulary-treeview.component';
+import { rendersBrowseBy } from '../browse-by-switcher/browse-by-decorator';
 
 @Component({
   selector: 'ds-browse-by-taxonomy',
@@ -39,11 +40,11 @@ import { VocabularyTreeviewComponent } from '../../shared/form/vocabulary-treevi
     TranslatePipe,
     VocabularyTreeviewComponent,
   ],
-  standalone: true,
 })
 /**
  * Component for browsing items by metadata in a hierarchical controlled vocabulary
  */
+@rendersBrowseBy(BrowseByDataType.Hierarchy)
 export class BrowseByTaxonomyComponent implements OnInit, OnChanges, OnDestroy {
 
   /**
@@ -129,7 +130,7 @@ export class BrowseByTaxonomyComponent implements OnInit, OnChanges, OnDestroy {
       this.selectedItems = [];
       this.facetType = browseDefinition.facetType;
       this.vocabularyName = browseDefinition.vocabulary;
-      this.vocabularyOptions = { name: this.vocabularyName, closed: true };
+      this.vocabularyOptions = { name: this.vocabularyName, metadata: null, scope: null, closed: true };
       this.description = this.translate.instant(`browse.metadata.${this.vocabularyName}.tree.description`);
     }));
     this.subs.push(this.scope$.subscribe(() => {

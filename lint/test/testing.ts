@@ -6,8 +6,7 @@
  * http://www.dspace.org/license/
  */
 
-import { RuleTester as TypeScriptRuleTester } from '@typescript-eslint/rule-tester';
-import { RuleTester } from '@typescript-eslint/utils/ts-eslint';
+import { RuleTester } from '@typescript-eslint/rule-tester';
 
 import { themeableComponents } from '../src/util/theme-support';
 import {
@@ -19,17 +18,20 @@ import {
 // Register themed components from test fixture
 themeableComponents.initialize(FIXTURE);
 
-TypeScriptRuleTester.itOnly = fit;
-TypeScriptRuleTester.itSkip = xit;
+RuleTester.itOnly = fit;
+RuleTester.itSkip = xit;
 
-export const tsRuleTester = new TypeScriptRuleTester({
-  parser: '@typescript-eslint/parser',
+export const tsRuleTester = new RuleTester({
   defaultFilenames: {
     ts: fixture('src/test.ts'),
     tsx: 'n/a',
   },
-  parserOptions: {
-    project: fixture('tsconfig.json'),
+  languageOptions: {
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    parser: require('@typescript-eslint/parser'),
+    parserOptions: {
+      project: fixture('tsconfig.json'),
+    },
   },
 });
 
@@ -49,5 +51,8 @@ class HtmlRuleTester extends RuleTester {
 }
 
 export const htmlRuleTester = new HtmlRuleTester({
-  parser: require.resolve('@angular-eslint/template-parser'),
+  languageOptions: {
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    parser: require('@angular-eslint/template-parser'),
+  },
 });

@@ -10,12 +10,7 @@ import { ThumbnailComponent } from './thumbnail.component';
 
 @Component({
   selector: 'ds-thumbnail',
-  styleUrls: [],
   templateUrl: '../shared/theme-support/themed.component.html',
-  standalone: true,
-  imports: [
-    ThumbnailComponent,
-  ],
 })
 export class ThemedThumbnailComponent extends ThemedComponent<ThumbnailComponent> {
 

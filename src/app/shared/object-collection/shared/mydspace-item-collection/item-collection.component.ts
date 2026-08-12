@@ -30,7 +30,6 @@ import {
   selector: 'ds-item-collection',
   styleUrls: ['./item-collection.component.scss'],
   templateUrl: './item-collection.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     RouterLink,
