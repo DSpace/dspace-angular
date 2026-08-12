@@ -169,7 +169,10 @@ export class SubscriptionModalComponent implements OnInit {
       for (const f of this.frequencyDefaultValues) {
         anyFrequencySelected = anyFrequencySelected || newValue.content.frequencies[f];
       }
-      this.isValid = anyFrequencySelected;
+      const hasExistingSubscription = this.subscriptionDefaultTypes.some(
+        (t) => isNotEmpty(newValue[t]?.subscriptionId)
+      );
+      this.isValid = anyFrequencySelected || hasExistingSubscription;
     });
   }
 
@@ -217,7 +220,7 @@ export class SubscriptionModalComponent implements OnInit {
     ).subscribe({
       next: (res: PaginatedList<Subscription>) => {
         if (res.pageInfo.totalElements > 0) {
-          this.showDeleteInfo$.next(true);
+          //this.showDeleteInfo$.next(true);
           for (const subscription of res.page) {
             const type = subscription.subscriptionType;
             const subscriptionGroup: UntypedFormGroup = this.subscriptionForm.get(type) as UntypedFormGroup;
@@ -245,6 +248,7 @@ export class SubscriptionModalComponent implements OnInit {
     const subscriptionTypes: string[] = Object.keys(this.subscriptionForm.controls);
     const subscriptionsToBeCreated = [];
     const subscriptionsToBeUpdated = [];
+    const subscriptionsToBeDeleted = [];
 
     subscriptionTypes.forEach((subscriptionType: string) => {
       const subscriptionGroup: UntypedFormGroup = this.subscriptionForm.controls[subscriptionType] as UntypedFormGroup;
@@ -254,9 +258,10 @@ export class SubscriptionModalComponent implements OnInit {
           subscriptionType,
           subscriptionGroup.controls.frequencies as UntypedFormGroup,
         );
-
-        if (isNotEmpty(body.id)) {
+        if (isNotEmpty(body.id) && isNotEmpty(body.subscriptionParameterList)) {
           subscriptionsToBeUpdated.push(body);
+        } else if (isNotEmpty(body.id) && !isNotEmpty(body.subscriptionParameterList)) {
+          subscriptionsToBeDeleted.push(body);
         } else if (isNotEmpty(body.subscriptionParameterList)) {
           subscriptionsToBeCreated.push(body);
         }
@@ -299,6 +304,23 @@ export class SubscriptionModalComponent implements OnInit {
             }
           } else {
             this.notificationsService.error(null, this.translate.instant('subscriptions.modal.update.error'));
+          }
+        }),
+      ));
+    }
+
+    if (isNotEmpty(subscriptionsToBeDeleted)) {
+      toBeProcessed.push(from(subscriptionsToBeDeleted).pipe(
+        mergeMap((subscriptionBody: any) => {
+          return this.subscriptionService.deleteSubscription(subscriptionBody.id).pipe(
+            getFirstCompletedRemoteData(),
+          );
+        }),
+        tap((res: any) => {
+          if (res.hasSucceeded) {
+            this.notificationsService.success(null, this.translate.instant('subscriptions.modal.delete.success'));
+          } else {
+            this.notificationsService.error(null, this.translate.instant('subscriptions.modal.delete.error'));
           }
         }),
       ));
