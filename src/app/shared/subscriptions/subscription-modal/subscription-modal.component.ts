@@ -170,7 +170,7 @@ export class SubscriptionModalComponent implements OnInit {
         anyFrequencySelected = anyFrequencySelected || newValue.content.frequencies[f];
       }
       const hasExistingSubscription = this.subscriptionDefaultTypes.some(
-        (t) => isNotEmpty(newValue[t]?.subscriptionId)
+        (t) => isNotEmpty(newValue[t]?.subscriptionId),
       );
       this.isValid = anyFrequencySelected || hasExistingSubscription;
     });
