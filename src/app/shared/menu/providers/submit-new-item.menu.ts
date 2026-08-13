@@ -28,7 +28,7 @@ import { PartialMenuSection } from '../menu-provider.model';
 import { DSpaceObjectPageMenuProvider } from './helper-providers/dso.menu';
 
 /**
- * Menu provider to create the "Edit" option in the DSO edit menu
+ * Menu provider to create the "Submit item" option in the DSO edit menu
  */
 @Injectable()
 export class SubmitNewItemMenuProvider extends DSpaceObjectPageMenuProvider {
