@@ -9,7 +9,7 @@ import { buildMenuStructure } from './shared/menu/menu.structure';
 import { MenuID } from './shared/menu/menu-id.model';
 import { MenuRoute } from './shared/menu/menu-route.model';
 import { AccessControlMenuProvider } from './shared/menu/providers/access-control.menu';
-import { AddSubObjectsMenuProvider } from './shared/menu/providers/add-sub-objects.menu';
+import { AddSubComColMenuProvider } from './shared/menu/providers/add-sub-com-col.menu';
 import { AdminSearchMenuProvider } from './shared/menu/providers/admin-search.menu';
 import { AuditLogsMenuProvider } from './shared/menu/providers/audit-item.menu';
 import { AuditOverviewMenuProvider } from './shared/menu/providers/audit-overview.menu';
@@ -98,7 +98,7 @@ export const MENUS = buildMenuStructure({
         MenuRoute.COLLECTION_PAGE,
         MenuRoute.ITEM_PAGE,
       ),
-      AddSubObjectsMenuProvider.onRoute(
+      AddSubComColMenuProvider.onRoute(
         MenuRoute.COMMUNITY_PAGE,
       ),
       SubmitNewItemMenuProvider.onRoute(

@@ -21,10 +21,10 @@ import { PartialMenuSection } from '../menu-provider.model';
 import { DSpaceObjectPageMenuProvider } from './helper-providers/dso.menu';
 
 /**
- * Menu provider to create the "Edit" option in the DSO edit menu
+ * Menu provider to create the "Add sub Community" and "Add sub collection" option in the DSO edit menu
  */
 @Injectable()
-export class AddSubObjectsMenuProvider extends DSpaceObjectPageMenuProvider {
+export class AddSubComColMenuProvider extends DSpaceObjectPageMenuProvider {
   constructor(
     protected authorizationDataService: AuthorizationDataService,
   ) {
@@ -33,12 +33,12 @@ export class AddSubObjectsMenuProvider extends DSpaceObjectPageMenuProvider {
 
   public getSectionsForContext(dso: DSpaceObject): Observable<PartialMenuSection[]> {
     return combineLatest([
-      this.authorizationDataService.isAuthorized(FeatureID.CanEditMetadata, dso.self),
+      this.authorizationDataService.isAuthorized(FeatureID.IsCommunityAdmin),
     ]).pipe(
-      map(([canEditObject]) => {
+      map(([isCommunityAdmin]) => {
         return [
           {
-            visible: canEditObject,
+            visible: isCommunityAdmin,
             model: {
               type: MenuItemType.LINK,
               text: 'community.add.sub-community',
@@ -50,7 +50,7 @@ export class AddSubObjectsMenuProvider extends DSpaceObjectPageMenuProvider {
             icon: 'plus',
           },
           {
-            visible: canEditObject,
+            visible: isCommunityAdmin,
             model: {
               type: MenuItemType.LINK,
               text: 'community.add.sub-collection',
