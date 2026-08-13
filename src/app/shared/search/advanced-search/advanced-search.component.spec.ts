@@ -11,8 +11,8 @@ import { SearchServiceStub } from '@dspace/core/testing/search-service.stub';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '../../../../environments/environment.test';
+import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import { SearchService } from '../search.service';
-import { SearchConfigurationService } from '../search-configuration.service';
 import { SearchFilterService } from '../search-filters/search-filter.service';
 import { AdvancedSearchComponent } from './advanced-search.component';
 
@@ -39,7 +39,7 @@ describe('AdvancedSearchComponent', () => {
       providers: [
         { provide: Router, useValue: router },
         { provide: SearchService, useValue: searchService },
-        { provide: SearchConfigurationService, useValue: searchConfigurationService },
+        { provide: SEARCH_CONFIG_SERVICE, useValue: searchConfigurationService },
         { provide: SearchFilterService, useValue: searchFilterService },
         { provide: APP_CONFIG, useValue: environment },
       ],

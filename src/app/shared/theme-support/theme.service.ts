@@ -65,6 +65,7 @@ import {
 import { environment } from '../../../environments/environment';
 import { HashedFileMapping } from '../../../modules/dynamic-hash/hashed-file-mapping';
 import { GET_THEME_CONFIG_FOR_FACTORY } from '../object-collection/shared/listable-object/listable-object.decorator';
+import { SearchConfigurationService } from '../search/search-configuration.service';
 import {
   SetThemeAction,
   ThemeActionTypes,
@@ -107,6 +108,7 @@ export class ThemeService {
     @Inject(GET_THEME_CONFIG_FOR_FACTORY) private gtcf: (str) => ThemeConfig,
     private router: Router,
     @Inject(DOCUMENT) private document: any,
+    private searchConfigurationService: SearchConfigurationService,
     @Optional() private hashedFileMapping: HashedFileMapping,
     @Inject(APP_CONFIG) private appConfig: BuildConfig,
   ) {
@@ -367,8 +369,9 @@ export class ThemeService {
               );
             }
           }
-          if (hasValue(activatedRouteSnapshot.queryParams) && hasValue(activatedRouteSnapshot.queryParams.scope)) {
-            const dsoFromScope$: Observable<RemoteData<DSpaceObject>> = this.dSpaceObjectDataService.findById(activatedRouteSnapshot.queryParams.scope);
+          const scope = this.getScopeFromSnapshot(activatedRouteSnapshot);
+          if (hasValue(scope)) {
+            const dsoFromScope$: Observable<RemoteData<DSpaceObject>> = this.dSpaceObjectDataService.findById(scope);
             // Start with the resolved dso and go recursively through its parents until you reach the top-level community
             return dsoFromScope$.pipe(
               getFirstSucceededRemoteData(),
@@ -410,6 +413,20 @@ export class ThemeService {
     return action$.pipe(
       map((action: SetThemeAction | NoOpAction) => action.type === ThemeActionTypes.SET),
     );
+  }
+
+  /**
+   * Resolve the search scope from the route snapshot, preferring the search-instance prefixed
+   * parameter and falling back to the legacy unprefixed `scope` query parameter.
+   * @param activatedRouteSnapshot
+   * @private
+   */
+  private getScopeFromSnapshot(activatedRouteSnapshot: ActivatedRouteSnapshot): string {
+    if (hasNoValue(activatedRouteSnapshot.queryParams)) {
+      return undefined;
+    }
+    const scopeParam = this.searchConfigurationService.getCurrentSearchInstanceParam('scope');
+    return activatedRouteSnapshot.queryParams[scopeParam] || activatedRouteSnapshot.queryParams.scope;
   }
 
   /**
