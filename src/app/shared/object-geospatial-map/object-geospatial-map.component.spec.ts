@@ -17,11 +17,13 @@ import {
 import { buildPaginatedList } from '../../core/data/paginated-list.model';
 import { Item } from '../../core/shared/item.model';
 import { PageInfo } from '../../core/shared/page-info.model';
+import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { GeospatialMapDetail } from '../geospatial-map/models/geospatial-map-detail.model';
 import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
 import { ItemSearchResult } from '../object-collection/shared/item-search-result.model';
 import { PaginationComponent } from '../pagination/pagination.component';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
+import { SearchConfigurationServiceStub } from '../testing/search-configuration-service.stub';
 import { ObjectGeospatialMapComponent } from './object-geospatial-map.component';
 
 describe('ObjectGeospatialMapComponent', () => {
@@ -70,7 +72,13 @@ describe('ObjectGeospatialMapComponent', () => {
           provide: TranslateLoader,
         },
       })],
-      providers: [TranslateService, TranslateStore, TranslateLoader, TranslateLoaderMock],
+      providers: [
+        TranslateService,
+        TranslateStore,
+        TranslateLoader,
+        TranslateLoaderMock,
+        { provide: SearchConfigurationService, useValue: new SearchConfigurationServiceStub() },
+      ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ObjectGeospatialMapComponent, {
       remove: {

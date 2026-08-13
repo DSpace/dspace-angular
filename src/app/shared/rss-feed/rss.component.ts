@@ -2,6 +2,7 @@ import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  Inject,
   Input,
   OnChanges,
   OnDestroy,
@@ -34,6 +35,7 @@ import { PaginationService } from '../../core/pagination/pagination.service';
 import { LinkHeadService } from '../../core/services/link-head.service';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
+import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 import {
   hasValue,
   isUndefined,
@@ -69,7 +71,7 @@ export class RSSComponent implements OnInit, OnDestroy, OnChanges {
   constructor(private groupDataService: GroupDataService,
               private linkHeadService: LinkHeadService,
               private configurationService: ConfigurationDataService,
-              private searchConfigurationService: SearchConfigurationService,
+              @Inject(SEARCH_CONFIG_SERVICE) private searchConfigurationService: SearchConfigurationService,
               private router: Router,
               private route: ActivatedRoute,
               protected paginationService: PaginationService,

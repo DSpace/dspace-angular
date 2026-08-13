@@ -13,11 +13,13 @@ import { provideMockStore } from '@ngrx/store/testing';
 import { of } from 'rxjs';
 
 import { ViewMode } from '../../core/shared/view-mode.model';
+import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 import { getMockThemeService } from '../mocks/theme-service.mock';
 import { ObjectDetailComponent } from '../object-detail/object-detail.component';
 import { ObjectGridComponent } from '../object-grid/object-grid.component';
 import { ThemedObjectListComponent } from '../object-list/themed-object-list.component';
 import { RouterStub } from '../testing/router.stub';
+import { SearchConfigurationServiceStub } from '../testing/search-configuration-service.stub';
 import { ThemeService } from '../theme-support/theme.service';
 import { ObjectCollectionComponent } from './object-collection.component';
 
@@ -82,5 +84,72 @@ describe('ObjectCollectionComponent', () => {
     const comp = fixture.debugElement.query(By.css('ds-object-list'));
     expect(comp).not.toBeNull();
     expect(comp.nativeElement.classList).not.toContain('hide-placeholder-text');
+  });
+
+  it('should default to list view when no view query param is present', (done) => {
+    objectCollectionComponent.currentMode$.subscribe((mode) => {
+      expect(mode).toBe(ViewMode.ListElement);
+      done();
+    });
+  });
+});
+
+describe('ObjectCollectionComponent view query param fallback', () => {
+  let fixture: ComponentFixture<ObjectCollectionComponent>;
+  let objectCollectionComponent: ObjectCollectionComponent;
+
+  function init(queryParams: Record<string, string>, provideSearchConfig = false) {
+    TestBed.resetTestingModule();
+    const providers: any[] = [
+      { provide: ActivatedRoute, useValue: { queryParams: of(queryParams) } },
+      { provide: Router, useClass: RouterStub },
+      { provide: ThemeService, useValue: getMockThemeService() },
+      provideMockStore(),
+    ];
+    if (provideSearchConfig) {
+      providers.push({ provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() });
+    }
+    TestBed.configureTestingModule({
+      imports: [ObjectCollectionComponent],
+      providers,
+      schemas: [NO_ERRORS_SCHEMA],
+    })
+      .overrideComponent(ObjectCollectionComponent, {
+        remove: {
+          imports: [ ThemedObjectListComponent, ObjectGridComponent, ObjectDetailComponent],
+        },
+      });
+    fixture = TestBed.createComponent(ObjectCollectionComponent);
+    objectCollectionComponent = fixture.componentInstance;
+    fixture.detectChanges();
+  }
+
+  afterEach(() => {
+    TestBed.resetTestingModule();
+  });
+
+  it('should use the unprefixed view query param when SEARCH_CONFIG_SERVICE is not provided', (done) => {
+    init({ view: ViewMode.GridElement });
+    objectCollectionComponent.currentMode$.subscribe((mode) => {
+      expect(mode).toBe(ViewMode.GridElement);
+      done();
+    });
+  });
+
+  it('should use the prefixed view query param from SearchConfigurationService', (done) => {
+    init({ 'test-id.view': ViewMode.GridElement }, true);
+    objectCollectionComponent.currentMode$.subscribe((mode) => {
+      expect(mode).toBe(ViewMode.GridElement);
+      done();
+    });
+  });
+
+  it('should prefer an explicit viewMode input over the query param', (done) => {
+    init({ 'test-id.view': ViewMode.GridElement }, true);
+    objectCollectionComponent.viewMode = ViewMode.DetailedListElement;
+    objectCollectionComponent.currentMode$.subscribe((mode) => {
+      expect(mode).toBe(ViewMode.DetailedListElement);
+      done();
+    });
   });
 });
