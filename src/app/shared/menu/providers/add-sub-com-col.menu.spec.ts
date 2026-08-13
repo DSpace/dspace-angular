@@ -6,9 +6,9 @@ import { of } from 'rxjs';
 
 import { MenuItemType } from '../menu-item-type.model';
 import { PartialMenuSection } from '../menu-provider.model';
-import { AddSubObjectsMenuProvider } from './add-sub-objects.menu';
+import { AddSubComColMenuProvider } from './add-sub-com-col.menu';
 
-describe('AddSubObjectsMenuProvider', () => {
+describe('AddSubComColMenuProvider', () => {
 
   const expectedSections: PartialMenuSection[] = [
     {
@@ -37,7 +37,7 @@ describe('AddSubObjectsMenuProvider', () => {
     },
   ];
 
-  let provider: AddSubObjectsMenuProvider;
+  let provider: AddSubComColMenuProvider;
 
   const dso: Community = Object.assign(new Community(), {
     type: COMMUNITY.value,
@@ -56,11 +56,11 @@ describe('AddSubObjectsMenuProvider', () => {
 
     TestBed.configureTestingModule({
       providers: [
-        AddSubObjectsMenuProvider,
+        AddSubComColMenuProvider,
         { provide: AuthorizationDataService, useValue: authorizationService },
       ],
     });
-    provider = TestBed.inject(AddSubObjectsMenuProvider);
+    provider = TestBed.inject(AddSubComColMenuProvider);
   });
 
   it('should be created', () => {
