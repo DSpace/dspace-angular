@@ -18,12 +18,12 @@ import { SearchServiceStub } from '@dspace/core/testing/search-service.stub';
 import { createFailedRemoteDataObject } from '@dspace/core/utilities/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import { ErrorComponent } from '../../error/error.component';
 import { ObjectCollectionComponent } from '../../object-collection/object-collection.component';
 import { getMockThemeService } from '../../theme-support/test/theme-service.mock';
 import { ThemeService } from '../../theme-support/theme.service';
 import { SearchService } from '../search.service';
-import { SearchConfigurationService } from '../search-configuration.service';
 import { SearchExportCsvComponent } from '../search-export-csv/search-export-csv.component';
 import { SearchResultsComponent } from './search-results.component';
 import { SearchResultsSkeletonComponent } from './search-results-skeleton/search-results-skeleton.component';
@@ -41,7 +41,7 @@ describe('SearchResultsComponent', () => {
         { provide: ThemeService, useValue: getMockThemeService() },
         { provide: SearchService, useValue: new SearchServiceStub() },
         {
-          provide: SearchConfigurationService,
+          provide: SEARCH_CONFIG_SERVICE,
           useValue: new SearchConfigurationServiceStub(),
         },
       ],
@@ -115,7 +115,7 @@ describe('SearchResultsComponent', () => {
     const routerLinkQuery = linkDes.map((de) => de.injector.get(QueryParamsDirectiveStub));
 
     expect(routerLinkQuery.length).toBe(1, 'should have 1 router link with query params');
-    expect(routerLinkQuery[0].queryParams.query).toBe('"foobar"', 'query params should be "foobar"');
+    expect(routerLinkQuery[0].queryParams['test-id.query']).toBe('"foobar"', 'query params should be "foobar"');
   });
 
   it('should display link with new search where query is quoted if search result is empty', () => {
@@ -130,7 +130,7 @@ describe('SearchResultsComponent', () => {
     const routerLinkQuery = linkDes.map((de) => de.injector.get(QueryParamsDirectiveStub));
 
     expect(routerLinkQuery.length).toBe(1, 'should have 1 router link with query params');
-    expect(routerLinkQuery[0].queryParams.query).toBe('"foobar"', 'query params should be "foobar"');
+    expect(routerLinkQuery[0].queryParams['test-id.query']).toBe('"foobar"', 'query params should be "foobar"');
   });
 
   it('should add quotes around the given string', () => {

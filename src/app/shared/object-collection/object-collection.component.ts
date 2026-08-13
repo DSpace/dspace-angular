@@ -11,6 +11,7 @@ import {
   Inject,
   Input,
   OnInit,
+  Optional,
   Output,
   PLATFORM_ID,
 } from '@angular/core';
@@ -41,11 +42,13 @@ import {
   map,
 } from 'rxjs/operators';
 
+import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 import { ObjectDetailComponent } from '../object-detail/object-detail.component';
 import { ObjectGeospatialMapComponent } from '../object-geospatial-map/object-geospatial-map.component';
 import { ObjectGridComponent } from '../object-grid/object-grid.component';
 import { ThemedObjectListComponent } from '../object-list/themed-object-list.component';
 import { ObjectTableComponent } from '../object-table/object-table.component';
+import { SearchConfigurationService } from '../search/search-configuration.service';
 import { CollectionElementLinkType } from './collection-element-link.type';
 
 /**
@@ -151,7 +154,7 @@ export class ObjectCollectionComponent implements OnInit {
   @Input() showThumbnails;
 
   /**
-   * The view mode to render. When not provided, this component falls back to the legacy `view` URL parameter.
+   * The view mode to render. When not provided, this component falls back to the search-instance `view` URL parameter.
    */
   @Input() set viewMode(viewMode: ViewMode) {
     this.viewMode$.next(viewMode);
@@ -236,13 +239,16 @@ export class ObjectCollectionComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private elementRef: ElementRef,
-    @Inject(PLATFORM_ID) private platformId: any) {
+    @Inject(PLATFORM_ID) private platformId: any,
+    @Optional() @Inject(SEARCH_CONFIG_SERVICE) private searchConfigService: SearchConfigurationService,
+  ) {
   }
 
   ngOnInit(): void {
+    const viewParam = this.searchConfigService?.getCurrentSearchInstanceParam('view') ?? 'view';
     this.currentMode$ = observableCombineLatest([this.route.queryParams, this.viewMode$])
       .pipe(
-        map(([params, viewMode]) => viewMode || (isEmpty(params?.view) ? ViewMode.ListElement : params.view)),
+        map(([params, viewMode]) => viewMode || (isEmpty(params?.[viewParam]) ? ViewMode.ListElement : params[viewParam])),
         distinctUntilChanged(),
       );
     if (isPlatformBrowser(this.platformId)) {

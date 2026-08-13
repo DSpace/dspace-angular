@@ -2,6 +2,7 @@ import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  Inject,
   Input,
   OnChanges,
   OnDestroy,
@@ -38,6 +39,7 @@ import {
 import { map } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
+import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 import { SearchConfigurationService } from '../search/search-configuration.service';
 
 /**
@@ -69,7 +71,7 @@ export class RSSComponent implements OnInit, OnDestroy, OnChanges {
   constructor(private groupDataService: GroupDataService,
               private linkHeadService: LinkHeadService,
               private configurationService: ConfigurationDataService,
-              private searchConfigurationService: SearchConfigurationService,
+              @Inject(SEARCH_CONFIG_SERVICE) private searchConfigurationService: SearchConfigurationService,
               private router: Router,
               private route: ActivatedRoute,
               protected paginationService: PaginationService,
