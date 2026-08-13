@@ -334,10 +334,10 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
     }
 
     /**
-   * Show confirmation dialog for delete
-   */
-   public confirmDelete(content) {
-    if (this.totalFiles === 1) {
+     * Show confirmation dialog for delete
+     */
+    public confirmDelete(content) {
+      if (this.totalFiles === 1) {
         return;
       }
       this.modalService.open(content).result.then(
