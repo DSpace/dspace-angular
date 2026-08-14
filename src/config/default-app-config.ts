@@ -456,7 +456,6 @@ export class DefaultAppConfig implements AppConfig {
     edit: {
       undoTimeout: 10000, // 10 seconds
     },
-    showSubmitButton: false,
   };
 
   suggestion: SuggestionConfig[] = [

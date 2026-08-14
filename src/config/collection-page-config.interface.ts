@@ -9,7 +9,6 @@ export interface CollectionPageConfig extends Config {
   edit: {
     undoTimeout: number;
   };
-  showSubmitButton: boolean;
 }
 
 /**

@@ -85,6 +85,9 @@ export const MENUS = buildMenuStructure({
     EditUserAgreementMenuProvider,
   ],
   [MenuID.DSO_EDIT]: [
+    SubmitNewItemMenuProvider.onRoute(
+      MenuRoute.COLLECTION_PAGE,
+    ),
     DsoOptionMenuProvider.withSubs([
       EditItemMenuProvider.onRoute(
         MenuRoute.ITEM_PAGE,
@@ -100,9 +103,6 @@ export const MENUS = buildMenuStructure({
       ),
       AddSubComColMenuProvider.onRoute(
         MenuRoute.COMMUNITY_PAGE,
-      ),
-      SubmitNewItemMenuProvider.onRoute(
-        MenuRoute.COLLECTION_PAGE,
       ),
       WithdrawnReinstateItemMenuProvider.onRoute(
         MenuRoute.ITEM_PAGE,
