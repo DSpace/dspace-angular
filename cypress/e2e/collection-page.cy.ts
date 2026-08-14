@@ -52,7 +52,7 @@ describe('Collection Page -> Submit-item button', () => {
   it('Submit item button should exist for submitters on collection pages.', () => {
     // Open the Options menu and verify the Submit item entry is available
     //cy.get('ds-dso-edit-menu a[aria-label="Options"]').click();
-    cy.get('ds-dso-edit-menu a[href="/submit"]')
+    cy.get(`ds-dso-edit-menu a[href="/submit?collection=${Cypress.expose('DSPACE_TEST_COLLECTION')}"]`)
       .should('be.visible')
       .and('contain', 'Submit item');
   });
