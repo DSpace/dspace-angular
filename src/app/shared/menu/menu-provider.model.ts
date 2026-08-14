@@ -31,6 +31,7 @@ export interface PartialMenuSection {
   shouldPersistOnRouteChange?: boolean;
   icon?: string;
   alwaysRenderExpandable?: boolean;
+  renderIconOnly?: boolean;
 }
 
 /**

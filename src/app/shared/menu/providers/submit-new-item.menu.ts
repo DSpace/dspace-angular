@@ -48,6 +48,7 @@ export class SubmitNewItemMenuProvider extends DSpaceObjectPageMenuProvider {
               },
             } as LinkMenuItemModel,
             icon: 'plus',
+            renderIconOnly: false,
           },
         ] as PartialMenuSection[];
       }),
