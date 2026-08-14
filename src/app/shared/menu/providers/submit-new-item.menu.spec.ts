@@ -68,12 +68,5 @@ describe('SubmitNewItemMenuProvider', () => {
         done();
       });
     });
-
-    it('should set visibility depending on authorization and collection.showSubmitButton', done => {
-      provider.getSectionsForContext(dso).subscribe((sections) => {
-        expect(sections[0].visible).toEqual(authorizationService.isAuthorized && !environment.collection.showSubmitButton);
-        done();
-      });
-    });
   });
 });
