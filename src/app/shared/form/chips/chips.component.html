@@ -1,5 +1,5 @@
 <div [className]="'float-start w-100 ' + wrapperClass">
-  <div role="list" class="nav nav-pills d-flex flex-column flex-sm-row" cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="onDrop($event)">
+  <div role="list" class="nav nav-pills d-flex flex-column flex-sm-row" cdkDropList cdkDropListOrientation="mixed" (cdkDropListDropped)="onDrop($event)">
     <ng-template #tipContent>
       @for (tip of tipText; track tip) {
         <p class="text-start p-0 m-0">
@@ -8,7 +8,7 @@
       }
     </ng-template>
     @for (c of chips.getChips(); track c; let i = $index) {
-      <div role="listitem" class="nav-item me-2 mb-1"
+      <div role="listitem" class="nav-item me-2 mb-1 d-flex flew-row"
         #t="ngbTooltip"
         triggers="manual"
         [ngbTooltip]="tipContent"
