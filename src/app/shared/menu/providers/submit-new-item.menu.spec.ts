@@ -27,6 +27,7 @@ describe('SubmitNewItemMenuProvider', () => {
         },
       },
       icon: 'plus',
+      renderIconOnly: false,
     },
   ];
 
