@@ -8,7 +8,7 @@
       }
     </ng-template>
     @for (c of chips.getChips(); track c; let i = $index) {
-      <div role="listitem" class="nav-item me-2 mb-1 d-flex flew-row"
+      <div role="listitem" class="nav-item me-2 mb-1 d-flex flex-row"
         #t="ngbTooltip"
         triggers="manual"
         [ngbTooltip]="tipContent"
