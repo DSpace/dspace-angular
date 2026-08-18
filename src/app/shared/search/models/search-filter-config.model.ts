@@ -65,20 +65,6 @@ export class SearchFilterConfig implements CacheableObject {
   isOpenByDefault: boolean;
 
   /**
-   * Minimum value possible for this facet in the repository
-   */
-  // TODO: This was moved to the Facet response
-  @autoserialize
-  maxValue: string;
-
-  /**
-   * Maximum value possible for this facet in the repository
-   */
-  // TODO: This was moved to the Facet response
-  @autoserialize
-  minValue: string;
-
-  /**
    * The {@link HALLink}s for this SearchFilterConfig
    */
   @deserialize
