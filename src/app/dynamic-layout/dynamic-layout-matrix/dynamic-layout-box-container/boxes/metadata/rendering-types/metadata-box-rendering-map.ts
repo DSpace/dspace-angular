@@ -17,6 +17,7 @@ import { OpenstreetmapComponent } from './metadataGroup/openstreetmap/openstreet
 import { TableComponent } from './metadataGroup/table/table.component';
 import { OrcidComponent } from './orcid/orcid.component';
 import { MetadataBoxFieldRenderOptions } from './rendering-type.directive';
+import { SearchresultComponent } from './searchresult/searchresult.component';
 import { TagComponent } from './tag/tag.component';
 import { TextComponent } from './text/text.component';
 import { ThumbnailRenderingComponent } from './thumbnail/thumbnail.component';
@@ -44,4 +45,5 @@ export const layoutBoxesMap = new Map<FieldRenderingType, MetadataBoxFieldRender
   [FieldRenderingType.CCLICENSEFULL, { componentRef: CcLicenseLargeComponent }],
   [FieldRenderingType.CCLICENSE, { componentRef: CcLicenseSmallComponent }],
   [FieldRenderingType.OPENSTREETMAP, { componentRef: OpenstreetmapComponent }],
+  [FieldRenderingType.SEARCHRESULT, { componentRef: SearchresultComponent }],
 ]);
