@@ -11,7 +11,10 @@ import { Router } from '@angular/router';
 import { DSONameService } from '@dspace/core/breadcrumbs/dso-name.service';
 import { DSpaceObjectDataService } from '@dspace/core/data/dspace-object-data.service';
 import { PaginationService } from '@dspace/core/pagination/pagination.service';
-import { currentPath } from '@dspace/core/router/utils/route.utils';
+import {
+  currentPath,
+  SEARCH_COMPONENT_ANCHOR_ID,
+} from '@dspace/core/router/utils/route.utils';
 import { DSpaceObject } from '@dspace/core/shared/dspace-object.model';
 import { getFirstSucceededRemoteDataPayload } from '@dspace/core/shared/operators';
 import {
@@ -161,6 +164,7 @@ export class SearchFormComponent implements OnChanges {
     void this.router.navigate(this.getSearchLinkParts(), {
       queryParams: queryParams,
       queryParamsHandling: 'merge',
+      fragment: SEARCH_COMPONENT_ANCHOR_ID,
     });
   }
 

@@ -12,6 +12,7 @@ import {
 } from '@angular/router';
 import { RemoteDataBuildService } from '@dspace/core/cache/builders/remote-data-build.service';
 import { buildPaginatedList } from '@dspace/core/data/paginated-list.model';
+import { SEARCH_COMPONENT_ANCHOR_ID } from '@dspace/core/router/utils/route.utils';
 import { RouteService } from '@dspace/core/services/route.service';
 import { PageInfo } from '@dspace/core/shared/page-info.model';
 import { FacetValue } from '@dspace/core/shared/search/models/facet-value.model';
@@ -152,6 +153,7 @@ describe('SearchRangeFilterComponent', () => {
           [mockFilterConfig.paramName + maxSuffix]: [1950],
         },
         queryParamsHandling: 'merge',
+        fragment: SEARCH_COMPONENT_ANCHOR_ID,
       });
     });
   });
