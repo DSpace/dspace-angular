@@ -1,0 +1,127 @@
+<article class="pipeline-card" [class]="component().status.modifier">
+  <header class="pipeline-card__header">
+    <i class="fa {{ icon() }} pipeline-card__icon" aria-hidden="true"></i>
+
+    <h4 class="pipeline-card__name">{{ component().nameKey | translate }}</h4>
+
+    <span class="pipeline-card__state">
+      <i class="fa {{ component().status.icon }}" aria-hidden="true"></i>
+      {{ component().status.labelKey | translate }}
+    </span>
+  </header>
+
+  <p class="pipeline-card__badges">
+    <span class="pipeline-card__badge" [class.is-critical]="component().critical">
+      {{ (component().critical
+            ? 'health-page.pipeline.card.critical'
+            : 'health-page.pipeline.card.optional') | translate }}
+    </span>
+
+    @if (component().latency.kind !== 'none') {
+      <span class="pipeline-card__badge">
+        {{ 'health-page.pipeline.card.latency' | translate }}
+        <ds-pipeline-value [value]="component().latency"></ds-pipeline-value>
+      </span>
+    }
+  </p>
+
+  @if (component().role) {
+    <p class="pipeline-card__role">{{ component().role }}</p>
+  }
+
+  @if (component().message) {
+    <p class="pipeline-card__message">{{ component().message }}</p>
+  }
+
+  @if (component().optionalNotConfigured) {
+    <p class="pipeline-card__optional">
+      <i class="fa fa-info-circle" aria-hidden="true"></i>
+      {{ 'health-page.pipeline.card.optional-not-configured' | translate }}
+    </p>
+  }
+
+  <!-- Barras de proporção (memória da GPU, disco) -->
+  @for (bar of component().bars; track bar.labelKey) {
+    <div class="pipeline-bar" [class.is-warning]="bar.warning">
+      <p class="pipeline-bar__label">
+        <span>{{ bar.labelKey | translate }}</span>
+        <span class="pipeline-bar__percent">{{ bar.percent }}%</span>
+      </p>
+      <div class="pipeline-bar__track" role="progressbar"
+           [attr.aria-valuenow]="bar.percent" aria-valuemin="0" aria-valuemax="100"
+           [attr.aria-label]="bar.labelKey | translate">
+        <span class="pipeline-bar__fill" [style.width.%]="bar.percent"></span>
+      </div>
+      @if (bar.captionKey) {
+        <p class="pipeline-bar__caption">{{ bar.captionKey | translate: bar.captionParams }}</p>
+      }
+    </div>
+  }
+
+  @if (component().metrics.length > 0) {
+    <dl class="pipeline-card__metrics">
+      @for (metric of component().metrics; track metric.labelKey || metric.label) {
+        <div class="pipeline-card__metric">
+          <dt>{{ metric.labelKey ? (metric.labelKey | translate) : metric.label }}</dt>
+          <dd><ds-pipeline-value [value]="metric.value"></ds-pipeline-value></dd>
+        </div>
+      }
+    </dl>
+  }
+
+  @if (component().hint) {
+    <p class="pipeline-card__hint">
+      <i class="fa fa-info-circle" aria-hidden="true"></i>
+      <span>{{ component().hint }}</span>
+    </p>
+  }
+
+  @if (hasDetail()) {
+    <button type="button" class="btn btn-sm btn-link pipeline-card__toggle"
+            [attr.aria-expanded]="expanded()"
+            [attr.aria-controls]="'pipeline-detail-' + component().key"
+            (click)="toggle()">
+      <i class="fa {{ expanded() ? 'fa-chevron-down' : 'fa-chevron-right' }}" aria-hidden="true"></i>
+      {{ (expanded()
+            ? 'health-page.pipeline.card.hide-details'
+            : 'health-page.pipeline.card.show-details') | translate }}
+    </button>
+
+    @if (expanded()) {
+      <div class="pipeline-card__detail" [id]="'pipeline-detail-' + component().key">
+        @if (component().detail.rows.length > 0) {
+          <dl class="pipeline-detail__rows">
+            @for (row of component().detail.rows; track row.labelKey || row.label) {
+              <dt>
+                @if (row.prefix) {
+                  <span class="pipeline-detail__prefix">{{ row.prefix }} · </span>
+                }
+                {{ row.labelKey ? (row.labelKey | translate) : row.label }}
+              </dt>
+              <dd><ds-pipeline-value [value]="row.value"></ds-pipeline-value></dd>
+            }
+          </dl>
+        }
+
+        @for (group of component().detail.groups; track group.labelKey || group.label) {
+          <section class="pipeline-detail__group">
+            <h5 class="pipeline-detail__group-title">
+              {{ group.labelKey ? (group.labelKey | translate) : group.label }}
+            </h5>
+            <dl class="pipeline-detail__rows">
+              @for (row of group.rows; track row.labelKey || row.label) {
+                <dt>
+                  @if (row.prefix) {
+                    <span class="pipeline-detail__prefix">{{ row.prefix }} · </span>
+                  }
+                  {{ row.labelKey ? (row.labelKey | translate) : row.label }}
+                </dt>
+                <dd><ds-pipeline-value [value]="row.value"></ds-pipeline-value></dd>
+              }
+            </dl>
+          </section>
+        }
+      </div>
+    }
+  }
+</article>

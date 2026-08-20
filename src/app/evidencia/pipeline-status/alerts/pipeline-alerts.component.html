@@ -1,0 +1,28 @@
+<section class="pipeline-alerts" aria-labelledby="pipeline-alerts-heading">
+  <h3 class="pipeline-section-heading" id="pipeline-alerts-heading">
+    {{ 'health-page.pipeline.alerts.heading' | translate }}
+  </h3>
+
+  <ul class="pipeline-alerts__list">
+    @for (alert of alerts(); track $index) {
+      <li class="pipeline-alert" [class]="'is-' + alert.severity"
+          [attr.role]="alert.severity === 'danger' ? 'alert' : 'status'">
+        <i class="fa {{ icon(alert) }} pipeline-alert__icon" aria-hidden="true"></i>
+
+        <div class="pipeline-alert__body">
+          <p class="pipeline-alert__text">
+            @if (alert.textKey) {
+              {{ alert.textKey | translate: alert.textParams }}
+            } @else {
+              {{ alert.text }}
+            }
+          </p>
+
+          @if (alert.hint) {
+            <p class="pipeline-alert__hint">{{ alert.hint }}</p>
+          }
+        </div>
+      </li>
+    }
+  </ul>
+</section>

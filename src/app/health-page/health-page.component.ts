@@ -18,6 +18,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 import { take } from 'rxjs/operators';
 
+import { PipelineStatusComponent } from '../evidencia/pipeline-status/pipeline-status.component';
 import { AlertComponent } from '../shared/alert/alert.component';
 import { AlertType } from '../shared/alert/alert-type';
 import { HealthService } from './health.service';
@@ -38,6 +39,7 @@ import { HealthPanelComponent } from './health-panel/health-panel.component';
     NgbNavItem,
     NgbNavLink,
     NgbNavOutlet,
+    PipelineStatusComponent,
     TranslateModule,
   ],
 })

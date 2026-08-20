@@ -1,0 +1,56 @@
+<header class="pipeline-header" [class]="header().status.modifier">
+  <div class="pipeline-header__main">
+    <h2 class="pipeline-header__title">{{ 'health-page.pipeline.heading' | translate }}</h2>
+
+    <p class="pipeline-header__state">
+      <i class="fa {{ header().status.icon }}" aria-hidden="true"></i>
+      <span class="pipeline-header__state-label">{{ header().status.labelKey | translate }}</span>
+    </p>
+
+    @if (header().allCriticalOk) {
+      <p class="pipeline-header__reassurance">
+        {{ 'health-page.pipeline.all-critical-ok' | translate }}
+      </p>
+    } @else {
+      <p class="pipeline-header__reassurance pipeline-header__reassurance--warn">
+        {{ 'health-page.pipeline.critical-problem' | translate }}
+      </p>
+    }
+  </div>
+
+  <!-- Contagem por estado: número + rótulo, sem depender de cor -->
+  <ul class="pipeline-header__counts">
+    @for (item of header().summary; track item.labelKey) {
+      <li class="pipeline-header__count" [class]="item.modifier">
+        <span class="pipeline-header__count-value">{{ item.count }}</span>
+        <span class="pipeline-header__count-label">{{ item.labelKey | translate }}</span>
+      </li>
+    }
+  </ul>
+
+  <div class="pipeline-header__meta">
+    <p class="pipeline-header__checked">
+      @if (header().generatedAt) {
+        <span>
+          {{ 'health-page.pipeline.checked-at' | translate }}
+          <time [attr.datetime]="header().generatedAt">{{ header().generatedAt | date:'medium' }}</time>
+        </span>
+      }
+      <span class="pipeline-header__age">{{ header().ageKey | translate: header().ageParams }}</span>
+      <span class="pipeline-header__took">
+        {{ 'health-page.pipeline.took' | translate }}
+        <ds-pipeline-value [value]="header().tookMs"></ds-pipeline-value>
+      </span>
+    </p>
+
+    <button type="button" class="btn btn-sm btn-outline-primary pipeline-header__refresh"
+            [dsBtnDisabled]="refreshing()" (click)="refresh.emit()">
+      @if (refreshing()) {
+        <span class="spinner-border spinner-border-sm me-1" aria-hidden="true"></span>
+      } @else {
+        <i class="fa fa-sync-alt me-1" aria-hidden="true"></i>
+      }
+      {{ 'health-page.pipeline.refresh' | translate }}
+    </button>
+  </div>
+</header>

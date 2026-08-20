@@ -32,6 +32,7 @@ import {
   INotificationBoardOptions,
   NotificationAnimationsType,
 } from './notifications-config.interfaces';
+import { PipelineStatusConfig } from './pipeline-status.config';
 import { QualityAssuranceConfig } from './quality-assurance.config';
 import { RestRequestMethod } from './rest-request-method';
 import { SearchConfig } from './search-page-config.interface';
@@ -711,6 +712,21 @@ export class DefaultAppConfig implements AppConfig {
   };
 
   matomo: MatomoConfig = {};
+
+  /**
+   * Painel de infraestrutura evidencIA/RDAPP.
+   *
+   * `baseUrl` default e `/` (mesma origem) — nunca o host de uma instituicao
+   * especifica. Atencao: um default vazio (`''`) faria `overrideWithEnvironment`
+   * ignorar `DSPACE_PIPELINESTATUS_BASEURL` em silencio (`isNotEmpty('')` e false).
+   */
+  pipelineStatus: PipelineStatusConfig = {
+    baseUrl: '/',
+    statusPath: '/api/status',
+    timeoutMs: 20000,
+    probe: false,
+    artifacts: true,
+  };
 
   // Leaflet tile providers and other configurable attributes
   geospatialMapViewer: GeospatialMapConfig = {
