@@ -23,6 +23,7 @@ import { AlertComponent } from '../shared/alert/alert.component';
 import { AlertType } from '../shared/alert/alert-type';
 import { HealthService } from './health.service';
 import { HealthInfoComponent } from './health-info/health-info.component';
+import { HealthIngestionComponent } from './ingestion/health-ingestion.component';
 import { HealthPanelComponent } from './health-panel/health-panel.component';
 
 @Component({
@@ -33,6 +34,7 @@ import { HealthPanelComponent } from './health-panel/health-panel.component';
     AlertComponent,
     AsyncPipe,
     HealthInfoComponent,
+    HealthIngestionComponent,
     HealthPanelComponent,
     NgbNav,
     NgbNavContent,

@@ -1,0 +1,48 @@
+<div class="ingestion-pagination">
+  <p class="ingestion-pagination__range" role="status">
+    {{ 'health-page.ingestion.pagination.range' | translate: {
+      from: page().from, to: page().to, total: page().total
+    } }}
+    @if (truncated()) {
+      <span class="ingestion-pagination__truncated">
+        {{ 'health-page.ingestion.pagination.truncated' | translate: { limit: limit() } }}
+      </span>
+    }
+  </p>
+
+  <div class="ingestion-pagination__controls">
+    <label class="ingestion-pagination__size-label" [attr.for]="sectionId() + '-page-size'">
+      {{ 'health-page.ingestion.pagination.size' | translate }}
+    </label>
+    <select class="form-select form-select-sm ingestion-pagination__size"
+            [id]="sectionId() + '-page-size'" (change)="onSizeChange($event)">
+      @for (size of sizes; track size) {
+        <option [value]="size" [selected]="page().size === size">{{ size }}</option>
+      }
+    </select>
+
+    <nav [attr.aria-label]="'health-page.ingestion.pagination.nav' | translate">
+      <button type="button" class="btn btn-sm btn-outline-secondary"
+              [dsBtnDisabled]="isFirst()"
+              [attr.aria-label]="'health-page.ingestion.pagination.first' | translate"
+              (click)="go(1)">&#x00AB;</button>
+      <button type="button" class="btn btn-sm btn-outline-secondary"
+              [dsBtnDisabled]="isFirst()"
+              [attr.aria-label]="'health-page.ingestion.pagination.previous' | translate"
+              (click)="go(page().page - 1)">&#x2039;</button>
+      <span class="ingestion-pagination__page">
+        {{ 'health-page.ingestion.pagination.page' | translate: {
+          page: page().page, total: page().totalPages
+        } }}
+      </span>
+      <button type="button" class="btn btn-sm btn-outline-secondary"
+              [dsBtnDisabled]="isLast()"
+              [attr.aria-label]="'health-page.ingestion.pagination.next' | translate"
+              (click)="go(page().page + 1)">&#x203A;</button>
+      <button type="button" class="btn btn-sm btn-outline-secondary"
+              [dsBtnDisabled]="isLast()"
+              [attr.aria-label]="'health-page.ingestion.pagination.last' | translate"
+              (click)="go(page().totalPages)">&#x00BB;</button>
+    </nav>
+  </div>
+</div>

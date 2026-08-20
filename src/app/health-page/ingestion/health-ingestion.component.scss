@@ -1,0 +1,89 @@
+.ingestion {
+  &__toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 0.75rem 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  &__summary {
+    flex: 1 1 20rem;
+    min-width: 0;
+    margin: 0;
+    color: var(--bs-secondary-color, #6c757d);
+    font-size: 0.875rem;
+    text-wrap: pretty;
+  }
+
+  &__controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  &__refresh {
+    touch-action: manipulation;
+  }
+
+  &__expand-all {
+    padding: 0;
+    font-size: 0.8125rem;
+  }
+
+  &__updated {
+    color: var(--bs-secondary-color, #6c757d);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  // Grade responsiva de cards: uma coluna no celular, tantas quantas couberem
+  // a partir de ~22rem.
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 22rem), 1fr));
+    gap: 1rem;
+  }
+
+  // Reserva a altura da tabela adiada para o conteúdo não empurrar a página.
+  // Como o corpo do painel só existe depois da primeira abertura, o chunk da
+  // tabela também só é baixado nesse momento.
+  &__table-placeholder {
+    min-height: 12rem;
+    border: 1px solid var(--bs-border-color, #dee2e6);
+    border-radius: var(--bs-border-radius, 0.375rem);
+  }
+
+  // Indicador de "vivo" ao lado da última atualização
+  .ingestion-pulse {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    margin-right: 4px;
+    border-radius: 50%;
+    background: var(--bs-secondary-color, #adb5bd);
+    vertical-align: middle;
+
+    &.is-on {
+      background: var(--bs-success, #2d9d4e);
+      animation: ingestion-pulse 1.6s ease-in-out infinite;
+    }
+  }
+}
+
+@keyframes ingestion-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(45, 157, 78, 0.5); }
+  50% { box-shadow: 0 0 0 4px rgba(45, 157, 78, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ingestion .ingestion-pulse.is-on {
+    animation: none;
+  }
+
+  .ingestion .spinner-border {
+    animation: none;
+  }
+}

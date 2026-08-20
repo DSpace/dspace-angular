@@ -1,0 +1,147 @@
+<div ngbAccordion class="ingestion-panel" [animation]="animated">
+  <!-- Sem destroyOnHide (ao contrário das seções de lista): o formulário é pequeno e
+       recolher não deve apagar o ID que a pessoa digitou. -->
+  <div ngbAccordionItem="lookup" [collapsed]="collapsed()"
+       (show)="openChange.emit(true)" (hide)="openChange.emit(false)">
+
+    <h2 ngbAccordionHeader class="ingestion-panel__header">
+      <button ngbAccordionButton class="ingestion-panel__button">
+        <span class="ingestion-panel__title">{{ 'health-page.ingestion.lookup.heading' | translate }}</span>
+
+        <!-- Recolhido, o cabeçalho lembra qual job está em consulta -->
+        @if (submittedId()) {
+          <span class="ingestion-panel__badge">
+            <code translate="no">{{ submittedId() }}</code>
+          </span>
+        }
+      </button>
+    </h2>
+
+    <div ngbAccordionCollapse>
+      <div ngbAccordionBody>
+        <ng-template>
+        <div class="ingestion-lookup">
+          <p class="ingestion-lookup__summary">{{ 'health-page.ingestion.lookup.summary' | translate }}</p>
+
+          <form class="ingestion-lookup__form" (submit)="onSubmit($event)">
+            <div class="ingestion-lookup__field">
+              <label class="form-label" for="ingestion-job-id">
+                {{ 'health-page.ingestion.lookup.label' | translate }}
+              </label>
+              <input #jobIdBox id="ingestion-job-id" class="form-control"
+                     type="text" name="ingestion-job-id" inputmode="text"
+                     autocomplete="off" spellcheck="false"
+                     [value]="initialJobId()"
+                     [attr.aria-invalid]="invalid()"
+                     [attr.aria-describedby]="invalid() ? 'ingestion-job-id-error' : null"
+                     [placeholder]="'health-page.ingestion.lookup.placeholder' | translate">
+              @if (invalid()) {
+                <p class="ingestion-lookup__field-error" id="ingestion-job-id-error" role="alert">
+                  {{ 'health-page.ingestion.lookup.required' | translate }}
+                </p>
+              }
+            </div>
+
+            <div class="ingestion-lookup__buttons">
+              <!-- Habilitado até a requisição começar; a validação acontece no submit. -->
+              <button type="submit" class="btn btn-primary" [dsBtnDisabled]="loading()">
+                @if (loading()) {
+                  <span class="spinner-border spinner-border-sm me-1" aria-hidden="true"></span>
+                  {{ 'health-page.ingestion.lookup.loading' | translate }}
+                } @else {
+                  {{ 'health-page.ingestion.lookup.button' | translate }}
+                }
+              </button>
+              @if (submittedId()) {
+                <button type="button" class="btn btn-outline-secondary" (click)="clear()">
+                  {{ 'health-page.ingestion.lookup.clear' | translate }}
+                </button>
+              }
+            </div>
+          </form>
+
+          <div class="ingestion-lookup__states" role="status">
+            @if (loading()) {
+              <div class="ingestion-lookup__skeleton" aria-hidden="true">
+                <span class="ingestion-skeleton-line ingestion-skeleton-line--lg"></span>
+                <span class="ingestion-skeleton-line"></span>
+              </div>
+            } @else if (outcome().notFound) {
+              <div class="alert alert-info py-2 mb-0">
+                {{ 'health-page.ingestion.lookup.notfound' | translate: { id: submittedId() } }}
+              </div>
+            } @else if (outcome().errorKey) {
+              <div class="alert alert-danger py-2 mb-0">
+                <p class="mb-2">{{ outcome().errorKey | translate }}</p>
+                <button type="button" class="btn btn-sm btn-outline-danger" (click)="retry()">
+                  {{ 'health-page.ingestion.state.retry-now' | translate }}
+                </button>
+              </div>
+            }
+          </div>
+
+          @if (outcome().status) {
+            <div class="card ingestion-lookup__card">
+              <div class="card-body">
+                <div class="ingestion-lookup__job">
+                  <span [class]="badgeClass(outcome().status.status)">
+                    {{ statusKey(outcome().status.status) | translate }}
+                  </span>
+                  <h3 class="ingestion-lookup__job-title" [title]="outcome().status.filename || outcome().status.job_id">
+                    {{ outcome().status.filename || outcome().status.job_id }}
+                  </h3>
+                  <code class="small" translate="no">{{ outcome().status.job_id }}</code>
+                </div>
+
+                <ds-ingestion-stepper [job]="outcome().status"></ds-ingestion-stepper>
+
+                @if (outcome().status.error) {
+                  <p class="ingestion-lookup__error small text-danger">{{ outcome().status.error }}</p>
+                }
+
+                <!-- Job válido, resultado indisponível (ainda processando ou falhou) -->
+                @if (outcome().resultKey) {
+                  <p class="ingestion-lookup__unavailable" role="status">
+                    {{ outcome().resultKey | translate }}
+                  </p>
+                }
+
+                @if (outcome().result?.documents?.length) {
+                  <hr>
+                  <h4 class="h6">{{ 'health-page.ingestion.lookup.result-heading' | translate }}</h4>
+                  <div class="table-responsive">
+                    <table class="table table-sm mb-0">
+                      <thead>
+                        <tr>
+                          <th scope="col">{{ 'health-page.ingestion.lookup.doc' | translate }}</th>
+                          <th scope="col">{{ 'health-page.ingestion.col.status' | translate }}</th>
+                          <th scope="col" class="text-end">{{ 'health-page.ingestion.lookup.chunks' | translate }}</th>
+                          <th scope="col" class="text-end">{{ 'health-page.ingestion.lookup.indexed' | translate }}</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        @for (doc of outcome().result.documents; track doc.document_id) {
+                          <tr>
+                            <td><code class="small" translate="no">{{ doc.document_id }}</code></td>
+                            <td><span [class]="badgeClass(doc.status)">{{ statusKey(doc.status) | translate }}</span></td>
+                            <td class="text-end ingestion-lookup__num">{{ doc.chunk_count ?? '—' }}</td>
+                            <td class="text-end ingestion-lookup__num">{{ doc.indexed_count ?? '—' }}</td>
+                          </tr>
+                        }
+                      </tbody>
+                    </table>
+                  </div>
+                } @else if (outcome().result && !outcome().result.documents?.length) {
+                  <p class="ingestion-lookup__unavailable" role="status">
+                    {{ 'health-page.ingestion.lookup.result-empty' | translate }}
+                  </p>
+                }
+              </div>
+            </div>
+          }
+        </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>

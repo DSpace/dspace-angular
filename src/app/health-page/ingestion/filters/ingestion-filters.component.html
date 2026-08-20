@@ -1,0 +1,111 @@
+<form class="ingestion-filters" role="search" (submit)="onSubmit($event)">
+  <h2 class="visually-hidden">{{ 'health-page.ingestion.filters.heading' | translate }}</h2>
+
+  <div class="ingestion-filters__row">
+    <div class="ingestion-filters__field ingestion-filters__field--search">
+      <label class="form-label" for="ingestion-search">
+        {{ 'health-page.ingestion.filters.q.label' | translate }}
+      </label>
+      <input #searchBox id="ingestion-search" class="form-control form-control-sm"
+             type="search" name="ingestion-q" inputmode="search"
+             autocomplete="off" spellcheck="false"
+             [placeholder]="'health-page.ingestion.filters.q.placeholder' | translate"
+             (input)="onSearchInput($event)">
+    </div>
+
+    <div class="ingestion-filters__field">
+      <label class="form-label" for="ingestion-status">
+        {{ 'health-page.ingestion.filters.status.label' | translate }}
+      </label>
+      <select id="ingestion-status" class="form-select form-select-sm" (change)="onStatusChange($event)">
+        <option value="" [selected]="filters().status === ''">
+          {{ 'health-page.ingestion.filters.status.all' | translate }}
+        </option>
+        @for (status of statuses; track status) {
+          <option [value]="status" [selected]="filters().status === status">
+            {{ 'health-page.ingestion.status.' + status | translate }}
+          </option>
+        }
+      </select>
+    </div>
+
+    <div class="ingestion-filters__field">
+      <label class="form-label" for="ingestion-stage">
+        {{ 'health-page.ingestion.filters.stage.label' | translate }}
+      </label>
+      <select id="ingestion-stage" class="form-select form-select-sm" (change)="onStageChange($event)">
+        <option value="" [selected]="filters().stage === ''">
+          {{ 'health-page.ingestion.filters.stage.all' | translate }}
+        </option>
+        @for (stage of stages; track stage) {
+          <option [value]="stage" [selected]="filters().stage === stage">
+            {{ 'health-page.ingestion.stage.' + stage | translate }}
+          </option>
+        }
+      </select>
+    </div>
+
+    <div class="ingestion-filters__field">
+      <label class="form-label" for="ingestion-sort">
+        {{ 'health-page.ingestion.filters.sort.label' | translate }}
+      </label>
+      <select id="ingestion-sort" class="form-select form-select-sm" (change)="onSortChange($event)">
+        @for (sort of sorts; track sort) {
+          <option [value]="sort" [selected]="filters().sort === sort">
+            {{ 'health-page.ingestion.filters.sort.' + sort | translate }}
+          </option>
+        }
+      </select>
+    </div>
+
+    <div class="ingestion-filters__field">
+      <label class="form-label" for="ingestion-limit">
+        {{ 'health-page.ingestion.filters.limit.label' | translate }}
+      </label>
+      <select id="ingestion-limit" class="form-select form-select-sm"
+              [attr.aria-describedby]="'ingestion-limit-help'" (change)="onLimitChange($event)">
+        @for (option of limits; track option) {
+          <option [value]="option" [selected]="limit() === option">{{ option }}</option>
+        }
+      </select>
+    </div>
+  </div>
+
+  <!-- A API só aceita `limit`: deixar o recorte explícito evita a leitura de que
+       a lista é completa. -->
+  <p id="ingestion-limit-help" class="ingestion-filters__help">
+    {{ 'health-page.ingestion.filters.limit.help' | translate }}
+  </p>
+
+  @if (chips().length > 0) {
+    <div class="ingestion-filters__active">
+      <span class="ingestion-filters__active-label">
+        {{ 'health-page.ingestion.filters.active' | translate }}
+      </span>
+
+      <ul class="ingestion-filters__chips">
+        @for (chip of chips(); track chip.key) {
+          <li>
+            <button type="button" class="ingestion-chip"
+                    [attr.aria-label]="('health-page.ingestion.filters.clear-one' | translate) + ': ' + (chipLabelKey(chip) | translate)"
+                    (click)="removeChip(chip)">
+              <span class="ingestion-chip__label">
+                {{ chipLabelKey(chip) | translate }}:
+                @if (chip.translated) {
+                  {{ chip.value | translate }}
+                } @else {
+                  <span translate="no">{{ chip.value }}</span>
+                }
+              </span>
+              <span class="ingestion-chip__remove" aria-hidden="true">&#x2715;</span>
+            </button>
+          </li>
+        }
+      </ul>
+
+      <button type="button" class="btn btn-sm btn-link ingestion-filters__clear-all" (click)="clearAll()">
+        {{ 'health-page.ingestion.filters.clear-all' | translate }}
+      </button>
+    </div>
+  }
+</form>

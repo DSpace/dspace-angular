@@ -1,0 +1,113 @@
+.ingestion-filters {
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--bs-border-color, #dee2e6);
+  border-radius: var(--bs-border-radius, 0.375rem);
+  background: var(--bs-tertiary-bg, #f8f9fa);
+
+  &__row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+    gap: 0.75rem 1rem;
+  }
+
+  &__field {
+    min-width: 0;
+
+    // Windows/dark mode: select nativo precisa de cores explícitas.
+    .form-select {
+      background-color: var(--bs-body-bg, #fff);
+      color: var(--bs-body-color, #212529);
+    }
+  }
+
+  &__field--search {
+    grid-column: span 2;
+    min-width: 12rem;
+  }
+
+  .form-label {
+    margin-bottom: 0.25rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+  }
+
+  &__help {
+    margin: 0.75rem 0 0;
+    font-size: 0.75rem;
+    color: var(--bs-secondary-color, #6c757d);
+  }
+
+  &__active {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px dashed var(--bs-border-color, #dee2e6);
+  }
+
+  &__active-label {
+    font-size: 0.8125rem;
+    font-weight: 600;
+  }
+
+  &__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  &__clear-all {
+    padding: 0;
+    font-size: 0.8125rem;
+  }
+}
+
+.ingestion-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  max-width: 18rem;
+  padding: 0.125rem 0.5rem;
+  border: 1px solid var(--bs-primary, #1351b4);
+  border-radius: 999px;
+  background: var(--bs-body-bg, #fff);
+  color: var(--bs-primary, #1351b4);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  touch-action: manipulation;
+  transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out;
+
+  &__label {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__remove {
+    flex: 0 0 auto;
+    font-weight: 700;
+  }
+
+  &:hover {
+    background: var(--bs-primary, #1351b4);
+    color: var(--bs-body-bg, #fff);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--bs-primary, #1351b4);
+    outline-offset: 2px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ingestion-chip {
+    transition: none;
+  }
+}
