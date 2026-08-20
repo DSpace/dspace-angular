@@ -1,0 +1,43 @@
+<section class="pipeline-flow" aria-labelledby="pipeline-flow-heading">
+  <h3 class="pipeline-section-heading" id="pipeline-flow-heading">
+    {{ 'health-page.pipeline.flow.heading' | translate }}
+  </h3>
+  <p class="pipeline-flow__intro">{{ 'health-page.pipeline.flow.intro' | translate }}</p>
+
+  <ol class="pipeline-flow__steps">
+    @for (step of steps(); track step.key; let last = $last) {
+      <li class="pipeline-flow__step" [class]="step.status.modifier" [class.is-last]="last">
+        <div class="pipeline-flow__card">
+          <p class="pipeline-flow__head">
+            <i class="fa {{ step.icon }} pipeline-flow__icon" aria-hidden="true"></i>
+            <span class="pipeline-flow__name">{{ step.nameKey | translate }}</span>
+          </p>
+
+          <p class="pipeline-flow__state">
+            <i class="fa {{ step.status.icon }}" aria-hidden="true"></i>
+            {{ step.status.labelKey | translate }}
+          </p>
+
+          <p class="pipeline-flow__role">{{ step.roleKey | translate }}</p>
+
+          @if (step.metrics.length > 0) {
+            <dl class="pipeline-flow__metrics">
+              @for (metric of step.metrics; track metric.labelKey || metric.label) {
+                <div class="pipeline-flow__metric">
+                  <dt>{{ metric.labelKey ? (metric.labelKey | translate) : metric.label }}</dt>
+                  <dd><ds-pipeline-value [value]="metric.value"></ds-pipeline-value></dd>
+                </div>
+              }
+            </dl>
+          }
+        </div>
+
+        @if (!last) {
+          <span class="pipeline-flow__connector" aria-hidden="true">
+            <i class="fa fa-arrow-right"></i>
+          </span>
+        }
+      </li>
+    }
+  </ol>
+</section>

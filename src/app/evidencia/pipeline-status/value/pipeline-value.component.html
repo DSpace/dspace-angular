@@ -1,0 +1,10 @@
+@if (value().key) {
+  {{ value().key | translate }}
+} @else if (value().kind === 'text') {
+  <span translate="no">{{ value().text }}</span>
+} @else if (value().kind === 'none') {
+  <span aria-hidden="true">—</span>
+  <span class="visually-hidden">{{ 'health-page.pipeline.value.unknown' | translate }}</span>
+} @else {
+  {{ formatted() }}
+}

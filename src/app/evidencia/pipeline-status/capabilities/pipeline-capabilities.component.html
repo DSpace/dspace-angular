@@ -1,0 +1,36 @@
+<section class="pipeline-capabilities" aria-labelledby="pipeline-capabilities-heading">
+  <h3 class="pipeline-section-heading" id="pipeline-capabilities-heading">
+    {{ 'health-page.pipeline.capabilities.heading' | translate }}
+  </h3>
+
+  <ul class="pipeline-capabilities__list">
+    @for (capability of capabilities(); track capability.key) {
+      <li class="pipeline-capability" [class.is-ok]="capability.available"
+          [class.is-down]="!capability.available">
+        <p class="pipeline-capability__head">
+          <i class="fa {{ capability.icon }} pipeline-capability__icon" aria-hidden="true"></i>
+          <span class="pipeline-capability__name">{{ capability.nameKey | translate }}</span>
+          <span class="pipeline-capability__state">
+            <i class="fa {{ capability.available ? 'fa-check-circle' : 'fa-times-circle' }}" aria-hidden="true"></i>
+            {{ (capability.available
+                  ? 'health-page.pipeline.value.available'
+                  : 'health-page.pipeline.value.unavailable') | translate }}
+          </span>
+        </p>
+
+        @if (capability.description) {
+          <p class="pipeline-capability__description">{{ capability.description }}</p>
+        }
+
+        @if (capability.blockedBy.length > 0) {
+          <p class="pipeline-capability__blocked">
+            {{ 'health-page.pipeline.capabilities.blocked-by' | translate }}
+            @for (dependency of capability.blockedBy; track dependency) {
+              <code translate="no">{{ dependency }}</code>
+            }
+          </p>
+        }
+      </li>
+    }
+  </ul>
+</section>

@@ -1,0 +1,100 @@
+<div class="pipeline-status">
+
+  <!-- Estados assíncronos anunciados uma vez por transição -->
+  <p class="visually-hidden" role="status" aria-live="polite">
+    @if (announcement()) {
+      {{ announcement() | translate }}
+    }
+  </p>
+
+  <!-- Carregamento inicial: esqueleto com a forma do painel -->
+  @if (firstLoad()) {
+    <div class="pipeline-skeleton" aria-hidden="true">
+      <div class="pipeline-skeleton__header"></div>
+      <div class="pipeline-skeleton__row">
+        <span class="pipeline-skeleton__box"></span>
+        <span class="pipeline-skeleton__box"></span>
+        <span class="pipeline-skeleton__box"></span>
+      </div>
+      <div class="pipeline-skeleton__flow"></div>
+      <div class="pipeline-skeleton__grid">
+        <span class="pipeline-skeleton__card"></span>
+        <span class="pipeline-skeleton__card"></span>
+        <span class="pipeline-skeleton__card"></span>
+        <span class="pipeline-skeleton__card"></span>
+      </div>
+    </div>
+  }
+
+  <!-- Falha sem resposta anterior: mensagem amigável e nova tentativa -->
+  @if (blankError()) {
+    <div class="pipeline-error" role="alert">
+      <i class="fa fa-times-circle pipeline-error__icon" aria-hidden="true"></i>
+      <div>
+        <h2 class="pipeline-error__title">{{ 'health-page.pipeline.error.heading' | translate }}</h2>
+        <p class="pipeline-error__text">{{ errorKey() | translate }}</p>
+        <button type="button" class="btn btn-sm btn-outline-primary" (click)="reload()">
+          <i class="fa fa-sync-alt me-1" aria-hidden="true"></i>
+          {{ 'health-page.pipeline.retry' | translate }}
+        </button>
+      </div>
+    </div>
+  }
+
+  @if (data()) {
+    <!-- 1. Saúde geral -->
+    <ds-pipeline-health-header [header]="header()" [refreshing]="refreshing()"
+                              (refresh)="reload()"></ds-pipeline-health-header>
+
+    <!-- A atualização falhou, mas o que está na tela continua sendo a última
+         resposta válida — dizer isso é melhor do que esvaziar o painel. -->
+    @if (staleData()) {
+      <div class="pipeline-stale" role="status">
+        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+        <div>
+          <p class="mb-1">{{ 'health-page.pipeline.error.stale' | translate }}</p>
+          <p class="mb-2 small">{{ errorKey() | translate }}</p>
+          <button type="button" class="btn btn-sm btn-outline-secondary" (click)="reload()">
+            {{ 'health-page.pipeline.retry' | translate }}
+          </button>
+        </div>
+      </div>
+    }
+
+    <!-- 5. Alertas (só quando há algo a dizer) -->
+    @if (alerts().length > 0) {
+      <ds-pipeline-alerts [alerts]="alerts()"></ds-pipeline-alerts>
+    }
+
+    <!-- 2. Capacidades -->
+    @if (capabilities().length > 0) {
+      <ds-pipeline-capabilities [capabilities]="capabilities()"></ds-pipeline-capabilities>
+    }
+
+    <!-- 3. Fluxo do pipeline -->
+    @if (flow().length > 0) {
+      <ds-pipeline-flow [steps]="flow()"></ds-pipeline-flow>
+    }
+
+    <!-- 4. Grade de componentes -->
+    @if (components().length > 0) {
+      <section class="pipeline-components" aria-labelledby="pipeline-components-heading">
+        <h3 class="pipeline-section-heading" id="pipeline-components-heading">
+          {{ 'health-page.pipeline.components.heading' | translate }}
+        </h3>
+        <div class="pipeline-components__grid">
+          @for (component of components(); track component.key) {
+            <ds-pipeline-component-card [component]="component"></ds-pipeline-component-card>
+          }
+        </div>
+      </section>
+    } @else {
+      <p class="pipeline-empty" role="status">{{ 'health-page.pipeline.components.empty' | translate }}</p>
+    }
+
+    <!-- 6. Configuração técnica -->
+    @if (config().length > 0) {
+      <ds-pipeline-config [groups]="config()"></ds-pipeline-config>
+    }
+  }
+</div>

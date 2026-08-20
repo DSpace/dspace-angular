@@ -20,6 +20,14 @@
               </div>
             </ng-template>
           </li>
+          <li [ngbNavItem]="'pipeline'" role="presentation">
+            <a data-test="health-page.pipeline-tab" ngbNavLink>{{'health-page.pipeline-tab' | translate}}</a>
+            <ng-template ngbNavContent>
+              <div id="pipeline">
+                <ds-pipeline-status></ds-pipeline-status>
+              </div>
+            </ng-template>
+          </li>
         </ul>
         <div [ngbNavOutlet]="nav" class="mt-2"></div>
       </div>

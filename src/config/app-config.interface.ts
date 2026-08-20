@@ -30,6 +30,7 @@ import { MarkdownConfig } from './markdown-config.interface';
 import { MatomoConfig } from './matomo-config.interface';
 import { MediaViewerConfig } from './media-viewer-config.interface';
 import { INotificationBoardOptions } from './notifications-config.interfaces';
+import { PipelineStatusConfig } from './pipeline-status.config';
 import { QualityAssuranceConfig } from './quality-assurance.config';
 import { SearchConfig } from './search-page-config.interface';
 import { SearchResultConfig } from './search-result-config.interface';
@@ -71,6 +72,11 @@ interface AppConfig extends Config {
   notifyMetrics: AdminNotifyMetricsRow[];
   liveRegion: LiveRegionConfig;
   matomo?: MatomoConfig;
+  /**
+   * Painel de infraestrutura evidencIA/RDAPP. Opcional: sem a secao, o painel usa
+   * os defaults (mesma origem) e informa o erro na tela.
+   */
+  pipelineStatus?: PipelineStatusConfig;
   geospatialMapViewer: GeospatialMapConfig;
   accessibility: AccessibilitySettingsConfig;
   layout: LayoutConfig;
