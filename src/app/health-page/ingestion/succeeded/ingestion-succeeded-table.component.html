@@ -1,0 +1,41 @@
+<div class="table-responsive ingestion-table">
+  <table class="table table-sm align-middle">
+    <caption class="visually-hidden">{{ 'health-page.ingestion.succeeded.heading' | translate }}</caption>
+    <thead>
+      <tr>
+        <th scope="col">{{ 'health-page.ingestion.col.job' | translate }}</th>
+        <th scope="col">{{ 'health-page.ingestion.col.file' | translate }}</th>
+        <th scope="col">{{ 'health-page.ingestion.col.item' | translate }}</th>
+        <th scope="col" class="text-end">{{ 'health-page.ingestion.lookup.chunks' | translate }}</th>
+        <th scope="col" class="text-end">{{ 'health-page.ingestion.lookup.indexed' | translate }}</th>
+        <th scope="col">{{ 'health-page.ingestion.col.finished' | translate }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (job of rows(); track job.job_id) {
+        <tr>
+          <td><code class="small" translate="no" [title]="job.job_id">{{ job.job_id }}</code></td>
+          <td class="ingestion-table__file" [title]="job.filename">{{ job.filename || '—' }}</td>
+          <td>
+            @if (job.item_uuid) {
+              <a [routerLink]="['/items', job.item_uuid]">
+                <code class="small" translate="no">{{ job.item_uuid }}</code>
+              </a>
+            } @else {
+              —
+            }
+          </td>
+          <td class="text-end ingestion-table__num">
+            {{ job.chunk_count !== undefined ? (job.chunk_count | number) : '—' }}
+          </td>
+          <td class="text-end ingestion-table__num">
+            {{ job.indexed_count !== undefined ? (job.indexed_count | number) : '—' }}
+          </td>
+          <td class="ingestion-table__num text-nowrap">
+            <small>{{ job.updated_at ? (job.updated_at | date:'short') : '—' }}</small>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

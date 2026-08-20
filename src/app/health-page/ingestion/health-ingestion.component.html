@@ -1,0 +1,147 @@
+<div id="ingestion" class="ingestion">
+
+  <!-- ============================ Barra de controle =========================== -->
+  <div class="ingestion__toolbar">
+    <p class="ingestion__summary">{{ 'health-page.ingestion.summary' | translate }}</p>
+
+    <div class="ingestion__controls">
+      <button type="button" class="btn btn-sm btn-outline-secondary ingestion__refresh"
+              [dsBtnDisabled]="busy() || !anyListOpen()" (click)="refreshNow()">
+        @if (busy()) {
+          <span class="spinner-border spinner-border-sm me-1" aria-hidden="true"></span>
+        } @else {
+          <span class="me-1" aria-hidden="true">&#x21bb;</span>
+        }
+        {{ 'health-page.ingestion.refresh-now' | translate }}
+      </button>
+
+      <div class="form-check form-switch mb-0">
+        <input class="form-check-input" type="checkbox" role="switch" id="ingestion-autoreload"
+               [checked]="autoReload()" (change)="toggleAutoReload()">
+        <label class="form-check-label" for="ingestion-autoreload">
+          {{ 'health-page.ingestion.autoreload' | translate }}
+        </label>
+      </div>
+
+      <button type="button" class="btn btn-sm btn-link ingestion__expand-all" (click)="toggleAllPanels()">
+        @if (allExpanded()) {
+          {{ 'health-page.ingestion.panel.collapse-all' | translate }}
+        } @else {
+          {{ 'health-page.ingestion.panel.expand-all' | translate }}
+        }
+      </button>
+
+      <small class="ingestion__updated" aria-hidden="true">
+        <span class="ingestion-pulse" [class.is-on]="autoReload()"></span>
+        @if (lastUpdated()) {
+          {{ 'health-page.ingestion.updated-at' | translate }} {{ lastUpdated() | date:'mediumTime' }}
+        } @else {
+          {{ 'health-page.ingestion.never-updated' | translate }}
+        }
+      </small>
+    </div>
+  </div>
+
+  <!-- Anúncio só das atualizações manuais: um live region ligado ao ciclo
+       automático repetiria a cada 5 segundos. -->
+  <p class="visually-hidden" role="status">
+    @if (announcement()) {
+      {{ announcement() | translate }}
+    }
+  </p>
+
+  <!-- Falha de rede/CORS em todas as fontes: um aviso único com o próximo passo -->
+  @if (allOffline()) {
+    <div class="alert alert-warning" role="alert">
+      {{ 'health-page.ingestion.state.error.all-offline' | translate }}
+    </div>
+  }
+
+  <!-- ========================= Busca, filtros e ordenação ===================== -->
+  <ds-ingestion-filters [filters]="filters()" [limit]="apiLimit()"
+                        (filtersChange)="onFiltersChange($event)"
+                        (limitChange)="onLimitChange($event)"></ds-ingestion-filters>
+
+  <!-- ============================ Jobs em andamento ============================ -->
+  <ds-ingestion-section sectionId="active"
+                        headingKey="health-page.ingestion.active.heading"
+                        emptyKey="health-page.ingestion.active.empty"
+                        [state]="activeSource.state()"
+                        [count]="activeSource.state().data?.count ?? null"
+                        [visibleCount]="activeFiltered().length"
+                        [hasActiveFilters]="hasActiveFilters()"
+                        [collapsed]="!openPanels().active"
+                        (openChange)="onPanelToggle('active', $event)"
+                        (retry)="retrySection('active')"
+                        (clearFilters)="clearFilters()">
+    <div class="ingestion__grid">
+      @for (job of activePage().items; track job.job_id) {
+        <ds-ingestion-job-card [job]="job"></ds-ingestion-job-card>
+      }
+    </div>
+
+    <ds-ingestion-pagination sectionId="active" [page]="activePage()"
+                             [fetched]="activeSource.state().data?.jobs?.length ?? null"
+                             [limit]="apiLimit()"
+                             (pageChange)="onPageChange('active', $event)"
+                             (sizeChange)="onPageSizeChange($event)"></ds-ingestion-pagination>
+  </ds-ingestion-section>
+
+  <!-- ============================ Últimos concluídos ========================== -->
+  <ds-ingestion-section sectionId="succeeded"
+                        headingKey="health-page.ingestion.succeeded.heading"
+                        emptyKey="health-page.ingestion.succeeded.empty"
+                        [state]="succeededSource.state()"
+                        [count]="succeededSource.state().data?.count ?? null"
+                        [visibleCount]="succeededFiltered().length"
+                        [hasActiveFilters]="hasActiveFilters()"
+                        [collapsed]="!openPanels().succeeded"
+                        (openChange)="onPanelToggle('succeeded', $event)"
+                        (retry)="retrySection('succeeded')"
+                        (clearFilters)="clearFilters()">
+    @defer (on viewport; prefetch on idle) {
+      <ds-ingestion-succeeded-table [rows]="succeededPage().items"></ds-ingestion-succeeded-table>
+    } @placeholder {
+      <div class="ingestion__table-placeholder" aria-hidden="true"></div>
+    }
+
+    <ds-ingestion-pagination sectionId="succeeded" [page]="succeededPage()"
+                             [fetched]="succeededSource.state().data?.jobs?.length ?? null"
+                             [limit]="apiLimit()"
+                             (pageChange)="onPageChange('succeeded', $event)"
+                             (sizeChange)="onPageSizeChange($event)"></ds-ingestion-pagination>
+  </ds-ingestion-section>
+
+  <!-- ================================ Falhas ================================ -->
+  <ds-ingestion-section sectionId="failures"
+                        headingKey="health-page.ingestion.failures.heading"
+                        emptyKey="health-page.ingestion.failures.empty"
+                        [state]="failuresSource.state()"
+                        [count]="failuresSource.state().data?.count ?? null"
+                        [visibleCount]="failuresFiltered().length"
+                        [hasActiveFilters]="hasActiveFilters()"
+                        [collapsed]="!openPanels().failures"
+                        (openChange)="onPanelToggle('failures', $event)"
+                        (retry)="retrySection('failures')"
+                        (clearFilters)="clearFilters()">
+    @defer (on viewport; prefetch on idle) {
+      <ds-ingestion-failures-table [rows]="failuresPage().items"
+                                   [states]="reprocessStates()"
+                                   (reprocess)="reprocess($event)"></ds-ingestion-failures-table>
+    } @placeholder {
+      <div class="ingestion__table-placeholder" aria-hidden="true"></div>
+    }
+
+    <ds-ingestion-pagination sectionId="failures" [page]="failuresPage()"
+                             [fetched]="failuresSource.state().data?.jobs?.length ?? null"
+                             [limit]="apiLimit()"
+                             (pageChange)="onPageChange('failures', $event)"
+                             (sizeChange)="onPageSizeChange($event)"></ds-ingestion-pagination>
+  </ds-ingestion-section>
+
+  <!-- ========================= Consultar job por ID ========================= -->
+  <ds-ingestion-lookup [initialJobId]="lookupJobId()"
+                       [collapsed]="!openPanels().lookup"
+                       (openChange)="onPanelToggle('lookup', $event)"
+                       (jobIdChange)="onLookupJobIdChange($event)"></ds-ingestion-lookup>
+</div>

@@ -1,0 +1,132 @@
+// Cores do infográfico vêm do tema (Bootstrap CSS vars) para acompanhar
+// eventuais mudanças de paleta em vez de fixar hexadecimais.
+.stepper {
+  --ds-step-line: var(--bs-border-color, #dee2e6);
+  --ds-step-done: var(--bs-primary, #1351b4);
+  --ds-step-error: var(--bs-danger, #dc3545);
+  --ds-step-muted: var(--bs-secondary-color, #6c757d);
+
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+
+  &__step {
+    position: relative;
+    flex: 1 1 0;
+    min-width: 96px;
+    padding: 0 4px;
+    text-align: center;
+
+    // conector para o passo anterior
+    &:not(:first-child)::before {
+      content: '';
+      position: absolute;
+      top: 15px;
+      left: -50%;
+      width: 100%;
+      height: 2px;
+      background: var(--ds-step-line);
+      z-index: 0;
+    }
+  }
+
+  &__dot {
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--bs-body-bg, #fff);
+    border: 2px solid var(--bs-border-color, #ced4da);
+    color: var(--ds-step-muted);
+    font-size: 0.8rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+
+  &__label {
+    display: block;
+    margin-top: 0.35rem;
+    font-size: 0.78rem;
+    line-height: 1.15;
+    color: var(--ds-step-muted);
+    overflow-wrap: anywhere;
+  }
+
+  // Estados dos passos
+  .is-done {
+    .stepper__dot {
+      background: var(--ds-step-done);
+      border-color: var(--ds-step-done);
+      color: var(--bs-body-bg, #fff);
+    }
+
+    .stepper__label {
+      color: var(--ds-step-done);
+    }
+
+    &::before {
+      background: var(--ds-step-done);
+    }
+  }
+
+  .is-active {
+    .stepper__dot {
+      border-color: var(--ds-step-done);
+      color: var(--ds-step-done);
+      box-shadow: 0 0 0 4px rgba(19, 81, 180, 0.15);
+      animation: ingestion-step 1.4s ease-in-out infinite;
+    }
+
+    .stepper__label {
+      color: var(--ds-step-done);
+      font-weight: 600;
+    }
+
+    &::before {
+      background: var(--ds-step-done);
+    }
+  }
+
+  .is-error {
+    .stepper__dot {
+      background: var(--ds-step-error);
+      border-color: var(--ds-step-error);
+      color: var(--bs-body-bg, #fff);
+    }
+
+    .stepper__label {
+      color: var(--ds-step-error);
+      font-weight: 600;
+    }
+
+    &::before {
+      background: var(--ds-step-done);
+    }
+  }
+
+  .is-pending {
+    .stepper__dot {
+      color: var(--ds-step-muted);
+      opacity: 0.75;
+    }
+  }
+}
+
+@keyframes ingestion-step {
+  0%, 100% { box-shadow: 0 0 0 3px rgba(19, 81, 180, 0.18); }
+  50% { box-shadow: 0 0 0 6px rgba(19, 81, 180, 0.06); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stepper .is-active .stepper__dot {
+    animation: none;
+    box-shadow: 0 0 0 4px rgba(19, 81, 180, 0.15);
+  }
+}
