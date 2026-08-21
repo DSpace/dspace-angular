@@ -27,8 +27,11 @@ ssr:
   # disabled (false) by default to boost server performance at the expense of loading smoothness.
   inlineCriticalCss: false
   # Patterns to be run as regexes against the path of the page to check if SSR is allowed.
-  # If the path match any of the regexes it will be served directly in CSR.
+  # If the path match any of the regexes it will be served directly in CSR (i.e. SSR will be disabled for this path).
   # By default, excludes community and collection browse, global browse, global search, community list, statistics and various administrative tools.
+  # [WARNING] changing these settings may impact your Search Engine Optimization (SEO). Any paths listed in "excludedPathPatterns"
+  # may NOT be indexable by search engine crawlers (like Google Scholar). For search engine crawlers to fully index your site,
+  # this "excludePathPatterns" should NEVER exclude SSR from the homepage, community/collection pages or item/entity pages.
   excludePathPatterns:
     - pattern: "^/communities/[a-f0-9-]{36}/browse(/.*)?$"
       flag: "i"
