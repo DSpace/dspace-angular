@@ -9,4 +9,8 @@
    (keydown.enter)="navigate($event)"
    href="javascript:void(0);"
    tabindex="0"
->{{item.text | translate}}</a>
+>@if (item.icon) {
+    <i class="fas fa-{{item.icon}} fa-fw" aria-hidden="true"></i>
+  }
+  <span>{{item.text | translate}}</span>
+</a>
