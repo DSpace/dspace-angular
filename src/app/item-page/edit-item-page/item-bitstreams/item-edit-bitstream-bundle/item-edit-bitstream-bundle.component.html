@@ -42,8 +42,7 @@
                   }
                 </div>
               </th>
-              <td class="text-end row-element bundle-row-actions {{ columnSizes.columns[3].buildClasses() }}">
-                <div class="d-flex justify-content-end w-100">
+              <td class="text-center row-element bundle-row-actions {{ columnSizes.columns[3].buildClasses() }}">
                 <div class="btn-group">
                   <button [routerLink]="[itemPageRoute, 'bitstreams', 'new']"
                     [queryParams]="{bundle: bundle.id}"
@@ -53,12 +52,12 @@
                     title="{{'item.edit.bitstreams.bundle.edit.buttons.upload' | translate}}">
                     <i class="fas fa-upload fa-fw"></i>
                   </button>
-                  <button [dsBtnDisabled]="!canRemoveBundle()" (click)="removeBundle()"
+                  <button type="button" [dsBtnDisabled]="!canRemoveBundle()" (click)="removeBundle()"
                     class="btn btn-outline-danger btn-sm"
                     title="{{'item.edit.bitstreams.bundle.edit.buttons.remove' | translate}}">
                     <i class="fas fa-trash-alt fa-fw"></i>
                   </button>
-                  <button [dsBtnDisabled]="!canUndoBundleRemove()" (click)="undoBundleRemove()"
+                  <button type="button" [dsBtnDisabled]="!canUndoBundleRemove()" (click)="undoBundleRemove()"
                     class="btn btn-outline-warning btn-sm"
                     title="{{'item.edit.bitstreams.bundle.edit.buttons.undo' | translate}}">
                     <i class="fas fa-undo-alt fa-fw"></i>
@@ -91,7 +90,6 @@
                     </ul>
                   </div>
                 </div>
-                </div>
               </td>
             </tr>
             @for (entry of (tableEntries$ | async); track entry) {
@@ -101,11 +99,13 @@
                   (cdkDragStarted)="dragStart()" (cdkDragEnded)="dragEnd()">
                   <th class="bitstream-name row-element {{ columnSizes.columns[0].buildClasses() }}"
                     scope="row" id="{{ entry.nameStripped }}" headers="{{ bundleName }} name">
-                    <div class="drag-handle text-muted float-start p-1 me-2 d-inline" tabindex="0" cdkDragHandle
-                      (keydown.enter)="select($event, entry)" (keydown.space)="select($event, entry)" (click)="select($event, entry)">
-                      <i class="drag-icon" [title]="'item.edit.bitstreams.edit.buttons.drag' | translate"></i>
+                    <div class="d-flex align-items-center">
+                      <div class="drag-handle text-muted me-2" tabindex="0" cdkDragHandle
+                        (keydown.enter)="select($event, entry)" (keydown.space)="select($event, entry)" (click)="select($event, entry)">
+                        <i class="drag-icon" [title]="'item.edit.bitstreams.edit.buttons.drag' | translate"></i>
+                      </div>
+                      <span class="dont-break-out">{{ entry.name }}</span>
                     </div>
-                    <span class="dont-break-out">{{ entry.name }}</span>
                   </th>
                   <td class="row-element {{ columnSizes.columns[1].buildClasses() }}"
                     headers="{{ entry.nameStripped }} {{ bundleName }} description">

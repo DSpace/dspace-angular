@@ -1,5 +1,7 @@
 import {
   ChangeDetectorRef,
+  Component,
+  Input,
   NO_ERRORS_SCHEMA,
 } from '@angular/core';
 import {
@@ -7,6 +9,7 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   ActivatedRoute,
@@ -40,12 +43,14 @@ import {
 } from '@dspace/core/utilities/remote-data.utils';
 import { hasValue } from '@dspace/shared/utils/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
-import { of } from 'rxjs';
+import {
+  BehaviorSubject,
+  of,
+} from 'rxjs';
 
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { SearchConfigurationService } from '../../../shared/search/search-configuration.service';
 import { ObjectValuesPipe } from '../../../shared/utils/object-values-pipe';
-import { VarDirective } from '../../../shared/utils/var.directive';
 import { ItemBitstreamsComponent } from './item-bitstreams.component';
 import { ItemBitstreamsService } from './item-bitstreams.service';
 import {
@@ -105,6 +110,21 @@ let requestService: RequestService;
 let searchConfig: SearchConfigurationService;
 let bundleService: BundleDataService;
 let itemBitstreamsService: ItemBitstreamsServiceStub;
+let bundlesRD$: BehaviorSubject<any>;
+let bundleFieldUpdates$: BehaviorSubject<any>;
+
+@Component({
+  selector: 'ds-item-edit-bitstream-bundle',
+  template: '',
+})
+class ItemEditBitstreamBundleTestComponent {
+  @Input() bundle: Bundle;
+  @Input() item: Item;
+  @Input() columnSizes;
+  @Input() isFirstTable: boolean;
+  @Input() bundleUpdate;
+  @Input() bundleUpdatesUrl: string;
+}
 
 describe('ItemBitstreamsComponent', () => {
   beforeEach(waitForAsync(() => {
@@ -131,11 +151,12 @@ describe('ItemBitstreamsComponent', () => {
         getMoveOperations: of(moveOperations),
       },
     );
+    bundleFieldUpdates$ = new BehaviorSubject({
+      [bundle.uuid]: { field: bundle, changeType: undefined },
+    });
     (objectUpdatesService.getFieldUpdatesExclusive as jasmine.Spy).and.callFake((bundleListUrl: string) => {
       if (hasValue(bundleListUrl) && bundleListUrl.endsWith('/bundles')) {
-        return of({
-          [bundle.uuid]: { field: bundle, changeType: undefined },
-        });
+        return bundleFieldUpdates$.asObservable();
       }
       return of({
         [bitstream1.uuid]: fieldUpdate1,
@@ -183,10 +204,11 @@ describe('ItemBitstreamsComponent', () => {
       data: of({}),
       url: url,
     });
+    bundlesRD$ = new BehaviorSubject(createSuccessfulRemoteDataObject(createPaginatedList([bundle])));
     bundleService = jasmine.createSpyObj('bundleService', {
       patch: createSuccessfulRemoteDataObject$({}),
       removeMultiple: createSuccessfulRemoteDataObject$({} as NoContent),
-      findAllByItem: createSuccessfulRemoteDataObject$(createPaginatedList([bundle])),
+      findAllByItem: bundlesRD$.asObservable(),
     });
 
     itemBitstreamsService = getItemBitstreamsServiceStub();
@@ -196,7 +218,6 @@ describe('ItemBitstreamsComponent', () => {
         TranslateModule.forRoot(),
         ItemBitstreamsComponent,
         ObjectValuesPipe,
-        VarDirective,
         BrowserAnimationsModule,
       ],
       providers: [
@@ -221,6 +242,9 @@ describe('ItemBitstreamsComponent', () => {
           imports: [ItemEditBitstreamBundleComponent,
             ThemedLoadingComponent],
         },
+        add: {
+          imports: [ItemEditBitstreamBundleTestComponent],
+        },
       })
       .compileComponents();
   }));
@@ -230,6 +254,27 @@ describe('ItemBitstreamsComponent', () => {
     comp = fixture.componentInstance;
     comp.url = url;
     fixture.detectChanges();
+  });
+
+  it('should preserve bundle components and staged updates when bundle observables emit again', () => {
+    const bundleDebugElement = fixture.debugElement.query(By.directive(ItemEditBitstreamBundleTestComponent));
+    const bundleComponent = bundleDebugElement.componentInstance as ItemEditBitstreamBundleTestComponent;
+
+    bundleFieldUpdates$.next({
+      [bundle.uuid]: { field: bundle, changeType: FieldChangeType.REMOVE },
+    });
+    fixture.detectChanges();
+
+    expect(fixture.debugElement.query(By.directive(ItemEditBitstreamBundleTestComponent)).componentInstance)
+      .toBe(bundleComponent);
+    expect(bundleComponent.bundleUpdate.changeType).toBe(FieldChangeType.REMOVE);
+
+    bundlesRD$.next(createSuccessfulRemoteDataObject(createPaginatedList([bundle])));
+    fixture.detectChanges();
+
+    expect(fixture.debugElement.query(By.directive(ItemEditBitstreamBundleTestComponent)).componentInstance)
+      .toBe(bundleComponent);
+    expect(objectUpdatesService.initialize).toHaveBeenCalledTimes(1);
   });
 
   describe('when submit is called', () => {
