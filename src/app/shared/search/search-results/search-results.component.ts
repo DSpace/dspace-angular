@@ -24,7 +24,6 @@ import { Context } from '../../../core/shared/context.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
-import { ViewMode } from '../../../core/shared/view-mode.model';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import {
   fadeIn,
@@ -114,11 +113,6 @@ export class SearchResultsComponent {
    * The current sorting configuration of the search
    */
   @Input() sortConfig: SortOptions;
-
-  /**
-   * The current view-mode of the list
-   */
-  @Input() viewMode: ViewMode;
 
   /**
    * An optional configuration to filter the result on one type

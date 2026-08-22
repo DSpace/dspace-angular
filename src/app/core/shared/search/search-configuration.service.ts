@@ -310,9 +310,9 @@ export class SearchConfigurationService implements OnDestroy {
   /**
    * @returns {Observable<string>} Emits the current view mode
    */
-  getCurrentViewMode(defaultViewMode: ViewMode, searchInstanceId = this.searchInstanceId) {
+  getCurrentViewMode(defaultViewMode: ViewMode, searchInstanceId = this.searchInstanceId): Observable<ViewMode> {
     return this.getCurrentSearchInstanceQueryParam(searchInstanceId, 'view').pipe(map((viewMode) => {
-      return viewMode || defaultViewMode;
+      return (viewMode as ViewMode) || defaultViewMode;
     }));
   }
 
@@ -382,6 +382,22 @@ export class SearchConfigurationService implements OnDestroy {
 
   getCurrentSearchInstanceParam(parameterName: string): string {
     return this.getSearchInstanceParam(this.searchInstanceId, parameterName);
+  }
+
+  /**
+   * Resolve a search parameter from a Params object, preferring the search-instance-prefixed
+   * value and falling back to the legacy unprefixed value.
+   *
+   * @param params The parameters to read from
+   * @param parameterName The search parameter name
+   * @param searchInstanceId The search instance identifier
+   */
+  getSearchParamFromParams(params: Params, parameterName: string, searchInstanceId = this.searchInstanceId): string {
+    if (hasNoValue(params)) {
+      return undefined;
+    }
+    const instanceValue = params[this.getSearchInstanceParam(searchInstanceId, parameterName)];
+    return hasValue(instanceValue) ? instanceValue : params[parameterName];
   }
 
   getSearchInstanceFilterParam(filterName: string, searchInstanceId = this.searchInstanceId): string {

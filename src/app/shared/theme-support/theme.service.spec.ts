@@ -60,6 +60,7 @@ describe('ThemeService', () => {
   let themeService: ThemeService;
   let linkService: LinkService;
   let configurationService: ConfigurationDataServiceStub;
+  let searchConfigService: SearchConfigurationServiceStub;
   let initialState;
 
   let ancestorDSOs: DSpaceObject[];
@@ -97,7 +98,7 @@ describe('ThemeService', () => {
     const mockDsoService = {
       findById: () => createSuccessfulRemoteDataObject$(mockCommunity),
     };
-    const searchConfigService = new SearchConfigurationServiceStub();
+    searchConfigService = new SearchConfigurationServiceStub();
     searchConfigService.searchInstanceId = 'spc';
     TestBed.configureTestingModule({
       imports: [
@@ -243,6 +244,7 @@ describe('ThemeService', () => {
           }),
         );
         spyOnPrivateMethods();
+        spyOn(searchConfigService, 'getSearchParamFromParams').and.callThrough();
         snapshot = Object.assign({
           queryParams: {
             scope: mockCommunity.uuid,
@@ -253,6 +255,7 @@ describe('ThemeService', () => {
       it('should match the theme to the dso found through the scope', (done) => {
         themeService.updateThemeOnRouteChange$(url, snapshot).subscribe(() => {
           expect((themeService as any).matchThemeToDSOs).toHaveBeenCalled();
+          expect(searchConfigService.getSearchParamFromParams).toHaveBeenCalledWith(snapshot.queryParams, 'scope');
           done();
         });
       });
@@ -285,6 +288,7 @@ describe('ThemeService', () => {
           }),
         );
         spyOnPrivateMethods();
+        spyOn(searchConfigService, 'getSearchParamFromParams').and.callThrough();
         snapshot = Object.assign({
           queryParams: {
             'spc.scope': mockCommunity.uuid,
@@ -295,6 +299,7 @@ describe('ThemeService', () => {
       it('should match the theme to the dso found through the prefixed scope', (done) => {
         themeService.updateThemeOnRouteChange$(url, snapshot).subscribe(() => {
           expect((themeService as any).matchThemeToDSOs).toHaveBeenCalled();
+          expect(searchConfigService.getSearchParamFromParams).toHaveBeenCalledWith(snapshot.queryParams, 'scope');
           done();
         });
       });
@@ -455,7 +460,7 @@ describe('ThemeService', () => {
         findById: () => createSuccessfulRemoteDataObject$(mockCommunity),
       };
       configurationService = new ConfigurationDataServiceStub();
-      const searchConfigService = new SearchConfigurationServiceStub();
+      searchConfigService = new SearchConfigurationServiceStub();
       searchConfigService.searchInstanceId = 'spc';
 
       TestBed.configureTestingModule({

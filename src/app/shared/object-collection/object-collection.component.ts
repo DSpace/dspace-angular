@@ -4,7 +4,6 @@ import {
   NgClass,
 } from '@angular/common';
 import {
-  ChangeDetectorRef,
   Component,
   ElementRef,
   EventEmitter,
@@ -16,18 +15,9 @@ import {
   PLATFORM_ID,
 } from '@angular/core';
 import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
-import {
-  BehaviorSubject,
-  combineLatest as observableCombineLatest,
   Observable,
+  of,
 } from 'rxjs';
-import {
-  distinctUntilChanged,
-  map,
-} from 'rxjs/operators';
 
 import {
   SortDirection,
@@ -40,7 +30,6 @@ import { PageInfo } from '../../core/shared/page-info.model';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
-import { isEmpty } from '../empty.util';
 import { ObjectDetailComponent } from '../object-detail/object-detail.component';
 import { ObjectGeospatialMapComponent } from '../object-geospatial-map/object-geospatial-map.component';
 import { ObjectGridComponent } from '../object-grid/object-grid.component';
@@ -154,13 +143,6 @@ export class ObjectCollectionComponent implements OnInit {
   @Input() showThumbnails;
 
   /**
-   * The view mode to render. When not provided, this component falls back to the search-instance `view` URL parameter.
-   */
-  @Input() set viewMode(viewMode: ViewMode) {
-    this.viewMode$.next(viewMode);
-  }
-
-  /**
    * the page info of the list
    */
   pageInfo: Observable<PageInfo>;
@@ -209,8 +191,6 @@ export class ObjectCollectionComponent implements OnInit {
    */
   currentMode$: Observable<ViewMode>;
 
-  private viewMode$: BehaviorSubject<ViewMode> = new BehaviorSubject<ViewMode>(undefined);
-
   /**
    * The available view modes
    */
@@ -225,19 +205,10 @@ export class ObjectCollectionComponent implements OnInit {
 
 
   /**
-   * @param cdRef
-   *    ChangeDetectorRef service provided by Angular.
-   * @param route
-   *    Route is a singleton service provided by Angular.
-   * @param router
-   *    Router is a singleton service provided by Angular.
    * @param elementRef
    *    Used only to read DOM for the element width
    */
   constructor(
-    private cdRef: ChangeDetectorRef,
-    private route: ActivatedRoute,
-    private router: Router,
     private elementRef: ElementRef,
     @Inject(PLATFORM_ID) private platformId: any,
     @Optional() @Inject(SEARCH_CONFIG_SERVICE) private searchConfigService: SearchConfigurationService,
@@ -245,12 +216,7 @@ export class ObjectCollectionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const viewParam = this.searchConfigService?.getCurrentSearchInstanceParam('view') ?? 'view';
-    this.currentMode$ = observableCombineLatest([this.route.queryParams, this.viewMode$])
-      .pipe(
-        map(([params, viewMode]) => viewMode || (isEmpty(params?.[viewParam]) ? ViewMode.ListElement : params[viewParam])),
-        distinctUntilChanged(),
-      );
+    this.currentMode$ = this.searchConfigService?.getCurrentViewMode(ViewMode.ListElement) ?? of(ViewMode.ListElement);
     if (isPlatformBrowser(this.platformId)) {
       const width = this.elementRef.nativeElement.offsetWidth;
       this.placeholderFontClass = setPlaceHolderAttributes(width);

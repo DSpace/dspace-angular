@@ -327,6 +327,25 @@ describe('SearchConfigurationService', () => {
     });
   });
 
+  describe('getSearchParamFromParams', () => {
+    it('should prefer the search-instance-prefixed value', () => {
+      const params: Params = {
+        [`${defaults.pagination.id}.scope`]: 'prefixed scope',
+        scope: 'legacy scope',
+      };
+
+      expect(service.getSearchParamFromParams(params, 'scope')).toBe('prefixed scope');
+    });
+
+    it('should fall back to the legacy unprefixed value', () => {
+      expect(service.getSearchParamFromParams({ scope: 'legacy scope' }, 'scope')).toBe('legacy scope');
+    });
+
+    it('should return undefined when the parameter is absent', () => {
+      expect(service.getSearchParamFromParams({}, 'scope')).toBeUndefined();
+    });
+  });
+
   describe('with legacy search parameter fallback disabled', () => {
     beforeEach(() => {
       service.useLegacySearchParamFallback = false;
