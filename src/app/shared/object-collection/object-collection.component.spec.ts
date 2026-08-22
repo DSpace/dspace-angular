@@ -5,12 +5,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
 import { ViewMode } from '@dspace/core/shared/view-mode.model';
-import { RouterStub } from '@dspace/core/testing/router.stub';
 import { SearchConfigurationServiceStub } from '@dspace/core/testing/search-configuration-service.stub';
 import { provideMockStore } from '@ngrx/store/testing';
 import { of } from 'rxjs';
@@ -27,20 +22,10 @@ describe('ObjectCollectionComponent', () => {
   let fixture: ComponentFixture<ObjectCollectionComponent>;
   let objectCollectionComponent: ObjectCollectionComponent;
 
-  const queryParam = 'test query';
-  const scopeParam = '7669c72a-3f2a-451f-a3b9-9210e7a4c02f';
-  const activatedRouteStub = {
-    queryParams: of({
-      query: queryParam,
-      scope: scopeParam,
-    }),
-  };
   beforeEach(waitForAsync(async () => {
     await TestBed.configureTestingModule({
       imports: [ObjectCollectionComponent],
       providers: [
-        { provide: ActivatedRoute, useValue: activatedRouteStub },
-        { provide: Router, useClass: RouterStub },
         { provide: ThemeService, useValue: getMockThemeService() },
         provideMockStore(),
       ],
@@ -94,20 +79,21 @@ describe('ObjectCollectionComponent', () => {
   });
 });
 
-describe('ObjectCollectionComponent view query param fallback', () => {
+describe('ObjectCollectionComponent view mode', () => {
   let fixture: ComponentFixture<ObjectCollectionComponent>;
   let objectCollectionComponent: ObjectCollectionComponent;
+  let searchConfigService: SearchConfigurationServiceStub;
 
-  function init(queryParams: Record<string, string>, provideSearchConfig = false) {
+  function init(viewMode?: ViewMode) {
     TestBed.resetTestingModule();
     const providers: any[] = [
-      { provide: ActivatedRoute, useValue: { queryParams: of(queryParams) } },
-      { provide: Router, useClass: RouterStub },
       { provide: ThemeService, useValue: getMockThemeService() },
       provideMockStore(),
     ];
-    if (provideSearchConfig) {
-      providers.push({ provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() });
+    if (viewMode) {
+      searchConfigService = new SearchConfigurationServiceStub();
+      spyOn(searchConfigService, 'getCurrentViewMode').and.returnValue(of(viewMode));
+      providers.push({ provide: SEARCH_CONFIG_SERVICE, useValue: searchConfigService });
     }
     TestBed.configureTestingModule({
       imports: [ObjectCollectionComponent],
@@ -128,27 +114,19 @@ describe('ObjectCollectionComponent view query param fallback', () => {
     TestBed.resetTestingModule();
   });
 
-  it('should use the unprefixed view query param when SEARCH_CONFIG_SERVICE is not provided', (done) => {
-    init({ view: ViewMode.GridElement });
+  it('should default to list view when SEARCH_CONFIG_SERVICE is not provided', (done) => {
+    init();
     objectCollectionComponent.currentMode$.subscribe((mode) => {
-      expect(mode).toBe(ViewMode.GridElement);
+      expect(mode).toBe(ViewMode.ListElement);
       done();
     });
   });
 
-  it('should use the prefixed view query param from SearchConfigurationService', (done) => {
-    init({ 'test-id.view': ViewMode.GridElement }, true);
+  it('should get the current view mode from SearchConfigurationService', (done) => {
+    init(ViewMode.GridElement);
     objectCollectionComponent.currentMode$.subscribe((mode) => {
       expect(mode).toBe(ViewMode.GridElement);
-      done();
-    });
-  });
-
-  it('should prefer an explicit viewMode input over the query param', (done) => {
-    init({ 'test-id.view': ViewMode.GridElement }, true);
-    objectCollectionComponent.viewMode = ViewMode.DetailedListElement;
-    objectCollectionComponent.currentMode$.subscribe((mode) => {
-      expect(mode).toBe(ViewMode.DetailedListElement);
+      expect(searchConfigService.getCurrentViewMode).toHaveBeenCalledWith(ViewMode.ListElement);
       done();
     });
   });

@@ -369,7 +369,7 @@ export class ThemeService {
               );
             }
           }
-          const scope = this.getScopeFromSnapshot(activatedRouteSnapshot);
+          const scope = this.searchConfigurationService.getSearchParamFromParams(activatedRouteSnapshot.queryParams, 'scope');
           if (hasValue(scope)) {
             const dsoFromScope$: Observable<RemoteData<DSpaceObject>> = this.dSpaceObjectDataService.findById(scope);
             // Start with the resolved dso and go recursively through its parents until you reach the top-level community
@@ -413,20 +413,6 @@ export class ThemeService {
     return action$.pipe(
       map((action: SetThemeAction | NoOpAction) => action.type === ThemeActionTypes.SET),
     );
-  }
-
-  /**
-   * Resolve the search scope from the route snapshot, preferring the search-instance prefixed
-   * parameter and falling back to the legacy unprefixed `scope` query parameter.
-   * @param activatedRouteSnapshot
-   * @private
-   */
-  private getScopeFromSnapshot(activatedRouteSnapshot: ActivatedRouteSnapshot): string {
-    if (hasNoValue(activatedRouteSnapshot.queryParams)) {
-      return undefined;
-    }
-    const scopeParam = this.searchConfigurationService.getCurrentSearchInstanceParam('scope');
-    return activatedRouteSnapshot.queryParams[scopeParam] || activatedRouteSnapshot.queryParams.scope;
   }
 
   /**
