@@ -20,7 +20,6 @@ import { AppliedFilter } from '@dspace/core/shared/search/models/applied-filter.
 import { PaginatedSearchOptions } from '@dspace/core/shared/search/models/paginated-search-options.model';
 import { SearchFilter } from '@dspace/core/shared/search/models/search-filter.model';
 import { SearchResult } from '@dspace/core/shared/search/models/search-result.model';
-import { ViewMode } from '@dspace/core/shared/view-mode.model';
 import {
   hasNoValue,
   isNotEmpty,
@@ -114,11 +113,6 @@ export class SearchResultsComponent {
    * The current sorting configuration of the search
    */
   @Input() sortConfig: SortOptions;
-
-  /**
-   * The current view-mode of the list
-   */
-  @Input() viewMode: ViewMode;
 
   /**
    * An optional configuration to filter the result on one type

@@ -11,6 +11,7 @@ import {
   FilterConfig,
   SearchConfig,
 } from '../shared/search/search-filters/search-config.model';
+import { ViewMode } from '../shared/view-mode.model';
 
 /**
  * Stub class of {@link SearchConfigurationService}
@@ -36,6 +37,10 @@ export class SearchConfigurationServiceStub {
     return `${this.searchInstanceId}.${param}`;
   }
 
+  getSearchParamFromParams(params: Params, parameterName: string, searchInstanceId = this.searchInstanceId) {
+    return params?.[`${searchInstanceId}.${parameterName}`] ?? params?.[parameterName];
+  }
+
   getCurrentSearchInstanceFilterParam(param: string) {
     return `${this.searchInstanceId}.${param}`;
   }
@@ -54,6 +59,10 @@ export class SearchConfigurationServiceStub {
 
   getCurrentConfiguration(a) {
     return of(a);
+  }
+
+  getCurrentViewMode(defaultViewMode: ViewMode) {
+    return of(defaultViewMode);
   }
 
   getConfigurationAdvancedSearchFilters(_configuration: string, _scope?: string): Observable<FilterConfig[]> {
