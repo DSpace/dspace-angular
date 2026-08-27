@@ -157,6 +157,8 @@ export class RootComponent implements OnInit {
     const userAgent = this._window.nativeWindow.navigator?.userAgent;
     if (/Windows/.test(userAgent)) {
       return 'windows';
+    } else if (/Macintosh/.test(userAgent)) {
+      return 'macOS';
     }
     return undefined;
   }
