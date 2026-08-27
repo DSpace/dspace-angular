@@ -2,64 +2,51 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  ComponentFactoryResolver,
-  Directive,
-  Injector,
-  NO_ERRORS_SCHEMA,
-  ViewContainerRef,
 } from '@angular/core';
 import {
   ComponentFixture,
   TestBed,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Router } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
+import {
+  Router,
+  RouterModule,
+} from '@angular/router';
 import { PAGE_NOT_FOUND_PATH } from '@dspace/core/router/core-routing-paths';
 import { RouterStub } from '@dspace/core/testing/router.stub';
 import { TranslateModule } from '@ngx-translate/core';
 import { ThemeService } from 'src/app/shared/theme-support/theme.service';
 
 import { DynamicComponentLoaderDirective } from '../../../shared/abstract-component-loader/dynamic-component-loader.directive';
-import { rendersAdvancedWorkflowTaskOption } from '../../../shared/mydspace-actions/claimed-task/switcher/claimed-task-actions-decorator';
 import { getMockThemeService } from '../../../shared/theme-support/test/theme-service.mock';
+import { AdvancedWorkflowActionType } from '../advanced-workflow-action-type';
 import { AdvancedWorkflowActionsLoaderComponent } from './advanced-workflow-actions-loader.component';
 
-const ADVANCED_WORKFLOW_ACTION_TEST = 'testaction';
+const ADVANCED_WORKFLOW_ACTION_TEST = 'testaction' as AdvancedWorkflowActionType;
 
 describe('AdvancedWorkflowActionsLoaderComponent', () => {
   let component: AdvancedWorkflowActionsLoaderComponent;
   let fixture: ComponentFixture<AdvancedWorkflowActionsLoaderComponent>;
 
   let router: RouterStub;
-  let mockComponentFactoryResolver: any;
   let themeService: ThemeService;
 
   beforeEach(async () => {
     router = new RouterStub();
-    mockComponentFactoryResolver = {
-      resolveComponentFactory: jasmine.createSpy('resolveComponentFactory').and.returnValue(
-        AdvancedWorkflowActionTestComponent,
-      ),
-    };
     themeService = getMockThemeService();
 
-    TestBed.configureTestingModule({
+    void TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
-        RouterTestingModule,
+        RouterModule.forRoot([]),
         DynamicComponentLoaderDirective,
         AdvancedWorkflowActionsLoaderComponent,
         AdvancedWorkflowActionTestComponent,
       ],
       providers: [
         { provide: Router, useValue: router },
-        { provide: ComponentFactoryResolver, useValue: mockComponentFactoryResolver },
-        { provide: Injector, useValue: {} },
-        ViewContainerRef,
         { provide: ThemeService, useValue: themeService },
       ],
-      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(AdvancedWorkflowActionsLoaderComponent, {
       set: {
         changeDetection: ChangeDetectionStrategy.Default,
@@ -79,11 +66,13 @@ describe('AdvancedWorkflowActionsLoaderComponent', () => {
   });
 
   describe('When the component is rendered', () => {
-    it('should display the AdvancedWorkflowActionTestComponent when the type has been defined in a rendersAdvancedWorkflowTaskOption', () => {
-      spyOn(component, 'getComponent').and.returnValue(AdvancedWorkflowActionTestComponent);
+    it('should display the AdvancedWorkflowActionTestComponent when the type has been defined in a rendersAdvancedWorkflowTaskOption', async () => {
+      spyOn(component, 'getComponent').and.returnValue(Promise.resolve(AdvancedWorkflowActionTestComponent));
+      router.navigate.calls.reset();
 
       component.ngOnInit();
       fixture.detectChanges();
+      await fixture.whenStable();
 
       expect(component.getComponent).toHaveBeenCalled();
       expect(fixture.debugElement.query(By.css('#AdvancedWorkflowActionsLoaderComponent'))).not.toBeNull();
@@ -92,7 +81,7 @@ describe('AdvancedWorkflowActionsLoaderComponent', () => {
 
     it('should redirect to page not found when the type has not been defined in a rendersAdvancedWorkflowTaskOption', () => {
       spyOn(component, 'getComponent').and.returnValue(undefined);
-      component.type = 'nonexistingaction';
+      component.type = 'nonexistingaction' as any;
 
       component.ngOnInit();
       fixture.detectChanges();
@@ -103,18 +92,11 @@ describe('AdvancedWorkflowActionsLoaderComponent', () => {
   });
 });
 
-@rendersAdvancedWorkflowTaskOption(ADVANCED_WORKFLOW_ACTION_TEST)
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: '',
   template: '<span id="AdvancedWorkflowActionsLoaderComponent"></span>',
 })
+// @rendersAdvancedWorkflowTaskOption(ADVANCED_WORKFLOW_ACTION_TEST)
 class AdvancedWorkflowActionTestComponent {
-}
-
-@Directive({
-  selector: '[dsAdvancedWorkflowActions]',
-})
-export class MockAdvancedWorkflowActionsDirective {
-  constructor(public viewContainerRef: ViewContainerRef) {}
 }

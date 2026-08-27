@@ -9106,15 +9106,11 @@
   // TODO New key - Add a translation
   "submission.sections.submit.progressbar.describe.owner": "Owner",
 
-  // "submission.sections.submit.progressbar.opfpolicy": "Jisc Open Policy Finder policies",
-  // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.opfpolicy": "Jisc Open Policy Finder policies",
+  // "submission.sections.submit.progressbar.opfpolicy": "Publisher open access policy information",
+  "submission.sections.submit.progressbar.opfpolicy": "প্রকাশক ওপেন অ্যাক্সেস নীতির তথ্য",
 
   // "submission.sections.submit.progressbar.upload": "Upload files",
   "submission.sections.submit.progressbar.upload": "ফাইল আপলোড",
-
-  // "submission.sections.submit.progressbar.jiscPolicies": "Publisher open access policy information",
-  "submission.sections.submit.progressbar.jiscPolicies": "প্রকাশক ওপেন অ্যাক্সেস নীতির তথ্য",
 
   // "submission.sections.jisc-policy.title-empty": "No publisher policy information available. If your work has an associated ISSN, please enter it above to see any related publisher open access policies.",
   "submission.sections.jisc-policy.title-empty": "কোন প্রকাশক নীতি তথ্য উপলব্ধ নেই৷ যদি আপনার কাজের একটি সংশ্লিষ্ট ISSN থাকে, তাহলে অনুগ্রহ করে এটি উপরে লিখুন যে কোনো সম্পর্কিত প্রকাশক ওপেন অ্যাক্সেস নীতি দেখতে।",

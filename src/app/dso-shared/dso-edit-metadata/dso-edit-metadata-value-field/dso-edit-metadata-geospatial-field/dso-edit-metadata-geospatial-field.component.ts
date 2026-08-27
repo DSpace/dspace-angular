@@ -9,6 +9,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { GeospatialMapPickerComponent } from '../../../../shared/geospatial-map-picker/geospatial-map-picker.component';
 import { DebounceDirective } from '../../../../shared/utils/debounce.directive';
 import { AbstractDsoEditMetadataValueFieldComponent } from '../abstract-dso-edit-metadata-value-field.component';
+import { EditMetadataValueFieldType } from '../dso-edit-metadata-field-type.enum';
+import { editMetadataValueFieldComponent } from '../dso-edit-metadata-value-field-loader/dso-edit-metadata-value-field.decorator';
 
 /**
  * Editor for geospatial point metadata fields (e.g. `dcterms.spatial`), configured via
@@ -25,6 +27,7 @@ import { AbstractDsoEditMetadataValueFieldComponent } from '../abstract-dso-edit
     TranslateModule,
   ],
 })
+@editMetadataValueFieldComponent(EditMetadataValueFieldType.GEOSPATIAL)
 export class DsoEditMetadataGeospatialFieldComponent extends AbstractDsoEditMetadataValueFieldComponent {
 
   constructor(protected modalService: NgbModal) {

@@ -9638,15 +9638,11 @@
   // TODO New key - Add a translation
   "submission.sections.submit.progressbar.describe.owner": "Owner",
 
-  // "submission.sections.submit.progressbar.opfpolicy": "Jisc Open Policy Finder policies",
-  // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.opfpolicy": "Jisc Open Policy Finder policies",
+  // "submission.sections.submit.progressbar.opfpolicy": "Publisher open access policy information",
+  "submission.sections.submit.progressbar.opfpolicy": "Tietoa julkaisijan open access -käytännöistä",
 
   // "submission.sections.submit.progressbar.upload": "Upload files",
   "submission.sections.submit.progressbar.upload": "Lataa tiedostoja",
-
-  // "submission.sections.submit.progressbar.jiscPolicies": "Publisher open access policy information",
-  "submission.sections.submit.progressbar.jiscPolicies": "Tietoa julkaisijan open access -käytännöistä",
 
   // "submission.sections.jisc-policy.title-empty": "No publisher policy information available. If your work has an associated ISSN, please enter it above to see any related publisher open access policies.",
   "submission.sections.jisc-policy.title-empty": "Ei tietoa julkausijan käytännöistä. Jos työlläsi on ISSN-tunnus, syötä se alapuolella olevan kenttään nähdäksesi siihen liittyvät julkaisijan open access -käytännöt.",
