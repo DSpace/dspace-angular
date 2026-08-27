@@ -14,6 +14,7 @@ import { Collection } from '@dspace/core/shared/collection.model';
 import { followLink } from '@dspace/core/shared/follow-link-config.model';
 import { License } from '@dspace/core/shared/license.model';
 import { WorkspaceitemSectionLicenseObject } from '@dspace/core/submission/models/workspaceitem-section-license.model';
+import { SectionsType } from '@dspace/core/submission/sections-type';
 import {
   hasValue,
   isNotEmpty,
@@ -49,6 +50,7 @@ import { SectionFormOperationsService } from '../form/section-form-operations.se
 import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
+import { renderSectionFor } from '../sections-decorator';
 import {
   SECTION_LICENSE_FORM_LAYOUT,
   SECTION_LICENSE_FORM_MODEL,
@@ -67,7 +69,8 @@ import {
     FormComponent,
   ],
 })
-export class SubmissionSectionLicenseComponent   extends SectionModelComponent implements AfterViewChecked {
+@renderSectionFor(SectionsType.License)
+export class SubmissionSectionLicenseComponent extends SectionModelComponent implements AfterViewChecked {
 
   /**
    * The form id

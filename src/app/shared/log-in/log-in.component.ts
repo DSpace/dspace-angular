@@ -23,7 +23,6 @@ import { Observable } from 'rxjs';
 
 import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 import { LogInContainerComponent } from './container/log-in-container.component';
-import { AUTH_METHOD_FOR_DECORATOR_MAP } from './methods/log-in.methods-decorator';
 import { AuthMethodsService } from './services/auth-methods.service';
 
 @Component({
@@ -79,7 +78,7 @@ export class LogInComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.authMethods = this.authMethodsService.getAuthMethods(AUTH_METHOD_FOR_DECORATOR_MAP, this.excludedAuthMethod);
+    this.authMethods = this.authMethodsService.getAuthMethods(this.excludedAuthMethod);
 
     // set loading
     this.loading = this.store.pipe(select(isAuthenticationLoading));

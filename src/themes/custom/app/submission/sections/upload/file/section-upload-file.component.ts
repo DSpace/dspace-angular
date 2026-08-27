@@ -4,7 +4,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { SubmissionSectionUploadFileComponent as BaseComponent } from 'src/app/submission/sections/upload/file/section-upload-file.component';
 
 import { BtnDisabledDirective } from '../../../../../../../app/shared/btn-disabled.directive';
-import { ThemedFileDownloadLinkComponent } from '../../../../../../../app/shared/file-download-link/themed-file-download-link.component';
 import { SubmissionSectionUploadFileViewComponent } from '../../../../../../../app/submission/sections/upload/file/view/section-upload-file-view.component';
 
 @Component({
@@ -17,7 +16,6 @@ import { SubmissionSectionUploadFileViewComponent } from '../../../../../../../a
     AsyncPipe,
     BtnDisabledDirective,
     SubmissionSectionUploadFileViewComponent,
-    ThemedFileDownloadLinkComponent,
     TranslateModule,
   ],
 })
