@@ -28,7 +28,6 @@ import { LRUCache } from 'lru-cache';
 import { isbot } from 'isbot';
 import { createCertificate } from 'pem';
 import { createServer } from 'https';
-import { json } from 'body-parser';
 import { createHttpTerminator } from 'http-terminator';
 
 import { readFileSync } from 'fs';
@@ -134,7 +133,7 @@ export function app() {
    * Add JSON parser for request bodies
    * See [body-parser](https://github.com/expressjs/body-parser)
    */
-  server.use(json());
+  server.use(express.json());
 
   server.engine('ejs', ejs.renderFile);
 
