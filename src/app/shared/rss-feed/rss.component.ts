@@ -3,10 +3,12 @@ import {
   ChangeDetectionStrategy,
   Component,
   Inject,
+  Injector,
   Input,
   OnChanges,
   OnDestroy,
   OnInit,
+  Optional,
   SimpleChanges,
   ViewEncapsulation,
 } from '@angular/core';
@@ -68,14 +70,18 @@ export class RSSComponent implements OnInit, OnDestroy, OnChanges {
   subs: Subscription[] = [];
   openSearchUri: string;
 
+  private searchConfigurationService: SearchConfigurationService;
+
   constructor(private groupDataService: GroupDataService,
               private linkHeadService: LinkHeadService,
               private configurationService: ConfigurationDataService,
-              @Inject(SEARCH_CONFIG_SERVICE) private searchConfigurationService: SearchConfigurationService,
+              @Optional() @Inject(SEARCH_CONFIG_SERVICE) searchConfigurationService: SearchConfigurationService,
+              private injector: Injector,
               private router: Router,
               private route: ActivatedRoute,
               protected paginationService: PaginationService,
               protected translateService: TranslateService) {
+    this.searchConfigurationService = searchConfigurationService;
   }
 
   ngOnDestroy(): void {
@@ -86,6 +92,8 @@ export class RSSComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnInit(): void {
+    this.searchConfigurationService = this.searchConfigurationService ?? this.injector.get(SearchConfigurationService);
+
     // Set initial activation state
     if (hasValue(this.route.snapshot.data?.enableRSS)) {
       this.isActivated$.next(this.route.snapshot.data.enableRSS);
