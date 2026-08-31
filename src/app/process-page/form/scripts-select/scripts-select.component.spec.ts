@@ -121,6 +121,13 @@ describe('ScriptsSelectComponent', () => {
 
   it('should not show a validation error if the form was submitted but the input was not left empty', fakeAsync(() => {
     (component as any)._selectedScript.id = 'testValue';
+    fixture.detectChanges();
+    tick();
+
+    const select = fixture.debugElement.query(By.css('#process-script'));
+    select.triggerEventHandler('blur', null);
+    fixture.detectChanges();
+
     component.submitted = true;
     fixture.detectChanges();
     tick();
