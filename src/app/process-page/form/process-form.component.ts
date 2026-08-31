@@ -30,6 +30,7 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 
+import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { getProcessListRoute } from '../process-page-routing.paths';
 import { ProcessParametersComponent } from './process-parameters/process-parameters.component';
 import { ScriptHelpComponent } from './script-help/script-help.component';
@@ -43,6 +44,7 @@ import { ScriptsSelectComponent } from './scripts-select/scripts-select.componen
   templateUrl: './process-form.component.html',
   styleUrls: ['./process-form.component.scss'],
   imports: [
+    BtnDisabledDirective,
     FormsModule,
     ProcessParametersComponent,
     RouterLink,
