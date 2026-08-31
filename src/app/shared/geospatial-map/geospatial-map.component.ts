@@ -4,6 +4,7 @@ import {
   Component,
   ElementRef,
   Inject,
+  Injector,
   Input,
   OnDestroy,
   OnInit,
@@ -102,7 +103,7 @@ export class GeospatialMapComponent implements AfterViewInit, OnInit, OnDestroy 
               @Inject(PLATFORM_ID) private platformId: string,
               private router: Router,
               private translateService: TranslateService,
-              private searchConfigurationService: SearchConfigurationService) {
+              private injector: Injector) {
   }
 
   ngOnInit() {
@@ -284,11 +285,12 @@ export class GeospatialMapComponent implements AfterViewInit, OnInit, OnDestroy 
         direction: 'top',
       }).on('click', () => {
         // On click, make a filtered search using the point filter ('f.point' by default)
+        const searchConfigurationService = this.injector.get(SearchConfigurationService);
         void this.router.navigate([point.url],
           { queryParams: {
-            [this.searchConfigurationService.getCurrentPageParam()]: 1,
-            [this.searchConfigurationService.getCurrentSearchInstanceFilterParam(filter)]: point.value + ',equals',
-            [this.searchConfigurationService.getCurrentSearchInstanceParam('scope')]: this.currentScope,
+            [searchConfigurationService.getCurrentPageParam()]: 1,
+            [searchConfigurationService.getCurrentSearchInstanceFilterParam(filter)]: point.value + ',equals',
+            [searchConfigurationService.getCurrentSearchInstanceParam('scope')]: this.currentScope,
           } });
       });
       markers.addLayer(marker);

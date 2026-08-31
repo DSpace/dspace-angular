@@ -106,7 +106,6 @@ export class ThemeService {
     @Inject(GET_THEME_CONFIG_FOR_FACTORY) private gtcf: (str) => ThemeConfig,
     private router: Router,
     @Inject(DOCUMENT) private document: any,
-    private searchConfigurationService: SearchConfigurationService,
     @Optional() private hashedFileMapping: HashedFileMapping,
   ) {
     // Create objects from the theme configs in the environment file
@@ -366,7 +365,8 @@ export class ThemeService {
               );
             }
           }
-          const scope = this.searchConfigurationService.getSearchParamFromParams(activatedRouteSnapshot.queryParams, 'scope');
+          const searchConfigurationService = this.injector.get(SearchConfigurationService);
+          const scope = searchConfigurationService.getSearchParamFromParams(activatedRouteSnapshot.queryParams, 'scope');
           if (hasValue(scope)) {
             const dsoFromScope$: Observable<RemoteData<DSpaceObject>> = this.dSpaceObjectDataService.findById(scope);
             // Start with the resolved dso and go recursively through its parents until you reach the top-level community
