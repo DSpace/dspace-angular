@@ -16,7 +16,7 @@ describe('ExportItemMenuProvider', () => {
       visible: true,
       model: {
         type: MenuItemType.ONCLICK,
-        text: 'context-menu.actions.export-item.btn',
+        text: 'item.page.export',
         disabled: false,
         function: jasmine.any(Function) as any,
       },
@@ -29,7 +29,7 @@ describe('ExportItemMenuProvider', () => {
       visible: false,
       model: {
         type: MenuItemType.ONCLICK,
-        text: 'context-menu.actions.export-item.btn',
+        text: 'item.page.export',
         disabled: false,
         function: jasmine.any(Function) as any,
       },

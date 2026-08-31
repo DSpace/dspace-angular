@@ -61,7 +61,7 @@ export class ExportItemMenuProvider extends DSpaceObjectPageMenuProvider {
             visible: hasFormats,
             model: {
               type: MenuItemType.ONCLICK,
-              text: 'context-menu.actions.export-item.btn',
+              text: 'item.page.export',
               disabled: false,
               function: () => {
                 this.openExportModal(item);
