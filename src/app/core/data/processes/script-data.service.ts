@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Script } from '@dspace/core/shared/scripts/script.model';
+import { SCRIPT } from '@dspace/core/shared/scripts/script.resource-type';
 import { hasValue } from '@dspace/shared/utils/empty.util';
 import { Observable } from 'rxjs';
 import {
@@ -7,6 +8,7 @@ import {
   take,
 } from 'rxjs/operators';
 
+import { dataService } from '../../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../cache/object-cache.service';
 import { Process } from '../../processes/process.model';
@@ -36,6 +38,7 @@ export const ITEM_EXPORT_SCRIPT_NAME = 'item-export';
 export const BULK_ITEM_EXPORT_SCRIPT_NAME = 'bulk-item-export';
 
 @Injectable({ providedIn: 'root' })
+@dataService(SCRIPT)
 export class ScriptDataService extends IdentifiableDataService<Script> implements FindAllData<Script> {
   private findAllData: FindAllDataImpl<Script>;
 

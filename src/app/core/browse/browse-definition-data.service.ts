@@ -1,5 +1,6 @@
 // eslint-disable-next-line max-classes-per-file
 import { Injectable } from '@angular/core';
+import { dataService } from '@dspace/core/cache/builders/build-decorators';
 import {
   hasValue,
   isNotEmpty,
@@ -29,6 +30,7 @@ import { RemoteData } from '../data/remote-data';
 import { BrowseDefinitionRestRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { BrowseDefinition } from '../shared/browse-definition.model';
+import { BROWSE_DEFINITION } from '../shared/browse-definition.resource-type';
 import { FollowLinkConfig } from '../shared/follow-link-config.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 
@@ -74,6 +76,7 @@ class BrowseDefinitionFindAllDataImpl extends FindAllDataImpl<BrowseDefinition> 
 @Injectable({
   providedIn: 'root',
 })
+@dataService(BROWSE_DEFINITION)
 export class BrowseDefinitionDataService extends IdentifiableDataService<BrowseDefinition> implements FindAllData<BrowseDefinition>, SearchData<BrowseDefinition> {
   private findAllData: BrowseDefinitionFindAllDataImpl;
   private searchData: SearchDataImpl<BrowseDefinition>;

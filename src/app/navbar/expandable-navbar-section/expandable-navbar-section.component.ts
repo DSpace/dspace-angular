@@ -6,7 +6,6 @@ import {
   AfterViewChecked,
   Component,
   HostListener,
-  Inject,
   Injector,
   OnDestroy,
   OnInit,
@@ -23,7 +22,8 @@ import { slide } from '../../shared/animations/slide';
 import { HostWindowService } from '../../shared/host-window.service';
 import { MenuService } from '../../shared/menu/menu.service';
 import { MenuID } from '../../shared/menu/menu-id.model';
-import { MenuSection } from '../../shared/menu/menu-section.model';
+import { rendersSectionForMenu } from '../../shared/menu/menu-section.decorator';
+import { ThemeService } from '../../shared/theme-support/theme.service';
 import { HoverOutsideDirective } from '../../shared/utils/hover-outside.directive';
 import { NavbarSectionComponent } from '../navbar-section/navbar-section.component';
 
@@ -31,7 +31,7 @@ import { NavbarSectionComponent } from '../navbar-section/navbar-section.compone
  * Represents an expandable section in the navbar
  */
 @Component({
-  selector: 'ds-base-expandable-navbar-section',
+  selector: 'ds-expandable-navbar-section',
   templateUrl: './expandable-navbar-section.component.html',
   styleUrls: ['./expandable-navbar-section.component.scss'],
   animations: [slide],
@@ -42,6 +42,7 @@ import { NavbarSectionComponent } from '../navbar-section/navbar-section.compone
     RouterLinkActive,
   ],
 })
+@rendersSectionForMenu(MenuID.PUBLIC, true)
 export class ExpandableNavbarSectionComponent extends NavbarSectionComponent implements AfterViewChecked, OnInit, OnDestroy {
 
   /**
@@ -101,12 +102,16 @@ export class ExpandableNavbarSectionComponent extends NavbarSectionComponent imp
   }
 
   constructor(
-    @Inject('sectionDataProvider') public section: MenuSection,
     protected menuService: MenuService,
     protected injector: Injector,
+    protected themeService: ThemeService,
     protected windowService: HostWindowService,
   ) {
-    super(section, menuService, injector);
+    super(
+      menuService,
+      injector,
+      themeService,
+    );
     this.isMobile$ = this.windowService.isMobile();
   }
 
