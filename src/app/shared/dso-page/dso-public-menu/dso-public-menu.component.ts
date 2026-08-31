@@ -5,10 +5,7 @@
  *
  * http://www.dspace.org/license/
  */
-import {
-  AsyncPipe,
-  NgComponentOutlet,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Injector,
@@ -27,6 +24,7 @@ import {
 
 import { MenuComponent } from '../../menu/menu.component';
 import { MenuService } from '../../menu/menu.service';
+import { MenuComponentLoaderComponent } from '../../menu/menu-component-loader/menu-component-loader.component';
 import { MenuID } from '../../menu/menu-id.model';
 import { ThemeService } from '../../theme-support/theme.service';
 
@@ -40,7 +38,7 @@ import { ThemeService } from '../../theme-support/theme.service';
   templateUrl: './dso-public-menu.component.html',
   imports: [
     AsyncPipe,
-    NgComponentOutlet,
+    MenuComponentLoaderComponent,
   ],
 })
 export class DsoPublicMenuComponent extends MenuComponent {

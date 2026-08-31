@@ -16,6 +16,8 @@ import { MenuItemType } from '../../../menu/menu-item-type.model';
 import { MenuItemModels } from '../../../menu/menu-section.model';
 import { MenuServiceStub } from '../../../menu/menu-service.stub';
 import { CSSVariableService } from '../../../sass-helper/css-variable.service';
+import { getMockThemeService } from '../../../theme-support/test/theme-service.mock';
+import { ThemeService } from '../../../theme-support/theme.service';
 import { DsoPublicMenuExpandableSectionComponent } from './dso-public-menu-expandable-section.component';
 
 describe('DsoPublicMenuExpandableSectionComponent', () => {
@@ -41,10 +43,10 @@ describe('DsoPublicMenuExpandableSectionComponent', () => {
       TestBed.configureTestingModule({
         imports: [TranslateModule.forRoot(), DsoPublicMenuExpandableSectionComponent, TestComponent],
         providers: [
-          { provide: 'sectionDataProvider', useValue: dummySection },
           { provide: MenuService, useValue: menuService },
           { provide: CSSVariableService, useClass: CSSVariableServiceStub },
           { provide: Router, useValue: new RouterStub() },
+          { provide: ThemeService, useValue: getMockThemeService() },
         ],
       }).compileComponents();
     }));
@@ -57,7 +59,9 @@ describe('DsoPublicMenuExpandableSectionComponent', () => {
       }]));
       fixture = TestBed.createComponent(DsoPublicMenuExpandableSectionComponent);
       component = fixture.componentInstance;
-      spyOn(component as any, 'getMenuItemComponent').and.returnValue(TestComponent);
+      component.section = dummySection;
+      component.itemModel = dummySection.model;
+      spyOn(component, 'getMenuItemComponent').and.returnValue(Promise.resolve(TestComponent));
       fixture.detectChanges();
     });
 
@@ -76,10 +80,10 @@ describe('DsoPublicMenuExpandableSectionComponent', () => {
       TestBed.configureTestingModule({
         imports: [TranslateModule.forRoot(), DsoPublicMenuExpandableSectionComponent, TestComponent],
         providers: [
-          { provide: 'sectionDataProvider', useValue: dummySection },
           { provide: MenuService, useValue: menuService },
           { provide: CSSVariableService, useClass: CSSVariableServiceStub },
           { provide: Router, useValue: new RouterStub() },
+          { provide: ThemeService, useValue: getMockThemeService() },
         ],
       }).compileComponents();
     }));
@@ -88,7 +92,8 @@ describe('DsoPublicMenuExpandableSectionComponent', () => {
       spyOn(menuService, 'getSubSectionsByParentID').and.returnValue(of([]));
       fixture = TestBed.createComponent(DsoPublicMenuExpandableSectionComponent);
       component = fixture.componentInstance;
-      spyOn(component as any, 'getMenuItemComponent').and.returnValue(TestComponent);
+      component.section = dummySection;
+      spyOn(component, 'getMenuItemComponent').and.returnValue(Promise.resolve(TestComponent));
       fixture.detectChanges();
     });
 

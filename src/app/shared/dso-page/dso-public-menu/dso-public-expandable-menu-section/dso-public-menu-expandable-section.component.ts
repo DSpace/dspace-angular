@@ -11,7 +11,6 @@ import {
 } from '@angular/common';
 import {
   Component,
-  Inject,
   Injector,
   OnInit,
 } from '@angular/core';
@@ -33,6 +32,8 @@ import { AbstractMenuSectionComponent } from 'src/app/shared/menu/menu-section/a
 
 import { BtnDisabledDirective } from '../../../btn-disabled.directive';
 import { MenuService } from '../../../menu/menu.service';
+import { rendersSectionForMenu } from '../../../menu/menu-section.decorator';
+import { ThemeService } from '../../../theme-support/theme.service';
 
 /**
  * Represents an expandable section in the dso public menus
@@ -50,17 +51,13 @@ import { MenuService } from '../../../menu/menu.service';
     TranslateModule,
   ],
 })
+@rendersSectionForMenu(MenuID.DSO_PUBLIC, true)
 export class DsoPublicMenuExpandableSectionComponent extends AbstractMenuSectionComponent implements OnInit {
 
   /**
    * This section resides in the DSO public menu
    */
   menuID: MenuID = MenuID.DSO_PUBLIC;
-
-  /**
-   * The MenuItemModel of the top section
-   */
-  itemModel;
 
   /**
    * Emits whether one of the subsections contains an icon
@@ -73,13 +70,16 @@ export class DsoPublicMenuExpandableSectionComponent extends AbstractMenuSection
   hasSubSections$: Observable<boolean>;
 
   constructor(
-    @Inject('sectionDataProvider') protected section: MenuSection,
     protected menuService: MenuService,
     protected injector: Injector,
+    protected themeService: ThemeService,
     protected router: Router,
   ) {
-    super(menuService, injector);
-    this.itemModel = section.model;
+    super(
+      menuService,
+      injector,
+      themeService,
+    );
   }
 
   ngOnInit(): void {
