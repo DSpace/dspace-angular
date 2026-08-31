@@ -110,6 +110,25 @@ describe('ScriptsSelectComponent', () => {
     expect(validationError).toBeFalsy();
   }));
 
+  it('should show a validation error if the form was submitted but the input was left empty', fakeAsync(() => {
+    component.submitted = true;
+    fixture.detectChanges();
+    tick();
+
+    const validationError = fixture.debugElement.query(By.css('.validation-error'));
+    expect(validationError).toBeTruthy();
+  }));
+
+  it('should not show a validation error if the form was submitted but the input was not left empty', fakeAsync(() => {
+    (component as any)._selectedScript.id = 'testValue';
+    component.submitted = true;
+    fixture.detectChanges();
+    tick();
+
+    const validationError = fixture.debugElement.query(By.css('.validation-error'));
+    expect(validationError).toBeFalsy();
+  }));
+
   it('should load more scripts when scrolled to the bottom', fakeAsync(() => {
     spyOn(component, 'loadScripts');
     const event = {
