@@ -74,6 +74,11 @@
     "@nicky-lenaers/ngx-scroll-to": {
       "@angular/common": "^20.3.12",
       "@angular/core": "^20.3.12"
+    },
+    "react": "16.14.0",
+    "react-dom": "16.14.0",
+    "mirador-share-plugin": {
+      "notistack": "1.0.10"
     }
   },
   "dependencies": {
