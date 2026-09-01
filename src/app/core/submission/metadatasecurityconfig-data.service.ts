@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { dataService } from '@dspace/core/cache/builders/build-decorators';
+import { METADATA_SECURITY_TYPE } from '@dspace/core/submission/models/metadata-security-config.resource-type';
 import { Observable } from 'rxjs';
 
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
@@ -15,6 +17,7 @@ import { MetadataSecurityConfiguration } from './models/metadata-security-config
 @Injectable({
   providedIn: 'root',
 })
+@dataService(METADATA_SECURITY_TYPE)
 export class MetadataSecurityConfigurationService extends IdentifiableDataService<MetadataSecurityConfiguration> {
 
   constructor(

@@ -24,10 +24,12 @@ import { DynamicComponentLoaderDirective } from './dynamic-component-loader.dire
  * <ul>
  *   <li>Create a new LoaderComponent component extending this component</li>
  *   <li>Point the templateUrl to this component's templateUrl</li>
- *   <li>Add all the @Input()/@Output() names that the dynamically generated components should inherit from the loader to the inputNames/outputNames lists</li>
- *   <li>Create a decorator file containing the new decorator function, a map containing all the collected {@link Component}s and a function to retrieve the {@link Component}</li>
- *   <li>Call the function to retrieve the correct {@link Component} in getComponent()</li>
- *   <li>Add all the @Input()s you had to used in getComponent() in the inputNamesDependentForComponent array</li>
+ *   <li>Add all the `@Input()`/`@Output()` names that the dynamically generated components should inherit from the loader to the `inputNames`/`outputNames` lists</li>
+ *   <li>Create a decorator file containing the new decorator function and the function to retrieve the {@link Component}</li>
+ *   <li>Declare the new decorator you want to use in `src/app/decorators.ts` as well, and make sure to define the decorator parameters (and their fallback values)</li>
+ *   <li>Rebuild the decorator registries (using `npm run generate:decorator:registries`) and use the generated map in the decorator file you created earlier</li>
+ *   <li>In the new LoaderComponent, call the decorator function to retrieve the correct {@link Component} in `getComponent()`</li>
+ *   <li>Add all the `@Input()`s used in `getComponent()` to the `inputNamesDependentForComponent` array</li>
  * </ul>
  */
 @Component({
@@ -80,7 +82,7 @@ export abstract class AbstractComponentLoaderComponent<T> implements OnInit, OnC
    * Set up the dynamic child component
    */
   ngOnInit(): void {
-    this.instantiateComponent();
+    void this.instantiateComponent();
   }
 
   /**
@@ -91,7 +93,7 @@ export abstract class AbstractComponentLoaderComponent<T> implements OnInit, OnC
       if (this.inputNamesDependentForComponent.some((name: keyof this & string) => hasValue(changes[name]) && changes[name].previousValue !== changes[name].currentValue)) {
         // Recreate the component when the @Input()s used by getComponent() aren't up-to-date anymore
         this.destroyComponentInstance();
-        this.instantiateComponent();
+        void this.instantiateComponent();
       } else {
         this.connectInputsAndOutputs();
       }
@@ -108,8 +110,14 @@ export abstract class AbstractComponentLoaderComponent<T> implements OnInit, OnC
   /**
    * Creates the component and connects the @Input() & @Output() from the ThemedComponent to its child Component.
    */
-  public instantiateComponent(): void {
-    const component: GenericConstructor<T> = this.getComponent();
+  public async instantiateComponent(): Promise<void> {
+    let component: GenericConstructor<T>;
+    try {
+      component = await this.getComponent();
+    } catch (error) {
+      console.error('Failed to retrieve the component', error);
+      return;
+    }
 
     const viewContainerRef: ViewContainerRef = this.componentViewContainerRef;
     viewContainerRef.clear();
@@ -137,7 +145,7 @@ export abstract class AbstractComponentLoaderComponent<T> implements OnInit, OnC
   /**
    * Fetch the component depending on the item's entity type, metadata representation type and context
    */
-  public abstract getComponent(): GenericConstructor<T>;
+  public abstract getComponent(): Promise<GenericConstructor<T>>;
 
   /**
    * Returns the component injector, override for custom component injection

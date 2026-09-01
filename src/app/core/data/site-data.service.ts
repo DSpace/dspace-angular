@@ -10,12 +10,14 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
+import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { getFirstCompletedRemoteData } from '../shared/operators';
 import { Site } from '../shared/site.model';
+import { SITE } from '../shared/site.resource-type';
 import { BaseDataService } from './base/base-data.service';
 import {
   FindAllData,
@@ -36,6 +38,7 @@ import { RequestService } from './request.service';
  * Service responsible for handling requests related to the Site object
  */
 @Injectable({ providedIn: 'root' })
+@dataService(SITE)
 export class SiteDataService extends BaseDataService<Site> implements FindAllData<Site> {
   private findAllData: FindAllData<Site>;
   private patchData: PatchData<Site>;

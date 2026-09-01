@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { dataService } from '@dspace/core/cache/builders/build-decorators';
+import { WORKFLOWITEM } from '@dspace/core/eperson/models/workflowitem.resource-type';
 import { hasValue } from '@dspace/shared/utils/empty.util';
 import { Observable } from 'rxjs';
 import {
@@ -34,6 +36,7 @@ import { WorkflowItem } from './models/workflowitem.model';
  * A service that provides methods to make REST requests with workflow items endpoint.
  */
 @Injectable({ providedIn: 'root' })
+@dataService(WORKFLOWITEM)
 export class WorkflowItemDataService extends IdentifiableDataService<WorkflowItem> implements SearchData<WorkflowItem>, DeleteData<WorkflowItem> {
   protected searchByItemLinkPath = 'item';
   protected responseMsToLive = 10 * 1000;
