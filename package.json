@@ -40,7 +40,7 @@
     "clean:prod": "npm run clean:dist && npm run clean:log && npm run clean:doc && npm run clean:coverage && npm run clean:json",
     "clean": "npm run clean:prod && npm run clean:dev:config && npm run clean:cli && npm run clean:decorator:registries && npm run clean:node",
     "sync-i18n": "ts-node -r tsconfig-paths/register --project ./tsconfig.ts-node.json scripts/sync-i18n-files.ts",
-    "build:mirador": "webpack --config webpack/webpack.mirador.config.ts",
+    "build:mirador": "cross-env TS_NODE_PROJECT=./tsconfig.ts-node.json webpack --config webpack/webpack.mirador.config.ts",
     "merge-i18n": "ts-node -r tsconfig-paths/register --project ./tsconfig.ts-node.json scripts/merge-i18n-files.ts",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
