@@ -39,8 +39,27 @@ import {
   filter,
   map,
   switchMap,
+  take,
 } from 'rxjs/operators';
 
+import { AuthService } from '../../core/auth/auth.service';
+import { SubmissionDefinitionsModel } from '../../core/config/models/config-submission-definitions.model';
+import { SubmissionDefinitionsConfigDataService } from '../../core/config/submission-definitions-config-data.service';
+import { PaginatedList } from '../../core/data/paginated-list.model';
+import { RemoteData } from '../../core/data/remote-data';
+import { Collection } from '../../core/shared/collection.model';
+import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
+import { Item } from '../../core/shared/item.model';
+import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { MetadataSecurityConfigurationService } from '../../core/submission/metadatasecurityconfig-data.service';
+import { MetadataSecurityConfiguration } from '../../core/submission/models/metadata-security-configuration';
+import { SubmissionObject } from '../../core/submission/models/submission-object.model';
+import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
+import {
+  hasValue,
+  isNotEmpty,
+  isNotUndefined,
+} from '../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { UploaderOptions } from '../../shared/upload/uploader/uploader-options.model';
 import { SubmissionObjectEntry } from '../objects/submission-objects.reducer';
@@ -179,6 +198,7 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
    * @param {SubmissionService} submissionService
    * @param {SectionsService} sectionsService
    * @param metadataSecurityConfigDataService
+   * @param submissionDefinitionsConfigService
    */
   constructor(
     private authService: AuthService,
@@ -186,7 +206,8 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
     private halService: HALEndpointService,
     private submissionService: SubmissionService,
     private sectionsService: SectionsService,
-    private metadataSecurityConfigDataService: MetadataSecurityConfigurationService) {
+    private metadataSecurityConfigDataService: MetadataSecurityConfigurationService,
+    private submissionDefinitionsConfigService: SubmissionDefinitionsConfigDataService) {
     this.isActive = true;
   }
 
@@ -231,8 +252,15 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
       this.subs.push(
         this.halService.getEndpoint(this.submissionService.getSubmissionObjectLinkName()).pipe(
           filter((href: string) => isNotEmpty(href)),
-          distinctUntilChanged())
-          .subscribe((endpointURL) => {
+          distinctUntilChanged(),
+          // Follow the sections HAL link on the submission definition to make sure ALL sections
+          // (across every page) are loaded before initializing the form. Falls back to the
+          // embedded sections when the link is unavailable or its resolution fails.
+          switchMap((endpointURL: string) => this.resolveAllSections().pipe(
+            take(1),
+            map(() => endpointURL),
+          )))
+          .subscribe((endpointURL: string) => {
             this.uploadFilesOptions.authToken = this.authService.buildAuthHeader();
             this.uploadFilesOptions.impersonatingID = this.authService.getImpersonateID();
             this.uploadFilesOptions.url = endpointURL.concat(`/${this.submissionId}`);
@@ -259,8 +287,9 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
    *  Returns the visibility object of the collection section
    */
   private getCollectionVisibility(): SubmissionVisibilityType {
+    const sections = this.submissionDefinition.sections as PaginatedList<SubmissionSectionModel>;
     const submissionSectionModel: SubmissionSectionModel =
-      this.submissionDefinition.sections.page.find(
+      sections.page.find(
         (section) => isEqual(section.sectionType, SectionsType.Collection),
       );
 
@@ -338,4 +367,36 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
         sections.filter((section: SectionDataObject) => !isEqual(section.sectionType,SectionsType.Collection))),
     );
   }
+
+  /**
+   * Follow the `sections` HAL link on the current {@link SubmissionDefinitionsModel} and replace the
+   * (possibly paginated/truncated) embedded sections with the complete list fetched across all
+   * pages.
+   *
+   * On any failure — missing link, HTTP error, or an empty result — the embedded sections that came
+   * with the submission definition are kept untouched, preserving backward compatibility with
+   * backends that have not yet implemented the paginated `sections` link.
+   *
+   * @return An observable that always completes (emitting `void`), regardless of whether the link
+   *         was followed successfully or the fallback was used.
+   */
+  protected resolveAllSections(): Observable<void> {
+    if (!hasValue(this.submissionDefinition)) {
+      return observableOf(undefined);
+    }
+    return this.submissionDefinitionsConfigService.findAllSections(this.submissionDefinition).pipe(
+      map((rd: RemoteData<PaginatedList<SubmissionSectionModel>>) => {
+        if (hasValue(rd) && rd.hasSucceeded && hasValue(rd.payload) && isNotEmpty(rd.payload.page)) {
+          this.submissionDefinition = Object.assign(
+            Object.create(Object.getPrototypeOf(this.submissionDefinition)),
+            this.submissionDefinition,
+            { sections: rd.payload },
+          );
+        }
+        // keep the embedded sections (fallback)
+        return undefined;
+      }),
+    );
+  }
+
 }

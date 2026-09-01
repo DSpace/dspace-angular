@@ -53,6 +53,31 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
+import { SubmissionSectionModel } from '../../core/config/models/config-submission-section.model';
+import { PaginatedList } from '../../core/data/paginated-list.model';
+import { RemoteData } from '../../core/data/remote-data';
+import { Item } from '../../core/shared/item.model';
+import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
+import {
+  SubmissionObject,
+  SubmissionObjectError,
+} from '../../core/submission/models/submission-object.model';
+import { WorkflowItem } from '../../core/submission/models/workflowitem.model';
+import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
+import { WorkspaceitemSectionDetectDuplicateObject } from '../../core/submission/models/workspaceitem-section-deduplication.model';
+import { WorkspaceitemSectionDuplicatesObject } from '../../core/submission/models/workspaceitem-section-duplicates.model';
+import { WorkspaceitemSectionUploadObject } from '../../core/submission/models/workspaceitem-section-upload.model';
+import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
+import { SubmissionJsonPatchOperationsService } from '../../core/submission/submission-json-patch-operations.service';
+import { SubmissionObjectDataService } from '../../core/submission/submission-object-data.service';
+import { SubmissionScopeType } from '../../core/submission/submission-scope-type';
+import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
+import {
+  isEmpty,
+  isNotEmpty,
+  isNotUndefined,
+  isUndefined,
+} from '../../shared/empty.util';
 import { FormState } from '../../shared/form/form.reducer';
 import { SectionsService } from '../sections/sections.service';
 import { SubmissionState } from '../submission.reducers';
@@ -102,7 +127,8 @@ export class SubmissionObjectEffects {
     map((action: InitSubmissionFormAction) => {
       const definition = action.payload.submissionDefinition;
       const mappedActions = [];
-      definition.sections.page.forEach((sectionDefinition: any) => {
+      const sections = definition.sections as PaginatedList<SubmissionSectionModel>;
+      sections.page.forEach((sectionDefinition: any) => {
         const selfLink = sectionDefinition._links.self.href || sectionDefinition._links.self;
         const sectionId = selfLink.substr(selfLink.lastIndexOf('/') + 1);
         const config = sectionDefinition._links.config ? (sectionDefinition._links.config.href || sectionDefinition._links.config) : '';
