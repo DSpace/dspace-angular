@@ -10,11 +10,14 @@ import { LayoutField } from '../../../../../../../core/layout/models/box.model';
 import { Item } from '../../../../../../../core/shared/item.model';
 import { ChipsComponent } from '../../../../../../../shared/form/chips/chips.component';
 import { Chips } from '../../../../../../../shared/form/chips/models/chips.model';
+import { FieldRenderingType } from '../field-rendering-type';
+import { metadataBoxFieldRendering } from '../metadata-box.decorator';
 import { RenderingTypeStructuredDirective } from '../rendering-type-structured.directive';
 
 /**
  * This component renders the tag metadata fields
  */
+@metadataBoxFieldRendering(FieldRenderingType.TAG)
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'span[ds-tag]',

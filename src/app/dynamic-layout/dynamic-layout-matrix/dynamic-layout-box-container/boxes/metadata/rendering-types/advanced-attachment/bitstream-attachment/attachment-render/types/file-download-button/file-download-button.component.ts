@@ -8,7 +8,12 @@ import { TranslateModule } from '@ngx-translate/core';
 import { BtnDisabledDirective } from 'src/app/shared/btn-disabled.directive';
 
 import { FileDownloadLinkComponent } from '../../../../../../../../../../../shared/file-download-link/file-download-link.component';
+import {
+  AttachmentRenderingType,
+  attachmentTypeRendering,
+} from '../../../attachment-type.decorator';
 
+@attachmentTypeRendering(AttachmentRenderingType.DOWNLOAD)
 @Component({
   selector: 'ds-file-download-button',
   templateUrl: './file-download-button.component.html',

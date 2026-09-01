@@ -3,16 +3,11 @@ import {
   Input,
 } from '@angular/core';
 import { LayoutField } from '@dspace/core/layout/models/box.model';
-import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
 import { Item } from '@dspace/core/shared/item.model';
 import { MetadataValue } from '@dspace/core/shared/metadata.models';
 import { hasValue } from '@dspace/shared/utils/empty.util';
 import { TranslateService } from '@ngx-translate/core';
 
-
-export interface MetadataBoxFieldRenderOptions {
-  componentRef: GenericConstructor<RenderingTypeDirective>;
-}
 
 /**
  * This class defines the basic model to extends for create a new

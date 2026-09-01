@@ -11,12 +11,15 @@ import { isEmpty } from '@dspace/shared/utils/empty.util';
 import { TranslateService } from '@ngx-translate/core';
 
 import { MetadataLinkValue } from '../../../../../../models/dynamic-layout-metadata-link-value.model';
+import { FieldRenderingType } from '../field-rendering-type';
+import { metadataBoxFieldRendering } from '../metadata-box.decorator';
 import { RenderingTypeValueDirective } from '../rendering-type-value.directive';
 
 /**
  * This component renders the links metadata fields.
  * The metadata value is used for href and text
  */
+@metadataBoxFieldRendering(FieldRenderingType.AUTHORITYLINK)
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'span[ds-link-authority]',

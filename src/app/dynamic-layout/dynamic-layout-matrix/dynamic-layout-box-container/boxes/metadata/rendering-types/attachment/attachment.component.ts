@@ -31,8 +31,11 @@ import { ThemedFileDownloadLinkComponent } from '../../../../../../../shared/fil
 import { TruncatableComponent } from '../../../../../../../shared/truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../../../../../../../shared/truncatable/truncatable-part/truncatable-part.component';
 import { FileSizePipe } from '../../../../../../../shared/utils/file-size-pipe';
+import { FieldRenderingType } from '../field-rendering-type';
+import { metadataBoxFieldRendering } from '../metadata-box.decorator';
 import { BitstreamAttachmentRenderingDirective } from './bitstream-attachment-rendering.directive';
 
+@metadataBoxFieldRendering(FieldRenderingType.ATTACHMENT)
 @Component({
   selector: 'ds-attachment',
   templateUrl: './attachment.component.html',

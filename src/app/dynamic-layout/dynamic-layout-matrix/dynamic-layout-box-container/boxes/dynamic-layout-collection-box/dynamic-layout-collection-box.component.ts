@@ -40,9 +40,11 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { environment } from '../../../../../../environments/environment';
+import { renderDynamicLayoutBoxFor } from '../../../../decorators/dynamic-layout-box.decorator';
+import { LayoutBox } from '../../../../enums/layout-box.enum';
 import { DynamicLayoutBoxDirective } from '../../../../models/dynamic-layout-box-component.directive';
 
+@renderDynamicLayoutBoxFor(LayoutBox.COLLECTIONS)
 @Component({
   selector: 'ds-dynamic-layout-collection-box',
   templateUrl: './dynamic-layout-collection-box.component.html',
@@ -145,21 +147,21 @@ export class DynamicLayoutCollectionBoxComponent extends DynamicLayoutBoxDirecti
    * Returns a string representing the style of field label if exists
    */
   get labelStyle(): string {
-    return environment.layout.collectionsBox.defaultCollectionsLabelColStyle;
+    return this.appConfig.layout.collectionsBox.defaultCollectionsLabelColStyle;
   }
 
   /**
    * Returns a string representing the style of field value if exists
    */
   get valueStyle(): string {
-    return environment.layout.collectionsBox.defaultCollectionsValueColStyle;
+    return this.appConfig.layout.collectionsBox.defaultCollectionsValueColStyle;
   }
 
   /**
    * Returns a string representing the style of row if exists
    */
   get rowStyle(): string {
-    return environment.layout.collectionsBox.defaultCollectionsRowStyle;
+    return this.appConfig.layout.collectionsBox.defaultCollectionsRowStyle;
   }
 
 }

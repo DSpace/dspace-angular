@@ -23,7 +23,7 @@ import { ToDatePipe } from '../../../../../../../../shared/access-control-form-c
 import { getMockThemeService } from '../../../../../../../../shared/theme-support/test/theme-service.mock';
 import { ThemeService } from '../../../../../../../../shared/theme-support/theme.service';
 import { MetadataRenderComponent } from '../../../row/metadata-container/metadata-render/metadata-render.component';
-import { layoutBoxesMap } from '../../metadata-box-rendering-map';
+import { getMetadataBoxFieldRenderMap } from '../../metadata-box.decorator';
 import { TextComponent } from '../../text/text.component';
 import { InlineComponent } from './inline.component';
 
@@ -101,7 +101,7 @@ describe('InlineComponent', () => {
         { provide: 'itemProvider', useValue: testItem },
         { provide: 'renderingSubTypeProvider', useValue: '' },
         { provide: 'tabNameProvider', useValue: '' },
-        { provide: DYNAMIC_FIELD_RENDERING_MAP, useValue: layoutBoxesMap },
+        { provide: DYNAMIC_FIELD_RENDERING_MAP, useValue: getMetadataBoxFieldRenderMap() },
         { provide: ThemeService, useValue: getMockThemeService() },
       ],
       schemas: [NO_ERRORS_SCHEMA],

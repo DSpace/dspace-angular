@@ -20,6 +20,7 @@ import {
   LayoutFieldType,
 } from '@dspace/core/layout/models/box.model';
 import { Bitstream } from '@dspace/core/shared/bitstream.model';
+import { GenericConstructor } from '@dspace/core/shared/generic-constructor';
 import { Item } from '@dspace/core/shared/item.model';
 import { MetadataValue } from '@dspace/core/shared/metadata.models';
 import { getFirstCompletedRemoteData } from '@dspace/core/shared/operators';
@@ -40,7 +41,7 @@ import {
   computeRenderingFn,
   getMetadataBoxFieldRenderOptionsFn,
 } from '../../rendering-types/metadata-box.decorator';
-import { MetadataBoxFieldRenderOptions } from '../../rendering-types/rendering-type.directive';
+import { RenderingTypeDirective } from '../../rendering-types/rendering-type.directive';
 import { MetadataRenderComponent } from './metadata-render/metadata-render.component';
 
 @Component({
@@ -81,14 +82,14 @@ export class MetadataContainerComponent implements OnInit {
   isStructured = false;
 
   /**
-   * The configuration of the rendering component to render
+   * The rendering component to render
    */
-  metadataFieldRenderOptions: MetadataBoxFieldRenderOptions;
+  metadataFieldRenderOptions: GenericConstructor<RenderingTypeDirective>;
 
   protected readonly bitstreamDataService = inject(BitstreamDataService);
   protected readonly translateService = inject(TranslateService);
   protected readonly cd = inject(ChangeDetectorRef);
-  protected readonly layoutBoxesMap: Map<FieldRenderingType, MetadataBoxFieldRenderOptions> = inject(DYNAMIC_FIELD_RENDERING_MAP);
+  protected readonly layoutBoxesMap: Map<FieldRenderingType, GenericConstructor<RenderingTypeDirective>> = inject(DYNAMIC_FIELD_RENDERING_MAP);
 
   /**
    * Returns all metadata values in the item
@@ -163,7 +164,7 @@ export class MetadataContainerComponent implements OnInit {
 
   initRenderOptions(renderingType: string | FieldRenderingType): void {
     this.metadataFieldRenderOptions = getMetadataBoxFieldRenderOptionsFn(this.layoutBoxesMap, renderingType);
-    this.isStructured = (this.metadataFieldRenderOptions.componentRef as any).structured ?? false;
+    this.isStructured = (this.metadataFieldRenderOptions as any).structured ?? false;
     this.cd.detectChanges();
   }
 

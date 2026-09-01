@@ -3,7 +3,7 @@
     <div class="vertical-layout">
       <ds-dynamic-layout-sidebar (selectedTabChange)="selectedTabChanged($event)" [showNav]="tabs.length > 1" [tabs]="tabs" [item]="item">
         @if (showContextMenu) {
-          <div class="container d-flex justify-content-end mb-3" [class.px-0]="tabs?.length > 1">
+          <div class="d-flex justify-content-end mb-3" [class.px-0]="tabs?.length > 1">
             <ds-dso-edit-menu></ds-dso-edit-menu>
           </div>
         }
@@ -16,7 +16,7 @@
     <div class="horizontal-layout">
       <ds-dynamic-layout-navbar [showNav]="(tabs.length - leadingTabs.length) > 1" (selectedTabChange)="selectedTabChanged($event)"
       [tabs]="tabs" [item]="item"></ds-dynamic-layout-navbar>
-      <div class="container pt-4">
+      <div class="pt-4">
         <ds-dynamic-layout-matrix [tab]="(selectedTab$ | async)" [item]="item"></ds-dynamic-layout-matrix>
       </div>
     </div>

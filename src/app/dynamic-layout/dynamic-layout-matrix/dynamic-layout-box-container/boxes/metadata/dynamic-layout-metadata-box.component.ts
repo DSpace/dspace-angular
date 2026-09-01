@@ -12,12 +12,15 @@ import {
 import { Item } from '@dspace/core/shared/item.model';
 import { TranslateService } from '@ngx-translate/core';
 
+import { renderDynamicLayoutBoxFor } from '../../../../decorators/dynamic-layout-box.decorator';
+import { LayoutBox } from '../../../../enums/layout-box.enum';
 import { DynamicLayoutBoxDirective } from '../../../../models/dynamic-layout-box-component.directive';
 import { RowComponent } from './row/row.component';
 
 /**
  * This component renders the metadata boxes of items
  */
+@renderDynamicLayoutBoxFor(LayoutBox.METADATA)
 @Component({
   selector: 'ds-dynamic-layout-metadata-box',
   templateUrl: './dynamic-layout-metadata-box.component.html',

@@ -43,7 +43,7 @@ import {
 import { environment } from '../environments/environment';
 import { AppState } from './app.reducer';
 import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
-import { layoutBoxesMap } from './dynamic-layout/dynamic-layout-matrix/dynamic-layout-box-container/boxes/metadata/rendering-types/metadata-box-rendering-map';
+import { getMetadataBoxFieldRenderMap } from './dynamic-layout/dynamic-layout-matrix/dynamic-layout-box-container/boxes/metadata/rendering-types/metadata-box.decorator';
 import { dsDynamicFormControlMapFn } from './shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-map-fn';
 import { MenuService } from './shared/menu/menu.service';
 import { MenuProviderService } from './shared/menu/menu-provider.service';
@@ -121,7 +121,7 @@ export abstract class InitService {
       },
       {
         provide: DYNAMIC_FIELD_RENDERING_MAP,
-        useValue: layoutBoxesMap,
+        useValue: getMetadataBoxFieldRenderMap(),
       },
     ];
   }

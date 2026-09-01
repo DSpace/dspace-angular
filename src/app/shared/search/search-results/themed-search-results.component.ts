@@ -49,7 +49,7 @@ export class ThemedSearchResultsComponent extends ThemedComponent<SearchResultsC
     'deselectObject',
     'selectObject',
     'searchResultNotice',
-    'searchResultNotice',
+    'searchResultNoticeType',
     'showSearchResultNotice',
   ];
 

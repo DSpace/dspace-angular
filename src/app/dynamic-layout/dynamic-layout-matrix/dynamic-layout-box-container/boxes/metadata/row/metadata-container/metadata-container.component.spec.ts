@@ -20,7 +20,7 @@ import {
 
 import { MetadataValue } from '../../../../../../../core/shared/metadata.models';
 import { FieldRenderingType } from '../../rendering-types/field-rendering-type';
-import { layoutBoxesMap } from '../../rendering-types/metadata-box-rendering-map';
+import { getMetadataBoxFieldRenderMap } from '../../rendering-types/metadata-box.decorator';
 import { TextComponent } from '../../rendering-types/text/text.component';
 import { MetadataContainerComponent } from './metadata-container.component';
 import { MetadataRenderComponent } from './metadata-render/metadata-render.component';
@@ -172,7 +172,7 @@ describe('MetadataContainerComponent', () => {
       ],
       providers: [
         { provide: BitstreamDataService, useValue: mockBitstreamDataService },
-        { provide: DYNAMIC_FIELD_RENDERING_MAP, useValue: layoutBoxesMap },
+        { provide: DYNAMIC_FIELD_RENDERING_MAP, useValue: getMetadataBoxFieldRenderMap() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })

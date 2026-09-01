@@ -1,19 +1,21 @@
-@if ((owningCollection$ | async) || (mappedCollections$ | async).length > 0) {
-  <div class="container" [class]="rowStyle"
-    >
-    @if (owningCollection$ | async) {
+@let owningCollection = owningCollection$ | async;
+@let mappedCollections = mappedCollections$ | async;
+
+@if (owningCollection || (mappedCollections?.length ?? 0) > 0) {
+  <div class="container" [class]="rowStyle">
+    @if (owningCollection) {
       <div class="row" data-test="owningCollection">
         <div class="{{labelStyle}}">{{ 'dynamic-layout.rendering.collections.owning-collection.label' | translate }}</div>
         <div class="{{valueStyle}}">
-          <a [routerLink]="['/collections', (owningCollection$ | async).id]">{{ (owningCollection$ | async).firstMetadataValue('dc.title') }}</a>
+          <a [routerLink]="['/collections', owningCollection.id]">{{ owningCollection.firstMetadataValue('dc.title') }}</a>
         </div>
       </div>
     }
-    @if ((mappedCollections$ | async)?.length > 0) {
+    @if ((mappedCollections?.length ?? 0) > 0) {
       <div class="row" data-test="mappedCollections">
         <div [class]="labelStyle">{{ 'dynamic-layout.rendering.collections.mapped-collection.label' | translate }}</div>
         <div [class]="valueStyle" [ngClass]="{'d-inline-flex' : isInline}">
-          @for (mappedCollection of (mappedCollections$ | async); track mappedCollection; let last = $last) {
+          @for (mappedCollection of mappedCollections; track mappedCollection; let last = $last) {
             <div>
               <a [routerLink]="['/collections', mappedCollection.id]">{{ mappedCollection.firstMetadataValue('dc.title') }}</a>
               @if (isInline && !last) {
@@ -31,8 +33,8 @@
               (click)="handleLoadMore()"
               class="btn btn-link" [class.ms-3]="isInline"
             >
-              <i class="me-2"
-              [ngClass]="isInline ? 'fa fa-chevron-right' : 'fa fa-chevron-down'"></i>{{'dynamic-layout.rendering.collections.load-more' | translate}}
+              <i class="me-2" aria-hidden="true" [ngClass]="isInline ? 'fa fa-chevron-right' : 'fa fa-chevron-down'"></i>
+              {{'dynamic-layout.rendering.collections.load-more' | translate}}
             </button>
           }
         </div>

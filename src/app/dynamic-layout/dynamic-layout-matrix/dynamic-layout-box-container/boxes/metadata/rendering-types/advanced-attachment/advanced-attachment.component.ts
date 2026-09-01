@@ -28,8 +28,11 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { AttachmentComponent } from '../attachment/attachment.component';
+import { FieldRenderingType } from '../field-rendering-type';
+import { metadataBoxFieldRendering } from '../metadata-box.decorator';
 import { BitstreamAttachmentComponent } from './bitstream-attachment/bitstream-attachment.component';
 
+@metadataBoxFieldRendering(FieldRenderingType.ADVANCEDATTACHMENT)
 @Component({
   selector: 'ds-advanced-attachment',
   templateUrl: './advanced-attachment.component.html',

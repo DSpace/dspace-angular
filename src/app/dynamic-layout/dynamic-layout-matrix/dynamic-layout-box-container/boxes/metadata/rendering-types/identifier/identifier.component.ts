@@ -5,6 +5,10 @@ import {
   OnInit,
 } from '@angular/core';
 import {
+  APP_CONFIG,
+  AppConfig,
+} from '@dspace/config/app-config.interface';
+import {
   IdentifierSubtypesConfig,
   IdentifierSubtypesIconPositionEnum,
 } from '@dspace/config/identifier-subtypes-config.interface';
@@ -18,15 +22,17 @@ import {
 } from '@dspace/shared/utils/empty.util';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
-import { environment } from 'src/environments/environment';
 
 import { MetadataLinkValue } from '../../../../../../models/dynamic-layout-metadata-link-value.model';
 import { ResolverStrategyService } from '../../../../../../services/resolver-strategy.service';
+import { FieldRenderingType } from '../field-rendering-type';
+import { metadataBoxFieldRendering } from '../metadata-box.decorator';
 import { RenderingTypeValueDirective } from '../rendering-type-value.directive';
 
 /**
  * This component renders the identifier metadata fields.
  */
+@metadataBoxFieldRendering(FieldRenderingType.IDENTIFIER)
 @Component({
   selector: 'ds-identifier',
   templateUrl: './identifier.component.html',
@@ -57,7 +63,7 @@ export class IdentifierComponent extends RenderingTypeValueDirective implements 
   /**
    * The identifier subtype configurations
    */
-  identifierSubtypeConfig: IdentifierSubtypesConfig[] = environment.item.metadataLinkViewPopoverData.identifierSubtypes;
+  identifierSubtypeConfig: IdentifierSubtypesConfig[] = this.appConfig.item.metadataLinkViewPopoverData.identifierSubtypes;
 
   /**
    * The icon to display for the identifier subtype
@@ -85,6 +91,7 @@ export class IdentifierComponent extends RenderingTypeValueDirective implements 
     @Inject('metadataValueProvider') public metadataValueProvider: MetadataValue,
     @Inject('renderingSubTypeProvider') public renderingSubTypeProvider: string,
     @Inject('tabNameProvider') public tabNameProvider: string,
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
     protected resolver: ResolverStrategyService,
     protected translateService: TranslateService,
   ) {
@@ -154,7 +161,7 @@ export class IdentifierComponent extends RenderingTypeValueDirective implements 
     if (metadataValue.startsWith(rep)) {
       value = metadataValue.replace(rep, '');
     }
-    const shouldKeepWhiteSpaces = environment.layout
+    const shouldKeepWhiteSpaces = this.appConfig.layout
       .urn?.find((urnConfig) => urnConfig.name === urn)?.shouldKeepWhiteSpaces;
     const href = this.resolver.getBaseUrl(urn) + (shouldKeepWhiteSpaces ? value : value.replace(/\s/g, ''));
     return this.createMetadataLinkValue(href, value);

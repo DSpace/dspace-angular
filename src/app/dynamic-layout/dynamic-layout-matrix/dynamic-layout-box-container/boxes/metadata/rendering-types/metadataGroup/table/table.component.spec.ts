@@ -19,7 +19,7 @@ import { getMockThemeService } from '../../../../../../../../shared/theme-suppor
 import { ThemeService } from '../../../../../../../../shared/theme-support/theme.service';
 import { MetadataRenderComponent } from '../../../row/metadata-container/metadata-render/metadata-render.component';
 import { FieldRenderingType } from '../../field-rendering-type';
-import { layoutBoxesMap } from '../../metadata-box-rendering-map';
+import { getMetadataBoxFieldRenderMap } from '../../metadata-box.decorator';
 import { TextComponent } from '../../text/text.component';
 import { TableComponent } from './table.component';
 
@@ -103,7 +103,7 @@ describe('TableComponent', () => {
         { provide: 'itemProvider', useValue: testItem },
         { provide: 'renderingSubTypeProvider', useValue: '' },
         { provide: 'tabNameProvider', useValue: '' },
-        { provide: DYNAMIC_FIELD_RENDERING_MAP, useValue: layoutBoxesMap },
+        { provide: DYNAMIC_FIELD_RENDERING_MAP, useValue: getMetadataBoxFieldRenderMap() },
         { provide: ThemeService, useValue: getMockThemeService() },
       ],
     }).overrideComponent(TableComponent, {

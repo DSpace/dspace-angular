@@ -1,4 +1,7 @@
-import { DebugElement } from '@angular/core';
+import {
+  Component,
+  DebugElement,
+} from '@angular/core';
 import {
   ComponentFixture,
   TestBed,
@@ -13,8 +16,19 @@ import {
 } from '@ngx-translate/core';
 
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { DynamicLayoutMetadataBoxComponent } from './boxes/metadata/dynamic-layout-metadata-box.component';
 import { DynamicLayoutBoxContainerComponent } from './dynamic-layout-box-container.component';
+
+/**
+ * Lightweight stand-in for the dynamically loaded box component.
+ * The container test only cares that a component is resolved and rendered;
+ * the concrete box components (and their service dependencies) are covered by their own specs.
+ */
+@Component({
+  selector: 'ds-test-dynamic-layout-box',
+  template: '',
+})
+class TestDynamicLayoutBoxComponent {
+}
 
 describe('DynamicLayoutBoxContainerComponent', () => {
   let component: DynamicLayoutBoxContainerComponent;
@@ -73,7 +87,7 @@ describe('DynamicLayoutBoxContainerComponent', () => {
 
   describe('when inserting box', () => {
     beforeEach(() => {
-      spyOn((component as any), 'getComponent').and.returnValue(DynamicLayoutMetadataBoxComponent);
+      spyOn((component as any), 'getComponent').and.returnValue(TestDynamicLayoutBoxComponent);
       component.box = boxMetadata;
       component.item = mockItem;
       component.ngOnInit();

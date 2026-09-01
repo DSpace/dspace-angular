@@ -1,38 +1,50 @@
+import { hasNoValue } from '@dspace/shared/utils/empty.util';
 
 import { GenericConstructor } from '../../core/shared/generic-constructor';
-import { ItemVersionsComponent } from '../../item-page/versions/item-versions.component';
-import { DynamicLayoutCollectionBoxComponent } from '../dynamic-layout-matrix/dynamic-layout-box-container/boxes/dynamic-layout-collection-box/dynamic-layout-collection-box.component';
-import { DynamicLayoutIiifViewerBoxComponent } from '../dynamic-layout-matrix/dynamic-layout-box-container/boxes/iiif-viewer/dynamic-layout-iiif-viewer-box.component';
-import { DynamicLayoutMetadataBoxComponent } from '../dynamic-layout-matrix/dynamic-layout-box-container/boxes/metadata/dynamic-layout-metadata-box.component';
-import { DynamicLayoutRelationBoxComponent } from '../dynamic-layout-matrix/dynamic-layout-box-container/boxes/relation/dynamic-layout-relation-box.component';
 import { LayoutBox } from '../enums/layout-box.enum';
-import { DynamicLayoutBoxDirective } from '../models/dynamic-layout-box-component.directive';
 
 /**
- * Render options for a dynamic layout box component.
+ * The type of component a layout box can be rendered with.
+ *
+ * The registry is heterogeneous: most boxes extend {@link DynamicLayoutBoxDirective},
+ * but some (e.g. VERSIONING) are rendered with a standalone component that does not,
+ * so a generic constructor type is used here.
  */
-export interface DynamicLayoutBoxRenderOptions {
-  /** The component class to instantiate for this box type. */
-  componentRef: GenericConstructor<DynamicLayoutBoxDirective | ItemVersionsComponent>;
+type DynamicLayoutBoxComponent = GenericConstructor<any>;
+
+/**
+ * Registry mapping {@link LayoutBox} types to their rendering component.
+ *
+ * Entries are added dynamically at class-definition time by the
+ * {@link renderDynamicLayoutBoxFor} decorator, instead of being hardcoded here.
+ */
+const layoutBoxesMap = new Map<LayoutBox, DynamicLayoutBoxComponent>();
+
+/**
+ * Decorator used to register a component as the renderer for a given {@link LayoutBox} type.
+ *
+ * Components extending {@link DynamicLayoutBoxDirective} inherit a static
+ * `hasOwnContainer` flag (default `false`). If a component provides its own
+ * wrapping container (e.g. accordion), override it with
+ * `static override hasOwnContainer = true;` in the component class.
+ *
+ * @param boxType the layout box type the decorated component renders
+ */
+export function renderDynamicLayoutBoxFor(boxType: LayoutBox) {
+  return function decorator(component: DynamicLayoutBoxComponent) {
+    if (hasNoValue(boxType)) {
+      return;
+    }
+    layoutBoxesMap.set(boxType, component);
+  };
 }
 
 /**
- * Static registry mapping {@link LayoutBox} types to their rendering component.
- */
-const layoutBoxesMap = new Map<LayoutBox, DynamicLayoutBoxRenderOptions>([
-  [LayoutBox.COLLECTIONS, { componentRef: DynamicLayoutCollectionBoxComponent }],
-  [LayoutBox.IIIFVIEWER, { componentRef: DynamicLayoutIiifViewerBoxComponent }],
-  [LayoutBox.METADATA, { componentRef: DynamicLayoutMetadataBoxComponent }],
-  [LayoutBox.RELATION, { componentRef: DynamicLayoutRelationBoxComponent }],
-  [LayoutBox.VERSIONING, { componentRef: ItemVersionsComponent }],
-]);
-
-/**
- * Resolves the rendering options for a given box type.
+ * Resolves the rendering component for a given box type.
  *
  * @param boxType the layout box type to look up
- * @returns the render options for the box type, or undefined if not registered
+ * @returns the component constructor for the box type, or undefined if not registered
  */
-export function getDynamicLayoutBox(boxType: LayoutBox): DynamicLayoutBoxRenderOptions {
+export function getDynamicLayoutBox(boxType: LayoutBox): DynamicLayoutBoxComponent {
   return layoutBoxesMap.get(boxType);
 }

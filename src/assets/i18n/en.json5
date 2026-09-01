@@ -7610,6 +7610,8 @@
 
   "dynamic-form-array.sortable-list.label": "Sortable list",
 
+  "dynamic.nav.main.description": "Section navigation",
+
   "external-login.component.or": "or",
 
   "external-login.confirmation.header": "Information needed to complete the login process",

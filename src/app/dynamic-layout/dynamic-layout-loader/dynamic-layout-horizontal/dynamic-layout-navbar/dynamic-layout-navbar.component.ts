@@ -10,12 +10,11 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import { DynamicLayoutTab } from '@dspace/core/layout/models/tab.model';
+import { Item } from '@dspace/core/shared/item.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
-import { DynamicLayoutTab } from '../../../../core/layout/models/tab.model';
-import { Item } from '../../../../core/shared/item.model';
-import { slideMobileNav } from '../../../../shared/animations/slide';
 import { HostWindowService } from '../../../../shared/host-window.service';
 import { DynamicLayoutTabsComponent } from '../../shared/dynamic-layout-tabs/dynamic-layout-tabs.component';
 import { DynamicLayoutSidebarItemComponent } from '../../shared/sidebar-item/dynamic-layout-sidebar-item.component';
@@ -24,7 +23,6 @@ import { DynamicLayoutSidebarItemComponent } from '../../shared/sidebar-item/dyn
   selector: 'ds-dynamic-layout-navbar',
   templateUrl: './dynamic-layout-navbar.component.html',
   styleUrls: ['./dynamic-layout-navbar.component.scss'],
-  animations: [slideMobileNav],
   imports: [
     AsyncPipe,
     DynamicLayoutSidebarItemComponent,

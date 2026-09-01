@@ -1,20 +1,32 @@
 import { hasNoValue } from '@dspace/shared/utils/empty.util';
 
 import { GenericConstructor } from '../../core/shared/generic-constructor';
-import { DynamicLayoutHorizontalComponent } from '../dynamic-layout-loader/dynamic-layout-horizontal/dynamic-layout-horizontal.component';
-import { DynamicLayoutVerticalComponent } from '../dynamic-layout-loader/dynamic-layout-vertical/dynamic-layout-vertical.component';
 import {
   DEFAULT_LAYOUT_PAGE,
   LayoutPage,
 } from '../enums/layout-page.enum';
 
 /**
- * Static registry mapping {@link LayoutPage} orientation types to their page component.
+ * Registry mapping {@link LayoutPage} orientation types to their page component.
+ *
+ * Entries are added dynamically at class-definition time by the
+ * {@link dynamicLayoutPage} decorator, instead of being hardcoded here.
  */
-const layoutPageMap = new Map<LayoutPage, GenericConstructor<DynamicLayoutHorizontalComponent|DynamicLayoutVerticalComponent>>([
-  [ LayoutPage.HORIZONTAL, DynamicLayoutHorizontalComponent ],
-  [ LayoutPage.VERTICAL, DynamicLayoutVerticalComponent ],
-]);
+const layoutPageMap = new Map<LayoutPage, GenericConstructor<any>>();
+
+/**
+ * Decorator used to register a component as the renderer for a given {@link LayoutPage} orientation.
+ *
+ * @param orientation the layout page orientation the decorated component renders
+ */
+export function dynamicLayoutPage(orientation: LayoutPage) {
+  return function decorator(component: GenericConstructor<any>) {
+    if (hasNoValue(orientation)) {
+      return;
+    }
+    layoutPageMap.set(orientation, component);
+  };
+}
 
 /**
  * Resolves the page layout component for the given orientation.

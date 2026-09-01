@@ -31,7 +31,10 @@ import {
 import { getDefaultImageUrlByEntityType } from '../../../../../../../shared/image.utils';
 import { ThemedThumbnailComponent } from '../../../../../../../thumbnail/themed-thumbnail.component';
 import { BitstreamRenderingDirective } from '../bitstream-rendering.directive';
+import { FieldRenderingType } from '../field-rendering-type';
+import { metadataBoxFieldRendering } from '../metadata-box.decorator';
 
+@metadataBoxFieldRendering(FieldRenderingType.THUMBNAIL)
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector, dspace-angular-ts/themed-component-selectors
   selector: 'span[ds-thumbnail].float-start',

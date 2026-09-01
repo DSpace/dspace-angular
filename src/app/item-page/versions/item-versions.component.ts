@@ -51,6 +51,8 @@ import {
   take,
 } from 'rxjs/operators';
 
+import { renderDynamicLayoutBoxFor } from '../../dynamic-layout/decorators/dynamic-layout-box.decorator';
+import { LayoutBox } from '../../dynamic-layout/enums/layout-box.enum';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { AlertType } from '../../shared/alert/alert-type';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
@@ -67,6 +69,7 @@ interface VersionDTO {
   canEditVersion: Observable<boolean>;
 }
 
+@renderDynamicLayoutBoxFor(LayoutBox.VERSIONING)
 @Component({
   selector: 'ds-item-versions',
   templateUrl: './item-versions.component.html',
@@ -362,4 +365,3 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
   }
 
 }
-

@@ -8,8 +8,11 @@ import { TranslateService } from '@ngx-translate/core';
 import { LayoutField } from '../../../../../../../core/layout/models/box.model';
 import { Item } from '../../../../../../../core/shared/item.model';
 import { ItemPageCcLicenseFieldComponent } from '../../../../../../../item-page/simple/field-components/specific-field/cc-license/item-page-cc-license-field.component';
+import { FieldRenderingType } from '../field-rendering-type';
+import { metadataBoxFieldRendering } from '../metadata-box.decorator';
 import { MetadataGroupComponent } from '../metadataGroup/metadata-group.component';
 
+@metadataBoxFieldRendering(FieldRenderingType.CCLICENSEFULL)
 @Component({
   selector: 'ds-cc-license-large',
   imports: [

@@ -4,11 +4,13 @@ import {
   Input,
 } from '@angular/core';
 import { DynamicLayoutTab } from '@dspace/core/layout/models/tab.model';
-import { Item } from '@dspace/core/shared/item.model';
 import { BehaviorSubject } from 'rxjs';
 
 import { DsoEditMenuComponent } from '../../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
+import { dynamicLayoutPage } from '../../decorators/dynamic-layout-page.decorator';
 import { DynamicLayoutMatrixComponent } from '../../dynamic-layout-matrix/dynamic-layout-matrix.component';
+import { LayoutPage } from '../../enums/layout-page.enum';
+import { DynamicLayoutPageDirective } from '../../models/dynamic-layout-page.directive';
 import { DynamicLayoutNavbarComponent } from './dynamic-layout-navbar/dynamic-layout-navbar.component';
 
 /**
@@ -16,6 +18,7 @@ import { DynamicLayoutNavbarComponent } from './dynamic-layout-navbar/dynamic-la
  * Renders tabs as a horizontal top navbar, with the selected tab's content
  * displayed below via {@link DynamicLayoutMatrixComponent}.
  */
+@dynamicLayoutPage(LayoutPage.HORIZONTAL)
 @Component({
   selector: 'ds-dynamic-layout-horizontal',
   templateUrl: './dynamic-layout-horizontal.component.html',
@@ -27,12 +30,7 @@ import { DynamicLayoutNavbarComponent } from './dynamic-layout-navbar/dynamic-la
     DynamicLayoutNavbarComponent,
   ],
 })
-export class DynamicLayoutHorizontalComponent {
-
-  /**
-   * DSpace Item to render
-   */
-  @Input() item: Item;
+export class DynamicLayoutHorizontalComponent extends DynamicLayoutPageDirective {
 
   /**
    * Tabs to render

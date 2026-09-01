@@ -23,10 +23,7 @@ import {
   computeRenderingFn,
   getMetadataBoxFieldRenderOptionsFn,
 } from '../../../rendering-types/metadata-box.decorator';
-import {
-  MetadataBoxFieldRenderOptions,
-  RenderingTypeDirective,
-} from '../../../rendering-types/rendering-type.directive';
+import { RenderingTypeDirective } from '../../../rendering-types/rendering-type.directive';
 
 @Component({
   selector: 'ds-metadata-render',
@@ -61,8 +58,16 @@ export class MetadataRenderComponent extends AbstractComponentLoaderComponent<Re
    */
   renderingSubType: string;
 
-  protected readonly layoutBoxesMap: Map<FieldRenderingType, MetadataBoxFieldRenderOptions> = inject(DYNAMIC_FIELD_RENDERING_MAP);
+  protected readonly layoutBoxesMap: Map<FieldRenderingType, GenericConstructor<RenderingTypeDirective>> = inject(DYNAMIC_FIELD_RENDERING_MAP);
   private readonly parentInjector: Injector = inject(Injector);
+
+  /**
+   * The @Input() names used by {@link getComponent} to determine which component to render.
+   * A change to {@link field} must trigger recreation of the dynamic component.
+   */
+  protected override inputNamesDependentForComponent: (keyof this & string)[] = [
+    'field',
+  ];
 
   constructor(
     protected themeService: ThemeService,
@@ -76,8 +81,7 @@ export class MetadataRenderComponent extends AbstractComponentLoaderComponent<Re
   public getComponent(): GenericConstructor<RenderingTypeDirective> {
     this.renderingSubType = computeRenderingFn(this.field.rendering, true);
     const rendering = computeRenderingFn(this.field?.rendering);
-    const metadataFieldRenderOptions = getMetadataBoxFieldRenderOptionsFn(this.layoutBoxesMap, rendering);
-    return metadataFieldRenderOptions?.componentRef;
+    return getMetadataBoxFieldRenderOptionsFn(this.layoutBoxesMap, rendering);
   }
 
   /**

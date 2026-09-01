@@ -1,7 +1,5 @@
 import {
   Component,
-  inject,
-  Injector,
   Input,
 } from '@angular/core';
 import { Bitstream } from '@dspace/core/shared/bitstream.model';
@@ -21,7 +19,7 @@ import {
  * based on the bitstream's rendering type.
  *
  * Extends {@link AbstractComponentLoaderComponent} to leverage automatic input wiring
- * and re-instantiation when the rendering type or bitstream changes.
+ * and re-instantiation when the rendering type changes.
  */
 @Component({
   selector: 'ds-attachment-render',
@@ -48,11 +46,6 @@ export class AttachmentRenderComponent extends AbstractComponentLoaderComponent<
   @Input() renderingType: AttachmentRenderingType | string;
 
   /**
-   * The tab name
-   */
-  @Input() tabName: string;
-
-  /**
    * Input names that should be passed down to the dynamically created component.
    */
   protected inputNames: (keyof this & string)[] = [
@@ -60,13 +53,13 @@ export class AttachmentRenderComponent extends AbstractComponentLoaderComponent<
   ];
 
   /**
-   * When renderingType or bitstream changes, the component must be re-evaluated.
+   * When the renderingType changes, the component must be re-evaluated.
+   * The bitstream value does not affect which component is chosen, so it is
+   * passed down as a regular @Input() instead of triggering re-instantiation.
    */
   protected inputNamesDependentForComponent: (keyof this & string)[] = [
-    'renderingType', 'bitstream',
+    'renderingType',
   ];
-
-  private injector: Injector = inject(Injector);
 
   constructor(
     protected themeService: ThemeService,
@@ -83,20 +76,5 @@ export class AttachmentRenderComponent extends AbstractComponentLoaderComponent<
   public getComponent(): GenericConstructor<Component> {
     const rendering = this.renderingType || AttachmentRenderingType.DOWNLOAD;
     return getAttachmentTypeRendering(rendering);
-  }
-
-  /**
-   * Generate Component Injector object
-   */
-  getComponentInjector() {
-    const providers = [
-      { provide: 'itemProvider', useValue: this.item, deps: [] },
-      { provide: 'bitstreamProvider', useValue: this.bitstream, deps: [] },
-      { provide: 'tabNameProvider', useValue: this.tabName, deps: [] },
-    ];
-    return Injector.create({
-      providers: providers,
-      parent: this.injector,
-    });
   }
 }

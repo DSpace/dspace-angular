@@ -24,7 +24,11 @@ export abstract class DynamicLayoutBoxDirective extends DynamicLayoutPageDirecti
 
   /**
    * Whether this box component provides its own container (e.g. accordion).
-   * If true, the parent won't wrap it in an accordion panel.
+   * If `true`, the parent {@link DynamicLayoutBoxContainerComponent} won't wrap
+   * it in an accordion panel.
+   *
+   * Subclasses that supply their own container should override this:
+   * static override hasOwnContainer = true;
    */
   static hasOwnContainer = false;
 

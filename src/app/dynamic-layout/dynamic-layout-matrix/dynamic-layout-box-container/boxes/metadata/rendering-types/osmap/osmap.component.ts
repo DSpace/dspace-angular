@@ -9,6 +9,8 @@ import { isNotEmpty } from '@dspace/shared/utils/empty.util';
 import { TranslateService } from '@ngx-translate/core';
 
 import { GeospatialMapComponent } from '../../../../../../../shared/geospatial-map/geospatial-map.component';
+import { FieldRenderingType } from '../field-rendering-type';
+import { metadataBoxFieldRendering } from '../metadata-box.decorator';
 import { MetadataGroupComponent } from '../metadataGroup/metadata-group.component';
 
 /**
@@ -21,6 +23,7 @@ import { MetadataGroupComponent } from '../metadataGroup/metadata-group.componen
  * The first element in the metadata group is treated as coordinates,
  * the second (if present) as bounding boxes.
  */
+@metadataBoxFieldRendering(FieldRenderingType.OSMAP)
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'span[ds-osmap]',

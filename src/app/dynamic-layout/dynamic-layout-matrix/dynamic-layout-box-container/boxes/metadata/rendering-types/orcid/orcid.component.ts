@@ -18,11 +18,14 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { FieldRenderingType } from '../field-rendering-type';
+import { metadataBoxFieldRendering } from '../metadata-box.decorator';
 import { RenderingTypeValueDirective } from '../rendering-type-value.directive';
 
 /**
  * This component renders the text metadata fields
  */
+@metadataBoxFieldRendering(FieldRenderingType.ORCID)
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'span[ds-orcid]',

@@ -16,7 +16,7 @@ import { excludeFromEquals } from '../utilities/equals.decorators';
 import { DSPACE_OBJECT } from './dspace-object.resource-type';
 import { GenericConstructor } from './generic-constructor';
 import { HALLink } from './hal-link.model';
-import  {
+import {
   MetadataMap,
   MetadataMapSerializer,
   MetadataValue,

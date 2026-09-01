@@ -65,6 +65,7 @@ import {
   APP_ROUTING_SCROLL_CONF,
 } from './app-routes';
 import { BROWSE_BY_DECORATOR_MAP } from './browse-by/browse-by-switcher/browse-by-decorator';
+import { DynamicLayoutModule } from './dynamic-layout/dynamic-layout.module';
 import { LOGIN_METHOD_FOR_DECORATOR_MAP } from './external-log-in/decorators/external-log-in.methods-decorator';
 import { RootModule } from './root.module';
 import { ListableModule } from './shared/listable.module';
@@ -102,6 +103,7 @@ export const commonAppConfig: ApplicationConfig = {
       StoreDevModules,
       RootModule,
       ListableModule.withEntryComponents(),
+      DynamicLayoutModule.withEntryComponents(),
     ),
     provideRouter(
       APP_ROUTES,

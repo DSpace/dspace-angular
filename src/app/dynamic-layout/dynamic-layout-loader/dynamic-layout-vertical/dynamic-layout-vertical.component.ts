@@ -4,7 +4,6 @@ import {
   Input,
 } from '@angular/core';
 import { DynamicLayoutTab } from '@dspace/core/layout/models/tab.model';
-import { Item } from '@dspace/core/shared/item.model';
 import {
   BehaviorSubject,
   Observable,
@@ -12,7 +11,10 @@ import {
 
 import { DsoEditMenuComponent } from '../../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import { HostWindowService } from '../../../shared/host-window.service';
+import { dynamicLayoutPage } from '../../decorators/dynamic-layout-page.decorator';
 import { DynamicLayoutMatrixComponent } from '../../dynamic-layout-matrix/dynamic-layout-matrix.component';
+import { LayoutPage } from '../../enums/layout-page.enum';
+import { DynamicLayoutPageDirective } from '../../models/dynamic-layout-page.directive';
 import { DynamicLayoutNavbarComponent } from '../dynamic-layout-horizontal/dynamic-layout-navbar/dynamic-layout-navbar.component';
 import { DynamicLayoutSidebarComponent } from './dynamic-layout-sidebar/dynamic-layout-sidebar.component';
 
@@ -21,6 +23,7 @@ import { DynamicLayoutSidebarComponent } from './dynamic-layout-sidebar/dynamic-
  * Renders tabs as a vertical sidebar on larger screens (falling back to a horizontal
  * navbar on small screens), with the selected tab's content displayed alongside.
  */
+@dynamicLayoutPage(LayoutPage.VERTICAL)
 @Component({
   selector: 'ds-dynamic-layout-vertical',
   templateUrl: './dynamic-layout-vertical.component.html',
@@ -33,12 +36,7 @@ import { DynamicLayoutSidebarComponent } from './dynamic-layout-sidebar/dynamic-
     DynamicLayoutSidebarComponent,
   ],
 })
-export class DynamicLayoutVerticalComponent {
-
-  /**
-   * DSpace Item to render
-   */
-  @Input() item: Item;
+export class DynamicLayoutVerticalComponent extends DynamicLayoutPageDirective {
 
   /**
    * Tabs to render
@@ -60,6 +58,7 @@ export class DynamicLayoutVerticalComponent {
   isXsOrSm$: Observable<boolean>;
 
   constructor(public windowService: HostWindowService) {
+    super();
     this.isXsOrSm$ = this.windowService.isXsOrSm();
   }
 
